@@ -8,14 +8,25 @@
 (package-initialize)
 (defvar z:my-packages
   '(
+    anything
+    anything-ipython
+    anything-show-completion
+    autopair
     erlang
     evil
     fill-column-indicator
+    flymake
+    flymake-python-pyflakes
+    ipython
     key-chord
+    p4
     powerline
+    python-mode
+    python-pep8
+    python-pylint
     rainbow-delimiters
-    smooth-scrolling
     solarized-theme
+    sr-speedbar
     surround
     ))
 

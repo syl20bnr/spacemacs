@@ -1,3 +1,10 @@
+(defun minimap-toggle ()
+  "Toggle minimap for current buffer."
+  (interactive)
+  (if (null minimap-bufname)
+      (minimap-create)
+    (minimap-kill)))
+
 (defun z:mac-p ()
   "Truthy if the host OS is a Mac."
   (string-match "apple-darwin" system-configuration))
