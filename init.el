@@ -5,17 +5,9 @@
   (expand-file-name (concat user-emacs-directory "../"))
   "The user's home directory.")
 
-(defvar user-projects-dir
-  (expand-file-name (concat user-home-directory "Projects/"))
-  "The directory containing the user's checked out source code.")
-
 (defvar user-custom-modes-dir
   (expand-file-name (concat user-emacs-directory "custom-modes/"))
   "The directory containing the user's custom modes.")
-
-(defvar user-dropbox-directory
-  (expand-file-name (concat user-home-directory "Dropbox/"))
-  "The user's Dropbox root directory.")
 
 (add-to-list 'load-path user-emacs-directory)
 
@@ -77,20 +69,24 @@
 ;; =============================================================================
 (setq ropemacs-global-prefix "C-x /") ;; avoid conflict with p4 global prefix
 (load-file (concat user-emacs-directory "emacs-for-python/epy-init.el"))
-(require 'epy-setup)      ;; It will setup other loads, it is required!
-(require 'epy-python)     ;; If you want the python facilities [optional]
-(require 'epy-completion) ;; If you want the autocompletion settings [optional]
-(require 'epy-editing)    ;; For configurations related to editing [optional]
-(require 'epy-bindings)   ;; For my suggested keybindings [optional]
-(require 'epy-nose)       ;; For nose integration
+(require 'epy-setup)
+(require 'epy-python)
+(require 'epy-completion)
+(require 'epy-editing)
+(require 'epy-bindings)
+(require 'epy-nose)
 (epy-setup-checker "pyflakes %f")
 (epy-setup-ipython)
 ;; line hightlighting
 (global-hl-line-mode t)
-(set-face-background 'hl-line "black")
+(set-face-background 'hl-line "#073642")
 ;; identation highlighting
 ;; (require 'highlight-indentation)
 ;; (add-hook 'python-mode-hook 'highlight-indentation)
+;; disable auto-pairing
+;;(setq skeleton-pair nil)
+(add-hook 'python-mode-hook (lambda ()
+                              (local-set-key "\C-c\C-c" 'syl-python-compile)))
 
 ;; Custom modes ================================================================
 (load-file (concat user-custom-modes-dir "heartbeat-cursor.el"))

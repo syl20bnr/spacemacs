@@ -1,41 +1,8 @@
-(defun minimap-toggle ()
-  "Toggle minimap for current buffer."
+(defun syl-python-compile ()
+  "Use compile to run python programs"
   (interactive)
-  (if (null minimap-bufname)
-      (minimap-create)
-    (minimap-kill)))
-
-(defun z:mac-p ()
-  "Truthy if the host OS is a Mac."
-  (string-match "apple-darwin" system-configuration))
-
-(defun z:deduplicate-all-lines-region (start end)
-  "Find duplicate lines in region START to END keeping first occurrence."
-  (z:uniquify-all-lines-region start end))
-
-(defun log-edit-mode ()
-  "HACK: Ergoemacs doesn't load properly unless this function is defined."
-  nil)
-
-(defun z:deduplicate-all-lines-buffer ()
-  "Delete duplicate lines in buffer and keep first occurrence."
-  (z:uniquify-all-lines-buffer))
-
-(defun z:uniquify-all-lines-region (start end)
-  "Find duplicate lines in region START to END keeping first occurrence."
-  (interactive "*r")
-  (save-excursion
-    (let ((end (copy-marker end)))
-      (while
-          (progn
-            (goto-char start)
-            (re-search-forward "^\\(.*\\)\n\\(\\(.*\n\\)*\\)\\1\n" end t))
-        (replace-match "\\1\n\\2")))))
-
-(defun z:uniquify-all-lines-buffer ()
-  "Delete duplicate lines in buffer and keep first occurrence."
-  (interactive "*")
-  (z:uniquify-all-lines-region (point-min) (point-max)))
+  (compile (concat "python " (buffer-name))))
+(setq compilation-scroll-output t)
 
 (defun z:set-transparency (value)
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
@@ -74,21 +41,5 @@
           (set-window-start w1 s2)
           (set-window-start w2 s1)
           (setq i (1+ i))))))))
-
-(defun z:smart-beginning-of-line ()
-  "Move point to first non-whitespace character or beginning-of-line.
-
-Move point to the first non-whitespace character on this line.
-If point was already at that position, move point to beginning of line."
-  (interactive) ; Use (interactive "^") in Emacs 23 to make shift-select work
-  (let ((oldpos (point)))
-    (beginning-of-line-text)
-    (and (= oldpos (point))
-         (beginning-of-line))))
-
-(defun z:vagrant-shell ()
-  (interactive)
-  (let ((default-directory "/vagrant:/home/vagrant/projects"))
-    (shell "*vagrant-root*")))
 
 (provide 'my-funcs)

@@ -9,8 +9,6 @@
 (defvar z:my-packages
   '(
     ace-jump-mode
-    auto-complete
-    autopair
     eproject
     erlang
     evil
