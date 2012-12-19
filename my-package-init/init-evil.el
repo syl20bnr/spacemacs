@@ -2,7 +2,7 @@
 (setq evil-want-C-u-scroll t)
 
 (setq evil-emacs-state-cursor  '("red" box))
-(setq evil-normal-state-cursor '("red" box))
+(setq evil-normal-state-cursor '("orange" box))
 (setq evil-visual-state-cursor '("green" box))
 (setq evil-insert-state-cursor '("green" bar))
 (setq evil-motion-state-cursor '("gray" box))
@@ -15,3 +15,5 @@
 (setq key-chord-two-keys-delay 0.2)
 (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 (key-chord-mode 1)
+;;Compatibility with ace jump mode
+(define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode)
