@@ -63,6 +63,7 @@
 (require 'my-funcs)
 (require 'my-packages)
 (require 'my-keybindings)
+(require 'my-keybindings-work)
 
 ;; Python ======================================================================
 ;; clone git repository https://github.com/gabrielelanaro/emacs-for-python
