@@ -9,7 +9,6 @@
 (defvar z:my-packages
   '(
     ace-jump-mode
-    eproject
     erlang
     evil
     fill-column-indicator
