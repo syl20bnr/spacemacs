@@ -12,6 +12,7 @@
     erlang
     evil
     fill-column-indicator
+    highlight-symbol
     key-chord
     p4
     powerline

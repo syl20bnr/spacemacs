@@ -4,6 +4,24 @@
   (compile (concat "python " (buffer-name))))
 (setq compilation-scroll-output t)
 
+;; from https://gist.github.com/3402786
+(defun toggle-maximize-buffer () "Maximize buffer"
+  (interactive)
+  (if (= 1 (length (window-list)))
+    (jump-to-register '_)
+    (progn
+      (set-register '_ (list (current-window-configuration)))
+      (delete-other-windows))))
+
+;; from http://stackoverflow.com/questions/2905575/emacs-pass-arguments-to-inferior-python-shell-during-buffer-evaluation
+(defun python-send-buffer-with-args (args)
+  (interactive "sArguments: ")
+  (let ((source-buffer (current-buffer)))
+    (with-temp-buffer
+      (insert "import sys; sys.argv = '" args "'.split()\n")
+      (insert-buffer-substring source-buffer)
+      (python-shell-send-buffer))))
+
 (defun z:set-transparency (value)
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
   (interactive "nTransparency Value 0 - 100 opaque:")
