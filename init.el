@@ -19,9 +19,9 @@
       (load (concat user-emacs-config-dir l)))))
 
 (require 'my-funcs)
+(require 'my-funcs-virga)
 (require 'my-packages)
 (require 'my-keybindings)
-(require 'my-keybindings-work)
 
 ;; Python ======================================================================
 ;; clone git repository https://github.com/gabrielelanaro/emacs-for-python
