@@ -6,32 +6,42 @@
                          ("melpa" . "http://melpa.milkbox.net/packages/")
                          ("technomancy" . "http://repo.technomancy.us/emacs/")))
 (package-initialize)
-(defvar z:my-packages
+(defvar z:packages
   '(
     ace-jump-mode
+    auto-complete
+    autopair
+    deferred
+    epc
     erlang
     evil
     fill-column-indicator
+    fuzzy
     highlight-symbol
+    ipython
+    jedi
     key-chord
     p4
     powerline
+    popup
     rainbow-delimiters
+    smart-operator
     solarized-theme
     surround
+    yasnippet
     ))
 
 ;;; install missing packages
-(let ((not-installed (remove-if 'package-installed-p z:my-packages)))
+(let ((not-installed (remove-if 'package-installed-p z:packages)))
   (if not-installed
       (if (y-or-n-p (format "there are %d packages to be installed. install them? " (length not-installed)))
           (progn (package-refresh-contents)
-                 (dolist (package z:my-packages)
+                 (dolist (package z:packages)
                    (when (not (package-installed-p package))
                      (package-install package)))))))
 
 ;;; initialize packages
-(setq z:package-init-dir (concat user-emacs-directory "my-package-init/"))
+(setq z:package-init-dir (concat user-emacs-directory "init-package/"))
 (message (format "initializing packages out of %s" z:package-init-dir))
 (dolist (package (append (mapcar 'car package--builtins) package-activated-list))
     (let* ((initfile (concat z:package-init-dir (format "init-%s.el" package))))
@@ -43,4 +53,4 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
-(provide 'my-packages)
+(provide 'packages)

@@ -60,4 +60,4 @@
           (set-window-start w2 s1)
           (setq i (1+ i))))))))
 
-(provide 'my-funcs)
+(provide 'funcs)

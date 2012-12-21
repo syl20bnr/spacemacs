@@ -11,4 +11,4 @@
                          "&& python mappy.py -t wrapper -o " mappyl_output_path
                          " " mappyl_output_path "states.graphml")))
 
-(provide 'my-funcs-virga)
+(provide 'funcs-virga)

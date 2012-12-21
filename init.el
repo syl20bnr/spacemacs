@@ -1,51 +1,38 @@
 (require 'cl)
 
-;; Locations ===================================================================
+;; Locations ==================================================================
 (defvar user-home-directory
   (expand-file-name (concat user-emacs-directory "../"))
-  "The user's home directory.")
+  "Emacs home directory.")
 
-(defvar user-custom-modes-dir
-  (expand-file-name (concat user-emacs-directory "custom-modes/"))
-  "The directory containing the user's custom modes.")
+(defvar user-pre-directory
+  (expand-file-name (concat user-emacs-directory "pre/"))
+  "Pre-configuration scripts.")
+
+(defvar user-post-directory
+  (expand-file-name (concat user-emacs-directory "post/"))
+  "Post-configuration setup.")
+
+(defvar user-extensions-directory
+  (expand-file-name (concat user-emacs-directory "extensions/"))
+  "Additional extensions.")
 
 (add-to-list 'load-path user-emacs-directory)
+(add-to-list 'load-path user-extensions-directory)
 
-;; Config files ================================================================
-(progn
-  (setq user-emacs-config-dir (concat user-emacs-directory "config/"))
-  (when (file-exists-p user-emacs-config-dir)
-    (dolist (l (directory-files user-emacs-config-dir nil "^[^#].*el$"))
-      (load (concat user-emacs-config-dir l)))))
+;; Pre-config =================================================================
+(progn (when (file-exists-p user-pre-directory)
+    (dolist (l (directory-files user-pre-directory nil "^[^#].*el$"))
+      (load (concat user-pre-directory l)))))
 
-(require 'my-funcs)
-(require 'my-funcs-virga)
-(require 'my-packages)
-(require 'my-keybindings)
+;; Package setup ==============================================================
+(require 'funcs)
+(require 'funcs-virga)
+(require 'packages)
+(require 'keybindings)
 
-;; Python ======================================================================
-;; clone git repository https://github.com/gabrielelanaro/emacs-for-python
-;; =============================================================================
-(setq ropemacs-global-prefix "C-x /") ;; avoid conflict with p4 global prefix
-(load-file (concat user-emacs-directory "emacs-for-python/epy-init.el"))
-(require 'epy-setup)
-(require 'epy-python)
-(require 'epy-completion)
-(require 'epy-editing)
-(require 'epy-bindings)
-(require 'epy-nose)
-(epy-setup-checker "pyflakes %f")
-(epy-setup-ipython)
-;; line hightlighting
-(global-hl-line-mode t)
-(set-face-background 'hl-line "#073642")
-;; identation highlighting
-;; (require 'highlight-indentation)
-;; (add-hook 'python-mode-hook 'highlight-indentation)
-;; disable auto-pairing
-;;(setq skeleton-pair nil)
-(add-hook 'python-mode-hook (lambda ()
-                              (local-set-key "\C-c\C-c" 'syl-python-compile)))
+;; Post-config ================================================================
+(progn (when (file-exists-p user-post-directory)
+    (dolist (l (directory-files user-post-directory nil "^[^#].*el$"))
+      (load (concat user-post-directory l)))))
 
-;; Custom modes ================================================================
-(load-file (concat user-custom-modes-dir "heartbeat-cursor.el"))
