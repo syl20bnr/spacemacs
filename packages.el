@@ -16,16 +16,20 @@
     erlang
     evil
     fill-column-indicator
+    find-file-in-project
     fuzzy
     highlight-symbol
+    ido-ubiquitous
     ipython
     jedi
     key-chord
     p4
+    paredit
     powerline
     popup
     rainbow-delimiters
     smart-operator
+    smex
     solarized-theme
     surround
     yasnippet

@@ -3,8 +3,6 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (fringe-mode 0)
-;; font size
-(set-face-attribute 'default nil :height 110)
 ;; number colon mode
 (global-linum-mode t)
 ;; Show column number in mode line

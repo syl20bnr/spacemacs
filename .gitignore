@@ -2,4 +2,5 @@ auto-save-list/
 elpa/
 ac-comphist.dat
 eproject.lst
+.smex-items
 \#*

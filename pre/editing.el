@@ -1,3 +1,5 @@
+;; font size
+(set-face-attribute 'default nil :height 110)
 ;; whitespace-mode
 (setq-default show-trailing-whitespace nil)
 ;; When point is on paranthesis, highlight the matching one

@@ -17,6 +17,10 @@
   (expand-file-name (concat user-emacs-directory "extensions/"))
   "Additional extensions.")
 
+(defvar host-directory
+  (expand-file-name (concat user-emacs-directory "host/" system-name "/"))
+  "Host specific configurations")
+
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path user-extensions-directory)
 
@@ -36,3 +40,9 @@
     (dolist (l (directory-files user-post-directory nil "^[^#].*el$"))
       (load (concat user-post-directory l)))))
 
+;; Host config ================================================================
+(progn (when (file-exists-p host-directory)
+    (dolist (l (directory-files host-directory nil "^[^#].*el$"))
+      (load (concat host-directory l)))))
+
+;; TODO refactor auto-loading functions for configuration files

@@ -13,14 +13,13 @@
       (set-register '_ (list (current-window-configuration)))
       (delete-other-windows))))
 
-;; from http://stackoverflow.com/questions/2905575/emacs-pass-arguments-to-inferior-python-shell-during-buffer-evaluation
-(defun python-send-buffer-with-args (args)
-  (interactive "sArguments: ")
-  (let ((source-buffer (current-buffer)))
-    (with-temp-buffer
-      (insert "import sys; sys.argv = '" args "'.split()\n")
-      (insert-buffer-substring source-buffer)
-      (python-shell-send-buffer))))
+;; from http://github.com/technomancy/emacs-starter-kit
+(defun esk-paredit-nonlisp ()
+  "Turn on paredit mode for non-lisps."
+  (interactive)
+  (set (make-local-variable 'paredit-space-for-delimiter-predicates)
+       '((lambda (endp delimiter) nil)))
+  (paredit-mode 1))
 
 (defun z:set-transparency (value)
   "Sets the transparency of the frame window. 0=transparent/100=opaque"
