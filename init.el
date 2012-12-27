@@ -5,17 +5,21 @@
   (expand-file-name (concat user-emacs-directory "../"))
   "Emacs home directory.")
 
-(defvar user-pre-directory
-  (expand-file-name (concat user-emacs-directory "pre/"))
-  "Pre-configuration scripts.")
-
-(defvar user-post-directory
-  (expand-file-name (concat user-emacs-directory "post/"))
-  "Post-configuration setup.")
+(defvar user-config-directory
+  (expand-file-name (concat user-emacs-directory "config/"))
+  "Configuration scripts.")
 
 (defvar user-extensions-directory
   (expand-file-name (concat user-emacs-directory "extensions/"))
   "Additional extensions.")
+
+(defvar user-init-extension-directory
+  (expand-file-name (concat user-emacs-directory "init-extension/"))
+  "Extension initialization.")
+
+(defvar user-init-package-directory
+  (expand-file-name (concat user-emacs-directory "init-package/"))
+  "Package initialization.")
 
 (defvar host-directory
   (expand-file-name (concat user-emacs-directory "host/" system-name "/"))
@@ -24,25 +28,18 @@
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path user-extensions-directory)
 
-;; Pre-config =================================================================
-(progn (when (file-exists-p user-pre-directory)
-    (dolist (l (directory-files user-pre-directory nil "^[^#].*el$"))
-      (load (concat user-pre-directory l)))))
+;; Configuration ==============================================================
+(progn (when (file-exists-p user-config-directory)
+    (dolist (l (directory-files user-config-directory nil "^[^#].*el$"))
+      (load (concat user-config-directory l)))))
 
-;; Package setup ==============================================================
+;; Setup ======================================================================
 (require 'funcs)
-(require 'funcs-virga)
 (require 'packages)
+(require 'extensions)
 (require 'keybindings)
-
-;; Post-config ================================================================
-(progn (when (file-exists-p user-post-directory)
-    (dolist (l (directory-files user-post-directory nil "^[^#].*el$"))
-      (load (concat user-post-directory l)))))
 
 ;; Host config ================================================================
 (progn (when (file-exists-p host-directory)
     (dolist (l (directory-files host-directory nil "^[^#].*el$"))
       (load (concat host-directory l)))))
-
-;; TODO refactor auto-loading functions for configuration files

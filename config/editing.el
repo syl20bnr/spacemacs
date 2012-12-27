@@ -10,5 +10,3 @@
 ;; highlight current line
 (global-hl-line-mode t)
 (set-face-background 'hl-line "#073642")
-;; relative line number
-(load-file (concat user-extensions-directory "linum-relativenumber.el"))
