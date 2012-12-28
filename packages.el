@@ -23,6 +23,7 @@
     ipython
     jedi
     key-chord
+    magit
     p4
     paredit
     powerline
