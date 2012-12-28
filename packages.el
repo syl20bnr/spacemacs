@@ -33,6 +33,8 @@
     solarized-theme
     surround
     yasnippet
+
+    diminish
     ))
 
 ;;; install missing packages
