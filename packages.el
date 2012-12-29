@@ -14,8 +14,10 @@
     deferred
     diminish
     epc
+    eproject
     erlang
     evil
+    expand-region
     fill-column-indicator
     find-file-in-project
     fuzzy
@@ -25,15 +27,18 @@
     jedi
     key-chord
     magit
+    multiple-cursors
     p4
     paredit
     powerline
     popup
+    puppet-mode
     rainbow-delimiters
     smart-operator
     smex
     solarized-theme
     surround
+    webjump
     yasnippet
     ))
 

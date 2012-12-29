@@ -1,9 +1,3 @@
-(defun syl-python-compile ()
-  "Use compile to run python programs"
-  (interactive)
-  (compile (concat "python " (buffer-name))))
-(setq compilation-scroll-output t)
-
 ;; from https://gist.github.com/3402786
 (defun toggle-maximize-buffer () "Maximize buffer"
   (interactive)
@@ -13,31 +7,8 @@
       (set-register '_ (list (current-window-configuration)))
       (delete-other-windows))))
 
-;; from http://github.com/technomancy/emacs-starter-kit
-(defun esk-paredit-nonlisp ()
-  "Turn on paredit mode for non-lisps."
-  (interactive)
-  (set (make-local-variable 'paredit-space-for-delimiter-predicates)
-       '((lambda (endp delimiter) nil)))
-  (paredit-mode 1))
-
-(defun z:set-transparency (value)
-  "Sets the transparency of the frame window. 0=transparent/100=opaque"
-  (interactive "nTransparency Value 0 - 100 opaque:")
-  (set-frame-parameter (selected-frame) 'alpha value))
-
-(defun z:switch-to-next-frame ()
-  "Select the next frame on current display, and raise it."
-  (interactive)
-  (other-frame 1))
-
-(defun z:switch-to-previous-frame ()
-  "Select the previous frame on current display, and raise it."
-  (interactive)
-  (other-frame -1))
-
-;; http://emacswiki.org/emacs/TransposeWindows
-(defun z:rotate-windows ()
+;:http://emacswiki.org/emacs/TransposeWindows
+(defun rotate-windows ()
   "Rotate your windows"
   (interactive)
   (cond
@@ -58,5 +29,88 @@
           (set-window-start w1 s2)
           (set-window-start w2 s1)
           (setq i (1+ i))))))))
+
+(defun rename-current-buffer-file ()
+  "Renames current buffer and file it is visiting."
+  (interactive)
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" name)
+      (let ((new-name (read-file-name "New name: " filename)))
+        (cond ((get-buffer new-name)
+               (error "A buffer named '%s' already exists!" new-name))
+              (t
+               (rename-file filename new-name 1)
+               (rename-buffer new-name)
+               (set-visited-file-name new-name)
+               (set-buffer-modified-p nil)
+               (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+
+(defun delete-current-buffer-file ()
+  "Removes file connected to current buffer and kills buffer."
+  (interactive)
+  (let ((filename (buffer-file-name))
+        (buffer (current-buffer))
+        (name (buffer-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (ido-kill-buffer)
+      (when (yes-or-no-p "Are you sure you want to remove this file? ")
+        (delete-file filename)
+        (kill-buffer buffer)
+        (message "File '%s' successfully removed" filename)))))
+
+(defun copy-current-file-path ()
+  "Add current file path to kill ring. Limits the filename to project root if possible."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (kill-new (if eproject-mode
+                  (s-chop-prefix (eproject-root) filename)
+                filename))))
+
+(defun find-or-create-file-at-point ()
+  "Guesses what parts of the buffer under point is a file name and opens it."
+  (interactive)
+  (find-file (file-name-at-point)))
+
+(defun find-or-create-file-at-point-other-window ()
+  "Guesses what parts of the buffer under point is a file name and opens it."
+  (interactive)
+  (find-file-other-window (file-name-at-point)))
+
+(defun file-name-at-point ()
+  (save-excursion
+    (let* ((file-name-regexp "[./a-zA-Z0-9\-_~]")
+           (start (progn
+                    (while (looking-back file-name-regexp)
+                      (forward-char -1))
+                    (point)))
+           (end (progn
+                  (while (looking-at file-name-regexp)
+                    (forward-char 1))
+                  (point))))
+      (buffer-substring start end))))
+
+(defun touch-buffer-file ()
+  (interactive)
+  (insert " ")
+  (backward-delete-char 1)
+  (save-buffer))
+
+(defun sudo-edit (&optional arg)
+  (interactive "p")
+  (if (or arg (not buffer-file-name))
+      (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
 
 (provide 'funcs)
