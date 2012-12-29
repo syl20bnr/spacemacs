@@ -1,9 +1,9 @@
 (defvar syl:extensions
   '(
-    emacs-eclim
-    flymake
-    linum-relativenumber
-    pymacs
+    "emacs-eclim"
+    "flymake"
+    "linum-relativenumber"
+    "pymacs"
     ))
 
 ;; load extensions
