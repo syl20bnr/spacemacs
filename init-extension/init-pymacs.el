@@ -1,5 +1,5 @@
 (setq ropemacs-global-prefix "C-x /") ;; avoid conflict with p4 global prefix
-(require 'pymacs (concat user-extensions-directory "pymacs.el"))
+(require 'pymacs)
 (defun setup-ropemacs ()
   (pymacs-load "ropemacs" "rope-")
   ;; Stops from erroring if there's a syntax err
@@ -23,9 +23,4 @@
   '(progn
      ;; Ropemacs Configuration
      (setup-ropemacs)
-     ;; Not on all modes, please
-     ;; Be careful of mumamo, buffer file name nil
-     (add-hook 'python-mode-hook (lambda () (if (buffer-file-name)
-                        (flymake-mode))))
-     )
   )

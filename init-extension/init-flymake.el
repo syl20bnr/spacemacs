@@ -22,8 +22,7 @@ The CMDLINE should be something like:
     (list (first cmdline-subst) (rest cmdline-subst))
     ))
 
-
-(when (load-file (concat user-extensions-directory "flymake-patch.el"))
+(when (load-file (concat user-extensions-directory "flymake/flymake-patch.el"))
   (setq flymake-info-line-regex
         (append flymake-info-line-regex '("unused$" "^redefinition" "used$")))
   (load-library "flymake-cursor"))
@@ -33,3 +32,10 @@ The CMDLINE should be something like:
                (list "\\.py\\'" (apply-partially 'flymake-command-parse cmdline)))
   )
 (epy-setup-checker "pyflakes %f")
+
+(eval-after-load 'python
+  '(progn
+     (add-hook 'python-mode-hook (lambda () (if (buffer-file-name)
+                        (flymake-mode))))
+     )
+  )

@@ -1,15 +1,13 @@
 (defvar syl:extensions
   '(
-    "emacs-eclim"
-    "flymake"
-    "linum-relativenumber"
-    "pymacs"
+    emacs-eclim
+    flymake
+    linum-relativenumber
     ))
 
 ;; load extensions
 (dolist (ext syl:extensions)
-  (add-to-list 'load-path
-               (expand-file-name (concat user-extensions-directory ext "/"))))
+  (add-to-list 'load-path (format "%s%s/" user-extensions-directory ext)))
 
 ;; initialize extensions
 (setq syl:extension-init-dir (concat user-emacs-directory "init-extension/"))

@@ -12,6 +12,7 @@
     auto-complete
     autopair
     deferred
+    diminish
     epc
     erlang
     evil
@@ -34,8 +35,6 @@
     solarized-theme
     surround
     yasnippet
-
-    diminish
     ))
 
 ;;; install missing packages

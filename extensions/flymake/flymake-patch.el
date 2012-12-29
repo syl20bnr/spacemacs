@@ -121,8 +121,8 @@ Zero-length substrings at the beginning and end of the list are omitted."
 ;;; Personalized functions to be used in general
 (defun string-match-multi (reglist str)
   "Matches STR with each of the regex in REGLIST, return the results of string-match"
-  (mapcar 
-   (lambda (reg) (string-match reg str)) 
+  (mapcar
+   (lambda (reg) (string-match reg str))
    reglist)
   )
 
@@ -656,7 +656,7 @@ It's flymake process filter."
     (setq err-count (flymake-get-err-count flymake-err-info "e"))
     (setq warn-count  (flymake-get-err-count flymake-err-info "w"))
     (setq info-count  (flymake-get-err-count flymake-err-info "i"))
-    
+
     (flymake-log 2 "%s: %d error(s), %d warning(s), %d info in %.2f second(s)"
 		 (buffer-name) err-count warn-count info-count
 		 (- (flymake-float-time) flymake-check-start-time))
@@ -996,7 +996,7 @@ Return its components if so, nil otherwise."
 	  ;; Matching for info messages
 	  (when (and err-text (one-true (string-match-multi flymake-info-line-regex err-text)))
 	    (setq err-type "i"))
-	  
+
 	  (flymake-log 3 "parse line: type=%s file-idx=%s line-idx=%s file=%s line=%s text=%s" err-type file-idx line-idx
 		       raw-file-name line-no err-text)
 	  (setq matched t)))
