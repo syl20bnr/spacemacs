@@ -18,5 +18,3 @@
   (let ((my-linum-current-line-number (line-number-at-pos)))
     ad-do-it))
 (ad-activate 'linum-update)
-;(custom-set-faces
-; '(linum ((t (:inherit (shadow) :height 0.8)))))
