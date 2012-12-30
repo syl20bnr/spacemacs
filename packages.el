@@ -13,6 +13,7 @@
     autopair
     deferred
     diminish
+    elisp-slime-nav
     epc
     eproject
     erlang
@@ -28,6 +29,7 @@
     key-chord
     magit
     multiple-cursors
+    multi-term
     p4
     paredit
     powerline

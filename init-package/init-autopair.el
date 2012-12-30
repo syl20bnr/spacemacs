@@ -1,3 +1,6 @@
-(autoload 'autopair-global-mode "autopair" nil t)
-  (autopair-global-mode)
-  (add-hook 'lisp-mode-hook #'(lambda () (setq autopair-dont-activate t)))
+(require 'autopair)
+
+(defvar autopair-modes '(python-mode))
+(defun turn-on-autopair-mode () (autopair-mode 1))
+(dolist (mode autopair-modes)
+  (add-hook (intern (concat (symbol-name mode) "-hook")) 'turn-on-autopair-mode))

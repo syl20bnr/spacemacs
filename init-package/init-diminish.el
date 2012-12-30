@@ -1,15 +1,15 @@
 (require 'diminish)
 (eval-after-load "auto-complete"
-  '(diminish 'auto-complete-mode "ac"))
+  '(diminish 'auto-complete-mode "AC"))
 
 (eval-after-load "autopair"
-  '(diminish 'autopair-mode))
+  '(diminish 'autopair-mode "AP"))
 
 (eval-after-load "eproject"
-  '(diminish 'eproject-mode "prj"))
+  '(diminish 'eproject-mode "eproj"))
 
 (eval-after-load "paredit"
-  '(diminish 'paredit-mode "pedit"))
+  '(diminish 'paredit-mode "PE"))
 
 (eval-after-load "rainbow-mode"
   '(diminish 'rainbow-mode))
@@ -19,6 +19,9 @@
 
 (eval-after-load "yasnippet"
   '(diminish 'yas-minor-mode))
+
+(eval-after-load 'elisp-slime-nav
+  '(diminish 'elisp-slime-nav-mode))
 
 ;; -----------------------------------------------------------------------------
 

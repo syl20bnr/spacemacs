@@ -1,3 +1,14 @@
+;; from magnars
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
 ;; from https://gist.github.com/3402786
 (defun toggle-maximize-buffer () "Maximize buffer"
   (interactive)
@@ -30,6 +41,7 @@
           (set-window-start w2 s1)
           (setq i (1+ i))))))))
 
+;; from magnars
 (defun rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
   (interactive)
@@ -47,6 +59,7 @@
                (set-buffer-modified-p nil)
                (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
 
+;; from magnars
 (defun delete-current-buffer-file ()
   "Removes file connected to current buffer and kills buffer."
   (interactive)
@@ -60,6 +73,7 @@
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
 
+;; from magnars
 (defun copy-current-file-path ()
   "Add current file path to kill ring. Limits the filename to project root if possible."
   (interactive)
@@ -68,16 +82,19 @@
                   (s-chop-prefix (eproject-root) filename)
                 filename))))
 
+;; from magnars
 (defun find-or-create-file-at-point ()
   "Guesses what parts of the buffer under point is a file name and opens it."
   (interactive)
   (find-file (file-name-at-point)))
 
+;; from magnars
 (defun find-or-create-file-at-point-other-window ()
   "Guesses what parts of the buffer under point is a file name and opens it."
   (interactive)
   (find-file-other-window (file-name-at-point)))
 
+;; from magnars
 (defun file-name-at-point ()
   (save-excursion
     (let* ((file-name-regexp "[./a-zA-Z0-9\-_~]")
@@ -91,26 +108,18 @@
                   (point))))
       (buffer-substring start end))))
 
+;; from magnars
 (defun touch-buffer-file ()
   (interactive)
   (insert " ")
   (backward-delete-char 1)
   (save-buffer))
 
+;; from magnars
 (defun sudo-edit (&optional arg)
   (interactive "p")
   (if (or arg (not buffer-file-name))
       (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
-(defun eval-and-replace ()
-  "Replace the preceding sexp with its value."
-  (interactive)
-  (backward-kill-sexp)
-  (condition-case nil
-      (prin1 (eval (read (current-kill 0)))
-             (current-buffer))
-    (error (message "Invalid expression")
-           (insert (current-kill 0)))))
 
 (provide 'funcs)
