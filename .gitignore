@@ -6,3 +6,5 @@ eproject.lst
 \#*
 /.places
 /eshell/history
+/.emacs.desktop
+/.emacs.desktop.lock
