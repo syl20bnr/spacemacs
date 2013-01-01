@@ -27,6 +27,6 @@
 (key-chord-define evil-normal-state-map "th" 'multi-term-prev)
 (key-chord-define evil-normal-state-map "tl" 'multi-term-next)
 ;; git
-(key-chord-define evil-normal-state-map "ms" 'magit-status)
+(key-chord-define evil-normal-state-map "gs" 'magit-status)
 
 (provide 'keybindings)
