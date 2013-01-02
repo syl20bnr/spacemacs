@@ -1,3 +1,5 @@
+;; no welcome buffer
+(setq inhibit-startup-screen t)
 ;; scratch buffer empty
 (setq initial-scratch-message "")
 ;; auto-save

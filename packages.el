@@ -11,6 +11,7 @@
     ace-jump-mode
     auto-complete
     autopair
+    color-moccur
     deferred
     diminish
     elisp-slime-nav
@@ -24,12 +25,12 @@
     fuzzy
     highlight-symbol
     ido-ubiquitous
-    ipython
     jedi
     key-chord
     magit
     multiple-cursors
     multi-term
+    nose
     p4
     paredit
     powerline

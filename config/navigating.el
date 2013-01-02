@@ -5,6 +5,3 @@
 ;; Also auto refresh dired, but be quiet about it
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
-;; no tabs and default tab width
-(setq-default indent-tabs-mode nil)
-(setq tab-width 4)

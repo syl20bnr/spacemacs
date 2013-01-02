@@ -1,8 +1,8 @@
 (defvar syl:extensions
   '(
     emacs-eclim
+    evil-plugins
     flymake
-    linum-relativenumber
     ))
 
 ;; load extensions
