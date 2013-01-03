@@ -3,11 +3,11 @@
   (propertize evil-mode-line-tag 'font-lock-face
     ;; Don't propertize if we're not in the selected buffer
     (cond ((not (eq (current-buffer) (car (buffer-list)))) '())
-          ((evil-normal-state-p)  '(:background "orange" :foreground "black"))
           ((evil-insert-state-p) '(:background "green" :foreground "black"))
           ((evil-emacs-state-p)  '(:background "red" :foreground "black"))
           ((evil-motion-state-p) '(:background "purple" :foreground "black"))
           ((evil-visual-state-p) '(:background "gray" :foreground "black"))
+          ((evil-normal-state-p)  '(:background "orange" :foreground "black"))
           (t '()))))
 
 (setq-default mode-line-format
