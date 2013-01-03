@@ -37,6 +37,7 @@
     powerline
     popup
     puppet-mode
+    python
     rainbow-delimiters
     smart-operator
     smex
