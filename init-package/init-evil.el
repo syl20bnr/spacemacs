@@ -14,4 +14,13 @@
 ;; (initiated with 'i').
 (setq evil-move-cursor-back nil)
 
-(add-hook 'evil-emacs-state-entry-hook 'evil-normal-state)
+;; evil-emacs-state is annoying, the following function and hook automatically
+;; switches back to evil-normal-state whenever the evil-emacs-state is entered.
+;; It allows a more consistent navigation experience among all mode maps.
+;; To enter special commands of custom mode maps, just enter the insert mode :-)
+(defun evil-emacs-state-2-evil-normal-state ()
+  (evil-normal-state)
+  (remove-hook 'post-command-hook 'evil-emacs-state-2-evil-normal-state))
+(add-hook 'evil-emacs-state-entry-hook
+  (lambda ()
+    (add-hook 'post-command-hook 'evil-emacs-state-2-evil-normal-state)))
