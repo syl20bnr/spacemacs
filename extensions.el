@@ -3,6 +3,7 @@
     emacs-eclim
     evil-plugins
     flymake
+    mu4e
     ))
 
 ;; load extensions

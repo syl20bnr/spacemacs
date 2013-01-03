@@ -31,6 +31,7 @@
     multiple-cursors
     multi-term
     nose
+    org
     p4
     paredit
     powerline
