@@ -212,9 +212,3 @@
                                    evil-yank
                                    evil-yank-line
                                    )))
-
-;; key bindings
-(key-chord-define evil-visual-state-map "ma" 'mc/mark-all-like-this)
-(key-chord-define evil-visual-state-map "mn" 'mc/mark-next-like-this)
-(key-chord-define evil-visual-state-map "mp" 'mc/mark-previous-lines)
-(key-chord-define evil-visual-state-map "ml" 'mc/edit-lines)

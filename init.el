@@ -35,6 +35,7 @@
 
 ;; Setup ======================================================================
 (require 'funcs)
+(require 'macros)
 (require 'packages)
 (require 'extensions)
 (require 'keybindings)

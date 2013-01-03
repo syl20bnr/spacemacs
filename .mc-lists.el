@@ -7,6 +7,8 @@
         evil-a-WORD
         evil-a-WORD
         evil-a-WORD
+        evil-a-WORD
+        evil-a-back-quote
         evil-a-back-quote
         evil-a-back-quote
         evil-a-back-quote
@@ -15,6 +17,8 @@
         evil-a-bracket
         evil-a-bracket
         evil-a-bracket
+        evil-a-bracket
+        evil-a-curly
         evil-a-curly
         evil-a-curly
         evil-a-curly
@@ -23,6 +27,8 @@
         evil-a-double-quote
         evil-a-double-quote
         evil-a-double-quote
+        evil-a-double-quote
+        evil-a-paragraph
         evil-a-paragraph
         evil-a-paragraph
         evil-a-paragraph
@@ -31,6 +37,8 @@
         evil-a-paren
         evil-a-paren
         evil-a-paren
+        evil-a-paren
+        evil-a-sentence
         evil-a-sentence
         evil-a-sentence
         evil-a-sentence
@@ -39,6 +47,8 @@
         evil-a-single-quote
         evil-a-single-quote
         evil-a-single-quote
+        evil-a-single-quote
+        evil-a-tag
         evil-a-tag
         evil-a-tag
         evil-a-tag
@@ -47,6 +57,8 @@
         evil-a-word
         evil-a-word
         evil-a-word
+        evil-a-word
+        evil-align-center
         evil-align-center
         evil-align-center
         evil-align-center
@@ -55,6 +67,8 @@
         evil-align-left
         evil-align-left
         evil-align-left
+        evil-align-left
+        evil-align-right
         evil-align-right
         evil-align-right
         evil-align-right
@@ -63,6 +77,8 @@
         evil-an-angle
         evil-an-angle
         evil-an-angle
+        evil-an-angle
+        evil-append
         evil-append
         evil-append
         evil-append
@@ -71,6 +87,8 @@
         evil-append-line
         evil-append-line
         evil-append-line
+        evil-append-line
+        evil-backward-WORD-begin
         evil-backward-WORD-begin
         evil-backward-WORD-begin
         evil-backward-WORD-begin
@@ -79,6 +97,8 @@
         evil-backward-WORD-end
         evil-backward-WORD-end
         evil-backward-WORD-end
+        evil-backward-WORD-end
+        evil-backward-char
         evil-backward-char
         evil-backward-char
         evil-backward-char
@@ -88,6 +108,8 @@
         evil-backward-paragraph
         evil-backward-paragraph
         evil-backward-paragraph
+        evil-backward-paragraph
+        evil-backward-section-begin
         evil-backward-section-begin
         evil-backward-section-begin
         evil-backward-section-begin
@@ -96,6 +118,8 @@
         evil-backward-section-end
         evil-backward-section-end
         evil-backward-section-end
+        evil-backward-section-end
+        evil-backward-sentence
         evil-backward-sentence
         evil-backward-sentence
         evil-backward-sentence
@@ -104,6 +128,8 @@
         evil-backward-word-begin
         evil-backward-word-begin
         evil-backward-word-begin
+        evil-backward-word-begin
+        evil-backward-word-end
         evil-backward-word-end
         evil-backward-word-end
         evil-backward-word-end
@@ -112,6 +138,8 @@
         evil-beginning-of-line
         evil-beginning-of-line
         evil-beginning-of-line
+        evil-beginning-of-line
+        evil-beginning-of-line-or-digit-argument
         evil-beginning-of-line-or-digit-argument
         evil-beginning-of-line-or-digit-argument
         evil-beginning-of-line-or-digit-argument
@@ -120,6 +148,8 @@
         evil-beginning-of-visual-line
         evil-beginning-of-visual-line
         evil-beginning-of-visual-line
+        evil-beginning-of-visual-line
+        evil-buffer
         evil-buffer
         evil-buffer
         evil-buffer
@@ -128,6 +158,8 @@
         evil-change
         evil-change
         evil-change
+        evil-change
+        evil-change-line
         evil-change-line
         evil-change-line
         evil-change-line
@@ -136,6 +168,8 @@
         evil-change-to-initial-state
         evil-change-to-initial-state
         evil-change-to-initial-state
+        evil-change-to-initial-state
+        evil-change-to-previous-state
         evil-change-to-previous-state
         evil-change-to-previous-state
         evil-change-to-previous-state
@@ -144,6 +178,8 @@
         evil-change-whole-line
         evil-change-whole-line
         evil-change-whole-line
+        evil-change-whole-line
+        evil-close-fold
         evil-close-fold
         evil-close-fold
         evil-close-fold
@@ -152,6 +188,8 @@
         evil-close-folds
         evil-close-folds
         evil-close-folds
+        evil-close-folds
+        evil-complete-next
         evil-complete-next
         evil-complete-next
         evil-complete-next
@@ -160,6 +198,8 @@
         evil-complete-next-line
         evil-complete-next-line
         evil-complete-next-line
+        evil-complete-next-line
+        evil-complete-previous
         evil-complete-previous
         evil-complete-previous
         evil-complete-previous
@@ -168,6 +208,8 @@
         evil-complete-previous-line
         evil-complete-previous-line
         evil-complete-previous-line
+        evil-complete-previous-line
+        evil-copy-chars-from-line
         evil-copy-chars-from-line
         evil-copy-chars-from-line
         evil-copy-chars-from-line
@@ -176,10 +218,13 @@
         evil-copy-from-above
         evil-copy-from-above
         evil-copy-from-above
+        evil-copy-from-above
         evil-copy-from-below
         evil-copy-from-below
         evil-copy-from-below
         evil-copy-from-below
+        evil-copy-from-below
+        evil-delete
         evil-delete
         evil-delete
         evil-delete
@@ -189,6 +234,8 @@
         evil-delete-backward-char
         evil-delete-backward-char
         evil-delete-backward-char
+        evil-delete-backward-char
+        evil-delete-backward-word
         evil-delete-backward-word
         evil-delete-backward-word
         evil-delete-backward-word
@@ -197,6 +244,8 @@
         evil-delete-buffer
         evil-delete-buffer
         evil-delete-buffer
+        evil-delete-buffer
+        evil-delete-char
         evil-delete-char
         evil-delete-char
         evil-delete-char
@@ -206,6 +255,8 @@
         evil-delete-line
         evil-delete-line
         evil-delete-line
+        evil-delete-line
+        evil-delete-whole-line
         evil-delete-whole-line
         evil-delete-whole-line
         evil-delete-whole-line
@@ -214,6 +265,8 @@
         evil-digit-argument-or-evil-beginning-of-line
         evil-digit-argument-or-evil-beginning-of-line
         evil-digit-argument-or-evil-beginning-of-line
+        evil-digit-argument-or-evil-beginning-of-line
+        evil-downcase
         evil-downcase
         evil-downcase
         evil-downcase
@@ -222,6 +275,8 @@
         evil-edit
         evil-edit
         evil-edit
+        evil-edit
+        evil-emacs-state
         evil-emacs-state
         evil-emacs-state
         evil-emacs-state
@@ -230,6 +285,8 @@
         evil-end-of-line
         evil-end-of-line
         evil-end-of-line
+        evil-end-of-line
+        evil-end-of-visual-line
         evil-end-of-visual-line
         evil-end-of-visual-line
         evil-end-of-visual-line
@@ -238,6 +295,8 @@
         evil-esc
         evil-esc
         evil-esc
+        evil-esc
+        evil-esc-mode
         evil-esc-mode
         evil-esc-mode
         evil-esc-mode
@@ -246,6 +305,8 @@
         evil-ex
         evil-ex
         evil-ex
+        evil-ex
+        evil-ex-delete-backward-char
         evil-ex-delete-backward-char
         evil-ex-delete-backward-char
         evil-ex-delete-backward-char
@@ -254,6 +315,8 @@
         evil-ex-global
         evil-ex-global
         evil-ex-global
+        evil-ex-global
+        evil-ex-global-inverted
         evil-ex-global-inverted
         evil-ex-global-inverted
         evil-ex-global-inverted
@@ -262,6 +325,8 @@
         evil-ex-line-number
         evil-ex-line-number
         evil-ex-line-number
+        evil-ex-line-number
+        evil-ex-nohighlight
         evil-ex-nohighlight
         evil-ex-nohighlight
         evil-ex-nohighlight
@@ -270,6 +335,8 @@
         evil-ex-repeat
         evil-ex-repeat
         evil-ex-repeat
+        evil-ex-repeat
+        evil-ex-repeat-global-substitute
         evil-ex-repeat-global-substitute
         evil-ex-repeat-global-substitute
         evil-ex-repeat-global-substitute
@@ -278,6 +345,8 @@
         evil-ex-repeat-substitute
         evil-ex-repeat-substitute
         evil-ex-repeat-substitute
+        evil-ex-repeat-substitute
+        evil-ex-repeat-substitute-with-flags
         evil-ex-repeat-substitute-with-flags
         evil-ex-repeat-substitute-with-flags
         evil-ex-repeat-substitute-with-flags
@@ -286,6 +355,8 @@
         evil-ex-repeat-substitute-with-search
         evil-ex-repeat-substitute-with-search
         evil-ex-repeat-substitute-with-search
+        evil-ex-repeat-substitute-with-search
+        evil-ex-repeat-substitute-with-search-and-flags
         evil-ex-repeat-substitute-with-search-and-flags
         evil-ex-repeat-substitute-with-search-and-flags
         evil-ex-repeat-substitute-with-search-and-flags
@@ -294,6 +365,8 @@
         evil-ex-run-completion-at-point
         evil-ex-run-completion-at-point
         evil-ex-run-completion-at-point
+        evil-ex-run-completion-at-point
+        evil-ex-search-abort
         evil-ex-search-abort
         evil-ex-search-abort
         evil-ex-search-abort
@@ -302,6 +375,8 @@
         evil-ex-search-backward
         evil-ex-search-backward
         evil-ex-search-backward
+        evil-ex-search-backward
+        evil-ex-search-exit
         evil-ex-search-exit
         evil-ex-search-exit
         evil-ex-search-exit
@@ -310,6 +385,8 @@
         evil-ex-search-forward
         evil-ex-search-forward
         evil-ex-search-forward
+        evil-ex-search-forward
+        evil-ex-search-next
         evil-ex-search-next
         evil-ex-search-next
         evil-ex-search-next
@@ -318,6 +395,8 @@
         evil-ex-search-previous
         evil-ex-search-previous
         evil-ex-search-previous
+        evil-ex-search-previous
+        evil-ex-search-symbol-backward
         evil-ex-search-symbol-backward
         evil-ex-search-symbol-backward
         evil-ex-search-symbol-backward
@@ -326,6 +405,8 @@
         evil-ex-search-symbol-forward
         evil-ex-search-symbol-forward
         evil-ex-search-symbol-forward
+        evil-ex-search-symbol-forward
+        evil-ex-search-unbounded-symbol-backward
         evil-ex-search-unbounded-symbol-backward
         evil-ex-search-unbounded-symbol-backward
         evil-ex-search-unbounded-symbol-backward
@@ -334,6 +415,8 @@
         evil-ex-search-unbounded-symbol-forward
         evil-ex-search-unbounded-symbol-forward
         evil-ex-search-unbounded-symbol-forward
+        evil-ex-search-unbounded-symbol-forward
+        evil-ex-set-initial-state
         evil-ex-set-initial-state
         evil-ex-set-initial-state
         evil-ex-set-initial-state
@@ -342,6 +425,8 @@
         evil-ex-substitute
         evil-ex-substitute
         evil-ex-substitute
+        evil-ex-substitute
+        evil-execute-in-emacs-state
         evil-execute-in-emacs-state
         evil-execute-in-emacs-state
         evil-execute-in-emacs-state
@@ -350,6 +435,8 @@
         evil-execute-in-normal-state
         evil-execute-in-normal-state
         evil-execute-in-normal-state
+        evil-execute-in-normal-state
+        evil-execute-macro
         evil-execute-macro
         evil-execute-macro
         evil-execute-macro
@@ -358,6 +445,8 @@
         evil-exit-emacs-state
         evil-exit-emacs-state
         evil-exit-emacs-state
+        evil-exit-emacs-state
+        evil-exit-visual-state
         evil-exit-visual-state
         evil-exit-visual-state
         evil-exit-visual-state
@@ -367,6 +456,8 @@
         evil-fill
         evil-fill
         evil-fill
+        evil-fill
+        evil-find-char
         evil-find-char
         evil-find-char
         evil-find-char
@@ -375,6 +466,8 @@
         evil-find-char-backward
         evil-find-char-backward
         evil-find-char-backward
+        evil-find-char-backward
+        evil-find-char-to
         evil-find-char-to
         evil-find-char-to
         evil-find-char-to
@@ -384,6 +477,8 @@
         evil-find-char-to-backward
         evil-find-char-to-backward
         evil-find-char-to-backward
+        evil-find-char-to-backward
+        evil-find-file-at-point-with-line
         evil-find-file-at-point-with-line
         evil-find-file-at-point-with-line
         evil-find-file-at-point-with-line
@@ -392,6 +487,8 @@
         evil-first-non-blank
         evil-first-non-blank
         evil-first-non-blank
+        evil-first-non-blank
+        evil-first-non-blank-of-visual-line
         evil-first-non-blank-of-visual-line
         evil-first-non-blank-of-visual-line
         evil-first-non-blank-of-visual-line
@@ -400,6 +497,8 @@
         evil-force-normal-state
         evil-force-normal-state
         evil-force-normal-state
+        evil-force-normal-state
+        evil-forward-WORD-begin
         evil-forward-WORD-begin
         evil-forward-WORD-begin
         evil-forward-WORD-begin
@@ -408,6 +507,8 @@
         evil-forward-WORD-end
         evil-forward-WORD-end
         evil-forward-WORD-end
+        evil-forward-WORD-end
+        evil-forward-char
         evil-forward-char
         evil-forward-char
         evil-forward-char
@@ -417,6 +518,8 @@
         evil-forward-paragraph
         evil-forward-paragraph
         evil-forward-paragraph
+        evil-forward-paragraph
+        evil-forward-section-begin
         evil-forward-section-begin
         evil-forward-section-begin
         evil-forward-section-begin
@@ -425,6 +528,8 @@
         evil-forward-section-end
         evil-forward-section-end
         evil-forward-section-end
+        evil-forward-section-end
+        evil-forward-sentence
         evil-forward-sentence
         evil-forward-sentence
         evil-forward-sentence
@@ -433,6 +538,8 @@
         evil-forward-word-begin
         evil-forward-word-begin
         evil-forward-word-begin
+        evil-forward-word-begin
+        evil-forward-word-end
         evil-forward-word-end
         evil-forward-word-end
         evil-forward-word-end
@@ -441,6 +548,8 @@
         evil-goto-char
         evil-goto-char
         evil-goto-char
+        evil-goto-char
+        evil-goto-column
         evil-goto-column
         evil-goto-column
         evil-goto-column
@@ -449,6 +558,8 @@
         evil-goto-definition
         evil-goto-definition
         evil-goto-definition
+        evil-goto-definition
+        evil-goto-first-line
         evil-goto-first-line
         evil-goto-first-line
         evil-goto-first-line
@@ -457,6 +568,8 @@
         evil-goto-line
         evil-goto-line
         evil-goto-line
+        evil-goto-line
+        evil-goto-mark
         evil-goto-mark
         evil-goto-mark
         evil-goto-mark
@@ -465,6 +578,8 @@
         evil-goto-mark-line
         evil-goto-mark-line
         evil-goto-mark-line
+        evil-goto-mark-line
+        evil-indent
         evil-indent
         evil-indent
         evil-indent
@@ -473,6 +588,8 @@
         evil-indent-line
         evil-indent-line
         evil-indent-line
+        evil-indent-line
+        evil-inner-WORD
         evil-inner-WORD
         evil-inner-WORD
         evil-inner-WORD
@@ -481,6 +598,8 @@
         evil-inner-angle
         evil-inner-angle
         evil-inner-angle
+        evil-inner-angle
+        evil-inner-back-quote
         evil-inner-back-quote
         evil-inner-back-quote
         evil-inner-back-quote
@@ -489,6 +608,8 @@
         evil-inner-bracket
         evil-inner-bracket
         evil-inner-bracket
+        evil-inner-bracket
+        evil-inner-curly
         evil-inner-curly
         evil-inner-curly
         evil-inner-curly
@@ -497,6 +618,8 @@
         evil-inner-double-quote
         evil-inner-double-quote
         evil-inner-double-quote
+        evil-inner-double-quote
+        evil-inner-paragraph
         evil-inner-paragraph
         evil-inner-paragraph
         evil-inner-paragraph
@@ -505,6 +628,8 @@
         evil-inner-paren
         evil-inner-paren
         evil-inner-paren
+        evil-inner-paren
+        evil-inner-sentence
         evil-inner-sentence
         evil-inner-sentence
         evil-inner-sentence
@@ -513,6 +638,8 @@
         evil-inner-single-quote
         evil-inner-single-quote
         evil-inner-single-quote
+        evil-inner-single-quote
+        evil-inner-tag
         evil-inner-tag
         evil-inner-tag
         evil-inner-tag
@@ -521,6 +648,9 @@
         evil-inner-word
         evil-inner-word
         evil-inner-word
+        evil-inner-word
+        evil-insert
+        evil-insert
         evil-insert
         evil-insert
         evil-insert
@@ -534,6 +664,8 @@
         evil-insert-digraph
         evil-insert-digraph
         evil-insert-digraph
+        evil-insert-digraph
+        evil-insert-line
         evil-insert-line
         evil-insert-line
         evil-insert-line
@@ -542,6 +674,8 @@
         evil-insert-resume
         evil-insert-resume
         evil-insert-resume
+        evil-insert-resume
+        evil-insert-state
         evil-insert-state
         evil-insert-state
         evil-insert-state
@@ -550,6 +684,8 @@
         evil-invert-case
         evil-invert-case
         evil-invert-case
+        evil-invert-case
+        evil-invert-char
         evil-invert-char
         evil-invert-char
         evil-invert-char
@@ -558,6 +694,8 @@
         evil-join
         evil-join
         evil-join
+        evil-join
+        evil-join-whitespace
         evil-join-whitespace
         evil-join-whitespace
         evil-join-whitespace
@@ -566,6 +704,8 @@
         evil-jump-backward
         evil-jump-backward
         evil-jump-backward
+        evil-jump-backward
+        evil-jump-forward
         evil-jump-forward
         evil-jump-forward
         evil-jump-forward
@@ -574,6 +714,8 @@
         evil-jump-item
         evil-jump-item
         evil-jump-item
+        evil-jump-item
+        evil-jump-to-tag
         evil-jump-to-tag
         evil-jump-to-tag
         evil-jump-to-tag
@@ -582,6 +724,8 @@
         evil-last-non-blank
         evil-last-non-blank
         evil-last-non-blank
+        evil-last-non-blank
+        evil-line
         evil-line
         evil-line
         evil-line
@@ -590,6 +734,8 @@
         evil-local-mode
         evil-local-mode
         evil-local-mode
+        evil-local-mode
+        evil-lookup
         evil-lookup
         evil-lookup
         evil-lookup
@@ -599,6 +745,8 @@
         evil-mode
         evil-mode
         evil-mode
+        evil-mode
+        evil-motion-state
         evil-motion-state
         evil-motion-state
         evil-motion-state
@@ -607,6 +755,8 @@
         evil-move-WORD
         evil-move-WORD
         evil-move-WORD
+        evil-move-WORD
+        evil-move-empty-lines
         evil-move-empty-lines
         evil-move-empty-lines
         evil-move-empty-lines
@@ -615,6 +765,8 @@
         evil-move-to-column
         evil-move-to-column
         evil-move-to-column
+        evil-move-to-column
+        evil-move-word
         evil-move-word
         evil-move-word
         evil-move-word
@@ -623,6 +775,8 @@
         evil-next-buffer
         evil-next-buffer
         evil-next-buffer
+        evil-next-buffer
+        evil-next-close-brace
         evil-next-close-brace
         evil-next-close-brace
         evil-next-close-brace
@@ -631,6 +785,8 @@
         evil-next-close-paren
         evil-next-close-paren
         evil-next-close-paren
+        evil-next-close-paren
+        evil-next-line
         evil-next-line
         evil-next-line
         evil-next-line
@@ -639,15 +795,19 @@
         evil-next-line-1-first-non-blank
         evil-next-line-1-first-non-blank
         evil-next-line-1-first-non-blank
+        evil-next-line-1-first-non-blank
         evil-next-line-first-non-blank
         evil-next-line-first-non-blank
         evil-next-line-first-non-blank
         evil-next-line-first-non-blank
+        evil-next-line-first-non-blank
         evil-next-visual-line
         evil-next-visual-line
         evil-next-visual-line
         evil-next-visual-line
         evil-next-visual-line
+        evil-next-visual-line
+        evil-normal-state
         evil-normal-state
         evil-normal-state
         evil-normal-state
@@ -657,6 +817,8 @@
         evil-open-above
         evil-open-above
         evil-open-above
+        evil-open-above
+        evil-open-below
         evil-open-below
         evil-open-below
         evil-open-below
@@ -665,6 +827,8 @@
         evil-open-fold
         evil-open-fold
         evil-open-fold
+        evil-open-fold
+        evil-open-folds
         evil-open-folds
         evil-open-folds
         evil-open-folds
@@ -673,6 +837,8 @@
         evil-operator-shortcut-mode
         evil-operator-shortcut-mode
         evil-operator-shortcut-mode
+        evil-operator-shortcut-mode
+        evil-operator-state
         evil-operator-state
         evil-operator-state
         evil-operator-state
@@ -681,6 +847,8 @@
         evil-paste-after
         evil-paste-after
         evil-paste-after
+        evil-paste-after
+        evil-paste-before
         evil-paste-before
         evil-paste-before
         evil-paste-before
@@ -689,6 +857,8 @@
         evil-paste-from-register
         evil-paste-from-register
         evil-paste-from-register
+        evil-paste-from-register
+        evil-paste-pop
         evil-paste-pop
         evil-paste-pop
         evil-paste-pop
@@ -697,6 +867,8 @@
         evil-paste-pop-next
         evil-paste-pop-next
         evil-paste-pop-next
+        evil-paste-pop-next
+        evil-prev-buffer
         evil-prev-buffer
         evil-prev-buffer
         evil-prev-buffer
@@ -705,6 +877,8 @@
         evil-previous-line
         evil-previous-line
         evil-previous-line
+        evil-previous-line
+        evil-previous-line-first-non-blank
         evil-previous-line-first-non-blank
         evil-previous-line-first-non-blank
         evil-previous-line-first-non-blank
@@ -713,10 +887,13 @@
         evil-previous-open-brace
         evil-previous-open-brace
         evil-previous-open-brace
+        evil-previous-open-brace
         evil-previous-open-paren
         evil-previous-open-paren
         evil-previous-open-paren
         evil-previous-open-paren
+        evil-previous-open-paren
+        evil-previous-visual-line
         evil-previous-visual-line
         evil-previous-visual-line
         evil-previous-visual-line
@@ -726,6 +903,8 @@
         evil-record-macro
         evil-record-macro
         evil-record-macro
+        evil-record-macro
+        evil-repeat
         evil-repeat
         evil-repeat
         evil-repeat
@@ -734,6 +913,8 @@
         evil-repeat-find-char
         evil-repeat-find-char
         evil-repeat-find-char
+        evil-repeat-find-char
+        evil-repeat-find-char-reverse
         evil-repeat-find-char-reverse
         evil-repeat-find-char-reverse
         evil-repeat-find-char-reverse
@@ -742,6 +923,8 @@
         evil-repeat-pop
         evil-repeat-pop
         evil-repeat-pop
+        evil-repeat-pop
+        evil-repeat-pop-next
         evil-repeat-pop-next
         evil-repeat-pop-next
         evil-repeat-pop-next
@@ -750,6 +933,8 @@
         evil-replace
         evil-replace
         evil-replace
+        evil-replace
+        evil-replace-backspace
         evil-replace-backspace
         evil-replace-backspace
         evil-replace-backspace
@@ -758,6 +943,8 @@
         evil-replace-state
         evil-replace-state
         evil-replace-state
+        evil-replace-state
+        evil-ret
         evil-ret
         evil-ret
         evil-ret
@@ -766,6 +953,8 @@
         evil-rot13
         evil-rot13
         evil-rot13
+        evil-rot13
+        evil-search-backward
         evil-search-backward
         evil-search-backward
         evil-search-backward
@@ -774,6 +963,8 @@
         evil-search-forward
         evil-search-forward
         evil-search-forward
+        evil-search-forward
+        evil-search-next
         evil-search-next
         evil-search-next
         evil-search-next
@@ -782,6 +973,8 @@
         evil-search-previous
         evil-search-previous
         evil-search-previous
+        evil-search-previous
+        evil-search-symbol-backward
         evil-search-symbol-backward
         evil-search-symbol-backward
         evil-search-symbol-backward
@@ -790,6 +983,8 @@
         evil-search-symbol-forward
         evil-search-symbol-forward
         evil-search-symbol-forward
+        evil-search-symbol-forward
+        evil-set-marker
         evil-set-marker
         evil-set-marker
         evil-set-marker
@@ -798,6 +993,8 @@
         evil-shell-command
         evil-shell-command
         evil-shell-command
+        evil-shell-command
+        evil-shift-left
         evil-shift-left
         evil-shift-left
         evil-shift-left
@@ -806,6 +1003,8 @@
         evil-shift-right
         evil-shift-right
         evil-shift-right
+        evil-shift-right
+        evil-show-buffers
         evil-show-buffers
         evil-show-buffers
         evil-show-buffers
@@ -814,6 +1013,8 @@
         evil-show-file-info
         evil-show-file-info
         evil-show-file-info
+        evil-show-file-info
+        evil-show-registers
         evil-show-registers
         evil-show-registers
         evil-show-registers
@@ -822,6 +1023,8 @@
         evil-split-buffer
         evil-split-buffer
         evil-split-buffer
+        evil-split-buffer
+        evil-split-next-buffer
         evil-split-next-buffer
         evil-split-next-buffer
         evil-split-next-buffer
@@ -830,6 +1033,8 @@
         evil-split-prev-buffer
         evil-split-prev-buffer
         evil-split-prev-buffer
+        evil-split-prev-buffer
+        evil-substitute
         evil-substitute
         evil-substitute
         evil-substitute
@@ -838,10 +1043,13 @@
         evil-toggle-fold
         evil-toggle-fold
         evil-toggle-fold
+        evil-toggle-fold
         evil-upcase
         evil-upcase
         evil-upcase
         evil-upcase
+        evil-upcase
+        evil-use-register
         evil-use-register
         evil-use-register
         evil-use-register
@@ -851,6 +1059,8 @@
         evil-yank
         evil-yank
         evil-yank
+        evil-yank
+        evil-yank-line
         evil-yank-line
         evil-yank-line
         evil-yank-line
@@ -860,5 +1070,8 @@
 
 (setq mc/cmds-to-run-once
       '(
+        evil-mc-edit-lines-beginning
         evil-mouse-drag-region
+        kmacro-end-macro
+        kmacro-name-last-macro
         ))
