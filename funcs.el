@@ -143,6 +143,9 @@
 (defun kill-other-buffers ()
   "Kill all other buffers."
   (interactive)
-  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
+  (let (name (buffer-name))
+    (when (yes-or-no-p (format "Killing all buffers except \"%s\" ? " buffer-file-name))
+      (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+      (message "Buffers deleted!"))))
 
 (provide 'funcs)
