@@ -15,7 +15,7 @@
 (setq evil-move-cursor-back nil)
 
 ;; evil-emacs-state is annoying, the following function and hook automatically
-;; switches back to evil-normal-state whenever the evil-emacs-state is entered.
+;; switch back to evil-normal-state whenever the evil-emacs-state is entered.
 ;; It allows a more consistent navigation experience among all mode maps.
 ;; To enter special commands of custom mode maps, just enter the insert mode :-)
 (defun evil-emacs-state-2-evil-normal-state ()
