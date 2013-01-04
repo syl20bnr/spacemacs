@@ -49,5 +49,5 @@
 ;; prefere html version
 (setq mu4e-view-prefer-html t)
 ;; html to text conversion program
-;;(setq mu4e-html2text-command "html2text -utf8 -width 72")
-(setq mu4e-html2text-command "html2markdown | grep -v '&nbsp_place_holder;'")
+(setq mu4e-html2text-command "html2text -utf8 -width 140")
+;;(setq mu4e-html2text-command "html2markdown | grep -v '&nbsp_place_holder;'")
