@@ -39,6 +39,7 @@
 (require 'packages)
 (require 'extensions)
 (require 'my-keybindings)
+(require 'my-keychords)
 
 ;; Host config ================================================================
 (progn (when (file-exists-p host-directory)
