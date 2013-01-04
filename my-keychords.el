@@ -2,6 +2,8 @@
 (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 (key-chord-define evil-visual-state-map "jk" 'evil-normal-state)
 
+;; applications ---------------------------------------------------------------
+(key-chord-define evil-normal-state-map "ae" 'erc-start-or-switch)
 ;; buffers --------------------------------------------------------------------
 (key-chord-define evil-normal-state-map "bh" 'switch-to-prev-buffer)
 (key-chord-define evil-normal-state-map "bk" 'ido-kill-buffer)

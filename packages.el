@@ -17,6 +17,7 @@
     elisp-slime-nav
     epc
     eproject
+    erc
     erlang
     evil
     expand-region

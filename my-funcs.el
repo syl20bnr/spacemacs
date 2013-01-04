@@ -148,4 +148,14 @@
       (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
       (message "Buffers deleted!"))))
 
+;; from http://emacs-fu.blogspot.ca/2009/06/erc-emacs-irc-client.html
+(defun erc-start-or-switch ()
+  "Connect to ERC, or switch to last active buffer"
+  (interactive)
+  (if (get-buffer "10.140.40.21:6667") ;; ERC already active?
+
+    (erc-track-switch-buffer 1) ;; yes: switch to last active
+    (when (y-or-n-p "Start ERC? ") ;; no: maybe start ERC
+      (erc :server "10.140.40.21" :port 6667 :nick "sylnux" :full-name "Sylvain Benner"))))
+
 (provide 'my-funcs)
