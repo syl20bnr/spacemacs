@@ -148,4 +148,4 @@
       (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
       (message "Buffers deleted!"))))
 
-(provide 'funcs)
+(provide 'my-funcs)

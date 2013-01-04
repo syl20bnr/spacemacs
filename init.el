@@ -34,13 +34,19 @@
       (load (concat user-config-directory l)))))
 
 ;; Setup ======================================================================
-(require 'funcs)
-(require 'macros)
+(require 'my-funcs)
+(require 'my-macros)
 (require 'packages)
 (require 'extensions)
-(require 'keybindings)
+(require 'my-keybindings)
 
 ;; Host config ================================================================
 (progn (when (file-exists-p host-directory)
     (dolist (l (directory-files host-directory nil "^[^#].*el$"))
       (load (concat host-directory l)))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+)
