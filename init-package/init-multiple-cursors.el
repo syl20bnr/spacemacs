@@ -1,6 +1,6 @@
 (require 'multiple-cursors)
 
-(setq mc/cmds-to-run-for-all (append  mc/cmds-to-run-for-all '(
+(setq mc/cmds-to-run-for-all '(
         evil-a-back-quote
         evil-a-bracket
         evil-a-curly
@@ -211,17 +211,18 @@
         evil-use-register
         evil-yank
         evil-yank-line
-        )))
+        paredit-forward-delete
+        ))
 
-(setq mc/cmds-to-run-once (append  mc/cmds-to-run-once '(
-        evil-mc-edit-lines-beginning
-        evil-mouse-drag-region
-        ido-find-file
-        kmacro-end-macro
-        kmacro-name-last-macro
-        kmacro-start-macro
-        mac-mc-acquire-cursors-at-beginning-func
-        mac-mc-acquire-cursors-at-beginning
-        mc/mark-next-lines
-        mc/mark-previous-lines
-        )))
+(setq mc/cmds-to-run-once '(
+       evil-mc-edit-lines-beginning
+       evil-mouse-drag-region
+       ido-find-file
+       kmacro-end-macro
+       kmacro-name-last-macro
+       kmacro-start-macro
+       mac-mc-acquire-cursors-at-beginning-func
+       mac-mc-acquire-cursors-at-beginning
+       mc/mark-next-lines
+       mc/mark-previous-lines
+       ))
