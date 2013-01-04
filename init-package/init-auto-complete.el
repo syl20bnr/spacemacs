@@ -4,7 +4,8 @@
 
 (add-to-list 'completion-styles 'initials t)
 (add-to-list 'ac-sources 'ac-source-semantic)
-(setq-default ac-sources (cons 'ac-source-yasnippet ac-sources))
+;; sources
+(add-to-list 'ac-sources 'ac-source-yasnippet 'ac-sources)
 
 ;; customization
 (setq ac-auto-start 2

@@ -13,9 +13,6 @@
 (help-at-pt-set-timer)
 (global-eclim-mode)
 
-;; Hook eclim up with auto complete mode
-(require 'auto-complete-config)
-(ac-config-default)
 (require 'ac-emacs-eclim-source)
 (add-hook 'eclim-mode-hook (lambda ()
                              (add-to-list 'ac-sources 'ac-source-emacs-eclim)
