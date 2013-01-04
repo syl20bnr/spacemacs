@@ -5,6 +5,9 @@
 (fringe-mode 0)
 ;; Show column number in mode line
 (setq column-number-mode t)
+;; line number
+(setq linum-format "%4d ")
+(setq global-linum-mode t)
 ;; no blink
 (blink-cursor-mode (- (*) (*) (*)))
 ;; tool tips in echo area
