@@ -15,11 +15,14 @@
       tab-always-indent 'complete ; use 'complete when auto-complete is disabled
       ac-dwim t)
 
-(global-set-key (kbd "M-SPC") 'ac-fuzzy-complete)
-(define-key ac-completing-map (kbd "RET") 'ac-complete)
-
 ;;; list of modes where ac should be available
 (dolist (mode '(emacs-lisp-mode
                 org-mode
                 python-mode))
   (add-to-list 'ac-modes mode))
+
+;; solarized
+(custom-set-faces
+ '(ac-candidate-face ((t (:background "#586e75" :foreground "#000000" :box (:line-width -1 :style released-button)))))
+ '(ac-candidate-mouse-face ((t (:background "#073642" :foreground "#dc322f" :box (:line-width -1 :style pressed-button)))))
+ '(ac-selection-face ((t (:background "#073642" :foreground "#b58900" :box (:line-width -1 :style pressed-button) :overline "black" :weight bold)))))
