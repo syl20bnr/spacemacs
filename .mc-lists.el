@@ -211,6 +211,7 @@
         evil-toggle-fold
         evil-upcase
         evil-use-register
+        evil-visual-char
         evil-yank
         evil-yank-line
         paredit-forward-delete
