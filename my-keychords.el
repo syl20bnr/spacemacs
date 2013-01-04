@@ -21,8 +21,18 @@
 ;; files ----------------------------------------------------------------------
 (key-chord-define evil-normal-state-map "fo" 'ido-find-file)
 (key-chord-define evil-normal-state-map "fp" 'find-file-in-project)
+;; fold-this ------------------------------------------------------------------
+(key-chord-define evil-visual-state-map "fj" 'fold-this)
+(key-chord-define evil-visual-state-map "FJ" 'fold-this-all)
+(key-chord-define evil-normal-state-map "fk" 'fold-this-unfold-at-point)
+(key-chord-define evil-normal-state-map "FK" 'fold-this-unfold-all)
 ;; git ------------------------------------------------------------------------
 (key-chord-define evil-normal-state-map "gs" 'magit-status)
+;; move-text ------------------------------------------------------------------
+(key-chord-define evil-normal-state-map "vj" 'move-text-down)
+(key-chord-define evil-visual-state-map "vj" 'move-text-down)
+(key-chord-define evil-normal-state-map "vk" 'move-text-up)
+(key-chord-define evil-visual-state-map "vk" 'move-text-up)
 ;; multiple-cursors -----------------------------------------------------------
 (key-chord-define evil-visual-state-map "ma" 'mc/mark-all-like-this)
 (key-chord-define evil-visual-state-map "mc" 'mac-mc-acquire-cursors-at-beginning)

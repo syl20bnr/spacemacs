@@ -22,12 +22,14 @@
     expand-region
     fill-column-indicator
     find-file-in-project
+    fold-this
     fuzzy
     highlight-symbol
     ido-ubiquitous
     jedi
     key-chord
     magit
+    move-text
     multiple-cursors
     multi-term
     nose
