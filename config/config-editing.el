@@ -1,3 +1,4 @@
+;; Global ---------------------------------------------------------------------
 ;; font size
 (set-face-attribute 'default nil :height 110)
 ;; whitespace-mode
@@ -10,3 +11,9 @@
 ;; highlight current line
 (global-hl-line-mode t)
 (set-face-background 'hl-line "#073642")
+;; Text -----------------------------------------------------------------------
+(add-hook 'text-mode-hook
+          '(lambda ()
+             (auto-fill-mode 1)
+             (flyspell-mode)))
+(setq longlines-show-hard-newlines t)
