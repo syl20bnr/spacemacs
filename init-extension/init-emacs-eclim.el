@@ -1,9 +1,6 @@
 ;; Variables
 (setq eclim-auto-save t
-      eclim-executable "~/Apps/eclipse4/eclim"
-      eclimd-executable "~/Apps/eclipse4/eclimd"
       eclimd-wait-for-process nil
-      eclimd-default-workspace "~/dev/eclimd-workspace"
       help-at-pt-display-when-idle t
       help-at-pt-timer-delay 0.1
       )

@@ -20,6 +20,9 @@
 (eval-after-load "yasnippet"
   '(diminish 'yas-minor-mode))
 
+(eval-after-load "eclim-mode"
+  '(diminish 'eclim-mode Ecl))
+
 (eval-after-load 'elisp-slime-nav
   '(diminish 'elisp-slime-nav-mode))
 
