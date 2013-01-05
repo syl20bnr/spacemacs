@@ -6,7 +6,7 @@
                          ("melpa" . "http://melpa.milkbox.net/packages/")
                          ("technomancy" . "http://repo.technomancy.us/emacs/")))
 (package-initialize)
-(defvar z:packages
+(defvar syl:packages
   '(
     ace-jump-mode
     auto-complete
@@ -20,6 +20,7 @@
     erc
     erlang
     evil
+    exec-path-from-shell
     expand-region
     fill-column-indicator
     find-file-in-project
@@ -52,11 +53,11 @@
     ))
 
 ;;; install missing packages
-(let ((not-installed (remove-if 'package-installed-p z:packages)))
+(let ((not-installed (remove-if 'package-installed-p syl:packages)))
   (if not-installed
       (if (y-or-n-p (format "there are %d packages to be installed. install them? " (length not-installed)))
           (progn (package-refresh-contents)
-                 (dolist (package z:packages)
+                 (dolist (package syl:packages)
                    (when (not (package-installed-p package))
                      (package-install package)))))))
 
