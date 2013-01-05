@@ -1,8 +1,12 @@
 (require 'mu4e)
+(require 'org-mu4e)
+;; make mu4e default email client for emacs
+(setq mail-user-agent 'mu4e-user-agent)
 
 ;; allow for updating mail using 'U' in the main view:
 (setq mu4e-get-mail-command "offlineimap")
 (setq mu4e-maildir "~/Maildir")
+(setq mu4e-attachment-dir  "~/Downloads")
 (setq message-kill-buffer-on-exit t)
 
 ;; folders
@@ -19,6 +23,9 @@
 
 ;; date format
 (setq mu4e-headers-date-format "%d/%b/%Y %H:%M")
+
+;; fancy chars
+(setq mu4e-use-fancy-chars t)
 
 ;; setup some handy shortcuts
 ;; you can quickly switch to your Inbox -- press ``ji''
@@ -53,8 +60,8 @@
 ;; prefere html version
 (setq mu4e-view-prefer-html t)
 ;; html to text conversion program
-(setq mu4e-html2text-command "html2text -utf8 -width 140")
-;;(setq mu4e-html2text-command "html2markdown | grep -v '&nbsp_place_holder;'")
+;;(setq mu4e-html2text-command "html2text -utf8 -width 140")
+(setq mu4e-html2text-command "html2markdown --body-width=0 | grep -v '&nbsp_place_holder;'")
 
 ;; form magnars
 ;; Start mu4e in fullscreen, immediately ping for new mail
@@ -72,3 +79,20 @@
   (interactive)
   (kill-buffer)
   (jump-to-register :mu4e-fullscreen))
+
+;; adapted from https://groups.google.com/d/topic/mu-discuss/ZXB72TR5GL0/discussion
+(defun mu4e-msgv-action-view-in-browser (msg)
+  "View the body of the message in a web browser."
+  (interactive)
+  (let ((html (mu4e-msg-field (mu4e-message-at-point t) :body-html))
+        (tmpfile (format "%s/%d.html" temporary-file-directory (random))))
+    (unless html (error "No html part for this message"))
+    (with-temp-file tmpfile
+      (insert
+        "<html>"
+        "<head><meta http-equiv=\"content-type\""
+        "content=\"text/html;charset=UTF-8\">"
+        html))
+    (browse-url (concat "file://" tmpfile))))
+(add-to-list 'mu4e-view-actions
+  '("View in browser" . mu4e-msgv-action-view-in-browser) t)

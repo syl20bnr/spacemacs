@@ -12,7 +12,6 @@
 (define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
 ;; mu4e -----------------------------------------------------------------------
 (define-key mu4e-main-mode-map (kbd "q") 'mu4e-quit-session)
-(define-key mu4e-headers-mode-map (kbd "M-u") 'mu4e-update-mail-show-window)
 ;; multiple-cursors -----------------------------------------------------------
 (global-set-key (kbd "C-M-m b") 'mc/edit-beginnings-of-lines)
 (global-set-key (kbd "C-M-m e") 'mc/edit-ends-of-lines)
