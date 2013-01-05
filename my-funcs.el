@@ -122,23 +122,6 @@
       (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
-;; Following code was take from:
-;; http://emacswiki.org/emacs/MultiTerm
-(defun last-multi-term-buffer (l)
-  "Return most recently used term buffer."
-  (when l
-    (if (eq 'term-mode (with-current-buffer (car l) major-mode))
-        (car l) (zoo/last-term-buffer (cdr l)))))
-
-(defun last-used-multi-term ()
-  "Switch to the term buffer last used, or create a new one if
-    none exists, or if the current buffer is already a term."
-  (interactive)
-  (let ((b (last-multi-term-buffer (buffer-list))))
-    (if (or (not b) (eq 'term-mode major-mode))
-        (multi-term)
-      (switch-to-buffer b))))
-
 ;; found at http://emacswiki.org/emacs/KillingBuffers
 (defun kill-other-buffers ()
   "Kill all other buffers."
@@ -147,15 +130,5 @@
     (when (yes-or-no-p (format "Killing all buffers except \"%s\" ? " buffer-file-name))
       (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
       (message "Buffers deleted!"))))
-
-;; from http://emacs-fu.blogspot.ca/2009/06/erc-emacs-irc-client.html
-(defun erc-start-or-switch ()
-  "Connect to ERC, or switch to last active buffer"
-  (interactive)
-  (if (get-buffer "10.140.40.21:6667") ;; ERC already active?
-
-    (erc-track-switch-buffer 1) ;; yes: switch to last active
-    (when (y-or-n-p "Start ERC? ") ;; no: maybe start ERC
-      (erc :server "10.140.40.21" :port 6667 :nick "sylnux" :full-name "Sylvain Benner"))))
 
 (provide 'my-funcs)
