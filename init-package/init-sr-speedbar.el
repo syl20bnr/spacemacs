@@ -4,7 +4,7 @@
 (setq sr-speedbar-skip-other-window-p t)
 (setq speedbar-show-unknown-files t)
 (setq speedbar-verbosity-level 0)
-(setq speedbar-use-images nil)
+(setq speedbar-use-images t)
 
 (defun sr-speedbar-toggle-and-select ()
   "Toggle the speedbar and give it the focus if it is opened"
