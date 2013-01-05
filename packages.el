@@ -48,7 +48,7 @@
     solarized-theme
     sr-speedbar
     surround
-    webjump
+    twittering-mode
     yasnippet
     ))
 

@@ -7,6 +7,7 @@
 ;; applications ---------------------------------------------------------------
 (key-chord-define evil-normal-state-map "ae" 'erc-start-or-switch)
 (key-chord-define evil-normal-state-map "am" 'mu4e-up-to-date-status)
+(key-chord-define evil-normal-state-map "at" 'twit)
 ;; buffers --------------------------------------------------------------------
 (key-chord-define evil-normal-state-map "bk" 'ido-kill-buffer)
 (key-chord-define evil-normal-state-map "BK" 'delete-current-buffer-file)
