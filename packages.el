@@ -45,6 +45,7 @@
     smart-operator
     smex
     solarized-theme
+    sr-speedbar
     surround
     webjump
     yasnippet
