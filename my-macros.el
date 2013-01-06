@@ -27,7 +27,7 @@
    (lambda (&optional arg)
      "Transform a multiple selection into cursors at the beginning of each selection."
      (interactive "p")
-     (kmacro-exec-ring-item (quote ([73 105 backspace escape] 0 "%d")) arg)))
+     (kmacro-exec-ring-item (quote ([73 105 escape 104 120] 0 "%d")) arg)))
 
 
 (provide 'my-macros)
