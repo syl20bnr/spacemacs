@@ -1,4 +1,3 @@
- (setq eclim-executable "~/Apps/eclipse4/eclim"
-       eclimd-executable "~/Apps/eclipse4/eclimd"
-       eclimd-default-workspace "~/dev/eclimd-workspace"
-       )
+ (setq eclim-executable "/home/sylvain/Apps/eclipse/eclim"
+       eclimd-executable "/home/sylvain/Apps/eclipse/eclimd"
+       eclimd-default-workspace "/home/sylvain/dev/ecl-wks/eclimd")

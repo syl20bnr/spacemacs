@@ -6,7 +6,7 @@
   '(diminish 'autopair-mode "AP"))
 
 (eval-after-load "eproject"
-  '(diminish 'eproject-mode "eproj"))
+  '(diminish 'eproject-mode "eP"))
 
 (eval-after-load "paredit"
   '(diminish 'paredit-mode "PE"))
@@ -20,8 +20,8 @@
 (eval-after-load "yasnippet"
   '(diminish 'yas-minor-mode))
 
-(eval-after-load "eclim-mode"
-  '(diminish 'eclim-mode "Ecl"))
+(eval-after-load "emacs-eclim"
+  '(diminish 'eclim-mode "ecl"))
 
 (eval-after-load "centered-cursor-mode"
   '(diminish 'centered-cursor-mode))
