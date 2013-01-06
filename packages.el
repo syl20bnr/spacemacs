@@ -62,10 +62,10 @@
                      (package-install package)))))))
 
 ;;; initialize packages
-(setq z:package-init-dir (concat user-emacs-directory "init-package/"))
-(message (format "initializing packages out of %s" z:package-init-dir))
+(setq syl:package-init-dir (concat user-emacs-directory "init-package/"))
+(message (format "initializing packages out of %s" syl:package-init-dir))
 (dolist (package (append (mapcar 'car package--builtins) package-activated-list))
-    (let* ((initfile (concat z:package-init-dir (format "init-%s.el" package))))
+    (let* ((initfile (concat syl:package-init-dir (format "init-%s.el" package))))
       (if (and (package-installed-p package)
                (file-exists-p initfile))
           (progn (load initfile)

@@ -220,6 +220,7 @@
 
 (setq mc/cmds-to-run-once
       '(
+        delim-pad-cmd
         evil-mc-edit-lines-beginning
         evil-mouse-drag-region
         ido-find-file

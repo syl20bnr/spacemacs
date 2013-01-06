@@ -6,6 +6,7 @@
     evil-plugins
     flymake
     mu4e
+    ;; pymacs
     ))
 
 ;; load extensions
