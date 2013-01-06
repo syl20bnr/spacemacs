@@ -1,5 +1,6 @@
 (defvar syl:extensions
   '(
+    delim-pad
     emacs-eclim
     evil-plugins
     flymake

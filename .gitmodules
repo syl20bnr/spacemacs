@@ -1,3 +1,6 @@
 [submodule "extensions/emacs-eclim"]
 	path = extensions/emacs-eclim
 	url = http://github.com/senny/emacs-eclim
+[submodule "extensions/delim-pad"]
+	path = extensions/delim-pad
+	url = http://github.com/lewang/delim-pad
