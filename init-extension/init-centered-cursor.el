@@ -1,0 +1,1 @@
+(require 'centered-cursor-mode)

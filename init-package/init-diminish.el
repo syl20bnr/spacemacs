@@ -21,7 +21,10 @@
   '(diminish 'yas-minor-mode))
 
 (eval-after-load "eclim-mode"
-  '(diminish 'eclim-mode Ecl))
+  '(diminish 'eclim-mode "Ecl"))
+
+(eval-after-load "centered-cursor-mode"
+  '(diminish 'centered-cursor-mode))
 
 (eval-after-load 'elisp-slime-nav
   '(diminish 'elisp-slime-nav-mode))

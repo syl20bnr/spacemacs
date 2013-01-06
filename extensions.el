@@ -1,5 +1,6 @@
 (defvar syl:extensions
   '(
+    centered-cursor
     delim-pad
     emacs-eclim
     evil-plugins

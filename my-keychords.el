@@ -33,8 +33,8 @@
 ;; emacs ----------------------------------------------------------------------
 (key-chord-define evil-normal-state-map "em" 'smex)
 ;; expand region --------------------------------------------------------------
-(key-chord-define evil-visual-state-map "re" 'er/contract-region)
-(key-chord-define evil-visual-state-map "rr" 'er/expand-region)
+(key-chord-define evil-visual-state-map "re" 'er/expand-region)
+(key-chord-define evil-visual-state-map "rr" 'er/contract-region)
 ;; files ----------------------------------------------------------------------
 (key-chord-define evil-normal-state-map "fo" 'ido-find-file)
 (key-chord-define evil-normal-state-map "fp" 'find-file-in-project)
@@ -71,5 +71,7 @@
 (key-chord-define evil-normal-state-map "wr" 'rotate-windows)
 (key-chord-define evil-normal-state-map "wv" 'split-window-below)
 (key-chord-define evil-normal-state-map "ww" 'other-window)
+;; centered cursor ------------------------------------------------------------
+(key-chord-define evil-normal-state-map "zz" 'global-centered-cursor-mode)
 
 (provide 'my-keychords)
