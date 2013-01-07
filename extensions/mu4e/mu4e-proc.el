@@ -32,8 +32,7 @@
 ;; internal vars
 
 (defvar mu4e~proc-buf nil
-  "Buffer (string) for data received from
-the backend.")
+  "Buffer (string) for data received from the backend.")
 (defconst mu4e~proc-name " *mu4e-proc*"
   "Name of the server process, buffer.")
 (defvar mu4e~proc-process nil
@@ -42,37 +41,38 @@ the backend.")
 ;; dealing with the length cookie that precedes expressions
 (defconst mu4e~cookie-pre "\376"
   "Each expression we get from the backend (mu server) starts with
-   a length cookie:
-   <`mu4e~cookie-pre'><length-in-hex><`mu4e~cookie-post'>.")
+a length cookie:
+  <`mu4e~cookie-pre'><length-in-hex><`mu4e~cookie-post'>.")
 (defconst mu4e~cookie-post "\377"
     "Each expression we get from the backend (mu server) starts with
-   a length cookie:
-   <`mu4e~cookie-pre'><length-in-hex><`mu4e~cookie-post'>.")
+a length cookie:
+  <`mu4e~cookie-pre'><length-in-hex><`mu4e~cookie-post'>.")
 (defconst mu4e~cookie-matcher-rx
-  (concat mu4e~cookie-pre "\\([[:xdigit:]]+\\)" mu4e~cookie-post)
-  "Regular expression matching the length cookie. Match 1 will be
-the length (in hex).")
+  (purecopy (concat mu4e~cookie-pre "\\([[:xdigit:]]+\\)" mu4e~cookie-post))
+  "Regular expression matching the length cookie.
+Match 1 will be the length (in hex).")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (defun mu4e~proc-start ()
   "Start the mu server process."
   (unless (file-executable-p mu4e-mu-binary)
-    (error (format "`mu4e-mu-binary' (%S) not found" mu4e-mu-binary)))
+    (mu4e-error (format "`mu4e-mu-binary' (%S) not found" mu4e-mu-binary)))
   (let* ((process-connection-type nil) ;; use a pipe
 	  (args '("server"))
 	  (args (append args (when mu4e-mu-home
 			       (list (concat "--muhome=" mu4e-mu-home))))))
     (setq mu4e~proc-buf "")
     (setq mu4e~proc-process (apply 'start-process
-			 mu4e~proc-name mu4e~proc-name
-		       mu4e-mu-binary args))
+			      mu4e~proc-name mu4e~proc-name
+			      mu4e-mu-binary args))
     ;; register a function for (:info ...) sexps
-    (when mu4e~proc-process
-      (set-process-query-on-exit-flag mu4e~proc-process nil)
-      (set-process-coding-system mu4e~proc-process 'binary 'utf-8-unix)
-      (set-process-filter mu4e~proc-process 'mu4e~proc-filter)
-      (set-process-sentinel mu4e~proc-process 'mu4e~proc-sentinel))))
+    (unless mu4e~proc-process
+      (mu4e-error "Failed to start the mu4e backend"))
+    (set-process-query-on-exit-flag mu4e~proc-process nil)
+    (set-process-coding-system mu4e~proc-process 'binary 'utf-8-unix)
+    (set-process-filter mu4e~proc-process 'mu4e~proc-filter)
+    (set-process-sentinel mu4e~proc-process 'mu4e~proc-sentinel)))
 
 (defun mu4e~proc-kill ()
   "Kill the mu server process."
@@ -89,49 +89,48 @@ the length (in hex).")
     mu4e~proc-process nil
     mu4e~proc-buf nil))
 
-(defun mu4e~proc-is-running ()
+(defun mu4e~proc-running-p  ()
   "Whether the mu process is running."
-  (and mu4e~proc-process
-    (memq (process-status mu4e~proc-process)
-      '(run open listen connect stop))))
+  (when (and mu4e~proc-process
+	  (memq (process-status mu4e~proc-process)
+	    '(run open listen connect stop)))
+    t))
 
-
-(defun mu4e~proc-eat-sexp-from-buf ()
-  "'Eat' the next s-expression from `mu4e~proc-buf'. Note: this is a string,
-not an emacs-buffer. `mu4e~proc-buf gets its contents from the
-mu-servers in the following form:
+(defsubst mu4e~proc-eat-sexp-from-buf ()
+  "'Eat' the next s-expression from `mu4e~proc-buf'.
+Note: this is a string, not an emacs-buffer. `mu4e~proc-buf gets
+its contents from the mu-servers in the following form:
    <`mu4e~cookie-pre'><length-in-hex><`mu4e~cookie-post'>
-
-Function returns this sexp, or nil if there was
-none. `mu4e~proc-buf' is updated as well, with all processed sexp
-data removed."
-  (when mu4e~proc-buf
+Function returns this sexp, or nil if there was none.
+`mu4e~proc-buf' is updated as well, with all processed sexp data
+removed."
+  (ignore-errors ;; the server may die in the middle...
     ;; mu4e~cookie-matcher-rx:
     ;;  (concat mu4e~cookie-pre "\\([[:xdigit:]]+\\)]" mu4e~cookie-post)
-    (let* ((b (string-match mu4e~cookie-matcher-rx mu4e~proc-buf))
-	    (sexp-len
-	      (when b (string-to-number (match-string 1 mu4e~proc-buf) 16))))
-      ;; does mu4e~proc-buf contain the full sexp?
-      (when (and b (>= (length mu4e~proc-buf) (+ sexp-len (match-end 0))))
-	;; clear-up start
-	(setq mu4e~proc-buf (substring mu4e~proc-buf (match-end 0)))
-	;; note: we read the input in binary mode -- here, we take the part that
-	;; is the sexp, and convert that to utf-8, before we interpret it.
-	(let ((objcons
-		(ignore-errors ;; note: this may fail if we killed the process
-		  ;; in the middle
-		  (read-from-string
-		    (decode-coding-string (substring mu4e~proc-buf 0 sexp-len)
-		      'utf-8 t)))))
+    (let ((b (string-match mu4e~cookie-matcher-rx mu4e~proc-buf))
+	   (sexp-len) (objcons))
+      (when b
+	(setq sexp-len (string-to-number (match-string 1 mu4e~proc-buf) 16))
+	;; does mu4e~proc-buf contain the full sexp?
+	(when (>= (length mu4e~proc-buf) (+ sexp-len (match-end 0)))
+	  ;; clear-up start
+	  (setq mu4e~proc-buf (substring mu4e~proc-buf (match-end 0)))
+	  ;; note: we read the input in binary mode -- here, we take the part
+	  ;; that is the sexp, and convert that to utf-8, before we interpret
+	  ;; it.
+	  (setq objcons (read-from-string
+			  (decode-coding-string
+			    (substring mu4e~proc-buf 0 sexp-len)
+			    'utf-8 t)))
 	  (when objcons
 	    (setq mu4e~proc-buf (substring mu4e~proc-buf sexp-len))
 	    (car objcons)))))))
 
 
-(defun mu4e~proc-filter (proc str)
-  "A process-filter for the 'mu server' output; it accumulates the
-strings into valid sexps by checking of the ';;eox' end-of-sexp
-marker, and then evaluating them.
+(defsubst mu4e~proc-filter (proc str)
+  "A process-filter for the 'mu server' output.
+It accumulates the strings into valid sexps by checking of the
+';;eox' end-of-sexp marker, and then evaluating them.
 
 The server output is as follows:
 
@@ -216,7 +215,7 @@ The server output is as follows:
 	  ;; received a pong message
 	  ((plist-get sexp :pong)
 	    (funcall mu4e-pong-func
-	      (plist-get sexp :version) (plist-get sexp :doccount)))
+	      (plist-get sexp :props)))
 
 	  ;; received a contacts message
 	  ((plist-get sexp :contacts)
@@ -243,7 +242,9 @@ The server output is as follows:
 	  ((plist-get sexp :temp)
 	    (funcall mu4e-temp-func
 	      (plist-get sexp :temp)   ;; name of the temp file
-	      (plist-get sexp :what)   ;; what to do with it (pipe|emacs|open-with...)
+	      (plist-get sexp :what)   ;; what to do with it
+	                               ;; (pipe|emacs|open-with...)
+	      (plist-get sexp :docid)  ;; docid of the message
 	      (plist-get sexp :param)));; parameter for the action
 
 	  ;; get some info
@@ -265,8 +266,7 @@ The server output is as follows:
 ;;(defconst mu4e-xapian-empty 19 "Error code: xapian is empty/non-existent")
 
 (defun mu4e~proc-sentinel (proc msg)
-  "Function that will be called when the mu-server process
-terminates."
+  "Function that will be called when the mu-server process terminates."
   (let ((status (process-status proc)) (code (process-exit-status proc)))
     (setq mu4e~proc-process nil)
     (setq mu4e~proc-buf "") ;; clear any half-received sexps
@@ -275,29 +275,31 @@ terminates."
 	(cond
 	  ((eq code 9) (message nil))
 	    ;;(message "the mu server process has been stopped"))
-	  (t (mu4e-message (format "mu server process received signal %d" code)))))
+	  (t (error (format "mu server process received signal %d" code)))))
       ((eq status 'exit)
 	(cond
 	  ((eq code 0)
 	    (message nil)) ;; don't do anything
 	  ((eq code 11)
-	    (mu4e-message "Database is locked by another process"))
+	    (error "Database is locked by another process"))
+	  ((eq code 15)
+	    (error "Database needs upgrade; try `mu index --rebuild' from the command line"))
 	  ((eq code 19)
-	    (mu4e-message "Database empty; try indexing some messages"))
-	  (t (mu4e-message "mu server process ended with exit code %d" code))))
+	    (error "Database empty; try indexing some messages"))
+	  (t (error "mu server process ended with exit code %d" code))))
       (t
-	(mu4e-message "Something bad happened to the mu server process")))))
+	(error "Something bad happened to the mu server process")))))
 
-(defun mu4e~proc-send-command (frm &rest args)
-  "Send as command to the mu server process; start the process if needed."
-  (unless (mu4e~proc-is-running)
+(defsubst mu4e~proc-send-command (frm &rest args)
+  "Send as command to the mu server process.
+Start the process if needed."
+  (unless (mu4e~proc-running-p)
     (mu4e~proc-start))
   (let ((cmd (apply 'format frm args)))
     (mu4e-log 'to-server "%s" cmd)
     (process-send-string mu4e~proc-process (concat cmd "\n"))))
 
-
-(defun mu4e--docid-msgid-param (docid-or-msgid)
+(defsubst mu4e--docid-msgid-param (docid-or-msgid)
   "Construct a backend parameter based on DOCID-OR-MSGID."
   (format
     (if (stringp docid-or-msgid)
@@ -311,28 +313,48 @@ The results are reporter through either (:update ... ) or (:error)
 sexp, which are handled my `mu4e-error-func', respectively."
   (mu4e~proc-send-command "remove docid:%d" docid))
 
-(defun mu4e~proc-find (query threads sortfield revert maxnum)
-  "Start a database query for QUERY. If THREADS is non-nil, show
-results in threaded fasion, SORTFIELD is a symmbol describing the
-field to sort by (or nil); see `mu4e~headers-sortfield-choices'. If
-REVERT is non-nil, sort Z->A instead of A->Z. MAXNUM determines the
-maximum number of results to return, or nil for 'unlimited'. For
-each result found, a function is called, depending on the kind of
+(defun mu4e~proc-escape-query (query)
+  "Escape the query QUERY for transport.
+In particular, backslashes and double-quotes."
+  (let ((esc (replace-regexp-in-string "\\\\" "\\\\\\\\" query)))
+    (replace-regexp-in-string "\"" "\\\\\"" esc)))
+
+(defun mu4e~proc-find (query threads sortfield sortdir maxnum skip-dups include-related)
+  "Start a database query for QUERY.
+If THREADS is non-nil, show results in threaded fasion, SORTFIELD
+is a symbol describing the field to sort by (or nil); see
+`mu4e~headers-sortfield-choices'. If SORT is `descending', sort
+Z->A, if it's `ascending', sort A->Z. MAXNUM determines the maximum
+number of results to return, or nil for 'unlimited'. If SKIP-DUPS
+is non-nil, show only one of duplicate messages (see
+`mu4e-headers-skip-duplicates').  If INCLUDE-RELATED is non-nil,
+include messages related to the messages matching the search
+query (see `mu4e-headers-include-related').
+
+For each
+result found, a function is called, depending on the kind of
 result. The variables `mu4e-error-func' contain the function that
 will be called for, resp., a message (header row) or an error."
   (mu4e~proc-send-command
-    "find query:\"%s\" threads:%s sortfield:%s reverse:%s maxnum:%d"
-    query
-    (if threads "true" "false")
-    (format "%S" sortfield)
-    (if revert "true" "false")
-    (if maxnum maxnum -1)))
+    (format 
+      (concat
+	"find query:\"%s\" threads:%s sortfield:%s reverse:%s maxnum:%d "
+	"skip-dups:%s include-related:%s")
+      (mu4e~proc-escape-query query)
+      (if threads "true" "false")
+      ;; sortfield is e.g. ':subject'; this removes the ':'
+      (if (null sortfield) "nil" (substring (symbol-name sortfield) 1))
+      ;; TODO: use ascending/descending in backend too (it's clearer than 'reverse'
+      (if (eq sortdir 'descending) "true" "false")
+      (if maxnum maxnum -1)
+      (if skip-dups "true" "false")
+      (if include-related "true" "false"))))
 
 (defun mu4e~proc-move (docid-or-msgid &optional maildir flags)
-  "Move message identified by DOCID-OR-MSGID. At least one of
-  MAILDIR and FLAGS should be specified. Note, even if MAILDIR is
-  nil, this is still a move, since a change in flags still implies
-  a change in message filename.
+  "Move message identified by DOCID-OR-MSGID.
+At least one of MAILDIR and FLAGS should be specified. Note, even
+if MAILDIR is nil, this is still a move, since a change in flags
+still implies a change in message filename.
 
 MAILDIR (), optionally
 setting FLAGS (keyword argument :flags).  optionally setting FLAGS
@@ -358,7 +380,9 @@ The results are reported through either (:update ... )
 or (:error ) sexp, which are handled my `mu4e-update-func' and
 `mu4e-error-func', respectively."
   (unless (or maildir flags)
-    (error "At least one of maildir and flags must be specified"))
+    (mu4e-error "At least one of maildir and flags must be specified"))
+  (unless (or (not maildir) (file-exists-p (concat mu4e-maildir "/" maildir "/")))
+    (mu4e-error "Target dir does not exist"))
   (let* ((idparam (mu4e--docid-msgid-param docid-or-msgid))
 	  (flagstr
 	    (when flags
@@ -370,12 +394,10 @@ or (:error ) sexp, which are handled my `mu4e-update-func' and
     (mu4e~proc-send-command "move %s %s %s"
       idparam (or flagstr "") (or path ""))))
 
-
-
 (defun mu4e~proc-index (path my-addresses)
   "Update the message database for filesystem PATH, which should
-point to some maildir directory structure. MY-ADDRESSES is a
-list of my email addresses (see e.g. `mu4e-my-email-addresses')."
+point to some maildir directory structure. MY-ADDRESSES is a list
+of 'my' email addresses (see `mu4e-user-mail-address-list')."
   (let ((addrs
 	  (when my-addresses
 	    (mapconcat 'identity my-addresses ","))))
@@ -385,15 +407,17 @@ list of my email addresses (see e.g. `mu4e-my-email-addresses')."
       (mu4e~proc-send-command "index path:\"%s\"" path))))
 
 (defun mu4e~proc-add (path maildir)
-  "Add the message at PATH to the database, with MAILDIR set to the
-maildir this message resides in, e.g. '/drafts'; if this works, we
-will receive (:info add :path <path> :docid <docid>)."
+  "Add the message at PATH to the database.
+With MAILDIR set to the maildir this message resides in,
+e.g. '/drafts'; if this works, we will receive (:info add :path
+<path> :docid <docid>) as well as (:update <msg-sexp>)."
   (mu4e~proc-send-command "add path:\"%s\" maildir:\"%s\""
     path maildir))
 
 (defun mu4e~proc-sent (path maildir)
-  "Add the message at PATH to the database, with MAILDIR set to the
-maildir this message resides in, e.g. '/drafts'.
+  "Add the message at PATH to the database.
+With MAILDIR set to the maildir this message resides in,
+e.g. '/drafts'.
 
  if this works, we will receive (:info add :path <path> :docid
 <docid> :fcc <path>)."
@@ -406,12 +430,12 @@ maildir this message resides in, e.g. '/drafts'.
 message (ie, replying to, forwarding, editing) with DOCID or nil
 for type `new'.
 
-  The result will be delivered to the function registered as
+The result will be delivered to the function registered as
 `mu4e-compose-func'."
   (unless (member type '(forward reply edit new))
-    (error "Unsupported compose-type %S" type))
+    (mu4e-error "Unsupported compose-type %S" type))
   (unless (eq (null docid) (eq type 'new))
-    (error "`new' implies docid not-nil, and vice-versa"))
+    (mu4e-error "`new' implies docid not-nil, and vice-versa"))
   (mu4e~proc-send-command "compose type:%s docid:%d"
     (symbol-name type) docid))
 
@@ -435,37 +459,51 @@ mean:
 		      docid partidx path))
 	      (open (format "action:open docid:%d index:%d" docid partidx))
 	      (temp
-		(format "action:temp docid:%d index:%d what:%s param:\"%s\""
-		  docid partidx what param))
-	      (otherwise (error "Unsupported action %S" action))))))
+		(format "action:temp docid:%d index:%d what:%s%s"
+		  docid partidx what
+		  (if param (format " param:\"%s\"" param) "")))
+	      (otherwise (mu4e-error "Unsupported action %S" action))))))
     (mu4e~proc-send-command cmd)))
 
 
 (defun mu4e~proc-ping ()
-  "Sends a ping to the mu server, expecting a (:pong ...) in
-response."
+  "Sends a ping to the mu server, expecting a (:pong ...) in response."
   (mu4e~proc-send-command "ping"))
 
 (defun mu4e~proc-contacts (personal after)
-  "Sends the contacts command to the mu server, expecting
-a (:contacts (<list>)) in response. If PERSONAL is non-nil, only
-get personal contacts, if AFTER is non-nil, get only contacts
-seen AFTER (the time_t value)."
+  "Sends the contacts command to the mu server.
+A (:contacts (<list>)) is expected in response. If PERSONAL is
+non-nil, only get personal contacts, if AFTER is non-nil, get
+only contacts seen AFTER (the time_t value)."
   (mu4e~proc-send-command
     "contacts personal:%s after:%d"
     (if personal "true" "false")
     (or after 0)))
 
-(defun mu4e~proc-view (docid-or-msgid &optional images)
-  "Get one particular message based on its DOCID-OR-MSGID (keyword
-argument). Optionally, if IMAGES is non-nil, backend will any
-images attached to the message, and return them as temp files.  The
+(defun mu4e~proc-view (docid-or-msgid &optional images decrypt)
+  "Get one particular message based on its DOCID-OR-MSGID.
+Optionally, if IMAGES is non-nil, backend will any images
+attached to the message, and return them as temp files.
+The result will be delivered to the function registered as
+`mu4e-message-func'."
+  (mu4e~proc-send-command
+    "view %s extract-images:%s extract-encrypted:%s use-agent:true"
+    (mu4e--docid-msgid-param docid-or-msgid)
+    (if images "true" "false")
+    (if decrypt "true" "false")))
+
+(defun mu4e~proc-view-path (path &optional images decrypt)
+  "View message at PATH (keyword argument).
+Optionally, if IMAGES is non-nil, backend will any images
+attached to the message, and return them as temp files. The
 result will be delivered to the function registered as
 `mu4e-message-func'."
-  (mu4e~proc-send-command "view %s extract-images:%s"
-    (mu4e--docid-msgid-param docid-or-msgid)
-    (if images "true" "false")))
+  (mu4e~proc-send-command
+    "view path:\"%s\" extract-images:%s extract-encrypted:%s use-agent:true"
+    path
+    (if images "true" "false")
+    (if decrypt "true" "false")))
+
 
 (provide 'mu4e-proc)
-
 ;; End of mu4e-proc.el

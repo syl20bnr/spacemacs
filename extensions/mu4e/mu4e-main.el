@@ -24,9 +24,11 @@
 
 ;;; Code:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'smtpmail)      ;; the queing stuff (silence elint)
 (require 'mu4e-utils)    ;; utility functions
 
-(defconst mu4e~main-buffer-name "*mu4e-main*"
+
+(defconst mu4e~main-buffer-name " *mu4e-main*"
   "*internal* Name of the mu4e main view buffer.")
 
 (defvar mu4e-main-mode-map
@@ -42,8 +44,12 @@
 
     (define-key map "m" 'mu4e~main-toggle-mail-sending-mode)
     (define-key map "f" 'smtpmail-send-queued-mail)
-    (define-key map "U" 'mu4e-update-mail-show-window)
 
+    ;;
+    (define-key map "U" 'mu4e-update-mail-and-index)
+    (define-key map  (kbd "C-S-u") 'mu4e-update-mail-and-index)
+    
+    
     (define-key map "$" 'mu4e-show-log)
     (define-key map "A" 'mu4e-about)
     (define-key map "H" 'mu4e-display-manual)
@@ -52,6 +58,7 @@
   "Keymap for the *mu4e-main* buffer.")
 (fset 'mu4e-main-mode-map mu4e-main-mode-map)
 
+(defvar mu4e-main-mode-abbrev-table nil)
 (define-derived-mode mu4e-main-mode special-mode "mu4e:main"
   "Major mode for the mu4e main screen.
 \\{mu4e-main-mode-map}."
@@ -62,10 +69,10 @@
 
 
 (defun mu4e~main-action-str (str &optional func-or-shortcut)
-  "Highlight the first occurence of [..] in STR. If
-FUNC-OR-SHORTCUT is non-nil and if it is a function, call it when
-STR is clicked (using RET or mouse-2); if FUNC-OR-SHORTCUT is a
-string, execute the corresponding keyboard action when it is
+  "Highlight the first occurence of [..] in STR.
+If FUNC-OR-SHORTCUT is non-nil and if it is a function, call it
+when STR is clicked (using RET or mouse-2); if FUNC-OR-SHORTCUT
+is a string, execute the corresponding keyboard action when it is
 clicked."
   (let ((newstr
 	  (replace-regexp-in-string
@@ -98,6 +105,15 @@ clicked."
 	"* "
 	(propertize "mu4e - mu for emacs version " 'face 'mu4e-title-face)
 	(propertize  mu4e-mu-version 'face 'mu4e-view-header-key-face)
+
+	;; show some server properties; in this case; a big C when there's
+	;; crypto support, a big G when there's Guile support
+	" "
+	(propertize
+	  (concat
+	    (when (plist-get mu4e~server-props :crypto) "C")
+	    (when (plist-get mu4e~server-props :guile)  "G"))
+	  'face 'mu4e-title-face)
 	"\n\n"
 	(propertize "  Basics\n\n" 'face 'mu4e-title-face)
 	(mu4e~main-action-str "\t* [j]ump to some maildir\n" 'mu4e-jump-to-maildir)
@@ -142,11 +158,11 @@ clicked."
   "Toggle sending mail mode, either queued or direct."
   (interactive)
   (unless (file-directory-p smtpmail-queue-dir)
-    (error "`smtp-queue-dir' does not exist"))
+    (mu4e-error "`smtp-queue-dir' does not exist"))
   (setq smtpmail-queue-mail (not smtpmail-queue-mail))
   (message
     (concat "Outgoing mail will now be "
       (if smtpmail-queue-mail "queued" "sent directly")))
   (mu4e~main-view))
- 
+
 (provide 'mu4e-main)

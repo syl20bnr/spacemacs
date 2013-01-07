@@ -5,14 +5,14 @@
 
 ;; allow for updating mail using 'U' in the main view:
 (setq mu4e-get-mail-command "offlineimap")
-(setq mu4e-maildir "~/Maildir")
+(setq mu4e-maildir "~/Mails")
 (setq mu4e-attachment-dir  "~/Downloads")
 (setq message-kill-buffer-on-exit t)
 
 ;; folders
-(setq mu4e-drafts-folder "/[Gmail].Drafts")
-(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-(setq mu4e-trash-folder  "/[Gmail].Trash")
+(setq mu4e-drafts-folder "/draft")
+(setq mu4e-sent-folder   "/sent")
+(setq mu4e-trash-folder  "/trash")
 
 ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
 (setq mu4e-sent-messages-behavior 'delete)
@@ -32,16 +32,15 @@
 ;; then, when you want archive some messages, move them to
 ;; the 'All Mail' folder by pressing ``ma''.
 (setq mu4e-maildir-shortcuts
-    '( ("/INBOX"               . ?i)
-       ("/[Gmail].Sent Mail"   . ?s)
-       ("/[Gmail].Trash"       . ?t)
-       ("/[Gmail].All Mail"    . ?a)))
+    '( ("/INBOX"  . ?i)
+       ("/sent"   . ?s)
+       ("/trash"  . ?t)))
 
 ;; something about ourselves
 (setq
    user-mail-address "sylvain.benner@gmail.com"
    user-full-name  "Sylvain Benner"
-   message-signature "syl20bn")
+   message-signature "syl20bnr")
 
 ;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it

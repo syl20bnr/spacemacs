@@ -1,5 +1,6 @@
 ;; auto-generated
-(defconst mu4e-about "* About mu4e
+(defconst mu4e-about "
+* About mu4e
 
   *mu4e* is an emacs e-mail client based on the [[http://djcbsoftware.nl/code/mu][mu]] email search engine. It was
   written & designed by /Dirk-Jan C. Binnema/, with contributions from others.
@@ -13,9 +14,6 @@
    there's also the [[http://groups.google.com/group/mu-discuss][mu mailing list]].
 
    [Press *q* to quit this buffer]
-
-# Local Variables:
-# mode: org; org-startup-folded: nil
-# End:
+ 
 " "About mu4e.")
 (provide 'mu4e-about)

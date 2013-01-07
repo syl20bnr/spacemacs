@@ -39,6 +39,7 @@
 (require 'mu4e-mark)
 (require 'mu4e-compose)
 (require 'mu4e-actions)
+(require 'mu4e-message)
 
 ;; the headers view
 (defgroup mu4e-headers nil
@@ -46,21 +47,35 @@
   :group 'mu4e)
 
 (defcustom mu4e-headers-fields
-  '( (:date          .  25)
-     (:flags         .   6)
-     (:from          .  22)
-     (:subject       .  nil))
-  "A list of header fields to show in the headers buffer, and their
-respective widths in characters. A width of `nil' means
-'unrestricted', and this is best reserved fo the rightmost (last)
-field. For the complete list of available headers, see
-`mu4e-header-names'"
-  :type (list 'symbol)
+  '( (:human-date    .   12)
+     (:flags         .    6)
+     (:mailing-list  .   10)
+     (:from          .   22)
+     (:subject       .   nil))
+  "A list of header fields to show in the headers buffer.
+Each element has the form (HEADER . WIDTH), where HEADER is one
+of the available headers (see `mu4e-header-info') and WIDTH is
+the respective width in characters.  A width of `nil' means
+'unrestricted', and this is best reserved for the
+rightmost (last) field."
+  :type `(repeat (cons (choice ,@(mapcar (lambda (h)
+					   (list 'const :tag
+						 (plist-get (cdr h) :help)
+						 (car h)))
+					 mu4e-header-info))
+		       (choice (integer :tag "width")
+			       (const :tag "unrestricted width" nil))))
   :group 'mu4e-headers)
 
-(defcustom mu4e-headers-date-format "%x %X"
-  "Date format to use in the headers view, in the format of
-  `format-time-string'."
+(defcustom mu4e-headers-date-format "%x"
+  "Date format to use in the headers view.
+In the format of `format-time-string'."
+  :type  'string
+  :group 'mu4e-headers)
+
+(defcustom mu4e-headers-time-format "%X"
+  "Time format to use in the headers view.
+In the format of `format-time-string'."
   :type  'string
   :group 'mu4e-headers)
 
@@ -71,18 +86,73 @@ and the mode-line."
   :type 'integer
   :group 'mu4e-headers)
 
-
 (defcustom mu4e-headers-visible-columns 30
   "Number of columns to display for the header view when using the
 vertical split-view."
   :type 'integer
   :group 'mu4e-headers)
 
+(defcustom mu4e-headers-auto-update t
+  "Whether to automatically update the current headers buffer if an
+indexing operation showed changes."
+  :type 'boolean
+  :group 'mu4e-headers)
+
+(defcustom mu4e-headers-results-limit 500
+  "Maximum number of results to show; this affects performance
+quite a bit, especially when `mu4e-headers-include-related' is
+non-nil. Set to -1 for no limits, and you temporarily (for one
+query) ignore the limit by pressing a C-u before invoking the
+search."
+  :type '(choice (const :tag "Unlimited" -1)
+	   (integer :tag "Limit"))
+  :group 'mu4e-headers)
+
+(make-obsolete-variable 'mu4e-search-results-limit
+  'mu4e-headers-results-limit "0.9.9.5-dev6")
+
+(defcustom mu4e-headers-skip-duplicates nil
+  "With this option set to non-nil, show only one of duplicate
+messages. This is useful when you have multiple copies of the same
+message, which is a common occurence for example when using Gmail
+and offlineimap."
+  :type 'boolean
+  :group 'mu4e-headers)
+
+(defcustom mu4e-headers-include-related nil
+  "With this option set to non-nil, not just return the matches for
+a searches, but also messages that are related (through their
+references) to these messages. This can be useful e.g. to include
+sent messages into message threads."
+  :type 'boolean
+  :group 'mu4e-headers)
+
+;; marks for headers of the form; each is a cons-cell (basic . fancy)
+;; each of which is basic ascii char and something fancy, respectively
+(defvar mu4e-headers-draft-mark     (purecopy '("D" . "⚒")) "Draft.")
+(defvar mu4e-headers-flagged-mark   (purecopy '("F" . "⚑")) "Flagged.")
+(defvar mu4e-headers-new-mark       (purecopy '("N" . "⭑")) "New.")
+(defvar mu4e-headers-passed-mark    (purecopy '("P" . "❯")) "Passed (fwd).")
+(defvar mu4e-headers-replied-mark   (purecopy '("R" . "❮")) "Replied.")
+(defvar mu4e-headers-seen-mark      (purecopy '("S" . "✔")) "Seen.")
+(defvar mu4e-headers-trashed-mark   (purecopy '("T" . "♻")) "Trashed.")
+(defvar mu4e-headers-attach-mark    (purecopy '("a" . "⚓")) "W/ attachments.")
+(defvar mu4e-headers-encrypted-mark (purecopy '("x" . "⚴")) "Encrypted.")
+(defvar mu4e-headers-signed-mark    (purecopy '("s" . "☡")) "Signed.")
+(defvar mu4e-headers-unread-mark    (purecopy '("u" . "☐")) "Unread.")
+
+;; thread prefix marks
+(defvar mu4e-headers-has-child-prefix    (purecopy '("+"  . "◼"))  "Parent.")
+(defvar mu4e-headers-empty-parent-prefix (purecopy '("-"  . "◽"))  "Orphan.")
+(defvar mu4e-headers-first-child-prefix  (purecopy '("\\" . "┗▶")) "First child.")
+(defvar mu4e-headers-duplicate-prefix    (purecopy '("="  . "⚌"))  "Duplicate.")
+(defvar mu4e-headers-default-prefix       (purecopy '("|"  . "┃")) "Default.")
+
+
 (defvar mu4e-headers-actions
   '( ("capture message" . mu4e-action-capture-message))
-  "List of actions to perform on messages in the headers list. The actions
-are of the form:
-   (NAME SHORTCUT FUNC) where:
+  "List of actions to perform on messages in the headers list.
+The actions are of the form (NAME SHORTCUT FUNC) where:
 * NAME is the name of the action (e.g. \"Count lines\")
 * SHORTCUT is a one-character shortcut to call this action
 * FUNC is a function which receives a message plist as an argument.")
@@ -102,52 +172,43 @@ some custom function. Each of the list members has the following format:
   (NAME PREDICATE-FUNC PARAM-FUNC)
 * NAME is the name of the predicate function, and the first character
 is the shortcut (so keep those unique).
-* PREDICATE-FUNC is a function that takes two parameters, MSG and (optionally) PARAM,
-and should return non-nil when there's a match.
+* PREDICATE-FUNC is a function that takes two parameters, MSG
+and (optionally) PARAM, and should return non-nil when there's a
+match.
 * PARAM-FUNC is function that is evaluated once, and its value is then passed to
 PREDICATE-FUNC as PARAM. This is useful for getting user-input.")
-
-(defvar mu4e-headers-sortfield 'date
-  "Field to sort the headers by. Field must be a symbol, one of:
-     date, subject, size, prio, from, to.")
-
-(defvar mu4e-headers-sort-revert t
-  "Whether to revert the sort-order, i.e. Z->A instead of A-Z. When
-  sorting by date, it's useful to go from biggest to smallest, so
-  newest messages come first.")
 
 (defvar mu4e-headers-show-threads t
   "Whether to show threads in the headers list.")
 
 (defvar mu4e-headers-full-search nil
-  "Whether to show all results (or just up to
-  `mu4e-search-results-limit')")
+  "Whether to show all results.
+If this is nil show results up to `mu4e-search-results-limit')")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ;;;; internal variables/constants ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; docid cookies
-(defconst mu4e~headers-docid-pre "\376"
+(defconst mu4e~headers-docid-pre (purecopy "\376")
   "Each header starts (invisibly) with the `mu4e~headers-docid-pre',
-  followed by the docid, followed by `mu4e~headers-docid-post'.")
-(defconst mu4e~headers-docid-post "\377"
+followed by the docid, followed by `mu4e~headers-docid-post'.")
+(defconst mu4e~headers-docid-post (purecopy "\377")
   "Each header starts (invisibly) with the `mu4e~headers-docid-pre',
-  followed by the docid, followed by `mu4e~headers-docid-post'.")
+followed by the docid, followed by `mu4e~headers-docid-post'.")
 
 (defvar mu4e~headers-view-win nil
   "The view window connected to this headers view.")
- 
-(defvar mu4e~headers-sortfield-choices
-  '( ("date"	. date)
-     ("from"	. from)
-     ("prio"	. prio)
-     ("zsize"	. size)
-     ("subject"	. subject)
-     ("to"	. to))
-  "List of cells describing the various sort-options (in the format
-  needed for `mu4e-read-option'.")
- 
+
+(defvar mu4e~headers-sort-field-choices
+  '( ("date"	. :date)
+     ("from"	. :from)
+     ("prio"	. :prio)
+     ("zsize"	. :size)
+     ("subject"	. :subject)
+     ("to"	. :to))
+  "List of cells describing the various sort-options.
+In the format needed for `mu4e-read-option'.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun mu4e~headers-clear ()
@@ -156,14 +217,13 @@ PREDICATE-FUNC as PARAM. This is useful for getting user-input.")
     (let ((inhibit-read-only t))
       (with-current-buffer mu4e~headers-buffer
 	(erase-buffer)
-(mu4e~mark-clear)))))
+	(mu4e~mark-clear)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; handler functions
 ;;
 ;; next are a bunch of handler functions; those will be called from mu4e~proc in
 ;; response to output from the server process
-
 
 (defun mu4e~headers-view-handler (msg)
   "Handler function for displaying a message."
@@ -175,7 +235,7 @@ in the database. This function will update the current list of
 headers."
   (when (buffer-live-p mu4e~headers-buffer)
     (with-current-buffer mu4e~headers-buffer
-      (let* ((docid (plist-get msg :docid))
+      (let* ((docid (mu4e-message-field msg :docid))
  	      (point (mu4e~headers-docid-pos docid)))
 	(when point ;; is the message present in this list?
 
@@ -226,7 +286,7 @@ present, don't do anything."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun mu4e~headers-contact-str (contacts)
+(defsubst mu4e~headers-contact-str (contacts)
   "Turn the list of contacts CONTACTS (with elements (NAME . EMAIL)
 into a string."
   (mapconcat
@@ -234,85 +294,143 @@ into a string."
       (let ((name (car ct)) (email (cdr ct)))
 	(or name email "?"))) contacts ", "))
 
-(defun mu4e~headers-thread-prefix (thread)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defsubst mu4e~headers-thread-prefix (thread)
   "Calculate the thread prefix based on thread info THREAD."
-  (if thread
-    (let ( (level        (plist-get thread :level))
-	   (first-child  (plist-get thread :first-child))
-	   (has-child    (plist-get thread :has-child))
-	   (duplicate    (plist-get thread :duplicate))
-	   (empty-parent (plist-get thread :empty-parent)))
+  (when thread
+    (let ((get-prefix
+	    (lambda (cell)  (if mu4e-use-fancy-chars (cdr cell) (car cell)))))
       (concat
-	(make-string (* (if empty-parent 0 2) level) ?\s)
+	(make-string (* (if (plist-get thread :empty-parent) 0 2)
+		 (plist-get thread :level)) ?\s)
 	(cond
-	  (has-child    "+ ")
-	  (empty-parent "- ")
-	  (first-child  "\\ ")
-	  (duplicate    "= ")
-	  (t            "| "))))))
+	  ((plist-get thread :has-child)
+	    (funcall get-prefix mu4e-headers-has-child-prefix))
+	  ((plist-get thread :empty-parent)
+	    (funcall get-prefix mu4e-headers-empty-parent-prefix))
+	  ((plist-get thread :first-child)
+	    (funcall get-prefix mu4e-headers-first-child-prefix))
+	  ((plist-get thread :duplicate)
+	    (funcall get-prefix mu4e-headers-duplicate-prefix))
+	  (t
+	    (funcall get-prefix mu4e-headers-default-prefix)))
+	" "))))
+
+(defsubst mu4e~headers-flags-str (flags)
+  "Get a display string for the flags.
+Note that `mu4e-flags-to-string' is for internal use only; this
+function is for display. (This difference is significant, since
+internally, the Maildir spec determines what the flags look like,
+while our display may be different)."
+  (let ((str)
+	 (get-prefix
+	   (lambda (cell) (if mu4e-use-fancy-chars (cdr cell) (car cell)))))
+    (dolist (flag flags)
+      (setq str
+	(concat str
+	  (case flag
+	    ('draft     (funcall get-prefix mu4e-headers-draft-mark))
+	    ('flagged   (funcall get-prefix mu4e-headers-flagged-mark))
+	    ('new       (funcall get-prefix mu4e-headers-new-mark))
+	    ('passed    (funcall get-prefix mu4e-headers-passed-mark))
+	    ('replied   (funcall get-prefix mu4e-headers-replied-mark))
+	    ('seen      (funcall get-prefix mu4e-headers-seen-mark))
+	    ('trashed   (funcall get-prefix mu4e-headers-trashed-mark))
+	    ('attach    (funcall get-prefix mu4e-headers-attach-mark))
+	    ('encrypted (funcall get-prefix mu4e-headers-encrypted-mark))
+	    ('signed    (funcall get-prefix mu4e-headers-signed-mark))
+	    ('unread    (funcall get-prefix mu4e-headers-unread-mark))))))
+	   str))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (defconst mu4e-headers-from-or-to-prefix '("" . "To ")
-  "Prefix for the :from-or-to field when it is showing,
-  respectively, From: or To:. It's a cons cell with the car element
-  being the From: prefix, the cdr element the To: prefix.")
+  "Prefix for the :from-or-to field.
+It's a cons cell with the car element being the From: prefix, the
+cdr element the To: prefix.")
 
+(defsubst mu4e~headers-from-or-to (msg)
+  "When the from address for message MSG is one of the the user's addresses,
+\(as per `mu4e-user-mail-address-list'), show the To address;
+otherwise ; show the from address; prefixed with the appropriate
+`mu4e-headers-from-or-to-prefix'."
+  (let ((addr (cdr-safe (car-safe (mu4e-message-field msg :from)))))
+    (if (mu4e-user-mail-address-p addr)
+      (concat (cdr mu4e-headers-from-or-to-prefix)
+	(mu4e~headers-contact-str (mu4e-message-field msg :to)))
+      (concat (car mu4e-headers-from-or-to-prefix)
+	(mu4e~headers-contact-str (mu4e-message-field msg :from))))))
+
+(defsubst mu4e~headers-human-date (msg)
+  "Show a 'human' date.
+If the date is today, show the time, otherwise, show the
+date. The formats used for date and time are
+`mu4e-headers-date-format' and `mu4e-headers-time-format'."
+  (let* ((date (mu4e-msg-field msg :date))
+	  (day1 (decode-time date))
+	  (day2 (decode-time (current-time))))
+    (if (and
+	  (eq (nth 3 day1) (nth 3 day2))     ;; day
+	  (eq (nth 4 day1) (nth 4 day2))     ;; month
+	  (eq (nth 5 day1) (nth 5 day2)))    ;; year
+      (format-time-string mu4e-headers-time-format date)
+      (format-time-string mu4e-headers-date-format date))))
+
+
+(defsubst mu4e~headers-mailing-list (list)
+  "Get some identifier for the mailing list."
+  (if list
+    (propertize (mu4e-get-mailing-list-shortname list) 'help-echo list)
+    ""))
+
+;; note: this function is very performance-sensitive
 (defun mu4e~headers-header-handler (msg &optional point)
-  "Create a one line description of MSG in this buffer, at POINT,
+    "Create a one line description of MSG in this buffer, at POINT,
 if provided, or at the end of the buffer otherwise."
-  (when (buffer-live-p mu4e~headers-buffer)
-  (let* ((docid (plist-get msg :docid))
-	  (line
-	   (mapconcat
-	     (lambda (f-w)
-	       (let* ((field (car f-w)) (width (cdr f-w))
-		       (val (plist-get msg field))
-		       (str
-			 (case field
-			   (:subject
-			     (concat ;; prefix subject with a thread indicator
-			       (mu4e~headers-thread-prefix (plist-get msg :thread))
-			       ;;  "["(plist-get (plist-get msg :thread) :path) "] "
-			       val))
-			   ((:maildir :path) val)
-			   ((:to :from :cc :bcc) (mu4e~headers-contact-str val))
-			   ;; if we (ie. `user-mail-address' is the 'From', show
-			   ;; 'To', otherwise show From
-			   (:from-or-to
-			     (let* ((from-lst (plist-get msg :from))
-				     (from (and from-lst (cdar from-lst))))
-			       (if (and from
-				     (string-match mu4e-user-mail-address-regexp
-				       from))
-				 (concat (or (cdr-safe
-					       mu4e-headers-from-or-to-prefix))
-				   (mu4e~headers-contact-str (plist-get msg :to)))
-				 (concat  (or (car-safe
-						mu4e-headers-from-or-to-prefix))
-				   (mu4e~headers-contact-str from-lst)))))
-			   (:date (format-time-string mu4e-headers-date-format val))
-			   (:flags (mu4e-flags-to-string val))
-			   (:size (mu4e-display-size val))
-			   (t (error "Unsupported header field (%S)" field)))))
-		 (when str
-		   (if (not width)
-		     str
-		     (truncate-string-to-width str width 0 ?\s t)))))
-	     mu4e-headers-fields " "))
-	  (flags (plist-get msg :flags))
-	  (line	(cond
-		  ((member 'draft flags)
-		    (propertize line 'face 'mu4e-draft-face))
-		  ((member 'trashed flags)
-		    (propertize line 'face 'mu4e-trashed-face))
-		  ((member 'unread flags)
-		    (propertize line 'face 'mu4e-unread-face))
-		  ((member 'flagged flags)
-		    (propertize line 'face 'mu4e-flagged-face))
-		  (t ;; else
-		    (propertize line 'face 'mu4e-header-face)))))
+    (let ((docid (mu4e-message-field msg :docid)) (line ""))
+      (dolist (f-w mu4e-headers-fields)
+	(let ((field (car f-w)) (width (cdr f-w))
+	       (val (mu4e-message-field msg (car f-w))) (str))
+	  (setq str
+	    (case field
+	      (:subject
+		(concat ;; prefix subject with a thread indicator
+		  (mu4e~headers-thread-prefix (mu4e-message-field msg :thread))
+		  ;;  "["(plist-get (mu4e-message-field msg :thread) :path) "] "
+		  val))
+	      ((:maildir :path) val)
+	      ((:to :from :cc :bcc) (mu4e~headers-contact-str val))
+	      ;; if we (ie. `user-mail-address' is the 'From', show
+	      ;; 'To', otherwise show From
+	      (:from-or-to (mu4e~headers-from-or-to msg))
+	      (:date (format-time-string mu4e-headers-date-format val))
+	      (:mailing-list (mu4e~headers-mailing-list val))
+	      (:human-date (mu4e~headers-human-date msg))
+	      (:flags (propertize (mu4e~headers-flags-str val)
+			'help-echo (format "%S" val)))
+	      (:tags (propertize (mapconcat 'identity val ", ")))
+	      (:size (mu4e-display-size val))
+	      (t (mu4e-error "Unsupported header field (%S)" field))))
+	  (when str
+	    (setq line
+	      (concat line
+		(if (not width)
+		  str
+		  (truncate-string-to-width str width 0 ?\s t)) " ")))))
+      ;; now, propertize it.
+      (setq line (propertize line 'face
+		   (case (car-safe (mu4e-message-field msg :flags))
+		     ('draft           'mu4e-draft-face)
+		     ('trash           'mu4e-trashed-face)
+		     ((unread new)     'mu4e-unread-face)
+		     ('flagged         'mu4e-flagged-face)
+		     ((replied passed) 'mu4e-replied-face)
+		     (t                'mu4e-header-face))))
+      ;; now, append the header line
+      (mu4e~headers-add-header line docid point msg)))
 
-    ;; now, append the header line
-    (mu4e~headers-add-header line docid point msg))))
+(defconst mu4e~no-matches     (purecopy "No matching messages found"))
+(defconst mu4e~end-of-results (purecopy "End of search results"))
 
 (defun mu4e~headers-found-handler (count)
   "Create a one line description of the number of headers found
@@ -323,8 +441,8 @@ after the end of the search results."
       (goto-char (point-max))
       (let ((inhibit-read-only t)
 	     (str (if (= 0 count)
-		    "No matching messages found"
-		    "End of search results")))
+		    mu4e~no-matches
+		    mu4e~end-of-results)))
 	(insert (propertize str 'face 'mu4e-system-face 'intangible t))
 	(unless (= 0 count)
 	  (mu4e-message "Found %d matching message%s"
@@ -334,25 +452,26 @@ after the end of the search results."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defmacro mu4e~headers-defun-mark-func (mark)
+(defmacro mu4e~headers-defun-mark-for (mark)
   "Define a function mu4e~headers-mark-MARK."
-  (let ((funcname (intern (concat "mu4e~headers-mark-" (symbol-name mark))))
-	 (docstring (concat "Mark header at point with " (symbol-name mark) ".")))
-     `(defun ,funcname () ,docstring
-	(interactive)
-	(mu4e-headers-mark-and-next (quote ,mark)))))
+  (let ((funcname (intern (format "mu4e-headers-mark-for-%s" mark)))
+	(docstring (format "Mark header at point with %s." mark)))
+    `(progn
+       (defun ,funcname () ,docstring
+	 (interactive)
+	 (mu4e-headers-mark-and-next ',mark))
+       (put ',funcname 'definition-name ',mark))))
 
-;; define our mark functions; there must be some way to do this in a loop but
-;; since `mu4e~headers-defun-mark-func' is a macro, the argument must be a
-;; literal value.
-(mu4e~headers-defun-mark-func trash)
-(mu4e~headers-defun-mark-func delete)
-(mu4e~headers-defun-mark-func read)
-(mu4e~headers-defun-mark-func unread)
-(mu4e~headers-defun-mark-func flag)
-(mu4e~headers-defun-mark-func unflag)
-(mu4e~headers-defun-mark-func deferred)
-(mu4e~headers-defun-mark-func unmark)
+(mu4e~headers-defun-mark-for refile)
+(mu4e~headers-defun-mark-for something)
+(mu4e~headers-defun-mark-for delete)
+(mu4e~headers-defun-mark-for flag)
+(mu4e~headers-defun-mark-for move)
+(mu4e~headers-defun-mark-for read)
+(mu4e~headers-defun-mark-for trash)
+(mu4e~headers-defun-mark-for unflag)
+(mu4e~headers-defun-mark-for unmark)
+(mu4e~headers-defun-mark-for unread)
 
 
 ;;; headers-mode and mode-map ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -362,13 +481,17 @@ after the end of the search results."
   (setq mu4e-headers-mode-map
     (let ((map (make-sparse-keymap)))
 
+      (define-key map  (kbd "C-S-u") 'mu4e-update-mail-and-index)
+
       (define-key map "s" 'mu4e-headers-search)
       (define-key map "S" 'mu4e-headers-search-edit)
+
       (define-key map "/" 'mu4e-headers-search-narrow)
 
       (define-key map "j" 'mu4e~headers-jump-to-maildir)
 
       (define-key map (kbd "<M-left>")  'mu4e-headers-query-prev)
+      (define-key map (kbd "\\")        'mu4e-headers-query-prev)
       (define-key map (kbd "<M-right>") 'mu4e-headers-query-next)
 
       (define-key map "b" 'mu4e-headers-search-bookmark)
@@ -377,17 +500,17 @@ after the end of the search results."
       (define-key map "O" 'mu4e-headers-change-sorting)
       (define-key map "P" 'mu4e-headers-toggle-threading)
       (define-key map "Q" 'mu4e-headers-toggle-full-search)
+      (define-key map "W" 'mu4e-headers-toggle-include-related)
+      (define-key map "V" 'mu4e-headers-toggle-skip-duplicates)
 
       (define-key map "q" 'mu4e~headers-quit-buffer)
       (define-key map "z" 'mu4e~headers-quit-buffer)
 
-      (define-key map "r" 'mu4e-headers-rerun-search)
       (define-key map "g" 'mu4e-headers-rerun-search) ;; for compatibility
 
       (define-key map "%" 'mu4e-headers-mark-pattern)
       (define-key map "t" 'mu4e-headers-mark-subthread)
       (define-key map "T" 'mu4e-headers-mark-thread)
-
 
       ;; navigation between messages
       (define-key map "p" 'mu4e-headers-prev)
@@ -396,42 +519,46 @@ after the end of the search results."
       (define-key map (kbd "<M-down>") 'mu4e-headers-next)
 
       ;; change the number of headers
-      (define-key map (kbd "C-+") 'mu4e-headers-split-view-resize)
-      (define-key map (kbd "C--")
-	(lambda () (interactive) (mu4e-headers-split-view-resize -1)))
-      (define-key map (kbd "<C-kp-add>") 'mu4e-headers-split-view-resize)
-      (define-key map (kbd "<C-kp-subtract>")
-	(lambda () (interactive) (mu4e-headers-split-view-resize -1)))
+      (define-key map (kbd "C-+") 'mu4e-headers-split-view-grow)
+      (define-key map (kbd "C--") 'mu4e-headers-split-view-shrink)
+      (define-key map (kbd "<C-kp-add>") 'mu4e-headers-split-view-grow)
+      (define-key map (kbd "<C-kp-subtract>") 'mu4e-headers-split-view-shrink)
 
 
       ;; switching to view mode (if it's visible)
       (define-key map "y" 'mu4e-select-other-view)
 
       ;; marking/unmarking ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-      (define-key map (kbd "<backspace>") 'mu4e~headers-mark-trash)
-      (define-key map (kbd "d") 'mu4e~headers-mark-trash)
+      (define-key map (kbd "<backspace>")  'mu4e-headers-mark-for-trash)
+      (define-key map (kbd "d")            'mu4e-headers-mark-for-trash)
+      (define-key map (kbd "<delete>")     'mu4e-headers-mark-for-delete)
+      (define-key map (kbd "<deletechar>") 'mu4e-headers-mark-for-delete)
+      (define-key map (kbd "D")            'mu4e-headers-mark-for-delete)
+      (define-key map (kbd "m")            'mu4e-headers-mark-for-move)
+      (define-key map (kbd "r")            'mu4e-headers-mark-for-refile)
 
-      (define-key map (kbd "<delete>") 'mu4e~headers-mark-delete)
-      (define-key map (kbd "<deletechar>") 'mu4e~headers-mark-delete)
-      (define-key map (kbd "D") 'mu4e~headers-mark-delete)
+      (define-key map (kbd "?")            'mu4e-headers-mark-for-unread)
+      (define-key map (kbd "!")            'mu4e-headers-mark-for-read)
 
-      (define-key map (kbd "o") 'mu4e~headers-mark-unread)
-      (define-key map (kbd "r") 'mu4e~headers-mark-read)
-      (define-key map (kbd "u") 'mu4e~headers-mark-unmark)
-      (define-key map (kbd "+") 'mu4e~headers-mark-flag)
-      (define-key map (kbd "-") 'mu4e~headers-mark-unflag)
-      (define-key map (kbd "&") 'mu4e-headers-mark-custom)
-      (define-key map "m" 'mu4e-headers-mark-for-move-and-next)
+      (define-key map (kbd "u")            'mu4e-headers-mark-for-unmark)
+      (define-key map (kbd "+")            'mu4e-headers-mark-for-flag)
+      (define-key map (kbd "-")            'mu4e-headers-mark-for-unflag)
+      (define-key map (kbd "&")            'mu4e-headers-mark-for-custom)
 
-      (define-key map (kbd "*")  'mu4e~headers-mark-deferred)
-      (define-key map (kbd "<kp-multiply>")  'mu4e~headers-mark-deferred)
+      ;; (define-key map (kbd "*")              'mu4e-headers-mark-for-something)
+      ;; (define-key map (kbd "<kp-multiply>")  'mu4e-headers-mark-for-something)
+
+      (define-key map (kbd "<insertchar>")   'mu4e-headers-mark-for-something)
+      (define-key map (kbd "<insert>")       'mu4e-headers-mark-for-something)
+
+
       (define-key map (kbd "#")   'mu4e-mark-resolve-deferred-marks)
 
       (define-key map "U" 'mu4e-mark-unmark-all)
       (define-key map "x" 'mu4e-mark-execute-all)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-      (define-key map "a" 'mu4e-headers-action)
+      (define-key map "A" 'mu4e-headers-action)
 
       ;; message composition
       (define-key map "R" 'mu4e-compose-reply)
@@ -473,7 +600,7 @@ after the end of the search results."
 	(define-key menumap [mark-trash]
 	  '("Mark for trash" .  mu4e~headers-mark-trash))
 	(define-key menumap [mark-move]
-	  '("Mark for move" . mu4e-headers-mark-for-move-and-next))
+	  '("Mark for move" . mu4e~headers-mark-move))
 	(define-key menumap [sepa1] '("--"))
 
 	(define-key menumap [compose-new]  '("Compose new" . mu4e-compose-new))
@@ -501,10 +628,53 @@ after the end of the search results."
 	(define-key menumap [previous]  '("Previous" . mu4e-headers-prev))
 	(define-key menumap [sepa4] '("--")))
       map)))
-
 (fset 'mu4e-headers-mode-map mu4e-headers-mode-map)
 
 
+(defun mu4e~header-line-format ()
+  "Get the format for the header line."
+  (cons
+    (make-string
+      (+ mu4e~mark-fringe-len (floor (fringe-columns 'left t))) ?\s)
+    (mapcar
+      (lambda (item)
+	(let* ((field (car item)) (width (cdr item))
+		(info (cdr (assoc field mu4e-header-info)))
+		(sortable (plist-get info :sortable))
+		(help (plist-get info :help))
+		(uparrow   (if mu4e-use-fancy-chars " ▲" " ^"))
+		(downarrow (if mu4e-use-fancy-chars " ▼" " V"))
+		;; triangle to mark the sorted-by column
+		(arrow
+		  (when (and sortable (eq (car item) mu4e~headers-sort-field))
+		    (if (eq mu4e~headers-sort-direction 'descending) downarrow uparrow)))
+		(name (concat (plist-get info :shortname) arrow))
+		(map (make-sparse-keymap)))
+	  (when sortable
+	    (define-key map [header-line mouse-1]
+	      (lambda (&optional e)
+		;; getting the field, inspired by `tabulated-list-col-sort'
+		(interactive "e")
+		(let* ((obj (posn-object (event-start e)))
+			(field
+			  (and obj (get-text-property 0 'field (car obj)))))
+		  ;; "t": if we're already sorted by field, the sort-order is
+		  ;; changed
+		  (mu4e-headers-change-sorting field t)))))
+	  (concat
+	    (propertize
+	      (if width
+		(truncate-string-to-width name width 0 ?\s t)
+		name)
+	      'face (when arrow 'bold)
+	      'help-echo help
+	      'mouse-face (when sortable 'highlight)
+	      'keymap (when sortable map)
+	      'field field) " ")))
+      mu4e-headers-fields)))
+
+
+(defvar mu4e-headers-mode-abbrev-table nil)
 (define-derived-mode mu4e-headers-mode special-mode
     "mu4e:headers"
   "Major mode for displaying mu4e search results.
@@ -514,40 +684,37 @@ after the end of the search results."
   (make-local-variable 'mu4e~headers-proc)
   (make-local-variable 'mu4e~highlighted-docid)
   (make-local-variable 'global-mode-string)
-  (make-local-variable 'hl-line-face)
+  (set (make-local-variable 'hl-line-face) 'mu4e-header-highlight-face)
+
+  ;; maybe update the current headers upon indexing changes
+  (add-hook 'mu4e-index-updated-hook
+    (defun mu4e~headers-auto-update ()
+      "Update the current headers buffer after indexing has brought
+some changes, `mu4e-headers-auto-update' is non-nil and there is no
+user-interaction ongoing."
+      (when (and mu4e-headers-auto-update       ;; must be set
+	      (zerop (mu4e-mark-marks-num))     ;; non active marks
+	      (not (active-minibuffer-window))) ;; no user input
+	(with-current-buffer mu4e~headers-buffer
+	  (mu4e-headers-rerun-search)))) nil t)
 
   (setq
     truncate-lines t
     buffer-undo-list t ;; don't record undo information
     overwrite-mode 'overwrite-mode-binary
-    hl-line-face 'mu4e-header-highlight-face)
+    header-line-format (mu4e~header-line-format))
+
   (mu4e~mark-initialize) ;; initialize the marking subsystem
-  (hl-line-mode 1)
-  
-  (setq header-line-format
-    (cons
-      (make-string
-	(+ mu4e~mark-fringe-len (floor (fringe-columns 'left t))) ?\s)
-      (map 'list
-	(lambda (item)
-	  (let ((field (cdr (assoc (car item) mu4e-header-names)))
-		 (width (cdr item)))
-	    (concat
-	      (propertize
-		(if width
-		  (truncate-string-to-width field width 0 ?\s t)
-		  field)
-		'face 'mu4e-header-title-face) " ")))
-	mu4e-headers-fields))))
+  (hl-line-mode 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; higlighting
 (defvar mu4e~highlighted-docid nil
-  "*internal* The highlighted docid")
+  "The highlighted docid")
 
 (defun mu4e~headers-highlight (docid)
-  "Highlight the header with DOCID, or do nothing if it's not
-found. Also, unhighlight any previously highlighted headers."
+  "Highlight the header with DOCID, or do nothing if it's not found.
+Also, unhighlight any previously highlighted headers."
   (with-current-buffer mu4e~headers-buffer
     (save-excursion
       ;; first, unhighlight the previously highlighted docid, if any
@@ -574,15 +741,14 @@ adding a lot of new headers looks really choppy."
 ;;;; is used for quickly finding a certain header, the latter for retrieving the
 ;;;; docid at point without string matching etc.
 
-(defun mu4e~headers-docid-cookie (docid)
+(defsubst mu4e~headers-docid-cookie (docid)
   "Create an invisible string containing DOCID; this is to be used
 at the beginning of lines to identify headers."
   (propertize (format "%s%d%s"
 		mu4e~headers-docid-pre docid mu4e~headers-docid-post)
-    'docid docid 'invisible t))
+    'docid docid 'invisible t));;
 
-
-(defun mu4e~headers-docid-at-point (&optional point)
+(defsubst mu4e~headers-docid-at-point (&optional point)
   "Get the docid for the header at POINT, or at current (point) if
 nil. Returns the docid, or nil if there is none."
     (save-excursion
@@ -607,7 +773,7 @@ of the beginning of the line."
 	  (setq newpoint (point)))))
     newpoint)) ;; return the point, or nil if not found
 
-(defun mu4e~headers-docid-pos (docid)
+(defsubst mu4e~headers-docid-pos (docid)
   "Return the pos of the beginning of the line with the header with
 docid DOCID, or nil if it cannot be found."
   (let ((pos))
@@ -615,12 +781,12 @@ docid DOCID, or nil if it cannot be found."
       (setq pos (mu4e~headers-goto-docid docid)))
     pos))
 
-(defun mu4e~headers-field-for-docid (docid field)
+(defsubst mu4e~headers-field-for-docid (docid field)
   "Get FIELD (a symbol, see `mu4e-headers-names') for the message
 with DOCID which must be present in the headers buffer."
   (save-excursion
     (when (mu4e~headers-goto-docid docid)
-      (mu4e-field-at-point field))))
+      (mu4e-message-field (mu4e-message-at-point) field))))
 
 ;;;; markers mark headers for
 (defun mu4e~headers-mark (docid mark)
@@ -628,12 +794,12 @@ with DOCID which must be present in the headers buffer."
   (with-current-buffer mu4e~headers-buffer
     (let ((inhibit-read-only t) (oldpoint (point)))
       (unless (mu4e~headers-goto-docid docid)
-	(error "Cannot find message with docid %S" docid))
+	(mu4e-error "Cannot find message with docid %S" docid))
       ;; now, we're at the beginning of the header, looking at
       ;; <docid>\004
       ;; (which is invisible). jump past that…
       (unless (re-search-forward mu4e~headers-docid-post nil t)
-	(error "Cannot find the `mu4e~headers-docid-post' separator"))
+	(mu4e-error "Cannot find the `mu4e~headers-docid-post' separator"))
 
       ;; clear old marks, and add the new ones.
       (let ((msg (get-text-property (point) 'msg)))
@@ -646,10 +812,10 @@ with DOCID which must be present in the headers buffer."
       (goto-char oldpoint))))
 
 
-(defun mu4e~headers-add-header (str docid point &optional msg)
+(defsubst mu4e~headers-add-header (str docid point &optional msg)
   "Add header STR with DOCID to the buffer at POINT if non-nil, or
-at (point-max) otherwise. If MSG is not nil, add it as the text-property `msg'."
-  (unless docid (error "Invalid message"))
+at (point-max) otherwise. If MSG is not nil, add it as the
+text-property `msg'."
   (when (buffer-live-p mu4e~headers-buffer)
     (with-current-buffer mu4e~headers-buffer
       (let ((inhibit-read-only t)
@@ -665,33 +831,19 @@ at (point-max) otherwise. If MSG is not nil, add it as the text-property `msg'."
 	      'docid docid 'msg msg)))))))
 
 (defun mu4e~headers-remove-header (docid &optional ignore-missing)
-  "Remove header with DOCID at POINT; when IGNORE-MISSING is
-non-nill, don't raise an error when the docid is not found."
+  "Remove header with DOCID at point.
+When IGNORE-MISSING is non-nill, don't raise an error when the
+docid is not found."
   (with-current-buffer mu4e~headers-buffer
     (if (mu4e~headers-goto-docid docid)
       (let ((inhibit-read-only t))
 	(delete-region (line-beginning-position) (line-beginning-position 2)))
       (unless ignore-missing
-	(error "Cannot find message with docid %S" docid)))))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun mu4e~headers-update-global-mode-string ()
-  "Determine the mode string for the headers buffers (based on the
-last query, sorting settings."
-  (let* ((cell (find-if
-		(lambda (cell)
-		  (eq (cdr cell) mu4e-headers-sortfield))
-		mu4e~headers-sortfield-choices))
-	  (optchar (substring (car cell) 0 1)))
-    (setq global-mode-string
-      (concat
-	(propertize mu4e~headers-last-query 'face 'mu4e-title-face)
-	"("
-	optchar
-	(if mu4e-headers-sort-revert "d" "a")
-	(when mu4e-headers-show-threads "T")
-	(when mu4e-headers-full-search "F")
-	")"))))
+	(mu4e-error "Cannot find message with docid %S" docid)))))
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mu4e~headers-search-execute (expr ignore-history)
   "Search in the mu database for EXPR, and switch to the output
 buffer for the results. If IGNORE-HISTORY is true, do *not* update
@@ -699,8 +851,9 @@ the query history stack."
   ;; note: we don't want to update the history if this query comes from
   ;; `mu4e~headers-query-next' or `mu4e~headers-query-prev'.
   (mu4e-hide-other-mu4e-buffers)
-  (let ((buf (get-buffer-create mu4e~headers-buffer-name))
-	 (inhibit-read-only t))
+  (let* ((buf (get-buffer-create mu4e~headers-buffer-name))
+	 (inhibit-read-only t)
+	  (maxnum (unless mu4e-headers-full-search mu4e-headers-results-limit)))
     (with-current-buffer buf
       (mu4e-headers-mode)
       (unless ignore-history
@@ -710,22 +863,25 @@ the query history stack."
       (setq
 	mu4e~headers-buffer buf
 	mode-name "mu4e-headers"
-	mu4e~headers-last-query expr)
-      (mu4e~headers-update-global-mode-string))
+	mu4e~headers-last-query expr
+	global-mode-string (propertize mu4e~headers-last-query
+			     'face 'mu4e-title-face)))
     (switch-to-buffer buf)
     (mu4e~proc-find
-      (replace-regexp-in-string "\"" "\\\\\"" expr) ;; escape "\"
+      expr
       mu4e-headers-show-threads
-      mu4e-headers-sortfield
-      mu4e-headers-sort-revert
-      (unless mu4e-headers-full-search mu4e-search-results-limit))))
+      mu4e~headers-sort-field
+      mu4e~headers-sort-direction
+      maxnum
+      mu4e-headers-skip-duplicates
+      mu4e-headers-include-related)))
 
 (defun mu4e~headers-redraw-get-view-window ()
   "Close all windows, redraw the headers buffer based on the value
 of `mu4e-split-view', and return a window for the message view."
   (mu4e-hide-other-mu4e-buffers)
   (unless (buffer-live-p mu4e~headers-buffer)
-    (error "No headers buffer available"))
+    (mu4e-error "No headers buffer available"))
   (switch-to-buffer mu4e~headers-buffer)
   ;; kill the existing view win
   (when (buffer-live-p mu4e~view-buffer)
@@ -745,9 +901,9 @@ of `mu4e-split-view', and return a window for the message view."
 ;; search-based marking
 
 (defun mu4e-headers-for-each (func)
-  "Call FUNC for each header, moving point to the header. FUNC
-takes one argument msg, the msg s-expression for the corresponding
-header."
+  "Call FUNC for each header, moving point to the header.
+FUNC takes one argument, the msg s-expression for the
+corresponding header."
   (save-excursion
     (goto-char (point-min))
     (while (search-forward mu4e~headers-docid-pre nil t)
@@ -757,14 +913,15 @@ header."
 	(when msg
 	  (funcall func msg))))))
 
- (defvar mu4e~headers-regexp-hist nil
+(defvar mu4e~headers-regexp-hist nil
   "History list of regexps used.")
 
- (defun mu4e~headers-mark-for-each-if (markpair mark-pred &optional param)
-  "Mark all headers for with predicate function MARK-PRED return
+(defun mu4e-headers-mark-for-each-if (markpair mark-pred &optional param)
+  "Mark all headers for which predicate function MARK-PRED returns
 non-nil with MARKPAIR. MARK-PRED is function that takes two
 arguments, MSG (the message at point) and PARAM (a user-specified
-parameter). MARKPAIR is a cell (MARK . TARGET)."
+parameter). MARKPAIR is a cell (MARK . TARGET); see
+`mu4e-mark-at-point' for details about marks."
   (mu4e-headers-for-each
     (lambda (msg)
       (when (funcall mark-pred msg param)
@@ -783,7 +940,7 @@ matching messages with that mark."
 	  (pattern (read-string
 		     (mu4e-format "Regexp:")
 		     nil 'mu4e~headers-regexp-hist)))
-    (mu4e~headers-mark-for-each-if
+    (mu4e-headers-mark-for-each-if
       markpair
       (lambda (msg param)
 	(let* ((do-mark) (value (mu4e-msg-field msg field)))
@@ -802,12 +959,14 @@ matching messages with that mark."
 		 mu4e-headers-custom-markers))
 	  (param (when (cdr pred) (eval (cdr pred))))
 	  (markpair (mu4e~mark-get-markpair "Mark matched messages with: " t)))
-    (mu4e~headers-mark-for-each-if markpair (car pred) param)))
+    (mu4e-headers-mark-for-each-if markpair (car pred) param)))
 
 (defun mu4e~headers-get-thread-info (msg what)
   "Get WHAT (a symbol, either path or thread-id) for MSG."
-  (let* ((thread (or (plist-get msg :thread)  (error "No thread info found")))
-	  (path  (or (plist-get thread :path)  (error "No threadpath found"))))
+  (let* ((thread (or (mu4e-message-field msg :thread)
+		   (mu4e-error "No thread info found")))
+	  (path  (or (plist-get thread :path)
+		   (mu4e-error "No threadpath found"))))
     (case what
       (path path)
       (thread-id
@@ -815,36 +974,36 @@ matching messages with that mark."
 	  ;; the thread id is the first segment of the thread path
 	  (when (string-match "^\\([[:xdigit:]]+\\):?" path)
 	    (match-string 1 path))))
-      (otherwise (error "Not supported")))))
+      (otherwise (mu4e-error "Not supported")))))
 
 
 (defun mu4e-headers-mark-thread (&optional subthread)
-  "Mark the thread at point, if SUBTHREAD is non-nil, marking is
-limited to the message at point and its descendants."
+  "Mark the thread at point.
+If SUBTHREAD is non-nil, marking is limited to the message at
+point and its descendants."
   ;; the tread id is shared by all messages in a thread
   (interactive "P")
-  (let* ((thread-id (mu4e~headers-get-thread-info
-		      (mu4e-message-at-point t) 'thread-id))
-	  (path     (mu4e~headers-get-thread-info
-		      (mu4e-message-at-point t) 'path))
+  (let* ((msg (mu4e-message-at-point))
+	  (thread-id (mu4e~headers-get-thread-info msg 'thread-id))
+	  (path     (mu4e~headers-get-thread-info msg 'path))
 	  (markpair
 	    (mu4e~mark-get-markpair
 	      (if subthread "Mark subthread with: " "Mark whole thread with: ")
 	      t))
 	  (last-marked-point))
     (mu4e-headers-for-each
-      (lambda (msg)
- 	(let ((my-thread-id (mu4e~headers-get-thread-info msg 'thread-id)))
+      (lambda (mymsg)
+ 	(let ((my-thread-id (mu4e~headers-get-thread-info mymsg 'thread-id)))
 	  (if subthread
-	    ;; subthread matching; msg's thread path should have path as its
+	    ;; subthread matching; mymsg's thread path should have path as its
 	    ;; prefix
 	    (when (string-match (concat "^" path)
-		    (mu4e~headers-get-thread-info msg 'path))
+		    (mu4e~headers-get-thread-info mymsg 'path))
 	      (mu4e-mark-at-point (car markpair) (cdr markpair))
 	      (setq last-marked-point (point)))
 	    ;; nope; not looking for the subthread; looking for the whole thread
 	    (when (string= thread-id
-		    (mu4e~headers-get-thread-info msg 'thread-id))
+		    (mu4e~headers-get-thread-info mymsg 'thread-id))
 	      (mu4e-mark-at-point (car markpair) (cdr markpair))
 	      (setq last-marked-point (point)))))))
     (when last-marked-point
@@ -863,15 +1022,14 @@ limited to the message at point and its descendants."
   "Stack of queries before the present one.")
 (defvar mu4e~headers-query-future nil
   "Stack of queries after the present one.")
-(defvar mu4e~headers-last-query nil
-  "The present (most recent) query.")
 (defvar mu4e~headers-query-stack-size 20
   "Maximum size for the query stacks.")
 
 (defun mu4e~headers-push-query (query where)
-  "Push QUERY to one of the query stacks; WHERE is a symbol telling
-us where to push; it's a symbol, either 'future or
-'past. Functional also removes duplicats, limits the stack size."
+  "Push QUERY to one of the query stacks.
+WHERE is a symbol telling us where to push; it's a symbol, either
+'future or 'past. Functional also removes duplicats, limits the
+stack size."
   (let ((stack
 	  (case where
 	    (past   mu4e~headers-query-past)
@@ -890,16 +1048,17 @@ us where to push; it's a symbol, either 'future or
 	(future (setq mu4e~headers-query-future stack))))))
 
 (defun mu4e~headers-pop-query (whence)
-    "Pop a query from the stack. WHENCE is a symbol telling us where
-to get it from; it's a symbol, either 'future or 'past."
+    "Pop a query from the stack.
+WHENCE is a symbol telling us where to get it from; it's a
+symbol, either 'future or 'past."
   (case whence
     (past
       (unless mu4e~headers-query-past
-	(error "No more previous queries"))
+	(mu4e-warn "No more previous queries"))
       (pop mu4e~headers-query-past))
     (future
       (unless mu4e~headers-query-future
-	(error "No more next queries"))
+	(mu4e-warn "No more next queries"))
       (pop mu4e~headers-query-future))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -928,7 +1087,6 @@ history stack."
     (mu4e-mark-handle-when-leaving)
     (mu4e~headers-search-execute expr
       ignore-history)))
-
 
 (defun mu4e-headers-search-edit ()
   "Edit the last search expression."
@@ -960,56 +1118,95 @@ the last search expression."
   	      nil 'mu4e~headers-search-hist nil t)))
       (list filter)))
   (unless mu4e~headers-last-query
-    (error "There's nothing to filter"))
+    (mu4e-warn "There's nothing to filter"))
   (mu4e-headers-search
     (format "(%s) AND %s" mu4e~headers-last-query filter)))
 
 
-(defun mu4e-headers-change-sorting (&optional dont-refresh)
-  "Interactively change the sorting/threading parameters. With prefix-argument,
-do _not_ refresh the last search with the new parameters."
-  (interactive "P")
-  (let* ((sortfield
-	   (mu4e-read-option "Sortfield: " mu4e~headers-sortfield-choices))
-	  (revert
-	    (mu4e-read-option "Direction: "
-	      '(("ascending" . nil) ("descending" . t)))))
+(defvar mu4e~headers-sort-field :date
+  "Field to sort the headers by.
+Field must be a symbol, one of: :date, :subject, :size, :prio,
+:from, :to.")
+
+(defvar mu4e~headers-sort-direction 'descending
+  "Direction to sort by; a symbol either `descending' (sorting
+  Z->A) or `ascending' (sorting A->Z).")
+
+(defun mu4e-headers-change-sorting (&optional field dir)
+  "Change the sorting/threading parameters.
+FIELD is the field to sort by; DIR is a symbol: either 'ascending,
+'descending, 't (meaning: if FIELD is the same as the current
+sortfield, change the sort-order) or nil (ask the user)."
+  (interactive)
+  (let* ((field
+	   (or field
+	     (mu4e-read-option "Sortfield: " mu4e~headers-sort-field-choices)))
+	  ;; note: 'sortable' is either a boolean (meaning: if non-nil, this is
+	  ;; sortable field), _or_ another field (meaning: sort by this other field).
+	  (sortable (plist-get (cdr (assoc field mu4e-header-info)) :sortable))
+	  ;; error check
+	  (sortable
+	    (if sortable
+	      sortable
+	      (mu4e-error "Not a sortable field")))
+	  (sortfield (if (booleanp sortable) field sortable))
+	  (dir
+	    (case dir
+	      ((ascending descending) dir)
+	      ;; change the sort order if field = curfield
+	      (t
+		(if (eq sortfield mu4e~headers-sort-field)
+		  (if (eq mu4e~headers-sort-direction 'ascending)
+		    'descending 'ascending)))
+	      (mu4e-read-option "Direction: "
+		'(("ascending" . 'ascending) ("descending" . 'descending))))))
     (setq
-      mu4e-headers-sortfield sortfield
-      mu4e-headers-sort-revert revert) ;; "descending" means "revert"
-    (mu4e-message "Sorting by %s (%s)%s"
+      mu4e~headers-sort-field sortfield
+      mu4e~headers-sort-direction dir)
+    (mu4e-message "Sorting by %s (%s)"
       (symbol-name sortfield)
-      (if revert "descending" "ascending")
-      (if dont-refresh
-	" (press 'g' to refresh)" ""))
-    (unless dont-refresh
-      (mu4e-headers-rerun-search))))
+      (symbol-name mu4e~headers-sort-direction))
+    (mu4e-headers-rerun-search)))
+
+(defun mu4e~headers-toggle (name togglevar dont-refresh)
+  "Toggle variable TOGGLEVAR for feature NAME. Unless DONT-REFRESH is non-nil,
+re-run the last search."
+  (set togglevar (not (symbol-value togglevar)))
+  (mu4e-message "%s turned %s%s"
+    name
+    (if (symbol-value togglevar) "on" "off")
+    (if dont-refresh
+      " (press 'g' to refresh)" ""))
+  (unless dont-refresh
+    (mu4e-headers-rerun-search)))
 
 (defun mu4e-headers-toggle-threading (&optional dont-refresh)
-  "Toggle threading on/off for the search results. With prefix-argument,
-do _not_ refresh the last search with the new setting for
-threading."
+  "Toggle `mu4e-headers-show-threads'. With prefix-argument, do
+_not_ refresh the last search with the new setting for threading."
   (interactive "P")
-  (setq mu4e-headers-show-threads (not mu4e-headers-show-threads))
-  (mu4e-message "Threading turned %s%s"
-    (if mu4e-headers-show-threads "on" "off")
-    (if dont-refresh
-	" (press 'g' to refresh)" ""))
-  (unless dont-refresh
-    (mu4e-headers-rerun-search)))
+  (mu4e~headers-toggle "Threading" 'mu4e-headers-show-threads dont-refresh))
 
 (defun mu4e-headers-toggle-full-search (&optional dont-refresh)
-  "Toggle full-search on/off for the search results. With prefix-argument,
-do _not_ refresh the last search with the new setting for
-threading."
+  "Toggle `mu4e-headers-full-search'. With prefix-argument, do
+_not_ refresh the last search with the new setting for threading."
   (interactive "P")
-  (setq mu4e-headers-full-search (not mu4e-headers-full-search))
-  (mu4e-message "Full search turned %s%s"
-    (if mu4e-headers-full-search "on" "off")
-    (if dont-refresh
-	" (press 'g' to refresh)" ""))
-  (unless dont-refresh
-    (mu4e-headers-rerun-search)))
+  (mu4e~headers-toggle "Full-search"
+    'mu4e-headers-full-search dont-refresh))
+
+(defun mu4e-headers-toggle-include-related (&optional dont-refresh)
+  "Toggle `mu4e-headers-include-related'. With prefix-argument, do
+_not_ refresh the last search with the new setting for threading."
+  (interactive "P")
+  (mu4e~headers-toggle "Include-related"
+    'mu4e-headers-include-related dont-refresh))
+
+(defun mu4e-headers-toggle-skip-duplicates (&optional dont-refresh)
+  "Toggle `mu4e-headers-skip-duplicates'. With prefix-argument, do
+_not_ refresh the last search with the new setting for threading."
+  (interactive "P")
+  (mu4e~headers-toggle "Skip-duplicates"
+  'mu4e-headers-skip-duplicates dont-refresh))
+
 
 (defvar mu4e~headers-loading-buf nil
   "A buffer for loading a message view.")
@@ -1028,22 +1225,30 @@ threading."
   mu4e~headers-loading-buf)
 
 (defun mu4e-headers-view-message ()
-  "View message at point. If there's an existing window for the
-view, re-use that one. If not, create a new one, depending on the
-value of `mu4e-split-view': if it's a symbol `horizontal' or
-`vertical', split the window accordingly; if it is nil, replace the
-current window. "
+  "View message at point.
+If there's an existing window for the view, re-use that one. If
+not, create a new one, depending on the value of
+`mu4e-split-view': if it's a symbol `horizontal' or `vertical',
+split the window accordingly; if it is nil, replace the current
+window. "
   (interactive)
   (unless (eq major-mode 'mu4e-headers-mode)
-    (error "Must be in mu4e-headers-mode (%S)" major-mode))
-  (let* ((docid (or (mu4e~headers-docid-at-point)
-		  (error "No message at point")))
+    (mu4e-error "Must be in mu4e-headers-mode (%S)" major-mode))
+  (let* ((msg (mu4e-message-at-point))
+	  (docid (or (mu4e-message-field msg :docid)
+		   (mu4e-warn "No message at point")))
+	  ;; decrypt (or not), based on `mu4e-decryption-policy'.
+	  (decrypt
+	    (and (member 'encrypted (mu4e-message-field msg :flags))
+	      (if (eq mu4e-decryption-policy 'ask)
+		(yes-or-no-p (mu4e-format "Decrypt message?"))
+		mu4e-decryption-policy)))
 	  (viewwin (mu4e~headers-redraw-get-view-window)))
     (unless (window-live-p viewwin)
-      (error "Cannot get a message view"))
+      (mu4e-error "Cannot get a message view"))
     (select-window viewwin)
     (switch-to-buffer (mu4e~headers-get-loading-buf))
-    (mu4e~proc-view docid mu4e-view-show-images))) 
+    (mu4e~proc-view docid mu4e-show-images decrypt)))
 
 (defun mu4e-headers-rerun-search ()
   "Rerun the search for the last search expression."
@@ -1051,13 +1256,14 @@ current window. "
   (mu4e-headers-search mu4e~headers-last-query))
 
 (defun mu4e~headers-query-navigate (whence)
-  "Execute the previous query from the query stacks. WHENCE
-determines where the query is taken from and is a symbol, either
-`future' or `past'."
+  "Execute the previous query from the query stacks.
+WHENCE determines where the query is taken from and is a symbol,
+either `future' or `past'."
   (let ((query (mu4e~headers-pop-query whence))
 	 (where (if (eq whence 'future) 'past 'future)))
-    (mu4e~headers-push-query mu4e~headers-last-query where)
-    (mu4e-headers-search query nil nil t)))
+    (when query
+      (mu4e~headers-push-query mu4e~headers-last-query where)
+      (mu4e-headers-search query nil nil t))))
 
 (defun mu4e-headers-query-next ()
   "Execute the previous query from the query stacks."
@@ -1084,7 +1290,7 @@ determines where the query is taken from and is a symbol, either
 backward (if LINES is negative). If this succeeds, return the new
 docid. Otherwise, return nil."
   (unless (eq major-mode 'mu4e-headers-mode)
-    (error "Must be in mu4e-headers-mode (%S)" major-mode))
+    (mu4e-error "Must be in mu4e-headers-mode (%S)" major-mode))
   (let ((succeeded (zerop (forward-line lines)))
 	 (docid (mu4e~headers-docid-at-point)))
     ;; move point, even if this function is called when this window is not
@@ -1105,16 +1311,18 @@ docid. Otherwise, return nil."
       docid)))
 
 (defun mu4e-headers-next (&optional n)
-  "Move point to the next message header. If this succeeds, return
-the new docid. Otherwise, return nil. Optionally, takes an integer
-N (prefix argument), to the Nth next header."
+  "Move point to the next message header.
+If this succeeds, return the new docid. Otherwise, return nil.
+Optionally, takes an integer N (prefix argument), to the Nth next
+header."
   (interactive "P")
   (mu4e~headers-move (or n 1)))
 
 (defun mu4e-headers-prev (&optional n)
-  "Move point to the previous message header. If this succeeds, return
-the new docid. Otherwise, return nil. Optionally, takes an integer
-N (prefix argument), to the Nth previous header."
+  "Move point to the previous message header.
+If this succeeds, return the new docid. Otherwise, return nil.
+Optionally, takes an integer N (prefix argument), to the Nth
+previous header."
   (interactive "P")
   (mu4e~headers-move (- (or n 1))))
 
@@ -1128,33 +1336,40 @@ maildir)."
     (mu4e-mark-handle-when-leaving)
     (mu4e-headers-search (concat "\"maildir:" maildir "\""))))
 
-(defun mu4e-headers-split-view-resize (n)
-  "In horizontal split-view, increase the number of lines shown by
-N; in vertical split-view, increase the number of columns shown by
-N. Otherwise, don't do anything."
+(defun mu4e-headers-split-view-grow (n)
+  "In split-view, grow the headers window.
+In horizontal split-view, increase the number of lines shown by N.
+In vertical split-view, increase the number of columns shown by N.
+If N is negative shrink the headers window.  When not in split-view
+do nothing."
   (interactive "P")
-   (when (buffer-live-p mu4e~view-buffer)
-    (case mu4e-split-view
-	(horizontal
-	  (let ((newval (+ (or n 1) mu4e-headers-visible-lines)))
-	    (unless (> newval 0)
-	      (error "Cannot make the number of visible lines any smaller"))
-	    (setq mu4e-headers-visible-lines newval)))
-	(vertical
-	  (let ((newval (+ (or n 1) mu4e-headers-visible-columns)))
-	    (unless (> newval 0)
-	      (error "Cannot make the number of visible columns any smaller"))
-	    (setq mu4e-headers-visible-columns newval))))
-      (let ((viewwin (mu4e~headers-redraw-get-view-window)))
-	(when (window-live-p viewwin)
-	  (select-window viewwin)
-	  (switch-to-buffer mu4e~view-buffer)))))
+  (let ((n (or n 1))
+	 (hwin (get-buffer-window mu4e~headers-buffer)))
+  (when (and (buffer-live-p mu4e~view-buffer) (window-live-p hwin))
+     (let ((n (or n 1)))
+       (case mu4e-split-view
+	 ;; emacs has weird ideas about what horizontal, vertical means...
+	 (horizontal
+	   (window-resize hwin n nil)
+	   (incf mu4e-headers-visible-lines n))
+	 (vertical
+	   (window-resize hwin n t)
+	   (incf mu4e-headers-visible-columns n)))))))
+
+(defun mu4e-headers-split-view-shrink (n)
+  "In split-view, shrink the headers window.
+In horizontal split-view, decrease the number of lines shown by N.
+In vertical split-view, decrease the number of columns shown by N.
+If N is negative grow the headers window.
+When not in split-view do nothing."
+  (interactive "P")
+  (mu4e-headers-split-view-grow (- n)))
 
 (defun mu4e-headers-action ()
-  "Ask user what to do with message-at-point, then do it. The
-actions are specified in `mu4e-headers-actions'."
+  "Ask user what to do with message-at-point, then do it.
+The actions are specified in `mu4e-headers-actions'."
   (interactive)
-  (let ((msg (mu4e-message-at-point t))
+  (let ((msg (mu4e-message-at-point))
 	 (actionfunc (mu4e-read-option "Action: " mu4e-headers-actions)))
     (funcall actionfunc msg)))
 
@@ -1165,28 +1380,23 @@ region if there is a region, then move to the next message."
   (mu4e-mark-set mark)
   (mu4e-headers-next))
 
-(defun mu4e-headers-mark-for-move-and-next ()
-  "Set mark MARK on the message at point or on all messages in the
-region if there is a region, then move to the next message."
-  (interactive)
-  (mu4e-mark-for-move-set)
-  (mu4e-headers-next))
-
 (defun mu4e~headers-quit-buffer ()
-  "Quit the mu4e-headers buffer. This is a rather complex function,
-to ensure we don't disturb other windows."
+  "Quit the mu4e-headers buffer.
+This is a rather complex function, to ensure we don't disturb
+other windows."
   (interactive)
   (unless (eq major-mode 'mu4e-headers-mode)
-    (error "Must be in mu4e-headers-mode (%S)" major-mode))
+    (mu4e-error "Must be in mu4e-headers-mode (%S)" major-mode))
   (mu4e-mark-handle-when-leaving)
   (let ((curbuf (current-buffer)) (curwin (selected-window))
 	 (headers-visible))
     (walk-windows
       (lambda (win)
-	;; if we the view window connected to this one, kill it
-	(when (eq mu4e~headers-view-win win)
-	  (delete-window win)
-	  (setq mu4e~headers-view-win nil))
+	(with-selected-window win
+	  ;; if we the view window connected to this one, kill it
+	  (when (and (not (one-window-p win)) (eq mu4e~headers-view-win win))
+	    (delete-window win)
+	    (setq mu4e~headers-view-win nil)))
 	;; and kill any _other_ (non-selected) window that shows the current
 	;; buffer
 	(when (and

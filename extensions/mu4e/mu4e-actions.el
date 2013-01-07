@@ -30,16 +30,18 @@
 (require 'cl)
 
 (require 'mu4e-utils)
+(require 'mu4e-message)
 (require 'mu4e-meta)
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mu4e-action-count-lines (msg)
-  "Count the number of lines in the e-mail message. Works for
-headers view and message-view."
+  "Count the number of lines in the e-mail message.
+Works for headers view and message-view."
   (message "Number of lines: %s"
     (shell-command-to-string
-      (concat "wc -l < " (shell-quote-argument (plist-get msg :path))))))
+      (concat "wc -l < " (shell-quote-argument (mu4e-message-field msg :path))))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -51,20 +53,19 @@ headers view and message-view."
   "Path to the msg2pdf toy.")
 
 (defun mu4e-action-view-as-pdf (msg)
-  "Convert the message to pdf, then show it. Works for the message
-view."
+  "Convert the message to pdf, then show it.
+Works for the message view."
   (unless (file-executable-p mu4e-msg2pdf)
-    (error "msg2pdf not found; please set `mu4e-msg2pdf'"))
+    (mu4e-error "msg2pdf not found; please set `mu4e-msg2pdf'"))
   (let* ((pdf
 	  (shell-command-to-string
 	    (concat mu4e-msg2pdf " "
-	      (shell-quote-argument (mu4e-msg-field msg :path))
+	      (shell-quote-argument (mu4e-message-field msg :path))
 	      " 2> /dev/null")))
 	 (pdf (and pdf (> (length pdf) 5)
 		(substring pdf 0 -1)))) ;; chop \n
     (unless (and pdf (file-exists-p pdf))
-      (message "==> %S %S" pdf (mu4e-msg-field msg :path))
-      (error "Failed to create PDF file"))
+      (mu4e-warn "Failed to create PDF file"))
     (find-file pdf)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -73,30 +74,34 @@ view."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun mu4e-action-view-in-browser (msg)
-  "View the body of the message in a web browser. You can influence
-the browser to use with the variable `browse-url-generic-program'."
-  (let ((html (mu4e-msg-field msg :body-html))
-	 (tmpfile (format "%s/%d.html" temporary-file-directory (random))))
-    (unless html (error "No html part for this message"))
-       (with-temp-file tmpfile
-	 (insert html)
-	 (save-buffer)
-	 (url-view-url (concat "file:///" tmpfile)))))
+  "View the body of the message in a web browser.
+You can influence the browser to use with the variable
+`browse-url-generic-program'."
+  (let* ((html (mu4e-message-field msg :body-html))
+	  (txt (mu4e-message-field msg :body-txt))
+	  (tmpfile (format "%s%x.html" temporary-file-directory (random t))))
+    (unless (or html txt)
+      (mu4e-error "No body part for this message"))
+    (with-temp-buffer
+      ;; simplistic -- but note that it's only an example...
+      (insert (or html (concat "<pre>" txt "</pre>")))
+      (write-file tmpfile)
+      (browse-url (concat "file://" tmpfile)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 
-
+  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defconst mu4e-text2speech-command "festival --tts"
-  "Program that speaks out text it receives on standard-input.")
+  (defconst mu4e-text2speech-command "festival --tts"
+    "Program that speaks out text it receives on standard-input.")
 
 (defun mu4e-action-message-to-speech (msg)
   "Pronounce the message text using `mu4e-text2speech-command'."
-  (unless (mu4e-msg-field msg :body-txt)
-    (error "No text body for this message"))
+  (unless (mu4e-message-field msg :body-txt)
+    (mu4e-warn "No text body for this message"))
   (with-temp-buffer
-    (insert (mu4e-msg-field msg :body-txt))
+    (insert (mu4e-message-field msg :body-txt))
     (shell-command-on-region (point-min) (point-max)
       mu4e-text2speech-command)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -123,8 +128,8 @@ with `mu4e-compose-attach-captured-message'."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defvar mu4e-org-contacts-file nil
-  "File to store contact information for org-contacts. Needed by
-  `mu4e-action-add-org-contact'.")
+  "File to store contact information for org-contacts.
+Needed by `mu4e-action-add-org-contact'.")
 
 (eval-when-compile ;; silence compiler warning about free variable
   (unless (require 'org-capture nil 'noerror)
@@ -136,10 +141,10 @@ current message (in headers or view). You need to set
 `mu4e-org-contacts-file' to the full path to the file where you
 store your org-contacts."
   (unless (require 'org-capture nil 'noerror)
-    (error "org-capture is not available."))
+    (mu4e-error "org-capture is not available."))
   (unless mu4e-org-contacts-file
-    (error "`mu4e-org-contacts-file' is not defined."))
-  (let* ((sender (car-safe (mu4e-msg-field msg :from)))
+    (mu4e-error "`mu4e-org-contacts-file' is not defined."))
+  (let* ((sender (car-safe (mu4e-message-field msg :from)))
 	  (name (car-safe sender)) (email (cdr-safe sender))
 	  (blurb
 	    (format
@@ -162,6 +167,68 @@ store your org-contacts."
       (org-capture nil key))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun mu4e-action-git-apply-patch (msg)
+  "Apply the git [patch] message."
+  (let ((path (read-directory-name "Target directory: " nil "~/" t) ))
+    (shell-command
+      (format "cd %s; git apply %s"
+	path
+	(mu4e-message-field msg :path)))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar mu4e-action-tags-header "X-Keywords"
+  "Header where tags are stored. Used by `mu4e-action-retag-message'.
+   Make sure it is one of the headers mu recognizes for storing
+   tags: X-Keywords, X-Label, Keywords. Also note that changing
+   this setting on already tagged messages can lead to messages
+   with multiple tags headers")
+
+(defun mu4e-action-retag-message (msg &optional retag-arg)
+  "Change tags of a message. Example: +tag \"+long tag\" -oldtag
+   adds 'tag' and 'long tag', and removes oldtag."
+  (let* ((retag (or retag-arg (read-string "Tags: ")))
+	  (path (mu4e-message-field msg :path))
+	  (maildir (mu4e-message-field msg :maildir))
+	  (oldtags (mu4e-message-field msg :tags))
+	  (header  mu4e-action-tags-header)
+	  (sep     (cond ((string= header "Keywords") " ")
+		     ((string= header "X-Label") " ")
+		     ((string= header "X-Keywords") ", ")
+		     (t ", ")))
+	  (taglist (if oldtags (copy-sequence oldtags) '()))
+	  tagstr)
+
+    (dolist (tag (split-string-and-unquote retag) taglist)
+      (cond ((string-match "\\+\\(.+\\)" tag)
+	      (setq taglist (push (match-string 1 tag) taglist)))
+	((string-match "\\-\\(.+\\)" tag)
+	  (setq taglist (delete (match-string 1 tag) taglist)))
+	(t
+	  (setq taglist (push tag taglist)))))
+
+    (setq taglist (sort (delete-dups taglist) 'string<))
+    (setq tagstr (mapconcat 'identity taglist sep))
+    (setq tagstr (replace-regexp-in-string "[\\/&]" "\\\\\\&" tagstr))
+
+    (if (string= (shell-command-to-string (format "sed -n '1,/^$/ {/^%s:/I p}' \"%s\""
+      mu4e-action-tags-header path)) "")
+        ;; Add tags header just before the content
+        (call-process "sed" nil nil nil "-i"
+          (format "1,/^$/s/^$/%s: %s\\n/I" header tagstr) path)
+
+      ;; replaces keywords with sed, restricted to the header
+      (call-process "sed" nil nil nil "-i"
+        (format "1,/^$/s/^%s:.*$/%s: %s/I" header header tagstr) path))
+
+    (mu4e-message (concat "tagging: " (mapconcat 'identity taglist ", ")))
+    (mu4e-refresh-message path maildir)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 (provide 'mu4e-actions)
