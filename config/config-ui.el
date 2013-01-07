@@ -18,3 +18,6 @@
 (defadvice split-window (after move-point-to-new-window activate)
   "Moves the point to the newly created window after splitting."
   (other-window 1))
+;; font
+(if (eq window-system 'x)
+  (set-default-font "DejaVu Sans Mono-10"))
