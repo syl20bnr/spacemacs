@@ -20,6 +20,7 @@
     erc
     erlang
     evil
+    evil-leader
     exec-path-from-shell
     expand-region
     fill-column-indicator
