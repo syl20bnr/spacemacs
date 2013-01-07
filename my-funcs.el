@@ -131,4 +131,15 @@
       (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
       (message "Buffers deleted!"))))
 
+;; evenly split windows horizontally
+(defun evenly-split-window-right ()
+  (interactive)
+  (split-window-right)
+  (balance-windows))
+;; evenly split windows vertically
+(defun evenly-split-window-below ()
+  (interactive)
+  (split-window-below)
+  (balance-windows))
+
 (provide 'my-funcs)

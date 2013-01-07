@@ -39,13 +39,15 @@
 (key-chord-define evil-normal-state-map "fo" 'ido-find-file)
 (key-chord-define evil-normal-state-map "fp" 'find-file-in-project)
 (key-chord-define evil-normal-state-map "fs" 'sr-speedbar-toggle-and-select)
-;; fold-this ------------------------------------------------------------------
+;; fold-this -g----------------------------------------------------------------
 (key-chord-define evil-visual-state-map "fj" 'fold-this)
 (key-chord-define evil-visual-state-map "FJ" 'fold-this-all)
 (key-chord-define evil-normal-state-map "fk" 'fold-this-unfold-at-point)
 (key-chord-define evil-normal-state-map "FK" 'fold-this-unfold-all)
 ;; git ------------------------------------------------------------------------
 (key-chord-define evil-normal-state-map "gs" 'magit-status)
+;; line numbers ---------------------------------------------------------------
+(key-chord-define evil-normal-state-map "ln" 'global-linum-mode)
 ;; move-text ------------------------------------------------------------------
 (key-chord-define evil-normal-state-map "vj" 'move-text-down)
 (key-chord-define evil-visual-state-map "vj" 'move-text-down)
@@ -61,16 +63,16 @@
 (key-chord-define evil-normal-state-map "tp" 'multi-term-prev)
 (key-chord-define evil-normal-state-map "tt" 'last-used-multi-term)
 ;; windows --------------------------------------------------------------------
-(key-chord-define evil-normal-state-map "wb" 'split-window-right)
+(key-chord-define evil-normal-state-map "wb" 'evenly-split-window-right)
 (key-chord-define evil-normal-state-map "wc" 'delete-window)
 (key-chord-define evil-normal-state-map "wh" 'evil-window-left)
 (key-chord-define evil-normal-state-map "wj" 'evil-window-down)
 (key-chord-define evil-normal-state-map "wk" 'evil-window-up)
 (key-chord-define evil-normal-state-map "wl" 'evil-window-right)
 (key-chord-define evil-normal-state-map "wm" 'toggle-maximize-buffer)
+(key-chord-define evil-normal-state-map "wo" 'other-window)
 (key-chord-define evil-normal-state-map "wr" 'rotate-windows)
-(key-chord-define evil-normal-state-map "wv" 'split-window-below)
-(key-chord-define evil-normal-state-map "ww" 'other-window)
+(key-chord-define evil-normal-state-map "wv" 'evenly-split-window-below)
 ;; centered cursor ------------------------------------------------------------
 (key-chord-define evil-normal-state-map "zz" 'global-centered-cursor-mode)
 
