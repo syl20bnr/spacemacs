@@ -4,6 +4,7 @@
 
 (add-to-list 'completion-styles 'initials t)
 (add-to-list 'ac-sources 'ac-source-semantic)
+(semantic-mode t)
 
 ;; customization
 (setq ac-auto-start 2
