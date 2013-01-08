@@ -65,6 +65,7 @@
 ;; windows --------------------------------------------------------------------
 (key-chord-define evil-normal-state-map "wb" 'evenly-split-window-right)
 (key-chord-define evil-normal-state-map "wc" 'delete-window)
+(key-chord-define evil-normal-state-map "wd" 'toggle-current-window-dedication)
 (key-chord-define evil-normal-state-map "wh" 'evil-window-left)
 (key-chord-define evil-normal-state-map "wj" 'evil-window-down)
 (key-chord-define evil-normal-state-map "wk" 'evil-window-up)

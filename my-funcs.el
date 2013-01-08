@@ -133,13 +133,26 @@
 
 ;; evenly split windows horizontally
 (defun evenly-split-window-right ()
+  "Evenly split frame horizontally."
   (interactive)
   (split-window-right)
   (balance-windows))
 ;; evenly split windows vertically
 (defun evenly-split-window-below ()
+  "Evenly split frame vertically."
   (interactive)
   (split-window-below)
   (balance-windows))
+
+;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
+(defun toggle-current-window-dedication ()
+  "Toggle dedication state of a window."
+ (interactive)
+ (let* ((window    (selected-window))
+        (dedicated (window-dedicated-p window)))
+   (set-window-dedicated-p window (not dedicated))
+   (message "Window %sdedicated to %s"
+            (if dedicated "no longer " "")
+            (buffer-name))))
 
 (provide 'my-funcs)
