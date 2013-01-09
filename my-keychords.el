@@ -1,7 +1,7 @@
 ;; evil -----------------------------------------------------------------------
 (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 (key-chord-define evil-visual-state-map "jk" 'evil-normal-state)
-(key-chord-define evil-emacs-state-map "jk" 'evil-normal-state)
+(key-chord-define evil-emacs-state-map  "jk" 'evil-normal-state)
 (key-chord-define evil-motion-state-map "jk" 'evil-normal-state)
 
 ;; applications ---------------------------------------------------------------
