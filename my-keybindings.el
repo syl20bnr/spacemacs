@@ -2,6 +2,7 @@
 ;;Make evil-mode up/down operate in screen lines instead of logical lines
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+(define-key evil-insert-state-map (kbd "ESC") 'evil-normal-state)
 
 ;; ace-jump -------------------------------------------------------------------
 (define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode)
