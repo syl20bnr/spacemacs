@@ -21,3 +21,7 @@
 ;; font
 (if (eq window-system 'x)
   (set-default-font "DejaVu Sans Mono-10"))
+;; setup right and left margins
+(add-hook 'window-configuration-change-hook
+          (lambda ()
+            (set-window-margins (car (get-buffer-window-list (current-buffer) nil t)) 0 0)))
