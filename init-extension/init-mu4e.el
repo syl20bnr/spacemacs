@@ -6,7 +6,7 @@
 ;; allow for updating mail using 'U' in the main view:
 (setq mu4e-get-mail-command "offlineimap")
 (setq mu4e-maildir "~/Mails")
-(setq mu4e-attachment-dir  "~/Downloads")
+(setq mu4e-attachment-dir  "~/Mails/.Downloads")
 (setq message-kill-buffer-on-exit t)
 
 ;; folders
@@ -35,19 +35,6 @@
     '( ("/INBOX"  . ?i)
        ("/sent"   . ?s)
        ("/trash"  . ?t)))
-
-;; something about ourselves
-(setq
-   user-mail-address "sylvain.benner@gmail.com"
-   user-full-name  "Sylvain Benner"
-   message-signature "syl20bnr")
-
-;; alternatively, for emacs-24 you can use:
-(setq message-send-mail-function 'smtpmail-send-it
-     smtpmail-stream-type 'starttls
-     smtpmail-default-smtp-server "smtp.gmail.com"
-     smtpmail-smtp-server "smtp.gmail.com"
-     smtpmail-smtp-service 587)
 
 ;; inline images
 (setq mu4e-view-show-images t
