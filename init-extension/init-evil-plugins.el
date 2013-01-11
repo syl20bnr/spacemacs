@@ -1,4 +1,4 @@
-(require 'evil-relative-linum)
+;; (require 'evil-relative-linum)
 
 (require 'evil-operator-moccur)
 (global-evil-operator-moccur-mode 1)
