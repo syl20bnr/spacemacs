@@ -5,6 +5,10 @@
   (expand-file-name (concat user-emacs-directory "../"))
   "Emacs home directory.")
 
+(defvar user-org-directory
+  (expand-file-name (concat user-emacs-directory "my-org/"))
+  "Org files directory.")
+
 (defvar user-config-directory
   (expand-file-name (concat user-emacs-directory "config/"))
   "Configuration scripts.")
