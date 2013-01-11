@@ -48,6 +48,8 @@
 ;; html to text conversion program
 ;;(setq mu4e-html2text-command "html2text -utf8 -width 140")
 (setq mu4e-html2text-command "html2markdown --body-width=0 | grep -v '&nbsp_place_holder;'")
+;; auto convert to html when sending
+(setq org-mu4e-convert-to-html t)
 
 ;; form magnars
 ;; Start mu4e in fullscreen, immediately ping for new mail
