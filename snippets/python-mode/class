@@ -1,0 +1,55 @@
+# -*- coding: utf-8 -*-
+# name: class
+# contributor: Orestis Markou
+# contributor: Nishio Hirokazu
+# contributor: Yasser González Fernández <yglez@uh.cu>
+# key: class
+# --
+class ${1:ClassName}(${2:object}):
+    '''$3
+    '''
+
+    def __init__(self, $4):
+        '''$5
+        ${4:$
+        (let* ((indent
+                (concat "\n" (make-string (current-column) 32)))
+               (args
+                (mapconcat
+                 '(lambda (x)
+                    (if (not (string= (nth 0 x) ""))
+                        (concat "- " (char-to-string 96) (nth 0 x)
+                                (char-to-string 96) ":")))
+                 (mapcar
+                  '(lambda (x)
+                     (mapcar
+                      (lambda (x)
+                        (replace-regexp-in-string "[[:blank:]]*$" ""
+                         (replace-regexp-in-string "^[[:blank:]]*" "" x))) x))
+                  (mapcar '(lambda (x) (split-string x "="))
+                          (split-string text ",")))
+                 indent)))
+          (if (string= args "")
+              (make-string 3 ?\')
+            (mapconcat
+             'identity
+             (list "" "Arguments:" args (make-string 3 ?\'))
+             indent)))
+        }
+        ${4:$
+        (mapconcat
+         '(lambda (x)
+            (if (not (string= (nth 0 x) ""))
+                (concat "self._" (nth 0 x) " = " (nth 0 x))))
+         (mapcar
+          '(lambda (x)
+             (mapcar
+              '(lambda (x)
+                 (replace-regexp-in-string "[[:blank:]]*$" ""
+                  (replace-regexp-in-string "^[[:blank:]]*" "" x)))
+              x))
+          (mapcar '(lambda (x) (split-string x "="))
+                  (split-string text ",")))
+         (concat "\n" (make-string (current-column) 32)))
+        }
+        $0
