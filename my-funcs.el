@@ -74,15 +74,6 @@
         (message "File '%s' successfully removed" filename)))))
 
 ;; from magnars
-(defun copy-current-file-path ()
-  "Add current file path to kill ring. Limits the filename to project root if possible."
-  (interactive)
-  (let ((filename (buffer-file-name)))
-    (kill-new (if eproject-mode
-                  (s-chop-prefix (eproject-root) filename)
-                filename))))
-
-;; from magnars
 (defun find-or-create-file-at-point ()
   "Guesses what parts of the buffer under point is a file name and opens it."
   (interactive)

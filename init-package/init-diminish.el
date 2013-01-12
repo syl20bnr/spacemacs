@@ -5,9 +5,6 @@
 (eval-after-load "autopair"
   '(diminish 'autopair-mode "AP"))
 
-(eval-after-load "eproject"
-  '(diminish 'eproject-mode "eP"))
-
 (eval-after-load "paredit"
   '(diminish 'paredit-mode "PE"))
 

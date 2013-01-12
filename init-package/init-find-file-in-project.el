@@ -1,7 +1,7 @@
 (require 'find-file-in-project)
 
 ;; Use eproject to find project root
-(setq ffip-project-root-function 'eproject-root)
+;; (setq ffip-project-root-function 'eproject-root)
 ;; That's a limit...
 (setq ffip-limit 32768)
 

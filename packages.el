@@ -16,7 +16,6 @@
     diminish
     elisp-slime-nav
     epc
-    eproject
     erc
     erlang
     evil
@@ -41,6 +40,7 @@
     paredit
     powerline
     popup
+    projectile
     puppet-mode
     python
     rainbow-delimiters
