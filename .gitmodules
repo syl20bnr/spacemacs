@@ -4,6 +4,3 @@
 [submodule "extensions/delim-pad"]
 	path = extensions/delim-pad
 	url = http://github.com/lewang/delim-pad
-[submodule "extensions/pylookup"]
-	path = extensions/pylookup
-	url = http://github.com/tsgates/pylookup.git
