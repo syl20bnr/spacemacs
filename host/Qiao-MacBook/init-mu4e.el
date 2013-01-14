@@ -10,3 +10,18 @@
    user-mail-address "sylvain.benner@gmail.com"
    user-full-name  "Sylvain Benner"
    message-signature "syl20bnr")
+
+;; setup some handy shortcuts
+;; you can quickly switch to your Inbox -- press ``ji''
+;; then, when you want archive some messages, move them to
+;; the 'All Mail' folder by pressing ``ma''.
+(setq mu4e-maildir-shortcuts '(
+       ("/Coding"   . ?c)
+       ("/INBOX"    . ?i)
+       ("/News"     . ?n)
+       ("/Personal" . ?p)
+       ("/sent"     . ?s)
+       ("/spam"     . ?m)
+       ("/trash"    . ?t)
+       ("/Work"     . ?w)
+))
