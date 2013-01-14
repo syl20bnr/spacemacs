@@ -4,7 +4,7 @@
 (setq initial-scratch-message nil)
 ;; open dired in home at startup
 ;; (setq user-init-file (concat user-org-directory "virga.org"))
-(setq initial-buffer-choice user-init-file)
+;; (setq initial-buffer-choice user-init-file)
 ;; auto-save
 (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
 (setq redisplay-dont-pause t)
