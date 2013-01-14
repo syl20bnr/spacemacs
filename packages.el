@@ -26,6 +26,8 @@
     find-file-in-project
     fold-this
     fuzzy
+    ghc
+    haskell-mode
     highlight-symbol
     ido-ubiquitous
     jedi
