@@ -1,9 +1,8 @@
-;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it
-     smtpmail-stream-type 'starttls
-     smtpmail-default-smtp-server "smtp.gmail.com"
-     smtpmail-smtp-server "smtp-ncsa.ubisoft.org"
-     smtpmail-smtp-service 25)
+  starttls-use-gnutls t
+  smtpmail-default-smtp-server "smtp-ncsa.ubisoft.org"
+  smtpmail-smtp-server "smtp-ncsa.ubisoft.org"
+  smtpmail-smtp-service 587)
 
 ;; something about ourselves
 (setq
