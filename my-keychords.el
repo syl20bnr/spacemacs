@@ -63,7 +63,6 @@
 (key-chord-define evil-normal-state-map "tp" 'multi-term-prev)
 (key-chord-define evil-normal-state-map "tt" 'last-used-multi-term)
 ;; windows --------------------------------------------------------------------
-(key-chord-define evil-normal-state-map "wb" 'evenly-split-window-right)
 (key-chord-define evil-normal-state-map "wc" 'delete-window)
 (key-chord-define evil-normal-state-map "wd" 'toggle-current-window-dedication)
 (key-chord-define evil-normal-state-map "wh" 'evil-window-left)
@@ -71,9 +70,10 @@
 (key-chord-define evil-normal-state-map "wk" 'evil-window-up)
 (key-chord-define evil-normal-state-map "wl" 'evil-window-right)
 (key-chord-define evil-normal-state-map "wm" 'toggle-maximize-buffer)
+(key-chord-define evil-normal-state-map "wn" 'evenly-split-window-right)
+(key-chord-define evil-normal-state-map "WN" 'evenly-split-window-below)
 (key-chord-define evil-normal-state-map "wo" 'other-window)
 (key-chord-define evil-normal-state-map "wr" 'rotate-windows)
-(key-chord-define evil-normal-state-map "wv" 'evenly-split-window-below)
 ;; centered cursor ------------------------------------------------------------
 (key-chord-define evil-normal-state-map "zz" 'global-centered-cursor-mode)
 
