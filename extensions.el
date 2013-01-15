@@ -2,7 +2,7 @@
   '(
     centered-cursor
     delim-pad
-    emacs-eclim
+    ;; emacs-eclim
     evil-plugins
     flymake
     mu4e
