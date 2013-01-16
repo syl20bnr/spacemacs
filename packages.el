@@ -46,6 +46,7 @@
     puppet-mode
     python
     rainbow-delimiters
+    rfringe
     smart-operator
     smex
     solarized-theme
