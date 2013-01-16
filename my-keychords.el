@@ -3,6 +3,10 @@
 (key-chord-define evil-visual-state-map "jk" 'evil-normal-state)
 (key-chord-define evil-emacs-state-map  "jk" 'evil-normal-state)
 (key-chord-define evil-motion-state-map "jk" 'evil-normal-state)
+(key-chord-define evil-normal-state-map "hl" 'evil-emacs-state)
+(key-chord-define evil-insert-state-map "hl" 'evil-emacs-state)
+(key-chord-define evil-visual-state-map "hl" 'evil-emacs-state)
+(key-chord-define evil-motion-state-map "hl" 'evil-emacs-state)
 
 ;; applications ---------------------------------------------------------------
 (key-chord-define evil-normal-state-map "ae" 'erc-start-or-switch)
