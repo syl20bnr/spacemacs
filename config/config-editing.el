@@ -8,9 +8,6 @@
 ;; use only spaces and no tabs
 (setq-default indent-tabs-mode nil)
 (setq default-tab-width 2)
-;; highlight current line
-(global-hl-line-mode t)
-(set-face-background 'hl-line "#073642")
 ;; Text -----------------------------------------------------------------------
 (add-hook 'text-mode-hook
           '(lambda ()
