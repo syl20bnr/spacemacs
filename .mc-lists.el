@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        autopair-insert-opening
         evil-a-WORD
         evil-a-back-quote
         evil-a-bracket
