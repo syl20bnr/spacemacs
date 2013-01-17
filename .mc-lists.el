@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         autopair-insert-opening
+        autopair-skip-close-maybe
         evil-a-WORD
         evil-a-back-quote
         evil-a-bracket
@@ -233,4 +234,5 @@
         mc/mark-next-lines
         mc/mark-previous-lines
         paredit-doublequote
+        save-some-buffers
         ))
