@@ -51,3 +51,11 @@ The CMDLINE should be something like:
        (format
         "Couldn't enable flymake; permission denied on %s" flymake-filename)))))
 (add-hook 'find-file-hook 'safer-flymake-find-file-hook)
+
+;; from http://stackoverflow.com/questions/6110691/is-there-a-way-to-make-flymake-to-compile-only-when-i-save
+(eval-after-load "flymake"
+  '(progn
+    (defun flymake-after-change-function (start stop len)
+      "Start syntax check for current buffer if it isn't already running."
+      ;; Do nothing, don't want to run checks until I save.
+      )))
