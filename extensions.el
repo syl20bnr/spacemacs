@@ -2,6 +2,7 @@
   '(
     centered-cursor
     delim-pad
+    distel
     ;; emacs-eclim
     evil-plugins
     flymake
