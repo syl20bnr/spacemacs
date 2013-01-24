@@ -1,0 +1,5 @@
+# name: -include_lib("...").
+# key: inc
+# --
+-include_lib("$1").
+$0

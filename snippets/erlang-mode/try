@@ -1,0 +1,8 @@
+# name: try ... of ... catch after end
+# key: try
+# --
+try $1 of
+    $0
+catch
+after
+end

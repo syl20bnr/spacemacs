@@ -1,0 +1,6 @@
+# name: -ifndef(...). ... -endif.
+# key: ifndef
+# --
+-ifndef($1).
+$0
+-endif.

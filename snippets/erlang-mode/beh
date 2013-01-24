@@ -1,0 +1,5 @@
+# name: -behaviour(...).
+# key: beh
+# --
+-behaviour(${1:gen_server}).
+$0

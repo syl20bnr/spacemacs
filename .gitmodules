@@ -7,3 +7,6 @@
 [submodule "extensions/pylookup"]
 	path = extensions/pylookup
 	url = http://github.com/syl20bnr/pylookup
+[submodule "extensions/projmake-mode"]
+	path = extensions/projmake-mode
+	url = http://github.com/ericbmerritt/projmake-mode

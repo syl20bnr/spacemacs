@@ -1,0 +1,5 @@
+# name: -undef(...).
+# key: undef
+# --
+-undef($1).
+$0

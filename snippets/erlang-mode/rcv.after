@@ -1,0 +1,7 @@
+# name: receive after ... -> ... end
+# key: rcv
+# --
+receive
+after
+    $1 -> $0
+end
