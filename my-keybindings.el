@@ -3,8 +3,6 @@
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 (define-key evil-insert-state-map (kbd "ESC") 'evil-normal-state)
-;; ace-jump -------------------------------------------------------------------
-(define-key evil-normal-state-map (kbd "SPC") 'ace-jump-mode)
 ;; auto-complete --------------------------------------------------------------
 (global-set-key (kbd "M-SPC") 'ac-fuzzy-complete)
 (define-key ac-complete-mode-map (kbd "C-j") 'ac-next)
@@ -20,6 +18,10 @@
 
 ;; evil-leader shortcuts ======================================================
 
+;; M-x ------------------------------------------------------------------------
+(evil-leader/set-key ":" 'smex)
+;; ace-jump -------------------------------------------------------------------
+(evil-leader/set-key "SPC" 'ace-jump-mode)
 ;; applications ---------------------------------------------------------------
 (evil-leader/set-key "ae" 'erc-start-or-switch)
 (evil-leader/set-key "am" 'mu4e-up-to-date-status)
@@ -46,8 +48,6 @@
 (evil-leader/set-key "ed" 'elisp-slime-nav-find-elisp-thing-at-point)
 (evil-leader/set-key "ev" 'eval-sexp)
 (evil-leader/set-key "EV" 'eval-and-replace)
-;; emacs ----------------------------------------------------------------------
-(evil-leader/set-key "em" 'smex)
 ;; expand region --------------------------------------------------------------
 (evil-leader/set-key "re" 'er/expand-region)
 (evil-leader/set-key "rr" 'er/contract-region)
