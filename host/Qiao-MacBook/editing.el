@@ -1,3 +1,2 @@
 ;; font size
-(set-face-attribute 'default nil :height 100)
-
+(set-face-attribute 'default nil :height 90)
