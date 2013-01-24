@@ -27,6 +27,11 @@ The CMDLINE should be something like:
         (append flymake-info-line-regex '("unused$" "^redefinition" "used$")))
   (load-library "flymake-cursor"))
 
+;; from http://stackoverflow.com/questions/2571436/emacs-annoying-flymake-dialog-box
+(defun flymake-display-warning (warning)
+  "Display a warning to the user in the mini-buffer instead of a dialog box"
+  (message warning))
+
 (defun epy-setup-checker (cmdline)
   (add-to-list 'flymake-allowed-file-name-masks
                (list "\\.py\\'" (apply-partially 'flymake-command-parse cmdline)))
@@ -37,8 +42,7 @@ The CMDLINE should be something like:
   '(progn
      (add-hook 'python-mode-hook (lambda () (if (buffer-file-name)
                         (flymake-mode))))
-     )
-  )
+     ))
 
 ;; from http://www.emacswiki.org/emacs/FlyMake
 (defun safer-flymake-find-file-hook ()
