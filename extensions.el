@@ -2,7 +2,8 @@
   '(
     centered-cursor
     delim-pad
-    distel
+    ;; distel
+    edts
     ;; emacs-eclim
     evil-plugins
     flymake

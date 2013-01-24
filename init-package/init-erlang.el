@@ -11,5 +11,5 @@
         ;; when starting an Erlang shell in Emacs, with a custom node name
         (setq inferior-erlang-machine-options '("-sname" "syl20bnr"))))
 
-(require 'erlang-flymake)
-(erlang-flymake-only-on-save)
+;; (require 'erlang-flymake)
+;; (erlang-flymake-only-on-save)
