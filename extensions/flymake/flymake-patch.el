@@ -319,16 +319,15 @@ are the string substitutions (see `format')."
 
 (defun flymake-get-file-name-mode-and-masks (file-name)
   "Return the corresponding entry from `flymake-allowed-file-name-masks'."
-  (unless (stringp file-name)
-    (error "Invalid file-name"))
-  (let ((fnm flymake-allowed-file-name-masks)
-	(mode-and-masks  nil))
-    (while (and (not mode-and-masks) fnm)
-      (if (string-match (car (car fnm)) file-name)
-	  (setq mode-and-masks (cdr (car fnm))))
-      (setq fnm (cdr fnm)))
-    (flymake-log 3 "file %s, init=%s" file-name (car mode-and-masks))
-    mode-and-masks))
+  (if (stringp file-name)
+      (let ((fnm flymake-allowed-file-name-masks)
+            (mode-and-masks  nil))
+        (while (and (not mode-and-masks) fnm)
+          (if (string-match (car (car fnm)) file-name)
+              (setq mode-and-masks (cdr (car fnm))))
+          (setq fnm (cdr fnm)))
+        (flymake-log 3 "file %s, init=%s" file-name (car mode-and-masks))
+        mode-and-masks)))
 
 (defun flymake-can-syntax-check-file (file-name)
   "Determine whether we can syntax check FILE-NAME.
@@ -1512,30 +1511,24 @@ With arg, turn Flymake mode on if and only if arg is positive."
 
 ;;;; general init-cleanup and helper routines
 (defun flymake-create-temp-inplace (file-name prefix)
-  (unless (stringp file-name)
-    (error "Invalid file-name"))
-  (or prefix
-      (setq prefix "flymake"))
-  (let* ((temp-name   (concat (file-name-sans-extension file-name)
-			      "_" prefix
-			      (and (file-name-extension file-name)
-				   (concat "." (file-name-extension file-name))))))
-    (flymake-log 3 "create-temp-inplace: file=%s temp=%s" file-name temp-name)
-    temp-name))
+  (if (stringp file-name)
+      (let* ((temp-name   (concat (file-name-sans-extension file-name)
+                                   "_flymake"
+                                   (and (file-name-extension file-name)
+                                        (concat "." (file-name-extension file-name))))))
+         (flymake-log 3 "create-temp-inplace: file=%s temp=%s" file-name temp-name)
+         temp-name)))
 
 (defun flymake-create-temp-with-folder-structure (file-name prefix)
-  (unless (stringp file-name)
-    (error "Invalid file-name"))
-
-  (let* ((dir       (file-name-directory file-name))
-         ;; Not sure what this slash-pos is all about, but I guess it's just
-         ;; trying to remove the leading / of absolute file names.
-	 (slash-pos (string-match "/" dir))
-	 (temp-dir  (expand-file-name (substring dir (1+ slash-pos))
-                                      (flymake-get-temp-dir))))
-
-    (file-truename (expand-file-name (file-name-nondirectory file-name)
-                                     temp-dir))))
+  (if (stringp file-name)
+      (let* ((dir (file-name-directory file-name))
+             ;; Not sure what this slash-pos is all about, but I guess it's just
+             ;; trying to remove the leading / of absolute file names.
+             (slash-pos (string-match "/" dir))
+             (temp-dir  (expand-file-name (substring dir (1+ slash-pos))
+                                          (flymake-get-temp-dir))))
+        (file-truename (expand-file-name (file-name-nondirectory file-name)
+                                         temp-dir)))))
 
 (defun flymake-delete-temp-directory (dir-name)
   "Attempt to delete temp dir created by `flymake-create-temp-with-folder-structure', do not fail on error."
