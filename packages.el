@@ -10,6 +10,7 @@
   '(
     ace-jump-mode
     auto-complete
+    auto-dictionary
     autopair
     color-moccur
     deferred
