@@ -29,7 +29,6 @@
     fuzzy
     ghc
     haskell-mode
-    highlight-symbol
     ido-ubiquitous
     jedi
     key-chord

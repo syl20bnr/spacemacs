@@ -1,5 +1,6 @@
 (defvar syl:extensions
   '(
+    auto-highlight-symbol-mode
     centered-cursor
     delim-pad
     distel

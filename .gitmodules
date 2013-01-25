@@ -13,3 +13,6 @@
 [submodule "extensions/edts"]
 	path = extensions/edts
 	url = http://github.com/tjarvstrand/edts
+[submodule "extensions/auto-highlight-symbol-mode"]
+	path = extensions/auto-highlight-symbol-mode
+	url = http://github.com/mitsuo-saito/auto-highlight-symbol-mode.git
