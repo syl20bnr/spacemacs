@@ -44,10 +44,6 @@
 ;; (evil-leader/set-key "cj" 'mc/mark-next-lines)
 ;; (evil-leader/set-key "cn" 'mc/mark-next-like-this)
 ;; (evil-leader/set-key "cp" 'mc/mark-previous-lines)
-;; edit ----------------------------------------------------------------------
-(evil-leader/set-key "eh" 'ahs-edit-mode)
-(evil-leader/set-key "jh" 'ahs-forward)
-(evil-leader/set-key "jH" 'ahs-backward)
 ;; files ----------------------------------------------------------------------
 (evil-leader/set-key "fo" 'ido-find-file)
 (evil-leader/set-key "fp" 'find-file-in-project)
@@ -59,6 +55,11 @@
 (evil-leader/set-key "FK" 'fold-this-unfold-all)
 ;; git ------------------------------------------------------------------------
 (evil-leader/set-key "gs" 'magit-status)
+;; auto-highlight-symbol ------------------------------------------------------
+(evil-leader/set-key "he" 'ahs-edit-mode)
+(evil-leader/set-key "hh" 'auto-highlight-symbol-mode)
+(evil-leader/set-key "hn" 'ahs-forward)
+(evil-leader/set-key "hp" 'ahs-backward)
 ;; line numbers ---------------------------------------------------------------
 (evil-leader/set-key "ln" 'global-linum-mode)
 ;; move-text ------------------------------------------------------------------
