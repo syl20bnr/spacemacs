@@ -21,9 +21,3 @@
                 org-mode
                 python-mode))
   (add-to-list 'ac-modes mode))
-
-;; solarized
-(custom-set-faces
- '(ac-candidate-face ((t (:background "#586e75" :foreground "#000000"))))
- '(ac-candidate-mouse-face ((t (:background "#073642" :foreground "#dc322f" :box (:line-width -1 :style pressed-button)))))
- '(ac-selection-face ((t (:background "#073642" :foreground "#b58900" :box (:line-width -1 :style pressed-button) :overline "black" :weight bold)))))
