@@ -35,27 +35,24 @@
 (evil-leader/set-key "br" 'rename-current-buffer-file)
 (evil-leader/set-key "bs" 'ido-switch-buffer)
 ;; multiple-cursors -----------------------------------------------------------
-(evil-leader/set-key "ca" 'mc/mark-all-like-this)
-(evil-leader/set-key "cb" 'mac-mc-edit-beginnings-of-lines-tb)
-(evil-leader/set-key "CB" 'mac-mc-edit-ends-of-lines-tb)
-(evil-leader/set-key "cc" 'mac-mc-acquire-cursors-at-beginning)
-(evil-leader/set-key "ce" 'mac-mc-edit-beginnings-of-lines-bt)
-(evil-leader/set-key "CE" 'mac-mc-edit-ends-of-lines-bt)
-(evil-leader/set-key "cj" 'mc/mark-next-lines)
-(evil-leader/set-key "cn" 'mc/mark-next-like-this)
-(evil-leader/set-key "cp" 'mc/mark-previous-lines)
-;; elisp ----------------------------------------------------------------------
-(evil-leader/set-key "ed" 'elisp-slime-nav-find-elisp-thing-at-point)
-(evil-leader/set-key "ev" 'eval-sexp)
-(evil-leader/set-key "EV" 'eval-and-replace)
-;; expand region --------------------------------------------------------------
-(evil-leader/set-key "re" 'er/expand-region)
-(evil-leader/set-key "rr" 'er/contract-region)
+;; (evil-leader/set-key "ca" 'mc/mark-all-like-this)
+;; (evil-leader/set-key "cb" 'mac-mc-edit-beginnings-of-lines-tb)
+;; (evil-leader/set-key "CB" 'mac-mc-edit-ends-of-lines-tb)
+;; (evil-leader/set-key "cc" 'mac-mc-acquire-cursors-at-beginning)
+;; (evil-leader/set-key "ce" 'mac-mc-edit-beginnings-of-lines-bt)
+;; (evil-leader/set-key "CE" 'mac-mc-edit-ends-of-lines-bt)
+;; (evil-leader/set-key "cj" 'mc/mark-next-lines)
+;; (evil-leader/set-key "cn" 'mc/mark-next-like-this)
+;; (evil-leader/set-key "cp" 'mc/mark-previous-lines)
+;; edit ----------------------------------------------------------------------
+(evil-leader/set-key "eh" 'ahs-edit-mode)
+(evil-leader/set-key "jh" 'ahs-forward)
+(evil-leader/set-key "jH" 'ahs-backward)
 ;; files ----------------------------------------------------------------------
 (evil-leader/set-key "fo" 'ido-find-file)
 (evil-leader/set-key "fp" 'find-file-in-project)
 (evil-leader/set-key "fs" 'sr-speedbar-toggle-and-select)
-;; fold-this -g----------------------------------------------------------------
+;; fold-this ------------------------------------------------------------------
 (evil-leader/set-key "fj" 'fold-this)
 (evil-leader/set-key "FJ" 'fold-this-all)
 (evil-leader/set-key "fk" 'fold-this-unfold-at-point)

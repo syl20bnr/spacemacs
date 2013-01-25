@@ -34,7 +34,7 @@
     key-chord
     magit
     move-text
-    multiple-cursors
+    ;; multiple-cursors
     multi-term
     nose
     org
