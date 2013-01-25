@@ -2,8 +2,8 @@
   '(
     centered-cursor
     delim-pad
-    ;; distel
-    edts
+    distel
+    ;; edts
     ;; emacs-eclim
     evil-plugins
     flymake
