@@ -75,6 +75,7 @@
 (evil-leader/set-key "tp" 'multi-term-prev)
 (evil-leader/set-key "tt" 'last-used-multi-term)
 ;; windows --------------------------------------------------------------------
+(evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key "wc" 'delete-window)
 (evil-leader/set-key "wd" 'toggle-current-window-dedication)
 (evil-leader/set-key "wh" 'evil-window-left)
@@ -82,10 +83,9 @@
 (evil-leader/set-key "wk" 'evil-window-up)
 (evil-leader/set-key "wl" 'evil-window-right)
 (evil-leader/set-key "wm" 'toggle-maximize-buffer)
-(evil-leader/set-key "wn" 'evenly-split-window-right)
-(evil-leader/set-key "WN" 'evenly-split-window-below)
 (evil-leader/set-key "wo" 'other-window)
 (evil-leader/set-key "wr" 'rotate-windows)
+(evil-leader/set-key "wv" 'evenly-split-window-below)
 ;; centered cursor ------------------------------------------------------------
 (evil-leader/set-key "zz" 'global-centered-cursor-mode)
 
