@@ -46,6 +46,7 @@
     puppet-mode
     python
     rainbow-delimiters
+    recentf
     rfringe
     smart-operator
     smex

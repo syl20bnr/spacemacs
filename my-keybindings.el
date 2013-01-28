@@ -63,8 +63,18 @@
 ;; line numbers ---------------------------------------------------------------
 (evil-leader/set-key "ln" 'global-linum-mode)
 ;; move-text ------------------------------------------------------------------
-(evil-leader/set-key "vj" 'move-text-down)
-(evil-leader/set-key "vk" 'move-text-up)
+(evil-leader/set-key "mj" 'move-text-down)
+(evil-leader/set-key "mk" 'move-text-up)
+;; projectile -----------------------------------------------------------------
+(evil-leader/set-key "pb" 'projectile-switch-to-buffer)
+(evil-leader/set-key "pC" 'projectile-invalidate-cache)
+(evil-leader/set-key "pd" 'projectile-dired)
+(evil-leader/set-key "pf" 'projectile-recentf)
+(evil-leader/set-key "pF" 'projectile-find-file)
+(evil-leader/set-key "pk" 'projectile-kill-buffers)
+(evil-leader/set-key "pg" 'projectile-grep)
+(evil-leader/set-key "po" 'projectile-multi-occur)
+(evil-leader/set-key "pr" 'projectile-replace)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key "rp" 'previous-error)
 (evil-leader/set-key "rn" 'next-error)
