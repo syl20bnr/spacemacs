@@ -15,13 +15,22 @@
   '(diminish 'undo-tree-mode))
 
 (eval-after-load "yasnippet"
-  '(diminish 'yas-minor-mode))
+  '(diminish 'yas-minor-mode "yas"))
 
 (eval-after-load "emacs-eclim"
   '(diminish 'eclim-mode "ecl"))
 
 (eval-after-load "centered-cursor-mode"
-  '(diminish 'centered-cursor-mode))
+  '(diminish 'centered-cursor-mode "CC"))
+
+(eval-after-load "projectile"
+  '(diminish 'projectile-mode "ptile"))
+
+(eval-after-load "hi-lock"
+  '(diminish 'hi-lock-mode))
+
+(eval-after-load "flymake"
+  '(diminish 'flymake-mode "fly"))
 
 (eval-after-load 'elisp-slime-nav
   '(diminish 'elisp-slime-nav-mode))
