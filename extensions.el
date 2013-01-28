@@ -9,6 +9,7 @@
     evil-plugins
     flymake
     mu4e
+    elixir
     pylookup
     ;; pymacs
     ))
