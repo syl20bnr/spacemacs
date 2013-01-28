@@ -16,3 +16,6 @@
 [submodule "extensions/auto-highlight-symbol-mode"]
 	path = extensions/auto-highlight-symbol-mode
 	url = http://github.com/mitsuo-saito/auto-highlight-symbol-mode.git
+[submodule "extensions/elixir-mode"]
+	path = extensions/elixir-mode
+	url = http://github.com/secondplanet/elixir-mode
