@@ -1,0 +1,11 @@
+/semanticdb
+/url
+/edts
+/auto-save-list
+ac-comphist.dat
+.emacs.desktop
+.emacs.desktop.lock
+.places
+.recentf
+.smex-items
+*.elc
