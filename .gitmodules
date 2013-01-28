@@ -18,4 +18,4 @@
 	url = http://github.com/mitsuo-saito/auto-highlight-symbol-mode.git
 [submodule "extensions/elixir-mode"]
 	path = extensions/elixir-mode
-	url = http://github.com/secondplanet/elixir-mode
+	url = http://github.com/antifuchs/elixir-mode
