@@ -7,7 +7,9 @@
 (setq column-number-mode t)
 ;; line number
 (setq linum-format "%4d")
-(setq global-linum-mode t)
+;; highlight current line
+(global-hl-line-mode t)
+(set-face-background 'hl-line "#073642")
 ;; no blink
 (blink-cursor-mode (- (*) (*) (*)))
 ;; tool tips in echo area
@@ -22,9 +24,6 @@
 ;; font
 (if (eq window-system 'x)
   (set-default-font "DejaVu Sans Mono-10"))
-;; highlight current line
-(global-hl-line-mode t)
-(set-face-background 'hl-line "#073642")
 ;; setup right and left margins
 (add-hook 'window-configuration-change-hook
           (lambda ()
