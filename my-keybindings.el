@@ -1,3 +1,10 @@
+
+;; First unset shortcuts which shadow evil leader =============================
+(eval-after-load "compile"
+  (define-key compilation-mode-map (kbd "SPC") nil))
+
+;; Regular shortcuts ==========================================================
+
 ;; evil -----------------------------------------------------------------------
 ;;Make evil-mode up/down operate in screen lines instead of logical lines
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
@@ -13,8 +20,6 @@
 ;; multiple-cursors -----------------------------------------------------------
 (global-set-key (kbd "C-M-m b") 'mc/edit-beginnings-of-lines)
 (global-set-key (kbd "C-M-m e") 'mc/edit-ends-of-lines)
-;; test
-(evil-leader/set-key "bs" 'switch-to-buffer)
 
 ;; evil-leader shortcuts ======================================================
 
@@ -93,9 +98,9 @@
 (evil-leader/set-key "wk" 'evil-window-up)
 (evil-leader/set-key "wl" 'evil-window-right)
 (evil-leader/set-key "wm" 'toggle-maximize-buffer)
-(evil-leader/set-key "wo" 'other-window)
 (evil-leader/set-key "wr" 'rotate-windows)
 (evil-leader/set-key "wv" 'evenly-split-window-below)
+(evil-leader/set-key "ww" 'other-window)
 ;; centered cursor ------------------------------------------------------------
 (evil-leader/set-key "zz" 'global-centered-cursor-mode)
 
