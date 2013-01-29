@@ -49,3 +49,6 @@
 (progn (when (file-exists-p host-directory)
     (dolist (l (directory-files host-directory nil "^[^#].*el$"))
       (load (concat host-directory l)))))
+
+;; Custom groups settings =====================================================
+(require 'custom-settings)
