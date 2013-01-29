@@ -70,6 +70,11 @@
 ;; move-text ------------------------------------------------------------------
 (evil-leader/set-key "mj" 'move-text-down)
 (evil-leader/set-key "mk" 'move-text-up)
+;; narrow & widen -------------------------------------------------------------
+(evil-leader/set-key "nr" 'narrow-to-region)
+(evil-leader/set-key "np" 'narrow-to-page)
+(evil-leader/set-key "nf" 'narrow-to-defun)
+(evil-leader/set-key "nw" 'widen)
 ;; projectile -----------------------------------------------------------------
 (evil-leader/set-key "pb" 'projectile-switch-to-buffer)
 (evil-leader/set-key "pC" 'projectile-invalidate-cache)
