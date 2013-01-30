@@ -10,7 +10,7 @@
     flymake
     mu4e
     ;; elixir
-	elixir-mode
+	  elixir-mode
     pylookup
     ;; pymacs
     ))
