@@ -30,6 +30,7 @@
 ;; applications ---------------------------------------------------------------
 (evil-leader/set-key "ae" 'erc-start-or-switch)
 (evil-leader/set-key "am" 'mu4e-up-to-date-status)
+(evil-leader/set-key "as" 'eshell)
 (evil-leader/set-key "at" 'twit)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key "bd" 'delete-current-buffer-file)
@@ -88,13 +89,9 @@
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key "rp" 'previous-error)
 (evil-leader/set-key "rn" 'next-error)
-;; terminals ------------------------------------------------------------------
-(evil-leader/set-key "tc" 'multi-term)
-(evil-leader/set-key "te" 'eshell)
-(evil-leader/set-key "tn" 'multi-term-next)
-(evil-leader/set-key "tp" 'multi-term-prev)
-(evil-leader/set-key "tt" 'last-used-multi-term)
-;; windows --------------------------------------------------------------------
+;; toggle ---------------------------------------------------------------------
+(evil-leader/set-key "ta" 'auto-complete-mode)
+;; --------------------------------------------------------------------
 (evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key "wc" 'delete-window)
 (evil-leader/set-key "wd" 'toggle-current-window-dedication)
