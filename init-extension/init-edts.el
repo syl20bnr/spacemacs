@@ -1,6 +1,6 @@
 (require 'edts-start)
 
-(setq edts-log-level 'debug)
+;; (setq edts-log-level 'debug)
 
 (setq edts-projects
       '(( ;; Erlang tests.
