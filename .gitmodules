@@ -19,3 +19,6 @@
 [submodule "extensions/elixir-mode"]
 	path = extensions/elixir-mode
 	url = http://github.com/antifuchs/elixir-mode
+[submodule "extensions/window-numbering"]
+	path = extensions/window-numbering
+	url = http://github.com/nschum/window-numbering.el

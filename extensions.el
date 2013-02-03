@@ -13,6 +13,7 @@
 	  elixir-mode
     pylookup
     ;; pymacs
+    window-numbering
     ))
 
 ;; load extensions

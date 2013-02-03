@@ -1,5 +1,4 @@
-
-;; First unset shortcuts which shadow evil leader =============================
+;; Unset shortcuts which shadow evil leader =============================
 (eval-after-load "compile"
   (define-key compilation-mode-map (kbd "SPC") nil))
 
@@ -27,6 +26,17 @@
 (evil-leader/set-key ":" 'smex)
 ;; ace-jump -------------------------------------------------------------------
 (evil-leader/set-key "SPC" 'ace-jump-mode)
+;; switch window by number ----------------------------------------------------
+(evil-leader/set-key "0" 'select-window-0)
+(evil-leader/set-key "1" 'select-window-1)
+(evil-leader/set-key "2" 'select-window-2)
+(evil-leader/set-key "3" 'select-window-3)
+(evil-leader/set-key "4" 'select-window-4)
+(evil-leader/set-key "5" 'select-window-5)
+(evil-leader/set-key "6" 'select-window-6)
+(evil-leader/set-key "7" 'select-window-7)
+(evil-leader/set-key "8" 'select-window-8)
+(evil-leader/set-key "9" 'select-window-9)
 ;; applications ---------------------------------------------------------------
 (evil-leader/set-key "ae" 'erc-start-or-switch)
 (evil-leader/set-key "am" 'mu4e-up-to-date-status)
