@@ -21,4 +21,4 @@
 	url = http://github.com/antifuchs/elixir-mode
 [submodule "extensions/window-numbering"]
 	path = extensions/window-numbering
-	url = http://github.com/nschum/window-numbering.el
+	url = http://github.com/syl20bnr/window-numbering.el
