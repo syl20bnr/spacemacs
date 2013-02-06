@@ -42,7 +42,7 @@
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key "bd" 'delete-current-buffer-file)
 (evil-leader/set-key "bk" 'ido-kill-buffer)
-(evil-leader/set-key "BK" 'kill-other-buffers)
+(evil-leader/set-key "bK" 'kill-other-buffers)
 (evil-leader/set-key "bn" 'switch-to-next-buffer)
 (evil-leader/set-key "bp" 'switch-to-prev-buffer)
 (evil-leader/set-key "br" 'rename-current-buffer-file)
@@ -88,7 +88,7 @@
 (evil-leader/set-key "rn" 'next-error)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "ta" 'auto-complete-mode)
-;; --------------------------------------------------------------------
+;; window ---------------------------------------------------------------------
 (evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key "wc" 'delete-window)
 (evil-leader/set-key "wd" 'toggle-current-window-dedication)
