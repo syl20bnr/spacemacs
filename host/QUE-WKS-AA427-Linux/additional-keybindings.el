@@ -1,2 +1,2 @@
 ;; tools -----------------------------------------------------------------------
-(evil-leader/set-key "11" 'mappyl)
+(evil-leader/set-key "!1" 'mappyl)
