@@ -9,16 +9,13 @@
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 (define-key evil-insert-state-map (kbd "ESC") 'evil-normal-state)
+;; close parens ---------------------------------------------------------------
+(global-set-key (kbd ")") 'close-open-paren)
 ;; auto-complete --------------------------------------------------------------
 (global-set-key (kbd "M-SPC") 'ac-fuzzy-complete)
-(define-key ac-complete-mode-map (kbd "C-j") 'ac-next)
-(define-key ac-complete-mode-map (kbd "C-k") 'ac-previous)
-(define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
+; (define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
 ;; mu4e -----------------------------------------------------------------------
 (define-key mu4e-main-mode-map (kbd "q") 'mu4e-quit-session)
-;; multiple-cursors -----------------------------------------------------------
-(global-set-key (kbd "C-M-m b") 'mc/edit-beginnings-of-lines)
-(global-set-key (kbd "C-M-m e") 'mc/edit-ends-of-lines)
 
 ;; evil-leader shortcuts ======================================================
 
@@ -50,16 +47,6 @@
 (evil-leader/set-key "bp" 'switch-to-prev-buffer)
 (evil-leader/set-key "br" 'rename-current-buffer-file)
 (evil-leader/set-key "bs" 'ido-switch-buffer)
-;; multiple-cursors -----------------------------------------------------------
-;; (evil-leader/set-key "ca" 'mc/mark-all-like-this)
-;; (evil-leader/set-key "cb" 'mac-mc-edit-beginnings-of-lines-tb)
-;; (evil-leader/set-key "CB" 'mac-mc-edit-ends-of-lines-tb)
-;; (evil-leader/set-key "cc" 'mac-mc-acquire-cursors-at-beginning)
-;; (evil-leader/set-key "ce" 'mac-mc-edit-beginnings-of-lines-bt)
-;; (evil-leader/set-key "CE" 'mac-mc-edit-ends-of-lines-bt)
-;; (evil-leader/set-key "cj" 'mc/mark-next-lines)
-;; (evil-leader/set-key "cn" 'mc/mark-next-like-this)
-;; (evil-leader/set-key "cp" 'mc/mark-previous-lines)
 ;; files ----------------------------------------------------------------------
 (evil-leader/set-key "fo" 'ido-find-file)
 (evil-leader/set-key "fp" 'find-file-in-project)
@@ -105,10 +92,6 @@
 (evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key "wc" 'delete-window)
 (evil-leader/set-key "wd" 'toggle-current-window-dedication)
-(evil-leader/set-key "wh" 'evil-window-left)
-(evil-leader/set-key "wj" 'evil-window-down)
-(evil-leader/set-key "wk" 'evil-window-up)
-(evil-leader/set-key "wl" 'evil-window-right)
 (evil-leader/set-key "wm" 'toggle-maximize-buffer)
 (evil-leader/set-key "wr" 'rotate-windows)
 (evil-leader/set-key "wv" 'evenly-split-window-below)
