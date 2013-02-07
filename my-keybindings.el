@@ -47,6 +47,9 @@
 (evil-leader/set-key "bp" 'switch-to-prev-buffer)
 (evil-leader/set-key "br" 'rename-current-buffer-file)
 (evil-leader/set-key "bs" 'ido-switch-buffer)
+;; errors ---------------------------------------------------------------------
+(evil-leader/set-key "en" 'next-error)
+(evil-leader/set-key "ep" 'previous-error)
 ;; files ----------------------------------------------------------------------
 (evil-leader/set-key "fo" 'ido-find-file)
 (evil-leader/set-key "fp" 'find-file-in-project)
@@ -68,6 +71,8 @@
 ;; move-text ------------------------------------------------------------------
 (evil-leader/set-key "mj" 'move-text-down)
 (evil-leader/set-key "mk" 'move-text-up)
+(evil-leader/set-key "mtl" 'transpose-lines)
+(evil-leader/set-key "mtw" 'transpose-words)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key "nr" 'narrow-to-region)
 (evil-leader/set-key "np" 'narrow-to-page)
@@ -83,9 +88,6 @@
 (evil-leader/set-key "pg" 'projectile-grep)
 (evil-leader/set-key "po" 'projectile-multi-occur)
 (evil-leader/set-key "pr" 'projectile-replace)
-;; errors ---------------------------------------------------------------------
-(evil-leader/set-key "rp" 'previous-error)
-(evil-leader/set-key "rn" 'next-error)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "ta" 'auto-complete-mode)
 ;; window ---------------------------------------------------------------------
