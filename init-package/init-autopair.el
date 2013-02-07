@@ -1,8 +1,7 @@
 (require 'autopair)
 
 (defvar autopair-modes
-  '(python-mode)
-  '(erlang-mode)
+  '(python-mode erlang-mode emacs-lisp-mode)
 )
 (defun turn-on-autopair-mode () (autopair-mode 1))
 (dolist (mode autopair-modes)
