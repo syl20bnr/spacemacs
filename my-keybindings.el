@@ -71,6 +71,7 @@
 ;; move-text ------------------------------------------------------------------
 (evil-leader/set-key "mj" 'move-text-down)
 (evil-leader/set-key "mk" 'move-text-up)
+(evil-leader/set-key "mtc" 'transpose-chars)
 (evil-leader/set-key "mtl" 'transpose-lines)
 (evil-leader/set-key "mtw" 'transpose-words)
 ;; narrow & widen -------------------------------------------------------------
