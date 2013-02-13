@@ -91,6 +91,8 @@
 (evil-leader/set-key "pr" 'projectile-replace)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "ta" 'auto-complete-mode)
+;; selection ------------------------------------------------------------------
+(evil-leader/set-key "v" 'er/expand-region)
 ;; window ---------------------------------------------------------------------
 (evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key "wc" 'delete-window)
