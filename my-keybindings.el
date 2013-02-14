@@ -1,7 +1,3 @@
-;; Unset shortcuts which shadow evil leader =============================
-(eval-after-load "compile"
-  (define-key compilation-mode-map (kbd "SPC") nil))
-
 ;; Regular shortcuts ==========================================================
 
 ;; evil -----------------------------------------------------------------------
