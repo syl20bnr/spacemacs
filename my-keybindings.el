@@ -62,8 +62,6 @@
 (evil-leader/set-key "hh" 'auto-highlight-symbol-mode)
 (evil-leader/set-key "hn" 'ahs-forward)
 (evil-leader/set-key "hp" 'ahs-backward)
-;; line numbers ---------------------------------------------------------------
-(evil-leader/set-key "ln" 'global-linum-mode)
 ;; move-text ------------------------------------------------------------------
 (evil-leader/set-key "mj" 'move-text-down)
 (evil-leader/set-key "mk" 'move-text-up)
@@ -89,6 +87,7 @@
 (evil-leader/set-key "ta" 'auto-complete-mode)
 (evil-leader/set-key "tf" 'toggle-maximize-buffer)
 (evil-leader/set-key "th" 'auto-highlight-symbol-mode)
+(evil-leader/set-key "tn" 'global-linum-mode)
 ;; selection ------------------------------------------------------------------
 (evil-leader/set-key "v" 'er/expand-region)
 ;; window ---------------------------------------------------------------------
