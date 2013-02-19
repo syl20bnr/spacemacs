@@ -85,9 +85,10 @@
 (evil-leader/set-key "pr" 'projectile-replace)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "ta" 'auto-complete-mode)
-(evil-leader/set-key "tf" 'toggle-maximize-buffer)
+(evil-leader/set-key "tf" 'fringe-mode)
 (evil-leader/set-key "th" 'auto-highlight-symbol-mode)
 (evil-leader/set-key "tn" 'global-linum-mode)
+(evil-leader/set-key "tw" 'toggle-maximize-buffer)
 ;; selection ------------------------------------------------------------------
 (evil-leader/set-key "v" 'er/expand-region)
 ;; window ---------------------------------------------------------------------
