@@ -48,6 +48,10 @@ argument makes the windows rotate backwards."
               (set-window-start w2 s1)
               (setq i next-i)))))))
 
+(defun rotate-windows-backward ()
+ "Rotate your windows backward."
+  (rotate-windows -1))
+
 ;; from magnars
 (defun rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
