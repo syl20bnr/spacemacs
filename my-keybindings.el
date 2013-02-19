@@ -46,10 +46,9 @@
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key "en" 'next-error)
 (evil-leader/set-key "ep" 'previous-error)
-;; files ----------------------------------------------------------------------
+;; find -----------------------------------------------------------------------
 (evil-leader/set-key "fo" 'ido-find-file)
 (evil-leader/set-key "fp" 'find-file-in-project)
-(evil-leader/set-key "fs" 'sr-speedbar-toggle-and-select)
 ;; fold-this ------------------------------------------------------------------
 (evil-leader/set-key "fj" 'fold-this)
 (evil-leader/set-key "FJ" 'fold-this-all)
@@ -62,12 +61,17 @@
 (evil-leader/set-key "hh" 'auto-highlight-symbol-mode)
 (evil-leader/set-key "hn" 'ahs-forward)
 (evil-leader/set-key "hp" 'ahs-backward)
-;; move-text ------------------------------------------------------------------
-(evil-leader/set-key "mj" 'move-text-down)
-(evil-leader/set-key "mk" 'move-text-up)
-(evil-leader/set-key "mtc" 'transpose-chars)
-(evil-leader/set-key "mtl" 'transpose-lines)
-(evil-leader/set-key "mtw" 'transpose-words)
+;; major modes ----------------------------------------------------------------
+;; Erlang
+(evil-leader/set-key "mec" 'edts-who-calls)
+(evil-leader/set-key "med" 'edts-find-doc)
+(evil-leader/set-key "mef" 'edts-find-source-under-point)
+(evil-leader/set-key "meg" 'edts-find-global-function)
+(evil-leader/set-key "meh" 'edts-find-header-source)
+(evil-leader/set-key "mel" 'edts-find-local-function)
+(evil-leader/set-key "mem" 'edts-find-macro-source)
+(evil-leader/set-key "mer" 'edts-find-record-source)
+(evil-leader/set-key "mex" 'edts-refactor-extract-function)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key "nr" 'narrow-to-region)
 (evil-leader/set-key "np" 'narrow-to-page)
@@ -87,8 +91,8 @@
 (evil-leader/set-key "ta" 'auto-complete-mode)
 (evil-leader/set-key "tf" 'fringe-mode)
 (evil-leader/set-key "th" 'auto-highlight-symbol-mode)
+(evil-leader/set-key "tm" 'toggle-maximize-buffer)
 (evil-leader/set-key "tn" 'global-linum-mode)
-(evil-leader/set-key "tw" 'toggle-maximize-buffer)
 ;; selection ------------------------------------------------------------------
 (evil-leader/set-key "v" 'er/expand-region)
 ;; window ---------------------------------------------------------------------
@@ -97,8 +101,15 @@
 (evil-leader/set-key "wd" 'toggle-current-window-dedication)
 (evil-leader/set-key "wf" 'toggle-maximize-buffer)
 (evil-leader/set-key "wr" 'rotate-windows)
+(evil-leader/set-key "wR" 'rotate-windows-backward)
 (evil-leader/set-key "wv" 'evenly-split-window-below)
 (evil-leader/set-key "ww" 'other-window)
+;; text ------------------------------------------------------------------
+(evil-leader/set-key "xj" 'move-text-down)
+(evil-leader/set-key "xk" 'move-text-up)
+(evil-leader/set-key "xtc" 'transpose-chars)
+(evil-leader/set-key "xtl" 'transpose-lines)
+(evil-leader/set-key "xtw" 'transpose-words)
 ;; centered cursor ------------------------------------------------------------
 (evil-leader/set-key "zz" 'global-centered-cursor-mode)
 
