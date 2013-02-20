@@ -97,7 +97,6 @@
 (evil-leader/set-key "ta" 'auto-complete-mode)
 (evil-leader/set-key "tf" 'fringe-mode)
 (evil-leader/set-key "th" 'auto-highlight-symbol-mode)
-(evil-leader/set-key "tm" 'toggle-maximize-buffer)
 (evil-leader/set-key "tn" 'global-linum-mode)
 ;; selection ------------------------------------------------------------------
 (evil-leader/set-key "v" 'er/expand-region)
@@ -106,11 +105,23 @@
 (evil-leader/set-key "wc" 'delete-window)
 (evil-leader/set-key "wd" 'toggle-current-window-dedication)
 (evil-leader/set-key "wf" 'toggle-maximize-buffer)
+(evil-leader/set-key "wm" 'toggle-maximize-buffer)
 (evil-leader/set-key "wr" 'rotate-windows)
 (evil-leader/set-key "wR" 'rotate-windows-backward)
 (evil-leader/set-key "wv" 'evenly-split-window-below)
 (evil-leader/set-key "ww" 'other-window)
-;; text ------------------------------------------------------------------
+;; window layout splitter -----------------------------------------------------
+(evil-leader/set-key "wl0" 'select-window-0)
+(evil-leader/set-key "wl1" 'select-window-1)
+(evil-leader/set-key "wl2" 'select-window-2)
+(evil-leader/set-key "wl3" 'select-window-3)
+(evil-leader/set-key "wl4" 'select-window-4)
+(evil-leader/set-key "wl5" 'select-window-5)
+(evil-leader/set-key "wl6" 'select-window-6)
+(evil-leader/set-key "wl7" 'select-window-7)
+(evil-leader/set-key "wl8" 'select-window-8)
+(evil-leader/set-key "wl9" 'select-window-9)
+;; text -----------------------------------------------------------------------
 (evil-leader/set-key "xj" 'move-text-down)
 (evil-leader/set-key "xk" 'move-text-up)
 (evil-leader/set-key "xtc" 'transpose-chars)
