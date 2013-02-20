@@ -157,4 +157,15 @@ argument makes the windows rotate backwards."
             (if dedicated "no longer " "")
             (buffer-name))))
 
+;; from http://blog.everythingtastesbetterwithchilli.com/2013/02/18/electric-punctuation-in-emacs/
+(defun electric-punctuation ()
+  "Tidy up whitespace around punctuation: delete any preceding
+  whitespace and insert one space afterwards.  Idea stolen from
+  the SwiftKey android keyboard."
+  (interactive)
+  (when (looking-back "\s+" nil t)
+    (delete-region (match-beginning 0) (match-end 0)))
+  (call-interactively 'self-insert-command)
+  (just-one-space))
+
 (provide 'my-funcs)

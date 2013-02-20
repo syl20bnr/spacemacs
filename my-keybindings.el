@@ -12,6 +12,9 @@
 ; (define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
 ;; mu4e -----------------------------------------------------------------------
 (define-key mu4e-main-mode-map (kbd "q") 'mu4e-quit-session)
+;; text-mode ------------------------------------------------------------------
+(dolist (punc '(?, ?\; ?.))
+  (define-key text-mode-map `[,punc] 'electric-punctuation))
 
 ;; evil-leader shortcuts ======================================================
 
