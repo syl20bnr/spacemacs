@@ -22,7 +22,7 @@
 (defun rotate-windows (count)
  "Rotate your windows.
 Dedicated windows are left untouched. Giving a negative prefix
-argument makes the windows rotate backwards."
+argument takes the kindows rotate backwards."
  (interactive "p")
  (let* ((non-dedicated-windows (remove-if 'window-dedicated-p (window-list)))
         (num-windows (length non-dedicated-windows))
@@ -48,9 +48,10 @@ argument makes the windows rotate backwards."
               (set-window-start w2 s1)
               (setq i next-i)))))))
 
-(defun rotate-windows-backward ()
+(defun rotate-windows-backward (count)
  "Rotate your windows backward."
-  (rotate-windows -1))
+  (interactive "p")
+  (rotate-windows (* -1 count)))
 
 ;; from magnars
 (defun rename-current-buffer-file ()
