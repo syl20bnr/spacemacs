@@ -33,9 +33,11 @@
 ;; applications ---------------------------------------------------------------
 (evil-leader/set-key "ad" 'deft)
 (evil-leader/set-key "ae" 'erc-start-or-switch)
+(evil-leader/set-key "ag" 'magit-status)
 (evil-leader/set-key "am" 'mu4e-up-to-date-status)
 (evil-leader/set-key "as" 'eshell)
 (evil-leader/set-key "at" 'twit)
+(evil-leader/set-key "au" 'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key "bd" 'delete-current-buffer-file)
 (evil-leader/set-key "bk" 'ido-kill-buffer)
