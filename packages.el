@@ -55,6 +55,7 @@
     sr-speedbar
     surround
     twittering-mode
+    window-layout
     yasnippet
     ))
 
