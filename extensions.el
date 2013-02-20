@@ -14,6 +14,7 @@
 	  elixir-mode
     pylookup
     ;; pymacs
+    revive
     window-numbering
     ))
 

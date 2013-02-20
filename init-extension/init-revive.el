@@ -1,0 +1,1 @@
+(require 'revive-mode-config)
