@@ -13,6 +13,7 @@
     auto-dictionary
     autopair
     color-moccur
+    deft
     deferred
     diminish
     elisp-slime-nav

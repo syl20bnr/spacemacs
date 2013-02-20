@@ -31,6 +31,7 @@
 (evil-leader/set-key "8" 'select-window-8)
 (evil-leader/set-key "9" 'select-window-9)
 ;; applications ---------------------------------------------------------------
+(evil-leader/set-key "ad" 'deft)
 (evil-leader/set-key "ae" 'erc-start-or-switch)
 (evil-leader/set-key "am" 'mu4e-up-to-date-status)
 (evil-leader/set-key "as" 'eshell)
