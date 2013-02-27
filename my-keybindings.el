@@ -127,6 +127,7 @@
 (evil-leader/set-key "xtc" 'transpose-chars)
 (evil-leader/set-key "xtl" 'transpose-lines)
 (evil-leader/set-key "xtw" 'transpose-words)
+(evil-leader/set-key "xw" 'delete-trailing-whitespace)
 ;; centered cursor ------------------------------------------------------------
 (evil-leader/set-key "zz" 'global-centered-cursor-mode)
 
