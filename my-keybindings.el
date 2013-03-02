@@ -104,7 +104,6 @@
 (evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key "wc" 'delete-window)
 (evil-leader/set-key "wd" 'toggle-current-window-dedication)
-(evil-leader/set-key "wf" 'toggle-maximize-buffer)
 (evil-leader/set-key "wm" 'toggle-maximize-buffer)
 (evil-leader/set-key "wr" 'rotate-windows)
 (evil-leader/set-key "wR" 'rotate-windows-backward)
