@@ -10,8 +10,6 @@
     evil-plugins
     flymake
     mu4e
-    ;; elixir
-	  elixir-mode
     pylookup
     ;; pymacs
     revive

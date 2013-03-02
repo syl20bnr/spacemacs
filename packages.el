@@ -17,6 +17,7 @@
     deferred
     diminish
     elisp-slime-nav
+    elixir-mode
     epc
     erc
     erlang
