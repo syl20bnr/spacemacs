@@ -31,10 +31,12 @@
     fuzzy
     ghc
     haskell-mode
+    htmlize
     ido-ubiquitous
     jedi
     key-chord
     magit
+    markdown-mode
     move-text
     ;; multiple-cursors
     multi-term

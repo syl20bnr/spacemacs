@@ -22,3 +22,6 @@
 [submodule "extensions/revive"]
 	path = extensions/revive
 	url = http://github.com/vedang/revive-mode.git
+[submodule "extensions/o-blog"]
+	path = extensions/o-blog
+	url = http://github.com/renard/o-blog

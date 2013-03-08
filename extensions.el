@@ -10,6 +10,7 @@
     evil-plugins
     flymake
     mu4e
+    o-blog
     pylookup
     ;; pymacs
     revive
