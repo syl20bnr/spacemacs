@@ -34,8 +34,14 @@
 (eval-after-load "flymake-patch"
   '(diminish 'flymake-mode "FLY"))
 
+(eval-after-load "flyspell"
+  '(diminish 'flyspell-mode "SPELL"))
+
 (eval-after-load "paredit"
   '(diminish 'paredit-mode "PE"))
+
+(eval-after-load "tagedit"
+  '(diminish 'tagedit-mode "TE"))
 
 (eval-after-load "yasnippet"
   '(diminish 'yas-minor-mode "YAS"))

@@ -12,9 +12,6 @@
 ; (define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
 ;; mu4e -----------------------------------------------------------------------
 (define-key mu4e-main-mode-map (kbd "q") 'mu4e-quit-session)
-;; text-mode ------------------------------------------------------------------
-(dolist (punc '(?, ?\; ?.))
-  (define-key text-mode-map `[,punc] 'electric-punctuation))
 
 ;; evil-leader shortcuts ======================================================
 
@@ -78,6 +75,15 @@
 (evil-leader/set-key "mem" 'edts-find-macro-source)
 (evil-leader/set-key "mer" 'edts-find-record-source)
 (evil-leader/set-key "mex" 'edts-refactor-extract-function)
+;; Html
+(evil-leader/set-key "C-<right>" 'tagedit-forward-slurp-tag)
+(evil-leader/set-key "C-<left>" 'tagedit-forward-barf-tag)
+(evil-leader/set-key "M-r" 'tagedit-raise-tag)
+(evil-leader/set-key "C-k" 'tagedit-kill)
+(evil-leader/set-key "s-k" 'tagedit-kill-attribute)
+;; Python
+(evil-leader/set-key "mpb" 'python-add-breakpoint)
+(evil-leader/set-key "mpf" 'jedi:goto-definition)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key "nr" 'narrow-to-region)
 (evil-leader/set-key "np" 'narrow-to-page)

@@ -35,6 +35,7 @@
     ido-ubiquitous
     jedi
     key-chord
+    less-css-mode
     magit
     markdown-mode
     move-text
@@ -57,7 +58,9 @@
     solarized-theme
     sr-speedbar
     surround
+    tagedit
     twittering-mode
+    wdired
     window-layout
     yasnippet
     ))
