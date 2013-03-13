@@ -9,8 +9,4 @@
 (setq-default indent-tabs-mode nil)
 (setq default-tab-width 2)
 ;; Text -----------------------------------------------------------------------
-(add-hook 'text-mode-hook
-          '(lambda ()
-             (auto-fill-mode 1)
-             (flyspell-mode)))
 (setq longlines-show-hard-newlines t)
