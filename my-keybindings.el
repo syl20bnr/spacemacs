@@ -51,7 +51,7 @@
 (evil-leader/set-key "en" 'next-error)
 (evil-leader/set-key "ep" 'previous-error)
 ;; find -----------------------------------------------------------------------
-(evil-leader/set-key "ff" 'helm-find-files)
+(evil-leader/set-key "ff" 'ido-find-file)
 ;; fold-this ------------------------------------------------------------------
 (evil-leader/set-key "fj" 'fold-this)
 (evil-leader/set-key "FJ" 'fold-this-all)
