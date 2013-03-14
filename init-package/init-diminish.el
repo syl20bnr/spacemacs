@@ -46,9 +46,6 @@
 (eval-after-load "yasnippet"
   '(diminish 'yas-minor-mode "YAS"))
 
-(eval-after-load "projectile"
-  '(diminish 'projectile-mode "PT"))
-
 ;; Minor Mode (hidden) ------------------------------------------------------
 
 (eval-after-load 'elisp-slime-nav
@@ -62,3 +59,6 @@
 
 (eval-after-load "undo-tree"
   '(diminish 'undo-tree-mode))
+
+(eval-after-load "helm"
+  '(diminish 'helm-mode))
