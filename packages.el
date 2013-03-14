@@ -31,8 +31,11 @@
     fuzzy
     ghc
     haskell-mode
+    helm
+    helm-c-yasnippet
+    helm-projectile
     htmlize
-    ido-ubiquitous
+    ;; ido-ubiquitous
     jedi
     key-chord
     less-css-mode
@@ -54,7 +57,7 @@
     recentf
     rfringe
     smart-operator
-    smex
+    ;; smex
     solarized-theme
     sr-speedbar
     surround

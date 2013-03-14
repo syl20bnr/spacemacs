@@ -16,7 +16,7 @@
 ;; evil-leader shortcuts ======================================================
 
 ;; M-x ------------------------------------------------------------------------
-(evil-leader/set-key ":" 'smex)
+(evil-leader/set-key ":" 'execute-extended-command)
 ;; ace-jump -------------------------------------------------------------------
 (evil-leader/set-key "SPC" 'ace-jump-mode)
 ;; switch window by number ----------------------------------------------------
@@ -31,13 +31,14 @@
 (evil-leader/set-key "8" 'select-window-8)
 (evil-leader/set-key "9" 'select-window-9)
 ;; applications ---------------------------------------------------------------
-(evil-leader/set-key "ad" 'deft)
+(evil-leader/set-key "ad" 'dired)
 (evil-leader/set-key "ae" 'erc-start-or-switch)
 (evil-leader/set-key "ag" 'magit-status)
 (evil-leader/set-key "am" 'mu4e-up-to-date-status)
 (evil-leader/set-key "as" 'eshell)
 (evil-leader/set-key "at" 'twit)
 (evil-leader/set-key "au" 'undo-tree-visualize)
+(evil-leader/set-key "ay" 'helm-c-yas-complete)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key "bd" 'delete-current-buffer-file)
 (evil-leader/set-key "bk" 'ido-kill-buffer)
@@ -45,13 +46,12 @@
 (evil-leader/set-key "bn" 'switch-to-next-buffer)
 (evil-leader/set-key "bp" 'switch-to-prev-buffer)
 (evil-leader/set-key "br" 'rename-current-buffer-file)
-(evil-leader/set-key "bs" 'ido-switch-buffer)
+(evil-leader/set-key "bs" 'helm-mini)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key "en" 'next-error)
 (evil-leader/set-key "ep" 'previous-error)
 ;; find -----------------------------------------------------------------------
-(evil-leader/set-key "fo" 'ido-find-file)
-(evil-leader/set-key "fp" 'find-file-in-project)
+(evil-leader/set-key "ff" 'helm-find-files)
 ;; fold-this ------------------------------------------------------------------
 (evil-leader/set-key "fj" 'fold-this)
 (evil-leader/set-key "FJ" 'fold-this-all)
@@ -83,6 +83,7 @@
 (evil-leader/set-key "s-k" 'tagedit-kill-attribute)
 ;; Python
 (evil-leader/set-key "mpb" 'python-add-breakpoint)
+(evil-leader/set-key "mpd" 'jedi:show-doc)
 (evil-leader/set-key "mpf" 'jedi:goto-definition)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key "nr" 'narrow-to-region)
@@ -93,7 +94,7 @@
 (evil-leader/set-key "pb" 'projectile-switch-to-buffer)
 (evil-leader/set-key "pC" 'projectile-invalidate-cache)
 (evil-leader/set-key "pd" 'projectile-dired)
-(evil-leader/set-key "pf" 'projectile-recentf)
+(evil-leader/set-key "pf" 'helm-projectile)
 (evil-leader/set-key "pF" 'projectile-find-file)
 (evil-leader/set-key "pk" 'projectile-kill-buffers)
 (evil-leader/set-key "pg" 'projectile-grep)

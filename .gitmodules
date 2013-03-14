@@ -25,3 +25,6 @@
 [submodule "extensions/o-blog"]
 	path = extensions/o-blog
 	url = http://github.com/renard/o-blog
+[submodule "extensions/helm-c-moccur"]
+	path = extensions/helm-c-moccur
+	url = http://github.com/syl20bnr/helm-c-moccur
