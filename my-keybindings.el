@@ -100,6 +100,12 @@
 (evil-leader/set-key "pg" 'projectile-grep)
 (evil-leader/set-key "po" 'projectile-multi-occur)
 (evil-leader/set-key "pr" 'projectile-replace)
+;; perforce -------------------------------------------------------------------
+(evil-leader/set-key "p4a" 'p4-add)
+(evil-leader/set-key "p4d" 'p4-delete)
+(evil-leader/set-key "p4D" 'p4-describe)
+(evil-leader/set-key "p4e" 'p4-edit)
+(evil-leader/set-key "p4r" 'p4-revert)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "ta" 'auto-complete-mode)
 (evil-leader/set-key "tf" 'fringe-mode)
