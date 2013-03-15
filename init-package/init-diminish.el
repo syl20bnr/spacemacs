@@ -60,5 +60,5 @@
 (eval-after-load "undo-tree"
   '(diminish 'undo-tree-mode))
 
-(eval-after-load "helm"
+(eval-after-load "helm-mode"
   '(diminish 'helm-mode))
