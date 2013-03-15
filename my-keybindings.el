@@ -106,6 +106,14 @@
 (evil-leader/set-key "p4D" 'p4-describe)
 (evil-leader/set-key "p4e" 'p4-edit)
 (evil-leader/set-key "p4r" 'p4-revert)
+;; quickrun -------------------------------------------------------------------
+(evil-leader/set-key "qba" 'quickrun-arg)
+(evil-leader/set-key "qbc" 'quickrun-compile-only)
+(evil-leader/set-key "qbs" 'quickrun-shell)
+(evil-leader/set-key "qbx" 'quickrun)
+(evil-leader/set-key "qh" 'helm-quickrun)
+(evil-leader/set-key "qrr" 'quickrun-replace-region)
+(evil-leader/set-key "qrx" 'quickrun-region)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "ta" 'auto-complete-mode)
 (evil-leader/set-key "tf" 'fringe-mode)

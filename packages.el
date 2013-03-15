@@ -53,6 +53,7 @@
     projectile
     puppet-mode
     python
+    quickrun
     rainbow-delimiters
     recentf
     rfringe
