@@ -82,9 +82,15 @@
 (evil-leader/set-key "C-k" 'tagedit-kill)
 (evil-leader/set-key "s-k" 'tagedit-kill-attribute)
 ;; Python
+(evil-leader/set-key "mp1" 'nosetests-one)
+(evil-leader/set-key "mp!" 'nosetests-pdb-one)
+(evil-leader/set-key "mpa" 'nosetests-all)
+(evil-leader/set-key "mpA" 'nosetests-pdb-all)
 (evil-leader/set-key "mpb" 'python-add-breakpoint)
 (evil-leader/set-key "mpd" 'jedi:show-doc)
 (evil-leader/set-key "mpf" 'jedi:goto-definition)
+(evil-leader/set-key "mpm" 'nosetests-module)
+(evil-leader/set-key "mpM" 'nosetests-pdb-module)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key "nr" 'narrow-to-region)
 (evil-leader/set-key "np" 'narrow-to-page)
