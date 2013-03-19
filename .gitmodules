@@ -15,7 +15,7 @@
 	url = http://github.com/tjarvstrand/edts
 [submodule "extensions/auto-highlight-symbol-mode"]
 	path = extensions/auto-highlight-symbol-mode
-	url = http://github.com/mitsuo-saito/auto-highlight-symbol-mode.git
+	url = http://github.com/emacsmirror/auto-highlight-symbol.git
 [submodule "extensions/window-numbering"]
 	path = extensions/window-numbering
 	url = http://github.com/syl20bnr/window-numbering.el
