@@ -16,6 +16,7 @@
     deft
     deferred
     diminish
+    dired+
     elisp-slime-nav
     elixir-mode
     epc
