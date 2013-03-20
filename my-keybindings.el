@@ -117,7 +117,9 @@
 (evil-leader/set-key "qbc" 'quickrun-compile-only)
 (evil-leader/set-key "qbs" 'quickrun-shell)
 (evil-leader/set-key "qbx" 'quickrun)
-(evil-leader/set-key "qh" 'helm-quickrun)
+(evil-leader/set-key "qeb" 'eval-buffer)
+(evil-leader/set-key "qex" 'eval-last-sexp)
+(evil-leader/set-key "qh"  'helm-quickrun)
 (evil-leader/set-key "qrr" 'quickrun-replace-region)
 (evil-leader/set-key "qrx" 'quickrun-region)
 ;; toggle ---------------------------------------------------------------------
