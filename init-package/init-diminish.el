@@ -32,7 +32,7 @@
   '(diminish 'projectile-mode "[⚑]"))
 
 (eval-after-load "flymake-patch"
-  '(diminish 'flymake-mode "[⿃]"))
+  '(diminish 'flymake-mode "[⇨]"))
 
 (eval-after-load "flyspell"
   '(diminish 'flyspell-mode "[abc]"))
