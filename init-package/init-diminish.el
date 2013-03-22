@@ -16,35 +16,29 @@
 
 ;; Minor modes abbrev --------------------------------------------------------
 
-(eval-after-load "auto-complete"
-  '(diminish 'auto-complete-mode "[☂]"))
+(when (display-graphic-p)
+  (eval-after-load "auto-complete"
+    '(diminish 'auto-complete-mode "[☂]"))
+  (eval-after-load "autopair"
+    '(diminish 'autopair-mode "[⒜]"))
+  (eval-after-load "centered-cursor-mode"
+    '(diminish 'centered-cursor-mode "[⊙]"))
+  (eval-after-load "eproject"
+    '(diminish 'eproject-mode "[⚑²]"))
+  (eval-after-load "projectile"
+    '(diminish 'projectile-mode "[⚑]"))
+  (eval-after-load "flymake-patch"
+    '(diminish 'flymake-mode "[⿃]"))
+  (eval-after-load "flyspell"
+    '(diminish 'flyspell-mode "[abc]"))
+  (eval-after-load "paredit"
+    '(diminish 'paredit-mode "[⒫]"))
+  (eval-after-load "tagedit"
+    '(diminish 'tagedit-mode "[⒯]"))
+  (eval-after-load "yasnippet"
+    '(diminish 'yas-minor-mode "[♻]"))
+  )
 
-(eval-after-load "autopair"
-  '(diminish 'autopair-mode "[⒜]"))
-
-(eval-after-load "centered-cursor-mode"
-  '(diminish 'centered-cursor-mode "[⊙]"))
-
-(eval-after-load "eproject"
-  '(diminish 'eproject-mode "[⚑²]"))
-
-(eval-after-load "projectile"
-  '(diminish 'projectile-mode "[⚑]"))
-
-(eval-after-load "flymake-patch"
-  '(diminish 'flymake-mode "[⿃]"))
-
-(eval-after-load "flyspell"
-  '(diminish 'flyspell-mode "[abc]"))
-
-(eval-after-load "paredit"
-  '(diminish 'paredit-mode "[⒫]"))
-
-(eval-after-load "tagedit"
-  '(diminish 'tagedit-mode "[⒯]"))
-
-(eval-after-load "yasnippet"
-  '(diminish 'yas-minor-mode "[♻]"))
 
 ;; Minor Mode (hidden) ------------------------------------------------------
 

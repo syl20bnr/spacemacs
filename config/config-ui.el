@@ -8,8 +8,9 @@
 ;; line number
 (setq linum-format "%4d")
 ;; highlight current line
-(global-hl-line-mode t)
-(set-face-background 'hl-line "#073642")
+(when (display-graphic-p)
+  (global-hl-line-mode t)
+  (set-face-background 'hl-line "#073642"))
 ;; no blink
 (blink-cursor-mode (- (*) (*) (*)))
 ;; tool tips in echo area
