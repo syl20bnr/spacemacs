@@ -28,7 +28,7 @@
   (eval-after-load "projectile"
     '(diminish 'projectile-mode "[⚑]"))
   (eval-after-load "flymake-patch"
-    '(diminish 'flymake-mode "[⿃]"))
+  '(diminish 'flymake-mode "[⇨]"))
   (eval-after-load "flyspell"
     '(diminish 'flyspell-mode "[abc]"))
   (eval-after-load "paredit"
@@ -38,7 +38,6 @@
   (eval-after-load "yasnippet"
     '(diminish 'yas-minor-mode "[♻]"))
   )
-
 
 ;; Minor Mode (hidden) ------------------------------------------------------
 
