@@ -64,6 +64,19 @@
 (evil-leader/set-key "hh" 'auto-highlight-symbol-mode)
 (evil-leader/set-key "hn" 'ahs-forward)
 (evil-leader/set-key "hp" 'ahs-backward)
+;; Lisps ----------------------------------------------------------------------
+(evil-leader/set-key "lB" 'paredit-backward-barf-sexp)
+(evil-leader/set-key "lb" 'paredit-forward-barf-sexp)
+(evil-leader/set-key "lc" 'paredit-convolute-sexp)
+(evil-leader/set-key "ld" 'paredit-kill)
+(evil-leader/set-key "lJ" 'paredit-join-sexps)
+(evil-leader/set-key "l C-j" 'paredit-split-sexp)
+(evil-leader/set-key "lj" 'paredit-splice-sexp-killing-forward)
+(evil-leader/set-key "lk" 'paredit-splice-sexp-killing-backward)
+(evil-leader/set-key "lr" 'paredit-raise-sexp)
+(evil-leader/set-key "lS" 'paredit-backward-slurp-sexp)
+(evil-leader/set-key "ls" 'paredit-forward-slurp-sexp)
+(evil-leader/set-key "lw" 'paredit-wrap-round)
 ;; major modes ----------------------------------------------------------------
 ;; Erlang
 (evil-leader/set-key "mec" 'edts-who-calls)
