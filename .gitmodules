@@ -28,3 +28,12 @@
 [submodule "extensions/helm-c-moccur"]
 	path = extensions/helm-c-moccur
 	url = http://github.com/syl20bnr/helm-c-moccur
+[submodule "extensions/elixir"]
+	path = extensions/elixir
+	url = http://github.com/elixir-lang/emacs-elixir
+[submodule "extensions/syl-elixir"]
+	path = extensions/syl-elixir
+	url = http://github.com/syl20bnr/emacs-elixir
+[submodule "extensions/flymake-python-pyflakes"]
+	path = extensions/flymake-python-pyflakes
+	url = http://github.com/syl20bnr/flymake-python-pyflakes

@@ -27,7 +27,7 @@
     '(diminish 'eproject-mode "[⚑²]"))
   (eval-after-load "projectile"
     '(diminish 'projectile-mode "[⚑]"))
-  (eval-after-load "flymake-patch"
+  (eval-after-load "flymake"
   '(diminish 'flymake-mode "[⇨]"))
   (eval-after-load "flyspell"
     '(diminish 'flyspell-mode "[abc]"))

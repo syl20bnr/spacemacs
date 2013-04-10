@@ -18,7 +18,6 @@
     diminish
     dired+
     elisp-slime-nav
-    elixir-mode
     epc
     erc
     erlang
@@ -28,6 +27,16 @@
     expand-region
     fill-column-indicator
     find-file-in-project
+    flymake
+    flymake-coffee
+    flymake-css
+    flymake-cursor
+    flymake-easy
+    flymake-go
+    flymake-haskell-multi
+    flymake-json
+    flymake-lua
+    flymake-ruby
     fold-this
     fuzzy
     ghc

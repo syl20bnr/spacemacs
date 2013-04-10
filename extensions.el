@@ -6,14 +6,18 @@
     delim-pad
     ;; distel
     edts
+    ;; elixir
+    flymake-python-pyflakes
     ;; emacs-eclim
+    ;; elixir-flymake
     evil-plugins
-    flymake
+    ;; flymake
     mu4e
     o-blog
     pylookup
     ;; pymacs
     revive
+    ;; syl-elixir
     window-numbering
     ))
 
