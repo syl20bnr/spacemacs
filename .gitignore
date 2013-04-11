@@ -17,6 +17,7 @@ edts/
 /.recentf
 /projectile.cache
 /projectile-bookmarks.eld
+tramp
 
 # special files from sub modules
 /extensions/webmachine.rebar.config
