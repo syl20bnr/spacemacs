@@ -1,4 +1,4 @@
-(defvar syl:extensions
+(defvar syl:post-extensions
   '(
     auto-close-parens
     auto-highlight-symbol-mode
@@ -7,31 +7,27 @@
     ;; distel
     edts
     ;; elixir
-    flymake-python-pyflakes
     ;; emacs-eclim
-    ;; elixir-flymake
     evil-plugins
-    ;; flymake
     mu4e
     o-blog
     pylookup
     ;; pymacs
     revive
-    ;; syl-elixir
     window-numbering
     ))
 
 ;; load extensions
-(dolist (ext syl:extensions)
+(dolist (ext syl:post-extensions)
   (add-to-list 'load-path (format "%s%s/" user-extensions-directory ext)))
 
 ;; initialize extensions
 (setq syl:extension-init-dir (concat user-emacs-directory "init-extension/"))
 (message (format "initializing extensions out of %s" syl:extension-init-dir))
-(dolist (ext syl:extensions)
+(dolist (ext syl:post-extensions)
     (let* ((initfile (concat syl:extension-init-dir (format "init-%s.el" ext))))
       (if (file-exists-p initfile)
           (progn (load initfile)
                  (message (format "loaded %s" initfile))))))
 
-(provide 'extensions)
+(provide 'post-extensions)

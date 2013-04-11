@@ -32,7 +32,7 @@
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path user-extensions-directory)
 
-;; Configuration ==============================================================
+;; Emacs built-ins configuration ==============================================
 (progn (when (file-exists-p user-config-directory)
     (dolist (l (directory-files user-config-directory nil "^[^#].*el$"))
       (load (concat user-config-directory l)))))
@@ -40,15 +40,16 @@
 ;; Setup ======================================================================
 (require 'my-funcs)
 (require 'my-macros)
+(require 'pre-extensions)
 (require 'packages)
-(require 'extensions)
+(require 'post-extensions)
 (require 'my-keybindings)
 (require 'my-keychords)
 
-;; Host config ================================================================
+;; Host specific configuration ================================================
 (progn (when (file-exists-p host-directory)
     (dolist (l (directory-files host-directory nil "^[^#].*el$"))
       (load (concat host-directory l)))))
 
-;; Custom groups settings =====================================================
+;; Customization settings =====================================================
 (require 'custom-settings)

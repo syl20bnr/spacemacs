@@ -2,7 +2,7 @@
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ;; ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")
                          ("technomancy" . "http://repo.technomancy.us/emacs/")))
 (package-initialize)
@@ -27,15 +27,11 @@
     expand-region
     fill-column-indicator
     find-file-in-project
-    flymake
-    flymake-coffee
-    flymake-css
     flymake-cursor
     flymake-easy
-    flymake-go
     flymake-haskell-multi
     flymake-json
-    flymake-lua
+    flymake-python-pyflakes
     flymake-ruby
     fold-this
     fuzzy
