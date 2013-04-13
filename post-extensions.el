@@ -6,7 +6,7 @@
     delim-pad
     ;; distel
     edts
-    ;; elixir
+    elixir
     ;; emacs-eclim
     evil-plugins
     mu4e

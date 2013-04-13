@@ -2,7 +2,7 @@
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ;; ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")
                          ("technomancy" . "http://repo.technomancy.us/emacs/")))
 (package-initialize)
@@ -29,6 +29,7 @@
     find-file-in-project
     flymake-cursor
     flymake-easy
+    flymake-elixir
     flymake-haskell-multi
     flymake-json
     flymake-python-pyflakes
