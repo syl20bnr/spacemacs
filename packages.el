@@ -27,6 +27,7 @@
     expand-region
     fill-column-indicator
     find-file-in-project
+    flymake
     flymake-cursor
     flymake-easy
     flymake-elixir

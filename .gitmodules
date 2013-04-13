@@ -28,3 +28,6 @@
 [submodule "extensions/elixir"]
 	path = extensions/elixir
 	url = http://github.com/elixir-lang/emacs-elixir
+[submodule "extensions/flymake"]
+	path = extensions/flymake
+	url = http://github.com/illusori/emacs-flymake
