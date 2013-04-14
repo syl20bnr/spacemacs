@@ -30,11 +30,7 @@
     flymake
     flymake-cursor
     flymake-easy
-    flymake-elixir
     flymake-haskell-multi
-    flymake-json
-    flymake-python-pyflakes
-    flymake-ruby
     fold-this
     fuzzy
     ghc
@@ -45,6 +41,7 @@
     htmlize
     ;; ido-ubiquitous
     jedi
+    json-mode
     key-chord
     less-css-mode
     magit

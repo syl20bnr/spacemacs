@@ -9,6 +9,7 @@
     elixir
     ;; emacs-eclim
     evil-plugins
+    flycheck
     mu4e
     o-blog
     pylookup
