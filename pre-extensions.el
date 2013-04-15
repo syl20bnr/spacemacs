@@ -1,6 +1,6 @@
 (defvar syl:pre-extensions
   '(
-    flymake
+;; nothing for now
     ))
 
 ;; load extensions
