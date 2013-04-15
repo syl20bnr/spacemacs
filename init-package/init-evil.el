@@ -4,7 +4,7 @@
 (setq evil-emacs-state-cursor  '("red" box))
 (setq evil-normal-state-cursor '("orange" box))
 (setq evil-visual-state-cursor '("black" box))
-(setq evil-insert-state-cursor '("green" bar))
+(setq evil-insert-state-cursor '("green3" box))
 (setq evil-motion-state-cursor '("purple" box))
 
 (evil-mode 1)
