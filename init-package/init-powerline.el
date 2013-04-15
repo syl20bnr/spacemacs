@@ -30,14 +30,14 @@
 
                 (powerline-narrow face1 'l)
 
-                (powerline-arrow-right face1 face2)
+                (powerline-curve-right face1 face2)
 
                 (powerline-vc face2)
                 ))
           (rhs (list
                 (powerline-raw global-mode-string face2 'r)
 
-                (powerline-arrow-left face2 face1)
+                (powerline-curve-left face2 face1)
 
                 (powerline-raw "%4l" face1 'r)
                 (powerline-raw ":" face1)
