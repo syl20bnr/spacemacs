@@ -12,6 +12,7 @@
     auto-complete
     auto-dictionary
     autopair
+    buffer-move
     color-moccur
     deft
     deferred
