@@ -140,6 +140,8 @@
 (evil-leader/set-key "tf" 'fringe-mode)
 (evil-leader/set-key "th" 'auto-highlight-symbol-mode)
 (evil-leader/set-key "tn" 'global-linum-mode)
+(evil-leader/set-key "ttd" 'load-theme-day)
+(evil-leader/set-key "ttn" 'load-theme-night)
 ;; selection ------------------------------------------------------------------
 (evil-leader/set-key "v" 'er/expand-region)
 ;; window ---------------------------------------------------------------------

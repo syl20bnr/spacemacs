@@ -3,12 +3,12 @@
 (defun turn-on-fill-column-indicator ()
   (fci-mode 1)
   (setq fci-rule-column 80)
-  (setq fci-rule-width 2)
-  (setq fci-rule-color "#073642"))
+  (setq fci-rule-width 2))
 
 (let ((supported-modes
        '(
          clojure-mode-hook
+         elixir-mode-hook
          emacs-lisp-mode-hook
          erlang-mode-hook
          java-mode-hook

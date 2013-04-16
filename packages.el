@@ -52,7 +52,7 @@
     nose
     org
     p4
-    ;; paredit
+    paredit
     powerline
     popup
     projectile
