@@ -56,11 +56,6 @@
 (evil-leader/set-key "ep" 'previous-error)
 ;; find -----------------------------------------------------------------------
 (evil-leader/set-key "ff" 'ido-find-file)
-;; fold-this ------------------------------------------------------------------
-(evil-leader/set-key "fj" 'fold-this)
-(evil-leader/set-key "FJ" 'fold-this-all)
-(evil-leader/set-key "fk" 'fold-this-unfold-at-point)
-(evil-leader/set-key "FK" 'fold-this-unfold-all)
 ;; git ------------------------------------------------------------------------
 (evil-leader/set-key "gs" 'magit-status)
 ;; auto-highlight-symbol ------------------------------------------------------
@@ -83,15 +78,15 @@
 (evil-leader/set-key "lw" 'paredit-wrap-round)
 ;; major modes ----------------------------------------------------------------
 ;; Erlang
-(evil-leader/set-key "mec" 'edts-who-calls)
-(evil-leader/set-key "med" 'edts-find-doc)
-(evil-leader/set-key "mef" 'edts-find-source-under-point)
-(evil-leader/set-key "meg" 'edts-find-global-function)
-(evil-leader/set-key "meh" 'edts-find-header-source)
-(evil-leader/set-key "mel" 'edts-find-local-function)
-(evil-leader/set-key "mem" 'edts-find-macro-source)
-(evil-leader/set-key "mer" 'edts-find-record-source)
-(evil-leader/set-key "mex" 'edts-refactor-extract-function)
+(evil-leader/set-key "Mec" 'edts-who-calls)
+(evil-leader/set-key "Med" 'edts-find-doc)
+(evil-leader/set-key "Mef" 'edts-find-source-under-point)
+(evil-leader/set-key "Meg" 'edts-find-global-function)
+(evil-leader/set-key "Meh" 'edts-find-header-source)
+(evil-leader/set-key "Mel" 'edts-find-local-function)
+(evil-leader/set-key "Mem" 'edts-find-macro-source)
+(evil-leader/set-key "Mer" 'edts-find-record-source)
+(evil-leader/set-key "Mex" 'edts-refactor-extract-function)
 ;; Html
 (evil-leader/set-key "C-<right>" 'tagedit-forward-slurp-tag)
 (evil-leader/set-key "C-<left>" 'tagedit-forward-barf-tag)
@@ -99,15 +94,15 @@
 (evil-leader/set-key "C-k" 'tagedit-kill)
 (evil-leader/set-key "s-k" 'tagedit-kill-attribute)
 ;; Python
-(evil-leader/set-key "mp1" 'nosetests-one)
-(evil-leader/set-key "mp!" 'nosetests-pdb-one)
-(evil-leader/set-key "mpa" 'nosetests-all)
-(evil-leader/set-key "mpA" 'nosetests-pdb-all)
-(evil-leader/set-key "mpb" 'python-add-breakpoint)
-(evil-leader/set-key "mpd" 'jedi:show-doc)
-(evil-leader/set-key "mpf" 'jedi:goto-definition)
-(evil-leader/set-key "mpm" 'nosetests-module)
-(evil-leader/set-key "mpM" 'nosetests-pdb-module)
+(evil-leader/set-key "Mp1" 'nosetests-one)
+(evil-leader/set-key "Mp!" 'nosetests-pdb-one)
+(evil-leader/set-key "Mpa" 'nosetests-all)
+(evil-leader/set-key "MpA" 'nosetests-pdb-all)
+(evil-leader/set-key "Mpb" 'python-add-breakpoint)
+(evil-leader/set-key "Mpd" 'jedi:show-doc)
+(evil-leader/set-key "Mpf" 'jedi:goto-definition)
+(evil-leader/set-key "Mpm" 'nosetests-module)
+(evil-leader/set-key "MpM" 'nosetests-pdb-module)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key "nr" 'narrow-to-region)
 (evil-leader/set-key "np" 'narrow-to-page)
