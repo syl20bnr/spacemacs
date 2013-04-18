@@ -5,6 +5,9 @@
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 (define-key evil-insert-state-map (kbd "ESC") 'evil-normal-state)
+;; insert blank lines ---------------------------------------------------------
+(define-key evil-normal-state-map (kbd "M-j") 'evil-insert-line-below)
+(define-key evil-normal-state-map (kbd "M-k") 'evil-insert-line-above)
 ;; close parens ---------------------------------------------------------------
 (global-set-key (kbd ")") 'close-open-paren)
 ;; auto-complete --------------------------------------------------------------
