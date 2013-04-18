@@ -7,6 +7,7 @@
 (setq backup-by-copying t)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+(setq create-lockfiles nil)
 ;; Save point position between sessions
 (require 'saveplace)
 (setq-default save-place t)
