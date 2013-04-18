@@ -99,7 +99,7 @@
 (evil-leader/set-key "Mpa" 'nosetests-all)
 (evil-leader/set-key "MpA" 'nosetests-pdb-all)
 (evil-leader/set-key "Mpb" 'python-add-breakpoint)
-(evil-leader/set-key "Mpd" 'jedi:show-doc)
+(evil-leader/set-key "Mpd" 'pylookup-lookup)
 (evil-leader/set-key "Mpf" 'jedi:goto-definition)
 (evil-leader/set-key "Mpm" 'nosetests-module)
 (evil-leader/set-key "MpM" 'nosetests-pdb-module)
