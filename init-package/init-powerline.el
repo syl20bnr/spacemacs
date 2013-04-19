@@ -26,9 +26,9 @@
 
                 (powerline-major-mode face1 'l)
                 (powerline-minor-modes face1 'l)
-                (powerline-raw " " face1)
                 (powerline-raw mode-line-process face1 'l)
 
+                (powerline-raw " " face1)
                 (powerline-narrow face1 'l)
 
                 (powerline-curve-right face1 face2)
@@ -38,6 +38,7 @@
           (rhs (list
                 (powerline-raw global-mode-string face2 'r)
 
+                (powerline-raw " " face2)
                 (powerline-curve-left face2 face1)
 
                 (powerline-raw "%4l" face1 'r)
