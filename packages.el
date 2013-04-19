@@ -32,7 +32,6 @@
     flymake-cursor
     flymake-easy
     flymake-haskell-multi
-    fold-this
     fuzzy
     ghc
     haskell-mode
