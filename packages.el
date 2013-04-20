@@ -66,6 +66,7 @@
     ;; smex
     solarized-theme
     sr-speedbar
+    stripe-buffer
     surround
     tagedit
     twittering-mode
