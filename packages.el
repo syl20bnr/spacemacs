@@ -59,6 +59,9 @@
     rainbow-delimiters
     recentf
     rfringe
+    ruby-electric
+    ruby-mode
+    ruby-test-mode
     smart-operator
     solarized-theme
     sr-speedbar
