@@ -13,6 +13,7 @@
     o-blog
     pylookup
     revive
+    solarized
     window-numbering
     ))
 

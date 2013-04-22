@@ -43,7 +43,6 @@
 
 ;; Setup ======================================================================
 
-(load-user-config)
 (require 'my-funcs)
 (require 'my-macros)
 (require 'pre-extensions)
@@ -51,7 +50,6 @@
 (require 'post-extensions)
 (require 'my-keybindings)
 (require 'my-keychords)
-(load-host-config)
 
 ;; Customized settings =====================================================
 (require 'custom-settings)

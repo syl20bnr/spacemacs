@@ -63,7 +63,6 @@
     ruby-mode
     ruby-test-mode
     smart-operator
-    solarized-theme
     sr-speedbar
     stripe-buffer
     surround
