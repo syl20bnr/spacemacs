@@ -41,6 +41,7 @@
                 (powerline-raw " " face2)
                 (powerline-curve-left face2 face1)
 
+                (powerline-raw " " face1)
                 (powerline-raw "%4l" face1 'r)
                 (powerline-raw ":" face1)
                 (powerline-raw "%3c" face1 'r)
