@@ -115,7 +115,3 @@
 (put 'erase-buffer 'disabled nil)
 (put 'scroll-left 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
-
-;; save and restore layout
-(add-hook 'kill-emacs-hook 'emacs-save-layout)
-(add-hook 'after-init-hook 'emacs-load-layout t)

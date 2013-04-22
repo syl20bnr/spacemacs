@@ -1,5 +1,4 @@
 (setq evil-mode-line-format 'before)
-(setq evil-want-C-u-scroll t)
 
 (setq evil-emacs-state-cursor  '("red" box))
 (setq evil-normal-state-cursor '("orange" box))
@@ -31,13 +30,3 @@
 ;;   (lambda ()
 ;;     (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
 
-;; from
-;; Insert state clobbers some useful Emacs keybindings
-;; The solution to this is to clear the insert state keymap, leaving you with
-;; unadulterated Emacs behavior. You might still want to poke around the keymap
-;; (defined in evil-maps.el) and see if you want to salvage some useful insert
-;; state command by rebinding them to keys of your liking. Also, you need to
-;; bind ESC to putting you back in normal mode. So, try using this code.
-;; With it, I have no practical need to ever switch to Emacs state.
-(setcdr evil-insert-state-map nil)
-;; see my-keychords.el file for the binding to revert to normal mode

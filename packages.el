@@ -24,9 +24,8 @@
     erlang
     evil
     evil-leader
-    exec-path-from-shell
     expand-region
-    fill-column-indicator
+    ;; fill-column-indicator
     find-file-in-project
     flymake
     flymake-cursor
@@ -40,7 +39,6 @@
     helm-c-yasnippet
     helm-projectile
     htmlize
-    ;; ido-ubiquitous
     jedi
     json-mode
     key-chord
@@ -48,8 +46,6 @@
     magit
     markdown-mode
     move-text
-    ;; multiple-cursors
-    multi-term
     nose
     org
     p4
@@ -64,7 +60,6 @@
     recentf
     rfringe
     smart-operator
-    ;; smex
     solarized-theme
     sr-speedbar
     stripe-buffer

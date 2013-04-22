@@ -3,17 +3,15 @@
     auto-close-parens
     auto-highlight-symbol-mode
     centered-cursor
-    delim-pad
+     delim-pad
     ;; distel
     edts
     elixir
-    ;; emacs-eclim
     evil-plugins
     flycheck
     mu4e
     o-blog
     pylookup
-    ;; pymacs
     revive
     window-numbering
     ))
