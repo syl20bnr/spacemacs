@@ -173,6 +173,10 @@
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key "xj" 'move-text-down)
 (evil-leader/set-key "xk" 'move-text-up)
+(evil-leader/set-key "xgT" 'google-translate-query-translate)
+(evil-leader/set-key "xgt" 'google-translate-at-point)
+(evil-leader/set-key "xgR" 'google-translate-query-translate-reverse)
+(evil-leader/set-key "xgr" 'google-translate-at-point-reverse)
 (evil-leader/set-key "xtc" 'transpose-chars)
 (evil-leader/set-key "xtl" 'transpose-lines)
 (evil-leader/set-key "xtw" 'transpose-words)

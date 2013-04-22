@@ -34,6 +34,7 @@
     flymake-haskell-multi
     fuzzy
     ghc
+    google-translate
     haskell-mode
     helm
     helm-c-yasnippet
