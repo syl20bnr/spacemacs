@@ -1,21 +1,18 @@
 (require 'fill-column-indicator)
 
-(defun turn-on-fill-column-indicator ()
-  (fci-mode 1)
-  (setq fci-rule-column 80)
-  (setq fci-rule-width 2))
+(setq fci-rule-column 79)
+(setq fci-rule-width 1)
+(setq fci-enabled 0)
 
-(let ((supported-modes
-       '(
-         clojure-mode-hook
-         elixir-mode-hook
-         emacs-lisp-mode-hook
-         erlang-mode-hook
-         java-mode-hook
-         javascript-mode-hook
-         lisp-mode-hook
-         org-mode-hook
-         python-mode-hook
-         )))
-  (dolist (hook supported-modes)
-    (add-hook hook 'turn-on-fill-column-indicator)))
+(defun toggle-fill-column-indicator ()
+  (interactive)
+  (make-local-variable 'fci-enabled)
+  (if (> fci-enabled 0) (deactivate-fci) (activate-fci)))
+
+(defun activate-fci ()
+  (setq fci-enabled 1)
+  (fci-mode 1))
+
+(defun deactivate-fci ()
+  (setq fci-enabled 0)
+  (fci-mode 0))

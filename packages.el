@@ -25,7 +25,7 @@
     evil
     evil-leader
     expand-region
-    ;; fill-column-indicator
+    fill-column-indicator
     find-file-in-project
     flymake
     flymake-cursor
