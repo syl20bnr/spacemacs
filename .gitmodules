@@ -34,6 +34,6 @@
 [submodule "extensions/flycheck"]
 	path = extensions/flycheck
 	url = http://github.com/syl20bnr/flycheck
-[submodule "extensions/solarized"]
-	path = extensions/solarized
+[submodule "extensions/solarized-theme"]
+	path = extensions/solarized-theme
 	url = http://github.com/syl20bnr/solarized-emacs

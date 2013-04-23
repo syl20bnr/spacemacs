@@ -22,3 +22,4 @@ tramp
 # special files from sub modules
 /extensions/webmachine.rebar.config
 /extensions/edts.rebar.config
+/.recentf~
