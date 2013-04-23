@@ -47,6 +47,9 @@
 (eval-after-load "hi-lock"
   '(diminish 'hi-lock-mode))
 
+(eval-after-load "page-break-lines"
+  '(diminish 'page-break-lines-mode))
+
 (eval-after-load "rainbow-mode"
   '(diminish 'rainbow-mode))
 
