@@ -49,6 +49,7 @@
     nose
     org
     p4
+    page-break-lines
     paredit
     powerline
     popup
