@@ -46,6 +46,7 @@
     magit
     markdown-mode
     move-text
+    multi-term
     nose
     org
     ;; p4
@@ -64,8 +65,9 @@
     ruby-mode
     ruby-test-mode
     smart-operator
-    sr-speedbar
+    ;; sr-speedbar
     stripe-buffer
+    subword
     surround
     tagedit
     twittering-mode
