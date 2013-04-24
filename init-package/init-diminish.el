@@ -53,8 +53,8 @@
 (eval-after-load "rainbow-mode"
   '(diminish 'rainbow-mode))
 
-(eval-after-load "ruby-electric"
-  '(diminish 'ruby-electric-mode))
+(eval-after-load "ruby-end"
+  '(diminish 'ruby-end-mode))
 
 (eval-after-load "undo-tree"
   '(diminish 'undo-tree-mode))

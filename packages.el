@@ -61,7 +61,7 @@
     rainbow-delimiters
     recentf
     rfringe
-    ruby-electric
+    ruby-end
     ruby-mode
     ruby-test-mode
     smart-operator
