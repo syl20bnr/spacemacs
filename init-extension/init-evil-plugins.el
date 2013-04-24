@@ -1,5 +1,7 @@
 ;; (require 'evil-relative-linum)
 
+(require 'evil-little-word)
+
 (require 'evil-operator-moccur)
 (global-evil-operator-moccur-mode 1)
 
