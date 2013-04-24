@@ -42,7 +42,6 @@
              (load (concat host-directory l))))))
 
 ;; Setup ======================================================================
-
 (require 'my-funcs)
 (require 'my-macros)
 (require 'pre-extensions)
