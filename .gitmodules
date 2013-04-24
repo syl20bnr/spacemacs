@@ -37,3 +37,6 @@
 [submodule "extensions/solarized-theme"]
 	path = extensions/solarized-theme
 	url = http://github.com/syl20bnr/solarized-emacs
+[submodule "extensions/evil-plugins"]
+	path = extensions/evil-plugins
+	url = http://github.com/tarao/evil-plugins
