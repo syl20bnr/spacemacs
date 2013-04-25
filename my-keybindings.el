@@ -182,16 +182,16 @@
 (evil-leader/set-key "wy8" 'select-window-8)
 (evil-leader/set-key "wy9" 'select-window-9)
 ;; text -----------------------------------------------------------------------
-(evil-leader/set-key "xj" 'move-text-down)
-(evil-leader/set-key "xk" 'move-text-up)
+(evil-leader/set-key "xdw" 'delete-trailing-whitespace)
 (evil-leader/set-key "xgT" 'google-translate-query-translate)
 (evil-leader/set-key "xgt" 'google-translate-at-point)
 (evil-leader/set-key "xgR" 'google-translate-query-translate-reverse)
 (evil-leader/set-key "xgr" 'google-translate-at-point-reverse)
+(evil-leader/set-key "xmj" 'move-text-down)
+(evil-leader/set-key "xmk" 'move-text-up)
 (evil-leader/set-key "xtc" 'transpose-chars)
 (evil-leader/set-key "xtl" 'transpose-lines)
 (evil-leader/set-key "xtw" 'transpose-words)
-(evil-leader/set-key "xw" 'delete-trailing-whitespace)
 ;; centered cursor ------------------------------------------------------------
 (evil-leader/set-key "zz" 'global-centered-cursor-mode)
 
