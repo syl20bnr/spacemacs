@@ -14,6 +14,7 @@
     autopair
     buffer-move
     color-moccur
+    dash
     deft
     deferred
     diminish
@@ -64,6 +65,7 @@
     ruby-end
     ruby-mode
     ruby-test-mode
+    s
     smart-operator
     ;; sr-speedbar
     stripe-buffer
