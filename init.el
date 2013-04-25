@@ -50,5 +50,3 @@
 (require 'my-keybindings)
 (require 'my-keychords)
 
-;; Customized settings =====================================================
-(require 'custom-settings)
