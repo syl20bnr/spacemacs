@@ -10,9 +10,6 @@
 (define-key evil-normal-state-map (kbd "M-k") 'evil-insert-line-above)
 ;; close parens ---------------------------------------------------------------
 (global-set-key (kbd ")") 'close-open-paren)
-;; auto-complete --------------------------------------------------------------
-(global-set-key (kbd "M-SPC") 'ac-fuzzy-complete)
-; (define-key ac-complete-mode-map (kbd "RET") 'ac-complete)
 ;; mu4e -----------------------------------------------------------------------
 (define-key mu4e-main-mode-map (kbd "q") 'mu4e-quit-session)
 

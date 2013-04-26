@@ -1,6 +1,6 @@
 (setq evil-leader/in-all-states t
       evil-leader/leader "SPC"
-      evil-leader/non-normal-prefix "S-")
+      evil-leader/non-normal-prefix "s-")
 (require 'evil-leader)
 ;; make leader available in visual mode
 (define-key evil-visual-state-map (kbd "SPC") evil-leader/map)
