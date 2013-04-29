@@ -8,7 +8,6 @@
     edts
     elixir
     evil-plugins
-    flycheck
     mu4e
     o-blog
     pylookup
