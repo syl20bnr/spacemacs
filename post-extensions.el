@@ -3,8 +3,6 @@
     auto-close-parens
     auto-highlight-symbol-mode
     centered-cursor
-     delim-pad
-    ;; distel
     edts
     elixir
     evil-plugins
