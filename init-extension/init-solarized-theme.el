@@ -8,6 +8,7 @@
 (create-solarized-theme 'light 'solarized-light)
 (provide-theme 'solarized-light)
 
-(if (equal system-name "QUE-WKS-AA427-Linux")
+(if (or (equal system-name "QUE-WKS-AA427-Linux")
+        (equal system-name "QUE-WKS-AA593"))
     (load-theme 'solarized-light t)
     (load-theme 'solarized-dark t))
