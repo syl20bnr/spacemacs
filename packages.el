@@ -51,7 +51,7 @@
     multi-term
     nose
     org
-    ;; p4
+    p4
     page-break-lines
     paredit
     powerline
