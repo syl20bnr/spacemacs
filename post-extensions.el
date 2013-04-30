@@ -3,6 +3,7 @@
     auto-close-parens
     auto-highlight-symbol-mode
     centered-cursor
+    dos
     edts
     elixir
     evil-plugins
