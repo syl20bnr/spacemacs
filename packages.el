@@ -29,6 +29,7 @@
     fill-column-indicator
     find-file-in-project
     flycheck
+    flycheck-color-mode-line
     flymake
     flymake-cursor
     flymake-easy
