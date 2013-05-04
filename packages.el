@@ -57,6 +57,7 @@
     paredit
     powerline
     popup
+    popwin
     projectile
     puppet-mode
     python
