@@ -71,11 +71,13 @@
     s
     smart-operator
     ;; sr-speedbar
+    string-edit
     stripe-buffer
     subword
     surround
     tagedit
     twittering-mode
+    visual-regexp-steroids
     wdired
     window-layout
     yasnippet

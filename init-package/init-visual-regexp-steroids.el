@@ -1,0 +1,2 @@
+(require 'visual-regexp-steroids)
+

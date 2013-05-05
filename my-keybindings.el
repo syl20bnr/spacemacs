@@ -57,6 +57,8 @@
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key "en" 'next-error)
 (evil-leader/set-key "ep" 'previous-error)
+;; editors --------------------------------------------------------------------
+(evil-leader/set-key "eds" 'string-edit-at-point)
 ;; find -----------------------------------------------------------------------
 (evil-leader/set-key "ff" 'ido-find-file)
 ;; git ------------------------------------------------------------------------
@@ -137,6 +139,9 @@
 (evil-leader/set-key "qh"  'helm-quickrun)
 (evil-leader/set-key "qrr" 'quickrun-replace-region)
 (evil-leader/set-key "qrx" 'quickrun-region)
+;; replace --------------------------------------------------------------------
+(evil-leader/set-key "rR" 'vr/query-replace)
+(evil-leader/set-key "rr" 'vr/replace)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "t8" 'toggle-fill-column-indicator)
 (evil-leader/set-key "ta"  'auto-complete-mode)
