@@ -53,6 +53,7 @@
 
                 (powerline-hud face2 face1))))
      (concat
+      (window-numbering-get-number-string)
       (gcs-propertized-evil-mode-tag)
       (powerline-render lhs)
       (powerline-fill face2 (powerline-width rhs))
