@@ -34,3 +34,6 @@
 [submodule "extensions/evil-plugins"]
 	path = extensions/evil-plugins
 	url = http://github.com/tarao/evil-plugins
+[submodule "extensions/nose"]
+	path = extensions/nose
+	url = http://github.com/syl20bnr/nose.el

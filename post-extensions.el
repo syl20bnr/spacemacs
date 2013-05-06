@@ -8,6 +8,7 @@
     elixir
     evil-plugins
     mu4e
+    nose
     o-blog
     pylookup
     revive

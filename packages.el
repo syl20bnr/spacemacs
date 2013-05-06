@@ -50,7 +50,6 @@
     markdown-mode
     move-text
     multi-term
-    nose
     org
     p4
     page-break-lines
