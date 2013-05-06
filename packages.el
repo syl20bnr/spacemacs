@@ -14,6 +14,7 @@
     autopair
     buffer-move
     color-moccur
+    csharp-mode
     dash
     deft
     deferred
