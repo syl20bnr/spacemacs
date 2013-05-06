@@ -17,8 +17,6 @@
 
 ;; M-x ------------------------------------------------------------------------
 (evil-leader/set-key ":" 'execute-extended-command)
-;; ace-jump -------------------------------------------------------------------
-(evil-leader/set-key "SPC" 'ace-jump-mode)
 ;; switch window by number ----------------------------------------------------
 (evil-leader/set-key "0" 'select-window-0)
 (evil-leader/set-key "1" 'select-window-1)
@@ -61,6 +59,7 @@
 (evil-leader/set-key "eds" 'string-edit-at-point)
 ;; find -----------------------------------------------------------------------
 (evil-leader/set-key "ff" 'ido-find-file)
+(evil-leader/set-key "fs" 'save-buffer)
 ;; git ------------------------------------------------------------------------
 (evil-leader/set-key "gs" 'magit-status)
 ;; auto-highlight-symbol ------------------------------------------------------
@@ -71,6 +70,7 @@
 ;; jump -----------------------------------------------------------------------
 (evil-leader/set-key "jk" 'evil-join)
 (evil-leader/set-key "jj" 'paredit-newline)
+(evil-leader/set-key "ju" 'ace-jump-mode)
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key "lB" 'paredit-backward-barf-sexp)
 (evil-leader/set-key "lb" 'paredit-forward-barf-sexp)
