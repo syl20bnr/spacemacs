@@ -68,6 +68,9 @@
 (evil-leader/set-key "hh" 'auto-highlight-symbol-mode)
 (evil-leader/set-key "hn" 'ahs-forward)
 (evil-leader/set-key "hp" 'ahs-backward)
+;; jump -----------------------------------------------------------------------
+(evil-leader/set-key "jk" 'evil-join)
+(evil-leader/set-key "jj" 'paredit-newline)
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key "lB" 'paredit-backward-barf-sexp)
 (evil-leader/set-key "lb" 'paredit-forward-barf-sexp)
