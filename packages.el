@@ -36,6 +36,7 @@
     flymake-haskell-multi
     fuzzy
     ghc
+    golden-ratio
     google-translate
     haskell-mode
     helm

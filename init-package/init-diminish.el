@@ -61,3 +61,6 @@
 
 (eval-after-load "helm-mode"
   '(diminish 'helm-mode))
+
+(eval-after-load "golden-ratio"
+  '(diminish 'golden-ratio-mode))

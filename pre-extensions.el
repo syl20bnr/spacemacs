@@ -1,6 +1,6 @@
 (defvar syl:pre-extensions
   '(
-;; nothing for now
+    window-numbering
     ))
 
 ;; load extensions

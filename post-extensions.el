@@ -13,7 +13,6 @@
     pylookup
     revive
     solarized-theme
-    window-numbering
     ))
 
 ;; load extensions
