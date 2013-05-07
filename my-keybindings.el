@@ -6,6 +6,7 @@
 (define-key evil-visual-state-map "f" 'fd-to-normal-mode)
 (define-key evil-emacs-state-map  "f" 'fd-to-normal-mode)
 (define-key evil-motion-state-map "f" 'fd-to-normal-mode)
+(define-key evil-normal-state-map "f" 'evil-find-char)
 ;;Make evil-mode up/down operate in screen lines instead of logical lines
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
