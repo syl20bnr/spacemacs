@@ -8,6 +8,7 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq create-lockfiles nil)
+(require 'uniquify)
 ;; When having windows with repeated filenames, uniquify them
 ;; by the folder they are in rather those annoying <2>,<3>,.. etc
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
