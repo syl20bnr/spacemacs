@@ -10,7 +10,6 @@
     nose
     o-blog
     pylookup
-    revive
     solarized-theme
     ))
 
