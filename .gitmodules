@@ -4,9 +4,6 @@
 [submodule "extensions/projmake-mode"]
 	path = extensions/projmake-mode
 	url = http://github.com/ericbmerritt/projmake-mode
-[submodule "extensions/edts"]
-	path = extensions/edts
-	url = http://github.com/tjarvstrand/edts
 [submodule "extensions/auto-highlight-symbol-mode"]
 	path = extensions/auto-highlight-symbol-mode
 	url = http://github.com/emacsmirror/auto-highlight-symbol.git
@@ -37,3 +34,6 @@
 [submodule "extensions/nose"]
 	path = extensions/nose
 	url = http://github.com/syl20bnr/nose.el
+[submodule "extensions/edts"]
+	path = extensions/edts
+	url = http://github.com/syl20bnr/edts

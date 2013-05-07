@@ -13,13 +13,9 @@ eproject.lst
 /url/cookies
 my-org/
 semanticdb/
-edts/
+/edts/
 /.recentf
 /projectile.cache
 /projectile-bookmarks.eld
 tramp
-
-# special files from sub modules
-/extensions/webmachine.rebar.config
-/extensions/edts.rebar.config
 /.recentf~
