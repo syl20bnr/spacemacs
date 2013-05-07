@@ -8,6 +8,11 @@
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 (setq create-lockfiles nil)
+;; When having windows with repeated filenames, uniquify them
+;; by the folder they are in rather those annoying <2>,<3>,.. etc
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+; don't screw special buffers
+(setq uniquify-ignore-buffers-re "^\\*")
 ;; Save point position between sessions
 (require 'saveplace)
 (setq-default save-place t)
