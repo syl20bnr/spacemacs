@@ -1,1 +1,0 @@
-(require 'auto-close-parens)

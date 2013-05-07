@@ -1,6 +1,5 @@
 (defvar syl:post-extensions
   '(
-    auto-close-parens
     auto-highlight-symbol-mode
     centered-cursor
     dos

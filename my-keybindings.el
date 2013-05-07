@@ -10,8 +10,6 @@
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 (define-key evil-insert-state-map (kbd "ESC") 'evil-normal-state)
-;; close parens ---------------------------------------------------------------
-(global-set-key (kbd ")") 'close-open-paren)
 ;; mu4e -----------------------------------------------------------------------
 (define-key mu4e-main-mode-map (kbd "q") 'mu4e-quit-session)
 
