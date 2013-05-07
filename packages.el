@@ -46,7 +46,6 @@
     htmlize
     jedi
     json-mode
-    key-chord
     less-css-mode
     magit
     markdown-mode

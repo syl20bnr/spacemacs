@@ -1,13 +1,15 @@
 ;; Regular shortcuts ==========================================================
 
 ;; evil -----------------------------------------------------------------------
+;; returns to normal mode
+(define-key evil-insert-state-map "f" #'fd-to-normal-mode)
+(define-key evil-visual-state-map "f" #'fd-to-normal-mode)
+(define-key evil-emacs-state-map  "f" #'fd-to-normal-mode)
+(define-key evil-motion-state-map "f" #'fd-to-normal-mode)
 ;;Make evil-mode up/down operate in screen lines instead of logical lines
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 (define-key evil-insert-state-map (kbd "ESC") 'evil-normal-state)
-;; insert blank lines ---------------------------------------------------------
-(define-key evil-normal-state-map (kbd "M-j") 'evil-insert-line-below)
-(define-key evil-normal-state-map (kbd "M-k") 'evil-insert-line-above)
 ;; close parens ---------------------------------------------------------------
 (global-set-key (kbd ")") 'close-open-paren)
 ;; mu4e -----------------------------------------------------------------------
@@ -67,6 +69,9 @@
 (evil-leader/set-key "hh" 'auto-highlight-symbol-mode)
 (evil-leader/set-key "hn" 'ahs-forward)
 (evil-leader/set-key "hp" 'ahs-backward)
+;; insert stuff ---------------------------------------------------------------
+(evil-leader/set-key "ij" 'evil-insert-line-below)
+(evil-leader/set-key "ik" 'evil-insert-line-above)
 ;; jump -----------------------------------------------------------------------
 (evil-leader/set-key "jk" 'evil-join)
 (evil-leader/set-key "jj" 'paredit-newline)

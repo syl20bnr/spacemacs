@@ -6,7 +6,8 @@
 (setq evil-insert-state-cursor '("green3" box))
 (setq evil-motion-state-cursor '("purple" box))
 
-;; from https://github.com/roman/emacs.d/blob/master/zoo/zoo-evil.el
+;; inspired from:
+;; https://github.com/roman/emacs.d/blob/master/zoo/zoo-evil.el
 (evil-define-command fd-to-normal-mode ()
   "Allows to get into 'normal' mode using 'fd'."
   :repeat change
@@ -22,7 +23,7 @@
           ;; remove the f character
           (delete-char -1)
           (set-buffer-modified-p modified)
-          (push 'escape unread-command-events))
+          (evil-normal-state))
        (t ; otherwise
           (setq unread-command-events (append unread-command-events
                                               (list evt))))))))

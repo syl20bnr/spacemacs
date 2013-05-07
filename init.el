@@ -48,5 +48,4 @@
 (require 'packages)
 (require 'post-extensions)
 (require 'my-keybindings)
-(require 'my-keychords)
 
