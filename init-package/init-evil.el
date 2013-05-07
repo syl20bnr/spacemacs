@@ -6,6 +6,27 @@
 (setq evil-insert-state-cursor '("green3" box))
 (setq evil-motion-state-cursor '("purple" box))
 
+;; from https://github.com/roman/emacs.d/blob/master/zoo/zoo-evil.el
+(evil-define-command fd-to-normal-mode ()
+  "Allows to get into 'normal' mode using 'fd'."
+  :repeat change
+  (let ((modified (buffer-modified-p)))
+    (insert "f")
+    (let ((evt (read-event (format "Insert %c to exit insert state" ?d)
+                           nil 0.5)))
+      (cond
+       ((null evt)
+          (message ""))
+       ((and (integerp evt)
+             (char-equal evt ?d))
+          ;; remove the f character
+          (delete-char -1)
+          (set-buffer-modified-p modified)
+          (push 'escape unread-command-events))
+       (t ; otherwise
+          (setq unread-command-events (append unread-command-events
+                                              (list evt))))))))
+
 (evil-mode 1)
 
 ;; This is an endless debate and is just a matter of convention
@@ -13,20 +34,4 @@
 ;; (initiated with 'i').
 (setq evil-move-cursor-back nil)
 
-;; ;; evil-emacs-state is annoying, the following function and hook automatically
-;; ;; switch to evil-insert-state whenever the evil-emacs-state is entered.
-;; ;; It allows a more consistent navigation experience among all mode maps.
-;; (defun evil-emacs-state-2-evil-insert-state ()
-;;   (evil-insert-state)
-;;   (remove-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state))
-;; (add-hook 'evil-emacs-state-entry-hook
-;;   (lambda ()
-;;     (add-hook 'post-command-hook 'evil-emacs-state-2-evil-insert-state)))
-;; ;; same thing for motion state but switch in normal mode instead
-;; (defun evil-motion-state-2-evil-normal-state ()
-;;   (evil-normal-state)
-;;   (remove-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state))
-;; (add-hook 'evil-motion-state-entry-hook
-;;   (lambda ()
-;;     (add-hook 'post-command-hook 'evil-motion-state-2-evil-normal-state)))
 
