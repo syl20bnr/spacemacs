@@ -9,9 +9,6 @@
 ;;Make evil-mode up/down operate in screen lines instead of logical lines
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-(define-key evil-insert-state-map (kbd "ESC") 'evil-normal-state)
-;; mu4e -----------------------------------------------------------------------
-(define-key mu4e-main-mode-map (kbd "q") 'mu4e-quit-session)
 
 ;; evil-leader shortcuts ======================================================
 
