@@ -72,6 +72,8 @@
 (evil-leader/set-key "ik" 'evil-insert-line-above)
 ;; jump -----------------------------------------------------------------------
 (evil-leader/set-key "jk" 'evil-join)
+(evil-leader/set-key "ji" (lambda () (interactive)
+                            (join-line 1) (paredit-newline)))
 (evil-leader/set-key "jj" 'paredit-newline)
 (evil-leader/set-key "ju" 'ace-jump-mode)
 ;; Lisps ----------------------------------------------------------------------
