@@ -13,6 +13,7 @@
     auto-dictionary
     autopair
     buffer-move
+    cmake-mode
     color-moccur
     csharp-mode
     dash
