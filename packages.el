@@ -11,7 +11,6 @@
     ace-jump-mode
     auto-complete
     auto-dictionary
-    autopair
     buffer-move
     cmake-mode
     color-moccur
@@ -71,6 +70,7 @@
     ruby-test-mode
     s
     smart-operator
+    smartparens
     ;; sr-speedbar
     string-edit
     stripe-buffer
