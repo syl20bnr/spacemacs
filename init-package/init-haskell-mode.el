@@ -1,7 +1,3 @@
-;; Always load via this. If you contribute you should run `make all`
-;; to regenerate this.
-(load "haskell-site-file")
-
 ;; Customization
 (custom-set-variables
  ;; Use cabal-dev for the GHCi session. Ensures our dependencies are in scope.
