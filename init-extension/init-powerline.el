@@ -12,7 +12,19 @@
           (t '()))))
 
 (defpowerline powerline-window-number 
-  (concat "(" (window-numbering-get-number-string) ")"))
+  (let ((num (window-numbering-get-number-string)))
+    (cond ((not (display-graphic-p)) (concat "(" num ")"))
+          ((equal num "1")  "➊")
+          ((equal num "2")  "➋")
+          ((equal num "3")  "➌")
+          ((equal num "4")  "➍")
+          ((equal num "5")  "➎")
+          ((equal num "6")  "❻")
+          ((equal num "7")  "➐")
+          ((equal num "8")  "➑")
+          ((equal num "9")  "➒")
+          ((equal num "0")  "➓")
+          (t (concat "(" num ")")))))
 
 (setq-default mode-line-format
 '("%e"
