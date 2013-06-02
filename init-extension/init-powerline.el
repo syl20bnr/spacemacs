@@ -11,12 +11,6 @@
           ((evil-normal-state-p)  '(:background "orange" :foreground "black"))
           (t '()))))
 
-(defpowerline powerline-workgroup
-  (let ((str "∩ " ))
-    (ignore-errors
-      (setq str (concat str (wg-name (wg-current-workgroup)) " ")))
-    str))
-
 (defpowerline powerline-window-number 
   (concat "(" (window-numbering-get-number-string) ")"))
 
@@ -53,14 +47,10 @@
                 (powerline-raw " " face2)
 
                 (powerline-arrow-left face2 face1)
-                (powerline-workgroup face1 'l)
                 (powerline-raw " " face1)
+                (powerline-raw "%l:%2c" face1 'r)
                 (powerline-arrow-left face1 nil)
                 (powerline-raw " " nil)
-                (powerline-raw "%l" nil 'r)
-                (powerline-raw ": " nil)
-                (powerline-raw "%2c" nil 'r)
-                (powerline-raw "| ")
                 (powerline-raw "%p" nil 'r)
 
                 (powerline-hud face2 face1))))
