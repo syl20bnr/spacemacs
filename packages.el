@@ -51,7 +51,6 @@
     p4
     page-break-lines
     paredit
-    powerline
     popup
     popwin
     projectile
@@ -77,6 +76,7 @@
     visual-regexp-steroids
     wdired
     window-layout
+    workgroups2
     yasnippet
     ))
 

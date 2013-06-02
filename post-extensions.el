@@ -9,6 +9,7 @@
     mu4e
     nose
     o-blog
+    powerline
     pylookup
     solarized-theme
     ))

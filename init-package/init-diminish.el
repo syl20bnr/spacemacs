@@ -4,15 +4,15 @@
 
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
-            (setq mode-name "Elisp |")))
+            (setq mode-name "Elisp")))
 
 (add-hook 'erlang-mode-hook
           (lambda ()
-            (setq mode-name "Erl |")))
+            (setq mode-name "Erl")))
 
 (add-hook 'python-mode-hook
           (lambda ()
-            (setq mode-name "Py |")))
+            (setq mode-name "Py")))
 
 ;; Minor modes abbrev --------------------------------------------------------
 
@@ -61,6 +61,9 @@
 
 (eval-after-load "helm-mode"
   '(diminish 'helm-mode))
+
+(eval-after-load "workgroups2"
+  '(diminish 'workgroups-mode))
 
 (eval-after-load "golden-ratio"
   '(diminish 'golden-ratio-mode))

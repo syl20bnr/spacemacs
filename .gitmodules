@@ -34,3 +34,6 @@
 [submodule "extensions/edts"]
 	path = extensions/edts
 	url = http://github.com/syl20bnr/edts
+[submodule "extensions/powerline"]
+	path = extensions/powerline
+	url = http://github.com/milkypostman/powerline

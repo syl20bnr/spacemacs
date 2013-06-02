@@ -1,3 +1,4 @@
+(require 'powerline)
 ;; Setup modeline items
 (defun gcs-propertized-evil-mode-tag ()
   (propertize evil-mode-line-tag 'font-lock-face
@@ -10,6 +11,15 @@
           ((evil-normal-state-p)  '(:background "orange" :foreground "black"))
           (t '()))))
 
+(defpowerline powerline-workgroup
+  (let ((str "∩ " ))
+    (ignore-errors
+      (setq str (concat str (wg-name (wg-current-workgroup)) " ")))
+    str))
+
+(defpowerline powerline-window-number 
+  (concat "(" (window-numbering-get-number-string) ")"))
+
 (setq-default mode-line-format
 '("%e"
   (:eval
@@ -17,43 +27,44 @@
           (face1 (if active 'powerline-active1 'powerline-inactive1))
           (face2 (if active 'powerline-active2 'powerline-inactive2))
           (lhs (list
+                (powerline-window-number face1 'l)
+                (powerline-raw " " face1)
+                (powerline-arrow-right face1 nil)
+
                 (powerline-raw "%*" nil 'l)
                 (powerline-buffer-size nil 'l)
                 (powerline-buffer-id nil 'l)
+                (powerline-raw " " nil)
 
-                (powerline-raw " ")
                 (powerline-arrow-right nil face1)
-
                 (powerline-major-mode face1 'l)
-                (powerline-minor-modes face1 'l)
-                (powerline-raw mode-line-process face1 'l)
-
                 (powerline-raw " " face1)
-                (powerline-narrow face1 'l)
 
-                (powerline-curve-right face1 face2)
+                (powerline-arrow-right face1 nil)
+                (powerline-minor-modes nil 'l)
+                (powerline-raw mode-line-process nil 'l)
+                (powerline-raw " " nil)
+                (powerline-arrow-right nil face2)
 
                 (powerline-vc face2)
                 ))
           (rhs (list
                 (powerline-raw global-mode-string face2 'r)
-
                 (powerline-raw " " face2)
-                (powerline-curve-left face2 face1)
 
+                (powerline-arrow-left face2 face1)
+                (powerline-workgroup face1 'l)
                 (powerline-raw " " face1)
-                (powerline-raw "%4l" face1 'r)
-                (powerline-raw ":" face1)
-                (powerline-raw "%3c" face1 'r)
-
                 (powerline-arrow-left face1 nil)
-                (powerline-raw " ")
-
-                (powerline-raw "%6p" nil 'r)
+                (powerline-raw " " nil)
+                (powerline-raw "%l" nil 'r)
+                (powerline-raw ": " nil)
+                (powerline-raw "%2c" nil 'r)
+                (powerline-raw "| ")
+                (powerline-raw "%p" nil 'r)
 
                 (powerline-hud face2 face1))))
      (concat
-      (window-numbering-get-number-string)
       (gcs-propertized-evil-mode-tag)
       (powerline-render lhs)
       (powerline-fill face2 (powerline-width rhs))
