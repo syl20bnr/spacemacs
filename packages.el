@@ -76,7 +76,6 @@
     visual-regexp-steroids
     wdired
     window-layout
-    workgroups2
     yasnippet
     ))
 
