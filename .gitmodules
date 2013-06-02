@@ -37,3 +37,6 @@
 [submodule "extensions/powerline"]
 	path = extensions/powerline
 	url = http://github.com/milkypostman/powerline
+[submodule "extensions/golden-ratio"]
+	path = extensions/golden-ratio
+	url = http://github.com/syl20bnr/golden-ratio.el

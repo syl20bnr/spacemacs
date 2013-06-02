@@ -33,7 +33,6 @@
     flycheck-color-mode-line
     fuzzy
     ghc
-    golden-ratio
     google-translate
     haskell-mode
     helm
