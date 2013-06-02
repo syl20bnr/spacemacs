@@ -180,6 +180,8 @@
 (evil-leader/set-key "wsj" 'shrink-window)
 (evil-leader/set-key "wsk" 'enlarge-window)
 (evil-leader/set-key "wsl" 'enlarge-window-horizontally)
+(evil-leader/set-key "wU" 'winner-redo)
+(evil-leader/set-key "wu" 'winner-undo)
 (evil-leader/set-key "ww" 'other-window)
 ;; window layout splitter -----------------------------------------------------
 (evil-leader/set-key "wy0" 'select-window-0)

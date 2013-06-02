@@ -5,6 +5,8 @@
 ;; Also auto refresh dired, but be quiet about it
 (setq global-auto-revert-non-file-buffers t)
 (setq auto-revert-verbose nil)
+;; activate winner mode use to undo and redo windows layout
+(winner-mode 1)
 ;; no beep pleeeeeease ! (and no visual blinking too please)
 (custom-set-variables '(ring-bell-function 'ignore))
 (setq visible-bell nil)
