@@ -9,7 +9,7 @@
 	url = http://github.com/emacsmirror/auto-highlight-symbol.git
 [submodule "extensions/window-numbering"]
 	path = extensions/window-numbering
-	url = http://github.com/syl20bnr/window-numbering.el
+	url = http://github.com/nschum/window-numbering.el
 [submodule "extensions/revive"]
 	path = extensions/revive
 	url = http://github.com/vedang/revive-mode.git
