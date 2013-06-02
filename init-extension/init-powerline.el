@@ -26,34 +26,46 @@
           ((equal num "0")  "➓")
           (t (concat "(" num ")")))))
 
+(defpowerline powerline-evil-mode
+  (gcs-propertized-evil-mode-tag))
+
+(defvar powerline-minor-modesp nil)
+(defun powerline-minor-modes-toggle ()
+  "Toggle display of minor modes."
+  (interactive)
+  (if powerline-minor-modesp
+      (setq powerline-minor-modesp nil)
+    (setq powerline-minor-modesp t)))
+
 (setq-default mode-line-format
 '("%e"
   (:eval
    (let* ((active (eq (frame-selected-window) (selected-window)))
           (face1 (if active 'powerline-active1 'powerline-inactive1))
           (face2 (if active 'powerline-active2 'powerline-inactive2))
-          (lhs (list
-                (powerline-window-number face1 'l)
-                (powerline-raw " " face1)
-                (powerline-arrow-right face1 nil)
+          (lhs (append (list
+                        (powerline-window-number face1 'l)
+                        (powerline-evil-mode face1 'l)
 
-                (powerline-raw "%*" nil 'l)
-                (powerline-buffer-size nil 'l)
-                (powerline-buffer-id nil 'l)
-                (powerline-raw " " nil)
+                        (powerline-raw "%*" nil 'l)
+                        (powerline-buffer-size nil 'l)
+                        (powerline-buffer-id nil 'l)
+                        (powerline-raw " " nil)
 
-                (powerline-arrow-right nil face1)
-                (powerline-major-mode face1 'l)
-                (powerline-raw " " face1)
+                        (powerline-arrow-right nil face1)
+                        (powerline-major-mode face1 'l)
+                        (powerline-raw " " face1))
 
-                (powerline-arrow-right face1 nil)
-                (powerline-minor-modes nil 'l)
-                (powerline-raw mode-line-process nil 'l)
-                (powerline-raw " " nil)
-                (powerline-arrow-right nil face2)
+                       (if powerline-minor-modesp
+                           (list (powerline-arrow-right face1 nil)
+                                 (powerline-minor-modes nil 'l)
+                                 (powerline-raw mode-line-process nil 'l)
+                                 (powerline-raw " " nil)
+                                 (powerline-arrow-right nil face2))
+                         (list (powerline-raw " " face1)
+                               (powerline-arrow-right face1 face2)))
 
-                (powerline-vc face2)
-                ))
+                       (list (powerline-vc face2))))
           (rhs (list
                 (powerline-raw global-mode-string face2 'r)
                 (powerline-raw " " face2)
@@ -67,7 +79,6 @@
 
                 (powerline-hud face2 face1))))
      (concat
-      (gcs-propertized-evil-mode-tag)
       (powerline-render lhs)
       (powerline-fill face2 (powerline-width rhs))
       (powerline-render rhs))))))

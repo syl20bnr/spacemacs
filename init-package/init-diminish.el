@@ -8,35 +8,31 @@
 
 (add-hook 'erlang-mode-hook
           (lambda ()
-            (setq mode-name "Erl")))
+            (setq mode-name "Erlang")))
 
 (add-hook 'python-mode-hook
           (lambda ()
-            (setq mode-name "Py")))
+            (setq mode-name "Python")))
 
 ;; Minor modes abbrev --------------------------------------------------------
 
 (when (display-graphic-p)
   (eval-after-load "auto-complete"
-    '(diminish 'auto-complete-mode "[☂]"))
-  (eval-after-load "autopair"
-    '(diminish 'autopair-mode "[⒜]"))
+    '(diminish 'auto-complete-mode " Ⓐ"))
   (eval-after-load "centered-cursor-mode"
-    '(diminish 'centered-cursor-mode "[⊙]"))
+    '(diminish 'centered-cursor-mode " Ⓒ"))
   (eval-after-load "eproject"
-    '(diminish 'eproject-mode "[⚑²]"))
+    '(diminish 'eproject-mode " eⓟ"))
   (eval-after-load "projectile"
-    '(diminish 'projectile-mode "[⚑]"))
-  (eval-after-load "flymake"
-  '(diminish 'flymake-mode "[⇨]"))
+    '(diminish 'projectile-mode " ⓟ"))
   (eval-after-load "flyspell"
-    '(diminish 'flyspell-mode "[abc]"))
+    '(diminish 'flyspell-mode " Ⓢ"))
   (eval-after-load "paredit"
-    '(diminish 'paredit-mode "[⒫]"))
+    '(diminish 'paredit-mode " Ⓟ"))
   (eval-after-load "tagedit"
-    '(diminish 'tagedit-mode "[⒯]"))
+    '(diminish 'tagedit-mode " Ⓣ"))
   (eval-after-load "yasnippet"
-    '(diminish 'yas-minor-mode "[♻]"))
+    '(diminish 'yas-minor-mode " Ⓨ"))
   )
 
 ;; Minor Mode (hidden) ------------------------------------------------------
