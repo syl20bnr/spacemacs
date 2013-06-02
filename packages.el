@@ -31,10 +31,6 @@
     find-file-in-project
     flycheck
     flycheck-color-mode-line
-    flymake
-    flymake-cursor
-    flymake-easy
-    flymake-haskell-multi
     fuzzy
     ghc
     golden-ratio
