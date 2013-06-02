@@ -33,6 +33,7 @@
                 (regexp-search-ring       . 20)
                 (search-ring              . 20)
                 (shell-command-history    . 50)
+                (evil-ex                  .100)
                 tags-file-name
                 register-alist)))
 
