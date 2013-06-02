@@ -62,8 +62,9 @@
 (eval-after-load "helm-mode"
   '(diminish 'helm-mode))
 
-(eval-after-load "workgroups2"
-  '(diminish 'workgroups-mode))
+(add-hook 'workgroups-mode-hook
+          (lambda ()
+            (diminish 'workgroups-mode)))
 
 (eval-after-load "golden-ratio"
   '(diminish 'golden-ratio-mode))
