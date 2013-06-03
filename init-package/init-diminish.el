@@ -22,13 +22,15 @@
   (eval-after-load "centered-cursor-mode"
     '(diminish 'centered-cursor-mode " Ⓒ"))
   (eval-after-load "eproject"
-    '(diminish 'eproject-mode " eⓟ"))
+    '(diminish 'eproject-mode " ⓟ"))
   (eval-after-load "projectile"
-    '(diminish 'projectile-mode " ⓟ"))
+    '(diminish 'projectile-mode " Ⓟ"))
   (eval-after-load "flyspell"
     '(diminish 'flyspell-mode " Ⓢ"))
+  (eval-after-load "smartparens"
+    '(diminish 'smartparens-mode " (Ⓢ)"))
   (eval-after-load "paredit"
-    '(diminish 'paredit-mode " Ⓟ"))
+    '(diminish 'paredit-mode " (Ⓟ)"))
   (eval-after-load "tagedit"
     '(diminish 'tagedit-mode " Ⓣ"))
   (eval-after-load "yasnippet"
