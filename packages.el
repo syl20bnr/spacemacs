@@ -3,8 +3,8 @@
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")
-                         ("technomancy" . "http://repo.technomancy.us/emacs/")))
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+;;                         ("technomancy" . "http://repo.technomancy.us/emacs/")
 (package-initialize)
 (defvar syl:packages
   '(
