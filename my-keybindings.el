@@ -58,8 +58,13 @@
 (evil-leader/set-key "eds" 'string-edit-at-point)
 ;; find -----------------------------------------------------------------------
 (evil-leader/set-key "ff" 'ido-find-file)
+;; file -----------------------------------------------------------------------
 (evil-leader/set-key "fS" 'evil-write-all)
 (evil-leader/set-key "fs" 'evil-write)
+;; flycheck -------------------------------------------------------------------
+(evil-leader/set-key "fl" 'flycheck-list-errors)
+(evil-leader/set-key "fn" 'flycheck-next-error)
+(evil-leader/set-key "fp" 'flycheck-previous-error)
 ;; git ------------------------------------------------------------------------
 (evil-leader/set-key "gs" 'magit-status)
 ;; auto-highlight-symbol ------------------------------------------------------
