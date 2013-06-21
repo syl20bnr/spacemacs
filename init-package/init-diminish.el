@@ -22,7 +22,7 @@
   (eval-after-load "centered-cursor-mode"
     '(diminish 'centered-cursor-mode " Ⓒ"))
   (eval-after-load "eproject"
-    '(diminish 'eproject-mode " ⓟ"))
+    '(diminish 'eproject-mode " eⓅ"))
   (eval-after-load "projectile"
     '(diminish 'projectile-mode " Ⓟ"))
   (eval-after-load "flyspell"
