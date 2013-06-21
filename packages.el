@@ -52,6 +52,7 @@
     paredit
     popup
     popwin
+    pretty-symbols-mode
     projectile
     puppet-mode
     python
