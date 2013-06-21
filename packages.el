@@ -28,7 +28,6 @@
     evil-leader
     expand-region
     fill-column-indicator
-    find-file-in-project
     flycheck
     flycheck-color-mode-line
     fuzzy
