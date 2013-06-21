@@ -41,8 +41,8 @@
 (evil-leader/set-key "ay" 'helm-c-yas-complete)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key "bd" 'delete-current-buffer-file)
-(evil-leader/set-key "bk" 'ido-kill-buffer)
 (evil-leader/set-key "bK" 'kill-other-buffers)
+(evil-leader/set-key "bk" 'ido-kill-buffer)
 (evil-leader/set-key "bmh" 'buf-move-left)
 (evil-leader/set-key "bmj" 'buf-move-down)
 (evil-leader/set-key "bmk" 'buf-move-up)
