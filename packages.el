@@ -66,7 +66,6 @@
     s
     smart-operator
     smartparens
-    ;; sr-speedbar
     string-edit
     stripe-buffer
     subword
@@ -75,7 +74,6 @@
     twittering-mode
     visual-regexp-steroids
     wdired
-    window-layout
     yasnippet
     ))
 

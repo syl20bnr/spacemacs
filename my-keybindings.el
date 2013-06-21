@@ -189,17 +189,6 @@
 (evil-leader/set-key "wU" 'winner-redo)
 (evil-leader/set-key "wu" 'winner-undo)
 (evil-leader/set-key "ww" 'other-window)
-;; window layout splitter -----------------------------------------------------
-(evil-leader/set-key "wy0" 'select-window-0)
-(evil-leader/set-key "wy1" 'select-window-1)
-(evil-leader/set-key "wy2" 'select-window-2)
-(evil-leader/set-key "wy3" 'select-window-3)
-(evil-leader/set-key "wy4" 'select-window-4)
-(evil-leader/set-key "wy5" 'select-window-5)
-(evil-leader/set-key "wy6" 'select-window-6)
-(evil-leader/set-key "wy7" 'select-window-7)
-(evil-leader/set-key "wy8" 'select-window-8)
-(evil-leader/set-key "wy9" 'select-window-9)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key "xdw" 'delete-trailing-whitespace)
 (evil-leader/set-key "xgT" 'google-translate-query-translate)
