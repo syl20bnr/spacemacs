@@ -3,26 +3,27 @@
 ;; Major modes abbrev --------------------------------------------------------
 
 (add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (setq mode-name "Elisp")))
+          (lambda () (setq mode-name "Elisp")))
 
 (add-hook 'erlang-mode-hook
-          (lambda ()
-            (setq mode-name "Erlang")))
+          (lambda () (setq mode-name "Erlang")))
 
 (add-hook 'python-mode-hook
-          (lambda ()
-            (setq mode-name "Python")))
+          (lambda () (setq mode-name "Python")))
 
 ;; Minor modes abbrev --------------------------------------------------------
 
 (when (display-graphic-p)
   (eval-after-load "auto-complete"
     '(diminish 'auto-complete-mode " Ⓐ"))
+  (eval-after-load "auto-highlight-symbol"
+    '(diminish 'auto-highlight-symbol-mode " Ⓗ"))
   (eval-after-load "centered-cursor-mode"
     '(diminish 'centered-cursor-mode " Ⓒ"))
   (eval-after-load "eproject"
     '(diminish 'eproject-mode " eⓅ"))
+  (eval-after-load "flymake"
+    '(diminish 'flymake-mode " Ⓕ"))
   (eval-after-load "projectile"
     '(diminish 'projectile-mode " Ⓟ"))
   (eval-after-load "flyspell"
