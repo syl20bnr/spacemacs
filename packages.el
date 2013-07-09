@@ -66,7 +66,7 @@
     smart-operator
     smartparens
     string-edit
-    stripe-buffer
+    ;; stripe-buffer
     subword
     surround
     tagedit
