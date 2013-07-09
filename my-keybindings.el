@@ -13,12 +13,15 @@
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 ;; Easy access to ace-jump (wants a very quick trigger,
 ;; evil-leader is too slow).
+;; pop mark is performed using the evil-leader + ,
 (define-key evil-normal-state-map (kbd ",") 'ace-jump-mode)
 
 ;; evil-leader shortcuts ======================================================
 
 ;; M-x ------------------------------------------------------------------------
 (evil-leader/set-key ":" 'execute-extended-command)
+;; ace-jump -------------------------------------------------------------------
+(evil-leader/set-key "," 'ace-jump-mode-pop-mark)
 ;; switch window by number ----------------------------------------------------
 (evil-leader/set-key "0" 'select-window-0)
 (evil-leader/set-key "1" 'select-window-1)
