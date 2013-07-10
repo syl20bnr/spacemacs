@@ -21,7 +21,8 @@
 ;; M-x ------------------------------------------------------------------------
 (evil-leader/set-key ":" 'execute-extended-command)
 ;; ace-jump -------------------------------------------------------------------
-(evil-leader/set-key "," 'ace-jump-mode-pop-mark)
+(evil-leader/set-key "," (lambda () (interactive)
+                             (ace-jump-mode-pop-mark) (golden-ratio)))
 ;; switch window by number ----------------------------------------------------
 (evil-leader/set-key "0" 'select-window-0)
 (evil-leader/set-key "1" 'select-window-1)
@@ -49,10 +50,14 @@
 (evil-leader/set-key "bd" 'delete-current-buffer-file)
 (evil-leader/set-key "bK" 'kill-other-buffers)
 (evil-leader/set-key "bk" 'ido-kill-buffer)
-(evil-leader/set-key "bmh" 'buf-move-left)
-(evil-leader/set-key "bmj" 'buf-move-down)
-(evil-leader/set-key "bmk" 'buf-move-up)
-(evil-leader/set-key "bml" 'buf-move-right)
+(evil-leader/set-key "bmh" (lambda () (interactive)
+                             (buf-move-left) (golden-ratio)))
+(evil-leader/set-key "bmj" (lambda () (interactive)
+                             (buf-move-down) (golden-ratio)))
+(evil-leader/set-key "bmk" (lambda () (interactive)
+                             (buf-move-up) (golden-ratio)))
+(evil-leader/set-key "bml" (lambda () (interactive)
+                             (buf-move-right) (golden-ratio)))
 (evil-leader/set-key "bn" 'switch-to-next-buffer)
 (evil-leader/set-key "bp" 'switch-to-prev-buffer)
 (evil-leader/set-key "br" 'rename-current-buffer-file)
