@@ -14,7 +14,9 @@
 
 ;; from http://pedrokroger.net/2010/07/configuring-emacs-as-a-python-ide-2/
 (defun python-add-breakpoint ()
-  "Add a break point and highlight it."
+  "Add a break point, highlight it and save the buffer."
   (interactive)
+  (evil-end-of-line)
   (newline-and-indent)
-  (insert "import pdb; pdb.set_trace()"))
+  (insert "import pdb; pdb.set_trace()")
+  (save-buffer))
