@@ -1,6 +1,13 @@
 ;; Regular shortcuts ==========================================================
 
+;; emacs ----------------------------------------------------------------------
+;; switch meta for super in order to play nicely with i3wm which I use with
+;; alt modifier.
+(setq x-super-keysym 'meta)
+(setq x-meta-keysym 'super)
 ;; evil -----------------------------------------------------------------------
+;; easier toggle for emacs-state
+(evil-set-toggle-key "s-`")
 ;; returns to normal mode
 (define-key evil-insert-state-map   "f" 'fd-to-normal-mode)
 (define-key evil-visual-state-map   "f" 'fd-to-normal-mode)
