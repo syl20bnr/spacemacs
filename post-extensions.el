@@ -6,7 +6,7 @@
     edts
     evil-plugins
     golden-ratio
-    mu4e
+    ;; mu4e
     nose
     o-blog
     powerline

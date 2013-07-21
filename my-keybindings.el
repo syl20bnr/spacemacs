@@ -45,7 +45,7 @@
 (evil-leader/set-key "ad" 'dired)
 (evil-leader/set-key "ae" 'erc-start-or-switch)
 (evil-leader/set-key "ag" 'magit-status)
-(evil-leader/set-key "am" 'mu4e-up-to-date-status)
+;; (evil-leader/set-key "am" 'mu4e-up-to-date-status)
 (evil-leader/set-key "ap" 'proced)
 (evil-leader/set-key "ase" 'eshell)
 (evil-leader/set-key "asi" 'shell)
