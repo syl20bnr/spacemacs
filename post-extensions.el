@@ -4,7 +4,6 @@
     centered-cursor
     dos
     edts
-    elixir
     evil-plugins
     golden-ratio
     mu4e

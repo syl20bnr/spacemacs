@@ -21,6 +21,8 @@
     diminish
     dired+
     elisp-slime-nav
+    elixir-mix
+    elixir-mode
     epc
     erc
     erlang
