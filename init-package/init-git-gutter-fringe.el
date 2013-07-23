@@ -7,7 +7,7 @@
 (setq git-gutter:verbosity 0)
 
 (setq git-gutter-fr:side 'right-fringe)
-(setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
+;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
 
 ;; custom graphics that works nice with half-width fringes
 (fringe-helper-define 'git-gutter-fr:added nil
