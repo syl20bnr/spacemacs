@@ -32,7 +32,9 @@
     fill-column-indicator
     flycheck
     flycheck-color-mode-line
+    fringe-helper
     fuzzy
+    git-gutter-fringe
     ghc
     google-translate
     haskell-mode
