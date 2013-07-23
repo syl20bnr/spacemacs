@@ -2,7 +2,10 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(set-fringe-mode 0)
+;; fringes
+(set-fringe-mode nil)  ; default
+(setq-default fringe-indicator-alist
+              '((truncation . nil) (continuation . nil)))
 ;; Show column number in mode line
 (setq column-number-mode t)
 ;; line number
