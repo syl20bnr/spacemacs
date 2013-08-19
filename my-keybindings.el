@@ -86,7 +86,10 @@
 ;; git ------------------------------------------------------------------------
 (evil-leader/set-key "gs" 'magit-status)
 ;; auto-highlight-symbol ------------------------------------------------------
+(evil-leader/set-key "hb" 'ahs-chrange-whole-buffer)
+(evil-leader/set-key "hd" 'ahs-chrange-display)
 (evil-leader/set-key "he" 'ahs-edit-mode)
+(evil-leader/set-key "hf" 'ahs-chrange-beginning-of-defun)
 (evil-leader/set-key "hh" 'auto-highlight-symbol-mode)
 (evil-leader/set-key "hn" 'ahs-forward)
 (evil-leader/set-key "hp" 'ahs-backward)
