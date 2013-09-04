@@ -5,14 +5,28 @@
 ;; alt modifier.
 (setq x-super-keysym 'meta)
 (setq x-meta-keysym 'super)
+;; simple and more consistent keyboard quit key bindings
+;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
+(global-set-key (kbd "f")
+  (lambda () (interactive) (fd-trigger 'keyboard-quit)))
+(define-key minibuffer-local-map (kbd "f")
+  (lambda () (interactive) (fd-trigger 'abort-recursive-edit)))
+;; the original hot key of helm-keyboard-quit is "C-g"
+(define-key helm-map (kbd "f")
+  (lambda () (interactive) (fd-trigger 'helm-keyboard-quit)))
 ;; evil -----------------------------------------------------------------------
 ;; easier toggle for emacs-state
 (evil-set-toggle-key "s-`")
 ;; returns to normal mode
-(define-key evil-insert-state-map   "f" 'fd-to-normal-mode)
-(define-key evil-visual-state-map   "f" 'fd-to-normal-mode)
-(define-key evil-emacs-state-map    "f" 'fd-to-normal-mode)
-(define-key evil-motion-state-map   "f" 'fd-to-normal-mode)
+(define-key evil-insert-state-map "f"
+  (lambda () (interactive) (fd-trigger 'evil-normal-state)))
+(define-key evil-visual-state-map "f"
+  (lambda () (interactive) (fd-trigger 'evil-exit-visual-state)))
+(define-key evil-emacs-state-map "f"
+  (lambda () (interactive) (fd-trigger 'evil-normal-state)))
+(define-key evil-motion-state-map "f"
+  (lambda () (interactive) (fd-trigger 'evil-normal-state)))
+;; set back go to char key bindings in normal modes
 (define-key evil-normal-state-map   "f" 'evil-find-char)
 (define-key evil-operator-state-map "f" 'evil-find-char)
 ;; Make evil-mode up/down operate in screen lines instead of logical lines

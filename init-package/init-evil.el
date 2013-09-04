@@ -8,13 +8,14 @@
 
 ;; inspired from:
 ;; https://github.com/roman/emacs.d/blob/master/zoo/zoo-evil.el
-(evil-define-command fd-to-normal-mode ()
-  "Allows to get into 'normal' mode using 'fd'."
+(evil-define-command fd-trigger (callback)
+  "Allows to execute the passed function using 'fd'."
   :repeat change
   (let ((modified (buffer-modified-p)))
     (insert "f")
-    (let ((evt (read-event (format "Insert %c to exit insert state" ?d)
-                           nil 0.5)))
+    (let ((evt (read-event
+                (format "Insert %c to exit insert state" ?d)
+                nil 0.2)))
       (cond
        ((null evt)
           (message ""))
@@ -23,7 +24,7 @@
           ;; remove the f character
           (delete-char -1)
           (set-buffer-modified-p modified)
-          (evil-normal-state))
+          (funcall callback))
        (t ; otherwise
           (setq unread-command-events (append unread-command-events
                                               (list evt))))))))
