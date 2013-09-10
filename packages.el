@@ -50,6 +50,8 @@
     move-text
     multi-term
     org
+    org-bullets
+    org-trello
     p4
     page-break-lines
     paredit
