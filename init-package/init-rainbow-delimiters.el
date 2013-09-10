@@ -3,7 +3,8 @@
   (rainbow-delimiters-mode 1))
 
 (setq-default frame-background-mode 'dark)
-(let ((supported-modes '(emacs-lisp-mode-hook
+(let ((supported-modes '(c-mode-common-hook
+                         emacs-lisp-mode-hook
                          clojure-mode-hook
                          javascript-mode-hook
                          lisp-mode-hook
