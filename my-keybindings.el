@@ -192,6 +192,7 @@
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "t8" 'toggle-fill-column-indicator)
 (evil-leader/set-key "ta"  'auto-complete-mode)
+(evil-leader/set-key "tc"  'rainbow-mode)
 (evil-leader/set-key "tf"  'fringe-mode)
 (evil-leader/set-key "th"  'auto-highlight-symbol-mode)
 (evil-leader/set-key "tm"  'powerline-minor-modes-toggle)

@@ -62,6 +62,7 @@
     puppet-mode
     python
     quickrun
+    rainbow-mode
     rainbow-delimiters
     recentf
     rfringe
