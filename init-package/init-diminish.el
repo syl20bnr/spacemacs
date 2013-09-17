@@ -63,3 +63,9 @@
 
 (eval-after-load "golden-ratio"
   '(diminish 'golden-ratio-mode))
+
+(eval-after-load "git-gutter"
+  '(diminish 'git-gutter-mode))
+
+(eval-after-load "abbrev"
+  '(diminish 'abbrev-mode))
