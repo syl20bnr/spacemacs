@@ -1,6 +1,7 @@
 (require 'flycheck)
 
-(dolist (mode '(elixir
+(dolist (mode '(c
+                elixir
                 json
                 python
                 ruby))
