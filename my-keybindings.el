@@ -129,6 +129,8 @@
 (evil-leader/set-key "ls" 'paredit-forward-slurp-sexp)
 (evil-leader/set-key "lw" 'paredit-wrap-round)
 ;; major modes ----------------------------------------------------------------
+;; C/C++
+(evil-leader/set-key "Mcc" 'compile)
 ;; Erlang
 (evil-leader/set-key "Mec" 'edts-who-calls)
 (evil-leader/set-key "Med" 'edts-find-doc)
