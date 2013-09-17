@@ -12,6 +12,7 @@
     auto-complete
     auto-dictionary
     buffer-move
+    cc-mode
     cmake-mode
     color-moccur
     csharp-mode
