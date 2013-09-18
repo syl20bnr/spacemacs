@@ -10,6 +10,7 @@
   '(
     ace-jump-mode
     auto-complete
+    auto-complete-clang
     auto-dictionary
     buffer-move
     cc-mode
