@@ -6,11 +6,12 @@
 (setq compilation-finish-function
    (lambda (buf str)
 
-     (if (string-match "exited abnormally" str)
+     (if (or (string-match "exited abnormally" str)
+            (string-match "FAILED" (buffer-string)))
 
          ;;there were errors
-         (message "compilation errors, press C-x ` to visit")
+         (message "There were errors. SPC-e-n to visit.")
 
        ;;no errors, make the compilation window go away in 0.5 seconds
-       (run-at-time 0.5 nil 'delete-windows-on buf)
-       (message "No compilation errors."))))
+       (run-at-time 1.0 nil 'delete-windows-on buf)
+       (message "Ok."))))
