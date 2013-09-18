@@ -1,8 +1,6 @@
 (require 'cc-mode)
-(add-hook 'c-mode-hook '(lambda () (c-toggle-auto-state t)
-                          (c-toggle-hungry-state t)))
-(add-hook 'c++-mode-hook '(lambda () (c-toggle-auto-state t)
-                            (c-toggle-hungry-state t)))
+(add-hook 'c-mode-hook '(lambda () (c-toggle-auto-state t)))
+(add-hook 'c++-mode-hook '(lambda () (c-toggle-auto-state t)))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function
