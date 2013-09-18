@@ -191,6 +191,9 @@
 ;; replace --------------------------------------------------------------------
 (evil-leader/set-key "rR" 'vr/query-replace)
 (evil-leader/set-key "rr" 'vr/replace)
+;; show -----------------------------------------------------------------------
+(evil-leader/set-key "sk" 'helm-show-kill-ring)
+(evil-leader/set-key "sr" 'evil-show-registers)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "t8" 'toggle-fill-column-indicator)
 (evil-leader/set-key "ta"  'auto-complete-mode)
