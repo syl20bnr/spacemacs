@@ -13,5 +13,5 @@
          (message "There were errors. SPC-e-n to visit.")
 
        ;;no errors, make the compilation window go away in 0.5 seconds
-       (run-at-time 1.0 nil 'delete-windows-on buf)
-       (message "Ok."))))
+       (delete-windows-on buf)
+       (message "compilation ok."))))
