@@ -32,6 +32,7 @@
     evil-leader
     expand-region
     fill-column-indicator
+    flx-ido
     flycheck
     flycheck-color-mode-line
     fringe-helper
