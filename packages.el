@@ -45,6 +45,7 @@
     helm-c-yasnippet
     helm-projectile
     htmlize
+    ido-vertical-mode
     jedi
     json-mode
     less-css-mode
