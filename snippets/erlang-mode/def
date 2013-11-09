@@ -1,5 +1,0 @@
-# name: -define(...,...).
-# key: def
-# --
--define($1,$2).
-$0

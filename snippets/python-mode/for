@@ -1,5 +1,0 @@
-# name: for ... in ... : ...
-# key: for
-# --
-for ${var} in ${collection}:
-    $0
