@@ -91,6 +91,7 @@
 ;; find -----------------------------------------------------------------------
 (evil-leader/set-key "ff" 'ido-find-file)
 ;; file -----------------------------------------------------------------------
+(evil-leader/set-key "fi" 'find-user-init-file)
 (evil-leader/set-key "fS" 'evil-write-all)
 (evil-leader/set-key "fs" 'evil-write)
 (evil-leader/set-key "fy" 'camdez/show-buffer-file-name)

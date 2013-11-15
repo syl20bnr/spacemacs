@@ -185,6 +185,13 @@ argument takes the kindows rotate backwards."
           (kill-new file-name))
       (error "Buffer not visiting a file"))))
 
+;; from bozhidar
+;; http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/
+(defun find-user-init-file ()
+  "Edit the `user-init-file', in another window."
+  (interactive)
+  (find-file-other-window user-init-file))
+
 ;; Theme management
 ;; from http://stackoverflow.com/questions/9900232/changing-color-themes-emacs-24-order-matters
 (defadvice load-theme 
