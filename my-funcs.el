@@ -34,7 +34,7 @@ the current state and point position."
       (set-register '_ (list (current-window-configuration)))
       (delete-other-windows))))
 
-;; from magnars modified bt ffevotte for dedicated windows support
+;; from magnars modified by ffevotte for dedicated windows support
 (defun rotate-windows (count)
  "Rotate your windows.
 Dedicated windows are left untouched. Giving a negative prefix
@@ -174,8 +174,16 @@ argument takes the kindows rotate backwards."
             (if dedicated "no longer " "")
             (buffer-name))))
 
-(provide 'my-funcs)
-
+;; http://camdez.com/blog/2013/11/14/emacs-show-buffer-file-name/
+(defun camdez/show-buffer-file-name ()
+  "Show the full path to the current file in the minibuffer."
+  (interactive)
+  (let ((file-name (buffer-file-name)))
+    (if file-name
+        (progn
+          (message file-name)
+          (kill-new file-name))
+      (error "Buffer not visiting a file"))))
 
 ;; Theme management
 ;; from http://stackoverflow.com/questions/9900232/changing-color-themes-emacs-24-order-matters
@@ -190,3 +198,5 @@ argument takes the kindows rotate backwards."
 (defun load-theme-night ()
   (interactive)
   (load-theme 'solarized-dark))
+
+(provide 'my-funcs)

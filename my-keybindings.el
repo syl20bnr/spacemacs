@@ -93,6 +93,7 @@
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key "fS" 'evil-write-all)
 (evil-leader/set-key "fs" 'evil-write)
+(evil-leader/set-key "fy" 'camdez/show-buffer-file-name)
 ;; flycheck -------------------------------------------------------------------
 (evil-leader/set-key "fl" 'flycheck-list-errors)
 (evil-leader/set-key "fn" 'flycheck-next-error)
