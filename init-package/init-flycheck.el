@@ -9,3 +9,4 @@
 		  'flycheck-mode))
 
 (setq flycheck-check-syntax-automatically '(save mode-enabled))
+(setq flycheck-standard-error-navigation nil)
