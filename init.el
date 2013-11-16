@@ -49,3 +49,6 @@
 (require 'post-extensions)
 (require 'my-keybindings)
 
+;; Put this here since it seems to loop recursively if put in the init file
+(global-centered-cursor-mode t)
+
