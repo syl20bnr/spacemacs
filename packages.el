@@ -45,6 +45,7 @@
     helm-c-yasnippet
     helm-projectile
     htmlize
+    hy-mode
     ido-vertical-mode
     jedi
     json-mode
