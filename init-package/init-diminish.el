@@ -69,3 +69,6 @@
 
 (eval-after-load "abbrev"
   '(diminish 'abbrev-mode))
+
+(eval-after-load "volatile-highlights"
+  '(diminish 'volatile-highlights-mode))
