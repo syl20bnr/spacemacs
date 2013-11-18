@@ -85,6 +85,7 @@
     tagedit
     twittering-mode
     visual-regexp-steroids
+    volatile-highlights
     wdired
     yasnippet
     ))
