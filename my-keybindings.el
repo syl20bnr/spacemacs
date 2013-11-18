@@ -206,7 +206,8 @@
 ;; selection ------------------------------------------------------------------
 (evil-leader/set-key "v" 'er/expand-region)
 ;; window ---------------------------------------------------------------------
-(evil-leader/set-key "wb" 'evenly-split-window-right)
+;; (evil-leader/set-key "wb" 'evenly-split-window-right)
+(evil-leader/set-key "wb" 'split-window-right)
 (evil-leader/set-key "wc" 'delete-window)
 (evil-leader/set-key "wd" 'toggle-current-window-dedication)
 (evil-leader/set-key "wH" 'evil-window-move-far-left)
@@ -220,7 +221,8 @@
 (evil-leader/set-key "wm" 'toggle-maximize-buffer)
 (evil-leader/set-key "wr" 'rotate-windows)
 (evil-leader/set-key "wR" 'rotate-windows-backward)
-(evil-leader/set-key "wv" 'evenly-split-window-below)
+;; (evil-leader/set-key "wv" 'evenly-split-window-below)
+(evil-leader/set-key "wv" 'split-window-below)
 (evil-leader/set-key "wsh" 'shrink-window-horizontally)
 (evil-leader/set-key "wsj" 'shrink-window)
 (evil-leader/set-key "wsk" 'enlarge-window)
