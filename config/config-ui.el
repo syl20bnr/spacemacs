@@ -23,6 +23,8 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; font
 (set-default-font "DejaVu Sans Mono-10")
+;; important for golden-ratio to work properly
+(setq window-combination-resize t)
 ;; setup right and left margins
 ;; (add-hook 'window-configuration-change-hook
 ;;           (lambda ()
