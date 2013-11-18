@@ -39,6 +39,7 @@
     fuzzy
     git-gutter-fringe
     ghc
+    golden-ratio
     google-translate
     haskell-mode
     helm
