@@ -241,8 +241,8 @@
 (evil-leader/set-key "xtc" 'transpose-chars)
 (evil-leader/set-key "xtl" 'transpose-lines)
 (evil-leader/set-key "xtw" 'transpose-words)
-(evil-leader/set-key "xU" 'upcase-word)
-(evil-leader/set-key "xu" 'downcase-word)
+(evil-leader/set-key "xU" 'upcase-region)
+(evil-leader/set-key "xu" 'downcase-region)
 ;; centered cursor ------------------------------------------------------------
 (evil-leader/set-key "zz" 'global-centered-cursor-mode)
 
