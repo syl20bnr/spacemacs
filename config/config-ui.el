@@ -1,3 +1,5 @@
+;; important for golden-ratio to better work
+(setq window-combination-resize t)
 ;; edit area full screen
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -23,8 +25,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; font
 (set-default-font "DejaVu Sans Mono-10")
-;; important for golden-ratio to work properly
-(setq window-combination-resize t)
 ;; setup right and left margins
 ;; (add-hook 'window-configuration-change-hook
 ;;           (lambda ()
