@@ -190,7 +190,7 @@ argument takes the kindows rotate backwards."
 (defun find-user-init-file ()
   "Edit the `user-init-file', in another window."
   (interactive)
-  (find-file-other-window user-init-file))
+  (find-file-existing user-init-file))
 
 ;; Theme management
 ;; from http://stackoverflow.com/questions/9900232/changing-color-themes-emacs-24-order-matters
