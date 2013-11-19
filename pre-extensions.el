@@ -1,5 +1,6 @@
 (defvar syl:pre-extensions
   '(
+    use-package
     revive
     window-numbering
     ))

@@ -37,3 +37,6 @@
 [submodule "snippets"]
 	path = snippets
 	url = http://github.com/syl20bnr/yasnippet-snippets
+[submodule "extensions/use-package"]
+	path = extensions/use-package
+	url = http://github.com/jwiegley/use-package
