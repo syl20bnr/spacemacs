@@ -1,5 +1,10 @@
 (use-package flycheck
   :defer t
+  :init
+  (use-package flycheck-color-mode-line
+    :defer t
+    :init
+    (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))
   :config
   (progn
     (dolist (mode '(c
@@ -11,8 +16,5 @@
                 'flycheck-mode))
 
     (setq flycheck-check-syntax-automatically '(save mode-enabled))
-    (setq flycheck-standard-error-navigation nil)
+    (setq flycheck-standard-error-navigation nil)))
 
-    (use-package flycheck-color-mode-line
-      :config
-      '(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))))
