@@ -1,5 +1,7 @@
 ;; http://jblevins.org/projects/deft/
-(when (require 'deft nil 'noerror)
+(use-package deft
+  :defer t
+  :config
    (setq
       deft-extension "org"
       deft-directory "~/Org/deft/"

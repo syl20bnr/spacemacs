@@ -1,1 +1,2 @@
-(require 'rfringe)
+(use-package rfringe
+  :defer t)

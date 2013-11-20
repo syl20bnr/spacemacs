@@ -1,2 +1,3 @@
-(require 'smartparens-config)
-(smartparens-global-mode t)
+(use-package smartparens-config
+  :init
+  (smartparens-global-mode t))

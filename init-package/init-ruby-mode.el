@@ -1,8 +1,4 @@
-(require 'ruby-mode)
-
-(add-to-list 'auto-mode-alist
-             '("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" .
-               ruby-mode))
-(add-to-list 'auto-mode-alist
-             '("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" .
-               ruby-mode))
+(use-package ruby-mode
+  :mode (("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode)
+         ("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))
+)

@@ -1,9 +1,8 @@
 (use-package auto-complete
-  :commands auto-complete-mode
-  :init
-  (require 'auto-complete-config)
+  :defer t
   :config
   (progn
+    (require 'auto-complete-config)
     (ac-config-default)
     (add-to-list 'completion-styles 'initials t)
     (add-to-list 'ac-sources 'ac-source-semantic)

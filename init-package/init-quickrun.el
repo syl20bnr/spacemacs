@@ -1,1 +1,2 @@
-(require 'quickrun)
+(use-package quickrun
+  :defer t)

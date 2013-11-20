@@ -36,7 +36,8 @@
     flycheck
     flycheck-color-mode-line
     fringe-helper
-    fuzzy
+    ;; to be deleted
+    ;; fuzzy
     git-gutter-fringe
     ghc
     golden-ratio
@@ -45,7 +46,8 @@
     helm
     helm-c-yasnippet
     helm-projectile
-    htmlize
+    ;; to be deleted
+    ;; htmlize
     hy-mode
     ido-vertical-mode
     jedi
@@ -76,10 +78,9 @@
     ruby-mode
     ruby-test-mode
     s
-    smart-operator
     smartparens
     string-edit
-    ;; stripe-buffer
+    stripe-buffer
     subword
     surround
     tagedit
@@ -101,13 +102,11 @@
 
 ;;; initialize packages
 (setq syl:package-init-dir (concat user-emacs-directory "init-package/"))
-(message (format "initializing packages out of %s" syl:package-init-dir))
 (dolist (package (append (mapcar 'car package--builtins) package-activated-list))
     (let* ((initfile (concat syl:package-init-dir (format "init-%s.el" package))))
       (if (and (package-installed-p package)
                (file-exists-p initfile))
-          (progn (load initfile)
-                 (message (format "loaded %s" initfile))))))
+          (load initfile))))
 
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))

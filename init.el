@@ -1,4 +1,7 @@
-(require 'cl)
+;; from jwiegley
+;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
+(setq message-log-max 16384)
+(defconst emacs-start-time (current-time))
 
 ;; Locations ==================================================================
 (defvar user-home-directory
@@ -52,3 +55,19 @@
 ;; Put this here since it seems to loop recursively if put in the init file
 (global-centered-cursor-mode t)
 
+;; Post initialization  =======================================================
+;; from jwiegley
+;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
+;; Display load times after init.el and after all buffers has been loaded
+(when window-system
+  (let ((elapsed (float-time (time-subtract (current-time)
+                                            emacs-start-time))))
+    (message "Loading %s...done (%.3fs)" load-file-name elapsed))
+
+  (add-hook 'after-init-hook
+            `(lambda ()
+               (let ((elapsed (float-time (time-subtract (current-time)
+                                                         emacs-start-time))))
+                 (message "Loading %s...done (%.3fs) [after-init]"
+                          ,load-file-name elapsed)))
+            t))

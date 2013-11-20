@@ -1,9 +1,9 @@
-;; (require 'evil-relative-linum)
+(use-package evil-little-word)
 
-(require 'evil-little-word)
+(use-package evil-operator-moccur
+  :init
+    (global-evil-operator-moccur-mode 1))
 
-(require 'evil-operator-moccur)
-(global-evil-operator-moccur-mode 1)
-
-(require 'evil-operator-comment)
-(global-evil-operator-comment-mode 1)
+(use-package evil-operator-comment
+  :init
+  (global-evil-operator-comment-mode 1))

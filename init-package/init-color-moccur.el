@@ -1,1 +1,2 @@
- (require 'color-moccur)
+(use-package color-moccur
+  :defer t)

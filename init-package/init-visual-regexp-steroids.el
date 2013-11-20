@@ -1,2 +1,3 @@
-(require 'visual-regexp-steroids)
+(use-package visual-regexp-steroids
+  :defer t)
 

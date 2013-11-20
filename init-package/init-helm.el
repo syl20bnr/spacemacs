@@ -1,2 +1,3 @@
-(require 'helm-config)
-(helm-mode 1)
+(use-package helm
+  :init
+  (helm-mode 1))

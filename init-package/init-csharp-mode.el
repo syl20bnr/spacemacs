@@ -1,1 +1,2 @@
-(require 'csharp-mode)
+(use-package csharp-mode
+  :defer t)

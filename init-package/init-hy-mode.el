@@ -1,1 +1,2 @@
-(require 'hy-mode)
+(use-package hy-mode
+  :defer t)

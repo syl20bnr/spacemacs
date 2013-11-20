@@ -1,1 +1,2 @@
-(require 'ruby-end)
+(use-package ruby-end
+  :defer t)

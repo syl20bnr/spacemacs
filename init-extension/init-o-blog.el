@@ -1,1 +1,2 @@
-(require 'o-blog)
+(use-package o-blog
+  :defer t)

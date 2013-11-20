@@ -5,7 +5,6 @@
     dos
     edts
     evil-plugins
-    ;; mu4e
     nose
     o-blog
     powerline
@@ -19,11 +18,9 @@
 
 ;; initialize extensions
 (setq syl:extension-init-dir (concat user-emacs-directory "init-extension/"))
-(message (format "initializing extensions out of %s" syl:extension-init-dir))
 (dolist (ext syl:post-extensions)
     (let* ((initfile (concat syl:extension-init-dir (format "init-%s.el" ext))))
       (if (file-exists-p initfile)
-          (progn (load initfile)
-                 (message (format "loaded %s" initfile))))))
+          (load initfile))))
 
 (provide 'post-extensions)

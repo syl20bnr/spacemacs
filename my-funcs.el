@@ -206,4 +206,18 @@ argument takes the kindows rotate backwards."
   (interactive)
   (load-theme 'solarized-dark))
 
+;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
+(setq compilation-finish-function
+   (lambda (buf str)
+
+     (if (or (string-match "exited abnormally" str)
+            (string-match "FAILED" (buffer-string)))
+
+         ;;there were errors
+         (message "There were errors. SPC-e-n to visit.")
+
+       ;;no errors, make the compilation window go away in 0.5 seconds
+       (delete-windows-on buf)
+       (message "compilation ok."))))
+
 (provide 'my-funcs)

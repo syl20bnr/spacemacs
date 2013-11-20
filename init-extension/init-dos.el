@@ -1,3 +1,3 @@
-(require 'dos)
+(use-package dos
+  :mode ("\\.bat$" . dos-mode))
 
-(add-to-list 'auto-mode-alist '("\\.bat$" . dos-mode))

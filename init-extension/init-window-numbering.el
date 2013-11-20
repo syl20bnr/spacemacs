@@ -1,2 +1,3 @@
-(require 'window-numbering)
-(window-numbering-mode 1)
+(use-package window-numbering
+  :init
+  (window-numbering-mode 1))

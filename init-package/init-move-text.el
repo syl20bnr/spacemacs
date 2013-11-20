@@ -1,1 +1,2 @@
-(require 'move-text)
+(use-package move-text
+  :defer t)

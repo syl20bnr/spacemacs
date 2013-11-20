@@ -1,10 +1,13 @@
-(require 'multi-term)
+(use-package multi-term
+  :defer t
+  :config
+  (progn
+    (setq multi-term-program "/bin/zsh")
 
-(setq multi-term-program "/bin/zsh")
+    (defun term-send-tab ()
+      "Send tab in term mode."
+      (interactive)
+      (term-send-raw-string "\t"))
 
-(defun term-send-tab ()
-  "Send tab in term mode."
-  (interactive)
-  (term-send-raw-string "\t"))
+    (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab))))
 
-(add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab))

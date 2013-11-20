@@ -1,5 +1,5 @@
 (use-package auto-complete-clang
-  :commands auto-complete-clang
+  :defer t
   :config
   (progn
     (setq ac-clang-flags

@@ -1,5 +1,3 @@
-(require 'fill-column-indicator)
-
 (setq fci-rule-width 1)
 (setq fci-enabled 0)
 
@@ -16,3 +14,7 @@
 (defun deactivate-fci ()
   (setq fci-enabled 0)
   (fci-mode 0))
+
+(use-package fill-column-indicator
+  :commands toggle-fill-column-indicator)
+

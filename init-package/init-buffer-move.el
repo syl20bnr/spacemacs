@@ -1,2 +1,2 @@
-(require 'buffer-move)
-
+(use-package buffer-mode
+  :defer t)
