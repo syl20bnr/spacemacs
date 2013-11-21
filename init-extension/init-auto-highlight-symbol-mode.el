@@ -1,4 +1,4 @@
-(use-package auto-highlight-symbol-mode
+(use-package auto-highlight-symbol
   :init
   (global-auto-highlight-symbol-mode t)
   :config
