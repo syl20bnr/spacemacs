@@ -138,6 +138,7 @@
 (evil-leader/set-key "Meh" 'edts-find-header-source)
 (evil-leader/set-key "Mel" 'edts-find-local-function)
 (evil-leader/set-key "Mem" 'edts-find-macro-source)
+(evil-leader/set-key "Men" 'edts-code-next-issue)
 (evil-leader/set-key "Mer" 'edts-find-record-source)
 (evil-leader/set-key "Mex" 'edts-refactor-extract-function)
 ;; Html
