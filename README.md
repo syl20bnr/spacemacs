@@ -14,7 +14,7 @@ To achieve this, `Vimacs` uses two modes heavily:
 
 ## Who can benefit from this configuration files set ?
 
-Vimacs is first intented to be used by Vim users who wants to go to the next
+Vimacs is first intended to be used by Vim users who wants to go to the next
 level by using Emacs.
 
 It is also a good fit for people wanting to lower the [risks of RSI][RSI]
@@ -86,27 +86,37 @@ Open (switch) to a buffer with `helm`:
 
 ## How to switch to normal mode efficiently ?
 
-One of the main design flaw in Vim key bindings is the way you have to press
-the `ESC` key to return to `normal` mode.
+One of the main design flaw in Vim key bindings is that you often have to press
+the `ESC` key to return to `normal` mode and `ESC` key is very far from the
+home row.
 
 The popular way to avoid this is to replace `ESC` by `jj` pressed rapidly. In
 Vimacs you have to press `fd` quickly by default.
+
+`fd` also works to quit minibuffer prompts.
 
 Note that [keychords.el][keychords] mode is not used to achieve this, the
 reasons for this is latency and the fact that keychords wants you to press
 several keys almost at the same time which is something very difficult to master
 correctly on a keyboard. Vimacs has a special function called `fd-trigger` to
-handle the `fd` key sequence and fix the keychords issues.
+handle the `fd` key sequence and fix the above keychords issues.
 
 ## How to use it ?
 
-Every sequences must be peformed in `normal` mode.
+Every sequences must be performed in `normal` mode.
+
+### Executing Vim and Emacs commands
+
+Vim commands are execute as usual with the `:` key.
+To execute an Emacs command:
+
+    <SPC> :
 
 ### Navigation (point/cursor)
 
 Navigation is performed using the Vi key bindings `hjkl`.
 
-The current line of the cursor (point) is always at the center of the buffer.
+The current line of the cursor is always at the center of the buffer.
 This effect is achieved with [centered-cursor][centered-cursor] mode.
 It can be toggled on and off with:
 
@@ -123,11 +133,11 @@ To move quickly down a buffer:
 #### [ace-jump mode][ace-jump]
 
 I often use `ace-jump` mode so this key binding does not require the evil
-leader, just press `,`:
+leader, just press:
 
     ,
 
-To go back to previous location:
+To go back to the previous location (pop mark):
 
     <SPC> ,
 
@@ -151,7 +161,7 @@ Save a file:
 
     <SPC> f s
 
-Switch to an opened buffer:
+Switch to a buffer:
 
     <SPC> b s
 
@@ -167,7 +177,7 @@ Rename a buffer:
 
     <SPC> b r
 
-Delete a buffer (well a file):
+Delete a buffer (well a file...):
 
     <SPC> b d
 
@@ -187,11 +197,11 @@ you can press:
 
     <SPC> 2
 
-Split a window horizontaly:
+Split a window horizontally:
 
     <SPC> w b
 
-Split a window verticaly:
+Split a window vertically:
 
     <SPC> w v
 
@@ -215,6 +225,47 @@ Rotate windows clockwise or counter-clockwise:
 Maximize/minimize a window:
 
     <SPC> w m
+
+### Additional text manipulation commands
+
+Text related commands start with `x`.
+
+To move a line of text up or down:
+
+    <SPC> x m k
+    <SPC> x m j
+
+To swap two letters/words/lines:
+
+    <SPC> x t c
+    <SPC> x t w
+    <SPC> x t l
+
+To make the selected text upper case or lower case:
+
+    <SPC> x U
+    <SPC> x u
+
+To translate a word at point with `google translate`:
+
+    <SPC> x g t
+
+
+### Spell checking
+
+Spell checking commands start with `s`.
+
+Correct word at point with `helm`:
+
+    <SPC> s c
+
+Go to the next spell check error:
+
+    <SPC> s n
+
+Change dictionary language:
+
+    <SPC> s d
 
 ### Color theme
 
@@ -272,10 +323,10 @@ The minor mode area can be toggled on and off with:
 
     <SPC> t m
 
-Note that in terminal the regular indicators are used insteaf of the utf-8
+Note that in terminal the regular indicators are used instead of the utf-8
 ones.
 
-### Formating
+### Formatting
 
 Vimacs leverage `paredit` in all major modes by using [smartparens][sp] mode.
 
@@ -298,7 +349,7 @@ To split a quoted string (ie. `"Hello Emacs Hello Vim"` to `"Hello Emacs"` and
 
     <SPC> l CTRL+j
 
-ahah a modifier! It should be the only one.
+Ahah a modifier! It should be the only one.
 
 ### Errors handling
 
@@ -341,11 +392,11 @@ to reset:
 
 narrow to a region:
 
-    <SPC> nr
+    <SPC> n r
 
 widen a region:
 
-    <SPC> nw
+    <SPC> n w
 
 
 #### [auto-highlight-symbol][auto-highlight] mode
