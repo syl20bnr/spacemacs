@@ -43,13 +43,14 @@ To achieve this, `Vimacs` uses two modes heavily:
 
 ## Who can benefit from this configuration files set ?
 
-Vimacs is first intended to be used by Vim users who wants to go to the next
+Vimacs is first intended to be used by Vim users who want to go to the next
 level by using Emacs.
 
-It is also a good fit for people wanting to lower the [risks of RSI][RSI]
+It is also a good fit for people wanting to lower the [risk of RSI][RSI]
 induced by the default Emacs key bindings. 
 
-People wanting to learn a new way to edit files or wanting to learn Vim.
+People wanting to learn a new way to edit files or wanting to learn Vim
+key bindings.
 
 As a note side, if you are a programmer and you don't know Vim key bindings
 yet, I deeply recommend you to learn the basics as recommended in
@@ -66,7 +67,7 @@ Clone this repository in your home folder:
     mv .emacs.d .emacs.bak
     git clone http://github.com/syl20bnr/vimacs .emacs.d
 
-Get the submodules:
+Get the sub-modules:
 
     cd ~/.emacs.d
     git submodule init
@@ -76,7 +77,7 @@ Get the submodules:
 
 Modes/libraries are separated into two categories:
 - package: packages installed from `package.el` compliant repositories.
-- extension: modes directly fetched from git repositories (as submodules)
+- extension: modes directly fetched from git repositories (as sub-modules)
 
 There are two types of extensions:
 - pre-extensions: loaded before packages
@@ -97,9 +98,20 @@ macro.
 
 ## How it works
 
-With Vimacs there is no need to remap your keyboard modifiers to lower the
-risks of RSI, every command can be executed very easily  while you are in
-`normal` mode:
+Vimacs uses the `evil` mode to emulate Vim key bindings. This is a very
+complete emulation (the most complete I've seen yet).
+
+Vimacs heavily uses the `evil-leader` mode which brings the Vim leader key to
+the Emacs world.
+
+This leader key is commonly set to `,` by Vim users, in Vimacs the leader key
+is set on `SPC` (space bar). This key is the most accessible key on a keyboard
+and it is pressed with the thumb which is a good choice to lower the risk of
+[RSI][RSI].
+
+So with Vimacs there is no need to remap your keyboard modifiers to attempt to
+reduce the risk of RSI, every command can be executed very easily while you are
+in `normal` mode by pressing the `SPC` leader key, here are a few examples:
 
 Save a buffer:
 
@@ -269,7 +281,7 @@ To move a line of text up or down:
     <SPC> x m k
     <SPC> x m j
 
-To swap two letters/words/lines:
+To swap (transpose) two letters/words/lines:
 
     <SPC> x t c
     <SPC> x t w
@@ -343,7 +355,7 @@ Vimacs uses [diminish][diminish] mode to reduce the size of minor mode
 indicators:
 
 - Ⓐ -> [auto-complete][auto-complete] mode
-- Ⓗ -> [auto-highlight-symbol][auto-highlight-mode] mode
+- Ⓗ -> [auto-highlight-symbol][auto-highlight] mode
 - Ⓒ -> [centered-cursor][centered-cursor] mode
 - eⓅ -> [e-project][e-project] mode
 - Ⓟ -> [projectile][projectile] mode
@@ -448,7 +460,7 @@ edit all highlighted symbols:
 There are sets of key bindings for different major modes I'm using, the
 convention is to start the major mode key sequences by `M`.
 
-See `my-keybindings.el` for more keybindings.
+See [my-keybindings.el][keybindings] to explore for more key bindings.
 
 ## TODO list
 
@@ -489,3 +501,4 @@ here.
 [expand-region]: https://github.com/magnars/expand-region.el
 [multiple-cursors]: https://github.com/magnars/multiple-cursors.el
 [bin_chen_dotemacs]: https://github.com/redguardtoo/emacs.d
+[keybindings]: https://github.com/syl20bnr/vimacs/blob/master/my-keybindings.el
