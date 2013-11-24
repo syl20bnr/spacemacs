@@ -3,6 +3,35 @@
 The best editor is not *Emacs* nor *Vim*, the best editor is
 *Vimacs, Emacs+Vim* !
 
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Goal](#goal)
+- [Who can benefit from this configuration files set ?](#who-can-benefit-from-this-configuration-files-set-)
+- [Install](#install)
+- [Packages and Extensions Organization](#packages-and-extensions-organization)
+- [How it works](#how-it-works)
+- [How to switch to normal mode efficiently ?](#how-to-switch-to-normal-mode-efficiently-)
+- [How to use it ?](#how-to-use-it-)
+    - [Executing Vim and Emacs commands](#executing-vim-and-emacs-commands)
+    - [Navigation (point/cursor)](#navigation-pointcursor)
+        - [ace-jump mode](#ace-jump-mode)
+    - [Navigation (buffers/files)](#navigation-buffersfiles)
+    - [Window manipulation](#window-manipulation)
+    - [Additional text manipulation commands](#additional-text-manipulation-commands)
+    - [Spell checking](#spell-checking)
+    - [Color theme](#color-theme)
+    - [UI elements](#ui-elements)
+    - [Minor Modes](#minor-modes)
+    - [Formatting](#formatting)
+    - [Errors handling](#errors-handling)
+    - [Various](#various)
+        - [expand-region mode](#expand-region-mode)
+        - [narrow region](#narrow-region)
+        - [auto-highlight-symbol mode](#auto-highlight-symbol-mode)
+        - [and more...](#and-more)
+- [TODO list](#todo-list)
+- [Are there any other configuration files like Vimacs ?](#are-there-any-other-configuration-files-like-vimacs-)
+
 ## Goal
 
 These configuration files try to bring *the power of Vim modal editing* to
