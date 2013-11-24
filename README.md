@@ -159,6 +159,11 @@ To move quickly down a buffer:
 
     L
 
+Go to beginning/end of line:
+
+    <SPC> j h
+    <SPC> j l
+
 #### [ace-jump mode][ace-jump]
 
 I often use `ace-jump` mode so this key binding does not require the evil

@@ -108,9 +108,12 @@
 (evil-leader/set-key "ij" 'evil-insert-line-below)
 (evil-leader/set-key "ik" 'evil-insert-line-above)
 ;; format ---------------------------------------------------------------------
-(evil-leader/set-key "jk" 'evil-join)
 (evil-leader/set-key "ji" (lambda () (interactive) (join-line 1) (sp-newline)))
 (evil-leader/set-key "jj" 'sp-newline)
+(evil-leader/set-key "jk" 'evil-join)
+;; navigation ----------------------------------------------------------------
+(evil-leader/set-key "jh" 'evil-beginning-of-line)
+(evil-leader/set-key "jl" 'evil-end-of-line)
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key "lB" 'sp-backward-barf-sexp)
 (evil-leader/set-key "lb" 'sp-forward-barf-sexp)
