@@ -193,6 +193,10 @@
 ;; show -----------------------------------------------------------------------
 (evil-leader/set-key "sk" 'helm-show-kill-ring)
 (evil-leader/set-key "sr" 'evil-show-registers)
+;; spell check  ---------------------------------------------------------------
+(evil-leader/set-key "sc" 'cofi/helm-flyspell-correct)
+(evil-leader/set-key "sd" 'adict-change-dictionary)
+(evil-leader/set-key "sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "t8" 'toggle-fill-column-indicator)
 (evil-leader/set-key "ta"  'auto-complete-mode)

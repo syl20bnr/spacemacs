@@ -35,6 +35,7 @@
     flx-ido
     flycheck
     flycheck-color-mode-line
+    flyspell
     fringe-helper
     ;; to be deleted
     ;; fuzzy
