@@ -46,6 +46,7 @@
     google-translate
     haskell-mode
     helm
+    helm-descbinds
     helm-c-yasnippet
     helm-projectile
     ;; to be deleted

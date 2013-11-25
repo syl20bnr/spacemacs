@@ -41,6 +41,8 @@
 
 ;; M-x ------------------------------------------------------------------------
 (evil-leader/set-key ":" 'execute-extended-command)
+;; Key bindings help ----------------------------------------------------------
+(evil-leader/set-key "?" 'helm-descbinds)
 ;; ace-jump -------------------------------------------------------------------
 (evil-leader/set-key "," 'ace-jump-mode-pop-mark)
 ;; switch window by number ----------------------------------------------------

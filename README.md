@@ -13,6 +13,7 @@ The best editor is not *Emacs* nor *Vim*, the best editor is
 - [How to switch to normal mode efficiently ?](#how-to-switch-to-normal-mode-efficiently-)
 - [How to use it ?](#how-to-use-it-)
     - [Executing Vim and Emacs commands](#executing-vim-and-emacs-commands)
+    - [Key bindings help](#key-bindings-help)
     - [Navigation (point/cursor)](#navigation-pointcursor)
         - [ace-jump mode](#ace-jump-mode)
     - [Navigation (buffers/files)](#navigation-buffersfiles)
@@ -152,6 +153,14 @@ Vim commands are execute as usual with the `:` key.
 To execute an Emacs command:
 
     <SPC> :
+
+### Key bindings help
+
+A list of all the key bindings can be accessed by pressing:
+
+    <SPC> ?
+
+To narrow the list to Vimacs specific key bindings set the pattern to `SPC`
 
 ### Navigation (point/cursor)
 
