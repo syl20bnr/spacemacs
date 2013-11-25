@@ -8,6 +8,7 @@
 (package-initialize)
 (defvar syl:packages
   '(
+    ac-ispell
     ace-jump-mode
     auto-complete
     auto-complete-clang
