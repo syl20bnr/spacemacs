@@ -274,4 +274,14 @@ Adapted from `flyspell-correct-word-before-point'."
                                    poss word cursor-location start end opoint)))
             (ispell-pdict-save t)))))
 
+(defun set-google-translate-languages (source target)
+  "Set source language for google translate.
+For instance pass En as source for english."
+  (interactive "sEnter source language (ie. En): \nsEnter target language (ie. En): "
+               source target)
+  (message (format "Set google translate source language to %s and target to %s"
+                   source target))
+  (setq google-translate-default-source-language source)
+  (setq google-translate-default-target-language target))
+
 (provide 'my-funcs)

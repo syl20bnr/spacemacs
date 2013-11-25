@@ -239,10 +239,6 @@
 (evil-leader/set-key "ww" 'other-window)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key "xdw" 'delete-trailing-whitespace)
-(evil-leader/set-key "xgT" 'google-translate-query-translate)
-(evil-leader/set-key "xgt" 'google-translate-at-point)
-(evil-leader/set-key "xgR" 'google-translate-query-translate-reverse)
-(evil-leader/set-key "xgr" 'google-translate-at-point-reverse)
 (evil-leader/set-key "xmj" 'move-text-down)
 (evil-leader/set-key "xmk" 'move-text-up)
 (evil-leader/set-key "xtc" 'transpose-chars)
@@ -250,6 +246,12 @@
 (evil-leader/set-key "xtw" 'transpose-words)
 (evil-leader/set-key "xU" 'upcase-region)
 (evil-leader/set-key "xu" 'downcase-region)
+;; google translate -----------------------------------------------------------
+(evil-leader/set-key "xgl" 'set-google-translate-languages)
+(evil-leader/set-key "xgQ" 'google-translate-query-translate-reverse)
+(evil-leader/set-key "xgq" 'google-translate-query-translate)
+(evil-leader/set-key "xgT" 'google-translate-at-point-reverse)
+(evil-leader/set-key "xgt" 'google-translate-at-point)
 ;; centered cursor ------------------------------------------------------------
 (evil-leader/set-key "zz" 'global-centered-cursor-mode)
 
