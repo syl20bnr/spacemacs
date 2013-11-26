@@ -45,6 +45,8 @@
              (load (concat host-directory l))))))
 
 ;; Setup ======================================================================
+(load-user-config)
+(load-host-config)
 (require 'my-funcs)
 (require 'my-macros)
 (require 'pre-extensions)
@@ -54,6 +56,9 @@
 
 ;; Put this here since it seems to loop recursively if put in the init file
 (global-centered-cursor-mode t)
+
+;; Set first theme of the list
+(cycle-my-theme)
 
 ;; Post initialization  =======================================================
 ;; from jwiegley
@@ -71,3 +76,4 @@
                  (message "Loading %s...done (%.3fs) [after-init]"
                           ,load-file-name elapsed)))
             t))
+

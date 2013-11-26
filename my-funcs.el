@@ -185,26 +185,32 @@ argument takes the kindows rotate backwards."
           (kill-new file-name))
       (error "Buffer not visiting a file"))))
 
-;; from bozhidar
+;; adapted from bozhidar
 ;; http://emacsredux.com/blog/2013/05/18/instant-access-to-init-dot-el/
 (defun find-user-init-file ()
-  "Edit the `user-init-file', in another window."
+  "Edit the `user-init-file', in the current window."
   (interactive)
   (find-file-existing user-init-file))
 
-;; Theme management
-;; from http://stackoverflow.com/questions/9900232/changing-color-themes-emacs-24-order-matters
-(defadvice load-theme 
-  (before theme-dont-propagate activate)
-  (mapcar #'disable-theme custom-enabled-themes)
-  (load-user-config)
-  (load-host-config))
-(defun load-theme-day ()
+;; From http://stackoverflow.com/a/18796138
+;; Cycle through this set of themes
+(setq my-themes '(solarized-dark solarized-light))
+(setq my-cur-theme nil)
+(defun cycle-my-theme ()
+  "Cycle through a list of themes, my-themes"
   (interactive)
-  (load-theme 'solarized-light))
-(defun load-theme-night ()
-  (interactive)
-  (load-theme 'solarized-dark))
+  (when my-cur-theme
+    (disable-theme my-cur-theme)
+    (setq my-themes (append my-themes (list my-cur-theme))))
+  (setq my-cur-theme (pop my-themes))
+  (load-theme my-cur-theme t)
+  ;; due to the transparent background of our custom fringe:
+  ;; use foreground of the flycheck faces as background for color-mode line
+  (eval-after-load "flycheck-color-mode-line"
+    '(progn
+       (set-face-attribute 'flycheck-color-mode-line-error-face nil :background (face-foreground 'flycheck-fringe-error))
+       (set-face-attribute 'flycheck-color-mode-line-warning-face nil :background (face-foreground 'flycheck-fringe-warning))
+       (set-face-attribute 'flycheck-color-mode-line-info-face nil :background (face-foreground 'flycheck-fringe-info)))))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function
