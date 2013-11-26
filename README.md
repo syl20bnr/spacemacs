@@ -325,15 +325,9 @@ Change dictionary language:
 ### Color theme
 
 Vimacs uses this [Solarized theme][solarized-theme].
-It is possible to switch between the light and dark themes.
+It is possible to cycle between the light and dark themes with.
 
-Activate daylight theme:
-
-    <SPC> t t d
-
-Activate night theme:
-
-    <SPC> t t n
+    <SPC> c t
 
 ### UI elements
 
