@@ -1,2 +1,2 @@
 ;; half-width fringes
-(set-fringe-mode '(4 . 4))
+;; (set-fringe-mode '(4 . 4))
