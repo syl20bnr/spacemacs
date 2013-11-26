@@ -24,7 +24,8 @@
 ;; When emacs asks for "yes" or "no", let "y" or "n" sufficide
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; font
-(set-default-font "DejaVu Sans Mono-10")
+;; (set-default-font "DejaVu Sans Mono-10")
+(set-default-font "Source Code Pro-10")
 ;; setup right and left margins
 ;; (add-hook 'window-configuration-change-hook
 ;;           (lambda ()
