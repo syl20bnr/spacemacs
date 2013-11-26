@@ -130,37 +130,8 @@
 (evil-leader/set-key "lr" 'sp-raise-sexp)
 (evil-leader/set-key "lS" 'sp-backward-slurp-sexp)
 (evil-leader/set-key "ls" 'sp-forward-slurp-sexp)
-(evil-leader/set-key "lw" 'sp-wrap-round)
-;; major modes ----------------------------------------------------------------
-;; C/C++
-(evil-leader/set-key "Mcc" 'compile)
-;; Erlang
-(evil-leader/set-key "Mec" 'edts-who-calls)
-(evil-leader/set-key "Med" 'edts-find-doc)
-(evil-leader/set-key "Mef" 'edts-find-source-under-point)
-(evil-leader/set-key "Meg" 'edts-find-global-function)
-(evil-leader/set-key "Meh" 'edts-find-header-source)
-(evil-leader/set-key "Mel" 'edts-find-local-function)
-(evil-leader/set-key "Mem" 'edts-find-macro-source)
-(evil-leader/set-key "Men" 'edts-code-next-issue)
-(evil-leader/set-key "Mer" 'edts-find-record-source)
-(evil-leader/set-key "Mex" 'edts-refactor-extract-function)
-;; Html
-(evil-leader/set-key "C-<right>" 'tagedit-forward-slurp-tag)
-(evil-leader/set-key "C-<left>" 'tagedit-forward-barf-tag)
-(evil-leader/set-key "M-r" 'tagedit-raise-tag)
-(evil-leader/set-key "C-k" 'tagedit-kill)
-(evil-leader/set-key "s-k" 'tagedit-kill-attribute)
-;; Python
-(evil-leader/set-key "Mp1" 'nosetests-one)
-(evil-leader/set-key "Mp!" 'nosetests-pdb-one)
-(evil-leader/set-key "Mpa" 'nosetests-all)
-(evil-leader/set-key "MpA" 'nosetests-pdb-all)
-(evil-leader/set-key "Mpb" 'python-add-breakpoint)
-(evil-leader/set-key "Mpd" 'pylookup-lookup)
-(evil-leader/set-key "Mpf" 'jedi:goto-definition)
-(evil-leader/set-key "Mpm" 'nosetests-module)
-(evil-leader/set-key "MpM" 'nosetests-pdb-module)
+;; Compilation ----------------------------------------------------------------
+(evil-leader/set-key "cc" 'compile)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key "nr" 'narrow-to-region)
 (evil-leader/set-key "np" 'narrow-to-page)
