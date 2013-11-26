@@ -17,9 +17,7 @@
   (progn
     (setq flycheck-check-syntax-automatically '(save mode-enabled))
     (setq flycheck-standard-error-navigation nil)
-    ;; Custom nicer fringe indicator
-    ;; the fringe bitmap is inversed in order to flycheck-color-mode-line
-    ;; to work properly
+    ;; Custom fringe indicator
     (when (fboundp 'define-fringe-bitmap)
       (define-fringe-bitmap 'my-flycheck-fringe-indicator
         (vector #b00000000
@@ -40,5 +38,4 @@
     (flycheck-define-error-level 'info
       :overlay-category 'flycheck-info-overlay
       :fringe-bitmap 'my-flycheck-fringe-indicator
-      :fringe-face 'flycheck-fringe-info))
-  )
+      :fringe-face 'flycheck-fringe-info)))
