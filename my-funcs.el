@@ -1,3 +1,12 @@
+(defun load-user-config ()
+  (progn (when (file-exists-p user-config-directory)
+           (dolist (l (directory-files user-config-directory nil "^[^#].*el$"))
+             (load (concat user-config-directory l))))))
+(defun load-host-config ()
+  (progn (when (file-exists-p host-directory)
+           (dolist (l (directory-files host-directory nil "^[^#].*el$"))
+             (load (concat host-directory l))))))
+
 ;; insert one or several line below without changing current evil state
 (defun evil-insert-line-below (count)
   "Insert one of several lines below the current point's line without changing

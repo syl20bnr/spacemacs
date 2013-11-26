@@ -35,24 +35,16 @@
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path user-extensions-directory)
 
-(defun load-user-config ()
-  (progn (when (file-exists-p user-config-directory)
-           (dolist (l (directory-files user-config-directory nil "^[^#].*el$"))
-             (load (concat user-config-directory l))))))
-(defun load-host-config ()
-  (progn (when (file-exists-p host-directory)
-           (dolist (l (directory-files host-directory nil "^[^#].*el$"))
-             (load (concat host-directory l))))))
-
 ;; Setup ======================================================================
-(load-user-config)
-(load-host-config)
 (require 'my-funcs)
 (require 'my-macros)
 (require 'pre-extensions)
 (require 'packages)
 (require 'post-extensions)
 (require 'my-keybindings)
+
+(load-user-config)
+(load-host-config)
 
 ;; Put this here since it seems to loop recursively if put in the init file
 (global-centered-cursor-mode t)
