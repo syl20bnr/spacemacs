@@ -17,7 +17,7 @@
   (global-hl-line-mode t)
   (set-face-background 'hl-line "#073642"))
 ;; no blink
-(blink-cursor-mode (- (*) (*) (*)))
+;; (blink-cursor-mode (- (*) (*) (*)))
 ;; tool tips in echo area
 (tooltip-mode -1)
 (setq tooltip-use-echo-area t)
