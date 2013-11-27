@@ -21,12 +21,18 @@
     (when (fboundp 'define-fringe-bitmap)
       (define-fringe-bitmap 'my-flycheck-fringe-indicator
         (vector #b00000000
-                #b00011100
-                #b00111110
-                #b00111110
-                #b00111110
-                #b00011100
-                #b00000000)))
+                #b00000000
+                #b00000000
+                #b00000000
+                #b00000000
+                #b00111000
+                #b01111100
+                #b01111100
+                #b01111100
+                #b00111000
+                #b00000000
+                #b00000000
+                #b11111110)))
     (flycheck-define-error-level 'error
       :overlay-category 'flycheck-error-overlay
       :fringe-bitmap 'my-flycheck-fringe-indicator
