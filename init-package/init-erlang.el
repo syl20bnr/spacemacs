@@ -16,7 +16,7 @@
                 ))
     (require 'edts-start)
     ;; (setq edts-log-level 'debug)
-    (setq edts-face-inhibit-mode-line-updates t)
+    ;; (setq edts-face-inhibit-mode-line-updates t)
     ;; Key Bindings
     (evil-leader/set-key "Mec" 'edts-who-calls)
     (evil-leader/set-key "Med" 'edts-find-doc)
