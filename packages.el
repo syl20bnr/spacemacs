@@ -1,10 +1,8 @@
 (require 'package)
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
-;;                         ("technomancy" . "http://repo.technomancy.us/emacs/")
 (package-initialize)
 (defvar syl:packages
   '(
@@ -49,6 +47,7 @@
     helm-descbinds
     helm-c-yasnippet
     helm-projectile
+    helm-themes
     ;; to be deleted
     ;; htmlize
     hy-mode
