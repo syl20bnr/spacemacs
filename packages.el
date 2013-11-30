@@ -91,6 +91,7 @@
     volatile-highlights
     wdired
     yasnippet
+    zenburn-theme
     ))
 
 ;;; install missing packages
