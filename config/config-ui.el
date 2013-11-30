@@ -13,9 +13,7 @@
 ;; line number
 (setq linum-format "%4d")
 ;; highlight current line
-(when (display-graphic-p)
-  (global-hl-line-mode t)
-  (set-face-background 'hl-line "#073642"))
+(global-hl-line-mode t)
 ;; no blink
 ;; (blink-cursor-mode (- (*) (*) (*)))
 ;; tool tips in echo area
