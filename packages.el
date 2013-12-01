@@ -38,6 +38,7 @@
     fringe-helper
     ;; to be deleted
     ;; fuzzy
+    gist
     git-gutter-fringe
     ghc
     golden-ratio
