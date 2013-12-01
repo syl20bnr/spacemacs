@@ -1,7 +1,7 @@
-# Vimacs
+# Spacemacs
 
-The best editor is not *Emacs* nor *Vim*, the best editor is
-*Vimacs, Emacs+Vim* !
+_The best editor is not *Emacs* nor *Vim*, the best editor is
+*Emacs+Vim* !_
 
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
@@ -31,21 +31,22 @@ The best editor is not *Emacs* nor *Vim*, the best editor is
         - [auto-highlight-symbol mode](#auto-highlight-symbol-mode)
         - [and more...](#and-more)
 - [TODO list](#todo-list)
-- [Are there any other configuration files like Vimacs ?](#are-there-any-other-configuration-files-like-vimacs-)
 
 ## Goal
 
 These configuration files try to bring *the power of Vim modal editing* to
-*the powerful Emacs editing platform* to finally "build" the *Vimacs editor*.
+*the powerful Emacs editing platform* and some more power with the `SPC` key
+as a leader key.
 
-To achieve this, `Vimacs` uses two modes heavily:
+To achieve this, `Spacemacs` uses two modes heavily:
 - [evil mode][evil]
 - [evil-leader mode][evil-leader]
 
+
 ## Who can benefit from this configuration files set ?
 
-Vimacs is first intended to be used by Vim users who want to go to the next
-level by using Emacs.
+`Spacemacs` is first intended to be used by Vim users who want to go to the
+next level by using Emacs.
 
 It is also a good fit for people wanting to lower the [risk of RSI][RSI]
 induced by the default Emacs key bindings. 
@@ -59,14 +60,14 @@ yet, I deeply recommend you to learn the basics as recommended in
 
 ## Install
 
-Vimacs is only tested with `Emacs 24.3.1`.
+`Spacemacs` is only tested with `Emacs 24.3.1`.
 
 Backup your current `.emacs.d`.
 Clone this repository in your home folder:
 
     cd ~
     mv .emacs.d .emacs.bak
-    git clone http://github.com/syl20bnr/vimacs .emacs.d
+    git clone http://github.com/syl20bnr/spacemacs .emacs.d
 
 Get the sub-modules:
 
@@ -99,18 +100,18 @@ macro.
 
 ## How it works
 
-Vimacs uses the `evil` mode to emulate Vim key bindings. This is a very
+`Spacemacs` uses the `evil` mode to emulate Vim key bindings. This is a very
 complete emulation (the most complete I've seen yet).
 
-Vimacs heavily uses the `evil-leader` mode which brings the Vim leader key to
+`Spacemacs` heavily uses the `evil-leader` mode which brings the Vim leader key to
 the Emacs world.
 
-This leader key is commonly set to `,` by Vim users, in Vimacs the leader key
-is set on `SPC` (space bar). This key is the most accessible key on a keyboard
-and it is pressed with the thumb which is a good choice to lower the risk of
-[RSI][RSI].
+This leader key is commonly set to `,` by Vim users, in `Spacemacs` the leader key
+is set on `SPC` (space bar, this is why `spacemacs`). This key is the most
+accessible key on a keyboard and it is pressed with the thumb which is a good
+choice to lower the risk of [RSI][RSI].
 
-So with Vimacs there is no need to remap your keyboard modifiers to attempt to
+So with `Spacemacs` there is no need to remap your keyboard modifiers to attempt to
 reduce the risk of RSI, every command can be executed very easily while you are
 in `normal` mode by pressing the `SPC` leader key, here are a few examples:
 
@@ -133,14 +134,14 @@ the `ESC` key to return to `normal` mode and `ESC` key is very far from the
 home row.
 
 The popular way to avoid this is to replace `ESC` by `jj` pressed rapidly. In
-Vimacs you have to press `fd` quickly by default.
+`Spacemacs` you have to press `fd` quickly by default.
 
 `fd` also works to quit minibuffer prompts.
 
 Note that [keychords.el][keychords] mode is not used to achieve this, the
 reasons for this is latency and the fact that keychords wants you to press
 several keys almost at the same time which is something very difficult to master
-correctly on a keyboard. Vimacs has a special function called `fd-trigger` to
+correctly on a keyboard. `Spacemacs` has a special function called `fd-trigger` to
 handle the `fd` key sequence and fix the above keychords issues.
 
 ## How to use it ?
@@ -160,7 +161,7 @@ A list of all the key bindings can be accessed by pressing:
 
     <SPC> ?
 
-To narrow the list to Vimacs specific key bindings set the pattern to `SPC`
+To narrow the list to `Spacemacs` specific key bindings set the pattern to `SPC`
 
 ### Navigation (point/cursor)
 
@@ -198,10 +199,10 @@ To go back to the previous location (pop mark):
 
 ### Navigation (buffers/files)
 
-Vimacs uses [helm][helm] coupled to [popwin][popwin] to handle buffer
+`Spacemacs` uses [helm][helm] coupled to [popwin][popwin] to handle buffer
 navigation.
 
-Note: Vimacs also uses `ido` for opening files since `ido` way to navigate
+Note: `Spacemacs` also uses `ido` for opening files since `ido` way to navigate
 the file system is better than `helm` (especially because `ido` can
 remember the last selected directories and buffers, maybe helm can do this ?).
 `ido` is also used to kill buffers.
@@ -324,7 +325,7 @@ Change dictionary language:
 
 ### Color theme
 
-Vimacs uses this [Solarized theme][solarized-theme].
+`Spacemacs` uses this [Solarized theme][solarized-theme].
 It is possible to cycle between the light and dark themes with.
 
     <SPC> c t
@@ -354,7 +355,7 @@ Toggle fringe mode:
 
 ### Minor Modes
 
-Vimacs uses [diminish][diminish] mode to reduce the size of minor mode
+`Spacemacs` uses [diminish][diminish] mode to reduce the size of minor mode
 indicators:
 
 - Ⓐ -> [auto-complete][auto-complete] mode
@@ -377,7 +378,7 @@ ones.
 
 ### Formatting
 
-Vimacs leverage `paredit` in all major modes by using [smartparens][sp] mode.
+`Spacemacs` leverage `paredit` in all major modes by using [smartparens][sp] mode.
 
 To join the current line with the next line:
 
@@ -402,7 +403,7 @@ Ahah a modifier! It should be the only one.
 
 ### Errors handling
 
-Vimacs uses [Flycheck][flycheck] to gives error feedback on the fly.
+`Spacemacs` uses [Flycheck][flycheck] to gives error feedback on the fly.
 The checks are only performed at save time by default.
 
 To go to the next/previous flycheck error:
@@ -471,15 +472,6 @@ See [my-keybindings.el][keybindings] to explore for more key bindings.
 or minor modes key bindings (maybe by leveraging [use-package][use-package] ?).
 - Add support for [multiple-cursors][multiple-cursors] mode.
 
-## Are there any other configuration files like Vimacs ?
-
-Yes there is:
-- [Bin Chen's configuration files][bin_chen_dotemacs]
-
-Let me now if you know other great Vimacs configurations and I'll list them
-here.
-
-
 [evil]: https://gitorious.org/evil/pages/Home
 [evil-leader]: https://github.com/cofi/evil-leader
 [RSI]: http://en.wikipedia.org/wiki/Repetitive_strain_injury
@@ -503,5 +495,4 @@ here.
 [yasnippet]: https://github.com/capitaomorte/yasnippet
 [expand-region]: https://github.com/magnars/expand-region.el
 [multiple-cursors]: https://github.com/magnars/multiple-cursors.el
-[bin_chen_dotemacs]: https://github.com/redguardtoo/emacs.d
 [keybindings]: https://github.com/syl20bnr/vimacs/blob/master/my-keybindings.el
