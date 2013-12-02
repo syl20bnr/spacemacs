@@ -219,6 +219,7 @@
 (evil-leader/set-key "xtw" 'transpose-words)
 (evil-leader/set-key "xU" 'upcase-region)
 (evil-leader/set-key "xu" 'downcase-region)
+(evil-leader/set-key "xwc" 'count-words-region)
 ;; google translate -----------------------------------------------------------
 (evil-leader/set-key "xgl" 'set-google-translate-languages)
 (evil-leader/set-key "xgQ" 'google-translate-query-translate-reverse)
