@@ -8,6 +8,8 @@
   '(
     ac-ispell
     ace-jump-mode
+    ample-theme
+    anti-zenburn-theme
     auto-complete
     auto-complete-clang
     auto-dictionary
