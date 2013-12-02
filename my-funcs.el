@@ -203,7 +203,10 @@ argument takes the kindows rotate backwards."
 
 ;; From http://stackoverflow.com/a/18796138
 ;; Cycle through this set of themes
-(setq my-themes '(solarized-dark solarized-light))
+(setq my-themes '(solarized-dark
+                  solarized-light
+                  monokai-theme
+                  zenburn))
 (setq my-cur-theme nil)
 (defun cycle-my-theme ()
   "Cycle through a list of themes, my-themes"
