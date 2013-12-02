@@ -58,6 +58,7 @@
     less-css-mode
     magit
     markdown-mode
+    monokai-theme
     move-text
     multi-term
     org
