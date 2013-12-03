@@ -303,4 +303,22 @@ For instance pass En as source for english."
   (setq google-translate-default-source-language source)
   (setq google-translate-default-target-language target))
 
+;; from http://www.emacswiki.org/emacs/WordCount
+(defun count-words-analysis (start end)
+  "Count how many times each word is used in the region.
+ Punctuation is ignored."
+  (interactive "r")
+  (let (words)
+    (save-excursion
+      (goto-char start)
+      (while (re-search-forward "\\w+" end t)
+        (let* ((word (intern (match-string 0)))
+               (cell (assq word words)))
+          (if cell
+              (setcdr cell (1+ (cdr cell)))
+            (setq words (cons (cons word 1) words))))))
+    (when (interactive-p)
+      (message "%S" words))
+    words))
+
 (provide 'my-funcs)
