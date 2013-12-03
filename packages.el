@@ -31,6 +31,8 @@
     erlang
     evil
     evil-leader
+    evil-indent-textobject
+    evil-visualstar
     expand-region
     fill-column-indicator
     flx-ido
@@ -71,7 +73,7 @@
     paredit
     popup
     popwin
-    pretty-symbols-mode
+    ;; pretty-symbols-mode
     projectile
     puppet-mode
     python
