@@ -32,6 +32,7 @@
     evil
     evil-leader
     evil-indent-textobject
+    evil-matchit
     evil-visualstar
     expand-region
     fill-column-indicator
