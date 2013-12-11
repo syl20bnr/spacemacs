@@ -134,6 +134,9 @@
 (evil-leader/set-key "ls" 'sp-forward-slurp-sexp)
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "cc" 'compile)
+;; match it  ------------------------------------------------------------------
+(evil-leader/set-key "md" 'evilmi-delete-items)
+(evil-leader/set-key "mi" 'evilmi-select-items)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key "nr" 'narrow-to-region)
 (evil-leader/set-key "np" 'narrow-to-page)
