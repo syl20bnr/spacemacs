@@ -32,10 +32,17 @@
 ;; Make evil-mode up/down operate in screen lines instead of logical lines
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
-;; Easy access to ace-jump (wants a very quick trigger,
-;; evil-leader is too slow).
+;; ace-jump quick access ------------------------------------------------------
+;; I want a very quick trigger, evil-leader is too slow for this
 ;; pop mark is performed using the evil-leader + ,
 (define-key evil-normal-state-map (kbd ",") 'ace-jump-mode)
+;; helm tweaks ----------------------------------------------------------------
+;; use home row keys
+(eval-after-load "helm" '(progn
+    (define-key helm-map (kbd "C-j") 'helm-next-line)
+    (define-key helm-map (kbd "C-k") 'helm-previous-line)
+    (define-key helm-map (kbd "C-h") 'helm-next-source)
+    (define-key helm-map (kbd "C-l") 'helm-previous-source)))
 
 ;; evil-leader shortcuts ======================================================
 
@@ -101,13 +108,11 @@
 ;; git ------------------------------------------------------------------------
 (evil-leader/set-key "gs" 'magit-status)
 ;; auto-highlight-symbol ------------------------------------------------------
-(evil-leader/set-key "hb" 'ahs-chrange-whole-buffer)
-(evil-leader/set-key "hd" 'ahs-chrange-display)
 (evil-leader/set-key "he" 'ahs-edit-mode)
-(evil-leader/set-key "hf" 'ahs-chrange-beginning-of-defun)
-(evil-leader/set-key "hh" 'auto-highlight-symbol-mode)
 (evil-leader/set-key "hn" 'ahs-forward)
 (evil-leader/set-key "hp" 'ahs-backward)
+;; helm -----------------------------------------------------------------------
+(evil-leader/set-key "hf" 'helm-swoop)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key "ij" 'evil-insert-line-below)
 (evil-leader/set-key "ik" 'evil-insert-line-above)
