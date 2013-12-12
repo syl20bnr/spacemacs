@@ -4,6 +4,7 @@
     centered-cursor
     dos
     edts
+    emoji-cheat-sheet
     evil-plugins
     nose
     o-blog

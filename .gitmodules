@@ -40,3 +40,6 @@
 [submodule "extensions/use-package"]
 	path = extensions/use-package
 	url = http://github.com/jwiegley/use-package
+[submodule "extensions/emoji-cheat-sheet"]
+	path = extensions/emoji-cheat-sheet
+	url = http://github.com/ShingoFukuyama/emacs-emoji-cheat-sheet
