@@ -50,8 +50,9 @@
     google-translate
     haskell-mode
     helm
-    helm-descbinds
+    helm-css-scss
     helm-c-yasnippet
+    helm-descbinds
     helm-projectile
     helm-swoop
     helm-themes
