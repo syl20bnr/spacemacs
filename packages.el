@@ -53,6 +53,7 @@
     helm-descbinds
     helm-c-yasnippet
     helm-projectile
+    helm-swoop
     helm-themes
     ;; to be deleted
     ;; htmlize
