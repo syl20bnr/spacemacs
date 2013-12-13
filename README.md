@@ -14,6 +14,7 @@ _The best editor is not *Emacs* nor *Vim*, the best editor is
 - [How to use it ?](#how-to-use-it-)
     - [Executing Vim and Emacs commands](#executing-vim-and-emacs-commands)
     - [Key bindings help](#key-bindings-help)
+    - [About helm](#about-helm)
     - [Navigation (point/cursor)](#navigation-pointcursor)
         - [ace-jump mode](#ace-jump-mode)
     - [Navigation (buffers/files)](#navigation-buffersfiles)
