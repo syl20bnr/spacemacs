@@ -76,7 +76,7 @@
     (setq desktop-load-locked-desktop t)
 
     ;; Set the location to save/load default desktop
-    (setq desktop-dirname user-emacs-directory)
+    (setq desktop-dirname (expand-file-name (concat user-emacs-directory ".desktop/")))
 
     ;; Make sure that even if emacs or OS crashed, emacs
     ;; still have last opened files.
