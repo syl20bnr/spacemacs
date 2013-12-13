@@ -6,7 +6,7 @@ _The best editor is not *Emacs* nor *Vim*, the best editor is
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
 - [Goal](#goal)
-- [Who can benefit from this configuration files set ?](#who-can-benefit-from-this-configuration-files-set-)
+- [Who can benefit from this ?](#who-can-benefit-from-this-)
 - [Install](#install)
 - [Packages and Extensions Organization](#packages-and-extensions-organization)
 - [How it works](#how-it-works)
@@ -44,7 +44,7 @@ To achieve this, `Spacemacs` uses two modes heavily:
 - [evil-leader mode][evil-leader]
 
 
-## Who can benefit from this configuration files set ?
+## Who can benefit from this ?
 
 `Spacemacs` is first intended to be used by Vim users who want to go to the
 next level by using Emacs.
