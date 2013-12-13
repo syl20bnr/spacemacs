@@ -163,6 +163,23 @@ A list of all the key bindings can be accessed by pressing:
 
 To narrow the list to `Spacemacs` specific key bindings set the pattern to `SPC`
 
+### About helm
+
+`Spacemacs` tries to use [helm][helm] as much as possible.
+[helm][helm] is coupled to [popwin][popwin] so `helm` window always appears in
+a new temporary windows at the bottom.
+
+The following `helm` modes are installed with `Spacemacs`:
+- [helm-swoop][hswoop] (<SPC> h s): A very cool mode to search for occurrences
+within a file and edit the result.
+- [helm-css-scss][hcss] (<SPC> h c): for quick navigation in CSS.
+- [helm-c-yasnippet][hyas] (<SPC> a y): select snippets.
+- [helm-themes][hthemes] (<SPC> h t): select a theme
+- [helm-projectile][projectile] (<SPC> p f): select files within a projectile
+project.
+- [helm-descbinds][hdescbinds] (<SPC> ?): show key bindings.
+- [cofi/helm-flyspell-correct][hflyspell] (<SPC> s c): choose a corrected word.
+
 ### Navigation (point/cursor)
 
 Navigation is performed using the Vi key bindings `hjkl`.
@@ -199,11 +216,8 @@ To go back to the previous location (pop mark):
 
 ### Navigation (buffers/files)
 
-`Spacemacs` uses [helm][helm] coupled to [popwin][popwin] to handle buffer
-navigation.
-
-Note: `Spacemacs` also uses `ido` for opening files since `ido` way to navigate
-the file system is better than `helm` (especially because `ido` can
+`Spacemacs` uses `ido` for opening files since `ido` way to navigate
+the file system is better than `helm` in my opinion (especially because `ido` can
 remember the last selected directories and buffers, maybe helm can do this ?).
 `ido` is also used to kill buffers.
 
@@ -496,3 +510,10 @@ or minor modes key bindings (maybe by leveraging [use-package][use-package] ?).
 [expand-region]: https://github.com/magnars/expand-region.el
 [multiple-cursors]: https://github.com/magnars/multiple-cursors.el
 [keybindings]: https://github.com/syl20bnr/vimacs/blob/master/my-keybindings.el
+[hswoop]: https://github.com/ShingoFukuyama/helm-swoop
+[hcss]: https://github.com/ShingoFukuyama/helm-css-scss
+[hyas]: https://github.com/emacs-helm/helm-c-yasnippet
+[hthemes]: https://github.com/syohex/emacs-helm-themes
+[projectile]: https://github.com/bbatsov/projectile
+[hdescbinds]: https://github.com/emacs-helm/helm-descbinds
+[hflyspell]: https://gist.github.com/cofi/3013327
