@@ -58,6 +58,10 @@
 ;; or manage those.
 
 (require 'desktop)
+;; The default desktop is loaded anyway if it is locked
+(setq desktop-load-locked-desktop t)
+;; Set the location to save/load default desktop
+(setq desktop-dirname (expand-file-name (concat user-emacs-directory ".desktop/")))
 
 (defun desktop-settings-setup ()
   "Some settings setup for desktop-save-mode."
@@ -68,16 +72,8 @@
   (when (not (eq (emacs-pid) (desktop-owner))) ; Check that emacs did not load a desktop yet
     ;; Here we activate the desktop mode
     (desktop-save-mode 1)
-
     ;; The default desktop is saved always
     (setq desktop-save t)
-
-    ;; The default desktop is loaded anyway if it is locked
-    (setq desktop-load-locked-desktop t)
-
-    ;; Set the location to save/load default desktop
-    (setq desktop-dirname (expand-file-name (concat user-emacs-directory ".desktop/")))
-
     ;; Make sure that even if emacs or OS crashed, emacs
     ;; still have last opened files.
     (add-hook 'find-file-hook
@@ -87,11 +83,9 @@
             ;; Reset desktop modification time so the user is not bothered
             (setq desktop-file-modtime (nth 5 (file-attributes (desktop-full-file-name))))
             (desktop-save user-emacs-directory)))))
-
     ;; Read default desktop
     (if (file-exists-p (concat desktop-dirname desktop-base-file-name))
         (desktop-read desktop-dirname))
-
     ;; Add a hook when emacs is closed to we reset the desktop
     ;; modification time (in this way the user does not get a warning
     ;; message about desktop modifications)
