@@ -31,7 +31,8 @@
     erlang
     evil
     evil-leader
-    evil-indent-textobject
+    ;; to be deleted
+    ;; evil-indent-textobject
     evil-matchit
     evil-visualstar
     expand-region
