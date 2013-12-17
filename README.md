@@ -147,6 +147,15 @@ several keys almost at the same time which is something very difficult to master
 correctly on a keyboard. `Spacemacs` has a special function called `fd-trigger` to
 handle the `fd` key sequence and fix the above keychords issues.
 
+## Evil plugins
+
+`Spacemacs` ships with the following evil plugins:
+- [evil-little-word][evil-plugin01]: port of [camelcasemotion.vim][vim-plugin01].
+- [evil-operator-comment][evil-plugin01]: comment/uncomment with `CC`
+- [evil-matchit][evil-plugin02]: port of [matchit.vim][vim-plugin02]
+- [evil-visualstar][evil-plugin03]: search for current selection with `*`
+- [surround][evil-plugin04]: port of [surround.vim][vim-plugin03]
+
 ## How to use it ?
 
 Every sequences must be performed in `normal` mode.
@@ -520,3 +529,10 @@ or minor modes key bindings (maybe by leveraging [use-package][use-package] ?).
 [projectile]: https://github.com/bbatsov/projectile
 [hdescbinds]: https://github.com/emacs-helm/helm-descbinds
 [hflyspell]: https://gist.github.com/cofi/3013327
+[evil-plugin01]: https://github.com/tarao/evil-plugins
+[evil-plugin02]: https://github.com/redguardtoo/evil-matchit
+[evil-plugin03]: https://github.com/bling/evil-visualstar
+[evil-plugin04]: https://github.com/timcharper/evil-surround
+[camelcasemotion.vim]: http://www.vim.org/scripts/script.php?script_id=1905
+[matchit.vim]: http://www.vim.org/scripts/script.php?script_id=39
+[surround.vim]: http://www.vim.org/scripts/script.php?script_id=1697
