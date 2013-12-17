@@ -11,6 +11,7 @@ _The best editor is not *Emacs* nor *Vim*, the best editor is
 - [Packages and Extensions Organization](#packages-and-extensions-organization)
 - [How it works](#how-it-works)
 - [How to switch to normal mode efficiently ?](#how-to-switch-to-normal-mode-efficiently-)
+- [Evil plugins](#evil-plugins)
 - [How to use it ?](#how-to-use-it-)
     - [Executing Vim and Emacs commands](#executing-vim-and-emacs-commands)
     - [Key bindings help](#key-bindings-help)
