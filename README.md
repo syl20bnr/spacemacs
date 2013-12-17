@@ -534,6 +534,6 @@ or minor modes key bindings (maybe by leveraging [use-package][use-package] ?).
 [evil-plugin02]: https://github.com/redguardtoo/evil-matchit
 [evil-plugin03]: https://github.com/bling/evil-visualstar
 [evil-plugin04]: https://github.com/timcharper/evil-surround
-[camelcasemotion.vim]: http://www.vim.org/scripts/script.php?script_id=1905
-[matchit.vim]: http://www.vim.org/scripts/script.php?script_id=39
-[surround.vim]: http://www.vim.org/scripts/script.php?script_id=1697
+[vim-plugin01]: http://www.vim.org/scripts/script.php?script_id=1905
+[vim-plugin02]: http://www.vim.org/scripts/script.php?script_id=39
+[vim-plugin03]: http://www.vim.org/scripts/script.php?script_id=1697
