@@ -58,10 +58,6 @@
 ;; or manage those.
 
 (require 'desktop)
-;; The default desktop is loaded anyway if it is locked
-(setq desktop-load-locked-desktop t)
-;; Set the location to save/load default desktop
-(setq desktop-dirname (expand-file-name (concat user-emacs-directory ".desktop/")))
 
 (defun desktop-settings-setup ()
   "Some settings setup for desktop-save-mode."
@@ -74,6 +70,10 @@
     (desktop-save-mode 1)
     ;; The default desktop is saved always
     (setq desktop-save t)
+    ;; The default desktop is loaded anyway if it is locked
+    (setq desktop-load-locked-desktop t)
+    ;; Set the location to save/load default desktop
+    (setq desktop-dirname user-emacs-directory)
     ;; Make sure that even if emacs or OS crashed, emacs
     ;; still have last opened files.
     (add-hook 'find-file-hook
