@@ -121,9 +121,9 @@
 (evil-leader/set-key "ji" (lambda () (interactive) (join-line 1) (sp-newline)))
 (evil-leader/set-key "jj" 'sp-newline)
 (evil-leader/set-key "jk" 'evil-join)
-;; navigation ----------------------------------------------------------------
-(evil-leader/set-key "jh" 'evil-beginning-of-line)
-(evil-leader/set-key "jl" 'evil-end-of-line)
+;; navigation -----------------------------------------------------------------
+(evil-leader/set-key "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line)))
+(evil-leader/set-key "jl" (lambda () (interactive) (push-mark (point)) (evil-end-of-line)))
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key "lB" 'sp-backward-barf-sexp)
 (evil-leader/set-key "lb" 'sp-forward-barf-sexp)
