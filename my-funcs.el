@@ -321,4 +321,10 @@ For instance pass En as source for english."
       (message "%S" words))
     words))
 
+(defun new-empty-buffer ()
+  "Create a new buffer called untitled(<n>)"
+  (interactive)
+  (let ((newbuf (generate-new-buffer-name "untitled")))
+    (switch-to-buffer newbuf)))
+
 (provide 'my-funcs)
