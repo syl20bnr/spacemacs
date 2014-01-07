@@ -18,6 +18,8 @@
 (require 'saveplace)
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
+;; keep buffers opened when leaving an emacs client
+(setq server-kill-new-buffers nil)
 
 ;; ;; save a bunch of variables to the desktop file
 ;; ;; for lists specify the len of the maximal saved data also
