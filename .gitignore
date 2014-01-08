@@ -22,3 +22,4 @@ projectile-bookmarks.eld
 tramp
 elnode/
 var/
+*.stackdump
