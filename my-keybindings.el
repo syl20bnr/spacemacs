@@ -86,6 +86,7 @@
 (evil-leader/set-key "bp" 'switch-to-prev-buffer)
 (evil-leader/set-key "br" 'rename-current-buffer-file)
 (evil-leader/set-key "bs" 'helm-mini)
+(evil-leader/set-key "bw" 'toggle-read-only)
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "ct" 'cycle-my-theme)
 ;; errors ---------------------------------------------------------------------
@@ -192,6 +193,7 @@
 (evil-leader/set-key "th"  'auto-highlight-symbol-mode)
 (evil-leader/set-key "tm"  'powerline-minor-modes-toggle)
 (evil-leader/set-key "tn"  'global-linum-mode)
+(evil-leader/set-key "tw"  'toggle-read-only)
 ;; selection ------------------------------------------------------------------
 (evil-leader/set-key "v" 'er/expand-region)
 ;; window ---------------------------------------------------------------------
