@@ -537,3 +537,7 @@ or minor modes key bindings (maybe by leveraging [use-package][use-package] ?).
 [vim-plugin01]: http://www.vim.org/scripts/script.php?script_id=1905
 [vim-plugin02]: http://www.vim.org/scripts/script.php?script_id=39
 [vim-plugin03]: http://www.vim.org/scripts/script.php?script_id=1697
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/syl20bnr/spacemacs/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
