@@ -114,7 +114,9 @@
 (evil-leader/set-key "hp" 'ahs-backward)
 ;; helm -----------------------------------------------------------------------
 (evil-leader/set-key "hc" 'helm-css-scss)
+(evil-leader/set-key "hS" 'helm-multi-swoop)
 (evil-leader/set-key "hs" 'helm-swoop)
+(evil-leader/set-key "h C-s" 'helm-multi-swoop-all)
 (evil-leader/set-key "ht" 'helm-themes)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key "ij" 'evil-insert-line-below)
