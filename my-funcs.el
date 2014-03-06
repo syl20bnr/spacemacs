@@ -205,8 +205,8 @@ argument takes the kindows rotate backwards."
 ;; Cycle through this set of themes
 (setq my-themes '(solarized-dark
                   solarized-light
-                  monokai
                   anti-zenburn
+                  monokai
                   zenburn))
 (setq my-cur-theme nil)
 (defun cycle-my-theme ()

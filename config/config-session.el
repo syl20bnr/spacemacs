@@ -117,3 +117,7 @@
 (put 'erase-buffer 'disabled nil)
 (put 'scroll-left 'disabled nil)
 (put 'dired-find-alternate-file 'disabled nil)
+;; remove prompt if the file is opened in other clients
+(defun server-remove-kill-buffer-hook ()
+  (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function))
+(add-hook 'server-visit-hook 'server-remove-kill-buffer-hook)
