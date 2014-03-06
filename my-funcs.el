@@ -327,12 +327,18 @@ For instance pass En as source for english."
   (let ((newbuf (generate-new-buffer-name "untitled")))
     (switch-to-buffer newbuf)))
 
-;; from http://stackoverflow.com/questions/10929915/\
-;; how-do-i-answer-y-automatically-kill-matching-buffers-asks-if-i-should-kill-a-m
-(defun bk-kill-buffers-regexp (regexp)
-  "Kill buffers matching REGEXP without asking for confirmation."
-  (interactive "sKill buffers matching this regular expression: ")
-  (flet ((kill-buffer-ask (buffer) (kill-buffer buffer)))
-    (kill-matching-buffers regexp)))
+;; from https://github.com/gempesaw/dotemacs/blob/emacs/dg-defun.el
+(defun kill-matching-buffers-rudely (regexp &optional internal-too)
+  "Kill buffers whose name matches the specified REGEXP. This
+function, unlike the built-in `kill-matching-buffers` does so
+WITHOUT ASKING. The optional second argument indicates whether to
+kill internal buffers too."
+  (interactive "sKill buffers matching this regular expression: \nP")
+  (dolist (buffer (buffer-list))
+    (let ((name (buffer-name buffer)))
+      (when (and name (not (string-equal name ""))
+                 (or internal-too (/= (aref name 0) ?\s))
+                 (string-match regexp name))
+        (kill-buffer buffer)))))
 
 (provide 'my-funcs)
