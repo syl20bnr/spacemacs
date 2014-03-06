@@ -327,4 +327,12 @@ For instance pass En as source for english."
   (let ((newbuf (generate-new-buffer-name "untitled")))
     (switch-to-buffer newbuf)))
 
+;; from http://stackoverflow.com/questions/10929915/\
+;; how-do-i-answer-y-automatically-kill-matching-buffers-asks-if-i-should-kill-a-m
+(defun bk-kill-buffers-regexp (regexp)
+  "Kill buffers matching REGEXP without asking for confirmation."
+  (interactive "sKill buffers matching this regular expression: ")
+  (flet ((kill-buffer-ask (buffer) (kill-buffer buffer)))
+    (kill-matching-buffers regexp)))
+
 (provide 'my-funcs)
