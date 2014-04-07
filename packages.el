@@ -84,6 +84,7 @@
     quickrun
     rainbow-mode
     rainbow-delimiters
+    rainbow-identifiers
     recentf
     rfringe
     ruby-end
