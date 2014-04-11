@@ -46,6 +46,7 @@
     ;; fuzzy
     gist
     git-gutter-fringe
+    git-messenger
     ghc
     golden-ratio
     google-translate

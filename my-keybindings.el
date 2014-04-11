@@ -107,8 +107,6 @@
 (evil-leader/set-key "fl" 'flycheck-list-errors)
 (evil-leader/set-key "fn" 'flycheck-next-error)
 (evil-leader/set-key "fp" 'flycheck-previous-error)
-;; git ------------------------------------------------------------------------
-(evil-leader/set-key "gs" 'magit-status)
 ;; auto-highlight-symbol ------------------------------------------------------
 (evil-leader/set-key "he" 'ahs-edit-mode)
 (evil-leader/set-key "hn" 'ahs-forward)
@@ -192,8 +190,9 @@
 (evil-leader/set-key "rR" 'vr/query-replace)
 (evil-leader/set-key "rr" 'vr/replace)
 ;; show -----------------------------------------------------------------------
-(evil-leader/set-key "sk" 'helm-show-kill-ring)
-(evil-leader/set-key "sr" 'evil-show-registers)
+(evil-leader/set-key "sgm" 'git-messenger:popup-message)
+(evil-leader/set-key "sk"  'helm-show-kill-ring)
+(evil-leader/set-key "sr"  'evil-show-registers)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "t8" 'toggle-fill-column-indicator)
 (evil-leader/set-key "ta"  'auto-complete-mode)
