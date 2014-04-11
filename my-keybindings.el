@@ -97,6 +97,7 @@
 (evil-leader/set-key "eds" 'string-edit-at-point)
 ;; find -----------------------------------------------------------------------
 (evil-leader/set-key "ff" 'ido-find-file)
+(evil-leader/set-key "fg" 'rgrep)
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key "fi" 'find-user-init-file)
 (evil-leader/set-key "fS" 'evil-write-all)
@@ -128,6 +129,10 @@
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line)))
 (evil-leader/set-key "jl" (lambda () (interactive) (push-mark (point)) (evil-end-of-line)))
+;; spell check  ---------------------------------------------------------------
+(evil-leader/set-key "kc" 'cofi/helm-flyspell-correct)
+(evil-leader/set-key "kd" 'adict-change-dictionary)
+(evil-leader/set-key "kn" 'flyspell-goto-next-error)
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key "lB" 'sp-backward-barf-sexp)
 (evil-leader/set-key "lb" 'sp-forward-barf-sexp)
@@ -160,7 +165,6 @@
 (evil-leader/set-key "pf" 'helm-projectile)
 (evil-leader/set-key "pk" 'projectile-kill-buffers)
 (evil-leader/set-key "pg" 'projectile-grep)
-(evil-leader/set-key "po" 'projectile-multi-occur)
 (evil-leader/set-key "pr" 'projectile-replace)
 ;; perforce -------------------------------------------------------------------
 (evil-leader/set-key "p4a" 'p4-add)
@@ -186,10 +190,6 @@
 ;; show -----------------------------------------------------------------------
 (evil-leader/set-key "sk" 'helm-show-kill-ring)
 (evil-leader/set-key "sr" 'evil-show-registers)
-;; spell check  ---------------------------------------------------------------
-(evil-leader/set-key "sc" 'cofi/helm-flyspell-correct)
-(evil-leader/set-key "sd" 'adict-change-dictionary)
-(evil-leader/set-key "sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key "t8" 'toggle-fill-column-indicator)
 (evil-leader/set-key "ta"  'auto-complete-mode)
@@ -215,6 +215,7 @@
 (evil-leader/set-key "wL" 'evil-window-move-far-right)
 (evil-leader/set-key "wl" 'evil-window-right)
 (evil-leader/set-key "wm" 'toggle-maximize-buffer)
+(evil-leader/set-key "wp" 'popwin:close-popup-window)
 (evil-leader/set-key "wr" 'rotate-windows)
 (evil-leader/set-key "wR" 'rotate-windows-backward)
 ;; (evil-leader/set-key "wv" 'evenly-split-window-below)
