@@ -85,6 +85,7 @@
     puppet-mode
     python
     quickrun
+    ;; rainbow-blocks
     rainbow-mode
     rainbow-delimiters
     rainbow-identifiers
