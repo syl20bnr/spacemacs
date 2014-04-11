@@ -139,6 +139,10 @@
 (evil-leader/set-key "lc" 'sp-convolute-sexp)
 (evil-leader/set-key "lD" 'sp-kill)
 (evil-leader/set-key "ld" 'elisp-slime-nav-describe-elisp-thing-at-point)
+(evil-leader/set-key "lE" 'eval-defun)
+;; eval the current line
+(evil-leader/set-key "le"
+  (lambda () (interactive) (save-excursion (evil-end-of-line) (eval-last-sexp nil))))
 (evil-leader/set-key "lg" 'elisp-slime-nav-find-elisp-thing-at-point)
 (evil-leader/set-key "ljj" 'sp-split-sexp)
 (evil-leader/set-key "ljk" 'sp-splice-sexp-killing-forward)
