@@ -58,6 +58,7 @@
     helm-projectile
     helm-swoop
     helm-themes
+    howdoi
     ;; to be deleted
     ;; htmlize
     hy-mode
