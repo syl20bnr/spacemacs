@@ -58,7 +58,10 @@
     (use-package surround
       :init
       (global-surround-mode 1)) 
-    )
+    ;; load evil-exchange
+    (use-package evil-exchange
+      :init
+      (evil-exchange-install)))
   )
 
 

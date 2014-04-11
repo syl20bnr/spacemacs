@@ -30,6 +30,7 @@
     erc
     erlang
     evil
+    evil-exchange
     evil-leader
     ;; to be deleted
     ;; evil-indent-textobject
