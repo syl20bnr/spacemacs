@@ -105,6 +105,7 @@
     twittering-mode
     visual-regexp-steroids
     volatile-highlights
+    wand
     wdired
     yasnippet
     zenburn-theme

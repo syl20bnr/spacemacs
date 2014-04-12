@@ -52,6 +52,8 @@
 (evil-leader/set-key "?" 'helm-descbinds)
 ;; ace-jump -------------------------------------------------------------------
 (evil-leader/set-key "," 'ace-jump-mode-pop-mark)
+;; magic wand  ----------------------------------------------------------------
+(evil-leader/set-key "RET" 'wand:execute)
 ;; switch window by number ----------------------------------------------------
 (evil-leader/set-key "0" 'select-window-0)
 (evil-leader/set-key "1" 'select-window-1)
