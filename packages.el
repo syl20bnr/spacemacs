@@ -51,7 +51,12 @@
     helm
     helm-css-scss
     helm-c-yasnippet
+    helm-helm-commands
     helm-descbinds
+    helm-make
+    helm-mode-manager
+    ;; not working for now
+    ;; helm-proc
     helm-projectile
     helm-swoop
     helm-themes
