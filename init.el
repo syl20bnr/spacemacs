@@ -50,7 +50,7 @@
 (global-centered-cursor-mode t)
 
 ;; Set first theme of the list
-;; (cycle-my-theme)
+(cycle-my-theme)
 
 ;; Post initialization  =======================================================
 ;; from jwiegley
