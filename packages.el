@@ -32,8 +32,6 @@
     evil
     evil-exchange
     evil-leader
-    ;; to be deleted
-    ;; evil-indent-textobject
     evil-matchit
     evil-visualstar
     expand-region
@@ -43,8 +41,6 @@
     flycheck-color-mode-line
     flyspell
     fringe-helper
-    ;; to be deleted
-    ;; fuzzy
     gist
     git-gutter-fringe
     git-messenger
@@ -60,8 +56,6 @@
     helm-swoop
     helm-themes
     howdoi
-    ;; to be deleted
-    ;; htmlize
     hy-mode
     ido-vertical-mode
     jedi
