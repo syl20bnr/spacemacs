@@ -74,11 +74,13 @@
     paredit
     popup
     popwin
+    ;; not needed anymore ?
     ;; pretty-symbols-mode
     projectile
     puppet-mode
     python
     quickrun
+    ;; not working well for now
     ;; rainbow-blocks
     rainbow-mode
     rainbow-delimiters
