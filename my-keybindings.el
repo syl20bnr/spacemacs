@@ -55,205 +55,230 @@
 ;; magic wand  ----------------------------------------------------------------
 (evil-leader/set-key "RET" 'wand:execute)
 ;; switch window by number ----------------------------------------------------
-(evil-leader/set-key "0" 'select-window-0)
-(evil-leader/set-key "1" 'select-window-1)
-(evil-leader/set-key "2" 'select-window-2)
-(evil-leader/set-key "3" 'select-window-3)
-(evil-leader/set-key "4" 'select-window-4)
-(evil-leader/set-key "5" 'select-window-5)
-(evil-leader/set-key "6" 'select-window-6)
-(evil-leader/set-key "7" 'select-window-7)
-(evil-leader/set-key "8" 'select-window-8)
-(evil-leader/set-key "9" 'select-window-9)
+(evil-leader/set-key
+  "0" 'select-window-0
+  "1" 'select-window-1
+  "2" 'select-window-2
+  "3" 'select-window-3
+  "4" 'select-window-4
+  "5" 'select-window-5
+  "6" 'select-window-6
+  "7" 'select-window-7
+  "8" 'select-window-8
+  "9" 'select-window-9)
 ;; applications ---------------------------------------------------------------
-(evil-leader/set-key "ad" 'dired)
-(evil-leader/set-key "ae" 'erc-start-or-switch)
-(evil-leader/set-key "ag" 'magit-status)
-(evil-leader/set-key "ap" 'proced)
-(evil-leader/set-key "ase" 'eshell)
-(evil-leader/set-key "asi" 'shell)
-(evil-leader/set-key "ast" 'multi-term)
-(evil-leader/set-key "at" 'twit)
-(evil-leader/set-key "au" 'undo-tree-visualize)
-(evil-leader/set-key "ay" 'helm-c-yas-complete)
+(evil-leader/set-key
+  "ad"  'dired
+  "ae"  'erc-start-or-switch
+  "ag"  'magit-status
+  "ap"  'proced
+  "ase" 'eshell
+  "asi" 'shell
+  "ast" 'multi-term
+  "at"  'twit
+  "au"  'undo-tree-visualize
+  "ay"  'helm-c-yas-complete)
 ;; buffers --------------------------------------------------------------------
-(evil-leader/set-key "bd" 'delete-current-buffer-file)
-(evil-leader/set-key "bK" 'kill-other-buffers)
-(evil-leader/set-key "bk" 'ido-kill-buffer)
-(evil-leader/set-key "b C-k" 'kill-matching-buffers-rudely)
-(evil-leader/set-key "bmh" 'buf-move-left)
-(evil-leader/set-key "bmj" 'buf-move-down)
-(evil-leader/set-key "bmk" 'buf-move-up)
-(evil-leader/set-key "bml" 'buf-move-right)
-(evil-leader/set-key "bn" 'switch-to-next-buffer)
-(evil-leader/set-key "bp" 'switch-to-prev-buffer)
-(evil-leader/set-key "br" 'rename-current-buffer-file)
-(evil-leader/set-key "bs" 'helm-mini)
-(evil-leader/set-key "bw" 'toggle-read-only)
+(evil-leader/set-key
+  "bd"  'delete-current-buffer-file
+  "bK"  'kill-other-buffers
+  "bk"  'ido-kill-buffer
+  "b C-k" 'kill-matching-buffers-rudely
+  "bmh" 'buf-move-left
+  "bmj" 'buf-move-down
+  "bmk" 'buf-move-up
+  "bml" 'buf-move-right
+  "bn"  'switch-to-next-buffer
+  "bp"  'switch-to-prev-buffer
+  "br"  'rename-current-buffer-file
+  "bs"  'helm-mini
+  "bw"  'toggle-read-only)
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "ct" 'cycle-my-theme)
 ;; errors ---------------------------------------------------------------------
-(evil-leader/set-key "en" 'next-error)
-(evil-leader/set-key "ep" 'previous-error)
+(evil-leader/set-key
+  "en" 'next-error
+  "ep" 'previous-error)
 ;; editors --------------------------------------------------------------------
 (evil-leader/set-key "eds" 'string-edit-at-point)
 ;; find -----------------------------------------------------------------------
-(evil-leader/set-key "ff" 'ido-find-file)
-(evil-leader/set-key "fg" 'rgrep)
+(evil-leader/set-key
+  "ff" 'ido-find-file
+  "fg" 'rgrep)
 ;; file -----------------------------------------------------------------------
-(evil-leader/set-key "fi" 'find-user-init-file)
-(evil-leader/set-key "fS" 'evil-write-all)
-(evil-leader/set-key "fs" 'evil-write)
-(evil-leader/set-key "fy" 'camdez/show-buffer-file-name)
+(evil-leader/set-key
+  "fi" 'find-user-init-file
+  "fS" 'evil-write-all
+  "fs" 'evil-write
+  "fy" 'camdez/show-buffer-file-name)
 ;; flycheck -------------------------------------------------------------------
-(evil-leader/set-key "fl" 'flycheck-list-errors)
-(evil-leader/set-key "fn" 'flycheck-next-error)
-(evil-leader/set-key "fp" 'flycheck-previous-error)
+(evil-leader/set-key
+  "fl" 'flycheck-list-errors
+  "fn" 'flycheck-next-error
+  "fp" 'flycheck-previous-error)
 ;; auto-highlight-symbol ------------------------------------------------------
-(evil-leader/set-key "he" 'ahs-edit-mode)
-(evil-leader/set-key "hn" 'ahs-forward)
-(evil-leader/set-key "hp" 'ahs-backward)
+(evil-leader/set-key
+  "he" 'ahs-edit-mode
+  "hn" 'ahs-forward
+  "hp" 'ahs-backward)
 ;; helm -----------------------------------------------------------------------
-(evil-leader/set-key "h:"    'helm-helm-commands)
-(evil-leader/set-key "hc"    'helm-css-scss)
-(evil-leader/set-key "hk"    'helm-make)
-(evil-leader/set-key "hM"    'helm-switch-major-mode)
-(evil-leader/set-key "hm"    'helm-disable-minor-mode)
-(evil-leader/set-key "h C-m" 'helm-enable-minor-mode)
-(evil-leader/set-key "hS"    'helm-multi-swoop)
-(evil-leader/set-key "hs"    'helm-swoop)
-(evil-leader/set-key "h C-s" 'helm-multi-swoop-all)
-(evil-leader/set-key "ht"    'helm-themes)
+(evil-leader/set-key
+  "h:"    'helm-helm-commands
+  "hc"    'helm-css-scss
+  "hk"    'helm-make
+  "hM"    'helm-switch-major-mode
+  "hm"    'helm-disable-minor-mode
+  "h C-m" 'helm-enable-minor-mode
+  "hS"    'helm-multi-swoop
+  "hs"    'helm-swoop
+  "h C-s" 'helm-multi-swoop-all
+  "ht"    'helm-themes)
 ;; insert stuff ---------------------------------------------------------------
-(evil-leader/set-key "ij" 'evil-insert-line-below)
-(evil-leader/set-key "ik" 'evil-insert-line-above)
+(evil-leader/set-key
+  "ij" 'evil-insert-line-below
+  "ik" 'evil-insert-line-above)
 ;; format ---------------------------------------------------------------------
-(evil-leader/set-key "ji" (lambda () (interactive) (join-line 1) (sp-newline)))
-(evil-leader/set-key "jj" 'sp-newline)
-(evil-leader/set-key "jk" 'evil-join)
+(evil-leader/set-key
+  "ji" (lambda () (interactive) (join-line 1) (sp-newline))
+  "jj" 'sp-newline
+  "jk" 'evil-join)
 ;; navigation -----------------------------------------------------------------
-(evil-leader/set-key "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line)))
-(evil-leader/set-key "jl" (lambda () (interactive) (push-mark (point)) (evil-end-of-line)))
+(evil-leader/set-key
+  "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line))
+  "jl" (lambda () (interactive) (push-mark (point)) (evil-end-of-line)))
 ;; spell check  ---------------------------------------------------------------
-(evil-leader/set-key "kc" 'cofi/helm-flyspell-correct)
-(evil-leader/set-key "kd" 'adict-change-dictionary)
-(evil-leader/set-key "kn" 'flyspell-goto-next-error)
+(evil-leader/set-key
+  "kc" 'cofi/helm-flyspell-correct
+  "kd" 'adict-change-dictionary
+  "kn" 'flyspell-goto-next-error)
 ;; Lisps ----------------------------------------------------------------------
-(evil-leader/set-key "lB" 'sp-backward-barf-sexp)
-(evil-leader/set-key "lb" 'sp-forward-barf-sexp)
-(evil-leader/set-key "lc" 'sp-convolute-sexp)
-(evil-leader/set-key "lD" 'sp-kill)
-(evil-leader/set-key "ld" 'elisp-slime-nav-describe-elisp-thing-at-point)
-(evil-leader/set-key "lE" 'eval-defun)
+(evil-leader/set-key
+  "lB"  'sp-backward-barf-sexp
+  "lb"  'sp-forward-barf-sexp
+  "lc"  'sp-convolute-sexp
+  "lD"  'sp-kill
+  "ld"  'elisp-slime-nav-describe-elisp-thing-at-point
+  "lE"  'eval-defun
 ;; eval the current line
-(evil-leader/set-key "le"
-  (lambda () (interactive) (save-excursion (evil-end-of-line) (eval-last-sexp nil))))
-(evil-leader/set-key "lg" 'elisp-slime-nav-find-elisp-thing-at-point)
-(evil-leader/set-key "ljj" 'sp-split-sexp)
-(evil-leader/set-key "ljk" 'sp-splice-sexp-killing-forward)
-(evil-leader/set-key "ljl" 'sp-join-sexps)
-(evil-leader/set-key "lk" 'sp-splice-sexp-killing-backward)
-(evil-leader/set-key "lr" 'sp-raise-sexp)
-(evil-leader/set-key "lS" 'sp-backward-slurp-sexp)
-(evil-leader/set-key "ls" 'sp-forward-slurp-sexp)
+  "le"  (lambda () (interactive) (save-excursion (evil-end-of-line)
+                                            (eval-last-sexp nil)))
+  "lg"  'elisp-slime-nav-find-elisp-thing-at-point
+  "ljj" 'sp-split-sexp
+  "ljk" 'sp-splice-sexp-killing-forward
+  "ljl" 'sp-join-sexps
+  "lk"  'sp-splice-sexp-killing-backward
+  "lr"  'sp-raise-sexp
+  "lS"  'sp-backward-slurp-sexp
+  "ls"  'sp-forward-slurp-sexp)
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "cc" 'compile)
 ;; match it  ------------------------------------------------------------------
-(evil-leader/set-key "md" 'evilmi-delete-items)
-(evil-leader/set-key "mi" 'evilmi-select-items)
+(evil-leader/set-key
+  "md" 'evilmi-delete-items
+  "mi" 'evilmi-select-items)
 ;; narrow & widen -------------------------------------------------------------
-(evil-leader/set-key "nr" 'narrow-to-region)
-(evil-leader/set-key "np" 'narrow-to-page)
-(evil-leader/set-key "nf" 'narrow-to-defun)
-(evil-leader/set-key "nw" 'widen)
+(evil-leader/set-key
+  "nr" 'narrow-to-region
+  "np" 'narrow-to-page
+  "nf" 'narrow-to-defun
+  "nw" 'widen)
 ;; projectile -----------------------------------------------------------------
-(evil-leader/set-key "pb" 'projectile-switch-to-buffer)
-(evil-leader/set-key "pC" 'projectile-invalidate-cache)
-(evil-leader/set-key "pd" 'projectile-dired)
-(evil-leader/set-key "pF" 'projectile-find-file)
-(evil-leader/set-key "pf" 'helm-projectile)
-(evil-leader/set-key "pk" 'projectile-kill-buffers)
-(evil-leader/set-key "pg" 'projectile-grep)
-(evil-leader/set-key "pr" 'projectile-replace)
+(evil-leader/set-key
+  "pb" 'projectile-switch-to-buffer
+  "pC" 'projectile-invalidate-cache
+  "pd" 'projectile-dired
+  "pF" 'projectile-find-file
+  "pf" 'helm-projectile
+  "pk" 'projectile-kill-buffers
+  "pg" 'projectile-grep
+  "pr" 'projectile-replace)
 ;; perforce -------------------------------------------------------------------
-(evil-leader/set-key "p4a" 'p4-add)
-(evil-leader/set-key "p4d" 'p4-delete)
-(evil-leader/set-key "p4D" 'p4-describe)
-(evil-leader/set-key "p4e" 'p4-edit)
-(evil-leader/set-key "p4R" 'p4-revert)
-(evil-leader/set-key "p4r" 'p4-rename)
-(evil-leader/set-key "p4S" 'p4-submit)
+(evil-leader/set-key
+  "p4a" 'p4-add
+  "p4d" 'p4-delete
+  "p4D" 'p4-describe
+  "p4e" 'p4-edit
+  "p4R" 'p4-revert
+  "p4r" 'p4-rename
+  "p4S" 'p4-submit)
 ;; quickrun -------------------------------------------------------------------
-(evil-leader/set-key "qba" 'quickrun-arg)
-(evil-leader/set-key "qbc" 'quickrun-compile-only)
-(evil-leader/set-key "qbs" 'quickrun-shell)
-(evil-leader/set-key "qbx" 'quickrun)
-(evil-leader/set-key "qeb" 'eval-buffer)
-(evil-leader/set-key "qex" 'eval-last-sexp)
-(evil-leader/set-key "qh"  'helm-quickrun)
-(evil-leader/set-key "qrr" 'quickrun-replace-region)
-(evil-leader/set-key "qrx" 'quickrun-region)
+(evil-leader/set-key
+  "qba" 'quickrun-arg
+  "qbc" 'quickrun-compile-only
+  "qbs" 'quickrun-shell
+  "qbx" 'quickrun
+  "qeb" 'eval-buffer
+  "qex" 'eval-last-sexp
+  "qh"  'helm-quickrun
+  "qrr" 'quickrun-replace-region
+  "qrx" 'quickrun-region)
 ;; replace --------------------------------------------------------------------
-(evil-leader/set-key "rR" 'vr/query-replace)
-(evil-leader/set-key "rr" 'vr/replace)
+(evil-leader/set-key
+  "rR" 'vr/query-replace
+  "rr" 'vr/replace)
 ;; show -----------------------------------------------------------------------
-(evil-leader/set-key "sgm" 'git-messenger:popup-message)
-(evil-leader/set-key "sk"  'helm-show-kill-ring)
-(evil-leader/set-key "sr"  'evil-show-registers)
+(evil-leader/set-key
+  "sgm" 'git-messenger:popup-message
+  "sk"  'helm-show-kill-ring
+  "sr"  'evil-show-registers)
 ;; toggle ---------------------------------------------------------------------
-(evil-leader/set-key "t8" 'toggle-fill-column-indicator)
-(evil-leader/set-key "ta"  'auto-complete-mode)
-(evil-leader/set-key "tc"  'rainbow-mode)
-(evil-leader/set-key "tf"  'fringe-mode)
-(evil-leader/set-key "th"  'auto-highlight-symbol-mode)
-(evil-leader/set-key "tm"  'powerline-minor-modes-toggle)
-(evil-leader/set-key "tn"  'global-linum-mode)
-(evil-leader/set-key "tw"  'toggle-read-only)
+(evil-leader/set-key
+  "t8" 'toggle-fill-column-indicator
+  "ta" 'auto-complete-mode
+  "tc" 'rainbow-mode
+  "tf" 'fringe-mode
+  "th" 'auto-highlight-symbol-mode
+  "tm" 'powerline-minor-modes-toggle
+  "tn" 'global-linum-mode
+  "tw" 'toggle-read-only)
 ;; selection ------------------------------------------------------------------
 (evil-leader/set-key "v" 'er/expand-region)
 ;; window ---------------------------------------------------------------------
 ;; (evil-leader/set-key "wb" 'evenly-split-window-right)
-(evil-leader/set-key "wb" 'split-window-right)
-(evil-leader/set-key "wc" 'delete-window)
-(evil-leader/set-key "wd" 'toggle-current-window-dedication)
-(evil-leader/set-key "wH" 'evil-window-move-far-left)
-(evil-leader/set-key "wh" 'evil-window-left)
-(evil-leader/set-key "wJ" 'evil-window-move-very-bottom)
-(evil-leader/set-key "wj" 'evil-window-down)
-(evil-leader/set-key "wK" 'evil-window-move-very-top)
-(evil-leader/set-key "wk" 'evil-window-up)
-(evil-leader/set-key "wL" 'evil-window-move-far-right)
-(evil-leader/set-key "wl" 'evil-window-right)
-(evil-leader/set-key "wm" 'toggle-maximize-buffer)
-(evil-leader/set-key "wp" 'popwin:close-popup-window)
-(evil-leader/set-key "wr" 'rotate-windows)
-(evil-leader/set-key "wR" 'rotate-windows-backward)
-;; (evil-leader/set-key "wv" 'evenly-split-window-below)
-(evil-leader/set-key "wv" 'split-window-below)
-(evil-leader/set-key "wsh" 'shrink-window-horizontally)
-(evil-leader/set-key "wsj" 'shrink-window)
-(evil-leader/set-key "wsk" 'enlarge-window)
-(evil-leader/set-key "wsl" 'enlarge-window-horizontally)
-(evil-leader/set-key "wU" 'winner-redo)
-(evil-leader/set-key "wu" 'winner-undo)
-(evil-leader/set-key "ww" 'other-window)
+(evil-leader/set-key
+  "wb"  'split-window-right
+  "wc"  'delete-window
+  "wd"  'toggle-current-window-dedication
+  "wH"  'evil-window-move-far-left
+  "wh"  'evil-window-left
+  "wJ"  'evil-window-move-very-bottom
+  "wj"  'evil-window-down
+  "wK"  'evil-window-move-very-top
+  "wk"  'evil-window-up
+  "wL"  'evil-window-move-far-right
+  "wl"  'evil-window-right
+  "wm"  'toggle-maximize-buffer
+  "wp"  'popwin:close-popup-window
+  "wr"  'rotate-windows
+  "wR"  'rotate-windows-backward
+;; "wv"  'evenly-split-window-below)
+  "wv"  'split-window-below
+  "wsh" 'shrink-window-horizontally
+  "wsj" 'shrink-window
+  "wsk" 'enlarge-window
+  "wsl" 'enlarge-window-horizontally
+  "wU"  'winner-redo
+  "wu"  'winner-undo
+  "ww"  'other-window)
 ;; text -----------------------------------------------------------------------
-(evil-leader/set-key "xdw" 'delete-trailing-whitespace)
-(evil-leader/set-key "xmj" 'move-text-down)
-(evil-leader/set-key "xmk" 'move-text-up)
-(evil-leader/set-key "xtc" 'transpose-chars)
-(evil-leader/set-key "xtl" 'transpose-lines)
-(evil-leader/set-key "xtw" 'transpose-words)
-(evil-leader/set-key "xU" 'upcase-region)
-(evil-leader/set-key "xu" 'downcase-region)
-(evil-leader/set-key "xwC" 'count-words-analysis)
-(evil-leader/set-key "xwc" 'count-words-region)
+(evil-leader/set-key
+  "xdw" 'delete-trailing-whitespace
+  "xmj" 'move-text-down
+  "xmk" 'move-text-up
+  "xtc" 'transpose-chars
+  "xtl" 'transpose-lines
+  "xtw" 'transpose-words
+  "xU"  'upcase-region
+  "xu"  'downcase-region
+  "xwC" 'count-words-analysis
+  "xwc" 'count-words-region)
 ;; google translate -----------------------------------------------------------
-(evil-leader/set-key "xgl" 'set-google-translate-languages)
-(evil-leader/set-key "xgQ" 'google-translate-query-translate-reverse)
-(evil-leader/set-key "xgq" 'google-translate-query-translate)
-(evil-leader/set-key "xgT" 'google-translate-at-point-reverse)
-(evil-leader/set-key "xgt" 'google-translate-at-point)
+(evil-leader/set-key
+  "xgl" 'set-google-translate-languages
+  "xgQ" 'google-translate-query-translate-reverse
+  "xgq" 'google-translate-query-translate
+  "xgT" 'google-translate-at-point-reverse
+  "xgt" 'google-translate-at-point)
 ;; centered cursor ------------------------------------------------------------
 (evil-leader/set-key "zz" 'global-centered-cursor-mode)
 
