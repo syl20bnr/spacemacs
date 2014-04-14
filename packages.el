@@ -79,8 +79,8 @@
     paredit
     popup
     popwin
-    ;; not needed anymore ?
-    ;; pretty-symbols-mode
+    powershell
+    powershell-mode
     projectile
     puppet-mode
     python
