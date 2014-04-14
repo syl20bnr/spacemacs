@@ -151,31 +151,12 @@
   "kc" 'cofi/helm-flyspell-correct
   "kd" 'adict-change-dictionary
   "kn" 'flyspell-goto-next-error)
-;; Lisps ----------------------------------------------------------------------
-(evil-leader/set-key
-  "lB"  'sp-backward-barf-sexp
-  "lb"  'sp-forward-barf-sexp
-  "lc"  'sp-convolute-sexp
-  "lD"  'sp-kill
-  "ld"  'elisp-slime-nav-describe-elisp-thing-at-point
-  "lE"  'eval-defun
-;; eval the current line
-  "le"  (lambda () (interactive) (save-excursion (evil-end-of-line)
-                                            (eval-last-sexp nil)))
-  "lg"  'elisp-slime-nav-find-elisp-thing-at-point
-  "ljj" 'sp-split-sexp
-  "ljk" 'sp-splice-sexp-killing-forward
-  "ljl" 'sp-join-sexps
-  "lk"  'sp-splice-sexp-killing-backward
-  "lr"  'sp-raise-sexp
-  "lS"  'sp-backward-slurp-sexp
-  "ls"  'sp-forward-slurp-sexp)
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "cc" 'compile)
 ;; match it  ------------------------------------------------------------------
 (evil-leader/set-key
-  "md" 'evilmi-delete-items
-  "mi" 'evilmi-select-items)
+  "Md" 'evilmi-delete-items
+  "Mi" 'evilmi-select-items)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key
   "nr" 'narrow-to-region
@@ -281,5 +262,61 @@
   "xgt" 'google-translate-at-point)
 ;; centered cursor ------------------------------------------------------------
 (evil-leader/set-key "zz" 'global-centered-cursor-mode)
+
+;; evil-leader modes specific =================================================
+
+;; erlang ---------------------------------------------------------------------
+(evil-leader/set-key-for-mode 'erlang-mode
+  "mc" 'edts-who-calls
+  "md" 'edts-find-doc
+  "mf" 'edts-find-source-under-point
+  "mg" 'edts-find-global-function
+  "mh" 'edts-find-header-source
+  "ml" 'edts-find-local-function
+  "mm" 'edts-find-macro-source
+  "mn" 'edts-code-next-issue
+  "mr" 'edts-find-record-source
+  "mx" 'edts-refactor-extract-function)
+;; Lisps ----------------------------------------------------------------------
+(evil-leader/set-key-for-mode 'emacs-lisp-mode
+  "mB"  'sp-backward-barf-sexp
+  "mb"  'sp-forward-barf-sexp
+  "mc"  'sp-convolute-sexp
+  "mD"  'sp-kill
+  "md"  'elisp-slime-nav-describe-elisp-thing-at-point
+  "mE"  'eval-defun
+;; Eval the current line
+  "me"  (lambda () (interactive) (save-excursion (evil-end-of-line)
+                                            (eval-last-sexp nil)))
+  "mg"  'elisp-slime-nav-find-elisp-thing-at-point
+  "mjj" 'sp-split-sexp
+  "mjk" 'sp-splice-sexp-killing-forward
+  "mjl" 'sp-join-sexps
+  "mk"  'sp-splice-sexp-killing-backward
+  "mr"  'sp-raise-sexp
+  "mS"  'sp-backward-slurp-sexp
+  "ms"  'sp-forward-slurp-sexp)
+;; magit ----------------------------------------------------------------------
+(evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
+  "K" 'magit-discard-item
+  "L" 'magit-key-mode-popup-logging)
+(evil-add-hjkl-bindings magit-status-mode-map 'emacs
+  "K" 'magit-discard-item
+  "l" 'magit-key-mode-popup-logging
+  "h" 'magit-toggle-diff-refine-hunk)
+;; python ---------------------------------------------------------------------
+(evil-leader/set-key-for-mode 'python-mode
+  "m1" 'nosetests-one
+  "m!" 'nosetests-pdb-one
+  "ma" 'nosetests-all
+  "mA" 'nosetests-pdb-all
+  "mb" 'python-add-breakpoint
+  "md" 'pylookup-lookup
+  "mf" 'jedi:goto-definition
+  "mm" 'nosetests-module
+  "mM" 'nosetests-pdb-module
+  "ms" 'nosetests-suite
+  "mS" 'nosetests-pdb-suite)
+
 
 (provide 'my-keybindings)

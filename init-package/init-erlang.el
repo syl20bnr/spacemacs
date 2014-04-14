@@ -17,17 +17,7 @@
     (require 'edts-start)
     ;; (setq edts-log-level 'debug)
     ;; (setq edts-face-inhibit-mode-line-updates t)
-    ;; Key Bindings
-    (evil-leader/set-key "Mec" 'edts-who-calls)
-    (evil-leader/set-key "Med" 'edts-find-doc)
-    (evil-leader/set-key "Mef" 'edts-find-source-under-point)
-    (evil-leader/set-key "Meg" 'edts-find-global-function)
-    (evil-leader/set-key "Meh" 'edts-find-header-source)
-    (evil-leader/set-key "Mel" 'edts-find-local-function)
-    (evil-leader/set-key "Mem" 'edts-find-macro-source)
-    (evil-leader/set-key "Men" 'edts-code-next-issue)
-    (evil-leader/set-key "Mer" 'edts-find-record-source)
-    (evil-leader/set-key "Mex" 'edts-refactor-extract-function)))
+    ))
 
 ;; not needed using EDTS
 ;; (require 'erlang-flymake)
