@@ -36,6 +36,7 @@
 ;; I want a very quick trigger, evil-leader is too slow for this
 ;; pop mark is performed using the evil-leader + ,
 (define-key evil-normal-state-map (kbd ",") 'ace-jump-mode)
+(define-key evil-normal-state-map (kbd "C-,") 'ace-jump-word-mode)
 ;; helm tweaks ----------------------------------------------------------------
 ;; use home row keys
 (eval-after-load "helm" '(progn
