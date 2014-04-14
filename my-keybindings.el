@@ -211,7 +211,8 @@
   "tf" 'fringe-mode
   "th" 'auto-highlight-symbol-mode
   "tm" 'powerline-minor-modes-toggle
-  "tn" 'global-linum-mode
+  "tN" 'global-linum-mode
+  "tn" 'cofi/evil-toggle-relative-lines
   "tw" 'toggle-read-only)
 ;; selection ------------------------------------------------------------------
 (evil-leader/set-key "v" 'er/expand-region)
