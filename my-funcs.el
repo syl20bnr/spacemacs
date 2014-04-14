@@ -7,6 +7,19 @@
            (dolist (l (directory-files host-directory nil "^[^#].*el$"))
              (load (concat host-directory l))))))
 
+;; from https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-util.el#L38
+(defun add-to-hooks (fun hooks)
+  "Add function to hooks"
+  (dolist (hook hooks)
+    (add-hook hook fun)))
+(defun add-all-to-hook (hook &rest funs)
+  "Add functions to hook."
+  (add-to-hook hook funs))
+(defun add-to-hook (hook funs)
+  "Add list of functions to hook."
+  (dolist (fun funs)
+    (add-hook hook fun)))
+
 ;; insert one or several line below without changing current evil state
 (defun evil-insert-line-below (count)
   "Insert one of several lines below the current point's line without changing
@@ -342,5 +355,4 @@ kill internal buffers too."
                  (or internal-too (/= (aref name 0) ?\s))
                  (string-match regexp name))
         (kill-buffer buffer)))))
-
 (provide 'my-funcs)
