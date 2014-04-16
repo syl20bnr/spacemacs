@@ -136,7 +136,14 @@
   "ht"    'helm-themes)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
-  "ij" 'evil-insert-line-below
+  "ij"  (lambda (count)
+          "Insert a new line below with no identation."
+          (interactive "p")
+          (save-excursion
+            (evil-move-end-of-line)
+            (while (> count 0)
+              (insert "\n")
+              (setq count (1- count)))))
   "ik" 'evil-insert-line-above)
 ;; format ---------------------------------------------------------------------
 (evil-leader/set-key
