@@ -278,12 +278,12 @@
 (evil-leader/set-key-for-mode 'erlang-mode
   "mc" 'edts-who-calls
   "md" 'edts-find-doc
-  "mf" 'edts-find-source-under-point
-  "mg" 'edts-find-global-function
+  "me" 'edts-code-next-issue
+  "mG" 'edts-find-global-function
+  "mg" 'edts-find-source-under-point
   "mh" 'edts-find-header-source
   "ml" 'edts-find-local-function
   "mm" 'edts-find-macro-source
-  "mn" 'edts-code-next-issue
   "mr" 'edts-find-record-source
   "mx" 'edts-refactor-extract-function)
 ;; Lisps ----------------------------------------------------------------------
@@ -321,7 +321,7 @@
   "mA" 'nosetests-pdb-all
   "mb" 'python-add-breakpoint
   "md" 'pylookup-lookup
-  "mf" 'jedi:goto-definition
+  "mg" 'jedi:goto-definition
   "mm" 'nosetests-module
   "mM" 'nosetests-pdb-module
   "ms" 'nosetests-suite
