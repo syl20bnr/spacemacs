@@ -315,17 +315,17 @@
   "h" 'magit-toggle-diff-refine-hunk)
 ;; python ---------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'python-mode
-  "m1" 'nosetests-one
-  "m!" 'nosetests-pdb-one
-  "ma" 'nosetests-all
-  "mA" 'nosetests-pdb-all
-  "mb" 'python-add-breakpoint
-  "md" 'pylookup-lookup
-  "mg" 'jedi:goto-definition
-  "mm" 'nosetests-module
-  "mM" 'nosetests-pdb-module
-  "ms" 'nosetests-suite
-  "mS" 'nosetests-pdb-suite)
+  "mT1" 'nosetests-pdb-one
+  "mt1" 'nosetests-one
+  "mTa" 'nosetests-pdb-all
+  "mta" 'nosetests-all
+  "mb"  'python-add-breakpoint
+  "md"  'pylookup-lookup
+  "mg"  'jedi:goto-definition
+  "mTm" 'nosetests-pdb-module
+  "mtm" 'nosetests-module
+  "mTs" 'nosetests-pdb-suite
+  "mts" 'nosetests-suite)
 
 
 (provide 'my-keybindings)
