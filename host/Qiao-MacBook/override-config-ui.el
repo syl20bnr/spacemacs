@@ -1,4 +1,4 @@
 ;; half-width fringes
 ;; (set-fringe-mode '(4 . 4))
 
-(load-theme 'solarized-dark t)
+;; (load-theme 'solarized-dark t)
