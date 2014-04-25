@@ -117,6 +117,11 @@
   "fl" 'flycheck-list-errors
   "fn" 'flycheck-next-error
   "fp" 'flycheck-previous-error)
+;; bookmarks ------------------------------------------------------------------
+(evil-leader/set-key
+  "gd" 'bookmark-delete
+  "gg" 'bookmark-jump
+  "gs" 'bookmark-set)
 ;; auto-highlight-symbol ------------------------------------------------------
 (evil-leader/set-key
   "he" 'ahs-edit-mode
@@ -126,6 +131,7 @@
 (evil-leader/set-key
   "h:"    'helm-helm-commands
   "hc"    'helm-css-scss
+  "hg"    'helm-bookmarks
   "hk"    'helm-make
   "hM"    'helm-switch-major-mode
   "hm"    'helm-disable-minor-mode
