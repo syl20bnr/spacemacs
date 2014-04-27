@@ -53,6 +53,8 @@
 (evil-leader/set-key "?" 'helm-descbinds)
 ;; ace-jump -------------------------------------------------------------------
 (evil-leader/set-key "," 'ace-jump-mode-pop-mark)
+;; shell command  -------------------------------------------------------------
+(evil-leader/set-key "S" 'shell-command)
 ;; magic wand  ----------------------------------------------------------------
 (evil-leader/set-key "RET" 'wand:execute)
 ;; switch window by number ----------------------------------------------------
@@ -310,7 +312,9 @@
   "mk"  'sp-splice-sexp-killing-backward
   "mr"  'sp-raise-sexp
   "mS"  'sp-backward-slurp-sexp
-  "ms"  'sp-forward-slurp-sexp)
+  "ms"  'sp-forward-slurp-sexp
+  "mta"  (lambda () (interactive) (ert t))
+  "mtf" 'ert)
 ;; magit ----------------------------------------------------------------------
 (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
   "K" 'magit-discard-item
