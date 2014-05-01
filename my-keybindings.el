@@ -245,6 +245,7 @@
   "wk"  'evil-window-up
   "wL"  'evil-window-move-far-right
   "wl"  'evil-window-right
+  "wM"  'toggle-maximize-centered-buffer
   "wm"  'toggle-maximize-buffer
   "wp"  'popwin:close-popup-window
   "wr"  'rotate-windows

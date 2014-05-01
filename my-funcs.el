@@ -48,13 +48,25 @@ the current state and point position."
            (insert (current-kill 0)))))
 
 ;; from https://gist.github.com/3402786
-(defun toggle-maximize-buffer () "Maximize buffer"
+(defun toggle-maximize-buffer ()
+  "Maximize buffer"
   (interactive)
   (if (= 1 (length (window-list)))
-    (jump-to-register '_)
+      (bzg-big-fringe-mode 0)
     (progn
       (set-register '_ (list (current-window-configuration)))
       (delete-other-windows))))
+
+(defun toggle-maximize-centered-buffer ()
+  "Maximize buffer and center it on the screen"
+  (interactive)
+  (if (= 1 (length (window-list)))
+      (progn  (bzg-big-fringe-mode 0)
+              (jump-to-register '_))
+    (progn
+      (set-register '_ (list (current-window-configuration)))
+      (delete-other-windows)
+      (bzg-big-fringe-mode 1))))
 
 ;; from magnars modified by ffevotte for dedicated windows support
 (defun rotate-windows (count)
@@ -355,4 +367,29 @@ kill internal buffers too."
                  (or internal-too (/= (aref name 0) ?\s))
                  (string-match regexp name))
         (kill-buffer buffer)))))
+
+;; A small minor mode to use a big fringe
+;; from http://bzg.fr/emacs-strip-tease.html
+(defvar bzg-big-fringe-mode nil)
+(define-minor-mode bzg-big-fringe-mode
+  "Minor mode to use big fringe in the current buffer."
+  :init-value nil
+  :global t
+  :variable bzg-big-fringe-mode
+  :group 'editing-basics
+  (if (not bzg-big-fringe-mode)
+      (set-fringe-style nil)
+    (set-fringe-mode
+     (/ (- (frame-pixel-width)
+           (* 100 (frame-char-width)))
+        2))))
+
+(defun fill-char-to-column (char column)
+  " Fill the line with CHAR up to the given COLUMN"
+  (interactive "cFill with char: \nnUp to column: "
+               char column)
+  
+)
+
+
 (provide 'my-funcs)
