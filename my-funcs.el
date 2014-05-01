@@ -52,7 +52,7 @@ the current state and point position."
   "Maximize buffer"
   (interactive)
   (if (= 1 (length (window-list)))
-      (bzg-big-fringe-mode 0)
+      (jump-to-register '_)
     (progn
       (set-register '_ (list (current-window-configuration)))
       (delete-other-windows))))
