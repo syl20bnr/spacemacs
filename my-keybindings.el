@@ -234,6 +234,8 @@
 ;; window ---------------------------------------------------------------------
 ;; (evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key
+  "w2"  'layout-double-columns
+  "w3"  'layout-triple-columns
   "wb"  'split-window-right
   "wc"  'delete-window
   "wd"  'toggle-current-window-dedication

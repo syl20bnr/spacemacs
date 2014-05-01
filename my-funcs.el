@@ -68,6 +68,36 @@ the current state and point position."
       (delete-other-windows)
       (bzg-big-fringe-mode 1))))
 
+(defun toggle-triple-double-column-mode ()
+  " Toggle between triple columns and double columns mode quickly. "
+  (interactive)
+  (if (= 3 (length (window-list)))
+      (progn (delete-window (window-next-sibling))
+             (golden-ratio-mode 1))
+    (let ((num-windows (length (window-list))))
+      (progn
+        (golden-ratio-mode 0)
+        (dotimes (i (max 0 (- num-windows 3)))
+          (delete-window (window-next-sibling)))
+        (dotimes (i (- 3 (length (window-list))))
+          (progn (split-window-right)
+                 (balance-windows)))))))
+
+(defun layout-triple-columns ()
+  " Set the layout to triple columns. "
+  (interactive)
+  (golden-ratio-mode 0)
+  (delete-other-windows)
+  (dotimes (i 2) (split-window-right))
+  (balance-windows))
+
+(defun layout-double-columns ()
+  " Set the layout to double columns. "
+  (interactive)
+  (golden-ratio-mode 1)
+  (delete-other-windows)
+  (split-window-right))
+
 ;; from magnars modified by ffevotte for dedicated windows support
 (defun rotate-windows (count)
  "Rotate your windows.
