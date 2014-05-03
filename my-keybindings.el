@@ -123,6 +123,7 @@
 (evil-leader/set-key
   "gd" 'bookmark-delete
   "gg" 'bookmark-jump
+  "gr" 'bookmark-rename
   "gs" 'bookmark-set)
 ;; auto-highlight-symbol ------------------------------------------------------
 (evil-leader/set-key
