@@ -13,6 +13,7 @@
     auto-complete
     auto-complete-clang
     auto-dictionary
+    bookmark
     buffer-move
     cc-mode
     cmake-mode
