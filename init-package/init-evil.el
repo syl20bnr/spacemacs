@@ -54,7 +54,7 @@
         (insert "f")
         (let ((evt (read-event
                     (format "Insert %c to exit insert state" ?d)
-                    nil 0.2)))
+                    nil 0.1)))
           (cond
            ((null evt)
               (message ""))
