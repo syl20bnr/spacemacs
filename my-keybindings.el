@@ -339,7 +339,9 @@
   "mTm" 'nosetests-pdb-module
   "mtm" 'nosetests-module
   "mTs" 'nosetests-pdb-suite
-  "mts" 'nosetests-suite)
+  "mts" 'nosetests-suite
+  "m RET" 'quickrun
+)
 
 
 (provide 'my-keybindings)
