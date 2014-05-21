@@ -264,6 +264,9 @@
   "ww"  'other-window)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
+  "x="  (lambda() (interactive) (text-scale-set 0))
+  "x+"  'text-scale-increase
+  "x-"  'text-scale-decrease
   "xdw" 'delete-trailing-whitespace
   "xmj" 'move-text-down
   "xmk" 'move-text-up
