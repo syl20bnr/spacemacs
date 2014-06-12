@@ -44,6 +44,11 @@
     (define-key helm-map (kbd "C-k") 'helm-previous-line)
     (define-key helm-map (kbd "C-h") 'helm-next-source)
     (define-key helm-map (kbd "C-l") 'helm-previous-source)))
+;; quick navigation -----------------------------------------------------------
+(define-key evil-normal-state-map (kbd "L")
+  (lambda () (interactive) (evil-window-bottom) (evil-scroll-line-to-center nil)))
+(define-key evil-normal-state-map (kbd "H")
+  (lambda () (interactive) (evil-window-top) (evil-scroll-line-to-center nil)))
 
 ;; evil-leader shortcuts ======================================================
 
