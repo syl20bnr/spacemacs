@@ -46,9 +46,6 @@
 (load-user-config)
 (load-host-config)
 
-;; Put this here since it seems to loop recursively if put in the init file
-(global-centered-cursor-mode t)
-
 ;; Set first theme of the list
 (cycle-my-theme)
 
