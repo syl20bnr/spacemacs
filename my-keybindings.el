@@ -350,6 +350,17 @@
   "mts" 'nosetests-suite
   "m RET" 'quickrun
 )
-
+;; R --------------------------------------------------------------------------
+(evil-leader/set-key-for-mode 'ess-mode
+  "mr" 'R
+  "mB" 'ess-eval-buffer-and-go
+  "mE" 'ess-eval-function-and-go
+  "me" 'ess-eval-line-and-go
+  "ms" 'ess-eval-region-or-line-and-step
+  "mf" 'ess-eval-function-or-paragraph-and-step
+  "mp" 'ess-R-object-popup
+  "mvp" 'ess-R-dv-pprint
+  "mvt" 'ess-R-dv-ctable
+)
 
 (provide 'my-keybindings)

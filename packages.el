@@ -30,6 +30,10 @@
     epc
     erc
     erlang
+    ess
+    ess-R-data-view
+    ess-R-object-popup
+    ess-smart-underscore
     evil
     evil-exchange
     evil-leader
@@ -84,7 +88,7 @@
     powershell-mode
     projectile
     puppet-mode
-    python
+;;    python
     quickrun
     ;; not working well for now
     ;; rainbow-blocks

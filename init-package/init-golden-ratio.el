@@ -23,4 +23,7 @@
                   buf-move-right
                   buf-move-up
                   buf-move-down
+                  ess-eval-buffer-and-go
+                  ess-eval-function-and-go
+                  ess-eval-line-and-go
                   ))))
