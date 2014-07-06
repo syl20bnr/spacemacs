@@ -313,15 +313,15 @@
   "mc"  'sp-convolute-sexp
   "mD"  'sp-kill
   "md"  'elisp-slime-nav-describe-elisp-thing-at-point
-  "mE"  'eval-defun
-;; Eval the current line
-  "me"  (lambda () (interactive) (save-excursion (evil-end-of-line)
-                                            (eval-last-sexp nil)))
+  "mf"  'eval-defun
   "mg"  'elisp-slime-nav-find-elisp-thing-at-point
   "mjj" 'sp-split-sexp
   "mjk" 'sp-splice-sexp-killing-forward
   "mjl" 'sp-join-sexps
   "mk"  'sp-splice-sexp-killing-backward
+  ;; Eval the current line
+  "ml"  (lambda () (interactive) (save-excursion (evil-end-of-line)
+                                                 (eval-last-sexp nil)))
   "mr"  'sp-raise-sexp
   "mS"  'sp-backward-slurp-sexp
   "ms"  'sp-forward-slurp-sexp
@@ -352,13 +352,18 @@
 )
 ;; R --------------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'ess-mode
-  "mr" 'R
   "mB" 'ess-eval-buffer-and-go
-  "mE" 'ess-eval-function-and-go
-  "me" 'ess-eval-line-and-go
-  "ms" 'ess-eval-region-or-line-and-step
-  "mf" 'ess-eval-function-or-paragraph-and-step
+  "mb" 'ess-eval-buffer
+  "mF" 'ess-eval-function-and-go
+  "mf" 'ess-eval-function
+  "mi" 'R
+  "mL" 'ess-eval-line-and-go
+  "ml" 'ess-eval-line
   "mp" 'ess-R-object-popup
+  "mR" 'ess-eval-region-and-go
+  "mr" 'ess-eval-region
+  "mS" 'ess-eval-function-or-paragraph-and-step
+  "ms" 'ess-eval-region-or-line-and-step
   "mvp" 'ess-R-dv-pprint
   "mvt" 'ess-R-dv-ctable
 )
