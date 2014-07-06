@@ -133,7 +133,4 @@
                (file-exists-p initfile))
           (load initfile))))
 
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
-
 (provide 'packages)
