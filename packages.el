@@ -102,6 +102,7 @@
     ruby-test-mode
     s
     smartparens
+    smeargle
     string-edit
     stripe-buffer
     subword

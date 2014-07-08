@@ -127,7 +127,10 @@
 ;; show -----------------------------------------------------------------------
 (evil-leader/set-key
   "gm" 'git-messenger:popup-message
-  "gs"  'magit-status)
+  "gC" 'smeargle-clear
+  "gc" 'smeargle-commits
+  "gt" 'smeargle
+  "gs" 'magit-status)
 ;; auto-highlight-symbol ------------------------------------------------------
 (evil-leader/set-key
   "he" 'ahs-edit-mode
