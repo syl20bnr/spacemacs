@@ -124,12 +124,10 @@
   "fl" 'flycheck-list-errors
   "fn" 'flycheck-next-error
   "fp" 'flycheck-previous-error)
-;; bookmarks ------------------------------------------------------------------
+;; show -----------------------------------------------------------------------
 (evil-leader/set-key
-  "gd" 'bookmark-delete
-  "gg" 'bookmark-jump
-  "gr" 'bookmark-rename
-  "gs" 'bookmark-set)
+  "gm" 'git-messenger:popup-message
+  "gs"  'magit-status)
 ;; auto-highlight-symbol ------------------------------------------------------
 (evil-leader/set-key
   "he" 'ahs-edit-mode
@@ -168,11 +166,12 @@
 (evil-leader/set-key
   "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line))
   "jl" (lambda () (interactive) (push-mark (point)) (evil-end-of-line)))
-;; spell check  ---------------------------------------------------------------
+;; bookmarks ------------------------------------------------------------------
 (evil-leader/set-key
-  "kc" 'cofi/helm-flyspell-correct
-  "kd" 'adict-change-dictionary
-  "kn" 'flyspell-goto-next-error)
+  "kd" 'bookmark-delete
+  "kg" 'bookmark-jump
+  "kr" 'bookmark-rename
+  "ks" 'bookmark-set)
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "cc" 'compile)
 ;; match it  ------------------------------------------------------------------
@@ -219,11 +218,15 @@
 (evil-leader/set-key
   "rR" 'vr/query-replace
   "rr" 'vr/replace)
-;; show -----------------------------------------------------------------------
+;; misc -----------------------------------------------------------------------
 (evil-leader/set-key
-  "sgm" 'git-messenger:popup-message
-  "sk"  'helm-show-kill-ring
-  "sr"  'evil-show-registers)
+  "kil"  'helm-show-kill-ring
+  "reg"  'evil-show-registers)
+;; spell check  ---------------------------------------------------------------
+(evil-leader/set-key
+  "sc" 'cofi/helm-flyspell-correct
+  "sd" 'adict-change-dictionary
+  "sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key
   "t8" 'toggle-fill-column-indicator
