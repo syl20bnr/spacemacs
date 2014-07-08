@@ -23,13 +23,19 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; font
 ;; (set-default-font "DejaVu Sans Mono-10")
-(if (eq system-type 'windows-nt)
-    (progn
-      (add-to-list 'default-frame-alist '(font . "Source Code Pro-9"))
-      (set-default-font "Source Code Pro-9"))
-  (progn
+(pcase system-type
+  (`windows-nt
+   (progn
+     (add-to-list 'default-frame-alist '(font . "Source Code Pro-9"))
+     (set-default-font "Source Code Pro-9")))
+  (`darwin
+   (progn
+     (add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
+     (set-default-font "Source Code Pro-12")))
+  (other (progn
     (add-to-list 'default-frame-alist '(font . "Source Code Pro-10"))
     (set-default-font "Source Code Pro-10")))
+)
 ;; setup right and left margins
 ;; (add-hook 'window-configuration-change-hook
 ;;           (lambda ()
