@@ -49,6 +49,8 @@
     gist
     git-gutter-fringe
     git-messenger
+    ;; not working for now
+    ;; git-timemachine
     ghc
     golden-ratio
     google-translate
