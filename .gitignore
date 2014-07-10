@@ -25,3 +25,4 @@ var/
 crown/
 *.stackdump
 bookmarks
+/.my-keybindings.el.swp
