@@ -5,6 +5,7 @@
     dos
     edts
     emoji-cheat-sheet
+    evil-org-mode
     evil-plugins
     nose
     o-blog
