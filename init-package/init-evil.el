@@ -27,6 +27,8 @@
                         'linum))))
 (setq linum-format #'cofi/linum-dynamic-lines)
 
+;; evil mode init ------------------------------------------------------------
+
 (use-package evil
   :init
   (progn
