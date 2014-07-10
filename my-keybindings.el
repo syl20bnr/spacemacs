@@ -30,12 +30,12 @@
 (define-key evil-normal-state-map   "f" 'evil-find-char)
 (define-key evil-operator-state-map "f" 'evil-find-char)
 ;; Make evil-mode up/down operate in screen lines instead of logical lines
-(define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
-(define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+(define-key evil-normal-state-map "j" 'evil-next-visual-line)
+(define-key evil-normal-state-map "k" 'evil-previous-visual-line)
 ;; ace-jump quick access ------------------------------------------------------
 ;; I want a very quick trigger, evil-leader is too slow for this
 ;; pop mark is performed using the evil-leader + ,
-(define-key evil-normal-state-map (kbd ",") 'ace-jump-mode)
+(define-key evil-normal-state-map "," 'ace-jump-mode)
 (define-key evil-normal-state-map (kbd "C-,") 'ace-jump-word-mode)
 ;; helm tweaks ----------------------------------------------------------------
 ;; use home row keys
@@ -46,9 +46,13 @@
     (define-key helm-map (kbd "C-l") 'helm-previous-source)))
 ;; quick navigation -----------------------------------------------------------
 (define-key evil-normal-state-map (kbd "L")
-  (lambda () (interactive) (evil-window-bottom) (evil-scroll-line-to-center nil)))
+  (lambda () (interactive)
+    (evil-window-bottom)
+    (evil-scroll-line-to-center nil)))
 (define-key evil-normal-state-map (kbd "H")
-  (lambda () (interactive) (evil-window-top) (evil-scroll-line-to-center nil)))
+  (lambda () (interactive)
+    (evil-window-top)
+    (evil-scroll-line-to-center nil)))
 
 ;; evil-leader shortcuts ======================================================
 
@@ -300,18 +304,6 @@
 
 ;; evil-leader modes specific =================================================
 
-;; erlang ---------------------------------------------------------------------
-(evil-leader/set-key-for-mode 'erlang-mode
-  "mc" 'edts-who-calls
-  "md" 'edts-find-doc
-  "me" 'edts-code-next-issue
-  "mG" 'edts-find-global-function
-  "mg" 'edts-find-source-under-point
-  "mh" 'edts-find-header-source
-  "ml" 'edts-find-local-function
-  "mm" 'edts-find-macro-source
-  "mr" 'edts-find-record-source
-  "mx" 'edts-refactor-extract-function)
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'emacs-lisp-mode
   "mB"  'sp-backward-barf-sexp
@@ -333,6 +325,18 @@
   "ms"  'sp-forward-slurp-sexp
   "mta"  (lambda () (interactive) (ert t))
   "mtf" 'ert)
+;; erlang ---------------------------------------------------------------------
+(evil-leader/set-key-for-mode 'erlang-mode
+  "mc" 'edts-who-calls
+  "md" 'edts-find-doc
+  "me" 'edts-code-next-issue
+  "mG" 'edts-find-global-function
+  "mg" 'edts-find-source-under-point
+  "mh" 'edts-find-header-source
+  "ml" 'edts-find-local-function
+  "mm" 'edts-find-macro-source
+  "mr" 'edts-find-record-source
+  "mx" 'edts-refactor-extract-function)
 ;; magit ----------------------------------------------------------------------
 (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
   "K" 'magit-discard-item
