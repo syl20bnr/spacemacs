@@ -80,7 +80,8 @@
     multi-term
     org
     org-bullets
-    org-trello
+    ;; annoying error message, disable it for now
+    ;; org-trello
     p4
     page-break-lines
     paredit
