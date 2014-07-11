@@ -239,7 +239,8 @@
   "t8" 'toggle-fill-column-indicator
   "ta" 'auto-complete-mode
   "tc" 'rainbow-mode
-  "tf" 'fringe-mode
+  "tF" 'fringe-mode
+  "tf" 'toggle-fullscreen
   "th" 'auto-highlight-symbol-mode
   "tm" 'powerline-minor-modes-toggle
   "tN" 'global-linum-mode
