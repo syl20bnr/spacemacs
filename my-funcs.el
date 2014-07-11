@@ -422,11 +422,17 @@ kill internal buffers too."
 )
 
 (defun toggle-fullscreen ()
-  "Toggle full screen on X11"
+  "Toggle full screen on X11 and Carbon"
   (interactive)
-  (when (or (eq window-system 'x) (eq window-system 'mac))
+  (cond
+   ((eq window-system 'x)
+    (set-frame-parameter nil 'fullscreen
+                         (when (not (frame-parameter nil 'fullscreen))
+                           'fullboth)))
+   ((eq window-system 'mac)
     (set-frame-parameter
      nil 'fullscreen
-     (when (not (frame-parameter nil 'fullscreen)) 'fullboth))))
+     (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))
+   ))
 
 (provide 'my-funcs)
