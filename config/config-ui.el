@@ -2,7 +2,8 @@
 (setq window-combination-resize t)
 ;; edit area full screen
 (tool-bar-mode -1)
-(menu-bar-mode -1)
+(when (not (eq window-system 'mac)) 
+  (menu-bar-mode -1))
 (scroll-bar-mode -1)
 ;; fringes
 (set-fringe-mode nil)  ; default
