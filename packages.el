@@ -44,10 +44,11 @@
     flx-ido
     flycheck
     flycheck-color-mode-line
+    flycheck-ledger
     flyspell
     fringe-helper
     gist
-    git-gutter-fringe
+;;    git-gutter-fringe
     git-messenger
     ;; not working for now
     ;; git-timemachine
@@ -72,6 +73,7 @@
     ido-vertical-mode
     jedi
     json-mode
+    ledger-mode
     less-css-mode
     magit
     markdown-mode
