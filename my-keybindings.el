@@ -39,11 +39,12 @@
 (define-key evil-normal-state-map (kbd "C-,") 'ace-jump-word-mode)
 ;; helm tweaks ----------------------------------------------------------------
 ;; use home row keys
-(eval-after-load "helm" '(progn
-    (define-key helm-map (kbd "C-j") 'helm-next-line)
-    (define-key helm-map (kbd "C-k") 'helm-previous-line)
-    (define-key helm-map (kbd "C-h") 'helm-next-source)
-    (define-key helm-map (kbd "C-l") 'helm-previous-source)))
+(eval-after-load "helm"
+  '(progn
+     (define-key helm-map (kbd "C-j") 'helm-next-line)
+     (define-key helm-map (kbd "C-k") 'helm-previous-line)
+     (define-key helm-map (kbd "C-h") 'helm-next-source)
+     (define-key helm-map (kbd "C-l") 'helm-previous-source)))
 ;; quick navigation -----------------------------------------------------------
 (define-key evil-normal-state-map (kbd "L")
   (lambda () (interactive)
@@ -54,8 +55,10 @@
     (evil-window-top)
     (evil-scroll-line-to-center nil)))
 ;; org ------------------------------------------------------------------------
-(define-key org-agenda-mode-map "j" 'org-agenda-next-line)
-(define-key org-agenda-mode-map "k" 'org-agenda-previous-line)
+(eval-after-load "org"
+  '(progn
+     (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
+     (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)))
 
 ;; evil-leader shortcuts ======================================================
 
