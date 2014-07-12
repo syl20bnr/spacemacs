@@ -69,6 +69,11 @@
 (evil-leader/set-key "S" 'shell-command)
 ;; magic wand  ----------------------------------------------------------------
 (evil-leader/set-key "RET" 'wand:execute)
+;; switch back and forth between two last buffers -----------------------------
+(evil-leader/set-key "TAB"
+  (lambda ()
+    (interactive)
+    (switch-to-buffer (other-buffer (current-buffer) t))))
 ;; switch window by number ----------------------------------------------------
 (evil-leader/set-key
   "0" 'select-window-0
