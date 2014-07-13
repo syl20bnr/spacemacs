@@ -55,7 +55,7 @@
     (evil-window-top)
     (evil-scroll-line-to-center nil)))
 ;; org ------------------------------------------------------------------------
-(eval-after-load "org"
+(eval-after-load "org-agenda"
   '(progn
      (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
      (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)))
