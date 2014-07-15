@@ -91,6 +91,7 @@
   "9" 'select-window-9)
 ;; applications ---------------------------------------------------------------
 (evil-leader/set-key
+  "ac"  'calc-dispatch
   "ad"  'dired
   "ae"  'erc-start-or-switch
   "ag"  'magit-status
