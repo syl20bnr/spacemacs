@@ -146,7 +146,8 @@
   "gcC" 'smeargle-clear
   "gcc" 'smeargle-commits
   "gct" 'smeargle
-  "gs" 'magit-status)
+  "gs" 'magit-status
+  "gt" 'git-timemachine)
 ;; auto-highlight-symbol ------------------------------------------------------
 (evil-leader/set-key
   "he" 'ahs-edit-mode

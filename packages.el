@@ -51,8 +51,7 @@
     gist
 ;;    git-gutter-fringe
     git-messenger
-    ;; not working for now
-    ;; git-timemachine
+    git-timemachine
     ghc
     golden-ratio
     google-translate
