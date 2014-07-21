@@ -3,10 +3,14 @@
   :init
   (progn
     (dolist (mode '(c
+                    coffee
                     elixir
+                    js
                     json
                     python
-                    ruby))
+                    ruby
+                    scss
+                    web))
       (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
                 'flycheck-mode))
     (use-package flycheck-color-mode-line

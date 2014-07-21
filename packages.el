@@ -7,6 +7,7 @@
 (defvar syl:packages
   '(
     ac-ispell
+    ac-js2
     ace-jump-mode
     ample-theme
     anti-zenburn-theme
@@ -19,6 +20,7 @@
     cmake-mode
     color-moccur
     csharp-mode
+    coffee-mode
     dash
     deft
     deferred
@@ -72,6 +74,8 @@
     hy-mode
     ido-vertical-mode
     jedi
+    js2-mode
+    js2-refactor
     json-mode
     ledger-mode
     less-css-mode
@@ -106,6 +110,7 @@
     ruby-mode
     ruby-test-mode
     s
+    scss-mode
     smartparens
     smeargle
     string-edit
@@ -117,6 +122,7 @@
     visual-regexp-steroids
     volatile-highlights
     wand
+    web-mode
     wdired
     yasnippet
     zenburn-theme
