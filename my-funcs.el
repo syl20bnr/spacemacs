@@ -290,7 +290,8 @@ argument takes the kindows rotate backwards."
          ;;there were errors
          (message "There were errors. SPC-e-n to visit.")
        (unless (or (string-match "Grep finished" (buffer-string))
-                  (string-match "Ag finished" (buffer-string)))
+                  (string-match "Ag finished" (buffer-string))
+                  (string-match "nosetests" (buffer-name)))
 
          ;;no errors, make the compilation window go away in 0.5 seconds
          (delete-windows-on buf)
