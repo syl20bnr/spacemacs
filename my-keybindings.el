@@ -351,6 +351,9 @@
   "mm" 'edts-find-macro-source
   "mr" 'edts-find-record-source
   "mx" 'edts-refactor-extract-function)
+;; ledger ---------------------------------------------------------------------
+(evil-leader/set-key-for-mode 'ledger-mode
+  "ma" 'ledger-add-transaction)
 ;; magit ----------------------------------------------------------------------
 (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
   "K" 'magit-discard-item
