@@ -355,6 +355,7 @@
   "mx" 'edts-refactor-extract-function)
 ;; ledger ---------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'ledger-mode
+  "md" 'ledger-delete-current-transaction
   "ma" 'ledger-add-transaction)
 ;; magit ----------------------------------------------------------------------
 (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
