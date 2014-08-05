@@ -24,15 +24,18 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; font
 ;; (set-default-font "DejaVu Sans Mono-10")
-(pcase system-type
-  (`windows-nt
-   (progn
-     (add-to-list 'default-frame-alist '(font . "Source Code Pro-9"))
-     (set-default-font "Source Code Pro-9")))
-  (`darwin
+(pcase window-system
+  (`x (progn
+    (add-to-list 'default-frame-alist '(font . "Source Code Pro-10"))
+    (set-default-font "Source Code Pro-10")))
+  (`mac
    (progn
      (add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
      (set-default-font "Source Code Pro-12")))
+  (`w32
+   (progn
+     (add-to-list 'default-frame-alist '(font . "Source Code Pro-9"))
+     (set-default-font "Source Code Pro-9")))
   (other (progn
     (add-to-list 'default-frame-alist '(font . "Source Code Pro-10"))
     (set-default-font "Source Code Pro-10")))
