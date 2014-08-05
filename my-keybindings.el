@@ -1,4 +1,5 @@
 ;; Regular shortcuts ==========================================================
+(setq echo-keystrokes 0.02)
 
 ;; emacs ----------------------------------------------------------------------
 ;; switch meta for super in order to play nicely with i3wm which I use with
