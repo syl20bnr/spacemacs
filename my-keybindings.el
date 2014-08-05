@@ -115,6 +115,7 @@
   "bml" 'buf-move-right
   "bn"  'switch-to-next-buffer
   "bp"  'switch-to-prev-buffer
+  "bR"  (lambda () (interactive) (revert-buffer nil t))
   "br"  'rename-current-buffer-file
   "bs"  'helm-mini
   "bw"  'toggle-read-only)
