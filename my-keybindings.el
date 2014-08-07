@@ -358,10 +358,12 @@
   "md" 'ledger-delete-current-transaction
   "ma" 'ledger-add-transaction)
 ;; magit ----------------------------------------------------------------------
-(evil-add-hjkl-bindings magit-log-mode 'emacs)
 (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
   "K" 'magit-discard-item
   "L" 'magit-key-mode-popup-logging)
+(evil-add-hjkl-bindings magit-commit-mode-map 'emacs)
+(evil-add-hjkl-bindings magit-log-mode-map 'emacs)
+(evil-add-hjkl-bindings magit-process-mode-map 'emacs)
 (evil-add-hjkl-bindings magit-status-mode-map 'emacs
   "f" 'magit-key-mode-popup-fetching
   "K" 'magit-discard-item
