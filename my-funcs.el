@@ -20,6 +20,14 @@
   (dolist (fun funs)
     (add-hook hook fun)))
 
+(defun system-is-mac ()
+  (interactive)
+  (string-equal system-type "darwin"))
+
+(defun system-is-linux ()
+  (interactive)
+  (string-equal system-type "gnu/linux"))
+
 ;; insert one or several line below without changing current evil state
 (defun evil-insert-line-below (count)
   "Insert one of several lines below the current point's line without changing
