@@ -371,13 +371,39 @@
   "h" 'magit-toggle-diff-refine-hunk)
 ;; python ---------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'python-mode
+  "mB"  (lambda ()
+          " Send buffer content to shell and switch to it in insert mode."
+          (interactive)
+          (python-shell-send-buffer)
+          (python-shell-switch-to-shell)
+          (evil-insert-state))
+  "mb"  'python-shell-send-buffer
+  "md"  'pylookup-lookup
+  "mF"  (lambda ()
+          " Send function content to shell and switch to it in insert mode."
+          (interactive)
+          (python-shell-send-defun nil)
+          (python-shell-switch-to-shell)
+          (evil-insert-state))
+  "mf"  'python-shell-send-defun
+  "mg"  'jedi:goto-definition
+  "mp"  'python-add-breakpoint
+  "mR"  (lambda (start end)
+          " Send region content to shell and switch to it in insert mode."
+          (interactive "r")
+          (python-shell-send-region start end)
+          (python-shell-switch-to-shell)
+          (evil-insert-state))
+  "mr"  'python-shell-send-region
+  "ms"  (lambda ()
+          " Switch to shell in insert mode."
+          (interactive)
+          (python-shell-switch-to-shell)
+          (evil-insert-state))
   "mT1" 'nosetests-pdb-one
   "mt1" 'nosetests-one
   "mTa" 'nosetests-pdb-all
   "mta" 'nosetests-all
-  "mb"  'python-add-breakpoint
-  "md"  'pylookup-lookup
-  "mg"  'jedi:goto-definition
   "mTm" 'nosetests-pdb-module
   "mtm" 'nosetests-module
   "mTs" 'nosetests-pdb-suite
