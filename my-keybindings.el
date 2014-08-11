@@ -427,5 +427,9 @@
   "mvp" 'ess-R-dv-pprint
   "mvt" 'ess-R-dv-ctable
 )
+(eval-after-load "ess-mode"
+  '(progn
+     (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
+     (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)))
 
 (provide 'my-keybindings)
