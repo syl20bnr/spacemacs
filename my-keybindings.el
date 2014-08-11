@@ -410,6 +410,10 @@
   "mts" 'nosetests-suite
   "m RET" 'quickrun
 )
+(eval-after-load "python"
+  '(progn
+     (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
+     (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input)))
 ;; R --------------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'ess-mode
   "mB" 'ess-eval-buffer-and-go
