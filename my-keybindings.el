@@ -139,6 +139,7 @@
   "fy" 'camdez/show-buffer-file-name)
 ;; flycheck -------------------------------------------------------------------
 (evil-leader/set-key
+  "fc" 'flycheck-clear
   "fl" 'flycheck-list-errors
   "fn" 'flycheck-next-error
   "fp" 'flycheck-previous-error)
