@@ -401,8 +401,8 @@
           (interactive)
           (python-shell-switch-to-shell)
           (evil-insert-state))
-  "mT1" 'nosetests-pdb-one
-  "mt1" 'nosetests-one
+  "mTf" 'nosetests-pdb-one
+  "mtf" 'nosetests-one
   "mTa" 'nosetests-pdb-all
   "mta" 'nosetests-all
   "mTm" 'nosetests-pdb-module
