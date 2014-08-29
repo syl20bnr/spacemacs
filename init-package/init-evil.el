@@ -44,7 +44,9 @@
     ;; I prefer to stay on the original character when leaving insert mode
     ;; (initiated with 'i').
     (setq evil-move-cursor-back nil)
-    (evil-mode 1))
+    (evil-mode 1)
+    ;; replace motion state by normal state and add some other modes
+    (setq evil-normal-state-modes (append '(rcirc-mode) evil-motion-state-modes)))
   :config
   (progn
     ;; inspired from:
