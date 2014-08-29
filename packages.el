@@ -103,6 +103,8 @@
     rainbow-mode
     rainbow-delimiters
     rainbow-identifiers
+    rcirc
+    rcirc-color
     recentf
     rfringe
     ruby-end

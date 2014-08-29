@@ -95,6 +95,7 @@
   "ac"  'calc-dispatch
   "ad"  'dired
   "ag"  'magit-status
+  "ai"  'irc
   "ap"  'proced
   "ase" 'eshell
   "asi" 'shell
@@ -435,5 +436,10 @@
   '(progn
      (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
      (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)))
+;; rcirc ----------------------------------------------------------------------
+(eval-after-load "rcirc"
+  '(progn
+     (define-key rcirc-mode-map (kbd "C-j") 'rcirc-insert-prev-input)
+     (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input)))
 
 (provide 'my-keybindings)
