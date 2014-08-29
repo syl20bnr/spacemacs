@@ -8,6 +8,10 @@
   (expand-file-name (concat user-emacs-directory "../"))
   "Emacs home directory.")
 
+(defvar user-dropbox-directory
+  (expand-file-name (concat user-home-directory "Dropbox/"))
+  "Dropbox directory.")
+
 (defvar user-org-directory
   (expand-file-name (concat user-emacs-directory "my-org/"))
   "Org files directory.")
@@ -34,6 +38,7 @@
 
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path user-extensions-directory)
+(add-to-list 'load-path (expand-file-name (concat user-dropbox-directory "emacs/")))
 
 ;; Setup ======================================================================
 (require 'my-funcs)
