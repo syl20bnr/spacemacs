@@ -142,7 +142,7 @@
   "fl" 'flycheck-list-errors
   "fn" 'flycheck-next-error
   "fp" 'flycheck-previous-error)
-;; show -----------------------------------------------------------------------
+;; git ------------------------------------------------------------------------
 (evil-leader/set-key
   "gm" 'git-messenger:popup-message
   "gcC" 'smeargle-clear
