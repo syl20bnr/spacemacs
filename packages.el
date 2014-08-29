@@ -30,7 +30,6 @@
     elixir-mix
     elixir-mode
     epc
-    erc
     erlang
     ess
     ess-R-data-view

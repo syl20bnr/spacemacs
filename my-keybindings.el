@@ -94,7 +94,6 @@
 (evil-leader/set-key
   "ac"  'calc-dispatch
   "ad"  'dired
-  "ae"  'erc-start-or-switch
   "ag"  'magit-status
   "ap"  'proced
   "ase" 'eshell
