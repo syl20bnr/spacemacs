@@ -43,6 +43,7 @@
     exec-path-from-shell
     expand-region
     fill-column-indicator
+    fish-mode
     flx-ido
     flycheck
     flycheck-color-mode-line
