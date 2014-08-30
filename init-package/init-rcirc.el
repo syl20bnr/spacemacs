@@ -1,4 +1,5 @@
 (use-package rcirc
+  :commands irc
   :init
   (progn
     (add-to-hook 'rcirc-mode-hook '(rcirc-track-minor-mode
