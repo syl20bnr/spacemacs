@@ -1,3 +1,9 @@
 (use-package projectile
-  :init
-  (projectile-global-on))
+  :commands (projectile-switch-to-buffer
+             projectile-invalidate-cache
+             projectile-dired
+             projectile-find-file
+             helm-projectile
+             projectile-kill-buffers
+             projectile-grep
+             projectile-replace))
