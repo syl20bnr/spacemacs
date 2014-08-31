@@ -92,12 +92,10 @@
       (define-key evil-emacs-state-map  (kbd "SPC") evil-leader--default-map)))
     ;; load surround
     (use-package surround
-      :init
-      (global-surround-mode 1)) 
+      :init (global-surround-mode 1)) 
     ;; load evil-exchange
     (use-package evil-exchange
-      :init
-      (evil-exchange-install)))
-  )
-
-
+      :init (evil-exchange-install))
+    ;; initiate a search of the selected text
+    (use-package evil-visualstar)
+    ))

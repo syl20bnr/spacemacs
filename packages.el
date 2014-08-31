@@ -38,6 +38,7 @@
     evil
     evil-exchange
     evil-leader
+    evil-visualstar
     exec-path-from-shell
     expand-region
     fill-column-indicator
