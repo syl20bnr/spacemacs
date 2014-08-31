@@ -7,12 +7,8 @@
       (rainbow-delimiters-mode 1))
 
     (setq-default frame-background-mode 'dark)
-    (let ((supported-modes '(c-mode-common-hook
-                             emacs-lisp-mode-hook
-                             clojure-mode-hook
-                             javascript-mode-hook
-                             lisp-mode-hook
-                             python-mode-hook
-                             erlang-mode-hook)))
-      (dolist (hook supported-modes)
-        (add-hook hook 'turn-on-rainbow-delimiters-mode)))))
+    (add-to-hooks
+     'turn-on-rainbow-delimiters-mode '(prog-mode-hook
+                                        erlang-mode-hook
+                                        ))
+    ))
