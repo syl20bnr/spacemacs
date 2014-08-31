@@ -1,6 +1,12 @@
 (use-package auto-highlight-symbol
+  :commands auto-highlight-symbol-mode
   :init
-  (global-auto-highlight-symbol-mode t)
+  (add-to-hooks
+   'auto-highlight-symbol-mode '(prog-mode-hook
+                                 erlang-mode-hook
+                                 org-mode-hook
+                                 ))
+
   :config
   (custom-set-variables
    '(ahs-case-fold-search nil)
