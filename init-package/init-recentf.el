@@ -1,6 +1,5 @@
 (use-package recentf
-  :init
-  (recentf-mode 1)
+  :defer t
   :config
   (progn
     (setq recentf-exclude '("~/.emacs.d/.recentf"))
