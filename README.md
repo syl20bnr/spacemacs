@@ -37,8 +37,7 @@ _The best editor is not *Emacs* nor *Vim*, the best editor is
 ## Goal
 
 These configuration files try to bring *the power of Vim modal editing* to
-*the powerful Emacs editing platform* and some more power with the `SPC` key
-as a leader key.
+*the powerful Emacs editing platform*.
 
 To achieve this, `Spacemacs` uses two modes heavily:
 - [evil mode][evil]
@@ -47,14 +46,14 @@ To achieve this, `Spacemacs` uses two modes heavily:
 
 ## Who can benefit from this ?
 
-`Spacemacs` is first intended to be used by Vim users who want to go to the
+`Spacemacs` is first intended to be used by **Vim users** who want to go to the
 next level by using Emacs.
 
-It is also a good fit for people wanting to lower the [risk of RSI][RSI]
+It is also a good fit for people wanting to **lower the [risk of RSI][RSI]**
 induced by the default Emacs key bindings. 
 
-People wanting to learn a new way to edit files or wanting to learn Vim
-key bindings.
+People wanting to learn **a different way to edit files** or wanting to learn
+Vim key bindings.
 
 As a note side, if you are a programmer and you don't know Vim key bindings
 yet, I deeply recommend you to learn the basics as recommended in
@@ -63,9 +62,6 @@ yet, I deeply recommend you to learn the basics as recommended in
 ## Install
 
 `Spacemacs` is only tested with `Emacs 24.3.1`.
-
-Backup your current `.emacs.d`.
-Clone this repository in your home folder:
 
     cd ~
     mv .emacs.d .emacs.bak
@@ -82,54 +78,46 @@ Get the sub-modules:
 ## Packages and Extensions Organization
 
 Modes/libraries are separated into two categories:
-- package: packages installed from `package.el` compliant repositories.
-- extension: modes directly fetched from git repositories (as sub-modules)
+- **package:** packages installed from `package.el` compliant repositories.
+- **extension:** modes directly fetched from git repositories (as sub-modules)
 
 There are two types of extensions:
-- pre-extensions: loaded before packages
-- post-extensions: loaded after packages
+- **pre-extensions:** loaded before packages
+- **post-extensions:** loaded after packages
 
 Modes/libraries are listed in the following three files depending whether they
-are packages, pre-extensions or post-extensions:
-- packages.el
+are packages, pre-extensions or post-extensions, in order of loading:
 - pre-extensions.el 
+- packages.el
 - post-extensions.el
 
-A package or extension has a corresponding `init-....el` file responsible for
-its initialization, those files are stored respectively in the `init-package`
-and `init-extension` directories.
+A package or extension may have a corresponding `init-....el` file responsible
+for its initialization, those files are stored respectively in the
+`init-package` and `init-extension` directories.
 
 `init-....el` files lazy load the modes by using the [use-package][use-package]
 macro.
 
 ## How it works
 
-`Spacemacs` uses the `evil` mode to emulate Vim key bindings. This is a very
+`Spacemacs` uses the `evil` mode to emulate Vim key bindings. It is a very
 complete emulation (the most complete I've seen yet).
 
-`Spacemacs` heavily uses the `evil-leader` mode which brings the Vim leader key to
-the Emacs world.
+`Spacemacs` heavily uses the `evil-leader` mode which brings the Vim leader key
+to the Emacs world.
 
-This leader key is commonly set to `,` by Vim users, in `Spacemacs` the leader key
-is set on `SPC` (space bar, this is why `spacemacs`). This key is the most
-accessible key on a keyboard and it is pressed with the thumb which is a good
-choice to lower the risk of [RSI][RSI].
+This leader key is commonly set to `,` by Vim users, in `Spacemacs` the leader
+key is set on `SPC` (space bar, this is why the name `spacemacs`). This key is
+the most accessible key on a keyboard and it is pressed with the thumb which is
+a good choice to lower the risk of [RSI][RSI].
 
 So with `Spacemacs` there is no need to remap your keyboard modifiers to attempt to
 reduce the risk of RSI, every command can be executed very easily while you are
 in `normal` mode by pressing the `SPC` leader key, here are a few examples:
 
-Save a buffer:
-
-    <SPC> f s
-
-Save all opened buffers:
-
-    <SPC> f S
-
-Open (switch) to a buffer with `helm`:
-
-    <SPC> b s
+- Save a buffer: `<SPC> f s`
+- Save all opened buffers: `<SPC> f S`
+- Open (switch) to a buffer with `helm`: `<SPC> b s`
 
 ## How to switch to normal mode efficiently ?
 
@@ -142,20 +130,26 @@ The popular way to avoid this is to replace `ESC` by `jj` pressed rapidly. In
 
 `fd` also works to quit minibuffer prompts.
 
-Note that [keychords.el][keychords] mode is not used to achieve this, the
-reasons for this is latency and the fact that keychords wants you to press
-several keys almost at the same time which is something very difficult to master
-correctly on a keyboard. `Spacemacs` has a special function called `fd-trigger` to
-handle the `fd` key sequence and fix the above keychords issues.
+**Note:** For those who know about [keychords.el][keychords] mode. This mode is
+not used to achieve this, the reasons for this is latency and the fact that
+keychords wants you to press several keys almost at the same time which is
+something very difficult to master correctly on a keyboard. `Spacemacs` has a
+special function called `fd-trigger` to handle the `fd` key sequence and fix
+the above keychords issues.
 
 ## Evil plugins
 
 `Spacemacs` ships with the following evil plugins:
-- [evil-little-word][evil-plugin01]: port of [camelcasemotion.vim][vim-plugin01].
-- [evil-operator-comment][evil-plugin01]: comment/uncomment with `CC`
-- [evil-matchit][evil-plugin02]: port of [matchit.vim][vim-plugin02]
-- [evil-visualstar][evil-plugin03]: search for current selection with `*`
-- [surround][evil-plugin04]: port of [surround.vim][vim-plugin03]
+
+                 Mode                   |                          Description
+----------------------------------------|---------------------------------------------------------
+[evil-leader][evil-leader]              | vim leader that bring a new layer of keys in normal mode
+[evil-little-word][evil-plugin01]       | port of [camelcasemotion.vim][vim-plugin01]
+[evil-operator-comment][evil-plugin01]  | comment/uncomment with `CC`
+[evil-matchit][evil-plugin02]           | port of [matchit.vim][vim-plugin02]
+[evil-visualstar][evil-plugin03]        | search for current selection with `*`
+[evil-exchange][evil-plugin05]          | port of [vim-exchange][vim-plugin04]
+[surround][evil-plugin04]               | port of [surround.vim][vim-plugin03]
 
 ## How to use it ?
 
@@ -164,6 +158,7 @@ Every sequences must be performed in `normal` mode.
 ### Executing Vim and Emacs commands
 
 Vim commands are execute as usual with the `:` key.
+
 To execute an Emacs command:
 
     <SPC> :
@@ -183,49 +178,39 @@ To narrow the list to `Spacemacs` specific key bindings set the pattern to `SPC`
 a new temporary windows at the bottom.
 
 The following `helm` modes are installed with `Spacemacs`:
-- [helm-swoop][hswoop] (<SPC> h s): A very cool mode to search for occurrences
-within a file and edit the result.
-- [helm-css-scss][hcss] (<SPC> h c): for quick navigation in CSS.
-- [helm-c-yasnippet][hyas] (<SPC> a y): select snippets.
-- [helm-themes][hthemes] (<SPC> h t): select a theme
-- [helm-projectile][projectile] (<SPC> p f): select files within a projectile
-project.
-- [helm-descbinds][hdescbinds] (<SPC> ?): show key bindings.
-- [cofi/helm-flyspell-correct][hflyspell] (<SPC> s c): choose a corrected word.
+
+Mode                                    | Key Binding | Description
+----------------------------------------|-------------|---------------------------------------------------------
+[helm-swoop][hswoop]                    | `<SPC> h s` | search for occurrences within a file and edit the result
+[helm-css-scss][hcss]                   | `<SPC> h c` | for quick navigation in CSS
+[helm-c-yasnippet][hyas]                | `<SPC> a y` | select snippets
+[helm-themes][hthemes]                  | `<SPC> h t` | select a theme
+[helm-projectile][projectile]           | `<SPC> p f` | select files within a projectile project
+[helm-descbinds][hdescbinds]            | `<SPC> ?`   | show key bindings
+[cofi/helm-flyspell-correct][hflyspell] | `<SPC> s c` | choose a corrected word
 
 ### Navigation (point/cursor)
 
 Navigation is performed using the Vi key bindings `hjkl`.
 
-The current line of the cursor is always at the center of the buffer.
-This effect is achieved with [centered-cursor][centered-cursor] mode.
-It can be toggled on and off with:
-
-    <SPC> z z
-
-To move quickly up a buffer:
-
-    H
-
-To move quickly down a buffer:
-
-    L
-
-Go to beginning/end of line:
-
-    <SPC> j h
-    <SPC> j l
+Key Binding |                              Description
+------------|----------------------------------------------------------------------------------
+`h`         | move cursor left
+`j`         | move cursor down
+`k`         | move cursor up
+`l`         | move cursor right
+`H`         | move quickly up (10 lines at a time)
+`L`         | move quickly down (10 lines at a time)
+`<SPC> j h` | go to the beginning of line (and set a mark at the previous location in the line)
+`<SPC> j l` | go to the end of line (and set a mark at the previous location in the line)
+`<SPC> z z` | lock the cursor at the center of the screen 
 
 #### [ace-jump mode][ace-jump]
 
-I often use `ace-jump` mode so this key binding does not require the evil
-leader, just press:
-
-    ,
-
-To go back to the previous location (pop mark):
-
-    <SPC> ,
+Key Binding |                              Description
+------------|----------------------------------------------------------------------------------
+`,`         | initiate ace jump
+`<SPC> ,`   | go back to the previous location (before the jump)
 
 ### Navigation (buffers/files)
 
@@ -234,105 +219,97 @@ the file system is better than `helm` in my opinion (especially because `ido` ca
 remember the last selected directories and buffers, maybe helm can do this ?).
 `ido` is also used to kill buffers.
 
-Buffer manipulation commands start with `b` and file manipulation with `f`.
+Buffer manipulation commands (start with `b`):
 
-Open a file:
+Key Binding   |                              Description
+--------------|-----------------------------------------------------------------------
+`<SPC> b d`   | delete the current buffer (beware the associated file is also deleted)
+`<SPC> b k`   | kill the current buffer
+`<SPC> b K`   | kill all buffers except the current one
+`<SPC> b m h` | move a buffer to the left
+`<SPC> b m j` | move a buffer to the bottom
+`<SPC> b m k` | move a buffer to the top
+`<SPC> b m l` | move a buffer to the right
+`<SPC> b n`   | switch to next buffer
+`<SPC> b p`   | switch to previous buffer
+`<SPC> b r`   | rename the current buffer
+`<SPC> b s`   | switch to a buffer using `helm`
+`<SPC> b w`   | toggle read-only
 
-    <SPC> f f
+Files manipulation commands (start with `f`):
 
-Save a file:
-
-    <SPC> f s
-
-Switch to a buffer:
-
-    <SPC> b s
-
-Kill a buffer:
-
-    <SPC> b k
-
-Kill all other buffer:
-
-    <SPC> b K
-
-Rename a buffer:
-
-    <SPC> b r
-
-Delete a buffer (well a file...):
-
-    <SPC> b d
-
-Move a buffer to the left:
-
-    <SPC> b m h
+Key Binding   |                              Description
+--------------|-----------------------------------------------------------------------
+`<SPC> f f`   | open a file using `ido`
+`<SPC> f i`   | open your `init.el` file
+`<SPC> f s`   | save a file
+`<SPC> f S`   | save all files
+`<SPC> f y`   | show current file absolute path in the mini buffer
 
 ### Window manipulation
 
-Window manipulation commands start with `w`.
 Split windows are dynamically resized depending on whether they are selected or
 not. Resizing is performed by the [golden-ratio][golden-ratio] mode.
 
 Every window has a number displayed at the start of the mode-line and can
-be accessed using `<SPC> number`. For instance to go to the window number 2,
-you can press:
+be quickly accessed using `<SPC> number`.
 
-    <SPC> 2
+Key Binding   |                    Description
+--------------|---------------------------------------------------
+`<SPC> 1`     | go to first window
+`<SPC> 2`     | go to window number 2
+`<SPC> 3`     | go to window number 3
+`<SPC> 4`     | go to window number 4
+`<SPC> 5`     | go to window number 5
+`<SPC> 6`     | go to window number 6
+`<SPC> 7`     | go to window number 7
+`<SPC> 8`     | go to window number 8
+`<SPC> 9`     | go to window number 9
+`<SPC> 0`     | go to window number 10
 
-Split a window horizontally:
+Windows manipulation commands (start with `w`):
 
-    <SPC> w b
-
-Split a window vertically:
-
-    <SPC> w v
-
-Close a window:
-
-    <SPC> w c
-
-Undo close window:
-
-    <SPC> w u
-
-Toggle window dedication (dedicated window cannot be used by a mode):
-
-    <SPC> w d
-
-Rotate windows clockwise or counter-clockwise:
-
-    <SPC> w r
-    <SPC> w R
-
-Maximize/minimize a window:
-
-    <SPC> w m
+Key Binding   |                              Description
+--------------|-----------------------------------------------------------------------
+`<SPC> w b`   | split a window horizontally
+`<SPC> w c`   | close a window
+`<SPC> w d`   | toggle window dedication (dedicated window cannot be used by a mode)
+`<SPC> w H`   | move window to the left
+`<SPC> w J`   | move window to the bottom
+`<SPC> w K`   | move window to the top
+`<SPC> w L`   | move window to the right
+`<SPC> w m`   | maximize/minimize a window
+`<SPC> w M`   | maximize/minimize a window, when maximized the buffer is centered
+`<SPC> w p`   | close the current sticky popup window (used to close compilation buffer for instance)
+`<SPC> w r`   | rotate windows clockwise
+`<SPC> w R`   | rotate windows counter-clockwise
+`<SPC> w u`   | undo window layout (used to effectively undo a close window)
+`<SPC> w U`   | redo window layout
+`<SPC> w v`   | split a window vertically
+`<SPC> w w`   | cycle and focus between windows
 
 ### Additional text manipulation commands
 
-Text related commands start with `x`.
+Text related commands (start with `x`):
 
-To move a line of text up or down:
-
-    <SPC> x m k
-    <SPC> x m j
-
-To swap (transpose) two letters/words/lines:
-
-    <SPC> x t c
-    <SPC> x t w
-    <SPC> x t l
-
-To make the selected text upper case or lower case:
-
-    <SPC> x U
-    <SPC> x u
-
-To translate a word at point with `google translate`:
-
-    <SPC> x g t
-
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> x +`       | increase text font size
+`<SPC> x -`       | decrease text font size
+`<SPC> x =`       | reset text font size
+`<SPC> x u`       | set the selected text to lower case
+`<SPC> x U`       | set the selected text to upper case
+`<SPC> x d w`     | delete trailing whitespaces
+`<SPC> x g l`     | set languages used by translate commands
+`<SPC> x g t`     | translate current word using Google Translate
+`<SPC> x g T`     | reverse source and target languages
+`<SPC> x m j`     | move down a line of text
+`<SPC> x m k`     | move up a line of text
+`<SPC> x t c`     | swap (transpose) the current character with the previous one
+`<SPC> x t w`     | swap (transpose) the current word with the previous one
+`<SPC> x t l`     | swap (transpose) the current line with the previous one
+`<SPC> x w c`     | count the number of words in the selection region
+`<SPC> x w C`     | count the number of occurrences per word in the select region
 
 ### Spell checking
 
@@ -534,10 +511,9 @@ or minor modes key bindings (maybe by leveraging [use-package][use-package] ?).
 [evil-plugin02]: https://github.com/redguardtoo/evil-matchit
 [evil-plugin03]: https://github.com/bling/evil-visualstar
 [evil-plugin04]: https://github.com/timcharper/evil-surround
+[evil-plugin05]: https://github.com/Dewdrops/evil-exchange
 [vim-plugin01]: http://www.vim.org/scripts/script.php?script_id=1905
 [vim-plugin02]: http://www.vim.org/scripts/script.php?script_id=39
 [vim-plugin03]: http://www.vim.org/scripts/script.php?script_id=1697
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/syl20bnr/spacemacs/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[vim-plugin04]: https://github.com/tommcdo/vim-exchange
 

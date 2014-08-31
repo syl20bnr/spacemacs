@@ -50,7 +50,7 @@
     flyspell
     fringe-helper
     gist
-;;    git-gutter-fringe
+    git-gutter-fringe
     git-messenger
     git-timemachine
     ghc
@@ -96,7 +96,6 @@
     powershell-mode
     projectile
     puppet-mode
-;;    python
     quickrun
     ;; not working well for now
     ;; rainbow-blocks

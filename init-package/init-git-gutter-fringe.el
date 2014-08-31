@@ -1,6 +1,10 @@
 (use-package git-gutter-fringe
+  :commands git-gutter-mode
   :init
-  (global-git-gutter-mode t)
+  (add-to-hooks 'git-gutter-mode '(erlang-mode-hook
+                                   org-mode-hook
+                                   prog-mode-hook
+                                   ))
   :config
   (progn
     (setq git-gutter:hide-gutter t)
