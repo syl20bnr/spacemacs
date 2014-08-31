@@ -1,16 +1,12 @@
 (use-package auto-complete
-  :defer t
+  :commands auto-complete-mode
   :init
-  (progn
-    (require 'auto-complete-config)
-    (dolist (mode '(emacs-lisp-mode
-                    java-mode
-                    org-mode
-                    python-mode))
-    (add-to-list 'ac-modes mode))
-  )
+  (add-to-hooks 'auto-complete-mode '(org-mode-hook
+                                      prog-mode-hook
+                                      erlang-mode-hook))
   :config
   (progn
+    (require 'auto-complete-config)
     (ac-config-default)
     (add-to-list 'completion-styles 'initials t)
     (add-to-list 'ac-sources 'ac-source-semantic)
