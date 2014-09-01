@@ -45,11 +45,11 @@ _The best editor is not *Emacs* nor *Vim*, the best editor is
 		- [Org](#user-content-org)
 		- [Perforce](#user-content-perforce)
 		- [Python](#user-content-python)
-			- [Inferior shell process](#user-content-inferior-shell-process)
+			- [Inferior REPL process](#user-content-inferior-shell-process)
 			- [Testing in Python](#user-content-testing-in-python)
 			- [Other Python commands](#user-content-other-python-commands)
 		- [R (ESS)](#user-content-r-ess)
-			- [Inferior shell process](#user-content-inferior-shell-process-1)
+			- [Inferior REPL process](#user-content-inferior-shell-process-1)
 			- [Other R commands](#user-content-other-r-commands)
 		- [rcirc](#user-content-rcirc)
 	- [And more...](#user-content-and-more)
@@ -620,20 +620,20 @@ In `org`, [evil-org-mode][evil-org-mode] is activated.
 
 #### Python
 
-##### Inferior shell process
+##### Inferior REPL process
 
-Start an iPython inferior shell process with `<SPC> m i`.
+Start an iPython inferior REPL process with `<SPC> m i`.
 
 Send code to inferior process commands:
 
     Key Binding   |                              Description
 ------------------|-----------------------------------------------------------------------
 `<SPC> m b`       | send buffer and keep code buffer focused
-`<SPC> m B`       | send buffer and switch to shell in insert mode
+`<SPC> m B`       | send buffer and switch to REPL in insert mode
 `<SPC> m f`       | send function and keep code buffer focused
-`<SPC> m F`       | send function and switch to shell in insert mode
+`<SPC> m F`       | send function and switch to REPL in insert mode
 `<SPC> m r`       | send region and keep code buffer focused
-`<SPC> m R`       | send region and switch to shell in insert mode
+`<SPC> m R`       | send region and switch to REPL in insert mode
 `CTRL+j`          | next item in REPL history
 `CTRL+k`          | previous item in REPL history
 
@@ -676,22 +676,22 @@ Test commands (start with `m t` or `m T`):
 In order to speed up the boot time of `Spacemacs`, `ESS` must be loaded
 manually via the key binding `<SPC> l e`.
 
-##### Inferior shell process
+##### Inferior REPL process
 
-Start an `R` inferior shell process with `<SPC> m i`.
+Start an `R` inferior REPL process with `<SPC> m i`.
 
 Send code to inferior process commands:
 
     Key Binding   |                              Description
 ------------------|-----------------------------------------------------------------------
 `<SPC> m b`       | send buffer and keep code buffer focused
-`<SPC> m B`       | send buffer and switch to shell in insert mode
+`<SPC> m B`       | send buffer and switch to REPL in insert mode
 `<SPC> m f`       | send function and keep code buffer focused
-`<SPC> m F`       | send function and switch to shell in insert mode
+`<SPC> m F`       | send function and switch to REPL in insert mode
 `<SPC> m l`       | send line and keep code buffer focused
-`<SPC> m L`       | send line and switch to shell in insert mode
+`<SPC> m L`       | send line and switch to REPL in insert mode
 `<SPC> m r`       | send region and keep code buffer focused
-`<SPC> m R`       | send region and switch to shell in insert mode
+`<SPC> m R`       | send region and switch to REPL in insert mode
 `<SPC> m s`       | send region or line and step (debug)
 `<SPC> m S`       | send function or paragraph and step (debug)
 `CTRL+j`          | next item in REPL history
