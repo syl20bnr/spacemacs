@@ -343,7 +343,6 @@
   "mtf" 'ert)
 ;; erlang ---------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'erlang-mode
-  "mc" 'edts-who-calls
   "md" 'edts-find-doc
   "me" 'edts-code-next-issue
   "mG" 'edts-find-global-function
@@ -351,8 +350,7 @@
   "mh" 'edts-find-header-source
   "ml" 'edts-find-local-function
   "mm" 'edts-find-macro-source
-  "mr" 'edts-find-record-source
-  "mx" 'edts-refactor-extract-function)
+  "mr" 'edts-find-record-source)
 ;; ledger ---------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'ledger-mode
   "md" 'ledger-delete-current-transaction
