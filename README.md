@@ -359,7 +359,7 @@ Spell checking commands start with `s`:
 ### Region selection
 
 Vi `Visual` modes are all supported by `evil`, `Spacemacs` adds another
-`Visual` mode via the [expand-region mode][expand-region].
+`Visual` mode via the [expand-region][expand-region] mode.
 
 Key Binding   |                              Description
 --------------|-----------------------------------------------------------------------
@@ -367,6 +367,7 @@ Key Binding   |                              Description
 `v`           | expand the region by one semantic unit
 `V`           | contract the region by one semantic unit
 `r`           | reset the region to initial selection
+`ESC`         | leave expand-region mode
 
 ### Region narrowing
 
