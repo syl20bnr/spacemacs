@@ -2,6 +2,7 @@
   :commands git-gutter-mode
   :init
   (add-to-hooks 'git-gutter-mode '(erlang-mode-hook
+                                   markdown-mode-hook
                                    org-mode-hook
                                    prog-mode-hook
                                    ))
