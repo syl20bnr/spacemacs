@@ -6,6 +6,7 @@ _The best editor is not *Emacs* nor *Vim*, the best editor is
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
 - [Goals](#user-content-goals)
+- [Screenshot](#user-content-screenshot)
 - [Who can benefit from this ?](#user-content-who-can-benefit-from-this-)
 - [Install](#user-content-install)
 - [Packages and Extensions Organization](#user-content-packages-and-extensions-organization)
@@ -63,6 +64,10 @@ _The best editor is not *Emacs* nor *Vim*, the best editor is
 keeping a "blazingly fast" boot time. Currently `Spacemacs` ships with more
 than 120 packages and its load time is approx. 2 seconds on my Macbook Air
 2014.
+
+## Screenshot
+
+![screenshot](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs.png)
 
 ## Who can benefit from this ?
 
