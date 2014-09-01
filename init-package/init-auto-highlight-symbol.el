@@ -2,9 +2,10 @@
   :commands auto-highlight-symbol-mode
   :init
   (add-to-hooks
-   'auto-highlight-symbol-mode '(prog-mode-hook
-                                 erlang-mode-hook
+   'auto-highlight-symbol-mode '(erlang-mode-hook
+                                 prog-mode-hook
                                  org-mode-hook
+                                 markdown-mode-hook
                                  ))
   :config
   (custom-set-variables
