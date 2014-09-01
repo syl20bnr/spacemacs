@@ -1,42 +1,42 @@
 [submodule "extensions/pylookup"]
-	path = extensions/pylookup
+	path = spacemacs/extensions/pylookup
 	url = http://github.com/syl20bnr/pylookup
 [submodule "extensions/projmake-mode"]
 	path = extensions/projmake-mode
 	url = http://github.com/ericbmerritt/projmake-mode
 [submodule "extensions/window-numbering"]
-	path = extensions/window-numbering
+	path = spacemacs/extensions/window-numbering
 	url = http://github.com/nschum/window-numbering.el
 [submodule "extensions/revive"]
-	path = extensions/revive
+	path = spacemacs/extensions/revive
 	url = http://github.com/vedang/revive-mode.git
-[submodule "extensions/o-blog"]
-	path = extensions/o-blog
-	url = http://github.com/syl20bnr/o-blog
 [submodule "extensions/helm-c-moccur"]
 	path = extensions/helm-c-moccur
 	url = http://github.com/syl20bnr/helm-c-moccur
 [submodule "extensions/solarized-theme"]
-	path = extensions/solarized-theme
+	path = spacemacs/extensions/solarized-theme
 	url = http://github.com/syl20bnr/solarized-emacs
 [submodule "extensions/evil-plugins"]
-	path = extensions/evil-plugins
+	path = spacemacs/extensions/evil-plugins
 	url = http://github.com/tarao/evil-plugins
 [submodule "extensions/nose"]
-	path = extensions/nose
+	path = spacemacs/extensions/nose
 	url = http://github.com/syl20bnr/nose.el
 [submodule "extensions/powerline"]
-	path = extensions/powerline
+	path = spacemacs/extensions/powerline
 	url = http://github.com/syl20bnr/powerline
 [submodule "snippets"]
 	path = snippets
 	url = http://github.com/syl20bnr/yasnippet-snippets
 [submodule "extensions/use-package"]
-	path = extensions/use-package
+	path = spacemacs/extensions/use-package
 	url = http://github.com/jwiegley/use-package
 [submodule "extensions/emoji-cheat-sheet"]
-	path = extensions/emoji-cheat-sheet
+	path = spacemacs/extensions/emoji-cheat-sheet
 	url = http://github.com/ShingoFukuyama/emacs-emoji-cheat-sheet
 [submodule "extensions/evil-org-mode"]
-	path = extensions/evil-org-mode
+	path = spacemacs/extensions/evil-org-mode/
+	url = http://github.com/syl20bnr/evil-org-mode
+[submodule "spacemacs/extensions/evil-org-mode"]
+	path = spacemacs/extensions/evil-org-mode
 	url = http://github.com/syl20bnr/evil-org-mode
