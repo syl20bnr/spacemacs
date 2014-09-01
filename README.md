@@ -401,6 +401,10 @@ By default, `Spacemacs` uses the theme [Solarized theme][solarized-theme].
 `<SPC> c t`       | cycle between available themes
 `<SPC> h t`       | select a theme using a `helm` buffer
 
+Available themes (other than default Emacs themes):
+- [Solarized theme][solarized-theme]
+- [Monokai][monokai-theme]
+- [Zenburn][zenburn-theme]
 ### UI elements
 
 The mode line is a [powerline][powerline] customized to show the window
