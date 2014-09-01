@@ -1,11 +1,31 @@
-(defun load-user-config ()
-  (progn (when (file-exists-p user-config-directory)
-           (dolist (l (directory-files user-config-directory nil "^[^#].*el$"))
-             (load (concat user-config-directory l))))))
-(defun load-host-config ()
-  (progn (when (file-exists-p host-directory)
-           (dolist (l (directory-files host-directory nil "^[^#].*el$"))
-             (load (concat host-directory l))))))
+(defun se/install-missing-packages (pkg-list)
+  "Install the missing package from given PKG-LIST"
+  (interactive)
+  (let ((not-installed (remove-if 'package-installed-p pkg-list)))
+    (if not-installed
+        (if (y-or-n-p (format "there are %d packages to be installed. install them? "
+                              (length not-installed)))
+            (progn (package-refresh-contents)
+                   (dolist (package pkg-list)
+                     (when (not (package-installed-p package))
+                       (package-install package))))))))
+
+(defun se/initialize-packages (init-dir)
+  "Load init-xxx for each xxx installed package"
+  (interactive)
+  (dolist (package (append (mapcar 'car package--builtins) package-activated-list))
+    (let* ((initfile (concat init-dir (format "init-%s.el" package))))
+      (if (and (package-installed-p package)
+               (file-exists-p initfile))
+          (load initfile)))))
+
+(defun se/load-and-initialize-extensions (ext-list ext-dir init-dir)
+  "Load init-xxx for each xxx extensions in EXT-LIST"
+  (dolist (ext ext-list)
+    (add-to-list 'load-path (format "%s%s/" ext-dir ext))
+    (let* ((initfile (concat init-dir (format "init-%s.el" ext))))
+      (if (file-exists-p initfile)
+          (load initfile)))))
 
 ;; from https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-util.el#L38
 (defun add-to-hooks (fun hooks)
@@ -23,7 +43,6 @@
 (defun system-is-mac ()
   (interactive)
   (string-equal system-type "darwin"))
-
 (defun system-is-linux ()
   (interactive)
   (string-equal system-type "gnu/linux"))
@@ -268,7 +287,6 @@ argument takes the kindows rotate backwards."
 ;; Cycle through this set of themes
 (setq my-themes '(solarized-dark
                   solarized-light
-                  anti-zenburn
                   monokai
                   zenburn))
 (setq my-cur-theme nil)
@@ -444,4 +462,4 @@ kill internal buffers too."
      (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))
    ))
 
-(provide 'my-funcs)
+(provide 'se-funcs)

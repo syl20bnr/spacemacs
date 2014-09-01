@@ -1,18 +1,18 @@
-;; Regular shortcuts ==========================================================
+;; instantly display current keystrokes in mini buffer
 (setq echo-keystrokes 0.02)
 
-;; emacs ----------------------------------------------------------------------
-;; switch meta for super in order to play nicely with i3wm which I use with
-;; alt modifier.
-(setq x-super-keysym 'meta)
-(setq x-meta-keysym 'super)
+;; ---------------------------------------------------------------------------
+;; Regular key bindings
+;; ---------------------------------------------------------------------------
+
+;; emacs ---------------------------------------------------------------------
 ;; simple and more consistent keyboard quit key bindings
 ;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
 (global-set-key (kbd "f")
   (lambda () (interactive) (fd-trigger 'keyboard-quit)))
 (define-key minibuffer-local-map (kbd "f")
   (lambda () (interactive) (fd-trigger 'abort-recursive-edit)))
-;; evil -----------------------------------------------------------------------
+;; evil ----------------------------------------------------------------------
 ;; easier toggle for emacs-state
 (evil-set-toggle-key "s-`")
 ;; returns to normal mode
@@ -30,12 +30,12 @@
 ;; Make evil-mode up/down operate in screen lines instead of logical lines
 (define-key evil-normal-state-map "j" 'evil-next-visual-line)
 (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
-;; ace-jump quick access ------------------------------------------------------
+;; ace-jump quick access -----------------------------------------------------
 ;; I want a very quick trigger, evil-leader is too slow for this
 ;; pop mark is performed using the evil-leader + ,
 (define-key evil-normal-state-map "," 'ace-jump-mode)
 (define-key evil-normal-state-map (kbd "C-,") 'ace-jump-word-mode)
-;; helm tweaks ----------------------------------------------------------------
+;; helm tweaks ---------------------------------------------------------------
 ;; use home row keys
 (eval-after-load "helm"
   '(progn
@@ -47,7 +47,7 @@
      (define-key helm-map (kbd "C-k") 'helm-previous-line)
      (define-key helm-map (kbd "C-h") 'helm-next-source)
      (define-key helm-map (kbd "C-l") 'helm-previous-source)))
-;; quick navigation -----------------------------------------------------------
+;; quick navigation ----------------------------------------------------------
 (define-key evil-normal-state-map (kbd "L")
   (lambda () (interactive)
     (evil-window-bottom)
@@ -56,13 +56,15 @@
   (lambda () (interactive)
     (evil-window-top)
     (evil-scroll-line-to-center nil)))
-;; org ------------------------------------------------------------------------
+;; org -----------------------------------------------------------------------
 (eval-after-load "org-agenda"
   '(progn
      (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
      (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)))
 
-;; evil-leader shortcuts ======================================================
+;; ---------------------------------------------------------------------------
+;; evil-leader key bindings
+;; ---------------------------------------------------------------------------
 
 ;; M-x ------------------------------------------------------------------------
 (evil-leader/set-key ":" 'helm-M-x)
@@ -318,7 +320,9 @@
 ;; centered cursor ------------------------------------------------------------
 (evil-leader/set-key "zz" 'global-centered-cursor-mode)
 
-;; evil-leader modes specific =================================================
+;; ---------------------------------------------------------------------------
+;; evil-leader modes specific key bindings
+;; ---------------------------------------------------------------------------
 
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'emacs-lisp-mode
@@ -439,4 +443,4 @@
      (define-key rcirc-mode-map (kbd "C-j") 'rcirc-insert-prev-input)
      (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input)))
 
-(provide 'my-keybindings)
+(provide 'se-keybindings)

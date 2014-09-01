@@ -1,3 +1,3 @@
 ;; nothing here for now
 
-(provide 'my-macros)
+(provide 'se-macros)

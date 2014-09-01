@@ -4,7 +4,8 @@
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
-(defvar syl:packages
+
+(defvar se/packages
   '(
     ac-ispell
     ac-js2
@@ -129,21 +130,4 @@
     zenburn-theme
     ))
 
-;;; install missing packages
-(let ((not-installed (remove-if 'package-installed-p syl:packages)))
-  (if not-installed
-      (if (y-or-n-p (format "there are %d packages to be installed. install them? " (length not-installed)))
-          (progn (package-refresh-contents)
-                 (dolist (package syl:packages)
-                   (when (not (package-installed-p package))
-                     (package-install package)))))))
-
-;;; initialize packages
-(setq syl:package-init-dir (concat user-emacs-directory "init-package/"))
-(dolist (package (append (mapcar 'car package--builtins) package-activated-list))
-    (let* ((initfile (concat syl:package-init-dir (format "init-%s.el" package))))
-      (if (and (package-installed-p package)
-               (file-exists-p initfile))
-          (load initfile))))
-
-(provide 'packages)
+(provide 'se-packages)
