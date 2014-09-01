@@ -750,3 +750,5 @@ See [my-keybindings.el][keybindings] to explore for more key bindings.
 [edts]: https://github.com/tjarvstrand/edts
 [ess-R-object-popup]: https://github.com/myuhe/ess-R-object-popup.el
 [ess-R-data-view]: https://github.com/myuhe/ess-R-data-view.el
+[monokai-theme]: https://github.com/oneKelvinSmith/monokai-emacs
+[zenburn-theme]: https://github.com/bbatsov/zenburn-emacs
