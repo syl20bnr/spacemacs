@@ -65,10 +65,11 @@ keeping a "blazingly fast" boot time. Currently `Spacemacs` ships with more
 than 120 packages and its load time is approx. 2 seconds on my Macbook Air
 2014.
 
-- Slick integration with Vi modes, tries as much as possible to keep your
-fingers on the home row, no matter the mode you are in.
+- Slick integration with Evil states/Vi modes, tries as much as possible to
+keep your fingers on the home row, no matter the mode you are in.
 
-- Minimalistic UI 
+- Minimalistic UI, keep your available screen space for what matters: your
+text files.
 
 ## Screenshot
 
@@ -130,20 +131,21 @@ macro.
 
 ## How it works
 
-`Spacemacs` uses the `evil` mode to emulate Vim key bindings. It is a very
-complete emulation (the most complete I've seen yet).
+`Spacemacs` uses the [evil][evil] mode to emulate Vim key bindings. It is a
+very complete emulation (the most complete I've seen yet).
 
-`Spacemacs` heavily uses the `evil-leader` mode which brings the Vim leader key
-to the Emacs world.
+`Spacemacs` heavily uses the [evil-leader][evil-leader] mode which brings the
+Vim leader key to the Emacs world.
 
 This leader key is commonly set to `,` by Vim users, in `Spacemacs` the leader
 key is set on `SPC` (space bar, this is why the name `spacemacs`). This key is
 the most accessible key on a keyboard and it is pressed with the thumb which is
 a good choice to lower the risk of [RSI][RSI].
 
-So with `Spacemacs` there is no need to remap your keyboard modifiers to attempt to
-reduce the risk of RSI, every command can be executed very easily while you are
-in `normal` mode by pressing the `SPC` leader key, here are a few examples:
+So with `Spacemacs` there is no need to remap your keyboard modifiers to
+attempt to reduce the risk of RSI, every command can be executed very easily
+while you are in `normal` mode by pressing the `SPC` leader key, here are a
+few examples:
 
 - Save a buffer: `<SPC> f s`
 - Save all opened buffers: `<SPC> f S`
@@ -172,7 +174,7 @@ the above keychords issues.
 `Spacemacs` ships with the following evil plugins:
 
                  Mode                   |                          Description
-----------------------------------------|---------------------------------------------------------
+----------------------------------------|--------------------------------------
 [evil-leader][evil-leader]              | vim leader that bring a new layer of keys in normal mode
 [evil-little-word][evil-plugin01]       | port of [camelcasemotion.vim][vim-plugin01]
 [evil-operator-comment][evil-plugin01]  | comment/uncomment with `CC`
@@ -210,7 +212,7 @@ a new temporary windows at the bottom.
 The following `helm` modes are installed with `Spacemacs`:
 
 Mode                                    | Key Binding | Description
-----------------------------------------|-------------|---------------------------------------------------------
+----------------------------------------|-------------|------------------------
 [helm-swoop][hswoop]                    | `<SPC> h s` | search for occurrences within a file and edit the result
 [helm-css-scss][hcss]                   | `<SPC> h c` | for quick navigation in CSS
 [helm-c-yasnippet][hyas]                | `<SPC> a y` | select snippets
@@ -225,8 +227,8 @@ Mode                                    | Key Binding | Description
 
 Navigation is performed using the Vi key bindings `hjkl`.
 
-Key Binding |                              Description
-------------|----------------------------------------------------------------------------------
+Key Binding |                 Description
+------------|------------------------------------------------------------------
 `h`         | move cursor left
 `j`         | move cursor down
 `k`         | move cursor up
@@ -239,8 +241,8 @@ Key Binding |                              Description
 
 #### [ace-jump mode][ace-jump]
 
-Key Binding |                              Description
-------------|----------------------------------------------------------------------------------
+Key Binding |                 Description
+------------|------------------------------------------------------------------
 `,`         | initiate ace jump
 `<SPC> ,`   | go back to the previous location (before the jump)
 
@@ -253,8 +255,8 @@ remember the last selected directories and buffers, maybe helm can do this ?).
 
 Buffer manipulation commands (start with `b`):
 
-Key Binding   |                              Description
---------------|-----------------------------------------------------------------------
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
 `<SPC> b d`   | delete the current buffer (beware the associated file is also deleted)
 `<SPC> b k`   | kill the current buffer
 `<SPC> b K`   | kill all buffers except the current one
@@ -270,8 +272,8 @@ Key Binding   |                              Description
 
 Files manipulation commands (start with `f`):
 
-Key Binding   |                              Description
---------------|-----------------------------------------------------------------------
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
 `<SPC> f f`   | open a file using `ido`
 `<SPC> f i`   | open your `init.el` file
 `<SPC> f s`   | save a file
@@ -285,8 +287,8 @@ useful to jump to/open a known project.
 
 Bookmarks commands (start with `k`):
 
-Key Binding   |                              Description
---------------|-----------------------------------------------------------------------
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
 `<SPC> k d`   | delete a bookmark
 `<SPC> k g`   | go to a bookmark using `helm`
 `<SPC> k r`   | rename a bookmark
@@ -301,7 +303,7 @@ Every window has a number displayed at the start of the mode-line and can
 be quickly accessed using `<SPC> number`.
 
 Key Binding   |                    Description
---------------|---------------------------------------------------
+--------------|----------------------------------------------------------------
 `<SPC> 1`     | go to first window
 `<SPC> 2`     | go to window number 2
 `<SPC> 3`     | go to window number 3
@@ -315,8 +317,8 @@ Key Binding   |                    Description
 
 Windows manipulation commands (start with `w`):
 
-Key Binding   |                              Description
---------------|-----------------------------------------------------------------------
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
 `<SPC> w b`   | split a window horizontally
 `<SPC> w c`   | close a window
 `<SPC> w d`   | toggle window dedication (dedicated window cannot be used by a mode)
@@ -338,8 +340,8 @@ Key Binding   |                              Description
 
 Text related commands (start with `x`):
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> x +`       | increase text font size
 `<SPC> x -`       | decrease text font size
 `<SPC> x =`       | reset text font size
@@ -361,8 +363,8 @@ Text related commands (start with `x`):
 
 Spell checking commands start with `s`:
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> s c`       | list of corrections in a `helm` buffer
 `<SPC> s d`       | change dictionary language
 `<SPC> s n`       | go to the next spell check error
@@ -373,8 +375,8 @@ Spell checking commands start with `s`:
 Vi `Visual` modes are all supported by `evil`, `Spacemacs` adds another
 `Visual` mode via the [expand-region][expand-region] mode.
 
-Key Binding   |                              Description
---------------|-----------------------------------------------------------------------
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
 `<SPC> v`     | initiate expand-region mode then...
 `v`           | expand the region by one semantic unit
 `V`           | contract the region by one semantic unit
@@ -383,10 +385,11 @@ Key Binding   |                              Description
 
 ### Region narrowing
 
-The displayed text of a buffer can be narrowed with the commands (start with `n`):
+The displayed text of a buffer can be narrowed with the commands
+(start with `n`):
 
-Key Binding   |                              Description
---------------|-----------------------------------------------------------------------
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
 `<SPC> n f`   | narrow the buffer to the current function
 `<SPC> n p`   | narrow the buffer to the visible page
 `<SPC> n r`   | narrow the buffer to the selected text
@@ -397,8 +400,8 @@ Key Binding   |                              Description
 `Spacemacs` supports auto highlighting of the current word (provided by the
  [auto-highlight-symbol][auto-highlight] mode).
 
-Key Binding   |                              Description
---------------|-----------------------------------------------------------------------
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
 `<SPC> h e`   | edit all occurrences of the current word
 `<SPC> h n`   | go to next occurrence
 `<SPC> h p`   | go to previous occurrence
@@ -408,8 +411,8 @@ Key Binding   |                              Description
 
 By default, `Spacemacs` uses the theme [Solarized][solarized-theme].
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> c t`       | cycle between available themes
 `<SPC> h t`       | select a theme using a `helm` buffer
 
@@ -446,8 +449,8 @@ according to the current flycheck state:
 
 Some UI indicators can be toggled on and off (toggles start with `t`):
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> t 8`       | display a mark on the 80th column
 `<SPC> t f`       | toggle display of the fringe
 `<SPC> t n`       | show the line numbers (relative to current position)
@@ -463,7 +466,7 @@ The minor mode area can be toggled on and off with (default is off):
     <SPC> t m
 
    Lighter   |                              Mode
--------------|-----------------------------------------------------------------------
+-------------|-----------------------------------------------------------------
 Ⓐ            | [auto-complete][auto-complete] mode
 Ⓗ            | [auto-highlight-symbol][auto-highlight] mode
 Ⓒ            | [centered-cursor][centered-cursor] mode
@@ -482,8 +485,8 @@ ones.
 
 Line formatting commands start with `j`:
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> j j`       | auto-indent the line below the current line and jump to it
 `<SPC> j j`       | split the current line at point and auto-indent
 `<SPC> j k`       | join the current line with the next line
@@ -499,8 +502,8 @@ The checks are only performed at save time by default.
 
 Errors management commands (star with `f` for `flycheck`):
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> f c`       | clear all errors
 `<SPC> f l`       | display the `flycheck` list of errors/warnings
 `<SPC> f n`       | go to the next `flycheck` error
@@ -515,8 +518,8 @@ in the file tree.
 
 Projects management commands (start with `p`):
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> p b`       | switch to a buffer of the project 
 `<SPC> p C`       | invalidate the cache of `projectile`
 `<SPC> p d`       | open a `dired` buffer at the root of the project
@@ -538,8 +541,8 @@ the current `major mode`.
 
 `Spacemacs` add `hjkl` navigation to `helm` buffers:
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `CTRL+h`          | go to previous page
 `CTRL+j`          | go to previous item
 `CTRL+k`          | go to next item
@@ -549,8 +552,8 @@ the current `major mode`.
 
 `Spacemacs` uses [EDTS][edts] as an Erlang coding environment.
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> m d`       | show man page documentation
 `<SPC> m e`       | go to next issue
 `<SPC> m g`       | go to definition
@@ -562,8 +565,8 @@ the current `major mode`.
 
 #### Ledger
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> m a`       | add a transaction
 `<SPC> m d`       | delete current transaction
 
@@ -587,8 +590,8 @@ Press `K` instead of `k` to discard changes to an item.
 
 In `org`, [evil-org-mode][evil-org-mode] is activated.
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `gh`              | outline-up-heading
 `gj`              | org-forward-heading-same-level
 `gk`              | org-backward-heading-same-level
@@ -608,8 +611,8 @@ In `org`, [evil-org-mode][evil-org-mode] is activated.
 
 #### Perforce
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> p 4 a`     | add a file in depot
 `<SPC> p 4 d`     | delete a file in depot
 `<SPC> p 4 D`     | p4-describe
@@ -626,8 +629,8 @@ Start an iPython inferior REPL process with `<SPC> m i`.
 
 Send code to inferior process commands:
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> m b`       | send buffer and keep code buffer focused
 `<SPC> m B`       | send buffer and switch to REPL in insert mode
 `<SPC> m f`       | send function and keep code buffer focused
@@ -648,15 +651,15 @@ The root of the project is detected with a `.git` directory or a `setup.cfg` fil
 
 Test commands (start with `m t` or `m T`):
 
-    No Debug      |                              Description
-------------------|-----------------------------------------------------------------------
+    No Debug      |                 Description
+------------------|------------------------------------------------------------
 <SPC> m t a       | launch all tests of the project
 <SPC> m t f       | launch the current test under point
 <SPC> m t m       | launch all tests of the current module
 <SPC> m t s       | launch all tests of the current suite
 
-     Debug        |                              Description
-------------------|-----------------------------------------------------------------------
+     Debug        |                 Description
+------------------|------------------------------------------------------------
 <SPC> m T a       | launch all tests of the project in debug mode
 <SPC> m T f       | launch the current test under point in debug mode
 <SPC> m T m       | launch all tests of the current module in debug mode
@@ -664,8 +667,8 @@ Test commands (start with `m t` or `m T`):
 
 ##### Other Python commands
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> m d`       | open documentation in `firefox` using [pylookup][pylookup]
 `<SPC> m g`       | go to definition using [emacs-jedi][jedi]
 `<SPC> m p`       | add a breakpoint
@@ -682,8 +685,8 @@ Start an `R` inferior REPL process with `<SPC> m i`.
 
 Send code to inferior process commands:
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> m b`       | send buffer and keep code buffer focused
 `<SPC> m B`       | send buffer and switch to REPL in insert mode
 `<SPC> m f`       | send function and keep code buffer focused
@@ -699,16 +702,16 @@ Send code to inferior process commands:
 
 ##### Other R commands
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `<SPC> m p`       | object introspection popup [ess-R-object-popup][ess-R-object-popup]
 `<SPC> m v p`     | view data under point using [ess-R-data-view][ess-R-data-view] 
 `<SPC> m v t`     | view table using [ess-R-data-view][ess-R-data-view] 
 
 #### rcirc
 
-    Key Binding   |                              Description
-------------------|-----------------------------------------------------------------------
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
 `CTRL+j`          | next item in command history
 `CTRL+k`          | previous item in command history
 
