@@ -435,6 +435,13 @@ Visual            | Grey
 Emacs             | Red
 Motion            | Purple
 
+When [Flycheck][flycheck] minor mode is enabled, the mode line color changes
+according to the current flycheck state:
+
+![mode line with solarized dark error](https://raw.github.com/syl20bnr/flycheck-color-mode-line/master/doc/flycheck-color-mode-line-dark-e.png)
+![mode line with solarized dark warning](https://raw.github.com/syl20bnr/flycheck-color-mode-line/master/doc/flycheck-color-mode-line-dark-w.png)
+![mode line with solarized dark warning](https://raw.github.com/syl20bnr/flycheck-color-mode-line/master/doc/flycheck-color-mode-line-dark-i.png)
+
 #### Toggles
 
 Some UI indicators can be toggled on and off (toggles start with `t`):
