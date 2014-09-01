@@ -92,7 +92,8 @@ yet, I deeply recommend you to learn the basics as recommended in
 
 ## Install
 
-`Spacemacs` is only tested with `Emacs 24.3.1`.
+`Spacemacs` is tested with `Emacs 24.3.1` on `Ubuntu 14.04`, `Mac OS X 10.10`,
+`Windows 7`.
 
     cd ~
     mv .emacs.d .emacs.bak
