@@ -18,7 +18,7 @@
              :channels ("#emacs" "#nupic" "#python"))))
     (require 'rcirc-color)
     (require 'rcirc-reconnect
-             (concat user-extensions-directory "rcirc-reconnect/rcirc-reconnect.el"))
+             (concat spacemacs-extensions-directory "rcirc-reconnect/rcirc-reconnect.el"))
     ;; identify info are stored in a separate location, skip errors
     ;; if the feature cannot be found.
     (require 'pinit-rcirc nil 'noerror)))
