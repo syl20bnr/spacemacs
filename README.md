@@ -65,6 +65,11 @@ keeping a "blazingly fast" boot time. Currently `Spacemacs` ships with more
 than 120 packages and its load time is approx. 2 seconds on my Macbook Air
 2014.
 
+- Slick integration with Vi modes, tries as much as possible to keep your
+fingers on the home row, no matter the mode you are in.
+
+- Minimalistic UI 
+
 ## Screenshot
 
 ![screenshot](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs.png)
