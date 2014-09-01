@@ -396,7 +396,7 @@ Key Binding   |                              Description
 
 ### Color theme
 
-By default, `Spacemacs` uses the theme [Solarized theme][solarized-theme].
+By default, `Spacemacs` uses the theme [Solarized][solarized-theme].
 
     Key Binding   |                              Description
 ------------------|-----------------------------------------------------------------------
@@ -404,7 +404,7 @@ By default, `Spacemacs` uses the theme [Solarized theme][solarized-theme].
 `<SPC> h t`       | select a theme using a `helm` buffer
 
 Available themes (other than default Emacs themes):
-- [Solarized theme][solarized-theme]
+- [Solarized][solarized-theme]
 - [Monokai][monokai-theme]
 - [Zenburn][zenburn-theme]
 
