@@ -34,9 +34,6 @@
 [submodule "extensions/emoji-cheat-sheet"]
 	path = spacemacs/extensions/emoji-cheat-sheet
 	url = http://github.com/ShingoFukuyama/emacs-emoji-cheat-sheet
-[submodule "extensions/evil-org-mode"]
-	path = spacemacs/extensions/evil-org-mode/
-	url = http://github.com/syl20bnr/evil-org-mode
 [submodule "spacemacs/extensions/evil-org-mode"]
 	path = spacemacs/extensions/evil-org-mode
 	url = http://github.com/syl20bnr/evil-org-mode
