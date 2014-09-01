@@ -26,3 +26,4 @@ crown/
 *.stackdump
 bookmarks
 /.my-keybindings.el.swp
+/.DS_Store
