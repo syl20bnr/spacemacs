@@ -34,15 +34,14 @@ _The best editor is not *Emacs* nor *Vim*, the best editor is
         - [and more...](#and-more)
 - [TODO list](#todo-list)
 
-## Goal
+## Goals
 
-These configuration files try to bring *the power of Vim modal editing* to
+- The main goal of `Spacemacs` is to bring *the power of Vim modal editing* to
 *the powerful Emacs editing platform*.
 
-To achieve this, `Spacemacs` uses two modes heavily:
-- [evil mode][evil]
-- [evil-leader mode][evil-leader]
-
+- The ultimate goal for `Spacemacs` is to pack as much stuff as possible while
+keeping a "blazingly fast" boot time. Currently `Spacemacs` ships with more
+than 120 packages and its load time is approx. 2 seconds.
 
 ## Who can benefit from this ?
 
@@ -189,7 +188,9 @@ Mode                                    | Key Binding | Description
 [helm-descbinds][hdescbinds]            | `<SPC> ?`   | show key bindings
 [cofi/helm-flyspell-correct][hflyspell] | `<SPC> s c` | choose a corrected word
 
-### Navigation (point/cursor)
+### Navigation
+
+#### Point/Cursor
 
 Navigation is performed using the Vi key bindings `hjkl`.
 
@@ -212,7 +213,7 @@ Key Binding |                              Description
 `,`         | initiate ace jump
 `<SPC> ,`   | go back to the previous location (before the jump)
 
-### Navigation (buffers/files)
+#### Buffers and Files
 
 `Spacemacs` uses `ido` for opening files since `ido` way to navigate
 the file system is better than `helm` in my opinion (especially because `ido` can
@@ -245,6 +246,20 @@ Key Binding   |                              Description
 `<SPC> f s`   | save a file
 `<SPC> f S`   | save all files
 `<SPC> f y`   | show current file absolute path in the mini buffer
+
+#### Bookmarks
+
+Bookmarks can be set anywhere in a file. Bookmarks are persistent. They are very
+useful to jump to/open a known project.
+
+Bookmarks commands (start with `k`):
+
+Key Binding   |                              Description
+--------------|-----------------------------------------------------------------------
+`<SPC> k d`   | delete a bookmark
+`<SPC> k g`   | go to a bookmark using `helm`
+`<SPC> k r`   | rename a bookmark
+`<SPC> k s`   | save a bookmark
 
 ### Window manipulation
 
@@ -288,7 +303,7 @@ Key Binding   |                              Description
 `<SPC> w v`   | split a window vertically
 `<SPC> w w`   | cycle and focus between windows
 
-### Additional text manipulation commands
+### Text manipulation commands
 
 Text related commands (start with `x`):
 
@@ -313,167 +328,337 @@ Text related commands (start with `x`):
 
 ### Spell checking
 
-Spell checking commands start with `s`.
+Spell checking commands start with `s`:
 
-Correct word at point with `helm`:
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> s c`       | list of corrections in a `helm` buffer
+`<SPC> s d`       | change dictionary language
+`<SPC> s n`       | go to the next spell check error
 
-    <SPC> s c
 
-Go to the next spell check error:
+### Region selection
 
-    <SPC> s n
+Vi `Visual` modes are all supported by `evil`, `Spacemacs` adds another
+`Visual` mode via the [expand-region mode][expand-region].
 
-Change dictionary language:
+Key Binding   |                              Description
+--------------|-----------------------------------------------------------------------
+`<SPC> v`     | initiate expand-region mode then...
+`v`           | expand the region by one semantic unit
+`V`           | contract the region by one semantic unit
+`r`           | reset the region to initial selection
 
-    <SPC> s d
+### Region narrowing
+
+The displayed text of a buffer can be narrowed with the commands (start with `n`):
+
+Key Binding   |                              Description
+--------------|-----------------------------------------------------------------------
+`<SPC> n f`   | narrow the buffer to the current function
+`<SPC> n p`   | narrow the buffer to the visible page
+`<SPC> n r`   | narrow the buffer to the selected text
+`<SPC> n w`   | widen, i.e show the whole buffer again
+
+### Auto highlight
+
+`Spacemacs` supports auto highlighting of the current word (provided by the
+ [auto-highlight-symbol][auto-highlight] mode).
+
+Key Binding   |                              Description
+--------------|-----------------------------------------------------------------------
+`<SPC> h e`   | edit all occurrences of the current word
+`<SPC> h n`   | go to next occurrence
+`<SPC> h p`   | go to previous occurrence
+`<SPC> t h`   | toggle the auto highlighting
 
 ### Color theme
 
-`Spacemacs` uses this [Solarized theme][solarized-theme].
-It is possible to cycle between the light and dark themes with.
+By default, `Spacemacs` uses the theme [Solarized theme][solarized-theme].
 
-    <SPC> c t
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> c t`       | cycle between available themes
+`<SPC> h t`       | select a theme using a `helm` buffer
 
 ### UI elements
 
 The mode line is a [powerline][powerline] customized to show the window
-number and to colorize the current editing mode.
+number and the colorized Vim current mode.
 
-Some UI indicators can be toggled on and off:
+Some UI indicators can be toggled on and off (toggles start with `t`):
 
-Fill column indicator for 80 columns wide buffers:
-
-    <SPC> t 8
-
-I suggest to not always display it since it slow down Emacs.
-
-Toggle line numbers:
-
-    <SPC> t n
-
-Idem, I suggest to display this only if required for performance reason.
-
-Toggle fringe mode:
-
-    <SPC> t f
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> t 8`       | display a mark on the 80th column
+`<SPC> t f`       | toggle display of the fringe
+`<SPC> t n`       | show the line numbers (relative to current position)
+`<SPC> t N`       | show the absolute line numbers
 
 ### Minor Modes
 
 `Spacemacs` uses [diminish][diminish] mode to reduce the size of minor mode
 indicators:
 
-- Ⓐ -> [auto-complete][auto-complete] mode
-- Ⓗ -> [auto-highlight-symbol][auto-highlight] mode
-- Ⓒ -> [centered-cursor][centered-cursor] mode
-- eⓅ -> [e-project][e-project] mode
-- Ⓟ -> [projectile][projectile] mode
-- Ⓕ -> flymake mode
-- Ⓢ -> flyspell mode
-- (Ⓢ) -> [smartparens][sp] mode
-- (Ⓟ) -> paredit mode
-- Ⓨ -> [yasnippet][yasnippet] mode
-
-The minor mode area can be toggled on and off with:
+The minor mode area can be toggled on and off with (default is off):
 
     <SPC> t m
 
-Note that in terminal the regular indicators are used instead of the utf-8
+   Lighter   |                              Mode
+-------------|-----------------------------------------------------------------------
+Ⓐ            | [auto-complete][auto-complete] mode
+Ⓗ            | [auto-highlight-symbol][auto-highlight] mode
+Ⓒ            | [centered-cursor][centered-cursor] mode
+eⓅ           | [e-project][e-project] mode
+Ⓟ            | [projectile][projectile] mode
+Ⓕ            | flymake mode
+Ⓢ            | flyspell mode
+(Ⓢ)          | [smartparens][sp] mode
+(Ⓟ)          | paredit mode
+Ⓨ            | [yasnippet][yasnippet] mode
+
+**Note:** in terminal the regular indicators are used instead of the utf-8
 ones.
 
-### Formatting
+### Line formatting
 
-`Spacemacs` leverage `paredit` in all major modes by using [smartparens][sp] mode.
+Line formatting commands start with `j`:
 
-To join the current line with the next line:
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> j j`       | auto-indent the line below the current line and jump to it
+`<SPC> j j`       | split the current line at point and auto-indent
+`<SPC> j k`       | join the current line with the next line
+`<SPC> l CTRL+j`  | split a quoted string
 
-    <SPC> j k
-
-To split the current line at point and auto-indent:
-
-    <SPC> j j
-
-To auto-indent the line below the current line and jump to it:
-
-    <SPC> j i
-
-`<SPC> j k`, `<SPC> j j` and `<SPC> j i` used together are very powerful.
-
-To split a quoted string (ie. `"Hello Emacs Hello Vim"` to `"Hello Emacs"` and
-`"Hello Vim"`, but nobody wants to do that!):
-
-    <SPC> l CTRL+j
-
-Ahah a modifier! It should be the only one.
+`<SPC> j k`, `<SPC> j j` and `<SPC> j i` used together are very powerful to quickly
+reformat the code.
 
 ### Errors handling
 
 `Spacemacs` uses [Flycheck][flycheck] to gives error feedback on the fly.
 The checks are only performed at save time by default.
 
-To go to the next/previous flycheck error:
+Errors management commands (star with `f` for `flycheck`):
 
-    <SPC> f n
-    <SPC> f p
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> f c`       | clear all errors
+`<SPC> f l`       | display the `flycheck` list of errors/warnings
+`<SPC> f n`       | go to the next `flycheck` error
+`<SPC> f p`       | go to the previous flycheck error
 
-To display the list of errors/warnings:
+### Project management
 
-    <SPC> f l
+Projects in `Spacemacs` are managed with [projectile][projectile].
+So projects are defined implicitly, for instance the root of a project
+is found when a `.git` repository or `.projectile` file is encountered
+in the file tree.
 
-Could be great to turn this command into a toggle.
-By the way `l` is for `lisp`.
+Projects management commands (start with `p`):
 
-### Various
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> p b`       | switch to a buffer of the project 
+`<SPC> p C`       | invalidate the cache of `projectile`
+`<SPC> p d`       | open a `dired` buffer at the root of the project
+`<SPC> p f`       | open a file of the project using `helm`
+`<SPC> p F`       | find a file if the project using `ido`
+`<SPC> p k`       | kill all the buffers of the project
+`<SPC> p g`       | grep search in the project
+`<SPC> p r`       | replace a string in the files of the project
 
-#### [expand-region][expand-region] mode
+### Modes
 
-initiate expand-region with:
+`Spacemacs` tries to add more natural Vi key bindings to some modes or
+simply add new leader key bindings.
 
-    <SPC> v
+Leader key bindings start with `m` because they are bindings related to
+the current `major mode`.
 
-to expand region:
+#### Helm
 
-    v
+`Spacemacs` add `hjkl` navigation to `helm` buffers:
 
-to contract:
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`CTRL+h`          | go to previous page
+`CTRL+j`          | go to previous item
+`CTRL+k`          | go to next item
+`CTRL+l`          | go to next page
 
-    V
+#### Erlang
 
-to reset:
+`Spacemacs` uses [EDTS][edts] as an Erlang coding environment.
 
-    r
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> m d`       | show man page documentation
+`<SPC> m e`       | go to next issue
+`<SPC> m g`       | go to definition
+`<SPC> m G`       | find a module in the current project
+`<SPC> m h`       | open the header file under point
+`<SPC> m l`       | find a function in the current module
+`<SPC> m m`       | go to the macro definition under point
+`<SPC> m r`       | go to the record definition under point
 
-#### narrow region
+#### Ledger
 
-narrow to a region:
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> m a`       | add a transaction
+`<SPC> m d`       | delete current transaction
 
-    <SPC> n r
+#### Lisp
 
-widen a region:
+**TODO**
 
-    <SPC> n w
+#### Magit
 
+`Spacemacs` add `hjkl` navigation support for the following magit modes:
+- branch manager
+- commit
+- log
+- process
+- status
 
-#### [auto-highlight-symbol][auto-highlight] mode
+**Note:** in `status` mode only `j` and `k` are remapped (to go down and up).
+Press `K` instead of `k` to discard changes to an item.
 
-toggle the mode:
+#### Org
 
-    <SPC> t h
+In `org`, [evil-org-mode][evil-org-mode] is activated.
 
-edit all highlighted symbols:
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`gh`              | outline-up-heading
+`gj`              | org-forward-heading-same-level
+`gk`              | org-backward-heading-same-level
+`gl`              | outline-next-visible-heading
+`t`               | org-todo
+`T`               | org-insert-todo-heading nil
+`H`               | org-beginning-of-line
+`L`               | org-end-of-line
+`;t`              | org-show-todo-tree
+`o`               | always-insert-item
+`O`               | org-insert-heading
+`$`               | org-end-of-line
+`^`               | org-beginning-of-line
+`<`               | org-metaleft
+`>`               | org-metaright
+`;a`              | org-agenda`
 
-    <SPC> h e
+#### Perforce
 
-#### and more...
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> p 4 a`     | add a file in depot
+`<SPC> p 4 d`     | delete a file in depot
+`<SPC> p 4 D`     | p4-describe
+`<SPC> p 4 e`     | checkout a file
+`<SPC> p 4 r`     | rename a file
+`<SPC> p 4 R`     | revert a file
+`<SPC> p 4 S`     | submit CL
 
-There are sets of key bindings for different major modes I'm using, the
-convention is to start the major mode key sequences by `M`.
+#### Python
+
+##### Inferior shell process
+
+Start an iPython inferior shell process with `<SPC> m i`.
+
+Send code to inferior process commands:
+
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> m b`       | send buffer and keep code buffer focused
+`<SPC> m B`       | send buffer and switch to shell in insert mode
+`<SPC> m f`       | send function and keep code buffer focused
+`<SPC> m F`       | send function and switch to shell in insert mode
+`<SPC> m r`       | send region and keep code buffer focused
+`<SPC> m R`       | send region and switch to shell in insert mode
+`CTRL+j`          | next item in REPL history
+`CTRL+k`          | previous item in REPL history
+
+##### Testing in Python
+
+`Spacemacs` uses [nose][nose] as a test runner. An improved version of
+[nose.el][nose.el] is shipped with `Spacemacs`, this version adds:
+- windows support
+- test suite support
+
+The root of the project is detected with a `.git` directory or a `setup.cfg` file.
+
+Test commands (start with `m t` or `m T`):
+
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+<SPC> m t a       | launch all tests of the project
+<SPC> m t f       | launch the current test under point
+<SPC> m t m       | launch all tests of the current module
+<SPC> m t s       | launch all tests of the current suite
+     Debug        |
+------------------+-----------------------------------------------------------------------
+<SPC> m T a       | launch all tests of the project in debug mode
+<SPC> m T f       | launch the current test under point in debug mode
+<SPC> m T m       | launch all tests of the current module in debug mode
+<SPC> m T s       | launch all tests of the current suite in debug mode
+
+##### Other Python commands
+
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> m d`       | open documentation in `firefox` using [pylookup][pylookup]
+`<SPC> m g`       | go to definition using [emacs-jedi][jedi]
+`<SPC> m p`       | add a breakpoint
+
+#### R (ESS)
+
+**Important**:
+In order to speed up the boot time of `Spacemacs`, `ESS` must be loaded
+manually via the key binding `<SPC> l e`.
+
+##### Inferior shell process
+
+Start an `R` inferior shell process with `<SPC> m i`.
+
+Send code to inferior process commands:
+
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> m b`       | send buffer and keep code buffer focused
+`<SPC> m B`       | send buffer and switch to shell in insert mode
+`<SPC> m f`       | send function and keep code buffer focused
+`<SPC> m F`       | send function and switch to shell in insert mode
+`<SPC> m l`       | send line and keep code buffer focused
+`<SPC> m L`       | send line and switch to shell in insert mode
+`<SPC> m r`       | send region and keep code buffer focused
+`<SPC> m R`       | send region and switch to shell in insert mode
+`<SPC> m s`       | send region or line and step (debug)
+`<SPC> m S`       | send function or paragraph and step (debug)
+`CTRL+j`          | next item in REPL history
+`CTRL+k`          | previous item in REPL history
+
+##### Other R commands
+
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`<SPC> m p`       | object introspection popup [ess-R-object-popup][ess-R-object-popup]
+`<SPC> m v p`     | view data under point using [ess-R-data-view][ess-R-data-view] 
+`<SPC> m v t`     | view table using [ess-R-data-view][ess-R-data-view] 
+
+#### rcirc
+
+    Key Binding   |                              Description
+------------------|-----------------------------------------------------------------------
+`CTRL+j`          | next item in command history
+`CTRL+k`          | previous item in command history
+
+### And more...
 
 See [my-keybindings.el][keybindings] to explore for more key bindings.
 
 ## TODO list
 
-- Add a way to easily share/activate/deactivate sets of key bindings for major
-or minor modes key bindings (maybe by leveraging [use-package][use-package] ?).
 - Add support for [multiple-cursors][multiple-cursors] mode.
 
 [evil]: https://gitorious.org/evil/pages/Home
@@ -516,4 +701,11 @@ or minor modes key bindings (maybe by leveraging [use-package][use-package] ?).
 [vim-plugin02]: http://www.vim.org/scripts/script.php?script_id=39
 [vim-plugin03]: http://www.vim.org/scripts/script.php?script_id=1697
 [vim-plugin04]: https://github.com/tommcdo/vim-exchange
-
+[evil-org-mode]: https://github.com/edwtjo/evil-org-mode
+[nose]: https://github.com/nose-devs/nose/
+[nose.el]: https://github.com/syl20bnr/nose.el
+[pylookup]: https://github.com/tsgates/pylookup
+[jedi]: https://github.com/tkf/emacs-jedi
+[edts]: https://github.com/tjarvstrand/edts
+[ess-R-object-popup]: https://github.com/myuhe/ess-R-object-popup.el
+[ess-R-data-view]: https://github.com/myuhe/ess-R-data-view.el
