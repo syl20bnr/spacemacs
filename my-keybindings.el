@@ -385,6 +385,11 @@
           (evil-insert-state))
   "mf"  'python-shell-send-defun
   "mg"  'jedi:goto-definition
+  "mi"  (lambda ()
+          " Switch to shell in insert mode."
+          (interactive)
+          (python-shell-switch-to-shell)
+          (evil-insert-state))
   "mp"  'python-add-breakpoint
   "mR"  (lambda (start end)
           " Send region content to shell and switch to it in insert mode."
@@ -393,11 +398,6 @@
           (python-shell-switch-to-shell)
           (evil-insert-state))
   "mr"  'python-shell-send-region
-  "ms"  (lambda ()
-          " Switch to shell in insert mode."
-          (interactive)
-          (python-shell-switch-to-shell)
-          (evil-insert-state))
   "mTf" 'nosetests-pdb-one
   "mtf" 'nosetests-one
   "mTa" 'nosetests-pdb-all
