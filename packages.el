@@ -9,8 +9,6 @@
     ac-ispell
     ac-js2
     ace-jump-mode
-    ample-theme
-    anti-zenburn-theme
     auto-complete
     auto-complete-clang
     auto-dictionary
