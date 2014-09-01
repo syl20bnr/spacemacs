@@ -200,10 +200,6 @@
 (evil-leader/set-key "le" 'load-ess-on-demand)
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "cc" 'compile)
-;; match it  ------------------------------------------------------------------
-(evil-leader/set-key
-  "Md" 'evilmi-delete-items
-  "Mi" 'evilmi-select-items)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key
   "nr" 'narrow-to-region
