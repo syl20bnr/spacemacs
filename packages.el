@@ -14,6 +14,7 @@
     auto-complete
     auto-complete-clang
     auto-dictionary
+    auto-highlight-symbol
     bookmark
     buffer-move
     cc-mode
@@ -26,6 +27,7 @@
     deferred
     diminish
     dired+
+    edts
     elisp-slime-nav
     elixir-mix
     elixir-mode

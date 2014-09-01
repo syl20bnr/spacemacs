@@ -1,9 +1,7 @@
 (defvar syl:post-extensions
   '(
-    auto-highlight-symbol-mode
     centered-cursor
     dos
-    edts
     emoji-cheat-sheet
     evil-org-mode
     evil-plugins

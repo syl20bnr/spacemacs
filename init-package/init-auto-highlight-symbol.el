@@ -6,7 +6,6 @@
                                  erlang-mode-hook
                                  org-mode-hook
                                  ))
-
   :config
   (custom-set-variables
    '(ahs-case-fold-search nil)
