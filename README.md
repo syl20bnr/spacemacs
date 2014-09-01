@@ -413,11 +413,11 @@ Available themes (other than default Emacs themes):
 #### Mode-line
 
 The mode line is a [powerline][powerline] customized to show the window
-number and the colorized Vim current mode.
+number and the colorized Evil current state.
 
 The color codes for modes are:
 
-      Mode        |       Color
+   Evil State     |       Color
 ------------------|------------------
 Normal            | Orange
 Insert            | Green
