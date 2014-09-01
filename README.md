@@ -631,14 +631,15 @@ The root of the project is detected with a `.git` directory or a `setup.cfg` fil
 
 Test commands (start with `m t` or `m T`):
 
-    Key Binding   |                              Description
+    No Debug      |                              Description
 ------------------|-----------------------------------------------------------------------
 <SPC> m t a       | launch all tests of the project
 <SPC> m t f       | launch the current test under point
 <SPC> m t m       | launch all tests of the current module
 <SPC> m t s       | launch all tests of the current suite
-     Debug        |
-------------------+-----------------------------------------------------------------------
+
+     Debug        |                              Description
+------------------|-----------------------------------------------------------------------
 <SPC> m T a       | launch all tests of the project in debug mode
 <SPC> m T f       | launch the current test under point in debug mode
 <SPC> m T m       | launch all tests of the current module in debug mode
