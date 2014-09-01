@@ -29,6 +29,8 @@ _The best editor is not *Emacs* nor *Vim*, the best editor is
 	- [Auto highlight](#user-content-auto-highlight)
 	- [Color theme](#user-content-color-theme)
 	- [UI elements](#user-content-ui-elements)
+        - [Mode-line](#user-content-mode-line)
+        - [Toggles](#user-content-toggles)
 	- [Minor Modes](#user-content-minor-modes)
 	- [Line formatting](#user-content-line-formatting)
 	- [Errors handling](#user-content-errors-handling)
@@ -405,10 +407,25 @@ Available themes (other than default Emacs themes):
 - [Solarized theme][solarized-theme]
 - [Monokai][monokai-theme]
 - [Zenburn][zenburn-theme]
+
 ### UI elements
+
+#### Mode-line
 
 The mode line is a [powerline][powerline] customized to show the window
 number and the colorized Vim current mode.
+
+The color codes for modes are:
+
+      Mode        |       Color
+------------------|------------------
+Normal            | Orange
+Insert            | Green
+Visual            | Grey
+Emacs             | Red
+Motion            | Purple
+
+#### Toggles
 
 Some UI indicators can be toggled on and off (toggles start with `t`):
 
