@@ -101,8 +101,6 @@ yet, I deeply recommend you to learn the basics as recommended in
     cd ~
     mv .emacs.d .emacs.bak
     git clone http://github.com/syl20bnr/spacemacs .emacs.d
-    cd .emacs.d
-    mkdir .desktop
 
 Get the sub-modules:
 
