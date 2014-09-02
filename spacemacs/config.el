@@ -86,6 +86,9 @@
 ;;           (lambda ()
 ;;             (set-window-margins (car (get-buffer-window-list (current-buffer) nil t)) 0 0)))
 
+;; Set first theme of the list
+(cycle-my-theme)
+
 ;; ---------------------------------------------------------------------------
 ;; Session
 ;; ---------------------------------------------------------------------------
@@ -214,4 +217,3 @@
   (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function))
 (add-hook 'server-visit-hook 'server-remove-kill-buffer-hook)
 
-(provide 'se-config)

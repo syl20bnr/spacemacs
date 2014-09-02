@@ -442,5 +442,3 @@
   '(progn
      (define-key rcirc-mode-map (kbd "C-j") 'rcirc-insert-prev-input)
      (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input)))
-
-(provide 'se-keybindings)

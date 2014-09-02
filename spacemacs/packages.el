@@ -5,7 +5,7 @@
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
-(defvar se/packages
+(defvar spacemacs-packages
   '(
     ac-ispell
     ac-js2
@@ -129,5 +129,3 @@
     yasnippet
     zenburn-theme
     ))
-
-(provide 'se-packages)

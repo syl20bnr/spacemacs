@@ -3,139 +3,90 @@
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
-;; ---------------------------------------------------------------------------
-;; Locations
-;; ---------------------------------------------------------------------------
-(defvar user-home-directory
+(defconst user-home-directory
   (expand-file-name (concat user-emacs-directory "../"))
-  "Emacs home directory.")
-
+  "User home directory (~/).")
+(defconst contrib-config-directory
+  (expand-file-name (concat user-emacs-directory "contrib/"))
+  "Contribution layers base directory.")
 (defvar user-dropbox-directory
   (expand-file-name (concat user-home-directory "Dropbox/"))
   "Dropbox directory.")
-
-(defvar user-org-directory
-  (expand-file-name (concat user-emacs-directory "my-org/"))
-  "Org files directory.")
-
-(add-to-list 'load-path user-emacs-directory)
-
-;; Spacemaces configs
-
-(defvar spacemacs-config-directory
-  (expand-file-name (concat user-emacs-directory "spacemacs/"))
-  "Spacemacs configuration scripts.")
-
-(defvar spacemacs-extensions-directory
-  (expand-file-name (concat spacemacs-config-directory "extensions/"))
-  "Spacemacs extensions.")
-
-(defvar spacemacs-init-extension-directory
-  (expand-file-name (concat spacemacs-config-directory "init-extension/"))
-  "Spacemacs Extensions initialization.")
-
-(defvar spacemacs-init-package-directory
-  (expand-file-name (concat spacemacs-config-directory "init-package/"))
-  "Spacemacs Packages initialization.")
-
-(add-to-list 'load-path spacemacs-config-directory)
-
-;; Contributions configs
-
-(defvar contrib-config-directory
-  (expand-file-name (concat user-emacs-directory "contrib/"))
-  "Contributions configuration scripts.")
-
-(defvar contrib-extensions-directory
-  (expand-file-name (concat contrib-config-directory "extensions/"))
-  "Contributions extensions.")
-
-(defvar contrib-init-extension-directory
-  (expand-file-name (concat contrib-config-directory "init-extension/"))
-  "Contributions Extensions initialization.")
-
-(defvar contrib-init-package-directory
-  (expand-file-name (concat contrib-config-directory "init-package/"))
-  "Contributions Package initialization.")
-
-(add-to-list 'load-path contrib-config-directory)
-
-;; Host configs
-
-(defvar host-directory
-  (expand-file-name (concat user-emacs-directory "host/" system-name "/"))
-  "Host specific configurations")
-
 ;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
 (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
 
+;; User configuration file for Spacemacs: ~/.spacemacs 
+(load (concat user-home-directory ".spacemacs"))
+(dotspacemacs/init)
+
 ;; ---------------------------------------------------------------------------
-;; Setup
+;; Init Macros
 ;; ---------------------------------------------------------------------------
 
-;; Spacemacs setup
+(defmacro spacemacs/declare-layer (name &optional contrib)
+  "Declare a layer with name NAME. If CONTRIB is non nil then the layer is a
+ contribution layer."
+  (let ((layer-dir-sym (intern (concat name "-config-directory")))
+        (base-dir (if contrib contrib-config-directory
+                    user-emacs-directory)))
+    `(progn 
+       (defconst ,layer-dir-sym
+         (expand-file-name (concat ,base-dir (concat ,name "/")))
+         ,(concat name " layer directory."))
+       (defconst ,(intern (concat name "-extensions-directory"))
+         (concat ,layer-dir-sym "extensions/")
+         ,(concat name " layer extensions directory."))
+       (defconst ,(intern (concat name "-init-extension-directory"))
+         (concat ,layer-dir-sym "init-extension/")
+         ,(concat name " layer extension initialization directory."))
+       (defconst ,(intern (concat name "-init-package-directory"))
+         (concat ,layer-dir-sym "init-package/")
+         ,(concat name " layer package initialization directory."))
+       (defconst ,(intern (concat name "-contribp")) ,contrib))))
 
-(require 'se-funcs)
-(require 'se-macros)
-(require 'se-extensions)
-(require 'se-packages)
-;; install and initialize extensions and packages
-;; pre extensions
-(se/load-and-initialize-extensions se/pre-extensions
-                                   spacemacs-extensions-directory
-                                   spacemacs-init-extension-directory)
-;; packages
-(se/install-missing-packages se/packages)
-(se/initialize-packages spacemacs-init-package-directory)
-;; post extensions
-(se/load-and-initialize-extensions se/post-extensions
-                                   spacemacs-extensions-directory
-                                   spacemacs-init-extension-directory)
-(require 'se-keybindings)
-;; Emacs configuration, the following configurations files are loaded
-;; in this order:
-;; - spacemacs configuration (emacs_path/spacemacs/se-config.el)
-;; - host specific configuration (emacs_path/host/<hostname>/host-config.el)
-;; - user specific configuration (~/.spacemacs)
-(require 'se-config)
+(defmacro spacemacs/initialize-layer (name)
+  "Initialize the given Spacemacs configuration layer. NAME is the
+ configuration layer name."
+  (declare (indent 1))
+  (let ((base-dir (intern (concat name "-config-directory"))))
+    `(progn
+       (load (concat ,base-dir "funcs.el"))
+       (load (concat ,base-dir "macros.el"))
+       (load (concat ,base-dir "extensions.el"))
+       (load (concat ,base-dir "packages.el"))
+       ;; pre-extensions
+       (spacemacs/load-and-initialize-extensions
+        ,(intern (concat name "-pre-extensions"))
+        ,(intern (concat name "-extensions-directory"))
+        ,(intern (concat name "-init-extension-directory")))
+       ;; packages
+       (spacemacs/install-missing-packages
+        ,(intern (concat name "-packages")))
+       (spacemacs/initialize-packages
+        ,(intern (concat name "-init-package-directory")))
+       ;; post extensions
+       (spacemacs/load-and-initialize-extensions
+        ,(intern (concat name "-post-extensions"))
+        ,(intern (concat name "-extensions-directory"))
+        ,(intern (concat name "-init-extension-directory")))
+       ;; key bindings
+       (load (concat ,base-dir "keybindings.el"))
+       ;; emacs config
+       (load (concat ,base-dir "config.el")))))
 
-;; Contributions setup
+;; ---------------------------------------------------------------------------
+;; Configuration Layers
+;; ---------------------------------------------------------------------------
+(spacemacs/declare-layer "spacemacs")
+(spacemacs/initialize-layer "spacemacs")
 
-(require 'co-funcs nil 'noerror)
-(require 'co-macros nil 'noerror)
-(require 'co-extensions nil 'noerror)
-(require 'co-packages nil 'noerror)
-;; install and initialize extensions and packages
-;; pre extensions
-(se/load-and-initialize-extensions co/pre-extensions
-                                   contrib-extensions-directory
-                                   contrib-init-extension-directory)
-;; packages
-(se/install-missing-packages co/packages)
-(se/initialize-packages contrib-init-package-directory)
-;; post extensions
-(se/load-and-initialize-extensions co/post-extensions
-                                   contrib-extensions-directory
-                                   contrib-init-extension-directory)
+;; for now hardcoded contrib config layers
+(spacemacs/declare-layer "syl20bnr" t)
+(spacemacs/initialize-layer "syl20bnr")
 
-;; User setup
-
-;; load ~/.spacemacs file
-;; store your personnal configuration in this file
-;; you can override previous settings here
-(require 'my-config (concat user-home-directory ".spacemacs"))
-
-;; Host setup
-
-;; host specific configuration in emacs_path/host/<hostname>
-(defun load-config (directory)
-  (progn (when (file-exists-p directory)
-           (dolist (l (directory-files directory nil "^[^#].*el$"))
-             (load (concat directory l))))))
-(load-config host-directory)
-
-;; Set first theme of the list
-(cycle-my-theme)
+;; Last configuration decisions are given to the user who can defined them 
+;; in ~/.spacemacs
+(dotspacemacs/config)
 
 ;; ---------------------------------------------------------------------------
 ;; Post initialization

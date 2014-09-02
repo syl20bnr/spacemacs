@@ -1,7 +1,7 @@
 ;; Extensions are in emacs_paths/extensions
 
 ;; Pre extensions are loaded *before* the packages
-(defvar se/pre-extensions
+(defvar spacemacs-pre-extensions
   '(
     use-package
 ;    revive
@@ -9,7 +9,7 @@
     ))
 
 ;; Pre extensions are loaded *after* the packages
-(defvar se/post-extensions
+(defvar spacemacs-post-extensions
   '(
     centered-cursor
     dos
@@ -22,5 +22,3 @@
     pylookup
     solarized-theme
     ))
-
-(provide 'se-extensions)

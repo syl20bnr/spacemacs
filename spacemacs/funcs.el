@@ -1,4 +1,4 @@
-(defun se/install-missing-packages (pkg-list)
+(defun spacemacs/install-missing-packages (pkg-list)
   "Install the missing package from given PKG-LIST"
   (interactive)
   (let ((not-installed (remove-if 'package-installed-p pkg-list)))
@@ -10,7 +10,7 @@
                      (when (not (package-installed-p package))
                        (package-install package))))))))
 
-(defun se/initialize-packages (init-dir)
+(defun spacemacs/initialize-packages (init-dir)
   "Load init-xxx for each xxx installed package"
   (interactive)
   (dolist (package (append (mapcar 'car package--builtins) package-activated-list))
@@ -19,7 +19,7 @@
                (file-exists-p initfile))
           (load initfile)))))
 
-(defun se/load-and-initialize-extensions (ext-list ext-dir init-dir)
+(defun spacemacs/load-and-initialize-extensions (ext-list ext-dir init-dir)
   "Load init-xxx for each xxx extensions in EXT-LIST"
   (dolist (ext ext-list)
     (add-to-list 'load-path (format "%s%s/" ext-dir ext))
