@@ -1,4 +1,4 @@
-# Spacemacs
+# Spacemacs Starter Kit
 
 _The best editor is not *Emacs* nor *Vim*, the best editor is
 *Emacs+Vim* !_
