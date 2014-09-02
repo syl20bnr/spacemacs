@@ -1,0 +1,2 @@
+(defun dotspacemacs/init ())
+(defun dotspacemacs/config ())

@@ -108,6 +108,11 @@ Get the sub-modules:
     git submodule init
     git submodule update
 
+Copy .spacemacs template:
+
+    cd ~/emacs.d/spacemacs
+    cp .spacemacs.template ~/.spacemacs
+
 ## Packages and Extensions Organization
 
 Modes/libraries are separated into two categories:
@@ -415,10 +420,10 @@ By default, `Spacemacs` uses the theme [Solarized][solarized-theme].
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> c t`       | cycle between available themes
+`<SPC> c t`       | cycle between `Spacemacs` themes
 `<SPC> h t`       | select a theme using a `helm` buffer
 
-Available themes (other than default Emacs themes):
+`Spacemacs` available themes:
 - [Solarized][solarized-theme]
 - [Monokai][monokai-theme]
 - [Zenburn][zenburn-theme]
