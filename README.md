@@ -68,6 +68,9 @@ than 120 packages and its load time is approx. 2 seconds on a Macbook Air
 - Slick integration with Evil states/Vi modes, tries as much as possible to
 keep your fingers on the home row, no matter the mode you are in.
 
+- Community driven configuration based on a configuration layer system
+(work in progress)
+
 - Minimalistic UI, keep your available screen space for what matters: your
 text files.
 
