@@ -123,7 +123,7 @@
   "bs"  'helm-mini
   "bw"  'toggle-read-only)
 ;; Cycling settings -----------------------------------------------------------
-(evil-leader/set-key "ct" 'cycle-my-theme)
+(evil-leader/set-key "ct" 'spacemacs/cycle-spacemacs-theme)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key
   "en" 'next-error

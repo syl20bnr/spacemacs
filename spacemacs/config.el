@@ -86,9 +86,6 @@
 ;;           (lambda ()
 ;;             (set-window-margins (car (get-buffer-window-list (current-buffer) nil t)) 0 0)))
 
-;; Set first theme of the list
-(cycle-my-theme)
-
 ;; ---------------------------------------------------------------------------
 ;; Session
 ;; ---------------------------------------------------------------------------

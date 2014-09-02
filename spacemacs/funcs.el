@@ -285,26 +285,31 @@ argument takes the kindows rotate backwards."
 
 ;; From http://stackoverflow.com/a/18796138
 ;; Cycle through this set of themes
-(setq my-themes '(solarized-dark
-                  solarized-light
-                  monokai
-                  zenburn))
-(setq my-cur-theme nil)
-(defun cycle-my-theme ()
+(setq spacemacs-themes '(solarized-dark
+                         solarized-light
+                         monokai
+                         zenburn))
+(defvar spacemacs-cur-theme (pop spacemacs-themes))
+(defun cycle-spacemacs-theme ()
   "Cycle through a list of themes, my-themes"
   (interactive)
-  (when my-cur-theme
-    (disable-theme my-cur-theme)
-    (setq my-themes (append my-themes (list my-cur-theme))))
-  (setq my-cur-theme (pop my-themes))
-  (load-theme my-cur-theme t)
-  ;; due to the transparent background of our custom fringe:
-  ;; use foreground of the flycheck faces as background for color-mode line
+  (when  spacemacs-cur-theme
+    (disable-theme  spacemacs-cur-theme)
+    (setq spacemacs-themes (append spacemacs-themes (list  spacemacs-cur-theme))))
+  (setq  spacemacs-cur-theme (pop spacemacs-themes))
+  (message "Loading theme %s..." spacemacs-cur-theme)
+  (load-theme  spacemacs-cur-theme t)
+  (set-flycheck-custom-face))
+
+(defun spacemacs/set-flycheck-custom-face ()
+  " Use foreground of the flycheck faces as background for color-mode line (in
+ order to have a proper transparent background of Spacemacs custom bitmaps)"
   (eval-after-load "flycheck-color-mode-line"
     '(progn
        (set-face-attribute 'flycheck-color-mode-line-error-face nil :background (face-foreground 'flycheck-fringe-error))
        (set-face-attribute 'flycheck-color-mode-line-warning-face nil :background (face-foreground 'flycheck-fringe-warning))
-       (set-face-attribute 'flycheck-color-mode-line-info-face nil :background (face-foreground 'flycheck-fringe-info)))))
+       (set-face-attribute 'flycheck-color-mode-line-info-face nil :background (face-foreground 'flycheck-fringe-info))
+       )))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function
