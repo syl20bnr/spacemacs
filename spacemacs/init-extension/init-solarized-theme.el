@@ -7,6 +7,6 @@
     (create-solarized-theme 'light 'solarized-light)
     (deftheme solarized-dark "The dark variant of the Solarized colour theme")
     (create-solarized-theme 'dark 'solarized-dark)
-    (set-flycheck-custom-face)
+    (spacemacs/set-flycheck-custom-face)
 ))
 
