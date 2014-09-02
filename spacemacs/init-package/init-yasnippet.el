@@ -6,7 +6,7 @@
       (use-package yasnippet
         :config
         (progn
-          (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+          (setq yas-snippet-dirs (list (concat spacemacs-config-directory "snippets")))
           (yas-global-mode 1)
           ))
       )
