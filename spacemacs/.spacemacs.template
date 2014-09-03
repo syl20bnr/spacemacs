@@ -1,2 +1,13 @@
-(defun dotspacemacs/init ())
-(defun dotspacemacs/config ())
+;; This file is loaded by Spacemacs at startup.
+;; It must be stored in the home directory.
+
+(defun dotspacemacs/init ()
+  "Initialize the behavior of Spacemacs. This function is called at the
+very startup."
+)
+
+(defun dotspacemacs/config ()
+  "User configuration. This is were you can override default
+Spacemacs configuration.  This function is called at the very end of
+Spacemacs initialization."
+)
