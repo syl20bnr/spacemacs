@@ -57,22 +57,27 @@ _The best editor is not *Emacs* nor *Vim*, the best editor is
 
 ## Goals
 
-- The main goal of `Spacemacs` is to bring *the power of Vim modal editing* to
-*the powerful Emacs editing platform*.
+- The main goal of `Spacemacs` is to **bring the power of Vim modal editing
+to the powerful Emacs editing platform**.
 
 - The ultimate goal for `Spacemacs` is to pack as much stuff as possible while
-keeping a "blazingly fast" boot time. Currently `Spacemacs` ships with more
-than 120 packages and its load time is approx. 2 seconds on a Macbook Air
+keeping a **"blazingly fast" boot time**. Currently `Spacemacs` ships with more
+than 120 packages and its load time is under 2 seconds on a Macbook Air
 2014.
 
 - Slick integration with Evil states/Vi modes, tries as much as possible to
-keep your fingers on the home row, no matter the mode you are in.
+**keep your fingers on the home row**, no matter the mode you are in.
 
-- Community driven configuration based on a configuration layer system
-(work in progress)
+- **Lower the risk of RSI**, your hands will thank `Spacemacs`.
 
-- Minimalistic UI, keep your available screen space for what matters: your
-text files.
+- **Community driven configuration** based on a configuration layer system
+*(work in progress)*. Contribute your own personal layer to the trunk and
+everybody can use it.
+
+- **Minimalistic UI**, keep your available screen space for what matters:
+your text files.
+
+- Hopefully, make you love modal editing :-)
 
 ## Screenshot
 
