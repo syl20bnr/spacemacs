@@ -20,7 +20,7 @@
 (dotspacemacs/init)
 
 ;; ---------------------------------------------------------------------------
-;; Init Macros
+;; Init Macros and Functions
 ;; ---------------------------------------------------------------------------
 
 (defmacro spacemacs/declare-layer (name &optional contrib)
@@ -73,6 +73,36 @@
        (load (concat ,base-dir "keybindings.el"))
        ;; emacs config
        (load (concat ,base-dir "config.el")))))
+
+(defun spacemacs/install-missing-packages (pkg-list)
+  "Install the missing package from given PKG-LIST"
+  (interactive)
+  (let ((not-installed (remove-if 'package-installed-p pkg-list)))
+    (if not-installed
+        (if (y-or-n-p (format "there are %d packages to be installed. install them? "
+                              (length not-installed)))
+            (progn (package-refresh-contents)
+                   (dolist (package pkg-list)
+                     (when (not (package-installed-p package))
+                       (package-install package))))))))
+
+(defun spacemacs/initialize-packages (init-dir)
+  "Load init-xxx for each xxx packages listed in spacemacs-packages."
+  (interactive)
+  (dolist (package spacemacs-packages)
+    (let* ((initfile (concat init-dir (format "init-%s.el" package))))
+      (if (and (package-installed-p package)
+               (file-exists-p initfile))
+          (load initfile)))))
+
+(defun spacemacs/load-and-initialize-extensions (ext-list ext-dir init-dir)
+  "Load init-xxx for each xxx extensions in EXT-LIST"
+  (dolist (ext ext-list)
+    (add-to-list 'load-path (format "%s%s/" ext-dir ext))
+    (let* ((initfile (concat init-dir (format "init-%s.el" ext))))
+      (if (file-exists-p initfile)
+          (load initfile)))))
+
 
 ;; ---------------------------------------------------------------------------
 ;; Configuration Layers
