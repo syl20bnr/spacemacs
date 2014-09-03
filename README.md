@@ -71,7 +71,7 @@ than 120 packages and its load time is under 2 seconds on a Macbook Air
 - **Lower the risk of RSI**, your hands will thank `Spacemacs`.
 
 - **Community driven configuration** based on a configuration layer system
-*(work in progress)*. Contribute your own personal layer to the trunk and
+*(work in progress)*. Contribute your own personal layer upstream and
 everybody can use it.
 
 - **Minimalistic UI**, keep your available screen space for what matters:
