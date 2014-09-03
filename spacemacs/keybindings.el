@@ -333,6 +333,7 @@
   "md"  'elisp-slime-nav-describe-elisp-thing-at-point
   "mf"  'eval-defun
   "mg"  'elisp-slime-nav-find-elisp-thing-at-point
+  "mhv" 'describe-variable
   "mjj" 'sp-split-sexp
   "mjk" 'sp-splice-sexp-killing-forward
   "mjl" 'sp-join-sexps
