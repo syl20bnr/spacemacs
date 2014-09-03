@@ -9,7 +9,7 @@
 (defconst contrib-config-directory
   (expand-file-name (concat user-emacs-directory "contrib/"))
   "Contribution layers base directory.")
-(defvar user-dropbox-directory
+(defconst user-dropbox-directory
   (expand-file-name (concat user-home-directory "Dropbox/"))
   "Dropbox directory.")
 ;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
@@ -19,109 +19,17 @@
 (load (concat user-home-directory ".spacemacs"))
 (dotspacemacs/init)
 
-;; ---------------------------------------------------------------------------
-;; Init Macros and Functions
-;; ---------------------------------------------------------------------------
-
-(defmacro spacemacs/declare-layer (name &optional contrib)
-  "Declare a layer with name NAME. If CONTRIB is non nil then the layer is a
- contribution layer."
-  (let ((layer-dir-sym (intern (concat name "-config-directory")))
-        (base-dir (if contrib contrib-config-directory
-                    user-emacs-directory)))
-    `(progn 
-       (defconst ,layer-dir-sym
-         (expand-file-name (concat ,base-dir (concat ,name "/")))
-         ,(concat name " layer directory."))
-       (defconst ,(intern (concat name "-extensions-directory"))
-         (concat ,layer-dir-sym "extensions/")
-         ,(concat name " layer extensions directory."))
-       (defconst ,(intern (concat name "-init-extension-directory"))
-         (concat ,layer-dir-sym "init-extension/")
-         ,(concat name " layer extension initialization directory."))
-       (defconst ,(intern (concat name "-init-package-directory"))
-         (concat ,layer-dir-sym "init-package/")
-         ,(concat name " layer package initialization directory."))
-       (defconst ,(intern (concat name "-contribp")) ,contrib))))
-
-(defmacro spacemacs/initialize-layer (name)
-  "Initialize the given Spacemacs configuration layer. NAME is the
- configuration layer name."
-  (declare (indent 1))
-  (let ((base-dir (intern (concat name "-config-directory"))))
-    `(progn
-       (load (concat ,base-dir "funcs.el"))
-       (load (concat ,base-dir "macros.el"))
-       (load (concat ,base-dir "extensions.el"))
-       (load (concat ,base-dir "packages.el"))
-       ;; pre-extensions
-       (spacemacs/load-and-initialize-extensions
-        ,(intern (concat name "-pre-extensions"))
-        ,(intern (concat name "-extensions-directory"))
-        ,(intern (concat name "-init-extension-directory")))
-       ;; packages
-       (spacemacs/install-missing-packages
-        ,(intern (concat name "-packages")))
-       (spacemacs/initialize-packages
-        ,(intern (concat name "-init-package-directory")))
-       ;; post extensions
-       (spacemacs/load-and-initialize-extensions
-        ,(intern (concat name "-post-extensions"))
-        ,(intern (concat name "-extensions-directory"))
-        ,(intern (concat name "-init-extension-directory")))
-       ;; key bindings
-       (load (concat ,base-dir "keybindings.el"))
-       ;; emacs config
-       (load (concat ,base-dir "config.el")))))
-
-(defun spacemacs/install-missing-packages (pkg-list)
-  "Install the missing package from given PKG-LIST"
-  (interactive)
-  (let ((not-installed (remove-if 'package-installed-p pkg-list)))
-    (if not-installed
-        (if (y-or-n-p (format "there are %d packages to be installed. install them? "
-                              (length not-installed)))
-            (progn (package-refresh-contents)
-                   (dolist (package pkg-list)
-                     (when (not (package-installed-p package))
-                       (package-install package))))))))
-
-(defun spacemacs/initialize-packages (init-dir)
-  "Load init-xxx for each xxx packages listed in spacemacs-packages."
-  (interactive)
-  (dolist (package spacemacs-packages)
-    (let* ((initfile (concat init-dir (format "init-%s.el" package))))
-      (if (and (package-installed-p package)
-               (file-exists-p initfile))
-          (load initfile)))))
-
-(defun spacemacs/load-and-initialize-extensions (ext-list ext-dir init-dir)
-  "Load init-xxx for each xxx extensions in EXT-LIST"
-  (dolist (ext ext-list)
-    (add-to-list 'load-path (format "%s%s/" ext-dir ext))
-    (let* ((initfile (concat init-dir (format "init-%s.el" ext))))
-      (if (file-exists-p initfile)
-          (load initfile)))))
-
-
-;; ---------------------------------------------------------------------------
-;; Configuration Layers
-;; ---------------------------------------------------------------------------
-(spacemacs/declare-layer "spacemacs")
-(spacemacs/initialize-layer "spacemacs")
-
+(load (concat user-emacs-directory "contribsys.el"))
+(spacemacs/declare-layer 'spacemacs)
 ;; for now hardcoded contrib config layers
-(spacemacs/declare-layer "syl20bnr" t)
-(spacemacs/initialize-layer "syl20bnr")
+(spacemacs/declare-layer 'syl20bnr t)
+(spacemacs/load-layers)
 
 ;; Last configuration decisions are given to the user who can defined them 
 ;; in ~/.spacemacs
 (dotspacemacs/config)
 
-;; ---------------------------------------------------------------------------
-;; Post initialization
-;; ---------------------------------------------------------------------------
-;; from jwiegley
+; from jwiegley
 ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
 ;; Display load times after init.el and after all buffers has been loaded
 (when window-system
