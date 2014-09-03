@@ -120,6 +120,8 @@ Copy .spacemacs template:
 
 ## Packages and Extensions Organization
 
+** deprecated / to be updated **
+
 Modes/libraries are separated into two categories:
 - **package:** packages installed from `package.el` compliant repositories.
 - **extension:** modes directly fetched from git repositories (as sub-modules)
