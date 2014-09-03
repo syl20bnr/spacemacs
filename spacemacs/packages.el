@@ -5,7 +5,7 @@
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
-;; installed packages as well as build-ins packages with a corresponding
+;; installed packages as well as build-in packages with a corresponding
 ;; init-xxx file
 (defvar spacemacs-packages
   '(
@@ -131,6 +131,6 @@
     yasnippet
     zenburn-theme
     )
-  "List of all packages to install and/or initialized. Built-ins packages
-which require an initialization must be listed explictely in the list."
+  "List of all packages to install and/or initialized. Built-in packages
+which require an initialization must be listed explicitly in the list."
 )
