@@ -87,6 +87,17 @@
       (setq pylookup-program (concat pylookup-dir "/pylookup.py"))
       (setq pylookup-db-file (concat pylookup-dir "/pylookup.db")))))
 
+(defun spacemacs/init-revive ()
+  (use-package revive
+    :disabled t
+    :init
+    (require 'revive-mode-config)
+    :config
+    (progn
+      ;; save and restore layout
+      (add-hook 'kill-emacs-hook 'emacs-save-layout)
+      (add-hook 'after-init-hook 'emacs-load-layout t))))
+
 (defun spacemacs/init-solarized-theme ()
   ;; different method used than the documented one in order to speed up the
   ;; loading of emacs

@@ -14,7 +14,6 @@ SYMBOL is the name of the layer and PLIST is a property list with the following
 keys:
 :contrib    if t then the layer is a contribution layer.
 :dir        the absolute path to the base directory of the layer.
-:init-dir   the absolute path to the directory containing the init-xxx files.
 :ext-dir    the absolute path to the directory containing the extensions.
 ")
 (defvar spacemacs-all-packages #s(hash-table size 200 data ())
@@ -35,10 +34,9 @@ initialize the extension. ")
   (let* ((sym-name (symbol-name sym))
          (base-dir (if contrib contrib-config-directory user-emacs-directory))
          (dir (format "%s%s/" base-dir sym-name))
-         (ext-dir (format "%sextensions/" dir))
-         (init-dir (format "%sinit/" dir)))
-    (push (cons sym (list :contrib contrib :dir dir :init-dir init-dir
-                          :ext-dir ext-dir)) spacemacs-config-layers)))
+         (ext-dir (format "%sextensions/" dir)))
+    (push (cons sym (list :contrib contrib :dir dir :ext-dir ext-dir))
+          spacemacs-config-layers)))
 
 (defun spacemacs/load-layers ()
   "Load all declared layers."
@@ -110,10 +108,9 @@ extension.
 (defun spacemacs/initialize-package (pkg lsym)
   "Initialize the package PKG from the configuration layer LSYM."
   (let* ((layer (assq lsym spacemacs-config-layers))
-         (init-dir (plist-get (cdr layer) :init-dir))
-         (init-file (concat init-dir (format "init-%s.el" (symbol-name pkg)))))
-    (if (and (package-installed-p pkg) (file-exists-p init-file))
-        (load init-file))))
+         (init-func (intern (format "%s/init-%s" (symbol-name lsym) pkg))))
+    (if (and (package-installed-p pkg) (fboundp init-func))
+        (funcall init-func))))
 
 (defun spacemacs/initialize-extensions (ext-list)
   "Initialize all the declared extensions in EXT-LIST hash table."
@@ -125,4 +122,4 @@ extension.
          (ext-dir (plist-get (cdr layer) :ext-dir))
          (init-func (intern (format "%s/init-%s" (symbol-name lsym) ext))))
        (add-to-list 'load-path (format "%s%s/" ext-dir ext))
-       (funcall init-func)))
+       (if (fboundp init-func) (funcall init-func))))
