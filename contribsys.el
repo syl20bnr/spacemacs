@@ -91,8 +91,8 @@ extension.
 (defun spacemacs/install-packages ()
   "Install the packages all the packages if there are not currently installed."
   (interactive)
-  (let* ((pkgs (ht-keys spacemacs-all-packages))
-         (not-installed (remove-if 'package-installed-p pkgs)))
+  (let* ((pkg-list (ht-keys spacemacs-all-packages))
+         (not-installed (remove-if 'package-installed-p pkg-list)))
     ;; installation
     (if not-installed
         (if (y-or-n-p (format
