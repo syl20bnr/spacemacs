@@ -225,15 +225,15 @@ a new temporary windows at the bottom.
 
 The following `helm` modes are installed with `Spacemacs`:
 
-Mode                                    | Key Binding | Description
-----------------------------------------|-------------|------------------------
-[helm-swoop][hswoop]                    | `<SPC> h s` | search for occurrences within a file and edit the result
-[helm-css-scss][hcss]                   | `<SPC> h c` | for quick navigation in CSS
-[helm-c-yasnippet][hyas]                | `<SPC> a y` | select snippets
-[helm-themes][hthemes]                  | `<SPC> h t` | select a theme
-[helm-projectile][projectile]           | `<SPC> p f` | select files within a projectile project
-[helm-descbinds][hdescbinds]            | `<SPC> ?`   | show key bindings
-[cofi/helm-flyspell-correct][hflyspell] | `<SPC> s c` | choose a corrected word
+Key Binding | Mode                                    | Description
+------------|-----------------------------------------|------------------------
+`<SPC> h s` | [helm-swoop][hswoop]                    | search for occurrences within a file and edit the result
+`<SPC> h c` | [helm-css-scss][hcss]                   | for quick navigation in CSS
+`<SPC> h y` | [helm-c-yasnippet][hyas]                | select snippets
+`<SPC> h t` | [helm-themes][hthemes]                  | select a theme
+`<SPC> p f` | [helm-projectile][projectile]           | select files within a projectile project
+`<SPC> ?`   | [helm-descbinds][hdescbinds]            | show key bindings
+`<SPC> s c` | [cofi/helm-flyspell-correct][hflyspell] | choose a corrected word
 
 ### Navigation
 

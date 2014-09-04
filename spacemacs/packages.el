@@ -990,7 +990,7 @@ which require an initialization must be listed explicitly in the list."
   (use-package helm-c-yasnippet
     :commands helm-c-yas-complete
     :init
-    (evil-leader/set-key "ay" 'helm-c-yas-complete)
+    (evil-leader/set-key "hy" 'helm-c-yas-complete)
     :config
     (progn
       (setq helm-c-yas-space-match-any-greedy t)
