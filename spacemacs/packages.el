@@ -3,6 +3,9 @@
 ;; init-xxx file
 (defvar spacemacs-packages
   '(
+    window-numbering
+    powerline
+    ;; the rest is in alphabetical order
     ac-ispell
     ac-js2
     ace-jump-mode

@@ -4,8 +4,6 @@
 (defvar spacemacs-pre-extensions
   '(
     use-package
-;    revive
-    window-numbering
     ))
 
 ;; Pre extensions are loaded *after* the packages
@@ -18,7 +16,6 @@
     evil-plugins
     nose
     o-blog
-    powerline
     pylookup
     solarized-theme
     ))

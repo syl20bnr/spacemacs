@@ -4,9 +4,6 @@
 [submodule "extensions/projmake-mode"]
 	path = extensions/projmake-mode
 	url = http://github.com/ericbmerritt/projmake-mode
-[submodule "extensions/window-numbering"]
-	path = spacemacs/extensions/window-numbering
-	url = http://github.com/nschum/window-numbering.el
 [submodule "extensions/revive"]
 	path = spacemacs/extensions/revive
 	url = http://github.com/vedang/revive-mode.git
@@ -22,9 +19,6 @@
 [submodule "extensions/nose"]
 	path = spacemacs/extensions/nose
 	url = http://github.com/syl20bnr/nose.el
-[submodule "extensions/powerline"]
-	path = spacemacs/extensions/powerline
-	url = http://github.com/syl20bnr/powerline
 [submodule "snippets"]
 	path = spacemacs/snippets
 	url = http://github.com/syl20bnr/yasnippet-snippets
