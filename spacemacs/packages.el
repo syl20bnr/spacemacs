@@ -1,8 +1,12 @@
-
 ;; installed packages as well as build-in packages with a corresponding
 ;; init-xxx file
 (defvar spacemacs-packages
   '(
+    ;; must be initialized first
+    evil
+    evil-exchange
+    evil-leader
+    evil-visualstar
     window-numbering
     powerline
     ;; the rest is in alphabetical order
@@ -35,10 +39,6 @@
     ess-R-data-view
     ess-R-object-popup
     ess-smart-underscore
-    evil
-    evil-exchange
-    evil-leader
-    evil-visualstar
     exec-path-from-shell
     expand-region
     fill-column-indicator
