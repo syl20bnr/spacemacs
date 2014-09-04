@@ -1,18 +1,13 @@
 ;; instantly display current keystrokes in mini buffer
 (setq echo-keystrokes 0.02)
 
-;; ---------------------------------------------------------------------------
-;; Regular key bindings
-;; ---------------------------------------------------------------------------
-
-;; emacs ---------------------------------------------------------------------
 ;; simple and more consistent keyboard quit key bindings
 ;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
 (global-set-key (kbd "f")
   (lambda () (interactive) (fd-trigger 'keyboard-quit)))
 (define-key minibuffer-local-map (kbd "f")
   (lambda () (interactive) (fd-trigger 'abort-recursive-edit)))
-;; evil ----------------------------------------------------------------------
+;; evil
 ;; easier toggle for emacs-state
 (evil-set-toggle-key "s-`")
 ;; returns to normal mode
@@ -30,24 +25,7 @@
 ;; Make evil-mode up/down operate in screen lines instead of logical lines
 (define-key evil-normal-state-map "j" 'evil-next-visual-line)
 (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
-;; ace-jump quick access -----------------------------------------------------
-;; I want a very quick trigger, evil-leader is too slow for this
-;; pop mark is performed using the evil-leader + ,
-(define-key evil-normal-state-map "," 'ace-jump-mode)
-(define-key evil-normal-state-map (kbd "C-,") 'ace-jump-word-mode)
-;; helm tweaks ---------------------------------------------------------------
-;; use home row keys
-(eval-after-load "helm"
-  '(progn
-     ;; the original hot key of helm-keyboard-quit is "C-g"
-     (define-key helm-map (kbd "f")
-       (lambda () (interactive) (fd-trigger 'helm-keyboard-quit)))
-     ;; helm navigation on hjkl
-     (define-key helm-map (kbd "C-j") 'helm-next-line)
-     (define-key helm-map (kbd "C-k") 'helm-previous-line)
-     (define-key helm-map (kbd "C-h") 'helm-next-source)
-     (define-key helm-map (kbd "C-l") 'helm-previous-source)))
-;; quick navigation ----------------------------------------------------------
+;; quick navigation
 (define-key evil-normal-state-map (kbd "L")
   (lambda () (interactive)
     (evil-window-bottom)
@@ -56,32 +34,12 @@
   (lambda () (interactive)
     (evil-window-top)
     (evil-scroll-line-to-center nil)))
-;; org -----------------------------------------------------------------------
-(eval-after-load "org-agenda"
-  '(progn
-     (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
-     (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)))
 
 ;; ---------------------------------------------------------------------------
 ;; evil-leader key bindings
 ;; ---------------------------------------------------------------------------
 
-;; M-x ------------------------------------------------------------------------
-(evil-leader/set-key ":" 'helm-M-x)
-;; Key bindings help ----------------------------------------------------------
-(evil-leader/set-key "?" 'helm-descbinds)
-;; ace-jump -------------------------------------------------------------------
-(evil-leader/set-key "," 'ace-jump-mode-pop-mark)
-;; shell command  -------------------------------------------------------------
-(evil-leader/set-key "S" 'shell-command)
-;; magic wand  ----------------------------------------------------------------
-(evil-leader/set-key "RET" 'wand:execute)
-;; switch back and forth between two last buffers -----------------------------
-(evil-leader/set-key "TAB"
-  (lambda ()
-    (interactive)
-    (switch-to-buffer (other-buffer (current-buffer) t))))
-;; switch window by number ----------------------------------------------------
+;; switch window
 (evil-leader/set-key
   "0" 'select-window-0
   "1" 'select-window-1
@@ -93,34 +51,32 @@
   "7" 'select-window-7
   "8" 'select-window-8
   "9" 'select-window-9)
+;; shell command  -------------------------------------------------------------
+(evil-leader/set-key "S" 'shell-command)
+;; switch back and forth between two last buffers -----------------------------
+(evil-leader/set-key "TAB"
+  (lambda ()
+    (interactive)
+    (switch-to-buffer (other-buffer (current-buffer) t))))
 ;; applications ---------------------------------------------------------------
 (evil-leader/set-key
   "ac"  'calc-dispatch
   "ad"  'dired
-  "ag"  'magit-status
   "ai"  'irc
   "ap"  'proced
   "ase" 'eshell
   "asi" 'shell
-  "ast" 'multi-term
-  "at"  'twit
-  "au"  'undo-tree-visualize
-  "ay"  'helm-c-yas-complete)
+  "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
   "bd"  'delete-current-buffer-file
   "bK"  'kill-other-buffers
   "bk"  'ido-kill-buffer
   "b C-k" 'kill-matching-buffers-rudely
-  "bmh" 'buf-move-left
-  "bmj" 'buf-move-down
-  "bmk" 'buf-move-up
-  "bml" 'buf-move-right
   "bn"  'switch-to-next-buffer
   "bp"  'switch-to-prev-buffer
   "bR"  (lambda () (interactive) (revert-buffer nil t))
   "br"  'rename-current-buffer-file
-  "bs"  'helm-mini
   "bw"  'toggle-read-only)
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "ct" 'spacemacs/cycle-spacemacs-theme)
@@ -128,8 +84,6 @@
 (evil-leader/set-key
   "en" 'next-error
   "ep" 'previous-error)
-;; editors --------------------------------------------------------------------
-(evil-leader/set-key "eds" 'string-edit-at-point)
 ;; find -----------------------------------------------------------------------
 (evil-leader/set-key
   "ff" 'ido-find-file
@@ -140,38 +94,6 @@
   "fS" 'evil-write-all
   "fs" 'evil-write
   "fy" 'camdez/show-buffer-file-name)
-;; flycheck -------------------------------------------------------------------
-(evil-leader/set-key
-  "fc" 'flycheck-clear
-  "fl" 'flycheck-list-errors
-  "fn" 'flycheck-next-error
-  "fp" 'flycheck-previous-error)
-;; git ------------------------------------------------------------------------
-(evil-leader/set-key
-  "gm" 'git-messenger:popup-message
-  "gcC" 'smeargle-clear
-  "gcc" 'smeargle-commits
-  "gct" 'smeargle
-  "gs" 'magit-status
-  "gt" 'git-timemachine)
-;; auto-highlight-symbol ------------------------------------------------------
-(evil-leader/set-key
-  "he" 'ahs-edit-mode
-  "hn" 'ahs-forward
-  "hp" 'ahs-backward)
-;; helm -----------------------------------------------------------------------
-(evil-leader/set-key
-  "h:"    'helm-helm-commands
-  "hc"    'helm-css-scss
-  "hg"    'helm-bookmarks
-  "hk"    'helm-make
-  "hM"    'helm-switch-major-mode
-  "hm"    'helm-disable-minor-mode
-  "h C-m" 'helm-enable-minor-mode
-  "hS"    'helm-multi-swoop
-  "hs"    'helm-swoop
-  "h C-s" 'helm-multi-swoop-all
-  "ht"    'helm-themes)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
   "ij"  (lambda (count)
@@ -198,8 +120,6 @@
   "kg" 'bookmark-jump
   "kr" 'bookmark-rename
   "ks" 'bookmark-set)
-;; load -----------------------------------------------------------------------
-(evil-leader/set-key "le" 'load-ess-on-demand)
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "cc" 'compile)
 ;; narrow & widen -------------------------------------------------------------
@@ -208,63 +128,21 @@
   "np" 'narrow-to-page
   "nf" 'narrow-to-defun
   "nw" 'widen)
-;; projectile -----------------------------------------------------------------
-(evil-leader/set-key
-  "pb" 'projectile-switch-to-buffer
-  "pC" 'projectile-invalidate-cache
-  "pd" 'projectile-dired
-  "pF" 'projectile-find-file
-  "pf" 'helm-projectile
-  "pk" 'projectile-kill-buffers
-  "pg" 'projectile-grep
-  "pr" 'projectile-replace)
-;; perforce -------------------------------------------------------------------
-(evil-leader/set-key
-  "p4a" 'p4-add
-  "p4d" 'p4-delete
-  "p4D" 'p4-describe
-  "p4e" 'p4-edit
-  "p4R" 'p4-revert
-  "p4r" 'p4-rename
-  "p4S" 'p4-submit)
-;; quickrun -------------------------------------------------------------------
-(evil-leader/set-key
-  "qba" 'quickrun-arg
-  "qbc" 'quickrun-compile-only
-  "qbs" 'quickrun-shell
-  "qbx" 'quickrun
-  "qeb" 'eval-buffer
-  "qex" 'eval-last-sexp
-  "qh"  'helm-quickrun
-  "qrr" 'quickrun-replace-region
-  "qrx" 'quickrun-region)
-;; replace --------------------------------------------------------------------
-(evil-leader/set-key
-  "rR" 'vr/query-replace
-  "rr" 'vr/replace)
 ;; misc -----------------------------------------------------------------------
 (evil-leader/set-key
-  "kil"  'helm-show-kill-ring
   "reg"  'evil-show-registers)
 ;; spell check  ---------------------------------------------------------------
 (evil-leader/set-key
   "sc" 'cofi/helm-flyspell-correct
-  "sd" 'adict-change-dictionary
   "sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key
   "t8" 'toggle-fill-column-indicator
-  "ta" 'auto-complete-mode
-  "tc" 'rainbow-mode
   "tF" 'fringe-mode
   "tf" 'toggle-fullscreen
-  "th" 'auto-highlight-symbol-mode
-  "tm" 'powerline-minor-modes-toggle
   "tN" 'global-linum-mode
   "tn" 'cofi/evil-toggle-relative-lines
   "tw" 'toggle-read-only)
-;; selection ------------------------------------------------------------------
-(evil-leader/set-key "v" 'er/expand-region)
 ;; window ---------------------------------------------------------------------
 ;; (evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key
@@ -283,7 +161,6 @@
   "wl"  'evil-window-right
   "wM"  'toggle-maximize-centered-buffer
   "wm"  'toggle-maximize-buffer
-  "wp"  'popwin:close-popup-window
   "wr"  'rotate-windows
   "wR"  'rotate-windows-backward
 ;; "wv"  'evenly-split-window-below)
@@ -301,8 +178,6 @@
   "x+"  'text-scale-increase
   "x-"  'text-scale-decrease
   "xdw" 'delete-trailing-whitespace
-  "xmj" 'move-text-down
-  "xmk" 'move-text-up
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
   "xtw" 'transpose-words
@@ -312,13 +187,7 @@
   "xwc" 'count-words-region)
 ;; google translate -----------------------------------------------------------
 (evil-leader/set-key
-  "xgl" 'set-google-translate-languages
-  "xgQ" 'google-translate-query-translate-reverse
-  "xgq" 'google-translate-query-translate
-  "xgT" 'google-translate-at-point-reverse
-  "xgt" 'google-translate-at-point)
-;; centered cursor ------------------------------------------------------------
-(evil-leader/set-key "zz" 'global-centered-cursor-mode)
+  "xgl" 'set-google-translate-languages)
 
 ;; ---------------------------------------------------------------------------
 ;; evil-leader modes specific key bindings
@@ -346,98 +215,6 @@
   "ms"  'sp-forward-slurp-sexp
   "mta"  (lambda () (interactive) (ert t))
   "mtf" 'ert)
-;; erlang ---------------------------------------------------------------------
-(evil-leader/set-key-for-mode 'erlang-mode
-  "md" 'edts-find-doc
-  "me" 'edts-code-next-issue
-  "mG" 'edts-find-global-function
-  "mg" 'edts-find-source-under-point
-  "mh" 'edts-find-header-source
-  "ml" 'edts-find-local-function
-  "mm" 'edts-find-macro-source
-  "mr" 'edts-find-record-source)
-;; ledger ---------------------------------------------------------------------
-(evil-leader/set-key-for-mode 'ledger-mode
-  "md" 'ledger-delete-current-transaction
-  "ma" 'ledger-add-transaction)
-;; magit ----------------------------------------------------------------------
-(evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
-  "K" 'magit-discard-item
-  "L" 'magit-key-mode-popup-logging)
-(evil-add-hjkl-bindings magit-commit-mode-map 'emacs)
-(evil-add-hjkl-bindings magit-log-mode-map 'emacs)
-(evil-add-hjkl-bindings magit-process-mode-map 'emacs)
-(evil-add-hjkl-bindings magit-status-mode-map 'emacs
-  "f" 'magit-key-mode-popup-fetching
-  "K" 'magit-discard-item
-  "l" 'magit-key-mode-popup-logging
-  "h" 'magit-toggle-diff-refine-hunk)
-;; python ---------------------------------------------------------------------
-(evil-leader/set-key-for-mode 'python-mode
-  "mB"  (lambda ()
-          " Send buffer content to shell and switch to it in insert mode."
-          (interactive)
-          (python-shell-send-buffer)
-          (python-shell-switch-to-shell)
-          (evil-insert-state))
-  "mb"  'python-shell-send-buffer
-  "md"  'pylookup-lookup
-  "mF"  (lambda ()
-          " Send function content to shell and switch to it in insert mode."
-          (interactive)
-          (python-shell-send-defun nil)
-          (python-shell-switch-to-shell)
-          (evil-insert-state))
-  "mf"  'python-shell-send-defun
-  "mg"  'jedi:goto-definition
-  "mi"  (lambda ()
-          " Switch to shell in insert mode."
-          (interactive)
-          (python-shell-switch-to-shell)
-          (evil-insert-state))
-  "mp"  'python-add-breakpoint
-  "mR"  (lambda (start end)
-          " Send region content to shell and switch to it in insert mode."
-          (interactive "r")
-          (python-shell-send-region start end)
-          (python-shell-switch-to-shell)
-          (evil-insert-state))
-  "mr"  'python-shell-send-region
-  "mTf" 'nosetests-pdb-one
-  "mtf" 'nosetests-one
-  "mTa" 'nosetests-pdb-all
-  "mta" 'nosetests-all
-  "mTm" 'nosetests-pdb-module
-  "mtm" 'nosetests-module
-  "mTs" 'nosetests-pdb-suite
-  "mts" 'nosetests-suite
-  "m RET" 'quickrun
-)
-(eval-after-load "python"
-  '(progn
-     (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
-     (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input)))
-;; R --------------------------------------------------------------------------
-(eval-after-load "ess-site"
-  '(progn
-     (evil-leader/set-key-for-mode 'ess-mode
-       "mB" 'ess-eval-buffer-and-go
-       "mb" 'ess-eval-buffer
-       "mF" 'ess-eval-function-and-go
-       "mf" 'ess-eval-function
-       "mi" 'R
-       "mL" 'ess-eval-line-and-go
-       "ml" 'ess-eval-line
-       "mp" 'ess-R-object-popup
-       "mR" 'ess-eval-region-and-go
-       "mr" 'ess-eval-region
-       "mS" 'ess-eval-function-or-paragraph-and-step
-       "ms" 'ess-eval-region-or-line-and-step
-       "mvp" 'ess-R-dv-pprint
-       "mvt" 'ess-R-dv-ctable
-       )
-     (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
-     (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)))
 ;; rcirc ----------------------------------------------------------------------
 (eval-after-load "rcirc"
   '(progn
