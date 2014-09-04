@@ -116,15 +116,13 @@ extension.
         (load init-file))))
 
 (defun spacemacs/initialize-extensions (ext-list)
-  "Initialize all the declared in EXT-LIST hash table."
+  "Initialize all the declared extensions in EXT-LIST hash table."
   (ht-each 'spacemacs/initialize-extension ext-list))
 
 (defun spacemacs/initialize-extension (ext lsym)
   "Initialize the extension EXT from the configuration layer LSYM."
   (let* ((layer (assq lsym spacemacs-config-layers))
          (ext-dir (plist-get (cdr layer) :ext-dir))
-         (init-dir (plist-get (cdr layer) :init-dir))
-         (init-file (concat init-dir (format "init-%s.el" ext))))
-    (add-to-list 'load-path (format "%s%s/" ext-dir ext))
-    (if (file-exists-p init-file)
-        (load init-file))))
+         (init-func (intern (format "%s/init-%s" (symbol-name lsym) ext))))
+       (add-to-list 'load-path (format "%s%s/" ext-dir ext))
+       (funcall init-func)))
