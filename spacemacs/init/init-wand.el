@@ -5,4 +5,5 @@
     (require 'wand)
     (wand:add-rule (wand:create-rule :match "https?://"
                                      :capture :whole
-                                     :action message))))
+                                     :action message))
+    (evil-leader/set-key "RET" 'wand:execute)))

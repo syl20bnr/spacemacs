@@ -1,5 +1,7 @@
 (use-package twittering-mode
   :defer t
+  :init
+  (evil-leader/set-key "at" 'twit)
   :config
   (progn
     (setq twittering-use-master-password t)

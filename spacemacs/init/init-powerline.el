@@ -1,6 +1,7 @@
 (use-package powerline
   :init
   (progn
+    (evil-leader/set-key "tm" 'powerline-minor-modes-toggle)
     ;; Setup modeline items
     (defun gcs-propertized-evil-mode-tag ()
       (propertize evil-mode-line-tag 'font-lock-face

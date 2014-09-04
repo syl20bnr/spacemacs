@@ -3,6 +3,12 @@
              google-translate-at-point
              google-translate-query-translate-reverse
              google-translate-at-point-reverse)
+  :init
+  (evil-leader/set-key
+    "xgQ" 'google-translate-query-translate-reverse
+    "xgq" 'google-translate-query-translate
+    "xgT" 'google-translate-at-point-reverse
+    "xgt" 'google-translate-at-point)
   :config
   (progn
     (require 'google-translate-default-ui)

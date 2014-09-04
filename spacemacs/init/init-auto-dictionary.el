@@ -2,4 +2,7 @@
   :disabled t
   :defer t
   :init
-  (add-hook 'flyspell-mode-hook '(lambda () (auto-dictionary-mode 1))))
+  (progn 
+    (add-hook 'flyspell-mode-hook '(lambda () (auto-dictionary-mode 1)))
+    (evil-leader/set-key
+      "sd" 'adict-change-dictionary)))

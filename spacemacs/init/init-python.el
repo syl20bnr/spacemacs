@@ -39,4 +39,45 @@
       (evil-end-of-line)
       (newline-and-indent)
       (insert "import pdb; pdb.set_trace()")
-      (save-buffer))))
+      (save-buffer))
+    (evil-leader/set-key-for-mode 'python-mode
+      "mB"  (lambda ()
+              " Send buffer content to shell and switch to it in insert mode."
+              (interactive)
+              (python-shell-send-buffer)
+              (python-shell-switch-to-shell)
+              (evil-insert-state))
+      "mb"  'python-shell-send-buffer
+      "md"  'pylookup-lookup
+      "mF"  (lambda ()
+              " Send function content to shell and switch to it in insert mode."
+              (interactive)
+              (python-shell-send-defun nil)
+              (python-shell-switch-to-shell)
+              (evil-insert-state))
+      "mf"  'python-shell-send-defun
+      "mg"  'jedi:goto-definition
+      "mi"  (lambda ()
+              " Switch to shell in insert mode."
+              (interactive)
+              (python-shell-switch-to-shell)
+              (evil-insert-state))
+      "mp"  'python-add-breakpoint
+      "mR"  (lambda (start end)
+              " Send region content to shell and switch to it in insert mode."
+              (interactive "r")
+              (python-shell-send-region start end)
+              (python-shell-switch-to-shell)
+              (evil-insert-state))
+      "mr"  'python-shell-send-region
+      "mTf" 'nosetests-pdb-one
+      "mtf" 'nosetests-one
+      "mTa" 'nosetests-pdb-all
+      "mta" 'nosetests-all
+      "mTm" 'nosetests-pdb-module
+      "mtm" 'nosetests-module
+      "mTs" 'nosetests-pdb-suite
+      "mts" 'nosetests-suite
+      "m RET" 'quickrun)
+     (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
+     (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input)))

@@ -8,9 +8,15 @@
                                  markdown-mode-hook
                                  ))
   :config
-  (custom-set-variables
-   '(ahs-case-fold-search nil)
-   '(ahs-default-range (quote ahs-range-whole-buffer))
-   '(ahs-idle-interval 0.5)))
+  (progn 
+    (custom-set-variables
+     '(ahs-case-fold-search nil)
+     '(ahs-default-range (quote ahs-range-whole-buffer))
+     '(ahs-idle-interval 0.5))
+    (evil-leader/set-key
+      "he" 'ahs-edit-mode
+      "hn" 'ahs-forward
+      "hp" 'ahs-backward
+      "th" 'auto-highlight-symbol-mode)))
 
 

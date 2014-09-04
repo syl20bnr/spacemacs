@@ -1,5 +1,7 @@
 (use-package multi-term
   :defer t
+  :init
+  (evil-leader/set-key "ast" 'multi-term)
   :config
   (progn
     (setq multi-term-program "/bin/zsh")

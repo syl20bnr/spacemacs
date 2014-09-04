@@ -48,4 +48,10 @@
     (flycheck-define-error-level 'info
       :overlay-category 'flycheck-info-overlay
       :fringe-bitmap 'my-flycheck-fringe-indicator
-      :fringe-face 'flycheck-fringe-info)))
+      :fringe-face 'flycheck-fringe-info)
+
+    (evil-leader/set-key
+      "fc" 'flycheck-clear
+      "fl" 'flycheck-list-errors
+      "fn" 'flycheck-next-error
+      "fp" 'flycheck-previous-error)))

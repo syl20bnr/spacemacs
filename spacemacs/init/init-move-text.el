@@ -1,2 +1,7 @@
 (use-package move-text
-  :defer t)
+  :defer t
+  :init
+  (evil-leader/set-key
+    "xmj" 'move-text-down
+    "xmk" 'move-text-up)
+)

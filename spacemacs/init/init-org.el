@@ -13,3 +13,8 @@
     (use-package org-trello
       :config
       (add-hook 'org-mode-hook 'org-trello-mode))))
+
+(eval-after-load "org-agenda"
+  '(progn
+     (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
+     (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)))

@@ -17,7 +17,15 @@
     (require 'edts-start)
     ;; (setq edts-log-level 'debug)
     ;; (setq edts-face-inhibit-mode-line-updates t)
-    ))
+    (evil-leader/set-key-for-mode 'erlang-mode
+      "md" 'edts-find-doc
+      "me" 'edts-code-next-issue
+      "mG" 'edts-find-global-function
+      "mg" 'edts-find-source-under-point
+      "mh" 'edts-find-header-source
+      "ml" 'edts-find-local-function
+      "mm" 'edts-find-macro-source
+      "mr" 'edts-find-record-source)))
 
 ;; not needed using EDTS
 ;; (require 'erlang-flymake)

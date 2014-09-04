@@ -1,5 +1,7 @@
 (use-package magit
   :defer t
+  :init
+  (evil-leader/set-key "gs" 'magit-status)
   :config
   (progn
     ;; full screen magit-status
@@ -7,6 +9,18 @@
       (window-configuration-to-register :magit-fullscreen)
       ad-do-it
       (delete-other-windows))
+
+    (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
+      "K" 'magit-discard-item
+      "L" 'magit-key-mode-popup-logging)
+    (evil-add-hjkl-bindings magit-commit-mode-map 'emacs)
+    (evil-add-hjkl-bindings magit-log-mode-map 'emacs)
+    (evil-add-hjkl-bindings magit-process-mode-map 'emacs)
+    (evil-add-hjkl-bindings magit-status-mode-map 'emacs
+      "f" 'magit-key-mode-popup-fetching
+      "K" 'magit-discard-item
+      "l" 'magit-key-mode-popup-logging
+      "h" 'magit-toggle-diff-refine-hunk)
 
     (defun magit-quit-session ()
       "Restores the previous window configuration and kills the magit buffer"

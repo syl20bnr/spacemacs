@@ -1,9 +1,11 @@
 (use-package auto-complete
   :commands auto-complete-mode
   :init
-  (add-to-hooks 'auto-complete-mode '(org-mode-hook
-                                      prog-mode-hook
-                                      erlang-mode-hook))
+  (progn 
+    (add-to-hooks 'auto-complete-mode '(org-mode-hook
+                                        prog-mode-hook
+                                        erlang-mode-hook))
+    (evil-leader/set-key "ta" 'auto-complete-mode))
   :config
   (progn
     (require 'auto-complete-config)

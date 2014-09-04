@@ -97,5 +97,4 @@
     (use-package evil-exchange
       :init (evil-exchange-install))
     ;; initiate a search of the selected text
-    (use-package evil-visualstar)
-    ))
+    (use-package evil-visualstar)))
