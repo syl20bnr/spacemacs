@@ -60,7 +60,6 @@
     helm
     helm-css-scss
     helm-c-yasnippet
-    helm-helm-commands
     helm-descbinds
     helm-make
     helm-mode-manager
