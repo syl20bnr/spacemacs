@@ -67,7 +67,6 @@
     helm-swoop
     helm-themes
     hy-mode
-    ido-vertical-mode
     jedi
     js2-mode
     js2-refactor
@@ -1039,12 +1038,6 @@ which require an initialization must be listed explicitly in the list."
 (defun spacemacs/init-hy-mode ()
   (use-package hy-mode
     :defer t))
-
-(defun spacemacs/init-ido-vertical-mode ()
-  (use-package ido-vertical-mode
-    :disabled t
-    :init
-    (ido-vertical-mode)))
 
 (defun spacemacs/init-js2-mode ()
   (use-package js2-mode
