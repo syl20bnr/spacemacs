@@ -28,7 +28,7 @@ initialize the extension. ")
 extension symbol and the value is the layer symbol where to load and
 initialize the extension. ")
 
-(defun spacemacs/declare-layer (sym &optional contrib)
+(defun contribsys/declare-layer (sym &optional contrib)
   "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer
  is a contribution layer."
   (let* ((sym-name (symbol-name sym))
@@ -38,17 +38,17 @@ initialize the extension. ")
     (push (cons sym (list :contrib contrib :dir dir :ext-dir ext-dir))
           spacemacs-config-layers)))
 
-(defun spacemacs/load-layers ()
+(defun contribsys/load-layers ()
   "Load all declared layers."
-  (spacemacs/load-layer-files '("funcs.el" "macros.el"))
-  (spacemacs/read-packages-and-extensions)
-  (spacemacs/initialize-extensions spacemacs-all-pre-extensions)
-  (spacemacs/install-packages)
-  (spacemacs/initialize-packages)
-  (spacemacs/initialize-extensions spacemacs-all-post-extensions)
-  (spacemacs/load-layer-files '("keybindings.el" "config.el")))
+  (contribsys/load-layer-files '("funcs.el" "macros.el"))
+  (contribsys/read-packages-and-extensions)
+  (contribsys/initialize-extensions spacemacs-all-pre-extensions)
+  (contribsys/install-packages)
+  (contribsys/initialize-packages)
+  (contribsys/initialize-extensions spacemacs-all-post-extensions)
+  (contribsys/load-layer-files '("keybindings.el" "config.el")))
 
-(defun spacemacs/load-layer-files (files)
+(defun contribsys/load-layer-files (files)
   "Load the files of list FILES from all declared layers."
   (dolist (layer (reverse spacemacs-config-layers))
     (let* ((sym (car layer))
@@ -56,7 +56,7 @@ initialize the extension. ")
       (dolist (file files)
         (load (concat dir file))))))
 
-(defun spacemacs/read-packages-and-extensions ()
+(defun contribsys/read-packages-and-extensions ()
   "Load all packages and extensions declared in all layers and fill the
 corresponding hash tables:
 spacemacs-all-packages
@@ -86,7 +86,7 @@ extension.
                                            (symbol-name sym)))))
           (puthash pkg sym spacemacs-all-post-extensions))))))
 
-(defun spacemacs/install-packages ()
+(defun contribsys/install-packages ()
   "Install the packages all the packages if there are not currently installed."
   (interactive)
   (let* ((pkg-list (ht-keys spacemacs-all-packages))
@@ -101,22 +101,22 @@ extension.
                      (when (not (package-installed-p pkg))
                        (package-install pkg))))))))
 
-(defun spacemacs/initialize-packages ()
+(defun contribsys/initialize-packages ()
   "Initialize all the declared packages."
-  (ht-each 'spacemacs/initialize-package spacemacs-all-packages))
+  (ht-each 'contribsys/initialize-package spacemacs-all-packages))
 
-(defun spacemacs/initialize-package (pkg lsym)
+(defun contribsys/initialize-package (pkg lsym)
   "Initialize the package PKG from the configuration layer LSYM."
   (let* ((layer (assq lsym spacemacs-config-layers))
          (init-func (intern (format "%s/init-%s" (symbol-name lsym) pkg))))
     (if (and (package-installed-p pkg) (fboundp init-func))
         (funcall init-func))))
 
-(defun spacemacs/initialize-extensions (ext-list)
+(defun contribsys/initialize-extensions (ext-list)
   "Initialize all the declared extensions in EXT-LIST hash table."
-  (ht-each 'spacemacs/initialize-extension ext-list))
+  (ht-each 'contribsys/initialize-extension ext-list))
 
-(defun spacemacs/initialize-extension (ext lsym)
+(defun contribsys/initialize-extension (ext lsym)
   "Initialize the extension EXT from the configuration layer LSYM."
   (let* ((layer (assq lsym spacemacs-config-layers))
          (ext-dir (plist-get (cdr layer) :ext-dir))
@@ -124,9 +124,9 @@ extension.
        (add-to-list 'load-path (format "%s%s/" ext-dir ext))
        (if (fboundp init-func) (funcall init-func))))
 
-(defun spacemacs/declare-configuration-layers ()
+(defun contribsys/declare-configuration-layers ()
   "Declare the configuration layer in order of appearance in list
 dotspacemacs-configuration-layers defined in ~/.spacemacs."
   (if (boundp 'dotspacemacs-configuration-layers)
       (dolist (layer dotspacemacs-configuration-layers)
-        (spacemacs/declare-layer layer t))))
+        (contribsys/declare-layer layer t))))

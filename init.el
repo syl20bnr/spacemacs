@@ -20,9 +20,9 @@
 (dotspacemacs/init)
 
 (load (concat user-emacs-directory "contribsys.el"))
-(spacemacs/declare-layer 'spacemacs)
-(spacemacs/declare-configuration-layers)
-(spacemacs/load-layers)
+(contribsys/declare-layer 'spacemacs)
+(contribsys/declare-configuration-layers)
+(contribsys/load-layers)
 
 ;; Last configuration decisions are given to the user who can defined them 
 ;; in ~/.spacemacs
