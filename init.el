@@ -21,8 +21,7 @@
 
 (load (concat user-emacs-directory "contribsys.el"))
 (spacemacs/declare-layer 'spacemacs)
-;; for now hardcoded contrib config layers
-(spacemacs/declare-layer 'syl20bnr t)
+(spacemacs/declare-configuration-layers)
 (spacemacs/load-layers)
 
 ;; Last configuration decisions are given to the user who can defined them 

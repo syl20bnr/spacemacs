@@ -123,3 +123,10 @@ extension.
          (init-func (intern (format "%s/init-%s" (symbol-name lsym) ext))))
        (add-to-list 'load-path (format "%s%s/" ext-dir ext))
        (if (fboundp init-func) (funcall init-func))))
+
+(defun spacemacs/declare-configuration-layers ()
+  "Declare the configuration layer in order of appearance in list
+dotspacemacs-configuration-layers defined in ~/.spacemacs."
+  (if (boundp 'dotspacemacs-configuration-layers)
+      (dolist (layer dotspacemacs-configuration-layers)
+        (spacemacs/declare-layer layer t))))
