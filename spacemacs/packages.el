@@ -66,7 +66,6 @@
     helm-projectile
     helm-swoop
     helm-themes
-    howdoi
     hy-mode
     ido-vertical-mode
     jedi
