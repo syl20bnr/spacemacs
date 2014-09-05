@@ -12,13 +12,14 @@
   "The default package repository used if no explicit repository has been
 specified with an installed package."
 )
+
+;; Functions
+
 (defun dotspacemacs/init ()
-  "Initialize the behavior of Spacemacs. This function is called at the
-very startup."
+  "User initialize for Spacemacs. This function is called at the very startup."
 )
 
 (defun dotspacemacs/config ()
-  "User configuration. This is were you can override default
-Spacemacs configuration.  This function is called at the very end of
-Spacemacs initialization."
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
 )
