@@ -1,3 +1,4 @@
+;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in the home directory.
 
