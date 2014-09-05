@@ -109,7 +109,6 @@
     smartparens
     smeargle
     string-edit
-    stripe-buffer
     subword
     surround
     tagedit
@@ -1436,15 +1435,6 @@ which require an initialization must be listed explicitly in the list."
     :defer t
     :init
     (evil-leader/set-key "eds" 'string-edit-at-point)))
-
-(defun spacemacs/init-stripe-buffer ()
-  (use-package stripe-buffer
-    :disabled t
-    :init
-    (progn
-      (add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
-      (add-hook 'dired-mode-hook 'stripe-listify-buffer)
-      (add-hook 'org-mode-hook 'turn-on-stripe-table-mode))))
 
 (defun spacemacs/init-subword ()
   (use-package subword
