@@ -2,6 +2,16 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in the home directory.
 
+;; Variables
+
+(defvar dotspacemacs-configuration-layers '()
+  "List of contribution to load."
+)
+
+(defvar dotspacemacs-default-package-repository 'melpa-stable
+  "The default package repository used if no explicit repository has been
+specified with an installed package."
+)
 (defun dotspacemacs/init ()
   "Initialize the behavior of Spacemacs. This function is called at the
 very startup."
