@@ -112,7 +112,6 @@
     subword
     surround
     tagedit
-    twittering-mode
     visual-regexp-steroids
     volatile-highlights
     wand
@@ -1449,40 +1448,6 @@ which require an initialization must be listed explicitly in the list."
     (progn
       (tagedit-add-experimental-features)
       (add-hook 'html-mode-hook (lambda () (tagedit-mode 1))))))
-
-(defun spacemacs/init-twittering-mode ()
-  (use-package twittering-mode
-    :defer t
-    :init
-    (evil-leader/set-key "at" 'twit)
-    :config
-    (progn
-      (setq twittering-use-master-password t)
-      (setq twittering-icon-mode t)     ; Show icons
-      (setq twittering-timer-interval 300) ; Update your timeline each 300 seconds (5 minutes)
-      (setq twittering-url-show-status nil) ; Keeps the echo area from showing all the http processes
-
-      ;; spell check
-      (add-hook 'twittering-edit-mode-hook (lambda () (ispell-minor-mode) (flyspell-mode)))
-
-      ;; timelines opened at startup
-      (setq twittering-initial-timeline-spec-string '(
-                                                      ":direct_messages"
-                                                      ":replies"
-                                                      ":home"
-                                                      ;;        ":search/emacs/"
-                                                      ;;        "user_name/list_name"
-                                                      ))
-
-      ;; add follow URL by pressing 'o'
-      (add-hook 'twittering-mode-hook
-                (lambda ()
-                  (mapc (lambda (pair)
-                          (let ((key (car pair))
-                                (func (cdr pair)))
-                            (define-key twittering-mode-map
-                              (read-kbd-macro key) func)))
-                        '(("o" . twittering-click))))))))
 
 (defun spacemacs/init-visual-regexp-steroids ()
   (use-package visual-regexp-steroids
