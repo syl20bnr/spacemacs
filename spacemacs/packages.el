@@ -92,7 +92,6 @@
     projectile
     puppet-mode
     python
-    quickrun
     ;; not working well for now
     ;; rainbow-blocks
     rainbow-delimiters
@@ -1326,21 +1325,6 @@ which require an initialization must be listed explicitly in the list."
         "m RET" 'quickrun)
       (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
       (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input))))
-
-(defun spacemacs/init-quickrun ()
-  (use-package quickrun
-    :disabled t
-    :init
-    (evil-leader/set-key
-      "qba" 'quickrun-arg
-      "qbc" 'quickrun-compile-only
-      "qbs" 'quickrun-shell
-      "qbx" 'quickrun
-      "qeb" 'eval-buffer
-      "qex" 'eval-last-sexp
-      "qh"  'helm-quickrun
-      "qrr" 'quickrun-replace-region
-      "qrx" 'quickrun-region)))
 
 (defun spacemacs/init-rainbow-blocks ()
   (use-package rainbow-blocks
