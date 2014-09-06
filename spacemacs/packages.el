@@ -23,8 +23,6 @@
     cmake-mode
     csharp-mode
     coffee-mode
-    dash
-    deferred
     diminish
     dired+
     edts
@@ -104,7 +102,6 @@
     ruby-end
     ruby-mode
     ruby-test-mode
-    s
     scss-mode
     smartparens
     smeargle
