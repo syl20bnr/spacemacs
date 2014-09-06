@@ -3,6 +3,14 @@
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
+(require 'package)
+(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+(package-initialize)
+(setq warning-minimum-level :error)
+
 (switch-to-buffer (get-buffer-create "*spacemacs*"))
 (defun append-to-spacemacs-buf (msg)
   "Append MSG to buffer."
