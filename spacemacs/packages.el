@@ -362,8 +362,6 @@ which require an initialization must be listed explicitly in the list."
       (require 'auto-complete-config)
       (ac-config-default)
       (add-to-list 'completion-styles 'initials t)
-      (add-to-list 'ac-sources 'ac-source-semantic)
-      (semantic-mode t)
       ;; customization
       (setq ac-auto-start 2
             ac-delay 0.
