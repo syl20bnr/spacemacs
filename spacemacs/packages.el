@@ -741,7 +741,7 @@ which require an initialization must be listed explicitly in the list."
   (use-package flycheck-color-mode-line
     :defer t
     :init
-    (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))))
+    (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)))
 
 (defun spacemacs/init-flycheck-ledger ()
   (eval-after-load 'flycheck
