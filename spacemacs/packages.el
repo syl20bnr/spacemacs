@@ -1377,8 +1377,8 @@ which require an initialization must be listed explicitly in the list."
                :full-name "Sylvain Benner"
                :channels ("#emacs" "#nupic" "#python"))))
       (require 'rcirc-color)
-      (require 'rcirc-reconnect
-               (concat spacemacs-extensions-directory "rcirc-reconnect/rcirc-reconnect.el"))
+      ;; (require 'rcirc-reconnect
+      ;;          (concat spacemacs-extensions-directory "rcirc-reconnect/rcirc-reconnect.el"))
       ;; identify info are stored in a separate location, skip errors
       ;; if the feature cannot be found.
       (require 'pinit-rcirc nil 'noerror))))
