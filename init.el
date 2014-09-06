@@ -3,6 +3,19 @@
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
+(switch-to-buffer (get-buffer-create "*spacemacs*"))
+(defun append-to-spacemacs-buf (msg)
+  "Append MSG to buffer."
+  (with-current-buffer (get-buffer-create "*spacemacs*")
+    (goto-char (point-max))
+    (insert (format "%s\n" msg))))
+(defun replace-last-line-of-spacemacs-buf (msg)
+  "Replace the last line of the buffer with MSG."
+  (with-current-buffer (get-buffer-create "*spacemacs*")
+    (goto-char (point-max))
+    (delete-region (line-beginning-position) (point-max))
+    (insert msg)))
+
 (defconst user-home-directory
   (expand-file-name (concat user-emacs-directory "../"))
   "User home directory (~/).")
