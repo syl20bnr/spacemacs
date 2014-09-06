@@ -701,11 +701,7 @@ which require an initialization must be listed explicitly in the list."
                       scss
                       web))
         (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
-                  'flycheck-mode))
-      (use-package flycheck-color-mode-line
-        :defer t
-        :init
-        (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)))
+                  'flycheck-mode)))
     :config
     (progn
       (setq flycheck-check-syntax-automatically '(save mode-enabled))
@@ -738,12 +734,17 @@ which require an initialization must be listed explicitly in the list."
         :overlay-category 'flycheck-info-overlay
         :fringe-bitmap 'my-flycheck-fringe-indicator
         :fringe-face 'flycheck-fringe-info)
-
       (evil-leader/set-key
         "fc" 'flycheck-clear
         "fl" 'flycheck-list-errors
         "fn" 'flycheck-next-error
         "fp" 'flycheck-previous-error))))
+
+(defun spacemacs/init-flycheck-color-mode-line ()
+  (use-package flycheck-color-mode-line
+    :defer t
+    :init
+    (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode))))
 
 (defun spacemacs/init-flycheck-ledger ()
   (eval-after-load 'flycheck
