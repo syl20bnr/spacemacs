@@ -65,3 +65,4 @@
                           ,load-file-name elapsed)))
             t))
 
+(append-to-spacemacs-buf "\n\nWelcome to Spacemacs!")
