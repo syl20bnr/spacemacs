@@ -84,16 +84,23 @@ extension.
   "Install the packages all the packages if there are not currently installed."
   (interactive)
   (let* ((pkg-list (ht-keys spacemacs-all-packages))
-         (not-installed (remove-if 'package-installed-p pkg-list)))
+         (not-installed (remove-if 'package-installed-p pkg-list))
+         (not-installed-count (length not-installed)))
     ;; installation
     (if not-installed
-        (if (y-or-n-p (format
-              "there are %d packages to be installed. install them? "
-              (length not-installed)))
-            (progn (package-refresh-contents)
-                   (dolist (pkg pkg-list)
-                     (when (not (package-installed-p pkg))
-                       (package-install pkg))))))))
+        (progn
+          (append-to-spacemacs-buf (format "Found %s new package(s) to install..."
+                                           not-installed-count))
+          (package-refresh-contents)
+          (setq installed-count 0)
+          (dolist (pkg not-installed)
+            (when (not (package-installed-p pkg))
+              (package-install pkg))
+            (setq installed-count (1+ installed-count))
+            (replace-last-line-of-spacemacs-buf
+             (format "--> %s/%s packages installed"
+                     installed-count not-installed-count))
+            (redisplay))))))
 
 (defun contribsys/initialize-packages ()
   "Initialize all the declared packages."
