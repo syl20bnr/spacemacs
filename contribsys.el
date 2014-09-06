@@ -34,13 +34,13 @@ initialize the extension. ")
 
 (defun contribsys/load-layers ()
   "Load all declared layers."
-  (contribsys/load-layer-files '("funcs.el" "macros.el"))
+  (contribsys/load-layer-files '("funcs.el" "macros.el" "config.el"))
   (contribsys/read-packages-and-extensions)
   (contribsys/initialize-extensions spacemacs-all-pre-extensions)
   (contribsys/install-packages)
   (contribsys/initialize-packages)
   (contribsys/initialize-extensions spacemacs-all-post-extensions)
-  (contribsys/load-layer-files '("keybindings.el" "config.el")))
+  (contribsys/load-layer-files '("keybindings.el")))
 
 (defun contribsys/load-layer-files (files)
   "Load the files of list FILES from all declared layers."
