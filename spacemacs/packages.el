@@ -115,7 +115,7 @@
     visual-regexp-steroids
     volatile-highlights
     wand
-    weather
+;;    weather
     web-mode
     wdired
     yasnippet
