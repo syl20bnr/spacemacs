@@ -4,6 +4,7 @@
 (defvar spacemacs-pre-extensions
   '(
     use-package
+    solarized-theme
     ))
 
 ;; Pre extensions are loaded *after* the packages
@@ -17,7 +18,6 @@
     nose
     o-blog
     pylookup
-    solarized-theme
     ))
 
 ;; Initialize the extensions
@@ -98,6 +98,10 @@
       (add-hook 'kill-emacs-hook 'emacs-save-layout)
       (add-hook 'after-init-hook 'emacs-load-layout t))))
 
+;; solarized theme dependencies
+(unless (package-installed-p 'dash)
+  (package-refresh-contents)
+  (package-install 'dash))
 (defun spacemacs/init-solarized-theme ()
   ;; different method used than the documented one in order to speed up the
   ;; loading of emacs
