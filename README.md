@@ -76,7 +76,8 @@ your text files.
 
 ## Screenshot
 
-![screenshot](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs.png)
+![src_startup](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs_startup.png)
+![scr_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs.png)
 
 ## Who can benefit from this ?
 
