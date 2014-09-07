@@ -117,28 +117,7 @@ you are good to go:
 
 ## Packages and Extensions Organization
 
-** deprecated / to be updated **
-
-Modes/libraries are separated into two categories:
-- **package:** packages installed from `package.el` compliant repositories.
-- **extension:** modes directly fetched from git repositories (as sub-modules)
-
-There are two types of extensions:
-- **pre-extensions:** loaded before packages
-- **post-extensions:** loaded after packages
-
-Modes/libraries are listed in the following three files depending whether they
-are packages, pre-extensions or post-extensions, in order of loading:
-- pre-extensions.el 
-- packages.el
-- post-extensions.el
-
-A package or extension may have a corresponding `init-....el` file responsible
-for its initialization, those files are stored respectively in the
-`init-package` and `init-extension` directories.
-
-`init-....el` files lazy load the modes by using the [use-package][use-package]
-macro.
+*work in progress* _stay tuned_
 
 ## How it works
 
