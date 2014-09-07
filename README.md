@@ -58,7 +58,6 @@
 			- [Inferior REPL process](#user-content-inferior-repl-process-1)
 			- [Other R commands](#user-content-other-r-commands)
 		- [rcirc](#user-content-rcirc)
-	- [And more...](#user-content-and-more)
 - [TODO list](#user-content-todo-list)
 
 ## Goals
@@ -730,10 +729,6 @@ Send code to inferior process commands:
 ------------------|------------------------------------------------------------
 `CTRL+j`          | next item in command history
 `CTRL+k`          | previous item in command history
-
-### And more...
-
-See [my-keybindings.el][keybindings] to explore for more key bindings.
 
 ## TODO list
 
