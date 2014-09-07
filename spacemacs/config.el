@@ -189,17 +189,17 @@
 ;;     )
 ;;   )
 
-(add-hook 'after-init-hook
-;;          'desktop-settings-setup
-          (lambda ()
-            ;; No splash screen
-            (setq inhibit-startup-screen t)
-            ;; ;; If the *scratch* buffer is the current one, then create a new
-            ;; ;; empty untitled buffer to hide *scratch*
-            ;; (if (string= (buffer-name) "*scratch*")
-            ;;     (new-empty-buffer))
-            )
-          t) ;; append this hook to the tail
+;; (add-hook 'after-init-hook
+;; ;;          'desktop-settings-setup
+;;           (lambda ()
+;;             ;; No splash screen
+;;             (setq inhibit-startup-screen t)
+;;             ;; ;; If the *scratch* buffer is the current one, then create a new
+;;             ;; ;; empty untitled buffer to hide *scratch*
+;;             ;; (if (string= (buffer-name) "*scratch*")
+;;             ;;     (new-empty-buffer))
+;;             )
+;;           t) ;; append this hook to the tail
 
 ;; seems pointless to warn. There's always undo.
 (put 'narrow-to-region 'disabled nil)
