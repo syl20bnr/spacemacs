@@ -1379,7 +1379,9 @@ which require an initialization must be listed explicitly in the list."
       ;;          (concat spacemacs-extensions-directory "rcirc-reconnect/rcirc-reconnect.el"))
       ;; identify info are stored in a separate location, skip errors
       ;; if the feature cannot be found.
-      (require 'pinit-rcirc nil 'noerror))))
+      (require 'pinit-rcirc nil 'noerror)
+      (define-key rcirc-mode-map (kbd "C-j") 'rcirc-insert-prev-input)
+      (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input))))
 
 (defun spacemacs/init-recentf ()
   (use-package recentf
