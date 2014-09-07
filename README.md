@@ -6,7 +6,7 @@
     ╚════██║██╔═══╝*██╔══██║██║*****██╔══╝**██║╚██╔╝██║██╔══██║██║*****╚════██║
     ███████║██║*****██║**██║╚██████╗███████╗██║*╚═╝*██║██║**██║╚██████╗███████║
     ╚══════╝╚═╝*****╚═╝**╚═╝*╚═════╝╚══════╝╚═╝*****╚═╝╚═╝**╚═╝*╚═════╝╚══════╝
-        [The best editor is not *Emacs* nor *Vim*, the best editor it's]
+         [The best editor is not *Emacs* nor *Vim*, the best editor it's]
                                  [*Emacs+Vim*]
 
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
