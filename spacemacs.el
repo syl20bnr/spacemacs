@@ -1,3 +1,11 @@
+(defun spacemacs-load-dotfile ()
+  "Load ~/.spacemacs. If it is not found then copy .spacemacs.template to
+~/.spacemacs"
+  (let ((dotfile (concat user-home-directory ".spacemacs")))
+    (unless (file-exists-p dotfile)
+      (copy-file (concat user-emacs-directory ".spacemacs.template") dotfile))
+    (load dotfile)))
+
 (defvar spacemacs-title-length 74)
 (defvar loading-counter 0)
 (defvar loading-text "Loading")

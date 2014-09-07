@@ -18,7 +18,7 @@
 (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
 
 ;; User configuration file for Spacemacs: ~/.spacemacs 
-(load (concat user-home-directory ".spacemacs"))
+(spacemacs-load-dotfile)
 (dotspacemacs/init)
 
 (load (concat user-emacs-directory "contribsys.el"))
