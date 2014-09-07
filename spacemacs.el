@@ -21,15 +21,13 @@
   "Create and initialize the spacemacs startup buffer."
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
   (insert-file-contents (concat user-emacs-directory "banner.txt"))
-  (goto-char (point-max))
-  (insert loading-text)
   (redisplay))
 
 (defun append-to-spacemacs-buf (msg)
   "Append MSG to spacemacs buffer."
   (with-current-buffer (get-buffer-create "*spacemacs*")
     (goto-char (point-max))
-    (insert (format "%s\n" msg))))
+    (insert (format "%s" msg))))
 
 (defun replace-last-line-of-spacemacs-buf (msg)
   "Replace the last line of the spacemacs buffer with MSG."

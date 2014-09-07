@@ -2,7 +2,7 @@
 (require 'package)
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ;; ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 (setq warning-minimum-level :error)
@@ -45,6 +45,7 @@ initialize the extension. ")
   (contribsys/read-packages-and-extensions)
   (contribsys/initialize-extensions spacemacs-all-pre-extensions)
   (contribsys/install-packages)
+  (append-to-spacemacs-buf loading-text)
   (contribsys/initialize-packages)
   (contribsys/initialize-extensions spacemacs-all-post-extensions)
   (contribsys/load-layer-files '("keybindings.el")))
@@ -101,8 +102,11 @@ extension.
     ;; installation
     (if not-installed
         (progn
-          (append-to-spacemacs-buf (format "Found %s new package(s) to install..."
-                                           not-installed-count))
+          (append-to-spacemacs-buf
+           (format "Found %s new package(s) to install...\n"
+                   not-installed-count))
+          (append-to-spacemacs-buf "--> update repositories content\n")
+          (redisplay)
           (package-refresh-contents)
           (setq installed-count 0)
           (dolist (pkg not-installed)
@@ -112,7 +116,8 @@ extension.
             (replace-last-line-of-spacemacs-buf
              (format "--> %s/%s packages installed"
                      installed-count not-installed-count))
-            (redisplay))))))
+            (redisplay))
+          (append-to-spacemacs-buf "\n")))))
 
 (defun contribsys/initialize-packages ()
   "Initialize all the declared packages."
