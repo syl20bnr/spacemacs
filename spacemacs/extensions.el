@@ -113,4 +113,4 @@
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (create-solarized-theme 'dark 'solarized-dark)
       (spacemacs/set-flycheck-custom-face)
-      )))
+      (create-spacemacs-buf))))

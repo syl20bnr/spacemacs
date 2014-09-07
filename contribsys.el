@@ -85,7 +85,10 @@ extension.
           (puthash pkg sym spacemacs-all-pre-extensions))
         (dolist (pkg (eval (intern (format "%s-post-extensions"
                                            (symbol-name sym)))))
-          (puthash pkg sym spacemacs-all-post-extensions))))))
+          (puthash pkg sym spacemacs-all-post-extensions)))))
+  ;; number of chuncks for the loading screen
+  (setq loading-dots-chunk-size-max (/ loading-dots-count-max
+                                       loading-dots-chunk-count)))
 
 (defun contribsys/install-packages ()
   "Install the packages all the packages if there are not currently installed."
@@ -117,6 +120,7 @@ extension.
   "Initialize the package PKG from the configuration layer LSYM."
   (let* ((layer (assq lsym spacemacs-config-layers))
          (init-func (intern (format "%s/init-%s" (symbol-name lsym) pkg))))
+    (loading-animation)
     (if (and (package-installed-p pkg) (fboundp init-func))
         (funcall init-func))))
 
@@ -130,6 +134,7 @@ extension.
          (ext-dir (plist-get (cdr layer) :ext-dir))
          (init-func (intern (format "%s/init-%s" (symbol-name lsym) ext))))
        (add-to-list 'load-path (format "%s%s/" ext-dir ext))
+       (loading-animation)
        (if (fboundp init-func) (funcall init-func))))
 
 (defun contribsys/declare-configuration-layers ()
