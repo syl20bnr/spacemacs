@@ -104,6 +104,8 @@ yet, I deeply recommend you to learn the basics as recommended in
 `Spacemacs` is tested with `Emacs 24.3.1` on `Ubuntu 14.04`, `Mac OS X 10.10`,
 `Windows 7`.
 
+Clone the repo:
+
     cd ~
     mv .emacs.d .emacs.bak
     git clone http://github.com/syl20bnr/spacemacs .emacs.d
@@ -113,11 +115,6 @@ Get the sub-modules:
     cd ~/.emacs.d
     git submodule init
     git submodule update
-
-Copy .spacemacs template:
-
-    cd ~/emacs.d/spacemacs
-    cp .spacemacs.template ~/.spacemacs
 
 ## Packages and Extensions Organization
 
