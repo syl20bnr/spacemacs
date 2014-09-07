@@ -46,7 +46,6 @@
   (menu-bar-mode -1))
 (scroll-bar-mode -1)
 ;; fringes
-(set-fringe-mode nil)  ; default
 (setq-default fringe-indicator-alist
               '((truncation . nil) (continuation . nil)))
 ;; Show column number in mode line
