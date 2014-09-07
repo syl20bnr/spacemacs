@@ -9,7 +9,7 @@
          [The best editor is not *Emacs* nor *Vim*, the best editor it's]
                                  [*Emacs+Vim*]
 
-*Quick One Step Install:*
+**Quick One Step Install:**
 
     git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
 
