@@ -108,8 +108,8 @@
 ;; format ---------------------------------------------------------------------
 (evil-leader/set-key
   "ji" 'sp-newline
+  "jJ" 'sp-split-sexp
   "jj" (lambda () (interactive) (join-line 1) (sp-newline))
-  "j C-j" 'sp-split-sexp
   "jk" 'evil-join)
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key
