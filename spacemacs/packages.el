@@ -753,6 +753,7 @@ which require an initialization must be listed explicitly in the list."
     :init
     (progn
       (setq-default ispell-program-name "aspell")
+      (setq-default ispell-dictionary "en")
       (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
       (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1))))))
 
