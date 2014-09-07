@@ -177,7 +177,6 @@ the above keychords issues.
 [evil-leader][evil-leader]              | vim leader that bring a new layer of keys in normal mode
 [evil-little-word][evil-plugin01]       | port of [camelcasemotion.vim][vim-plugin01]
 [evil-operator-comment][evil-plugin01]  | comment/uncomment with `CC`
-[evil-matchit][evil-plugin02]           | port of [matchit.vim][vim-plugin02]
 [evil-visualstar][evil-plugin03]        | search for current selection with `*`
 [evil-exchange][evil-plugin05]          | port of [vim-exchange][vim-plugin04]
 [surround][evil-plugin04]               | port of [surround.vim][vim-plugin03]
