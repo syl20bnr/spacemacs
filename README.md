@@ -9,6 +9,10 @@
          [The best editor is not *Emacs* nor *Vim*, the best editor it's]
                                  [*Emacs+Vim*]
 
+*Quick One Step Install:*
+
+    git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
+
 **Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 
 - [Goals](#user-content-goals)
@@ -104,17 +108,12 @@ yet, I deeply recommend you to learn the basics as recommended in
 `Spacemacs` is tested with `Emacs 24.3.1` on `Ubuntu 14.04`, `Mac OS X 10.10`,
 `Windows 7`.
 
-Clone the repo:
+Backup your current `.emacs.d`, clone the repo. _with the submodules_ and
+you are good to go:
 
     cd ~
     mv .emacs.d .emacs.bak
-    git clone http://github.com/syl20bnr/spacemacs .emacs.d
-
-Get the sub-modules:
-
-    cd ~/.emacs.d
-    git submodule init
-    git submodule update
+    git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
 
 ## Packages and Extensions Organization
 
