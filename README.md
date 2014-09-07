@@ -488,7 +488,7 @@ Line formatting commands start with `j`:
 `<SPC> j i`       | split the current line at point and auto-indent
 `<SPC> j j`       | auto-indent the line below the current line and jump to it
 `<SPC> j k`       | join the current line with the next line
-`<SPC> l CTRL+j`  | split a quoted string
+`<SPC> j CTRL+j`  | split a quoted string
 
 `<SPC> j k`, `<SPC> j j` and `<SPC> j i` used together are very powerful to quickly
 reformat the code.

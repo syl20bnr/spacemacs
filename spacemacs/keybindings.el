@@ -109,6 +109,7 @@
 (evil-leader/set-key
   "ji" 'sp-newline
   "jj" (lambda () (interactive) (join-line 1) (sp-newline))
+  "j C-j" 'sp-split-sexp
   "jk" 'evil-join)
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key
