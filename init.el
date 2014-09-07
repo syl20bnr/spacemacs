@@ -3,14 +3,16 @@
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
-(defvar spacemacs-title-length 116)
+(defvar spacemacs-title-length 74)
+(defvar loading-counter 0)
 (defvar loading-text "Loading")
 (defvar loading-done-text "Ready!")
 (defvar loading-dots-chunk-count 3)
-(defvar loading-dots-chunk-size 0)
-(defvar loading-dots-chunk-size-max 0)
 (defvar loading-dots-count-max
   (- spacemacs-title-length (length loading-text) (length loading-done-text)))
+(defvar loading-dots-chunk-size
+  (/ loading-dots-count-max loading-dots-chunk-count))
+(defvar loading-dots-chunk-threshold 0)
 (defun create-spacemacs-buf ()
   "Create and initialize the spacemacs startup buffer."
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
@@ -33,11 +35,14 @@
   "Display LOADING-TITLE with trailing dots of max length
 SPACEMACS-TITLE-LENGTH. New loading title is displayed by chunk
 of size LOADING-DOTS-CHUNK-SIZE-MAX."
-  (setq loading-dots-chunk-size (1+ loading-dots-chunk-size))
-  (setq loading-text (concat loading-text "."))
-  (if (>= loading-dots-chunk-size loading-dots-chunk-size-max)
+  (setq loading-counter (1+ loading-counter))
+  (if (>= loading-counter loading-dots-chunk-threshold)
       (progn 
-        (setq loading-dots-chunk-size 0)
+        (setq loading-counter 0)
+        (let ((i 0))
+          (while (< i loading-dots-chunk-size)
+            (setq loading-text (concat loading-text "."))
+            (setq i (1+ i))))
         (replace-last-line-of-spacemacs-buf loading-text)
         (redisplay))))
 

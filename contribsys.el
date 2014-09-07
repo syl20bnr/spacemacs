@@ -87,8 +87,10 @@ extension.
                                            (symbol-name sym)))))
           (puthash pkg sym spacemacs-all-post-extensions)))))
   ;; number of chuncks for the loading screen
-  (setq loading-dots-chunk-size-max (/ loading-dots-count-max
-                                       loading-dots-chunk-count)))
+  (let ((total (+ (ht-size spacemacs-all-packages)
+                  (ht-size spacemacs-all-pre-extensions)
+                  (ht-size spacemacs-all-post-extensions))))
+  (setq loading-dots-chunk-threshold (/ total loading-dots-chunk-count))))
 
 (defun contribsys/install-packages ()
   "Install the packages all the packages if there are not currently installed."
