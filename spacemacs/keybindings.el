@@ -107,8 +107,8 @@
   "ik" 'evil-insert-line-above)
 ;; format ---------------------------------------------------------------------
 (evil-leader/set-key
-  "ji" (lambda () (interactive) (join-line 1) (sp-newline))
-  "jj" 'sp-newline
+  "ji" 'sp-newline
+  "jj" (lambda () (interactive) (join-line 1) (sp-newline))
   "jk" 'evil-join)
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key

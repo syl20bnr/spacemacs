@@ -485,8 +485,8 @@ Line formatting commands start with `j`:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
+`<SPC> j i`       | split the current line at point and auto-indent
 `<SPC> j j`       | auto-indent the line below the current line and jump to it
-`<SPC> j j`       | split the current line at point and auto-indent
 `<SPC> j k`       | join the current line with the next line
 `<SPC> l CTRL+j`  | split a quoted string
 
