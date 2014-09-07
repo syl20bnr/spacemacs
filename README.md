@@ -19,6 +19,7 @@
 - [Screenshot](#user-content-screenshot)
 - [Who can benefit from this ?](#user-content-who-can-benefit-from-this-)
 - [Install](#user-content-install)
+- [Troubleshoot](#user-content-troubleshoot)
 - [Packages and Extensions Organization](#user-content-packages-and-extensions-organization)
 - [How it works](#user-content-how-it-works)
 - [How to switch to normal mode efficiently ?](#user-content-how-to-switch-to-normal-mode-efficiently-)
@@ -114,6 +115,14 @@ you are good to go:
     cd ~
     mv .emacs.d .emacs.bak
     git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
+
+## Troubleshoot
+
+### Marmalade repository is down
+
+Unfortunately for now there is little you can do in `Spacemacs` if `marmalade`
+repository goes down and you need to install packages. Though there will be
+solutions in a future release of the contribution system.
 
 ## Packages and Extensions Organization
 
