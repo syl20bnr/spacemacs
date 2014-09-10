@@ -1,4 +1,4 @@
-(define-derived-mode spacemacs-mode special-mode "spacemacs"
+(define-derived-mode spacemacs-mode special-mode "spacemacs-mode"
   "Spacemacs major mode for startup screen.")
 
 (defun spacemacs-load-dotfile ()
@@ -20,23 +20,28 @@
   (/ loading-dots-count-max loading-dots-chunk-count))
 (defvar loading-dots-chunk-threshold 0)
 
-(defun create-spacemacs-buf ()
+(defun spacemacs-buffer ()
   "Create and initialize the spacemacs startup buffer."
+  (interactive)
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
-  (insert-file-contents (concat spacemacs-core-directory "banner.txt")))
+  (spacemacs-mode)
+  (let ((buffer-read-only nil))
+    (insert-file-contents (concat spacemacs-core-directory "banner.txt"))))
 
 (defun append-to-spacemacs-buf (msg)
   "Append MSG to spacemacs buffer."
   (with-current-buffer (get-buffer-create "*spacemacs*")
     (goto-char (point-max))
-    (insert (format "%s" msg))))
+    (let ((buffer-read-only nil))
+      (insert (format "%s" msg)))))
 
 (defun replace-last-line-of-spacemacs-buf (msg)
   "Replace the last line of the spacemacs buffer with MSG."
   (with-current-buffer (get-buffer-create "*spacemacs*")
     (goto-char (point-max))
-    (delete-region (line-beginning-position) (point-max))
-    (insert msg)))
+    (let ((buffer-read-only nil))
+      (delete-region (line-beginning-position) (point-max))
+      (insert msg))))
 
 (defun loading-animation ()
   "Display LOADING-TITLE with trailing dots of max length

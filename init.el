@@ -23,7 +23,7 @@
 (dolist (elisp '("spacemacs-mode.el" "contribsys.el"))
   (load (concat spacemacs-core-directory elisp)))
 
-(create-spacemacs-buf)
+(spacemacs-buffer)
 
 ;; User configuration file for Spacemacs: ~/.spacemacs 
 (spacemacs-load-dotfile)
