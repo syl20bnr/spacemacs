@@ -23,8 +23,7 @@
 (defun create-spacemacs-buf ()
   "Create and initialize the spacemacs startup buffer."
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
-  (insert-file-contents (concat spacemacs-core-directory "banner.txt"))
-  (redisplay))
+  (insert-file-contents (concat spacemacs-core-directory "banner.txt")))
 
 (defun append-to-spacemacs-buf (msg)
   "Append MSG to spacemacs buffer."
