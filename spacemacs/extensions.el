@@ -7,7 +7,7 @@
     solarized-theme
     ))
 
-;; Pre extensions are loaded *after* the packages
+;; Post extensions are loaded *after* the packages
 (defvar spacemacs-post-extensions
   '(
     centered-cursor
