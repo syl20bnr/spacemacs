@@ -1,5 +1,9 @@
 (define-derived-mode spacemacs-mode special-mode "spacemacs-mode"
-  "Spacemacs major mode for startup screen.")
+  "Spacemacs major mode for startup screen."
+  :syntax-table nil
+  :abbrev-table nil
+  (setq truncate-lines t)
+  (setq cursor-type nil))
 
 (defun spacemacs-load-dotfile ()
   "Load ~/.spacemacs. If it is not found then copy .spacemacs.template to
