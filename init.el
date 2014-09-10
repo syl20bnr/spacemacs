@@ -20,8 +20,10 @@
 (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
 
 ;; load core source
-(dolist (elisp '("spacemacs.el" "contribsys.el"))
+(dolist (elisp '("spacemacs-mode.el" "contribsys.el"))
   (load (concat spacemacs-core-directory elisp)))
+
+(create-spacemacs-buf)
 
 ;; User configuration file for Spacemacs: ~/.spacemacs 
 (spacemacs-load-dotfile)
