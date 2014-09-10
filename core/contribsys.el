@@ -7,7 +7,7 @@
 (package-initialize)
 (setq warning-minimum-level :error)
 
-(load (concat user-emacs-directory "ht.el"))
+(load (concat spacemacs-core-directory "ht.el"))
 
 (defvar spacemacs-config-layers '()
   "Alist of configuration layers with the form (symbol . plist) where
@@ -33,7 +33,8 @@ initialize the extension. ")
   "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer
  is a contribution layer."
   (let* ((sym-name (symbol-name sym))
-         (base-dir (if contrib contrib-config-directory user-emacs-directory))
+         (base-dir (if contrib spacemacs-contrib-config-directory
+                     user-emacs-directory))
          (dir (format "%s%s/" base-dir sym-name))
          (ext-dir (format "%sextensions/" dir)))
     (push (cons sym (list :contrib contrib :dir dir :ext-dir ext-dir))

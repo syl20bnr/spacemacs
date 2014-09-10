@@ -1,3 +1,6 @@
+(define-derived-mode spacemacs-mode special-mode "spacemacs"
+  "Spacemacs major mode for startup screen.")
+
 (defun spacemacs-load-dotfile ()
   "Load ~/.spacemacs. If it is not found then copy .spacemacs.template to
 ~/.spacemacs"
@@ -20,7 +23,7 @@
 (defun create-spacemacs-buf ()
   "Create and initialize the spacemacs startup buffer."
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
-  (insert-file-contents (concat user-emacs-directory "banner.txt"))
+  (insert-file-contents (concat spacemacs-core-directory "banner.txt"))
   (redisplay))
 
 (defun append-to-spacemacs-buf (msg)
