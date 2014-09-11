@@ -1366,9 +1366,10 @@ which require an initialization must be listed explicitly in the list."
                                       flyspell-mode)))
     :config
     (progn
-      (setq rcirc-fill-column 160)
-      (setq rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY"))
-      (setq rcirc-omit-threshold 20)
+      (setq rcirc-fill-column 160
+            rcirc-buffer-maximum-lines 1024
+            rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
+            rcirc-omit-threshold 20)
       (require 'rcirc-color)
       ;; (require 'rcirc-reconnect
       ;;          (concat spacemacs-extensions-directory "rcirc-reconnect/rcirc-reconnect.el"))
