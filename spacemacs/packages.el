@@ -1378,8 +1378,10 @@ which require an initialization must be listed explicitly in the list."
             rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
             rcirc-omit-threshold 20)
       (require 'rcirc-color)
-      ;; (require 'rcirc-reconnect
-      ;;          (concat spacemacs-extensions-directory "rcirc-reconnect/rcirc-reconnect.el"))
+      (let* ((layer (assq 'spacemacs spacemacs-config-layers))
+             (dir (plist-get (cdr layer) :ext-dir)))
+            (require 'rcirc-reconnect
+                     (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
       ;; identify info are stored in a separate location, skip errors
       ;; if the feature cannot be found.
       (require 'pinit-rcirc nil 'noerror)
