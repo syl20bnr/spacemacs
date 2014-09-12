@@ -281,16 +281,23 @@ Key Binding   |                 Description
 #### Bookmarks
 
 Bookmarks can be set anywhere in a file. Bookmarks are persistent. They are very
-useful to jump to/open a known project.
+useful to jump to/open a known project. `Spacemacs` used `helm-bookmarks` to
+manage them.
 
-Bookmarks commands (start with `k`):
+Open an `helm` window with the current bookmarks by pressing:
+
+    <SPC> h b
+
+Then in the `helm-bookmarks` buffer:
 
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
-`<SPC> k d`   | delete a bookmark
-`<SPC> k g`   | go to a bookmark using `helm`
-`<SPC> k r`   | rename a bookmark
-`<SPC> k s`   | save a bookmark
+`CTRL+d`      | delete the selected bookmark
+`CTRL+e`      | edit the selected bookmark
+`CTRL+f`      | toggle filename location
+`CTRL+o`      | open the selected bookmark in another window
+
+To save a new bookmark, just type the name of the bookmark and press `RET`.
 
 ### Window manipulation
 

@@ -429,8 +429,7 @@ which require an initialization must be listed explicitly in the list."
     :config
     (setq 
      bookmark-default-file "~/.emacs.d/bookmarks" ; keep my ~/ clean
-     bookmark-save-flag 1)              ; autosave each change
-    ))
+     bookmark-save-flag 1)))                      ; autosave each change
 
 (defun spacemacs/init-buffer-move ()
   (use-package buffer-move
@@ -957,8 +956,16 @@ which require an initialization must be listed explicitly in the list."
       (evil-leader/set-key
         ":"   'helm-M-x
         "bs"  'helm-mini
-        "kil"  'helm-how-kill-ring
-        "hg"  'helm-bookmarks))
+        "hb"  'helm-bookmarks
+        "kil" 'helm-how-kill-ring)
+      ;; alter helm-bookmark key bindings to be simpler
+      (defun simpler-helm-bookmark-keybindings ()
+        (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
+        (define-key helm-bookmark-map (kbd "C-e") 'helm-bookmark-run-edit)
+        (define-key helm-bookmark-map (kbd "C-f") 'helm-bookmark-toggle-filename)
+        (define-key helm-bookmark-map (kbd "C-o") 'helm-bookmark-run-jump-other-window)
+        (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
+      (add-hook 'helm-mode-hook 'simpler-helm-bookmark-keybindings))
     :config
     (progn
       ;; helm keybindings tweaks

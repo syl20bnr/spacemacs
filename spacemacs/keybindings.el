@@ -120,12 +120,6 @@
 (evil-leader/set-key
   "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line))
   "jl" (lambda () (interactive) (push-mark (point)) (evil-end-of-line)))
-;; bookmarks ------------------------------------------------------------------
-(evil-leader/set-key
-  "kd" 'bookmark-delete
-  "kg" 'bookmark-jump
-  "kr" 'bookmark-rename
-  "ks" 'bookmark-set)
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "cc" 'compile)
 ;; narrow & widen -------------------------------------------------------------
