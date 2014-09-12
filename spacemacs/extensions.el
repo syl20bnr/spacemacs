@@ -15,6 +15,7 @@
     emoji-cheat-sheet
     evil-org-mode
     evil-plugins
+    helm-rcirc
     nose
     o-blog
     pylookup
@@ -57,6 +58,12 @@
   (use-package evil-operator-comment
     :init
     (global-evil-operator-comment-mode 1)))
+
+(defun spacemacs/init-helm-rcirc ()
+  (use-package helm-rcirc
+    :commands helm-rcirc-auto-join-channels
+    :init
+    (evil-leader/set-key "irc" 'helm-rcirc-auto-join-channels)))
 
 (defun spacemacs/init-nose ()
   (use-package nose
