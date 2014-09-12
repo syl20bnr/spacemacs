@@ -1373,8 +1373,8 @@ which require an initialization must be listed explicitly in the list."
                                       flyspell-mode)))
     :config
     (progn
-      (setq rcirc-fill-column 160
-            rcirc-buffer-maximum-lines 1024
+      (setq rcirc-fill-column 80
+            rcirc-buffer-maximum-lines 2048
             rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
             rcirc-omit-threshold 20)
       (require 'rcirc-color)
