@@ -34,3 +34,6 @@
 [submodule "spacemacs/extensions/helm-rcirc"]
 	path = spacemacs/extensions/helm-rcirc
 	url = http://github.com/syl20bnr/helm-rcirc
+[submodule "spacemacs/extensions/spray"]
+	path = spacemacs/extensions/spray
+	url = http://github.com/syl20bnr/spray
