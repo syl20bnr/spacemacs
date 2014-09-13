@@ -55,7 +55,7 @@
 ;; highlight current line
 (global-hl-line-mode t)
 ;; no blink
-;; (blink-cursor-mode (- (*) (*) (*)))
+(blink-cursor-mode 0)
 ;; tool tips in echo area
 (tooltip-mode -1)
 (setq tooltip-use-echo-area t)

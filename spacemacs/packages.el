@@ -159,12 +159,24 @@ which require an initialization must be listed explicitly in the list."
   (use-package evil
     :init
     (progn
+      (defun set-default-evil-emacs-state-cursor ()
+        (setq evil-emacs-state-cursor '("red" box)))
+      (defun set-default-evil-normal-state-cursor ()
+        (setq evil-normal-state-cursor '("orange" box)))
+      (defun set-default-evil-insert-state-cursor ()
+        (setq evil-insert-state-cursor '("green3" (bar . 2))))
+      (defun set-default-evil-visual-state-cursor ()
+        (setq evil-visual-state-cursor '("black" (hbar . 2))))
+      (defun set-default-evil-motion-state-cursor ()
+        (setq evil-motion-state-cursor '("purple" box)))
+      (defun evil-insert-state-cursor-hide ()
+        (setq evil-insert-state-cursor '("green3" (hbar . 0))))
+      (set-default-evil-emacs-state-cursor)
+      (set-default-evil-normal-state-cursor)
+      (set-default-evil-insert-state-cursor)
+      (set-default-evil-visual-state-cursor)
+      (set-default-evil-motion-state-cursor)
       (setq evil-mode-line-format 'before)
-      (setq evil-emacs-state-cursor  '("red" box))
-      (setq evil-normal-state-cursor '("orange" box))
-      (setq evil-visual-state-cursor '("black" box))
-      (setq evil-insert-state-cursor '("green3" box))
-      (setq evil-motion-state-cursor '("purple" box))
       (add-to-hooks #'cofi/evil-toggle-relative-lines
                     '(evil-operator-state-entry-hook
                       evil-operator-state-exit-hook))
