@@ -112,9 +112,9 @@
 ;; evil-join can still be perfomed with <SPC> j k
 (define-key evil-normal-state-map "J" (lambda () (interactive) (join-line 1) (sp-newline)))
 (evil-leader/set-key
-  "J" 'sp-newline
-  "jJ" (lambda () (interactive) (sp-split-sexp 1) (sp-newline))
-  "jj" 'sp-split-sexp
+  "J" (lambda () (interactive) (sp-split-sexp 1) (sp-newline))
+  "jJ" 'sp-split-sexp
+  "jj" 'sp-newline
   "jk" 'evil-join)
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key

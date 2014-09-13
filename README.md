@@ -502,9 +502,9 @@ Line formatting commands start with `j`:
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
 `J`               | go to next line and indent it using auto-indent rules
-`<SPC> J`         | same as `J` but will split the current line at point
-`<SPC> j j`       | split a quoted string or s-expression in place
-`<SPC> j J`       | split a quoted string and auto-indent
+`<SPC> j j`       | same as `J` but will split the current line at point
+`<SPC> J`         | split a quoted string or s-expression in place
+`<SPC> j J`       | split a quoted string or s-expression and auto-indent
 `<SPC> j k`       | join the current line with the next line
 
 Used together these key bindings are very powerful to quickly reformat the code.
