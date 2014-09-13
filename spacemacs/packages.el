@@ -183,9 +183,7 @@ which require an initialization must be listed explicitly in the list."
       ;; I prefer to stay on the original character when leaving insert mode
       ;; (initiated with 'i').
       (setq evil-move-cursor-back nil)
-      (evil-mode 1)
-      ;; replace motion state by normal state and add some other modes
-      (setq evil-normal-state-modes (append '(rcirc-mode) evil-motion-state-modes)))
+      (evil-mode 1))
     :config
     (progn
       ;; inspired from:
@@ -1382,7 +1380,9 @@ which require an initialization must be listed explicitly in the list."
       (add-to-hook 'rcirc-mode-hook '(rcirc-track-minor-mode
                                       rcirc-omit-mode
                                       ;; rcirc-reconnect-mode
-                                      flyspell-mode)))
+                                      flyspell-mode))
+      (setq evil-normal-state-modes
+            (cons 'rcirc-mode evil-normal-state-modes)))
     :config
     (progn
       (setq rcirc-fill-column 80
