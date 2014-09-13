@@ -1326,16 +1326,7 @@ which require an initialization must be listed explicitly in the list."
                 (python-shell-send-region start end)
                 (python-shell-switch-to-shell)
                 (evil-insert-state))
-        "mr"  'python-shell-send-region
-        "mTf" 'nosetests-pdb-one
-        "mtf" 'nosetests-one
-        "mTa" 'nosetests-pdb-all
-        "mta" 'nosetests-all
-        "mTm" 'nosetests-pdb-module
-        "mtm" 'nosetests-module
-        "mTs" 'nosetests-pdb-suite
-        "mts" 'nosetests-suite
-        "m RET" 'quickrun)
+        "mr"  'python-shell-send-region)
       (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
       (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input))))
 

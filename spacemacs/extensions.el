@@ -78,7 +78,16 @@
     :config
     (progn
       (add-to-list 'nose-project-root-files "setup.cfg")
-      (setq nose-use-verbose nil))))
+      (setq nose-use-verbose nil)
+      (evil-leader/set-key-for-mode 'python-mode
+        "mTf" 'nosetests-pdb-one
+        "mtf" 'nosetests-one
+        "mTa" 'nosetests-pdb-all
+        "mta" 'nosetests-all
+        "mTm" 'nosetests-pdb-module
+        "mtm" 'nosetests-module
+        "mTs" 'nosetests-pdb-suite
+        "mts" 'nosetests-suite))))
 
 (defun spacemacs/init-o-blog ()
   (use-package o-blog
