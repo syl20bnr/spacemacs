@@ -220,7 +220,9 @@ which require an initialization must be listed explicitly in the list."
         (progn
           ;; Unset shortcuts which shadow evil leader
           (eval-after-load "compile"
-            '(define-key compilation-mode-map (kbd "SPC") nil))
+            '(progn 
+              (define-key compilation-mode-map (kbd "SPC") nil)
+              (define-key compilation-mode-map (kbd "h") nil)))
           (eval-after-load "dired"
             '(define-key dired-mode-map (kbd "SPC") nil))
           ;; make leader available in visual mode
