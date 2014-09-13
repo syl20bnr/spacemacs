@@ -494,9 +494,6 @@ and indent it`.
 
 Join lines can still be performed with `<SPC> j k`
 
-`<SPC> J` will has the same effect as `J` but it will also split the current
-line at point.
-
 Line formatting commands start with `j`:
 
     Key Binding   |                 Description
