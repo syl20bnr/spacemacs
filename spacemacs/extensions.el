@@ -19,6 +19,7 @@
     nose
     o-blog
     pylookup
+    spray
     ))
 
 ;; Initialize the extensions
@@ -113,6 +114,28 @@
       ;; save and restore layout
       (add-hook 'kill-emacs-hook 'emacs-save-layout)
       (add-hook 'after-init-hook 'emacs-load-layout t))))
+
+(defun spacemacs/init-spray ()
+  (use-package spray
+    :commands spray-mode
+    :init
+    (progn
+      (evil-leader/set-key "asp"
+        (lambda ()
+          (interactive)
+          (evil-insert-state)
+          (spray-mode t)
+          (evil-insert-state-cursor-hide))))
+    :config
+    (progn
+      (define-key spray-mode-map (kbd "h") 'spray-backward-word)
+      (define-key spray-mode-map (kbd "l") 'spray-forward-word)
+      (define-key spray-mode-map (kbd "q")
+        (lambda ()
+          (interactive)
+          (spray-quit)
+          (set-default-evil-insert-state-cursor)
+          (evil-normal-state))))))
 
 ;; solarized theme dependencies
 (unless (package-installed-p 'dash)
