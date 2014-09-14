@@ -70,6 +70,7 @@
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
   "bd"  'delete-current-buffer-file
+  "be"  'erase-buffer
   "bK"  'kill-other-buffers
   "bk"  'ido-kill-buffer
   "b C-k" 'kill-matching-buffers-rudely
