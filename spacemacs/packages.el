@@ -1008,8 +1008,9 @@ which require an initialization must be listed explicitly in the list."
       (setq helm-c-yas-space-match-any-greedy t)
       (use-package yasnippet
         :config
-        (progn
-          (setq yas-snippet-dirs (list (concat spacemacs-config-directory "snippets")))
+        (let* ((layer (assq 'spacemacs spacemacs-config-layers))
+               (dir (plist-get (cdr layer) :dir)))
+          (setq yas-snippet-dirs (list (concat dir "snippets")))
           (yas-global-mode 1))))))
 
 (defun spacemacs/init-helm-descbinds ()
