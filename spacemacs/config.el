@@ -80,6 +80,8 @@
     (add-to-list 'default-frame-alist '(font . "Source Code Pro-10"))
     (set-default-font "Source Code Pro-10")))
 )
+;; draw underline lower
+(setq x-underline-at-descent-line t)
 ;; setup right and left margins
 ;; (add-hook 'window-configuration-change-hook
 ;;           (lambda ()

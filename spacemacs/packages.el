@@ -722,11 +722,15 @@ which require an initialization must be listed explicitly in the list."
                   #b00000000
                   #b00000000
                   #b00000000
+                  #b00000000
+                  #b00000000
                   #b00011100
                   #b00111110
                   #b00111110
                   #b00111110
                   #b00011100
+                  #b00000000
+                  #b00000000
                   #b00000000
                   #b00000000
                   #b01111111)))
