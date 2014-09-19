@@ -29,6 +29,7 @@
     elisp-slime-nav
     elixir-mix
     elixir-mode
+    ensime
     epc
     erlang
     ess
@@ -102,6 +103,7 @@
     ruby-end
     ruby-mode
     ruby-test-mode
+    sbt-mode
     scss-mode
     smartparens
     smeargle
@@ -579,6 +581,11 @@ which require an initialization must be listed explicitly in the list."
                           "\\(?:^\\|\\s-+\\)\\(?:do\\)")
                      (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
                      (ruby-end-mode +1))))))
+
+(defun spacemacs/init-ensime ()
+  (use-package ensime
+    :defer t
+    :init (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)))
 
 (defun spacemacs/init-erlang ()
   (use-package erlang
