@@ -6,6 +6,7 @@
     evil
     evil-exchange
     evil-leader
+    evil-terminal-cursor-changer
     evil-visualstar
     window-numbering
     powerline
@@ -237,6 +238,8 @@ which require an initialization must be listed explicitly in the list."
       ;; load evil-exchange
       (use-package evil-exchange
         :init (evil-exchange-install))
+      (unless (display-graphic-p)
+        (require 'evil-terminal-cursor-changer))
       ;; initiate a search of the selected text
       (use-package evil-visualstar))))
 
@@ -1369,9 +1372,12 @@ which require an initialization must be listed explicitly in the list."
     :init
     (progn 
       (setq rainbow-identifiers-choose-face-function 'rainbow-identifiers-cie-l*a*b*-choose-face
-            rainbow-identifiers-cie-l*a*b*-color-count 64
             rainbow-identifiers-cie-l*a*b*-saturation 100
-            rainbow-identifiers-cie-l*a*b*-lightness 40)
+            rainbow-identifiers-cie-l*a*b*-lightness 40
+            ;; override theme faces
+            rainbow-identifiers-faces-to-override '(highlight-quoted-symbol
+                                                    font-lock-variable-name-face
+                                                    font-lock-function-name-face))
       (add-to-hooks 'rainbow-identifiers-mode '(prog-mode-hook
                                                 erlang-mode-hook)))
 ))
