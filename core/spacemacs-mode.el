@@ -13,7 +13,7 @@
       (copy-file (concat user-emacs-directory ".spacemacs.template") dotfile))
     (load dotfile)))
 
-(defvar spacemacs-title-length 74)
+(defvar spacemacs-title-length 68)
 (defvar loading-counter 0)
 (defvar loading-text "Loading")
 (defvar loading-done-text "Ready!")
