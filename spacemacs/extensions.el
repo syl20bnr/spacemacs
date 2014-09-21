@@ -149,9 +149,9 @@
   (use-package solarized
     :init
     (progn
-      (deftheme solarized-light "The light variant of the Solarized colour theme")
-      (create-solarized-theme 'light 'solarized-light)
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (create-solarized-theme 'dark 'solarized-dark)
-      (spacemacs/set-flycheck-custom-face)
+      (deftheme solarized-light "The light variant of the Solarized colour theme")
+      (create-solarized-theme 'light 'solarized-light)
+      (spacemacs/post-theme-init 'solarized-light)
       (redisplay))))
