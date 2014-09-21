@@ -270,17 +270,33 @@ argument takes the kindows rotate backwards."
   (setq  spacemacs-cur-theme (pop spacemacs-themes))
   (message "Loading theme %s..." spacemacs-cur-theme)
   (load-theme  spacemacs-cur-theme t)
-  (set-flycheck-custom-face))
+  (spacemacs/post-theme-init spacemacs-cur-theme))
 
-(defun spacemacs/set-flycheck-custom-face ()
-  " Use foreground of the flycheck faces as background for color-mode line (in
- order to have a proper transparent background of Spacemacs custom bitmaps)"
+(defun spacemacs/post-theme-init (theme)
+  " Some processing that needs to be done when the current theme has been
+changed to THEME."
+  (interactive)
   (eval-after-load "flycheck-color-mode-line"
+    ;; Use foreground of the flycheck faces as background for color-mode line
+    ;; (in order to have a proper transparent background of Spacemacs custom
+    ;; bitmaps)
     '(progn
        (set-face-attribute 'flycheck-color-mode-line-error-face nil :background (face-foreground 'flycheck-fringe-error))
        (set-face-attribute 'flycheck-color-mode-line-warning-face nil :background (face-foreground 'flycheck-fringe-warning))
        (set-face-attribute 'flycheck-color-mode-line-info-face nil :background (face-foreground 'flycheck-fringe-info))
-       )))
+       ))
+  (eval-after-load "rainbow-identifiers"
+    ;; adjust saturation and lightness of rainbow-delimiters depending on the
+    ;; current theme
+    (pcase theme
+      (`solarized-dark (setq rainbow-identifiers-cie-l*a*b*-saturation 60
+                             rainbow-identifiers-cie-l*a*b*-lightness 50))
+      (`solarized-light (setq rainbow-identifiers-cie-l*a*b*-saturation 100
+                             rainbow-identifiers-cie-l*a*b*-lightness 40))
+      (_ (setq rainbow-identifiers-cie-l*a*b*-saturation 80
+               rainbow-identifiers-cie-l*a*b*-lightness 45))))
+  (if (buffer-file-name)
+    (revert-buffer nil t)))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function

@@ -1367,8 +1367,14 @@ which require an initialization must be listed explicitly in the list."
   (use-package rainbow-identifiers
     :commands rainbow-identifiers-mode
     :init
-    (add-to-hooks 'rainbow-identifiers-mode '(prog-mode-hook
-                                              erlang-mode-hook))))
+    (progn 
+      (setq rainbow-identifiers-choose-face-function 'rainbow-identifiers-cie-l*a*b*-choose-face
+            rainbow-identifiers-cie-l*a*b*-color-count 64
+            rainbow-identifiers-cie-l*a*b*-saturation 100
+            rainbow-identifiers-cie-l*a*b*-lightness 40)
+      (add-to-hooks 'rainbow-identifiers-mode '(prog-mode-hook
+                                                erlang-mode-hook)))
+))
 
 (defun spacemacs/init-rainbow-mode ()
   (use-package rainbow-mode
