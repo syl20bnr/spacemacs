@@ -281,7 +281,7 @@ which require an initialization must be listed explicitly in the list."
       (defpowerline powerline-evil-mode
         (gcs-propertized-evil-mode-tag))
 
-      (defvar powerline-minor-modesp nil)
+      (defvar powerline-minor-modesp t)
       (defun powerline-minor-modes-toggle ()
         "Toggle display of minor modes."
         (interactive)
