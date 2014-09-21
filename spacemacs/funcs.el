@@ -266,7 +266,8 @@ argument takes the kindows rotate backwards."
   (interactive)
   (when  spacemacs-cur-theme
     (disable-theme  spacemacs-cur-theme)
-    (setq spacemacs-themes (append spacemacs-themes (list  spacemacs-cur-theme))))
+    (setq spacemacs-themes (append spacemacs-themes
+                                   (list spacemacs-cur-theme))))
   (setq  spacemacs-cur-theme (pop spacemacs-themes))
   (message "Loading theme %s..." spacemacs-cur-theme)
   (load-theme  spacemacs-cur-theme t)
@@ -280,11 +281,19 @@ changed to THEME."
     ;; Use foreground of the flycheck faces as background for color-mode line
     ;; (in order to have a proper transparent background of Spacemacs custom
     ;; bitmaps)
-    '(progn
-       (set-face-attribute 'flycheck-color-mode-line-error-face nil :background (face-foreground 'flycheck-fringe-error))
-       (set-face-attribute 'flycheck-color-mode-line-warning-face nil :background (face-foreground 'flycheck-fringe-warning))
-       (set-face-attribute 'flycheck-color-mode-line-info-face nil :background (face-foreground 'flycheck-fringe-info))
-       ))
+    '(let ((ml-foreground (face-attribute 'mode-line :foreground)))
+       (set-face-attribute
+        'flycheck-color-mode-line-error-face nil
+        :foreground ml-foreground
+        :background (face-foreground 'flycheck-fringe-error))
+       (set-face-attribute
+        'flycheck-color-mode-line-warning-face nil
+        :foreground ml-foreground
+        :background (face-foreground 'flycheck-fringe-warning))
+       (set-face-attribute
+        'flycheck-color-mode-line-info-face nil
+        :foreground ml-foreground
+        :background (face-foreground 'flycheck-fringe-info))))
   (eval-after-load "rainbow-identifiers"
     ;; adjust saturation and lightness of rainbow-delimiters depending on the
     ;; current theme
