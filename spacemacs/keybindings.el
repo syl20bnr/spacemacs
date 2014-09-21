@@ -1,6 +1,8 @@
 ;; instantly display current keystrokes in mini buffer
 (setq echo-keystrokes 0.02)
 
+;; auto-indent on RET
+(define-key global-map (kbd "RET") 'newline-and-indent)
 ;; simple and more consistent keyboard quit key bindings
 ;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
 (global-set-key (kbd "f")
