@@ -295,8 +295,9 @@ changed to THEME."
                              rainbow-identifiers-cie-l*a*b*-lightness 40))
       (_ (setq rainbow-identifiers-cie-l*a*b*-saturation 80
                rainbow-identifiers-cie-l*a*b*-lightness 45))))
-  (if (buffer-file-name)
-    (revert-buffer nil t)))
+  ;; To make the variables stand out, keyword coloring is disabled
+  (set-face-attribute 'font-lock-keyword-face nil
+                      :foreground nil :slant 'normal :weight 'bold))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function
