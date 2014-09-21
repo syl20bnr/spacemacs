@@ -64,22 +64,18 @@
 ;; font
 ;; (set-default-font "DejaVu Sans Mono-10")
 ;; Dynamic font size depending on the system
-(pcase window-system
-  (`x (progn
-    (add-to-list 'default-frame-alist '(font . "Source Code Pro-10"))
-    (set-default-font "Source Code Pro-10")))
-  (`mac
-   (progn
-     (add-to-list 'default-frame-alist '(font . "Source Code Pro-12"))
-     (set-default-font "Source Code Pro-12")))
-  (`w32
-   (progn
-     (add-to-list 'default-frame-alist '(font . "Source Code Pro-9"))
-     (set-default-font "Source Code Pro-9")))
-  (other (progn
-    (add-to-list 'default-frame-alist '(font . "Source Code Pro-10"))
-    (set-default-font "Source Code Pro-10")))
-)
+(defun spacemacs-set-font (font size)
+  (let ((fontsize (format "%s-%s" font size)))
+    (message (format "Set default font: %s" fontsize))
+    (add-to-list 'default-frame-alist (cons font fontsize))
+    (set-default-font fontsize)))
+(let ((font "Source Code Pro"))
+  (when (member font (font-family-list))
+    (pcase window-system
+      (`x (spacemacs-set-font font 10))
+      (`mac (spacemacs-set-font font 12))
+      (`w32 (spacemacs-set-font font 9))
+      (other (spacemacs-set-font font 10)))))
 ;; draw underline lower
 (setq x-underline-at-descent-line t)
 ;; setup right and left margins
