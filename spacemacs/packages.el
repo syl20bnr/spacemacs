@@ -256,11 +256,11 @@ which require an initialization must be listed explicitly in the list."
         (propertize evil-mode-line-tag 'font-lock-face
                     ;; Don't propertize if we're not in the selected buffer
                     (cond ((not (eq (current-buffer) (car (buffer-list)))) '())
-                          ((evil-insert-state-p) '(:background "green3" :foreground "black"))
-                          ((evil-emacs-state-p)  '(:background "red" :foreground "black"))
-                          ((evil-motion-state-p) '(:background "purple" :foreground "black"))
-                          ((evil-visual-state-p) '(:background "gray" :foreground "black"))
-                          ((evil-normal-state-p)  '(:background "orange" :foreground "black"))
+                          ((evil-insert-state-p) '(:background "green3"))
+                          ((evil-emacs-state-p)  '(:background "red"))
+                          ((evil-motion-state-p) '(:background "purple"))
+                          ((evil-visual-state-p) '(:background "gray"))
+                          ((evil-normal-state-p)  '(:background "orange"))
                           (t '()))))
 
       (defpowerline powerline-window-number 
