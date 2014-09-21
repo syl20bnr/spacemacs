@@ -115,7 +115,6 @@
     visual-regexp-steroids
     volatile-highlights
     wand
-;;    weather
     web-mode
     wdired
     yasnippet
@@ -1503,15 +1502,6 @@ which require an initialization must be listed explicitly in the list."
                                        :capture :whole
                                        :action message))
       (evil-leader/set-key "RET" 'wand:execute))))
-
-(defun spacemacs/init-weather ()
-  (use-package weather
-    :commands weather-report
-    :config
-    (progn 
-      ;; pinit files come from my dropbox folder
-      (require 'pinit-weather nil 'noerror)
-      (setq weather-distance-unit "km"))))
 
 (defun spacemacs/init-web-mode ()
   (use-package web-mode
