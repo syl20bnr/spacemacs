@@ -496,7 +496,7 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 `Spacemacs` uses [diminish][diminish] mode to reduce the size of minor mode
 indicators:
 
-The minor mode area can be toggled on and off with (default is off):
+The minor mode area can be toggled on and off with:
 
     <SPC> t m
 
