@@ -190,21 +190,21 @@ design flaw in Vim key bindings because the `ESC` key is very far from the
 home row.
 
 The popular way to avoid this is to replace `ESC` by `jj` pressed rapidly.
-`Spacemacs` proposes to press `fd` instead and reserve the `j` zone of the
-keyboard for text reformatting.
+`Spacemacs` proposes to press `fd` instead and reserves the zone around `j`
+for text reformatting.
 
 `fd` also works to quit the minibuffer.
 
 **Note:** For those who know about [keychords.el][keychords] mode. This mode is
-not used to return to the normal mode, the reasons for this is latency and the
-fact that keychords wants you to press several keys almost at the same time
+not used to return to the normal mode, the reason for this is latency and the
+fact that keychords wants you to press several keys at almost the same time
 which is something very difficult to master correctly on a keyboard.
 `Spacemacs` has a special function called `fd-trigger` to handle the `fd` key
 sequence and fix the above keychords issues.
 
 ### Executing Vim and Emacs commands
 
-Vim commands are execute as usual with the `:` key.
+Vim commands are executed as usual with the `:` key.
 
 To execute an Emacs command press `<SPC>` (space) before:
 
