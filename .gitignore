@@ -26,6 +26,6 @@ crown/
 *.stackdump
 bookmarks
 /.my-keybindings.el.swp
-/.DS_Store
+.DS_Store
 tmp/
 /history
