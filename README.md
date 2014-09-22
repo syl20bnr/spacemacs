@@ -97,6 +97,10 @@ what matters: your text files.
 ![src_startup](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs_startup.png)
 ![scr_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs.png)
 
+*Note: Even though screenshots are updated frequently, `Spacemacs` is evolving
+quickly and the screenshots may not reflect exactly the current state of the
+project.*
+
 ## Who can benefit from this ?
 
 `Spacemacs` is first intended to be used by **Vim users** who want to go to the
