@@ -80,10 +80,10 @@ to the powerful Emacs editing platform**.
 *(work in progress)*. Contribute your own personal layer upstream and
 everybody can use it.
 
-- **Minimalistic UI**, keep your available screen space for what matters:
-your text files.
+- **Minimalistic and nice custom UI**, keep your available screen space for
+what matters: your text files.
 
-- Hopefully, make you love modal editing :-)
+- Hopefully, if it's not already the case: make you love modal editing :-)
 
 ## Screenshots
 
