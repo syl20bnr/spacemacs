@@ -117,19 +117,20 @@ you are good to go:
     mv .emacs.d .emacs.bak
     git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
 
-## Troubleshoot
+## Configuration layers
 
-### Marmalade repository is down
+**work in progress**
 
-Unfortunately for now there is little you can do in `Spacemacs` if `marmalade`
-repository goes down and you need to install packages. Though there will be
-solutions in a future release of the contribution system.
+## Contributions
 
-## Packages and Extensions Organization
+`Spacemacs` leverages the configuration layers in order to make it possible for
+you to share your own layer with other `Spacemacs` users.
 
-*work in progress* _stay tuned_
+**The contribution system is a work in progress**
 
-## How it works
+Anyway, pull requests are welcome for all parts of `Spacemacs`.
+
+## Main principles
 
 `Spacemacs` uses the [evil][evil] mode to emulate Vim key bindings. It is a
 very complete emulation (the most complete I've seen yet).
@@ -151,25 +152,62 @@ few examples:
 - Save all opened buffers: `<SPC> f S`
 - Open (switch) to a buffer with `helm`: `<SPC> b s`
 
-## How to switch to normal mode efficiently ?
+## UI and syntax highlighting
 
-One of the main design flaw in Vim key bindings is that you often have to press
-the `ESC` key to return to `normal` mode and `ESC` key is very far from the
+`Spacemacs` has a minimalistic and distraction free UI with a lot of subtle
+customizations which make it unique compared to other Emacs kits:
+ - custom [powerline][powerline] mode-line with color feedback according to
+ current [Flycheck][flycheck] status
+ - unicode symbols for minor mode lighters which appear in the mode-line
+ - custom fringe bitmaps and error feedbacks for [Flycheck][flycheck]
+ - custom fringe bitmaps for [git gutter][git-gutter].
+ - dedicated startup page with a mode aimed at easily managing `Spacemacs`
+
+`Spacemacs` syntax highlighting is also different from the majority of other
+Emacs configurations: instead of colorized keywords, `Spacemacs` has *colorized
+variables and functions* using the [rainbow identifiers][rainbow-identifiers]
+mode. Each variable and function has a unique color associated to it.
+
+## Commands
+
+Every sequences must be performed in `normal` mode.
+
+### Return to normal mode
+
+`ESC` is the default key to return to normal mode. This is one of the main
+design flaw in Vim key bindings because the `ESC` key is very far from the
 home row.
 
-The popular way to avoid this is to replace `ESC` by `jj` pressed rapidly. In
-`Spacemacs` you have to press `fd` quickly by default.
+The popular way to avoid this is to replace `ESC` by `jj` pressed rapidly.
+`Spacemacs` proposes to press `fd` instead and reserve the `j` zone of the
+keyboard for text reformatting.
 
-`fd` also works to quit minibuffer prompts.
+`fd` also works to quit the minibuffer.
 
 **Note:** For those who know about [keychords.el][keychords] mode. This mode is
-not used to achieve this, the reasons for this is latency and the fact that
-keychords wants you to press several keys almost at the same time which is
-something very difficult to master correctly on a keyboard. `Spacemacs` has a
-special function called `fd-trigger` to handle the `fd` key sequence and fix
-the above keychords issues.
+not used to return to the normal mode, the reasons for this is latency and the
+fact that keychords wants you to press several keys almost at the same time
+which is something very difficult to master correctly on a keyboard.
+`Spacemacs` has a special function called `fd-trigger` to handle the `fd` key
+sequence and fix the above keychords issues.
 
-## Evil plugins
+### Executing Vim and Emacs commands
+
+Vim commands are execute as usual with the `:` key.
+
+To execute an Emacs command press `<SPC>` (space) before:
+
+    <SPC> :
+
+### Key bindings help
+
+A list of all the key bindings can be accessed by pressing:
+
+    <SPC> ?
+
+To narrow the list to `Spacemacs` specific key bindings set the pattern to `SPC`
+
+### Included Evil plugins
 
 `Spacemacs` ships with the following evil plugins:
 
@@ -181,26 +219,6 @@ the above keychords issues.
 [evil-visualstar][evil-plugin03]        | search for current selection with `*`
 [evil-exchange][evil-plugin05]          | port of [vim-exchange][vim-plugin04]
 [surround][evil-plugin04]               | port of [surround.vim][vim-plugin03]
-
-## How to use it ?
-
-Every sequences must be performed in `normal` mode.
-
-### Executing Vim and Emacs commands
-
-Vim commands are execute as usual with the `:` key.
-
-To execute an Emacs command:
-
-    <SPC> :
-
-### Key bindings help
-
-A list of all the key bindings can be accessed by pressing:
-
-    <SPC> ?
-
-To narrow the list to `Spacemacs` specific key bindings set the pattern to `SPC`
 
 ### About helm
 
@@ -726,6 +744,14 @@ Send code to inferior process commands:
 ------------------|------------------------------------------------------------
 `CTRL+j`          | next item in command history
 `CTRL+k`          | previous item in command history
+
+## Troubleshoot
+
+### Marmalade repository is down
+
+Unfortunately for now there is little you can do in `Spacemacs` if `marmalade`
+repository goes down and you need to install packages. Though there will be
+solutions in a future release of the contribution system.
 
 ## TODO list
 
