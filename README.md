@@ -814,3 +814,5 @@ solutions in a future release of the contribution system.
 [ess-R-data-view]: https://github.com/myuhe/ess-R-data-view.el
 [monokai-theme]: https://github.com/oneKelvinSmith/monokai-emacs
 [zenburn-theme]: https://github.com/bbatsov/zenburn-emacs
+[git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
+[rainbow-identifiers]: https://github.com/Fanael/rainbow-identifiers
