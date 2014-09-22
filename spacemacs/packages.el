@@ -1375,8 +1375,7 @@ which require an initialization must be listed explicitly in the list."
             rainbow-identifiers-cie-l*a*b*-lightness 40
             ;; override theme faces
             rainbow-identifiers-faces-to-override '(highlight-quoted-symbol
-                                                    font-lock-variable-name-face
-                                                    font-lock-function-name-face))
+                                                    font-lock-variable-name-face))
       (add-to-hooks 'rainbow-identifiers-mode '(prog-mode-hook
                                                 erlang-mode-hook)))
 ))

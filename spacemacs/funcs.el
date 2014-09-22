@@ -305,6 +305,10 @@ changed to THEME."
       (_ (setq rainbow-identifiers-cie-l*a*b*-saturation 80
                rainbow-identifiers-cie-l*a*b*-lightness 45))))
   ;; To make the variables stand out, keyword coloring is disabled
+  ;; (set-face-attribute 'highlight-quoted-symbol nil
+  ;;                     :foreground nil :slant 'normal :weight 'bold)
+  (set-face-attribute 'font-lock-function-name-face nil
+                      :foreground nil :slant 'normal :weight 'normal)
   (set-face-attribute 'font-lock-keyword-face nil
                       :foreground nil :slant 'normal :weight 'bold))
 
