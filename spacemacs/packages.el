@@ -75,6 +75,7 @@
     less-css-mode
     magit
     markdown-mode
+    markdown-toc
     monokai-theme
     move-text
     multi-term
@@ -1141,6 +1142,10 @@ which require an initialization must be listed explicitly in the list."
 (defun spacemacs/init-markdown-mode ()
   (use-package markdown-mode
     :mode ("\\.md" . markdown-mode)))
+
+(defun spacemacs/init-markdown-toc ()
+  (use-package markdown-toc
+    :defer t))
 
 (defun spacemacs/init-move-text ()
   (use-package move-text
