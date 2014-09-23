@@ -476,9 +476,9 @@ Motion            | Purple
 When [Flycheck][flycheck] minor mode is enabled, the mode line color changes
 according to the current flycheck state:
 
-![mode line with solarized dark error](https://raw.github.com/syl20bnr/flycheck-color-mode-line/master/doc/flycheck-color-mode-line-dark-e.png)
-![mode line with solarized dark warning](https://raw.github.com/syl20bnr/flycheck-color-mode-line/master/doc/flycheck-color-mode-line-dark-w.png)
-![mode line with solarized dark warning](https://raw.github.com/syl20bnr/flycheck-color-mode-line/master/doc/flycheck-color-mode-line-dark-i.png)
+![flycheck-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/flycheck-error.png)
+![flycheck-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/flycheck-warning.png)
+![flycheck-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/flycheck-info.png)
 
 #### Toggles
 
