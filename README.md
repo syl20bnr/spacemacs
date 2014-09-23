@@ -170,7 +170,8 @@ customizations which make it unique compared to other Emacs kits:
  - custom [powerline][powerline] mode-line [with color feedback](#mode-line)
  according to current [Flycheck][flycheck] status
  - unicode symbols for minor mode lighters which appear in the mode-line
- - custom fringe bitmaps and error feedbacks for [Flycheck][flycheck]
+ - [custom fringe bitmaps](#errors-handling) and error feedbacks for
+ [Flycheck][flycheck]
  - custom fringe bitmaps for [git gutter][git-gutter].
  - dedicated startup page with a mode aimed at easily managing `Spacemacs`
 
@@ -549,6 +550,14 @@ Errors management commands (star with `f` for `flycheck`):
 `<SPC> f l`       | display the `flycheck` list of errors/warnings
 `<SPC> f n`       | go to the next `flycheck` error
 `<SPC> f p`       | go to the previous flycheck error
+
+Custom fringe bitmaps:
+
+   Symbol                                                                                       | Description
+:----------------------------------------------------------------------------------------------:|------------
+![dot-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-error.png)     | Error
+![dot-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-warning.png) | warning
+![dot-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-info.png)       | Info
 
 ### Project management
 
