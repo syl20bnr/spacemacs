@@ -281,19 +281,23 @@ changed to THEME."
     ;; Use foreground of the flycheck faces as background for color-mode line
     ;; (in order to have a proper transparent background of Spacemacs custom
     ;; bitmaps)
-    '(let ((ml-foreground (face-attribute 'mode-line :foreground)))
+    '(let ((ml-foreground (face-attribute 'mode-line :foreground))
+           (ml-background (face-attribute 'mode-line :background)))
        (set-face-attribute
         'flycheck-color-mode-line-error-face nil
         :foreground ml-foreground
-        :background (face-foreground 'flycheck-fringe-error))
+        :background ml-background
+        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-error)))
        (set-face-attribute
         'flycheck-color-mode-line-warning-face nil
         :foreground ml-foreground
-        :background (face-foreground 'flycheck-fringe-warning))
+        :background ml-background
+        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-warning)))
        (set-face-attribute
         'flycheck-color-mode-line-info-face nil
         :foreground ml-foreground
-        :background (face-foreground 'flycheck-fringe-info))))
+        :background ml-background
+        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-info)))))
   (eval-after-load "rainbow-identifiers"
     ;; adjust saturation and lightness of rainbow-delimiters depending on the
     ;; current theme
