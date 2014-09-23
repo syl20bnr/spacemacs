@@ -67,7 +67,7 @@
 (defun spacemacs-set-font (font size)
   (let ((fontsize (format "%s-%s" font size)))
     (message (format "Set default font: %s" fontsize))
-    (add-to-list 'default-frame-alist (cons font fontsize))
+    (add-to-list 'default-frame-alist (cons 'font fontsize))
     (set-default-font fontsize)))
 (let ((font "Source Code Pro"))
   (when (member font (font-family-list))
