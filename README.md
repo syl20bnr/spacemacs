@@ -167,8 +167,8 @@ few examples:
 
 `Spacemacs` has a minimalistic and distraction free UI with a lot of subtle
 customizations which make it unique compared to other Emacs kits:
- - custom [powerline][powerline] mode-line with color feedback according to
- current [Flycheck][flycheck] status
+ - custom [powerline][powerline] mode-line [with color feedback](#mode-line)
+ according to current [Flycheck][flycheck] status
  - unicode symbols for minor mode lighters which appear in the mode-line
  - custom fringe bitmaps and error feedbacks for [Flycheck][flycheck]
  - custom fringe bitmaps for [git gutter][git-gutter].
