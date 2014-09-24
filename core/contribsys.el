@@ -106,7 +106,8 @@ extension.
           (append-to-spacemacs-buf
            (format "Found %s new package(s) to install...\n"
                    not-installed-count))
-          (append-to-spacemacs-buf "--> update repositories content\n")
+          (append-to-spacemacs-buf
+           "--> fetching new package repository indexes...\n")
           (redisplay)
           (package-refresh-contents)
           (setq installed-count 0)
