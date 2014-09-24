@@ -148,9 +148,6 @@ which require an initialization must be listed explicitly in the list."
       (set-default-evil-insert-state-cursor)
       (set-default-evil-visual-state-cursor)
       (set-default-evil-motion-state-cursor)
-      ;; I prefer to stay on the original character when leaving insert mode
-      ;; (initiated with 'i').
-      (setq evil-move-cursor-back nil)
       (evil-mode 1))
     :config
     (progn
