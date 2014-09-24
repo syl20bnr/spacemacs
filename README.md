@@ -727,7 +727,9 @@ Test commands (start with `m t` or `m T`):
 
 **Important**:
 In order to speed up the boot time of `Spacemacs`, `ESS` must be loaded
-manually via the key binding `<SPC> l e`.
+manually via the key binding:
+
+    <SPC> e s s
 
 ##### Inferior REPL process
 

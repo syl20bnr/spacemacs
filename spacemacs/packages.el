@@ -636,7 +636,7 @@ which require an initialization must be listed explicitly in the list."
     (use-package ess-R-object-popup)
     (use-package ess-R-data-view)
     )
-  (evil-leader/set-key "le" 'load-ess-on-demand)
+  (evil-leader/set-key "ess" 'load-ess-on-demand)
 
   ;; R --------------------------------------------------------------------------
   (eval-after-load "ess-site"
