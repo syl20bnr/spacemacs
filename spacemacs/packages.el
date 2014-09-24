@@ -128,37 +128,6 @@ which require an initialization must be listed explicitly in the list."
 ;; Initialization of packages
 
 (defun spacemacs/init-evil ()
-  ;; relative line number for operator state
-  ;; inspired by https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-evil.el
-  (defvar cofi/current-line 0
-    "Stores the current line before linum numbers the lines.")
-  (defadvice linum-update (before set-current-line activate)
-    (setq cofi/current-line (line-number-at-pos)))
-  (defun cofi/relative-line (line-number)
-    (let ((relative (abs (- line-number cofi/current-line))))
-      (propertize (format "%2d" relative) 'face (if (= relative 0)
-                                                    'linum-current-line
-                                                  'linum))))
-  (defun cofi/evil-toggle-relative-lines ()
-    (interactive)
-    (if (eq linum-format #'cofi/relative-line)
-        (progn
-          (linum-mode -1)
-          (setq linum-format #'cofi/linum-dynamic-lines))
-      (progn
-        (linum-mode t)
-        (setq linum-format #'cofi/relative-line)))
-    (linum-update-current))
-  (defun cofi/linum-dynamic-lines (line-number)
-    (let ((width (ceiling (log (count-lines (point-min) (point-max)) 10))))
-      (propertize (format (format "%%%dd" width) line-number)
-                  'face (if (= cofi/current-line line-number)
-                            'linum-current-line
-                          'linum))))
-  (setq linum-format #'cofi/linum-dynamic-lines)
-
-  ;; evil mode init ------------------------------------------------------------
-
   (use-package evil
     :init
     (progn
@@ -179,10 +148,6 @@ which require an initialization must be listed explicitly in the list."
       (set-default-evil-insert-state-cursor)
       (set-default-evil-visual-state-cursor)
       (set-default-evil-motion-state-cursor)
-      (setq evil-mode-line-format 'before)
-      (add-to-hooks #'cofi/evil-toggle-relative-lines
-                    '(evil-operator-state-entry-hook
-                      evil-operator-state-exit-hook))
       ;; I prefer to stay on the original character when leaving insert mode
       ;; (initiated with 'i').
       (setq evil-move-cursor-back nil)

@@ -143,8 +143,7 @@
   "t8" 'toggle-fill-column-indicator
   "tF" 'fringe-mode
   "tf" 'toggle-fullscreen
-  "tN" 'global-linum-mode
-  "tn" 'cofi/evil-toggle-relative-lines
+  "tn" 'global-linum-mode
   "tw" 'toggle-read-only)
 ;; window ---------------------------------------------------------------------
 ;; (evil-leader/set-key "wb" 'evenly-split-window-right)

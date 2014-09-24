@@ -489,8 +489,7 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 ------------------|------------------------------------------------------------
 `<SPC> t 8`       | display a mark on the 80th column
 `<SPC> t f`       | toggle display of the fringe
-`<SPC> t n`       | show the line numbers (relative to current position)
-`<SPC> t N`       | show the absolute line numbers
+`<SPC> t n`       | show the absolute line numbers
 
 ### Minor Modes
 
