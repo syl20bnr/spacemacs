@@ -1,3 +1,6 @@
+(setq message-log-max 16384)
+(defconst emacs-start-time (current-time))
+
 (define-derived-mode spacemacs-mode special-mode "spacemacs-mode"
   "Spacemacs major mode for startup screen."
   :syntax-table nil
@@ -13,15 +16,14 @@
       (copy-file (concat user-emacs-directory ".spacemacs.template") dotfile))
     (load dotfile)))
 
-(defvar spacemacs-title-length 68)
+(defvar spacemacs-title-length 70)
 (defvar loading-counter 0)
 (defvar loading-text "Loading")
 (defvar loading-done-text "Ready!")
 (defvar loading-dots-chunk-count 3)
-(defvar loading-dots-count-max
+(defvar loading-dots-count
   (- spacemacs-title-length (length loading-text) (length loading-done-text)))
-(defvar loading-dots-chunk-size
-  (/ loading-dots-count-max loading-dots-chunk-count))
+(defvar loading-dots-chunk-size (/ loading-dots-count loading-dots-chunk-count))
 (defvar loading-dots-chunk-threshold 0)
 
 (defun spacemacs-buffer ()
@@ -63,6 +65,13 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
         (redisplay))))
 
 ;; Ready message
-(add-hook 'after-init-hook (lambda ()
-                             (append-to-spacemacs-buf loading-done-text)))
+(add-hook 'after-init-hook
+          (lambda ()
+            (append-to-spacemacs-buf (format "%s\n" loading-done-text))
+            ;; from jwiegley
+            ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
+            (let ((elapsed (float-time
+                            (time-subtract (current-time) emacs-start-time))))
+              (append-to-spacemacs-buf
+               (format "[%.3fs]\n" elapsed)))))
 
