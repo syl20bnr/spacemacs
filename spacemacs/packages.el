@@ -1048,6 +1048,11 @@ which require an initialization must be listed explicitly in the list."
       "hm"    'helm-disable-minor-mode
       "h C-m" 'helm-enable-minor-mode)))
 
+(defun spacemacs/init-helm-projectile ()
+  (use-package helm-projectile
+    :defer t
+    :init (evil-leader/set-key "pf" 'helm-projectile)))
+
 (defun spacemacs/init-helm-swoop ()
   (use-package helm-swoop
     :defer t
@@ -1260,7 +1265,6 @@ which require an initialization must be listed explicitly in the list."
                projectile-invalidate-cache
                projectile-dired
                projectile-find-file
-               helm-projectile
                projectile-kill-buffers
                projectile-grep
                projectile-replace)
@@ -1270,7 +1274,6 @@ which require an initialization must be listed explicitly in the list."
       "pC" 'projectile-invalidate-cache
       "pd" 'projectile-dired
       "pF" 'projectile-find-file
-      "pf" 'helm-projectile
       "pk" 'projectile-kill-buffers
       "pg" 'projectile-grep
       "pr" 'projectile-replace)))
