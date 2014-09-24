@@ -34,7 +34,7 @@
         - [About helm](#about-helm)
         - [Navigation](#navigation)
             - [Point/Cursor](#pointcursor)
-            - [[ace-jump mode][ace-jump]](#ace-jump-modeace-jump)
+            - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
             - [Buffers and Files](#buffers-and-files)
             - [Bookmarks](#bookmarks)
         - [Window manipulation](#window-manipulation)
