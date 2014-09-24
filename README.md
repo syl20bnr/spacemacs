@@ -268,12 +268,21 @@ Key Binding |                 Description
 `<SPC> j l` | go to the end of line (and set a mark at the previous location in the line)
 `<SPC> z z` | lock the cursor at the center of the screen 
 
-#### [ace-jump mode][ace-jump]
+#### Vim motions with ace-jump mode
 
-Key Binding |                 Description
-------------|------------------------------------------------------------------
-`,`         | initiate ace jump
-`<SPC> ,`   | go back to the previous location (before the jump)
+`Spacemacs` uses the `evil` integration of [ace-jump mode][ace-jump] which
+enables the invocation of `ace-jump-mode` during motions.
+
+It is useful for deleting visually a set of lines, try the following sequence
+in a buffer containing some text:
+
+    d <SPC> l
+
+Key Binding   |                 Description
+--------------|------------------------------------------------------------------
+`<SPC> <SPC>` | initiate ace jump char mode
+`<SPC> l`     | initiate ace jump line mode
+``<SPC> ```   | go back to the previous location (before the jump)
 
 #### Buffers and Files
 

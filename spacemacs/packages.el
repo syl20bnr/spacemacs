@@ -320,12 +320,12 @@ which require an initialization must be listed explicitly in the list."
     :init
     (progn 
       (add-hook 'ace-jump-mode-end-hook 'golden-ratio)
-      (define-key evil-normal-state-map "," 'ace-jump-mode)
-      (define-key evil-normal-state-map (kbd "C-,") 'ace-jump-word-mode))
+      (evil-leader/set-key "SPC" 'evil-ace-jump-char-mode)
+      (evil-leader/set-key "l" 'evil-ace-jump-line-mode))
     :config
     (progn 
       ;; ace-jump quick access
-      (evil-leader/set-key "," 'ace-jump-mode-pop-mark))))
+      (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
 
 (defun spacemacs/init-auto-complete ()
   (use-package auto-complete
