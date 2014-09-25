@@ -2,15 +2,6 @@
 ;; init-xxx file
 (defvar spacemacs-packages
   '(
-    ;; must be initialized first
-    evil
-    evil-exchange
-    evil-leader
-    evil-terminal-cursor-changer
-    evil-visualstar
-    window-numbering
-    powerline
-    ;; the rest is in alphabetical order
     ac-ispell
     ace-jump-mode
     auto-complete
@@ -35,7 +26,12 @@
     ess-R-data-view
     ess-R-object-popup
     ess-smart-underscore
+    evil
+    evil-exchange
+    evil-leader
     evil-surround
+    evil-terminal-cursor-changer
+    evil-visualstar
     exec-path-from-shell
     expand-region
     fill-column-indicator
@@ -86,6 +82,7 @@
     paredit
     popup
     popwin
+    powerline
     powershell
     powershell-mode
     projectile
@@ -115,6 +112,7 @@
     wand
     web-mode
     wdired
+    window-numbering
     yasnippet
     zenburn-theme
     )
