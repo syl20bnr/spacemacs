@@ -98,7 +98,10 @@ extension.
   "Install the packages all the packages if there are not currently installed."
   (interactive)
   (let* ((pkg-list (ht-keys spacemacs-all-packages))
-         (not-installed (remove-if 'package-installed-p pkg-list))
+         (sorted-pkg-list (mapcar 'intern
+                                  (sort (mapcar 'symbol-name pkg-list)
+                                        'string<)))
+         (not-installed (remove-if 'package-installed-p sorted-pkg-list))
          (not-installed-count (length not-installed)))
     ;; installation
     (if not-installed
