@@ -116,8 +116,8 @@ extension.
               (package-install pkg))
             (setq installed-count (1+ installed-count))
             (replace-last-line-of-spacemacs-buf
-             (format "--> %s/%s packages installed"
-                     installed-count not-installed-count))
+             (format "--> installing %s... [%s/%s]"
+                     pkg installed-count not-installed-count))
             (redisplay))
           (append-to-spacemacs-buf "\n")))))
 
