@@ -17,7 +17,6 @@
     auto-complete
     auto-complete-clang
     auto-dictionary
-    auto-highlight-symbol
     bookmark
     buffer-move
     cc-mode
@@ -376,28 +375,6 @@ which require an initialization must be listed explicitly in the list."
       (add-hook 'flyspell-mode-hook '(lambda () (auto-dictionary-mode 1)))
       (evil-leader/set-key
         "sd" 'adict-change-dictionary))))
-
-(defun spacemacs/init-auto-highlight-symbol ()
-  (use-package auto-highlight-symbol
-    :commands auto-highlight-symbol-mode
-    :init
-    (add-to-hooks
-     'auto-highlight-symbol-mode '(erlang-mode-hook
-                                   prog-mode-hook
-                                   org-mode-hook
-                                   markdown-mode-hook
-                                   ))
-    :config
-    (progn 
-      (custom-set-variables
-       '(ahs-case-fold-search nil)
-       '(ahs-default-range (quote ahs-range-whole-buffer))
-       '(ahs-idle-interval 0.5))
-      (evil-leader/set-key
-        "he" 'ahs-edit-mode
-        "hn" 'ahs-forward
-        "hp" 'ahs-backward
-        "th" 'auto-highlight-symbol-mode))))
 
 (defun spacemacs/init-bookmark ()
   (use-package bookmark

@@ -5,6 +5,7 @@
   '(
     use-package
     solarized-theme
+    auto-highlight-symbol
     ))
 
 ;; Post extensions are loaded *after* the packages
@@ -26,6 +27,29 @@
 
 (defun spacemacs/init-use-package ()
   (require 'use-package))
+
+(defun spacemacs/init-auto-highlight-symbol ()
+  (use-package auto-highlight-symbol
+    :commands auto-highlight-symbol-mode
+    :init
+    (add-to-hooks
+     'auto-highlight-symbol-mode '(erlang-mode-hook
+                                   prog-mode-hook
+                                   org-mode-hook
+                                   markdown-mode-hook
+                                   ))
+    :config
+    (progn
+      (custom-set-variables
+       '(ahs-case-fold-search nil)
+       '(ahs-default-range (quote ahs-range-whole-buffer))
+       '(ahs-idle-interval 0.5))
+      (eval-after-load "evil-leader"
+        '(evil-leader/set-key
+           "he" 'ahs-edit-mode
+           "hn" 'ahs-forward
+           "hp" 'ahs-backward
+           "th" 'auto-highlight-symbol-mode)))))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
