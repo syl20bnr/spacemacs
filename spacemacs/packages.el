@@ -112,7 +112,6 @@
     wand
     web-mode
     wdired
-    window-numbering
     yasnippet
     zenburn-theme
     )
@@ -200,14 +199,13 @@ which require an initialization must be listed explicitly in the list."
       ;; initiate a search of the selected text
       (use-package evil-visualstar))))
 
-(defun spacemacs/init-window-numbering ()
-  (use-package window-numbering
-    :init (window-numbering-mode 1)))
-
 (defun spacemacs/init-powerline ()
   (use-package powerline
     :init
     (progn
+      (use-package window-numbering
+        :ensure window-numbering
+        :init (window-numbering-mode 1))
       (evil-leader/set-key "tm" 'powerline-minor-modes-toggle)
       ;; Setup modeline items
       (defun gcs-propertized-evil-mode-tag ()
