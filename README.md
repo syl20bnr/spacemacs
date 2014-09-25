@@ -67,8 +67,6 @@
                 - [Inferior REPL process](#inferior-repl-process)
                 - [Other R commands](#other-r-commands)
             - [rcirc](#rcirc)
-    - [Troubleshoot](#troubleshoot)
-        - [Marmalade repository is down](#marmalade-repository-is-down)
     - [TODO list](#todo-list)
 
 <!-- markdown-toc end -->
@@ -774,14 +772,6 @@ Send code to inferior process commands:
 ------------------|------------------------------------------------------------
 `CTRL+j`          | next item in command history
 `CTRL+k`          | previous item in command history
-
-## Troubleshoot
-
-### Marmalade repository is down
-
-Unfortunately for now there is little you can do in `Spacemacs` if `marmalade`
-repository goes down and you need to install packages. Though there will be
-solutions in a future release of the contribution system.
 
 ## TODO list
 
