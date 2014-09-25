@@ -36,6 +36,7 @@
     ess-R-data-view
     ess-R-object-popup
     ess-smart-underscore
+    evil-surround
     exec-path-from-shell
     expand-region
     fill-column-indicator
@@ -110,7 +111,6 @@
     smeargle
     string-edit
     subword
-    surround
     tagedit
     visual-regexp-steroids
     volatile-highlights
@@ -194,8 +194,8 @@ which require an initialization must be listed explicitly in the list."
           (define-key evil-motion-state-map (kbd "SPC") evil-leader--default-map)
           (define-key evil-emacs-state-map  (kbd "SPC") evil-leader--default-map)))
       ;; load surround
-      (use-package surround
-        :init (global-surround-mode 1)) 
+      (use-package evil-surround
+        :init (global-evil-surround-mode 1)) 
       ;; load evil-exchange
       (use-package evil-exchange
         :init (evil-exchange-install))
