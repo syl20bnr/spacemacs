@@ -12,7 +12,6 @@
     powerline
     ;; the rest is in alphabetical order
     ac-ispell
-    ac-js2
     ace-jump-mode
     auto-complete
     auto-complete-clang
@@ -69,7 +68,6 @@
     hy-mode
     jedi
     js2-mode
-    js2-refactor
     json-mode
     ledger-mode
     less-css-mode
@@ -1017,8 +1015,15 @@ which require an initialization must be listed explicitly in the list."
     :commands (js2-minor-mode
                ac-js2-mode)
     :init
-    (progn (add-hook 'js-mode-hook 'js2-minor-mode)
-           (add-hook 'js2-mode-hook 'ac-js2-mode))))
+    (progn
+      (add-hook 'js-mode-hook 'js2-minor-mode)
+      (add-hook 'js2-mode-hook 'ac-js2-mode)
+      (use-package ac-js2
+        :ensure ac-js2
+        :defer t)
+      (use-package js2-refactor
+        :ensure js2-refactor
+        :defer t))))
 
 (defun spacemacs/init-json-mode ()
   (use-package json-mode
