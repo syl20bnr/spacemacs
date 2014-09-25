@@ -76,10 +76,8 @@
 - The main goal of `Spacemacs` is to **bring the power of Vim modal editing
 to the powerful Emacs editing platform**.
 
-- Slick integration with Evil states/Vi modes, tries as much as possible to
-**keep your fingers on the home row**, no matter the mode you are in.
-
-- **Lower the risk of RSI**, your hands will thank `Spacemacs`.
+- Slick integration with `Evil` states (`Vim` modes), tries as much as possible
+to **keep your fingers on the home row**, no matter the mode you are in.
 
 - **Community driven configuration** based on a configuration layer system
 *(work in progress)*. Contribute your own personal layer upstream and
@@ -88,7 +86,15 @@ everybody can use it.
 - **Minimalistic and nice custom UI**, keep your available screen space for
 what matters: your text files.
 
-- Hopefully, if it's not already the case: make you love modal editing :-)
+- **Mnemonic and consistent key bindings** which should be easier to learn
+and remember.
+
+- **Fast boot time**, some time has been invested to make 'Spacemacs' quick
+to load.
+
+- **Lower the risk of RSI** by using the space key as much as possible.
+
+- Hopefully, if it's not already the case: Ɛ> **make you love modal editing!** <3
 
 ## Screenshots
 
