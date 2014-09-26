@@ -70,6 +70,7 @@
                 - [Other R commands](#other-r-commands)
             - [rcirc](#rcirc)
     - [TODO list](#todo-list)
+    - [Thank you](#thank-you)
 
 <!-- markdown-toc end -->
 
@@ -846,6 +847,12 @@ Send code to inferior process commands:
 ## TODO list
 
 - Add support for [multiple-cursors][multiple-cursors] mode.
+
+## Thank you
+
+Jokes aside, thank you Richard for this great piece of software.
+
+Thank you to the whole Emacs community from core developers to elisp hackers!
 
 [evil]: https://gitorious.org/evil/pages/Home
 [evil-leader]: https://github.com/cofi/evil-leader
