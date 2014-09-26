@@ -211,9 +211,7 @@ For instance to add the configuration layer of [RMS](#thank-you) just do:
 Oh, you don't find this configuration layer ? So sad, well you can try mine:
 [syl20bnr](https://github.com/syl20bnr/spacemacs/tree/master/contrib/syl20bnr)
 
-**The contribution system is a work in progress**
-
-Anyway, pull requests are welcome for all parts of `Spacemacs`.
+Of course, all pull requests are welcome for all parts of `Spacemacs`.
 
 ## Main principles
 
