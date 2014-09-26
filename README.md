@@ -23,6 +23,8 @@
     - [Who can benefit from this ?](#who-can-benefit-from-this-)
     - [Install](#install)
     - [Configuration layers](#configuration-layers)
+        - [Structure](#structure)
+        - [Extensions and Packages initialization](#extensions-and-packages-initialization)
     - [Contributions](#contributions)
     - [Main principles](#main-principles)
     - [UI tweaks](#ui-tweaks)
@@ -133,12 +135,80 @@ you are good to go:
 
 ## Configuration layers
 
-**work in progress**
+_This part of Spacemacs is still in beta, the structure can change over
+time. Refer to commit messages for more information in case of big changes._
+
+### Structure
+
+Configuration is organized in layers. Each layer has the following structure:
+
+```
+[layer_name]
+  |__ [extensions]
+  | |__ [mode 1]
+  | |     ...
+  | |__ [mode n]
+  |__ config.el
+  |__ extensions.el
+  |__ funcs.el
+  |__ keybindings.el
+  |__ macros.el
+  |__ packages.el
+
+[] = directory
+```
+
+Where:
+
+      File        |                          Usage
+------------------|-----------------------------------------------------------
+config.el         | Emacs built-in configuration or mandatory configuration
+extensions.el     | The list of extensions to load and the functions to initialize them
+funcs.el          | Various functions
+keybindings.el    | Emacs built-in key bindings or mandatory key bindings
+macros.el         | Various macros (may be merged with funcs.el)
+packages.el       | The list of packages to install and the functions to initialize them
+
+`Packages` are `ELPA` packages which can be installed from an `ELPA` compliant
+repository, and `Extensions` are elisp code from git submodules, they can also
+be directly stored in this git repository (maybe we call this: site elisp
+code ??).
+
+### Extensions and Packages initialization
+
+`Extensions` and `Packages` are listed in variables `<layer>-pre-extensions`,
+`<layer>-post-extensions` and `<layer>-packages` where `<layer>` is the layer
+name. `Pre-Extensions` are loaded before `Packages` and `Post-Extensions` are
+loaded after `Packages`.
+
+They are processed in alphabetical order so sometimes you'll have to use
+some `after-eval-load` black magic.
+
+To initialize an extension or a package `xxx`, define a function with this
+format in `extensions.el` or `packages.el`:
+
+```elisp
+(defun <layer>/init-xxx ()
+   ...body
+)
+```
 
 ## Contributions
 
 `Spacemacs` leverages the configuration layers in order to make it possible for
 you to share your own layer with other `Spacemacs` users.
+
+To use a contribution layer, add it to the `dotspacemacs-configuration-layers`
+variable of your `~/.spacemacs`
+
+For instance to add the configuration layer of [RMS](#thank-you) just do:
+```elisp
+(defvar dotspacemacs-configuration-layers '(rms)
+  "List of contribution to load."
+)
+```
+Oh, you don't find this configuration layer ? So sad, well you can try mine:
+[syl20bnr](https://github.com/syl20bnr/spacemacs/tree/master/contrib/syl20bnr)
 
 **The contribution system is a work in progress**
 
