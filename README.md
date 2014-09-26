@@ -101,7 +101,8 @@ to load.
 
 ## Screenshots
 
-![src_startup](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs_startup.png)
+![spacemacs_startup](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-startup.png)
+![spacemacs_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-python.png)
 
 *Note: Even though screenshots are updated frequently, `Spacemacs` is evolving
 quickly and the screenshots may not reflect exactly the current state of the
