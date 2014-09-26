@@ -297,24 +297,7 @@ changed to THEME."
         'flycheck-color-mode-line-info-face nil
         :foreground ml-foreground
         :background ml-background
-        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-info)))))
-  (eval-after-load "rainbow-identifiers"
-    ;; adjust saturation and lightness of rainbow-delimiters depending on the
-    ;; current theme
-    (pcase theme
-      (`solarized-dark (setq rainbow-identifiers-cie-l*a*b*-saturation 60
-                             rainbow-identifiers-cie-l*a*b*-lightness 50))
-      (`solarized-light (setq rainbow-identifiers-cie-l*a*b*-saturation 100
-                             rainbow-identifiers-cie-l*a*b*-lightness 40))
-      (_ (setq rainbow-identifiers-cie-l*a*b*-saturation 80
-               rainbow-identifiers-cie-l*a*b*-lightness 45))))
-  ;; To make the variables stand out, keyword coloring is disabled
-  ;; (set-face-attribute 'highlight-quoted-symbol nil
-  ;;                     :foreground nil :slant 'normal :weight 'bold)
-  (set-face-attribute 'font-lock-function-name-face nil
-                      :foreground nil :slant 'normal :weight 'normal)
-  (set-face-attribute 'font-lock-keyword-face nil
-                      :foreground nil :slant 'normal :weight 'bold))
+        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-info))))))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function

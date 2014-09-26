@@ -25,7 +25,7 @@
     - [Configuration layers](#configuration-layers)
     - [Contributions](#contributions)
     - [Main principles](#main-principles)
-    - [UI and syntax highlighting](#ui-and-syntax-highlighting)
+    - [UI tweaks](#ui-tweaks)
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
         - [Executing Vim and Emacs commands](#executing-vim-and-emacs-commands)
@@ -99,7 +99,6 @@ to load.
 ## Screenshots
 
 ![src_startup](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs_startup.png)
-![scr_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs.png)
 
 *Note: Even though screenshots are updated frequently, `Spacemacs` is evolving
 quickly and the screenshots may not reflect exactly the current state of the
@@ -167,7 +166,7 @@ few examples:
 - Save all opened buffers: `<SPC> f S`
 - Open (switch) to a buffer with `helm`: `<SPC> b s`
 
-## UI and syntax highlighting
+## UI tweaks
 
 `Spacemacs` has a minimalistic and distraction free UI with a lot of subtle
 customizations which make it unique compared to other Emacs kits:
@@ -178,11 +177,6 @@ customizations which make it unique compared to other Emacs kits:
  [Flycheck][flycheck]
  - custom fringe bitmaps for [git gutter][git-gutter].
  - dedicated startup page with a mode aimed at easily managing `Spacemacs`
-
-`Spacemacs` syntax highlighting is also different from the majority of other
-Emacs configurations: instead of colorized keywords, `Spacemacs` has *colorized
-variables and functions* using the [rainbow identifiers][rainbow-identifiers]
-mode. Each variable and function has a unique color associated to it.
 
 ## Commands
 
@@ -834,4 +828,3 @@ Send code to inferior process commands:
 [monokai-theme]: https://github.com/oneKelvinSmith/monokai-emacs
 [zenburn-theme]: https://github.com/bbatsov/zenburn-emacs
 [git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
-[rainbow-identifiers]: https://github.com/Fanael/rainbow-identifiers
