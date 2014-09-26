@@ -19,4 +19,4 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-hooks 'rainbow-identifiers-mode '(prog-mode-hook
                                                 erlang-mode-hook)))
     :config
-    (syl20bnr/tweak-theme-colors 'solarized-light)))
+    (syl20bnr/tweak-theme-colors 'solarized-light)))
