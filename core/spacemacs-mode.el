@@ -34,20 +34,24 @@
   (let ((buffer-read-only nil))
     (insert-file-contents (concat spacemacs-core-directory "banner.txt"))))
 
-(defun append-to-spacemacs-buf (msg)
-  "Append MSG to spacemacs buffer."
+(defun append-to-spacemacs-buf (msg &optional messagebuf)
+  "Append MSG to spacemacs buffer. If MESSAGEBUF is not nil then MSG is
+ also written in message buffer."
   (with-current-buffer (get-buffer-create "*spacemacs*")
     (goto-char (point-max))
     (let ((buffer-read-only nil))
-      (insert (format "%s" msg)))))
+      (insert msg)
+      (if messagebuf (message "(Spacemacs) %s" msg)))))
 
-(defun replace-last-line-of-spacemacs-buf (msg)
-  "Replace the last line of the spacemacs buffer with MSG."
+(defun replace-last-line-of-spacemacs-buf (msg &optional messagebuf)
+  "Replace the last line of the spacemacs buffer with MSG. If MESSAGEBUF is
+ not nil then MSG is also written in message buffer."
   (with-current-buffer (get-buffer-create "*spacemacs*")
     (goto-char (point-max))
     (let ((buffer-read-only nil))
       (delete-region (line-beginning-position) (point-max))
-      (insert msg))))
+      (insert msg)
+      (if messagebuf (message "(Spacemacs) %s" msg)))))
 
 (defun loading-animation ()
   "Display LOADING-TITLE with trailing dots of max length

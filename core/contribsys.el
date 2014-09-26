@@ -118,8 +118,11 @@ extension.
               (package-install pkg))
             (setq installed-count (1+ installed-count))
             (replace-last-line-of-spacemacs-buf
-             (format "--> installing %s... [%s/%s]"
-                     pkg installed-count not-installed-count))
+             (format "--> installing %s:%s... [%s/%s]"
+                     (ht-get spacemacs-all-packages pkg)
+                     pkg
+                     installed-count
+                     not-installed-count) t)
             (redisplay))
           (append-to-spacemacs-buf "\n")))))
 
@@ -133,7 +136,9 @@ extension.
          (init-func (intern (format "%s/init-%s" (symbol-name lsym) pkg))))
     (loading-animation)
     (if (and (package-installed-p pkg) (fboundp init-func))
-        (funcall init-func))))
+        (progn  (message "(Spacemacs) Initializing %s:%s..."
+                         (symbol-name lsym) pkg)
+                (funcall init-func)))))
 
 (defun contribsys/initialize-extensions (ext-list)
   "Initialize all the declared extensions in EXT-LIST hash table."
@@ -146,6 +151,7 @@ extension.
          (init-func (intern (format "%s/init-%s" (symbol-name lsym) ext))))
        (add-to-list 'load-path (format "%s%s/" ext-dir ext))
        (loading-animation)
+       (message "(Spacemacs) Initializing %s:%s..." (symbol-name lsym) ext)
        (if (fboundp init-func) (funcall init-func))))
 
 (defun contribsys/declare-configuration-layers ()
