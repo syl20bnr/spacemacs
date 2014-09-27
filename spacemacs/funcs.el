@@ -256,13 +256,13 @@ argument takes the kindows rotate backwards."
 
 ;; From http://stackoverflow.com/a/18796138
 ;; Cycle through this set of themes
-(setq spacemacs-themes '(solarized-dark
-                         solarized-light
+(setq spacemacs-themes '(solarized-light
+                         solarized-dark
                          monokai
                          zenburn))
 (defvar spacemacs-cur-theme (pop spacemacs-themes))
-(defun cycle-spacemacs-theme ()
-  "Cycle through a list of themes, my-themes"
+(defun spacemacs/cycle-spacemacs-theme ()
+  "Cycle through themes defined in spacemacs-themes."
   (interactive)
   (when  spacemacs-cur-theme
     (disable-theme  spacemacs-cur-theme)
