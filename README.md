@@ -123,12 +123,17 @@ As a note side, if you are a programmer and you don't know Vim key bindings
 yet, I deeply recommend you to learn the basics as recommended in
 [Sacha Chua's one-page guide][sacha_guide] about how to learn Emacs.
 
+## Prerequisites
+
+`Spacemacs` is compatible with Emacs 24.3 and above and should boot on all
+the major OSes where this version can be installed.
+
+Some packages require external tools to work, a list of all dependencies will
+be provided in this read me. _Stay tuned._
+
 ## Install
 
-`Spacemacs` is tested with `Emacs 24.3.1` on `Ubuntu 14.04`, `Mac OS X 10.10`,
-`Windows 7`.
-
-Backup your current `.emacs.d`, clone the repo. _with the submodules_ and
+Backup your current `.emacs.d`, clone the repo _with the submodules_ and
 you are good to go:
 
     cd ~
