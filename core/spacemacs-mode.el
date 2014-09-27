@@ -1,12 +1,18 @@
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
+(defvar spacemacs-min-version "24.3"
+  "Mininal required version of Emacs.")
+
 (define-derived-mode spacemacs-mode special-mode "spacemacs-mode"
   "Spacemacs major mode for startup screen."
   :syntax-table nil
   :abbrev-table nil
   (setq truncate-lines t)
   (setq cursor-type nil))
+
+(defun spacemacs/emacs-version-ok ()
+  (not (version< emacs-version spacemacs-min-version)))
 
 (defun spacemacs-load-dotfile ()
   "Load ~/.spacemacs. If it is not found then copy .spacemacs.template to
@@ -32,7 +38,16 @@
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
   (spacemacs-mode)
   (let ((buffer-read-only nil))
-    (insert-file-contents (concat spacemacs-core-directory "banner.txt"))))
+    (insert-file-contents (concat spacemacs-core-directory "banner.txt"))
+    (unless (spacemacs/emacs-version-ok)
+      (append-to-spacemacs-buf
+       (format "\nError: Minimal required Emacs version for Spacemacs is %s "
+               spacemacs-min-version))
+      (append-to-spacemacs-buf (format "whereas current Emacs version is %s.\n"
+                                       emacs-version))
+      (append-to-spacemacs-buf "Spacemacs is disabled.\n")
+      (setq inhibit-startup-screen t)
+      (redisplay))))
 
 (defun append-to-spacemacs-buf (msg &optional messagebuf)
   "Append MSG to spacemacs buffer. If MESSAGEBUF is not nil then MSG is
@@ -69,13 +84,14 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
         (redisplay))))
 
 ;; Ready message
-(add-hook 'after-init-hook
-          (lambda ()
-            (append-to-spacemacs-buf (format "%s\n" loading-done-text))
-            ;; from jwiegley
-            ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
-            (let ((elapsed (float-time
-                            (time-subtract (current-time) emacs-start-time))))
-              (append-to-spacemacs-buf
-               (format "[%.3fs]\n" elapsed)))))
+(unless (not (spacemacs/emacs-version-ok))
+  (add-hook 'after-init-hook
+            (lambda ()
+              (append-to-spacemacs-buf (format "%s\n" loading-done-text))
+              ;; from jwiegley
+              ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
+              (let ((elapsed (float-time
+                              (time-subtract (current-time) emacs-start-time))))
+                (append-to-spacemacs-buf
+                 (format "[%.3fs]\n" elapsed))))))
 
