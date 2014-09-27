@@ -8,6 +8,13 @@
 (package-initialize)
 (setq warning-minimum-level :error)
 
+;; Emacs 24.3 and above ships with python.el but in some Emacs 24.3.1 packages
+;; for Ubuntu, python.el seems to be missing.
+;; This hack adds marmalade repository for this case only.
+(unless (or (package-installed-p 'python) (version< emacs-version "24.3"))
+  (add-to-list 'package-archives
+               '("marmalade" . "http://marmalade-repo.org/packages/")))
+
 (load (concat spacemacs-core-directory "ht.el"))
 
 (defvar spacemacs-config-layers '()
