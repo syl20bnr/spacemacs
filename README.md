@@ -21,6 +21,7 @@
     - [Goals](#goals)
     - [Screenshots](#screenshots)
     - [Who can benefit from this ?](#who-can-benefit-from-this-)
+    - [Prerequisites](#prerequisites)
     - [Install](#install)
     - [Configuration layers](#configuration-layers)
         - [Structure](#structure)
