@@ -146,7 +146,7 @@
     :commands spray-mode
     :init
     (progn
-      (evil-leader/set-key "asp"
+      (evil-leader/set-key "asr"
         (lambda ()
           (interactive)
           (evil-insert-state)
