@@ -481,8 +481,15 @@ kill internal buffers too."
      map) t)
   (if (eq direction 0)
       (spacemacs/reset-font-size)
-    (spacemacs/scale-up-or-down-font-size direction))
-  (message "Type +/- to increase or decrease the font size (= to reset)"))
+    (spacemacs/scale-up-or-down-font-size direction)))
+
+(defun spacemacs/font-scaling-mini-mode-doc ()
+  "Display a short documentation in the mini buffer."
+  (message "Scale Font mini-mode:
+  + to scale up
+  - to scale down
+  = to reset
+Press any other key to exit."))
 
 (defun spacemacs/scale-up-or-down-font-size (direction)
   "Scale the font. If DIRECTION is positive or zero the font is scaled up,
@@ -491,9 +498,11 @@ otherwise it is scaled down."
   (let ((scale 0.5))
     (if (< direction 0)
         (text-scale-decrease scale)
-      (text-scale-increase scale))))
+      (text-scale-increase scale))
+    (spacemacs/font-scaling-mini-mode-doc)))
 
 (defun spacemacs/reset-font-size ()
   "Reset the font size (apply a scale of 0)."
   (interactive)
-  (text-scale-set 0))
+  (text-scale-set 0)
+  (spacemacs/font-scaling-mini-mode-doc))
