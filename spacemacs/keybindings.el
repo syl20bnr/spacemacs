@@ -176,9 +176,9 @@
   "ww"  'other-window)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
-  "x="  (lambda() (interactive) (text-scale-set 0))
-  "x+"  'text-scale-increase
-  "x-"  'text-scale-decrease
+  "x="  (lambda () (interactive) (spacemacs/scale-font-size 0))
+  "x+"  (lambda () (interactive) (spacemacs/scale-font-size 1))
+  "x-"  (lambda () (interactive) (spacemacs/scale-font-size -1))
   "xdw" 'delete-trailing-whitespace
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines

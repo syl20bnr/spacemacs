@@ -460,3 +460,40 @@ kill internal buffers too."
     (message (format "Set default font: %s" fontsize))
     (add-to-list 'default-frame-alist (cons 'font fontsize))
     (set-default-font fontsize)))
+
+(defun spacemacs/scale-font-size (direction)
+  "Set a temporary overlay map to easily change the font size.
+ DIRECTION is any number where:
+ - a positive number increase the size of the font
+ - a negative number decrease the size of the font
+ - 0 reset the font size to its default value"
+  (interactive)
+  (set-temporary-overlay-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map (kbd "+") 
+       '(lambda () (interactive)
+          (spacemacs/scale-up-or-down-font-size 1)))
+     (define-key map (kbd "-")
+       '(lambda () (interactive)
+          (spacemacs/scale-up-or-down-font-size -1)))
+     (define-key map (kbd "=")
+       '(lambda () (interactive) (spacemacs/reset-font-size)))
+     map) t)
+  (if (eq direction 0)
+      (spacemacs/reset-font-size)
+    (spacemacs/scale-up-or-down-font-size direction))
+  (message "Type +/- to increase or decrease the font size (= to reset)"))
+
+(defun spacemacs/scale-up-or-down-font-size (direction)
+  "Scale the font. If DIRECTION is positive or zero the font is scaled up,
+otherwise it is scaled down."
+  (interactive)
+  (let ((scale 0.5))
+    (if (< direction 0)
+        (text-scale-decrease scale)
+      (text-scale-increase scale))))
+
+(defun spacemacs/reset-font-size ()
+  "Reset the font size (apply a scale of 0)."
+  (interactive)
+  (text-scale-set 0))
