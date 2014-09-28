@@ -454,5 +454,3 @@ kill internal buffers too."
      nil 'fullscreen
      (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))
    ))
-
-(provide 'se-funcs)
