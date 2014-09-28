@@ -42,6 +42,7 @@
             - [Bookmarks](#bookmarks)
         - [Window manipulation](#window-manipulation)
         - [Text manipulation commands](#text-manipulation-commands)
+        - [Change font size](#change-font-size)
         - [Spell checking](#spell-checking)
         - [Region selection](#region-selection)
         - [Region narrowing](#region-narrowing)
@@ -459,9 +460,6 @@ Text related commands (start with `x`):
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> x +`       | increase text font size
-`<SPC> x -`       | decrease text font size
-`<SPC> x =`       | reset text font size
 `<SPC> x u`       | set the selected text to lower case
 `<SPC> x U`       | set the selected text to upper case
 `<SPC> x d w`     | delete trailing whitespaces
@@ -475,6 +473,20 @@ Text related commands (start with `x`):
 `<SPC> x t l`     | swap (transpose) the current line with the previous one
 `<SPC> x w c`     | count the number of words in the selection region
 `<SPC> x w C`     | count the number of occurrences per word in the select region
+
+### Change font size
+
+The font size of the current buffer can be adjusted with the commands:
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`<SPC> x +`   | Scale up the font and initiate the font scaling mode
+`<SPC> x -`   | Scale down the font and initiate the font scaling mode
+`<SPC> x =`   | Reset the font size (no scaling) and initiate the font scaling mode
+`+`           | Increase the font size
+`-`           | Decrease the font size
+`=`           | Reset the font size
+Any other key | Leave the font scaling mode
 
 ### Spell checking
 
