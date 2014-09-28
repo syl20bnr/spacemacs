@@ -454,3 +454,9 @@ kill internal buffers too."
      nil 'fullscreen
      (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))
    ))
+
+(defun spacemacs/set-font (font size)
+  (let ((fontsize (format "%s-%s" font size)))
+    (message (format "Set default font: %s" fontsize))
+    (add-to-list 'default-frame-alist (cons 'font fontsize))
+    (set-default-font fontsize)))
