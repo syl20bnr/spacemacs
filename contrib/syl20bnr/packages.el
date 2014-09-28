@@ -19,4 +19,14 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-hooks 'rainbow-identifiers-mode '(prog-mode-hook
                                                 erlang-mode-hook)))
     :config
-    (syl20bnr/tweak-theme-colors 'solarized-light)))
+    (progn 
+      (evil-leader/set-key "cs"
+        '(lambda () (interactive)
+           (syl20bnr//rainbow-identifier-change-color-component "saturation"
+                                                                5 50)))
+      (evil-leader/set-key "cl"
+        '(lambda () (interactive)
+           (syl20bnr//rainbow-identifier-change-color-component "lightness"
+                                                                5 50)))
+      (syl20bnr/tweak-theme-colors 'solarized-light))))
+

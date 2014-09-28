@@ -20,6 +20,18 @@ Instead of colorized keywords, this configuration layer has *colorized
 variables and functions* using the [rainbow identifiers][rainbow-identifiers]
 mode. Each variable and function has a unique color associated to it.
 
+The `saturation` and `lightness` of identifier colors can be adjusted with the
+commands:
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`<SPC> c s`   | Initiate change `saturation` mode
+`<SPC> c l`   | Initiate change `lightness` mode
+`+`           | Increase the `saturation` or `lightness`
+`-`           | Decrease the `saturation` or `lightness`
+`=`           | Reset the `saturation` or `lightness`
+Any other key | Leave the change mode
+
 ### Screenshots
 
 #### Python
