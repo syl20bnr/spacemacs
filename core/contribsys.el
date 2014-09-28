@@ -48,7 +48,7 @@ initialize the extension. ")
 
 (defun contribsys/load-layers ()
   "Load all declared layers."
-  (contribsys/load-layer-files '("funcs.el" "macros.el" "config.el"))
+  (contribsys/load-layer-files '("funcs.el" "config.el"))
   (contribsys/read-packages-and-extensions)
   (contribsys/initialize-extensions spacemacs-all-pre-extensions)
   (contribsys/install-packages)

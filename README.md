@@ -160,7 +160,6 @@ Configuration is organized in layers. Each layer has the following structure:
   |__ extensions.el
   |__ funcs.el
   |__ keybindings.el
-  |__ macros.el
   |__ packages.el
 
 [] = directory
@@ -172,9 +171,8 @@ Where:
 ------------------|-----------------------------------------------------------
 config.el         | Emacs built-in configuration or mandatory configuration
 extensions.el     | The list of extensions to load and the functions to initialize them
-funcs.el          | Various functions
+funcs.el          | Various functions and macros (often used in keybindings.el)
 keybindings.el    | Emacs built-in key bindings or mandatory key bindings
-macros.el         | Various macros (may be merged with funcs.el)
 packages.el       | The list of packages to install and the functions to initialize them
 
 `Packages` are `ELPA` packages which can be installed from an `ELPA` compliant
