@@ -22,11 +22,9 @@ which require an initialization must be listed explicitly in the list.")
     (progn 
       (evil-leader/set-key "cs"
         '(lambda () (interactive)
-           (syl20bnr//rainbow-identifier-change-color-component "saturation"
-                                                                5 50)))
+           (syl20bnr/rainbow-identifier-change-color-component "saturation" 5 100)))
       (evil-leader/set-key "cl"
         '(lambda () (interactive)
-           (syl20bnr//rainbow-identifier-change-color-component "lightness"
-                                                                5 50)))
+           (syl20bnr/rainbow-identifier-change-color-component "lightness" 5 40)))
       (syl20bnr/tweak-theme-colors 'solarized-light))))
 
