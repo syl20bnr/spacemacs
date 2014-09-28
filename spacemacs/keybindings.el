@@ -200,15 +200,13 @@
   "mB"  'sp-backward-barf-sexp
   "mb"  'sp-forward-barf-sexp
   "mc"  'sp-convolute-sexp
-  "mD"  'sp-kill
-  "md"  'elisp-slime-nav-describe-elisp-thing-at-point
+  "mD"  'elisp-slime-nav-describe-elisp-thing-at-point
+  "md"  'sp-kill-sexp
   "mf"  'eval-defun
   "mg"  'elisp-slime-nav-find-elisp-thing-at-point
   "mhv" 'describe-variable
-  "mjj" 'sp-split-sexp
-  "mjk" 'sp-splice-sexp-killing-forward
-  "mjl" 'sp-join-sexps
-  "mk"  'sp-splice-sexp-killing-backward
+  "mK"  'sp-splice-sexp-killing-backward
+  "mk"  'sp-splice-sexp-killing-forward
   ;; Eval the current line
   "ml"  (lambda () (interactive) (save-excursion (evil-end-of-line)
                                                  (eval-last-sexp nil)))
