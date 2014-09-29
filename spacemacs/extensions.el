@@ -125,10 +125,13 @@
     :commands pylookup-lookup
     :config
     (progn
-      (setq pylookup-dir (concat spacemacs-extensions-directory "/pylookup"))
-      ;; set executable file and db file
-      (setq pylookup-program (concat pylookup-dir "/pylookup.py"))
-      (setq pylookup-db-file (concat pylookup-dir "/pylookup.db")))))
+      (add-to-list 'evil-emacs-state-modes 'pylookup-mode)
+      (evil-add-hjkl-bindings pylookup-mode-map 'emacs)
+      (let* ((layer (assq 'spacemacs spacemacs-config-layers))
+             (dir (plist-get (cdr layer) :ext-dir)))
+        (setq pylookup-dir (concat dir "/pylookup")
+              pylookup-program (concat pylookup-dir "/pylookup.py")
+              pylookup-db-file (concat pylookup-dir "/pylookup.db"))))))
 
 (defun spacemacs/init-revive ()
   (use-package revive
