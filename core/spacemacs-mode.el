@@ -14,6 +14,10 @@
 (defun spacemacs/emacs-version-ok ()
   (not (version< emacs-version spacemacs-min-version)))
 
+(defun display-startup-echo-area-message ()
+  "Change the default welcome message of minibuffer to another one."
+  (message "Spacemacs is ready."))
+
 (defun spacemacs-load-dotfile ()
   "Load ~/.spacemacs. If it is not found then copy .spacemacs.template to
 ~/.spacemacs"
