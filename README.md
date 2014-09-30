@@ -581,7 +581,7 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
 `<SPC> t 8`       | display a mark on the 80th column
-`<SPC> t f`       | toggle display of the fringe
+`<SPC> t F`       | toggle display of the fringe
 `<SPC> t n`       | show the absolute line numbers
 
 ### Minor Modes
