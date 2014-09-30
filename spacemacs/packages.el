@@ -425,9 +425,6 @@ which require an initialization must be listed explicitly in the list.")
     '(diminish 'elisp-slime-nav-mode))
   (eval-after-load "hi-lock"
     '(diminish 'hi-lock-mode))
-
-  (eval-after-load "golden-ratio"
-    '(diminish 'golden-ratio-mode))
   (eval-after-load "abbrev"
     '(diminish 'abbrev-mode)))
 
@@ -722,33 +719,40 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-golden-ratio ()
   (use-package golden-ratio
+    :defer t
     :init
-    (golden-ratio-mode)
+    (evil-leader/set-key "tg"
+      '(lambda () (interactive)
+         (if (symbol-value golden-ratio-mode)
+             (progn (golden-ratio-mode -1)(balance-windows))
+           (golden-ratio-mode))))
     :config
-    (setq golden-ratio-extra-commands
-          (append golden-ratio-extra-commands
-                  '(evil-window-left
-                    evil-window-right
-                    evil-window-up
-                    evil-window-down
-                    select-window-0
-                    select-window-1
-                    select-window-2
-                    select-window-3
-                    select-window-4
-                    select-window-5
-                    select-window-6
-                    select-window-7
-                    select-window-8
-                    select-window-9
-                    ace-jump-mode-pop-mark
-                    buf-move-left
-                    buf-move-right
-                    buf-move-up
-                    buf-move-down
-                    ess-eval-buffer-and-go
-                    ess-eval-function-and-go
-                    ess-eval-line-and-go)))))
+    (progn 
+      (setq golden-ratio-extra-commands
+            (append golden-ratio-extra-commands
+                    '(evil-window-left
+                      evil-window-right
+                      evil-window-up
+                      evil-window-down
+                      select-window-0
+                      select-window-1
+                      select-window-2
+                      select-window-3
+                      select-window-4
+                      select-window-5
+                      select-window-6
+                      select-window-7
+                      select-window-8
+                      select-window-9
+                      ace-jump-mode-pop-mark
+                      buf-move-left
+                      buf-move-right
+                      buf-move-up
+                      buf-move-down
+                      ess-eval-buffer-and-go
+                      ess-eval-function-and-go
+                      ess-eval-line-and-go)))
+      (spacemacs//diminish golden-ratio-mode " ⊞"))))
 
 (defun spacemacs/init-google-translate ()
   (use-package google-translate

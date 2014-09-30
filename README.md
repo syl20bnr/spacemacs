@@ -41,6 +41,7 @@
             - [Buffers and Files](#buffers-and-files)
             - [Bookmarks](#bookmarks)
         - [Window manipulation](#window-manipulation)
+            - [Golden ratio](#golden-ratio)
         - [Text manipulation commands](#text-manipulation-commands)
         - [Change font size](#change-font-size)
         - [Spell checking](#spell-checking)
@@ -414,9 +415,6 @@ To save a new bookmark, just type the name of the bookmark and press `RET`.
 
 ### Window manipulation
 
-Split windows are dynamically resized depending on whether they are selected or
-not. Resizing is performed by the [golden-ratio][golden-ratio] mode.
-
 Every window has a number displayed at the start of the mode-line and can
 be quickly accessed using `<SPC> number`.
 
@@ -453,6 +451,16 @@ Key Binding   |                 Description
 `<SPC> w U`   | redo window layout
 `<SPC> w v`   | split a window vertically
 `<SPC> w w`   | cycle and focus between windows
+
+#### Golden ratio
+
+Split windows can be dynamically resized depending on whether they are selected
+or not. Resizing is performed by the [golden-ratio][golden-ratio] mode.
+By default `golden-ratio` if off.
+
+The mode can be toggled on and off with:
+
+    <SPC> t g
 
 ### Text manipulation commands
 
@@ -595,6 +603,7 @@ The minor mode area can be toggled on and off with:
 
    Lighter   |                              Mode
 -------------|-----------------------------------------------------------------
+⊞            | [golden-ratio][golden-ratio] mode
 Ⓐ            | [auto-complete][auto-complete] mode
 Ⓗ            | [auto-highlight-symbol][auto-highlight] mode
 Ⓒ            | [centered-cursor][centered-cursor] mode
