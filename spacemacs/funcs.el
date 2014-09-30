@@ -506,3 +506,13 @@ otherwise it is scaled down."
   (interactive)
   (text-scale-set 0)
   (spacemacs/font-scaling-mini-mode-doc))
+
+(defmacro spacemacs//diminish (mode lighter)
+  "Diminish MODE name in mode line to LIGHTER."
+  `(when (display-graphic-p)
+     (eval-after-load 'diminish
+       '(diminish ',mode ,lighter))))
+
+(defmacro spacemacs//hide-lighter (mode)
+  "Diminish MODE name in mode line to LIGHTER."
+  `(eval-after-load 'diminish '(diminish ',mode)))

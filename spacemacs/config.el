@@ -38,6 +38,9 @@
 ;; UI
 ;; ---------------------------------------------------------------------------
 
+;; reduce the mode name in mode line for emacs-lisp-mode
+ (add-hook 'emacs-lisp-mode-hook
+           (lambda () (setq mode-name "Elisp")))
 ;; important for golden-ratio to better work
 (setq window-combination-resize t)
 ;; edit area full screen

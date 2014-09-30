@@ -49,7 +49,8 @@
            "he" 'ahs-edit-mode
            "hn" 'ahs-forward
            "hp" 'ahs-backward
-           "th" 'auto-highlight-symbol-mode)))))
+           "th" 'auto-highlight-symbol-mode))
+      (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ"))))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
@@ -57,13 +58,15 @@
     :init
     (evil-leader/set-key "zz" 'global-centered-cursor-mode)
     :config
-    (custom-set-variables
-     '(ccm-recenter-at-end-of-file t)
-     '(ccm-ignored-commands (quote (mouse-drag-region
-                                    mouse-set-point
-                                    widget-button-click
-                                    scroll-bar-toolkit-scroll
-                                    evil-mouse-drag-region))))))
+    (progn 
+      (custom-set-variables
+       '(ccm-recenter-at-end-of-file t)
+       '(ccm-ignored-commands (quote (mouse-drag-region
+                                      mouse-set-point
+                                      widget-button-click
+                                      scroll-bar-toolkit-scroll
+                                      evil-mouse-drag-region))))
+      (spacemacs//diminish centered-cursor-mode " Ⓒ"))))
 
 (defun spacemacs/init-dos ()
   (use-package dos

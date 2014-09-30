@@ -106,6 +106,7 @@
     string-edit
     subword
     tagedit
+    undo-tree
     visual-regexp-steroids
     volatile-highlights
     wand
@@ -336,7 +337,8 @@ which require an initialization must be listed explicitly in the list.")
             ac-use-fuzzy t
             ac-fuzzy-enable t
             tab-always-indent 'complete ; use 'complete when auto-complete is disabled
-            ac-dwim t))))
+            ac-dwim t)
+      (spacemacs//diminish auto-complete-mode " Ⓐ"))))
 
 (defun spacemacs/init-auto-complete-clang ()
   (use-package auto-complete-clang
@@ -412,79 +414,22 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-diminish ()
   (require 'diminish)
-
-  ;; Major modes abbrev --------------------------------------------------------
-
-  (add-hook 'emacs-lisp-mode-hook
-            (lambda () (setq mode-name "Elisp")))
-
-  (add-hook 'erlang-mode-hook
-            (lambda () (setq mode-name "Erlang")))
-
-  (add-hook 'python-mode-hook
-            (lambda () (setq mode-name "Python")))
-
   ;; Minor modes abbrev --------------------------------------------------------
-
   (when (display-graphic-p)
-    (eval-after-load "auto-complete"
-      '(diminish 'auto-complete-mode " Ⓐ"))
-    (eval-after-load "auto-highlight-symbol"
-      '(diminish 'auto-highlight-symbol-mode " Ⓗ"))
-    (eval-after-load "centered-cursor-mode"
-      '(diminish 'centered-cursor-mode " Ⓒ"))
     (eval-after-load "eproject"
       '(diminish 'eproject-mode " eⓅ"))
     (eval-after-load "flymake"
-      '(diminish 'flymake-mode " Ⓕ"))
-    (eval-after-load "projectile"
-      '(diminish 'projectile-mode " Ⓟ"))
-    (eval-after-load "flyspell"
-      '(diminish 'flyspell-mode " Ⓢ"))
-    (eval-after-load "smartparens"
-      '(diminish 'smartparens-mode " (Ⓢ)"))
-    (eval-after-load "paredit"
-      '(diminish 'paredit-mode " (Ⓟ)"))
-    (eval-after-load "tagedit"
-      '(diminish 'tagedit-mode " Ⓣ"))
-    (eval-after-load "yasnippet"
-      '(diminish 'yas-minor-mode " Ⓨ"))
-    )
-
+      '(diminish 'flymake-mode " Ⓕ")))
   ;; Minor Mode (hidden) ------------------------------------------------------
-
   (eval-after-load 'elisp-slime-nav
     '(diminish 'elisp-slime-nav-mode))
-
   (eval-after-load "hi-lock"
     '(diminish 'hi-lock-mode))
 
-  (eval-after-load "page-break-lines"
-    '(diminish 'page-break-lines-mode))
-
-  (eval-after-load "rainbow-mode"
-    '(diminish 'rainbow-mode))
-
-  (eval-after-load "ruby-end"
-    '(diminish 'ruby-end-mode))
-
-  (eval-after-load "undo-tree"
-    '(diminish 'undo-tree-mode))
-
-  (eval-after-load "helm-mode"
-    '(diminish 'helm-mode))
-
   (eval-after-load "golden-ratio"
     '(diminish 'golden-ratio-mode))
-
-  (eval-after-load "git-gutter"
-    '(diminish 'git-gutter-mode))
-
   (eval-after-load "abbrev"
-    '(diminish 'abbrev-mode))
-
-  (eval-after-load "volatile-highlights"
-    '(diminish 'volatile-highlights-mode)))
+    '(diminish 'abbrev-mode)))
 
 (defun spacemacs/init-dired+ ()
   (use-package dired+
@@ -514,7 +459,8 @@ which require an initialization must be listed explicitly in the list.")
                      (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
                           "\\(?:^\\|\\s-+\\)\\(?:do\\)")
                      (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
-                     (ruby-end-mode +1))))))
+                     (ruby-end-mode +1)))
+      (spacemacs//hide-lighter ruby-end-mode))))
 
 (defun spacemacs/init-ensime ()
   (use-package ensime
@@ -535,6 +481,7 @@ which require an initialization must be listed explicitly in the list.")
       (require 'erlang-start)
       (add-hook 'erlang-mode-hook
                 (lambda ()
+                  (setq mode-name "Erlang")
                   ;; when starting an Erlang shell in Emacs, with a custom node name
                   (setq inferior-erlang-machine-options '("-sname" "syl20bnr"))
                   ))
@@ -711,7 +658,9 @@ which require an initialization must be listed explicitly in the list.")
       (setq-default ispell-program-name "aspell")
       (setq-default ispell-dictionary "en")
       (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
-      (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1))))))
+      (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1))))
+    :config
+    (spacemacs//diminish flyspell-mode " Ⓢ")))
 
 (defun spacemacs/init-gist ()
   (use-package gist
@@ -754,7 +703,8 @@ which require an initialization must be listed explicitly in the list.")
         "XXXXX.."
         ".XXX..."
         "..X...."
-        ))))
+        )
+      (spacemacs//hide-lighter git-gutter-mode))))
 
 (defun spacemacs/init-git-messenger ()
   (use-package git-messenger
@@ -934,7 +884,9 @@ which require an initialization must be listed explicitly in the list.")
       (define-key helm-map (kbd "C-j") 'helm-next-line)
       (define-key helm-map (kbd "C-k") 'helm-previous-line)
       (define-key helm-map (kbd "C-h") 'helm-next-source)
-      (define-key helm-map (kbd "C-l") 'helm-previous-source))))
+      (define-key helm-map (kbd "C-l") 'helm-previous-source)
+      (eval-after-load "helm-mode" ; required
+        '(spacemacs//hide-lighter helm-mode)))))
 
 (defun spacemacs/init-helm-css-scss ()
   (use-package helm-css-scss
@@ -1040,6 +992,7 @@ which require an initialization must be listed explicitly in the list.")
     (evil-leader/set-key "gs" 'magit-status)
     :config
     (progn
+      (spacemacs//hide-lighter magit-auto-revert-mode)
       ;; full screen magit-status
       (defadvice magit-status (around magit-fullscreen activate)
         (window-configuration-to-register :magit-fullscreen)
@@ -1156,7 +1109,8 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-page-break-lines ()
   (use-package page-break-lines
     :init
-    (global-page-break-lines-mode t)))
+    (global-page-break-lines-mode t)
+    (spacemacs//hide-lighter page-break-lines-mode)))
 
 (defun spacemacs/init-paredit ()
   (use-package paredit
@@ -1168,7 +1122,8 @@ which require an initialization must be listed explicitly in the list.")
           (font-lock-add-keywords (intern (concat (symbol-name mode) "-mode"))
                                   '(("(\\|)" . 'esk-paren-face))))
         (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
-                  'paredit-mode)))))
+                  'paredit-mode))
+      (spacemacs//diminish paredit-mode " (Ⓟ)"))))
 
 (defun spacemacs/init-popup ()
   (use-package popup
@@ -1214,14 +1169,18 @@ which require an initialization must be listed explicitly in the list.")
       "pF" 'projectile-find-file
       "pk" 'projectile-kill-buffers
       "pg" 'projectile-grep
-      "pr" 'projectile-replace)))
+      "pr" 'projectile-replace)
+    :config
+    (spacemacs//diminish projectile-mode " Ⓟ")))
 
 (defun spacemacs/init-python ()
   (use-package python
     :defer t
     :init
     (progn
-      (add-hook 'python-mode-hook '(lambda() (setq tab-width 4)))
+      (add-hook 'python-mode-hook
+                '(lambda() (setq mode-name "Python"
+                                 tab-width 4)))
       ;; from http://pedrokroger.net/2010/07/configuring-emacs-as-a-python-ide-2/
       (defun annotate-pdb ()
         "Highlight break point lines."
@@ -1342,7 +1301,8 @@ which require an initialization must be listed explicitly in the list.")
       ;; if the feature cannot be found.
       (require 'pinit-rcirc nil 'noerror)
       (define-key rcirc-mode-map (kbd "C-j") 'rcirc-insert-prev-input)
-      (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input))))
+      (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input)
+      (spacemacs//hide-lighter rainbow-mode))))
 
 (defun spacemacs/init-recentf ()
   (use-package recentf
@@ -1379,7 +1339,9 @@ which require an initialization must be listed explicitly in the list.")
     (add-to-hooks 'smartparens-mode '(erlang-mode-hook
                                       markdown-mode-hook
                                       prog-mode-hook
-                                      ))))
+                                      ))
+    :config
+    (spacemacs//diminish smartparens-mode" (Ⓢ)")))
 
 (defun spacemacs/init-smeargle ()
   (use-package smeargle
@@ -1408,7 +1370,14 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (tagedit-add-experimental-features)
-      (add-hook 'html-mode-hook (lambda () (tagedit-mode 1))))))
+      (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
+      (spacemacs//diminish tagedit-mode " Ⓣ"))))
+
+(defun spacemacs/init-undo-tree ()
+  (use-package undo-tree
+    :defer t
+    :config
+    (spacemacs//hide-lighter undo-tree-mode)))
 
 (defun spacemacs/init-visual-regexp-steroids ()
   (use-package visual-regexp-steroids
@@ -1420,7 +1389,10 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-volatile-highlights ()
   (use-package volatile-highlights
-    :init (volatile-highlights-mode t)))
+    :init
+    (progn 
+      (volatile-highlights-mode t)
+      (spacemacs//hide-lighter volatile-highlights-mode))))
 
 (defun spacemacs/init-wand ()
   (use-package wand
@@ -1442,6 +1414,12 @@ which require an initialization must be listed explicitly in the list.")
            ("\\.erb\\'"       . web-mode)
            ("\\.mustache\\'"  . web-mode)
            ("\\.djhtml\\'"    . web-mode))))
+
+(defun spacemacs/init-yasnippet ()
+  (use-package yasnippet
+    :defer t
+    :config
+    (spacemacs//diminish yas-minor-mode " Ⓨ")))
 
 (defun spacemacs/init-zenburn-theme ()
   (use-package zenburn-theme
