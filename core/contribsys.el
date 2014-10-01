@@ -167,3 +167,8 @@ dotspacemacs-configuration-layers defined in ~/.spacemacs."
   (if (boundp 'dotspacemacs-configuration-layers)
       (dolist (layer dotspacemacs-configuration-layers)
         (contribsys/declare-layer layer t))))
+
+(defun contribsys/get-layer-property (symlayer prop)
+  "Return the value of the PROPerty for the given SYMLAYER symbol."
+  (let* ((layer (assq symlayer spacemacs-config-layers)))
+         (plist-get (cdr layer) prop)))
