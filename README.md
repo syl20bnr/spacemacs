@@ -540,9 +540,18 @@ Key Binding   |                 Description
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
 `<SPC> h e`   | edit all occurrences of the current word
-`<SPC> h n`   | go to next occurrence
-`<SPC> h p`   | go to previous occurrence
 `<SPC> t h`   | toggle the auto highlighting
+
+Navigation between the highlighted symbols can be done with the commands:
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`<SPC> h n`   | go to next occurrence and initiate navigation mini-mode
+`<SPC> h p`   | go to previous occurrence and initiate navigation mini-mode
+`n`           | go to next occurrence
+`p`           | go to previous occurrence
+`=`           | reset the navigation (go to starting occurrence)
+Any other key | leave the navigation mini-mode
 
 ### Color theme
 
