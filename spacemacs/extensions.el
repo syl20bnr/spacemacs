@@ -66,10 +66,17 @@
          (let ((map (make-sparse-keymap)))
            (define-key map (kbd "n") 'ahs-forward)
            (define-key map (kbd "p") 'ahs-backward)
-           (define-key map (kbd "s") 'ahs-back-to-start)
+           (define-key map (kbd "=") 'ahs-back-to-start)
            map) nil)
-        (message "[%s] jump to (n)ext (p)revious or (s)tarting highlighted symbol"
-                 (length ahs-overlay-list))))))
+        (let* ((i 0)
+               (overlay-count (length ahs-overlay-list))
+               (overlay (format "%s" (nth i ahs-overlay-list)))
+               (current-overlay (format "%s" ahs-current-overlay)))
+          (while (not (string= overlay current-overlay))
+            (setq i (1+ i))
+            (setq overlay (format "%s" (nth i ahs-overlay-list))))
+          (message "[%s/%s] jump to (n)ext or (p)revious symbol (= to reset)"
+                   (- overlay-count i) overlay-count))))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
