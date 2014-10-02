@@ -41,7 +41,7 @@
       (custom-set-variables
        '(ahs-case-fold-search nil)
        '(ahs-default-range (quote ahs-range-whole-buffer))
-       '(ahs-idle-interval 0.5))
+       '(ahs-idle-interval 0.25))
       (eval-after-load "evil-leader"
         '(evil-leader/set-key
            "he" 'ahs-edit-mode
