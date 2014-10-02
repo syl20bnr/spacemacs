@@ -25,12 +25,12 @@ commands:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`<SPC> c s`   | Initiate change `saturation` mode
-`<SPC> c l`   | Initiate change `lightness` mode
-`+`           | Increase the `saturation` or `lightness`
-`-`           | Decrease the `saturation` or `lightness`
-`=`           | Reset the `saturation` or `lightness`
-Any other key | Leave the change mode
+`<SPC> c s`   | initiate change `saturation` mini-mode
+`<SPC> c l`   | initiate change `lightness` mini-mode
+`+`           | increase the `saturation` or `lightness`
+`-`           | decrease the `saturation` or `lightness`
+`=`           | reset the `saturation` or `lightness`
+Any other key | leave the change mini-mode
 
 ### Screenshots
 

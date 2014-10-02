@@ -488,13 +488,13 @@ The font size of the current buffer can be adjusted with the commands:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`<SPC> x +`   | Scale up the font and initiate the font scaling mode
-`<SPC> x -`   | Scale down the font and initiate the font scaling mode
-`<SPC> x =`   | Reset the font size (no scaling) and initiate the font scaling mode
-`+`           | Increase the font size
-`-`           | Decrease the font size
-`=`           | Reset the font size
-Any other key | Leave the font scaling mode
+`<SPC> x +`   | scale up the font and initiate the font scaling mini-mode
+`<SPC> x -`   | scale down the font and initiate the font scaling mini-mode
+`<SPC> x =`   | reset the font size (no scaling) and initiate the font scaling mini-mode
+`+`           | increase the font size
+`-`           | decrease the font size
+`=`           | reset the font size
+Any other key | leave the font scaling mini-mode
 
 ### Spell checking
 
