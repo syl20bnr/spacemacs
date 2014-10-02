@@ -50,7 +50,26 @@
            "hn" 'ahs-forward
            "hp" 'ahs-backward
            "th" 'auto-highlight-symbol-mode))
-      (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ"))))
+      (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ")
+      ;; mini-mode to easily jump from a highlighted symbol to the others
+      (defadvice ahs-forward (after spacemacs/ahs-forward activate)
+        (spacemacs/auto-highlight-symbol-overlay-map))
+      (defadvice ahs-backward (after spacemacs/ahs-backward activate)
+        (spacemacs/auto-highlight-symbol-overlay-map))
+      (defadvice ahs-back-to-start (after spacemacs/ahs-back-to-start activate)
+        (spacemacs/auto-highlight-symbol-overlay-map))
+      (defun spacemacs/auto-highlight-symbol-overlay-map ()
+        "Set a temporary overlay map to easily jump from highlighted symbols to
+ the nexts."
+        (interactive)
+        (set-temporary-overlay-map
+         (let ((map (make-sparse-keymap)))
+           (define-key map (kbd "n") 'ahs-forward)
+           (define-key map (kbd "p") 'ahs-backward)
+           (define-key map (kbd "s") 'ahs-back-to-start)
+           map) nil)
+        (message "[%s] jump to (n)ext (p)revious or (s)tarting highlighted symbol"
+                 (length ahs-overlay-list))))))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
