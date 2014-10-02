@@ -546,11 +546,14 @@ Navigation between the highlighted symbols can be done with the commands:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
+`<SPC> h h`   | go to definition occurrence (i.e. where the variable has been defined)
 `<SPC> h n`   | go to next occurrence and initiate navigation mini-mode
-`<SPC> h p`   | go to previous occurrence and initiate navigation mini-mode
+`<SPC> h N`   | go to previous occurrence and initiate navigation mini-mode
 `n`           | go to next occurrence
-`p`           | go to previous occurrence
-`=`           | reset the navigation (go to starting occurrence)
+`N`           | go to previous occurrence
+`d`           | go to next definition occurrence
+`D`           | go to previous definition occurrence
+`h`           | go to home occurrence (go to starting occurrence)
 Any other key | leave the navigation mini-mode
 
 ### Color theme

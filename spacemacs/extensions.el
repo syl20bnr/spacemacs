@@ -32,12 +32,10 @@
   (use-package auto-highlight-symbol
     :commands auto-highlight-symbol-mode
     :init
-    (add-to-hooks
-     'auto-highlight-symbol-mode '(erlang-mode-hook
-                                   prog-mode-hook
-                                   org-mode-hook
-                                   markdown-mode-hook
-                                   ))
+    (add-to-hooks 'auto-highlight-symbol-mode '(erlang-mode-hook
+                                                prog-mode-hook
+                                                org-mode-hook
+                                                markdown-mode-hook))
     :config
     (progn
       (custom-set-variables
@@ -47,26 +45,37 @@
       (eval-after-load "evil-leader"
         '(evil-leader/set-key
            "he" 'ahs-edit-mode
+           "hh" 'ahs-forward-definition
            "hn" 'ahs-forward
-           "hp" 'ahs-backward
+           "hN" 'ahs-backward
            "th" 'auto-highlight-symbol-mode))
       (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ")
       ;; mini-mode to easily jump from a highlighted symbol to the others
-      (defadvice ahs-forward (after spacemacs/ahs-forward activate)
-        (spacemacs/auto-highlight-symbol-overlay-map))
-      (defadvice ahs-backward (after spacemacs/ahs-backward activate)
-        (spacemacs/auto-highlight-symbol-overlay-map))
-      (defadvice ahs-back-to-start (after spacemacs/ahs-back-to-start activate)
-        (spacemacs/auto-highlight-symbol-overlay-map))
+      (defmacro spacemacs/ahs-advicer (symbol)
+        `(let* ((advised ,symbol)
+                (advice (intern (format "spacemacs/%s" (symbol-name advised)))))
+           (message "%s" advice)
+           (defadvice advised (after advice activate)
+              (spacemacs/auto-highlight-symbol-overlay-map))))
+      (dolist (sym '(ahs-forward
+                     ahs-forward-definition
+                     ahs-backward
+                     ahs-backward-definition
+                     ahs-back-to-start))
+        (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
+          (eval `(defadvice ,sym (after ,advice activate)
+                   (spacemacs/auto-highlight-symbol-overlay-map)))))
       (defun spacemacs/auto-highlight-symbol-overlay-map ()
         "Set a temporary overlay map to easily jump from highlighted symbols to
  the nexts."
         (interactive)
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap)))
+           (define-key map (kbd "d") 'ahs-forward-definition)
+           (define-key map (kbd "D") 'ahs-backward-definition)
            (define-key map (kbd "n") 'ahs-forward)
-           (define-key map (kbd "p") 'ahs-backward)
-           (define-key map (kbd "=") 'ahs-back-to-start)
+           (define-key map (kbd "N") 'ahs-backward)
+           (define-key map (kbd "h") 'ahs-back-to-start)
            map) nil)
         (let* ((i 0)
                (overlay-count (length ahs-overlay-list))
@@ -75,7 +84,7 @@
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
-          (message "[%s/%s] jump to (n)ext or (p)revious symbol (= to reset)"
+          (message "[%s/%s] press (n) for next symbol or (N) for previous one (h for home symbol)"
                    (- overlay-count i) overlay-count))))))
 
 (defun spacemacs/init-centered-cursor ()
