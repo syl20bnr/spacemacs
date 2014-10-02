@@ -202,6 +202,7 @@
   "mc"  'sp-convolute-sexp
   "mD"  'elisp-slime-nav-describe-elisp-thing-at-point
   "md"  'sp-kill-sexp
+  "me"  'eval-last-sexp
   "mf"  'eval-defun
   "mg"  'elisp-slime-nav-find-elisp-thing-at-point
   "mhv" 'describe-variable
