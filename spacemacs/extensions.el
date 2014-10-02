@@ -76,7 +76,7 @@
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
           (message "[%s/%s] jump to (n)ext or (p)revious symbol (= to reset)"
-                   (- overlay-count i) overlay-count))))
+                   (- overlay-count i) overlay-count))))))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
