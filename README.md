@@ -406,7 +406,7 @@ Key Binding   |                 Description
 `<SPC> f i`   | open your `init.el` file
 `<SPC> f s`   | save a file
 `<SPC> f S`   | save all files
-`<SPC> f y`   | show current file absolute path in the mini buffer
+`<SPC> f y`   | show current file absolute path in the minibuffer
 
 #### Bookmarks
 
@@ -504,13 +504,13 @@ The font size of the current buffer can be adjusted with the commands:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`<SPC> x +`   | scale up the font and initiate the font scaling mini-mode
-`<SPC> x -`   | scale down the font and initiate the font scaling mini-mode
-`<SPC> x =`   | reset the font size (no scaling) and initiate the font scaling mini-mode
+`<SPC> x +`   | scale up the font and initiate the font scaling micro-state
+`<SPC> x -`   | scale down the font and initiate the font scaling micro-state
+`<SPC> x =`   | reset the font size (no scaling) and initiate the font scaling micro-state
 `+`           | increase the font size
 `-`           | decrease the font size
 `=`           | reset the font size
-Any other key | leave the font scaling mini-mode
+Any other key | leave the font scaling micro-state
 
 ### Spell checking
 
