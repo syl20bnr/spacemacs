@@ -122,14 +122,14 @@ extension.
           (setq installed-count 0)
           (dolist (pkg not-installed)
             (when (not (package-installed-p pkg))
+              (setq installed-count (1+ installed-count))
+              (replace-last-line-of-spacemacs-buf
+               (format "--> installing %s:%s... [%s/%s]"
+                       (ht-get spacemacs-all-packages pkg)
+                       pkg
+                       installed-count
+                       not-installed-count) t)
               (package-install pkg))
-            (setq installed-count (1+ installed-count))
-            (replace-last-line-of-spacemacs-buf
-             (format "--> installing %s:%s... [%s/%s]"
-                     (ht-get spacemacs-all-packages pkg)
-                     pkg
-                     installed-count
-                     not-installed-count) t)
             (redisplay))
           (append-to-spacemacs-buf "\n")))))
 
