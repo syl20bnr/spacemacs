@@ -1225,6 +1225,9 @@ which require an initialization must be listed explicitly in the list.")
         (newline-and-indent)
         (insert "import pdb; pdb.set_trace()")
         (save-buffer))
+      ;; add support for `ahs-range-beginning-of-defun' for python-mode
+      (eval-after-load 'auto-highlight-symbol
+        '(add-to-list 'ahs-plugin-bod-modes 'python-mode))
       (evil-leader/set-key-for-mode 'python-mode
         "mB"  (lambda ()
                 " Send buffer content to shell and switch to it in insert mode."
