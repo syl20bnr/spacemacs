@@ -13,6 +13,7 @@
     cmake-mode
     csharp-mode
     coffee-mode
+    dash
     diminish
     dired+
 ;    edts
@@ -99,7 +100,9 @@
     ruby-end
     ruby-mode
     ruby-test-mode
+    s
     sbt-mode
+    scala-mode2
     scss-mode
     smartparens
     smeargle
@@ -461,8 +464,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-ensime ()
   (use-package ensime
-    :defer t
-    :init (add-hook 'scala-mode-hook 'ensime-scala-mode-hook)))
+    :defer t))
 
 (defun spacemacs/init-erlang ()
   (use-package erlang
