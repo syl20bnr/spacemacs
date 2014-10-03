@@ -223,8 +223,12 @@ Of course, all pull requests are welcome for all parts of `Spacemacs`.
 
 ## Main principles
 
+### Evil
+
 `Spacemacs` uses the [evil][evil] mode to emulate Vim key bindings. It is a
 very complete emulation (the most complete I've seen yet).
+
+### Evil leader
 
 `Spacemacs` heavily uses the [evil-leader][evil-leader] mode which brings the
 Vim leader key to the Emacs world.
@@ -242,6 +246,17 @@ few examples:
 - Save a buffer: `<SPC> f s`
 - Save all opened buffers: `<SPC> f S`
 - Open (switch) to a buffer with `helm`: `<SPC> b s`
+
+### Micro-states
+
+`Spacemacs` defines a wide variety of `micro-states` (temporary overlay maps)
+where it makes sense. This prevent from repetitive and tedious presses on the
+`SPC` key.
+
+When a `micro-state` is active, a documentation is displayed in the minibuffer.
+Additional information may as well be displayed in the minibuffer.
+
+[TODO: insert example screenshot here]
 
 ## UI tweaks
 
