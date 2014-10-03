@@ -532,7 +532,7 @@ Key Binding   |                 Description
 `<SPC> n r`   | narrow the buffer to the selected text
 `<SPC> n w`   | widen, i.e show the whole buffer again
 
-### Auto highlight
+### Auto highlight and edition of symbols
 
 `Spacemacs` supports auto highlighting of the current word (provided by the
  [auto-highlight-symbol][auto-highlight] mode).
@@ -547,14 +547,25 @@ Navigation between the highlighted symbols can be done with the commands:
 Key Binding   | Description
 --------------|------------------------------------------------------------
 `<SPC> h h`   | go to definition occurrence (i.e. where the variable has been defined)
-`<SPC> h n`   | go to next occurrence and initiate navigation mini-mode
-`<SPC> h N`   | go to previous occurrence and initiate navigation mini-mode
+`<SPC> h n`   | go to next occurrence and initiate navigation micro-state
+`<SPC> h N`   | go to previous occurrence and initiate navigation micro-state
+`<SPC> h r b` | change range to `whole buffer`
+`<SPC> h r d` | change range to `display area`
+`<SPC> h r f` | change range to `function`
+`<SPC> h R`   | change range to default (`whole buffer`)
+
+In 'Spacemacs' highlight symbol micro-state:
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`c`           | change scope (`function`, `display area`, `whole buffer`)
+`e`           | edit occurrences
 `n`           | go to next occurrence
 `N`           | go to previous occurrence
 `d`           | go to next definition occurrence
 `D`           | go to previous definition occurrence
 `h`           | go to home occurrence (go to starting occurrence)
-Any other key | leave the navigation mini-mode
+Any other key | leave the navigation micro-state
 
 ### Color theme
 
