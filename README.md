@@ -82,8 +82,9 @@
 - The main goal of `Spacemacs` is to **bring the power of Vim modal editing
 to the powerful Emacs editing platform**.
 
-- Slick integration with `Evil` states (`Vim` modes), tries as much as possible
-to **keep your fingers on the home row**, no matter the mode you are in.
+- Slick integration with `Evil` states (`Vim` modes) with custom
+`micro-states` (temporary overlay map): `Spacemacs` tries to **keep your
+fingers on the home row** as much as possible, no matter the mode you are in.
 
 - **Community driven configuration** based on a configuration layer system
 *(work in progress)*. Contribute your own personal layer upstream and
