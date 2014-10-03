@@ -62,15 +62,21 @@
                      ahs-back-to-start))
         (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
           (eval `(defadvice ,sym (after ,advice activate)
-                   (spacemacs/auto-highlight-symbol-overlay-map)))))
-      (defun spacemacs/auto-highlight-symbol-overlay-map ()
+                   (spacemacs/auto-highlight-symbol-overlay-map t)))))
+      (defun spacemacs/auto-highlight-symbol-overlay-map (&optional display)
         "Set a temporary overlay map to easily jump from highlighted symbols to
- the nexts."
+ the nexts. If DISPLAY is true a documentation is displayed in the mini-buffer."
         (interactive)
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap)))
+           (define-key map (kbd "c")
+             '(lambda () (interactive)
+                (eval '(ahs-change-range) nil)
+                ;; we tolerate a recursive call here
+                (spacemacs/auto-highlight-symbol-overlay-map)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
+           (define-key map (kbd "e") 'ahs-edit-mode)
            (define-key map (kbd "n") 'ahs-forward)
            (define-key map (kbd "N") 'ahs-backward)
            (define-key map (kbd "h") 'ahs-back-to-start)
@@ -82,8 +88,9 @@
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
-          (message "[%s/%s] press (n) for next symbol or (N) for previous one (h for home symbol)"
-                   (- overlay-count i) overlay-count))))))
+          (if display
+              (message "[%s/%s] press (n) or (N) to navigate, (h) for home symbol, (c) to change scope"
+                       (- overlay-count i) overlay-count)))))))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
