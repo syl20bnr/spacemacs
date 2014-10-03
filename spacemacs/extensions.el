@@ -48,6 +48,10 @@
            "hh" 'ahs-forward-definition
            "hn" 'ahs-forward
            "hN" 'ahs-backward
+           "hR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
+           "hrb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
+           "hrd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
+           "hrf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
            "th" 'auto-highlight-symbol-mode))
       (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ")
       ;; mini-mode to easily jump from a highlighted symbol to the others
