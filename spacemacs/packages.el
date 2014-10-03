@@ -92,7 +92,8 @@
     ;; not working well for now
     ;; rainbow-blocks
     rainbow-delimiters
-    rainbow-mode
+    ;; install fail on windows
+    ;; rainbow-mode
     rcirc
     rcirc-color
     recentf
