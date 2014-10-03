@@ -55,12 +55,6 @@
            "th" 'auto-highlight-symbol-mode))
       (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ")
       ;; mini-mode to easily jump from a highlighted symbol to the others
-      (defmacro spacemacs/ahs-advicer (symbol)
-        `(let* ((advised ,symbol)
-                (advice (intern (format "spacemacs/%s" (symbol-name advised)))))
-           (message "%s" advice)
-           (defadvice advised (after advice activate)
-              (spacemacs/auto-highlight-symbol-overlay-map))))
       (dolist (sym '(ahs-forward
                      ahs-forward-definition
                      ahs-backward
