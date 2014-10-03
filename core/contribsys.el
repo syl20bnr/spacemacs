@@ -121,8 +121,8 @@ extension.
           (package-refresh-contents)
           (setq installed-count 0)
           (dolist (pkg not-installed)
+            (setq installed-count (1+ installed-count))
             (when (not (package-installed-p pkg))
-              (setq installed-count (1+ installed-count))
               (replace-last-line-of-spacemacs-buf
                (format "--> installing %s:%s... [%s/%s]"
                        (ht-get spacemacs-all-packages pkg)
