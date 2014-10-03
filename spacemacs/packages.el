@@ -1279,7 +1279,9 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-rainbow-mode ()
   (use-package rainbow-mode
     :defer t
-    :init (evil-leader/set-key "tc" 'rainbow-mode)))
+    :init (evil-leader/set-key "tc" 'rainbow-mode)
+    :config
+    (spacemacs//hide-lighter rainbow-mode)))
 
 (defun spacemacs/init-rcirc ()
   (use-package rcirc
@@ -1308,7 +1310,7 @@ which require an initialization must be listed explicitly in the list.")
       (require 'pinit-rcirc nil 'noerror)
       (define-key rcirc-mode-map (kbd "C-j") 'rcirc-insert-prev-input)
       (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input)
-      (spacemacs//hide-lighter rainbow-mode))))
+      )))
 
 (defun spacemacs/init-recentf ()
   (use-package recentf
