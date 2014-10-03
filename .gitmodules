@@ -13,6 +13,7 @@
 [submodule "extensions/solarized-theme"]
 	path = spacemacs/extensions/solarized-theme
 	url = http://github.com/syl20bnr/solarized-emacs
+  ignore = dirty
 [submodule "extensions/evil-plugins"]
 	path = spacemacs/extensions/evil-plugins
 	url = http://github.com/tarao/evil-plugins
@@ -22,6 +23,7 @@
 [submodule "snippets"]
 	path = spacemacs/snippets
 	url = http://github.com/syl20bnr/yasnippet-snippets
+  ignore = dirty
 [submodule "extensions/use-package"]
 	path = spacemacs/extensions/use-package
 	url = http://github.com/jwiegley/use-package
