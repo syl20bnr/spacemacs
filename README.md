@@ -567,7 +567,7 @@ Navigation between the highlighted symbols can be done with the commands:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`<SPC> h h`   | go to definition occurrence (i.e. where the variable has been defined)
+`<SPC> h h`   | initiate navigation micro-state
 `<SPC> h n`   | go to next occurrence and initiate navigation micro-state
 `<SPC> h N`   | go to previous occurrence and initiate navigation micro-state
 `<SPC> h r b` | change range to `whole buffer`
