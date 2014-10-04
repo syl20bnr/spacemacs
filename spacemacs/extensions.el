@@ -44,10 +44,10 @@
        '(ahs-idle-interval 0.25))
       (eval-after-load "evil-leader"
         '(evil-leader/set-key
-           "he" 'ahs-edit-mode
-           "hh" 'ahs-forward-definition
-           "hn" 'ahs-forward
-           "hN" 'ahs-backward
+           "he"  'ahs-edit-mode
+           "hh"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
+           "hn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
+           "hN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
            "hR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
            "hrb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
            "hrd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
