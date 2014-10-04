@@ -16,7 +16,8 @@ specified with an installed package."
 ;; Functions
 
 (defun dotspacemacs/init ()
-  "User initialize for Spacemacs. This function is called at the very startup."
+  "User initialization for Spacemacs. This function is called at the very
+ startup."
 )
 
 (defun dotspacemacs/config ()
