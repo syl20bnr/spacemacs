@@ -3,7 +3,7 @@
   (expand-file-name (concat user-emacs-directory "core/"))
   "Spacemacs core directory.")
 (load (concat spacemacs-core-directory "spacemacs-mode.el"))
-(spacemacs-buffer)
+(spacemacs/buffer)
 
 (unless (not (spacemacs/emacs-version-ok))
   ;; additional paths
@@ -19,7 +19,7 @@
   ;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
   (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
   ;; User configuration file for Spacemacs: ~/.spacemacs 
-  (spacemacs-load-dotfile)
+  (spacemacs/load-dotfile)
   (dotspacemacs/init)
   ;; initialisation of the contribution system based on configuration layers
   ;; additional configuration layers are declared in ~/.spacemacs

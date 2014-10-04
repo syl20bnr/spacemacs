@@ -52,7 +52,7 @@ initialize the extension. ")
   (contribsys/read-packages-and-extensions)
   (contribsys/initialize-extensions spacemacs-all-pre-extensions)
   (contribsys/install-packages)
-  (append-to-spacemacs-buf loading-text)
+  (spacemacs/append-to-buffer spacemacs-loading-text)
   (contribsys/initialize-packages)
   (contribsys/initialize-extensions spacemacs-all-post-extensions)
   (contribsys/load-layer-files '("keybindings.el")))
@@ -98,7 +98,8 @@ extension.
   (let ((total (+ (ht-size spacemacs-all-packages)
                   (ht-size spacemacs-all-pre-extensions)
                   (ht-size spacemacs-all-post-extensions))))
-  (setq loading-dots-chunk-threshold (/ total loading-dots-chunk-count))))
+  (setq spacemacs-loading-dots-chunk-threshold
+        (/ total spacemacs-loading-dots-chunk-count))))
 
 (defun contribsys/install-packages ()
   "Install the packages all the packages if there are not currently installed."
@@ -112,10 +113,10 @@ extension.
     ;; installation
     (if not-installed
         (progn
-          (append-to-spacemacs-buf
+          (spacemacs/append-to-buffer
            (format "Found %s new package(s) to install...\n"
                    not-installed-count))
-          (append-to-spacemacs-buf
+          (spacemacs/append-to-buffer
            "--> fetching new package repository indexes...\n")
           (redisplay)
           (package-refresh-contents)
@@ -123,7 +124,7 @@ extension.
           (dolist (pkg not-installed)
             (setq installed-count (1+ installed-count))
             (when (not (package-installed-p pkg))
-              (replace-last-line-of-spacemacs-buf
+              (spacemacs/replace-last-line-of-buffer
                (format "--> installing %s:%s... [%s/%s]"
                        (ht-get spacemacs-all-packages pkg)
                        pkg
@@ -131,7 +132,7 @@ extension.
                        not-installed-count) t)
               (package-install pkg))
             (redisplay))
-          (append-to-spacemacs-buf "\n")))))
+          (spacemacs/append-to-buffer "\n")))))
 
 (defun contribsys/initialize-packages ()
   "Initialize all the declared packages."
@@ -141,7 +142,7 @@ extension.
   "Initialize the package PKG from the configuration layer LSYM."
   (let* ((layer (assq lsym spacemacs-config-layers))
          (init-func (intern (format "%s/init-%s" (symbol-name lsym) pkg))))
-    (loading-animation)
+    (spacemacs/loading-animation)
     (if (and (package-installed-p pkg) (fboundp init-func))
         (progn  (message "(Spacemacs) Initializing %s:%s..."
                          (symbol-name lsym) pkg)
@@ -157,7 +158,7 @@ extension.
          (ext-dir (plist-get (cdr layer) :ext-dir))
          (init-func (intern (format "%s/init-%s" (symbol-name lsym) ext))))
        (add-to-list 'load-path (format "%s%s/" ext-dir ext))
-       (loading-animation)
+       (spacemacs/loading-animation)
        (message "(Spacemacs) Initializing %s:%s..." (symbol-name lsym) ext)
        (if (fboundp init-func) (funcall init-func))))
 
