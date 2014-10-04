@@ -483,9 +483,9 @@ kill internal buffers too."
       (spacemacs/reset-font-size)
     (spacemacs/scale-up-or-down-font-size direction)))
 
-(defun spacemacs/font-scaling-mini-mode-doc ()
+(defun spacemacs/font-scaling-micro-state-doc ()
   "Display a short documentation in the mini buffer."
-  (message "Scale Font mini-mode:
+  (message "Scale Font micro-state:
   + to scale up
   - to scale down
   = to reset
@@ -499,13 +499,13 @@ otherwise it is scaled down."
     (if (< direction 0)
         (text-scale-decrease scale)
       (text-scale-increase scale))
-    (spacemacs/font-scaling-mini-mode-doc)))
+    (spacemacs/font-scaling-micro-state-doc)))
 
 (defun spacemacs/reset-font-size ()
   "Reset the font size (apply a scale of 0)."
   (interactive)
   (text-scale-set 0)
-  (spacemacs/font-scaling-mini-mode-doc))
+  (spacemacs/font-scaling-micro-state-doc))
 
 (defmacro spacemacs//diminish (mode lighter)
   "Diminish MODE name in mode line to LIGHTER."
