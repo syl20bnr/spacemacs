@@ -284,17 +284,19 @@ design flaw in Vim key bindings because the `ESC` key is very far from the
 home row.
 
 The popular way to avoid this is to replace `ESC` by `jj` pressed rapidly.
-`Spacemacs` proposes to press `fd` instead and reserves the zone around `j`
-for text reformatting.
+`Spacemacs` **initialy** proposed to press `fd` instead of `jj`. But since
+`jj` is one of the most used combination `Spacemacs` now **defaults to `jj`**
 
-`fd` also works to quit the minibuffer.
+This sequence can be customized in your `~/.spacemacs`, for instance to
+revert back to the initial configuration using `fd` add this to your file:
 
-**Note:** For those who know about [keychords.el][keychords] mode. This mode is
-not used to return to the normal mode, the reason for this is latency and the
-fact that keychords wants you to press several keys at almost the same time
-which is something very difficult to master correctly on a keyboard.
-`Spacemacs` has a special function called `fd-trigger` to handle the `fd` key
-sequence and fix the above keychords issues.
+```elisp
+(defun dotspacemacs/init ()
+  "User initialization for Spacemacs. This function is called at the very startup."
+  (defvar spacemacs-normal-state-sequence '(?f . ?d))
+  (defvar spacemacs-normal-state-sequence-delay 0.1)
+)
+```
 
 ### Executing Vim and Emacs commands
 

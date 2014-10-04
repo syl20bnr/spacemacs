@@ -3,24 +3,24 @@
 
 ;; auto-indent on RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
-;; simple and more consistent keyboard quit key bindings
-;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
-(global-set-key (kbd "f")
-  (lambda () (interactive) (fd-trigger 'keyboard-quit)))
-(define-key minibuffer-local-map (kbd "f")
-  (lambda () (interactive) (fd-trigger 'abort-recursive-edit)))
-;; evil
+
+;; ---------------------------------------------------------------------------
+;; evil key bindings tweaks
+;; ---------------------------------------------------------------------------
+
 ;; easier toggle for emacs-state
 (evil-set-toggle-key "s-`")
 ;; returns to normal mode
-(define-key evil-insert-state-map "f"
-  (lambda () (interactive) (fd-trigger 'evil-normal-state)))
-(define-key evil-visual-state-map "f"
-  (lambda () (interactive) (fd-trigger 'evil-exit-visual-state)))
-(define-key evil-emacs-state-map "f"
-  (lambda () (interactive) (fd-trigger 'evil-normal-state)))
-(define-key evil-motion-state-map "f"
-  (lambda () (interactive) (fd-trigger 'evil-normal-state)))
+(let ((seq spacemacs-normal-state-sequence)
+      (key (char-to-string (car spacemacs-normal-state-sequence))))
+  ;; simple and more consistent keyboard quit key bindings
+  ;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
+  (global-set-key key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'keyboard-quit)))
+  (define-key minibuffer-local-map  key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'abort-recursive-edit)))
+  (define-key evil-insert-state-map key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'evil-normal-state)))
+  (define-key evil-visual-state-map key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'evil-exit-visual-state)))
+  (define-key evil-emacs-state-map  key `(lambda () (interactive) (spacemacs/switch-to-normal-mode  ',seq 'evil-normal-state)))
+  (define-key evil-motion-state-map key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'evil-normal-state))))
 ;; set back go to char key bindings in normal modes
 (define-key evil-normal-state-map   "f" 'evil-find-char)
 (define-key evil-operator-state-map "f" 'evil-find-char)

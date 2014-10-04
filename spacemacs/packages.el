@@ -150,27 +150,30 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       ;; inspired from:
       ;; https://github.com/roman/emacs.d/blob/master/zoo/zoo-evil.el
-      (evil-define-command fd-trigger (callback)
-        "Allows to execute the passed function using 'fd'."
+      (evil-define-command spacemacs/switch-to-normal-mode (triggers callback)
+        "Allows to execute the passed CALLBACK using TRIGGERS. TRIGGERS is a
+cons cell of 2 characters."
         :repeat change
         (unless buffer-read-only
-          (let ((modified (buffer-modified-p)))
-            (insert "f")
-            (let ((evt (read-event
-                        (format "Insert %c to exit insert state" ?d)
-                        nil 0.1)))
+          (let ((modified (buffer-modified-p))
+                (first (car triggers))
+                (second (cdr triggers)))
+            (insert first)
+            (let* ((evt (read-event
+                         (format "Insert %c to exit insert state" second)
+                         nil spacemacs-normal-state-sequence-delay)))
               (cond
                ((null evt)
                 (message ""))
                ((and (integerp evt)
-                     (char-equal evt ?d))
+                     (char-equal evt second))
                 ;; remove the f character
                 (delete-char -1)
                 (set-buffer-modified-p modified)
                 (funcall callback))
-               (t                       ; otherwise
-                (setq unread-command-events (append unread-command-events
-                                                    (list evt)))))))))
+               (t ; otherwise
+                (setq unread-command-events
+                      (append unread-command-events (list evt)))))))))
       ;; load evil-leader
       (use-package evil-leader
         :init

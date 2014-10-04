@@ -19,6 +19,12 @@
 ;; Edit
 ;; ---------------------------------------------------------------------------
 
+;; set the 2 keys sequence to return to normal state
+;; default is "fd"
+(defvar spacemacs-normal-state-sequence '(?j . ?j)
+  "Two keys sequence to return to normal state.")
+(defvar spacemacs-normal-state-sequence-delay 0.2
+  "Maximum delay between the two keys to trigger the normal state.")
 ;; start scratch in text mode (usefull to get a faster Emacs load time
 ;; because it avoids autoloads of elisp modes)
 (setq initial-major-mode 'text-mode)
@@ -31,7 +37,7 @@
 ;; use only spaces and no tabs
 (setq-default indent-tabs-mode nil)
 (setq default-tab-width 2)
-;; Text -----------------------------------------------------------------------
+;; Text
 (setq longlines-show-hard-newlines t)
 
 ;; ---------------------------------------------------------------------------
