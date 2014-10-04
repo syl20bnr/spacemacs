@@ -88,9 +88,19 @@
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
-          (if display
-              (message "[%s/%s] press (n) or (N) to navigate, (h) for home symbol, (c) to change scope"
-                       (- overlay-count i) overlay-count)))))))
+          (unless (not display)
+            (if (or (< (point) (window-start)) (> (point) (window-end)))
+                ;; redisplay only if point leave the window
+                ;; this way the next call to ahs-stat will compute up to
+                ;; date values
+                (redisplay))
+            (let* ((st (ahs-stat))
+                   (x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
+                   (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
+                   (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
+                   (prophidden (propertize hidden 'face '(:weight bold))))
+              (message "%s%s press (n) or (N) to navigate, (h) for home symbol, (c) to change scope"
+                       propx/y prophidden))))))))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
