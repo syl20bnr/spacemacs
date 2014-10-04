@@ -259,7 +259,11 @@ where it makes sense. This prevent from repetitive and tedious presses on the
 When a `micro-state` is active, a documentation is displayed in the minibuffer.
 Additional information may as well be displayed in the minibuffer.
 
-[TODO: insert example screenshot here]
+Auto-highlight-symbol micro-state:
+![spacemacs_ahs_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-ahs-micro-state.png)
+
+Text scale micro-state:
+![spacemacs_scale_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-scale-micro-state.png)
 
 ## UI tweaks
 
