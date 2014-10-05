@@ -63,7 +63,9 @@ initialize the extension. ")
     (let* ((sym (car layer))
            (dir (plist-get (cdr layer) :dir)))
       (dolist (file files)
-        (load (concat dir file))))))
+        (let ((file (concat dir file)))
+          (if (file-exists-p file)
+              (load file)))))))
 
 (defun contribsys/read-packages-and-extensions ()
   "Load all packages and extensions declared in all layers and fill the
