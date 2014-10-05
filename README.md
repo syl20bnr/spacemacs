@@ -574,10 +574,10 @@ Key Binding   | Description
 `<SPC> h h`   | initiate navigation micro-state
 `<SPC> h n`   | go to next occurrence and initiate navigation micro-state
 `<SPC> h N`   | go to previous occurrence and initiate navigation micro-state
-`<SPC> h r b` | change range to `whole buffer`
-`<SPC> h r d` | change range to `display area`
-`<SPC> h r f` | change range to `function`
-`<SPC> h R`   | change range to default (`whole buffer`)
+`<SPC> h c b` | change range to `whole buffer`
+`<SPC> h c d` | change range to `display area`
+`<SPC> h c f` | change range to `function`
+`<SPC> h C`   | change range to default (`whole buffer`)
 
 In 'Spacemacs' highlight symbol micro-state:
 

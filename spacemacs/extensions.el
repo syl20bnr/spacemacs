@@ -44,14 +44,14 @@
        '(ahs-idle-interval 0.25))
       (eval-after-load "evil-leader"
         '(evil-leader/set-key
+           "hC"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
+           "hcb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
+           "hcd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
+           "hcf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
            "he"  'ahs-edit-mode
            "hh"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
            "hn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
            "hN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
-           "hR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
-           "hrb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
-           "hrd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
-           "hrf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
            "th" 'auto-highlight-symbol-mode))
       (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ")
       ;; mini-mode to easily jump from a highlighted symbol to the others
@@ -71,13 +71,13 @@
         (interactive)
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap)))
+           (define-key map (kbd "c") (lambda () (interactive) (eval '(ahs-change-range) nil)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
            (define-key map (kbd "e") 'ahs-edit-mode)
            (define-key map (kbd "n") 'ahs-forward)
            (define-key map (kbd "N") 'ahs-backward)
-           (define-key map (kbd "h") 'ahs-back-to-start)
-           (define-key map (kbd "c") (lambda () (interactive) (eval '(ahs-change-range) nil)))
+           (define-key map (kbd "h") 'ahs-back-to-start) 
            map) nil)
         (let* ((i 0)
                (overlay-count (length ahs-overlay-list))
