@@ -322,7 +322,7 @@ To narrow the list to `Spacemacs` specific key bindings set the pattern to `SPC`
 
 `Spacemacs` ships with the following evil plugins:
 
-                 Mode                   |                          Description
+                 Mode                   |             Description
 ----------------------------------------|--------------------------------------
 [evil-leader][evil-leader]              | vim leader that bring a new layer of keys in normal mode
 [evil-little-word][evil-plugin01]       | port of [camelcasemotion.vim][vim-plugin01]
@@ -342,7 +342,6 @@ The following `helm` modes are installed with `Spacemacs`:
 Key Binding | Mode                                    | Description
 ------------|-----------------------------------------|------------------------
 `<SPC> h s` | [helm-swoop][hswoop]                    | search for occurrences within a file and edit the result
-`<SPC> h c` | [helm-css-scss][hcss]                   | for quick navigation in CSS
 `<SPC> h y` | [helm-c-yasnippet][hyas]                | select snippets
 `<SPC> h t` | [helm-themes][hthemes]                  | select a theme
 `<SPC> p f` | [helm-projectile][projectile]           | select files within a projectile project
