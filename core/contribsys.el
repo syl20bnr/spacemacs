@@ -85,17 +85,19 @@ extension.
            (ext-file (concat dir "extensions.el")))
       (progn 
         ;; packages
-        (load pkg-file)
-        (dolist (pkg (eval (intern (format "%s-packages" (symbol-name sym)))))
-          (puthash pkg sym spacemacs-all-packages))
+        (unless (not (file-exists-p pkg-file))
+          (load pkg-file)
+          (dolist (pkg (eval (intern (format "%s-packages" (symbol-name sym)))))
+            (puthash pkg sym spacemacs-all-packages)))
         ;; extensions
-        (load ext-file)
-        (dolist (pkg (eval (intern (format "%s-pre-extensions"
-                                           (symbol-name sym)))))
-          (puthash pkg sym spacemacs-all-pre-extensions))
-        (dolist (pkg (eval (intern (format "%s-post-extensions"
-                                           (symbol-name sym)))))
-          (puthash pkg sym spacemacs-all-post-extensions)))))
+        (unless (not (file-exists-p ext-file))
+          (load ext-file)
+          (dolist (pkg (eval (intern (format "%s-pre-extensions"
+                                             (symbol-name sym)))))
+            (puthash pkg sym spacemacs-all-pre-extensions))
+          (dolist (pkg (eval (intern (format "%s-post-extensions"
+                                             (symbol-name sym)))))
+            (puthash pkg sym spacemacs-all-post-extensions))))))
   ;; number of chuncks for the loading screen
   (let ((total (+ (ht-size spacemacs-all-packages)
                   (ht-size spacemacs-all-pre-extensions)
