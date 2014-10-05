@@ -71,7 +71,8 @@
         (interactive)
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap)))
-           (define-key map (kbd "c") (lambda () (interactive) (eval '(ahs-change-range) nil)))
+           (define-key map (kbd "c") (lambda () (interactive)
+                                       (eval '(ahs-change-range) nil)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
            (define-key map (kbd "e") 'ahs-edit-mode)
@@ -85,9 +86,13 @@
                (current-overlay (format "%s" ahs-current-overlay))
                (st (ahs-stat))
                (plighter (ahs-current-plugin-prop 'lighter))
-               (plugin (format "<%s>" (cond ((string= plighter "HS") "D")
+               (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
                                             ((string= plighter "HSA") "B")
-                                            ((string= plighter "HSD") "F")))))
+                                            ((string= plighter "HSD") "F"))))
+               (propplugin (propertize plugin 'face `(
+                    :foreground "#ffffff"
+                    :background ,(face-attribute
+                                  'ahs-plugin-defalt-face :foreground)))))
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
@@ -96,7 +101,7 @@
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
             (message "%s %s%s press (n) or (N) to navigate, (h) for home symbol, (c) to change scope"
-                     plugin propx/y prophidden)))))))
+                     propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
