@@ -59,52 +59,44 @@
                      ahs-forward-definition
                      ahs-backward
                      ahs-backward-definition
-                     ahs-back-to-start))
+                     ahs-back-to-start
+                     ahs-change-range))
         (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
           (eval `(defadvice ,sym (after ,advice activate)
-                   (spacemacs/auto-highlight-symbol-overlay-map t)))))
-      (defun spacemacs/auto-highlight-symbol-overlay-map (&optional display)
+                   (ahs-highlight-now)
+                   (spacemacs/auto-highlight-symbol-overlay-map)))))
+      (defun spacemacs/auto-highlight-symbol-overlay-map ()
         "Set a temporary overlay map to easily jump from highlighted symbols to
- the nexts. If DISPLAY is true a documentation is displayed in the mini-buffer."
+ the nexts."
         (interactive)
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap)))
-           (define-key map (kbd "c")
-             '(lambda () (interactive)
-                (eval '(ahs-change-range) nil)
-                ;; we tolerate a recursive call here
-                (spacemacs/auto-highlight-symbol-overlay-map)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
            (define-key map (kbd "e") 'ahs-edit-mode)
            (define-key map (kbd "n") 'ahs-forward)
            (define-key map (kbd "N") 'ahs-backward)
            (define-key map (kbd "h") 'ahs-back-to-start)
+           (define-key map (kbd "c") (lambda () (interactive) (eval '(ahs-change-range) nil)))
            map) nil)
         (let* ((i 0)
                (overlay-count (length ahs-overlay-list))
                (overlay (format "%s" (nth i ahs-overlay-list)))
-               (current-overlay (format "%s" ahs-current-overlay)))
+               (current-overlay (format "%s" ahs-current-overlay))
+               (st (ahs-stat))
+               (plighter (ahs-current-plugin-prop 'lighter))
+               (plugin (format "<%s>" (cond ((string= plighter "HS") "D")
+                                            ((string= plighter "HSA") "B")
+                                            ((string= plighter "HSD") "F")))))
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
-          (unless (not display)
-            (if (or (< (point) (window-start)) (> (point) (window-end)))
-                ;; redisplay only if point leave the window
-                ;; this way the next call to ahs-stat will compute up to
-                ;; date values
-                (redisplay))
-            (let* ((st (ahs-stat))
-                   (plighter (ahs-current-plugin-prop 'lighter))
-                   (plugin (format "<%s>" (cond ((string= plighter "HS") "D")
-                                                ((string= plighter "HSA") "B")
-                                                ((string= plighter "HSD") "F"))))
-                   (x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
-                   (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
-                   (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
-                   (prophidden (propertize hidden 'face '(:weight bold))))
-              (message "%s %s%s press (n) or (N) to navigate, (h) for home symbol, (c) to change scope"
-                       plugin propx/y prophidden))))))))
+          (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
+                 (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
+                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
+                 (prophidden (propertize hidden 'face '(:weight bold))))
+            (message "%s %s%s press (n) or (N) to navigate, (h) for home symbol, (c) to change scope"
+                     plugin propx/y prophidden)))))))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
