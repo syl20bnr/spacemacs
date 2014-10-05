@@ -259,10 +259,10 @@ where it makes sense. This prevent from repetitive and tedious presses on the
 When a `micro-state` is active, a documentation is displayed in the minibuffer.
 Additional information may as well be displayed in the minibuffer.
 
-Auto-highlight-symbol micro-state:
+[Auto-highlight-symbol micro-state](#auto-highlight-and-edition-of-symbols):
 ![spacemacs_ahs_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-ahs-micro-state.png)
 
-Text scale micro-state:
+[Text scale micro-state](#change-font-size):
 ![spacemacs_scale_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-scale-micro-state.png)
 
 ## UI tweaks
@@ -560,7 +560,8 @@ Key Binding   |                 Description
 ### Auto highlight and edition of symbols
 
 `Spacemacs` supports auto highlighting of the current word (provided by the
- [auto-highlight-symbol][auto-highlight] mode).
+ [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to it
+ which makes it a very handy tool to have on your tool belt.
 
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
@@ -596,11 +597,11 @@ The micro-state text in minibuffer display the following information:
 
     <M> [6/11]* press (n) or (N) to navigate, (h) for home symbol, (c) to change scope
 
-Where <M> [x/y]* is:
+Where `<M> [x/y]*` is:
 - M: the current range mode
-  - <B>: whole buffer range
-  - <D>: current display range
-  - <F>: current function range
+  - `<B>`: whole buffer range
+  - `<D>`: current display range
+  - `<F>`: current function range
 - x: the index of the current highlighted occurrence
 - y: the total number of occurrences
 - * (star): appears if there is at least one occurrence which is not currently
@@ -936,7 +937,7 @@ Send code to inferior process commands:
 
 ## Thank you
 
-Jokes aside, thank you Richard for this great piece of software.
+[Jokes aside](#contributions), thank you Richard for this great piece of software.
 
 Thank you to the whole Emacs community from core developers to elisp hackers!
 
