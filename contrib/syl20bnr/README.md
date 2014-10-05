@@ -1,8 +1,8 @@
-# syl20bnr configuration layer for Spacemacs
+# syl20bnr contribution layer for Spacemacs
 
 ## Install
 
-To use this configuration add it to your `~/.spacemacs`
+To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
 (defvar dotspacemacs-configuration-layers '(syl20bnr)
@@ -12,9 +12,9 @@ To use this configuration add it to your `~/.spacemacs`
 
 ## Rainbow Identifiers
 
-Instead of colorized keywords, this configuration layer has *colorized
-variables and functions* using the [rainbow identifiers][rainbow-identifiers]
-mode. Each variable and function has a unique color associated to it.
+Instead of colorized keywords, this contribution has *colorized variables and
+functions* using the [rainbow identifiers][rainbow-identifiers] mode. Each
+variable and function has a unique color associated to it.
 
 The `saturation` and `lightness` of identifier colors can be adjusted with the
 commands:
