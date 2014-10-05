@@ -889,8 +889,11 @@ cons cell of 2 characters."
       ;; helm keybindings tweaks
       ;; use home row keys
       ;; the original hot key of helm-keyboard-quit is "C-g"
-      (define-key helm-map (kbd "f")
-        (lambda () (interactive) (fd-trigger 'helm-keyboard-quit)))
+      (let ((seq spacemacs-normal-state-sequence)
+            (key (char-to-string (car spacemacs-normal-state-sequence))))
+        (define-key helm-map key
+          `(lambda () (interactive)
+             (spacemacs/switch-to-normal-mode ',seq 'helm-keyboard-quit))))
       ;; helm navigation on hjkl
       (define-key helm-map (kbd "C-j") 'helm-next-line)
       (define-key helm-map (kbd "C-k") 'helm-previous-line)
