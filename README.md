@@ -27,6 +27,7 @@
         - [Structure](#structure)
         - [Extensions and Packages initialization](#extensions-and-packages-initialization)
     - [Contributions](#contributions)
+        - [Themes Megapack example](#themes-megapack-example)
     - [Main principles](#main-principles)
         - [Evil](#evil)
         - [Evil leader](#evil-leader)
@@ -222,7 +223,14 @@ For instance to add the configuration layer of [RMS](#thank-you) just do:
 Oh, you don't find this configuration layer ? So sad, well you can try mine:
 [syl20bnr](https://github.com/syl20bnr/spacemacs/tree/master/contrib/syl20bnr)
 
-Of course, all pull requests are welcome for all parts of `Spacemacs`.
+Of I forget: All pull requests are welcome for all parts of `Spacemacs`.
+
+### Themes Megapack example
+
+This is a simple contribution layer listing a bunch of themes.
+
+To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
+installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
 
 ## Main principles
 
