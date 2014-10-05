@@ -166,6 +166,12 @@ extension.
        (message "(Spacemacs) Initializing %s:%s..." (symbol-name lsym) ext)
        (if (fboundp init-func) (funcall init-func))))
 
+(defun contribsys/initialized-packages-count ()
+  "Return the number of initialized packages and extensions."
+  (+ (ht-size spacemacs-all-packages)
+     (ht-size spacemacs-all-pre-extensions)
+     (ht-size spacemacs-all-post-extensions)))
+
 (defun contribsys/declare-configuration-layers ()
   "Declare the configuration layer in order of appearance in list
 dotspacemacs-configuration-layers defined in ~/.spacemacs."

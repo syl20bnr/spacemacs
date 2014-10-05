@@ -101,5 +101,7 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
               (let ((elapsed (float-time
                               (time-subtract (current-time) emacs-start-time))))
                 (spacemacs/append-to-buffer
-                 (format "[%.3fs]\n" elapsed))))))
+                 (format "[%s packages loaded in %.3fs]\n"
+                         (contribsys/initialized-packages-count)
+                         elapsed))))))
 
