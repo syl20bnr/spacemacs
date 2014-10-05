@@ -95,12 +95,16 @@
                 ;; date values
                 (redisplay))
             (let* ((st (ahs-stat))
+                   (plighter (ahs-current-plugin-prop 'lighter))
+                   (plugin (format "<%s>" (cond ((string= plighter "HS") "D")
+                                                ((string= plighter "HSA") "B")
+                                                ((string= plighter "HSD") "F"))))
                    (x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
                    (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                    (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                    (prophidden (propertize hidden 'face '(:weight bold))))
-              (message "%s%s press (n) or (N) to navigate, (h) for home symbol, (c) to change scope"
-                       propx/y prophidden))))))))
+              (message "%s %s%s press (n) or (N) to navigate, (h) for home symbol, (c) to change scope"
+                       plugin propx/y prophidden))))))))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
