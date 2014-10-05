@@ -10,11 +10,7 @@ To use this configuration add it to your `~/.spacemacs`
 )
 ```
 
-## Evil
-
-Prevent the point from moving back when leaving the insert mode.
-
-## Color Theme
+## Rainbow Identifiers
 
 Instead of colorized keywords, this configuration layer has *colorized
 variables and functions* using the [rainbow identifiers][rainbow-identifiers]
