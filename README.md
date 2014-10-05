@@ -594,9 +594,13 @@ Any other key | leave the navigation micro-state
 
 The micro-state text in minibuffer display the following information:
 
-    [6/11]* press (n) or (N) to navigate, (h) for home symbol, (c) to change scope
+    <M> [6/11]* press (n) or (N) to navigate, (h) for home symbol, (c) to change scope
 
-Where [x/y]* is:
+Where <M> [x/y]* is:
+- M: the current range mode
+  - <B>: whole buffer range
+  - <D>: current display range
+  - <F>: current function range
 - x: the index of the current highlighted occurrence
 - y: the total number of occurrences
 - * (star): appears if there is at least one occurrence which is not currently
