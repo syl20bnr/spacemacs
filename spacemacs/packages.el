@@ -906,8 +906,8 @@ cons cell of 2 characters."
   (use-package helm-css-scss
     :defer t
     :init
-    (evil-leader/set-key
-      "hc"    'helm-css-scss)))
+    (eval-after-load 'scss-mode
+      '(evil-leader/set-key-for-mode 'scss-mode "mh" 'helm-css-scss))))
 
 (defun spacemacs/init-helm-c-yasnippet ()
   (use-package helm-c-yasnippet
