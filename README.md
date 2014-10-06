@@ -303,17 +303,20 @@ design flaw in Vim key bindings because the `ESC` key is very far from the
 home row.
 
 The popular way to avoid this is to replace `ESC` by `jj` pressed rapidly.
-`Spacemacs` **initialy** proposed to press `fd` instead of `jj`. But since
-`jj` is one of the most used combination `Spacemacs` now **defaults to `jj`**
+Unfortunately it is pretty difficult in Emacs to keep a consistent behavior
+with this sequence (same thing with `jk` or `kj`).
+`Spacemacs` uses the sequence `fd` instead of `jj` which works in any Evil
+state and in any buffer and in the minibuffer.
 
 This sequence can be customized in your `~/.spacemacs`, for instance to
-revert back to the initial configuration using `fd` add this to your file:
+revert back to the popular configuration using `jj` (not recommended) add this
+to your file:
 
 ```elisp
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very startup."
-  (defvar spacemacs-normal-state-sequence '(?f . ?d))
-  (defvar spacemacs-normal-state-sequence-delay 0.1)
+  (defvar spacemacs-normal-state-sequence '(?j . ?j))
+  (defvar spacemacs-normal-state-sequence-delay 0.2)
 )
 ```
 

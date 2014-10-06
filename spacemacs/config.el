@@ -21,7 +21,7 @@
 
 ;; set the 2 keys sequence to return to normal state
 ;; default is "fd"
-(defvar spacemacs-normal-state-sequence '(?j . ?j)
+(defvar spacemacs-normal-state-sequence '(?f . ?d)
   "Two keys sequence to return to normal state.")
 (defvar spacemacs-normal-state-sequence-delay 0.2
   "Maximum delay between the two keys to trigger the normal state.")
