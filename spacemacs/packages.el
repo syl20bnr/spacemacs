@@ -154,26 +154,27 @@ which require an initialization must be listed explicitly in the list.")
         "Allows to execute the passed CALLBACK using TRIGGERS. TRIGGERS is a
 cons cell of 2 characters."
         :repeat change
-        (unless buffer-read-only
-          (let ((modified (buffer-modified-p))
-                (first (car triggers))
-                (second (cdr triggers)))
-            (insert first)
-            (let* ((evt (read-event
-                         (format "Insert %c to exit insert state" second)
-                         nil spacemacs-normal-state-sequence-delay)))
-              (cond
-               ((null evt)
-                (message ""))
-               ((and (integerp evt)
-                     (char-equal evt second))
-                ;; remove the f character
-                (delete-char -1)
-                (set-buffer-modified-p modified)
-                (funcall callback))
-               (t ; otherwise
-                (setq unread-command-events
-                      (append unread-command-events (list evt)))))))))
+        (let ((modified (buffer-modified-p))
+              (first (car triggers))
+              (second (cdr triggers)))
+          (unless buffer-read-only
+            (insert first))
+          (let* ((evt (read-event
+                       (format "Insert %c to exit insert state" second)
+                       nil spacemacs-normal-state-sequence-delay)))
+            (cond
+             ((null evt)
+              (message ""))
+             ((and (integerp evt)
+                   (char-equal evt second))
+              ;; remove the f character
+              (unless buffer-read-only
+                (delete-char -1))
+              (set-buffer-modified-p modified)
+              (funcall callback))
+             (t ; otherwise
+              (setq unread-command-events
+                    (append unread-command-events (list evt))))))))
       ;; load evil-leader
       (use-package evil-leader
         :init
