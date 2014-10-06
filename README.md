@@ -793,7 +793,46 @@ the current `major mode`.
 
 #### Lisp
 
-**TODO**
+Evaluation:
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> m e`       | evaluate last sexp (sexp just behind point)
+`<SPC> m f`       | evaluate the current function
+`<SPC> m l`       | evaluate the current line (go to end of line and evaluate last sexp)
+
+Alteration commands:
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> m b`       | forward barf sexp
+`<SPC> m B`       | backward barf sexp
+`<SPC> m c`       | convolute sexp
+`<SPC> m d`       | kill sexp
+`<SPC> m k`       | remove sexp parentheses and kill the sexp part after point 
+`<SPC> m K`       | remove sexp parentheses and kill the sexp part before point
+`<SPC> m r`       | raise the sexp up the hierarchy
+`<SPC> m s`       | forward slurp sexp
+`<SPC> m S`       | backward slurp sexp
+
+Other commands:
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> m D`       | display the documentation for symbol under point
+`<SPC> m g`       | go to the definition for the symbol under point
+
+Lisp micro-state:
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`<SPC> m m`   | initiate lisp micro-state
+`b`           | go to beginning of sexp
+`e`           | go to end of sexp
+`h`           | go forward by symbol or by sexp when point is at the beginning or end of an sexp
+`j`           | go down the sexp hierarchy
+`k`           | go up the sexp hierarchy
+`l`           | go backward by symbol or by sexp when point is at the beginning or end of an sexp
+`H`           | toggle the help listing all the key bindings
 
 #### Magit
 
