@@ -65,6 +65,10 @@
             - [Erlang](#erlang)
             - [Ledger](#ledger)
             - [Lisp](#lisp)
+                - [Evaluation commands](#evaluation-commands)
+                - [Alteration commands](#alteration-commands)
+                - [Other commands](#other-commands)
+                - [Lisp micro-state](#lisp-micro-state)
             - [Magit](#magit)
             - [Org](#org)
             - [Perforce](#perforce)
@@ -272,6 +276,9 @@ Additional information may as well be displayed in the minibuffer.
 
 [Text scale micro-state](#change-font-size):
 ![spacemacs_scale_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-scale-micro-state.png)
+
+[Lisp micro-state](#lisp-micro-state):
+![spacemacs_lisp_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-lisp-micro-state.png)
 
 ## UI tweaks
 
@@ -793,7 +800,7 @@ the current `major mode`.
 
 #### Lisp
 
-Evaluation:
+##### Evaluation commands
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
@@ -801,7 +808,7 @@ Evaluation:
 `<SPC> m f`       | evaluate the current function
 `<SPC> m l`       | evaluate the current line (go to end of line and evaluate last sexp)
 
-Alteration commands:
+##### Alteration commands
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
@@ -815,13 +822,13 @@ Alteration commands:
 `<SPC> m s`       | forward slurp sexp
 `<SPC> m S`       | backward slurp sexp
 
-Other commands:
+##### Other commands
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
 `<SPC> m D`       | display the documentation for symbol under point
 `<SPC> m g`       | go to the definition for the symbol under point
 
-Lisp micro-state:
+##### Lisp micro-state
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
