@@ -54,7 +54,7 @@
            "hN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
            "th" 'auto-highlight-symbol-mode))
       (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ")
-      ;; mini-mode to easily jump from a highlighted symbol to the others
+      ;; micro-state to easily jump from a highlighted symbol to the others
       (dolist (sym '(ahs-forward
                      ahs-forward-definition
                      ahs-backward
