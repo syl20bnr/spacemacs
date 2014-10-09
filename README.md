@@ -66,7 +66,6 @@
             - [Ledger](#ledger)
             - [Lisp](#lisp)
                 - [Evaluation commands](#evaluation-commands)
-                - [Alteration commands](#alteration-commands)
                 - [Other commands](#other-commands)
                 - [Lisp micro-state](#lisp-micro-state)
             - [Magit](#magit)
@@ -811,21 +810,8 @@ the current `major mode`.
 `<SPC> m f`       | evaluate the current function
 `<SPC> m l`       | evaluate the current line (go to end of line and evaluate last sexp)
 
-##### Alteration commands
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> m b`       | forward barf sexp
-`<SPC> m B`       | backward barf sexp
-`<SPC> m c`       | convolute sexp
-`<SPC> m d`       | kill sexp
-`<SPC> m k`       | remove sexp parentheses and kill the sexp part after point 
-`<SPC> m K`       | remove sexp parentheses and kill the sexp part before point
-`<SPC> m r`       | raise the sexp up the hierarchy
-`<SPC> m s`       | forward slurp sexp
-`<SPC> m S`       | backward slurp sexp
-
 ##### Other commands
+
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
 `<SPC> m D`       | display the documentation for symbol under point
@@ -836,12 +822,25 @@ the current `major mode`.
 Key Binding   | Description
 --------------|------------------------------------------------------------
 `<SPC> m m`   | initiate lisp micro-state
-`b`           | go to beginning of sexp
+`a`           | go to beginning of sexp
+`bb`          | backward barf sexp
+`bs`          | backward slurp sexp
+`c`           | convolute sexp
+`d`           | kill sexp
 `e`           | go to end of sexp
+`fb`          | forward barf sexp
+`fs`          | forward slurp sexp
 `h`           | go forward by symbol or by sexp when point is at the beginning or end of an sexp
 `j`           | go down the sexp hierarchy
+`J`           | go down the sexp hierarchy backward
 `k`           | go up the sexp hierarchy
+`K`           | go up the sexp hierarchy backward
 `l`           | go backward by symbol or by sexp when point is at the beginning or end of an sexp
+`r`           | raise sexp one level
+`sa`          | remove sexp parentheses and kill the sexp around the current symbol
+`sb`          | remove sexp parentheses and kill the sexp part before point
+`sf`          | remove sexp parentheses and kill the sexp part after point
+`ss`          | remove sexp parentheses
 `H`           | toggle the help listing all the key bindings
 
 #### Magit

@@ -197,22 +197,13 @@
 
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'emacs-lisp-mode
-  "mB"  'sp-backward-barf-sexp
-  "mb"  'sp-forward-barf-sexp
-  "mc"  'sp-convolute-sexp
   "mD"  'elisp-slime-nav-describe-elisp-thing-at-point
-  "md"  'sp-kill-sexp
   "me"  'eval-last-sexp
   "mf"  'eval-defun
   "mg"  'elisp-slime-nav-find-elisp-thing-at-point
   "mhv" 'describe-variable
-  "mK"  'sp-splice-sexp-killing-backward
-  "mk"  'sp-splice-sexp-killing-forward
   ;; Eval the current line
   "ml"  (lambda () (interactive) (save-excursion (evil-end-of-line)
                                                  (eval-last-sexp nil)))
-  "mr"  'sp-raise-sexp
-  "mS"  'sp-backward-slurp-sexp
-  "ms"  'sp-forward-slurp-sexp
   "mta"  (lambda () (interactive) (ert t))
   "mtf" 'ert)
