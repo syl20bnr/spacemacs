@@ -31,3 +31,8 @@
   ;; Ultimate configuration decisions are given to the user who can defined
   ;; them in his/her ~/.spacemacs file
   (dotspacemacs/config))
+
+;; start a server for subsequent emacs clients
+(require 'server)
+(unless (server-running-p)
+  (server-start))
