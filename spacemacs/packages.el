@@ -322,7 +322,7 @@ cons cell of 2 characters."
       (evil-leader/set-key "l" 'evil-ace-jump-line-mode))
     :config
     (progn 
-      ;; ace-jump quick access
+      (setq ace-jump-mode-scope 'global)
       (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
 
 (defun spacemacs/init-auto-complete ()
