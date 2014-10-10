@@ -30,6 +30,7 @@
     evil
     evil-exchange
     evil-leader
+    evil-lisp-state
     evil-surround
     evil-terminal-cursor-changer
     evil-visualstar
@@ -208,7 +209,17 @@ cons cell of 2 characters."
       (unless (display-graphic-p)
         (require 'evil-terminal-cursor-changer))
       ;; initiate a search of the selected text
-      (use-package evil-visualstar))))
+      (use-package evil-visualstar)
+      ;; add a lisp state
+      (use-package evil-lisp-state
+        :init
+        (progn
+          (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state)
+          (let ((seq spacemacs-normal-state-sequence)
+                (key (char-to-string (car spacemacs-normal-state-sequence))))
+            (define-key evil-lisp-state-map key
+              `(lambda () (interactive)
+                 (spacemacs/switch-to-normal-mode ',seq 'evil-normal-state)))))))))
 
 (defun spacemacs/init-powerline ()
   (use-package powerline

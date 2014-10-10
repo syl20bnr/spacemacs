@@ -14,7 +14,6 @@
     centered-cursor
     dos
     emoji-cheat-sheet
-    evil-lisp-state
     evil-org-mode
     evil-plugins
     helm-rcirc
@@ -127,17 +126,6 @@
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet
     :commands emoji-cheat-sheet))
-
-(defun spacemacs/init-evil-lisp-state ()
-  (use-package evil-lisp-state
-    :init
-    (progn
-      (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state)
-      (let ((seq spacemacs-normal-state-sequence)
-            (key (char-to-string (car spacemacs-normal-state-sequence))))
-        (define-key evil-lisp-state-map key
-          `(lambda () (interactive)
-             (spacemacs/switch-to-normal-mode ',seq 'evil-normal-state)))))))
 
 (defun spacemacs/init-evil-org-mode ()
   (use-package evil-org
