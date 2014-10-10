@@ -847,10 +847,9 @@ Key Binding   | Function
 `ESC`         | evil-normal-state
 
 **Important Note:**
-Pressing `fd` while in `lisp state` will return to `normal state`,
-*but* pressing `fd` while in `insert state` will return to `lisp state`.
-`ESC` will always return to `normal state`.
-
+Pressing `fd` while in `insert state` will return to previous evil state.
+This is handy to keep going back and forth between `lisp state` and
+`insert state`.
 
 #### Magit
 

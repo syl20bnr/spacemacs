@@ -18,9 +18,8 @@
   (global-set-key key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'keyboard-quit)))
   (define-key minibuffer-local-map  key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'abort-recursive-edit)))
   (define-key evil-insert-state-map key `(lambda () (interactive)
-                                           (if (eq major-mode 'emacs-lisp-mode)
-                                               (spacemacs/switch-to-normal-mode ',seq 'evil-lisp-state)
-                                             (spacemacs/switch-to-normal-mode ',seq 'evil-normal-state))))
+                                           (spacemacs/switch-to-normal-mode ',seq (intern
+                                                                                   (format "evil-%s-state" evil-previous-state)))))
   (define-key evil-visual-state-map key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'evil-exit-visual-state)))
   (define-key evil-emacs-state-map  key `(lambda () (interactive) (spacemacs/switch-to-normal-mode  ',seq 'evil-normal-state)))
   (define-key evil-motion-state-map key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'evil-normal-state))))
