@@ -138,6 +138,8 @@ which require an initialization must be listed explicitly in the list.")
         (setq evil-visual-state-cursor '("black" (hbar . 2))))
       (defun set-default-evil-motion-state-cursor ()
         (setq evil-motion-state-cursor '("purple" box)))
+      (defun set-default-evil-lisp-state-cursor ()
+        (setq evil-lisp-state-cursor '("DeepSkyBlue" (bar . 2))))
       (defun evil-insert-state-cursor-hide ()
         (setq evil-insert-state-cursor '("green3" (hbar . 0))))
       (set-default-evil-emacs-state-cursor)
@@ -145,6 +147,7 @@ which require an initialization must be listed explicitly in the list.")
       (set-default-evil-insert-state-cursor)
       (set-default-evil-visual-state-cursor)
       (set-default-evil-motion-state-cursor)
+      (set-default-evil-lisp-state-cursor)
       (evil-mode 1))
     :config
     (progn
@@ -225,6 +228,7 @@ cons cell of 2 characters."
                           ((evil-motion-state-p) '(:background "purple"))
                           ((evil-visual-state-p) '(:background "gray"))
                           ((evil-normal-state-p)  '(:background "orange"))
+                          ((evil-lisp-state-p)  '(:background "DeepSkyBlue"))
                           (t '()))))
 
       (defpowerline powerline-window-number 
@@ -1356,97 +1360,13 @@ cons cell of 2 characters."
   (use-package smartparens-config
     :commands smartparens-mode
     :init
-    (add-to-hooks 'smartparens-mode '(erlang-mode-hook
-                                      markdown-mode-hook
-                                      prog-mode-hook))
+    (progn
+      (add-to-hooks 'smartparens-mode '(erlang-mode-hook
+                                        markdown-mode-hook
+                                        prog-mode-hook)))
     :config
     (progn
-      (spacemacs//diminish smartparens-mode" (Ⓢ)")
-      (evil-leader/set-key-for-mode 'emacs-lisp-mode
-        "mm" (lambda () (interactive)
-               (evil-insert-state) (spacemacs/smartparens-overlay-map)))
-      ;; micro-state to easily navigate lisp code
-      (dolist (sym '(sp-beginning-of-sexp
-                     sp-backward-barf-sexp
-                     sp-backward-slurp-sexp
-                     sp-convolute-sexp
-                     sp-kill-sexp
-                     sp-end-of-sexp
-                     sp-forward-barf-sexp
-                     sp-forward-slurp-sexp
-                     sp-backward-sexp
-                     sp-down-sexp
-                     sp-backward-down-sexp
-                     sp-up-sexp
-                     sp-backward-up-sexp
-                     sp-forward-sexp
-                     sp-raise-sexp
-                     sp-splice-sexp-killing-around
-                     sp-splice-sexp-killing-backward
-                     sp-splice-sexp-killing-forward
-                     sp-splice-sexp
-                     spacemacs/smartparens-overlay-map-toggle-help))
-        (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
-          (eval `(defadvice ,sym (after ,advice activate)
-                   (spacemacs/smartparens-overlay-map)))))
-      (defvar spacemacs-smartparens-overlay-map-help nil
-        "If not nil, a comprehensive help is displayed in the minibuffer
-when the smartparens micro-state is active.")
-      (defconst spacemacs-smartparens-overlay-map-prefix
-        (propertize " <LISP> " 'face `(:foreground "#ffffff"
-                                       :background ,(face-attribute
-                                                     'sp-show-pair-match-face
-                                                     :foreground)))
-        "A propertied micro-state name.")
-      (defun spacemacs/smartparens-overlay-map-toggle-help ()
-        "Toggle help for smartparens micro-state."
-        (interactive)
-        (setq spacemacs-smartparens-overlay-map-help
-              (if spacemacs-smartparens-overlay-map-help nil t)))
-      (defun spacemacs/smartparens-overlay-map ()
-        "Set a temporary overlay map to easily navigate lisp code with
- smartparens."
-        (interactive)
-        (set-temporary-overlay-map
-         (let ((map (make-sparse-keymap)))
-           (define-key map (kbd "a") 'sp-beginning-of-sexp)
-           (define-key map (kbd "bb") 'sp-backward-barf-sexp)
-           (define-key map (kbd "bs") 'sp-backward-slurp-sexp)
-           (define-key map (kbd "c") 'sp-convolute-sexp)
-           (define-key map (kbd "d") 'sp-kill-sexp)
-           (define-key map (kbd "e") 'sp-end-of-sexp)
-           (define-key map (kbd "fb") 'sp-forward-barf-sexp)
-           (define-key map (kbd "fs") 'sp-forward-slurp-sexp)
-           (define-key map (kbd "h") 'sp-backward-sexp)
-           (define-key map (kbd "j") 'sp-down-sexp)
-           (define-key map (kbd "J") 'sp-backward-down-sexp)
-           (define-key map (kbd "k") 'sp-up-sexp)
-           (define-key map (kbd "K") 'sp-backward-up-sexp)
-           (define-key map (kbd "l") 'sp-forward-sexp)
-           (define-key map (kbd "r") 'sp-raise-sexp)
-           (define-key map (kbd "sa") 'sp-splice-sexp-killing-around)
-           (define-key map (kbd "sb") 'sp-splice-sexp-killing-backward)
-           (define-key map (kbd "sf") 'sp-splice-sexp-killing-forward)
-           (define-key map (kbd "ss") 'sp-splice-sexp)
-           (define-key map (kbd "H")
-             'spacemacs/smartparens-overlay-map-toggle-help)
-           map) nil)
-        (if spacemacs-smartparens-overlay-map-help
-;  (;) execute last command
-            (message "%s Help:
-  (a) beginning of sexp           (j) down sexp
-  (bb) backward barf              (J) backward down sexp
-  (bs) backward slurp             (k) up sexp
-  (c) convolute sexp              (K) backward up sexp
-  (d) kill sexp                   (l) forward sexp
-  (e) end of sexp                 (r) raise sexp
-  (fb) forward barf               (sa) splice sexp and kill around
-  (fs) forward slurp              (sb) splice sexp and kill backward
-  (h) backward sexp               (sf) splice sexp and kill forward
-  (H) exit help                   (ss) splice sexp
-Press any other key to exit. " spacemacs-smartparens-overlay-map-prefix)
-          (message "%s (H) to display help"
-                   spacemacs-smartparens-overlay-map-prefix))))))
+      (spacemacs//diminish smartparens-mode" (Ⓢ)"))))
 
 (defun spacemacs/init-smeargle ()
   (use-package smeargle

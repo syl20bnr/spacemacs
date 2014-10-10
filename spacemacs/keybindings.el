@@ -17,7 +17,10 @@
   ;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
   (global-set-key key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'keyboard-quit)))
   (define-key minibuffer-local-map  key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'abort-recursive-edit)))
-  (define-key evil-insert-state-map key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'evil-normal-state)))
+  (define-key evil-insert-state-map key `(lambda () (interactive)
+                                           (if (eq major-mode 'emacs-lisp-mode)
+                                               (spacemacs/switch-to-normal-mode ',seq 'evil-lisp-state)
+                                             (spacemacs/switch-to-normal-mode ',seq 'evil-normal-state))))
   (define-key evil-visual-state-map key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'evil-exit-visual-state)))
   (define-key evil-emacs-state-map  key `(lambda () (interactive) (spacemacs/switch-to-normal-mode  ',seq 'evil-normal-state)))
   (define-key evil-motion-state-map key `(lambda () (interactive) (spacemacs/switch-to-normal-mode ',seq 'evil-normal-state))))
@@ -190,20 +193,10 @@
 ;; google translate -----------------------------------------------------------
 (evil-leader/set-key
   "xgl" 'set-google-translate-languages)
-
-;; ---------------------------------------------------------------------------
-;; evil-leader modes specific key bindings
-;; ---------------------------------------------------------------------------
-
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'emacs-lisp-mode
   "mD"  'elisp-slime-nav-describe-elisp-thing-at-point
-  "me"  'eval-last-sexp
-  "mf"  'eval-defun
   "mg"  'elisp-slime-nav-find-elisp-thing-at-point
   "mhv" 'describe-variable
-  ;; Eval the current line
-  "ml"  (lambda () (interactive) (save-excursion (evil-end-of-line)
-                                                 (eval-last-sexp nil)))
   "mta"  (lambda () (interactive) (ert t))
   "mtf" 'ert)

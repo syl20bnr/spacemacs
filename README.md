@@ -65,9 +65,6 @@
             - [Erlang](#erlang)
             - [Ledger](#ledger)
             - [Lisp](#lisp)
-                - [Evaluation commands](#evaluation-commands)
-                - [Other commands](#other-commands)
-                - [Lisp micro-state](#lisp-micro-state)
             - [Magit](#magit)
             - [Org](#org)
             - [Perforce](#perforce)
@@ -802,46 +799,45 @@ the current `major mode`.
 
 #### Lisp
 
-##### Evaluation commands
+Lisp navigation and edition is performed with a custom evil `lisp state`.
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> m e`       | evaluate last sexp (sexp just behind point)
-`<SPC> m f`       | evaluate the current function
-`<SPC> m l`       | evaluate the current line (go to end of line and evaluate last sexp)
+While in `lisp state`, the following key binding map is available:
 
-##### Other commands
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> m D`       | display the documentation for symbol under point
-`<SPC> m g`       | go to the definition for the symbol under point
-
-##### Lisp micro-state
-
-Key Binding   | Description
+Key Binding   | Function
 --------------|------------------------------------------------------------
-`<SPC> m m`   | initiate lisp micro-state
-`a`           | go to beginning of sexp
-`bb`          | backward barf sexp
-`bs`          | backward slurp sexp
-`c`           | convolute sexp
-`d`           | kill sexp
-`e`           | go to end of sexp
-`fb`          | forward barf sexp
-`fs`          | forward slurp sexp
-`h`           | go forward by symbol or by sexp when point is at the beginning or end of an sexp
-`j`           | go down the sexp hierarchy
-`J`           | go down the sexp hierarchy backward
-`k`           | go up the sexp hierarchy
-`K`           | go up the sexp hierarchy backward
-`l`           | go backward by symbol or by sexp when point is at the beginning or end of an sexp
-`r`           | raise sexp one level
-`sa`          | remove sexp parentheses and kill the sexp around the current symbol
-`sb`          | remove sexp parentheses and kill the sexp part before point
-`sf`          | remove sexp parentheses and kill the sexp part after point
-`ss`          | remove sexp parentheses
-`H`           | toggle the help listing all the key bindings
+`$`           | sp-end-of-sexp
+`0`           | sp-beginning-of-sexp
+`bh`          | sp-backward-barf-sexp
+`bl`          | sp-forward-barf-sexp
+`c`           | sp-convolute-sexp
+`d`           | sp-kill-sexp
+`e$`          | evil-lisp-state-eval-sexp-end-of-line
+`ef`          | eval-defun
+`el`          | eval-last-sexp
+`es`          | eval-sexp
+`h`           | sp-backward-sexp
+`i`           | evil-insert-state
+`j`           | sp-down-sexp
+`J`           | sp-backward-down-sexp
+`k`           | sp-up-sexp
+`K`           | sp-backward-up-sexp
+`l`           | sp-forward-sexp
+`r`           | sp-raise-sexp
+`C-r`         | undo-tree-redo
+`sa`          | sp-splice-sexp-killing-around
+`sb`          | sp-splice-sexp-killing-backward
+`sf`          | sp-splice-sexp-killing-forward
+`sh`          | sp-backward-slurp-sexp
+`sl`          | sp-forward-slurp-sexp
+`ss`          | sp-splice-sexp
+`u`           | undo-tree-undo
+`ESC`         | evil-normal-state
+
+**Important Note:**
+Pressing `fd` while in `lisp state` will return to `normal state`,
+*but* pressing `fd` while in `insert state` will return to `lisp state`.
+`ESC` will always return to `normal state`.
+
 
 #### Magit
 
