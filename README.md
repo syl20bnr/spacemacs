@@ -273,9 +273,6 @@ Additional information may as well be displayed in the minibuffer.
 [Text scale micro-state](#change-font-size):
 ![spacemacs_scale_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-scale-micro-state.png)
 
-[Lisp micro-state](#lisp-micro-state):
-![spacemacs_lisp_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-lisp-micro-state.png)
-
 ## UI tweaks
 
 `Spacemacs` has a minimalistic and distraction free UI with a lot of subtle
@@ -807,30 +804,46 @@ Key Binding   | Function
 --------------|------------------------------------------------------------
 `$`           | sp-end-of-sexp
 `0`           | sp-beginning-of-sexp
+`a`           | sp-absorb-sexp
 `bh`          | sp-backward-barf-sexp
 `bl`          | sp-forward-barf-sexp
 `c`           | sp-convolute-sexp
-`d`           | sp-kill-sexp
+`C`           | sp-comment
+`dd`          | sp-kill-hybrid-sexp
+`ds`          | sp-kill-symbol
+`dw`          | sp-kill-word
+`dx`          | sp-kill-sexp
 `e$`          | evil-lisp-state-eval-sexp-end-of-line
 `ef`          | eval-defun
 `el`          | eval-last-sexp
 `es`          | eval-sexp
 `h`           | sp-backward-sexp
+`H`           | evil-backward-char
 `i`           | evil-insert-state
 `j`           | sp-down-sexp
 `J`           | sp-backward-down-sexp
 `k`           | sp-up-sexp
 `K`           | sp-backward-up-sexp
 `l`           | sp-forward-sexp
-`r`           | sp-raise-sexp
+`L`           | evil-forward-char
+`m`           | sp-join-sexp (think about `merge-sexp`)
+`p`           | evil-past-after
+`P`           | evil-past-before
+`r`           | sp-raise-sexp (same as `ska`)
+`R`           | sp-rewrap-sexp
 `C-r`         | undo-tree-redo
-`sa`          | sp-splice-sexp-killing-around
-`sb`          | sp-splice-sexp-killing-backward
-`sf`          | sp-splice-sexp-killing-forward
+`ska`         | sp-splice-sexp-killing-around
+`skh`         | sp-splice-sexp-killing-backward
+`skl`         | sp-splice-sexp-killing-forward
 `sh`          | sp-backward-slurp-sexp
 `sl`          | sp-forward-slurp-sexp
-`ss`          | sp-splice-sexp
+`sx`          | sp-splice-sexp
+`t`           | sp-transpose-sexp
+`T`           | sp-transpose-hybrid-sexp
 `u`           | undo-tree-undo
+`U`           | sp-unwrap-sexp
+`y`           | sp-copy-sexp
+`RET`         | sp-newline
 `ESC`         | evil-normal-state
 
 **Important Note:**
