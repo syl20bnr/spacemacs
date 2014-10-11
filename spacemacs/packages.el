@@ -1358,16 +1358,14 @@ inserted in the buffer (if it is not read-only)."
     :mode ("\\.scss\\'" . scss-mode)))
 
 (defun spacemacs/init-smartparens ()
-  (use-package smartparens-config
-    :commands smartparens-mode
+  (use-package smartparens
+    :defer t
     :init
     (progn
       (add-to-hooks 'smartparens-mode '(erlang-mode-hook
                                         markdown-mode-hook
-                                        prog-mode-hook)))
-    :config
-    (progn
-      (spacemacs//diminish smartparens-mode" (Ⓢ)"))))
+                                        prog-mode-hook))
+      (spacemacs//diminish smartparens-mode " (Ⓢ)"))))
 
 (defun spacemacs/init-smeargle ()
   (use-package smeargle
