@@ -81,7 +81,6 @@
     ;; org-trello
     p4
     page-break-lines
-    paredit
     popup
     popwin
     powerline
@@ -1131,19 +1130,6 @@ inserted in the buffer (if it is not read-only)."
     :init
     (global-page-break-lines-mode t)
     (spacemacs//hide-lighter page-break-lines-mode)))
-
-(defun spacemacs/init-paredit ()
-  (use-package paredit
-    :defer t
-    :config
-    (progn
-      (dolist (mode '(scheme emacs-lisp lisp clojure clojurescript))
-        (when (> (display-color-cells) 8)
-          (font-lock-add-keywords (intern (concat (symbol-name mode) "-mode"))
-                                  '(("(\\|)" . 'esk-paren-face))))
-        (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
-                  'paredit-mode))
-      (spacemacs//diminish paredit-mode " (Ⓟ)"))))
 
 (defun spacemacs/init-popup ()
   (use-package popup
