@@ -152,33 +152,37 @@ which require an initialization must be listed explicitly in the list.")
       (evil-mode 1))
     :config
     (progn
-      ;; inspired from:
-      ;; https://github.com/roman/emacs.d/blob/master/zoo/zoo-evil.el
-      (evil-define-command spacemacs/switch-to-normal-mode (triggers callback)
-        "Allows to execute the passed CALLBACK using TRIGGERS. TRIGGERS is a
-cons cell of 2 characters."
+      (evil-define-command spacemacs/escape-state (keys shadowed insert-fkey callback)
+        "Allows to execute the passed CALLBACK using KEYS. KEYS is a cons cell
+of 2 characters. If INSERT-FKEY is not nil then the first key pressed is
+inserted in the buffer (if it is not read-only)."
         :repeat change
-        (let ((modified (buffer-modified-p))
-              (first (car triggers))
-              (second (cdr triggers)))
-          (unless buffer-read-only
-            (insert first))
-          (let* ((evt (read-event
-                       (format "Insert %c to exit insert state" second)
-                       nil spacemacs-normal-state-sequence-delay)))
+        (let* ((modified (buffer-modified-p))
+               (insertp (and insert-fkey (not buffer-read-only)))
+               (fkey (car keys))
+               (fkeystr (char-to-string fkey))
+               (skey (cdr keys))
+               (bfunc (local-key-binding fkeystr)))
+          (if insertp (insert fkey))
+          (let* ((evt (read-event nil nil spacemacs-normal-state-sequence-delay)))
             (cond
              ((null evt)
-              (message ""))
+              (message "")
+              (unless (eq 'insert evil-state)
+                (if shadowed
+                    (if bfunc (call-interactively bfunc)
+                      (call-interactively shadowed)))))
              ((and (integerp evt)
-                   (char-equal evt second))
+                   (char-equal evt skey))
               ;; remove the f character
-              (unless buffer-read-only
-                (delete-char -1))
+              (if insertp (delete-char -1))
               (set-buffer-modified-p modified)
               (funcall callback))
              (t ; otherwise
               (setq unread-command-events
-                    (append unread-command-events (list evt))))))))
+                    (append unread-command-events (list evt)))
+              (if bfunc (call-interactively bfunc)
+                (if shadowed (call-interactively shadowed))))))))
       ;; load evil-leader
       (use-package evil-leader
         :init
@@ -213,13 +217,7 @@ cons cell of 2 characters."
       ;; add a lisp state
       (use-package evil-lisp-state
         :init
-        (progn
-          (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state)
-          (let ((seq spacemacs-normal-state-sequence)
-                (key (char-to-string (car spacemacs-normal-state-sequence))))
-            (define-key evil-lisp-state-map key
-              `(lambda () (interactive)
-                 (spacemacs/switch-to-normal-mode ',seq 'evil-normal-state)))))))))
+        (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state)))))
 
 (defun spacemacs/init-powerline ()
   (use-package powerline
