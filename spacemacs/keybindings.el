@@ -35,13 +35,13 @@
     `(lambda () (interactive)
        (spacemacs/escape-state ',seq ',shadowed nil 'evil-normal-state)))
   (eval-after-load 'evil-lisp-state
-    '(define-key evil-lisp-state-map key
-       `(lambda () (interactive)
-          (spacemacs/escape-state ',seq ',shadowed nil 'evil-normal-state))))
+    `(define-key evil-lisp-state-map ,key
+       (lambda () (interactive)
+         (spacemacs/escape-state ',seq ',shadowed nil 'evil-normal-state))))
   (eval-after-load "helm-mode"
-    '(define-key helm-map key
-       `(lambda () (interactive)
-          (spacemacs/escape-state ',seq nil t 'helm-keyboard-quit)))))
+    `(define-key helm-map ,key
+       (lambda () (interactive)
+         (spacemacs/escape-state ',seq nil t 'helm-keyboard-quit)))))
 ;; set back go to char key bindings in normal modes
 ;; (define-key evil-normal-state-map   "f" 'evil-find-char)
 ;; (define-key evil-operator-state-map "f" 'evil-find-char)
