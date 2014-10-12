@@ -19,9 +19,9 @@
   (global-set-key key `(lambda () (interactive)
                          (spacemacs/escape-state ',seq nil nil 'keyboard-quit)))
   (mapc (lambda (map)
-          `(define-key ,map key
-             (lambda () (interactive)
-               (spacemacs/escape-state ',seq nil t 'minibuffer-keyboard-quit))))
+          (define-key (eval map) key
+            `(lambda () (interactive)
+               (spacemacs/escape-state ',seq nil t 'abort-recursive-edit))))
         '(minibuffer-local-map
           minibuffer-local-ns-map
           minibuffer-local-completion-map
