@@ -294,6 +294,9 @@ Additional information may as well be displayed in the minibuffer.
 
 ## Tips for beginners
 
+If you came here with a pure Emacs background, here is a useful tips to get
+you started.
+
 As you may have notice, raw Emacs behavior is indeed available in Evil via the
 `Emacs state`!
 
