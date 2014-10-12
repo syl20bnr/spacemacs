@@ -1091,8 +1091,13 @@ inserted in the buffer (if it is not read-only)."
   (use-package neotree
     :defer t
     :init
+    (progn 
+      (setq neo-create-file-auto-open t
+            neo-dont-be-alone t
+            neo-banner-message "File Tree browser"
+            neo-smart-open t))
     (progn
-      (evil-leader/set-key "pb" 'neotree-toggle))))
+      (evil-leader/set-key "ft" 'neotree-toggle))))
 
 (defun spacemacs/init-org ()
   (use-package org

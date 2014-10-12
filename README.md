@@ -466,6 +466,7 @@ Key Binding   |                 Description
 `<SPC> f i`   | open your `init.el` file
 `<SPC> f s`   | save a file
 `<SPC> f S`   | save all files
+`<SPC> f t`   | toggle file tree side bar using [neotree][neotree]
 `<SPC> f y`   | show current file absolute path in the minibuffer
 
 #### Bookmarks
@@ -785,7 +786,6 @@ Projects management commands (start with `p`):
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> p b`       | toggle the [neotree][neotree] navigation buffer on the side
 `<SPC> p C`       | invalidate the cache of `projectile`
 `<SPC> p d`       | open a `dired` buffer at the root of the project
 `<SPC> p f`       | open a file of the project using `helm`
