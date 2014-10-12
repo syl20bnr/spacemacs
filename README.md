@@ -32,6 +32,7 @@
         - [Evil](#evil)
         - [Evil leader](#evil-leader)
         - [Micro-states](#micro-states)
+    - [Tips for beginners](#tips-for-beginners)
     - [UI tweaks](#ui-tweaks)
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
@@ -125,7 +126,7 @@ It is also a good fit for people wanting to **lower the [risk of RSI][RSI]**
 induced by the default Emacs key bindings. 
 
 People wanting to learn **a different way to edit files** or wanting to learn
-Vim key bindings.
+Vim key bindings (see [Tips for beginners](#tips-for-beginners)).
 
 As a note side, if you are a programmer and you don't know Vim key bindings
 yet, I deeply recommend you to learn the basics as recommended in
@@ -287,6 +288,25 @@ Additional information may as well be displayed in the minibuffer.
 
 [Text scale micro-state](#change-font-size):
 ![spacemacs_scale_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-scale-micro-state.png)
+
+## Tips for beginners
+
+As you may have notice, raw Emacs behavior is indeed available in Evil via the
+`Emacs state`!
+
+To start you could setup the `Emacs state` as the default one, pressing `fd`
+quickly would bring you to `Normal state` and pressing `ESC` from there would
+bring you back in `Emacs state`. This way you should never feel lost.
+
+To do so add the following snippet to your `~/.spacemacs`:
+
+```elisp
+(defun dotspacemacs/config ()
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
+  (setq evil-default-state 'emacs)
+  (define-key evil-normal-state-map [escape] 'evil-emacs-state))
+```
 
 ## UI tweaks
 
