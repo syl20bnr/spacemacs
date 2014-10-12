@@ -139,7 +139,7 @@ which require an initialization must be listed explicitly in the list.")
       (defun set-default-evil-motion-state-cursor ()
         (setq evil-motion-state-cursor '("purple" box)))
       (defun set-default-evil-lisp-state-cursor ()
-        (setq evil-lisp-state-cursor '("DeepSkyBlue" box)))
+        (setq evil-lisp-state-cursor '("HotPink1" (bar . 2))))
       (defun evil-insert-state-cursor-hide ()
         (setq evil-insert-state-cursor '("green3" (hbar . 0))))
       (set-default-evil-emacs-state-cursor)
@@ -236,7 +236,7 @@ inserted in the buffer (if it is not read-only)."
                           ((evil-motion-state-p) '(:background "purple"))
                           ((evil-visual-state-p) '(:background "gray"))
                           ((evil-normal-state-p)  '(:background "orange"))
-                          ((evil-lisp-state-p)  '(:background "DeepSkyBlue"))
+                          ((evil-lisp-state-p)  '(:background "HotPink1"))
                           (t '()))))
 
       (defpowerline powerline-window-number 

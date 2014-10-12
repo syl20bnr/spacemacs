@@ -255,7 +255,7 @@ than just a Vim emulation. It has more states than Vim for instance.
 - **Motion** (purple) - exclusive to `Evil`, used to navigate read only buffers
 - **Emacs** (red) - exclusive to `Evil`, using this state is like using a
 regular Emacs without Vim
-- **Lisp** (blue) - exclusive to `Spacemacs`, used to navigate Lisp code and
+- **Lisp** (pink) - exclusive to `Spacemacs`, used to navigate Lisp code and
 modify it
 
 ### Evil leader
