@@ -224,7 +224,7 @@ For instance to add the configuration layer of [RMS](#thank-you) just do:
 Oh, you don't find this configuration layer ? So sad, well you can try mine:
 [syl20bnr](https://github.com/syl20bnr/spacemacs/tree/master/contrib/syl20bnr)
 
-Of I forget: All pull requests are welcome for all parts of `Spacemacs`.
+All pull requests are welcome for all parts of `Spacemacs`.
 
 ### Themes Megapack example
 
@@ -239,7 +239,7 @@ installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
 
 `Spacemacs` uses the [evil][evil] mode to emulate Vim key bindings. It is a
 very complete emulation, maybe the most advanced. In fact, Evil is much more
-than just a Vim emulation. There more states than in Vim for instance.
+than just a Vim emulation. It has more states than Vim for instance.
 
 `Spacemacs` has 6 states:
 
@@ -381,7 +381,7 @@ To narrow the list to `Spacemacs` specific key bindings set the pattern to `SPC`
 
 `Spacemacs` tries to use [helm][helm] as much as possible.
 [helm][helm] is coupled to [popwin][popwin] so `helm` window always appears in
-a new temporary windows at the bottom.
+a new temporary window at the bottom.
 
 The following `helm` modes are installed with `Spacemacs`:
 
