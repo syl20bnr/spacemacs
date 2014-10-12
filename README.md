@@ -61,12 +61,15 @@
         - [Line formatting](#line-formatting)
         - [Errors handling](#errors-handling)
         - [Project management](#project-management)
+        - [Working with Git](#working-with-git)
+            - [Magit](#magit)
+            - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
+            - [Git gutter bitmaps](#git-gutter-bitmaps)
         - [Modes](#modes)
             - [Helm](#helm)
             - [Erlang](#erlang)
             - [Ledger](#ledger)
             - [Lisp](#lisp)
-            - [Magit](#magit)
             - [Org](#org)
             - [Perforce](#perforce)
             - [Python](#python)
@@ -317,7 +320,7 @@ customizations which make it unique compared to other Emacs kits:
  - unicode symbols for minor mode lighters which appear in the mode-line
  - [custom fringe bitmaps](#errors-handling) and error feedbacks for
  [Flycheck][flycheck]
- - custom fringe bitmaps for [git gutter][git-gutter].
+ - [custom fringe bitmaps](#git-gutter-bitmaps) for [git gutter][git-gutter].
  - dedicated startup page with a mode aimed at easily managing `Spacemacs`
 
 ## Commands
@@ -375,7 +378,7 @@ To narrow the list to `Spacemacs` specific key bindings set the pattern to `SPC`
 [evil-operator-comment][evil-plugin01]  | comment/uncomment with `CC`
 [evil-visualstar][evil-plugin03]        | search for current selection with `*`
 [evil-exchange][evil-plugin05]          | port of [vim-exchange][vim-plugin04]
-[surround][evil-plugin04]               | port of [surround.vim][vim-plugin03]
+[evil-surround][evil-plugin04]          | port of [surround.vim][vim-plugin03]
 
 ### About helm
 
@@ -788,6 +791,103 @@ Projects management commands (start with `p`):
 `<SPC> p g`       | grep search in the project
 `<SPC> p r`       | replace a string in the files of the project
 
+### Working with Git
+
+Git commands (start with `g`):
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> g c c`     | highlight regions by age of commits
+`<SPC> g c C`     | clear highlights
+`<SPC> g c t`     | highlight regions by last updated time
+`<SPC> g s`       | open a `magit` status window
+`<SPC> g m`       | display the last commit message of the current line
+`<SPC> g t`       | launch the git time machine
+
+- Highlight by age of commit or last update time is provided by
+[smeargle][smeargle].
+- Git time machine is provided by [git-timemachine][git-timemachine].
+- Git last commit message per line is provided by
+[git-messenger][git-messenger]
+
+#### Magit
+
+`Spacemacs` uses [magit][magit] to manage Git repositories.
+
+To open a magit, type in a buffer of a Git repository:
+
+    <SPC> g s
+
+The buffer is opened in `Emacs state` but you can sill navigate up and down
+with `k` and `j` respectively (should be like this in all `magit` buffers).
+
+Here are the often used bindings inside a `magit` status window:
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`$`               | open `command output buffer`
+`c c`             | open a `commit message buffer`
+`b b`             | checkout a branch
+`b c`             | create branch
+`b v`             | open the `branch manager buffer`
+`f f`             | fetch changes
+`F -r F`          | pull and rebase
+`j`               | go down
+`k`               | go up
+`K`               | discard changes
+`l l`             | open `log buffer`
+`P P`             | push
+`q`               | quit
+`s`               | on a file or hunk in a diff: stage the file or hunk
+`S`               | stage all
+`TAB`             | on a file: expand/collapse diff
+`u`               | on a staged file: unstage
+`U`               | unstage all staged files
+`z z`             | stash changes
+
+In a commit message buffer press `C-c C-c` to commit the changes with the
+entered message. `C-c C-k` will discard the commit message.
+
+**Note:** Sometimes you will be asked about reverting the commit buffer,
+you can answer `y` with no issue.
+
+#### Quick guide for recurring use cases in Magit
+
+- Amend a commit:
+  - `l l` to open `log buffer`
+  - `c a` on the commit you want to amend
+- Squash last commit:
+  - `l l` to open `log buffer`
+  - `E` on the second to last commit, it opens the `rebase buffer`
+  - `j` to put point on last commit
+  - `i` to pass in `insert state`
+  - `s` to squash it
+  - `C-c C-c` to continue to the `commit message buffer`
+  - `C-c C-c` again when you finished to edit the commit message
+- Force push a squashed commit:
+  - in the `status buffer` you should see the one new commit
+  unpushed and the old commit unpulled
+  - `P -f P` for force a push (**beware** usually it is not recommended to
+  rewrite the history of a public repository, but if you are *sure* that you
+  are the only one to work on a repository it is ok - i.e. in your fork).
+- Add upstream remote (the parent repository you have forked):
+  - `b v` to open the `branch manager buffer`
+  - `a` to add a remote, type the name (i.e. `upstream`) and the URL
+- Pull changes from upstream (the parent repository you have forked) and push:
+  - `F -r C-u F` and choose `upstream` or the name you gave to it
+  - `P P` to push the commit to `origin`
+
+#### Git gutter bitmaps
+
+`Spacemacs` has custom fringe bitmaps for
+[git-gutter-fringe][git-gutter]:
+
+   Symbol                                                                                    | Description
+:-------------------------------------------------------------------------------------------:|-----------------
+![git-new](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-new-line.png) | new line
+![git-del](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-del-line.png) | at least one line has been deleted
+![git-mod](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-mod-line.png) | modified line
+
 ### Modes
 
 `Spacemacs` tries to add more natural Vi key bindings to some modes or
@@ -891,18 +991,6 @@ Key Binding   | Function
 Pressing `fd` while in `insert state` will return to previous evil state.
 This is handy to keep going back and forth between `lisp state` and
 `insert state`.
-
-#### Magit
-
-`Spacemacs` add `hjkl` navigation support for the following magit modes:
-- branch manager
-- commit
-- log
-- process
-- status
-
-**Note:** in `status` mode only `j` and `k` are remapped (to go down and up).
-Press `K` instead of `k` to discard changes to an item.
 
 #### Org
 
@@ -1096,3 +1184,7 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [monokai-theme]: https://github.com/oneKelvinSmith/monokai-emacs
 [zenburn-theme]: https://github.com/bbatsov/zenburn-emacs
 [git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
+[magit]: http://magit.github.io/
+[smeargle]: https://github.com/syohex/emacs-smeargle
+[git-timemachine]: https://github.com/pidu/git-timemachine
+[git-messenger]: https://github.com/syohex/emacs-git-messenger
