@@ -237,7 +237,22 @@ installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
 ### Evil
 
 `Spacemacs` uses the [evil][evil] mode to emulate Vim key bindings. It is a
-very complete emulation (the most complete I've seen yet).
+very complete emulation, maybe the most advanced. In fact, Evil is much more
+than just a Vim emulation. There more states than in Vim for instance.
+
+`Spacemacs` has 6 states:
+
+- **Normal** (orange) - like the `normal mode of Vim`, used to execute and
+                        combine commands
+- **Insert** (green) - like the `insert mode of Vim`, used to actually insert
+                       text
+- **Visual** (gray) - like the `visual mode of Vim`, used to make text
+                      selection
+- **Motion** (purple) - exclusive to `Evil`, used to navigate read only buffers
+- **Emacs** (red) - exclusive to `Evil`, using this state is like using a
+regular Emacs without Vim
+- **Lisp** (blue) - exclusive to `Spacemacs`, used to navigate Lisp code and
+modify it
 
 ### Evil leader
 
