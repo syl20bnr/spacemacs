@@ -75,6 +75,7 @@
     monokai-theme
     move-text
     multi-term
+    neotree
     org
     org-bullets
     ;; annoying error message, disable it for now
@@ -1085,6 +1086,13 @@ inserted in the buffer (if it is not read-only)."
         (term-send-raw-string "\t"))
 
       (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab)))))
+
+(defun spacemacs/init-neotree ()
+  (use-package neotree
+    :defer t
+    :init
+    (progn
+      (evil-leader/set-key "pb" 'neotree-toggle))))
 
 (defun spacemacs/init-org ()
   (use-package org

@@ -785,6 +785,7 @@ Projects management commands (start with `p`):
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
+`<SPC> p b`       | toggle the [neotree][neotree] navigation buffer on the side
 `<SPC> p C`       | invalidate the cache of `projectile`
 `<SPC> p d`       | open a `dired` buffer at the root of the project
 `<SPC> p f`       | open a file of the project using `helm`
@@ -1194,3 +1195,4 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [smeargle]: https://github.com/syohex/emacs-smeargle
 [git-timemachine]: https://github.com/pidu/git-timemachine
 [git-messenger]: https://github.com/syohex/emacs-git-messenger
+[neotree]: http://www.emacswiki.org/emacs/NeoTree
