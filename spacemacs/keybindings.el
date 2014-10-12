@@ -18,9 +18,15 @@
   ;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
   (global-set-key key `(lambda () (interactive)
                          (spacemacs/escape-state ',seq nil nil 'keyboard-quit)))
-  (define-key minibuffer-local-map  key
-    `(lambda () (interactive)
-       (spacemacs/escape-state ',seq nil t 'abort-recursive-edit)))
+  (mapc (lambda (map)
+          `(define-key ,map key
+             (lambda () (interactive)
+               (spacemacs/escape-state ',seq nil t 'minibuffer-keyboard-quit))))
+        '(minibuffer-local-map
+          minibuffer-local-ns-map
+          minibuffer-local-completion-map
+          minibuffer-local-must-match-map
+          minibuffer-local-isearch-map))
   (define-key evil-insert-state-map key
     `(lambda () (interactive)
        (spacemacs/escape-state
