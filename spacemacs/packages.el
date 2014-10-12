@@ -1169,13 +1169,13 @@ inserted in the buffer (if it is not read-only)."
                projectile-replace)
     :init
     (evil-leader/set-key
-      "pb" 'projectile-switch-to-buffer
       "pC" 'projectile-invalidate-cache
       "pd" 'projectile-dired
       "pF" 'projectile-find-file
-      "pk" 'projectile-kill-buffers
       "pg" 'projectile-grep
-      "pr" 'projectile-replace)
+      "pk" 'projectile-kill-buffers
+      "pr" 'projectile-replace
+      "ps" 'projectile-switch-to-buffer)
     :config
     (spacemacs//diminish projectile-mode " Ⓟ")))
 

@@ -785,7 +785,6 @@ Projects management commands (start with `p`):
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> p b`       | switch to a buffer of the project 
 `<SPC> p C`       | invalidate the cache of `projectile`
 `<SPC> p d`       | open a `dired` buffer at the root of the project
 `<SPC> p f`       | open a file of the project using `helm`
@@ -793,6 +792,7 @@ Projects management commands (start with `p`):
 `<SPC> p k`       | kill all the buffers of the project
 `<SPC> p g`       | grep search in the project
 `<SPC> p r`       | replace a string in the files of the project
+`<SPC> p s`       | switch to a buffer of the project
 
 ### Working with Git
 
