@@ -814,21 +814,21 @@ Git commands (start with `g`):
 
 `Spacemacs` uses [magit][magit] to manage Git repositories.
 
-To open a magit, type in a buffer of a Git repository:
+To open a `status buffer`, type in a buffer of a Git repository:
 
     <SPC> g s
 
 The buffer is opened in `Emacs state` but you can sill navigate up and down
 with `k` and `j` respectively (should be like this in all `magit` buffers).
 
-Here are the often used bindings inside a `magit` status window:
+Here are the often used bindings inside a `status buffer`:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
 `$`               | open `command output buffer`
 `c c`             | open a `commit message buffer`
 `b b`             | checkout a branch
-`b c`             | create branch
+`b c`             | create a branch
 `b v`             | open the `branch manager buffer`
 `f f`             | fetch changes
 `F -r F`          | pull and rebase
@@ -839,6 +839,8 @@ Here are the often used bindings inside a `magit` status window:
 `P P`             | push
 `q`               | quit
 `s`               | on a file or hunk in a diff: stage the file or hunk
+`+`               | on a hunk: increase hunk size
+`-`               | on a hunk: decrease hunk size
 `S`               | stage all
 `TAB`             | on a file: expand/collapse diff
 `u`               | on a staged file: unstage
@@ -856,6 +858,7 @@ you can answer `y` with no issue.
 - Amend a commit:
   - `l l` to open `log buffer`
   - `c a` on the commit you want to amend
+  - `C-c C-c` to submit the changes
 - Squash last commit:
   - `l l` to open `log buffer`
   - `E` on the second to last commit, it opens the `rebase buffer`
@@ -863,10 +866,10 @@ you can answer `y` with no issue.
   - `i` to pass in `insert state`
   - `s` to squash it
   - `C-c C-c` to continue to the `commit message buffer`
-  - `C-c C-c` again when you finished to edit the commit message
+  - `C-c C-c` again when you have finished to edit the commit message
 - Force push a squashed commit:
-  - in the `status buffer` you should see the one new commit
-  unpushed and the old commit unpulled
+  - in the `status buffer` you should see the new commit unpushed and the
+  old commit unpulled
   - `P -f P` for force a push (**beware** usually it is not recommended to
   rewrite the history of a public repository, but if you are *sure* that you
   are the only one to work on a repository it is ok - i.e. in your fork).
