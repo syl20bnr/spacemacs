@@ -1,73 +1,7 @@
 ;; instantly display current keystrokes in mini buffer
 (setq echo-keystrokes 0.02)
-
 ;; auto-indent on RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
-
-;; ---------------------------------------------------------------------------
-;; evil key bindings tweaks
-;; ---------------------------------------------------------------------------
-
-;; easier toggle for emacs-state
-(evil-set-toggle-key "s-`")
-;; escape state with a better key sequence than ESC
-(let* ((seq spacemacs-normal-state-sequence)
-       (key (char-to-string (car spacemacs-normal-state-sequence)))
-       (shadowed (lookup-key evil-motion-state-map key)))
-  ;; simple and more consistent keyboard quit key bindings
-  ;; thanks to Bin Chen for the idea (http://blog.binchen.org/?p=735)
-  (global-set-key key `(lambda () (interactive)
-                         (spacemacs/escape-state ',seq nil nil 'keyboard-quit)))
-  (mapc (lambda (map)
-          (define-key (eval map) key
-            `(lambda () (interactive)
-               (spacemacs/escape-state ',seq nil t 'abort-recursive-edit))))
-        '(minibuffer-local-map
-          minibuffer-local-ns-map
-          minibuffer-local-completion-map
-          minibuffer-local-must-match-map
-          minibuffer-local-isearch-map))
-  (define-key evil-insert-state-map key
-    `(lambda () (interactive)
-       (spacemacs/escape-state
-        ',seq nil t (intern (format "evil-%s-state" spacemacs-last-base-state)))))
-  (define-key evil-visual-state-map key
-    `(lambda () (interactive)
-       (spacemacs/escape-state ',seq ',shadowed nil 'evil-exit-visual-state)))
-  (define-key evil-emacs-state-map  key
-    `(lambda () (interactive)
-       (spacemacs/escape-state ',seq ',shadowed nil 'evil-normal-state)))
-  (define-key evil-motion-state-map key
-    `(lambda () (interactive)
-       (spacemacs/escape-state ',seq ',shadowed nil 'evil-normal-state)))
-  (eval-after-load 'evil-lisp-state
-    `(define-key evil-lisp-state-map ,key
-       (lambda () (interactive)
-         (spacemacs/escape-state ',seq ',shadowed nil 'evil-normal-state))))
-  (eval-after-load "helm-mode"
-    `(define-key helm-map ,key
-       (lambda () (interactive)
-         (spacemacs/escape-state ',seq nil t 'helm-keyboard-quit)))))
-;; manage the base state target when leaving the insert state
-(define-key evil-insert-state-map [escape]
- (lambda () (interactive)
-   (let ((state (intern (format "evil-%s-state" spacemacs-last-base-state))))
-     (funcall state))))
-;; set back go to char key bindings in normal modes
-;; (define-key evil-normal-state-map   "f" 'evil-find-char)
-;; (define-key evil-operator-state-map "f" 'evil-find-char)
-;; Make evil-mode up/down operate in screen lines instead of logical lines
-(define-key evil-normal-state-map "j" 'evil-next-visual-line)
-(define-key evil-normal-state-map "k" 'evil-previous-visual-line)
-;; quick navigation
-(define-key evil-normal-state-map (kbd "L")
-  (lambda () (interactive)
-    (evil-window-bottom)
-    (evil-scroll-line-to-center nil)))
-(define-key evil-normal-state-map (kbd "H")
-  (lambda () (interactive)
-    (evil-window-top)
-    (evil-scroll-line-to-center nil)))
 
 ;; ---------------------------------------------------------------------------
 ;; evil-leader key bindings
