@@ -30,7 +30,7 @@
   (define-key evil-insert-state-map key
     `(lambda () (interactive)
        (spacemacs/escape-state
-        ',seq nil t (intern (format "evil-%s-state" evil-previous-state)))))
+        ',seq nil t (intern (format "evil-%s-state" spacemacs-last-base-state)))))
   (define-key evil-visual-state-map key
     `(lambda () (interactive)
        (spacemacs/escape-state ',seq ',shadowed nil 'evil-exit-visual-state)))
