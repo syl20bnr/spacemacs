@@ -152,6 +152,9 @@ which require an initialization must be listed explicitly in the list.")
       (evil-mode 1))
     :config
     (progn
+      (defvar spacemacs-last-base-state 'normal
+        "Last base state, the current value of this variable is used to
+determine the state to enable when escaping from the insert state.")
       (defadvice evil-insert-state (before spacemacs/evil-insert-state activate)
         "Advice to keep track of the last base state. A base state can be normal
 or lisp."
