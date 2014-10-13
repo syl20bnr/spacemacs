@@ -34,7 +34,9 @@
             - [Base States](#base-states)
         - [Evil leader](#evil-leader)
         - [Micro-states](#micro-states)
-    - [Tips for beginners](#tips-for-beginners)
+    - [Tips](#tips)
+        - [Tips for beginners](#tips-for-beginners)
+        - [Tips for advanced users](#tips-for-advanced-users)
     - [UI tweaks](#ui-tweaks)
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
@@ -324,9 +326,11 @@ Additional information may as well be displayed in the minibuffer.
 [Text scale micro-state](#change-font-size):
 ![spacemacs_scale_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-scale-micro-state.png)
 
-## Tips for beginners
+## Tips
 
-If you came here with a pure Emacs background, here is a useful tips to get
+### Tips for beginners
+
+1) If you came here with a pure Emacs background, here is a useful tips to get
 you started.
 
 As you may have notice, raw Emacs behavior is indeed available in Evil via the
@@ -344,6 +348,18 @@ To do so add the following snippet to your `~/.spacemacs`:
 This function is called at the very end of Spacemacs initialization."
   (setq evil-default-state 'emacs)
   (define-key evil-normal-state-map [escape] 'evil-emacs-state))
+```
+
+### Tips for advanced users
+
+1) To Make `lisp state` the default state in `Emacs Lisp` buffers, insert in
+your `~/.spacemacs` the following snippet:
+
+```elisp
+(defun dotspacemacs/config ()
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
+  (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
 ```
 
 ## UI tweaks
