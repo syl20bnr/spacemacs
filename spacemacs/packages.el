@@ -292,7 +292,20 @@ inserted in the buffer (if it is not read-only)."
     (progn
       (use-package window-numbering
         :ensure window-numbering
-        :init (window-numbering-mode 1))
+        :init
+        (progn
+          (evil-leader/set-key
+            "0" 'select-window-0
+            "1" 'select-window-1
+            "2" 'select-window-2
+            "3" 'select-window-3
+            "4" 'select-window-4
+            "5" 'select-window-5
+            "6" 'select-window-6
+            "7" 'select-window-7
+            "8" 'select-window-8
+            "9" 'select-window-9)
+          (window-numbering-mode 1)))
       (evil-leader/set-key "tm" 'powerline-minor-modes-toggle)
       ;; Setup modeline items
       (defun gcs-propertized-evil-mode-tag ()
