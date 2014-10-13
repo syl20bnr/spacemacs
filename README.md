@@ -30,6 +30,8 @@
         - [Themes Megapack example](#themes-megapack-example)
     - [Main principles](#main-principles)
         - [Evil](#evil)
+            - [States](#states)
+            - [Base States](#base-states)
         - [Evil leader](#evil-leader)
         - [Micro-states](#micro-states)
     - [Tips for beginners](#tips-for-beginners)
@@ -244,6 +246,8 @@ installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
 very complete emulation, maybe the most advanced. In fact, Evil is much more
 than just a Vim emulation. It has more states than Vim for instance.
 
+#### States
+
 `Spacemacs` has 6 states:
 
 - **Normal** (orange) - like the `normal mode of Vim`, used to execute and
@@ -257,6 +261,34 @@ than just a Vim emulation. It has more states than Vim for instance.
 regular Emacs without Vim
 - **Lisp** (pink) - exclusive to `Spacemacs`, used to navigate Lisp code and
 modify it
+
+#### Base States
+
+_(I apologize in advance for the number of repetition of the word `state` in
+this section, but I encourage you to read again this section until you correctly
+grasp the concept of `base state` since it is an important concept in
+`Spacemacs`)_
+
+`Spacemacs` has a notion of `base state`. A `base state` is the state you are
+when leaving the `insert state`.
+
+The typical `base state` in Vim is the `normal state` and it is the only one.
+`Spacemacs` has more than one base state, here is the list:
+- normal
+- lisp
+
+This allows a coder of Lisp to completely replace the `normal state` by the
+`lisp state`. Indeed, once you fire up the `lisp state` you can just go back
+and forth between the `insert state` and the `lisp state`. 
+
+Of course there is a rule to break this in order to be able to go back to the
+`normal state`. It is pretty simple:
+
+*When in a `base state`, `ESC` or `fd` will always set you back to the
+`normal state`.*
+
+So to go back to the `normal state` while in `lisp state` just hit `ESC` or
+`fd`.
 
 ### Evil leader
 

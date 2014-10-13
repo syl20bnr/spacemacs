@@ -48,6 +48,11 @@
     `(define-key helm-map ,key
        (lambda () (interactive)
          (spacemacs/escape-state ',seq nil t 'helm-keyboard-quit)))))
+;; manage the base state target when leaving the insert state
+(define-key evil-insert-state-map [escape]
+ (lambda () (interactive)
+   (let ((state (intern (format "evil-%s-state" spacemacs-last-base-state))))
+     (funcall state))))
 ;; set back go to char key bindings in normal modes
 ;; (define-key evil-normal-state-map   "f" 'evil-find-char)
 ;; (define-key evil-operator-state-map "f" 'evil-find-char)
