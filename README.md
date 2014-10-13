@@ -985,6 +985,7 @@ to default `n`):
 
 Key Binding   | Function
 --------------|------------------------------------------------------------
+`(`           | switch to `insert state` and insert "("
 `$`           | sp-end-of-sexp
 `0`           | sp-beginning-of-sexp
 `a`           | sp-absorb-sexp
@@ -999,20 +1000,24 @@ Key Binding   | Function
 `nds`         | sp-backward-kill-symbol
 `dw`          | sp-kill-word
 `ndw`         | sp-backward-kill-word
+`D`           | evil-delete-line
 `e$`          | evil-lisp-state-eval-sexp-end-of-line
 `ef`          | eval-defun
 `el`          | eval-last-sexp
 `es`          | eval-sexp
-`h`           | sp-backward-sexp
-`H`           | sp-backward-symbol
+`gs`          | go to source of symbol under point
+`h`           | sp-backward-symbol
+`H`           | sp-backward-sexp
 `i`           | evil-insert-state
 `j`           | sp-down-sexp
 `J`           | sp-backward-down-sexp
-`k`           | sp-backward-up-sexp
-`K`           | sp-up-sexp
-`l`           | sp-forward-sexp
-`L`           | sp-forward-symbol
+`k`           | sp-up-sexp
+`K`           | sp-backward-up-sexp
+`l`           | sp-forward-symbol
+`L`           | sp-forward-sexp
 `m`           | sp-join-sexp (think about `merge-sexp`)
+`o`           | sp-newline and switch to `insert state`
+`O`           | evil-open-above
 `p`           | evil-past-after
 `P`           | evil-past-before
 `r`           | sp-raise-sexp
@@ -1027,11 +1032,13 @@ Key Binding   | Function
 `u`           | undo-tree-undo
 `U`           | sp-unwrap-sexp
 `nU`          | sp-backward-unwrap-sexp
+`v`           | er/expand-region
+`V`           | select whole line and switch to `visual state`
 `x`           | sp-delete-char
 `X`           | sp-backward-delete-char
 `y`           | sp-copy-sexp
 `ny`          | sp-backward-copy-sexp
-`RET`         | sp-newline
+`RET`         | sp-newline (stay in `lisp state` see `o` to switch to `insert state`)
 `ESC`         | evil-normal-state
 
 **Important Note:**
