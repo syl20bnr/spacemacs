@@ -1,4 +1,5 @@
 # Spacemacs Starter Kit
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![title](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/title.png)
 
