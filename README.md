@@ -965,20 +965,18 @@ provided by [evil-lisp-state][evil-lisp-state] package.
 
 #### Intuitive navigation model
 
+`hjkl` behaves like in the default `normal state`.
+
 **Next sexp on the same level (sibling)**
-- `l` next sexp
-- `h` previous sexp
+- `L` next sexp
+- `H` previous sexp
 
 **Change level (parent/children)**
-- `j` go to next sexp one level down
-- `k` go to previous one level up
-
-**Enter inside an sexp**
-- `L` next symbol
-- `H` previous symbol
+- `J` go to next sexp one level down
+- `K` go to previous one level up
 
 And that's it! All these commands always put the point _at the beginning_ of
-the sexp. Use the regular `e` binding to go at the end of a word.
+the sexp.
 
 #### Text selection
 
@@ -1010,18 +1008,18 @@ Key Binding   | Function
 `<tab>dw`     | sp-backward-kill-word
 `D`           | evil-delete-line
 `gs`          | go to source of symbol under point
-`h`           | previous sexp at the same level
-`H`           | previous symbol
+`h`           | next char
+`H`           | previous sexp at the same level
 `i`           | evil-insert-state
-`j`           | next sexp one level down
-`J`           | next visual line
-`k`           | previous sexp one level up
-`K`           | previous visual line
-`l`           | next sexp of the same level
-`L`           | next symbol
+`j`           | next visual line
+`J`           | next sexp one level down
+`k`           | previous visual line
+`K`           | previous sexp one level up
+`l`           | next char
+`L`           | next sexp of the same level
 `m`           | sp-join-sexp (think about `merge-sexp`)
-`o`           | insert sexp after the current one and switch to `insert state`
-`O`           | insert sexp before the current one and switch to `insert state`
+`o`           | insert sexp after on the same level and switch to `insert state`
+`O`           | insert sexp before on the same level and switch to `insert state`
 `p`           | evil-past-after
 `P`           | evil-past-before
 `r`           | sp-raise-sexp
@@ -1041,7 +1039,7 @@ Key Binding   | Function
 `x$`          | evil-lisp-state-eval-sexp-end-of-line
 `xf`          | eval-defun
 `xl`          | eval-last-sexp
-`xs`          | eval-sexp
+`xx`          | eval-sexp
 `y`           | sp-copy-sexp
 `<tab>y`      | sp-backward-copy-sexp
 `backspace`   | sp-backward-delete-char
