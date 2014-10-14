@@ -961,7 +961,7 @@ inserted in the buffer (if it is not read-only)."
   (use-package helm
     :defer t
     :init
-    (progn 
+    (progn
       (add-to-hooks 'helm-mode '(erlang-mode-hook
                                  markdown-mode-hook
                                  org-mode-hook
@@ -1001,16 +1001,11 @@ inserted in the buffer (if it is not read-only)."
   (use-package helm-c-yasnippet
     :commands helm-c-yas-complete
     :init
-    (evil-leader/set-key "hy" 'helm-c-yas-complete)
-    :config
     (progn
-      (setq helm-c-yas-space-match-any-greedy t)
-      (use-package yasnippet
-        :config
-        (let* ((layer (assq 'spacemacs spacemacs-config-layers))
-               (dir (plist-get (cdr layer) :dir)))
-          (setq yas-snippet-dirs (list (concat dir "snippets")))
-          (yas-global-mode 1))))))
+      (evil-leader/set-key "hy" 'helm-c-yas-complete)
+      (setq helm-c-yas-space-match-any-greedy t))
+    :config
+    (yas-global-mode 1)))
 
 (defun spacemacs/init-helm-descbinds ()
   (use-package helm-descbinds
@@ -1536,7 +1531,11 @@ inserted in the buffer (if it is not read-only)."
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
-    :defer t
+    :init
+    (let* ((layer (assq 'spacemacs spacemacs-config-layers))
+           (dir (plist-get (cdr layer) :dir)))
+      (setq yas-snippet-dirs (list (concat dir "snippets")))
+      (spacemacs//diminish yas-minor-mode " Ⓨ"))
     :config
     (spacemacs//diminish yas-minor-mode " Ⓨ")))
 
