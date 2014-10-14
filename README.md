@@ -946,24 +946,24 @@ provided by [evil-lisp-state][evil-lisp-state] package.
 
 #### Intuitive navigation model
 
-**Next sexp on the same level**
-`l`: next sexp
-`h`: previous sexp
+**Next sexp on the same level (sibling)**
+- `l` next sexp
+- `h` previous sexp
 
-**Change level (depth)**
-`j`: go to next sexp one level down
-`k`: go to previous one level up
+**Change level (parent/children)**
+- `j` go to next sexp one level down
+- `k` go to previous one level up
 
 **Enter inside an sexp**
-`L`: next symbol
-`H`: previous symbol
+- `L` next symbol
+- `H` previous symbol
 
 And that's it! All these commands always put the point _at the beginning_ of
 the sexp. Use the regular `e` binding to go at the end of a word.
 
 #### Text selection
 
-Text selection is done with [expand-region][expand-link] by pressing `v`.
+Text selection is done with [expand-region][expand-region] by pressing `v`.
 It is also possible to select the whole line with `V`.
 
 #### Key bindings map
