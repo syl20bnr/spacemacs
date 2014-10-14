@@ -1273,3 +1273,4 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [git-timemachine]: https://github.com/pidu/git-timemachine
 [git-messenger]: https://github.com/syohex/emacs-git-messenger
 [neotree]: http://www.emacswiki.org/emacs/NeoTree
+[evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
