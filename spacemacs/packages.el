@@ -64,6 +64,7 @@
     helm-swoop
     helm-themes
     hy-mode
+    ido-vertical-mode
     jedi
     js2-mode
     json-mode
@@ -1056,6 +1057,20 @@ inserted in the buffer (if it is not read-only)."
 (defun spacemacs/init-hy-mode ()
   (use-package hy-mode
     :defer t))
+
+(defun spacemacs/init-ido-vertical-mode ()
+  (use-package ido-vertical-mode
+    :init
+    (progn
+      (ido-vertical-mode t)
+      (define-key ido-file-completion-map (kbd "C-d") 'ido-delete-file-at-head)
+      (define-key ido-file-completion-map (kbd "C-k") 'ido-prev-match)
+      (define-key ido-file-dir-completion-map (kbd "C-<return>") 'ido-select-text)
+      (define-key ido-file-dir-completion-map (kbd "C-h") 'ido-delete-backward-updir)
+      (define-key ido-file-dir-completion-map (kbd "C-j") 'ido-next-match)
+      (define-key ido-file-dir-completion-map (kbd "C-l") 'ido-exit-minibuffer)
+      (define-key ido-file-dir-completion-map (kbd "C-S-j") 'ido-next-match-dir)
+      (define-key ido-file-dir-completion-map (kbd "C-S-k") 'ido-prev-match-dir))))
 
 (defun spacemacs/init-js2-mode ()
   (use-package js2-mode

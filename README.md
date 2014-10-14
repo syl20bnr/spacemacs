@@ -41,6 +41,7 @@
             - [Point/Cursor](#pointcursor)
             - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
             - [Buffers and Files](#buffers-and-files)
+            - [Ido](#ido)
             - [Bookmarks](#bookmarks)
         - [Window manipulation](#window-manipulation)
             - [Golden ratio](#golden-ratio)
@@ -513,6 +514,24 @@ Key Binding   |                 Description
 `<SPC> f t`   | toggle file tree side bar using [neotree][neotree]
 `<SPC> f y`   | show current file absolute path in the minibuffer
 
+#### Ido
+
+`Spacemacs` displays the `ido` minibuffer vertically thanks to the
+[ido-vertical-mode][ido-vertical-mode].
+
+Basic `ido` operations can be done with `Ctrl` key:
+
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
+`C-d`         | delete selected file (ask for confirmation)
+`C-k`         | select previous file or directory
+`C-<return>`  | open a `dired buffer`
+`C-h`         | go to parent directory
+`C-j`         | select next file or directory
+`C-l`         | open the selected file
+`C-S-j`       | go to next directory
+`C-S-k`       | go to previous directory
+
 #### Bookmarks
 
 Bookmarks can be set anywhere in a file. Bookmarks are persistent. They are very
@@ -974,6 +993,7 @@ to default `<tab>`):
 Key Binding   | Function
 --------------|------------------------------------------------------------
 `(`           | switch to `insert state` and insert "("
+`%`           | evil-jump-item (use it to go to the end of sexp)
 `$`           | sp-end-of-sexp
 `0`           | sp-beginning-of-sexp
 `a`           | sp-absorb-sexp
@@ -1274,3 +1294,4 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [git-messenger]: https://github.com/syohex/emacs-git-messenger
 [neotree]: http://www.emacswiki.org/emacs/NeoTree
 [evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
+[ido-vertical-mode]: https://github.com/gempesaw/ido-vertical-mode.el
