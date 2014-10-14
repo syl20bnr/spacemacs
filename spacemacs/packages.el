@@ -159,11 +159,9 @@ determine the state to enable when escaping from the insert state.")
       (make-variable-buffer-local 'spacemacs-last-base-state)
       (defadvice evil-normal-state (before spacemacs/evil-normal-state activate)
         "Advice to keep track of the last base state."
-        (message "normal")
         (setq spacemacs-last-base-state 'normal))
       (defadvice evil-lisp-state (before spacemacs/evil-lisp-state activate)
         "Advice to keep track of the last base state."
-        (message "lisp")
         (setq spacemacs-last-base-state 'lisp))
       (evil-define-command spacemacs/escape-state (keys shadowed insert-fkey callback)
         "Allows to execute the passed CALLBACK using KEYS. KEYS is a cons cell
