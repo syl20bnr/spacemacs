@@ -155,14 +155,15 @@ which require an initialization must be listed explicitly in the list.")
       (defvar spacemacs-last-base-state 'normal
         "Last base state, the current value of this variable is used to
 determine the state to enable when escaping from the insert state.")
-      (defadvice evil-insert-state (before spacemacs/evil-insert-state activate)
-        "Advice to keep track of the last base state. A base state can be normal
-or lisp."
-        (cond
-         ((eq evil-state 'normal)
-          (setq spacemacs-last-base-state 'normal))
-         ((eq evil-state 'lisp)
-          (setq spacemacs-last-base-state 'lisp))))
+      (make-variable-buffer-local 'spacemacs-last-base-state)
+      (defadvice evil-normal-state (before spacemacs/evil-normal-state activate)
+        "Advice to keep track of the last base state."
+        (message "normal")
+        (setq spacemacs-last-base-state 'normal))
+      (defadvice evil-lisp-state (before spacemacs/evil-lisp-state activate)
+        "Advice to keep track of the last base state."
+        (message "lisp")
+        (setq spacemacs-last-base-state 'lisp))
       (evil-define-command spacemacs/escape-state (keys shadowed insert-fkey callback)
         "Allows to execute the passed CALLBACK using KEYS. KEYS is a cons cell
 of 2 characters. If INSERT-FKEY is not nil then the first key pressed is
