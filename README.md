@@ -994,7 +994,8 @@ Key Binding   | Function
 `%`           | evil-jump-item (use it to go to the end of sexp)
 `$`           | sp-end-of-sexp
 `0`           | sp-beginning-of-sexp
-`a`           | sp-absorb-sexp
+`a`           | evil-append
+`A`           | sp-absorb-sexp
 `b`           | sp-forward-barf-sexp
 `<tab>b`      | sp-backward-barf-sexp
 `c`           | sp-convolute-sexp
@@ -1023,7 +1024,6 @@ Key Binding   | Function
 `p`           | evil-past-after
 `P`           | evil-past-before
 `r`           | sp-raise-sexp
-`R`           | sp-rewrap-sexp
 `C-r`         | undo-tree-redo
 `s`           | sp-forward-slurp-sexp
 `<tab>s`      | sp-backward-slurp-sexp
@@ -1032,10 +1032,11 @@ Key Binding   | Function
 `t`           | sp-transpose-sexp
 `T`           | sp-transpose-hybrid-sexp
 `u`           | undo-tree-undo
-`U`           | sp-unwrap-sexp
 `<tab>U`      | sp-backward-unwrap-sexp
 `v`           | er/expand-region
 `V`           | select whole line and switch to `visual state`
+`w`           | wrap sexp
+`W`           | unwrap sexp
 `x$`          | evil-lisp-state-eval-sexp-end-of-line
 `xf`          | eval-defun
 `xl`          | eval-last-sexp
