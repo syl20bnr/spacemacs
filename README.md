@@ -255,11 +255,12 @@ than just a Vim emulation. It has more states than Vim for instance.
                        text
 - **Visual** (gray) - like the `visual mode of Vim`, used to make text
                       selection
-- **Motion** (purple) - exclusive to `Evil`, used to navigate read only buffers
-- **Emacs** (red) - exclusive to `Evil`, using this state is like using a
-regular Emacs without Vim
+- **Motion** (purple) - exclusive to `Evil`, used to navigate read only
+                        buffers
+- **Emacs** (blue) - exclusive to `Evil`, using this state is like using a
+                     regular Emacs without Vim
 - **Lisp** (pink) - exclusive to `Spacemacs`, used to navigate Lisp code and
-modify it
+                    modify it
 
 #### Base States
 
