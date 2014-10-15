@@ -130,20 +130,31 @@ which require an initialization must be listed explicitly in the list.")
   (use-package evil
     :init
     (progn
+      (defvar spacemacs-state-colors
+        '((normal . "DarkGoldenrod2")
+          (insert . "chartreuse3")
+          (emacs  . "SkyBlue2")
+          (visual . "gray")
+          (motion . "plum3")
+          (lisp   . "HotPink1"))
+        "Evil state colors.")
+      (defun spacemacs/state-color (state)
+        "Return the color string associated to STATE."
+        (cdr (assq state spacemacs-state-colors)))
       (defun set-default-evil-emacs-state-cursor ()
-        (setq evil-emacs-state-cursor '("red" box)))
+        (setq evil-emacs-state-cursor `(,(spacemacs/state-color 'emacs) (bar . 2))))
       (defun set-default-evil-normal-state-cursor ()
-        (setq evil-normal-state-cursor '("orange" box)))
+        (setq evil-normal-state-cursor `(,(spacemacs/state-color 'normal) box)))
       (defun set-default-evil-insert-state-cursor ()
-        (setq evil-insert-state-cursor '("green3" (bar . 2))))
+        (setq evil-insert-state-cursor `(,(spacemacs/state-color 'insert) (bar . 2))))
       (defun set-default-evil-visual-state-cursor ()
-        (setq evil-visual-state-cursor '("black" (hbar . 2))))
+        (setq evil-visual-state-cursor `(,(spacemacs/state-color 'visual) (hbar . 2))))
       (defun set-default-evil-motion-state-cursor ()
-        (setq evil-motion-state-cursor '("purple" box)))
+        (setq evil-motion-state-cursor `(,(spacemacs/state-color 'motion) box)))
       (defun set-default-evil-lisp-state-cursor ()
-        (setq evil-lisp-state-cursor '("HotPink1" (bar . 2))))
+        (setq evil-lisp-state-cursor `(,(spacemacs/state-color 'lisp) (bar . 2))))
       (defun evil-insert-state-cursor-hide ()
-        (setq evil-insert-state-cursor '("green3" (hbar . 0))))
+        (setq evil-insert-state-cursor `(,(spacemacs/state-color 'insert) (hbar . 0))))
       (set-default-evil-emacs-state-cursor)
       (set-default-evil-normal-state-cursor)
       (set-default-evil-insert-state-cursor)
@@ -309,16 +320,17 @@ inserted in the buffer (if it is not read-only)."
       (evil-leader/set-key "tm" 'powerline-minor-modes-toggle)
       ;; Setup modeline items
       (defun gcs-propertized-evil-mode-tag ()
-        (propertize evil-mode-line-tag 'font-lock-face
-                    ;; Don't propertize if we're not in the selected buffer
-                    (cond ((not (eq (current-buffer) (car (buffer-list)))) '())
-                          ((evil-insert-state-p) '(:background "green3"))
-                          ((evil-emacs-state-p)  '(:background "red"))
-                          ((evil-motion-state-p) '(:background "purple"))
-                          ((evil-visual-state-p) '(:background "gray"))
-                          ((evil-normal-state-p)  '(:background "orange"))
-                          ((evil-lisp-state-p)  '(:background "HotPink1"))
-                          (t '()))))
+        (propertize
+         evil-mode-line-tag 'font-lock-face
+         ;; Don't propertize if we're not in the selected buffer
+         (cond ((not (eq (current-buffer) (car (buffer-list)))) '())
+               ((evil-insert-state-p) `(:background ,(spacemacs/state-color 'insert)))
+               ((evil-emacs-state-p)  `(:background ,(spacemacs/state-color 'emacs)))
+               ((evil-motion-state-p) `(:background ,(spacemacs/state-color 'motion)))
+               ((evil-visual-state-p) `(:background ,(spacemacs/state-color 'visual)))
+               ((evil-normal-state-p) `(:background ,(spacemacs/state-color 'normal)))
+               ((evil-lisp-state-p)   `(:background ,(spacemacs/state-color 'lisp)))
+               (t '()))))
 
       (defpowerline powerline-window-number 
         (let ((num (window-numbering-get-number-string)))
