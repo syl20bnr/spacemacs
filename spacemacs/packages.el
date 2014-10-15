@@ -1075,7 +1075,14 @@ inserted in the buffer (if it is not read-only)."
       (define-key ido-file-dir-completion-map (kbd "C-j") 'ido-next-match)
       (define-key ido-file-dir-completion-map (kbd "C-l") 'ido-exit-minibuffer)
       (define-key ido-file-dir-completion-map (kbd "C-S-j") 'ido-next-match-dir)
-      (define-key ido-file-dir-completion-map (kbd "C-S-k") 'ido-prev-match-dir))))
+      (define-key ido-file-dir-completion-map (kbd "C-S-k") 'ido-prev-match-dir)
+      ;; more natural navigation keys: up, down to change current item
+      ;; left to go up dir
+      ;; right to open the selected item
+      (define-key ido-file-dir-completion-map (kbd "<up>") 'ido-prev-match)
+      (define-key ido-file-dir-completion-map (kbd "<down>") 'ido-next-match)
+      (define-key ido-file-dir-completion-map (kbd "<left>") 'ido-delete-backward-updir)
+      (define-key ido-file-dir-completion-map (kbd "<right>") 'ido-exit-minibuffer))))
 
 (defun spacemacs/init-js2-mode ()
   (use-package js2-mode
