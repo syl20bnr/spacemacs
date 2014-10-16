@@ -1108,8 +1108,7 @@ inserted in the buffer (if it is not read-only)."
   (use-package helm-themes
     :defer t
     :init
-    (evil-leader/set-key
-      "ht"    'helm-themes)))
+    (evil-leader/set-key "ht" 'helm-themes)))
 
 (defun spacemacs/init-hy-mode ()
   (use-package hy-mode
