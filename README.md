@@ -29,8 +29,8 @@
         - [Evil leader](#evil-leader)
         - [Micro-states](#micro-states)
     - [Tips](#tips)
-        - [Tips for beginners](#tips-for-beginners)
-        - [Tips for advanced users](#tips-for-advanced-users)
+        - [Tips for Emacs users](#tips-for-emacs-users)
+        - [Tips for Spacemacs advanced users](#tips-for-spacemacs-advanced-users)
     - [UI tweaks](#ui-tweaks)
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
@@ -149,7 +149,7 @@ It is also a good fit for people wanting to **lower the [risk of RSI][RSI]**
 induced by the default Emacs key bindings. 
 
 Emacs users wanting to learn **a different way to edit files** or wanting to
-learn Vim key bindings (see [Tips for beginners](#tips-for-beginners)).
+learn Vim key bindings (see [Tips for Emacs users](#tips-for-emacs-users)).
 
 As a note side, if you are a programmer and you don't know Vim key bindings
 yet, I deeply recommend you to learn the basics as recommended in
@@ -345,12 +345,12 @@ Additional information may as well be displayed in the minibuffer.
 
 ## Tips
 
-### Tips for beginners
+### Tips for Emacs users
 
-1) If you came here with a pure Emacs background, here is a useful tips to get
+If you came here with a pure Emacs background, here are some useful tips to get
 you started.
 
-As you may have notice, raw Emacs behavior is indeed available in Evil via the
+1) As you may have notice, raw Emacs behavior is indeed available in Evil via the
 `Emacs state`!
 
 To start you could setup the `Emacs state` as the default one, pressing `fd`
@@ -367,7 +367,7 @@ This function is called at the very end of Spacemacs initialization."
   (define-key evil-normal-state-map [escape] 'evil-emacs-state))
 ```
 
-### Tips for advanced users
+### Tips for Spacemacs advanced users
 
 1) To Make `lisp state` the default state in `Emacs Lisp` buffers, insert in
 your `~/.spacemacs` the following snippet:
