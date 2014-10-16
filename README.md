@@ -91,8 +91,8 @@
 
 `Spacemacs` is a user-friendly and well-documented Emacs Advanced kit.
 
-`Advanced` means here that it heavily and happily perform non-trivial tweaks
-and customization in order to make it easy to use and unique.
+`Advanced` means here that it heavily and happily performs non-trivial tweaks
+and customization in order to make itself easy to use and unique.
 
 `Advanced` does not mean that you have to be an advanced Emacs user, beginners
 are welcome and encouraged to use `Spacemacs` since it provides a simple
@@ -124,7 +124,7 @@ what matters: your text files.
 - **Mnemonic and consistent key bindings** which should be easier to learn
 and remember.
 
-- **Fast boot time**, some time has been invested to make 'Spacemacs' quick
+- **Fast boot time**, some time has been invested to make `Spacemacs` quick
 to load.
 
 - **Lower the risk of RSI** by using the space key as much as possible.
@@ -207,9 +207,7 @@ keybindings.el    | Emacs built-in key bindings or mandatory key bindings
 packages.el       | The list of packages to install and the functions to initialize them
 
 `Packages` are `ELPA` packages which can be installed from an `ELPA` compliant
-repository, and `Extensions` are elisp code from git submodules, they can also
-be directly stored in this git repository (maybe we call this: site elisp
-code ??).
+repository, and `Extensions` are generally elisp code from git submodules.
 
 ### Extensions and Packages initialization
 
@@ -219,7 +217,7 @@ name. `Pre-Extensions` are loaded before `Packages` and `Post-Extensions` are
 loaded after `Packages`.
 
 They are processed in alphabetical order so sometimes you'll have to use
-some `after-eval-load` black magic.
+some `eval-after-load` black magic.
 
 To initialize an extension or a package `xxx`, define a function with this
 format in `extensions.el` or `packages.el`:
