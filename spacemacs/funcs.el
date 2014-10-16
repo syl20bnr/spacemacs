@@ -278,26 +278,33 @@ argument takes the kindows rotate backwards."
 changed to THEME."
   (interactive)
   (eval-after-load "flycheck-color-mode-line"
-    ;; Use foreground of the flycheck faces as background for color-mode line
-    ;; (in order to have a proper transparent background of Spacemacs custom
-    ;; bitmaps)
-    '(let ((ml-foreground (face-attribute 'mode-line :foreground))
-           (ml-background (face-attribute 'mode-line :background)))
+    ;; color feedback of Flycheck status
+    '(let ((ml-foreground (face-attribute 'mode-line :foreground)))
        (set-face-attribute
         'flycheck-color-mode-line-error-face nil
         :foreground ml-foreground
-        :background ml-background
         :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-error)))
        (set-face-attribute
         'flycheck-color-mode-line-warning-face nil
         :foreground ml-foreground
-        :background ml-background
         :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-warning)))
        (set-face-attribute
         'flycheck-color-mode-line-info-face nil
         :foreground ml-foreground
-        :background ml-background
-        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-info))))))
+        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-info)))
+       (set-face-attribute
+        'spacemacs-mode-line-color-error nil
+        :background (face-foreground 'flycheck-fringe-error)
+        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-error)))
+       (set-face-attribute
+        'spacemacs-mode-line-color-warning nil
+        :background (face-foreground 'flycheck-fringe-warning)
+        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-warning)))
+       (set-face-attribute
+        'spacemacs-mode-line-color-info nil
+        :background (face-foreground 'flycheck-fringe-info)
+        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-info)))
+       (powerline-reset))))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function

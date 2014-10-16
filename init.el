@@ -5,6 +5,11 @@
 (load (concat spacemacs-core-directory "spacemacs-mode.el"))
 (spacemacs/buffer)
 
+(defgroup spacemacs nil
+  "Spacemacs customizations."
+  :group 'starter-kit
+  :prefix 'spacemacs-)
+
 (unless (not (spacemacs/emacs-version-ok))
   ;; additional paths
   (defconst user-home-directory
