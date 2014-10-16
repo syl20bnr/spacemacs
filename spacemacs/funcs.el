@@ -277,34 +277,7 @@ argument takes the kindows rotate backwards."
   " Some processing that needs to be done when the current theme has been
 changed to THEME."
   (interactive)
-  (eval-after-load "flycheck-color-mode-line"
-    ;; color feedback of Flycheck status
-    '(let ((ml-foreground (face-attribute 'mode-line :foreground)))
-       (set-face-attribute
-        'flycheck-color-mode-line-error-face nil
-        :foreground ml-foreground
-        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-error)))
-       (set-face-attribute
-        'flycheck-color-mode-line-warning-face nil
-        :foreground ml-foreground
-        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-warning)))
-       (set-face-attribute
-        'flycheck-color-mode-line-info-face nil
-        :foreground ml-foreground
-        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-info)))
-       (set-face-attribute
-        'spacemacs-mode-line-color-error nil
-        :background (face-foreground 'flycheck-fringe-error)
-        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-error)))
-       (set-face-attribute
-        'spacemacs-mode-line-color-warning nil
-        :background (face-foreground 'flycheck-fringe-warning)
-        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-warning)))
-       (set-face-attribute
-        'spacemacs-mode-line-color-info nil
-        :background (face-foreground 'flycheck-fringe-info)
-        :box (list :line-width 1 :color (face-foreground 'flycheck-fringe-info)))
-       (powerline-reset))))
+  (powerline-reset))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function

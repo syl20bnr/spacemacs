@@ -40,7 +40,6 @@
     fish-mode
     flx-ido
     flycheck
-    flycheck-color-mode-line
     flycheck-ledger
     flyspell
     fringe-helper
@@ -755,11 +754,12 @@ inserted in the buffer (if it is not read-only)."
         (let* ((fname (intern (format "spacemacs-mode-line-color-%s"
                                      (symbol-name state))))
               (background (face-foreground
-                           (intern (format "flycheck-fringe-%s" state)))))
+                           (intern (format "flycheck-fringe-%s" state))))
+              (boxcolor (face-foreground 'mode-line)))
           (eval `(defface ,fname
                    '((t (:background ,background
                          :foreground "gray30"
-                         :box (:color ,background))))
+                         :box (:color ,boxcolor))))
                    ,(format "Color for Flycheck %s feedback in mode line."
                             (symbol-name state))
                    :group 'spacemacs))))
@@ -807,12 +807,6 @@ inserted in the buffer (if it is not read-only)."
         "fl" 'flycheck-list-errors
         "fn" 'flycheck-next-error
         "fp" 'flycheck-previous-error))))
-
-(defun spacemacs/init-flycheck-color-mode-line ()
-  (use-package flycheck-color-mode-line
-    :defer t
-    :init
-    (add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)))
 
 (defun spacemacs/init-flycheck-ledger ()
   (eval-after-load 'flycheck
