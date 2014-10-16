@@ -1,4 +1,4 @@
-# Spacemacs Starter Kit
+# Spacemacs Advanced Kit
 
 ![title](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/title.png)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -10,7 +10,8 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
-- [Spacemacs Starter Kit](#spacemacs-starter-kit)
+- [Spacemacs Advanced Kit](#spacemacs-advanced-kit)
+    - [Introduction](#introduction)
     - [Goals](#goals)
     - [Screenshots](#screenshots)
     - [Who can benefit from this ?](#who-can-benefit-from-this-)
@@ -85,6 +86,24 @@
     - [Thank you](#thank-you)
 
 <!-- markdown-toc end -->
+
+## Introduction
+
+`Spacemacs` is a user-friendly and well-documented Emacs Advanced kit.
+
+`Advanced` means here that it heavily and happily perform non-trivial tweaks
+and customization in order to make it easy to use and unique.
+
+`Advanced` does not mean that you have to be an advanced Emacs user, beginners
+are welcome and encouraged to use `Spacemacs` since it provides a simple
+architecture to contribute changes and hack others contributions.
+
+Its status is `beta` for now, essentially because of the contribution system
+that is not yet finished but already usable.
+
+And now, to use a well know catch line from [Emacs Live][emacs_live]:
+
+    M-x start-spacing !
 
 ## Goals
 
@@ -1296,3 +1315,4 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [neotree]: http://www.emacswiki.org/emacs/NeoTree
 [evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
 [ido-vertical-mode]: https://github.com/gempesaw/ido-vertical-mode.el
+[emacs_live]: https://github.com/overtone/emacs-live
