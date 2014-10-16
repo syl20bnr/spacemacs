@@ -270,13 +270,20 @@ argument takes the kindows rotate backwards."
                                    (list spacemacs-cur-theme))))
   (setq  spacemacs-cur-theme (pop spacemacs-themes))
   (message "Loading theme %s..." spacemacs-cur-theme)
-  (load-theme  spacemacs-cur-theme t)
+  (load-theme spacemacs-cur-theme t))
+
+(defadvice load-theme (after spacemacs/load-theme-adv activate)
+  "Perform post load processing."
+  (setq spacemacs-cur-theme (ad-get-arg 0))
   (spacemacs/post-theme-init spacemacs-cur-theme))
 
 (defun spacemacs/post-theme-init (theme)
   " Some processing that needs to be done when the current theme has been
 changed to THEME."
   (interactive)
+      ;; Define a face for each state
+  (if (fboundp 'spacemacs/set-state-faces)
+      (spacemacs/set-state-faces))
   (powerline-reset))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
