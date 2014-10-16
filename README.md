@@ -363,13 +363,14 @@ This function is called at the very end of Spacemacs initialization."
 ## UI tweaks
 
 `Spacemacs` has a minimalistic and distraction free UI with a lot of subtle
-customizations which make it unique compared to other Emacs kits:
- - custom [powerline][powerline] mode-line [with color feedback](#mode-line)
- according to current [Flycheck][flycheck] status
+customization which make it unique compared to other kits:
+ - beautiful custom [powerline][powerline] mode-line
+ [with color feedback](#mode-line) according to current [Flycheck][flycheck]
+ status
  - unicode symbols for minor mode lighters which appear in the mode-line
  - [custom fringe bitmaps](#errors-handling) and error feedbacks for
  [Flycheck][flycheck]
- - [custom fringe bitmaps](#git-gutter-bitmaps) for [git gutter][git-gutter].
+ - [custom fringe bitmaps](#git-gutter-bitmaps) for [git gutter][git-gutter]
  - dedicated startup page with a mode aimed at easily managing `Spacemacs`
 
 ## Commands
