@@ -347,17 +347,17 @@ inserted in the buffer (if it is not read-only)."
       (defpowerline powerline-window-number 
         (let ((num (window-numbering-get-number-string)))
           (cond ((not (display-graphic-p)) (concat "(" num ")"))
-                ((equal num "1")  "➊ ")
-                ((equal num "2")  "➋ ")
-                ((equal num "3")  "➌ ")
-                ((equal num "4")  "➍ ")
-                ((equal num "5")  "➎ ")
-                ((equal num "6")  "❻ ")
-                ((equal num "7")  "➐ ")
-                ((equal num "8")  "➑ ")
-                ((equal num "9")  "➒ ")
-                ((equal num "0")  "➓ ")
-                (t (concat "(" num ")")))))
+                ((equal num "1")  " ➊ ")
+                ((equal num "2")  " ➋ ")
+                ((equal num "3")  " ➌ ")
+                ((equal num "4")  " ➍ ")
+                ((equal num "5")  " ➎ ")
+                ((equal num "6")  " ❻ ")
+                ((equal num "7")  " ➐ ")
+                ((equal num "8")  " ➑ ")
+                ((equal num "9")  " ➒ ")
+                ((equal num "0")  " ➓ ")
+                (t (concat " (" num ") ")))))
 
       (defvar powerline-minor-modesp t)
       (defun powerline-minor-modes-toggle ()
@@ -389,12 +389,12 @@ inserted in the buffer (if it is not read-only)."
                  (fchk-face (spacemacs/mode-line-minor-modes-face))
                  (lhs (append (list
                       ;; window number
-                      (powerline-wave-left state-face face1)
-                      (powerline-window-number face1 'l)
-                      (powerline-wave-right face1 state-face)
-                      ;; evil state
-                      (powerline-raw evil-mode-line-tag state-face)
+                      ;; (powerline-wave-left state-face face1)
+                      (powerline-window-number state-face)
                       (powerline-wave-right state-face nil)
+                      ;; evil state
+                      ;; (powerline-raw evil-mode-line-tag state-face)
+                      ;; (powerline-wave-right state-face nil)
                       ;; buffer name
                       (powerline-raw "%*" nil 'l)
                       (powerline-buffer-size nil 'l)
