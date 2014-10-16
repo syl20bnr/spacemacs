@@ -148,8 +148,8 @@ next level by using Emacs.
 It is also a good fit for people wanting to **lower the [risk of RSI][RSI]**
 induced by the default Emacs key bindings. 
 
-People wanting to learn **a different way to edit files** or wanting to learn
-Vim key bindings (see [Tips for beginners](#tips-for-beginners)).
+Emacs users wanting to learn **a different way to edit files** or wanting to
+learn Vim key bindings (see [Tips for beginners](#tips-for-beginners)).
 
 As a note side, if you are a programmer and you don't know Vim key bindings
 yet, I deeply recommend you to learn the basics as recommended in
