@@ -28,9 +28,6 @@
             - [Base States](#base-states)
         - [Evil leader](#evil-leader)
         - [Micro-states](#micro-states)
-    - [Tips](#tips)
-        - [Tips for Emacs users](#tips-for-emacs-users)
-        - [Tips for Spacemacs advanced users](#tips-for-spacemacs-advanced-users)
     - [UI tweaks](#ui-tweaks)
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
@@ -82,6 +79,9 @@
                 - [Inferior REPL process](#inferior-repl-process)
                 - [Other R commands](#other-r-commands)
             - [rcirc](#rcirc)
+    - [Tips](#tips)
+        - [Tips for Emacs users](#tips-for-emacs-users)
+        - [Tips for Spacemacs advanced users](#tips-for-spacemacs-advanced-users)
     - [TODO list](#todo-list)
     - [Thank you](#thank-you)
 
@@ -342,42 +342,6 @@ Additional information may as well be displayed in the minibuffer.
 
 [Text scale micro-state](#change-font-size):
 ![spacemacs_scale_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-scale-micro-state.png)
-
-## Tips
-
-### Tips for Emacs users
-
-If you came here with a pure Emacs background, here are some useful tips to get
-you started.
-
-1) As you may have notice, raw Emacs behavior is indeed available in Evil via the
-`Emacs state`!
-
-To start you could setup the `Emacs state` as the default one, pressing `fd`
-quickly would bring you to `Normal state` and pressing `ESC` from there would
-bring you back in `Emacs state`. This way you should never feel lost.
-
-To do so add the following snippet to your `~/.spacemacs`:
-
-```elisp
-(defun dotspacemacs/config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
-  (setq evil-default-state 'emacs)
-  (define-key evil-normal-state-map [escape] 'evil-emacs-state))
-```
-
-### Tips for Spacemacs advanced users
-
-1) To Make `lisp state` the default state in `Emacs Lisp` buffers, insert in
-your `~/.spacemacs` the following snippet:
-
-```elisp
-(defun dotspacemacs/config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
-  (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
-```
 
 ## UI tweaks
 
@@ -1246,6 +1210,42 @@ Send code to inferior process commands:
 ------------------|------------------------------------------------------------
 `CTRL+j`          | next item in command history
 `CTRL+k`          | previous item in command history
+
+## Tips
+
+### Tips for Emacs users
+
+If you came here with a pure Emacs background, here are some useful tips to get
+you started.
+
+1) As you may have notice, raw Emacs behavior is indeed available in Evil via the
+`Emacs state`!
+
+To start you could setup the `Emacs state` as the default one, pressing `fd`
+quickly would bring you to `Normal state` and pressing `ESC` from there would
+bring you back in `Emacs state`. This way you should never feel lost.
+
+To do so add the following snippet to your `~/.spacemacs`:
+
+```elisp
+(defun dotspacemacs/config ()
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
+  (setq evil-default-state 'emacs)
+  (define-key evil-normal-state-map [escape] 'evil-emacs-state))
+```
+
+### Tips for Spacemacs advanced users
+
+1) To Make `lisp state` the default state in `Emacs Lisp` buffers, insert in
+your `~/.spacemacs` the following snippet:
+
+```elisp
+(defun dotspacemacs/config ()
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
+  (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
+```
 
 ## TODO list
 
