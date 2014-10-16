@@ -136,10 +136,14 @@ which require an initialization must be listed explicitly in the list.")
 
       (defun spacemacs/defface-state-color (state color)
         "Define a face for the given STATE and background COLOR."
-        (eval `(defface ,(spacemacs/state-color-face state)
-                 '((t (:background ,color :inherit mode-line)))
+        (eval `(defface ,(spacemacs/state-color-face state) '((t ()))
                  ,(format "%s state face." (symbol-name state))
-                 :group 'spacemacs)))
+                 :group 'spacemacs))
+        (set-face-attribute (spacemacs/state-color-face state) nil
+                            :background color
+                            :foreground (face-background 'mode-line)
+                            :box (face-attribute 'mode-line :box)
+                            :inherit 'mode-line))
 
       (defun spacemacs/state-color (state)
         "Return the color string associated to STATE."
@@ -157,14 +161,16 @@ which require an initialization must be listed explicitly in the list.")
         "Return the face associated to the current state."
         (spacemacs/state-color-face evil-state))
 
-      ;; Define a face for each state
-      (mapcar (lambda (x) (spacemacs/defface-state-color (car x) (cdr x)))
-              '((normal . "DarkGoldenrod2")
-                (insert . "chartreuse3")
-                (emacs  . "SkyBlue2")
-                (visual . "gray")
-                (motion . "plum3")
-                (lisp   . "HotPink1")))
+      (defun spacemacs/set-state-faces ()
+        "Define or set the state faces."
+        (mapcar (lambda (x) (spacemacs/defface-state-color (car x) (cdr x)))
+                '((normal . "DarkGoldenrod2")
+                  (insert . "chartreuse3")
+                  (emacs  . "SkyBlue2")
+                  (visual . "gray")
+                  (motion . "plum3")
+                  (lisp   . "HotPink1"))))
+      (spacemacs/set-state-faces)
 
       (defun set-default-evil-emacs-state-cursor ()
         (setq evil-emacs-state-cursor `(,(spacemacs/state-color 'emacs) box)))
@@ -344,7 +350,8 @@ inserted in the buffer (if it is not read-only)."
           (window-numbering-mode 1)))
       (evil-leader/set-key "tm" 'powerline-minor-modes-toggle)
 
-      (defpowerline powerline-window-number 
+      (defun spacemacs/window-number ()
+        "Return the number of the window."
         (let ((num (window-numbering-get-number-string)))
           (cond ((not (display-graphic-p)) (concat "(" num ")"))
                 ((equal num "1")  " ➊ ")
@@ -372,11 +379,11 @@ inserted in the buffer (if it is not read-only)."
         (if (eq (frame-selected-window) (selected-window))
             (if (fboundp 'flycheck-has-current-errors-p)
                 (cond ((flycheck-has-current-errors-p 'error)
-                       'spacemacs-mode-line-color-error)
+                       'spacemacs-mode-line-error-face)
                       ((flycheck-has-current-errors-p 'warning)
-                       'spacemacs-mode-line-color-warning)
+                       'spacemacs-mode-line-warning-face)
                       ((flycheck-has-current-errors-p 'info)
-                       'spacemacs-mode-line-color-info)
+                       'spacemacs-mode-line-info-face)
                       (t nil))
               nil)
           nil))
@@ -390,7 +397,7 @@ inserted in the buffer (if it is not read-only)."
                  (lhs (append (list
                       ;; window number
                       ;; (powerline-wave-left state-face face1)
-                      (powerline-window-number state-face)
+                      (powerline-raw (spacemacs/window-number) state-face)
                       (powerline-wave-right state-face nil)
                       ;; evil state
                       ;; (powerline-raw evil-mode-line-tag state-face)
@@ -432,7 +439,10 @@ inserted in the buffer (if it is not read-only)."
                        (powerline-raw " " nil)
                        (powerline-raw "%p" nil 'r)
                        (powerline-chamfer-left nil face1)
-                       (powerline-hud state-face face1))))
+                       ;; display hud only if necessary
+                       (let ((progress (format-mode-line "%p")))
+                         (if (string-match "\%" progress)
+                             (powerline-hud state-face face1))))))
             (concat (powerline-render lhs)
                     (powerline-fill face2 (powerline-width rhs))
                     (powerline-render rhs))))))
@@ -751,7 +761,7 @@ inserted in the buffer (if it is not read-only)."
       ;; color mode line faces
       (defun spacemacs/defface-flycheck-mode-line-color (state)
         "Define a face for the given Flycheck STATE."
-        (let* ((fname (intern (format "spacemacs-mode-line-color-%s"
+        (let* ((fname (intern (format "spacemacs-mode-line-%s-face"
                                      (symbol-name state))))
               (background (face-foreground
                            (intern (format "flycheck-fringe-%s" state))))
