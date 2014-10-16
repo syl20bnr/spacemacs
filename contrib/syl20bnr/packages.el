@@ -17,10 +17,37 @@ which require an initialization must be listed explicitly in the list.")
             rainbow-identifiers-faces-to-override '(highlight-quoted-symbol
                                                     font-lock-variable-name-face))
       (add-to-hooks 'rainbow-identifiers-mode '(prog-mode-hook
-                                                erlang-mode-hook)))
+                                                erlang-mode-hook))
+
+      (defun syl20bnr/tweak-theme-colors (theme)
+        "Tweak color themes by adjusting rainbow-identifiers colors settings an by
+disabling some faces in order to make colored identifiers stand out."
+        (interactive)
+        (pcase theme
+          (`solarized-dark (setq rainbow-identifiers-cie-l*a*b*-saturation 85
+                                 rainbow-identifiers-cie-l*a*b*-lightness 65))
+          (`solarized-light (setq rainbow-identifiers-cie-l*a*b*-saturation 100
+                                  rainbow-identifiers-cie-l*a*b*-lightness 40))
+          (_ (setq rainbow-identifiers-cie-l*a*b*-saturation 80
+                   rainbow-identifiers-cie-l*a*b*-lightness 45)))
+        ;; To make the variables stand out, keyword coloring is disabled
+        ;; (set-face-attribute 'highlight-quoted-symbol nil
+        ;;                     :foreground nil :slant 'normal :weight 'bold)
+        (set-face-attribute 'font-lock-function-name-face nil
+                            :foreground nil :slant 'normal :weight 'normal)
+        (set-face-attribute 'font-lock-keyword-face nil
+                            :foreground nil :slant 'normal :weight 'bold)
+        (font-lock-fontify-buffer)))
+    (syl20bnr/tweak-theme-colors spacemacs-cur-theme)
+
+    (defadvice spacemacs/post-theme-init (after syl20bnr/post-theme-init activate)
+      "Adjust lightness and brightness of rainbow-identifiers on post theme init."
+      (syl20bnr/tweak-theme-colors spacemacs-cur-theme))
+
     :config
     (progn
       (syl20bnr/tweak-theme-colors 'solarized-light)
+      (evil-leader/set-key "tc" 'rainbow-identifiers-mode)
 
       ;; functions to change saturation and lightness of colors
       (defun syl20bnr/change-color-mini-mode-doc (component)
