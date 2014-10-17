@@ -28,6 +28,10 @@ disabling some faces in order to make colored identifiers stand out."
                                  rainbow-identifiers-cie-l*a*b*-lightness 65))
           (`solarized-light (setq rainbow-identifiers-cie-l*a*b*-saturation 100
                                   rainbow-identifiers-cie-l*a*b*-lightness 40))
+          (`monokai (setq rainbow-identifiers-cie-l*a*b*-saturation 55
+                          rainbow-identifiers-cie-l*a*b*-lightness 60))
+          (`zenburn (setq rainbow-identifiers-cie-l*a*b*-saturation 40
+                          rainbow-identifiers-cie-l*a*b*-lightness 65))
           (_ (setq rainbow-identifiers-cie-l*a*b*-saturation 80
                    rainbow-identifiers-cie-l*a*b*-lightness 45)))
         ;; To make the variables stand out, keyword coloring is disabled
