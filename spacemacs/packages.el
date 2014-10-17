@@ -153,13 +153,16 @@ which require an initialization must be listed explicitly in the list.")
         "Return the color string associated to the current state."
         (face-background (spacemacs/state-color-face evil-state)))
 
-      (defun spacemacs/current-state-face (state)
+      (defun spacemacs/state-face (state)
         "Return the face associated to the STATE."
         (spacemacs/state-color-face state))
 
       (defun spacemacs/current-state-face ()
         "Return the face associated to the current state."
-        (spacemacs/state-color-face evil-state))
+        (let ((state (if (eq evil-state 'operator)
+                         evil-previous-state
+                       evil-state)))
+          (spacemacs/state-color-face state)))
 
       (defun spacemacs/set-state-faces ()
         "Define or set the state faces."
@@ -348,7 +351,6 @@ inserted in the buffer (if it is not read-only)."
             "8" 'select-window-8
             "9" 'select-window-9)
           (window-numbering-mode 1)))
-      (evil-leader/set-key "tm" 'powerline-minor-modes-toggle)
 
       (defun spacemacs/window-number ()
         "Return the number of the window."
@@ -366,34 +368,38 @@ inserted in the buffer (if it is not read-only)."
                 ((equal num "0")  " ➓ ")
                 (t (concat " (" num ") ")))))
 
-      (defvar powerline-minor-modesp t)
-      (defun powerline-minor-modes-toggle ()
+      (defvar spacemacs-mode-line-minor-modesp t
+        "If not nil, minor modes lighter are displayed in the mode-line.")
+      (defun spacemacs/mode-line-minor-modes-toggle ()
         "Toggle display of minor modes."
         (interactive)
-        (if powerline-minor-modesp
-            (setq powerline-minor-modesp nil)
-          (setq powerline-minor-modesp t)))
+        (if spacemacs-mode-line-minor-modesp
+            (setq spacemacs-mode-line-minor-modesp nil)
+          (setq spacemacs-mode-line-minor-modesp t)))
+      (evil-leader/set-key "tmm" 'spacemacs/mode-line-minor-modes-toggle)
 
-      (defun spacemacs/mode-line-minor-modes-face ()
-        "Return the face for the minor-modes segment of the mode line"
-        (if (eq (frame-selected-window) (selected-window))
-            (if (fboundp 'flycheck-has-current-errors-p)
-                (cond ((flycheck-has-current-errors-p 'error)
-                       'spacemacs-mode-line-error-face)
-                      ((flycheck-has-current-errors-p 'warning)
-                       'spacemacs-mode-line-warning-face)
-                      ((flycheck-has-current-errors-p 'info)
-                       'spacemacs-mode-line-info-face)
-                      (t nil))
-              nil)
-          nil))
+      (defvar spacemacs-mode-line-flycheckp t
+        "If not nil, flycheck info are displayed in the mode-line.")
+      (defun spacemacs/mode-line-flycheck-info-toggle ()
+        "Toggle display of flycheck info."
+        (interactive)
+        (if spacemacs-mode-line-flycheckp
+            (setq spacemacs-mode-line-flycheckp nil)
+          (setq spacemacs-mode-line-flycheckp t)))
+      (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
 
       (setq-default mode-line-format '("%e" (:eval
           (let* ((active (eq (frame-selected-window) (selected-window)))
                  (face1 (if active 'powerline-active1 'powerline-inactive1))
                  (face2 (if active 'powerline-active2 'powerline-inactive2))
                  (state-face (if active (spacemacs/current-state-face) face2))
-                 (fchk-face (spacemacs/mode-line-minor-modes-face))
+                 (flycheckp (and spacemacs-mode-line-flycheckp
+                                 (symbolp flycheck-mode)
+                                 (symbol-value flycheck-mode)
+                                 (or flycheck-current-errors
+                                     (eq 'running flycheck-last-status-change))))
+                 (vc-face (if (or flycheckp spacemacs-mode-line-minor-modesp)
+                               face1 nil))
                  (lhs (append (list
                       ;; window number
                       ;; (powerline-wave-left state-face face1)
@@ -408,31 +414,41 @@ inserted in the buffer (if it is not read-only)."
                       (powerline-buffer-id nil 'l)
                       (powerline-raw " " nil)
                       ;; major mode
-                      (powerline-wave-right nil face1)
+                      (powerline-wave-left nil face1)
                       (powerline-major-mode face1 'l)
-                      (powerline-raw " " face1))
-                      ;; minor mode and version control
-                      (if powerline-minor-modesp
-                          (let ((flycheck
-                                 (if (and (symbolp flycheck-mode) (symbol-value flycheck-mode))
-                                     (list (powerline-wave-right face1 fchk-face)
-                                           (powerline-raw (flycheck-mode-line-status-text) fchk-face 'l)
-                                           (powerline-raw " " fchk-face)
-                                           (powerline-wave-right fchk-face nil))
-                                   (list (powerline-wave-right face1 nil)))))
-                            (append flycheck (list (powerline-minor-modes nil 'l)
-                                                   (powerline-raw mode-line-process nil 'l)
-                                                   (powerline-raw " " nil)
-                                                   (powerline-wave-left nil face1)
-                                                   (powerline-vc face1)
-                                                   (powerline-raw " " face1)
-                                                   (powerline-slant-left face1 face2))))
-                        (list (powerline-wave-right face1 nil)
-                              (powerline-vc nil)
-                              (powerline-raw " " nil)
-                              (powerline-wave-left nil face2)))))
+                      (powerline-raw " " face1)
+                      (powerline-wave-right face1 nil))
+                      ;; flycheck
+                      (if flycheckp
+                          (list
+                           (powerline-raw " " nil)
+                           (powerline-raw (spacemacs//custom-flycheck-lighter error)
+                                          'spacemacs-mode-line-error-face)
+                           (powerline-raw (spacemacs//custom-flycheck-lighter warning)
+                                          'spacemacs-mode-line-warning-face)
+                           (powerline-raw (spacemacs//custom-flycheck-lighter info)
+                                          'spacemacs-mode-line-info-face)))
+                      ;; separator between flycheck and minor modes
+                      (if (and flycheckp spacemacs-mode-line-minor-modesp)
+                          (list
+                           (powerline-wave-left nil face1)
+                           (powerline-raw "  " face1)
+                           (powerline-wave-right face1 nil)))
+                      ;; minor modes
+                      (if spacemacs-mode-line-minor-modesp
+                          (list
+                           (powerline-minor-modes nil 'l)
+                           (powerline-raw mode-line-process nil 'l)
+                           (powerline-raw " " nil)))
+                      ;; version control
+                      (if (or flycheckp spacemacs-mode-line-minor-modesp)
+                          (list (powerline-wave-left (if vc-face nil face1) vc-face)))
+                      (list 
+                       (powerline-vc vc-face)
+                       (powerline-raw " " vc-face)
+                       (powerline-wave-right vc-face face2))))
                  (rhs (list
-                       (powerline-slant-left face2 face1)
+                       (powerline-wave-right face2 face1)
                        (powerline-raw " " face1)
                        (powerline-raw "%l:%2c" face1 'r)
                        (powerline-wave-left face1 nil)
@@ -576,7 +592,7 @@ inserted in the buffer (if it is not read-only)."
     (eval-after-load "eproject"
       '(diminish 'eproject-mode " eⓅ"))
     (eval-after-load "flymake"
-      '(diminish 'flymake-mode " Ⓕ")))
+      '(diminish 'flymake-mode " Ⓕ2")))
   ;; Minor Mode (hidden) ------------------------------------------------------
   (eval-after-load 'elisp-slime-nav
     '(diminish 'elisp-slime-nav-mode))
@@ -753,7 +769,7 @@ inserted in the buffer (if it is not read-only)."
                   'flycheck-mode)))
     :config
     (progn
-      (spacemacs//hide-lighter flycheck-mode)
+      (spacemacs//diminish flycheck-mode " Ⓕ")
 
       (setq flycheck-check-syntax-automatically '(save mode-enabled)
             flycheck-standard-error-navigation nil)
@@ -762,18 +778,32 @@ inserted in the buffer (if it is not read-only)."
       (defun spacemacs/defface-flycheck-mode-line-color (state)
         "Define a face for the given Flycheck STATE."
         (let* ((fname (intern (format "spacemacs-mode-line-%s-face"
-                                     (symbol-name state))))
-              (background (face-foreground
+                                      (symbol-name state))))
+              (foreground (face-foreground
                            (intern (format "flycheck-fringe-%s" state))))
               (boxcolor (face-foreground 'mode-line)))
-          (eval `(defface ,fname
-                   '((t (:background ,background
-                         :foreground "gray30"
-                         :box (:color ,boxcolor))))
+          (eval `(defface ,fname '((t ()))
                    ,(format "Color for Flycheck %s feedback in mode line."
                             (symbol-name state))
-                   :group 'spacemacs))))
-      (mapcar 'spacemacs/defface-flycheck-mode-line-color '(error warning info))
+                   :group 'spacemacs))
+          (set-face-attribute fname nil
+                              :foreground foreground
+                              :box (face-attribute 'mode-line :box))))
+
+      (defun spacemacs/set-flycheck-mode-line-faces ()
+        "Define or set the flycheck info mode-line faces."
+        (mapcar 'spacemacs/defface-flycheck-mode-line-color
+                '(error warning info)))
+      (spacemacs/set-flycheck-mode-line-faces)
+
+      (defmacro spacemacs//custom-flycheck-lighter (error)
+        "Return a formatted string for the given ERROR (error, warning, info)."
+        `(let* ((error-counts (flycheck-count-errors
+                               flycheck-current-errors))
+                (errorp (flycheck-has-current-errors-p ',error))
+                (err (or (cdr (assq ',error error-counts)) "?"))
+                (running (eq 'running flycheck-last-status-change)))
+           (if (or errorp running) (format "⦿%s " err))))
 
       ;; Custom fringe indicator
       (when (fboundp 'define-fringe-bitmap)
@@ -1265,8 +1295,14 @@ inserted in the buffer (if it is not read-only)."
             neo-dont-be-alone t
             neo-banner-message "File Tree browser"
             neo-smart-open t))
-    (progn
-      (evil-leader/set-key "ft" 'neotree-toggle))))
+      (evil-leader/set-key "ft" 'neotree-toggle)
+      (defadvice neotree-toggle (around spacemacs/neotree-toggle activate)
+        (let ((neotree-visible t)
+              (golden-ratio-enabled (symbol-value golden-ratio-mode)))
+          (if (and neotree-visible golden-ratio-enabled)
+              (message "pre-processing"))
+          (ad-do-it)
+          (message "post-processing")))))
 
 (defun spacemacs/init-org ()
   (use-package org

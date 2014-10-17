@@ -284,6 +284,8 @@ changed to THEME."
       ;; Define a face for each state
   (if (fboundp 'spacemacs/set-state-faces)
       (spacemacs/set-state-faces))
+  (if (fboundp 'spacemacs/set-flycheck-mode-line-faces)
+      (spacemacs/set-flycheck-mode-line-faces))
   (powerline-reset))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html

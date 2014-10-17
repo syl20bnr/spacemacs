@@ -723,25 +723,37 @@ By default, `Spacemacs` uses the theme [Solarized][solarized-theme].
 
 #### Mode-line
 
-The mode line is a [powerline][powerline] customized to show the window
-number and the colorized Evil current state.
+The mode line is an heavily customized [powerline][powerline] with the
+following capabilities:
+- show the window number
+- color code for current state
+- toggle flycheck info
+- toggle minor mode lighters
 
-The color codes for modes are:
+Reminder of the color codes for the states:
 
    Evil State     |       Color
 ------------------|------------------
 Normal            | Orange
 Insert            | Green
 Visual            | Grey
-Emacs             | Red
+Emacs             | Blue
 Motion            | Purple
+Lisp              | Pink
 
-When [Flycheck][flycheck] minor mode is enabled, the mode line color changes
-according to the current flycheck state:
+Some elements can be dynamically toggled:
 
-![flycheck-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/flycheck-error.png)
-![flycheck-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/flycheck-warning.png)
-![flycheck-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/flycheck-info.png)
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> t m m`     | toggle the minor mode lighters
+`<SPC> t m f`     | toggle the flycheck info
+
+##### Flycheck integration
+
+When [Flycheck][flycheck] minor mode is enabled, a new element appears showing
+the number of errors, warnings and info.
+
+![flycheck-mode-line](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/flycheck-mode-line.png)
 
 #### Toggles
 
@@ -770,7 +782,8 @@ The minor mode area can be toggled on and off with:
 Ⓒ            | [centered-cursor][centered-cursor] mode
 eⓅ           | [e-project][e-project] mode
 Ⓟ            | [projectile][projectile] mode
-Ⓕ            | flymake mode
+Ⓕ            | flycheck mode
+Ⓕ2           | flymake mode
 Ⓢ            | flyspell mode
 (Ⓢ)          | [smartparens][sp] mode
 (Ⓟ)          | paredit mode
