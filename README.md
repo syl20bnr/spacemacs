@@ -52,6 +52,7 @@
         - [Color theme](#color-theme)
         - [UI elements](#ui-elements)
             - [Mode-line](#mode-line)
+                - [Flycheck integration](#flycheck-integration)
             - [Toggles](#toggles)
         - [Minor Modes](#minor-modes)
         - [Line formatting](#line-formatting)
@@ -346,7 +347,8 @@ Additional information may as well be displayed in the minibuffer.
 `Spacemacs` has a minimalistic and distraction free UI with a lot of subtle
 customization which make it unique compared to other kits:
  - beautiful custom [powerline][powerline] mode-line
- [with color feedback](#mode-line) according to current [Flycheck][flycheck]
+ [with color feedback](#flycheck-integration) according to current
+ [Flycheck][flycheck]
  status
  - unicode symbols for minor mode lighters which appear in the mode-line
  - [custom fringe bitmaps](#errors-handling) and error feedbacks for
@@ -772,7 +774,7 @@ indicators:
 
 The minor mode area can be toggled on and off with:
 
-    <SPC> t m
+    <SPC> t m m
 
    Lighter   |                              Mode
 -------------|-----------------------------------------------------------------
