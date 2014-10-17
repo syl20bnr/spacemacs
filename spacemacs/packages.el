@@ -803,7 +803,7 @@ inserted in the buffer (if it is not read-only)."
                 (errorp (flycheck-has-current-errors-p ',error))
                 (err (or (cdr (assq ',error error-counts)) "?"))
                 (running (eq 'running flycheck-last-status-change)))
-           (if (or errorp running) (format "⦿%s " err))))
+           (if (or errorp running) (format "•%s " err))))
 
       ;; Custom fringe indicator
       (when (fboundp 'define-fringe-bitmap)
