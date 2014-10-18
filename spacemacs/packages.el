@@ -217,17 +217,13 @@ inserted in the buffer (if it is not read-only)."
                (insertp (and insert-fkey (not buffer-read-only)))
                (fkey (car keys))
                (fkeystr (char-to-string fkey))
-               (skey (cdr keys))
-               (bfunc (local-key-binding fkeystr)))
+               (skey (cdr keys)))
           (if insertp (insert fkey))
           (let* ((evt (read-event nil nil spacemacs-normal-state-sequence-delay)))
             (cond
              ((null evt)
-              (message "")
               (unless (eq 'insert evil-state)
-                (if shadowed
-                    (if bfunc (call-interactively bfunc)
-                      (call-interactively shadowed)))))
+                (if shadowed (call-interactively shadowed))))
              ((and (integerp evt)
                    (char-equal evt skey))
               ;; remove the f character
@@ -237,8 +233,7 @@ inserted in the buffer (if it is not read-only)."
              (t ; otherwise
               (setq unread-command-events
                     (append unread-command-events (list evt)))
-              (if bfunc (call-interactively bfunc)
-                (if shadowed (call-interactively shadowed))))))))
+              (if shadowed (call-interactively shadowed)))))))
       ;; easier toggle for emacs-state
       (evil-set-toggle-key "s-`")
       ;; escape state with a better key sequence than ESC
