@@ -286,7 +286,8 @@ changed to THEME."
       (spacemacs/set-state-faces))
   (if (fboundp 'spacemacs/set-flycheck-mode-line-faces)
       (spacemacs/set-flycheck-mode-line-faces))
-  (powerline-reset))
+  (if (fboundp 'powerline-reset)
+      (powerline-reset)))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function
