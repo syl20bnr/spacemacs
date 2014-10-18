@@ -384,6 +384,7 @@ inserted in the buffer (if it is not read-only)."
       (setq-default powerline-default-separator 'wave)
       (setq-default mode-line-format '("%e" (:eval
           (let* ((active (eq (frame-selected-window) (selected-window)))
+                 (line-face (if active 'mode-line 'mode-line-inactive))
                  (face1 (if active 'powerline-active1 'powerline-inactive1))
                  (face2 (if active 'powerline-active2 'powerline-inactive2))
                  (state-face (if active (spacemacs/current-state-face) face2))
@@ -404,7 +405,7 @@ inserted in the buffer (if it is not read-only)."
                       ;; window number
                       ;; (funcall separator-left state-face face1)
                       (powerline-raw (spacemacs/window-number) state-face)
-                      (funcall separator-right state-face nil)
+                      (funcall separator-right state-face line-face)
                       ;; evil state
                       ;; (powerline-raw evil-mode-line-tag state-face)
                       ;; (funcall separator-right state-face nil)
@@ -414,10 +415,10 @@ inserted in the buffer (if it is not read-only)."
                       (powerline-buffer-id nil 'l)
                       (powerline-raw " " nil)
                       ;; major mode
-                      (funcall separator-left nil face1)
+                      (funcall separator-left line-face face1)
                       (powerline-major-mode face1 'l)
                       (powerline-raw " " face1)
-                      (funcall separator-right face1 nil))
+                      (funcall separator-right face1 line-face))
                       ;; flycheck
                       (if flycheckp
                           (list
@@ -431,9 +432,9 @@ inserted in the buffer (if it is not read-only)."
                       ;; separator between flycheck and minor modes
                       (if (and flycheckp spacemacs-mode-line-minor-modesp)
                           (list
-                           (funcall separator-left nil face1)
+                           (funcall separator-left line-face face1)
                            (powerline-raw "  " face1)
-                           (funcall separator-right face1 nil)))
+                           (funcall separator-right face1 line-face)))
                       ;; minor modes
                       (if spacemacs-mode-line-minor-modesp
                           (list
@@ -442,7 +443,7 @@ inserted in the buffer (if it is not read-only)."
                            (powerline-raw " " nil)))
                       ;; version control
                       (if (or flycheckp spacemacs-mode-line-minor-modesp)
-                          (list (funcall separator-left (if vc-face nil face1) vc-face)))
+                          (list (funcall separator-left (if vc-face line-face face1) vc-face)))
                       (list
                        (powerline-vc vc-face)
                        (powerline-raw " " vc-face)
@@ -451,10 +452,10 @@ inserted in the buffer (if it is not read-only)."
                        (funcall separator-right face2 face1)
                        (powerline-raw " " face1)
                        (powerline-raw "%l:%2c" face1 'r)
-                       (funcall separator-left face1 nil)
+                       (funcall separator-left face1 line-face)
                        (powerline-raw " " nil)
                        (powerline-raw "%p" nil 'r)
-                       (powerline-chamfer-left nil face1)
+                       (powerline-chamfer-left line-face face1)
                        ;; display hud only if necessary
                        (let ((progress (format-mode-line "%p")))
                          (if (string-match "\%" progress)
