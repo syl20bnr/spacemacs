@@ -23,6 +23,10 @@ keys:
 :dir        the absolute path to the base directory of the layer.
 :ext-dir    the absolute path to the directory containing the extensions.
 ")
+(defvar spacemacs-config-disabled-packages '()
+  "A list of packages that are disabled and will not be loaded.
+Users can set this in their .spacemacs file in the event they don't want one of
+the default packages.'")
 (defvar spacemacs-all-packages #s(hash-table size 200 data ())
   "Hash table of all declared packages in all layers where the key is a package
 symbol and the value is the layer symbol where to initialize the package. ")
@@ -88,7 +92,8 @@ extension.
         (unless (not (file-exists-p pkg-file))
           (load pkg-file)
           (dolist (pkg (eval (intern (format "%s-packages" (symbol-name sym)))))
-            (puthash pkg sym spacemacs-all-packages)))
+            (unless (member pkg spacemacs-config-disabled-packages)
+              (puthash pkg sym spacemacs-all-packages))))
         ;; extensions
         (unless (not (file-exists-p ext-file))
           (load ext-file)
