@@ -105,7 +105,7 @@ architecture to contribute changes and hack others contributions.
 Its status is `beta` for now, essentially because of the contribution system
 that is not yet finished but already usable.
 
-And now, to use a well know catch line from [Emacs Live][emacs_live]:
+And now, to use a well known catch line from [Emacs Live][emacs_live]:
 
     M-x start-spacing !
 
@@ -155,7 +155,7 @@ induced by the default Emacs key bindings.
 Emacs users wanting to learn **a different way to edit files** or wanting to
 learn Vim key bindings (see [Tips for Emacs users](#tips-for-emacs-users)).
 
-As a note side, if you are a programmer and you don't know Vim key bindings
+As a side note, if you are a programmer and you don't know Vim key bindings
 yet, I deeply recommend you to learn the basics as recommended in
 [Sacha Chua's one-page guide][sacha_guide] about how to learn Emacs.
 
@@ -189,7 +189,7 @@ by opening the `*Warning*` buffer:
 
 _('C-x b' means 'Ctrl + b' and 'RET' means 'return')_
 
-Then you can copy/paste the error in a Github issue, thank you.
+Then you can copy/paste the error in a [Github issue][issues], thank you.
 
 ## Configuration layers
 
@@ -1347,3 +1347,4 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
 [ido-vertical-mode]: https://github.com/gempesaw/ido-vertical-mode.el
 [emacs_live]: https://github.com/overtone/emacs-live
+[issues]: https://github.com/syl20bnr/spacemacs/issues
