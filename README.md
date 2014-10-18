@@ -7,6 +7,8 @@
 
     git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
 
+_Jump to [Install](#install) for more info_
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
@@ -17,6 +19,7 @@
     - [Who can benefit from this ?](#who-can-benefit-from-this-)
     - [Prerequisites](#prerequisites)
     - [Install](#install)
+        - [Troubleshoot](#troubleshoot)
     - [Configuration layers](#configuration-layers)
         - [Structure](#structure)
         - [Extensions and Packages initialization](#extensions-and-packages-initialization)
@@ -166,12 +169,27 @@ be provided in this read me. _Stay tuned._
 
 ## Install
 
-Backup your current `.emacs.d`, clone the repo _with the submodules_ and
-you are good to go:
+1) Backup your current `.emacs.d` and clone the repo _with the submodules_:
 
     cd ~
     mv .emacs.d .emacs.bak
     git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
+
+2) Launch Emacs, the first time a bunch of packages will be downloaded and
+installed. When the package installation is complete restart Emacs and
+`Spacemacs` should be ready to use.
+
+### Troubleshoot
+
+If during the first boot of Emacs nothing seems to happen or if the
+installation seems to abort prematurely, you can check for an error message
+by opening the `*Warning*` buffer:
+
+    C-x b warning RET
+
+_('C-x b' means 'Ctrl + b' and 'RET' means 'return')_
+
+Then you can copy/paste the error in a Github issue, thank you.
 
 ## Configuration layers
 
