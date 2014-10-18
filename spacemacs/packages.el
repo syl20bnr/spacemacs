@@ -300,7 +300,7 @@ inserted in the buffer (if it is not read-only)."
         (progn
           ;; Unset shortcuts which shadow evil leader
           (eval-after-load "compile"
-            '(progn 
+            '(progn
               (define-key compilation-mode-map (kbd "SPC") nil)
               (define-key compilation-mode-map (kbd "h") nil)))
           (eval-after-load "dired"
@@ -311,7 +311,7 @@ inserted in the buffer (if it is not read-only)."
           (define-key evil-emacs-state-map  (kbd "SPC") evil-leader--default-map)))
       ;; load surround
       (use-package evil-surround
-        :init (global-evil-surround-mode 1)) 
+        :init (global-evil-surround-mode 1))
       ;; load evil-exchange
       (use-package evil-exchange
         :init (evil-exchange-install))
@@ -380,7 +380,8 @@ inserted in the buffer (if it is not read-only)."
             (setq spacemacs-mode-line-flycheckp nil)
           (setq spacemacs-mode-line-flycheckp t)))
       (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
-
+      (setq-default powerline-height 17)
+      (setq-default powerline-default-separator 'wave)
       (setq-default mode-line-format '("%e" (:eval
           (let* ((active (eq (frame-selected-window) (selected-window)))
                  (face1 (if active 'powerline-active1 'powerline-inactive1))
@@ -393,24 +394,30 @@ inserted in the buffer (if it is not read-only)."
                                      (eq 'running flycheck-last-status-change))))
                  (vc-face (if (or flycheckp spacemacs-mode-line-minor-modesp)
                                face1 nil))
+                 (separator-left (intern (format "powerline-%s-%s"
+                                                 powerline-default-separator
+                                                 (car powerline-default-separator-dir))))
+                 (separator-right (intern (format "powerline-%s-%s"
+                                                  powerline-default-separator
+                                                  (cdr powerline-default-separator-dir))))
                  (lhs (append (list
                       ;; window number
-                      ;; (powerline-wave-left state-face face1)
+                      ;; (funcall separator-left state-face face1)
                       (powerline-raw (spacemacs/window-number) state-face)
-                      (powerline-wave-right state-face nil)
+                      (funcall separator-right state-face nil)
                       ;; evil state
                       ;; (powerline-raw evil-mode-line-tag state-face)
-                      ;; (powerline-wave-right state-face nil)
+                      ;; (funcall separator-right state-face nil)
                       ;; buffer name
                       (powerline-raw "%*" nil 'l)
                       (powerline-buffer-size nil 'l)
                       (powerline-buffer-id nil 'l)
                       (powerline-raw " " nil)
                       ;; major mode
-                      (powerline-wave-left nil face1)
+                      (funcall separator-left nil face1)
                       (powerline-major-mode face1 'l)
                       (powerline-raw " " face1)
-                      (powerline-wave-right face1 nil))
+                      (funcall separator-right face1 nil))
                       ;; flycheck
                       (if flycheckp
                           (list
@@ -424,9 +431,9 @@ inserted in the buffer (if it is not read-only)."
                       ;; separator between flycheck and minor modes
                       (if (and flycheckp spacemacs-mode-line-minor-modesp)
                           (list
-                           (powerline-wave-left nil face1)
+                           (funcall separator-left nil face1)
                            (powerline-raw "  " face1)
-                           (powerline-wave-right face1 nil)))
+                           (funcall separator-right face1 nil)))
                       ;; minor modes
                       (if spacemacs-mode-line-minor-modesp
                           (list
@@ -435,16 +442,16 @@ inserted in the buffer (if it is not read-only)."
                            (powerline-raw " " nil)))
                       ;; version control
                       (if (or flycheckp spacemacs-mode-line-minor-modesp)
-                          (list (powerline-wave-left (if vc-face nil face1) vc-face)))
-                      (list 
+                          (list (funcall separator-left (if vc-face nil face1) vc-face)))
+                      (list
                        (powerline-vc vc-face)
                        (powerline-raw " " vc-face)
-                       (powerline-wave-right vc-face face2))))
+                       (funcall separator-right vc-face face2))))
                  (rhs (list
-                       (powerline-wave-right face2 face1)
+                       (funcall separator-right face2 face1)
                        (powerline-raw " " face1)
                        (powerline-raw "%l:%2c" face1 'r)
-                       (powerline-wave-left face1 nil)
+                       (funcall separator-left face1 nil)
                        (powerline-raw " " nil)
                        (powerline-raw "%p" nil 'r)
                        (powerline-chamfer-left nil face1)
@@ -473,12 +480,12 @@ inserted in the buffer (if it is not read-only)."
   (use-package ace-jump-mode
     :defer t
     :init
-    (progn 
+    (progn
       (add-hook 'ace-jump-mode-end-hook 'golden-ratio)
       (evil-leader/set-key "SPC" 'evil-ace-jump-char-mode)
       (evil-leader/set-key "l" 'evil-ace-jump-line-mode))
     :config
-    (progn 
+    (progn
       (setq ace-jump-mode-scope 'global)
       (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
 
@@ -486,7 +493,7 @@ inserted in the buffer (if it is not read-only)."
   (use-package auto-complete
     :commands auto-complete-mode
     :init
-    (progn 
+    (progn
       (add-to-hooks 'auto-complete-mode '(org-mode-hook
                                           prog-mode-hook
                                           erlang-mode-hook))
@@ -531,7 +538,7 @@ inserted in the buffer (if it is not read-only)."
     :disabled t
     :defer t
     :init
-    (progn 
+    (progn
       (add-hook 'flyspell-mode-hook '(lambda () (auto-dictionary-mode 1)))
       (evil-leader/set-key
         "sd" 'adict-change-dictionary))))
@@ -543,7 +550,7 @@ inserted in the buffer (if it is not read-only)."
                bookmark-rename
                bookmark-set)
     :config
-    (setq 
+    (setq
      bookmark-default-file "~/.emacs.d/bookmarks" ; keep my ~/ clean
      bookmark-save-flag 1)))                      ; autosave each change
 
@@ -664,7 +671,7 @@ inserted in the buffer (if it is not read-only)."
   ;; (require 'erlang-flymake)
   ;; (erlang-flymake-only-on-save)
 )
-  
+
 (defun spacemacs/init-ess ()
   ;; ESS is not quick to load so we just load it when
   ;; we need it (see my-keybindings.el for the associated
@@ -925,7 +932,7 @@ inserted in the buffer (if it is not read-only)."
              (progn (golden-ratio-mode -1)(balance-windows))
            (golden-ratio-mode))))
     :config
-    (progn 
+    (progn
       (setq golden-ratio-extra-commands
             (append golden-ratio-extra-commands
                     '(evil-window-left
@@ -1191,7 +1198,7 @@ inserted in the buffer (if it is not read-only)."
   (use-package ledger-mode
     :mode ("\\.ledger\\'" . ledger-mode)
     :init
-    (progn 
+    (progn
       (setq ledger-post-amount-alignment-column 62)
       (evil-leader/set-key-for-mode 'ledger-mode
         "md" 'ledger-delete-current-transaction
@@ -1283,7 +1290,7 @@ inserted in the buffer (if it is not read-only)."
   (use-package neotree
     :defer t
     :init
-    (progn 
+    (progn
       (setq neo-create-file-auto-open t
             neo-dont-be-alone t
             neo-banner-message "File Tree browser"
@@ -1611,7 +1618,7 @@ inserted in the buffer (if it is not read-only)."
 (defun spacemacs/init-volatile-highlights ()
   (use-package volatile-highlights
     :init
-    (progn 
+    (progn
       (volatile-highlights-mode t)
       (spacemacs//hide-lighter volatile-highlights-mode))))
 
