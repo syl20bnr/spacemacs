@@ -1197,7 +1197,7 @@ inserted in the buffer (if it is not read-only)."
 
 (defun spacemacs/init-ledger-mode ()
   (use-package ledger-mode
-    :mode ("\\.ledger\\'" . ledger-mode)
+    :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode)
     :init
     (progn
       (setq ledger-post-amount-alignment-column 62)
