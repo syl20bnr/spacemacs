@@ -779,8 +779,9 @@ the number of errors, warnings and info.
 ##### Powerline separators
 
 It is possible to easily customize the `powerline separator` by setting the
-`powerline-default-separator` variable in your '~./spacemacs'. For instance
-if you wan to set back the separator to the well-known `arrow` separator:
+`powerline-default-separator` variable in your `~./spacemacs`. For instance
+if you want to set back the separator to the well-known `arrow` separator
+add the following snippet to your configuration file:
 
 ```elisp
 (defun dotspacemacs/config ()
