@@ -188,7 +188,7 @@ by opening the `*Warning*` buffer:
 
     C-x b warning RET
 
-_('C-x b' means 'Ctrl + b' and 'RET' means 'return')_
+_('C-x b' means 'Ctrl + x then b' and 'RET' means 'return')_
 
 Then you can copy/paste the error in a [Github issue][issues], thank you.
 
