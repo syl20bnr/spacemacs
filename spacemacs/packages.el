@@ -1563,7 +1563,10 @@ inserted in the buffer (if it is not read-only)."
       (add-to-hooks 'smartparens-mode '(erlang-mode-hook
                                         markdown-mode-hook
                                         prog-mode-hook))
-      (spacemacs//diminish smartparens-mode " (Ⓢ)"))))
+      (spacemacs//diminish smartparens-mode " (Ⓢ)"))
+    :config
+    (progn
+      (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil))))
 
 (defun spacemacs/init-smeargle ()
   (use-package smeargle
