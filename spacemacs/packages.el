@@ -5,6 +5,7 @@
     auto-complete
     auto-complete-clang
     auto-dictionary
+    auto-highlight-symbol
     bookmark
     buffer-move
     cc-mode
@@ -543,6 +544,81 @@ inserted in the buffer (if it is not read-only)."
       (add-hook 'flyspell-mode-hook '(lambda () (auto-dictionary-mode 1)))
       (evil-leader/set-key
         "sd" 'adict-change-dictionary))))
+
+(defun spacemacs/init-auto-highlight-symbol ()
+  (use-package auto-highlight-symbol
+    :commands auto-highlight-symbol-mode
+    :init
+    (add-to-hooks 'auto-highlight-symbol-mode '(erlang-mode-hook
+                                                prog-mode-hook
+                                                org-mode-hook
+                                                markdown-mode-hook))
+    :config
+    (progn
+      (custom-set-variables
+       '(ahs-case-fold-search nil)
+       '(ahs-default-range (quote ahs-range-whole-buffer))
+       '(ahs-idle-interval 0.25))
+      (eval-after-load "evil-leader"
+        '(evil-leader/set-key
+           "hC"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
+           "hcb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
+           "hcd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
+           "hcf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
+           "he"  'ahs-edit-mode
+           "hh"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
+           "hn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
+           "hN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
+           "th" 'auto-highlight-symbol-mode))
+      (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ")
+      ;; micro-state to easily jump from a highlighted symbol to the others
+      (dolist (sym '(ahs-forward
+                     ahs-forward-definition
+                     ahs-backward
+                     ahs-backward-definition
+                     ahs-back-to-start
+                     ahs-change-range))
+        (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
+          (eval `(defadvice ,sym (after ,advice activate)
+                   (ahs-highlight-now)
+                   (spacemacs/auto-highlight-symbol-overlay-map)))))
+      (defun spacemacs/auto-highlight-symbol-overlay-map ()
+        "Set a temporary overlay map to easily jump from highlighted symbols to
+ the nexts."
+        (interactive)
+        (set-temporary-overlay-map
+         (let ((map (make-sparse-keymap)))
+           (define-key map (kbd "c") (lambda () (interactive)
+                                       (eval '(ahs-change-range) nil)))
+           (define-key map (kbd "d") 'ahs-forward-definition)
+           (define-key map (kbd "D") 'ahs-backward-definition)
+           (define-key map (kbd "e") 'ahs-edit-mode)
+           (define-key map (kbd "n") 'ahs-forward)
+           (define-key map (kbd "N") 'ahs-backward)
+           (define-key map (kbd "h") 'ahs-back-to-start) 
+           map) nil)
+        (let* ((i 0)
+               (overlay-count (length ahs-overlay-list))
+               (overlay (format "%s" (nth i ahs-overlay-list)))
+               (current-overlay (format "%s" ahs-current-overlay))
+               (st (ahs-stat))
+               (plighter (ahs-current-plugin-prop 'lighter))
+               (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
+                                            ((string= plighter "HSA") "B")
+                                            ((string= plighter "HSD") "F"))))
+               (propplugin (propertize plugin 'face `(
+                    :foreground "#ffffff"
+                    :background ,(face-attribute
+                                  'ahs-plugin-defalt-face :foreground)))))
+          (while (not (string= overlay current-overlay))
+            (setq i (1+ i))
+            (setq overlay (format "%s" (nth i ahs-overlay-list))))
+          (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
+                 (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
+                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
+                 (prophidden (propertize hidden 'face '(:weight bold))))
+            (message "%s %s%s press (n) or (N) to navigate, (h) for home symbol, (c) to change scope"
+                     propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
   (use-package bookmark
