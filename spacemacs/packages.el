@@ -15,7 +15,7 @@
     dash
     diminish
     dired+
-;    edts
+    edts
     elisp-slime-nav
     elixir-mix
     elixir-mode
