@@ -381,7 +381,11 @@ inserted in the buffer (if it is not read-only)."
             (setq spacemacs-mode-line-flycheckp nil)
           (setq spacemacs-mode-line-flycheckp t)))
       (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
-      (setq-default powerline-height 17)
+      ;; for now we hardcode the height value of powerline depending on the
+      ;; window system, a better solution would be to compute it correctly
+      ;; in powerline package.
+      (let ((height (if (eq 'w32 window-system) 18 17)))
+        (setq-default powerline-height height))
       (setq-default powerline-default-separator 'wave)
       (setq-default mode-line-format '("%e" (:eval
           (let* ((active (eq (frame-selected-window) (selected-window)))
