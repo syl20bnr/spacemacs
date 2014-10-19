@@ -775,6 +775,41 @@ the number of errors, warnings and info.
 
 ![flycheck-mode-line](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/flycheck-mode-line.png)
 
+##### Powerline separators
+
+It is possible to easily customize the `powerline separator` by setting the
+`powerline-default-separator` variable in your '~./spacemacs'. For instance
+if you wan to set back the separator to the well-known `arrow` separator:
+
+```elisp
+(defun dotspacemacs/config ()
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
+  (setq powerline-default-separator 'arrow)
+```
+
+To save you the time to try all the possible separators provided by the
+powerline, here is an exhaustive set of screenshots:
+
+    Separator     |                 Screenshot
+------------------|------------------------------------------------------------
+`alternate`       | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-alternate.png)
+`arrow`           | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-arrow.png)
+`arrow-fade`      | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-arrow-fade.png)
+`bar`             | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-bar.png)
+`box`             | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-box.png)
+`brace`           | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-brace.png)
+`butt`            | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-butt.png)
+`chamfer`         | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-chamfer.png)
+`contour`         | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-contour.png)
+`curve`           | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-curve.png)
+`rounded`         | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-rounded.png)
+`roundstub`       | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-roundstub.png)
+`slant`           | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-slant.png)
+`wave`            | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-wave.png)
+`zigzag`          | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-zigzag.png)
+`nil`             | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-nil.png)
+
 #### Toggles
 
 Some UI indicators can be toggled on and off (toggles start with `t`):
