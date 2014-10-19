@@ -56,6 +56,7 @@ _Jump to [Install](#install) for more info_
         - [UI elements](#ui-elements)
             - [Mode-line](#mode-line)
                 - [Flycheck integration](#flycheck-integration)
+                - [Powerline separators](#powerline-separators)
             - [Toggles](#toggles)
         - [Minor Modes](#minor-modes)
         - [Line formatting](#line-formatting)
@@ -773,7 +774,7 @@ Some elements can be dynamically toggled:
 When [Flycheck][flycheck] minor mode is enabled, a new element appears showing
 the number of errors, warnings and info.
 
-![flycheck-mode-line](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/flycheck-mode-line.png)
+![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-wave.png)
 
 ##### Powerline separators
 
@@ -794,21 +795,21 @@ powerline, here is an exhaustive set of screenshots:
     Separator     |                 Screenshot
 ------------------|------------------------------------------------------------
 `alternate`       | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-alternate.png)
-`arrow`           | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-arrow.png)
-`arrow-fade`      | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-arrow-fade.png)
-`bar`             | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-bar.png)
-`box`             | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-box.png)
-`brace`           | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-brace.png)
-`butt`            | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-butt.png)
-`chamfer`         | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-chamfer.png)
-`contour`         | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-contour.png)
-`curve`           | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-curve.png)
-`rounded`         | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-rounded.png)
-`roundstub`       | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-roundstub.png)
-`slant`           | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-slant.png)
-`wave`            | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-wave.png)
-`zigzag`          | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-zigzag.png)
-`nil`             | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-nil.png)
+`arrow`           | ![powerline-arrow](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-arrow.png)
+`arrow-fade`      | ![powerline-arrow-fade](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-arrow-fade.png)
+`bar`             | ![powerline-bar](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-bar.png)
+`box`             | ![powerline-box](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-box.png)
+`brace`           | ![powerline-brace](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-brace.png)
+`butt`            | ![powerline-butt](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-butt.png)
+`chamfer`         | ![powerline-chamfer](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-chamfer.png)
+`contour`         | ![powerline-contour](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-contour.png)
+`curve`           | ![powerline-curve](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-curve.png)
+`rounded`         | ![powerline-rounded](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-rounded.png)
+`roundstub`       | ![powerline-roundstub](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-roundstub.png)
+`slant`           | ![powerline-slant](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-slant.png)
+`wave`            | ![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-wave.png)
+`zigzag`          | ![powerline-zigzag](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-zigzag.png)
+`nil`             | ![powerline-nil](https://raw.githubusercontent.com/syl20bnr/spacemacs/test-readme/doc/powerline-nil.png)
 
 #### Toggles
 
