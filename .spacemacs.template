@@ -13,7 +13,7 @@
 specified with an installed package."
 )
 
-(defvar dotspacemacs-excluded-packages '(rainbow-delimiters)
+(defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")
 
 ;; Functions
