@@ -195,6 +195,11 @@ _('C-x b' means 'Ctrl + x then b' and 'RET' means 'return')_
 
 Then you can copy/paste the error in a [Github issue][issues], thank you.
 
+If you have an error related to a `dotspacemacs-xxx` variable or
+`dotspacemacs/xxx` function, it is likely due to a new version of the
+`~/.spacemacs` file, please check the commit messages and look at the
+current `.spacemacs.template` file.
+
 ## Configuration layers
 
 _This part of Spacemacs is still in beta, the structure can change over
