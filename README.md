@@ -23,8 +23,11 @@ _Jump to [Install](#install) for more info_
     - [Configuration layers](#configuration-layers)
         - [Structure](#structure)
         - [Extensions and Packages initialization](#extensions-and-packages-initialization)
-    - [Contributions](#contributions)
-        - [Themes Megapack example](#themes-megapack-example)
+    - [Configuration](#configuration)
+        - [Adding contributions](#adding-contributions)
+            - [Themes Megapack example](#themes-megapack-example)
+        - [Excluding packages](#excluding-packages)
+        - [Hooks](#hooks)
     - [Main principles](#main-principles)
         - [Evil](#evil)
             - [States](#states)
@@ -248,7 +251,11 @@ format in `extensions.el` or `packages.el`:
 )
 ```
 
-## Contributions
+## Configuration
+
+Some user configuration can be performed in your `~/.spacemacs` file.
+
+### Adding contributions
 
 `Spacemacs` leverages the configuration layers in order to make it possible for
 you to share your own layer with other `Spacemacs` users.
@@ -256,7 +263,7 @@ you to share your own layer with other `Spacemacs` users.
 To use a contribution layer, add it to the `dotspacemacs-configuration-layers`
 variable of your `~/.spacemacs`
 
-For instance to add the configuration layer of [RMS](#thank-you) just do:
+For instance to add the configuration layer of [RMS](#thank-you):
 ```elisp
 (defvar dotspacemacs-configuration-layers '(rms)
   "List of contribution to load."
@@ -265,14 +272,36 @@ For instance to add the configuration layer of [RMS](#thank-you) just do:
 Oh, you don't find this configuration layer ? So sad, well you can try mine:
 [syl20bnr](https://github.com/syl20bnr/spacemacs/tree/master/contrib/syl20bnr)
 
-All pull requests are welcome for all parts of `Spacemacs`.
-
-### Themes Megapack example
+#### Themes Megapack example
 
 This is a simple contribution layer listing a bunch of themes.
 
 To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
 installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
+
+### Excluding packages
+
+You can also disable packages you don't want to install with the variable
+`dotspacemacs-config-disabled-packages`, this variable can disable both packages
+and extensions.
+
+For instance to disable the `rainbow-delimiters` package:
+```elisp
+(defvar dotspacemacs-excluded-packages '(rainbow-delimiters)
+  "A list of packages and/or extensions that will not be install and loaded.")
+```
+
+Note that for now, disabled packages that have been installed are not
+uninstalled. You'll have to delete them manually from your `~/.emacs.d/elpa`
+directory.
+
+### Hooks
+
+Two special functions of the `~/.spacemacs` file can be used to perform
+configuration at the beginning and end of `Spacemacs` loading process.
+
+- `dotspacemacs/init` is triggered a the very beginning of `Spacemacs` loading.
+- `dotspacemacs/config` is triggered a the very end of `Spacemacs` loading.
 
 ## Main principles
 
