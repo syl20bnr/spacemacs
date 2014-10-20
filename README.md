@@ -286,9 +286,9 @@ installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
 
 ### Excluding packages
 
-You can also disable packages you don't want to install with the variable
-`dotspacemacs-config-disabled-packages`, this variable can disable both packages
-and extensions.
+You can also exclude packages you don't want to install with the variable
+`dotspacemacs-excluded-packages`, this variable can exclude both packages and
+extensions.
 
 For instance to disable the `rainbow-delimiters` package:
 ```elisp
@@ -296,7 +296,7 @@ For instance to disable the `rainbow-delimiters` package:
   "A list of packages and/or extensions that will not be install and loaded.")
 ```
 
-Note that for now, disabled packages that have been installed are not
+Note that for now, excluded packages that have been installed are not
 uninstalled. You'll have to delete them manually from your `~/.emacs.d/elpa`
 directory.
 
@@ -305,8 +305,9 @@ directory.
 Two special functions of the `~/.spacemacs` file can be used to perform
 configuration at the beginning and end of `Spacemacs` loading process.
 
-- `dotspacemacs/init` is triggered a the very beginning of `Spacemacs` loading.
-- `dotspacemacs/config` is triggered a the very end of `Spacemacs` loading.
+- `dotspacemacs/init` is triggered at the very beginning of `Spacemacs`
+loading.
+- `dotspacemacs/config` is triggered at the very end of `Spacemacs` loading.
 
 ## Main principles
 
