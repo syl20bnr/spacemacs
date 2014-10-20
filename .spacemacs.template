@@ -13,6 +13,9 @@
 specified with an installed package."
 )
 
+(defvar dotspacemacs-excluded-packages '(rainbow-delimiters)
+  "A list of packages and/or extensions that will not be install and loaded.")
+
 ;; Functions
 
 (defun dotspacemacs/init ()

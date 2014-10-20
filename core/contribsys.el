@@ -23,10 +23,6 @@ keys:
 :dir        the absolute path to the base directory of the layer.
 :ext-dir    the absolute path to the directory containing the extensions.
 ")
-(defvar spacemacs-config-disabled-packages '()
-  "A list of packages that are disabled and will not be loaded.
-Users can set this in their .spacemacs file in the event they don't want one of
-the default packages.'")
 (defvar spacemacs-all-packages #s(hash-table size 200 data ())
   "Hash table of all declared packages in all layers where the key is a package
 symbol and the value is the layer symbol where to initialize the package. ")
@@ -92,17 +88,19 @@ extension.
         (unless (not (file-exists-p pkg-file))
           (load pkg-file)
           (dolist (pkg (eval (intern (format "%s-packages" (symbol-name sym)))))
-            (unless (member pkg spacemacs-config-disabled-packages)
+            (unless (member pkg dotspacemacs-excluded-packages)
               (puthash pkg sym spacemacs-all-packages))))
         ;; extensions
         (unless (not (file-exists-p ext-file))
           (load ext-file)
           (dolist (pkg (eval (intern (format "%s-pre-extensions"
                                              (symbol-name sym)))))
-            (puthash pkg sym spacemacs-all-pre-extensions))
+            (unless (member pkg dotspacemacs-excluded-packages)
+              (puthash pkg sym spacemacs-all-pre-extensions)))
           (dolist (pkg (eval (intern (format "%s-post-extensions"
                                              (symbol-name sym)))))
-            (puthash pkg sym spacemacs-all-post-extensions))))))
+            (unless (member pkg dotspacemacs-excluded-packages)
+              (puthash pkg sym spacemacs-all-post-extensions)))))))
   ;; number of chuncks for the loading screen
   (let ((total (+ (ht-size spacemacs-all-packages)
                   (ht-size spacemacs-all-pre-extensions)
