@@ -1277,7 +1277,7 @@ inserted in the buffer (if it is not read-only)."
 
 (defun spacemacs/init-ledger-mode ()
   (use-package ledger-mode
-    :mode ("\\.ledger\\'" . ledger-mode)
+    :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode)
     :init
     (progn
       (setq ledger-post-amount-alignment-column 62)
@@ -1376,14 +1376,7 @@ inserted in the buffer (if it is not read-only)."
             neo-dont-be-alone t
             neo-banner-message "File Tree browser"
             neo-smart-open t))
-      (evil-leader/set-key "ft" 'neotree-toggle)
-      (defadvice neotree-toggle (around spacemacs/neotree-toggle activate)
-        (let ((neotree-visible t)
-              (golden-ratio-enabled (symbol-value golden-ratio-mode)))
-          (if (and neotree-visible golden-ratio-enabled)
-              (message "pre-processing"))
-          (ad-do-it)
-          (message "post-processing")))))
+      (evil-leader/set-key "ft" 'neotree-toggle)))
 
 (defun spacemacs/init-org ()
   (use-package org
@@ -1650,7 +1643,10 @@ inserted in the buffer (if it is not read-only)."
       (add-to-hooks 'smartparens-mode '(erlang-mode-hook
                                         markdown-mode-hook
                                         prog-mode-hook))
-      (spacemacs//diminish smartparens-mode " (Ⓢ)"))))
+      (spacemacs//diminish smartparens-mode " (Ⓢ)"))
+    :config
+    (progn
+      (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil))))
 
 (defun spacemacs/init-smeargle ()
   (use-package smeargle

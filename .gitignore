@@ -29,3 +29,4 @@ bookmarks
 .DS_Store
 tmp/
 /history
+.python-environments/
