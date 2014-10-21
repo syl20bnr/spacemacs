@@ -116,6 +116,7 @@
     wand
     web-mode
     wdired
+    window-numbering
     yasnippet
     zenburn-theme
     )
@@ -1264,12 +1265,16 @@ inserted in the buffer (if it is not read-only)."
     (progn
       (add-hook 'js-mode-hook 'js2-minor-mode)
       (add-hook 'js2-mode-hook 'ac-js2-mode)
+      ;; the following manually installed packages are a hack because of unhealthy
+      ;; dependencies between js2-mode, ac-js2, skewer-mode etc...
       (use-package ac-js2
         :ensure ac-js2
         :defer t)
+      (puthash 'ac-js2 'spacemacs spacemacs-all-packages)
       (use-package js2-refactor
         :ensure js2-refactor
-        :defer t))))
+        :defer t)
+      (puthash 'js2-refactor 'spacemacs spacemacs-all-packages))))
 
 (defun spacemacs/init-json-mode ()
   (use-package json-mode
