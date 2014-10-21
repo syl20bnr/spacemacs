@@ -171,6 +171,12 @@ the major OSes where this version can be installed.
 Some packages require external tools to work, a list of all dependencies will
 be provided in this read me. _Stay tuned._
 
+Note for Emacs 24.4: There are a lot of glitches to be corrected like:
+- minibuffer takes more place
+- subword displays a crappy lighter `,`
+- mode-line colors from 'solarized' are not accurate in the inactive buffers
+- etc...
+
 ## Install
 
 1) Backup your current `.emacs.d` and clone the repo _with the submodules_:
