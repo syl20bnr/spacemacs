@@ -250,21 +250,23 @@ orphan dependencies."
          (orphans (contribsys/get-orphan-packages implicit-packages
                                                   dependencies))
          (orphans-count (length orphans)))
-    (unless (not orphans)
-      ;; for the loading dot bar
-      (spacemacs/append-to-buffer "OK!\n")
-      (spacemacs/append-to-buffer
-       (format "Found %s orphan package(s) to delete...\n"
-               orphans-count))
-      (setq deleted-count 0)
-      (dolist (orphan orphans)
-        (setq deleted-count (1+ deleted-count))
-        (spacemacs/replace-last-line-of-buffer
-         (format "--> deleting %s... [%s/%s]"
-                 orphan
-                 deleted-count
-                 orphans-count) t)
-        (package-delete (symbol-name orphan)
-                        (contribsys/get-package-version orphan))
-        (redisplay))
-      (spacemacs/append-to-buffer "\n"))))
+    (if orphans
+        (progn
+          ;; for the loading dot bar
+          (spacemacs/append-to-buffer "OK!\n")
+          (spacemacs/append-to-buffer
+           (format "Found %s orphan package(s) to delete...\n"
+                   orphans-count))
+          (setq deleted-count 0)
+          (dolist (orphan orphans)
+            (setq deleted-count (1+ deleted-count))
+            (spacemacs/replace-last-line-of-buffer
+             (format "--> deleting %s... [%s/%s]"
+                     orphan
+                     deleted-count
+                     orphans-count) t)
+            (package-delete (symbol-name orphan)
+                            (contribsys/get-package-version orphan))
+            (redisplay))
+          (spacemacs/append-to-buffer "\n"))
+      (message "No orphan package to delete."))))
