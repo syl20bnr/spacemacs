@@ -25,15 +25,15 @@ keys:
 ")
 (defvar spacemacs-all-packages #s(hash-table size 200 data ())
   "Hash table of all declared packages in all layers where the key is a package
-symbol and the value is the layer symbol where to initialize the package. ")
+symbol and the value is the layer symbol where to initialize the package.")
 (defvar spacemacs-all-pre-extensions #s(hash-table size 64 data ())
   "Hash table of all declared pre-extensions in all layers where the key is a
 extension symbol and the value is the layer symbol where to load and
-initialize the extension. ")
+initialize the extension.")
 (defvar spacemacs-all-post-extensions #s(hash-table size 64 data ())
   "Hash table of all declared post-extensions in all layers where the key is a
 extension symbol and the value is the layer symbol where to load and
-initialize the extension. ")
+initialize the extension.")
 
 (defun contribsys/declare-layer (sym &optional contrib)
   "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer
@@ -186,3 +186,85 @@ dotspacemacs-configuration-layers defined in ~/.spacemacs."
   "Return the value of the PROPerty for the given SYMLAYER symbol."
   (let* ((layer (assq symlayer spacemacs-config-layers)))
          (plist-get (cdr layer) prop)))
+
+(defun contribsys/get-package-dependencies ()
+  "Returns a hash map where key is a dependency package symbol and value is
+a list of all packages which depend on it."
+  (let ((result #s(hash-table size 200 data ())))
+    (dolist (pkg package-alist)
+      (let* ((pkg-sym (car pkg))
+             (pkg-info (cdr pkg))
+             (deps (elt pkg-info 1)))
+        (dolist (dep deps)
+          (let* ((dep-sym (car dep))
+                 (value (ht-get result dep-sym)))
+            (puthash dep-sym
+                     (if value (add-to-list 'value pkg-sym) (list pkg-sym))
+                     result)))))
+    result))
+
+(defun contribsys/get-implicit-packages ()
+  "Returns a list of all packages in `packages-alist' which are not found
+in `spacemacs-all-packages'"
+  (let ((imp-pkgs))
+    (dolist (pkg package-alist)
+      (let ((pkg-sym (car pkg)))
+        (if (not (ht-contains? spacemacs-all-packages pkg-sym))
+            (add-to-list 'imp-pkgs pkg-sym))))
+    imp-pkgs))
+
+(defun contribsys/get-orphan-packages (implicit-pkgs dependencies)
+  "Return a list of all orphan packages which are basically meant to be
+deleted safely. Orphan packages are packages whose all dependent packages
+are not in `spacemacs-all-packages' (explicit packages)"
+  (let ((result '()))
+    (dolist (imp-pkg implicit-pkgs)
+      (setq result (append result (contribsys//get-orphan-packages2
+                                   imp-pkg dependencies '()))))
+    (delete-dups result)))
+
+(defun contribsys//get-orphan-packages2 (imp-pkg dependencies acc)
+  "Reccursive function to get the orphans packages as well as their
+orphan dependencies."
+  (if (ht-contains? dependencies imp-pkg)
+      (dolist (parent (ht-get dependencies imp-pkg))
+        (let ((orphans (contribsys//get-orphan-packages2
+                        parent dependencies acc)))
+          (unless (not orphans)
+            (add-to-list 'acc imp-pkg)
+            (if acc (setq acc (append acc orphans))
+              (setq acc orphans)))))
+    (unless (ht-contains? spacemacs-all-packages imp-pkg)
+      (if acc (add-to-list 'acc imp-pkg) (setq acc (list imp-pkg)))))
+  acc)
+
+(defun contribsys/get-package-version (package)
+  "Return the version string for PACKAGE."
+  (package-version-join (aref (cdr (assq package package-alist)) 0)))
+
+(defun contribsys/delete-orphan-packages ()
+  "Delete all the orphan packages."
+  (interactive)
+  (let* ((dependencies (contribsys/get-package-dependencies))
+         (implicit-packages (contribsys/get-implicit-packages))
+         (orphans (contribsys/get-orphan-packages implicit-packages
+                                                  dependencies))
+         (orphans-count (length orphans)))
+    (unless (not orphans)
+      ;; for the loading dot bar
+      (spacemacs/append-to-buffer "OK!\n")
+      (spacemacs/append-to-buffer
+       (format "Found %s orphan package(s) to delete...\n"
+               orphans-count))
+      (setq deleted-count 0)
+      (dolist (orphan orphans)
+        (setq deleted-count (1+ deleted-count))
+        (spacemacs/replace-last-line-of-buffer
+         (format "--> deleting %s... [%s/%s]"
+                 orphan
+                 deleted-count
+                 orphans-count) t)
+        (package-delete (symbol-name orphan)
+                        (contribsys/get-package-version orphan))
+        (redisplay))
+      (spacemacs/append-to-buffer "\n"))))

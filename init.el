@@ -33,6 +33,7 @@
   (contribsys/declare-layer 'spacemacs)
   (contribsys/declare-configuration-layers)
   (contribsys/load-layers)
+  (contribsys/delete-orphan-packages)
   ;; Ultimate configuration decisions are given to the user who can defined
   ;; them in his/her ~/.spacemacs file
   (dotspacemacs/config))

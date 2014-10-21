@@ -22,7 +22,8 @@ _Jump to [Install](#install) for more info_
         - [Troubleshoot](#troubleshoot)
     - [Configuration layers](#configuration-layers)
         - [Structure](#structure)
-        - [Extensions and Packages initialization](#extensions-and-packages-initialization)
+        - [Extensions and Packages declaration and initialization](#extensions-and-packages-declaration-and-initialization)
+        - [Packages synchronization (Vundle like feature)](#packages-synchronization-vundle-like-feature)
     - [Configuration](#configuration)
         - [Adding contributions](#adding-contributions)
             - [Themes Megapack example](#themes-megapack-example)
@@ -243,9 +244,9 @@ packages.el       | The list of packages to install and the functions to initial
 `Packages` are `ELPA` packages which can be installed from an `ELPA` compliant
 repository, and `Extensions` are generally elisp code from git submodules.
 
-### Extensions and Packages initialization
+### Extensions and Packages declaration and initialization
 
-`Extensions` and `Packages` are listed in variables `<layer>-pre-extensions`,
+`Extensions` and `Packages` are declared in variables `<layer>-pre-extensions`,
 `<layer>-post-extensions` and `<layer>-packages` where `<layer>` is the layer
 name. `Pre-Extensions` are loaded before `Packages` and `Post-Extensions` are
 loaded after `Packages`.
@@ -261,6 +262,14 @@ format in `extensions.el` or `packages.el`:
    ...body
 )
 ```
+
+### Packages synchronization (Vundle like feature)
+
+`Spacemacs` features a synchronization engine for the ELPA packages. It means
+that `Spacemacs` will auto-install the new packages in `<layer>-packages` lists
+_and_ auto-delete orphan packages in your `elpa` directory.
+
+It effectively makes `Spacemacs` to behave like [Vundle][vundle].
 
 ## Configuration
 
@@ -1426,3 +1435,4 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [ido-vertical-mode]: https://github.com/gempesaw/ido-vertical-mode.el
 [emacs_live]: https://github.com/overtone/emacs-live
 [issues]: https://github.com/syl20bnr/spacemacs/issues
+[vundle]: https://github.com/gmarik/Vundle.vim
