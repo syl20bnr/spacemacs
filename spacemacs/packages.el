@@ -526,7 +526,6 @@ inserted in the buffer (if it is not read-only)."
       (defun spacemacs/anzu-ephemeral-display ()
         "Show anzu status for a limited amount of time."
         (interactive)
-        (message "titi")
         (setq spacemacs-anzu-timer nil)
         (anzu--reset-mode-line))
       (defun spacemacs/anzu-evil-search (arg func)

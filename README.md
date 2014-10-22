@@ -60,6 +60,7 @@ _Jump to [Install](#install) for more info_
         - [UI elements](#ui-elements)
             - [Mode-line](#mode-line)
                 - [Flycheck integration](#flycheck-integration)
+                - [Anzu integration](#anzu-integration)
                 - [Powerline separators](#powerline-separators)
             - [Toggles](#toggles)
         - [Minor Modes](#minor-modes)
@@ -826,6 +827,14 @@ the number of errors, warnings and info.
 
 ![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-wave.png)
 
+##### Anzu integration
+
+[Anzu][anzu] shows the number of occurrence when performing a search. `Spacemacs`
+integrates nicely the Anzu status by displaying it temporarily when `n` or `N` are
+``being pressed. See the `5/6` segment on the screenshot below. 
+
+![powerline-anzu](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-anzu.png)
+
 ##### Powerline separators
 
 It is possible to easily customize the `powerline separator` by setting the
@@ -1436,3 +1445,4 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [emacs_live]: https://github.com/overtone/emacs-live
 [issues]: https://github.com/syl20bnr/spacemacs/issues
 [vundle]: https://github.com/gmarik/Vundle.vim
+[anzu]: https://github.com/syohex/emacs-anzu
