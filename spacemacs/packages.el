@@ -2,6 +2,7 @@
   '(
     ac-ispell
     ace-jump-mode
+    anzu
     auto-complete
     auto-complete-clang
     auto-dictionary
@@ -129,7 +130,6 @@ which require an initialization must be listed explicitly in the list.")
   (use-package evil
     :init
     (progn
-
       (defun spacemacs/state-color-face (state)
         "Return the symbol of the face for the given STATE."
         (intern (format "spacemacs-%s-face" (symbol-name state))))
@@ -410,21 +410,27 @@ inserted in the buffer (if it is not read-only)."
                  (lhs (append (list
                       ;; window number
                       ;; (funcall separator-left state-face face1)
-                      (powerline-raw (spacemacs/window-number) state-face)
-                      (funcall separator-right state-face line-face)
+                      (powerline-raw (spacemacs/window-number) state-face))
+                      (if anzu--state
+                          (list
+                           (funcall separator-right state-face face1)
+                           (powerline-raw (anzu--update-mode-line) face1)
+                           (funcall separator-right face1 line-face))
+                        (list (funcall separator-right state-face line-face)))
                       ;; evil state
                       ;; (powerline-raw evil-mode-line-tag state-face)
                       ;; (funcall separator-right state-face nil)
                       ;; buffer name
-                      (powerline-raw "%*" nil 'l)
-                      (powerline-buffer-size nil 'l)
-                      (powerline-buffer-id nil 'l)
-                      (powerline-raw " " nil)
-                      ;; major mode
-                      (funcall separator-left line-face face1)
-                      (powerline-major-mode face1 'l)
-                      (powerline-raw " " face1)
-                      (funcall separator-right face1 line-face))
+                      (list
+                       (powerline-raw "%*" nil 'l)
+                       (powerline-buffer-size nil 'l)
+                       (powerline-buffer-id nil 'l)
+                       (powerline-raw " " nil)
+                       ;; major mode
+                       (funcall separator-left line-face face1)
+                       (powerline-major-mode face1 'l)
+                       (powerline-raw " " face1)
+                       (funcall separator-right face1 line-face))
                       ;; flycheck
                       (if flycheckp
                           (list
@@ -495,6 +501,62 @@ inserted in the buffer (if it is not read-only)."
     (progn
       (setq ace-jump-mode-scope 'global)
       (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
+
+(defun spacemacs/init-anzu ()
+  (use-package anzu
+    :init
+    (global-anzu-mode t)
+    :config
+    (progn
+      (spacemacs//hide-lighter anzu-mode)
+
+      (defun spacemacs/anzu-update-mode-line (here total)
+        "Custom update function which does not propertize the status."
+        (when anzu--state
+          (let ((status (cl-case anzu--state
+                          (search (format "(%s/%d%s)"
+                                          (anzu--format-here-position here total)
+                                          total (if anzu--overflow-p "+" "")))
+                          (replace-query (format "(%d replace)" total))
+                          (replace (format "(%d/%d)" here total)))))
+            status)))
+
+      (defvar spacemacs-anzu-timer nil
+        "The current timer for ephemeral anzu display.")
+      (defun spacemacs/anzu-ephemeral-display ()
+        "Show anzu status for a limited amount of time."
+        (interactive)
+        (message "titi")
+        (setq spacemacs-anzu-timer nil)
+        (anzu--reset-mode-line))
+      (defun spacemacs/anzu-evil-search (arg func)
+        "Show anzu status when pressing `n` or `N`"
+        (anzu--cons-mode-line-search)
+        (funcall func arg)
+        (anzu--update)
+        (if spacemacs-anzu-timer (cancel-timer spacemacs-anzu-timer))
+        (setq spacemacs-anzu-timer
+              (run-at-time "2 sec" nil 'spacemacs/anzu-ephemeral-display)))
+      (defun spacemacs/anzu-evil-search-next (arg)
+        "Show anzu status when executing evil-search-next"
+        (interactive "P")
+        (spacemacs/anzu-evil-search arg 'evil-search-next))
+      (defun spacemacs/anzu-evil-search-previous (arg)
+        "Show anzu status when executing evil-search-previous"
+        (interactive "P")
+        (spacemacs/anzu-evil-search arg 'evil-search-previous))
+      (define-key evil-normal-state-map "n" 'spacemacs/anzu-evil-search-next)
+      (define-key evil-normal-state-map "N" 'spacemacs/anzu-evil-search-previous)
+      (define-key evil-motion-state-map "n" 'spacemacs/anzu-evil-search-next)
+      (define-key evil-motion-state-map "N" 'spacemacs/anzu-evil-search-previous)
+      (eval-after-load 'evil-lisp-state
+        '(progn
+           (define-key evil-lisp-state-map "n" 'spacemacs/anzu-evil-search-next)
+           (define-key evil-lisp-state-map "N" 'spacemacs/anzu-evil-search-previous)))
+
+      (setq anzu-search-threshold 1000
+            anzu-cons-mode-line-p nil
+            anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line))))
 
 (defun spacemacs/init-auto-complete ()
   (use-package auto-complete
