@@ -1062,8 +1062,9 @@ inserted in the buffer (if it is not read-only)."
       (setq google-translate-default-target-language "Fr"))))
 
 (defun spacemacs/init-haskell-mode ()
+  (require 'haskell-yas)
   (use-package haskell-mode
-    :commands haskell-mode
+    :defer t
     :config
     (progn
       ;; Customization
@@ -1187,9 +1188,7 @@ inserted in the buffer (if it is not read-only)."
     :init
     (progn
       (evil-leader/set-key "hy" 'helm-c-yas-complete)
-      (setq helm-c-yas-space-match-any-greedy t))
-    :config
-    (yas-global-mode 1)))
+      (setq helm-c-yas-space-match-any-greedy t))))
 
 (defun spacemacs/init-helm-descbinds ()
   (use-package helm-descbinds
@@ -1727,13 +1726,19 @@ inserted in the buffer (if it is not read-only)."
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
+    :defer t
     :init
-    (let* ((layer (assq 'spacemacs spacemacs-config-layers))
-           (dir (plist-get (cdr layer) :dir)))
-      (setq yas-snippet-dirs (list (concat dir "snippets")))
-      (spacemacs//diminish yas-minor-mode " Ⓨ"))
+    (progn
+      (defun spacemacs/load-yasnippet ()
+        (let* ((dir (contribsys/get-layer-property 'spacemacs :dir))
+               (yas-dir (list (concat dir "snippets"))))
+          (setq yas-snippet-dirs yas-dir)
+          (yas-minor-mode)
+          (yas-reload-all)))
+      (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook erlang-mode-hook)))
     :config
-    (spacemacs//diminish yas-minor-mode " Ⓨ")))
+    (progn 
+      (spacemacs//diminish yas-minor-mode " Ⓨ"))))
 
 (defun spacemacs/init-zenburn-theme ()
   (use-package zenburn-theme
