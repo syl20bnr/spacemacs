@@ -35,7 +35,14 @@ _Jump to [Install](#install) for more info_
             - [Base States](#base-states)
         - [Evil leader](#evil-leader)
         - [Micro-states](#micro-states)
-    - [UI tweaks](#ui-tweaks)
+    - [Color theme](#color-theme)
+    - [UI elements](#ui-elements)
+        - [Toggles](#toggles)
+        - [Mode-line](#mode-line)
+            - [Flycheck integration](#flycheck-integration)
+            - [Anzu integration](#anzu-integration)
+            - [Powerline separators](#powerline-separators)
+            - [Minor Modes](#minor-modes)
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
         - [Executing Vim and Emacs commands](#executing-vim-and-emacs-commands)
@@ -56,14 +63,6 @@ _Jump to [Install](#install) for more info_
         - [Region selection](#region-selection)
         - [Region narrowing](#region-narrowing)
         - [Auto highlight and edition of symbols](#auto-highlight-and-edition-of-symbols)
-        - [Color theme](#color-theme)
-        - [UI elements](#ui-elements)
-            - [Mode-line](#mode-line)
-                - [Flycheck integration](#flycheck-integration)
-                - [Anzu integration](#anzu-integration)
-                - [Powerline separators](#powerline-separators)
-            - [Toggles](#toggles)
-        - [Minor Modes](#minor-modes)
         - [Line formatting](#line-formatting)
         - [Errors handling](#errors-handling)
         - [Project management](#project-management)
@@ -412,7 +411,21 @@ Additional information may as well be displayed in the minibuffer.
 [Text scale micro-state](#change-font-size):
 ![spacemacs_scale_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-scale-micro-state.png)
 
-## UI tweaks
+## Color theme
+
+By default, `Spacemacs` uses the theme [Solarized][solarized-theme].
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> c t`       | cycle between `Spacemacs` themes
+`<SPC> h t`       | select a theme using a `helm` buffer
+
+`Spacemacs` available themes:
+- [Solarized][solarized-theme]
+- [Monokai][monokai-theme]
+- [Zenburn][zenburn-theme]
+
+## UI elements
 
 `Spacemacs` has a minimalistic and distraction free UI with a lot of subtle
 customization which make it unique compared to other kits:
@@ -425,6 +438,123 @@ customization which make it unique compared to other kits:
  [Flycheck][flycheck]
  - [custom fringe bitmaps](#git-gutter-bitmaps) for [git gutter][git-gutter]
  - dedicated startup page with a mode aimed at easily managing `Spacemacs`
+
+### Toggles
+
+Some UI indicators can be toggled on and off (toggles start with `t`):
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> t 8`       | display a mark on the 80th column
+`<SPC> t F`       | toggle display of the fringe
+`<SPC> t n`       | show the absolute line numbers
+
+### Mode-line
+
+The mode line is an heavily customized [powerline][powerline] with the
+following capabilities:
+- show the window number
+- color code for current state
+- show the number of search occurrences via anzu
+- toggle flycheck info
+- toggle minor mode lighters
+
+Reminder of the color codes for the states:
+
+   Evil State     |       Color
+------------------|------------------
+Normal            | Orange
+Insert            | Green
+Visual            | Grey
+Emacs             | Blue
+Motion            | Purple
+Lisp              | Pink
+
+Some elements can be dynamically toggled:
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> t m m`     | toggle the minor mode lighters
+`<SPC> t m f`     | toggle the flycheck info
+
+#### Flycheck integration
+
+When [Flycheck][flycheck] minor mode is enabled, a new element appears showing
+the number of errors, warnings and info.
+
+![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-wave.png)
+
+#### Anzu integration
+
+[Anzu][anzu] shows the number of occurrence when performing a search. `Spacemacs`
+integrates nicely the Anzu status by displaying it temporarily when `n` or `N` are
+being pressed. See the `5/6` segment on the screenshot below. 
+
+![powerline-anzu](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-anzu.png)
+
+#### Powerline separators
+
+It is possible to easily customize the `powerline separator` by setting the
+`powerline-default-separator` variable in your `~./spacemacs`. For instance
+if you want to set back the separator to the well-known `arrow` separator
+add the following snippet to your configuration file:
+
+```elisp
+(defun dotspacemacs/config ()
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
+  (setq powerline-default-separator 'arrow)
+```
+
+To save you the time to try all the possible separators provided by the
+powerline, here is an exhaustive set of screenshots:
+
+    Separator     |                 Screenshot
+------------------|------------------------------------------------------------
+`alternate`       | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-alternate.png)
+`arrow`           | ![powerline-arrow](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-arrow.png)
+`arrow-fade`      | ![powerline-arrow-fade](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-arrow-fade.png)
+`bar`             | ![powerline-bar](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-bar.png)
+`box`             | ![powerline-box](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-box.png)
+`brace`           | ![powerline-brace](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-brace.png)
+`butt`            | ![powerline-butt](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-butt.png)
+`chamfer`         | ![powerline-chamfer](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-chamfer.png)
+`contour`         | ![powerline-contour](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-contour.png)
+`curve`           | ![powerline-curve](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-curve.png)
+`rounded`         | ![powerline-rounded](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-rounded.png)
+`roundstub`       | ![powerline-roundstub](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-roundstub.png)
+`slant`           | ![powerline-slant](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-slant.png)
+`wave`            | ![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-wave.png)
+`zigzag`          | ![powerline-zigzag](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-zigzag.png)
+`nil`             | ![powerline-nil](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-nil.png)
+
+#### Minor Modes
+
+`Spacemacs` uses [diminish][diminish] mode to reduce the size of minor mode
+indicators:
+
+The minor mode area can be toggled on and off with:
+
+    <SPC> t m m
+
+   Lighter   |                              Mode
+-------------|-----------------------------------------------------------------
+⊞            | [golden-ratio][golden-ratio] mode
+Ⓐ            | [auto-complete][auto-complete] mode
+Ⓗ            | [auto-highlight-symbol][auto-highlight] mode
+Ⓒ            | [centered-cursor][centered-cursor] mode
+eⓅ           | [e-project][e-project] mode
+Ⓟ            | [projectile][projectile] mode
+Ⓕ            | flycheck mode
+Ⓕ2           | flymake mode
+Ⓢ            | flyspell mode
+(Ⓢ)          | [smartparens][sp] mode
+(Ⓟ)          | paredit mode
+Ⓨ            | [yasnippet][yasnippet] mode
+
+**Note:** in terminal the regular indicators are used instead of the utf-8
+ones.
+
 
 ## Commands
 
@@ -776,137 +906,6 @@ Where `<M> [x/y]*` is:
 - y: the total number of occurrences
 - * (star): appears if there is at least one occurrence which is not currently
 visible
-
-### Color theme
-
-By default, `Spacemacs` uses the theme [Solarized][solarized-theme].
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> c t`       | cycle between `Spacemacs` themes
-`<SPC> h t`       | select a theme using a `helm` buffer
-
-`Spacemacs` available themes:
-- [Solarized][solarized-theme]
-- [Monokai][monokai-theme]
-- [Zenburn][zenburn-theme]
-
-### UI elements
-
-#### Mode-line
-
-The mode line is an heavily customized [powerline][powerline] with the
-following capabilities:
-- show the window number
-- color code for current state
-- toggle flycheck info
-- toggle minor mode lighters
-
-Reminder of the color codes for the states:
-
-   Evil State     |       Color
-------------------|------------------
-Normal            | Orange
-Insert            | Green
-Visual            | Grey
-Emacs             | Blue
-Motion            | Purple
-Lisp              | Pink
-
-Some elements can be dynamically toggled:
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> t m m`     | toggle the minor mode lighters
-`<SPC> t m f`     | toggle the flycheck info
-
-##### Flycheck integration
-
-When [Flycheck][flycheck] minor mode is enabled, a new element appears showing
-the number of errors, warnings and info.
-
-![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-wave.png)
-
-##### Anzu integration
-
-[Anzu][anzu] shows the number of occurrence when performing a search. `Spacemacs`
-integrates nicely the Anzu status by displaying it temporarily when `n` or `N` are
-``being pressed. See the `5/6` segment on the screenshot below. 
-
-![powerline-anzu](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-anzu.png)
-
-##### Powerline separators
-
-It is possible to easily customize the `powerline separator` by setting the
-`powerline-default-separator` variable in your `~./spacemacs`. For instance
-if you want to set back the separator to the well-known `arrow` separator
-add the following snippet to your configuration file:
-
-```elisp
-(defun dotspacemacs/config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
-  (setq powerline-default-separator 'arrow)
-```
-
-To save you the time to try all the possible separators provided by the
-powerline, here is an exhaustive set of screenshots:
-
-    Separator     |                 Screenshot
-------------------|------------------------------------------------------------
-`alternate`       | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-alternate.png)
-`arrow`           | ![powerline-arrow](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-arrow.png)
-`arrow-fade`      | ![powerline-arrow-fade](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-arrow-fade.png)
-`bar`             | ![powerline-bar](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-bar.png)
-`box`             | ![powerline-box](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-box.png)
-`brace`           | ![powerline-brace](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-brace.png)
-`butt`            | ![powerline-butt](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-butt.png)
-`chamfer`         | ![powerline-chamfer](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-chamfer.png)
-`contour`         | ![powerline-contour](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-contour.png)
-`curve`           | ![powerline-curve](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-curve.png)
-`rounded`         | ![powerline-rounded](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-rounded.png)
-`roundstub`       | ![powerline-roundstub](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-roundstub.png)
-`slant`           | ![powerline-slant](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-slant.png)
-`wave`            | ![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-wave.png)
-`zigzag`          | ![powerline-zigzag](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-zigzag.png)
-`nil`             | ![powerline-nil](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-nil.png)
-
-#### Toggles
-
-Some UI indicators can be toggled on and off (toggles start with `t`):
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> t 8`       | display a mark on the 80th column
-`<SPC> t F`       | toggle display of the fringe
-`<SPC> t n`       | show the absolute line numbers
-
-### Minor Modes
-
-`Spacemacs` uses [diminish][diminish] mode to reduce the size of minor mode
-indicators:
-
-The minor mode area can be toggled on and off with:
-
-    <SPC> t m m
-
-   Lighter   |                              Mode
--------------|-----------------------------------------------------------------
-⊞            | [golden-ratio][golden-ratio] mode
-Ⓐ            | [auto-complete][auto-complete] mode
-Ⓗ            | [auto-highlight-symbol][auto-highlight] mode
-Ⓒ            | [centered-cursor][centered-cursor] mode
-eⓅ           | [e-project][e-project] mode
-Ⓟ            | [projectile][projectile] mode
-Ⓕ            | flycheck mode
-Ⓕ2           | flymake mode
-Ⓢ            | flyspell mode
-(Ⓢ)          | [smartparens][sp] mode
-(Ⓟ)          | paredit mode
-Ⓨ            | [yasnippet][yasnippet] mode
-
-**Note:** in terminal the regular indicators are used instead of the utf-8
-ones.
 
 ### Line formatting
 
