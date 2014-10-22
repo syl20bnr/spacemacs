@@ -2,6 +2,10 @@
 (setq echo-keystrokes 0.02)
 ;; auto-indent on RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
+;; alternate binding to search next occurrence with isearch without
+;; exiting isearch
+(define-key isearch-mode-map (kbd "S-<return>") 'isearch-repeat-forward)
+(define-key isearch-mode-map (kbd "M-S-<return>") 'isearch-repeat-backward)
 
 ;; ---------------------------------------------------------------------------
 ;; evil-leader key bindings
