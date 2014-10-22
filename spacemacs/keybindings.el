@@ -94,8 +94,8 @@
   "reg"  'evil-show-registers)
 ;; spell check  ---------------------------------------------------------------
 (evil-leader/set-key
-  "sc" 'cofi/helm-flyspell-correct
-  "sn" 'flyspell-goto-next-error)
+  "Sc" 'cofi/helm-flyspell-correct
+  "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key
   "t8" 'toggle-fill-column-indicator

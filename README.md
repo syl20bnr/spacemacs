@@ -825,13 +825,13 @@ Any other key | leave the font scaling micro-state
 
 ### Spell checking
 
-Spell checking commands start with `s`:
+Spell checking commands start with `S`:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> s c`       | list of corrections in a `helm` buffer
-`<SPC> s d`       | change dictionary language
-`<SPC> s n`       | go to the next spell check error
+`<SPC> S c`       | list of corrections in a `helm` buffer
+`<SPC> S d`       | change dictionary language
+`<SPC> S n`       | go to the next spell check error
 
 
 ### Region selection
