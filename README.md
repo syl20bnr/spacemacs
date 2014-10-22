@@ -43,18 +43,22 @@ _Jump to [Install](#install) for more info_
             - [Anzu integration](#anzu-integration)
             - [Powerline separators](#powerline-separators)
             - [Minor Modes](#minor-modes)
+    - [Base packages](#base-packages)
+        - [Evil plugins](#evil-plugins)
+        - [Helm extensions](#helm-extensions)
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
         - [Executing Vim and Emacs commands](#executing-vim-and-emacs-commands)
         - [Key bindings help](#key-bindings-help)
-        - [Included Evil plugins](#included-evil-plugins)
-        - [About helm](#about-helm)
         - [Navigation](#navigation)
             - [Point/Cursor](#pointcursor)
             - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
             - [Buffers and Files](#buffers-and-files)
             - [Ido](#ido)
             - [Bookmarks](#bookmarks)
+            - [Symbols](#symbols)
+                - [Listing symbols by semantic](#listing-symbols-by-semantic)
+                - [Auto-highlight and edition](#auto-highlight-and-edition)
         - [Window manipulation](#window-manipulation)
             - [Golden ratio](#golden-ratio)
         - [Text manipulation commands](#text-manipulation-commands)
@@ -62,7 +66,6 @@ _Jump to [Install](#install) for more info_
         - [Spell checking](#spell-checking)
         - [Region selection](#region-selection)
         - [Region narrowing](#region-narrowing)
-        - [Auto highlight and edition of symbols](#auto-highlight-and-edition-of-symbols)
         - [Line formatting](#line-formatting)
         - [Errors handling](#errors-handling)
         - [Project management](#project-management)
@@ -557,6 +560,40 @@ eⓅ           | [e-project][e-project] mode
 **Note:** in terminal the regular indicators are used instead of the utf-8
 ones.
 
+## Base packages
+
+`Spacemacs` main mechanics rely largely on `Evil` and `Helm` base packages.
+They are both extended with various packages to build on their foundations.
+
+### Evil plugins
+
+`Spacemacs` ships with the following evil plugins:
+
+                 Mode                   |             Description
+----------------------------------------|--------------------------------------
+[evil-leader][evil-leader]              | vim leader that bring a new layer of keys in normal mode
+[evil-little-word][evil-plugin01]       | port of [camelcasemotion.vim][vim-plugin01]
+[evil-operator-comment][evil-plugin01]  | comment/uncomment with `CC`
+[evil-visualstar][evil-plugin03]        | search for current selection with `*`
+[evil-exchange][evil-plugin05]          | port of [vim-exchange][vim-plugin04]
+[evil-surround][evil-plugin04]          | port of [surround.vim][vim-plugin03]
+
+### Helm extensions
+
+`Spacemacs` tries to use [helm][helm] as much as possible.
+[helm][helm] is coupled to [popwin][popwin] so `helm` window always appears in
+a new temporary window at the bottom.
+
+The following `helm` modes are installed with `Spacemacs`:
+
+Key Binding | Mode                                    | Description
+------------|-----------------------------------------|------------------------
+`<SPC> h s` | [helm-swoop][hswoop]                    | search for occurrences within a file and edit the result
+`<SPC> h y` | [helm-c-yasnippet][hyas]                | select snippets
+`<SPC> h t` | [helm-themes][hthemes]                  | select a theme
+`<SPC> p f` | [helm-projectile][projectile]           | select files within a projectile project
+`<SPC> ?`   | [helm-descbinds][hdescbinds]            | show key bindings
+`<SPC> s c` | [cofi/helm-flyspell-correct][hflyspell] | choose a corrected word
 
 ## Commands
 
@@ -601,36 +638,6 @@ A list of all the key bindings can be accessed by pressing:
     <SPC> ?
 
 To narrow the list to `Spacemacs` specific key bindings set the pattern to `SPC`
-
-### Included Evil plugins
-
-`Spacemacs` ships with the following evil plugins:
-
-                 Mode                   |             Description
-----------------------------------------|--------------------------------------
-[evil-leader][evil-leader]              | vim leader that bring a new layer of keys in normal mode
-[evil-little-word][evil-plugin01]       | port of [camelcasemotion.vim][vim-plugin01]
-[evil-operator-comment][evil-plugin01]  | comment/uncomment with `CC`
-[evil-visualstar][evil-plugin03]        | search for current selection with `*`
-[evil-exchange][evil-plugin05]          | port of [vim-exchange][vim-plugin04]
-[evil-surround][evil-plugin04]          | port of [surround.vim][vim-plugin03]
-
-### About helm
-
-`Spacemacs` tries to use [helm][helm] as much as possible.
-[helm][helm] is coupled to [popwin][popwin] so `helm` window always appears in
-a new temporary window at the bottom.
-
-The following `helm` modes are installed with `Spacemacs`:
-
-Key Binding | Mode                                    | Description
-------------|-----------------------------------------|------------------------
-`<SPC> h s` | [helm-swoop][hswoop]                    | search for occurrences within a file and edit the result
-`<SPC> h y` | [helm-c-yasnippet][hyas]                | select snippets
-`<SPC> h t` | [helm-themes][hthemes]                  | select a theme
-`<SPC> p f` | [helm-projectile][projectile]           | select files within a projectile project
-`<SPC> ?`   | [helm-descbinds][hdescbinds]            | show key bindings
-`<SPC> s c` | [cofi/helm-flyspell-correct][hflyspell] | choose a corrected word
 
 ### Navigation
 
@@ -739,6 +746,67 @@ Key Binding   |                 Description
 `CTRL+o`      | open the selected bookmark in another window
 
 To save a new bookmark, just type the name of the bookmark and press `RET`.
+
+#### Symbols
+
+##### Listing symbols by semantic
+
+Use `helm-semantic-or-imenu` command from `Helm` to quickly navigate between
+the symbols in a buffer.
+
+To list all the symbols of a buffer press:
+
+    <SPC> s l
+
+##### Auto-highlight and edition
+
+`Spacemacs` supports auto highlighting of the current symbol (provided by the
+ [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to it
+ which makes it a very handy tool to have in your tool belt.
+
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
+`<SPC> s e`   | edit all occurrences of the current symbol
+`<SPC> t s`   | toggle the auto highlighting
+
+Navigation between the highlighted symbols can be done with the commands:
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`<SPC> s s`   | initiate navigation micro-state
+`<SPC> s n`   | go to next occurrence and initiate navigation micro-state
+`<SPC> s N`   | go to previous occurrence and initiate navigation micro-state
+`<SPC> s c b` | change range to `whole buffer`
+`<SPC> s c d` | change range to `display area`
+`<SPC> s c f` | change range to `function`
+`<SPC> s C`   | change range to default (`whole buffer`)
+
+In 'Spacemacs' highlight symbol micro-state:
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`c`           | change scope (`function`, `display area`, `whole buffer`)
+`e`           | edit occurrences
+`n`           | go to next occurrence
+`N`           | go to previous occurrence
+`d`           | go to next definition occurrence
+`D`           | go to previous definition occurrence
+`r`           | go to home occurrence (reset position to starting occurrence)
+Any other key | leave the navigation micro-state
+
+The micro-state text in minibuffer display the following information:
+
+    <M> [6/11]* press (n) or (N) to navigate, (h) for home symbol, (c) to change scope
+
+Where `<M> [x/y]*` is:
+- M: the current range mode
+  - `<B>`: whole buffer range
+  - `<D>`: current display range
+  - `<F>`: current function range
+- `x`: the index of the current highlighted occurrence
+- `y`: the total number of occurrences
+- `*`: appears if there is at least one occurrence which is not currently
+visible.
 
 ### Window manipulation
 
@@ -858,56 +926,6 @@ Key Binding   |                 Description
 `<SPC> n p`   | narrow the buffer to the visible page
 `<SPC> n r`   | narrow the buffer to the selected text
 `<SPC> n w`   | widen, i.e show the whole buffer again
-
-### Auto highlight and edition of symbols
-
-`Spacemacs` supports auto highlighting of the current word (provided by the
- [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to it
- which makes it a very handy tool to have on your tool belt.
-
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`<SPC> h e`   | edit all occurrences of the current word
-`<SPC> t h`   | toggle the auto highlighting
-
-Navigation between the highlighted symbols can be done with the commands:
-
-Key Binding   | Description
---------------|------------------------------------------------------------
-`<SPC> h h`   | initiate navigation micro-state
-`<SPC> h n`   | go to next occurrence and initiate navigation micro-state
-`<SPC> h N`   | go to previous occurrence and initiate navigation micro-state
-`<SPC> h c b` | change range to `whole buffer`
-`<SPC> h c d` | change range to `display area`
-`<SPC> h c f` | change range to `function`
-`<SPC> h C`   | change range to default (`whole buffer`)
-
-In 'Spacemacs' highlight symbol micro-state:
-
-Key Binding   | Description
---------------|------------------------------------------------------------
-`c`           | change scope (`function`, `display area`, `whole buffer`)
-`e`           | edit occurrences
-`n`           | go to next occurrence
-`N`           | go to previous occurrence
-`d`           | go to next definition occurrence
-`D`           | go to previous definition occurrence
-`h`           | go to home occurrence (go to starting occurrence)
-Any other key | leave the navigation micro-state
-
-The micro-state text in minibuffer display the following information:
-
-    <M> [6/11]* press (n) or (N) to navigate, (h) for home symbol, (c) to change scope
-
-Where `<M> [x/y]*` is:
-- M: the current range mode
-  - `<B>`: whole buffer range
-  - `<D>`: current display range
-  - `<F>`: current function range
-- x: the index of the current highlighted occurrence
-- y: the total number of occurrences
-- * (star): appears if there is at least one occurrence which is not currently
-visible
 
 ### Line formatting
 
