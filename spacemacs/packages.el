@@ -1242,6 +1242,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
       (evil-leader/set-key
         ":"   'helm-M-x
         "bs"  'helm-mini
+        "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
         "kil" 'helm-how-kill-ring)
       ;; alter helm-bookmark key bindings to be simpler
