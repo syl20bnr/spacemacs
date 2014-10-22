@@ -635,7 +635,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
     (progn
       (add-hook 'flyspell-mode-hook '(lambda () (auto-dictionary-mode 1)))
       (evil-leader/set-key
-        "sd" 'adict-change-dictionary))))
+        "Sd" 'adict-change-dictionary))))
 
 (defun spacemacs/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol
