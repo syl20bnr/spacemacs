@@ -653,15 +653,15 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
        '(ahs-idle-interval 0.25))
       (eval-after-load "evil-leader"
         '(evil-leader/set-key
-           "hC"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
-           "hcb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
-           "hcd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
-           "hcf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
-           "he"  'ahs-edit-mode
-           "hh"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
-           "hn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
-           "hN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
-           "th" 'auto-highlight-symbol-mode))
+           "sC"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
+           "scb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
+           "scd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
+           "scf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
+           "se"  'ahs-edit-mode
+           "ss"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
+           "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
+           "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
+           "ts" 'auto-highlight-symbol-mode))
       (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ")
       ;; micro-state to easily jump from a highlighted symbol to the others
       (dolist (sym '(ahs-forward
@@ -687,7 +687,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
            (define-key map (kbd "e") 'ahs-edit-mode)
            (define-key map (kbd "n") 'ahs-forward)
            (define-key map (kbd "N") 'ahs-backward)
-           (define-key map (kbd "h") 'ahs-back-to-start) 
+           (define-key map (kbd "r") 'ahs-back-to-start)
            map) nil)
         (let* ((i 0)
                (overlay-count (length ahs-overlay-list))
@@ -696,8 +696,8 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
                (st (ahs-stat))
                (plighter (ahs-current-plugin-prop 'lighter))
                (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
-                                            ((string= plighter "HSA") "B")
-                                            ((string= plighter "HSD") "F"))))
+                                              ((string= plighter "HSA") "B")
+                                              ((string= plighter "HSD") "F"))))
                (propplugin (propertize plugin 'face `(
                     :foreground "#ffffff"
                     :background ,(face-attribute
@@ -709,7 +709,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (message "%s %s%s press (n) or (N) to navigate, (h) for home symbol, (c) to change scope"
+            (message "%s %s%s press (n) or (N) to navigate, (r) for reset, (c) to change scope"
                      propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
