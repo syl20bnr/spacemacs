@@ -208,17 +208,38 @@ determine the state to enable when escaping from the insert state.")
       (defadvice evil-lisp-state (before spacemacs/evil-lisp-state activate)
         "Advice to keep track of the last base state."
         (setq spacemacs-last-base-state 'lisp))
-      (evil-define-command spacemacs/escape-state (keys shadowed insert-fkey callback)
+
+      (defun spacemacs/escape-state-default-insert-func (key)
+        "Insert KEY in current buffer if not read only."
+        (let* ((insertp (not buffer-read-only)))
+          (insert key)))
+
+      (defun spacemacs/escape-state-isearch-insert-func (key)
+        "Insert KEY in current buffer if not read only."
+        (isearch-printing-char))
+
+      (defun spacemacs/escape-state-default-delete-func ()
+        "Delete char in current buffer if not read only."
+        (let* ((insertp (not buffer-read-only)))
+          (delete-char -1)))
+
+      (evil-define-command spacemacs/escape-state
+        (keys shadowed insert? callback &optional insert-func delete-func)
         "Allows to execute the passed CALLBACK using KEYS. KEYS is a cons cell
-of 2 characters. If INSERT-FKEY is not nil then the first key pressed is
-inserted in the buffer (if it is not read-only)."
+of 2 characters. If INSERT? is not nil then the first key pressed is inserted
+ using the function INSERT-FUNC and deleted if required using DELETE-FUNC."
         :repeat change
         (let* ((modified (buffer-modified-p))
-               (insertp (and insert-fkey (not buffer-read-only)))
+               (insertf
+                (if insert-func
+                    insert-func 'spacemacs/escape-state-default-insert-func))
+               (deletef
+                (if delete-func
+                    delete-func 'spacemacs/escape-state-default-delete-func))
                (fkey (car keys))
                (fkeystr (char-to-string fkey))
                (skey (cdr keys)))
-          (if insertp (insert fkey))
+          (if insert? (funcall insertf fkey))
           (let* ((evt (read-event nil nil spacemacs-normal-state-sequence-delay)))
             (cond
              ((null evt)
@@ -227,7 +248,7 @@ inserted in the buffer (if it is not read-only)."
              ((and (integerp evt)
                    (char-equal evt skey))
               ;; remove the f character
-              (if insertp (delete-char -1))
+              (if insert? (funcall deletef))
               (set-buffer-modified-p modified)
               (funcall callback))
              (t ; otherwise
@@ -252,6 +273,11 @@ inserted in the buffer (if it is not read-only)."
                 minibuffer-local-completion-map
                 minibuffer-local-must-match-map
                 minibuffer-local-isearch-map))
+        (define-key isearch-mode-map key
+          `(lambda () (interactive)
+             (spacemacs/escape-state
+              ',seq nil t 'isearch-abort 'spacemacs/escape-state-isearch-insert-func
+                                         'isearch-delete-char)))
         (define-key evil-insert-state-map key
           `(lambda () (interactive)
              (spacemacs/escape-state
