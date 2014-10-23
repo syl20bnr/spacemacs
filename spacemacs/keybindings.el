@@ -12,7 +12,7 @@
 ;; ---------------------------------------------------------------------------
 
 ;; shell command  -------------------------------------------------------------
-(evil-leader/set-key "S" 'shell-command)
+(evil-leader/set-key "!" 'shell-command)
 ;; switch back and forth between two last buffers -----------------------------
 (evil-leader/set-key "TAB"
   (lambda ()
