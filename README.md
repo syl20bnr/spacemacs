@@ -48,7 +48,7 @@ _Jump to [Install](#install) for more info_
         - [Helm extensions](#helm-extensions)
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
-        - [Executing Vim and Emacs commands](#executing-vim-and-emacs-commands)
+        - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
         - [Key bindings help](#key-bindings-help)
         - [Navigation](#navigation)
             - [Point/Cursor](#pointcursor)
@@ -623,13 +623,13 @@ to your file:
 )
 ```
 
-### Executing Vim and Emacs commands
+### Executing Vim, Emacs and shell commands
 
-Vim commands are executed as usual with the `:` key.
-
-To execute an Emacs command press `<SPC>` (space) before:
-
-    <SPC> :
+Command     |                 Key Binding
+:----------:|------------------------------------------------------------------
+Vim         | `:`
+Emacs       | `<SPC> :`
+Shell       | `<SPC> !`
 
 ### Key bindings help
 
@@ -637,7 +637,12 @@ A list of all the key bindings can be accessed by pressing:
 
     <SPC> ?
 
-To narrow the list to `Spacemacs` specific key bindings set the pattern to `SPC`
+To narrow the list to `Spacemacs` specific key bindings set the pattern to
+something like the regular expression:
+
+    `^SPC\ b`
+
+The example above will list all the `buffer` related bindings.
 
 ### Navigation
 
