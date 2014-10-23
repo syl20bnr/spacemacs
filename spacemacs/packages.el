@@ -415,7 +415,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
         (setq-default powerline-height height))
       (setq-default powerline-default-separator 'wave)
       (setq-default mode-line-format '("%e" (:eval
-          (let* ((active (eq (frame-selected-window) (selected-window)))
+          (let* ((active (powerline-selected-window-active))
                  (line-face (if active 'mode-line 'mode-line-inactive))
                  (face1 (if active 'powerline-active1 'powerline-inactive1))
                  (face2 (if active 'powerline-active2 'powerline-inactive2))
@@ -426,7 +426,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
                                  (or flycheck-current-errors
                                      (eq 'running flycheck-last-status-change))))
                  (vc-face (if (or flycheckp spacemacs-mode-line-minor-modesp)
-                               face1 nil))
+                               face1 line-face))
                  (separator-left (intern (format "powerline-%s-%s"
                                                  powerline-default-separator
                                                  (car powerline-default-separator-dir))))
@@ -445,13 +445,13 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
                         (list (funcall separator-right state-face line-face)))
                       ;; evil state
                       ;; (powerline-raw evil-mode-line-tag state-face)
-                      ;; (funcall separator-right state-face nil)
+                      ;; (funcall separator-right state-face line-face)
                       ;; buffer name
                       (list
-                       (powerline-raw "%*" nil 'l)
-                       (powerline-buffer-size nil 'l)
-                       (powerline-buffer-id nil 'l)
-                       (powerline-raw " " nil)
+                       (powerline-raw "%*" line-face 'l)
+                       (powerline-buffer-size line-face 'l)
+                       (powerline-buffer-id line-face 'l)
+                       (powerline-raw " " line-face)
                        ;; major mode
                        (funcall separator-left line-face face1)
                        (powerline-major-mode face1 'l)
@@ -460,7 +460,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
                       ;; flycheck
                       (if flycheckp
                           (list
-                           (powerline-raw " " nil)
+                           (powerline-raw " " line-face)
                            (powerline-raw (spacemacs//custom-flycheck-lighter error)
                                           'spacemacs-mode-line-error-face)
                            (powerline-raw (spacemacs//custom-flycheck-lighter warning)
@@ -476,9 +476,9 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
                       ;; minor modes
                       (if spacemacs-mode-line-minor-modesp
                           (list
-                           (powerline-minor-modes nil 'l)
-                           (powerline-raw mode-line-process nil 'l)
-                           (powerline-raw " " nil)))
+                           (powerline-minor-modes line-face 'l)
+                           (powerline-raw mode-line-process line-face 'l)
+                           (powerline-raw " " line-face)))
                       ;; version control
                       (if (or flycheckp spacemacs-mode-line-minor-modesp)
                           (list (funcall separator-left (if vc-face line-face face1) vc-face)))
@@ -491,8 +491,8 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
                        (powerline-raw " " face1)
                        (powerline-raw "%l:%2c" face1 'r)
                        (funcall separator-left face1 line-face)
-                       (powerline-raw " " nil)
-                       (powerline-raw "%p" nil 'r)
+                       (powerline-raw " " line-face)
+                       (powerline-raw "%p" line-face 'r)
                        (powerline-chamfer-left line-face face1)
                        ;; display hud only if necessary
                        (let ((progress (format-mode-line "%p")))
