@@ -2,13 +2,17 @@
 (setq echo-keystrokes 0.02)
 ;; auto-indent on RET
 (define-key global-map (kbd "RET") 'newline-and-indent)
+;; alternate binding to search next occurrence with isearch without
+;; exiting isearch
+(define-key isearch-mode-map (kbd "S-<return>") 'isearch-repeat-forward)
+(define-key isearch-mode-map (kbd "M-S-<return>") 'isearch-repeat-backward)
 
 ;; ---------------------------------------------------------------------------
 ;; evil-leader key bindings
 ;; ---------------------------------------------------------------------------
 
 ;; shell command  -------------------------------------------------------------
-(evil-leader/set-key "S" 'shell-command)
+(evil-leader/set-key "!" 'shell-command)
 ;; switch back and forth between two last buffers -----------------------------
 (evil-leader/set-key "TAB"
   (lambda ()
@@ -90,8 +94,8 @@
   "reg"  'evil-show-registers)
 ;; spell check  ---------------------------------------------------------------
 (evil-leader/set-key
-  "sc" 'cofi/helm-flyspell-correct
-  "sn" 'flyspell-goto-next-error)
+  "Sc" 'cofi/helm-flyspell-correct
+  "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key
   "t8" 'toggle-fill-column-indicator

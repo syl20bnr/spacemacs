@@ -39,9 +39,6 @@
 [submodule "spacemacs/extensions/spray"]
 	path = spacemacs/extensions/spray
 	url = http://github.com/syl20bnr/spray
-[submodule "spacemacs/extensions/auto-highlight-symbol"]
-	path = spacemacs/extensions/auto-highlight-symbol
-	url = http://github.com/gennad/auto-highlight-symbol
 [submodule "contrib/syl20bnr/extensions/o-blog"]
 	path = contrib/syl20bnr/extensions/o-blog
 	url = https://github.com/renard/o-blog.git

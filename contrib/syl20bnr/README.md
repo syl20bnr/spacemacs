@@ -16,6 +16,10 @@ Instead of colorized keywords, this contribution has *colorized variables and
 functions* using the [rainbow identifiers][rainbow-identifiers] mode. Each
 variable and function has a unique color associated to it.
 
+`rainbow-identifiers` mode can be toggled on and off with:
+
+    <SPC> t c
+
 The `saturation` and `lightness` of identifier colors can be adjusted with the
 commands:
 

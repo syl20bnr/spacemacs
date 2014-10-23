@@ -2,9 +2,11 @@
   '(
     ac-ispell
     ace-jump-mode
+    anzu
     auto-complete
     auto-complete-clang
     auto-dictionary
+    auto-highlight-symbol
     bookmark
     buffer-move
     cc-mode
@@ -14,7 +16,7 @@
     dash
     diminish
     dired+
-;    edts
+    edts
     elisp-slime-nav
     elixir-mix
     elixir-mode
@@ -115,6 +117,7 @@
     wand
     web-mode
     wdired
+    window-numbering
     yasnippet
     zenburn-theme
     )
@@ -127,7 +130,6 @@ which require an initialization must be listed explicitly in the list.")
   (use-package evil
     :init
     (progn
-
       (defun spacemacs/state-color-face (state)
         "Return the symbol of the face for the given STATE."
         (intern (format "spacemacs-%s-face" (symbol-name state))))
@@ -206,17 +208,38 @@ determine the state to enable when escaping from the insert state.")
       (defadvice evil-lisp-state (before spacemacs/evil-lisp-state activate)
         "Advice to keep track of the last base state."
         (setq spacemacs-last-base-state 'lisp))
-      (evil-define-command spacemacs/escape-state (keys shadowed insert-fkey callback)
+
+      (defun spacemacs/escape-state-default-insert-func (key)
+        "Insert KEY in current buffer if not read only."
+        (let* ((insertp (not buffer-read-only)))
+          (insert key)))
+
+      (defun spacemacs/escape-state-isearch-insert-func (key)
+        "Insert KEY in current buffer if not read only."
+        (isearch-printing-char))
+
+      (defun spacemacs/escape-state-default-delete-func ()
+        "Delete char in current buffer if not read only."
+        (let* ((insertp (not buffer-read-only)))
+          (delete-char -1)))
+
+      (evil-define-command spacemacs/escape-state
+        (keys shadowed insert? callback &optional insert-func delete-func)
         "Allows to execute the passed CALLBACK using KEYS. KEYS is a cons cell
-of 2 characters. If INSERT-FKEY is not nil then the first key pressed is
-inserted in the buffer (if it is not read-only)."
+of 2 characters. If INSERT? is not nil then the first key pressed is inserted
+ using the function INSERT-FUNC and deleted if required using DELETE-FUNC."
         :repeat change
         (let* ((modified (buffer-modified-p))
-               (insertp (and insert-fkey (not buffer-read-only)))
+               (insertf
+                (if insert-func
+                    insert-func 'spacemacs/escape-state-default-insert-func))
+               (deletef
+                (if delete-func
+                    delete-func 'spacemacs/escape-state-default-delete-func))
                (fkey (car keys))
                (fkeystr (char-to-string fkey))
                (skey (cdr keys)))
-          (if insertp (insert fkey))
+          (if insert? (funcall insertf fkey))
           (let* ((evt (read-event nil nil spacemacs-normal-state-sequence-delay)))
             (cond
              ((null evt)
@@ -225,7 +248,7 @@ inserted in the buffer (if it is not read-only)."
              ((and (integerp evt)
                    (char-equal evt skey))
               ;; remove the f character
-              (if insertp (delete-char -1))
+              (if insert? (funcall deletef))
               (set-buffer-modified-p modified)
               (funcall callback))
              (t ; otherwise
@@ -250,6 +273,11 @@ inserted in the buffer (if it is not read-only)."
                 minibuffer-local-completion-map
                 minibuffer-local-must-match-map
                 minibuffer-local-isearch-map))
+        (define-key isearch-mode-map key
+          `(lambda () (interactive)
+             (spacemacs/escape-state
+              ',seq nil t 'isearch-abort 'spacemacs/escape-state-isearch-insert-func
+                                         'isearch-delete-char)))
         (define-key evil-insert-state-map key
           `(lambda () (interactive)
              (spacemacs/escape-state
@@ -380,7 +408,11 @@ inserted in the buffer (if it is not read-only)."
             (setq spacemacs-mode-line-flycheckp nil)
           (setq spacemacs-mode-line-flycheckp t)))
       (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
-      (setq-default powerline-height 17)
+      ;; for now we hardcode the height value of powerline depending on the
+      ;; window system, a better solution would be to compute it correctly
+      ;; in powerline package.
+      (let ((height (if (eq 'w32 window-system) 18 17)))
+        (setq-default powerline-height height))
       (setq-default powerline-default-separator 'wave)
       (setq-default mode-line-format '("%e" (:eval
           (let* ((active (eq (frame-selected-window) (selected-window)))
@@ -404,21 +436,27 @@ inserted in the buffer (if it is not read-only)."
                  (lhs (append (list
                       ;; window number
                       ;; (funcall separator-left state-face face1)
-                      (powerline-raw (spacemacs/window-number) state-face)
-                      (funcall separator-right state-face line-face)
+                      (powerline-raw (spacemacs/window-number) state-face))
+                      (if anzu--state
+                          (list
+                           (funcall separator-right state-face face1)
+                           (powerline-raw (anzu--update-mode-line) face1)
+                           (funcall separator-right face1 line-face))
+                        (list (funcall separator-right state-face line-face)))
                       ;; evil state
                       ;; (powerline-raw evil-mode-line-tag state-face)
                       ;; (funcall separator-right state-face nil)
                       ;; buffer name
-                      (powerline-raw "%*" nil 'l)
-                      (powerline-buffer-size nil 'l)
-                      (powerline-buffer-id nil 'l)
-                      (powerline-raw " " nil)
-                      ;; major mode
-                      (funcall separator-left line-face face1)
-                      (powerline-major-mode face1 'l)
-                      (powerline-raw " " face1)
-                      (funcall separator-right face1 line-face))
+                      (list
+                       (powerline-raw "%*" nil 'l)
+                       (powerline-buffer-size nil 'l)
+                       (powerline-buffer-id nil 'l)
+                       (powerline-raw " " nil)
+                       ;; major mode
+                       (funcall separator-left line-face face1)
+                       (powerline-major-mode face1 'l)
+                       (powerline-raw " " face1)
+                       (funcall separator-right face1 line-face))
                       ;; flycheck
                       (if flycheckp
                           (list
@@ -490,6 +528,61 @@ inserted in the buffer (if it is not read-only)."
       (setq ace-jump-mode-scope 'global)
       (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
 
+(defun spacemacs/init-anzu ()
+  (use-package anzu
+    :init
+    (global-anzu-mode t)
+    :config
+    (progn
+      (spacemacs//hide-lighter anzu-mode)
+
+      (defun spacemacs/anzu-update-mode-line (here total)
+        "Custom update function which does not propertize the status."
+        (when anzu--state
+          (let ((status (cl-case anzu--state
+                          (search (format "(%s/%d%s)"
+                                          (anzu--format-here-position here total)
+                                          total (if anzu--overflow-p "+" "")))
+                          (replace-query (format "(%d replace)" total))
+                          (replace (format "(%d/%d)" here total)))))
+            status)))
+
+      (defvar spacemacs-anzu-timer nil
+        "The current timer for ephemeral anzu display.")
+      (defun spacemacs/anzu-ephemeral-display ()
+        "Show anzu status for a limited amount of time."
+        (interactive)
+        (setq spacemacs-anzu-timer nil)
+        (anzu--reset-mode-line))
+      (defun spacemacs/anzu-evil-search (arg func)
+        "Show anzu status when pressing `n` or `N`"
+        (anzu--cons-mode-line-search)
+        (funcall func arg)
+        (anzu--update)
+        (if spacemacs-anzu-timer (cancel-timer spacemacs-anzu-timer))
+        (setq spacemacs-anzu-timer
+              (run-at-time "2 sec" nil 'spacemacs/anzu-ephemeral-display)))
+      (defun spacemacs/anzu-evil-search-next (arg)
+        "Show anzu status when executing evil-search-next"
+        (interactive "P")
+        (spacemacs/anzu-evil-search arg 'evil-search-next))
+      (defun spacemacs/anzu-evil-search-previous (arg)
+        "Show anzu status when executing evil-search-previous"
+        (interactive "P")
+        (spacemacs/anzu-evil-search arg 'evil-search-previous))
+      (define-key evil-normal-state-map "n" 'spacemacs/anzu-evil-search-next)
+      (define-key evil-normal-state-map "N" 'spacemacs/anzu-evil-search-previous)
+      (define-key evil-motion-state-map "n" 'spacemacs/anzu-evil-search-next)
+      (define-key evil-motion-state-map "N" 'spacemacs/anzu-evil-search-previous)
+      (eval-after-load 'evil-lisp-state
+        '(progn
+           (define-key evil-lisp-state-map "n" 'spacemacs/anzu-evil-search-next)
+           (define-key evil-lisp-state-map "N" 'spacemacs/anzu-evil-search-previous)))
+
+      (setq anzu-search-threshold 1000
+            anzu-cons-mode-line-p nil
+            anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line))))
+
 (defun spacemacs/init-auto-complete ()
   (use-package auto-complete
     :commands auto-complete-mode
@@ -542,7 +635,82 @@ inserted in the buffer (if it is not read-only)."
     (progn
       (add-hook 'flyspell-mode-hook '(lambda () (auto-dictionary-mode 1)))
       (evil-leader/set-key
-        "sd" 'adict-change-dictionary))))
+        "Sd" 'adict-change-dictionary))))
+
+(defun spacemacs/init-auto-highlight-symbol ()
+  (use-package auto-highlight-symbol
+    :commands auto-highlight-symbol-mode
+    :init
+    (add-to-hooks 'auto-highlight-symbol-mode '(erlang-mode-hook
+                                                prog-mode-hook
+                                                org-mode-hook
+                                                markdown-mode-hook))
+    :config
+    (progn
+      (custom-set-variables
+       '(ahs-case-fold-search nil)
+       '(ahs-default-range (quote ahs-range-whole-buffer))
+       '(ahs-idle-interval 0.25))
+      (eval-after-load "evil-leader"
+        '(evil-leader/set-key
+           "sC"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
+           "scb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
+           "scd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
+           "scf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
+           "se"  'ahs-edit-mode
+           "ss"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
+           "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
+           "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
+           "ts" 'auto-highlight-symbol-mode))
+      (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ")
+      ;; micro-state to easily jump from a highlighted symbol to the others
+      (dolist (sym '(ahs-forward
+                     ahs-forward-definition
+                     ahs-backward
+                     ahs-backward-definition
+                     ahs-back-to-start
+                     ahs-change-range))
+        (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
+          (eval `(defadvice ,sym (after ,advice activate)
+                   (ahs-highlight-now)
+                   (spacemacs/auto-highlight-symbol-overlay-map)))))
+      (defun spacemacs/auto-highlight-symbol-overlay-map ()
+        "Set a temporary overlay map to easily jump from highlighted symbols to
+ the nexts."
+        (interactive)
+        (set-temporary-overlay-map
+         (let ((map (make-sparse-keymap)))
+           (define-key map (kbd "c") (lambda () (interactive)
+                                       (eval '(ahs-change-range) nil)))
+           (define-key map (kbd "d") 'ahs-forward-definition)
+           (define-key map (kbd "D") 'ahs-backward-definition)
+           (define-key map (kbd "e") 'ahs-edit-mode)
+           (define-key map (kbd "n") 'ahs-forward)
+           (define-key map (kbd "N") 'ahs-backward)
+           (define-key map (kbd "r") 'ahs-back-to-start)
+           map) nil)
+        (let* ((i 0)
+               (overlay-count (length ahs-overlay-list))
+               (overlay (format "%s" (nth i ahs-overlay-list)))
+               (current-overlay (format "%s" ahs-current-overlay))
+               (st (ahs-stat))
+               (plighter (ahs-current-plugin-prop 'lighter))
+               (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
+                                              ((string= plighter "HSA") "B")
+                                              ((string= plighter "HSD") "F"))))
+               (propplugin (propertize plugin 'face `(
+                    :foreground "#ffffff"
+                    :background ,(face-attribute
+                                  'ahs-plugin-defalt-face :foreground)))))
+          (while (not (string= overlay current-overlay))
+            (setq i (1+ i))
+            (setq overlay (format "%s" (nth i ahs-overlay-list))))
+          (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
+                 (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
+                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
+                 (prophidden (propertize hidden 'face '(:weight bold))))
+            (message "%s %s%s press (n) or (N) to navigate, (r) for reset, (c) to change scope"
+                     propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
   (use-package bookmark
@@ -981,8 +1149,9 @@ inserted in the buffer (if it is not read-only)."
       (setq google-translate-default-target-language "Fr"))))
 
 (defun spacemacs/init-haskell-mode ()
+  (require 'haskell-yas)
   (use-package haskell-mode
-    :commands haskell-mode
+    :defer t
     :config
     (progn
       ;; Customization
@@ -1073,6 +1242,7 @@ inserted in the buffer (if it is not read-only)."
       (evil-leader/set-key
         ":"   'helm-M-x
         "bs"  'helm-mini
+        "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
         "kil" 'helm-how-kill-ring)
       ;; alter helm-bookmark key bindings to be simpler
@@ -1106,9 +1276,7 @@ inserted in the buffer (if it is not read-only)."
     :init
     (progn
       (evil-leader/set-key "hy" 'helm-c-yas-complete)
-      (setq helm-c-yas-space-match-any-greedy t))
-    :config
-    (yas-global-mode 1)))
+      (setq helm-c-yas-space-match-any-greedy t))))
 
 (defun spacemacs/init-helm-descbinds ()
   (use-package helm-descbinds
@@ -1184,12 +1352,16 @@ inserted in the buffer (if it is not read-only)."
     (progn
       (add-hook 'js-mode-hook 'js2-minor-mode)
       (add-hook 'js2-mode-hook 'ac-js2-mode)
+      ;; the following manually installed packages are a hack because of unhealthy
+      ;; dependencies between js2-mode, ac-js2, skewer-mode etc...
       (use-package ac-js2
         :ensure ac-js2
         :defer t)
+      (puthash 'ac-js2 'spacemacs spacemacs-all-packages)
       (use-package js2-refactor
         :ensure js2-refactor
-        :defer t))))
+        :defer t)
+      (puthash 'js2-refactor 'spacemacs spacemacs-all-packages))))
 
 (defun spacemacs/init-json-mode ()
   (use-package json-mode
@@ -1563,7 +1735,10 @@ inserted in the buffer (if it is not read-only)."
       (add-to-hooks 'smartparens-mode '(erlang-mode-hook
                                         markdown-mode-hook
                                         prog-mode-hook))
-      (spacemacs//diminish smartparens-mode " (Ⓢ)"))))
+      (spacemacs//diminish smartparens-mode " (Ⓢ)"))
+    :config
+    (progn
+      (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil))))
 
 (defun spacemacs/init-smeargle ()
   (use-package smeargle
@@ -1639,13 +1814,19 @@ inserted in the buffer (if it is not read-only)."
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
+    :defer t
     :init
-    (let* ((layer (assq 'spacemacs spacemacs-config-layers))
-           (dir (plist-get (cdr layer) :dir)))
-      (setq yas-snippet-dirs (list (concat dir "snippets")))
-      (spacemacs//diminish yas-minor-mode " Ⓨ"))
+    (progn
+      (defun spacemacs/load-yasnippet ()
+        (let* ((dir (contribsys/get-layer-property 'spacemacs :dir))
+               (yas-dir (list (concat dir "snippets"))))
+          (setq yas-snippet-dirs yas-dir)
+          (yas-minor-mode)
+          (yas-reload-all)))
+      (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook erlang-mode-hook)))
     :config
-    (spacemacs//diminish yas-minor-mode " Ⓨ")))
+    (progn 
+      (spacemacs//diminish yas-minor-mode " Ⓨ"))))
 
 (defun spacemacs/init-zenburn-theme ()
   (use-package zenburn-theme

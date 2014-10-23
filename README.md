@@ -22,28 +22,43 @@ _Jump to [Install](#install) for more info_
         - [Troubleshoot](#troubleshoot)
     - [Configuration layers](#configuration-layers)
         - [Structure](#structure)
-        - [Extensions and Packages initialization](#extensions-and-packages-initialization)
-    - [Contributions](#contributions)
-        - [Themes Megapack example](#themes-megapack-example)
+        - [Extensions and Packages declaration and initialization](#extensions-and-packages-declaration-and-initialization)
+        - [Packages synchronization (Vundle like feature)](#packages-synchronization-vundle-like-feature)
+    - [Configuration](#configuration)
+        - [Adding contributions](#adding-contributions)
+            - [Themes Megapack example](#themes-megapack-example)
+        - [Excluding packages](#excluding-packages)
+        - [Hooks](#hooks)
     - [Main principles](#main-principles)
         - [Evil](#evil)
             - [States](#states)
             - [Base States](#base-states)
         - [Evil leader](#evil-leader)
         - [Micro-states](#micro-states)
-    - [UI tweaks](#ui-tweaks)
+    - [Color theme](#color-theme)
+    - [UI elements](#ui-elements)
+        - [Toggles](#toggles)
+        - [Mode-line](#mode-line)
+            - [Flycheck integration](#flycheck-integration)
+            - [Anzu integration](#anzu-integration)
+            - [Powerline separators](#powerline-separators)
+            - [Minor Modes](#minor-modes)
+    - [Base packages](#base-packages)
+        - [Evil plugins](#evil-plugins)
+        - [Helm extensions](#helm-extensions)
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
-        - [Executing Vim and Emacs commands](#executing-vim-and-emacs-commands)
+        - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
         - [Key bindings help](#key-bindings-help)
-        - [Included Evil plugins](#included-evil-plugins)
-        - [About helm](#about-helm)
         - [Navigation](#navigation)
             - [Point/Cursor](#pointcursor)
             - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
             - [Buffers and Files](#buffers-and-files)
             - [Ido](#ido)
             - [Bookmarks](#bookmarks)
+            - [Symbols](#symbols)
+                - [Listing symbols by semantic](#listing-symbols-by-semantic)
+                - [Auto-highlight and edition](#auto-highlight-and-edition)
         - [Window manipulation](#window-manipulation)
             - [Golden ratio](#golden-ratio)
         - [Text manipulation commands](#text-manipulation-commands)
@@ -51,13 +66,6 @@ _Jump to [Install](#install) for more info_
         - [Spell checking](#spell-checking)
         - [Region selection](#region-selection)
         - [Region narrowing](#region-narrowing)
-        - [Auto highlight and edition of symbols](#auto-highlight-and-edition-of-symbols)
-        - [Color theme](#color-theme)
-        - [UI elements](#ui-elements)
-            - [Mode-line](#mode-line)
-                - [Flycheck integration](#flycheck-integration)
-            - [Toggles](#toggles)
-        - [Minor Modes](#minor-modes)
         - [Line formatting](#line-formatting)
         - [Errors handling](#errors-handling)
         - [Project management](#project-management)
@@ -66,9 +74,11 @@ _Jump to [Install](#install) for more info_
             - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
             - [Git gutter bitmaps](#git-gutter-bitmaps)
         - [Editing Lisp code](#editing-lisp-code)
+            - [Philosophy](#philosophy)
             - [Intuitive navigation model](#intuitive-navigation-model)
-            - [Text selection](#text-selection)
-            - [Key bindings map](#key-bindings-map)
+            - [Key bindings maps](#key-bindings-maps)
+                - [Regular normal state bindings](#regular-normal-state-bindings)
+                - [Lisp specific bindings](#lisp-specific-bindings)
         - [Modes](#modes)
             - [Helm](#helm)
             - [Erlang](#erlang)
@@ -167,6 +177,12 @@ the major OSes where this version can be installed.
 Some packages require external tools to work, a list of all dependencies will
 be provided in this read me. _Stay tuned._
 
+Note for Emacs 24.4: There are a lot of glitches to be corrected like:
+- minibuffer takes more place
+- subword displays a crappy lighter `,`
+- mode-line colors from 'solarized' are not accurate in the inactive buffers
+- etc...
+
 ## Install
 
 1) Backup your current `.emacs.d` and clone the repo _with the submodules_:
@@ -187,9 +203,14 @@ by opening the `*Warning*` buffer:
 
     C-x b warning RET
 
-_('C-x b' means 'Ctrl + b' and 'RET' means 'return')_
+_('C-x b' means 'Ctrl + x then b' and 'RET' means 'return')_
 
 Then you can copy/paste the error in a [Github issue][issues], thank you.
+
+If you have an error related to a `dotspacemacs-xxx` variable or
+`dotspacemacs/xxx` function, it is likely due to a new version of the
+`~/.spacemacs` file, please check the commit messages and look at the
+current `.spacemacs.template` file.
 
 ## Configuration layers
 
@@ -228,9 +249,9 @@ packages.el       | The list of packages to install and the functions to initial
 `Packages` are `ELPA` packages which can be installed from an `ELPA` compliant
 repository, and `Extensions` are generally elisp code from git submodules.
 
-### Extensions and Packages initialization
+### Extensions and Packages declaration and initialization
 
-`Extensions` and `Packages` are listed in variables `<layer>-pre-extensions`,
+`Extensions` and `Packages` are declared in variables `<layer>-pre-extensions`,
 `<layer>-post-extensions` and `<layer>-packages` where `<layer>` is the layer
 name. `Pre-Extensions` are loaded before `Packages` and `Post-Extensions` are
 loaded after `Packages`.
@@ -247,7 +268,19 @@ format in `extensions.el` or `packages.el`:
 )
 ```
 
-## Contributions
+### Packages synchronization (Vundle like feature)
+
+`Spacemacs` features a synchronization engine for the ELPA packages. It means
+that `Spacemacs` will auto-install the new packages in `<layer>-packages` lists
+_and_ auto-delete orphan packages in your `elpa` directory.
+
+It effectively makes `Spacemacs` to behave like [Vundle][vundle].
+
+## Configuration
+
+Some user configuration can be performed in your `~/.spacemacs` file.
+
+### Adding contributions
 
 `Spacemacs` leverages the configuration layers in order to make it possible for
 you to share your own layer with other `Spacemacs` users.
@@ -255,7 +288,7 @@ you to share your own layer with other `Spacemacs` users.
 To use a contribution layer, add it to the `dotspacemacs-configuration-layers`
 variable of your `~/.spacemacs`
 
-For instance to add the configuration layer of [RMS](#thank-you) just do:
+For instance to add the configuration layer of [RMS](#thank-you):
 ```elisp
 (defvar dotspacemacs-configuration-layers '(rms)
   "List of contribution to load."
@@ -264,14 +297,37 @@ For instance to add the configuration layer of [RMS](#thank-you) just do:
 Oh, you don't find this configuration layer ? So sad, well you can try mine:
 [syl20bnr](https://github.com/syl20bnr/spacemacs/tree/master/contrib/syl20bnr)
 
-All pull requests are welcome for all parts of `Spacemacs`.
-
-### Themes Megapack example
+#### Themes Megapack example
 
 This is a simple contribution layer listing a bunch of themes.
 
 To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
 installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
+
+### Excluding packages
+
+You can also exclude packages you don't want to install with the variable
+`dotspacemacs-excluded-packages`, this variable can exclude both packages and
+extensions.
+
+For instance to disable the `rainbow-delimiters` package:
+```elisp
+(defvar dotspacemacs-excluded-packages '(rainbow-delimiters)
+  "A list of packages and/or extensions that will not be install and loaded.")
+```
+
+Note that for now, excluded packages that have been installed are not
+uninstalled. You'll have to delete them manually from your `~/.emacs.d/elpa`
+directory.
+
+### Hooks
+
+Two special functions of the `~/.spacemacs` file can be used to perform
+configuration at the beginning and end of `Spacemacs` loading process.
+
+- `dotspacemacs/init` is triggered at the very beginning of `Spacemacs`
+loading.
+- `dotspacemacs/config` is triggered at the very end of `Spacemacs` loading.
 
 ## Main principles
 
@@ -360,7 +416,21 @@ Additional information may as well be displayed in the minibuffer.
 [Text scale micro-state](#change-font-size):
 ![spacemacs_scale_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-scale-micro-state.png)
 
-## UI tweaks
+## Color theme
+
+By default, `Spacemacs` uses the theme [Solarized][solarized-theme].
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> c t`       | cycle between `Spacemacs` themes
+`<SPC> h t`       | select a theme using a `helm` buffer
+
+`Spacemacs` available themes:
+- [Solarized][solarized-theme]
+- [Monokai][monokai-theme]
+- [Zenburn][zenburn-theme]
+
+## UI elements
 
 `Spacemacs` has a minimalistic and distraction free UI with a lot of subtle
 customization which make it unique compared to other kits:
@@ -373,6 +443,157 @@ customization which make it unique compared to other kits:
  [Flycheck][flycheck]
  - [custom fringe bitmaps](#git-gutter-bitmaps) for [git gutter][git-gutter]
  - dedicated startup page with a mode aimed at easily managing `Spacemacs`
+
+### Toggles
+
+Some UI indicators can be toggled on and off (toggles start with `t`):
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> t 8`       | display a mark on the 80th column
+`<SPC> t F`       | toggle display of the fringe
+`<SPC> t n`       | show the absolute line numbers
+
+### Mode-line
+
+The mode line is an heavily customized [powerline][powerline] with the
+following capabilities:
+- show the window number
+- color code for current state
+- show the number of search occurrences via anzu
+- toggle flycheck info
+- toggle minor mode lighters
+
+Reminder of the color codes for the states:
+
+   Evil State     |       Color
+------------------|------------------
+Normal            | Orange
+Insert            | Green
+Visual            | Grey
+Emacs             | Blue
+Motion            | Purple
+Lisp              | Pink
+
+Some elements can be dynamically toggled:
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> t m m`     | toggle the minor mode lighters
+`<SPC> t m f`     | toggle the flycheck info
+
+#### Flycheck integration
+
+When [Flycheck][flycheck] minor mode is enabled, a new element appears showing
+the number of errors, warnings and info.
+
+![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-wave.png)
+
+#### Anzu integration
+
+[Anzu][anzu] shows the number of occurrence when performing a search. `Spacemacs`
+integrates nicely the Anzu status by displaying it temporarily when `n` or `N` are
+being pressed. See the `5/6` segment on the screenshot below. 
+
+![powerline-anzu](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-anzu.png)
+
+#### Powerline separators
+
+It is possible to easily customize the `powerline separator` by setting the
+`powerline-default-separator` variable in your `~./spacemacs`. For instance
+if you want to set back the separator to the well-known `arrow` separator
+add the following snippet to your configuration file:
+
+```elisp
+(defun dotspacemacs/config ()
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
+  (setq powerline-default-separator 'arrow)
+```
+
+To save you the time to try all the possible separators provided by the
+powerline, here is an exhaustive set of screenshots:
+
+    Separator     |                 Screenshot
+------------------|------------------------------------------------------------
+`alternate`       | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-alternate.png)
+`arrow`           | ![powerline-arrow](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-arrow.png)
+`arrow-fade`      | ![powerline-arrow-fade](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-arrow-fade.png)
+`bar`             | ![powerline-bar](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-bar.png)
+`box`             | ![powerline-box](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-box.png)
+`brace`           | ![powerline-brace](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-brace.png)
+`butt`            | ![powerline-butt](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-butt.png)
+`chamfer`         | ![powerline-chamfer](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-chamfer.png)
+`contour`         | ![powerline-contour](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-contour.png)
+`curve`           | ![powerline-curve](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-curve.png)
+`rounded`         | ![powerline-rounded](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-rounded.png)
+`roundstub`       | ![powerline-roundstub](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-roundstub.png)
+`slant`           | ![powerline-slant](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-slant.png)
+`wave`            | ![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-wave.png)
+`zigzag`          | ![powerline-zigzag](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-zigzag.png)
+`nil`             | ![powerline-nil](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-nil.png)
+
+#### Minor Modes
+
+`Spacemacs` uses [diminish][diminish] mode to reduce the size of minor mode
+indicators:
+
+The minor mode area can be toggled on and off with:
+
+    <SPC> t m m
+
+   Lighter   |                              Mode
+-------------|-----------------------------------------------------------------
+⊞            | [golden-ratio][golden-ratio] mode
+Ⓐ            | [auto-complete][auto-complete] mode
+Ⓗ            | [auto-highlight-symbol][auto-highlight] mode
+Ⓒ            | [centered-cursor][centered-cursor] mode
+eⓅ           | [e-project][e-project] mode
+Ⓟ            | [projectile][projectile] mode
+Ⓕ            | flycheck mode
+Ⓕ2           | flymake mode
+Ⓢ            | flyspell mode
+(Ⓢ)          | [smartparens][sp] mode
+(Ⓟ)          | paredit mode
+Ⓨ            | [yasnippet][yasnippet] mode
+
+**Note:** in terminal the regular indicators are used instead of the utf-8
+ones.
+
+## Base packages
+
+`Spacemacs` main mechanics rely largely on `Evil` and `Helm` base packages.
+They are both extended with various packages to build on their foundations.
+
+### Evil plugins
+
+`Spacemacs` ships with the following evil plugins:
+
+                 Mode                   |             Description
+----------------------------------------|--------------------------------------
+[evil-leader][evil-leader]              | vim leader that bring a new layer of keys in normal mode
+[evil-little-word][evil-plugin01]       | port of [camelcasemotion.vim][vim-plugin01]
+[evil-operator-comment][evil-plugin01]  | comment/uncomment with `CC`
+[evil-visualstar][evil-plugin03]        | search for current selection with `*`
+[evil-exchange][evil-plugin05]          | port of [vim-exchange][vim-plugin04]
+[evil-surround][evil-plugin04]          | port of [surround.vim][vim-plugin03]
+
+### Helm extensions
+
+`Spacemacs` tries to use [helm][helm] as much as possible.
+[helm][helm] is coupled to [popwin][popwin] so `helm` window always appears in
+a new temporary window at the bottom.
+
+The following `helm` modes are installed with `Spacemacs`:
+
+Key Binding | Mode                                    | Description
+------------|-----------------------------------------|------------------------
+`<SPC> h s` | [helm-swoop][hswoop]                    | search for occurrences within a file and edit the result
+`<SPC> h y` | [helm-c-yasnippet][hyas]                | select snippets
+`<SPC> h t` | [helm-themes][hthemes]                  | select a theme
+`<SPC> p f` | [helm-projectile][projectile]           | select files within a projectile project
+`<SPC> ?`   | [helm-descbinds][hdescbinds]            | show key bindings
+`<SPC> s c` | [cofi/helm-flyspell-correct][hflyspell] | choose a corrected word
 
 ## Commands
 
@@ -402,13 +623,13 @@ to your file:
 )
 ```
 
-### Executing Vim and Emacs commands
+### Executing Vim, Emacs and shell commands
 
-Vim commands are executed as usual with the `:` key.
-
-To execute an Emacs command press `<SPC>` (space) before:
-
-    <SPC> :
+Command     |                 Key Binding
+:----------:|------------------------------------------------------------------
+Vim         | `:`
+Emacs       | `<SPC> :`
+Shell       | `<SPC> !`
 
 ### Key bindings help
 
@@ -416,37 +637,12 @@ A list of all the key bindings can be accessed by pressing:
 
     <SPC> ?
 
-To narrow the list to `Spacemacs` specific key bindings set the pattern to `SPC`
+To narrow the list to `Spacemacs` specific key bindings set the pattern to
+something like the regular expression:
 
-### Included Evil plugins
+    `^SPC\ b`
 
-`Spacemacs` ships with the following evil plugins:
-
-                 Mode                   |             Description
-----------------------------------------|--------------------------------------
-[evil-leader][evil-leader]              | vim leader that bring a new layer of keys in normal mode
-[evil-little-word][evil-plugin01]       | port of [camelcasemotion.vim][vim-plugin01]
-[evil-operator-comment][evil-plugin01]  | comment/uncomment with `CC`
-[evil-visualstar][evil-plugin03]        | search for current selection with `*`
-[evil-exchange][evil-plugin05]          | port of [vim-exchange][vim-plugin04]
-[evil-surround][evil-plugin04]          | port of [surround.vim][vim-plugin03]
-
-### About helm
-
-`Spacemacs` tries to use [helm][helm] as much as possible.
-[helm][helm] is coupled to [popwin][popwin] so `helm` window always appears in
-a new temporary window at the bottom.
-
-The following `helm` modes are installed with `Spacemacs`:
-
-Key Binding | Mode                                    | Description
-------------|-----------------------------------------|------------------------
-`<SPC> h s` | [helm-swoop][hswoop]                    | search for occurrences within a file and edit the result
-`<SPC> h y` | [helm-c-yasnippet][hyas]                | select snippets
-`<SPC> h t` | [helm-themes][hthemes]                  | select a theme
-`<SPC> p f` | [helm-projectile][projectile]           | select files within a projectile project
-`<SPC> ?`   | [helm-descbinds][hdescbinds]            | show key bindings
-`<SPC> s c` | [cofi/helm-flyspell-correct][hflyspell] | choose a corrected word
+The example above will list all the `buffer` related bindings.
 
 ### Navigation
 
@@ -556,6 +752,67 @@ Key Binding   |                 Description
 
 To save a new bookmark, just type the name of the bookmark and press `RET`.
 
+#### Symbols
+
+##### Listing symbols by semantic
+
+Use `helm-semantic-or-imenu` command from `Helm` to quickly navigate between
+the symbols in a buffer.
+
+To list all the symbols of a buffer press:
+
+    <SPC> s l
+
+##### Auto-highlight and edition
+
+`Spacemacs` supports auto highlighting of the current symbol (provided by the
+ [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to it
+ which makes it a very handy tool to have in your tool belt.
+
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
+`<SPC> s e`   | edit all occurrences of the current symbol
+`<SPC> t s`   | toggle the auto highlighting
+
+Navigation between the highlighted symbols can be done with the commands:
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`<SPC> s s`   | initiate navigation micro-state
+`<SPC> s n`   | go to next occurrence and initiate navigation micro-state
+`<SPC> s N`   | go to previous occurrence and initiate navigation micro-state
+`<SPC> s c b` | change range to `whole buffer`
+`<SPC> s c d` | change range to `display area`
+`<SPC> s c f` | change range to `function`
+`<SPC> s C`   | change range to default (`whole buffer`)
+
+In 'Spacemacs' highlight symbol micro-state:
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`c`           | change scope (`function`, `display area`, `whole buffer`)
+`e`           | edit occurrences
+`n`           | go to next occurrence
+`N`           | go to previous occurrence
+`d`           | go to next definition occurrence
+`D`           | go to previous definition occurrence
+`r`           | go to home occurrence (reset position to starting occurrence)
+Any other key | leave the navigation micro-state
+
+The micro-state text in minibuffer display the following information:
+
+    <M> [6/11]* press (n) or (N) to navigate, (h) for home symbol, (c) to change scope
+
+Where `<M> [x/y]*` is:
+- M: the current range mode
+  - `<B>`: whole buffer range
+  - `<D>`: current display range
+  - `<F>`: current function range
+- `x`: the index of the current highlighted occurrence
+- `y`: the total number of occurrences
+- `*`: appears if there is at least one occurrence which is not currently
+visible.
+
 ### Window manipulation
 
 Every window has a number displayed at the start of the mode-line and can
@@ -641,13 +898,13 @@ Any other key | leave the font scaling micro-state
 
 ### Spell checking
 
-Spell checking commands start with `s`:
+Spell checking commands start with `S`:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> s c`       | list of corrections in a `helm` buffer
-`<SPC> s d`       | change dictionary language
-`<SPC> s n`       | go to the next spell check error
+`<SPC> S c`       | list of corrections in a `helm` buffer
+`<SPC> S d`       | change dictionary language
+`<SPC> S n`       | go to the next spell check error
 
 
 ### Region selection
@@ -674,143 +931,6 @@ Key Binding   |                 Description
 `<SPC> n p`   | narrow the buffer to the visible page
 `<SPC> n r`   | narrow the buffer to the selected text
 `<SPC> n w`   | widen, i.e show the whole buffer again
-
-### Auto highlight and edition of symbols
-
-`Spacemacs` supports auto highlighting of the current word (provided by the
- [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to it
- which makes it a very handy tool to have on your tool belt.
-
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`<SPC> h e`   | edit all occurrences of the current word
-`<SPC> t h`   | toggle the auto highlighting
-
-Navigation between the highlighted symbols can be done with the commands:
-
-Key Binding   | Description
---------------|------------------------------------------------------------
-`<SPC> h h`   | initiate navigation micro-state
-`<SPC> h n`   | go to next occurrence and initiate navigation micro-state
-`<SPC> h N`   | go to previous occurrence and initiate navigation micro-state
-`<SPC> h c b` | change range to `whole buffer`
-`<SPC> h c d` | change range to `display area`
-`<SPC> h c f` | change range to `function`
-`<SPC> h C`   | change range to default (`whole buffer`)
-
-In 'Spacemacs' highlight symbol micro-state:
-
-Key Binding   | Description
---------------|------------------------------------------------------------
-`c`           | change scope (`function`, `display area`, `whole buffer`)
-`e`           | edit occurrences
-`n`           | go to next occurrence
-`N`           | go to previous occurrence
-`d`           | go to next definition occurrence
-`D`           | go to previous definition occurrence
-`h`           | go to home occurrence (go to starting occurrence)
-Any other key | leave the navigation micro-state
-
-The micro-state text in minibuffer display the following information:
-
-    <M> [6/11]* press (n) or (N) to navigate, (h) for home symbol, (c) to change scope
-
-Where `<M> [x/y]*` is:
-- M: the current range mode
-  - `<B>`: whole buffer range
-  - `<D>`: current display range
-  - `<F>`: current function range
-- x: the index of the current highlighted occurrence
-- y: the total number of occurrences
-- * (star): appears if there is at least one occurrence which is not currently
-visible
-
-### Color theme
-
-By default, `Spacemacs` uses the theme [Solarized][solarized-theme].
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> c t`       | cycle between `Spacemacs` themes
-`<SPC> h t`       | select a theme using a `helm` buffer
-
-`Spacemacs` available themes:
-- [Solarized][solarized-theme]
-- [Monokai][monokai-theme]
-- [Zenburn][zenburn-theme]
-
-### UI elements
-
-#### Mode-line
-
-The mode line is an heavily customized [powerline][powerline] with the
-following capabilities:
-- show the window number
-- color code for current state
-- toggle flycheck info
-- toggle minor mode lighters
-
-Reminder of the color codes for the states:
-
-   Evil State     |       Color
-------------------|------------------
-Normal            | Orange
-Insert            | Green
-Visual            | Grey
-Emacs             | Blue
-Motion            | Purple
-Lisp              | Pink
-
-Some elements can be dynamically toggled:
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> t m m`     | toggle the minor mode lighters
-`<SPC> t m f`     | toggle the flycheck info
-
-##### Flycheck integration
-
-When [Flycheck][flycheck] minor mode is enabled, a new element appears showing
-the number of errors, warnings and info.
-
-![flycheck-mode-line](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/flycheck-mode-line.png)
-
-#### Toggles
-
-Some UI indicators can be toggled on and off (toggles start with `t`):
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> t 8`       | display a mark on the 80th column
-`<SPC> t F`       | toggle display of the fringe
-`<SPC> t n`       | show the absolute line numbers
-
-### Minor Modes
-
-`Spacemacs` uses [diminish][diminish] mode to reduce the size of minor mode
-indicators:
-
-The minor mode area can be toggled on and off with:
-
-    <SPC> t m m
-
-   Lighter   |                              Mode
--------------|-----------------------------------------------------------------
-⊞            | [golden-ratio][golden-ratio] mode
-Ⓐ            | [auto-complete][auto-complete] mode
-Ⓗ            | [auto-highlight-symbol][auto-highlight] mode
-Ⓒ            | [centered-cursor][centered-cursor] mode
-eⓅ           | [e-project][e-project] mode
-Ⓟ            | [projectile][projectile] mode
-Ⓕ            | flycheck mode
-Ⓕ2           | flymake mode
-Ⓢ            | flyspell mode
-(Ⓢ)          | [smartparens][sp] mode
-(Ⓟ)          | paredit mode
-Ⓨ            | [yasnippet][yasnippet] mode
-
-**Note:** in terminal the regular indicators are used instead of the utf-8
-ones.
 
 ### Line formatting
 
@@ -979,6 +1099,18 @@ you can answer `y` with no issue.
 Lisp navigation and edition is performed with a custom evil `lisp state`
 provided by [evil-lisp-state][evil-lisp-state] package.
 
+#### Philosophy
+
+`evil-lisp-state` goal is to replace as much as possible the `normal state` in
+lisp buffers.
+
+To achieve this goal, this mode tries to keep the useful commands from the
+`normal state` and add new commands (often with `shift` modifier) for
+manipulating the data structure.
+
+_Note: Be sure to try the key bindings '(' and ')'. I use them all the time
+and it may be one of the best features of this mode._
+
 #### Intuitive navigation model
 
 `hjkl` behaves like in the default `normal state`.
@@ -994,75 +1126,80 @@ provided by [evil-lisp-state][evil-lisp-state] package.
 And that's it! All these commands always put the point _at the beginning_ of
 the sexp.
 
-#### Text selection
+#### Key bindings maps
 
-Text selection is done with [expand-region][expand-region] by pressing `v`.
-It is also possible to select the whole line with `V`.
-
-#### Key bindings map
-
-While in `lisp state` (assume that `evil-lisp-state-backward-prefix` is set
-to default `<tab>`):
+##### Regular normal state bindings
 
 Key Binding   | Function
 --------------|------------------------------------------------------------
-`(`           | switch to `insert state` and insert "("
-`%`           | evil-jump-item (use it to go to the end of sexp)
-`$`           | sp-end-of-sexp
-`0`           | sp-beginning-of-sexp
 `a`           | evil-append
-`A`           | sp-absorb-sexp
-`b`           | sp-forward-barf-sexp
-`<tab>b`      | sp-backward-barf-sexp
-`c`           | sp-convolute-sexp
-`C`           | sp-comment
-`dd`          | sp-kill-hybrid-sexp
-`dx`          | sp-kill-sexp
-`<tab>dx`     | sp-backward-kill-sexp
-`ds`          | sp-kill-symbol
-`<tab>ds`     | sp-backward-kill-symbol
-`dw`          | sp-kill-word
-`<tab>dw`     | sp-backward-kill-word
-`D`           | evil-delete-line
-`gs`          | go to source of symbol under point
+`c`           | evil-change
+`d`           | evil-delete
 `h`           | next char
-`H`           | previous sexp at the same level
 `i`           | evil-insert-state
+`I`           | evil-insert-line
 `j`           | next visual line
-`J`           | next sexp one level down
 `k`           | previous visual line
-`K`           | previous sexp one level up
 `l`           | next char
-`L`           | next sexp of the same level
-`m`           | sp-join-sexp (think about `merge-sexp`)
-`o`           | insert sexp after on the same level and switch to `insert state`
-`O`           | insert sexp before on the same level and switch to `insert state`
+`o`           | evil-insert-below
+`O`           | evil-insert-above
 `p`           | evil-past-after
 `P`           | evil-past-before
-`r`           | sp-raise-sexp
+`r`           | evil-replace
 `C-r`         | undo-tree-redo
-`s`           | sp-forward-slurp-sexp
-`<tab>s`      | sp-backward-slurp-sexp
-`S`           | sp-splice-sexp-killing-forward
-`<tab>S`      | sp-splice-sexp-killing-backward
-`t`           | sp-transpose-sexp
-`T`           | sp-transpose-hybrid-sexp
 `u`           | undo-tree-undo
-`<tab>U`      | sp-backward-unwrap-sexp
-`v`           | er/expand-region
-`V`           | select whole line and switch to `visual state`
+`x`           | evil-delete-char
+`X`           | evil-delete-backward-char
+`y`           | evil-yank
+`ESC`         | evil-normal-state
+
+##### Lisp specific bindings
+
+_In this table we assume that `evil-lisp-state-backward-prefix` is set to
+default `<tab>`_
+
+Key Binding   | Function
+--------------|------------------------------------------------------------
+`(`           | insert sibling before sexp and switch to `insert state`
+`)`           | insert sibling after sexp and switch to `insert state`
+`$`           | sp-end-of-sexp
+`0`           | sp-beginning-of-sexp
+`A`           | sp-absorb-sexp
+`b`           | sp-forward-barf-sexp
+`<tab> b`     | sp-backward-barf-sexp
+`C`           | sp-convolute-sexp
+`Dd`          | sp-kill-hybrid-sexp
+`Dx`          | sp-kill-sexp
+`<tab> Dx`    | sp-backward-kill-sexp
+`Ds`          | sp-kill-symbol
+`<tab> Ds`    | sp-backward-kill-symbol
+`Dw`          | sp-kill-word
+`<tab> Dw`    | sp-backward-kill-word
+`E$`          | evil-lisp-state-eval-sexp-end-of-line
+`Ee`          | eval-last-sexp
+`Ef`          | eval-defun
+`gs`          | go to source of symbol under point
+`gt`          | sp-transpose-sexp
+`gT`          | sp-transpose-hybrid-sexp
+`H`           | previous sexp at the same level
+`J`           | next sexp one level down
+`K`           | previous sexp one level up
+`L`           | next sexp of the same level
+`M`           | sp-join-sexp (think about `merge-sexp`)
+`R`           | sp-raise-sexp
+`s`           | sp-forward-slurp-sexp
+`<tab> s`     | sp-backward-slurp-sexp
+`S`           | sp-splice-sexp-killing-forward
+`<tab> S`     | sp-splice-sexp-killing-backward
 `w`           | wrap sexp
 `W`           | unwrap sexp
-`x$`          | evil-lisp-state-eval-sexp-end-of-line
-`xf`          | eval-defun
-`xl`          | eval-last-sexp
-`xx`          | eval-sexp
-`y`           | sp-copy-sexp
-`<tab>y`      | sp-backward-copy-sexp
+`<tab> W`     | sp-backward-unwrap-sexp
+`Y`           | sp-copy-sexp
+`<tab> y`     | sp-backward-copy-sexp
 `backspace`   | sp-backward-delete-char
 `S-backspace` | sp-delete-char
-`RET`         | sp-newline (stay in `lisp state` see `o` to switch to `insert state`)
-`ESC`         | evil-normal-state
+`RET`         | indent next line
+`S-RET`       | insert new line char and switch to `insert state`
 
 **Reminder:**
 `lisp state` is a [base state](#base-states) which means that leaving
@@ -1348,3 +1485,5 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [ido-vertical-mode]: https://github.com/gempesaw/ido-vertical-mode.el
 [emacs_live]: https://github.com/overtone/emacs-live
 [issues]: https://github.com/syl20bnr/spacemacs/issues
+[vundle]: https://github.com/gmarik/Vundle.vim
+[anzu]: https://github.com/syohex/emacs-anzu
