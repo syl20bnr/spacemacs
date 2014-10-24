@@ -592,18 +592,19 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
 
 (defun spacemacs/init-auto-complete ()
   (use-package auto-complete
-    :commands auto-complete-mode
+    :commands global-auto-complete-mode
     :init
-    (progn
-      (add-to-hooks 'auto-complete-mode '(org-mode-hook
-                                          prog-mode-hook
-                                          erlang-mode-hook))
-      (evil-leader/set-key "ta" 'auto-complete-mode))
+    (add-to-hooks 'auto-complete-mode '(org-mode-hook
+                                        prog-mode-hook
+                                        erlang-mode-hook))
+    :idle (global-auto-complete-mode)
+    :idle-priority 1
     :config
     (progn
       (require 'auto-complete-config)
       (ac-config-default)
       (add-to-list 'completion-styles 'initials t)
+      (evil-leader/set-key "ta" 'auto-complete-mode)
       ;; customization
       (setq ac-auto-start 2
             ac-delay 0.
