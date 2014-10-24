@@ -210,13 +210,17 @@ determine the state to enable when escaping from the insert state.")
         (setq spacemacs-last-base-state 'lisp))
 
       (defun spacemacs/escape-state-default-insert-func (key)
-        "Insert KEY in current buffer if not read only."
+        "Insert KEY in current isearch minibuffer."
         (let* ((insertp (not buffer-read-only)))
           (insert key)))
 
       (defun spacemacs/escape-state-isearch-insert-func (key)
         "Insert KEY in current buffer if not read only."
         (isearch-printing-char))
+
+      (defun spacemacs/escape-state-term-insert-func (key)
+        "Insert KEY in current term buffer."
+        (term-send-raw))
 
       (defun spacemacs/escape-state-default-delete-func ()
         "Delete char in current buffer if not read only."
@@ -277,11 +281,13 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
           `(lambda () (interactive)
              (spacemacs/escape-state
               ',seq nil t 'isearch-abort 'spacemacs/escape-state-isearch-insert-func
-                                         'isearch-delete-char)))
+              'isearch-delete-char)))
         (define-key evil-insert-state-map key
           `(lambda () (interactive)
-             (spacemacs/escape-state
-              ',seq nil t (intern (format "evil-%s-state" spacemacs-last-base-state)))))
+             (let ((insertf (if (eq 'term-mode major-mode)
+                                'spacemacs/escape-state-term-insert-func)))
+               (spacemacs/escape-state
+                ',seq nil t (intern (format "evil-%s-state" spacemacs-last-base-state)) insertf))))
         (define-key evil-visual-state-map key
           `(lambda () (interactive)
              (spacemacs/escape-state ',seq ',shadowed nil 'evil-exit-visual-state)))
@@ -299,6 +305,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
           `(define-key helm-map ,key
              (lambda () (interactive)
                (spacemacs/escape-state ',seq nil t 'helm-keyboard-quit)))))
+
       ;; manage the base state target when leaving the insert state
       (define-key evil-insert-state-map [escape]
         (lambda () (interactive)
