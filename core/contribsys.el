@@ -15,8 +15,8 @@
 
 (load (concat spacemacs-core-directory "ht.el"))
 
-(defconst spacemacs-dotspacemacs-version 1
-  "Version execpted for ~/.spacemacs file.")
+(defconst spacemacs-dotspacemacs-version "1.0"
+  "Minimum Version exepected for ~/.spacemacs file.")
 
 (defvar spacemacs-config-layers '()
   "Alist of configuration layers with the form (symbol . plist) where
@@ -55,9 +55,14 @@ is its path.")
 
 (defun contribsys/check-dotspacemacs-version ()
   "Return t if the check pass, otherwise return nil and display an error
-message."
+message.
+
+The check pass if the expected version stored in
+`spacemacs-dotspacemacs-version' is less or equal to the current version of
+~/.spacemacs
+"
   (if (and (boundp 'dotspacemacs-version)
-           (equal dotspacemacs-version spacemacs-dotspacemacs-version))
+           (not (version< dotspacemacs-version spacemacs-dotspacemacs-version)))
       t
     (defun display-startup-echo-area-message ()
       "Change the default welcome message of minibuffer to another one."

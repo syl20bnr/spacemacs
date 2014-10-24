@@ -4,8 +4,8 @@
 
 ;; Variables
 
-(defconst dotspacemacs-version 1
-  "The version number of this file.")
+(defconst dotspacemacs-version "1.01"
+  "The version of this file.")
 
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
@@ -15,6 +15,9 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
 (defvar dotspacemacs-configuration-layers '()
   "List of contribution to load."
 )
+
+(defvar dotspacemacs-fullscreen-at-startup t
+  "If non nil the frame is maximized when Emacs starts up.")
 
 (defvar dotspacemacs-default-package-repository 'melpa-stable
   "The default package repository used if no explicit repository has been
