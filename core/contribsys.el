@@ -34,17 +34,41 @@ initialize the extension.")
   "Hash table of all declared post-extensions in all layers where the key is a
 extension symbol and the value is the layer symbol where to load and
 initialize the extension.")
+(defvar spacemacs-contrib-layer-paths #s(hash-table size 128 data ())
+  "Hash table of layers locations where the key is a layer symbol and the value
+is its path.")
 
 (defun contribsys/declare-layer (sym &optional contrib)
   "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer
  is a contribution layer."
   (let* ((sym-name (symbol-name sym))
-         (base-dir (if contrib spacemacs-contrib-config-directory
+         (base-dir (if contrib
+                       (ht-get spacemacs-contrib-layer-paths sym)
                      user-emacs-directory))
          (dir (format "%s%s/" base-dir sym-name))
          (ext-dir (format "%sextensions/" dir)))
     (push (cons sym (list :contrib contrib :dir dir :ext-dir ext-dir))
           spacemacs-config-layers)))
+
+(defun contribsys/discover-contrib-layers ()
+  "Fill the hash table `spacemacs-contrib-layer-paths' where the key is the
+layer symbol and the value is its path."
+  (mapc 'contribsys/discover-contrib-layers-in-dir
+        (cons spacemacs-contrib-config-directory
+              dotspacemacs-configuration-layer-path)))
+
+(defun contribsys/discover-contrib-layers-in-dir (dir)
+  "Fill the hash table `spacemacs-contrib-layer-paths' where the key is the
+layer symbol and the value is its path for all layers found in directory DIR."
+  (message "Looking for contribution layers in %s" dir)
+  (ignore-errors
+    (let ((files (directory-files dir nil nil 'nosort)))
+      (dolist (f files)
+        (if (and (file-directory-p (concat dir f))
+                 (not (member f '("." ".."))))
+            (progn
+              (message "-> Discovered contribution layer: %s" f)
+              (puthash (intern f) dir spacemacs-contrib-layer-paths)))))))
 
 (defun contribsys/load-layers ()
   "Load all declared layers."
@@ -175,7 +199,7 @@ extension.
      (ht-size spacemacs-all-pre-extensions)
      (ht-size spacemacs-all-post-extensions)))
 
-(defun contribsys/declare-configuration-layers ()
+(defun contribsys/declare-user-configuration-layers ()
   "Declare the configuration layer in order of appearance in list
 dotspacemacs-configuration-layers defined in ~/.spacemacs."
   (if (boundp 'dotspacemacs-configuration-layers)
