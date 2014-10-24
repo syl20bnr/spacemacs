@@ -408,6 +408,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
             (setq spacemacs-mode-line-flycheckp nil)
           (setq spacemacs-mode-line-flycheckp t)))
       (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
+
       ;; for now we hardcode the height value of powerline depending on the
       ;; window system, a better solution would be to compute it correctly
       ;; in powerline package.
