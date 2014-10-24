@@ -4,6 +4,11 @@
 
 ;; Variables
 
+(defvar dotspacemacs-configuration-layer-path '()
+  "List of additional paths where to look for configuration layers.
+Paths must have a trailing slash (ie. `~/.mycontribs/')"
+)
+
 (defvar dotspacemacs-configuration-layers '()
   "List of contribution to load."
 )

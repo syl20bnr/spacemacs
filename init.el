@@ -31,7 +31,10 @@
   ;; in variable dotspacemacs-configuration-layers
   (load (concat spacemacs-core-directory "contribsys.el"))
   (contribsys/declare-layer 'spacemacs)
-  (contribsys/declare-configuration-layers)
+  ;; configuration layers coming from `dotspacemacs-configuration-layers'
+  (contribsys/discover-contrib-layers)
+  (contribsys/declare-user-configuration-layers)
+  ;; heavy lifting, load all packages and extensions
   (contribsys/load-layers)
   ;; Temporary fix until automatic orphan packages deletion is ported to
   ;; Emacs 24.4
