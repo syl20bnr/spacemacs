@@ -1239,14 +1239,10 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
 
 (defun spacemacs/init-helm ()
   (use-package helm
-    :defer t
-    :init
+    :idle (helm-mode 1)
+    :idle-priority 0
+    :config
     (progn
-      (add-to-hooks 'helm-mode '(erlang-mode-hook
-                                 markdown-mode-hook
-                                 org-mode-hook
-                                 prog-mode-hook
-                                 ))
       (evil-leader/set-key
         ":"   'helm-M-x
         "bs"  'helm-mini
