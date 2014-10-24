@@ -9,7 +9,9 @@
   :syntax-table nil
   :abbrev-table nil
   (setq truncate-lines t)
-  (setq cursor-type nil))
+  (setq cursor-type nil)
+  ;; no welcome buffer
+  (setq inhibit-startup-screen t))
 
 (defun spacemacs/emacs-version-ok ()
   (not (version< emacs-version spacemacs-min-version)))
