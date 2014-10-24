@@ -1259,9 +1259,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
         (define-key helm-bookmark-map (kbd "C-f") 'helm-bookmark-toggle-filename)
         (define-key helm-bookmark-map (kbd "C-o") 'helm-bookmark-run-jump-other-window)
         (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
-      (add-hook 'helm-mode-hook 'simpler-helm-bookmark-keybindings))
-    :config
-    (progn
+      (add-hook 'helm-mode-hook 'simpler-helm-bookmark-keybindings)
       ;; helm navigation on hjkl
       (define-key helm-map (kbd "C-j") 'helm-next-line)
       (define-key helm-map (kbd "C-k") 'helm-previous-line)
