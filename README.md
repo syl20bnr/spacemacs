@@ -20,6 +20,8 @@ _Jump to [Install](#install) for more info_
     - [Prerequisites](#prerequisites)
     - [Install](#install)
         - [Troubleshoot](#troubleshoot)
+            - [Loading fails](#loading-fails)
+            - [Version mismatch for ~/.spacemacs](#version-mismatch-for-spacemacs)
     - [Configuration layers](#configuration-layers)
         - [Structure](#structure)
         - [Extensions and Packages declaration and initialization](#extensions-and-packages-declaration-and-initialization)
@@ -197,6 +199,8 @@ installed. When the package installation is complete restart Emacs and
 
 ### Troubleshoot
 
+#### Loading fails
+
 If during the first boot of Emacs nothing seems to happen or if the
 installation seems to abort prematurely, you can check for an error message
 by opening the `*Warning*` buffer:
@@ -207,10 +211,17 @@ _('C-x b' means 'Ctrl + x then b' and 'RET' means 'return')_
 
 Then you can copy/paste the error in a [Github issue][issues], thank you.
 
-If you have an error related to a `dotspacemacs-xxx` variable or
-`dotspacemacs/xxx` function, it is likely due to a new version of the
-`~/.spacemacs` file, please check the commit messages and look at the
-current `.spacemacs.template` file.
+#### Version mismatch for ~/.spacemacs
+
+If you get the error:
+```
+Error: '~/.spacemacs' version mismatch.
+```
+
+Then you have to update your `~/.spacemacs` to the last version. Unfortunately
+there is no automatic way to do it. You will have to refer to the commit
+messages and ultimately to the template file `.spacemacs.template` in your
+`~/.emacs.d`.
 
 ## Configuration layers
 
