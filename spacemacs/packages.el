@@ -1819,16 +1819,19 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
-    :defer t
+    :commands yas-global-mode
     :init
     (progn
       (defun spacemacs/load-yasnippet ()
         (let* ((dir (contribsys/get-layer-property 'spacemacs :dir))
                (yas-dir (list (concat dir "snippets"))))
           (setq yas-snippet-dirs yas-dir)
-          (yas-minor-mode)
-          (yas-reload-all)))
-      (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook erlang-mode-hook)))
+          (if (not (boundp 'yas-minor-mode))
+              (progn (yas-global-mode)
+                     (yas-reload-all)))))
+      (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
+                                                org-mode-hook
+                                                erlang-mode-hook)))
     :config
     (progn 
       (spacemacs//diminish yas-minor-mode " Ⓨ"))))
