@@ -18,14 +18,6 @@
   "Change the default welcome message of minibuffer to another one."
   (message "Spacemacs is ready."))
 
-(defun spacemacs/load-dotfile ()
-  "Load ~/.spacemacs. If it is not found then copy .spacemacs.template to
-~/.spacemacs"
-  (let ((dotfile (concat user-home-directory ".spacemacs")))
-    (unless (file-exists-p dotfile)
-      (copy-file (concat user-emacs-directory ".spacemacs.template") dotfile))
-    (load dotfile)))
-
 (defvar spacemacs-title-length 70)
 (defvar spacemacs-loading-counter 0)
 (defvar spacemacs-loading-text "Loading")
