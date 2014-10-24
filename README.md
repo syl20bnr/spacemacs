@@ -308,8 +308,8 @@ For instance to add the configuration layer of [RMS](#thank-you):
   "List of contribution to load."
 )
 ```
-Oh, you don't find this configuration layer ? So sad, well you can try mine:
-[syl20bnr](https://github.com/syl20bnr/spacemacs/tree/master/contrib/syl20bnr)
+If this layer does not exist you can still try another one in
+[the `contrib` directory](https://github.com/syl20bnr/spacemacs/tree/master/contrib).
 
 By default contribution layers are expected to be stored in `~/.emacs.d/contrib`
 and we encourage you to submit your layers upstream in order to share them,
