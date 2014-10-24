@@ -23,8 +23,6 @@
     "Dropbox directory.")
   ;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
   (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
-  ;; User configuration file for Spacemacs: ~/.spacemacs 
-  (spacemacs/load-dotfile)
   (dotspacemacs/init)
   ;; initialisation of the contribution system based on configuration layers
   ;; additional configuration layers are declared in ~/.spacemacs
@@ -43,6 +41,8 @@
   ;; Ultimate configuration decisions are given to the user who can defined
   ;; them in his/her ~/.spacemacs file
   (dotspacemacs/config))
+  ;; User configuration file for Spacemacs: ~/.spacemacs
+  (contribsys/load-dotfile)
     (contribsys/setup-after-init-hook))
 
   ;; start a server for subsequent emacs clients

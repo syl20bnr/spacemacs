@@ -38,6 +38,14 @@ initialize the extension.")
   "Hash table of layers locations where the key is a layer symbol and the value
 is its path.")
 
+(defun contribsys/load-dotfile ()
+  "Load ~/.spacemacs. If it is not found then copy .spacemacs.template to
+~/.spacemacs"
+  (let ((dotfile (concat user-home-directory ".spacemacs")))
+    (unless (file-exists-p dotfile)
+      (copy-file (concat user-emacs-directory ".spacemacs.template") dotfile))
+    (load dotfile)))
+
 (defun contribsys/declare-layer (sym &optional contrib)
   "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer
  is a contribution layer."
