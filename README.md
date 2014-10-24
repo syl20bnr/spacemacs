@@ -219,9 +219,11 @@ Error: '~/.spacemacs' version mismatch.
 ```
 
 Then you have to update your `~/.spacemacs` to the last version. Unfortunately
-there is no automatic way to do it. You will have to refer to the commit
-messages and ultimately to the template file `.spacemacs.template` in your
-`~/.emacs.d`.
+there is no automatic way to do it. You will have to refer to the template file
+`.spacemacs.template` in your `~/.emacs.d` and to the commit messages.
+
+If you need help to upgrade, open an issue or ask for help on the [Gitter
+channel](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge).
 
 ## Configuration layers
 
