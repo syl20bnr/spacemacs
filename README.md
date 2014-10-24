@@ -283,10 +283,11 @@ Some user configuration can be performed in your `~/.spacemacs` file.
 ### Adding contributions
 
 `Spacemacs` leverages the configuration layers in order to make it possible for
-you to share your own layer with other `Spacemacs` users.
+you to share your own layer with other `Spacemacs` users. This kind of layer is
+called `contribution layer`.
 
 To use a contribution layer, add it to the `dotspacemacs-configuration-layers`
-variable of your `~/.spacemacs`
+variable of your `~/.spacemacs`.
 
 For instance to add the configuration layer of [RMS](#thank-you):
 ```elisp
@@ -296,6 +297,21 @@ For instance to add the configuration layer of [RMS](#thank-you):
 ```
 Oh, you don't find this configuration layer ? So sad, well you can try mine:
 [syl20bnr](https://github.com/syl20bnr/spacemacs/tree/master/contrib/syl20bnr)
+
+By default contribution layers are expected to be stored in `~/.emacs.d/contrib`
+and we encourage you to submit your layers upstream in order to share them,
+grow the package coverage of `Spacemacs` and dispatch responsibilities for their
+maintenance. But of course you are free to keep them somewhere else, if this is
+your case you can declare additional paths where `Spacemacs` can look for
+contribution layers. This is done by setting the list
+`dotspacemacs-configuration-layer-path` in your `~/.spacemacs`:
+
+```elisp
+(defvar dotspacemacs-configuration-layer-path '("~/.mycontribs/")
+  "List of additional paths where to look for configuration layers.
+Paths must have a trailing slash (ie. `~/.mycontribs/')"
+)
+```
 
 #### Themes Megapack example
 
