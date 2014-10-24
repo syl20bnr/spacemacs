@@ -1272,14 +1272,6 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
     (eval-after-load 'scss-mode
       '(evil-leader/set-key-for-mode 'scss-mode "mh" 'helm-css-scss))))
 
-(defun spacemacs/init-helm-c-yasnippet ()
-  (use-package helm-c-yasnippet
-    :commands helm-c-yas-complete
-    :init
-    (progn
-      (evil-leader/set-key "hy" 'helm-c-yas-complete)
-      (setq helm-c-yas-space-match-any-greedy t))))
-
 (defun spacemacs/init-helm-descbinds ()
   (use-package helm-descbinds
     :defer t
@@ -1817,21 +1809,25 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
     :commands yas-global-mode
+    :idle (yas-global-mode 1)
     :init
     (progn
       (defun spacemacs/load-yasnippet ()
-        (let* ((dir (contribsys/get-layer-property 'spacemacs :dir))
-               (yas-dir (list (concat dir "snippets"))))
-          (setq yas-snippet-dirs yas-dir)
           (if (not (boundp 'yas-minor-mode))
-              (progn (yas-global-mode)
-                     (yas-reload-all)))))
+              (progn
+                (let* ((dir (contribsys/get-layer-property 'spacemacs :dir))
+                       (yas-dir (list (concat dir "snippets"))))
+                  (setq yas-snippet-dirs yas-dir)
+                  (yas-global-mode 1)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                 org-mode-hook
                                                 erlang-mode-hook)))
     :config
     (progn 
-      (spacemacs//diminish yas-minor-mode " Ⓨ"))))
+      (spacemacs//diminish yas-minor-mode " Ⓨ")
+      (require 'helm-c-yasnippet)
+      (evil-leader/set-key "hy" 'helm-yas-complete)
+      (setq helm-c-yas-space-match-any-greedy t))))
 
 (defun spacemacs/init-zenburn-theme ()
   (use-package zenburn-theme
