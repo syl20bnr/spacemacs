@@ -437,7 +437,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
                       ;; window number
                       ;; (funcall separator-left state-face face1)
                       (powerline-raw (spacemacs/window-number) state-face))
-                      (if anzu--state
+                      (if (and active anzu--state)
                           (list
                            (funcall separator-right state-face face1)
                            (powerline-raw (anzu--update-mode-line) face1)
