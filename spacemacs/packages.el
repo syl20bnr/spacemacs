@@ -428,7 +428,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
                  (face2 (if active 'powerline-active2 'powerline-inactive2))
                  (state-face (if active (spacemacs/current-state-face) face2))
                  (flycheckp (and spacemacs-mode-line-flycheckp
-                                 (symbolp flycheck-mode)
+                                 (boundp 'flycheck-mode)
                                  (symbol-value flycheck-mode)
                                  (or flycheck-current-errors
                                      (eq 'running flycheck-last-status-change))))
