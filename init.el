@@ -43,8 +43,9 @@
   ;; Ultimate configuration decisions are given to the user who can defined
   ;; them in his/her ~/.spacemacs file
   (dotspacemacs/config))
+    (contribsys/setup-after-init-hook))
 
-;; start a server for subsequent emacs clients
-(require 'server)
-(unless (server-running-p)
-  (server-start))
+  ;; start a server for subsequent emacs clients
+  (require 'server)
+  (unless (server-running-p)
+    (server-start)))

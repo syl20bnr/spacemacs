@@ -294,3 +294,17 @@ orphan dependencies."
             (redisplay))
           (spacemacs/append-to-buffer "\n"))
       (message "No orphan package to delete."))))
+
+(defun contribsys/setup-after-init-hook ()
+  "Add post init processing."
+  (add-hook 'after-init-hook
+            (lambda ()
+              (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text))
+              ;; from jwiegley
+              ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
+              (let ((elapsed (float-time
+                              (time-subtract (current-time) emacs-start-time))))
+                (spacemacs/append-to-buffer
+                 (format "[%s packages loaded in %.3fs]\n"
+                         (contribsys/initialized-packages-count)
+                         elapsed))))))
