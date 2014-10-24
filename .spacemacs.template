@@ -4,6 +4,9 @@
 
 ;; Variables
 
+(defconst dotspacemacs-version 1
+  "The version number of this file.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')"

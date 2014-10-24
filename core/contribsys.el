@@ -15,6 +15,9 @@
 
 (load (concat spacemacs-core-directory "ht.el"))
 
+(defconst spacemacs-dotspacemacs-version 1
+  "Version execpted for ~/.spacemacs file.")
+
 (defvar spacemacs-config-layers '()
   "Alist of configuration layers with the form (symbol . plist) where
 SYMBOL is the name of the layer and PLIST is a property list with the following
@@ -23,17 +26,21 @@ keys:
 :dir        the absolute path to the base directory of the layer.
 :ext-dir    the absolute path to the directory containing the extensions.
 ")
+
 (defvar spacemacs-all-packages #s(hash-table size 200 data ())
   "Hash table of all declared packages in all layers where the key is a package
 symbol and the value is the layer symbol where to initialize the package.")
+
 (defvar spacemacs-all-pre-extensions #s(hash-table size 64 data ())
   "Hash table of all declared pre-extensions in all layers where the key is a
 extension symbol and the value is the layer symbol where to load and
 initialize the extension.")
+
 (defvar spacemacs-all-post-extensions #s(hash-table size 64 data ())
   "Hash table of all declared post-extensions in all layers where the key is a
 extension symbol and the value is the layer symbol where to load and
 initialize the extension.")
+
 (defvar spacemacs-contrib-layer-paths #s(hash-table size 128 data ())
   "Hash table of layers locations where the key is a layer symbol and the value
 is its path.")
@@ -45,6 +52,28 @@ is its path.")
     (unless (file-exists-p dotfile)
       (copy-file (concat user-emacs-directory ".spacemacs.template") dotfile))
     (load dotfile)))
+
+(defun contribsys/check-dotspacemacs-version ()
+  "Return t if the check pass, otherwise return nil and display an error
+message."
+  (if (and (boundp 'dotspacemacs-version)
+           (equal dotspacemacs-version spacemacs-dotspacemacs-version))
+      t
+    (defun display-startup-echo-area-message ()
+      "Change the default welcome message of minibuffer to another one."
+      (message "Error during loading of Spacemacs."))
+    (spacemacs/append-to-buffer
+     (format (concat
+              "Error: '~/.spacemacs' version mismatch.\n"
+              "Found version %s instead of %s.\n\n"
+              "Check for recent commits message and look for "
+              "'~/.emacs.d/.spacemacs.template' to update your configuration "
+              "file.\nIf you have a hard time to update it, feel free to open "
+              "an issue.")
+             (if (boundp 'dotspacemacs-version)
+                 dotspacemacs-version)
+             spacemacs-dotspacemacs-version))
+    nil))
 
 (defun contribsys/declare-layer (sym &optional contrib)
   "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer

@@ -23,26 +23,25 @@
     "Dropbox directory.")
   ;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
   (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
-  (dotspacemacs/init)
-  ;; initialisation of the contribution system based on configuration layers
-  ;; additional configuration layers are declared in ~/.spacemacs
-  ;; in variable dotspacemacs-configuration-layers
   (load (concat spacemacs-core-directory "contribsys.el"))
-  (contribsys/declare-layer 'spacemacs)
-  ;; configuration layers coming from `dotspacemacs-configuration-layers'
-  (contribsys/discover-contrib-layers)
-  (contribsys/declare-user-configuration-layers)
-  ;; heavy lifting, load all packages and extensions
-  (contribsys/load-layers)
-  ;; Temporary fix until automatic orphan packages deletion is ported to
-  ;; Emacs 24.4
-  (if (version< emacs-version "24.4")
-      (contribsys/delete-orphan-packages))
-  ;; Ultimate configuration decisions are given to the user who can defined
-  ;; them in his/her ~/.spacemacs file
-  (dotspacemacs/config))
   ;; User configuration file for Spacemacs: ~/.spacemacs
   (contribsys/load-dotfile)
+  (when (contribsys/check-dotspacemacs-version)
+    (dotspacemacs/init)
+    ;; default configuration layer of spacemacs
+    (contribsys/declare-layer 'spacemacs)
+    ;; configuration layers coming from `dotspacemacs-configuration-layers'
+    (contribsys/discover-contrib-layers)
+    (contribsys/declare-user-configuration-layers)
+    ;; heavy lifting, load all packages and extensions
+    (contribsys/load-layers)
+    ;; Temporary fix until automatic orphan packages deletion is ported to
+    ;; Emacs 24.4
+    (if (version< emacs-version "24.4")
+        (contribsys/delete-orphan-packages))
+    ;; Ultimate configuration decisions are given to the user who can defined
+    ;; them in his/her ~/.spacemacs file
+    (dotspacemacs/config)
     (contribsys/setup-after-init-hook))
 
   ;; start a server for subsequent emacs clients
