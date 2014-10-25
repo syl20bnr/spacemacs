@@ -173,17 +173,11 @@ yet, I deeply recommend you to learn the basics as recommended in
 
 ## Prerequisites
 
-`Spacemacs` is compatible with Emacs 24.3 and above and should boot on all
-the major OSes where this version can be installed.
+`Spacemacs` is tested with Emacs 24.3 and 24.4. It should boot on all the major
+OSes where these versions can be installed.
 
 Some packages require external tools to work, a list of all dependencies will
 be provided in this read me. _Stay tuned._
-
-Note for Emacs 24.4: There are a lot of glitches to be corrected like:
-- minibuffer takes more place
-- subword displays a crappy lighter `,`
-- mode-line colors from 'solarized' are not accurate in the inactive buffers
-- etc...
 
 ## Install
 
