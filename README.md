@@ -92,6 +92,7 @@ _Jump to [Install](#install) for more info_
                 - [Inferior REPL process](#inferior-repl-process)
                 - [Testing in Python](#testing-in-python)
                 - [Other Python commands](#other-python-commands)
+            - [JavaScript](#javascript)
             - [R (ESS)](#r-ess)
                 - [Inferior REPL process](#inferior-repl-process)
                 - [Other R commands](#other-r-commands)
