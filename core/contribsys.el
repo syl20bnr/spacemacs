@@ -57,12 +57,13 @@ is its path.")
   "Return t if the check pass, otherwise return nil and display an error
 message.
 
-The check pass if the expected version stored in
-`spacemacs-dotspacemacs-version' is less or equal to the current version of
-~/.spacemacs
+The check pass if the expected major version stored in
+`spacemacs-dotspacemacs-version' is the same as the expected major version from
+spacemacs.
 "
   (if (and (boundp 'dotspacemacs-version)
-           (not (version< dotspacemacs-version spacemacs-dotspacemacs-version)))
+           (and (equal (car (version-to-list dotspacemacs-version))
+                       (car (version-to-list spacemacs-dotspacemacs-version)))))
       t
     (defun display-startup-echo-area-message ()
       "Change the default welcome message of minibuffer to another one."
