@@ -33,7 +33,7 @@
     :init
     (evil-leader/set-key "zz" 'global-centered-cursor-mode)
     :config
-    (progn 
+    (progn
       (custom-set-variables
        '(ccm-recenter-at-end-of-file t)
        '(ccm-ignored-commands (quote (mouse-drag-region
@@ -57,10 +57,7 @@
     :init (add-hook 'org-mode-hook 'evil-org-mode)))
 
 (defun spacemacs/init-evil-plugins ()
-  (use-package evil-little-word)
-  (use-package evil-operator-comment
-    :init
-    (global-evil-operator-comment-mode 1)))
+  (use-package evil-little-word))
 
 (defun spacemacs/init-helm-rcirc ()
   (use-package helm-rcirc

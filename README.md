@@ -606,6 +606,7 @@ They are both extended with various packages to build on their foundations.
 [evil-visualstar][]                     | search for current selection with `*`
 [evil-exchange][]                       | port of [vim-exchange][]
 [evil-surround][]                       | port of [vim-surround][]
+[evil-nerd-commenter][]                 | port of [nerdcommenter][]
 
 ### Helm extensions
 
@@ -980,6 +981,21 @@ Line formatting commands start with `j`:
 `<SPC> j k`       | join the current line with the next line
 
 Used together these key bindings are very powerful to quickly reformat the code.
+
+### Commenting
+
+Comments are handled by [evil-nerd-commenter][], it's bound to the following keys.
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> n c l`     | comment lines
+`<SPC> n c t`     | comment to line
+`<SPC> n c y`     | comment and yank
+`<SPC> n c p`     | comment paragraphs
+`<SPC> n c r`     | comment region
+`<SPC> n c i`     | comment invert
+`<SPC> n c c`     | comment operator
+
 
 ### Errors handling
 
@@ -1492,6 +1508,8 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [camelcasemotion.vim]: http://www.vim.org/scripts/script.php?script_id=1905
 [vim-exchange]: https://github.com/tommcdo/vim-exchange
 [vim-surround]: https://github.com/tpope/vim-surround
+[evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
+[nerdcommenter]: https://github.com/scrooloose/nerdcommenter
 [evil-org-mode]: https://github.com/edwtjo/evil-org-mode
 [nose]: https://github.com/nose-devs/nose/
 [nose.el]: https://github.com/syl20bnr/nose.el
