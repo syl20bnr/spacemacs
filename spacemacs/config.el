@@ -89,8 +89,8 @@
 
 ;; Emacs 24.4 new features
 (unless (version< emacs-version "24.4")
-  (if ((and (boundp 'dotspacemacs-fullscreen-at-startup)
-            dotspacemacs-fullscreen-at-startup))
+  (if (and (boundp 'dotspacemacs-fullscreen-at-startup)
+           dotspacemacs-fullscreen-at-startup)
       (toggle-fullscreen)))
 
 ;; ---------------------------------------------------------------------------
