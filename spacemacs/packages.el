@@ -776,7 +776,9 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
   (eval-after-load "hi-lock"
     '(diminish 'hi-lock-mode))
   (eval-after-load "abbrev"
-    '(diminish 'abbrev-mode)))
+    '(diminish 'abbrev-mode))
+  (eval-after-load "subword"
+    '(diminish 'subword-mode)))
 
 (defun spacemacs/init-dired+ ()
   (use-package dired+
