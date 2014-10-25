@@ -601,7 +601,7 @@ They are both extended with various packages to build on their foundations.
 
                  Mode                   |             Description
 ----------------------------------------|--------------------------------------
-[evil-leader][]              | vim leader that bring a new layer of keys in normal mode
+[evil-leader][]                         | vim leader that bring a new layer of keys in normal mode
 [evil-little-word][]                    | port of [camelcasemotion.vim][]
 [evil-visualstar][]                     | search for current selection with `*`
 [evil-exchange][]                       | port of [vim-exchange][]
