@@ -31,6 +31,7 @@ _Jump to [Install](#install) for more info_
             - [Themes Megapack example](#themes-megapack-example)
         - [Excluding packages](#excluding-packages)
         - [Hooks](#hooks)
+        - [Custom variables](#custom-variables)
     - [Main principles](#main-principles)
         - [Evil](#evil)
             - [States](#states)
@@ -351,6 +352,12 @@ configuration at the beginning and end of `Spacemacs` loading process.
 - `dotspacemacs/init` is triggered at the very beginning of `Spacemacs`
 loading.
 - `dotspacemacs/config` is triggered at the very end of `Spacemacs` loading.
+
+### Custom variables
+
+Custom variables configuration from `M-x customize-group` which are
+automatically saved by Emacs are stored at the end of your `~/.spacemacs`
+file.
 
 ## Main principles
 

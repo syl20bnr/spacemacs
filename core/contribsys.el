@@ -45,10 +45,14 @@ initialize the extension.")
   "Hash table of layers locations where the key is a layer symbol and the value
 is its path.")
 
+(defun contribsys/dotfile-location ()
+  "Return the absolute path to the spacemacs dotfile."
+  (concat user-home-directory ".spacemacs"))
+
 (defun contribsys/load-dotfile ()
   "Load ~/.spacemacs. If it is not found then copy .spacemacs.template to
 ~/.spacemacs"
-  (let ((dotfile (concat user-home-directory ".spacemacs")))
+  (let ((dotfile (contribsys/dotfile-location)))
     (unless (file-exists-p dotfile)
       (copy-file (concat user-emacs-directory ".spacemacs.template") dotfile))
     (load dotfile)))
