@@ -253,14 +253,13 @@ dotspacemacs-configuration-layers defined in ~/.spacemacs."
   (let* ((layer (assq symlayer spacemacs-config-layers)))
          (plist-get (cdr layer) prop)))
 
-(defun contribsys/get-package-dependencies ()
+(defun contribsys/load-package-dependencies ()
   "Returns a hash map where key is a dependency package symbol and value is
 a list of all packages which depend on it."
   (let ((result #s(hash-table size 200 data ())))
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
-             (pkg-info (cdr pkg))
-             (deps (elt pkg-info 1)))
+             (deps (contribsys/get-package-dependencies pkg-sym)))
         (dolist (dep deps)
           (let* ((dep-sym (car dep))
                  (value (ht-get result dep-sym)))
@@ -304,14 +303,35 @@ orphan dependencies."
       (if acc (add-to-list 'acc imp-pkg) (setq acc (list imp-pkg)))))
   acc)
 
+(defun contribsys/get-package-dependencies (package)
+  "Return the dependencies alist for PACKAGE."
+  (let ((pkg (assq package package-alist)))
+    (cond
+     ((version< emacs-version "24.4") (aref (cdr pkg) 1))
+     (t (package-desc-reqs (cadr pkg))))))
+
 (defun contribsys/get-package-version (package)
   "Return the version string for PACKAGE."
-  (package-version-join (aref (cdr (assq package package-alist)) 0)))
+  (let ((pkg (assq package package-alist)))
+    (cond
+     ((version< emacs-version "24.4")
+      (package-version-join (aref (cdr pkg) 0)))
+     (t
+      (package-version-join (package-desc-version (cadr pkg)))))))
+
+(defun contribsys/package-delete (package)
+  "Delete the passed PACKAGE."
+  (cond
+   ((version< emacs-version "24.4")
+    (package-delete (symbol-name package)
+                    (contribsys/get-package-version package)))
+   (t
+    (package-delete (cadr (assq package package-alist))))))
 
 (defun contribsys/delete-orphan-packages ()
   "Delete all the orphan packages."
   (interactive)
-  (let* ((dependencies (contribsys/get-package-dependencies))
+  (let* ((dependencies (contribsys/load-package-dependencies))
          (implicit-packages (contribsys/get-implicit-packages))
          (orphans (contribsys/get-orphan-packages implicit-packages
                                                   dependencies))
@@ -331,8 +351,7 @@ orphan dependencies."
                      orphan
                      deleted-count
                      orphans-count) t)
-            (package-delete (symbol-name orphan)
-                            (contribsys/get-package-version orphan))
+            (contribsys/package-delete orphan)
             (redisplay))
           (spacemacs/append-to-buffer "\n"))
       (message "No orphan package to delete."))))

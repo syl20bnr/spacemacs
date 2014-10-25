@@ -37,8 +37,7 @@
     (contribsys/load-layers)
     ;; Temporary fix until automatic orphan packages deletion is ported to
     ;; Emacs 24.4
-    (if (version< emacs-version "24.4")
-        (contribsys/delete-orphan-packages))
+    (contribsys/delete-orphan-packages)
     ;; Ultimate configuration decisions are given to the user who can defined
     ;; them in his/her ~/.spacemacs file
     (dotspacemacs/config)
