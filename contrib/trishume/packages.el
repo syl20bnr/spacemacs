@@ -31,8 +31,4 @@
         (interactive)
         (helm-ag (projectile-project-root)))
       (evil-leader/set-key
-        "pa" 'trishume-helm-ag))
-    :config
-    (progn
-      ;; (setq helm-ag-command-option "--all-text")
-      (setq helm-ag-insert-at-point 'symbol))))
+        "pa" 'trishume-helm-ag))))
