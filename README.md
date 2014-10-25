@@ -1365,6 +1365,23 @@ Test commands (start with `m t` or `m T`):
 `<SPC> m g`       | go to definition using [emacs-jedi][jedi]
 `<SPC> m p`       | add a breakpoint
 
+#### JavaScript
+
+[js2-mode][] will activate for all `*.js` files, along with
+[tern-auto-complete][] which will provide the best JavaScript
+completion currently available. Just make sure you have the [tern][]
+NPM module installed.
+
+Tern includes the following key bindings:
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`M-.`             | jump to the definition of the thing under the cursor.
+`M-,`             | brings you back to last place you were when you pressed M-..
+`C-c C-r`         | rename the variable under the cursor.
+`C-c C-c`         | find the type of the thing under the cursor.
+`C-c C-d`         | find docs of the thing under the cursor. Press again to open the associated URL (if any).
+
 #### R (ESS)
 
 **Important**:
@@ -1517,3 +1534,6 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [issues]: https://github.com/syl20bnr/spacemacs/issues
 [vundle]: https://github.com/gmarik/Vundle.vim
 [anzu]: https://github.com/syohex/emacs-anzu
+[js2-mode]: https://github.com/mooz/js2-mode
+[tern-auto-complete]: https://github.com/marijnh/tern/blob/master/emacs/tern-auto-complete.el
+[tern]: http://ternjs.net/
