@@ -288,19 +288,20 @@ are not in `spacemacs-all-packages' (explicit packages)"
                                    imp-pkg dependencies '()))))
     (delete-dups result)))
 
-(defun contribsys//get-orphan-packages2 (imp-pkg dependencies acc)
+(defun contribsys//get-orphan-packages2 (pkg dependencies acc)
   "Reccursive function to get the orphans packages as well as their
 orphan dependencies."
-  (if (ht-contains? dependencies imp-pkg)
-      (dolist (parent (ht-get dependencies imp-pkg))
+  (if (and (ht-contains? dependencies pkg)
+           (not (ht-contains? spacemacs-all-packages pkg)))
+      (dolist (parent (ht-get dependencies pkg))
         (let ((orphans (contribsys//get-orphan-packages2
                         parent dependencies acc)))
           (unless (not orphans)
-            (add-to-list 'acc imp-pkg)
+            (add-to-list 'acc pkg)
             (if acc (setq acc (append acc orphans))
               (setq acc orphans)))))
-    (unless (ht-contains? spacemacs-all-packages imp-pkg)
-      (if acc (add-to-list 'acc imp-pkg) (setq acc (list imp-pkg)))))
+    (unless (ht-contains? spacemacs-all-packages pkg)
+      (if acc (add-to-list 'acc pkg) (setq acc (list pkg)))))
   acc)
 
 (defun contribsys/get-package-dependencies (package)
