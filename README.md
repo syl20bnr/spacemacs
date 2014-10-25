@@ -601,12 +601,11 @@ They are both extended with various packages to build on their foundations.
 
                  Mode                   |             Description
 ----------------------------------------|--------------------------------------
-[evil-leader][evil-leader]              | vim leader that bring a new layer of keys in normal mode
-[evil-little-word][evil-plugin01]       | port of [camelcasemotion.vim][vim-plugin01]
-[evil-operator-comment][evil-plugin01]  | comment/uncomment with `CC`
-[evil-visualstar][evil-plugin03]        | search for current selection with `*`
-[evil-exchange][evil-plugin05]          | port of [vim-exchange][vim-plugin04]
-[evil-surround][evil-plugin04]          | port of [surround.vim][vim-plugin03]
+[evil-leader][]              | vim leader that bring a new layer of keys in normal mode
+[evil-little-word][]                    | port of [camelcasemotion.vim][]
+[evil-visualstar][]                     | search for current selection with `*`
+[evil-exchange][]                       | port of [vim-exchange][]
+[evil-surround][]                       | port of [vim-surround][]
 
 ### Helm extensions
 
@@ -1486,15 +1485,13 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [projectile]: https://github.com/bbatsov/projectile
 [hdescbinds]: https://github.com/emacs-helm/helm-descbinds
 [hflyspell]: https://gist.github.com/cofi/3013327
-[evil-plugin01]: https://github.com/tarao/evil-plugins
-[evil-plugin02]: https://github.com/redguardtoo/evil-matchit
-[evil-plugin03]: https://github.com/bling/evil-visualstar
-[evil-plugin04]: https://github.com/timcharper/evil-surround
-[evil-plugin05]: https://github.com/Dewdrops/evil-exchange
-[vim-plugin01]: http://www.vim.org/scripts/script.php?script_id=1905
-[vim-plugin02]: http://www.vim.org/scripts/script.php?script_id=39
-[vim-plugin03]: http://www.vim.org/scripts/script.php?script_id=1697
-[vim-plugin04]: https://github.com/tommcdo/vim-exchange
+[evil-little-word]: https://github.com/tarao/evil-plugins#evil-little-wordel
+[evil-visualstar]: https://github.com/bling/evil-visualstar
+[evil-exchange]: https://github.com/Dewdrops/evil-exchange
+[evil-surround]: https://github.com/timcharper/evil-surround
+[camelcasemotion.vim]: http://www.vim.org/scripts/script.php?script_id=1905
+[vim-exchange]: https://github.com/tommcdo/vim-exchange
+[vim-surround]: https://github.com/tpope/vim-surround
 [evil-org-mode]: https://github.com/edwtjo/evil-org-mode
 [nose]: https://github.com/nose-devs/nose/
 [nose.el]: https://github.com/syl20bnr/nose.el
