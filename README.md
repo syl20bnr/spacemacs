@@ -70,6 +70,7 @@ _Jump to [Install](#install) for more info_
         - [Region selection](#region-selection)
         - [Region narrowing](#region-narrowing)
         - [Line formatting](#line-formatting)
+        - [Commenting](#commenting)
         - [Errors handling](#errors-handling)
         - [Project management](#project-management)
         - [Working with Git](#working-with-git)
