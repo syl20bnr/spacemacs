@@ -74,9 +74,11 @@ NOT USED FOR NOW :-)"
   "Load ~/.spacemacs. If it is not found then copy .spacemacs.template to
 ~/.spacemacs"
   (let ((dotfile (contribsys/dotfile-location)))
-    (unless (file-exists-p dotfile)
-      (copy-file (concat user-emacs-directory ".spacemacs.template") dotfile))
-    (load dotfile)))
+    (if (file-exists-p dotfile) (load dotfile))))
+
+(defmacro contribsys/call-dotfile-func (func)
+  "Call the function from the dotfile only if it is bound."
+  `(if (fboundp ',func) (,func)))
 
 (defun contribsys/declare-layer (sym &optional contrib)
   "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer

@@ -26,7 +26,7 @@
   (load (concat spacemacs-core-directory "contribsys.el"))
   ;; User configuration file for Spacemacs: ~/.spacemacs
   (contribsys/load-dotfile)
-  (if (fboundp 'dotspacemacs/init) (dotspacemacs/init))
+  (contribsys/call-dotfile-func dotspacemacs/init)
   ;; default configuration layer of spacemacs
   (contribsys/declare-layer 'spacemacs)
   ;; configuration layers coming from `dotspacemacs-configuration-layers'
@@ -39,7 +39,7 @@
   (contribsys/delete-orphan-packages)
   ;; Ultimate configuration decisions are given to the user who can defined
   ;; them in his/her ~/.spacemacs file
-  (if (fboundp 'dotspacemacs/config) (dotspacemacs/config))
+  (contribsys/call-dotfile-func dotspacemacs/config)
   (contribsys/setup-after-init-hook)
 
   ;; start a server for subsequent emacs clients
