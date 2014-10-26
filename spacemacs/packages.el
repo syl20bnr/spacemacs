@@ -230,10 +230,16 @@ determine the state to enable when escaping from the insert state.")
           (delete-char -1)))
 
       (evil-define-command spacemacs/escape-state
-        (keys shadowed insert? callback &optional insert-func delete-func)
+        (keys shadowed insert? delete? callback &optional insert-func delete-func)
         "Allows to execute the passed CALLBACK using KEYS. KEYS is a cons cell
-of 2 characters. If INSERT? is not nil then the first key pressed is inserted
- using the function INSERT-FUNC and deleted if required using DELETE-FUNC."
+of 2 characters.
+
+If INSERT? is not nil then the first key pressed is inserted using the function
+INSERT-FUNC.
+
+If DELETE? is not nil then the first key is deleted using the function
+DELETE-FUNC when calling CALLBACK.
+"
         :repeat change
         (let* ((modified (buffer-modified-p))
                (insertf
@@ -254,7 +260,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
              ((and (integerp evt)
                    (char-equal evt skey))
               ;; remove the f character
-              (if insert? (funcall deletef))
+              (if delete? (funcall deletef))
               (set-buffer-modified-p modified)
               (funcall callback))
              (t ; otherwise
@@ -269,11 +275,11 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
              (shadowed (lookup-key evil-motion-state-map key)))
         ;; 'fd' triggers to escape from a state to the base state
         (global-set-key key `(lambda () (interactive)
-                               (spacemacs/escape-state ',seq nil nil 'keyboard-quit)))
+                               (spacemacs/escape-state ',seq nil nil nil 'keyboard-quit)))
         (mapc (lambda (map)
                 (define-key (eval map) key
                   `(lambda () (interactive)
-                     (spacemacs/escape-state ',seq nil t 'abort-recursive-edit))))
+                     (spacemacs/escape-state ',seq nil t nil 'abort-recursive-edit))))
               '(minibuffer-local-map
                 minibuffer-local-ns-map
                 minibuffer-local-completion-map
@@ -282,31 +288,35 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
         (define-key isearch-mode-map key
           `(lambda () (interactive)
              (spacemacs/escape-state
-              ',seq nil t 'isearch-abort 'spacemacs/escape-state-isearch-insert-func
+              ',seq nil t t 'isearch-abort 'spacemacs/escape-state-isearch-insert-func
               'isearch-delete-char)))
+        (define-key evil-ex-completion-map key
+          `(lambda () (interactive)
+             (spacemacs/escape-state
+              ',seq nil t nil 'abort-recursive-edit nil 'evil-ex-delete-backward-char)))
         (define-key evil-insert-state-map key
           `(lambda () (interactive)
              (let ((insertf (if (eq 'term-mode major-mode)
                                 'spacemacs/escape-state-term-insert-func)))
                (spacemacs/escape-state
-                ',seq nil t (intern (format "evil-%s-state" spacemacs-last-base-state)) insertf))))
+                ',seq nil t t (intern (format "evil-%s-state" spacemacs-last-base-state)) insertf))))
         (define-key evil-visual-state-map key
           `(lambda () (interactive)
-             (spacemacs/escape-state ',seq ',shadowed nil 'evil-exit-visual-state)))
+             (spacemacs/escape-state ',seq ',shadowed nil nil 'evil-exit-visual-state)))
         (define-key evil-emacs-state-map  key
           `(lambda () (interactive)
-             (spacemacs/escape-state ',seq ',shadowed nil 'evil-normal-state)))
+             (spacemacs/escape-state ',seq ',shadowed nil nil 'evil-normal-state)))
         (define-key evil-motion-state-map key
           `(lambda () (interactive)
-             (spacemacs/escape-state ',seq ',shadowed nil 'evil-normal-state)))
+             (spacemacs/escape-state ',seq ',shadowed nil nil 'evil-normal-state)))
         (eval-after-load 'evil-lisp-state
           `(define-key evil-lisp-state-map ,key
              (lambda () (interactive)
-               (spacemacs/escape-state ',seq ',shadowed nil 'evil-normal-state))))
+               (spacemacs/escape-state ',seq ',shadowed nil nil 'evil-normal-state))))
         (eval-after-load "helm-mode"
           `(define-key helm-map ,key
              (lambda () (interactive)
-               (spacemacs/escape-state ',seq nil t 'helm-keyboard-quit)))))
+               (spacemacs/escape-state ',seq nil t nil 'helm-keyboard-quit)))))
 
       ;; manage the base state target when leaving the insert state
       (define-key evil-insert-state-map [escape]
