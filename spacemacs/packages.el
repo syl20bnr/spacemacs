@@ -350,19 +350,19 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
       (use-package evil-surround
         :init (global-evil-surround-mode 1))
       ;; load nerd-commenter
-      (use-package evil-nerd-commenter
-                   :init
-                   (progn
-                    (global-evil-leader-mode)
-                    (evil-leader/set-key
-                      "ncl" 'evilnc-comment-or-uncomment-lines
-                      "nct" 'evilnc-quick-comment-or-uncomment-to-the-line
-                      "ncy" 'evilnc-copy-and-comment-lines
-                      "ncp" 'evilnc-comment-or-uncomment-paragraphs
-                      "ncr" 'comment-or-uncomment-region
-                      "nci" 'evilnc-toggle-invert-comment-line-by-line
-                      "ncc" 'evilnc-comment-operator
-                      )))
+      (if (version< emacs-version "24.4")
+          (use-package evil-nerd-commenter
+            :init
+            (progn
+              (evil-leader/set-key
+                "ncl" 'evilnc-comment-or-uncomment-lines
+                "nct" 'evilnc-quick-comment-or-uncomment-to-the-line
+                "ncy" 'evilnc-copy-and-comment-lines
+                "ncp" 'evilnc-comment-or-uncomment-paragraphs
+                "ncr" 'comment-or-uncomment-region
+                "nci" 'evilnc-toggle-invert-comment-line-by-line
+                "ncc" 'evilnc-comment-operator
+                ))))
       ;; load evil-exchange
       (use-package evil-exchange
         :init (evil-exchange-install))
