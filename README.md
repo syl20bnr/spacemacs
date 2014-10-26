@@ -348,9 +348,7 @@ variable of your `~/.spacemacs`.
 
 For instance to add the configuration layer of [RMS](#thank-you):
 ```elisp
-(defvar dotspacemacs-configuration-layers '(rms)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(rms))
 ```
 If this layer does not exist you can still try another one in
 [the `contrib` directory](https://github.com/syl20bnr/spacemacs/tree/master/contrib).
@@ -364,10 +362,7 @@ contribution layers. This is done by setting the list
 `dotspacemacs-configuration-layer-path` in your `~/.spacemacs`:
 
 ```elisp
-(defvar dotspacemacs-configuration-layer-path '("~/.mycontribs/")
-  "List of additional paths where to look for configuration layers.
-Paths must have a trailing slash (ie. `~/.mycontribs/')"
-)
+(setq-default dotspacemacs-configuration-layer-path '("~/.mycontribs/"))
 ```
 
 #### Adding a contribution layer
@@ -410,8 +405,7 @@ extensions.
 
 For instance to disable the `rainbow-delimiters` package:
 ```elisp
-(defvar dotspacemacs-excluded-packages '(rainbow-delimiters)
-  "A list of packages and/or extensions that will not be install and loaded.")
+(setq-default dotspacemacs-excluded-packages '(rainbow-delimiters))
 ```
 
 Note that for now, excluded packages that have been installed are not
@@ -722,8 +716,8 @@ to your file:
 ```elisp
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very startup."
-  (defvar spacemacs-normal-state-sequence '(?j . ?j))
-  (defvar spacemacs-normal-state-sequence-delay 0.2)
+  (setq-default spacemacs-normal-state-sequence '(?j . ?j))
+  (setq-default spacemacs-normal-state-sequence-delay 0.2)
 )
 ```
 
