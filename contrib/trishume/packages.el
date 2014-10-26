@@ -3,6 +3,7 @@
     auctex
     cdlatex
     smooth-scrolling
+    helm-ag
     ))
 
 (defun trishume/init-auctex ()
@@ -21,3 +22,13 @@
     (setq scroll-margin 5
           scroll-conservatively 9999
           scroll-step 1)))
+
+(defun trishume/init-helm-ag ()
+  (use-package helm-ag
+    :init
+    (progn
+      (defun trishume-helm-ag ()
+        (interactive)
+        (helm-ag (projectile-project-root)))
+      (evil-leader/set-key
+        "pa" 'trishume-helm-ag))))
