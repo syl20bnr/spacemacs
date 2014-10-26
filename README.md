@@ -14,6 +14,10 @@ _Jump to [Install](#install) for more info_
 
 - [Spacemacs Advanced Kit](#spacemacs-advanced-kit)
     - [Introduction](#introduction)
+    - [Philosophy](#philosophy)
+        - [Easy](#easy)
+        - [Consistency](#consistency)
+        - [Crowd-Configured](#crowd-configured)
     - [Goals](#goals)
     - [Screenshots](#screenshots)
     - [Who can benefit from this ?](#who-can-benefit-from-this-)
@@ -27,7 +31,10 @@ _Jump to [Install](#install) for more info_
         - [Extensions and Packages declaration and initialization](#extensions-and-packages-declaration-and-initialization)
         - [Packages synchronization (Vundle like feature)](#packages-synchronization-vundle-like-feature)
     - [Configuration](#configuration)
-        - [Adding contributions](#adding-contributions)
+        - [Contribution layers](#contribution-layers)
+            - [Using contributions layers](#using-contributions-layers)
+            - [Adding a contribution layer](#adding-a-contribution-layer)
+            - [Submitting a contribution layer upstream](#submitting-a-contribution-layer-upstream)
             - [Themes Megapack example](#themes-megapack-example)
         - [Excluding packages](#excluding-packages)
         - [Hooks](#hooks)
@@ -130,9 +137,9 @@ Three core pillars: Easy, Consistency, "Crowd-Configured".
 
 ### Easy
 
-`Spacemacs` organizes key bindings by mnemonic namespaces. If you are look for
-commands to operate on your buffer, they are right under `<SPC> b`, if you want
-to operate on your project, then it is `<SPC> p`, etc...
+`Spacemacs` organizes key bindings by mnemonic namespaces. If you are looking
+for commands to operate on your buffer, they are right under `<SPC> b`, if you
+want to operate on your project, then it is `<SPC> p`, etc...
 
 `Spacemacs` comes with a dedicated major mode `spacemacs-mode`. Its goal is to
 give useful feedbacks and perform maintenance tasks easily.
@@ -141,7 +148,7 @@ give useful feedbacks and perform maintenance tasks easily.
 
 Similar functionalities should have the same key binding. For instance if you are
 looking for the definition of a function, the binding is `<SPC> m g`, `m` for
-**m**ajor mode and `g` for **g**o to. And no matter what is the major mode it
+`major mode` and `g` for `go to`. And no matter what is the major mode it
 should be the same binding.
 
 ### Crowd-Configured
@@ -149,7 +156,7 @@ should be the same binding.
 This term does not really exist but I'm sure you know what it means.
 
 This is the most powerful feature of `Spacemacs`. Anybody can submit upstream
-his or her configuration layer and anybody can use in a second by adding it
+his or her configuration layer and anybody can use it in a second by adding it
 in a dotfile and by optionally filtering it (ie. removing unwanted packages).
 
 So by cloning this repository you have a centralized place of configured
@@ -171,8 +178,8 @@ this.
 **keep your fingers on the home row** as much as possible, no matter the mode
 you are in.
 
-- **Crowed-configured** powered by a configuration layer system: Contribute
-your own personal layer upstream and everybody can use it.
+- **Crowed-configured**: Contribute your own personal layer upstream and
+everybody can use it.
 
 - **Minimalistic and nice UI**, keep your available screen space for what
 matters: your text files.
