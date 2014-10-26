@@ -34,6 +34,7 @@
     evil-surround
     evil-terminal-cursor-changer
     evil-visualstar
+    evil-nerd-commenter
     exec-path-from-shell
     expand-region
     fill-column-indicator
@@ -348,6 +349,20 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
       ;; load surround
       (use-package evil-surround
         :init (global-evil-surround-mode 1))
+      ;; load nerd-commenter
+      (use-package evil-nerd-commenter
+                   :init
+                   (progn
+                    (global-evil-leader-mode)
+                    (evil-leader/set-key
+                      "ncl" 'evilnc-comment-or-uncomment-lines
+                      "nct" 'evilnc-quick-comment-or-uncomment-to-the-line
+                      "ncy" 'evilnc-copy-and-comment-lines
+                      "ncp" 'evilnc-comment-or-uncomment-paragraphs
+                      "ncr" 'comment-or-uncomment-region
+                      "nci" 'evilnc-toggle-invert-comment-line-by-line
+                      "ncc" 'evilnc-comment-operator
+                      )))
       ;; load evil-exchange
       (use-package evil-exchange
         :init (evil-exchange-install))
@@ -1821,7 +1836,7 @@ of 2 characters. If INSERT? is not nil then the first key pressed is inserted
                                                 org-mode-hook
                                                 erlang-mode-hook)))
     :config
-    (progn 
+    (progn
       (spacemacs//diminish yas-minor-mode " Ⓨ")
       (require 'helm-c-yasnippet)
       (evil-leader/set-key "hy" 'helm-yas-complete)
