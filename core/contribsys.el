@@ -45,6 +45,27 @@ initialize the extension.")
   "Hash table of layers locations where the key is a layer symbol and the value
 is its path.")
 
+(defvar dotspacemacs-configuration-layer-path '()
+  "List of additional paths where to look for configuration layers.
+Paths must have a trailing slash (ie. `~/.mycontribs/')"
+)
+
+(defvar dotspacemacs-configuration-layers '()
+  "list of contribution to load."
+)
+
+(defvar dotspacemacs-fullscreen-at-startup nil
+  "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).")
+
+(defvar dotspacemacs-default-package-repository 'melpa-stable
+  "The default package repository used if no explicit repository has been
+specified with an installed package.
+NOT USED FOR NOW :-)"
+)
+
+(defvar dotspacemacs-excluded-packages '()
+  "A list of packages and/or extensions that will not be install and loaded.")
+
 (defun contribsys/dotfile-location ()
   "Return the absolute path to the spacemacs dotfile."
   (concat user-home-directory ".spacemacs"))
@@ -56,34 +77,6 @@ is its path.")
     (unless (file-exists-p dotfile)
       (copy-file (concat user-emacs-directory ".spacemacs.template") dotfile))
     (load dotfile)))
-
-(defun contribsys/check-dotspacemacs-version ()
-  "Return t if the check pass, otherwise return nil and display an error
-message.
-
-The check pass if the expected major version stored in
-`spacemacs-dotspacemacs-version' is the same as the expected major version from
-spacemacs.
-"
-  (if (and (boundp 'dotspacemacs-version)
-           (and (equal (car (version-to-list dotspacemacs-version))
-                       (car (version-to-list spacemacs-dotspacemacs-version)))))
-      t
-    (defun display-startup-echo-area-message ()
-      "Change the default welcome message of minibuffer to another one."
-      (message "Error during loading of Spacemacs."))
-    (spacemacs/append-to-buffer
-     (format (concat
-              "Error: '~/.spacemacs' version mismatch.\n"
-              "Found version %s instead of %s.\n\n"
-              "Check for recent commits message and look for "
-              "'~/.emacs.d/.spacemacs.template' to update your configuration "
-              "file.\nIf you have a hard time to update it, feel free to open "
-              "an issue.")
-             (if (boundp 'dotspacemacs-version)
-                 dotspacemacs-version)
-             spacemacs-dotspacemacs-version))
-    nil))
 
 (defun contribsys/declare-layer (sym &optional contrib)
   "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer

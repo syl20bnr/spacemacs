@@ -26,22 +26,21 @@
   (load (concat spacemacs-core-directory "contribsys.el"))
   ;; User configuration file for Spacemacs: ~/.spacemacs
   (contribsys/load-dotfile)
-  (when (contribsys/check-dotspacemacs-version)
-    (dotspacemacs/init)
-    ;; default configuration layer of spacemacs
-    (contribsys/declare-layer 'spacemacs)
-    ;; configuration layers coming from `dotspacemacs-configuration-layers'
-    (contribsys/discover-contrib-layers)
-    (contribsys/declare-user-configuration-layers)
-    ;; heavy lifting, load all packages and extensions
-    (contribsys/load-layers)
-    ;; Temporary fix until automatic orphan packages deletion is ported to
-    ;; Emacs 24.4
-    (contribsys/delete-orphan-packages)
-    ;; Ultimate configuration decisions are given to the user who can defined
-    ;; them in his/her ~/.spacemacs file
-    (dotspacemacs/config)
-    (contribsys/setup-after-init-hook))
+  (if (fboundp 'dotspacemacs/init) (dotspacemacs/init))
+  ;; default configuration layer of spacemacs
+  (contribsys/declare-layer 'spacemacs)
+  ;; configuration layers coming from `dotspacemacs-configuration-layers'
+  (contribsys/discover-contrib-layers)
+  (contribsys/declare-user-configuration-layers)
+  ;; heavy lifting, load all packages and extensions
+  (contribsys/load-layers)
+  ;; Temporary fix until automatic orphan packages deletion is ported to
+  ;; Emacs 24.4
+  (contribsys/delete-orphan-packages)
+  ;; Ultimate configuration decisions are given to the user who can defined
+  ;; them in his/her ~/.spacemacs file
+  (if (fboundp 'dotspacemacs/config) (dotspacemacs/config))
+  (contribsys/setup-after-init-hook)
 
   ;; start a server for subsequent emacs clients
   (require 'server)
