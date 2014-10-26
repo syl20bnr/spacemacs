@@ -290,11 +290,13 @@ It effectively makes `Spacemacs` to behave like [Vundle][vundle].
 
 Some user configuration can be performed in your `~/.spacemacs` file.
 
-### Adding contributions
+### Contribution layers
 
 `Spacemacs` leverages the configuration layers in order to make it possible for
 you to share your own layer with other `Spacemacs` users. This kind of layer is
 called `contribution layer`.
+
+#### Using contributions layers
 
 To use a contribution layer, add it to the `dotspacemacs-configuration-layers`
 variable of your `~/.spacemacs`.
@@ -323,9 +325,34 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
 )
 ```
 
+#### Adding a contribution layer
+
+Just create a configuration layer in `~/.emacs.d/contrib` or in a path that is
+registered in `dotspacemacs-configuration-layer-path` variable of your
+`~/.spacemacs` directory.
+
+The base files of a configuration layer (see [structure](#structure)) are
+optional so you just have to create only the files you need in your layer.
+For instance if you just want to add packages then only the `packages.el` file
+is necessary (as it is the case for the [Themes Megapack][themes-megapack]
+layer).
+
+#### Submitting a contribution layer upstream
+
+To submit a contribution layer just open a pull request :-)
+
+It is **strongly** recommended to join a `README.md` file with your layer,
+ideally this file should document the packages of your layer as well as the key
+bindings associated with them.
+
+Note that by submitting a configuration layer you become the de facto maintainer
+of it. For this reason it is advised to name your contribution with your Github
+user name.
+
 #### Themes Megapack example
 
-This is a simple contribution layer listing a bunch of themes.
+This is a simple contribution layer listing a bunch of themes, you can find it
+[here][themes-megapack].
 
 To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
 installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
@@ -1554,3 +1581,4 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [js2-mode]: https://github.com/mooz/js2-mode
 [tern-auto-complete]: https://github.com/marijnh/tern/blob/master/emacs/tern-auto-complete.el
 [tern]: http://ternjs.net/
+[themes-megapack]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/themes-megapack
