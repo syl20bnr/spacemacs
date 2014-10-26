@@ -126,29 +126,28 @@ And now, to use a well known catch line from [Emacs Live][emacs_live]:
 
 ## Goals
 
-- The main goal of `Spacemacs` is to **bring the power of Vim modal editing
-to the powerful Emacs editing platform**.
+- **Bring the power of modal editing** to the powerful Emacs editing platform.
 
-- Slick integration with `Evil` states (`Vim` modes) with custom
-`micro-states` (temporary overlay map): `Spacemacs` tries to **keep your
-fingers on the home row** as much as possible, no matter the mode you are in.
+- Integrate nicely with `Evil` states (`Vim` modes): `Spacemacs` tries to
+**keep your fingers on the home row** as much as possible, no matter the mode
+you are in.
 
-- **Community driven configuration** based on a configuration layer system
-*(work in progress)*. Contribute your own personal layer upstream and
-everybody can use it.
+- **Crowed-configured** powered by a configuration layer system: Contribute
+your own personal layer upstream and everybody can use it.
 
-- **Minimalistic and nice custom UI**, keep your available screen space for
-what matters: your text files.
+- **Minimalistic and nice UI**, keep your available screen space for what
+matters: your text files.
 
 - **Mnemonic and consistent key bindings** which should be easier to learn
 and remember.
 
-- **Fast boot time**, some time has been invested to make `Spacemacs` quick
-to load.
+- **Fast boot time**.
 
-- **Lower the risk of RSI** by using the space key as much as possible.
+- **Lower the risk of RSI**.
 
-- Hopefully, if it's not already the case: Ɛ> **make you love modal editing!** <3
+- Hopefully, if it's not already the case:
+
+Ɛ>Ɛ>Ɛ> **make you love modal editing!** <3<3<3
 
 ## Screenshots
 
