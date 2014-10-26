@@ -1,31 +1,24 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
-;; It must be stored in the home directory.
+;; It must be stored in your home directory.
 
 ;; Variables
 
-(defconst dotspacemacs-version "1.01"
-  "The version of this file.")
-
-(defvar dotspacemacs-configuration-layer-path '()
-  "List of additional paths where to look for configuration layers.
-Paths must have a trailing slash (ie. `~/.mycontribs/')"
+(setq-default
+ ;; List of additional paths where to look for configuration layers.
+ ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
+ dotspacemacs-configuration-layer-path '()
+ ;; List of contribution to load.
+ dotspacemacs-configuration-layers '()
+ ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
+ dotspacemacs-fullscreen-at-startup nil
+ ;; A list of packages and/or extensions that will not be install and loaded.
+ dotspacemacs-excluded-packages '()
+ ;; The default package repository used if no explicit repository has been
+ ;; specified with an installed package.
+ ;; Not used for now.
+ dotspacemacs-default-package-repository nil
 )
-
-(defvar dotspacemacs-configuration-layers '()
-  "List of contribution to load."
-)
-
-(defvar dotspacemacs-fullscreen-at-startup t
-  "If non nil the frame is maximized when Emacs starts up.")
-
-(defvar dotspacemacs-default-package-repository 'melpa-stable
-  "The default package repository used if no explicit repository has been
-specified with an installed package."
-)
-
-(defvar dotspacemacs-excluded-packages '()
-  "A list of packages and/or extensions that will not be install and loaded.")
 
 ;; Functions
 
