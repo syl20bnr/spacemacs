@@ -124,6 +124,45 @@ And now, to use a well known catch line from [Emacs Live][emacs_live]:
 
     M-x start-spacing !
 
+## Philosophy
+
+Three core pillars: Easy, Consistency, "Crowd-Configured".
+
+### Easy
+
+`Spacemacs` organizes key bindings by mnemonic namespaces. If you are look for
+commands to operate on your buffer, they are right under `<SPC> b`, if you want
+to operate on your project, then it is `<SPC> p`, etc...
+
+`Spacemacs` comes with a dedicated major mode `spacemacs-mode`. Its goal is to
+give useful feedbacks and perform maintenance tasks easily.
+
+### Consistency
+
+Similar functionalities should have the same key binding. For instance if you are
+looking for the definition of a function, the binding is `<SPC> m g`, `m` for
+**m**ajor mode and `g` for **g**o to. And no matter what is the major mode it
+should be the same binding.
+
+### Crowd-Configured
+
+This term does not really exist but I'm sure you know what it means.
+
+This is the most powerful feature of `Spacemacs`. Anybody can submit upstream
+his or her configuration layer and anybody can use in a second by adding it
+in a dotfile and by optionally filtering it (ie. removing unwanted packages).
+
+So by cloning this repository you have a centralized place of configured
+packages tuned by expert in their domain. And most importantly it should be
+consistent with the whole experience provided by `Spacemacs`.
+
+If some packages are missing from core `Spacemacs` but they are present in
+several contribution layers, chances are that they should be in core and we
+can easily move them there.
+
+If any of this core pillars are violated open an issue and we'll try to fix
+this.
+
 ## Goals
 
 - **Bring the power of modal editing** to the powerful Emacs editing platform.
