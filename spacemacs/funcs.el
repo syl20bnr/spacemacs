@@ -445,11 +445,13 @@ kill internal buffers too."
      (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))
    ))
 
-(defun spacemacs/set-font (font size)
-  (let ((fontsize (format "%s-%s" font size)))
-    (message (format "Set default font: %s" fontsize))
-    (add-to-list 'default-frame-alist (cons 'font fontsize))
-    (set-default-font fontsize)))
+(defun spacemacs/set-font (font size &optional options)
+  (let* ((fontstr (if options
+                       (format "%s-%s:%s" font size options)
+                     (format "%s-%s" font size))))
+    (message (format "Set default font: %s" fontstr))
+    (add-to-list 'default-frame-alist (cons 'font fontstr))
+    (set-default-font fontstr)))
 
 (defun spacemacs/scale-font-size (direction)
   "Set a temporary overlay map to easily change the font size.
