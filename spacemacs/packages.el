@@ -859,7 +859,8 @@ DELETE-FUNC when calling CALLBACK.
                   ;; when starting an Erlang shell in Emacs, with a custom node name
                   (setq inferior-erlang-machine-options '("-sname" "syl20bnr"))
                   ))
-      (require 'edts-start)
+      (unless (eq window-system 'w32)
+          (require 'edts-start))
       ;; (setq edts-log-level 'debug)
       ;; (setq edts-face-inhibit-mode-line-updates t)
       (evil-leader/set-key-for-mode 'erlang-mode
