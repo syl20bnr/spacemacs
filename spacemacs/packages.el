@@ -1765,10 +1765,11 @@ DELETE-FUNC when calling CALLBACK.
     (evil-leader/set-key "eds" 'string-edit-at-point)))
 
 (defun spacemacs/init-subword ()
-  (use-package subword
-    :defer t
-    :init
-    (add-hook 'prog-mode-hook 'subword-mode)))
+  (unless (version< emacs-version "24.4")
+    (use-package subword
+      :defer t
+      :init
+      (add-hook 'prog-mode-hook 'subword-mode))))
 
 (defun spacemacs/init-tagedit ()
   (use-package tagedit
