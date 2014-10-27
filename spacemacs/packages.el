@@ -1833,7 +1833,6 @@ DELETE-FUNC when calling CALLBACK.
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
     :commands yas-global-mode
-    :idle (yas-global-mode 1)
     :init
     (progn
       (defun spacemacs/load-yasnippet ()
