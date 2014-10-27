@@ -1063,7 +1063,7 @@ DELETE-FUNC when calling CALLBACK.
     :init
     (progn
       (setq-default ispell-program-name "aspell")
-      (setq-default ispell-dictionary "en")
+      (setq-default ispell-dictionary "english")
       (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
       (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1))))
     :config
