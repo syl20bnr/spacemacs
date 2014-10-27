@@ -100,7 +100,8 @@
 (evil-leader/set-key
   "t8" 'toggle-fill-column-indicator
   "tF" 'fringe-mode
-  "tf" 'toggle-fullscreen
+  "tff" 'toggle-frame-fullscreen
+  "tfm" 'toggle-frame-maximized
   "tn" 'global-linum-mode
   "tw" 'toggle-read-only)
 ;; window ---------------------------------------------------------------------

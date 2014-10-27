@@ -91,7 +91,7 @@
 (unless (version< emacs-version "24.4")
   (if (and (boundp 'dotspacemacs-fullscreen-at-startup)
            dotspacemacs-fullscreen-at-startup)
-      (toggle-fullscreen)))
+      (toggle-frame-maximized)))
 
 ;; ---------------------------------------------------------------------------
 ;; Session
