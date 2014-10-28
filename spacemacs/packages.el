@@ -71,6 +71,7 @@
     ledger-mode
     less-css-mode
     magit
+    magit-gitflow
     markdown-mode
     markdown-toc
     monokai-theme
@@ -294,6 +295,8 @@ DELETE-FUNC when calling CALLBACK.
           `(lambda () (interactive)
              (spacemacs/escape-state
               ',seq nil t nil 'abort-recursive-edit nil 'evil-ex-delete-backward-char)))
+        ;; Note: we keep emacs state untouched in order to always have a
+        ;; fallback for modes that uses the `f' key (ie. magit-gitflow)
         (define-key evil-insert-state-map key
           `(lambda () (interactive)
              (let ((insertf (if (eq 'term-mode major-mode)
@@ -303,9 +306,6 @@ DELETE-FUNC when calling CALLBACK.
         (define-key evil-visual-state-map key
           `(lambda () (interactive)
              (spacemacs/escape-state ',seq ',shadowed nil nil 'evil-exit-visual-state)))
-        (define-key evil-emacs-state-map  key
-          `(lambda () (interactive)
-             (spacemacs/escape-state ',seq ',shadowed nil nil 'evil-normal-state)))
         (define-key evil-motion-state-map key
           `(lambda () (interactive)
              (spacemacs/escape-state ',seq ',shadowed nil nil 'evil-normal-state)))
@@ -1436,6 +1436,12 @@ DELETE-FUNC when calling CALLBACK.
         (setq magit-diff-options (remove "-w" magit-diff-options))
         (magit-refresh))
       (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
+
+(defun spacemacs/init-magit-gitflow ()
+  (use-package magit-gitflow
+    :commands turn-on-magit-gitflow
+    :init
+    (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)))
 
 (defun spacemacs/init-markdown-mode ()
   (use-package markdown-mode
