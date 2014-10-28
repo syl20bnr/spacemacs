@@ -115,6 +115,7 @@
     tagedit
     tern-auto-complete
     undo-tree
+    vi-tilde-fringe
     visual-regexp-steroids
     volatile-highlights
     wand
@@ -1800,6 +1801,13 @@ DELETE-FUNC when calling CALLBACK.
     :defer t
     :config
     (spacemacs//hide-lighter undo-tree-mode)))
+
+(defun spacemacs/init-vi-tilde-fringe ()
+  (use-package vi-tilde-fringe
+    :init
+    (global-vi-tilde-fringe-mode)
+    :config
+    (spacemacs//hide-lighter vi-tilde-fringe-mode)))
 
 (defun spacemacs/init-visual-regexp-steroids ()
   (use-package visual-regexp-steroids

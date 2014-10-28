@@ -20,7 +20,6 @@
     o-blog
     pylookup
     spray
-    vi-tilde-fringe
     ))
 
 ;; Initialize the extensions
@@ -158,8 +157,3 @@
       (create-solarized-theme 'light 'solarized-light)
       (spacemacs/post-theme-init 'solarized-light)
       (redisplay))))
-
-(defun spacemacs/init-vi-tilde-fringe ()
-  (use-package vi-tilde-fringe
-    :init
-    (global-vi-tilde-fringe-mode)))
