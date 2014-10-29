@@ -7,7 +7,8 @@
 
     git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
 
-_Jump to [Install](#install) for more info_
+_Jump to [Install](#install) for more info and
+[here](#submitting-a-contribution-layer-upstream) for contribution guidelines_
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
@@ -385,15 +386,15 @@ layer).
 
 #### Submitting a contribution layer upstream
 
-To submit a contribution layer just open a pull request :-)
+`Spacemacs` uses the `git-flow` model, so you'll have to submit your
+contributions and fixes as features or hotfixes within a pull-request to apply
+against the `develop` branch.
 
-It is **strongly** recommended to join a `README.md` file with your layer,
-ideally this file should document the packages of your layer as well as the key
-bindings associated with them.
+It is recommended to join a `README.md` file with your layer, ideally this file
+should document the packages of your layer as well as the key bindings
+associated with them. 
 
-Note that by submitting a configuration layer you become the de facto maintainer
-of it. For this reason it is advised to name your contribution with your Github
-user name.
+_Note: by submitting a configuration layer you become the maintainer of it._
 
 #### Themes Megapack example
 
