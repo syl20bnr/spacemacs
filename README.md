@@ -26,8 +26,8 @@ _Jump to [Install](#install) for more info and
     - [Install](#install)
         - [Troubleshoot](#troubleshoot)
             - [Loading fails](#loading-fails)
-            - [Version mismatch for ~/.spacemacs](#version-mismatch-for-spacemacs)
-    - [Getting Help](#getting-help)
+            - [I have no file ~/.spacemacs](#i-have-no-file-spacemacs)
+    - [Help commands](#help-commands)
         - [Key bindings](#key-bindings)
         - [Other describe functions](#other-describe-functions)
     - [Configuration layers](#configuration-layers)
@@ -266,21 +266,12 @@ _('C-x b' means 'Ctrl + x then b' and 'RET' means 'return')_
 
 Then you can copy/paste the error in a [Github issue][issues], thank you.
 
-#### Version mismatch for ~/.spacemacs
+#### I have no file ~/.spacemacs
 
-If you get the error:
-```
-Error: '~/.spacemacs' version mismatch.
-```
+You have to manually copy the `~/.emacs.d/.spacemacs.template` file to
+`~/.spacemacs`
 
-Then you have to update your `~/.spacemacs` to the last version. Unfortunately
-there is no automatic way to do it. You will have to refer to the template file
-`.spacemacs.template` in your `~/.emacs.d` and to the commit messages.
-
-If you need help to upgrade, open an issue or ask for help on the [Gitter
-channel](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge).
-
-## Getting Help
+## Help commands
 
 ### Key bindings
 
