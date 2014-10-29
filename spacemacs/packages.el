@@ -1276,7 +1276,7 @@ DELETE-FUNC when calling CALLBACK.
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
-        "kil" 'helm-how-kill-ring)
+        "kil" 'helm-show-kill-ring)
     :config
     (progn
       ;; alter helm-bookmark key bindings to be simpler
