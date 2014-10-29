@@ -45,6 +45,7 @@ _Jump to [Install](#install) for more info and
             - [States](#states)
             - [Base States](#base-states)
         - [Evil leader](#evil-leader)
+        - [Universal argument](#universal-argument)
         - [Micro-states](#micro-states)
     - [Color theme](#color-theme)
     - [UI elements](#ui-elements)
@@ -505,6 +506,14 @@ few examples:
 - Save a buffer: `<SPC> f s`
 - Save all opened buffers: `<SPC> f S`
 - Open (switch) to a buffer with `helm`: `<SPC> b s`
+
+### Universal argument
+
+The universal argument `C-u` is an important command in Emacs but it is also
+a very handy Vim key binding to scroll up.
+
+`Spacemacs` binds `C-u` to `scroll-up` and change the universal argument
+binding to `<SPC> u`.
 
 ### Micro-states
 
