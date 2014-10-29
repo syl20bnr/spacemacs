@@ -1269,8 +1269,7 @@ DELETE-FUNC when calling CALLBACK.
 
 (defun spacemacs/init-helm ()
   (use-package helm
-    :idle (helm-mode 1)
-    :idle-priority 0
+    :defer t
     :config
     (progn
       (evil-leader/set-key
