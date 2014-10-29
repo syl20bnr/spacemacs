@@ -197,8 +197,14 @@ and remember.
 
 ## Screenshots
 
+_Startup_
 ![spacemacs_startup](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-startup.png)
+
+_Python_
 ![spacemacs_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-python.png)
+
+_Terminal (urxvt)_
+![spacemacs_urxvt](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-urxvt.png)
 
 *Note: Even though screenshots are updated frequently, `Spacemacs` is evolving
 quickly and the screenshots may not reflect exactly the current state of the
