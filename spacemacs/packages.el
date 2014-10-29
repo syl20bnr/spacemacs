@@ -1270,14 +1270,15 @@ DELETE-FUNC when calling CALLBACK.
 (defun spacemacs/init-helm ()
   (use-package helm
     :defer t
-    :config
-    (progn
-      (evil-leader/set-key
+    :init
+    (evil-leader/set-key
         ":"   'helm-M-x
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
         "kil" 'helm-how-kill-ring)
+    :config
+    (progn
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
