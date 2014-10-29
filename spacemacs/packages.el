@@ -1792,9 +1792,9 @@ DELETE-FUNC when calling CALLBACK.
   (use-package tern-auto-complete
     :defer t
     :init
-    (progn
-      (tern-ac-setup)
-      (add-hook 'js2-mode-hook (lambda () (tern-mode t))))))
+    (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+    :config
+    (tern-ac-setup)))
 
 (defun spacemacs/init-undo-tree ()
   (use-package undo-tree
