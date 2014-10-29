@@ -11,6 +11,8 @@
 ;; evil-leader key bindings
 ;; ---------------------------------------------------------------------------
 
+;; Universal argument ---------------------------------------------------------
+(evil-leader/set-key "u" 'universal-argument)
 ;; shell command  -------------------------------------------------------------
 (evil-leader/set-key "!" 'shell-command)
 ;; switch back and forth between two last buffers -----------------------------
