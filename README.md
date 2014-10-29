@@ -245,6 +245,9 @@ be provided in this read me. _Stay tuned._
     mv .emacs.d .emacs.bak
     git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
 
+`master` is a stable branch, if you want the "bleeding edge" checkout the
+`develop` branch.
+
 2) Launch Emacs, the first time a bunch of packages will be downloaded and
 installed. When the package installation is complete restart Emacs and
 `Spacemacs` should be ready to use.
