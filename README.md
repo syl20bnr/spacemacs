@@ -27,6 +27,9 @@ _Jump to [Install](#install) for more info and
         - [Troubleshoot](#troubleshoot)
             - [Loading fails](#loading-fails)
             - [Version mismatch for ~/.spacemacs](#version-mismatch-for-spacemacs)
+    - [Getting Help](#getting-help)
+        - [Key bindings](#key-bindings)
+        - [Other describe functions](#other-describe-functions)
     - [Configuration layers](#configuration-layers)
         - [Structure](#structure)
         - [Extensions and Packages declaration and initialization](#extensions-and-packages-declaration-and-initialization)
@@ -61,7 +64,6 @@ _Jump to [Install](#install) for more info and
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
         - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
-        - [Key bindings help](#key-bindings-help)
         - [Navigation](#navigation)
             - [Point/Cursor](#pointcursor)
             - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
@@ -274,6 +276,33 @@ there is no automatic way to do it. You will have to refer to the template file
 
 If you need help to upgrade, open an issue or ask for help on the [Gitter
 channel](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge).
+
+## Getting Help
+
+### Key bindings
+
+`Spacemacs` defines hundreds of key bindings, you can easily discover them
+inside Emacs by pressing:
+
+    <SPC> ?
+
+To narrow the list to `Spacemacs` specific key bindings set the pattern to
+something like the regular expression:
+
+    `^SPC\ b`
+
+The example above will list all the `buffer` related bindings.
+
+### Other describe functions
+
+Emacs `describe-xxx` function are accessible with the following bindings:
+
+Key Binding   |                 Description
+--------------|------------------------------------------------------------------
+`<SPC> h d f` | describe-function
+`<SPC> h d k` | describe-key
+`<SPC> h d m` | describe-mode
+`<SPC> h d v` | describe-variable
 
 ## Configuration layers
 
@@ -744,19 +773,6 @@ Command     |                 Key Binding
 Vim         | `:`
 Emacs       | `<SPC> :`
 Shell       | `<SPC> !`
-
-### Key bindings help
-
-A list of all the key bindings can be accessed by pressing:
-
-    <SPC> ?
-
-To narrow the list to `Spacemacs` specific key bindings set the pattern to
-something like the regular expression:
-
-    `^SPC\ b`
-
-The example above will list all the `buffer` related bindings.
 
 ### Navigation
 
