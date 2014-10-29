@@ -1279,6 +1279,7 @@ DELETE-FUNC when calling CALLBACK.
         "kil" 'helm-show-kill-ring)
     :config
     (progn
+      (helm-mode +1)
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
