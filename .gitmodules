@@ -1,33 +1,33 @@
-[submodule "extensions/pylookup"]
+[submodule "spacemacs/extensions/pylookup"]
 	path = spacemacs/extensions/pylookup
 	url = http://github.com/syl20bnr/pylookup
-[submodule "extensions/projmake-mode"]
+[submodule "spacemacs/extensions/projmake-mode"]
 	path = extensions/projmake-mode
 	url = http://github.com/ericbmerritt/projmake-mode
-[submodule "extensions/revive"]
+[submodule "spacemacs/extensions/revive"]
 	path = spacemacs/extensions/revive
 	url = http://github.com/vedang/revive-mode.git
-[submodule "extensions/helm-c-moccur"]
+[submodule "spacemacs/extensions/helm-c-moccur"]
 	path = extensions/helm-c-moccur
 	url = http://github.com/syl20bnr/helm-c-moccur
-[submodule "extensions/solarized-theme"]
+[submodule "spacemacs/extensions/solarized-theme"]
 	path = spacemacs/extensions/solarized-theme
 	url = http://github.com/syl20bnr/solarized-emacs
   ignore = dirty
-[submodule "extensions/evil-plugins"]
+[submodule "spacemacs/extensions/evil-plugins"]
 	path = spacemacs/extensions/evil-plugins
 	url = http://github.com/tarao/evil-plugins
-[submodule "extensions/nose"]
+[submodule "spacemacs/extensions/nose"]
 	path = spacemacs/extensions/nose
 	url = http://github.com/syl20bnr/nose.el
-[submodule "snippets"]
+[submodule "spacemacs/snippets"]
 	path = spacemacs/snippets
 	url = http://github.com/syl20bnr/yasnippet-snippets
   ignore = dirty
-[submodule "extensions/use-package"]
+[submodule "spacemacs/extensions/use-package"]
 	path = spacemacs/extensions/use-package
 	url = http://github.com/jwiegley/use-package
-[submodule "extensions/emoji-cheat-sheet"]
+[submodule "spacemacs/extensions/emoji-cheat-sheet"]
 	path = spacemacs/extensions/emoji-cheat-sheet
 	url = http://github.com/ShingoFukuyama/emacs-emoji-cheat-sheet
 [submodule "spacemacs/extensions/evil-org-mode"]
