@@ -1353,21 +1353,23 @@ DELETE-FUNC when calling CALLBACK.
     :init
     (progn
       (ido-vertical-mode t)
-      (define-key ido-file-completion-map (kbd "C-d") 'ido-delete-file-at-head)
-      (define-key ido-file-completion-map (kbd "C-k") 'ido-prev-match)
-      (define-key ido-file-dir-completion-map (kbd "C-<return>") 'ido-select-text)
-      (define-key ido-file-dir-completion-map (kbd "C-h") 'ido-delete-backward-updir)
-      (define-key ido-file-dir-completion-map (kbd "C-j") 'ido-next-match)
-      (define-key ido-file-dir-completion-map (kbd "C-l") 'ido-exit-minibuffer)
-      (define-key ido-file-dir-completion-map (kbd "C-S-j") 'ido-next-match-dir)
-      (define-key ido-file-dir-completion-map (kbd "C-S-k") 'ido-prev-match-dir)
-      ;; more natural navigation keys: up, down to change current item
-      ;; left to go up dir
-      ;; right to open the selected item
-      (define-key ido-file-dir-completion-map (kbd "<up>") 'ido-prev-match)
-      (define-key ido-file-dir-completion-map (kbd "<down>") 'ido-next-match)
-      (define-key ido-file-dir-completion-map (kbd "<left>") 'ido-delete-backward-updir)
-      (define-key ido-file-dir-completion-map (kbd "<right>") 'ido-exit-minibuffer))))
+      (defadvice ido-vertical-define-keys (after spacemacs/ido-vertical-define-keys activate)
+        ;; overwrite the key bindings for ido vertical mode only
+        (define-key ido-completion-map (kbd "C-d") 'ido-delete-file-at-head)
+        (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
+        (define-key ido-completion-map (kbd "C-<return>") 'ido-select-text)
+        (define-key ido-completion-map (kbd "C-h") 'ido-delete-backward-updir)
+        (define-key ido-completion-map (kbd "C-j") 'ido-next-match)
+        (define-key ido-completion-map (kbd "C-l") 'ido-exit-minibuffer)
+        (define-key ido-completion-map (kbd "C-S-j") 'ido-next-match-dir)
+        (define-key ido-completion-map (kbd "C-S-k") 'ido-prev-match-dir)
+        ;; more natural navigation keys: up, down to change current item
+        ;; left to go up dir
+        ;; right to open the selected item
+        (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
+        (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
+        (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
+        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)))))
 
 (defun spacemacs/init-js2-mode ()
   (use-package js2-mode
