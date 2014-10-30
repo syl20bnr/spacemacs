@@ -26,7 +26,10 @@ _Jump to [Install](#install) for more info and
     - [Install](#install)
         - [Troubleshoot](#troubleshoot)
             - [Loading fails](#loading-fails)
-            - [Version mismatch for ~/.spacemacs](#version-mismatch-for-spacemacs)
+            - [I have no file ~/.spacemacs](#i-have-no-file-spacemacs)
+    - [Help commands](#help-commands)
+        - [Key bindings](#key-bindings)
+        - [Other describe functions](#other-describe-functions)
     - [Configuration layers](#configuration-layers)
         - [Structure](#structure)
         - [Extensions and Packages declaration and initialization](#extensions-and-packages-declaration-and-initialization)
@@ -61,7 +64,6 @@ _Jump to [Install](#install) for more info and
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
         - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
-        - [Key bindings help](#key-bindings-help)
         - [Navigation](#navigation)
             - [Point/Cursor](#pointcursor)
             - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
@@ -243,6 +245,9 @@ be provided in this read me. _Stay tuned._
     mv .emacs.d .emacs.bak
     git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
 
+`master` is a stable branch, if you want the "bleeding edge" checkout the
+`develop` branch.
+
 2) Launch Emacs, the first time a bunch of packages will be downloaded and
 installed. When the package installation is complete restart Emacs and
 `Spacemacs` should be ready to use.
@@ -261,19 +266,37 @@ _('C-x b' means 'Ctrl + x then b' and 'RET' means 'return')_
 
 Then you can copy/paste the error in a [Github issue][issues], thank you.
 
-#### Version mismatch for ~/.spacemacs
+#### I have no file ~/.spacemacs
 
-If you get the error:
-```
-Error: '~/.spacemacs' version mismatch.
-```
+You have to manually copy the `~/.emacs.d/.spacemacs.template` file to
+`~/.spacemacs`
 
-Then you have to update your `~/.spacemacs` to the last version. Unfortunately
-there is no automatic way to do it. You will have to refer to the template file
-`.spacemacs.template` in your `~/.emacs.d` and to the commit messages.
+## Help commands
 
-If you need help to upgrade, open an issue or ask for help on the [Gitter
-channel](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge).
+### Key bindings
+
+`Spacemacs` defines hundreds of key bindings, you can easily discover them
+inside Emacs by pressing:
+
+    <SPC> ?
+
+To narrow the list to `Spacemacs` specific key bindings set the pattern to
+something like the regular expression:
+
+    `^SPC\ b`
+
+The example above will list all the `buffer` related bindings.
+
+### Other describe functions
+
+Emacs `describe-xxx` function are accessible with the following bindings:
+
+Key Binding   |                 Description
+--------------|------------------------------------------------------------------
+`<SPC> h d f` | describe-function
+`<SPC> h d k` | describe-key
+`<SPC> h d m` | describe-mode
+`<SPC> h d v` | describe-variable
 
 ## Configuration layers
 
@@ -663,7 +686,6 @@ The minor mode area can be toggled on and off with:
 Ⓗ            | [auto-highlight-symbol][auto-highlight] mode
 Ⓒ            | [centered-cursor][centered-cursor] mode
 eⓅ           | [e-project][e-project] mode
-Ⓟ            | [projectile][projectile] mode
 Ⓕ            | flycheck mode
 Ⓕ2           | flymake mode
 Ⓢ            | flyspell mode
@@ -744,19 +766,6 @@ Command     |                 Key Binding
 Vim         | `:`
 Emacs       | `<SPC> :`
 Shell       | `<SPC> !`
-
-### Key bindings help
-
-A list of all the key bindings can be accessed by pressing:
-
-    <SPC> ?
-
-To narrow the list to `Spacemacs` specific key bindings set the pattern to
-something like the regular expression:
-
-    `^SPC\ b`
-
-The example above will list all the `buffer` related bindings.
 
 ### Navigation
 
@@ -1105,23 +1114,35 @@ Custom fringe bitmaps:
 
 ### Project management
 
-Projects in `Spacemacs` are managed with [projectile][projectile].
-So projects are defined implicitly, for instance the root of a project
-is found when a `.git` repository or `.projectile` file is encountered
-in the file tree.
+Projects in `Spacemacs` are managed with [projectile][projectile]. In
+`projectile` projects are defined implicitly, for instance the root of a
+project is found when a `.git` repository or `.projectile` file is
+encountered in the file tree.
 
-Projects management commands (start with `p`):
+The only bound key for `projectile` is `projectile-commander` which is:
+
+    <SPC> p
+
+`projectile commander` commands:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> p C`       | invalidate the cache of `projectile`
-`<SPC> p d`       | open a `dired` buffer at the root of the project
-`<SPC> p f`       | open a file of the project using `helm`
-`<SPC> p F`       | find a file if the project using `ido`
-`<SPC> p k`       | kill all the buffers of the project
-`<SPC> p g`       | grep search in the project
-`<SPC> p r`       | replace a string in the files of the project
-`<SPC> p s`       | switch to a buffer of the project
+`a`               | run `ack` on project
+`A`               | run `ag` on project
+`b`               | switch to project buffer
+`d`               | find directory in project
+`D`               | open project root in `dired`
+`f`               | find file in project
+`F`               | find file in project using `helm`
+`g`               | run `grep` on project
+`j`               | find a tag in project
+`k`               | kill all project buffers
+`o`               | run `multi-occur` on project
+`R`               | regenerate the project's [e|g]tags
+`r`               | replace a string in the project
+`s`               | switch project
+`T`               | find test files in project
+`v`               | open project root in `vc-dir` or `magit`
 
 ### Working with Git
 

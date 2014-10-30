@@ -43,6 +43,12 @@
   "bw"  'toggle-read-only)
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "ct" 'spacemacs/cycle-spacemacs-theme)
+;; describe functions ---------------------------------------------------------
+(evil-leader/set-key
+  "hdf" 'describe-function
+  "hdk" 'describe-key
+  "hdm" 'describe-mode
+  "hdv" 'describe-variable)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key
   "en" 'next-error
