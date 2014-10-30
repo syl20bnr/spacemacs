@@ -1562,34 +1562,14 @@ DELETE-FUNC when calling CALLBACK.
 
 (defun spacemacs/init-projectile ()
   (use-package projectile
-    :commands projectile-global-mode
-    :init
-    (progn
-      (defun spacemacs/projectile-lazy-loading (func)
-        "Wrap FUNC in order to be able to lazy load projectile."
-        (let ((funcstr (symbol-name func)))
-          (eval `(defun ,(intern (format "spacemacs/%s" funcstr)) (arg)
-                   ,(format "Call %s" funcstr)
-                   (interactive "P")
-                   (projectile-global-mode)
-                   (call-interactively ',func arg)))))
-      (mapc 'spacemacs/projectile-lazy-loading '(projectile-invalidate-cache
-                                                 projectile-dired
-                                                 projectile-find-file
-                                                 projectile-grep
-                                                 projectile-kill-buffers
-                                                 projectile-replace
-                                                 projectile-switch-to-buffer))
-      (evil-leader/set-key
-        "pC" 'spacemacs/projectile-invalidate-cache
-        "pd" 'spacemacs/projectile-dired
-        "pF" 'spacemacs/projectile-find-file
-        "pg" 'spacemacs/projectile-grep
-        "pk" 'spacemacs/projectile-kill-buffers
-        "pr" 'spacemacs/projectile-replace
-        "ps" 'spacemacs/projectile-switch-to-buffer))
+    :defer t
+    :init (evil-leader/set-key "pp" 'projectile-commander)
     :config
-    (spacemacs//hide-lighter projectile-mode)))
+    (progn
+      (def-projectile-commander-method ?F
+        "Find file in project using helm."
+        (helm-projectile))
+      (spacemacs//hide-lighter projectile-mode))))
 
 (defun spacemacs/init-python ()
   (use-package python
