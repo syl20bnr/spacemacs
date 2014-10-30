@@ -686,7 +686,6 @@ The minor mode area can be toggled on and off with:
 Ⓗ            | [auto-highlight-symbol][auto-highlight] mode
 Ⓒ            | [centered-cursor][centered-cursor] mode
 eⓅ           | [e-project][e-project] mode
-Ⓟ            | [projectile][projectile] mode
 Ⓕ            | flycheck mode
 Ⓕ2           | flymake mode
 Ⓢ            | flyspell mode
@@ -1115,23 +1114,35 @@ Custom fringe bitmaps:
 
 ### Project management
 
-Projects in `Spacemacs` are managed with [projectile][projectile].
-So projects are defined implicitly, for instance the root of a project
-is found when a `.git` repository or `.projectile` file is encountered
-in the file tree.
+Projects in `Spacemacs` are managed with [projectile][projectile]. In
+`projectile` projects are defined implicitly, for instance the root of a
+project is found when a `.git` repository or `.projectile` file is
+encountered in the file tree.
 
-Projects management commands (start with `p`):
+The only bound key for `projectile` is `projectile-commander` which is:
+
+    <SPC> p
+
+`projectile commander` commands:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> p C`       | invalidate the cache of `projectile`
-`<SPC> p d`       | open a `dired` buffer at the root of the project
-`<SPC> p f`       | open a file of the project using `helm`
-`<SPC> p F`       | find a file if the project using `ido`
-`<SPC> p k`       | kill all the buffers of the project
-`<SPC> p g`       | grep search in the project
-`<SPC> p r`       | replace a string in the files of the project
-`<SPC> p s`       | switch to a buffer of the project
+`a`               | run `ack` on project
+`A`               | run `ag` on project
+`b`               | switch to project buffer
+`d`               | find directory in project
+`D`               | open project root in `dired`
+`f`               | find file in project
+`F`               | find file in project using `helm`
+`g`               | run `grep` on project
+`j`               | find a tag in project
+`k`               | kill all project buffers
+`o`               | run `multi-occur` on project
+`R`               | regenerate the project's [e|g]tags
+`r`               | replace a string in the project
+`s`               | switch project
+`T`               | find test files in project
+`v`               | open project root in `vc-dir` or `magit`
 
 ### Working with Git
 
