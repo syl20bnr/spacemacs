@@ -1,20 +1,48 @@
 (defvar trishume-packages
   '(
     auctex
-    cdlatex
     smooth-scrolling
     helm-ag
     ))
 
 (defun trishume/init-auctex ()
-  (use-package tex
-    :defer t
-    :config
-    (progn
-      (setq-default TeX-auto-save t)
-      (setq-default TeX-parse-self t)
-      (setq-default TeX-master nil)
-      (setq-default TeX-PDF-mode t))))
+  (defun load-auctex-on-demand ()
+    (interactive)
+    (use-package tex
+      :config
+      (progn
+        (use-package smartparens
+          :config (require 'smartparens-latex))
+
+        (defun build-view ()
+          (interactive)
+          (if (buffer-modified-p)
+              (progn
+                (let ((TeX-save-query nil))
+                  (TeX-save-document (TeX-master-file)))
+                (setq build-proc (TeX-command "LaTeX" 'TeX-master-file -1))
+                (set-process-sentinel  build-proc  'build-sentinel))
+            (TeX-view)))
+
+        (defun build-sentinel (process event)
+          (if (string= event "finished\n")
+              (TeX-view)
+            (message "Errors! Check with C-`")))
+
+        (add-hook 'LaTeX-mode-hook '(lambda () (local-set-key (kbd "H-r") 'build-view)))
+        (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+        (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+
+        (evil-leader/set-key
+          "oe" 'LaTeX-environment
+          "oc" 'LaTeX-close-environment)
+
+        (setq-default TeX-auto-save t)
+        (setq-default TeX-parse-self t)
+        (setq-default TeX-master nil)
+        (setq-default TeX-PDF-mode t))))
+  (evil-leader/set-key
+    "el" 'load-auctex-on-demand))
 
 (defun trishume/init-smooth-scrolling ()
   (use-package smooth-scrolling
