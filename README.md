@@ -1133,8 +1133,8 @@ The only bound key for `projectile` is `projectile-commander` which is:
 `d`               | find directory in project
 `D`               | open project root in `dired`
 `f`               | find file in project
-`F`               | find file in project using `helm`
 `g`               | run `grep` on project
+`h`               | find file in project using `helm`
 `j`               | find a tag in project
 `k`               | kill all project buffers
 `o`               | run `multi-occur` on project

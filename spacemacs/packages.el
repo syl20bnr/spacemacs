@@ -1575,7 +1575,7 @@ DELETE-FUNC when calling CALLBACK.
     :config
     (progn
       (projectile-global-mode)
-      (def-projectile-commander-method ?F
+      (def-projectile-commander-method ?h
         "Find file in project using helm."
         (helm-projectile))
       (spacemacs//hide-lighter projectile-mode))))
