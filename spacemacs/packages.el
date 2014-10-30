@@ -309,7 +309,10 @@ DELETE-FUNC when calling CALLBACK.
              (spacemacs/escape-state ',seq ',shadowed nil nil 'evil-exit-visual-state)))
         (define-key evil-motion-state-map key
           `(lambda () (interactive)
-             (spacemacs/escape-state ',seq ',shadowed nil nil 'evil-normal-state)))
+             (let ((exit-func (if (eq 'help-mode major-mode)
+                                  'quit-window
+                                'evil-normal-state)))
+               (spacemacs/escape-state ',seq ',shadowed nil nil exit-func))))
         (eval-after-load 'evil-lisp-state
           `(define-key evil-lisp-state-map ,key
              (lambda () (interactive)
