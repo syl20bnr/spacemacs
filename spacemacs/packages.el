@@ -1571,13 +1571,16 @@ DELETE-FUNC when calling CALLBACK.
     :init
     (progn
       (setq-default projectile-enable-caching t)
-      (evil-leader/set-key "pp" 'projectile-commander))
+      (evil-leader/set-key "p" 'projectile-commander))
     :config
     (progn
       (projectile-global-mode)
       (def-projectile-commander-method ?F
         "Find file in project using helm."
         (helm-projectile))
+      (def-projectile-commander-method ?r
+        "Replace a string in the project."
+        (projectile-replace))
       (spacemacs//hide-lighter projectile-mode))))
 
 (defun spacemacs/init-python ()
