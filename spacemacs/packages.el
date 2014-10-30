@@ -1578,9 +1578,6 @@ DELETE-FUNC when calling CALLBACK.
       (def-projectile-commander-method ?F
         "Find file in project using helm."
         (helm-projectile))
-      (def-projectile-commander-method ?r
-        "Replace a string in the project."
-        (projectile-replace))
       (spacemacs//hide-lighter projectile-mode))))
 
 (defun spacemacs/init-python ()
