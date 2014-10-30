@@ -1568,9 +1568,13 @@ DELETE-FUNC when calling CALLBACK.
 (defun spacemacs/init-projectile ()
   (use-package projectile
     :defer t
-    :init (evil-leader/set-key "pp" 'projectile-commander)
+    :init
+    (progn
+      (setq-default projectile-enable-caching t)
+      (evil-leader/set-key "pp" 'projectile-commander))
     :config
     (progn
+      (projectile-global-mode)
       (def-projectile-commander-method ?F
         "Find file in project using helm."
         (helm-projectile))
