@@ -1122,11 +1122,14 @@ DELETE-FUNC when calling CALLBACK.
   (use-package golden-ratio
     :defer t
     :init
-    (evil-leader/set-key "tg"
-      '(lambda () (interactive)
-         (if (symbol-value golden-ratio-mode)
-             (progn (golden-ratio-mode -1)(balance-windows))
-           (golden-ratio-mode))))
+    (progn
+      (defun spacemacs/toggle-golden-ratio ()
+        "Toggle golden-ratio mode on and off."
+        (interactive)
+        (if (symbol-value golden-ratio-mode)
+            (progn (golden-ratio-mode -1)(balance-windows))
+          (golden-ratio-mode)))
+      (evil-leader/set-key "tg" 'spacemacs/toggle-golden-ratio))
     :config
     (progn
       (setq golden-ratio-extra-commands
