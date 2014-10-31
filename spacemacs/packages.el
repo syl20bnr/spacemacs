@@ -1191,6 +1191,13 @@ DELETE-FUNC when calling CALLBACK.
   (use-package guide-key-tip
     :init
     (progn
+      (defun spacemacs/toggle-guide-key ()
+        "Toggle golden-ratio mode on and off."
+        (interactive)
+        (if (symbol-value guide-key-mode)
+            (guide-key-mode -1)
+          (guide-key-mode)))
+      (evil-leader/set-key "tG" 'spacemacs/toggle-guide-key)
       (setq guide-key/guide-key-sequence '("C-x" "C-c" "SPC" "g" "z" "C-h")
             guide-key/recursive-key-sequence-flag t
             guide-key/popup-window-position 'right
