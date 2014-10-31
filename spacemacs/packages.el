@@ -34,7 +34,6 @@
     evil-surround
     evil-terminal-cursor-changer
     evil-visualstar
-    evil-nerd-commenter
     exec-path-from-shell
     expand-region
     fill-column-indicator
@@ -51,6 +50,7 @@
     ghc
     golden-ratio
     google-translate
+    guide-key-tip
     haskell-mode
     helm
     helm-css-scss
@@ -363,20 +363,6 @@ DELETE-FUNC when calling CALLBACK.
       ;; load surround
       (use-package evil-surround
         :init (global-evil-surround-mode 1))
-      ;; load nerd-commenter
-      (if (version< emacs-version "24.4")
-          (use-package evil-nerd-commenter
-            :init
-            (progn
-              (evil-leader/set-key
-                "ncl" 'evilnc-comment-or-uncomment-lines
-                "nct" 'evilnc-quick-comment-or-uncomment-to-the-line
-                "ncy" 'evilnc-copy-and-comment-lines
-                "ncp" 'evilnc-comment-or-uncomment-paragraphs
-                "ncr" 'comment-or-uncomment-region
-                "nci" 'evilnc-toggle-invert-comment-line-by-line
-                "ncc" 'evilnc-comment-operator
-                ))))
       ;; load evil-exchange
       (use-package evil-exchange
         :init (evil-exchange-install))
@@ -700,7 +686,7 @@ DELETE-FUNC when calling CALLBACK.
            "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
            "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
            "ts" 'auto-highlight-symbol-mode))
-      (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ")
+      (spacemacs//hide-lighter auto-highlight-symbol-mode)
       ;; micro-state to easily jump from a highlighted symbol to the others
       (dolist (sym '(ahs-forward
                      ahs-forward-definition
@@ -1136,11 +1122,14 @@ DELETE-FUNC when calling CALLBACK.
   (use-package golden-ratio
     :defer t
     :init
-    (evil-leader/set-key "tg"
-      '(lambda () (interactive)
-         (if (symbol-value golden-ratio-mode)
-             (progn (golden-ratio-mode -1)(balance-windows))
-           (golden-ratio-mode))))
+    (progn
+      (defun spacemacs/toggle-golden-ratio ()
+        "Toggle golden-ratio mode on and off."
+        (interactive)
+        (if (symbol-value golden-ratio-mode)
+            (progn (golden-ratio-mode -1)(balance-windows))
+          (golden-ratio-mode)))
+      (evil-leader/set-key "tg" 'spacemacs/toggle-golden-ratio))
     :config
     (progn
       (setq golden-ratio-extra-commands
@@ -1167,6 +1156,18 @@ DELETE-FUNC when calling CALLBACK.
                       ess-eval-buffer-and-go
                       ess-eval-function-and-go
                       ess-eval-line-and-go)))
+
+      ;; Disable auto-resizing for some buffers
+      (defun spacemacs/no-golden-ratio-for-buffers (bufname)
+        "Disable golden-ratio if BUFNAME is the name of a visible buffer."
+        (and (get-buffer bufname) (get-buffer-window bufname 'visible)))
+      (defun spacemacs/no-golden-ratio-guide-key ()
+        "Disable golden-ratio for guide-key popwin buffer."
+        (or (spacemacs/no-golden-ratio-for-buffers " *guide-key*")
+            (spacemacs/no-golden-ratio-for-buffers " *popwin-dummy*")))
+      (add-to-list 'golden-ratio-inhibit-functions
+                   'spacemacs/no-golden-ratio-guide-key)
+
       (spacemacs//diminish golden-ratio-mode " ⊞"))))
 
 (defun spacemacs/init-google-translate ()
@@ -1188,6 +1189,26 @@ DELETE-FUNC when calling CALLBACK.
       (setq google-translate-show-phonetic t)
       (setq google-translate-default-source-language "En")
       (setq google-translate-default-target-language "Fr"))))
+
+(defun spacemacs/init-guide-key-tip ()
+  (use-package guide-key-tip
+    :init
+    (progn
+      (defun spacemacs/toggle-guide-key ()
+        "Toggle golden-ratio mode on and off."
+        (interactive)
+        (if (symbol-value guide-key-mode)
+            (guide-key-mode -1)
+          (guide-key-mode)))
+      (evil-leader/set-key "tG" 'spacemacs/toggle-guide-key)
+      (setq guide-key/guide-key-sequence '("C-x" "C-c" "SPC" "g" "z" "C-h")
+            guide-key/recursive-key-sequence-flag t
+            guide-key/popup-window-position 'right
+            guide-key/idle-delay 1
+            guide-key/text-scale-amount 0
+            guide-key-tip/enabled (if window-system t))
+      (guide-key-mode 1)
+      (spacemacs//diminish guide-key-mode " Ⓖ"))))
 
 (defun spacemacs/init-haskell-mode ()
   (require 'haskell-yas)
@@ -1575,12 +1596,9 @@ DELETE-FUNC when calling CALLBACK.
     :config
     (progn
       (projectile-global-mode)
-      (def-projectile-commander-method ?F
+      (def-projectile-commander-method ?h
         "Find file in project using helm."
         (helm-projectile))
-      (def-projectile-commander-method ?r
-        "Replace a string in the project."
-        (projectile-replace))
       (spacemacs//hide-lighter projectile-mode))))
 
 (defun spacemacs/init-python ()

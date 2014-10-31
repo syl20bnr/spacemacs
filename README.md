@@ -275,8 +275,13 @@ You have to manually copy the `~/.emacs.d/.spacemacs.template` file to
 
 ### Key bindings
 
-`Spacemacs` defines hundreds of key bindings, you can easily discover them
-inside Emacs by pressing:
+1) By default, [guide-key][] and [guide-key-tip][] are enabled.
+
+Whenever you press a prefix command (like `<SPC>`) and wait for one second,
+a tool tip (GUI) or buffer (terminal) appear listing the possible keys
+following this prefix.
+
+2) You can also easily get a full list of all the key bindings by pressing:
 
     <SPC> ?
 
@@ -683,14 +688,14 @@ The minor mode area can be toggled on and off with:
 -------------|-----------------------------------------------------------------
 ⊞            | [golden-ratio][golden-ratio] mode
 Ⓐ            | [auto-complete][auto-complete] mode
-Ⓗ            | [auto-highlight-symbol][auto-highlight] mode
 Ⓒ            | [centered-cursor][centered-cursor] mode
 eⓅ           | [e-project][e-project] mode
 Ⓕ            | flycheck mode
 Ⓕ2           | flymake mode
+Ⓖ            | guide-key mode
+(Ⓟ)          | paredit mode
 Ⓢ            | flyspell mode
 (Ⓢ)          | [smartparens][sp] mode
-(Ⓟ)          | paredit mode
 Ⓨ            | [yasnippet][yasnippet] mode
 
 **Note:** in terminal the regular indicators are used instead of the utf-8
@@ -1133,8 +1138,8 @@ The only bound key for `projectile` is `projectile-commander` which is:
 `d`               | find directory in project
 `D`               | open project root in `dired`
 `f`               | find file in project
-`F`               | find file in project using `helm`
 `g`               | run `grep` on project
+`h`               | find file in project using `helm`
 `j`               | find a tag in project
 `k`               | kill all project buffers
 `o`               | run `multi-occur` on project
@@ -1658,3 +1663,5 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [tern-auto-complete]: https://github.com/marijnh/tern/blob/master/emacs/tern-auto-complete.el
 [tern]: http://ternjs.net/
 [themes-megapack]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/themes-megapack
+[guide-key]: https://github.com/kai2nenobu/guide-key
+[guide-key-tip]: https://github.com/aki2o/guide-key-tip
