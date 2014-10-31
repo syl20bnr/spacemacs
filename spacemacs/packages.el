@@ -51,7 +51,7 @@
     ghc
     golden-ratio
     google-translate
-    guide-key
+    guide-key-tip
     haskell-mode
     helm
     helm-css-scss
@@ -1190,19 +1190,18 @@ DELETE-FUNC when calling CALLBACK.
       (setq google-translate-default-source-language "En")
       (setq google-translate-default-target-language "Fr"))))
 
-(defun spacemacs/init-guide-key ()
-  (use-package guide-key
-    :config
+(defun spacemacs/init-guide-key-tip ()
+  (use-package guide-key-tip
+    :init
     (progn
-      (setq guide-key/guide-key-sequence '("C-x" "C-c" "SPC" "g" "z" "C-h"))
-      (setq guide-key/recursive-key-sequence-flag t)
-      (setq guide-key/popup-window-position 'right)
-      (setq guide-key/idle-delay 0.3)
-      (setq guide-key/text-scale-amount 0)
+      (setq guide-key/guide-key-sequence '("C-x" "C-c" "SPC" "g" "z" "C-h")
+            guide-key/recursive-key-sequence-flag t
+            guide-key/popup-window-position 'right
+            guide-key/idle-delay 1
+            guide-key/text-scale-amount 0
+            guide-key-tip/enabled t)
       (guide-key-mode 1)
-      (spacemacs//diminish guide-key-mode " Ⓖ")
-      )
-    ))
+      (spacemacs//diminish guide-key-mode " Ⓖ"))))
 
 (defun spacemacs/init-haskell-mode ()
   (require 'haskell-yas)
