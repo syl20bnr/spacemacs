@@ -701,7 +701,7 @@ DELETE-FUNC when calling CALLBACK.
            "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
            "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
            "ts" 'auto-highlight-symbol-mode))
-      (spacemacs//diminish auto-highlight-symbol-mode " Ⓗ")
+      (spacemacs//hide-lighter auto-highlight-symbol-mode)
       ;; micro-state to easily jump from a highlighted symbol to the others
       (dolist (sym '(ahs-forward
                      ahs-forward-definition
