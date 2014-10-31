@@ -1200,6 +1200,7 @@ DELETE-FUNC when calling CALLBACK.
       (setq guide-key/idle-delay 0.3)
       (setq guide-key/text-scale-amount 0)
       (guide-key-mode 1)
+      (spacemacs//diminish guide-key-mode " Ⓖ")
       )
     ))
 
