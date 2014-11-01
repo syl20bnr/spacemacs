@@ -31,6 +31,7 @@
     evil-exchange
     evil-leader
     evil-lisp-state
+    evil-nerd-commenter
     evil-surround
     evil-terminal-cursor-changer
     evil-visualstar
@@ -903,6 +904,19 @@ DELETE-FUNC when calling CALLBACK.
        (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
        (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))))
 
+(defun spacemacs/init-evil-nerd-commenter ()
+  (use-package evil-nerd-commenter
+    :init
+    (progn
+      (evil-leader/set-key
+        "ncl" 'evilnc-comment-or-uncomment-lines
+        "nct" 'evilnc-quick-comment-or-uncomment-to-the-line
+        "ncy" 'evilnc-copy-and-comment-lines
+        "ncp" 'evilnc-comment-or-uncomment-paragraphs
+        "ncr" 'comment-or-uncomment-region
+        "nci" 'evilnc-toggle-invert-comment-line-by-line
+        "ncc" 'evilnc-comment-operator))))
+
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
     :init (when (memq window-system '(mac ns))
@@ -1206,7 +1220,10 @@ DELETE-FUNC when calling CALLBACK.
             guide-key/popup-window-position 'right
             guide-key/idle-delay 1
             guide-key/text-scale-amount 0
-            guide-key-tip/enabled (if window-system t))
+            ;; use this in your ~/.spacemacs file to enable tool tip in a
+            ;; graphical envrionment
+            ;; guide-key-tip/enabled (if window-system t)
+            guide-key-tip/enabled nil)
       (guide-key-mode 1)
       (spacemacs//diminish guide-key-mode " Ⓖ"))))
 
@@ -1511,8 +1528,22 @@ DELETE-FUNC when calling CALLBACK.
       (setq neo-create-file-auto-open t
             neo-dont-be-alone t
             neo-banner-message "File Tree browser"
-            neo-smart-open t))
-      (evil-leader/set-key "ft" 'neotree-toggle)))
+            neo-smart-open t)
+      (evil-leader/set-key "ft" 'neotree-toggle))
+    :config
+    (add-hook 'neotree-mode-hook
+              (lambda ()
+                (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+                (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
+                (define-key evil-normal-state-local-map (kbd "D") 'neotree-delete-node)
+                (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)
+                (define-key evil-normal-state-local-map (kbd "a") 'neotree-stretch-toggle)
+                (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
+                (define-key evil-normal-state-local-map (kbd "g") 'neotree-refresh)
+                (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+                (define-key evil-normal-state-local-map (kbd "?") 'evil-search-backward)
+                (define-key evil-normal-state-local-map (kbd "Q") 'kill-this-buffer)))
+    ))
 
 (defun spacemacs/init-org ()
   (use-package org

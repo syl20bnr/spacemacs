@@ -42,6 +42,3 @@
 [submodule "contrib/syl20bnr/extensions/o-blog"]
 	path = contrib/syl20bnr/extensions/o-blog
 	url = https://github.com/renard/o-blog.git
-[submodule "spacemacs/extensions/evil-nerd-commenter"]
-	path = spacemacs/extensions/evil-nerd-commenter
-	url = https://github.com/redguardtoo/evil-nerd-commenter

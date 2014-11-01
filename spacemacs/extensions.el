@@ -13,7 +13,6 @@
     centered-cursor
     dos
     emoji-cheat-sheet
-    evil-nerd-commenter
     evil-org-mode
     evil-plugins
     helm-rcirc
@@ -51,19 +50,6 @@
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet
     :commands emoji-cheat-sheet))
-
-(defun spacemacs/init-evil-nerd-commenter ()
-  (use-package evil-nerd-commenter
-    :init
-    (progn
-      (evil-leader/set-key
-        "ncl" 'evilnc-comment-or-uncomment-lines
-        "nct" 'evilnc-quick-comment-or-uncomment-to-the-line
-        "ncy" 'evilnc-copy-and-comment-lines
-        "ncp" 'evilnc-comment-or-uncomment-paragraphs
-        "ncr" 'comment-or-uncomment-region
-        "nci" 'evilnc-toggle-invert-comment-line-by-line
-        "ncc" 'evilnc-comment-operator))))
 
 (defun spacemacs/init-evil-org-mode ()
   (use-package evil-org
