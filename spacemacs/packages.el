@@ -1220,7 +1220,10 @@ DELETE-FUNC when calling CALLBACK.
             guide-key/popup-window-position 'right
             guide-key/idle-delay 1
             guide-key/text-scale-amount 0
-            guide-key-tip/enabled (if window-system t))
+            ;; use this in your ~/.spacemacs file to enable tool tip in a
+            ;; graphical envrionment
+            ;; guide-key-tip/enabled (if window-system t)
+            guide-key-tip/enabled nil)
       (guide-key-mode 1)
       (spacemacs//diminish guide-key-mode " Ⓖ"))))
 
