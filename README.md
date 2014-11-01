@@ -281,8 +281,7 @@ You have to manually copy the `~/.emacs.d/.spacemacs.template` file to
 1) By default, [guide-key][] and [guide-key-tip][] are enabled.
 
 Whenever you press a prefix command (like `<SPC>`) and wait for one second,
-a tool tip (GUI) or buffer (terminal) appear listing the possible keys
-following this prefix.
+a buffer appear listing the possible keys following this prefix.
 
 2) You can also easily get a full list of all the key bindings by pressing:
 
