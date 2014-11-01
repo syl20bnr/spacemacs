@@ -1511,8 +1511,22 @@ DELETE-FUNC when calling CALLBACK.
       (setq neo-create-file-auto-open t
             neo-dont-be-alone t
             neo-banner-message "File Tree browser"
-            neo-smart-open t))
-      (evil-leader/set-key "ft" 'neotree-toggle)))
+            neo-smart-open t)
+      (evil-leader/set-key "ft" 'neotree-toggle))
+    :config
+    (add-hook 'neotree-mode-hook
+              (lambda ()
+                (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
+                (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
+                (define-key evil-normal-state-local-map (kbd "D") 'neotree-delete-node)
+                (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)
+                (define-key evil-normal-state-local-map (kbd "a") 'neotree-stretch-toggle)
+                (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
+                (define-key evil-normal-state-local-map (kbd "g") 'neotree-refresh)
+                (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+                (define-key evil-normal-state-local-map (kbd "?") 'evil-search-backward)
+                (define-key evil-normal-state-local-map (kbd "Q") 'kill-this-buffer)))
+    ))
 
 (defun spacemacs/init-org ()
   (use-package org
