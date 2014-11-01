@@ -31,6 +31,7 @@
     evil-exchange
     evil-leader
     evil-lisp-state
+    evil-nerd-commenter
     evil-surround
     evil-terminal-cursor-changer
     evil-visualstar
@@ -902,6 +903,19 @@ DELETE-FUNC when calling CALLBACK.
          )
        (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
        (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))))
+
+(defun spacemacs/init-evil-nerd-commenter ()
+  (use-package evil-nerd-commenter
+    :init
+    (progn
+      (evil-leader/set-key
+        "ncl" 'evilnc-comment-or-uncomment-lines
+        "nct" 'evilnc-quick-comment-or-uncomment-to-the-line
+        "ncy" 'evilnc-copy-and-comment-lines
+        "ncp" 'evilnc-comment-or-uncomment-paragraphs
+        "ncr" 'comment-or-uncomment-region
+        "nci" 'evilnc-toggle-invert-comment-line-by-line
+        "ncc" 'evilnc-comment-operator))))
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
