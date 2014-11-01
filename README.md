@@ -34,15 +34,18 @@ _Jump to [Install](#install) for more info and
         - [Structure](#structure)
         - [Extensions and Packages declaration and initialization](#extensions-and-packages-declaration-and-initialization)
         - [Packages synchronization (Vundle like feature)](#packages-synchronization-vundle-like-feature)
-    - [Configuration](#configuration)
-        - [Contribution layers](#contribution-layers)
+    - [Contribution layers](#contribution-layers)
+        - [-](#-)
+        - [Submitting a contribution layer upstream](#submitting-a-contribution-layer-upstream)
+        - [Themes Megapack example](#themes-megapack-example)
+    - [Pull Request Guidelines](#pull-request-guidelines)
+    - [Dotfile Configuration](#dotfile-configuration)
+        - [Installation](#installation)
+        - [Content](#content)
             - [Using contributions layers](#using-contributions-layers)
-            - [Adding a contribution layer](#adding-a-contribution-layer)
-            - [Submitting a contribution layer upstream](#submitting-a-contribution-layer-upstream)
-            - [Themes Megapack example](#themes-megapack-example)
-        - [Excluding packages](#excluding-packages)
-        - [Hooks](#hooks)
-        - [Custom variables](#custom-variables)
+            - [Excluding packages](#excluding-packages)
+            - [Hooks](#hooks)
+            - [Custom variables](#custom-variables)
     - [Main principles](#main-principles)
         - [Evil](#evil)
             - [States](#states)
@@ -367,15 +370,90 @@ _and_ auto-delete orphan packages in your `elpa` directory.
 
 It effectively makes `Spacemacs` to behave like [Vundle][vundle].
 
-## Configuration
-
-Some user configuration can be performed in your `~/.spacemacs` file.
-
-### Contribution layers
+## Contribution layers
 
 `Spacemacs` leverages the configuration layers in order to make it possible for
 you to share your own layer with other `Spacemacs` users. This kind of layer is
 called `contribution layer`.
+
+#### Adding a contribution layer
+
+Just create a configuration layer in `~/.emacs.d/contrib` or in a path that is
+registered in `dotspacemacs-configuration-layer-path` variable of your
+`~/.spacemacs` dotile (see the [dotfile section]() for more info on this file).
+
+The base files of a configuration layer (see [structure](#structure)) are
+optional so you just have to create only the files you need in your layer.
+For instance if you just want to add packages then only the `packages.el` file
+is necessary (as it is the case for the [Themes Megapack][themes-megapack]
+layer).
+
+#### Submitting a contribution layer upstream
+
+It is recommended to join a `README.md` file with your layer, ideally this file
+should document the packages of your layer as well as the key bindings
+associated with them. 
+
+To submit your contribution layer follow the [guidelines]()
+for pull requests.
+
+_Note: by submitting a configuration layer you become the maintainer of it._
+
+#### Themes Megapack example
+
+This is a simple contribution layer listing a bunch of themes, you can find it
+[here][themes-megapack].
+
+To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
+installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
+
+## Pull Request Guidelines
+
+`Spacemacs` uses the `git-flow` model, so you'll have to submit your
+contributions and fixes within a pull-request to apply against the `develop`
+branch.
+
+_Guidelines:_
+- always create a branch for your pull request.
+- always branch from the `master` branch (this way `develop` remains in a
+read-only state from a contributor point of view, it allows the maintainers
+to freely perform altering tasks such as rewriting the history).
+- commit often in your pull request branch with a concise and clear commit
+message. The first line of a commit message should be short, you can explain
+in details what you did in a paragraph by skipping a line after the first line.
+`often` is subtle, see `Notes` below.
+- if your pull request branch forked an old commit (i.e. not the current last
+commit in upstream master) then fetch upstream master and rebase your pull
+request branch on top of it and resolve any conflict locally in your pull
+request branch.
+- you are ready to open a pull request.
+
+If you have any question on this process, join the [gitter chatroom][gitter]
+and ask your questions there. Do not hesitate to ask your questions even the
+simplest one, it will be a pleasure to help you in your desire to contribute!
+
+_Notes:_
+I encourage you to not squash too much your commits. Good candidates for squash
+are commits which contain reverted modifications. For instance when you was
+experimenting on a feature and performed a lot of refactoring in the process,
+you can squash the intermediary refactoring commits. Typo commits are also good
+candidates for squashing. Anyway, just try to find a good balance between one
+huge commit and lot of small commits.
+
+## Dotfile Configuration
+
+User configuration can be stored in your `~/.spacemacs` file.
+
+### Installation
+
+`~/.spacemacs` is an optional file. If you want to use it you have to copy it
+manually from the template file `~/.emacs.d/.spacemacs.template`
+
+```sh
+$ cp ~/.emacs.d/.spacemacs.template ~/.spacemacs
+```
+
+### Content
 
 #### Using contributions layers
 
@@ -401,43 +479,12 @@ contribution layers. This is done by setting the list
 (setq-default dotspacemacs-configuration-layer-path '("~/.mycontribs/"))
 ```
 
-#### Adding a contribution layer
+#### Excluding packages
 
-Just create a configuration layer in `~/.emacs.d/contrib` or in a path that is
-registered in `dotspacemacs-configuration-layer-path` variable of your
-`~/.spacemacs` directory.
-
-The base files of a configuration layer (see [structure](#structure)) are
-optional so you just have to create only the files you need in your layer.
-For instance if you just want to add packages then only the `packages.el` file
-is necessary (as it is the case for the [Themes Megapack][themes-megapack]
-layer).
-
-#### Submitting a contribution layer upstream
-
-`Spacemacs` uses the `git-flow` model, so you'll have to submit your
-contributions and fixes as features or hotfixes within a pull-request to apply
-against the `develop` branch.
-
-It is recommended to join a `README.md` file with your layer, ideally this file
-should document the packages of your layer as well as the key bindings
-associated with them. 
-
-_Note: by submitting a configuration layer you become the maintainer of it._
-
-#### Themes Megapack example
-
-This is a simple contribution layer listing a bunch of themes, you can find it
-[here][themes-megapack].
-
-To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
-installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
-
-### Excluding packages
-
-You can also exclude packages you don't want to install with the variable
+You can exclude packages you don't want to install with the variable
 `dotspacemacs-excluded-packages`, this variable can exclude both packages and
-extensions.
+extensions (see [Configuration layers](#configuration-layers) for more info
+on packages and extensions).
 
 For instance to disable the `rainbow-delimiters` package:
 ```elisp
@@ -448,7 +495,7 @@ Note that for now, excluded packages that have been installed are not
 uninstalled. You'll have to delete them manually from your `~/.emacs.d/elpa`
 directory.
 
-### Hooks
+#### Hooks
 
 Two special functions of the `~/.spacemacs` file can be used to perform
 configuration at the beginning and end of `Spacemacs` loading process.
@@ -457,7 +504,7 @@ configuration at the beginning and end of `Spacemacs` loading process.
 loading.
 - `dotspacemacs/config` is triggered at the very end of `Spacemacs` loading.
 
-### Custom variables
+#### Custom variables
 
 Custom variables configuration from `M-x customize-group` which are
 automatically saved by Emacs are stored at the end of your `~/.spacemacs`
@@ -1665,3 +1712,4 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [themes-megapack]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/themes-megapack
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
+[gitter]: https://gitter.im/syl20bnr/spacemacs
