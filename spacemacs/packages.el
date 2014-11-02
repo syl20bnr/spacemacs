@@ -1532,6 +1532,7 @@ DELETE-FUNC when calling CALLBACK.
     :defer t
     :init
     (progn
+      (add-to-list 'evil-motion-state-modes 'neotree-mode)
       (setq neo-create-file-auto-open t
             neo-dont-be-alone t
             neo-banner-message "File Tree browser"
