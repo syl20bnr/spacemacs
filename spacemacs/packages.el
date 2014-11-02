@@ -1599,7 +1599,8 @@ DELETE-FUNC when calling CALLBACK.
     :init
     (progn
       (popwin-mode 1)
-      (evil-leader/set-key "wp" 'popwin:close-popup-window)
+      (evil-leader/set-key "wpm" 'popwin:messages)
+      (evil-leader/set-key "wpp" 'popwin:close-popup-window)
       (push '("*ert*"                      :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("*grep*"                     :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("*nosetests*"                :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
