@@ -1018,7 +1018,8 @@ Key Binding   |                 Description
 `<SPC> w L`   | move window to the right
 `<SPC> w m`   | maximize/minimize a window
 `<SPC> w M`   | maximize/minimize a window, when maximized the buffer is centered
-`<SPC> w p`   | close the current sticky popup window
+`<SPC> w p m` | open messages buffer in a popup window
+`<SPC> w p p` | close the current sticky popup window
 `<SPC> w r`   | rotate windows clockwise
 `<SPC> w R`   | rotate windows counter-clockwise
 `<SPC> w u`   | undo window layout (used to effectively undo a close window)
