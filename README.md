@@ -7,8 +7,8 @@
 
     git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
 
-_Jump to [Install](#install) for more info and
-[here](#submitting-a-contribution-layer-upstream) for contribution guidelines_
+_Jump to [Install](#install) for more info and [here](#pull-request-guidelines)
+for contribution guidelines_
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
@@ -394,7 +394,7 @@ It is recommended to join a `README.md` file with your layer, ideally this file
 should document the packages of your layer as well as the key bindings
 associated with them. 
 
-To submit your contribution layer follow the [guidelines]()
+To submit your contribution layer follow the [guidelines](#pull-request-guidelines)
 for pull requests.
 
 _Note: by submitting a configuration layer you become the maintainer of it._
