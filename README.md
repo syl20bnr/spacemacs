@@ -1127,6 +1127,19 @@ Line formatting commands start with `j`:
 
 Used together these key bindings are very powerful to quickly reformat the code.
 
+### Auto-completion
+
+`Spacemacs` uses [auto-complete][] auto-completion engine.
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`C-j`             | select next candidate
+`C-k`             | select previous candidate
+`TAB`             | expand selection or select next candidate
+`S-TAB`           | select previous candidate
+`return`          | complete word, if word is already completed insert a carriage return
+
+
 ### Commenting
 
 Comments are handled by [evil-nerd-commenter][], it's bound to the following keys.
