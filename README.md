@@ -7,8 +7,8 @@
 
     git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
 
-_Jump to [Install](#install) for more info and
-[here](#submitting-a-contribution-layer-upstream) for contribution guidelines_
+_Jump to [Install](#install) for more info and [here](#pull-request-guidelines)
+for contribution guidelines_
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
@@ -84,6 +84,7 @@ _Jump to [Install](#install) for more info and
         - [Region selection](#region-selection)
         - [Region narrowing](#region-narrowing)
         - [Line formatting](#line-formatting)
+        - [Auto-completion](#auto-completion)
         - [Commenting](#commenting)
         - [Errors handling](#errors-handling)
         - [Project management](#project-management)
@@ -393,7 +394,7 @@ It is recommended to join a `README.md` file with your layer, ideally this file
 should document the packages of your layer as well as the key bindings
 associated with them. 
 
-To submit your contribution layer follow the [guidelines]()
+To submit your contribution layer follow the [guidelines](#pull-request-guidelines)
 for pull requests.
 
 _Note: by submitting a configuration layer you become the maintainer of it._
@@ -1018,7 +1019,8 @@ Key Binding   |                 Description
 `<SPC> w L`   | move window to the right
 `<SPC> w m`   | maximize/minimize a window
 `<SPC> w M`   | maximize/minimize a window, when maximized the buffer is centered
-`<SPC> w p`   | close the current sticky popup window
+`<SPC> w p m` | open messages buffer in a popup window
+`<SPC> w p p` | close the current sticky popup window
 `<SPC> w r`   | rotate windows clockwise
 `<SPC> w R`   | rotate windows counter-clockwise
 `<SPC> w u`   | undo window layout (used to effectively undo a close window)
@@ -1125,6 +1127,19 @@ Line formatting commands start with `j`:
 `<SPC> j k`       | join the current line with the next line
 
 Used together these key bindings are very powerful to quickly reformat the code.
+
+### Auto-completion
+
+`Spacemacs` uses [auto-complete][] auto-completion engine.
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`C-j`             | select next candidate
+`C-k`             | select previous candidate
+`TAB`             | expand selection or select next candidate
+`S-TAB`           | select previous candidate
+`return`          | complete word, if word is already completed insert a carriage return
+
 
 ### Commenting
 
@@ -1628,10 +1643,16 @@ your `~/.spacemacs` the following snippet:
 
 ```elisp
 (defun dotspacemacs/config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
   (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
 ```
+
+2) Do not use popwin for `helm` buffers:
+
+```elisp
+(defun dotspacemacs/config ()
+  (spacemacs/remove-popwin-display-config "helm")
+```
+
 
 ## TODO list
 

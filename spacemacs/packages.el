@@ -272,6 +272,10 @@ DELETE-FUNC when calling CALLBACK.
               (if shadowed (call-interactively shadowed)))))))
       ;; easier toggle for emacs-state
       (evil-set-toggle-key "s-`")
+      ;; moves `evil-insert-digraph' to C-i in order to free up C-k for
+      ;; candidate selection in auto-complete.
+      (define-key evil-insert-state-map (kbd "C-k") nil)
+      (define-key evil-insert-state-map (kbd "C-i") 'evil-insert-digraph)
       ;; escape state with a better key sequence than ESC
       (let* ((seq spacemacs-normal-state-sequence)
              (key (char-to-string (car spacemacs-normal-state-sequence)))
@@ -622,6 +626,9 @@ DELETE-FUNC when calling CALLBACK.
       (ac-config-default)
       (add-to-list 'completion-styles 'initials t)
       (evil-leader/set-key "ta" 'auto-complete-mode)
+      (define-key ac-mode-map (kbd "C-j") 'ac-next)
+      (define-key ac-mode-map (kbd "C-k") 'ac-previous)
+      (define-key ac-mode-map (kbd "<S-tab>") 'ac-previous)
       ;; customization
       (setq ac-auto-start 2
             ac-delay 0.
@@ -1599,14 +1606,20 @@ DELETE-FUNC when calling CALLBACK.
     :init
     (progn
       (popwin-mode 1)
-      (evil-leader/set-key "wp" 'popwin:close-popup-window)
+      (evil-leader/set-key "wpm" 'popwin:messages)
+      (evil-leader/set-key "wpp" 'popwin:close-popup-window)
       (push '("*ert*"                      :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("*grep*"                     :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("*nosetests*"                :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("^\*Flycheck.+\*$" :regexp t :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("^\*WoMan.+\*$"    :regexp t              :position bottom                     ) popwin:special-display-config)
-      (push '("^\*helm.+\*$"     :regexp t              :position bottom                     ) popwin:special-display-config)
-      (push '("^\*helm-.+\*$"    :regexp t              :position bottom                     ) popwin:special-display-config))))
+      (push '("^\*helm.*\*$"     :regexp t              :position bottom                     ) popwin:special-display-config)
+      (defun spacemacs/remove-popwin-display-config (str)
+        "Removes the popwin display configurations that matches the passed STR"
+        (setq popwin:special-display-config
+              (-remove (lambda (x) (if (and (listp x) (stringp (car x)))
+                                       (string-match str (car x))))
+                       popwin:special-display-config))))))
 
 (defun spacemacs/init-powershell ()
   (use-package powershell
