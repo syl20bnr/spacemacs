@@ -1188,6 +1188,7 @@ DELETE-FUNC when calling CALLBACK.
             (spacemacs/no-golden-ratio-for-buffers " *popwin-dummy*")))
       (add-to-list 'golden-ratio-inhibit-functions
                    'spacemacs/no-golden-ratio-guide-key)
+      (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
 
       (spacemacs//diminish golden-ratio-mode " ⊞"))))
 
