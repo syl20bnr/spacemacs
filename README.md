@@ -84,6 +84,7 @@ _Jump to [Install](#install) for more info and
         - [Region selection](#region-selection)
         - [Region narrowing](#region-narrowing)
         - [Line formatting](#line-formatting)
+        - [Auto-completion](#auto-completion)
         - [Commenting](#commenting)
         - [Errors handling](#errors-handling)
         - [Project management](#project-management)
