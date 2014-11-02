@@ -1322,6 +1322,8 @@ DELETE-FUNC when calling CALLBACK.
   (use-package helm
     :defer t
     :init
+    (setq helm-split-window-in-side-p nil
+          helm-always-two-windows     t)
     (evil-leader/set-key
         ":"   'helm-M-x
         "bs"  'helm-mini
@@ -1539,21 +1541,24 @@ DELETE-FUNC when calling CALLBACK.
       (setq neo-create-file-auto-open t
             neo-dont-be-alone t
             neo-banner-message "File Tree browser"
-            neo-smart-open t)
+            neo-smart-open t
+            neo-persist-show nil)
       (evil-leader/set-key "ft" 'neotree-toggle))
     :config
     (add-hook 'neotree-mode-hook
               (lambda ()
-                (define-key evil-normal-state-local-map (kbd "TAB") 'neotree-enter)
-                (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
-                (define-key evil-normal-state-local-map (kbd "D") 'neotree-delete-node)
-                (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle)
-                (define-key evil-normal-state-local-map (kbd "a") 'neotree-stretch-toggle)
-                (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
-                (define-key evil-normal-state-local-map (kbd "g") 'neotree-refresh)
-                (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-                (define-key evil-normal-state-local-map (kbd "?") 'evil-search-backward)
-                (define-key evil-normal-state-local-map (kbd "Q") 'kill-this-buffer)))
+                (define-key evil-motion-state-local-map (kbd "TAB") 'neotree-enter)
+                (define-key evil-motion-state-local-map (kbd "RET") 'neotree-enter)
+                (define-key evil-motion-state-local-map (kbd "D") 'neotree-delete-node)
+                (define-key evil-motion-state-local-map (kbd "H") 'neotree-hidden-file-toggle)
+                (define-key evil-motion-state-local-map (kbd "a") 'neotree-stretch-toggle)
+                (define-key evil-motion-state-local-map (kbd "A") 'neotree-stretch-toggle)
+                (define-key evil-motion-state-local-map (kbd "R") 'neotree-rename-node)
+                (define-key evil-motion-state-local-map (kbd "C") 'neotree-create-node)
+                (define-key evil-motion-state-local-map (kbd "g") 'neotree-refresh)
+                (define-key evil-motion-state-local-map (kbd "q") 'neotree-hide)
+                (define-key evil-motion-state-local-map (kbd "?") 'evil-search-backward)
+                (define-key evil-motion-state-local-map (kbd "Q") 'kill-this-buffer)))
     ))
 
 (defun spacemacs/init-org ()
@@ -1617,7 +1622,6 @@ DELETE-FUNC when calling CALLBACK.
       (push '("*nosetests*"                :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("^\*Flycheck.+\*$" :regexp t :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("^\*WoMan.+\*$"    :regexp t              :position bottom                     ) popwin:special-display-config)
-      (push '("^\*helm.*\*$"     :regexp t              :position bottom                     ) popwin:special-display-config)
       (defun spacemacs/remove-popwin-display-config (str)
         "Removes the popwin display configurations that matches the passed STR"
         (setq popwin:special-display-config
