@@ -1642,10 +1642,16 @@ your `~/.spacemacs` the following snippet:
 
 ```elisp
 (defun dotspacemacs/config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
   (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
 ```
+
+2) Do not use popwin for `helm` buffers:
+
+```elisp
+(defun dotspacemacs/config ()
+  (spacemacs/remove-popwin-display-config "helm")
+```
+
 
 ## TODO list
 

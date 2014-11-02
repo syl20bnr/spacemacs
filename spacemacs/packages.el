@@ -1613,8 +1613,13 @@ DELETE-FUNC when calling CALLBACK.
       (push '("*nosetests*"                :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("^\*Flycheck.+\*$" :regexp t :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("^\*WoMan.+\*$"    :regexp t              :position bottom                     ) popwin:special-display-config)
-      (push '("^\*helm.+\*$"     :regexp t              :position bottom                     ) popwin:special-display-config)
-      (push '("^\*helm-.+\*$"    :regexp t              :position bottom                     ) popwin:special-display-config))))
+      (push '("^\*helm.*\*$"     :regexp t              :position bottom                     ) popwin:special-display-config)
+      (defun spacemacs/remove-popwin-display-config (str)
+        "Removes the popwin display configurations that matches the passed STR"
+        (setq popwin:special-display-config
+              (-remove (lambda (x) (if (and (listp x) (stringp (car x)))
+                                       (string-match str (car x))))
+                       popwin:special-display-config))))))
 
 (defun spacemacs/init-powershell ()
   (use-package powershell
