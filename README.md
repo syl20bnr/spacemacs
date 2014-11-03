@@ -35,7 +35,7 @@ for contribution guidelines_
         - [Extensions and Packages declaration and initialization](#extensions-and-packages-declaration-and-initialization)
         - [Packages synchronization (Vundle like feature)](#packages-synchronization-vundle-like-feature)
     - [Contribution layers](#contribution-layers)
-        - [-](#-)
+        - [Adding a contribution layer](#adding-a-contribution-layer)
         - [Submitting a contribution layer upstream](#submitting-a-contribution-layer-upstream)
         - [Themes Megapack example](#themes-megapack-example)
     - [Pull Request Guidelines](#pull-request-guidelines)
@@ -376,7 +376,7 @@ It effectively makes `Spacemacs` to behave like [Vundle][vundle].
 you to share your own layer with other `Spacemacs` users. This kind of layer is
 called `contribution layer`.
 
-#### Adding a contribution layer
+### Adding a contribution layer
 
 Just create a configuration layer in `~/.emacs.d/contrib` or in a path that is
 registered in `dotspacemacs-configuration-layer-path` variable of your
@@ -388,7 +388,7 @@ For instance if you just want to add packages then only the `packages.el` file
 is necessary (as it is the case for the [Themes Megapack][themes-megapack]
 layer).
 
-#### Submitting a contribution layer upstream
+### Submitting a contribution layer upstream
 
 It is recommended to join a `README.md` file with your layer, ideally this file
 should document the packages of your layer as well as the key bindings
@@ -399,7 +399,7 @@ for pull requests.
 
 _Note: by submitting a configuration layer you become the maintainer of it._
 
-#### Themes Megapack example
+### Themes Megapack example
 
 This is a simple contribution layer listing a bunch of themes, you can find it
 [here][themes-megapack].
