@@ -1341,19 +1341,28 @@ DELETE-FUNC when calling CALLBACK.
 
 (defun spacemacs/init-helm ()
   (use-package helm
+    :idle (helm-mode +1) 
     :defer t
-    :init
+    :init 
     (setq helm-split-window-in-side-p nil
+          helm-quick-update t
+          helm-bookmark-show-location t
+          helm-buffers-fuzzy-matching t
           helm-always-two-windows     t)
     (evil-leader/set-key
         ":"   'helm-M-x
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
-        "kil" 'helm-show-kill-ring)
+        "kil" 'helm-show-kill-ring
+        "sy"  'helm-show-kill-ring
+        "sr"  'helm-register
+        "sm"  'helm-all-mark-rings
+        "fh"  'helm-find-files
+        "<f1>" 'helm-apropos
+        )
     :config
     (progn
-      (helm-mode +1)
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
