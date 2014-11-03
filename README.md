@@ -415,18 +415,16 @@ branch.
 
 _Guidelines:_
 - always create a branch for your pull request.
-- always branch from the `master` branch (this way `develop` remains in a
-read-only state from a contributor point of view, it allows the maintainers
-to freely perform altering tasks such as rewriting the history).
+- branch from develop for new features or fixes.
+- branch from `master` for hot fixes.
+- if you don't know if you must branch from `master` or `develop` then branch
+from `develop`.
 - commit often in your pull request branch with a concise and clear commit
 message. The first line of a commit message should be short, you can explain
 in details what you did in a paragraph by skipping a line after the first line.
 `often` is subtle, see `Notes` below.
-- if your pull request branch forked an old commit (i.e. not the current last
-commit in upstream master) then fetch upstream master and rebase your pull
-request branch on top of it and resolve any conflict locally in your pull
-request branch.
-- you are ready to open a pull request.
+- it is recommended to rebase your pull request branch on top of `master` or
+`develop` (depending on your base branch) before submitting.
 
 If you have any question on this process, join the [gitter chatroom][gitter]
 and ask your questions there. Do not hesitate to ask your questions even the
