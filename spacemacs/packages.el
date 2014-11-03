@@ -1828,6 +1828,19 @@ DELETE-FUNC when calling CALLBACK.
       (spacemacs//diminish smartparens-mode " (Ⓢ)"))
     :config
     (progn
+      (defun spacemacs/smartparens-pair-newline (id action context)
+        (save-excursion
+          (newline)
+          (indent-according-to-mode)))
+
+      (defun spacemacs/smartparens-pair-newline-and-indent (id action context)
+        (spacemacs/smartparens-pair-newline id action context)
+        (indent-according-to-mode))
+
+      (sp-pair "{" nil :post-handlers
+               '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
+      (sp-pair "[" nil :post-handlers
+               '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
       (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil))))
 
 (defun spacemacs/init-smeargle ()
