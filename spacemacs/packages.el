@@ -1939,8 +1939,8 @@ DELETE-FUNC when calling CALLBACK.
       (defun spacemacs/load-yasnippet ()
           (if (not (boundp 'yas-minor-mode))
               (progn
-                (let* ((dir (contribsys/get-layer-property 'spacemacs :dir))
-                       (yas-dir (list (concat dir "snippets"))))
+                (let* ((dir (contribsys/get-layer-property 'spacemacs :ext-dir))
+                       (yas-dir (list (concat dir "yasnippet-snippets"))))
                   (setq yas-snippet-dirs yas-dir)
                   (yas-global-mode 1)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
