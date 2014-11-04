@@ -42,6 +42,7 @@
         (add-hook 'LaTeX-mode-hook '(lambda () (local-set-key (kbd "H-r") 'build-view)))
         (add-hook 'LaTeX-mode-hook 'flyspell-mode)
         (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+        (add-hook 'LaTeX-mode-hook 'spacemacs/load-yasnippet)
 
         (evil-leader/set-key
           "oe" 'LaTeX-environment
