@@ -11,7 +11,10 @@
   (setq truncate-lines t)
   (setq cursor-type nil)
   ;; no welcome buffer
-  (setq inhibit-startup-screen t))
+  (setq inhibit-startup-screen t)
+  ;; motion state since this is a special mode
+  (eval-after-load 'evil
+    '(add-to-list 'evil-motion-state-modes 'spacemacs-mode)))
 
 (defun spacemacs/emacs-version-ok ()
   (not (version< emacs-version spacemacs-min-version)))
