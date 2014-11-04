@@ -1950,7 +1950,7 @@ DELETE-FUNC when calling CALLBACK.
     (progn
       (spacemacs//diminish yas-minor-mode " Ⓨ")
       (require 'helm-c-yasnippet)
-      (evil-leader/set-key "hy" 'helm-yas-complete)
+      (evil-leader/set-key "is" 'helm-yas-complete)
       (setq helm-c-yas-space-match-any-greedy t))))
 
 (defun spacemacs/init-zenburn-theme ()
