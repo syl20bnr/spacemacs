@@ -7,7 +7,7 @@
 
     git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
 
-_Jump to [Install](#install) for more info and [here](#pull-request-guidelines)
+_Jump to [Install](#install) for more info and [here][CONTRIBUTE.md-PR]
 for contribution guidelines_
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
@@ -390,14 +390,7 @@ layer).
 
 ### Submitting a contribution layer upstream
 
-It is recommended to join a `README.md` file with your layer, ideally this file
-should document the packages of your layer as well as the key bindings
-associated with them. 
-
-To submit your contribution layer follow the [guidelines](#pull-request-guidelines)
-for pull requests.
-
-_Note: by submitting a configuration layer you become the maintainer of it._
+See the [CONTRIBUTE.md-CL][] file.
 
 ### Themes Megapack example
 
@@ -409,34 +402,7 @@ installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
 
 ## Pull Request Guidelines
 
-`Spacemacs` uses the `git-flow` model, so you'll have to submit your
-contributions and fixes within a pull-request to apply against the `develop`
-branch.
-
-_Guidelines:_
-- always create a branch for your pull request.
-- branch from develop for new features or fixes.
-- branch from `master` for hot fixes.
-- if you don't know if you must branch from `master` or `develop` then branch
-from `develop`.
-- commit often in your pull request branch with a concise and clear commit
-message. The first line of a commit message should be short, you can explain
-in details what you did in a paragraph by skipping a line after the first line.
-`often` is subtle, see `Notes` below.
-- it is recommended to rebase your pull request branch on top of `master` or
-`develop` (depending on your base branch) before submitting.
-
-If you have any question on this process, join the [gitter chatroom][gitter]
-and ask your questions there. Do not hesitate to ask your questions even the
-simplest one, it will be a pleasure to help you in your desire to contribute!
-
-_Notes:_
-I encourage you to not squash too much your commits. Good candidates for squash
-are commits which contain reverted modifications. For instance when you was
-experimenting on a feature and performed a lot of refactoring in the process,
-you can squash the intermediary refactoring commits. Typo commits are also good
-candidates for squashing. Anyway, just try to find a good balance between one
-huge commit and lot of small commits.
+See the [CONTRIBUTE.md-PR][] file.
 
 ## Dotfile Configuration
 
@@ -1731,3 +1697,5 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [gitter]: https://gitter.im/syl20bnr/spacemacs
+[CONTRIBUTE.md-PR]: https://github.com/syl20bnr/spacemacs/blob/master/CONTRIBUTE.md#pull-request-guidelines
+[CONTRIBUTE.md-CL]: https://github.com/syl20bnr/spacemacs/blob/master/CONTRIBUTE.md#submitting-a-contribution-layer-upstream
