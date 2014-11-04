@@ -20,10 +20,6 @@
 [submodule "spacemacs/extensions/nose"]
 	path = spacemacs/extensions/nose
 	url = http://github.com/syl20bnr/nose.el
-[submodule "spacemacs/snippets"]
-	path = spacemacs/snippets
-	url = http://github.com/syl20bnr/yasnippet-snippets
-  ignore = dirty
 [submodule "spacemacs/extensions/use-package"]
 	path = spacemacs/extensions/use-package
 	url = http://github.com/jwiegley/use-package
