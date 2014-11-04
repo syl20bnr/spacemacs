@@ -372,7 +372,19 @@ DELETE-FUNC when calling CALLBACK.
       (unless (display-graphic-p)
         (require 'evil-terminal-cursor-changer))
       ;; initiate a search of the selected text
-      (use-package evil-visualstar)
+      (use-package evil-visualstar
+        :init
+        ;; neat trick, when we are not in visual mode we use ahs to search
+        (eval-after-load 'auto-highlight-symbol
+          '(progn
+             (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
+             (define-key evil-normal-state-map (kbd "#") 'ahs-backward)
+             (define-key evil-motion-state-map (kbd "*") 'ahs-forward)
+             (define-key evil-motion-state-map (kbd "#") 'ahs-backward)
+             (eval-after-load 'evil-lisp-state
+               '(progn
+                  (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
+                  (define-key evil-normal-state-map (kbd "#") 'ahs-backward))))))
       ;; add a lisp state
       (use-package evil-lisp-state
         :init
@@ -680,7 +692,8 @@ DELETE-FUNC when calling CALLBACK.
       (custom-set-variables
        '(ahs-case-fold-search nil)
        '(ahs-default-range (quote ahs-range-whole-buffer))
-       '(ahs-idle-interval 0.25))
+       '(ahs-idle-interval 0.25)
+       '(ahs-inhibit-face-list nil))
       (eval-after-load "evil-leader"
         '(evil-leader/set-key
            "sC"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
