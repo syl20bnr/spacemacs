@@ -272,10 +272,6 @@ DELETE-FUNC when calling CALLBACK.
               (if shadowed (call-interactively shadowed)))))))
       ;; easier toggle for emacs-state
       (evil-set-toggle-key "s-`")
-      ;; moves `evil-insert-digraph' to C-i in order to free up C-k for
-      ;; candidate selection in auto-complete.
-      (define-key evil-insert-state-map (kbd "C-k") nil)
-      (define-key evil-insert-state-map (kbd "C-i") 'evil-insert-digraph)
       ;; escape state with a better key sequence than ESC
       (let* ((seq spacemacs-normal-state-sequence)
              (key (char-to-string (car spacemacs-normal-state-sequence)))
@@ -628,9 +624,9 @@ DELETE-FUNC when calling CALLBACK.
       (ac-config-default)
       (add-to-list 'completion-styles 'initials t)
       (evil-leader/set-key "ta" 'auto-complete-mode)
-      (define-key ac-mode-map (kbd "C-j") 'ac-next)
-      (define-key ac-mode-map (kbd "C-k") 'ac-previous)
-      (define-key ac-mode-map (kbd "<S-tab>") 'ac-previous)
+      (define-key ac-completing-map (kbd "C-j") 'ac-next)
+      (define-key ac-completing-map (kbd "C-k") 'ac-previous)
+      (define-key ac-completing-map (kbd "<S-tab>") 'ac-previous)
       ;; customization
       (setq ac-auto-start 2
             ac-delay 0.
@@ -1549,16 +1545,16 @@ DELETE-FUNC when calling CALLBACK.
               (lambda ()
                 (define-key evil-motion-state-local-map (kbd "TAB") 'neotree-enter)
                 (define-key evil-motion-state-local-map (kbd "RET") 'neotree-enter)
-                (define-key evil-motion-state-local-map (kbd "D") 'neotree-delete-node)
-                (define-key evil-motion-state-local-map (kbd "H") 'neotree-hidden-file-toggle)
-                (define-key evil-motion-state-local-map (kbd "a") 'neotree-stretch-toggle)
-                (define-key evil-motion-state-local-map (kbd "A") 'neotree-stretch-toggle)
-                (define-key evil-motion-state-local-map (kbd "R") 'neotree-rename-node)
-                (define-key evil-motion-state-local-map (kbd "C") 'neotree-create-node)
-                (define-key evil-motion-state-local-map (kbd "g") 'neotree-refresh)
-                (define-key evil-motion-state-local-map (kbd "q") 'neotree-hide)
                 (define-key evil-motion-state-local-map (kbd "?") 'evil-search-backward)
-                (define-key evil-motion-state-local-map (kbd "Q") 'kill-this-buffer)))
+                (define-key evil-motion-state-local-map (kbd "a") 'neotree-stretch-toggle)
+                (define-key evil-motion-state-local-map (kbd "c") 'neotree-create-node)
+                (define-key evil-motion-state-local-map (kbd "d") 'neotree-delete-node)
+                (define-key evil-motion-state-local-map (kbd "g") 'neotree-refresh)
+                (define-key evil-motion-state-local-map (kbd "H") 'neotree-hidden-file-toggle)
+                (define-key evil-motion-state-local-map (kbd "K") 'kill-this-buffer)
+                (define-key evil-motion-state-local-map (kbd "q") 'neotree-hide)
+                (define-key evil-motion-state-local-map (kbd "r") 'neotree-rename-node)
+                ))
     ))
 
 (defun spacemacs/init-org ()
@@ -1828,6 +1824,19 @@ DELETE-FUNC when calling CALLBACK.
       (spacemacs//diminish smartparens-mode " (Ⓢ)"))
     :config
     (progn
+      (defun spacemacs/smartparens-pair-newline (id action context)
+        (save-excursion
+          (newline)
+          (indent-according-to-mode)))
+
+      (defun spacemacs/smartparens-pair-newline-and-indent (id action context)
+        (spacemacs/smartparens-pair-newline id action context)
+        (indent-according-to-mode))
+
+      (sp-pair "{" nil :post-handlers
+               '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
+      (sp-pair "[" nil :post-handlers
+               '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
       (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil))))
 
 (defun spacemacs/init-smeargle ()
@@ -1926,8 +1935,8 @@ DELETE-FUNC when calling CALLBACK.
       (defun spacemacs/load-yasnippet ()
           (if (not (boundp 'yas-minor-mode))
               (progn
-                (let* ((dir (contribsys/get-layer-property 'spacemacs :dir))
-                       (yas-dir (list (concat dir "snippets"))))
+                (let* ((dir (contribsys/get-layer-property 'spacemacs :ext-dir))
+                       (yas-dir (list (concat dir "yasnippet-snippets"))))
                   (setq yas-snippet-dirs yas-dir)
                   (yas-global-mode 1)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
@@ -1937,7 +1946,7 @@ DELETE-FUNC when calling CALLBACK.
     (progn
       (spacemacs//diminish yas-minor-mode " Ⓨ")
       (require 'helm-c-yasnippet)
-      (evil-leader/set-key "hy" 'helm-yas-complete)
+      (evil-leader/set-key "is" 'helm-yas-complete)
       (setq helm-c-yas-space-match-any-greedy t))))
 
 (defun spacemacs/init-zenburn-theme ()

@@ -9,6 +9,9 @@
     julia-mode
     helm-ag
     lua-mode
+    racket-mode
+    go-mode
+    yaml-mode
     ag
     ))
 
@@ -86,3 +89,19 @@
 (defun trishume/init-lua-mode ()
   (use-package lua-mode
     :defer t))
+
+(defun trishume/init-go-mode ()
+  (use-package go-mode
+    :defer t))
+
+(defun trishume/init-yaml-mode ()
+  (use-package yaml-mode
+    :defer t))
+
+(defun trishume/init-racket-mode ()
+  (use-package racket-mode
+    :defer t
+    :config
+    (add-hook 'racket-mode-hook
+          '(lambda ()
+             (define-key racket-mode-map (kbd "H-r") 'racket-run)))))
