@@ -1610,14 +1610,6 @@ your `~/.spacemacs` the following snippet:
   (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
 ```
 
-2) Do not use popwin for `helm` buffers:
-
-```elisp
-(defun dotspacemacs/config ()
-  (spacemacs/remove-popwin-display-config "helm")
-```
-
-
 ## TODO list
 
 - Add support for [multiple-cursors][multiple-cursors] mode.
