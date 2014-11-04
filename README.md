@@ -72,6 +72,7 @@ for contribution guidelines_
             - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
             - [Buffers and Files](#buffers-and-files)
             - [Ido](#ido)
+            - [NeoTree file tree](#neotree-file-tree)
             - [Bookmarks](#bookmarks)
             - [Symbols](#symbols)
                 - [Listing symbols by semantic](#listing-symbols-by-semantic)
@@ -729,6 +730,7 @@ They are both extended with various packages to build on their foundations.
 [evil-exchange][]                       | port of [vim-exchange][]
 [evil-surround][]                       | port of [vim-surround][]
 [evil-nerd-commenter][]                 | port of [nerdcommenter][]
+[NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
 
 ### Helm extensions
 
@@ -849,7 +851,7 @@ Key Binding   |                 Description
 `<SPC> f i`   | open your `init.el` file
 `<SPC> f s`   | save a file
 `<SPC> f S`   | save all files
-`<SPC> f t`   | toggle file tree side bar using [neotree][neotree]
+`<SPC> f t`   | toggle file tree side bar using [NeoTree][neotree]
 `<SPC> f y`   | show current file absolute path in the minibuffer
 
 #### Ido
@@ -869,6 +871,30 @@ Key Binding   |                 Description
 `C-l`         | open the selected file
 `C-S-j`       | go to next directory
 `C-S-k`       | go to previous directory
+
+
+#### NeoTree file tree
+
+`Spacemacs` provides a quick and simple way to navigate in an unknown project
+file tree with [NeoTree][neotree].
+
+To toggle the `NeoTree` buffer press:
+
+    <SPC> f t
+
+In the `NeoTree` buffer:
+
+Key Binding    |                 Description
+---------------|----------------------------------------------------------------
+`TAB` or `RET` | expand/open
+`a`            | toggle stretch the buffer
+`c`            | create a node
+`d`            | delete a node
+`g`            | refresh
+`H`            | toggle hidden files
+`K`            | kill corresponding buffer
+`q` or `fd`    | hide `NeoTree` buffer
+`r`            | rename a node
 
 #### Bookmarks
 
@@ -1675,7 +1701,6 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [smeargle]: https://github.com/syohex/emacs-smeargle
 [git-timemachine]: https://github.com/pidu/git-timemachine
 [git-messenger]: https://github.com/syohex/emacs-git-messenger
-[neotree]: http://www.emacswiki.org/emacs/NeoTree
 [evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
 [ido-vertical-mode]: https://github.com/gempesaw/ido-vertical-mode.el
 [emacs_live]: https://github.com/overtone/emacs-live
@@ -1691,3 +1716,5 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [gitter]: https://gitter.im/syl20bnr/spacemacs
 [CONTRIBUTE.md-PR]: https://github.com/syl20bnr/spacemacs/blob/master/CONTRIBUTE.md#pull-request-guidelines
 [CONTRIBUTE.md-CL]: https://github.com/syl20bnr/spacemacs/blob/master/CONTRIBUTE.md#submitting-a-contribution-layer-upstream
+[neotree]: https://github.com/jaypei/emacs-neotree
+[nerdtree]: https://github.com/scrooloose/nerdtree
