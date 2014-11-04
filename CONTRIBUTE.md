@@ -18,6 +18,9 @@ branch.
 _PR = pull request_
 
 **Guidelines:**
+
+1) Ideally and for simple PRs:
+
 - branch from `develop` only
 - one topic per PR
 - one commit per PR
@@ -25,6 +28,15 @@ _PR = pull request_
   one PR per topic
   - if you still have several commits, squash them into only one commit
 - rebase your PR branch on top of upstream `develop` before submitting the PR
+
+Those PRs are fast-forwarded.
+
+2) For complex pull requests:
+
+- squash only the commits with uninteresting changes like typos, syntax fixes,
+etc... and keep the important steps in different commits.
+
+Those PRs are merged.
     
 **Getting Help:**
 If you have any question on this process, join the [gitter chatroom][gitter]
