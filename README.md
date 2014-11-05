@@ -74,9 +74,12 @@ for contribution guidelines_
             - [Ido](#ido)
             - [NeoTree file tree](#neotree-file-tree)
             - [Bookmarks](#bookmarks)
-            - [Symbols](#symbols)
-                - [Listing symbols by semantic](#listing-symbols-by-semantic)
-                - [Auto-highlight and edition](#auto-highlight-and-edition)
+        - [Searching](#searching)
+            - [Persistent highlighting](#persistent-highlighting)
+            - [Auto-highlight symbols](#auto-highlight-symbols)
+            - [Visual Star](#visual-star)
+            - [Listing symbols by semantic](#listing-symbols-by-semantic)
+            - [Helm-swoop](#helm-swoop)
         - [Window manipulation](#window-manipulation)
             - [Golden ratio](#golden-ratio)
         - [Text manipulation commands](#text-manipulation-commands)
@@ -917,18 +920,15 @@ Key Binding   |                 Description
 
 To save a new bookmark, just type the name of the bookmark and press `RET`.
 
-#### Symbols
+### Searching
 
-##### Listing symbols by semantic
+#### Persistent highlighting
 
-Use `helm-semantic-or-imenu` command from `Helm` to quickly navigate between
-the symbols in a buffer.
+`Spacemacs` uses `evil-search-highlight-persist` to keep the searched expression
+highlighted until the next search. It is also possible to clear the
+highlighting by pressing `<SPC> s c`.
 
-To list all the symbols of a buffer press:
-
-    <SPC> s l
-
-##### Auto-highlight and edition
+#### Auto-highlight symbols
 
 `Spacemacs` supports auto highlighting of the current symbol (provided by the
  [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to it
@@ -943,30 +943,30 @@ Navigation between the highlighted symbols can be done with the commands:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`<SPC> s s`   | initiate navigation micro-state
+`*`           | initiate navigation micro-state
 `<SPC> s n`   | go to next occurrence and initiate navigation micro-state
 `<SPC> s N`   | go to previous occurrence and initiate navigation micro-state
-`<SPC> s c b` | change range to `whole buffer`
-`<SPC> s c d` | change range to `display area`
-`<SPC> s c f` | change range to `function`
-`<SPC> s C`   | change range to default (`whole buffer`)
+`<SPC> s r b` | change range to `whole buffer`
+`<SPC> s r d` | change range to `display area`
+`<SPC> s r f` | change range to `function`
+`<SPC> s R`   | change range to default (`whole buffer`)
 
 In 'Spacemacs' highlight symbol micro-state:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`c`           | change scope (`function`, `display area`, `whole buffer`)
 `e`           | edit occurrences
 `n`           | go to next occurrence
 `N`           | go to previous occurrence
 `d`           | go to next definition occurrence
 `D`           | go to previous definition occurrence
-`r`           | go to home occurrence (reset position to starting occurrence)
+`r`           | change range (`function`, `display area`, `whole buffer`)
+`R`           | go to home occurrence (reset position to starting occurrence)
 Any other key | leave the navigation micro-state
 
 The micro-state text in minibuffer display the following information:
 
-    <M> [6/11]* press (n) or (N) to navigate, (h) for home symbol, (c) to change scope
+    <M> [6/11]* press (n) or (N) to navigate, (R) for home symbol, (r) to change range
 
 Where `<M> [x/y]*` is:
 - M: the current range mode
@@ -977,6 +977,41 @@ Where `<M> [x/y]*` is:
 - `y`: the total number of occurrences
 - `*`: appears if there is at least one occurrence which is not currently
 visible.
+
+#### Visual Star
+
+With [evil-visualstar][] you can search for the next occurrence of the current
+selection.
+
+It is pretty useful combined with the [expand-region](#region-selection)
+bindings.
+
+_Note:_ If the current state is not the `visual state` then pressing `*` uses
+[auto-highlight-symbol](#auto-highlight-symbols) and its micro-state.
+
+#### Listing symbols by semantic
+
+Use `helm-semantic-or-imenu` command from `Helm` to quickly navigate between
+the symbols in a buffer.
+
+To list all the symbols of a buffer press:
+
+    <SPC> s l
+
+#### Helm-swoop
+
+This is very similar to `moccur`, it displays a `helm` buffer with all the
+occurrences of the word under point. You can then change the search query
+in real-time and navigate between them easily.
+
+You can even edit the occurrences directly in the `helm` buffer and apply
+the modifications to the buffer.
+
+Key Binding   |                    Description
+--------------|----------------------------------------------------------------
+`<SPC> s s`   | execute `helm-swoop`
+`<SPC> s S`   | execute `helm-multi-swoop`
+`<SPC> s C-s` | execute `helm-multi-swoop-all`
 
 ### Window manipulation
 
@@ -1076,7 +1111,7 @@ Spell checking commands start with `S`:
 ### Region selection
 
 Vi `Visual` modes are all supported by `evil`, `Spacemacs` adds another
-`Visual` mode via the [expand-region][expand-region] mode.
+`Visual` mode via the [expand-region][] mode.
 
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
