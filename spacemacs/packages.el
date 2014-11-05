@@ -1405,9 +1405,9 @@ DELETE-FUNC when calling CALLBACK.
           helm-swoop-split-direction 'split-window-vertically
           helm-swoop-split-window-function 'helm-default-display-buffer)
     (evil-leader/set-key
-      "hS"    'helm-multi-swoop
-      "hs"    'helm-swoop
-      "h C-s" 'helm-multi-swoop-all)))
+      "sS"    'helm-multi-swoop
+      "ss"    'helm-swoop
+      "s C-s" 'helm-multi-swoop-all)))
 
 (defun spacemacs/init-helm-themes ()
   (use-package helm-themes
