@@ -29,6 +29,7 @@
     ess-smart-underscore
     evil
     evil-exchange
+    evil-search-highlight-persist
     evil-leader
     evil-lisp-state
     evil-nerd-commenter
@@ -385,6 +386,11 @@ DELETE-FUNC when calling CALLBACK.
                '(progn
                   (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
                   (define-key evil-normal-state-map (kbd "#") 'ahs-backward))))))
+      ;; persistent search highlight like Vim hisearch
+      (use-package evil-search-highlight-persist
+        :init
+        (global-evil-search-highlight-persist)
+        (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all))
       ;; add a lisp state
       (use-package evil-lisp-state
         :init
