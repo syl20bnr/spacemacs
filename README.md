@@ -946,22 +946,22 @@ Key Binding   | Description
 `<SPC> s s`   | initiate navigation micro-state
 `<SPC> s n`   | go to next occurrence and initiate navigation micro-state
 `<SPC> s N`   | go to previous occurrence and initiate navigation micro-state
-`<SPC> s c b` | change range to `whole buffer`
-`<SPC> s c d` | change range to `display area`
-`<SPC> s c f` | change range to `function`
-`<SPC> s C`   | change range to default (`whole buffer`)
+`<SPC> s r b` | change range to `whole buffer`
+`<SPC> s r d` | change range to `display area`
+`<SPC> s r f` | change range to `function`
+`<SPC> s R`   | change range to default (`whole buffer`)
 
 In 'Spacemacs' highlight symbol micro-state:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`c`           | change scope (`function`, `display area`, `whole buffer`)
 `e`           | edit occurrences
 `n`           | go to next occurrence
 `N`           | go to previous occurrence
 `d`           | go to next definition occurrence
 `D`           | go to previous definition occurrence
-`r`           | go to home occurrence (reset position to starting occurrence)
+`r`           | change range (`function`, `display area`, `whole buffer`)
+`R`           | go to home occurrence (reset position to starting occurrence)
 Any other key | leave the navigation micro-state
 
 The micro-state text in minibuffer display the following information:

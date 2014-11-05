@@ -696,14 +696,14 @@ DELETE-FUNC when calling CALLBACK.
        '(ahs-inhibit-face-list nil))
       (eval-after-load "evil-leader"
         '(evil-leader/set-key
-           "sC"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
-           "scb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
-           "scd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
-           "scf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
            "se"  'ahs-edit-mode
            "ss"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
            "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
            "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
+           "srb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
+           "srd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
+           "srf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
+           "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
            "ts" 'auto-highlight-symbol-mode))
       (spacemacs//hide-lighter auto-highlight-symbol-mode)
       ;; micro-state to easily jump from a highlighted symbol to the others
@@ -723,14 +723,14 @@ DELETE-FUNC when calling CALLBACK.
         (interactive)
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap)))
-           (define-key map (kbd "c") (lambda () (interactive)
-                                       (eval '(ahs-change-range) nil)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
            (define-key map (kbd "e") 'ahs-edit-mode)
            (define-key map (kbd "n") 'ahs-forward)
            (define-key map (kbd "N") 'ahs-backward)
-           (define-key map (kbd "r") 'ahs-back-to-start)
+           (define-key map (kbd "R") 'ahs-back-to-start)
+           (define-key map (kbd "r") (lambda () (interactive)
+                                       (eval '(ahs-change-range) nil)))
            map) nil)
         (let* ((i 0)
                (overlay-count (length ahs-overlay-list))
@@ -752,7 +752,7 @@ DELETE-FUNC when calling CALLBACK.
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (message "%s %s%s press (n) or (N) to navigate, (r) for reset, (c) to change scope"
+            (message "%s %s%s press (n) or (N) to navigate, (R) for reset, (r) to change range"
                      propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
