@@ -15,6 +15,9 @@
     ag
     ))
 
+(when (member 'trishume dotspacemacs-configuration-layers)
+  (add-to-list 'trishume-packages 'company-auctex))
+
 (defun trishume/init-auctex ()
   (defun load-auctex-on-demand ()
     (interactive)
@@ -23,6 +26,10 @@
       (progn
         (use-package smartparens
           :config (require 'smartparens-latex))
+
+        (when (member 'company-mode dotspacemacs-configuration-layers)
+          (use-package company-auctex
+            :init (company-auctex-init)))
 
         (defun build-view ()
           (interactive)
