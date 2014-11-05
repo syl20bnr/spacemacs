@@ -703,7 +703,6 @@ DELETE-FUNC when calling CALLBACK.
       (eval-after-load "evil-leader"
         '(evil-leader/set-key
            "se"  'ahs-edit-mode
-           "ss"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
            "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
            "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
            "srb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))

@@ -943,7 +943,7 @@ Navigation between the highlighted symbols can be done with the commands:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`<SPC> s s`   | initiate navigation micro-state
+`*`           | initiate navigation micro-state
 `<SPC> s n`   | go to next occurrence and initiate navigation micro-state
 `<SPC> s N`   | go to previous occurrence and initiate navigation micro-state
 `<SPC> s r b` | change range to `whole buffer`
@@ -966,7 +966,7 @@ Any other key | leave the navigation micro-state
 
 The micro-state text in minibuffer display the following information:
 
-    <M> [6/11]* press (n) or (N) to navigate, (h) for home symbol, (c) to change scope
+    <M> [6/11]* press (n) or (N) to navigate, (R) for home symbol, (r) to change range
 
 Where `<M> [x/y]*` is:
 - M: the current range mode
