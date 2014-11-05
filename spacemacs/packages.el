@@ -1850,6 +1850,7 @@ DELETE-FUNC when calling CALLBACK.
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
       (sp-pair "[" nil :post-handlers
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
+      (sp-local-pair 'markdown-mode "'" nil :actions nil)
       (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil))))
 
 (defun spacemacs/init-smeargle ()
