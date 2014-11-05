@@ -978,6 +978,21 @@ Where `<M> [x/y]*` is:
 - `*`: appears if there is at least one occurrence which is not currently
 visible.
 
+#### Helm-swoop
+
+This is very similar to `moccur`, it displays a `helm` buffer with all the
+occurrences of the word under point. You can then change the search query
+in real-time and navigate between them easily.
+
+You can even edit the occurrences directly in the `helm` buffer and apply
+the modifications to the buffer.
+
+Key Binding   |                    Description
+--------------|----------------------------------------------------------------
+`<SPC> s s`   | execute `helm-swoop`
+`<SPC> s S`   | execute `helm-multi-swoop`
+`<SPC> s C-s` | execute `helm-multi-swoop-all`
+
 ### Window manipulation
 
 Every window has a number displayed at the start of the mode-line and can
