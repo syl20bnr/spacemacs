@@ -29,7 +29,7 @@ _PR = pull request_
   - if you still have several commits, squash them into only one commit
 - rebase your PR branch on top of upstream `develop` before submitting the PR
 
-Those PRs are fast-forwarded.
+Those PRs are fast-forwarded whenever it's possible.
 
 2) For complex pull requests:
 
