@@ -33,6 +33,7 @@
     evil-leader
     evil-lisp-state
     evil-nerd-commenter
+    evil-numbers
     evil-surround
     evil-terminal-cursor-changer
     evil-visualstar
@@ -394,7 +395,12 @@ DELETE-FUNC when calling CALLBACK.
       ;; add a lisp state
       (use-package evil-lisp-state
         :init
-        (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state)))))
+        (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state))
+      (use-package evil-numbers
+        :config
+        (progn
+          (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+          (define-key evil-normal-state-map (kbd "C-S-a") 'evil-numbers/dec-at-pt))))))
 
 (defun spacemacs/init-powerline ()
   (use-package powerline
