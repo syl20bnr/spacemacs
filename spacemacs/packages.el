@@ -763,7 +763,7 @@ DELETE-FUNC when calling CALLBACK.
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (message "%s %s%s press (n) or (N) to navigate, (R) for reset, (r) to change range"
+            (echo "%s %s%s press (n) or (N) to navigate, (R) for reset, (r) to change range"
                      propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
