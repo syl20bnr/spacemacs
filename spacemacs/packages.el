@@ -399,6 +399,7 @@ DELETE-FUNC when calling CALLBACK.
       (use-package evil-jumper
         :init
         (setq evil-jumper-auto-center t)
+        (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
         (setq evil-jumper-auto-save-interval 3600))
       (use-package evil-lisp-state
         :init
@@ -1890,8 +1891,9 @@ DELETE-FUNC when calling CALLBACK.
     :defer t
     :config
     (progn
-      (setq recentf-exclude '("~/.emacs.d/.recentf"))
-      (setq recentf-save-file (concat user-emacs-directory "/.recentf"))
+      (setq recentf-exclude '("~/.emacs.d/.cache"))
+      (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
+      (setq recentf-save-file (concat spacemancs-cache-directory "/recentf"))
       (setq recentf-max-saved-items 100)
       (setq recentf-auto-cleanup 'never)
       (setq recentf-auto-save-timer (run-with-idle-timer 600 t 'recentf-save-list)))))
@@ -1981,7 +1983,14 @@ DELETE-FUNC when calling CALLBACK.
 
 (defun spacemacs/init-undo-tree ()
   (use-package undo-tree
+    :idle (global-undo-tree-mode)
     :defer t
+    :init
+    (setq undo-tree-auto-save-history t) ; save undo history between sessions
+    (setq undo-tree-history-directory-alist
+          `(("." . ,(concat spacemacs-cache-directory "undo"))))
+    (setq undo-tree-visualizer-timestamps t)
+    (setq undo-tree-visualizer-diff t)    
     :config
     (spacemacs//hide-lighter undo-tree-mode)))
 
