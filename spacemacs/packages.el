@@ -708,6 +708,7 @@ DELETE-FUNC when calling CALLBACK.
             ac-quick-help-delay 1.
             ac-use-fuzzy t
             ac-fuzzy-enable t
+            ac-comphist-file (concat spacemacs-cache-directory "ac-comphist.dat")
             tab-always-indent 'complete ; use 'complete when auto-complete is disabled
             ac-dwim t)
       (spacemacs//diminish auto-complete-mode " Ⓐ"))))
@@ -1745,6 +1746,11 @@ DELETE-FUNC when calling CALLBACK.
     :config
     (progn
       (projectile-global-mode)
+      (setq projectile-cache-file (concat spacemacs-cache-directory "projectile.cache"))
+      (setq projectile-known-projects-file (concat spacemacs-cache-directory "projectile-bookmarks.eld"))
+      (add-to-list 'projectile-globally-ignored-directories "elpa")
+      (add-to-list 'projectile-globally-ignored-directories ".cache")
+      (add-to-list 'projectile-globally-ignored-directories "node_modules")
       (def-projectile-commander-method ?h
         "Find file in project using helm."
         (helm-projectile))
@@ -1893,7 +1899,7 @@ DELETE-FUNC when calling CALLBACK.
     (progn
       (setq recentf-exclude '("~/.emacs.d/.cache"))
       (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
-      (setq recentf-save-file (concat spacemancs-cache-directory "/recentf"))
+      (setq recentf-save-file (concat spacemacs-cache-directory "/recentf"))
       (setq recentf-max-saved-items 100)
       (setq recentf-auto-cleanup 'never)
       (setq recentf-auto-save-timer (run-with-idle-timer 600 t 'recentf-save-list)))))
