@@ -99,7 +99,7 @@
   "nw" 'widen)
 ;; misc -----------------------------------------------------------------------
 (evil-leader/set-key
-  "reg"  'evil-show-registers)
+  "re"  'evil-show-registers)
 ;; spell check  ---------------------------------------------------------------
 (evil-leader/set-key
   "Sc" 'cofi/helm-flyspell-correct

@@ -1343,7 +1343,7 @@ DELETE-FUNC when calling CALLBACK.
   (use-package helm
     :idle (helm-mode +1) 
     :defer t
-    :init 
+    :init
     (setq helm-split-window-in-side-p nil
           helm-quick-update t
           helm-bookmark-show-location t
@@ -1355,14 +1355,15 @@ DELETE-FUNC when calling CALLBACK.
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
         "kil" 'helm-show-kill-ring
-        "sy"  'helm-show-kill-ring
-        "sr"  'helm-register
-        "sm"  'helm-all-mark-rings
+        "ry"  'helm-show-kill-ring
+        "rr"  'helm-register
+        "rm"  'helm-all-mark-rings
         "fh"  'helm-find-files
         "<f1>" 'helm-apropos
         )
     :config
     (progn
+      (helm-mode +1)
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
