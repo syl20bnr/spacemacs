@@ -15,6 +15,9 @@
   (defconst user-home-directory
     (expand-file-name (concat user-emacs-directory "../"))
     "User home directory (~/).")
+  (defconst spacemacs-directory
+    (expand-file-name (concat user-emacs-directory "spacemacs/"))
+    "Spacemacs base directory.")
   (defconst spacemacs-contrib-config-directory
     (expand-file-name (concat user-emacs-directory "contrib/"))
     "Spacemacs contribution layers base directory.")

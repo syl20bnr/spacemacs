@@ -260,6 +260,16 @@ argument takes the kindows rotate backwards."
   (interactive)
   (find-file-existing user-init-file))
 
+(defun find-spacemacs-file ()
+  (interactive)
+  "Edit the `file' in the spacemacs base directory, in the current window."
+  (ido-find-file-in-dir spacemacs-directory))
+
+(defun find-contrib-file ()
+  (interactive)
+  "Edit the `file' in the spacemacs base directory, in the current window."
+  (ido-find-file-in-dir spacemacs-contrib-config-directory))
+
 ;; From http://stackoverflow.com/a/18796138
 ;; Cycle through this set of themes
 (setq spacemacs-themes '(solarized-light

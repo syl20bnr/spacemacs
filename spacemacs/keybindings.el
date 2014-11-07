@@ -59,7 +59,9 @@
   "fg" 'rgrep)
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key
-  "fi" 'find-user-init-file
+  "fei" 'find-user-init-file
+  "fes" 'find-spacemacs-file
+  "fec" 'find-contrib-file
   "fS" 'evil-write-all
   "fs" 'evil-write
   "fy" 'camdez/show-buffer-file-name)
