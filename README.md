@@ -97,11 +97,12 @@ for contribution guidelines_
                     - [Regular normal state bindings](#regular-normal-state-bindings)
                     - [Lisp specific bindings](#lisp-specific-bindings)
         - [Project management](#project-management)
-        - [Errors handling](#errors-handling)
         - [Working with Git](#working-with-git)
             - [Magit](#magit)
             - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
             - [Git gutter bitmaps](#git-gutter-bitmaps)
+        - [Registers](#registers)
+        - [Errors handling](#errors-handling)
         - [Modes](#modes)
             - [Helm](#helm)
             - [Erlang](#erlang)
@@ -1337,28 +1338,6 @@ The only bound key for `projectile` is `projectile-commander` which is:
 `T`               | find test files in project
 `v`               | open project root in `vc-dir` or `magit`
 
-### Errors handling
-
-`Spacemacs` uses [Flycheck][flycheck] to gives error feedback on the fly.
-The checks are only performed at save time by default.
-
-Errors management commands (star with `f` for `flycheck`):
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> f c`       | clear all errors
-`<SPC> f l`       | display the `flycheck` list of errors/warnings
-`<SPC> f n`       | go to the next `flycheck` error
-`<SPC> f p`       | go to the previous flycheck error
-
-Custom fringe bitmaps:
-
-   Symbol                                                                                       | Description
-:----------------------------------------------------------------------------------------------:|------------
-![dot-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-error.png)     | Error
-![dot-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-warning.png) | warning
-![dot-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-info.png)       | Info
-
 ### Working with Git
 
 Git commands (start with `g`):
@@ -1458,6 +1437,39 @@ you can answer `y` with no issue.
 ![git-new](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-new-line.png) | new line
 ![git-del](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-del-line.png) | at least one line has been deleted
 ![git-mod](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-mod-line.png) | modified line
+
+### Registers
+
+Access commands to the various registers start with `r`:
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> r e`       | show evil yank and named registers
+`<SPC> r m`       | show marks register
+`<SPC> r r`       | show helm register
+`<SPC> r y`       | show kill ring
+
+### Errors handling
+
+`Spacemacs` uses [Flycheck][flycheck] to gives error feedback on the fly.
+The checks are only performed at save time by default.
+
+Errors management commands (star with `f` for `flycheck`):
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> f c`       | clear all errors
+`<SPC> f l`       | display the `flycheck` list of errors/warnings
+`<SPC> f n`       | go to the next `flycheck` error
+`<SPC> f p`       | go to the previous flycheck error
+
+Custom fringe bitmaps:
+
+   Symbol                                                                                       | Description
+:----------------------------------------------------------------------------------------------:|------------
+![dot-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-error.png)     | Error
+![dot-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-warning.png) | warning
+![dot-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-info.png)       | Info
 
 ### Modes
 
