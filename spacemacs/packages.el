@@ -399,8 +399,31 @@ DELETE-FUNC when calling CALLBACK.
       (use-package evil-numbers
         :config
         (progn
-          (define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
-          (define-key evil-normal-state-map (kbd "C-S-a") 'evil-numbers/dec-at-pt))))))
+          (defun spacemacs/evil-numbers-micro-state-doc ()
+            "Display a short documentation in the mini buffer."
+            (echo "+ to increase the value or - to decrease it"))
+
+          (defun spacemacs/evil-numbers-micro-state-overlay-map ()
+            "Set a temporary overlay map to easily increase or decrease a number"
+            (set-temporary-overlay-map
+             (let ((map (make-sparse-keymap)))
+               (define-key map (kbd "+") 'spacemacs/evil-numbers-increase)
+               (define-key map (kbd "-") 'spacemacs/evil-numbers-decrease)
+               map) t)
+            (spacemacs/evil-numbers-micro-state-doc))
+
+          (defun spacemacs/evil-numbers-increase (amount &optional no-region)
+            "Increase number at point."
+            (interactive "p*")
+            (evil-numbers/inc-at-pt amount no-region)
+            (spacemacs/evil-numbers-micro-state-overlay-map))
+          (defun spacemacs/evil-numbers-decrease (amount)
+            "Decrease number at point."
+            (interactive "p*")
+            (evil-numbers/dec-at-pt amount)
+            (spacemacs/evil-numbers-micro-state-overlay-map))
+          (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
+          (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease))))))
 
 (defun spacemacs/init-powerline ()
   (use-package powerline
