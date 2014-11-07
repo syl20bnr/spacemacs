@@ -139,6 +139,15 @@
 ;; increase memory threshold for GC
 (setq gc-cons-threshold 20000000)
 
+
+;; better buffer and file names for duplicates
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward
+      uniquify-separator "/"
+      uniquify-ignore-buffers-re "^\\*" ; leave special buffers alone
+      uniquify-min-dir-content 2
+      uniquify-after-kill-buffer-p t)
+
 ;; ;; save a bunch of variables to the desktop file
 ;; ;; for lists specify the len of the maximal saved data also
 ;; (setq desktop-globals-to-save
