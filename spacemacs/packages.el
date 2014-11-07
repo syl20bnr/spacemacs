@@ -426,7 +426,27 @@ DELETE-FUNC when calling CALLBACK.
             (evil-numbers/dec-at-pt amount)
             (spacemacs/evil-numbers-micro-state-overlay-map))
           (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
-          (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease))))))
+          (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease)))
+
+      ;; define text objects
+      (defmacro define-and-bind-text-object (key start-regex end-regex)
+        (let ((inner-name (make-symbol "inner-name"))
+              (outer-name (make-symbol "outer-name")))
+          `(progn
+             (evil-define-text-object ,inner-name (count &optional beg end type)
+               (evil-regexp-range count beg end type ,start-regex ,end-regex t))
+             (evil-define-text-object ,outer-name (count &optional beg end type)
+               (evil-regexp-range count beg end type ,start-regex ,end-regex nil))
+             (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+             (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+
+      ;; between dollars sign:
+      (define-and-bind-text-object "$" "\\$" "\\$")
+      ;; between pipe characters:
+      (define-and-bind-text-object "|" "|" "|")
+      ;; between percent signs:
+      (define-and-bind-text-object "%" "%" "%")
+      )))
 
 (defun spacemacs/init-powerline ()
   (use-package powerline
