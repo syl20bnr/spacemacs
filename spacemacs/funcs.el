@@ -17,6 +17,9 @@
 (defun system-is-linux ()
   (interactive)
   (string-equal system-type "gnu/linux"))
+(defun system-is-windows ()
+  (interactive)
+  (string-equal system-type "windows-nt"))
 
 ;; insert one or several line below without changing current evil state
 (defun evil-insert-line-below (count)
@@ -253,6 +256,16 @@ argument takes the kindows rotate backwards."
   "Edit the `user-init-file', in the current window."
   (interactive)
   (find-file-existing user-init-file))
+
+(defun find-spacemacs-file ()
+  (interactive)
+  "Edit the `file' in the spacemacs base directory, in the current window."
+  (ido-find-file-in-dir spacemacs-directory))
+
+(defun find-contrib-file ()
+  (interactive)
+  "Edit the `file' in the spacemacs base directory, in the current window."
+  (ido-find-file-in-dir spacemacs-contrib-config-directory))
 
 ;; From http://stackoverflow.com/a/18796138
 ;; Cycle through this set of themes
