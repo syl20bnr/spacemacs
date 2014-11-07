@@ -33,6 +33,7 @@
     evil-leader
     evil-lisp-state
     evil-nerd-commenter
+    evil-numbers
     evil-surround
     evil-terminal-cursor-changer
     evil-visualstar
@@ -343,6 +344,7 @@ DELETE-FUNC when calling CALLBACK.
         (lambda () (interactive)
           (evil-window-top)
           (evil-scroll-line-to-center nil)))
+      (evil-leader/set-key "re" 'evil-show-registers)
       ;; load evil-leader
       (use-package evil-leader
         :init
@@ -394,7 +396,35 @@ DELETE-FUNC when calling CALLBACK.
       ;; add a lisp state
       (use-package evil-lisp-state
         :init
-        (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state)))))
+        (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state))
+      (use-package evil-numbers
+        :config
+        (progn
+          (defun spacemacs/evil-numbers-micro-state-doc ()
+            "Display a short documentation in the mini buffer."
+            (echo "+ to increase the value or - to decrease it"))
+
+          (defun spacemacs/evil-numbers-micro-state-overlay-map ()
+            "Set a temporary overlay map to easily increase or decrease a number"
+            (set-temporary-overlay-map
+             (let ((map (make-sparse-keymap)))
+               (define-key map (kbd "+") 'spacemacs/evil-numbers-increase)
+               (define-key map (kbd "-") 'spacemacs/evil-numbers-decrease)
+               map) t)
+            (spacemacs/evil-numbers-micro-state-doc))
+
+          (defun spacemacs/evil-numbers-increase (amount &optional no-region)
+            "Increase number at point."
+            (interactive "p*")
+            (evil-numbers/inc-at-pt amount no-region)
+            (spacemacs/evil-numbers-micro-state-overlay-map))
+          (defun spacemacs/evil-numbers-decrease (amount)
+            "Decrease number at point."
+            (interactive "p*")
+            (evil-numbers/dec-at-pt amount)
+            (spacemacs/evil-numbers-micro-state-overlay-map))
+          (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
+          (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease))))))
 
 (defun spacemacs/init-powerline ()
   (use-package powerline
@@ -757,7 +787,7 @@ DELETE-FUNC when calling CALLBACK.
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (message "%s %s%s press (n) or (N) to navigate, (R) for reset, (r) to change range"
+            (echo "%s %s%s press (n) or (N) to navigate, (R) for reset, (r) to change range"
                      propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
@@ -1335,16 +1365,25 @@ DELETE-FUNC when calling CALLBACK.
 
 (defun spacemacs/init-helm ()
   (use-package helm
+    :idle (helm-mode +1) 
     :defer t
     :init
     (setq helm-split-window-in-side-p nil
+          helm-quick-update t
+          helm-bookmark-show-location t
+          helm-buffers-fuzzy-matching t
           helm-always-two-windows     t)
     (evil-leader/set-key
         ":"   'helm-M-x
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
-        "kil" 'helm-show-kill-ring)
+        "ry"  'helm-show-kill-ring
+        "rr"  'helm-register
+        "rm"  'helm-all-mark-rings
+        "fh"  'helm-find-files
+        "<f1>" 'helm-apropos
+        )
     :config
     (progn
       (helm-mode +1)
@@ -1917,10 +1956,12 @@ DELETE-FUNC when calling CALLBACK.
 (defun spacemacs/init-visual-regexp-steroids ()
   (use-package visual-regexp-steroids
     :defer t
-    :init
-    (evil-leader/set-key
-      "rR" 'vr/query-replace
-      "rr" 'vr/replace)))
+    ;; no shortcut for now (used by registers)
+    ;; :init
+    ;; (evil-leader/set-key
+    ;;   "rR" 'vr/query-replace
+    ;;   "rr" 'vr/replace)
+    ))
 
 (defun spacemacs/init-volatile-highlights ()
   (use-package volatile-highlights
@@ -1977,3 +2018,19 @@ DELETE-FUNC when calling CALLBACK.
 (defun spacemacs/init-zenburn-theme ()
   (use-package zenburn-theme
     :defer t))
+
+(defun spacemacs/init-coffee-mode ()
+  (use-package coffee-mode
+    :defer t
+    :init
+    (progn
+      (defun spacemacs/coffee-indent ()
+        (if (coffee-line-wants-indent)
+            ;; We need to insert an additional tab because the last line was special.
+            (coffee-insert-spaces (+ (coffee-previous-indent) coffee-tab-width))
+          ;; otherwise keep at the same indentation level
+          (coffee-insert-spaces (coffee-previous-indent)))
+        )
+      ;; indent to right position after `evil-open-blow' and `evil-open-above'
+      (add-hook 'coffee-mode-hook '(lambda () (setq indent-line-function 'spacemacs/coffee-indent)))
+      )))

@@ -67,9 +67,11 @@ for contribution guidelines_
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
         - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
-        - [Navigation](#navigation)
+        - [Navigating](#navigating)
             - [Point/Cursor](#pointcursor)
             - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
+            - [Window manipulation](#window-manipulation)
+                - [Golden ratio](#golden-ratio)
             - [Buffers and Files](#buffers-and-files)
             - [Ido](#ido)
             - [NeoTree file tree](#neotree-file-tree)
@@ -80,28 +82,27 @@ for contribution guidelines_
             - [Visual Star](#visual-star)
             - [Listing symbols by semantic](#listing-symbols-by-semantic)
             - [Helm-swoop](#helm-swoop)
-        - [Window manipulation](#window-manipulation)
-            - [Golden ratio](#golden-ratio)
-        - [Text manipulation commands](#text-manipulation-commands)
-        - [Change font size](#change-font-size)
-        - [Spell checking](#spell-checking)
-        - [Region selection](#region-selection)
-        - [Region narrowing](#region-narrowing)
-        - [Line formatting](#line-formatting)
-        - [Auto-completion](#auto-completion)
-        - [Commenting](#commenting)
-        - [Errors handling](#errors-handling)
+        - [Editing](#editing)
+            - [Text manipulation commands](#text-manipulation-commands)
+            - [Change font size](#change-font-size)
+            - [Increase/Decrease numbers](#increasedecrease-numbers)
+            - [Spell checking](#spell-checking)
+            - [Region selection](#region-selection)
+            - [Region narrowing](#region-narrowing)
+            - [Line formatting](#line-formatting)
+            - [Auto-completion](#auto-completion)
+            - [Commenting](#commenting)
+            - [Editing Lisp code](#editing-lisp-code)
+                - [Key bindings maps](#key-bindings-maps)
+                    - [Regular normal state bindings](#regular-normal-state-bindings)
+                    - [Lisp specific bindings](#lisp-specific-bindings)
         - [Project management](#project-management)
         - [Working with Git](#working-with-git)
             - [Magit](#magit)
             - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
             - [Git gutter bitmaps](#git-gutter-bitmaps)
-        - [Editing Lisp code](#editing-lisp-code)
-            - [Philosophy](#philosophy)
-            - [Intuitive navigation model](#intuitive-navigation-model)
-            - [Key bindings maps](#key-bindings-maps)
-                - [Regular normal state bindings](#regular-normal-state-bindings)
-                - [Lisp specific bindings](#lisp-specific-bindings)
+        - [Registers](#registers)
+        - [Errors handling](#errors-handling)
         - [Modes](#modes)
             - [Helm](#helm)
             - [Erlang](#erlang)
@@ -733,6 +734,8 @@ They are both extended with various packages to build on their foundations.
 [evil-exchange][]                       | port of [vim-exchange][]
 [evil-surround][]                       | port of [vim-surround][]
 [evil-nerd-commenter][]                 | port of [nerdcommenter][]
+[evil-search-highlight-persist][]       | emulation of hlsearch behavior
+[evil-numbers][]                        | like C-a/C-x in vim
 [NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
 
 ### Helm extensions
@@ -788,7 +791,7 @@ Vim         | `:`
 Emacs       | `<SPC> :`
 Shell       | `<SPC> !`
 
-### Navigation
+### Navigating
 
 #### Point/Cursor
 
@@ -821,6 +824,56 @@ Key Binding   |                 Description
 `<SPC> <SPC>` | initiate ace jump char mode
 `<SPC> l`     | initiate ace jump line mode
 ``<SPC> ```   | go back to the previous location (before the jump)
+
+#### Window manipulation
+
+Every window has a number displayed at the start of the mode-line and can
+be quickly accessed using `<SPC> number`.
+
+Key Binding   |                    Description
+--------------|----------------------------------------------------------------
+`<SPC> 1`     | go to first window
+`<SPC> 2`     | go to window number 2
+`<SPC> 3`     | go to window number 3
+`<SPC> 4`     | go to window number 4
+`<SPC> 5`     | go to window number 5
+`<SPC> 6`     | go to window number 6
+`<SPC> 7`     | go to window number 7
+`<SPC> 8`     | go to window number 8
+`<SPC> 9`     | go to window number 9
+`<SPC> 0`     | go to window number 10
+
+Windows manipulation commands (start with `w`):
+
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
+`<SPC> w b`   | split a window horizontally
+`<SPC> w c`   | close a window
+`<SPC> w d`   | toggle window dedication (dedicated window cannot be used by a mode)
+`<SPC> w H`   | move window to the left
+`<SPC> w J`   | move window to the bottom
+`<SPC> w K`   | move window to the top
+`<SPC> w L`   | move window to the right
+`<SPC> w m`   | maximize/minimize a window
+`<SPC> w M`   | maximize/minimize a window, when maximized the buffer is centered
+`<SPC> w p m` | open messages buffer in a popup window
+`<SPC> w p p` | close the current sticky popup window
+`<SPC> w r`   | rotate windows clockwise
+`<SPC> w R`   | rotate windows counter-clockwise
+`<SPC> w u`   | undo window layout (used to effectively undo a close window)
+`<SPC> w U`   | redo window layout
+`<SPC> w v`   | split a window vertically
+`<SPC> w w`   | cycle and focus between windows
+
+##### Golden ratio
+
+Split windows can be dynamically resized depending on whether they are selected
+or not. Resizing is performed by the [golden-ratio][golden-ratio] mode.
+By default `golden-ratio` if off.
+
+The mode can be toggled on and off with:
+
+    <SPC> t g
 
 #### Buffers and Files
 
@@ -1013,57 +1066,9 @@ Key Binding   |                    Description
 `<SPC> s S`   | execute `helm-multi-swoop`
 `<SPC> s C-s` | execute `helm-multi-swoop-all`
 
-### Window manipulation
+### Editing
 
-Every window has a number displayed at the start of the mode-line and can
-be quickly accessed using `<SPC> number`.
-
-Key Binding   |                    Description
---------------|----------------------------------------------------------------
-`<SPC> 1`     | go to first window
-`<SPC> 2`     | go to window number 2
-`<SPC> 3`     | go to window number 3
-`<SPC> 4`     | go to window number 4
-`<SPC> 5`     | go to window number 5
-`<SPC> 6`     | go to window number 6
-`<SPC> 7`     | go to window number 7
-`<SPC> 8`     | go to window number 8
-`<SPC> 9`     | go to window number 9
-`<SPC> 0`     | go to window number 10
-
-Windows manipulation commands (start with `w`):
-
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`<SPC> w b`   | split a window horizontally
-`<SPC> w c`   | close a window
-`<SPC> w d`   | toggle window dedication (dedicated window cannot be used by a mode)
-`<SPC> w H`   | move window to the left
-`<SPC> w J`   | move window to the bottom
-`<SPC> w K`   | move window to the top
-`<SPC> w L`   | move window to the right
-`<SPC> w m`   | maximize/minimize a window
-`<SPC> w M`   | maximize/minimize a window, when maximized the buffer is centered
-`<SPC> w p m` | open messages buffer in a popup window
-`<SPC> w p p` | close the current sticky popup window
-`<SPC> w r`   | rotate windows clockwise
-`<SPC> w R`   | rotate windows counter-clockwise
-`<SPC> w u`   | undo window layout (used to effectively undo a close window)
-`<SPC> w U`   | redo window layout
-`<SPC> w v`   | split a window vertically
-`<SPC> w w`   | cycle and focus between windows
-
-#### Golden ratio
-
-Split windows can be dynamically resized depending on whether they are selected
-or not. Resizing is performed by the [golden-ratio][golden-ratio] mode.
-By default `golden-ratio` if off.
-
-The mode can be toggled on and off with:
-
-    <SPC> t g
-
-### Text manipulation commands
+#### Text manipulation commands
 
 Text related commands (start with `x`):
 
@@ -1083,7 +1088,7 @@ Text related commands (start with `x`):
 `<SPC> x w c`     | count the number of words in the selection region
 `<SPC> x w C`     | count the number of occurrences per word in the select region
 
-### Change font size
+#### Change font size
 
 The font size of the current buffer can be adjusted with the commands:
 
@@ -1097,7 +1102,27 @@ Key Binding   | Description
 `=`           | reset the font size
 Any other key | leave the font scaling micro-state
 
-### Spell checking
+#### Increase/Decrease numbers
+
+`Spacemacs` uses [evil-numbers][] to easily increase or increase numbers.
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`<SPC> n +`   | increase the number under point by one and initiate micro-state
+`<SPC> n -`   | decrease the number under point by one and initiate micro-state
+
+In micro-state:
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`+`           | increase the number under point by one
+`-`           | decrease the number under point by one
+Any other key | leave the micro-state
+
+**Tips:** you can increase or decrease a value by more that once by using a
+prefix argument (ie. `10 <SPC> n +` will add 10 to the number under point).
+
+#### Spell checking
 
 Spell checking commands start with `S`:
 
@@ -1108,7 +1133,7 @@ Spell checking commands start with `S`:
 `<SPC> S n`       | go to the next spell check error
 
 
-### Region selection
+#### Region selection
 
 Vi `Visual` modes are all supported by `evil`, `Spacemacs` adds another
 `Visual` mode via the [expand-region][] mode.
@@ -1121,7 +1146,7 @@ Key Binding   |                 Description
 `r`           | reset the region to initial selection
 `ESC`         | leave expand-region mode
 
-### Region narrowing
+#### Region narrowing
 
 The displayed text of a buffer can be narrowed with the commands
 (start with `n`):
@@ -1133,7 +1158,7 @@ Key Binding   |                 Description
 `<SPC> n r`   | narrow the buffer to the selected text
 `<SPC> n w`   | widen, i.e show the whole buffer again
 
-### Line formatting
+#### Line formatting
 
 `Spacemacs` replaces the default `J` Vi key binding (join current line with next
 line) by a slightly more frequent action which is to `go to the line below point
@@ -1153,7 +1178,7 @@ Line formatting commands start with `j`:
 
 Used together these key bindings are very powerful to quickly reformat the code.
 
-### Auto-completion
+#### Auto-completion
 
 `Spacemacs` uses [auto-complete][] auto-completion engine.
 
@@ -1166,7 +1191,7 @@ Used together these key bindings are very powerful to quickly reformat the code.
 `return`          | complete word, if word is already completed insert a carriage return
 
 
-### Commenting
+#### Commenting
 
 Comments are handled by [evil-nerd-commenter][], it's bound to the following keys.
 
@@ -1180,28 +1205,106 @@ Comments are handled by [evil-nerd-commenter][], it's bound to the following key
 `<SPC> n c i`     | comment invert
 `<SPC> n c c`     | comment operator
 
+#### Editing Lisp code
 
-### Errors handling
+Lisp navigation and edition is performed with a custom evil `lisp state`
+provided by [evil-lisp-state][evil-lisp-state] package.
 
-`Spacemacs` uses [Flycheck][flycheck] to gives error feedback on the fly.
-The checks are only performed at save time by default.
+Intuitive navigation model:
 
-Errors management commands (star with `f` for `flycheck`):
+`hjkl` behaves like in the default `normal state`.
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> f c`       | clear all errors
-`<SPC> f l`       | display the `flycheck` list of errors/warnings
-`<SPC> f n`       | go to the next `flycheck` error
-`<SPC> f p`       | go to the previous flycheck error
+**Next sexp on the same level (sibling)**
+- `L` next sexp
+- `H` previous sexp
 
-Custom fringe bitmaps:
+**Change level (parent/children)**
+- `J` go to next sexp one level down
+- `K` go to previous one level up
 
-   Symbol                                                                                       | Description
-:----------------------------------------------------------------------------------------------:|------------
-![dot-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-error.png)     | Error
-![dot-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-warning.png) | warning
-![dot-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-info.png)       | Info
+And that's it! All these commands always put the point _at the beginning_ of
+the sexp.
+
+##### Key bindings maps
+
+###### Regular normal state bindings
+
+Key Binding   | Function
+--------------|------------------------------------------------------------
+`a`           | evil-append
+`c`           | evil-change
+`d`           | evil-delete
+`h`           | next char
+`i`           | evil-insert-state
+`I`           | evil-insert-line
+`j`           | next visual line
+`k`           | previous visual line
+`l`           | next char
+`o`           | evil-insert-below
+`O`           | evil-insert-above
+`p`           | evil-past-after
+`P`           | evil-past-before
+`r`           | evil-replace
+`C-r`         | undo-tree-redo
+`u`           | undo-tree-undo
+`x`           | evil-delete-char
+`X`           | evil-delete-backward-char
+`y`           | evil-yank
+`ESC`         | evil-normal-state
+
+###### Lisp specific bindings
+
+_In this table we assume that `evil-lisp-state-backward-prefix` is set to
+default `<tab>`_
+
+Key Binding   | Function
+--------------|------------------------------------------------------------
+`(`           | insert sibling before sexp and switch to `insert state`
+`)`           | insert sibling after sexp and switch to `insert state`
+`$`           | sp-end-of-sexp
+`0`           | sp-beginning-of-sexp
+`A`           | sp-absorb-sexp
+`b`           | sp-forward-barf-sexp
+`<tab> b`     | sp-backward-barf-sexp
+`C`           | sp-convolute-sexp
+`Dd`          | sp-kill-hybrid-sexp
+`Dx`          | sp-kill-sexp
+`<tab> Dx`    | sp-backward-kill-sexp
+`Ds`          | sp-kill-symbol
+`<tab> Ds`    | sp-backward-kill-symbol
+`Dw`          | sp-kill-word
+`<tab> Dw`    | sp-backward-kill-word
+`E$`          | evil-lisp-state-eval-sexp-end-of-line
+`Ee`          | eval-last-sexp
+`Ef`          | eval-defun
+`gs`          | go to source of symbol under point
+`gt`          | sp-transpose-sexp
+`gT`          | sp-transpose-hybrid-sexp
+`H`           | previous sexp at the same level
+`J`           | next sexp one level down
+`K`           | previous sexp one level up
+`L`           | next sexp of the same level
+`M`           | sp-join-sexp (think about `merge-sexp`)
+`R`           | sp-raise-sexp
+`s`           | sp-forward-slurp-sexp
+`<tab> s`     | sp-backward-slurp-sexp
+`S`           | sp-splice-sexp-killing-forward
+`<tab> S`     | sp-splice-sexp-killing-backward
+`w`           | wrap sexp
+`W`           | unwrap sexp
+`<tab> W`     | sp-backward-unwrap-sexp
+`Y`           | sp-copy-sexp
+`<tab> y`     | sp-backward-copy-sexp
+`backspace`   | sp-backward-delete-char
+`S-backspace` | sp-delete-char
+`RET`         | indent next line
+`S-RET`       | insert new line char and switch to `insert state`
+
+**Reminder:**
+`lisp state` is a [base state](#base-states) which means that leaving
+the `insert state` when the previous state was `lisp` will set you back
+in `lisp state`.
+To go back to `normal state` press `<ESC>` or `fd` while in `lisp state`.
 
 ### Project management
 
@@ -1335,118 +1438,38 @@ you can answer `y` with no issue.
 ![git-del](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-del-line.png) | at least one line has been deleted
 ![git-mod](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-mod-line.png) | modified line
 
-### Editing Lisp code
+### Registers
 
-Lisp navigation and edition is performed with a custom evil `lisp state`
-provided by [evil-lisp-state][evil-lisp-state] package.
+Access commands to the various registers start with `r`:
 
-#### Philosophy
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> r e`       | show evil yank and named registers
+`<SPC> r m`       | show marks register
+`<SPC> r r`       | show helm register
+`<SPC> r y`       | show kill ring
 
-`evil-lisp-state` goal is to replace as much as possible the `normal state` in
-lisp buffers.
+### Errors handling
 
-To achieve this goal, this mode tries to keep the useful commands from the
-`normal state` and add new commands (often with `shift` modifier) for
-manipulating the data structure.
+`Spacemacs` uses [Flycheck][flycheck] to gives error feedback on the fly.
+The checks are only performed at save time by default.
 
-_Note: Be sure to try the key bindings '(' and ')'. I use them all the time
-and it may be one of the best features of this mode._
+Errors management commands (star with `f` for `flycheck`):
 
-#### Intuitive navigation model
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> f c`       | clear all errors
+`<SPC> f l`       | display the `flycheck` list of errors/warnings
+`<SPC> f n`       | go to the next `flycheck` error
+`<SPC> f p`       | go to the previous flycheck error
 
-`hjkl` behaves like in the default `normal state`.
+Custom fringe bitmaps:
 
-**Next sexp on the same level (sibling)**
-- `L` next sexp
-- `H` previous sexp
-
-**Change level (parent/children)**
-- `J` go to next sexp one level down
-- `K` go to previous one level up
-
-And that's it! All these commands always put the point _at the beginning_ of
-the sexp.
-
-#### Key bindings maps
-
-##### Regular normal state bindings
-
-Key Binding   | Function
---------------|------------------------------------------------------------
-`a`           | evil-append
-`c`           | evil-change
-`d`           | evil-delete
-`h`           | next char
-`i`           | evil-insert-state
-`I`           | evil-insert-line
-`j`           | next visual line
-`k`           | previous visual line
-`l`           | next char
-`o`           | evil-insert-below
-`O`           | evil-insert-above
-`p`           | evil-past-after
-`P`           | evil-past-before
-`r`           | evil-replace
-`C-r`         | undo-tree-redo
-`u`           | undo-tree-undo
-`x`           | evil-delete-char
-`X`           | evil-delete-backward-char
-`y`           | evil-yank
-`ESC`         | evil-normal-state
-
-##### Lisp specific bindings
-
-_In this table we assume that `evil-lisp-state-backward-prefix` is set to
-default `<tab>`_
-
-Key Binding   | Function
---------------|------------------------------------------------------------
-`(`           | insert sibling before sexp and switch to `insert state`
-`)`           | insert sibling after sexp and switch to `insert state`
-`$`           | sp-end-of-sexp
-`0`           | sp-beginning-of-sexp
-`A`           | sp-absorb-sexp
-`b`           | sp-forward-barf-sexp
-`<tab> b`     | sp-backward-barf-sexp
-`C`           | sp-convolute-sexp
-`Dd`          | sp-kill-hybrid-sexp
-`Dx`          | sp-kill-sexp
-`<tab> Dx`    | sp-backward-kill-sexp
-`Ds`          | sp-kill-symbol
-`<tab> Ds`    | sp-backward-kill-symbol
-`Dw`          | sp-kill-word
-`<tab> Dw`    | sp-backward-kill-word
-`E$`          | evil-lisp-state-eval-sexp-end-of-line
-`Ee`          | eval-last-sexp
-`Ef`          | eval-defun
-`gs`          | go to source of symbol under point
-`gt`          | sp-transpose-sexp
-`gT`          | sp-transpose-hybrid-sexp
-`H`           | previous sexp at the same level
-`J`           | next sexp one level down
-`K`           | previous sexp one level up
-`L`           | next sexp of the same level
-`M`           | sp-join-sexp (think about `merge-sexp`)
-`R`           | sp-raise-sexp
-`s`           | sp-forward-slurp-sexp
-`<tab> s`     | sp-backward-slurp-sexp
-`S`           | sp-splice-sexp-killing-forward
-`<tab> S`     | sp-splice-sexp-killing-backward
-`w`           | wrap sexp
-`W`           | unwrap sexp
-`<tab> W`     | sp-backward-unwrap-sexp
-`Y`           | sp-copy-sexp
-`<tab> y`     | sp-backward-copy-sexp
-`backspace`   | sp-backward-delete-char
-`S-backspace` | sp-delete-char
-`RET`         | indent next line
-`S-RET`       | insert new line char and switch to `insert state`
-
-**Reminder:**
-`lisp state` is a [base state](#base-states) which means that leaving
-the `insert state` when the previous state was `lisp` will set you back
-in `lisp state`.
-To go back to `normal state` press `<ESC>` or `fd` while in `lisp state`.
+   Symbol                                                                                       | Description
+:----------------------------------------------------------------------------------------------:|------------
+![dot-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-error.png)     | Error
+![dot-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-warning.png) | warning
+![dot-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-info.png)       | Info
 
 ### Modes
 
@@ -1753,3 +1776,4 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [CONTRIBUTE.md-CL]: https://github.com/syl20bnr/spacemacs/blob/master/CONTRIBUTE.md#submitting-a-contribution-layer-upstream
 [neotree]: https://github.com/jaypei/emacs-neotree
 [nerdtree]: https://github.com/scrooloose/nerdtree
+[evil-numbers]: https://github.com/cofi/evil-numbers
