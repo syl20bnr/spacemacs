@@ -1,3 +1,21 @@
+;; add emacs binary helper functions {{{
+(defun emacs() (interactive)
+  (call-process (concat exec-directory "emacs") nil 0 nil)
+  (message "Started 'emacs' - it will be ready soon ..."))
+
+(defun emacs--debug-init() (interactive)
+  (call-process (concat exec-directory "emacs") nil 0 nil "--debug-init")
+  (message "Started 'emacs --debug-init' - it will be ready soon ..."))
+
+(defun emacs--reload()
+  (interactive)
+  (load-file "~/.emacs.d/init.el")
+  (message ".emacs reloaded successfully"))
+
+(defun emacs-Q() (interactive)
+  (call-process (concat exec-directory "emacs") nil 0 nil "-Q")
+  (message "Started 'emacs -Q' - it will be ready soon ..."))
+
 ;; from https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-util.el#L38
 (defun add-to-hooks (fun hooks)
   "Add function to hooks"
@@ -23,6 +41,9 @@
 (defun system-is-linux ()
   (interactive)
   (string-equal system-type "gnu/linux"))
+(defun system-is-windows ()
+  (interactive)
+  (string-equal system-type "windows-nt"))
 
 ;; insert one or several line below without changing current evil state
 (defun evil-insert-line-below (count)
@@ -259,6 +280,16 @@ argument takes the kindows rotate backwards."
   "Edit the `user-init-file', in the current window."
   (interactive)
   (find-file-existing user-init-file))
+
+(defun find-spacemacs-file ()
+  (interactive)
+  "Edit the `file' in the spacemacs base directory, in the current window."
+  (ido-find-file-in-dir spacemacs-directory))
+
+(defun find-contrib-file ()
+  (interactive)
+  "Edit the `file' in the spacemacs base directory, in the current window."
+  (ido-find-file-in-dir spacemacs-contrib-config-directory))
 
 ;; From http://stackoverflow.com/a/18796138
 ;; Cycle through this set of themes
