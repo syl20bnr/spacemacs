@@ -58,37 +58,64 @@ disabling some faces in order to make colored identifiers stand out."
         "Display a short documentation in the mini buffer."
         (let ((var (intern (format
                             "rainbow-identifiers-cie-l*a*b*-%s" component))))
-          (message "Change color %s mini-mode (value: %s)
+          (echo "Change color %s mini-mode (value: %s)
   + to increase %s
   - to decrease %s
   = to reset
 Press any other key to exit." component (eval var) component component)))
 
-      (defun syl20bnr/change-color-component
-        (component inc reset)
+      (defun syl20bnr/change-color-component-overlay-map (component)
         "Set a temporary overlay map to easily change a color COMPONENT from
  rainbow-identifier mode. The color COMPONENT can be 'saturation' or
- 'lightness'. INC is the value to add to the COMPONENT. If RESET is not nil
- then INC is the new value of the COMPONENT."
+ 'lightness'."
         (set-temporary-overlay-map
-         (let ((map (make-sparse-keymap)))
-           (define-key map (kbd "+")
-             `(lambda () (interactive) (syl20bnr/change-color-component-func
-                                        ,component ,inc)))
-           (define-key map (kbd "-")
-             `(lambda () (interactive) (syl20bnr/change-color-component-func
-                                        ,component ,(- inc))))
-           (define-key map (kbd "=")
-             `(lambda () (interactive) (syl20bnr/change-color-component-func
-                                        ,component ,reset t)))
+         (let ((map (make-sparse-keymap))
+               (up-func (intern (format "syl20bnr/change-color-%s-up" component)))
+               (down-func (intern (format "syl20bnr/change-color-%s-down" component)))
+               (reset-func (intern (format "syl20bnr/change-color-%s-reset" component))))
+           (define-key map (kbd "+") up-func)
+           (define-key map (kbd "-") down-func)
+           (define-key map (kbd "=") reset-func)
            map) t)
-        (syl20bnr/change-color-mini-mode-doc component))
+           (syl20bnr/change-color-mini-mode-doc component)) 
+
+      (defun syl20bnr/start-change-color-saturation ()
+        "Initiate the overlay map to change the saturation."
+        (interactive)
+        (syl20bnr/change-color-component-overlay-map "saturation"))
+      (defun syl20bnr/change-color-saturation-up ()
+        "Increase the saturation by 5 units."
+        (interactive)
+        (syl20bnr/change-color-component-func "saturation" 5))
+      (defun syl20bnr/change-color-saturation-down ()
+        "Decrease the saturation by 5 units."
+        (interactive)
+        (syl20bnr/change-color-component-func "saturation" -5))
+      (defun syl20bnr/change-color-saturation-reset ()
+        "Reset the saturation to 100."
+        (interactive)
+        (syl20bnr/change-color-component-func "saturation" 100 t))
+      (defun syl20bnr/start-change-color-lightness ()
+        "Initiate the overlay map to change the lightness."
+        (interactive)
+        (syl20bnr/change-color-component-overlay-map "lightness"))
+      (defun syl20bnr/change-color-lightness-up ()
+        "Increase the lightness by 5 units."
+        (interactive)
+        (syl20bnr/change-color-component-func "lightness" 5))
+      (defun syl20bnr/change-color-lightness-down ()
+        "Decrease the lightness by 5 units."
+        (interactive)
+        (syl20bnr/change-color-component-func "lightness" -5))
+      (defun syl20bnr/change-color-lightness-reset ()
+        "Reset the lightness to 40."
+        (interactive)
+        (syl20bnr/change-color-component-func "lightness" 40 t))
 
       (defun syl20bnr/change-color-component-func
         (component inc &optional reset)
         "Change the color component by adding INC value to it. If RESET is not
  nil the color component is set to INC."
-        (interactive)
         (let* ((var (intern (format
                              "rainbow-identifiers-cie-l*a*b*-%s" component)))
                (new-value (+ (eval var) inc)))
@@ -99,12 +126,8 @@ Press any other key to exit." component (eval var) component component)))
                   (setq new-value 0))
               (set var new-value)))
           (font-lock-fontify-buffer)
-          (syl20bnr/change-color-mini-mode-doc component)))
+          (syl20bnr/change-color-component-overlay-map component)))
       ;; key bindings
-      (evil-leader/set-key "cs"
-        '(lambda () (interactive)
-           (syl20bnr/change-color-component "saturation" 5 100)))
-      (evil-leader/set-key "cl"
-        '(lambda () (interactive)
-           (syl20bnr/change-color-component "lightness" 5 40))))))
+      (evil-leader/set-key "cs" 'syl20bnr/start-change-color-saturation)
+      (evil-leader/set-key "cl" 'syl20bnr/start-change-color-lightness))))
 
