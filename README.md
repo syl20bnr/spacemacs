@@ -96,8 +96,8 @@ for contribution guidelines_
                 - [Key bindings maps](#key-bindings-maps)
                     - [Regular normal state bindings](#regular-normal-state-bindings)
                     - [Lisp specific bindings](#lisp-specific-bindings)
-        - [Errors handling](#errors-handling)
         - [Project management](#project-management)
+        - [Errors handling](#errors-handling)
         - [Working with Git](#working-with-git)
             - [Magit](#magit)
             - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
@@ -1305,28 +1305,6 @@ the `insert state` when the previous state was `lisp` will set you back
 in `lisp state`.
 To go back to `normal state` press `<ESC>` or `fd` while in `lisp state`.
 
-### Errors handling
-
-`Spacemacs` uses [Flycheck][flycheck] to gives error feedback on the fly.
-The checks are only performed at save time by default.
-
-Errors management commands (star with `f` for `flycheck`):
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> f c`       | clear all errors
-`<SPC> f l`       | display the `flycheck` list of errors/warnings
-`<SPC> f n`       | go to the next `flycheck` error
-`<SPC> f p`       | go to the previous flycheck error
-
-Custom fringe bitmaps:
-
-   Symbol                                                                                       | Description
-:----------------------------------------------------------------------------------------------:|------------
-![dot-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-error.png)     | Error
-![dot-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-warning.png) | warning
-![dot-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-info.png)       | Info
-
 ### Project management
 
 Projects in `Spacemacs` are managed with [projectile][projectile]. In
@@ -1358,6 +1336,28 @@ The only bound key for `projectile` is `projectile-commander` which is:
 `s`               | switch project
 `T`               | find test files in project
 `v`               | open project root in `vc-dir` or `magit`
+
+### Errors handling
+
+`Spacemacs` uses [Flycheck][flycheck] to gives error feedback on the fly.
+The checks are only performed at save time by default.
+
+Errors management commands (star with `f` for `flycheck`):
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+`<SPC> f c`       | clear all errors
+`<SPC> f l`       | display the `flycheck` list of errors/warnings
+`<SPC> f n`       | go to the next `flycheck` error
+`<SPC> f p`       | go to the previous flycheck error
+
+Custom fringe bitmaps:
+
+   Symbol                                                                                       | Description
+:----------------------------------------------------------------------------------------------:|------------
+![dot-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-error.png)     | Error
+![dot-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-warning.png) | warning
+![dot-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-info.png)       | Info
 
 ### Working with Git
 
