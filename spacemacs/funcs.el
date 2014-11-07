@@ -23,6 +23,9 @@
 (defun system-is-linux ()
   (interactive)
   (string-equal system-type "gnu/linux"))
+(defun system-is-windows ()
+  (interactive)
+  (string-equal system-type "windows-nt"))
 
 ;; insert one or several line below without changing current evil state
 (defun evil-insert-line-below (count)

@@ -54,7 +54,7 @@
 (setq window-combination-resize t)
 ;; edit area full screen
 (tool-bar-mode -1)
-(when (not (eq window-system 'mac)) 
+(when (not (or (eq window-system 'windows)(eq window-system 'mac))) 
   (menu-bar-mode -1))
 (scroll-bar-mode -1)
 ;; fringes
