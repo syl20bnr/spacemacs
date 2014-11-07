@@ -40,6 +40,7 @@
     evil-visualstar
     exec-path-from-shell
     expand-region
+    fancy-narrow
     fill-column-indicator
     fish-mode
     flx-ido
@@ -1011,6 +1012,11 @@ DELETE-FUNC when calling CALLBACK.
     (custom-set-variables
      '(expand-region-contract-fast-key "V")
      '(expand-region-reset-fast-key "r"))))
+
+(defun spacemacs/init-fancy-narrow ()
+  (use-package fancy-narrow
+    :init
+    (setq fancy-narrow-mode t)))
 
 (defun spacemacs/init-fill-column-indicator ()
   (setq fci-rule-width 1)
