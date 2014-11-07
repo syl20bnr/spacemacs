@@ -30,6 +30,7 @@
     evil
     evil-exchange
     evil-search-highlight-persist
+    evil-jumper
     evil-leader
     evil-lisp-state
     evil-nerd-commenter
@@ -396,6 +397,10 @@ DELETE-FUNC when calling CALLBACK.
         (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
         (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all))
       ;; add a lisp state
+      (use-package evil-jumper
+        :init
+        (setq evil-jumper-auto-center t)
+        (setq evil-jumper-auto-save-interval 3600))
       (use-package evil-lisp-state
         :init
         (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state))
