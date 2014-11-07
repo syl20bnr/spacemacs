@@ -92,18 +92,16 @@ for contribution guidelines_
             - [Line formatting](#line-formatting)
             - [Auto-completion](#auto-completion)
             - [Commenting](#commenting)
+            - [Editing Lisp code](#editing-lisp-code)
+                - [Key bindings maps](#key-bindings-maps)
+                    - [Regular normal state bindings](#regular-normal-state-bindings)
+                    - [Lisp specific bindings](#lisp-specific-bindings)
         - [Errors handling](#errors-handling)
         - [Project management](#project-management)
         - [Working with Git](#working-with-git)
             - [Magit](#magit)
             - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
             - [Git gutter bitmaps](#git-gutter-bitmaps)
-        - [Editing Lisp code](#editing-lisp-code)
-            - [Philosophy](#philosophy)
-            - [Intuitive navigation model](#intuitive-navigation-model)
-            - [Key bindings maps](#key-bindings-maps)
-                - [Regular normal state bindings](#regular-normal-state-bindings)
-                - [Lisp specific bindings](#lisp-specific-bindings)
         - [Modes](#modes)
             - [Helm](#helm)
             - [Erlang](#erlang)
@@ -1206,6 +1204,106 @@ Comments are handled by [evil-nerd-commenter][], it's bound to the following key
 `<SPC> n c i`     | comment invert
 `<SPC> n c c`     | comment operator
 
+#### Editing Lisp code
+
+Lisp navigation and edition is performed with a custom evil `lisp state`
+provided by [evil-lisp-state][evil-lisp-state] package.
+
+Intuitive navigation model:
+
+`hjkl` behaves like in the default `normal state`.
+
+**Next sexp on the same level (sibling)**
+- `L` next sexp
+- `H` previous sexp
+
+**Change level (parent/children)**
+- `J` go to next sexp one level down
+- `K` go to previous one level up
+
+And that's it! All these commands always put the point _at the beginning_ of
+the sexp.
+
+##### Key bindings maps
+
+###### Regular normal state bindings
+
+Key Binding   | Function
+--------------|------------------------------------------------------------
+`a`           | evil-append
+`c`           | evil-change
+`d`           | evil-delete
+`h`           | next char
+`i`           | evil-insert-state
+`I`           | evil-insert-line
+`j`           | next visual line
+`k`           | previous visual line
+`l`           | next char
+`o`           | evil-insert-below
+`O`           | evil-insert-above
+`p`           | evil-past-after
+`P`           | evil-past-before
+`r`           | evil-replace
+`C-r`         | undo-tree-redo
+`u`           | undo-tree-undo
+`x`           | evil-delete-char
+`X`           | evil-delete-backward-char
+`y`           | evil-yank
+`ESC`         | evil-normal-state
+
+###### Lisp specific bindings
+
+_In this table we assume that `evil-lisp-state-backward-prefix` is set to
+default `<tab>`_
+
+Key Binding   | Function
+--------------|------------------------------------------------------------
+`(`           | insert sibling before sexp and switch to `insert state`
+`)`           | insert sibling after sexp and switch to `insert state`
+`$`           | sp-end-of-sexp
+`0`           | sp-beginning-of-sexp
+`A`           | sp-absorb-sexp
+`b`           | sp-forward-barf-sexp
+`<tab> b`     | sp-backward-barf-sexp
+`C`           | sp-convolute-sexp
+`Dd`          | sp-kill-hybrid-sexp
+`Dx`          | sp-kill-sexp
+`<tab> Dx`    | sp-backward-kill-sexp
+`Ds`          | sp-kill-symbol
+`<tab> Ds`    | sp-backward-kill-symbol
+`Dw`          | sp-kill-word
+`<tab> Dw`    | sp-backward-kill-word
+`E$`          | evil-lisp-state-eval-sexp-end-of-line
+`Ee`          | eval-last-sexp
+`Ef`          | eval-defun
+`gs`          | go to source of symbol under point
+`gt`          | sp-transpose-sexp
+`gT`          | sp-transpose-hybrid-sexp
+`H`           | previous sexp at the same level
+`J`           | next sexp one level down
+`K`           | previous sexp one level up
+`L`           | next sexp of the same level
+`M`           | sp-join-sexp (think about `merge-sexp`)
+`R`           | sp-raise-sexp
+`s`           | sp-forward-slurp-sexp
+`<tab> s`     | sp-backward-slurp-sexp
+`S`           | sp-splice-sexp-killing-forward
+`<tab> S`     | sp-splice-sexp-killing-backward
+`w`           | wrap sexp
+`W`           | unwrap sexp
+`<tab> W`     | sp-backward-unwrap-sexp
+`Y`           | sp-copy-sexp
+`<tab> y`     | sp-backward-copy-sexp
+`backspace`   | sp-backward-delete-char
+`S-backspace` | sp-delete-char
+`RET`         | indent next line
+`S-RET`       | insert new line char and switch to `insert state`
+
+**Reminder:**
+`lisp state` is a [base state](#base-states) which means that leaving
+the `insert state` when the previous state was `lisp` will set you back
+in `lisp state`.
+To go back to `normal state` press `<ESC>` or `fd` while in `lisp state`.
 
 ### Errors handling
 
@@ -1360,119 +1458,6 @@ you can answer `y` with no issue.
 ![git-new](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-new-line.png) | new line
 ![git-del](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-del-line.png) | at least one line has been deleted
 ![git-mod](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-mod-line.png) | modified line
-
-### Editing Lisp code
-
-Lisp navigation and edition is performed with a custom evil `lisp state`
-provided by [evil-lisp-state][evil-lisp-state] package.
-
-#### Philosophy
-
-`evil-lisp-state` goal is to replace as much as possible the `normal state` in
-lisp buffers.
-
-To achieve this goal, this mode tries to keep the useful commands from the
-`normal state` and add new commands (often with `shift` modifier) for
-manipulating the data structure.
-
-_Note: Be sure to try the key bindings '(' and ')'. I use them all the time
-and it may be one of the best features of this mode._
-
-#### Intuitive navigation model
-
-`hjkl` behaves like in the default `normal state`.
-
-**Next sexp on the same level (sibling)**
-- `L` next sexp
-- `H` previous sexp
-
-**Change level (parent/children)**
-- `J` go to next sexp one level down
-- `K` go to previous one level up
-
-And that's it! All these commands always put the point _at the beginning_ of
-the sexp.
-
-#### Key bindings maps
-
-##### Regular normal state bindings
-
-Key Binding   | Function
---------------|------------------------------------------------------------
-`a`           | evil-append
-`c`           | evil-change
-`d`           | evil-delete
-`h`           | next char
-`i`           | evil-insert-state
-`I`           | evil-insert-line
-`j`           | next visual line
-`k`           | previous visual line
-`l`           | next char
-`o`           | evil-insert-below
-`O`           | evil-insert-above
-`p`           | evil-past-after
-`P`           | evil-past-before
-`r`           | evil-replace
-`C-r`         | undo-tree-redo
-`u`           | undo-tree-undo
-`x`           | evil-delete-char
-`X`           | evil-delete-backward-char
-`y`           | evil-yank
-`ESC`         | evil-normal-state
-
-##### Lisp specific bindings
-
-_In this table we assume that `evil-lisp-state-backward-prefix` is set to
-default `<tab>`_
-
-Key Binding   | Function
---------------|------------------------------------------------------------
-`(`           | insert sibling before sexp and switch to `insert state`
-`)`           | insert sibling after sexp and switch to `insert state`
-`$`           | sp-end-of-sexp
-`0`           | sp-beginning-of-sexp
-`A`           | sp-absorb-sexp
-`b`           | sp-forward-barf-sexp
-`<tab> b`     | sp-backward-barf-sexp
-`C`           | sp-convolute-sexp
-`Dd`          | sp-kill-hybrid-sexp
-`Dx`          | sp-kill-sexp
-`<tab> Dx`    | sp-backward-kill-sexp
-`Ds`          | sp-kill-symbol
-`<tab> Ds`    | sp-backward-kill-symbol
-`Dw`          | sp-kill-word
-`<tab> Dw`    | sp-backward-kill-word
-`E$`          | evil-lisp-state-eval-sexp-end-of-line
-`Ee`          | eval-last-sexp
-`Ef`          | eval-defun
-`gs`          | go to source of symbol under point
-`gt`          | sp-transpose-sexp
-`gT`          | sp-transpose-hybrid-sexp
-`H`           | previous sexp at the same level
-`J`           | next sexp one level down
-`K`           | previous sexp one level up
-`L`           | next sexp of the same level
-`M`           | sp-join-sexp (think about `merge-sexp`)
-`R`           | sp-raise-sexp
-`s`           | sp-forward-slurp-sexp
-`<tab> s`     | sp-backward-slurp-sexp
-`S`           | sp-splice-sexp-killing-forward
-`<tab> S`     | sp-splice-sexp-killing-backward
-`w`           | wrap sexp
-`W`           | unwrap sexp
-`<tab> W`     | sp-backward-unwrap-sexp
-`Y`           | sp-copy-sexp
-`<tab> y`     | sp-backward-copy-sexp
-`backspace`   | sp-backward-delete-char
-`S-backspace` | sp-delete-char
-`RET`         | indent next line
-`S-RET`       | insert new line char and switch to `insert state`
-
-**Reminder:**
-`lisp state` is a [base state](#base-states) which means that leaving
-the `insert state` when the previous state was `lisp` will set you back
-in `lisp state`.
-To go back to `normal state` press `<ESC>` or `fd` while in `lisp state`.
 
 ### Modes
 
