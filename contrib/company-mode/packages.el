@@ -14,7 +14,8 @@
             company-transformers '(company-sort-by-occurrence)
             company-dabbrev-ignore-case nil
             company-dabbrev-downcase nil
-            company-tooltip-flip-when-above t)
+            company-tooltip-flip-when-above t
+            company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser)
 
       (global-company-mode 1)
 
