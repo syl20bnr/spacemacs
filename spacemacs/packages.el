@@ -1956,10 +1956,12 @@ DELETE-FUNC when calling CALLBACK.
 (defun spacemacs/init-visual-regexp-steroids ()
   (use-package visual-regexp-steroids
     :defer t
-    :init
-    (evil-leader/set-key
-      "rR" 'vr/query-replace
-      "rr" 'vr/replace)))
+    ;; no shortcut for now (used by registers)
+    ;; :init
+    ;; (evil-leader/set-key
+    ;;   "rR" 'vr/query-replace
+    ;;   "rr" 'vr/replace)
+    ))
 
 (defun spacemacs/init-volatile-highlights ()
   (use-package volatile-highlights
