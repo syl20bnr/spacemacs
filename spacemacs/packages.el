@@ -344,6 +344,7 @@ DELETE-FUNC when calling CALLBACK.
         (lambda () (interactive)
           (evil-window-top)
           (evil-scroll-line-to-center nil)))
+      (evil-leader/set-key "re" 'evil-show-registers)
       ;; load evil-leader
       (use-package evil-leader
         :init
@@ -1377,7 +1378,6 @@ DELETE-FUNC when calling CALLBACK.
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
-        "kil" 'helm-show-kill-ring
         "ry"  'helm-show-kill-ring
         "rr"  'helm-register
         "rm"  'helm-all-mark-rings
