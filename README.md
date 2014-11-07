@@ -82,14 +82,16 @@ for contribution guidelines_
             - [Helm-swoop](#helm-swoop)
         - [Window manipulation](#window-manipulation)
             - [Golden ratio](#golden-ratio)
-        - [Text manipulation commands](#text-manipulation-commands)
-        - [Change font size](#change-font-size)
-        - [Spell checking](#spell-checking)
-        - [Region selection](#region-selection)
-        - [Region narrowing](#region-narrowing)
-        - [Line formatting](#line-formatting)
-        - [Auto-completion](#auto-completion)
-        - [Commenting](#commenting)
+        - [Editing](#editing)
+            - [Text manipulation commands](#text-manipulation-commands)
+            - [Change font size](#change-font-size)
+            - [Increase/Decrease numbers](#increasedecrease-numbers)
+            - [Spell checking](#spell-checking)
+            - [Region selection](#region-selection)
+            - [Region narrowing](#region-narrowing)
+            - [Line formatting](#line-formatting)
+            - [Auto-completion](#auto-completion)
+            - [Commenting](#commenting)
         - [Errors handling](#errors-handling)
         - [Project management](#project-management)
         - [Working with Git](#working-with-git)
@@ -733,6 +735,8 @@ They are both extended with various packages to build on their foundations.
 [evil-exchange][]                       | port of [vim-exchange][]
 [evil-surround][]                       | port of [vim-surround][]
 [evil-nerd-commenter][]                 | port of [nerdcommenter][]
+[evil-search-highlight-persist][]       | emulation of hlsearch behavior
+[evil-numbers][]                        | like C-a/C-x in vim
 [NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
 
 ### Helm extensions
@@ -1063,7 +1067,9 @@ The mode can be toggled on and off with:
 
     <SPC> t g
 
-### Text manipulation commands
+### Editing
+
+#### Text manipulation commands
 
 Text related commands (start with `x`):
 
@@ -1083,7 +1089,7 @@ Text related commands (start with `x`):
 `<SPC> x w c`     | count the number of words in the selection region
 `<SPC> x w C`     | count the number of occurrences per word in the select region
 
-### Change font size
+#### Change font size
 
 The font size of the current buffer can be adjusted with the commands:
 
@@ -1097,7 +1103,27 @@ Key Binding   | Description
 `=`           | reset the font size
 Any other key | leave the font scaling micro-state
 
-### Spell checking
+#### Increase/Decrease numbers
+
+`Spacemacs` uses [evil-numbers][] to easily increase or increase numbers.
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`<SPC> n +`   | increase the number under point by one and initiate micro-state
+`<SPC> n -`   | decrease the number under point by one and initiate micro-state
+
+In micro-state:
+
+Key Binding   | Description
+--------------|------------------------------------------------------------
+`+`           | increase the number under point by one
+`-`           | decrease the number under point by one
+Any other key | leave the micro-state
+
+**Tips:** you can increase or decrease a value by more that once by using a
+prefix argument (ie. `10 <SPC> n +` will add 10 to the number under point).
+
+#### Spell checking
 
 Spell checking commands start with `S`:
 
@@ -1108,7 +1134,7 @@ Spell checking commands start with `S`:
 `<SPC> S n`       | go to the next spell check error
 
 
-### Region selection
+#### Region selection
 
 Vi `Visual` modes are all supported by `evil`, `Spacemacs` adds another
 `Visual` mode via the [expand-region][] mode.
@@ -1121,7 +1147,7 @@ Key Binding   |                 Description
 `r`           | reset the region to initial selection
 `ESC`         | leave expand-region mode
 
-### Region narrowing
+#### Region narrowing
 
 The displayed text of a buffer can be narrowed with the commands
 (start with `n`):
@@ -1133,7 +1159,7 @@ Key Binding   |                 Description
 `<SPC> n r`   | narrow the buffer to the selected text
 `<SPC> n w`   | widen, i.e show the whole buffer again
 
-### Line formatting
+#### Line formatting
 
 `Spacemacs` replaces the default `J` Vi key binding (join current line with next
 line) by a slightly more frequent action which is to `go to the line below point
@@ -1153,7 +1179,7 @@ Line formatting commands start with `j`:
 
 Used together these key bindings are very powerful to quickly reformat the code.
 
-### Auto-completion
+#### Auto-completion
 
 `Spacemacs` uses [auto-complete][] auto-completion engine.
 
@@ -1166,7 +1192,7 @@ Used together these key bindings are very powerful to quickly reformat the code.
 `return`          | complete word, if word is already completed insert a carriage return
 
 
-### Commenting
+#### Commenting
 
 Comments are handled by [evil-nerd-commenter][], it's bound to the following keys.
 
@@ -1753,3 +1779,4 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [CONTRIBUTE.md-CL]: https://github.com/syl20bnr/spacemacs/blob/master/CONTRIBUTE.md#submitting-a-contribution-layer-upstream
 [neotree]: https://github.com/jaypei/emacs-neotree
 [nerdtree]: https://github.com/scrooloose/nerdtree
+[evil-numbers]: https://github.com/cofi/evil-numbers
