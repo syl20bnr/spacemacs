@@ -1741,6 +1741,7 @@ DELETE-FUNC when calling CALLBACK.
     :defer t
     :init
     (progn
+      (setq projectile-use-git-grep t)
       (setq-default projectile-enable-caching t)
       (evil-leader/set-key "p" 'projectile-commander))
     :config
