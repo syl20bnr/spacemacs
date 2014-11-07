@@ -67,9 +67,11 @@ for contribution guidelines_
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
         - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
-        - [Navigation](#navigation)
+        - [Navigating](#navigating)
             - [Point/Cursor](#pointcursor)
             - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
+            - [Window manipulation](#window-manipulation)
+                - [Golden ratio](#golden-ratio)
             - [Buffers and Files](#buffers-and-files)
             - [Ido](#ido)
             - [NeoTree file tree](#neotree-file-tree)
@@ -80,8 +82,6 @@ for contribution guidelines_
             - [Visual Star](#visual-star)
             - [Listing symbols by semantic](#listing-symbols-by-semantic)
             - [Helm-swoop](#helm-swoop)
-        - [Window manipulation](#window-manipulation)
-            - [Golden ratio](#golden-ratio)
         - [Editing](#editing)
             - [Text manipulation commands](#text-manipulation-commands)
             - [Change font size](#change-font-size)
@@ -792,7 +792,7 @@ Vim         | `:`
 Emacs       | `<SPC> :`
 Shell       | `<SPC> !`
 
-### Navigation
+### Navigating
 
 #### Point/Cursor
 
@@ -825,6 +825,56 @@ Key Binding   |                 Description
 `<SPC> <SPC>` | initiate ace jump char mode
 `<SPC> l`     | initiate ace jump line mode
 ``<SPC> ```   | go back to the previous location (before the jump)
+
+#### Window manipulation
+
+Every window has a number displayed at the start of the mode-line and can
+be quickly accessed using `<SPC> number`.
+
+Key Binding   |                    Description
+--------------|----------------------------------------------------------------
+`<SPC> 1`     | go to first window
+`<SPC> 2`     | go to window number 2
+`<SPC> 3`     | go to window number 3
+`<SPC> 4`     | go to window number 4
+`<SPC> 5`     | go to window number 5
+`<SPC> 6`     | go to window number 6
+`<SPC> 7`     | go to window number 7
+`<SPC> 8`     | go to window number 8
+`<SPC> 9`     | go to window number 9
+`<SPC> 0`     | go to window number 10
+
+Windows manipulation commands (start with `w`):
+
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
+`<SPC> w b`   | split a window horizontally
+`<SPC> w c`   | close a window
+`<SPC> w d`   | toggle window dedication (dedicated window cannot be used by a mode)
+`<SPC> w H`   | move window to the left
+`<SPC> w J`   | move window to the bottom
+`<SPC> w K`   | move window to the top
+`<SPC> w L`   | move window to the right
+`<SPC> w m`   | maximize/minimize a window
+`<SPC> w M`   | maximize/minimize a window, when maximized the buffer is centered
+`<SPC> w p m` | open messages buffer in a popup window
+`<SPC> w p p` | close the current sticky popup window
+`<SPC> w r`   | rotate windows clockwise
+`<SPC> w R`   | rotate windows counter-clockwise
+`<SPC> w u`   | undo window layout (used to effectively undo a close window)
+`<SPC> w U`   | redo window layout
+`<SPC> w v`   | split a window vertically
+`<SPC> w w`   | cycle and focus between windows
+
+##### Golden ratio
+
+Split windows can be dynamically resized depending on whether they are selected
+or not. Resizing is performed by the [golden-ratio][golden-ratio] mode.
+By default `golden-ratio` if off.
+
+The mode can be toggled on and off with:
+
+    <SPC> t g
 
 #### Buffers and Files
 
@@ -1016,56 +1066,6 @@ Key Binding   |                    Description
 `<SPC> s s`   | execute `helm-swoop`
 `<SPC> s S`   | execute `helm-multi-swoop`
 `<SPC> s C-s` | execute `helm-multi-swoop-all`
-
-### Window manipulation
-
-Every window has a number displayed at the start of the mode-line and can
-be quickly accessed using `<SPC> number`.
-
-Key Binding   |                    Description
---------------|----------------------------------------------------------------
-`<SPC> 1`     | go to first window
-`<SPC> 2`     | go to window number 2
-`<SPC> 3`     | go to window number 3
-`<SPC> 4`     | go to window number 4
-`<SPC> 5`     | go to window number 5
-`<SPC> 6`     | go to window number 6
-`<SPC> 7`     | go to window number 7
-`<SPC> 8`     | go to window number 8
-`<SPC> 9`     | go to window number 9
-`<SPC> 0`     | go to window number 10
-
-Windows manipulation commands (start with `w`):
-
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`<SPC> w b`   | split a window horizontally
-`<SPC> w c`   | close a window
-`<SPC> w d`   | toggle window dedication (dedicated window cannot be used by a mode)
-`<SPC> w H`   | move window to the left
-`<SPC> w J`   | move window to the bottom
-`<SPC> w K`   | move window to the top
-`<SPC> w L`   | move window to the right
-`<SPC> w m`   | maximize/minimize a window
-`<SPC> w M`   | maximize/minimize a window, when maximized the buffer is centered
-`<SPC> w p m` | open messages buffer in a popup window
-`<SPC> w p p` | close the current sticky popup window
-`<SPC> w r`   | rotate windows clockwise
-`<SPC> w R`   | rotate windows counter-clockwise
-`<SPC> w u`   | undo window layout (used to effectively undo a close window)
-`<SPC> w U`   | redo window layout
-`<SPC> w v`   | split a window vertically
-`<SPC> w w`   | cycle and focus between windows
-
-#### Golden ratio
-
-Split windows can be dynamically resized depending on whether they are selected
-or not. Resizing is performed by the [golden-ratio][golden-ratio] mode.
-By default `golden-ratio` if off.
-
-The mode can be toggled on and off with:
-
-    <SPC> t g
 
 ### Editing
 
