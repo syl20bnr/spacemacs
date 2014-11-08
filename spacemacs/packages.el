@@ -392,7 +392,8 @@ DELETE-FUNC when calling CALLBACK.
       (use-package evil-search-highlight-persist
         :init
         (global-evil-search-highlight-persist)
-        (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all))
+        (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
+        (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all))
       ;; add a lisp state
       (use-package evil-lisp-state
         :init
@@ -1365,7 +1366,7 @@ DELETE-FUNC when calling CALLBACK.
 
 (defun spacemacs/init-helm ()
   (use-package helm
-    :idle (helm-mode +1) 
+    :idle (helm-mode +1)
     :defer t
     :init
     (setq helm-split-window-in-side-p nil
