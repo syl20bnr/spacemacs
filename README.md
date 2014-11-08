@@ -77,6 +77,7 @@ for contribution guidelines_
             - [Bookmarks](#bookmarks)
         - [Searching](#searching)
             - [Persistent highlighting](#persistent-highlighting)
+            - [Stacking highlights](#stacking-highlights)
             - [Auto-highlight symbols](#auto-highlight-symbols)
             - [Visual Star](#visual-star)
             - [Listing symbols by semantic](#listing-symbols-by-semantic)
@@ -964,6 +965,19 @@ To save a new bookmark, just type the name of the bookmark and press `RET`.
 `Spacemacs` uses `evil-search-highlight-persist` to keep the searched expression
 highlighted until the next search. It is also possible to clear the
 highlighting by pressing `<SPC> s c` or executing the ex command `:noh`.
+
+#### Stacking highlights
+
+With [hl-anything][] it is possible to highlight all occurrences of the word
+under point. The highlights can be stacked.
+
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
+`<SPC> h c`   | clear the current highlightings
+`<SPC> h h`   | highlight all occurrence of the word at point
+`<SPC> h n`   | next highlighted occurrence
+`<SPC> h N`   | previous highlighted occurrence
+`<SPC> h p`   | toggle auto-highlight of the enclosing parenthesis
 
 #### Auto-highlight symbols
 
