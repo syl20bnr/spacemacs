@@ -25,6 +25,13 @@
       (define-key company-active-map (kbd "<tab>") nil)
       (define-key company-active-map [tab] nil)
 
+      (add-hook 'markdown-mode-hook '(lambda () (company-mode -1)))
+
+      ; The default common face is a really ugly underlined thing with a different background.
+      (custom-set-faces
+       '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+       '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+
       (spacemacs//diminish company-mode " Ⓒ"))))
 
 (defun company-mode/init-company-tern ()
