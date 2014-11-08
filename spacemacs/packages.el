@@ -28,6 +28,7 @@
     ess-R-object-popup
     ess-smart-underscore
     evil
+    evil-args
     evil-exchange
     evil-search-highlight-persist
     evil-jumper
@@ -433,6 +434,12 @@ DELETE-FUNC when calling CALLBACK.
             (spacemacs/evil-numbers-micro-state-overlay-map))
           (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
           (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease)))
+      (use-package evil-args
+        :init
+        (progn
+          ;; bind evil-args text objects
+          (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+          (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)))
 
       ;; define text objects
       (defmacro define-and-bind-text-object (key start-regex end-regex)
@@ -2011,7 +2018,7 @@ DELETE-FUNC when calling CALLBACK.
     (setq undo-tree-history-directory-alist
           `(("." . ,(concat spacemacs-cache-directory "undo"))))
     (setq undo-tree-visualizer-timestamps t)
-    (setq undo-tree-visualizer-diff t)    
+    (setq undo-tree-visualizer-diff t)
     :config
     (spacemacs//hide-lighter undo-tree-mode)))
 
