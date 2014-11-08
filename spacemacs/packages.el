@@ -595,7 +595,7 @@ DELETE-FUNC when calling CALLBACK.
     :init
     (progn
       (add-hook 'ace-jump-mode-end-hook 'golden-ratio)
-      (evil-leader/set-key "SPC" 'evil-ace-jump-char-mode)
+      (evil-leader/set-key "SPC" 'evil-ace-jump-word-mode)
       (evil-leader/set-key "l" 'evil-ace-jump-line-mode))
     :config
     (progn
