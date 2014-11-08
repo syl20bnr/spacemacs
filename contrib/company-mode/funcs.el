@@ -36,7 +36,48 @@
   (unless company-clang-arguments
     (let* ((cc-file (company-mode/find-clang-complete-file))
            (flags (when cc-file (company-mode/load-clang-complete-file cc-file))))
-      (when flags
-        (message "Clang flags: %S" flags)
-        (setq-local company-clang-arguments flags))))
+      (when flags (setq-local company-clang-arguments flags))))
   (company-clang-guess-prefix))
+
+; START Based on the built in flycheck-clang c++ checker
+(eval-after-load 'flycheck
+  '(progn
+     (flycheck-define-checker c/c++-company
+       "A C/C++ syntax checker using parameters from clang-complete"
+       :command ("clang"
+                 "-fsyntax-only"
+                 "-fno-color-diagnostics"    ; Do not include color codes in output
+                 "-fno-caret-diagnostics"    ; Do not visually indicate the source
+                                        ; location
+                 "-fno-diagnostics-show-option" ; Do not show the corresponding
+                                        ; warning group
+                 "-x" (eval
+                       (pcase major-mode
+                         (`c++-mode "c++")
+                         (`c-mode "c")))
+                 (option-list "" company-clang-arguments concat)
+                 source)
+       :error-patterns
+       ((error line-start
+               (message "In file included from") " " (file-name) ":" line ":"
+               line-end)
+        (info line-start (file-name) ":" line ":" column
+              ": note: " (optional (message)) line-end)
+        (warning line-start (file-name) ":" line ":" column
+                 ": warning: " (optional (message)) line-end)
+        (error line-start (file-name) ":" line ":" column
+               ": " (or "fatal error" "error") ": " (optional (message)) line-end))
+       :error-filter
+       (lambda (errors)
+         (let ((errors (flycheck-sanitize-errors errors)))
+           (dolist (err errors)
+             ;; Clang will output empty messages for #error/#warning pragmas without
+             ;; messages.  We fill these empty errors with a dummy message to get
+             ;; them past our error filtering
+             (setf (flycheck-error-message err)
+                   (or (flycheck-error-message err) "no message")))
+           (flycheck-fold-include-errors errors "In file included from")))
+       :modes (c-mode c++-mode)
+       :next-checkers ((warning . c/c++-cppcheck)))
+     (add-to-list 'flycheck-checkers 'c/c++-company)))
+; END
