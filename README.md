@@ -63,7 +63,6 @@ for contribution guidelines_
             - [Minor Modes](#minor-modes)
     - [Base packages](#base-packages)
         - [Evil plugins](#evil-plugins)
-        - [Helm extensions](#helm-extensions)
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
         - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
@@ -737,23 +736,6 @@ They are both extended with various packages to build on their foundations.
 [evil-search-highlight-persist][]       | emulation of hlsearch behavior
 [evil-numbers][]                        | like C-a/C-x in vim
 [NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
-
-### Helm extensions
-
-`Spacemacs` tries to use [helm][helm] as much as possible.
-[helm][helm] is coupled to [popwin][popwin] so `helm` window always appears in
-a new temporary window at the bottom.
-
-The following `helm` modes are installed with `Spacemacs`:
-
-Key Binding | Mode                                    | Description
-------------|-----------------------------------------|------------------------
-`<SPC> h s` | [helm-swoop][hswoop]                    | search for occurrences within a file and edit the result
-`<SPC> h y` | [helm-c-yasnippet][hyas]                | select snippets
-`<SPC> h t` | [helm-themes][hthemes]                  | select a theme
-`<SPC> p f` | [helm-projectile][projectile]           | select files within a projectile project
-`<SPC> ?`   | [helm-descbinds][hdescbinds]            | show key bindings
-`<SPC> s c` | [cofi/helm-flyspell-correct][hflyspell] | choose a corrected word
 
 ## Commands
 
