@@ -4,6 +4,7 @@
 
 (ido-mode t)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
+(setq ido-save-directory-list-file (concat spacemacs-cache-directory "ido.last"))
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
 ;; Also auto refresh dired, but be quiet about it
@@ -53,7 +54,7 @@
 (setq window-combination-resize t)
 ;; edit area full screen
 (tool-bar-mode -1)
-(when (not (eq window-system 'mac)) 
+(when (not (or (eq window-system 'windows)(eq window-system 'mac))) 
   (menu-bar-mode -1))
 (scroll-bar-mode -1)
 ;; fringes
@@ -118,11 +119,34 @@
 ;; Save point position between sessions
 (require 'saveplace)
 (setq-default save-place t)
-(setq save-place-file (expand-file-name ".places" user-emacs-directory))
+(setq save-place-file (concat spacemacs-cache-directory "places"))
+
+;; minibuffer history
+(require 'savehist)
+(setq savehist-file (concat spacemacs-cache-directory "savehist")
+      enable-recursive-minibuffers t ; Allow commands in minibuffers
+      history-length 1000
+      savehist-additional-variables '(search ring regexp-search-ring)
+      savehist-autosave-interval 60)
+(savehist-mode +1)
+
+;; bookmarks
+(setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks"))
+(setq bookmark-save-flag 1) ;; save after every change
+
 ;; keep buffers opened when leaving an emacs client
 (setq server-kill-new-buffers nil)
 ;; increase memory threshold for GC
 (setq gc-cons-threshold 20000000)
+
+
+;; better buffer and file names for duplicates
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward
+      uniquify-separator "/"
+      uniquify-ignore-buffers-re "^\\*" ; leave special buffers alone
+      uniquify-min-dir-content 2
+      uniquify-after-kill-buffer-p t)
 
 ;; ;; save a bunch of variables to the desktop file
 ;; ;; for lists specify the len of the maximal saved data also

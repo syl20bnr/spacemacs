@@ -30,6 +30,7 @@
     evil
     evil-exchange
     evil-search-highlight-persist
+    evil-jumper
     evil-leader
     evil-lisp-state
     evil-nerd-commenter
@@ -39,6 +40,7 @@
     evil-visualstar
     exec-path-from-shell
     expand-region
+    fancy-narrow
     fill-column-indicator
     fish-mode
     flx-ido
@@ -396,6 +398,11 @@ DELETE-FUNC when calling CALLBACK.
         (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
         (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all))
       ;; add a lisp state
+      (use-package evil-jumper
+        :init
+        (setq evil-jumper-auto-center t)
+        (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
+        (setq evil-jumper-auto-save-interval 3600))
       (use-package evil-lisp-state
         :init
         (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state))
@@ -426,7 +433,27 @@ DELETE-FUNC when calling CALLBACK.
             (evil-numbers/dec-at-pt amount)
             (spacemacs/evil-numbers-micro-state-overlay-map))
           (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
-          (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease))))))
+          (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease)))
+
+      ;; define text objects
+      (defmacro define-and-bind-text-object (key start-regex end-regex)
+        (let ((inner-name (make-symbol "inner-name"))
+              (outer-name (make-symbol "outer-name")))
+          `(progn
+             (evil-define-text-object ,inner-name (count &optional beg end type)
+               (evil-regexp-range count beg end type ,start-regex ,end-regex t))
+             (evil-define-text-object ,outer-name (count &optional beg end type)
+               (evil-regexp-range count beg end type ,start-regex ,end-regex nil))
+             (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+             (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+
+      ;; between dollars sign:
+      (define-and-bind-text-object "$" "\\$" "\\$")
+      ;; between pipe characters:
+      (define-and-bind-text-object "|" "|" "|")
+      ;; between percent signs:
+      (define-and-bind-text-object "%" "%" "%")
+      )))
 
 (defun spacemacs/init-powerline ()
   (use-package powerline
@@ -683,6 +710,7 @@ DELETE-FUNC when calling CALLBACK.
             ac-quick-help-delay 1.
             ac-use-fuzzy t
             ac-fuzzy-enable t
+            ac-comphist-file (concat spacemacs-cache-directory "ac-comphist.dat")
             tab-always-indent 'complete ; use 'complete when auto-complete is disabled
             ac-dwim t)
       (spacemacs//diminish auto-complete-mode " Ⓐ"))))
@@ -963,6 +991,7 @@ DELETE-FUNC when calling CALLBACK.
   (use-package evil-nerd-commenter
     :init
     (progn
+      (setq evilnc-hotkey-comment-operator "gc")
       (evil-leader/set-key
         ";"  'evilnc-comment-operator
         "cl" 'evilnc-comment-or-uncomment-lines
@@ -986,6 +1015,18 @@ DELETE-FUNC when calling CALLBACK.
     (custom-set-variables
      '(expand-region-contract-fast-key "V")
      '(expand-region-reset-fast-key "r"))))
+
+(defun spacemacs/init-fancy-narrow ()
+  (use-package fancy-narrow
+    :init
+    (setq fancy-narrow-mode t)
+    :config
+    (evil-leader/set-key
+      "nr" 'fancy-narrow-to-region
+      "np" 'fancy-narrow-to-page
+      "nf" 'fancy-narrow-to-defun
+      "nw" 'fancy-widen)
+    ))
 
 (defun spacemacs/init-fill-column-indicator ()
   (setq fci-rule-width 1)
@@ -1717,11 +1758,17 @@ DELETE-FUNC when calling CALLBACK.
     :defer t
     :init
     (progn
+      (setq projectile-use-git-grep t)
       (setq-default projectile-enable-caching t)
       (evil-leader/set-key "p" 'projectile-commander))
     :config
     (progn
       (projectile-global-mode)
+      (setq projectile-cache-file (concat spacemacs-cache-directory "projectile.cache"))
+      (setq projectile-known-projects-file (concat spacemacs-cache-directory "projectile-bookmarks.eld"))
+      (add-to-list 'projectile-globally-ignored-directories "elpa")
+      (add-to-list 'projectile-globally-ignored-directories ".cache")
+      (add-to-list 'projectile-globally-ignored-directories "node_modules")
       (def-projectile-commander-method ?h
         "Find file in project using helm."
         (helm-projectile))
@@ -1868,8 +1915,9 @@ DELETE-FUNC when calling CALLBACK.
     :defer t
     :config
     (progn
-      (setq recentf-exclude '("~/.emacs.d/.recentf"))
-      (setq recentf-save-file (concat user-emacs-directory "/.recentf"))
+      (setq recentf-exclude '("~/.emacs.d/.cache"))
+      (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
+      (setq recentf-save-file (concat spacemacs-cache-directory "/recentf"))
       (setq recentf-max-saved-items 100)
       (setq recentf-auto-cleanup 'never)
       (setq recentf-auto-save-timer (run-with-idle-timer 600 t 'recentf-save-list)))))
@@ -1959,7 +2007,14 @@ DELETE-FUNC when calling CALLBACK.
 
 (defun spacemacs/init-undo-tree ()
   (use-package undo-tree
+    :idle (global-undo-tree-mode)
     :defer t
+    :init
+    (setq undo-tree-auto-save-history t) ; save undo history between sessions
+    (setq undo-tree-history-directory-alist
+          `(("." . ,(concat spacemacs-cache-directory "undo"))))
+    (setq undo-tree-visualizer-timestamps t)
+    (setq undo-tree-visualizer-diff t)    
     :config
     (spacemacs//hide-lighter undo-tree-mode)))
 
