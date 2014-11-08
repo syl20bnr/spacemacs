@@ -5,6 +5,7 @@ eproject.lst
 .smex-items
 \#*
 .places
+.cache
 eshell/history
 .emacs.desktop
 .emacs.desktop.lock
