@@ -1,3 +1,21 @@
+;; add emacs binary helper functions
+(defun emacs() (interactive)
+  (call-process (concat exec-directory "emacs") nil 0 nil)
+  (message "Started 'emacs' - it will be ready soon ..."))
+
+(defun emacs-debug-init() (interactive)
+  (call-process (concat exec-directory "emacs") nil 0 nil "--debug-init")
+  (message "Started 'emacs --debug-init' - it will be ready soon ..."))
+
+(defun emacs-reload()
+  (interactive)
+  (load-file "~/.emacs.d/init.el")
+  (message ".emacs reloaded successfully"))
+
+(defun emacs-Q() (interactive)
+  (call-process (concat exec-directory "emacs") nil 0 nil "-Q")
+  (message "Started 'emacs -Q' - it will be ready soon ..."))
+
 ;; from https://github.com/cofi/dotfiles/blob/master/emacs.d/config/cofi-util.el#L38
 (defun add-to-hooks (fun hooks)
   "Add function to hooks"
