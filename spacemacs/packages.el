@@ -66,6 +66,7 @@
     helm-projectile
     helm-swoop
     helm-themes
+    hl-anything
     hy-mode
     ido-vertical-mode
     jedi
@@ -1454,6 +1455,21 @@ DELETE-FUNC when calling CALLBACK.
     :defer t
     :init
     (evil-leader/set-key "ht" 'helm-themes)))
+
+(defun spacemacs/init-hl-anything ()
+  (use-package hl-anything
+    :defer t
+    :init
+    (progn
+      (evil-leader/set-key "hh" 'hl-highlight-thingatpt-local)
+      (evil-leader/set-key "hc" 'hl-unhighlight-all-local)
+      (evil-leader/set-key "hn" 'hl-find-thing-forwardly)
+      (evil-leader/set-key "hN" 'hl-find-thing-backwardly)
+      (evil-leader/set-key "hp" 'hl-paren-mode))
+    :config
+    (progn
+      (spacemacs//diminish hl-paren-mode "(Ⓗ)")
+      (spacemacs//hide-lighter hl-highlight-mode))))
 
 (defun spacemacs/init-hy-mode ()
   (use-package hy-mode
