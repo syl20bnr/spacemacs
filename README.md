@@ -821,9 +821,11 @@ in a buffer containing some text:
 
 Key Binding   |                 Description
 --------------|------------------------------------------------------------------
-`<SPC> <SPC>` | initiate ace jump char mode
+`<SPC> <SPC>` | initiate ace jump word mode
 `<SPC> l`     | initiate ace jump line mode
 ``<SPC> ```   | go back to the previous location (before the jump)
+
+Hint: you may change to char mode by `C-c C-c` in word mode.
 
 #### Window manipulation
 
