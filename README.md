@@ -1195,13 +1195,17 @@ Comments are handled by [evil-nerd-commenter][], it's bound to the following key
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> n c l`     | comment lines
-`<SPC> n c t`     | comment to line
-`<SPC> n c y`     | comment and yank
-`<SPC> n c p`     | comment paragraphs
-`<SPC> n c r`     | comment region
-`<SPC> n c i`     | comment invert
-`<SPC> n c c`     | comment operator
+`<SPC> ;`         | comment operator
+`<SPC> c i`       | comment invert
+`<SPC> c l`       | comment lines
+`<SPC> c p`       | comment paragraphs
+`<SPC> c r`       | comment region
+`<SPC> c t`       | comment to line
+`<SPC> c y`       | comment and yank
+
+**Tips:** To comment efficiently a block of line use the combo:
+
+    <SPC> ; <SPC> l
 
 #### Editing Lisp code
 

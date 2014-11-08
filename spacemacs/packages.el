@@ -964,13 +964,13 @@ DELETE-FUNC when calling CALLBACK.
     :init
     (progn
       (evil-leader/set-key
-        "ncl" 'evilnc-comment-or-uncomment-lines
-        "nct" 'evilnc-quick-comment-or-uncomment-to-the-line
-        "ncy" 'evilnc-copy-and-comment-lines
-        "ncp" 'evilnc-comment-or-uncomment-paragraphs
-        "ncr" 'comment-or-uncomment-region
-        "nci" 'evilnc-toggle-invert-comment-line-by-line
-        "ncc" 'evilnc-comment-operator))))
+        ";"  'evilnc-comment-operator
+        "cl" 'evilnc-comment-or-uncomment-lines
+        "ci" 'evilnc-toggle-invert-comment-line-by-line
+        "cp" 'evilnc-comment-or-uncomment-paragraphs
+        "cr" 'comment-or-uncomment-region
+        "ct" 'evilnc-quick-comment-or-uncomment-to-the-line
+        "cy" 'evilnc-copy-and-comment-lines))))
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
