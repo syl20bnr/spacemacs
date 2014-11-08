@@ -90,7 +90,7 @@
   "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line))
   "jl" (lambda () (interactive) (push-mark (point)) (evil-end-of-line)))
 ;; Compilation ----------------------------------------------------------------
-(evil-leader/set-key "cc" 'compile)
+(evil-leader/set-key "C" 'compile)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key
   "nr" 'narrow-to-region
