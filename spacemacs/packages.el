@@ -638,12 +638,14 @@ DELETE-FUNC when calling CALLBACK.
         (if spacemacs-anzu-timer (cancel-timer spacemacs-anzu-timer))
         (setq spacemacs-anzu-timer
               (run-at-time "2 sec" nil 'spacemacs/anzu-ephemeral-display)))
-      (defun spacemacs/anzu-evil-search-next (arg)
+      (evil-define-command spacemacs/anzu-evil-search-next (arg)
         "Show anzu status when executing evil-search-next"
+        :repeat ignore
         (interactive "P")
         (spacemacs/anzu-evil-search arg 'evil-search-next))
-      (defun spacemacs/anzu-evil-search-previous (arg)
+      (evil-define-command spacemacs/anzu-evil-search-previous (arg)
         "Show anzu status when executing evil-search-previous"
+        :repeat ignore
         (interactive "P")
         (spacemacs/anzu-evil-search arg 'evil-search-previous))
       (define-key evil-normal-state-map "n" 'spacemacs/anzu-evil-search-next)
