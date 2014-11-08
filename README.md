@@ -963,7 +963,7 @@ To save a new bookmark, just type the name of the bookmark and press `RET`.
 
 `Spacemacs` uses `evil-search-highlight-persist` to keep the searched expression
 highlighted until the next search. It is also possible to clear the
-highlighting by pressing `<SPC> s c`.
+highlighting by pressing `<SPC> s c` or executing the ex command `:noh`.
 
 #### Auto-highlight symbols
 
