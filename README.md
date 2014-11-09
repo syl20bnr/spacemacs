@@ -63,7 +63,6 @@ for contribution guidelines_
             - [Minor Modes](#minor-modes)
     - [Base packages](#base-packages)
         - [Evil plugins](#evil-plugins)
-        - [Helm extensions](#helm-extensions)
     - [Commands](#commands)
         - [Return to normal mode](#return-to-normal-mode)
         - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
@@ -78,6 +77,7 @@ for contribution guidelines_
             - [Bookmarks](#bookmarks)
         - [Searching](#searching)
             - [Persistent highlighting](#persistent-highlighting)
+            - [Stacking highlights](#stacking-highlights)
             - [Auto-highlight symbols](#auto-highlight-symbols)
             - [Visual Star](#visual-star)
             - [Listing symbols by semantic](#listing-symbols-by-semantic)
@@ -121,7 +121,7 @@ for contribution guidelines_
     - [Tips](#tips)
         - [Tips for Emacs users](#tips-for-emacs-users)
         - [Tips for Spacemacs advanced users](#tips-for-spacemacs-advanced-users)
-    - [TODO list](#todo-list)
+    - [Contributors Achievements](#contributors-achievements)
     - [Thank you](#thank-you)
 
 <!-- markdown-toc end -->
@@ -738,23 +738,6 @@ They are both extended with various packages to build on their foundations.
 [evil-numbers][]                        | like C-a/C-x in vim
 [NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
 
-### Helm extensions
-
-`Spacemacs` tries to use [helm][helm] as much as possible.
-[helm][helm] is coupled to [popwin][popwin] so `helm` window always appears in
-a new temporary window at the bottom.
-
-The following `helm` modes are installed with `Spacemacs`:
-
-Key Binding | Mode                                    | Description
-------------|-----------------------------------------|------------------------
-`<SPC> h s` | [helm-swoop][hswoop]                    | search for occurrences within a file and edit the result
-`<SPC> h y` | [helm-c-yasnippet][hyas]                | select snippets
-`<SPC> h t` | [helm-themes][hthemes]                  | select a theme
-`<SPC> p f` | [helm-projectile][projectile]           | select files within a projectile project
-`<SPC> ?`   | [helm-descbinds][hdescbinds]            | show key bindings
-`<SPC> s c` | [cofi/helm-flyspell-correct][hflyspell] | choose a corrected word
-
 ## Commands
 
 Every sequences must be performed in `normal` mode.
@@ -821,9 +804,11 @@ in a buffer containing some text:
 
 Key Binding   |                 Description
 --------------|------------------------------------------------------------------
-`<SPC> <SPC>` | initiate ace jump char mode
+`<SPC> <SPC>` | initiate ace jump word mode
 `<SPC> l`     | initiate ace jump line mode
 ``<SPC> ```   | go back to the previous location (before the jump)
+
+Hint: you may change to char mode by `C-c C-c` in word mode.
 
 #### Window manipulation
 
@@ -979,7 +964,20 @@ To save a new bookmark, just type the name of the bookmark and press `RET`.
 
 `Spacemacs` uses `evil-search-highlight-persist` to keep the searched expression
 highlighted until the next search. It is also possible to clear the
-highlighting by pressing `<SPC> s c`.
+highlighting by pressing `<SPC> s c` or executing the ex command `:noh`.
+
+#### Stacking highlights
+
+With [hl-anything][] it is possible to highlight all occurrences of the word
+under point. The highlights can be stacked.
+
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
+`<SPC> h c`   | clear the current highlightings
+`<SPC> h h`   | highlight all occurrence of the word at point
+`<SPC> h n`   | next highlighted occurrence
+`<SPC> h N`   | previous highlighted occurrence
+`<SPC> h p`   | toggle auto-highlight of the enclosing parenthesis
 
 #### Auto-highlight symbols
 
@@ -1197,13 +1195,17 @@ Comments are handled by [evil-nerd-commenter][], it's bound to the following key
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> n c l`     | comment lines
-`<SPC> n c t`     | comment to line
-`<SPC> n c y`     | comment and yank
-`<SPC> n c p`     | comment paragraphs
-`<SPC> n c r`     | comment region
-`<SPC> n c i`     | comment invert
-`<SPC> n c c`     | comment operator
+`<SPC> ;`         | comment operator
+`<SPC> c i`       | comment invert
+`<SPC> c l`       | comment lines
+`<SPC> c p`       | comment paragraphs
+`<SPC> c r`       | comment region
+`<SPC> c t`       | comment to line
+`<SPC> c y`       | comment and yank
+
+**Tips:** To comment efficiently a block of line use the combo:
+
+    <SPC> ; <SPC> l
 
 #### Editing Lisp code
 
@@ -1694,15 +1696,22 @@ your `~/.spacemacs` the following snippet:
   (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
 ```
 
-## TODO list
+## Contributors Achievements
 
-- Add support for [multiple-cursors][multiple-cursors] mode.
+Achievements                                         | Contributors
+-----------------------------------------------------|------------------------
+[First contribution][1st-contrib]                    | trishume
+[First contribution layer][1st-clayer]               | trishume
+[First blog article on Spacemacs][1st-arctile]       | Wolfy87
+[100th issue (PR)][100th-issue]                      | danielwuz
 
 ## Thank you
 
-[Jokes aside](#contributions), thank you Richard for this great piece of software.
+[Jokes aside](#contributions), thank you Richard for this great piece of
+software.
 
-Thank you to the whole Emacs community from core developers to elisp hackers!
+Thank you to all the contributors and the whole Emacs community from core
+developers to elisp hackers!
 
 [evil]: https://gitorious.org/evil/pages/Home
 [evil-leader]: https://github.com/cofi/evil-leader
@@ -1777,3 +1786,7 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [neotree]: https://github.com/jaypei/emacs-neotree
 [nerdtree]: https://github.com/scrooloose/nerdtree
 [evil-numbers]: https://github.com/cofi/evil-numbers
+[1st-contrib]: https://github.com/syl20bnr/spacemacs/pull/19
+[1st-clayer]: https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39
+[1st-arctile]: http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/
+[100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100

@@ -59,7 +59,9 @@
   "fg" 'rgrep)
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key
-  "fi" 'find-user-init-file
+  "fei" 'find-user-init-file
+  "fes" 'find-spacemacs-file
+  "fec" 'find-contrib-file
   "fS" 'evil-write-all
   "fs" 'evil-write
   "fy" 'camdez/show-buffer-file-name)
@@ -90,7 +92,7 @@
   "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line))
   "jl" (lambda () (interactive) (push-mark (point)) (evil-end-of-line)))
 ;; Compilation ----------------------------------------------------------------
-(evil-leader/set-key "cc" 'compile)
+(evil-leader/set-key "C" 'compile)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key
   "nr" 'narrow-to-region
