@@ -121,7 +121,7 @@ for contribution guidelines_
     - [Tips](#tips)
         - [Tips for Emacs users](#tips-for-emacs-users)
         - [Tips for Spacemacs advanced users](#tips-for-spacemacs-advanced-users)
-    - [TODO list](#todo-list)
+    - [Contributors Achievements](#contributors-achievements)
     - [Thank you](#thank-you)
 
 <!-- markdown-toc end -->
@@ -1696,15 +1696,22 @@ your `~/.spacemacs` the following snippet:
   (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
 ```
 
-## TODO list
+## Contributors Achievements
 
-- Add support for [multiple-cursors][multiple-cursors] mode.
+Achievements                                         | Contributors
+-----------------------------------------------------|------------------------
+[First contribution][1st-contrib]                    | trishume
+[First contribution layer][1st-clayer]               | trishume
+[First blog article on Spacemacs][1st-arctile]       | Wolfy87
+[100th issue (PR)][100th-issue]                      | danielwuz
 
 ## Thank you
 
-[Jokes aside](#contributions), thank you Richard for this great piece of software.
+[Jokes aside](#contributions), thank you Richard for this great piece of
+software.
 
-Thank you to the whole Emacs community from core developers to elisp hackers!
+Thank you to all the contributors and the whole Emacs community from core
+developers to elisp hackers!
 
 [evil]: https://gitorious.org/evil/pages/Home
 [evil-leader]: https://github.com/cofi/evil-leader
@@ -1779,3 +1786,7 @@ Thank you to the whole Emacs community from core developers to elisp hackers!
 [neotree]: https://github.com/jaypei/emacs-neotree
 [nerdtree]: https://github.com/scrooloose/nerdtree
 [evil-numbers]: https://github.com/cofi/evil-numbers
+[1st-contrib]: https://github.com/syl20bnr/spacemacs/pull/19
+[1st-clayer]: https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39
+[1st-arctile]: http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/
+[100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
