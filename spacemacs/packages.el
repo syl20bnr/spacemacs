@@ -805,8 +805,7 @@ determine the state to enable when escaping from the insert state.")
                      (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
                           "\\(?:^\\|\\s-+\\)\\(?:do\\)")
                      (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
-                     (ruby-end-mode +1)))
-      (spacemacs//hide-lighter ruby-end-mode))))
+                     (ruby-end-mode +1))))))
 
 (defun spacemacs/init-ensime ()
   (use-package ensime
@@ -1821,7 +1820,9 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-ruby-end ()
   (use-package ruby-end
-    :defer t))
+    :defer t
+    :init (add-hook 'ruby-mode-hook 'ruby-end-mode)
+    :config (spacemacs//hide-lighter ruby-end-mode)))
 
 (defun spacemacs/init-ruby-mode ()
   (use-package ruby-mode
