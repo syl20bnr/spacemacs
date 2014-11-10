@@ -16,9 +16,7 @@
     evil-org-mode
     evil-plugins
     helm-rcirc
-    nose
     o-blog
-    pylookup
     spray
     ))
 
@@ -65,48 +63,9 @@
     :init
     (evil-leader/set-key "irc" 'helm-rcirc-auto-join-channels)))
 
-(defun spacemacs/init-nose ()
-  (use-package nose
-    :commands (nosetests-one
-               nosetests-pdb-one
-               nosetests-all
-               nosetests-pdb-all
-               nosetests-module
-               nosetests-pdb-module
-               nosetests-suite
-               nosetests-pdb-suite)
-    :init
-    (evil-leader/set-key-for-mode 'python-mode
-      "mTf" 'nosetests-pdb-one
-      "mtf" 'nosetests-one
-      "mTa" 'nosetests-pdb-all
-      "mta" 'nosetests-all
-      "mTm" 'nosetests-pdb-module
-      "mtm" 'nosetests-module
-      "mTs" 'nosetests-pdb-suite
-      "mts" 'nosetests-suite)
-    :config
-    (progn
-      (add-to-list 'nose-project-root-files "setup.cfg")
-      (setq nose-use-verbose nil)
-      )))
-
 (defun spacemacs/init-o-blog ()
   (use-package o-blog
     :defer t))
-
-(defun spacemacs/init-pylookup ()
-  (use-package pylookup
-    :commands pylookup-lookup
-    :config
-    (progn
-      (add-to-list 'evil-emacs-state-modes 'pylookup-mode)
-      (evil-add-hjkl-bindings pylookup-mode-map 'emacs)
-      (let* ((layer (assq 'spacemacs spacemacs-config-layers))
-             (dir (plist-get (cdr layer) :ext-dir)))
-        (setq pylookup-dir (concat dir "/pylookup")
-              pylookup-program (concat pylookup-dir "/pylookup.py")
-              pylookup-db-file (concat pylookup-dir "/pylookup.db"))))))
 
 (defun spacemacs/init-revive ()
   (use-package revive

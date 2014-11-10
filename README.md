@@ -113,9 +113,6 @@ for contribution guidelines_
             - [Org](#org)
             - [Perforce](#perforce)
             - [Python](#python)
-                - [Inferior REPL process](#inferior-repl-process)
-                - [Testing in Python](#testing-in-python)
-                - [Other Python commands](#other-python-commands)
             - [JavaScript](#javascript)
             - [rcirc](#rcirc)
     - [Tips](#tips)
@@ -745,6 +742,7 @@ eⓅ           | [e-project][e-project] mode
 Ⓢ            | flyspell mode
 (Ⓢ)          | [smartparens][sp] mode
 Ⓨ            | [yasnippet][yasnippet] mode
+(Ⓐ)           | [anaconda-mode][anaconda-mode]
 
 **Note:** in terminal the regular indicators are used instead of the utf-8
 ones.
@@ -1587,55 +1585,7 @@ In `org`, [evil-org-mode][evil-org-mode] is activated.
 
 #### Python
 
-##### Inferior REPL process
-
-Start an iPython inferior REPL process with `<SPC> m i`.
-
-Send code to inferior process commands:
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> m b`       | send buffer and keep code buffer focused
-`<SPC> m B`       | send buffer and switch to REPL in insert mode
-`<SPC> m f`       | send function and keep code buffer focused
-`<SPC> m F`       | send function and switch to REPL in insert mode
-`<SPC> m r`       | send region and keep code buffer focused
-`<SPC> m R`       | send region and switch to REPL in insert mode
-`CTRL+j`          | next item in REPL history
-`CTRL+k`          | previous item in REPL history
-
-##### Testing in Python
-
-`Spacemacs` uses [nose][nose] as a test runner. An improved version of
-[nose.el][nose.el] is shipped with `Spacemacs`, this version adds:
-- windows support
-- test suite support
-
-The root of the project is detected with a `.git` directory or a `setup.cfg` file.
-
-Test commands (start with `m t` or `m T`):
-
-    No Debug      |                 Description
-------------------|------------------------------------------------------------
-<SPC> m t a       | launch all tests of the project
-<SPC> m t f       | launch the current test under point
-<SPC> m t m       | launch all tests of the current module
-<SPC> m t s       | launch all tests of the current suite
-
-     Debug        |                 Description
-------------------|------------------------------------------------------------
-<SPC> m T a       | launch all tests of the project in debug mode
-<SPC> m T f       | launch the current test under point in debug mode
-<SPC> m T m       | launch all tests of the current module in debug mode
-<SPC> m T s       | launch all tests of the current suite in debug mode
-
-##### Other Python commands
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> m d`       | open documentation in `firefox` using [pylookup][pylookup]
-`<SPC> m g`       | go to definition using [emacs-jedi][jedi]
-`<SPC> m p`       | add a breakpoint
+Writing python code with spacemacs is supported by python contribution. Please see [python contribution][python-contrib] documentation for detail.
 
 #### JavaScript
 
@@ -1780,6 +1730,7 @@ developers to elisp hackers!
 [tern-auto-complete]: https://github.com/marijnh/tern/blob/master/emacs/tern-auto-complete.el
 [tern]: http://ternjs.net/
 [themes-megapack]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/themes-megapack
+[python-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/python
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [gitter]: https://gitter.im/syl20bnr/spacemacs
@@ -1792,3 +1743,4 @@ developers to elisp hackers!
 [1st-clayer]: https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39
 [1st-arctile]: http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/
 [100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
+[anaconda-mode]: https://github.com/proofit404/anaconda-mode
