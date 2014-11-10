@@ -278,6 +278,11 @@ argument takes the kindows rotate backwards."
   (interactive)
   (find-file-existing user-init-file))
 
+(defun find-dotfile ()
+  "Edit the `dotfile', in the current window."
+  (interactive)
+  (find-file-existing contribsys/dotfile-location))
+
 (defun find-spacemacs-file ()
   (interactive)
   "Edit the `file' in the spacemacs base directory, in the current window."
