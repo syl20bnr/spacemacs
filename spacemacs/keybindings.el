@@ -62,6 +62,7 @@
   "fei" 'find-user-init-file
   "fes" 'find-spacemacs-file
   "fec" 'find-contrib-file
+  "fed" 'find-dotfile
   "fS" 'evil-write-all
   "fs" 'evil-write
   "fy" 'camdez/show-buffer-file-name)
