@@ -1,7 +1,6 @@
 (defvar trishume-packages
   '(
     auctex
-    smooth-scrolling
     idris-mode
     arduino-mode
     scad-mode
@@ -13,6 +12,8 @@
     go-mode
     yaml-mode
     ag
+    aggressive-indent
+    hungry-delete
     ))
 
 (when (member 'trishume dotspacemacs-configuration-layers)
@@ -62,13 +63,6 @@
   (evil-leader/set-key
     "el" 'load-auctex-on-demand))
 
-(defun trishume/init-smooth-scrolling ()
-  (use-package smooth-scrolling
-    :init
-    (setq scroll-margin 5
-          scroll-conservatively 9999
-          scroll-step 1)))
-
 (defun trishume/init-arduino-mode ()
   (use-package arduino-mode :defer t))
 
@@ -111,5 +105,24 @@
     :defer t
     :config
     (add-hook 'racket-mode-hook
-          '(lambda ()
-             (define-key racket-mode-map (kbd "H-r") 'racket-run)))))
+              '(lambda ()
+                 (define-key racket-mode-map (kbd "H-r") 'racket-run)))))
+
+(defun trishume/init-aggressive-indent ()
+  (use-package aggressive-indent
+    :defer t
+    :init
+    (add-to-hooks #'aggressive-indent-mode '(emacs-lisp-mode-hook
+                                             racket-mode-hook
+                                             css-mode-hook))
+    :config
+    (spacemacs//hide-lighter aggressive-indent-mode)))
+
+(defun trishume/init-hungry-delete ()
+  (use-package hungry-delete
+    :init (global-hungry-delete-mode)
+    :config
+    (progn
+      (setq-default hungry-delete-chars-to-skip " \t\f\v") ; only horizontal whitespace
+      (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward)
+      (define-key hungry-delete-mode-map (kbd "S-DEL") 'delete-backward-char))))
