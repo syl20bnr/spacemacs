@@ -13,6 +13,7 @@
     centered-cursor
     dos
     emoji-cheat-sheet
+    evil-escape
     evil-org-mode
     evil-plugins
     helm-rcirc
@@ -50,6 +51,13 @@
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet
     :commands emoji-cheat-sheet))
+
+(defun spacemacs/init-evil-escape ()
+  (use-package evil-escape
+    :init
+    (evil-escape-mode)
+    :config
+    (spacemacs//hide-lighter evil-escape-mode)))
 
 (defun spacemacs/init-evil-org-mode ()
   (use-package evil-org
