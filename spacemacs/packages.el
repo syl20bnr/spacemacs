@@ -77,6 +77,7 @@
     json-mode
     ledger-mode
     less-css-mode
+    key-chord
     magit
     magit-gitflow
     markdown-mode
@@ -219,118 +220,6 @@ determine the state to enable when escaping from the insert state.")
       (defadvice evil-lisp-state (before spacemacs/evil-lisp-state activate)
         "Advice to keep track of the last base state."
         (setq spacemacs-last-base-state 'lisp))
-
-      (defun spacemacs/escape-state-default-insert-func (key)
-        "Insert KEY in current isearch minibuffer."
-        (let* ((insertp (not buffer-read-only)))
-          (insert key)))
-
-      (defun spacemacs/escape-state-isearch-insert-func (key)
-        "Insert KEY in current buffer if not read only."
-        (isearch-printing-char))
-
-      (defun spacemacs/escape-state-term-insert-func (key)
-        "Insert KEY in current term buffer."
-        (term-send-raw))
-
-      (defun spacemacs/escape-state-default-delete-func ()
-        "Delete char in current buffer if not read only."
-        (let* ((insertp (not buffer-read-only)))
-          (delete-char -1)))
-
-      (evil-define-command spacemacs/escape-state
-        (keys shadowed insert? delete? callback &optional insert-func delete-func)
-        "Allows to execute the passed CALLBACK using KEYS. KEYS is a cons cell
-of 2 characters.
-
-If INSERT? is not nil then the first key pressed is inserted using the function
-INSERT-FUNC.
-
-If DELETE? is not nil then the first key is deleted using the function
-DELETE-FUNC when calling CALLBACK.
-"
-        :repeat change
-        (let* ((modified (buffer-modified-p))
-               (insertf
-                (if insert-func
-                    insert-func 'spacemacs/escape-state-default-insert-func))
-               (deletef
-                (if delete-func
-                    delete-func 'spacemacs/escape-state-default-delete-func))
-               (fkey (car keys))
-               (fkeystr (char-to-string fkey))
-               (skey (cdr keys)))
-          (if insert? (funcall insertf fkey))
-          (let* ((evt (read-event nil nil spacemacs-normal-state-sequence-delay)))
-            (cond
-             ((null evt)
-              (unless (eq 'insert evil-state)
-                (if shadowed (call-interactively shadowed))))
-             ((and (integerp evt)
-                   (char-equal evt skey))
-              ;; remove the f character
-              (if delete? (funcall deletef))
-              (set-buffer-modified-p modified)
-              (funcall callback))
-             (t ; otherwise
-              (setq unread-command-events
-                    (append unread-command-events (list evt)))
-              (if shadowed (call-interactively shadowed)))))))
-      ;; easier toggle for emacs-state
-      (evil-set-toggle-key "s-`")
-      ;; escape state with a better key sequence than ESC
-      (let* ((seq spacemacs-normal-state-sequence)
-             (key (char-to-string (car spacemacs-normal-state-sequence)))
-             (shadowed (lookup-key evil-motion-state-map key)))
-        ;; 'fd' triggers to escape from a state to the base state
-        (global-set-key key `(lambda () (interactive)
-                               (spacemacs/escape-state ',seq nil nil nil 'keyboard-quit)))
-        (mapc (lambda (map)
-                (define-key (eval map) key
-                  `(lambda () (interactive)
-                     (spacemacs/escape-state ',seq nil t nil 'abort-recursive-edit))))
-              '(minibuffer-local-map
-                minibuffer-local-ns-map
-                minibuffer-local-completion-map
-                minibuffer-local-must-match-map
-                minibuffer-local-isearch-map))
-        (define-key isearch-mode-map key
-          `(lambda () (interactive)
-             (spacemacs/escape-state
-              ',seq nil t t 'isearch-abort 'spacemacs/escape-state-isearch-insert-func
-              'isearch-delete-char)))
-        (define-key evil-ex-completion-map key
-          `(lambda () (interactive)
-             (spacemacs/escape-state
-              ',seq nil t nil 'abort-recursive-edit nil 'evil-ex-delete-backward-char)))
-        ;; Note: we keep emacs state untouched in order to always have a
-        ;; fallback for modes that uses the `f' key (ie. magit-gitflow)
-        (define-key evil-insert-state-map key
-          `(lambda () (interactive)
-             (let ((insertf (if (eq 'term-mode major-mode)
-                                'spacemacs/escape-state-term-insert-func)))
-               (spacemacs/escape-state
-                ',seq nil t t (intern (format "evil-%s-state" spacemacs-last-base-state)) insertf))))
-        (define-key evil-visual-state-map key
-          `(lambda () (interactive)
-             (spacemacs/escape-state ',seq ',shadowed nil nil 'evil-exit-visual-state)))
-        (define-key evil-motion-state-map key
-          `(lambda () (interactive)
-             (let ((exit-func (cond ((eq 'help-mode major-mode)
-                                     'quit-window)
-                                    ((eq 'neotree-mode major-mode)
-                                     'neotree-hide)
-                                    (t 'evil-normal-state))))
-               (spacemacs/escape-state ',seq ',shadowed nil nil exit-func))))
-        (eval-after-load 'evil-lisp-state
-          `(define-key evil-lisp-state-map ,key
-             (lambda () (interactive)
-               (spacemacs/escape-state ',seq ',shadowed nil nil 'evil-normal-state))))
-        (eval-after-load "helm-mode"
-          `(define-key helm-map ,key
-             (lambda () (interactive)
-               (spacemacs/escape-state ',seq nil t nil 'helm-keyboard-quit)))))
-
       ;; manage the base state target when leaving the insert state
       (define-key evil-insert-state-map [escape]
         (lambda () (interactive)
