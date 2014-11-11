@@ -29,14 +29,15 @@ _PR = pull request_
   - if you still have several commits, squash them into only one commit
 - rebase your PR branch on top of upstream `develop` before submitting the PR
 
-Those PRs are fast-forwarded whenever it's possible.
+Those PRs are _fast-forwarded_ whenever it's possible and _cherry-picked_
+otherwise.
 
 2) For complex pull requests:
 
 - squash only the commits with uninteresting changes like typos, syntax fixes,
 etc... and keep the important steps in different commits.
 
-Those PRs are merged.
+Those PRs are _merged_.
     
 **Getting Help:**
 If you have any question on this process, join the [gitter chatroom][gitter]
