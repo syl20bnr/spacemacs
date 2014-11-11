@@ -38,6 +38,7 @@
   ;; default configuration layer of spacemacs
   (contribsys/declare-layer 'spacemacs)
   ;; configuration layers coming from `dotspacemacs-configuration-layers'
+  (setq-default spacemacs-contrib-categories '("usr" "lang"))
   (contribsys/discover-contrib-layers)
   (contribsys/declare-user-configuration-layers)
   ;; heavy lifting, load all packages and extensions
