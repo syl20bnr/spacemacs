@@ -29,6 +29,7 @@
     ess-smart-underscore
     evil
     evil-args
+    evil-escape
     evil-exchange
     evil-search-highlight-persist
     evil-jumper
@@ -225,6 +226,7 @@ determine the state to enable when escaping from the insert state.")
         (lambda () (interactive)
           (let ((state (intern (format "evil-%s-state" spacemacs-last-base-state))))
             (funcall state))))
+
       ;; Make evil-mode up/down operate in screen lines instead of logical lines
       (define-key evil-normal-state-map "j" 'evil-next-visual-line)
       (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
@@ -329,6 +331,11 @@ determine the state to enable when escaping from the insert state.")
           ;; bind evil-args text objects
           (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
           (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)))
+      (use-package evil-escape
+        :init
+        (evil-escape-mode)
+        :config
+        (spacemacs//hide-lighter evil-escape-mode))
 
       ;; define text objects
       (defmacro define-and-bind-text-object (key start-regex end-regex)
@@ -341,7 +348,6 @@ determine the state to enable when escaping from the insert state.")
                (evil-regexp-range count beg end type ,start-regex ,end-regex nil))
              (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
              (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
-
       ;; between dollars sign:
       (define-and-bind-text-object "$" "\\$" "\\$")
       ;; between pipe characters:
