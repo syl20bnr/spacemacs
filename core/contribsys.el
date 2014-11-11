@@ -45,6 +45,10 @@ initialize the extension.")
   "Hash table of layers locations where the key is a layer symbol and the value
 is its path.")
 
+(defvar spacemacs-contrib-categories '()
+  "List of strings corresponding to category names. A category is a
+sub-directory of the contribution directory.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')"
@@ -92,22 +96,34 @@ NOT USED FOR NOW :-)"
     (push (cons sym (list :contrib contrib :dir dir :ext-dir ext-dir))
           spacemacs-config-layers)))
 
+(defun contribsys//get-contrib-category-dirs ()
+  "Return a list of all absolute paths to the contribution categories stored
+in `spacemacs-contrib-categories'"
+  (mapcar
+   (lambda (d) (expand-file-name
+                (concat spacemacs-contrib-config-directory
+                        (format "%s/" d))))
+   spacemacs-contrib-categories))
+
 (defun contribsys/discover-contrib-layers ()
   "Fill the hash table `spacemacs-contrib-layer-paths' where the key is the
 layer symbol and the value is its path."
-  (mapc 'contribsys/discover-contrib-layers-in-dir
-        (cons spacemacs-contrib-config-directory
-              dotspacemacs-configuration-layer-path)))
+  (let ((cat-dirs (contribsys//get-contrib-category-dirs)))
+    (mapc 'contribsys/discover-contrib-layers-in-dir
+          (append (list spacemacs-contrib-config-directory)
+                  cat-dirs
+                  dotspacemacs-configuration-layer-path))))
 
 (defun contribsys/discover-contrib-layers-in-dir (dir)
   "Fill the hash table `spacemacs-contrib-layer-paths' where the key is the
 layer symbol and the value is its path for all layers found in directory DIR."
   (message "Looking for contribution layers in %s" dir)
   (ignore-errors
-    (let ((files (directory-files dir nil nil 'nosort)))
+    (let ((files (directory-files dir nil nil 'nosort))
+          (filter-out (append spacemacs-contrib-categories '("." ".."))))
       (dolist (f files)
         (if (and (file-directory-p (concat dir f))
-                 (not (member f '("." ".."))))
+                 (not (member f filter-out)))
             (progn
               (message "-> Discovered contribution layer: %s" f)
               (puthash (intern f) dir spacemacs-contrib-layer-paths)))))))
