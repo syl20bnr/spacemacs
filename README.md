@@ -114,9 +114,6 @@ for contribution guidelines_
                 - [Testing in Python](#testing-in-python)
                 - [Other Python commands](#other-python-commands)
             - [JavaScript](#javascript)
-            - [R (ESS)](#r-ess)
-                - [Inferior REPL process](#inferior-repl-process)
-                - [Other R commands](#other-r-commands)
             - [rcirc](#rcirc)
     - [Tips](#tips)
         - [Tips for Emacs users](#tips-for-emacs-users)
@@ -1617,43 +1614,6 @@ Tern includes the following key bindings:
 `C-c C-r`         | rename the variable under the cursor.
 `C-c C-c`         | find the type of the thing under the cursor.
 `C-c C-d`         | find docs of the thing under the cursor. Press again to open the associated URL (if any).
-
-#### R (ESS)
-
-**Important**:
-In order to speed up the boot time of `Spacemacs`, `ESS` must be loaded
-manually via the key binding:
-
-    <SPC> e s s
-
-##### Inferior REPL process
-
-Start an `R` inferior REPL process with `<SPC> m i`.
-
-Send code to inferior process commands:
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> m b`       | send buffer and keep code buffer focused
-`<SPC> m B`       | send buffer and switch to REPL in insert mode
-`<SPC> m f`       | send function and keep code buffer focused
-`<SPC> m F`       | send function and switch to REPL in insert mode
-`<SPC> m l`       | send line and keep code buffer focused
-`<SPC> m L`       | send line and switch to REPL in insert mode
-`<SPC> m r`       | send region and keep code buffer focused
-`<SPC> m R`       | send region and switch to REPL in insert mode
-`<SPC> m s`       | send region or line and step (debug)
-`<SPC> m S`       | send function or paragraph and step (debug)
-`CTRL+j`          | next item in REPL history
-`CTRL+k`          | previous item in REPL history
-
-##### Other R commands
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> m p`       | object introspection popup [ess-R-object-popup][ess-R-object-popup]
-`<SPC> m v p`     | view data under point using [ess-R-data-view][ess-R-data-view] 
-`<SPC> m v t`     | view table using [ess-R-data-view][ess-R-data-view] 
 
 #### rcirc
 
