@@ -1806,10 +1806,10 @@ determine the state to enable when escaping from the insert state.")
     (progn
       (add-to-hooks 'smartparens-mode '(erlang-mode-hook
                                         markdown-mode-hook
-                                        prog-mode-hook))
-      (spacemacs//diminish smartparens-mode " (Ⓢ)"))
+                                        prog-mode-hook)))
     :config
     (progn
+      (spacemacs//diminish smartparens-mode " (Ⓢ)")
       (defun spacemacs/smartparens-pair-newline (id action context)
         (save-excursion
           (newline)
