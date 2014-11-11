@@ -8,7 +8,7 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defun spacemacs/init-ess ()
+(defun ess/init-ess ()
   ;; ESS is not quick to load so we just load it when
   ;; we need it (see my-keybindings.el for the associated
   ;; keybinding)
