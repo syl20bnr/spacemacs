@@ -296,29 +296,23 @@ in `spacemacs-all-packages'"
 
 (defun contribsys/get-orphan-packages (implicit-pkgs dependencies)
   "Return a list of all orphan packages which are basically meant to be
-deleted safely. Orphan packages are packages whose all dependent packages
-are not in `spacemacs-all-packages' (explicit packages)"
+deleted safely."
   (let ((result '()))
     (dolist (imp-pkg implicit-pkgs)
-      (setq result (append result (contribsys//get-orphan-packages2
-                                   imp-pkg dependencies '()))))
-    (delete-dups result)))
+      (if (contribsys//is-package-orphan imp-pkg dependencies)
+          (add-to-list 'result imp-pkg)))
+    result))
 
-(defun contribsys//get-orphan-packages2 (pkg dependencies acc)
-  "Reccursive function to get the orphans packages as well as their
-orphan dependencies."
-  (if (and (ht-contains? dependencies pkg)
-           (not (ht-contains? spacemacs-all-packages pkg)))
-      (dolist (parent (ht-get dependencies pkg))
-        (let ((orphans (contribsys//get-orphan-packages2
-                        parent dependencies acc)))
-          (unless (not orphans)
-            (add-to-list 'acc pkg)
-            (if acc (setq acc (append acc orphans))
-              (setq acc orphans)))))
-    (unless (ht-contains? spacemacs-all-packages pkg)
-      (if acc (add-to-list 'acc pkg) (setq acc (list pkg)))))
-  acc)
+(defun contribsys//is-package-orphan (pkg dependencies)
+  "Returns not nil if PKG is an orphan package."
+  (if (ht-contains? dependencies pkg)
+      (let ((parents (ht-get dependencies pkg)))
+        (reduce (lambda (x y) (and x y))
+                 (mapcar (lambda (p) (contribsys//is-package-orphan
+                                      p dependencies))
+                         parents)
+                 :initial-value t))
+    (not (ht-contains? spacemacs-all-packages pkg))))
 
 (defun contribsys/get-package-dependencies (package)
   "Return the dependencies alist for PACKAGE."
