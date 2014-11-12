@@ -269,7 +269,7 @@ dotspacemacs-configuration-layers defined in ~/.spacemacs."
   (let* ((layer (assq symlayer spacemacs-config-layers)))
          (plist-get (cdr layer) prop)))
 
-(defun contribsys/load-package-dependencies ()
+(defun contribsys/get-package-dependencies ()
   "Returns a hash map where key is a dependency package symbol and value is
 a list of all packages which depend on it."
   (let ((result #s(hash-table size 200 data ())))
@@ -342,7 +342,7 @@ deleted safely."
 (defun contribsys/delete-orphan-packages ()
   "Delete all the orphan packages."
   (interactive)
-  (let* ((dependencies (contribsys/load-package-dependencies))
+  (let* ((dependencies (contribsys/get-package-dependencies))
          (implicit-packages (contribsys/get-implicit-packages))
          (orphans (contribsys/get-orphan-packages implicit-packages
                                                   dependencies))
