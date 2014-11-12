@@ -50,6 +50,9 @@ is its path.")
   "List of strings corresponding to category names. A category is a
 sub-directory of the contribution directory.")
 
+(defvar spacemacs-excluded-packages-from-layers '()
+  "List of all excluded packages declared at the layer level.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')"
@@ -117,17 +120,19 @@ layer symbol and the value is its path."
 
 (defun contribsys/discover-contrib-layers-in-dir (dir)
   "Fill the hash table `spacemacs-contrib-layer-paths' where the key is the
-layer symbol and the value is its path for all layers found in directory DIR."
+layer symbol and the value is its path for all layers found in directory DIR.
+
+Also fill the list of excluded packages `spacemacs-excluded-packages-from-layers'
+declared at the layer level."
   (message "Looking for contribution layers in %s" dir)
   (ignore-errors
     (let ((files (directory-files dir nil nil 'nosort))
           (filter-out (append spacemacs-contrib-categories '("." ".."))))
       (dolist (f files)
-        (if (and (file-directory-p (concat dir f))
-                 (not (member f filter-out)))
-            (progn
-              (message "-> Discovered contribution layer: %s" f)
-              (puthash (intern f) dir spacemacs-contrib-layer-paths)))))))
+        (when (and (file-directory-p (concat dir f))
+                   (not (member f filter-out)))
+          (message "-> Discovered contribution layer: %s" f)
+          (puthash (intern f) dir spacemacs-contrib-layer-paths))))))
 
 (defun contribsys/load-layers ()
   "Load all declared layers."
@@ -155,6 +160,25 @@ layer symbol and the value is its path for all layers found in directory DIR."
   (let ((list (ht-get hash pkg)))
     (puthash pkg (add-to-list 'list layer t) hash)))
 
+(defun contribsys//add-excluded-packages (layer)
+  "Add excluded packages declared in LAYER."
+  (let ((excl-var (intern (format "%s-excluded-packages" (symbol-name layer)))))
+    (when (boundp excl-var)
+      (setq spacemacs-excluded-packages-from-layers
+            (append spacemacs-excluded-packages-from-layers
+                    (eval excl-var))))))
+
+(defsubst contribsys//filter-out-excluded-packages ()
+  "Remove excluded packages from the hash tables."
+  (mapc (lambda (h)
+          (dolist (x (ht-keys (eval h)))
+            (when (or (member x dotspacemacs-excluded-packages)
+                      (member x spacemacs-excluded-packages-from-layers))
+              (ht-remove (eval h) x))))
+        '(spacemacs-all-packages
+          spacemacs-all-pre-extensions
+          spacemacs-all-post-extensions)))
+
 (defun contribsys/read-packages-and-extensions ()
   "Load all packages and extensions declared in all layers and fill the
 corresponding hash tables:
@@ -171,21 +195,22 @@ spacemacs-all-post-extensions "
         (when (file-exists-p pkg-file)
           (load pkg-file)
           (dolist (pkg (eval (intern (format "%s-packages" (symbol-name sym)))))
-            (unless (member pkg dotspacemacs-excluded-packages)
-              (contribsys//add-layer-to-hash pkg sym spacemacs-all-packages))))
+            (contribsys//add-excluded-packages sym)
+            (contribsys//add-layer-to-hash pkg sym spacemacs-all-packages)))
         ;; extensions
         (when (file-exists-p ext-file)
           (load ext-file)
           (dolist (pkg (eval (intern (format "%s-pre-extensions"
                                              (symbol-name sym)))))
-            (unless (member pkg dotspacemacs-excluded-packages)
-              (contribsys//add-layer-to-hash
-               pkg sym spacemacs-all-pre-extensions)))
+            (contribsys//add-excluded-packages sym)
+            (contribsys//add-layer-to-hash pkg sym
+                                           spacemacs-all-pre-extensions))
           (dolist (pkg (eval (intern (format "%s-post-extensions"
                                              (symbol-name sym)))))
-            (unless (member pkg dotspacemacs-excluded-packages)
-              (contribsys//add-layer-to-hash
-               pkg sym spacemacs-all-post-extensions)))))))
+            (contribsys//add-excluded-packages sym)
+            (contribsys//add-layer-to-hash pkg sym
+                                           spacemacs-all-post-extensions))))))
+  (contribsys//filter-out-excluded-packages)
   ;; number of chuncks for the loading screen
   (let ((total (+ (ht-size spacemacs-all-packages)
                   (ht-size spacemacs-all-pre-extensions)
