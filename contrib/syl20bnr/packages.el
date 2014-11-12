@@ -5,6 +5,9 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
+(defvar syl20bnr-excluded-packages '()
+  "List of packages to exclude.")
+
 (defun syl20bnr/init-rainbow-identifiers ()
   (use-package rainbow-identifiers
     :commands rainbow-identifiers-mode
