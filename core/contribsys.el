@@ -27,19 +27,20 @@ keys:
 :ext-dir    the absolute path to the directory containing the extensions.
 ")
 
-(defvar spacemacs-all-packages #s(hash-table size 200 data ())
+(defvar spacemacs-all-packages #s(hash-table size 256 data ())
   "Hash table of all declared packages in all layers where the key is a package
-symbol and the value is the layer symbol where to initialize the package.")
+symbol and the value is a list of layer symbols responsible for initializing
+and configuring the package.")
 
-(defvar spacemacs-all-pre-extensions #s(hash-table size 64 data ())
+(defvar spacemacs-all-pre-extensions #s(hash-table size 128 data ())
   "Hash table of all declared pre-extensions in all layers where the key is a
-extension symbol and the value is the layer symbol where to load and
-initialize the extension.")
+extension symbol and the value is the layer symbols responsible for initializing
+and configuring the package.")
 
-(defvar spacemacs-all-post-extensions #s(hash-table size 64 data ())
+(defvar spacemacs-all-post-extensions #s(hash-table size 128 data ())
   "Hash table of all declared post-extensions in all layers where the key is a
-extension symbol and the value is the layer symbol where to load and
-initialize the extension.")
+extension symbol and the value is the layer symbols responsible for initializing
+and configuring the package.")
 
 (defvar spacemacs-contrib-layer-paths #s(hash-table size 128 data ())
   "Hash table of layers locations where the key is a layer symbol and the value
@@ -149,17 +150,17 @@ layer symbol and the value is its path for all layers found in directory DIR."
           (if (file-exists-p file)
               (load file)))))))
 
+(defsubst contribsys//add-layer-to-hash (pkg layer hash)
+  "Add LAYER to the list which the value stored in HASH with key PKG."
+  (let ((list (ht-get hash pkg)))
+    (puthash pkg (add-to-list 'list layer t) hash)))
+
 (defun contribsys/read-packages-and-extensions ()
   "Load all packages and extensions declared in all layers and fill the
 corresponding hash tables:
 spacemacs-all-packages
 spacemacs-all-pre-extensions
-spacemacs-all-post-extensions
-By using a hash table we ensure that *only one layer* is responsible for the
-initialization of a package or extensions (as well as the loading in case of
-extension), the winner layer is the last layer to declare the package or
-extension.
-"
+spacemacs-all-post-extensions "
   (dolist (layer (reverse spacemacs-config-layers))
     (let* ((sym (car layer))
            (dir (plist-get (cdr layer) :dir))
@@ -167,22 +168,24 @@ extension.
            (ext-file (concat dir "extensions.el")))
       (progn 
         ;; packages
-        (unless (not (file-exists-p pkg-file))
+        (when (file-exists-p pkg-file)
           (load pkg-file)
           (dolist (pkg (eval (intern (format "%s-packages" (symbol-name sym)))))
             (unless (member pkg dotspacemacs-excluded-packages)
-              (puthash pkg sym spacemacs-all-packages))))
+              (contribsys//add-layer-to-hash pkg sym spacemacs-all-packages))))
         ;; extensions
-        (unless (not (file-exists-p ext-file))
+        (when (file-exists-p ext-file)
           (load ext-file)
           (dolist (pkg (eval (intern (format "%s-pre-extensions"
                                              (symbol-name sym)))))
             (unless (member pkg dotspacemacs-excluded-packages)
-              (puthash pkg sym spacemacs-all-pre-extensions)))
+              (contribsys//add-layer-to-hash
+               pkg sym spacemacs-all-pre-extensions)))
           (dolist (pkg (eval (intern (format "%s-post-extensions"
                                              (symbol-name sym)))))
             (unless (member pkg dotspacemacs-excluded-packages)
-              (puthash pkg sym spacemacs-all-post-extensions)))))))
+              (contribsys//add-layer-to-hash
+               pkg sym spacemacs-all-post-extensions)))))))
   ;; number of chuncks for the loading screen
   (let ((total (+ (ht-size spacemacs-all-packages)
                   (ht-size spacemacs-all-pre-extensions)
@@ -227,29 +230,30 @@ extension.
   "Initialize all the declared packages."
   (ht-each 'contribsys/initialize-package spacemacs-all-packages))
 
-(defun contribsys/initialize-package (pkg lsym)
-  "Initialize the package PKG from the configuration layer LSYM."
-  (let* ((layer (assq lsym spacemacs-config-layers))
-         (init-func (intern (format "%s/init-%s" (symbol-name lsym) pkg))))
-    (spacemacs/loading-animation)
-    (if (and (package-installed-p pkg) (fboundp init-func))
-        (progn  (message "(Spacemacs) Initializing %s:%s..."
-                         (symbol-name lsym) pkg)
-                (funcall init-func)))))
+(defun contribsys/initialize-package (pkg layers)
+  "Initialize the package PKG from the configuration layers LAYERS."
+  (dolist (layer layers)
+    (let* ((init-func (intern (format "%s/init-%s" (symbol-name layer) pkg))))
+      (spacemacs/loading-animation)
+      (if (and (package-installed-p pkg) (fboundp init-func))
+          (progn  (message "(Spacemacs) Initializing %s:%s..."
+                           (symbol-name layer) pkg)
+                  (funcall init-func))))))
 
 (defun contribsys/initialize-extensions (ext-list)
   "Initialize all the declared extensions in EXT-LIST hash table."
   (ht-each 'contribsys/initialize-extension ext-list))
 
-(defun contribsys/initialize-extension (ext lsym)
+(defun contribsys/initialize-extension (ext layers)
   "Initialize the extension EXT from the configuration layer LSYM."
-  (let* ((layer (assq lsym spacemacs-config-layers))
-         (ext-dir (plist-get (cdr layer) :ext-dir))
-         (init-func (intern (format "%s/init-%s" (symbol-name lsym) ext))))
-       (add-to-list 'load-path (format "%s%s/" ext-dir ext))
-       (spacemacs/loading-animation)
-       (message "(Spacemacs) Initializing %s:%s..." (symbol-name lsym) ext)
-       (if (fboundp init-func) (funcall init-func))))
+  (dolist (layer layers)
+    (let* ((l (assq layer spacemacs-config-layers))
+           (ext-dir (plist-get (cdr l) :ext-dir))
+           (init-func (intern (format "%s/init-%s" (symbol-name layer) ext))))
+      (add-to-list 'load-path (format "%s%s/" ext-dir ext))
+      (spacemacs/loading-animation)
+      (message "(Spacemacs) Initializing %s:%s..." (symbol-name layer) ext)
+      (if (fboundp init-func) (funcall init-func)))))
 
 (defun contribsys/initialized-packages-count ()
   "Return the number of initialized packages and extensions."
@@ -269,7 +273,7 @@ dotspacemacs-configuration-layers defined in ~/.spacemacs."
   (let* ((layer (assq symlayer spacemacs-config-layers)))
          (plist-get (cdr layer) prop)))
 
-(defun contribsys/get-package-dependencies ()
+(defun contribsys/get-packages-dependencies ()
   "Returns a hash map where key is a dependency package symbol and value is
 a list of all packages which depend on it."
   (let ((result #s(hash-table size 200 data ())))
@@ -342,7 +346,7 @@ deleted safely."
 (defun contribsys/delete-orphan-packages ()
   "Delete all the orphan packages."
   (interactive)
-  (let* ((dependencies (contribsys/get-package-dependencies))
+  (let* ((dependencies (contribsys/get-packages-dependencies))
          (implicit-packages (contribsys/get-implicit-packages))
          (orphans (contribsys/get-orphan-packages implicit-packages
                                                   dependencies))
