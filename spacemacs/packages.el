@@ -23,12 +23,9 @@
     ensime
     epc
     erlang
-    ess
-    ess-R-data-view
-    ess-R-object-popup
-    ess-smart-underscore
     evil
     evil-args
+    evil-escape
     evil-exchange
     evil-search-highlight-persist
     evil-jumper
@@ -225,6 +222,7 @@ determine the state to enable when escaping from the insert state.")
         (lambda () (interactive)
           (let ((state (intern (format "evil-%s-state" spacemacs-last-base-state))))
             (funcall state))))
+
       ;; Make evil-mode up/down operate in screen lines instead of logical lines
       (define-key evil-normal-state-map "j" 'evil-next-visual-line)
       (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
@@ -329,6 +327,11 @@ determine the state to enable when escaping from the insert state.")
           ;; bind evil-args text objects
           (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
           (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)))
+      (use-package evil-escape
+        :init
+        (evil-escape-mode)
+        :config
+        (spacemacs//hide-lighter evil-escape-mode))
 
       ;; define text objects
       (defmacro define-and-bind-text-object (key start-regex end-regex)
@@ -341,7 +344,6 @@ determine the state to enable when escaping from the insert state.")
                (evil-regexp-range count beg end type ,start-regex ,end-regex nil))
              (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
              (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
-
       ;; between dollars sign:
       (define-and-bind-text-object "$" "\\$" "\\$")
       ;; between pipe characters:
@@ -805,8 +807,7 @@ determine the state to enable when escaping from the insert state.")
                      (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
                           "\\(?:^\\|\\s-+\\)\\(?:do\\)")
                      (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
-                     (ruby-end-mode +1)))
-      (spacemacs//hide-lighter ruby-end-mode))))
+                     (ruby-end-mode +1))))))
 
 (defun spacemacs/init-ensime ()
   (use-package ensime
@@ -849,41 +850,6 @@ determine the state to enable when escaping from the insert state.")
   ;; (erlang-flymake-only-on-save)
 )
 
-(defun spacemacs/init-ess ()
-  ;; ESS is not quick to load so we just load it when
-  ;; we need it (see my-keybindings.el for the associated
-  ;; keybinding)
-  (defun load-ess-on-demand ()
-    (interactive)
-    (use-package ess-site)
-    (use-package ess-smart-underscore)
-    (use-package ess-R-object-popup)
-    (use-package ess-R-data-view)
-    )
-  (evil-leader/set-key "ess" 'load-ess-on-demand)
-
-  ;; R --------------------------------------------------------------------------
-  (eval-after-load "ess-site"
-    '(progn
-       (evil-leader/set-key-for-mode 'ess-mode
-         "mB" 'ess-eval-buffer-and-go
-         "mb" 'ess-eval-buffer
-         "mF" 'ess-eval-function-and-go
-         "mf" 'ess-eval-function
-         "mi" 'R
-         "mL" 'ess-eval-line-and-go
-         "ml" 'ess-eval-line
-         "mp" 'ess-R-object-popup
-         "mR" 'ess-eval-region-and-go
-         "mr" 'ess-eval-region
-         "mS" 'ess-eval-function-or-paragraph-and-step
-         "ms" 'ess-eval-region-or-line-and-step
-         "mvp" 'ess-R-dv-pprint
-         "mvt" 'ess-R-dv-ctable
-         )
-       (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
-       (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))))
-
 (defun spacemacs/init-evil-nerd-commenter ()
   (use-package evil-nerd-commenter
     :init
@@ -914,9 +880,8 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-fancy-narrow ()
   (use-package fancy-narrow
+    :defer t
     :init
-    (setq fancy-narrow-mode t)
-    :config
     (evil-leader/set-key
       "nr" 'fancy-narrow-to-region
       "np" 'fancy-narrow-to-page
@@ -1821,7 +1786,9 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-ruby-end ()
   (use-package ruby-end
-    :defer t))
+    :defer t
+    :init (add-hook 'ruby-mode-hook 'ruby-end-mode)
+    :config (spacemacs//hide-lighter ruby-end-mode)))
 
 (defun spacemacs/init-ruby-mode ()
   (use-package ruby-mode
@@ -1839,10 +1806,10 @@ determine the state to enable when escaping from the insert state.")
     (progn
       (add-to-hooks 'smartparens-mode '(erlang-mode-hook
                                         markdown-mode-hook
-                                        prog-mode-hook))
-      (spacemacs//diminish smartparens-mode " (Ⓢ)"))
+                                        prog-mode-hook)))
     :config
     (progn
+      (spacemacs//diminish smartparens-mode " (Ⓢ)")
       (defun spacemacs/smartparens-pair-newline (id action context)
         (save-excursion
           (newline)
