@@ -94,11 +94,12 @@
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "C" 'compile)
 ;; narrow & widen -------------------------------------------------------------
-(evil-leader/set-key
-  "nr" 'narrow-to-region
-  "np" 'narrow-to-page
-  "nf" 'narrow-to-defun
-  "nw" 'widen)
+(unless (ht-contains? spacemacs-all-packages 'fancy-narrow)
+  (evil-leader/set-key
+    "nr" 'narrow-to-region
+    "np" 'narrow-to-page
+    "nf" 'narrow-to-defun
+    "nw" 'widen))
 ;; spell check  ---------------------------------------------------------------
 (evil-leader/set-key
   "Sc" 'cofi/helm-flyspell-correct

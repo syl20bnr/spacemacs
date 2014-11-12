@@ -880,9 +880,8 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-fancy-narrow ()
   (use-package fancy-narrow
+    :defer t
     :init
-    (setq fancy-narrow-mode t)
-    :config
     (evil-leader/set-key
       "nr" 'fancy-narrow-to-region
       "np" 'fancy-narrow-to-page
