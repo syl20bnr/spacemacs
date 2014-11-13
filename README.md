@@ -5,7 +5,7 @@
 
 **Quick Install:**
 
-    git clone --recursive http://github.com/syl20bnr/spacemacs .emacs.d
+    git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 _Jump to [Install](#install) for more info and [here][CONTRIBUTE.md-PR]
 for contribution guidelines_
@@ -245,7 +245,7 @@ be provided in this read me. _Stay tuned._
 
 ## Install
 
-1) Backup your current `.emacs.d` and clone the repo _with the submodules_:
+1) Backup your current `~/.emacs.d` and clone the repo _with the submodules_:
 
     cd ~
     mv .emacs.d .emacs.bak
