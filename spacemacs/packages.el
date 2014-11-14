@@ -1403,6 +1403,14 @@ determine the state to enable when escaping from the insert state.")
         (define-key ido-completion-map (kbd "C-l") 'ido-exit-minibuffer)
         (define-key ido-completion-map (kbd "C-S-j") 'ido-next-match-dir)
         (define-key ido-completion-map (kbd "C-S-k") 'ido-prev-match-dir)
+        ;; history navigation
+        (define-key ido-completion-map (kbd "C-n") 'next-history-element)
+        (define-key ido-completion-map (kbd "C-p") 'previous-history-element)
+        ;; ido-other window maps
+        (define-key ido-completion-map (kbd "C-x") 'ido-invoke-in-other-window)
+        (define-key ido-completion-map (kbd "C-v") 'ido-invoke-in-vertical-split)
+        (define-key ido-completion-map (kbd "C-o") 'ido-invoke-in-horizontal-split)
+        (define-key ido-completion-map (kbd "C-t") 'ido-invoke-in-new-frame)
         ;; more natural navigation keys: up, down to change current item
         ;; left to go up dir
         ;; right to open the selected item
