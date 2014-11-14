@@ -1288,7 +1288,6 @@ determine the state to enable when escaping from the insert state.")
     :defer t
     :init
     (setq helm-split-window-in-side-p nil
-          helm-quick-update t
           helm-bookmark-show-location t
           helm-buffers-fuzzy-matching t
           helm-always-two-windows     t)
