@@ -10,10 +10,6 @@
 [submodule "spacemacs/extensions/helm-c-moccur"]
 	path = extensions/helm-c-moccur
 	url = http://github.com/syl20bnr/helm-c-moccur
-[submodule "spacemacs/extensions/solarized-theme"]
-	path = spacemacs/extensions/solarized-theme
-	url = http://github.com/syl20bnr/solarized-emacs
-  ignore = dirty
 [submodule "spacemacs/extensions/evil-plugins"]
 	path = spacemacs/extensions/evil-plugins
 	url = http://github.com/tarao/evil-plugins
