@@ -4,6 +4,7 @@
 /auto-save-list
 /elpa
 ac-comphist.dat
+.cache
 .emacs.desktop
 .emacs.desktop.lock
 .places
