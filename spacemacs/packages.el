@@ -1623,10 +1623,11 @@ determine the state to enable when escaping from the insert state.")
       (evil-leader/set-key "p" 'projectile-commander))
     :config
     (progn
+      (setq projectile-cache-file (concat spacemacs-cache-directory
+                                          "projectile.cache"))
+      (setq projectile-known-projects-file (concat spacemacs-cache-directory
+                                                   "projectile-bookmarks.eld"))
       (projectile-global-mode)
-      (setq projectile-cache-file (concat spacemacs-cache-directory "projectile.cache"))
-      (setq projectile-known-projects-file (concat spacemacs-cache-directory "projectile-bookmarks.eld"))
-      (add-to-list 'projectile-globally-ignored-directories ".cache")
       (def-projectile-commander-method ?h
         "Find file in project using helm."
         (helm-projectile))
