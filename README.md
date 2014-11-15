@@ -226,7 +226,7 @@ project.*
 next level by using Emacs.
 
 It is also a good fit for people wanting to **lower the [risk of RSI][RSI]**
-induced by the default Emacs key bindings. 
+induced by the default Emacs key bindings.
 
 Emacs users wanting to learn **a different way to edit files** or wanting to
 learn Vim key bindings (see [Tips for Emacs users](#tips-for-emacs-users)).
@@ -489,9 +489,9 @@ For instance to disable the `rainbow-delimiters` package:
 (setq-default dotspacemacs-excluded-packages '(rainbow-delimiters))
 ```
 
-Note that for now, excluded packages that have been installed are not
-uninstalled. You'll have to delete them manually from your `~/.emacs.d/elpa`
-directory.
+When you exclude a package, `Spacemacs` will automatically delete it for you
+the next time you launch Emacs. All the orphan dependencies are as well
+delete automatically.
 
 #### Hooks
 
@@ -550,7 +550,7 @@ The typical `base state` in Vim is the `normal state` and it is the only one.
 
 This allows a coder of Lisp to completely replace the `normal state` by the
 `lisp state`. Indeed, once you fire up the `lisp state` you can just go back
-and forth between the `insert state` and the `lisp state`. 
+and forth between the `insert state` and the `lisp state`.
 
 Of course there is a rule to break this in order to be able to go back to the
 `normal state`. It is pretty simple:
@@ -680,7 +680,7 @@ the number of errors, warnings and info.
 
 [Anzu][anzu] shows the number of occurrence when performing a search. `Spacemacs`
 integrates nicely the Anzu status by displaying it temporarily when `n` or `N` are
-being pressed. See the `5/6` segment on the screenshot below. 
+being pressed. See the `5/6` segment on the screenshot below.
 
 ![powerline-anzu](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-anzu.png)
 
@@ -824,7 +824,7 @@ Key Binding |                 Description
 `L`         | move quickly down (10 lines at a time)
 `<SPC> j h` | go to the beginning of line (and set a mark at the previous location in the line)
 `<SPC> j l` | go to the end of line (and set a mark at the previous location in the line)
-`<SPC> z z` | lock the cursor at the center of the screen 
+`<SPC> z z` | lock the cursor at the center of the screen
 
 #### Vim motions with ace-jump mode
 
