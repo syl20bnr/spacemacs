@@ -1,6 +1,3 @@
-[submodule "spacemacs/extensions/pylookup"]
-	path = spacemacs/extensions/pylookup
-	url = http://github.com/syl20bnr/pylookup
 [submodule "spacemacs/extensions/projmake-mode"]
 	path = extensions/projmake-mode
 	url = http://github.com/ericbmerritt/projmake-mode
@@ -13,9 +10,6 @@
 [submodule "spacemacs/extensions/evil-plugins"]
 	path = spacemacs/extensions/evil-plugins
 	url = http://github.com/tarao/evil-plugins
-[submodule "spacemacs/extensions/nose"]
-	path = spacemacs/extensions/nose
-	url = http://github.com/syl20bnr/nose.el
 [submodule "spacemacs/extensions/use-package"]
 	path = spacemacs/extensions/use-package
 	url = http://github.com/jwiegley/use-package

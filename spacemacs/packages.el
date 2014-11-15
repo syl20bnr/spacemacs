@@ -21,7 +21,6 @@
     elixir-mix
     elixir-mode
     ensime
-    epc
     erlang
     evil
     evil-args
@@ -70,7 +69,6 @@
     hl-anything
     hy-mode
     ido-vertical-mode
-    jedi
     js2-mode
     json-mode
     ledger-mode
@@ -97,7 +95,6 @@
     powershell-mode
     projectile
     puppet-mode
-    python
     ;; not working well for now
     ;; rainbow-blocks
     rainbow-delimiters
@@ -304,6 +301,7 @@ determine the state to enable when escaping from the insert state.")
       (use-package evil-jumper
         :init
         (setq evil-jumper-auto-center t)
+        (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
         (setq evil-jumper-auto-save-interval 3600))
       (use-package evil-lisp-state
         :init
@@ -943,7 +941,6 @@ determine the state to enable when escaping from the insert state.")
                       elixir
                       js
                       json
-                      python
                       ruby
                       scss
                       web))
@@ -1634,99 +1631,18 @@ determine the state to enable when escaping from the insert state.")
     :init
     (progn
       (setq-default projectile-enable-caching t)
-      (evil-leader/set-key "p" 'projectile-commander))
-    :config
-    (progn
       (setq projectile-cache-file (concat spacemacs-cache-directory
                                           "projectile.cache"))
       (setq projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
+      (evil-leader/set-key "p" 'projectile-commander))
+    :config
+    (progn
       (projectile-global-mode)
       (def-projectile-commander-method ?h
         "Find file in project using helm."
         (helm-projectile))
       (spacemacs//hide-lighter projectile-mode))))
-
-(defun spacemacs/init-python ()
-  (use-package python
-    :defer t
-    :init
-    (progn
-      (add-hook 'python-mode-hook
-                '(lambda() (setq mode-name "Python"
-                                 tab-width 4)))
-      ;; from http://pedrokroger.net/2010/07/configuring-emacs-as-a-python-ide-2/
-      (defun annotate-pdb ()
-        "Highlight break point lines."
-        (interactive)
-        (highlight-lines-matching-regexp "import pdb")
-        (highlight-lines-matching-regexp "pdb.set_trace()"))
-      (add-hook 'python-mode-hook 'annotate-pdb)
-      (setq
-       python-shell-interpreter "ipython"
-       ;; python-shell-interpreter-args (if (system-is-mac)
-       ;;                                   "--gui=osx --matplotlib=osx --colors=Linux"
-       ;;                                 (if (system-is-linux)
-       ;;                                     "--gui=wx --matplotlib=wx --colors=Linux"))
-       python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-       python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-       python-shell-completion-setup-code "from IPython.core.completerlib import module_completion"
-       python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))\n"
-       python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
-      (use-package jedi
-        :defer t
-        :init
-        (progn
-          (setq jedi:setup-keys t)
-          (add-hook 'python-mode-hook 'jedi:setup))
-        :config
-        (progn
-          (setq jedi:complete-on-dot t))))
-    :config
-    (progn
-      ;; from http://pedrokroger.net/2010/07/configuring-emacs-as-a-python-ide-2/
-      (defun python-add-breakpoint ()
-        "Add a break point, highlight it and save the buffer."
-        (interactive)
-        (evil-end-of-line)
-        (newline-and-indent)
-        (insert "import pdb; pdb.set_trace()")
-        (save-buffer))
-      ;; add support for `ahs-range-beginning-of-defun' for python-mode
-      (eval-after-load 'auto-highlight-symbol
-        '(add-to-list 'ahs-plugin-bod-modes 'python-mode))
-      (evil-leader/set-key-for-mode 'python-mode
-        "mB"  (lambda ()
-                " Send buffer content to shell and switch to it in insert mode."
-                (interactive)
-                (python-shell-send-buffer)
-                (python-shell-switch-to-shell)
-                (evil-insert-state))
-        "mb"  'python-shell-send-buffer
-        "md"  'pylookup-lookup
-        "mF"  (lambda ()
-                " Send function content to shell and switch to it in insert mode."
-                (interactive)
-                (python-shell-send-defun nil)
-                (python-shell-switch-to-shell)
-                (evil-insert-state))
-        "mf"  'python-shell-send-defun
-        "mg"  'jedi:goto-definition
-        "mi"  (lambda ()
-                " Switch to shell in insert mode."
-                (interactive)
-                (python-shell-switch-to-shell)
-                (evil-insert-state))
-        "mp"  'python-add-breakpoint
-        "mR"  (lambda (start end)
-                " Send region content to shell and switch to it in insert mode."
-                (interactive "r")
-                (python-shell-send-region start end)
-                (python-shell-switch-to-shell)
-                (evil-insert-state))
-        "mr"  'python-shell-send-region)
-      (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
-      (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input))))
 
 (defun spacemacs/init-rainbow-blocks ()
   (use-package rainbow-blocks
