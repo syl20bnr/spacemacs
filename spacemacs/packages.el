@@ -302,6 +302,7 @@ determine the state to enable when escaping from the insert state.")
       (use-package evil-jumper
         :init
         (setq evil-jumper-auto-center t)
+        (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
         (setq evil-jumper-auto-save-interval 3600))
       (use-package evil-lisp-state
         :init
@@ -1631,13 +1632,13 @@ determine the state to enable when escaping from the insert state.")
     :init
     (progn
       (setq-default projectile-enable-caching t)
-      (evil-leader/set-key "p" 'projectile-commander))
-    :config
-    (progn
       (setq projectile-cache-file (concat spacemacs-cache-directory
                                           "projectile.cache"))
       (setq projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
+      (evil-leader/set-key "p" 'projectile-commander))
+    :config
+    (progn
       (projectile-global-mode)
       (def-projectile-commander-method ?h
         "Find file in project using helm."
