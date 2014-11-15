@@ -32,7 +32,10 @@ for contribution guidelines_
         - [Other describe functions](#other-describe-functions)
     - [Configuration layers](#configuration-layers)
         - [Structure](#structure)
-        - [Extensions and Packages declaration and initialization](#extensions-and-packages-declaration-and-initialization)
+        - [Extensions and Packages](#extensions-and-packages)
+            - [Declaration](#declaration)
+            - [Initialization](#initialization)
+            - [Exclusion](#exclusion)
         - [Packages synchronization (Vundle like feature)](#packages-synchronization-vundle-like-feature)
     - [Contribution layers](#contribution-layers)
         - [Adding a contribution layer](#adding-a-contribution-layer)
@@ -64,7 +67,7 @@ for contribution guidelines_
     - [Base packages](#base-packages)
         - [Evil plugins](#evil-plugins)
     - [Commands](#commands)
-        - [Return to normal mode](#return-to-normal-mode)
+        - [Escaping](#escaping)
         - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
         - [Navigating](#navigating)
             - [Point/Cursor](#pointcursor)
@@ -345,7 +348,9 @@ packages.el       | The list of packages to install and the functions to initial
 `Packages` are `ELPA` packages which can be installed from an `ELPA` compliant
 repository, and `Extensions` are generally elisp code from git submodules.
 
-### Extensions and Packages declaration and initialization
+### Extensions and Packages
+
+#### Declaration
 
 `Extensions` and `Packages` are declared in variables `<layer>-pre-extensions`,
 `<layer>-post-extensions` and `<layer>-packages` where `<layer>` is the layer
@@ -355,6 +360,18 @@ loaded after `Packages`.
 They are processed in alphabetical order so sometimes you'll have to use
 some `eval-after-load` black magic.
 
+Example:
+
+```elisp
+(defvar <layer>-packages
+  '(
+    package1
+    package2
+    )
+```
+
+#### Initialization
+
 To initialize an extension or a package `xxx`, define a function with this
 format in `extensions.el` or `packages.el`:
 
@@ -362,6 +379,24 @@ format in `extensions.el` or `packages.el`:
 (defun <layer>/init-xxx ()
    ...body
 )
+```
+
+#### Exclusion
+
+It is possible to exclude some packages from `Spacemacs` in a per layer basis.
+This is useful when a configuration layer aims to replace a stock package
+declared in the `Spacemacs` layer.
+
+To do so add the package names to exclude to the variable
+`<layer>-excluded-packages`.
+
+Example:
+
+```elisp
+(defvar <layer>-excluded-packages
+  '(
+    package1
+    )
 ```
 
 ### Packages synchronization (Vundle like feature)
