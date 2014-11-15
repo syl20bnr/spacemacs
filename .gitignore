@@ -32,3 +32,8 @@ tmp/
 /history
 .python-environments/
 server/
+*~
+*.elc
+/*.zip
+*.db
+python-*-docs-html
