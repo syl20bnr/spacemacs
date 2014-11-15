@@ -733,6 +733,8 @@ They are both extended with various packages to build on their foundations.
 [evil-nerd-commenter][]                 | port of [nerdcommenter][]
 [evil-search-highlight-persist][]       | emulation of hlsearch behavior
 [evil-numbers][]                        | like C-a/C-x in vim
+[evil-args][]                           | motions and text objects for arguments
+[evil-jumper][]                         | jump list emulation
 [NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
 
 ## Commands
@@ -1715,6 +1717,9 @@ developers to elisp hackers!
 [vim-surround]: https://github.com/tpope/vim-surround
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [nerdcommenter]: https://github.com/scrooloose/nerdcommenter
+[evil-escape]: https://github.com/syl20bnr/evil-escape
+[evil-args]: https://github.com/wcsmith/evil-args
+[evil-jumper]: https://github.com/bling/evil-jumper
 [evil-org-mode]: https://github.com/edwtjo/evil-org-mode
 [nose]: https://github.com/nose-devs/nose/
 [nose.el]: https://github.com/syl20bnr/nose.el
@@ -1752,4 +1757,3 @@ developers to elisp hackers!
 [1st-clayer]: https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39
 [1st-arctile]: http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/
 [100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
-[evil-escape]: https://github.com/syl20bnr/evil-escape
