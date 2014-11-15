@@ -334,14 +334,16 @@ deleted safely."
 
 (defun contribsys//is-package-orphan (pkg dependencies)
   "Returns not nil if PKG is an orphan package."
-  (if (ht-contains? dependencies pkg)
-      (let ((parents (ht-get dependencies pkg)))
-        (reduce (lambda (x y) (and x y))
-                 (mapcar (lambda (p) (contribsys//is-package-orphan
-                                      p dependencies))
-                         parents)
-                 :initial-value t))
-    (not (ht-contains? spacemacs-all-packages pkg))))
+  (if (ht-contains? spacemacs-all-packages pkg)
+      nil
+    (if (ht-contains? dependencies pkg)
+        (let ((parents (ht-get dependencies pkg)))
+          (reduce (lambda (x y) (and x y))
+                  (mapcar (lambda (p) (contribsys//is-package-orphan
+                                       p dependencies))
+                          parents)
+                  :initial-value t))
+      (not (ht-contains? spacemacs-all-packages pkg)))))
 
 (defun contribsys/get-package-dependencies (package)
   "Return the dependencies alist for PACKAGE."
@@ -376,6 +378,9 @@ deleted safely."
          (orphans (contribsys/get-orphan-packages implicit-packages
                                                   dependencies))
          (orphans-count (length orphans)))
+    ;; (message "dependencies: %s" dependencies)
+    ;; (message "implicit: %s" implicit-packages)
+    ;; (message "orphans: %s" orphans)
     (if orphans
         (progn
           ;; for the loading dot bar
