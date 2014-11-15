@@ -11,9 +11,9 @@
 
 ## Pull Request Guidelines
 
-`Spacemacs` uses the `git-flow` model, so you'll have to submit your
-contributions and fixes within a pull-request to apply against the `develop`
-branch.
+`Spacemacs` branch model is inspired from the [git-flow][] model: You'll have
+to submit your contributions and fixes within a pull-request to apply against
+the `develop` branch.
 
 _PR = pull request_
 
@@ -41,8 +41,7 @@ Those PRs are _merged_.
     
 **Getting Help:**
 If you have any question on this process, join the [gitter chatroom][gitter]
-and ask your questions there. Do not hesitate to ask your questions even the
-simplest one, it will be a pleasure to help you to contribute!
+and ask your questions there. It will be a pleasure to help you to contribute!
 
 ## Submitting a contribution layer upstream
 
@@ -53,4 +52,9 @@ associated with them.
 To submit your contribution layer follow the above
 [guidelines](#pull-request-guidelines) for pull requests.
 
-**Note:** by submitting a configuration layer you become the maintainer of it.
+**Note:** by submitting a configuration layer you become the maintainer of it,
+if you cannot maintain it anymore, no worry but I'll appreciate that you send
+a message to me to warn me.
+
+[git-flow]: http://nvie.com/posts/a-successful-git-branching-model/
+[gitter]: https://gitter.im/syl20bnr/spacemacs
