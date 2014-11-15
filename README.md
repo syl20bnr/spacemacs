@@ -739,27 +739,29 @@ They are both extended with various packages to build on their foundations.
 
 Every sequences must be performed in `normal` mode.
 
-### Return to normal mode
+### Escaping
 
-`ESC` is the default key to return to normal mode. This is one of the main
-design flaw in Vim key bindings because the `ESC` key is very far from the
-home row.
+`Spacemacs` uses [evil-escape][] to easily switch between `insert state` and
+`normal state` with the key sequence `fd`.
 
-The popular way to avoid this is to replace `ESC` by `jj` pressed rapidly.
-Unfortunately it is pretty difficult in Emacs to keep a consistent behavior
-with this sequence (same thing with `jk` or `kj`).
-`Spacemacs` uses the sequence `fd` instead of `jj` which works in any Evil
-state and in any buffer and in the minibuffer.
+The choice of `fd` was made to be able to use the same sequence to escape from
+"everything" in Emacs:
+- escape from all evil states to normal state
+- escape from evil-lisp-state to normal state
+- abort evil ex command
+- quit minibuffer
+- abort isearch
+- quit magit buffers
+- quit help buffers
+- hide neotree buffer
 
 This sequence can be customized in your `~/.spacemacs`, for instance to
-revert back to the popular configuration using `jj` (not recommended) add this
-to your file:
+revert back to the popular configuration using `jj` (just for the example
+it is not recommended) add this to your `config` function:
 
 ```elisp
-(defun dotspacemacs/init ()
-  "User initialization for Spacemacs. This function is called at the very startup."
-  (setq-default spacemacs-normal-state-sequence '(?j . ?j))
-  (setq-default spacemacs-normal-state-sequence-delay 0.2)
+(defun dotspacemacs/config ()
+  (setq-default evil-escape-key-sequence (kbd "jj"))
 )
 ```
 
@@ -1750,3 +1752,4 @@ developers to elisp hackers!
 [1st-clayer]: https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39
 [1st-arctile]: http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/
 [100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
+[evil-escape]: https://github.com/syl20bnr/evil-escape
