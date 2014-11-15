@@ -21,7 +21,6 @@
     elixir-mix
     elixir-mode
     ensime
-    epc
     erlang
     evil
     evil-args
