@@ -32,7 +32,10 @@ for contribution guidelines_
         - [Other describe functions](#other-describe-functions)
     - [Configuration layers](#configuration-layers)
         - [Structure](#structure)
-        - [Extensions and Packages declaration and initialization](#extensions-and-packages-declaration-and-initialization)
+        - [Extensions and Packages](#extensions-and-packages)
+            - [Declaration](#declaration)
+            - [Initialization](#initialization)
+            - [Exclusion](#exclusion)
         - [Packages synchronization (Vundle like feature)](#packages-synchronization-vundle-like-feature)
     - [Contribution layers](#contribution-layers)
         - [Adding a contribution layer](#adding-a-contribution-layer)
@@ -64,7 +67,7 @@ for contribution guidelines_
     - [Base packages](#base-packages)
         - [Evil plugins](#evil-plugins)
     - [Commands](#commands)
-        - [Return to normal mode](#return-to-normal-mode)
+        - [Escaping](#escaping)
         - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
         - [Navigating](#navigating)
             - [Point/Cursor](#pointcursor)
@@ -345,7 +348,9 @@ packages.el       | The list of packages to install and the functions to initial
 `Packages` are `ELPA` packages which can be installed from an `ELPA` compliant
 repository, and `Extensions` are generally elisp code from git submodules.
 
-### Extensions and Packages declaration and initialization
+### Extensions and Packages
+
+#### Declaration
 
 `Extensions` and `Packages` are declared in variables `<layer>-pre-extensions`,
 `<layer>-post-extensions` and `<layer>-packages` where `<layer>` is the layer
@@ -355,6 +360,18 @@ loaded after `Packages`.
 They are processed in alphabetical order so sometimes you'll have to use
 some `eval-after-load` black magic.
 
+Example:
+
+```elisp
+(defvar <layer>-packages
+  '(
+    package1
+    package2
+    )
+```
+
+#### Initialization
+
 To initialize an extension or a package `xxx`, define a function with this
 format in `extensions.el` or `packages.el`:
 
@@ -362,6 +379,24 @@ format in `extensions.el` or `packages.el`:
 (defun <layer>/init-xxx ()
    ...body
 )
+```
+
+#### Exclusion
+
+It is possible to exclude some packages from `Spacemacs` in a per layer basis.
+This is useful when a configuration layer aims to replace a stock package
+declared in the `Spacemacs` layer.
+
+To do so add the package names to exclude to the variable
+`<layer>-excluded-packages`.
+
+Example:
+
+```elisp
+(defvar <layer>-excluded-packages
+  '(
+    package1
+    )
 ```
 
 ### Packages synchronization (Vundle like feature)
@@ -733,33 +768,37 @@ They are both extended with various packages to build on their foundations.
 [evil-nerd-commenter][]                 | port of [nerdcommenter][]
 [evil-search-highlight-persist][]       | emulation of hlsearch behavior
 [evil-numbers][]                        | like C-a/C-x in vim
+[evil-args][]                           | motions and text objects for arguments
+[evil-jumper][]                         | jump list emulation
 [NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
 
 ## Commands
 
 Every sequences must be performed in `normal` mode.
 
-### Return to normal mode
+### Escaping
 
-`ESC` is the default key to return to normal mode. This is one of the main
-design flaw in Vim key bindings because the `ESC` key is very far from the
-home row.
+`Spacemacs` uses [evil-escape][] to easily switch between `insert state` and
+`normal state` with the key sequence `fd`.
 
-The popular way to avoid this is to replace `ESC` by `jj` pressed rapidly.
-Unfortunately it is pretty difficult in Emacs to keep a consistent behavior
-with this sequence (same thing with `jk` or `kj`).
-`Spacemacs` uses the sequence `fd` instead of `jj` which works in any Evil
-state and in any buffer and in the minibuffer.
+The choice of `fd` was made to be able to use the same sequence to escape from
+"everything" in Emacs:
+- escape from all evil states to normal state
+- escape from evil-lisp-state to normal state
+- abort evil ex command
+- quit minibuffer
+- abort isearch
+- quit magit buffers
+- quit help buffers
+- hide neotree buffer
 
 This sequence can be customized in your `~/.spacemacs`, for instance to
-revert back to the popular configuration using `jj` (not recommended) add this
-to your file:
+revert back to the popular configuration using `jj` (just for the example
+it is not recommended) add this to your `config` function:
 
 ```elisp
-(defun dotspacemacs/init ()
-  "User initialization for Spacemacs. This function is called at the very startup."
-  (setq-default spacemacs-normal-state-sequence '(?j . ?j))
-  (setq-default spacemacs-normal-state-sequence-delay 0.2)
+(defun dotspacemacs/config ()
+  (setq-default evil-escape-key-sequence (kbd "jj"))
 )
 ```
 
@@ -1713,6 +1752,9 @@ developers to elisp hackers!
 [vim-surround]: https://github.com/tpope/vim-surround
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [nerdcommenter]: https://github.com/scrooloose/nerdcommenter
+[evil-escape]: https://github.com/syl20bnr/evil-escape
+[evil-args]: https://github.com/wcsmith/evil-args
+[evil-jumper]: https://github.com/bling/evil-jumper
 [evil-org-mode]: https://github.com/edwtjo/evil-org-mode
 [nose]: https://github.com/nose-devs/nose/
 [nose.el]: https://github.com/syl20bnr/nose.el
