@@ -254,7 +254,9 @@ determine the state to enable when escaping from the insert state.")
           ;; make leader available in visual mode
           (define-key evil-visual-state-map (kbd "SPC") evil-leader--default-map)
           (define-key evil-motion-state-map (kbd "SPC") evil-leader--default-map)
-          (define-key evil-emacs-state-map  (kbd "SPC") evil-leader--default-map)))
+          ;; experimental: invoke leader with "jk" in insert mode
+          (when dotspacemacs-feature-toggle-leader-on-jk
+            (key-chord-define evil-insert-state-map (kbd "jk") evil-leader--default-map))))
       ;; load surround
       (use-package evil-surround
         :init (global-evil-surround-mode 1))
