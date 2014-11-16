@@ -12,6 +12,9 @@
  dotspacemacs-configuration-layers '()
  ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
  dotspacemacs-fullscreen-at-startup nil
+ ;; If non nil pressing 'jk' in insert state, ido or helm will activate the
+ ;; evil leader.
+ dotspacemacs-feature-toggle-leader-on-jk nil
  ;; A list of packages and/or extensions that will not be install and loaded.
  dotspacemacs-excluded-packages '()
  ;; The default package repository used if no explicit repository has been

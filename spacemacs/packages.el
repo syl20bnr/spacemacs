@@ -254,7 +254,9 @@ determine the state to enable when escaping from the insert state.")
           ;; make leader available in visual mode
           (define-key evil-visual-state-map (kbd "SPC") evil-leader--default-map)
           (define-key evil-motion-state-map (kbd "SPC") evil-leader--default-map)
-          (define-key evil-emacs-state-map  (kbd "SPC") evil-leader--default-map)))
+          ;; experimental: invoke leader with "jk" in insert mode
+          (when dotspacemacs-feature-toggle-leader-on-jk
+            (key-chord-define evil-insert-state-map (kbd "jk") evil-leader--default-map))))
       ;; load surround
       (use-package evil-surround
         :init (global-evil-surround-mode 1))
@@ -1315,6 +1317,21 @@ determine the state to enable when escaping from the insert state.")
       (define-key helm-map (kbd "C-k") 'helm-previous-line)
       (define-key helm-map (kbd "C-h") 'helm-next-source)
       (define-key helm-map (kbd "C-l") 'helm-previous-source)
+      ;; experimental: toggle evil-leader with "jk" with helm specific commands
+      (when dotspacemacs-feature-toggle-leader-on-jk
+        (evil-leader/set-key-for-mode 'helm-mode
+          "1" (lambda () (interactive) (helm-select-nth-action 0))
+          "2" (lambda () (interactive) (helm-select-nth-action 1))
+          "3" (lambda () (interactive) (helm-select-nth-action 2))
+          "4" (lambda () (interactive) (helm-select-nth-action 3))
+          "5" (lambda () (interactive) (helm-select-nth-action 4))
+          "6" (lambda () (interactive) (helm-select-nth-action 5))
+          "7" (lambda () (interactive) (helm-select-nth-action 6))
+          "8" (lambda () (interactive) (helm-select-nth-action 7))
+          "9" (lambda () (interactive) (helm-select-nth-action 8))
+          "0" (lambda () (interactive) (helm-select-nth-action 9))
+          "a" 'helm-select-action)
+        (key-chord-define helm-map (kbd "jk") (cdr (assoc 'helm-mode evil-leader--mode-maps))))
       (eval-after-load "helm-mode" ; required
         '(spacemacs//hide-lighter helm-mode)))))
 
@@ -1403,13 +1420,33 @@ determine the state to enable when escaping from the insert state.")
         (define-key ido-completion-map (kbd "C-l") 'ido-exit-minibuffer)
         (define-key ido-completion-map (kbd "C-S-j") 'ido-next-match-dir)
         (define-key ido-completion-map (kbd "C-S-k") 'ido-prev-match-dir)
+        ;; history navigation
+        (define-key ido-completion-map (kbd "C-n") 'next-history-element)
+        (define-key ido-completion-map (kbd "C-p") 'previous-history-element)
+        ;; ido-other window maps
+        (define-key ido-completion-map (kbd "C-x") 'ido-invoke-in-other-window)
+        (define-key ido-completion-map (kbd "C-v") 'ido-invoke-in-vertical-split)
+        (define-key ido-completion-map (kbd "C-b") 'ido-invoke-in-horizontal-split)
+        (define-key ido-completion-map (kbd "C-t") 'ido-invoke-in-new-frame)
         ;; more natural navigation keys: up, down to change current item
         ;; left to go up dir
         ;; right to open the selected item
         (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
         (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
-        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)))))
+        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)))
+    :config
+    (progn
+      ;; experimental: press "jk" to trigger evil-leader with ido-mode specific
+      ;; commands
+      (when dotspacemacs-feature-toggle-leader-on-jk
+        (evil-leader/set-key-for-mode 'ido-mode
+          "b" 'ido-invoke-in-horizontal-split
+          "t" 'ido-invoke-in-new-frame
+          "v" 'ido-invoke-in-vertical-split
+          "x" 'ido-invoke-in-other-window)
+        (key-chord-define ido-file-completion-map (kbd "jk")
+                          (cdr (assoc 'ido-mode evil-leader--mode-maps)))))))
 
 (defun spacemacs/init-js2-mode ()
   (use-package js2-mode
@@ -1895,5 +1932,6 @@ determine the state to enable when escaping from the insert state.")
           (coffee-insert-spaces (coffee-previous-indent)))
         )
       ;; indent to right position after `evil-open-blow' and `evil-open-above'
-      (add-hook 'coffee-mode-hook '(lambda () (setq indent-line-function 'spacemacs/coffee-indent)))
-      )))
+      (add-hook 'coffee-mode-hook '(lambda ()
+                                     (setq indent-line-function 'spacemacs/coffee-indent
+                                           evil-shift-width coffee-tab-width))))))

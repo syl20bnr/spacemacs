@@ -65,6 +65,10 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
 (defvar dotspacemacs-fullscreen-at-startup nil
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).")
 
+(defvar dotspacemacs-feature-toggle-leader-on-jk nil
+  "If non nil pressing 'jk' in insert state, ido or helm will activate the
+evil leader.")
+
 (defvar dotspacemacs-default-package-repository 'melpa-stable
   "The default package repository used if no explicit repository has been
 specified with an installed package.
@@ -190,7 +194,7 @@ spacemacs-all-post-extensions "
            (dir (plist-get (cdr layer) :dir))
            (pkg-file (concat dir "packages.el"))
            (ext-file (concat dir "extensions.el")))
-      (progn 
+      (progn
         ;; packages
         (when (file-exists-p pkg-file)
           (load pkg-file)
