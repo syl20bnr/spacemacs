@@ -333,7 +333,7 @@ argument takes the kindows rotate backwards."
 (defun find-dotfile ()
   "Edit the `dotfile', in the current window."
   (interactive)
-  (find-file-existing contribsys/dotfile-location))
+  (find-file-existing (contribsys/dotfile-location)))
 
 (defun find-spacemacs-file ()
   (interactive)
