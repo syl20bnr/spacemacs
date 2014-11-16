@@ -1317,6 +1317,21 @@ determine the state to enable when escaping from the insert state.")
       (define-key helm-map (kbd "C-k") 'helm-previous-line)
       (define-key helm-map (kbd "C-h") 'helm-next-source)
       (define-key helm-map (kbd "C-l") 'helm-previous-source)
+      ;; experimental: toggle evil-leader with "jk" with helm specific commands
+      (when dotspacemacs-feature-toggle-leader-on-jk
+        (evil-leader/set-key-for-mode 'helm-mode
+          "1" (lambda () (interactive) (helm-select-nth-action 0))
+          "2" (lambda () (interactive) (helm-select-nth-action 1))
+          "3" (lambda () (interactive) (helm-select-nth-action 2))
+          "4" (lambda () (interactive) (helm-select-nth-action 3))
+          "5" (lambda () (interactive) (helm-select-nth-action 4))
+          "6" (lambda () (interactive) (helm-select-nth-action 5))
+          "7" (lambda () (interactive) (helm-select-nth-action 6))
+          "8" (lambda () (interactive) (helm-select-nth-action 7))
+          "9" (lambda () (interactive) (helm-select-nth-action 8))
+          "0" (lambda () (interactive) (helm-select-nth-action 9))
+          "a" 'helm-select-action)
+        (key-chord-define helm-map (kbd "jk") (cdr (assoc 'helm-mode evil-leader--mode-maps))))
       (eval-after-load "helm-mode" ; required
         '(spacemacs//hide-lighter helm-mode)))))
 
