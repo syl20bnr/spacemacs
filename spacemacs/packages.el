@@ -1895,5 +1895,6 @@ determine the state to enable when escaping from the insert state.")
           (coffee-insert-spaces (coffee-previous-indent)))
         )
       ;; indent to right position after `evil-open-blow' and `evil-open-above'
-      (add-hook 'coffee-mode-hook '(lambda () (setq indent-line-function 'spacemacs/coffee-indent)))
-      )))
+      (add-hook 'coffee-mode-hook '(lambda ()
+                                     (setq indent-line-function 'spacemacs/coffee-indent
+                                           evil-shift-width coffee-tab-width))))))
