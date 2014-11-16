@@ -71,11 +71,13 @@ for contribution guidelines_
         - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
         - [Navigating](#navigating)
             - [Point/Cursor](#pointcursor)
+                - [Experimental insert state feature](#experimental-insert-state-feature)
             - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
             - [Window manipulation](#window-manipulation)
                 - [Golden ratio](#golden-ratio)
             - [Buffers and Files](#buffers-and-files)
             - [Ido](#ido)
+                - [Experimental Ido feature](#experimental-ido-feature)
             - [NeoTree file tree](#neotree-file-tree)
             - [Bookmarks](#bookmarks)
         - [Searching](#searching)
@@ -108,6 +110,7 @@ for contribution guidelines_
         - [Errors handling](#errors-handling)
         - [Modes](#modes)
             - [Helm](#helm)
+                - [Experimental Helm feature](#experimental-helm-feature)
             - [Erlang](#erlang)
             - [Ledger](#ledger)
             - [Org](#org)
@@ -118,6 +121,8 @@ for contribution guidelines_
     - [Tips](#tips)
         - [Tips for Emacs users](#tips-for-emacs-users)
         - [Tips for Spacemacs advanced users](#tips-for-spacemacs-advanced-users)
+            - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
+            - ["jk" to trigger evil leader](#jk-to-trigger-evil-leader)
     - [Contributors Achievements](#contributors-achievements)
     - [Thank you](#thank-you)
 
@@ -826,6 +831,12 @@ Key Binding |                 Description
 `<SPC> j l` | go to the end of line (and set a mark at the previous location in the line)
 `<SPC> z z` | lock the cursor at the center of the screen
 
+##### Experimental insert state feature
+
+If `dotspacemacs-feature-toggle-leader-on-jk` is non nil, pressing `jk` while
+in `insert state` will trigger the evil leader as if you pressed `<SPC>` in
+normal mode.
+
 #### Vim motions with ace-jump mode
 
 `Spacemacs` uses the `evil` integration of [ace-jump mode][ace-jump] which
@@ -938,15 +949,34 @@ Basic `ido` operations can be done with `Ctrl` key:
 
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
-`C-d`         | delete selected file (ask for confirmation)
-`C-k`         | select previous file or directory
 `C-<return>`  | open a `dired buffer`
+`C-b`         | open selected file in a horizontally split window
+`C-d`         | delete selected file (ask for confirmation)
 `C-h`         | go to parent directory
 `C-j`         | select next file or directory
-`C-l`         | open the selected file
 `C-S-j`       | go to next directory
+`C-k`         | select previous file or directory
 `C-S-k`       | go to previous directory
+`C-l`         | open the selected file
+`C-n`         | next history element
+`C-p`         | previous history element
+`C-t`         | open selected file in a new frame
+`C-v`         | open selected file in a vertically split window
+`C-x`         | open selected file in other window
 
+##### Experimental Ido feature
+
+If `dotspacemacs-feature-toggle-leader-on-jk` is non nil, pressing `jk` while
+in `ido` minibuffer will trigger the evil leader.
+
+When evil leader is triggered the following commands are available:
+
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
+`b`           | open selected file in a horizontally split window
+`t`           | open selected file in a new frame
+`v`           | open selected file in a vertically split window
+`x`           | open selected file in other window
 
 #### NeoTree file tree
 
@@ -1526,6 +1556,27 @@ the current `major mode`.
 `CTRL+k`          | go to next item
 `CTRL+l`          | go to next page
 
+##### Experimental Helm feature
+
+If `dotspacemacs-feature-toggle-leader-on-jk` is non nil, pressing `jk` while
+in `helm` buffer will trigger the evil leader.
+
+When evil leader is triggered the following commands are available:
+
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
+`1`           | execute action 0
+`2`           | execute action 1
+`3`           | execute action 2
+`4`           | execute action 3
+`5`           | execute action 4
+`6`           | execute action 5
+`7`           | execute action 6
+`8`           | execute action 7
+`9`           | execute action 8
+`0`           | execute action 9
+`a`           | toggle action selection menu
+
 #### Erlang
 
 `Spacemacs` uses [EDTS][edts] as an Erlang coding environment.
@@ -1637,13 +1688,31 @@ This function is called at the very end of Spacemacs initialization."
 
 ### Tips for Spacemacs advanced users
 
-1) To Make `lisp state` the default state in `Emacs Lisp` buffers, insert in
+#### evil-lisp-state as default state
+
+To Make `lisp state` the default state in `Emacs Lisp` buffers, insert in
 your `~/.spacemacs` the following snippet:
 
 ```elisp
 (defun dotspacemacs/config ()
   (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
 ```
+
+#### "jk" to trigger evil leader
+
+It is possible to activate an experimental feature which allows to trigger the
+evil leader in `insert state`, in `ido` minibuffer and in `helm` buffers.
+
+To activate it, set `dotspacemacs-feature-toggle-leader-on-jk` to `t`.
+
+```elisp
+(setq-default dotspacemacs-feature-toggle-leader-on-jk t)
+```
+
+More info on this feature:
+- [insert state](#experimental-insert-state-feature)
+- [helm](#experimental-helm-feature)
+- [ido](#experimental-ido-feature)
 
 ## Contributors Achievements
 
