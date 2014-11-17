@@ -4,25 +4,6 @@
 (defvar spacemacs-min-version "24.3"
   "Mininal required version of Emacs.")
 
-(define-derived-mode spacemacs-mode special-mode "spacemacs-mode"
-  "Spacemacs major mode for startup screen."
-  :syntax-table nil
-  :abbrev-table nil
-  (setq truncate-lines t)
-  (setq cursor-type nil)
-  ;; no welcome buffer
-  (setq inhibit-startup-screen t)
-  ;; motion state since this is a special mode
-  (eval-after-load 'evil
-    '(add-to-list 'evil-motion-state-modes 'spacemacs-mode)))
-
-(defun spacemacs/emacs-version-ok ()
-  (not (version< emacs-version spacemacs-min-version)))
-
-(defun display-startup-echo-area-message ()
-  "Change the default welcome message of minibuffer to another one."
-  (message "Spacemacs is ready."))
-
 (defvar spacemacs-title-length 70)
 (defvar spacemacs-loading-counter 0)
 (defvar spacemacs-loading-text "Loading")
@@ -35,6 +16,81 @@
 (defvar spacemacs-loading-dots-chunk-size
   (/ spacemacs-loading-dots-count spacemacs-loading-dots-chunk-count))
 (defvar spacemacs-loading-dots-chunk-threshold 0)
+(defvar spacemacs-solarized-dark-createdp nil)
+
+(define-derived-mode spacemacs-mode special-mode "spacemacs-mode"
+  "Spacemacs major mode for startup screen."
+  :syntax-table nil
+  :abbrev-table nil
+  (setq truncate-lines t)
+  (setq cursor-type nil)
+  ;; no welcome buffer
+  (setq inhibit-startup-screen t)
+  ;; load the default theme manually to give a smooth startup experience
+  (spacemacs/load-or-install-package 'dash)
+  (add-to-list 'load-path "~/.emacs.d/spacemacs/extensions/solarized-theme/")
+  (require 'solarized)
+  (deftheme solarized-dark "The dark variant of the Solarized colour theme")
+  (deftheme solarized-light "The light variant of the Solarized colour theme")
+  (create-solarized-theme 'light 'solarized-light)
+  ;; font
+  ;; Dynamic font size depending on the system
+  (let ((font "Source Code Pro"))
+    (when (member font (font-family-list))
+      (pcase window-system
+        (`x (spacemacs/set-font font 10))
+        (`mac (spacemacs/set-font font 12))
+        (`w32 (spacemacs/set-font font 9))
+        (other (spacemacs/set-font font 10)))))
+  ;; edit area full screen
+  (tool-bar-mode -1)
+  (when (not (eq window-system 'mac))
+    (menu-bar-mode -1))
+  (scroll-bar-mode -1)
+  ;; motion state since this is a special mode
+  (eval-after-load 'evil
+    '(add-to-list 'evil-motion-state-modes 'spacemacs-mode)))
+
+(defun spacemacs/load-or-install-package (pkg)
+  "Load PKG package. PKG will be installed if it is not already
+installed."
+  (condition-case nil
+      (require pkg)
+    (error
+     ;; not installed, we try to initialize package.el only if required to
+     ;; precious seconds during boot time
+     (require 'cl)
+     (let* ((elpa-dir (concat user-emacs-directory "elpa/"))
+            (pkg-elpa-dir
+             (if (file-exists-p elpa-dir)
+                 (reduce (lambda (x y) (if x x y))
+                         (mapcar (lambda (x)
+                                   (if (string-match (symbol-name pkg) x) x))
+                                 (directory-files elpa-dir))
+                         :initial-value nil))))
+       (if pkg-elpa-dir
+           (add-to-list 'load-path (concat user-emacs-directory "elpa/"
+                                           pkg-elpa-dir))
+         ;; install the package
+         (contribsys/package.el-initialize)
+         (package-refresh-contents)
+         (package-install pkg))
+       (require pkg)))))
+
+(defun spacemacs/emacs-version-ok ()
+  (not (version< emacs-version spacemacs-min-version)))
+
+(defun display-startup-echo-area-message ()
+  "Change the default welcome message of minibuffer to another one."
+  (message "Spacemacs is ready."))
+
+(defun spacemacs/set-font (font size &optional options)
+  (let* ((fontstr (if options
+                       (format "%s-%s:%s" font size options)
+                     (format "%s-%s" font size))))
+    (message (format "Set default font: %s" fontstr))
+    (add-to-list 'default-frame-alist (cons 'font fontstr))
+    (set-default-font fontstr)))
 
 (defun spacemacs/buffer ()
   "Create and initialize the spacemacs startup buffer."

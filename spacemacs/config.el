@@ -22,17 +22,9 @@
 ;; Edit
 ;; ---------------------------------------------------------------------------
 
-;; set the 2 keys sequence to return to normal state
-;; default is "fd"
-(defvar spacemacs-normal-state-sequence '(?f . ?d)
-  "Two keys sequence to return to normal state.")
-(defvar spacemacs-normal-state-sequence-delay 0.2
-  "Maximum delay between the two keys to trigger the normal state.")
 ;; start scratch in text mode (usefull to get a faster Emacs load time
 ;; because it avoids autoloads of elisp modes)
 (setq initial-major-mode 'text-mode)
-;; font size
-;;(set-face-attribute 'default nil :height 110)
 ;; whitespace-mode
 (setq-default show-trailing-whitespace nil)
 ;; When point is on paranthesis, highlight the matching one
@@ -52,11 +44,6 @@
            (lambda () (setq mode-name "Elisp")))
 ;; important for golden-ratio to better work
 (setq window-combination-resize t)
-;; edit area full screen
-(tool-bar-mode -1)
-(when (not (eq window-system 'mac)) 
-  (menu-bar-mode -1))
-(scroll-bar-mode -1)
 ;; fringes
 (setq-default fringe-indicator-alist
               '((truncation . nil) (continuation . nil)))
@@ -73,16 +60,6 @@
 (setq tooltip-use-echo-area t)
 ;; When emacs asks for "yes" or "no", let "y" or "n" sufficide
 (fset 'yes-or-no-p 'y-or-n-p)
-;; font
-;; (set-default-font "DejaVu Sans Mono-10")
-;; Dynamic font size depending on the system
-(let ((font "Source Code Pro"))
-  (when (member font (font-family-list))
-    (pcase window-system
-      (`x (spacemacs/set-font font 10))
-      (`mac (spacemacs/set-font font 12))
-      (`w32 (spacemacs/set-font font 9))
-      (other (spacemacs/set-font font 10)))))
 ;; draw underline lower
 (setq x-underline-at-descent-line t)
 ;; setup right and left margins
@@ -239,4 +216,3 @@
 (defun server-remove-kill-buffer-hook ()
   (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function))
 (add-hook 'server-visit-hook 'server-remove-kill-buffer-hook)
-
