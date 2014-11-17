@@ -1222,21 +1222,18 @@ Key Binding   |                 Description
 
 #### Line formatting
 
-`Spacemacs` replaces the default `J` Vi key binding (join current line with next
-line) by a slightly more frequent action which is to `go to the line below point
-and indent it`.
-
-Join lines can still be performed with `<SPC> j k`
+`Spacemacs` performs `go to the line below point and indent it`  with `<SPC> j k`. 
+You may repeat this operation with `evil-repeat` if you need to indent many lines.
 
 Line formatting commands start with `j`:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`J`               | go to next line and indent it using auto-indent rules
-`<SPC> j j`       | same as `J` but will split the current line at point
+`J`               | join the current line with the next line
+`<SPC> j j`       | same as `<SPC> j k` but will split the current line at point
 `<SPC> J`         | split a quoted string or s-expression in place
 `<SPC> j J`       | split a quoted string or s-expression and auto-indent
-`<SPC> j k`       | join the current line with the next line
+`<SPC> j k`       | go to next line and indent it using auto-indent rules
 
 Used together these key bindings are very powerful to quickly reformat the code.
 
