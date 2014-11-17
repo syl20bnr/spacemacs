@@ -12,6 +12,10 @@
  dotspacemacs-configuration-layers '()
  ;; If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only)
  dotspacemacs-fullscreen-at-startup nil
+ ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
+ ;; overrides the default behavior of Emacs which recenters the point when
+ ;; it reaches the top or bottom of the screen
+ dotspacemacs-smooth-scrolling t
  ;; If non nil pressing 'jk' in insert state, ido or helm will activate the
  ;; evil leader.
  dotspacemacs-feature-toggle-leader-on-jk nil

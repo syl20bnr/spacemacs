@@ -79,7 +79,7 @@
       (add-hook 'after-init-hook 'emacs-load-layout t))))
 
 (defun spacemacs/init-smooth-scrolling ()
-  (unless (system-is-mswindows)
+  (when dotspacemacs-smooth-scrolling
     (use-package smooth-scrolling
       :init
       (progn)
