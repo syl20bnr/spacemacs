@@ -67,6 +67,14 @@ the current state and point position."
   (save-excursion
     (evil-save-state (evil-open-above count))))
 
+(defun evil-goto-next-line-and-indent (&optional count)
+  (interactive "p")
+  (let ((counter (or count 1)))
+    (while (> counter 0)
+      (join-line 1)
+      (sp-newline)
+      (setq counter (1- counter)))))
+
 ;; from magnars
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
@@ -459,7 +467,7 @@ Adapted from `flyspell-correct-word-before-point'."
                                                                                    "Default"))
                                                    :must-match t
                                                    :alistp t)
- 
+
                                    poss word cursor-location start end opoint)))
             (ispell-pdict-save t)))))
 
@@ -531,7 +539,7 @@ kill internal buffers too."
   " Fill the line with CHAR up to the given COLUMN"
   (interactive "cFill with char: \nnUp to column: "
                char column)
-  
+
 )
 
 (defun toggle-fullscreen ()
