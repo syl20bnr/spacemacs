@@ -620,3 +620,11 @@ otherwise it is scaled down."
 (defmacro spacemacs//hide-lighter (mode)
   "Diminish MODE name in mode line to LIGHTER."
   `(eval-after-load 'diminish '(diminish ',mode)))
+
+(defun disable-electric-indent-mode ()
+  (if (fboundp 'electric-indent-local-mode)
+      ;; for 24.4
+      (electric-indent-local-mode -1)
+    ;; for 24.3
+    (add-hook 'electric-indent-functions
+              (lambda () 'no-indent) nil 'local)))

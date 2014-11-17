@@ -32,6 +32,8 @@
 ;; use only spaces and no tabs
 (setq-default indent-tabs-mode nil)
 (setq default-tab-width 2)
+;; turn on electric-indent-mode for both 24.3 and 24.4
+(electric-indent-mode)
 ;; Text
 (setq longlines-show-hard-newlines t)
 
