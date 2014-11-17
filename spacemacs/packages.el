@@ -1451,19 +1451,16 @@ determine the state to enable when escaping from the insert state.")
         (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
         (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
-        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)))
-    :config
-    (progn
-      ;; experimental: press "jk" to trigger evil-leader with ido-mode specific
-      ;; commands
-      (when dotspacemacs-feature-toggle-leader-on-jk
-        (evil-leader/set-key-for-mode 'ido-mode
-          "b" 'ido-invoke-in-horizontal-split
-          "t" 'ido-invoke-in-new-frame
-          "v" 'ido-invoke-in-vertical-split
-          "x" 'ido-invoke-in-other-window)
-        (key-chord-define ido-file-completion-map (kbd "jk")
-                          (cdr (assoc 'ido-mode evil-leader--mode-maps)))))))
+        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
+        (when dotspacemacs-feature-toggle-leader-on-jk
+          (evil-leader/set-key-for-mode 'ido-mode
+            "b" 'ido-invoke-in-horizontal-split
+            "t" 'ido-invoke-in-new-frame
+            "v" 'ido-invoke-in-vertical-split
+            "x" 'ido-invoke-in-other-window)
+          (key-chord-define ido-completion-map (kbd "jk")
+                            (cdr (assoc 'ido-mode evil-leader--mode-maps)))))
+      )))
 
 (defun spacemacs/init-js2-mode ()
   (use-package js2-mode
