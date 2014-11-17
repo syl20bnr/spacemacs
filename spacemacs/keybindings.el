@@ -84,7 +84,7 @@
   "J" 'sp-split-sexp
   "jJ" (lambda () (interactive) (sp-split-sexp 1) (sp-newline))
   "jj" 'sp-newline
-  "jk" (lambda () (interactive) (join-line 1) (sp-newline)))
+  "jk" 'evil-goto-next-line-and-indent)
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key
   "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line))
