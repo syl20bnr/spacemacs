@@ -683,7 +683,7 @@ determine the state to enable when escaping from the insert state.")
            "srd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
            "srf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
            "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
-           "ts" 'auto-highlight-symbol-mode))
+           "th" 'auto-highlight-symbol-mode))
       (spacemacs//hide-lighter auto-highlight-symbol-mode)
       ;; micro-state to easily jump from a highlighted symbol to the others
       (dolist (sym '(ahs-forward

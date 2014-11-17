@@ -1052,7 +1052,7 @@ Key Binding   |                 Description
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
 `<SPC> s e`   | edit all occurrences of the current symbol
-`<SPC> t s`   | toggle the auto highlighting
+`<SPC> t h`   | toggle the auto highlighting
 
 Navigation between the highlighted symbols can be done with the commands:
 
