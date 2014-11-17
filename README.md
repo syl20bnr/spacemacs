@@ -71,6 +71,7 @@ for contribution guidelines_
         - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
         - [Navigating](#navigating)
             - [Point/Cursor](#pointcursor)
+                - [Smooth scrolling](#smooth-scrolling)
                 - [Experimental insert state feature](#experimental-insert-state-feature)
             - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
             - [Window manipulation](#window-manipulation)
@@ -830,6 +831,18 @@ Key Binding |                 Description
 `<SPC> j h` | go to the beginning of line (and set a mark at the previous location in the line)
 `<SPC> j l` | go to the end of line (and set a mark at the previous location in the line)
 `<SPC> z z` | lock the cursor at the center of the screen
+
+##### Smooth scrolling
+
+[smooth-scrolling]() prevent the point to jump when it reaches the top or
+bottom of the screen. It is enabled by default.
+
+Key Binding |                 Description
+------------|------------------------------------------------------------------
+`<SPC> t s` | toggle smooth scrolling
+
+**Note:** On Windows this mode is disabled by default because of the poor
+performance of the display engine on this OS.
 
 ##### Experimental insert state feature
 

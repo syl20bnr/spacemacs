@@ -16,6 +16,7 @@
     evil-plugins
     helm-rcirc
     o-blog
+    smooth-scrolling
     spray
     ))
 
@@ -76,6 +77,15 @@
       ;; save and restore layout
       (add-hook 'kill-emacs-hook 'emacs-save-layout)
       (add-hook 'after-init-hook 'emacs-load-layout t))))
+
+(defun spacemacs/init-smooth-scrolling ()
+  (unless (system-is-mswindows)
+    (use-package smooth-scrolling
+      :init
+      (progn)
+      (setq scroll-margin 5
+            scroll-conservatively 9999
+            scroll-step 1))))
 
 (defun spacemacs/init-spray ()
   (use-package spray
