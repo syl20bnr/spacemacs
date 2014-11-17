@@ -2,6 +2,7 @@
 (defconst spacemacs-core-directory
   (expand-file-name (concat user-emacs-directory "core/"))
   "Spacemacs core directory.")
+(load (concat spacemacs-core-directory "contribsys.el"))
 (load (concat spacemacs-core-directory "spacemacs-mode.el"))
 (spacemacs/buffer)
 
@@ -31,7 +32,7 @@
     "Dropbox directory.")
   ;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
   (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
-  (load (concat spacemacs-core-directory "contribsys.el"))
+  (contribsys/package.el-initialize)
   ;; User configuration file for Spacemacs: ~/.spacemacs
   (contribsys/load-dotfile)
   (contribsys/call-dotfile-func dotspacemacs/init)

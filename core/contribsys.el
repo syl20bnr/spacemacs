@@ -1,19 +1,4 @@
 ;; Spacemacs Contribution System
-(require 'package)
-(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")))
-(package-initialize)
-(setq warning-minimum-level :error)
-
-;; Emacs 24.3 and above ships with python.el but in some Emacs 24.3.1 packages
-;; for Ubuntu, python.el seems to be missing.
-;; This hack adds marmalade repository for this case only.
-(unless (or (package-installed-p 'python) (version< emacs-version "24.3"))
-  (add-to-list 'package-archives
-               '("marmalade" . "http://marmalade-repo.org/packages/")))
-
-(load (concat spacemacs-core-directory "ht.el"))
 
 (defconst spacemacs-dotspacemacs-version "1.0"
   "Minimum Version exepected for ~/.spacemacs file.")
@@ -77,6 +62,23 @@ NOT USED FOR NOW :-)"
 
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")
+
+(defun contribsys/package.el-initialize ()
+  "Initialize package.el"
+  (require 'package)
+  (unless package--initialized
+    (load (concat spacemacs-core-directory "ht.el"))
+    (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
+                             ("gnu" . "http://elpa.gnu.org/packages/")
+                             ("melpa" . "http://melpa.org/packages/")))
+    (package-initialize)
+    ;; Emacs 24.3 and above ships with python.el but in some Emacs 24.3.1 packages
+    ;; for Ubuntu, python.el seems to be missing.
+    ;; This hack adds marmalade repository for this case only.
+    (unless (or (package-installed-p 'python) (version< emacs-version "24.3"))
+      (add-to-list 'package-archives
+                   '("marmalade" . "http://marmalade-repo.org/packages/")))
+    (setq warning-minimum-level :error)))
 
 (defun contribsys/dotfile-location ()
   "Return the absolute path to the spacemacs dotfile."

@@ -51,6 +51,49 @@
   (interactive)
   (string-equal system-type "windows-nt"))
 
+;; From http://stackoverflow.com/a/18796138
+;; Cycle through this set of themes
+(defvar spacemacs-themes '(solarized-light
+                           solarized-dark
+                           monokai
+                           zenburn)
+  "Themes officially supported by spacemacs.")
+(defvar spacemacs-cur-theme (pop spacemacs-themes)
+  "Current spacemacs theme.")
+
+(defun spacemacs/cycle-spacemacs-theme ()
+  "Cycle through themes defined in spacemacs-themes."
+  (interactive)
+  (when  spacemacs-cur-theme
+    (disable-theme  spacemacs-cur-theme)
+    (setq spacemacs-themes (append spacemacs-themes
+                                   (list spacemacs-cur-theme))))
+  (setq  spacemacs-cur-theme (pop spacemacs-themes))
+  (message "Loading theme %s..." spacemacs-cur-theme)
+  (load-theme spacemacs-cur-theme t))
+
+(defadvice load-theme (around spacemacs/load-theme-adv activate)
+  "Perform post load processing."
+  (let ((theme (ad-get-arg 0)))
+    (if (and spacemacs-solarized-dark-createdp
+             (eq 'solarized-dark theme))
+        (create-solarized-theme 'dark 'solarized-dark))
+    ad-do-it
+    (setq spacemacs-cur-theme theme)
+    (spacemacs/post-theme-init theme)))
+
+(defun spacemacs/post-theme-init (theme)
+  " Some processing that needs to be done when the current theme has been
+changed to THEME."
+  (interactive)
+      ;; Define a face for each state
+  (if (fboundp 'spacemacs/set-state-faces)
+      (spacemacs/set-state-faces))
+  (if (fboundp 'spacemacs/set-flycheck-mode-line-faces)
+      (spacemacs/set-flycheck-mode-line-faces))
+  (if (fboundp 'powerline-reset)
+      (powerline-reset)))
+
 ;; insert one or several line below without changing current evil state
 (defun evil-insert-line-below (count)
   "Insert one of several lines below the current point's line without changing
@@ -66,6 +109,14 @@ the current state and point position."
   (interactive "p")
   (save-excursion
     (evil-save-state (evil-open-above count))))
+
+(defun evil-goto-next-line-and-indent (&optional count)
+  (interactive "p")
+  (let ((counter (or count 1)))
+    (while (> counter 0)
+      (join-line 1)
+      (sp-newline)
+      (setq counter (1- counter)))))
 
 ;; from magnars
 (defun eval-and-replace ()
@@ -290,7 +341,7 @@ argument takes the kindows rotate backwards."
 (defun find-dotfile ()
   "Edit the `dotfile', in the current window."
   (interactive)
-  (find-file-existing contribsys/dotfile-location))
+  (find-file-existing (contribsys/dotfile-location)))
 
 (defun find-spacemacs-file ()
   (interactive)
@@ -301,41 +352,6 @@ argument takes the kindows rotate backwards."
   (interactive)
   "Edit the `file' in the spacemacs base directory, in the current window."
   (ido-find-file-in-dir spacemacs-contrib-config-directory))
-
-;; From http://stackoverflow.com/a/18796138
-;; Cycle through this set of themes
-(setq spacemacs-themes '(solarized-light
-                         solarized-dark
-                         monokai
-                         zenburn))
-(defvar spacemacs-cur-theme (pop spacemacs-themes))
-(defun spacemacs/cycle-spacemacs-theme ()
-  "Cycle through themes defined in spacemacs-themes."
-  (interactive)
-  (when  spacemacs-cur-theme
-    (disable-theme  spacemacs-cur-theme)
-    (setq spacemacs-themes (append spacemacs-themes
-                                   (list spacemacs-cur-theme))))
-  (setq  spacemacs-cur-theme (pop spacemacs-themes))
-  (message "Loading theme %s..." spacemacs-cur-theme)
-  (load-theme spacemacs-cur-theme t))
-
-(defadvice load-theme (after spacemacs/load-theme-adv activate)
-  "Perform post load processing."
-  (setq spacemacs-cur-theme (ad-get-arg 0))
-  (spacemacs/post-theme-init spacemacs-cur-theme))
-
-(defun spacemacs/post-theme-init (theme)
-  " Some processing that needs to be done when the current theme has been
-changed to THEME."
-  (interactive)
-      ;; Define a face for each state
-  (if (fboundp 'spacemacs/set-state-faces)
-      (spacemacs/set-state-faces))
-  (if (fboundp 'spacemacs/set-flycheck-mode-line-faces)
-      (spacemacs/set-flycheck-mode-line-faces))
-  (if (fboundp 'powerline-reset)
-      (powerline-reset)))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function
@@ -459,7 +475,7 @@ Adapted from `flyspell-correct-word-before-point'."
                                                                                    "Default"))
                                                    :must-match t
                                                    :alistp t)
- 
+
                                    poss word cursor-location start end opoint)))
             (ispell-pdict-save t)))))
 
@@ -531,7 +547,7 @@ kill internal buffers too."
   " Fill the line with CHAR up to the given COLUMN"
   (interactive "cFill with char: \nnUp to column: "
                char column)
-  
+
 )
 
 (defun toggle-fullscreen ()
@@ -547,14 +563,6 @@ kill internal buffers too."
      nil 'fullscreen
      (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))
    ))
-
-(defun spacemacs/set-font (font size &optional options)
-  (let* ((fontstr (if options
-                       (format "%s-%s:%s" font size options)
-                     (format "%s-%s" font size))))
-    (message (format "Set default font: %s" fontstr))
-    (add-to-list 'default-frame-alist (cons 'font fontstr))
-    (set-default-font fontstr)))
 
 (defun spacemacs/scale-font-size-overlay-map ()
   "Set a temporary overlay map to easily change the font size."
