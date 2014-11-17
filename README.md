@@ -837,12 +837,12 @@ Key Binding |                 Description
 [smooth-scrolling]() prevent the point to jump when it reaches the top or
 bottom of the screen. It is enabled by default.
 
-Key Binding |                 Description
-------------|------------------------------------------------------------------
-`<SPC> t s` | toggle smooth scrolling
+On Windows, you may want to disable it. To disable the smooth scrolling set
+the `dotspacemacs-smooth-scrolling` variable in your `~/.spacemacs` to `nil`:
 
-**Note:** On Windows this mode is disabled by default because of the poor
-performance of the display engine on this OS.
+```elisp
+(setq-default dotspacemacs-smooth-scrolling t)
+```
 
 ##### Experimental insert state feature
 

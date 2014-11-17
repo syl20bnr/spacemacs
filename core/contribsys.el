@@ -50,6 +50,11 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
 (defvar dotspacemacs-fullscreen-at-startup nil
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).")
 
+(defvar dotspacemacs-smooth-scrolling t
+  "If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
+overrides the default behavior of Emacs which recenters the point when
+it reaches the top or bottom of the screen.")
+
 (defvar dotspacemacs-feature-toggle-leader-on-jk nil
   "If non nil pressing 'jk' in insert state, ido or helm will activate the
 evil leader.")
