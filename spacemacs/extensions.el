@@ -4,7 +4,6 @@
 (defvar spacemacs-pre-extensions
   '(
     use-package
-    solarized-theme
     ))
 
 ;; Post extensions are loaded *after* the packages
@@ -99,20 +98,3 @@
           (spray-quit)
           (set-default-evil-insert-state-cursor)
           (evil-normal-state))))))
-
-;; solarized theme dependencies
-(unless (package-installed-p 'dash)
-  (package-refresh-contents)
-  (package-install 'dash))
-(defun spacemacs/init-solarized-theme ()
-  ;; different method used than the documented one in order to speed up the
-  ;; loading of emacs
-  (use-package solarized
-    :init
-    (progn
-      (deftheme solarized-dark "The dark variant of the Solarized colour theme")
-      (create-solarized-theme 'dark 'solarized-dark)
-      (deftheme solarized-light "The light variant of the Solarized colour theme")
-      (create-solarized-theme 'light 'solarized-light)
-      (spacemacs/post-theme-init 'solarized-light)
-      (redisplay))))
