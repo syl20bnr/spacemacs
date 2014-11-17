@@ -32,8 +32,7 @@ which require an initialization must be listed explicitly in the list.")
 
       (defun python-default ()
         (setq mode-name "Python"
-              tab-width 4
-              electric-indent-local-mode nil)
+              tab-width 4)
         (annotate-pdb)
         (anaconda-mode)
         (eldoc-mode)
@@ -46,7 +45,8 @@ which require an initialization must be listed explicitly in the list.")
         (add-hook 'before-save-hook 'delete-trailing-whitespace))
 
       (add-hook 'python-mode-hook 'python-default)
-      (add-hook 'python-mode-hook 'python-setup-shell))
+      (add-hook 'python-mode-hook 'python-setup-shell)
+      (add-hook 'python-mode-hook 'disable-electric-indent-mode))
     :config
     (progn
       ;; add support for `ahs-range-beginning-of-defun' for python-mode
