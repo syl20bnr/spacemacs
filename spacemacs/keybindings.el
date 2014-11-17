@@ -78,16 +78,13 @@
               (setq count (1- count)))))
   "ik" 'evil-insert-line-above)
 ;; format ---------------------------------------------------------------------
-;; replace J (no leader) key binding for a more frequent action:
-;; go and indent line below the point
+;; <SPC> j k key binding for a frequent action: go and indent line below the point
 ;; <SPC> J split the current line at point and indent it
-;; evil-join can still be perfomed with <SPC> j k
-(define-key evil-normal-state-map "J" (lambda () (interactive) (join-line 1) (sp-newline)))
 (evil-leader/set-key
   "J" 'sp-split-sexp
   "jJ" (lambda () (interactive) (sp-split-sexp 1) (sp-newline))
   "jj" 'sp-newline
-  "jk" 'evil-join)
+  "jk" (lambda () (interactive) (join-line 1) (sp-newline)))
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key
   "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line))
