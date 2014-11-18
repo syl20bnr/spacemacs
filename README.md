@@ -71,6 +71,7 @@ for contribution guidelines_
         - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
         - [Navigating](#navigating)
             - [Point/Cursor](#pointcursor)
+                - [Smooth scrolling](#smooth-scrolling)
                 - [Experimental insert state feature](#experimental-insert-state-feature)
             - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
             - [Window manipulation](#window-manipulation)
@@ -831,6 +832,18 @@ Key Binding |                 Description
 `<SPC> j l` | go to the end of line (and set a mark at the previous location in the line)
 `<SPC> z z` | lock the cursor at the center of the screen
 
+##### Smooth scrolling
+
+[smooth-scrolling]() prevent the point to jump when it reaches the top or
+bottom of the screen. It is enabled by default.
+
+On Windows, you may want to disable it. To disable the smooth scrolling set
+the `dotspacemacs-smooth-scrolling` variable in your `~/.spacemacs` to `nil`:
+
+```elisp
+(setq-default dotspacemacs-smooth-scrolling t)
+```
+
 ##### Experimental insert state feature
 
 If `dotspacemacs-feature-toggle-leader-on-jk` is non nil, pressing `jk` while
@@ -1052,7 +1065,7 @@ Key Binding   |                 Description
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
 `<SPC> s e`   | edit all occurrences of the current symbol
-`<SPC> t s`   | toggle the auto highlighting
+`<SPC> t h`   | toggle the auto highlighting
 
 Navigation between the highlighted symbols can be done with the commands:
 

@@ -50,6 +50,11 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
 (defvar dotspacemacs-fullscreen-at-startup nil
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).")
 
+(defvar dotspacemacs-smooth-scrolling t
+  "If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
+overrides the default behavior of Emacs which recenters the point when
+it reaches the top or bottom of the screen.")
+
 (defvar dotspacemacs-feature-toggle-leader-on-jk nil
   "If non nil pressing 'jk' in insert state, ido or helm will activate the
 evil leader.")
@@ -246,13 +251,13 @@ spacemacs-all-post-extensions "
           (setq installed-count 0)
           (dolist (pkg not-installed)
             (setq installed-count (1+ installed-count))
+            (spacemacs/replace-last-line-of-buffer
+             (format "--> installing %s:%s... [%s/%s]"
+                     (ht-get spacemacs-all-packages pkg)
+                     pkg
+                     installed-count
+                     not-installed-count) t)
             (when (not (package-installed-p pkg))
-              (spacemacs/replace-last-line-of-buffer
-               (format "--> installing %s:%s... [%s/%s]"
-                       (ht-get spacemacs-all-packages pkg)
-                       pkg
-                       installed-count
-                       not-installed-count) t)
               (package-install pkg))
             (redisplay))
           (spacemacs/append-to-buffer "\n")))))

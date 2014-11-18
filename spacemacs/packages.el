@@ -113,6 +113,7 @@
     scss-mode
     smartparens
     smeargle
+    smooth-scrolling
     string-edit
     subword
     tagedit
@@ -282,23 +283,10 @@ determine the state to enable when escaping from the insert state.")
       ;; persistent search highlight like Vim hisearch
       (use-package evil-search-highlight-persist
         :init
-        (global-evil-search-highlight-persist)
-        ;; temporary hack, waiting for the maintainer to merge the fix
-        (require 'highlight)
-        (defun evil-search-highlight-persist-remove-all ()
-          (interactive)
-          (hlt-unhighlight-region-in-buffers (list (current-buffer))))
-        (defun evil-search-highlight-persist-mark ()
-          (let ((hlt-use-overlays-flag t)
-                (hlt-last-face 'evil-search-highlight-persist-highlight-face))
-            (hlt-highlight-regexp-region-in-buffers
-             (car-safe (if isearch-regexp
-                           regexp-search-ring
-                         search-ring))
-             (list (current-buffer)))))
-        ;; end of temporary hack
-        (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
-        (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all))
+        (progn
+          (global-evil-search-highlight-persist)
+          (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
+          (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all)))
       ;; add a lisp state
       (use-package evil-jumper
         :init
@@ -683,7 +671,7 @@ determine the state to enable when escaping from the insert state.")
            "srd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
            "srf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
            "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
-           "ts" 'auto-highlight-symbol-mode))
+           "th" 'auto-highlight-symbol-mode))
       (spacemacs//hide-lighter auto-highlight-symbol-mode)
       ;; micro-state to easily jump from a highlighted symbol to the others
       (dolist (sym '(ahs-forward
@@ -1451,19 +1439,16 @@ determine the state to enable when escaping from the insert state.")
         (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
         (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
-        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)))
-    :config
-    (progn
-      ;; experimental: press "jk" to trigger evil-leader with ido-mode specific
-      ;; commands
-      (when dotspacemacs-feature-toggle-leader-on-jk
-        (evil-leader/set-key-for-mode 'ido-mode
-          "b" 'ido-invoke-in-horizontal-split
-          "t" 'ido-invoke-in-new-frame
-          "v" 'ido-invoke-in-vertical-split
-          "x" 'ido-invoke-in-other-window)
-        (key-chord-define ido-file-completion-map (kbd "jk")
-                          (cdr (assoc 'ido-mode evil-leader--mode-maps)))))))
+        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
+        (when dotspacemacs-feature-toggle-leader-on-jk
+          (evil-leader/set-key-for-mode 'ido-mode
+            "b" 'ido-invoke-in-horizontal-split
+            "t" 'ido-invoke-in-new-frame
+            "v" 'ido-invoke-in-vertical-split
+            "x" 'ido-invoke-in-other-window)
+          (key-chord-define ido-completion-map (kbd "jk")
+                            (cdr (assoc 'ido-mode evil-leader--mode-maps)))))
+      )))
 
 (defun spacemacs/init-js2-mode ()
   (use-package js2-mode
@@ -1819,6 +1804,22 @@ determine the state to enable when escaping from the insert state.")
       "gcC" 'smeargle-clear
       "gcc" 'smeargle-commits
       "gct" 'smeargle)))
+
+
+(defun spacemacs/init-smooth-scrolling ()
+  ;; this is not a conventional package
+  ;; no require are needed for this package everything is auto-loaded
+  (if dotspacemacs-smooth-scrolling
+      (setq scroll-margin 5
+            scroll-conservatively 9999
+            scroll-step 1)
+    ;; deactivate the defadvice's
+    (ad-disable-advice 'previous-line 'after 'smooth-scroll-down)
+    (ad-activate 'previous-line)
+    (ad-disable-advice 'next-line 'after 'smooth-scroll-up)
+    (ad-activate 'next-line)
+    (ad-disable-advice 'isearch-repeat 'after 'isearch-smooth-scroll)
+    (ad-activate 'isearch-repeat)))
 
 (defun spacemacs/init-string-edit ()
   (use-package string-edit
