@@ -113,6 +113,7 @@
     scss-mode
     smartparens
     smeargle
+    smooth-scrolling
     string-edit
     subword
     tagedit
@@ -1816,6 +1817,22 @@ determine the state to enable when escaping from the insert state.")
       "gcC" 'smeargle-clear
       "gcc" 'smeargle-commits
       "gct" 'smeargle)))
+
+
+(defun spacemacs/init-smooth-scrolling ()
+  ;; this is not a conventional package
+  ;; no require are needed for this package everything is auto-loaded
+  (if dotspacemacs-smooth-scrolling
+      (setq scroll-margin 5
+            scroll-conservatively 9999
+            scroll-step 1)
+    ;; deactivate the defadvice's
+    (ad-disable-advice 'previous-line 'after 'smooth-scroll-down)
+    (ad-activate 'previous-line)
+    (ad-disable-advice 'next-line 'after 'smooth-scroll-up)
+    (ad-activate 'next-line)
+    (ad-disable-advice 'isearch-repeat 'after 'isearch-smooth-scroll)
+    (ad-activate 'isearch-repeat)))
 
 (defun spacemacs/init-string-edit ()
   (use-package string-edit
