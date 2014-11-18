@@ -44,8 +44,6 @@
   (contribsys/declare-user-configuration-layers)
   ;; heavy lifting, load all packages and extensions
   (contribsys/load-layers)
-  ;; Temporary fix until automatic orphan packages deletion is ported to
-  ;; Emacs 24.4
   (contribsys/delete-orphan-packages)
   ;; Ultimate configuration decisions are given to the user who can defined
   ;; them in his/her ~/.spacemacs file
