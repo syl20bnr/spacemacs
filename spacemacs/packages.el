@@ -283,23 +283,10 @@ determine the state to enable when escaping from the insert state.")
       ;; persistent search highlight like Vim hisearch
       (use-package evil-search-highlight-persist
         :init
-        (global-evil-search-highlight-persist)
-        ;; temporary hack, waiting for the maintainer to merge the fix
-        (require 'highlight)
-        (defun evil-search-highlight-persist-remove-all ()
-          (interactive)
-          (hlt-unhighlight-region-in-buffers (list (current-buffer))))
-        (defun evil-search-highlight-persist-mark ()
-          (let ((hlt-use-overlays-flag t)
-                (hlt-last-face 'evil-search-highlight-persist-highlight-face))
-            (hlt-highlight-regexp-region-in-buffers
-             (car-safe (if isearch-regexp
-                           regexp-search-ring
-                         search-ring))
-             (list (current-buffer)))))
-        ;; end of temporary hack
-        (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
-        (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all))
+        (progn
+          (global-evil-search-highlight-persist)
+          (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
+          (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all)))
       ;; add a lisp state
       (use-package evil-jumper
         :init
