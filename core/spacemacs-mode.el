@@ -88,7 +88,7 @@ installed."
   (let* ((fontstr (if options
                        (format "%s-%s:%s" font size options)
                      (format "%s-%s" font size))))
-    (message (format "Set default font: %s" fontstr))
+    (spacemacs/message (format "Set default font: %s" fontstr))
     (add-to-list 'default-frame-alist (cons 'font fontstr))
     (set-default-font fontstr)))
 
@@ -109,6 +109,10 @@ installed."
       (spacemacs/append-to-buffer "Spacemacs is disabled.\n")
       (setq inhibit-startup-screen t)
       (redisplay))))
+
+(defun spacemacs/message (msg &rest args)
+  "Display MSG in message prepended with '(Spacemacs)'."
+  (message "(Spacemacs) %s" (apply 'format msg args)))
 
 (defun spacemacs/append-to-buffer (msg &optional messagebuf)
   "Append MSG to spacemacs buffer. If MESSAGEBUF is not nil then MSG is
