@@ -1,4 +1,4 @@
-# Spacemacs Advanced Kit
+# Spacemacs Advanced Kit [![Twitter][]](http://www.twitter.com/spacemacs)
 
 ![title](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/title.png)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -1743,6 +1743,7 @@ software.
 Thank you to all the contributors and the whole Emacs community from core
 developers to elisp hackers!
 
+[Twitter]: http://i.imgur.com/tXSoThF.png
 [evil]: https://gitorious.org/evil/pages/Home
 [evil-leader]: https://github.com/cofi/evil-leader
 [RSI]: http://en.wikipedia.org/wiki/Repetitive_strain_injury
