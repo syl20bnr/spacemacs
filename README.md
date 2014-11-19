@@ -1441,8 +1441,8 @@ To open a `status buffer`, type in a buffer of a Git repository:
 
     <SPC> g s
 
-The buffer is opened in `Emacs state` but you can sill navigate up and down
-with `k` and `j` respectively (should be like this in all `magit` buffers).
+`hjkl` navigation is enabled in all Magit buffers. The default Magit keys
+on `hjkl` are remapped on `HJKL`.
 
 Here are the often used bindings inside a `status buffer`:
 
@@ -1455,10 +1455,12 @@ Here are the often used bindings inside a `status buffer`:
 `b v`             | open the `branch manager buffer`
 `f f`             | fetch changes
 `F -r F`          | pull and rebase
+`h`               | go left
 `j`               | go down
 `k`               | go up
 `K`               | discard changes
-`l l`             | open `log buffer`
+`l`               | go right
+`L l`             | open `log buffer`
 `P P`             | push
 `q`               | quit
 `s`               | on a file or hunk in a diff: stage the file or hunk

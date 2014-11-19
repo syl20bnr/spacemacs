@@ -135,14 +135,14 @@ layer symbol and the value is its path for all layers found in directory DIR.
 
 Also fill the list of excluded packages `spacemacs-excluded-packages-from-layers'
 declared at the layer level."
-  (message "Looking for contribution layers in %s" dir)
+  (spacemacs/message "Looking for contribution layers in %s" dir)
   (ignore-errors
     (let ((files (directory-files dir nil nil 'nosort))
           (filter-out (append spacemacs-contrib-categories '("." ".."))))
       (dolist (f files)
         (when (and (file-directory-p (concat dir f))
                    (not (member f filter-out)))
-          (message "-> Discovered contribution layer: %s" f)
+          (spacemacs/message "-> Discovered contribution layer: %s" f)
           (puthash (intern f) dir spacemacs-contrib-layer-paths))))))
 
 (defun contribsys/load-layers ()
@@ -272,7 +272,7 @@ spacemacs-all-post-extensions "
     (let* ((init-func (intern (format "%s/init-%s" (symbol-name layer) pkg))))
       (spacemacs/loading-animation)
       (if (and (package-installed-p pkg) (fboundp init-func))
-          (progn  (message "(Spacemacs) Initializing %s:%s..."
+          (progn  (spacemacs/message "Initializing %s:%s..."
                            (symbol-name layer) pkg)
                   (funcall init-func))))))
 
@@ -288,7 +288,7 @@ spacemacs-all-post-extensions "
            (init-func (intern (format "%s/init-%s" (symbol-name layer) ext))))
       (add-to-list 'load-path (format "%s%s/" ext-dir ext))
       (spacemacs/loading-animation)
-      (message "(Spacemacs) Initializing %s:%s..." (symbol-name layer) ext)
+      (spacemacs/message "Initializing %s:%s..." (symbol-name layer) ext)
       (if (fboundp init-func) (funcall init-func)))))
 
 (defun contribsys/initialized-packages-count ()
@@ -410,7 +410,7 @@ deleted safely."
             (contribsys/package-delete orphan)
             (redisplay))
           (spacemacs/append-to-buffer "\n"))
-      (message "No orphan package to delete."))))
+      (spacemacs/message "No orphan package to delete."))))
 
 (defun contribsys/setup-after-init-hook ()
   "Add post init processing."
