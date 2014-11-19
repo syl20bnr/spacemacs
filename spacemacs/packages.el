@@ -1493,6 +1493,7 @@ determine the state to enable when escaping from the insert state.")
                   magit-commit-mode-map
                   magit-diff-mode-map)))
 
+      ;; hjkl key bindings
       (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
         "K" 'magit-discard-item
         "L" 'magit-key-mode-popup-logging)
@@ -1500,10 +1501,9 @@ determine the state to enable when escaping from the insert state.")
       (evil-add-hjkl-bindings magit-log-mode-map 'emacs)
       (evil-add-hjkl-bindings magit-process-mode-map 'emacs)
       (evil-add-hjkl-bindings magit-status-mode-map 'emacs
-        "f" 'magit-key-mode-popup-fetching
         "K" 'magit-discard-item
-        "l" 'magit-key-mode-popup-logging
-        "h" 'magit-toggle-diff-refine-hunk)
+        "L" 'magit-key-mode-popup-logging
+        "H" 'magit-key-mode-popup-diff-options)
 
       (defun magit-quit-session ()
         "Restores the previous window configuration and kills the magit buffer"
