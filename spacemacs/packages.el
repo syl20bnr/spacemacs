@@ -235,107 +235,6 @@ determine the state to enable when escaping from the insert state.")
           (evil-window-top)
           (evil-scroll-line-to-center nil)))
       (evil-leader/set-key "re" 'evil-show-registers)
-      ;; load evil-leader
-      (use-package evil-leader
-        :init
-        (progn
-          (setq evil-leader/in-all-states t
-                evil-leader/leader "SPC"
-                evil-leader/non-normal-prefix "s-")
-          (global-evil-leader-mode))
-        :config
-        (progn
-          ;; Unset shortcuts which shadow evil leader
-          (eval-after-load "compile"
-            '(progn
-              (define-key compilation-mode-map (kbd "SPC") nil)
-              (define-key compilation-mode-map (kbd "h") nil)))
-          (eval-after-load "dired"
-            '(define-key dired-mode-map (kbd "SPC") nil))
-          ;; make leader available in visual mode
-          (define-key evil-visual-state-map (kbd "SPC") evil-leader--default-map)
-          (define-key evil-motion-state-map (kbd "SPC") evil-leader--default-map)
-          ;; experimental: invoke leader with "jk" in insert mode
-          (when dotspacemacs-feature-toggle-leader-on-jk
-            (key-chord-define evil-insert-state-map (kbd "jk") evil-leader--default-map))))
-      ;; load surround
-      (use-package evil-surround
-        :init (global-evil-surround-mode 1))
-      ;; load evil-exchange
-      (use-package evil-exchange
-        :init (evil-exchange-install))
-      (unless (display-graphic-p)
-        (require 'evil-terminal-cursor-changer))
-      ;; initiate a search of the selected text
-      (use-package evil-visualstar
-        :init
-        ;; neat trick, when we are not in visual mode we use ahs to search
-        (eval-after-load 'auto-highlight-symbol
-          '(progn
-             (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
-             (define-key evil-normal-state-map (kbd "#") 'ahs-backward)
-             (define-key evil-motion-state-map (kbd "*") 'ahs-forward)
-             (define-key evil-motion-state-map (kbd "#") 'ahs-backward)
-             (eval-after-load 'evil-lisp-state
-               '(progn
-                  (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
-                  (define-key evil-normal-state-map (kbd "#") 'ahs-backward))))))
-      ;; persistent search highlight like Vim hisearch
-      (use-package evil-search-highlight-persist
-        :init
-        (progn
-          (global-evil-search-highlight-persist)
-          (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
-          (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all)))
-      ;; add a lisp state
-      (use-package evil-jumper
-        :init
-        (setq evil-jumper-auto-center t)
-        (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
-        (setq evil-jumper-auto-save-interval 3600))
-      (use-package evil-lisp-state
-        :init
-        (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state))
-      (use-package evil-numbers
-        :config
-        (progn
-          (defun spacemacs/evil-numbers-micro-state-doc ()
-            "Display a short documentation in the mini buffer."
-            (echo "+ to increase the value or - to decrease it"))
-
-          (defun spacemacs/evil-numbers-micro-state-overlay-map ()
-            "Set a temporary overlay map to easily increase or decrease a number"
-            (set-temporary-overlay-map
-             (let ((map (make-sparse-keymap)))
-               (define-key map (kbd "+") 'spacemacs/evil-numbers-increase)
-               (define-key map (kbd "-") 'spacemacs/evil-numbers-decrease)
-               map) t)
-            (spacemacs/evil-numbers-micro-state-doc))
-
-          (defun spacemacs/evil-numbers-increase (amount &optional no-region)
-            "Increase number at point."
-            (interactive "p*")
-            (evil-numbers/inc-at-pt amount no-region)
-            (spacemacs/evil-numbers-micro-state-overlay-map))
-          (defun spacemacs/evil-numbers-decrease (amount)
-            "Decrease number at point."
-            (interactive "p*")
-            (evil-numbers/dec-at-pt amount)
-            (spacemacs/evil-numbers-micro-state-overlay-map))
-          (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
-          (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease)))
-      (use-package evil-args
-        :init
-        (progn
-          ;; bind evil-args text objects
-          (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
-          (define-key evil-outer-text-objects-map "a" 'evil-outer-arg)))
-      (use-package evil-escape
-        :init
-        (evil-escape-mode)
-        :config
-        (spacemacs//hide-lighter evil-escape-mode))
-
       ;; define text objects
       (defmacro define-and-bind-text-object (key start-regex end-regex)
         (let ((inner-name (make-symbol "inner-name"))
@@ -354,6 +253,125 @@ determine the state to enable when escaping from the insert state.")
       ;; between percent signs:
       (define-and-bind-text-object "%" "%" "%")
       )))
+
+(defun spacemacs/init-evil-leader ()
+  (use-package evil-leader
+    :init
+    (progn
+      (setq evil-leader/in-all-states t
+            evil-leader/leader "SPC"
+            evil-leader/non-normal-prefix "s-")
+      (global-evil-leader-mode))
+    :config
+    (progn
+      ;; Unset shortcuts which shadow evil leader
+      (eval-after-load "compile"
+        '(progn
+           (define-key compilation-mode-map (kbd "SPC") nil)
+           (define-key compilation-mode-map (kbd "h") nil)))
+      (eval-after-load "dired"
+        '(define-key dired-mode-map (kbd "SPC") nil))
+      ;; make leader available in visual mode
+      (define-key evil-visual-state-map (kbd "SPC")
+        evil-leader--default-map)
+      (define-key evil-motion-state-map (kbd "SPC")
+        evil-leader--default-map)
+      ;; experimental: invoke leader with "jk" in insert mode
+      (when dotspacemacs-feature-toggle-leader-on-jk
+        (key-chord-define evil-insert-state-map (kbd "jk")
+                          evil-leader--default-map)))))
+
+(defun spacemacs/init-evil-surround ()
+  (use-package evil-surround
+    :init (global-evil-surround-mode 1)))
+
+(defun spacemacs/init-evil-exchange ()
+  (use-package evil-exchange
+    :init (evil-exchange-install)))
+
+(defun spacemacs/init-evil-terminal-cursor-changer ()
+  (unless (display-graphic-p)
+    (require 'evil-terminal-cursor-changer)))
+
+(defun spacemacs/init-evil-visualstar ()
+  (use-package evil-visualstar
+    :init
+    ;; neat trick, when we are not in visual mode we use ahs to search
+    (eval-after-load 'auto-highlight-symbol
+      '(progn
+         (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
+         (define-key evil-normal-state-map (kbd "#") 'ahs-backward)
+         (define-key evil-motion-state-map (kbd "*") 'ahs-forward)
+         (define-key evil-motion-state-map (kbd "#") 'ahs-backward)
+         (eval-after-load 'evil-lisp-state
+           '(progn
+              (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
+              (define-key evil-normal-state-map (kbd "#") 'ahs-backward)))))))
+
+(defun spacemacs/init-evil-search-highlight-persist ()
+  (use-package evil-search-highlight-persist
+    :init
+    (progn
+      (global-evil-search-highlight-persist)
+      (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
+      (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all))))
+
+(defun spacemacs/init-evil-jumper ()
+  (use-package evil-jumper
+    :init
+    (setq evil-jumper-auto-center t)
+    (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
+    (setq evil-jumper-auto-save-interval 3600)))
+
+(defun spacemacs/init-evil-lisp-state ()
+  (use-package evil-lisp-state
+    :init
+    (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state)))
+
+(defun spacemacs/init-evil-numbers ()
+  (use-package evil-numbers
+    :config
+    (progn
+      (defun spacemacs/evil-numbers-micro-state-doc ()
+        "Display a short documentation in the mini buffer."
+        (echo "+ to increase the value or - to decrease it"))
+
+      (defun spacemacs/evil-numbers-micro-state-overlay-map ()
+        "Set a temporary overlay map to easily increase or decrease a number"
+        (set-temporary-overlay-map
+         (let ((map (make-sparse-keymap)))
+           (define-key map (kbd "+") 'spacemacs/evil-numbers-increase)
+           (define-key map (kbd "-") 'spacemacs/evil-numbers-decrease)
+           map) t)
+        (spacemacs/evil-numbers-micro-state-doc))
+
+      (defun spacemacs/evil-numbers-increase (amount &optional no-region)
+        "Increase number at point."
+        (interactive "p*")
+        (evil-numbers/inc-at-pt amount no-region)
+        (spacemacs/evil-numbers-micro-state-overlay-map))
+      (defun spacemacs/evil-numbers-decrease (amount)
+        "Decrease number at point."
+        (interactive "p*")
+        (evil-numbers/dec-at-pt amount)
+        (spacemacs/evil-numbers-micro-state-overlay-map))
+      (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
+      (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease))))
+
+(defun spacemacs/init-evil-args ()
+  (use-package evil-args
+    :init
+    (progn
+      ;; bind evil-args text objects
+      (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+      (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))))
+
+(defun spacemacs/init-evil-escape ()
+  (use-package evil-escape
+    :init
+    (evil-escape-mode)
+    :config
+    (spacemacs//hide-lighter evil-escape-mode)))
 
 (defun spacemacs/init-powerline ()
   (use-package powerline
