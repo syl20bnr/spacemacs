@@ -1484,6 +1484,15 @@ determine the state to enable when escaping from the insert state.")
         ad-do-it
         (delete-other-windows))
 
+      ;; remove conflicts with <SPC> leader
+      (if (string= "SPC" evil-leader/leader)
+          (mapc (lambda (x)
+                  (eval `(define-key ,x (kbd "SPC")
+                           evil-leader--default-map)))
+                '(magit-mode-map
+                  magit-commit-mode-map
+                  magit-diff-mode-map)))
+
       (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
         "K" 'magit-discard-item
         "L" 'magit-key-mode-popup-logging)
