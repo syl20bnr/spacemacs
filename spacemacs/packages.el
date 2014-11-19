@@ -134,396 +134,6 @@ which require an initialization must be listed explicitly in the list.")
 
 ;; Initialization of packages
 
-(defun spacemacs/init-evil ()
-  (use-package evil
-    :init
-    (progn
-      (defun spacemacs/state-color-face (state)
-        "Return the symbol of the face for the given STATE."
-        (intern (format "spacemacs-%s-face" (symbol-name state))))
-
-      (defun spacemacs/defface-state-color (state color)
-        "Define a face for the given STATE and background COLOR."
-        (eval `(defface ,(spacemacs/state-color-face state) '((t ()))
-                 ,(format "%s state face." (symbol-name state))
-                 :group 'spacemacs))
-        (set-face-attribute (spacemacs/state-color-face state) nil
-                            :background color
-                            :foreground (face-background 'mode-line)
-                            :box (face-attribute 'mode-line :box)
-                            :inherit 'mode-line))
-
-      (defun spacemacs/state-color (state)
-        "Return the color string associated to STATE."
-        (face-background (spacemacs/state-color-face state)))
-
-      (defun spacemacs/current-state-color ()
-        "Return the color string associated to the current state."
-        (face-background (spacemacs/state-color-face evil-state)))
-
-      (defun spacemacs/state-face (state)
-        "Return the face associated to the STATE."
-        (spacemacs/state-color-face state))
-
-      (defun spacemacs/current-state-face ()
-        "Return the face associated to the current state."
-        (let ((state (if (eq evil-state 'operator)
-                         evil-previous-state
-                       evil-state)))
-          (spacemacs/state-color-face state)))
-
-      (defun spacemacs/set-state-faces ()
-        "Define or set the state faces."
-        (mapcar (lambda (x) (spacemacs/defface-state-color (car x) (cdr x)))
-                '((normal . "DarkGoldenrod2")
-                  (insert . "chartreuse3")
-                  (emacs  . "SkyBlue2")
-                  (visual . "gray")
-                  (motion . "plum3")
-                  (lisp   . "HotPink1"))))
-      (spacemacs/set-state-faces)
-
-      (defun set-default-evil-emacs-state-cursor ()
-        (setq evil-emacs-state-cursor `(,(spacemacs/state-color 'emacs) box)))
-      (defun set-default-evil-normal-state-cursor ()
-        (setq evil-normal-state-cursor `(,(spacemacs/state-color 'normal) box)))
-      (defun set-default-evil-insert-state-cursor ()
-        (setq evil-insert-state-cursor `(,(spacemacs/state-color 'insert) (bar . 2))))
-      (defun set-default-evil-visual-state-cursor ()
-        (setq evil-visual-state-cursor `(,(spacemacs/state-color 'visual) (hbar . 2))))
-      (defun set-default-evil-motion-state-cursor ()
-        (setq evil-motion-state-cursor `(,(spacemacs/state-color 'motion) box)))
-      (defun set-default-evil-lisp-state-cursor ()
-        (setq evil-lisp-state-cursor `(,(spacemacs/state-color 'lisp) box)))
-      (defun evil-insert-state-cursor-hide ()
-        (setq evil-insert-state-cursor `(,(spacemacs/state-color 'insert) (hbar . 0))))
-      (set-default-evil-emacs-state-cursor)
-      (set-default-evil-normal-state-cursor)
-      (set-default-evil-insert-state-cursor)
-      (set-default-evil-visual-state-cursor)
-      (set-default-evil-motion-state-cursor)
-      (set-default-evil-lisp-state-cursor)
-      (evil-mode 1))
-    :config
-    (progn
-      (defvar spacemacs-last-base-state 'normal
-        "Last base state, the current value of this variable is used to
-determine the state to enable when escaping from the insert state.")
-      (make-variable-buffer-local 'spacemacs-last-base-state)
-      (defadvice evil-normal-state (before spacemacs/evil-normal-state activate)
-        "Advice to keep track of the last base state."
-        (setq spacemacs-last-base-state 'normal))
-      (defadvice evil-lisp-state (before spacemacs/evil-lisp-state activate)
-        "Advice to keep track of the last base state."
-        (setq spacemacs-last-base-state 'lisp))
-      ;; manage the base state target when leaving the insert state
-      (define-key evil-insert-state-map [escape]
-        (lambda () (interactive)
-          (let ((state (intern (format "evil-%s-state" spacemacs-last-base-state))))
-            (funcall state))))
-
-      ;; Make evil-mode up/down operate in screen lines instead of logical lines
-      (define-key evil-normal-state-map "j" 'evil-next-visual-line)
-      (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
-      ;; quick navigation
-      (define-key evil-normal-state-map (kbd "L")
-        (lambda () (interactive)
-          (evil-window-bottom)
-          (evil-scroll-line-to-center nil)))
-      (define-key evil-normal-state-map (kbd "H")
-        (lambda () (interactive)
-          (evil-window-top)
-          (evil-scroll-line-to-center nil)))
-      (evil-leader/set-key "re" 'evil-show-registers)
-      ;; define text objects
-      (defmacro define-and-bind-text-object (key start-regex end-regex)
-        (let ((inner-name (make-symbol "inner-name"))
-              (outer-name (make-symbol "outer-name")))
-          `(progn
-             (evil-define-text-object ,inner-name (count &optional beg end type)
-               (evil-regexp-range count beg end type ,start-regex ,end-regex t))
-             (evil-define-text-object ,outer-name (count &optional beg end type)
-               (evil-regexp-range count beg end type ,start-regex ,end-regex nil))
-             (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
-             (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
-      ;; between dollars sign:
-      (define-and-bind-text-object "$" "\\$" "\\$")
-      ;; between pipe characters:
-      (define-and-bind-text-object "|" "|" "|")
-      ;; between percent signs:
-      (define-and-bind-text-object "%" "%" "%")
-      )))
-
-(defun spacemacs/init-evil-leader ()
-  (use-package evil-leader
-    :init
-    (progn
-      (setq evil-leader/in-all-states t
-            evil-leader/leader "SPC"
-            evil-leader/non-normal-prefix "s-")
-      (global-evil-leader-mode))
-    :config
-    (progn
-      ;; Unset shortcuts which shadow evil leader
-      (eval-after-load "compile"
-        '(progn
-           (define-key compilation-mode-map (kbd "SPC") nil)
-           (define-key compilation-mode-map (kbd "h") nil)))
-      (eval-after-load "dired"
-        '(define-key dired-mode-map (kbd "SPC") nil))
-      ;; make leader available in visual mode
-      (define-key evil-visual-state-map (kbd "SPC")
-        evil-leader--default-map)
-      (define-key evil-motion-state-map (kbd "SPC")
-        evil-leader--default-map)
-      ;; experimental: invoke leader with "jk" in insert mode
-      (when dotspacemacs-feature-toggle-leader-on-jk
-        (key-chord-define evil-insert-state-map (kbd "jk")
-                          evil-leader--default-map)))))
-
-(defun spacemacs/init-evil-surround ()
-  (use-package evil-surround
-    :init (global-evil-surround-mode 1)))
-
-(defun spacemacs/init-evil-exchange ()
-  (use-package evil-exchange
-    :init (evil-exchange-install)))
-
-(defun spacemacs/init-evil-terminal-cursor-changer ()
-  (unless (display-graphic-p)
-    (require 'evil-terminal-cursor-changer)))
-
-(defun spacemacs/init-evil-visualstar ()
-  (use-package evil-visualstar
-    :init
-    ;; neat trick, when we are not in visual mode we use ahs to search
-    (eval-after-load 'auto-highlight-symbol
-      '(progn
-         (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
-         (define-key evil-normal-state-map (kbd "#") 'ahs-backward)
-         (define-key evil-motion-state-map (kbd "*") 'ahs-forward)
-         (define-key evil-motion-state-map (kbd "#") 'ahs-backward)
-         (eval-after-load 'evil-lisp-state
-           '(progn
-              (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
-              (define-key evil-normal-state-map (kbd "#") 'ahs-backward)))))))
-
-(defun spacemacs/init-evil-search-highlight-persist ()
-  (use-package evil-search-highlight-persist
-    :init
-    (progn
-      (global-evil-search-highlight-persist)
-      (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
-      (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all))))
-
-(defun spacemacs/init-evil-jumper ()
-  (use-package evil-jumper
-    :init
-    (setq evil-jumper-auto-center t)
-    (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
-    (setq evil-jumper-auto-save-interval 3600)))
-
-(defun spacemacs/init-evil-lisp-state ()
-  (use-package evil-lisp-state
-    :init
-    (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state)))
-
-(defun spacemacs/init-evil-numbers ()
-  (use-package evil-numbers
-    :config
-    (progn
-      (defun spacemacs/evil-numbers-micro-state-doc ()
-        "Display a short documentation in the mini buffer."
-        (echo "+ to increase the value or - to decrease it"))
-
-      (defun spacemacs/evil-numbers-micro-state-overlay-map ()
-        "Set a temporary overlay map to easily increase or decrease a number"
-        (set-temporary-overlay-map
-         (let ((map (make-sparse-keymap)))
-           (define-key map (kbd "+") 'spacemacs/evil-numbers-increase)
-           (define-key map (kbd "-") 'spacemacs/evil-numbers-decrease)
-           map) t)
-        (spacemacs/evil-numbers-micro-state-doc))
-
-      (defun spacemacs/evil-numbers-increase (amount &optional no-region)
-        "Increase number at point."
-        (interactive "p*")
-        (evil-numbers/inc-at-pt amount no-region)
-        (spacemacs/evil-numbers-micro-state-overlay-map))
-      (defun spacemacs/evil-numbers-decrease (amount)
-        "Decrease number at point."
-        (interactive "p*")
-        (evil-numbers/dec-at-pt amount)
-        (spacemacs/evil-numbers-micro-state-overlay-map))
-      (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
-      (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease))))
-
-(defun spacemacs/init-evil-args ()
-  (use-package evil-args
-    :init
-    (progn
-      ;; bind evil-args text objects
-      (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
-      (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))))
-
-(defun spacemacs/init-evil-escape ()
-  (use-package evil-escape
-    :init
-    (evil-escape-mode)
-    :config
-    (spacemacs//hide-lighter evil-escape-mode)))
-
-(defun spacemacs/init-powerline ()
-  (use-package powerline
-    :init
-    (progn
-      (use-package window-numbering
-        :ensure window-numbering
-        :init
-        (progn
-          (evil-leader/set-key
-            "0" 'select-window-0
-            "1" 'select-window-1
-            "2" 'select-window-2
-            "3" 'select-window-3
-            "4" 'select-window-4
-            "5" 'select-window-5
-            "6" 'select-window-6
-            "7" 'select-window-7
-            "8" 'select-window-8
-            "9" 'select-window-9)
-          (window-numbering-mode 1)))
-
-      (defun spacemacs/window-number ()
-        "Return the number of the window."
-        (let ((num (window-numbering-get-number-string)))
-          (cond ((not (display-graphic-p)) (concat "(" num ")"))
-                ((equal num "1")  " ➊ ")
-                ((equal num "2")  " ➋ ")
-                ((equal num "3")  " ➌ ")
-                ((equal num "4")  " ➍ ")
-                ((equal num "5")  " ➎ ")
-                ((equal num "6")  " ❻ ")
-                ((equal num "7")  " ➐ ")
-                ((equal num "8")  " ➑ ")
-                ((equal num "9")  " ➒ ")
-                ((equal num "0")  " ➓ ")
-                (t (concat " (" num ") ")))))
-
-      (defvar spacemacs-mode-line-minor-modesp t
-        "If not nil, minor modes lighter are displayed in the mode-line.")
-      (defun spacemacs/mode-line-minor-modes-toggle ()
-        "Toggle display of minor modes."
-        (interactive)
-        (if spacemacs-mode-line-minor-modesp
-            (setq spacemacs-mode-line-minor-modesp nil)
-          (setq spacemacs-mode-line-minor-modesp t)))
-      (evil-leader/set-key "tmm" 'spacemacs/mode-line-minor-modes-toggle)
-
-      (defvar spacemacs-mode-line-flycheckp t
-        "If not nil, flycheck info are displayed in the mode-line.")
-      (defun spacemacs/mode-line-flycheck-info-toggle ()
-        "Toggle display of flycheck info."
-        (interactive)
-        (if spacemacs-mode-line-flycheckp
-            (setq spacemacs-mode-line-flycheckp nil)
-          (setq spacemacs-mode-line-flycheckp t)))
-      (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
-      ;; for now we hardcode the height value of powerline depending on the
-      ;; window system, a better solution would be to compute it correctly
-      ;; in powerline package.
-      (let ((height (if (eq 'w32 window-system) 18 17)))
-        (setq-default powerline-height height))
-      (setq-default powerline-default-separator 'wave)
-      (setq-default mode-line-format '("%e" (:eval
-          (let* ((active (powerline-selected-window-active))
-                 (line-face (if active 'mode-line 'mode-line-inactive))
-                 (face1 (if active 'powerline-active1 'powerline-inactive1))
-                 (face2 (if active 'powerline-active2 'powerline-inactive2))
-                 (state-face (if active (spacemacs/current-state-face) face2))
-                 (flycheckp (and spacemacs-mode-line-flycheckp
-                                 (boundp 'flycheck-mode)
-                                 (symbol-value flycheck-mode)
-                                 (or flycheck-current-errors
-                                     (eq 'running flycheck-last-status-change))))
-                 (vc-face (if (or flycheckp spacemacs-mode-line-minor-modesp)
-                               face1 line-face))
-                 (separator-left (intern (format "powerline-%s-%s"
-                                                 powerline-default-separator
-                                                 (car powerline-default-separator-dir))))
-                 (separator-right (intern (format "powerline-%s-%s"
-                                                  powerline-default-separator
-                                                  (cdr powerline-default-separator-dir))))
-                 (lhs (append (list
-                      ;; window number
-                      ;; (funcall separator-left state-face face1)
-                      (powerline-raw (spacemacs/window-number) state-face))
-                      (if (and active anzu--state)
-                          (list
-                           (funcall separator-right state-face face1)
-                           (powerline-raw (anzu--update-mode-line) face1)
-                           (funcall separator-right face1 line-face))
-                        (list (funcall separator-right state-face line-face)))
-                      ;; evil state
-                      ;; (powerline-raw evil-mode-line-tag state-face)
-                      ;; (funcall separator-right state-face line-face)
-                      ;; buffer name
-                      (list
-                       (powerline-raw "%*" line-face 'l)
-                       (powerline-buffer-size line-face 'l)
-                       (powerline-buffer-id line-face 'l)
-                       (powerline-raw " " line-face)
-                       ;; major mode
-                       (funcall separator-left line-face face1)
-                       (powerline-major-mode face1 'l)
-                       (powerline-raw " " face1)
-                       (funcall separator-right face1 line-face))
-                      ;; flycheck
-                      (if flycheckp
-                          (list
-                           (powerline-raw " " line-face)
-                           (powerline-raw (spacemacs//custom-flycheck-lighter error)
-                                          'spacemacs-mode-line-error-face)
-                           (powerline-raw (spacemacs//custom-flycheck-lighter warning)
-                                          'spacemacs-mode-line-warning-face)
-                           (powerline-raw (spacemacs//custom-flycheck-lighter info)
-                                          'spacemacs-mode-line-info-face)))
-                      ;; separator between flycheck and minor modes
-                      (if (and flycheckp spacemacs-mode-line-minor-modesp)
-                          (list
-                           (funcall separator-left line-face face1)
-                           (powerline-raw "  " face1)
-                           (funcall separator-right face1 line-face)))
-                      ;; minor modes
-                      (if spacemacs-mode-line-minor-modesp
-                          (list
-                           (powerline-minor-modes line-face 'l)
-                           (powerline-raw mode-line-process line-face 'l)
-                           (powerline-raw " " line-face)))
-                      ;; version control
-                      (if (or flycheckp spacemacs-mode-line-minor-modesp)
-                          (list (funcall separator-left (if vc-face line-face face1) vc-face)))
-                      (list
-                       (powerline-vc vc-face)
-                       (powerline-raw " " vc-face)
-                       (funcall separator-right vc-face face2))))
-                 (rhs (list
-                       (funcall separator-right face2 face1)
-                       (powerline-raw " " face1)
-                       (powerline-raw "%l:%2c" face1 'r)
-                       (funcall separator-left face1 line-face)
-                       (powerline-raw " " line-face)
-                       (powerline-raw "%p" line-face 'r)
-                       (powerline-chamfer-left line-face face1)
-                       ;; display hud only if necessary
-                       (let ((progress (format-mode-line "%p")))
-                         (if (string-match "\%" progress)
-                             (powerline-hud state-face face1))))))
-            (concat (powerline-render lhs)
-                    (powerline-fill face2 (powerline-width rhs))
-                    (powerline-render rhs))))))
-      )))
-
 (defun spacemacs/init-ac-ispell ()
   (use-package ac-ispell
     :defer t
@@ -888,6 +498,184 @@ determine the state to enable when escaping from the insert state.")
   ;; (erlang-flymake-only-on-save)
 )
 
+(defun spacemacs/init-evil ()
+  (use-package evil
+    :init
+    (progn
+      (defun spacemacs/state-color-face (state)
+        "Return the symbol of the face for the given STATE."
+        (intern (format "spacemacs-%s-face" (symbol-name state))))
+
+      (defun spacemacs/defface-state-color (state color)
+        "Define a face for the given STATE and background COLOR."
+        (eval `(defface ,(spacemacs/state-color-face state) '((t ()))
+                 ,(format "%s state face." (symbol-name state))
+                 :group 'spacemacs))
+        (set-face-attribute (spacemacs/state-color-face state) nil
+                            :background color
+                            :foreground (face-background 'mode-line)
+                            :box (face-attribute 'mode-line :box)
+                            :inherit 'mode-line))
+
+      (defun spacemacs/state-color (state)
+        "Return the color string associated to STATE."
+        (face-background (spacemacs/state-color-face state)))
+
+      (defun spacemacs/current-state-color ()
+        "Return the color string associated to the current state."
+        (face-background (spacemacs/state-color-face evil-state)))
+
+      (defun spacemacs/state-face (state)
+        "Return the face associated to the STATE."
+        (spacemacs/state-color-face state))
+
+      (defun spacemacs/current-state-face ()
+        "Return the face associated to the current state."
+        (let ((state (if (eq evil-state 'operator)
+                         evil-previous-state
+                       evil-state)))
+          (spacemacs/state-color-face state)))
+
+      (defun spacemacs/set-state-faces ()
+        "Define or set the state faces."
+        (mapcar (lambda (x) (spacemacs/defface-state-color (car x) (cdr x)))
+                '((normal . "DarkGoldenrod2")
+                  (insert . "chartreuse3")
+                  (emacs  . "SkyBlue2")
+                  (visual . "gray")
+                  (motion . "plum3")
+                  (lisp   . "HotPink1"))))
+      (spacemacs/set-state-faces)
+
+      (defun set-default-evil-emacs-state-cursor ()
+        (setq evil-emacs-state-cursor `(,(spacemacs/state-color 'emacs) box)))
+      (defun set-default-evil-normal-state-cursor ()
+        (setq evil-normal-state-cursor `(,(spacemacs/state-color 'normal) box)))
+      (defun set-default-evil-insert-state-cursor ()
+        (setq evil-insert-state-cursor `(,(spacemacs/state-color 'insert) (bar . 2))))
+      (defun set-default-evil-visual-state-cursor ()
+        (setq evil-visual-state-cursor `(,(spacemacs/state-color 'visual) (hbar . 2))))
+      (defun set-default-evil-motion-state-cursor ()
+        (setq evil-motion-state-cursor `(,(spacemacs/state-color 'motion) box)))
+      (defun set-default-evil-lisp-state-cursor ()
+        (setq evil-lisp-state-cursor `(,(spacemacs/state-color 'lisp) box)))
+      (defun evil-insert-state-cursor-hide ()
+        (setq evil-insert-state-cursor `(,(spacemacs/state-color 'insert) (hbar . 0))))
+      (set-default-evil-emacs-state-cursor)
+      (set-default-evil-normal-state-cursor)
+      (set-default-evil-insert-state-cursor)
+      (set-default-evil-visual-state-cursor)
+      (set-default-evil-motion-state-cursor)
+      (set-default-evil-lisp-state-cursor)
+      (evil-mode 1))
+    :config
+    (progn
+      (defvar spacemacs-last-base-state 'normal
+        "Last base state, the current value of this variable is used to
+determine the state to enable when escaping from the insert state.")
+      (make-variable-buffer-local 'spacemacs-last-base-state)
+      (defadvice evil-normal-state (before spacemacs/evil-normal-state activate)
+        "Advice to keep track of the last base state."
+        (setq spacemacs-last-base-state 'normal))
+      (defadvice evil-lisp-state (before spacemacs/evil-lisp-state activate)
+        "Advice to keep track of the last base state."
+        (setq spacemacs-last-base-state 'lisp))
+      ;; manage the base state target when leaving the insert state
+      (define-key evil-insert-state-map [escape]
+        (lambda () (interactive)
+          (let ((state (intern (format "evil-%s-state" spacemacs-last-base-state))))
+            (funcall state))))
+
+      ;; Make evil-mode up/down operate in screen lines instead of logical lines
+      (define-key evil-normal-state-map "j" 'evil-next-visual-line)
+      (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
+      ;; quick navigation
+      (define-key evil-normal-state-map (kbd "L")
+        (lambda () (interactive)
+          (evil-window-bottom)
+          (evil-scroll-line-to-center nil)))
+      (define-key evil-normal-state-map (kbd "H")
+        (lambda () (interactive)
+          (evil-window-top)
+          (evil-scroll-line-to-center nil)))
+      (evil-leader/set-key "re" 'evil-show-registers)
+      ;; define text objects
+      (defmacro define-and-bind-text-object (key start-regex end-regex)
+        (let ((inner-name (make-symbol "inner-name"))
+              (outer-name (make-symbol "outer-name")))
+          `(progn
+             (evil-define-text-object ,inner-name (count &optional beg end type)
+               (evil-regexp-range count beg end type ,start-regex ,end-regex t))
+             (evil-define-text-object ,outer-name (count &optional beg end type)
+               (evil-regexp-range count beg end type ,start-regex ,end-regex nil))
+             (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+             (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+      ;; between dollars sign:
+      (define-and-bind-text-object "$" "\\$" "\\$")
+      ;; between pipe characters:
+      (define-and-bind-text-object "|" "|" "|")
+      ;; between percent signs:
+      (define-and-bind-text-object "%" "%" "%")
+      )))
+
+(defun spacemacs/init-evil-args ()
+  (use-package evil-args
+    :init
+    (progn
+      ;; bind evil-args text objects
+      (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
+      (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))))
+
+(defun spacemacs/init-evil-escape ()
+  (use-package evil-escape
+    :init
+    (evil-escape-mode)
+    :config
+    (spacemacs//hide-lighter evil-escape-mode)))
+
+(defun spacemacs/init-evil-exchange ()
+  (use-package evil-exchange
+    :init (evil-exchange-install)))
+
+(defun spacemacs/init-evil-jumper ()
+  (use-package evil-jumper
+    :init
+    (setq evil-jumper-auto-center t)
+    (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
+    (setq evil-jumper-auto-save-interval 3600)))
+
+(defun spacemacs/init-evil-leader ()
+  (use-package evil-leader
+    :init
+    (progn
+      (setq evil-leader/in-all-states t
+            evil-leader/leader "SPC"
+            evil-leader/non-normal-prefix "s-")
+      (global-evil-leader-mode))
+    :config
+    (progn
+      ;; Unset shortcuts which shadow evil leader
+      (eval-after-load "compile"
+        '(progn
+           (define-key compilation-mode-map (kbd "SPC") nil)
+           (define-key compilation-mode-map (kbd "h") nil)))
+      (eval-after-load "dired"
+        '(define-key dired-mode-map (kbd "SPC") nil))
+      ;; make leader available in visual mode
+      (define-key evil-visual-state-map (kbd "SPC")
+        evil-leader--default-map)
+      (define-key evil-motion-state-map (kbd "SPC")
+        evil-leader--default-map)
+      ;; experimental: invoke leader with "jk" in insert mode
+      (when dotspacemacs-feature-toggle-leader-on-jk
+        (key-chord-define evil-insert-state-map (kbd "jk")
+                          evil-leader--default-map)))))
+
+(defun spacemacs/init-evil-lisp-state ()
+  (use-package evil-lisp-state
+    :init
+    (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state)))
+
 (defun spacemacs/init-evil-nerd-commenter ()
   (use-package evil-nerd-commenter
     :init
@@ -900,6 +688,67 @@ determine the state to enable when escaping from the insert state.")
         "cr" 'comment-or-uncomment-region
         "ct" 'evilnc-quick-comment-or-uncomment-to-the-line
         "cy" 'evilnc-copy-and-comment-lines))))
+
+(defun spacemacs/init-evil-numbers ()
+  (use-package evil-numbers
+    :config
+    (progn
+      (defun spacemacs/evil-numbers-micro-state-doc ()
+        "Display a short documentation in the mini buffer."
+        (echo "+ to increase the value or - to decrease it"))
+
+      (defun spacemacs/evil-numbers-micro-state-overlay-map ()
+        "Set a temporary overlay map to easily increase or decrease a number"
+        (set-temporary-overlay-map
+         (let ((map (make-sparse-keymap)))
+           (define-key map (kbd "+") 'spacemacs/evil-numbers-increase)
+           (define-key map (kbd "-") 'spacemacs/evil-numbers-decrease)
+           map) t)
+        (spacemacs/evil-numbers-micro-state-doc))
+
+      (defun spacemacs/evil-numbers-increase (amount &optional no-region)
+        "Increase number at point."
+        (interactive "p*")
+        (evil-numbers/inc-at-pt amount no-region)
+        (spacemacs/evil-numbers-micro-state-overlay-map))
+      (defun spacemacs/evil-numbers-decrease (amount)
+        "Decrease number at point."
+        (interactive "p*")
+        (evil-numbers/dec-at-pt amount)
+        (spacemacs/evil-numbers-micro-state-overlay-map))
+      (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
+      (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease))))
+
+(defun spacemacs/init-evil-search-highlight-persist ()
+  (use-package evil-search-highlight-persist
+    :init
+    (progn
+      (global-evil-search-highlight-persist)
+      (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
+      (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all))))
+
+(defun spacemacs/init-evil-surround ()
+  (use-package evil-surround
+    :init (global-evil-surround-mode 1)))
+
+(defun spacemacs/init-evil-terminal-cursor-changer ()
+  (unless (display-graphic-p)
+    (require 'evil-terminal-cursor-changer)))
+
+(defun spacemacs/init-evil-visualstar ()
+  (use-package evil-visualstar
+    :init
+    ;; neat trick, when we are not in visual mode we use ahs to search
+    (eval-after-load 'auto-highlight-symbol
+      '(progn
+         (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
+         (define-key evil-normal-state-map (kbd "#") 'ahs-backward)
+         (define-key evil-motion-state-map (kbd "*") 'ahs-forward)
+         (define-key evil-motion-state-map (kbd "#") 'ahs-backward)
+         (eval-after-load 'evil-lisp-state
+           '(progn
+              (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
+              (define-key evil-normal-state-map (kbd "#") 'ahs-backward)))))))
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
@@ -1681,6 +1530,157 @@ determine the state to enable when escaping from the insert state.")
               (-remove (lambda (x) (if (and (listp x) (stringp (car x)))
                                        (string-match str (car x))))
                        popwin:special-display-config))))))
+
+(defun spacemacs/init-powerline ()
+  (use-package powerline
+    :init
+    (progn
+      (use-package window-numbering
+        :ensure window-numbering
+        :init
+        (progn
+          (evil-leader/set-key
+            "0" 'select-window-0
+            "1" 'select-window-1
+            "2" 'select-window-2
+            "3" 'select-window-3
+            "4" 'select-window-4
+            "5" 'select-window-5
+            "6" 'select-window-6
+            "7" 'select-window-7
+            "8" 'select-window-8
+            "9" 'select-window-9)
+          (window-numbering-mode 1)))
+
+      (defun spacemacs/window-number ()
+        "Return the number of the window."
+        (let ((num (window-numbering-get-number-string)))
+          (cond ((not (display-graphic-p)) (concat "(" num ")"))
+                ((equal num "1")  " ➊ ")
+                ((equal num "2")  " ➋ ")
+                ((equal num "3")  " ➌ ")
+                ((equal num "4")  " ➍ ")
+                ((equal num "5")  " ➎ ")
+                ((equal num "6")  " ❻ ")
+                ((equal num "7")  " ➐ ")
+                ((equal num "8")  " ➑ ")
+                ((equal num "9")  " ➒ ")
+                ((equal num "0")  " ➓ ")
+                (t (concat " (" num ") ")))))
+
+      (defvar spacemacs-mode-line-minor-modesp t
+        "If not nil, minor modes lighter are displayed in the mode-line.")
+      (defun spacemacs/mode-line-minor-modes-toggle ()
+        "Toggle display of minor modes."
+        (interactive)
+        (if spacemacs-mode-line-minor-modesp
+            (setq spacemacs-mode-line-minor-modesp nil)
+          (setq spacemacs-mode-line-minor-modesp t)))
+      (evil-leader/set-key "tmm" 'spacemacs/mode-line-minor-modes-toggle)
+
+      (defvar spacemacs-mode-line-flycheckp t
+        "If not nil, flycheck info are displayed in the mode-line.")
+      (defun spacemacs/mode-line-flycheck-info-toggle ()
+        "Toggle display of flycheck info."
+        (interactive)
+        (if spacemacs-mode-line-flycheckp
+            (setq spacemacs-mode-line-flycheckp nil)
+          (setq spacemacs-mode-line-flycheckp t)))
+      (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
+      ;; for now we hardcode the height value of powerline depending on the
+      ;; window system, a better solution would be to compute it correctly
+      ;; in powerline package.
+      (let ((height (if (eq 'w32 window-system) 18 17)))
+        (setq-default powerline-height height))
+      (setq-default powerline-default-separator 'wave)
+      (setq-default mode-line-format '("%e" (:eval
+          (let* ((active (powerline-selected-window-active))
+                 (line-face (if active 'mode-line 'mode-line-inactive))
+                 (face1 (if active 'powerline-active1 'powerline-inactive1))
+                 (face2 (if active 'powerline-active2 'powerline-inactive2))
+                 (state-face (if active (spacemacs/current-state-face) face2))
+                 (flycheckp (and spacemacs-mode-line-flycheckp
+                                 (boundp 'flycheck-mode)
+                                 (symbol-value flycheck-mode)
+                                 (or flycheck-current-errors
+                                     (eq 'running flycheck-last-status-change))))
+                 (vc-face (if (or flycheckp spacemacs-mode-line-minor-modesp)
+                               face1 line-face))
+                 (separator-left (intern (format "powerline-%s-%s"
+                                                 powerline-default-separator
+                                                 (car powerline-default-separator-dir))))
+                 (separator-right (intern (format "powerline-%s-%s"
+                                                  powerline-default-separator
+                                                  (cdr powerline-default-separator-dir))))
+                 (lhs (append (list
+                      ;; window number
+                      ;; (funcall separator-left state-face face1)
+                      (powerline-raw (spacemacs/window-number) state-face))
+                      (if (and active anzu--state)
+                          (list
+                           (funcall separator-right state-face face1)
+                           (powerline-raw (anzu--update-mode-line) face1)
+                           (funcall separator-right face1 line-face))
+                        (list (funcall separator-right state-face line-face)))
+                      ;; evil state
+                      ;; (powerline-raw evil-mode-line-tag state-face)
+                      ;; (funcall separator-right state-face line-face)
+                      ;; buffer name
+                      (list
+                       (powerline-raw "%*" line-face 'l)
+                       (powerline-buffer-size line-face 'l)
+                       (powerline-buffer-id line-face 'l)
+                       (powerline-raw " " line-face)
+                       ;; major mode
+                       (funcall separator-left line-face face1)
+                       (powerline-major-mode face1 'l)
+                       (powerline-raw " " face1)
+                       (funcall separator-right face1 line-face))
+                      ;; flycheck
+                      (if flycheckp
+                          (list
+                           (powerline-raw " " line-face)
+                           (powerline-raw (spacemacs//custom-flycheck-lighter error)
+                                          'spacemacs-mode-line-error-face)
+                           (powerline-raw (spacemacs//custom-flycheck-lighter warning)
+                                          'spacemacs-mode-line-warning-face)
+                           (powerline-raw (spacemacs//custom-flycheck-lighter info)
+                                          'spacemacs-mode-line-info-face)))
+                      ;; separator between flycheck and minor modes
+                      (if (and flycheckp spacemacs-mode-line-minor-modesp)
+                          (list
+                           (funcall separator-left line-face face1)
+                           (powerline-raw "  " face1)
+                           (funcall separator-right face1 line-face)))
+                      ;; minor modes
+                      (if spacemacs-mode-line-minor-modesp
+                          (list
+                           (powerline-minor-modes line-face 'l)
+                           (powerline-raw mode-line-process line-face 'l)
+                           (powerline-raw " " line-face)))
+                      ;; version control
+                      (if (or flycheckp spacemacs-mode-line-minor-modesp)
+                          (list (funcall separator-left (if vc-face line-face face1) vc-face)))
+                      (list
+                       (powerline-vc vc-face)
+                       (powerline-raw " " vc-face)
+                       (funcall separator-right vc-face face2))))
+                 (rhs (list
+                       (funcall separator-right face2 face1)
+                       (powerline-raw " " face1)
+                       (powerline-raw "%l:%2c" face1 'r)
+                       (funcall separator-left face1 line-face)
+                       (powerline-raw " " line-face)
+                       (powerline-raw "%p" line-face 'r)
+                       (powerline-chamfer-left line-face face1)
+                       ;; display hud only if necessary
+                       (let ((progress (format-mode-line "%p")))
+                         (if (string-match "\%" progress)
+                             (powerline-hud state-face face1))))))
+            (concat (powerline-render lhs)
+                    (powerline-fill face2 (powerline-width rhs))
+                    (powerline-render rhs))))))
+      )))
 
 (defun spacemacs/init-powershell ()
   (use-package powershell
