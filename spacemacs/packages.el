@@ -294,9 +294,24 @@ which require an initialization must be listed explicitly in the list.")
        '(ahs-default-range (quote ahs-range-whole-buffer))
        '(ahs-idle-interval 0.25)
        '(ahs-inhibit-face-list nil))
+
+      (defvar spacemacs-last-ahs-highlight-p nil
+        "Info on the last searched highlighted symbol.")
+      (make-variable-buffer-local 'spacemacs-last-ahs-highlight-p)
+
+      (defun spacemacs/goto-last-searched-ahs-symbol ()
+        "Go to the last known occurrence of the last symbol searched with
+`auto-highlight-symbol'."
+        (interactive)
+        (if spacemacs-last-ahs-highlight-p
+            (progn (goto-char (nth 1 spacemacs-last-ahs-highlight-p))
+                   (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
+          (message "No symbol has been searched for now.")))
+
       (eval-after-load "evil-leader"
         '(evil-leader/set-key
            "se"  'ahs-edit-mode
+           "sb"  'spacemacs/goto-last-searched-ahs-symbol
            "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
            "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
            "srb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
@@ -315,6 +330,7 @@ which require an initialization must be listed explicitly in the list.")
         (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
           (eval `(defadvice ,sym (after ,advice activate)
                    (ahs-highlight-now)
+                   (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
                    (spacemacs/auto-highlight-symbol-overlay-map)))))
       (defun spacemacs/auto-highlight-symbol-overlay-map ()
         "Set a temporary overlay map to easily jump from highlighted symbols to
