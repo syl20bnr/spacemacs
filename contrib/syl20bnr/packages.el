@@ -53,7 +53,6 @@ disabling some faces in order to make colored identifiers stand out."
 
     :config
     (progn
-      (syl20bnr/tweak-theme-colors 'solarized-light)
       (evil-leader/set-key "tc" 'rainbow-identifiers-mode)
 
       ;; functions to change saturation and lightness of colors
