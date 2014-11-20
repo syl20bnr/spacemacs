@@ -1069,6 +1069,7 @@ Navigation between the highlighted symbols can be done with the commands:
 Key Binding   | Description
 --------------|------------------------------------------------------------
 `*`           | initiate navigation micro-state
+`<SPC> s b`   | go to the last searched occurrence of the last highlighted symbol
 `<SPC> s n`   | go to next occurrence and initiate navigation micro-state
 `<SPC> s N`   | go to previous occurrence and initiate navigation micro-state
 `<SPC> s r b` | change range to `whole buffer`
