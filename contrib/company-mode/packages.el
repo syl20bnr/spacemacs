@@ -4,6 +4,10 @@
     company-tern
     ))
 
+(defvar company-mode-excluded-packages
+  '(auto-complete ac-ispell tern-auto-complete auto-complete-clang ensime edts)
+  "Packages that use auto-complete that are no longer necessary and might conflict.")
+
 (defun company-mode/init-company ()
   (use-package company
     :config
