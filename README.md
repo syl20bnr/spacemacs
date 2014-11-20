@@ -1307,7 +1307,7 @@ Key Binding   | Function
 `a`           | evil-append
 `c`           | evil-change
 `d`           | evil-delete
-`h`           | next char
+`h`           | previous char
 `i`           | evil-insert-state
 `I`           | evil-insert-line
 `j`           | next visual line
