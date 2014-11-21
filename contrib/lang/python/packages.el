@@ -32,7 +32,9 @@ which require an initialization must be listed explicitly in the list.")
 
       (defun python-default ()
         (setq mode-name "Python"
-              tab-width 4)
+              tab-width 4
+              ;; auto-indent on colon doesn't work well with if statement
+              electric-indent-chars (delq ?: electric-indent-chars))
         (annotate-pdb)
         (anaconda-mode)
         (eldoc-mode)
@@ -42,11 +44,11 @@ which require an initialization must be listed explicitly in the list.")
           (ac-anaconda-setup))
         (when (boundp 'company-backends)
           (add-to-list 'company-backends 'company-anaconda))
-        (add-hook 'before-save-hook 'delete-trailing-whitespace))
+        ;; make C-j work the same way as RET
+        (local-set-key (kbd "C-j") 'newline-and-indent))
 
       (add-hook 'python-mode-hook 'python-default)
-      (add-hook 'python-mode-hook 'python-setup-shell)
-      (add-hook 'python-mode-hook 'disable-electric-indent-mode))
+      (add-hook 'python-mode-hook 'python-setup-shell))
     :config
     (progn
       ;; add support for `ahs-range-beginning-of-defun' for python-mode
