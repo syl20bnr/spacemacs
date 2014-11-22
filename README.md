@@ -52,15 +52,16 @@ configuration layer:
 
     <SPC> : config-system/create-layer RET
 
-Choose a name and a layer skeleton will be create in the `private`
-directory.
+Then choose a name and a layer skeleton will be created in the [private][]
+directory. The `private` directory is ignored by Git.
 
-Then to use your newly created configuraton layer, add it to your
-`~/.spacemacs` file (see next section).
+To use your newly created configuration layer, add it to your `~/.spacemacs`
+file (see next section).
 
 ## Dotfile ~/.spacemacs
 
-To install it:
+`Spacemacs` has a convenient dotfile. You have to install it by invoking the
+following command inside Emacs:
 
     <SPC> : dotspacemacs/install RET
 
@@ -110,6 +111,7 @@ Key Binding   |                 Description
 [config]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#configuration-layers
 [dotfile]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#dotfile-configuration
 [troubleshoot]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#troubleshoot
+[private]: https://github.com/syl20bnr/spacemacs/tree/master/private
 [DOCUMENTATION.md]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md
 [CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/CONTRIBUTE.md
 [emacs_live]: https://github.com/overtone/emacs-live
