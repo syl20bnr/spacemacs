@@ -32,6 +32,20 @@ NOT USED FOR NOW :-)"
   "Return the absolute path to the spacemacs dotfile."
   (concat user-home-directory ".spacemacs"))
 
+(defun dotspacemacs/install ()
+  "Install `.spacemacs.template' in home directory. Ask for confirmation
+before installing the file if the destination already exists."
+  (interactive)
+  (let* ((dotfile "~/.spacemacs")
+         (install (if (file-exists-p dotfile)
+                      (y-or-n-p (format "%s already exists. Do you want to overwite it ? "
+                                        dotfile))
+                    t)))
+    (when install
+      (copy-file (concat spacemacs-template-directory
+                         ".spacemacs.template") dotfile t)
+      (message "%s has been installed." dotfile))))
+
 (defun dotspacemacs/load ()
   "Load ~/.spacemacs. If it is not found then copy .spacemacs.template to
 ~/.spacemacs"
