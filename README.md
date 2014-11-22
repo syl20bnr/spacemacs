@@ -381,6 +381,8 @@ format in `extensions.el` or `packages.el`:
 )
 ```
 
+It is common to define the body with the [use-package][use-package] macro.
+
 ### Exclusion
 
 It is possible to exclude some packages from `Spacemacs` in a per layer basis.
@@ -1829,3 +1831,4 @@ developers to elisp hackers!
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
 [Jackneill]:https://github.com/Jackneill
+[use-package]: https://github.com/jwiegley/use-package
