@@ -9,6 +9,10 @@
   "Spacemacs core directory.")
 (add-to-list 'load-path spacemacs-core-directory)
 
+(defconst spacemacs-template-directory
+  (expand-file-name (concat spacemacs-core-directory "templates/"))
+  "Spacemacs templates directory.")
+
 ;; additional paths
 (defconst user-home-directory
   (expand-file-name (concat user-emacs-directory "../"))
