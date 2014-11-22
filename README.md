@@ -1,7 +1,7 @@
 ![title](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/title.png)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
 
-[philosophy][] | [goals][] | [for who?][] | [screenshots][] | [achievements][]
+[philosophy][] | [goals][] | [for who?][] | [screenshots][] | [achievements][] | [contribute][CONTRIBUTE.md] | [documentation][DOCUMENTATION.md]
 
 # Introduction
 
@@ -14,7 +14,7 @@ and customization in order to make itself easy to use and unique.
 are welcome and encouraged to use `Spacemacs` since it provides a simple
 architecture to contribute changes and hack others contributions.
 
-Its status is `beta` for now, essentially because of the contribution system
+Its status is `beta` for now, essentially because of the configuration system
 that is not yet finished but already usable.
 
 And now, to use a well known catch line from [Emacs Live][emacs_live]:
