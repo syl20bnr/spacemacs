@@ -16,13 +16,12 @@
         - [Exclusion](#exclusion)
     - [Packages synchronization (Vundle like feature)](#packages-synchronization-vundle-like-feature)
     - [Types of configuration layers](#types-of-configuration-layers)
-    - [Using a configuration layer](#using-a-configuration-layer)
     - [Submitting a configuration layer upstream](#submitting-a-configuration-layer-upstream)
     - [Example: Themes Megapack example](#example-themes-megapack-example)
 - [Dotfile Configuration](#dotfile-configuration)
     - [Installation](#installation)
     - [Content](#content)
-        - [Using contributions layers](#using-contributions-layers)
+        - [Using configuration layers](#using-configuration-layers)
         - [Excluding packages](#excluding-packages)
         - [Hooks](#hooks)
         - [Custom variables](#custom-variables)
@@ -309,22 +308,6 @@ There are three types of configuration layers:
 - contrib (in the `contrib` directory, those layers are contributions shared by
 the community and merged upstream).
 
-`Spacemacs` leverages the configuration layers in order to make it possible for
-you to share your own layer with other `Spacemacs` users. This kind of layer is
-called `contribution layer`.
-
-## Using a configuration layer
-
-Just create a configuration layer in `~/.emacs.d/contrib` or in a path that is
-registered in `dotspacemacs-configuration-layer-path` variable of your
-`~/.spacemacs` dotile (see the [dotfile section]() for more info on this file).
-
-The base files of a configuration layer (see [structure](#structure)) are
-optional so you just have to create only the files you need in your layer.
-For instance if you just want to add packages then only the `packages.el` file
-is necessary (as it is the case for the [Themes Megapack][themes-megapack]
-layer).
-
 ## Submitting a configuration layer upstream
 
 If you decide to provide a `contrib` configuration layer, please check
@@ -353,9 +336,9 @@ $ cp ~/.emacs.d/.spacemacs.template ~/.spacemacs
 
 ## Content
 
-### Using contributions layers
+### Using configuration layers
 
-To use a contribution layer, add it to the `dotspacemacs-configuration-layers`
+To use a configuration layer, add it to the `dotspacemacs-configuration-layers`
 variable of your `~/.spacemacs`.
 
 For instance to add the configuration layer of [RMS](#thank-you):
@@ -365,16 +348,14 @@ For instance to add the configuration layer of [RMS](#thank-you):
 If this layer does not exist you can still try another one in
 [the `contrib` directory](https://github.com/syl20bnr/spacemacs/tree/master/contrib).
 
-By default contribution layers are expected to be stored in `~/.emacs.d/contrib`
-and we encourage you to submit your layers upstream in order to share them,
-grow the package coverage of `Spacemacs` and dispatch responsibilities for their
-maintenance. But of course you are free to keep them somewhere else, if this is
-your case you can declare additional paths where `Spacemacs` can look for
-contribution layers. This is done by setting the list
+Configuration layers are expected to be stored in `~/.emacs.d/private` or
+`~/.emacs.d/contrib`. But you are free to keep them somewhere else by declaring
+additional paths where `Spacemacs` can look for configuration layers.
+This is done by setting the list
 `dotspacemacs-configuration-layer-path` in your `~/.spacemacs`:
 
 ```elisp
-(setq-default dotspacemacs-configuration-layer-path '("~/.mycontribs/"))
+(setq-default dotspacemacs-configuration-layer-path '("~/.myconfig/"))
 ```
 
 ### Excluding packages
@@ -1543,7 +1524,8 @@ In `org`, [evil-org-mode][evil-org-mode] is activated.
 
 ### Python
 
-Writing python code with spacemacs is supported by python contribution. Please see [python contribution][python-contrib] documentation for detail.
+Writing python code with spacemacs is supported by python contribution. Please see
+[python contribution][python-contrib] documentation for detail.
 
 ### JavaScript
 
@@ -1651,8 +1633,8 @@ Achievements                                         | Account
 
 # Thank you
 
-[Jokes aside](#contributions), thank you Richard for this great piece of
-software.
+[Jokes aside](#using-configuration-layers), thank you Richard for this great
+piece of software.
 
 Thank you to all the contributors and the whole Emacs community from core
 developers to elisp hackers!
