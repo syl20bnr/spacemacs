@@ -3,11 +3,9 @@
 /edts
 /auto-save-list
 /elpa
+/.cache
 ac-comphist.dat
-.cache
 .emacs.desktop
 .emacs.desktop.lock
-.places
-.recentf
 .smex-items
 *.elc
