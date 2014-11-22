@@ -32,16 +32,17 @@
   (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
 
   (config-system/package.el-initialize)
-  ;; User configuration file for Spacemacs: ~/.spacemacs
+
+  ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs/load)
   (dotspacemacs|call-func dotspacemacs/init)
-  ;; default configuration layer of spacemacs
+
+  ;; Load configuration layers
   (config-system/declare-layer 'spacemacs)
-  (config-system/discover-contrib-layers)
   (config-system/declare-dotspacemacs-configuration-layers)
-  ;; heavy lifting, load all packages and extensions
   (config-system/load-layers)
   (config-system/delete-orphan-packages)
+
   ;; Ultimate configuration decisions are given to the user who can defined
   ;; them in his/her ~/.spacemacs file
   (dotspacemacs|call-func dotspacemacs/config)
