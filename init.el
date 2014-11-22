@@ -1,35 +1,10 @@
-;; spacemacs special buffer
-(defconst spacemacs-core-directory
-  (expand-file-name (concat user-emacs-directory "core/"))
-  "Spacemacs core directory.")
-(add-to-list 'load-path spacemacs-core-directory)
+(load (concat user-emacs-directory "core/spacemacs-mode.el"))
 (require 'config-system)
-(load (concat spacemacs-core-directory "spacemacs-mode.el"))
+
+;; spacemacs special buffer
 (spacemacs/buffer)
 
-(defgroup spacemacs nil
-  "Spacemacs customizations."
-  :group 'starter-kit
-  :prefix 'spacemacs-)
-
 (unless (not (spacemacs/emacs-version-ok))
-  ;; additional paths
-  (defconst user-home-directory
-    (expand-file-name (concat user-emacs-directory "../"))
-    "User home directory (~/).")
-  (defconst spacemacs-directory
-    (expand-file-name (concat user-emacs-directory "spacemacs/"))
-    "Spacemacs base directory.")
-  (defconst spacemacs-cache-directory
-    (expand-file-name (concat user-emacs-directory ".cache/"))
-    "Spacemacs storage area for persistent files.")
-  (if (not (file-exists-p spacemacs-cache-directory))
-      (make-directory spacemacs-cache-directory))
-  (defconst user-dropbox-directory
-    (expand-file-name (concat user-home-directory "Dropbox/"))
-    "Dropbox directory.")
-  ;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
-  (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
 
   (config-system/package.el-initialize)
 
