@@ -5,6 +5,10 @@
   (expand-file-name (concat user-emacs-directory "contrib/"))
   "Spacemacs contribution layers base directory.")
 
+(defconst config-system-private-directory
+  (expand-file-name (concat user-emacs-directory "private/"))
+  "Spacemacs private layers base directory.")
+
 (defvar config-system-config-layers '()
   "Alist of configuration layers with the form (symbol . plist) where
 SYMBOL is the name of the layer and PLIST is a property list with the following
@@ -29,7 +33,7 @@ and configuring the package.")
 extension symbol and the value is the layer symbols responsible for initializing
 and configuring the package.")
 
-(defvar config-system-contrib-layer-paths #s(hash-table size 128 data ())
+(defvar config-system-layer-paths #s(hash-table size 128 data ())
   "Hash table of layers locations where the key is a layer symbol and the value
 is its path.")
 
@@ -61,7 +65,7 @@ sub-directory of the contribution directory.")
  is a contribution layer."
   (let* ((sym-name (symbol-name sym))
          (base-dir (if contrib
-                       (ht-get config-system-contrib-layer-paths sym)
+                       (ht-get config-system-layer-paths sym)
                      user-emacs-directory))
          (dir (format "%s%s/" base-dir sym-name))
          (ext-dir (format "%sextensions/" dir)))
@@ -76,19 +80,22 @@ in `config-system-contrib-categories'"
                 (concat config-system-contrib-directory (format "%s/" d))))
    config-system-contrib-categories))
 
-(defun config-system/discover-contrib-layers ()
-  "Fill the hash table `config-system-contrib-layer-paths' where the key is the
+(defun config-system/discover-layers ()
+  "Fill the hash table `config-system-layer-paths' where the key is the
 layer symbol and the value is its path."
   (let ((cat-dirs (config-system//get-contrib-category-dirs)))
-    (mapc 'config-system/discover-contrib-layers-in-dir
+    (mapc 'config-system/discover-layers-in-dir
           (append (list config-system-contrib-directory)
                   cat-dirs
-                  dotspacemacs-configuration-layer-path))))
+                  dotspacemacs-configuration-layer-path
+                  ;; load private layers at the end on purpose
+                  ;; we asume that the user layers must have the final word
+                  ;; on configuration choices.
+                  (list config-system-private-directory)))))
 
-(defun config-system/discover-contrib-layers-in-dir (dir)
-  "Fill the hash table `config-system-contrib-layer-paths' where the key is the
+(defun config-system/discover-layers-in-dir (dir)
+  "Fill the hash table `config-system-layer-paths' where the key is the
 layer symbol and the value is its path for all layers found in directory DIR.
-
 Also fill the list of excluded packages `config-system-excluded-packages-from-layers'
 declared at the layer level."
   (spacemacs/message "Looking for contribution layers in %s" dir)
@@ -99,7 +106,7 @@ declared at the layer level."
         (when (and (file-directory-p (concat dir f))
                    (not (member f filter-out)))
           (spacemacs/message "-> Discovered contribution layer: %s" f)
-          (puthash (intern f) dir config-system-contrib-layer-paths))))))
+          (puthash (intern f) dir config-system-layer-paths))))))
 
 (defun config-system/load-layers ()
   "Load all declared layers."
@@ -256,6 +263,7 @@ config-system-all-post-extensions "
 (defun config-system/declare-dotspacemacs-configuration-layers ()
   "Declare the configuration layer in order of appearance in list
 `dotspacemacs-configuration-layers' defined in ~/.spacemacs."
+  (config-system/discover-layers)
   (if (boundp 'dotspacemacs-configuration-layers)
       (dolist (layer dotspacemacs-configuration-layers)
         (config-system/declare-layer layer t))))
