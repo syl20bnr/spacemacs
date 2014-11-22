@@ -80,7 +80,7 @@
 ;; ---------------------------------------------------------------------------
 
 ;; save custom variables in ~/.spacemacs
-(setq custom-file (contribsys/dotfile-location))
+(setq custom-file (dotspacemacs/location))
 ;; scratch buffer empty
 (setq initial-scratch-message nil)
 (setq redisplay-dont-pause t)

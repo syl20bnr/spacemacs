@@ -92,7 +92,7 @@
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "C" 'compile)
 ;; narrow & widen -------------------------------------------------------------
-(unless (ht-contains? spacemacs-all-packages 'fancy-narrow)
+(unless (ht-contains? config-system-all-packages 'fancy-narrow)
   (evil-leader/set-key
     "nr" 'narrow-to-region
     "np" 'narrow-to-page

@@ -75,11 +75,11 @@
 (defadvice load-theme (around spacemacs/load-theme-adv activate)
   "Perform post load processing."
   (let ((theme (ad-get-arg 0)))
+    (setq spacemacs-cur-theme theme)
     (if (and spacemacs-solarized-dark-createdp
              (eq 'solarized-dark theme))
         (create-solarized-theme 'dark 'solarized-dark))
     ad-do-it
-    (setq spacemacs-cur-theme theme)
     (spacemacs/post-theme-init theme)))
 
 (defun spacemacs/post-theme-init (theme)
@@ -341,7 +341,7 @@ argument takes the kindows rotate backwards."
 (defun find-dotfile ()
   "Edit the `dotfile', in the current window."
   (interactive)
-  (find-file-existing (contribsys/dotfile-location)))
+  (find-file-existing (dotspacemacs/location)))
 
 (defun find-spacemacs-file ()
   (interactive)
@@ -351,7 +351,7 @@ argument takes the kindows rotate backwards."
 (defun find-contrib-file ()
   (interactive)
   "Edit the `file' in the spacemacs base directory, in the current window."
-  (ido-find-file-in-dir spacemacs-contrib-config-directory))
+  (ido-find-file-in-dir config-system-contrib-directory))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function
