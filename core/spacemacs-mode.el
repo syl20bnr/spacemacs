@@ -1,8 +1,31 @@
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
-(defvar spacemacs-min-version "24.3"
+(defconst spacemacs-min-version "24.3"
   "Mininal required version of Emacs.")
+
+(defconst spacemacs-core-directory
+  (expand-file-name (concat user-emacs-directory "core/"))
+  "Spacemacs core directory.")
+(add-to-list 'load-path spacemacs-core-directory)
+
+;; additional paths
+(defconst user-home-directory
+  (expand-file-name (concat user-emacs-directory "../"))
+  "User home directory (~/).")
+(defconst spacemacs-directory
+  (expand-file-name (concat user-emacs-directory "spacemacs/"))
+  "Spacemacs base directory.")
+(defconst spacemacs-cache-directory
+  (expand-file-name (concat user-emacs-directory ".cache/"))
+  "Spacemacs storage area for persistent files.")
+(if (not (file-exists-p spacemacs-cache-directory))
+    (make-directory spacemacs-cache-directory))
+(defconst user-dropbox-directory
+  (expand-file-name (concat user-home-directory "Dropbox/"))
+  "Dropbox directory.")
+;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
+(add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
 
 (defvar spacemacs-title-length 70)
 (defvar spacemacs-loading-counter 0)
@@ -17,6 +40,11 @@
   (/ spacemacs-loading-dots-count spacemacs-loading-dots-chunk-count))
 (defvar spacemacs-loading-dots-chunk-threshold 0)
 (defvar spacemacs-solarized-dark-createdp nil)
+
+(defgroup spacemacs nil
+  "Spacemacs customizations."
+  :group 'starter-kit
+  :prefix 'spacemacs-)
 
 (define-derived-mode spacemacs-mode special-mode "spacemacs-mode"
   "Spacemacs major mode for startup screen."
@@ -147,4 +175,3 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
             (setq i (1+ i))))
         (spacemacs/replace-last-line-of-buffer spacemacs-loading-text)
         (redisplay))))
-
