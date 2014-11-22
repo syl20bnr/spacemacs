@@ -60,6 +60,44 @@ sub-directory of the contribution directory.")
                    '("marmalade" . "http://marmalade-repo.org/packages/")))
     (setq warning-minimum-level :error)))
 
+(defun config-system/create-layer (name)
+  "Ask the user for a configuration layer name and create a layer with this
+name in the private layers directory."
+  (interactive "sConfiguration layer name: ")
+  (let ((layer-dir (config-system//get-private-layer-dir name)))
+    (cond
+     ((string-equal "" name)
+      (message "Cannot create a configuration layer without a name."))
+     ((file-exists-p layer-dir)
+      (message "Cannot create configuration layer \"%s\", this layer already exists."
+               name))
+     (t
+      (make-directory layer-dir)
+      (config-system//copy-template "extensions")
+      (config-system//copy-template "packages")
+      (message "Configuration layer \"%s\" successfully created." name))
+  )))
+
+(defun config-system//get-private-layer-dir (name)
+  "Return an absolute path the the private configuration layer with name
+NAME."
+  (concat config-system-private-directory name "/"))
+
+(defun config-system//copy-template (template)
+  "Copy and replace special values of TEMPLATE to LAYER_DIR."
+  (let ((src (concat spacemacs-template-directory
+                     (format "%s.template" template)))
+        (dest (concat (config-system//get-private-layer-dir name)
+                      (format "%s.el" template))))
+    
+    (copy-file src dest)
+    (find-file dest)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward "NAME" nil t)
+        (replace-match name t)))
+    (save-buffer)))
+
 (defun config-system/declare-layer (sym &optional contrib)
   "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer
  is a contribution layer."
