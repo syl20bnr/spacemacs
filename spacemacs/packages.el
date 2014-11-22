@@ -1966,7 +1966,7 @@ determine the state to enable when escaping from the insert state.")
       (defun spacemacs/load-yasnippet ()
           (if (not (boundp 'yas-minor-mode))
               (progn
-                (let* ((dir (contribsys/get-layer-property 'spacemacs :ext-dir))
+                (let* ((dir (config-system/get-layer-property 'spacemacs :ext-dir))
                        (yas-dir (list (concat dir "yasnippet-snippets"))))
                   (setq yas-snippet-dirs yas-dir)
                   (yas-global-mode 1)))))

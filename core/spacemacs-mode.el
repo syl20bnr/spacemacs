@@ -72,7 +72,7 @@ installed."
            (add-to-list 'load-path (concat user-emacs-directory "elpa/"
                                            pkg-elpa-dir))
          ;; install the package
-         (contribsys/package.el-initialize)
+         (config-system/package.el-initialize)
          (package-refresh-contents)
          (package-install pkg))
        (require pkg)))))
