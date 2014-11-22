@@ -2,6 +2,7 @@
 (defconst spacemacs-core-directory
   (expand-file-name (concat user-emacs-directory "core/"))
   "Spacemacs core directory.")
+(add-to-list 'load-path spacemacs-core-directory)
 (load (concat spacemacs-core-directory "contribsys.el"))
 (load (concat spacemacs-core-directory "spacemacs-mode.el"))
 (spacemacs/buffer)
@@ -34,8 +35,8 @@
   (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
   (contribsys/package.el-initialize)
   ;; User configuration file for Spacemacs: ~/.spacemacs
-  (contribsys/load-dotfile)
-  (contribsys/call-dotfile-func dotspacemacs/init)
+  (dotspacemacs/load)
+  (dotspacemacs|call-func dotspacemacs/init)
   ;; default configuration layer of spacemacs
   (contribsys/declare-layer 'spacemacs)
   ;; configuration layers coming from `dotspacemacs-configuration-layers'
@@ -47,7 +48,7 @@
   (contribsys/delete-orphan-packages)
   ;; Ultimate configuration decisions are given to the user who can defined
   ;; them in his/her ~/.spacemacs file
-  (contribsys/call-dotfile-func dotspacemacs/config)
+  (dotspacemacs|call-func dotspacemacs/config)
   (contribsys/setup-after-init-hook)
 
   ;; start a server for subsequent emacs clients
