@@ -21,6 +21,49 @@ And now, to use a well known catch line from [Emacs Live][emacs_live]:
 
     M-x start-spacing !
 
+# Features
+
+### Convenient and Mnemonic Key Bindings
+
+`Spacemacs` organizes key bindings by mnemonic namespaces. If you are looking
+for commands to operate on your buffer, they are right under `<SPC> b`, if you
+want to operate on your project, then it is `<SPC> p`, etc...
+
+There is no need to learn convoluted Emacs chords, everything you need is under
+bindings that are easy to type and easy to remember.
+
+### Excellent Evil Support
+
+Spacemacs comes with Vim modal editing through [Evil Mode][]. Everything is
+designed with it in mind from the key bindings to the user interface.
+This includes fancy goodies like a micro-state for editing all occurences of a
+symbol and extra packages like [ace-jump][],[evil-lisp-state][] and [evil-nerd-commenter][].
+
+### Batteries Included
+
+Comes with configuration for hundreds of packages that make it fantastic out of the
+box. Many languages like Python, Ruby, Scala, R, SCSS, Elixir and Javascript come with modes,
+configuration and convenient key bindings. It also comes with [Git support][], [project management][]
+and auto-completion. And all of this is optimized and lazy-loaded so you still get fast boot times!
+
+And if that isn't enough you can use [community contributed][contrib layers] configuration
+layers for nice configurations of packages that aren't in the default distribution.
+
+### Great [Documentation][DOCUMENTATION.MD]
+
+Most Spacemacs features come with extensive documentation including key bindings, configuration options and
+explanations for beginners. And if you can't find the answers you need, ask your question in the [Gitter Chat][] and
+a member of the community will help you out.
+
+**[Visit the Documentation][DOCUMENTATION.MD]**
+
+### Nice UI
+
+Spacemacs is designed to look nice in a minimal and functional way. It comes with good theme support and a highly customized
+Powerline. The Powerline includes features like quick window switching numbers, Evil mode colors, and nice mode icons.
+
+![spacemacs_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-python.png)
+
 # Prerequisites
 
 `Spacemacs` is tested with Emacs 24.3 and 24.4. It should boot on all the major
@@ -52,7 +95,7 @@ configuration layer:
 
     <SPC> : config-system/create-layer RET
 
-Then choose a name and a layer skeleton will be created in the [private][]
+After entering a name, a layer skeleton will be created in the [private][]
 directory. The `private` directory is ignored by Git.
 
 To use your newly created configuration layer, add it to your `~/.spacemacs`
@@ -112,9 +155,17 @@ Key Binding   |                 Description
 [dotfile]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#dotfile-configuration
 [achievements]:  https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#achievements
 [troubleshoot]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#troubleshoot
+[contrib layers]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#using-configuration-layers
+[Git support]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#working-with-git
+[ace-jump]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
+[project management]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#project-management
+[Evil Mode]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#evil
 [private]: https://github.com/syl20bnr/spacemacs/tree/master/private
 [DOCUMENTATION.md]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md
 [CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/CONTRIBUTE.md
 [emacs_live]: https://github.com/overtone/emacs-live
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
+[evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
+[evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
+[Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
