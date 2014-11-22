@@ -1,7 +1,7 @@
 ![title](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/title.png)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
 
-[philosophy][] | [goals][] | [for who?][] | [screenshots][]
+[philosophy][] | [goals][] | [for who?][] | [screenshots][] | [achievements][]
 
 # Introduction
 
@@ -110,6 +110,7 @@ Key Binding   |                 Description
 [screenshots]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#screenshots
 [config]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#configuration-layers
 [dotfile]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#dotfile-configuration
+[achievements]:  https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#achievements
 [troubleshoot]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#troubleshoot
 [private]: https://github.com/syl20bnr/spacemacs/tree/master/private
 [DOCUMENTATION.md]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md
