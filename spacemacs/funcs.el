@@ -242,7 +242,7 @@ argument takes the kindows rotate backwards."
         (name (buffer-name)))
     (if (not (and filename (file-exists-p filename)))
         (ido-kill-buffer)
-      (when (yes-or-no-p "Are you sure you want to remove this file? ")
+      (when (yes-or-no-p "Are you sure you want to delete this file? ")
         (delete-file filename)
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
@@ -628,3 +628,14 @@ otherwise it is scaled down."
     ;; for 24.3
     (add-hook 'electric-indent-functions
               (lambda () 'no-indent) nil 'local)))
+
+(defun spacemacs/safe-revert-buffer ()
+  "Prompt before reverting the file."
+  (interactive)
+  (revert-buffer nil nil))
+
+(defun spacemacs/safe-erase-buffer ()
+  "Prompt before erasing the content of the file."
+  (interactive)
+  (if (y-or-n-p (format "Erase content of buffer %s ? " (current-buffer)))
+      (erase-buffer)))
