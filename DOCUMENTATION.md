@@ -808,9 +808,11 @@ Buffer manipulation commands (start with `b`):
 
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
-`<SPC> b d`   | delete the current buffer (beware the associated file is also deleted)
+`<SPC> b d`   | delete the current buffer **and** file (ask for confirmation)
+`<SPC> b e`   | erase the content of the buffer (ask for confirmation)
 `<SPC> b k`   | kill the current buffer
 `<SPC> b K`   | kill all buffers except the current one
+`<SPC> b C-K` | kill all buffers matching the regexp
 `<SPC> b m h` | move a buffer to the left
 `<SPC> b m j` | move a buffer to the bottom
 `<SPC> b m k` | move a buffer to the top
@@ -818,8 +820,9 @@ Key Binding   |                 Description
 `<SPC> b n`   | switch to next buffer
 `<SPC> b p`   | switch to previous buffer
 `<SPC> b r`   | rename the current buffer
+`<SPC> b R`   | revert the current buffer (reload from disk)
 `<SPC> b s`   | switch to a buffer using `helm`
-`<SPC> b w`   | toggle read-only
+`<SPC> b w`   | toggle read-only (writable state)
 
 Files manipulation commands (start with `f`):
 

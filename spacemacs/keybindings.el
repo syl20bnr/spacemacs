@@ -32,13 +32,13 @@
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
   "bd"  'delete-current-buffer-file
-  "be"  'erase-buffer
+  "be"  'spacemacs/safe-erase-buffer
   "bK"  'kill-other-buffers
   "bk"  'ido-kill-buffer
   "b C-k" 'kill-matching-buffers-rudely
   "bn"  'switch-to-next-buffer
   "bp"  'switch-to-prev-buffer
-  "bR"  (lambda () (interactive) (revert-buffer nil t))
+  "bR"  'spacemacs/safe-revert-buffer
   "br"  'rename-current-buffer-file
   "bw"  'toggle-read-only)
 ;; Cycling settings -----------------------------------------------------------
