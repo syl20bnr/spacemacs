@@ -639,3 +639,10 @@ otherwise it is scaled down."
   (interactive)
   (if (y-or-n-p (format "Erase content of buffer %s ? " (current-buffer)))
       (erase-buffer)))
+
+(defun spacemacs/ert-run-tests-buffer ()
+  "Run all the tests in the current buffer."
+  (interactive)
+  (save-buffer)
+  (load-file (buffer-file-name))
+  (ert t))
