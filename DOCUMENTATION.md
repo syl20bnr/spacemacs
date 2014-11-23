@@ -1,6 +1,9 @@
+# Spacemacs Documentation
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
+- [Spacemacs Documentation](#spacemacs-documentation)
 - [Philosophy](#philosophy)
     - [Easy](#easy)
     - [Consistency](#consistency)
@@ -96,6 +99,7 @@
         - [JavaScript](#javascript)
         - [rcirc](#rcirc)
 - [Tips](#tips)
+    - [Updating Spacemacs](#updating-spacemacs)
     - [Tips for Emacs users](#tips-for-emacs-users)
     - [Troubleshoot](#troubleshoot)
         - [Loading fails](#loading-fails)
@@ -1111,7 +1115,7 @@ Key Binding   |                 Description
 
 ### Line formatting
 
-`Spacemacs` performs `go to the line below point and indent it`  with `<SPC> j k`. 
+`Spacemacs` performs `go to the line below point and indent it`  with `<SPC> j k`.
 You may repeat this operation with `evil-repeat` if you need to indent many lines.
 
 Line formatting commands start with `j`:
@@ -1552,6 +1556,14 @@ Tern includes the following key bindings:
 `CTRL+k`          | previous item in command history
 
 # Tips
+
+## Updating Spacemacs
+
+Currently there is no auto-update mechanism so if you want the latest and greatest features you
+have to `git pull` the latest changes from `syl20bnr/spacemacs`. The `master` branch is updated
+fairly regularly with releases of features that *should* be stable. The `develop` contains bleeding
+edge features that are still in development, if you are an advanced user and want to help test these
+features feel free to run off of this branch.
 
 ## Tips for Emacs users
 
