@@ -160,5 +160,5 @@
   "mD"  'elisp-slime-nav-describe-elisp-thing-at-point
   "mg"  'elisp-slime-nav-find-elisp-thing-at-point
   "mhv" 'describe-variable
-  "mta"  (lambda () (interactive) (ert t))
+  "mta" 'spacemacs/ert-run-tests-buffer
   "mtf" 'ert)
