@@ -886,6 +886,14 @@ determine the state to enable when escaping from the insert state.")
       (setq flycheck-check-syntax-automatically '(save mode-enabled)
             flycheck-standard-error-navigation nil)
 
+      (defun spacemacs/mode-line-flycheck-info-toggle ()
+        "Toggle display of flycheck info."
+        (interactive)
+        (if flycheck-mode
+            (flycheck-mode -1)
+          (flycheck-mode)))
+      (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
+
       ;; color mode line faces
       (defun spacemacs/defface-flycheck-mode-line-color (state)
         "Define a face for the given Flycheck STATE."
@@ -1636,16 +1644,6 @@ determine the state to enable when escaping from the insert state.")
           (setq spacemacs-mode-line-minor-modesp t)))
       (evil-leader/set-key "tmm" 'spacemacs/mode-line-minor-modes-toggle)
 
-      (defvar spacemacs-mode-line-flycheckp t
-        "If not nil, flycheck info are displayed in the mode-line.")
-      (defun spacemacs/mode-line-flycheck-info-toggle ()
-        "Toggle display of flycheck info."
-        (interactive)
-        (if spacemacs-mode-line-flycheckp
-            (setq spacemacs-mode-line-flycheckp nil)
-          (setq spacemacs-mode-line-flycheckp t)))
-      (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
-
       ;; for now we hardcode the height value of powerline depending on the
       ;; window system, a better solution would be to compute it correctly
       ;; in powerline package.
@@ -1662,8 +1660,7 @@ determine the state to enable when escaping from the insert state.")
                  (batteryp (and (boundp 'fancy-battery-mode)
                                 (symbol-value fancy-battery-mode)))
                  (battery-face (if batteryp (fancy-battery-powerline-face)))
-                 (flycheckp (and spacemacs-mode-line-flycheckp
-                                 (boundp 'flycheck-mode)
+                 (flycheckp (and (boundp 'flycheck-mode)
                                  (symbol-value flycheck-mode)
                                  (or flycheck-current-errors
                                      (eq 'running flycheck-last-status-change))))
