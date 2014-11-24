@@ -105,6 +105,7 @@
   "tF" 'toggle-frame-fullscreen
   "tf" 'fringe-mode
   "tl" 'toggle-truncate-lines
+  "tL" 'visual-line-mode
   "tM" 'toggle-frame-maximized
   "tn" 'global-linum-mode)
 ;; window ---------------------------------------------------------------------
