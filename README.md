@@ -3,6 +3,10 @@
 
 [philosophy][] | [goals][] | [for who?][] | [screenshots][] | [achievements][] | [contribute][CONTRIBUTE.md] | [documentation][DOCUMENTATION.md]
 
+**Quick Install:**
+
+    git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
+
 # Introduction
 
 `Spacemacs` is a user-friendly and well-documented Emacs Advanced kit.
