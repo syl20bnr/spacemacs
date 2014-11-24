@@ -646,3 +646,8 @@ otherwise it is scaled down."
   (save-buffer)
   (load-file (buffer-file-name))
   (ert t))
+
+(defun spacemacs/last-buffer ()
+  "Switch back and forth between current and last buffer."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) t)))
