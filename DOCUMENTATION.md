@@ -523,7 +523,10 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
 `<SPC> t 8`       | display a mark on the 80th column
-`<SPC> t F`       | toggle display of the fringe
+`<SPC> t F`       | toggle frame fullscreen
+`<SPC> t f`       | toggle display of the fringe
+`<SPC> t l`       | toggle truncate lines
+`<SPC> t M`       | toggle frame maximize
 `<SPC> t n`       | show the absolute line numbers
 
 ## Mode-line
@@ -534,6 +537,7 @@ following capabilities:
 - color code for current state
 - show the number of search occurrences via anzu
 - toggle flycheck info
+- toggle battery info
 - toggle minor mode lighters
 
 Reminder of the color codes for the states:
@@ -552,6 +556,7 @@ Some elements can be dynamically toggled:
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
 `<SPC> t m m`     | toggle the minor mode lighters
+`<SPC> t m b`     | toggle the battery status
 `<SPC> t m f`     | toggle the flycheck info
 
 ### Flycheck integration
@@ -568,6 +573,21 @@ integrates nicely the Anzu status by displaying it temporarily when `n` or `N` a
 being pressed. See the `5/6` segment on the screenshot below.
 
 ![powerline-anzu](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-anzu.png)
+
+### Battery status integration
+
+[fancy-battery][] displays the percentage of total charge of the battery as
+well as the time remaining to charge or discharge completely the battery.
+
+A color code is used for the battery status:
+
+ Battery State    |       Color
+------------------|------------------
+Charging          | Green
+Discharging       | Orange
+Critical          | Red
+
+Note the these colors may vary depending on your theme.
 
 ### Powerline separators
 
@@ -808,9 +828,11 @@ Buffer manipulation commands (start with `b`):
 
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
-`<SPC> b d`   | delete the current buffer (beware the associated file is also deleted)
+`<SPC> b d`   | delete the current buffer **and** file (ask for confirmation)
+`<SPC> b e`   | erase the content of the buffer (ask for confirmation)
 `<SPC> b k`   | kill the current buffer
 `<SPC> b K`   | kill all buffers except the current one
+`<SPC> b C-K` | kill all buffers matching the regexp
 `<SPC> b m h` | move a buffer to the left
 `<SPC> b m j` | move a buffer to the bottom
 `<SPC> b m k` | move a buffer to the top
@@ -818,8 +840,9 @@ Key Binding   |                 Description
 `<SPC> b n`   | switch to next buffer
 `<SPC> b p`   | switch to previous buffer
 `<SPC> b r`   | rename the current buffer
+`<SPC> b R`   | revert the current buffer (reload from disk)
 `<SPC> b s`   | switch to a buffer using `helm`
-`<SPC> b w`   | toggle read-only
+`<SPC> b w`   | toggle read-only (writable state)
 
 Files manipulation commands (start with `f`):
 
@@ -1736,3 +1759,4 @@ developers to elisp hackers!
 [danielwuz]:https://github.com/danielwuz
 [Jackneill]:https://github.com/Jackneill
 [use-package]: https://github.com/jwiegley/use-package
+[fancy-battery]: https://github.com/lunaryorn/fancy-battery.el

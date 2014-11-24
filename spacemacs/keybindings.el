@@ -16,10 +16,7 @@
 ;; shell command  -------------------------------------------------------------
 (evil-leader/set-key "!" 'shell-command)
 ;; switch back and forth between two last buffers -----------------------------
-(evil-leader/set-key "TAB"
-  (lambda ()
-    (interactive)
-    (switch-to-buffer (other-buffer (current-buffer) t))))
+(evil-leader/set-key "TAB" 'spacemacs/last-buffer)
 ;; applications ---------------------------------------------------------------
 (evil-leader/set-key
   "ac"  'calc-dispatch
@@ -32,13 +29,13 @@
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
   "bd"  'delete-current-buffer-file
-  "be"  'erase-buffer
+  "be"  'spacemacs/safe-erase-buffer
   "bK"  'kill-other-buffers
   "bk"  'ido-kill-buffer
   "b C-k" 'kill-matching-buffers-rudely
   "bn"  'switch-to-next-buffer
   "bp"  'switch-to-prev-buffer
-  "bR"  (lambda () (interactive) (revert-buffer nil t))
+  "bR"  'spacemacs/safe-revert-buffer
   "br"  'rename-current-buffer-file
   "bw"  'toggle-read-only)
 ;; Cycling settings -----------------------------------------------------------
@@ -105,11 +102,11 @@
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key
   "t8" 'toggle-fill-column-indicator
-  "tF" 'fringe-mode
-  "tff" 'toggle-frame-fullscreen
-  "tfm" 'toggle-frame-maximized
-  "tn" 'global-linum-mode
-  "tw" 'toggle-read-only)
+  "tF" 'toggle-frame-fullscreen
+  "tf" 'fringe-mode
+  "tl" 'toggle-truncate-lines
+  "tM" 'toggle-frame-maximized
+  "tn" 'global-linum-mode)
 ;; window ---------------------------------------------------------------------
 ;; (evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key
@@ -160,5 +157,5 @@
   "mD"  'elisp-slime-nav-describe-elisp-thing-at-point
   "mg"  'elisp-slime-nav-find-elisp-thing-at-point
   "mhv" 'describe-variable
-  "mta"  (lambda () (interactive) (ert t))
+  "mta" 'spacemacs/ert-run-tests-buffer
   "mtf" 'ert)
