@@ -115,33 +115,30 @@ following command inside Emacs:
 Refers directly to the file `~/.spacemacs` to get documentation or
 navigate to the [dotfile configuration][dotfile] section of [DOCUMENTATION.md][].
 
-# Contributions
+# Learning Spacemacs
 
-To consult the contribution guidelines go to [CONTRIBUTE.md][].
+## Key bindings discovery
 
-# Help commands
+Thanks to [guide-key][], whenever a prefix command is pressed (like `<SPC>`)
+a buffer appear after one second listing the possible keys for this prefix.
 
-## Key bindings
-
-1) By default, [guide-key][] and [guide-key-tip][] are enabled.
-
-Whenever you press a prefix command (like `<SPC>`) and wait for one second,
-a buffer appear listing the possible keys following this prefix.
-
-2) You can also easily get a full list of all the key bindings by pressing:
+It is also possible to search for a specific key bindings by pressing:
 
     <SPC> ?
 
 To narrow the list to `Spacemacs` specific key bindings set the pattern to
 something like the regular expression:
 
-    `^SPC\ b`
+    `SPC\ b`
 
 The example above will list all the `buffer` related bindings.
 
-## Other describe functions
+## Describe functions
 
-Emacs `describe-xxx` function are accessible with the following bindings:
+Describe functions are powerful Emacs introspection commands to get information
+about functions, variables, modes and so on.
+
+These functions are accessible with the following bindings:
 
 Key Binding   |                 Description
 --------------|------------------------------------------------------------------
@@ -149,6 +146,15 @@ Key Binding   |                 Description
 `<SPC> h d k` | describe-key
 `<SPC> h d m` | describe-mode
 `<SPC> h d v` | describe-variable
+
+# Contributions
+
+`Spacemacs` needs you!
+
+Especially to grow the number of configuration layers, for instance to support new languages.
+
+If you are ready to contribute please consult the [contribution guidelines][CONTRIBUTE.md]
+first.
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [philosophy]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#philosophy
