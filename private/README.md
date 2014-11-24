@@ -5,7 +5,7 @@ where to store your private configuration layers.
 
 To create a new configuration layer:
 
-`<SPC> : spacemacs/create-configuration-layer` RET
+`<SPC> : config-system/create-layer` RET
 
 Then enter the name of your contribution in the prompt.
 
