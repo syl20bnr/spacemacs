@@ -105,10 +105,10 @@
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key
   "t8" 'toggle-fill-column-indicator
-  "tf" 'toggle-frame-fullscreen
-  "tF" 'fringe-mode
+  "tF" 'toggle-frame-fullscreen
+  "tf" 'fringe-mode
   "tl" 'toggle-truncate-lines
-  "tm" 'toggle-frame-maximized
+  "tM" 'toggle-frame-maximized
   "tn" 'global-linum-mode)
 ;; window ---------------------------------------------------------------------
 ;; (evil-leader/set-key "wb" 'evenly-split-window-right)

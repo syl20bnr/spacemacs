@@ -37,6 +37,7 @@
     evil-visualstar
     exec-path-from-shell
     expand-region
+    fancy-battery
     fancy-narrow
     fill-column-indicator
     fish-mode
@@ -785,6 +786,44 @@ determine the state to enable when escaping from the insert state.")
      '(expand-region-contract-fast-key "V")
      '(expand-region-reset-fast-key "r"))))
 
+(defun spacemacs/init-fancy-battery ()
+  (use-package fancy-battery
+    :init
+    (progn
+      (defun spacemacs/mode-line-battery-info-toggle ()
+        "Toggle display of battery info."
+        (interactive)
+        (if fancy-battery-mode
+            (fancy-battery-mode -1)
+          (fancy-battery-mode)))
+      (setq-default fancy-battery-show-percentage t)
+      (evil-leader/set-key "tmb" 'spacemacs/mode-line-battery-info-toggle))
+    :config
+    (progn
+      ;; redefine this function for Spacemacs,
+      ;; basically remove all faces and properties.
+      (defun fancy-battery-default-mode-line ()
+        "Assemble a mode line string for Fancy Battery Mode."
+        (when fancy-battery-last-status
+          (let* ((time (cdr (assq ?t fancy-battery-last-status)))
+                 (percentage (cdr (assq ?p fancy-battery-last-status)))
+                 (status (if (or fancy-battery-show-percentage
+                                 (string= time "N/A"))
+                             (and percentage (concat (concat percentage "%%")
+                                                     " (" time ")"))
+                           time)))
+            (if status (concat " " status)
+              ;; Battery status is not available
+              "N/A"))))
+
+      (defun fancy-battery-powerline-face ()
+        "Return a face appropriate for powerline"
+        (pcase (cdr (assq ?b fancy-battery-last-status))
+                   ("!"  'fancy-battery-critical)
+                   ("+"  ' fancy-battery-charging)
+                   (_ 'fancy-battery-discharging))))
+    ))
+
 (defun spacemacs/init-fancy-narrow ()
   (use-package fancy-narrow
     :defer t
@@ -850,11 +889,10 @@ determine the state to enable when escaping from the insert state.")
       ;; color mode line faces
       (defun spacemacs/defface-flycheck-mode-line-color (state)
         "Define a face for the given Flycheck STATE."
-        (let* ((fname (intern (format "spacemacs-mode-line-%s-face"
+        (let* ((fname (intern (format "spacemacs-mode-line-flycheck-%s-face"
                                       (symbol-name state))))
               (foreground (face-foreground
-                           (intern (format "flycheck-fringe-%s" state))))
-              (boxcolor (face-foreground 'mode-line)))
+                           (intern (format "flycheck-fringe-%s" state)))))
           (eval `(defface ,fname '((t ()))
                    ,(format "Color for Flycheck %s feedback in mode line."
                             (symbol-name state))
@@ -869,7 +907,7 @@ determine the state to enable when escaping from the insert state.")
                 '(error warning info)))
       (spacemacs/set-flycheck-mode-line-faces)
 
-      (defmacro spacemacs//custom-flycheck-lighter (error)
+      (defmacro spacemacs|custom-flycheck-lighter (error)
         "Return a formatted string for the given ERROR (error, warning, info)."
         `(let* ((error-counts (flycheck-count-errors
                                flycheck-current-errors))
@@ -1607,18 +1645,23 @@ determine the state to enable when escaping from the insert state.")
             (setq spacemacs-mode-line-flycheckp nil)
           (setq spacemacs-mode-line-flycheckp t)))
       (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
+
       ;; for now we hardcode the height value of powerline depending on the
       ;; window system, a better solution would be to compute it correctly
       ;; in powerline package.
       (let ((height (if (eq 'w32 window-system) 18 17)))
         (setq-default powerline-height height))
       (setq-default powerline-default-separator 'wave)
+
       (setq-default mode-line-format '("%e" (:eval
           (let* ((active (powerline-selected-window-active))
                  (line-face (if active 'mode-line 'mode-line-inactive))
                  (face1 (if active 'powerline-active1 'powerline-inactive1))
                  (face2 (if active 'powerline-active2 'powerline-inactive2))
                  (state-face (if active (spacemacs/current-state-face) face2))
+                 (batteryp (and (boundp 'fancy-battery-mode)
+                                (symbol-value fancy-battery-mode)))
+                 (battery-face (if batteryp (fancy-battery-powerline-face)))
                  (flycheckp (and spacemacs-mode-line-flycheckp
                                  (boundp 'flycheck-mode)
                                  (symbol-value flycheck-mode)
@@ -1632,71 +1675,81 @@ determine the state to enable when escaping from the insert state.")
                  (separator-right (intern (format "powerline-%s-%s"
                                                   powerline-default-separator
                                                   (cdr powerline-default-separator-dir))))
-                 (lhs (append (list
-                      ;; window number
-                      ;; (funcall separator-left state-face face1)
-                      (powerline-raw (spacemacs/window-number) state-face))
-                      (if (and active anzu--state)
-                          (list
-                           (funcall separator-right state-face face1)
-                           (powerline-raw (anzu--update-mode-line) face1)
-                           (funcall separator-right face1 line-face))
-                        (list (funcall separator-right state-face line-face)))
-                      ;; evil state
-                      ;; (powerline-raw evil-mode-line-tag state-face)
-                      ;; (funcall separator-right state-face line-face)
-                      ;; buffer name
-                      (list
-                       (powerline-raw "%*" line-face 'l)
-                       (powerline-buffer-size line-face 'l)
-                       (powerline-buffer-id line-face 'l)
-                       (powerline-raw " " line-face)
-                       ;; major mode
-                       (funcall separator-left line-face face1)
-                       (powerline-major-mode face1 'l)
-                       (powerline-raw " " face1)
-                       (funcall separator-right face1 line-face))
-                      ;; flycheck
-                      (if flycheckp
-                          (list
-                           (powerline-raw " " line-face)
-                           (powerline-raw (spacemacs//custom-flycheck-lighter error)
-                                          'spacemacs-mode-line-error-face)
-                           (powerline-raw (spacemacs//custom-flycheck-lighter warning)
-                                          'spacemacs-mode-line-warning-face)
-                           (powerline-raw (spacemacs//custom-flycheck-lighter info)
-                                          'spacemacs-mode-line-info-face)))
-                      ;; separator between flycheck and minor modes
-                      (if (and flycheckp spacemacs-mode-line-minor-modesp)
-                          (list
-                           (funcall separator-left line-face face1)
-                           (powerline-raw "  " face1)
-                           (funcall separator-right face1 line-face)))
-                      ;; minor modes
-                      (if spacemacs-mode-line-minor-modesp
-                          (list
-                           (powerline-minor-modes line-face 'l)
-                           (powerline-raw mode-line-process line-face 'l)
-                           (powerline-raw " " line-face)))
-                      ;; version control
-                      (if (or flycheckp spacemacs-mode-line-minor-modesp)
-                          (list (funcall separator-left (if vc-face line-face face1) vc-face)))
-                      (list
-                       (powerline-vc vc-face)
-                       (powerline-raw " " vc-face)
-                       (funcall separator-right vc-face face2))))
-                 (rhs (list
-                       (funcall separator-right face2 face1)
-                       (powerline-raw " " face1)
-                       (powerline-raw "%l:%2c" face1 'r)
-                       (funcall separator-left face1 line-face)
-                       (powerline-raw " " line-face)
-                       (powerline-raw "%p" line-face 'r)
-                       (powerline-chamfer-left line-face face1)
-                       ;; display hud only if necessary
-                       (let ((progress (format-mode-line "%p")))
-                         (if (string-match "\%" progress)
-                             (powerline-hud state-face face1))))))
+                 (lhs (append
+                       (list
+                        ;; window number
+                        ;; (funcall separator-left state-face face1)
+                        (powerline-raw (spacemacs/window-number) state-face))
+                       (if (and active anzu--state)
+                           (list
+                            (funcall separator-right state-face face1)
+                            (powerline-raw (anzu--update-mode-line) face1)
+                            (funcall separator-right face1 line-face))
+                         (list (funcall separator-right state-face line-face)))
+                       ;; evil state
+                       ;; (powerline-raw evil-mode-line-tag state-face)
+                       ;; (funcall separator-right state-face line-face)
+                       ;; buffer name
+                       (list
+                        (powerline-raw "%*" line-face 'l)
+                        (powerline-buffer-size line-face 'l)
+                        (powerline-buffer-id line-face 'l)
+                        (powerline-raw " " line-face)
+                        ;; major mode
+                        (funcall separator-left line-face face1)
+                        (powerline-major-mode face1 'l)
+                        (powerline-raw " " face1)
+                        (funcall separator-right face1 line-face))
+                       ;; flycheck
+                       (if flycheckp
+                           (list
+                            (powerline-raw " " line-face)
+                            (powerline-raw (spacemacs|custom-flycheck-lighter error)
+                                           'spacemacs-mode-line-flycheck-error-face)
+                            (powerline-raw (spacemacs|custom-flycheck-lighter warning)
+                                           'spacemacs-mode-line-flycheck-warning-face)
+                            (powerline-raw (spacemacs|custom-flycheck-lighter info)
+                                           'spacemacs-mode-line-flycheck-info-face)))
+                       ;; separator between flycheck and minor modes
+                       (if (and flycheckp spacemacs-mode-line-minor-modesp)
+                           (list
+                            (funcall separator-left line-face face1)
+                            (powerline-raw "  " face1)
+                            (funcall separator-right face1 line-face)))
+                       ;; minor modes
+                       (if spacemacs-mode-line-minor-modesp
+                           (list
+                            (powerline-minor-modes line-face 'l)
+                            (powerline-raw mode-line-process line-face 'l)
+                            (powerline-raw " " line-face)))
+                       ;; version control
+                       (if (or flycheckp spacemacs-mode-line-minor-modesp)
+                           (list (funcall separator-left (if vc-face line-face face1) vc-face)))
+                       (list
+                        (powerline-vc vc-face)
+                        (powerline-raw " " vc-face)
+                        (funcall separator-right vc-face face2))))
+                 (rhs (append
+                       ;; battery
+                       (if batteryp
+                           (list (funcall separator-left face2 battery-face)
+                                 (powerline-raw (fancy-battery-default-mode-line)
+                                                battery-face 'r)
+                                 (funcall separator-right battery-face face1))
+                         (list (funcall separator-right face2 face1)))
+                       (list
+                        ;; row:column
+                        (powerline-raw " " face1)
+                        (powerline-raw "%l:%2c" face1 'r)
+                        (funcall separator-left face1 line-face)
+                        (powerline-raw " " line-face)
+                        ;; percentage in the file
+                        (powerline-raw "%p" line-face 'r)
+                        (powerline-chamfer-left line-face face1)
+                        ;; display hud only if necessary
+                        (let ((progress (format-mode-line "%p")))
+                          (if (string-match "\%" progress)
+                              (powerline-hud state-face face1)))))))
             (concat (powerline-render lhs)
                     (powerline-fill face2 (powerline-width rhs))
                     (powerline-render rhs))))))
