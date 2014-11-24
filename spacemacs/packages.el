@@ -1763,7 +1763,23 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-projectile ()
   (use-package projectile
-    :defer t
+    :commands (projectile-ack
+               projectile-ag
+               projectile-find-file
+               projectile-find-test-file
+               projectile-switch-to-buffer
+               projectile-find-dir
+               projectile-dired
+               projectile-vc
+               projectile-replace
+               projectile-regenerate-tags
+               projectile-grep
+               projectile-switch-project
+               projectile-multi-occur
+               projectile-find-tag
+               projectile-kill-buffers
+               projectile-recentf
+               projectile-invalidate-cache)
     :init
     (progn
       (setq-default projectile-enable-caching t)
@@ -1771,13 +1787,29 @@ determine the state to enable when escaping from the insert state.")
                                           "projectile.cache"))
       (setq projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
-      (evil-leader/set-key "p" 'projectile-commander))
+      ;; (evil-leader/set-key "p" 'projectile-commander))
+      (evil-leader/set-key
+        "pa" 'projectile-ack
+        "pA" 'projectile-ag
+        "pb" 'projectile-switch-to-buffer
+        "pd" 'projectile-find-dir
+        "pD" 'projectile-dired
+        "pe" 'projectile-recentf
+        "pf" 'projectile-find-file
+        "pg" 'projectile-grep
+        "ph" 'helm-projectile
+        "pI" 'projectile-invalidate-cache
+        "pk" 'projectile-kill-buffers
+        "po" 'projectile-multi-occur
+        "pr" 'projectile-replace
+        "pR" 'projectile-regenerate-tags
+        "ps" 'projectile-switch-project
+        "pt" 'projectile-find-tag
+        "pT" 'projectile-find-test-file
+        "pv" 'projectile-vc))
     :config
     (progn
       (projectile-global-mode)
-      (def-projectile-commander-method ?h
-        "Find file in project using helm."
-        (helm-projectile))
       (spacemacs//hide-lighter projectile-mode))))
 
 (defun spacemacs/init-rainbow-blocks ()
