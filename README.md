@@ -120,14 +120,14 @@ navigate to the [dotfile configuration][dotfile] section of [DOCUMENTATION.md][]
 ## Key bindings discovery
 
 Thanks to [guide-key][], whenever a prefix command is pressed (like `<SPC>`)
-a buffer appear after one second listing the possible keys for this prefix.
+a buffer appears after one second listing the possible keys for this prefix.
 
-It is also possible to search for a specific key bindings by pressing:
+It is also possible to search for specific key bindings by pressing:
 
     <SPC> ?
 
-To narrow the list to `Spacemacs` specific key bindings set the pattern to
-something like the regular expression:
+To narrow the list to `Spacemacs` key bindings starting with prefix `<SPC>`,
+set the pattern to something like the regular expression:
 
     `SPC\ b`
 
@@ -135,7 +135,7 @@ The example above will list all the `buffer` related bindings.
 
 ## Describe functions
 
-Describe functions are powerful Emacs introspection commands to get information
+`Describe functions` are powerful Emacs introspection commands to get information
 about functions, variables, modes and so on.
 
 These functions are accessible with the following bindings:
