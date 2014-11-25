@@ -62,7 +62,8 @@ which require an initialization must be listed explicitly in the list.")
                 (python-shell-switch-to-shell)
                 (evil-insert-state))
         "mb"  'python-shell-send-buffer
-        "md"  'pylookup-lookup
+        "md"  'anaconda-mode-view-doc
+        "mD"  'pylookup-lookup
         "mF"  (lambda ()
                 " Send function content to shell and switch to it in insert mode."
                 (interactive)
