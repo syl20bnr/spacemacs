@@ -73,6 +73,9 @@ Powerline. The Powerline includes features like quick window switching numbers, 
 `Spacemacs` is tested with Emacs 24.3 and 24.4. It should boot on all the major
 OSes where these versions can be installed.
 
+Some modes require third-party tools that you'll have to install via your
+favorite package manager.
+
 # Install
 
 1) Backup your current `~/.emacs.d` and clone the repo _with the submodules_:
@@ -89,6 +92,27 @@ installed. When the package installation is complete restart Emacs and
 `Spacemacs` should be ready to use.
 
 In case of failure see [troubleshoot section][troubleshoot] in documentation.
+
+# Update
+
+For now the update of `Spacemacs` is manual.
+
+1) It is important to _first_ update the Emacs packages. In Emacs:
+
+```
+<SPC> : package-list-packages RET U x RET
+```
+
+When asked for old packages deletion enter `y`.
+
+2) Close Emacs and update the git repository:
+
+```sh
+$ git pull --rebase
+$ git submodule sync; git submodule update
+```
+
+Then restart Emacs.
 
 # Configuration
 
