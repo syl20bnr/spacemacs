@@ -526,6 +526,7 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 `<SPC> t F`       | toggle frame fullscreen
 `<SPC> t f`       | toggle display of the fringe
 `<SPC> t l`       | toggle truncate lines
+`<SPC> t L`       | toggle visual lines
 `<SPC> t M`       | toggle frame maximize
 `<SPC> t n`       | show the absolute line numbers
 
