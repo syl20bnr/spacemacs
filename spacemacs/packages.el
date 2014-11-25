@@ -1870,6 +1870,11 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-recentf ()
   (use-package recentf
     :defer t
+    :init
+    ;; lazy load recentf
+    (add-hook 'find-file-hook (lambda () (unless recentf-mode
+                                           (recentf-mode)
+                                           (recentf-track-opened-file))))
     :config
     (progn
       (setq recentf-exclude '("~/.emacs.d/.cache"))
