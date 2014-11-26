@@ -1303,8 +1303,32 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-helm-projectile ()
   (use-package helm-projectile
-    :defer t
-    :init (evil-leader/set-key "pf" 'helm-projectile)))
+    :commands (helm-projectile-ack
+               helm-projectile-ag
+               helm-projectile-switch-to-buffer
+               helm-projectile-find-dir
+               helm-projectile-dired-find-dir
+               helm-projectile-recentf
+               helm-projectile-find-file
+               helm-projectile-grep
+               helm-projectile
+               helm-projectile-switch-project
+               helm-projectile-vc)
+    :init
+    (defconst spacemacs-use-helm-projectile t
+      "This variable is only defined if helm-projectile is used.")
+    (evil-leader/set-key
+      "pa" 'helm-projectile-ack
+      "pA" 'helm-projectile-ag
+      "pb" 'helm-projectile-switch-to-buffer
+      "pd" 'helm-projectile-find-dir
+      "pD" 'helm-projectile-dired-find-dir
+      "pe" 'helm-projectile-recentf
+      "pf" 'helm-projectile-find-file
+      "pg" 'helm-projectile-grep
+      "ph" 'helm-projectile
+      "ps" 'helm-projectile-switch-project
+      "pv" 'helm-projectile-vc)))
 
 (defun spacemacs/init-helm-swoop ()
   (use-package helm-swoop
@@ -1787,30 +1811,30 @@ determine the state to enable when escaping from the insert state.")
                                           "projectile.cache"))
       (setq projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
-      ;; (evil-leader/set-key "p" 'projectile-commander))
+      (unless (boundp spacemacs-use-helm-projectile)
+        (evil-leader/set-key
+          "pa" 'projectile-ack
+          "pA" 'projectile-ag
+          "pb" 'projectile-switch-to-buffer
+          "pd" 'projectile-find-dir
+          "pD" 'projectile-dired
+          "pe" 'projectile-recentf
+          "pf" 'projectile-find-file
+          "pg" 'projectile-grep
+          "ph" 'helm-projectile
+          "ps" 'projectile-switch-project))
       (evil-leader/set-key
-        "pa" 'projectile-ack
-        "pA" 'projectile-ag
-        "pb" 'projectile-switch-to-buffer
-        "pd" 'projectile-find-dir
-        "pD" 'projectile-dired
-        "pe" 'projectile-recentf
-        "pf" 'projectile-find-file
-        "pg" 'projectile-grep
-        "ph" 'helm-projectile
         "pI" 'projectile-invalidate-cache
         "pk" 'projectile-kill-buffers
         "po" 'projectile-multi-occur
         "pr" 'projectile-replace
         "pR" 'projectile-regenerate-tags
-        "ps" 'projectile-switch-project
         "pt" 'projectile-find-tag
-        "pT" 'projectile-find-test-file
-        "pv" 'projectile-vc))
-    :config
-    (progn
-      (projectile-global-mode)
-      (spacemacs//hide-lighter projectile-mode))))
+        "pT" 'projectile-find-test-file))
+      :config
+      (progn
+        (projectile-global-mode)
+        (spacemacs//hide-lighter projectile-mode))))
 
 (defun spacemacs/init-rainbow-blocks ()
   (use-package rainbow-blocks
