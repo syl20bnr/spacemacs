@@ -74,6 +74,7 @@
     json-mode
     ledger-mode
     less-css-mode
+    linum-relative
     key-chord
     magit
     magit-gitflow
@@ -1464,6 +1465,17 @@ determine the state to enable when escaping from the insert state.")
       (evil-leader/set-key-for-mode 'ledger-mode
         "md" 'ledger-delete-current-transaction
         "ma" 'ledger-add-transaction))))
+
+(defun spacemacs/init-linum-relative ()
+  (use-package linum-relative
+    :commands linum-relative-toggle
+    :init
+    (evil-leader/set-key "tr" 'linum-relative-toggle)
+    :config
+    (progn
+      (setq linum-format 'linum-relative)
+      (setq linum-relative-current-symbol "")
+      (linum-relative-toggle))))
 
 (defun spacemacs/init-magit ()
   (use-package magit
