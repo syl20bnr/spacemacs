@@ -1856,10 +1856,9 @@ determine the state to enable when escaping from the insert state.")
             rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
             rcirc-omit-threshold 20)
       (require 'rcirc-color)
-      (let* ((layer (assq 'spacemacs spacemacs-config-layers))
-             (dir (plist-get (cdr layer) :ext-dir)))
-            (require 'rcirc-reconnect
-                     (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
+      (let ((dir (config-system/get-layer-property 'spacemacs :ext-dir)))
+        (require 'rcirc-reconnect
+                 (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
       ;; identify info are stored in a separate location, skip errors
       ;; if the feature cannot be found.
       (require 'pinit-rcirc nil 'noerror)
