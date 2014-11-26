@@ -11,23 +11,45 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun perspectives/init-perspective ()
   (use-package perspective
-    :commands persp-mode
+    :commands (custom-persp
+               persp-add-buffer
+               persp-set-buffer
+               persp-kill
+               persp-remove-buffer
+               persp-cycle-next
+               persp-cycle-prev
+               persp-rename
+               persp-switch)
     :init
     (progn
-      (persp-mode t)
+      ;; muh perspectives
+      (defun custom-persp/emacs ()
+        (interactive)
+        (custom-persp ".emacs.d"
+                      (find-file "~/.emacs.d/init.el")))
+      (defun custom-persp/org ()
+        (interactive)
+        (custom-persp "@org"
+                      (find-file (first org-agenda-files))))
+
       (define-prefix-command 'perspectives-prefix)
       (evil-leader/set-key "P" 'perspectives-prefix)
       (define-prefix-command 'perspectives-custom-prefix)
       (evil-leader/set-key "Po" 'perspectives-custom-prefix)
       (evil-leader/set-key
-        "Ps" 'persp-switch
-        "Pk" 'persp-remove-buffer
-        "Pc" 'persp-kill
-        "Pr" 'persp-rename
-        "Pa" 'persp-add-buffer
-        "PA" 'persp-set-buffer)) 
+        "Pa"  'persp-add-buffer
+        "PA"  'persp-set-buffer
+        "Pc"  'persp-kill
+        "Pk"  'persp-remove-buffer
+        "Pn"  'persp-cycle-next
+        "Poe" 'custom-persp/emacs
+        "Poo" 'custom-persp/org
+        "Pp"  'persp-cycle-prev
+        "Pr"  'persp-rename
+        "Ps"  'persp-switch))
     :config
     (progn
+      (persp-mode t)
       ;; loading code for our custom perspectives
       ;; taken from Magnar Sveen
       (defmacro custom-persp (name &rest body)
@@ -57,28 +79,8 @@ which require an initialization must be listed explicitly in the list.")
           (cond ((eq 1 list-size) (persp-switch nil))
                 ((< next-pos 0) (persp-switch (nth (- list-size 1) (persp-all-names))))
                 (t (persp-prev)))))
-      
-      ;; muh perspectives
-      (defun custom-persp/emacs ()
-        (interactive)
-        (custom-persp ".emacs.d"
-                      (find-file "~/.emacs.d/init.el")))
-      (defun custom-persp/org ()
-        (interactive)
-        (custom-persp "@org"
-                      (find-file (first org-agenda-files))))
 
-      (eval-after-load "evil-leader"
-        '(evil-leader/set-key
-           "Pn" 'persp-cycle-next
-           "Pp" 'persp-cycle-prev
-           "Poe" 'custom-persp/emacs
-           "Poo" 'custom-persp/org))
+      (eval-after-load 'helm-projectile
+        '(projectile-persp-bridge helm-projectile))
       )
-    )
-  )
-(defun perspectives/init-persp-projectile ()
-  (use-package persp-projectile
-    :init
-    (progn
-      (projectile-persp-bridge helm-projectile))))
+    ))
