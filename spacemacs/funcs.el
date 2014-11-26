@@ -651,3 +651,10 @@ otherwise it is scaled down."
   "Switch back and forth between current and last buffer."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) t)))
+
+(defun spacemacs/highlight-TODO-words ()
+  "Highlight keywords for  "
+  (interactive)
+  (font-lock-add-keywords
+   nil '(("\\<\\(\\(FIX\\(ME\\)?\\|TODO\\|OPTIMIZE\\|HACK\\|REFACTOR\\):\\)"
+          1 font-lock-warning-face t))))
