@@ -73,3 +73,8 @@ which require an initialization must be listed explicitly in the list.")
       )
     )
   )
+(defun perspectives/init-persp-projectile ()
+  (use-package persp-projectile
+    :init
+    (progn
+      (projectile-persp-bridge helm-projectile))))
