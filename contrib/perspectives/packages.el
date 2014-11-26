@@ -15,6 +15,10 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (persp-mode t)
+      (define-prefix-command 'perspectives-prefix)
+      (evil-leader/set-key "P" 'perspectives-prefix)
+      (define-prefix-command 'perspectives-custom-prefix)
+      (evil-leader/set-key "Po" 'perspectives-custom-prefix)
       (evil-leader/set-key
         "Ps" 'persp-switch
         "Pk" 'persp-remove-buffer
