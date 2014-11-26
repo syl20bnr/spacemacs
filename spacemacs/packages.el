@@ -74,6 +74,7 @@
     json-mode
     ledger-mode
     less-css-mode
+    linum-relative
     key-chord
     magit
     magit-gitflow
@@ -672,6 +673,44 @@ determine the state to enable when escaping from the insert state.")
       (setq evil-leader/in-all-states t
             evil-leader/leader "SPC"
             evil-leader/non-normal-prefix "s-")
+      ;; give name to spacemacs prefixes
+      (dolist (x '(("a" . "applications")
+                   ("as" . "applications-shells")
+                   ("b" . "buffers")
+                   ("bm" . "buffers-move")
+                   ("c" . "comments")
+                   ("e" . "errors")
+                   ("f" . "files")
+                   ("fe" . "files-emacs/spacemacs")
+                   ("g" . "git/versions-control")
+                   ("gc" . "smeargle")
+                   ("h" . "helm/help/highlight")
+                   ("hd" . "help-describe")
+                   ("i" . "insert")
+                   ("j" . "join/split")
+                   ("n" . "narrow/numbers")
+                   ("p" . "projects")
+                   ("p4" . "perforce")
+                   ("r" . "registers/rings")
+                   ("s" . "search/symbol")
+                   ("sr" . "symbol-range")
+                   ("S" . "spelling")
+                   ("t" . "toggles")
+                   ("tm" . "toggles-modeline")
+                   ("w" . "windows")
+                   ("wp" . "windows-popup")
+                   ("ws" . "windows-size")
+                   ("x" . "text")
+                   ("xd" . "text-delete")
+                   ("xg" . "text-google-translate")
+                   ("xm" . "text-move")
+                   ("xt" . "text-transpose")
+                   ("xw" . "text-words")
+                   ("z" . "z")))
+        (let ((key (car x)) 
+              (prefix-command (intern (format "%s-prefix" (cdr x)))))
+          (define-prefix-command prefix-command)
+          (evil-leader/set-key key prefix-command)))
       (global-evil-leader-mode))
     :config
     (progn
@@ -1303,8 +1342,32 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-helm-projectile ()
   (use-package helm-projectile
-    :defer t
-    :init (evil-leader/set-key "pf" 'helm-projectile)))
+    :commands (helm-projectile-ack
+               helm-projectile-ag
+               helm-projectile-switch-to-buffer
+               helm-projectile-find-dir
+               helm-projectile-dired-find-dir
+               helm-projectile-recentf
+               helm-projectile-find-file
+               helm-projectile-grep
+               helm-projectile
+               helm-projectile-switch-project
+               helm-projectile-vc)
+    :init
+    (defconst spacemacs-use-helm-projectile t
+      "This variable is only defined if helm-projectile is used.")
+    (evil-leader/set-key
+      "pa" 'helm-projectile-ack
+      "pA" 'helm-projectile-ag
+      "pb" 'helm-projectile-switch-to-buffer
+      "pd" 'helm-projectile-find-dir
+      "pD" 'helm-projectile-dired-find-dir
+      "pe" 'helm-projectile-recentf
+      "pf" 'helm-projectile-find-file
+      "pg" 'helm-projectile-grep
+      "ph" 'helm-projectile
+      "ps" 'helm-projectile-switch-project
+      "pv" 'helm-projectile-vc)))
 
 (defun spacemacs/init-helm-swoop ()
   (use-package helm-swoop
@@ -1402,6 +1465,17 @@ determine the state to enable when escaping from the insert state.")
       (evil-leader/set-key-for-mode 'ledger-mode
         "md" 'ledger-delete-current-transaction
         "ma" 'ledger-add-transaction))))
+
+(defun spacemacs/init-linum-relative ()
+  (use-package linum-relative
+    :commands linum-relative-toggle
+    :init
+    (evil-leader/set-key "tr" 'linum-relative-toggle)
+    :config
+    (progn
+      (setq linum-format 'linum-relative)
+      (setq linum-relative-current-symbol "")
+      (linum-relative-toggle))))
 
 (defun spacemacs/init-magit ()
   (use-package magit
@@ -1787,30 +1861,30 @@ determine the state to enable when escaping from the insert state.")
                                           "projectile.cache"))
       (setq projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
-      ;; (evil-leader/set-key "p" 'projectile-commander))
+      (unless (boundp spacemacs-use-helm-projectile)
+        (evil-leader/set-key
+          "pa" 'projectile-ack
+          "pA" 'projectile-ag
+          "pb" 'projectile-switch-to-buffer
+          "pd" 'projectile-find-dir
+          "pD" 'projectile-dired
+          "pe" 'projectile-recentf
+          "pf" 'projectile-find-file
+          "pg" 'projectile-grep
+          "ph" 'helm-projectile
+          "ps" 'projectile-switch-project))
       (evil-leader/set-key
-        "pa" 'projectile-ack
-        "pA" 'projectile-ag
-        "pb" 'projectile-switch-to-buffer
-        "pd" 'projectile-find-dir
-        "pD" 'projectile-dired
-        "pe" 'projectile-recentf
-        "pf" 'projectile-find-file
-        "pg" 'projectile-grep
-        "ph" 'helm-projectile
         "pI" 'projectile-invalidate-cache
         "pk" 'projectile-kill-buffers
         "po" 'projectile-multi-occur
         "pr" 'projectile-replace
         "pR" 'projectile-regenerate-tags
-        "ps" 'projectile-switch-project
         "pt" 'projectile-find-tag
-        "pT" 'projectile-find-test-file
-        "pv" 'projectile-vc))
-    :config
-    (progn
-      (projectile-global-mode)
-      (spacemacs//hide-lighter projectile-mode))))
+        "pT" 'projectile-find-test-file))
+      :config
+      (progn
+        (projectile-global-mode)
+        (spacemacs//hide-lighter projectile-mode))))
 
 (defun spacemacs/init-rainbow-blocks ()
   (use-package rainbow-blocks
@@ -1856,10 +1930,9 @@ determine the state to enable when escaping from the insert state.")
             rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
             rcirc-omit-threshold 20)
       (require 'rcirc-color)
-      (let* ((layer (assq 'spacemacs spacemacs-config-layers))
-             (dir (plist-get (cdr layer) :ext-dir)))
-            (require 'rcirc-reconnect
-                     (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
+      (let ((dir (config-system/get-layer-property 'spacemacs :ext-dir)))
+        (require 'rcirc-reconnect
+                 (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
       ;; identify info are stored in a separate location, skip errors
       ;; if the feature cannot be found.
       (require 'pinit-rcirc nil 'noerror)
@@ -1870,6 +1943,11 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-recentf ()
   (use-package recentf
     :defer t
+    :init
+    ;; lazy load recentf
+    (add-hook 'find-file-hook (lambda () (unless recentf-mode
+                                           (recentf-mode)
+                                           (recentf-track-opened-file))))
     :config
     (progn
       (setq recentf-exclude '("~/.emacs.d/.cache"))

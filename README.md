@@ -73,6 +73,9 @@ Powerline. The Powerline includes features like quick window switching numbers, 
 `Spacemacs` is tested with Emacs 24.3 and 24.4. It should boot on all the major
 OSes where these versions can be installed.
 
+Some modes require third-party tools that you'll have to install via your
+favorite package manager.
+
 # Install
 
 1) Backup your current `~/.emacs.d` and clone the repo _with the submodules_:
@@ -90,6 +93,27 @@ installed. When the package installation is complete restart Emacs and
 
 In case of failure see [troubleshoot section][troubleshoot] in documentation.
 
+# Update
+
+For now the update of `Spacemacs` is manual.
+
+1) It is important to _first_ update the Emacs packages. In Emacs:
+
+```
+<SPC> : package-list-packages RET U x RET
+```
+
+When asked for old packages deletion enter `y`.
+
+2) Close Emacs and update the git repository:
+
+```sh
+$ git pull --rebase
+$ git submodule sync; git submodule update
+```
+
+Then restart Emacs.
+
 # Configuration
 
 ## Configuration layers
@@ -100,10 +124,20 @@ configuration layer:
     <SPC> : config-system/create-layer RET
 
 After entering a name, a layer skeleton will be created in the [private][]
-directory. The `private` directory is ignored by Git.
+directory where you'll find the following files:
+- `packages.el` to list the elpa packages
+- `exentsions.el` for any other package that is not available in a elpa
+repository.
+
+The `private` directory is ignored by Git.
 
 To use your newly created configuration layer, add it to your `~/.spacemacs`
 file (see next section).
+
+Note that this approach leaves your layer not source controlled. To get more
+info on the different approaches to manage your layers, refer to the
+[Managing private configuration layers][manage_config] section of the
+documentation.
 
 ## Dotfile ~/.spacemacs
 
@@ -163,7 +197,8 @@ first.
 [screenshots]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#screenshots
 [config]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#configuration-layers
 [dotfile]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#dotfile-configuration
-[achievements]:  https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#achievements
+[manage_config]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#managing-private-configuration-layers
+[achievements]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#achievements
 [troubleshoot]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#troubleshoot
 [contrib layers]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#using-configuration-layers
 [Git support]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#working-with-git

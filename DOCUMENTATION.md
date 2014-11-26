@@ -21,6 +21,10 @@
     - [Types of configuration layers](#types-of-configuration-layers)
     - [Submitting a configuration layer upstream](#submitting-a-configuration-layer-upstream)
     - [Example: Themes Megapack example](#example-themes-megapack-example)
+    - [Managing private configuration layers](#managing-private-configuration-layers)
+        - [Using the private directory](#using-the-private-directory)
+        - [Using an external Git repository](#using-an-external-git-repository)
+        - [Using a personal branch](#using-a-personal-branch)
 - [Dotfile Configuration](#dotfile-configuration)
     - [Installation](#installation)
     - [Content](#content)
@@ -41,6 +45,7 @@
     - [Mode-line](#mode-line)
         - [Flycheck integration](#flycheck-integration)
         - [Anzu integration](#anzu-integration)
+        - [Battery status integration](#battery-status-integration)
         - [Powerline separators](#powerline-separators)
         - [Minor Modes](#minor-modes)
 - [Base packages](#base-packages)
@@ -325,6 +330,37 @@ you can find it [here][themes-megapack].
 To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
 installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
 
+## Managing private configuration layers
+
+`Spacemacs` configuration system is flexible enough to let you manage your
+private layers in different ways.
+
+### Using the private directory
+
+Everything in the private directory is ignored by Git so it is a good place
+to store private layers. There is a huge drawback to this approach though:
+_your layers are not source controlled_.
+
+### Using an external Git repository
+
+This is the recommended way to manage your private layers.
+
+The best approach is to store all your private layers into an external Git
+repository. It is especially a good practice to store them in your `dotfiles`
+repository if you have one along with your `~/.spacemacs` file.
+
+Then you are free to symlink your layers into `~/emacs.d/private` _or_ let
+them anywhere you want and reference the parent directory in the variable
+`dotspacemacs-configuration-layer-path` of your `~/.spacemacs`.
+
+Note that you could also have a dedicated repository for all your private
+layers and then directly clone this repository in `~/.emacs.d/private`.
+
+### Using a personal branch
+
+The final main way to manage your private layers is to push them is a personal
+branch that you keep up to date with upstream `master` or `develop`.
+
 # Dotfile Configuration
 
 User configuration can be stored in your `~/.spacemacs` file.
@@ -526,6 +562,7 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 `<SPC> t F`       | toggle frame fullscreen
 `<SPC> t f`       | toggle display of the fringe
 `<SPC> t l`       | toggle truncate lines
+`<SPC> t L`       | toggle visual lines
 `<SPC> t M`       | toggle frame maximize
 `<SPC> t n`       | show the absolute line numbers
 
