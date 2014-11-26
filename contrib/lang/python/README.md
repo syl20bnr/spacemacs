@@ -79,7 +79,8 @@ Test commands (start with `m t` or `m T`):
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> m d`       | open documentation in `firefox` using [pylookup][pylookup]
+`<SPC> m d`       | quick documentation using anaconda
+`<SPC> m D`       | open documentation in `firefox` using [pylookup][pylookup]
 `<SPC> m g`       | go to definition using `anaconda-mode-goto` (`C-o` to jump back)
 `<SPC> m p`       | toggle a breakpoint
 `<SPC> m v`       | activate a virtual environment with [pyvenv][pyvenv]
