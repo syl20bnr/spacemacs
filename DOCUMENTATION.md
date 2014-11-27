@@ -66,6 +66,7 @@
         - [NeoTree file tree](#neotree-file-tree)
         - [Bookmarks](#bookmarks)
     - [Searching](#searching)
+        - [Project searching](#project-searching)
         - [Persistent highlighting](#persistent-highlighting)
         - [Stacking highlights](#stacking-highlights)
         - [Auto-highlight symbols](#auto-highlight-symbols)
@@ -977,6 +978,12 @@ Key Binding        |                 Description
 To save a new bookmark, just type the name of the bookmark and press `RET`.
 
 ## Searching
+
+### Project Searching
+
+Key Binding   |                 Description
+--------------|----------------------------------------------------------------
+`<SPC> /`     | search within project with The Silver Searcher
 
 ### Persistent highlighting
 
