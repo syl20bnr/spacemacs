@@ -37,6 +37,9 @@ which require an initialization must be listed explicitly in the list.")
       
       (add-to-list 'evil-emacs-state-modes 'paradox-menu-mode)
       (evil-add-hjkl-bindings paradox-menu-mode-map 'emacs
+        "/" 'evil-search-forward
+        "n" (lookup-key evil-normal-state-map "n")
+        "N" (lookup-key evil-normal-state-map "N")
         "H" 'paradox-menu-quick-help
         "J" 'paradox-next-describe
         "K" 'paradox-previous-describe
