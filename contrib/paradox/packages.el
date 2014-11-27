@@ -12,11 +12,12 @@ which require an initialization must be listed explicitly in the list.")
 ;;
 (defun paradox/init-paradox ()
   (use-package paradox
-    :commands paradox-list-packages
     :defer t
     :init
     (progn
+
       (defun spacemacs/paradox-list-packages ()
+        "Load depdendencies for auth and open the package list."
         (interactive)
         (require 'epa-file)
         (require 'auth-source)
@@ -34,10 +35,16 @@ which require an initialization must be listed explicitly in the list.")
                                            paradox-token)))))
         (paradox-list-packages nil))
       
-        (eval-after-load "evil-leader"
-          (evil-leader/set-key
-            "aP" 'spacemacs/paradox-list-packages))
-        )
+      (add-to-list 'evil-emacs-state-modes 'paradox-menu-mode)
+      (evil-add-hjkl-bindings paradox-menu-mode-map 'emacs
+        "H" 'paradox-menu-quick-help
+        "J" 'paradox-next-describe
+        "K" 'paradox-previous-describe
+        "L" 'paradox-menu-view-commit-list)
+
+      (eval-after-load "evil-leader"
+        (evil-leader/set-key
+          "aP" 'spacemacs/paradox-list-packages)))
     ))
       
 
