@@ -348,7 +348,7 @@ This is the recommended way to manage your private layers.
 
 The best approach is to store all your private layers into an external Git
 repository. It is especially a good practice to store them in your `dotfiles`
-repository if you have one along with your `~/.spacemacs` file.
+repository if you have one. Put also your `~/.spacemacs` file in it.
 
 Then you are free to symlink your layers into `~/emacs.d/private` _or_ let
 them anywhere you want and reference the parent directory in the variable
@@ -359,7 +359,7 @@ layers and then directly clone this repository in `~/.emacs.d/private`.
 
 ### Using a personal branch
 
-The final main way to manage your private layers is to push them is a personal
+The final main way to manage your private layers is to push them in a personal
 branch that you keep up to date with upstream `master` or `develop`.
 
 # Dotfile Configuration
