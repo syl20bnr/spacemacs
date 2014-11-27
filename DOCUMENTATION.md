@@ -1422,11 +1422,11 @@ you can answer `y` with no issue.
 ### Quick guide for recurring use cases in Magit
 
 - Amend a commit:
-  - `l l` to open `log buffer`
+  - `L l` to open `log buffer`
   - `c a` on the commit you want to amend
   - `C-c C-c` to submit the changes
 - Squash last commit:
-  - `l l` to open `log buffer`
+  - `L l` to open `log buffer`
   - `E` on the second to last commit, it opens the `rebase buffer`
   - `j` to put point on last commit
   - `i` to pass in `insert state`
