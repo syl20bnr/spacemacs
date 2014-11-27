@@ -124,8 +124,8 @@ Three core pillars: Easy, Consistency, "Crowd-Configured".
 ## Easy
 
 `Spacemacs` organizes key bindings by mnemonic namespaces. If you are looking
-for commands to operate on your buffer, they are right under `<SPC> b`, if you
-want to operate on your project, then it is `<SPC> p`, etc...
+for commands to operate on your buffer, they are right under <kbd>SPC b</kbd>,
+if you want to operate on your project, then it is <kbd>SPC p</kbd>, etc...
 
 `Spacemacs` comes with a dedicated major mode `spacemacs-mode`. Its goal is to
 give useful feedbacks and perform maintenance tasks easily.
@@ -133,8 +133,8 @@ give useful feedbacks and perform maintenance tasks easily.
 ## Consistency
 
 Similar functionalities should have the same key binding. For instance if you are
-looking for the definition of a function, the binding is `<SPC> m g`, `m` for
-`major mode` and `g` for `go to`. And no matter what is the major mode it
+looking for the definition of a function, the binding is <kbd>SPC m g</kbd>,
+`m` for `major mode` and `g` for `go to`. And no matter what is the major mode it
 should be the same binding.
 
 ## Crowd-Configured
@@ -328,7 +328,8 @@ This is a simple `contrib` configuration layer listing a bunch of themes,
 you can find it [here][themes-megapack].
 
 To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
-installed around 100 themes you are free to try with `<SPC> h t` (helm-themes).
+installed around 100 themes you are free to try with <kbd>SPC h t</kbd>
+(helm-themes).
 
 ## Managing private configuration layers
 
@@ -488,32 +489,32 @@ So to go back to the `normal state` while in `lisp state` just hit `ESC` or
 Vim leader key to the Emacs world.
 
 This leader key is commonly set to `,` by Vim users, in `Spacemacs` the leader
-key is set on `SPC` (space bar, this is why the name `spacemacs`). This key is
-the most accessible key on a keyboard and it is pressed with the thumb which is
-a good choice to lower the risk of [RSI][RSI].
+key is set on <kbd>SPC</kbd> (space bar, this is why the name `spacemacs`).
+This key is the most accessible key on a keyboard and it is pressed with the
+thumb which is a good choice to lower the risk of [RSI][RSI].
 
 So with `Spacemacs` there is no need to remap your keyboard modifiers to
 attempt to reduce the risk of RSI, every command can be executed very easily
-while you are in `normal` mode by pressing the `SPC` leader key, here are a
-few examples:
+while you are in `normal` mode by pressing the <kbd>SPC</kbd> leader key,
+here are a few examples:
 
-- Save a buffer: `<SPC> f s`
-- Save all opened buffers: `<SPC> f S`
-- Open (switch) to a buffer with `helm`: `<SPC> b s`
+- Save a buffer: <kbd>SPC f s</kbd>
+- Save all opened buffers: <kbd>SPC f S</kbd>
+- Open (switch) to a buffer with `helm`: <kbd>SPC b s</kbd>
 
 ## Universal argument
 
 The universal argument `C-u` is an important command in Emacs but it is also
 a very handy Vim key binding to scroll up.
 
-`Spacemacs` binds `C-u` to `scroll-up` and change the universal argument
-binding to `<SPC> u`.
+`Spacemacs` binds <kbd>C-u</kbd> to `scroll-up` and change the universal
+argument binding to <kbd>SPC u</kbd>.
 
 ## Micro-states
 
 `Spacemacs` defines a wide variety of `micro-states` (temporary overlay maps)
 where it makes sense. This prevent from repetitive and tedious presses on the
-`SPC` key.
+<kbd>SPC</kbd> key.
 
 When a `micro-state` is active, a documentation is displayed in the minibuffer.
 Additional information may as well be displayed in the minibuffer.
@@ -528,10 +529,10 @@ Additional information may as well be displayed in the minibuffer.
 
 By default, `Spacemacs` uses the theme [Solarized][solarized-theme].
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> c t`       | cycle between `Spacemacs` themes
-`<SPC> h t`       | select a theme using a `helm` buffer
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC c t</kbd> | cycle between `Spacemacs` themes
+<kbd>SPC h t</kbd> | select a theme using a `helm` buffer
 
 `Spacemacs` available themes:
 - [Solarized][solarized-theme]
@@ -556,15 +557,15 @@ customization which make it unique compared to other kits:
 
 Some UI indicators can be toggled on and off (toggles start with `t`):
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> t 8`       | display a mark on the 80th column
-`<SPC> t F`       | toggle frame fullscreen
-`<SPC> t f`       | toggle display of the fringe
-`<SPC> t l`       | toggle truncate lines
-`<SPC> t L`       | toggle visual lines
-`<SPC> t M`       | toggle frame maximize
-`<SPC> t n`       | show the absolute line numbers
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC t 8</kbd>  | display a mark on the 80th column
+<kbd>SPC t F</kbd>  | toggle frame fullscreen
+<kbd>SPC t f</kbd>  | toggle display of the fringe
+<kbd>SPC t l</kbd>  | toggle truncate lines
+<kbd>SPC t L</kbd>  | toggle visual lines
+<kbd>SPC t M</kbd>  | toggle frame maximize
+<kbd>SPC t n</kbd>  | show the absolute line numbers
 
 ## Mode-line
 
@@ -590,11 +591,11 @@ Lisp              | Pink
 
 Some elements can be dynamically toggled:
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> t m m`     | toggle the minor mode lighters
-`<SPC> t m b`     | toggle the battery status
-`<SPC> t m f`     | toggle the flycheck info
+    Key Binding        |                 Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC t m m</kbd> | toggle the minor mode lighters
+<kbd>SPC t m b</kbd> | toggle the battery status
+<kbd>SPC t m f</kbd> | toggle the flycheck info
 
 ### Flycheck integration
 
@@ -747,9 +748,9 @@ it is not recommended) add this to your `config` function:
 
 Command     |                 Key Binding
 :----------:|------------------------------------------------------------------
-Vim         | `:`
-Emacs       | `<SPC> :`
-Shell       | `<SPC> !`
+Vim         | <kbd>`:`</kbd>
+Emacs       | <kbd>SPC :</kbd>
+Shell       | <kbd>SPC !</kbd>
 
 ## Navigating
 
@@ -757,17 +758,17 @@ Shell       | `<SPC> !`
 
 Navigation is performed using the Vi key bindings `hjkl`.
 
-Key Binding |                 Description
-------------|------------------------------------------------------------------
-`h`         | move cursor left
-`j`         | move cursor down
-`k`         | move cursor up
-`l`         | move cursor right
-`H`         | move quickly up (10 lines at a time)
-`L`         | move quickly down (10 lines at a time)
-`<SPC> j h` | go to the beginning of line (and set a mark at the previous location in the line)
-`<SPC> j l` | go to the end of line (and set a mark at the previous location in the line)
-`<SPC> z z` | lock the cursor at the center of the screen
+Key Binding          |                 Description
+---------------------|------------------------------------------------------------------
+<kbd>`h`</kbd>       | move cursor left
+<kbd>`j`</kbd>       | move cursor down
+<kbd>`k`</kbd>       | move cursor up
+<kbd>`l`</kbd>       | move cursor right
+<kbd>`H`</kbd>       | move quickly up (10 lines at a time)
+<kbd>`L`</kbd>       | move quickly down (10 lines at a time)
+<kbd>SPC j h</kbd> | go to the beginning of line (and set a mark at the previous location in the line)
+<kbd>SPC j l</kbd> | go to the end of line (and set a mark at the previous location in the line)
+<kbd>SPC z z</kbd> | lock the cursor at the center of the screen
 
 #### Smooth scrolling
 
@@ -784,7 +785,7 @@ the `dotspacemacs-smooth-scrolling` variable in your `~/.spacemacs` to `nil`:
 #### Experimental insert state feature
 
 If `dotspacemacs-feature-toggle-leader-on-jk` is non nil, pressing `jk` while
-in `insert state` will trigger the evil leader as if you pressed `<SPC>` in
+in `insert state` will trigger the evil leader as if you pressed <kbd>SPC</kbd> in
 normal mode.
 
 ### Vim motions with ace-jump mode
@@ -797,11 +798,11 @@ in a buffer containing some text:
 
     d <SPC> l
 
-Key Binding   |                 Description
---------------|------------------------------------------------------------------
-`<SPC> <SPC>` | initiate ace jump word mode
-`<SPC> l`     | initiate ace jump line mode
-``<SPC> ```   | go back to the previous location (before the jump)
+Key Binding            |                 Description
+-----------------------|------------------------------------------------------------------
+<kbd>SPC SPC</kbd> | initiate ace jump word mode
+<kbd>SPC l</kbd>     | initiate ace jump line mode
+<kbd>SPC `</kbd>     | go back to the previous location (before the jump)
 
 Hint: you may change to char mode by `C-c C-c` in word mode.
 
@@ -810,40 +811,40 @@ Hint: you may change to char mode by `C-c C-c` in word mode.
 Every window has a number displayed at the start of the mode-line and can
 be quickly accessed using `<SPC> number`.
 
-Key Binding   |                    Description
---------------|----------------------------------------------------------------
-`<SPC> 1`     | go to first window
-`<SPC> 2`     | go to window number 2
-`<SPC> 3`     | go to window number 3
-`<SPC> 4`     | go to window number 4
-`<SPC> 5`     | go to window number 5
-`<SPC> 6`     | go to window number 6
-`<SPC> 7`     | go to window number 7
-`<SPC> 8`     | go to window number 8
-`<SPC> 9`     | go to window number 9
-`<SPC> 0`     | go to window number 10
+Key Binding         |                    Description
+--------------------|----------------------------------------------------------------
+<kbd>SPC 1</kbd>  | go to first window
+<kbd>SPC 2</kbd>  | go to window number 2
+<kbd>SPC 3</kbd>  | go to window number 3
+<kbd>SPC 4</kbd>  | go to window number 4
+<kbd>SPC 5</kbd>  | go to window number 5
+<kbd>SPC 6</kbd>  | go to window number 6
+<kbd>SPC 7</kbd>  | go to window number 7
+<kbd>SPC 8</kbd>  | go to window number 8
+<kbd>SPC 9</kbd>  | go to window number 9
+<kbd>SPC 0</kbd>  | go to window number 10
 
 Windows manipulation commands (start with `w`):
 
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`<SPC> w b`   | split a window horizontally
-`<SPC> w c`   | close a window
-`<SPC> w d`   | toggle window dedication (dedicated window cannot be used by a mode)
-`<SPC> w H`   | move window to the left
-`<SPC> w J`   | move window to the bottom
-`<SPC> w K`   | move window to the top
-`<SPC> w L`   | move window to the right
-`<SPC> w m`   | maximize/minimize a window
-`<SPC> w M`   | maximize/minimize a window, when maximized the buffer is centered
-`<SPC> w p m` | open messages buffer in a popup window
-`<SPC> w p p` | close the current sticky popup window
-`<SPC> w r`   | rotate windows clockwise
-`<SPC> w R`   | rotate windows counter-clockwise
-`<SPC> w u`   | undo window layout (used to effectively undo a close window)
-`<SPC> w U`   | redo window layout
-`<SPC> w v`   | split a window vertically
-`<SPC> w w`   | cycle and focus between windows
+Key Binding            |                 Description
+-----------------------|----------------------------------------------------------------
+<kbd>SPC w b</kbd>   | split a window horizontally
+<kbd>SPC w c</kbd>   | close a window
+<kbd>SPC w d</kbd>   | toggle window dedication (dedicated window cannot be used by a mode)
+<kbd>SPC w H</kbd>   | move window to the left
+<kbd>SPC w J</kbd>   | move window to the bottom
+<kbd>SPC w K</kbd>   | move window to the top
+<kbd>SPC w L</kbd>   | move window to the right
+<kbd>SPC w m</kbd>   | maximize/minimize a window
+<kbd>SPC w M</kbd>   | maximize/minimize a window, when maximized the buffer is centered
+<kbd>SPC w p m</kbd> | open messages buffer in a popup window
+<kbd>SPC w p p</kbd> | close the current sticky popup window
+<kbd>SPC w r</kbd>   | rotate windows clockwise
+<kbd>SPC w R</kbd>   | rotate windows counter-clockwise
+<kbd>SPC w u</kbd>   | undo window layout (used to effectively undo a close window)
+<kbd>SPC w U</kbd>   | redo window layout
+<kbd>SPC w v</kbd>   | split a window vertically
+<kbd>SPC w w</kbd>   | cycle and focus between windows
 
 #### Golden ratio
 
@@ -864,34 +865,34 @@ remember the last selected directories and buffers, maybe helm can do this ?).
 
 Buffer manipulation commands (start with `b`):
 
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`<SPC> b d`   | delete the current buffer **and** file (ask for confirmation)
-`<SPC> b e`   | erase the content of the buffer (ask for confirmation)
-`<SPC> b k`   | kill the current buffer
-`<SPC> b K`   | kill all buffers except the current one
-`<SPC> b C-K` | kill all buffers matching the regexp
-`<SPC> b m h` | move a buffer to the left
-`<SPC> b m j` | move a buffer to the bottom
-`<SPC> b m k` | move a buffer to the top
-`<SPC> b m l` | move a buffer to the right
-`<SPC> b n`   | switch to next buffer
-`<SPC> b p`   | switch to previous buffer
-`<SPC> b r`   | rename the current buffer
-`<SPC> b R`   | revert the current buffer (reload from disk)
-`<SPC> b s`   | switch to a buffer using `helm`
-`<SPC> b w`   | toggle read-only (writable state)
+Key Binding            |                 Description
+-----------------------|----------------------------------------------------------------
+<kbd>SPC b d</kbd>   | delete the current buffer **and** file (ask for confirmation)
+<kbd>SPC b e</kbd>   | erase the content of the buffer (ask for confirmation)
+<kbd>SPC b k</kbd>   | kill the current buffer
+<kbd>SPC b K</kbd>   | kill all buffers except the current one
+<kbd>SPC b C-K</kbd> | kill all buffers matching the regexp
+<kbd>SPC b m h</kbd> | move a buffer to the left
+<kbd>SPC b m j</kbd> | move a buffer to the bottom
+<kbd>SPC b m k</kbd> | move a buffer to the top
+<kbd>SPC b m l</kbd> | move a buffer to the right
+<kbd>SPC b n</kbd>   | switch to next buffer
+<kbd>SPC b p</kbd>   | switch to previous buffer
+<kbd>SPC b r</kbd>   | rename the current buffer
+<kbd>SPC b R</kbd>   | revert the current buffer (reload from disk)
+<kbd>SPC b s</kbd>   | switch to a buffer using `helm`
+<kbd>SPC b w</kbd>   | toggle read-only (writable state)
 
 Files manipulation commands (start with `f`):
 
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`<SPC> f f`   | open a file using `ido`
-`<SPC> f i`   | open your `init.el` file
-`<SPC> f s`   | save a file
-`<SPC> f S`   | save all files
-`<SPC> f t`   | toggle file tree side bar using [NeoTree][neotree]
-`<SPC> f y`   | show current file absolute path in the minibuffer
+Key Binding            |                 Description
+-----------------------|----------------------------------------------------------------
+<kbd>SPC f f</kbd>   | open a file using `ido`
+<kbd>SPC f i</kbd>   | open your `init.el` file
+<kbd>SPC f s</kbd>   | save a file
+<kbd>SPC f S</kbd>   | save all files
+<kbd>SPC f t</kbd>   | toggle file tree side bar using [NeoTree][neotree]
+<kbd>SPC f y</kbd>   | show current file absolute path in the minibuffer
 
 ### Ido
 
@@ -900,22 +901,22 @@ Key Binding   |                 Description
 
 Basic `ido` operations can be done with `Ctrl` key:
 
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`C-<return>`  | open a `dired buffer`
-`C-b`         | open selected file in a horizontally split window
-`C-d`         | delete selected file (ask for confirmation)
-`C-h`         | go to parent directory
-`C-j`         | select next file or directory
-`C-S-j`       | go to next directory
-`C-k`         | select previous file or directory
-`C-S-k`       | go to previous directory
-`C-l`         | open the selected file
-`C-n`         | next history element
-`C-p`         | previous history element
-`C-t`         | open selected file in a new frame
-`C-v`         | open selected file in a vertically split window
-`C-x`         | open selected file in other window
+Key Binding            |                 Description
+-----------------------|----------------------------------------------------------------
+<kbd>C-<return></kbd>  | open a `dired buffer`
+<kbd>C-b</kbd>         | open selected file in a horizontally split window
+<kbd>C-d</kbd>         | delete selected file (ask for confirmation)
+<kbd>C-h</kbd>         | go to parent directory
+<kbd>C-j</kbd>         | select next file or directory
+<kbd>C-S-j</kbd>       | go to next directory
+<kbd>C-k</kbd>         | select previous file or directory
+<kbd>C-S-k</kbd>       | go to previous directory
+<kbd>C-l</kbd>         | open the selected file
+<kbd>C-n</kbd>         | next history element
+<kbd>C-p</kbd>         | previous history element
+<kbd>C-t</kbd>         | open selected file in a new frame
+<kbd>C-v</kbd>         | open selected file in a vertically split window
+<kbd>C-x</kbd>         | open selected file in other window
 
 #### Experimental Ido feature
 
@@ -926,10 +927,10 @@ When evil leader is triggered the following commands are available:
 
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
-`b`           | open selected file in a horizontally split window
-`t`           | open selected file in a new frame
-`v`           | open selected file in a vertically split window
-`x`           | open selected file in other window
+<kbd>b</kbd>  | open selected file in a horizontally split window
+<kbd>t</kbd>  | open selected file in a new frame
+<kbd>v</kbd>  | open selected file in a vertically split window
+<kbd>x</kbd>  | open selected file in other window
 
 ### NeoTree file tree
 
@@ -942,17 +943,17 @@ To toggle the `NeoTree` buffer press:
 
 In the `NeoTree` buffer:
 
-Key Binding    |                 Description
----------------|----------------------------------------------------------------
-`TAB` or `RET` | expand/open
-`a`            | toggle stretch the buffer
-`c`            | create a node
-`d`            | delete a node
-`g`            | refresh
-`H`            | toggle hidden files
-`K`            | kill corresponding buffer
-`q` or `fd`    | hide `NeoTree` buffer
-`r`            | rename a node
+Key Binding                      |                 Description
+---------------------------------|----------------------------------------------------------------
+<kbd>TAB</kbd> or <kbd>RET</kbd> | expand/open
+<kbd>a</kbd>                     | toggle stretch the buffer
+<kbd>c</kbd>                     | create a node
+<kbd>d</kbd>                     | delete a node
+<kbd>g</kbd>                     | refresh
+<kbd>H</kbd>                     | toggle hidden files
+<kbd>K</kbd>                     | kill corresponding buffer
+<kbd>q</kbd> or <kbd>fd</kbd>    | hide `NeoTree` buffer
+<kbd>r</kbd>                     | rename a node
 
 ### Bookmarks
 
@@ -966,12 +967,12 @@ Open an `helm` window with the current bookmarks by pressing:
 
 Then in the `helm-bookmarks` buffer:
 
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`CTRL+d`      | delete the selected bookmark
-`CTRL+e`      | edit the selected bookmark
-`CTRL+f`      | toggle filename location
-`CTRL+o`      | open the selected bookmark in another window
+Key Binding        |                 Description
+-------------------|----------------------------------------------------------------
+<kbd>CTRL+d</kbd>  | delete the selected bookmark
+<kbd>CTRL+e</kbd>  | edit the selected bookmark
+<kbd>CTRL+f</kbd>  | toggle filename location
+<kbd>CTRL+o</kbd>  | open the selected bookmark in another window
 
 To save a new bookmark, just type the name of the bookmark and press `RET`.
 
@@ -981,20 +982,20 @@ To save a new bookmark, just type the name of the bookmark and press `RET`.
 
 `Spacemacs` uses `evil-search-highlight-persist` to keep the searched expression
 highlighted until the next search. It is also possible to clear the
-highlighting by pressing `<SPC> s c` or executing the ex command `:noh`.
+highlighting by pressing <kbd>SPC s c</kbd> or executing the ex command `:noh`.
 
 ### Stacking highlights
 
 With [hl-anything][] it is possible to highlight all occurrences of the word
 under point. The highlights can be stacked.
 
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`<SPC> h c`   | clear the current highlightings
-`<SPC> h h`   | highlight all occurrence of the word at point
-`<SPC> h n`   | next highlighted occurrence
-`<SPC> h N`   | previous highlighted occurrence
-`<SPC> h p`   | toggle auto-highlight of the enclosing parenthesis
+Key Binding            |                 Description
+-----------------------|----------------------------------------------------------------
+<kbd>SPC h c</kbd>   | clear the current highlightings
+<kbd>SPC h h</kbd>   | highlight all occurrence of the word at point
+<kbd>SPC h n</kbd>   | next highlighted occurrence
+<kbd>SPC h N</kbd>   | previous highlighted occurrence
+<kbd>SPC h p</kbd>   | toggle auto-highlight of the enclosing parenthesis
 
 ### Auto-highlight symbols
 
@@ -1002,35 +1003,35 @@ Key Binding   |                 Description
  [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to it
  which makes it a very handy tool to have in your tool belt.
 
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`<SPC> s e`   | edit all occurrences of the current symbol
-`<SPC> t h`   | toggle the auto highlighting
+Key Binding            |                 Description
+-----------------------|----------------------------------------------------------------
+<kbd>SPC s e</kbd>   | edit all occurrences of the current symbol
+<kbd>SPC t h</kbd>   | toggle the auto highlighting
 
 Navigation between the highlighted symbols can be done with the commands:
 
-Key Binding   | Description
---------------|------------------------------------------------------------
-`*`           | initiate navigation micro-state
-`<SPC> s b`   | go to the last searched occurrence of the last highlighted symbol
-`<SPC> s n`   | go to next occurrence and initiate navigation micro-state
-`<SPC> s N`   | go to previous occurrence and initiate navigation micro-state
-`<SPC> s r b` | change range to `whole buffer`
-`<SPC> s r d` | change range to `display area`
-`<SPC> s r f` | change range to `function`
-`<SPC> s R`   | change range to default (`whole buffer`)
+Key Binding            | Description
+-----------------------|------------------------------------------------------------
+<kbd>*</kbd>           | initiate navigation micro-state
+<kbd>SPC s b</kbd>   | go to the last searched occurrence of the last highlighted symbol
+<kbd>SPC s n</kbd>   | go to next occurrence and initiate navigation micro-state
+<kbd>SPC s N</kbd>   | go to previous occurrence and initiate navigation micro-state
+<kbd>SPC s r b</kbd> | change range to `whole buffer`
+<kbd>SPC s r d</kbd> | change range to `display area`
+<kbd>SPC s r f</kbd> | change range to `function`
+<kbd>SPC s R</kbd>   | change range to default (`whole buffer`)
 
 In 'Spacemacs' highlight symbol micro-state:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`e`           | edit occurrences
-`n`           | go to next occurrence
-`N`           | go to previous occurrence
-`d`           | go to next definition occurrence
-`D`           | go to previous definition occurrence
-`r`           | change range (`function`, `display area`, `whole buffer`)
-`R`           | go to home occurrence (reset position to starting occurrence)
+<kbd>e</kbd>  | edit occurrences
+<kbd>n</kbd>  | go to next occurrence
+<kbd>N</kbd>  | go to previous occurrence
+<kbd>d</kbd>  | go to next definition occurrence
+<kbd>D</kbd>  | go to previous definition occurrence
+<kbd>r</kbd>  | change range (`function`, `display area`, `whole buffer`)
+<kbd>R</kbd>  | go to home occurrence (reset position to starting occurrence)
 Any other key | leave the navigation micro-state
 
 The micro-state text in minibuffer display the following information:
@@ -1076,11 +1077,11 @@ in real-time and navigate between them easily.
 You can even edit the occurrences directly in the `helm` buffer and apply
 the modifications to the buffer.
 
-Key Binding   |                    Description
---------------|----------------------------------------------------------------
-`<SPC> s s`   | execute `helm-swoop`
-`<SPC> s S`   | execute `helm-multi-swoop`
-`<SPC> s C-s` | execute `helm-multi-swoop-all`
+Key Binding            |                    Description
+-----------------------|----------------------------------------------------------------
+<kbd>SPC s s</kbd>   | execute `helm-swoop`
+<kbd>SPC s S</kbd>   | execute `helm-multi-swoop`
+<kbd>SPC s C-s</kbd> | execute `helm-multi-swoop-all`
 
 ## Editing
 
@@ -1088,65 +1089,65 @@ Key Binding   |                    Description
 
 Text related commands (start with `x`):
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> x u`       | set the selected text to lower case
-`<SPC> x U`       | set the selected text to upper case
-`<SPC> x d w`     | delete trailing whitespaces
-`<SPC> x g l`     | set languages used by translate commands
-`<SPC> x g t`     | translate current word using Google Translate
-`<SPC> x g T`     | reverse source and target languages
-`<SPC> x m j`     | move down a line of text
-`<SPC> x m k`     | move up a line of text
-`<SPC> x t c`     | swap (transpose) the current character with the previous one
-`<SPC> x t w`     | swap (transpose) the current word with the previous one
-`<SPC> x t l`     | swap (transpose) the current line with the previous one
-`<SPC> x w c`     | count the number of words in the selection region
-`<SPC> x w C`     | count the number of occurrences per word in the select region
+    Key Binding        |                 Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC x u</kbd>   | set the selected text to lower case
+<kbd>SPC x U</kbd>   | set the selected text to upper case
+<kbd>SPC x d w</kbd> | delete trailing whitespaces
+<kbd>SPC x g l</kbd> | set languages used by translate commands
+<kbd>SPC x g t</kbd> | translate current word using Google Translate
+<kbd>SPC x g T</kbd> | reverse source and target languages
+<kbd>SPC x m j</kbd> | move down a line of text
+<kbd>SPC x m k</kbd> | move up a line of text
+<kbd>SPC x t c</kbd> | swap (transpose) the current character with the previous one
+<kbd>SPC x t w</kbd> | swap (transpose) the current word with the previous one
+<kbd>SPC x t l</kbd> | swap (transpose) the current line with the previous one
+<kbd>SPC x w c</kbd> | count the number of words in the selection region
+<kbd>SPC x w C</kbd> | count the number of occurrences per word in the select region
 
 ### Change font size
 
 The font size of the current buffer can be adjusted with the commands:
 
-Key Binding   | Description
---------------|------------------------------------------------------------
-`<SPC> x +`   | scale up the font and initiate the font scaling micro-state
-`<SPC> x -`   | scale down the font and initiate the font scaling micro-state
-`<SPC> x =`   | reset the font size (no scaling) and initiate the font scaling micro-state
-`+`           | increase the font size
-`-`           | decrease the font size
-`=`           | reset the font size
-Any other key | leave the font scaling micro-state
+Key Binding          | Description
+---------------------|------------------------------------------------------------
+<kbd>SPC x +</kbd> | scale up the font and initiate the font scaling micro-state
+<kbd>SPC x -</kbd> | scale down the font and initiate the font scaling micro-state
+<kbd>SPC x =</kbd> | reset the font size (no scaling) and initiate the font scaling micro-state
+<kbd>+</kbd>         | increase the font size
+<kbd>-</kbd>         | decrease the font size
+<kbd>=</kbd>         | reset the font size
+Any other key        | leave the font scaling micro-state
 
 ### Increase/Decrease numbers
 
 `Spacemacs` uses [evil-numbers][] to easily increase or increase numbers.
 
-Key Binding   | Description
---------------|------------------------------------------------------------
-`<SPC> n +`   | increase the number under point by one and initiate micro-state
-`<SPC> n -`   | decrease the number under point by one and initiate micro-state
+Key Binding            | Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC n +</kbd>   | increase the number under point by one and initiate micro-state
+<kbd>SPC n -</kbd>   | decrease the number under point by one and initiate micro-state
 
 In micro-state:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`+`           | increase the number under point by one
-`-`           | decrease the number under point by one
+<kbd>+</kbd>  | increase the number under point by one
+<kbd>-</kbd>  | decrease the number under point by one
 Any other key | leave the micro-state
 
 **Tips:** you can increase or decrease a value by more that once by using a
-prefix argument (ie. `10 <SPC> n +` will add 10 to the number under point).
+prefix argument (ie. `10 SPC n +` will add 10 to the number under point).
 
 ### Spell checking
 
 Spell checking commands start with `S`:
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> S c`       | list of corrections in a `helm` buffer
-`<SPC> S d`       | change dictionary language
-`<SPC> S n`       | go to the next spell check error
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC S c</kbd> | list of corrections in a `helm` buffer
+<kbd>SPC S d</kbd> | change dictionary language
+<kbd>SPC S n</kbd> | go to the next spell check error
 
 
 ### Region selection
@@ -1154,40 +1155,41 @@ Spell checking commands start with `S`:
 Vi `Visual` modes are all supported by `evil`, `Spacemacs` adds another
 `Visual` mode via the [expand-region][] mode.
 
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`<SPC> v`     | initiate expand-region mode then...
-`v`           | expand the region by one semantic unit
-`V`           | contract the region by one semantic unit
-`r`           | reset the region to initial selection
-`ESC`         | leave expand-region mode
+Key Binding        |                 Description
+-------------------|----------------------------------------------------------------
+<kbd>SPC v</kbd> | initiate expand-region mode then...
+<kbd>v</kbd>       | expand the region by one semantic unit
+<kbd>V</kbd>       | contract the region by one semantic unit
+<kbd>r</kbd>       | reset the region to initial selection
+<kbd>ESC</kbd>     | leave expand-region mode
 
 ### Region narrowing
 
 The displayed text of a buffer can be narrowed with the commands
 (start with `n`):
 
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-`<SPC> n f`   | narrow the buffer to the current function
-`<SPC> n p`   | narrow the buffer to the visible page
-`<SPC> n r`   | narrow the buffer to the selected text
-`<SPC> n w`   | widen, i.e show the whole buffer again
+Key Binding            |                 Description
+-----------------------|----------------------------------------------------------------
+<kbd>SPC n f</kbd>   | narrow the buffer to the current function
+<kbd>SPC n p</kbd>   | narrow the buffer to the visible page
+<kbd>SPC n r</kbd>   | narrow the buffer to the selected text
+<kbd>SPC n w</kbd>   | widen, i.e show the whole buffer again
 
 ### Line formatting
 
-`Spacemacs` performs `go to the line below point and indent it`  with `<SPC> j k`.
+`Spacemacs` performs `go to the line below point and indent it`  with
+<kbd>SPC j k</kbd>.
 You may repeat this operation with `evil-repeat` if you need to indent many lines.
 
 Line formatting commands start with `j`:
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`J`               | join the current line with the next line
-`<SPC> j j`       | same as `<SPC> j k` but will split the current line at point
-`<SPC> J`         | split a quoted string or s-expression in place
-`<SPC> j J`       | split a quoted string or s-expression and auto-indent
-`<SPC> j k`       | go to next line and indent it using auto-indent rules
+    Key Binding            |                 Description
+---------------------------|------------------------------------------------------------
+<kbd>J</kbd>               | join the current line with the next line
+<kbd>SPC j j</kbd>       | same as <kbd>SPC j k</kbd> but will split the current line at point
+<kbd>SPC J</kbd>         | split a quoted string or s-expression in place
+<kbd>SPC j J</kbd>       | split a quoted string or s-expression and auto-indent
+<kbd>SPC j k</kbd>       | go to next line and indent it using auto-indent rules
 
 Used together these key bindings are very powerful to quickly reformat the code.
 
@@ -1195,28 +1197,28 @@ Used together these key bindings are very powerful to quickly reformat the code.
 
 `Spacemacs` uses [auto-complete][] auto-completion engine.
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`C-j`             | select next candidate
-`C-k`             | select previous candidate
-`TAB`             | expand selection or select next candidate
-`S-TAB`           | select previous candidate
-`return`          | complete word, if word is already completed insert a carriage return
+    Key Binding    |                 Description
+-------------------|------------------------------------------------------------
+<kbd>C-j</kbd>     | select next candidate
+<kbd>C-k</kbd>     | select previous candidate
+<kbd>TAB</kbd>     | expand selection or select next candidate
+<kbd>S-TAB</kbd>   | select previous candidate
+<kbd>return</kbd>  | complete word, if word is already completed insert a carriage return
 
 
 ### Commenting
 
 Comments are handled by [evil-nerd-commenter][], it's bound to the following keys.
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> ;`         | comment operator
-`<SPC> c i`       | comment invert
-`<SPC> c l`       | comment lines
-`<SPC> c p`       | comment paragraphs
-`<SPC> c r`       | comment region
-`<SPC> c t`       | comment to line
-`<SPC> c y`       | comment and yank
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC ;</kbd>   | comment operator
+<kbd>SPC c i</kbd> | comment invert
+<kbd>SPC c l</kbd> | comment lines
+<kbd>SPC c p</kbd> | comment paragraphs
+<kbd>SPC c r</kbd> | comment region
+<kbd>SPC c t</kbd> | comment to line
+<kbd>SPC c y</kbd> | comment and yank
 
 **Tips:** To comment efficiently a block of line use the combo:
 
@@ -1232,12 +1234,12 @@ Intuitive navigation model:
 `hjkl` behaves like in the default `normal state`.
 
 **Next sexp on the same level (sibling)**
-- `L` next sexp
-- `H` previous sexp
+- <kbd>L</kbd> next sexp
+- <kbd>H</kbd> previous sexp
 
 **Change level (parent/children)**
-- `J` go to next sexp one level down
-- `K` go to previous one level up
+- <kbd>J</kbd> go to next sexp one level down
+- <kbd>K</kbd> go to previous one level up
 
 And that's it! All these commands always put the point _at the beginning_ of
 the sexp.
@@ -1246,76 +1248,76 @@ the sexp.
 
 ##### Regular normal state bindings
 
-Key Binding   | Function
---------------|------------------------------------------------------------
-`a`           | evil-append
-`c`           | evil-change
-`d`           | evil-delete
-`h`           | previous char
-`i`           | evil-insert-state
-`I`           | evil-insert-line
-`j`           | next visual line
-`k`           | previous visual line
-`l`           | next char
-`o`           | evil-insert-below
-`O`           | evil-insert-above
-`p`           | evil-past-after
-`P`           | evil-past-before
-`r`           | evil-replace
-`C-r`         | undo-tree-redo
-`u`           | undo-tree-undo
-`x`           | evil-delete-char
-`X`           | evil-delete-backward-char
-`y`           | evil-yank
-`ESC`         | evil-normal-state
+Key Binding     | Function
+----------------|------------------------------------------------------------
+<kbd>a</kbd>    | evil-append
+<kbd>c</kbd>    | evil-change
+<kbd>d</kbd>    | evil-delete
+<kbd>h</kbd>    | previous char
+<kbd>i</kbd>    | evil-insert-state
+<kbd>I</kbd>    | evil-insert-line
+<kbd>j</kbd>    | next visual line
+<kbd>k</kbd>    | previous visual line
+<kbd>l</kbd>    | next char
+<kbd>o</kbd>    | evil-insert-below
+<kbd>O</kbd>    | evil-insert-above
+<kbd>p</kbd>    | evil-past-after
+<kbd>P</kbd>    | evil-past-before
+<kbd>r</kbd>    | evil-replace
+<kbd>C-r</kbd>  | undo-tree-redo
+<kbd>u</kbd>    | undo-tree-undo
+<kbd>x</kbd>    | evil-delete-char
+<kbd>X</kbd>    | evil-delete-backward-char
+<kbd>y</kbd>    | evil-yank
+<kbd>ESC</kbd>  | evil-normal-state
 
 ##### Lisp specific bindings
 
 _In this table we assume that `evil-lisp-state-backward-prefix` is set to
 default `<tab>`_
 
-Key Binding   | Function
---------------|------------------------------------------------------------
-`(`           | insert sibling before sexp and switch to `insert state`
-`)`           | insert sibling after sexp and switch to `insert state`
-`$`           | sp-end-of-sexp
-`0`           | sp-beginning-of-sexp
-`A`           | sp-absorb-sexp
-`b`           | sp-forward-barf-sexp
-`<tab> b`     | sp-backward-barf-sexp
-`C`           | sp-convolute-sexp
-`Dd`          | sp-kill-hybrid-sexp
-`Dx`          | sp-kill-sexp
-`<tab> Dx`    | sp-backward-kill-sexp
-`Ds`          | sp-kill-symbol
-`<tab> Ds`    | sp-backward-kill-symbol
-`Dw`          | sp-kill-word
-`<tab> Dw`    | sp-backward-kill-word
-`E$`          | evil-lisp-state-eval-sexp-end-of-line
-`Ee`          | eval-last-sexp
-`Ef`          | eval-defun
-`gs`          | go to source of symbol under point
-`gt`          | sp-transpose-sexp
-`gT`          | sp-transpose-hybrid-sexp
-`H`           | previous sexp at the same level
-`J`           | next sexp one level down
-`K`           | previous sexp one level up
-`L`           | next sexp of the same level
-`M`           | sp-join-sexp (think about `merge-sexp`)
-`R`           | sp-raise-sexp
-`s`           | sp-forward-slurp-sexp
-`<tab> s`     | sp-backward-slurp-sexp
-`S`           | sp-splice-sexp-killing-forward
-`<tab> S`     | sp-splice-sexp-killing-backward
-`w`           | wrap sexp
-`W`           | unwrap sexp
-`<tab> W`     | sp-backward-unwrap-sexp
-`Y`           | sp-copy-sexp
-`<tab> y`     | sp-backward-copy-sexp
-`backspace`   | sp-backward-delete-char
-`S-backspace` | sp-delete-char
-`RET`         | indent next line
-`S-RET`       | insert new line char and switch to `insert state`
+Key Binding            | Function
+-----------------------|------------------------------------------------------------
+<kbd>(</kbd>           | insert sibling before sexp and switch to `insert state`
+<kbd>)</kbd>           | insert sibling after sexp and switch to `insert state`
+<kbd>$</kbd>           | sp-end-of-sexp
+<kbd>0</kbd>           | sp-beginning-of-sexp
+<kbd>A</kbd>           | sp-absorb-sexp
+<kbd>b</kbd>           | sp-forward-barf-sexp
+<kbd><tab> b</kbd>     | sp-backward-barf-sexp
+<kbd>C</kbd>           | sp-convolute-sexp
+<kbd>Dd</kbd>          | sp-kill-hybrid-sexp
+<kbd>Dx</kbd>          | sp-kill-sexp
+<kbd><tab> Dx</kbd>    | sp-backward-kill-sexp
+<kbd>Ds</kbd>          | sp-kill-symbol
+<kbd><tab> Ds</kbd>    | sp-backward-kill-symbol
+<kbd>Dw</kbd>          | sp-kill-word
+<kbd><tab> Dw</kbd>    | sp-backward-kill-word
+<kbd>E$</kbd>          | evil-lisp-state-eval-sexp-end-of-line
+<kbd>Ee</kbd>          | eval-last-sexp
+<kbd>Ef</kbd>          | eval-defun
+<kbd>gs</kbd>          | go to source of symbol under point
+<kbd>gt</kbd>          | sp-transpose-sexp
+<kbd>gT</kbd>          | sp-transpose-hybrid-sexp
+<kbd>H</kbd>           | previous sexp at the same level
+<kbd>J</kbd>           | next sexp one level down
+<kbd>K</kbd>           | previous sexp one level up
+<kbd>L</kbd>           | next sexp of the same level
+<kbd>M</kbd>           | sp-join-sexp (think about `merge-sexp`)
+<kbd>R</kbd>           | sp-raise-sexp
+<kbd>s</kbd>           | sp-forward-slurp-sexp
+<kbd><tab> s</kbd>     | sp-backward-slurp-sexp
+<kbd>S</kbd>           | sp-splice-sexp-killing-forward
+<kbd><tab> S</kbd>     | sp-splice-sexp-killing-backward
+<kbd>w</kbd>           | wrap sexp
+<kbd>W</kbd>           | unwrap sexp
+<kbd><tab> W</kbd>     | sp-backward-unwrap-sexp
+<kbd>Y</kbd>           | sp-copy-sexp
+<kbd><tab> y</kbd>     | sp-backward-copy-sexp
+<kbd>backspace</kbd>   | sp-backward-delete-char
+<kbd>S-backspace</kbd> | sp-delete-char
+<kbd>RET</kbd>         | indent next line
+<kbd>S-RET</kbd>       | insert new line char and switch to `insert state`
 
 **Reminder:**
 `lisp state` is a [base state](#base-states) which means that leaving
@@ -1338,35 +1340,35 @@ The only bound key for `projectile` is `projectile-commander` which is:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`a`               | run `ack` on project
-`A`               | run `ag` on project
-`b`               | switch to project buffer
-`d`               | find directory in project
-`D`               | open project root in `dired`
-`f`               | find file in project
-`g`               | run `grep` on project
-`h`               | find file in project using `helm`
-`j`               | find a tag in project
-`k`               | kill all project buffers
-`o`               | run `multi-occur` on project
-`R`               | regenerate the project's [e|g]tags
-`r`               | replace a string in the project
-`s`               | switch project
-`T`               | find test files in project
-`v`               | open project root in `vc-dir` or `magit`
+<kbd>a</kbd>      | run `ack` on project
+<kbd>A</kbd>      | run `ag` on project
+<kbd>b</kbd>      | switch to project buffer
+<kbd>d</kbd>      | find directory in project
+<kbd>D</kbd>      | open project root in `dired`
+<kbd>f</kbd>      | find file in project
+<kbd>g</kbd>      | run `grep` on project
+<kbd>h</kbd>      | find file in project using `helm`
+<kbd>j</kbd>      | find a tag in project
+<kbd>k</kbd>      | kill all project buffers
+<kbd>o</kbd>      | run `multi-occur` on project
+<kbd>R</kbd>      | regenerate the project's [e|g]tags
+<kbd>r</kbd>      | replace a string in the project
+<kbd>s</kbd>      | switch project
+<kbd>T</kbd>      | find test files in project
+<kbd>v</kbd>      | open project root in `vc-dir` or `magit`
 
 ## Working with Git
 
 Git commands (start with `g`):
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> g c c`     | highlight regions by age of commits
-`<SPC> g c C`     | clear highlights
-`<SPC> g c t`     | highlight regions by last updated time
-`<SPC> g s`       | open a `magit` status window
-`<SPC> g m`       | display the last commit message of the current line
-`<SPC> g t`       | launch the git time machine
+    Key Binding            |                 Description
+---------------------------|------------------------------------------------------------
+<kbd>SPC g c c</kbd>     | highlight regions by age of commits
+<kbd>SPC g c C</kbd>     | clear highlights
+<kbd>SPC g c t</kbd>     | highlight regions by last updated time
+<kbd>SPC g s</kbd>       | open a `magit` status window
+<kbd>SPC g m</kbd>       | display the last commit message of the current line
+<kbd>SPC g t</kbd>       | launch the git time machine
 
 - Highlight by age of commit or last update time is provided by
 [smeargle][smeargle].
@@ -1389,29 +1391,29 @@ Here are the often used bindings inside a `status buffer`:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`$`               | open `command output buffer`
-`c c`             | open a `commit message buffer`
-`b b`             | checkout a branch
-`b c`             | create a branch
-`b v`             | open the `branch manager buffer`
-`f f`             | fetch changes
-`F -r F`          | pull and rebase
-`h`               | go left
-`j`               | go down
-`k`               | go up
-`K`               | discard changes
-`l`               | go right
-`L l`             | open `log buffer`
-`P P`             | push
-`q`               | quit
-`s`               | on a file or hunk in a diff: stage the file or hunk
-`+`               | on a hunk: increase hunk size
-`-`               | on a hunk: decrease hunk size
-`S`               | stage all
-`TAB`             | on a file: expand/collapse diff
-`u`               | on a staged file: unstage
-`U`               | unstage all staged files
-`z z`             | stash changes
+<kbd>$</kbd>      | open `command output buffer`
+<kbd>c c</kbd>    | open a `commit message buffer`
+<kbd>b b</kbd>    | checkout a branch
+<kbd>b c</kbd>    | create a branch
+<kbd>b v</kbd>    | open the `branch manager buffer`
+<kbd>f f</kbd>    | fetch changes
+<kbd>F -r F</kbd> | pull and rebase
+<kbd>h</kbd>      | go left
+<kbd>j</kbd>      | go down
+<kbd>k</kbd>      | go up
+<kbd>K</kbd>      | discard changes
+<kbd>l</kbd>      | go right
+<kbd>L l</kbd>    | open `log buffer`
+<kbd>P P</kbd>    | push
+<kbd>q</kbd>      | quit
+<kbd>s</kbd>      | on a file or hunk in a diff: stage the file or hunk
+<kbd>+</kbd>      | on a hunk: increase hunk size
+<kbd>-</kbd>      | on a hunk: decrease hunk size
+<kbd>S</kbd>      | stage all
+<kbd>TAB</kbd>    | on a file: expand/collapse diff
+<kbd>u</kbd>      | on a staged file: unstage
+<kbd>U</kbd>      | unstage all staged files
+<kbd>z z</kbd>    | stash changes
 
 In a commit message buffer press `C-c C-c` to commit the changes with the
 entered message. `C-c C-k` will discard the commit message.
@@ -1461,12 +1463,12 @@ you can answer `y` with no issue.
 
 Access commands to the various registers start with `r`:
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> r e`       | show evil yank and named registers
-`<SPC> r m`       | show marks register
-`<SPC> r r`       | show helm register
-`<SPC> r y`       | show kill ring
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC r e</kbd> | show evil yank and named registers
+<kbd>SPC r m</kbd> | show marks register
+<kbd>SPC r r</kbd> | show helm register
+<kbd>SPC r y</kbd> | show kill ring
 
 ## Errors handling
 
@@ -1475,12 +1477,12 @@ The checks are only performed at save time by default.
 
 Errors management commands (star with `f` for `flycheck`):
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> f c`       | clear all errors
-`<SPC> f l`       | display the `flycheck` list of errors/warnings
-`<SPC> f n`       | go to the next `flycheck` error
-`<SPC> f p`       | go to the previous flycheck error
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC f c</kbd> | clear all errors
+<kbd>SPC f l</kbd> | display the `flycheck` list of errors/warnings
+<kbd>SPC f n</kbd> | go to the next `flycheck` error
+<kbd>SPC f p</kbd> | go to the previous flycheck error
 
 Custom fringe bitmaps:
 
@@ -1504,10 +1506,10 @@ the current `major mode`.
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`CTRL+h`          | go to previous page
-`CTRL+j`          | go to previous item
-`CTRL+k`          | go to next item
-`CTRL+l`          | go to next page
+<kbd>CTRL+h</kbd> | go to previous page
+<kbd>CTRL+j</kbd> | go to previous item
+<kbd>CTRL+k</kbd> | go to next item
+<kbd>CTRL+l</kbd> | go to next page
 
 #### Experimental Helm feature
 
@@ -1518,88 +1520,88 @@ When evil leader is triggered the following commands are available:
 
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
-`1`           | execute action 0
-`2`           | execute action 1
-`3`           | execute action 2
-`4`           | execute action 3
-`5`           | execute action 4
-`6`           | execute action 5
-`7`           | execute action 6
-`8`           | execute action 7
-`9`           | execute action 8
-`0`           | execute action 9
-`a`           | toggle action selection menu
+<kbd>1</kbd>  | execute action 0
+<kbd>2</kbd>  | execute action 1
+<kbd>3</kbd>  | execute action 2
+<kbd>4</kbd>  | execute action 3
+<kbd>5</kbd>  | execute action 4
+<kbd>6</kbd>  | execute action 5
+<kbd>7</kbd>  | execute action 6
+<kbd>8</kbd>  | execute action 7
+<kbd>9</kbd>  | execute action 8
+<kbd>0</kbd>  | execute action 9
+<kbd>a</kbd>  | toggle action selection menu
 
 ### Erlang
 
 `Spacemacs` uses [EDTS][edts] as an Erlang coding environment.
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> m d`       | show man page documentation
-`<SPC> m e`       | go to next issue
-`<SPC> m g`       | go to definition
-`<SPC> m G`       | find a module in the current project
-`<SPC> m h`       | open the header file under point
-`<SPC> m l`       | find a function in the current module
-`<SPC> m m`       | go to the macro definition under point
-`<SPC> m r`       | go to the record definition under point
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC m d</kbd>  | show man page documentation
+<kbd>SPC m e</kbd>  | go to next issue
+<kbd>SPC m g</kbd>  | go to definition
+<kbd>SPC m G</kbd>  | find a module in the current project
+<kbd>SPC m h</kbd>  | open the header file under point
+<kbd>SPC m l</kbd>  | find a function in the current module
+<kbd>SPC m m</kbd>  | go to the macro definition under point
+<kbd>SPC m r</kbd>  | go to the record definition under point
 
 ### Ledger
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> m a`       | add a transaction
-`<SPC> m d`       | delete current transaction
+<kbd>SPC m a</kbd>       | add a transaction
+<kbd>SPC m d</kbd>       | delete current transaction
 
 ### Org
 
 In `org`, [evil-org-mode][] is activated.
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> m a`       | org-agenda
-`<SPC> m t`       | org-show-todo-tree
-`<SPC> m c`       | org-archive-subtree
-`<SPC> m l`       | evil-org-open-links
-`<SPC> m o`       | evil-org-recompute-clocks
-`gh`              | outline-up-heading
-`gj`              | org-forward-heading-same-level
-`gk`              | org-backward-heading-same-level
-`gl`              | outline-next-visible-heading
-`t`               | org-todo
-`T`               | org-insert-todo-heading nil
-`H`               | org-beginning-of-line
-`L`               | org-end-of-line
-`o`               | always-insert-item
-`O`               | org-insert-heading
-`$`               | org-end-of-line
-`^`               | org-beginning-of-line
-`<`               | org-metaleft
-`>`               | org-metaright
-`TAB`             | org-cycle
-`M-l`             | org-metaright
-`M-h`             | org-metaleft
-`M-k`             | org-metaup
-`M-j`             | org-metadown
-`M-L`             | org-shiftmetaright
-`M-H`             | org-shiftmetaleft
-`M-K`             | org-shiftmetaup
-`M-J`             | org-shiftmetadown
-`M-o`             | org-insert-heading+org-metaright
-`M-t`             | org-insert-todo-heading nil+ org-metaright
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC m a</kbd>  | org-agenda
+<kbd>SPC m t</kbd>  | org-show-todo-tree
+<kbd>SPC m c</kbd>  | org-archive-subtree
+<kbd>SPC m l</kbd>  | evil-org-open-links
+<kbd>SPC m o</kbd>  | evil-org-recompute-clocks
+<kbd>gh</kbd>         | outline-up-heading
+<kbd>gj</kbd>         | org-forward-heading-same-level
+<kbd>gk</kbd>         | org-backward-heading-same-level
+<kbd>gl</kbd>         | outline-next-visible-heading
+<kbd>t</kbd>          | org-todo
+<kbd>T</kbd>          | org-insert-todo-heading nil
+<kbd>H</kbd>          | org-beginning-of-line
+<kbd>L</kbd>          | org-end-of-line
+<kbd>o</kbd>          | always-insert-item
+<kbd>O</kbd>          | org-insert-heading
+<kbd>$</kbd>          | org-end-of-line
+<kbd>^</kbd>          | org-beginning-of-line
+<kbd><</kbd>          | org-metaleft
+<kbd>></kbd>          | org-metaright
+<kbd>TAB</kbd>        | org-cycle
+<kbd>M-l</kbd>        | org-metaright
+<kbd>M-h</kbd>        | org-metaleft
+<kbd>M-k</kbd>        | org-metaup
+<kbd>M-j</kbd>        | org-metadown
+<kbd>M-L</kbd>        | org-shiftmetaright
+<kbd>M-H</kbd>        | org-shiftmetaleft
+<kbd>M-K</kbd>        | org-shiftmetaup
+<kbd>M-J</kbd>        | org-shiftmetadown
+<kbd>M-o</kbd>        | org-insert-heading+org-metaright
+<kbd>M-t</kbd>        | org-insert-todo-heading nil+ org-metaright
 
 ### Perforce
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> p 4 a`     | add a file in depot
-`<SPC> p 4 d`     | delete a file in depot
-`<SPC> p 4 D`     | p4-describe
-`<SPC> p 4 e`     | checkout a file
-`<SPC> p 4 r`     | rename a file
-`<SPC> p 4 R`     | revert a file
-`<SPC> p 4 S`     | submit CL
+    Key Binding            |                 Description
+---------------------------|------------------------------------------------------------
+<kbd>SPC p 4 a</kbd>     | add a file in depot
+<kbd>SPC p 4 d</kbd>     | delete a file in depot
+<kbd>SPC p 4 D</kbd>     | p4-describe
+<kbd>SPC p 4 e</kbd>     | checkout a file
+<kbd>SPC p 4 r</kbd>     | rename a file
+<kbd>SPC p 4 R</kbd>     | revert a file
+<kbd>SPC p 4 S</kbd>     | submit CL
 
 ### Python
 
@@ -1615,20 +1617,20 @@ NPM module installed.
 
 Tern includes the following key bindings:
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`M-.`             | jump to the definition of the thing under the cursor.
-`M-,`             | brings you back to last place you were when you pressed M-..
-`C-c C-r`         | rename the variable under the cursor.
-`C-c C-c`         | find the type of the thing under the cursor.
-`C-c C-d`         | find docs of the thing under the cursor. Press again to open the associated URL (if any).
+    Key Binding     |                 Description
+--------------------|------------------------------------------------------------
+<kbd>M-.</kbd>      | jump to the definition of the thing under the cursor.
+<kbd>M-,</kbd>      | brings you back to last place you were when you pressed M-..
+<kbd>C-c C-r</kbd>  | rename the variable under the cursor.
+<kbd>C-c C-c</kbd>  | find the type of the thing under the cursor.
+<kbd>C-c C-d</kbd>  | find docs of the thing under the cursor. Press again to open the associated URL (if any).
 
 ### rcirc
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`CTRL+j`          | next item in command history
-`CTRL+k`          | previous item in command history
+<kbd>CTRL+j</kbd> | next item in command history
+<kbd>CTRL+k</kbd> | previous item in command history
 
 # Tips
 
