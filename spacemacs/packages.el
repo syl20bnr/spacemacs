@@ -2066,7 +2066,6 @@ determine the state to enable when escaping from the insert state.")
     :idle (global-undo-tree-mode)
     :defer t
     :init
-    (setq undo-tree-auto-save-history t) ; save undo history between sessions
     (setq undo-tree-history-directory-alist
           `(("." . ,(concat spacemacs-cache-directory "undo"))))
     (setq undo-tree-visualizer-timestamps t)
