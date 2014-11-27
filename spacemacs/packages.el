@@ -2,6 +2,7 @@
   '(
     ac-ispell
     ace-jump-mode
+    ag
     anzu
     auto-complete
     auto-complete-clang
@@ -57,6 +58,7 @@
     guide-key-tip
     haskell-mode
     helm
+    helm-ag
     helm-css-scss
     helm-c-yasnippet
     helm-descbinds
@@ -2163,3 +2165,9 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-zenburn-theme ()
   (use-package zenburn-theme
     :defer t))
+
+(defun spacemacs/init-helm-ag ()
+  (use-package helm-ag
+    :init
+    (progn
+      (evil-leader/set-key "/" 'helm-projectile-ag))))
