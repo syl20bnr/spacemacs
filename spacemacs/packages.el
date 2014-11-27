@@ -134,7 +134,10 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defvar spacemacs-excluded-packages '(evil-plugins)
+(defvar spacemacs-excluded-packages
+  '(evil-plugins     ; crashed spacemacs on startup (will wait before reactivating it)
+    fancy-narrow     ; too much bugs and bad side effects
+    )
   "List of packages to exclude.")
 
 
@@ -2063,7 +2066,6 @@ determine the state to enable when escaping from the insert state.")
     :idle (global-undo-tree-mode)
     :defer t
     :init
-    (setq undo-tree-auto-save-history t) ; save undo history between sessions
     (setq undo-tree-history-directory-alist
           `(("." . ,(concat spacemacs-cache-directory "undo"))))
     (setq undo-tree-visualizer-timestamps t)
