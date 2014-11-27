@@ -677,6 +677,7 @@ The minor mode area can be toggled on and off with:
 Ⓐ            | [auto-complete][auto-complete] mode
 Ⓒ            | [centered-cursor][centered-cursor] mode
 eⓅ           | [e-project][e-project] mode
+Ⓔ            | [evil-org][evil-org-mode] mode
 Ⓕ            | flycheck mode
 Ⓕ2           | flymake mode
 Ⓖ            | guide-key mode
@@ -1553,10 +1554,15 @@ Key Binding   |                 Description
 
 ### Org
 
-In `org`, [evil-org-mode][evil-org-mode] is activated.
+In `org`, [evil-org-mode][] is activated.
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
+`<SPC> m a`       | org-agenda
+`<SPC> m t`       | org-show-todo-tree
+`<SPC> m c`       | org-archive-subtree
+`<SPC> m l`       | evil-org-open-links
+`<SPC> m o`       | evil-org-recompute-clocks
 `gh`              | outline-up-heading
 `gj`              | org-forward-heading-same-level
 `gk`              | org-backward-heading-same-level
@@ -1565,14 +1571,23 @@ In `org`, [evil-org-mode][evil-org-mode] is activated.
 `T`               | org-insert-todo-heading nil
 `H`               | org-beginning-of-line
 `L`               | org-end-of-line
-`;t`              | org-show-todo-tree
 `o`               | always-insert-item
 `O`               | org-insert-heading
 `$`               | org-end-of-line
 `^`               | org-beginning-of-line
 `<`               | org-metaleft
 `>`               | org-metaright
-`;a`              | org-agenda`
+`TAB`             | org-cycle
+`M-l`             | org-metaright
+`M-h`             | org-metaleft
+`M-k`             | org-metaup
+`M-j`             | org-metadown
+`M-L`             | org-shiftmetaright
+`M-H`             | org-shiftmetaleft
+`M-K`             | org-shiftmetaup
+`M-J`             | org-shiftmetadown
+`M-o`             | org-insert-heading+org-metaright
+`M-t`             | org-insert-todo-heading nil+ org-metaright
 
 ### Perforce
 
