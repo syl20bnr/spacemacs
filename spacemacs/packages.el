@@ -32,6 +32,7 @@
     evil-lisp-state
     evil-nerd-commenter
     evil-numbers
+    evil-org
     evil-surround
     evil-terminal-cursor-changer
     evil-visualstar
@@ -781,6 +782,23 @@ determine the state to enable when escaping from the insert state.")
         (spacemacs/evil-numbers-micro-state-overlay-map))
       (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
       (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease))))
+
+(defun spacemacs/init-evil-org ()
+  (use-package evil-org
+    :commands evil-org-mode
+    :init
+    (add-hook 'org-mode-hook 'evil-org-mode)
+    :config
+    (progn
+      ;; move the leader bindings to `m` prefix to be consistent with
+      ;; the rest of spacemacs bindings
+      (evil-leader/set-key-for-mode 'org-mode
+        "t" nil "mt" 'org-show-todo-tree
+        "a" nil "ma" 'org-agenda
+        "c" nil "mc" 'org-archive-subtree
+        "l" nil "ml" 'evil-org-open-links
+        "o" nil "mo" 'evil-org-recompute-clocks)
+      (spacemacs//diminish evil-org-mode " Ⓔ"))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()
   (use-package evil-search-highlight-persist

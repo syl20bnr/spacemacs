@@ -12,7 +12,6 @@
     centered-cursor
     dos
     emoji-cheat-sheet
-    evil-org-mode
     evil-plugins
     helm-rcirc
     o-blog
@@ -47,11 +46,6 @@
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet
     :commands emoji-cheat-sheet))
-
-(defun spacemacs/init-evil-org-mode ()
-  (use-package evil-org
-    :commands evil-org-mode
-    :init (add-hook 'org-mode-hook 'evil-org-mode)))
 
 (defun spacemacs/init-evil-plugins ()
   (use-package evil-little-word))
