@@ -983,7 +983,7 @@ To save a new bookmark, just type the name of the bookmark and press `RET`.
 
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
-`<SPC> /`     | search within project with The Silver Searcher
+<kbd><SPC> /</kbd>  | search within project with The Silver Searcher
 
 ### Persistent highlighting
 
