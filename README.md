@@ -151,6 +151,11 @@ navigate to the [dotfile configuration][dotfile] section of [DOCUMENTATION.md][]
 
 # Learning Spacemacs
 
+## Universal argument
+
+In spacemacs the universal argument is by default on `<SPC> u` instead of `C-u`
+which is used to scroll up as in Vim.
+
 ## Key bindings discovery
 
 Thanks to [guide-key][], whenever a prefix command is pressed (like `<SPC>`)
