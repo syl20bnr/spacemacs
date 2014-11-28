@@ -15,6 +15,7 @@
     evil-plugins
     helm-rcirc
     o-blog
+    solarized-theme
     spray
     ))
 
@@ -92,3 +93,10 @@
           (spray-quit)
           (set-default-evil-insert-state-cursor)
           (evil-normal-state))))))
+
+(defun spacemacs/init-solarized-theme ()
+  (use-package solarized
+    :init
+    (progn
+      (deftheme solarized-dark "The dark variant of the Solarized colour theme")
+      (deftheme solarized-light "The light variant of the Solarized colour theme"))))

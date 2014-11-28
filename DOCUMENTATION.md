@@ -528,7 +528,16 @@ Additional information may as well be displayed in the minibuffer.
 
 # Color theme
 
-By default, `Spacemacs` uses the theme [Solarized][solarized-theme].
+By default, `Spacemacs` uses the theme [solarized-light][solarized-theme].
+
+It is possible to define your default theme in your `~/.spacemacs` with
+the variable `dotspacemacs-default-theme`. For instance, to specify `zenburn`:
+
+```elisp
+(setq-default
+ ;; Default theme applied at startup
+ dotspacemacs-default-theme 'zenburn)
+```
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------

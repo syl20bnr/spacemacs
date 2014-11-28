@@ -7,6 +7,9 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
   "list of contribution to load."
 )
 
+(defvar dotspacemacs-default0theme 'solarized-light
+  "Default theme used to start Spacemacs.")
+
 (defvar dotspacemacs-fullscreen-at-startup nil
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).")
 

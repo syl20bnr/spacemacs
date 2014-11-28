@@ -1,6 +1,8 @@
 (load (concat user-emacs-directory "core/spacemacs-mode.el"))
 (require 'config-system)
 
+(dotspacemacs/load)
+
 ;; spacemacs special buffer
 (spacemacs/buffer)
 
@@ -9,7 +11,6 @@
   (config-system/package.el-initialize)
 
   ;; Initializing configuration from ~/.spacemacs
-  (dotspacemacs/load)
   (dotspacemacs|call-func dotspacemacs/init)
 
   ;; Load configuration layers
