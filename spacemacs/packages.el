@@ -494,6 +494,7 @@ which require an initialization must be listed explicitly in the list.")
     :mode (("\\.erl?$" . erlang-mode)
            ("\\.hrl?$" . erlang-mode)
            ("\\.spec?$" . erlang-mode))
+    :defer t
     :config
     (progn
       (setq erlang-root-dir "/usr/lib/erlang/erts-5.10.3")
@@ -850,6 +851,7 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-fancy-battery ()
   (use-package fancy-battery
+    :defer t
     :init
     (progn
       (defun spacemacs/mode-line-battery-info-toggle ()
@@ -1283,7 +1285,6 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-helm ()
   (use-package helm
-    :idle (helm-mode +1)
     :defer t
     :init
     (setq helm-split-window-in-side-p nil
@@ -1494,6 +1495,7 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-ledger-mode ()
   (use-package ledger-mode
     :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode)
+    :defer t
     :init
     (progn
       (setq ledger-post-amount-alignment-column 62)
@@ -1579,7 +1581,8 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-markdown-mode ()
   (use-package markdown-mode
-    :mode ("\\.md" . markdown-mode)))
+    :mode ("\\.md" . markdown-mode)
+    :defer t))
 
 (defun spacemacs/init-markdown-toc ()
   (use-package markdown-toc
@@ -1641,6 +1644,7 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-org ()
   (use-package org
     :mode ("\\.org$" . org-mode)
+    :defer t
     :init
     (setq org-log-done t)
     :config
@@ -2003,11 +2007,13 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-ruby-mode ()
   (use-package ruby-mode
+    :defer t
     :mode (("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode)
            ("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))))
 
 (defun spacemacs/init-scss-mode ()
   (use-package scss-mode
+    :defer t
     :mode ("\\.scss\\'" . scss-mode)))
 
 (defun spacemacs/init-smartparens ()
@@ -2144,6 +2150,7 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-web-mode ()
   (use-package web-mode
+    :defer t
     :mode (("\\.phtml\\'"     . web-mode)
            ("\\.tpl\\.php\\'" . web-mode)
            ("\\.html\\'"      . web-mode)
