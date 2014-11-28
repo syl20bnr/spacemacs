@@ -5,6 +5,8 @@
 ;; Variables
 
 (setq-default
+ ;; Default theme applied at startup
+ dotspacemacs-default-theme 'solarized-light
  ;; List of additional paths where to look for configuration layers.
  ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
  dotspacemacs-configuration-layer-path '()

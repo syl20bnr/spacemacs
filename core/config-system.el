@@ -426,6 +426,7 @@ deleted safely."
                 (spacemacs/append-to-buffer
                  (format "[%s packages loaded in %.3fs]\n"
                          (config-system/initialized-packages-count)
-                         elapsed))))))
+                         elapsed)))
+              )))
 
 (provide 'config-system)
