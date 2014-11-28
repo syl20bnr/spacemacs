@@ -66,7 +66,7 @@
         - [NeoTree file tree](#neotree-file-tree)
         - [Bookmarks](#bookmarks)
     - [Searching](#searching)
-        - [Project searching](#project-searching)
+        - [Project Searching](#project-searching)
         - [Persistent highlighting](#persistent-highlighting)
         - [Stacking highlights](#stacking-highlights)
         - [Auto-highlight symbols](#auto-highlight-symbols)
@@ -1342,30 +1342,33 @@ Projects in `Spacemacs` are managed with [projectile][projectile]. In
 project is found when a `.git` repository or `.projectile` file is
 encountered in the file tree.
 
-The only bound key for `projectile` is `projectile-commander` which is:
+`Helm` is used whenever it is possible.
 
-    <SPC> p
+To search in a project see [project searching](#project-searching).
 
-`projectile commander` commands:
+`projectile` commands start with <kbd>p</kbd>:
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-<kbd>a</kbd>      | run `ack` on project
-<kbd>A</kbd>      | run `ag` on project
-<kbd>b</kbd>      | switch to project buffer
-<kbd>d</kbd>      | find directory in project
-<kbd>D</kbd>      | open project root in `dired`
-<kbd>f</kbd>      | find file in project
-<kbd>g</kbd>      | run `grep` on project
-<kbd>h</kbd>      | find file in project using `helm`
-<kbd>j</kbd>      | find a tag in project
-<kbd>k</kbd>      | kill all project buffers
-<kbd>o</kbd>      | run `multi-occur` on project
-<kbd>R</kbd>      | regenerate the project's [e|g]tags
-<kbd>r</kbd>      | replace a string in the project
-<kbd>s</kbd>      | switch project
-<kbd>T</kbd>      | find test files in project
-<kbd>v</kbd>      | open project root in `vc-dir` or `magit`
+    Key Binding     |                 Description
+--------------------|------------------------------------------------------------
+<kbd>SPC p /</kbd>  | run `ag`
+<kbd>SPC p a</kbd>  | run `ag`
+<kbd>SPC p A</kbd>  | run `ack`
+<kbd>SPC p b</kbd>  | switch to project buffer
+<kbd>SPC p d</kbd>  | find directory
+<kbd>SPC p D</kbd>  | open project root in `dired`
+<kbd>SPC p f</kbd>  | find file
+<kbd>SPC p g</kbd>  | run `grep`
+<kbd>SPC p h</kbd>  | find file using `helm`
+<kbd>SPC p I</kbd>  | invalidate the projectile cache
+<kbd>SPC p j</kbd>  | find a tag
+<kbd>SPC p k</kbd>  | kill all project buffers
+<kbd>SPC p o</kbd>  | run `multi-occur`
+<kbd>SPC p R</kbd>  | regenerate the project's [e|g]tags
+<kbd>SPC p r</kbd>  | replace a string
+<kbd>SPC p s</kbd>  | switch project
+<kbd>SPC p t</kbd>  | find tags
+<kbd>SPC p T</kbd>  | find test files
+<kbd>SPC p v</kbd>  | open project root in `vc-dir` or `magit`
 
 ## Working with Git
 
