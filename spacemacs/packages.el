@@ -1390,7 +1390,6 @@ determine the state to enable when escaping from the insert state.")
       "pA" 'helm-projectile-ack
       "pb" 'helm-projectile-switch-to-buffer
       "pd" 'helm-projectile-find-dir
-      "pD" 'helm-projectile-dired-find-dir
       "pe" 'helm-projectile-recentf
       "pf" 'helm-projectile-find-file
       "pg" 'helm-projectile-grep
@@ -1896,13 +1895,13 @@ determine the state to enable when escaping from the insert state.")
           "pA" 'projectile-ag
           "pb" 'projectile-switch-to-buffer
           "pd" 'projectile-find-dir
-          "pD" 'projectile-dired
           "pe" 'projectile-recentf
           "pf" 'projectile-find-file
           "pg" 'projectile-grep
           "ph" 'helm-projectile
           "ps" 'projectile-switch-project))
       (evil-leader/set-key
+        "pD" 'projectile-dired
         "pI" 'projectile-invalidate-cache
         "pk" 'projectile-kill-buffers
         "po" 'projectile-multi-occur
