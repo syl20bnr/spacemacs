@@ -981,9 +981,12 @@ To save a new bookmark, just type the name of the bookmark and press `RET`.
 
 ### Project Searching
 
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-<kbd><SPC> /</kbd>  | search within project with The Silver Searcher
+Key Binding                           |                 Description
+--------------------------------------|---------------------------------------------
+<kbd>SPC /</kbd> or  <kbd>SPC a</kbd> | with [The Silver Searcher][ag]
+<kbd>SPC A</kbd>                      | with `ack`
+<kbd>SPC g</kbd>                      | with `grep`
+
 
 ### Persistent highlighting
 
@@ -1754,6 +1757,7 @@ developers to elisp hackers!
 [e-project]: https://github.com/jrockway/eproject
 [projectile]: https://github.com/bbatsov/projectile
 [sp]: https://github.com/Fuco1/smartparens
+[ag]: https://github.com/ggreer/the_silver_searcher
 [flycheck]: https://github.com/flycheck
 [yasnippet]: https://github.com/capitaomorte/yasnippet
 [expand-region]: https://github.com/magnars/expand-region.el

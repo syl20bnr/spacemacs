@@ -1335,6 +1335,10 @@ determine the state to enable when escaping from the insert state.")
       (eval-after-load "helm-mode" ; required
         '(spacemacs//hide-lighter helm-mode)))))
 
+(defun spacemacs/init-helm-ag ()
+  (use-package helm-ag
+    :defer t))
+
 (defun spacemacs/init-helm-css-scss ()
   (use-package helm-css-scss
     :defer t
@@ -1380,8 +1384,9 @@ determine the state to enable when escaping from the insert state.")
     (defconst spacemacs-use-helm-projectile t
       "This variable is only defined if helm-projectile is used.")
     (evil-leader/set-key
-      "pa" 'helm-projectile-ack
-      "pA" 'helm-projectile-ag
+      "/" 'helm-projectile-ag
+      "pa" 'helm-projectile-ag
+      "pA" 'helm-projectile-ack
       "pb" 'helm-projectile-switch-to-buffer
       "pd" 'helm-projectile-find-dir
       "pD" 'helm-projectile-dired-find-dir
@@ -2165,9 +2170,3 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-zenburn-theme ()
   (use-package zenburn-theme
     :defer t))
-
-(defun spacemacs/init-helm-ag ()
-  (use-package helm-ag
-    :init
-    (progn
-      (evil-leader/set-key "/" 'helm-projectile-ag))))
