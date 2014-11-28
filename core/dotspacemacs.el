@@ -7,7 +7,7 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
   "list of contribution to load."
 )
 
-(defvar dotspacemacs-default0theme 'solarized-light
+(defvar dotspacemacs-default-theme 'solarized-light
   "Default theme used to start Spacemacs.")
 
 (defvar dotspacemacs-fullscreen-at-startup nil
