@@ -150,7 +150,6 @@ installed."
                                    "whereas current Emacs version is %s.\n"
                                    emacs-version))
       (spacemacs/append-to-buffer "Spacemacs is disabled.\n")
-      (setq inhibit-startup-screen t)
       (redisplay))))
 
 (defun spacemacs/message (msg &rest args)
