@@ -2,6 +2,7 @@
   '(
     ac-ispell
     ace-jump-mode
+    ag
     anzu
     auto-complete
     auto-complete-clang
@@ -57,6 +58,7 @@
     guide-key-tip
     haskell-mode
     helm
+    helm-ag
     helm-css-scss
     helm-c-yasnippet
     helm-descbinds
@@ -1293,6 +1295,7 @@ determine the state to enable when escaping from the insert state.")
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
+        "hr"  'helm-resume
         "ry"  'helm-show-kill-ring
         "rr"  'helm-register
         "rm"  'helm-all-mark-rings
@@ -1332,6 +1335,10 @@ determine the state to enable when escaping from the insert state.")
         (key-chord-define helm-map (kbd "jk") (cdr (assoc 'helm-mode evil-leader--mode-maps))))
       (eval-after-load "helm-mode" ; required
         '(spacemacs//hide-lighter helm-mode)))))
+
+(defun spacemacs/init-helm-ag ()
+  (use-package helm-ag
+    :defer t))
 
 (defun spacemacs/init-helm-css-scss ()
   (use-package helm-css-scss
@@ -1378,11 +1385,11 @@ determine the state to enable when escaping from the insert state.")
     (defconst spacemacs-use-helm-projectile t
       "This variable is only defined if helm-projectile is used.")
     (evil-leader/set-key
-      "pa" 'helm-projectile-ack
-      "pA" 'helm-projectile-ag
+      "/" 'helm-projectile-ag
+      "pa" 'helm-projectile-ag
+      "pA" 'helm-projectile-ack
       "pb" 'helm-projectile-switch-to-buffer
       "pd" 'helm-projectile-find-dir
-      "pD" 'helm-projectile-dired-find-dir
       "pe" 'helm-projectile-recentf
       "pf" 'helm-projectile-find-file
       "pg" 'helm-projectile-grep
@@ -1413,11 +1420,18 @@ determine the state to enable when escaping from the insert state.")
     :defer t
     :init
     (progn
-      (evil-leader/set-key "hc" 'hl-unhighlight-all-local)
-      (evil-leader/set-key "hh" 'hl-highlight-thingatpt-local)
-      (evil-leader/set-key "hn" 'hl-find-thing-forwardly)
-      (evil-leader/set-key "hN" 'hl-find-thing-backwardly)
-      (evil-leader/set-key "hp" 'hl-paren-mode))
+      (setq-default hl-highlight-save-file (concat spacemacs-cache-directory
+                                                   ".hl-save"))
+      (evil-leader/set-key
+        "hc"  'hl-unhighlight-all-local
+        "hgc" 'hl-unhighlight-all-global
+        "hgh" 'hl-highlight-thingatpt-global
+        "hh"  'hl-highlight-thingatpt-local
+        "hn"  'hl-find-thing-forwardly
+        "hN"  'hl-find-thing-backwardly
+        "hp"  'hl-paren-mode
+        "hr"  'hl-restore-highlights
+        "hs"  'hl-save-highlights))
     :config
     (progn
       (spacemacs//diminish hl-paren-mode "(Ⓗ)")
@@ -1888,13 +1902,13 @@ determine the state to enable when escaping from the insert state.")
           "pA" 'projectile-ag
           "pb" 'projectile-switch-to-buffer
           "pd" 'projectile-find-dir
-          "pD" 'projectile-dired
           "pe" 'projectile-recentf
           "pf" 'projectile-find-file
           "pg" 'projectile-grep
           "ph" 'helm-projectile
           "ps" 'projectile-switch-project))
       (evil-leader/set-key
+        "pD" 'projectile-dired
         "pI" 'projectile-invalidate-cache
         "pk" 'projectile-kill-buffers
         "po" 'projectile-multi-occur
