@@ -713,7 +713,7 @@ determine the state to enable when escaping from the insert state.")
                    ("xt" . "text-transpose")
                    ("xw" . "text-words")
                    ("z" . "z")))
-        (let ((key (car x)) 
+        (let ((key (car x))
               (prefix-command (intern (format "%s-prefix" (cdr x)))))
           (define-prefix-command prefix-command)
           (evil-leader/set-key key prefix-command)))
@@ -1999,7 +1999,6 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-ruby-end ()
   (use-package ruby-end
     :defer t
-    :init (add-hook 'ruby-mode-hook 'ruby-end-mode)
     :config (spacemacs//hide-lighter ruby-end-mode)))
 
 (defun spacemacs/init-ruby-mode ()
@@ -2021,6 +2020,7 @@ determine the state to enable when escaping from the insert state.")
                                         prog-mode-hook)))
     :config
     (progn
+      (require 'smartparens-config)
       (spacemacs//diminish smartparens-mode " (Ⓢ)")
       (defun spacemacs/smartparens-pair-newline (id action context)
         (save-excursion
@@ -2035,8 +2035,10 @@ determine the state to enable when escaping from the insert state.")
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
       (sp-pair "[" nil :post-handlers
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
-      (sp-local-pair 'markdown-mode "'" nil :actions nil)
-      (sp-local-pair 'emacs-lisp-mode "'" nil :actions nil))))
+
+      ;; Don't do terrible things with Github code blocks (```)
+      (sp-local-pair 'markdown-mode "`" nil :actions '(:rem autoskip))
+      (sp-local-pair 'markdown-mode "'" nil :actions nil))))
 
 (defun spacemacs/init-smeargle ()
   (use-package smeargle
