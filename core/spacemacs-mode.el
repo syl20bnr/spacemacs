@@ -54,6 +54,20 @@
   "Spacemacs major mode for startup screen."
   :syntax-table nil
   :abbrev-table nil
+  ;; font
+  ;; Dynamic font size depending on the system
+  (let ((font "Source Code Pro"))
+    (when (member font (font-family-list))
+      (pcase window-system
+        (`x (spacemacs/set-font font 10))
+        (`mac (spacemacs/set-font font 12))
+        (`w32 (spacemacs/set-font font 9))
+        (other (spacemacs/set-font font 10)))))
+  ;; edit area full screen
+  (tool-bar-mode -1)
+  (when (not (eq window-system 'mac))
+    (menu-bar-mode -1))
+  (scroll-bar-mode -1)
   (setq truncate-lines t)
   (setq cursor-type nil)
   ;; no welcome buffer
@@ -75,20 +89,6 @@
     (let ((pkg (format "%s-theme" (symbol-name dotspacemacs-default-theme))))
       (spacemacs/load-or-install-package (intern pkg))))
   (load-theme dotspacemacs-default-theme t)
-  ;; font
-  ;; Dynamic font size depending on the system
-  (let ((font "Source Code Pro"))
-    (when (member font (font-family-list))
-      (pcase window-system
-        (`x (spacemacs/set-font font 10))
-        (`mac (spacemacs/set-font font 12))
-        (`w32 (spacemacs/set-font font 9))
-        (other (spacemacs/set-font font 10)))))
-  ;; edit area full screen
-  (tool-bar-mode -1)
-  (when (not (eq window-system 'mac))
-    (menu-bar-mode -1))
-  (scroll-bar-mode -1)
   ;; motion state since this is a special mode
   (eval-after-load 'evil
     '(add-to-list 'evil-motion-state-modes 'spacemacs-mode)))
