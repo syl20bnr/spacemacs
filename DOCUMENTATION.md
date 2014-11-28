@@ -986,7 +986,7 @@ Key Binding                           |                 Description
 <kbd>SPC /</kbd> or  <kbd>SPC a</kbd> | with [The Silver Searcher][ag]
 <kbd>SPC A</kbd>                      | with `ack`
 <kbd>SPC g</kbd>                      | with `grep`
-
+<kbd>SPC h r</kbd>                    | resume last helm popup
 
 ### Persistent highlighting
 
