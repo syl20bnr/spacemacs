@@ -19,7 +19,9 @@ which require an initialization must be listed explicitly in the list.")
                persp-cycle-next
                persp-cycle-prev
                persp-rename
-               persp-switch)
+               persp-switch
+               projectile-persp-bridge
+               )
     :init
     (progn
       ;; muh perspectives
@@ -80,7 +82,7 @@ which require an initialization must be listed explicitly in the list.")
                 ((< next-pos 0) (persp-switch (nth (- list-size 1) (persp-all-names))))
                 (t (persp-prev)))))
 
-      (eval-after-load 'helm-projectile
+      (eval-after-load 'persp-projectile
         '(projectile-persp-bridge helm-projectile))
       )
     ))
