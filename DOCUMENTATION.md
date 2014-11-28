@@ -66,6 +66,7 @@
         - [NeoTree file tree](#neotree-file-tree)
         - [Bookmarks](#bookmarks)
     - [Searching](#searching)
+        - [Project Searching](#project-searching)
         - [Persistent highlighting](#persistent-highlighting)
         - [Stacking highlights](#stacking-highlights)
         - [Auto-highlight symbols](#auto-highlight-symbols)
@@ -348,7 +349,7 @@ This is the recommended way to manage your private layers.
 
 The best approach is to store all your private layers into an external Git
 repository. It is especially a good practice to store them in your `dotfiles`
-repository if you have one along with your `~/.spacemacs` file.
+repository if you have one. Put also your `~/.spacemacs` file in it.
 
 Then you are free to symlink your layers into `~/emacs.d/private` _or_ let
 them anywhere you want and reference the parent directory in the variable
@@ -359,7 +360,7 @@ layers and then directly clone this repository in `~/.emacs.d/private`.
 
 ### Using a personal branch
 
-The final main way to manage your private layers is to push them is a personal
+The final main way to manage your private layers is to push them in a personal
 branch that you keep up to date with upstream `master` or `develop`.
 
 # Dotfile Configuration
@@ -527,7 +528,16 @@ Additional information may as well be displayed in the minibuffer.
 
 # Color theme
 
-By default, `Spacemacs` uses the theme [Solarized][solarized-theme].
+By default, `Spacemacs` uses the theme [solarized-light][solarized-theme].
+
+It is possible to define your default theme in your `~/.spacemacs` with
+the variable `dotspacemacs-default-theme`. For instance, to specify `zenburn`:
+
+```elisp
+(setq-default
+ ;; Default theme applied at startup
+ dotspacemacs-default-theme 'zenburn)
+```
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
@@ -978,6 +988,15 @@ To save a new bookmark, just type the name of the bookmark and press `RET`.
 
 ## Searching
 
+### Project Searching
+
+Key Binding                           |                 Description
+--------------------------------------|---------------------------------------------
+<kbd>SPC /</kbd> or  <kbd>SPC a</kbd> | with [The Silver Searcher][ag]
+<kbd>SPC A</kbd>                      | with `ack`
+<kbd>SPC g</kbd>                      | with `grep`
+<kbd>SPC h r</kbd>                    | resume last helm popup
+
 ### Persistent highlighting
 
 `Spacemacs` uses `evil-search-highlight-persist` to keep the searched expression
@@ -991,11 +1010,15 @@ under point. The highlights can be stacked.
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC h c</kbd>   | clear the current highlightings
+<kbd>SPC h c</kbd>   | clear the highlightings
+<kbd>SPC h g c</kbd> | clear the highlightings globally (all opened buffers)
 <kbd>SPC h h</kbd>   | highlight all occurrence of the word at point
+<kbd>SPC h g h</kbd> | highlight all occurrence of the word at point globally (all opened buffers)
 <kbd>SPC h n</kbd>   | next highlighted occurrence
 <kbd>SPC h N</kbd>   | previous highlighted occurrence
 <kbd>SPC h p</kbd>   | toggle auto-highlight of the enclosing parenthesis
+<kbd>SPC h r</kbd>   | restore saved highlights in the current buffer
+<kbd>SPC h s</kbd>   | save current highlights
 
 ### Auto-highlight symbols
 
@@ -1332,30 +1355,33 @@ Projects in `Spacemacs` are managed with [projectile][projectile]. In
 project is found when a `.git` repository or `.projectile` file is
 encountered in the file tree.
 
-The only bound key for `projectile` is `projectile-commander` which is:
+`Helm` is used whenever it is possible.
 
-    <SPC> p
+To search in a project see [project searching](#project-searching).
 
-`projectile commander` commands:
+`projectile` commands start with <kbd>p</kbd>:
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-<kbd>a</kbd>      | run `ack` on project
-<kbd>A</kbd>      | run `ag` on project
-<kbd>b</kbd>      | switch to project buffer
-<kbd>d</kbd>      | find directory in project
-<kbd>D</kbd>      | open project root in `dired`
-<kbd>f</kbd>      | find file in project
-<kbd>g</kbd>      | run `grep` on project
-<kbd>h</kbd>      | find file in project using `helm`
-<kbd>j</kbd>      | find a tag in project
-<kbd>k</kbd>      | kill all project buffers
-<kbd>o</kbd>      | run `multi-occur` on project
-<kbd>R</kbd>      | regenerate the project's [e|g]tags
-<kbd>r</kbd>      | replace a string in the project
-<kbd>s</kbd>      | switch project
-<kbd>T</kbd>      | find test files in project
-<kbd>v</kbd>      | open project root in `vc-dir` or `magit`
+    Key Binding     |                 Description
+--------------------|------------------------------------------------------------
+<kbd>SPC p /</kbd>  | run `ag`
+<kbd>SPC p a</kbd>  | run `ag`
+<kbd>SPC p A</kbd>  | run `ack`
+<kbd>SPC p b</kbd>  | switch to project buffer
+<kbd>SPC p d</kbd>  | find directory
+<kbd>SPC p D</kbd>  | open project root in `dired`
+<kbd>SPC p f</kbd>  | find file
+<kbd>SPC p g</kbd>  | run `grep`
+<kbd>SPC p h</kbd>  | find file using `helm`
+<kbd>SPC p I</kbd>  | invalidate the projectile cache
+<kbd>SPC p j</kbd>  | find a tag
+<kbd>SPC p k</kbd>  | kill all project buffers
+<kbd>SPC p o</kbd>  | run `multi-occur`
+<kbd>SPC p R</kbd>  | regenerate the project's [e|g]tags
+<kbd>SPC p r</kbd>  | replace a string
+<kbd>SPC p s</kbd>  | switch project
+<kbd>SPC p t</kbd>  | find tags
+<kbd>SPC p T</kbd>  | find test files
+<kbd>SPC p v</kbd>  | open project root in `vc-dir` or `magit`
 
 ## Working with Git
 
@@ -1747,6 +1773,7 @@ developers to elisp hackers!
 [e-project]: https://github.com/jrockway/eproject
 [projectile]: https://github.com/bbatsov/projectile
 [sp]: https://github.com/Fuco1/smartparens
+[ag]: https://github.com/ggreer/the_silver_searcher
 [flycheck]: https://github.com/flycheck
 [yasnippet]: https://github.com/capitaomorte/yasnippet
 [expand-region]: https://github.com/magnars/expand-region.el

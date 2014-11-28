@@ -72,14 +72,10 @@
   (message "Loading theme %s..." spacemacs-cur-theme)
   (load-theme spacemacs-cur-theme t))
 
-(defadvice load-theme (around spacemacs/load-theme-adv activate)
+(defadvice load-theme (after spacemacs/load-theme-adv activate)
   "Perform post load processing."
   (let ((theme (ad-get-arg 0)))
     (setq spacemacs-cur-theme theme)
-    (if (and spacemacs-solarized-dark-createdp
-             (eq 'solarized-dark theme))
-        (create-solarized-theme 'dark 'solarized-dark))
-    ad-do-it
     (spacemacs/post-theme-init theme)))
 
 (defun spacemacs/post-theme-init (theme)

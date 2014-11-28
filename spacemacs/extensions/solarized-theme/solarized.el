@@ -1831,8 +1831,9 @@ customize the resulting theme."
      `(table-cell ((,class (:foreground ,base0 :background ,base02))))
 
      ;; term
-     `(term-default-fg-color (t (:foreground ,base0))) ;; @deprecated24.3
-     `(term-default-bg-color (t (:background ,base03))) ;; @deprecated24.3
+     (unless (version< emacs-version "24.4")
+       `(term-default-fg-color (t (:foreground ,base0)))
+       `(term-default-bg-color (t (:background ,base03))))
      `(term-color-black ((t (:foreground ,base02
                                          :background ,base02))))
      `(term-color-red ((t (:foreground ,red
@@ -2115,6 +2116,12 @@ customize the resulting theme."
 
      ;; smartrep
      `(smartrep-mode-line-active-bg (solarized-color-blend ,green ,s-mode-line-bg 0.2))
+
+     ;; term 
+     `(if (version< emacs-version "24.4")
+         (progn
+           (term-default-fg-color ,base0)
+           (term-default-bg-color ,base03)))
 
      ;; vc
      `(vc-annotate-color-map
