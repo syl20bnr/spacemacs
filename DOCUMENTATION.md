@@ -1001,11 +1001,15 @@ under point. The highlights can be stacked.
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC h c</kbd>   | clear the current highlightings
+<kbd>SPC h c</kbd>   | clear the highlightings
+<kbd>SPC h g c</kbd> | clear the highlightings globally (all opened buffers)
 <kbd>SPC h h</kbd>   | highlight all occurrence of the word at point
+<kbd>SPC h g h</kbd> | highlight all occurrence of the word at point globally (all opened buffers)
 <kbd>SPC h n</kbd>   | next highlighted occurrence
 <kbd>SPC h N</kbd>   | previous highlighted occurrence
 <kbd>SPC h p</kbd>   | toggle auto-highlight of the enclosing parenthesis
+<kbd>SPC h r</kbd>   | restore saved highlights in the current buffer
+<kbd>SPC h s</kbd>   | save current highlights
 
 ### Auto-highlight symbols
 

@@ -1420,11 +1420,18 @@ determine the state to enable when escaping from the insert state.")
     :defer t
     :init
     (progn
-      (evil-leader/set-key "hc" 'hl-unhighlight-all-local)
-      (evil-leader/set-key "hh" 'hl-highlight-thingatpt-local)
-      (evil-leader/set-key "hn" 'hl-find-thing-forwardly)
-      (evil-leader/set-key "hN" 'hl-find-thing-backwardly)
-      (evil-leader/set-key "hp" 'hl-paren-mode))
+      (setq-default hl-highlight-save-file (concat spacemacs-cache-directory
+                                                   ".hl-save"))
+      (evil-leader/set-key
+        "hc"  'hl-unhighlight-all-local
+        "hgc" 'hl-unhighlight-all-global
+        "hgh" 'hl-highlight-thingatpt-global
+        "hh"  'hl-highlight-thingatpt-local
+        "hn"  'hl-find-thing-forwardly
+        "hN"  'hl-find-thing-backwardly
+        "hp"  'hl-paren-mode
+        "hr"  'hl-restore-highlights
+        "hs"  'hl-save-highlights))
     :config
     (progn
       (spacemacs//diminish hl-paren-mode "(Ⓗ)")
