@@ -47,7 +47,7 @@
     (progn
       (add-to-list 'evil-emacs-state-modes 'pylookup-mode)
       (evil-add-hjkl-bindings pylookup-mode-map 'emacs)
-      (let ((dir (config-system/get-layer-property 'spacemacs :ext-dir)))
+      (let ((dir (config-system/get-layer-property 'python :ext-dir)))
         (setq pylookup-dir (concat dir "/pylookup")
               pylookup-program (concat pylookup-dir "/pylookup.py")
               pylookup-db-file (concat pylookup-dir "/pylookup.db"))))))
