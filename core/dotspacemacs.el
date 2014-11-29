@@ -10,6 +10,9 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
 (defvar dotspacemacs-default-theme 'solarized-light
   "Default theme used to start Spacemacs.")
 
+(defvar dotspacemacs-guide-key-delay 0.4
+  "Guide-key delay in seconds.")
+
 (defvar dotspacemacs-fullscreen-at-startup nil
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).")
 
