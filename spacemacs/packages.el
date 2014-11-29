@@ -1194,7 +1194,7 @@ determine the state to enable when escaping from the insert state.")
       (setq guide-key/guide-key-sequence '("C-x" "C-c" "SPC" "g" "z" "C-h")
             guide-key/recursive-key-sequence-flag t
             guide-key/popup-window-position 'right
-            guide-key/idle-delay 1
+            guide-key/idle-delay dotspacemacs-guide-key-delay
             guide-key/text-scale-amount 0
             ;; use this in your ~/.spacemacs file to enable tool tip in a
             ;; graphical envrionment
