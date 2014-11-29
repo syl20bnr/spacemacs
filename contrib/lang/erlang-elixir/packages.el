@@ -19,19 +19,19 @@ which require an initialization must be listed explicitly in the list.")
 (defvar erlang-elixir-excluded-packages '()
   "List of packages to exclude.")
 
-(defun spacemacs/init-auto-complete ()
+(defun erlang-elixir/init-auto-complete ()
   (add-hook 'erlang-mode-hook 'auto-complete-mode))
 
-(defun spacemacs/init-auto-highlight-symbol ()
+(defun erlang-elixir/init-auto-highlight-symbol ()
   (add-hook 'erlang-mode-hook 'auto-highlight-symbol-mode))
 
-(defun spacemacs/init-elixir-mix ()
+(defun erlang-elixir/init-elixir-mix ()
   (use-package elixir-mix
     :defer t
     :init
     (global-elixir-mix-mode)))
 
-(defun spacemacs/init-elixir-mode ()
+(defun erlang-elixir/init-elixir-mode ()
   (use-package elixir-mode
     :defer t
     :config
@@ -44,7 +44,7 @@ which require an initialization must be listed explicitly in the list.")
                      (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
                      (ruby-end-mode +1))))))
 
-(defun spacemacs/init-erlang ()
+(defun erlang-elixir/init-erlang ()
   (use-package erlang
     :mode (("\\.erl?$" . erlang-mode)
            ("\\.hrl?$" . erlang-mode)
@@ -77,22 +77,22 @@ which require an initialization must be listed explicitly in the list.")
         "mm" 'edts-find-macro-source
         "mr" 'edts-find-record-source))))
 
-(defun spacemacs/init-flycheck ()
+(defun erlang-elixir/init-flycheck ()
   (add-hook 'elixir-mode-hook 'flycheck-mode))
 
-(defun spacemacs/init-git-gutter-fringe ()
+(defun erlang-elixir/init-git-gutter-fringe ()
   (add-hook 'erlang-mode-hook 'git-gutter-mode))
 
-(defun spacemacs/init-rainbow-delimiters ()
+(defun erlang-elixir/init-rainbow-delimiters ()
   (add-hook 'erlang-mode-hook 'turn-on-rainbow-delimiters-mode))
 
-(defun spacemacs/init-ruby-end ()
+(defun erlang-elixir/init-ruby-end ()
   (use-package ruby-end
     :defer t
     :config (spacemacs//hide-lighter ruby-end-mode)))
 
-(defun spacemacs/init-smartparens ()
+(defun erlang-elixir/init-smartparens ()
   (add-hook 'erlang-mode-hook 'smartparens-mode))
 
-(defun spacemacs/init-yasnippet ()
+(defun erlang-elixir/init-yasnippet ()
   (add-hook 'erlang-mode-hook 'spacemacs/load-yasnippet))
