@@ -1751,9 +1751,9 @@ determine the state to enable when escaping from the insert state.")
                         (funcall separator-left line-face face1)
                         (powerline-major-mode face1 'l)
                         (powerline-raw " " face1)
-                        (funcall separator-right face1 line-face))
+                        (if active (funcall separator-right face1 line-face)))
                        ;; flycheck
-                       (if flycheckp
+                       (if (and active flycheckp)
                            (list
                             (powerline-raw " " line-face)
                             (powerline-raw (spacemacs|custom-flycheck-lighter error)
@@ -1761,29 +1761,30 @@ determine the state to enable when escaping from the insert state.")
                             (powerline-raw (spacemacs|custom-flycheck-lighter warning)
                                            'spacemacs-mode-line-flycheck-warning-face)
                             (powerline-raw (spacemacs|custom-flycheck-lighter info)
-                                           'spacemacs-mode-line-flycheck-info-face)))
+                                           'spacemacs-mode-line-flycheck-info-face)
+                            ))
                        ;; separator between flycheck and minor modes
-                       (if (and flycheckp spacemacs-mode-line-minor-modesp)
+                       (if (and active flycheckp spacemacs-mode-line-minor-modesp)
                            (list
                             (funcall separator-left line-face face1)
                             (powerline-raw "  " face1)
                             (funcall separator-right face1 line-face)))
                        ;; minor modes
-                       (if spacemacs-mode-line-minor-modesp
+                       (if (and active spacemacs-mode-line-minor-modesp)
                            (list
                             (powerline-minor-modes line-face 'l)
                             (powerline-raw mode-line-process line-face 'l)
                             (powerline-raw " " line-face)))
                        ;; version control
-                       (if (or flycheckp spacemacs-mode-line-minor-modesp)
+                       (if (and active (or flycheckp spacemacs-mode-line-minor-modesp))
                            (list (funcall separator-left (if vc-face line-face face1) vc-face)))
-                       (list
-                        (powerline-vc vc-face)
-                        (powerline-raw " " vc-face)
-                        (funcall separator-right vc-face face2))))
+                       (if active (list (powerline-vc vc-face)
+                                        (powerline-raw " " vc-face)
+                                        (funcall separator-right vc-face face2))
+                         (list (funcall separator-right face1 face2)))))
                  (rhs (append
                        ;; battery
-                       (if batteryp
+                       (if (and active batteryp)
                            (list (funcall separator-left face2 battery-face)
                                  (powerline-raw (fancy-battery-default-mode-line)
                                                 battery-face 'r)
@@ -1797,11 +1798,12 @@ determine the state to enable when escaping from the insert state.")
                         (powerline-raw " " line-face)
                         ;; percentage in the file
                         (powerline-raw "%p" line-face 'r)
-                        (powerline-chamfer-left line-face face1)
-                        ;; display hud only if necessary
-                        (let ((progress (format-mode-line "%p")))
-                          (if (string-match "\%" progress)
-                              (powerline-hud state-face face1)))))))
+                        (when active
+                          ;; display hud only if necessary
+                          (powerline-chamfer-left line-face face1)
+                          (let ((progress (format-mode-line "%p")))
+                            (if (string-match "\%" progress)
+                                (powerline-hud state-face face1))))))))
             (concat (powerline-render lhs)
                     (powerline-fill face2 (powerline-width rhs))
                     (powerline-render rhs))))))
