@@ -96,7 +96,4 @@ which require an initialization must be listed explicitly in the list.")
       (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input))))
 
 (defun python/init-flycheck ()
-  (use-package flycheck
-    :defer t
-    :init
-    (add-hook 'python-mode-hook 'flycheck-mode)))
+  (add-hook 'python-mode-hook 'flycheck-mode))
