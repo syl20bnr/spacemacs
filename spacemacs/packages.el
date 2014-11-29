@@ -1578,13 +1578,13 @@ determine the state to enable when escaping from the insert state.")
   (use-package magit-gh-pulls ()
     :defer t
     :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-    :config (spacemacs//hide-lighter magit-gh-pulls-mode)))
+    :config (spacemacs//diminish magit-gh-pulls-mode "Github-PR")))
 
 (defun spacemacs/init-magit-gitflow ()
   (use-package magit-gitflow
     :commands turn-on-magit-gitflow
-    :init
-    (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)))
+    :init (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+    :config (spacemacs//diminish magit-gitflow-mode "Flow")))
 
 (defun spacemacs/init-markdown-mode ()
   (use-package markdown-mode
