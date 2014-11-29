@@ -42,13 +42,10 @@
     (apply 'message msg args)))
 
 (defun system-is-mac ()
-  (interactive)
   (string-equal system-type "darwin"))
 (defun system-is-linux ()
-  (interactive)
   (string-equal system-type "gnu/linux"))
 (defun system-is-mswindows ()
-  (interactive)
   (string-equal system-type "windows-nt"))
 
 ;; From http://stackoverflow.com/a/18796138
@@ -239,7 +236,7 @@ argument takes the kindows rotate backwards."
     (if (not (and filename (file-exists-p filename)))
         (ido-kill-buffer)
       (when (yes-or-no-p "Are you sure you want to delete this file? ")
-        (delete-file filename)
+        (delete-file filename t)
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
 

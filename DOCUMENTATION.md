@@ -83,6 +83,7 @@
         - [Line formatting](#line-formatting)
         - [Auto-completion](#auto-completion)
         - [Commenting](#commenting)
+        - [Deleting files](#deleting-files)
         - [Editing Lisp code](#editing-lisp-code)
             - [Key bindings maps](#key-bindings-maps)
                 - [Regular normal state bindings](#regular-normal-state-bindings)
@@ -1228,7 +1229,6 @@ Used together these key bindings are very powerful to quickly reformat the code.
 <kbd>S-TAB</kbd>   | select previous candidate
 <kbd>return</kbd>  | complete word, if word is already completed insert a carriage return
 
-
 ### Commenting
 
 Comments are handled by [evil-nerd-commenter][], it's bound to the following keys.
@@ -1246,6 +1246,20 @@ Comments are handled by [evil-nerd-commenter][], it's bound to the following key
 **Tips:** To comment efficiently a block of line use the combo:
 
     <SPC> ; <SPC> l
+
+### Deleting files
+
+Deletion is configured to send deleted files to system trash.
+
+On OS X the `trash` program is required. It can be installed with
+[homebrew][] with the following command:
+
+```sh
+$ brew install trash
+```
+
+To disable the trash you can set the variable `delete-by-moving-to-trash`
+to `nil` in your `~/.spacemacs`.
 
 ### Editing Lisp code
 
