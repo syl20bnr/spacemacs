@@ -80,6 +80,7 @@
     linum-relative
     key-chord
     magit
+    magit-gh-pulls
     magit-gitflow
     markdown-mode
     markdown-toc
@@ -1572,6 +1573,12 @@ determine the state to enable when escaping from the insert state.")
         (setq magit-diff-options (remove "-w" magit-diff-options))
         (magit-refresh))
       (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
+
+(defun spacemacs/init-magit-gh-pulls ()
+  (use-package magit-gh-pulls ()
+    :defer t
+    :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+    :config (spacemacs//hide-lighter magit-gh-pulls-mode)))
 
 (defun spacemacs/init-magit-gitflow ()
   (use-package magit-gitflow
