@@ -11,6 +11,15 @@
 (defvar company-mode/completion-cancel-keywords '("do" "then" "begin" "case")
   "Keywords on which to cancel completion so that you can use RET to complet without blocking common line endings.")
 
+(defvar company-mode/enable-yas t
+  "Enable yasnippet for all backends.")
+
+(defun company-mode/backend-with-yas (backend)
+  (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+      backend
+    (append (if (consp backend) backend (list backend))
+            '(:with company-yasnippet))))
+
 (defun company-mode/init-company ()
   (use-package company
     :config
@@ -44,10 +53,12 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
        '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
        '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
 
+      (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+
       (spacemacs//diminish company-mode " Ⓒ"))))
 
 (defun company-mode/init-company-tern ()
   (use-package company-tern
     :defer t
-    :config
-    (add-to-list 'company-backends 'company-tern)))
+    :init
+    (add-to-list 'company-backends (company-mode/backend-with-yas 'company-tern))))
