@@ -136,21 +136,21 @@ layer symbol and the value is its path."
 layer symbol and the value is its path for all layers found in directory DIR.
 Also fill the list of excluded packages `config-system-excluded-packages-from-layers'
 declared at the layer level."
-  (spacemacs/message "Looking for contribution layers in %s" dir)
+  (spacemacs/message "Looking for configuration layers in %s" dir)
   (ignore-errors
     (let ((files (directory-files dir nil nil 'nosort))
           (filter-out (append config-system-contrib-categories '("." ".."))))
       (dolist (f files)
         (when (and (file-directory-p (concat dir f))
                    (not (member f filter-out)))
-          (spacemacs/message "-> Discovered contribution layer: %s" f)
+          (spacemacs/message "-> Discovered configuration layer: %s" f)
           (puthash (intern f) dir config-system-layer-paths))))))
 
 (defun config-system/load-layers ()
   "Load all declared layers."
   (config-system/load-layer-files '("funcs.el" "config.el"))
   (config-system/read-packages-and-extensions)
-  (config-system/initialize-extensions config-system-all-pre-extensions)
+  (config-system/initialize-extensions config-system-all-pre-extensions t)
   (config-system/install-packages)
   (spacemacs/append-to-buffer spacemacs-loading-text)
   (config-system/initialize-packages)
@@ -273,23 +273,32 @@ config-system-all-post-extensions "
     (let* ((init-func (intern (format "%s/init-%s" (symbol-name layer) pkg))))
       (spacemacs/loading-animation)
       (if (and (package-installed-p pkg) (fboundp init-func))
-          (progn  (spacemacs/message "Initializing %s:%s..."
+          (progn  (spacemacs/message "Package: Initializing %s:%s..."
                            (symbol-name layer) pkg)
                   (funcall init-func))))))
 
-(defun config-system/initialize-extensions (ext-list)
-  "Initialize all the declared extensions in EXT-LIST hash table."
-  (ht-each 'config-system/initialize-extension ext-list))
+(defun config-system/initialize-pre-extension (ext layers)
+  "Initialize the pre-extensions EXT from configuration layers LAYERS."
+  (config-system/initialize-extension ext layers t))
 
-(defun config-system/initialize-extension (ext layers)
-  "Initialize the extension EXT from the configuration layer LSYM."
+(defun config-system/initialize-extensions (ext-list &optional pre)
+  "Initialize all the declared extensions in EXT-LIST hash table.
+If PRE is non nil then the extensions are pre-extensions."
+  (if pre 
+      (ht-each 'config-system/initialize-pre-extension ext-list)
+    (ht-each 'config-system/initialize-extension ext-list)))
+
+(defun config-system/initialize-extension (ext layers &optional pre)
+  "Initialize the extension EXT from the configuration layers LAYERS.
+If PRE is non nil then the extension is a pre-extensions."
   (dolist (layer layers)
     (let* ((l (assq layer config-system-config-layers))
            (ext-dir (plist-get (cdr l) :ext-dir))
            (init-func (intern (format "%s/init-%s" (symbol-name layer) ext))))
       (add-to-list 'load-path (format "%s%s/" ext-dir ext))
       (spacemacs/loading-animation)
-      (spacemacs/message "Initializing %s:%s..." (symbol-name layer) ext)
+      (spacemacs/message "%s-extension: Initializing %s:%s..."
+                         (if pre "Pre" "Post") (symbol-name layer) ext)
       (if (fboundp init-func) (funcall init-func)))))
 
 (defun config-system/initialized-packages-count ()
