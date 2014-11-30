@@ -541,8 +541,8 @@ the variable `dotspacemacs-default-theme`. For instance, to specify `zenburn`:
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC c t</kbd> | cycle between `Spacemacs` themes
-<kbd>SPC h t</kbd> | select a theme using a `helm` buffer
+<kbd>SPC T n</kbd>   | switch to next`Spacemacs` theme.
+<kbd>SPC h t</kbd>   | select a theme using a `helm` buffer
 
 `Spacemacs` available themes:
 - [Solarized][solarized-theme]
