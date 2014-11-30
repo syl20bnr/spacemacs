@@ -25,9 +25,6 @@
 [submodule "spacemacs/extensions/spray"]
 	path = spacemacs/extensions/spray
 	url = http://github.com/syl20bnr/spray
-[submodule "contrib/syl20bnr/extensions/o-blog"]
-	path = contrib/syl20bnr/extensions/o-blog
-	url = https://github.com/renard/o-blog.git
 [submodule "spacemacs/extensions/yasnippet-snippets"]
 	path = spacemacs/extensions/yasnippet-snippets
 	url = http://github.com/AndreaCrotti/yasnippet-snippets.git
