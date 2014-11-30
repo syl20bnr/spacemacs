@@ -36,6 +36,6 @@ Any other key | leave the change mini-mode
 
 #### Python
 
-![theme_tweaks_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/syl20bnr/doc/theme-tweaks-python.png)
+![theme_tweaks_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/usr/syl20bnr/doc/theme-tweaks-python.png)
 
 [rainbow-identifiers]: https://github.com/Fanael/rainbow-identifiers
