@@ -170,7 +170,7 @@ declared at the layer level."
               (load file)))))))
 
 (defsubst config-system//add-layer-to-hash (pkg layer hash)
-  "Add LAYER to the list which the value stored in HASH with key PKG."
+  "Add LAYER to the list value stored in HASH with key PKG."
   (let ((list (ht-get hash pkg)))
     (puthash pkg (add-to-list 'list layer t) hash)))
 
@@ -210,20 +210,25 @@ config-system-all-post-extensions "
           (load pkg-file)
           (dolist (pkg (eval (intern (format "%s-packages" (symbol-name sym)))))
             (config-system//add-excluded-packages sym)
-            (config-system//add-layer-to-hash pkg sym config-system-all-packages)))
+            (config-system//add-layer-to-hash
+             pkg sym config-system-all-packages)))
         ;; extensions
         (when (file-exists-p ext-file)
           (load ext-file)
-          (dolist (pkg (eval (intern (format "%s-pre-extensions"
-                                             (symbol-name sym)))))
-            (config-system//add-excluded-packages sym)
-            (config-system//add-layer-to-hash pkg sym
-                                           config-system-all-pre-extensions))
-          (dolist (pkg (eval (intern (format "%s-post-extensions"
-                                             (symbol-name sym)))))
-            (config-system//add-excluded-packages sym)
-            (config-system//add-layer-to-hash pkg sym
-                                           config-system-all-post-extensions))))))
+          (let ((list-pre (intern (format "%s-pre-extensions"
+                                          (symbol-name sym))))
+                (list-post (intern (format "%s-post-extensions"
+                                           (symbol-name sym)))))
+            (when (boundp list-pre)
+              (dolist (pkg (eval list-pre))
+                (config-system//add-excluded-packages sym)
+                (config-system//add-layer-to-hash
+                 pkg sym config-system-all-pre-extensions)))
+            (when (boundp list-post)
+              (dolist (pkg (eval list-post))
+                (config-system//add-excluded-packages sym)
+                (config-system//add-layer-to-hash
+                 pkg sym config-system-all-post-extensions))))))))
   (config-system//filter-out-excluded-packages)
   ;; number of chuncks for the loading screen
   (let ((total (+ (ht-size config-system-all-packages)
