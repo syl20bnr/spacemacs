@@ -83,6 +83,7 @@
         - [Line formatting](#line-formatting)
         - [Auto-completion](#auto-completion)
         - [Commenting](#commenting)
+        - [Deleting files](#deleting-files)
         - [Editing Lisp code](#editing-lisp-code)
             - [Key bindings maps](#key-bindings-maps)
                 - [Regular normal state bindings](#regular-normal-state-bindings)
@@ -97,7 +98,6 @@
     - [Modes](#modes)
         - [Helm](#helm)
             - [Experimental Helm feature](#experimental-helm-feature)
-        - [Erlang](#erlang)
         - [Ledger](#ledger)
         - [Org](#org)
         - [Perforce](#perforce)
@@ -1228,7 +1228,6 @@ Used together these key bindings are very powerful to quickly reformat the code.
 <kbd>S-TAB</kbd>   | select previous candidate
 <kbd>return</kbd>  | complete word, if word is already completed insert a carriage return
 
-
 ### Commenting
 
 Comments are handled by [evil-nerd-commenter][], it's bound to the following keys.
@@ -1246,6 +1245,20 @@ Comments are handled by [evil-nerd-commenter][], it's bound to the following key
 **Tips:** To comment efficiently a block of line use the combo:
 
     <SPC> ; <SPC> l
+
+### Deleting files
+
+Deletion is configured to send deleted files to system trash.
+
+On OS X the `trash` program is required. It can be installed with
+[homebrew][] with the following command:
+
+```sh
+$ brew install trash
+```
+
+To disable the trash you can set the variable `delete-by-moving-to-trash`
+to `nil` in your `~/.spacemacs`.
 
 ### Editing Lisp code
 
@@ -1557,21 +1570,6 @@ Key Binding   |                 Description
 <kbd>9</kbd>  | execute action 8
 <kbd>0</kbd>  | execute action 9
 <kbd>a</kbd>  | toggle action selection menu
-
-### Erlang
-
-`Spacemacs` uses [EDTS][edts] as an Erlang coding environment.
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>SPC m d</kbd>  | show man page documentation
-<kbd>SPC m e</kbd>  | go to next issue
-<kbd>SPC m g</kbd>  | go to definition
-<kbd>SPC m G</kbd>  | find a module in the current project
-<kbd>SPC m h</kbd>  | open the header file under point
-<kbd>SPC m l</kbd>  | find a function in the current module
-<kbd>SPC m m</kbd>  | go to the macro definition under point
-<kbd>SPC m r</kbd>  | go to the record definition under point
 
 ### Ledger
 

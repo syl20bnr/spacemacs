@@ -37,6 +37,23 @@
 ;; Text
 (setq longlines-show-hard-newlines t)
 
+;; Use system trash for file deletion
+;; should work on Windows and Linux distros
+;; on OS X, install `trash' from `homebrew'
+(setq delete-by-moving-to-trash t)
+(when (system-is-mac)
+  (defun system-move-file-to-trash (file)
+    "Use `trash' to move FILE to the system trash.
+When using homebrew, install it using `brew install trash'."
+    (let ((trash (executable-find "trash")))
+      (if trash (call-process (executable-find "trash")
+                              nil 0 nil file)))))
+(setq system-trash-exclude-matches '("#[^/]+#$"
+                                     ".*~$"))
+(setq system-trash-exclude-paths '(spacemacs-cache-directory
+                                   (concat user-emacs-directory "elpa/")
+                                   "/tmp"))
+
 ;; ---------------------------------------------------------------------------
 ;; UI
 ;; ---------------------------------------------------------------------------

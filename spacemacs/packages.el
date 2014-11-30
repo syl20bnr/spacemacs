@@ -17,12 +17,8 @@
     dash
     diminish
     dired+
-    edts
     elisp-slime-nav
-    elixir-mix
-    elixir-mode
     ensime
-    erlang
     evil
     evil-args
     evil-escape
@@ -80,6 +76,7 @@
     linum-relative
     key-chord
     magit
+    magit-gh-pulls
     magit-gitflow
     markdown-mode
     markdown-toc
@@ -233,8 +230,7 @@ which require an initialization must be listed explicitly in the list.")
     :commands global-auto-complete-mode
     :init
     (add-to-hooks 'auto-complete-mode '(org-mode-hook
-                                        prog-mode-hook
-                                        erlang-mode-hook))
+                                        prog-mode-hook))
     :idle (global-auto-complete-mode)
     :idle-priority 1
     :config
@@ -291,8 +287,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package auto-highlight-symbol
     :commands auto-highlight-symbol-mode
     :init
-    (add-to-hooks 'auto-highlight-symbol-mode '(erlang-mode-hook
-                                                prog-mode-hook
+    (add-to-hooks 'auto-highlight-symbol-mode '(prog-mode-hook
                                                 org-mode-hook
                                                 markdown-mode-hook))
     :config
@@ -466,66 +461,9 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))))
 
-(defun spacemacs/init-elixir-mix ()
-  (use-package elixir-mix
-    :defer t
-    :init
-    (global-elixir-mix-mode)))
-
-(defun spacemacs/init-elixir-mode ()
-  (use-package elixir-mode
-    :defer t
-    :config
-    (progn
-      (require 'ruby-end)
-      (add-to-list 'elixir-mode-hook
-                   (defun auto-activate-ruby-end-mode-for-elixir-mode ()
-                     (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
-                          "\\(?:^\\|\\s-+\\)\\(?:do\\)")
-                     (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers) nil)
-                     (ruby-end-mode +1))))))
-
 (defun spacemacs/init-ensime ()
   (use-package ensime
     :defer t))
-
-(defun spacemacs/init-erlang ()
-  (use-package erlang
-    :mode (("\\.erl?$" . erlang-mode)
-           ("\\.hrl?$" . erlang-mode)
-           ("\\.spec?$" . erlang-mode))
-    :defer t
-    :config
-    (progn
-      (setq erlang-root-dir "/usr/lib/erlang/erts-5.10.3")
-      (add-to-list 'exec-path "/usr/lib/erlang/erts-5.10.3/bin")
-      (setq erlang-man-root-dir "/usr/lib/erlang/erts-5.10.3/man")
-      (setq erlang-compile-extra-opts '(debug_info))
-      (require 'erlang-start)
-      (add-hook 'erlang-mode-hook
-                (lambda ()
-                  (setq mode-name "Erlang")
-                  ;; when starting an Erlang shell in Emacs, with a custom node name
-                  (setq inferior-erlang-machine-options '("-sname" "syl20bnr"))
-                  ))
-      (unless (eq window-system 'w32)
-          (require 'edts-start))
-      ;; (setq edts-log-level 'debug)
-      ;; (setq edts-face-inhibit-mode-line-updates t)
-      (evil-leader/set-key-for-mode 'erlang-mode
-        "md" 'edts-find-doc
-        "me" 'edts-code-next-issue
-        "mG" 'edts-find-global-function
-        "mg" 'edts-find-source-under-point
-        "mh" 'edts-find-header-source
-        "ml" 'edts-find-local-function
-        "mm" 'edts-find-macro-source
-        "mr" 'edts-find-record-source)))
-
-  ;; not needed using EDTS
-  ;; (require 'erlang-flymake)
-  ;; (erlang-flymake-only-on-save)
-)
 
 (defun spacemacs/init-evil ()
   (use-package evil
@@ -935,7 +873,6 @@ determine the state to enable when escaping from the insert state.")
     (progn
       (dolist (mode '(c
                       coffee
-                      elixir
                       js
                       json
                       ruby
@@ -1055,8 +992,7 @@ determine the state to enable when escaping from the insert state.")
   (use-package git-gutter-fringe
     :commands git-gutter-mode
     :init
-    (add-to-hooks 'git-gutter-mode '(erlang-mode-hook
-                                     markdown-mode-hook
+    (add-to-hooks 'git-gutter-mode '(markdown-mode-hook
                                      org-mode-hook
                                      prog-mode-hook
                                      ))
@@ -1193,7 +1129,7 @@ determine the state to enable when escaping from the insert state.")
       (setq guide-key/guide-key-sequence '("C-x" "C-c" "SPC" "g" "z" "C-h")
             guide-key/recursive-key-sequence-flag t
             guide-key/popup-window-position 'right
-            guide-key/idle-delay 1
+            guide-key/idle-delay dotspacemacs-guide-key-delay
             guide-key/text-scale-amount 0
             ;; use this in your ~/.spacemacs file to enable tool tip in a
             ;; graphical envrionment
@@ -1573,11 +1509,17 @@ determine the state to enable when escaping from the insert state.")
         (magit-refresh))
       (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
 
+(defun spacemacs/init-magit-gh-pulls ()
+  (use-package magit-gh-pulls ()
+    :defer t
+    :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+    :config (spacemacs//diminish magit-gh-pulls-mode "Github-PR")))
+
 (defun spacemacs/init-magit-gitflow ()
   (use-package magit-gitflow
     :commands turn-on-magit-gitflow
-    :init
-    (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)))
+    :init (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+    :config (spacemacs//diminish magit-gitflow-mode "Flow")))
 
 (defun spacemacs/init-markdown-mode ()
   (use-package markdown-mode
@@ -1809,9 +1751,9 @@ determine the state to enable when escaping from the insert state.")
                         (funcall separator-left line-face face1)
                         (powerline-major-mode face1 'l)
                         (powerline-raw " " face1)
-                        (funcall separator-right face1 line-face))
+                        (if active (funcall separator-right face1 line-face)))
                        ;; flycheck
-                       (if flycheckp
+                       (if (and active flycheckp)
                            (list
                             (powerline-raw " " line-face)
                             (powerline-raw (spacemacs|custom-flycheck-lighter error)
@@ -1819,29 +1761,30 @@ determine the state to enable when escaping from the insert state.")
                             (powerline-raw (spacemacs|custom-flycheck-lighter warning)
                                            'spacemacs-mode-line-flycheck-warning-face)
                             (powerline-raw (spacemacs|custom-flycheck-lighter info)
-                                           'spacemacs-mode-line-flycheck-info-face)))
+                                           'spacemacs-mode-line-flycheck-info-face)
+                            ))
                        ;; separator between flycheck and minor modes
-                       (if (and flycheckp spacemacs-mode-line-minor-modesp)
+                       (if (and active flycheckp spacemacs-mode-line-minor-modesp)
                            (list
                             (funcall separator-left line-face face1)
                             (powerline-raw "  " face1)
                             (funcall separator-right face1 line-face)))
                        ;; minor modes
-                       (if spacemacs-mode-line-minor-modesp
+                       (if (and active spacemacs-mode-line-minor-modesp)
                            (list
                             (powerline-minor-modes line-face 'l)
                             (powerline-raw mode-line-process line-face 'l)
                             (powerline-raw " " line-face)))
                        ;; version control
-                       (if (or flycheckp spacemacs-mode-line-minor-modesp)
+                       (if (and active (or flycheckp spacemacs-mode-line-minor-modesp))
                            (list (funcall separator-left (if vc-face line-face face1) vc-face)))
-                       (list
-                        (powerline-vc vc-face)
-                        (powerline-raw " " vc-face)
-                        (funcall separator-right vc-face face2))))
+                       (if active (list (powerline-vc vc-face)
+                                        (powerline-raw " " vc-face)
+                                        (funcall separator-right vc-face face2))
+                         (list (funcall separator-right face1 face2)))))
                  (rhs (append
                        ;; battery
-                       (if batteryp
+                       (if (and active batteryp)
                            (list (funcall separator-left face2 battery-face)
                                  (powerline-raw (fancy-battery-default-mode-line)
                                                 battery-face 'r)
@@ -1855,11 +1798,12 @@ determine the state to enable when escaping from the insert state.")
                         (powerline-raw " " line-face)
                         ;; percentage in the file
                         (powerline-raw "%p" line-face 'r)
-                        (powerline-chamfer-left line-face face1)
-                        ;; display hud only if necessary
-                        (let ((progress (format-mode-line "%p")))
-                          (if (string-match "\%" progress)
-                              (powerline-hud state-face face1)))))))
+                        (when active
+                          ;; display hud only if necessary
+                          (powerline-chamfer-left line-face face1)
+                          (let ((progress (format-mode-line "%p")))
+                            (if (string-match "\%" progress)
+                                (powerline-hud state-face face1))))))))
             (concat (powerline-render lhs)
                     (powerline-fill face2 (powerline-width rhs))
                     (powerline-render rhs))))))
@@ -1940,9 +1884,7 @@ determine the state to enable when escaping from the insert state.")
         (interactive)
         (rainbow-delimiters-mode 1))
       (add-to-hooks
-       'turn-on-rainbow-delimiters-mode '(prog-mode-hook
-                                          erlang-mode-hook
-                                          )))))
+       'turn-on-rainbow-delimiters-mode '(prog-mode-hook)))))
 
 (defun spacemacs/init-rainbow-mode ()
   (use-package rainbow-mode
@@ -2000,11 +1942,6 @@ determine the state to enable when escaping from the insert state.")
   (use-package rfringe
     :defer t))
 
-(defun spacemacs/init-ruby-end ()
-  (use-package ruby-end
-    :defer t
-    :config (spacemacs//hide-lighter ruby-end-mode)))
-
 (defun spacemacs/init-ruby-mode ()
   (use-package ruby-mode
     :defer t
@@ -2021,8 +1958,7 @@ determine the state to enable when escaping from the insert state.")
     :defer t
     :init
     (progn
-      (add-to-hooks 'smartparens-mode '(erlang-mode-hook
-                                        markdown-mode-hook
+      (add-to-hooks 'smartparens-mode '(markdown-mode-hook
                                         prog-mode-hook)))
     :config
     (progn
@@ -2174,8 +2110,7 @@ determine the state to enable when escaping from the insert state.")
                   (setq yas-snippet-dirs yas-dir)
                   (yas-global-mode 1)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
-                                                org-mode-hook
-                                                erlang-mode-hook)))
+                                                org-mode-hook)))
     :config
     (progn
       (spacemacs//diminish yas-minor-mode " Ⓨ")
