@@ -98,18 +98,6 @@ NAME."
         (replace-match name t)))
     (save-buffer)))
 
-(defun config-system/declare-layer (sym &optional contrib)
-  "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer
- is a contribution layer."
-  (let* ((sym-name (symbol-name sym))
-         (base-dir (if contrib
-                       (ht-get config-system-layer-paths sym)
-                     user-emacs-directory))
-         (dir (format "%s%s/" base-dir sym-name))
-         (ext-dir (format "%sextensions/" dir)))
-    (push (cons sym (list :contrib contrib :dir dir :ext-dir ext-dir))
-          config-system-config-layers)))
-
 (defun config-system//get-contrib-category-dirs ()
   "Return a list of all absolute paths to the contribution categories stored
 in `config-system-contrib-categories'"
@@ -145,6 +133,20 @@ declared at the layer level."
                    (not (member f filter-out)))
           (spacemacs/message "-> Discovered configuration layer: %s" f)
           (puthash (intern f) dir config-system-layer-paths))))))
+
+(defun config-system/declare-layer (sym &optional contrib)
+  "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer
+ is a contribution layer."
+  (let* ((sym-name (symbol-name sym))
+         (base-dir (if contrib
+                       (ht-get config-system-layer-paths sym)
+                     user-emacs-directory))
+         (dir (format "%s%s/" base-dir sym-name))
+         (ext-dir (format "%sextensions/" dir)))
+    (if (file-exists-p dir)
+        (push (cons sym (list :contrib contrib :dir dir :ext-dir ext-dir))
+              config-system-config-layers)
+      (spacemacs/message "Warning: layer %s does not exist!" sym-name))))
 
 (defun config-system/load-layers ()
   "Load all declared layers."
