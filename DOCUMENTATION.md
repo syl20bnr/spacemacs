@@ -539,15 +539,22 @@ the variable `dotspacemacs-default-theme`. For instance, to specify `zenburn`:
  dotspacemacs-default-theme 'zenburn)
 ```
 
-    Key Binding      |                 Description
----------------------|------------------------------------------------------------
-<kbd>SPC T n</kbd>   | switch to next`Spacemacs` theme.
-<kbd>SPC h t</kbd>   | select a theme using a `helm` buffer
-
-`Spacemacs` available themes:
+Some themes are supported by `Spacemacs`:
 - [Solarized][solarized-theme]
 - [Monokai][monokai-theme]
 - [Zenburn][zenburn-theme]
+
+It is possible to set any other themes but their compatibility with `Spacemacs`
+is not guaranteed (i.e. there may be some missing faces etc...).
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC T n</kbd>   | switch to next theme supported by `Spacemacs`.
+<kbd>SPC h t</kbd>   | select a theme using a `helm` buffer.
+
+**Note:** Due to the inner working of themes in Emacs, switching theme during
+the same session may have some weird side effects. Although these side effects
+should be pretty rare (especially when switching to a supported theme).
 
 # UI elements
 
