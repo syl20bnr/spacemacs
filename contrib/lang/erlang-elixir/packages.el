@@ -3,7 +3,6 @@
     auto-complete
     auto-highlight-symbol
     edts
-    elixir-mix
     elixir-mode
     erlang
     flycheck
@@ -24,12 +23,6 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun erlang-elixir/init-auto-highlight-symbol ()
   (add-hook 'erlang-mode-hook 'auto-highlight-symbol-mode))
-
-(defun erlang-elixir/init-elixir-mix ()
-  (use-package elixir-mix
-    :defer t
-    :init
-    (global-elixir-mix-mode)))
 
 (defun erlang-elixir/init-elixir-mode ()
   (use-package elixir-mode
