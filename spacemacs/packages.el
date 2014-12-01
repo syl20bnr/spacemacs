@@ -1317,7 +1317,7 @@ determine the state to enable when escaping from the insert state.")
   (use-package helm-themes
     :defer t
     :init
-    (evil-leader/set-key "ht" 'helm-themes)))
+    (evil-leader/set-key "Th" 'helm-themes)))
 
 (defun spacemacs/init-hl-anything ()
   (use-package hl-anything

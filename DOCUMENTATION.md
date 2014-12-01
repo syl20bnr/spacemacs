@@ -329,7 +329,7 @@ This is a simple `contrib` configuration layer listing a bunch of themes,
 you can find it [here][themes-megapack].
 
 To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
-installed around 100 themes you are free to try with <kbd>SPC h t</kbd>
+installed around 100 themes you are free to try with <kbd>SPC T h</kbd>
 (helm-themes).
 
 ## Managing private configuration layers
@@ -1017,15 +1017,15 @@ under point. The highlights can be stacked.
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC h c</kbd>   | clear the highlightings
-<kbd>SPC h g c</kbd> | clear the highlightings globally (all opened buffers)
-<kbd>SPC h h</kbd>   | highlight all occurrence of the word at point
-<kbd>SPC h g h</kbd> | highlight all occurrence of the word at point globally (all opened buffers)
-<kbd>SPC h n</kbd>   | next highlighted occurrence
-<kbd>SPC h N</kbd>   | previous highlighted occurrence
-<kbd>SPC h p</kbd>   | toggle auto-highlight of the enclosing parenthesis
-<kbd>SPC h r</kbd>   | restore saved highlights in the current buffer
-<kbd>SPC h s</kbd>   | save current highlights
+<kbd>SPC h c</kbd>     | clear the highlightings
+<kbd>SPC h g c</kbd>   | clear the highlightings globally (all opened buffers)
+<kbd>SPC h h</kbd>     | highlight all occurrence of the word at point
+<kbd>SPC h g h</kbd>   | highlight all occurrence of the word at point globally (all opened buffers)
+<kbd>SPC h n</kbd>     | next highlighted occurrence
+<kbd>SPC h N</kbd>     | previous highlighted occurrence
+<kbd>SPC h p</kbd>     | toggle auto-highlight of the enclosing parenthesis
+<kbd>SPC h r</kbd>     | restore saved highlights in the current buffer
+<kbd>SPC h s</kbd>     | save current highlights
 
 ### Auto-highlight symbols
 
@@ -1035,21 +1035,21 @@ Key Binding            |                 Description
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC s e</kbd>   | edit all occurrences of the current symbol
-<kbd>SPC t h</kbd>   | toggle the auto highlighting
+<kbd>SPC s e</kbd>     | edit all occurrences of the current symbol
+<kbd>SPC t h</kbd>     | toggle the auto highlighting
 
 Navigation between the highlighted symbols can be done with the commands:
 
 Key Binding            | Description
 -----------------------|------------------------------------------------------------
 <kbd>*</kbd>           | initiate navigation micro-state
-<kbd>SPC s b</kbd>   | go to the last searched occurrence of the last highlighted symbol
-<kbd>SPC s n</kbd>   | go to next occurrence and initiate navigation micro-state
-<kbd>SPC s N</kbd>   | go to previous occurrence and initiate navigation micro-state
-<kbd>SPC s r b</kbd> | change range to `whole buffer`
-<kbd>SPC s r d</kbd> | change range to `display area`
-<kbd>SPC s r f</kbd> | change range to `function`
-<kbd>SPC s R</kbd>   | change range to default (`whole buffer`)
+<kbd>SPC s b</kbd>     | go to the last searched occurrence of the last highlighted symbol
+<kbd>SPC s n</kbd>     | go to next occurrence and initiate navigation micro-state
+<kbd>SPC s N</kbd>     | go to previous occurrence and initiate navigation micro-state
+<kbd>SPC s r b</kbd>   | change range to `whole buffer`
+<kbd>SPC s r d</kbd>   | change range to `display area`
+<kbd>SPC s r f</kbd>   | change range to `function`
+<kbd>SPC s R</kbd>     | change range to default (`whole buffer`)
 
 In 'Spacemacs' highlight symbol micro-state:
 
