@@ -195,6 +195,14 @@ Especially to grow the number of configuration layers, for instance to support n
 If you are ready to contribute please consult the [contribution guidelines][CONTRIBUTE.md]
 first.
 
+# FAQ
+
+- Why manually installed packages with `package-install` are automatically
+deleted by `Spacemacs` when it starts ?
+To declare new packages you have to create a new configuration layer, see
+the quick start guide [here](https://github.com/syl20bnr/spacemacs#configuration).
+
+
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [philosophy]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#philosophy
 [goals]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#goals
