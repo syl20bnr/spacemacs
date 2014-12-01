@@ -8,8 +8,8 @@
                ort/goto-todos)
     :init
     (progn
-      (evil-leader/set-key-for-mode 'org-mode
-        "mct"  'ort/capture-todo
-        "mcc"  'ort/capture-todo-check
-        "mgt"  'ort/goto-todos
+      (evil-leader/set-key
+        "Tc"  'ort/capture-todo
+        "TC"  'ort/capture-todo-check
+        "Tg"  'ort/goto-todos
         ))))
