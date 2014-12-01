@@ -1588,7 +1588,9 @@ determine the state to enable when escaping from the insert state.")
     :mode ("\\.org$" . org-mode)
     :defer t
     :init
-    (setq org-log-done t)
+    (progn
+      (setq org-log-done t)
+      (add-hook 'org-mode-hook 'org-indent-mode))
     :config
     (progn
       (require 'org-install)
@@ -1597,9 +1599,10 @@ determine the state to enable when escaping from the insert state.")
       (use-package org-bullets
         :config
         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-      (use-package org-trello
-        :config
-        (add-hook 'org-mode-hook 'org-trello-mode))))
+      ;; (use-package org-trello
+      ;;   :config
+      ;;   (add-hook 'org-mode-hook 'org-trello-mode))
+      ))
 
   (eval-after-load "org-agenda"
     '(progn
