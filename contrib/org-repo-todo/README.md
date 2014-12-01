@@ -10,9 +10,9 @@ root of the repository.
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC c c</kbd>    | ort/capture-todo-check
-<kbd>SPC c t</kbd>    | ort/capture-todo
-<kbd>SPC g t</kbd>    | ort/goto-todos
+<kbd>SPC T c</kbd>    | ort/capture-todo
+<kbd>SPC T C</kbd>    | ort/capture-todo-check
+<kbd>SPC T g</kbd>    | ort/goto-todos
 
 Using the `<SPC> u` command prefix with either of these commands will
 capture/visit the todos in your `user-emacs-directory` instead.
