@@ -34,10 +34,8 @@ which require an initialization must be listed explicitly in the list.")
         (custom-persp "@org"
                       (find-file (first org-agenda-files))))
 
-      (define-prefix-command 'perspectives-prefix)
-      (evil-leader/set-key "P" 'perspectives-prefix)
-      (define-prefix-command 'perspectives-custom-prefix)
-      (evil-leader/set-key "Po" 'perspectives-custom-prefix)
+      (spacemacs/declare-prefix "P" "perspectives")
+      (spacemacs/declare-prefix "Po" "custom-perspectives")
       (evil-leader/set-key
         "Pa"  'persp-add-buffer
         "PA"  'persp-set-buffer
