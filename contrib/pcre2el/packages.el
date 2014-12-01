@@ -11,8 +11,7 @@
     :init
     (progn
       ;; 
-      (define-prefix-command 'pcre2el-prefix)
-      (evil-leader/set-key "R" 'pcre2el-prefix)
+      (spacemacs/declare-prefix "R" "pcre2el")
       (evil-leader/set-key
         "R/"  'rxt-explain
         "Rc"  'rxt-convert-syntax
