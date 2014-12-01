@@ -701,9 +701,9 @@ determine the state to enable when escaping from the insert state.")
       (evil-leader/set-key-for-mode 'org-mode
         "t" nil "mt" 'org-show-todo-tree
         "a" nil "ma" 'org-agenda
-        "c" nil "mc" 'org-archive-subtree
+        "c" nil "mA" 'org-archive-subtree
         "l" nil "ml" 'evil-org-open-links
-        "o" nil "mo" 'evil-org-recompute-clocks)
+        "o" nil "mC" 'evil-org-recompute-clocks)
       (spacemacs//diminish evil-org-mode " Ⓔ"))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()

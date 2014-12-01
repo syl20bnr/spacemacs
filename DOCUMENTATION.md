@@ -1592,10 +1592,10 @@ In `org`, [evil-org-mode][] is activated.
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC m a</kbd>  | org-agenda
+<kbd>SPC m A</kbd>  | org-archive-subtree
+<kbd>SPC m C</kbd>  | evil-org-recompute-clocks
 <kbd>SPC m t</kbd>  | org-show-todo-tree
-<kbd>SPC m c</kbd>  | org-archive-subtree
 <kbd>SPC m l</kbd>  | evil-org-open-links
-<kbd>SPC m o</kbd>  | evil-org-recompute-clocks
 <kbd>gh</kbd>         | outline-up-heading
 <kbd>gj</kbd>         | org-forward-heading-same-level
 <kbd>gk</kbd>         | org-backward-heading-same-level
