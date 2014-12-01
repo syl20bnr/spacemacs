@@ -28,6 +28,7 @@
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
+  "bb"  'evil-buffer
   "bd"  'delete-current-buffer-file
   "be"  'spacemacs/safe-erase-buffer
   "bK"  'kill-other-buffers
