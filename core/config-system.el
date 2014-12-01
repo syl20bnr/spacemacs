@@ -98,18 +98,6 @@ NAME."
         (replace-match name t)))
     (save-buffer)))
 
-(defun config-system/declare-layer (sym &optional contrib)
-  "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer
- is a contribution layer."
-  (let* ((sym-name (symbol-name sym))
-         (base-dir (if contrib
-                       (ht-get config-system-layer-paths sym)
-                     user-emacs-directory))
-         (dir (format "%s%s/" base-dir sym-name))
-         (ext-dir (format "%sextensions/" dir)))
-    (push (cons sym (list :contrib contrib :dir dir :ext-dir ext-dir))
-          config-system-config-layers)))
-
 (defun config-system//get-contrib-category-dirs ()
   "Return a list of all absolute paths to the contribution categories stored
 in `config-system-contrib-categories'"
@@ -146,6 +134,20 @@ declared at the layer level."
           (spacemacs/message "-> Discovered configuration layer: %s" f)
           (puthash (intern f) dir config-system-layer-paths))))))
 
+(defun config-system/declare-layer (sym &optional contrib)
+  "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer
+ is a contribution layer."
+  (let* ((sym-name (symbol-name sym))
+         (base-dir (if contrib
+                       (ht-get config-system-layer-paths sym)
+                     user-emacs-directory))
+         (dir (format "%s%s/" base-dir sym-name))
+         (ext-dir (format "%sextensions/" dir)))
+    (if (file-exists-p dir)
+        (push (cons sym (list :contrib contrib :dir dir :ext-dir ext-dir))
+              config-system-config-layers)
+      (spacemacs/message "Warning: layer %s does not exist!" sym-name))))
+
 (defun config-system/load-layers ()
   "Load all declared layers."
   (config-system/load-layer-files '("funcs.el" "config.el"))
@@ -168,7 +170,7 @@ declared at the layer level."
               (load file)))))))
 
 (defsubst config-system//add-layer-to-hash (pkg layer hash)
-  "Add LAYER to the list which the value stored in HASH with key PKG."
+  "Add LAYER to the list value stored in HASH with key PKG."
   (let ((list (ht-get hash pkg)))
     (puthash pkg (add-to-list 'list layer t) hash)))
 
@@ -208,20 +210,25 @@ config-system-all-post-extensions "
           (load pkg-file)
           (dolist (pkg (eval (intern (format "%s-packages" (symbol-name sym)))))
             (config-system//add-excluded-packages sym)
-            (config-system//add-layer-to-hash pkg sym config-system-all-packages)))
+            (config-system//add-layer-to-hash
+             pkg sym config-system-all-packages)))
         ;; extensions
         (when (file-exists-p ext-file)
           (load ext-file)
-          (dolist (pkg (eval (intern (format "%s-pre-extensions"
-                                             (symbol-name sym)))))
-            (config-system//add-excluded-packages sym)
-            (config-system//add-layer-to-hash pkg sym
-                                           config-system-all-pre-extensions))
-          (dolist (pkg (eval (intern (format "%s-post-extensions"
-                                             (symbol-name sym)))))
-            (config-system//add-excluded-packages sym)
-            (config-system//add-layer-to-hash pkg sym
-                                           config-system-all-post-extensions))))))
+          (let ((list-pre (intern (format "%s-pre-extensions"
+                                          (symbol-name sym))))
+                (list-post (intern (format "%s-post-extensions"
+                                           (symbol-name sym)))))
+            (when (boundp list-pre)
+              (dolist (pkg (eval list-pre))
+                (config-system//add-excluded-packages sym)
+                (config-system//add-layer-to-hash
+                 pkg sym config-system-all-pre-extensions)))
+            (when (boundp list-post)
+              (dolist (pkg (eval list-post))
+                (config-system//add-excluded-packages sym)
+                (config-system//add-layer-to-hash
+                 pkg sym config-system-all-post-extensions))))))))
   (config-system//filter-out-excluded-packages)
   ;; number of chuncks for the loading screen
   (let ((total (+ (ht-size config-system-all-packages)

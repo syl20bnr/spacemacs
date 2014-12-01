@@ -39,7 +39,7 @@
   "br"  'rename-current-buffer-file
   "bw"  'toggle-read-only)
 ;; Cycling settings -----------------------------------------------------------
-(evil-leader/set-key "ct" 'spacemacs/cycle-spacemacs-theme)
+(evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
 (evil-leader/set-key
   "hdf" 'describe-function

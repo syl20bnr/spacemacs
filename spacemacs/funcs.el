@@ -48,6 +48,16 @@
 (defun system-is-mswindows ()
   (string-equal system-type "windows-nt"))
 
+(defvar spacemacs/prefix-command-string "group:"
+  "Prefix string for prefix commands.")
+
+(defun spacemacs/declare-prefix (prefix name)
+  "Declare a prefix PREFIX. PREFIX is a string describing
+a key sequence. NAME is a symbol name used as the prefix command."
+  (let ((command (intern (concat spacemacs/prefix-command-string name))))
+    (define-prefix-command command)
+    (evil-leader/set-key prefix command)))
+
 ;; From http://stackoverflow.com/a/18796138
 ;; Cycle through this set of themes
 (defvar spacemacs-themes '(solarized-light

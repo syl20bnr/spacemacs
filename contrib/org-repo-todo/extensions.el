@@ -7,8 +7,9 @@
                ort/capture-todo-check
                ort/goto-todos)
     :init
-    (evil-leader/set-key
-      "oct"  'ort/capture-todo
-      "occ"  'ort/capture-todo-check
-      "ogt"  'ort/goto-todos
-      )))
+    (progn
+      (evil-leader/set-key-for-mode 'org-mode
+        "mct"  'ort/capture-todo
+        "mcc"  'ort/capture-todo-check
+        "mgt"  'ort/goto-todos
+        ))))

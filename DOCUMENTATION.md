@@ -329,7 +329,7 @@ This is a simple `contrib` configuration layer listing a bunch of themes,
 you can find it [here][themes-megapack].
 
 To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
-installed around 100 themes you are free to try with <kbd>SPC h t</kbd>
+installed around 100 themes you are free to try with <kbd>SPC T h</kbd>
 (helm-themes).
 
 ## Managing private configuration layers
@@ -539,15 +539,22 @@ the variable `dotspacemacs-default-theme`. For instance, to specify `zenburn`:
  dotspacemacs-default-theme 'zenburn)
 ```
 
-    Key Binding      |                 Description
----------------------|------------------------------------------------------------
-<kbd>SPC c t</kbd> | cycle between `Spacemacs` themes
-<kbd>SPC h t</kbd> | select a theme using a `helm` buffer
-
-`Spacemacs` available themes:
+Some themes are supported by `Spacemacs`:
 - [Solarized][solarized-theme]
 - [Monokai][monokai-theme]
 - [Zenburn][zenburn-theme]
+
+It is possible to set any other themes but their compatibility with `Spacemacs`
+is not guaranteed (i.e. there may be some missing faces etc...).
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC T n</kbd>   | switch to next theme supported by `Spacemacs`.
+<kbd>SPC h t</kbd>   | select a theme using a `helm` buffer.
+
+**Note:** Due to the inner working of themes in Emacs, switching theme during
+the same session may have some weird side effects. Although these side effects
+should be pretty rare (especially when switching to a supported theme).
 
 # UI elements
 
@@ -1010,15 +1017,15 @@ under point. The highlights can be stacked.
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC h c</kbd>   | clear the highlightings
-<kbd>SPC h g c</kbd> | clear the highlightings globally (all opened buffers)
-<kbd>SPC h h</kbd>   | highlight all occurrence of the word at point
-<kbd>SPC h g h</kbd> | highlight all occurrence of the word at point globally (all opened buffers)
-<kbd>SPC h n</kbd>   | next highlighted occurrence
-<kbd>SPC h N</kbd>   | previous highlighted occurrence
-<kbd>SPC h p</kbd>   | toggle auto-highlight of the enclosing parenthesis
-<kbd>SPC h r</kbd>   | restore saved highlights in the current buffer
-<kbd>SPC h s</kbd>   | save current highlights
+<kbd>SPC h c</kbd>     | clear the highlightings
+<kbd>SPC h g c</kbd>   | clear the highlightings globally (all opened buffers)
+<kbd>SPC h h</kbd>     | highlight all occurrence of the word at point
+<kbd>SPC h g h</kbd>   | highlight all occurrence of the word at point globally (all opened buffers)
+<kbd>SPC h n</kbd>     | next highlighted occurrence
+<kbd>SPC h N</kbd>     | previous highlighted occurrence
+<kbd>SPC h p</kbd>     | toggle auto-highlight of the enclosing parenthesis
+<kbd>SPC h r</kbd>     | restore saved highlights in the current buffer
+<kbd>SPC h s</kbd>     | save current highlights
 
 ### Auto-highlight symbols
 
@@ -1028,21 +1035,21 @@ Key Binding            |                 Description
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC s e</kbd>   | edit all occurrences of the current symbol
-<kbd>SPC t h</kbd>   | toggle the auto highlighting
+<kbd>SPC s e</kbd>     | edit all occurrences of the current symbol
+<kbd>SPC t h</kbd>     | toggle the auto highlighting
 
 Navigation between the highlighted symbols can be done with the commands:
 
 Key Binding            | Description
 -----------------------|------------------------------------------------------------
 <kbd>*</kbd>           | initiate navigation micro-state
-<kbd>SPC s b</kbd>   | go to the last searched occurrence of the last highlighted symbol
-<kbd>SPC s n</kbd>   | go to next occurrence and initiate navigation micro-state
-<kbd>SPC s N</kbd>   | go to previous occurrence and initiate navigation micro-state
-<kbd>SPC s r b</kbd> | change range to `whole buffer`
-<kbd>SPC s r d</kbd> | change range to `display area`
-<kbd>SPC s r f</kbd> | change range to `function`
-<kbd>SPC s R</kbd>   | change range to default (`whole buffer`)
+<kbd>SPC s b</kbd>     | go to the last searched occurrence of the last highlighted symbol
+<kbd>SPC s n</kbd>     | go to next occurrence and initiate navigation micro-state
+<kbd>SPC s N</kbd>     | go to previous occurrence and initiate navigation micro-state
+<kbd>SPC s r b</kbd>   | change range to `whole buffer`
+<kbd>SPC s r d</kbd>   | change range to `display area`
+<kbd>SPC s r f</kbd>   | change range to `function`
+<kbd>SPC s R</kbd>     | change range to default (`whole buffer`)
 
 In 'Spacemacs' highlight symbol micro-state:
 
@@ -1585,10 +1592,10 @@ In `org`, [evil-org-mode][] is activated.
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC m a</kbd>  | org-agenda
+<kbd>SPC m A</kbd>  | org-archive-subtree
+<kbd>SPC m C</kbd>  | evil-org-recompute-clocks
 <kbd>SPC m t</kbd>  | org-show-todo-tree
-<kbd>SPC m c</kbd>  | org-archive-subtree
 <kbd>SPC m l</kbd>  | evil-org-open-links
-<kbd>SPC m o</kbd>  | evil-org-recompute-clocks
 <kbd>gh</kbd>         | outline-up-heading
 <kbd>gj</kbd>         | org-forward-heading-same-level
 <kbd>gk</kbd>         | org-backward-heading-same-level

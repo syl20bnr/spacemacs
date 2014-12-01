@@ -14,7 +14,6 @@
     emoji-cheat-sheet
     evil-plugins
     helm-rcirc
-    o-blog
     solarized-theme
     spray
     ))
@@ -56,10 +55,6 @@
     :commands helm-rcirc-auto-join-channels
     :init
     (evil-leader/set-key "irc" 'helm-rcirc-auto-join-channels)))
-
-(defun spacemacs/init-o-blog ()
-  (use-package o-blog
-    :defer t))
 
 (defun spacemacs/init-revive ()
   (use-package revive

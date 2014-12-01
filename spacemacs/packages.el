@@ -619,43 +619,8 @@ determine the state to enable when escaping from the insert state.")
             evil-leader/leader "SPC"
             evil-leader/non-normal-prefix "s-")
       ;; give name to spacemacs prefixes
-      (dolist (x '(("a" . "applications")
-                   ("as" . "applications-shells")
-                   ("b" . "buffers")
-                   ("bm" . "buffers-move")
-                   ("c" . "comments")
-                   ("e" . "errors")
-                   ("f" . "files")
-                   ("fe" . "files-emacs/spacemacs")
-                   ("g" . "git/versions-control")
-                   ("gc" . "smeargle")
-                   ("h" . "helm/help/highlight")
-                   ("hd" . "help-describe")
-                   ("i" . "insert")
-                   ("j" . "join/split")
-                   ("n" . "narrow/numbers")
-                   ("p" . "projects")
-                   ("p4" . "perforce")
-                   ("r" . "registers/rings")
-                   ("s" . "search/symbol")
-                   ("sr" . "symbol-range")
-                   ("S" . "spelling")
-                   ("t" . "toggles")
-                   ("tm" . "toggles-modeline")
-                   ("w" . "windows")
-                   ("wp" . "windows-popup")
-                   ("ws" . "windows-size")
-                   ("x" . "text")
-                   ("xd" . "text-delete")
-                   ("xg" . "text-google-translate")
-                   ("xm" . "text-move")
-                   ("xt" . "text-transpose")
-                   ("xw" . "text-words")
-                   ("z" . "z")))
-        (let ((key (car x))
-              (prefix-command (intern (format "%s-prefix" (cdr x)))))
-          (define-prefix-command prefix-command)
-          (evil-leader/set-key key prefix-command)))
+      (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
+           spacemacs/key-binding-prefixes)
       (global-evil-leader-mode))
     :config
     (progn
@@ -736,9 +701,9 @@ determine the state to enable when escaping from the insert state.")
       (evil-leader/set-key-for-mode 'org-mode
         "t" nil "mt" 'org-show-todo-tree
         "a" nil "ma" 'org-agenda
-        "c" nil "mc" 'org-archive-subtree
+        "c" nil "mA" 'org-archive-subtree
         "l" nil "ml" 'evil-org-open-links
-        "o" nil "mo" 'evil-org-recompute-clocks)
+        "o" nil "mC" 'evil-org-recompute-clocks)
       (spacemacs//diminish evil-org-mode " Ⓔ"))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()
@@ -1135,6 +1100,8 @@ determine the state to enable when escaping from the insert state.")
             ;; graphical envrionment
             ;; guide-key-tip/enabled (if window-system t)
             guide-key-tip/enabled nil)
+      (setq guide-key/highlight-command-regexp
+                   (cons spacemacs/prefix-command-string font-lock-warning-face))
       (guide-key-mode 1)
       (spacemacs//diminish guide-key-mode " Ⓖ"))))
 
@@ -1350,7 +1317,7 @@ determine the state to enable when escaping from the insert state.")
   (use-package helm-themes
     :defer t
     :init
-    (evil-leader/set-key "ht" 'helm-themes)))
+    (evil-leader/set-key "Th" 'helm-themes)))
 
 (defun spacemacs/init-hl-anything ()
   (use-package hl-anything
@@ -1588,7 +1555,9 @@ determine the state to enable when escaping from the insert state.")
     :mode ("\\.org$" . org-mode)
     :defer t
     :init
-    (setq org-log-done t)
+    (progn
+      (setq org-log-done t)
+      (add-hook 'org-mode-hook 'org-indent-mode))
     :config
     (progn
       (require 'org-install)
@@ -1597,9 +1566,10 @@ determine the state to enable when escaping from the insert state.")
       (use-package org-bullets
         :config
         (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-      (use-package org-trello
-        :config
-        (add-hook 'org-mode-hook 'org-trello-mode))))
+      ;; (use-package org-trello
+      ;;   :config
+      ;;   (add-hook 'org-mode-hook 'org-trello-mode))
+      ))
 
   (eval-after-load "org-agenda"
     '(progn
