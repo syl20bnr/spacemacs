@@ -6,16 +6,13 @@ checkboxed todo items (http://orgmode.org/manual/Checkboxes.html)
 or regular *TODO items that get saved to a TODO.org file in the
 root of the repository.
 
-
 # Keybindings
 
-``` elisp
-    (evil-leader/set-key
-      "oct"  'ort/capture-todo
-      "occ"  'ort/capture-todo-check
-      "ogt"  'ort/goto-todos
-      )
-```
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC c c</kbd>    | ort/capture-todo-check
+<kbd>SPC c t</kbd>    | ort/capture-todo
+<kbd>SPC g t</kbd>    | ort/goto-todos
 
-Using the `C-u` command prefix with either of these commands will
+Using the `<SPC> u` command prefix with either of these commands will
 capture/visit the todos in your `user-emacs-directory` instead.
