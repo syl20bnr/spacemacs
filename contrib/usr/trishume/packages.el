@@ -104,9 +104,17 @@
   (use-package racket-mode
     :defer t
     :config
-    (add-hook 'racket-mode-hook
-              '(lambda ()
-                 (define-key racket-mode-map (kbd "H-r") 'racket-run)))))
+    (progn
+      (add-to-list 'sp--lisp-modes 'racket-mode)
+      (sp-local-pair 'racket-mode "'" nil :actions nil)
+      (evil-leader/set-key-for-mode 'racket-mode
+        "ml" 'evil-lisp-state
+        "mt" 'racket-test
+        "mg" 'racket-visit-definition
+        "md" 'racket-doc)
+      (add-hook 'racket-mode-hook
+                '(lambda ()
+                   (define-key racket-mode-map (kbd "H-r") 'racket-run))))))
 
 (defun trishume/init-aggressive-indent ()
   (use-package aggressive-indent
