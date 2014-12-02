@@ -870,7 +870,7 @@ Key Binding            |                 Description
 
 Split windows can be dynamically resized depending on whether they are selected
 or not. Resizing is performed by the [golden-ratio][golden-ratio] mode.
-By default `golden-ratio` if off.
+By default `golden-ratio` is off.
 
 The mode can be toggled on and off with:
 
