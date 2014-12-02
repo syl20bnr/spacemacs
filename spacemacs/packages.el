@@ -825,11 +825,7 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-flx-ido ()
   (use-package flx-ido
-    :init (flx-ido-mode 1)
-    :config
-    ;; disable ido faces to see flx highlights.
-    ;; (setq ido-use-faces nil)
-    ))
+    :init (flx-ido-mode 1)))
 
 (defun spacemacs/init-flycheck ()
   (use-package flycheck
@@ -1350,7 +1346,7 @@ determine the state to enable when escaping from the insert state.")
     :init
     (progn
       (ido-vertical-mode t)
-      (defadvice ido-vertical-define-keys (after spacemacs/ido-vertical-define-keys activate)
+      (defun spacemacs/ido-vertical-define-keys ()
         ;; overwrite the key bindings for ido vertical mode only
         (define-key ido-completion-map (kbd "C-d") 'ido-delete-file-at-head)
         (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
@@ -1383,7 +1379,8 @@ determine the state to enable when escaping from the insert state.")
             "x" 'ido-invoke-in-other-window)
           (key-chord-define ido-completion-map (kbd "jk")
                             (cdr (assoc 'ido-mode evil-leader--mode-maps)))))
-      )))
+      (add-to-list 'ido-setup-hook 'spacemacs/ido-vertical-define-keys))
+      ))
 
 (defun spacemacs/init-js2-mode ()
   (use-package js2-mode
