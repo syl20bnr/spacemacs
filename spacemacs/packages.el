@@ -71,6 +71,7 @@
     json-mode
     ledger-mode
     less-css-mode
+    leuven-theme
     linum-relative
     key-chord
     magit
@@ -1314,6 +1315,11 @@ determine the state to enable when escaping from the insert state.")
       (evil-leader/set-key-for-mode 'ledger-mode
         "md" 'ledger-delete-current-transaction
         "ma" 'ledger-add-transaction))))
+
+(defun spacemacs/init-leuven-theme ()
+  (use-package leuven-theme
+    :defer t
+    :init (setq org-fontify-whole-heading-line t)))
 
 (defun spacemacs/init-linum-relative ()
   (use-package linum-relative
