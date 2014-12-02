@@ -1750,6 +1750,7 @@ Achievements                                         | Account
 [First blog article on Spacemacs][1st-article]       | [Wolfy87][]
 [100th issue (PR)][100th-issue]                      | [danielwuz][]
 100th star                                           | [Jackneill][]
+200th star                                           | [jb55][]
 
 # Thank you
 
@@ -1844,5 +1845,6 @@ developers to elisp hackers!
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
 [Jackneill]:https://github.com/Jackneill
+[jb55]:https://github.com/jb55
 [use-package]: https://github.com/jwiegley/use-package
 [fancy-battery]: https://github.com/lunaryorn/fancy-battery.el
