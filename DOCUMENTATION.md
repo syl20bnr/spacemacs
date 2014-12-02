@@ -69,7 +69,7 @@
         - [Project Searching](#project-searching)
         - [Persistent highlighting](#persistent-highlighting)
         - [Stacking highlights](#stacking-highlights)
-        - [Auto-highlight symbols](#auto-highlight-symbols)
+        - [Highlight current symbol](#highlight-current-symbol)
         - [Visual Star](#visual-star)
         - [Listing symbols by semantic](#listing-symbols-by-semantic)
         - [Helm-swoop](#helm-swoop)
@@ -1030,16 +1030,19 @@ Key Binding            |                 Description
 <kbd>SPC h r</kbd>     | restore saved highlights in the current buffer
 <kbd>SPC h s</kbd>     | save current highlights
 
-### Auto-highlight symbols
+### Highlight current symbol
 
-`Spacemacs` supports auto highlighting of the current symbol (provided by the
- [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to it
- which makes it a very handy tool to have in your tool belt.
+`Spacemacs` supports highlighting of the current symbol on demand (provided by
+the [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to
+easily navigate and rename this symbol.
 
-Key Binding            |                 Description
------------------------|----------------------------------------------------------------
-<kbd>SPC s e</kbd>     | edit all occurrences of the current symbol
-<kbd>SPC t h</kbd>     | toggle the auto highlighting
+It is also possible to change the range of the navigation on the fly to:
+- buffer
+- function
+- visible area
+
+To initiate the highlighting of the current symbol under point press
+<kbd>SPC s h</kbd>.
 
 Navigation between the highlighted symbols can be done with the commands:
 
@@ -1047,6 +1050,8 @@ Key Binding            | Description
 -----------------------|------------------------------------------------------------
 <kbd>*</kbd>           | initiate navigation micro-state
 <kbd>SPC s b</kbd>     | go to the last searched occurrence of the last highlighted symbol
+<kbd>SPC s e</kbd>     | edit all occurrences of the current symbol
+<kbd>SPC s h</kbd>     | highlight the current symbol and all its occurrence within the current range
 <kbd>SPC s n</kbd>     | go to next occurrence and initiate navigation micro-state
 <kbd>SPC s N</kbd>     | go to previous occurrence and initiate navigation micro-state
 <kbd>SPC s r b</kbd>   | change range to `whole buffer`

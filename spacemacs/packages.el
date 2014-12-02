@@ -292,6 +292,9 @@ which require an initialization must be listed explicitly in the list.")
       (custom-set-variables
        '(ahs-case-fold-search nil)
        '(ahs-default-range (quote ahs-range-whole-buffer))
+       ;; disable auto-highlight of symbol
+       ;; current symbol should be highlight on demand with <SPC> s h
+       '(ahs-idle-timer 0)
        '(ahs-idle-interval 0.25)
        '(ahs-inhibit-face-list nil))
 
@@ -312,13 +315,17 @@ which require an initialization must be listed explicitly in the list.")
         '(evil-leader/set-key
            "se"  'ahs-edit-mode
            "sb"  'spacemacs/goto-last-searched-ahs-symbol
+           "sh"  (lambda () (interactive)
+                   (eval '(progn
+                            (ahs-highlight-now)
+                            (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
+                            (spacemacs/auto-highlight-symbol-overlay-map)) nil))
            "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
            "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
            "srb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
            "srd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
            "srf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
-           "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
-           "th" 'auto-highlight-symbol-mode))
+           "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))))
       (spacemacs//hide-lighter auto-highlight-symbol-mode)
       ;; micro-state to easily jump from a highlighted symbol to the others
       (dolist (sym '(ahs-forward
@@ -367,7 +374,7 @@ which require an initialization must be listed explicitly in the list.")
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo "%s %s%s press (n) or (N) to navigate, (R) for reset, (r) to change range"
+            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset"
                      propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
