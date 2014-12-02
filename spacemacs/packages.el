@@ -44,7 +44,6 @@
     flycheck-ledger
     flyspell
     fringe-helper
-    gist
     git-gutter-fringe
     git-messenger
     git-timemachine
@@ -76,7 +75,6 @@
     linum-relative
     key-chord
     magit
-    magit-gh-pulls
     magit-gitflow
     markdown-mode
     markdown-toc
@@ -945,10 +943,6 @@ determine the state to enable when escaping from the insert state.")
     :config
     (spacemacs//diminish flyspell-mode " Ⓢ")))
 
-(defun spacemacs/init-gist ()
-  (use-package gist
-    :defer t))
-
 (defun spacemacs/init-git-gutter-fringe ()
   (use-package git-gutter-fringe
     :commands git-gutter-mode
@@ -1472,12 +1466,6 @@ determine the state to enable when escaping from the insert state.")
         (setq magit-diff-options (remove "-w" magit-diff-options))
         (magit-refresh))
       (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
-
-(defun spacemacs/init-magit-gh-pulls ()
-  (use-package magit-gh-pulls ()
-    :defer t
-    :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-    :config (spacemacs//diminish magit-gh-pulls-mode "Github-PR")))
 
 (defun spacemacs/init-magit-gitflow ()
   (use-package magit-gitflow
