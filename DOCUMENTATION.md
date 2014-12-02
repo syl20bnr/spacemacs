@@ -370,10 +370,10 @@ User configuration can be stored in your `~/.spacemacs` file.
 ## Installation
 
 `~/.spacemacs` is an optional file. If you want to use it you have to copy it
-manually from the template file `~/.emacs.d/.spacemacs.template`
+manually from the template file `~/.emacs.d/core/templates/.spacemacs.template`
 
 ```sh
-$ cp ~/.emacs.d/.spacemacs.template ~/.spacemacs
+$ cp ~/.emacs.d/core/templates/.spacemacs.template ~/.spacemacs
 ```
 
 ## Content
