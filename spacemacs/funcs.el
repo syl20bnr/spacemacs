@@ -62,6 +62,7 @@ a key sequence. NAME is a symbol name used as the prefix command."
 ;; Cycle through this set of themes
 (defvar spacemacs-themes '(solarized-light
                            solarized-dark
+                           leuven
                            monokai
                            zenburn)
   "Themes officially supported by spacemacs.")

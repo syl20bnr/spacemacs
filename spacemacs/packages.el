@@ -44,7 +44,6 @@
     flycheck-ledger
     flyspell
     fringe-helper
-    gist
     git-gutter-fringe
     git-messenger
     git-timemachine
@@ -52,7 +51,6 @@
     golden-ratio
     google-translate
     guide-key-tip
-    haskell-mode
     helm
     helm-ag
     helm-css-scss
@@ -73,10 +71,10 @@
     json-mode
     ledger-mode
     less-css-mode
+    leuven-theme
     linum-relative
     key-chord
     magit
-    magit-gh-pulls
     magit-gitflow
     markdown-mode
     markdown-toc
@@ -288,7 +286,6 @@ which require an initialization must be listed explicitly in the list.")
     :commands auto-highlight-symbol-mode
     :init
     (add-to-hooks 'auto-highlight-symbol-mode '(prog-mode-hook
-                                                org-mode-hook
                                                 markdown-mode-hook))
     :config
     (progn
@@ -825,11 +822,7 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-flx-ido ()
   (use-package flx-ido
-    :init (flx-ido-mode 1)
-    :config
-    ;; disable ido faces to see flx highlights.
-    ;; (setq ido-use-faces nil)
-    ))
+    :init (flx-ido-mode 1)))
 
 (defun spacemacs/init-flycheck ()
   (use-package flycheck
@@ -948,10 +941,6 @@ determine the state to enable when escaping from the insert state.")
       (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1))))
     :config
     (spacemacs//diminish flyspell-mode " Ⓢ")))
-
-(defun spacemacs/init-gist ()
-  (use-package gist
-    :defer t))
 
 (defun spacemacs/init-git-gutter-fringe ()
   (use-package git-gutter-fringe
@@ -1104,87 +1093,6 @@ determine the state to enable when escaping from the insert state.")
                    (cons spacemacs/prefix-command-string font-lock-warning-face))
       (guide-key-mode 1)
       (spacemacs//diminish guide-key-mode " Ⓖ"))))
-
-(defun spacemacs/init-haskell-mode ()
-  (require 'haskell-yas)
-  (use-package haskell-mode
-    :defer t
-    :config
-    (progn
-      ;; Customization
-      (custom-set-variables
-       ;; Use cabal-dev for the GHCi session. Ensures our dependencies are in scope.
-       '(haskell-process-type 'cabal-dev)
-
-       ;; Use notify.el (if you have it installed) at the end of running
-       ;; Cabal commands or generally things worth notifying.
-       '(haskell-notify-p t)
-
-       ;; To enable tags generation on save.
-       '(haskell-tags-on-save t)
-
-       ;; To enable stylish on save.
-       '(haskell-stylish-on-save t))
-
-      (add-hook 'haskell-mode-hook 'haskell-hook)
-      (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
-
-      ;; Haskell main editing mode key bindings.
-      (defun haskell-hook ()
-        ;; Use simple indentation.
-        (turn-on-haskell-simple-indent)
-        (define-key haskell-mode-map (kbd "<return>") 'haskell-simple-indent-newline-same-col)
-        (define-key haskell-mode-map (kbd "C-<return>") 'haskell-simple-indent-newline-indent)
-
-        ;; Load the current file (and make a session if not already made).
-        (define-key haskell-mode-map [?\C-c ?\C-l] 'haskell-process-load-file)
-        (define-key haskell-mode-map [f5] 'haskell-process-load-file)
-
-        ;; Switch to the REPL.
-        (define-key haskell-mode-map [?\C-c ?\C-z] 'haskell-interactive-switch)
-        ;; “Bring” the REPL, hiding all other windows apart from the source
-        ;; and the REPL.
-        (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
-
-        ;; Build the Cabal project.
-        (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
-        ;; Interactively choose the Cabal command to run.
-        (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
-
-        ;; Get the type and info of the symbol at point, print it in the
-        ;; message buffer.
-        (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
-        (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
-
-        ;; Contextually do clever things on the space key, in particular:
-        ;;   1. Complete imports, letting you choose the module name.
-        ;;   2. Show the type of the symbol after the space.
-        (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)
-
-        ;; Jump to the imports. Keep tapping to jump between import
-        ;; groups. C-u f8 to jump back again.
-        (define-key haskell-mode-map [f8] 'haskell-navigate-imports)
-
-        ;; Jump to the definition of the current symbol.
-        (define-key haskell-mode-map (kbd "M-.") 'haskell-mode-tag-find)
-
-        ;; Indent the below lines on columns after the current column.
-        (define-key haskell-mode-map (kbd "C-<right>")
-          (lambda ()
-            (interactive)
-            (haskell-move-nested 1)))
-        ;; Same as above but backwards.
-        (define-key haskell-mode-map (kbd "C-<left>")
-          (lambda ()
-            (interactive)
-            (haskell-move-nested -1))))
-
-      ;; Useful to have these keybindings for .cabal files, too.
-      (defun haskell-cabal-hook ()
-        (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
-        (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
-        (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
-        (define-key haskell-cabal-mode-map [?\C-c ?\C-z] 'haskell-interactive-switch)))))
 
 (defun spacemacs/init-helm ()
   (use-package helm
@@ -1350,7 +1258,7 @@ determine the state to enable when escaping from the insert state.")
     :init
     (progn
       (ido-vertical-mode t)
-      (defadvice ido-vertical-define-keys (after spacemacs/ido-vertical-define-keys activate)
+      (defun spacemacs/ido-vertical-define-keys ()
         ;; overwrite the key bindings for ido vertical mode only
         (define-key ido-completion-map (kbd "C-d") 'ido-delete-file-at-head)
         (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
@@ -1383,7 +1291,8 @@ determine the state to enable when escaping from the insert state.")
             "x" 'ido-invoke-in-other-window)
           (key-chord-define ido-completion-map (kbd "jk")
                             (cdr (assoc 'ido-mode evil-leader--mode-maps)))))
-      )))
+      (add-to-list 'ido-setup-hook 'spacemacs/ido-vertical-define-keys))
+      ))
 
 (defun spacemacs/init-js2-mode ()
   (use-package js2-mode
@@ -1405,6 +1314,11 @@ determine the state to enable when escaping from the insert state.")
       (evil-leader/set-key-for-mode 'ledger-mode
         "md" 'ledger-delete-current-transaction
         "ma" 'ledger-add-transaction))))
+
+(defun spacemacs/init-leuven-theme ()
+  (use-package leuven-theme
+    :defer t
+    :init (setq org-fontify-whole-heading-line t)))
 
 (defun spacemacs/init-linum-relative ()
   (use-package linum-relative
@@ -1475,12 +1389,6 @@ determine the state to enable when escaping from the insert state.")
         (setq magit-diff-options (remove "-w" magit-diff-options))
         (magit-refresh))
       (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
-
-(defun spacemacs/init-magit-gh-pulls ()
-  (use-package magit-gh-pulls ()
-    :defer t
-    :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-    :config (spacemacs//diminish magit-gh-pulls-mode "Github-PR")))
 
 (defun spacemacs/init-magit-gitflow ()
   (use-package magit-gitflow
@@ -1565,7 +1473,9 @@ determine the state to enable when escaping from the insert state.")
       (define-key global-map "\C-ca" 'org-agenda)
       (use-package org-bullets
         :config
-        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+        (defun spacemacs//org-mode-hook ()
+          (org-bullets-mode 1))
+        (add-hook 'org-mode-hook 'spacemacs//org-mode-hook))
       ;; (use-package org-trello
       ;;   :config
       ;;   (add-hook 'org-mode-hook 'org-trello-mode))

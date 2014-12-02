@@ -370,10 +370,10 @@ User configuration can be stored in your `~/.spacemacs` file.
 ## Installation
 
 `~/.spacemacs` is an optional file. If you want to use it you have to copy it
-manually from the template file `~/.emacs.d/.spacemacs.template`
+manually from the template file `~/.emacs.d/core/templates/.spacemacs.template`
 
 ```sh
-$ cp ~/.emacs.d/.spacemacs.template ~/.spacemacs
+$ cp ~/.emacs.d/core/templates/.spacemacs.template ~/.spacemacs
 ```
 
 ## Content
@@ -541,6 +541,7 @@ the variable `dotspacemacs-default-theme`. For instance, to specify `zenburn`:
 
 Some themes are supported by `Spacemacs`:
 - [Solarized][solarized-theme]
+- [Leuven][leuven-theme]
 - [Monokai][monokai-theme]
 - [Zenburn][zenburn-theme]
 
@@ -555,6 +556,8 @@ is not guaranteed (i.e. there may be some missing faces etc...).
 **Note:** Due to the inner working of themes in Emacs, switching theme during
 the same session may have some weird side effects. Although these side effects
 should be pretty rare (especially when switching to a supported theme).
+
+**Hint** If you are an `Org` user, [leuven-theme][] is amazing.
 
 # UI elements
 
@@ -1710,8 +1713,8 @@ Then you can copy/paste the error in a [Github issue][issues], thank you.
 
 ### I have no file ~/.spacemacs
 
-You have to manually copy the `~/.emacs.d/.spacemacs.template` file to
-`~/.spacemacs`
+You have to manually copy the `~/.emacs.d/core/templates/.spacemacs.template`
+file to `~/.spacemacs`
 
 ## Tips for Spacemacs advanced users
 
@@ -1750,6 +1753,7 @@ Achievements                                         | Account
 [First blog article on Spacemacs][1st-article]       | [Wolfy87][]
 [100th issue (PR)][100th-issue]                      | [danielwuz][]
 100th star                                           | [Jackneill][]
+200th star                                           | [jb55][]
 
 # Thank you
 
@@ -1813,6 +1817,7 @@ developers to elisp hackers!
 [edts]: https://github.com/tjarvstrand/edts
 [ess-R-object-popup]: https://github.com/myuhe/ess-R-object-popup.el
 [ess-R-data-view]: https://github.com/myuhe/ess-R-data-view.el
+[leuven-theme]: https://github.com/fniessen/emacs-leuven-theme
 [monokai-theme]: https://github.com/oneKelvinSmith/monokai-emacs
 [zenburn-theme]: https://github.com/bbatsov/zenburn-emacs
 [git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
@@ -1844,5 +1849,6 @@ developers to elisp hackers!
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
 [Jackneill]:https://github.com/Jackneill
+[jb55]:https://github.com/jb55
 [use-package]: https://github.com/jwiegley/use-package
 [fancy-battery]: https://github.com/lunaryorn/fancy-battery.el
