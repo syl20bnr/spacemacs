@@ -1710,8 +1710,8 @@ Then you can copy/paste the error in a [Github issue][issues], thank you.
 
 ### I have no file ~/.spacemacs
 
-You have to manually copy the `~/.emacs.d/.spacemacs.template` file to
-`~/.spacemacs`
+You have to manually copy the `~/.emacs.d/core/templates/.spacemacs.template`
+file to `~/.spacemacs`
 
 ## Tips for Spacemacs advanced users
 
