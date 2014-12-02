@@ -30,8 +30,8 @@ While the smex minibuffer is opened press quickly <kbd>jk</kbd> then:
 
     Key Binding     |                 Description
 --------------------|------------------------------------------------------------
-<kbd>h d f</kbd>    | describe the current command
 <kbd>g</kbd>        | go to the definition of current command
+<kbd>h d f</kbd>    | describe the current command
 <kbd>h w</kbd>      | show the key binding for the current command
 
 [smex]: https://github.com/nonsequitur/smex
