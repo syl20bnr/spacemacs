@@ -373,7 +373,7 @@ User configuration can be stored in your `~/.spacemacs` file.
 manually from the template file `~/.emacs.d/.spacemacs.template`
 
 ```sh
-$ cp ~/.emacs.d/.spacemacs.template ~/.spacemacs
+$ cp ~/.emacs.d/core/templates/.spacemacs.template ~/.spacemacs
 ```
 
 ## Content
