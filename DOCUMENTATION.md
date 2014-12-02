@@ -541,6 +541,7 @@ the variable `dotspacemacs-default-theme`. For instance, to specify `zenburn`:
 
 Some themes are supported by `Spacemacs`:
 - [Solarized][solarized-theme]
+- [Leuven][leuven-theme]
 - [Monokai][monokai-theme]
 - [Zenburn][zenburn-theme]
 
@@ -555,6 +556,8 @@ is not guaranteed (i.e. there may be some missing faces etc...).
 **Note:** Due to the inner working of themes in Emacs, switching theme during
 the same session may have some weird side effects. Although these side effects
 should be pretty rare (especially when switching to a supported theme).
+
+**Hint** If you are an `Org` user, [leuven-theme][] is amazing.
 
 # UI elements
 
@@ -1814,6 +1817,7 @@ developers to elisp hackers!
 [edts]: https://github.com/tjarvstrand/edts
 [ess-R-object-popup]: https://github.com/myuhe/ess-R-object-popup.el
 [ess-R-data-view]: https://github.com/myuhe/ess-R-data-view.el
+[leuven-theme]: https://github.com/fniessen/emacs-leuven-theme
 [monokai-theme]: https://github.com/oneKelvinSmith/monokai-emacs
 [zenburn-theme]: https://github.com/bbatsov/zenburn-emacs
 [git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
