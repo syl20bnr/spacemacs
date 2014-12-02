@@ -58,22 +58,25 @@
   (setq cursor-type nil)
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
-  ;; load the default theme manually to give a smooth startup experience
-  (if (or (eq 'solarized-light dotspacemacs-default-theme)
+  ;; Unless Emacs stock themes
+  (unless (memq dotspacemacs-default-theme (custom-available-themes))
+    (cond
+     ;; Spacemacs default theme
+     ((or (eq 'solarized-light dotspacemacs-default-theme)
           (eq 'solarized-dark dotspacemacs-default-theme))
-      (progn
-        (add-to-list 'load-path (concat spacemacs-directory
-                                        "extensions/solarized-theme/"))
-        ;; solarized dependency
-        (spacemacs/load-or-install-package 'dash)
-        (require 'solarized)
-        (deftheme solarized-dark "The dark variant of the Solarized colour theme")
-        (deftheme solarized-light "The light variant of the Solarized colour theme"))
-    ;; other themes
-    ;; we assume that the package name is suffixed with `-theme'
-    ;; if not we will handle the special themes as we get issues in the tracker.
-    (let ((pkg (format "%s-theme" (symbol-name dotspacemacs-default-theme))))
-      (spacemacs/load-or-install-package (intern pkg))))
+      (add-to-list 'load-path (concat spacemacs-directory
+                                      "extensions/solarized-theme/"))
+      ;; solarized dependency
+      (spacemacs/load-or-install-package 'dash)
+      (require 'solarized)
+      (deftheme solarized-dark "The dark variant of the Solarized colour theme")
+      (deftheme solarized-light "The light variant of the Solarized colour theme"))
+     (t 
+      ;; other themes
+      ;; we assume that the package name is suffixed with `-theme'
+      ;; if not we will handle the special themes as we get issues in the tracker.
+      (let ((pkg (format "%s-theme" (symbol-name dotspacemacs-default-theme))))
+        (spacemacs/load-or-install-package (intern pkg))))))
   (load-theme dotspacemacs-default-theme t)
   ;; font
   ;; Dynamic font size depending on the system
