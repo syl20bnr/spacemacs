@@ -286,7 +286,6 @@ which require an initialization must be listed explicitly in the list.")
     :commands auto-highlight-symbol-mode
     :init
     (add-to-hooks 'auto-highlight-symbol-mode '(prog-mode-hook
-                                                org-mode-hook
                                                 markdown-mode-hook))
     :config
     (progn
@@ -1474,7 +1473,9 @@ determine the state to enable when escaping from the insert state.")
       (define-key global-map "\C-ca" 'org-agenda)
       (use-package org-bullets
         :config
-        (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+        (defun spacemacs//org-mode-hook ()
+          (org-bullets-mode 1))
+        (add-hook 'org-mode-hook 'spacemacs//org-mode-hook))
       ;; (use-package org-trello
       ;;   :config
       ;;   (add-hook 'org-mode-hook 'org-trello-mode))
