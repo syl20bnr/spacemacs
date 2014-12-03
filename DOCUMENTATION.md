@@ -629,13 +629,13 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC t 8</kbd>  | display a mark on the 80th column
-<kbd>SPC t F</kbd>  | toggle frame fullscreen
-<kbd>SPC t f</kbd>  | toggle display of the fringe
-<kbd>SPC t l</kbd>  | toggle truncate lines
-<kbd>SPC t L</kbd>  | toggle visual lines
-<kbd>SPC t M</kbd>  | toggle frame maximize
-<kbd>SPC t n</kbd>  | show the absolute line numbers
+<kbd>SPC t 8</kbd>    | display a mark on the 80th column
+<kbd>SPC t F</kbd>    | toggle frame fullscreen
+<kbd>SPC t f</kbd>    | toggle display of the fringe
+<kbd>SPC t l</kbd>    | toggle truncate lines
+<kbd>SPC t L</kbd>    | toggle visual lines
+<kbd>SPC t M</kbd>    | toggle frame maximize
+<kbd>SPC t n</kbd>    | show the absolute line numbers
 
 ## Mode-line
 
@@ -663,9 +663,9 @@ Some elements can be dynamically toggled:
 
     Key Binding        |                 Description
 -----------------------|------------------------------------------------------------
-<kbd>SPC t m m</kbd> | toggle the minor mode lighters
-<kbd>SPC t m b</kbd> | toggle the battery status
-<kbd>SPC t m f</kbd> | toggle the flycheck info
+<kbd>SPC t m m</kbd>   | toggle the minor mode lighters
+<kbd>SPC t m b</kbd>   | toggle the battery status
+<kbd>SPC t m f</kbd>   | toggle the flycheck info
 
 ### Flycheck integration
 
@@ -836,9 +836,9 @@ Key Binding          |                 Description
 <kbd>`l`</kbd>       | move cursor right
 <kbd>`H`</kbd>       | move quickly up (10 lines at a time)
 <kbd>`L`</kbd>       | move quickly down (10 lines at a time)
-<kbd>SPC j h</kbd> | go to the beginning of line (and set a mark at the previous location in the line)
-<kbd>SPC j l</kbd> | go to the end of line (and set a mark at the previous location in the line)
-<kbd>SPC z z</kbd> | lock the cursor at the center of the screen
+<kbd>SPC j h</kbd>   | go to the beginning of line (and set a mark at the previous location in the line)
+<kbd>SPC j l</kbd>   | go to the end of line (and set a mark at the previous location in the line)
+<kbd>SPC z z</kbd>   | lock the cursor at the center of the screen
 
 #### Smooth scrolling
 
@@ -868,9 +868,9 @@ in a buffer containing some text:
 
     d <SPC> l
 
-Key Binding            |                 Description
------------------------|------------------------------------------------------------------
-<kbd>SPC SPC</kbd> | initiate ace jump word mode
+Key Binding          |                 Description
+---------------------|------------------------------------------------------------------
+<kbd>SPC SPC</kbd>   | initiate ace jump word mode
 <kbd>SPC l</kbd>     | initiate ace jump line mode
 <kbd>SPC `</kbd>     | go back to the previous location (before the jump)
 
@@ -937,32 +937,32 @@ Buffer manipulation commands (start with `b`):
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC b d</kbd>   | delete the current buffer **and** file (ask for confirmation)
-<kbd>SPC b e</kbd>   | erase the content of the buffer (ask for confirmation)
-<kbd>SPC b k</kbd>   | kill the current buffer
-<kbd>SPC b K</kbd>   | kill all buffers except the current one
-<kbd>SPC b C-K</kbd> | kill all buffers matching the regexp
-<kbd>SPC b m h</kbd> | move a buffer to the left
-<kbd>SPC b m j</kbd> | move a buffer to the bottom
-<kbd>SPC b m k</kbd> | move a buffer to the top
-<kbd>SPC b m l</kbd> | move a buffer to the right
-<kbd>SPC b n</kbd>   | switch to next buffer
-<kbd>SPC b p</kbd>   | switch to previous buffer
-<kbd>SPC b r</kbd>   | rename the current buffer
-<kbd>SPC b R</kbd>   | revert the current buffer (reload from disk)
-<kbd>SPC b s</kbd>   | switch to a buffer using `helm`
-<kbd>SPC b w</kbd>   | toggle read-only (writable state)
+<kbd>SPC b d</kbd>     | delete the current buffer **and** file (ask for confirmation)
+<kbd>SPC b e</kbd>     | erase the content of the buffer (ask for confirmation)
+<kbd>SPC b k</kbd>     | kill the current buffer
+<kbd>SPC b K</kbd>     | kill all buffers except the current one
+<kbd>SPC b C-K</kbd>   | kill all buffers matching the regexp
+<kbd>SPC b m h</kbd>   | move a buffer to the left
+<kbd>SPC b m j</kbd>   | move a buffer to the bottom
+<kbd>SPC b m k</kbd>   | move a buffer to the top
+<kbd>SPC b m l</kbd>   | move a buffer to the right
+<kbd>SPC b n</kbd>     | switch to next buffer
+<kbd>SPC b p</kbd>     | switch to previous buffer
+<kbd>SPC b r</kbd>     | rename the current buffer
+<kbd>SPC b R</kbd>     | revert the current buffer (reload from disk)
+<kbd>SPC b s</kbd>     | switch to a buffer using `helm`
+<kbd>SPC b w</kbd>     | toggle read-only (writable state)
 
 Files manipulation commands (start with `f`):
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC f f</kbd>   | open a file using `ido`
-<kbd>SPC f i</kbd>   | open your `init.el` file
-<kbd>SPC f s</kbd>   | save a file
-<kbd>SPC f S</kbd>   | save all files
-<kbd>SPC f t</kbd>   | toggle file tree side bar using [NeoTree][neotree]
-<kbd>SPC f y</kbd>   | show current file absolute path in the minibuffer
+<kbd>SPC f f</kbd>     | open a file using `ido`
+<kbd>SPC f i</kbd>     | open your `init.el` file
+<kbd>SPC f s</kbd>     | save a file
+<kbd>SPC f S</kbd>     | save all files
+<kbd>SPC f t</kbd>     | toggle file tree side bar using [NeoTree][neotree]
+<kbd>SPC f y</kbd>     | show current file absolute path in the minibuffer
 
 ### Ido
 
@@ -1167,9 +1167,9 @@ the modifications to the buffer.
 
 Key Binding            |                    Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC s s</kbd>   | execute `helm-swoop`
-<kbd>SPC s S</kbd>   | execute `helm-multi-swoop`
-<kbd>SPC s C-s</kbd> | execute `helm-multi-swoop-all`
+<kbd>SPC s s</kbd>     | execute `helm-swoop`
+<kbd>SPC s S</kbd>     | execute `helm-multi-swoop`
+<kbd>SPC s C-s</kbd>   | execute `helm-multi-swoop-all`
 
 ## Editing
 
@@ -1179,19 +1179,19 @@ Text related commands (start with `x`):
 
     Key Binding        |                 Description
 -----------------------|------------------------------------------------------------
-<kbd>SPC x u</kbd>   | set the selected text to lower case
-<kbd>SPC x U</kbd>   | set the selected text to upper case
-<kbd>SPC x d w</kbd> | delete trailing whitespaces
-<kbd>SPC x g l</kbd> | set languages used by translate commands
-<kbd>SPC x g t</kbd> | translate current word using Google Translate
-<kbd>SPC x g T</kbd> | reverse source and target languages
-<kbd>SPC x m j</kbd> | move down a line of text
-<kbd>SPC x m k</kbd> | move up a line of text
-<kbd>SPC x t c</kbd> | swap (transpose) the current character with the previous one
-<kbd>SPC x t w</kbd> | swap (transpose) the current word with the previous one
-<kbd>SPC x t l</kbd> | swap (transpose) the current line with the previous one
-<kbd>SPC x w c</kbd> | count the number of words in the selection region
-<kbd>SPC x w C</kbd> | count the number of occurrences per word in the select region
+<kbd>SPC x u</kbd>     | set the selected text to lower case
+<kbd>SPC x U</kbd>     | set the selected text to upper case
+<kbd>SPC x d w</kbd>   | delete trailing whitespaces
+<kbd>SPC x g l</kbd>   | set languages used by translate commands
+<kbd>SPC x g t</kbd>   | translate current word using Google Translate
+<kbd>SPC x g T</kbd>   | reverse source and target languages
+<kbd>SPC x m j</kbd>   | move down a line of text
+<kbd>SPC x m k</kbd>   | move up a line of text
+<kbd>SPC x t c</kbd>   | swap (transpose) the current character with the previous one
+<kbd>SPC x t w</kbd>   | swap (transpose) the current word with the previous one
+<kbd>SPC x t l</kbd>   | swap (transpose) the current line with the previous one
+<kbd>SPC x w c</kbd>   | count the number of words in the selection region
+<kbd>SPC x w C</kbd>   | count the number of occurrences per word in the select region
 
 ### Change font size
 
@@ -1199,9 +1199,9 @@ The font size of the current buffer can be adjusted with the commands:
 
 Key Binding          | Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC x +</kbd> | scale up the font and initiate the font scaling micro-state
-<kbd>SPC x -</kbd> | scale down the font and initiate the font scaling micro-state
-<kbd>SPC x =</kbd> | reset the font size (no scaling) and initiate the font scaling micro-state
+<kbd>SPC x +</kbd>   | scale up the font and initiate the font scaling micro-state
+<kbd>SPC x -</kbd>   | scale down the font and initiate the font scaling micro-state
+<kbd>SPC x =</kbd>   | reset the font size (no scaling) and initiate the font scaling micro-state
 <kbd>+</kbd>         | increase the font size
 <kbd>-</kbd>         | decrease the font size
 <kbd>=</kbd>         | reset the font size
@@ -1213,8 +1213,8 @@ Any other key        | leave the font scaling micro-state
 
 Key Binding            | Description
 -----------------------|------------------------------------------------------------
-<kbd>SPC n +</kbd>   | increase the number under point by one and initiate micro-state
-<kbd>SPC n -</kbd>   | decrease the number under point by one and initiate micro-state
+<kbd>SPC n +</kbd>     | increase the number under point by one and initiate micro-state
+<kbd>SPC n -</kbd>     | decrease the number under point by one and initiate micro-state
 
 In micro-state:
 
@@ -1233,9 +1233,9 @@ Spell checking commands start with `S`:
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC S c</kbd> | list of corrections in a `helm` buffer
-<kbd>SPC S d</kbd> | change dictionary language
-<kbd>SPC S n</kbd> | go to the next spell check error
+<kbd>SPC S c</kbd>   | list of corrections in a `helm` buffer
+<kbd>SPC S d</kbd>   | change dictionary language
+<kbd>SPC S n</kbd>   | go to the next spell check error
 
 
 ### Region selection
@@ -1245,7 +1245,7 @@ Vi `Visual` modes are all supported by `evil`, `Spacemacs` adds another
 
 Key Binding        |                 Description
 -------------------|----------------------------------------------------------------
-<kbd>SPC v</kbd> | initiate expand-region mode then...
+<kbd>SPC v</kbd>   | initiate expand-region mode then...
 <kbd>v</kbd>       | expand the region by one semantic unit
 <kbd>V</kbd>       | contract the region by one semantic unit
 <kbd>r</kbd>       | reset the region to initial selection
@@ -1258,10 +1258,10 @@ The displayed text of a buffer can be narrowed with the commands
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC n f</kbd>   | narrow the buffer to the current function
-<kbd>SPC n p</kbd>   | narrow the buffer to the visible page
-<kbd>SPC n r</kbd>   | narrow the buffer to the selected text
-<kbd>SPC n w</kbd>   | widen, i.e show the whole buffer again
+<kbd>SPC n f</kbd>     | narrow the buffer to the current function
+<kbd>SPC n p</kbd>     | narrow the buffer to the visible page
+<kbd>SPC n r</kbd>     | narrow the buffer to the selected text
+<kbd>SPC n w</kbd>     | widen, i.e show the whole buffer again
 
 ### Line formatting
 
@@ -1274,10 +1274,10 @@ Line formatting commands start with `j`:
     Key Binding            |                 Description
 ---------------------------|------------------------------------------------------------
 <kbd>J</kbd>               | join the current line with the next line
-<kbd>SPC j j</kbd>       | same as <kbd>SPC j k</kbd> but will split the current line at point
-<kbd>SPC J</kbd>         | split a quoted string or s-expression in place
-<kbd>SPC j J</kbd>       | split a quoted string or s-expression and auto-indent
-<kbd>SPC j k</kbd>       | go to next line and indent it using auto-indent rules
+<kbd>SPC j j</kbd>         | same as <kbd>SPC j k</kbd> but will split the current line at point
+<kbd>SPC J</kbd>           | split a quoted string or s-expression in place
+<kbd>SPC j J</kbd>         | split a quoted string or s-expression and auto-indent
+<kbd>SPC j k</kbd>         | go to next line and indent it using auto-indent rules
 
 Used together these key bindings are very powerful to quickly reformat the code.
 
@@ -1299,13 +1299,13 @@ Comments are handled by [evil-nerd-commenter][], it's bound to the following key
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC ;</kbd>   | comment operator
-<kbd>SPC c i</kbd> | comment invert
-<kbd>SPC c l</kbd> | comment lines
-<kbd>SPC c p</kbd> | comment paragraphs
-<kbd>SPC c r</kbd> | comment region
-<kbd>SPC c t</kbd> | comment to line
-<kbd>SPC c y</kbd> | comment and yank
+<kbd>SPC ;</kbd>     | comment operator
+<kbd>SPC c i</kbd>   | comment invert
+<kbd>SPC c l</kbd>   | comment lines
+<kbd>SPC c p</kbd>   | comment paragraphs
+<kbd>SPC c r</kbd>   | comment region
+<kbd>SPC c t</kbd>   | comment to line
+<kbd>SPC c y</kbd>   | comment and yank
 
 **Tips:** To comment efficiently a block of line use the combo:
 
@@ -1467,12 +1467,12 @@ Git commands (start with `g`):
 
     Key Binding            |                 Description
 ---------------------------|------------------------------------------------------------
-<kbd>SPC g c c</kbd>     | highlight regions by age of commits
-<kbd>SPC g c C</kbd>     | clear highlights
-<kbd>SPC g c t</kbd>     | highlight regions by last updated time
-<kbd>SPC g s</kbd>       | open a `magit` status window
-<kbd>SPC g m</kbd>       | display the last commit message of the current line
-<kbd>SPC g t</kbd>       | launch the git time machine
+<kbd>SPC g c c</kbd>       | highlight regions by age of commits
+<kbd>SPC g c C</kbd>       | clear highlights
+<kbd>SPC g c t</kbd>       | highlight regions by last updated time
+<kbd>SPC g s</kbd>         | open a `magit` status window
+<kbd>SPC g m</kbd>         | display the last commit message of the current line
+<kbd>SPC g t</kbd>         | launch the git time machine
 
 - Highlight by age of commit or last update time is provided by
 [smeargle][smeargle].
@@ -1575,10 +1575,10 @@ Access commands to the various registers start with `r`:
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC r e</kbd> | show evil yank and named registers
-<kbd>SPC r m</kbd> | show marks register
-<kbd>SPC r r</kbd> | show helm register
-<kbd>SPC r y</kbd> | show kill ring
+<kbd>SPC r e</kbd>   | show evil yank and named registers
+<kbd>SPC r m</kbd>   | show marks register
+<kbd>SPC r r</kbd>   | show helm register
+<kbd>SPC r y</kbd>   | show kill ring
 
 ## Errors handling
 
@@ -1589,10 +1589,10 @@ Errors management commands (star with `f` for `flycheck`):
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC f c</kbd> | clear all errors
-<kbd>SPC f l</kbd> | display the `flycheck` list of errors/warnings
-<kbd>SPC f n</kbd> | go to the next `flycheck` error
-<kbd>SPC f p</kbd> | go to the previous flycheck error
+<kbd>SPC f c</kbd>   | clear all errors
+<kbd>SPC f l</kbd>   | display the `flycheck` list of errors/warnings
+<kbd>SPC f n</kbd>   | go to the next `flycheck` error
+<kbd>SPC f p</kbd>   | go to the previous flycheck error
 
 Custom fringe bitmaps:
 
@@ -1644,10 +1644,10 @@ Key Binding   |                 Description
 
 ### Ledger
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-<kbd>SPC m a</kbd>       | add a transaction
-<kbd>SPC m d</kbd>       | delete current transaction
+    Key Binding    |                 Description
+-------------------|------------------------------------------------------------
+<kbd>SPC m a</kbd> | add a transaction
+<kbd>SPC m d</kbd> | delete current transaction
 
 ### Org
 
@@ -1655,11 +1655,11 @@ In `org`, [evil-org-mode][] is activated.
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m a</kbd>  | org-agenda
-<kbd>SPC m A</kbd>  | org-archive-subtree
-<kbd>SPC m C</kbd>  | evil-org-recompute-clocks
-<kbd>SPC m t</kbd>  | org-show-todo-tree
-<kbd>SPC m l</kbd>  | evil-org-open-links
+<kbd>SPC m a</kbd>    | org-agenda
+<kbd>SPC m A</kbd>    | org-archive-subtree
+<kbd>SPC m C</kbd>    | evil-org-recompute-clocks
+<kbd>SPC m t</kbd>    | org-show-todo-tree
+<kbd>SPC m l</kbd>    | evil-org-open-links
 <kbd>gh</kbd>         | outline-up-heading
 <kbd>gj</kbd>         | org-forward-heading-same-level
 <kbd>gk</kbd>         | org-backward-heading-same-level
