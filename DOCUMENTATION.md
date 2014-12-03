@@ -530,11 +530,11 @@ and forth between the `insert state` and the `lisp state`.
 Of course there is a rule to break this in order to be able to go back to the
 `normal state`. It is pretty simple:
 
-*When in a `base state`, `ESC` or `fd` will always set you back to the
+*When in a `base state`, `ESC` or the key chord `fd` will always set you back to the
 `normal state`.*
 
-So to go back to the `normal state` while in `lisp state` just hit `ESC` or
-`fd`.
+So to go back to the `normal state` while in `lisp state` just hit `ESC` or hit both
+`fd` together.
 
 ## Evil leader
 
@@ -798,7 +798,7 @@ is **guaranteed** to never conflict with `Spacemacs` defaults key bindings.
 ## Escaping
 
 `Spacemacs` uses [evil-escape][] to easily switch between `insert state` and
-`normal state` with the key sequence `fd`.
+`normal state` with the key chord `fd`.
 
 The choice of `fd` was made to be able to use the same sequence to escape from
 "everything" in Emacs:
