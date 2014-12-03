@@ -24,7 +24,7 @@
                                        ("T" .  "themes")
                                        ("w" .  "windows")
                                        ("wp" . "windows-popup")
-                                       ("ws" . "windows-size")
+                                       ("wS" . "windows-size")
                                        ("x" .  "text")
                                        ("xd" . "text-delete")
                                        ("xg" . "text-google-translate")
