@@ -1124,7 +1124,7 @@ Any other key | leave the navigation micro-state
 
 The micro-state text in minibuffer display the following information:
 
-    <M> [6/11]* press (n) or (N) to navigate, (R) for home symbol, (r) to change range
+    <M> [6/11]* press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset
 
 Where `<M> [x/y]*` is:
 - M: the current range mode
