@@ -53,6 +53,7 @@
 - [Base packages](#base-packages)
     - [Evil plugins](#evil-plugins)
 - [Commands](#commands)
+    - [Reserved prefix command for user](#reserved-prefix-command-for-user)
     - [Escaping](#escaping)
     - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
     - [Navigating](#navigating)
@@ -61,6 +62,7 @@
             - [Experimental insert state feature](#experimental-insert-state-feature)
         - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
         - [Window manipulation](#window-manipulation)
+            - [Resizing windows](#resizing-windows)
             - [Golden ratio](#golden-ratio)
         - [Buffers and Files](#buffers-and-files)
         - [Ido](#ido)
@@ -787,6 +789,11 @@ They are both extended with various packages to build on their foundations.
 # Commands
 
 Every sequences must be performed in `normal` mode.
+
+## Reserved prefix command for user
+
+<kbd>SPC o</kbd> is reserved for the user. Setting key bindings behind `<SPC> o`
+is **guaranteed** to never conflict with `Spacemacs` defaults key bindings.
 
 ## Escaping
 
