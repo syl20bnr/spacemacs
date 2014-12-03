@@ -477,7 +477,7 @@ Emacs and they will be deleted.
 ## Update all the packages
 
 To update all the buffers:
-- open paradox: <kbd>SPC : a P</kbd>
+- open paradox: <kbd>SPC a P</kbd>
 - filter packages (optional): <kbd>f u</kbd>
 - update all: <kbd>U x y</kbd>
 
