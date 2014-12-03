@@ -58,15 +58,24 @@ possible.
 
 In the gist list buffer:
 
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>/</kbd>          | evil search
-<kbd>+</kbd>          | add buffer to gist
-<kbd>-</kbd>          | remove file for gist
-<kbd>b</kbd>          | open current gist in browser
-<kbd>f</kbd>          | fetch current gist
-<kbd>g</kbd>          | refresh the list
-<kbd>K</kbd>          | kill current gist
-<kbd>n</kbd>          | next search occurrence
-<kbd>N</kbd>          | next previous occurrence
-<kbd>y</kbd>          | print URL and copy it
+    Key Binding              |                 Description
+-----------------------------|------------------------------------------------------------
+<kbd>/</kbd>                 | evil search
+<kbd>+</kbd>                 | add buffer to gist
+<kbd>-</kbd>                 | remove file for gist
+<kbd>b</kbd> or <kbd>o</kbd> | open current gist in browser
+<kbd>f</kbd>                 | fetch current gist
+<kbd>g</kbd>                 | refresh the list
+<kbd>h</kbd>                 | go left
+<kbd>j</kbd>                 | go down
+<kbd>k</kbd>                 | go up
+<kbd>K</kbd>                 | kill current gist
+<kbd>l</kbd>                 | go right
+<kbd>n</kbd>                 | next search occurrence
+<kbd>N</kbd>                 | next previous occurrence
+<kbd>v</kbd>                 | `visual state`
+<kbd>V</kbd>                 | `visual-line state`
+<kbd>y</kbd>                 | print URL and copy it
+
+ [magit-gh-pulls]: https://github.com/sigma/magit-gh-pulls
+ [gist.el]: https://github.com/defunkt/gist.el

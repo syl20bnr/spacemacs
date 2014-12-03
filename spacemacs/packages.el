@@ -88,6 +88,7 @@
     ;; org-trello
     p4
     page-break-lines
+    paradox
     popup
     popwin
     powerline
@@ -292,6 +293,9 @@ which require an initialization must be listed explicitly in the list.")
       (custom-set-variables
        '(ahs-case-fold-search nil)
        '(ahs-default-range (quote ahs-range-whole-buffer))
+       ;; disable auto-highlight of symbol
+       ;; current symbol should be highlight on demand with <SPC> s h
+       '(ahs-idle-timer 0)
        '(ahs-idle-interval 0.25)
        '(ahs-inhibit-face-list nil))
 
@@ -312,13 +316,17 @@ which require an initialization must be listed explicitly in the list.")
         '(evil-leader/set-key
            "se"  'ahs-edit-mode
            "sb"  'spacemacs/goto-last-searched-ahs-symbol
+           "sh"  (lambda () (interactive)
+                   (eval '(progn
+                            (ahs-highlight-now)
+                            (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
+                            (spacemacs/auto-highlight-symbol-overlay-map)) nil))
            "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
            "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
            "srb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
            "srd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
            "srf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
-           "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))
-           "th" 'auto-highlight-symbol-mode))
+           "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))))
       (spacemacs//hide-lighter auto-highlight-symbol-mode)
       ;; micro-state to easily jump from a highlighted symbol to the others
       (dolist (sym '(ahs-forward
@@ -367,7 +375,7 @@ which require an initialization must be listed explicitly in the list.")
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo "%s %s%s press (n) or (N) to navigate, (R) for reset, (r) to change range"
+            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset"
                      propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
@@ -1345,26 +1353,27 @@ determine the state to enable when escaping from the insert state.")
         ad-do-it
         (delete-other-windows))
 
-      ;; remove conflicts with <SPC> leader
-      (if (string= "SPC" evil-leader/leader)
-          (mapc (lambda (x)
-                  (eval `(define-key ,x (kbd "SPC")
-                           evil-leader--default-map)))
-                '(magit-mode-map
-                  magit-commit-mode-map
-                  magit-diff-mode-map)))
-
       ;; hjkl key bindings
-      (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
-        "K" 'magit-discard-item
-        "L" 'magit-key-mode-popup-logging)
-      (evil-add-hjkl-bindings magit-commit-mode-map 'emacs)
-      (evil-add-hjkl-bindings magit-log-mode-map 'emacs)
-      (evil-add-hjkl-bindings magit-process-mode-map 'emacs)
-      (evil-add-hjkl-bindings magit-status-mode-map 'emacs
+      (spacemacs|evilify magit-commit-mode-map
+        "C-v" 'magit-revert-item)
+      (spacemacs|evilify magit-log-mode-map
+        "C-v" 'magit-revert-item)
+      (spacemacs|evilify magit-process-mode-map
+        "C-v" 'magit-revert-item)
+      (spacemacs|evilify magit-branch-manager-mode-map
         "K" 'magit-discard-item
         "L" 'magit-key-mode-popup-logging
-        "H" 'magit-key-mode-popup-diff-options)
+        "C-v" 'magit-revert-item)
+      (spacemacs|evilify magit-status-mode-map
+        "K" 'magit-discard-item
+        "L" 'magit-key-mode-popup-logging
+        "H" 'magit-key-mode-popup-diff-options
+        "C-v" 'magit-revert-item)
+      ;; remove conflicts with evil leader
+      (spacemacs/activate-evil-leader-for-maps '(magit-mode-map
+                                                 magit-commit-mode-map
+                                                 magit-diff-mode-map))
+
 
       (defun magit-quit-session ()
         "Restores the previous window configuration and kills the magit buffer"
@@ -1508,6 +1517,44 @@ determine the state to enable when escaping from the insert state.")
     :init
     (global-page-break-lines-mode t)
     (spacemacs//hide-lighter page-break-lines-mode)))
+
+(defun spacemacs/init-paradox ()
+  (use-package paradox
+    :defer t
+    :init
+    (progn
+
+      (defun spacemacs/paradox-list-packages ()
+        "Load depdendencies for auth and open the package list."
+        (interactive)
+        (require 'epa-file)
+        (require 'auth-source)
+        (when (and (not (boundp 'paradox-github-token)) 
+                   (file-exists-p "~/.authinfo.gpg"))
+          (let ((authinfo-result (car (auth-source-search 
+                                       :max 1
+                                       :host "github.com"
+                                       :port "paradox" 
+                                       :user "paradox"
+                                       :require '(:secret)))))
+            (let ((paradox-token (plist-get authinfo-result :secret))) 
+              (setq paradox-github-token (if (functionp paradox-token)
+                                             (funcall paradox-token)
+                                           paradox-token)))))
+        (paradox-list-packages nil))
+      
+      (add-to-list 'evil-emacs-state-modes 'paradox-menu-mode)
+      (spacemacs|evilify paradox-menu-mode-map
+        "H" 'paradox-menu-quick-help
+        "J" 'paradox-next-describe
+        "K" 'paradox-previous-describe
+        "L" 'paradox-menu-view-commit-list
+        "o" 'paradox-menu-visit-homepage)
+      (evil-leader/set-key
+        "aP" 'spacemacs/paradox-list-packages))
+    :config
+    (spacemacs/activate-evil-leader-for-map 'paradox-menu-mode-map)
+    ))
 
 (defun spacemacs/init-popup ()
   (use-package popup

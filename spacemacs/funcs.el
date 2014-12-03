@@ -58,6 +58,29 @@ a key sequence. NAME is a symbol name used as the prefix command."
     (define-prefix-command command)
     (evil-leader/set-key prefix command)))
 
+(defun spacemacs/activate-evil-leader-for-maps (map-list)
+  "Remove the evil-leader binding from all the maps in MAP-LIST."
+  (mapc (lambda (x)
+          (eval `(define-key ,x (kbd evil-leader/leader)
+                   evil-leader--default-map)))
+        map-list))
+
+(defun spacemacs/activate-evil-leader-for-map (map)
+  "Remove the evil-leader binding from the passed MAP."
+  (spacemacs/activate-evil-leader-for-maps `(,map)))
+
+(defmacro spacemacs|evilify (map &rest body)
+  "Add `hjkl' navigation, search and visual state to MAP and set additional
+bindings contained in BODY."
+  `(evil-add-hjkl-bindings ,map 'emacs
+    "/" 'evil-search-forward
+    "n" ',(lookup-key evil-normal-state-map "n")
+    "N" ',(lookup-key evil-normal-state-map "N")
+    "v" 'evil-visual-char
+    "V" 'evil-visual-line
+    "C-v" 'evil-visual-block
+    ,@body))
+
 ;; From http://stackoverflow.com/a/18796138
 ;; Cycle through this set of themes
 (defvar spacemacs-themes '(solarized-light
@@ -568,6 +591,8 @@ kill internal buffers too."
      (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))
    ))
 
+;;; begin scale font micro-state
+
 (defun spacemacs/scale-font-size-overlay-map ()
   "Set a temporary overlay map to easily change the font size."
   (set-temporary-overlay-map
@@ -584,8 +609,6 @@ kill internal buffers too."
   - to scale down
   = to reset
 Press any other key to exit."))
-
-(spacemacs/font-scaling-micro-state-doc)
 
 (defun spacemacs/scale-up-or-down-font-size (direction)
   "Scale the font. If DIRECTION is positive or zero the font is scaled up,
@@ -614,6 +637,34 @@ otherwise it is scaled down."
   "Reset the font size."
   (interactive)
   (spacemacs/scale-up-or-down-font-size 0))
+
+;;; end scale font micro-state
+
+;;; begin resize window micro-state
+
+(dolist (sym '(shrink-window-horizontally
+               shrink-window
+               enlarge-window
+               enlarge-window-horizontally))
+  (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
+    (eval `(defadvice ,sym (after ,advice activate)
+             (spacemacs/resize-window-overlay-map)))))
+
+(defun spacemacs/resize-window-overlay-map ()
+  "Set a temporary overlay map to easily resize a window."
+  (interactive)
+  (set-temporary-overlay-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map (kbd "H") 'shrink-window-horizontally)
+     (define-key map (kbd "J") 'shrink-window)
+     (define-key map (kbd "K") 'enlarge-window)
+     (define-key map (kbd "L") 'enlarge-window-horizontally)
+     map) t)
+  (echo (format
+         "[%sx%s] Resize window: (H/L) shrink/enlarge horizontally, (J/K) shrink/enlarge vertically"
+         (window-total-width) (window-total-height))))
+
+;;; end resize window micro-state
 
 (defmacro spacemacs//diminish (mode lighter)
   "Diminish MODE name in mode line to LIGHTER."
