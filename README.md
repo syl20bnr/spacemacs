@@ -100,10 +100,11 @@ For now the update of `Spacemacs` is manual.
 1) It is important to _first_ update the Emacs packages. In Emacs:
 
 ```
-<SPC> : package-list-packages RET U x RET
+<SPC> a P <wait> U x y <wait> y
 ```
 
-When asked for old packages deletion enter `y`.
+For more information about the package list buffer refer to
+[Using the package list buffer][using_package_buf] of the documentation.
 
 2) Close Emacs and update the git repository:
 
@@ -211,6 +212,7 @@ the quick start guide [here](https://github.com/syl20bnr/spacemacs#configuration
 [config]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#configuration-layers
 [dotfile]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#dotfile-configuration
 [manage_config]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#managing-private-configuration-layers
+[using_package_buf]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#using-the-package-list-buffer
 [achievements]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#achievements
 [troubleshoot]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#troubleshoot
 [contrib layers]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#using-configuration-layers

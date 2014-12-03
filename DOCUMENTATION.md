@@ -32,6 +32,8 @@
         - [Excluding packages](#excluding-packages)
         - [Hooks](#hooks)
         - [Custom variables](#custom-variables)
+- [Using the package list buffer](#using-the-package-list-buffer)
+    - [Update all the packages](#update-all-the-packages)
 - [Main principles](#main-principles)
     - [Evil](#evil)
         - [States](#states)
@@ -430,6 +432,54 @@ loading.
 Custom variables configuration from `M-x customize-group` which are
 automatically saved by Emacs are stored at the end of your `~/.spacemacs`
 file.
+
+# Using the package list buffer
+
+The package list buffer is where you can selectively update one or all
+packages installed in your configuration as well as browse for all
+available packages in the different Elpa repositories.
+
+`Spacemacs` replaces the default package list buffer with [Paradox][].
+Paradox enhances the package list buffer with better feedbacks, new
+filters and Github information like the number of stars. Optionally you
+can also star packages directly in the buffer.
+
+**Important Note** Don't install new packages from the package list
+buffer. If those packages are not referenced in a configuration layer
+then `Spacemacs` will treat them as orphans during the next start of
+Emacs and they will be deleted.
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>/</kbd>         | evil-search
+<kbd>f k</kbd>       | filter by keywords
+<kbd>f r</kbd>       | filter by regexp
+<kbd>f u</kbd>       | display only installed package with updates available
+<kbd>h</kbd>         | go left
+<kbd>H</kbd>         | show help (not accurate)
+<kbd>j</kbd>         | go down
+<kbd>k</kbd>         | go up
+<kbd>l</kbd>         | go right
+<kbd>L</kbd>         | show last commits
+<kbd>n</kbd>         | next search occurrence
+<kbd>N</kbd>         | previous search occurrence
+<kbd>o</kbd>         | open package homepage
+<kbd>r</kbd>         | refresh
+<kbd>S P</kbd>       | sort by package name
+<kbd>S S</kbd>       | sort by status (installed, available, etc...)
+<kbd>S *</kbd>       | sort by Github stars
+<kbd>v</kbd>         | `visual state`
+<kbd>V</kbd>         | `visual-line state`
+<kbd>x</kbd>         | execute (action flags)
+
+## Update all the packages
+
+To update all the buffers:
+- open paradox: <kbd>SPC : a P</kbd>
+- filter packages (optional): <kbd>f u</kbd>
+- update all: <kbd>U x y</kbd>
+
+When asked for old packages deletion hit `y`.
 
 # Main principles
 
