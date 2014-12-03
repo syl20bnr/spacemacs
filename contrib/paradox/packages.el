@@ -36,18 +36,16 @@ which require an initialization must be listed explicitly in the list.")
         (paradox-list-packages nil))
       
       (add-to-list 'evil-emacs-state-modes 'paradox-menu-mode)
-      (evil-add-hjkl-bindings paradox-menu-mode-map 'emacs
-        "/" 'evil-search-forward
-        "n" (lookup-key evil-normal-state-map "n")
-        "N" (lookup-key evil-normal-state-map "N")
+      (spacemacs|evilify paradox-menu-mode-map
         "H" 'paradox-menu-quick-help
         "J" 'paradox-next-describe
         "K" 'paradox-previous-describe
-        "L" 'paradox-menu-view-commit-list)
-
-      (eval-after-load "evil-leader"
-        (evil-leader/set-key
-          "aP" 'spacemacs/paradox-list-packages)))
+        "L" 'paradox-menu-view-commit-list
+        "o" 'paradox-menu-visit-homepage)
+      (evil-leader/set-key
+        "aP" 'spacemacs/paradox-list-packages))
+    :config
+    (spacemacs/activate-evil-leader-for-map 'paradox-menu-mode-map)
     ))
       
 

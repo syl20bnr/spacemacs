@@ -14,19 +14,20 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (add-to-list 'evil-emacs-state-modes 'gist-list-menu-mode)
-      (evil-add-hjkl-bindings gist-list-menu-mode-map 'emacs
-        "/" 'evil-search-forward
+      (spacemacs|evilify gist-list-menu-mode-map
         "f" 'gist-fetch-current
         "K" 'gist-kill-current
-        "n" (lookup-key evil-normal-state-map "n")
-        "N" (lookup-key evil-normal-state-map "N"))
+        "o" 'gist-browse-current-url)
 
       (evil-leader/set-key
         "ggb" 'gist-buffer
         "ggB" 'gist-buffer-private
         "ggl" 'gist-list
         "ggr" 'gist-region
-        "ggR" 'gist-region-private))))
+        "ggR" 'gist-region-private))
+    :config
+    (spacemacs/activate-evil-leader-for-map 'gist-list-menu-mode-map)
+    ))
 
 ;; this mode is not up to date
 ;; any contributor to make it up to date is welcome:
