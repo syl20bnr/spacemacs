@@ -1445,6 +1445,7 @@ Here are the often used bindings inside a `status buffer`:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
+<kbd>/</kbd>      | evil-search
 <kbd>$</kbd>      | open `command output buffer`
 <kbd>c c</kbd>    | open a `commit message buffer`
 <kbd>b b</kbd>    | checkout a branch
@@ -1458,6 +1459,8 @@ Here are the often used bindings inside a `status buffer`:
 <kbd>K</kbd>      | discard changes
 <kbd>l</kbd>      | go right
 <kbd>L l</kbd>    | open `log buffer`
+<kbd>n</kbd>      | next search occurrence
+<kbd>N</kbd>      | previous search occurrence
 <kbd>P P</kbd>    | push
 <kbd>q</kbd>      | quit
 <kbd>s</kbd>      | on a file or hunk in a diff: stage the file or hunk
@@ -1467,6 +1470,9 @@ Here are the often used bindings inside a `status buffer`:
 <kbd>TAB</kbd>    | on a file: expand/collapse diff
 <kbd>u</kbd>      | on a staged file: unstage
 <kbd>U</kbd>      | unstage all staged files
+<kbd>v</kbd>      | `visual state`
+<kbd>V</kbd>      | `visual-line state`
+<kbd>C-v</kbd>    | revert item at point
 <kbd>z z</kbd>    | stash changes
 
 In a commit message buffer press `C-c C-c` to commit the changes with the

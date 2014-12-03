@@ -1352,26 +1352,27 @@ determine the state to enable when escaping from the insert state.")
         ad-do-it
         (delete-other-windows))
 
-      ;; remove conflicts with <SPC> leader
-      (if (string= "SPC" evil-leader/leader)
-          (mapc (lambda (x)
-                  (eval `(define-key ,x (kbd "SPC")
-                           evil-leader--default-map)))
-                '(magit-mode-map
-                  magit-commit-mode-map
-                  magit-diff-mode-map)))
-
       ;; hjkl key bindings
-      (evil-add-hjkl-bindings magit-branch-manager-mode-map 'emacs
-        "K" 'magit-discard-item
-        "L" 'magit-key-mode-popup-logging)
-      (evil-add-hjkl-bindings magit-commit-mode-map 'emacs)
-      (evil-add-hjkl-bindings magit-log-mode-map 'emacs)
-      (evil-add-hjkl-bindings magit-process-mode-map 'emacs)
-      (evil-add-hjkl-bindings magit-status-mode-map 'emacs
+      (spacemacs|evilify magit-commit-mode-map
+        "C-v" 'magit-revert-item)
+      (spacemacs|evilify magit-log-mode-map
+        "C-v" 'magit-revert-item)
+      (spacemacs|evilify magit-process-mode-map
+        "C-v" 'magit-revert-item)
+      (spacemacs|evilify magit-branch-manager-mode-map
         "K" 'magit-discard-item
         "L" 'magit-key-mode-popup-logging
-        "H" 'magit-key-mode-popup-diff-options)
+        "C-v" 'magit-revert-item)
+      (spacemacs|evilify magit-status-mode-map
+        "K" 'magit-discard-item
+        "L" 'magit-key-mode-popup-logging
+        "H" 'magit-key-mode-popup-diff-options
+        "C-v" 'magit-revert-item)
+      ;; remove conflicts with evil leader
+      (spacemacs/activate-evil-leader-for-maps '(magit-mode-map
+                                                 magit-commit-mode-map
+                                                 magit-diff-mode-map))
+
 
       (defun magit-quit-session ()
         "Restores the previous window configuration and kills the magit buffer"
