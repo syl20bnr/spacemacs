@@ -591,6 +591,8 @@ kill internal buffers too."
      (when (not (frame-parameter nil 'fullscreen)) 'fullscreen)))
    ))
 
+;;; begin scale font micro-state
+
 (defun spacemacs/scale-font-size-overlay-map ()
   "Set a temporary overlay map to easily change the font size."
   (set-temporary-overlay-map
@@ -607,8 +609,6 @@ kill internal buffers too."
   - to scale down
   = to reset
 Press any other key to exit."))
-
-(spacemacs/font-scaling-micro-state-doc)
 
 (defun spacemacs/scale-up-or-down-font-size (direction)
   "Scale the font. If DIRECTION is positive or zero the font is scaled up,
@@ -637,6 +637,34 @@ otherwise it is scaled down."
   "Reset the font size."
   (interactive)
   (spacemacs/scale-up-or-down-font-size 0))
+
+;;; end scale font micro-state
+
+;;; begin resize window micro-state
+
+(dolist (sym '(shrink-window-horizontally
+               shrink-window
+               enlarge-window
+               enlarge-window-horizontally))
+  (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
+    (eval `(defadvice ,sym (after ,advice activate)
+             (spacemacs/resize-window-overlay-map)))))
+
+(defun spacemacs/resize-window-overlay-map ()
+  "Set a temporary overlay map to easily resize a window."
+  (interactive)
+  (set-temporary-overlay-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map (kbd "H") 'shrink-window-horizontally)
+     (define-key map (kbd "J") 'shrink-window)
+     (define-key map (kbd "K") 'enlarge-window)
+     (define-key map (kbd "L") 'enlarge-window-horizontally)
+     map) t)
+  (echo (format
+         "[%sx%s] Resize window: (H/L) shrink/enlarge horizontally, (J/K) shrink/enlarge vertically"
+         (window-total-width) (window-total-height))))
+
+;;; end resize window micro-state
 
 (defmacro spacemacs//diminish (mode lighter)
   "Diminish MODE name in mode line to LIGHTER."

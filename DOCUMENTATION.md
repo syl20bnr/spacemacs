@@ -883,44 +883,63 @@ be quickly accessed using `<SPC> number`.
 
 Key Binding         |                    Description
 --------------------|----------------------------------------------------------------
-<kbd>SPC 1</kbd>  | go to first window
-<kbd>SPC 2</kbd>  | go to window number 2
-<kbd>SPC 3</kbd>  | go to window number 3
-<kbd>SPC 4</kbd>  | go to window number 4
-<kbd>SPC 5</kbd>  | go to window number 5
-<kbd>SPC 6</kbd>  | go to window number 6
-<kbd>SPC 7</kbd>  | go to window number 7
-<kbd>SPC 8</kbd>  | go to window number 8
-<kbd>SPC 9</kbd>  | go to window number 9
-<kbd>SPC 0</kbd>  | go to window number 10
+<kbd>SPC 1</kbd>    | go to first window
+<kbd>SPC 2</kbd>    | go to window number 2
+<kbd>SPC 3</kbd>    | go to window number 3
+<kbd>SPC 4</kbd>    | go to window number 4
+<kbd>SPC 5</kbd>    | go to window number 5
+<kbd>SPC 6</kbd>    | go to window number 6
+<kbd>SPC 7</kbd>    | go to window number 7
+<kbd>SPC 8</kbd>    | go to window number 8
+<kbd>SPC 9</kbd>    | go to window number 9
+<kbd>SPC 0</kbd>    | go to window number 10
 
 Windows manipulation commands (start with `w`):
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC w b</kbd>   | split a window horizontally
-<kbd>SPC w c</kbd>   | close a window
-<kbd>SPC w d</kbd>   | toggle window dedication (dedicated window cannot be used by a mode)
-<kbd>SPC w H</kbd>   | move window to the left
-<kbd>SPC w J</kbd>   | move window to the bottom
-<kbd>SPC w K</kbd>   | move window to the top
-<kbd>SPC w L</kbd>   | move window to the right
-<kbd>SPC w m</kbd>   | maximize/minimize a window
-<kbd>SPC w M</kbd>   | maximize/minimize a window, when maximized the buffer is centered
-<kbd>SPC w p m</kbd> | open messages buffer in a popup window
-<kbd>SPC w p p</kbd> | close the current sticky popup window
-<kbd>SPC w r</kbd>   | rotate windows clockwise
-<kbd>SPC w R</kbd>   | rotate windows counter-clockwise
-<kbd>SPC w u</kbd>   | undo window layout (used to effectively undo a close window)
-<kbd>SPC w U</kbd>   | redo window layout
-<kbd>SPC w v</kbd>   | split a window vertically
-<kbd>SPC w w</kbd>   | cycle and focus between windows
+<kbd>SPC w c</kbd>     | close a window
+<kbd>SPC w d</kbd>     | toggle window dedication (dedicated window cannot be used by a mode)
+<kbd>SPC w H</kbd>     | move window to the left
+<kbd>SPC w J</kbd>     | move window to the bottom
+<kbd>SPC w K</kbd>     | move window to the top
+<kbd>SPC w L</kbd>     | move window to the right
+<kbd>SPC w m</kbd>     | maximize/minimize a window
+<kbd>SPC w M</kbd>     | maximize/minimize a window, when maximized the buffer is centered
+<kbd>SPC w p m</kbd>   | open messages buffer in a popup window
+<kbd>SPC w p p</kbd>   | close the current sticky popup window
+<kbd>SPC w r</kbd>     | rotate windows clockwise
+<kbd>SPC w R</kbd>     | rotate windows counter-clockwise
+<kbd>SPC w s</kbd>     | horizontal split
+<kbd>SPC w S</kbd>     | initiate window size micro-state
+<kbd>SPC w u</kbd>     | undo window layout (used to effectively undo a close window)
+<kbd>SPC w U</kbd>     | redo window layout
+<kbd>SPC w v</kbd>     | vertical split
+<kbd>SPC w w</kbd>     | cycle and focus between windows
+
+#### Resizing windows
+
+`Spacemacs` defines a micro-state to resize windows.
+
+Key Binding         | Description
+--------------------|------------------------------------------------------------
+<kbd>SPC w S</kbd>  | initiate micro-state
+<kbd>H</kbd>        | shrink window horizontally
+<kbd>J</kbd>        | shrink window vertically
+<kbd>K</kbd>        | enlarge window vertically
+<kbd>L</kbd>        | enlarge window horizontally
+Any other key       | leave the micro-state
+
+The micro-state text in minibuffer display the following information:
+
+    [WidthxHeight] Resize window: (H/L) shrink/enlarge horizontally, (J/K) shrink/enlarge vertically
 
 #### Golden ratio
 
-Split windows can be dynamically resized depending on whether they are selected
-or not. Resizing is performed by the [golden-ratio][golden-ratio] mode.
-By default `golden-ratio` is off.
+If you resize windows like crazy you may want to give a try to [golden-ratio][].
+
+`golden-ratio` resizes windows dynamically depending on whether they are
+selected or not. By default `golden-ratio` is off.
 
 The mode can be toggled on and off with:
 

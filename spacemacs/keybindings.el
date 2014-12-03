@@ -113,7 +113,6 @@
 (evil-leader/set-key
   "w2"  'layout-double-columns
   "w3"  'layout-triple-columns
-  "wb"  'split-window-right
   "wc"  'delete-window
   "wd"  'toggle-current-window-dedication
   "wH"  'evil-window-move-far-left
@@ -129,13 +128,11 @@
   "wr"  'rotate-windows
   "wR"  'rotate-windows-backward
 ;; "wv"  'evenly-split-window-below)
-  "wv"  'split-window-below
-  "wsh" 'shrink-window-horizontally
-  "wsj" 'shrink-window
-  "wsk" 'enlarge-window
-  "wsl" 'enlarge-window-horizontally
+  "ws"  'split-window-below
+  "wS"  'spacemacs/resize-window-overlay-map
   "wU"  'winner-redo
   "wu"  'winner-undo
+  "wv"  'split-window-right
   "ww"  'other-window)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
