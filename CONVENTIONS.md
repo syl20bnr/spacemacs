@@ -39,6 +39,26 @@ A package is initialized in a function with name `<layer>/init-xxx` where:
 
 `<SPC> o` must not be used by any layer. It is reserved for the user.
 
+### Evilify buffers
+
+`Spacemacs` offers convenient functions to _evilify_ a buffer.
+_Evilifying_ a buffer is to:
+- add `hjkl` navigation
+- add incremental search with `/`, `n` and `N`
+- add `visual state` and `visual line state`
+- activate evil-leader key
+- fix all bindings shadows by the above additions
+
+To fix the shadowed bindings we capitalize them, for instance:
+shadowed `h` is transposed to `H`, if `H` is taken then it is
+transposed to `C-h` and so on...
+
+Example of _evilified_ buffers are `magit status`, `paradox buffer`.
+
+The related functions are:
+- `spacemacs/activate-evil-leader-for-maps` and `spacemacs/activate-evil-leader-for-map`
+- `spacemacs/evilify`
+
 ### Navigation in `insert state` buffers
 
 Navigation in buffers like `Helm` and `ido` which are in `insert state` should

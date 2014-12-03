@@ -58,6 +58,29 @@ a key sequence. NAME is a symbol name used as the prefix command."
     (define-prefix-command command)
     (evil-leader/set-key prefix command)))
 
+(defun spacemacs/activate-evil-leader-for-maps (map-list)
+  "Remove the evil-leader binding from all the maps in MAP-LIST."
+  (mapc (lambda (x)
+          (eval `(define-key ,x (kbd evil-leader/leader)
+                   evil-leader--default-map)))
+        map-list))
+
+(defun spacemacs/activate-evil-leader-for-map (map)
+  "Remove the evil-leader binding from the passed MAP."
+  (spacemacs/activate-evil-leader-for-maps `(,map)))
+
+(defmacro spacemacs|evilify (map &rest body)
+  "Add `hjkl' navigation, search and visual state to MAP and set additional
+bindings contained in BODY."
+  `(evil-add-hjkl-bindings ,map 'emacs
+    "/" 'evil-search-forward
+    "n" ',(lookup-key evil-normal-state-map "n")
+    "N" ',(lookup-key evil-normal-state-map "N")
+    "v" 'evil-visual-char
+    "V" 'evil-visual-line
+    "C-v" 'evil-visual-block
+    ,@body))
+
 ;; From http://stackoverflow.com/a/18796138
 ;; Cycle through this set of themes
 (defvar spacemacs-themes '(solarized-light
