@@ -1126,7 +1126,7 @@ determine the state to enable when escaping from the insert state.")
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
-        "hr"  'helm-resume
+        "hl"  'helm-resume
         "ry"  'helm-show-kill-ring
         "rr"  'helm-register
         "rm"  'helm-all-mark-rings
