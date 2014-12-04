@@ -312,71 +312,94 @@ which require an initialization must be listed explicitly in the list.")
                    (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
           (message "No symbol has been searched for now.")))
 
-      (eval-after-load "evil-leader"
-        '(evil-leader/set-key
-           "se"  'ahs-edit-mode
-           "sb"  'spacemacs/goto-last-searched-ahs-symbol
-           "sh"  (lambda () (interactive)
-                   (eval '(progn
-                            (ahs-highlight-now)
-                            (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-                            (spacemacs/auto-highlight-symbol-overlay-map)) nil))
-           "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
-           "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
-           "srb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
-           "srd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
-           "srf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
-           "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))))
-      (spacemacs//hide-lighter auto-highlight-symbol-mode)
-      ;; micro-state to easily jump from a highlighted symbol to the others
-      (dolist (sym '(ahs-forward
-                     ahs-forward-definition
-                     ahs-backward
-                     ahs-backward-definition
-                     ahs-back-to-start
-                     ahs-change-range))
-        (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
-          (eval `(defadvice ,sym (after ,advice activate)
-                   (ahs-highlight-now)
-                   (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-                   (spacemacs/auto-highlight-symbol-overlay-map)))))
-      (defun spacemacs/auto-highlight-symbol-overlay-map ()
-        "Set a temporary overlay map to easily jump from highlighted symbols to
- the nexts."
+      (defun spacemacs/quick-ahs-forward ()
+        "Go to the next occurrence of symbol under point with
+`auto-highlight-symbol'"
         (interactive)
-        (set-temporary-overlay-map
-         (let ((map (make-sparse-keymap)))
-           (define-key map (kbd "d") 'ahs-forward-definition)
-           (define-key map (kbd "D") 'ahs-backward-definition)
-           (define-key map (kbd "e") 'ahs-edit-mode)
-           (define-key map (kbd "n") 'ahs-forward)
-           (define-key map (kbd "N") 'ahs-backward)
-           (define-key map (kbd "R") 'ahs-back-to-start)
-           (define-key map (kbd "r") (lambda () (interactive)
-                                       (eval '(ahs-change-range) nil)))
-           map) nil)
-        (let* ((i 0)
-               (overlay-count (length ahs-overlay-list))
-               (overlay (format "%s" (nth i ahs-overlay-list)))
-               (current-overlay (format "%s" ahs-current-overlay))
-               (st (ahs-stat))
-               (plighter (ahs-current-plugin-prop 'lighter))
-               (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
-                                              ((string= plighter "HSA") "B")
-                                              ((string= plighter "HSD") "F"))))
-               (propplugin (propertize plugin 'face `(
-                    :foreground "#ffffff"
-                    :background ,(face-attribute
-                                  'ahs-plugin-defalt-face :foreground)))))
-          (while (not (string= overlay current-overlay))
-            (setq i (1+ i))
-            (setq overlay (format "%s" (nth i ahs-overlay-list))))
-          (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
-                 (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
-                 (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
-                 (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset"
-                     propplugin propx/y prophidden)))))))
+        (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
+
+      (defun spacemacs/quick-ahs-backward ()
+        "Go to the previous occurrence of symbol under point with
+`auto-highlight-symbol'"
+        (interactive)
+        (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
+
+      (eval-after-load 'evil
+        '(progn
+           (define-key evil-normal-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
+           (define-key evil-normal-state-map (kbd "#") 'spacemacs/quick-ahs-backward)
+           (define-key evil-motion-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
+           (define-key evil-motion-state-map (kbd "#") 'spacemacs/quick-ahs-backward)
+           (eval-after-load 'evil-lisp-state
+             '(progn
+                (define-key evil-normal-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
+                (define-key evil-normal-state-map (kbd "#") 'spacemacs/quick-ahs-backward)))))
+
+        (eval-after-load "evil-leader"
+          '(evil-leader/set-key
+             "se"  'ahs-edit-mode
+             "sb"  'spacemacs/goto-last-searched-ahs-symbol
+             "sh"  (lambda () (interactive)
+                     (eval '(progn
+                              (ahs-highlight-now)
+                              (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
+                              (spacemacs/auto-highlight-symbol-overlay-map)) nil))
+             "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
+             "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
+             "srb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
+             "srd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
+             "srf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
+             "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))))
+        (spacemacs//hide-lighter auto-highlight-symbol-mode)
+        ;; micro-state to easily jump from a highlighted symbol to the others
+        (dolist (sym '(ahs-forward
+                       ahs-forward-definition
+                       ahs-backward
+                       ahs-backward-definition
+                       ahs-back-to-start
+                       ahs-change-range))
+          (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
+            (eval `(defadvice ,sym (after ,advice activate)
+                     (ahs-highlight-now)
+                     (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
+                     (spacemacs/auto-highlight-symbol-overlay-map)))))
+        (defun spacemacs/auto-highlight-symbol-overlay-map ()
+          "Set a temporary overlay map to easily jump from highlighted symbols to
+ the nexts."
+          (interactive)
+          (set-temporary-overlay-map
+           (let ((map (make-sparse-keymap)))
+             (define-key map (kbd "d") 'ahs-forward-definition)
+             (define-key map (kbd "D") 'ahs-backward-definition)
+             (define-key map (kbd "e") 'ahs-edit-mode)
+             (define-key map (kbd "n") 'ahs-forward)
+             (define-key map (kbd "N") 'ahs-backward)
+             (define-key map (kbd "R") 'ahs-back-to-start)
+             (define-key map (kbd "r") (lambda () (interactive)
+                                         (eval '(ahs-change-range) nil)))
+             map) nil)
+          (let* ((i 0)
+                 (overlay-count (length ahs-overlay-list))
+                 (overlay (format "%s" (nth i ahs-overlay-list)))
+                 (current-overlay (format "%s" ahs-current-overlay))
+                 (st (ahs-stat))
+                 (plighter (ahs-current-plugin-prop 'lighter))
+                 (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
+                                                ((string= plighter "HSA") "B")
+                                                ((string= plighter "HSD") "F"))))
+                 (propplugin (propertize plugin 'face `(
+                                                        :foreground "#ffffff"
+                                                        :background ,(face-attribute
+                                                                      'ahs-plugin-defalt-face :foreground)))))
+            (while (not (string= overlay current-overlay))
+              (setq i (1+ i))
+              (setq overlay (format "%s" (nth i ahs-overlay-list))))
+            (let* ((x/y (format "[%s/%s]" (- overlay-count i) overlay-count))
+                   (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
+                   (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
+                   (prophidden (propertize hidden 'face '(:weight bold))))
+              (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset"
+                    propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
   (use-package bookmark
@@ -728,19 +751,7 @@ determine the state to enable when escaping from the insert state.")
     (require 'evil-terminal-cursor-changer)))
 
 (defun spacemacs/init-evil-visualstar ()
-  (use-package evil-visualstar
-    :init
-    ;; neat trick, when we are not in visual mode we use ahs to search
-    (eval-after-load 'auto-highlight-symbol
-      '(progn
-         (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
-         (define-key evil-normal-state-map (kbd "#") 'ahs-backward)
-         (define-key evil-motion-state-map (kbd "*") 'ahs-forward)
-         (define-key evil-motion-state-map (kbd "#") 'ahs-backward)
-         (eval-after-load 'evil-lisp-state
-           '(progn
-              (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
-              (define-key evil-normal-state-map (kbd "#") 'ahs-backward)))))))
+  (use-package evil-visualstar))
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
