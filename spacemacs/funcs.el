@@ -642,27 +642,46 @@ otherwise it is scaled down."
 
 ;;; begin resize window micro-state
 
-(dolist (sym '(shrink-window-horizontally
-               shrink-window
-               enlarge-window
-               enlarge-window-horizontally))
-  (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
-    (eval `(defadvice ,sym (after ,advice activate)
-             (spacemacs/resize-window-overlay-map)))))
+(defun spacemacs//resize-window-micro-state-doc ()
+  (echo (format
+         "[%sx%s] Resize window: (H/L) shrink/enlarge horizontally, (J/K) shrink/enlarge vertically"
+         (window-total-width) (window-total-height))))
 
 (defun spacemacs/resize-window-overlay-map ()
   "Set a temporary overlay map to easily resize a window."
   (interactive)
   (set-temporary-overlay-map
    (let ((map (make-sparse-keymap)))
-     (define-key map (kbd "H") 'shrink-window-horizontally)
-     (define-key map (kbd "J") 'shrink-window)
-     (define-key map (kbd "K") 'enlarge-window)
-     (define-key map (kbd "L") 'enlarge-window-horizontally)
+     (define-key map (kbd "H") 'spacemacs/shrink-window-horizontally)
+     (define-key map (kbd "J") 'spacemacs/shrink-window)
+     (define-key map (kbd "K") 'spacemacs/enlarge-window)
+     (define-key map (kbd "L") 'spacemacs/enlarge-window-horizontally)
      map) t)
-  (echo (format
-         "[%sx%s] Resize window: (H/L) shrink/enlarge horizontally, (J/K) shrink/enlarge vertically"
-         (window-total-width) (window-total-height))))
+  (spacemacs//resize-window-micro-state-doc))
+
+(defun spacemacs/shrink-window-horizontally (delta)
+  "Wrap `spacemacs/shrink-window-horizontally'."
+  (interactive "p")
+  (shrink-window delta t)
+  (spacemacs/resize-window-overlay-map))
+
+(defun spacemacs/shrink-window (delta)
+  "Wrap `spacemacs/shrink-window'."
+  (interactive "p")
+  (shrink-window delta)
+  (spacemacs/resize-window-overlay-map))
+
+(defun spacemacs/enlarge-window (delta)
+  "Wrap `spacemacs/enlarge-window'."
+  (interactive "p")
+  (enlarge-window delta)
+  (spacemacs/resize-window-overlay-map))
+
+(defun spacemacs/enlarge-window-horizontally (delta)
+  "Wrap `spacemacs/enlarge-window-horizontally'."
+  (interactive "p")
+  (enlarge-window delta t)
+  (spacemacs/resize-window-overlay-map))
 
 ;;; end resize window micro-state
 
