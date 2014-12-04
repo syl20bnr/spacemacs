@@ -76,7 +76,7 @@
                                              racket-mode-hook
                                              css-mode-hook))
     :config
-    (spacemacs//hide-lighter aggressive-indent-mode)))
+    (spacemacs|hide-lighter aggressive-indent-mode)))
 
 (defun trishume/init-hungry-delete ()
   (use-package hungry-delete

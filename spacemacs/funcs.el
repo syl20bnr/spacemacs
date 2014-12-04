@@ -685,13 +685,13 @@ otherwise it is scaled down."
 
 ;;; end resize window micro-state
 
-(defmacro spacemacs//diminish (mode lighter)
+(defmacro spacemacs|diminish (mode lighter)
   "Diminish MODE name in mode line to LIGHTER."
   `(when (display-graphic-p)
      (eval-after-load 'diminish
        '(diminish ',mode ,lighter))))
 
-(defmacro spacemacs//hide-lighter (mode)
+(defmacro spacemacs|hide-lighter (mode)
   "Diminish MODE name in mode line to LIGHTER."
   `(eval-after-load 'diminish '(diminish ',mode)))
 
