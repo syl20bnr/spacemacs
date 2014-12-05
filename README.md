@@ -9,17 +9,17 @@
 
 # Introduction
 
-`Spacemacs` is a user-friendly and well-documented Emacs Advanced kit.
+`Spacemacs` is a user-friendly and well-documented Emacs kit that integrates the
+best Emacs packages out there. It uses [Evil Mode][] to combine the ergonomic
+editing features of Vim with the extensibility of Emacs.
 
-`Advanced` means here that it heavily and happily performs non-trivial tweaks
-and customization in order to make itself easy to use and unique.
+Spacemacs is designed to be approachable to users coming from Vim--you do not
+need any prior experience with Emacs to get started.
 
-`Advanced` does not mean that you have to be an advanced Emacs user, beginners
-are welcome and encouraged to use `Spacemacs` since it provides a simple
-architecture to contribute changes and hack others contributions.
+If you are already an experienced Emacs user, you will appreciate the clean
+customization system and tight integration of the included packages.
 
-Its status is `beta` for now, essentially because of the configuration system
-that is not yet finished but already usable.
+Spacemacs is currently in beta, and contributions are welcome.
 
 And now, to use a well known catch line from [Emacs Live][emacs_live]:
 
