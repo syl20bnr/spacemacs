@@ -27,46 +27,63 @@ And now, to use a well known catch line from [Emacs Live][emacs_live]:
 
 # Features
 
-### Convenient and Mnemonic Key Bindings
-
-`Spacemacs` organizes key bindings by mnemonic namespaces. If you are looking
-for commands to operate on your buffer, they are right under `<SPC> b`, if you
-want to operate on your project, then it is `<SPC> p`, etc...
-
-There is no need to learn convoluted Emacs chords, everything you need is under
-bindings that are easy to type and easy to remember.
-
-### Excellent Evil Support
-
-Spacemacs comes with Vim modal editing through [Evil Mode][]. Everything is
-designed with it in mind from the key bindings to the user interface.
-This includes fancy goodies like a micro-state for editing all occurences of a
-symbol and extra packages like [ace-jump][],[evil-lisp-state][] and [evil-nerd-commenter][].
-
 ### Batteries Included
 
-Comes with configuration for hundreds of packages that make it fantastic out of the
-box. Many languages like Python, Ruby, Scala, R, SCSS, Elixir and Javascript come with modes,
-configuration and convenient key bindings. It also comes with [Git support][], [project management][]
-and auto-completion. And all of this is optimized and lazy-loaded so you still get fast boot times!
+Spacemacs integrates hundreds of packages and is ready to use with no additional
+configuration. It provides excellent support for many languages, including the
+following:
 
-And if that isn't enough you can use [community contributed][contrib layers] configuration
-layers for nice configurations of packages that aren't in the default distribution.
+- Elixir
+- Haskell
+- JavaScript
+- LaTex
+- Python
+- R
+- Ruby
+- SCSS
+- Scala
 
-### Great [Documentation][DOCUMENTATION.MD]
+It also comes with [Git support][] and [project management][] tools. All these
+features are loaded on-demand to keep startup time short.
 
-Most Spacemacs features come with extensive documentation including key bindings, configuration options and
-explanations for beginners. And if you can't find the answers you need, ask your question in the [Gitter Chat][] and
-a member of the community will help you out.
+The Spacemacs community provides [additional configurations][contrib layers]
+that extend the default distribution.
 
 **[Visit the Documentation][DOCUMENTATION.MD]**
 
 ### Nice UI
 
-Spacemacs is designed to look nice in a minimal and functional way. It comes with good theme support and a highly customized
-Powerline. The Powerline includes features like quick window switching numbers, Evil mode colors, and nice mode icons.
+Spacemacs looks good. It comes with high-quality themes and a custom low-clutter
+modeline.
 
 ![spacemacs_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-python.png)
+
+### Excellent Evil Support
+
+Spacemacs is designed around Vim keyboard bindings, provided by [Evil Mode][].
+The packages distributed with Spacemacs are customized to integrate seamlessly
+with Evil.
+
+Spacemacs improves upon Vim by using task-specific states to group related
+commands. These states reduce the keystrokes needed to issue repetitive commands
+and reduce the number of keyboard bindings to learn.
+
+### Convenient and Mnemonic Key Bindings
+
+`Spacemacs` organizes key bindings into mnemonic groups. For example, commands
+to operate on the buffer are prefixed by `<SPC> b`, and commands to operate on
+the project are under `<SPC> p`.
+
+There is no need to learn convoluted Emacs key chords--Spacemacs uses memorable
+bindings that are easy to type.
+
+### Great [Documentation][DOCUMENTATION.MD]
+
+Most of Spacemacs' features are extensively documented, along with key bindings
+and configuration options.
+
+If you need help, ask your question in the [Gitter Chat][] and a member of the community
+will help you out.
 
 # Prerequisites
 
