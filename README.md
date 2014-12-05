@@ -27,46 +27,63 @@ And now, to use a well known catch line from [Emacs Live][emacs_live]:
 
 # Features
 
-### Convenient and Mnemonic Key Bindings
-
-`Spacemacs` organizes key bindings by mnemonic namespaces. If you are looking
-for commands to operate on your buffer, they are right under `<SPC> b`, if you
-want to operate on your project, then it is `<SPC> p`, etc...
-
-There is no need to learn convoluted Emacs chords, everything you need is under
-bindings that are easy to type and easy to remember.
-
-### Excellent Evil Support
-
-Spacemacs comes with Vim modal editing through [Evil Mode][]. Everything is
-designed with it in mind from the key bindings to the user interface.
-This includes fancy goodies like a micro-state for editing all occurences of a
-symbol and extra packages like [ace-jump][],[evil-lisp-state][] and [evil-nerd-commenter][].
-
 ### Batteries Included
 
-Comes with configuration for hundreds of packages that make it fantastic out of the
-box. Many languages like Python, Ruby, Scala, R, SCSS, Elixir and Javascript come with modes,
-configuration and convenient key bindings. It also comes with [Git support][], [project management][]
-and auto-completion. And all of this is optimized and lazy-loaded so you still get fast boot times!
+Spacemacs integrates hundreds of packages and is ready to use with no additional
+configuration. It provides excellent support for many languages, including the
+following:
 
-And if that isn't enough you can use [community contributed][contrib layers] configuration
-layers for nice configurations of packages that aren't in the default distribution.
+- Elixir
+- Haskell
+- JavaScript
+- LaTex
+- Python
+- R
+- Ruby
+- SCSS
+- Scala
 
-### Great [Documentation][DOCUMENTATION.MD]
+It also comes with [Git support][] and [project management][] tools. All these
+features are loaded on-demand to keep startup time short.
 
-Most Spacemacs features come with extensive documentation including key bindings, configuration options and
-explanations for beginners. And if you can't find the answers you need, ask your question in the [Gitter Chat][] and
-a member of the community will help you out.
+The Spacemacs community provides [additional configurations][contrib layers]
+that extend the default distribution.
 
 **[Visit the Documentation][DOCUMENTATION.MD]**
 
 ### Nice UI
 
-Spacemacs is designed to look nice in a minimal and functional way. It comes with good theme support and a highly customized
-Powerline. The Powerline includes features like quick window switching numbers, Evil mode colors, and nice mode icons.
+Spacemacs looks good. It comes with high-quality themes and a custom low-clutter
+modeline.
 
 ![spacemacs_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-python.png)
+
+### Excellent Evil Support
+
+Spacemacs is designed around Vim keyboard bindings, provided by [Evil Mode][].
+The packages distributed with Spacemacs are customized to integrate seamlessly
+with Evil.
+
+Spacemacs improves upon Vim by using task-specific states to group related
+commands. These states reduce the keystrokes needed to issue repetitive commands
+and reduce the number of keyboard bindings to learn.
+
+### Convenient and Mnemonic Key Bindings
+
+`Spacemacs` organizes key bindings into mnemonic groups. For example, commands
+to operate on the buffer are prefixed by `<SPC> b`, and commands to operate on
+the project are under `<SPC> p`.
+
+There is no need to learn convoluted Emacs key chords--Spacemacs uses memorable
+bindings that are easy to type.
+
+### Great [Documentation][DOCUMENTATION.MD]
+
+Most of Spacemacs' features are extensively documented, along with key bindings
+and configuration options.
+
+If you need help, ask your question in the [Gitter Chat][] and a member of the community
+will help you out.
 
 # Prerequisites
 
@@ -78,77 +95,95 @@ favorite package manager.
 
 # Install
 
-1) Backup your current `~/.emacs.d` and clone the repo _with the submodules_:
+1. If you have an existing Emacs configuration, back it up:
 
-    cd ~
-    mv .emacs.d .emacs.bak
-    git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
+   ```sh
+   cd
+   mv .emacs.d .emacs.bak
+   ```
 
-`master` is a stable branch, if you want the "bleeding edge" checkout the
-`develop` branch.
+2. Clone this repository _with its submodules_:
 
-2) Launch Emacs, the first time a bunch of packages will be downloaded and
-installed. When the package installation is complete restart Emacs and
-`Spacemacs` should be ready to use.
+   ```sh
+   git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
+   ```
 
-In case of failure see [troubleshoot section][troubleshoot] in documentation.
+   `master` is the stable branch and is regularly updated. Switch to the `develop`
+   branch if you want to use the bleeding-edge version.
+
+3. Launch Emacs. Spacemacs will automatically install the packages it requires.
+
+4. Restart Emacs to complete the installation.
+
+See the [troubleshooting][troubleshoot] guide if you have any issues.
 
 # Update
 
-For now the update of `Spacemacs` is manual.
+Spacemacs currently requires manual updates using the following procedure:
 
-1) It is important to _first_ update the Emacs packages. In Emacs:
+1. Update Emacs packages.
+  1. Open the package list using `<SPC> a P` or `M-x paradox-list-packages`
+  2. Mark all packages for updating by pressing `U`, and
+  3. install them with `x`.
 
-```
-<SPC> a P <wait> U x y <wait> y
-```
+  [See the documentation][using_package_buf] for more information about how to use
+  the package list.
 
-For more information about the package list buffer refer to
-[Using the package list buffer][using_package_buf] of the documentation.
+2. Close Emacs and update the git repository:
 
-2) Close Emacs and update the git repository:
+   ```sh
+   git pull --rebase
+   git submodule sync; git submodule update
+   ```
 
-```sh
-$ git pull --rebase
-$ git submodule sync; git submodule update
-```
-
-Then restart Emacs.
+3. Restart Emacs to complete the upgrade.
 
 # Configuration
 
+`Spacemacs` divides its configuration into self-contained units called
+[configuration layers][config]. It uses a dotfile, `~/.spacemacs`, to control
+which of these features to enable.
+
 ## Configuration layers
 
-`Spacemacs` is based on [configuration layers][config]. To create your own
-configuration layer:
+A configuration layer is a directory containing at least the following files:
+
+- `packages.el`: Defines and configures packages to be downloaded from Emacs package repositories
+- `extensions.el`: Configures packages that do not need to be downloaded with
+  the package manager, such as built-in Emacs features and git submodules.
+
+You should create your own configuration layers in the [private][] directory.
+The following command automates this process:
 
     <SPC> : config-system/create-layer RET
 
-After entering a name, a layer skeleton will be created in the [private][]
-directory where you'll find the following files:
-- `packages.el` to list the elpa packages
-- `exentsions.el` for any other package that is not available in a elpa
-repository.
+_Caveat:_ For your privacy, the contents of the `private` directory are not
+under source control. See the documentation for a discussion on how to
+[manage your private configuration][manage_config].
 
-The `private` directory is ignored by Git.
+Any configuration layers you create must be explicitly loaded in your
+`~/.spacemacs` file.
 
-To use your newly created configuration layer, add it to your `~/.spacemacs`
-file (see next section).
+## Dotfile (.spacemacs)
 
-Note that this approach leaves your layer not source controlled. To get more
-info on the different approaches to manage your layers, refer to the
-[Managing private configuration layers][manage_config] section of the
-documentation.
+The `.spacemacs` file controls which features to load and provides a way to
+customize Spacemacs' loading sequence.
 
-## Dotfile ~/.spacemacs
-
-`Spacemacs` has a convenient dotfile. You have to install it by invoking the
-following command inside Emacs:
+The following command will create `.spacemacs` in your home directory:
 
     <SPC> : dotspacemacs/install RET
 
-Refers directly to the file `~/.spacemacs` to get documentation or
-navigate to the [dotfile configuration][dotfile] section of [DOCUMENTATION.md][].
+To load configuration layers, add them to the list beside
+`dotspacemacs-configuration-layers`:
+
+```lisp
+;; List of configuration layers to load.
+dotspacemacs-configuration-layers '(company-mode smex)
+```
+
+The comments in this file contain further information about how to customize
+Spacemacs. See the [dotfile configuration][dotfile] section of the documentation
+for more information.
 
 # Learning Spacemacs
 
