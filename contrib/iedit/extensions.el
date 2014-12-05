@@ -8,10 +8,11 @@
     (setq evil-iedit-state-cursor `(,(spacemacs/state-color 'iedit) box))   
     (setq evil-iedit-insert-state-cursor `((spacemacs/state-color 'iedit-insert) (bar . 2)))
     (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode)
-    ;; override the basic edit mode from ahs if required
+    ;; override the basic edit mode from ahs everywhere
     (eval-after-load 'auto-highlight-symbol
-      '(defalias 'ahs-edit-mode 'evil-iedit-state/iedit-mode)))
-    ;; add 'e' action to expand-region
+      '(progn
+         (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode)
+         (defalias 'ahs-edit-mode 'evil-iedit-state/iedit-mode))))
   (add-to-hooks 'iedit//lazy-load '(prog-mode-hook markdown-mode-hook)))
 
 
