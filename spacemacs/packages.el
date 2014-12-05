@@ -67,7 +67,6 @@
     hl-anything
     hy-mode
     ido-vertical-mode
-    iedit
     js2-mode
     json-mode
     ledger-mode
