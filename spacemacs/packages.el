@@ -173,7 +173,7 @@ which require an initialization must be listed explicitly in the list.")
     (global-anzu-mode t)
     :config
     (progn
-      (spacemacs//hide-lighter anzu-mode)
+      (spacemacs|hide-lighter anzu-mode)
 
       (defun spacemacs/anzu-update-mode-line (here total)
         "Custom update function which does not propertize the status."
@@ -250,7 +250,7 @@ which require an initialization must be listed explicitly in the list.")
             ac-comphist-file (concat spacemacs-cache-directory "ac-comphist.dat")
             tab-always-indent 'complete ; use 'complete when auto-complete is disabled
             ac-dwim t)
-      (spacemacs//diminish auto-complete-mode " Ⓐ"))))
+      (spacemacs|diminish auto-complete-mode " Ⓐ"))))
 
 (defun spacemacs/init-auto-complete-clang ()
   (use-package auto-complete-clang
@@ -312,22 +312,45 @@ which require an initialization must be listed explicitly in the list.")
                    (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
           (message "No symbol has been searched for now.")))
 
-      (eval-after-load "evil-leader"
-        '(evil-leader/set-key
-           "se"  'ahs-edit-mode
-           "sb"  'spacemacs/goto-last-searched-ahs-symbol
-           "sh"  (lambda () (interactive)
-                   (eval '(progn
-                            (ahs-highlight-now)
-                            (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-                            (spacemacs/auto-highlight-symbol-overlay-map)) nil))
-           "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
-           "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
-           "srb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
-           "srd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
-           "srf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
-           "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil))))
-      (spacemacs//hide-lighter auto-highlight-symbol-mode)
+      (defun spacemacs/quick-ahs-forward ()
+        "Go to the next occurrence of symbol under point with
+`auto-highlight-symbol'"
+        (interactive)
+        (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
+
+      (defun spacemacs/quick-ahs-backward ()
+        "Go to the previous occurrence of symbol under point with
+`auto-highlight-symbol'"
+        (interactive)
+        (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
+
+      (eval-after-load 'evil
+        '(progn
+           (define-key evil-normal-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
+           (define-key evil-normal-state-map (kbd "#") 'spacemacs/quick-ahs-backward)
+           (define-key evil-motion-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
+           (define-key evil-motion-state-map (kbd "#") 'spacemacs/quick-ahs-backward)
+           (eval-after-load 'evil-lisp-state
+             '(progn
+                (define-key evil-normal-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
+                (define-key evil-normal-state-map (kbd "#") 'spacemacs/quick-ahs-backward)))))
+
+      (evil-leader/set-key
+        "se"  'ahs-edit-mode
+        "sb"  'spacemacs/goto-last-searched-ahs-symbol
+        "sh"  (lambda () (interactive)
+                (eval '(progn
+                         (ahs-highlight-now)
+                         (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
+                         (spacemacs/auto-highlight-symbol-overlay-map)) nil))
+        "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
+        "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
+        "srb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
+        "srd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
+        "srf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
+        "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil)))
+
+      (spacemacs|hide-lighter auto-highlight-symbol-mode)
       ;; micro-state to easily jump from a highlighted symbol to the others
       (dolist (sym '(ahs-forward
                      ahs-forward-definition
@@ -365,9 +388,9 @@ which require an initialization must be listed explicitly in the list.")
                                               ((string= plighter "HSA") "B")
                                               ((string= plighter "HSD") "F"))))
                (propplugin (propertize plugin 'face `(
-                    :foreground "#ffffff"
-                    :background ,(face-attribute
-                                  'ahs-plugin-defalt-face :foreground)))))
+                                                      :foreground "#ffffff"
+                                                      :background ,(face-attribute
+                                                                    'ahs-plugin-defalt-face :foreground)))))
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
@@ -376,7 +399,7 @@ which require an initialization must be listed explicitly in the list.")
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
             (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset"
-                     propplugin propx/y prophidden)))))))
+                  propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
   (use-package bookmark
@@ -603,7 +626,7 @@ determine the state to enable when escaping from the insert state.")
     :init
     (evil-escape-mode)
     :config
-    (spacemacs//hide-lighter evil-escape-mode)))
+    (spacemacs|hide-lighter evil-escape-mode)))
 
 (defun spacemacs/init-evil-exchange ()
   (use-package evil-exchange
@@ -709,7 +732,7 @@ determine the state to enable when escaping from the insert state.")
         "c" nil "mA" 'org-archive-subtree
         "l" nil "ml" 'evil-org-open-links
         "o" nil "mC" 'evil-org-recompute-clocks)
-      (spacemacs//diminish evil-org-mode " Ⓔ"))))
+      (spacemacs|diminish evil-org-mode " Ⓔ"))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()
   (use-package evil-search-highlight-persist
@@ -728,19 +751,7 @@ determine the state to enable when escaping from the insert state.")
     (require 'evil-terminal-cursor-changer)))
 
 (defun spacemacs/init-evil-visualstar ()
-  (use-package evil-visualstar
-    :init
-    ;; neat trick, when we are not in visual mode we use ahs to search
-    (eval-after-load 'auto-highlight-symbol
-      '(progn
-         (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
-         (define-key evil-normal-state-map (kbd "#") 'ahs-backward)
-         (define-key evil-motion-state-map (kbd "*") 'ahs-forward)
-         (define-key evil-motion-state-map (kbd "#") 'ahs-backward)
-         (eval-after-load 'evil-lisp-state
-           '(progn
-              (define-key evil-normal-state-map (kbd "*") 'ahs-forward)
-              (define-key evil-normal-state-map (kbd "#") 'ahs-backward)))))))
+  (use-package evil-visualstar))
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
@@ -848,7 +859,7 @@ determine the state to enable when escaping from the insert state.")
                   'flycheck-mode)))
     :config
     (progn
-      (spacemacs//diminish flycheck-mode " Ⓕ")
+      (spacemacs|diminish flycheck-mode " Ⓕ")
 
       (setq flycheck-check-syntax-automatically '(save mode-enabled)
             flycheck-standard-error-navigation nil)
@@ -948,7 +959,7 @@ determine the state to enable when escaping from the insert state.")
       (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
       (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1))))
     :config
-    (spacemacs//diminish flyspell-mode " Ⓢ")))
+    (spacemacs|diminish flyspell-mode " Ⓢ")))
 
 (defun spacemacs/init-git-gutter-fringe ()
   (use-package git-gutter-fringe
@@ -987,7 +998,7 @@ determine the state to enable when escaping from the insert state.")
         ".XXX..."
         "..X...."
         )
-      (spacemacs//hide-lighter git-gutter-mode))))
+      (spacemacs|hide-lighter git-gutter-mode))))
 
 (defun spacemacs/init-git-messenger ()
   (use-package git-messenger
@@ -1055,7 +1066,7 @@ determine the state to enable when escaping from the insert state.")
                    'spacemacs/no-golden-ratio-guide-key)
       (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
 
-      (spacemacs//diminish golden-ratio-mode " ⊞"))))
+      (spacemacs|diminish golden-ratio-mode " ⊞"))))
 
 (defun spacemacs/init-google-translate ()
   (use-package google-translate
@@ -1100,7 +1111,7 @@ determine the state to enable when escaping from the insert state.")
       (setq guide-key/highlight-command-regexp
                    (cons spacemacs/prefix-command-string font-lock-warning-face))
       (guide-key-mode 1)
-      (spacemacs//diminish guide-key-mode " Ⓖ"))))
+      (spacemacs|diminish guide-key-mode " Ⓖ"))))
 
 (defun spacemacs/init-helm ()
   (use-package helm
@@ -1115,7 +1126,7 @@ determine the state to enable when escaping from the insert state.")
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
-        "hr"  'helm-resume
+        "hl"  'helm-resume
         "ry"  'helm-show-kill-ring
         "rr"  'helm-register
         "rm"  'helm-all-mark-rings
@@ -1154,7 +1165,7 @@ determine the state to enable when escaping from the insert state.")
           "a" 'helm-select-action)
         (key-chord-define helm-map (kbd "jk") (cdr (assoc 'helm-mode evil-leader--mode-maps))))
       (eval-after-load "helm-mode" ; required
-        '(spacemacs//hide-lighter helm-mode)))))
+        '(spacemacs|hide-lighter helm-mode)))))
 
 (defun spacemacs/init-helm-ag ()
   (use-package helm-ag
@@ -1254,8 +1265,8 @@ determine the state to enable when escaping from the insert state.")
         "hs"  'hl-save-highlights))
     :config
     (progn
-      (spacemacs//diminish hl-paren-mode "(Ⓗ)")
-      (spacemacs//hide-lighter hl-highlight-mode))))
+      (spacemacs|diminish hl-paren-mode "(Ⓗ)")
+      (spacemacs|hide-lighter hl-highlight-mode))))
 
 (defun spacemacs/init-hy-mode ()
   (use-package hy-mode
@@ -1266,7 +1277,7 @@ determine the state to enable when escaping from the insert state.")
     :init
     (progn
       (ido-vertical-mode t)
-      (defun spacemacs/ido-vertical-define-keys ()
+      (defun spacemacs//ido-vertical-define-keys ()
         ;; overwrite the key bindings for ido vertical mode only
         (define-key ido-completion-map (kbd "C-d") 'ido-delete-file-at-head)
         (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
@@ -1299,7 +1310,7 @@ determine the state to enable when escaping from the insert state.")
             "x" 'ido-invoke-in-other-window)
           (key-chord-define ido-completion-map (kbd "jk")
                             (cdr (assoc 'ido-mode evil-leader--mode-maps)))))
-      (add-to-list 'ido-setup-hook 'spacemacs/ido-vertical-define-keys))
+      (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys))
       ))
 
 (defun spacemacs/init-js2-mode ()
@@ -1346,7 +1357,7 @@ determine the state to enable when escaping from the insert state.")
     (evil-leader/set-key "gs" 'magit-status)
     :config
     (progn
-      (spacemacs//hide-lighter magit-auto-revert-mode)
+      (spacemacs|hide-lighter magit-auto-revert-mode)
       ;; full screen magit-status
       (defadvice magit-status (around magit-fullscreen activate)
         (window-configuration-to-register :magit-fullscreen)
@@ -1403,7 +1414,7 @@ determine the state to enable when escaping from the insert state.")
   (use-package magit-gitflow
     :commands turn-on-magit-gitflow
     :init (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
-    :config (spacemacs//diminish magit-gitflow-mode "Flow")))
+    :config (spacemacs|diminish magit-gitflow-mode "Flow")))
 
 (defun spacemacs/init-markdown-mode ()
   (use-package markdown-mode
@@ -1516,7 +1527,7 @@ determine the state to enable when escaping from the insert state.")
   (use-package page-break-lines
     :init
     (global-page-break-lines-mode t)
-    (spacemacs//hide-lighter page-break-lines-mode)))
+    (spacemacs|hide-lighter page-break-lines-mode)))
 
 (defun spacemacs/init-paradox ()
   (use-package paradox
@@ -1794,7 +1805,7 @@ determine the state to enable when escaping from the insert state.")
       :config
       (progn
         (projectile-global-mode)
-        (spacemacs//hide-lighter projectile-mode))))
+        (spacemacs|hide-lighter projectile-mode))))
 
 (defun spacemacs/init-rainbow-blocks ()
   (use-package rainbow-blocks
@@ -1818,7 +1829,7 @@ determine the state to enable when escaping from the insert state.")
     :defer t
     :init (evil-leader/set-key "tc" 'rainbow-mode)
     :config
-    (spacemacs//hide-lighter rainbow-mode)))
+    (spacemacs|hide-lighter rainbow-mode)))
 
 (defun spacemacs/init-rcirc ()
   (use-package rcirc
@@ -1890,7 +1901,7 @@ determine the state to enable when escaping from the insert state.")
     :config
     (progn
       (require 'smartparens-config)
-      (spacemacs//diminish smartparens-mode " (Ⓢ)")
+      (spacemacs|diminish smartparens-mode " (Ⓢ)")
       (defun spacemacs/smartparens-pair-newline (id action context)
         (save-excursion
           (newline)
@@ -1954,7 +1965,7 @@ determine the state to enable when escaping from the insert state.")
     (progn
       (tagedit-add-experimental-features)
       (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
-      (spacemacs//diminish tagedit-mode " Ⓣ"))))
+      (spacemacs|diminish tagedit-mode " Ⓣ"))))
 
 (defun spacemacs/init-tern-auto-complete ()
   (use-package tern-auto-complete
@@ -1974,14 +1985,14 @@ determine the state to enable when escaping from the insert state.")
     (setq undo-tree-visualizer-timestamps t)
     (setq undo-tree-visualizer-diff t)
     :config
-    (spacemacs//hide-lighter undo-tree-mode)))
+    (spacemacs|hide-lighter undo-tree-mode)))
 
 (defun spacemacs/init-vi-tilde-fringe ()
   (use-package vi-tilde-fringe
     :init
     (global-vi-tilde-fringe-mode)
     :config
-    (spacemacs//hide-lighter vi-tilde-fringe-mode)))
+    (spacemacs|hide-lighter vi-tilde-fringe-mode)))
 
 (defun spacemacs/init-visual-regexp-steroids ()
   (use-package visual-regexp-steroids
@@ -1998,7 +2009,7 @@ determine the state to enable when escaping from the insert state.")
     :init
     (progn
       (volatile-highlights-mode t)
-      (spacemacs//hide-lighter volatile-highlights-mode))))
+      (spacemacs|hide-lighter volatile-highlights-mode))))
 
 (defun spacemacs/init-wand ()
   (use-package wand
@@ -2040,7 +2051,7 @@ determine the state to enable when escaping from the insert state.")
                                                 org-mode-hook)))
     :config
     (progn
-      (spacemacs//diminish yas-minor-mode " Ⓨ")
+      (spacemacs|diminish yas-minor-mode " Ⓨ")
       (require 'helm-c-yasnippet)
       (evil-leader/set-key "is" 'helm-yas-complete)
       (setq helm-c-yas-space-match-any-greedy t))))

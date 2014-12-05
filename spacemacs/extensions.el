@@ -37,7 +37,7 @@
                                       widget-button-click
                                       scroll-bar-toolkit-scroll
                                       evil-mouse-drag-region))))
-      (spacemacs//diminish centered-cursor-mode " Ⓒ"))))
+      (spacemacs|diminish centered-cursor-mode " Ⓒ"))))
 
 (defun spacemacs/init-dos ()
   (use-package dos

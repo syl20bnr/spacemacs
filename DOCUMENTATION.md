@@ -477,7 +477,7 @@ Emacs and they will be deleted.
 ## Update all the packages
 
 To update all the buffers:
-- open paradox: <kbd>SPC : a P</kbd>
+- open paradox: <kbd>SPC a P</kbd>
 - filter packages (optional): <kbd>f u</kbd>
 - update all: <kbd>U x y</kbd>
 
@@ -530,11 +530,11 @@ and forth between the `insert state` and the `lisp state`.
 Of course there is a rule to break this in order to be able to go back to the
 `normal state`. It is pretty simple:
 
-*When in a `base state`, `ESC` or `fd` will always set you back to the
+*When in a `base state`, `ESC` or the key chord `fd` will always set you back to the
 `normal state`.*
 
-So to go back to the `normal state` while in `lisp state` just hit `ESC` or
-`fd`.
+So to go back to the `normal state` while in `lisp state` just hit `ESC` or hit both
+`fd` together.
 
 ## Evil leader
 
@@ -798,7 +798,7 @@ is **guaranteed** to never conflict with `Spacemacs` defaults key bindings.
 ## Escaping
 
 `Spacemacs` uses [evil-escape][] to easily switch between `insert state` and
-`normal state` with the key sequence `fd`.
+`normal state` with the key chord `fd`.
 
 The choice of `fd` was made to be able to use the same sequence to escape from
 "everything" in Emacs:
@@ -913,6 +913,7 @@ Key Binding            |                 Description
 <kbd>SPC w L</kbd>     | move window to the right
 <kbd>SPC w m</kbd>     | maximize/minimize a window
 <kbd>SPC w M</kbd>     | maximize/minimize a window, when maximized the buffer is centered
+<kbd>SPC w o</kbd>     | cycle and focus between frames
 <kbd>SPC w p m</kbd>   | open messages buffer in a popup window
 <kbd>SPC w p p</kbd>   | close the current sticky popup window
 <kbd>SPC w r</kbd>     | rotate windows clockwise
@@ -1081,7 +1082,7 @@ Key Binding                           |                 Description
 <kbd>SPC /</kbd> or  <kbd>SPC a</kbd> | with [The Silver Searcher][ag]
 <kbd>SPC A</kbd>                      | with `ack`
 <kbd>SPC g</kbd>                      | with `grep`
-<kbd>SPC h r</kbd>                    | resume last helm popup
+<kbd>SPC h l</kbd>                    | show last helm popup
 
 ### Persistent highlighting
 

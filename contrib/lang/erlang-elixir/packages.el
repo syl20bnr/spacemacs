@@ -82,7 +82,7 @@ which require an initialization must be listed explicitly in the list.")
 (defun erlang-elixir/init-ruby-end ()
   (use-package ruby-end
     :defer t
-    :config (spacemacs//hide-lighter ruby-end-mode)))
+    :config (spacemacs|hide-lighter ruby-end-mode)))
 
 (defun erlang-elixir/init-smartparens ()
   (add-hook 'erlang-mode-hook 'smartparens-mode))

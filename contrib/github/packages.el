@@ -51,4 +51,4 @@ which require an initialization must be listed explicitly in the list.")
   (use-package magit-gh-pulls ()
     :defer t
     :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-    :config (spacemacs//diminish magit-gh-pulls-mode "Github-PR")))
+    :config (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))
