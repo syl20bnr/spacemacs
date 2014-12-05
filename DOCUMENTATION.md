@@ -913,6 +913,7 @@ Key Binding            |                 Description
 <kbd>SPC w L</kbd>     | move window to the right
 <kbd>SPC w m</kbd>     | maximize/minimize a window
 <kbd>SPC w M</kbd>     | maximize/minimize a window, when maximized the buffer is centered
+<kbd>SPC w o</kbd>     | cycle and focus between frames
 <kbd>SPC w p m</kbd>   | open messages buffer in a popup window
 <kbd>SPC w p p</kbd>   | close the current sticky popup window
 <kbd>SPC w r</kbd>     | rotate windows clockwise
