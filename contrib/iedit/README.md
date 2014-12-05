@@ -53,7 +53,7 @@ To use this contribution add it to your `~/.spacemacs`
 <kbd>#</kbd>                    | prefix all occurrences with an increasing number
 <kbd>b</kbd>                    | make all occurrences blank
 <kbd>B</kbd>                    | toggle buffering (use it for large buffers with a lof of occurrences)
-<kbd>c</kbd> or <kbd>r</kbd>    | delete the occurrences and switch to `iedit-insert state`
+<kbd>c</kbd>                    | evil-change (for convenience)
 <kbd>d</kbd>                    | delete the occurrences
 <kbd>D</kbd>                    | down-case the occurrences
 <kbd>f</kbd>                    | restrict the scope to the function
@@ -66,6 +66,7 @@ To use this contribution add it to your `~/.spacemacs`
 <kbd>l</kbd>                    | restrict the scope to the current line
 <kbd>n</kbd>                    | go to next occurrence
 <kbd>N</kbd>                    | go to previous occurrence
+<kbd>r</kbd>                    | (replace) delete the occurrences and switch to `iedit-insert state`
 <kbd>v</kbd>                    | toggle visibility of lines with no occurrence
 <kbd>u</kbd>                    | undo (for convenience)
 <kbd>U</kbd>                    | Up-case the occurrences
