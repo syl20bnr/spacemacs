@@ -35,6 +35,13 @@
   (iedit-delete-occurrences)
   (evil-iedit-insert-state))
 
+(defun evil-iedit-state/evil-change ()
+  "Wipe all the occurrences and switch in `iedit-insert state'"
+  (interactive)
+  (call-interactively 'evil-change)
+  (evil-iedit-state)  ; required to correctly update the cursors
+  (evil-iedit-insert-state))
+
 ;; expand-region integration, add an "e" command
 (eval-after-load 'expand-region
   '(progn
@@ -60,6 +67,7 @@
 (define-key evil-iedit-state-map "#"  'iedit-number-occurrences)
 (define-key evil-iedit-state-map "b"  'iedit-blank-occurrences)
 (define-key evil-iedit-state-map "B"  'iedit-toggle-buffering)
+(define-key evil-iedit-state-map "c"  'evil-iedit-state/evil-change)
 (define-key evil-iedit-state-map "d"  'iedit-delete-occurrences)
 (define-key evil-iedit-state-map "D"  'iedit-downcase-occurrences)
 (define-key evil-iedit-state-map "f"  'iedit-restrict-function)
