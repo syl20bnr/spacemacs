@@ -265,8 +265,15 @@ config-system-all-post-extensions "
                      pkg
                      installed-count
                      not-installed-count) t)
-            (when (not (package-installed-p pkg))
+            (cond
+             ((package-installed-p pkg))
+             ;; Check whether the package exists in the archives before attempting to install.
+             ((assoc pkg package-archive-contents)
               (package-install pkg))
+             (t
+              (spacemacs/append-to-buffer
+               (format "\nPackage %s is unavailable. Is the package name misspelled?\n" pkg))))
+
             (redisplay))
           (spacemacs/append-to-buffer "\n")))))
 
