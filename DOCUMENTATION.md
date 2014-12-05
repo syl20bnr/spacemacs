@@ -99,6 +99,7 @@
         - [Git gutter bitmaps](#git-gutter-bitmaps)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
+    - [Compiling](#compiling)
     - [Modes](#modes)
         - [Helm](#helm)
             - [Experimental Helm feature](#experimental-helm-feature)
@@ -1627,6 +1628,16 @@ Custom fringe bitmaps:
 ![dot-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-error.png)     | Error
 ![dot-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-warning.png) | warning
 ![dot-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-info.png)       | Info
+
+## Compiling
+
+`Spacemacs` binds a few commands to support compiling a project.
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC C</kbd>     | compile
+<kbd>SPC R</kbd>     | recompile
+<kbd>SPC M</kbd>     | use `helm-make` via projectile
 
 ## Modes
 

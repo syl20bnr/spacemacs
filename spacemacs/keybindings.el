@@ -88,6 +88,8 @@
   "jl" (lambda () (interactive) (push-mark (point)) (evil-end-of-line)))
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "C" 'compile)
+(evil-leader/set-key "R" 'recompile)
+(evil-leader/set-key "M" 'helm-make-projectile)
 ;; narrow & widen -------------------------------------------------------------
 (unless (ht-contains? config-system-all-packages 'fancy-narrow)
   (evil-leader/set-key
