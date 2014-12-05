@@ -125,6 +125,7 @@
   "wl"  'evil-window-right
   "wM"  'toggle-maximize-centered-buffer
   "wm"  'toggle-maximize-buffer
+  "wo"  'other-frame
   "wr"  'rotate-windows
   "wR"  'rotate-windows-backward
 ;; "wv"  'evenly-split-window-below)
