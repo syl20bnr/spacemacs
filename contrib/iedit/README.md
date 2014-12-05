@@ -45,6 +45,7 @@ To use this contribution add it to your `~/.spacemacs`
 - <kbd>ESC</kbd> in `iedit state` returns to `normal state`.
 - <kbd>ESC</kbd> in `iedit-insert state` returns to `iedit state`.
 - <kbd>Shift-Return</kbd> in `iedit-insert state` ends the edition and returns to `normal state`.
+- <kbd>C-g</kbd> returns to normal mode
 
 ### In `iedit state`
 
