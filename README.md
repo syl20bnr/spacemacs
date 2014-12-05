@@ -95,42 +95,48 @@ favorite package manager.
 
 # Install
 
-1) Backup your current `~/.emacs.d` and clone the repo _with the submodules_:
+1. If you have an existing Emacs configuration, back it up:
 
-    cd ~
-    mv .emacs.d .emacs.bak
-    git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
+   ```sh
+   cd
+   mv .emacs.d .emacs.bak
+   ```
 
-`master` is a stable branch, if you want the "bleeding edge" checkout the
-`develop` branch.
+2. Clone this repository _with its submodules_:
 
-2) Launch Emacs, the first time a bunch of packages will be downloaded and
-installed. When the package installation is complete restart Emacs and
-`Spacemacs` should be ready to use.
+   ```sh
+   git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
+   ```
 
-In case of failure see [troubleshoot section][troubleshoot] in documentation.
+   `master` is the stable branch and is regularly updated. Switch to the `develop`
+   branch if you want to use the bleeding-edge version.
+
+3. Launch Emacs. Spacemacs will automatically install the packages it requires.
+
+4. Restart Emacs to complete the installation.
+
+See the [troubleshooting][troubleshoot] guide if you have any issues.
 
 # Update
 
-For now the update of `Spacemacs` is manual.
+Spacemacs currently requires manual updates using the following procedure:
 
-1) It is important to _first_ update the Emacs packages. In Emacs:
+1. Update Emacs packages.
+  1. Open the package list using `<SPC> a P` or `M-x paradox-list-packages`
+  2. Mark all packages for updating by pressing `U`, and
+  3. install them with `x`.
 
-```
-<SPC> a P <wait> U x y <wait> y
-```
+  [See the documentation][using_package_buf] for more information about how to use
+  the package list.
 
-For more information about the package list buffer refer to
-[Using the package list buffer][using_package_buf] of the documentation.
+2. Close Emacs and update the git repository:
 
-2) Close Emacs and update the git repository:
+   ```sh
+   git pull --rebase
+   git submodule sync; git submodule update
+   ```
 
-```sh
-$ git pull --rebase
-$ git submodule sync; git submodule update
-```
-
-Then restart Emacs.
+3. Restart Emacs to complete the upgrade.
 
 # Configuration
 
