@@ -332,8 +332,13 @@ the contribution guidelines in [CONTRIBUTE.md][].
 This is a simple `contrib` configuration layer listing a bunch of themes,
 you can find it [here][themes-megapack].
 
-To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
-installed around 100 themes you are free to try with <kbd>SPC T h</kbd>
+To install it, just add `themes-megapack` to your `~/.spacemacs` like so:
+
+```elisp
+dotspacemacs-configuration-layers '(themes-megapack)
+```
+
+You have now installed around 100 themes you are free to try with <kbd>SPC T h</kbd>
 (helm-themes).
 
 ## Managing private configuration layers
