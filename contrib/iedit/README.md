@@ -70,6 +70,7 @@ To use this contribution add it to your `~/.spacemacs`
 <kbd>L</kbd>                    | restrict the scope to the current line
 <kbd>n</kbd>                    | go to next occurrence
 <kbd>N</kbd>                    | go to previous occurrence
+<kbd>p</kbd>                    | replace occurrences with last yanked (copied) text
 <kbd>r</kbd>                    | (replace) delete the occurrences and switch to `iedit-insert state`
 <kbd>v</kbd>                    | toggle visibility of lines with no occurrence
 <kbd>u</kbd>                    | undo (for convenience)
@@ -85,8 +86,9 @@ To use this contribution add it to your `~/.spacemacs`
 ## Examples
 
 - manual selection of several words then replace: <kbd>v w w SPC s e r "toto" Shift-Return</kbd>
-- replace symbol _with expand-region_: <kbd>SPC v v e r "toto" Shift-Return</kbd>
 - append text to a word on two lines: <kbd>SPC v i w SPC s e j i "toto" Shift-Return</kbd>
+- replace symbol _with expand-region_: <kbd>SPC v v e r "toto" Shift-Return</kbd>
+- replace symbol with yanked (copied) text _with expand region_: <kbd>v e p Shift-Return</kbd>
 
 ## Tips
 
