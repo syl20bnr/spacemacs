@@ -149,7 +149,7 @@ which of these features to enable.
 A configuration layer is a directory containing at least the following files:
 
 - `packages.el`: Defines and configures packages to be downloaded from Emacs package repositories
-- `exentsions.el`: Configures packages that do not need to be downloaded with
+- `extensions.el`: Configures packages that do not need to be downloaded with
   the package manager, such as built-in Emacs features and git submodules.
 
 You should create your own configuration layers in the [private][] directory.
@@ -161,7 +161,7 @@ _Caveat:_ For your privacy, the contents of the `private` directory are not
 under source control. See the documentation for a discussion on how to
 [manage your private configuration][manage_config].
 
-Any configuration layers you create must explicitly loaded in your
+Any configuration layers you create must be explicitly loaded in your
 `~/.spacemacs` file.
 
 ## Dotfile (.spacemacs)
