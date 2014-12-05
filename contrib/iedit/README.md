@@ -42,6 +42,7 @@ To use this contribution add it to your `~/.spacemacs`
 - <kbd>SPC s e</kbd> initiates the `iedit state` in normal mode.
 - <kbd>e</kbd> initiates the `iedit state` while expanding region.
 - <kbd>i</kbd> in `iedit state` triggers the `iedit-insert state`.
+- <kbd>ESC</kbd> in `iedit state` returns to `normal state`.
 - <kbd>ESC</kbd> in `iedit-insert state` returns to `iedit state`.
 - <kbd>Shift-Return</kbd> in `iedit-insert state` ends the edition and returns to `normal state`.
 
