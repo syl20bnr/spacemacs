@@ -1,10 +1,26 @@
 # iedit contribution layer for Spacemacs
 
-This layers replace [auto-highlight-symbol][] back end by [iedit][].
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [iedit contribution layer for Spacemacs](#iedit-contribution-layer-for-spacemacs)
+    - [Install](#install)
+    - [Key bindings](#key-bindings)
+        - [State transitions](#state-transitions)
+        - [In `iedit state`](#in-iedit-state)
+        - [In `iedit-insert state`](#in-iedit-insert-state)
+    - [Examples](#examples)
+    - [Tips](#tips)
+
+<!-- markdown-toc end -->
+
+This layer replaces [auto-highlight-symbol][] back end by [iedit][].
+
 It comes with two new evil states:
 - iedit state
 - iedit-insert state
-The state color code is `red`.
+
+These states color code is `red`.
 
 It has also a nice integration with [expand-region][] for quick edit
 of the current selected text by pressing <kbd>e</kbd>.
@@ -21,7 +37,15 @@ To use this contribution add it to your `~/.spacemacs`
 
 ## Key bindings
 
-In `iedit state`:
+### State transitions
+
+- <kbd>SPC s e</kbd> initiates the `iedit state` in normal mode.
+- <kbd>e</kbd> initiates the `iedit state` while expanding region.
+- <kbd>i</kbd> in `iedit state` triggers the `iedit-insert state`.
+- <kbd>ESC</kbd> in `iedit-insert state` returns to `iedit state`.
+- <kbd>Shift-Return</kbd> in `iedit-insert state` ends the edition and returns to `normal state`.
+
+### In `iedit state`
 
     Key Binding                 |                 Description
 --------------------------------|------------------------------------------------------------
@@ -45,7 +69,7 @@ In `iedit state`:
 <kbd>u</kbd>                    | undo (for convenience)
 <kbd>U</kbd>                    | Up-case the occurrences
 
-In `iedit-insert state`
+### In `iedit-insert state`
 
     Key Binding            |                 Description
 ---------------------------|------------------------------------------------------------
@@ -55,12 +79,12 @@ In `iedit-insert state`
 ## Examples
 
 - manual selection of several words then replace: <kbd>v w w SPC s e r "toto" Shift-Return</kbd>
-- replace symbol with expand-region: <kbd>SPC v v e r "toto" Shift-Return</kbd>
+- replace symbol _with expand-region_: <kbd>SPC v v e r "toto" Shift-Return</kbd>
 - append text to a word on two lines: <kbd>SPC v i w SPC s e j i "toto" Shift-Return</kbd>
 
 ## Tips
 
-<kbd>N</kbd> put the cursor at the beginning of the edited selection.
+The first <kbd>N</kbd> put the cursor at the beginning of the edited selection.
 
 [auto-highlight-symbol]: https://github.com/gennad/auto-highlight-symbol
 [iedit]: https://github.com/tsdh/iedit
