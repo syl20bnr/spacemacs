@@ -61,9 +61,13 @@ To use this contribution add it to your `~/.spacemacs`
 <kbd>G</kbd>                    | go to last occurrence
 <kbd>i</kbd>                    | switch to `iedit-insert state`
 <kbd>I</kbd>                    | toggle case-sensitivity
-<kbd>j</kbd>                    | increase the edition scope by one line below
-<kbd>k</kbd>                    | increase the edition scope by one line above
-<kbd>l</kbd>                    | restrict the scope to the current line
+<kbd>h</kbd>                    | evil-backward-char
+<kbd>j</kbd>                    | evil-next-visual-line
+<kbd>k</kbd>                    | evil-previous-visual-line
+<kbd>l</kbd>                    | evil-forward-char
+<kbd>J</kbd>                    | increase the edition scope by one line below
+<kbd>K</kbd>                    | increase the edition scope by one line above
+<kbd>L</kbd>                    | restrict the scope to the current line
 <kbd>n</kbd>                    | go to next occurrence
 <kbd>N</kbd>                    | go to previous occurrence
 <kbd>r</kbd>                    | (replace) delete the occurrences and switch to `iedit-insert state`
