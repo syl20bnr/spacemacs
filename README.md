@@ -140,38 +140,50 @@ Spacemacs currently requires manual updates using the following procedure:
 
 # Configuration
 
+`Spacemacs` divides its configuration into self-contained units called
+[configuration layers][config]. It uses a dotfile, `~/.spacemacs`, to control
+which of these features to enable.
+
 ## Configuration layers
 
-`Spacemacs` is based on [configuration layers][config]. To create your own
-configuration layer:
+A configuration layer is a directory containing at least the following files:
+
+- `packages.el`: Defines and configures packages to be downloaded from Emacs package repositories
+- `exentsions.el`: Configures packages that do not need to be downloaded with
+  the package manager, such as built-in Emacs features and git submodules.
+
+You should create your own configuration layers in the [private][] directory.
+The following command automates this process:
 
     <SPC> : config-system/create-layer RET
 
-After entering a name, a layer skeleton will be created in the [private][]
-directory where you'll find the following files:
-- `packages.el` to list the elpa packages
-- `exentsions.el` for any other package that is not available in a elpa
-repository.
+_Caveat:_ For your privacy, the contents of the `private` directory are not
+under source control. See the documentation for a discussion on how to
+[manage your private configuration][manage_config].
 
-The `private` directory is ignored by Git.
+Any configuration layers you create must explicitly loaded in your
+`~/.spacemacs` file.
 
-To use your newly created configuration layer, add it to your `~/.spacemacs`
-file (see next section).
+## Dotfile (.spacemacs)
 
-Note that this approach leaves your layer not source controlled. To get more
-info on the different approaches to manage your layers, refer to the
-[Managing private configuration layers][manage_config] section of the
-documentation.
+The `.spacemacs` file controls which features to load and provides a way to
+customize Spacemacs' loading sequence.
 
-## Dotfile ~/.spacemacs
-
-`Spacemacs` has a convenient dotfile. You have to install it by invoking the
-following command inside Emacs:
+The following command will create `.spacemacs` in your home directory:
 
     <SPC> : dotspacemacs/install RET
 
-Refers directly to the file `~/.spacemacs` to get documentation or
-navigate to the [dotfile configuration][dotfile] section of [DOCUMENTATION.md][].
+To load configuration layers, add them to the list beside
+`dotspacemacs-configuration-layers`:
+
+```lisp
+;; List of configuration layers to load.
+dotspacemacs-configuration-layers '(company-mode smex)
+```
+
+The comments in this file contain further information about how to customize
+Spacemacs. See the [dotfile configuration][dotfile] section of the documentation
+for more information.
 
 # Learning Spacemacs
 
