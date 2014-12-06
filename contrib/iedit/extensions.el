@@ -8,6 +8,12 @@
     (setq evil-iedit-state-cursor `(,(spacemacs/state-color 'iedit) box))   
     (setq evil-iedit-insert-state-cursor `((spacemacs/state-color 'iedit-insert) (bar . 2)))
     (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode)
+    ;; activate leader in iedit and iedit-insert states
+    (define-key evil-iedit-state-map
+      (kbd evil-leader/leader) evil-leader--default-map)
+    (define-key evil-iedit-insert-state-map
+      (kbd evil-leader/leader) evil-leader--default-map)
+    ;; evil-escape support
     (when (and (boundp 'evil-escape-mode)
                (symbol-value evil-escape-mode))
       (key-chord-define evil-iedit-state-map
