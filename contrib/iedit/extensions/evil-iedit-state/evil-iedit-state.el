@@ -4,9 +4,9 @@
 (evil-define-state iedit
   "`iedit state' interfacing iedit mode."
   :tag " <E> "
+  :enable (normal)
   :cursor box
-  :suppress-keymap t
-  :input-method nil
+  :message "-- IEDIT --"
   ;; force iedit mode
   (if (evil-replace-state-p) (call-interactively 'iedit-mode)))
 
@@ -14,7 +14,8 @@
   "Replace insert state in `iedit state'."
   :tag " <Ei> "
   :enable (insert)
-  :cursor (bar . 2))
+  :cursor (bar . 2)
+  :message "-- IEDIT-INSERT --")
 
 (defun evil-iedit-state/iedit-mode (&optional arg)
   "Start `iedit-mode'."
@@ -29,7 +30,14 @@
   (iedit-done)
   (evil-normal-state))
 
-(defun evil-iedit-state/replace ()
+(defmacro evil-iedit-state|wrap-evil-command (command)
+  "Call evil command and switch to iedit-insert state."
+  `(progn
+     (call-interactively ',command)
+     (evil-iedit-state)     ; required to correctly update the cursors
+     (evil-iedit-insert-state)))
+
+(defun evil-iedit-state/substitute ()
   "Wipe all the occurrences and switch in `iedit-insert state'"
   (interactive)
   (iedit-delete-occurrences)
@@ -38,15 +46,23 @@
 (defun evil-iedit-state/evil-change ()
   "Wipe all the occurrences and switch in `iedit-insert state'"
   (interactive)
-  (call-interactively 'evil-change)
-  (evil-iedit-state)  ; required to correctly update the cursors
-  (evil-iedit-insert-state))
+  (evil-iedit-state|wrap-evil-command evil-change))
 
 (defun evil-iedit-state/paste-replace (count)
   "Replace the selection with the yanked text."
   (interactive "P")
   (iedit-delete-occurrences)
   (evil-paste-before count))
+
+(defun evil-iedit-state/evil-append ()
+  "Append and switch to `iedit-insert state'"
+  (interactive)
+  (evil-iedit-state|wrap-evil-command evil-append))
+
+(defun evil-iedit-state/evil-substitute ()
+  "Append and switch to `iedit-insert state'"
+  (interactive)
+  (evil-iedit-state|wrap-evil-command evil-substitute))
 
 ;; expand-region integration, add an "e" command
 (eval-after-load 'expand-region
@@ -57,7 +73,7 @@
        (evil-iedit-state/iedit-mode arg)
        ;; hack to leave expand-region temporary overlay map
        ;; we choose a letter that is not in `iedit state'
-       (setq unread-command-events (listify-key-sequence "w")))
+       (setq unread-command-events (listify-key-sequence "kj")))
 
      (defadvice er/prepare-for-more-expansions-internal
          (around iedit/prepare-for-more-expansions-internal activate)
@@ -96,19 +112,14 @@ the initial string globally."
   (run-hooks 'iedit-mode-end-hook))
 
 (define-key evil-iedit-state-map "#"  'iedit-number-occurrences)
-(define-key evil-iedit-state-map "b"  'iedit-blank-occurrences)
-(define-key evil-iedit-state-map "B"  'iedit-toggle-buffering)
+(define-key evil-iedit-state-map "a"  'evil-iedit-state/evil-append)
 (define-key evil-iedit-state-map "c"  'evil-iedit-state/evil-change)
 (define-key evil-iedit-state-map "d"  'iedit-delete-occurrences)
 (define-key evil-iedit-state-map "D"  'iedit-downcase-occurrences)
-(define-key evil-iedit-state-map "f"  'iedit-restrict-function)
+(define-key evil-iedit-state-map "F"  'iedit-restrict-function)
 (define-key evil-iedit-state-map "gg" 'iedit-goto-first-occurrence)
 (define-key evil-iedit-state-map "G"  'iedit-goto-last-occurrence)
 (define-key evil-iedit-state-map "i"  'evil-iedit-insert-state)
-(define-key evil-iedit-state-map "h"  'evil-backward-char)
-(define-key evil-iedit-state-map "j"  'evil-next-visual-line)
-(define-key evil-iedit-state-map "k"  'evil-previous-visual-line)
-(define-key evil-iedit-state-map "l"  'evil-forward-char)
 (define-key evil-iedit-state-map "I"  'iedit-toggle-case-sensitive)
 (define-key evil-iedit-state-map "J"  'iedit-expand-down-a-line)
 (define-key evil-iedit-state-map "K"  'iedit-expand-up-a-line)
@@ -116,14 +127,15 @@ the initial string globally."
 (define-key evil-iedit-state-map "n"  'iedit-next-occurrence)
 (define-key evil-iedit-state-map "N"  'iedit-prev-occurrence)
 (define-key evil-iedit-state-map "p"  'evil-iedit-state/paste-replace)
-(define-key evil-iedit-state-map "r"  'evil-iedit-state/replace)
-(define-key evil-iedit-state-map "v"  'iedit-toggle-unmatched-lines-visible)
-(define-key evil-iedit-state-map "u"  'undo-tree-undo)
+(define-key evil-iedit-state-map "s"  'evil-iedit-state/evil-substitute)
+(define-key evil-iedit-state-map "S"  'evil-iedit-state/substitute)
+(define-key evil-iedit-state-map "V"  'iedit-toggle-unmatched-lines-visible)
 (define-key evil-iedit-state-map "U"  'iedit-upcase-occurrences)
-(define-key evil-iedit-state-map "\C-g" 'evil-iedit-state/quit-iedit-mode)
-(define-key evil-iedit-state-map [escape] 'evil-iedit-state/quit-iedit-mode)
+(define-key evil-iedit-state-map "\C-g"      'evil-iedit-state/quit-iedit-mode)
+(define-key evil-iedit-state-map [backspace] 'iedit-blank-occurrences)
+(define-key evil-iedit-state-map [escape]    'evil-iedit-state/quit-iedit-mode)
 
-(define-key evil-iedit-insert-state-map "\C-g" 'evil-iedit-state/quit-iedit-mode)
+(define-key evil-iedit-insert-state-map "\C-g"   'evil-iedit-state/quit-iedit-mode)
 (define-key evil-iedit-insert-state-map [escape] 'evil-iedit-state)
 
 (provide 'evil-iedit-state)
