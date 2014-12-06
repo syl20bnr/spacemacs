@@ -173,6 +173,10 @@ The following command will create `.spacemacs` in your home directory:
 
     <SPC> : dotspacemacs/install RET
 
+To open the installed dotfile:
+
+    <SPC> f e d
+
 To load configuration layers, add them to the list beside
 `dotspacemacs-configuration-layers`:
 
@@ -233,11 +237,20 @@ first.
 
 # FAQ
 
-- Why manually installed packages with `package-install` are automatically
-deleted by `Spacemacs` when it starts ?
+1. **Why installed packages with package-install are automatically deleted by
+Spacemacs when it starts ?**
 To declare new packages you have to create a new configuration layer, see
 the quick start guide [here](https://github.com/syl20bnr/spacemacs#configuration).
 
+2. **Why the fonts on Windows looks so crappy ?**
+You can installed [MacType][] on Windows to get very nice looking fonts. It is
+also recommended to disable the smooth scrolling on Windows.
+
+3. **Why the powerline has no arrows in terminal even with a patched font ?**
+Emacs powerline implementation does not use patched fonts. There exist currently
+no mode-lines in Emacs that support patched font.
+The corresponding feature request for the powerline can be found
+[here][pw-patched-fonts].
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [philosophy]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#philosophy
@@ -264,3 +277,5 @@ the quick start guide [here](https://github.com/syl20bnr/spacemacs#configuration
 [evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
+[pw-patched-fonts]: https://github.com/milkypostman/powerline/issues/15
+[MacType]: https://code.google.com/p/mactype/
