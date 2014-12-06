@@ -39,18 +39,28 @@ To use this contribution add it to your `~/.spacemacs`
 
 ### State transitions
 
+To `iedit state`:
 - <kbd>SPC s e</kbd> initiates the `iedit state` in normal mode.
 - <kbd>e</kbd> initiates the `iedit state` while expanding region.
-- <kbd>i</kbd> in `iedit state` triggers the `iedit-insert state`.
-- <kbd>ESC</kbd> in `iedit state` returns to `normal state`.
 - <kbd>ESC</kbd> in `iedit-insert state` returns to `iedit state`.
-- <kbd>Shift-Return</kbd> in `iedit-insert state` ends the edition and returns to `normal state`.
+
+To `iedit-insert state`
+- <kbd>i</kbd> in `iedit state` triggers the `iedit-insert state`.
+
+To `normal state`
+- <kbd>ESC</kbd> in `iedit state` returns to `normal state`.
 - <kbd>C-g</kbd> returns to normal mode
+- <kbd>fd</kbd> returns to normal mode (if `evil-escape` is enabled)
+
+To sum-up, in `iedit-insert state` you have to press <kbd>ESC</kbd> twice to
+go back to the `normal state`. You can also at any time press <kbd>C-g</kbd>
+or <kbd>fd</kbd> to return to `normal state`.
 
 ### In `iedit state`
 
     Key Binding                 |                 Description
 --------------------------------|------------------------------------------------------------
+<kbd>ESC</kbd>                  | go back to `normal state`
 <kbd>#</kbd>                    | prefix all occurrences with an increasing number
 <kbd>b</kbd>                    | make all occurrences blank
 <kbd>B</kbd>                    | toggle buffering (use it for large buffers with a lof of occurrences)
@@ -81,15 +91,15 @@ To use this contribution add it to your `~/.spacemacs`
 
     Key Binding            |                 Description
 ---------------------------|------------------------------------------------------------
-<kbd>Shift Return</kbd>    | end edition
 <kbd>ESC</kbd>             | go back to `iedit state`
+<kbd>C-g</kbd>             | go back to `normal state`
 
 ## Examples
 
-- manual selection of several words then replace: <kbd>v w w SPC s e r "toto" Shift-Return</kbd>
-- append text to a word on two lines: <kbd>SPC v i w SPC s e j i "toto" Shift-Return</kbd>
-- replace symbol _with expand-region_: <kbd>SPC v v e r "toto" Shift-Return</kbd>
-- replace symbol with yanked (copied) text _with expand region_: <kbd>v e p Shift-Return</kbd>
+- manual selection of several words then replace: <kbd>v w w SPC s e r "toto" ESC ESC</kbd>
+- append text to a word on two lines: <kbd>SPC v i w SPC s e j i "toto" ESC ESC</kbd>
+- replace symbol _with expand-region_: <kbd>SPC v v e r "toto" ESC ESC</kbd>
+- replace symbol with yanked (copied) text _with expand region_: <kbd>v e p ESC ESC</kbd>
 
 ## Tips
 
