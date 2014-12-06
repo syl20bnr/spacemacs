@@ -1635,9 +1635,9 @@ Custom fringe bitmaps:
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC C</kbd>     | compile
-<kbd>SPC R</kbd>     | recompile
-<kbd>SPC M</kbd>     | use `helm-make` via projectile
+<kbd>SPC c c</kbd>     | use `helm-make` via projectile
+<kbd>SPC c C</kbd>     | compile
+<kbd>SPC c r</kbd>     | recompile
 
 ## Modes
 
