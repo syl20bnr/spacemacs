@@ -312,17 +312,39 @@ which require an initialization must be listed explicitly in the list.")
                    (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
           (message "No symbol has been searched for now.")))
 
+      (defun spacemacs/integrate-evil-search (forward)
+        (eval '(progn
+                 ;; isearch-string is last searched item.  Next time
+                 ;; "n" is hit we will use this.
+                 (setq isearch-string (concat "\\<" (evil-find-thing forward 'symbol) "\\>"))
+                 ;; Next time "n" is hit, go the correct direction.
+                 (setq isearch-forward forward)
+                 ;; ahs does a case sensitive search.  We could set
+                 ;; this, but it would break the user's current
+                 ;; sensitivity settings.  We could save the setting,
+                 ;; then next time the user starts a search we could
+                 ;; restore the setting.
+                 ;;(setq case-fold-search nil)
+                 ;; Place the search term into the search rings.
+                 (isearch-update-ring isearch-string t)
+                 (evil-push-search-history isearch-string forward)
+                 ;; Use this search term for empty pattern "%s//replacement/"
+                 ;; Append case sensitivity
+                 (setq evil-ex-last-was-search nil
+                       evil-ex-substitute-pattern `(,(concat isearch-string "\\C") nil (0 0)))
+                 ) nil))
+
       (defun spacemacs/quick-ahs-forward ()
         "Go to the next occurrence of symbol under point with
 `auto-highlight-symbol'"
         (interactive)
-        (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
+        (eval '(progn (spacemacs/integrate-evil-search t) (ahs-highlight-now) (ahs-forward)) nil))
 
       (defun spacemacs/quick-ahs-backward ()
         "Go to the previous occurrence of symbol under point with
 `auto-highlight-symbol'"
         (interactive)
-        (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
+        (eval '(progn (spacemacs/integrate-evil-search nil) (ahs-highlight-now) (ahs-backward)) nil))
 
       (eval-after-load 'evil
         '(progn
