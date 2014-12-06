@@ -705,7 +705,6 @@ determine the state to enable when escaping from the insert state.")
         "cl" 'evilnc-comment-or-uncomment-lines
         "ci" 'evilnc-toggle-invert-comment-line-by-line
         "cp" 'evilnc-comment-or-uncomment-paragraphs
-        "cr" 'comment-or-uncomment-region
         "ct" 'evilnc-quick-comment-or-uncomment-to-the-line
         "cy" 'evilnc-copy-and-comment-lines))))
 
