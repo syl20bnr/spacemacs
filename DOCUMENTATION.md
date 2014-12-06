@@ -1843,6 +1843,10 @@ To activate it, set `dotspacemacs-feature-toggle-leader-on-jk` to `t`.
 (setq-default dotspacemacs-feature-toggle-leader-on-jk t)
 ```
 
+### Smooth fonts on Windows
+
+To get smooth fonts on Windows install [MacType][].
+
 More info on this feature:
 - [insert state](#experimental-insert-state-feature)
 - [helm](#experimental-helm-feature)
@@ -1957,3 +1961,4 @@ developers to elisp hackers!
 [use-package]: https://github.com/jwiegley/use-package
 [Paradox]: https://github.com/Bruce-Connor/paradox
 [fancy-battery]: https://github.com/lunaryorn/fancy-battery.el
+[MacType]: https://code.google.com/p/mactype/
