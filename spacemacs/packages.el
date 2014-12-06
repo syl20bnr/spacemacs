@@ -666,7 +666,7 @@ determine the state to enable when escaping from the insert state.")
     :init
     (progn
       (setq evil-leader/in-all-states t
-            evil-leader/leader "SPC"
+            evil-leader/leader dotspacemacs-leader-key
             evil-leader/non-normal-prefix "s-")
       ;; give name to spacemacs prefixes
       (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
@@ -677,14 +677,14 @@ determine the state to enable when escaping from the insert state.")
       ;; Unset shortcuts which shadow evil leader
       (eval-after-load "compile"
         '(progn
-           (define-key compilation-mode-map (kbd "SPC") nil)
+           (define-key compilation-mode-map (kbd dotspacemacs-leader-key) nil)
            (define-key compilation-mode-map (kbd "h") nil)))
       (eval-after-load "dired"
-        '(define-key dired-mode-map (kbd "SPC") nil))
+        '(define-key dired-mode-map (kbd dotspacemacs-leader-key) nil))
       ;; make leader available in visual mode
-      (define-key evil-visual-state-map (kbd "SPC")
+      (define-key evil-visual-state-map (kbd dotspacemacs-leader-key)
         evil-leader--default-map)
-      (define-key evil-motion-state-map (kbd "SPC")
+      (define-key evil-motion-state-map (kbd dotspacemacs-leader-key)
         evil-leader--default-map)
       ;; experimental: invoke leader with "jk" in insert mode
       (when dotspacemacs-feature-toggle-leader-on-jk
@@ -1120,7 +1120,12 @@ determine the state to enable when escaping from the insert state.")
             (guide-key-mode -1)
           (guide-key-mode)))
       (evil-leader/set-key "tG" 'spacemacs/toggle-guide-key)
-      (setq guide-key/guide-key-sequence '("C-x" "C-c" "SPC" "g" "z" "C-h")
+      (setq guide-key/guide-key-sequence '("C-x"
+                                           "C-c"
+                                           dotspacemacs-leader-key
+                                           "g"
+                                           "z"
+                                           "C-h")
             guide-key/recursive-key-sequence-flag t
             guide-key/popup-window-position 'right
             guide-key/idle-delay dotspacemacs-guide-key-delay
