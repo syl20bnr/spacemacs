@@ -68,6 +68,7 @@
         - [Ido](#ido)
             - [Experimental Ido feature](#experimental-ido-feature)
         - [NeoTree file tree](#neotree-file-tree)
+        - [Shells](#shells)
         - [Bookmarks](#bookmarks)
     - [Searching](#searching)
         - [Project Searching](#project-searching)
@@ -118,6 +119,7 @@
     - [Tips for Spacemacs advanced users](#tips-for-spacemacs-advanced-users)
         - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
         - ["jk" to trigger evil leader](#jk-to-trigger-evil-leader)
+        - [Smooth fonts on Windows](#smooth-fonts-on-windows)
 - [Achievements](#achievements)
 - [Thank you](#thank-you)
 
@@ -1057,6 +1059,17 @@ Key Binding                      |                 Description
 <kbd>K</kbd>                     | kill corresponding buffer
 <kbd>q</kbd> or <kbd>fd</kbd>    | hide `NeoTree` buffer
 <kbd>r</kbd>                     | rename a node
+
+### Shells
+
+Navigating in shell buffers can be tricky because it is not possible to use the
+leader in `insert state`. Switching back and forth between normal and insert
+states can be tedious.
+
+There are two solutions for this:
+- use <kbd>C-o</kbd> then use the leader key
+- enable the [leader on `jk`](#experimental-insert-state-feature)
+experimental feature.
 
 ### Bookmarks
 
