@@ -98,7 +98,7 @@ favorite package manager.
 1. If you have an existing Emacs configuration, back it up:
 
    ```sh
-   cd
+   cd ~
    mv .emacs.d .emacs.bak
    ```
 
@@ -204,7 +204,7 @@ It is also possible to search for specific key bindings by pressing:
 To narrow the list to `Spacemacs` key bindings starting with prefix `<SPC>`,
 set the pattern to something like the regular expression:
 
-    `SPC\ b`
+    SPC\ b
 
 The example above will list all the `buffer` related bindings.
 
