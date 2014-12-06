@@ -23,6 +23,7 @@
       (key-chord-define evil-iedit-insert-state-map
                         evil-escape-key-sequence
                         'evil-iedit-state/quit-iedit-mode)))
+
   ;; override the basic edit mode from ahs everywhere
   (eval-after-load 'auto-highlight-symbol
     '(progn
