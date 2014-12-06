@@ -1,8 +1,9 @@
 (defvar iedit-post-extensions '(evil-iedit-state))
 
 (defun iedit/init-evil-iedit-state ()
-  (spacemacs/defface-state-color 'iedit "IndianRed1")
-  (spacemacs/defface-state-color 'iedit-insert "IndianRed1")
+  (spacemacs/defface-state-color 'iedit "firebrick1")
+  (spacemacs/defface-state-color 'iedit-insert "firebrick1")
+
   (defun iedit//lazy-load ()
     (require 'evil-iedit-state)
     (setq evil-iedit-state-cursor `(,(spacemacs/state-color 'iedit) box))   
