@@ -125,6 +125,5 @@ the initial string globally."
 
 (define-key evil-iedit-insert-state-map "\C-g" 'evil-iedit-state/quit-iedit-mode)
 (define-key evil-iedit-insert-state-map [escape] 'evil-iedit-state)
-(define-key evil-iedit-insert-state-map [(shift return)] 'evil-iedit-state/quit-iedit-mode)
 
 (provide 'evil-iedit-state)
