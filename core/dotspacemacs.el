@@ -10,6 +10,9 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
 (defvar dotspacemacs-default-theme 'solarized-light
   "Default theme used to start Spacemacs.")
 
+(defvar dotspacemacs-leader-key "SPC"
+  "The leader key.")
+
 (defvar dotspacemacs-guide-key-delay 0.4
   "Guide-key delay in seconds.")
 

@@ -191,6 +191,14 @@ for more information.
 
 # Learning Spacemacs
 
+## The leader key
+
+Spacemacs key bindings use a leader key which is set by default to
+<kbd>SPC</kbd> key (space bar).
+
+You can change it easily by setting the variable `dotspacemacs-leader-key` in
+your `~/.spacemacs` file.
+
 ## Universal argument
 
 In spacemacs the universal argument is by default on `<SPC> u` instead of `C-u`
