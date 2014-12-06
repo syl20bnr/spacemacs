@@ -39,24 +39,24 @@ To use this contribution add it to your `~/.spacemacs`
 
 ### State transitions
 
-To `iedit state`:
-- <kbd>SPC s e</kbd> initiates the `iedit state` in normal mode.
-- <kbd>e</kbd> initiates the `iedit state` while expanding region.
-- <kbd>ESC</kbd> in `iedit-insert state` returns to `iedit state`.
 
-To `iedit-insert state`
-- evil commands which switch to `insert state` will switch in
-`iedit-insert state`.
-
-To `normal state`
-- <kbd>ESC</kbd> in `iedit state` returns to `normal state`.
-- <kbd>ESC</kbd> in `iedit-insert state` returns to `iedit state`.
-- <kbd>C-g</kbd> returns to normal mode
-- <kbd>fd</kbd> returns to normal mode (if `evil-escape` is enabled)
+    Key Binding    |       From         |          To
+-------------------|:------------------:|:-------------------------:
+<kbd>SPC s e</kbd> | normal or visual   | iedit
+<kbd>e</kbd>       | expand-region      | iedit
+<kbd>ESC</kbd>     | iedit              | normal
+<kbd>C-g</kbd>     | iedit              | normal
+<kbd>fd</kbd>      | iedit              | normal
+<kbd>ESC</kbd>     | iedit-insert       | iedit
+<kbd>C-g</kbd>     | iedit-insert       | normal
+<kbd>fd</kbd>      | iedit-insert       | normal
 
 To sum-up, in `iedit-insert state` you have to press <kbd>ESC</kbd> twice to
 go back to the `normal state`. You can also at any time press <kbd>C-g</kbd>
 or <kbd>fd</kbd> to return to `normal state`.
+
+**Note:** evil commands which switch to `insert state` will switch in
+`iedit-insert state`.
 
 ### In `iedit state`
 
@@ -67,8 +67,7 @@ specific to `iedit state`.
 ------------------|------------------------------------------------------------
 <kbd>ESC</kbd>    | go back to `normal state`
 <kbd>#</kbd>      | prefix all occurrences with an increasing number (<kbd>SPC u</kbd> to choose the starting number).
-<kbd>d</kbd>      | delete the occurrences
-<kbd>D</kbd>      | down-case the occurrences
+<kbd>D</kbd>      | delete the occurrences
 <kbd>F</kbd>      | restrict the scope to the function
 <kbd>gg</kbd>     | go to first occurrence
 <kbd>G</kbd>      | go to last occurrence
@@ -82,6 +81,7 @@ specific to `iedit state`.
 <kbd>S</kbd>      | (substitute) delete the occurrences and switch to `iedit-insert state`
 <kbd>V</kbd>      | toggle visibility of lines with no occurrence
 <kbd>U</kbd>      | Up-case the occurrences
+<kbd>C-U</kbd>    | down-case the occurrences
 
 ### In `iedit-insert state`
 
