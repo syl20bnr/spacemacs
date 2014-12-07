@@ -43,11 +43,17 @@ If INTERACTIVE is non-nil then COMMAND is called interactively."
 
 (defun evil-iedit-state//goto-overlay-start ()
   "Return the position of the start of the current overlay."
-  (goto-char (overlay-start (iedit-find-current-occurrence-overlay))))
+  (let ((overlay (iedit-find-current-occurrence-overlay)))
+    (if overlay
+        (goto-char (overlay-start overlay))
+      (call-interactively 'evil-digit-argument-or-evil-beginning-of-line))))
 
 (defun evil-iedit-state//goto-overlay-end ()
   "Return the position of the end of the current overlay."
-  (goto-char (overlay-end (iedit-find-current-occurrence-overlay))))
+  (let ((overlay (iedit-find-current-occurrence-overlay)))
+    (if overlay
+        (goto-char (overlay-end overlay))
+      (call-interactively 'evil-end-of-line))))
 
 (defun evil-iedit-state/evil-beginning-of-line (count)
   "Go to the beginning of the current overlay."
