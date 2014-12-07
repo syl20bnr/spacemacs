@@ -30,12 +30,48 @@
   (iedit-done)
   (evil-normal-state))
 
-(defmacro evil-iedit-state|wrap-evil-command (command)
-  "Call evil command and switch to iedit-insert state."
+(defmacro evil-iedit-state||swith-to-insert-state-after-command (command &optional interactive)
+  "Call COMMAND and switch to iedit-insert state.
+If INTERACTIVE is non-nil then COMMAND is called interactively."
   `(progn
-     (call-interactively ',command)
-     (evil-iedit-state)     ; required to correctly update the cursors
+     (if ,interactive
+         (call-interactively ',command)
+       (funcall ',command))
+     ;; required to correctly update the cursors
+     (evil-iedit-state)
      (evil-iedit-insert-state)))
+
+(defun evil-iedit-state//goto-overlay-start ()
+  "Return the position of the start of the current overlay."
+  (goto-char (overlay-start (iedit-find-current-occurrence-overlay))))
+
+(defun evil-iedit-state//goto-overlay-end ()
+  "Return the position of the end of the current overlay."
+  (goto-char (overlay-end (iedit-find-current-occurrence-overlay))))
+
+(defun evil-iedit-state/evil-beginning-of-line (count)
+  "Go to the beginning of the current overlay."
+  (interactive "p")
+  (evil-iedit-state//goto-overlay-start))
+
+(defun evil-iedit-state/evil-end-of-line ()
+  "Go to the beginning of the current overlay."
+  (interactive)
+  (evil-iedit-state//goto-overlay-end))
+
+(defun evil-iedit-state/evil-append-line ()
+  "Put the point at then end of current overlay and switch to
+`iedit-insert state'."
+  (interactive)
+  (evil-iedit-state||swith-to-insert-state-after-command
+   evil-iedit-state//goto-overlay-end))
+
+(defun evil-iedit-state/evil-insert-line ()
+  "Put the point at then end of current overlay and switch to
+`iedit-insert state'."
+  (interactive)
+  (evil-iedit-state||swith-to-insert-state-after-command
+   evil-iedit-state//goto-overlay-start))
 
 (defun evil-iedit-state/substitute ()
   "Wipe all the occurrences and switch in `iedit-insert state'"
@@ -46,7 +82,7 @@
 (defun evil-iedit-state/evil-change ()
   "Wipe all the occurrences and switch in `iedit-insert state'"
   (interactive)
-  (evil-iedit-state|wrap-evil-command evil-change))
+  (evil-iedit-state||swith-to-insert-state-after-command evil-change t))
 
 (defun evil-iedit-state/paste-replace (count)
   "Replace the selection with the yanked text."
@@ -57,12 +93,12 @@
 (defun evil-iedit-state/evil-append ()
   "Append and switch to `iedit-insert state'"
   (interactive)
-  (evil-iedit-state|wrap-evil-command evil-append))
+  (evil-iedit-state||swith-to-insert-state-after-command evil-append t))
 
 (defun evil-iedit-state/evil-substitute ()
   "Append and switch to `iedit-insert state'"
   (interactive)
-  (evil-iedit-state|wrap-evil-command evil-substitute))
+  (evil-iedit-state||swith-to-insert-state-after-command evil-substitute t))
 
 ;; expand-region integration, add an "e" command
 (eval-after-load 'expand-region
@@ -112,14 +148,17 @@ the initial string globally."
   (run-hooks 'iedit-mode-end-hook))
 
 (define-key evil-iedit-state-map "#"   'iedit-number-occurrences)
+(define-key evil-iedit-state-map "$"   'evil-iedit-state/evil-end-of-line)
+(evil-redirect-digit-argument evil-iedit-state-map "0" 'evil-iedit-state/evil-beginning-of-line)
 (define-key evil-iedit-state-map "a"   'evil-iedit-state/evil-append)
+(define-key evil-iedit-state-map "A"   'evil-iedit-state/evil-append-line)
 (define-key evil-iedit-state-map "c"   'evil-iedit-state/evil-change)
 (define-key evil-iedit-state-map "D"   'iedit-delete-occurrences)
 (define-key evil-iedit-state-map "F"   'iedit-restrict-function)
 (define-key evil-iedit-state-map "gg"  'iedit-goto-first-occurrence)
 (define-key evil-iedit-state-map "G"   'iedit-goto-last-occurrence)
 (define-key evil-iedit-state-map "i"   'evil-iedit-insert-state)
-(define-key evil-iedit-state-map "I"   'iedit-toggle-case-sensitive)
+(define-key evil-iedit-state-map "I"   'evil-iedit-state/evil-insert-line)
 (define-key evil-iedit-state-map "J"   'iedit-expand-down-a-line)
 (define-key evil-iedit-state-map "K"   'iedit-expand-up-a-line)
 (define-key evil-iedit-state-map "L"   'iedit-restrict-current-line)
@@ -137,5 +176,9 @@ the initial string globally."
 
 (define-key evil-iedit-insert-state-map "\C-g"   'evil-iedit-state/quit-iedit-mode)
 (define-key evil-iedit-insert-state-map [escape] 'evil-iedit-state)
+
+;; unbound iedit commands:
+;; toggle buffering
+;; toggle case sensitive
 
 (provide 'evil-iedit-state)
