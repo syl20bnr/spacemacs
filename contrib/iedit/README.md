@@ -85,6 +85,9 @@ specific to `iedit state`.
 <kbd>U</kbd>      | Up-case the occurrences
 <kbd>C-U</kbd>    | down-case the occurrences
 
+**Note:** <kbd>0</kbd>, <kbd>$</kbd>, <kbd>A</kbd> and <kbd>I</kbd> have the
+default Vim behavior when used outside of an occurrence.
+
 ### In iedit-insert state
 
     Key Binding            |                 Description
