@@ -12,8 +12,6 @@
     ;; activate leader in iedit and iedit-insert states
     (define-key evil-iedit-state-map
       (kbd evil-leader/leader) evil-leader--default-map)
-    (define-key evil-iedit-insert-state-map
-      (kbd evil-leader/leader) evil-leader--default-map)
     ;; evil-escape support
     (when (and (boundp 'evil-escape-mode)
                (symbol-value evil-escape-mode))

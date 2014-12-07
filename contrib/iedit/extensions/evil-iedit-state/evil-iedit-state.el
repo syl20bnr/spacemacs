@@ -43,11 +43,17 @@ If INTERACTIVE is non-nil then COMMAND is called interactively."
 
 (defun evil-iedit-state//goto-overlay-start ()
   "Return the position of the start of the current overlay."
-  (goto-char (overlay-start (iedit-find-current-occurrence-overlay))))
+  (let ((overlay (iedit-find-current-occurrence-overlay)))
+    (if overlay
+        (goto-char (overlay-start overlay))
+      (call-interactively 'evil-digit-argument-or-evil-beginning-of-line))))
 
 (defun evil-iedit-state//goto-overlay-end ()
   "Return the position of the end of the current overlay."
-  (goto-char (overlay-end (iedit-find-current-occurrence-overlay))))
+  (let ((overlay (iedit-find-current-occurrence-overlay)))
+    (if overlay
+        (goto-char (overlay-end overlay))
+      (call-interactively 'evil-end-of-line))))
 
 (defun evil-iedit-state/evil-beginning-of-line (count)
   "Go to the beginning of the current overlay."
@@ -84,21 +90,31 @@ If INTERACTIVE is non-nil then COMMAND is called interactively."
   (interactive)
   (evil-iedit-state||swith-to-insert-state-after-command evil-change t))
 
-(defun evil-iedit-state/paste-replace (count)
-  "Replace the selection with the yanked text."
-  (interactive "P")
-  (iedit-delete-occurrences)
-  (evil-paste-before count))
-
 (defun evil-iedit-state/evil-append ()
   "Append and switch to `iedit-insert state'"
   (interactive)
   (evil-iedit-state||swith-to-insert-state-after-command evil-append t))
 
+(defun evil-iedit-state/evil-open-below ()
+  "Insert new line below and switch to `iedit-insert state'"
+  (interactive)
+  (evil-iedit-state||swith-to-insert-state-after-command evil-open-below t))
+
+(defun evil-iedit-state/evil-open-above ()
+  "Insert new line above and switch to `iedit-insert state'"
+  (interactive)
+  (evil-iedit-state||swith-to-insert-state-after-command evil-open-above t))
+
 (defun evil-iedit-state/evil-substitute ()
   "Append and switch to `iedit-insert state'"
   (interactive)
   (evil-iedit-state||swith-to-insert-state-after-command evil-substitute t))
+
+(defun evil-iedit-state/paste-replace (count)
+  "Replace the selection with the yanked text."
+  (interactive "P")
+  (iedit-delete-occurrences)
+  (evil-paste-before count))
 
 ;; expand-region integration, add an "e" command
 (eval-after-load 'expand-region
@@ -164,18 +180,21 @@ the initial string globally."
 (define-key evil-iedit-state-map "L"   'iedit-restrict-current-line)
 (define-key evil-iedit-state-map "n"   'iedit-next-occurrence)
 (define-key evil-iedit-state-map "N"   'iedit-prev-occurrence)
+(define-key evil-iedit-state-map "o"   'evil-iedit-state/evil-open-below)
+(define-key evil-iedit-state-map "O"   'evil-iedit-state/evil-open-above)
 (define-key evil-iedit-state-map "p"   'evil-iedit-state/paste-replace)
 (define-key evil-iedit-state-map "s"   'evil-iedit-state/evil-substitute)
 (define-key evil-iedit-state-map "S"   'evil-iedit-state/substitute)
 (define-key evil-iedit-state-map "V"   'iedit-toggle-unmatched-lines-visible)
 (define-key evil-iedit-state-map "U"   'iedit-upcase-occurrences)
-(define-key evil-iedit-state-map "C-U" 'iedit-downcase-occurrences)
-(define-key evil-iedit-state-map "\C-g"      'evil-iedit-state/quit-iedit-mode)
+(define-key evil-iedit-state-map (kbd "C-U") 'iedit-downcase-occurrences)
+(define-key evil-iedit-state-map (kbd "C-g")'evil-iedit-state/quit-iedit-mode)
+(define-key evil-iedit-state-map [tab] 'iedit-toggle-selection)
 (define-key evil-iedit-state-map [backspace] 'iedit-blank-occurrences)
 (define-key evil-iedit-state-map [escape]    'evil-iedit-state/quit-iedit-mode)
 
-(define-key evil-iedit-insert-state-map "\C-g"   'evil-iedit-state/quit-iedit-mode)
-(define-key evil-iedit-insert-state-map [escape] 'evil-iedit-state)
+(define-key evil-iedit-insert-state-map (kbd "C-g") 'evil-iedit-state/quit-iedit-mode)
+(define-key evil-iedit-insert-state-map [escape]    'evil-iedit-state)
 
 ;; unbound iedit commands:
 ;; toggle buffering

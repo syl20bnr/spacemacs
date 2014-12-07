@@ -65,15 +65,16 @@ specific to `iedit state`.
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
 <kbd>ESC</kbd>    | go back to `normal state`
-<kbd>0</kbd>      | go to then beginning of the current occurrence
-<kbd>$</kbd>      | go to then end of the current occurrence
+<kbd>TAB</kbd>    | toggle current occurrence
+<kbd>0</kbd>      | go to the beginning of the current occurrence
+<kbd>$</kbd>      | go to the end of the current occurrence
 <kbd>#</kbd>      | prefix all occurrences with an increasing number (<kbd>SPC u</kbd> to choose the starting number).
-<kbd>A</kbd>      | go to the beginning of the current occurrence and switch to `iedit-insert state`
+<kbd>A</kbd>      | go to the end of the current occurrence and switch to `iedit-insert state`
 <kbd>D</kbd>      | delete the occurrences
 <kbd>F</kbd>      | restrict the scope to the function
 <kbd>gg</kbd>     | go to first occurrence
 <kbd>G</kbd>      | go to last occurrence
-<kbd>I</kbd>      | go to the end of the current occurrence and switch to `iedit-insert state`
+<kbd>I</kbd>      | go to the beginning of the current occurrence and switch to `iedit-insert state`
 <kbd>J</kbd>      | increase the edition scope by one line below
 <kbd>K</kbd>      | increase the edition scope by one line above
 <kbd>L</kbd>      | restrict the scope to the current line
@@ -84,6 +85,9 @@ specific to `iedit state`.
 <kbd>V</kbd>      | toggle visibility of lines with no occurrence
 <kbd>U</kbd>      | Up-case the occurrences
 <kbd>C-U</kbd>    | down-case the occurrences
+
+**Note:** <kbd>0</kbd>, <kbd>$</kbd>, <kbd>A</kbd> and <kbd>I</kbd> have the
+default Vim behavior when used outside of an occurrence.
 
 ### In iedit-insert state
 
