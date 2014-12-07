@@ -348,7 +348,7 @@ argument takes the kindows rotate backwards."
             (buffer-name))))
 
 ;; http://camdez.com/blog/2013/11/14/emacs-show-buffer-file-name/
-(defun camdez/show-buffer-file-name ()
+(defun show-and-copy-buffer-filename ()
   "Show the full path to the current file in the minibuffer."
   (interactive)
   (let ((file-name (buffer-file-name)))
