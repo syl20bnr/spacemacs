@@ -67,7 +67,6 @@
     hl-anything
     hy-mode
     ido-vertical-mode
-    js2-mode
     json-mode
     ledger-mode
     less-css-mode
@@ -118,7 +117,6 @@
     string-edit
     subword
     tagedit
-    tern-auto-complete
     undo-tree
     vi-tilde-fringe
     visual-regexp-steroids
@@ -1339,12 +1337,6 @@ determine the state to enable when escaping from the insert state.")
       (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys))
       ))
 
-(defun spacemacs/init-js2-mode ()
-  (use-package js2-mode
-    :commands (js2-minor-mode)
-    :init
-    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))))
-
 (defun spacemacs/init-json-mode ()
   (use-package json-mode
     :defer t))
@@ -1992,14 +1984,6 @@ determine the state to enable when escaping from the insert state.")
       (tagedit-add-experimental-features)
       (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
       (spacemacs|diminish tagedit-mode " Ⓣ"))))
-
-(defun spacemacs/init-tern-auto-complete ()
-  (use-package tern-auto-complete
-    :defer t
-    :init
-    (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-    :config
-    (tern-ac-setup)))
 
 (defun spacemacs/init-undo-tree ()
   (use-package undo-tree

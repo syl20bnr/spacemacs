@@ -1761,20 +1761,8 @@ Writing python code with spacemacs is supported by python contribution. Please s
 
 ### JavaScript
 
-[js2-mode][] will activate for all `*.js` files, along with
-[tern-auto-complete][] which will provide the best JavaScript
-completion currently available. Just make sure you have the [tern][]
-NPM module installed.
-
-Tern includes the following key bindings:
-
-    Key Binding     |                 Description
---------------------|------------------------------------------------------------
-<kbd>M-.</kbd>      | jump to the definition of the thing under the cursor.
-<kbd>M-,</kbd>      | brings you back to last place you were when you pressed M-..
-<kbd>C-c C-r</kbd>  | rename the variable under the cursor.
-<kbd>C-c C-c</kbd>  | find the type of the thing under the cursor.
-<kbd>C-c C-d</kbd>  | find docs of the thing under the cursor. Press again to open the associated URL (if any).
+More featured JavaScript support is provided by the javascript contribution. Please see
+[javascript contribution][javascript-contrib] documentation for detail.
 
 ### rcirc
 
@@ -1950,9 +1938,7 @@ developers to elisp hackers!
 [issues]: https://github.com/syl20bnr/spacemacs/issues
 [vundle]: https://github.com/gmarik/Vundle.vim
 [anzu]: https://github.com/syohex/emacs-anzu
-[js2-mode]: https://github.com/mooz/js2-mode
-[tern-auto-complete]: https://github.com/marijnh/tern/blob/master/emacs/tern-auto-complete.el
-[tern]: http://ternjs.net/
+[javascript-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/javascript
 [themes-megapack]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/themes-megapack
 [python-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/python
 [guide-key]: https://github.com/kai2nenobu/guide-key

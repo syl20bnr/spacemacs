@@ -58,6 +58,14 @@ a key sequence. NAME is a symbol name used as the prefix command."
     (define-prefix-command command)
     (evil-leader/set-key prefix command)))
 
+(defun spacemacs/declare-prefix-for-mode (mode prefix name)
+  "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
+be added. PREFIX is a string describing a key sequence. NAME is a symbol name
+used as the prefix command."
+  (let ((command (intern (concat spacemacs/prefix-command-string name))))
+    (define-prefix-command command)
+    (evil-leader/set-key-for-mode mode prefix command)))
+
 (defun spacemacs/activate-evil-leader-for-maps (map-list)
   "Remove the evil-leader binding from all the maps in MAP-LIST."
   (mapc (lambda (x)
