@@ -65,6 +65,7 @@ specific to `iedit state`.
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
 <kbd>ESC</kbd>    | go back to `normal state`
+<kbd>TAB</kbd>    | toggle current occurrence
 <kbd>0</kbd>      | go to the beginning of the current occurrence
 <kbd>$</kbd>      | go to the end of the current occurrence
 <kbd>#</kbd>      | prefix all occurrences with an increasing number (<kbd>SPC u</kbd> to choose the starting number).
