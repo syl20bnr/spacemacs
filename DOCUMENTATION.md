@@ -1935,7 +1935,6 @@ developers to elisp hackers!
 [nose.el]: https://github.com/syl20bnr/nose.el
 [pylookup]: https://github.com/tsgates/pylookup
 [jedi]: https://github.com/tkf/emacs-jedi
-[edts]: https://github.com/tjarvstrand/edts
 [ess-R-object-popup]: https://github.com/myuhe/ess-R-object-popup.el
 [ess-R-data-view]: https://github.com/myuhe/ess-R-data-view.el
 [leuven-theme]: https://github.com/fniessen/emacs-leuven-theme
