@@ -169,13 +169,13 @@ the initial string globally."
 (define-key evil-iedit-state-map "S"   'evil-iedit-state/substitute)
 (define-key evil-iedit-state-map "V"   'iedit-toggle-unmatched-lines-visible)
 (define-key evil-iedit-state-map "U"   'iedit-upcase-occurrences)
-(define-key evil-iedit-state-map "C-U" 'iedit-downcase-occurrences)
-(define-key evil-iedit-state-map "\C-g"      'evil-iedit-state/quit-iedit-mode)
+(define-key evil-iedit-state-map (kbd "C-U") 'iedit-downcase-occurrences)
+(define-key evil-iedit-state-map (kbd "C-g")'evil-iedit-state/quit-iedit-mode)
 (define-key evil-iedit-state-map [backspace] 'iedit-blank-occurrences)
 (define-key evil-iedit-state-map [escape]    'evil-iedit-state/quit-iedit-mode)
 
-(define-key evil-iedit-insert-state-map "\C-g"   'evil-iedit-state/quit-iedit-mode)
-(define-key evil-iedit-insert-state-map [escape] 'evil-iedit-state)
+(define-key evil-iedit-insert-state-map (kbd "C-g") 'evil-iedit-state/quit-iedit-mode)
+(define-key evil-iedit-insert-state-map [escape]    'evil-iedit-state)
 
 ;; unbound iedit commands:
 ;; toggle buffering
