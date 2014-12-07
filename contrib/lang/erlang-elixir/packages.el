@@ -18,11 +18,27 @@ which require an initialization must be listed explicitly in the list.")
 (defvar erlang-elixir-excluded-packages '()
   "List of packages to exclude.")
 
+(defvar spacemacs-erlang-elixir-use-edts nil
+  "If non-nil then `EDTS' is loaded with `erlang-mode'. This variable
+must be defined in `dotspacemacs/init' function to take effect.")
+
 (defun erlang-elixir/init-auto-complete ()
   (add-hook 'erlang-mode-hook 'auto-complete-mode))
 
 (defun erlang-elixir/init-auto-highlight-symbol ()
   (add-hook 'erlang-mode-hook 'auto-highlight-symbol-mode))
+
+(defun erlang-elixir/init-edts ()
+
+  (defun erlang-elixir//load-edts ()
+    "Return non-nil if EDTS can be loaded."
+    (and spacemacs-erlang-elixir-use-edts
+         (not (eq window-system 'w32))))
+
+  (defun erlang-elixir//edts-start ()
+    "Starts EDTS."
+    (if (erlang-elixir//load-edts)
+        (require 'edts-start))))
 
 (defun erlang-elixir/init-elixir-mode ()
   (use-package elixir-mode
@@ -56,8 +72,9 @@ which require an initialization must be listed explicitly in the list.")
                   ;; when starting an Erlang shell in Emacs, with a custom node name
                   (setq inferior-erlang-machine-options '("-sname" "syl20bnr"))
                   ))
-      (unless (eq window-system 'w32)
-          (require 'edts-start))
+      (if (and (fboundp 'erlang-elixir//load-edts)
+               (erlang-elixir//load-edts))
+          (erlang-elixir//edts-start))
       ;; (setq edts-log-level 'debug)
       ;; (setq edts-face-inhibit-mode-line-updates t)
       (evil-leader/set-key-for-mode 'erlang-mode
