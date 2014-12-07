@@ -1120,9 +1120,9 @@ determine the state to enable when escaping from the insert state.")
             (guide-key-mode -1)
           (guide-key-mode)))
       (evil-leader/set-key "tG" 'spacemacs/toggle-guide-key)
-      (setq guide-key/guide-key-sequence '("C-x"
+      (setq guide-key/guide-key-sequence `("C-x"
                                            "C-c"
-                                           dotspacemacs-leader-key
+                                           ,dotspacemacs-leader-key
                                            "g"
                                            "z"
                                            "C-h")
