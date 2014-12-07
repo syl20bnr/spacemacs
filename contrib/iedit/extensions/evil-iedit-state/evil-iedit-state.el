@@ -90,21 +90,31 @@ If INTERACTIVE is non-nil then COMMAND is called interactively."
   (interactive)
   (evil-iedit-state||swith-to-insert-state-after-command evil-change t))
 
-(defun evil-iedit-state/paste-replace (count)
-  "Replace the selection with the yanked text."
-  (interactive "P")
-  (iedit-delete-occurrences)
-  (evil-paste-before count))
-
 (defun evil-iedit-state/evil-append ()
   "Append and switch to `iedit-insert state'"
   (interactive)
   (evil-iedit-state||swith-to-insert-state-after-command evil-append t))
 
+(defun evil-iedit-state/evil-open-below ()
+  "Insert new line below and switch to `iedit-insert state'"
+  (interactive)
+  (evil-iedit-state||swith-to-insert-state-after-command evil-open-below t))
+
+(defun evil-iedit-state/evil-open-above ()
+  "Insert new line above and switch to `iedit-insert state'"
+  (interactive)
+  (evil-iedit-state||swith-to-insert-state-after-command evil-open-above t))
+
 (defun evil-iedit-state/evil-substitute ()
   "Append and switch to `iedit-insert state'"
   (interactive)
   (evil-iedit-state||swith-to-insert-state-after-command evil-substitute t))
+
+(defun evil-iedit-state/paste-replace (count)
+  "Replace the selection with the yanked text."
+  (interactive "P")
+  (iedit-delete-occurrences)
+  (evil-paste-before count))
 
 ;; expand-region integration, add an "e" command
 (eval-after-load 'expand-region
@@ -170,6 +180,8 @@ the initial string globally."
 (define-key evil-iedit-state-map "L"   'iedit-restrict-current-line)
 (define-key evil-iedit-state-map "n"   'iedit-next-occurrence)
 (define-key evil-iedit-state-map "N"   'iedit-prev-occurrence)
+(define-key evil-iedit-state-map "o"   'evil-iedit-state/evil-open-below)
+(define-key evil-iedit-state-map "O"   'evil-iedit-state/evil-open-above)
 (define-key evil-iedit-state-map "p"   'evil-iedit-state/paste-replace)
 (define-key evil-iedit-state-map "s"   'evil-iedit-state/evil-substitute)
 (define-key evil-iedit-state-map "S"   'evil-iedit-state/substitute)
