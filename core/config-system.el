@@ -155,6 +155,8 @@ declared at the layer level."
   (config-system/initialize-extensions config-system-all-pre-extensions t)
   (config-system/install-packages)
   (spacemacs/append-to-buffer spacemacs-loading-text)
+  ;; restore warning level
+  (setq warning-minimum-level :warning)
   (config-system/initialize-packages)
   (config-system/initialize-extensions config-system-all-post-extensions)
   (config-system/load-layer-files '("keybindings.el")))
