@@ -7,10 +7,9 @@
     - [Install](#install)
     - [Key bindings](#key-bindings)
         - [State transitions](#state-transitions)
-        - [In `iedit state`](#in-iedit-state)
-        - [In `iedit-insert state`](#in-iedit-insert-state)
+        - [In iedit state](#in-iedit-state)
+        - [In iedit-insert state](#in-iedit-insert-state)
     - [Examples](#examples)
-    - [Tips](#tips)
 
 <!-- markdown-toc end -->
 
@@ -58,7 +57,7 @@ or <kbd>fd</kbd> to return to `normal state`.
 **Note:** evil commands which switch to `insert state` will switch in
 `iedit-insert state`.
 
-### In `iedit state`
+### In iedit state
 
 `iedit state` inherits from `normal state`, the following key bindings are
 specific to `iedit state`.
@@ -66,12 +65,15 @@ specific to `iedit state`.
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
 <kbd>ESC</kbd>    | go back to `normal state`
+<kbd>0</kbd>      | go to then beginning of the current occurrence
+<kbd>$</kbd>      | go to then end of the current occurrence
 <kbd>#</kbd>      | prefix all occurrences with an increasing number (<kbd>SPC u</kbd> to choose the starting number).
+<kbd>A</kbd>      | go to the beginning of the current occurrence and switch to `iedit-insert state`
 <kbd>D</kbd>      | delete the occurrences
 <kbd>F</kbd>      | restrict the scope to the function
 <kbd>gg</kbd>     | go to first occurrence
 <kbd>G</kbd>      | go to last occurrence
-<kbd>I</kbd>      | toggle case-sensitivity
+<kbd>I</kbd>      | go to the end of the current occurrence and switch to `iedit-insert state`
 <kbd>J</kbd>      | increase the edition scope by one line below
 <kbd>K</kbd>      | increase the edition scope by one line above
 <kbd>L</kbd>      | restrict the scope to the current line
@@ -83,7 +85,7 @@ specific to `iedit state`.
 <kbd>U</kbd>      | Up-case the occurrences
 <kbd>C-U</kbd>    | down-case the occurrences
 
-### In `iedit-insert state`
+### In iedit-insert state
 
     Key Binding            |                 Description
 ---------------------------|------------------------------------------------------------
@@ -96,13 +98,6 @@ specific to `iedit state`.
 - append text to a word on two lines: <kbd>v i w SPC s e J i "toto" ESC ESC</kbd>
 - substitute symbol _with expand-region_: <kbd>SPC v v e S "toto" ESC ESC</kbd>
 - replace symbol with yanked (copied) text _with expand region_: <kbd>SPC v e p ESC ESC</kbd>
-
-## Todo
-
-- Make `A` append to the end of the edited region.
-- Make `I` insert to the beginning of the edited region.
-- Make `0` go to the beginning of the edited region.
-- Make `$` go to the end of the edited region.
 
 [auto-highlight-symbol]: https://github.com/gennad/auto-highlight-symbol
 [iedit]: https://github.com/tsdh/iedit
