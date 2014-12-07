@@ -68,6 +68,7 @@
         - [Ido](#ido)
             - [Experimental Ido feature](#experimental-ido-feature)
         - [NeoTree file tree](#neotree-file-tree)
+        - [Shells](#shells)
         - [Bookmarks](#bookmarks)
     - [Searching](#searching)
         - [Project Searching](#project-searching)
@@ -99,6 +100,7 @@
         - [Git gutter bitmaps](#git-gutter-bitmaps)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
+    - [Compiling](#compiling)
     - [Modes](#modes)
         - [Helm](#helm)
             - [Experimental Helm feature](#experimental-helm-feature)
@@ -117,6 +119,7 @@
     - [Tips for Spacemacs advanced users](#tips-for-spacemacs-advanced-users)
         - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
         - ["jk" to trigger evil leader](#jk-to-trigger-evil-leader)
+        - [Smooth fonts on Windows](#smooth-fonts-on-windows)
 - [Achievements](#achievements)
 - [Thank you](#thank-you)
 
@@ -332,8 +335,13 @@ the contribution guidelines in [CONTRIBUTE.md][].
 This is a simple `contrib` configuration layer listing a bunch of themes,
 you can find it [here][themes-megapack].
 
-To install it, just add `themes-megapack` to your `~/.spacemacs`. You have now
-installed around 100 themes you are free to try with <kbd>SPC T h</kbd>
+To install it, just add `themes-megapack` to your `~/.spacemacs` like so:
+
+```elisp
+dotspacemacs-configuration-layers '(themes-megapack)
+```
+
+You have now installed around 100 themes you are free to try with <kbd>SPC T h</kbd>
 (helm-themes).
 
 ## Managing private configuration layers
@@ -1052,6 +1060,17 @@ Key Binding                      |                 Description
 <kbd>q</kbd> or <kbd>fd</kbd>    | hide `NeoTree` buffer
 <kbd>r</kbd>                     | rename a node
 
+### Shells
+
+Navigating in shell buffers can be tricky because it is not possible to use the
+leader in `insert state`. Switching back and forth between normal and insert
+states can be tedious.
+
+There are two solutions for this:
+- use <kbd>C-o</kbd> then use the leader key
+- enable the [leader on `jk`](#experimental-insert-state-feature)
+experimental feature.
+
 ### Bookmarks
 
 Bookmarks can be set anywhere in a file. Bookmarks are persistent. They are very
@@ -1629,6 +1648,16 @@ Custom fringe bitmaps:
 ![dot-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-warning.png) | warning
 ![dot-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-info.png)       | Info
 
+## Compiling
+
+`Spacemacs` binds a few commands to support compiling a project.
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC c c</kbd>     | use `helm-make` via projectile
+<kbd>SPC c C</kbd>     | compile
+<kbd>SPC c r</kbd>     | recompile
+
 ## Modes
 
 `Spacemacs` tries to add more natural Vi key bindings to some modes or
@@ -1827,6 +1856,10 @@ To activate it, set `dotspacemacs-feature-toggle-leader-on-jk` to `t`.
 (setq-default dotspacemacs-feature-toggle-leader-on-jk t)
 ```
 
+### Smooth fonts on Windows
+
+To get smooth fonts on Windows install [MacType][].
+
 More info on this feature:
 - [insert state](#experimental-insert-state-feature)
 - [helm](#experimental-helm-feature)
@@ -1939,4 +1972,6 @@ developers to elisp hackers!
 [Jackneill]:https://github.com/Jackneill
 [jb55]:https://github.com/jb55
 [use-package]: https://github.com/jwiegley/use-package
+[Paradox]: https://github.com/Bruce-Connor/paradox
 [fancy-battery]: https://github.com/lunaryorn/fancy-battery.el
+[MacType]: https://code.google.com/p/mactype/

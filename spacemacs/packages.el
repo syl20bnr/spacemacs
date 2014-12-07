@@ -312,17 +312,39 @@ which require an initialization must be listed explicitly in the list.")
                    (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
           (message "No symbol has been searched for now.")))
 
+      (defun spacemacs/integrate-evil-search (forward)
+        (eval '(progn
+                 ;; isearch-string is last searched item.  Next time
+                 ;; "n" is hit we will use this.
+                 (setq isearch-string (concat "\\<" (evil-find-thing forward 'symbol) "\\>"))
+                 ;; Next time "n" is hit, go the correct direction.
+                 (setq isearch-forward forward)
+                 ;; ahs does a case sensitive search.  We could set
+                 ;; this, but it would break the user's current
+                 ;; sensitivity settings.  We could save the setting,
+                 ;; then next time the user starts a search we could
+                 ;; restore the setting.
+                 ;;(setq case-fold-search nil)
+                 ;; Place the search term into the search rings.
+                 (isearch-update-ring isearch-string t)
+                 (evil-push-search-history isearch-string forward)
+                 ;; Use this search term for empty pattern "%s//replacement/"
+                 ;; Append case sensitivity
+                 (setq evil-ex-last-was-search nil
+                       evil-ex-substitute-pattern `(,(concat isearch-string "\\C") nil (0 0)))
+                 ) nil))
+
       (defun spacemacs/quick-ahs-forward ()
         "Go to the next occurrence of symbol under point with
 `auto-highlight-symbol'"
         (interactive)
-        (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
+        (eval '(progn (spacemacs/integrate-evil-search t) (ahs-highlight-now) (ahs-forward)) nil))
 
       (defun spacemacs/quick-ahs-backward ()
         "Go to the previous occurrence of symbol under point with
 `auto-highlight-symbol'"
         (interactive)
-        (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
+        (eval '(progn (spacemacs/integrate-evil-search nil) (ahs-highlight-now) (ahs-backward)) nil))
 
       (eval-after-load 'evil
         '(progn
@@ -644,7 +666,7 @@ determine the state to enable when escaping from the insert state.")
     :init
     (progn
       (setq evil-leader/in-all-states t
-            evil-leader/leader "SPC"
+            evil-leader/leader dotspacemacs-leader-key
             evil-leader/non-normal-prefix "s-")
       ;; give name to spacemacs prefixes
       (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
@@ -655,14 +677,14 @@ determine the state to enable when escaping from the insert state.")
       ;; Unset shortcuts which shadow evil leader
       (eval-after-load "compile"
         '(progn
-           (define-key compilation-mode-map (kbd "SPC") nil)
+           (define-key compilation-mode-map (kbd dotspacemacs-leader-key) nil)
            (define-key compilation-mode-map (kbd "h") nil)))
       (eval-after-load "dired"
-        '(define-key dired-mode-map (kbd "SPC") nil))
+        '(define-key dired-mode-map (kbd dotspacemacs-leader-key) nil))
       ;; make leader available in visual mode
-      (define-key evil-visual-state-map (kbd "SPC")
+      (define-key evil-visual-state-map (kbd dotspacemacs-leader-key)
         evil-leader--default-map)
-      (define-key evil-motion-state-map (kbd "SPC")
+      (define-key evil-motion-state-map (kbd dotspacemacs-leader-key)
         evil-leader--default-map)
       ;; experimental: invoke leader with "jk" in insert mode
       (when dotspacemacs-feature-toggle-leader-on-jk
@@ -683,7 +705,6 @@ determine the state to enable when escaping from the insert state.")
         "cl" 'evilnc-comment-or-uncomment-lines
         "ci" 'evilnc-toggle-invert-comment-line-by-line
         "cp" 'evilnc-comment-or-uncomment-paragraphs
-        "cr" 'comment-or-uncomment-region
         "ct" 'evilnc-quick-comment-or-uncomment-to-the-line
         "cy" 'evilnc-copy-and-comment-lines))))
 
@@ -1099,7 +1120,12 @@ determine the state to enable when escaping from the insert state.")
             (guide-key-mode -1)
           (guide-key-mode)))
       (evil-leader/set-key "tG" 'spacemacs/toggle-guide-key)
-      (setq guide-key/guide-key-sequence '("C-x" "C-c" "SPC" "g" "z" "C-h")
+      (setq guide-key/guide-key-sequence '("C-x"
+                                           "C-c"
+                                           dotspacemacs-leader-key
+                                           "g"
+                                           "z"
+                                           "C-h")
             guide-key/recursive-key-sequence-flag t
             guide-key/popup-window-position 'right
             guide-key/idle-delay dotspacemacs-guide-key-delay

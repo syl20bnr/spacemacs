@@ -7,10 +7,9 @@
     - [Install](#install)
     - [Key bindings](#key-bindings)
         - [State transitions](#state-transitions)
-        - [In `iedit state`](#in-iedit-state)
-        - [In `iedit-insert state`](#in-iedit-insert-state)
+        - [In iedit state](#in-iedit-state)
+        - [In iedit-insert state](#in-iedit-insert-state)
     - [Examples](#examples)
-    - [Tips](#tips)
 
 <!-- markdown-toc end -->
 
@@ -39,53 +38,66 @@ To use this contribution add it to your `~/.spacemacs`
 
 ### State transitions
 
-- <kbd>SPC s e</kbd> initiates the `iedit state` in normal mode.
-- <kbd>e</kbd> initiates the `iedit state` while expanding region.
-- <kbd>i</kbd> in `iedit state` triggers the `iedit-insert state`.
-- <kbd>ESC</kbd> in `iedit state` returns to `normal state`.
-- <kbd>ESC</kbd> in `iedit-insert state` returns to `iedit state`.
-- <kbd>Shift-Return</kbd> in `iedit-insert state` ends the edition and returns to `normal state`.
 
-### In `iedit state`
+    Key Binding    |       From         |          To
+-------------------|:------------------:|:-------------------------:
+<kbd>SPC s e</kbd> | normal or visual   | iedit
+<kbd>e</kbd>       | expand-region      | iedit
+<kbd>ESC</kbd>     | iedit              | normal
+<kbd>C-g</kbd>     | iedit              | normal
+<kbd>fd</kbd>      | iedit              | normal
+<kbd>ESC</kbd>     | iedit-insert       | iedit
+<kbd>C-g</kbd>     | iedit-insert       | normal
+<kbd>fd</kbd>      | iedit-insert       | normal
 
-    Key Binding                 |                 Description
---------------------------------|------------------------------------------------------------
-<kbd>#</kbd>                    | prefix all occurrences with an increasing number
-<kbd>b</kbd>                    | make all occurrences blank
-<kbd>B</kbd>                    | toggle buffering (use it for large buffers with a lof of occurrences)
-<kbd>c</kbd> or <kbd>r</kbd>    | delete the occurrences and switch to `iedit-insert state`
-<kbd>d</kbd>                    | delete the occurrences
-<kbd>D</kbd>                    | down-case the occurrences
-<kbd>f</kbd>                    | restrict the scope to the function
-<kbd>"gg"</kbd>                 | go to first occurrence
-<kbd>G</kbd>                    | go to last occurrence
-<kbd>i</kbd>                    | switch to `iedit-insert state`
-<kbd>I</kbd>                    | toggle case-sensitivity
-<kbd>j</kbd>                    | increase the edition scope by one line below
-<kbd>k</kbd>                    | increase the edition scope by one line above
-<kbd>l</kbd>                    | restrict the scope to the current line
-<kbd>n</kbd>                    | go to next occurrence
-<kbd>N</kbd>                    | go to previous occurrence
-<kbd>v</kbd>                    | toggle visibility of lines with no occurrence
-<kbd>u</kbd>                    | undo (for convenience)
-<kbd>U</kbd>                    | Up-case the occurrences
+To sum-up, in `iedit-insert state` you have to press <kbd>ESC</kbd> twice to
+go back to the `normal state`. You can also at any time press <kbd>C-g</kbd>
+or <kbd>fd</kbd> to return to `normal state`.
 
-### In `iedit-insert state`
+**Note:** evil commands which switch to `insert state` will switch in
+`iedit-insert state`.
+
+### In iedit state
+
+`iedit state` inherits from `normal state`, the following key bindings are
+specific to `iedit state`.
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+<kbd>ESC</kbd>    | go back to `normal state`
+<kbd>0</kbd>      | go to then beginning of the current occurrence
+<kbd>$</kbd>      | go to then end of the current occurrence
+<kbd>#</kbd>      | prefix all occurrences with an increasing number (<kbd>SPC u</kbd> to choose the starting number).
+<kbd>A</kbd>      | go to the beginning of the current occurrence and switch to `iedit-insert state`
+<kbd>D</kbd>      | delete the occurrences
+<kbd>F</kbd>      | restrict the scope to the function
+<kbd>gg</kbd>     | go to first occurrence
+<kbd>G</kbd>      | go to last occurrence
+<kbd>I</kbd>      | go to the end of the current occurrence and switch to `iedit-insert state`
+<kbd>J</kbd>      | increase the edition scope by one line below
+<kbd>K</kbd>      | increase the edition scope by one line above
+<kbd>L</kbd>      | restrict the scope to the current line
+<kbd>n</kbd>      | go to next occurrence
+<kbd>N</kbd>      | go to previous occurrence
+<kbd>p</kbd>      | replace occurrences with last yanked (copied) text
+<kbd>S</kbd>      | (substitute) delete the occurrences and switch to `iedit-insert state`
+<kbd>V</kbd>      | toggle visibility of lines with no occurrence
+<kbd>U</kbd>      | Up-case the occurrences
+<kbd>C-U</kbd>    | down-case the occurrences
+
+### In iedit-insert state
 
     Key Binding            |                 Description
 ---------------------------|------------------------------------------------------------
-<kbd>Shift Return</kbd>    | end edition
 <kbd>ESC</kbd>             | go back to `iedit state`
+<kbd>C-g</kbd>             | go back to `normal state`
 
 ## Examples
 
-- manual selection of several words then replace: <kbd>v w w SPC s e r "toto" Shift-Return</kbd>
-- replace symbol _with expand-region_: <kbd>SPC v v e r "toto" Shift-Return</kbd>
-- append text to a word on two lines: <kbd>SPC v i w SPC s e j i "toto" Shift-Return</kbd>
-
-## Tips
-
-The first <kbd>N</kbd> put the cursor at the beginning of the edited selection.
+- manual selection of several words then replace: <kbd>v w w SPC s e S "toto" ESC ESC</kbd>
+- append text to a word on two lines: <kbd>v i w SPC s e J i "toto" ESC ESC</kbd>
+- substitute symbol _with expand-region_: <kbd>SPC v v e S "toto" ESC ESC</kbd>
+- replace symbol with yanked (copied) text _with expand region_: <kbd>SPC v e p ESC ESC</kbd>
 
 [auto-highlight-symbol]: https://github.com/gennad/auto-highlight-symbol
 [iedit]: https://github.com/tsdh/iedit
