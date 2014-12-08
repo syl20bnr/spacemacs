@@ -100,15 +100,14 @@ Bindings should match the plain emacs assignments.
 
 ### Auto-complete and documentation (tern)
 
-    Key Binding     |                 Description
---------------------|------------------------------------------------------------
-<kbd>SPC m .</kbd>  | jump to the definition of the thing under the cursor
-<kbd>SPC m ,</kbd>  | brings you back to last place you were when you pressed M-..
-<kbd>SPC m c</kbd>  | rename variable under the cursor using tern
-<kbd>SPC m f</kbd>  | jump to definition for the given name
-<kbd>SPC m g</kbd>  | find docs of the thing under the cursor. Press again to open the associated URL (if any)
-<kbd>SPC m t</kbd>  | find the type of the thing under the cursor
-<kbd>SPC m w</kbd>  | toggle js2-mode warnings and errors
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC m c</kbd>   | rename variable under the cursor using tern
+<kbd>SPC m d</kbd>   | find docs of the thing under the cursor. Press again to open the associated URL (if any)
+<kbd>SPC m g</kbd>   | jump to the definition of the thing under the cursor
+<kbd>SPC m G</kbd>   | jump to definition for the given name
+<kbd>SPC m C-g</kbd> | brings you back to last place you were when you pressed M-..
+<kbd>SPC m t</kbd>   | find the type of the thing under the cursor
 
 [js2-mode]: https://github.com/mooz/js2-mode
 [js2-refactor]: https://github.com/magnars/js2-refactor.el
