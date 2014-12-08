@@ -9,8 +9,10 @@
     - [Description](#description)
     - [Install](#install)
     - [Key Bindings](#key-bindings)
-        - [Folding](#folding)
-        - [Refactoring](#refactoring)
+        - [js2-mode](#js2-mode)
+        - [Folding (js2-mode)](#folding-js2-mode)
+        - [Refactoring (js2-refactor)](#refactoring-js2-refactor)
+        - [Auto-complete and documentation (tern)](#auto-complete-and-documentation-tern)
 
 <!-- markdown-toc end -->
 
@@ -42,17 +44,13 @@ $ npm install -g tern
 
 ## Key Bindings
 
+### js2-mode
+
     Key Binding     |                 Description
 --------------------|------------------------------------------------------------
-<kbd>SPC m .</kbd>  | jump to the definition of the thing under the cursor
-<kbd>SPC m ,</kbd>  | brings you back to last place you were when you pressed M-..
-<kbd>SPC m c</kbd>  | rename variable under the cursor using tern
-<kbd>SPC m f</kbd>  | jump to definition for the given name
-<kbd>SPC m g</kbd>  | find docs of the thing under the cursor. Press again to open the associated URL (if any)
-<kbd>SPC m t</kbd>  | find the type of the thing under the cursor
 <kbd>SPC m w</kbd>  | toggle js2-mode warnings and errors
 
-### Folding
+### Folding (js2-mode)
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -63,7 +61,7 @@ $ npm install -g tern
 <kbd>SPC m z F</kbd>  | toggle hide functions
 <kbd>SPC m z C</kbd>  | toggle hide comments
 
-### Refactoring
+### Refactoring (js2-refactor)
 
 Bindings should match the plain emacs assignments.
 
@@ -99,6 +97,18 @@ Bindings should match the plain emacs assignments.
 <kbd>SPC m r v t</kbd>  | changes local `var a` to be `this.a` instead
 <kbd>SPC m r w i</kbd>  | wraps the entire buffer in an immediately invoked function expression
 <kbd>SPC m r w l</kbd>  | wraps the region in a for-loop
+
+### Auto-complete and documentation (tern)
+
+    Key Binding     |                 Description
+--------------------|------------------------------------------------------------
+<kbd>SPC m .</kbd>  | jump to the definition of the thing under the cursor
+<kbd>SPC m ,</kbd>  | brings you back to last place you were when you pressed M-..
+<kbd>SPC m c</kbd>  | rename variable under the cursor using tern
+<kbd>SPC m f</kbd>  | jump to definition for the given name
+<kbd>SPC m g</kbd>  | find docs of the thing under the cursor. Press again to open the associated URL (if any)
+<kbd>SPC m t</kbd>  | find the type of the thing under the cursor
+<kbd>SPC m w</kbd>  | toggle js2-mode warnings and errors
 
 [js2-mode]: https://github.com/mooz/js2-mode
 [js2-refactor]: https://github.com/magnars/js2-refactor.el
