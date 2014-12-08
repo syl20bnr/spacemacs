@@ -824,7 +824,7 @@ revert back to the popular configuration using `jj` (just for the example
 it is not recommended) add this to your `config` function:
 
 ```elisp
-(defun dotspacemacs/config ()
+(defun dotspacemacs/init ()
   (setq-default evil-escape-key-sequence (kbd "jj"))
 )
 ```
