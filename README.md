@@ -87,11 +87,37 @@ will help you out.
 
 # Prerequisites
 
-`Spacemacs` is tested with Emacs 24.3 and 24.4. It should boot on all the major
-OSes where these versions can be installed.
+## Emacs version
+
+`Spacemacs` is tested with Emacs 24.3 (reported to be [broken][24.3-broken]
+for now) and 24.4.
+It should boot on all the major OSes where these versions can be installed.
 
 Some modes require third-party tools that you'll have to install via your
 favorite package manager.
+
+## OS X
+
+The recommended version for OS X is [emacs-mac-port][]. It can be installed
+from [homebrew][] with the following commands:
+
+```sh
+$ brew tap railwaycat/emacsmacport
+$ brew install emacs-mac
+```
+
+The default key handling is different from the official OS X port. To correct
+this you can put this in your [dotfile][]:
+
+```elisp
+(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'super)
+(setq mac-pass-control-to-system nil)
+
+(global-set-key (kbd "s-q") 'save-buffers-kill-emacs)
+(global-set-key (kbd "s-v") 'yank)
+(global-set-key (kbd "s-c") 'copy-region-as-kill)
+```
 
 # Install
 
@@ -260,6 +286,10 @@ no mode-lines in Emacs that support patched font.
 The corresponding feature request for the powerline can be found
 [here][pw-patched-fonts].
 
+4. **Why the powerline colors are not correct on OS X ?**
+This is a known issue with the `emacs` brew formula. It is recommended to use the
+[emacs-mac-port][] built. See the [install OSX section][] for more info on this.
+
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [philosophy]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#philosophy
 [goals]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#goals
@@ -280,6 +310,8 @@ The corresponding feature request for the powerline can be found
 [DOCUMENTATION.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md
 [CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/CONTRIBUTE.md
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
+[dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
+[install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
 [emacs_live]: https://github.com/overtone/emacs-live
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
@@ -288,3 +320,6 @@ The corresponding feature request for the powerline can be found
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [pw-patched-fonts]: https://github.com/milkypostman/powerline/issues/15
 [MacType]: https://code.google.com/p/mactype/
+[emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
+[homebrew]: https://github.com/Homebrew/homebrew
+[24.3-broken]: https://github.com/syl20bnr/spacemacs/issues/219
