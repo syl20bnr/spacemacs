@@ -82,16 +82,15 @@ bindings that are easy to type.
 Most of Spacemacs' features are extensively documented, along with key bindings
 and configuration options.
 
-If you need help, ask your question in the [Gitter Chat][] and a member of the community
-will help you out.
+If you need help, ask your question in the [Gitter Chat][] and a member of the
+community will help you out.
 
 # Prerequisites
 
 ## Emacs version
 
-`Spacemacs` is tested with Emacs 24.3 (reported to be [broken][24.3-broken]
-for now) and 24.4.
-It should boot on all the major OSes where these versions can be installed.
+`Spacemacs` is tested with Emacs 24.3 and 24.4. It should boot on all the major
+OSes where these versions can be installed.
 
 Some modes require third-party tools that you'll have to install via your
 favorite package manager.
@@ -322,4 +321,3 @@ This is a known issue with the `emacs` brew formula. It is recommended to use th
 [MacType]: https://code.google.com/p/mactype/
 [emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
 [homebrew]: https://github.com/Homebrew/homebrew
-[24.3-broken]: https://github.com/syl20bnr/spacemacs/issues/219
