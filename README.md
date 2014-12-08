@@ -1,7 +1,7 @@
 ![title](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/title.png)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
 
-[philosophy][] | [goals][] | [for who?][] | [screenshots][] | [achievements][] | [contribute][CONTRIBUTE.md] | [documentation][DOCUMENTATION.md]
+[philosophy][] | [goals][] | [for who?][] | [screenshots][] | [documentation][DOCUMENTATION.md] | [contribute][CONTRIBUTE.md] | [achievements][] | [FAQ][]
 
 **Quick Install:**
 
@@ -56,7 +56,7 @@ that extend the default distribution.
 Spacemacs looks good. It comes with high-quality themes and a custom low-clutter
 modeline.
 
-![spacemacs_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-python.png)
+![spacemacs_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/spacemacs-python.png)
 
 ### Excellent Evil Support
 
@@ -261,24 +261,25 @@ The corresponding feature request for the powerline can be found
 [here][pw-patched-fonts].
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
-[philosophy]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#philosophy
-[goals]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#goals
-[for who?]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#who-can-benefit-from-this-
-[screenshots]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#screenshots
-[config]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#configuration-layers
-[dotfile]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#dotfile-configuration
-[manage_config]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#managing-private-configuration-layers
-[using_package_buf]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#using-the-package-list-buffer
-[achievements]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#achievements
-[troubleshoot]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#troubleshoot
-[contrib layers]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#using-configuration-layers
-[Git support]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#working-with-git
-[ace-jump]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
-[project management]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#project-management
-[Evil Mode]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#evil
+[philosophy]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#philosophy
+[goals]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#goals
+[for who?]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#who-can-benefit-from-this-
+[screenshots]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#screenshots
+[config]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#configuration-layers
+[dotfile]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#dotfile-configuration
+[manage_config]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#managing-private-configuration-layers
+[using_package_buf]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#using-the-package-list-buffer
+[achievements]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#achievements
+[troubleshoot]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#troubleshoot
+[contrib layers]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#using-configuration-layers
+[Git support]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#working-with-git
+[ace-jump]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
+[project management]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#project-management
+[Evil Mode]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#evil
 [private]: https://github.com/syl20bnr/spacemacs/tree/master/private
-[DOCUMENTATION.md]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md
-[CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/CONTRIBUTE.md
+[DOCUMENTATION.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md
+[CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/CONTRIBUTE.md
+[FAQ]: https://github.com/syl20bnr/spacemacs#faq
 [emacs_live]: https://github.com/overtone/emacs-live
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
