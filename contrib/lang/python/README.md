@@ -18,15 +18,6 @@ To use this contribution add it to your `~/.spacemacs`
 )
 ```
 
-Because spacemacs is using [anaconda-mode][anaconda-mode] as emacs
-interface to `jedi` library, you may need to install jedi in order to
-use code completion. You may install jedi by running following command
-in your python environment:
-
-```shell
-$ pip install jedi
-```
-
 ## Key Bindings
 
 ### Inferior REPL process
