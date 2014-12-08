@@ -1,18 +1,34 @@
 # JavaScript contribution layer for Spacemacs
 
-## Features
+![logo](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/javascript/javascript.png)
 
-- **Smart Code Folding**
-- **Refactoring**
-- **Auto-completion**
-- **Documentation Lookup**
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [JavaScript contribution layer for Spacemacs](#javascript-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+    - [Key Bindings](#key-bindings)
+        - [Folding](#folding)
+        - [Refactoring](#refactoring)
+
+<!-- markdown-toc end -->
+
+## Description
+
+This layer adds support for the JavaScript language using [js2-mode][].
+
+Main features:
+- Smart code folding
+- Refactoring: done using [js2-refactor][].
+- Auto-completion and documentation: provided by [tern][]
 
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(js2-mode)
+(defvar dotspacemacs-configuration-layers '(javascript)
   "List of contribution to load."
 )
 ```
@@ -26,67 +42,64 @@ $ npm install -g tern
 
 ## Key Bindings
 
-### js2-mode
+    Key Binding     |                 Description
+--------------------|------------------------------------------------------------
+<kbd>SPC m .</kbd>  | jump to the definition of the thing under the cursor
+<kbd>SPC m ,</kbd>  | brings you back to last place you were when you pressed M-..
+<kbd>SPC m c</kbd>  | rename variable under the cursor using tern
+<kbd>SPC m f</kbd>  | jump to definition for the given name
+<kbd>SPC m g</kbd>  | find docs of the thing under the cursor. Press again to open the associated URL (if any)
+<kbd>SPC m t</kbd>  | find the type of the thing under the cursor
+<kbd>SPC m w</kbd>  | toggle js2-mode warnings and errors
 
-[Improved JavaScript editing mode for GNU Emacs](https://github.com/mooz/js2-mode).
+### Folding
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-<SPC> m w         | toggle js2-mode warnings and errors
-<SPC> m z c       | hide element
-<SPC> m z o       | show element
-<SPC> m z r       | show all element
-<SPC> m z e       | toggle hide/show element
-<SPC> m z F       | toggle hide functions
-<SPC> m z C       | toggle hide comments
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC m z c</kbd>  | hide element
+<kbd>SPC m z o</kbd>  | show element
+<kbd>SPC m z r</kbd>  | show all element
+<kbd>SPC m z e</kbd>  | toggle hide/show element
+<kbd>SPC m z F</kbd>  | toggle hide functions
+<kbd>SPC m z C</kbd>  | toggle hide comments
 
-### js2-refactor
+### Refactoring
 
-Refactoring is done using [js2-refactor](https://github.com/magnars/js2-refactor.el).  
 Bindings should match the plain emacs assignments.
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-<SPC> x m j       | move line down, while keeping commas correctly placed
-<SPC> x m k       | move line up, while keeping commas correctly placed
-<SPC> m k         | deletes to the end of the line, but does not cross semantic boundaries
-<SPC> m r 3 i     | converts ternary operator to if-statement
-<SPC> m r a g     | creates a `/* global */` annotation if it is missing, and adds var to point to it
-<SPC> m r a o     | replaces arguments to a function call with an object literal of named arguments
-<SPC> m r b a     | moves the last child out of current function, if-statement, for-loop or while-loop
-<SPC> m r c a     | converts a multiline array to one line
-<SPC> m r c o     | converts a multiline object literal to one line
-<SPC> m r c u     | converts a multiline function to one line (expecting semicolons as statement delimiters)
-<SPC> m r e a     | converts a one line array to multiline
-<SPC> m r e f     | extracts the marked expressions into a new named function
-<SPC> m r e m     | extracts the marked expressions out into a new method in an object literal
-<SPC> m r e o     | converts a one line object literal to multiline
-<SPC> m r e u     | converts a one line function to multiline (expecting semicolons as statement delimiters)
-<SPC> m r e v     | takes a marked expression and replaces it with a var
-<SPC> m r i g     | creates a shortcut for a marked global by injecting it in the wrapping immediately invoked function expression
-<SPC> m r i p     | changes the marked expression to a parameter in a local function
-<SPC> m r i v     | replaces all instances of a variable with its initial value
-<SPC> m r l p     | changes a parameter to a local var in a local function
-<SPC> m r l t     | adds a console.log statement for what is at point (or region)
-<SPC> m r r v     | renames the variable on point and all occurrences in its lexical scope
-<SPC> m r s l     | moves the next statement into current function, if-statement, for-loop, while-loop
-<SPC> m r s s     | splits a `String`
-<SPC> m r s v     | splits a `var` with multiple vars declared into several `var` statements
-<SPC> m r t f     | toggle between function declaration and function expression
-<SPC> m r u w     | replaces the parent statement with the selected region
-<SPC> m r v t     | changes local `var a` to be `this.a` instead
-<SPC> m r w i     | wraps the entire buffer in an immediately invoked function expression
-<SPC> m r w l     | wraps the region in a for-loop
+    Key Binding         |                 Description
+------------------------|------------------------------------------------------------
+<kbd>SPC x m j</kbd>    | move line down, while keeping commas correctly placed
+<kbd>SPC x m k</kbd>    | move line up, while keeping commas correctly placed
+<kbd>SPC m k</kbd>      | deletes to the end of the line, but does not cross semantic boundaries
+<kbd>SPC m r 3 i</kbd>  | converts ternary operator to if-statement
+<kbd>SPC m r a g</kbd>  | creates a `/* global */` annotation if it is missing, and adds var to point to it
+<kbd>SPC m r a o</kbd>  | replaces arguments to a function call with an object literal of named arguments
+<kbd>SPC m r b a</kbd>  | moves the last child out of current function, if-statement, for-loop or while-loop
+<kbd>SPC m r c a</kbd>  | converts a multiline array to one line
+<kbd>SPC m r c o</kbd>  | converts a multiline object literal to one line
+<kbd>SPC m r c u</kbd>  | converts a multiline function to one line (expecting semicolons as statement delimiters)
+<kbd>SPC m r e a</kbd>  | converts a one line array to multiline
+<kbd>SPC m r e f</kbd>  | extracts the marked expressions into a new named function
+<kbd>SPC m r e m</kbd>  | extracts the marked expressions out into a new method in an object literal
+<kbd>SPC m r e o</kbd>  | converts a one line object literal to multiline
+<kbd>SPC m r e u</kbd>  | converts a one line function to multiline (expecting semicolons as statement delimiters)
+<kbd>SPC m r e v</kbd>  | takes a marked expression and replaces it with a var
+<kbd>SPC m r i g</kbd>  | creates a shortcut for a marked global by injecting it in the wrapping immediately invoked function expression
+<kbd>SPC m r i p</kbd>  | changes the marked expression to a parameter in a local function
+<kbd>SPC m r i v</kbd>  | replaces all instances of a variable with its initial value
+<kbd>SPC m r l p</kbd>  | changes a parameter to a local var in a local function
+<kbd>SPC m r l t</kbd>  | adds a console.log statement for what is at point (or region)
+<kbd>SPC m r r v</kbd>  | renames the variable on point and all occurrences in its lexical scope
+<kbd>SPC m r s l</kbd>  | moves the next statement into current function, if-statement, for-loop, while-loop
+<kbd>SPC m r s s</kbd>  | splits a `String`
+<kbd>SPC m r s v</kbd>  | splits a `var` with multiple vars declared into several `var` statements
+<kbd>SPC m r t f</kbd>  | toggle between function declaration and function expression
+<kbd>SPC m r u w</kbd>  | replaces the parent statement with the selected region
+<kbd>SPC m r v t</kbd>  | changes local `var a` to be `this.a` instead
+<kbd>SPC m r w i</kbd>  | wraps the entire buffer in an immediately invoked function expression
+<kbd>SPC m r w l</kbd>  | wraps the region in a for-loop
 
-### tern
-
-[Tern](http://ternjs.net/) is used as an auto-completion backend and for documentation features.
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-<SPC> m .       | jump to the definition of the thing under the cursor
-<SPC> m ,       | brings you back to last place you were when you pressed M-..
-<SPC> m f       | jump to definition for the given name
-<SPC> m c       | rename variable under the cursor using tern
-<SPC> m t       | find the type of the thing under the cursor
-<SPC> m g       | find docs of the thing under the cursor. Press again to open the associated URL (if any)
+[js2-mode]: https://github.com/mooz/js2-mode
+[js2-refactor]: https://github.com/magnars/js2-refactor.el
+[tern]: http://ternjs.net/
