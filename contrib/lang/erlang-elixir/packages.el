@@ -88,7 +88,9 @@ must be defined in `dotspacemacs/init' function to take effect.")
         "mr" 'edts-find-record-source))))
 
 (defun erlang-elixir/init-flycheck ()
-  (add-hook 'elixir-mode-hook 'flycheck-mode))
+  (add-hook 'elixir-mode-hook 'flycheck-mode)
+  (unless spacemacs-erlang-elixir-use-edts
+    (add-hook 'erlang-mode-hook 'flycheck-mode)))
 
 (defun erlang-elixir/init-git-gutter-fringe ()
   (add-hook 'erlang-mode-hook 'git-gutter-mode))
