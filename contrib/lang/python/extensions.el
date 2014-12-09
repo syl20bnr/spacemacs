@@ -26,10 +26,12 @@
                nosetests-pdb-suite)
     :init
     (evil-leader/set-key-for-mode 'python-mode
-      "mTf" 'nosetests-pdb-one
-      "mtf" 'nosetests-one
       "mTa" 'nosetests-pdb-all
       "mta" 'nosetests-all
+      "mTb" 'nosetests-pdb-module
+      "mtb" 'nosetests-module
+      "mTf" 'nosetests-pdb-one
+      "mtf" 'nosetests-one
       "mTm" 'nosetests-pdb-module
       "mtm" 'nosetests-module
       "mTs" 'nosetests-pdb-suite

@@ -32,12 +32,12 @@ Send code to inferior process commands:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> m b`       | send buffer and keep code buffer focused
-`<SPC> m B`       | send buffer and switch to REPL in insert mode
-`<SPC> m f`       | send function and keep code buffer focused
-`<SPC> m F`       | send function and switch to REPL in insert mode
-`<SPC> m r`       | send region and keep code buffer focused
-`<SPC> m R`       | send region and switch to REPL in insert mode
+`<SPC> m s b`     | send buffer and keep code buffer focused
+`<SPC> m s B`     | send buffer and switch to REPL in insert mode
+`<SPC> m s f`     | send function and keep code buffer focused
+`<SPC> m s F`     | send function and switch to REPL in insert mode
+`<SPC> m s r`     | send region and keep code buffer focused
+`<SPC> m s R`     | send region and switch to REPL in insert mode
 `CTRL+j`          | next item in REPL history
 `CTRL+k`          | previous item in REPL history
 
@@ -55,14 +55,16 @@ Test commands (start with `m t` or `m T`):
     No Debug      |                 Description
 ------------------|------------------------------------------------------------
 <SPC> m t a       | launch all tests of the project
-<SPC> m t f       | launch the current test under point
+<SPC> m t b       | launch all tests of the current buffer (same as module)
+<SPC> m t f       | launch the current test (function)
 <SPC> m t m       | launch all tests of the current module
 <SPC> m t s       | launch all tests of the current suite
 
      Debug        |                 Description
 ------------------|------------------------------------------------------------
 <SPC> m T a       | launch all tests of the project in debug mode
-<SPC> m T f       | launch the current test under point in debug mode
+<SPC> m T b       | launch all tests of the current buffer (module) in debug mode
+<SPC> m T f       | launch the current test (function) in debug mode
 <SPC> m T m       | launch all tests of the current module in debug mode
 <SPC> m T s       | launch all tests of the current suite in debug mode
 
@@ -73,7 +75,7 @@ Test commands (start with `m t` or `m T`):
 `<SPC> m d`       | quick documentation using anaconda
 `<SPC> m D`       | open documentation in `firefox` using [pylookup][pylookup]
 `<SPC> m g`       | go to definition using `anaconda-mode-goto` (`C-o` to jump back)
-`<SPC> m p`       | toggle a breakpoint
+`<SPC> m b`       | toggle a breakpoint
 `<SPC> m v`       | activate a virtual environment with [pyvenv][pyvenv]
 
 ## Screenshots
