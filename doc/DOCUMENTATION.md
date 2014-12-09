@@ -817,15 +817,22 @@ The choice of `fd` was made to be able to use the same sequence to escape from
 - abort isearch
 - quit magit buffers
 - quit help buffers
+- quit apropos buffers
+- quit ert buffers
+- quit undo-tree buffer
+- quit paradox
+- quit gist-list menu
 - hide neotree buffer
 
-This sequence can be customized in your `~/.spacemacs`, for instance to
-revert back to the popular configuration using `jj` (just for the example
-it is not recommended) add this to your `config` function:
+This sequence can be customized in your `~/.spacemacs`, but `evil-escape`
+is not guaranteed to work properly with sequences based on `h j k or l` so
+it is recommended to avoid defining sequences like `jj` or `jk`.
+
+Example to set it to `jn` (it is important to put it in `dotspacemacs/init`):
 
 ```elisp
 (defun dotspacemacs/init ()
-  (setq-default evil-escape-key-sequence (kbd "jj"))
+  (setq-default evil-escape-key-sequence (kbd "jn"))
 )
 ```
 
