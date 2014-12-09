@@ -15,6 +15,8 @@
             - [For all languages](#for-all-languages)
             - [Depending on the language](#depending-on-the-language)
         - [Debugging](#debugging)
+        - [Code navigation](#code-navigation)
+        - [Documentation](#documentation)
         - [Evilify buffers](#evilify-buffers)
         - [Navigation in `insert state` buffers](#navigation-in-insert-state-buffers)
 
@@ -106,6 +108,18 @@ or more bindings for the same thing
     Key           |                 Description
 ------------------|------------------------------------------------------------
 <kbd>m b</kbd>    | toggle a breakpoint
+
+### Code navigation
+
+    Key           |                 Description
+------------------|------------------------------------------------------------
+<kbd>m g</kbd>    | go to definition of thing under point
+
+### Documentation
+
+    Key           |                 Description
+------------------|------------------------------------------------------------
+<kbd>m d</kbd>    | documentation of thing under point
 
 **TBD**
 
