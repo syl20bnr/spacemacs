@@ -56,22 +56,22 @@ which require an initialization must be listed explicitly in the list.")
       (eval-after-load 'auto-highlight-symbol
         '(add-to-list 'ahs-plugin-bod-modes 'python-mode))
       (evil-leader/set-key-for-mode 'python-mode
-        "mB"  (lambda ()
-                " Send buffer content to shell and switch to it in insert mode."
-                (interactive)
-                (python-shell-send-buffer)
-                (python-shell-switch-to-shell)
-                (evil-insert-state))
-        "mb"  'python-shell-send-buffer
+        "msB"  (lambda ()
+                 " Send buffer content to shell and switch to it in insert mode."
+                 (interactive)
+                 (python-shell-send-buffer)
+                 (python-shell-switch-to-shell)
+                 (evil-insert-state))
+        "msb"  'python-shell-send-buffer
         "md"  'anaconda-mode-view-doc
         "mD"  'pylookup-lookup
-        "mF"  (lambda ()
-                " Send function content to shell and switch to it in insert mode."
-                (interactive)
-                (python-shell-send-defun nil)
-                (python-shell-switch-to-shell)
-                (evil-insert-state))
-        "mf"  'python-shell-send-defun
+        "msF"  (lambda ()
+                 " Send function content to shell and switch to it in insert mode."
+                 (interactive)
+                 (python-shell-send-defun nil)
+                 (python-shell-switch-to-shell)
+                 (evil-insert-state))
+        "msf"  'python-shell-send-defun
         "mg"  (lambda ()
                 (interactive)
                 (when (fboundp 'evil-jumper--push)
@@ -82,14 +82,14 @@ which require an initialization must be listed explicitly in the list.")
                 (interactive)
                 (python-shell-switch-to-shell)
                 (evil-insert-state))
-        "mp"  'python-toggle-breakpoint
-        "mR"  (lambda (start end)
+        "mb"  'python-toggle-breakpoint
+        "msR"  (lambda (start end)
                 " Send region content to shell and switch to it in insert mode."
                 (interactive "r")
                 (python-shell-send-region start end)
                 (python-shell-switch-to-shell)
                 (evil-insert-state))
-        "mr"  'python-shell-send-region
+        "msr"  'python-shell-send-region
         "mv"  'pyvenv-workon)
 
       (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
