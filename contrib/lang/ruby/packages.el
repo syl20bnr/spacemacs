@@ -52,5 +52,5 @@ which require an initialization must be listed explicitly in the list.")
 (defun ruby/init-ruby-test-mode ()
   "Define keybindings for ruby test mode"
   (use-package ruby-test-mode
-    :config (progn (evil-leader/set-key "mtf" 'ruby-test-run)
-                   (evil-leader/set-key "mtp" 'ruby-test-run-at-point))))
+    :config (progn (evil-leader/set-key "mtb" 'ruby-test-run)
+                   (evil-leader/set-key "mtt" 'ruby-test-run-at-point))))

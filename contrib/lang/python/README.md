@@ -75,17 +75,17 @@ Test commands (start with `m t` or `m T`):
 ------------------|------------------------------------------------------------
 <SPC> m t a       | launch all tests of the project
 <SPC> m t b       | launch all tests of the current buffer (same as module)
-<SPC> m t f       | launch the current test (function)
 <SPC> m t m       | launch all tests of the current module
 <SPC> m t s       | launch all tests of the current suite
+<SPC> m t t       | launch the current test (function)
 
      Debug        |                 Description
 ------------------|------------------------------------------------------------
 <SPC> m T a       | launch all tests of the project in debug mode
 <SPC> m T b       | launch all tests of the current buffer (module) in debug mode
-<SPC> m T f       | launch the current test (function) in debug mode
 <SPC> m T m       | launch all tests of the current module in debug mode
 <SPC> m T s       | launch all tests of the current suite in debug mode
+<SPC> m T t       | launch the current test (function) in debug mode
 
 ### Other Python commands
 
