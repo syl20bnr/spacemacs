@@ -9,8 +9,16 @@
         - [All layers](#all-layers)
     - [Key bindings conventions](#key-bindings-conventions)
         - [Prefix reserved to the user](#prefix-reserved-to-the-user)
-        - [Navigation in `insert state` buffers](#navigation-in-insert-state-buffers)
+        - [Prefix reserved to the current major mode](#prefix-reserved-to-the-current-major-mode)
         - [Interactions with REPLs](#interactions-with-repls)
+        - [Interactions with Tests](#interactions-with-tests)
+            - [For all languages](#for-all-languages)
+            - [Depending on the language](#depending-on-the-language)
+        - [Debugging](#debugging)
+        - [Code navigation](#code-navigation)
+        - [Documentation](#documentation)
+        - [Evilify buffers](#evilify-buffers)
+        - [Navigation in `insert state` buffers](#navigation-in-insert-state-buffers)
 
 <!-- markdown-toc end -->
 
@@ -39,6 +47,84 @@ A package is initialized in a function with name `<layer>/init-xxx` where:
 
 `<SPC> o` must not be used by any layer. It is reserved for the user.
 
+### Prefix reserved to the current major mode
+
+`<SPC> m` is reserved for the current major mode.
+
+### Interactions with REPLs
+
+A lot of languages can interact with a REPL. To help keeping a consistent
+behavior between those languages the following conventions should be
+followed:
+- `<SPC> m` is the prefix for sending code if there is any conflict with
+other bindings then `<SPC> m s` is the prefered prefix. This allows fast
+interaction with the REPL whenever it is possible.
+- lower case key bindings keep the focus on the current buffer
+- upper case key bindings move the focus to the REPL buffer
+
+    Key             |                 Description
+--------------------|------------------------------------------------------------
+<kbd>m (s) b</kbd>  | send buffer
+<kbd>m (s) B</kbd>  | send buffer and switch to REPL
+<kbd>m (s) d</kbd>  | first key to send buffer and switch to REPL to debug (step)
+<kbd>m (s) D</kbd>  | second key to send buffer and switch to REPL to debug (step)
+<kbd>m (s) f</kbd>  | send function
+<kbd>m (s) F</kbd>  | send function and switch to REPL
+<kbd>m (s) l</kbd>  | send line
+<kbd>m (s) L</kbd>  | send line and switch to REPL
+<kbd>m (s) r</kbd>  | send region
+<kbd>m (s) R</kbd>  | send region and switch to REPL
+
+Note: we don't distinguish between the file and the buffer.
+
+### Interactions with Tests
+
+A lot of languages have their own test frameworks. These frameworks share
+common actions that we can unite under the same key bindings:
+- `<SPC> m t` is the prefix for test execution.
+- `<SPC> m T` is the prefix for test execution in debug mode (if supported).
+
+#### For all languages
+
+    Key           |                 Description
+------------------|------------------------------------------------------------
+<kbd>m t a</kbd>  | execute all the tests of the current project
+<kbd>m t b</kbd>  | execute all the tests of the current buffer
+<kbd>m t t</kbd>  | execute the current test (thing at point, function)
+
+Note: we don't distinguish between the file and the buffer. We can implement
+an auto-save of the buffer before executing the tests.
+
+#### Depending on the language
+
+    Key           |                 Description
+------------------|------------------------------------------------------------
+<kbd>m t m</kbd>  | execute the tests of the current module
+<kbd>m t s</kbd>  | execute the tests of the current suite
+
+Note that there are overlaps, depending on the language we will choose one
+or more bindings for the same thing
+
+### Debugging
+
+    Key           |                 Description
+------------------|------------------------------------------------------------
+<kbd>m b</kbd>    | toggle a breakpoint
+
+### Code navigation
+
+    Key           |                 Description
+------------------|------------------------------------------------------------
+<kbd>m g</kbd>    | go to definition of thing under point
+
+### Documentation
+
+    Key           |                 Description
+------------------|------------------------------------------------------------
+<kbd>m d</kbd>    | documentation of thing under point
+
+**TBD**
+
 ### Evilify buffers
 
 `Spacemacs` offers convenient functions to _evilify_ a buffer.
@@ -66,23 +152,3 @@ be performed with <kbd>C-j</kbd> and <kdb>C-k</kbd> for vertical movements.
 
 History navigation in shells or REPLs buffers should be bound as well to
 <kbd>C-j</kbd> and <kdb>C-k</kbd>.
-
-### Interactions with REPLs
-
-A lot of languages can interact with a REPL. To help keeping a consistent
-behavior between those languages the following conventions should be
-followed:
-- lower case key bindings keep the focus on the current buffer
-- upper case key bindings move the focus to the REPL buffer
-
-    Key           |                 Description
-------------------|------------------------------------------------------------
-<kbd>b</kbd>      | evaluate buffer
-<kbd>B</kbd>      | evaluate buffer and switch to REPL
-<kbd>f</kbd>      | evaluate function
-<kbd>F</kbd>      | evaluate function and switch to REPL
-<kbd>l</kbd>      | evaluate line
-<kbd>L</kbd>      | evaluate line and switch to REPL
-<kbd>r</kbd>      | evaluate region
-<kbd>R</kbd>      | evaluate region and switch to REPL
-

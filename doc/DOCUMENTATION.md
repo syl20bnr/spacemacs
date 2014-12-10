@@ -63,6 +63,7 @@
         - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
         - [Window manipulation](#window-manipulation)
             - [Resizing windows](#resizing-windows)
+            - [Reposition window](#reposition-window)
             - [Golden ratio](#golden-ratio)
         - [Buffers and Files](#buffers-and-files)
         - [Ido](#ido)
@@ -817,15 +818,22 @@ The choice of `fd` was made to be able to use the same sequence to escape from
 - abort isearch
 - quit magit buffers
 - quit help buffers
+- quit apropos buffers
+- quit ert buffers
+- quit undo-tree buffer
+- quit paradox
+- quit gist-list menu
 - hide neotree buffer
 
-This sequence can be customized in your `~/.spacemacs`, for instance to
-revert back to the popular configuration using `jj` (just for the example
-it is not recommended) add this to your `config` function:
+This sequence can be customized in your `~/.spacemacs`, but `evil-escape`
+is not guaranteed to work properly with sequences based on `h j k or l` so
+it is recommended to avoid defining sequences like `jj` or `jk`.
+
+Example to set it to `jn` (it is important to put it in `dotspacemacs/init`):
 
 ```elisp
-(defun dotspacemacs/config ()
-  (setq-default evil-escape-key-sequence (kbd "jj"))
+(defun dotspacemacs/init ()
+  (setq-default evil-escape-key-sequence (kbd "jn"))
 )
 ```
 
@@ -949,6 +957,14 @@ Any other key       | leave the micro-state
 The micro-state text in minibuffer display the following information:
 
     [WidthxHeight] Resize window: (H/L) shrink/enlarge horizontally, (J/K) shrink/enlarge vertically
+
+#### Reposition window
+
+Key Binding         | Description
+--------------------|------------------------------------------------------------
+<kbd>z f</kbd>      | Make current function or comments visible
+
+`z f` tries to accommodate current function or comments into window as much as possible.
 
 #### Golden ratio
 
@@ -1860,7 +1876,8 @@ Achievements                                         | Account
 [First contribution][1st-contrib]                    | [trishume][]
 [First contribution layer][1st-clayer]               | [trishume][]
 [First blog article on Spacemacs][1st-article]       | [Wolfy87][]
-[100th issue (PR)][100th-issue]                      | [danielwuz][]
+[100th issue (was a PR)][100th-issue]                | [danielwuz][]
+[100th pull request][100th-PR]                       | [bru][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
 
@@ -1951,9 +1968,11 @@ developers to elisp hackers!
 [1st-clayer]: https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39
 [1st-article]: http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/
 [100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
+[100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [trishume]:https://github.com/trishume
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
+[bru]:https://github.com/bru
 [Jackneill]:https://github.com/Jackneill
 [jb55]:https://github.com/jb55
 [use-package]: https://github.com/jwiegley/use-package

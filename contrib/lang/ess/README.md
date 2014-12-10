@@ -5,7 +5,7 @@
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(ess)
+(setq-default dotspacemacs-configuration-layers '(ess)
   "List of contribution to load."
 )
 ```
@@ -28,14 +28,14 @@ Send code to inferior process commands:
 ------------------|------------------------------------------------------------
 `<SPC> m b`       | send buffer and keep code buffer focused
 `<SPC> m B`       | send buffer and switch to REPL in insert mode
-`<SPC> m f`       | send function and keep code buffer focused
-`<SPC> m F`       | send function and switch to REPL in insert mode
+`<SPC> m d`       | send region or line and step (debug)
+`<SPC> m D`       | send function or paragraph and step (debug)
 `<SPC> m l`       | send line and keep code buffer focused
 `<SPC> m L`       | send line and switch to REPL in insert mode
 `<SPC> m r`       | send region and keep code buffer focused
 `<SPC> m R`       | send region and switch to REPL in insert mode
-`<SPC> m s`       | send region or line and step (debug)
-`<SPC> m S`       | send function or paragraph and step (debug)
+`<SPC> m t`       | send thing at point (function) and keep code buffer focused
+`<SPC> m T`       | send thing at point (function) and switch to REPL in insert mode
 `CTRL+j`          | next item in REPL history
 `CTRL+k`          | previous item in REPL history
 

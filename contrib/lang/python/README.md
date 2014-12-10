@@ -1,30 +1,40 @@
 # Python contribution layer for Spacemacs
 
-## Features
+![logo](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/python/python.png)
 
-- **Auto-completion**
-- **Code Navigation**
-- **Virtual Environment**
-- **Documentation Lookup**
-- **Running Tests**
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [Python contribution layer for Spacemacs](#python-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+    - [Key Bindings](#key-bindings)
+        - [Inferior REPL process](#inferior-repl-process)
+        - [Testing in Python](#testing-in-python)
+        - [Other Python commands](#other-python-commands)
+
+<!-- markdown-toc end -->
+
+## Description
+
+This layer adds support for the Python language.
+
+Features:
+- Auto-completion using [anaconda-mode][]
+- Code Navigation using  [anaconda-mode][]
+- Documentation Lookup using  [anaconda-mode][] and [pylookup][]
+- Test Runner using [nose.el][]
+- Virtual Environment using [pyvenv][]
+- semantic mode is enabled
 
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(python)
+(setq-default dotspacemacs-configuration-layers '(python)
   "List of contribution to load."
 )
-```
-
-Because spacemacs is using [anaconda-mode][anaconda-mode] as emacs
-interface to `jedi` library, you may need to install jedi in order to
-use code completion. You may install jedi by running following command
-in your python environment:
-
-```shell
-$ pip install jedi
 ```
 
 ## Key Bindings
@@ -64,16 +74,18 @@ Test commands (start with `m t` or `m T`):
     No Debug      |                 Description
 ------------------|------------------------------------------------------------
 <SPC> m t a       | launch all tests of the project
-<SPC> m t f       | launch the current test under point
+<SPC> m t b       | launch all tests of the current buffer (same as module)
 <SPC> m t m       | launch all tests of the current module
 <SPC> m t s       | launch all tests of the current suite
+<SPC> m t t       | launch the current test (function)
 
      Debug        |                 Description
 ------------------|------------------------------------------------------------
 <SPC> m T a       | launch all tests of the project in debug mode
-<SPC> m T f       | launch the current test under point in debug mode
+<SPC> m T b       | launch all tests of the current buffer (module) in debug mode
 <SPC> m T m       | launch all tests of the current module in debug mode
 <SPC> m T s       | launch all tests of the current suite in debug mode
+<SPC> m T t       | launch the current test (function) in debug mode
 
 ### Other Python commands
 
@@ -82,10 +94,8 @@ Test commands (start with `m t` or `m T`):
 `<SPC> m d`       | quick documentation using anaconda
 `<SPC> m D`       | open documentation in `firefox` using [pylookup][pylookup]
 `<SPC> m g`       | go to definition using `anaconda-mode-goto` (`C-o` to jump back)
-`<SPC> m p`       | toggle a breakpoint
+`<SPC> m t b`     | toggle a breakpoint
 `<SPC> m v`       | activate a virtual environment with [pyvenv][pyvenv]
-
-## Screenshots
 
 [anaconda-mode]: https://github.com/proofit404/anaconda-mode
 [pyvenv]: https://github.com/jorgenschaefer/pyvenv

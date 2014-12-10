@@ -28,18 +28,18 @@ which require an initialization must be listed explicitly in the list.")
   (eval-after-load "ess-site"
     '(progn
        (evil-leader/set-key-for-mode 'ess-mode
+         "mi" 'R
+         "mp" 'ess-R-object-popup
          "mB" 'ess-eval-buffer-and-go
          "mb" 'ess-eval-buffer
-         "mF" 'ess-eval-function-and-go
-         "mf" 'ess-eval-function
-         "mi" 'R
+         "mD" 'ess-eval-function-or-paragraph-and-step
+         "md" 'ess-eval-region-or-line-and-step
          "mL" 'ess-eval-line-and-go
          "ml" 'ess-eval-line
-         "mp" 'ess-R-object-popup
          "mR" 'ess-eval-region-and-go
          "mr" 'ess-eval-region
-         "mS" 'ess-eval-function-or-paragraph-and-step
-         "ms" 'ess-eval-region-or-line-and-step
+         "mT" 'ess-eval-function-and-go
+         "mt" 'ess-eval-function
          "mvp" 'ess-R-dv-pprint
          "mvt" 'ess-R-dv-ctable
          )

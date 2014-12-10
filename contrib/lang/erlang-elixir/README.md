@@ -1,5 +1,8 @@
 # Erlang/Elixir contribution layer for Spacemacs
 
+![logo_erlang](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/erlang-elixir/erlang.png)
+ ![logo_elixir](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/erlang-elixir/elixir.png)
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
@@ -16,7 +19,7 @@
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(erlang-elixir)
+(setq-default dotspacemacs-configuration-layers '(erlang-elixir)
   "List of contribution to load."
 )
 ```

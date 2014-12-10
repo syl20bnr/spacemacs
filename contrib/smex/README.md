@@ -11,7 +11,7 @@ activated in the Spacemacs layer.
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(smex)
+(setq-default dotspacemacs-configuration-layers '(smex)
   "List of contribution to load."
 )
 ```
