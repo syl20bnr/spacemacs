@@ -46,8 +46,8 @@ which require an initialization must be listed explicitly in the list.")
   (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
     (evil-jumper--push)))
 
-(defun python/init-pyenv ()
-  (use-package pyenv
+(defun python/init-pyvenv ()
+  (use-package pyvenv
     :defer t
     :init
     (evil-leader/set-key-for-mode 'python-mode
