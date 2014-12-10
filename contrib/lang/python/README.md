@@ -1,12 +1,31 @@
 # Python contribution layer for Spacemacs
 
-## Features
+![logo](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/python/python.png)
 
-- **Auto-completion**
-- **Code Navigation**
-- **Virtual Environment**
-- **Documentation Lookup**
-- **Running Tests**
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [Python contribution layer for Spacemacs](#python-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+    - [Key Bindings](#key-bindings)
+        - [Inferior REPL process](#inferior-repl-process)
+        - [Testing in Python](#testing-in-python)
+        - [Other Python commands](#other-python-commands)
+
+<!-- markdown-toc end -->
+
+## Description
+
+This layer adds support for the Python language.
+
+Features:
+- Auto-completion using [anaconda-mode][]
+- Code Navigation using  [anaconda-mode][]
+- Documentation Lookup using  [anaconda-mode][] and [pylookup][]
+- Test Runner using [nose.el][]
+- Virtual Environment using [pyvenv][]
+- semantic mode is enabled
 
 ## Install
 
@@ -32,12 +51,12 @@ Send code to inferior process commands:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> m s b`     | send buffer and keep code buffer focused
-`<SPC> m s B`     | send buffer and switch to REPL in insert mode
-`<SPC> m s f`     | send function and keep code buffer focused
-`<SPC> m s F`     | send function and switch to REPL in insert mode
-`<SPC> m s r`     | send region and keep code buffer focused
-`<SPC> m s R`     | send region and switch to REPL in insert mode
+`<SPC> m b`       | send buffer and keep code buffer focused
+`<SPC> m B`       | send buffer and switch to REPL in insert mode
+`<SPC> m f`       | send function and keep code buffer focused
+`<SPC> m F`       | send function and switch to REPL in insert mode
+`<SPC> m r`       | send region and keep code buffer focused
+`<SPC> m R`       | send region and switch to REPL in insert mode
 `CTRL+j`          | next item in REPL history
 `CTRL+k`          | previous item in REPL history
 
@@ -75,10 +94,8 @@ Test commands (start with `m t` or `m T`):
 `<SPC> m d`       | quick documentation using anaconda
 `<SPC> m D`       | open documentation in `firefox` using [pylookup][pylookup]
 `<SPC> m g`       | go to definition using `anaconda-mode-goto` (`C-o` to jump back)
-`<SPC> m b`       | toggle a breakpoint
+`<SPC> m t b`     | toggle a breakpoint
 `<SPC> m v`       | activate a virtual environment with [pyvenv][pyvenv]
-
-## Screenshots
 
 [anaconda-mode]: https://github.com/proofit404/anaconda-mode
 [pyvenv]: https://github.com/jorgenschaefer/pyvenv
