@@ -1890,6 +1890,7 @@ determine the state to enable when escaping from the insert state.")
                                            (recentf-track-opened-file))))
     :config
     (progn
+      (recentf-mode +1)
       (setq recentf-exclude '("~/.emacs.d/.cache"))
       (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
       (setq recentf-save-file (concat spacemacs-cache-directory "/recentf"))
