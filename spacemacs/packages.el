@@ -111,6 +111,7 @@
     sbt-mode
     scala-mode2
     scss-mode
+    shell
     smartparens
     smeargle
     smooth-scrolling
@@ -1910,6 +1911,33 @@ determine the state to enable when escaping from the insert state.")
   (use-package scss-mode
     :defer t
     :mode ("\\.scss\\'" . scss-mode)))
+
+(defun spacemacs/init-shell ()
+  (defun shell-comint-input-sender-hook ()
+    "Check certain shell commands.
+ Executes the appropriate behavior for certain commands."
+    (setq comint-input-sender
+          (lambda (proc command)
+            (cond
+             ;; Check for clear command and execute it.
+             ((string-match "^[ \t]*clear[ \t]*$" command)
+              (comint-send-string proc "\n")
+              (erase-buffer))
+             ;; Check for man command and execute it.
+             ((string-match "^[ \t]*man[ \t]*" command)
+              (comint-send-string proc "\n")
+              (setq command (replace-regexp-in-string "^[ \t]*man[ \t]*" "" command))
+              (setq command (replace-regexp-in-string "[ \t]+$" "" command))
+              (funcall 'man command))
+             ;; Send other commands to the default handler.
+             (t (comint-simple-send proc command))))))
+  (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
+
+  (defun eshell/clear ()
+    "Clear contents in eshell."
+    (interactive)
+    (let ((inhibit-read-only t))
+      (erase-buffer))))
 
 (defun spacemacs/init-smartparens ()
   (use-package smartparens
