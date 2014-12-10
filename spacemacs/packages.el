@@ -604,6 +604,8 @@ determine the state to enable when escaping from the insert state.")
       ;; Make evil-mode up/down operate in screen lines instead of logical lines
       (define-key evil-normal-state-map "j" 'evil-next-visual-line)
       (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
+      ;; Make the current definition and/or comment visible.
+      (define-key evil-normal-state-map "zf" 'reposition-window)
       ;; quick navigation
       (define-key evil-normal-state-map (kbd "L")
         (lambda () (interactive)

@@ -63,6 +63,7 @@
         - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
         - [Window manipulation](#window-manipulation)
             - [Resizing windows](#resizing-windows)
+            - [Reposition window](#reposition-window)
             - [Golden ratio](#golden-ratio)
         - [Buffers and Files](#buffers-and-files)
         - [Ido](#ido)
@@ -956,6 +957,14 @@ Any other key       | leave the micro-state
 The micro-state text in minibuffer display the following information:
 
     [WidthxHeight] Resize window: (H/L) shrink/enlarge horizontally, (J/K) shrink/enlarge vertically
+
+#### Reposition window
+
+Key Binding         | Description
+--------------------|------------------------------------------------------------
+<kbd>z f</kbd>      | Make current function or comments visible
+
+`z f` tries to accommodate current function or comments into window as much as possible.
 
 #### Golden ratio
 
