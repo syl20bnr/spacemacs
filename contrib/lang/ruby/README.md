@@ -1,6 +1,6 @@
 # Ruby contribution layer for Spacemacs
 
-![logo](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/ruby/ruby.png)
+![logo](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/ruby/ruby.gif)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
