@@ -1,5 +1,19 @@
 # Ruby contribution layer for Spacemacs
 
+![logo](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/ruby/ruby.png)
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [Ruby contribution layer for Spacemacs](#ruby-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+    - [Key bindings](#key-bindings)
+        - [enh-ruby-mode](#enh-ruby-mode)
+        - [ruby-test-mode](#ruby-test-mode)
+
+<!-- markdown-toc end -->
+
 ## Description
 
 This layer aims at providing support for the Ruby language using
@@ -43,8 +57,8 @@ $ gem install pry
 ruby-test-mode comes bundled with spacemacs, but this contribution adds
 a couple of useful keybindings:
 
-<kbd>SPC m t f</kbd> run test file
-<kbd>SPC m t p</kbd> run test at pointer
+<kbd>SPC m t b</kbd> run test file
+<kbd>SPC m t t</kbd> run test at pointer
 
 
 [enh-ruby-mode]: https://github.com/zenspider/enhanced-ruby-mode
