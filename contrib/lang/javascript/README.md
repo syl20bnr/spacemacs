@@ -30,7 +30,7 @@ Main features:
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(javascript)
+(setq-default dotspacemacs-configuration-layers '(javascript)
   "List of contribution to load."
 )
 ```

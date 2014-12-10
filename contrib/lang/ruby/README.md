@@ -24,7 +24,7 @@ This layer aims at providing support for the Ruby language using
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(ruby)
+(setq-default dotspacemacs-configuration-layers '(ruby)
   "List of contribution to load."
 )
 ```

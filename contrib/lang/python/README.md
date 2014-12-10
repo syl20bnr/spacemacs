@@ -32,7 +32,7 @@ Features:
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(python)
+(setq-default dotspacemacs-configuration-layers '(python)
   "List of contribution to load."
 )
 ```

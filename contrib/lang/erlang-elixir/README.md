@@ -16,7 +16,7 @@
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(erlang-elixir)
+(setq-default dotspacemacs-configuration-layers '(erlang-elixir)
   "List of contribution to load."
 )
 ```

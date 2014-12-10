@@ -8,7 +8,7 @@ for Emacs. You can try them easily by invoking helm-themes with: `<SPC> h t`.
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(themes-megapack)
+(setq-default dotspacemacs-configuration-layers '(themes-megapack)
   "List of contribution to load."
 )
 ```

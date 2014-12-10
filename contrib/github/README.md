@@ -25,7 +25,7 @@ This layer installs packages to interface Github services or features:
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(github)
+(setq-default dotspacemacs-configuration-layers '(github)
   "List of contribution to load."
 )
 ```
