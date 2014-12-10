@@ -30,8 +30,8 @@
       "mta" 'nosetests-all
       "mTb" 'nosetests-pdb-module
       "mtb" 'nosetests-module
-      "mTf" 'nosetests-pdb-one
-      "mtf" 'nosetests-one
+      "mTt" 'nosetests-pdb-one
+      "mtt" 'nosetests-one
       "mTm" 'nosetests-pdb-module
       "mtm" 'nosetests-module
       "mTs" 'nosetests-pdb-suite
