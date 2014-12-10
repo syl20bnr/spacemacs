@@ -56,22 +56,24 @@ A package is initialized in a function with name `<layer>/init-xxx` where:
 A lot of languages can interact with a REPL. To help keeping a consistent
 behavior between those languages the following conventions should be
 followed:
-- `<SPC> m s` is the prefix for sending code.
+- `<SPC> m` is the prefix for sending code if there is any conflict with
+other bindings then `<SPC> m s` is the prefered prefix. This allows fast
+interaction with the REPL whenever it is possible.
 - lower case key bindings keep the focus on the current buffer
 - upper case key bindings move the focus to the REPL buffer
 
-    Key           |                 Description
-------------------|------------------------------------------------------------
-<kbd>m s b</kbd>  | send buffer
-<kbd>m s B</kbd>  | send buffer and switch to REPL
-<kbd>m s d</kbd>  | first key to send buffer and switch to REPL to debug (step)
-<kbd>m s D</kbd>  | second key to send buffer and switch to REPL to debug (step)
-<kbd>m s f</kbd>  | send function
-<kbd>m s F</kbd>  | send function and switch to REPL
-<kbd>m s l</kbd>  | send line
-<kbd>m s L</kbd>  | send line and switch to REPL
-<kbd>m s r</kbd>  | send region
-<kbd>m s R</kbd>  | send region and switch to REPL
+    Key             |                 Description
+--------------------|------------------------------------------------------------
+<kbd>m (s) b</kbd>  | send buffer
+<kbd>m (s) B</kbd>  | send buffer and switch to REPL
+<kbd>m (s) d</kbd>  | first key to send buffer and switch to REPL to debug (step)
+<kbd>m (s) D</kbd>  | second key to send buffer and switch to REPL to debug (step)
+<kbd>m (s) f</kbd>  | send function
+<kbd>m (s) F</kbd>  | send function and switch to REPL
+<kbd>m (s) l</kbd>  | send line
+<kbd>m (s) L</kbd>  | send line and switch to REPL
+<kbd>m (s) r</kbd>  | send region
+<kbd>m (s) R</kbd>  | send region and switch to REPL
 
 Note: we don't distinguish between the file and the buffer.
 
@@ -88,7 +90,7 @@ common actions that we can unite under the same key bindings:
 ------------------|------------------------------------------------------------
 <kbd>m t a</kbd>  | execute all the tests of the current project
 <kbd>m t b</kbd>  | execute all the tests of the current buffer
-<kbd>m t f</kbd>  | execute the current test (function)
+<kbd>m t t</kbd>  | execute the current test (thing at point, function)
 
 Note: we don't distinguish between the file and the buffer. We can implement
 an auto-save of the buffer before executing the tests.
