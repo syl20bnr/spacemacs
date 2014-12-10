@@ -30,16 +30,16 @@ which require an initialization must be listed explicitly in the list.")
        (evil-leader/set-key-for-mode 'ess-mode
          "mi" 'R
          "mp" 'ess-R-object-popup
-         "msB" 'ess-eval-buffer-and-go
-         "msb" 'ess-eval-buffer
-         "msD" 'ess-eval-function-or-paragraph-and-step
-         "msd" 'ess-eval-region-or-line-and-step
-         "msF" 'ess-eval-function-and-go
-         "msf" 'ess-eval-function
-         "msL" 'ess-eval-line-and-go
-         "msl" 'ess-eval-line
-         "msR" 'ess-eval-region-and-go
-         "msr" 'ess-eval-region
+         "mB" 'ess-eval-buffer-and-go
+         "mb" 'ess-eval-buffer
+         "mD" 'ess-eval-function-or-paragraph-and-step
+         "md" 'ess-eval-region-or-line-and-step
+         "mL" 'ess-eval-line-and-go
+         "ml" 'ess-eval-line
+         "mR" 'ess-eval-region-and-go
+         "mr" 'ess-eval-region
+         "mT" 'ess-eval-function-and-go
+         "mt" 'ess-eval-function
          "mvp" 'ess-R-dv-pprint
          "mvt" 'ess-R-dv-ctable
          )
