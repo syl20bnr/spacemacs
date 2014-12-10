@@ -135,4 +135,6 @@ which require an initialization must be listed explicitly in the list.")
   (add-hook 'python-mode-hook 'flycheck-mode))
 
 (defun python/init-semantic ()
-  (semantic-mode 1))
+  ;; required to correctly load semantic mode
+  ;; using the python-mode-hook triggers an error about a deleted buffer.
+  (eval-after-load 'python '(semantic-mode 1)))
