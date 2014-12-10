@@ -119,14 +119,14 @@ which require an initialization must be listed explicitly in the list.")
         (evil-insert-state))
 
       (evil-leader/set-key-for-mode 'python-mode
-        "msB" 'python-shell-send-buffer-switch
-        "msb" 'python-shell-send-buffer
-        "msF" 'python-shell-send-defun-switch
-        "msf" 'python-shell-send-defun
+        "mB"  'python-shell-send-buffer-switch
+        "mb"  'python-shell-send-buffer
+        "mF"  'python-shell-send-defun-switch
+        "mf"  'python-shell-send-defun
         "mi"  'python-start-or-switch-repl
-        "mb"  'python-toggle-breakpoint
-        "msR" 'python-shell-send-region-switch
-        "msr" 'python-shell-send-region)
+        "mtb" 'python-toggle-breakpoint
+        "mR"  'python-shell-send-region-switch
+        "mr"  'python-shell-send-region)
 
       (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
       (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input))))
