@@ -29,7 +29,7 @@ of the current selected text by pressing <kbd>e</kbd>.
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(iedit)
+(setq-default dotspacemacs-configuration-layers '(iedit)
   "List of contribution to load."
 )
 ```

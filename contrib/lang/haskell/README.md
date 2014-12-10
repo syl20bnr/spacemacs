@@ -12,7 +12,7 @@ improve it and make it consistent with the Spacemacs experience.**
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(haskell)
+(setq-default dotspacemacs-configuration-layers '(haskell)
   "List of contribution to load."
 )
 ```

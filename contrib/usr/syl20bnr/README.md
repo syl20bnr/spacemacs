@@ -5,7 +5,7 @@
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(syl20bnr)
+(setq-default dotspacemacs-configuration-layers '(syl20bnr)
   "List of contribution to load."
 )
 ```
