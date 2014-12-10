@@ -26,16 +26,16 @@ Send code to inferior process commands:
 
     Key Binding   |                 Description
 ------------------|------------------------------------------------------------
-`<SPC> m s b`     | send buffer and keep code buffer focused
-`<SPC> m s B`     | send buffer and switch to REPL in insert mode
-`<SPC> m s d`     | send region or line and step (debug)
-`<SPC> m s D`     | send function or paragraph and step (debug)
-`<SPC> m s l`     | send line and keep code buffer focused
-`<SPC> m s L`     | send line and switch to REPL in insert mode
-`<SPC> m s r`     | send region and keep code buffer focused
-`<SPC> m s R`     | send region and switch to REPL in insert mode
-`<SPC> m s t`     | send function and keep code buffer focused
-`<SPC> m s T`     | send function and switch to REPL in insert mode
+`<SPC> m b`       | send buffer and keep code buffer focused
+`<SPC> m B`       | send buffer and switch to REPL in insert mode
+`<SPC> m d`       | send region or line and step (debug)
+`<SPC> m D`       | send function or paragraph and step (debug)
+`<SPC> m l`       | send line and keep code buffer focused
+`<SPC> m L`       | send line and switch to REPL in insert mode
+`<SPC> m r`       | send region and keep code buffer focused
+`<SPC> m R`       | send region and switch to REPL in insert mode
+`<SPC> m t`       | send thing at point (function) and keep code buffer focused
+`<SPC> m T`       | send thing at point (function) and switch to REPL in insert mode
 `CTRL+j`          | next item in REPL history
 `CTRL+k`          | previous item in REPL history
 
