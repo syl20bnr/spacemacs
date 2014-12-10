@@ -8,6 +8,16 @@
 (define-key isearch-mode-map (kbd "M-S-<return>") 'isearch-repeat-backward)
 
 ;; ---------------------------------------------------------------------------
+;; Make <escape> quit as much as possible
+;; ---------------------------------------------------------------------------
+(define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key evil-visual-state-map (kbd "<escape>") 'keyboard-quit)
+(define-key minibuffer-local-ns-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key minibuffer-local-completion-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key minibuffer-local-isearch-map (kbd "<escape>") 'keyboard-escape-quit)
+
+;; ---------------------------------------------------------------------------
 ;; evil-leader key bindings
 ;; ---------------------------------------------------------------------------
 
