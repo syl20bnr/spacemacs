@@ -23,15 +23,24 @@ keys:
 symbol and the value is a list of layer symbols responsible for initializing
 and configuring the package.")
 
+(defvar config-system-all-packages-sorted '()
+  "Sorted list of all package symbols.")
+
 (defvar config-system-all-pre-extensions #s(hash-table size 128 data ())
   "Hash table of all declared pre-extensions in all layers where the key is a
 extension symbol and the value is the layer symbols responsible for initializing
 and configuring the package.")
 
+(defvar config-system-all-pre-extensions-sorted '()
+  "Sorted list of all pre extensions symbols.")
+
 (defvar config-system-all-post-extensions #s(hash-table size 128 data ())
   "Hash table of all declared post-extensions in all layers where the key is a
 extension symbol and the value is the layer symbols responsible for initializing
 and configuring the package.")
+
+(defvar config-system-all-post-extensions-sorted '()
+  "Sorted list of all post extensions symbols.")
 
 (defvar config-system-layer-paths #s(hash-table size 128 data ())
   "Hash table of layers locations where the key is a layer symbol and the value
@@ -150,18 +159,21 @@ declared at the layer level."
 
 (defun config-system/load-layers ()
   "Load all declared layers."
-  (config-system/load-layer-files '("funcs.el" "config.el"))
-  (config-system/read-packages-and-extensions)
-  (config-system/initialize-extensions config-system-all-pre-extensions t)
-  (config-system/install-packages)
+  (config-system//load-layer-files '("funcs.el" "config.el"))
+  (config-system//read-packages-and-extensions)
+  (config-system//sort-packages-and-extensions)
+  (config-system//initialize-extensions
+   config-system-all-pre-extensions-sorted t)
+  (config-system//install-packages)
   (spacemacs/append-to-buffer spacemacs-loading-text)
-  ;; restore warning level
+  ;; restore warning level before initialization
   (setq warning-minimum-level :warning)
-  (config-system/initialize-packages)
-  (config-system/initialize-extensions config-system-all-post-extensions)
-  (config-system/load-layer-files '("keybindings.el")))
+  (config-system//initialize-packages)
+  (config-system//initialize-extensions
+   config-system-all-post-extensions-sorted)
+  (config-system//load-layer-files '("keybindings.el")))
 
-(defun config-system/load-layer-files (files)
+(defun config-system//load-layer-files (files)
   "Load the files of list FILES from all declared layers."
   (dolist (layer (reverse config-system-config-layers))
     (let* ((sym (car layer))
@@ -195,7 +207,22 @@ declared at the layer level."
           config-system-all-pre-extensions
           config-system-all-post-extensions)))
 
-(defun config-system/read-packages-and-extensions ()
+(defun config-system//sort-packages-and-extensions ()
+  "Sort the packages and extensions symbol and store them in
+`config-system-all-packages-sorted'
+`config-system-all-pre-extensions-sorted'
+`config-system-all-post-extensions-sorted'"
+  (let ((pkg-list (ht-keys config-system-all-packages))
+        (pre-list (ht-keys config-system-all-pre-extensions))
+        (post-list (ht-keys config-system-all-post-extensions)))
+    (setq config-system-all-packages-sorted
+          (mapcar 'intern (sort (mapcar 'symbol-name pkg-list) 'string<)))
+    (setq config-system-all-pre-extensions-sorted
+          (mapcar 'intern (sort (mapcar 'symbol-name pre-list) 'string<)))
+    (setq config-system-all-post-extensions-sorted
+          (mapcar 'intern (sort (mapcar 'symbol-name post-list) 'string<)))))
+
+(defun config-system//read-packages-and-extensions ()
   "Load all packages and extensions declared in all layers and fill the
 corresponding hash tables:
 config-system-all-packages
@@ -239,14 +266,11 @@ config-system-all-post-extensions "
   (setq spacemacs-loading-dots-chunk-threshold
         (/ total spacemacs-loading-dots-chunk-count))))
 
-(defun config-system/install-packages ()
+(defun config-system//install-packages ()
   "Install the packages all the packages if there are not currently installed."
   (interactive)
-  (let* ((pkg-list (ht-keys config-system-all-packages))
-         (sorted-pkg-list (mapcar 'intern
-                                  (sort (mapcar 'symbol-name pkg-list)
-                                        'string<)))
-         (not-installed (remove-if 'package-installed-p sorted-pkg-list))
+  (let* ((not-installed (remove-if 'package-installed-p
+                                   config-system-all-packages-sorted))
          (not-installed-count (length not-installed)))
     ;; installation
     (if not-installed
@@ -279,9 +303,11 @@ config-system-all-post-extensions "
             (redisplay))
           (spacemacs/append-to-buffer "\n")))))
 
-(defun config-system/initialize-packages ()
+(defun config-system//initialize-packages ()
   "Initialize all the declared packages."
-  (ht-each 'config-system/initialize-package config-system-all-packages))
+  (mapc (lambda (x) (config-system/initialize-package
+                     x (ht-get config-system-all-packages x)))
+        config-system-all-packages-sorted))
 
 (defun config-system/initialize-package (pkg layers)
   "Initialize the package PKG from the configuration layers LAYERS."
@@ -293,18 +319,20 @@ config-system-all-post-extensions "
                            (symbol-name layer) pkg)
                   (funcall init-func))))))
 
-(defun config-system/initialize-pre-extension (ext layers)
+(defun config-system//initialize-pre-extension (ext layers)
   "Initialize the pre-extensions EXT from configuration layers LAYERS."
-  (config-system/initialize-extension ext layers t))
+  (config-system//initialize-extension ext layers t))
 
-(defun config-system/initialize-extensions (ext-list &optional pre)
+(defun config-system//initialize-extensions (ext-list &optional pre)
   "Initialize all the declared extensions in EXT-LIST hash table.
 If PRE is non nil then the extensions are pre-extensions."
-  (if pre 
-      (ht-each 'config-system/initialize-pre-extension ext-list)
-    (ht-each 'config-system/initialize-extension ext-list)))
+  (let ((func (if pre 'config-system//initialize-pre-extension
+                'config-system//initialize-extension))
+        (hash (if pre config-system-all-pre-extensions
+                config-system-all-post-extensions)))
+    (mapc (lambda (x) (funcall func x (ht-get hash x))) ext-list)))
 
-(defun config-system/initialize-extension (ext layers &optional pre)
+(defun config-system//initialize-extension (ext layers &optional pre)
   "Initialize the extension EXT from the configuration layers LAYERS.
 If PRE is non nil then the extension is a pre-extensions."
   (dolist (layer layers)
