@@ -13,6 +13,11 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
 (defvar dotspacemacs-leader-key "SPC"
   "The leader key.")
 
+(defvar dotspacemacs-command-key ":"
+  "The key used for Evil commands (ex-commands) and Emacs commands (M-x).
+By default the command key is `:' so ex-commands are executed like in Vim
+with `:' and Emacs commands are executed with `<leader> :'.")
+
 (defvar dotspacemacs-guide-key-delay 0.4
   "Guide-key delay in seconds.")
 

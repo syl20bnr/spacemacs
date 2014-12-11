@@ -23,6 +23,11 @@
  dotspacemacs-default-theme 'solarized-light
  ;; The leader key
  dotspacemacs-leader-key "SPC"
+ ;; The command key used for Evil commands (ex-commands) and
+ ;; Emacs commands (M-x).
+ ;; By default the command key is `:' so ex-commands are executed like in Vim
+ ;; with `:' and Emacs commands are executed with `<leader> :'.
+ dotspacemacs-command-key ":"
  ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
  ;; the commands bound to the current keystrokes.
  dotspacemacs-guide-key-delay 0.4
