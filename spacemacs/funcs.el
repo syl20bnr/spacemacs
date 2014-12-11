@@ -88,7 +88,7 @@ bindings contained in BODY."
     "N" ',(lookup-key evil-normal-state-map "N")
     "v" 'evil-visual-char
     "V" 'evil-visual-line
-    "C-v" 'evil-visual-block
+    (kbd "C-v") 'evil-visual-block
     ,@body))
 
 ;; From http://stackoverflow.com/a/18796138
