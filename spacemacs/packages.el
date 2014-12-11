@@ -675,9 +675,6 @@ determine the state to enable when escaping from the insert state.")
       (setq evil-leader/in-all-states t
             evil-leader/leader dotspacemacs-leader-key
             evil-leader/non-normal-prefix "s-")
-      ;; give name to spacemacs prefixes
-      (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-           spacemacs/key-binding-prefixes)
       (global-evil-leader-mode))
     :config
     (progn
