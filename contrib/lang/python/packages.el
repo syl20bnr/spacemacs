@@ -34,7 +34,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package company-anaconda
     :if (boundp 'company-backends)
     :defer t
-    :init (add-hook 'python-mode-hook 'company-anaconda)))
+    :init (add-to-list 'company-backends 'company-anaconda)))
 
 (defun python/init-eldoc ()
   (use-package eldoc
