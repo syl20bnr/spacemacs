@@ -102,6 +102,25 @@ bindings contained in BODY."
 (defvar spacemacs-cur-theme (pop spacemacs-themes)
   "Current spacemacs theme.")
 
+(defun spacemacs/split-and-new-line ()
+  "Split a quoted string or s-expression and insert a new line with
+auto-indent."
+  (interactive)
+  (sp-split-sexp 1)
+  (sp-newline))
+
+(defun spacemacs/push-mark-and-goto-beginning-of-line ()
+  "Push a mark at current location and go to the beginnign of the line."
+  (interactive)
+  (push-mark (point))
+  (evil-beginning-of-line))
+
+(defun spacemacs/push-mark-and-goto-end-of-line ()
+  "Push a mark at current location and go to the end of the line."
+  (interactive)
+  (push-mark (point))
+  (evil-end-of-line))
+
 (defun spacemacs/cycle-spacemacs-theme ()
   "Cycle through themes defined in spacemacs-themes."
   (interactive)
