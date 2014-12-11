@@ -150,9 +150,9 @@
   "ww"  'other-window)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
-  "x="  'spacemacs/reset-font-size
-  "x+"  'spacemacs/scale-up-font
-  "x-"  'spacemacs/scale-down-font
+  "zb="  'spacemacs/reset-font-size
+  "zb+"  'spacemacs/scale-up-font
+  "zb-"  'spacemacs/scale-down-font
   "xdw" 'delete-trailing-whitespace
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
