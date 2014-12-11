@@ -52,6 +52,19 @@
 ;; use C-u as scroll-up
 (setq-default evil-want-C-u-scroll t)
 
+;; Hack to fix a bug with tabulated-list.el
+;; see: http://redd.it/2dgy52
+(defun tabulated-list-revert (&rest ignored)
+  "The `revert-buffer-function' for `tabulated-list-mode'.
+It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
+  (interactive)
+  (unless (derived-mode-p 'tabulated-list-mode)
+    (error "The current buffer is not in Tabulated List mode"))
+  (run-hooks 'tabulated-list-revert-hook)
+  ;; hack is here
+  ;; (tabulated-list-print t)
+  (tabulated-list-print))
+
 ;; ---------------------------------------------------------------------------
 ;; Edit
 ;; ---------------------------------------------------------------------------
@@ -76,17 +89,14 @@
 ;; on OS X, install `trash' from `homebrew'
 (setq delete-by-moving-to-trash t)
 (when (system-is-mac)
-  (defun system-move-file-to-trash (file)
-    "Use `trash' to move FILE to the system trash.
-When using homebrew, install it using `brew install trash'."
-    (let ((trash (executable-find "trash")))
-      (if trash (call-process (executable-find "trash")
-                              nil 0 nil file)))))
-(setq system-trash-exclude-matches '("#[^/]+#$"
-                                     ".*~$"))
-(setq system-trash-exclude-paths '(spacemacs-cache-directory
-                                   (concat user-emacs-directory "elpa/")
-                                   "/tmp"))
+  ;; use trash if installed
+  (if (executable-find "trash")
+      (defun system-move-file-to-trash (file)
+        "Use `trash' to move FILE to the system trash.
+Can be installed with `brew install trash'."
+        (call-process (executable-find "trash") nil 0 nil file))
+    ;; regular move to trash directory
+    (setq trash-directory "~/.Trash/emacs")))
 
 ;; ---------------------------------------------------------------------------
 ;; UI

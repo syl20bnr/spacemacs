@@ -1,5 +1,7 @@
 # R (ESS) contribution layer for Spacemacs
 
+![logo](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/ess/r.png)
+
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`

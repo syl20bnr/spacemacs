@@ -1567,13 +1567,17 @@ Here are the often used bindings inside a `status buffer`:
 <kbd>F -r F</kbd> | pull and rebase
 <kbd>h</kbd>      | go left
 <kbd>j</kbd>      | go down
+<kbd>C-j</kbd     | goto next magit section
 <kbd>k</kbd>      | go up
 <kbd>K</kbd>      | discard changes
+<kbd>C-k</kbd     | goto previous magit section
 <kbd>l</kbd>      | go right
 <kbd>L l</kbd>    | open `log buffer`
 <kbd>n</kbd>      | next search occurrence
+<kbd>C-n</kbd     | goto next magit section
 <kbd>N</kbd>      | previous search occurrence
 <kbd>P P</kbd>    | push
+<kbd>C-p</kbd     | goto previous magit section
 <kbd>q</kbd>      | quit
 <kbd>s</kbd>      | on a file or hunk in a diff: stage the file or hunk
 <kbd>+</kbd>      | on a hunk: increase hunk size

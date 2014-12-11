@@ -602,6 +602,8 @@ determine the state to enable when escaping from the insert state.")
           (let ((state (intern (format "evil-%s-state" spacemacs-last-base-state))))
             (funcall state))))
 
+      ;; evil ex-command key
+      (define-key evil-motion-state-map (kbd dotspacemacs-command-key) 'evil-ex)
       ;; Make evil-mode up/down operate in screen lines instead of logical lines
       (define-key evil-normal-state-map "j" 'evil-next-visual-line)
       (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
@@ -1149,7 +1151,7 @@ determine the state to enable when escaping from the insert state.")
           helm-buffers-fuzzy-matching t
           helm-always-two-windows     t)
     (evil-leader/set-key
-        ":"   'helm-M-x
+        dotspacemacs-command-key 'helm-M-x
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
@@ -1387,20 +1389,40 @@ determine the state to enable when escaping from the insert state.")
 
       ;; hjkl key bindings
       (spacemacs|evilify magit-commit-mode-map
-        "C-v" 'magit-revert-item)
+        (kbd "C-j") 'magit-goto-next-section
+        (kbd "C-k") 'magit-goto-previous-section
+        (kbd "C-n") 'magit-goto-next-section
+        (kbd "C-p") 'magit-goto-previous-section
+        (kbd "C-v") 'magit-revert-item)
       (spacemacs|evilify magit-log-mode-map
-        "C-v" 'magit-revert-item)
+        (kbd "C-j") 'magit-goto-next-section
+        (kbd "C-k") 'magit-goto-previous-section
+        (kbd "C-n") 'magit-goto-next-section
+        (kbd "C-p") 'magit-goto-previous-section
+        (kbd "C-v") 'magit-revert-item)
       (spacemacs|evilify magit-process-mode-map
-        "C-v" 'magit-revert-item)
+        (kbd "C-j") 'magit-goto-next-section
+        (kbd "C-k") 'magit-goto-previous-section
+        (kbd "C-n") 'magit-goto-next-section
+        (kbd "C-p") 'magit-goto-previous-section
+        (kbd "C-v") 'magit-revert-item)
       (spacemacs|evilify magit-branch-manager-mode-map
         "K" 'magit-discard-item
         "L" 'magit-key-mode-popup-logging
-        "C-v" 'magit-revert-item)
+        (kbd "C-j") 'magit-goto-next-section
+        (kbd "C-k") 'magit-goto-previous-section
+        (kbd "C-n") 'magit-goto-next-section
+        (kbd "C-p") 'magit-goto-previous-section
+        (kbd "C-v") 'magit-revert-item)
       (spacemacs|evilify magit-status-mode-map
         "K" 'magit-discard-item
         "L" 'magit-key-mode-popup-logging
         "H" 'magit-key-mode-popup-diff-options
-        "C-v" 'magit-revert-item)
+        (kbd "C-j") 'magit-goto-next-section
+        (kbd "C-k") 'magit-goto-previous-section
+        (kbd "C-n") 'magit-goto-next-section
+        (kbd "C-p") 'magit-goto-previous-section
+        (kbd "C-v") 'magit-revert-item)
       ;; remove conflicts with evil leader
       (spacemacs/activate-evil-leader-for-maps '(magit-mode-map
                                                  magit-commit-mode-map

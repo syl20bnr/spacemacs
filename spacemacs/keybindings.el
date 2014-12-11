@@ -8,6 +8,16 @@
 (define-key isearch-mode-map (kbd "M-S-<return>") 'isearch-repeat-backward)
 
 ;; ---------------------------------------------------------------------------
+;; Make <escape> quit as much as possible
+;; ---------------------------------------------------------------------------
+(define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key evil-visual-state-map (kbd "<escape>") 'keyboard-quit)
+(define-key minibuffer-local-ns-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key minibuffer-local-completion-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key minibuffer-local-isearch-map (kbd "<escape>") 'keyboard-escape-quit)
+
+;; ---------------------------------------------------------------------------
 ;; evil-leader key bindings
 ;; ---------------------------------------------------------------------------
 
@@ -78,14 +88,14 @@
 ;; <SPC> j k key binding for a frequent action: go and indent line below the point
 ;; <SPC> J split the current line at point and indent it
 (evil-leader/set-key
-  "J" 'sp-split-sexp
-  "jJ" (lambda () (interactive) (sp-split-sexp 1) (sp-newline))
+  "J"  'sp-split-sexp
+  "jJ" 'spacemacs/split-and-new-line
   "jj" 'sp-newline
   "jk" 'evil-goto-next-line-and-indent)
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key
-  "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line))
-  "jl" (lambda () (interactive) (push-mark (point)) (evil-end-of-line)))
+  "jh" 'spacemacs/push-mark-and-goto-beginning-of-line
+  "jl" 'spacemacs/push-mark-and-goto-end-of-line)
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "cc" 'helm-make-projectile)
 (evil-leader/set-key "cC" 'compile)
