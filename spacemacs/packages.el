@@ -603,7 +603,7 @@ determine the state to enable when escaping from the insert state.")
             (funcall state))))
 
       ;; evil ex-command key
-      (global-set-key (kbd dotspacemacs-command-key) 'evil-ex)
+      (define-key evil-motion-state-map (kbd dotspacemacs-command-key) 'evil-ex)
       ;; Make evil-mode up/down operate in screen lines instead of logical lines
       (define-key evil-normal-state-map "j" 'evil-next-visual-line)
       (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
