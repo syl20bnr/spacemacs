@@ -1164,11 +1164,6 @@ Key Binding            | Description
 <kbd>SPC s b</kbd>     | go to the last searched occurrence of the last highlighted symbol
 <kbd>SPC s e</kbd>     | edit all occurrences of the current symbol
 <kbd>SPC s h</kbd>     | highlight the current symbol and all its occurrence within the current range
-<kbd>SPC s n</kbd>     | go to next occurrence and initiate navigation micro-state
-<kbd>SPC s N</kbd>     | go to previous occurrence and initiate navigation micro-state
-<kbd>SPC s r b</kbd>   | change range to `whole buffer`
-<kbd>SPC s r d</kbd>   | change range to `display area`
-<kbd>SPC s r f</kbd>   | change range to `function`
 <kbd>SPC s R</kbd>     | change range to default (`whole buffer`)
 
 In 'Spacemacs' highlight symbol micro-state:

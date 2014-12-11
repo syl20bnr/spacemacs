@@ -356,20 +356,24 @@ which require an initialization must be listed explicitly in the list.")
                 (define-key evil-normal-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
                 (define-key evil-normal-state-map (kbd "#") 'spacemacs/quick-ahs-backward)))))
 
+      (defun spacemacs/symbol-highlight ()
+        "Highlight the symbol under point with `auto-highlight-symbol'."
+        (interactive)
+        (eval '(progn
+                 (ahs-highlight-now)
+                 (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
+                 (spacemacs/auto-highlight-symbol-overlay-map)) nil))
+
+      (defun spacemacs/symbol-highlight-reset-range ()
+        "Reset the range for `auto-highlight-symbol'."
+        (interactive)
+        (eval '(ahs-change-range ahs-default-range) nil))
+
       (evil-leader/set-key
         "se"  'ahs-edit-mode
         "sb"  'spacemacs/goto-last-searched-ahs-symbol
-        "sh"  (lambda () (interactive)
-                (eval '(progn
-                         (ahs-highlight-now)
-                         (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-                         (spacemacs/auto-highlight-symbol-overlay-map)) nil))
-        "sn"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-forward)) nil))
-        "sN"  (lambda () (interactive) (eval '(progn (ahs-highlight-now) (ahs-backward)) nil))
-        "srb" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-whole-buffer) nil))
-        "srd" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-display) nil))
-        "srf" (lambda () (interactive) (eval '(ahs-change-range 'ahs-range-beginning-of-defun) nil))
-        "sR"  (lambda () (interactive) (eval '(ahs-change-range ahs-default-range) nil)))
+        "sh"  'spacemacs/symbol-highlight
+        "sR"  'spacemacs/symbol-highlight-reset-range)
 
       (spacemacs|hide-lighter auto-highlight-symbol-mode)
       ;; micro-state to easily jump from a highlighted symbol to the others

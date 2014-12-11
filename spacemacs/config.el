@@ -17,7 +17,6 @@
                                        ("p4" . "perforce")
                                        ("r" .  "registers/rings")
                                        ("s" .  "search/symbol")
-                                       ("sr" . "symbol-range")
                                        ("S" .  "spelling")
                                        ("t" .  "toggles")
                                        ("tm" . "toggles-modeline")
