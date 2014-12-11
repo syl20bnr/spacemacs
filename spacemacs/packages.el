@@ -1389,20 +1389,40 @@ determine the state to enable when escaping from the insert state.")
 
       ;; hjkl key bindings
       (spacemacs|evilify magit-commit-mode-map
-        "C-v" 'magit-revert-item)
+        (kbd "C-j") 'magit-goto-next-section
+        (kbd "C-k") 'magit-goto-previous-section
+        (kbd "C-n") 'magit-goto-next-section
+        (kbd "C-p") 'magit-goto-previous-section
+        (kbd "C-v") 'magit-revert-item)
       (spacemacs|evilify magit-log-mode-map
-        "C-v" 'magit-revert-item)
+        (kbd "C-j") 'magit-goto-next-section
+        (kbd "C-k") 'magit-goto-previous-section
+        (kbd "C-n") 'magit-goto-next-section
+        (kbd "C-p") 'magit-goto-previous-section
+        (kbd "C-v") 'magit-revert-item)
       (spacemacs|evilify magit-process-mode-map
-        "C-v" 'magit-revert-item)
+        (kbd "C-j") 'magit-goto-next-section
+        (kbd "C-k") 'magit-goto-previous-section
+        (kbd "C-n") 'magit-goto-next-section
+        (kbd "C-p") 'magit-goto-previous-section
+        (kbd "C-v") 'magit-revert-item)
       (spacemacs|evilify magit-branch-manager-mode-map
         "K" 'magit-discard-item
         "L" 'magit-key-mode-popup-logging
-        "C-v" 'magit-revert-item)
+        (kbd "C-j") 'magit-goto-next-section
+        (kbd "C-k") 'magit-goto-previous-section
+        (kbd "C-n") 'magit-goto-next-section
+        (kbd "C-p") 'magit-goto-previous-section
+        (kbd "C-v") 'magit-revert-item)
       (spacemacs|evilify magit-status-mode-map
         "K" 'magit-discard-item
         "L" 'magit-key-mode-popup-logging
         "H" 'magit-key-mode-popup-diff-options
-        "C-v" 'magit-revert-item)
+        (kbd "C-j") 'magit-goto-next-section
+        (kbd "C-k") 'magit-goto-previous-section
+        (kbd "C-n") 'magit-goto-next-section
+        (kbd "C-p") 'magit-goto-previous-section
+        (kbd "C-v") 'magit-revert-item)
       ;; remove conflicts with evil leader
       (spacemacs/activate-evil-leader-for-maps '(magit-mode-map
                                                  magit-commit-mode-map
