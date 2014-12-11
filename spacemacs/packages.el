@@ -602,6 +602,8 @@ determine the state to enable when escaping from the insert state.")
           (let ((state (intern (format "evil-%s-state" spacemacs-last-base-state))))
             (funcall state))))
 
+      ;; evil ex-command key
+      (global-set-key (kbd dotspacemacs-command-key) 'evil-ex)
       ;; Make evil-mode up/down operate in screen lines instead of logical lines
       (define-key evil-normal-state-map "j" 'evil-next-visual-line)
       (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
@@ -1149,7 +1151,7 @@ determine the state to enable when escaping from the insert state.")
           helm-buffers-fuzzy-matching t
           helm-always-two-windows     t)
     (evil-leader/set-key
-        ":"   'helm-M-x
+        dotspacemacs-command-key 'helm-M-x
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks

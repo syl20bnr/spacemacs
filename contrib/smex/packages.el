@@ -32,7 +32,7 @@ which require an initialization must be listed explicitly in the list.")
         (key-chord-define ido-completion-map (kbd "jk")
                           (cdr (assoc 'ido-mode evil-leader--mode-maps))))
 
-      (evil-leader/set-key ":" 'spacemacs/smex)
+      (evil-leader/set-key dotspacemacs-command-key 'spacemacs/smex)
       (evil-leader/set-key "m:" 'spacemacs/smex-major-mode-commands)
       (global-set-key (kbd "M-x") 'smex)
       (global-set-key (kbd "M-X") 'smex)
