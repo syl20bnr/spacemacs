@@ -21,14 +21,14 @@
 
 ## Description
 
-This layer adds support for [Clojure][] language using [Cider][]
+This layer adds support for [Clojure][] language using [Cider][].
 
 ## Packages Included
 
 - [Cider][]
-- [clojure-mode](https://github.com/clojure-emacs/clojure-mode)
-- [Clj Refactor](https://github.com/clojure-emacs/clj-refactor.el)
-- [Cider Auto Complete](https://github.com/clojure-emacs/ac-cider)
+- [clojure-mode][](https://github.com/clojure-emacs/clojure-mode)
+- [Clj Refactor][](https://github.com/clojure-emacs/clj-refactor.el)
+- [Cider Auto Complete][](https://github.com/clojure-emacs/ac-cider)
 
 ## Install
 
@@ -43,7 +43,7 @@ To use this contribution add it to your `~/.spacemacs`
 ### Cider
 
 Cider requires nRepl middleware to function, please check the installation
-instructions at the [cider repository](https://github.com/clojure-emacs/cider).
+instructions at the [cider repository][cider_install].
 
 ## Key Bindings
 
@@ -87,3 +87,7 @@ instructions at the [cider repository](https://github.com/clojure-emacs/cider).
 
 [Clojure]: http://clojure.org
 [Cider]: https://github.com/clojure-emacs/cider
+[cider_install]: (https://github.com/clojure-emacs/cider#installation)
+[clojure-mode]: https://github.com/clojure-emacs/clojure-mode
+[Clj Refactor]: https://github.com/clojure-emacs/clj-refactor.el
+[Cider Auto Complete]: (https://github.com/clojure-emacs/ac-cider
