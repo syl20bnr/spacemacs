@@ -78,9 +78,12 @@
       (let ((pkg (format "%s-theme" (symbol-name dotspacemacs-default-theme))))
         (spacemacs/load-or-install-package (intern pkg))))))
   (load-theme dotspacemacs-default-theme t)
-  ;; evil and evil-leader must be installed at the beginning of the boot sequence
-  (spacemacs/load-or-install-package 'evil)
-  (spacemacs/load-or-install-package 'evil-leader)
+  ;; remove GUI elements
+  (unless (eq tool-bar-mode -1)
+    (tool-bar-mode -1)
+    (when (not (eq window-system 'mac))
+      (menu-bar-mode -1))
+    (scroll-bar-mode -1))
   ;; font
   ;; Dynamic font size depending on the system
   (let ((font "Source Code Pro"))
@@ -90,15 +93,14 @@
         (`mac (spacemacs/set-font font 12))
         (`w32 (spacemacs/set-font font 9))
         (other (spacemacs/set-font font 10)))))
-  ;; remove GUI elements
-  (unless (eq tool-bar-mode -1)
-    (tool-bar-mode -1)
-    (when (not (eq window-system 'mac))
-      (menu-bar-mode -1))
-    (scroll-bar-mode -1))
+  (switch-to-buffer (get-buffer-create "*spacemacs*"))
+  (let ((buffer-read-only nil))
+    (insert-file-contents (concat spacemacs-core-directory "banner.txt")))
+  ;; evil and evil-leader must be installed at the beginning of the boot sequence
+  (spacemacs/load-or-install-package 'evil)
+  (spacemacs/load-or-install-package 'evil-leader)
   ;; motion state since this is a special mode
-  (eval-after-load 'evil
-    '(add-to-list 'evil-motion-state-modes 'spacemacs-mode)))
+  (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
 
 (defun spacemacs/load-or-install-package (pkg)
   "Load PKG package. PKG will be installed if it is not already
@@ -121,6 +123,7 @@ installed."
            (add-to-list 'load-path (concat user-emacs-directory "elpa/"
                                            pkg-elpa-dir))
          ;; install the package
+         (redisplay)
          (config-system/package.el-initialize)
          (package-refresh-contents)
          (package-install pkg))
@@ -140,23 +143,6 @@ installed."
     (spacemacs/message (format "Set default font: %s" fontstr))
     (add-to-list 'default-frame-alist (cons 'font fontstr))
     (set-default-font fontstr)))
-
-(defun spacemacs/buffer ()
-  "Create and initialize the spacemacs startup buffer."
-  (interactive)
-  (switch-to-buffer (get-buffer-create "*spacemacs*"))
-  (spacemacs-mode)
-  (let ((buffer-read-only nil))
-    (insert-file-contents (concat spacemacs-core-directory "banner.txt"))
-    (unless (spacemacs/emacs-version-ok)
-      (spacemacs/append-to-buffer
-       (format "\nError: Minimal required Emacs version for Spacemacs is %s "
-               spacemacs-min-version))
-      (spacemacs/append-to-buffer (format
-                                   "whereas current Emacs version is %s.\n"
-                                   emacs-version))
-      (spacemacs/append-to-buffer "Spacemacs is disabled.\n")
-      (redisplay))))
 
 (defun spacemacs/message (msg &rest args)
   "Display MSG in message prepended with '(Spacemacs)'."
