@@ -93,18 +93,19 @@
         (`mac (spacemacs/set-font font 12))
         (`w32 (spacemacs/set-font font 9))
         (other (spacemacs/set-font font 10)))))
+  ;; banner
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
   (let ((buffer-read-only nil))
     (insert-file-contents (concat spacemacs-core-directory "banner.txt")))
   ;; evil and evil-leader must be installed at the beginning of the boot sequence
-  (spacemacs/load-or-install-package 'evil)
-  (spacemacs/load-or-install-package 'evil-leader)
+  (spacemacs/load-or-install-package 'evil t)
+  (spacemacs/load-or-install-package 'evil-leader t)
   ;; motion state since this is a special mode
   (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
 
-(defun spacemacs/load-or-install-package (pkg)
-  "Load PKG package. PKG will be installed if it is not already
-installed."
+(defun spacemacs/load-or-install-package (pkg &optional log)
+  "Load PKG package. PKG will be installed if it is not already installed.
+If LOG is non-nil a message is displayed in spacemacs-mode buffer."
   (condition-case nil
       (require pkg)
     (error
@@ -123,7 +124,10 @@ installed."
            (add-to-list 'load-path (concat user-emacs-directory "elpa/"
                                            pkg-elpa-dir))
          ;; install the package
-         (redisplay)
+         (when log
+           (spacemacs/append-to-buffer
+            (format "(Bootstrap) Installing %s...\n" pkg))
+           (redisplay))
          (config-system/package.el-initialize)
          (package-refresh-contents)
          (package-install pkg))
