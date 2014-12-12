@@ -1486,7 +1486,15 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-markdown-mode ()
   (use-package markdown-mode
     :mode ("\\.md" . markdown-mode)
-    :defer t))
+    :defer t
+    :init
+    (eval-after-load 'smartparens
+      '(add-hook 'markdown-mode-hook 'smartparens-mode))
+    :config
+    ;; Don't do terrible things with Github code blocks (```)
+    (when (fboundp 'sp-local-pair)
+      (sp-local-pair 'markdown-mode "`" nil :actions '(:rem autoskip))
+      (sp-local-pair 'markdown-mode "'" nil :actions nil))))
 
 (defun spacemacs/init-markdown-toc ()
   (use-package markdown-toc
@@ -2008,8 +2016,10 @@ determine the state to enable when escaping from the insert state.")
     :defer t
     :init
     (progn
-      (add-to-hooks 'smartparens-strict-mode '(markdown-mode-hook
-                                               prog-mode-hook)))
+      (add-to-hooks (if dotspacemacs-smartparens-strict-mode
+                        'smartparens-strict-mode
+                      'smartparens-mode)
+                    '(prog-mode-hook)))
     :config
     (progn
       (require 'smartparens-config)
@@ -2026,11 +2036,7 @@ determine the state to enable when escaping from the insert state.")
       (sp-pair "{" nil :post-handlers
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
       (sp-pair "[" nil :post-handlers
-               '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
-
-      ;; Don't do terrible things with Github code blocks (```)
-      (sp-local-pair 'markdown-mode "`" nil :actions '(:rem autoskip))
-      (sp-local-pair 'markdown-mode "'" nil :actions nil))))
+               '(:add (spacemacs/smartparens-pair-newline-and-indent "RET"))))))
 
 (defun spacemacs/init-smeargle ()
   (use-package smeargle

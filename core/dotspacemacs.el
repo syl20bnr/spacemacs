@@ -33,6 +33,9 @@ it reaches the top or bottom of the screen.")
   "If non nil pressing 'jk' in insert state, ido or helm will activate the
 evil leader.")
 
+(defvar dotspacemacs-smartparens-strict-mode nil
+  "If non-nil smartparens-strict-mode will be enabled in programming modes.")
+
 (defvar dotspacemacs-default-package-repository 'melpa-stable
   "The default package repository used if no explicit repository has been
 specified with an installed package.
