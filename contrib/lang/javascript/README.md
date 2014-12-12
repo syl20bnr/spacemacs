@@ -1,6 +1,6 @@
 # JavaScript contribution layer for Spacemacs
 
-![logo](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/javascript/javascript.png)
+![logo](javascript.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**

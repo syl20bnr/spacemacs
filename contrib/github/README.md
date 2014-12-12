@@ -1,6 +1,6 @@
 # github contribution layer for Spacemacs
 
-![github](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/github/github.png)
+![github](github.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**

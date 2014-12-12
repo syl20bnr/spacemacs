@@ -56,7 +56,7 @@ that extend the default distribution.
 Spacemacs looks good. It comes with high-quality themes and a custom low-clutter
 modeline.
 
-![spacemacs_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/spacemacs-python.png)
+![spacemacs_python](doc/img/spacemacs-python.png)
 
 ### Excellent Evil Support
 
