@@ -640,7 +640,14 @@ determine the state to enable when escaping from the insert state.")
       (define-and-bind-text-object "|" "|" "|")
       ;; between percent signs:
       (define-and-bind-text-object "%" "%" "%")
-      )))
+
+      ;; support smart 1parens-strict-mode
+      (if (ht-contains? config-system-all-packages 'smartparens)
+          (defadvice evil-delete-backward-char-and-join
+              (around spacemacs/evil-delete-backward-char-and-join activate)
+            (if smartparens-strict-mode
+                (call-interactively 'sp-backward-delete-char)
+              ad-do-it))))))
 
 (defun spacemacs/init-evil-args ()
   (use-package evil-args
