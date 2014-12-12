@@ -40,6 +40,8 @@
  ;; If non nil pressing 'jk' in insert state, ido or helm will activate the
  ;; evil leader.
  dotspacemacs-feature-toggle-leader-on-jk nil
+ ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
+ dotspacemacs-smartparens-strict-mode nil
  ;; The default package repository used if no explicit repository has been
  ;; specified with an installed package.
  ;; Not used for now.
