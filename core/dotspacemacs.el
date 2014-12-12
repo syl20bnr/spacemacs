@@ -33,6 +33,9 @@ it reaches the top or bottom of the screen.")
   "If non nil pressing 'jk' in insert state, ido or helm will activate the
 evil leader.")
 
+(defvar dotspacemacs-persistent-server nil
+  "If non nil advises quit functions to keep server open when quitting.")
+
 (defvar dotspacemacs-smartparens-strict-mode nil
   "If non-nil smartparens-strict-mode will be enabled in programming modes.")
 
