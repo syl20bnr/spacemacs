@@ -1967,8 +1967,8 @@ determine the state to enable when escaping from the insert state.")
     :defer t
     :init
     (progn
-      (add-to-hooks 'smartparens-mode '(markdown-mode-hook
-                                        prog-mode-hook)))
+      (add-to-hooks 'smartparens-strict-mode '(markdown-mode-hook
+                                               prog-mode-hook)))
     :config
     (progn
       (require 'smartparens-config)
