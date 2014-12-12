@@ -583,6 +583,39 @@ kill internal buffers too."
                  (string-match regexp name))
         (kill-buffer buffer)))))
 
+;; advise to prevent server from closing
+
+(defvar spacemacs-really-kill-emacs nil
+  "prevent window manager close from closing instance.")
+
+(defadvice kill-emacs (around spacemacs-really-exit activate)
+  "Only kill emacs if a prefix is set"
+  (if (or spacemacs-really-kill-emacs (not dotspacemacs-persistent-server))
+      ad-do-it)
+  (spacemacs/frame-killer))
+
+(defadvice save-buffers-kill-emacs (around spacemacs-really-exit activate)
+  "Only kill emacs if a prefix is set"
+  (if (or spacemacs-really-kill-emacs (not dotspacemacs-persistent-server))
+      ad-do-it)
+  (spacemacs/frame-killer))
+
+(defun spacemacs/save-buffers-kill-emacs ()
+  (interactive)
+  (setq spacemacs-really-kill-emacs t)
+  (save-buffers-kill-emacs))
+
+(defun spacemacs/kill-emacs ()
+  (interactive)
+  (setq spacemacs-really-kill-emacs t)
+  (kill-emacs))
+
+(defun spacemacs/frame-killer ()
+  "Exit server buffers and hide the main Emacs window"
+  (interactive)
+  (server-edit)
+  (make-frame-invisible nil 1))
+
 ;; A small minor mode to use a big fringe
 ;; from http://bzg.fr/emacs-strip-tease.html
 (defvar bzg-big-fringe-mode nil)
