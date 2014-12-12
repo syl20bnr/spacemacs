@@ -70,6 +70,8 @@
             - [Experimental Ido feature](#experimental-ido-feature)
         - [NeoTree file tree](#neotree-file-tree)
         - [Shells](#shells)
+            - [Key bindings](#key-bindings)
+            - [Staying in insert state](#staying-in-insert-state)
         - [Bookmarks](#bookmarks)
     - [Searching](#searching)
         - [Project Searching](#project-searching)
@@ -1077,6 +1079,16 @@ Key Binding                      |                 Description
 <kbd>r</kbd>                     | rename a node
 
 ### Shells
+
+#### Key bindings
+
+Key Binding         |                 Description
+--------------------|----------------------------------------------------------------
+<kbd>C-j</kbd>      | next item in history
+<kbd>C-k</kbd>      | previous item in history
+<kbd>SPC m h</kbd>  | browse history with `helm` (works in `eshell` and `shell`)
+
+#### Staying in insert state
 
 Navigating in shell buffers can be tricky because it is not possible to use the
 leader in `insert state`. Switching back and forth between normal and insert
