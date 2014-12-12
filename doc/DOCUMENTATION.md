@@ -193,13 +193,13 @@ and remember.
 # Screenshots
 
 _Startup_
-![spacemacs_startup](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/spacemacs-startup.png)
+![spacemacs_startup](img/spacemacs-startup.png)
 
 _Python_
-![spacemacs_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/spacemacs-python.png)
+![spacemacs_python](img/spacemacs-python.png)
 
 _Terminal (urxvt)_
-![spacemacs_urxvt](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/spacemacs-urxvt.png)
+![spacemacs_urxvt](img/spacemacs-urxvt.png)
 
 *Note: Even though screenshots are updated frequently, `Spacemacs` is evolving
 quickly and the screenshots may not reflect exactly the current state of the
@@ -582,10 +582,10 @@ When a `micro-state` is active, a documentation is displayed in the minibuffer.
 Additional information may as well be displayed in the minibuffer.
 
 [Auto-highlight-symbol micro-state](#auto-highlight-and-edition-of-symbols):
-![spacemacs_ahs_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/spacemacs-ahs-micro-state.png)
+![spacemacs_ahs_micro_state](img/spacemacs-ahs-micro-state.png)
 
 [Text scale micro-state](#change-font-size):
-![spacemacs_scale_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/spacemacs-scale-micro-state.png)
+![spacemacs_scale_micro_state](img/spacemacs-scale-micro-state.png)
 
 # Color theme
 
@@ -683,7 +683,7 @@ Some elements can be dynamically toggled:
 When [Flycheck][flycheck] minor mode is enabled, a new element appears showing
 the number of errors, warnings and info.
 
-![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-wave.png)
+![powerline-wave](img/powerline-wave.png)
 
 ### Anzu integration
 
@@ -691,7 +691,7 @@ the number of errors, warnings and info.
 integrates nicely the Anzu status by displaying it temporarily when `n` or `N` are
 being pressed. See the `5/6` segment on the screenshot below.
 
-![powerline-anzu](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-anzu.png)
+![powerline-anzu](img/powerline-anzu.png)
 
 ### Battery status integration
 
@@ -727,22 +727,22 @@ powerline, here is an exhaustive set of screenshots:
 
     Separator     |                 Screenshot
 ------------------|------------------------------------------------------------
-`alternate`       | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-alternate.png)
-`arrow`           | ![powerline-arrow](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-arrow.png)
-`arrow-fade`      | ![powerline-arrow-fade](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-arrow-fade.png)
-`bar`             | ![powerline-bar](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-bar.png)
-`box`             | ![powerline-box](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-box.png)
-`brace`           | ![powerline-brace](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-brace.png)
-`butt`            | ![powerline-butt](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-butt.png)
-`chamfer`         | ![powerline-chamfer](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-chamfer.png)
-`contour`         | ![powerline-contour](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-contour.png)
-`curve`           | ![powerline-curve](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-curve.png)
-`rounded`         | ![powerline-rounded](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-rounded.png)
-`roundstub`       | ![powerline-roundstub](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-roundstub.png)
-`slant`           | ![powerline-slant](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-slant.png)
-`wave`            | ![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-wave.png)
-`zigzag`          | ![powerline-zigzag](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-zigzag.png)
-`nil`             | ![powerline-nil](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/powerline-nil.png)
+`alternate`       | ![powerline-alternate](img/powerline-alternate.png)
+`arrow`           | ![powerline-arrow](img/powerline-arrow.png)
+`arrow-fade`      | ![powerline-arrow-fade](img/powerline-arrow-fade.png)
+`bar`             | ![powerline-bar](img/powerline-bar.png)
+`box`             | ![powerline-box](img/powerline-box.png)
+`brace`           | ![powerline-brace](img/powerline-brace.png)
+`butt`            | ![powerline-butt](img/powerline-butt.png)
+`chamfer`         | ![powerline-chamfer](img/powerline-chamfer.png)
+`contour`         | ![powerline-contour](img/powerline-contour.png)
+`curve`           | ![powerline-curve](img/powerline-curve.png)
+`rounded`         | ![powerline-rounded](img/powerline-rounded.png)
+`roundstub`       | ![powerline-roundstub](img/powerline-roundstub.png)
+`slant`           | ![powerline-slant](img/powerline-slant.png)
+`wave`            | ![powerline-wave](img/powerline-wave.png)
+`zigzag`          | ![powerline-zigzag](img/powerline-zigzag.png)
+`nil`             | ![powerline-nil](img/powerline-nil.png)
 
 ### Minor Modes
 
@@ -1626,9 +1626,9 @@ you can answer `y` with no issue.
 
    Symbol                                                                                    | Description
 :-------------------------------------------------------------------------------------------:|-----------------
-![git-new](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/git-new-line.png) | new line
-![git-del](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/git-del-line.png) | at least one line has been deleted
-![git-mod](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/git-mod-line.png) | modified line
+![git-new](img/git-new-line.png) | new line
+![git-del](img/git-del-line.png) | at least one line has been deleted
+![git-mod](img/git-mod-line.png) | modified line
 
 ## Registers
 
@@ -1659,9 +1659,9 @@ Custom fringe bitmaps:
 
    Symbol                                                                                       | Description
 :----------------------------------------------------------------------------------------------:|------------
-![dot-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/dot-error.png)     | Error
-![dot-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/dot-warning.png) | warning
-![dot-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/dot-info.png)       | Info
+![dot-error](img/dot-error.png)     | Error
+![dot-warning](img/dot-warning.png) | warning
+![dot-info](img/dot-info.png)       | Info
 
 ## Compiling
 
