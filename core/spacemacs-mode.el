@@ -78,6 +78,9 @@
       (let ((pkg (format "%s-theme" (symbol-name dotspacemacs-default-theme))))
         (spacemacs/load-or-install-package (intern pkg))))))
   (load-theme dotspacemacs-default-theme t)
+  ;; evil and evil-leader must be installed at the beginning of the boot sequence
+  (spacemacs/load-or-install-package 'evil)
+  (spacemacs/load-or-install-package 'evil-leader)
   ;; font
   ;; Dynamic font size depending on the system
   (let ((font "Source Code Pro"))
