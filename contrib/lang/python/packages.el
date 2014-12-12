@@ -9,6 +9,7 @@
     pyvenv
     python
     semantic
+    smartparens
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -34,7 +35,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package company-anaconda
     :if (boundp 'company-backends)
     :defer t
-    :init (add-hook 'python-mode-hook 'company-anaconda)))
+    :init (add-to-list 'company-backends 'company-anaconda)))
 
 (defun python/init-eldoc ()
   (use-package eldoc
@@ -138,3 +139,12 @@ which require an initialization must be listed explicitly in the list.")
   ;; required to correctly load semantic mode
   ;; using the python-mode-hook triggers an error about a deleted buffer.
   (eval-after-load 'python '(semantic-mode 1)))
+
+(defun python/init-smartparens ()
+  (defadvice python-indent-dedent-line-backspace
+      (around python/sp-backward-delete-char activate)
+    (let ((pythonp (or (not smartparens-strict-mode)
+                       (char-equal (char-before) ?\s))))
+      (if pythonp
+          ad-do-it
+        (call-interactively 'sp-backward-delete-char)))))

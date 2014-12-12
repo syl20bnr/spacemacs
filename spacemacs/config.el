@@ -1,3 +1,7 @@
+;; ---------------------------------------------------------------------------
+;; Prefixes 
+;; ---------------------------------------------------------------------------
+
 (setq spacemacs/key-binding-prefixes '(("a" .  "applications")
                                        ("as" . "applications-shells")
                                        ("b" .  "buffers")
@@ -17,7 +21,6 @@
                                        ("p4" . "perforce")
                                        ("r" .  "registers/rings")
                                        ("s" .  "search/symbol")
-                                       ("sr" . "symbol-range")
                                        ("S" .  "spelling")
                                        ("t" .  "toggles")
                                        ("tm" . "toggles-modeline")
@@ -32,6 +35,9 @@
                                        ("xt" . "text-transpose")
                                        ("xw" . "text-words")
                                        ("z" .  "z")))
+(mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
+      spacemacs/key-binding-prefixes)
+
 ;; ---------------------------------------------------------------------------
 ;; Navigation
 ;; ---------------------------------------------------------------------------

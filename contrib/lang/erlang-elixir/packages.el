@@ -104,7 +104,10 @@ must be defined in `dotspacemacs/init' function to take effect.")
     :config (spacemacs|hide-lighter ruby-end-mode)))
 
 (defun erlang-elixir/init-smartparens ()
-  (add-hook 'erlang-mode-hook 'smartparens-mode))
+  (add-hook 'erlang-mode-hook
+            (if dotspacemacs-smartparens-strict-mode
+                'smartparens-strict-mode
+              'smartparens-mode)))
 
 (defun erlang-elixir/init-yasnippet ()
   (add-hook 'erlang-mode-hook 'spacemacs/load-yasnippet))

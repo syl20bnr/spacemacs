@@ -1,6 +1,6 @@
 # smex contribution layer for Spacemacs
 
-![Smex](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/smex/smex.png)
+![Smex](smex.png)
 
 This layer replaces `helm-M-x` by [smex][] which is built on top of `ido`.
 `ido` can perform flex matching with the [flx-ido][] mode which is already

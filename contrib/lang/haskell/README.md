@@ -1,6 +1,6 @@
 # Haskell contribution layer for Spacemacs
 
-![Smex](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/haskell/haskell.png)
+![logo](haskell.png)
 
 This layer adds support for the [Haskell][] language.
 
