@@ -1728,9 +1728,17 @@ In `org`, [evil-org-mode][] is activated.
 ----------------------|------------------------------------------------------------
 <kbd>SPC m a</kbd>    | org-agenda
 <kbd>SPC m A</kbd>    | org-archive-subtree
+<kbd>SPC m c</kbd>    | org-capture
 <kbd>SPC m C</kbd>    | evil-org-recompute-clocks
-<kbd>SPC m t</kbd>    | org-show-todo-tree
+<kbd>SPC m d</kbd>    | org-deadline
+<kbd>SPC m e</kbd>    | org-export-dispatch
+<kbd>SPC m i</kbd>    | org-clock-in
 <kbd>SPC m l</kbd>    | evil-org-open-links
+<kbd>SPC m m</kbd>    | org-ctrl-c-ctrl-c
+<kbd>SPC m o</kbd>    | org-clock-out
+<kbd>SPC m r</kbd>    | org-refile
+<kbd>SPC m s</kbd>    | org-schedule
+<kbd>SPC m t</kbd>    | org-show-todo-tree
 <kbd>gh</kbd>         | outline-up-heading
 <kbd>gj</kbd>         | org-forward-heading-same-level
 <kbd>gk</kbd>         | org-backward-heading-same-level

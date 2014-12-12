@@ -756,14 +756,8 @@ determine the state to enable when escaping from the insert state.")
     (add-hook 'org-mode-hook 'evil-org-mode)
     :config
     (progn
-      ;; move the leader bindings to `m` prefix to be consistent with
-      ;; the rest of spacemacs bindings
-      (evil-leader/set-key-for-mode 'org-mode
-        "t" nil "mt" 'org-show-todo-tree
-        "a" nil "ma" 'org-agenda
-        "c" nil "mA" 'org-archive-subtree
-        "l" nil "ml" 'evil-org-open-links
-        "o" nil "mC" 'evil-org-recompute-clocks)
+      ;; to gather all the bindings at the same place the bindnings
+      ;; for evil-org have been moved to `spacemacs/init-org'
       (spacemacs|diminish evil-org-mode " Ⓔ"))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()
@@ -1536,7 +1530,25 @@ determine the state to enable when escaping from the insert state.")
     :init
     (progn
       (setq org-log-done t)
-      (add-hook 'org-mode-hook 'org-indent-mode))
+      (add-hook 'org-mode-hook 'org-indent-mode)
+      (evil-leader/set-key-for-mode 'org-mode
+        "mc" 'org-capture
+        "md" 'org-deadline
+        "me" 'org-export-dispatch
+        "mi" 'org-clock-in
+        "mo" 'org-clock-out
+        "mm" 'org-ctrl-c-ctrl-c
+        "mr" 'org-refile
+        "ms" 'org-schedule)
+      (eval-after-load 'evil-org
+        ;; move the leader bindings to `m` prefix to be consistent with
+        ;; the rest of spacemacs bindings
+        '(evil-leader/set-key-for-mode 'org-mode
+           "a" nil "ma" 'org-agenda
+           "c" nil "mA" 'org-archive-subtree
+           "o" nil "mC" 'evil-org-recompute-clocks
+           "l" nil "ml" 'evil-org-open-links
+           "t" nil "mt" 'org-show-todo-tree)))
     :config
     (progn
       (require 'org-install)
