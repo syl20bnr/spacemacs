@@ -1167,6 +1167,7 @@ determine the state to enable when escaping from the insert state.")
     :config
     (progn
       (helm-mode +1)
+
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
@@ -1195,6 +1196,27 @@ determine the state to enable when escaping from the insert state.")
           "0" (lambda () (interactive) (helm-select-nth-action 9))
           "a" 'helm-select-action)
         (key-chord-define helm-map (kbd "jk") (cdr (assoc 'helm-mode evil-leader--mode-maps))))
+
+      ;; eshell
+      (defun spacemacs/helm-eshell-history ()
+        "Correctly revert to insert state after selection."
+        (interactive)
+        (helm-eshell-history)
+        (evil-insert-state))
+      (defun spacemacs/helm-shell-history ()
+        "Correctly revert to insert state after selection."
+        (interactive)
+        (helm-comint-input-ring)
+        (evil-insert-state))
+      (defun spacemacs/init-helm-eshell ()
+        "Initialize helm-eshell."
+        ;; this is buggy for now
+        ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
+        (evil-leader/set-key-for-mode 'eshell-mode "mh" 'spacemacs/helm-eshell-history))
+      (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
+      ;;shell
+      (evil-leader/set-key-for-mode 'shell-mode "mh" 'spacemacs/helm-shell-history)
+
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
 
@@ -1227,7 +1249,7 @@ determine the state to enable when escaping from the insert state.")
     :init
     (evil-leader/set-key
       "hM"    'helm-switch-major-mode
-      "hm"    'helm-disable-minor-mode
+      ;; "hm"    'helm-disable-minor-mode
       "h C-m" 'helm-enable-minor-mode)))
 
 (defun spacemacs/init-helm-projectile ()
