@@ -2165,7 +2165,8 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-zoom-frm ()
   (use-package zoom-frm
-    :config
+    :defer t
+    :init
     (progn
       (defun spacemacs/zoom-frame-overlay-map ()
         "Set a temporary overlay map to easily change the font size."
