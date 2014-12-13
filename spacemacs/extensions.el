@@ -10,7 +10,6 @@
 (defvar spacemacs-post-extensions
   '(
     centered-cursor
-    dos
     emoji-cheat-sheet
     evil-plugins
     helm-rcirc
@@ -38,10 +37,6 @@
                                       scroll-bar-toolkit-scroll
                                       evil-mouse-drag-region))))
       (spacemacs|diminish centered-cursor-mode " Ⓒ"))))
-
-(defun spacemacs/init-dos ()
-  (use-package dos
-    :mode ("\\.bat$" . dos-mode)))
 
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet

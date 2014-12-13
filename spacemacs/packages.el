@@ -91,7 +91,6 @@
     popup
     popwin
     powerline
-    powershell
     projectile
     puppet-mode
     ;; not working well for now
@@ -1838,10 +1837,6 @@ determine the state to enable when escaping from the insert state.")
                     (powerline-fill face2 (powerline-width rhs))
                     (powerline-render rhs))))))
       )))
-
-(defun spacemacs/init-powershell ()
-  (use-package powershell
-    :defer t))
 
 (defun spacemacs/init-projectile ()
   (use-package projectile
