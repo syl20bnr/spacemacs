@@ -84,7 +84,9 @@
     - [Editing](#editing)
         - [Text manipulation commands](#text-manipulation-commands)
         - [Smartparens Strict mode](#smartparens-strict-mode)
-        - [Change font size](#change-font-size)
+        - [Zooming](#zooming)
+            - [Text](#text)
+            - [Frame](#frame)
         - [Increase/Decrease numbers](#increasedecrease-numbers)
         - [Spell checking](#spell-checking)
         - [Region selection](#region-selection)
@@ -1286,19 +1288,39 @@ variable `dotspacemacs-smartparens-strict-mode` of you `~/.spacemacs`.
 (setq-default dotspacemacs-smartparens-strict-mode t)
 ```
 
-### Change font size
+### Zooming
+
+#### Text
 
 The font size of the current buffer can be adjusted with the commands:
 
-Key Binding          | Description
----------------------|------------------------------------------------------------
-<kbd>SPC x +</kbd>   | scale up the font and initiate the font scaling micro-state
-<kbd>SPC x -</kbd>   | scale down the font and initiate the font scaling micro-state
-<kbd>SPC x =</kbd>   | reset the font size (no scaling) and initiate the font scaling micro-state
-<kbd>+</kbd>         | increase the font size
-<kbd>-</kbd>         | decrease the font size
-<kbd>=</kbd>         | reset the font size
-Any other key        | leave the font scaling micro-state
+Key Binding            | Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC z x +</kbd>   | scale up the font and initiate the font scaling micro-state
+<kbd>SPC z x -</kbd>   | scale down the font and initiate the font scaling micro-state
+<kbd>SPC z x =</kbd>   | reset the font size (no scaling) and initiate the font scaling micro-state
+<kbd>+</kbd>           | increase the font size
+<kbd>-</kbd>           | decrease the font size
+<kbd>=</kbd>           | reset the font size
+Any other key          | leave the font scaling micro-state
+
+Note that _only_ the text of the current buffer is scaled, the other buffers,
+the mode-line and the minibuffer are not affected. To zoom the whole content of
+a frame use the `zoom frame` bindings (see next section).
+
+#### Frame
+
+You can zoom in and out the whole content of the frame with the commands:
+
+Key Binding            | Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC z f +</kbd>   | zoom in the frame content
+<kbd>SPC z f -</kbd>   | zoom out the frame content
+<kbd>SPC z f =</kbd>   | reset the frame content size
+<kbd>+</kbd>           | zoom in
+<kbd>-</kbd>           | zoom out
+<kbd>=</kbd>           | reset zoom
+Any other key          | leave the zoom frame micro-state
 
 ### Increase/Decrease numbers
 
