@@ -7,6 +7,12 @@ This layer globally defines common OSX keybindings. ⌘ is set to
 `super` and ⌥ is set to `meta`. Aside from that, there's nothing
 much, really.
 
+## Philosophy
+
+While this layer enables common OSX bindings, it does not implement
+OSX navigation keybindings. Spacemacs is meant to be used with evil,
+and we encourage you to do so :)
+
 ## Install
 
 To use this configuration layer, add it to your `~/.spacemacs`
@@ -26,11 +32,9 @@ To use this configuration layer, add it to your `~/.spacemacs`
 - ⌘ w: Close window
 - ⌘ z: Undo
 - ⌘ Z: Redo
-- ⌘ ￩: Move to beggining of line
-- ⌘ ￫: Move to end of line
-- ⌘ ￪: Page up
-- ⌘ ￬: Page down
-- ⌘ ⌫: Delete previous word
-- ⌥ ￩: Move to previous word
-- ⌥ ￫: Move to next word
 - ⌃ ⌘ f: Toggle fullscreen
+
+## Future Work
+
+- Allow user to choose from either `hyper` or `super` as ⌘. This is an option that is supported cross-platform.
+- Configurable option to keep the OSX and spacemacs clipboards separate
