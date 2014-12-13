@@ -1267,6 +1267,21 @@ Text related commands (start with `x`):
 <kbd>SPC x w c</kbd>   | count the number of words in the selection region
 <kbd>SPC x w C</kbd>   | count the number of occurrences per word in the select region
 
+### Smartparens Strict mode
+
+[Smartparens][sp] comes with a strict mode which prevents deletion of
+parenthesis if the result is unbalanced.
+
+This mode can be frustrating for novices, this is why it is not enabled by
+default.
+
+It is possible to enable it easily for _all programming modes_ with the
+variable `dotspacemacs-smartparens-strict-mode` of you `~/.spacemacs`.
+
+```elisp
+(setq-default dotspacemacs-smartparens-strict-mode t)
+```
+
 ### Change font size
 
 The font size of the current buffer can be adjusted with the commands:
