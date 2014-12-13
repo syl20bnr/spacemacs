@@ -1,5 +1,19 @@
 # OSX contribution layer for Spacemacs
 
+![applogo](apple.png)![osxlogo](osx.png)
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [OSX contribution layer for Spacemacs](#osx-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Philosophy](#philosophy)
+    - [Install](#install)
+    - [Key Bindings](#key-bindings)
+    - [Future Work](#future-work)
+
+<!-- markdown-toc end -->
+
 ## Description
 
 Spacemacs is not just emacs+vim. It can have OSX keybindings too! 
@@ -25,14 +39,16 @@ To use this configuration layer, add it to your `~/.spacemacs`
 
 ## Key Bindings
 
-- ⌘ q: Quit
-- ⌘ v: Paste
-- ⌘ c: Copy
-- ⌘ x: Cut
-- ⌘ w: Close window
-- ⌘ z: Undo
-- ⌘ Z: Redo
-- ⌃ ⌘ f: Toggle fullscreen
+    Key Binding   |       Description
+------------------|------------------------------------------------------------
+<kbd>⌘ q</kbd>    | Quit
+<kbd>⌘ v</kbd>    | Paste
+<kbd>⌘ c</kbd>    | Copy
+<kbd>⌘ x</kbd>    | Cut
+<kbd>⌘ w</kbd>    | Close window
+<kbd>⌘ z</kbd>    | Undo
+<kbd>⌘ Z</kbd>    | Redo
+<kbd>⌃ ⌘ f</kbd>  | Toggle fullscreen
 
 ## Future Work
 
