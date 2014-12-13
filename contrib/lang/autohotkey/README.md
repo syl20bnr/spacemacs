@@ -1,30 +1,55 @@
-# Autohotkey contribution layer for Spacemacs #
+# Autohotkey contribution layer for Spacemacs
 
-Syntax highlighting and Emacs functions for use with [AutoHotkey][www.autohotkey.com] or [AutoHotkey_L][ahkscript.org]. Using a combined implementation of ahk-mode from Xah Lee's `xahk-mode` and Robert Widhopf-Fenk's `autohotkey-mode`.  Updated with the latest ahk and ahk_l commands found in the latest revision of [SciTE4AutoHotkey[http://fincs.ahk4.net/scite4ahk/].
+![logo](ahk.png)
 
-Contributed and maintained by [Rich Alesi][https://www.github.com/ralesi].
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
 
-## Features ##
+- [Autohotkey contribution layer for Spacemacs](#autohotkey-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Features](#features)
+    - [Install](#install)
+    - [Key Bindings](#key-bindings)
 
-- **Auto-completion**
-- **Documentation Lookup**
-- **Execute Code Snippets
-- **Correct Indentation and Commenting**
+<!-- markdown-toc end -->
+
+## Description
+
+Syntax highlighting and Emacs functions for use with [AutoHotkey][] or
+[AutoHotkey_L][].
+
+Using a combined implementation of ahk-mode from Xah Lee's `xahk-mode`
+and Robert Widhopf-Fenk's `autohotkey-mode`.  Updated with the latest
+ahk and ahk_l commands found in the latest revision of
+[SciTE4AutoHotkey][].
+
+Contributed and maintained by [Rich Alesi][].
+
+## Features
+
+- Auto-completion
+- Documentation Lookup
+- Execute Code Snippets
+- Correct Indentation and Commenting
 
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(autohotkey)
+(setq-default dotspacemacs-configuration-layers '(autohotkey)
   "List of contribution to load."
 )
 ```
 
 ## Key Bindings
 
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-`<SPC> m D`       | open documentation in `browser`
-`<SPC> m E`       | execute file with `autohtokey.exe`
+    Key Binding     |                 Description
+--------------------|------------------------------------------------------------
+<kbd>SPC m D</kbd>  | open documentation in `browser`
+<kbd>SPC m E</kbd>  | execute file with `autohtokey.exe`
 
+[AutoHotkey]: http://www.autohotkey.com
+[AutoHotkey_L]: http://ahkscript.org
+[SciTE4AutoHotkey]: http://fincs.ahk4.net/scite4ahk/
+[Rich Alesi]: https://www.github.com/ralesi

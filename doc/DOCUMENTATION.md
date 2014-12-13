@@ -841,11 +841,16 @@ Example to set it to `jn` (it is important to put it in `dotspacemacs/init`):
 
 ## Executing Vim, Emacs and shell commands
 
-Command     |                 Key Binding
-:----------:|------------------------------------------------------------------
-Vim         | <kbd>`:`</kbd>
-Emacs       | <kbd>SPC :</kbd>
-Shell       | <kbd>SPC !</kbd>
+    Command      |                 Key Binding
+:---------------:|------------------------------------------------------------------
+Vim (ex-command) | <kbd>`:`</kbd>
+Emacs (M-x)      | <kbd>SPC :</kbd>
+Shell            | <kbd>SPC !</kbd> or just <kbd>!</kbd>
+
+The command key `:` can be easily changed with the variable
+`dotspacemacs-command-key` of your `~/.spacemacs`. Note that is will change both
+`:` and `SPC :` bindings to keep the symmetry between Vim and Emacs. A good
+key can be `,` for example.
 
 ## Navigating
 
@@ -1261,6 +1266,21 @@ Text related commands (start with `x`):
 <kbd>SPC x t l</kbd>   | swap (transpose) the current line with the previous one
 <kbd>SPC x w c</kbd>   | count the number of words in the selection region
 <kbd>SPC x w C</kbd>   | count the number of occurrences per word in the select region
+
+### Smartparens Strict mode
+
+[Smartparens][sp] comes with a strict mode which prevents deletion of
+parenthesis if the result is unbalanced.
+
+This mode can be frustrating for novices, this is why it is not enabled by
+default.
+
+It is possible to enable it easily for _all programming modes_ with the
+variable `dotspacemacs-smartparens-strict-mode` of you `~/.spacemacs`.
+
+```elisp
+(setq-default dotspacemacs-smartparens-strict-mode t)
+```
 
 ### Change font size
 
