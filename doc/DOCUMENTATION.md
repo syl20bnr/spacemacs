@@ -83,6 +83,7 @@
         - [Helm-swoop](#helm-swoop)
     - [Editing](#editing)
         - [Text manipulation commands](#text-manipulation-commands)
+        - [Smartparens Strict mode](#smartparens-strict-mode)
         - [Change font size](#change-font-size)
         - [Increase/Decrease numbers](#increasedecrease-numbers)
         - [Spell checking](#spell-checking)
@@ -113,6 +114,9 @@
         - [Python](#python)
         - [JavaScript](#javascript)
         - [rcirc](#rcirc)
+- [Emacs Server](#emacs-server)
+    - [Connecting to the Emacs server](#connecting-to-the-emacs-server)
+    - [Keeping the server alive](#keeping-the-server-alive)
 - [Tips](#tips)
     - [Updating Spacemacs](#updating-spacemacs)
     - [Tips for Emacs users](#tips-for-emacs-users)
@@ -1825,6 +1829,32 @@ More featured JavaScript support is provided by the javascript contribution. Ple
 ------------------|------------------------------------------------------------
 <kbd>CTRL+j</kbd> | next item in command history
 <kbd>CTRL+k</kbd> | previous item in command history
+
+# Emacs Server
+
+`Spacemacs` starts a server at launch. This server is killed whenever you close
+your Emacs windows.
+
+## Connecting to the Emacs server
+
+TODO
+
+## Keeping the server alive
+
+It is possible to keep the server alive when you close Emacs by setting the
+variable `dotspacemacs-persistent-server` to `t` in your `~./spacemacs`.
+
+```elisp
+(setq-default dotspacemacs-persistent-server t)
+```
+
+When this variable is set to `t`, the only way to quit Emacs _and_ kill the
+server is to use the following bindings:
+
+    Key Binding    |                 Description
+-------------------|------------------------------------------------------------
+<kbd>SPC q q</kbd> | Quit Emacs and kill the server
+<kbd>SPC q s</kbd> | Save the buffers, quit Emacs and kill the server
 
 # Tips
 
