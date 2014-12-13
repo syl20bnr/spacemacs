@@ -83,7 +83,10 @@
         - [Helm-swoop](#helm-swoop)
     - [Editing](#editing)
         - [Text manipulation commands](#text-manipulation-commands)
-        - [Change font size](#change-font-size)
+        - [Smartparens Strict mode](#smartparens-strict-mode)
+        - [Zooming](#zooming)
+            - [Text](#text)
+            - [Frame](#frame)
         - [Increase/Decrease numbers](#increasedecrease-numbers)
         - [Spell checking](#spell-checking)
         - [Region selection](#region-selection)
@@ -113,6 +116,9 @@
         - [Python](#python)
         - [JavaScript](#javascript)
         - [rcirc](#rcirc)
+- [Emacs Server](#emacs-server)
+    - [Connecting to the Emacs server](#connecting-to-the-emacs-server)
+    - [Keeping the server alive](#keeping-the-server-alive)
 - [Tips](#tips)
     - [Updating Spacemacs](#updating-spacemacs)
     - [Tips for Emacs users](#tips-for-emacs-users)
@@ -841,11 +847,16 @@ Example to set it to `jn` (it is important to put it in `dotspacemacs/init`):
 
 ## Executing Vim, Emacs and shell commands
 
-Command     |                 Key Binding
-:----------:|------------------------------------------------------------------
-Vim         | <kbd>`:`</kbd>
-Emacs       | <kbd>SPC :</kbd>
-Shell       | <kbd>SPC !</kbd>
+    Command      |                 Key Binding
+:---------------:|------------------------------------------------------------------
+Vim (ex-command) | <kbd>`:`</kbd>
+Emacs (M-x)      | <kbd>SPC :</kbd>
+Shell            | <kbd>SPC !</kbd> or just <kbd>!</kbd>
+
+The command key `:` can be easily changed with the variable
+`dotspacemacs-command-key` of your `~/.spacemacs`. Note that is will change both
+`:` and `SPC :` bindings to keep the symmetry between Vim and Emacs. A good
+key can be `,` for example.
 
 ## Navigating
 
@@ -1262,19 +1273,54 @@ Text related commands (start with `x`):
 <kbd>SPC x w c</kbd>   | count the number of words in the selection region
 <kbd>SPC x w C</kbd>   | count the number of occurrences per word in the select region
 
-### Change font size
+### Smartparens Strict mode
+
+[Smartparens][sp] comes with a strict mode which prevents deletion of
+parenthesis if the result is unbalanced.
+
+This mode can be frustrating for novices, this is why it is not enabled by
+default.
+
+It is possible to enable it easily for _all programming modes_ with the
+variable `dotspacemacs-smartparens-strict-mode` of you `~/.spacemacs`.
+
+```elisp
+(setq-default dotspacemacs-smartparens-strict-mode t)
+```
+
+### Zooming
+
+#### Text
 
 The font size of the current buffer can be adjusted with the commands:
 
-Key Binding          | Description
----------------------|------------------------------------------------------------
-<kbd>SPC x +</kbd>   | scale up the font and initiate the font scaling micro-state
-<kbd>SPC x -</kbd>   | scale down the font and initiate the font scaling micro-state
-<kbd>SPC x =</kbd>   | reset the font size (no scaling) and initiate the font scaling micro-state
-<kbd>+</kbd>         | increase the font size
-<kbd>-</kbd>         | decrease the font size
-<kbd>=</kbd>         | reset the font size
-Any other key        | leave the font scaling micro-state
+Key Binding            | Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC z x +</kbd>   | scale up the font and initiate the font scaling micro-state
+<kbd>SPC z x -</kbd>   | scale down the font and initiate the font scaling micro-state
+<kbd>SPC z x =</kbd>   | reset the font size (no scaling) and initiate the font scaling micro-state
+<kbd>+</kbd>           | increase the font size
+<kbd>-</kbd>           | decrease the font size
+<kbd>=</kbd>           | reset the font size
+Any other key          | leave the font scaling micro-state
+
+Note that _only_ the text of the current buffer is scaled, the other buffers,
+the mode-line and the minibuffer are not affected. To zoom the whole content of
+a frame use the `zoom frame` bindings (see next section).
+
+#### Frame
+
+You can zoom in and out the whole content of the frame with the commands:
+
+Key Binding            | Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC z f +</kbd>   | zoom in the frame content
+<kbd>SPC z f -</kbd>   | zoom out the frame content
+<kbd>SPC z f =</kbd>   | reset the frame content size
+<kbd>+</kbd>           | zoom in
+<kbd>-</kbd>           | zoom out
+<kbd>=</kbd>           | reset zoom
+Any other key          | leave the zoom frame micro-state
 
 ### Increase/Decrease numbers
 
@@ -1805,6 +1851,32 @@ More featured JavaScript support is provided by the javascript contribution. Ple
 ------------------|------------------------------------------------------------
 <kbd>CTRL+j</kbd> | next item in command history
 <kbd>CTRL+k</kbd> | previous item in command history
+
+# Emacs Server
+
+`Spacemacs` starts a server at launch. This server is killed whenever you close
+your Emacs windows.
+
+## Connecting to the Emacs server
+
+TODO
+
+## Keeping the server alive
+
+It is possible to keep the server alive when you close Emacs by setting the
+variable `dotspacemacs-persistent-server` to `t` in your `~./spacemacs`.
+
+```elisp
+(setq-default dotspacemacs-persistent-server t)
+```
+
+When this variable is set to `t`, the only way to quit Emacs _and_ kill the
+server is to use the following bindings:
+
+    Key Binding    |                 Description
+-------------------|------------------------------------------------------------
+<kbd>SPC q q</kbd> | Quit Emacs and kill the server
+<kbd>SPC q s</kbd> | Save the buffers, quit Emacs and kill the server
 
 # Tips
 

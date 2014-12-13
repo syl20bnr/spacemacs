@@ -91,8 +91,6 @@
     popup
     popwin
     powerline
-    powershell
-    powershell-mode
     projectile
     puppet-mode
     ;; not working well for now
@@ -128,6 +126,7 @@
     window-numbering
     yasnippet
     zenburn-theme
+    zoom-frm
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -1840,15 +1839,6 @@ determine the state to enable when escaping from the insert state.")
                     (powerline-render rhs))))))
       )))
 
-(defun spacemacs/init-powershell ()
-  (use-package powershell
-    :commands powershell))
-
-(defun spacemacs/init-powershell-mode ()
-  (use-package powershell-mode
-    :defer t
-    :mode ("\\.ps1\\'" . powershell-mode)))
-
 (defun spacemacs/init-projectile ()
   (use-package projectile
     :commands (projectile-ack
@@ -2090,8 +2080,11 @@ determine the state to enable when escaping from the insert state.")
     :idle (global-undo-tree-mode)
     :defer t
     :init
-    (setq undo-tree-history-directory-alist
+    (setq undo-tree-auto-save-history t
+          undo-tree-history-directory-alist
           `(("." . ,(concat spacemacs-cache-directory "undo"))))
+    (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
+        (make-directory (concat spacemacs-cache-directory "undo")))
     (setq undo-tree-visualizer-timestamps t)
     (setq undo-tree-visualizer-diff t)
     :config
@@ -2169,3 +2162,58 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-zenburn-theme ()
   (use-package zenburn-theme
     :defer t))
+
+(defun spacemacs/init-zoom-frm ()
+  (use-package zoom-frm
+    :defer t
+    :init
+    (progn
+      (defun spacemacs/zoom-frame-overlay-map ()
+        "Set a temporary overlay map to easily change the font size."
+        (set-temporary-overlay-map
+         (let ((map (make-sparse-keymap)))
+           (define-key map (kbd "+") 'spacemacs/zoom-in-frame)
+           (define-key map (kbd "-") 'spacemacs/zoom-out-frame)
+           (define-key map (kbd "=") 'spacemacs/reset-zoom)
+           map) t))
+
+      (defun spacemacs/zoom-frame-micro-state-doc ()
+        "Display a short documentation in the mini buffer."
+        (echo "Zoom Frame micro-state
+  + to zoom frame in
+  - to zoom frame out
+  = to reset zoom
+Press any other key to exit."))
+
+      (defun spacemacs/zoom-in-frame ()
+        "Zoom in frame."
+        (interactive)
+        (spacemacs/zoom-in-or-out 1))
+
+      (defun spacemacs/zoom-out-frame ()
+        "Zoom out frame."
+        (interactive)
+        (spacemacs/zoom-in-or-out -1))
+
+      (defun spacemacs/reset-zoom ()
+        "Reset the zoom."
+        (interactive)
+        (spacemacs/zoom-in-or-out 0))
+
+      (defun spacemacs/zoom-in-or-out (direction)
+        "Zoom the buffer in/out. If DIRECTION is positive or zero the frame text is enlarged,
+otherwise it is reduced."
+        (interactive)
+        (if (eq direction 0)
+            (zoom-frm-unzoom)
+          (if (< direction 0)
+              (zoom-frm-out)
+            (zoom-frm-in)))
+        (spacemacs/zoom-frame-overlay-map)
+        (spacemacs/zoom-frame-micro-state-doc))
+      (evil-leader/set-key
+        "zf+"  'spacemacs/zoom-in-frame
+        "zf-"  'spacemacs/zoom-out-frame
+        "zf="  'spacemacs/reset-zoom)
+      )
+    ))

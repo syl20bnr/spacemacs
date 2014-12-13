@@ -120,6 +120,10 @@
   "tL" 'visual-line-mode
   "tM" 'toggle-frame-maximized
   "tn" 'global-linum-mode)
+;; quit -----------------------------------------------------------------------
+(evil-leader/set-key
+  "q s" 'spacemacs-save-buffers-kill-emacs
+  "q q" 'spacemacs-kill-emacs)
 ;; window ---------------------------------------------------------------------
 ;; (evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key
@@ -150,9 +154,9 @@
   "ww"  'other-window)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
-  "x="  'spacemacs/reset-font-size
-  "x+"  'spacemacs/scale-up-font
-  "x-"  'spacemacs/scale-down-font
+  "zx="  'spacemacs/reset-font-size
+  "zx+"  'spacemacs/scale-up-font
+  "zx-"  'spacemacs/scale-down-font
   "xdw" 'delete-trailing-whitespace
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
