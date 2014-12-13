@@ -71,7 +71,7 @@
       (require 'solarized)
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))
-     (t 
+     (t
       ;; other themes
       ;; we assume that the package name is suffixed with `-theme'
       ;; if not we will handle the special themes as we get issues in the tracker.
@@ -96,7 +96,8 @@
   ;; banner
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
   (let ((buffer-read-only nil))
-    (insert-file-contents (concat spacemacs-core-directory "banner.txt")))
+    (insert-file-contents (concat spacemacs-core-directory "banner.txt"))
+    (spacemacs/insert-buttons))
   ;; evil and evil-leader must be installed at the beginning of the boot sequence
   (spacemacs/load-or-install-package 'evil t)
   (spacemacs/load-or-install-package 'evil-leader t)
@@ -142,8 +143,8 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
 
 (defun spacemacs/set-font (font size &optional options)
   (let* ((fontstr (if options
-                       (format "%s-%s:%s" font size options)
-                     (format "%s-%s" font size))))
+                      (format "%s-%s:%s" font size options)
+                    (format "%s-%s" font size))))
     (spacemacs/message (format "Set default font: %s" fontstr))
     (add-to-list 'default-frame-alist (cons 'font fontstr))
     (set-default-font fontstr)))
@@ -177,7 +178,7 @@ SPACEMACS-TITLE-LENGTH. New loading title is displayed by chunk
 of size LOADING-DOTS-CHUNK-THRESHOLD."
   (setq spacemacs-loading-counter (1+ spacemacs-loading-counter))
   (if (>= spacemacs-loading-counter spacemacs-loading-dots-chunk-threshold)
-      (progn 
+      (progn
         (setq spacemacs-loading-counter 0)
         (let ((i 0))
           (while (< i spacemacs-loading-dots-chunk-size)
@@ -185,3 +186,22 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
             (setq i (1+ i))))
         (spacemacs/replace-last-line-of-buffer spacemacs-loading-text)
         (redisplay))))
+
+(defun spacemacs/insert-buttons ()
+  (goto-char (point-max))
+  (insert-button "Homepage" 'action
+                 (lambda (b) (browse-url "https://github.com/syl20bnr/spacemacs"))
+                 'follow-link t)
+  (insert " ")
+  (insert-button "Documentation" 'action
+                 (lambda (b) (browse-url "https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md"))
+                 'follow-link t)
+  (insert " ")
+  (insert-button "Gitter Chat" 'action
+                 (lambda (b) (browse-url "https://gitter.im/syl20bnr/spacemacs"))
+                 'follow-link t)
+  (insert " ")
+  (insert-button "Messages Buffer" 'action (lambda (b) (switch-to-buffer "*Messages*")) 'follow-link t)
+  (insert " ")
+  (insert-button "Spacemacs Folder" 'action (lambda (b) (find-file user-emacs-directory)) 'follow-link t)
+  (insert "\n\n"))
