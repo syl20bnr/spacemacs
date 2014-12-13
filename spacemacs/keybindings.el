@@ -122,8 +122,8 @@
   "tn" 'global-linum-mode)
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
-  "q s" 'spacemacs-save-buffers-kill-emacs
-  "q q" 'spacemacs-kill-emacs)
+  "q s" 'spacemacs/save-buffers-kill-emacs
+  "q q" 'spacemacs/kill-emacs)
 ;; window ---------------------------------------------------------------------
 ;; (evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key
