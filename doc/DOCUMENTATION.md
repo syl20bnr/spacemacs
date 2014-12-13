@@ -841,11 +841,16 @@ Example to set it to `jn` (it is important to put it in `dotspacemacs/init`):
 
 ## Executing Vim, Emacs and shell commands
 
-Command     |                 Key Binding
-:----------:|------------------------------------------------------------------
-Vim         | <kbd>`:`</kbd>
-Emacs       | <kbd>SPC :</kbd>
-Shell       | <kbd>SPC !</kbd>
+    Command      |                 Key Binding
+:---------------:|------------------------------------------------------------------
+Vim (ex-command) | <kbd>`:`</kbd>
+Emacs (M-x)      | <kbd>SPC :</kbd>
+Shell            | <kbd>SPC !</kbd> or just <kbd>!</kbd>
+
+The command key `:` can be easily changed with the variable
+`dotspacemacs-command-key` of your `~/.spacemacs`. Note that is will change both
+`:` and `SPC :` bindings to keep the symmetry between Vim and Emacs. A good
+key can be `,` for example.
 
 ## Navigating
 
