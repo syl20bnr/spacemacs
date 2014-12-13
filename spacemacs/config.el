@@ -55,8 +55,6 @@
 ;; no beep pleeeeeease ! (and no visual blinking too please)
 (custom-set-variables '(ring-bell-function 'ignore))
 (setq visible-bell nil)
-;; use C-u as scroll-up
-(setq-default evil-want-C-u-scroll t)
 
 ;; Hack to fix a bug with tabulated-list.el
 ;; see: http://redd.it/2dgy52
