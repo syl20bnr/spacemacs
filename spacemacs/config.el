@@ -174,6 +174,14 @@ Can be installed with `brew install trash'."
       savehist-autosave-interval 60)
 (savehist-mode +1)
 
+;; auto-save 
+(let
+    ((autosave-dir (expand-file-name (concat spacemacs-cache-directory "autosave"))))
+  (unless (file-exists-p autosave-dir)
+    (make-directory autosave-dir))
+  (setq auto-save-list-file-prefix (concat autosave-dir "/")
+        auto-save-file-name-transforms `((".*" ,autosave-dir t))))
+
 ;; bookmarks
 (setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks"))
 (setq bookmark-save-flag 1) ;; save after every change
