@@ -189,6 +189,7 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
 
 (defun spacemacs/insert-buttons ()
   (goto-char (point-max))
+  (insert " ")
   (insert-button "Homepage" 'action
                  (lambda (b) (browse-url "https://github.com/syl20bnr/spacemacs"))
                  'follow-link t)
