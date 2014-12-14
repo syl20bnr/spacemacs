@@ -52,6 +52,7 @@
         - [Minor Modes](#minor-modes)
 - [Base packages](#base-packages)
     - [Evil plugins](#evil-plugins)
+- [Font](#font)
 - [Commands](#commands)
     - [Reserved prefix command for user](#reserved-prefix-command-for-user)
     - [Escaping](#escaping)
@@ -797,6 +798,20 @@ They are both extended with various packages to build on their foundations.
 [evil-args][]                           | motions and text objects for arguments
 [evil-jumper][]                         | jump list emulation
 [NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
+
+# Font
+
+The default font used by `Spacemacs` is [source code pro][] by Adobe. It is
+recommended to install it on your system.
+
+Basic font support is provided in `Spacemacs`, you can change the font and
+its size using the function `spacemacs/set-font` in the `dotspacemacs/config`
+function of your `~/.spacemacs`.
+
+```elisp
+(defun dotspacemacs/config ()
+  (spacemacs/set-font "DejaVu Sans Mono" 10)
+```
 
 # Commands
 
