@@ -89,9 +89,6 @@
     rcirc-color
     recentf
     rfringe
-    ruby-end
-    ruby-mode
-    ruby-test-mode
     s
     scss-mode
     shell
