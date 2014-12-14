@@ -78,7 +78,6 @@
     popwin
     powerline
     projectile
-    puppet-mode
     ;; not working well for now
     ;; rainbow-blocks
     rainbow-delimiters
@@ -100,7 +99,6 @@
     vi-tilde-fringe
     visual-regexp-steroids
     volatile-highlights
-    wand
     web-mode
     wdired
     window-numbering
