@@ -13,7 +13,6 @@
     cc-mode
     cmake-mode
     csharp-mode
-    coffee-mode
     dash
     diminish
     dired+
@@ -462,23 +461,6 @@ which require an initialization must be listed explicitly in the list.")
         (append '(("CMakeLists\\.txt\\'" . cmake-mode)
                   ("\\.cmake\\'" . cmake-mode))
                 auto-mode-alist))))
-
-(defun spacemacs/init-coffee-mode ()
-  (use-package coffee-mode
-    :defer t
-    :init
-    (progn
-      (defun spacemacs/coffee-indent ()
-        (if (coffee-line-wants-indent)
-            ;; We need to insert an additional tab because the last line was special.
-            (coffee-insert-spaces (+ (coffee-previous-indent) coffee-tab-width))
-          ;; otherwise keep at the same indentation level
-          (coffee-insert-spaces (coffee-previous-indent)))
-        )
-      ;; indent to right position after `evil-open-blow' and `evil-open-above'
-      (add-hook 'coffee-mode-hook '(lambda ()
-                                     (setq indent-line-function 'spacemacs/coffee-indent
-                                           evil-shift-width coffee-tab-width))))))
 
 (defun spacemacs/init-csharp-mode ()
   (use-package csharp-mode
