@@ -1,6 +1,19 @@
 # smex contribution layer for Spacemacs
 
-![Smex](smex.png)
+![logo](smex.png)
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [smex contribution layer for Spacemacs](#smex-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+    - [Key bindings](#key-bindings)
+    - [`jk` on leader](#jk-on-leader)
+
+<!-- markdown-toc end -->
+
+## Description
 
 This layer replaces `helm-M-x` by [smex][] which is built on top of `ido`.
 `ido` can perform flex matching with the [flx-ido][] mode which is already
