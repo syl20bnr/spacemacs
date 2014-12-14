@@ -17,7 +17,7 @@
 
 ## Description
 
-This layers adds extensive for [git][].
+This layers adds extensive support for [git][].
 
 Features:
 - git repository management the indispensable [magit][] package
