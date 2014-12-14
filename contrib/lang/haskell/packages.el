@@ -1,6 +1,7 @@
 (defvar haskell-packages
   '(
     flycheck
+    ghc
     haskell-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
