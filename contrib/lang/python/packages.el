@@ -6,6 +6,7 @@
     eldoc
     evil-jumper
     flycheck
+    hy-mode
     pyvenv
     python
     semantic
@@ -134,6 +135,10 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun python/init-flycheck ()
   (add-hook 'python-mode-hook 'flycheck-mode))
+
+(defun spacemacs/init-hy-mode ()
+  (use-package hy-mode
+    :defer t))
 
 (defun python/init-semantic ()
   ;; required to correctly load semantic mode

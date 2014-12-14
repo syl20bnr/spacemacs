@@ -10,15 +10,10 @@
     auto-highlight-symbol
     bookmark
     buffer-move
-    cc-mode
-    cmake-mode
-    csharp-mode
-    coffee-mode
     dash
     diminish
     dired+
     elisp-slime-nav
-    ensime
     evil
     evil-args
     evil-escape
@@ -43,11 +38,6 @@
     flycheck
     flycheck-ledger
     flyspell
-    fringe-helper
-    git-gutter-fringe
-    git-messenger
-    git-timemachine
-    ghc
     golden-ratio
     google-translate
     guide-key-tip
@@ -65,7 +55,6 @@
     helm-themes
     highlight
     hl-anything
-    hy-mode
     ido-vertical-mode
     json-mode
     ledger-mode
@@ -73,8 +62,6 @@
     leuven-theme
     linum-relative
     key-chord
-    magit
-    magit-gitflow
     markdown-mode
     markdown-toc
     monokai-theme
@@ -85,14 +72,12 @@
     org-bullets
     ;; annoying error message, disable it for now
     ;; org-trello
-    p4
     page-break-lines
     paradox
     popup
     popwin
     powerline
     projectile
-    puppet-mode
     ;; not working well for now
     ;; rainbow-blocks
     rainbow-delimiters
@@ -102,16 +87,10 @@
     rcirc-color
     recentf
     rfringe
-    ruby-end
-    ruby-mode
-    ruby-test-mode
     s
-    sbt-mode
-    scala-mode2
     scss-mode
     shell
     smartparens
-    smeargle
     smooth-scrolling
     string-edit
     subword
@@ -120,7 +99,6 @@
     vi-tilde-fringe
     visual-regexp-steroids
     volatile-highlights
-    wand
     web-mode
     wdired
     window-numbering
@@ -446,44 +424,6 @@ which require an initialization must be listed explicitly in the list.")
       "bmk" 'buf-move-up
       "bml" 'buf-move-right)))
 
-(defun spacemacs/init-cc-mode ()
-  (use-package cc-mode
-    :defer t
-    :config
-    (progn
-      (add-hook 'c-mode-hook '(lambda () (c-toggle-auto-state t)))
-      (add-hook 'c++-mode-hook '(lambda () (c-toggle-auto-state t))))))
-
-(defun spacemacs/init-cmake-mode ()
-(use-package cmake-mode
-  :defer t
-  :init
-  (setq auto-mode-alist
-        (append '(("CMakeLists\\.txt\\'" . cmake-mode)
-                  ("\\.cmake\\'" . cmake-mode))
-                auto-mode-alist))))
-
-(defun spacemacs/init-coffee-mode ()
-  (use-package coffee-mode
-    :defer t
-    :init
-    (progn
-      (defun spacemacs/coffee-indent ()
-        (if (coffee-line-wants-indent)
-            ;; We need to insert an additional tab because the last line was special.
-            (coffee-insert-spaces (+ (coffee-previous-indent) coffee-tab-width))
-          ;; otherwise keep at the same indentation level
-          (coffee-insert-spaces (coffee-previous-indent)))
-        )
-      ;; indent to right position after `evil-open-blow' and `evil-open-above'
-      (add-hook 'coffee-mode-hook '(lambda ()
-                                     (setq indent-line-function 'spacemacs/coffee-indent
-                                           evil-shift-width coffee-tab-width))))))
-
-(defun spacemacs/init-csharp-mode ()
-  (use-package csharp-mode
-    :defer t))
-
 (defun spacemacs/init-diminish ()
   (require 'diminish)
   ;; Minor modes abbrev --------------------------------------------------------
@@ -512,10 +452,6 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :config
     (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))))
-
-(defun spacemacs/init-ensime ()
-  (use-package ensime
-    :defer t))
 
 (defun spacemacs/init-evil ()
   (use-package evil
@@ -986,59 +922,6 @@ determine the state to enable when escaping from the insert state.")
     :config
     (spacemacs|diminish flyspell-mode " Ⓢ")))
 
-(defun spacemacs/init-git-gutter-fringe ()
-  (use-package git-gutter-fringe
-    :commands git-gutter-mode
-    :init
-    (add-to-hooks 'git-gutter-mode '(markdown-mode-hook
-                                     org-mode-hook
-                                     prog-mode-hook
-                                     ))
-    :config
-    (progn
-      (setq git-gutter:hide-gutter t)
-      ;; Don't need log/message.
-      (setq git-gutter:verbosity 0)
-      (setq git-gutter-fr:side 'right-fringe)
-      ;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
-      ;; custom graphics that works nice with half-width fringes
-      (fringe-helper-define 'git-gutter-fr:added nil
-        "..X...."
-        "..X...."
-        "XXXXX.."
-        "..X...."
-        "..X...."
-        )
-      (fringe-helper-define 'git-gutter-fr:deleted nil
-        "......."
-        "......."
-        "XXXXX.."
-        "......."
-        "......."
-        )
-      (fringe-helper-define 'git-gutter-fr:modified nil
-        "..X...."
-        ".XXX..."
-        "XXXXX.."
-        ".XXX..."
-        "..X...."
-        )
-      (spacemacs|hide-lighter git-gutter-mode))))
-
-(defun spacemacs/init-git-messenger ()
-  (use-package git-messenger
-    :defer t
-    :init
-    (evil-leader/set-key
-      "gm" 'git-messenger:popup-message)))
-
-(defun spacemacs/init-git-timemachine ()
-  (use-package git-timemachine
-    :defer t
-    :init
-    (evil-leader/set-key
-      "gt" 'git-timemachine)))
-
 (defun spacemacs/init-golden-ratio ()
   (use-package golden-ratio
     :defer t
@@ -1320,10 +1203,6 @@ determine the state to enable when escaping from the insert state.")
       (spacemacs|diminish hl-paren-mode "(Ⓗ)")
       (spacemacs|hide-lighter hl-highlight-mode))))
 
-(defun spacemacs/init-hy-mode ()
-  (use-package hy-mode
-    :defer t))
-
 (defun spacemacs/init-ido-vertical-mode ()
   (use-package ido-vertical-mode
     :init
@@ -1395,92 +1274,6 @@ determine the state to enable when escaping from the insert state.")
       (setq linum-format 'linum-relative)
       (setq linum-relative-current-symbol "")
       (linum-relative-toggle))))
-
-(defun spacemacs/init-magit ()
-  (use-package magit
-    :defer t
-    :init
-    (evil-leader/set-key "gs" 'magit-status)
-    :config
-    (progn
-      (spacemacs|hide-lighter magit-auto-revert-mode)
-      ;; full screen magit-status
-      (defadvice magit-status (around magit-fullscreen activate)
-        (window-configuration-to-register :magit-fullscreen)
-        ad-do-it
-        (delete-other-windows))
-
-      ;; hjkl key bindings
-      (spacemacs|evilify magit-commit-mode-map
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-log-mode-map
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-process-mode-map
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-branch-manager-mode-map
-        "K" 'magit-discard-item
-        "L" 'magit-key-mode-popup-logging
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-status-mode-map
-        "K" 'magit-discard-item
-        "L" 'magit-key-mode-popup-logging
-        "H" 'magit-key-mode-popup-diff-options
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      ;; remove conflicts with evil leader
-      (spacemacs/activate-evil-leader-for-maps '(magit-mode-map
-                                                 magit-commit-mode-map
-                                                 magit-diff-mode-map))
-
-
-      (defun magit-quit-session ()
-        "Restores the previous window configuration and kills the magit buffer"
-        (interactive)
-        (kill-buffer)
-        (jump-to-register :magit-fullscreen))
-      (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
-
-      (defun magit-toggle-whitespace ()
-        (interactive)
-        (if (member "-w" magit-diff-options)
-            (magit-dont-ignore-whitespace)
-          (magit-ignore-whitespace)))
-
-      (defun magit-ignore-whitespace ()
-        (interactive)
-        (add-to-list 'magit-diff-options "-w")
-        (magit-refresh))
-
-      (defun magit-dont-ignore-whitespace ()
-        (interactive)
-        (setq magit-diff-options (remove "-w" magit-diff-options))
-        (magit-refresh))
-      (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
-
-(defun spacemacs/init-magit-gitflow ()
-  (use-package magit-gitflow
-    :commands turn-on-magit-gitflow
-    :init (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
-    :config (spacemacs|diminish magit-gitflow-mode "Flow")))
 
 (defun spacemacs/init-markdown-mode ()
   (use-package markdown-mode
@@ -1597,23 +1390,6 @@ determine the state to enable when escaping from the insert state.")
     '(progn
        (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
        (define-key org-agenda-mode-map "k" 'org-agenda-previous-line))))
-
-(defun spacemacs/init-p4 ()
-  (use-package p4
-    :commands (p4-add
-               p4-delete
-               p4-describe
-               p4-edit
-               p4-revert)
-    :init
-    (evil-leader/set-key
-      "p4a" 'p4-add
-      "p4d" 'p4-delete
-      "p4D" 'p4-describe
-      "p4e" 'p4-edit
-      "p4R" 'p4-revert
-      "p4r" 'p4-rename
-      "p4S" 'p4-submit)))
 
 (defun spacemacs/init-page-break-lines ()
   (use-package page-break-lines
@@ -2027,15 +1803,6 @@ determine the state to enable when escaping from the insert state.")
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
       (sp-pair "[" nil :post-handlers
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET"))))))
-
-(defun spacemacs/init-smeargle ()
-  (use-package smeargle
-    :defer t
-    :init
-    (evil-leader/set-key
-      "gcC" 'smeargle-clear
-      "gcc" 'smeargle-commits
-      "gct" 'smeargle)))
 
 
 (defun spacemacs/init-smooth-scrolling ()

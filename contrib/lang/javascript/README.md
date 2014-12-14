@@ -1,6 +1,6 @@
 # JavaScript contribution layer for Spacemacs
 
-![logo](javascript.png)
+![js](javascript.png) ![coffee](coffee.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
@@ -24,6 +24,7 @@ Main features:
 - Smart code folding
 - Refactoring: done using [js2-refactor][].
 - Auto-completion and documentation: provided by [tern][]
+- CoffeeScript support
 
 ## Install
 

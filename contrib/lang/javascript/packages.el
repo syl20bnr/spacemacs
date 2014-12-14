@@ -1,5 +1,6 @@
 (defvar javascript-packages
   '(
+    coffee-mode
     js2-mode
     js2-refactor
     tern
@@ -7,6 +8,23 @@
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
+
+(defun javascript/init-coffee-mode ()
+  (use-package coffee-mode
+    :defer t
+    :init
+    (progn
+      (defun javascript/coffee-indent ()
+        (if (coffee-line-wants-indent)
+            ;; We need to insert an additional tab because the last line was special.
+            (coffee-insert-spaces (+ (coffee-previous-indent) coffee-tab-width))
+          ;; otherwise keep at the same indentation level
+          (coffee-insert-spaces (coffee-previous-indent)))
+        )
+      ;; indent to right position after `evil-open-blow' and `evil-open-above'
+      (add-hook 'coffee-mode-hook '(lambda ()
+                                     (setq indent-line-function 'javascript/coffee-indent
+                                           evil-shift-width coffee-tab-width))))))
 
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
