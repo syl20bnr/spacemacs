@@ -942,27 +942,27 @@ Key Binding         |                    Description
 
 Windows manipulation commands (start with `w`):
 
-Key Binding            |                 Description
------------------------|----------------------------------------------------------------
-<kbd>SPC w c</kbd>     | close a window
-<kbd>SPC w d</kbd>     | toggle window dedication (dedicated window cannot be used by a mode)
-<kbd>SPC w H</kbd>     | move window to the left
-<kbd>SPC w J</kbd>     | move window to the bottom
-<kbd>SPC w K</kbd>     | move window to the top
-<kbd>SPC w L</kbd>     | move window to the right
-<kbd>SPC w m</kbd>     | maximize/minimize a window
-<kbd>SPC w M</kbd>     | maximize/minimize a window, when maximized the buffer is centered
-<kbd>SPC w o</kbd>     | cycle and focus between frames
-<kbd>SPC w p m</kbd>   | open messages buffer in a popup window
-<kbd>SPC w p p</kbd>   | close the current sticky popup window
-<kbd>SPC w r</kbd>     | rotate windows clockwise
-<kbd>SPC w R</kbd>     | rotate windows counter-clockwise
-<kbd>SPC w s</kbd>     | horizontal split (alternatively <kbd>SPC w /</kbd>)
-<kbd>SPC w S</kbd>     | initiate window size micro-state
-<kbd>SPC w u</kbd>     | undo window layout (used to effectively undo a close window)
-<kbd>SPC w U</kbd>     | redo window layout
-<kbd>SPC w v</kbd>     | vertical split (alternatively <kbd>SPC w -</kbd>)
-<kbd>SPC w w</kbd>     | cycle and focus between windows
+Key Binding                               |                 Description
+------------------------------------------|----------------------------------------------------------------
+<kbd>SPC w c</kbd>                        | close a window
+<kbd>SPC w d</kbd>                        | toggle window dedication (dedicated window cannot be reused by a mode)
+<kbd>SPC w H</kbd>                        | move window to the left
+<kbd>SPC w J</kbd>                        | move window to the bottom
+<kbd>SPC w K</kbd>                        | move window to the top
+<kbd>SPC w L</kbd>                        | move window to the right
+<kbd>SPC w m</kbd>                        | maximize/minimize a window
+<kbd>SPC w M</kbd>                        | maximize/minimize a window, when maximized the buffer is centered
+<kbd>SPC w o</kbd>                        | cycle and focus between frames
+<kbd>SPC w p m</kbd>                      | open messages buffer in a popup window
+<kbd>SPC w p p</kbd>                      | close the current sticky popup window
+<kbd>SPC w r</kbd>                        | rotate windows clockwise
+<kbd>SPC w R</kbd>                        | rotate windows counter-clockwise
+<kbd>SPC w s</kbd> or <kbd>SPC w /</kbd>  | horizontal split
+<kbd>SPC w S</kbd>                        | initiate window size micro-state
+<kbd>SPC w u</kbd>                        | undo window layout (used to effectively undo a closed window)
+<kbd>SPC w U</kbd>                        | redo window layout
+<kbd>SPC w v</kbd> or  <kbd>SPC w -</kbd> | vertical split
+<kbd>SPC w w</kbd>                        | cycle and focus between windows
 
 #### Resizing windows
 
