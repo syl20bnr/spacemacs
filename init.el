@@ -3,7 +3,7 @@
 
 (when (spacemacs/emacs-version-ok)
   (dotspacemacs/load)
-  (spacemacs-mode)
+  (spacemacs/initialize)
   (config-system/package.el-initialize)
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init)

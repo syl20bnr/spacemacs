@@ -94,7 +94,6 @@
         (`w32 (spacemacs/set-font font 9))
         (other (spacemacs/set-font font 10)))))
   ;; banner
-  (switch-to-buffer (get-buffer-create "*spacemacs*"))
   (let ((buffer-read-only nil))
     (insert-file-contents (concat spacemacs-core-directory "banner.txt"))
     (spacemacs/insert-buttons))
@@ -105,6 +104,12 @@
   (spacemacs/load-or-install-package 'evil-leader t)
   ;; motion state since this is a special mode
   (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
+
+(defun spacemacs/initialize ()
+  "Create the special buffer for `spacemacs-mode' and perform startup
+initialization."
+  (switch-to-buffer (get-buffer-create "*spacemacs*"))
+  (spacemacs-mode))
 
 (defun spacemacs/load-or-install-package (pkg &optional log)
   "Load PKG package. PKG will be installed if it is not already installed.
