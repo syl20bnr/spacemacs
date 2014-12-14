@@ -1,4 +1,4 @@
-(defvar scale-packages
+(defvar scala-packages
   '(
     ensime
     sbt-mode
