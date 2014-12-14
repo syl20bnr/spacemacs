@@ -42,7 +42,6 @@
     git-gutter-fringe
     git-messenger
     git-timemachine
-    ghc
     golden-ratio
     google-translate
     guide-key-tip
