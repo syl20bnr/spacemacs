@@ -12,6 +12,9 @@
         - [Magit](#magit)
         - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
         - [Git gutter bitmaps](#git-gutter-bitmaps)
+    - [Github support](#github-support)
+        - [magit-gh-pulls](#magit-gh-pulls)
+        - [gist.el](#gistel)
 
 <!-- markdown-toc end -->
 
