@@ -1,6 +1,6 @@
 # C/C++ contribution layer for Spacemacs
 
-![cc++](ccpp.png)
+![cc++](ccpp.jpg)
 ![cmake](cmake.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->

@@ -5,9 +5,11 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
-- [C/C++ contribution layer for Spacemacs](#cc-contribution-layer-for-spacemacs)
+- [Scala contribution layer for Spacemacs](#scala-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
+        - [Ensime](#ensime)
+    - [Key bindings](#key-bindings)
 
 <!-- markdown-toc end -->
 
