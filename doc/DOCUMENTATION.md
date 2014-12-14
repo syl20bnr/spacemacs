@@ -957,11 +957,11 @@ Key Binding            |                 Description
 <kbd>SPC w p p</kbd>   | close the current sticky popup window
 <kbd>SPC w r</kbd>     | rotate windows clockwise
 <kbd>SPC w R</kbd>     | rotate windows counter-clockwise
-<kbd>SPC w s</kbd>     | horizontal split
+<kbd>SPC w s</kbd>     | horizontal split (alternatively <kbd>SPC w /</kbd>)
 <kbd>SPC w S</kbd>     | initiate window size micro-state
 <kbd>SPC w u</kbd>     | undo window layout (used to effectively undo a close window)
 <kbd>SPC w U</kbd>     | redo window layout
-<kbd>SPC w v</kbd>     | vertical split
+<kbd>SPC w v</kbd>     | vertical split (alternatively <kbd>SPC w -</kbd>)
 <kbd>SPC w w</kbd>     | cycle and focus between windows
 
 #### Resizing windows
