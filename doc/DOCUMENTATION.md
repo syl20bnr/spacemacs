@@ -100,10 +100,6 @@
                 - [Regular normal state bindings](#regular-normal-state-bindings)
                 - [Lisp specific bindings](#lisp-specific-bindings)
     - [Project management](#project-management)
-    - [Working with Git](#working-with-git)
-        - [Magit](#magit)
-        - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
-        - [Git gutter bitmaps](#git-gutter-bitmaps)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
     - [Compiling](#compiling)
@@ -112,7 +108,6 @@
             - [Experimental Helm feature](#experimental-helm-feature)
         - [Ledger](#ledger)
         - [Org](#org)
-        - [Perforce](#perforce)
         - [Python](#python)
         - [JavaScript](#javascript)
         - [rcirc](#rcirc)
@@ -1710,18 +1705,6 @@ In `org`, [evil-org-mode][] is activated.
 <kbd>M-J</kbd>        | org-shiftmetadown
 <kbd>M-o</kbd>        | org-insert-heading+org-metaright
 <kbd>M-t</kbd>        | org-insert-todo-heading nil+ org-metaright
-
-### Perforce
-
-    Key Binding            |                 Description
----------------------------|------------------------------------------------------------
-<kbd>SPC p 4 a</kbd>     | add a file in depot
-<kbd>SPC p 4 d</kbd>     | delete a file in depot
-<kbd>SPC p 4 D</kbd>     | p4-describe
-<kbd>SPC p 4 e</kbd>     | checkout a file
-<kbd>SPC p 4 r</kbd>     | rename a file
-<kbd>SPC p 4 R</kbd>     | revert a file
-<kbd>SPC p 4 S</kbd>     | submit CL
 
 ### Python
 

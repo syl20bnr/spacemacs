@@ -73,7 +73,6 @@
     org-bullets
     ;; annoying error message, disable it for now
     ;; org-trello
-    p4
     page-break-lines
     paradox
     popup
@@ -1401,23 +1400,6 @@ determine the state to enable when escaping from the insert state.")
     '(progn
        (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
        (define-key org-agenda-mode-map "k" 'org-agenda-previous-line))))
-
-(defun spacemacs/init-p4 ()
-  (use-package p4
-    :commands (p4-add
-               p4-delete
-               p4-describe
-               p4-edit
-               p4-revert)
-    :init
-    (evil-leader/set-key
-      "p4a" 'p4-add
-      "p4d" 'p4-delete
-      "p4D" 'p4-describe
-      "p4e" 'p4-edit
-      "p4R" 'p4-revert
-      "p4r" 'p4-rename
-      "p4S" 'p4-submit)))
 
 (defun spacemacs/init-page-break-lines ()
   (use-package page-break-lines
