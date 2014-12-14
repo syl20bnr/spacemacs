@@ -14,7 +14,6 @@
     diminish
     dired+
     elisp-slime-nav
-    ensime
     evil
     evil-args
     evil-escape
@@ -102,8 +101,6 @@
     ruby-mode
     ruby-test-mode
     s
-    sbt-mode
-    scala-mode2
     scss-mode
     shell
     smartparens
@@ -470,10 +467,6 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :config
     (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))))
-
-(defun spacemacs/init-ensime ()
-  (use-package ensime
-    :defer t))
 
 (defun spacemacs/init-evil ()
   (use-package evil

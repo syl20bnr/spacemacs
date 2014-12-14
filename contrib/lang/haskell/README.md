@@ -4,7 +4,7 @@
 
 This layer adds support for the [Haskell][] language.
 
-**This layer is not adapted for Spacemacs, it needs you, Haskell expert, to
+**This layer is not adapted for Spacemacs, it needs you, Haskell experts, to
 improve it and make it consistent with the Spacemacs experience.**
 
 ## Install
