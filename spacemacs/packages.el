@@ -55,7 +55,6 @@
     helm-themes
     highlight
     hl-anything
-    hy-mode
     ido-vertical-mode
     json-mode
     ledger-mode
@@ -1205,10 +1204,6 @@ determine the state to enable when escaping from the insert state.")
     (progn
       (spacemacs|diminish hl-paren-mode "(Ⓗ)")
       (spacemacs|hide-lighter hl-highlight-mode))))
-
-(defun spacemacs/init-hy-mode ()
-  (use-package hy-mode
-    :defer t))
 
 (defun spacemacs/init-ido-vertical-mode ()
   (use-package ido-vertical-mode
