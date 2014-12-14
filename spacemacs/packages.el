@@ -10,8 +10,6 @@
     auto-highlight-symbol
     bookmark
     buffer-move
-    cc-mode
-    cmake-mode
     dash
     diminish
     dired+
@@ -443,23 +441,6 @@ which require an initialization must be listed explicitly in the list.")
       "bmj" 'buf-move-down
       "bmk" 'buf-move-up
       "bml" 'buf-move-right)))
-
-(defun spacemacs/init-cc-mode ()
-  (use-package cc-mode
-    :defer t
-    :config
-    (progn
-      (add-hook 'c-mode-hook '(lambda () (c-toggle-auto-state t)))
-      (add-hook 'c++-mode-hook '(lambda () (c-toggle-auto-state t))))))
-
-(defun spacemacs/init-cmake-mode ()
-(use-package cmake-mode
-  :defer t
-  :init
-  (setq auto-mode-alist
-        (append '(("CMakeLists\\.txt\\'" . cmake-mode)
-                  ("\\.cmake\\'" . cmake-mode))
-                auto-mode-alist))))
 
 (defun spacemacs/init-diminish ()
   (require 'diminish)
