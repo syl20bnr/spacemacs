@@ -1601,7 +1601,13 @@ determine the state to enable when escaping from the insert state.")
                         (powerline-raw " " face1)
                         (powerline-raw "%l:%2c" face1 'r)
                         (funcall separator-left face1 line-face)
-                        (powerline-raw " " line-face)
+                        (powerline-raw " " line-face))
+
+                       (list
+                        (powerline-raw global-mode-string)
+                        (powerline-raw " " line-face))
+
+                       (list
                         ;; percentage in the file
                         (powerline-raw "%p" line-face 'r)
                         (when active
