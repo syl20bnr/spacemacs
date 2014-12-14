@@ -17,6 +17,9 @@
 This layer adds configuration for C/C++ language as well support for [CMake][]
 scripts.
 
+**This layer is not adapted for Spacemacs, it needs you, C/C++ experts, to
+improve it and make it consistent with the Spacemacs experience.**
+
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
