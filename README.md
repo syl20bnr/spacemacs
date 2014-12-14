@@ -279,13 +279,17 @@ the quick start guide [here](https://github.com/syl20bnr/spacemacs#configuration
 You can installed [MacType][] on Windows to get very nice looking fonts. It is
 also recommended to disable the smooth scrolling on Windows.
 
-3. **Why the powerline has no arrows in terminal even with a patched font ?**
+3. **The Spacemacs banner is ugly, what should I do ?**
+Install the default font supported by Spacemacs or choose a fixed witdh font.
+More information in the [font section][] of the documentation.
+
+4. **Why the powerline has no arrows in terminal even with a patched font ?**
 Emacs powerline implementation does not use patched fonts. There exist currently
 no mode-lines in Emacs that support patched font.
 The corresponding feature request for the powerline can be found
 [here][pw-patched-fonts].
 
-4. **Why the powerline colors are not correct on OS X ?**
+5. **Why the powerline colors are not correct on OS X ?**
 This is a known issue with the `emacs` brew formula. It is recommended to use the
 [emacs-mac-port][] built. See the [install OSX section][] for more info on this.
 
@@ -307,6 +311,7 @@ This is a known issue with the `emacs` brew formula. It is recommended to use th
 [Evil Mode]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#evil
 [private]: https://github.com/syl20bnr/spacemacs/tree/master/private
 [DOCUMENTATION.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md
+[font section]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#font
 [CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/CONTRIBUTE.md
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
 [dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
