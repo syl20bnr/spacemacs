@@ -12,7 +12,6 @@
     buffer-move
     cc-mode
     cmake-mode
-    csharp-mode
     dash
     diminish
     dired+
@@ -461,10 +460,6 @@ which require an initialization must be listed explicitly in the list.")
         (append '(("CMakeLists\\.txt\\'" . cmake-mode)
                   ("\\.cmake\\'" . cmake-mode))
                 auto-mode-alist))))
-
-(defun spacemacs/init-csharp-mode ()
-  (use-package csharp-mode
-    :defer t))
 
 (defun spacemacs/init-diminish ()
   (require 'diminish)
