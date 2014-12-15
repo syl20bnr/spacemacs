@@ -765,7 +765,10 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-evil-surround ()
   (use-package evil-surround
-    :init (global-evil-surround-mode 1)))
+    :init (progn
+            (global-evil-surround-mode 1)
+            (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
+            (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region))))
 
 (defun spacemacs/init-evil-terminal-cursor-changer ()
   (unless (display-graphic-p)
