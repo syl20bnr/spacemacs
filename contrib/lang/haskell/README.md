@@ -33,7 +33,7 @@ All Haskell specific bindings starts with `m`:
 <kbd> SPC m b </kbd>     | build the current cabal project 
 <kbd> SPC m c c</kbd>    | cabal actions
 <kbd> SPC m c v</kbd>    | visit the cabal file
-<kbd> SPC m \ </kbd>     | show the REPL
+<kbd> SPC m `</kbd>     | show the REPL
 <kbd> SPC m k </kbd>     | clear the REPL
 <kbd> SPC m z </kbd>     | focus the REPL
 <kbd> SPC m j </kbd>     | jump to definition or tag
