@@ -20,6 +20,20 @@ which require an initialization must be listed explicitly in the list.")
 
       (evil-leader/set-key-for-mode 'clojure-mode  "mj" 'cider-jack-in))))
 
+(defun clojure/fancify-symbols ()
+  "Pretty symbols for Clojure's anonymous functions and sets,
+   like (λ [a] (+ a 5)), ƒ(+ % 5), and ∈{2 4 6}."
+  (font-lock-add-keywords 'clojure-mode
+    `(("(\\(fn\\)[\[[:space:]]"
+       (0 (progn (compose-region (match-beginning 1)
+                                 (match-end 1) "λ"))))
+      ("\\(#\\)("
+       (0 (progn (compose-region (match-beginning 1)
+                                 (match-end 1) "ƒ"))))
+      ("\\(#\\){"
+       (0 (progn (compose-region (match-beginning 1)
+                                 (match-end 1) "∈")))))))
+
 (defun clojure/init-cider ()
   (use-package cider
     :defer t
@@ -39,6 +53,7 @@ which require an initialization must be listed explicitly in the list.")
 
     :config
     (progn
+        (clojure/fancify-symbols)
         (evil-leader/set-key-for-mode 'clojure-mode "meb" 'cider-eval-buffer)
         (evil-leader/set-key-for-mode 'clojure-mode "mer" 'cider-eval-region)
         (evil-leader/set-key-for-mode 'clojure-mode "mes" 'cider-eval-last-sexp)
