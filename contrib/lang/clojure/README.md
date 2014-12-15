@@ -30,6 +30,11 @@ This layer adds support for [Clojure][] language using [Cider][].
 - [Clj Refactor][](https://github.com/clojure-emacs/clj-refactor.el)
 - [Cider Auto Complete][](https://github.com/clojure-emacs/ac-cider)
 
+### Goodies
+
+- Pretty symbols for anonymous functions and set literals, like
+`(λ [a] (+ a 5))`, `ƒ(+ % 5)`, and `∈{2 4 6}`."
+
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
@@ -51,8 +56,8 @@ instructions at the [cider repository][cider_install].
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m d d</kbd>  | cider-doc
-<kbd>SPC m d g</kbd>  | cider-grimoire
+<kbd>SPC m d d</kbd>  | cider doc
+<kbd>SPC m d g</kbd>  | cider grimoire
 <kbd>SPC m d j</kbd>  | cider javadoc
 
 ### Evaluation
