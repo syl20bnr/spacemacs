@@ -26,14 +26,15 @@ This layer adds support for [Clojure][] language using [Cider][].
 ## Packages Included
 
 - [Cider][]
-- [clojure-mode][](https://github.com/clojure-emacs/clojure-mode)
-- [Clj Refactor][](https://github.com/clojure-emacs/clj-refactor.el)
-- [Cider Auto Complete][](https://github.com/clojure-emacs/ac-cider)
+- [clojure-mode][]
+- [Clj Refactor][]
+- [Cider Auto Complete][]
+- [align-cljlet][]
 
 ### Goodies
 
 - Pretty symbols for anonymous functions and set literals, like
-`(λ [a] (+ a 5))`, `ƒ(+ % 5)`, and `∈{2 4 6}`."
+`(λ [a] (+ a 5))`, `ƒ(+ % 5)`, and `∈{2 4 6}`.
 
 ## Install
 
@@ -92,7 +93,8 @@ instructions at the [cider repository][cider_install].
 
 [Clojure]: http://clojure.org
 [Cider]: https://github.com/clojure-emacs/cider
-[cider_install]: (https://github.com/clojure-emacs/cider#installation)
+[cider_install]: https://github.com/clojure-emacs/cider#installation
 [clojure-mode]: https://github.com/clojure-emacs/clojure-mode
 [Clj Refactor]: https://github.com/clojure-emacs/clj-refactor.el
-[Cider Auto Complete]: (https://github.com/clojure-emacs/ac-cider
+[Cider Auto Complete]: https://github.com/clojure-emacs/ac-cider
+[align-cljlet]: https://github.com/gstamp/align-cljlet
