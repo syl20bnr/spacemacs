@@ -1,7 +1,7 @@
-![title](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/title.png)
+![title](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/title.png)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
 
-[philosophy][] | [goals][] | [for who?][] | [screenshots][] | [achievements][] | [contribute][CONTRIBUTE.md] | [documentation][DOCUMENTATION.md]
+[philosophy][] | [goals][] | [for who?][] | [screenshots][] | [documentation][DOCUMENTATION.md] | [contribute][CONTRIBUTE.md] | [achievements][] | [FAQ][]
 
 **Quick Install:**
 
@@ -56,7 +56,7 @@ that extend the default distribution.
 Spacemacs looks good. It comes with high-quality themes and a custom low-clutter
 modeline.
 
-![spacemacs_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-python.png)
+![spacemacs_python](doc/img/spacemacs-python.png)
 
 ### Excellent Evil Support
 
@@ -82,16 +82,41 @@ bindings that are easy to type.
 Most of Spacemacs' features are extensively documented, along with key bindings
 and configuration options.
 
-If you need help, ask your question in the [Gitter Chat][] and a member of the community
-will help you out.
+If you need help, ask your question in the [Gitter Chat][] and a member of the
+community will help you out.
 
 # Prerequisites
+
+## Emacs version
 
 `Spacemacs` is tested with Emacs 24.3 and 24.4. It should boot on all the major
 OSes where these versions can be installed.
 
 Some modes require third-party tools that you'll have to install via your
 favorite package manager.
+
+## OS X
+
+The recommended version for OS X is [emacs-mac-port][]. It can be installed
+from [homebrew][] with the following commands:
+
+```sh
+$ brew tap railwaycat/emacsmacport
+$ brew install emacs-mac
+```
+
+The default key handling is different from the official OS X port. To correct
+this you can put this in your [dotfile][]:
+
+```elisp
+(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'super)
+(setq mac-pass-control-to-system nil)
+
+(global-set-key (kbd "s-q") 'save-buffers-kill-emacs)
+(global-set-key (kbd "s-v") 'yank)
+(global-set-key (kbd "s-c") 'copy-region-as-kill)
+```
 
 # Install
 
@@ -254,31 +279,43 @@ the quick start guide [here](https://github.com/syl20bnr/spacemacs#configuration
 You can installed [MacType][] on Windows to get very nice looking fonts. It is
 also recommended to disable the smooth scrolling on Windows.
 
-3. **Why the powerline has no arrows in terminal even with a patched font ?**
+3. **The Spacemacs banner is ugly, what should I do ?**
+Install the default font supported by Spacemacs or choose a fixed witdh font.
+More information in the [font section][] of the documentation.
+
+4. **Why the powerline has no arrows in terminal even with a patched font ?**
 Emacs powerline implementation does not use patched fonts. There exist currently
 no mode-lines in Emacs that support patched font.
 The corresponding feature request for the powerline can be found
 [here][pw-patched-fonts].
 
+5. **Why the powerline colors are not correct on OS X ?**
+This is a known issue with the `emacs` brew formula. It is recommended to use the
+[emacs-mac-port][] built. See the [install OSX section][] for more info on this.
+
 [Twitter]: http://i.imgur.com/tXSoThF.png
-[philosophy]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#philosophy
-[goals]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#goals
-[for who?]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#who-can-benefit-from-this-
-[screenshots]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#screenshots
-[config]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#configuration-layers
-[dotfile]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#dotfile-configuration
-[manage_config]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#managing-private-configuration-layers
-[using_package_buf]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#using-the-package-list-buffer
-[achievements]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#achievements
-[troubleshoot]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#troubleshoot
-[contrib layers]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#using-configuration-layers
-[Git support]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#working-with-git
-[ace-jump]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
-[project management]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#project-management
-[Evil Mode]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md#evil
+[philosophy]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#philosophy
+[goals]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#goals
+[for who?]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#who-can-benefit-from-this-
+[screenshots]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#screenshots
+[config]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#configuration-layers
+[dotfile]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#dotfile-configuration
+[manage_config]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#managing-private-configuration-layers
+[using_package_buf]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#using-the-package-list-buffer
+[achievements]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#achievements
+[troubleshoot]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#troubleshoot
+[contrib layers]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#using-configuration-layers
+[Git support]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#working-with-git
+[ace-jump]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
+[project management]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#project-management
+[Evil Mode]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#evil
 [private]: https://github.com/syl20bnr/spacemacs/tree/master/private
-[DOCUMENTATION.md]: https://github.com/syl20bnr/spacemacs/blob/master/DOCUMENTATION.md
-[CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/CONTRIBUTE.md
+[DOCUMENTATION.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md
+[font section]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#font
+[CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/CONTRIBUTE.md
+[FAQ]: https://github.com/syl20bnr/spacemacs#faq
+[dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
+[install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
 [emacs_live]: https://github.com/overtone/emacs-live
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
@@ -287,3 +324,5 @@ The corresponding feature request for the powerline can be found
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [pw-patched-fonts]: https://github.com/milkypostman/powerline/issues/15
 [MacType]: https://code.google.com/p/mactype/
+[emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
+[homebrew]: https://github.com/Homebrew/homebrew

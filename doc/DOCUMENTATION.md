@@ -52,6 +52,7 @@
         - [Minor Modes](#minor-modes)
 - [Base packages](#base-packages)
     - [Evil plugins](#evil-plugins)
+- [Font](#font)
 - [Commands](#commands)
     - [Reserved prefix command for user](#reserved-prefix-command-for-user)
     - [Escaping](#escaping)
@@ -63,12 +64,15 @@
         - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
         - [Window manipulation](#window-manipulation)
             - [Resizing windows](#resizing-windows)
+            - [Reposition window](#reposition-window)
             - [Golden ratio](#golden-ratio)
         - [Buffers and Files](#buffers-and-files)
         - [Ido](#ido)
             - [Experimental Ido feature](#experimental-ido-feature)
         - [NeoTree file tree](#neotree-file-tree)
         - [Shells](#shells)
+            - [Key bindings](#key-bindings)
+            - [Staying in insert state](#staying-in-insert-state)
         - [Bookmarks](#bookmarks)
     - [Searching](#searching)
         - [Project Searching](#project-searching)
@@ -80,7 +84,10 @@
         - [Helm-swoop](#helm-swoop)
     - [Editing](#editing)
         - [Text manipulation commands](#text-manipulation-commands)
-        - [Change font size](#change-font-size)
+        - [Smartparens Strict mode](#smartparens-strict-mode)
+        - [Zooming](#zooming)
+            - [Text](#text)
+            - [Frame](#frame)
         - [Increase/Decrease numbers](#increasedecrease-numbers)
         - [Spell checking](#spell-checking)
         - [Region selection](#region-selection)
@@ -94,10 +101,6 @@
                 - [Regular normal state bindings](#regular-normal-state-bindings)
                 - [Lisp specific bindings](#lisp-specific-bindings)
     - [Project management](#project-management)
-    - [Working with Git](#working-with-git)
-        - [Magit](#magit)
-        - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
-        - [Git gutter bitmaps](#git-gutter-bitmaps)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
     - [Compiling](#compiling)
@@ -106,10 +109,12 @@
             - [Experimental Helm feature](#experimental-helm-feature)
         - [Ledger](#ledger)
         - [Org](#org)
-        - [Perforce](#perforce)
         - [Python](#python)
         - [JavaScript](#javascript)
         - [rcirc](#rcirc)
+- [Emacs Server](#emacs-server)
+    - [Connecting to the Emacs server](#connecting-to-the-emacs-server)
+    - [Keeping the server alive](#keeping-the-server-alive)
 - [Tips](#tips)
     - [Updating Spacemacs](#updating-spacemacs)
     - [Tips for Emacs users](#tips-for-emacs-users)
@@ -192,13 +197,13 @@ and remember.
 # Screenshots
 
 _Startup_
-![spacemacs_startup](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-startup.png)
+![spacemacs_startup](img/spacemacs-startup.png)
 
 _Python_
-![spacemacs_python](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-python.png)
+![spacemacs_python](img/spacemacs-python.png)
 
 _Terminal (urxvt)_
-![spacemacs_urxvt](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-urxvt.png)
+![spacemacs_urxvt](img/spacemacs-urxvt.png)
 
 *Note: Even though screenshots are updated frequently, `Spacemacs` is evolving
 quickly and the screenshots may not reflect exactly the current state of the
@@ -581,10 +586,10 @@ When a `micro-state` is active, a documentation is displayed in the minibuffer.
 Additional information may as well be displayed in the minibuffer.
 
 [Auto-highlight-symbol micro-state](#auto-highlight-and-edition-of-symbols):
-![spacemacs_ahs_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-ahs-micro-state.png)
+![spacemacs_ahs_micro_state](img/spacemacs-ahs-micro-state.png)
 
 [Text scale micro-state](#change-font-size):
-![spacemacs_scale_micro_state](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/spacemacs-scale-micro-state.png)
+![spacemacs_scale_micro_state](img/spacemacs-scale-micro-state.png)
 
 # Color theme
 
@@ -630,7 +635,7 @@ customization which make it unique compared to other kits:
  - unicode symbols for minor mode lighters which appear in the mode-line
  - [custom fringe bitmaps](#errors-handling) and error feedbacks for
  [Flycheck][flycheck]
- - [custom fringe bitmaps](#git-gutter-bitmaps) for [git gutter][git-gutter]
+ - [custom fringe bitmaps](../contrib/git/README.md#git-gutter-bitmaps) for [git gutter][]
  - dedicated startup page with a mode aimed at easily managing `Spacemacs`
 
 ## Toggles
@@ -682,7 +687,7 @@ Some elements can be dynamically toggled:
 When [Flycheck][flycheck] minor mode is enabled, a new element appears showing
 the number of errors, warnings and info.
 
-![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-wave.png)
+![powerline-wave](img/powerline-wave.png)
 
 ### Anzu integration
 
@@ -690,7 +695,7 @@ the number of errors, warnings and info.
 integrates nicely the Anzu status by displaying it temporarily when `n` or `N` are
 being pressed. See the `5/6` segment on the screenshot below.
 
-![powerline-anzu](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-anzu.png)
+![powerline-anzu](img/powerline-anzu.png)
 
 ### Battery status integration
 
@@ -726,22 +731,22 @@ powerline, here is an exhaustive set of screenshots:
 
     Separator     |                 Screenshot
 ------------------|------------------------------------------------------------
-`alternate`       | ![powerline-alternate](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-alternate.png)
-`arrow`           | ![powerline-arrow](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-arrow.png)
-`arrow-fade`      | ![powerline-arrow-fade](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-arrow-fade.png)
-`bar`             | ![powerline-bar](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-bar.png)
-`box`             | ![powerline-box](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-box.png)
-`brace`           | ![powerline-brace](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-brace.png)
-`butt`            | ![powerline-butt](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-butt.png)
-`chamfer`         | ![powerline-chamfer](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-chamfer.png)
-`contour`         | ![powerline-contour](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-contour.png)
-`curve`           | ![powerline-curve](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-curve.png)
-`rounded`         | ![powerline-rounded](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-rounded.png)
-`roundstub`       | ![powerline-roundstub](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-roundstub.png)
-`slant`           | ![powerline-slant](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-slant.png)
-`wave`            | ![powerline-wave](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-wave.png)
-`zigzag`          | ![powerline-zigzag](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-zigzag.png)
-`nil`             | ![powerline-nil](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/powerline-nil.png)
+`alternate`       | ![powerline-alternate](img/powerline-alternate.png)
+`arrow`           | ![powerline-arrow](img/powerline-arrow.png)
+`arrow-fade`      | ![powerline-arrow-fade](img/powerline-arrow-fade.png)
+`bar`             | ![powerline-bar](img/powerline-bar.png)
+`box`             | ![powerline-box](img/powerline-box.png)
+`brace`           | ![powerline-brace](img/powerline-brace.png)
+`butt`            | ![powerline-butt](img/powerline-butt.png)
+`chamfer`         | ![powerline-chamfer](img/powerline-chamfer.png)
+`contour`         | ![powerline-contour](img/powerline-contour.png)
+`curve`           | ![powerline-curve](img/powerline-curve.png)
+`rounded`         | ![powerline-rounded](img/powerline-rounded.png)
+`roundstub`       | ![powerline-roundstub](img/powerline-roundstub.png)
+`slant`           | ![powerline-slant](img/powerline-slant.png)
+`wave`            | ![powerline-wave](img/powerline-wave.png)
+`zigzag`          | ![powerline-zigzag](img/powerline-zigzag.png)
+`nil`             | ![powerline-nil](img/powerline-nil.png)
 
 ### Minor Modes
 
@@ -794,6 +799,20 @@ They are both extended with various packages to build on their foundations.
 [evil-jumper][]                         | jump list emulation
 [NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
 
+# Font
+
+The default font used by `Spacemacs` is [source code pro][] by Adobe. It is
+recommended to install it on your system.
+
+Basic font support is provided in `Spacemacs`, you can change the font and
+its size using the function `spacemacs/set-font` in the `dotspacemacs/config`
+function of your `~/.spacemacs`.
+
+```elisp
+(defun dotspacemacs/config ()
+  (spacemacs/set-font "DejaVu Sans Mono" 10)
+```
+
 # Commands
 
 Every sequences must be performed in `normal` mode.
@@ -817,25 +836,37 @@ The choice of `fd` was made to be able to use the same sequence to escape from
 - abort isearch
 - quit magit buffers
 - quit help buffers
+- quit apropos buffers
+- quit ert buffers
+- quit undo-tree buffer
+- quit paradox
+- quit gist-list menu
 - hide neotree buffer
 
-This sequence can be customized in your `~/.spacemacs`, for instance to
-revert back to the popular configuration using `jj` (just for the example
-it is not recommended) add this to your `config` function:
+This sequence can be customized in your `~/.spacemacs`, but `evil-escape`
+is not guaranteed to work properly with sequences based on `h j k or l` so
+it is recommended to avoid defining sequences like `jj` or `jk`.
+
+Example to set it to `jn` (it is important to put it in `dotspacemacs/init`):
 
 ```elisp
-(defun dotspacemacs/config ()
-  (setq-default evil-escape-key-sequence (kbd "jj"))
+(defun dotspacemacs/init ()
+  (setq-default evil-escape-key-sequence (kbd "jn"))
 )
 ```
 
 ## Executing Vim, Emacs and shell commands
 
-Command     |                 Key Binding
-:----------:|------------------------------------------------------------------
-Vim         | <kbd>`:`</kbd>
-Emacs       | <kbd>SPC :</kbd>
-Shell       | <kbd>SPC !</kbd>
+    Command      |                 Key Binding
+:---------------:|------------------------------------------------------------------
+Vim (ex-command) | <kbd>`:`</kbd>
+Emacs (M-x)      | <kbd>SPC :</kbd>
+Shell            | <kbd>SPC !</kbd> or just <kbd>!</kbd>
+
+The command key `:` can be easily changed with the variable
+`dotspacemacs-command-key` of your `~/.spacemacs`. Note that is will change both
+`:` and `SPC :` bindings to keep the symmetry between Vim and Emacs. A good
+key can be `,` for example.
 
 ## Navigating
 
@@ -911,27 +942,27 @@ Key Binding         |                    Description
 
 Windows manipulation commands (start with `w`):
 
-Key Binding            |                 Description
------------------------|----------------------------------------------------------------
-<kbd>SPC w c</kbd>     | close a window
-<kbd>SPC w d</kbd>     | toggle window dedication (dedicated window cannot be used by a mode)
-<kbd>SPC w H</kbd>     | move window to the left
-<kbd>SPC w J</kbd>     | move window to the bottom
-<kbd>SPC w K</kbd>     | move window to the top
-<kbd>SPC w L</kbd>     | move window to the right
-<kbd>SPC w m</kbd>     | maximize/minimize a window
-<kbd>SPC w M</kbd>     | maximize/minimize a window, when maximized the buffer is centered
-<kbd>SPC w o</kbd>     | cycle and focus between frames
-<kbd>SPC w p m</kbd>   | open messages buffer in a popup window
-<kbd>SPC w p p</kbd>   | close the current sticky popup window
-<kbd>SPC w r</kbd>     | rotate windows clockwise
-<kbd>SPC w R</kbd>     | rotate windows counter-clockwise
-<kbd>SPC w s</kbd>     | horizontal split
-<kbd>SPC w S</kbd>     | initiate window size micro-state
-<kbd>SPC w u</kbd>     | undo window layout (used to effectively undo a close window)
-<kbd>SPC w U</kbd>     | redo window layout
-<kbd>SPC w v</kbd>     | vertical split
-<kbd>SPC w w</kbd>     | cycle and focus between windows
+Key Binding                               |                 Description
+------------------------------------------|----------------------------------------------------------------
+<kbd>SPC w c</kbd>                        | close a window
+<kbd>SPC w d</kbd>                        | toggle window dedication (dedicated window cannot be reused by a mode)
+<kbd>SPC w H</kbd>                        | move window to the left
+<kbd>SPC w J</kbd>                        | move window to the bottom
+<kbd>SPC w K</kbd>                        | move window to the top
+<kbd>SPC w L</kbd>                        | move window to the right
+<kbd>SPC w m</kbd>                        | maximize/minimize a window
+<kbd>SPC w M</kbd>                        | maximize/minimize a window, when maximized the buffer is centered
+<kbd>SPC w o</kbd>                        | cycle and focus between frames
+<kbd>SPC w p m</kbd>                      | open messages buffer in a popup window
+<kbd>SPC w p p</kbd>                      | close the current sticky popup window
+<kbd>SPC w r</kbd>                        | rotate windows clockwise
+<kbd>SPC w R</kbd>                        | rotate windows counter-clockwise
+<kbd>SPC w s</kbd> or <kbd>SPC w /</kbd>  | horizontal split
+<kbd>SPC w S</kbd>                        | initiate window size micro-state
+<kbd>SPC w u</kbd>                        | undo window layout (used to effectively undo a closed window)
+<kbd>SPC w U</kbd>                        | redo window layout
+<kbd>SPC w v</kbd> or  <kbd>SPC w -</kbd> | vertical split
+<kbd>SPC w w</kbd>                        | cycle and focus between windows
 
 #### Resizing windows
 
@@ -949,6 +980,14 @@ Any other key       | leave the micro-state
 The micro-state text in minibuffer display the following information:
 
     [WidthxHeight] Resize window: (H/L) shrink/enlarge horizontally, (J/K) shrink/enlarge vertically
+
+#### Reposition window
+
+Key Binding         | Description
+--------------------|------------------------------------------------------------
+<kbd>z f</kbd>      | Make current function or comments visible
+
+`z f` tries to accommodate current function or comments into window as much as possible.
 
 #### Golden ratio
 
@@ -1062,6 +1101,16 @@ Key Binding                      |                 Description
 
 ### Shells
 
+#### Key bindings
+
+Key Binding         |                 Description
+--------------------|----------------------------------------------------------------
+<kbd>C-j</kbd>      | next item in history
+<kbd>C-k</kbd>      | previous item in history
+<kbd>SPC m h</kbd>  | browse history with `helm` (works in `eshell` and `shell`)
+
+#### Staying in insert state
+
 Navigating in shell buffers can be tricky because it is not possible to use the
 leader in `insert state`. Switching back and forth between normal and insert
 states can be tedious.
@@ -1148,11 +1197,6 @@ Key Binding            | Description
 <kbd>SPC s b</kbd>     | go to the last searched occurrence of the last highlighted symbol
 <kbd>SPC s e</kbd>     | edit all occurrences of the current symbol
 <kbd>SPC s h</kbd>     | highlight the current symbol and all its occurrence within the current range
-<kbd>SPC s n</kbd>     | go to next occurrence and initiate navigation micro-state
-<kbd>SPC s N</kbd>     | go to previous occurrence and initiate navigation micro-state
-<kbd>SPC s r b</kbd>   | change range to `whole buffer`
-<kbd>SPC s r d</kbd>   | change range to `display area`
-<kbd>SPC s r f</kbd>   | change range to `function`
 <kbd>SPC s R</kbd>     | change range to default (`whole buffer`)
 
 In 'Spacemacs' highlight symbol micro-state:
@@ -1239,19 +1283,54 @@ Text related commands (start with `x`):
 <kbd>SPC x w c</kbd>   | count the number of words in the selection region
 <kbd>SPC x w C</kbd>   | count the number of occurrences per word in the select region
 
-### Change font size
+### Smartparens Strict mode
+
+[Smartparens][sp] comes with a strict mode which prevents deletion of
+parenthesis if the result is unbalanced.
+
+This mode can be frustrating for novices, this is why it is not enabled by
+default.
+
+It is possible to enable it easily for _all programming modes_ with the
+variable `dotspacemacs-smartparens-strict-mode` of you `~/.spacemacs`.
+
+```elisp
+(setq-default dotspacemacs-smartparens-strict-mode t)
+```
+
+### Zooming
+
+#### Text
 
 The font size of the current buffer can be adjusted with the commands:
 
-Key Binding          | Description
----------------------|------------------------------------------------------------
-<kbd>SPC x +</kbd>   | scale up the font and initiate the font scaling micro-state
-<kbd>SPC x -</kbd>   | scale down the font and initiate the font scaling micro-state
-<kbd>SPC x =</kbd>   | reset the font size (no scaling) and initiate the font scaling micro-state
-<kbd>+</kbd>         | increase the font size
-<kbd>-</kbd>         | decrease the font size
-<kbd>=</kbd>         | reset the font size
-Any other key        | leave the font scaling micro-state
+Key Binding            | Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC z x +</kbd>   | scale up the font and initiate the font scaling micro-state
+<kbd>SPC z x -</kbd>   | scale down the font and initiate the font scaling micro-state
+<kbd>SPC z x =</kbd>   | reset the font size (no scaling) and initiate the font scaling micro-state
+<kbd>+</kbd>           | increase the font size
+<kbd>-</kbd>           | decrease the font size
+<kbd>=</kbd>           | reset the font size
+Any other key          | leave the font scaling micro-state
+
+Note that _only_ the text of the current buffer is scaled, the other buffers,
+the mode-line and the minibuffer are not affected. To zoom the whole content of
+a frame use the `zoom frame` bindings (see next section).
+
+#### Frame
+
+You can zoom in and out the whole content of the frame with the commands:
+
+Key Binding            | Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC z f +</kbd>   | zoom in the frame content
+<kbd>SPC z f -</kbd>   | zoom out the frame content
+<kbd>SPC z f =</kbd>   | reset the frame content size
+<kbd>+</kbd>           | zoom in
+<kbd>-</kbd>           | zoom out
+<kbd>=</kbd>           | reset zoom
+Any other key          | leave the zoom frame micro-state
 
 ### Increase/Decrease numbers
 
@@ -1507,114 +1586,6 @@ To search in a project see [project searching](#project-searching).
 <kbd>SPC p T</kbd>  | find test files
 <kbd>SPC p v</kbd>  | open project root in `vc-dir` or `magit`
 
-## Working with Git
-
-Git commands (start with `g`):
-
-    Key Binding            |                 Description
----------------------------|------------------------------------------------------------
-<kbd>SPC g c c</kbd>       | highlight regions by age of commits
-<kbd>SPC g c C</kbd>       | clear highlights
-<kbd>SPC g c t</kbd>       | highlight regions by last updated time
-<kbd>SPC g s</kbd>         | open a `magit` status window
-<kbd>SPC g m</kbd>         | display the last commit message of the current line
-<kbd>SPC g t</kbd>         | launch the git time machine
-
-- Highlight by age of commit or last update time is provided by
-[smeargle][smeargle].
-- Git time machine is provided by [git-timemachine][git-timemachine].
-- Git last commit message per line is provided by
-[git-messenger][git-messenger]
-
-### Magit
-
-`Spacemacs` uses [magit][magit] to manage Git repositories.
-
-To open a `status buffer`, type in a buffer of a Git repository:
-
-    <SPC> g s
-
-`hjkl` navigation is enabled in all Magit buffers. The default Magit keys
-on `hjkl` are remapped on `HJKL`.
-
-Here are the often used bindings inside a `status buffer`:
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-<kbd>/</kbd>      | evil-search
-<kbd>$</kbd>      | open `command output buffer`
-<kbd>c c</kbd>    | open a `commit message buffer`
-<kbd>b b</kbd>    | checkout a branch
-<kbd>b c</kbd>    | create a branch
-<kbd>b v</kbd>    | open the `branch manager buffer`
-<kbd>f f</kbd>    | fetch changes
-<kbd>F -r F</kbd> | pull and rebase
-<kbd>h</kbd>      | go left
-<kbd>j</kbd>      | go down
-<kbd>k</kbd>      | go up
-<kbd>K</kbd>      | discard changes
-<kbd>l</kbd>      | go right
-<kbd>L l</kbd>    | open `log buffer`
-<kbd>n</kbd>      | next search occurrence
-<kbd>N</kbd>      | previous search occurrence
-<kbd>P P</kbd>    | push
-<kbd>q</kbd>      | quit
-<kbd>s</kbd>      | on a file or hunk in a diff: stage the file or hunk
-<kbd>+</kbd>      | on a hunk: increase hunk size
-<kbd>-</kbd>      | on a hunk: decrease hunk size
-<kbd>S</kbd>      | stage all
-<kbd>TAB</kbd>    | on a file: expand/collapse diff
-<kbd>u</kbd>      | on a staged file: unstage
-<kbd>U</kbd>      | unstage all staged files
-<kbd>v</kbd>      | `visual state`
-<kbd>V</kbd>      | `visual-line state`
-<kbd>C-v</kbd>    | revert item at point
-<kbd>z z</kbd>    | stash changes
-
-In a commit message buffer press `C-c C-c` to commit the changes with the
-entered message. `C-c C-k` will discard the commit message.
-
-**Note:** Sometimes you will be asked about reverting the commit buffer,
-you can answer `y` with no issue.
-
-### Quick guide for recurring use cases in Magit
-
-- Amend a commit:
-  - `L l` to open `log buffer`
-  - `c a` on the commit you want to amend
-  - `C-c C-c` to submit the changes
-- Squash last commit:
-  - `L l` to open `log buffer`
-  - `E` on the second to last commit, it opens the `rebase buffer`
-  - `j` to put point on last commit
-  - `i` to pass in `insert state`
-  - `s` to squash it
-  - `C-c C-c` to continue to the `commit message buffer`
-  - `C-c C-c` again when you have finished to edit the commit message
-- Force push a squashed commit:
-  - in the `status buffer` you should see the new commit unpushed and the
-  old commit unpulled
-  - `P -f P` for force a push (**beware** usually it is not recommended to
-  rewrite the history of a public repository, but if you are *sure* that you
-  are the only one to work on a repository it is ok - i.e. in your fork).
-- Add upstream remote (the parent repository you have forked):
-  - `b v` to open the `branch manager buffer`
-  - `a` to add a remote, type the name (i.e. `upstream`) and the URL
-- Pull changes from upstream (the parent repository you have forked) and push:
-  - `F -r C-u F` and choose `upstream` or the name you gave to it
-  - `P P` to push the commit to `origin`
-
-### Git gutter bitmaps
-
-`Spacemacs` has custom fringe bitmaps for
-[git-gutter-fringe][git-gutter]:
-
-   Symbol                                                                                    | Description
-:-------------------------------------------------------------------------------------------:|-----------------
-![git-new](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-new-line.png) | new line
-![git-del](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-del-line.png) | at least one line has been deleted
-![git-mod](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/git-mod-line.png) | modified line
-
 ## Registers
 
 Access commands to the various registers start with `r`:
@@ -1644,9 +1615,9 @@ Custom fringe bitmaps:
 
    Symbol                                                                                       | Description
 :----------------------------------------------------------------------------------------------:|------------
-![dot-error](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-error.png)     | Error
-![dot-warning](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-warning.png) | warning
-![dot-info](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/dot-info.png)       | Info
+![dot-error](img/dot-error.png)     | Error
+![dot-warning](img/dot-warning.png) | warning
+![dot-info](img/dot-info.png)       | Info
 
 ## Compiling
 
@@ -1713,9 +1684,17 @@ In `org`, [evil-org-mode][] is activated.
 ----------------------|------------------------------------------------------------
 <kbd>SPC m a</kbd>    | org-agenda
 <kbd>SPC m A</kbd>    | org-archive-subtree
+<kbd>SPC m c</kbd>    | org-capture
 <kbd>SPC m C</kbd>    | evil-org-recompute-clocks
-<kbd>SPC m t</kbd>    | org-show-todo-tree
+<kbd>SPC m d</kbd>    | org-deadline
+<kbd>SPC m e</kbd>    | org-export-dispatch
+<kbd>SPC m i</kbd>    | org-clock-in
 <kbd>SPC m l</kbd>    | evil-org-open-links
+<kbd>SPC m m</kbd>    | org-ctrl-c-ctrl-c
+<kbd>SPC m o</kbd>    | org-clock-out
+<kbd>SPC m r</kbd>    | org-refile
+<kbd>SPC m s</kbd>    | org-schedule
+<kbd>SPC m t</kbd>    | org-show-todo-tree
 <kbd>gh</kbd>         | outline-up-heading
 <kbd>gj</kbd>         | org-forward-heading-same-level
 <kbd>gk</kbd>         | org-backward-heading-same-level
@@ -1742,18 +1721,6 @@ In `org`, [evil-org-mode][] is activated.
 <kbd>M-o</kbd>        | org-insert-heading+org-metaright
 <kbd>M-t</kbd>        | org-insert-todo-heading nil+ org-metaright
 
-### Perforce
-
-    Key Binding            |                 Description
----------------------------|------------------------------------------------------------
-<kbd>SPC p 4 a</kbd>     | add a file in depot
-<kbd>SPC p 4 d</kbd>     | delete a file in depot
-<kbd>SPC p 4 D</kbd>     | p4-describe
-<kbd>SPC p 4 e</kbd>     | checkout a file
-<kbd>SPC p 4 r</kbd>     | rename a file
-<kbd>SPC p 4 R</kbd>     | revert a file
-<kbd>SPC p 4 S</kbd>     | submit CL
-
 ### Python
 
 Writing python code with spacemacs is supported by python contribution. Please see
@@ -1761,20 +1728,8 @@ Writing python code with spacemacs is supported by python contribution. Please s
 
 ### JavaScript
 
-[js2-mode][] will activate for all `*.js` files, along with
-[tern-auto-complete][] which will provide the best JavaScript
-completion currently available. Just make sure you have the [tern][]
-NPM module installed.
-
-Tern includes the following key bindings:
-
-    Key Binding     |                 Description
---------------------|------------------------------------------------------------
-<kbd>M-.</kbd>      | jump to the definition of the thing under the cursor.
-<kbd>M-,</kbd>      | brings you back to last place you were when you pressed M-..
-<kbd>C-c C-r</kbd>  | rename the variable under the cursor.
-<kbd>C-c C-c</kbd>  | find the type of the thing under the cursor.
-<kbd>C-c C-d</kbd>  | find docs of the thing under the cursor. Press again to open the associated URL (if any).
+More featured JavaScript support is provided by the javascript contribution. Please see
+[javascript contribution][javascript-contrib] documentation for detail.
 
 ### rcirc
 
@@ -1782,6 +1737,32 @@ Tern includes the following key bindings:
 ------------------|------------------------------------------------------------
 <kbd>CTRL+j</kbd> | next item in command history
 <kbd>CTRL+k</kbd> | previous item in command history
+
+# Emacs Server
+
+`Spacemacs` starts a server at launch. This server is killed whenever you close
+your Emacs windows.
+
+## Connecting to the Emacs server
+
+TODO
+
+## Keeping the server alive
+
+It is possible to keep the server alive when you close Emacs by setting the
+variable `dotspacemacs-persistent-server` to `t` in your `~./spacemacs`.
+
+```elisp
+(setq-default dotspacemacs-persistent-server t)
+```
+
+When this variable is set to `t`, the only way to quit Emacs _and_ kill the
+server is to use the following bindings:
+
+    Key Binding    |                 Description
+-------------------|------------------------------------------------------------
+<kbd>SPC q q</kbd> | Quit Emacs and kill the server
+<kbd>SPC q s</kbd> | Save the buffers, quit Emacs and kill the server
 
 # Tips
 
@@ -1872,7 +1853,8 @@ Achievements                                         | Account
 [First contribution][1st-contrib]                    | [trishume][]
 [First contribution layer][1st-clayer]               | [trishume][]
 [First blog article on Spacemacs][1st-article]       | [Wolfy87][]
-[100th issue (PR)][100th-issue]                      | [danielwuz][]
+[100th issue (was a PR)][100th-issue]                | [danielwuz][]
+[100th pull request][100th-PR]                       | [bru][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
 
@@ -1931,34 +1913,27 @@ developers to elisp hackers!
 [evil-numbers]: https://github.com/cofi/evil-numbers
 [evil-org-mode]: https://github.com/edwtjo/evil-org-mode
 [evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
+[git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
 [nose]: https://github.com/nose-devs/nose/
 [nose.el]: https://github.com/syl20bnr/nose.el
 [pylookup]: https://github.com/tsgates/pylookup
 [jedi]: https://github.com/tkf/emacs-jedi
-[edts]: https://github.com/tjarvstrand/edts
 [ess-R-object-popup]: https://github.com/myuhe/ess-R-object-popup.el
 [ess-R-data-view]: https://github.com/myuhe/ess-R-data-view.el
 [leuven-theme]: https://github.com/fniessen/emacs-leuven-theme
 [monokai-theme]: https://github.com/oneKelvinSmith/monokai-emacs
 [zenburn-theme]: https://github.com/bbatsov/zenburn-emacs
-[git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
-[magit]: http://magit.github.io/
-[smeargle]: https://github.com/syohex/emacs-smeargle
-[git-timemachine]: https://github.com/pidu/git-timemachine
-[git-messenger]: https://github.com/syohex/emacs-git-messenger
 [ido-vertical-mode]: https://github.com/gempesaw/ido-vertical-mode.el
 [issues]: https://github.com/syl20bnr/spacemacs/issues
 [vundle]: https://github.com/gmarik/Vundle.vim
 [anzu]: https://github.com/syohex/emacs-anzu
-[js2-mode]: https://github.com/mooz/js2-mode
-[tern-auto-complete]: https://github.com/marijnh/tern/blob/master/emacs/tern-auto-complete.el
-[tern]: http://ternjs.net/
+[javascript-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/javascript
 [themes-megapack]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/themes-megapack
 [python-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/python
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [gitter]: https://gitter.im/syl20bnr/spacemacs
-[CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/CONTRIBUTE.md
+[CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/CONTRIBUTE.md
 [neotree]: https://github.com/jaypei/emacs-neotree
 [nerdtree]: https://github.com/scrooloose/nerdtree
 [anaconda-mode]: https://github.com/proofit404/anaconda-mode
@@ -1966,9 +1941,11 @@ developers to elisp hackers!
 [1st-clayer]: https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39
 [1st-article]: http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/
 [100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
+[100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [trishume]:https://github.com/trishume
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
+[bru]:https://github.com/bru
 [Jackneill]:https://github.com/Jackneill
 [jb55]:https://github.com/jb55
 [use-package]: https://github.com/jwiegley/use-package

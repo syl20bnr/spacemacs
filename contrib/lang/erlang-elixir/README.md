@@ -1,18 +1,44 @@
 # Erlang/Elixir contribution layer for Spacemacs
 
+![logo_erlang](erlang.png)
+
+![logo_elixir](elixir.png)
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [Erlang/Elixir contribution layer for Spacemacs](#erlangelixir-contribution-layer-for-spacemacs)
+    - [Install](#install)
+    - [Erlang](#erlang)
+        - [Enable EDTS](#enable-edts)
+            - [EDTS Key bindings](#edts-key-bindings)
+
+<!-- markdown-toc end -->
+
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(erlang-elixir)
+(setq-default dotspacemacs-configuration-layers '(erlang-elixir)
   "List of contribution to load."
 )
 ```
 
-### Erlang
+## Erlang
 
-`Spacemacs` uses [EDTS][edts] as an Erlang coding environment.
+### Enable EDTS
+
+[EDTS][] is disabled by default, to enable it add the following snippet to
+the `dotspacemacs/init` function of your `~/.spacemacs` file.
+
+```elisp
+(setq spacemacs-erlang-elixir-use-edts t)
+```
+
+Note that `EDTS` is disable on Windows.
+
+#### EDTS Key bindings
 
     Key Binding     |                 Description
 --------------------|------------------------------------------------------------
@@ -25,3 +51,4 @@ To use this contribution add it to your `~/.spacemacs`
 <kbd>SPC m m</kbd>  | go to the macro definition under point
 <kbd>SPC m r</kbd>  | go to the record definition under point
 
+[EDTS]: https://github.com/tjarvstrand/edts

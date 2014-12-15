@@ -13,6 +13,11 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
 (defvar dotspacemacs-leader-key "SPC"
   "The leader key.")
 
+(defvar dotspacemacs-command-key ":"
+  "The key used for Evil commands (ex-commands) and Emacs commands (M-x).
+By default the command key is `:' so ex-commands are executed like in Vim
+with `:' and Emacs commands are executed with `<leader> :'.")
+
 (defvar dotspacemacs-guide-key-delay 0.4
   "Guide-key delay in seconds.")
 
@@ -27,6 +32,12 @@ it reaches the top or bottom of the screen.")
 (defvar dotspacemacs-feature-toggle-leader-on-jk nil
   "If non nil pressing 'jk' in insert state, ido or helm will activate the
 evil leader.")
+
+(defvar dotspacemacs-persistent-server nil
+  "If non nil advises quit functions to keep server open when quitting.")
+
+(defvar dotspacemacs-smartparens-strict-mode nil
+  "If non-nil smartparens-strict-mode will be enabled in programming modes.")
 
 (defvar dotspacemacs-default-package-repository 'melpa-stable
   "The default package repository used if no explicit repository has been

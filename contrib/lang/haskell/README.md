@@ -1,10 +1,10 @@
 # Haskell contribution layer for Spacemacs
 
-![Smex](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/contrib/lang/haskell/haskell.png)
+![logo](haskell.png)
 
 This layer adds support for the [Haskell][] language.
 
-**This layer is not adapted for Spacemacs, it needs you, Haskell expert, to
+**This layer is not adapted for Spacemacs, it needs you, Haskell experts, to
 improve it and make it consistent with the Spacemacs experience.**
 
 ## Install
@@ -12,7 +12,7 @@ improve it and make it consistent with the Spacemacs experience.**
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(defvar dotspacemacs-configuration-layers '(haskell)
+(setq-default dotspacemacs-configuration-layers '(haskell)
   "List of contribution to load."
 )
 ```

@@ -23,6 +23,11 @@
  dotspacemacs-default-theme 'solarized-light
  ;; The leader key
  dotspacemacs-leader-key "SPC"
+ ;; The command key used for Evil commands (ex-commands) and
+ ;; Emacs commands (M-x).
+ ;; By default the command key is `:' so ex-commands are executed like in Vim
+ ;; with `:' and Emacs commands are executed with `<leader> :'.
+ dotspacemacs-command-key ":"
  ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
  ;; the commands bound to the current keystrokes.
  dotspacemacs-guide-key-delay 0.4
@@ -35,6 +40,10 @@
  ;; If non nil pressing 'jk' in insert state, ido or helm will activate the
  ;; evil leader.
  dotspacemacs-feature-toggle-leader-on-jk nil
+ ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
+ dotspacemacs-smartparens-strict-mode nil
+ ;; If non nil advises quit functions to keep server open when quitting.
+ dotspacemacs-persistent-server nil
  ;; The default package repository used if no explicit repository has been
  ;; specified with an installed package.
  ;; Not used for now.

@@ -1,6 +1,14 @@
-(defvar haskell-packages '(haskell-mode)
+(defvar haskell-packages
+  '(
+    flycheck
+    ghc
+    haskell-mode
+    )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
+
+(defun haskell/init-flycheck ()
+  (add-hook 'haskell-mode-hook 'flycheck-mode))
 
 (defun haskell/init-haskell-mode ()
   (require 'haskell-yas)

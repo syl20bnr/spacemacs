@@ -58,6 +58,16 @@ a key sequence. NAME is a symbol name used as the prefix command."
     (define-prefix-command command)
     (evil-leader/set-key prefix command)))
 
+;; Waiting to fix the issue with guide-key before reactivating/updating this
+;; function
+;; (defun spacemacs/declare-prefix-for-mode (mode prefix name)
+;;   "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
+;; be added. PREFIX is a string describing a key sequence. NAME is a symbol name
+;; used as the prefix command."
+;;   (let ((command (intern (concat spacemacs/prefix-command-string name))))
+;;     (define-prefix-command command)
+;;     (evil-leader/set-key-for-mode mode prefix command)))
+
 (defun spacemacs/activate-evil-leader-for-maps (map-list)
   "Remove the evil-leader binding from all the maps in MAP-LIST."
   (mapc (lambda (x)
@@ -78,7 +88,7 @@ bindings contained in BODY."
     "N" ',(lookup-key evil-normal-state-map "N")
     "v" 'evil-visual-char
     "V" 'evil-visual-line
-    "C-v" 'evil-visual-block
+    (kbd "C-v") 'evil-visual-block
     ,@body))
 
 ;; From http://stackoverflow.com/a/18796138
@@ -91,6 +101,25 @@ bindings contained in BODY."
   "Themes officially supported by spacemacs.")
 (defvar spacemacs-cur-theme (pop spacemacs-themes)
   "Current spacemacs theme.")
+
+(defun spacemacs/split-and-new-line ()
+  "Split a quoted string or s-expression and insert a new line with
+auto-indent."
+  (interactive)
+  (sp-split-sexp 1)
+  (sp-newline))
+
+(defun spacemacs/push-mark-and-goto-beginning-of-line ()
+  "Push a mark at current location and go to the beginnign of the line."
+  (interactive)
+  (push-mark (point))
+  (evil-beginning-of-line))
+
+(defun spacemacs/push-mark-and-goto-end-of-line ()
+  "Push a mark at current location and go to the end of the line."
+  (interactive)
+  (push-mark (point))
+  (evil-end-of-line))
 
 (defun spacemacs/cycle-spacemacs-theme ()
   "Cycle through themes defined in spacemacs-themes."
@@ -553,6 +582,39 @@ kill internal buffers too."
                  (or internal-too (/= (aref name 0) ?\s))
                  (string-match regexp name))
         (kill-buffer buffer)))))
+
+;; advise to prevent server from closing
+
+(defvar spacemacs-really-kill-emacs nil
+  "prevent window manager close from closing instance.")
+
+(defadvice kill-emacs (around spacemacs-really-exit activate)
+  "Only kill emacs if a prefix is set"
+  (if (or spacemacs-really-kill-emacs (not dotspacemacs-persistent-server))
+      ad-do-it)
+  (spacemacs/frame-killer))
+
+(defadvice save-buffers-kill-emacs (around spacemacs-really-exit activate)
+  "Only kill emacs if a prefix is set"
+  (if (or spacemacs-really-kill-emacs (not dotspacemacs-persistent-server))
+      ad-do-it)
+  (spacemacs/frame-killer))
+
+(defun spacemacs/save-buffers-kill-emacs ()
+  (interactive)
+  (setq spacemacs-really-kill-emacs t)
+  (save-buffers-kill-emacs))
+
+(defun spacemacs/kill-emacs ()
+  (interactive)
+  (setq spacemacs-really-kill-emacs t)
+  (kill-emacs))
+
+(defun spacemacs/frame-killer ()
+  "Exit server buffers and hide the main Emacs window"
+  (interactive)
+  (server-edit)
+  (make-frame-invisible nil 1))
 
 ;; A small minor mode to use a big fringe
 ;; from http://bzg.fr/emacs-strip-tease.html

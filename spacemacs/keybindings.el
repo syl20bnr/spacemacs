@@ -8,6 +8,16 @@
 (define-key isearch-mode-map (kbd "M-S-<return>") 'isearch-repeat-backward)
 
 ;; ---------------------------------------------------------------------------
+;; Make <escape> quit as much as possible
+;; ---------------------------------------------------------------------------
+(define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key evil-visual-state-map (kbd "<escape>") 'keyboard-quit)
+(define-key minibuffer-local-ns-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key minibuffer-local-completion-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
+(define-key minibuffer-local-isearch-map (kbd "<escape>") 'keyboard-escape-quit)
+
+;; ---------------------------------------------------------------------------
 ;; evil-leader key bindings
 ;; ---------------------------------------------------------------------------
 
@@ -78,14 +88,14 @@
 ;; <SPC> j k key binding for a frequent action: go and indent line below the point
 ;; <SPC> J split the current line at point and indent it
 (evil-leader/set-key
-  "J" 'sp-split-sexp
-  "jJ" (lambda () (interactive) (sp-split-sexp 1) (sp-newline))
+  "J"  'sp-split-sexp
+  "jJ" 'spacemacs/split-and-new-line
   "jj" 'sp-newline
   "jk" 'evil-goto-next-line-and-indent)
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key
-  "jh" (lambda () (interactive) (push-mark (point)) (evil-beginning-of-line))
-  "jl" (lambda () (interactive) (push-mark (point)) (evil-end-of-line)))
+  "jh" 'spacemacs/push-mark-and-goto-beginning-of-line
+  "jl" 'spacemacs/push-mark-and-goto-end-of-line)
 ;; Compilation ----------------------------------------------------------------
 (evil-leader/set-key "cc" 'helm-make-projectile)
 (evil-leader/set-key "cC" 'compile)
@@ -110,12 +120,17 @@
   "tL" 'visual-line-mode
   "tM" 'toggle-frame-maximized
   "tn" 'global-linum-mode)
+;; quit -----------------------------------------------------------------------
+(evil-leader/set-key
+  "q s" 'spacemacs/save-buffers-kill-emacs
+  "q q" 'spacemacs/kill-emacs)
 ;; window ---------------------------------------------------------------------
 ;; (evil-leader/set-key "wb" 'evenly-split-window-right)
 (evil-leader/set-key
   "w2"  'layout-double-columns
   "w3"  'layout-triple-columns
   "wc"  'delete-window
+  "wC"  'delete-other-windows
   "wd"  'toggle-current-window-dedication
   "wH"  'evil-window-move-far-left
   "wh"  'evil-window-left
@@ -130,18 +145,20 @@
   "wo"  'other-frame
   "wr"  'rotate-windows
   "wR"  'rotate-windows-backward
-;; "wv"  'evenly-split-window-below)
+  ;; "wv"  'evenly-split-window-below)
   "ws"  'split-window-below
+  "w-"  'split-window-below
   "wS"  'spacemacs/resize-window-overlay-map
   "wU"  'winner-redo
   "wu"  'winner-undo
   "wv"  'split-window-right
+  "w/"  'split-window-right
   "ww"  'other-window)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
-  "x="  'spacemacs/reset-font-size
-  "x+"  'spacemacs/scale-up-font
-  "x-"  'spacemacs/scale-down-font
+  "zx="  'spacemacs/reset-font-size
+  "zx+"  'spacemacs/scale-up-font
+  "zx-"  'spacemacs/scale-down-font
   "xdw" 'delete-trailing-whitespace
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines

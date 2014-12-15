@@ -26,10 +26,12 @@
                nosetests-pdb-suite)
     :init
     (evil-leader/set-key-for-mode 'python-mode
-      "mTf" 'nosetests-pdb-one
-      "mtf" 'nosetests-one
       "mTa" 'nosetests-pdb-all
       "mta" 'nosetests-all
+      "mTb" 'nosetests-pdb-module
+      "mtb" 'nosetests-module
+      "mTt" 'nosetests-pdb-one
+      "mtt" 'nosetests-one
       "mTm" 'nosetests-pdb-module
       "mtm" 'nosetests-module
       "mTs" 'nosetests-pdb-suite
@@ -47,6 +49,9 @@
     (progn
       (add-to-list 'evil-emacs-state-modes 'pylookup-mode)
       (evil-add-hjkl-bindings pylookup-mode-map 'emacs)
+      (evil-leader/set-key-for-mode 'python-mode
+        "mD"  'pylookup-lookup)
+
       (let ((dir (config-system/get-layer-property 'python :ext-dir)))
         (setq pylookup-dir (concat dir "/pylookup")
               pylookup-program (concat pylookup-dir "/pylookup.py")
