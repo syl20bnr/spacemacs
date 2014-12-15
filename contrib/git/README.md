@@ -15,6 +15,7 @@
     - [Github support](#github-support)
         - [magit-gh-pulls](#magit-gh-pulls)
         - [gist.el](#gistel)
+        - [github-browse-file](#github-browse-file)
 
 <!-- markdown-toc end -->
 
@@ -225,3 +226,10 @@ In the gist list buffer:
 [git-messenger]: https://github.com/syohex/emacs-git-messenger
 [magit-gh-pulls]: https://github.com/sigma/magit-gh-pulls
 [gist.el]: https://github.com/defunkt/gist.el
+
+### github-browse-file
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC g f b</kbd>  | browse to file on github
+
