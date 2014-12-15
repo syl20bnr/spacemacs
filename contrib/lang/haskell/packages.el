@@ -3,6 +3,8 @@
     flycheck
     ghc
     haskell-mode
+    company-ghc
+    ghci-completion
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -18,8 +20,9 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       ;; Customization
       (custom-set-variables
-       ;; Use cabal-dev for the GHCi session. Ensures our dependencies are in scope.
-       '(haskell-process-type 'cabal-dev)
+       ;; Use cabal-repl for the GHCi session. Ensures our dependencies are in scope.
+       ;; cabal-dev is deprecated
+       '(haskell-process-type 'cabal-repl)
 
        ;; Use notify.el (if you have it installed) at the end of running
        ;; Cabal commands or generally things worth notifying.
@@ -28,52 +31,82 @@ which require an initialization must be listed explicitly in the list.")
        ;; To enable tags generation on save.
        '(haskell-tags-on-save t)
 
+       ;; Remove annoying error popups
+       '(haskell-interactive-popup-error nil)
+
+       ;; Better import handling
+       '(haskell-process-suggest-remove-import-lines t)
+       '(haskell-process-auto-import-loaded-modules t)
+
        ;; To enable stylish on save.
        '(haskell-stylish-on-save t))
+
+      ;; Make sure company-ghc is properly initialized
+      (autoload 'ghc-init "ghc" nil t)
+      (autoload 'ghc-debug "ghc" nil t)
 
       (add-hook 'haskell-mode-hook 'haskell-hook)
       (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
 
+      ;; Make "RET" behaviour in REPL saner
+      (evil-define-key 'insert haskell-interactive-mode-map (kbd "RET") 'haskell-interactive-mode-return)
+      (evil-define-key 'normal haskell-interactive-mode-map (kbd "RET") 'haskell-interactive-mode-return)
+
+      ;; Keybindings
+      ;; use "mc" as prefix for cabal commands
+      (setq spacemacs/key-binding-prefixes '(("mc" . "cabal")))
+      (evil-leader/set-key-for-mode 'haskell-mode
+        "mC"  'haskell-compile
+        "ml"  'haskell-process-load-or-reload
+        "mt"  'haskell-process-do-type
+        "mi"  'haskell-process-do-info
+        "mb"  'haskell-process-cabal-build
+        "mcc" 'haskell-process-cabal
+        "mcv" 'haskell-cabal-visit-file
+        "m`"  'haskell-interactive-bring
+        "mk"  'haskell-interactive-mode-clear
+        "mz"  'haskell-interactive-switch
+        "mj"  'haskell-mode-jump-to-def-or-tag
+        "md"  'inferior-haskell-find-haddock
+        "mh"  'hoogle
+        "mH"  'hayoo
+        )
+      ;; Switch back to editor from REPL
+      (evil-leader/set-key-for-mode 'interactive-haskell-mode
+        "mz"  'haskell-interactive-switch
+        )
+
+      ;; Compile
+      (evil-leader/set-key-for-mode 'haskell-cabal
+        "mC"  'haskell-compile
+        )
+
+      ;; Cabal-file bindings
+      (evil-leader/set-key-for-mode 'haskell-cabal-mode
+        "md" 'haskell-cabal-add-dependency
+        "mb" 'haskell-cabal-goto-benchmark-section
+        "me" 'haskell-cabal-goto-executable-section
+        "mt" 'haskell-cabal-goto-test-suite-section
+        "mm" 'haskell-cabal-goto-exposed-modules
+        "ml" 'haskell-cabal-goto-library-section
+        "mn" 'haskell-cabal-next-subsection
+        "mp" 'haskell-cabal-previous-subsection
+        "mN" 'haskell-cabal-next-section
+        "mP" 'haskell-cabal-previous-section
+        "mf" 'haskell-cabal-find-or-create-source-file
+        ;; "m="  'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
+        )
+
       ;; Haskell main editing mode key bindings.
       (defun haskell-hook ()
-        ;; Use simple indentation.
-        (turn-on-haskell-simple-indent)
-        (define-key haskell-mode-map (kbd "<return>") 'haskell-simple-indent-newline-same-col)
-        (define-key haskell-mode-map (kbd "C-<return>") 'haskell-simple-indent-newline-indent)
+        (lambda () (ghc-init))
+        ;; Use advanced indention
+        (turn-on-haskell-indentation)
+        ('interactive-haskell-mode)
 
-        ;; Load the current file (and make a session if not already made).
-        (define-key haskell-mode-map [?\C-c ?\C-l] 'haskell-process-load-file)
-        (define-key haskell-mode-map [f5] 'haskell-process-load-file)
-
-        ;; Switch to the REPL.
-        (define-key haskell-mode-map [?\C-c ?\C-z] 'haskell-interactive-switch)
-        ;; “Bring” the REPL, hiding all other windows apart from the source
-        ;; and the REPL.
-        (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
-
-        ;; Build the Cabal project.
-        (define-key haskell-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
-        ;; Interactively choose the Cabal command to run.
-        (define-key haskell-mode-map (kbd "C-c c") 'haskell-process-cabal)
-
-        ;; Get the type and info of the symbol at point, print it in the
-        ;; message buffer.
-        (define-key haskell-mode-map (kbd "C-c C-t") 'haskell-process-do-type)
-        (define-key haskell-mode-map (kbd "C-c C-i") 'haskell-process-do-info)
-
-        ;; Contextually do clever things on the space key, in particular:
-        ;;   1. Complete imports, letting you choose the module name.
-        ;;   2. Show the type of the symbol after the space.
-        (define-key haskell-mode-map (kbd "SPC") 'haskell-mode-contextual-space)
-
-        ;; Jump to the imports. Keep tapping to jump between import
-        ;; groups. C-u f8 to jump back again.
-        (define-key haskell-mode-map [f8] 'haskell-navigate-imports)
-
-        ;; Jump to the definition of the current symbol.
-        (define-key haskell-mode-map (kbd "M-.") 'haskell-mode-tag-find)
 
         ;; Indent the below lines on columns after the current column.
+        ;; Might need better bindings for spacemacs and OS X
         (define-key haskell-mode-map (kbd "C-<right>")
           (lambda ()
             (interactive)
@@ -86,7 +119,11 @@ which require an initialization must be listed explicitly in the list.")
 
       ;; Useful to have these keybindings for .cabal files, too.
       (defun haskell-cabal-hook ()
-        (define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-process-cabal-build)
-        (define-key haskell-cabal-mode-map (kbd "C-c c") 'haskell-process-cabal)
-        (define-key haskell-cabal-mode-map (kbd "C-`") 'haskell-interactive-bring)
         (define-key haskell-cabal-mode-map [?\C-c ?\C-z] 'haskell-interactive-switch)))))
+
+(defun haskell/init-company-ghc ()
+  (use-package ghc
+    :init 
+    (add-to-list 'company-backends 'company-ghc)
+    (ghc-comp-init)
+    ))
