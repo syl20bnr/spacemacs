@@ -62,9 +62,9 @@ Git commands (start with `g`):
 
     Key Binding            |                 Description
 ---------------------------|------------------------------------------------------------
-<kbd>SPC g c c</kbd>       | highlight regions by age of commits
-<kbd>SPC g c C</kbd>       | clear highlights
-<kbd>SPC g c t</kbd>       | highlight regions by last updated time
+<kbd>SPC g h c</kbd>       | clear highlights
+<kbd>SPC g h h</kbd>       | highlight regions by age of commits
+<kbd>SPC g h t</kbd>       | highlight regions by last updated time
 <kbd>SPC g s</kbd>         | open a `magit` status window
 <kbd>SPC g m</kbd>         | display the last commit message of the current line
 <kbd>SPC g t</kbd>         | launch the git time machine
