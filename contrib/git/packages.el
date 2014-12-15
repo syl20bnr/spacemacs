@@ -14,6 +14,7 @@ which require an initialization must be listed explicitly in the list.")
   (mapc (lambda (x) (push x git-packages))
         '(
           gist
+          github-browse-file
           ;; not up to date
           ;; helm-gist
           magit-gh-pulls
@@ -196,6 +197,13 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
     :config (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))
+
+(defun git/init-github-browse-file ()
+  (use-package github-browse-file
+    :defer t
+    :init
+    (evil-leader/set-key
+      "gfb" 'github-browse-file)))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
