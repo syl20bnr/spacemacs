@@ -208,6 +208,6 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (evil-leader/set-key
-      "gcC" 'smeargle-clear
-      "gcc" 'smeargle-commits
-      "gct" 'smeargle)))
+      "ghc" 'smeargle-clear
+      "ghh" 'smeargle-commits
+      "ght" 'smeargle)))
