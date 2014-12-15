@@ -145,12 +145,14 @@
   "wo"  'other-frame
   "wr"  'rotate-windows
   "wR"  'rotate-windows-backward
-;; "wv"  'evenly-split-window-below)
+  ;; "wv"  'evenly-split-window-below)
   "ws"  'split-window-below
+  "w-"  'split-window-below
   "wS"  'spacemacs/resize-window-overlay-map
   "wU"  'winner-redo
   "wu"  'winner-undo
   "wv"  'split-window-right
+  "w/"  'split-window-right
   "ww"  'other-window)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key

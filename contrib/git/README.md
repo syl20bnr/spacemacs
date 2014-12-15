@@ -1,6 +1,6 @@
 # git contribution layer for Spacemacs
 
-![logo](git.png)
+![git](git.png) ![github](github.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
@@ -12,6 +12,10 @@
         - [Magit](#magit)
         - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
         - [Git gutter bitmaps](#git-gutter-bitmaps)
+    - [Github support](#github-support)
+        - [magit-gh-pulls](#magit-gh-pulls)
+        - [gist.el](#gistel)
+        - [github-browse-file](#github-browse-file)
 
 <!-- markdown-toc end -->
 
@@ -27,6 +31,10 @@ Features:
 - colorize buffer line by age of commit with [smeargle][]
 - git gutter in fringe with [git-gutter][]
 
+This layer also provides support for Github with:
+- [magit-gh-pulls][]: handy `magit` add-on to manage Github pull requests.
+- [gist.el][]: full-featured mode to browse and post Githug gists.
+
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
@@ -34,6 +42,15 @@ To use this contribution add it to your `~/.spacemacs`
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(git)
   "List of contribution to load."
+)
+```
+
+To enable the Github support set the variable `git-enable-github-support`
+to `t` in your `dotspacemacs/init` function.
+
+```elisp
+(defun dotspacemacs/init ()
+  (setq-default git-enable-github-support t)
 )
 ```
 
@@ -46,9 +63,9 @@ Git commands (start with `g`):
 
     Key Binding            |                 Description
 ---------------------------|------------------------------------------------------------
-<kbd>SPC g c c</kbd>       | highlight regions by age of commits
-<kbd>SPC g c C</kbd>       | clear highlights
-<kbd>SPC g c t</kbd>       | highlight regions by last updated time
+<kbd>SPC g h c</kbd>       | clear highlights
+<kbd>SPC g h h</kbd>       | highlight regions by age of commits
+<kbd>SPC g h t</kbd>       | highlight regions by last updated time
 <kbd>SPC g s</kbd>         | open a `magit` status window
 <kbd>SPC g m</kbd>         | display the last commit message of the current line
 <kbd>SPC g t</kbd>         | launch the git time machine
@@ -152,6 +169,52 @@ you can answer `y` with no issue.
 ![git-del](git-del-line.png) | at least one line has been deleted
 ![git-mod](git-mod-line.png) | modified line
 
+## Github support
+
+### magit-gh-pulls
+
+In a `magit status` buffer (<kbd>SPC g s</kbd>):
+
+    Key Binding     |                 Description
+--------------------|------------------------------------------------------------
+<kbd># g g</kbd>    | get a list of all PRs in the current repository
+<kbd># g f</kbd>    | fetch the commits associated to the current PR
+<kbd># g b</kbd>    | create a branch for the current PR
+<kbd># g m</kbd>    | merge the PR with current branch
+
+Note that `magit-gh-pulls` will try to fast-forward the PRs whenever it is
+possible.
+
+### gist.el
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC g g b</kbd>  | create a public gist with the buffer content
+<kbd>SPC g g B</kbd>  | create a private gist with the buffer content
+<kbd>SPC g g l</kbd>  | open the gist list buffer
+<kbd>SPC g g r</kbd>  | create a public gist with the region content
+<kbd>SPC g g R</kbd>  | create a private gist with the region content
+
+In the gist list buffer:
+
+    Key Binding              |                 Description
+-----------------------------|------------------------------------------------------------
+<kbd>/</kbd>                 | evil search
+<kbd>+</kbd>                 | add buffer to gist
+<kbd>-</kbd>                 | remove file for gist
+<kbd>b</kbd> or <kbd>o</kbd> | open current gist in browser
+<kbd>f</kbd>                 | fetch current gist
+<kbd>g</kbd>                 | refresh the list
+<kbd>h</kbd>                 | go left
+<kbd>j</kbd>                 | go down
+<kbd>k</kbd>                 | go up
+<kbd>K</kbd>                 | kill current gist
+<kbd>l</kbd>                 | go right
+<kbd>n</kbd>                 | next search occurrence
+<kbd>N</kbd>                 | next previous occurrence
+<kbd>v</kbd>                 | `visual state`
+<kbd>V</kbd>                 | `visual-line state`
+<kbd>y</kbd>                 | print URL and copy it
 
 [git]: http://git-scm.com/
 [download page]: http://git-scm.com/downloads
@@ -161,3 +224,12 @@ you can answer `y` with no issue.
 [smeargle]: https://github.com/syohex/emacs-smeargle
 [git-timemachine]: https://github.com/pidu/git-timemachine
 [git-messenger]: https://github.com/syohex/emacs-git-messenger
+[magit-gh-pulls]: https://github.com/sigma/magit-gh-pulls
+[gist.el]: https://github.com/defunkt/gist.el
+
+### github-browse-file
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC g f b</kbd>  | browse to file on github
+
