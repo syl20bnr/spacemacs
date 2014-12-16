@@ -43,7 +43,6 @@
     guide-key-tip
     helm
     helm-ag
-    helm-css-scss
     helm-c-yasnippet
     helm-descbinds
     helm-make
@@ -58,7 +57,6 @@
     ido-vertical-mode
     json-mode
     ledger-mode
-    less-css-mode
     leuven-theme
     linum-relative
     key-chord
@@ -88,18 +86,15 @@
     recentf
     rfringe
     s
-    scss-mode
     shell
     smartparens
     smooth-scrolling
     string-edit
     subword
-    tagedit
     undo-tree
     vi-tilde-fringe
     visual-regexp-steroids
     volatile-highlights
-    web-mode
     wdired
     window-numbering
     yasnippet
@@ -813,9 +808,7 @@ determine the state to enable when escaping from the insert state.")
                       coffee
                       js
                       json
-                      ruby
-                      scss
-                      web))
+                      ruby))
         (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
                   'flycheck-mode)))
     :config
@@ -1105,13 +1098,6 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-helm-ag ()
   (use-package helm-ag
     :defer t))
-
-(defun spacemacs/init-helm-css-scss ()
-  (use-package helm-css-scss
-    :defer t
-    :init
-    (eval-after-load 'scss-mode
-      '(evil-leader/set-key-for-mode 'scss-mode "mh" 'helm-css-scss))))
 
 (defun spacemacs/init-helm-descbinds ()
   (use-package helm-descbinds
@@ -1408,20 +1394,20 @@ determine the state to enable when escaping from the insert state.")
         (interactive)
         (require 'epa-file)
         (require 'auth-source)
-        (when (and (not (boundp 'paradox-github-token)) 
+        (when (and (not (boundp 'paradox-github-token))
                    (file-exists-p "~/.authinfo.gpg"))
-          (let ((authinfo-result (car (auth-source-search 
+          (let ((authinfo-result (car (auth-source-search
                                        :max 1
                                        :host "github.com"
-                                       :port "paradox" 
+                                       :port "paradox"
                                        :user "paradox"
                                        :require '(:secret)))))
-            (let ((paradox-token (plist-get authinfo-result :secret))) 
+            (let ((paradox-token (plist-get authinfo-result :secret)))
               (setq paradox-github-token (if (functionp paradox-token)
                                              (funcall paradox-token)
                                            paradox-token)))))
         (paradox-list-packages nil))
-      
+
       (add-to-list 'evil-emacs-state-modes 'paradox-menu-mode)
       (spacemacs|evilify paradox-menu-mode-map
         "H" 'paradox-menu-quick-help
@@ -1745,11 +1731,6 @@ determine the state to enable when escaping from the insert state.")
     :mode (("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode)
            ("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))))
 
-(defun spacemacs/init-scss-mode ()
-  (use-package scss-mode
-    :defer t
-    :mode ("\\.scss\\'" . scss-mode)))
-
 (defun spacemacs/init-shell ()
   (defun shell-comint-input-sender-hook ()
     "Check certain shell commands.
@@ -1833,15 +1814,6 @@ determine the state to enable when escaping from the insert state.")
       :init
       (add-hook 'prog-mode-hook 'subword-mode))))
 
-(defun spacemacs/init-tagedit ()
-  (use-package tagedit
-    :defer t
-    :config
-    (progn
-      (tagedit-add-experimental-features)
-      (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
-      (spacemacs|diminish tagedit-mode " Ⓣ"))))
-
 (defun spacemacs/init-undo-tree ()
   (use-package undo-tree
     :idle (global-undo-tree-mode)
@@ -1891,19 +1863,6 @@ determine the state to enable when escaping from the insert state.")
                                        :capture :whole
                                        :action message))
       (evil-leader/set-key "RET" 'wand:execute))))
-
-(defun spacemacs/init-web-mode ()
-  (use-package web-mode
-    :defer t
-    :mode (("\\.phtml\\'"     . web-mode)
-           ("\\.tpl\\.php\\'" . web-mode)
-           ("\\.html\\'"      . web-mode)
-           ("\\.htm\\'"       . web-mode)
-           ("\\.[gj]sp\\'"    . web-mode)
-           ("\\.as[cp]x\\'"   . web-mode)
-           ("\\.erb\\'"       . web-mode)
-           ("\\.mustache\\'"  . web-mode)
-           ("\\.djhtml\\'"    . web-mode))))
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet

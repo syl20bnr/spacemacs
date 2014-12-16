@@ -112,6 +112,7 @@
         - [Python](#python)
         - [JavaScript](#javascript)
         - [rcirc](#rcirc)
+        - [HTML](#html)
 - [Emacs Server](#emacs-server)
     - [Connecting to the Emacs server](#connecting-to-the-emacs-server)
     - [Keeping the server alive](#keeping-the-server-alive)
@@ -1738,6 +1739,11 @@ More featured JavaScript support is provided by the javascript contribution. Ple
 <kbd>CTRL+j</kbd> | next item in command history
 <kbd>CTRL+k</kbd> | previous item in command history
 
+### HTML and CSS
+
+HTML contribution provides support for editing HTML, CSS, Scss and Less files. Please see
+[html contribution][html-contrib] documentation for detail.
+
 # Emacs Server
 
 `Spacemacs` starts a server at launch. This server is killed whenever you close
@@ -1931,6 +1937,7 @@ developers to elisp hackers!
 [javascript-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/javascript
 [themes-megapack]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/themes-megapack
 [python-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/python
+[html-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/html
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [gitter]: https://gitter.im/syl20bnr/spacemacs
