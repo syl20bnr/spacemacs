@@ -136,9 +136,10 @@ Can be installed with `brew install trash'."
 
 ;; Emacs 24.4 new features
 (unless (version< emacs-version "24.4")
-  (if (and (boundp 'dotspacemacs-fullscreen-at-startup)
-           dotspacemacs-fullscreen-at-startup)
-      (toggle-frame-maximized)))
+  (if dotspacemacs-fullscreen-at-startup
+      (toggle-frame-fullscreen)
+    (if dotspacemacs-maximized-at-startup
+        (add-hook 'window-setup-hook 'toggle-frame-maximized))))
 
 ;; ---------------------------------------------------------------------------
 ;; Session

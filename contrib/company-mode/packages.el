@@ -2,6 +2,7 @@
   '(
     company
     company-tern
+    company-c-headers
     ))
 
 (defvar company-mode-excluded-packages

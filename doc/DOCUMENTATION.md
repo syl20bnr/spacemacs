@@ -41,6 +41,8 @@
     - [Evil leader](#evil-leader)
     - [Universal argument](#universal-argument)
     - [Micro-states](#micro-states)
+- [Differences between Vim, Evil and Spacemacs](#differences-between-vim-evil-and-spacemacs)
+    - [The vim-surround case](#the-vim-surround-case)
 - [Color theme](#color-theme)
 - [UI elements](#ui-elements)
     - [Toggles](#toggles)
@@ -112,6 +114,7 @@
         - [Python](#python)
         - [JavaScript](#javascript)
         - [rcirc](#rcirc)
+        - [HTML](#html)
 - [Emacs Server](#emacs-server)
     - [Connecting to the Emacs server](#connecting-to-the-emacs-server)
     - [Keeping the server alive](#keeping-the-server-alive)
@@ -590,6 +593,39 @@ Additional information may as well be displayed in the minibuffer.
 
 [Text scale micro-state](#change-font-size):
 ![spacemacs_scale_micro_state](img/spacemacs-scale-micro-state.png)
+
+# Differences between Vim, Evil and Spacemacs
+
+No doubt that `Evil` is one of the most advanced `Vim` emulation and you should
+not see big difference between `Vim` and `Emacs`. I did not find any command I
+used in Vim that I missed in Emacs with `Evil`.
+
+Send a PR to add the differences you found in this section.
+
+## The vim-surround case
+
+There is one obvious visible difference though. It is not between `Evil` and
+`Vim` but between `Spacemacs` and [vim-surround][]: the `surround` command is
+on <kbd>S</kbd> in `vim-surround` whereas it is on <kbd>s</kbd> in `Spacemacs`.
+
+This is something that can surprise some Vim users so let me explain why this is
+the case:
+- `s` and `c` do the same thing in `visual state`,
+- `s` is only useful to delete _one_ character and add more than one character
+which is a _very_ narrow use case,
+- `c` accept motions and can do everything `s` can do in `normal state`,
+- this is also true for `r` but `r` is more useful because it stays in
+`normal state`.
+- `surround` command is just a more powerful command that `s`
+
+If you are not convinced, then here is the snippet to revert back to the default
+`Vim + vim-surround` setup (add it to your `dotspacemacs/config` function or
+your `~/.spacemacs`):
+
+```elisp
+(evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
+(evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
+```
 
 # Color theme
 
@@ -1738,6 +1774,11 @@ More featured JavaScript support is provided by the javascript contribution. Ple
 <kbd>CTRL+j</kbd> | next item in command history
 <kbd>CTRL+k</kbd> | previous item in command history
 
+### HTML and CSS
+
+HTML contribution provides support for editing HTML, CSS, Scss and Less files. Please see
+[html contribution][html-contrib] documentation for detail.
+
 # Emacs Server
 
 `Spacemacs` starts a server at launch. This server is killed whenever you close
@@ -1907,6 +1948,7 @@ developers to elisp hackers!
 [vim-surround]: https://github.com/tpope/vim-surround
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [nerdcommenter]: https://github.com/scrooloose/nerdcommenter
+[source code pro]: https://github.com/adobe-fonts/source-code-pro
 [evil-escape]: https://github.com/syl20bnr/evil-escape
 [evil-args]: https://github.com/wcsmith/evil-args
 [evil-jumper]: https://github.com/bling/evil-jumper
@@ -1930,6 +1972,7 @@ developers to elisp hackers!
 [javascript-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/javascript
 [themes-megapack]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/themes-megapack
 [python-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/python
+[html-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/html
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [gitter]: https://gitter.im/syl20bnr/spacemacs
