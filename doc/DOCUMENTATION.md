@@ -40,6 +40,8 @@
         - [Base States](#base-states)
     - [Evil leader](#evil-leader)
     - [Universal argument](#universal-argument)
+- [Differences between Vim, Evil and Spacemacs](#differences-between-vim-evil-and-spacemacs)
+    - [The vim-surround case](#the-vim-surround-case)
     - [Micro-states](#micro-states)
 - [Color theme](#color-theme)
 - [UI elements](#ui-elements)
@@ -575,6 +577,39 @@ a very handy Vim key binding to scroll up.
 
 `Spacemacs` binds <kbd>C-u</kbd> to `scroll-up` and change the universal
 argument binding to <kbd>SPC u</kbd>.
+
+# Differences between Vim, Evil and Spacemacs
+
+No doubt that `Evil` is one of the most advanced `Vim` emulation and you should
+not see big difference between `Vim` and `Emacs`. I did not find any command I
+used in Vim that I missed in Emacs with `Evil`
+
+Send a PR to add the differences you found in this section.
+
+## The vim-surround case
+
+There is one more visible difference though. It is not between `Evil` and `Vim`
+but between `Spacemacs` and [vim-surround][]: the `surround` command is on
+<kbd>S</kbd> in `vim-surround` whereas it is on <kbd>s</kbd> in `Spacemacs`.
+
+This is something that can surprise some Vim users so let me explain why this is
+the case:
+- `s` and `c` do the same thing in `visual state`,
+- `s` is only useful to delete _one_ character and add more than one character
+which is a _very_ narrow use case,
+- `c` accept motions and can do everything `s` can do in `normal state`,
+- this is also true for `r` but `r` is more useful because it stays in
+`normal state`.
+- `surround` command is just a more powerful command that `s`
+
+If you are not convinced, then here is the snippet to revert back to the default
+`Vim + vim-surround` setup (add it to your `dotspacemacs/config` function or
+your `~/.spacemacs`):
+
+```elisp
+(evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
+(evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
+```
 
 ## Micro-states
 
