@@ -119,7 +119,8 @@
   "tl" 'toggle-truncate-lines
   "tL" 'visual-line-mode
   "tM" 'toggle-frame-maximized
-  "tn" 'global-linum-mode)
+  "tn" 'global-linum-mode
+  "t SPC" 'whitespace-mode)
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "q s" 'spacemacs/save-buffers-kill-emacs
