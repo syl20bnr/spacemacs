@@ -22,10 +22,11 @@ with `:' and Emacs commands are executed with `<leader> :'.")
   "Guide-key delay in seconds.")
 
 (defvar dotspacemacs-fullscreen-at-startup nil
-  "If non nil the frame put in fullscreen when Emacs starts up (Emacs 24.4+ only).")
+  "If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).")
 
 (defvar dotspacemacs-maximized-at-startup nil
-  "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).")
+  "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).
+Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.")
 
 (defvar dotspacemacs-smooth-scrolling t
   "If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
