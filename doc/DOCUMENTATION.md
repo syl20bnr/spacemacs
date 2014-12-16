@@ -40,9 +40,9 @@
         - [Base States](#base-states)
     - [Evil leader](#evil-leader)
     - [Universal argument](#universal-argument)
+    - [Micro-states](#micro-states)
 - [Differences between Vim, Evil and Spacemacs](#differences-between-vim-evil-and-spacemacs)
     - [The vim-surround case](#the-vim-surround-case)
-    - [Micro-states](#micro-states)
 - [Color theme](#color-theme)
 - [UI elements](#ui-elements)
     - [Toggles](#toggles)
@@ -578,19 +578,34 @@ a very handy Vim key binding to scroll up.
 `Spacemacs` binds <kbd>C-u</kbd> to `scroll-up` and change the universal
 argument binding to <kbd>SPC u</kbd>.
 
+## Micro-states
+
+`Spacemacs` defines a wide variety of `micro-states` (temporary overlay maps)
+where it makes sense. This prevent from repetitive and tedious presses on the
+<kbd>SPC</kbd> key.
+
+When a `micro-state` is active, a documentation is displayed in the minibuffer.
+Additional information may as well be displayed in the minibuffer.
+
+[Auto-highlight-symbol micro-state](#auto-highlight-and-edition-of-symbols):
+![spacemacs_ahs_micro_state](img/spacemacs-ahs-micro-state.png)
+
+[Text scale micro-state](#change-font-size):
+![spacemacs_scale_micro_state](img/spacemacs-scale-micro-state.png)
+
 # Differences between Vim, Evil and Spacemacs
 
 No doubt that `Evil` is one of the most advanced `Vim` emulation and you should
 not see big difference between `Vim` and `Emacs`. I did not find any command I
-used in Vim that I missed in Emacs with `Evil`
+used in Vim that I missed in Emacs with `Evil`.
 
 Send a PR to add the differences you found in this section.
 
 ## The vim-surround case
 
-There is one more visible difference though. It is not between `Evil` and `Vim`
-but between `Spacemacs` and [vim-surround][]: the `surround` command is on
-<kbd>S</kbd> in `vim-surround` whereas it is on <kbd>s</kbd> in `Spacemacs`.
+There is one obvious visible difference though. It is not between `Evil` and
+`Vim` but between `Spacemacs` and [vim-surround][]: the `surround` command is
+on <kbd>S</kbd> in `vim-surround` whereas it is on <kbd>s</kbd> in `Spacemacs`.
 
 This is something that can surprise some Vim users so let me explain why this is
 the case:
@@ -610,21 +625,6 @@ your `~/.spacemacs`):
 (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
 (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
 ```
-
-## Micro-states
-
-`Spacemacs` defines a wide variety of `micro-states` (temporary overlay maps)
-where it makes sense. This prevent from repetitive and tedious presses on the
-<kbd>SPC</kbd> key.
-
-When a `micro-state` is active, a documentation is displayed in the minibuffer.
-Additional information may as well be displayed in the minibuffer.
-
-[Auto-highlight-symbol micro-state](#auto-highlight-and-edition-of-symbols):
-![spacemacs_ahs_micro_state](img/spacemacs-ahs-micro-state.png)
-
-[Text scale micro-state](#change-font-size):
-![spacemacs_scale_micro_state](img/spacemacs-scale-micro-state.png)
 
 # Color theme
 
