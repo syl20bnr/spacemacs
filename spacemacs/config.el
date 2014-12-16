@@ -139,7 +139,7 @@ Can be installed with `brew install trash'."
   (if dotspacemacs-fullscreen-at-startup
       (toggle-frame-fullscreen)
     (if dotspacemacs-maximized-at-startup
-        (toggle-frame-maximized))))
+        (add-hook 'window-setup-hook 'toggle-frame-maximized))))
 
 ;; ---------------------------------------------------------------------------
 ;; Session
