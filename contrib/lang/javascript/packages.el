@@ -29,7 +29,10 @@ which require an initialization must be listed explicitly in the list.")
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
     :defer t
-    :init (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+    :init
+    (progn
+      (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
+      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
     :config
     (progn
       ;;(spacemacs/declare-prefix-for-mode 'js2-mode "m" "major mode")
