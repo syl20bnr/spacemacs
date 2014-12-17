@@ -31,8 +31,9 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
-      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode)))
+      (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+      ;; required to make `<SPC> s l' to work correctly
+      (add-hook 'js2-mode-hook 'js2-imenu-extras-mode))
     :config
     (progn
       ;;(spacemacs/declare-prefix-for-mode 'js2-mode "m" "major mode")
