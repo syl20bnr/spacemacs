@@ -806,8 +806,8 @@ eⓅ           | [e-project][e-project] mode
 (Ⓟ)          | paredit mode
 Ⓢ            | flyspell mode
 (Ⓢ)          | [smartparens][sp] mode
+Ⓦ            | whitespace mode
 Ⓨ            | [yasnippet][yasnippet] mode
-(Ⓐ)           | [anaconda-mode][anaconda-mode]
 
 **Note:** in terminal the regular indicators are used instead of the utf-8
 ones.
