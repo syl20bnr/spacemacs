@@ -96,6 +96,7 @@
     visual-regexp-steroids
     volatile-highlights
     wdired
+    whitespace
     window-numbering
     yasnippet
     zenburn-theme
@@ -1869,6 +1870,11 @@ determine the state to enable when escaping from the insert state.")
                                        :capture :whole
                                        :action message))
       (evil-leader/set-key "RET" 'wand:execute))))
+
+(defun spacemacs/init-whitespace ()
+  (use-package whitespace
+    :defer t
+    :config (spacemacs|diminish whitespace-mode " Ⓦ")))
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
