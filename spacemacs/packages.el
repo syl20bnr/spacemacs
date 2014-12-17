@@ -57,6 +57,7 @@
     ido-vertical-mode
     json-mode
     ledger-mode
+    let-alist
     leuven-theme
     linum-relative
     key-chord
