@@ -24,18 +24,17 @@ which require an initialization must be listed explicitly in the list.")
        (0 (progn (compose-region (match-beginning 1)
                                  (match-end 1) "∈")))))))
 
-
-
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
     :defer t
-    :init (clojure/fancify-symbols)
+    :init
+    (progn
+      (add-to-hook 'clojure-mode-hook '(subword-mode
+                                        paredit-mode
+                                        rainbow-delimiters-mode)))
     :config
     (progn
-      (add-hook 'clojure-mode-hook 'subword-mode)
-      (add-hook 'clojure-mode-hook 'paredit-mode)
-      (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
-
+      (clojure/fancify-symbols)
       (evil-leader/set-key-for-mode 'clojure-mode  "mj" 'cider-jack-in))))
 
 (defun clojure/init-cider ()
@@ -43,37 +42,32 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-        (setq cider-stacktrace-default-filters '(tooling dup))
-        (setq cider-repl-pop-to-buffer-on-connect nil)
-        (setq cider-prompt-save-file-on-load nil)
-
-        (add-hook 'cider-mode-hook         'cider-turn-on-eldoc-mode)
-        (add-hook 'cider-repl-mode-hook    'subword-mode)
-        (add-hook 'cider-repl-mode-hook    'rainbow-delimiters-mode)
-        (add-hook 'cider-mode-hook         'ac-flyspell-workaround)
-        (add-hook 'cider-mode-hook         'ac-cider-setup)
-        (add-hook 'cider-repl-mode-hook    'ac-cider-setup)
-        (add-hook 'cider-repl-mode-hook    'auto-complete-mode))
-
+      (setq cider-stacktrace-default-filters '(tooling dup)
+            cider-repl-pop-to-buffer-on-connect nil
+            cider-prompt-save-file-on-load nil)
+      (add-to-hook 'cider-mode-hook '(cider-turn-on-eldoc-mode
+                                      ac-flyspell-workaround
+                                      ac-cider-setup))
+      (add-to-hook 'cider-repl-mode-hook '(subword-mode
+                                           rainbow-delimiters-mode
+                                           ac-cider-setup
+                                           auto-complete-mode)))
     :config
     (progn
-        (clojure/fancify-symbols)
-        (evil-leader/set-key-for-mode 'clojure-mode "meb" 'cider-eval-buffer)
-        (evil-leader/set-key-for-mode 'clojure-mode "mer" 'cider-eval-region)
-        (evil-leader/set-key-for-mode 'clojure-mode "mes" 'cider-eval-last-sexp)
-
-        (evil-leader/set-key-for-mode 'clojure-mode "mk" 'cider-load-buffer)
-        (evil-leader/set-key-for-mode 'clojure-mode "mz" 'cider-switch-to-repl-buffer)
-
-        (evil-leader/set-key-for-mode 'clojure-mode "mdd" 'cider-doc)
-        (evil-leader/set-key-for-mode 'clojure-mode "mdg" 'cider-grimoire)
-        (evil-leader/set-key-for-mode 'clojure-mode "mdj" 'cider-javadoc)
-
-        (evil-leader/set-key-for-mode 'clojure-mode "mgv" 'cider-jump-to-var)
-        (evil-leader/set-key-for-mode 'clojure-mode "mgr" 'cider-jump-to-resource)
-        (evil-leader/set-key-for-mode 'clojure-mode "mge" 'cider-jump-to-compilation-error)
-        (evil-leader/set-key-for-mode 'clojure-mode "mgs" 'cider-jump)
-        (evil-leader/set-key-for-mode 'clojure-mode "mtt" 'cider-test-run-tests))))
+      (evil-leader/set-key-for-mode 'clojure-mode
+        "meb" 'cider-eval-buffer
+        "mer" 'cider-eval-region
+        "mes" 'cider-eval-last-sexp
+        "mk"  'cider-load-buffer
+        "mz"  'cider-switch-to-repl-buffer
+        "mdd" 'cider-doc
+        "mdg" 'cider-grimoire
+        "mdj" 'cider-javadoc
+        "mgv" 'cider-jump-to-var
+        "mgr" 'cider-jump-to-resource
+        "mge" 'cider-jump-to-compilation-error
+        "mgs" 'cider-jump
+        "mtt" 'cider-test-run-tests))))
 
 (defun clojure/init-ac-cider ()
   (use-package ac-cider
