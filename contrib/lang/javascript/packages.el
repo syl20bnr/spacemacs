@@ -129,4 +129,4 @@ which require an initialization must be listed explicitly in the list.")
 (defun javascript/init-tern-auto-complete ()
   (use-package tern-auto-complete
     :defer t
-    :config (tern-ac-setup)))
+    :init (eval-after-load 'tern '(tern-ac-setup))))
