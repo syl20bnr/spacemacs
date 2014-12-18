@@ -14,7 +14,7 @@
 
 ## Description
 
-This layers adds support for [Perforce][] (p4).
+This layer adds support for [Perforce][] (p4).
 
 ## Install
 
