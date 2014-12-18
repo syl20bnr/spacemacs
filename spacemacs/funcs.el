@@ -563,6 +563,12 @@ For instance pass En as source for english."
       (message "%S" words))
     words))
 
+(defun  set-attributes-from-alist (face attr)
+  "Apply an alist of attributes in the form ((:PROP . VALUE)) to face."
+  (while (car attr)
+    (set-face-attribute face nil (caar attr) (cdar attr))
+    (setq attr (cdr attr))))
+
 (defun new-empty-buffer ()
   "Create a new buffer called untitled(<n>)"
   (interactive)
