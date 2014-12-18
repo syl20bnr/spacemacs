@@ -6,7 +6,7 @@
                                        ("as" . "applications-shells")
                                        ("b" .  "buffers")
                                        ("bm" . "buffers-move")
-                                       ("c" .  "comments")
+                                       ("c" .  "compile/comments")
                                        ("e" .  "errors")
                                        ("f" .  "files")
                                        ("fe" . "files-emacs/spacemacs")

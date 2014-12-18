@@ -3,6 +3,7 @@
     ac-ispell
     ace-jump-mode
     ag
+    aggressive-indent
     anzu
     auto-complete
     auto-complete-clang
@@ -18,13 +19,14 @@
     evil-args
     evil-escape
     evil-exchange
-    evil-search-highlight-persist
+    evil-iedit-state
     evil-jumper
     evil-leader
     evil-lisp-state
     evil-nerd-commenter
     evil-numbers
     evil-org
+    evil-search-highlight-persist
     evil-surround
     evil-terminal-cursor-changer
     evil-visualstar
@@ -55,8 +57,10 @@
     highlight
     hl-anything
     ido-vertical-mode
+    iedit
     json-mode
     ledger-mode
+    let-alist
     leuven-theme
     linum-relative
     key-chord
@@ -92,10 +96,12 @@
     string-edit
     subword
     undo-tree
+    use-package
     vi-tilde-fringe
     visual-regexp-steroids
     volatile-highlights
     wdired
+    whitespace
     window-numbering
     yasnippet
     zenburn-theme
@@ -137,6 +143,22 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (setq ace-jump-mode-scope 'global)
       (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
+
+(defun spacemacs/init-aggressive-indent ()
+  (use-package aggressive-indent
+    :defer t
+    :init
+    (progn
+      (defun spacemacs/toggle-aggressive-indent ()
+        "Toggle the aggressive indent mode for the current buffer."
+        (interactive)
+        (require 'aggressive-indent)
+        (if (symbol-value aggressive-indent-mode)
+            (global-aggressive-indent-mode -1)
+          (global-aggressive-indent-mode)))
+      (evil-leader/set-key "ti" 'spacemacs/toggle-aggressive-indent))
+    :config
+    (spacemacs|diminish aggressive-indent-mode " Ⓘ")))
 
 (defun spacemacs/init-anzu ()
   (use-package anzu
@@ -342,7 +364,6 @@ which require an initialization must be listed explicitly in the list.")
         (eval '(ahs-change-range ahs-default-range) nil))
 
       (evil-leader/set-key
-        "se"  'ahs-edit-mode
         "sb"  'spacemacs/goto-last-searched-ahs-symbol
         "sh"  'spacemacs/symbol-highlight
         "sR"  'spacemacs/symbol-highlight-reset-range)
@@ -368,7 +389,9 @@ which require an initialization must be listed explicitly in the list.")
          (let ((map (make-sparse-keymap)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
-           (define-key map (kbd "e") 'ahs-edit-mode)
+           (if (ht-contains? config-system-all-packages 'evil-iedit-state)
+               (define-key map (kbd "e") 'evil-iedit-state/iedit-mode)
+             (define-key map (kbd "e") 'ahs-edit-mode))
            (define-key map (kbd "n") 'ahs-forward)
            (define-key map (kbd "N") 'ahs-backward)
            (define-key map (kbd "R") 'ahs-back-to-start)
@@ -598,6 +621,31 @@ determine the state to enable when escaping from the insert state.")
   (use-package evil-exchange
     :init (evil-exchange-install)))
 
+(defun spacemacs/init-evil-iedit-state ()
+  (spacemacs/defface-state-color 'iedit "firebrick1")
+  (spacemacs/defface-state-color 'iedit-insert "firebrick1")
+
+  (defun spacemacs/evil-state-lazy-loading ()
+    (require 'evil-iedit-state)
+    (setq evil-iedit-state-cursor `(,(spacemacs/state-color 'iedit) box))   
+    (setq evil-iedit-insert-state-cursor `((spacemacs/state-color 'iedit-insert) (bar . 2)))
+    ;; activate leader in iedit and iedit-insert states
+    (define-key evil-iedit-state-map
+      (kbd evil-leader/leader) evil-leader--default-map)
+    ;; evil-escape support
+    (when (and (boundp 'evil-escape-mode)
+               (symbol-value evil-escape-mode))
+      (key-chord-define evil-iedit-state-map
+                        evil-escape-key-sequence
+                        'evil-iedit-state/quit-iedit-mode)
+      (key-chord-define evil-iedit-insert-state-map
+                        evil-escape-key-sequence
+                        'evil-iedit-state/quit-iedit-mode)))
+
+  (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode)
+  (add-to-hooks 'spacemacs/evil-state-lazy-loading '(prog-mode-hook
+                                                     markdown-mode-hook)))
+
 (defun spacemacs/init-evil-jumper ()
   (use-package evil-jumper
     :init
@@ -700,7 +748,13 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-evil-surround ()
   (use-package evil-surround
-    :init (global-evil-surround-mode 1)))
+    :init
+    (progn
+      (global-evil-surround-mode 1)
+      ;; `s' for surround instead of `substitute'
+      ;; see motivation for this change in the documentation
+      (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
+      (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute))))
 
 (defun spacemacs/init-evil-terminal-cursor-changer ()
   (unless (display-graphic-p)
@@ -1229,6 +1283,10 @@ determine the state to enable when escaping from the insert state.")
                             (cdr (assoc 'ido-mode evil-leader--mode-maps)))))
       (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys))
       ))
+
+(defun spacemacs/init-iedit ()
+  (use-package iedit
+    :defer t))
 
 (defun spacemacs/init-json-mode ()
   (use-package json-mode
@@ -1869,6 +1927,11 @@ determine the state to enable when escaping from the insert state.")
                                        :capture :whole
                                        :action message))
       (evil-leader/set-key "RET" 'wand:execute))))
+
+(defun spacemacs/init-whitespace ()
+  (use-package whitespace
+    :defer t
+    :config (spacemacs|diminish whitespace-mode " Ⓦ")))
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet

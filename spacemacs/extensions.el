@@ -1,10 +1,7 @@
 ;; Extensions are in emacs_paths/extensions
 
 ;; Pre extensions are loaded *before* the packages
-(defvar spacemacs-pre-extensions
-  '(
-    use-package
-    ))
+(defvar spacemacs-pre-extensions '())
 
 ;; Post extensions are loaded *after* the packages
 (defvar spacemacs-post-extensions
@@ -18,9 +15,6 @@
     ))
 
 ;; Initialize the extensions
-
-(defun spacemacs/init-use-package ()
-  (require 'use-package))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode

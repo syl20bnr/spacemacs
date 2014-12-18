@@ -7,6 +7,7 @@
     erlang
     flycheck
     git-gutter-fringe
+    evil-iedit-state
     rainbow-delimiters
     ruby-end
     smartparens
@@ -94,6 +95,10 @@ must be defined in `dotspacemacs/init' function to take effect.")
 
 (defun erlang-elixir/init-git-gutter-fringe ()
   (add-hook 'erlang-mode-hook 'git-gutter-mode))
+
+(defun erlang-elixir/init-evil-iedit-state ()
+  (add-hook 'erlang-mode-hook 'spacemacs/evil-state-lazy-loading))
+
 
 (defun erlang-elixir/init-rainbow-delimiters ()
   (add-hook 'erlang-mode-hook 'turn-on-rainbow-delimiters-mode))

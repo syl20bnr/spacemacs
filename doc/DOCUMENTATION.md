@@ -96,6 +96,12 @@
         - [Region narrowing](#region-narrowing)
         - [Line formatting](#line-formatting)
         - [Auto-completion](#auto-completion)
+        - [Replacing text with iedit](#replacing-text-with-iedit)
+            - [iedit states key bindings](#iedit-states-key-bindings)
+                - [State transitions](#state-transitions)
+                - [In iedit state](#in-iedit-state)
+                - [In iedit-insert state](#in-iedit-insert-state)
+            - [Examples](#examples)
         - [Commenting](#commenting)
         - [Deleting files](#deleting-files)
         - [Editing Lisp code](#editing-lisp-code)
@@ -114,7 +120,7 @@
         - [Python](#python)
         - [JavaScript](#javascript)
         - [rcirc](#rcirc)
-        - [HTML](#html)
+        - [HTML and CSS](#html-and-css)
 - [Emacs Server](#emacs-server)
     - [Connecting to the Emacs server](#connecting-to-the-emacs-server)
     - [Keeping the server alive](#keeping-the-server-alive)
@@ -509,7 +515,7 @@ than just a Vim emulation. It has more states than Vim for instance.
 
 ### States
 
-`Spacemacs` has 6 states:
+`Spacemacs` has 8 states:
 
 - **Normal** (orange) - like the `normal mode of Vim`, used to execute and
                         combine commands
@@ -522,7 +528,16 @@ than just a Vim emulation. It has more states than Vim for instance.
 - **Emacs** (blue) - exclusive to `Evil`, using this state is like using a
                      regular Emacs without Vim
 - **Lisp** (pink) - exclusive to `Spacemacs`, used to navigate Lisp code and
-                    modify it
+                    modify it (see [Editing Lisp code](#editing-lisp-code))
+- **Iedit** (red) - exclusive to `Spacemacs`, used to navigate between multiple
+                    regions of text using `iedit`
+                    (see [Replacing text with iedit](#replacing-text-with-iedit))
+- **Iedit Insert** (red) - exclusive to `Spacemacs`, used to replace multiple
+                   regions of text using `iedit`
+                   (see [Replacing text with iedit](#replacing-text-with-iedit))
+
+Note: Technically speaking there are also the `operator` and `replace` evil
+states.
 
 ### Base States
 
@@ -683,6 +698,7 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 <kbd>SPC t 8</kbd>    | display a mark on the 80th column
 <kbd>SPC t F</kbd>    | toggle frame fullscreen
 <kbd>SPC t f</kbd>    | toggle display of the fringe
+<kbd>SPC t i</kbd>    | toggle aggressive indent
 <kbd>SPC t l</kbd>    | toggle truncate lines
 <kbd>SPC t L</kbd>    | toggle visual lines
 <kbd>SPC t M</kbd>    | toggle frame maximize
@@ -701,14 +717,15 @@ following capabilities:
 
 Reminder of the color codes for the states:
 
-   Evil State     |       Color
-------------------|------------------
-Normal            | Orange
-Insert            | Green
-Visual            | Grey
-Emacs             | Blue
-Motion            | Purple
-Lisp              | Pink
+   Evil State      |       Color
+-------------------|------------------
+Normal             | Orange
+Insert             | Green
+Visual             | Grey
+Emacs              | Blue
+Motion             | Purple
+Lisp               | Pink
+Iedit/Iedit-Insert | Red
 
 Some elements can be dynamically toggled:
 
@@ -803,11 +820,12 @@ eⓅ           | [e-project][e-project] mode
 Ⓕ            | flycheck mode
 Ⓕ2           | flymake mode
 Ⓖ            | guide-key mode
+Ⓘ            | aggressive indent mode
 (Ⓟ)          | paredit mode
 Ⓢ            | flyspell mode
 (Ⓢ)          | [smartparens][sp] mode
+Ⓦ            | whitespace mode
 Ⓨ            | [yasnippet][yasnippet] mode
-(Ⓐ)           | [anaconda-mode][anaconda-mode]
 
 **Note:** in terminal the regular indicators are used instead of the utf-8
 ones.
@@ -1231,7 +1249,7 @@ Key Binding            | Description
 -----------------------|------------------------------------------------------------
 <kbd>*</kbd>           | initiate navigation micro-state
 <kbd>SPC s b</kbd>     | go to the last searched occurrence of the last highlighted symbol
-<kbd>SPC s e</kbd>     | edit all occurrences of the current symbol
+<kbd>SPC s e</kbd>     | edit all occurrences of the current symbol(*)
 <kbd>SPC s h</kbd>     | highlight the current symbol and all its occurrence within the current range
 <kbd>SPC s R</kbd>     | change range to default (`whole buffer`)
 
@@ -1239,7 +1257,7 @@ In 'Spacemacs' highlight symbol micro-state:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-<kbd>e</kbd>  | edit occurrences
+<kbd>e</kbd>  | edit occurrences (*)
 <kbd>n</kbd>  | go to next occurrence
 <kbd>N</kbd>  | go to previous occurrence
 <kbd>d</kbd>  | go to next definition occurrence
@@ -1247,6 +1265,8 @@ Key Binding   | Description
 <kbd>r</kbd>  | change range (`function`, `display area`, `whole buffer`)
 <kbd>R</kbd>  | go to home occurrence (reset position to starting occurrence)
 Any other key | leave the navigation micro-state
+
+(*) using [iedit][] or the default implementation of `auto-highlight-symbol`
 
 The micro-state text in minibuffer display the following information:
 
@@ -1453,6 +1473,88 @@ Used together these key bindings are very powerful to quickly reformat the code.
 <kbd>TAB</kbd>     | expand selection or select next candidate
 <kbd>S-TAB</kbd>   | select previous candidate
 <kbd>return</kbd>  | complete word, if word is already completed insert a carriage return
+
+### Replacing text with iedit
+
+`Spacemacs` uses the powerful [iedit][] mode through [evil-iedit-state][] to
+quickly edit multiple occurrences of a symbol or selection.
+
+`evil-iedit-state` defines two new evil states:
+- `iedit state`
+- `iedit-insert state`
+
+The color code for these states is `red`.
+
+`evil-iedit-state` has also a nice integration with [expand-region][] for quick
+edition of the current selected text by pressing <kbd>e</kbd>.
+
+#### iedit states key bindings
+
+##### State transitions
+
+    Key Binding    |       From         |          To
+-------------------|:------------------:|:-------------------------:
+<kbd>SPC s e</kbd> | normal or visual   | iedit
+<kbd>e</kbd>       | expand-region      | iedit
+<kbd>ESC</kbd>     | iedit              | normal
+<kbd>C-g</kbd>     | iedit              | normal
+<kbd>fd</kbd>      | iedit              | normal
+<kbd>ESC</kbd>     | iedit-insert       | iedit
+<kbd>C-g</kbd>     | iedit-insert       | normal
+<kbd>fd</kbd>      | iedit-insert       | normal
+
+To sum-up, in `iedit-insert state` you have to press <kbd>ESC</kbd> twice to
+go back to the `normal state`. You can also at any time press <kbd>C-g</kbd>
+or <kbd>fd</kbd> to return to `normal state`.
+
+**Note:** evil commands which switch to `insert state` will switch in
+`iedit-insert state`.
+
+##### In iedit state
+
+`iedit state` inherits from `normal state`, the following key bindings are
+specific to `iedit state`.
+
+    Key Binding   |                 Description
+------------------|------------------------------------------------------------
+<kbd>ESC</kbd>    | go back to `normal state`
+<kbd>TAB</kbd>    | toggle current occurrence
+<kbd>0</kbd>      | go to the beginning of the current occurrence
+<kbd>$</kbd>      | go to the end of the current occurrence
+<kbd>#</kbd>      | prefix all occurrences with an increasing number (<kbd>SPC u</kbd> to choose the starting number).
+<kbd>A</kbd>      | go to the end of the current occurrence and switch to `iedit-insert state`
+<kbd>D</kbd>      | delete the occurrences
+<kbd>F</kbd>      | restrict the scope to the function
+<kbd>gg</kbd>     | go to first occurrence
+<kbd>G</kbd>      | go to last occurrence
+<kbd>I</kbd>      | go to the beginning of the current occurrence and switch to `iedit-insert state`
+<kbd>J</kbd>      | increase the edition scope by one line below
+<kbd>K</kbd>      | increase the edition scope by one line above
+<kbd>L</kbd>      | restrict the scope to the current line
+<kbd>n</kbd>      | go to next occurrence
+<kbd>N</kbd>      | go to previous occurrence
+<kbd>p</kbd>      | replace occurrences with last yanked (copied) text
+<kbd>S</kbd>      | (substitute) delete the occurrences and switch to `iedit-insert state`
+<kbd>V</kbd>      | toggle visibility of lines with no occurrence
+<kbd>U</kbd>      | Up-case the occurrences
+<kbd>C-U</kbd>    | down-case the occurrences
+
+**Note:** <kbd>0</kbd>, <kbd>$</kbd>, <kbd>A</kbd> and <kbd>I</kbd> have the
+default Vim behavior when used outside of an occurrence.
+
+##### In iedit-insert state
+
+    Key Binding            |                 Description
+---------------------------|------------------------------------------------------------
+<kbd>ESC</kbd>             | go back to `iedit state`
+<kbd>C-g</kbd>             | go back to `normal state`
+
+#### Examples
+
+- manual selection of several words then replace: <kbd>v w w SPC s e S "toto" ESC ESC</kbd>
+- append text to a word on two lines: <kbd>v i w SPC s e J i "toto" ESC ESC</kbd>
+- substitute symbol _with expand-region_: <kbd>SPC v v e S "toto" ESC ESC</kbd>
+- replace symbol with yanked (copied) text _with expand region_: <kbd>SPC v e p ESC ESC</kbd>
 
 ### Commenting
 
@@ -1939,6 +2041,8 @@ developers to elisp hackers!
 [projectile]: https://github.com/bbatsov/projectile
 [hdescbinds]: https://github.com/emacs-helm/helm-descbinds
 [hflyspell]: https://gist.github.com/cofi/3013327
+[iedit]: https://github.com/tsdh/iedit
+[evil-iedit-state]: https://github.com/syl20bnr/evil-iedit-state
 [evil-little-word]: https://github.com/tarao/evil-plugins#evil-little-wordel
 [evil-visualstar]: https://github.com/bling/evil-visualstar
 [evil-exchange]: https://github.com/Dewdrops/evil-exchange
