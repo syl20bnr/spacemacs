@@ -78,6 +78,7 @@
       (let ((pkg (format "%s-theme" (symbol-name dotspacemacs-default-theme))))
         (spacemacs/load-or-install-package (intern pkg))))))
   (load-theme dotspacemacs-default-theme t)
+  (setq-default spacemacs-cur-theme dotspacemacs-default-theme)
   ;; remove GUI elements
   (unless (eq tool-bar-mode -1)
     (tool-bar-mode -1)
