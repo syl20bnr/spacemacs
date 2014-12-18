@@ -63,7 +63,6 @@
     let-alist
     leuven-theme
     linum-relative
-    key-chord
     markdown-mode
     markdown-toc
     monokai-theme

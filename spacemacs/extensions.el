@@ -1,7 +1,10 @@
 ;; Extensions are in emacs_paths/extensions
 
 ;; Pre extensions are loaded *before* the packages
-(defvar spacemacs-pre-extensions '())
+(defvar spacemacs-pre-extensions
+  '(
+    key-chord
+    ))
 
 ;; Post extensions are loaded *after* the packages
 (defvar spacemacs-post-extensions
