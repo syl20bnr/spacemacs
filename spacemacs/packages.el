@@ -3,6 +3,7 @@
     ac-ispell
     ace-jump-mode
     ag
+    aggressive-indent
     anzu
     auto-complete
     auto-complete-clang
@@ -142,6 +143,22 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (setq ace-jump-mode-scope 'global)
       (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
+
+(defun spacemacs/init-aggressive-indent ()
+  (use-package aggressive-indent
+    :defer t
+    :init
+    (progn
+      (defun spacemacs/toggle-aggressive-indent ()
+        "Toggle the aggressive indent mode for the current buffer."
+        (interactive)
+        (require 'aggressive-indent)
+        (if (symbol-value aggressive-indent-mode)
+            (global-aggressive-indent-mode -1)
+          (global-aggressive-indent-mode)))
+      (evil-leader/set-key "ti" 'spacemacs/toggle-aggressive-indent))
+    :config
+    (spacemacs|diminish aggressive-indent-mode " Ⓘ")))
 
 (defun spacemacs/init-anzu ()
   (use-package anzu
