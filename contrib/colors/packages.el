@@ -100,9 +100,9 @@ Press any other key to exit." component (eval var) component component)))
  'lightness'."
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap))
-               (up-func (intern (format "syl20bnr/change-color-%s-up" component)))
-               (down-func (intern (format "syl20bnr/change-color-%s-down" component)))
-               (reset-func (intern (format "syl20bnr/change-color-%s-reset" component))))
+               (up-func (intern (format "colors/change-color-%s-up" component)))
+               (down-func (intern (format "colors/change-color-%s-down" component)))
+               (reset-func (intern (format "colors/change-color-%s-reset" component))))
            (define-key map (kbd "+") up-func)
            (define-key map (kbd "-") down-func)
            (define-key map (kbd "=") reset-func)
