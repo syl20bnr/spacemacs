@@ -93,6 +93,7 @@
     string-edit
     subword
     undo-tree
+    use-package
     vi-tilde-fringe
     visual-regexp-steroids
     volatile-highlights

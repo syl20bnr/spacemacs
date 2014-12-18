@@ -10,9 +10,6 @@
 [submodule "spacemacs/extensions/evil-plugins"]
 	path = spacemacs/extensions/evil-plugins
 	url = http://github.com/tarao/evil-plugins
-[submodule "spacemacs/extensions/use-package"]
-	path = spacemacs/extensions/use-package
-	url = http://github.com/jwiegley/use-package
 [submodule "spacemacs/extensions/emoji-cheat-sheet"]
 	path = spacemacs/extensions/emoji-cheat-sheet
 	url = http://github.com/ShingoFukuyama/emacs-emoji-cheat-sheet
