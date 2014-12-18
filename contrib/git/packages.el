@@ -43,15 +43,18 @@ which require an initialization must be listed explicitly in the list.")
     ))
 
 (defun git/init-git-gutter-fringe ()
-  (use-package git-gutter
+  (use-package git-gutter-fringe
     :defer t
     :init
-    (add-to-hooks 'git-gutter-mode '(markdown-mode-hook
-                                     org-mode-hook
-                                     prog-mode-hook))
+    (add-to-hooks
+     '(lambda ()
+        (require 'git-gutter-fringe)
+        (git-gutter-mode))
+     '(markdown-mode-hook
+       org-mode-hook
+       prog-mode-hook))
     :config
     (progn
-      (require 'git-gutter-fringe)
       (setq git-gutter:hide-gutter t)
       ;; Don't need log/message.
       (setq git-gutter:verbosity 0)
