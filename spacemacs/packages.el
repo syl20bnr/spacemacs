@@ -18,13 +18,14 @@
     evil-args
     evil-escape
     evil-exchange
-    evil-search-highlight-persist
+    evil-iedit-state
     evil-jumper
     evil-leader
     evil-lisp-state
     evil-nerd-commenter
     evil-numbers
     evil-org
+    evil-search-highlight-persist
     evil-surround
     evil-terminal-cursor-changer
     evil-visualstar
@@ -55,6 +56,7 @@
     highlight
     hl-anything
     ido-vertical-mode
+    iedit
     json-mode
     ledger-mode
     let-alist
@@ -345,7 +347,6 @@ which require an initialization must be listed explicitly in the list.")
         (eval '(ahs-change-range ahs-default-range) nil))
 
       (evil-leader/set-key
-        "se"  'ahs-edit-mode
         "sb"  'spacemacs/goto-last-searched-ahs-symbol
         "sh"  'spacemacs/symbol-highlight
         "sR"  'spacemacs/symbol-highlight-reset-range)
@@ -371,7 +372,9 @@ which require an initialization must be listed explicitly in the list.")
          (let ((map (make-sparse-keymap)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
-           (define-key map (kbd "e") 'ahs-edit-mode)
+           (if (ht-contains? config-system-all-packages 'evil-iedit-state)
+               (define-key map (kbd "e") 'evil-iedit-state/iedit-mode)
+             (define-key map (kbd "e") 'ahs-edit-mode))
            (define-key map (kbd "n") 'ahs-forward)
            (define-key map (kbd "N") 'ahs-backward)
            (define-key map (kbd "R") 'ahs-back-to-start)
@@ -600,6 +603,31 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-evil-exchange ()
   (use-package evil-exchange
     :init (evil-exchange-install)))
+
+(defun spacemacs/init-evil-iedit-state ()
+  (spacemacs/defface-state-color 'iedit "firebrick1")
+  (spacemacs/defface-state-color 'iedit-insert "firebrick1")
+
+  (defun spacemacs/evil-state-lazy-loading ()
+    (require 'evil-iedit-state)
+    (setq evil-iedit-state-cursor `(,(spacemacs/state-color 'iedit) box))   
+    (setq evil-iedit-insert-state-cursor `((spacemacs/state-color 'iedit-insert) (bar . 2)))
+    ;; activate leader in iedit and iedit-insert states
+    (define-key evil-iedit-state-map
+      (kbd evil-leader/leader) evil-leader--default-map)
+    ;; evil-escape support
+    (when (and (boundp 'evil-escape-mode)
+               (symbol-value evil-escape-mode))
+      (key-chord-define evil-iedit-state-map
+                        evil-escape-key-sequence
+                        'evil-iedit-state/quit-iedit-mode)
+      (key-chord-define evil-iedit-insert-state-map
+                        evil-escape-key-sequence
+                        'evil-iedit-state/quit-iedit-mode)))
+
+  (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode)
+  (add-to-hooks 'spacemacs/evil-state-lazy-loading '(prog-mode-hook
+                                                     markdown-mode-hook)))
 
 (defun spacemacs/init-evil-jumper ()
   (use-package evil-jumper
@@ -1238,6 +1266,10 @@ determine the state to enable when escaping from the insert state.")
                             (cdr (assoc 'ido-mode evil-leader--mode-maps)))))
       (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys))
       ))
+
+(defun spacemacs/init-iedit ()
+  (use-package iedit
+    :defer t))
 
 (defun spacemacs/init-json-mode ()
   (use-package json-mode
