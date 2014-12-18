@@ -97,6 +97,9 @@
   (let ((buffer-read-only nil))
     (insert-file-contents (concat spacemacs-core-directory "banner.txt"))
     (spacemacs/insert-buttons))
+  ;; bind-key is required by use-package
+  (spacemacs/load-or-install-package 'bind-key t)
+  (spacemacs/load-or-install-package 'use-package t)
   ;; evil and evil-leader must be installed at the beginning of the boot sequence
   ;; use C-u as scroll-up (must be set before actually loading evil)
   (setq-default evil-want-C-u-scroll t)
