@@ -716,14 +716,15 @@ following capabilities:
 
 Reminder of the color codes for the states:
 
-   Evil State     |       Color
-------------------|------------------
-Normal            | Orange
-Insert            | Green
-Visual            | Grey
-Emacs             | Blue
-Motion            | Purple
-Lisp              | Pink
+   Evil State      |       Color
+-------------------|------------------
+Normal             | Orange
+Insert             | Green
+Visual             | Grey
+Emacs              | Blue
+Motion             | Purple
+Lisp               | Pink
+Iedit/Iedit-Insert | Red
 
 Some elements can be dynamically toggled:
 
