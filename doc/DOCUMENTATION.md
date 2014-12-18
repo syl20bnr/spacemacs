@@ -698,6 +698,7 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 <kbd>SPC t 8</kbd>    | display a mark on the 80th column
 <kbd>SPC t F</kbd>    | toggle frame fullscreen
 <kbd>SPC t f</kbd>    | toggle display of the fringe
+<kbd>SPC t i</kbd>    | toggle aggressive indent
 <kbd>SPC t l</kbd>    | toggle truncate lines
 <kbd>SPC t L</kbd>    | toggle visual lines
 <kbd>SPC t M</kbd>    | toggle frame maximize
@@ -819,6 +820,7 @@ eⓅ           | [e-project][e-project] mode
 Ⓕ            | flycheck mode
 Ⓕ2           | flymake mode
 Ⓖ            | guide-key mode
+Ⓘ            | aggressive indent mode
 (Ⓟ)          | paredit mode
 Ⓢ            | flyspell mode
 (Ⓢ)          | [smartparens][sp] mode
