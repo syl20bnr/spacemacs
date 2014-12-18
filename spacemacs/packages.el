@@ -1879,14 +1879,13 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-undo-tree ()
   (use-package undo-tree
-    :idle (global-undo-tree-mode)
     :defer t
     :init
-    (setq undo-tree-auto-save-history t
-          undo-tree-history-directory-alist
-          `(("." . ,(concat spacemacs-cache-directory "undo"))))
-    (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
-        (make-directory (concat spacemacs-cache-directory "undo")))
+    ;; (setq undo-tree-auto-save-history t
+    ;;       undo-tree-history-directory-alist
+    ;;       `(("." . ,(concat spacemacs-cache-directory "undo"))))
+    ;; (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
+    ;;     (make-directory (concat spacemacs-cache-directory "undo")))
     (setq undo-tree-visualizer-timestamps t)
     (setq undo-tree-visualizer-diff t)
     :config
