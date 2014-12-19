@@ -113,6 +113,7 @@
     - [Errors handling](#errors-handling)
     - [Compiling](#compiling)
     - [Modes](#modes)
+        - [Major Mode leader key](#major-mode-leader-key)
         - [Helm](#helm)
             - [Experimental Helm feature](#experimental-helm-feature)
         - [Ledger](#ledger)
@@ -1769,11 +1770,23 @@ Custom fringe bitmaps:
 
 ## Modes
 
-`Spacemacs` tries to add more natural Vi key bindings to some modes or
-simply add new leader key bindings.
+### Major Mode leader key
 
-Leader key bindings start with `m` because they are bindings related to
-the current `major mode`.
+Key bindings specific to the current `major mode` start with <kbd>SPC m</kbd>.
+For convenience a shortcut key called the major mode leader key is set by
+default on <kbd>,</kbd> which saves one precious keystroke.
+
+It is possible to change the major mode leader key by defining the variable
+`dotspacemacs-major-mode-leader-key` in your `~/.spacemacs`. For example to
+setup the key on tabulation:
+
+```elisp
+(setq-default dotspacemacs-major-mode-leader-key "\t")
+```
+
+Caveats: It seems that the `guide-key` does not work with the major mode leader
+key, to get the list of the available commands in the `guide-key` buffer you'll
+have to use explicitly <kbd>SPC m</kbd>.
 
 ### Helm
 

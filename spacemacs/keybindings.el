@@ -7,9 +7,18 @@
 (define-key isearch-mode-map (kbd "S-<return>") 'isearch-repeat-forward)
 (define-key isearch-mode-map (kbd "M-S-<return>") 'isearch-repeat-backward)
 
-;; ---------------------------------------------------------------------------
+;; `SPC m' shortcut defined by `dotspacemacs-major-mode-leader-key'
+(defun spacemacs/major-mode-leader-key ()
+  "Construct input events to simulate `<leader> m` keys."
+  (interactive)
+  (setq unread-command-events (listify-key-sequence
+                               (concat (kbd evil-leader/leader) "m"))))
+(define-key evil-normal-state-map
+  dotspacemacs-major-mode-leader-key 'spacemacs/major-mode-leader-key)
+(define-key evil-motion-state-map
+  dotspacemacs-major-mode-leader-key 'spacemacs/major-mode-leader-key)
+
 ;; Make <escape> quit as much as possible
-;; ---------------------------------------------------------------------------
 (define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key evil-visual-state-map (kbd "<escape>") 'keyboard-quit)
 (define-key minibuffer-local-ns-map (kbd "<escape>") 'keyboard-escape-quit)
