@@ -34,15 +34,14 @@ which require an initialization must be listed explicitly in the list.")
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
     :defer t
-    :init 
-    (progn 
+    :init
+    (progn
       (add-hook 'web-mode-hook 'emmet-mode)
       (add-hook 'html-mode-hook 'emmet-mode)
       (add-hook 'css-mode-hook 'emmet-mode))
     :config
     (progn
-      ;; buggy with undo-tree, need to take a look
-      ;; (local-set-key (kbd "<tab>") 'emmet-expand-yas)
+      (local-set-key (kbd "<tab>") 'emmet-expand-yas)
       (spacemacs|hide-lighter emmet-mode))))
 
 (defun html/init-scss-mode ()
