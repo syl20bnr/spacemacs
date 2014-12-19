@@ -44,15 +44,21 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun git/init-git-gutter-fringe ()
   (use-package git-gutter-fringe
-    :defer t
+    :commands git-gutter-mode
     :init
-    (add-to-hooks
-     '(lambda ()
-        (require 'git-gutter-fringe)
-        (git-gutter-mode))
-     '(markdown-mode-hook
-       org-mode-hook
-       prog-mode-hook))
+    (progn
+      (defun git/load-git-gutter ()
+        "Lazy load git gutter and choose between fringe and no fringe
+implementation."
+        (if (display-graphic-p)
+            (progn
+              (require 'git-gutter-fringe)
+              (git-gutter-mode))
+          (git-gutter-mode)
+          (if global-linum-mode (git-gutter:linum-setup))))
+      (add-to-hooks 'git/load-git-gutter '(markdown-mode-hook
+                                           org-mode-hook
+                                           prog-mode-hook)))
     :config
     (progn
       (setq git-gutter:hide-gutter t)
@@ -62,26 +68,26 @@ which require an initialization must be listed explicitly in the list.")
       ;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
       ;; custom graphics that works nice with half-width fringes
       (fringe-helper-define 'git-gutter-fr:added nil
-        "..X...."
-        "..X...."
-        "XXXXX.."
-        "..X...."
-        "..X...."
-        )
+                            "..X...."
+                            "..X...."
+                            "XXXXX.."
+                            "..X...."
+                            "..X...."
+                            )
       (fringe-helper-define 'git-gutter-fr:deleted nil
-        "......."
-        "......."
-        "XXXXX.."
-        "......."
-        "......."
-        )
+                            "......."
+                            "......."
+                            "XXXXX.."
+                            "......."
+                            "......."
+                            )
       (fringe-helper-define 'git-gutter-fr:modified nil
-        "..X...."
-        ".XXX..."
-        "XXXXX.."
-        ".XXX..."
-        "..X...."
-        )
+                            "..X...."
+                            ".XXX..."
+                            "XXXXX.."
+                            ".XXX..."
+                            "..X...."
+                            )
       (spacemacs|hide-lighter git-gutter-mode))))
 
 (defun git/init-git-messenger ()
