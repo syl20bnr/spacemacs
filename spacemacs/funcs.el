@@ -79,6 +79,16 @@ a key sequence. NAME is a symbol name used as the prefix command."
   "Remove the evil-leader binding from the passed MAP."
   (spacemacs/activate-evil-leader-for-maps `(,map)))
 
+(defun spacemacs/activate-major-mode-leader ()
+  "Bind major mode key map to `dotspacemacs-major-mode-leader-key'."
+  (setq mode-map (cdr (assoc major-mode evil-leader--mode-maps)))
+  (when mode-map
+    (setq major-mode-map (lookup-key mode-map (kbd "m")))
+    (define-key evil-normal-state-local-map
+      (kbd dotspacemacs-major-mode-leader-key) major-mode-map)
+    (define-key evil-motion-state-local-map
+      (kbd dotspacemacs-major-mode-leader-key) major-mode-map)))
+
 (defmacro spacemacs|evilify (map &rest body)
   "Add `hjkl' navigation, search and visual state to MAP and set additional
 bindings contained in BODY."
