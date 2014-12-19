@@ -113,6 +113,7 @@
     - [Errors handling](#errors-handling)
     - [Compiling](#compiling)
     - [Modes](#modes)
+        - [Major Mode leader key](#major-mode-leader-key)
         - [Helm](#helm)
             - [Experimental Helm feature](#experimental-helm-feature)
         - [Ledger](#ledger)
@@ -1751,8 +1752,8 @@ Errors management commands (star with `f` for `flycheck`):
 
 Custom fringe bitmaps:
 
-   Symbol                                                                                       | Description
-:----------------------------------------------------------------------------------------------:|------------
+   Symbol                           | Description
+:----------------------------------:|------------
 ![dot-error](img/dot-error.png)     | Error
 ![dot-warning](img/dot-warning.png) | warning
 ![dot-info](img/dot-info.png)       | Info
@@ -1763,17 +1764,25 @@ Custom fringe bitmaps:
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC c c</kbd>     | use `helm-make` via projectile
-<kbd>SPC c C</kbd>     | compile
-<kbd>SPC c r</kbd>     | recompile
+<kbd>SPC c c</kbd>   | use `helm-make` via projectile
+<kbd>SPC c C</kbd>   | compile
+<kbd>SPC c r</kbd>   | recompile
 
 ## Modes
 
-`Spacemacs` tries to add more natural Vi key bindings to some modes or
-simply add new leader key bindings.
+### Major Mode leader key
 
-Leader key bindings start with `m` because they are bindings related to
-the current `major mode`.
+Key bindings specific to the current `major mode` start with <kbd>SPC m</kbd>.
+For convenience a shortcut key called the major mode leader key is set by
+default on <kbd>,</kbd> which saves one precious keystroke.
+
+It is possible to change the major mode leader key by defining the variable
+`dotspacemacs-major-mode-leader-key` in your `~/.spacemacs`. For example to
+setup the key on tabulation:
+
+```elisp
+(setq-default dotspacemacs-major-mode-leader-key "<tab>")
+```
 
 ### Helm
 
@@ -1997,9 +2006,12 @@ Achievements                                         | Account
 [First contribution layer][1st-clayer]               | [trishume][]
 [First blog article on Spacemacs][1st-article]       | [Wolfy87][]
 [100th issue (was a PR)][100th-issue]                | [danielwuz][]
+[200th issue (question)][200th-issue]                | [justrajdeep][]
+[300th issue (was a PR)][300th-issue]                | [danielwuz][]
 [100th pull request][100th-PR]                       | [bru][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
+400th star                                           | [dbohdan][]
 
 # Thank you
 
@@ -2088,10 +2100,14 @@ developers to elisp hackers!
 [1st-clayer]: https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39
 [1st-article]: http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/
 [100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
+[200th-issue]: https://github.com/syl20bnr/spacemacs/pull/200
+[300th-issue]: https://github.com/syl20bnr/spacemacs/pull/300
 [100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [trishume]:https://github.com/trishume
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
+[justrajdeep]:https://github.com/justrajdeep
+[dbohdan]:https://github.com/dbohdan
 [bru]:https://github.com/bru
 [Jackneill]:https://github.com/Jackneill
 [jb55]:https://github.com/jb55

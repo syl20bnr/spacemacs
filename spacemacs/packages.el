@@ -677,7 +677,11 @@ determine the state to enable when escaping from the insert state.")
       ;; experimental: invoke leader with "jk" in insert mode
       (when dotspacemacs-feature-toggle-leader-on-jk
         (key-chord-define evil-insert-state-map (kbd "jk")
-                          evil-leader--default-map)))))
+                          evil-leader--default-map))
+      ;; experimental: map SPC m to ,
+      (when dotspacemacs-major-mode-leader-key
+        (add-hook 'after-change-major-mode-hook 'spacemacs/activate-major-mode-leader))
+        )))
 
 (defun spacemacs/init-evil-lisp-state ()
   (use-package evil-lisp-state
@@ -1056,6 +1060,7 @@ determine the state to enable when escaping from the insert state.")
       (setq guide-key/guide-key-sequence `("C-x"
                                            "C-c"
                                            ,dotspacemacs-leader-key
+                                           ,dotspacemacs-major-mode-leader-key
                                            "g"
                                            "z"
                                            "C-h")
@@ -1879,14 +1884,13 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-undo-tree ()
   (use-package undo-tree
-    :idle (global-undo-tree-mode)
-    :defer t
     :init
-    (setq undo-tree-auto-save-history t
-          undo-tree-history-directory-alist
-          `(("." . ,(concat spacemacs-cache-directory "undo"))))
-    (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
-        (make-directory (concat spacemacs-cache-directory "undo")))
+    (global-undo-tree-mode)
+    ;; (setq undo-tree-auto-save-history t
+    ;;       undo-tree-history-directory-alist
+    ;;       `(("." . ,(concat spacemacs-cache-directory "undo"))))
+    ;; (unless (file-exists-p (concat spacemacs-cache-directory "undo"))
+    ;;     (make-directory (concat spacemacs-cache-directory "undo")))
     (setq undo-tree-visualizer-timestamps t)
     (setq undo-tree-visualizer-diff t)
     :config
