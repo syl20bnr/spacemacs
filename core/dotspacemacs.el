@@ -13,6 +13,9 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')"
 (defvar dotspacemacs-leader-key "SPC"
   "The leader key.")
 
+(defvar dotspacemacs-major-mode-leader-key ","
+  "The leader key for major mode.")
+
 (defvar dotspacemacs-command-key ":"
   "The key used for Evil commands (ex-commands) and Emacs commands (M-x).
 By default the command key is `:' so ex-commands are executed like in Vim
