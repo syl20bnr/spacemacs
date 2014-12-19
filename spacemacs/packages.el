@@ -677,7 +677,11 @@ determine the state to enable when escaping from the insert state.")
       ;; experimental: invoke leader with "jk" in insert mode
       (when dotspacemacs-feature-toggle-leader-on-jk
         (key-chord-define evil-insert-state-map (kbd "jk")
-                          evil-leader--default-map)))))
+                          evil-leader--default-map))
+      ;; experimental: map SPC m to ,
+      (when dotspacemacs-major-mode-leader-key
+        (add-hook 'after-change-major-mode-hook 'spacemacs/activate-major-mode-leader))
+        )))
 
 (defun spacemacs/init-evil-lisp-state ()
   (use-package evil-lisp-state
@@ -1056,6 +1060,7 @@ determine the state to enable when escaping from the insert state.")
       (setq guide-key/guide-key-sequence `("C-x"
                                            "C-c"
                                            ,dotspacemacs-leader-key
+                                           ,dotspacemacs-major-mode-leader-key
                                            "g"
                                            "z"
                                            "C-h")

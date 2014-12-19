@@ -1752,8 +1752,8 @@ Errors management commands (star with `f` for `flycheck`):
 
 Custom fringe bitmaps:
 
-   Symbol                                                                                       | Description
-:----------------------------------------------------------------------------------------------:|------------
+   Symbol                           | Description
+:----------------------------------:|------------
 ![dot-error](img/dot-error.png)     | Error
 ![dot-warning](img/dot-warning.png) | warning
 ![dot-info](img/dot-info.png)       | Info
@@ -1764,9 +1764,9 @@ Custom fringe bitmaps:
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC c c</kbd>     | use `helm-make` via projectile
-<kbd>SPC c C</kbd>     | compile
-<kbd>SPC c r</kbd>     | recompile
+<kbd>SPC c c</kbd>   | use `helm-make` via projectile
+<kbd>SPC c C</kbd>   | compile
+<kbd>SPC c r</kbd>   | recompile
 
 ## Modes
 
@@ -1781,12 +1781,8 @@ It is possible to change the major mode leader key by defining the variable
 setup the key on tabulation:
 
 ```elisp
-(setq-default dotspacemacs-major-mode-leader-key "\t")
+(setq-default dotspacemacs-major-mode-leader-key "<tab>")
 ```
-
-Caveats: It seems that the `guide-key` does not work with the major mode leader
-key, to get the list of the available commands in the `guide-key` buffer you'll
-have to use explicitly <kbd>SPC m</kbd>.
 
 ### Helm
 
