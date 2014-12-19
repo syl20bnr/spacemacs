@@ -51,7 +51,12 @@ which require an initialization must be listed explicitly in the list.")
 (defun javascript/init-js2-refactor ()
   (use-package js2-refactor
     :defer t
-    :init (eval-after-load 'js2-mode '(require 'js2-refactor))
+    :init
+    (progn
+      (defun javascript/load-js2-refactor ()
+        "Lazy load js2-refactor"
+        (require 'js2-refactor))
+      (add-hook 'js2-mode-hook 'javascript/load-js2-refactor))
     :config
     (progn
       ;;(spacemacs/declare-prefix-for-mode 'js2-mode "mr" "refactor")
@@ -116,7 +121,7 @@ which require an initialization must be listed explicitly in the list.")
 (defun javascript/init-tern ()
   (use-package tern
     :defer t
-    :init (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
+    :init (add-hook 'js2-mode-hook 'tern-mode)
     :config
     (progn
       (evil-leader/set-key-for-mode 'js2-mode "mc" 'tern-rename-variable)
@@ -129,4 +134,4 @@ which require an initialization must be listed explicitly in the list.")
 (defun javascript/init-tern-auto-complete ()
   (use-package tern-auto-complete
     :defer t
-    :init (eval-after-load 'tern '(tern-ac-setup))))
+    :init (add-hook 'tern-mode-hook 'tern-ac-setup)))
