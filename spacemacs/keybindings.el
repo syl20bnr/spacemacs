@@ -23,8 +23,6 @@
 (evil-leader/set-key "u" 'universal-argument)
 ;; shell command  -------------------------------------------------------------
 (evil-leader/set-key "!" 'shell-command)
-;; switch back and forth between two last buffers -----------------------------
-(evil-leader/set-key "TAB" 'spacemacs/last-buffer)
 ;; applications ---------------------------------------------------------------
 (evil-leader/set-key
   "ac"  'calc-dispatch
@@ -36,6 +34,7 @@
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
+  "bb"  'spacemacs/alternate-buffer ;; switch back and forth between two last buffers
   "bd"  'delete-current-buffer-file
   "be"  'spacemacs/safe-erase-buffer
   "bK"  'kill-other-buffers
