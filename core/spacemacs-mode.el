@@ -104,6 +104,7 @@
   ;; evil and evil-leader must be installed at the beginning of the boot sequence
   ;; use C-u as scroll-up (must be set before actually loading evil)
   (setq-default evil-want-C-u-scroll t)
+  (setq-default evil-want-fine-undo nil)
   (spacemacs/load-or-install-package 'evil t)
   (spacemacs/load-or-install-package 'evil-leader t)
   ;; motion state since this is a special mode
