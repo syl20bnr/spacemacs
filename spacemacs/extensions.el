@@ -13,6 +13,7 @@
     emoji-cheat-sheet
     evil-plugins
     helm-rcirc
+    helm-spacemacs
     solarized-theme
     spray
     ))
@@ -47,6 +48,12 @@
     :commands helm-rcirc-auto-join-channels
     :init
     (evil-leader/set-key "irc" 'helm-rcirc-auto-join-channels)))
+
+(defun spacemacs/init-helm-spacemacs ()
+  (use-package helm-spacemacs
+    :commands helm-spacemacs
+    :init
+    (evil-leader/set-key "feh" 'helm-spacemacs)))
 
 (defun spacemacs/init-revive ()
   (use-package revive
