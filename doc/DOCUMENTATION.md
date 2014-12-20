@@ -1092,6 +1092,7 @@ Key Binding            |                 Description
 <kbd>SPC f s</kbd>     | save a file
 <kbd>SPC f S</kbd>     | save all files
 <kbd>SPC f t</kbd>     | toggle file tree side bar using [NeoTree][neotree]
+<kbd>SPC TAB</kbd>     | toggle file tree side bar using [NeoTree][neotree]
 <kbd>SPC f y</kbd>     | show current file absolute path in the minibuffer
 
 ### Ido
