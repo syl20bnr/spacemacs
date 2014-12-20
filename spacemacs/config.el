@@ -19,6 +19,7 @@
                                        ("n" .  "narrow/numbers")
                                        ("p" .  "projects")
                                        ("p4" . "perforce")
+                                       ("q" .  "quit")
                                        ("r" .  "registers/rings")
                                        ("s" .  "search/symbol")
                                        ("S" .  "spelling")
