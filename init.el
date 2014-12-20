@@ -7,9 +7,8 @@
   (config-system/package.el-initialize)
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init)
-  ;; Load configuration layers
-  (config-system/declare-layer 'spacemacs)
-  (config-system/declare-dotspacemacs-configuration-layers)
+  ;; synchronize and load configuration layers
+  (config-system/declare-layers)
   (config-system/load-layers)
   (config-system/delete-orphan-packages)
   ;; Ultimate configuration decisions are given to the user who can defined
