@@ -1375,7 +1375,8 @@ determine the state to enable when escaping from the insert state.")
             neo-banner-message "File Tree browser"
             neo-smart-open t
             neo-persist-show nil)
-      (evil-leader/set-key "ft" 'neotree-toggle))
+      (evil-leader/set-key "ft" 'neotree-toggle)
+      (evil-leader/set-key "TAB" 'neotree-toggle))
     :config
     (add-hook 'neotree-mode-hook
               (lambda ()
