@@ -1066,7 +1066,7 @@ Buffer manipulation commands (start with `b`):
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC b b</kbd>     | switch to alternate buffer
+<kbd>SPC b b</kbd>     | switch to alternate buffer (switch back and forth)
 <kbd>SPC b d</kbd>     | delete the current buffer **and** file (ask for confirmation)
 <kbd>SPC b e</kbd>     | erase the content of the buffer (ask for confirmation)
 <kbd>SPC b k</kbd>     | kill the current buffer
