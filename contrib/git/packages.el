@@ -11,6 +11,9 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
+(defvar git-enable-github-support nil
+  "If non nil enable Github packages.")
+
 (when git-enable-github-support
   (mapc (lambda (x) (push x git-packages))
         '(
