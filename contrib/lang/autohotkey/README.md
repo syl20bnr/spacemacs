@@ -46,8 +46,8 @@ To use this contribution add it to your `~/.spacemacs`
 
     Key Binding     |                 Description
 --------------------|------------------------------------------------------------
-<kbd>SPC m D</kbd>  | open documentation in `browser`
-<kbd>SPC m E</kbd>  | execute file with `autohtokey.exe`
+<kbd>SPC m d</kbd>  | open documentation in `browser`
+<kbd>SPC m e</kbd>  | execute file with `autohotkey.exe`
 
 [AutoHotkey]: http://www.autohotkey.com
 [AutoHotkey_L]: http://ahkscript.org

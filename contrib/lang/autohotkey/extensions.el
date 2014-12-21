@@ -17,8 +17,8 @@
   (use-package ahk-mode
     :init
     (evil-leader/set-key-for-mode 'ahk-mode
-      "m E" 'run-this-autohotkey-script
-      "m D" 'ahk-lookup-autohotkey-ref
+      "m d" 'ahk-lookup-ahk-ref
+      "m e" 'run-this-ahk-script
       )
     :config
     (progn
