@@ -172,7 +172,7 @@ Can be installed with `brew install trash'."
 (setq savehist-file (concat spacemacs-cache-directory "savehist")
       enable-recursive-minibuffers t ; Allow commands in minibuffers
       history-length 1000
-      savehist-additional-variables '(search ring regexp-search-ring)
+      savehist-additional-variables '(kill-ring mark-ring global-mark-ring search-ring regexp-search-ring extended-command-history)
       savehist-autosave-interval 60)
 (savehist-mode +1)
 
@@ -185,8 +185,19 @@ Can be installed with `brew install trash'."
         auto-save-file-name-transforms `((".*" ,autosave-dir t))))
 
 ;; bookmarks
-(setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks"))
 (setq bookmark-save-flag 1) ;; save after every change
+(setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks"))
+
+;; more cache files
+
+;; url files
+(setq url-configuration-directory (concat spacemacs-cache-directory "url"))
+;; eshell files
+(setq eshell-directory-name (concat spacemacs-cache-directory "eshell" ))
+;; pcache files
+(setq pcache-directory (concat spacemacs-cache-directory "pcache" ))
+;; Tramp history
+(setq tramp-persistency-file-name (concat spacemacs-cache-directory "tramp"))
 
 ;; keep buffers opened when leaving an emacs client
 (setq server-kill-new-buffers nil)
