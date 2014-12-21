@@ -231,6 +231,14 @@ your `~/.spacemacs` file.
 In spacemacs the universal argument is by default on `<SPC> u` instead of `C-u`
 which is used to scroll up as in Vim.
 
+## Configuration layers and Packages discovery
+
+By using `helm-spacemacs` with <kbd>SPC f e h</kbd> you can quickly search
+for a package and get the name of the layers using it.
+
+You can also easily go to the `README.md` of a layer or go to the initialization
+function of a package.
+
 ## Key bindings discovery
 
 Thanks to [guide-key][], whenever a prefix command is pressed (like `<SPC>`)
