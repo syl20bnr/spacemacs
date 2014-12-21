@@ -9,14 +9,12 @@
   (expand-file-name (concat user-emacs-directory "private/"))
   "Spacemacs private layers base directory.")
 
-(defvar config-system-config-layers '()
-  "Alist of configuration layers with the form (symbol . plist) where
-SYMBOL is the name of the layer and PLIST is a property list with the following
-keys:
-:contrib    if t then the layer is a contribution layer.
-:dir        the absolute path to the base directory of the layer.
-:ext-dir    the absolute path to the directory containing the extensions.
-")
+(defvar config-system-layers '()
+  "Alist of declared configuration layers.")
+
+(defvar config-system-layer-paths #s(hash-table size 128 data ())
+  "Hash table of layers locations. The key is a layer symbol and the value is
+the path for this layer.")
 
 (defvar config-system-all-packages #s(hash-table size 256 data ())
   "Hash table of all declared packages in all layers where the key is a package
@@ -42,16 +40,15 @@ and configuring the package.")
 (defvar config-system-all-post-extensions-sorted '()
   "Sorted list of all post extensions symbols.")
 
-(defvar config-system-layer-paths #s(hash-table size 128 data ())
-  "Hash table of layers locations where the key is a layer symbol and the value
-is its path.")
-
 (defvar config-system-contrib-categories '("usr" "lang")
   "List of strings corresponding to category names. A category is a
 sub-directory of the contribution directory.")
 
-(defvar config-system-excluded-packages-from-layers '()
+(defvar config-system-excluded-packages '()
   "List of all excluded packages declared at the layer level.")
+
+(defvar config-system--loaded-files '()
+  "List of loaded files.")
 
 (defun config-system/package.el-initialize ()
   "Initialize package.el"
@@ -115,67 +112,108 @@ in `config-system-contrib-categories'"
                 (concat config-system-contrib-directory (format "%s/" d))))
    config-system-contrib-categories))
 
-(defun config-system/discover-layers ()
-  "Fill the hash table `config-system-layer-paths' where the key is the
-layer symbol and the value is its path."
-  (let ((cat-dirs (config-system//get-contrib-category-dirs)))
-    (mapc 'config-system/discover-layers-in-dir
+(defun config-system//discover-layers ()
+  "Return a hash table where the key is the layer symbol and the value is its
+path."
+  (let ((cat-dirs (config-system//get-contrib-category-dirs))
+        (result #s(hash-table size 128 data ())))
+    (ht-clear result)
+    ;; add spacemacs layer
+    (puthash 'spacemacs (expand-file-name user-emacs-directory) result)
+    (mapc (lambda (dir)
+            (let ((layers (config-system//discover-layers-in-dir dir)))
+              (mapc (lambda (layer)
+                      (puthash (car layer) (cdr layer) result))
+                    layers)))
           (append (list config-system-contrib-directory)
                   cat-dirs
                   dotspacemacs-configuration-layer-path
                   ;; load private layers at the end on purpose
                   ;; we asume that the user layers must have the final word
                   ;; on configuration choices.
-                  (list config-system-private-directory)))))
+                  (list config-system-private-directory)))
+    (ht-copy result)))
 
-(defun config-system/discover-layers-in-dir (dir)
-  "Fill the hash table `config-system-layer-paths' where the key is the
-layer symbol and the value is its path for all layers found in directory DIR.
-Also fill the list of excluded packages `config-system-excluded-packages-from-layers'
-declared at the layer level."
+(defun config-system//discover-layers-in-dir (dir)
+  "Return an alist where the key is a layer symbol and the value is the path
+for that layer."
   (spacemacs/message "Looking for configuration layers in %s" dir)
   (ignore-errors
     (let ((files (directory-files dir nil nil 'nosort))
-          (filter-out (append config-system-contrib-categories '("." ".."))))
+          (filter-out (append config-system-contrib-categories '("." "..")))
+          result '())
       (dolist (f files)
         (when (and (file-directory-p (concat dir f))
                    (not (member f filter-out)))
           (spacemacs/message "-> Discovered configuration layer: %s" f)
-          (puthash (intern f) dir config-system-layer-paths))))))
+          (push (cons (intern f) dir) result)))
+      result)))
 
-(defun config-system/declare-layer (sym &optional contrib)
-  "Declare a layer with SYM name (symbol). If CONTRIB is non nil then the layer
- is a contribution layer."
+(defun config-system//declare-layer (sym)
+  "Declare a layer with SYM name (symbol). Return a cons cell (symbol . plist)
+where `symbol' is the name of the layer and `plist' is a property list with
+the following keys:
+- `:dir'     the absolute path to the base directory of the layer.
+- `:ext-dir' the absolute path to the directory containing the extensions."
   (let* ((sym-name (symbol-name sym))
-         (base-dir (if contrib
-                       (ht-get config-system-layer-paths sym)
-                     user-emacs-directory))
+         (base-dir (config-system/get-layer-path sym))
          (dir (format "%s%s/" base-dir sym-name))
          (ext-dir (format "%sextensions/" dir)))
     (if (file-exists-p dir)
-        (push (cons sym (list :contrib contrib :dir dir :ext-dir ext-dir))
-              config-system-config-layers)
-      (spacemacs/message "Warning: layer %s does not exist!" sym-name))))
+        (cons sym (list :dir dir :ext-dir ext-dir))
+      (spacemacs/message "Warning: layer %s does not exist in dir %s!"
+                         sym-name dir))))
+
+(defun config-system/get-layers-list ()
+  "Return a list of all discovered layer symbols."
+  (ht-keys config-system-layer-paths))
+
+(defun config-system/get-layer-path (layer)
+  "Return the path for LAYER symbol."
+  (ht-get config-system-layer-paths layer))
 
 (defun config-system/load-layers ()
   "Load all declared layers."
-  (config-system//load-layer-files '("funcs.el" "config.el"))
-  (config-system//read-packages-and-extensions)
-  (config-system//sort-packages-and-extensions)
-  (config-system//initialize-extensions
-   config-system-all-pre-extensions-sorted t)
-  (config-system//install-packages)
-  (spacemacs/append-to-buffer spacemacs-loading-text)
-  ;; restore warning level before initialization
-  (setq warning-minimum-level :warning)
-  (config-system//initialize-packages)
-  (config-system//initialize-extensions
-   config-system-all-post-extensions-sorted)
-  (config-system//load-layer-files '("keybindings.el")))
+  (let ((layers (reverse config-system-layers)))
+    (config-system//load-layer-files layers '("funcs.el" "config.el"))
+    ;; fill the hash tables
+    (setq config-system-excluded-packages (config-system/get-excluded-packages layers))
+    (setq config-system-all-packages (config-system/get-packages layers))
+    (setq config-system-all-pre-extensions (config-system/get-extensions layers t))
+    (setq config-system-all-post-extensions (config-system/get-extensions layers))
+    ;; This is what you get when you have no test cases... hopefully I will code
+    ;; them soon :-)
+    ;; (message "excluded: %s" config-system-excluded-packages)
+    ;; (message "packages: %s" config-system-all-packages)
+    ;; (message "pre-extensions: %s" config-system-all-pre-extensions)
+    ;; (message "post-extensions: %s" config-system-all-post-extensions)
+    ;; filter them
+    (let ((excluded (append dotspacemacs-excluded-packages
+                            config-system-excluded-packages)))
+      (config-system//filter-out-excluded config-system-all-packages excluded)
+      (config-system//filter-out-excluded config-system-all-pre-extensions excluded)
+      (config-system//filter-out-excluded config-system-all-post-extensions excluded))
+    ;; number of chuncks for the loading screen
+    (let ((total (+ (ht-size config-system-all-packages)
+                    (ht-size config-system-all-pre-extensions)
+                    (ht-size config-system-all-post-extensions))))
+      (setq spacemacs-loading-dots-chunk-threshold
+            (/ total spacemacs-loading-dots-chunk-count)))
+    ;; filter them
+    (config-system//sort-packages-and-extensions)
+    ;; install and initialize packages and extensions
+    (config-system//initialize-extensions config-system-all-pre-extensions-sorted t)
+    (config-system//install-packages)
+    (spacemacs/append-to-buffer spacemacs-loading-text)
+    (config-system//initialize-packages)
+    (config-system//initialize-extensions config-system-all-post-extensions-sorted)
+    ;; restore warning level before initialization
+    (setq warning-minimum-level :warning)
+    (config-system//load-layer-files layers '("keybindings.el"))))
 
-(defun config-system//load-layer-files (files)
-  "Load the files of list FILES from all declared layers."
-  (dolist (layer (reverse config-system-config-layers))
+(defun config-system//load-layer-files (layers files)
+  "Load the files of list FILES for all LAYERS."
+  (dolist (layer layers)
     (let* ((sym (car layer))
            (dir (plist-get (cdr layer) :dir)))
       (dolist (file files)
@@ -186,85 +224,85 @@ declared at the layer level."
 (defsubst config-system//add-layer-to-hash (pkg layer hash)
   "Add LAYER to the list value stored in HASH with key PKG."
   (let ((list (ht-get hash pkg)))
-    (puthash pkg (add-to-list 'list layer t) hash)))
+    (eval `(push ',layer list))
+    (puthash pkg list hash)))
 
-(defun config-system//add-excluded-packages (layer)
-  "Add excluded packages declared in LAYER."
-  (let ((excl-var (intern (format "%s-excluded-packages" (symbol-name layer)))))
-    (when (boundp excl-var)
-      (setq config-system-excluded-packages-from-layers
-            (append config-system-excluded-packages-from-layers
-                    (eval excl-var))))))
-
-(defsubst config-system//filter-out-excluded-packages ()
-  "Remove excluded packages from the hash tables."
-  (mapc (lambda (h)
-          (dolist (x (ht-keys (eval h)))
-            (when (or (member x dotspacemacs-excluded-packages)
-                      (member x config-system-excluded-packages-from-layers))
-              (ht-remove (eval h) x))))
-        '(config-system-all-packages
-          config-system-all-pre-extensions
-          config-system-all-post-extensions)))
+(defsubst config-system//filter-out-excluded (hash excluded)
+  "Remove EXCLUDED packages from the hash tables HASH."
+  (dolist (pkg (ht-keys (eval hash)))
+    (when (or (member pkg excluded)) (ht-remove (eval hash) pkg))))
 
 (defun config-system//sort-packages-and-extensions ()
   "Sort the packages and extensions symbol and store them in
 `config-system-all-packages-sorted'
 `config-system-all-pre-extensions-sorted'
 `config-system-all-post-extensions-sorted'"
-  (let ((pkg-list (ht-keys config-system-all-packages))
-        (pre-list (ht-keys config-system-all-pre-extensions))
-        (post-list (ht-keys config-system-all-post-extensions)))
-    (setq config-system-all-packages-sorted
-          (mapcar 'intern (sort (mapcar 'symbol-name pkg-list) 'string<)))
-    (setq config-system-all-pre-extensions-sorted
-          (mapcar 'intern (sort (mapcar 'symbol-name pre-list) 'string<)))
-    (setq config-system-all-post-extensions-sorted
-          (mapcar 'intern (sort (mapcar 'symbol-name post-list) 'string<)))))
+  (setq config-system-all-packages-sorted
+        (config-system/sort-hash-table-keys config-system-all-packages))
+  (setq config-system-all-pre-extensions-sorted
+        (config-system/sort-hash-table-keys config-system-all-pre-extensions))
+  (setq config-system-all-post-extensions-sorted
+        (config-system/sort-hash-table-keys config-system-all-post-extensions)))
 
-(defun config-system//read-packages-and-extensions ()
-  "Load all packages and extensions declared in all layers and fill the
-corresponding hash tables:
-config-system-all-packages
-config-system-all-pre-extensions
-config-system-all-post-extensions "
-  (dolist (layer (reverse config-system-config-layers))
-    (let* ((sym (car layer))
-           (dir (plist-get (cdr layer) :dir))
-           (pkg-file (concat dir "packages.el"))
-           (ext-file (concat dir "extensions.el")))
-      (progn
-        ;; packages
+(defun config-system/sort-hash-table-keys (h)
+  "Return a sorted list of the keys in the given hash table H."
+  (mapcar 'intern (sort (mapcar 'symbol-name (ht-keys h)) 'string<)))
+
+(defun config-system/load-file (file)
+  "Assure that FILE is loaded only once."
+  (unless (member file config-system--loaded-files)
+    (load file)
+    (push file config-system--loaded-files)))
+
+(defun config-system/get-excluded-packages (layers)
+  "Read `layer-excluded-packages' lists for all passed LAYERS and return a list
+of all excluded packages."
+  (let (result)
+    (dolist (layer layers)
+      (let* ((layer-sym (car layer))
+             (dir (plist-get (cdr layer) :dir))
+             (pkg-file (concat dir "packages.el")))
         (when (file-exists-p pkg-file)
-          (load pkg-file)
-          (dolist (pkg (eval (intern (format "%s-packages" (symbol-name sym)))))
-            (config-system//add-excluded-packages sym)
-            (config-system//add-layer-to-hash
-             pkg sym config-system-all-packages)))
-        ;; extensions
-        (when (file-exists-p ext-file)
-          (load ext-file)
-          (let ((list-pre (intern (format "%s-pre-extensions"
-                                          (symbol-name sym))))
-                (list-post (intern (format "%s-post-extensions"
-                                           (symbol-name sym)))))
-            (when (boundp list-pre)
-              (dolist (pkg (eval list-pre))
-                (config-system//add-excluded-packages sym)
-                (config-system//add-layer-to-hash
-                 pkg sym config-system-all-pre-extensions)))
-            (when (boundp list-post)
-              (dolist (pkg (eval list-post))
-                (config-system//add-excluded-packages sym)
-                (config-system//add-layer-to-hash
-                 pkg sym config-system-all-post-extensions))))))))
-  (config-system//filter-out-excluded-packages)
-  ;; number of chuncks for the loading screen
-  (let ((total (+ (ht-size config-system-all-packages)
-                  (ht-size config-system-all-pre-extensions)
-                  (ht-size config-system-all-post-extensions))))
-  (setq spacemacs-loading-dots-chunk-threshold
-        (/ total spacemacs-loading-dots-chunk-count))))
+          (config-system/load-file pkg-file)
+          (let ((excl-var (intern (format "%s-excluded-packages"
+                                          (symbol-name layer-sym)))))
+            (when (boundp excl-var)
+              (mapc (lambda (x) (push x result)) (eval excl-var)))))))
+    result))
+
+(defun config-system//get-packages-or-extensions (layers file var)
+  "Read the packages or extensions lists for all passed LAYERS and
+ return a hash table of all packages where the key is a package symbol.
+
+FILE is a string with value `packages' or `extensions'.
+VAR is a string with value `packages', `pre-extensions' or `post-extensions'."
+  (let ((result #s(hash-table size 512 data ())))
+    (ht-clear result)
+    (dolist (layer layers)
+      (let* ((layer-sym (car layer))
+             (dir (plist-get (cdr layer) :dir))
+             (pkg-file (concat dir (format "%s.el" file))))
+        (when (file-exists-p pkg-file)
+          (config-system/load-file pkg-file)
+          (let* ((layer-name (symbol-name layer-sym))
+                 (packages (eval (intern (format "%s-%s" layer-name var)))))
+            (dolist (pkg packages)
+              (puthash pkg (cons layer-sym (ht-get result pkg)) result))))))
+    (ht-copy result)))
+
+(defun config-system/get-packages (layers)
+  "Read `layer-packages' lists for all passed LAYERS and return a hash table
+of all packages where the key is a package symbol."
+  (config-system//get-packages-or-extensions layers "packages" "packages"))
+
+(defun config-system/get-extensions (layers &optional pre)
+  "Read `layer-pre-extensions' or `layer-post-extensions' lists for all passed
+LAYERS and return a hash table of all packages where the key is a package
+symbol.
+If PRE is non nil then `layer-pre-extensions' is read instead of
+ `layer-post-extensions'."
+  (let ((var (if pre "pre-extensions" "post-extensions")))
+    (config-system//get-packages-or-extensions layers "extensions" var)))
 
 (defun config-system//install-packages ()
   "Install the packages all the packages if there are not currently installed."
@@ -305,18 +343,17 @@ config-system-all-post-extensions "
 
 (defun config-system//initialize-packages ()
   "Initialize all the declared packages."
-  (mapc (lambda (x) (config-system/initialize-package
+  (mapc (lambda (x) (config-system//initialize-package
                      x (ht-get config-system-all-packages x)))
         config-system-all-packages-sorted))
 
-(defun config-system/initialize-package (pkg layers)
+(defun config-system//initialize-package (pkg layers)
   "Initialize the package PKG from the configuration layers LAYERS."
   (dolist (layer layers)
-    (let* ((init-func (intern (format "%s/init-%s" (symbol-name layer) pkg))))
+    (let* ((init-func (intern (format "%s/init-%s" layer pkg))))
       (spacemacs/loading-animation)
       (if (and (package-installed-p pkg) (fboundp init-func))
-          (progn  (spacemacs/message "Package: Initializing %s:%s..."
-                           (symbol-name layer) pkg)
+          (progn  (spacemacs/message "Package: Initializing %s:%s..." layer pkg)
                   (funcall init-func))))))
 
 (defun config-system//initialize-pre-extension (ext layers)
@@ -336,41 +373,52 @@ If PRE is non nil then the extensions are pre-extensions."
   "Initialize the extension EXT from the configuration layers LAYERS.
 If PRE is non nil then the extension is a pre-extensions."
   (dolist (layer layers)
-    (let* ((l (assq layer config-system-config-layers))
+    (let* ((l (assq layer config-system-layers))
            (ext-dir (plist-get (cdr l) :ext-dir))
-           (init-func (intern (format "%s/init-%s" (symbol-name layer) ext))))
+           (init-func (intern (format "%s/init-%s" layer ext))))
       (add-to-list 'load-path (format "%s%s/" ext-dir ext))
       (spacemacs/loading-animation)
       (spacemacs/message "%s-extension: Initializing %s:%s..."
-                         (if pre "Pre" "Post") (symbol-name layer) ext)
+                         (if pre "Pre" "Post") layer ext)
       (if (fboundp init-func) (funcall init-func)))))
 
-(defun config-system/initialized-packages-count ()
+(defun config-system//initialized-packages-count ()
   "Return the number of initialized packages and extensions."
   (+ (ht-size config-system-all-packages)
      (ht-size config-system-all-pre-extensions)
      (ht-size config-system-all-post-extensions)))
 
-(defun config-system/declare-dotspacemacs-configuration-layers ()
+(defun config-system/declare-layers ()
+  "Declare default layers and user layers from the dotfile by filling the
+`config-system-layers' variable."
+  (setq config-system-layer-paths (config-system//discover-layers))
+  (push (config-system//declare-layer 'spacemacs) config-system-layers)
+  (mapc (lambda (layer) (push layer config-system-layers))
+        (config-system//declare-dotspacemacs-configuration-layers)))
+
+(defun config-system//declare-dotspacemacs-configuration-layers ()
   "Declare the configuration layer in order of appearance in list
 `dotspacemacs-configuration-layers' defined in ~/.spacemacs."
-  (config-system/discover-layers)
-  (if (boundp 'dotspacemacs-configuration-layers)
-      (dolist (layer dotspacemacs-configuration-layers)
-        (config-system/declare-layer layer t))))
+  ;; (message "layer paths: %s" config-system-layer-paths)
+  (let (result '())
+    (if (boundp 'dotspacemacs-configuration-layers)
+        (dolist (layer dotspacemacs-configuration-layers)
+          (push (config-system//declare-layer layer) result)))
+    result))
 
 (defun config-system/get-layer-property (symlayer prop)
   "Return the value of the PROPerty for the given SYMLAYER symbol."
-  (let* ((layer (assq symlayer config-system-config-layers)))
+  (let* ((layer (assq symlayer config-system-layers)))
          (plist-get (cdr layer) prop)))
 
-(defun config-system/get-packages-dependencies ()
+(defun config-system//get-packages-dependencies ()
   "Returns a hash map where key is a dependency package symbol and value is
 a list of all packages which depend on it."
   (let ((result #s(hash-table size 200 data ())))
+    (ht-clear result)
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
-             (deps (config-system/get-package-dependencies pkg-sym)))
+             (deps (config-system//get-package-dependencies pkg-sym)))
         (dolist (dep deps)
           (let* ((dep-sym (car dep))
                  (value (ht-get result dep-sym)))
@@ -379,7 +427,7 @@ a list of all packages which depend on it."
                      result)))))
     result))
 
-(defun config-system/get-implicit-packages ()
+(defun config-system//get-implicit-packages ()
   "Returns a list of all packages in `packages-alist' which are not found
 in `config-system-all-packages'"
   (let ((imp-pkgs))
@@ -389,7 +437,7 @@ in `config-system-all-packages'"
             (add-to-list 'imp-pkgs pkg-sym))))
     imp-pkgs))
 
-(defun config-system/get-orphan-packages (implicit-pkgs dependencies)
+(defun config-system//get-orphan-packages (implicit-pkgs dependencies)
   "Return a list of all orphan packages which are basically meant to be
 deleted safely."
   (let ((result '()))
@@ -411,14 +459,14 @@ deleted safely."
                   :initial-value t))
       (not (ht-contains? config-system-all-packages pkg)))))
 
-(defun config-system/get-package-dependencies (package)
+(defun config-system//get-package-dependencies (package)
   "Return the dependencies alist for PACKAGE."
   (let ((pkg (assq package package-alist)))
     (cond
      ((version< emacs-version "24.4") (aref (cdr pkg) 1))
      (t (package-desc-reqs (cadr pkg))))))
 
-(defun config-system/get-package-version (package)
+(defun config-system//get-package-version (package)
   "Return the version string for PACKAGE."
   (let ((pkg (assq package package-alist)))
     (cond
@@ -427,21 +475,21 @@ deleted safely."
      (t
       (package-version-join (package-desc-version (cadr pkg)))))))
 
-(defun config-system/package-delete (package)
+(defun config-system//package-delete (package)
   "Delete the passed PACKAGE."
   (cond
    ((version< emacs-version "24.4")
     (package-delete (symbol-name package)
-                    (config-system/get-package-version package)))
+                    (config-system//get-package-version package)))
    (t
     (package-delete (cadr (assq package package-alist))))))
 
 (defun config-system/delete-orphan-packages ()
   "Delete all the orphan packages."
   (interactive)
-  (let* ((dependencies (config-system/get-packages-dependencies))
-         (implicit-packages (config-system/get-implicit-packages))
-         (orphans (config-system/get-orphan-packages implicit-packages
+  (let* ((dependencies (config-system//get-packages-dependencies))
+         (implicit-packages (config-system//get-implicit-packages))
+         (orphans (config-system//get-orphan-packages implicit-packages
                                                   dependencies))
          (orphans-count (length orphans)))
     ;; (message "dependencies: %s" dependencies)
@@ -462,7 +510,7 @@ deleted safely."
                      orphan
                      deleted-count
                      orphans-count) t)
-            (config-system/package-delete orphan)
+            (config-system//package-delete orphan)
             (redisplay))
           (spacemacs/append-to-buffer "\n"))
       (spacemacs/message "No orphan package to delete."))))
@@ -478,7 +526,7 @@ deleted safely."
                               (time-subtract (current-time) emacs-start-time))))
                 (spacemacs/append-to-buffer
                  (format "[%s packages loaded in %.3fs]\n"
-                         (config-system/initialized-packages-count)
+                         (config-system//initialized-packages-count)
                          elapsed)))
               )))
 

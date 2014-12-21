@@ -1066,6 +1066,7 @@ Buffer manipulation commands (start with `b`):
 
 Key Binding            |                 Description
 -----------------------|----------------------------------------------------------------
+<kbd>SPC b b</kbd>     | switch to alternate buffer (switch back and forth)
 <kbd>SPC b d</kbd>     | delete the current buffer **and** file (ask for confirmation)
 <kbd>SPC b e</kbd>     | erase the content of the buffer (ask for confirmation)
 <kbd>SPC b k</kbd>     | kill the current buffer
@@ -1084,14 +1085,14 @@ Key Binding            |                 Description
 
 Files manipulation commands (start with `f`):
 
-Key Binding            |                 Description
------------------------|----------------------------------------------------------------
-<kbd>SPC f f</kbd>     | open a file using `ido`
-<kbd>SPC f i</kbd>     | open your `init.el` file
-<kbd>SPC f s</kbd>     | save a file
-<kbd>SPC f S</kbd>     | save all files
-<kbd>SPC f t</kbd>     | toggle file tree side bar using [NeoTree][neotree]
-<kbd>SPC f y</kbd>     | show current file absolute path in the minibuffer
+Key Binding                               |                 Description
+------------------------------------------|----------------------------------------------------------------
+<kbd>SPC f f</kbd>                        | open a file using `ido`
+<kbd>SPC f i</kbd>                        | open your `init.el` file
+<kbd>SPC f s</kbd>                        | save a file
+<kbd>SPC f S</kbd>                        | save all files
+<kbd>SPC f t</kbd> or <kbd>SPC TAB</kbd>  | toggle file tree side bar using [NeoTree][neotree]
+<kbd>SPC f y</kbd>                        | show current file absolute path in the minibuffer
 
 ### Ido
 
@@ -1138,7 +1139,7 @@ file tree with [NeoTree][neotree].
 
 To toggle the `NeoTree` buffer press:
 
-    <SPC> f t
+    <SPC> TAB
 
 In the `NeoTree` buffer:
 

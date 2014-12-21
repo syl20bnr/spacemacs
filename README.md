@@ -33,15 +33,17 @@ Spacemacs integrates hundreds of packages and is ready to use with no additional
 configuration. It provides excellent support for many languages, including the
 following:
 
-- Elixir
-- Haskell
-- JavaScript
+- [Elixir][]
+- [Haskell][]
+- [JavaScript][]
 - LaTex
-- Python
-- R
-- Ruby
+- [Python][]
+- [R][]
+- [Ruby][]
 - SCSS
-- Scala
+- [Scala][]
+- [Clojure][]
+- [C-C++][]
 
 It also comes with [Git support][] and [project management][] tools. All these
 features are loaded on-demand to keep startup time short.
@@ -229,6 +231,14 @@ your `~/.spacemacs` file.
 In spacemacs the universal argument is by default on `<SPC> u` instead of `C-u`
 which is used to scroll up as in Vim.
 
+## Configuration layers and Packages discovery
+
+By using `helm-spacemacs` with <kbd>SPC f e h</kbd> you can quickly search
+for a package and get the name of the layers using it.
+
+You can also easily go to the `README.md` of a layer or go to the initialization
+function of a package.
+
 ## Key bindings discovery
 
 Thanks to [guide-key][], whenever a prefix command is pressed (like `<SPC>`)
@@ -326,3 +336,12 @@ This is a known issue with the `emacs` brew formula. It is recommended to use th
 [MacType]: https://code.google.com/p/mactype/
 [emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
 [homebrew]: https://github.com/Homebrew/homebrew
+[Elixir]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/erlang-elixir
+[Haskell]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/haskell
+[JavaScript]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/javascript
+[Python]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/python
+[R]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/ess
+[Ruby]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/ruby
+[Scala]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/scala
+[Clojure]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/clojure
+[C-C++]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/c-c++
