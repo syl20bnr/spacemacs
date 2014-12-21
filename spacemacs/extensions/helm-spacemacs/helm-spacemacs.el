@@ -28,21 +28,59 @@
 
 (require 'config-system)
 (require 'helm)
+(require 'ht)
+
+(defvar helm-spacemacs-all-layers '()
+  "Alist of all configuration layers.")
+
+(defvar helm-spacemacs-all-packages '()
+  "Hash table of all packages in all layers.")
+
+;;;###autoload
+(define-minor-mode helm-spacemacs-mode
+  "Layers discovery with helm interface."
+  :group 'spacemacs
+  :global t
+  (if helm-spacemacs-mode
+      (progn
+        (mapc (lambda (layer) (push (config-system//declare-layer layer)
+                                    helm-spacemacs-all-layers))
+              (config-system/get-layers-list))
+        (setq helm-spacemacs-all-packages (config-system/get-packages
+                                           helm-spacemacs-all-layers)))
+    (setq helm-spacemacs-all-layers nil
+          helm-spacemacs-all-packages nil)))
 
 ;;;###autoload
 (defun helm-spacemacs ()
   "Layers discovery with helm interface."
   (interactive)
+  (helm-spacemacs-mode)
   (helm :buffer "*helm: spacemacs*"
-        :sources `(,(helm-spacemacs//layer-source))))
+        :sources `(,(helm-spacemacs//layer-source)
+                   ,(helm-spacemacs//package-source))))
 
 (defun helm-spacemacs//layer-source ()
   "Construct the helm source for the layer section."
   `((name . "Layers")
-    (candidates . ,(sort (ht-keys config-system-layer-paths) 'string<))
+    (candidates . ,(sort (config-system/get-layers-list) 'string<))
     (action . (("Open README.md" . helm-spacemacs//layer-action-open-readme)
                ("Open packages.el" . helm-spacemacs//layer-action-open-packages)
                ("Open extensions.el" . helm-spacemacs//layer-action-open-extensions)))))
+
+(defun helm-spacemacs//package-source ()
+  "Construct the helm source for the packages."
+  `((name . "Packages")
+    (candidates . ,(helm-spacemacs//package-candidates))
+    (action . (("Go to init function" . helm-spacemacs//package-action-goto-init-func)))))
+
+(defun helm-spacemacs//package-candidates ()
+  "Return the sorted candidates for package source."
+  (let (result)
+    (ht-aeach (dolist (layer value)
+                (push (format "(%s) %s" layer key) result))
+              helm-spacemacs-all-packages)
+    (sort result 'string<)))
 
 (defun helm-spacemacs//layer-action-open-file (file candidate)
   "Open FILE of the passed CANDIDATE."
@@ -63,6 +101,20 @@
 (defun helm-spacemacs//layer-action-open-extensions (candidate)
   "Open the `extensions.el' file of the passed CANDIDATE."
   (helm-spacemacs//layer-action-open-file "extensions.el" candidate))
+
+(defun helm-spacemacs//package-action-goto-init-func (candidate)
+  "Open the file `packages.el' and go to the init function."
+  (save-match-data
+    (string-match "^(\\(.+\\))\s\\(.+\\)$" candidate)
+    (let* ((layer (match-string 1 candidate))
+           (package (match-string 2 candidate))
+           (path (file-name-as-directory
+                  (concat (ht-get config-system-layer-paths (intern layer))
+                          layer)))
+           (filename (concat path "packages.el")))
+      (find-file filename)
+      (re-search-forward (format "init-%s" package))
+      (beginning-of-line))))
 
 (provide 'helm-spacemacs)
 
