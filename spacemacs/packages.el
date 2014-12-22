@@ -1145,10 +1145,10 @@ determine the state to enable when escaping from the insert state.")
         "Initialize helm-eshell."
         ;; this is buggy for now
         ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
-        (evil-leader/set-key-for-mode 'eshell-mode "mh" 'spacemacs/helm-eshell-history))
+        (evil-leader/set-key-for-mode 'eshell-mode "mH" 'spacemacs/helm-eshell-history))
       (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
       ;;shell
-      (evil-leader/set-key-for-mode 'shell-mode "mh" 'spacemacs/helm-shell-history)
+      (evil-leader/set-key-for-mode 'shell-mode "mH" 'spacemacs/helm-shell-history)
 
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
@@ -1304,8 +1304,8 @@ determine the state to enable when escaping from the insert state.")
     (progn
       (setq ledger-post-amount-alignment-column 62)
       (evil-leader/set-key-for-mode 'ledger-mode
-        "md" 'ledger-delete-current-transaction
-        "ma" 'ledger-add-transaction))))
+        "mhd" 'ledger-delete-current-transaction
+        "ma"  'ledger-add-transaction))))
 
 (defun spacemacs/init-leuven-theme ()
   (use-package leuven-theme

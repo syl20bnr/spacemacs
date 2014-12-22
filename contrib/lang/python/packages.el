@@ -28,7 +28,7 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (evil-leader/set-key-for-mode 'python-mode
-        "md" 'anaconda-mode-view-doc
+        "mhd" 'anaconda-mode-view-doc
         "mg"  'anaconda-mode-goto)
       (spacemacs|hide-lighter anaconda-mode))))
 
