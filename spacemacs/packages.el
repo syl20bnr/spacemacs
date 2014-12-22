@@ -15,6 +15,7 @@
     diminish
     dired+
     elisp-slime-nav
+    eldoc
     evil
     evil-args
     evil-escape
@@ -466,9 +467,20 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
   (use-package elisp-slime-nav
+    :commands elisp-slime-nav-mode
+    :defer t
+    :init
+    (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))))
+
+(defun spacemacs/init-eldoc ()
+  ;; Elisp show definition in status line
+  (use-package eldoc
+    :commands eldoc-mode
     :defer t
     :config
-    (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))))
+    (progn 
+      (setq eldoc-idle-delay 3)
+      (spacemacs|hide-lighter eldoc-mode))))
 
 (defun spacemacs/init-evil ()
   (use-package evil
