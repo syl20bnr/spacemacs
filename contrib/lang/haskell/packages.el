@@ -69,20 +69,20 @@
 
       
       (evil-leader/set-key-for-mode 'haskell-mode
-        "mC"  'haskell-compile
-        "mt"  'haskell-process-do-type
-        "mi"  'haskell-process-do-info
-        "mb"  'haskell-process-cabal-build
-        "mu"  'haskell-mode-find-uses
-        "mg"  'haskell-mode-jump-to-def-or-tag
+        "mt"   'haskell-process-do-type
+        "mi"   'haskell-process-do-info
+        "mu"   'haskell-mode-find-uses
+        "mg"   'haskell-mode-jump-to-def-or-tag
 
         "msb"  'haskell-process-load-or-reload
         "msc"  'haskell-interactive-mode-clear
         "mss"  'haskell-interactive-bring
         "msS"  'haskell-interactive-switch
 
-        "mcc" 'haskell-process-cabal
-        "mcv" 'haskell-cabal-visit-file
+        "mca"  'haskell-process-cabal
+        "mcb"  'haskell-process-cabal-build
+        "mcc"  'haskell-compile
+        "mcv"  'haskell-cabal-visit-file
 
         "mhh"  'hoogle
         "mhy"  'hayoo
@@ -91,7 +91,7 @@
         "mdd"  'haskell-debug
         "mdb"  'haskell-debug/break-on-function
         "mdn"  'haskell-debug/next
-        "mdp"  'haskell-debug/previous
+        "mdN"  'haskell-debug/previous
         "mdB"  'haskell-debug/delete
         "mdc"  'haskell-debug/continue
         "mda"  'haskell-debug/abandon
