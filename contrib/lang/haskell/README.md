@@ -29,12 +29,11 @@ Top-level commands are prefixed by <kbd>SPC m</kbd>:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m C</kbd>    | compile the current project
 <kbd>SPC m t</kbd>    | gets the type of the identifier under the cursor
 <kbd>SPC m i</kbd>    | gets information for the identifier under the cursor
-<kbd>SPC m b</kbd>    | build the current cabal project
 <kbd>SPC m u</kbd>    | finds uses of identifier
 <kbd>SPC m g</kbd>    | go to definition or tag
+<kbd>SPC m f</kbd>    | format buffer using haskell-stylish
 
 #### Documentation commands:
 Documentation commands are prefixed by <kbd>SPC m h</kbd>
@@ -51,7 +50,9 @@ Cabal commands are prefixed by <kbd>SPC m c</kbd>:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m c c</kbd>  | cabal actions
+<kbd>SPC m c a</kbd>  | cabal actions
+<kbd>SPC m c b</kbd>  | build the current cabal project, i.e. invoke `cabal build`
+<kbd>SPC m c c</kbd>  | compile the current project, i.e. invoke `ghc`
 <kbd>SPC m c v</kbd>  | visit the cabal file
 
 #### Debug commands:
@@ -62,7 +63,7 @@ Debug commands are prefixed by <kbd>SPC m d</kbd>:
 <kbd>SPC m d d </kbd> | start debug process, needs to be run first
 <kbd>SPC m d b </kbd> | insert breakpoint at function
 <kbd>SPC m d n </kbd> | next breakpoint
-<kbd>SPC m d p </kbd> | previous breakpoint
+<kbd>SPC m d N </kbd> | previous breakpoint
 <kbd>SPC m d B </kbd> | delete breakpoint
 <kbd>SPC m d c </kbd> | continue current process
 <kbd>SPC m d a </kbd> | abandon current process
