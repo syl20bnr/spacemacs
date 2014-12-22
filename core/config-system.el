@@ -159,10 +159,8 @@ the following keys:
          (base-dir (config-system/get-layer-path sym))
          (dir (format "%s%s/" base-dir sym-name))
          (ext-dir (format "%sextensions/" dir)))
-    (if (file-exists-p dir)
-        (cons sym (list :dir dir :ext-dir ext-dir))
-      (spacemacs/message "Warning: layer %s does not exist in dir %s!"
-                         sym-name dir))))
+    (when (and base-dir (file-exists-p dir))
+        (cons sym (list :dir dir :ext-dir ext-dir)))))
 
 (defun config-system/get-layers-list ()
   "Return a list of all discovered layer symbols."
@@ -170,7 +168,9 @@ the following keys:
 
 (defun config-system/get-layer-path (layer)
   "Return the path for LAYER symbol."
-  (ht-get config-system-layer-paths layer))
+  (let ((path (ht-get config-system-layer-paths layer)))
+    (unless path (spacemacs/message "Warning: Cannot find layer %s !" layer))
+    path))
 
 (defun config-system/load-layers ()
   "Load all declared layers."
