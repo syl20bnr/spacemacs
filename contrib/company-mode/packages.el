@@ -58,6 +58,12 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
 
       (spacemacs|diminish company-mode " Ⓒ"))))
 
+(defun company-mode/init-company-c-headers ()
+  (use-package company-c-headers
+    :defer t
+    :init
+    (add-to-list 'company-backends 'company-c-headers)))
+
 (defun company-mode/init-company-tern ()
   (use-package company-tern
     :defer t

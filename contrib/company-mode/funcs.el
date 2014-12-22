@@ -76,7 +76,7 @@
              ;; them past our error filtering
              (setf (flycheck-error-message err)
                    (or (flycheck-error-message err) "no message")))
-           (flycheck-fold-include-errors errors "In file included from")))
+           (flycheck-fold-include-levels errors "In file included from")))
        :modes (c-mode c++-mode)
        :next-checkers ((warning . c/c++-cppcheck)))
      (add-to-list 'flycheck-checkers 'c/c++-company)))
