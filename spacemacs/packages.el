@@ -858,9 +858,12 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-flycheck ()
   (use-package flycheck
+    :commands flycheck-mode
     :defer t
     :init
     (progn
+      (evil-leader/set-key
+        "ef" 'flycheck-mode)
       (dolist (mode '(c
                       coffee
                       js
@@ -950,11 +953,14 @@ determine the state to enable when escaping from the insert state.")
         :fringe-face 'flycheck-fringe-info)
 
       ;; key bindings
-      (evil-leader/set-key
-        "fc" 'flycheck-clear
-        "fl" 'flycheck-list-errors
-        "fn" 'flycheck-next-error
-        "fp" 'flycheck-previous-error))))
+      (add-hook 'flycheck-mode-hook '(lambda ()
+                                       (evil-leader/set-key
+                                         "ec" 'flycheck-clear
+                                         "el" 'flycheck-list-errors
+                                         "en" 'flycheck-next-error
+                                         "ep" 'flycheck-previous-error)
+                                       ))
+      )))
 
 (defun spacemacs/init-flycheck-ledger ()
   (eval-after-load 'flycheck
