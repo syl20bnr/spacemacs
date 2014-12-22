@@ -21,6 +21,7 @@
     evil-escape
     evil-exchange
     evil-iedit-state
+    evil-indent-textobject
     evil-jumper
     evil-leader
     evil-lisp-state
@@ -653,6 +654,9 @@ determine the state to enable when escaping from the insert state.")
   (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode)
   (add-to-hooks 'spacemacs/evil-state-lazy-loading '(prog-mode-hook
                                                      markdown-mode-hook)))
+
+(defun spacemacs/init-evil-indent-textobject ()
+  (use-package evil-indent-textobject))
 
 (defun spacemacs/init-evil-jumper ()
   (use-package evil-jumper
