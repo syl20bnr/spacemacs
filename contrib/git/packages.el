@@ -67,6 +67,11 @@ implementation."
       (setq git-gutter:hide-gutter t)
       ;; Don't need log/message.
       (setq git-gutter:verbosity 0)
+      (evil-leader/set-key
+        "ga" 'git-gutter:stage-hunk
+        "gr" 'git-gutter:revert-hunk
+        "gk" 'git-gutter:previous-hunk
+        "gj" 'git-gutter:next-hunk)
       (setq git-gutter-fr:side 'right-fringe)
       ;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
       ;; custom graphics that works nice with half-width fringes
