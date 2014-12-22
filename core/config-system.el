@@ -285,9 +285,10 @@ VAR is a string with value `packages', `pre-extensions' or `post-extensions'."
         (when (file-exists-p pkg-file)
           (config-system/load-file pkg-file)
           (let* ((layer-name (symbol-name layer-sym))
-                 (packages (eval (intern (format "%s-%s" layer-name var)))))
-            (dolist (pkg packages)
-              (puthash pkg (cons layer-sym (ht-get result pkg)) result))))))
+                 (packages-var (intern (format "%s-%s" layer-name var))))
+            (when (boundp packages-var)
+              (dolist (pkg (eval packages-var))
+                (puthash pkg (cons layer-sym (ht-get result pkg)) result)))))))
     (ht-copy result)))
 
 (defun config-system/get-packages (layers)
