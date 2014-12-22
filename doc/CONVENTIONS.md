@@ -107,9 +107,22 @@ or more bindings for the same thing
 
 ### Debugging
 
-    Key           |                 Description
-------------------|------------------------------------------------------------
-<kbd>m b</kbd>    | toggle a breakpoint
+The base prefix for debugging commands is <kbd>SPC d</kbd>.
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>m d a</kbd>     | abandon current process
+<kbd>m d b</kbd>     | toggle a breakpoint
+<kbd>m d c</kbd>     | continue current process
+<kbd>m d d</kbd>     | start debug process
+<kbd>m d n</kbd>     | next breakpoint
+<kbd>m d N</kbd>     | previous breakpoint
+
+Notes:
+- Ideally a micro-state for breakpoint navigation should be provided.
+- If there is no toggle breakpoint function, then it should be implemented at
+the spacemacs level and ideally the function should be proposed as a patch
+upstream (major mode repository).
 
 ### Code navigation
 
