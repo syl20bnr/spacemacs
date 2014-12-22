@@ -55,7 +55,7 @@
           "mpf" 'preview-cache-preamble
           "mpc" 'preview-clearout
 
-          "m?" 'TeX-doc ;; TeX-doc is a very slow function
+          "mhd" 'TeX-doc ;; TeX-doc is a very slow function
           )
 
         (setq-default TeX-auto-save t)

@@ -63,7 +63,7 @@
         "ml" 'evil-lisp-state
         "mt" 'racket-test
         "mg" 'racket-visit-definition
-        "md" 'racket-doc)
+        "mhd" 'racket-doc)
       (add-hook 'racket-mode-hook
                 '(lambda ()
                    (define-key racket-mode-map (kbd "H-r") 'racket-run))))))

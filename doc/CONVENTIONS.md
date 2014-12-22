@@ -16,7 +16,7 @@
             - [Depending on the language](#depending-on-the-language)
         - [Debugging](#debugging)
         - [Code navigation](#code-navigation)
-        - [Documentation](#documentation)
+        - [Getting Help or Documentation](#getting-help-or-documentation)
         - [Evilify buffers](#evilify-buffers)
         - [Navigation in `insert state` buffers](#navigation-in-insert-state-buffers)
 
@@ -117,13 +117,14 @@ or more bindings for the same thing
 ------------------|------------------------------------------------------------
 <kbd>m g</kbd>    | go to definition of thing under point
 
-### Documentation
+### Getting Help or Documentation
+
+The base prefix for help commands is <kbd>SPC h</kbd>. Documentation is
+considered as an help command.
 
     Key           |                 Description
 ------------------|------------------------------------------------------------
-<kbd>m d</kbd>    | documentation of thing under point
-
-**TBD**
+<kbd>m h d</kbd>  | documentation of thing under point
 
 ### Evilify buffers
 

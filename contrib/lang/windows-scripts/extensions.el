@@ -19,7 +19,7 @@
       (add-hook 'outline-mode-hook 'windows-scripts/dos-outline-hook))
     :config
     (evil-leader/set-key-for-mode 'dos-mode
-      "mD"  'dos-help-cmd  
+      "mhD" 'dos-help-cmd
       "meb" 'dos-run
       "meB" 'dos-run-args
       "ms"  'dos-sep

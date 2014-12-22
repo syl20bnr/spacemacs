@@ -16,7 +16,7 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (eval-after-load 'scss-mode
-      '(evil-leader/set-key-for-mode 'scss-mode "mh" 'helm-css-scss))))
+      '(evil-leader/set-key-for-mode 'scss-mode "mg" 'helm-css-scss))))
 
 (defun html/init-web-mode ()
   (use-package web-mode
