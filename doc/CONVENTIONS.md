@@ -15,6 +15,7 @@
         - [Interactions with Tests](#interactions-with-tests)
             - [For all languages](#for-all-languages)
             - [Depending on the language](#depending-on-the-language)
+        - [Building and Compilation](#building-and-compilation)
         - [Debugging](#debugging)
         - [Code navigation](#code-navigation)
         - [Getting Help or Documentation](#getting-help-or-documentation)
@@ -117,6 +118,15 @@ an auto-save of the buffer before executing the tests.
 
 Note that there are overlaps, depending on the language we will choose one
 or more bindings for the same thing
+
+### Building and Compilation
+
+The base prefix for major mode specific compilation is <kbd>SPC m c</kbd>.
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>m c c</kbd>     | compile
+<kbd>m c r</kbd>     | recompile
 
 ### Debugging
 
