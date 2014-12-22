@@ -10,6 +10,7 @@
     - [Key bindings conventions](#key-bindings-conventions)
         - [Prefix reserved to the user](#prefix-reserved-to-the-user)
         - [Prefix reserved to the current major mode](#prefix-reserved-to-the-current-major-mode)
+        - [Navigation between items](#navigation-between-items)
         - [Interactions with REPLs](#interactions-with-repls)
         - [Interactions with Tests](#interactions-with-tests)
             - [For all languages](#for-all-languages)
@@ -45,11 +46,23 @@ A package is initialized in a function with name `<layer>/init-xxx` where:
 
 ### Prefix reserved to the user
 
-`<SPC> o` must not be used by any layer. It is reserved for the user.
+<kbd>SPC o</kbd> must not be used by any layer. It is reserved for the user.
 
 ### Prefix reserved to the current major mode
 
-`<SPC> m` is reserved for the current major mode.
+<kbd>SPC m</kbd> is reserved for the current major mode. Three keys bindings
+are not an issue (ie. <kbd>SPC m h d</kbd>) since <kbd>SPC m</kbd> can be
+accessed via <kbd>,</kbd>.
+
+### Navigation between items
+
+To be consistent with the Vim way, <kbd>n</kbd> and <kbd>N</kbd> are favored
+over Emacs <kbd>n</kbd> and <kbd>p</kbd>.
+
+Ideally a micro-state should be provided to smooth the navigation experience.
+A micro-state allows to repeat key bindings without entering each time the
+prefix commands.
+More info on micro-states in the [documentation](DOCUMENTATION.md#micro-states).
 
 ### Interactions with REPLs
 
@@ -162,7 +175,18 @@ The related functions are:
 ### Navigation in `insert state` buffers
 
 Navigation in buffers like `Helm` and `ido` which are in `insert state` should
-be performed with <kbd>C-j</kbd> and <kdb>C-k</kbd> for vertical movements.
+be performed with <kbd>C-j</kbd> and <kbd>C-k</kbd> bindings for vertical
+movements.
+
+    Key         |                 Description
+----------------|------------------------------------------------------------
+<kbd>C-j</kbd>  | go down
+<kbd>C-k</kbd>  | go up
 
 History navigation in shells or REPLs buffers should be bound as well to
-<kbd>C-j</kbd> and <kdb>C-k</kbd>.
+<kbd>C-j</kbd> and <kbd>C-k</kbd>.
+
+    Key         |                 Description
+----------------|------------------------------------------------------------
+<kbd>C-j</kbd>  | next item in history
+<kbd>C-k</kbd>  | previous item in history
