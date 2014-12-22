@@ -33,6 +33,7 @@ Top-level commands are prefixed by <kbd>SPC m</kbd>:
 <kbd>SPC m i</kbd>    | gets information for the identifier under the cursor
 <kbd>SPC m u</kbd>    | finds uses of identifier
 <kbd>SPC m g</kbd>    | go to definition or tag
+<kbd>SPC m f</kbd>    | format buffer using haskell-stylish
 
 #### Documentation commands:
 Documentation commands are prefixed by <kbd>SPC m h</kbd>

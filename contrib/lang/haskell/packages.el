@@ -1,6 +1,7 @@
 (defvar haskell-packages
   '(
     flycheck
+    flycheck-haskell
     ghc
     haskell-mode
     ghci-completion
@@ -11,7 +12,8 @@
   (add-to-list 'haskell-packages 'company-ghc))
 
 (defun haskell/init-flycheck ()
-  (add-hook 'haskell-mode-hook 'flycheck-mode))
+  ;;(add-hook 'haskell-mode-hook 'flycheck-mode))
+  (add-hook 'flycheck-mode-hook 'flycheck-haskell-setup))
 
 (defun haskell/init-haskell-mode ()
   (require 'haskell-yas)
@@ -73,6 +75,7 @@
         "mi"   'haskell-process-do-info
         "mu"   'haskell-mode-find-uses
         "mg"   'haskell-mode-jump-to-def-or-tag
+        "mf"   'haskell-mode-stylish-buffer
 
         "msb"  'haskell-process-load-or-reload
         "msc"  'haskell-interactive-mode-clear
