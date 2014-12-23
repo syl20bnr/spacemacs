@@ -2035,10 +2035,11 @@ Achievements                                         | Account
 [First contribution][1st-contrib]                    | [trishume][]
 [First contribution layer][1st-clayer]               | [trishume][]
 [First blog article on Spacemacs][1st-article]       | [Wolfy87][]
-[100th issue (was a PR)][100th-issue]                | [danielwuz][]
+[100th issue (PR)][100th-issue]                      | [danielwuz][]
 [200th issue (question)][200th-issue]                | [justrajdeep][]
-[300th issue (was a PR)][300th-issue]                | [danielwuz][]
+[300th issue (PR)][300th-issue]                      | [danielwuz][]
 [100th pull request][100th-PR]                       | [bru][]
+PR gunner (8 PRs in a row)                           | [ralesi][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
 400th star                                           | [dbohdan][]
@@ -2139,6 +2140,7 @@ developers to elisp hackers!
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
 [bru]:https://github.com/bru
+[ralesi]:https://github.com/ralesi
 [Jackneill]:https://github.com/Jackneill
 [jb55]:https://github.com/jb55
 [use-package]: https://github.com/jwiegley/use-package
