@@ -871,12 +871,9 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-flycheck ()
   (use-package flycheck
-    :commands flycheck-mode
     :defer t
     :init
     (progn
-      (evil-leader/set-key
-        "ef" 'flycheck-mode)
       (dolist (mode '(c
                       coffee
                       js
@@ -965,15 +962,29 @@ determine the state to enable when escaping from the insert state.")
         :fringe-bitmap 'my-flycheck-fringe-indicator
         :fringe-face 'flycheck-fringe-info)
 
+      (defun spacemacs/next-error (&optional n reset)
+        "Dispatch to flycheck or standard emacs error."
+        (interactive "P")
+        (if (and (boundp 'flycheck-mode)
+                 (symbol-value flycheck-mode))
+            (call-interactively 'flycheck-next-error)
+          (call-interactively 'next-error)))
+
+      (defun spacemacs/previous-error (&optional n reset)
+        "Dispatch to flycheck or standard emacs error."
+        (interactive "P")
+        (if (and (boundp 'flycheck-mode)
+                 (symbol-value flycheck-mode))
+            (call-interactively 'flycheck-previous-error)
+          (call-interactively 'previous-error)))
+
       ;; key bindings
-      (add-hook 'flycheck-mode-hook '(lambda ()
-                                       (evil-leader/set-key
-                                         "ec" 'flycheck-clear
-                                         "el" 'flycheck-list-errors
-                                         "en" 'flycheck-next-error
-                                         "ep" 'flycheck-previous-error)
-                                       ))
-      )))
+      (evil-leader/set-key
+        "ec" 'flycheck-clear
+        "ef" 'flycheck-mode
+        "el" 'flycheck-list-errors
+        "en" 'spacemacs/next-error
+        "eN" 'spacemacs/previous-error))))
 
 (defun spacemacs/init-flycheck-ledger ()
   (eval-after-load 'flycheck
