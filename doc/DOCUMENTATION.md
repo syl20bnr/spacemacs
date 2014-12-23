@@ -93,6 +93,8 @@
         - [Increase/Decrease numbers](#increasedecrease-numbers)
         - [Spell checking](#spell-checking)
         - [Region selection](#region-selection)
+            - [Expand-region](#expand-region)
+            - [Indent text object](#indent-text-object)
         - [Region narrowing](#region-narrowing)
         - [Line formatting](#line-formatting)
         - [Auto-completion](#auto-completion)
@@ -843,7 +845,7 @@ They are both extended with various packages to build on their foundations.
                  Mode                   |             Description
 ----------------------------------------|--------------------------------------
 [evil-leader][]                         | vim leader that bring a new layer of keys in normal mode
-[evil-little-word][]                    | port of [camelcasemotion.vim][]
+[evil-indent-textobject][]              | add text object based on indentation level
 [evil-visualstar][]                     | search for current selection with `*`
 [evil-exchange][]                       | port of [vim-exchange][]
 [evil-surround][]                       | port of [vim-surround][]
@@ -1423,8 +1425,11 @@ Spell checking commands start with `S`:
 
 ### Region selection
 
-Vi `Visual` modes are all supported by `evil`, `Spacemacs` adds another
-`Visual` mode via the [expand-region][] mode.
+Vi `Visual` modes are all supported by `evil`.
+
+#### Expand-region
+
+`Spacemacs` adds another `Visual` mode via the [expand-region][] mode.
 
 Key Binding        |                 Description
 -------------------|----------------------------------------------------------------
@@ -1433,6 +1438,29 @@ Key Binding        |                 Description
 <kbd>V</kbd>       | contract the region by one semantic unit
 <kbd>r</kbd>       | reset the region to initial selection
 <kbd>ESC</kbd>     | leave expand-region mode
+
+#### Indent text object
+
+With [evil-indent-textobject] the following action can be performed in
+`normal state`:
+- <kbd>ii</kbd> - Inner Indentation: the surrounding textblock with the same
+indentation
+- <kbd>ai</kbd> - Above and Indentation: ii + the line above with a different
+indentation
+- <kbd>aI</kbd> - Above and Indentation+: ai + the line below with a different
+indentation
+
+Example (`|` is the point):
+
+```elisp
+(while (not done)
+  (messa|ge "All work and no play makes Jack a dull boy."))
+(1+ 41)
+```
+
+- <kbd>vii</kbd> will select the line with message
+- <kbd>vai</kbd> will select the whole while loop
+- <kbd>vaI</kbd> will select the whole fragment
 
 ### Region narrowing
 
@@ -2056,7 +2084,7 @@ developers to elisp hackers!
 [hflyspell]: https://gist.github.com/cofi/3013327
 [iedit]: https://github.com/tsdh/iedit
 [evil-iedit-state]: https://github.com/syl20bnr/evil-iedit-state
-[evil-little-word]: https://github.com/tarao/evil-plugins#evil-little-wordel
+[evil-indent-textobject]: https://github.com/cofi/evil-indent-textobject
 [evil-visualstar]: https://github.com/bling/evil-visualstar
 [evil-exchange]: https://github.com/Dewdrops/evil-exchange
 [evil-surround]: https://github.com/timcharper/evil-surround
