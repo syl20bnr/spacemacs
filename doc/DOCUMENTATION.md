@@ -819,12 +819,12 @@ display ASCII characters instead (may be useful in terminal).
 
    Unicode   |   ASCII    |                    Mode
 :-----------:|:----------:|----------------------------------------------------
-`⊞`          | R          | [golden-ratio][golden-ratio] mode
+`⊞`          | G          | [golden-ratio][golden-ratio] mode
 `Ⓐ`          | A          | [auto-complete][auto-complete] mode
 `Ⓒ`          | C          | [centered-cursor][centered-cursor] mode
 `Ⓔ`          | E          | [evil-org][evil-org-mode] mode
 `Ⓕ`          | F          | flycheck mode
-`Ⓖ`          | G          | guide-key mode
+`Ⓚ`          | K          | guide-key mode
 `Ⓘ`          | I          | aggressive indent mode
 `(Ⓟ)`        | (P)        | paredit mode
 `Ⓢ`          | S          | flyspell mode
@@ -1054,7 +1054,7 @@ selected or not. By default `golden-ratio` is off.
 
 The mode can be toggled on and off with:
 
-    <SPC> t r
+    <SPC> t g
 
 ### Buffers and Files
 

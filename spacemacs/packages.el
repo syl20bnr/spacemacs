@@ -1004,7 +1004,7 @@ determine the state to enable when escaping from the insert state.")
             (progn (golden-ratio-mode -1)(balance-windows))
           (golden-ratio-mode)
           (golden-ratio)))
-      (evil-leader/set-key "tr" 'spacemacs/toggle-golden-ratio))
+      (evil-leader/set-key "tg" 'spacemacs/toggle-golden-ratio))
     :config
     (progn
       (setq golden-ratio-extra-commands
@@ -1044,7 +1044,7 @@ determine the state to enable when escaping from the insert state.")
                    'spacemacs/no-golden-ratio-guide-key)
       (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
 
-      (spacemacs|diminish golden-ratio-mode " ⊞" " R"))))
+      (spacemacs|diminish golden-ratio-mode " ⊞" " G"))))
 
 (defun spacemacs/init-google-translate ()
   (use-package google-translate
@@ -1076,7 +1076,7 @@ determine the state to enable when escaping from the insert state.")
         (if (symbol-value guide-key-mode)
             (guide-key-mode -1)
           (guide-key-mode)))
-      (evil-leader/set-key "tG" 'spacemacs/toggle-guide-key)
+      (evil-leader/set-key "tk" 'spacemacs/toggle-guide-key)
       (setq guide-key/guide-key-sequence `("C-x"
                                            "C-c"
                                            ,dotspacemacs-leader-key
@@ -1095,7 +1095,7 @@ determine the state to enable when escaping from the insert state.")
       (setq guide-key/highlight-command-regexp
                    (cons spacemacs/prefix-command-string font-lock-warning-face))
       (guide-key-mode 1)
-      (spacemacs|diminish guide-key-mode " Ⓖ" " G"))))
+      (spacemacs|diminish guide-key-mode " Ⓚ" " K"))))
 
 (defun spacemacs/init-helm ()
   (use-package helm
