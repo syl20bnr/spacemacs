@@ -62,4 +62,4 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (tagedit-add-experimental-features)
       (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
-      (spacemacs|diminish tagedit-mode " Ⓣ"))))
+      (spacemacs|diminish tagedit-mode " Ⓣ" " T"))))

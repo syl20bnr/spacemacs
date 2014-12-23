@@ -34,7 +34,7 @@
                                       widget-button-click
                                       scroll-bar-toolkit-scroll
                                       evil-mouse-drag-region))))
-      (spacemacs|diminish centered-cursor-mode " Ⓒ"))))
+      (spacemacs|diminish centered-cursor-mode " Ⓒ" " C"))))
 
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet

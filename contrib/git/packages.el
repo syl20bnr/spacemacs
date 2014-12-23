@@ -58,7 +58,8 @@ implementation."
               (require 'git-gutter-fringe)
               (git-gutter-mode))
           (git-gutter-mode)
-          (if global-linum-mode (git-gutter:linum-setup))))
+          (if global-linum-mode (git-gutter:linum-setup)))
+        (spacemacs|hide-lighter git-gutter-mode))
       (add-to-hooks 'git/load-git-gutter '(markdown-mode-hook
                                            org-mode-hook
                                            prog-mode-hook)))
@@ -95,8 +96,7 @@ implementation."
                             "XXXXX.."
                             ".XXX..."
                             "..X...."
-                            )
-      (spacemacs|hide-lighter git-gutter-mode))))
+                            ))))
 
 (defun git/init-git-messenger ()
   (use-package git-messenger
