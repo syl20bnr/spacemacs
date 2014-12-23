@@ -1,8 +1,10 @@
 (defvar javascript-packages
   '(
     coffee-mode
+    flycheck
     js2-mode
     js2-refactor
+    json-mode
     tern
     tern-auto-complete
     )
@@ -25,6 +27,11 @@ which require an initialization must be listed explicitly in the list.")
       (add-hook 'coffee-mode-hook '(lambda ()
                                      (setq indent-line-function 'javascript/coffee-indent
                                            evil-shift-width coffee-tab-width))))))
+
+(defun javascript/init-flycheck ()
+  (add-hook 'coffee-mode-hook 'flycheck-mode)
+  (add-hook 'js2-mode-hook    'flycheck-mode)
+  (add-hook 'json-mode-hook   'flycheck-mode))
 
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
@@ -117,6 +124,10 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key-for-mode 'js2-mode "mk" 'js2r-kill)
       (evil-leader/set-key-for-mode 'js2-mode "xmj" 'js2r-move-line-down)
       (evil-leader/set-key-for-mode 'js2-mode "xmk" 'js2r-move-line-up))))
+
+(defun javascript/init-json-mode ()
+  (use-package json-mode
+    :defer t))
 
 (defun javascript/init-tern ()
   (use-package tern

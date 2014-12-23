@@ -60,7 +60,6 @@
     hl-anything
     ido-vertical-mode
     iedit
-    json-mode
     ledger-mode
     let-alist
     leuven-theme
@@ -872,15 +871,6 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-flycheck ()
   (use-package flycheck
     :defer t
-    :init
-    (progn
-      (dolist (mode '(c
-                      coffee
-                      js
-                      json
-                      ruby))
-        (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
-                  'flycheck-mode)))
     :config
     (progn
       (spacemacs|diminish flycheck-mode " Ⓕ")
@@ -1320,10 +1310,6 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-iedit ()
   (use-package iedit
-    :defer t))
-
-(defun spacemacs/init-json-mode ()
-  (use-package json-mode
     :defer t))
 
 (defun spacemacs/init-ledger-mode ()
