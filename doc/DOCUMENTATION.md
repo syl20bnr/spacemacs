@@ -1770,14 +1770,15 @@ Access commands to the various registers start with `r`:
 `Spacemacs` uses [Flycheck][flycheck] to gives error feedback on the fly.
 The checks are only performed at save time by default.
 
-Errors management commands (star with `f` for `flycheck`):
+Errors management commands (star with `e`):
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC f c</kbd>   | clear all errors
-<kbd>SPC f l</kbd>   | display the `flycheck` list of errors/warnings
-<kbd>SPC f n</kbd>   | go to the next `flycheck` error
-<kbd>SPC f p</kbd>   | go to the previous flycheck error
+<kbd>SPC e c</kbd>   | clear all errors
+<kbd>SPC e f</kbd>   | toggle flycheck
+<kbd>SPC e l</kbd>   | display the `flycheck` list of errors/warnings
+<kbd>SPC e n</kbd>   | go to the next error
+<kbd>SPC e p</kbd>   | go to the previous error
 
 Custom fringe bitmaps:
 
