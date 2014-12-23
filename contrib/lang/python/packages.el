@@ -39,10 +39,7 @@ which require an initialization must be listed explicitly in the list.")
     :init (add-to-list 'company-backends 'company-anaconda)))
 
 (defun python/init-eldoc ()
-  (use-package eldoc
-    :defer t
-    :init (add-hook 'python-mode-hook 'eldoc-mode)
-    :config (spacemacs|hide-lighter eldoc-mode)))
+  (add-hook 'python-mode-hook 'eldoc-mode))
 
 (defun python/init-evil-jumper ()
   (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
