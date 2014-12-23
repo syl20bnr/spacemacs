@@ -56,7 +56,7 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
 
       (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
 
-      (spacemacs|diminish company-mode " Ⓒ"))))
+      (spacemacs|diminish company-mode " Ⓒ" " C"))))
 
 (defun company-mode/init-company-c-headers ()
   (use-package company-c-headers

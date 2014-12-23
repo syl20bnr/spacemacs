@@ -813,25 +813,24 @@ The minor mode area can be toggled on and off with:
 
     <SPC> t m m
 
-   Lighter   |                              Mode
--------------|-----------------------------------------------------------------
-⊞            | [golden-ratio][golden-ratio] mode
-Ⓐ            | [auto-complete][auto-complete] mode
-Ⓒ            | [centered-cursor][centered-cursor] mode
-eⓅ           | [e-project][e-project] mode
-Ⓔ            | [evil-org][evil-org-mode] mode
-Ⓕ            | flycheck mode
-Ⓕ2           | flymake mode
-Ⓖ            | guide-key mode
-Ⓘ            | aggressive indent mode
-(Ⓟ)          | paredit mode
-Ⓢ            | flyspell mode
-(Ⓢ)          | [smartparens][sp] mode
-Ⓦ            | whitespace mode
-Ⓨ            | [yasnippet][yasnippet] mode
+Unicode symbols are displayed by default. Setting the variable
+`dotspacemacs-mode-line-unicode-symbols` to `nil` in your `~/.spacemacs` will
+display ASCII characters instead (may be useful in terminal).
 
-**Note:** in terminal the regular indicators are used instead of the utf-8
-ones.
+   Unicode   |   ASCII    |                    Mode
+:-----------:|:----------:|----------------------------------------------------
+`⊞`          | R          | [golden-ratio][golden-ratio] mode
+`Ⓐ`          | A          | [auto-complete][auto-complete] mode
+`Ⓒ`          | C          | [centered-cursor][centered-cursor] mode
+`Ⓔ`          | E          | [evil-org][evil-org-mode] mode
+`Ⓕ`          | F          | flycheck mode
+`Ⓖ`          | G          | guide-key mode
+`Ⓘ`          | I          | aggressive indent mode
+`(Ⓟ)`        | (P)        | paredit mode
+`Ⓢ`          | S          | flyspell mode
+`(Ⓢ)`        | (S)        | [smartparens][sp] mode
+`Ⓦ`          | W          | whitespace mode
+`Ⓨ`          | Y          | [yasnippet][yasnippet] mode
 
 # Base packages
 
@@ -1055,7 +1054,7 @@ selected or not. By default `golden-ratio` is off.
 
 The mode can be toggled on and off with:
 
-    <SPC> t g
+    <SPC> t r
 
 ### Buffers and Files
 
