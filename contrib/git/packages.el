@@ -130,11 +130,10 @@ implementation."
     :defer t
     :init
     (evil-leader/set-key
-      "gs" 'magit-status
       "gb" 'magit-blame-mode
-      "gC" 'magit-commit
       "gl" 'magit-log
-      )
+      "gs" 'magit-status
+      "gC" 'magit-commit)
     :config
     (progn
       (spacemacs|hide-lighter magit-auto-revert-mode)
