@@ -10,12 +10,16 @@
     :init
     (progn
       (defun windows-scripts/dos-outline-hook ()
-        (local-set-key (kbd "SPC m z") 'dos-mode)
         (defun outline-mouse-select ()
           "Select position and return to `dos-mode'."
           (interactive)
           (dos-mode)
           (beginning-of-line)))
+      (defun windows-scripts/dos-outline ()
+        "Set a local binding to be able to return easily in dos-mode."
+        (interactive)
+        (dos-outline)
+        (define-key evil-normal-state-local-map (kbd "SPC m z") 'dos-mode))
       (add-hook 'outline-mode-hook 'windows-scripts/dos-outline-hook))
     :config
     (evil-leader/set-key-for-mode 'dos-mode
@@ -25,4 +29,4 @@
       "ms"  'dos-sep
       "mt"  'dos-template-mini
       "mT"  'dos-template
-      "mz"  'dos-outline)))
+      "mz"  'windows-scripts/dos-outline)))
