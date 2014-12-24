@@ -1,6 +1,6 @@
 # Colors contribution layer for Spacemacs
 
-![logo](rainbow_dash.png)
+![logo](img/rainbow_dash.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**

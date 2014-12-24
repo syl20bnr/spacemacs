@@ -1,6 +1,6 @@
 # OSX contribution layer for Spacemacs
 
-![applogo](apple.png)![osxlogo](osx.png)
+![applogo](img/apple.png)![osxlogo](img/osx.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**

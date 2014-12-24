@@ -1,6 +1,6 @@
 # Scala contribution layer for Spacemacs
 
-![logo](scala.png)
+![logo](img/scala.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**

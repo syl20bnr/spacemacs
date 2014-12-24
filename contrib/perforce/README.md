@@ -1,6 +1,6 @@
 # Perforce contribution layer for Spacemacs
 
-![logo](p4.png)
+![logo](img/p4.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
