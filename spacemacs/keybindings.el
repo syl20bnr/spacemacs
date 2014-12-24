@@ -49,9 +49,12 @@
 (evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
 (evil-leader/set-key
+  "hdc" 'describe-char
   "hdf" 'describe-function
   "hdk" 'describe-key
   "hdm" 'describe-mode
+  "hdp" 'describe-package
+  "hdt" 'describe-theme
   "hdv" 'describe-variable)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key
