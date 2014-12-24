@@ -1009,10 +1009,10 @@ determine the state to enable when escaping from the insert state.")
     (progn
       (setq golden-ratio-extra-commands
             (append golden-ratio-extra-commands
-                    '(evil-window-left
-                      evil-window-right
-                      evil-window-up
-                      evil-window-down
+                    '(windmove-left
+                      windmove-right
+                      windmove-up
+                      windmove-down
                       select-window-0
                       select-window-1
                       select-window-2
