@@ -31,7 +31,7 @@ and we encourage you to do so :)
 
 To use this configuration layer, add it to your `~/.spacemacs`
 
-```
+```elisp
 (setq-default dotspacemacs-configuration-layers '(osx)
   "List of contribution to load."
 )
