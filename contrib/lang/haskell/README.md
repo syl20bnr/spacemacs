@@ -18,6 +18,23 @@ To use this contribution add it to your `~/.spacemacs`
 )
 ```
 
+This layer requires some external binaries to function.
+These are listed below, and can all be installed with `cabal install`:
+- `ghc-mod`
+- `hlint`
+- `stylish-haskell`
+
+Next Emacs needs to know of the directory of the binaries `~/.cabal/bin/` (or where ever cabal installs to by default on your system), which means that the directory has to be either added to your systems' `$PATH` or to Emacs' own `exec-path`.
+
+Only one of the options below is needed:
+
+- Add it to `$PATH`:
+`export PATH=~/.cabal/bin/:$PATH`
+Sidenote: emacs.app for OS X does not pick up `$PATH` from `~/.bashrc` or `~/.zshrc` when launched from outside a terminal.
+
+- Add it to Emacs, add the following to `.spacemacs` in `dotspacemacs/config`:
+`(add-to-list 'exec-path "~/.cabal/bin/")`
+
 ## Key bindings
 
 All Haskell specific bindings are prefixed with <kbd>SPC m</kbd>
