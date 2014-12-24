@@ -277,7 +277,7 @@ first.
 1. **Why installed packages with package-install are automatically deleted by
 Spacemacs when it starts ?**
 To declare new packages you have to create a new configuration layer, see
-the quick start guide [here](https://github.com/syl20bnr/spacemacs#configuration).
+the quick start guide [here](#configuration).
 
 2. **Why the fonts on Windows looks so crappy ?**
 You can installed [MacType][] on Windows to get very nice looking fonts. It is
@@ -308,30 +308,30 @@ instance), alternatively you can disable them (note that the tilde characters
 on buffer empty lines have the same limitations).
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
-[philosophy]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#philosophy
-[goals]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#goals
-[for who?]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#who-can-benefit-from-this-
-[screenshots]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#screenshots
-[config]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#configuration-layers
-[dotfile]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#dotfile-configuration
-[manage_config]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#managing-private-configuration-layers
-[using_package_buf]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#using-the-package-list-buffer
-[achievements]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#achievements
-[troubleshoot]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#troubleshoot
-[contrib layers]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#using-configuration-layers
-[Git support]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#working-with-git
-[ace-jump]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
-[project management]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#project-management
-[Evil Mode]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#evil
+[philosophy]: doc/DOCUMENTATION.md#philosophy
+[goals]: doc/DOCUMENTATION.md#goals
+[for who?]: doc/DOCUMENTATION.md#who-can-benefit-from-this-
+[screenshots]: doc/DOCUMENTATION.md#screenshots
+[config]: doc/DOCUMENTATION.md#configuration-layers
+[dotfile]: doc/DOCUMENTATION.md#dotfile-configuration
+[manage_config]: doc/DOCUMENTATION.md#managing-private-configuration-layers
+[using_package_buf]: doc/DOCUMENTATION.md#using-the-package-list-buffer
+[achievements]: doc/DOCUMENTATION.md#achievements
+[troubleshoot]: doc/DOCUMENTATION.md#troubleshoot
+[contrib layers]: doc/DOCUMENTATION.md#using-configuration-layers
+[Git support]: doc/DOCUMENTATION.md#working-with-git
+[ace-jump]: doc/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
+[project management]: doc/DOCUMENTATION.md#project-management
+[Evil Mode]: doc/DOCUMENTATION.md#evil
 [private]: https://github.com/syl20bnr/spacemacs/tree/master/private
-[DOCUMENTATION.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md
-[font section]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#font
-[CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/CONTRIBUTE.md
-[powerline-seps]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#powerline-separators
+[DOCUMENTATION.md]: doc/DOCUMENTATION.md
+[font section]: doc/DOCUMENTATION.md#font
+[CONTRIBUTE.md]: doc/CONTRIBUTE.md
+[powerline-seps]: doc/DOCUMENTATION.md#powerline-separators
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
 [dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
-[osx layer]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/osx/README.md
+[osx layer]: contrib/osx/README.md
 [emacs_live]: https://github.com/overtone/emacs-live
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
@@ -342,13 +342,13 @@ on buffer empty lines have the same limitations).
 [MacType]: https://code.google.com/p/mactype/
 [emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
 [homebrew]: https://github.com/Homebrew/homebrew
-[Elixir]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/erlang-elixir
-[Haskell]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/haskell
-[JavaScript]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/javascript
-[Python]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/python
-[R]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/ess
-[Ruby]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/ruby
-[Scala]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/scala
-[Clojure]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/clojure
-[C-C++]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/c-c++
+[Elixir]: contrib/lang/erlang-elixir
+[Haskell]: contrib/lang/haskell
+[JavaScript]: contrib/lang/javascript
+[Python]: contrib/lang/python
+[R]: contrib/lang/ess
+[Ruby]: contrib/lang/ruby
+[Scala]: contrib/lang/scala
+[Clojure]: contrib/lang/clojure
+[C-C++]: contrib/lang/c-c++
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
