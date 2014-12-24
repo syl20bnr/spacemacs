@@ -3,6 +3,7 @@
     ;; package rubys go here
     rbenv
     enh-ruby-mode
+    flycheck
     ruby-test-mode
     robe
     yaml-mode
@@ -27,13 +28,16 @@ which require an initialization must be listed explicitly in the list.")
     :mode (("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . enh-ruby-mode)
            ("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . enh-ruby-mode))))
 
+(defun ruby/init-flycheck ()
+  (add-hook 'enh-ruby-mode-hook 'flycheck-mode))
+
 (defun ruby/init-robe ()
   "Initialize Robe mode"
   (use-package robe
     :defer t
     :init (add-hook 'enh-ruby-mode-hook 'robe-mode)
     :config (progn (evil-leader/set-key-for-mode 'enh-ruby-mode "mg" 'robe-jump)
-                   (evil-leader/set-key-for-mode 'enh-ruby-mode "md" 'robe-doc)
+                   (evil-leader/set-key-for-mode 'enh-ruby-mode "mhd" 'robe-doc)
                    (evil-leader/set-key-for-mode 'enh-ruby-mode "mR" 'robe-rails-refresh)
                    (evil-leader/set-key-for-mode 'enh-ruby-mode "mi" 'robe-start))))
 

@@ -58,7 +58,8 @@ implementation."
               (require 'git-gutter-fringe)
               (git-gutter-mode))
           (git-gutter-mode)
-          (if global-linum-mode (git-gutter:linum-setup))))
+          (if global-linum-mode (git-gutter:linum-setup)))
+        (spacemacs|hide-lighter git-gutter-mode))
       (add-to-hooks 'git/load-git-gutter '(markdown-mode-hook
                                            org-mode-hook
                                            prog-mode-hook)))
@@ -67,6 +68,11 @@ implementation."
       (setq git-gutter:hide-gutter t)
       ;; Don't need log/message.
       (setq git-gutter:verbosity 0)
+      (evil-leader/set-key
+        "ghs" 'git-gutter:stage-hunk
+        "ghr" 'git-gutter:revert-hunk
+        "ghN" 'git-gutter:previous-hunk
+        "ghn" 'git-gutter:next-hunk)
       (setq git-gutter-fr:side 'right-fringe)
       ;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
       ;; custom graphics that works nice with half-width fringes
@@ -90,8 +96,7 @@ implementation."
                             "XXXXX.."
                             ".XXX..."
                             "..X...."
-                            )
-      (spacemacs|hide-lighter git-gutter-mode))))
+                            ))))
 
 (defun git/init-git-messenger ()
   (use-package git-messenger
@@ -129,7 +134,11 @@ implementation."
   (use-package magit
     :defer t
     :init
-    (evil-leader/set-key "gs" 'magit-status)
+    (evil-leader/set-key
+      "gb" 'magit-blame-mode
+      "gl" 'magit-log
+      "gs" 'magit-status
+      "gC" 'magit-commit)
     :config
     (progn
       (spacemacs|hide-lighter magit-auto-revert-mode)

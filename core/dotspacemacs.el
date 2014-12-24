@@ -32,6 +32,9 @@ with `:' and Emacs commands are executed with `<leader> :'.")
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).
 Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.")
 
+(defvar dotspacemacs-mode-line-unicode-symbols t
+  "If non nil unicode symbols are displayed in the mode-line (eg. for lighters)")
+
 (defvar dotspacemacs-smooth-scrolling t
   "If non nil smooth scrolling (native-scrolling) is enabled. Smooth scrolling
 overrides the default behavior of Emacs which recenters the point when

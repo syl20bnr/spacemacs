@@ -23,7 +23,7 @@
 (defconst spacemacs-cache-directory
   (expand-file-name (concat user-emacs-directory ".cache/"))
   "Spacemacs storage area for persistent files.")
-(if (not (file-exists-p spacemacs-cache-directory))
+(unless (file-exists-p spacemacs-cache-directory)
     (make-directory spacemacs-cache-directory))
 (defconst user-dropbox-directory
   (expand-file-name (concat user-home-directory "Dropbox/"))
@@ -31,7 +31,7 @@
 ;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
 (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
 
-(defvar spacemacs-title-length 70)
+(defvar spacemacs-title-length 75)
 (defvar spacemacs-loading-counter 0)
 (defvar spacemacs-loading-text "Loading")
 (defvar spacemacs-loading-done-text "Ready!")
@@ -201,7 +201,7 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
 
 (defun spacemacs/insert-buttons ()
   (goto-char (point-max))
-  (insert " ")
+  (insert "   ")
   (insert-button "Homepage" 'action
                  (lambda (b) (browse-url "https://github.com/syl20bnr/spacemacs"))
                  'follow-link t)

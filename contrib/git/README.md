@@ -11,7 +11,7 @@
     - [Working with Git](#working-with-git)
         - [Magit](#magit)
         - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
-        - [Git gutter bitmaps](#git-gutter-bitmaps)
+        - [Git gutter](#git-gutter)
     - [Github support](#github-support)
         - [magit-gh-pulls](#magit-gh-pulls)
         - [gist.el](#gistel)
@@ -63,9 +63,12 @@ Git commands (start with `g`):
 
     Key Binding            |                 Description
 ---------------------------|------------------------------------------------------------
+<kbd>SPC g b</kbd>         | open a `magit` blame
+<kbd>SPC g C</kbd>         | commit changes
 <kbd>SPC g h c</kbd>       | clear highlights
 <kbd>SPC g h h</kbd>       | highlight regions by age of commits
 <kbd>SPC g h t</kbd>       | highlight regions by last updated time
+<kbd>SPC g l</kbd>         | open a `magit` log
 <kbd>SPC g s</kbd>         | open a `magit` status window
 <kbd>SPC g m</kbd>         | display the last commit message of the current line
 <kbd>SPC g t</kbd>         | launch the git time machine
@@ -158,13 +161,24 @@ you can answer `y` with no issue.
   - `F -r C-u F` and choose `upstream` or the name you gave to it
   - `P P` to push the commit to `origin`
 
-### Git gutter bitmaps
+### Git gutter
 
-`Spacemacs` has custom fringe bitmaps for
-[git-gutter-fringe][git-gutter]:
+With [git-gutter][] it is possible to navigate between hunks, stage them and
+revert them.
 
-   Symbol                        | Description
-:-------------------------------:|-----------------
+Git gutter hunks commands start with `gh`:
+
+    Key Binding     |                 Description
+--------------------|------------------------------------------------------------
+<kbd>g h n</kbd>    | next hunk in buffer
+<kbd>g h N</kbd>    | previous hunk in buffer
+<kbd>g h r</kbd>    | revert current hunk
+<kbd>g h s</kbd>    | stage current hunk
+
+`Spacemacs` has custom fringe bitmaps for [git-gutter-fringe][git-gutter]:
+
+           Symbol            | Description
+:---------------------------:|-----------------
 ![git-new](git-new-line.png) | new line
 ![git-del](git-del-line.png) | at least one line has been deleted
 ![git-mod](git-mod-line.png) | modified line

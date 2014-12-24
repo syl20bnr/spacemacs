@@ -79,14 +79,14 @@ must be defined in `dotspacemacs/init' function to take effect.")
       ;; (setq edts-log-level 'debug)
       ;; (setq edts-face-inhibit-mode-line-updates t)
       (evil-leader/set-key-for-mode 'erlang-mode
-        "md" 'edts-find-doc
-        "me" 'edts-code-next-issue
-        "mG" 'edts-find-global-function
-        "mg" 'edts-find-source-under-point
-        "mh" 'edts-find-header-source
-        "ml" 'edts-find-local-function
-        "mm" 'edts-find-macro-source
-        "mr" 'edts-find-record-source))))
+        "me"  'edts-code-next-issue
+        "mGg" 'edts-find-global-function
+        "mGh" 'edts-find-header-source
+        "mGl"  'edts-find-local-function
+        "mGr" 'edts-find-record-source
+        "mg"  'edts-find-source-under-point
+        "mhd" 'edts-find-doc
+        "mm"  'edts-find-macro-source))))
 
 (defun erlang-elixir/init-flycheck ()
   (add-hook 'elixir-mode-hook 'flycheck-mode)

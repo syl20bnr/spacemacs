@@ -93,6 +93,8 @@
         - [Increase/Decrease numbers](#increasedecrease-numbers)
         - [Spell checking](#spell-checking)
         - [Region selection](#region-selection)
+            - [Expand-region](#expand-region)
+            - [Indent text object](#indent-text-object)
         - [Region narrowing](#region-narrowing)
         - [Line formatting](#line-formatting)
         - [Auto-completion](#auto-completion)
@@ -811,25 +813,24 @@ The minor mode area can be toggled on and off with:
 
     <SPC> t m m
 
-   Lighter   |                              Mode
--------------|-----------------------------------------------------------------
-⊞            | [golden-ratio][golden-ratio] mode
-Ⓐ            | [auto-complete][auto-complete] mode
-Ⓒ            | [centered-cursor][centered-cursor] mode
-eⓅ           | [e-project][e-project] mode
-Ⓔ            | [evil-org][evil-org-mode] mode
-Ⓕ            | flycheck mode
-Ⓕ2           | flymake mode
-Ⓖ            | guide-key mode
-Ⓘ            | aggressive indent mode
-(Ⓟ)          | paredit mode
-Ⓢ            | flyspell mode
-(Ⓢ)          | [smartparens][sp] mode
-Ⓦ            | whitespace mode
-Ⓨ            | [yasnippet][yasnippet] mode
+Unicode symbols are displayed by default. Setting the variable
+`dotspacemacs-mode-line-unicode-symbols` to `nil` in your `~/.spacemacs` will
+display ASCII characters instead (may be useful in terminal).
 
-**Note:** in terminal the regular indicators are used instead of the utf-8
-ones.
+   Unicode   |   ASCII    |                    Mode
+:-----------:|:----------:|----------------------------------------------------
+`⊞`          | G          | [golden-ratio][golden-ratio] mode
+`Ⓐ`          | A          | [auto-complete][auto-complete] mode
+`Ⓒ`          | C          | [centered-cursor][centered-cursor] mode
+`Ⓔ`          | E          | [evil-org][evil-org-mode] mode
+`Ⓕ`          | F          | flycheck mode
+`Ⓚ`          | K          | guide-key mode
+`Ⓘ`          | I          | aggressive indent mode
+`(Ⓟ)`        | (P)        | paredit mode
+`Ⓢ`          | S          | flyspell mode
+`(Ⓢ)`        | (S)        | [smartparens][sp] mode
+`Ⓦ`          | W          | whitespace mode
+`Ⓨ`          | Y          | [yasnippet][yasnippet] mode
 
 # Base packages
 
@@ -843,7 +844,7 @@ They are both extended with various packages to build on their foundations.
                  Mode                   |             Description
 ----------------------------------------|--------------------------------------
 [evil-leader][]                         | vim leader that bring a new layer of keys in normal mode
-[evil-little-word][]                    | port of [camelcasemotion.vim][]
+[evil-indent-textobject][]              | add text object based on indentation level
 [evil-visualstar][]                     | search for current selection with `*`
 [evil-exchange][]                       | port of [vim-exchange][]
 [evil-surround][]                       | port of [vim-surround][]
@@ -1010,13 +1011,14 @@ Key Binding                               |                 Description
 <kbd>SPC w o</kbd>                        | cycle and focus between frames
 <kbd>SPC w p m</kbd>                      | open messages buffer in a popup window
 <kbd>SPC w p p</kbd>                      | close the current sticky popup window
-<kbd>SPC w r</kbd>                        | rotate windows clockwise
-<kbd>SPC w R</kbd>                        | rotate windows counter-clockwise
+<kbd>SPC w r</kbd>                        | initiate window size micro-state
+<kbd>SPC w R</kbd>                        | rotate windows clockwise
 <kbd>SPC w s</kbd> or <kbd>SPC w /</kbd>  | horizontal split
-<kbd>SPC w S</kbd>                        | initiate window size micro-state
+<kbd>SPC w S</kbd>                        | horizontal split and focus new window
 <kbd>SPC w u</kbd>                        | undo window layout (used to effectively undo a closed window)
 <kbd>SPC w U</kbd>                        | redo window layout
 <kbd>SPC w v</kbd> or  <kbd>SPC w -</kbd> | vertical split
+<kbd>SPC w V</kbd>                        | vertical split and focus new window
 <kbd>SPC w w</kbd>                        | cycle and focus between windows
 
 #### Resizing windows
@@ -1423,8 +1425,11 @@ Spell checking commands start with `S`:
 
 ### Region selection
 
-Vi `Visual` modes are all supported by `evil`, `Spacemacs` adds another
-`Visual` mode via the [expand-region][] mode.
+Vi `Visual` modes are all supported by `evil`.
+
+#### Expand-region
+
+`Spacemacs` adds another `Visual` mode via the [expand-region][] mode.
 
 Key Binding        |                 Description
 -------------------|----------------------------------------------------------------
@@ -1433,6 +1438,29 @@ Key Binding        |                 Description
 <kbd>V</kbd>       | contract the region by one semantic unit
 <kbd>r</kbd>       | reset the region to initial selection
 <kbd>ESC</kbd>     | leave expand-region mode
+
+#### Indent text object
+
+With [evil-indent-textobject] the following action can be performed in
+`normal state`:
+- <kbd>ii</kbd> - Inner Indentation: the surrounding textblock with the same
+indentation
+- <kbd>ai</kbd> - Above and Indentation: ii + the line above with a different
+indentation
+- <kbd>aI</kbd> - Above and Indentation+: ai + the line below with a different
+indentation
+
+Example (`|` is the point):
+
+```elisp
+(while (not done)
+  (messa|ge "All work and no play makes Jack a dull boy."))
+(1+ 41)
+```
+
+- <kbd>vii</kbd> will select the line with message
+- <kbd>vai</kbd> will select the whole while loop
+- <kbd>vaI</kbd> will select the whole fragment
 
 ### Region narrowing
 
@@ -1742,14 +1770,15 @@ Access commands to the various registers start with `r`:
 `Spacemacs` uses [Flycheck][flycheck] to gives error feedback on the fly.
 The checks are only performed at save time by default.
 
-Errors management commands (star with `f` for `flycheck`):
+Errors management commands (star with `e`):
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC f c</kbd>   | clear all errors
-<kbd>SPC f l</kbd>   | display the `flycheck` list of errors/warnings
-<kbd>SPC f n</kbd>   | go to the next `flycheck` error
-<kbd>SPC f p</kbd>   | go to the previous flycheck error
+<kbd>SPC e c</kbd>   | clear all errors
+<kbd>SPC e f</kbd>   | toggle flycheck
+<kbd>SPC e l</kbd>   | display the `flycheck` list of errors/warnings
+<kbd>SPC e n</kbd>   | go to the next error
+<kbd>SPC e p</kbd>   | go to the previous error
 
 Custom fringe bitmaps:
 
@@ -2006,10 +2035,11 @@ Achievements                                         | Account
 [First contribution][1st-contrib]                    | [trishume][]
 [First contribution layer][1st-clayer]               | [trishume][]
 [First blog article on Spacemacs][1st-article]       | [Wolfy87][]
-[100th issue (was a PR)][100th-issue]                | [danielwuz][]
+[100th issue (PR)][100th-issue]                      | [danielwuz][]
 [200th issue (question)][200th-issue]                | [justrajdeep][]
-[300th issue (was a PR)][300th-issue]                | [danielwuz][]
+[300th issue (PR)][300th-issue]                      | [danielwuz][]
 [100th pull request][100th-PR]                       | [bru][]
+PR gunner (8 PRs in a row)                           | [ralesi][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
 400th star                                           | [dbohdan][]
@@ -2056,7 +2086,7 @@ developers to elisp hackers!
 [hflyspell]: https://gist.github.com/cofi/3013327
 [iedit]: https://github.com/tsdh/iedit
 [evil-iedit-state]: https://github.com/syl20bnr/evil-iedit-state
-[evil-little-word]: https://github.com/tarao/evil-plugins#evil-little-wordel
+[evil-indent-textobject]: https://github.com/cofi/evil-indent-textobject
 [evil-visualstar]: https://github.com/bling/evil-visualstar
 [evil-exchange]: https://github.com/Dewdrops/evil-exchange
 [evil-surround]: https://github.com/timcharper/evil-surround
@@ -2110,6 +2140,7 @@ developers to elisp hackers!
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
 [bru]:https://github.com/bru
+[ralesi]:https://github.com/ralesi
 [Jackneill]:https://github.com/Jackneill
 [jb55]:https://github.com/jb55
 [use-package]: https://github.com/jwiegley/use-package

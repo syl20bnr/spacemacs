@@ -15,11 +15,13 @@
     diminish
     dired+
     elisp-slime-nav
+    eldoc
     evil
     evil-args
     evil-escape
     evil-exchange
     evil-iedit-state
+    evil-indent-textobject
     evil-jumper
     evil-leader
     evil-lisp-state
@@ -58,7 +60,6 @@
     hl-anything
     ido-vertical-mode
     iedit
-    json-mode
     ledger-mode
     let-alist
     leuven-theme
@@ -157,7 +158,7 @@ which require an initialization must be listed explicitly in the list.")
           (global-aggressive-indent-mode)))
       (evil-leader/set-key "ti" 'spacemacs/toggle-aggressive-indent))
     :config
-    (spacemacs|diminish aggressive-indent-mode " Ⓘ")))
+    (spacemacs|diminish aggressive-indent-mode " Ⓘ" " I")))
 
 (defun spacemacs/init-anzu ()
   (use-package anzu
@@ -242,7 +243,7 @@ which require an initialization must be listed explicitly in the list.")
             ac-comphist-file (concat spacemacs-cache-directory "ac-comphist.dat")
             tab-always-indent 'complete ; use 'complete when auto-complete is disabled
             ac-dwim t)
-      (spacemacs|diminish auto-complete-mode " Ⓐ"))))
+      (spacemacs|diminish auto-complete-mode " Ⓐ" " A"))))
 
 (defun spacemacs/init-auto-complete-clang ()
   (use-package auto-complete-clang
@@ -467,8 +468,16 @@ which require an initialization must be listed explicitly in the list.")
   ;; Elisp go-to-definition with M-. and back again with M-,
   (use-package elisp-slime-nav
     :defer t
+    :init
+    (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)))
+
+(defun spacemacs/init-eldoc ()
+  (use-package eldoc
+    :defer t
+    :init (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
     :config
-    (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))))
+    (progn
+      (spacemacs|hide-lighter eldoc-mode))))
 
 (defun spacemacs/init-evil ()
   (use-package evil
@@ -645,6 +654,9 @@ determine the state to enable when escaping from the insert state.")
   (add-to-hooks 'spacemacs/evil-state-lazy-loading '(prog-mode-hook
                                                      markdown-mode-hook)))
 
+(defun spacemacs/init-evil-indent-textobject ()
+  (use-package evil-indent-textobject))
+
 (defun spacemacs/init-evil-jumper ()
   (use-package evil-jumper
     :init
@@ -739,7 +751,7 @@ determine the state to enable when escaping from the insert state.")
     (progn
       ;; to gather all the bindings at the same place the bindnings
       ;; for evil-org have been moved to `spacemacs/init-org'
-      (spacemacs|diminish evil-org-mode " Ⓔ"))))
+      (spacemacs|diminish evil-org-mode " Ⓔ" " E"))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()
   (use-package evil-search-highlight-persist
@@ -859,18 +871,9 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-flycheck ()
   (use-package flycheck
     :defer t
-    :init
-    (progn
-      (dolist (mode '(c
-                      coffee
-                      js
-                      json
-                      ruby))
-        (add-hook (intern (concat (symbol-name mode) "-mode-hook"))
-                  'flycheck-mode)))
     :config
     (progn
-      (spacemacs|diminish flycheck-mode " Ⓕ")
+      (spacemacs|diminish flycheck-mode " Ⓕ" " F")
 
       (setq flycheck-check-syntax-automatically '(save mode-enabled)
             flycheck-standard-error-navigation nil)
@@ -949,12 +952,29 @@ determine the state to enable when escaping from the insert state.")
         :fringe-bitmap 'my-flycheck-fringe-indicator
         :fringe-face 'flycheck-fringe-info)
 
+      (defun spacemacs/next-error (&optional n reset)
+        "Dispatch to flycheck or standard emacs error."
+        (interactive "P")
+        (if (and (boundp 'flycheck-mode)
+                 (symbol-value flycheck-mode))
+            (call-interactively 'flycheck-next-error)
+          (call-interactively 'next-error)))
+
+      (defun spacemacs/previous-error (&optional n reset)
+        "Dispatch to flycheck or standard emacs error."
+        (interactive "P")
+        (if (and (boundp 'flycheck-mode)
+                 (symbol-value flycheck-mode))
+            (call-interactively 'flycheck-previous-error)
+          (call-interactively 'previous-error)))
+
       ;; key bindings
       (evil-leader/set-key
-        "fc" 'flycheck-clear
-        "fl" 'flycheck-list-errors
-        "fn" 'flycheck-next-error
-        "fp" 'flycheck-previous-error))))
+        "ec" 'flycheck-clear
+        "ef" 'flycheck-mode
+        "el" 'flycheck-list-errors
+        "en" 'spacemacs/next-error
+        "eN" 'spacemacs/previous-error))))
 
 (defun spacemacs/init-flycheck-ledger ()
   (eval-after-load 'flycheck
@@ -970,7 +990,7 @@ determine the state to enable when escaping from the insert state.")
       (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
       (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1))))
     :config
-    (spacemacs|diminish flyspell-mode " Ⓢ")))
+    (spacemacs|diminish flyspell-mode " Ⓢ" " S")))
 
 (defun spacemacs/init-golden-ratio ()
   (use-package golden-ratio
@@ -989,10 +1009,10 @@ determine the state to enable when escaping from the insert state.")
     (progn
       (setq golden-ratio-extra-commands
             (append golden-ratio-extra-commands
-                    '(evil-window-left
-                      evil-window-right
-                      evil-window-up
-                      evil-window-down
+                    '(windmove-left
+                      windmove-right
+                      windmove-up
+                      windmove-down
                       select-window-0
                       select-window-1
                       select-window-2
@@ -1024,7 +1044,7 @@ determine the state to enable when escaping from the insert state.")
                    'spacemacs/no-golden-ratio-guide-key)
       (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
 
-      (spacemacs|diminish golden-ratio-mode " ⊞"))))
+      (spacemacs|diminish golden-ratio-mode " ⊞" " G"))))
 
 (defun spacemacs/init-google-translate ()
   (use-package google-translate
@@ -1056,7 +1076,7 @@ determine the state to enable when escaping from the insert state.")
         (if (symbol-value guide-key-mode)
             (guide-key-mode -1)
           (guide-key-mode)))
-      (evil-leader/set-key "tG" 'spacemacs/toggle-guide-key)
+      (evil-leader/set-key "tk" 'spacemacs/toggle-guide-key)
       (setq guide-key/guide-key-sequence `("C-x"
                                            "C-c"
                                            ,dotspacemacs-leader-key
@@ -1075,7 +1095,7 @@ determine the state to enable when escaping from the insert state.")
       (setq guide-key/highlight-command-regexp
                    (cons spacemacs/prefix-command-string font-lock-warning-face))
       (guide-key-mode 1)
-      (spacemacs|diminish guide-key-mode " Ⓖ"))))
+      (spacemacs|diminish guide-key-mode " Ⓚ" " K"))))
 
 (defun spacemacs/init-helm ()
   (use-package helm
@@ -1145,10 +1165,10 @@ determine the state to enable when escaping from the insert state.")
         "Initialize helm-eshell."
         ;; this is buggy for now
         ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
-        (evil-leader/set-key-for-mode 'eshell-mode "mh" 'spacemacs/helm-eshell-history))
+        (evil-leader/set-key-for-mode 'eshell-mode "mH" 'spacemacs/helm-eshell-history))
       (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
       ;;shell
-      (evil-leader/set-key-for-mode 'shell-mode "mh" 'spacemacs/helm-shell-history)
+      (evil-leader/set-key-for-mode 'shell-mode "mH" 'spacemacs/helm-shell-history)
 
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
@@ -1244,7 +1264,7 @@ determine the state to enable when escaping from the insert state.")
         "hs"  'hl-save-highlights))
     :config
     (progn
-      (spacemacs|diminish hl-paren-mode "(Ⓗ)")
+      (spacemacs|diminish hl-paren-mode " (Ⓗ)" " (H)")
       (spacemacs|hide-lighter hl-highlight-mode))))
 
 (defun spacemacs/init-ido-vertical-mode ()
@@ -1292,10 +1312,6 @@ determine the state to enable when escaping from the insert state.")
   (use-package iedit
     :defer t))
 
-(defun spacemacs/init-json-mode ()
-  (use-package json-mode
-    :defer t))
-
 (defun spacemacs/init-ledger-mode ()
   (use-package ledger-mode
     :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode)
@@ -1304,8 +1320,8 @@ determine the state to enable when escaping from the insert state.")
     (progn
       (setq ledger-post-amount-alignment-column 62)
       (evil-leader/set-key-for-mode 'ledger-mode
-        "md" 'ledger-delete-current-transaction
-        "ma" 'ledger-add-transaction))))
+        "mhd" 'ledger-delete-current-transaction
+        "ma"  'ledger-add-transaction))))
 
 (defun spacemacs/init-leuven-theme ()
   (use-package leuven-theme
@@ -1531,18 +1547,44 @@ determine the state to enable when escaping from the insert state.")
       (defun spacemacs/window-number ()
         "Return the number of the window."
         (let ((num (window-numbering-get-number-string)))
-          (cond ((not (display-graphic-p)) (concat "(" num ")"))
-                ((equal num "1")  " ➊ ")
-                ((equal num "2")  " ➋ ")
-                ((equal num "3")  " ➌ ")
-                ((equal num "4")  " ➍ ")
-                ((equal num "5")  " ➎ ")
-                ((equal num "6")  " ❻ ")
-                ((equal num "7")  " ➐ ")
-                ((equal num "8")  " ➑ ")
-                ((equal num "9")  " ➒ ")
-                ((equal num "0")  " ➓ ")
-                (t (concat " (" num ") ")))))
+          (cond
+           ((not dotspacemacs-mode-line-unicode-symbols) (concat " " num " "))
+           ((equal num "1")  " ➊ ")
+           ((equal num "2")  " ➋ ")
+           ((equal num "3")  " ➌ ")
+           ((equal num "4")  " ➍ ")
+           ((equal num "5")  " ➎ ")
+           ((equal num "6")  " ❻ ")
+           ((equal num "7")  " ➐ ")
+           ((equal num "8")  " ➑ ")
+           ((equal num "9")  " ➒ ")
+           ((equal num "0")  " ➓ ")
+           (t (concat " " num " ")))))
+
+      (defpowerline spacemacs-powerline-minor-modes
+        (mapconcat (lambda (mm)
+                     (propertize
+                      mm
+                      'mouse-face 'mode-line-highlight
+                      'help-echo "Minor mode\n mouse-1: Display minor mode menu\n mouse-2: Show help for minor mode\n mouse-3: Toggle minor modes"
+                      'local-map (let ((map (make-sparse-keymap)))
+                                   (define-key map
+                                     [mode-line down-mouse-1]
+                                     (powerline-mouse 'minor 'menu mm))
+                                   (define-key map
+                                     [mode-line mouse-2]
+                                     (powerline-mouse 'minor 'help mm))
+                                   (define-key map
+                                     [mode-line down-mouse-3]
+                                     (powerline-mouse 'minor 'menu mm))
+                                   (define-key map
+                                     [header-line down-mouse-3]
+                                     (powerline-mouse 'minor 'menu mm))
+                                   map)))
+                   (split-string (format-mode-line minor-mode-alist))
+                   (concat (propertize
+                            (if dotspacemacs-mode-line-unicode-symbols " " "") 'face face)
+                           (unless dotspacemacs-mode-line-unicode-symbols "|"))))
 
       (defvar spacemacs-mode-line-minor-modesp t
         "If not nil, minor modes lighter are displayed in the mode-line.")
@@ -1627,7 +1669,7 @@ determine the state to enable when escaping from the insert state.")
                        ;; minor modes
                        (if (and active spacemacs-mode-line-minor-modesp)
                            (list
-                            (powerline-minor-modes line-face 'l)
+                            (spacemacs-powerline-minor-modes line-face 'l)
                             (powerline-raw mode-line-process line-face 'l)
                             (powerline-raw " " line-face)))
                        ;; version control
@@ -1839,7 +1881,7 @@ determine the state to enable when escaping from the insert state.")
     :config
     (progn
       (require 'smartparens-config)
-      (spacemacs|diminish smartparens-mode " (Ⓢ)")
+      (spacemacs|diminish smartparens-mode " (Ⓢ)" " (S)")
       (defun spacemacs/smartparens-pair-newline (id action context)
         (save-excursion
           (newline)
@@ -1935,7 +1977,7 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-whitespace ()
   (use-package whitespace
     :defer t
-    :config (spacemacs|diminish whitespace-mode " Ⓦ")))
+    :config (spacemacs|diminish whitespace-mode " Ⓦ" " W")))
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
@@ -1953,7 +1995,7 @@ determine the state to enable when escaping from the insert state.")
                                                 org-mode-hook)))
     :config
     (progn
-      (spacemacs|diminish yas-minor-mode " Ⓨ")
+      (spacemacs|diminish yas-minor-mode " Ⓨ" " Y")
       (require 'helm-c-yasnippet)
       (evil-leader/set-key "is" 'helm-yas-complete)
       (setq helm-c-yas-space-match-any-greedy t))))

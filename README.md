@@ -108,16 +108,10 @@ $ brew install emacs-mac
 ```
 
 The default key handling is different from the official OS X port. To correct
-this you can put this in your [dotfile][]:
+this you can add the [osx layer][] to your [dotfile][] layer list:
 
 ```elisp
-(setq mac-option-modifier 'meta)
-(setq mac-command-modifier 'super)
-(setq mac-pass-control-to-system nil)
-
-(global-set-key (kbd "s-q") 'save-buffers-kill-emacs)
-(global-set-key (kbd "s-v") 'yank)
-(global-set-key (kbd "s-c") 'copy-region-as-kill)
+(setq-default dotspacemacs-configuration-layers '(osx))
 ```
 
 # Install
@@ -300,8 +294,10 @@ The corresponding feature request for the powerline can be found
 [here][pw-patched-fonts].
 
 5. **Why the powerline colors are not correct on OS X ?**
-This is a known issue with the `emacs` brew formula. It is recommended to use the
-[emacs-mac-port][] built. See the [install OSX section][] for more info on this.
+This is a [known issue][powerline-srgb-issue] as of Emacs 24.4 due to
+`ns-use-srgb-colorspace` defaulting to true. It is recommended to use
+the [emacs-mac-port][] build. See the [install OSX section][] for more
+info on this.
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [philosophy]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#philosophy
@@ -326,6 +322,7 @@ This is a known issue with the `emacs` brew formula. It is recommended to use th
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
 [dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
+[osx layer]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/osx/README.md
 [emacs_live]: https://github.com/overtone/emacs-live
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
@@ -345,3 +342,4 @@ This is a known issue with the `emacs` brew formula. It is recommended to use th
 [Scala]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/scala
 [Clojure]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/clojure
 [C-C++]: https://github.com/syl20bnr/spacemacs/blob/master/contrib/lang/c-c++
+[powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54

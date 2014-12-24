@@ -10,13 +10,15 @@
     - [Key bindings conventions](#key-bindings-conventions)
         - [Prefix reserved to the user](#prefix-reserved-to-the-user)
         - [Prefix reserved to the current major mode](#prefix-reserved-to-the-current-major-mode)
+        - [Navigation between items](#navigation-between-items)
         - [Interactions with REPLs](#interactions-with-repls)
         - [Interactions with Tests](#interactions-with-tests)
             - [For all languages](#for-all-languages)
             - [Depending on the language](#depending-on-the-language)
+        - [Building and Compilation](#building-and-compilation)
         - [Debugging](#debugging)
         - [Code navigation](#code-navigation)
-        - [Documentation](#documentation)
+        - [Getting Help or Documentation](#getting-help-or-documentation)
         - [Evilify buffers](#evilify-buffers)
         - [Navigation in `insert state` buffers](#navigation-in-insert-state-buffers)
 
@@ -45,11 +47,23 @@ A package is initialized in a function with name `<layer>/init-xxx` where:
 
 ### Prefix reserved to the user
 
-`<SPC> o` must not be used by any layer. It is reserved for the user.
+<kbd>SPC o</kbd> must not be used by any layer. It is reserved for the user.
 
 ### Prefix reserved to the current major mode
 
-`<SPC> m` is reserved for the current major mode.
+<kbd>SPC m</kbd> is reserved for the current major mode. Three keys bindings
+are not an issue (ie. <kbd>SPC m h d</kbd>) since <kbd>SPC m</kbd> can be
+accessed via <kbd>,</kbd>.
+
+### Navigation between items
+
+To be consistent with the Vim way, <kbd>n</kbd> and <kbd>N</kbd> are favored
+over Emacs <kbd>n</kbd> and <kbd>p</kbd>.
+
+Ideally a micro-state should be provided to smooth the navigation experience.
+A micro-state allows to repeat key bindings without entering each time the
+prefix commands.
+More info on micro-states in the [documentation](DOCUMENTATION.md#micro-states).
 
 ### Interactions with REPLs
 
@@ -105,11 +119,33 @@ an auto-save of the buffer before executing the tests.
 Note that there are overlaps, depending on the language we will choose one
 or more bindings for the same thing
 
+### Building and Compilation
+
+The base prefix for major mode specific compilation is <kbd>SPC m c</kbd>.
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>m c c</kbd>     | compile
+<kbd>m c r</kbd>     | recompile
+
 ### Debugging
 
-    Key           |                 Description
-------------------|------------------------------------------------------------
-<kbd>m b</kbd>    | toggle a breakpoint
+The base prefix for debugging commands is <kbd>SPC d</kbd>.
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>m d a</kbd>     | abandon current process
+<kbd>m d b</kbd>     | toggle a breakpoint
+<kbd>m d c</kbd>     | continue current process
+<kbd>m d d</kbd>     | start debug process
+<kbd>m d n</kbd>     | next breakpoint
+<kbd>m d N</kbd>     | previous breakpoint
+
+Notes:
+- Ideally a micro-state for breakpoint navigation should be provided.
+- If there is no toggle breakpoint function, then it should be implemented at
+the spacemacs level and ideally the function should be proposed as a patch
+upstream (major mode repository).
 
 ### Code navigation
 
@@ -117,13 +153,14 @@ or more bindings for the same thing
 ------------------|------------------------------------------------------------
 <kbd>m g</kbd>    | go to definition of thing under point
 
-### Documentation
+### Getting Help or Documentation
+
+The base prefix for help commands is <kbd>SPC h</kbd>. Documentation is
+considered as an help command.
 
     Key           |                 Description
 ------------------|------------------------------------------------------------
-<kbd>m d</kbd>    | documentation of thing under point
-
-**TBD**
+<kbd>m h d</kbd>  | documentation of thing under point
 
 ### Evilify buffers
 
@@ -148,7 +185,18 @@ The related functions are:
 ### Navigation in `insert state` buffers
 
 Navigation in buffers like `Helm` and `ido` which are in `insert state` should
-be performed with <kbd>C-j</kbd> and <kdb>C-k</kbd> for vertical movements.
+be performed with <kbd>C-j</kbd> and <kbd>C-k</kbd> bindings for vertical
+movements.
+
+    Key         |                 Description
+----------------|------------------------------------------------------------
+<kbd>C-j</kbd>  | go down
+<kbd>C-k</kbd>  | go up
 
 History navigation in shells or REPLs buffers should be bound as well to
-<kbd>C-j</kbd> and <kdb>C-k</kbd>.
+<kbd>C-j</kbd> and <kbd>C-k</kbd>.
+
+    Key         |                 Description
+----------------|------------------------------------------------------------
+<kbd>C-j</kbd>  | next item in history
+<kbd>C-k</kbd>  | previous item in history

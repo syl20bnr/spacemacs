@@ -49,9 +49,12 @@
 (evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
 (evil-leader/set-key
+  "hdc" 'describe-char
   "hdf" 'describe-function
   "hdk" 'describe-key
   "hdm" 'describe-mode
+  "hdp" 'describe-package
+  "hdt" 'describe-theme
   "hdv" 'describe-variable)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key
@@ -123,7 +126,24 @@
   "q s" 'spacemacs/save-buffers-kill-emacs
   "q q" 'spacemacs/kill-emacs)
 ;; window ---------------------------------------------------------------------
-;; (evil-leader/set-key "wb" 'evenly-split-window-right)
+(defun split-window-below-and-focus ()
+  "Split the window vertically and focus the new window."
+  (interactive)
+  (split-window-below)
+  (windmove-down)
+  (when (and (boundp 'golden-ratio-mode)
+             (symbol-value golden-ratio-mode))
+    (golden-ratio)))
+
+(defun split-window-right-and-focus ()
+  "Split the window horizontally and focus the new window."
+  (interactive)
+  (split-window-right)
+  (windmove-right)
+  (when (and (boundp 'golden-ratio-mode)
+             (symbol-value golden-ratio-mode))
+    (golden-ratio)))
+
 (evil-leader/set-key
   "w2"  'layout-double-columns
   "w3"  'layout-triple-columns
@@ -141,15 +161,16 @@
   "wM"  'toggle-maximize-centered-buffer
   "wm"  'toggle-maximize-buffer
   "wo"  'other-frame
-  "wr"  'rotate-windows
-  "wR"  'rotate-windows-backward
+  "wr"  'spacemacs/resize-window-overlay-map
+  "wR"  'rotate-windows
   ;; "wv"  'evenly-split-window-below)
   "ws"  'split-window-below
+  "wS"  'split-window-below-and-focus
   "w-"  'split-window-below
-  "wS"  'spacemacs/resize-window-overlay-map
   "wU"  'winner-redo
   "wu"  'winner-undo
   "wv"  'split-window-right
+  "wV"  'split-window-right-and-focus
   "w/"  'split-window-right
   "ww"  'other-window)
 ;; text -----------------------------------------------------------------------
@@ -170,8 +191,7 @@
   "xgl" 'set-google-translate-languages)
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'emacs-lisp-mode
-  "mD"  'elisp-slime-nav-describe-elisp-thing-at-point
+  "mhd"  'elisp-slime-nav-describe-elisp-thing-at-point
   "mg"  'elisp-slime-nav-find-elisp-thing-at-point
-  "mhv" 'describe-variable
   "mta" 'spacemacs/ert-run-tests-buffer
   "mtf" 'ert)

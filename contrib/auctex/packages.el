@@ -36,10 +36,27 @@
         (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
         (add-hook 'LaTeX-mode-hook 'spacemacs/load-yasnippet)
 
+        (setq spacemacs/key-binding-prefixes '(("mp" . "LaTeX Preview")))
         (evil-leader/set-key-for-mode 'latex-mode
           "mb" 'auctex/build-view
           "me" 'LaTeX-environment
-          "mc" 'LaTeX-close-environment)
+          "mc" 'LaTeX-close-environment
+          "mi" 'LaTeX-insert-item
+          "mf" 'TeX-font ;; Find a way to rebind tex-fonts
+
+          "mC" 'TeX-command-master
+
+          "mpr" 'preview-region
+          "mpb" 'preview-buffer
+          "mpd" 'preview-document
+          "mpe" 'preview-environment
+          "mps" 'preview-section
+          "mpp" 'preview-at-point
+          "mpf" 'preview-cache-preamble
+          "mpc" 'preview-clearout
+
+          "mhd" 'TeX-doc ;; TeX-doc is a very slow function
+          )
 
         (setq-default TeX-auto-save t)
         (setq-default TeX-parse-self t)

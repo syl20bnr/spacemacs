@@ -16,20 +16,22 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (eval-after-load 'scss-mode
-      '(evil-leader/set-key-for-mode 'scss-mode "mh" 'helm-css-scss))))
+      '(evil-leader/set-key-for-mode 'scss-mode "mg" 'helm-css-scss))))
 
 (defun html/init-web-mode ()
   (use-package web-mode
     :defer t
-    :mode (("\\.phtml\\'"     . web-mode)
-           ("\\.tpl\\.php\\'" . web-mode)
-           ("\\.html\\'"      . web-mode)
-           ("\\.htm\\'"       . web-mode)
-           ("\\.[gj]sp\\'"    . web-mode)
-           ("\\.as[cp]x\\'"   . web-mode)
-           ("\\.erb\\'"       . web-mode)
-           ("\\.mustache\\'"  . web-mode)
-           ("\\.djhtml\\'"    . web-mode))))
+    :mode (("\\.phtml\\'"      . web-mode)
+           ("\\.tpl\\.php\\'"  . web-mode)
+           ("\\.html\\'"       . web-mode)
+           ("\\.htm\\'"        . web-mode)
+           ("\\.[gj]sp\\'"     . web-mode)
+           ("\\.as[cp]x\\'"    . web-mode)
+           ("\\.erb\\'"        . web-mode)
+           ("\\.mustache\\'"   . web-mode)
+           ("\\.handlebars\\'" . web-mode)
+           ("\\.hbs\\'"        . web-mode)
+           ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
@@ -60,4 +62,4 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (tagedit-add-experimental-features)
       (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
-      (spacemacs|diminish tagedit-mode " Ⓣ"))))
+      (spacemacs|diminish tagedit-mode " Ⓣ" " T"))))
