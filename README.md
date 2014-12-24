@@ -299,6 +299,14 @@ This is a [known issue][powerline-srgb-issue] as of Emacs 24.4 due to
 the [emacs-mac-port][] build. See the [install OSX section][] for more
 info on this.
 
+6. **The powerline separators have no anti-aliasing, what can I do ?**
+Emacs powerline uses XMP images to draw the separators. Enabling anti-aliasing
+may not be a trivial task so unfortunately you'll have to live with it.
+Nevertheless it exists a [large number of different separators][powerline-seps]
+and you can try to setup a different one with less aliasing (arrows for
+instance), alternatively you can disable them (note that the tilde characters
+on buffer empty lines have the same limitations).
+
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [philosophy]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#philosophy
 [goals]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#goals
@@ -319,6 +327,7 @@ info on this.
 [DOCUMENTATION.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md
 [font section]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#font
 [CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/CONTRIBUTE.md
+[powerline-seps]: https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md#powerline-separators
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
 [dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
