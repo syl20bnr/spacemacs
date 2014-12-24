@@ -1,8 +1,8 @@
 # Erlang/Elixir contribution layer for Spacemacs
 
-![logo_erlang](erlang.png)
+![logo_erlang](img/erlang.png)
 
-![logo_elixir](elixir.png)
+![logo_elixir](img/elixir.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**

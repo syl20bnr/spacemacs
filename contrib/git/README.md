@@ -1,6 +1,6 @@
 # git contribution layer for Spacemacs
 
-![git](git.png) ![github](github.png)
+![git](img/git.png) ![github](img/github.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**

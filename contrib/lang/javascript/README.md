@@ -1,6 +1,6 @@
 # JavaScript contribution layer for Spacemacs
 
-![js](javascript.png) ![coffee](coffee.png)
+![js](img/javascript.png) ![coffee](img/coffee.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**

@@ -1,6 +1,6 @@
 # Haskell contribution layer for Spacemacs
 
-![logo](haskell.png)
+![logo](img/haskell.png)
 
 This layer adds support for the [Haskell][] language.
 The layer uses company-ghc for completetion.

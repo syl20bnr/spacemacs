@@ -1,6 +1,6 @@
 # smex contribution layer for Spacemacs
 
-![logo](smex.png)
+![logo](img/smex.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**

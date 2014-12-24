@@ -1,6 +1,6 @@
 # Ruby contribution layer for Spacemacs
 
-![logo](ruby.gif)
+![logo](img/ruby.gif)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
