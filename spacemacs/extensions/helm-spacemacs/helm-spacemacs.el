@@ -113,6 +113,7 @@
                           layer)))
            (filename (concat path "packages.el")))
       (find-file filename)
+      (goto-char (point-min))
       (re-search-forward (format "init-%s" package))
       (beginning-of-line))))
 
