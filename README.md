@@ -114,6 +114,10 @@ this you can add the [osx layer][] to your [dotfile][] layer list:
 (setq-default dotspacemacs-configuration-layers '(osx))
 ```
 
+Note that the `emacs-mac-port` server behaves differently than the regular
+Emacs server.
+Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
+
 # Install
 
 1. If you have an existing Emacs configuration, back it up:
@@ -341,6 +345,7 @@ on buffer empty lines have the same limitations).
 [pw-patched-fonts]: https://github.com/milkypostman/powerline/issues/15
 [MacType]: https://code.google.com/p/mactype/
 [emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
+[emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
 [homebrew]: https://github.com/Homebrew/homebrew
 [Elixir]: contrib/lang/erlang-elixir
 [Haskell]: contrib/lang/haskell
