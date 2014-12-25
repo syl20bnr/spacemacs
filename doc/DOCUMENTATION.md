@@ -1066,25 +1066,24 @@ remember the last selected directories and buffers, maybe helm can do this ?).
 
 Buffer manipulation commands (start with `b`):
 
-Key Binding            |                 Description
------------------------|----------------------------------------------------------------
-<kbd>SPC b b</kbd>     | switch to alternate buffer (switch back and forth)
-<kbd>SPC TAB</kbd>     | same as `SPC b b`
-<kbd>SPC b d</kbd>     | delete the current buffer **and** file (ask for confirmation)
-<kbd>SPC b e</kbd>     | erase the content of the buffer (ask for confirmation)
-<kbd>SPC b k</kbd>     | kill the current buffer
-<kbd>SPC b K</kbd>     | kill all buffers except the current one
-<kbd>SPC b C-K</kbd>   | kill all buffers matching the regexp
-<kbd>SPC b m h</kbd>   | move a buffer to the left
-<kbd>SPC b m j</kbd>   | move a buffer to the bottom
-<kbd>SPC b m k</kbd>   | move a buffer to the top
-<kbd>SPC b m l</kbd>   | move a buffer to the right
-<kbd>SPC b n</kbd>     | switch to next buffer
-<kbd>SPC b p</kbd>     | switch to previous buffer
-<kbd>SPC b r</kbd>     | rename the current buffer
-<kbd>SPC b R</kbd>     | revert the current buffer (reload from disk)
-<kbd>SPC b s</kbd>     | switch to a buffer using `helm`
-<kbd>SPC b w</kbd>     | toggle read-only (writable state)
+Key Binding                               |              Description
+------------------------------------------|----------------------------------------------------------------
+<kbd>SPC b b</kbd> or <kbd>SPC TAB</kbd>  | switch to alternate buffer (switch back and forth)
+<kbd>SPC b d</kbd>                        | delete the current buffer **and** file (ask for confirmation)
+<kbd>SPC b e</kbd>                        | erase the content of the buffer (ask for confirmation)
+<kbd>SPC b k</kbd>                        | kill the current buffer
+<kbd>SPC b K</kbd>                        | kill all buffers except the current one
+<kbd>SPC b C-K</kbd>                      | kill all buffers matching the regexp
+<kbd>SPC b m h</kbd>                      | move a buffer to the left
+<kbd>SPC b m j</kbd>                      | move a buffer to the bottom
+<kbd>SPC b m k</kbd>                      | move a buffer to the top
+<kbd>SPC b m l</kbd>                      | move a buffer to the right
+<kbd>SPC b n</kbd>                        | switch to next buffer
+<kbd>SPC b p</kbd>                        | switch to previous buffer
+<kbd>SPC b r</kbd>                        | rename the current buffer
+<kbd>SPC b R</kbd>                        | revert the current buffer (reload from disk)
+<kbd>SPC b s</kbd>                        | switch to a buffer using `helm`
+<kbd>SPC b w</kbd>                        | toggle read-only (writable state)
 
 Files manipulation commands (start with `f`):
 
