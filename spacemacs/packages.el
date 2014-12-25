@@ -813,6 +813,9 @@ determine the state to enable when escaping from the insert state.")
       (defun fancy-battery-default-mode-line ()
         "Assemble a mode line string for Fancy Battery Mode."
         (when fancy-battery-last-status
+          ;; remove the fancy-battery message from global-mode-string
+          (setq global-mode-string (delq 'fancy-battery-mode-line
+                                         global-mode-string))
           (let* ((time (cdr (assq ?t fancy-battery-last-status)))
                  (percentage (cdr (assq ?p fancy-battery-last-status)))
                  (status (if (or fancy-battery-show-percentage
@@ -827,9 +830,9 @@ determine the state to enable when escaping from the insert state.")
       (defun fancy-battery-powerline-face ()
         "Return a face appropriate for powerline"
         (pcase (cdr (assq ?b fancy-battery-last-status))
-                   ("!"  'fancy-battery-critical)
-                   ("+"  ' fancy-battery-charging)
-                   (_ 'fancy-battery-discharging))))
+          ("!"  'fancy-battery-critical)
+          ("+"  ' fancy-battery-charging)
+          (_ 'fancy-battery-discharging))))
     ))
 
 (defun spacemacs/init-fancy-narrow ()
@@ -1497,6 +1500,7 @@ determine the state to enable when escaping from the insert state.")
       (evil-leader/set-key
         "aP" 'spacemacs/paradox-list-packages))
     :config
+    (setq paradox-execute-asynchronously nil)
     (spacemacs/activate-evil-leader-for-map 'paradox-menu-mode-map)
     ))
 
