@@ -804,7 +804,13 @@ determine the state to enable when escaping from the insert state.")
         (interactive)
         (if fancy-battery-mode
             (fancy-battery-mode -1)
-          (fancy-battery-mode)))
+          (fancy-battery-mode)
+          (spacemacs/mode-line-battery-remove-from-global)))
+
+      (defun spacemacs/mode-line-battery-remove-from-global ()
+        "Remove the battery info from the `global-mode-string'."
+        (setq global-mode-string (delq 'fancy-battery-mode-line
+                                       global-mode-string)))
 
       (defun spacemacs/mode-line-battery-percentage ()
         "Return the load percentage or an empty string."
@@ -816,7 +822,8 @@ determine the state to enable when escaping from the insert state.")
         (let ((time (cdr (assq ?t fancy-battery-last-status))))
           (cond
            ((string= "0:00" time) "")
-           ((string= "N/A" time) "(calculating...)")
+           ((string= "N/A" time) "")
+           ((string-empty-p time) "")
            (t (concat " (" time ")")))))
 
       (setq-default fancy-battery-show-percentage t)
@@ -827,10 +834,9 @@ determine the state to enable when escaping from the insert state.")
       ;; basically remove all faces and properties.
       (defun fancy-battery-default-mode-line ()
         "Assemble a mode line string for Fancy Battery Mode."
+        (spacemacs/mode-line-battery-remove-from-global)
         (when fancy-battery-last-status
-          ;; remove the fancy-battery message from global-mode-string
-          (setq global-mode-string (delq 'fancy-battery-mode-line
-                                         global-mode-string))
+
           (let* ((type (cdr (assq ?L fancy-battery-last-status)))
                  (percentage (spacemacs/mode-line-battery-percentage))
                  (time (spacemacs/mode-line-battery-time)))
@@ -842,7 +848,7 @@ determine the state to enable when escaping from the insert state.")
       (defun fancy-battery-powerline-face ()
         "Return a face appropriate for powerline"
         (let ((type (cdr (assq ?L fancy-battery-last-status))))
-          (if (string= "AC" type)
+          (if (and type (string= "AC" type))
               'fancy-battery-charging
             (pcase (cdr (assq ?b fancy-battery-last-status))
               ("!"  'fancy-battery-critical)
