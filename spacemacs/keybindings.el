@@ -35,6 +35,7 @@
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
   "bb"  'spacemacs/alternate-buffer ;; switch back and forth between two last buffers
+  "TAB" 'spacemacs/alternate-buffer
   "bd"  'delete-current-buffer-file
   "be"  'spacemacs/safe-erase-buffer
   "bK"  'kill-other-buffers
