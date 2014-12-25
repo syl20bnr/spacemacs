@@ -1,6 +1,10 @@
 (require 'dotspacemacs)
 (require 'ht)
 
+(defconst configuration-layer-template-directory
+  (expand-file-name (concat spacemacs-core-directory "templates/"))
+  "Configuration layer templates directory.")
+
 (defconst configuration-layer-contrib-directory
   (expand-file-name (concat user-emacs-directory "contrib/"))
   "Spacemacs contribution layers base directory.")
@@ -91,7 +95,7 @@ NAME."
 
 (defun configuration-layer//copy-template (template)
   "Copy and replace special values of TEMPLATE to LAYER_DIR."
-  (let ((src (concat spacemacs-template-directory
+  (let ((src (concat configuration-layer-template-directory
                      (format "%s.template" template)))
         (dest (concat (configuration-layer//get-private-layer-dir name)
                       (format "%s.el" template))))
