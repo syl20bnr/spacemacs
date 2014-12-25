@@ -417,7 +417,7 @@ argument takes the kindows rotate backwards."
 (defun find-contrib-file ()
   (interactive)
   "Edit the `file' in the spacemacs base directory, in the current window."
-  (ido-find-file-in-dir config-system-contrib-directory))
+  (ido-find-file-in-dir configuration-layer-contrib-directory))
 
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function

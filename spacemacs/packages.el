@@ -389,7 +389,7 @@ which require an initialization must be listed explicitly in the list.")
          (let ((map (make-sparse-keymap)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
-           (if (ht-contains? config-system-all-packages 'evil-iedit-state)
+           (if (ht-contains? configuration-layer-all-packages 'evil-iedit-state)
                (define-key map (kbd "e") 'evil-iedit-state/iedit-mode)
              (define-key map (kbd "e") 'ahs-edit-mode))
            (define-key map (kbd "n") 'ahs-forward)
@@ -603,7 +603,7 @@ determine the state to enable when escaping from the insert state.")
       (define-and-bind-text-object "%" "%" "%")
 
       ;; support smart 1parens-strict-mode
-      (if (ht-contains? config-system-all-packages 'smartparens)
+      (if (ht-contains? configuration-layer-all-packages 'smartparens)
           (defadvice evil-delete-backward-char-and-join
               (around spacemacs/evil-delete-backward-char-and-join activate)
             (if smartparens-strict-mode
@@ -1830,7 +1830,7 @@ determine the state to enable when escaping from the insert state.")
             rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
             rcirc-omit-threshold 20)
       (require 'rcirc-color)
-      (let ((dir (config-system/get-layer-property 'spacemacs :ext-dir)))
+      (let ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir)))
         (require 'rcirc-reconnect
                  (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
       ;; identify info are stored in a separate location, skip errors
@@ -2012,7 +2012,7 @@ determine the state to enable when escaping from the insert state.")
       (defun spacemacs/load-yasnippet ()
           (if (not (boundp 'yas-minor-mode))
               (progn
-                (let* ((dir (config-system/get-layer-property 'spacemacs :ext-dir))
+                (let* ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir))
                        (yas-dir (list (concat dir "yasnippet-snippets"))))
                   (setq yas-snippet-dirs yas-dir)
                   (yas-global-mode 1)))))

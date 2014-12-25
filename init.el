@@ -1,20 +1,20 @@
 (load (concat user-emacs-directory "core/spacemacs-mode.el"))
-(require 'config-system)
+(require 'configuration-layer)
 
 (when (spacemacs/emacs-version-ok)
   (dotspacemacs/load)
   (spacemacs/initialize)
-  (config-system/package.el-initialize)
+  (configuration-layer/package.el-initialize)
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init)
   ;; synchronize and load configuration layers
-  (config-system/declare-layers)
-  (config-system/load-layers)
-  (config-system/delete-orphan-packages)
+  (configuration-layer/declare-layers)
+  (configuration-layer/load-layers)
+  (configuration-layer/delete-orphan-packages)
   ;; Ultimate configuration decisions are given to the user who can defined
   ;; them in his/her ~/.spacemacs file
   (dotspacemacs|call-func dotspacemacs/config)
-  (config-system/setup-after-init-hook)
+  (configuration-layer/setup-after-init-hook)
   ;; start a server for subsequent emacs clients
   (require 'server)
   (unless (server-running-p)

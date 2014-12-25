@@ -180,7 +180,7 @@ A configuration layer is a directory containing at least the following files:
 You should create your own configuration layers in the [private][] directory.
 The following command automates this process:
 
-    <SPC> : config-system/create-layer RET
+    <SPC> : configuration-layer/create-layer RET
 
 _Caveat:_ For your privacy, the contents of the `private` directory are not
 under source control. See the documentation for a discussion on how to
