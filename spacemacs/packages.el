@@ -798,12 +798,27 @@ determine the state to enable when escaping from the insert state.")
     :defer t
     :init
     (progn
+
       (defun spacemacs/mode-line-battery-info-toggle ()
         "Toggle display of battery info."
         (interactive)
         (if fancy-battery-mode
             (fancy-battery-mode -1)
           (fancy-battery-mode)))
+
+      (defun spacemacs/mode-line-battery-percentage ()
+        "Return the load percentage or an empty string."
+        (let ((p (cdr (assq ?p fancy-battery-last-status))))
+          (if (and fancy-battery-show-percentage p) (concat " " p "%%") "")))
+
+      (defun spacemacs/mode-line-battery-time ()
+        "Return the remaining time complete load or discharge."
+        (let ((time (cdr (assq ?t fancy-battery-last-status))))
+          (cond
+           ((string= "0:00" time) "")
+           ((string= "N/A" time) "(calculating...)")
+           (t (concat " (" time ")")))))
+
       (setq-default fancy-battery-show-percentage t)
       (evil-leader/set-key "tmb" 'spacemacs/mode-line-battery-info-toggle))
     :config
@@ -816,23 +831,24 @@ determine the state to enable when escaping from the insert state.")
           ;; remove the fancy-battery message from global-mode-string
           (setq global-mode-string (delq 'fancy-battery-mode-line
                                          global-mode-string))
-          (let* ((time (cdr (assq ?t fancy-battery-last-status)))
-                 (percentage (cdr (assq ?p fancy-battery-last-status)))
-                 (status (if (or fancy-battery-show-percentage
-                                 (string= time "N/A"))
-                             (and percentage (concat (concat percentage "%%")
-                                                     " (" time ")"))
-                           time)))
-            (if status (concat " " status)
+          (let* ((type (cdr (assq ?L fancy-battery-last-status)))
+                 (percentage (spacemacs/mode-line-battery-percentage))
+                 (time (spacemacs/mode-line-battery-time)))
+            (if type
+                (concat (if (string= "AC" type) " AC" "") percentage time)
               ;; Battery status is not available
-              "N/A"))))
+              "No Battery Info"))))
 
       (defun fancy-battery-powerline-face ()
         "Return a face appropriate for powerline"
-        (pcase (cdr (assq ?b fancy-battery-last-status))
-          ("!"  'fancy-battery-critical)
-          ("+"  ' fancy-battery-charging)
-          (_ 'fancy-battery-discharging))))
+        (let ((type (cdr (assq ?L fancy-battery-last-status))))
+          (if (string= "AC" type)
+              'fancy-battery-charging
+            (pcase (cdr (assq ?b fancy-battery-last-status))
+              ("!"  'fancy-battery-critical)
+              ("+"  'fancy-battery-charging)
+              ("-"  'fancy-battery-discharging)
+              (_ 'fancy-battery-discharging))))))
     ))
 
 (defun spacemacs/init-fancy-narrow ()
