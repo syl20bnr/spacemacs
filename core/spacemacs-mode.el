@@ -141,7 +141,7 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
            (spacemacs/append-to-buffer
             (format "(Bootstrap) Installing %s...\n" pkg))
            (redisplay))
-         (config-system/package.el-initialize)
+         (configuration-layer/package.el-initialize)
          (package-refresh-contents)
          (package-install pkg))
        (require pkg)))))
