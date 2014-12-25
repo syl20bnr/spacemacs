@@ -7,6 +7,12 @@
 Paths must have a trailing slash (ie. `~/.mycontribs/')"
   )
 
+(defvar dotspacemacs-startup-banner 'random
+  "Specify the startup banner. If the value is an integer then the
+banner with the corresponding index is used, if the value is `random'
+then the banner is chosen randomly among the available banners, if
+the value is nil then no banner is displayed.")
+
 (defvar dotspacemacs-configuration-layers '()
   "list of contribution to load."
 )

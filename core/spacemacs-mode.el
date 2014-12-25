@@ -161,15 +161,27 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
 
 (defun spacemacs//insert-banner ()
   "Choose a banner and insert in spacemacs buffer."
+  (let ((banner (cond
+                 ((eq 'random dotspacemacs-startup-banner)
+                  (spacemacs//choose-random-banner))
+                 ((integerp dotspacemacs-startup-banner)
+                  (spacemacs//get-banner-path dotspacemacs-startup-banner))))
+        (buffer-read-only nil))
+    (when banner
+      (insert-file-contents banner)
+      (spacemacs/insert-buttons))))
+
+(defun spacemacs//choose-random-banner ()
+  "Return the full path of a banner chosen randomly."
   (let* ((files (directory-files spacemacs-banner-directory nil nil 'nosort))
          (count (length files))
          ;; -2 to remove `.' `..'
-         (choice (random (- count 2)))
-         (banner (format "%03d-banner.txt" choice))
-         (buffer-read-only nil))
-    (message "%s" count)
-    (insert-file-contents (concat spacemacs-banner-directory banner))
-    (spacemacs/insert-buttons)))
+         (choice (random (- count 2))))
+    (spacemacs//get-banner-path choice)))
+
+(defun spacemacs//get-banner-path (index)
+  "Return the full path to banner with index INDEX."
+  (concat spacemacs-banner-directory (format "%03d-banner.txt" index)))
 
 (defun spacemacs/message (msg &rest args)
   "Display MSG in message prepended with '(Spacemacs)'."
