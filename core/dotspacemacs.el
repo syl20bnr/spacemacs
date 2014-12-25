@@ -1,7 +1,11 @@
+(defconst dotspacemacs-template-directory
+  (expand-file-name (concat spacemacs-core-directory "templates/"))
+  "Templates directory.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')"
-)
+  )
 
 (defvar dotspacemacs-configuration-layers '()
   "list of contribution to load."
@@ -73,7 +77,7 @@ before installing the file if the destination already exists."
                                         dotfile))
                     t)))
     (when install
-      (copy-file (concat spacemacs-template-directory
+      (copy-file (concat dotspacemacs-template-directory
                          ".spacemacs.template") dotfile t)
       (message "%s has been installed." dotfile))))
 
