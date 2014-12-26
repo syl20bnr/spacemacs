@@ -35,6 +35,7 @@
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
   "bb"  'spacemacs/alternate-buffer ;; switch back and forth between two last buffers
+  "TAB" 'spacemacs/alternate-buffer
   "bd"  'delete-current-buffer-file
   "be"  'spacemacs/safe-erase-buffer
   "bK"  'kill-other-buffers
@@ -101,7 +102,7 @@
 (evil-leader/set-key "cC" 'compile)
 (evil-leader/set-key "cr" 'recompile)
 ;; narrow & widen -------------------------------------------------------------
-(unless (ht-contains? config-system-all-packages 'fancy-narrow)
+(unless (ht-contains? configuration-layer-all-packages 'fancy-narrow)
   (evil-leader/set-key
     "nr" 'narrow-to-region
     "np" 'narrow-to-page

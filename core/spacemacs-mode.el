@@ -9,9 +9,9 @@
   "Spacemacs core directory.")
 (add-to-list 'load-path spacemacs-core-directory)
 
-(defconst spacemacs-template-directory
-  (expand-file-name (concat spacemacs-core-directory "templates/"))
-  "Spacemacs templates directory.")
+(defconst spacemacs-banner-directory
+  (expand-file-name (concat spacemacs-core-directory "banners/"))
+  "Spacemacs banners directory.")
 
 ;; additional paths
 (defconst user-home-directory
@@ -95,9 +95,7 @@
         (`w32 (spacemacs/set-font font 9))
         (other (spacemacs/set-font font 10)))))
   ;; banner
-  (let ((buffer-read-only nil))
-    (insert-file-contents (concat spacemacs-core-directory "banner.txt"))
-    (spacemacs/insert-buttons))
+  (spacemacs//insert-banner)
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-package 'bind-key t)
   (spacemacs/load-or-install-package 'use-package t)
@@ -141,7 +139,7 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
            (spacemacs/append-to-buffer
             (format "(Bootstrap) Installing %s...\n" pkg))
            (redisplay))
-         (config-system/package.el-initialize)
+         (configuration-layer/package.el-initialize)
          (package-refresh-contents)
          (package-install pkg))
        (require pkg)))))
@@ -160,6 +158,31 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
     (spacemacs/message (format "Set default font: %s" fontstr))
     (add-to-list 'default-frame-alist (cons 'font fontstr))
     (set-default-font fontstr)))
+
+(defun spacemacs//insert-banner ()
+  "Choose a banner and insert in spacemacs buffer."
+  (let ((banner (cond
+                 ((eq 'random dotspacemacs-startup-banner)
+                  (spacemacs//choose-random-banner))
+                 ((integerp dotspacemacs-startup-banner)
+                  (spacemacs//get-banner-path dotspacemacs-startup-banner))))
+        (buffer-read-only nil))
+    (when banner
+      (spacemacs/message (format "Banner: %s" banner))
+      (insert-file-contents banner)
+      (spacemacs/insert-buttons))))
+
+(defun spacemacs//choose-random-banner ()
+  "Return the full path of a banner chosen randomly."
+  (let* ((files (directory-files spacemacs-banner-directory nil nil 'nosort))
+         (count (length files))
+         ;; -2 to remove `.' `..'
+         (choice (random (- count 2))))
+    (spacemacs//get-banner-path choice)))
+
+(defun spacemacs//get-banner-path (index)
+  "Return the full path to banner with index INDEX."
+  (concat spacemacs-banner-directory (format "%03d-banner.txt" index)))
 
 (defun spacemacs/message (msg &rest args)
   "Display MSG in message prepended with '(Spacemacs)'."

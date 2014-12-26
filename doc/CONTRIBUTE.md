@@ -5,7 +5,8 @@
 
 - [Contribute to Spacemacs](#contribute-to-spacemacs)
     - [Pull Request Guidelines](#pull-request-guidelines)
-    - [Submitting a contribution layer upstream](#submitting-a-contribution-layer-upstream)
+    - [Submitting a contribution layer](#submitting-a-contribution-layer)
+    - [Submitting a banner](#submitting-a-banner)
 
 <!-- markdown-toc end -->
 
@@ -43,18 +44,26 @@ Those PRs are _merged_.
 If you have any question on this process, join the [gitter chatroom][gitter]
 and ask your questions there. It will be a pleasure to help you to contribute!
 
-## Submitting a contribution layer upstream
+## Submitting a contribution layer
 
 It is recommended to join a `README.md` file with your layer, ideally this file
 should document the packages of your layer as well as the key bindings
-associated with them. 
+associated with them.
 
-To submit your contribution layer follow the above
-[guidelines](#pull-request-guidelines) for pull requests.
+You will find a template in `~/.emacs.d/core/templates/layer-README.template`.
 
-**Note:** by submitting a configuration layer you become the maintainer of it,
-if you cannot maintain it anymore, no worry but I'll appreciate that you send
-a message to me to warn me.
+Another good practice is to start from the `README.md` of an existing layer.
+
+## Submitting a banner 
+
+The startup banner is randomly chosen among a pool of banners each time
+`Spacemacs` starts. Banners are located in directory
+`~/.emacs.d/core/banners`.
+
+If you have some ASCII skills you can submit your artwork!
+
+You are free to choose a reasonable height size but the recommended width
+size is 75 characters to keep the code simple.
 
 [git-flow]: http://nvie.com/posts/a-successful-git-branching-model/
 [gitter]: https://gitter.im/syl20bnr/spacemacs

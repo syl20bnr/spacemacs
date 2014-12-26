@@ -1,7 +1,17 @@
+(defconst dotspacemacs-template-directory
+  (expand-file-name (concat spacemacs-core-directory "templates/"))
+  "Templates directory.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')"
-)
+  )
+
+(defvar dotspacemacs-startup-banner 'random
+  "Specify the startup banner. If the value is an integer then the
+banner with the corresponding index is used, if the value is `random'
+then the banner is chosen randomly among the available banners, if
+the value is nil then no banner is displayed.")
 
 (defvar dotspacemacs-configuration-layers '()
   "list of contribution to load."
@@ -73,7 +83,7 @@ before installing the file if the destination already exists."
                                         dotfile))
                     t)))
     (when install
-      (copy-file (concat spacemacs-template-directory
+      (copy-file (concat dotspacemacs-template-directory
                          ".spacemacs.template") dotfile t)
       (message "%s has been installed." dotfile))))
 

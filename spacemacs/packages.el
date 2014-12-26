@@ -389,7 +389,7 @@ which require an initialization must be listed explicitly in the list.")
          (let ((map (make-sparse-keymap)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
-           (if (ht-contains? config-system-all-packages 'evil-iedit-state)
+           (if (ht-contains? configuration-layer-all-packages 'evil-iedit-state)
                (define-key map (kbd "e") 'evil-iedit-state/iedit-mode)
              (define-key map (kbd "e") 'ahs-edit-mode))
            (define-key map (kbd "n") 'ahs-forward)
@@ -603,7 +603,7 @@ determine the state to enable when escaping from the insert state.")
       (define-and-bind-text-object "%" "%" "%")
 
       ;; support smart 1parens-strict-mode
-      (if (ht-contains? config-system-all-packages 'smartparens)
+      (if (ht-contains? configuration-layer-all-packages 'smartparens)
           (defadvice evil-delete-backward-char-and-join
               (around spacemacs/evil-delete-backward-char-and-join activate)
             (if smartparens-strict-mode
@@ -798,12 +798,35 @@ determine the state to enable when escaping from the insert state.")
     :defer t
     :init
     (progn
+
       (defun spacemacs/mode-line-battery-info-toggle ()
         "Toggle display of battery info."
         (interactive)
         (if fancy-battery-mode
             (fancy-battery-mode -1)
-          (fancy-battery-mode)))
+          (fancy-battery-mode)
+          (spacemacs/mode-line-battery-remove-from-global)))
+
+      (defun spacemacs/mode-line-battery-remove-from-global ()
+        "Remove the battery info from the `global-mode-string'."
+        (setq global-mode-string (delq 'fancy-battery-mode-line
+                                       global-mode-string)))
+
+      (defun spacemacs/mode-line-battery-percentage ()
+        "Return the load percentage or an empty string."
+        (let ((p (cdr (assq ?p fancy-battery-last-status))))
+          (if (and fancy-battery-show-percentage
+                   p (not (string= "N/A" p))) (concat " " p "%%") "")))
+
+      (defun spacemacs/mode-line-battery-time ()
+        "Return the remaining time complete load or discharge."
+        (let ((time (cdr (assq ?t fancy-battery-last-status))))
+          (cond
+           ((string= "0:00" time) "")
+           ((string= "N/A" time) "")
+           ((string-empty-p time) "")
+           (t (concat " (" time ")")))))
+
       (setq-default fancy-battery-show-percentage t)
       (evil-leader/set-key "tmb" 'spacemacs/mode-line-battery-info-toggle))
     :config
@@ -812,24 +835,27 @@ determine the state to enable when escaping from the insert state.")
       ;; basically remove all faces and properties.
       (defun fancy-battery-default-mode-line ()
         "Assemble a mode line string for Fancy Battery Mode."
+        (spacemacs/mode-line-battery-remove-from-global)
         (when fancy-battery-last-status
-          (let* ((time (cdr (assq ?t fancy-battery-last-status)))
-                 (percentage (cdr (assq ?p fancy-battery-last-status)))
-                 (status (if (or fancy-battery-show-percentage
-                                 (string= time "N/A"))
-                             (and percentage (concat (concat percentage "%%")
-                                                     " (" time ")"))
-                           time)))
-            (if status (concat " " status)
-              ;; Battery status is not available
-              "N/A"))))
+
+          (let* ((type (cdr (assq ?L fancy-battery-last-status)))
+                 (percentage (spacemacs/mode-line-battery-percentage))
+                 (time (spacemacs/mode-line-battery-time)))
+            (cond
+             ((string= "on-line" type) " No Battery")
+             ((string-empty-p type) " No Battery")
+             (t (concat (if (string= "AC" type) " AC" "") percentage time))))))
 
       (defun fancy-battery-powerline-face ()
         "Return a face appropriate for powerline"
-        (pcase (cdr (assq ?b fancy-battery-last-status))
-                   ("!"  'fancy-battery-critical)
-                   ("+"  ' fancy-battery-charging)
-                   (_ 'fancy-battery-discharging))))
+        (let ((type (cdr (assq ?L fancy-battery-last-status))))
+          (if (and type (string= "AC" type))
+              'fancy-battery-charging
+            (pcase (cdr (assq ?b fancy-battery-last-status))
+              ("!"  'fancy-battery-critical)
+              ("+"  'fancy-battery-charging)
+              ("-"  'fancy-battery-discharging)
+              (_ 'fancy-battery-discharging))))))
     ))
 
 (defun spacemacs/init-fancy-narrow ()
@@ -1391,8 +1417,7 @@ determine the state to enable when escaping from the insert state.")
             neo-banner-message "File Tree browser"
             neo-smart-open t
             neo-persist-show nil)
-      (evil-leader/set-key "ft" 'neotree-toggle)
-      (evil-leader/set-key "TAB" 'neotree-toggle))
+      (evil-leader/set-key "ft" 'neotree-toggle))
     :config
     (add-hook 'neotree-mode-hook
               (lambda ()
@@ -1497,6 +1522,7 @@ determine the state to enable when escaping from the insert state.")
       (evil-leader/set-key
         "aP" 'spacemacs/paradox-list-packages))
     :config
+    (setq paradox-execute-asynchronously nil)
     (spacemacs/activate-evil-leader-for-map 'paradox-menu-mode-map)
     ))
 
@@ -1805,7 +1831,7 @@ determine the state to enable when escaping from the insert state.")
             rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
             rcirc-omit-threshold 20)
       (require 'rcirc-color)
-      (let ((dir (config-system/get-layer-property 'spacemacs :ext-dir)))
+      (let ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir)))
         (require 'rcirc-reconnect
                  (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
       ;; identify info are stored in a separate location, skip errors
@@ -1987,7 +2013,7 @@ determine the state to enable when escaping from the insert state.")
       (defun spacemacs/load-yasnippet ()
           (if (not (boundp 'yas-minor-mode))
               (progn
-                (let* ((dir (config-system/get-layer-property 'spacemacs :ext-dir))
+                (let* ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir))
                        (yas-dir (list (concat dir "yasnippet-snippets"))))
                   (setq yas-snippet-dirs yas-dir)
                   (yas-global-mode 1)))))

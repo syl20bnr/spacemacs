@@ -19,6 +19,11 @@
 ;; --------
 
 (setq-default
+ ;; Specify the startup banner. If the value is an integer then the
+ ;; banner with the corresponding index is used, if the value is `random'
+ ;; then the banner is chosen randomly among the available banners, if
+ ;; the value is nil then no banner is displayed.
+ dotspacemacs-startup-banner 'random
  ;; Default theme applied at startup
  dotspacemacs-default-theme 'solarized-light
  ;; The leader key
@@ -56,7 +61,7 @@
  ;; specified with an installed package.
  ;; Not used for now.
  dotspacemacs-default-package-repository nil
-)
+ )
 
 ;; Initialization Hooks
 ;; --------------------
@@ -64,7 +69,7 @@
 (defun dotspacemacs/init ()
   "User initialization for Spacemacs. This function is called at the very
  startup."
-)
+  )
 
 (defun dotspacemacs/config ()
   "This is were you can ultimately override default Spacemacs configuration.

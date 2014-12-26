@@ -1,6 +1,6 @@
 # Autohotkey contribution layer for Spacemacs
 
-![logo](ahk.png)
+![logo](img/ahk.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**

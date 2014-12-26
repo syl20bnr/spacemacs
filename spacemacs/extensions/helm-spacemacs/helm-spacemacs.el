@@ -26,7 +26,7 @@
 
 ;;; Code:
 
-(require 'config-system)
+(require 'configuration-layer)
 (require 'helm)
 (require 'ht)
 
@@ -43,10 +43,10 @@
   :global t
   (if helm-spacemacs-mode
       (progn
-        (mapc (lambda (layer) (push (config-system//declare-layer layer)
+        (mapc (lambda (layer) (push (configuration-layer//declare-layer layer)
                                     helm-spacemacs-all-layers))
-              (config-system/get-layers-list))
-        (setq helm-spacemacs-all-packages (config-system/get-packages
+              (configuration-layer/get-layers-list))
+        (setq helm-spacemacs-all-packages (configuration-layer/get-packages
                                            helm-spacemacs-all-layers)))
     (setq helm-spacemacs-all-layers nil
           helm-spacemacs-all-packages nil)))
@@ -63,7 +63,7 @@
 (defun helm-spacemacs//layer-source ()
   "Construct the helm source for the layer section."
   `((name . "Layers")
-    (candidates . ,(sort (config-system/get-layers-list) 'string<))
+    (candidates . ,(sort (configuration-layer/get-layers-list) 'string<))
     (action . (("Open README.md" . helm-spacemacs//layer-action-open-readme)
                ("Open packages.el" . helm-spacemacs//layer-action-open-packages)
                ("Open extensions.el" . helm-spacemacs//layer-action-open-extensions)))))
@@ -85,7 +85,7 @@
 (defun helm-spacemacs//layer-action-open-file (file candidate)
   "Open FILE of the passed CANDIDATE."
   (let ((path (file-name-as-directory
-               (concat (ht-get config-system-layer-paths
+               (concat (ht-get configuration-layer-paths
                                (intern candidate))
                        candidate))))
     (find-file (concat path file))))
@@ -109,7 +109,7 @@
     (let* ((layer (match-string 1 candidate))
            (package (match-string 2 candidate))
            (path (file-name-as-directory
-                  (concat (ht-get config-system-layer-paths (intern layer))
+                  (concat (ht-get configuration-layer-paths (intern layer))
                           layer)))
            (filename (concat path "packages.el")))
       (find-file filename)
