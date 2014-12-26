@@ -1624,7 +1624,7 @@ determine the state to enable when escaping from the insert state.")
                                                   (cdr powerline-default-separator-dir))))
                  (lhs (append
                        ;; window number
-                       (if window-numberingp
+                       (if (and window-numberingp (spacemacs/window-number))
                            (list (powerline-raw (spacemacs/window-number) state-face))
                          (list (powerline-raw (evil-state-property evil-state :tag t) state-face)))
                        (if (and active anzu--state)
@@ -2000,20 +2000,26 @@ determine the state to enable when escaping from the insert state.")
 
     (defun spacemacs/window-number ()
       "Return the number of the window."
-      (let ((num (window-numbering-get-number-string)))
+      (let* ((num (window-numbering-get-number))
+             (str (if num (int-to-string num))))
         (cond
-         ((not dotspacemacs-mode-line-unicode-symbols) (concat " " num " "))
-         ((equal num "1")  " ➊ ")
-         ((equal num "2")  " ➋ ")
-         ((equal num "3")  " ➌ ")
-         ((equal num "4")  " ➍ ")
-         ((equal num "5")  " ➎ ")
-         ((equal num "6")  " ❻ ")
-         ((equal num "7")  " ➐ ")
-         ((equal num "8")  " ➑ ")
-         ((equal num "9")  " ➒ ")
-         ((equal num "0")  " ➓ ")
-         (t (concat " " num " ")))))))
+         ((not dotspacemacs-mode-line-unicode-symbols) (concat " " str " "))
+         ((equal str "1")  " ➊ ")
+         ((equal str "2")  " ➋ ")
+         ((equal str "3")  " ➌ ")
+         ((equal str "4")  " ➍ ")
+         ((equal str "5")  " ➎ ")
+         ((equal str "6")  " ❻ ")
+         ((equal str "7")  " ➐ ")
+         ((equal str "8")  " ➑ ")
+         ((equal str "9")  " ➒ ")
+         ((equal str "0")  " ⓿ "))))
+
+    (defun spacemacs//window-numbering-assign ()
+      "Custom number assignment for special buffers."
+      (when (equal (buffer-name) " *NeoTree*") 0))
+    (setq window-numbering-assign-func ''spacemacs//window-numbering-assign)
+    ))
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
