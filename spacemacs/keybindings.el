@@ -102,7 +102,7 @@
 (evil-leader/set-key "cC" 'compile)
 (evil-leader/set-key "cr" 'recompile)
 ;; narrow & widen -------------------------------------------------------------
-(unless (ht-contains? configuration-layer-all-packages 'fancy-narrow)
+(unless (configuration-layer/layer-declaredp 'fancy-narrow)
   (evil-leader/set-key
     "nr" 'narrow-to-region
     "np" 'narrow-to-page
