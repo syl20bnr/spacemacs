@@ -168,6 +168,7 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
                   (spacemacs//get-banner-path dotspacemacs-startup-banner))))
         (buffer-read-only nil))
     (when banner
+      (spacemacs/message (format "Banner: %s" banner))
       (insert-file-contents banner)
       (spacemacs/insert-buttons))))
 
