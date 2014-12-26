@@ -815,7 +815,8 @@ determine the state to enable when escaping from the insert state.")
       (defun spacemacs/mode-line-battery-percentage ()
         "Return the load percentage or an empty string."
         (let ((p (cdr (assq ?p fancy-battery-last-status))))
-          (if (and fancy-battery-show-percentage p) (concat " " p "%%") "")))
+          (if (and fancy-battery-show-percentage
+                   p (not (string= "N/A" p))) (concat " " p "%%") "")))
 
       (defun spacemacs/mode-line-battery-time ()
         "Return the remaining time complete load or discharge."
@@ -840,10 +841,10 @@ determine the state to enable when escaping from the insert state.")
           (let* ((type (cdr (assq ?L fancy-battery-last-status)))
                  (percentage (spacemacs/mode-line-battery-percentage))
                  (time (spacemacs/mode-line-battery-time)))
-            (if type
-                (concat (if (string= "AC" type) " AC" "") percentage time)
-              ;; Battery status is not available
-              "No Battery Info"))))
+            (cond
+             ((string= "on-line" type) " No Battery")
+             ((string-empty-p type) " No Battery")
+             (t (concat (if (string= "AC" type) " AC" "") percentage time))))))
 
       (defun fancy-battery-powerline-face ()
         "Return a face appropriate for powerline"
