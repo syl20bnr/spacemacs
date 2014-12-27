@@ -706,6 +706,7 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 <kbd>SPC t L</kbd>    | toggle visual lines
 <kbd>SPC t M</kbd>    | toggle frame maximize
 <kbd>SPC t n</kbd>    | show the absolute line numbers
+<kbd>SPC t t</kbd>    | toggle frame transparency
 
 ## Mode-line
 
