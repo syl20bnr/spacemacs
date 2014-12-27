@@ -121,6 +121,7 @@
   "tL" 'visual-line-mode
   "tM" 'toggle-frame-maximized
   "tn" 'global-linum-mode
+  "tt" 'toggle-transparency
   "t SPC" 'whitespace-mode)
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key

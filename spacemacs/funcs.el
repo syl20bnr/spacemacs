@@ -216,6 +216,19 @@ the current state and point position."
       (delete-other-windows)
       (bzg-big-fringe-mode 1))))
 
+(defun toggle-transparency ()
+  "Toggle between transparent or opaque display."
+  (interactive)
+  ;; Define alpha if it's nil
+  (if (eq (frame-parameter (selected-frame) 'alpha) nil)
+      (set-frame-parameter (selected-frame) 'alpha '(100 100)))
+  ;; Do the actual toggle
+  (if (/= (cadr (frame-parameter (selected-frame) 'alpha)) 100)
+      (set-frame-parameter (selected-frame) 'alpha '(100 100))
+    (set-frame-parameter (selected-frame) 'alpha
+                         (list dotspacemacs-active-transparency
+                               dotspacemacs-inactive-transparency))))
+
 (defun toggle-triple-double-column-mode ()
   " Toggle between triple columns and double columns mode quickly. "
   (interactive)
