@@ -4,7 +4,6 @@
     flycheck-haskell
     ghc
     haskell-mode
-    ghci-completion
     ))
 
 ;; Only load company-ghc if company-mode is enabled
