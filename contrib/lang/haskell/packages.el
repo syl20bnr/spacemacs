@@ -25,7 +25,7 @@
       (custom-set-variables
        ;; Use cabal-repl for the GHCi session. Ensures our dependencies are in scope.
        ;; cabal-dev is deprecated
-       '(haskell-process-type 'cabal-repl)
+       '(haskell-process-type 'auto)
 
        ;; Use notify.el (if you have it installed) at the end of running
        ;; Cabal commands or generally things worth notifying.
