@@ -29,4 +29,16 @@ which require an initialization must be listed explicitly in the list.")
         (kbd "TAB") 'forward-button
         (kbd "<backtab>") 'backward-button
         (kbd "M-n") 'forward-button
-        (kbd "M-p") 'backward-button))))
+        (kbd "M-p") 'backward-button)
+
+      ;; Don't use scala checker if ensime mode is active, since it provides
+      ;; better error checking.
+
+      (eval-after-load 'flycheck
+        '(progn
+           (defun spacemacs/flycheck-use-scalastyle ()
+             (when ensime-mode
+               (flycheck-select-checker 'scala-scalastyle)))
+
+           (add-hook 'flycheck-before-syntax-check-hook
+                     'spacemacs/flycheck-use-scalastyle))))))
