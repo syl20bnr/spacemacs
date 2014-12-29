@@ -18,6 +18,19 @@ To use this contribution add it to your `~/.spacemacs`
 )
 ```
 
+To install the neccessary cabal packages for this mode to work, use the following command: 
+
+`cabal install stylish-haskell hlint ghc-mod`
+
+On OS X, you need to add the path where cabal has installed your executables to your .spacemacs-file, like so:
+```
+(add-to-list 'exec-path "<PATH>")
+```
+\<PATH\> should be replaced by whatever your call to `dirname $(which ghc-mod)` returns (if you are using fish shell, use the command `dirname (which ghc-mod)`).
+
+The `add-to-list` line should be added to the `dotspacemacs/init` function, so that the path is added before any layers are loaded.
+
+
 ## Key bindings
 
 All Haskell specific bindings are prefixed with <kbd>SPC m</kbd>
