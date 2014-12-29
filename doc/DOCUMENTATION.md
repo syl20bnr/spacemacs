@@ -780,6 +780,7 @@ add the following snippet to your configuration file:
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'arrow)
+)
 ```
 
 To save you the time to try all the possible separators provided by the
@@ -867,6 +868,7 @@ function of your `~/.spacemacs`.
 ```elisp
 (defun dotspacemacs/config ()
   (spacemacs/set-font "DejaVu Sans Mono" 10)
+)
 ```
 
 # Commands
