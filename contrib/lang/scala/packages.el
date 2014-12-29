@@ -3,6 +3,7 @@
     ensime
     sbt-mode
     scala-mode2
+    noflet
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -42,3 +43,22 @@ which require an initialization must be listed explicitly in the list.")
 
            (add-hook 'flycheck-before-syntax-check-hook
                      'spacemacs/flycheck-use-scalastyle))))))
+
+(defun spacemacs/init-scala-mode2 ()
+  (use-package scala-mode2
+    :defer t
+    :init
+    (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
+      (add-to-list 'completion-ignored-extensions ext))
+    :config
+    (progn
+      ;; Compatibility with `aggressive-indent'
+      (custom-set-variables
+       (scala-indent:align-forms t)
+       (scala-indent:align-parameters t)
+       (scala-indent:default-run-on-strategy scala-indent:operator-strategy))
+
+      (defadvice scala-indent:indent-code-line (around retain-trailing-ws activate)
+        "Keep trailing-whitespace when indenting."
+        (noflet ((scala-lib:delete-trailing-whitespace ()))
+          ad-do-it)))))
