@@ -9,7 +9,9 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-ensime ()
   (use-package ensime
-    :defer t
+    :commands (ensime-mode)
+    :init
+    (add-hook 'scala-mode-hook 'ensime-mode)
     :config
     (progn
       (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
