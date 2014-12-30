@@ -2,13 +2,36 @@
 
 ![logo](img/haskell.png)
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [Haskell contribution layer for Spacemacs](#haskell-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+        - [Layer](#layer)
+        - [Cabal packages](#cabal-packages)
+        - [OS X](#os-x)
+    - [Key bindings](#key-bindings)
+        - [Haskell source code:](#haskell-source-code)
+            - [Haskell commands:](#haskell-commands)
+            - [Documentation commands:](#documentation-commands)
+            - [Cabal commands:](#cabal-commands)
+            - [Debug commands:](#debug-commands)
+            - [REPL commands:](#repl-commands)
+        - [Cabal files:](#cabal-files)
+
+<!-- markdown-toc end -->
+
+## Description
+
 This layer adds support for the [Haskell][] language.
 The layer uses company-ghc for completetion.
 
-**This layer is still not fully adapted for Spacemacs, it needs you, Haskell experts, to
-improve it and make it consistent with the Spacemacs experience.**
+**This layer is in construction, it needs your contributions and bug reports.**
 
 ## Install
+
+### Layer
 
 To use this contribution add it to your `~/.spacemacs`
 
@@ -18,22 +41,46 @@ To use this contribution add it to your `~/.spacemacs`
 )
 ```
 
-This layer requires some external binaries to function.
-These are listed below, and can all be installed with `cabal install`:
+### Cabal packages
+
+This layer requires some [cabal][] packages:
 - `ghc-mod`
 - `hlint`
 - `stylish-haskell`
 
-Next Emacs needs to know of the directory of the binaries `~/.cabal/bin/` (or where ever cabal installs to by default on your system), which means that the directory has to be either added to your systems' `$PATH` or to Emacs' own `exec-path`.
+To install them, use the following command: 
 
-Only one of the options below is needed:
+```sh
+cabal install stylish-haskell hlint ghc-mod
+```
 
-- Add it to `$PATH`:
-`export PATH=~/.cabal/bin/:$PATH`
-Sidenote: emacs.app for OS X does not pick up `$PATH` from `~/.bashrc` or `~/.zshrc` when launched from outside a terminal.
+Next Emacs needs to know where to find these binaries, you can locate them with
+the following shell command:
 
-- Add it to Emacs, add the following to `.spacemacs` in `dotspacemacs/config`:
-`(add-to-list 'exec-path "~/.cabal/bin/")`
+```sh
+dirname $(which ghc-mod)
+```
+
+Then you have to add this path to your system `$PATH` (preferred):
+
+```sh
+export PATH=~/.cabal/bin/:$PATH
+```
+
+_or_ to the Emacs `exec-path` variable in the `dotspacemacs/init` function of
+your `.spacemacs` file:
+
+```elisp
+(add-to-list 'exec-path "~/.cabal/bin/")
+```
+
+**Note:** it is important to add the path in the `dotspacemacs/init` function,
+so that the path is added before any layers is loaded.
+
+### OS X
+
+Note that `emacs.app` for OS X does not pick up `$PATH` from `~/.bashrc` or
+`~/.zshrc` when launched from outside a terminal.
 
 ## Key bindings
 
@@ -115,3 +162,4 @@ REPL commands are prefixed by <kbd>SPC m s</kbd>:
 **TODO**
 
 [Haskell]: https://www.haskell.org/
+[cabal]: https://www.haskell.org/cabal/
