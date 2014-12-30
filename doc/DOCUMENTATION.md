@@ -2038,6 +2038,7 @@ Achievements                                         | Account
 [First contribution][1st-contrib]                    | [trishume][]
 [First contribution layer][1st-clayer]               | [trishume][]
 [First blog article on Spacemacs][1st-article]       | [Wolfy87][]
+[First contributed banner][1st-cbanner]              | [chrisbarrett][]
 [100th issue (PR)][100th-issue]                      | [danielwuz][]
 [200th issue (question)][200th-issue]                | [justrajdeep][]
 [300th issue (PR)][300th-issue]                      | [danielwuz][]
@@ -2133,6 +2134,7 @@ developers to elisp hackers!
 [1st-contrib]: https://github.com/syl20bnr/spacemacs/pull/19
 [1st-clayer]: https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39
 [1st-article]: http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/
+[1st-cbanner]: https://github.com/syl20bnr/spacemacs/commit/7b44a56263049482ed540ed6815a295633ffe9d1
 [100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
 [200th-issue]: https://github.com/syl20bnr/spacemacs/pull/200
 [300th-issue]: https://github.com/syl20bnr/spacemacs/pull/300
@@ -2140,6 +2142,7 @@ developers to elisp hackers!
 [trishume]:https://github.com/trishume
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
+[chrisbarrett]:https://github.com/chrisbarrett
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
 [bru]:https://github.com/bru
