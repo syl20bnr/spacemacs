@@ -8,6 +8,10 @@
 - [git contribution layer for Spacemacs](#git-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
+        - [Layer](#layer)
+        - [Github support](#github-support)
+        - [Magit auto-complete](#magit-auto-complete)
+        - [Git](#git)
     - [Working with Git](#working-with-git)
         - [Magit](#magit)
         - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
@@ -37,6 +41,8 @@ This layer also provides support for Github with:
 
 ## Install
 
+### Layer
+
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
@@ -44,6 +50,8 @@ To use this contribution add it to your `~/.spacemacs`
   "List of contribution to load."
 )
 ```
+
+### Github support
 
 To enable the Github support set the variable `git-enable-github-support`
 to `t` in your `dotspacemacs/init` function.
@@ -53,6 +61,18 @@ to `t` in your `dotspacemacs/init` function.
   (setq-default git-enable-github-support t)
 )
 ```
+
+### Magit auto-complete
+
+Magit auto-complete feature is enabled. For this feature to work best you
+have to setup your Git repository directory in your `dotspacemacs/config`
+function (the path should end up with a `/` to respect Emacs conventions):
+
+```elisp
+(setq magit-repo-dirs '("~/git/"))
+```
+
+### Git
 
 Of course if your OS does not ship with git (!) you'll have to install it
 on your machine, [download page][].
@@ -88,7 +108,7 @@ To open a `status buffer`, type in a buffer of a Git repository:
     <SPC> g s
 
 `hjkl` navigation is enabled in all Magit buffers. The default Magit keys
-on `hjkl` are remapped on `HJKL`.
+on `hjkl` (if they exist) are remapped on `HJKL`.
 
 Here are the often used bindings inside a `status buffer`:
 
