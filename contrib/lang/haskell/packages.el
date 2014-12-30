@@ -4,6 +4,7 @@
     flycheck-haskell
     ghc
     haskell-mode
+    hi2
     ))
 
 ;; Only load company-ghc if company-mode is enabled
@@ -153,3 +154,16 @@
     (add-to-list 'company-backends 'company-ghc)
     (ghc-comp-init)
     ))
+
+(defun haskell/init-hi2 ()
+  (use-package hi2
+    :diminish hi2-mode
+    :commands turn-on-hi2
+    :init
+    (add-hook 'haskell-mode-hook 'turn-on-hi2)
+    :config
+    (progn
+      ;; Show indentation guides for hi2 only in insert state.
+      (add-hook 'evil-normal-state-entry-hook 'spacemacs/haskell-hide-hi2-guides)
+      (add-hook 'evil-insert-state-entry-hook 'spacemacs/haskell-show-hi2-guides)
+      (add-hook 'evil-insert-state-exit-hook  'spacemacs/haskell-hide-hi2-guides))))
