@@ -8,7 +8,7 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defun spacemacs/init-ensime ()
+(defun scala/init-ensime ()
   (use-package ensime
     :commands (ensime-mode)
     :init
@@ -44,7 +44,7 @@ which require an initialization must be listed explicitly in the list.")
            (add-hook 'flycheck-before-syntax-check-hook
                      'spacemacs/flycheck-use-scalastyle))))))
 
-(defun spacemacs/init-scala-mode2 ()
+(defun scala/init-scala-mode2 ()
   (use-package scala-mode2
     :defer t
     :init
