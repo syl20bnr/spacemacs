@@ -15,8 +15,6 @@ which require an initialization must be listed explicitly in the list.")
     (add-hook 'scala-mode-hook 'ensime-mode)
     :config
     (progn
-      (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
-
       (evil-define-key 'normal ensime-popup-buffer-map
         (kbd "q") 'ensime-popup-buffer-quit-function)
 
@@ -52,6 +50,8 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-list 'completion-ignored-extensions ext))
     :config
     (progn
+      (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
+
       ;; Compatibility with `aggressive-indent'
       (custom-set-variables
        '(scala-indent:align-forms t)
