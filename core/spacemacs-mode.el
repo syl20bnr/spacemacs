@@ -160,10 +160,17 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
     (set-default-font fontstr)))
 
 (defun spacemacs//insert-banner ()
-  "Choose a banner and insert in spacemacs buffer."
+  "Choose a banner and insert in spacemacs buffer.
+
+Doge special banner can be reachable via `999', `doge' or `random*'.
+`random' ignore special banners whereas `random*' does not."
   (let ((banner (cond
                  ((eq 'random dotspacemacs-startup-banner)
                   (spacemacs//choose-random-banner))
+                 ((eq 'random* dotspacemacs-startup-banner)
+                  (spacemacs//choose-random-banner t))
+                 ((eq 'doge dotspacemacs-startup-banner)
+                  (spacemacs//get-banner-path 999))
                  ((integerp dotspacemacs-startup-banner)
                   (spacemacs//get-banner-path dotspacemacs-startup-banner))))
         (buffer-read-only nil))
@@ -172,13 +179,15 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
       (insert-file-contents banner)
       (spacemacs/insert-buttons))))
 
-(defun spacemacs//choose-random-banner ()
-  "Return the full path of a banner chosen randomly."
-  (let* ((files (directory-files spacemacs-banner-directory nil nil 'nosort))
+(defun spacemacs//choose-random-banner (&optional all)
+  "Return the full path of a banner chosen randomly.
+
+If ALL is non-nil then truly all banners can be selected."
+  (let* ((files (directory-files spacemacs-banner-directory t))
          (count (length files))
-         ;; -2 to remove `.' `..'
-         (choice (random (- count 2))))
-    (spacemacs//get-banner-path choice)))
+         ;; -2 then +2 to remove `.' and `..'
+         (choice (+ 2 (random (- count (if all 2 3))))))
+    (nth choice files)))
 
 (defun spacemacs//get-banner-path (index)
   "Return the full path to banner with index INDEX."
