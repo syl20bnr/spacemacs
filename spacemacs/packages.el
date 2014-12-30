@@ -1141,6 +1141,7 @@ determine the state to enable when escaping from the insert state.")
         "rr"  'helm-register
         "rm"  'helm-all-mark-rings
         "fh"  'helm-find-files
+        "fr"  'helm-recentf
         "<f1>" 'helm-apropos
         )
     :config
