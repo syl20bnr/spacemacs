@@ -54,9 +54,9 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       ;; Compatibility with `aggressive-indent'
       (custom-set-variables
-       (scala-indent:align-forms t)
-       (scala-indent:align-parameters t)
-       (scala-indent:default-run-on-strategy scala-indent:operator-strategy))
+       '(scala-indent:align-forms t)
+       '(scala-indent:align-parameters t)
+       '(scala-indent:default-run-on-strategy scala-indent:operator-strategy))
 
       (defadvice scala-indent:indent-code-line (around retain-trailing-ws activate)
         "Keep trailing-whitespace when indenting."
