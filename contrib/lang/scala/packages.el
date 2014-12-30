@@ -28,7 +28,9 @@ which require an initialization must be listed explicitly in the list.")
         (kbd "TAB") 'forward-button
         (kbd "<backtab>") 'backward-button
         (kbd "M-n") 'forward-button
-        (kbd "M-p") 'backward-button)
+        (kbd "M-p") 'backward-button
+        (kbd "n") 'forward-button
+        (kbd "N") 'backward-button)
 
       ;; Don't use scala checker if ensime mode is active, since it provides
       ;; better error checking.
