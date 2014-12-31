@@ -56,18 +56,22 @@
     :init
     (evil-leader/set-key "feh" 'helm-spacemacs)))
 
-
 (defun spacemacs/init-neotree ()
   (use-package neotree
-    :defer t
+    :commands (neotree-toggle)
     :init
     (progn
       (add-to-list 'evil-motion-state-modes 'neotree-mode)
-      (setq neo-create-file-auto-open t
-            neo-dont-be-alone t
-            neo-banner-message "File Tree browser"
+      (setq neo-window-width 30
+            neo-create-file-auto-open t
+            neo-banner-message nil
+            neo-show-updir-line nil
+            neo-mode-line-type 'neotree
             neo-smart-open t
-            neo-persist-show nil)
+            neo-dont-be-alone t
+            neo-persist-show nil
+            neo-show-hidden-files t
+            neo-auto-indent-point t)
       (evil-leader/set-key "ft" 'neotree-toggle))
     :config
     (add-hook 'neotree-mode-hook
