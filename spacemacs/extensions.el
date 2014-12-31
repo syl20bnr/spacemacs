@@ -14,6 +14,7 @@
     evil-plugins
     helm-rcirc
     helm-spacemacs
+    neotree
     solarized-theme
     spray
     ))
@@ -54,6 +55,35 @@
     :commands helm-spacemacs
     :init
     (evil-leader/set-key "feh" 'helm-spacemacs)))
+
+
+(defun spacemacs/init-neotree ()
+  (use-package neotree
+    :defer t
+    :init
+    (progn
+      (add-to-list 'evil-motion-state-modes 'neotree-mode)
+      (setq neo-create-file-auto-open t
+            neo-dont-be-alone t
+            neo-banner-message "File Tree browser"
+            neo-smart-open t
+            neo-persist-show nil)
+      (evil-leader/set-key "ft" 'neotree-toggle))
+    :config
+    (add-hook 'neotree-mode-hook
+              (lambda ()
+                (define-key evil-motion-state-local-map (kbd "TAB") 'neotree-enter)
+                (define-key evil-motion-state-local-map (kbd "RET") 'neotree-enter)
+                (define-key evil-motion-state-local-map (kbd "?") 'evil-search-backward)
+                (define-key evil-motion-state-local-map (kbd "a") 'neotree-stretch-toggle)
+                (define-key evil-motion-state-local-map (kbd "c") 'neotree-create-node)
+                (define-key evil-motion-state-local-map (kbd "d") 'neotree-delete-node)
+                (define-key evil-motion-state-local-map (kbd "g") 'neotree-refresh)
+                (define-key evil-motion-state-local-map (kbd "H") 'neotree-hidden-file-toggle)
+                (define-key evil-motion-state-local-map (kbd "K") 'kill-this-buffer)
+                (define-key evil-motion-state-local-map (kbd "q") 'neotree-hide)
+                (define-key evil-motion-state-local-map (kbd "r") 'neotree-rename-node)
+                ))))
 
 (defun spacemacs/init-revive ()
   (use-package revive
