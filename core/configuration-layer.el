@@ -354,7 +354,9 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
   "Upgrade elpa packages"
   (interactive)
   (spacemacs/append-to-buffer
-   "\n--> fetching new package repository indexes...\n")
+   "\nUpdating Spacemacs... (for now only ELPA packages are updated)\n")
+  (spacemacs/append-to-buffer
+   "--> fetching new package repository indexes...\n")
   (redisplay)
   (package-refresh-contents)
   (setq upgraded-count 0)
@@ -380,7 +382,8 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
             (package-install pkg)
             )))))
   (spacemacs/append-to-buffer
-   (format "\n--> %s packages updated.\n"
+   (format (concat (if (> upgraded-count 0) "\n" "")
+                   "--> %s packages updated.\n")
            upgraded-count))
   (redisplay))
 
