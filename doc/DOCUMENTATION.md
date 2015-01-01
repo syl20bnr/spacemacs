@@ -132,16 +132,12 @@
 - [Emacs Server](#emacs-server)
     - [Connecting to the Emacs server](#connecting-to-the-emacs-server)
     - [Keeping the server alive](#keeping-the-server-alive)
-- [Tips](#tips)
-    - [Updating Spacemacs](#updating-spacemacs)
-    - [Tips for Emacs users](#tips-for-emacs-users)
     - [Troubleshoot](#troubleshoot)
         - [Loading fails](#loading-fails)
         - [I have no file ~/.spacemacs](#i-have-no-file-spacemacs)
-    - [Tips for Spacemacs advanced users](#tips-for-spacemacs-advanced-users)
-        - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
-        - ["jk" to trigger evil leader](#jk-to-trigger-evil-leader)
-        - [Smooth fonts on Windows](#smooth-fonts-on-windows)
+- [Tips](#tips)
+    - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
+    - ["jk" to trigger evil leader](#jk-to-trigger-evil-leader)
 - [Achievements](#achievements)
 - [Thank you](#thank-you)
 
@@ -2006,37 +2002,6 @@ server is to use the following bindings:
 <kbd>SPC q q</kbd> | Quit Emacs and kill the server
 <kbd>SPC q s</kbd> | Save the buffers, quit Emacs and kill the server
 
-# Tips
-
-## Updating Spacemacs
-
-Currently there is no auto-update mechanism so if you want the latest and greatest features you
-have to `git pull` the latest changes from `syl20bnr/spacemacs`. The `master` branch is updated
-fairly regularly with releases of features that *should* be stable. The `develop` contains bleeding
-edge features that are still in development, if you are an advanced user and want to help test these
-features feel free to run off of this branch.
-
-## Tips for Emacs users
-
-If you came here with a pure Emacs background, here are some useful tips to get
-you started.
-
-1) As you may have notice, raw Emacs behavior is indeed available in Evil via the
-`Emacs state`!
-
-To start you could setup the `Emacs state` as the default one, pressing `fd`
-quickly would bring you to `Normal state` and pressing `ESC` from there would
-bring you back in `Emacs state`. This way you should never feel lost.
-
-To do so add the following snippet to your `~/.spacemacs`:
-
-```elisp
-(defun dotspacemacs/config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
-  (setq evil-default-state 'emacs)
-  (define-key evil-normal-state-map [escape] 'evil-emacs-state))
-```
 ## Troubleshoot
 
 ### Loading fails
@@ -2056,9 +2021,9 @@ Then you can copy/paste the error in a [Github issue][issues], thank you.
 You have to manually copy the `~/.emacs.d/core/templates/.spacemacs.template`
 file to `~/.spacemacs`
 
-## Tips for Spacemacs advanced users
+# Tips
 
-### evil-lisp-state as default state
+## evil-lisp-state as default state
 
 To Make `lisp state` the default state in `Emacs Lisp` buffers, insert in
 your `~/.spacemacs` the following snippet:
@@ -2068,7 +2033,7 @@ your `~/.spacemacs` the following snippet:
   (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
 ```
 
-### "jk" to trigger evil leader
+## "jk" to trigger evil leader
 
 It is possible to activate an experimental feature which allows to trigger the
 evil leader in `insert state`, in `ido` minibuffer and in `helm` buffers.
@@ -2078,10 +2043,6 @@ To activate it, set `dotspacemacs-feature-toggle-leader-on-jk` to `t`.
 ```elisp
 (setq-default dotspacemacs-feature-toggle-leader-on-jk t)
 ```
-
-### Smooth fonts on Windows
-
-To get smooth fonts on Windows install [MacType][].
 
 More info on this feature:
 - [insert state](#experimental-insert-state-feature)
