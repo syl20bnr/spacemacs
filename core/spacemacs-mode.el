@@ -74,6 +74,10 @@
       (require 'solarized)
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))
+     ;; Support for all base16 themes
+     ((string-match "base16" (symbol-name dotspacemacs-default-theme))
+      (let ((pkg-dir (spacemacs/load-or-install-package 'base16-theme)))
+        (add-to-list 'custom-theme-load-path pkg-dir)))
      (t
       ;; other themes
       ;; we assume that the package name is suffixed with `-theme'
@@ -117,26 +121,34 @@ initialization."
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
   (spacemacs-mode))
 
-(defun spacemacs/load-or-install-package (pkg &optional log)
+(defun spacemacs//get-package-directory (pkg)
+  "Return the directory of PKG. Return nil if not found."
+  (let ((elpa-dir (concat user-emacs-directory "elpa/")))
+    (when (file-exists-p elpa-dir)
+      (let ((dir (reduce (lambda (x y) (if x x y))
+                         (mapcar (lambda (x)
+                                   (if (string-match (symbol-name pkg) x) x))
+                                 (directory-files elpa-dir 'full))
+                         :initial-value nil)))
+        (if dir (file-name-as-directory dir))))))
+
+(defun spacemacs/load-or-install-package (pkg &optional log file-to-load)
   "Load PKG package. PKG will be installed if it is not already installed.
-If LOG is non-nil a message is displayed in spacemacs-mode buffer."
+Whenever the initial require fails the absolute path to the package
+directory is returned.
+If LOG is non-nil a message is displayed in spacemacs-mode buffer.
+FILE-TO-LOAD is an explicit file to load after the installation."
   (condition-case nil
       (require pkg)
     (error
      ;; not installed, we try to initialize package.el only if required to
      ;; precious seconds during boot time
      (require 'cl)
-     (let* ((elpa-dir (concat user-emacs-directory "elpa/"))
-            (pkg-elpa-dir
-             (if (file-exists-p elpa-dir)
-                 (reduce (lambda (x y) (if x x y))
-                         (mapcar (lambda (x)
-                                   (if (string-match (symbol-name pkg) x) x))
-                                 (directory-files elpa-dir))
-                         :initial-value nil))))
+     (let ((pkg-elpa-dir (spacemacs//get-package-directory pkg)))
        (if pkg-elpa-dir
-           (add-to-list 'load-path (concat user-emacs-directory "elpa/"
-                                           pkg-elpa-dir))
+           (progn
+             (message "dir: %s" pkg-elpa-dir)
+             (add-to-list 'load-path pkg-elpa-dir))
          ;; install the package
          (when log
            (spacemacs/append-to-buffer
@@ -144,8 +156,12 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
            (redisplay))
          (configuration-layer/package.el-initialize)
          (package-refresh-contents)
-         (package-install pkg))
-       (require pkg)))))
+         (package-install pkg)
+         (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))
+       (require pkg nil 'noerror)
+       (when file-to-load
+         (load-file (concat pkg-elpa-dir file-to-load)))
+       pkg-elpa-dir))))
 
 (defun spacemacs/emacs-version-ok ()
   (not (version< emacs-version spacemacs-min-version)))

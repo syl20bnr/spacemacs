@@ -9,6 +9,7 @@
     auto-complete-clang
     auto-dictionary
     auto-highlight-symbol
+    base16-theme
     bookmark
     buffer-move
     dash
