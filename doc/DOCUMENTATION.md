@@ -69,6 +69,7 @@
             - [Reposition window](#reposition-window)
             - [Golden ratio](#golden-ratio)
         - [Buffers and Files](#buffers-and-files)
+            - [Emacs and Spacemacs files](#emacs-and-spacemacs-files)
         - [Ido](#ido)
             - [Experimental Ido feature](#experimental-ido-feature)
         - [NeoTree file tree](#neotree-file-tree)
@@ -1097,11 +1098,23 @@ Files manipulation commands (start with `f`):
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC f f</kbd>                        | open a file using `ido`
-<kbd>SPC f i</kbd>                        | open your `init.el` file
 <kbd>SPC f s</kbd>                        | save a file
 <kbd>SPC f S</kbd>                        | save all files
 <kbd>SPC f t</kbd>                        | toggle file tree side bar using [NeoTree][neotree]
 <kbd>SPC f y</kbd>                        | show current file absolute path in the minibuffer
+
+#### Emacs and Spacemacs files
+
+Convenient key bindings are located under the prefix <kbd>SPC f e</kbd> to
+quickly navigate between `Emacs` and `Spacemacs` specific files.
+
+Key Binding                               |                 Description
+------------------------------------------|----------------------------------------------------------------
+<kbd>SPC f e c</kbd>                      | open `ido` in the `contrib` folder
+<kbd>SPC f e d</kbd>                      | open the spacemacs dotfile (`~/.spacemacs`)
+<kbd>SPC f e h</kbd>                      | discover `Spacemacs` layers and packages using `helm`
+<kbd>SPC f e i</kbd>                      | open the all mighty `init.el`
+<kbd>SPC f e s</kbd>                      | open `ido` in the `spacemacs` layer folder
 
 ### Ido
 
