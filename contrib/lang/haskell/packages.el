@@ -4,7 +4,7 @@
     flycheck-haskell
     ghc
     haskell-mode
-    ghci-completion
+    hi2
     ))
 
 ;; Only load company-ghc if company-mode is enabled
@@ -25,7 +25,7 @@
       (custom-set-variables
        ;; Use cabal-repl for the GHCi session. Ensures our dependencies are in scope.
        ;; cabal-dev is deprecated
-       '(haskell-process-type 'cabal-repl)
+       '(haskell-process-type 'auto)
 
        ;; Use notify.el (if you have it installed) at the end of running
        ;; Cabal commands or generally things worth notifying.
@@ -154,3 +154,16 @@
     (add-to-list 'company-backends 'company-ghc)
     (ghc-comp-init)
     ))
+
+(defun haskell/init-hi2 ()
+  (use-package hi2
+    :diminish hi2-mode
+    :commands turn-on-hi2
+    :init
+    (add-hook 'haskell-mode-hook 'turn-on-hi2)
+    :config
+    (progn
+      ;; Show indentation guides for hi2 only in insert state.
+      (add-hook 'evil-normal-state-entry-hook 'spacemacs/haskell-hide-hi2-guides)
+      (add-hook 'evil-insert-state-entry-hook 'spacemacs/haskell-show-hi2-guides)
+      (add-hook 'evil-insert-state-exit-hook  'spacemacs/haskell-hide-hi2-guides))))

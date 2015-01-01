@@ -71,6 +71,7 @@
   "fes" 'find-spacemacs-file
   "fec" 'find-contrib-file
   "fed" 'find-dotfile
+  "fev" 'spacemacs/display-and-copy-version
   "fS" 'evil-write-all
   "fs" 'evil-write
   "fy" 'show-and-copy-buffer-filename)
@@ -102,7 +103,7 @@
 (evil-leader/set-key "cC" 'compile)
 (evil-leader/set-key "cr" 'recompile)
 ;; narrow & widen -------------------------------------------------------------
-(unless (ht-contains? configuration-layer-all-packages 'fancy-narrow)
+(unless (configuration-layer/layer-declaredp 'fancy-narrow)
   (evil-leader/set-key
     "nr" 'narrow-to-region
     "np" 'narrow-to-page
@@ -121,6 +122,7 @@
   "tL" 'visual-line-mode
   "tM" 'toggle-frame-maximized
   "tn" 'global-linum-mode
+  "tt" 'toggle-transparency
   "t SPC" 'whitespace-mode)
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key

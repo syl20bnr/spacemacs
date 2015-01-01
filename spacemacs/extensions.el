@@ -14,6 +14,7 @@
     evil-plugins
     helm-rcirc
     helm-spacemacs
+    neotree
     solarized-theme
     spray
     ))
@@ -54,6 +55,70 @@
     :commands helm-spacemacs
     :init
     (evil-leader/set-key "feh" 'helm-spacemacs)))
+
+(defun spacemacs/init-neotree ()
+  (use-package neotree
+    :commands (neotree-toggle)
+    :init
+    (progn
+      (add-to-list 'evil-motion-state-modes 'neotree-mode)
+      (setq neo-window-width 32
+            neo-create-file-auto-open t
+            neo-banner-message nil
+            neo-show-updir-line nil
+            neo-mode-line-type 'neotree
+            neo-smart-open t
+            neo-dont-be-alone t
+            neo-persist-show nil
+            neo-show-hidden-files t
+            neo-auto-indent-point t)
+
+      (defun spacemacs/neotree-expand-or-open ()
+        "Collapse a neotree node."
+        (interactive)
+        (let ((node (neo-buffer--get-filename-current-line)))
+          (when node
+            (if (file-directory-p node)
+                (progn
+                  (neo-buffer--set-expand node t)
+                  (neo-buffer--refresh t)
+                  (when neo-auto-indent-point
+                    (next-line)
+                    (neo-point-auto-indent)))
+              (call-interactively 'neotree-enter)))))
+
+      (defun spacemacs/neotree-collapse ()
+        "Collapse a neotree node."
+        (interactive)
+        (let ((node (neo-buffer--get-filename-current-line)))
+          (when node
+            (when (file-directory-p node)
+              (neo-buffer--set-expand node nil)
+              (neo-buffer--refresh t))
+            (when neo-auto-indent-point
+              (neo-point-auto-indent)))))
+
+      (defun spacemacs//neotree-key-bindings ()
+        "Set the key bindings for a neotree buffer."
+        (define-key evil-motion-state-local-map (kbd "TAB") 'neotree-stretch-toggle)
+        (define-key evil-motion-state-local-map (kbd "RET") 'neotree-enter)
+        (define-key evil-motion-state-local-map (kbd "|")   'neotree-enter-vertical-split)
+        (define-key evil-motion-state-local-map (kbd "-")   'neotree-enter-horizontal-split)
+        (define-key evil-motion-state-local-map (kbd "?")   'evil-search-backward)
+        (define-key evil-motion-state-local-map (kbd "c")   'neotree-create-node)
+        (define-key evil-motion-state-local-map (kbd "d")   'neotree-delete-node)
+        (define-key evil-motion-state-local-map (kbd "g")   'neotree-refresh)
+        (define-key evil-motion-state-local-map (kbd "h")   'spacemacs/neotree-collapse)
+        (define-key evil-motion-state-local-map (kbd "H")   'neotree-hidden-file-toggle)
+        (define-key evil-motion-state-local-map (kbd "J")   'neotree-select-down-node)
+        (define-key evil-motion-state-local-map (kbd "K")   'neotree-select-up-node)
+        (define-key evil-motion-state-local-map (kbd "l")   'spacemacs/neotree-expand-or-open)
+        (define-key evil-motion-state-local-map (kbd "q")   'neotree-hide)
+        (define-key evil-motion-state-local-map (kbd "r")   'neotree-rename-node))
+
+      (evil-leader/set-key "ft" 'neotree-toggle))
+    :config
+    (add-hook 'neotree-mode-hook 'spacemacs//neotree-key-bindings)))
 
 (defun spacemacs/init-revive ()
   (use-package revive

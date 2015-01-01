@@ -69,9 +69,14 @@
             - [Reposition window](#reposition-window)
             - [Golden ratio](#golden-ratio)
         - [Buffers and Files](#buffers-and-files)
+            - [Emacs and Spacemacs files](#emacs-and-spacemacs-files)
         - [Ido](#ido)
             - [Experimental Ido feature](#experimental-ido-feature)
         - [NeoTree file tree](#neotree-file-tree)
+            - [NeoTree navigation](#neotree-navigation)
+            - [Opening files with NeoTree](#opening-files-with-neotree)
+            - [Other NeoTree key bindings](#other-neotree-key-bindings)
+            - [NeoTree mode-line](#neotree-mode-line)
         - [Shells](#shells)
             - [Key bindings](#key-bindings)
             - [Staying in insert state](#staying-in-insert-state)
@@ -127,16 +132,12 @@
 - [Emacs Server](#emacs-server)
     - [Connecting to the Emacs server](#connecting-to-the-emacs-server)
     - [Keeping the server alive](#keeping-the-server-alive)
-- [Tips](#tips)
-    - [Updating Spacemacs](#updating-spacemacs)
-    - [Tips for Emacs users](#tips-for-emacs-users)
     - [Troubleshoot](#troubleshoot)
         - [Loading fails](#loading-fails)
         - [I have no file ~/.spacemacs](#i-have-no-file-spacemacs)
-    - [Tips for Spacemacs advanced users](#tips-for-spacemacs-advanced-users)
-        - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
-        - ["jk" to trigger evil leader](#jk-to-trigger-evil-leader)
-        - [Smooth fonts on Windows](#smooth-fonts-on-windows)
+- [Tips](#tips)
+    - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
+    - ["jk" to trigger evil leader](#jk-to-trigger-evil-leader)
 - [Achievements](#achievements)
 - [Thank you](#thank-you)
 
@@ -706,6 +707,7 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 <kbd>SPC t L</kbd>    | toggle visual lines
 <kbd>SPC t M</kbd>    | toggle frame maximize
 <kbd>SPC t n</kbd>    | show the absolute line numbers
+<kbd>SPC t t</kbd>    | toggle frame transparency
 
 ## Mode-line
 
@@ -780,6 +782,7 @@ add the following snippet to your configuration file:
   "This is were you can ultimately override default Spacemacs configuration.
 This function is called at the very end of Spacemacs initialization."
   (setq powerline-default-separator 'arrow)
+)
 ```
 
 To save you the time to try all the possible separators provided by the
@@ -867,6 +870,7 @@ function of your `~/.spacemacs`.
 ```elisp
 (defun dotspacemacs/config ()
   (spacemacs/set-font "DejaVu Sans Mono" 10)
+)
 ```
 
 # Commands
@@ -1090,11 +1094,23 @@ Files manipulation commands (start with `f`):
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC f f</kbd>                        | open a file using `ido`
-<kbd>SPC f i</kbd>                        | open your `init.el` file
 <kbd>SPC f s</kbd>                        | save a file
 <kbd>SPC f S</kbd>                        | save all files
 <kbd>SPC f t</kbd>                        | toggle file tree side bar using [NeoTree][neotree]
 <kbd>SPC f y</kbd>                        | show current file absolute path in the minibuffer
+
+#### Emacs and Spacemacs files
+
+Convenient key bindings are located under the prefix <kbd>SPC f e</kbd> to
+quickly navigate between `Emacs` and `Spacemacs` specific files.
+
+Key Binding                               |                 Description
+------------------------------------------|----------------------------------------------------------------
+<kbd>SPC f e c</kbd>                      | open `ido` in the `contrib` folder
+<kbd>SPC f e d</kbd>                      | open the spacemacs dotfile (`~/.spacemacs`)
+<kbd>SPC f e h</kbd>                      | discover `Spacemacs` layers and packages using `helm`
+<kbd>SPC f e i</kbd>                      | open the all mighty `init.el`
+<kbd>SPC f e s</kbd>                      | open `ido` in the `spacemacs` layer folder
 
 ### Ido
 
@@ -1143,19 +1159,59 @@ To toggle the `NeoTree` buffer press:
 
     <SPC> f t
 
-In the `NeoTree` buffer:
+#### NeoTree navigation
+
+Navigation is centered on the `hjkl` with the hope to provide a fast navigation
+experience like in [ranger][]:
 
 Key Binding                      |                 Description
 ---------------------------------|----------------------------------------------------------------
-<kbd>TAB</kbd> or <kbd>RET</kbd> | expand/open
-<kbd>a</kbd>                     | toggle stretch the buffer
+<kbd>h</kbd>                     | collapse directory
+<kbd>j</kbd>                     | next file or directory
+<kbd>J</kbd>                     | next expanded directory on level down
+<kbd>k</kbd>                     | previous file or directory
+<kbd>K</kbd>                     | parent directory, when reaching the root change it to parent directory
+<kbd>l</kbd>                     | expand directory
+<kbd>L</kbd> or <kbd>RET</kbd>   | open file
+
+**Note:** The point is automatically set to the first letter of a node for a
+smoother experience.
+
+#### Opening files with NeoTree
+
+By default a file is opened in the last active window. It is possible to choose
+window number where to open a file by using a numeric argument, for instance
+<kbd>2 L</kbd> or <kbd>2 RET</kbd> will open the current file in the windows 2.
+It is also possible to open the file in a split window with <kbd>|</kbd> and
+<kbd>-</kbd>:
+
+Key Binding                       |                 Description
+----------------------------------|----------------------------------------------------------------
+<kbd>L</kbd> or <kbd>RET</kbd>    | open file in last active window
+<kbd># L</kbd> or <kbd>2 RET</kbd>| open file in window number `#`
+<kbd>|</kbd>                      | open file in an vertically split window
+<kbd>-</kbd>                      | open file in an horizontally split window
+
+#### Other NeoTree key bindings
+
+Key Binding                      |                 Description
+---------------------------------|----------------------------------------------------------------
+<kbd>TAB</kbd>                   | toggle stretching of the buffer
 <kbd>c</kbd>                     | create a node
 <kbd>d</kbd>                     | delete a node
 <kbd>g</kbd>                     | refresh
 <kbd>H</kbd>                     | toggle hidden files
-<kbd>K</kbd>                     | kill corresponding buffer
 <kbd>q</kbd> or <kbd>fd</kbd>    | hide `NeoTree` buffer
 <kbd>r</kbd>                     | rename a node
+
+#### NeoTree mode-line
+
+The mode-line has the following format `[x/y] d (D:a, F:b)` where:
+- `x` is the index of the current selected file or directory
+- `y` the total number of items (file and directory) in the current directory
+- `d` the name of the current directory
+- `a` the number of directories in the current directory
+- `b` the number of files in the current directory
 
 ### Shells
 
@@ -1946,37 +2002,6 @@ server is to use the following bindings:
 <kbd>SPC q q</kbd> | Quit Emacs and kill the server
 <kbd>SPC q s</kbd> | Save the buffers, quit Emacs and kill the server
 
-# Tips
-
-## Updating Spacemacs
-
-Currently there is no auto-update mechanism so if you want the latest and greatest features you
-have to `git pull` the latest changes from `syl20bnr/spacemacs`. The `master` branch is updated
-fairly regularly with releases of features that *should* be stable. The `develop` contains bleeding
-edge features that are still in development, if you are an advanced user and want to help test these
-features feel free to run off of this branch.
-
-## Tips for Emacs users
-
-If you came here with a pure Emacs background, here are some useful tips to get
-you started.
-
-1) As you may have notice, raw Emacs behavior is indeed available in Evil via the
-`Emacs state`!
-
-To start you could setup the `Emacs state` as the default one, pressing `fd`
-quickly would bring you to `Normal state` and pressing `ESC` from there would
-bring you back in `Emacs state`. This way you should never feel lost.
-
-To do so add the following snippet to your `~/.spacemacs`:
-
-```elisp
-(defun dotspacemacs/config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
-  (setq evil-default-state 'emacs)
-  (define-key evil-normal-state-map [escape] 'evil-emacs-state))
-```
 ## Troubleshoot
 
 ### Loading fails
@@ -1996,9 +2021,9 @@ Then you can copy/paste the error in a [Github issue][issues], thank you.
 You have to manually copy the `~/.emacs.d/core/templates/.spacemacs.template`
 file to `~/.spacemacs`
 
-## Tips for Spacemacs advanced users
+# Tips
 
-### evil-lisp-state as default state
+## evil-lisp-state as default state
 
 To Make `lisp state` the default state in `Emacs Lisp` buffers, insert in
 your `~/.spacemacs` the following snippet:
@@ -2008,7 +2033,7 @@ your `~/.spacemacs` the following snippet:
   (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
 ```
 
-### "jk" to trigger evil leader
+## "jk" to trigger evil leader
 
 It is possible to activate an experimental feature which allows to trigger the
 evil leader in `insert state`, in `ido` minibuffer and in `helm` buffers.
@@ -2018,10 +2043,6 @@ To activate it, set `dotspacemacs-feature-toggle-leader-on-jk` to `t`.
 ```elisp
 (setq-default dotspacemacs-feature-toggle-leader-on-jk t)
 ```
-
-### Smooth fonts on Windows
-
-To get smooth fonts on Windows install [MacType][].
 
 More info on this feature:
 - [insert state](#experimental-insert-state-feature)
@@ -2035,6 +2056,7 @@ Achievements                                         | Account
 [First contribution][1st-contrib]                    | [trishume][]
 [First contribution layer][1st-clayer]               | [trishume][]
 [First blog article on Spacemacs][1st-article]       | [Wolfy87][]
+[First contributed banner][1st-cbanner]              | [chrisbarrett][]
 [100th issue (PR)][100th-issue]                      | [danielwuz][]
 [200th issue (question)][200th-issue]                | [justrajdeep][]
 [300th issue (PR)][300th-issue]                      | [danielwuz][]
@@ -2130,6 +2152,7 @@ developers to elisp hackers!
 [1st-contrib]: https://github.com/syl20bnr/spacemacs/pull/19
 [1st-clayer]: https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39
 [1st-article]: http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/
+[1st-cbanner]: https://github.com/syl20bnr/spacemacs/commit/7b44a56263049482ed540ed6815a295633ffe9d1
 [100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
 [200th-issue]: https://github.com/syl20bnr/spacemacs/pull/200
 [300th-issue]: https://github.com/syl20bnr/spacemacs/pull/300
@@ -2137,6 +2160,7 @@ developers to elisp hackers!
 [trishume]:https://github.com/trishume
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
+[chrisbarrett]:https://github.com/chrisbarrett
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
 [bru]:https://github.com/bru

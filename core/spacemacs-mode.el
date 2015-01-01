@@ -1,6 +1,9 @@
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
+(defconst spacemacs-version "0.40.0"
+  "Spacemacs version.")
+
 (defconst spacemacs-min-version "24.3"
   "Mininal required version of Emacs.")
 
@@ -71,6 +74,10 @@
       (require 'solarized)
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))
+     ;; Support for all base16 themes
+     ((string-match "base16" (symbol-name dotspacemacs-default-theme))
+      (let ((pkg-dir (spacemacs/load-or-install-package 'base16-theme)))
+        (add-to-list 'custom-theme-load-path pkg-dir)))
      (t
       ;; other themes
       ;; we assume that the package name is suffixed with `-theme'
@@ -114,26 +121,34 @@ initialization."
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
   (spacemacs-mode))
 
-(defun spacemacs/load-or-install-package (pkg &optional log)
+(defun spacemacs//get-package-directory (pkg)
+  "Return the directory of PKG. Return nil if not found."
+  (let ((elpa-dir (concat user-emacs-directory "elpa/")))
+    (when (file-exists-p elpa-dir)
+      (let ((dir (reduce (lambda (x y) (if x x y))
+                         (mapcar (lambda (x)
+                                   (if (string-match (symbol-name pkg) x) x))
+                                 (directory-files elpa-dir 'full))
+                         :initial-value nil)))
+        (if dir (file-name-as-directory dir))))))
+
+(defun spacemacs/load-or-install-package (pkg &optional log file-to-load)
   "Load PKG package. PKG will be installed if it is not already installed.
-If LOG is non-nil a message is displayed in spacemacs-mode buffer."
+Whenever the initial require fails the absolute path to the package
+directory is returned.
+If LOG is non-nil a message is displayed in spacemacs-mode buffer.
+FILE-TO-LOAD is an explicit file to load after the installation."
   (condition-case nil
       (require pkg)
     (error
      ;; not installed, we try to initialize package.el only if required to
      ;; precious seconds during boot time
      (require 'cl)
-     (let* ((elpa-dir (concat user-emacs-directory "elpa/"))
-            (pkg-elpa-dir
-             (if (file-exists-p elpa-dir)
-                 (reduce (lambda (x y) (if x x y))
-                         (mapcar (lambda (x)
-                                   (if (string-match (symbol-name pkg) x) x))
-                                 (directory-files elpa-dir))
-                         :initial-value nil))))
+     (let ((pkg-elpa-dir (spacemacs//get-package-directory pkg)))
        (if pkg-elpa-dir
-           (add-to-list 'load-path (concat user-emacs-directory "elpa/"
-                                           pkg-elpa-dir))
+           (progn
+             (message "dir: %s" pkg-elpa-dir)
+             (add-to-list 'load-path pkg-elpa-dir))
          ;; install the package
          (when log
            (spacemacs/append-to-buffer
@@ -141,11 +156,21 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
            (redisplay))
          (configuration-layer/package.el-initialize)
          (package-refresh-contents)
-         (package-install pkg))
-       (require pkg)))))
+         (package-install pkg)
+         (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))
+       (require pkg nil 'noerror)
+       (when file-to-load
+         (load-file (concat pkg-elpa-dir file-to-load)))
+       pkg-elpa-dir))))
 
 (defun spacemacs/emacs-version-ok ()
   (not (version< emacs-version spacemacs-min-version)))
+
+(defun spacemacs/display-and-copy-version ()
+  "Echo the current spacemacs version and copy it."
+  (interactive)
+  (let ((msg (format "Spacemacs v.%s" spacemacs-version)))
+    (message msg) (kill-new msg)))
 
 (defun display-startup-echo-area-message ()
   "Change the default welcome message of minibuffer to another one."
@@ -160,29 +185,56 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
     (set-default-font fontstr)))
 
 (defun spacemacs//insert-banner ()
-  "Choose a banner and insert in spacemacs buffer."
+  "Choose a banner and insert in spacemacs buffer.
+
+Doge special banner can be reachable via `999', `doge' or `random*'.
+`random' ignore special banners whereas `random*' does not."
   (let ((banner (cond
                  ((eq 'random dotspacemacs-startup-banner)
                   (spacemacs//choose-random-banner))
+                 ((eq 'random* dotspacemacs-startup-banner)
+                  (spacemacs//choose-random-banner t))
+                 ((eq 'doge dotspacemacs-startup-banner)
+                  (spacemacs//get-banner-path 999))
                  ((integerp dotspacemacs-startup-banner)
                   (spacemacs//get-banner-path dotspacemacs-startup-banner))))
         (buffer-read-only nil))
     (when banner
       (spacemacs/message (format "Banner: %s" banner))
       (insert-file-contents banner)
+      (spacemacs//inject-version-in-buffer)
       (spacemacs/insert-buttons))))
 
-(defun spacemacs//choose-random-banner ()
-  "Return the full path of a banner chosen randomly."
-  (let* ((files (directory-files spacemacs-banner-directory nil nil 'nosort))
+(defun spacemacs//choose-random-banner (&optional all)
+  "Return the full path of a banner chosen randomly.
+
+If ALL is non-nil then truly all banners can be selected."
+  (let* ((files (directory-files spacemacs-banner-directory t))
          (count (length files))
-         ;; -2 to remove `.' `..'
-         (choice (random (- count 2))))
-    (spacemacs//get-banner-path choice)))
+         ;; -2 then +2 to remove `.' and `..'
+         (choice (+ 2 (random (- count (if all 2 3))))))
+    (nth choice files)))
 
 (defun spacemacs//get-banner-path (index)
   "Return the full path to banner with index INDEX."
   (concat spacemacs-banner-directory (format "%03d-banner.txt" index)))
+
+(defun spacemacs//inject-version-in-buffer ()
+  "Inject the current version of spacemacs in the first line of the
+buffer, right justified."
+  (save-excursion
+    (beginning-of-buffer)
+    (let* ((maxcol spacemacs-title-length)
+           (injected (format "(%s)" spacemacs-version))
+           (pos (- maxcol (length injected)))
+           (buffer-read-only nil))
+      ;; fill the first line with spaces if required
+      (when (< (line-end-position) maxcol)
+        (end-of-line)
+        (insert-char ?\s (- maxcol (line-end-position))))
+      (goto-char pos)
+      (delete-char (length injected))
+      (insert injected))))
 
 (defun spacemacs/message (msg &rest args)
   "Display MSG in message prepended with '(Spacemacs)'."
@@ -240,4 +292,8 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
   (insert-button "Messages Buffer" 'action (lambda (b) (switch-to-buffer "*Messages*")) 'follow-link t)
   (insert " ")
   (insert-button "Spacemacs Folder" 'action (lambda (b) (find-file user-emacs-directory)) 'follow-link t)
-  (insert "\n\n"))
+  (insert "\n")
+  (insert "                            ")
+  (insert-button "Update Spacemacs" 'action (lambda (b) (configuration-layer/update-packages)) 'follow-link t)
+  (insert "\n\n")
+  )

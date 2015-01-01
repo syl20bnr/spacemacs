@@ -192,7 +192,7 @@ Any configuration layers you create must be explicitly loaded in your
 ## Dotfile (.spacemacs)
 
 The `.spacemacs` file controls which features to load and provides a way to
-customize Spacemacs' loading sequence.
+customize Spacemacs.
 
 The following command will create `.spacemacs` in your home directory:
 
@@ -278,32 +278,36 @@ first.
 
 # FAQ
 
-1. **Why installed packages with package-install are automatically deleted by
+1. **Which version of Spacemacs am I running ?**
+The version is displayed on the upper right corner of the loading screen. It
+is also possible to display the version with <kbd>SPC f e v</kbd>.
+
+2. **Why installed packages with package-install are automatically deleted by
 Spacemacs when it starts ?**
 To declare new packages you have to create a new configuration layer, see
 the quick start guide [here](#configuration).
 
-2. **Why the fonts on Windows looks so crappy ?**
+3. **Why the fonts on Windows looks so crappy ?**
 You can installed [MacType][] on Windows to get very nice looking fonts. It is
 also recommended to disable the smooth scrolling on Windows.
 
-3. **The Spacemacs banner is ugly, what should I do ?**
+4. **The Spacemacs banner is ugly, what should I do ?**
 Install the default font supported by Spacemacs or choose a fixed witdh font.
 More information in the [font section][] of the documentation.
 
-4. **Why the powerline has no arrows in terminal even with a patched font ?**
+5. **Why the powerline has no arrows in terminal even with a patched font ?**
 Emacs powerline implementation does not use patched fonts. There exist currently
 no mode-lines in Emacs that support patched font.
 The corresponding feature request for the powerline can be found
 [here][pw-patched-fonts].
 
-5. **Why the powerline colors are not correct on OS X ?**
+6. **Why the powerline colors are not correct on OS X ?**
 This is a [known issue][powerline-srgb-issue] as of Emacs 24.4 due to
 `ns-use-srgb-colorspace` defaulting to true. It is recommended to use
 the [emacs-mac-port][] build. See the [install OSX section][] for more
 info on this.
 
-6. **The powerline separators have no anti-aliasing, what can I do ?**
+7. **The powerline separators have no anti-aliasing, what can I do ?**
 Emacs powerline uses XMP images to draw the separators. Enabling anti-aliasing
 may not be a trivial task so unfortunately you'll have to live with it.
 Nevertheless it exists a [large number of different separators][powerline-seps]

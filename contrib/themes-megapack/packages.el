@@ -7,7 +7,6 @@
     anti-zenburn-theme
     ;; contains errors
     ; badger-theme
-    base16-theme
     birds-of-paradise-plus-theme
     bubbleberry-theme
     busybee-theme

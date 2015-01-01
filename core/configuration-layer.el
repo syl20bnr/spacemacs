@@ -153,18 +153,22 @@ for that layer."
           (push (cons (intern f) dir) result)))
       result)))
 
-(defun configuration-layer//declare-layer (sym)
-  "Declare a layer with SYM name (symbol). Return a cons cell (symbol . plist)
+(defun configuration-layer//declare-layer (name)
+  "Declare a layer with NAME symbol. Return a cons cell (symbol . plist)
 where `symbol' is the name of the layer and `plist' is a property list with
 the following keys:
 - `:dir'     the absolute path to the base directory of the layer.
 - `:ext-dir' the absolute path to the directory containing the extensions."
-  (let* ((sym-name (symbol-name sym))
-         (base-dir (configuration-layer/get-layer-path sym))
-         (dir (format "%s%s/" base-dir sym-name))
+  (let* ((namestr (symbol-name name))
+         (base-dir (configuration-layer/get-layer-path name))
+         (dir (format "%s%s/" base-dir namestr))
          (ext-dir (format "%sextensions/" dir)))
     (when (and base-dir (file-exists-p dir))
-        (cons sym (list :dir dir :ext-dir ext-dir)))))
+        (cons name (list :dir dir :ext-dir ext-dir)))))
+
+(defun configuration-layer/layer-declaredp (layer)
+  "Return non-nil if LAYER symbol corresponds to a declared layer."
+  (ht-contains? configuration-layer-all-packages layer))
 
 (defun configuration-layer/get-layers-list ()
   "Return a list of all discovered layer symbols."
@@ -346,6 +350,43 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
             (redisplay))
           (spacemacs/append-to-buffer "\n")))))
 
+(defun configuration-layer/update-packages ()
+  "Upgrade elpa packages"
+  (interactive)
+  (spacemacs/append-to-buffer
+   "\nUpdating Spacemacs... (for now only ELPA packages are updated)\n")
+  (spacemacs/append-to-buffer
+   "--> fetching new package repository indexes...\n")
+  (redisplay)
+  (package-refresh-contents)
+  (setq upgraded-count 0)
+  (dolist (pkg configuration-layer-all-packages-sorted)
+    ;; do not stop with errors on builtins and compilation fails
+    (ignore-errors
+      (let ((installed-version (configuration-layer//get-package-version pkg))
+            (newest-version (configuration-layer//get-latest-package-version pkg)))
+        ;; (message "package - %s" pkg)
+        ;; (message "installed - %s" installed-version)
+        ;; (message "latest - %s" newest-version)
+        (unless (version<= newest-version installed-version)
+          (progn 
+            (setq upgraded-count (1+ upgraded-count))
+            (spacemacs/replace-last-line-of-buffer
+             (format "--> updating packge %s:%s (%s)..."
+                     (ht-get configuration-layer-all-packages pkg)
+                     pkg
+                     upgraded-count
+                     ))
+            (redisplay)
+            (configuration-layer//package-delete pkg)
+            (package-install pkg)
+            )))))
+  (spacemacs/append-to-buffer
+   (format (concat (if (> upgraded-count 0) "\n" "")
+                   "--> %s packages updated.\n")
+           upgraded-count))
+  (redisplay))
+
 (defun configuration-layer//initialize-packages ()
   "Initialize all the declared packages."
   (mapc (lambda (x) (configuration-layer//initialize-package
@@ -473,7 +514,17 @@ deleted safely."
 
 (defun configuration-layer//get-package-version (package)
   "Return the version string for PACKAGE."
-  (let ((pkg (assq package package-alist)))
+  (let ((pkg (or (assq package package-alist)
+                 (assq package package--builtins))))
+    (cond
+     ((version< emacs-version "24.4")
+      (package-version-join (aref (cdr pkg) 0)))
+     (t
+      (package-version-join (package-desc-version (cadr pkg)))))))
+
+(defun configuration-layer//get-latest-package-version (package)
+  "Return the version string for PACKAGE."
+  (let ((pkg (assq package package-archive-contents)))
     (cond
      ((version< emacs-version "24.4")
       (package-version-join (aref (cdr pkg) 0)))

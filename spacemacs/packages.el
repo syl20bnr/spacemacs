@@ -9,6 +9,7 @@
     auto-complete-clang
     auto-dictionary
     auto-highlight-symbol
+    base16-theme
     bookmark
     buffer-move
     dash
@@ -69,7 +70,6 @@
     monokai-theme
     move-text
     multi-term
-    neotree
     org
     org-bullets
     ;; annoying error message, disable it for now
@@ -1141,6 +1141,7 @@ determine the state to enable when escaping from the insert state.")
         "rr"  'helm-register
         "rm"  'helm-all-mark-rings
         "fh"  'helm-find-files
+        "fr"  'helm-recentf
         "<f1>" 'helm-apropos
         )
     :config
@@ -1406,35 +1407,6 @@ determine the state to enable when escaping from the insert state.")
 
       (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab)))))
 
-(defun spacemacs/init-neotree ()
-  (use-package neotree
-    :defer t
-    :init
-    (progn
-      (add-to-list 'evil-motion-state-modes 'neotree-mode)
-      (setq neo-create-file-auto-open t
-            neo-dont-be-alone t
-            neo-banner-message "File Tree browser"
-            neo-smart-open t
-            neo-persist-show nil)
-      (evil-leader/set-key "ft" 'neotree-toggle))
-    :config
-    (add-hook 'neotree-mode-hook
-              (lambda ()
-                (define-key evil-motion-state-local-map (kbd "TAB") 'neotree-enter)
-                (define-key evil-motion-state-local-map (kbd "RET") 'neotree-enter)
-                (define-key evil-motion-state-local-map (kbd "?") 'evil-search-backward)
-                (define-key evil-motion-state-local-map (kbd "a") 'neotree-stretch-toggle)
-                (define-key evil-motion-state-local-map (kbd "c") 'neotree-create-node)
-                (define-key evil-motion-state-local-map (kbd "d") 'neotree-delete-node)
-                (define-key evil-motion-state-local-map (kbd "g") 'neotree-refresh)
-                (define-key evil-motion-state-local-map (kbd "H") 'neotree-hidden-file-toggle)
-                (define-key evil-motion-state-local-map (kbd "K") 'kill-this-buffer)
-                (define-key evil-motion-state-local-map (kbd "q") 'neotree-hide)
-                (define-key evil-motion-state-local-map (kbd "r") 'neotree-rename-node)
-                ))
-    ))
-
 (defun spacemacs/init-org ()
   (use-package org
     :mode ("\\.org$" . org-mode)
@@ -1553,40 +1525,7 @@ determine the state to enable when escaping from the insert state.")
   (use-package powerline
     :init
     (progn
-      (use-package window-numbering
-        :ensure window-numbering
-        :init
-        (progn
-          (evil-leader/set-key
-            "0" 'select-window-0
-            "1" 'select-window-1
-            "2" 'select-window-2
-            "3" 'select-window-3
-            "4" 'select-window-4
-            "5" 'select-window-5
-            "6" 'select-window-6
-            "7" 'select-window-7
-            "8" 'select-window-8
-            "9" 'select-window-9)
-          (window-numbering-mode 1)))
-
-      (defun spacemacs/window-number ()
-        "Return the number of the window."
-        (let ((num (window-numbering-get-number-string)))
-          (cond
-           ((not dotspacemacs-mode-line-unicode-symbols) (concat " " num " "))
-           ((equal num "1")  " ➊ ")
-           ((equal num "2")  " ➋ ")
-           ((equal num "3")  " ➌ ")
-           ((equal num "4")  " ➍ ")
-           ((equal num "5")  " ➎ ")
-           ((equal num "6")  " ❻ ")
-           ((equal num "7")  " ➐ ")
-           ((equal num "8")  " ➑ ")
-           ((equal num "9")  " ➒ ")
-           ((equal num "0")  " ➓ ")
-           (t (concat " " num " ")))))
-
+      ;; Custom format of minor mode lighters, they are separated by a pipe.
       (defpowerline spacemacs-powerline-minor-modes
         (mapconcat (lambda (mm)
                      (propertize
@@ -1629,12 +1568,17 @@ determine the state to enable when escaping from the insert state.")
         (setq-default powerline-height height))
       (setq-default powerline-default-separator 'wave)
 
-      (setq-default mode-line-format '("%e" (:eval
+      (setq-default
+       mode-line-format
+       '("%e"
+         (:eval
           (let* ((active (powerline-selected-window-active))
                  (line-face (if active 'mode-line 'mode-line-inactive))
                  (face1 (if active 'powerline-active1 'powerline-inactive1))
                  (face2 (if active 'powerline-active2 'powerline-inactive2))
                  (state-face (if active (spacemacs/current-state-face) face2))
+                 (window-numberingp (and (boundp 'window-numbering-mode)
+                                         (symbol-value window-numbering-mode)))
                  (batteryp (and (boundp 'fancy-battery-mode)
                                 (symbol-value fancy-battery-mode)))
                  (battery-face (if batteryp (fancy-battery-powerline-face)))
@@ -1643,7 +1587,7 @@ determine the state to enable when escaping from the insert state.")
                                  (or flycheck-current-errors
                                      (eq 'running flycheck-last-status-change))))
                  (vc-face (if (or flycheckp spacemacs-mode-line-minor-modesp)
-                               face1 line-face))
+                              face1 line-face))
                  (separator-left (intern (format "powerline-%s-%s"
                                                  powerline-default-separator
                                                  (car powerline-default-separator-dir))))
@@ -1651,10 +1595,10 @@ determine the state to enable when escaping from the insert state.")
                                                   powerline-default-separator
                                                   (cdr powerline-default-separator-dir))))
                  (lhs (append
-                       (list
-                        ;; window number
-                        ;; (funcall separator-left state-face face1)
-                        (powerline-raw (spacemacs/window-number) state-face))
+                       ;; window number
+                       (if (and window-numberingp (spacemacs/window-number))
+                           (list (powerline-raw (spacemacs/window-number) state-face))
+                         (list (powerline-raw (evil-state-property evil-state :tag t) state-face)))
                        (if (and active anzu--state)
                            (list
                             (funcall separator-right state-face face1)
@@ -2004,6 +1948,50 @@ determine the state to enable when escaping from the insert state.")
   (use-package whitespace
     :defer t
     :config (spacemacs|diminish whitespace-mode " Ⓦ" " W")))
+
+(defun spacemacs/init-window-numbering ()
+  (use-package window-numbering
+    ;; not deferred on puprose
+    :init
+    (progn
+      (when (configuration-layer/layer-declaredp 'powerline)
+        (defun window-numbering-install-mode-line (&optional position)
+          "Do nothing, the display is handled by the powerline."))
+      (evil-leader/set-key
+        "0" 'select-window-0
+        "1" 'select-window-1
+        "2" 'select-window-2
+        "3" 'select-window-3
+        "4" 'select-window-4
+        "5" 'select-window-5
+        "6" 'select-window-6
+        "7" 'select-window-7
+        "8" 'select-window-8
+        "9" 'select-window-9)
+      (window-numbering-mode 1))
+
+    (defun spacemacs/window-number ()
+      "Return the number of the window."
+      (let* ((num (window-numbering-get-number))
+             (str (if num (int-to-string num))))
+        (cond
+         ((not dotspacemacs-mode-line-unicode-symbols) (concat " " str " "))
+         ((equal str "1")  " ➊ ")
+         ((equal str "2")  " ➋ ")
+         ((equal str "3")  " ➌ ")
+         ((equal str "4")  " ➍ ")
+         ((equal str "5")  " ➎ ")
+         ((equal str "6")  " ❻ ")
+         ((equal str "7")  " ➐ ")
+         ((equal str "8")  " ➑ ")
+         ((equal str "9")  " ➒ ")
+         ((equal str "0")  " ⓿ "))))
+
+    (defun spacemacs//window-numbering-assign ()
+      "Custom number assignment for special buffers."
+      (when (equal (buffer-name) " *NeoTree*") 0))
+    (setq window-numbering-assign-func ''spacemacs//window-numbering-assign)
+    ))
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
