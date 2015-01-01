@@ -1,7 +1,7 @@
 # Themes Megapack contribution layer for Spacemacs
 
 This simple contribution layer is an example. It installs around 100 themes
-for Emacs. You can try them easily by invoking helm-themes with: `<SPC> h t`.
+for Emacs. You can try them easily by invoking helm-themes with: `<SPC> T h`.
 
 ## Install
 
