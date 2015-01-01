@@ -299,6 +299,8 @@ The car of the pair will store fullpath, and cdr will store line number.")
     (define-key map (kbd "SPC")     'neotree-enter)
     (define-key map (kbd "TAB")     'neotree-enter)
     (define-key map (kbd "RET")     'neotree-enter)
+    (define-key map (kbd "|")       'neotree-enter-vertical-split)
+    (define-key map (kbd "-")       'neotree-enter-horizontal-split)
     (define-key map (kbd "g")       'neotree-refresh)
     (define-key map (kbd "q")       'neotree-hide)
     (define-key map (kbd "p")       'previous-line)
@@ -974,13 +976,15 @@ Return nil if NODE has not been found in NODES."
       t nil))
 
 (defun neo-buffer--set-expand (node do-expand)
-  "Set the expanded state of the NODE to DO-EXPAND."
+  "Set the expanded state of the NODE to DO-EXPAND.
+Return the new expand state for NODE."
   (if (not do-expand)
       (setq neo-buffer--expanded-node-list
             (neo-util--filter
              #'(lambda (x) (not (equal node x)))
              neo-buffer--expanded-node-list))
-    (push node neo-buffer--expanded-node-list)))
+    (push node neo-buffer--expanded-node-list))
+  do-expand)
 
 (defun neo-buffer--toggle-expand (node)
   (neo-buffer--set-expand node (not (neo-buffer--expanded-node-p node))))
@@ -1235,8 +1239,10 @@ the directory instead of showing the directory contents."
 (defun neotree-enter (&optional arg)
   "Open a node, like 'o' in NERDTree.
 
-If arg is an integer then the node is opened in a window selected via
-`window-numbering' (if available) according to the passed number."
+If ARG is an integer then the node is opened in a window selected via
+`window-numbering' (if available) according to the passed number.
+If ARG is `|' then the node is opened in new vertically split window.
+If ARG is `-' then the node is opened in new horizontally split window."
   (interactive "P")
   (let ((btn-full-path (neo-buffer--get-filename-current-line)))
     (unless (null btn-full-path)
@@ -1244,11 +1250,11 @@ If arg is an integer then the node is opened in a window selected via
           (if neo-click-changes-root
               (neotree-change-root)
             (progn
-              (neo-buffer--toggle-expand btn-full-path)
-              (neo-buffer--refresh t)
-              (when neo-auto-indent-point
-                (next-line)
-                (neo-point-auto-indent))))
+              (let ((new-state (neo-buffer--toggle-expand btn-full-path)))
+                (neo-buffer--refresh t)
+                (when neo-auto-indent-point
+                  (when new-state (next-line))
+                  (neo-point-auto-indent)))))
         (progn
           (if (eq (safe-length (window-list)) 1)
               (neo-global--with-buffer
@@ -1257,14 +1263,39 @@ If arg is an integer then the node is opened in a window selected via
                 (neo-buffer--lock-width)))
           (neo-global--when-window
             (neo-window--zoom 'minimize))
-          (if (and arg (integerp arg)
-                   (boundp 'window-numbering-mode)
-                   (symbol-value window-numbering-mode)
-                   (fboundp 'select-window-by-number))
-              (select-window-by-number arg)
+          ;; select target window
+          (if arg (cond
+                   ;; select window with window numbering
+                   ((and (integerp arg)
+                         (boundp 'window-numbering-mode)
+                         (symbol-value window-numbering-mode)
+                         (fboundp 'select-window-by-number))
+                    (select-window-by-number arg))
+                   ;; open node in a new vertically split window
+                   ((and (stringp arg) (string= arg "|"))
+                    (select-window (get-mru-window))
+                    (split-window-right)
+                    (windmove-right))
+                   ;; open node in a new horizontally split window
+                   ((and (stringp arg) (string= arg "-"))
+                    (select-window (get-mru-window))
+                    (split-window-below)
+                    (windmove-down)))
+            ;; open node in last active window
             (select-window (get-mru-window)))
           (find-file btn-full-path))))
     btn-full-path))
+
+(defun neotree-enter-vertical-split ()
+  "Open the current node is a vertically split window."
+  (interactive)
+  (message "vertical")
+  (neotree-enter "|"))
+
+(defun neotree-enter-horizontal-split ()
+  "Open the current node is a horizontally split window."
+  (interactive)
+  (neotree-enter "-"))
 
 (defun neotree-change-root ()
   "Change root to current node dir.
