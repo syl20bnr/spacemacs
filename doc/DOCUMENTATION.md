@@ -72,6 +72,10 @@
         - [Ido](#ido)
             - [Experimental Ido feature](#experimental-ido-feature)
         - [NeoTree file tree](#neotree-file-tree)
+            - [NeoTree navigation](#neotree-navigation)
+            - [Opening files with NeoTree](#opening-files-with-neotree)
+            - [Other NeoTree key bindings](#other-neotree-key-bindings)
+            - [NeoTree mode-line](#neotree-mode-line)
         - [Shells](#shells)
             - [Key bindings](#key-bindings)
             - [Staying in insert state](#staying-in-insert-state)
@@ -1146,19 +1150,59 @@ To toggle the `NeoTree` buffer press:
 
     <SPC> f t
 
-In the `NeoTree` buffer:
+#### NeoTree navigation
+
+Navigation is centered on the `hjkl` with the hope to provide a fast navigation
+experience like in [ranger][]:
 
 Key Binding                      |                 Description
 ---------------------------------|----------------------------------------------------------------
-<kbd>TAB</kbd> or <kbd>RET</kbd> | expand/open
-<kbd>a</kbd>                     | toggle stretch the buffer
+<kbd>h</kbd>                     | collapse directory
+<kbd>j</kbd>                     | next file or directory
+<kbd>J</kbd>                     | next expanded directory on level down
+<kbd>k</kbd>                     | previous file or directory
+<kbd>K</kbd>                     | parent directory, when reaching the root change it to parent directory
+<kbd>l</kbd>                     | expand directory
+<kbd>L</kbd> or <kbd>RET</kbd>   | open file
+
+**Note:** The point is automatically set to the first letter of a node for a
+smoother experience.
+
+#### Opening files with NeoTree
+
+By default a file is opened in the last active window. It is possible to choose
+window number where to open a file by using a numeric argument, for instance
+<kbd>2 L</kbd> or <kbd>2 RET</kbd> will open the current file in the windows 2.
+It is also possible to open the file in a split window with <kbd>|</kbd> and
+<kbd>-</kbd>:
+
+Key Binding                       |                 Description
+----------------------------------|----------------------------------------------------------------
+<kbd>L</kbd> or <kbd>RET</kbd>    | open file in last active window
+<kbd># L</kbd> or <kbd>2 RET</kbd>| open file in window number `#`
+<kbd>|</kbd>                      | open file in an vertically split window
+<kbd>-</kbd>                      | open file in an horizontally split window
+
+#### Other NeoTree key bindings
+
+Key Binding                      |                 Description
+---------------------------------|----------------------------------------------------------------
+<kbd>TAB</kbd>                   | toggle stretching of the buffer
 <kbd>c</kbd>                     | create a node
 <kbd>d</kbd>                     | delete a node
 <kbd>g</kbd>                     | refresh
 <kbd>H</kbd>                     | toggle hidden files
-<kbd>K</kbd>                     | kill corresponding buffer
 <kbd>q</kbd> or <kbd>fd</kbd>    | hide `NeoTree` buffer
 <kbd>r</kbd>                     | rename a node
+
+#### NeoTree mode-line
+
+The mode-line has the following format `[x/y] d (D:a, F:b)` where:
+- `x` is the index of the current selected file or directory
+- `y` the total number of items (file and directory) in the current directory
+- `d` the name of the current directory
+- `a` the number of directories in the current directory
+- `b` the number of files in the current directory
 
 ### Shells
 
