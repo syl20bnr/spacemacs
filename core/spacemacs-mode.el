@@ -1,6 +1,9 @@
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
+(defconst spacemacs-version "0.40.0"
+  "Spacemacs version.")
+
 (defconst spacemacs-min-version "24.3"
   "Mininal required version of Emacs.")
 
@@ -147,6 +150,12 @@ If LOG is non-nil a message is displayed in spacemacs-mode buffer."
 (defun spacemacs/emacs-version-ok ()
   (not (version< emacs-version spacemacs-min-version)))
 
+(defun spacemacs/display-and-copy-version ()
+  "Echo the current spacemacs version and copy it."
+  (interactive)
+  (let ((msg (format "Spacemacs v.%s" spacemacs-version)))
+    (message msg) (kill-new msg)))
+
 (defun display-startup-echo-area-message ()
   "Change the default welcome message of minibuffer to another one."
   (message "Spacemacs is ready."))
@@ -177,6 +186,7 @@ Doge special banner can be reachable via `999', `doge' or `random*'.
     (when banner
       (spacemacs/message (format "Banner: %s" banner))
       (insert-file-contents banner)
+      (spacemacs//inject-version-in-buffer)
       (spacemacs/insert-buttons))))
 
 (defun spacemacs//choose-random-banner (&optional all)
@@ -192,6 +202,23 @@ If ALL is non-nil then truly all banners can be selected."
 (defun spacemacs//get-banner-path (index)
   "Return the full path to banner with index INDEX."
   (concat spacemacs-banner-directory (format "%03d-banner.txt" index)))
+
+(defun spacemacs//inject-version-in-buffer ()
+  "Inject the current version of spacemacs in the first line of the
+buffer, right justified."
+  (save-excursion
+    (beginning-of-buffer)
+    (let* ((maxcol spacemacs-title-length)
+           (injected (format "(%s)" spacemacs-version))
+           (pos (- maxcol (length injected)))
+           (buffer-read-only nil))
+      ;; fill the first line with spaces if required
+      (when (< (line-end-position) maxcol)
+        (end-of-line)
+        (insert-char ?\s (- maxcol (line-end-position))))
+      (goto-char pos)
+      (delete-char (length injected))
+      (insert injected))))
 
 (defun spacemacs/message (msg &rest args)
   "Display MSG in message prepended with '(Spacemacs)'."

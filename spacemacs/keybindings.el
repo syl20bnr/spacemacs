@@ -71,6 +71,7 @@
   "fes" 'find-spacemacs-file
   "fec" 'find-contrib-file
   "fed" 'find-dotfile
+  "fev" 'spacemacs/display-and-copy-version
   "fS" 'evil-write-all
   "fs" 'evil-write
   "fy" 'show-and-copy-buffer-filename)
