@@ -585,22 +585,27 @@ determine the state to enable when escaping from the insert state.")
           (evil-scroll-line-to-center nil)))
       (evil-leader/set-key "re" 'evil-show-registers)
       ;; define text objects
-      (defmacro define-and-bind-text-object (key start-regex end-regex)
-        (let ((inner-name (make-symbol "inner-name"))
-              (outer-name (make-symbol "outer-name")))
+      (defmacro spacemacs|define-and-bind-text-object (key name start-regex end-regex)
+        (let ((inner-name (make-symbol (concat "evil-inner-" name)))
+              (outer-name (make-symbol (concat "evil-outer-" name))))
           `(progn
              (evil-define-text-object ,inner-name (count &optional beg end type)
-               (evil-regexp-range count beg end type ,start-regex ,end-regex t))
+               (evil-select-paren ,start-regex ,end-regex beg end type count nil))
              (evil-define-text-object ,outer-name (count &optional beg end type)
-               (evil-regexp-range count beg end type ,start-regex ,end-regex nil))
+               (evil-select-paren ,start-regex ,end-regex beg end type count t))
              (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
              (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
       ;; between dollars sign:
-      (define-and-bind-text-object "$" "\\$" "\\$")
+      (spacemacs|define-and-bind-text-object "$" "dollar" "\\$" "\\$")
       ;; between pipe characters:
-      (define-and-bind-text-object "|" "|" "|")
+      (spacemacs|define-and-bind-text-object "|" "bar" "|" "|")
       ;; between percent signs:
-      (define-and-bind-text-object "%" "%" "%")
+      (spacemacs|define-and-bind-text-object "%" "percent" "%" "%")
+
+      ;; add star block
+      (spacemacs|define-and-bind-text-object "*" "star-block" "/*" "*/")
+      ;; add slash block
+      (spacemacs|define-and-bind-text-object "/" "slash-block" "//" "//")
 
       ;; support smart 1parens-strict-mode
       (if (ht-contains? configuration-layer-all-packages 'smartparens)
