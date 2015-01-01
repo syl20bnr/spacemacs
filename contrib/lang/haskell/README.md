@@ -25,7 +25,10 @@
 ## Description
 
 This layer adds support for the [Haskell][] language.
-The layer uses company-ghc for completetion.
+
+Features:
+- auto-completion with [company-ghc][],
+- auto-indentation with [hi2][].
 
 **This layer is in construction, it needs your contributions and bug reports.**
 
@@ -159,7 +162,7 @@ REPL commands are prefixed by <kbd>SPC m s</kbd>:
 <kbd>SPC m P</kbd>    | go to previous section
 <kbd>SPC m f</kbd>    | find or create source-file under the cursor
 
-**TODO**
-
 [Haskell]: https://www.haskell.org/
 [cabal]: https://www.haskell.org/cabal/
+[company-ghc]: https://github.com/iquiw/company-ghc
+[hi2]: https://github.com/nilcons/hi2
