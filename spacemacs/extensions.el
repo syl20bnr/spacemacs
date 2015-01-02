@@ -12,6 +12,7 @@
     centered-cursor
     emoji-cheat-sheet
     evil-plugins
+    evil-tutor
     helm-rcirc
     helm-spacemacs
     neotree
@@ -20,6 +21,16 @@
     ))
 
 ;; Initialize the extensions
+
+(defun spacemacs/init-evil-tutor ()
+  (use-package evil-tutor
+    :commands (evil-tutor/start
+               evil-tutor/resume)
+    :init
+    (progn
+      (setq evil-tutor-working-directory
+            (concat spacemacs-cache-directory ".tutor/"))
+      (evil-leader/set-key "hT" 'evil-tutor/start))))
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
