@@ -1,7 +1,7 @@
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
-(defconst spacemacs-version "0.40.0"
+(defconst spacemacs-version "0.40.1"
   "Spacemacs version.")
 
 (defconst spacemacs-min-version "24.3"
