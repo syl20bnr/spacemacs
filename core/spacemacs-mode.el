@@ -1,6 +1,8 @@
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
+(require 'subr-x)
+
 (defconst spacemacs-version "0.40.1"
   "Spacemacs version.")
 
