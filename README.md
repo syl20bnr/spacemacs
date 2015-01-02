@@ -216,6 +216,10 @@ for more information.
 
 # Learning Spacemacs
 
+## Evil-tutor
+
+Press <kbd>SPC h T</kbd> to start the Vimtutor adapted for Evil.
+
 ## The leader key
 
 Spacemacs key bindings use a leader key which is set by default to
