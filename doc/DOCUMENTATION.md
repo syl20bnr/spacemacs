@@ -1159,6 +1159,10 @@ To toggle the `NeoTree` buffer press:
 
     <SPC> f t
 
+The NeoTree window always has the number `0` so it does not shift the current
+number of the other windows. To select the NeoTree window you then use
+<kbd>SPC 0</kbd>.
+
 #### NeoTree navigation
 
 Navigation is centered on the `hjkl` with the hope to provide a fast navigation
@@ -1167,12 +1171,13 @@ experience like in [ranger][]:
 Key Binding                      |                 Description
 ---------------------------------|----------------------------------------------------------------
 <kbd>h</kbd>                     | collapse directory
+<kbd>H</kbd>                     | previous sibling
 <kbd>j</kbd>                     | next file or directory
 <kbd>J</kbd>                     | next expanded directory on level down
 <kbd>k</kbd>                     | previous file or directory
 <kbd>K</kbd>                     | parent directory, when reaching the root change it to parent directory
-<kbd>l</kbd>                     | expand directory
-<kbd>L</kbd> or <kbd>RET</kbd>   | open file
+<kbd>l</kbd> or <kbd>RET</kbd>   | expand directory
+<kbd>L</kbd>                     | next sibling
 
 **Note:** The point is automatically set to the first letter of a node for a
 smoother experience.
@@ -1181,14 +1186,14 @@ smoother experience.
 
 By default a file is opened in the last active window. It is possible to choose
 window number where to open a file by using a numeric argument, for instance
-<kbd>2 L</kbd> or <kbd>2 RET</kbd> will open the current file in the windows 2.
+<kbd>2 l</kbd> or <kbd>2 RET</kbd> will open the current file in the windows 2.
 It is also possible to open the file in a split window with <kbd>|</kbd> and
 <kbd>-</kbd>:
 
 Key Binding                       |                 Description
 ----------------------------------|----------------------------------------------------------------
-<kbd>L</kbd> or <kbd>RET</kbd>    | open file in last active window
-<kbd># L</kbd> or <kbd>2 RET</kbd>| open file in window number `#`
+<kbd>l</kbd> or <kbd>RET</kbd>    | open file in last active window
+<kbd># l</kbd> or <kbd>2 RET</kbd>| open file in window number `#`
 <kbd>|</kbd>                      | open file in an vertically split window
 <kbd>-</kbd>                      | open file in an horizontally split window
 
@@ -1200,7 +1205,7 @@ Key Binding                      |                 Description
 <kbd>c</kbd>                     | create a node
 <kbd>d</kbd>                     | delete a node
 <kbd>g</kbd>                     | refresh
-<kbd>H</kbd>                     | toggle hidden files
+<kbd>s</kbd>                     | toggle showing of hidden files
 <kbd>q</kbd> or <kbd>fd</kbd>    | hide `NeoTree` buffer
 <kbd>r</kbd>                     | rename a node
 

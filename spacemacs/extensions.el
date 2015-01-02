@@ -109,12 +109,14 @@
         (define-key evil-motion-state-local-map (kbd "d")   'neotree-delete-node)
         (define-key evil-motion-state-local-map (kbd "g")   'neotree-refresh)
         (define-key evil-motion-state-local-map (kbd "h")   'spacemacs/neotree-collapse)
-        (define-key evil-motion-state-local-map (kbd "H")   'neotree-hidden-file-toggle)
+        (define-key evil-motion-state-local-map (kbd "H")   'neotree-select-previous-sibling-node)
         (define-key evil-motion-state-local-map (kbd "J")   'neotree-select-down-node)
         (define-key evil-motion-state-local-map (kbd "K")   'neotree-select-up-node)
         (define-key evil-motion-state-local-map (kbd "l")   'spacemacs/neotree-expand-or-open)
+        (define-key evil-motion-state-local-map (kbd "L")   'neotree-select-next-sibling-node)
         (define-key evil-motion-state-local-map (kbd "q")   'neotree-hide)
-        (define-key evil-motion-state-local-map (kbd "r")   'neotree-rename-node))
+        (define-key evil-motion-state-local-map (kbd "r")   'neotree-rename-node)
+        (define-key evil-motion-state-local-map (kbd "s")   'neotree-hidden-file-toggle))
 
       (evil-leader/set-key "ft" 'neotree-toggle))
     :config
