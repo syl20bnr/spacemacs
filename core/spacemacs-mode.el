@@ -1,18 +1,14 @@
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
-(require 'subr-x)
+(require 'subr-x nil 'noerror)
+(require 'emacs-backports)
 
 (defconst spacemacs-version "0.41.0"
   "Spacemacs version.")
 
 (defconst spacemacs-min-version "24.3"
   "Mininal required version of Emacs.")
-
-(defconst spacemacs-core-directory
-  (expand-file-name (concat user-emacs-directory "core/"))
-  "Spacemacs core directory.")
-(add-to-list 'load-path spacemacs-core-directory)
 
 (defconst spacemacs-banner-directory
   (expand-file-name (concat spacemacs-core-directory "banners/"))
@@ -299,3 +295,5 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
   (insert-button "Update Spacemacs" 'action (lambda (b) (configuration-layer/update-packages)) 'follow-link t)
   (insert "\n\n")
   )
+
+(provide 'spacemacs-mode)
