@@ -28,3 +28,12 @@ point to the position of the join."
 
     (when join-pos
       (goto-char join-pos))))
+;;; Flyspell
+
+(defun scala/flyspell-verify ()
+  "Prevent common flyspell false positives in scala-mode."
+  (and (flyspell-generic-progmode-verify)
+       (not (s-matches? (rx bol (* space) "package") (current-line)))))
+
+(defun scala/configure-flyspell ()
+  (setq-local flyspell-generic-check-word-predicate 'scala/flyspell-verify))

@@ -12,7 +12,9 @@ which require an initialization must be listed explicitly in the list.")
   (use-package ensime
     :commands (ensime-mode)
     :init
-    (add-hook 'scala-mode-hook 'ensime-mode)
+    (progn
+      (add-hook 'scala-mode-hook 'scala/configure-flyspell)
+      (add-hook 'scala-mode-hook 'ensime-mode))
     :config
     (progn
       (evil-define-key 'normal ensime-popup-buffer-map
