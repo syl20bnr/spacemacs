@@ -1,7 +1,6 @@
 (defvar python-packages
   '(
     anaconda-mode
-    ac-anaconda
     company-anaconda
     eldoc
     evil-jumper
@@ -14,12 +13,6 @@
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
-
-(defun python/init-ac-anaconda ()
-  (use-package ac-anaconda
-    :if (boundp 'ac-sources)
-    :defer t
-    :init (add-hook 'python-mode-hook 'ac-anaconda-setup)))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
@@ -34,9 +27,8 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
-    :if (boundp 'company-backends)
-    :defer t
-    :init (add-to-list 'company-backends 'company-anaconda)))
+    :init (add-hook 'python-mode-hook 'company-mode)
+    :config (add-to-list 'company-backends 'company-anaconda)))
 
 (defun python/init-eldoc ()
   (add-hook 'python-mode-hook 'eldoc-mode))
