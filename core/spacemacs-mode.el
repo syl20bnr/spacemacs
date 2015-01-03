@@ -20,7 +20,7 @@
 
 ;; additional paths
 (defconst user-home-directory
-  (expand-file-name (concat user-emacs-directory "../"))
+  (expand-file-name "~/")
   "User home directory (~/).")
 (defconst spacemacs-directory
   (expand-file-name (concat user-emacs-directory "spacemacs/"))
