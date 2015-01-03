@@ -1,5 +1,11 @@
 ;;; Ensime
 
+(defun scala/configure-ensime ()
+  "Ensure the file exists before starting `ensime-mode'."
+  (if (file-exists-p (buffer-file-name))
+      (ensime-mode +1)
+    (add-hook 'after-save-hook (lambda () (ensime-mode +1)) nil t)))
+
 (defun spacemacs/ensime-refactor-accept ()
   (interactive)
   (funcall continue-refactor)
