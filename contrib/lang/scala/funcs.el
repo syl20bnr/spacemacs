@@ -1,3 +1,5 @@
+;;; Ensime
+
 (defun spacemacs/ensime-refactor-accept ()
   (interactive)
   (funcall continue-refactor)
@@ -7,6 +9,8 @@
   (interactive)
   (funcall cancel-refactor)
   (ensime-popup-buffer-quit-function))
+
+;;; Interactive commands
 
 (defun spacemacs/scala-join-line ()
   "Adapt `scala-indent:join-line' to behave more like evil's line join.
@@ -28,6 +32,16 @@ point to the position of the join."
 
     (when join-pos
       (goto-char join-pos))))
+
+(defun scala/completing-dot ()
+  "Insert a period and show company completions."
+  (interactive "*")
+  (when (s-matches? (rx (+ (not space)))
+                    (buffer-substring (line-beginning-position) (point)))
+    (delete-horizontal-space t))
+  (insert ".")
+  (company-complete))
+
 ;;; Flyspell
 
 (defun scala/flyspell-verify ()

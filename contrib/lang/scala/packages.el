@@ -17,6 +17,8 @@ which require an initialization must be listed explicitly in the list.")
       (add-hook 'scala-mode-hook 'ensime-mode))
     :config
     (progn
+      (evil-define-key 'insert ensime-mode-map (kbd ".") 'scala/completing-dot)
+
       (evil-define-key 'normal ensime-popup-buffer-map
         (kbd "q") 'ensime-popup-buffer-quit-function)
 
