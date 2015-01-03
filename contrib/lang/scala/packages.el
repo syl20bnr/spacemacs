@@ -14,7 +14,7 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (add-hook 'scala-mode-hook 'scala/configure-flyspell)
-      (add-hook 'scala-mode-hook 'ensime-mode))
+      (add-hook 'scala-mode-hook 'scala/configure-ensime))
     :config
     (progn
       (evil-define-key 'insert ensime-mode-map (kbd ".") 'scala/completing-dot)
