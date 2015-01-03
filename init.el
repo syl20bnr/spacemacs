@@ -1,4 +1,9 @@
-(load (concat user-emacs-directory "core/spacemacs-mode.el"))
+(defconst spacemacs-core-directory
+  (expand-file-name (concat user-emacs-directory "core/"))
+  "Spacemacs core directory.")
+(add-to-list 'load-path spacemacs-core-directory)
+
+(require 'spacemacs-mode)
 (require 'configuration-layer)
 
 (when (spacemacs/emacs-version-ok)
