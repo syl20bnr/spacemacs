@@ -32,6 +32,7 @@
     evil-search-highlight-persist
     evil-surround
     evil-terminal-cursor-changer
+    evil-tutor
     evil-visualstar
     exec-path-from-shell
     expand-region
@@ -773,6 +774,16 @@ determine the state to enable when escaping from the insert state.")
 (defun spacemacs/init-evil-terminal-cursor-changer ()
   (unless (display-graphic-p)
     (require 'evil-terminal-cursor-changer)))
+
+(defun spacemacs/init-evil-tutor ()
+  (use-package evil-tutor
+    :commands (evil-tutor/start
+               evil-tutor/resume)
+    :init
+    (progn
+      (setq evil-tutor-working-directory
+            (concat spacemacs-cache-directory ".tutor/"))
+      (evil-leader/set-key "hT" 'evil-tutor/start))))
 
 (defun spacemacs/init-evil-visualstar ()
   (use-package evil-visualstar
