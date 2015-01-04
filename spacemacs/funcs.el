@@ -827,3 +827,7 @@ If ASCII si not provided then UNICODE is used instead."
   (font-lock-add-keywords
    nil '(("\\<\\(\\(FIX\\(ME\\)?\\|TODO\\|OPTIMIZE\\|HACK\\|REFACTOR\\):\\)"
           1 font-lock-warning-face t))))
+
+(defun current-line ()
+  "Return the line at point as a string."
+  (buffer-substring (line-beginning-position) (line-end-position)))
