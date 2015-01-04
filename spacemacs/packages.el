@@ -775,7 +775,15 @@ determine the state to enable when escaping from the insert state.")
     (require 'evil-terminal-cursor-changer)))
 
 (defun spacemacs/init-evil-visualstar ()
-  (use-package evil-visualstar))
+  (use-package evil-visualstar
+    :commands (evil-visualstar/begin-search-forward
+               evil-visualstar/begin-search-backward)
+    :init
+    (progn
+      (define-key evil-visual-state-map (kbd "*")
+        'evil-visualstar/begin-search-forward)
+      (define-key evil-visual-state-map (kbd "#")
+        'evil-visualstar/begin-search-backward))))
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
