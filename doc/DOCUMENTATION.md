@@ -1073,7 +1073,6 @@ Buffer manipulation commands (start with `b`):
 Key Binding                               |              Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC b b</kbd> or <kbd>SPC TAB</kbd>  | switch to alternate buffer (switch back and forth)
-<kbd>SPC b d</kbd>                        | delete the current buffer **and** file (ask for confirmation)
 <kbd>SPC b e</kbd>                        | erase the content of the buffer (ask for confirmation)
 <kbd>SPC b k</kbd>                        | kill the current buffer
 <kbd>SPC b K</kbd>                        | kill all buffers except the current one
@@ -1093,6 +1092,7 @@ Files manipulation commands (start with `f`):
 
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
+<kbd>SPC f d</kbd>                        | delete a file and the associated buffer (ask for confirmation)
 <kbd>SPC f f</kbd>                        | open a file using `ido`
 <kbd>SPC f s</kbd>                        | save a file
 <kbd>SPC f S</kbd>                        | save all files
