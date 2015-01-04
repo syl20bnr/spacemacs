@@ -341,14 +341,8 @@ which require an initialization must be listed explicitly in the list.")
 
       (eval-after-load 'evil
         '(progn
-           (define-key evil-normal-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
-           (define-key evil-normal-state-map (kbd "#") 'spacemacs/quick-ahs-backward)
            (define-key evil-motion-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
-           (define-key evil-motion-state-map (kbd "#") 'spacemacs/quick-ahs-backward)
-           (eval-after-load 'evil-lisp-state
-             '(progn
-                (define-key evil-normal-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
-                (define-key evil-normal-state-map (kbd "#") 'spacemacs/quick-ahs-backward)))))
+           (define-key evil-motion-state-map (kbd "#") 'spacemacs/quick-ahs-backward)))
 
       (defun spacemacs/symbol-highlight ()
         "Highlight the symbol under point with `auto-highlight-symbol'."
