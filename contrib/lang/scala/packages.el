@@ -12,9 +12,13 @@ which require an initialization must be listed explicitly in the list.")
   (use-package ensime
     :commands (ensime-mode)
     :init
-    (add-hook 'scala-mode-hook 'ensime-mode)
+    (progn
+      (add-hook 'scala-mode-hook 'scala/configure-flyspell)
+      (add-hook 'scala-mode-hook 'scala/configure-ensime))
     :config
     (progn
+      (evil-define-key 'insert ensime-mode-map (kbd ".") 'scala/completing-dot)
+
       (evil-define-key 'normal ensime-popup-buffer-map
         (kbd "q") 'ensime-popup-buffer-quit-function)
 
@@ -36,10 +40,8 @@ which require an initialization must be listed explicitly in the list.")
       ;; better error checking.
       (eval-after-load 'flycheck
         '(progn
-           (defun spacemacs/flycheck-use-scalastyle ()
-             (flycheck-select-checker 'scala-scalastyle))
-
-           (add-hook 'ensime-mode-hook 'spacemacs/flycheck-use-scalastyle))))))
+           (defun scala/disable-flycheck () (flycheck-mode -1))
+           (add-hook 'ensime-mode-hook 'scala/disable-flycheck))))))
 
 (defun scala/init-scala-mode2 ()
   (use-package scala-mode2

@@ -32,6 +32,7 @@
     evil-search-highlight-persist
     evil-surround
     evil-terminal-cursor-changer
+    evil-tutor
     evil-visualstar
     exec-path-from-shell
     expand-region
@@ -70,6 +71,7 @@
     monokai-theme
     move-text
     multi-term
+    neotree
     org
     org-bullets
     ;; annoying error message, disable it for now
@@ -341,14 +343,8 @@ which require an initialization must be listed explicitly in the list.")
 
       (eval-after-load 'evil
         '(progn
-           (define-key evil-normal-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
-           (define-key evil-normal-state-map (kbd "#") 'spacemacs/quick-ahs-backward)
            (define-key evil-motion-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
-           (define-key evil-motion-state-map (kbd "#") 'spacemacs/quick-ahs-backward)
-           (eval-after-load 'evil-lisp-state
-             '(progn
-                (define-key evil-normal-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
-                (define-key evil-normal-state-map (kbd "#") 'spacemacs/quick-ahs-backward)))))
+           (define-key evil-motion-state-map (kbd "#") 'spacemacs/quick-ahs-backward)))
 
       (defun spacemacs/symbol-highlight ()
         "Highlight the symbol under point with `auto-highlight-symbol'."
@@ -585,22 +581,27 @@ determine the state to enable when escaping from the insert state.")
           (evil-scroll-line-to-center nil)))
       (evil-leader/set-key "re" 'evil-show-registers)
       ;; define text objects
-      (defmacro define-and-bind-text-object (key start-regex end-regex)
-        (let ((inner-name (make-symbol "inner-name"))
-              (outer-name (make-symbol "outer-name")))
+      (defmacro spacemacs|define-and-bind-text-object (key name start-regex end-regex)
+        (let ((inner-name (make-symbol (concat "evil-inner-" name)))
+              (outer-name (make-symbol (concat "evil-outer-" name))))
           `(progn
              (evil-define-text-object ,inner-name (count &optional beg end type)
-               (evil-regexp-range count beg end type ,start-regex ,end-regex t))
+               (evil-select-paren ,start-regex ,end-regex beg end type count nil))
              (evil-define-text-object ,outer-name (count &optional beg end type)
-               (evil-regexp-range count beg end type ,start-regex ,end-regex nil))
+               (evil-select-paren ,start-regex ,end-regex beg end type count t))
              (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
              (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
       ;; between dollars sign:
-      (define-and-bind-text-object "$" "\\$" "\\$")
+      (spacemacs|define-and-bind-text-object "$" "dollar" "\\$" "\\$")
       ;; between pipe characters:
-      (define-and-bind-text-object "|" "|" "|")
+      (spacemacs|define-and-bind-text-object "|" "bar" "|" "|")
       ;; between percent signs:
-      (define-and-bind-text-object "%" "%" "%")
+      (spacemacs|define-and-bind-text-object "%" "percent" "%" "%")
+
+      ;; add star block
+      (spacemacs|define-and-bind-text-object "*" "star-block" "/*" "*/")
+      ;; add slash block
+      (spacemacs|define-and-bind-text-object "/" "slash-block" "//" "//")
 
       ;; support smart 1parens-strict-mode
       (if (ht-contains? configuration-layer-all-packages 'smartparens)
@@ -775,8 +776,26 @@ determine the state to enable when escaping from the insert state.")
   (unless (display-graphic-p)
     (require 'evil-terminal-cursor-changer)))
 
+(defun spacemacs/init-evil-tutor ()
+  (use-package evil-tutor
+    :commands (evil-tutor/start
+               evil-tutor/resume)
+    :init
+    (progn
+      (setq evil-tutor-working-directory
+            (concat spacemacs-cache-directory ".tutor/"))
+      (evil-leader/set-key "hT" 'evil-tutor/start))))
+
 (defun spacemacs/init-evil-visualstar ()
-  (use-package evil-visualstar))
+  (use-package evil-visualstar
+    :commands (evil-visualstar/begin-search-forward
+               evil-visualstar/begin-search-backward)
+    :init
+    (progn
+      (define-key evil-visual-state-map (kbd "*")
+        'evil-visualstar/begin-search-forward)
+      (define-key evil-visual-state-map (kbd "#")
+        'evil-visualstar/begin-search-backward))))
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
@@ -1406,6 +1425,72 @@ determine the state to enable when escaping from the insert state.")
         (term-send-raw-string "\t"))
 
       (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab)))))
+
+(defun spacemacs/init-neotree ()
+  (use-package neotree
+    :commands (neotree-toggle)
+    :init
+    (progn
+      (add-to-list 'evil-motion-state-modes 'neotree-mode)
+      (setq neo-window-width 32
+            neo-create-file-auto-open t
+            neo-banner-message nil
+            neo-show-updir-line nil
+            neo-mode-line-type 'neotree
+            neo-smart-open t
+            neo-dont-be-alone t
+            neo-persist-show nil
+            neo-show-hidden-files t
+            neo-auto-indent-point t)
+
+      (defun spacemacs/neotree-expand-or-open ()
+        "Collapse a neotree node."
+        (interactive)
+        (let ((node (neo-buffer--get-filename-current-line)))
+          (when node
+            (if (file-directory-p node)
+                (progn
+                  (neo-buffer--set-expand node t)
+                  (neo-buffer--refresh t)
+                  (when neo-auto-indent-point
+                    (next-line)
+                    (neo-point-auto-indent)))
+              (call-interactively 'neotree-enter)))))
+
+      (defun spacemacs/neotree-collapse ()
+        "Collapse a neotree node."
+        (interactive)
+        (let ((node (neo-buffer--get-filename-current-line)))
+          (when node
+            (when (file-directory-p node)
+              (neo-buffer--set-expand node nil)
+              (neo-buffer--refresh t))
+            (when neo-auto-indent-point
+              (neo-point-auto-indent)))))
+
+      (defun spacemacs//neotree-key-bindings ()
+        "Set the key bindings for a neotree buffer."
+        (define-key evil-motion-state-local-map (kbd "TAB") 'neotree-stretch-toggle)
+        (define-key evil-motion-state-local-map (kbd "RET") 'neotree-enter)
+        (define-key evil-motion-state-local-map (kbd "|")   'neotree-enter-vertical-split)
+        (define-key evil-motion-state-local-map (kbd "-")   'neotree-enter-horizontal-split)
+        (define-key evil-motion-state-local-map (kbd "?")   'evil-search-backward)
+        (define-key evil-motion-state-local-map (kbd "c")   'neotree-create-node)
+        (define-key evil-motion-state-local-map (kbd "d")   'neotree-delete-node)
+        (define-key evil-motion-state-local-map (kbd "g")   'neotree-refresh)
+        (define-key evil-motion-state-local-map (kbd "h")   'spacemacs/neotree-collapse)
+        (define-key evil-motion-state-local-map (kbd "H")   'neotree-select-previous-sibling-node)
+        (define-key evil-motion-state-local-map (kbd "J")   'neotree-select-down-node)
+        (define-key evil-motion-state-local-map (kbd "K")   'neotree-select-up-node)
+        (define-key evil-motion-state-local-map (kbd "l")   'spacemacs/neotree-expand-or-open)
+        (define-key evil-motion-state-local-map (kbd "L")   'neotree-select-next-sibling-node)
+        (define-key evil-motion-state-local-map (kbd "q")   'neotree-hide)
+        (define-key evil-motion-state-local-map (kbd "r")   'neotree-rename-node)
+        (define-key evil-motion-state-local-map (kbd "s")   'neotree-hidden-file-toggle))
+
+      (evil-leader/set-key "ft" 'neotree-toggle))
+    :config
+    (add-hook 'neotree-mode-hook 'spacemacs//neotree-key-bindings)))
 
 (defun spacemacs/init-org ()
   (use-package org

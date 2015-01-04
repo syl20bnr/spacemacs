@@ -14,6 +14,9 @@ which require an initialization must be listed explicitly in the list.")
 (defvar git-enable-github-support nil
   "If non nil enable Github packages.")
 
+(defvar git-magit-status-fullscreen nil
+  "If non nil magit-status buffer is displayed in fullscreen.")
+
 (when git-enable-github-support
   (mapc (lambda (x) (push x git-packages))
         '(
@@ -143,10 +146,11 @@ implementation."
     (progn
       (spacemacs|hide-lighter magit-auto-revert-mode)
       ;; full screen magit-status
-      (defadvice magit-status (around magit-fullscreen activate)
-        (window-configuration-to-register :magit-fullscreen)
-        ad-do-it
-        (delete-other-windows))
+      (when git-magit-status-fullscreen
+        (defadvice magit-status (around magit-fullscreen activate)
+          (window-configuration-to-register :magit-fullscreen)
+          ad-do-it
+          (delete-other-windows)))
 
       ;; hjkl key bindings
       (spacemacs|evilify magit-commit-mode-map
