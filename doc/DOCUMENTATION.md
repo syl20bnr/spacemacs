@@ -1171,7 +1171,7 @@ experience like in [ranger][]:
 
 Key Binding                      |                 Description
 ---------------------------------|----------------------------------------------------------------
-<kbd>h</kbd>                     | collapse directory
+<kbd>h</kbd>                     | collapse expanded directory or go to parent node
 <kbd>H</kbd>                     | previous sibling
 <kbd>j</kbd>                     | next file or directory
 <kbd>J</kbd>                     | next expanded directory on level down

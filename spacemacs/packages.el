@@ -778,13 +778,13 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-evil-tutor ()
   (use-package evil-tutor
-    :commands (evil-tutor/start
-               evil-tutor/resume)
+    :commands (evil-tutor-start
+               evil-tutor-resume)
     :init
     (progn
       (setq evil-tutor-working-directory
             (concat spacemacs-cache-directory ".tutor/"))
-      (evil-leader/set-key "hT" 'evil-tutor/start))))
+      (evil-leader/set-key "hT" 'evil-tutor-start))))
 
 (defun spacemacs/init-evil-visualstar ()
   (use-package evil-visualstar
@@ -1468,6 +1468,17 @@ determine the state to enable when escaping from the insert state.")
             (when neo-auto-indent-point
               (neo-point-auto-indent)))))
 
+      (defun spacemacs/neotree-collapse-or-up ()
+        "Collapse an expanded directory node or go to the parent node."
+        (interactive)
+        (let ((node (neo-buffer--get-filename-current-line)))
+          (when node
+            (if (file-directory-p node)
+                (if (neo-buffer--expanded-node-p node)
+                    (spacemacs/neotree-collapse)
+                  (neotree-select-up-node))
+              (neotree-select-up-node)))))
+
       (defun spacemacs//neotree-key-bindings ()
         "Set the key bindings for a neotree buffer."
         (define-key evil-motion-state-local-map (kbd "TAB") 'neotree-stretch-toggle)
@@ -1478,7 +1489,7 @@ determine the state to enable when escaping from the insert state.")
         (define-key evil-motion-state-local-map (kbd "c")   'neotree-create-node)
         (define-key evil-motion-state-local-map (kbd "d")   'neotree-delete-node)
         (define-key evil-motion-state-local-map (kbd "g")   'neotree-refresh)
-        (define-key evil-motion-state-local-map (kbd "h")   'spacemacs/neotree-collapse)
+        (define-key evil-motion-state-local-map (kbd "h")   'spacemacs/neotree-collapse-or-up)
         (define-key evil-motion-state-local-map (kbd "H")   'neotree-select-previous-sibling-node)
         (define-key evil-motion-state-local-map (kbd "J")   'neotree-select-down-node)
         (define-key evil-motion-state-local-map (kbd "K")   'neotree-select-up-node)
