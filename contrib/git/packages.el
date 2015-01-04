@@ -145,12 +145,6 @@ implementation."
     :config
     (progn
       (spacemacs|hide-lighter magit-auto-revert-mode)
-      ;; full screen magit-status
-      (when git-magit-status-fullscreen
-        (defadvice magit-status (around magit-fullscreen activate)
-          (window-configuration-to-register :magit-fullscreen)
-          ad-do-it
-          (delete-other-windows)))
 
       ;; hjkl key bindings
       (spacemacs|evilify magit-commit-mode-map
@@ -193,13 +187,19 @@ implementation."
                                                  magit-commit-mode-map
                                                  magit-diff-mode-map))
 
+      ;; full screen magit-status
+      (when git-magit-status-fullscreen
+        (defadvice magit-status (around magit-fullscreen activate)
+          (window-configuration-to-register :magit-fullscreen)
+          ad-do-it
+          (delete-other-windows))
 
-      (defun magit-quit-session ()
-        "Restores the previous window configuration and kills the magit buffer"
-        (interactive)
-        (kill-buffer)
-        (jump-to-register :magit-fullscreen))
-      (define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+        (defun magit-quit-session ()
+          "Restores the previous window configuration and kills the magit buffer"
+          (interactive)
+          (kill-buffer)
+          (jump-to-register :magit-fullscreen))
+        (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 
       (defun magit-toggle-whitespace ()
         (interactive)
