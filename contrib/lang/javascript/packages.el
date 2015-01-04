@@ -3,6 +3,7 @@
     coffee-mode
     flycheck
     js2-mode
+    multiple-cursors
     js2-refactor
     json-mode
     tern
@@ -54,6 +55,10 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key-for-mode 'js2-mode "mze" 'js2-mode-toggle-element)
       (evil-leader/set-key-for-mode 'js2-mode "mzF" 'js2-mode-toggle-hide-functions)
       (evil-leader/set-key-for-mode 'js2-mode "mzC" 'js2-mode-toggle-hide-comments))))
+
+;; Need to explicitly install so js2-refactor correctly activates
+(defun javascript/init-multiple-cursors ()
+  (use-package multiple-cursors :defer t))
 
 (defun javascript/init-js2-refactor ()
   (use-package js2-refactor
