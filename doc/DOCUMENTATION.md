@@ -1096,6 +1096,7 @@ Key Binding                               |                 Description
 <kbd>SPC f f</kbd>                        | open a file using `ido`
 <kbd>SPC f s</kbd>                        | save a file
 <kbd>SPC f S</kbd>                        | save all files
+<kbd>SPC f r</kbd>                        | open a recent file with `helm`
 <kbd>SPC f t</kbd>                        | toggle file tree side bar using [NeoTree][neotree]
 <kbd>SPC f y</kbd>                        | show current file absolute path in the minibuffer
 
