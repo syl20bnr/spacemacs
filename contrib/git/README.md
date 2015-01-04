@@ -10,6 +10,7 @@
     - [Install](#install)
         - [Layer](#layer)
         - [Github support](#github-support)
+        - [Magit status fullscreen](#magit-status-fullscreen)
         - [Magit auto-complete](#magit-auto-complete)
         - [Git](#git)
     - [Working with Git](#working-with-git)
@@ -59,6 +60,17 @@ to `t` in your `dotspacemacs/init` function.
 ```elisp
 (defun dotspacemacs/init ()
   (setq-default git-enable-github-support t)
+)
+```
+
+### Magit status fullscreen
+
+To display the `magit status` buffer in fullscreen set the variable
+`git-magit-status-fullscreen` to `t` in your `dotspacemacs/init` function.
+
+```elisp
+(defun dotspacemacs/init ()
+  (setq-default git-magit-status-fullscreen t)
 )
 ```
 
