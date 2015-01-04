@@ -4,7 +4,7 @@
 (require 'subr-x nil 'noerror)
 (require 'emacs-backports)
 
-(defconst spacemacs-version "0.41.2"
+(defconst spacemacs-version "0.42.0"
   "Spacemacs version.")
 
 (defconst spacemacs-min-version "24.3"
