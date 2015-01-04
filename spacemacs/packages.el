@@ -778,13 +778,13 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-evil-tutor ()
   (use-package evil-tutor
-    :commands (evil-tutor/start
-               evil-tutor/resume)
+    :commands (evil-tutor-start
+               evil-tutor-resume)
     :init
     (progn
       (setq evil-tutor-working-directory
             (concat spacemacs-cache-directory ".tutor/"))
-      (evil-leader/set-key "hT" 'evil-tutor/start))))
+      (evil-leader/set-key "hT" 'evil-tutor-start))))
 
 (defun spacemacs/init-evil-visualstar ()
   (use-package evil-visualstar
