@@ -26,6 +26,8 @@
 (defconst spacemacs-cache-directory
   (expand-file-name (concat user-emacs-directory ".cache/"))
   "Spacemacs storage area for persistent files.")
+(defconst pcache-directory
+  (concat spacemacs-cache-directory "pcache"))
 (unless (file-exists-p spacemacs-cache-directory)
     (make-directory spacemacs-cache-directory))
 (defconst user-dropbox-directory

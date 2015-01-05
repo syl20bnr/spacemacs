@@ -196,8 +196,6 @@ Can be installed with `brew install trash'."
 (setq url-configuration-directory (concat spacemacs-cache-directory "url"))
 ;; eshell files
 (setq eshell-directory-name (concat spacemacs-cache-directory "eshell" ))
-;; pcache files
-(setq pcache-directory (concat spacemacs-cache-directory "pcache" ))
 ;; Tramp history
 (setq tramp-persistency-file-name (concat spacemacs-cache-directory "tramp"))
 
