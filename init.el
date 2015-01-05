@@ -1,7 +1,4 @@
-(defconst spacemacs-core-directory
-  (expand-file-name (concat user-emacs-directory "core/"))
-  "Spacemacs core directory.")
-(add-to-list 'load-path spacemacs-core-directory)
+(add-to-list 'load-path (concat user-emacs-directory "core/"))
 
 (require 'spacemacs-mode)
 (require 'configuration-layer)
@@ -9,7 +6,6 @@
 (when (spacemacs/emacs-version-ok)
   (dotspacemacs/load)
   (spacemacs/initialize)
-  (configuration-layer/package.el-initialize)
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init)
   ;; synchronize and load configuration layers

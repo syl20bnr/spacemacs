@@ -10,11 +10,13 @@
 (defconst spacemacs-min-version "24.3"
   "Mininal required version of Emacs.")
 
+;; paths
+(defconst spacemacs-core-directory
+  (expand-file-name (concat user-emacs-directory "core/"))
+  "Spacemacs core directory.")
 (defconst spacemacs-banner-directory
   (expand-file-name (concat spacemacs-core-directory "banners/"))
   "Spacemacs banners directory.")
-
-;; additional paths
 (defconst user-home-directory
   (expand-file-name "~/")
   "User home directory (~/).")
@@ -32,6 +34,7 @@
 ;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
 (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
 
+;; loading progress bar variables
 (defvar spacemacs-title-length 75)
 (defvar spacemacs-loading-counter 0)
 (defvar spacemacs-loading-text "Loading")
@@ -152,7 +155,6 @@ FILE-TO-LOAD is an explicit file to load after the installation."
            (spacemacs/append-to-buffer
             (format "(Bootstrap) Installing %s...\n" pkg))
            (redisplay))
-         (configuration-layer/package.el-initialize)
          (package-refresh-contents)
          (package-install pkg)
          (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))

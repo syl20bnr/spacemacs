@@ -1,5 +1,20 @@
 (require 'dotspacemacs)
 (require 'ht)
+(require 'package)
+
+(unless package--initialized
+  (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
+                           ("gnu" . "http://elpa.gnu.org/packages/")
+                           ("melpa" . "http://melpa.org/packages/")))
+  ;; optimization, no need to activate all the packages so early
+  (package-initialize 'noactivate)
+  ;; Emacs 24.3 and above ships with python.el but in some Emacs 24.3.1 packages
+  ;; for Ubuntu, python.el seems to be missing.
+  ;; This hack adds marmalade repository for this case only.
+  (unless (or (package-installed-p 'python) (version< emacs-version "24.3"))
+    (add-to-list 'package-archives
+                 '("marmalade" . "http://marmalade-repo.org/packages/")))
+  (setq warning-minimum-level :error))
 
 (defconst configuration-layer-template-directory
   (expand-file-name (concat spacemacs-core-directory "templates/"))
@@ -53,22 +68,6 @@ sub-directory of the contribution directory.")
 
 (defvar configuration-layer--loaded-files '()
   "List of loaded files.")
-
-(defun configuration-layer/package.el-initialize ()
-  "Initialize package.el"
-  (require 'package)
-  (unless package--initialized
-    (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-                             ("gnu" . "http://elpa.gnu.org/packages/")
-                             ("melpa" . "http://melpa.org/packages/")))
-    (package-initialize)
-    ;; Emacs 24.3 and above ships with python.el but in some Emacs 24.3.1 packages
-    ;; for Ubuntu, python.el seems to be missing.
-    ;; This hack adds marmalade repository for this case only.
-    (unless (or (package-installed-p 'python) (version< emacs-version "24.3"))
-      (add-to-list 'package-archives
-                   '("marmalade" . "http://marmalade-repo.org/packages/")))
-    (setq warning-minimum-level :error)))
 
 (defun configuration-layer/create-layer (name)
   "Ask the user for a configuration layer name and create a layer with this
@@ -399,8 +398,10 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
     (let* ((init-func (intern (format "%s/init-%s" layer pkg))))
       (spacemacs/loading-animation)
       (if (and (package-installed-p pkg) (fboundp init-func))
-          (progn  (spacemacs/message "Package: Initializing %s:%s..." layer pkg)
-                  (funcall init-func))))))
+          (progn
+            (spacemacs/message "Package: Initializing %s:%s..." layer pkg)
+            (package-activate pkg)
+            (funcall init-func))))))
 
 (defun configuration-layer//initialize-pre-extension (ext layers)
   "Initialize the pre-extensions EXT from configuration layers LAYERS."
