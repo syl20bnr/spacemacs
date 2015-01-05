@@ -130,7 +130,8 @@ initialization."
     (when (file-exists-p elpa-dir)
       (let ((dir (reduce (lambda (x y) (if x x y))
                          (mapcar (lambda (x)
-                                   (if (string-match (symbol-name pkg) x) x))
+                                   (if (string-match
+                                        (concat "/" (symbol-name pkg) "-") x) x))
                                  (directory-files elpa-dir 'full))
                          :initial-value nil)))
         (if dir (file-name-as-directory dir))))))
@@ -149,9 +150,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
      (require 'cl)
      (let ((pkg-elpa-dir (spacemacs//get-package-directory pkg)))
        (if pkg-elpa-dir
-           (progn
-             (message "dir: %s" pkg-elpa-dir)
-             (add-to-list 'load-path pkg-elpa-dir))
+           (add-to-list 'load-path pkg-elpa-dir)
          ;; install the package
          (when log
            (spacemacs/append-to-buffer
