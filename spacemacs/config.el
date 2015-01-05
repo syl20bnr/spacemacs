@@ -56,6 +56,8 @@
 ;; no beep pleeeeeease ! (and no visual blinking too please)
 (custom-set-variables '(ring-bell-function 'ignore))
 (setq visible-bell nil)
+;; require for evil folding
+(add-hook 'prog-mode-hook 'hs-minor-mode)
 
 ;; Hack to fix a bug with tabulated-list.el
 ;; see: http://redd.it/2dgy52
