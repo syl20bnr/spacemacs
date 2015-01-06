@@ -27,7 +27,7 @@ And now, to use a well known catch line from [Emacs Live][emacs_live]:
 
 # Features
 
-### Batteries Included
+## Batteries Included
 
 Spacemacs integrates hundreds of packages and is ready to use with no additional
 configuration. It provides excellent support for many languages, including the
@@ -53,14 +53,14 @@ that extend the default distribution.
 
 **[Visit the Documentation][DOCUMENTATION.MD]**
 
-### Nice UI
+## Nice UI
 
 Spacemacs looks good. It comes with high-quality themes and a custom low-clutter
 modeline.
 
 ![spacemacs_python](doc/img/spacemacs-python.png)
 
-### Excellent Evil Support
+## Excellent Evil Support
 
 Spacemacs is designed around Vim keyboard bindings, provided by [Evil Mode][].
 The packages distributed with Spacemacs are customized to integrate seamlessly
@@ -70,7 +70,7 @@ Spacemacs improves upon Vim by using task-specific states to group related
 commands. These states reduce the keystrokes needed to issue repetitive commands
 and reduce the number of keyboard bindings to learn.
 
-### Convenient and Mnemonic Key Bindings
+## Convenient and Mnemonic Key Bindings
 
 `Spacemacs` organizes key bindings into mnemonic groups. For example, commands
 to operate on the buffer are prefixed by `<SPC> b`, and commands to operate on
