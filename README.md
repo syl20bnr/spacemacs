@@ -54,10 +54,6 @@ customization system and tight integration of the included packages.
 
 Spacemacs is currently in beta, and contributions are welcome.
 
-And now, to use a well known catch line from [Emacs Live][emacs_live]:
-
-    M-x start-spacing !
-
 # Features
 
 ## Batteries Included
@@ -391,7 +387,6 @@ info on this.
 [dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
 [osx layer]: contrib/osx/README.md
-[emacs_live]: https://github.com/overtone/emacs-live
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
