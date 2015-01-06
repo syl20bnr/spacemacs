@@ -7,6 +7,39 @@
 
     git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [Introduction](#introduction)
+- [Features](#features)
+    - [Batteries Included](#batteries-included)
+    - [Nice UI](#nice-ui)
+    - [Excellent Evil Support](#excellent-evil-support)
+    - [Convenient and Mnemonic Key Bindings](#convenient-and-mnemonic-key-bindings)
+        - [Great [Documentation][DOCUMENTATION.MD]](#great-documentationdocumentationmd)
+- [Prerequisites](#prerequisites)
+    - [Emacs version](#emacs-version)
+    - [OS X](#os-x)
+- [Install](#install)
+- [Update](#update)
+- [Configuration](#configuration)
+    - [Configuration layers](#configuration-layers)
+    - [Dotfile (.spacemacs)](#dotfile-spacemacs)
+- [Learning Spacemacs](#learning-spacemacs)
+    - [Evil-tutor](#evil-tutor)
+    - [The leader key](#the-leader-key)
+    - [Universal argument](#universal-argument)
+    - [Configuration layers and Packages discovery](#configuration-layers-and-packages-discovery)
+    - [Key bindings discovery](#key-bindings-discovery)
+    - [Describe functions](#describe-functions)
+- [Contributions](#contributions)
+- [FAQ](#faq)
+    - [Common](#common)
+    - [Windows](#windows)
+    - [OS X](#os-x)
+
+<!-- markdown-toc end -->
+
 # Introduction
 
 `Spacemacs` is a user-friendly and well-documented Emacs kit that integrates the
