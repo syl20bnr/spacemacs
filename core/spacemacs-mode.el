@@ -102,8 +102,20 @@
       (pcase window-system
         (`x (spacemacs/set-font font 10))
         (`mac (spacemacs/set-font font 12))
-        (`w32 (spacemacs/set-font font 9))
+        (`w32
+         (spacemacs/set-font font 9)
+         (let ((fallback-font "MS Gothic:mono"))
+           ;; window numbers
+           (set-fontset-font "fontset-default"
+                             '(#x2776 . #x2793) fallback-font nil 'append)
+           ;; mode-line circled letters
+           (set-fontset-font "fontset-default"
+                             '(#x24b6 . #x24fe) fallback-font nil 'append)
+           ;; mode-line additional characters (i.e. golden ratio)
+           (set-fontset-font "fontset-default"
+                             '(#x2295 . #x22a1) fallback-font nil 'append)))
         (other (spacemacs/set-font font 10)))))
+  
   ;; banner
   (spacemacs//insert-banner)
   ;; bind-key is required by use-package
