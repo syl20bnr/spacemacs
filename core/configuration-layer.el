@@ -400,7 +400,10 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
       (if (and (package-installed-p pkg) (fboundp init-func))
           (progn
             (spacemacs/message "Package: Initializing %s:%s..." layer pkg)
-            (package-activate pkg)
+            (if (version< emacs-version "24.4")
+                ;; fake version list to always activate the package
+                (package-activate pkg '(0 0 0 0))
+              (package-activate pkg))
             (funcall init-func))))))
 
 (defun configuration-layer//initialize-pre-extension (ext layers)
