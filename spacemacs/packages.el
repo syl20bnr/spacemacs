@@ -2009,6 +2009,7 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-vi-tilde-fringe ()
   (use-package vi-tilde-fringe
+    :if window-system
     :init
     (global-vi-tilde-fringe-mode)
     :config
