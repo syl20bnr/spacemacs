@@ -89,12 +89,21 @@
         (spacemacs/load-or-install-package (intern pkg))))))
   (load-theme dotspacemacs-default-theme t)
   (setq-default spacemacs-cur-theme dotspacemacs-default-theme)
-  ;; remove GUI elements
-  (unless (eq tool-bar-mode -1)
-    (tool-bar-mode -1)
-    (when (not (eq window-system 'mac))
-      (menu-bar-mode -1))
-    (scroll-bar-mode -1))
+  ;; remove GUI elements if supported
+  (when window-system
+    ;; those unless tests are for the case when the user has a ~/.emacs file
+    ;; were he/she ;; removes the GUI elements
+    (unless (eq tool-bar-mode -1)
+      (tool-bar-mode -1))
+    (unless (eq scroll-bar-mode -1)
+      (scroll-bar-mode -1)))
+  (unless (eq window-system 'mac)
+    (menu-bar-mode -1))
+  ;; for convenience and user support
+  (unless (boundp 'tool-bar-mode)
+    (spacemacs/message (concat "No graphical support detected, you won't be"
+                               "able to launch a graphical instance of Emacs"
+                               "with this build.")))
   ;; font
   ;; Dynamic font size depending on the system
   (let ((font "Source Code Pro"))
