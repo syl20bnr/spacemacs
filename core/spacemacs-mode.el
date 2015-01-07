@@ -4,17 +4,19 @@
 (require 'subr-x nil 'noerror)
 (require 'emacs-backports)
 
-(defconst spacemacs-version "0.42.1"
+(defconst spacemacs-version "0.43.0"
   "Spacemacs version.")
 
 (defconst spacemacs-min-version "24.3"
   "Mininal required version of Emacs.")
 
+;; paths
+(defconst spacemacs-core-directory
+  (expand-file-name (concat user-emacs-directory "core/"))
+  "Spacemacs core directory.")
 (defconst spacemacs-banner-directory
   (expand-file-name (concat spacemacs-core-directory "banners/"))
   "Spacemacs banners directory.")
-
-;; additional paths
 (defconst user-home-directory
   (expand-file-name "~/")
   "User home directory (~/).")
@@ -24,6 +26,8 @@
 (defconst spacemacs-cache-directory
   (expand-file-name (concat user-emacs-directory ".cache/"))
   "Spacemacs storage area for persistent files.")
+(defconst pcache-directory
+  (concat spacemacs-cache-directory "pcache"))
 (unless (file-exists-p spacemacs-cache-directory)
     (make-directory spacemacs-cache-directory))
 (defconst user-dropbox-directory
@@ -32,6 +36,7 @@
 ;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
 (add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
 
+;; loading progress bar variables
 (defvar spacemacs-title-length 75)
 (defvar spacemacs-loading-counter 0)
 (defvar spacemacs-loading-text "Loading")
@@ -97,8 +102,20 @@
       (pcase window-system
         (`x (spacemacs/set-font font 10))
         (`mac (spacemacs/set-font font 12))
-        (`w32 (spacemacs/set-font font 9))
+        (`w32
+         (spacemacs/set-font font 9)
+         (let ((fallback-font "MS Gothic:mono"))
+           ;; window numbers
+           (set-fontset-font "fontset-default"
+                             '(#x2776 . #x2793) fallback-font nil 'append)
+           ;; mode-line circled letters
+           (set-fontset-font "fontset-default"
+                             '(#x24b6 . #x24fe) fallback-font nil 'append)
+           ;; mode-line additional characters (i.e. golden ratio)
+           (set-fontset-font "fontset-default"
+                             '(#x2295 . #x22a1) fallback-font nil 'append)))
         (other (spacemacs/set-font font 10)))))
+  
   ;; banner
   (spacemacs//insert-banner)
   ;; bind-key is required by use-package
@@ -125,7 +142,8 @@ initialization."
     (when (file-exists-p elpa-dir)
       (let ((dir (reduce (lambda (x y) (if x x y))
                          (mapcar (lambda (x)
-                                   (if (string-match (symbol-name pkg) x) x))
+                                   (if (string-match
+                                        (concat "/" (symbol-name pkg) "-") x) x))
                                  (directory-files elpa-dir 'full))
                          :initial-value nil)))
         (if dir (file-name-as-directory dir))))))
@@ -144,15 +162,12 @@ FILE-TO-LOAD is an explicit file to load after the installation."
      (require 'cl)
      (let ((pkg-elpa-dir (spacemacs//get-package-directory pkg)))
        (if pkg-elpa-dir
-           (progn
-             (message "dir: %s" pkg-elpa-dir)
-             (add-to-list 'load-path pkg-elpa-dir))
+           (add-to-list 'load-path pkg-elpa-dir)
          ;; install the package
          (when log
            (spacemacs/append-to-buffer
             (format "(Bootstrap) Installing %s...\n" pkg))
            (redisplay))
-         (configuration-layer/package.el-initialize)
          (package-refresh-contents)
          (package-install pkg)
          (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))

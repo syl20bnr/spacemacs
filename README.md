@@ -7,6 +7,39 @@
 
     git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [Introduction](#introduction)
+- [Features](#features)
+    - [Batteries Included](#batteries-included)
+    - [Nice UI](#nice-ui)
+    - [Excellent Evil Support](#excellent-evil-support)
+    - [Convenient and Mnemonic Key Bindings](#convenient-and-mnemonic-key-bindings)
+        - [Great [Documentation][DOCUMENTATION.MD]](#great-documentationdocumentationmd)
+- [Prerequisites](#prerequisites)
+    - [Emacs version](#emacs-version)
+    - [OS X](#os-x)
+- [Install](#install)
+- [Update](#update)
+- [Configuration](#configuration)
+    - [Configuration layers](#configuration-layers)
+    - [Dotfile (.spacemacs)](#dotfile-spacemacs)
+- [Learning Spacemacs](#learning-spacemacs)
+    - [Evil-tutor](#evil-tutor)
+    - [The leader key](#the-leader-key)
+    - [Universal argument](#universal-argument)
+    - [Configuration layers and Packages discovery](#configuration-layers-and-packages-discovery)
+    - [Key bindings discovery](#key-bindings-discovery)
+    - [Describe functions](#describe-functions)
+- [Contributions](#contributions)
+- [FAQ](#faq)
+    - [Common](#common)
+    - [Windows](#windows)
+    - [OS X](#os-x)
+
+<!-- markdown-toc end -->
+
 # Introduction
 
 `Spacemacs` is a user-friendly and well-documented Emacs kit that integrates the
@@ -21,13 +54,9 @@ customization system and tight integration of the included packages.
 
 Spacemacs is currently in beta, and contributions are welcome.
 
-And now, to use a well known catch line from [Emacs Live][emacs_live]:
-
-    M-x start-spacing !
-
 # Features
 
-### Batteries Included
+## Batteries Included
 
 Spacemacs integrates hundreds of packages and is ready to use with no additional
 configuration. It provides excellent support for many languages, including the
@@ -53,14 +82,14 @@ that extend the default distribution.
 
 **[Visit the Documentation][DOCUMENTATION.MD]**
 
-### Nice UI
+## Nice UI
 
 Spacemacs looks good. It comes with high-quality themes and a custom low-clutter
 modeline.
 
 ![spacemacs_python](doc/img/spacemacs-python.png)
 
-### Excellent Evil Support
+## Excellent Evil Support
 
 Spacemacs is designed around Vim keyboard bindings, provided by [Evil Mode][].
 The packages distributed with Spacemacs are customized to integrate seamlessly
@@ -70,7 +99,7 @@ Spacemacs improves upon Vim by using task-specific states to group related
 commands. These states reduce the keystrokes needed to issue repetitive commands
 and reduce the number of keyboard bindings to learn.
 
-### Convenient and Mnemonic Key Bindings
+## Convenient and Mnemonic Key Bindings
 
 `Spacemacs` organizes key bindings into mnemonic groups. For example, commands
 to operate on the buffer are prefixed by `<SPC> b`, and commands to operate on
@@ -282,6 +311,8 @@ first.
 
 # FAQ
 
+## Common
+
 1. **Which version of Spacemacs am I running ?**
 The version is displayed on the upper right corner of the loading screen. It
 is also possible to display the version with <kbd>SPC f e v</kbd>.
@@ -291,33 +322,45 @@ Spacemacs when it starts ?**
 To declare new packages you have to create a new configuration layer, see
 the quick start guide [here](#configuration).
 
-3. **Why the fonts on Windows looks so crappy ?**
-You can installed [MacType][] on Windows to get very nice looking fonts. It is
-also recommended to disable the smooth scrolling on Windows.
-
-4. **The Spacemacs banner is ugly, what should I do ?**
+3. **The Spacemacs banner is ugly, what should I do ?**
 Install the default font supported by Spacemacs or choose a fixed witdh font.
 More information in the [font section][] of the documentation.
 
-5. **Why the powerline has no arrows in terminal even with a patched font ?**
+4. **Why the powerline has no arrows in terminal even with a patched font ?**
 Emacs powerline implementation does not use patched fonts. There exist currently
 no mode-lines in Emacs that support patched font.
 The corresponding feature request for the powerline can be found
 [here][pw-patched-fonts].
 
-6. **Why the powerline colors are not correct on OS X ?**
-This is a [known issue][powerline-srgb-issue] as of Emacs 24.4 due to
-`ns-use-srgb-colorspace` defaulting to true. It is recommended to use
-the [emacs-mac-port][] build. See the [install OSX section][] for more
-info on this.
-
-7. **The powerline separators have no anti-aliasing, what can I do ?**
+5. **The powerline separators have no anti-aliasing, what can I do ?**
 Emacs powerline uses XMP images to draw the separators. Enabling anti-aliasing
 may not be a trivial task so unfortunately you'll have to live with it.
 Nevertheless it exists a [large number of different separators][powerline-seps]
 and you can try to setup a different one with less aliasing (arrows for
 instance), alternatively you can disable them (note that the tilde characters
 on buffer empty lines have the same limitations).
+
+## Windows
+
+1. **Why the fonts on Windows looks so crappy ?**
+You can installed [MacType][] on Windows to get very nice looking fonts. It is
+also recommended to disable the smooth scrolling on Windows.
+
+2. **How to fix the error: The directory ~/.emacs.d/server is unsafe ?**
+Change the owner of the directory `~/.emacs.d/server`:
+- from Properties select the Tab “Security”,
+- select the button “Advanced”,
+- select the Tab “Owner”
+- change the owner to your account name
+Source: [Stackoverflow][so-server-unsafe]
+
+## OS X
+
+1. **Why the powerline colors are not correct on OS X ?**
+This is a [known issue][powerline-srgb-issue] as of Emacs 24.4 due to
+`ns-use-srgb-colorspace` defaulting to true. It is recommended to use
+the [emacs-mac-port][] build. See the [install OSX section][] for more
+info on this.
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [philosophy]: doc/DOCUMENTATION.md#philosophy
@@ -344,7 +387,6 @@ on buffer empty lines have the same limitations).
 [dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
 [osx layer]: contrib/osx/README.md
-[emacs_live]: https://github.com/overtone/emacs-live
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
@@ -365,3 +407,4 @@ on buffer empty lines have the same limitations).
 [Clojure]: contrib/lang/clojure
 [C-C++]: contrib/lang/c-c++
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
+[so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
