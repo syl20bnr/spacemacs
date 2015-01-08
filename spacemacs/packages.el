@@ -5,6 +5,7 @@
     ag
     aggressive-indent
     anzu
+    async
     auto-complete
     auto-complete-clang
     auto-dictionary
@@ -44,6 +45,8 @@
     flycheck
     flycheck-ledger
     flyspell
+    ;; required for update
+    gh
     golden-ratio
     google-translate
     guide-key-tip
