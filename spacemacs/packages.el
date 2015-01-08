@@ -1430,7 +1430,7 @@ determine the state to enable when escaping from the insert state.")
 
 (defun spacemacs/init-neotree ()
   (use-package neotree
-    :commands (neotree-toggle)
+    :defer t
     :init
     (progn
       (add-to-list 'evil-motion-state-modes 'neotree-mode)
@@ -1444,6 +1444,11 @@ determine the state to enable when escaping from the insert state.")
             neo-persist-show nil
             neo-show-hidden-files t
             neo-auto-indent-point t)
+
+      (defun spacemacs//init-neotree ()
+        "Initialize the neotree mode."
+        (if (fboundp 'global-vi-tilde-fringe-mode)
+            (vi-tilde-fringe-mode -1)))
 
       (defun spacemacs/neotree-expand-or-open ()
         "Collapse a neotree node."
@@ -1503,7 +1508,8 @@ determine the state to enable when escaping from the insert state.")
 
       (evil-leader/set-key "ft" 'neotree-toggle))
     :config
-    (add-hook 'neotree-mode-hook 'spacemacs//neotree-key-bindings)))
+    (add-to-hook 'neotree-mode-hook '(spacemacs//init-neotree
+                                      spacemacs//neotree-key-bindings))))
 
 (defun spacemacs/init-org ()
   (use-package org
