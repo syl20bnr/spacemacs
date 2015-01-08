@@ -157,6 +157,8 @@ changed to THEME."
       (spacemacs/set-state-faces))
   (if (fboundp 'spacemacs/set-flycheck-mode-line-faces)
       (spacemacs/set-flycheck-mode-line-faces))
+  (if (fboundp 'spacemacs/set-new-version-lighter-mode-line-faces)
+      (spacemacs/set-new-version-lighter-mode-line-faces))
   (if (fboundp 'powerline-reset)
       (powerline-reset)))
 
