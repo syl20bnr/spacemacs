@@ -56,8 +56,12 @@
 ;; no beep pleeeeeease ! (and no visual blinking too please)
 (custom-set-variables '(ring-bell-function 'ignore))
 (setq visible-bell nil)
-;; require for evil folding
-(add-hook 'prog-mode-hook 'hs-minor-mode)
+;; required for evil folding
+(defun spacemacs//enable-hs-minor-mode ()
+  "Enable hs-minor-mode for code folding."
+  (hs-minor-mode)
+  (spacemacs|hide-lighter hs-minor-mode))
+(add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode)
 
 ;; Hack to fix a bug with tabulated-list.el
 ;; see: http://redd.it/2dgy52
@@ -125,9 +129,6 @@ Can be installed with `brew install trash'."
 (global-hl-line-mode t)
 ;; no blink
 (blink-cursor-mode 0)
-;; tool tips in echo area
-(tooltip-mode -1)
-(setq tooltip-use-echo-area t)
 ;; When emacs asks for "yes" or "no", let "y" or "n" sufficide
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; draw underline lower

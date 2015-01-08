@@ -22,6 +22,7 @@
     - [OS X](#os-x)
 - [Install](#install)
 - [Update](#update)
+    - [Update notification](#update-notification)
 - [Configuration](#configuration)
     - [Configuration layers](#configuration-layers)
     - [Dotfile (.spacemacs)](#dotfile-spacemacs)
@@ -191,6 +192,20 @@ Spacemacs currently requires manual updates using the following procedure:
    ```
 
 3. Restart Emacs to complete the upgrade.
+
+## Update notification
+
+For convenience an indicator is displayed in the mode-line whenever a new
+version of `Spacemacs` is available.
+
+           Symbol                     | Description
+:------------------------------------:|----------------------------------
+![git-new](doc/img/update-green.png)  | less than 3 releases behind
+![git-del](doc/img/update-orange.png) | less than 5 releases behind
+![git-mod](doc/img/update-red.png)    | 5 or more releases behind
+
+**Note:**
+Update of `Spacemacs` by clicking on the indicator will be implemented _soon_.
 
 # Configuration
 
