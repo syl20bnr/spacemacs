@@ -72,6 +72,7 @@
     move-text
     multi-term
     neotree
+    noflet
     org
     org-bullets
     ;; annoying error message, disable it for now
