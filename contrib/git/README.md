@@ -209,11 +209,11 @@ Git gutter hunks commands start with `gh`:
 
 `Spacemacs` has custom fringe bitmaps for [git-gutter-fringe][git-gutter]:
 
-           Symbol            | Description
-:---------------------------:|-----------------
-![git-new](git-new-line.png) | new line
-![git-del](git-del-line.png) | at least one line has been deleted
-![git-mod](git-mod-line.png) | modified line
+           Symbol                | Description
+:-------------------------------:|-----------------
+![git-new](img/git-new-line.png) | new line
+![git-del](img/git-del-line.png) | at least one line has been deleted
+![git-mod](img/git-mod-line.png) | modified line
 
 ## Github support
 
