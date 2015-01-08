@@ -739,6 +739,7 @@ Some elements can be dynamically toggled:
 <kbd>SPC t m m</kbd>   | toggle the minor mode lighters
 <kbd>SPC t m b</kbd>   | toggle the battery status
 <kbd>SPC t m f</kbd>   | toggle the flycheck info
+<kbd>SPC t m v</kbd>   | toggle the new version lighter
 
 ### Flycheck integration
 

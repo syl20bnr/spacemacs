@@ -588,6 +588,6 @@ deleted safely."
                  (format "[%s packages loaded in %.3fs]\n"
                          (configuration-layer//initialized-packages-count)
                          elapsed)))
-              )))
+              (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
 (provide 'configuration-layer)

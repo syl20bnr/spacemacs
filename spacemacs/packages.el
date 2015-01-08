@@ -1656,6 +1656,19 @@ determine the state to enable when escaping from the insert state.")
                             (if dotspacemacs-mode-line-unicode-symbols " " "") 'face face)
                            (unless dotspacemacs-mode-line-unicode-symbols "|"))))
 
+      (defpowerline spacemacs-powerline-new-version
+        (propertize
+         spacemacs-version-check-lighter
+         'mouse-face 'mode-line-highlight
+         'help-echo (format "New version %s | Click with mouse-1 to update (Not Yet Implemented)"
+                            spacemacs-new-version)
+         'local-map (let ((map (make-sparse-keymap)))
+                      (define-key map
+                        [mode-line down-mouse-1]
+                        (lambda (event) (interactive "@e") (message "TODO: update"))
+                        )
+                      map)))
+
       (defvar spacemacs-mode-line-minor-modesp t
         "If not nil, minor modes lighter are displayed in the mode-line.")
       (defun spacemacs/mode-line-minor-modes-toggle ()
@@ -1665,6 +1678,16 @@ determine the state to enable when escaping from the insert state.")
             (setq spacemacs-mode-line-minor-modesp nil)
           (setq spacemacs-mode-line-minor-modesp t)))
       (evil-leader/set-key "tmm" 'spacemacs/mode-line-minor-modes-toggle)
+
+      (defvar spacemacs-mode-line-new-version-lighterp t
+        "If not nil, new version lighter is displayed in the mode-line.")
+      (defun spacemacs/mode-line-new-version-lighter-toggle ()
+        "Toggle display of new version lighter."
+        (interactive)
+        (if spacemacs-mode-line-new-version-lighterp
+            (setq spacemacs-mode-line-new-version-lighterp nil)
+          (setq spacemacs-mode-line-new-version-lighterp t)))
+      (evil-leader/set-key "tmv" 'spacemacs/mode-line-new-version-lighter-toggle)
 
       ;; for now we hardcode the height value of powerline depending on the
       ;; window system, a better solution would be to compute it correctly
@@ -1770,8 +1793,16 @@ determine the state to enable when escaping from the insert state.")
                         (powerline-raw " " line-face))
 
                        (list
-                        (powerline-raw global-mode-string)
-                        (powerline-raw " " line-face))
+                        (unless (equal '("") global-mode-string)
+                          (powerline-raw global-mode-string)
+                          (powerline-raw " " line-face))
+                        ;; new version
+                        (if (and active
+                                 spacemacs-new-version
+                                 spacemacs-mode-line-new-version-lighterp)
+                            (spacemacs-powerline-new-version
+                             (spacemacs/get-new-version-lighter-face
+                              spacemacs-version spacemacs-new-version) 'r)))
 
                        (list
                         ;; percentage in the file
