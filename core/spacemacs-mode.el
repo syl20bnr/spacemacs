@@ -96,7 +96,11 @@
     (unless (eq tool-bar-mode -1)
       (tool-bar-mode -1))
     (unless (eq scroll-bar-mode -1)
-      (scroll-bar-mode -1)))
+      (scroll-bar-mode -1))
+    ;; tooltips in echo-aera
+    (unless (eq tooltip-mode -1)
+      (tooltip-mode -1))
+    (setq tooltip-use-echo-area t))
   (unless (eq window-system 'mac)
     (menu-bar-mode -1))
   ;; for convenience and user support

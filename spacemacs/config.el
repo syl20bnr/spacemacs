@@ -129,9 +129,6 @@ Can be installed with `brew install trash'."
 (global-hl-line-mode t)
 ;; no blink
 (blink-cursor-mode 0)
-;; tool tips in echo area
-(tooltip-mode -1)
-(setq tooltip-use-echo-area t)
 ;; When emacs asks for "yes" or "no", let "y" or "n" sufficide
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; draw underline lower
