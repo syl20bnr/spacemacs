@@ -22,6 +22,7 @@ which require an initialization must be listed explicitly in the list.")
     )
     :config
     (add-hook 'before-save-hook 'gofmt-before-save)
+    (add-hook 'go-mode-hook 'flycheck-mode)
     )
   )
 
