@@ -41,10 +41,10 @@ which require an initialization must be listed explicitly in the list.")
         "PA"  'persp-set-buffer
         "Pc"  'persp-kill
         "Pk"  'persp-remove-buffer
-        "Pn"  'persp-cycle-next
+        "Pn"  'persp-next
         "Poe" 'custom-persp/emacs
         "Poo" 'custom-persp/org
-        "Pp"  'persp-cycle-prev
+        "Pp"  'persp-prev
         "Pr"  'persp-rename
         "Ps"  'persp-switch))
     :config
@@ -63,23 +63,22 @@ which require an initialization must be listed explicitly in the list.")
       (defun custom-persp-last ()
         (interactive)
         (persp-switch (persp-name persp-last)))
-      (defun persp-cycle-next ()
-        "Cycle throught the available perspectives."
-        (interactive)
-        (let ((next-pos (1+ (persp-curr-position)))
-              (list-size (length (persp-all-names))))
-          (cond ((eq 1 list-size) (persp-switch nil))
-                ((>= next-pos list-size) (persp-switch (nth 0 (persp-all-names))))
-                (t (persp-next)))))
-      (defun persp-cycle-prev ()
-        "Cycle throught the available perspectives."
-        (interactive)
-        (let ((next-pos (- (persp-curr-position) 1))
-              (list-size (length (persp-all-names))))
-          (cond ((eq 1 list-size) (persp-switch nil))
-                ((< next-pos 0) (persp-switch (nth (- list-size 1) (persp-all-names))))
-                (t (persp-prev)))))
-
+      ;; (defun persp-cycle-next ()
+      ;;   "Cycle throught the available perspectives."
+      ;;   (interactive)
+      ;;   (let ((next-pos (1+ (persp-name persp-curr)))
+      ;;         (list-size (length (persp-all-names))))
+      ;;     (cond ((eq 1 list-size) (persp-switch nil))
+      ;;           ((>= next-pos list-size) (persp-switch (nth 0 (persp-all-names))))
+      ;;           (t (persp-next)))))
+      ;; (defun persp-cycle-prev ()
+      ;;   "Cycle throught the available perspectives."
+      ;;   (interactive)
+      ;;   (let ((next-pos (- (persp-name persp-curr) 1))
+      ;;         (list-size (length (persp-all-names))))
+      ;;     (cond ((eq 1 list-size) (persp-switch nil))
+      ;;           ((< next-pos 0) (persp-switch (nth (- list-size 1) (persp-all-names))))
+      ;;           (t (persp-prev)))))
       (eval-after-load 'persp-projectile
         '(projectile-persp-bridge helm-projectile))
       )
