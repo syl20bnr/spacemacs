@@ -144,7 +144,10 @@
                              '(#x24b6 . #x24fe) fallback-font nil 'append)
            ;; mode-line additional characters (i.e. golden ratio)
            (set-fontset-font "fontset-default"
-                             '(#x2295 . #x22a1) fallback-font nil 'append)))
+                             '(#x2295 . #x22a1) fallback-font nil 'append)
+           ;; new version lighter
+           (set-fontset-font "fontset-default"
+                             '(#x2190 . #x21ea) fallback-font nil 'append)))
         (other (spacemacs/set-font font 10)))))
   
   ;; banner
@@ -160,7 +163,7 @@
   (spacemacs/load-or-install-package 'evil-leader t)
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
-      (setq-default spacemacs-version-check-lighter "[⬆]"))
+      (setq-default spacemacs-version-check-lighter "[⇪]"))
   (spacemacs/set-new-version-lighter-mode-line-faces)
   ;; motion state since this is a special mode
   (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
@@ -251,7 +254,6 @@ found."
                                  spacemacs-checkversion-remote
                                  spacemacs-checkversion-branch))
    (lambda (result)
-     (message "result: %s" result)
      (when result
        (unless (or (version< result spacemacs-version)
                    (string= result spacemacs-version)
@@ -272,7 +274,7 @@ found."
         (with-current-buffer proc-buffer
           (prog2
               (goto-char (point-min))
-              (> (re-search-forward (format "^%s$" remote) nil 'noerror) 0)
+              (re-search-forward (format "^%s$" remote) nil 'noerror)
             (kill-buffer proc-buffer))))))
 
 (defun spacemacs/git-declare-remote (remote url)
@@ -299,7 +301,8 @@ found."
        (default-directory user-emacs-directory)
        (where (format "%s/%s" remote branch)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
-                              "describe" "--tags" "--match=v*" where))
+                              "describe" "--tags" "--abbrev=0"
+                              "--match=v*" where))
       (with-current-buffer proc-buffer
         (prog1
             (if (buffer-string)
