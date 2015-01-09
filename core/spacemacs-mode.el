@@ -13,6 +13,10 @@
   "Name of the Spacemacs remote repository.")
 (defconst spacemacs-repository-owner "syl20bnr"
   "Name of the Spacemacs remote repository owner.")
+(defconst spacemacs-checkversion-remote "checkversion"
+  "Name of the remote repository used to check for new version.")
+(defconst spacemacs-checkversion-branch "master"
+  "Name of the branch used to check for new version.")
 
 (defgroup spacemacs nil
   "Spacemacs customizations."
@@ -220,33 +224,34 @@ FILE-TO-LOAD is an explicit file to load after the installation."
   "Change the default welcome message of minibuffer to another one."
   (message "Spacemacs is ready."))
 
-(defun spacemacs//get-last-version (repo owner)
-  "Return the last version fetched from Github REPO of OWNER."
-  (let* ((api (gh-repos-api "api"))
-         (repo (oref (gh-repos-repo-get api spacemacs-repository
-                                        spacemacs-repository-owner) :data))
-         (tags (oref (gh-repos-repo-tags api repo) :data))
-         (last-version (cdr (assq 'name (nth 0 tags)))))
-    (when last-version
+(defun spacemacs/get-last-version (repo owner remote branch)
+  "Return the last tagged version of BRANCH on REMOTE repository from
+OWNER REPO."
+  (let ((url (format "http://github.com/%s/%s" owner repo)))
+    (unless (spacemacs/git-has-remote remote)
+      (spacemacs/git-declare-remote remote url)))
+  (spacemacs/git-fetch-tags remote branch)
+  (let ((version (spacemacs/git-latest-tag remote branch)))
+    (when version
       (save-match-data
-        (string-match "^.*\\([0-9]+\\.[0-9]+\\.[0-9]+\\)$" last-version)
-        (match-string 1 last-version)))))
+        (string-match "^.*\\([0-9]+\\.[0-9]+\\.[0-9]+\\)$" version)
+        (match-string 1 version)))))
 
 (defun spacemacs/check-for-new-version (&optional interval)
   "Periodicly check for new for new Spacemacs version.
 Update `spacemacs-new-version' variable if any new version has been
 found."
-  ;; (message "Start checking for new version...")
+  (message "Start checking for new version...")
   (async-start
    (lambda ()
      (add-to-list 'load-path (concat user-emacs-directory "core/"))
      (require 'spacemacs-mode)
-     (spacemacs/load-or-install-package 'pcache t)
-     (spacemacs/load-or-install-package 'logito t)
-     (spacemacs/load-or-install-package 'gh t "gh-repos.el")
-     (spacemacs//get-last-version spacemacs-repository
-                                  spacemacs-repository-owner))   
+     (spacemacs/get-last-version spacemacs-repository
+                                 spacemacs-repository-owner
+                                 spacemacs-checkversion-remote
+                                 spacemacs-checkversion-branch))
    (lambda (result)
+     (message "result: %s" result)
      (when result
        (unless (or (version< result spacemacs-version)
                    (string= result spacemacs-version)
@@ -258,6 +263,48 @@ found."
     (setq spacemacs-version-check-timer
           (run-at-time t (timer-duration interval)
                        'spacemacs/check-for-new-version))))
+
+(defun spacemacs/git-has-remote (remote)
+  "Return non nil if REMOTE is declared."
+  (let((proc-buffer "git-has-remote")
+       (default-directory user-emacs-directory))
+    (when (eq 0 (process-file "git" nil proc-buffer nil "remote"))
+        (with-current-buffer proc-buffer
+          (prog2
+              (goto-char (point-min))
+              (> (re-search-forward (format "^%s$" remote) nil 'noerror) 0)
+            (kill-buffer proc-buffer))))))
+
+(defun spacemacs/git-declare-remote (remote url)
+  "Declare a new REMOTE pointing to URL, return t if no error."
+  (let((proc-buffer "git-declare-remote")
+       (default-directory user-emacs-directory))
+    (prog1
+        (eq 0 (process-file "git" nil proc-buffer nil
+                            "remote" "add" remote url))
+      (kill-buffer proc-buffer))))
+
+(defun spacemacs/git-fetch-tags (remote branch)
+  "Fetch the tags for BRANCH in REMOTE repository."
+  (let((proc-buffer "git-fetch-tags")
+       (default-directory user-emacs-directory))
+    (prog1
+        (eq 0 (process-file "git" nil proc-buffer nil
+                            "fetch" "--tags" remote branch))
+      (kill-buffer proc-buffer))))
+
+(defun spacemacs/git-latest-tag (remote branch)
+  "Returns the latest tag on REMOTE/BRANCH."
+  (let((proc-buffer "git-latest-tag")
+       (default-directory user-emacs-directory)
+       (where (format "%s/%s" remote branch)))
+    (when (eq 0 (process-file "git" nil proc-buffer nil
+                              "describe" "--tags" "--match=v*" where))
+      (with-current-buffer proc-buffer
+        (prog1
+            (if (buffer-string)
+                (replace-regexp-in-string "\n$" "" (buffer-string)))
+          (kill-buffer proc-buffer))))))
 
 (defun spacemacs//deffaces-new-version-lighter (state)
   "Define a new version lighter face for the given STATE."
