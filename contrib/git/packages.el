@@ -1,7 +1,6 @@
 (defvar git-packages
   '(
     fringe-helper
-    git-gutter-fringe
     git-messenger
     git-timemachine
     magit
@@ -16,6 +15,9 @@ which require an initialization must be listed explicitly in the list.")
 
 (defvar git-magit-status-fullscreen nil
   "If non nil magit-status buffer is displayed in fullscreen.")
+
+(defvar git-gutter-use-fringe t
+  "If nit git-gutter-fringe will not be installed and we'll stick to git-gutter")
 
 (when git-enable-github-support
   (mapc (lambda (x) (push x git-packages))
@@ -34,9 +36,9 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (add-to-list 'evil-emacs-state-modes 'gist-list-menu-mode)
       (spacemacs|evilify gist-list-menu-mode-map
-        "f" 'gist-fetch-current
-        "K" 'gist-kill-current
-        "o" 'gist-browse-current-url)
+                         "f" 'gist-fetch-current
+                         "K" 'gist-kill-current
+                         "o" 'gist-browse-current-url)
 
       (evil-leader/set-key
         "ggb" 'gist-buffer
@@ -47,6 +49,35 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (spacemacs/activate-evil-leader-for-map 'gist-list-menu-mode-map)
     ))
+
+(if git-gutter-use-fringe
+    ;; Using fringe
+    (mapc (lambda (x) (push x git-packages))
+          '(
+            git-gutter-fringe
+            ))
+  ;; Not using fringe
+  (mapc (lambda (x) (push x git-packages))
+        '(
+          git-gutter
+          )))
+
+(defun git/init-git-gutter ()
+  (use-package git-gutter
+    :commands git-gutter-mode
+    :init
+    (progn
+      (git-gutter-mode)
+
+      (setq git-gutter:modified-sign " ")
+      (setq git-gutter:added-sign "+")
+      (setq git-gutter:deleted-sign "-")
+
+      (spacemacs|hide-lighter git-gutter-mode)
+      (if global-linum-mode (git-gutter:linum-setup))
+      (add-to-hooks 'git-gutter-mode '(markdown-mode-hook
+                                       org-mode-hook
+                                       prog-mode-hook)))))
 
 (defun git/init-git-gutter-fringe ()
   (use-package git-gutter-fringe
@@ -80,26 +111,26 @@ implementation."
       ;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
       ;; custom graphics that works nice with half-width fringes
       (fringe-helper-define 'git-gutter-fr:added nil
-                            "..X...."
-                            "..X...."
-                            "XXXXX.."
-                            "..X...."
-                            "..X...."
-                            )
+        "..X...."
+        "..X...."
+        "XXXXX.."
+        "..X...."
+        "..X...."
+        )
       (fringe-helper-define 'git-gutter-fr:deleted nil
-                            "......."
-                            "......."
-                            "XXXXX.."
-                            "......."
-                            "......."
-                            )
+        "......."
+        "......."
+        "XXXXX.."
+        "......."
+        "......."
+        )
       (fringe-helper-define 'git-gutter-fr:modified nil
-                            "..X...."
-                            ".XXX..."
-                            "XXXXX.."
-                            ".XXX..."
-                            "..X...."
-                            ))))
+        "..X...."
+        ".XXX..."
+        "XXXXX.."
+        ".XXX..."
+        "..X...."
+        ))))
 
 (defun git/init-git-messenger ()
   (use-package git-messenger
