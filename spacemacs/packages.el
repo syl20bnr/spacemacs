@@ -234,6 +234,8 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (require 'auto-complete-config)
       (ac-config-default)
+      (when (configuration-layer/package-declaredp 'yasnippet)
+        (push 'ac-source-yasnippet ac-sources))
       (add-to-list 'completion-styles 'initials t)
       (evil-leader/set-key "ta" 'auto-complete-mode)
       (define-key ac-completing-map (kbd "C-j") 'ac-next)
