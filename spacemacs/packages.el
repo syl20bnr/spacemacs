@@ -2110,7 +2110,7 @@ determine the state to enable when escaping from the insert state.")
     ;; not deferred on puprose
     :init
     (progn
-      (when (configuration-layer/layer-declaredp 'powerline)
+      (when (configuration-layer/package-declaredp 'powerline)
         (defun window-numbering-install-mode-line (&optional position)
           "Do nothing, the display is handled by the powerline."))
       (evil-leader/set-key

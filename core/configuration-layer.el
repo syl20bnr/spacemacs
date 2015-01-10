@@ -165,9 +165,9 @@ the following keys:
     (when (and base-dir (file-exists-p dir))
         (cons name (list :dir dir :ext-dir ext-dir)))))
 
-(defun configuration-layer/layer-declaredp (layer)
-  "Return non-nil if LAYER symbol corresponds to a declared layer."
-  (ht-contains? configuration-layer-all-packages layer))
+(defun configuration-layer/package-declaredp (pkg)
+  "Return non-nil if PKG symbol corresponds to a used package."
+  (ht-contains? configuration-layer-all-packages pkg))
 
 (defun configuration-layer/get-layers-list ()
   "Return a list of all discovered layer symbols."
