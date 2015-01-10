@@ -12,6 +12,7 @@
         - [Github support](#github-support)
         - [Magit status fullscreen](#magit-status-fullscreen)
         - [Magit auto-complete](#magit-auto-complete)
+        - [Git gutter](#git-gutter)
         - [Git](#git)
     - [Working with Git](#working-with-git)
         - [Magit](#magit)
@@ -82,6 +83,20 @@ function (the path should end up with a `/` to respect Emacs conventions):
 
 ```elisp
 (setq magit-repo-dirs '("~/git/"))
+```
+
+### Git gutter
+
+In graphical environment `Spacemacs` will display [git-gutter][] icons in
+the fringe by default.
+
+It is possible to disable the usage of the fringe by setting the variable
+`git-gutter-use-fringe` to `nil` in the `dotspacemacs/init` function:
+
+```elisp
+(defun dotspacemacs/init ()
+  (setq-default git-gutter-use-fringe nil)
+)
 ```
 
 ### Git
