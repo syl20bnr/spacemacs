@@ -5,7 +5,8 @@
 
 - [Contribute to Spacemacs](#contribute-to-spacemacs)
     - [Pull Request Guidelines](#pull-request-guidelines)
-    - [Submitting a contribution layer](#submitting-a-contribution-layer)
+    - [Submitting a configuration layer](#submitting-a-configuration-layer)
+        - [Configuration layer template](#configuration-layer-template)
     - [Submitting a banner](#submitting-a-banner)
 
 <!-- markdown-toc end -->
@@ -44,11 +45,22 @@ Those PRs are _merged_.
 If you have any question on this process, join the [gitter chatroom][gitter]
 and ask your questions there. It will be a pleasure to help you to contribute!
 
-## Submitting a contribution layer
+## Submitting a configuration layer
+
+Contributed configuration layers are stored in the `contrib` folder. If the
+layer is about a programming language or script then it must be added to
+`contrib/lang` folder.
 
 It is recommended to join a `README.md` file with your layer, ideally this file
 should document the packages of your layer as well as the key bindings
 associated with them.
+
+Add a TOC at the start of the file with the command `markdown-toc/generate-toc`.
+
+If a logo exists for the layer you can add it at the top of the `README.md`
+before the TOC. The maximum recommended height is 200 pixels.
+
+### Configuration layer template
 
 You will find a template in `~/.emacs.d/core/templates/layer-README.template`.
 
