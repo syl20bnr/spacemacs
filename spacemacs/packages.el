@@ -1803,20 +1803,18 @@ determine the state to enable when escaping from the insert state.")
             (powerline-raw "%l:%2c" face1 'r)
             (funcall separator-left face1 line-face)
             (powerline-raw " " line-face))
-
-           ;; global-mode
            (list
-            (powerline-raw global-mode-string)
-            (powerline-raw " " line-face))
-
-           ;; new version
-           (if (and active
-                    spacemacs-new-version
-                    spacemacs-mode-line-new-version-lighterp)
-               (spacemacs-powerline-new-version
-                (spacemacs/get-new-version-lighter-face
-                 spacemacs-version spacemacs-new-version) 'r)))
-
+            ;; global-mode
+            (unless (equal '("") global-mode-string)
+              (powerline-raw global-mode-string)
+              (powerline-raw " " line-face))
+            ;; new version
+            (if (and active
+                     spacemacs-new-version
+                     spacemacs-mode-line-new-version-lighterp)
+                (spacemacs-powerline-new-version
+                 (spacemacs/get-new-version-lighter-face
+                  spacemacs-version spacemacs-new-version) 'r)))
            (list
             ;; percentage in the file
             (powerline-raw "%p" line-face 'r)
@@ -1836,10 +1834,8 @@ determine the state to enable when escaping from the insert state.")
                   (powerline-fill face2 (powerline-width rhs))
                   (powerline-render rhs))))
 
-      (setq-default
-       mode-line-format
-       '("%e"
-         (:eval (spacemacs/mode-line-prepare))))))
+      (setq-default mode-line-format
+                    '("%e" (:eval (spacemacs/mode-line-prepare)))))))
 
 (defun spacemacs/init-projectile ()
   (use-package projectile
