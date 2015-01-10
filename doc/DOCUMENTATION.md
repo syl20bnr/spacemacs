@@ -2068,6 +2068,7 @@ Achievements                                         | Account
 [100th issue (PR)][100th-issue]                      | [danielwuz][]
 [200th issue (question)][200th-issue]                | [justrajdeep][]
 [300th issue (PR)][300th-issue]                      | [danielwuz][]
+[400th issue (PR)][400th-issue]                      | [CestDiego][]
 [100th pull request][100th-PR]                       | [bru][]
 PR gunner (8 PRs in a row)                           | [ralesi][]
 100th star                                           | [Jackneill][]
@@ -2164,10 +2165,12 @@ developers to elisp hackers!
 [100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
 [200th-issue]: https://github.com/syl20bnr/spacemacs/pull/200
 [300th-issue]: https://github.com/syl20bnr/spacemacs/pull/300
+[400th-issue]: https://github.com/syl20bnr/spacemacs/pull/400
 [100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [trishume]:https://github.com/trishume
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
+[CestDiego]:https://github.com/CestDiego
 [chrisbarrett]:https://github.com/chrisbarrett
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
