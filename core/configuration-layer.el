@@ -337,16 +337,17 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
                      pkg
                      installed-count
                      not-installed-count) t)
-            (cond
-             ((package-installed-p pkg))
-             ;; Check whether the package exists in the archives before attempting to install.
-             ((assoc pkg package-archive-contents)
-              (package-install pkg))
-             (t
-              (spacemacs/append-to-buffer
-               (format "\nPackage %s is unavailable. Is the package name misspelled?\n" pkg))))
-
-            (redisplay))
+            (unless (package-installed-p pkg)
+              (let* ((arch (assoc pkg package-archive-contents))
+                     (deps (if arch (configuration-layer//get-package-dependencies-from-archive
+                                     arch))))
+                (if arch (progn (dolist (dep deps)
+                                  (message "dep: %s" (car dep))
+                                  (configuration-layer//activate-package (car dep)))
+                                (package-install pkg))
+                  (spacemacs/append-to-buffer
+                   (format "\nPackage %s is unavailable. Is the package name misspelled?\n" pkg))))
+              (redisplay)))
           (spacemacs/append-to-buffer "\n")))))
 
 (defun configuration-layer/update-packages ()
@@ -400,11 +401,15 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
       (if (and (package-installed-p pkg) (fboundp init-func))
           (progn
             (spacemacs/message "Package: Initializing %s:%s..." layer pkg)
-            (if (version< emacs-version "24.4")
-                ;; fake version list to always activate the package
-                (package-activate pkg '(0 0 0 0))
-              (package-activate pkg))
+            (configuration-layer//activate-package pkg)
             (funcall init-func))))))
+
+(defun configuration-layer//activate-package (pkg)
+  "Activate PKG."
+  (if (version< emacs-version "24.4")
+      ;; fake version list to always activate the package
+      (package-activate pkg '(0 0 0 0))
+    (package-activate pkg)))
 
 (defun configuration-layer//initialize-pre-extension (ext layers)
   "Initialize the pre-extensions EXT from configuration layers LAYERS."
@@ -515,6 +520,12 @@ deleted safely."
     (cond
      ((version< emacs-version "24.4") (aref (cdr pkg) 1))
      (t (package-desc-reqs (cadr pkg))))))
+
+(defun configuration-layer//get-package-dependencies-from-archive (archive)
+  "Return the dependencies alist for a package from its ARCHIVE data."
+  (cond
+   ((version< emacs-version "24.4") (aref (cdr archive) 1))
+   (t (package-desc-reqs (cadr archive)))))
 
 (defun configuration-layer//get-package-version (package)
   "Return the version string for PACKAGE."
