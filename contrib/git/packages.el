@@ -17,7 +17,7 @@ which require an initialization must be listed explicitly in the list.")
   "If non nil magit-status buffer is displayed in fullscreen.")
 
 (defvar git-gutter-use-fringe t
-  "If nit git-gutter-fringe will not be installed and we'll stick to git-gutter")
+  "If non nil the fringe is used to display git-gutter icons.")
 
 (when git-enable-github-support
   (mapc (lambda (x) (push x git-packages))
@@ -28,6 +28,10 @@ which require an initialization must be listed explicitly in the list.")
           ;; helm-gist
           magit-gh-pulls
           )))
+
+(if git-gutter-use-fringe
+    (push 'git-gutter-fringe git-packages)
+  (push 'git-gutter git-packages))
 
 (defun git/init-gist ()
   (use-package gist
@@ -50,31 +54,21 @@ which require an initialization must be listed explicitly in the list.")
     (spacemacs/activate-evil-leader-for-map 'gist-list-menu-mode-map)
     ))
 
-(if git-gutter-use-fringe
-    ;; Using fringe
-    (mapc (lambda (x) (push x git-packages))
-          '(
-            git-gutter-fringe
-            ))
-  ;; Not using fringe
-  (mapc (lambda (x) (push x git-packages))
-        '(
-          git-gutter
-          )))
+(defun init-git-gutter ()
+  "Common initialization of git-gutter."
+  (git-gutter-mode)
+  (setq git-gutter:modified-sign " ")
+  (setq git-gutter:added-sign "+")
+  (setq git-gutter:deleted-sign "-")
+  (spacemacs|hide-lighter git-gutter-mode)
+  (if (and git-gutter-use-fringe global-linum-mode) (git-gutter:linum-setup)))
 
 (defun git/init-git-gutter ()
   (use-package git-gutter
     :commands git-gutter-mode
     :init
     (progn
-      (git-gutter-mode)
-
-      (setq git-gutter:modified-sign " ")
-      (setq git-gutter:added-sign "+")
-      (setq git-gutter:deleted-sign "-")
-
-      (spacemacs|hide-lighter git-gutter-mode)
-      (if global-linum-mode (git-gutter:linum-setup))
+      (init-git-gutter)
       (add-to-hooks 'git-gutter-mode '(markdown-mode-hook
                                        org-mode-hook
                                        prog-mode-hook)))))
@@ -85,15 +79,9 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (defun git/load-git-gutter ()
-        "Lazy load git gutter and choose between fringe and no fringe
-implementation."
-        (if (display-graphic-p)
-            (progn
-              (require 'git-gutter-fringe)
-              (git-gutter-mode))
-          (git-gutter-mode)
-          (if global-linum-mode (git-gutter:linum-setup)))
-        (spacemacs|hide-lighter git-gutter-mode))
+        "Lazy load git gutter and choose between fringe and no fringe."
+        (when (display-graphic-p) (require 'git-gutter-fringe))
+        (init-git-gutter))
       (add-to-hooks 'git/load-git-gutter '(markdown-mode-hook
                                            org-mode-hook
                                            prog-mode-hook)))
