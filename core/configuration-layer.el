@@ -165,9 +165,9 @@ the following keys:
     (when (and base-dir (file-exists-p dir))
         (cons name (list :dir dir :ext-dir ext-dir)))))
 
-(defun configuration-layer/layer-declaredp (layer)
-  "Return non-nil if LAYER symbol corresponds to a declared layer."
-  (ht-contains? configuration-layer-all-packages layer))
+(defun configuration-layer/package-declaredp (pkg)
+  "Return non-nil if PKG symbol corresponds to a used package."
+  (ht-contains? configuration-layer-all-packages pkg))
 
 (defun configuration-layer/get-layers-list ()
   "Return a list of all discovered layer symbols."
@@ -337,15 +337,15 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
                      pkg
                      installed-count
                      not-installed-count) t)
-            (cond
-             ((package-installed-p pkg))
-             ;; Check whether the package exists in the archives before attempting to install.
-             ((assoc pkg package-archive-contents)
-              (package-install pkg))
-             (t
-              (spacemacs/append-to-buffer
-               (format "\nPackage %s is unavailable. Is the package name misspelled?\n" pkg))))
-
+            (unless (package-installed-p pkg)
+              (if (not (assq pkg package-archive-contents))
+                  (spacemacs/append-to-buffer
+                   (format "\nPackage %s is unavailable. Is the package name misspelled?\n"
+                    pkg))
+                (dolist (dep (configuration-layer//get-package-dependencies-from-archive
+                              pkg))
+                  (configuration-layer//activate-package (car dep)))
+                (package-install pkg)))
             (redisplay))
           (spacemacs/append-to-buffer "\n")))))
 
@@ -400,11 +400,15 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
       (if (and (package-installed-p pkg) (fboundp init-func))
           (progn
             (spacemacs/message "Package: Initializing %s:%s..." layer pkg)
-            (if (version< emacs-version "24.4")
-                ;; fake version list to always activate the package
-                (package-activate pkg '(0 0 0 0))
-              (package-activate pkg))
+            (configuration-layer//activate-package pkg)
             (funcall init-func))))))
+
+(defun configuration-layer//activate-package (pkg)
+  "Activate PKG."
+  (if (version< emacs-version "24.4")
+      ;; fake version list to always activate the package
+      (package-activate pkg '(0 0 0 0))
+    (package-activate pkg)))
 
 (defun configuration-layer//initialize-pre-extension (ext layers)
   "Initialize the pre-extensions EXT from configuration layers LAYERS."
@@ -516,24 +520,33 @@ deleted safely."
      ((version< emacs-version "24.4") (aref (cdr pkg) 1))
      (t (package-desc-reqs (cadr pkg))))))
 
+(defun configuration-layer//get-package-dependencies-from-archive (pkg)
+  "Return the dependencies alist for a PKG from the archive data."
+  (let* ((arch (assq pkg package-archive-contents))
+         (reqs (when arch (if (version< emacs-version "24.4")
+                              (aref (cdr arch) 1)
+                            (package-desc-reqs (cadr arch))))))
+    ;; recursively get the requirements of reqs
+    (dolist (req reqs)
+      (let* ((pkg2 (car req))
+             (reqs2 (configuration-layer//get-package-dependencies-from-archive pkg2)))
+        (when reqs2 (setq reqs (append reqs2 reqs)))))
+    reqs))
+
 (defun configuration-layer//get-package-version (package)
   "Return the version string for PACKAGE."
   (let ((pkg (or (assq package package-alist)
                  (assq package package--builtins))))
     (cond
-     ((version< emacs-version "24.4")
-      (package-version-join (aref (cdr pkg) 0)))
-     (t
-      (package-version-join (package-desc-version (cadr pkg)))))))
+     ((version< emacs-version "24.4") (package-version-join (aref (cdr pkg) 0)))
+     (t (package-version-join (package-desc-version (cadr pkg)))))))
 
 (defun configuration-layer//get-latest-package-version (package)
   "Return the version string for PACKAGE."
   (let ((pkg (assq package package-archive-contents)))
     (cond
-     ((version< emacs-version "24.4")
-      (package-version-join (aref (cdr pkg) 0)))
-     (t
-      (package-version-join (package-desc-version (cadr pkg)))))))
+     ((version< emacs-version "24.4") (package-version-join (aref (cdr pkg) 0)))
+     (t (package-version-join (package-desc-version (cadr pkg)))))))
 
 (defun configuration-layer//package-delete (package)
   "Delete the passed PACKAGE."
@@ -541,8 +554,7 @@ deleted safely."
    ((version< emacs-version "24.4")
     (package-delete (symbol-name package)
                     (configuration-layer//get-package-version package)))
-   (t
-    (package-delete (cadr (assq package package-alist))))))
+   (t (package-delete (cadr (assq package package-alist))))))
 
 (defun configuration-layer/delete-orphan-packages ()
   "Delete all the orphan packages."

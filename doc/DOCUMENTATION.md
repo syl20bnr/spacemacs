@@ -1121,22 +1121,23 @@ Key Binding                               |                 Description
 
 Basic `ido` operations can be done with `Ctrl` key:
 
-Key Binding            |                 Description
------------------------|----------------------------------------------------------------
-<kbd>C-<return></kbd>  | open a `dired buffer`
-<kbd>C-b</kbd>         | open selected file in a horizontally split window
-<kbd>C-d</kbd>         | delete selected file (ask for confirmation)
-<kbd>C-h</kbd>         | go to parent directory
-<kbd>C-j</kbd>         | select next file or directory
-<kbd>C-S-j</kbd>       | go to next directory
-<kbd>C-k</kbd>         | select previous file or directory
-<kbd>C-S-k</kbd>       | go to previous directory
-<kbd>C-l</kbd>         | open the selected file
-<kbd>C-n</kbd>         | next history element
-<kbd>C-p</kbd>         | previous history element
-<kbd>C-t</kbd>         | open selected file in a new frame
-<kbd>C-v</kbd>         | open selected file in a vertically split window
-<kbd>C-x</kbd>         | open selected file in other window
+Key Binding             |                 Description
+------------------------|----------------------------------------------------------------
+<kbd>C-\<return\></kbd> | open a `dired buffer`
+<kbd>M-\<return\></kbd> | open a `dired buffer` in terminal
+<kbd>C-b</kbd>          | open selected file in a horizontally split window
+<kbd>C-d</kbd>          | delete selected file (ask for confirmation)
+<kbd>C-h</kbd>          | go to parent directory
+<kbd>C-j</kbd>          | select next file or directory
+<kbd>C-S-j</kbd>        | go to next directory
+<kbd>C-k</kbd>          | select previous file or directory
+<kbd>C-S-k</kbd>        | go to previous directory
+<kbd>C-l</kbd>          | open the selected file
+<kbd>C-n</kbd>          | next history element
+<kbd>C-p</kbd>          | previous history element
+<kbd>C-t</kbd>          | open selected file in a new frame
+<kbd>C-v</kbd>          | open selected file in a vertically split window
+<kbd>C-o</kbd>          | open selected file in other window
 
 #### Experimental Ido feature
 
@@ -2067,6 +2068,7 @@ Achievements                                         | Account
 [100th issue (PR)][100th-issue]                      | [danielwuz][]
 [200th issue (question)][200th-issue]                | [justrajdeep][]
 [300th issue (PR)][300th-issue]                      | [danielwuz][]
+[400th issue (PR)][400th-issue]                      | [CestDiego][]
 [100th pull request][100th-PR]                       | [bru][]
 PR gunner (8 PRs in a row)                           | [ralesi][]
 100th star                                           | [Jackneill][]
@@ -2163,10 +2165,12 @@ developers to elisp hackers!
 [100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
 [200th-issue]: https://github.com/syl20bnr/spacemacs/pull/200
 [300th-issue]: https://github.com/syl20bnr/spacemacs/pull/300
+[400th-issue]: https://github.com/syl20bnr/spacemacs/pull/400
 [100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [trishume]:https://github.com/trishume
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
+[CestDiego]:https://github.com/CestDiego
 [chrisbarrett]:https://github.com/chrisbarrett
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
