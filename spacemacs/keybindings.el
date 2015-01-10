@@ -103,7 +103,7 @@
 (evil-leader/set-key "cC" 'compile)
 (evil-leader/set-key "cr" 'recompile)
 ;; narrow & widen -------------------------------------------------------------
-(unless (configuration-layer/layer-declaredp 'fancy-narrow)
+(unless (configuration-layer/package-declaredp 'fancy-narrow)
   (evil-leader/set-key
     "nr" 'narrow-to-region
     "np" 'narrow-to-page
