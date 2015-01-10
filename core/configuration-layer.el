@@ -338,16 +338,15 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
                      installed-count
                      not-installed-count) t)
             (unless (package-installed-p pkg)
-              (let* ((arch (assoc pkg package-archive-contents))
-                     (deps (if arch (configuration-layer//get-package-dependencies-from-archive
-                                     arch))))
-                (if arch (progn (dolist (dep deps)
-                                  (message "dep: %s" (car dep))
-                                  (configuration-layer//activate-package (car dep)))
-                                (package-install pkg))
+              (if (not (assq pkg package-archive-contents))
                   (spacemacs/append-to-buffer
-                   (format "\nPackage %s is unavailable. Is the package name misspelled?\n" pkg))))
-              (redisplay)))
+                   (format "\nPackage %s is unavailable. Is the package name misspelled?\n"
+                    pkg))
+                (dolist (dep (configuration-layer//get-package-dependencies-from-archive
+                              pkg))
+                  (configuration-layer//activate-package (car dep)))
+                (package-install pkg)))
+            (redisplay))
           (spacemacs/append-to-buffer "\n")))))
 
 (defun configuration-layer/update-packages ()
@@ -521,30 +520,33 @@ deleted safely."
      ((version< emacs-version "24.4") (aref (cdr pkg) 1))
      (t (package-desc-reqs (cadr pkg))))))
 
-(defun configuration-layer//get-package-dependencies-from-archive (archive)
-  "Return the dependencies alist for a package from its ARCHIVE data."
-  (cond
-   ((version< emacs-version "24.4") (aref (cdr archive) 1))
-   (t (package-desc-reqs (cadr archive)))))
+(defun configuration-layer//get-package-dependencies-from-archive (pkg)
+  "Return the dependencies alist for a PKG from the archive data."
+  (let* ((arch (assq pkg package-archive-contents))
+         (reqs (when arch (if (version< emacs-version "24.4")
+                              (aref (cdr arch) 1)
+                            (package-desc-reqs (cadr arch))))))
+    ;; recursively get the requirements of reqs
+    (dolist (req reqs)
+      (let* ((pkg2 (car req))
+             (reqs2 (configuration-layer//get-package-dependencies-from-archive pkg2)))
+        (when reqs2 (setq reqs (append reqs2 reqs)))))
+    reqs))
 
 (defun configuration-layer//get-package-version (package)
   "Return the version string for PACKAGE."
   (let ((pkg (or (assq package package-alist)
                  (assq package package--builtins))))
     (cond
-     ((version< emacs-version "24.4")
-      (package-version-join (aref (cdr pkg) 0)))
-     (t
-      (package-version-join (package-desc-version (cadr pkg)))))))
+     ((version< emacs-version "24.4") (package-version-join (aref (cdr pkg) 0)))
+     (t (package-version-join (package-desc-version (cadr pkg)))))))
 
 (defun configuration-layer//get-latest-package-version (package)
   "Return the version string for PACKAGE."
   (let ((pkg (assq package package-archive-contents)))
     (cond
-     ((version< emacs-version "24.4")
-      (package-version-join (aref (cdr pkg) 0)))
-     (t
-      (package-version-join (package-desc-version (cadr pkg)))))))
+     ((version< emacs-version "24.4") (package-version-join (aref (cdr pkg) 0)))
+     (t (package-version-join (package-desc-version (cadr pkg)))))))
 
 (defun configuration-layer//package-delete (package)
   "Delete the passed PACKAGE."
@@ -552,8 +554,7 @@ deleted safely."
    ((version< emacs-version "24.4")
     (package-delete (symbol-name package)
                     (configuration-layer//get-package-version package)))
-   (t
-    (package-delete (cadr (assq package package-alist))))))
+   (t (package-delete (cadr (assq package package-alist))))))
 
 (defun configuration-layer/delete-orphan-packages ()
   "Delete all the orphan packages."
