@@ -116,7 +116,7 @@
 which require an initialization must be listed explicitly in the list.")
 
 (defvar spacemacs-excluded-packages
-  '(evil-plugins     ; crashed spacemacs on startup (will wait before reactivating it)
+  '(
     fancy-narrow     ; too much bugs and bad side effects
     )
   "List of packages to exclude.")
