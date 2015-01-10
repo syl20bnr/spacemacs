@@ -30,19 +30,18 @@ To use this contribution add it to your `~/.spacemacs`
 
 The following key bindings are available in Puppet Mode:
 
-Key Binding | Description
-------------|--------------------------------------------------
-`<SPC> m {` | Move to the beginning of the current block
-`<SPC> m }` | Move to the end of the current block
-`<SPC> m a` | Align parameters in the current block
-`<SPC> m '` | Toggle string quoting between single and double
-`<SPC> m ;` | Blank the string at point
-`<SPC> m j` | Jump to a `class`, `define`, variable or resource
-`<SPC> m c` | Apply the current manifest in dry-run mode
-`<SPC> m v` | Validate the syntax of the current manifest
-`<SPC> m l` | Check the current manifest for semantic issues
-`<SPC> m $` | Interpolate with ${} in double quoted strings
-
+Key Binding         | Description
+--------------------|--------------------------------------------------
+<kbd>SPC> m {</kbd> | Move to the beginning of the current block
+<kbd>SPC> m }</kbd> | Move to the end of the current block
+<kbd>SPC> m a</kbd> | Align parameters in the current block
+<kbd>SPC> m '</kbd> | Toggle string quoting between single and double
+<kbd>SPC> m ;</kbd> | Blank the string at point
+<kbd>SPC> m j</kbd> | Jump to a `class`, `define`, variable or resource
+<kbd>SPC> m c</kbd> | Apply the current manifest in dry-run mode
+<kbd>SPC> m v</kbd> | Validate the syntax of the current manifest
+<kbd>SPC> m l</kbd> | Check the current manifest for semantic issues
+<kbd>SPC> m $</kbd> | Interpolate with ${} in double quoted strings
 
 Use `M-x customize-group RET puppet` to customize Puppet Mode.
 
