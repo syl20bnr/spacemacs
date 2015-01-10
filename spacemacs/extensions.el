@@ -11,7 +11,6 @@
   '(
     centered-cursor
     emoji-cheat-sheet
-    evil-plugins
     helm-rcirc
     helm-spacemacs
     solarized-theme
@@ -40,9 +39,6 @@
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet
     :commands emoji-cheat-sheet))
-
-(defun spacemacs/init-evil-plugins ()
-  (use-package evil-little-word))
 
 (defun spacemacs/init-helm-rcirc ()
   (use-package helm-rcirc
