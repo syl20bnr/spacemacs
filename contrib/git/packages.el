@@ -61,7 +61,9 @@ which require an initialization must be listed explicitly in the list.")
   (setq git-gutter:added-sign "+")
   (setq git-gutter:deleted-sign "-")
   (spacemacs|hide-lighter git-gutter-mode)
-  (if (and git-gutter-use-fringe global-linum-mode) (git-gutter:linum-setup)))
+  (if (and (not git-gutter-use-fringe)
+           global-linum-mode)
+      (git-gutter:linum-setup)))
 
 (defun git/init-git-gutter ()
   (use-package git-gutter
