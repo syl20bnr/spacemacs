@@ -194,7 +194,7 @@
   "xgl" 'set-google-translate-languages)
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'emacs-lisp-mode
-  "mhd"  'elisp-slime-nav-describe-elisp-thing-at-point
+  "md"  'elisp-slime-nav-describe-elisp-thing-at-point
   "mg"  'elisp-slime-nav-find-elisp-thing-at-point
-  "mta" 'spacemacs/ert-run-tests-buffer
-  "mtf" 'ert)
+  "mtb" 'spacemacs/ert-run-tests-buffer
+  "mtt" 'ert)
