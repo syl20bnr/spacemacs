@@ -2,10 +2,6 @@
 
 Includes support for Auctex including some bindings, sane defaults, and manual loading for better startup times.
 
-## Manual Loading
-
-In order to load AucTex properly you must use `SPC e l` before opening any TeX files.
-
 ## Company Auctex
 
 Along with other things this layer includes company-auctex, it's only enabled if you also enable my other contrib layer `company-mode`.
@@ -14,7 +10,7 @@ Along with other things this layer includes company-auctex, it's only enabled if
 
 Key Binding         |                 Description
 --------------------|------------------------------------------------------------------
-<kbd>SPC m b  </kbd>| build and view 
+<kbd>SPC m b  </kbd>| build and view
 <kbd>SPC m e  </kbd>| insert LaTeX environment
 <kbd>SPC m c  </kbd>| close LaTeX environment
 <kbd>SPC m i  </kbd>| insert `\item`
@@ -27,7 +23,7 @@ Key Binding         |                 Description
 <kbd>SPC m p s</kbd>| preview section
 <kbd>SPC m p p</kbd>| preview at point
 <kbd>SPC m p f</kbd>| cache preamble for preview
-<kbd>SPC m p c</kbd>| clear previews 
+<kbd>SPC m p c</kbd>| clear previews
 <kbd>SPC m *</kbd>  | TeX documentation, can be very slow
 
 ## Maintainer
