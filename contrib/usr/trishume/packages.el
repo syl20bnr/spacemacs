@@ -8,7 +8,6 @@
     helm-ag
     lua-mode
     racket-mode
-    go-mode
     yaml-mode
     ag
     aggressive-indent
@@ -44,10 +43,6 @@
   (use-package lua-mode
     :defer t))
 
-(defun trishume/init-go-mode ()
-  (use-package go-mode
-    :defer t))
-
 (defun trishume/init-yaml-mode ()
   (use-package yaml-mode
     :defer t))
@@ -72,9 +67,8 @@
   (use-package aggressive-indent
     :defer t
     :init
-    (add-to-hooks #'aggressive-indent-mode '(emacs-lisp-mode-hook
-                                             racket-mode-hook
-                                             css-mode-hook))
+    (evil-leader/set-key
+      "tA" 'aggressive-indent-mode)
     :config
     (spacemacs|hide-lighter aggressive-indent-mode)))
 
