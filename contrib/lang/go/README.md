@@ -19,6 +19,8 @@ This layers adds extensive support for go.
 
 Features:
 - gofmt on file save
+- Auto-completion using [go-autocomplete](https://github.com/nsf/gocode/tree/master/emacs)
+- Source analysis using [go-oracle](http://golang.org/s/oracle-user-manual)
 
 ## Install
 
@@ -34,7 +36,7 @@ To use this contribution add it to your `~/.spacemacs`
 
 ## Working with Go
 
-Go commands (start with `m`):
+### Go commands (start with `m`):
 
     Key Binding            |                 Description
 ---------------------------|------------------------------------------------------------
@@ -45,3 +47,22 @@ Go commands (start with `m`):
 <kbd>SPC m p b</kbd>       | go-play buffer
 <kbd>SPC m p r</kbd>       | go-play region
 <kbd>SPC m p d</kbd>       | download go-play snippet
+<kbd>SPC m g</kbd>         | go jump to definition
+
+
+### Go Oracle
+
+    Key Binding            |                 Description
+---------------------------|------------------------------------------------------------
+<kbd>SPC m o o</kbd>       | go-oracle set analysis scope
+<kbd>SPC m o <</kbd>       | go-oracle show possible callers
+<kbd>SPC m o ></kbd>       | go-oracle show call targets
+<kbd>SPC m o c</kbd>       | go-oracle show channel sends/receives
+<kbd>SPC m o d</kbd>       | go-oracle show definition
+<kbd>SPC m o f</kbd>       | go-oracle show free variables
+<kbd>SPC m o g</kbd>       | go-oracle show callgraph
+<kbd>SPC m o i</kbd>       | go-oracle show implements relation
+<kbd>SPC m o p</kbd>       | go-oracle show what the select expression points to
+<kbd>SPC m o r</kbd>       | go-oracle show all references to object
+<kbd>SPC m o s</kbd>       | go-oracle show callstack
+<kbd>SPC m o t</kbd>       | go-oracle describe selected syntax, kind, type and methods
