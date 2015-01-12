@@ -117,7 +117,7 @@
 ;; toggle ---------------------------------------------------------------------
 (evil-leader/set-key
   "t8" 'toggle-fill-column-indicator
-  "tF" 'toggle-frame-fullscreen
+  "tF" 'spacemacs/toggle-frame-fullscreen
   "tf" 'fringe-mode
   "tl" 'toggle-truncate-lines
   "tL" 'visual-line-mode
