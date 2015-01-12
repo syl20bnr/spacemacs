@@ -1,0 +1,45 @@
+(defvar go-pre-extensions
+  '(
+    ;; pre extension gos go here
+    )
+  "List of all extensions to load before the packages.")
+
+(defvar go-post-extensions
+  '(
+    ;; post extension gos go here
+    go-autocomplete
+    go-oracle
+    )
+  "List of all extensions to load after the packages.")
+
+;; For each extension, define a function go/init-<extension-go>
+;;
+;; (defun go/init-my-extension ()
+;;   "Initialize my extension"
+;;   )
+;;
+;; Often the body of an initialize function uses `use-package'
+;; For more info on `use-package', see readme:
+;; https://github.com/jwiegley/use-package
+(defun go/init-go-autocomplete()
+  (load-file "$GOPATH/src/github.com/nsf/gocode/emacs/go-autocomplete.el")
+)
+
+(defun go/init-go-oracle()
+  (load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
+  (add-hook 'go-mode-hook 'go-oracle-mode)
+  (spacemacs|diminish go-oracle-mode " O")
+  (evil-leader/set-key-for-mode 'go-mode
+    "moo" 'go-oracle-set-scope
+    "mo<" 'go-oracle-callers
+    "mo>" 'go-oracle-callees
+    "moc" 'go-oracle-peers
+    "mod" 'go-oracle-definition
+    "mof" 'go-oracle-freevars
+    "mog" 'go-oracle-callgraph
+    "moi" 'go-oracle-implements
+    "mop" 'go-oracle-pointsto
+    "mor" 'go-oracle-referrers
+    "mos" 'go-oracle-callstack
+    "mot" 'go-oracle-describe
+  ))
