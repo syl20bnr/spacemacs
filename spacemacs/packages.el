@@ -457,8 +457,12 @@ which require an initialization must be listed explicitly in the list.")
     '(diminish 'subword-mode)))
 
 (defun spacemacs/init-dired+ ()
-  (use-package dired+
-    :defer t))
+  (use-package dired
+    :commands (dired find-name-dired find-dired)
+    :bind ("C-x C-j" . dired-jump)
+    :config
+    (progn
+      (use-package dired+))))
 
 (defun spacemacs/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
