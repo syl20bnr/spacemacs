@@ -1,7 +1,6 @@
 (defvar ruby-packages
   '(
     ;; package rubys go here
-    rbenv
     enh-ruby-mode
     flycheck
     ruby-test-mode
@@ -11,6 +10,12 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
+(defvar ruby-version-manager nil
+  "If non nil defines the Ruby version manager (i.e. rbenv, rvm)")
+
+(when ruby-version-manager
+  (add-to-list 'ruby-packages ruby-version-manager))
+
 (defvar ruby-excluded-packages '(ruby-mode))
 
 (defun ruby/init-rbenv ()
@@ -19,7 +24,15 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init (global-rbenv-mode)
     :config (add-hook 'enh-ruby-mode-hook
-          (lambda () (rbenv-use-corresponding)))))
+                      (lambda () (rbenv-use-corresponding)))))
+
+(defun ruby/init-rvm ()
+  "Initialize RVM mode"
+  (use-package rvm
+    :defer t
+    :init (rvm-use-default)
+    :config (add-hook 'enh-ruby-mode-hook
+                      (lambda () (rvm-activate-corresponding-ruby)))))
 
 (defun ruby/init-enh-ruby-mode ()
   "Initialize Enhanced Ruby Mode"
