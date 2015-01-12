@@ -72,6 +72,7 @@
   "fec" 'find-contrib-file
   "fed" 'find-dotfile
   "fev" 'spacemacs/display-and-copy-version
+  "fo" 'spacemacs/open-in-external-app
   "fS" 'evil-write-all
   "fs" 'evil-write
   "fy" 'show-and-copy-buffer-filename)
@@ -194,7 +195,10 @@
   "xgl" 'set-google-translate-languages)
 ;; Lisps ----------------------------------------------------------------------
 (evil-leader/set-key-for-mode 'emacs-lisp-mode
-  "mhd"  'elisp-slime-nav-describe-elisp-thing-at-point
+  "me$" 'spacemacs/eval-sexp-end-of-line
+  "mee" 'eval-last-sexp
+  "mef" 'eval-defun
+  "md"  'elisp-slime-nav-describe-elisp-thing-at-point
   "mg"  'elisp-slime-nav-find-elisp-thing-at-point
-  "mta" 'spacemacs/ert-run-tests-buffer
-  "mtf" 'ert)
+  "mtb" 'spacemacs/ert-run-tests-buffer
+  "mtt" 'ert)

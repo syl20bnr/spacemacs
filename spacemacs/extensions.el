@@ -11,7 +11,7 @@
   '(
     centered-cursor
     emoji-cheat-sheet
-    evil-plugins
+    evil-lisp-state
     helm-rcirc
     helm-spacemacs
     solarized-theme
@@ -41,8 +41,8 @@
   (use-package emoji-cheat-sheet
     :commands emoji-cheat-sheet))
 
-(defun spacemacs/init-evil-plugins ()
-  (use-package evil-little-word))
+(defun spacemacs/init-evil-lisp-state ()
+  (require 'evil-lisp-state))
 
 (defun spacemacs/init-helm-rcirc ()
   (use-package helm-rcirc

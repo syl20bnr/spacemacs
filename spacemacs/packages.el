@@ -26,7 +26,6 @@
     evil-indent-textobject
     evil-jumper
     evil-leader
-    evil-lisp-state
     evil-nerd-commenter
     evil-numbers
     evil-org
@@ -116,7 +115,7 @@
 which require an initialization must be listed explicitly in the list.")
 
 (defvar spacemacs-excluded-packages
-  '(evil-plugins     ; crashed spacemacs on startup (will wait before reactivating it)
+  '(
     fancy-narrow     ; too much bugs and bad side effects
     )
   "List of packages to exclude.")
@@ -213,10 +212,6 @@ which require an initialization must be listed explicitly in the list.")
       (define-key evil-normal-state-map "N" 'spacemacs/anzu-evil-search-previous)
       (define-key evil-motion-state-map "n" 'spacemacs/anzu-evil-search-next)
       (define-key evil-motion-state-map "N" 'spacemacs/anzu-evil-search-previous)
-      (eval-after-load 'evil-lisp-state
-        '(progn
-           (define-key evil-lisp-state-map "n" 'spacemacs/anzu-evil-search-next)
-           (define-key evil-lisp-state-map "N" 'spacemacs/anzu-evil-search-previous)))
 
       (setq anzu-search-threshold 1000
             anzu-cons-mode-line-p nil
@@ -234,6 +229,8 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (require 'auto-complete-config)
       (ac-config-default)
+      (when (configuration-layer/package-declaredp 'yasnippet)
+        (push 'ac-source-yasnippet ac-sources))
       (add-to-list 'completion-styles 'initials t)
       (evil-leader/set-key "ta" 'auto-complete-mode)
       (define-key ac-completing-map (kbd "C-j") 'ac-next)
@@ -550,22 +547,6 @@ which require an initialization must be listed explicitly in the list.")
       (evil-mode 1))
     :config
     (progn
-      (defvar spacemacs-last-base-state 'normal
-        "Last base state, the current value of this variable is used to
-determine the state to enable when escaping from the insert state.")
-      (make-variable-buffer-local 'spacemacs-last-base-state)
-      (defadvice evil-normal-state (before spacemacs/evil-normal-state activate)
-        "Advice to keep track of the last base state."
-        (setq spacemacs-last-base-state 'normal))
-      (defadvice evil-lisp-state (before spacemacs/evil-lisp-state activate)
-        "Advice to keep track of the last base state."
-        (setq spacemacs-last-base-state 'lisp))
-      ;; manage the base state target when leaving the insert state
-      (define-key evil-insert-state-map [escape]
-        (lambda () (interactive)
-          (let ((state (intern (format "evil-%s-state" spacemacs-last-base-state))))
-            (funcall state))))
-
       ;; evil ex-command key
       (define-key evil-motion-state-map (kbd dotspacemacs-command-key) 'evil-ex)
       ;; Make evil-mode up/down operate in screen lines instead of logical lines
@@ -700,11 +681,6 @@ determine the state to enable when escaping from the insert state.")
       (when dotspacemacs-major-mode-leader-key
         (add-hook 'after-change-major-mode-hook 'spacemacs/activate-major-mode-leader))
         )))
-
-(defun spacemacs/init-evil-lisp-state ()
-  (use-package evil-lisp-state
-    :init
-    (evil-leader/set-key-for-mode 'emacs-lisp-mode "ml" 'evil-lisp-state)))
 
 (defun spacemacs/init-evil-nerd-commenter ()
   (use-package evil-nerd-commenter

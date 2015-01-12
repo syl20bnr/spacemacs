@@ -833,3 +833,21 @@ If ASCII si not provided then UNICODE is used instead."
 (defun current-line ()
   "Return the line at point as a string."
   (buffer-substring (line-beginning-position) (line-end-position)))
+
+(defun spacemacs/eval-sexp-end-of-line ()
+  "Evaluate the last sexp at the end of the current line."
+  (interactive)
+  (save-excursion
+    (evil-end-of-line)
+    (eval-last-sexp nil)))
+
+(defun spacemacs/open-in-external-app ()
+  "Open current file in external application."
+  (interactive)
+  (let ((file-path (buffer-file-name)))
+    (cond
+     ((system-is-mswindows) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" file-path)))
+     ((system-is-mac) (shell-command (format "open \"%s\"" file-path)))
+     ((system-is-linux) (let ((process-connection-type nil))
+                          (start-process "" nil "xdg-open" file-path)))
+     )))
