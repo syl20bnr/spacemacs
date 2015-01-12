@@ -37,7 +37,6 @@
 - [Main principles](#main-principles)
     - [Evil](#evil)
         - [States](#states)
-        - [Base States](#base-states)
     - [Evil leader](#evil-leader)
     - [Universal argument](#universal-argument)
     - [Micro-states](#micro-states)
@@ -541,34 +540,6 @@ than just a Vim emulation. It has more states than Vim for instance.
 
 Note: Technically speaking there are also the `operator` and `replace` evil
 states.
-
-### Base States
-
-_(I apologize in advance for the number of repetition of the word `state` in
-this section, but I encourage you to read again this section until you correctly
-grasp the concept of `base state` since it is an important concept in
-`Spacemacs`)_
-
-`Spacemacs` has a notion of `base state`. A `base state` is the state you are
-when leaving the `insert state`.
-
-The typical `base state` in Vim is the `normal state` and it is the only one.
-`Spacemacs` has more than one base state, here is the list:
-- normal
-- lisp
-
-This allows a coder of Lisp to completely replace the `normal state` by the
-`lisp state`. Indeed, once you fire up the `lisp state` you can just go back
-and forth between the `insert state` and the `lisp state`.
-
-Of course there is a rule to break this in order to be able to go back to the
-`normal state`. It is pretty simple:
-
-*When in a `base state`, `ESC` or the key chord `fd` will always set you back to the
-`normal state`.*
-
-So to go back to the `normal state` while in `lisp state` just hit `ESC` or hit both
-`fd` together.
 
 ## Evil leader
 
@@ -1678,104 +1649,72 @@ to `nil` in your `~/.spacemacs`.
 
 ### Editing Lisp code
 
-Lisp navigation and edition is performed with a custom evil `lisp state`
-provided by [evil-lisp-state][evil-lisp-state] package.
+Edition of lisp code is provided by [evil-lisp-state][].
 
-Intuitive navigation model:
+Every commands below will set the current state to `lisp state` where
+the commands can be repeated without pressing on <kbd>SPC m</kbd>.
 
-`hjkl` behaves like in the default `normal state`.
+When in `lisp state` the color of the mode-line changes to pink.
 
-**Next sexp on the same level (sibling)**
-- <kbd>L</kbd> next sexp
-- <kbd>H</kbd> previous sexp
+Examples:
+- to slurp three times while in normal state: <kbd>SPC m n n n</kbd>
+- to wrap a symbol in parenthesis then slurping two times: <kbd>SPC m w n n</kbd>
 
-**Change level (parent/children)**
-- <kbd>J</kbd> go to next sexp one level down
-- <kbd>K</kbd> go to previous one level up
+#### hjkl keys for quickly editing lisp code
 
-And that's it! All these commands always put the point _at the beginning_ of
-the sexp.
+Evil Lisp state binds the most common commands on hjkl:
 
-#### Key bindings maps
+Key Binding         | Function
+--------------------|------------------------------------------------------------
+<kbd>SPC m h</kbd>  | previous symbol
+<kbd>SPC m H</kbd>  | forward barf sexp (move the current symbol or sexp outside)
+<kbd>SPC m j</kbd>  | next closing parenthesis
+<kbd>SPC m J</kbd>  | wrap symbol with parenthesis (down one level)
+<kbd>SPC m k</kbd>  | previous opening parenthesis
+<kbd>SPC m K</kbd>  | unwrap current sexp (up one level)
+<kbd>SPC m l</kbd>  | next symbol
+<kbd>SPC m L</kbd>  | forward slurp sexp (move next outside sexp into current one)
 
-##### Regular normal state bindings
+So with just hjkl keys you can:
+- navigate between symbols and sexps
+- slurp and barf symbols and sexps
+- wrap and unwrap symbols and sexps
 
-Key Binding     | Function
-----------------|------------------------------------------------------------
-<kbd>a</kbd>    | evil-append
-<kbd>c</kbd>    | evil-change
-<kbd>d</kbd>    | evil-delete
-<kbd>h</kbd>    | previous char
-<kbd>i</kbd>    | evil-insert-state
-<kbd>I</kbd>    | evil-insert-line
-<kbd>j</kbd>    | next visual line
-<kbd>k</kbd>    | previous visual line
-<kbd>l</kbd>    | next char
-<kbd>o</kbd>    | evil-insert-below
-<kbd>O</kbd>    | evil-insert-above
-<kbd>p</kbd>    | evil-past-after
-<kbd>P</kbd>    | evil-past-before
-<kbd>r</kbd>    | evil-replace
-<kbd>C-r</kbd>  | undo-tree-redo
-<kbd>u</kbd>    | undo-tree-undo
-<kbd>x</kbd>    | evil-delete-char
-<kbd>X</kbd>    | evil-delete-backward-char
-<kbd>y</kbd>    | evil-yank
-<kbd>ESC</kbd>  | evil-normal-state
+**Notes:**
+Slurping, barfing and wrapping are also bound on other keys, see below.
 
-##### Lisp specific bindings
+### Other commands:
 
-_In this table we assume that `evil-lisp-state-backward-prefix` is set to
-default `<tab>`_
-
-Key Binding            | Function
------------------------|------------------------------------------------------------
-<kbd>(</kbd>           | insert sibling before sexp and switch to `insert state`
-<kbd>)</kbd>           | insert sibling after sexp and switch to `insert state`
-<kbd>$</kbd>           | sp-end-of-sexp
-<kbd>0</kbd>           | sp-beginning-of-sexp
-<kbd>A</kbd>           | sp-absorb-sexp
-<kbd>b</kbd>           | sp-forward-barf-sexp
-<kbd><tab> b</kbd>     | sp-backward-barf-sexp
-<kbd>C</kbd>           | sp-convolute-sexp
-<kbd>Dd</kbd>          | sp-kill-hybrid-sexp
-<kbd>Dx</kbd>          | sp-kill-sexp
-<kbd><tab> Dx</kbd>    | sp-backward-kill-sexp
-<kbd>Ds</kbd>          | sp-kill-symbol
-<kbd><tab> Ds</kbd>    | sp-backward-kill-symbol
-<kbd>Dw</kbd>          | sp-kill-word
-<kbd><tab> Dw</kbd>    | sp-backward-kill-word
-<kbd>E$</kbd>          | evil-lisp-state-eval-sexp-end-of-line
-<kbd>Ee</kbd>          | eval-last-sexp
-<kbd>Ef</kbd>          | eval-defun
-<kbd>gs</kbd>          | go to source of symbol under point
-<kbd>gt</kbd>          | sp-transpose-sexp
-<kbd>gT</kbd>          | sp-transpose-hybrid-sexp
-<kbd>H</kbd>           | previous sexp at the same level
-<kbd>J</kbd>           | next sexp one level down
-<kbd>K</kbd>           | previous sexp one level up
-<kbd>L</kbd>           | next sexp of the same level
-<kbd>M</kbd>           | sp-join-sexp (think about `merge-sexp`)
-<kbd>R</kbd>           | sp-raise-sexp
-<kbd>s</kbd>           | sp-forward-slurp-sexp
-<kbd><tab> s</kbd>     | sp-backward-slurp-sexp
-<kbd>S</kbd>           | sp-splice-sexp-killing-forward
-<kbd><tab> S</kbd>     | sp-splice-sexp-killing-backward
-<kbd>w</kbd>           | wrap sexp
-<kbd>W</kbd>           | unwrap sexp
-<kbd><tab> W</kbd>     | sp-backward-unwrap-sexp
-<kbd>Y</kbd>           | sp-copy-sexp
-<kbd><tab> y</kbd>     | sp-backward-copy-sexp
-<kbd>backspace</kbd>   | sp-backward-delete-char
-<kbd>S-backspace</kbd> | sp-delete-char
-<kbd>RET</kbd>         | indent next line
-<kbd>S-RET</kbd>       | insert new line char and switch to `insert state`
-
-**Reminder:**
-`lisp state` is a [base state](#base-states) which means that leaving
-the `insert state` when the previous state was `lisp` will set you back
-in `lisp state`.
-To go back to `normal state` press `<ESC>` or `fd` while in `lisp state`.
+Key Binding          | Function
+---------------------|------------------------------------------------------------
+<kbd>SPC m (</kbd>   | insert expression before (same level as current one)
+<kbd>SPC m )</kbd>   | insert expression after (same level as current one)
+<kbd>SPC m a</kbd>   | absorb expression
+<kbd>SPC m b</kbd>   | forward barf expression
+<kbd>SPC m B</kbd>   | backward barf expression
+<kbd>SPC m c</kbd>   | convolute expression
+<kbd>SPC m i</kbd>   | switch to `insert state`
+<kbd>SPC m I</kbd>   | go to beginning of current expression and switch to `insert state`
+<kbd>SPC m m</kbd>   | merge (join) expression
+<kbd>SPC m n</kbd>   | forwared slurp expression
+<kbd>SPC m N</kbd>   | backward slurp expression
+<kbd>SPC m p</kbd>   | paste after
+<kbd>SPC m P</kbd>   | paste before
+<kbd>SPC m q</kbd>   | unwrap current expression and kill all symbols after point
+<kbd>SPC m Q</kbd>   | unwrap current expression and kill all symbols before point
+<kbd>SPC m r</kbd>   | raise expression (replace parent expression by current one)
+<kbd>SPC m T</kbd>   | transpose expression
+<kbd>SPC m u</kbd>   | undo
+<kbd>SPC m C-r</kbd> | redo
+<kbd>SPC m v</kbd>   | switch to `visual state`
+<kbd>SPC m V</kbd>   | switch to `visual line state`
+<kbd>SPC m C-v</kbd> | switch to `visual block state`
+<kbd>SPC m w</kbd>   | wrap expression with parenthesis
+<kbd>SPC m W</kbd>   | unwrap expression
+<kbd>SPC m xs</kbd>  | delete symbol
+<kbd>SPC m xw</kbd>  | delete word
+<kbd>SPC m xx</kbd>  | delete expression
+<kbd>SPC m y</kbd>   | copy expression
 
 ## Project management
 

@@ -833,3 +833,10 @@ If ASCII si not provided then UNICODE is used instead."
 (defun current-line ()
   "Return the line at point as a string."
   (buffer-substring (line-beginning-position) (line-end-position)))
+
+(defun spacemacs/eval-sexp-end-of-line ()
+  "Evaluate the last sexp at the end of the current line."
+  (interactive)
+  (save-excursion
+    (evil-end-of-line)
+    (eval-last-sexp nil)))

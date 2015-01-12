@@ -404,7 +404,6 @@ info on this.
 [osx layer]: contrib/osx/README.md
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
-[evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [pw-patched-fonts]: https://github.com/milkypostman/powerline/issues/15
