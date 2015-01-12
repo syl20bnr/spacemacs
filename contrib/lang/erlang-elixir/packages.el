@@ -4,6 +4,7 @@
     auto-highlight-symbol
     edts
     elixir-mode
+    alchemist
     erlang
     flycheck
     git-gutter-fringe
@@ -46,6 +47,9 @@ must be defined in `dotspacemacs/init' function to take effect.")
     :defer t
     :config
     (progn
+      (use-package alchemist
+        :init (progn
+                (setq alchemist-project-compile-when-needed t)))
       (require 'ruby-end)
       (add-to-list 'elixir-mode-hook
                    (defun auto-activate-ruby-end-mode-for-elixir-mode ()
