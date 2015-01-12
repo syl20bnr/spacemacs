@@ -8,6 +8,7 @@
 - [Ruby contribution layer for Spacemacs](#ruby-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
+        - [Ruby version manager](#ruby-version-manager)
     - [Key bindings](#key-bindings)
         - [enh-ruby-mode](#enh-ruby-mode)
         - [ruby-test-mode](#ruby-test-mode)
@@ -43,7 +44,7 @@ or on the command line:
 $ gem install pry
 ```
 
-## Ruby version manager
+### Ruby version manager
 
 This layer supports the use of [RVM][] and [Rbenv][].
 To enable it, set the `ruby-version-manager` var in your `~/.spacemacs`:
@@ -53,6 +54,8 @@ To enable it, set the `ruby-version-manager` var in your `~/.spacemacs`:
   (setq-default ruby-version-manager 'rbenv)
 )
 ```
+
+Possible values are `rbenv` and `rvm`.
 
 ## Key bindings
 
