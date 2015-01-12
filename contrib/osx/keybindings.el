@@ -14,4 +14,4 @@
   (global-set-key (kbd "s-z") 'undo-tree-undo)
   (global-set-key (kbd "s-s") 'save-buffer)
   (global-set-key (kbd "s-Z") 'undo-tree-redo)
-  (global-set-key (kbd "C-s-f") 'toggle-frame-fullscreen))
+  (global-set-key (kbd "C-s-f") 'spacemacs/toggle-frame-fullscreen))
