@@ -119,6 +119,7 @@ which require an initialization must be listed explicitly in the list.")
     )
   "List of packages to exclude.")
 
+;; Paradox from MELPA is not compatible with 24.3 anymore
 (unless  (version< emacs-version "24.4")
     (push 'paradox spacemacs-packages))
 
