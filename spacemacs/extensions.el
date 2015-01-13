@@ -19,6 +19,14 @@
     zoom-frm
     ))
 
+;; use the last 24.3 compatible version of paradox as
+;; an extension.
+;; There is no corresponding init-paradox function here
+;; the init-paradox from packages.el will be called
+;; automatically.
+(when (version< emacs-version "24.4")
+    (push 'paradox spacemacs-post-extensions))
+
 ;; Initialize the extensions
 
 (defun spacemacs/init-centered-cursor ()
