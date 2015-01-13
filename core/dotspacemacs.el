@@ -35,12 +35,12 @@ with `:' and Emacs commands are executed with `<leader> :'.")
 (defvar dotspacemacs-guide-key-delay 0.4
   "Guide-key delay in seconds.")
 
+(defvar dotspacemacs-fullscreen-at-startup nil
+  "If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).")
+
 (defvar dotspacemacs-fullscreen-use-non-native nil
   "If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen. Use
 to disable fullscreen animations in OSX.")
-
-(defvar dotspacemacs-fullscreen-at-startup nil
-  "If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).")
 
 (defvar dotspacemacs-maximized-at-startup nil
   "If non nil the frame is maximized when Emacs starts up (Emacs 24.4+ only).
