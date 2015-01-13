@@ -80,7 +80,6 @@
     ;; annoying error message, disable it for now
     ;; org-trello
     page-break-lines
-    paradox
     popup
     popwin
     powerline
@@ -120,6 +119,8 @@ which require an initialization must be listed explicitly in the list.")
     )
   "List of packages to exclude.")
 
+(unless  (version< emacs-version "24.4")
+    (push 'paradox spacemacs-packages))
 
 ;; Initialization of packages
 
@@ -1545,7 +1546,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-paradox ()
   (use-package paradox
-    :defer t
+    :commands paradox-list-packages
     :init
     (progn
 
