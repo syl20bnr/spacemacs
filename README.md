@@ -358,7 +358,7 @@ on buffer empty lines have the same limitations).
 ## Windows
 
 1. **Why the fonts on Windows looks so crappy ?**
-You can installed [MacType][] on Windows to get very nice looking fonts. It is
+You can install [MacType][] on Windows to get very nice looking fonts. It is
 also recommended to disable the smooth scrolling on Windows.
 
 2. **How to fix the error: The directory ~/.emacs.d/server is unsafe ?**
