@@ -4,7 +4,7 @@
 (require 'subr-x nil 'noerror)
 (require 'emacs-backports)
 
-(defconst spacemacs-version "0.46.0"
+(defconst spacemacs-version "0.46.1"
   "Spacemacs version.")
 (defconst spacemacs-min-version "24.3"
   "Mininal required version of Emacs.")
@@ -292,7 +292,7 @@ found."
        (default-directory user-emacs-directory))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
-                            "fetch" "--tags" remote branch))
+                            "fetch" remote branch))
       (kill-buffer proc-buffer))))
 
 (defun spacemacs/git-latest-tag (remote branch)
