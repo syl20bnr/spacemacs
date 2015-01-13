@@ -292,7 +292,7 @@ found."
        (default-directory user-emacs-directory))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
-                            "fetch" "--tags" remote branch))
+                            "fetch" remote branch))
       (kill-buffer proc-buffer))))
 
 (defun spacemacs/git-latest-tag (remote branch)
