@@ -11,6 +11,7 @@
         - [Prefix reserved to the user](#prefix-reserved-to-the-user)
         - [Prefix reserved to the current major mode](#prefix-reserved-to-the-current-major-mode)
         - [Navigation between items](#navigation-between-items)
+        - [In buffer evaluation of code](#in-buffer-evaluation-of-code)
         - [Interactions with REPLs](#interactions-with-repls)
         - [Interactions with Tests](#interactions-with-tests)
             - [For all languages](#for-all-languages)
@@ -65,29 +66,43 @@ A micro-state allows to repeat key bindings without entering each time the
 prefix commands.
 More info on micro-states in the [documentation](DOCUMENTATION.md#micro-states).
 
+### In buffer evaluation of code
+
+Live evaluation of code is under the prefix `<SPC> e`.
+
+    Key           |                 Description
+------------------|------------------------------------------------------------
+<kbd>e $</kbd>    | put the point at the end of the line and evaluate
+<kbd>e b</kbd>    | evaluate buffer
+<kbd>e e</kbd>    | evaluate last expression
+<kbd>e f</kbd>    | evaluate function
+<kbd>e l</kbd>    | evaluate line
+<kbd>e r</kbd>    | evaluate region
+
+
 ### Interactions with REPLs
 
 A lot of languages can interact with a REPL. To help keeping a consistent
 behavior between those languages the following conventions should be
 followed:
-- `<SPC> m` is the prefix for sending code if there is any conflict with
-other bindings then `<SPC> m s` is the prefered prefix. This allows fast
-interaction with the REPL whenever it is possible.
+- `<SPC> m s` is the prefix for sending code. This allows fast
+interaction with the REPL whenever it is possible (don't forget that `,` is
+a shortcut for `<SPC> m`).
 - lower case key bindings keep the focus on the current buffer
 - upper case key bindings move the focus to the REPL buffer
 
-    Key             |                 Description
---------------------|------------------------------------------------------------
-<kbd>m (s) b</kbd>  | send buffer
-<kbd>m (s) B</kbd>  | send buffer and switch to REPL
-<kbd>m (s) d</kbd>  | first key to send buffer and switch to REPL to debug (step)
-<kbd>m (s) D</kbd>  | second key to send buffer and switch to REPL to debug (step)
-<kbd>m (s) f</kbd>  | send function
-<kbd>m (s) F</kbd>  | send function and switch to REPL
-<kbd>m (s) l</kbd>  | send line
-<kbd>m (s) L</kbd>  | send line and switch to REPL
-<kbd>m (s) r</kbd>  | send region
-<kbd>m (s) R</kbd>  | send region and switch to REPL
+    Key           |                 Description
+------------------|------------------------------------------------------------
+<kbd>m s b</kbd>  | send buffer
+<kbd>m s B</kbd>  | send buffer and switch to REPL
+<kbd>m s d</kbd>  | first key to send buffer and switch to REPL to debug (step)
+<kbd>m s D</kbd>  | second key to send buffer and switch to REPL to debug (step)
+<kbd>m s f</kbd>  | send function
+<kbd>m s F</kbd>  | send function and switch to REPL
+<kbd>m s l</kbd>  | send line
+<kbd>m s L</kbd>  | send line and switch to REPL
+<kbd>m s r</kbd>  | send region
+<kbd>m s R</kbd>  | send region and switch to REPL
 
 Note: we don't distinguish between the file and the buffer.
 
