@@ -1,3 +1,15 @@
+;;; funcs.el --- Python Layer functions File for Spacemacs
+;;
+;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 ;; from http://pedrokroger.net/2010/07/configuring-emacs-as-a-python-ide-2/
 (defun annotate-pdb ()
   "Highlight break point lines."

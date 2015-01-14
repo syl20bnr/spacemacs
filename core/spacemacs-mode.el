@@ -1,3 +1,15 @@
+;;; spacemacs-mode.el --- Spacemacs Core File
+;;
+;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
@@ -83,9 +95,8 @@
   (setq cursor-type nil)
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
-
-
-  
+  ;; theme
+  (spacemacs/load-default-theme)
   ;; remove GUI elements if supported
   (when window-system
     ;; those unless tests are for the case when the user has a ~/.emacs file
@@ -105,7 +116,6 @@
     (spacemacs/message (concat "No graphical support detected, you won't be"
                                "able to launch a graphical instance of Emacs"
                                "with this build.")))
-  (spacemacs/load-default-theme)
   ;; font
   ;; Dynamic font size depending on the system
   (let ((font "Source Code Pro"))
