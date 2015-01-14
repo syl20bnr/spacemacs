@@ -18,7 +18,7 @@ This layer adds support for editing Lua.
 
 Features:
 - Editing lua files using [lua-mode][]
-- Live evaluation of buffer contents in lua interpreter
+- Sending code to a lua REPL
 
 ## Install
 
