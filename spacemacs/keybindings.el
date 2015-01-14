@@ -84,6 +84,7 @@
   "fec" 'find-contrib-file
   "fed" 'find-dotfile
   "fev" 'spacemacs/display-and-copy-version
+  "fj" 'dired-jump
   "fo" 'spacemacs/open-in-external-app
   "fS" 'evil-write-all
   "fs" 'evil-write
