@@ -1,9 +1,10 @@
 (defvar dash-packages
-  '(
-    dash-at-point
-    )
+  '()
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
+
+(if (system-is-mac)
+    (push 'dash-at-point dash-packages))
 
 (defun dash/init-dash-at-point ()
   (use-package dash-at-point
