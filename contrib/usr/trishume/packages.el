@@ -7,10 +7,10 @@
     julia-mode
     helm-ag
     lua-mode
+    nix-mode
     racket-mode
     yaml-mode
     ag
-    aggressive-indent
     hungry-delete
     ))
 
@@ -22,6 +22,9 @@
 
 (defun trishume/init-scad-mode ()
   (use-package scad-mode :defer t))
+
+(defun trishume/init-nix-mode ()
+  (use-package nix-mode :defer t))
 
 (defun trishume/init-qml-mode ()
   (use-package qml-mode :defer t))
@@ -62,15 +65,6 @@
       (add-hook 'racket-mode-hook
                 '(lambda ()
                    (define-key racket-mode-map (kbd "H-r") 'racket-run))))))
-
-(defun trishume/init-aggressive-indent ()
-  (use-package aggressive-indent
-    :defer t
-    :init
-    (evil-leader/set-key
-      "tA" 'aggressive-indent-mode)
-    :config
-    (spacemacs|hide-lighter aggressive-indent-mode)))
 
 (defun trishume/init-hungry-delete ()
   (use-package hungry-delete
