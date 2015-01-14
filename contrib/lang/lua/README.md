@@ -35,6 +35,9 @@ To use this contribution add it to your `~/.spacemacs`
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
 <kbd>SPC m d</kbd>   | lookup thing at point in lua documentation
-<kbd>SPC m l</kbd>   | evaluate buffer contents
+<kbd>SPC m s b</kbd> | send buffer contents to REPL
+<kbd>SPC m s f</kbd> | send current function to REPL
+<kbd>SPC m s r</kbd> | send current region to REPL
+<kbd>SPC m s l</kbd> | send current line to REPL
 
 [lua-mode]: https://github.com/immerrr/lua-mode 
