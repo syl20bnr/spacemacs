@@ -661,9 +661,11 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-evil-jumper ()
   (use-package evil-jumper
     :init
-    (setq evil-jumper-auto-center t)
-    (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
-    (setq evil-jumper-auto-save-interval 3600)))
+    (progn
+      (evil-jumper-mode t)
+      (setq evil-jumper-auto-center t)
+      (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
+      (setq evil-jumper-auto-save-interval 3600))))
 
 (defun spacemacs/init-evil-leader ()
   (use-package evil-leader
