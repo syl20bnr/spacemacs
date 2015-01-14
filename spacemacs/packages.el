@@ -458,7 +458,8 @@ which require an initialization must be listed explicitly in the list.")
   (eval-after-load "abbrev"
     '(diminish 'abbrev-mode))
   (eval-after-load "subword"
-    '(diminish 'subword-mode)))
+    '(when (eval-when-compile (version< "24.3.1" emacs-version))
+       (diminish 'subword-mode))))
 
 (defun spacemacs/init-dired+ ()
   (use-package dired+
