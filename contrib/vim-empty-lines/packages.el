@@ -8,7 +8,8 @@
   (use-package vim-empty-lines-mode
     :defer t
     :init
-    (progn
-      (add-to-hooks 'vim-empty-lines-mode '(prog-mode-hook
-                                            erlang-mode-hook
-                                            text-mode-hook)))))
+    (add-to-hooks 'vim-empty-lines-mode '(prog-mode-hook
+                                          erlang-mode-hook
+                                          text-mode-hook))
+    :config
+    (spacemacs|hide-lighter vim-empty-lines-mode)))
