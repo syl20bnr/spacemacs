@@ -5,7 +5,7 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defun html/init-lua-mode ()
+(defun lua/init-lua-mode ()
   (use-package lua-mode
     :defer t
     :mode ("\\.lua\\'" . lua-mode)
