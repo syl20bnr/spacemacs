@@ -132,10 +132,10 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key-for-mode 'python-mode
         "mB"  'python-shell-send-buffer-switch
         "mb"  'python-shell-send-buffer
+        "mdb" 'python-toggle-breakpoint
         "mF"  'python-shell-send-defun-switch
         "mf"  'python-shell-send-defun
         "mi"  'python-start-or-switch-repl
-        "mtb" 'python-toggle-breakpoint
         "mR"  'python-shell-send-region-switch
         "mr"  'python-shell-send-region)
 
