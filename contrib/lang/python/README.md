@@ -89,13 +89,13 @@ Test commands (start with <kbd>m t</kbd> or <kbd>m T</kbd>):
 
 ### Other Python commands
 
-    Key Binding      |                 Description
----------------------|------------------------------------------------------------
-<kbd>SPC m d</kbd>   | quick documentation using anaconda
-<kbd>SPC m D</kbd>   | open documentation in `firefox` using [pylookup][pylookup]
-<kbd>SPC m g</kbd>   | go to definition using `anaconda-mode-goto` (<kbd>C-o</kbd> to jump back)
-<kbd>SPC m t b</kbd> | toggle a breakpoint
-<kbd>SPC m v</kbd>   | activate a virtual environment with [pyvenv][pyvenv]
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC m d b</kbd>  | toggle a breakpoint
+<kbd>SPC m h d</kbd>  | quick documentation using anaconda
+<kbd>SPC m h D</kbd>  | open documentation in `firefox` using [pylookup][pylookup]
+<kbd>SPC m g</kbd>    | go to definition using `anaconda-mode-goto` (<kbd>C-o</kbd> to jump back)
+<kbd>SPC m v</kbd>    | activate a virtual environment with [pyvenv][pyvenv]
 
 [anaconda-mode]: https://github.com/proofit404/anaconda-mode
 [pyvenv]: https://github.com/jorgenschaefer/pyvenv
