@@ -1,4 +1,4 @@
-(defvar html-packages
+(defvar lua-packages
   '(
     lua-mode
     )
