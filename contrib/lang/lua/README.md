@@ -39,7 +39,7 @@ To use this contribution add it to your `~/.spacemacs`
 <kbd>SPC m d</kbd>   | lookup thing at point in lua documentation
 <kbd>SPC m s b</kbd> | send buffer contents to REPL
 <kbd>SPC m s f</kbd> | send current function to REPL
-<kbd>SPC m s r</kbd> | send current region to REPL
 <kbd>SPC m s l</kbd> | send current line to REPL
+<kbd>SPC m s r</kbd> | send current region to REPL
 
 [lua-mode]: https://github.com/immerrr/lua-mode 
