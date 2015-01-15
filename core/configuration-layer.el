@@ -237,8 +237,7 @@ the following keys:
            (dir (plist-get (cdr layer) :dir)))
       (dolist (file files)
         (let ((file (concat dir file)))
-          (if (file-exists-p file)
-              (load file)))))))
+          (if (file-exists-p file) (configuration-layer/load-file file)))))))
 
 (defsubst configuration-layer//add-layer-to-hash (pkg layer hash)
   "Add LAYER to the list value stored in HASH with key PKG."
