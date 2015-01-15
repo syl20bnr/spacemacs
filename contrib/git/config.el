@@ -10,18 +10,6 @@
 ;;
 ;;; License: GPLv3
 
-;; Command prefixes
-
-(defvar git-enable-github-support nil
-  "If non nil enable Github packages.")
-
-(setq git/key-binding-prefixes '(("gh" . "gutter-hunks/highlight")))
-(when git-enable-github-support
-  (push (cons "gf" "file") git/key-binding-prefixes)
-  (push (cons "gg" "gist") git/key-binding-prefixes))
-(mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-      git/key-binding-prefixes)
-
 ;; Variables
 
 (defvar git-enable-github-support nil
@@ -32,3 +20,12 @@
 
 (defvar git-gutter-use-fringe t
   "If non nil the fringe is used to display git-gutter icons.")
+
+;; Command prefixes
+
+(setq git/key-binding-prefixes '(("gh" . "gutter-hunks/highlight")))
+(when git-enable-github-support
+  (push (cons "gf" "file") git/key-binding-prefixes)
+  (push (cons "gg" "gist") git/key-binding-prefixes))
+(mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
+      git/key-binding-prefixes)
