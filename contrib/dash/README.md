@@ -8,19 +8,22 @@
 - [dash contribution layer for Spacemacs](#dash-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
+        - [Dash](#dash)
     - [Key bindings](#key-bindings)
-    - [Improving](#improving)
+    - [TODO](#todo)
+        - [Check zeal](#check-zeal)
+        - [Check helm-dash](#check-helm-dash)
 
 <!-- markdown-toc end -->
 
+**This layer works only on OS X for the moment**
+
 ## Description
 
-Dash is great for instant quick access to documentation. Unfortunately it is
-*only available on OSX* at the moment. Recommended to set 'HUD mode' in your
-Dash application preferences when using this. dash-at-point will try to
-intelligently guess specific docsets to use based off of your current mode. See
-the documentation [dash-at-point](https://github.com/stanaka/dash-at-point#Usage)
-for more information on customizing specific docsets for modes.
+[dash][] is a great tool for quick access to various sets of documentation.
+
+[dash-at-point][] is the package used to integrate `dash` in Emacs. It will try
+to intelligently guess specific docsets to use based off of your current mode.
 
 ## Install
 
@@ -32,21 +35,40 @@ To use this contribution add it to your `~/.spacemacs`
 )
 ```
 
+### Dash
+
+You have to install [dash][] on your machine.
+
+It is recommended to set the `HUD mode` in your Dash application preferences
+when using this layer. 
+
+See the documentation [dash-at-point][dash-at-point-usage] for more information
+on customizing specific docsets for modes.
+
 ## Key bindings
 
     Key Binding     |                 Description
---------------------|------------------------------------------------------------
+--------------------|---------------------------------------------------------
 <kbd>SPC d d</kbd>  | Lookup thing at point in Dash
-<kbd>SPC m D</kbd>  | Lookup thing at point in Dash within a specified Docset
+<kbd>SPC d D</kbd>  | Lookup thing at point in Dash within a specified Docset
 
-## Improving
+## TODO
 
-dash-at-point is linked the GUI app and is only available for OSX. Another project,
-[helm-dash](https://github.com/areina/helm-dash) is in the works. It appears to
-currently only be available for linux though, but working towards mac and windows
-support. It would be great to supplement or even replace dash-at-point considering
-that it doesn't require paying for the app, and integrates with helm.
+### Check zeal
+
+[zeal][] is an open source alternative to dash with Emacs integration available.
+
+### Check helm-dash
+
+dash-at-point is linked to the GUI app and is only available for OSX. Another
+project, [helm-dash](https://github.com/areina/helm-dash) is in the works.
+It appears to currently only be available for linux though, but working towards
+mac and windows support. It would be great to supplement or even replace
+dash-at-point considering that it doesn't require paying for the app, and
+integrates with helm.
 
 [dash]: http://kapeli.com/dash
 [dash-at-point]: https://github.com/stanaka/dash-at-point
+[dash-at-point-usage]: https://github.com/stanaka/dash-at-point#Usage
 [helm-dash]: https://github.com/areina/helm-dash
+[zeal]: http://zealdocs.org/
