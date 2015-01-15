@@ -125,7 +125,7 @@
         (`mac (spacemacs/set-font font 12))
         (`w32
          (spacemacs/set-font font 9)
-         (let ((fallback-font "MS Gothic:mono"))
+         (let ((fallback-font "Lucida Sans Unicode"))
            ;; window numbers
            (set-fontset-font "fontset-default"
                              '(#x2776 . #x2793) fallback-font nil 'append)
@@ -137,7 +137,7 @@
                              '(#x2295 . #x22a1) fallback-font nil 'append)
            ;; new version lighter
            (set-fontset-font "fontset-default"
-                             '(#x2190 . #x21ea) fallback-font nil 'append)))
+                             '(#x2190 . #x2200) fallback-font nil 'append)))
         (other (spacemacs/set-font font 10)))))
   
   ;; banner
