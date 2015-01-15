@@ -30,7 +30,6 @@
                                        ("j" .  "join/split")
                                        ("n" .  "narrow/numbers")
                                        ("p" .  "projects")
-                                       ("p4" . "perforce")
                                        ("q" .  "quit")
                                        ("r" .  "registers/rings")
                                        ("s" .  "search/symbol")
