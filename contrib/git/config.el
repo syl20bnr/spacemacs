@@ -12,6 +12,9 @@
 
 ;; Command prefixes
 
+(defvar git-enable-github-support nil
+  "If non nil enable Github packages.")
+
 (setq git/key-binding-prefixes '(("gh" . "gutter-hunks/highlight")))
 (when git-enable-github-support
   (push (cons "gf" "file") git/key-binding-prefixes)
