@@ -17,7 +17,7 @@
 (require 'emacs-backports)
 (require 'themes-support)
 
-(defconst spacemacs-version "0.46.1"
+(defconst spacemacs-version "0.47.0"
   "Spacemacs version.")
 (defconst spacemacs-min-version "24.3"
   "Mininal required version of Emacs.")
