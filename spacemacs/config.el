@@ -1,3 +1,15 @@
+;;; config.el --- Spacemacs Layer configuration File
+;;
+;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 ;; ---------------------------------------------------------------------------
 ;; Prefixes 
 ;; ---------------------------------------------------------------------------
@@ -141,7 +153,7 @@ Can be installed with `brew install trash'."
 ;; Emacs 24.4 new features
 (unless (version< emacs-version "24.4")
   (if dotspacemacs-fullscreen-at-startup
-      (toggle-frame-fullscreen)
+      (spacemacs/toggle-frame-fullscreen)
     (if dotspacemacs-maximized-at-startup
         (add-hook 'window-setup-hook 'toggle-frame-maximized))))
 

@@ -1,0 +1,13 @@
+branches:
+  only:
+    - master
+    - develop
+
+before_install:
+  sudo add-apt-repository -y ppa:ubuntu-elisp/ppa &&
+  sudo apt-get -qq update &&
+  sudo apt-get -qq -f install &&
+  sudo apt-get -qqy install emacs-snapshot;
+
+script:
+  emacs -batch -l ert -l core/test/* -f ert-run-tests-batch-and-exit

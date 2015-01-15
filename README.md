@@ -1,7 +1,9 @@
+***
 ![title](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/title.png)
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
-
 [philosophy][] | [goals][] | [for who?][] | [screenshots][] | [documentation][DOCUMENTATION.md] | [contribute][CONTRIBUTE.md] | [achievements][] | [FAQ][]
+***
+[![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
+***
 
 **Quick Install:**
 
@@ -358,7 +360,7 @@ on buffer empty lines have the same limitations).
 ## Windows
 
 1. **Why the fonts on Windows looks so crappy ?**
-You can installed [MacType][] on Windows to get very nice looking fonts. It is
+You can install [MacType][] on Windows to get very nice looking fonts. It is
 also recommended to disable the smooth scrolling on Windows.
 
 2. **How to fix the error: The directory ~/.emacs.d/server is unsafe ?**

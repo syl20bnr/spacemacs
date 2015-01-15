@@ -1,3 +1,15 @@
+;;; packages.el --- Spacemacs Layer packages File
+;;
+;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (defvar spacemacs-packages
   '(
     ac-ispell
@@ -649,9 +661,11 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-evil-jumper ()
   (use-package evil-jumper
     :init
-    (setq evil-jumper-auto-center t)
-    (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
-    (setq evil-jumper-auto-save-interval 3600)))
+    (progn
+      (evil-jumper-mode t)
+      (setq evil-jumper-auto-center t)
+      (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
+      (setq evil-jumper-auto-save-interval 3600))))
 
 (defun spacemacs/init-evil-leader ()
   (use-package evil-leader

@@ -1,10 +1,23 @@
+;;; spacemacs-mode.el --- Spacemacs Core File
+;;
+;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
 (require 'subr-x nil 'noerror)
 (require 'emacs-backports)
+(require 'themes-support)
 
-(defconst spacemacs-version "0.46.1"
+(defconst spacemacs-version "0.47.0"
   "Spacemacs version.")
 (defconst spacemacs-min-version "24.3"
   "Mininal required version of Emacs.")
@@ -82,31 +95,8 @@
   (setq cursor-type nil)
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
-  ;; Unless Emacs stock themes
-  (unless (memq dotspacemacs-default-theme (custom-available-themes))
-    (cond
-     ;; Spacemacs default theme
-     ((or (eq 'solarized-light dotspacemacs-default-theme)
-          (eq 'solarized-dark dotspacemacs-default-theme))
-      (add-to-list 'load-path (concat spacemacs-directory
-                                      "extensions/solarized-theme/"))
-      ;; solarized dependency
-      (spacemacs/load-or-install-package 'dash)
-      (require 'solarized)
-      (deftheme solarized-dark "The dark variant of the Solarized colour theme")
-      (deftheme solarized-light "The light variant of the Solarized colour theme"))
-     ;; Support for all base16 themes
-     ((string-match "base16" (symbol-name dotspacemacs-default-theme))
-      (let ((pkg-dir (spacemacs/load-or-install-package 'base16-theme)))
-        (add-to-list 'custom-theme-load-path pkg-dir)))
-     (t
-      ;; other themes
-      ;; we assume that the package name is suffixed with `-theme'
-      ;; if not we will handle the special themes as we get issues in the tracker.
-      (let ((pkg (format "%s-theme" (symbol-name dotspacemacs-default-theme))))
-        (spacemacs/load-or-install-package (intern pkg))))))
-  (load-theme dotspacemacs-default-theme t)
-  (setq-default spacemacs-cur-theme dotspacemacs-default-theme)
+  ;; theme
+  (spacemacs/load-default-theme)
   ;; remove GUI elements if supported
   (when window-system
     ;; those unless tests are for the case when the user has a ~/.emacs file

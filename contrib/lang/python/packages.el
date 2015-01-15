@@ -1,3 +1,15 @@
+;;; packages.el --- Python Layer packages File for Spacemacs
+;;
+;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
 (defvar python-packages
   '(
     anaconda-mode
@@ -120,10 +132,10 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key-for-mode 'python-mode
         "mB"  'python-shell-send-buffer-switch
         "mb"  'python-shell-send-buffer
+        "mdb" 'python-toggle-breakpoint
         "mF"  'python-shell-send-defun-switch
         "mf"  'python-shell-send-defun
         "mi"  'python-start-or-switch-repl
-        "mtb" 'python-toggle-breakpoint
         "mR"  'python-shell-send-region-switch
         "mr"  'python-shell-send-region)
 
