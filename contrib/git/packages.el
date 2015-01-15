@@ -22,15 +22,6 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defvar git-enable-github-support nil
-  "If non nil enable Github packages.")
-
-(defvar git-magit-status-fullscreen nil
-  "If non nil magit-status buffer is displayed in fullscreen.")
-
-(defvar git-gutter-use-fringe t
-  "If non nil the fringe is used to display git-gutter icons.")
-
 (when git-enable-github-support
   (mapc (lambda (x) (push x git-packages))
         '(
