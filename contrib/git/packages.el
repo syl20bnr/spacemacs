@@ -170,6 +170,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package magit
     :defer t
     :init
+    (setq magit-completing-read-function 'magit-ido-completing-read)
     (evil-leader/set-key
       "gb" 'magit-blame-mode
       "gl" 'magit-log
