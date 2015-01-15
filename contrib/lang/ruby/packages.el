@@ -10,9 +10,6 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defvar ruby-version-manager nil
-  "If non nil defines the Ruby version manager (i.e. rbenv, rvm)")
-
 (when ruby-version-manager
   (add-to-list 'ruby-packages ruby-version-manager))
 

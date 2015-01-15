@@ -28,13 +28,6 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defvar erlang-elixir-excluded-packages '()
-  "List of packages to exclude.")
-
-(defvar spacemacs-erlang-elixir-use-edts nil
-  "If non-nil then `EDTS' is loaded with `erlang-mode'. This variable
-must be defined in `dotspacemacs/init' function to take effect.")
-
 (defun erlang-elixir/init-auto-complete ()
   (add-hook 'erlang-mode-hook 'auto-complete-mode))
 

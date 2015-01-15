@@ -10,8 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar git-enable-github-support nil
-  "If non nil the Github packages and extensions are enabled.")
+;; Command prefixes
 
 (setq git/key-binding-prefixes '(("gh" . "gutter-hunks/highlight")))
 (when git-enable-github-support
@@ -19,3 +18,14 @@
   (push (cons "gg" "gist") git/key-binding-prefixes))
 (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
       git/key-binding-prefixes)
+
+;; Variables
+
+(defvar git-enable-github-support nil
+  "If non nil the Github packages and extensions are enabled.")
+
+(defvar git-magit-status-fullscreen nil
+  "If non nil magit-status buffer is displayed in fullscreen.")
+
+(defvar git-gutter-use-fringe t
+  "If non nil the fringe is used to display git-gutter icons.")
