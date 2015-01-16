@@ -1,10 +1,42 @@
-# Auctex Layer
+# Auctex Layer for Spacemacs
+
+![logo](img/latex.png)
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [Auctex Layer for Spacemacs](#auctex-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+    - [Features](#features)
+        - [Company Auctex](#company-auctex)
+        - [Tags navigation](#tags-navigation)
+    - [Keybindings](#keybindings)
+    - [Maintainer](#maintainer)
+
+<!-- markdown-toc end -->
+
+## Description
 
 Includes support for Auctex including some bindings, sane defaults, and manual loading for better startup times.
 
-## Company Auctex
+## Install
+
+To use this contribution add it to your `~/.spacemacs`
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(auctex)
+  "List of contribution to load."
+)
+```
+
+## Features
+
+### Company Auctex
 
 Along with other things this layer includes company-auctex, it's only enabled if you also enable my other contrib layer `company-mode`.
+
+### Tags navigation
 
 Tags navigation can be performed with key `%` thanks to [evil-matchit][].
 
