@@ -701,6 +701,12 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-evil-nerd-commenter ()
   (use-package evil-nerd-commenter
+    :commands (evilnc-comment-operator
+               evilnc-comment-or-uncomment-lines
+               evilnc-toggle-invert-comment-line-by-line
+               evilnc-comment-or-uncomment-paragraphs
+               evilnc-quick-comment-or-uncomment-to-the-line
+               evilnc-copy-and-comment-lines)
     :init
     (progn
       (evil-leader/set-key
