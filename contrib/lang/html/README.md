@@ -20,6 +20,7 @@ Features:
 - Editing HTML and CSS file using [web-mode][]
 - Support for Scss and Less files
 - Generate HTML and CSS coding using [emmet-mode][]
+- Tags navigation on key `%` using [evil-matchit][]
 
 ## Install
 
@@ -41,3 +42,5 @@ To use this contribution add it to your `~/.spacemacs`
 
 [web-mode]: http://web-mode.org/
 [emmet-mode]: https://github.com/smihica/emmet-mode
+[evil-matchit]: https://github.com/redguardtoo/evil-matchit
+

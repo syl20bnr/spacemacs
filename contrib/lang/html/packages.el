@@ -13,6 +13,7 @@
 (defvar html-packages
   '(
     emmet-mode
+    evil-matchit
     flycheck
     helm-css-scss
     less-css-mode
@@ -57,6 +58,9 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (local-set-key (kbd "<tab>") 'emmet-expand-yas)
       (spacemacs|hide-lighter emmet-mode))))
+
+(defun html/init-evil-matchit ()
+  (add-hook 'web-mode-hook 'evil-matchit-mode))
 
 (defun html/init-scss-mode ()
   (use-package scss-mode

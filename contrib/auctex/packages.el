@@ -1,6 +1,7 @@
 (defvar auctex-packages
   '(
     auctex
+    evil-matchit
     ))
 
 (when (member 'company-mode dotspacemacs-configuration-layers)
@@ -61,3 +62,6 @@
       (setq-default TeX-parse-self t)
       (setq-default TeX-master nil)
       (setq-default TeX-PDF-mode t))))
+
+(defun auctex/init-evil-matchit ()
+  (add-hook 'web-mode-hook 'evil-matchit-mode))

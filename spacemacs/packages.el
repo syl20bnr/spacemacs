@@ -39,6 +39,7 @@
     evil-jumper
     evil-leader
     evil-nerd-commenter
+    evil-matchit
     evil-numbers
     evil-org
     evil-search-highlight-persist
@@ -716,6 +717,10 @@ which require an initialization must be listed explicitly in the list.")
         "cp" 'evilnc-comment-or-uncomment-paragraphs
         "ct" 'evilnc-quick-comment-or-uncomment-to-the-line
         "cy" 'evilnc-copy-and-comment-lines))))
+
+(defun spacemacs/init-evil-matchit ()
+  (use-package evil-matchit
+    :defer t))
 
 (defun spacemacs/init-evil-numbers ()
   (use-package evil-numbers
