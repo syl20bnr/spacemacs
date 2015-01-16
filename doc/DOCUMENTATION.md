@@ -1092,7 +1092,6 @@ Key Binding             |                 Description
 ------------------------|----------------------------------------------------------------
 <kbd>C-\<return\></kbd> | open a `dired buffer`
 <kbd>M-\<return\></kbd> | open a `dired buffer` in terminal
-<kbd>C-b</kbd>          | open selected file in a horizontally split window
 <kbd>C-d</kbd>          | delete selected file (ask for confirmation)
 <kbd>C-h</kbd>          | go to parent directory
 <kbd>C-j</kbd>          | select next file or directory
@@ -1101,10 +1100,11 @@ Key Binding             |                 Description
 <kbd>C-S-k</kbd>        | go to previous directory
 <kbd>C-l</kbd>          | open the selected file
 <kbd>C-n</kbd>          | next history element
-<kbd>C-p</kbd>          | previous history element
-<kbd>C-t</kbd>          | open selected file in a new frame
-<kbd>C-v</kbd>          | open selected file in a vertically split window
 <kbd>C-o</kbd>          | open selected file in other window
+<kbd>C-p</kbd>          | previous history element
+<kbd>C-s</kbd>          | open selected file in a vertically split window
+<kbd>C-t</kbd>          | open selected file in a new frame
+<kbd>C-v</kbd>          | open selected file in a horizontally split window
 
 #### Experimental Ido feature
 
@@ -1115,9 +1115,9 @@ When evil leader is triggered the following commands are available:
 
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
-<kbd>b</kbd>  | open selected file in a horizontally split window
+<kbd>s</kbd>  | open selected file in a vertically split window
 <kbd>t</kbd>  | open selected file in a new frame
-<kbd>v</kbd>  | open selected file in a vertically split window
+<kbd>v</kbd>  | open selected file in a horizontally split window
 <kbd>x</kbd>  | open selected file in other window
 
 ### NeoTree file tree
