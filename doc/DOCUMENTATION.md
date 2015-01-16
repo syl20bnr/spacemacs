@@ -627,6 +627,7 @@ your `~/.spacemacs`):
 [evil-visualstar][]                     | search for current selection with `*`
 [evil-exchange][]                       | port of [vim-exchange][]
 [evil-surround][]                       | port of [vim-surround][]
+[evil-matchit][]                        | port of [matchit.vim][]
 [evil-nerd-commenter][]                 | port of [nerdcommenter][]
 [evil-search-highlight-persist][]       | emulation of hlsearch behavior
 [evil-numbers][]                        | like C-a/C-x in vim
@@ -2064,6 +2065,8 @@ developers to elisp hackers!
 [vim-surround]: https://github.com/tpope/vim-surround
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [nerdcommenter]: https://github.com/scrooloose/nerdcommenter
+[evil-matchit]: https://github.com/redguardtoo/evil-matchit
+[matchit.vim]: http://www.vim.org/scripts/script.php?script_id=39
 [source code pro]: https://github.com/adobe-fonts/source-code-pro
 [evil-escape]: https://github.com/syl20bnr/evil-escape
 [evil-args]: https://github.com/wcsmith/evil-args

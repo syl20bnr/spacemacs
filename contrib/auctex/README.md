@@ -6,6 +6,8 @@ Includes support for Auctex including some bindings, sane defaults, and manual l
 
 Along with other things this layer includes company-auctex, it's only enabled if you also enable my other contrib layer `company-mode`.
 
+Tags navigation can be performed with key `%` thanks to [evil-matchit][].
+
 ## Keybindings
 
 Key Binding         |                 Description
@@ -30,3 +32,5 @@ Key Binding         |                 Description
 
 This layer was created by and is maintained by @trishume, ping me in the Gitter chat if you have questions. Feel free to submit
 PRs for this layer though if you have improvements.
+
+[evil-matchit]: https://github.com/redguardtoo/evil-matchit
