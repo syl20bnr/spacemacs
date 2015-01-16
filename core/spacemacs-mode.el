@@ -205,7 +205,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
        pkg-elpa-dir))))
 
 (defun spacemacs/emacs-version-ok ()
-  (not (version< emacs-version spacemacs-min-version)))
+  (version<= spacemacs-min-version emacs-version))
 
 (defun spacemacs/display-and-copy-version ()
   "Echo the current spacemacs version and copy it."
