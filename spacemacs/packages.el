@@ -1333,9 +1333,9 @@ which require an initialization must be listed explicitly in the list.")
         (define-key ido-completion-map (kbd "C-p") 'previous-history-element)
         ;; ido-other window maps
         (define-key ido-completion-map (kbd "C-o") 'ido-invoke-in-other-window)
-        (define-key ido-completion-map (kbd "C-v") 'ido-invoke-in-vertical-split)
-        (define-key ido-completion-map (kbd "C-b") 'ido-invoke-in-horizontal-split)
+        (define-key ido-completion-map (kbd "C-s") 'ido-invoke-in-vertical-split)
         (define-key ido-completion-map (kbd "C-t") 'ido-invoke-in-new-frame)
+        (define-key ido-completion-map (kbd "C-v") 'ido-invoke-in-horizontal-split)
         ;; more natural navigation keys: up, down to change current item
         ;; left to go up dir
         ;; right to open the selected item
@@ -1345,9 +1345,9 @@ which require an initialization must be listed explicitly in the list.")
         (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
         (when dotspacemacs-feature-toggle-leader-on-jk
           (evil-leader/set-key-for-mode 'ido-mode
-            "b" 'ido-invoke-in-horizontal-split
+            "s" 'ido-invoke-in-vertical-split
             "t" 'ido-invoke-in-new-frame
-            "v" 'ido-invoke-in-vertical-split
+            "v" 'ido-invoke-in-horizontal-split
             "x" 'ido-invoke-in-other-window)
           (key-chord-define ido-completion-map (kbd "jk")
                             (cdr (assoc 'ido-mode evil-leader--mode-maps)))))
