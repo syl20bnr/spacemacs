@@ -209,7 +209,10 @@ which require an initialization must be listed explicitly in the list.")
         "Show anzu status when pressing `n` or `N`"
         (anzu--cons-mode-line-search)
         (funcall func arg)
-        (anzu--update)
+        (let ((query (if evil-regexp-search
+                         (car-safe regexp-search-ring)
+                       (car-safe search-ring))))
+          (anzu--update query))
         (if spacemacs-anzu-timer (cancel-timer spacemacs-anzu-timer))
         (setq spacemacs-anzu-timer
               (run-at-time "2 sec" nil 'spacemacs/anzu-ephemeral-display)))
@@ -223,8 +226,8 @@ which require an initialization must be listed explicitly in the list.")
         :repeat ignore
         (interactive "P")
         (spacemacs/anzu-evil-search arg 'evil-search-previous))
-      (define-key evil-normal-state-map "n" 'spacemacs/anzu-evil-search-next)
-      (define-key evil-normal-state-map "N" 'spacemacs/anzu-evil-search-previous)
+      ;; (define-key evil-normal-state-map "n" 'spacemacs/anzu-evil-search-next)
+      ;; (define-key evil-normal-state-map "N" 'spacemacs/anzu-evil-search-previous)
       (define-key evil-motion-state-map "n" 'spacemacs/anzu-evil-search-next)
       (define-key evil-motion-state-map "N" 'spacemacs/anzu-evil-search-previous)
 
