@@ -132,7 +132,6 @@ in `configuration-layer-contrib-categories'"
 path."
   (let ((cat-dirs (configuration-layer//get-contrib-category-dirs))
         (result (make-hash-table :size 128)))
-    (ht-clear result)
     ;; add spacemacs layer
     (puthash 'spacemacs (expand-file-name user-emacs-directory) result)
     (mapc (lambda (dir)
@@ -295,7 +294,6 @@ of all excluded packages."
 FILE is a string with value `packages' or `extensions'.
 VAR is a string with value `packages', `pre-extensions' or `post-extensions'."
   (let ((result (make-hash-table :size 512)))
-    (ht-clear result)
     (dolist (layer layers)
       (let* ((layer-sym (car layer))
              (dir (plist-get (cdr layer) :dir))
@@ -480,7 +478,6 @@ If PRE is non nil then the extension is a pre-extensions."
   "Returns a hash map where key is a dependency package symbol and value is
 a list of all packages which depend on it."
   (let ((result (make-hash-table :size 200)))
-    (ht-clear result)
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
              (deps (configuration-layer//get-package-dependencies pkg-sym)))
