@@ -43,11 +43,11 @@
 (defvar configuration-layer-layers '()
   "Alist of declared configuration layers.")
 
-(defvar configuration-layer-paths #s(hash-table size 128 data ())
+(defvar configuration-layer-paths (make-hash-table :size 128)
   "Hash table of layers locations. The key is a layer symbol and the value is
 the path for this layer.")
 
-(defvar configuration-layer-all-packages #s(hash-table size 256 data ())
+(defvar configuration-layer-all-packages (make-hash-table :size 256)
   "Hash table of all declared packages in all layers where the key is a package
 symbol and the value is a list of layer symbols responsible for initializing
 and configuring the package.")
@@ -55,7 +55,7 @@ and configuring the package.")
 (defvar configuration-layer-all-packages-sorted '()
   "Sorted list of all package symbols.")
 
-(defvar configuration-layer-all-pre-extensions #s(hash-table size 128 data ())
+(defvar configuration-layer-all-pre-extensions (make-hash-table :size 128)
   "Hash table of all declared pre-extensions in all layers where the key is a
 extension symbol and the value is the layer symbols responsible for initializing
 and configuring the package.")
@@ -63,7 +63,7 @@ and configuring the package.")
 (defvar configuration-layer-all-pre-extensions-sorted '()
   "Sorted list of all pre extensions symbols.")
 
-(defvar configuration-layer-all-post-extensions #s(hash-table size 128 data ())
+(defvar configuration-layer-all-post-extensions (make-hash-table :size 128)
   "Hash table of all declared post-extensions in all layers where the key is a
 extension symbol and the value is the layer symbols responsible for initializing
 and configuring the package.")
@@ -131,8 +131,7 @@ in `configuration-layer-contrib-categories'"
   "Return a hash table where the key is the layer symbol and the value is its
 path."
   (let ((cat-dirs (configuration-layer//get-contrib-category-dirs))
-        (result #s(hash-table size 128 data ())))
-    (ht-clear result)
+        (result (make-hash-table :size 128)))
     ;; add spacemacs layer
     (puthash 'spacemacs (expand-file-name user-emacs-directory) result)
     (mapc (lambda (dir)
@@ -147,7 +146,7 @@ path."
                   ;; we asume that the user layers must have the final word
                   ;; on configuration choices.
                   (list configuration-layer-private-directory)))
-    (ht-copy result)))
+    result))
 
 (defun configuration-layer//discover-layers-in-dir (dir)
   "Return an alist where the key is a layer symbol and the value is the path
@@ -294,8 +293,7 @@ of all excluded packages."
 
 FILE is a string with value `packages' or `extensions'.
 VAR is a string with value `packages', `pre-extensions' or `post-extensions'."
-  (let ((result #s(hash-table size 512 data ())))
-    (ht-clear result)
+  (let ((result (make-hash-table :size 512)))
     (dolist (layer layers)
       (let* ((layer-sym (car layer))
              (dir (plist-get (cdr layer) :dir))
@@ -307,7 +305,7 @@ VAR is a string with value `packages', `pre-extensions' or `post-extensions'."
             (when (boundp packages-var)
               (dolist (pkg (eval packages-var))
                 (puthash pkg (cons layer-sym (ht-get result pkg)) result)))))))
-    (ht-copy result)))
+    result))
 
 (defun configuration-layer/get-packages (layers)
   "Read `layer-packages' lists for all passed LAYERS and return a hash table
@@ -479,8 +477,7 @@ If PRE is non nil then the extension is a pre-extensions."
 (defun configuration-layer//get-packages-dependencies ()
   "Returns a hash map where key is a dependency package symbol and value is
 a list of all packages which depend on it."
-  (let ((result #s(hash-table size 200 data ())))
-    (ht-clear result)
+  (let ((result (make-hash-table :size 200)))
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
              (deps (configuration-layer//get-package-dependencies pkg-sym)))
