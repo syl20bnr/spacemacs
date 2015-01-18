@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil
 ;; Created: 22 Oct 2014
-;; Version: 2.0
+;; Version: 2.01
 ;; Package-Requires: ((emacs "24") (evil "1.0.9"))
 ;; URL: https://github.com/syl20bnr/evil-escape
 
@@ -225,6 +225,14 @@ with a key sequence."
   "Send `q' key press event to exit from a buffer."
   (setq unread-command-events (listify-key-sequence "q")))
 
+(defun evil-escape--execute-shadow-func (func)
+  "Execute the passed FUNC if the context allows it."
+  (unless (or (null func)
+              (eq 'insert evil-state)
+              (and (boundp 'isearch-mode) (symbol-value 'isearch-mode))
+              (minibufferp))
+    (call-interactively func)))
+
 (defun evil-escape--escape
     (keys callback &optional shadowed-func insert-func delete-func)
   "Execute the passed CALLBACK using KEYS. KEYS is a cons cell of 2 characters.
@@ -239,10 +247,6 @@ If INSERT-FUNC is not nil then the first key pressed is inserted using the
 If DELETE-FUNC is not nil then the first key is deleted using the function
 DELETE-FUNC when calling CALLBACK. "
   (let* ((modified (buffer-modified-p))
-         (insertf (if insert-func
-                      insert-func 'evil-escape--default-insert-func))
-         (deletef (if delete-func
-                      delete-func 'evil-escape--default-delete-func))
          (fkey (elt keys 0))
          (fkeystr (char-to-string fkey))
          (skey (elt keys 1)))
@@ -250,8 +254,7 @@ DELETE-FUNC when calling CALLBACK. "
     (let* ((evt (read-event nil nil evil-escape-delay)))
       (cond
        ((null evt)
-        (unless (eq 'insert evil-state)
-          (if shadowed-func (call-interactively shadowed-func))))
+        (evil-escape--execute-shadow-func shadowed-func))
        ((and (integerp evt)
              (char-equal evt skey))
         ;; remove the f character
@@ -261,8 +264,7 @@ DELETE-FUNC when calling CALLBACK. "
        (t ; otherwise
         (setq unread-command-events
               (append unread-command-events (list evt)))
-        (unless (eq 'insert evil-state)
-          (if shadowed-func (call-interactively shadowed-func))))))))
+        (evil-escape--execute-shadow-func shadowed-func))))))
 
 (provide 'evil-escape)
 
