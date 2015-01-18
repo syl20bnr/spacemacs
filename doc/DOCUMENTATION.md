@@ -229,7 +229,7 @@ It is also a good fit for people wanting to **lower the [risk of RSI][RSI]**
 induced by the default Emacs key bindings.
 
 Emacs users wanting to learn **a different way to edit files** or wanting to
-learn Vim key bindings (see [Tips for Emacs users](#tips-for-emacs-users)).
+learn Vim key bindings.
 
 As a side note, if you are a programmer and you don't know Vim key bindings
 yet, I deeply recommend you to learn the basics as recommended in
