@@ -146,7 +146,7 @@ path."
                   ;; we asume that the user layers must have the final word
                   ;; on configuration choices.
                   (list configuration-layer-private-directory)))
-    (ht-copy result)))
+    result))
 
 (defun configuration-layer//discover-layers-in-dir (dir)
   "Return an alist where the key is a layer symbol and the value is the path
@@ -305,7 +305,7 @@ VAR is a string with value `packages', `pre-extensions' or `post-extensions'."
             (when (boundp packages-var)
               (dolist (pkg (eval packages-var))
                 (puthash pkg (cons layer-sym (ht-get result pkg)) result)))))))
-    (ht-copy result)))
+    result))
 
 (defun configuration-layer/get-packages (layers)
   "Read `layer-packages' lists for all passed LAYERS and return a hash table
