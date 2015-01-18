@@ -30,7 +30,6 @@
                                        ("j" .  "join/split")
                                        ("n" .  "narrow/numbers")
                                        ("p" .  "projects")
-                                       ("p4" . "perforce")
                                        ("q" .  "quit")
                                        ("r" .  "registers/rings")
                                        ("s" .  "search/symbol")
@@ -71,8 +70,9 @@
 ;; required for evil folding
 (defun spacemacs//enable-hs-minor-mode ()
   "Enable hs-minor-mode for code folding."
-  (hs-minor-mode)
-  (spacemacs|hide-lighter hs-minor-mode))
+  (ignore-errors
+    (hs-minor-mode)
+    (spacemacs|hide-lighter hs-minor-mode)))
 (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode)
 
 ;; Hack to fix a bug with tabulated-list.el

@@ -12,16 +12,14 @@
 
 ;; Extensions are in emacs_paths/extensions
 ;; Pre extensions are loaded *before* the packages
-(defvar spacemacs-pre-extensions
-  '(
-    key-chord
-    ))
+(defvar spacemacs-pre-extensions '())
 
 ;; Post extensions are loaded *after* the packages
 (defvar spacemacs-post-extensions
   '(
     centered-cursor
     emoji-cheat-sheet
+    evil-escape
     evil-lisp-state
     helm-rcirc
     helm-spacemacs
@@ -59,6 +57,13 @@
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet
     :commands emoji-cheat-sheet))
+
+(defun spacemacs/init-evil-escape ()
+  (use-package evil-escape
+    :init
+    (evil-escape-mode)
+    :config
+    (spacemacs|hide-lighter evil-escape-mode)))
 
 (defun spacemacs/init-evil-lisp-state ()
   (require 'evil-lisp-state))

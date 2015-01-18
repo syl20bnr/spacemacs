@@ -12,34 +12,14 @@
 
 (defvar erlang-elixir-packages
   '(
-    auto-complete
-    auto-highlight-symbol
     edts
     elixir-mode
     erlang
     flycheck
-    git-gutter-fringe
-    evil-iedit-state
-    rainbow-delimiters
     ruby-end
-    smartparens
-    yasnippet
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
-
-(defvar erlang-elixir-excluded-packages '()
-  "List of packages to exclude.")
-
-(defvar spacemacs-erlang-elixir-use-edts nil
-  "If non-nil then `EDTS' is loaded with `erlang-mode'. This variable
-must be defined in `dotspacemacs/init' function to take effect.")
-
-(defun erlang-elixir/init-auto-complete ()
-  (add-hook 'erlang-mode-hook 'auto-complete-mode))
-
-(defun erlang-elixir/init-auto-highlight-symbol ()
-  (add-hook 'erlang-mode-hook 'auto-highlight-symbol-mode))
 
 (defun erlang-elixir/init-edts ()
 
@@ -72,6 +52,8 @@ must be defined in `dotspacemacs/init' function to take effect.")
            ("\\.hrl?$" . erlang-mode)
            ("\\.spec?$" . erlang-mode))
     :defer t
+    :init
+    (add-hook 'erlang-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
     :config
     (progn
       (setq erlang-root-dir "/usr/lib/erlang/erts-5.10.3")
@@ -105,26 +87,7 @@ must be defined in `dotspacemacs/init' function to take effect.")
   (unless spacemacs-erlang-elixir-use-edts
     (add-hook 'erlang-mode-hook 'flycheck-mode)))
 
-(defun erlang-elixir/init-git-gutter-fringe ()
-  (add-hook 'erlang-mode-hook 'git-gutter-mode))
-
-(defun erlang-elixir/init-evil-iedit-state ()
-  (add-hook 'erlang-mode-hook 'spacemacs/evil-state-lazy-loading))
-
-
-(defun erlang-elixir/init-rainbow-delimiters ()
-  (add-hook 'erlang-mode-hook 'turn-on-rainbow-delimiters-mode))
-
 (defun erlang-elixir/init-ruby-end ()
   (use-package ruby-end
     :defer t
     :config (spacemacs|hide-lighter ruby-end-mode)))
-
-(defun erlang-elixir/init-smartparens ()
-  (add-hook 'erlang-mode-hook
-            (if dotspacemacs-smartparens-strict-mode
-                'smartparens-strict-mode
-              'smartparens-mode)))
-
-(defun erlang-elixir/init-yasnippet ()
-  (add-hook 'erlang-mode-hook 'spacemacs/load-yasnippet))

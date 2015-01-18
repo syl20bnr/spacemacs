@@ -137,6 +137,8 @@
   "tM" 'toggle-frame-maximized
   "tn" 'global-linum-mode
   "tt" 'toggle-transparency
+  "tT" 'spacemacs/toggle-tool-bar
+  "tU" 'spacemacs/toggle-menu-bar
   "t SPC" 'whitespace-mode)
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key

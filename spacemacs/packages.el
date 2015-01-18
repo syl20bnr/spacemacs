@@ -32,13 +32,13 @@
     eldoc
     evil
     evil-args
-    evil-escape
     evil-exchange
     evil-iedit-state
     evil-indent-textobject
     evil-jumper
     evil-leader
     evil-nerd-commenter
+    evil-matchit
     evil-numbers
     evil-org
     evil-search-highlight-persist
@@ -208,7 +208,10 @@ which require an initialization must be listed explicitly in the list.")
         "Show anzu status when pressing `n` or `N`"
         (anzu--cons-mode-line-search)
         (funcall func arg)
-        (anzu--update)
+        (let ((query (if evil-regexp-search
+                         (car-safe regexp-search-ring)
+                       (car-safe search-ring))))
+          (anzu--update query))
         (if spacemacs-anzu-timer (cancel-timer spacemacs-anzu-timer))
         (setq spacemacs-anzu-timer
               (run-at-time "2 sec" nil 'spacemacs/anzu-ephemeral-display)))
@@ -222,8 +225,8 @@ which require an initialization must be listed explicitly in the list.")
         :repeat ignore
         (interactive "P")
         (spacemacs/anzu-evil-search arg 'evil-search-previous))
-      (define-key evil-normal-state-map "n" 'spacemacs/anzu-evil-search-next)
-      (define-key evil-normal-state-map "N" 'spacemacs/anzu-evil-search-previous)
+      ;; (define-key evil-normal-state-map "n" 'spacemacs/anzu-evil-search-next)
+      ;; (define-key evil-normal-state-map "N" 'spacemacs/anzu-evil-search-previous)
       (define-key evil-motion-state-map "n" 'spacemacs/anzu-evil-search-next)
       (define-key evil-motion-state-map "N" 'spacemacs/anzu-evil-search-previous)
 
@@ -468,7 +471,8 @@ which require an initialization must be listed explicitly in the list.")
   (eval-after-load "abbrev"
     '(diminish 'abbrev-mode))
   (eval-after-load "subword"
-    '(diminish 'subword-mode)))
+    '(when (eval-when-compile (version< "24.3.1" emacs-version))
+       (diminish 'subword-mode))))
 
 (defun spacemacs/init-dired+ ()
   (use-package dired+
@@ -619,13 +623,6 @@ which require an initialization must be listed explicitly in the list.")
       (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
       (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))))
 
-(defun spacemacs/init-evil-escape ()
-  (use-package evil-escape
-    :init
-    (evil-escape-mode)
-    :config
-    (spacemacs|hide-lighter evil-escape-mode)))
-
 (defun spacemacs/init-evil-exchange ()
   (use-package evil-exchange
     :init (evil-exchange-install)))
@@ -642,14 +639,15 @@ which require an initialization must be listed explicitly in the list.")
     (define-key evil-iedit-state-map
       (kbd evil-leader/leader) evil-leader--default-map)
     ;; evil-escape support
-    (when (and (boundp 'evil-escape-mode)
-               (symbol-value evil-escape-mode))
-      (key-chord-define evil-iedit-state-map
-                        evil-escape-key-sequence
-                        'evil-iedit-state/quit-iedit-mode)
-      (key-chord-define evil-iedit-insert-state-map
-                        evil-escape-key-sequence
-                        'evil-iedit-state/quit-iedit-mode)))
+    ;; (when (and (boundp 'evil-escape-mode)
+    ;;            (symbol-value evil-escape-mode))
+    ;;   (key-chord-define evil-iedit-state-map
+    ;;                     evil-escape-key-sequence
+    ;;                     'evil-iedit-state/quit-iedit-mode)
+    ;;   (key-chord-define evil-iedit-insert-state-map
+    ;;                     evil-escape-key-sequence
+    ;;                     'evil-iedit-state/quit-iedit-mode))
+    )
 
   (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode)
   (add-to-hooks 'spacemacs/evil-state-lazy-loading '(prog-mode-hook
@@ -690,9 +688,9 @@ which require an initialization must be listed explicitly in the list.")
       (define-key evil-motion-state-map (kbd dotspacemacs-leader-key)
         evil-leader--default-map)
       ;; experimental: invoke leader with "jk" in insert mode
-      (when dotspacemacs-feature-toggle-leader-on-jk
-        (key-chord-define evil-insert-state-map (kbd "jk")
-                          evil-leader--default-map))
+      ;; (when dotspacemacs-feature-toggle-leader-on-jk
+      ;;   (key-chord-define evil-insert-state-map (kbd "jk")
+      ;;                     evil-leader--default-map))
       ;; experimental: map SPC m to ,
       (when dotspacemacs-major-mode-leader-key
         (add-hook 'after-change-major-mode-hook 'spacemacs/activate-major-mode-leader))
@@ -700,6 +698,12 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-evil-nerd-commenter ()
   (use-package evil-nerd-commenter
+    :commands (evilnc-comment-operator
+               evilnc-comment-or-uncomment-lines
+               evilnc-toggle-invert-comment-line-by-line
+               evilnc-comment-or-uncomment-paragraphs
+               evilnc-quick-comment-or-uncomment-to-the-line
+               evilnc-copy-and-comment-lines)
     :init
     (progn
       (evil-leader/set-key
@@ -709,6 +713,10 @@ which require an initialization must be listed explicitly in the list.")
         "cp" 'evilnc-comment-or-uncomment-paragraphs
         "ct" 'evilnc-quick-comment-or-uncomment-to-the-line
         "cy" 'evilnc-copy-and-comment-lines))))
+
+(defun spacemacs/init-evil-matchit ()
+  (use-package evil-matchit
+    :defer t))
 
 (defun spacemacs/init-evil-numbers ()
   (use-package evil-numbers
@@ -757,7 +765,7 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (global-evil-search-highlight-persist)
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
-      (evil-ex-define-cmd "noh" 'evil-search-highlight-persist-remove-all))))
+      (evil-ex-define-cmd "nohl" 'evil-search-highlight-persist-remove-all))))
 
 (defun spacemacs/init-evil-surround ()
   (use-package evil-surround
@@ -1178,20 +1186,20 @@ which require an initialization must be listed explicitly in the list.")
       (define-key helm-map (kbd "C-h") 'helm-next-source)
       (define-key helm-map (kbd "C-l") 'helm-previous-source)
       ;; experimental: toggle evil-leader with "jk" with helm specific commands
-      (when dotspacemacs-feature-toggle-leader-on-jk
-        (evil-leader/set-key-for-mode 'helm-mode
-          "1" (lambda () (interactive) (helm-select-nth-action 0))
-          "2" (lambda () (interactive) (helm-select-nth-action 1))
-          "3" (lambda () (interactive) (helm-select-nth-action 2))
-          "4" (lambda () (interactive) (helm-select-nth-action 3))
-          "5" (lambda () (interactive) (helm-select-nth-action 4))
-          "6" (lambda () (interactive) (helm-select-nth-action 5))
-          "7" (lambda () (interactive) (helm-select-nth-action 6))
-          "8" (lambda () (interactive) (helm-select-nth-action 7))
-          "9" (lambda () (interactive) (helm-select-nth-action 8))
-          "0" (lambda () (interactive) (helm-select-nth-action 9))
-          "a" 'helm-select-action)
-        (key-chord-define helm-map (kbd "jk") (cdr (assoc 'helm-mode evil-leader--mode-maps))))
+      ;; (when dotspacemacs-feature-toggle-leader-on-jk
+      ;;   (evil-leader/set-key-for-mode 'helm-mode
+      ;;     "1" (lambda () (interactive) (helm-select-nth-action 0))
+      ;;     "2" (lambda () (interactive) (helm-select-nth-action 1))
+      ;;     "3" (lambda () (interactive) (helm-select-nth-action 2))
+      ;;     "4" (lambda () (interactive) (helm-select-nth-action 3))
+      ;;     "5" (lambda () (interactive) (helm-select-nth-action 4))
+      ;;     "6" (lambda () (interactive) (helm-select-nth-action 5))
+      ;;     "7" (lambda () (interactive) (helm-select-nth-action 6))
+      ;;     "8" (lambda () (interactive) (helm-select-nth-action 7))
+      ;;     "9" (lambda () (interactive) (helm-select-nth-action 8))
+      ;;     "0" (lambda () (interactive) (helm-select-nth-action 9))
+      ;;     "a" 'helm-select-action)
+      ;;   (key-chord-define helm-map (kbd "jk") (cdr (assoc 'helm-mode evil-leader--mode-maps))))
 
       ;; eshell
       (defun spacemacs/helm-eshell-history ()
@@ -1320,7 +1328,8 @@ which require an initialization must be listed explicitly in the list.")
         (define-key ido-completion-map (kbd "C-d") 'ido-delete-file-at-head)
         (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
         (define-key ido-completion-map (kbd "C-<return>") 'ido-select-text)
-        (define-key ido-completion-map (kbd "M-<RET>") 'ido-select-text)
+        ;; use M-RET in terminal
+        (define-key ido-completion-map "\M-\r" 'ido-select-text)
         (define-key ido-completion-map (kbd "C-h") 'ido-delete-backward-updir)
         (define-key ido-completion-map (kbd "C-j") 'ido-next-match)
         (define-key ido-completion-map (kbd "C-l") 'ido-exit-minibuffer)
@@ -1331,9 +1340,9 @@ which require an initialization must be listed explicitly in the list.")
         (define-key ido-completion-map (kbd "C-p") 'previous-history-element)
         ;; ido-other window maps
         (define-key ido-completion-map (kbd "C-o") 'ido-invoke-in-other-window)
-        (define-key ido-completion-map (kbd "C-v") 'ido-invoke-in-vertical-split)
-        (define-key ido-completion-map (kbd "C-b") 'ido-invoke-in-horizontal-split)
+        (define-key ido-completion-map (kbd "C-s") 'ido-invoke-in-vertical-split)
         (define-key ido-completion-map (kbd "C-t") 'ido-invoke-in-new-frame)
+        (define-key ido-completion-map (kbd "C-v") 'ido-invoke-in-horizontal-split)
         ;; more natural navigation keys: up, down to change current item
         ;; left to go up dir
         ;; right to open the selected item
@@ -1341,14 +1350,15 @@ which require an initialization must be listed explicitly in the list.")
         (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
         (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
-        (when dotspacemacs-feature-toggle-leader-on-jk
-          (evil-leader/set-key-for-mode 'ido-mode
-            "b" 'ido-invoke-in-horizontal-split
-            "t" 'ido-invoke-in-new-frame
-            "v" 'ido-invoke-in-vertical-split
-            "x" 'ido-invoke-in-other-window)
-          (key-chord-define ido-completion-map (kbd "jk")
-                            (cdr (assoc 'ido-mode evil-leader--mode-maps)))))
+        ;; (when dotspacemacs-feature-toggle-leader-on-jk
+        ;;   (evil-leader/set-key-for-mode 'ido-mode
+        ;;     "s" 'ido-invoke-in-vertical-split
+        ;;     "t" 'ido-invoke-in-new-frame
+        ;;     "v" 'ido-invoke-in-horizontal-split
+        ;;     "x" 'ido-invoke-in-other-window)
+        ;;   (key-chord-define ido-completion-map (kbd "jk")
+        ;;                     (cdr (assoc 'ido-mode evil-leader--mode-maps))))
+        )
       (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys))
       ))
 
@@ -1699,6 +1709,7 @@ which require an initialization must be listed explicitly in the list.")
                (state-face (if active (spacemacs/current-state-face) face2))
                (window-numberingp (and (boundp 'window-numbering-mode)
                                        (symbol-value window-numbering-mode)))
+               (anzup (and (boundp 'anzu--state) anzu--state))
                (flycheckp (and (boundp 'flycheck-mode)
                                (symbol-value flycheck-mode)
                                (or flycheck-current-errors
@@ -1716,7 +1727,7 @@ which require an initialization must be listed explicitly in the list.")
            (if (and window-numberingp (spacemacs/window-number))
                (list (powerline-raw (spacemacs/window-number) state-face))
              (list (powerline-raw (evil-state-property evil-state :tag t) state-face)))
-           (if (and active anzu--state)
+           (if (and active anzup)
                (list
                 (funcall separator-right state-face face1)
                 (powerline-raw (anzu--update-mode-line) face1)

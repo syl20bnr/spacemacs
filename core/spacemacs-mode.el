@@ -17,7 +17,7 @@
 (require 'emacs-backports)
 (require 'themes-support)
 
-(defconst spacemacs-version "0.47.0"
+(defconst spacemacs-version "0.48.1"
   "Spacemacs version.")
 (defconst spacemacs-min-version "24.3"
   "Mininal required version of Emacs.")
@@ -125,7 +125,7 @@
         (`mac (spacemacs/set-font font 12))
         (`w32
          (spacemacs/set-font font 9)
-         (let ((fallback-font "MS Gothic:mono"))
+         (let ((fallback-font "Lucida Sans Unicode"))
            ;; window numbers
            (set-fontset-font "fontset-default"
                              '(#x2776 . #x2793) fallback-font nil 'append)
@@ -137,7 +137,7 @@
                              '(#x2295 . #x22a1) fallback-font nil 'append)
            ;; new version lighter
            (set-fontset-font "fontset-default"
-                             '(#x2190 . #x21ea) fallback-font nil 'append)))
+                             '(#x2190 . #x2200) fallback-font nil 'append)))
         (other (spacemacs/set-font font 10)))))
   
   ;; banner
@@ -205,7 +205,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
        pkg-elpa-dir))))
 
 (defun spacemacs/emacs-version-ok ()
-  (not (version< emacs-version spacemacs-min-version)))
+  (version<= spacemacs-min-version emacs-version))
 
 (defun spacemacs/display-and-copy-version ()
   "Echo the current spacemacs version and copy it."

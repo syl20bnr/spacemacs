@@ -229,7 +229,7 @@ It is also a good fit for people wanting to **lower the [risk of RSI][RSI]**
 induced by the default Emacs key bindings.
 
 Emacs users wanting to learn **a different way to edit files** or wanting to
-learn Vim key bindings (see [Tips for Emacs users](#tips-for-emacs-users)).
+learn Vim key bindings.
 
 As a side note, if you are a programmer and you don't know Vim key bindings
 yet, I deeply recommend you to learn the basics as recommended in
@@ -627,6 +627,7 @@ your `~/.spacemacs`):
 [evil-visualstar][]                     | search for current selection with `*`
 [evil-exchange][]                       | port of [vim-exchange][]
 [evil-surround][]                       | port of [vim-surround][]
+[evil-matchit][]                        | port of [matchit.vim][]
 [evil-nerd-commenter][]                 | port of [nerdcommenter][]
 [evil-search-highlight-persist][]       | emulation of hlsearch behavior
 [evil-numbers][]                        | like C-a/C-x in vim
@@ -696,6 +697,8 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 <kbd>SPC t M</kbd>    | toggle frame maximize
 <kbd>SPC t n</kbd>    | show the absolute line numbers
 <kbd>SPC t t</kbd>    | toggle frame transparency
+<kbd>SPC t T</kbd>    | toggle tool bar
+<kbd>SPC t U</kbd>    | toggle menu bar
 
 ## Mode-line
 
@@ -1092,7 +1095,6 @@ Key Binding             |                 Description
 ------------------------|----------------------------------------------------------------
 <kbd>C-\<return\></kbd> | open a `dired buffer`
 <kbd>M-\<return\></kbd> | open a `dired buffer` in terminal
-<kbd>C-b</kbd>          | open selected file in a horizontally split window
 <kbd>C-d</kbd>          | delete selected file (ask for confirmation)
 <kbd>C-h</kbd>          | go to parent directory
 <kbd>C-j</kbd>          | select next file or directory
@@ -1101,10 +1103,11 @@ Key Binding             |                 Description
 <kbd>C-S-k</kbd>        | go to previous directory
 <kbd>C-l</kbd>          | open the selected file
 <kbd>C-n</kbd>          | next history element
-<kbd>C-p</kbd>          | previous history element
-<kbd>C-t</kbd>          | open selected file in a new frame
-<kbd>C-v</kbd>          | open selected file in a vertically split window
 <kbd>C-o</kbd>          | open selected file in other window
+<kbd>C-p</kbd>          | previous history element
+<kbd>C-s</kbd>          | open selected file in a vertically split window
+<kbd>C-t</kbd>          | open selected file in a new frame
+<kbd>C-v</kbd>          | open selected file in a horizontally split window
 
 #### Experimental Ido feature
 
@@ -1115,9 +1118,9 @@ When evil leader is triggered the following commands are available:
 
 Key Binding   |                 Description
 --------------|----------------------------------------------------------------
-<kbd>b</kbd>  | open selected file in a horizontally split window
+<kbd>s</kbd>  | open selected file in a vertically split window
 <kbd>t</kbd>  | open selected file in a new frame
-<kbd>v</kbd>  | open selected file in a vertically split window
+<kbd>v</kbd>  | open selected file in a horizontally split window
 <kbd>x</kbd>  | open selected file in other window
 
 ### NeoTree file tree
@@ -2062,6 +2065,8 @@ developers to elisp hackers!
 [vim-surround]: https://github.com/tpope/vim-surround
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [nerdcommenter]: https://github.com/scrooloose/nerdcommenter
+[evil-matchit]: https://github.com/redguardtoo/evil-matchit
+[matchit.vim]: http://www.vim.org/scripts/script.php?script_id=39
 [source code pro]: https://github.com/adobe-fonts/source-code-pro
 [evil-escape]: https://github.com/syl20bnr/evil-escape
 [evil-args]: https://github.com/wcsmith/evil-args
