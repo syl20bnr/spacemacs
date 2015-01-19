@@ -3,6 +3,8 @@
     flycheck
     go-mode
     go-eldoc
+    go-autocomplete
+    company-go
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -31,3 +33,19 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun go/init-go-eldoc()
     (add-hook 'go-mode-hook 'go-eldoc-setup))
+
+(defun go/init-go-autocomplete()
+  (use-package go-autocomplete
+    :if (boundp 'ac-sources)
+  )
+)
+(defun go/init-company-go ()
+ (use-package company-go
+   :if (boundp 'company-backends)
+   :defer t
+   :config
+   (progn
+     (add-to-list 'company-backends 'company-go)
+    )
+  )
+)
