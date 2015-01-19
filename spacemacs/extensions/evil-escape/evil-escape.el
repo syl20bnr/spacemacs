@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil
 ;; Created: 22 Oct 2014
-;; Version: 2.01
+;; Version: 2.02
 ;; Package-Requires: ((emacs "24") (evil "1.0.9"))
 ;; URL: https://github.com/syl20bnr/evil-escape
 
@@ -29,8 +29,9 @@
 ;; Press `fd` quickly to:
 ;; ----------------------
 
-;;   - escape from all evil states to normal state
+;;   - escape from all stock evil states to normal state
 ;;   - escape from evil-lisp-state to normal state
+;;   - escape from evil-iedit-state to normal state
 ;;   - abort evil ex command
 ;;   - quit minibuffer
 ;;   - abort isearch
@@ -195,7 +196,14 @@ with a key sequence."
                                     :delete-func isearch-delete-char))
   ;; lisp state if installed
   (eval-after-load 'evil-lisp-state
-    '(eval '(evil-escape-define-escape "lisp-state" evil-lisp-state-map evil-normal-state))))
+    '(eval '(evil-escape-define-escape "lisp-state" evil-lisp-state-map evil-normal-state)))
+  ;; iedit state if installed
+  (eval-after-load 'evil-iedit-state
+    '(progn
+       (eval '(evil-escape-define-escape "iedit-state" evil-iedit-state-map
+                                         evil-iedit-state/quit-iedit-mode))
+       (eval '(evil-escape-define-escape "iedit-insert-state" evil-iedit-insert-state-map
+                                         evil-iedit-state/quit-iedit-mode)))))
 
 (defun evil-escape--undefine-keys ()
   "Unset the key bindings defined in `evil-escape--define-keys'."
@@ -207,7 +215,14 @@ with a key sequence."
     ;; isearch
     (if evil-escape-isearch-shadowed-func
         (define-key isearch-mode-map
-          (kbd first-key) evil-escape-isearch-shadowed-func))))
+          (kbd first-key) evil-escape-isearch-shadowed-func))
+    ;; list state
+    (eval-after-load 'evil-lisp-state
+      '(define-key evil-lisp-state-map (kbd first-key) nil))
+    ;; iedit state
+    (eval-after-load 'evil-iedit-state
+      '(progn (define-key evil-iedit-state-map (kbd first-key) nil)
+              (define-key evil-iedit-insert-state-map (kbd first-key) nil)))))
 
 (defun evil-escape--default-insert-func (key)
   "Insert KEY in current buffer if not read only."
