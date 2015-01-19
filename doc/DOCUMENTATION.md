@@ -60,7 +60,6 @@
     - [Navigating](#navigating)
         - [Point/Cursor](#pointcursor)
             - [Smooth scrolling](#smooth-scrolling)
-            - [Experimental insert state feature](#experimental-insert-state-feature)
         - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
         - [Window manipulation](#window-manipulation)
             - [Resizing windows](#resizing-windows)
@@ -69,7 +68,6 @@
         - [Buffers and Files](#buffers-and-files)
             - [Emacs and Spacemacs files](#emacs-and-spacemacs-files)
         - [Ido](#ido)
-            - [Experimental Ido feature](#experimental-ido-feature)
         - [NeoTree file tree](#neotree-file-tree)
             - [NeoTree navigation](#neotree-navigation)
             - [Opening files with NeoTree](#opening-files-with-neotree)
@@ -110,9 +108,7 @@
         - [Commenting](#commenting)
         - [Deleting files](#deleting-files)
         - [Editing Lisp code](#editing-lisp-code)
-            - [Key bindings maps](#key-bindings-maps)
-                - [Regular normal state bindings](#regular-normal-state-bindings)
-                - [Lisp specific bindings](#lisp-specific-bindings)
+        - [Commands:](#commands)
     - [Project management](#project-management)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
@@ -120,7 +116,6 @@
     - [Modes](#modes)
         - [Major Mode leader key](#major-mode-leader-key)
         - [Helm](#helm)
-            - [Experimental Helm feature](#experimental-helm-feature)
         - [Ledger](#ledger)
         - [Org](#org)
         - [Python](#python)
@@ -135,7 +130,6 @@
         - [I have no file ~/.spacemacs](#i-have-no-file-spacemacs)
 - [Tips](#tips)
     - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
-    - ["jk" to trigger evil leader](#jk-to-trigger-evil-leader)
 - [Achievements](#achievements)
 - [Thank you](#thank-you)
 
@@ -923,12 +917,6 @@ the `dotspacemacs-smooth-scrolling` variable in your `~/.spacemacs` to `nil`:
 (setq-default dotspacemacs-smooth-scrolling t)
 ```
 
-#### Experimental insert state feature
-
-If `dotspacemacs-feature-toggle-leader-on-jk` is non nil, pressing `jk` while
-in `insert state` will trigger the evil leader as if you pressed <kbd>SPC</kbd> in
-normal mode.
-
 ### Vim motions with ace-jump mode
 
 `Spacemacs` uses the `evil` integration of [ace-jump mode][ace-jump] which
@@ -1105,20 +1093,6 @@ Key Binding             |                 Description
 <kbd>C-t</kbd>          | open selected file in a new frame
 <kbd>C-v</kbd>          | open selected file in a horizontally split window
 
-#### Experimental Ido feature
-
-If `dotspacemacs-feature-toggle-leader-on-jk` is non nil, pressing `jk` while
-in `ido` minibuffer will trigger the evil leader.
-
-When evil leader is triggered the following commands are available:
-
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-<kbd>s</kbd>  | open selected file in a vertically split window
-<kbd>t</kbd>  | open selected file in a new frame
-<kbd>v</kbd>  | open selected file in a horizontally split window
-<kbd>x</kbd>  | open selected file in other window
-
 ### NeoTree file tree
 
 `Spacemacs` provides a quick and simple way to navigate in an unknown project
@@ -1201,12 +1175,9 @@ Key Binding         |                 Description
 
 Navigating in shell buffers can be tricky because it is not possible to use the
 leader in `insert state`. Switching back and forth between normal and insert
-states can be tedious.
-
-There are two solutions for this:
-- use <kbd>C-o</kbd> then use the leader key
-- enable the [leader on `jk`](#experimental-insert-state-feature)
-experimental feature.
+states can be tedious. The solution to this is to use <kbd>C-o</kbd> then use
+the leader key. <kbd>C-o</kbd> set the next key to be evaluated in
+`normal state`.
 
 ### Bookmarks
 
@@ -1819,27 +1790,6 @@ setup the key on tabulation:
 <kbd>CTRL+k</kbd> | go to next item
 <kbd>CTRL+l</kbd> | go to next page
 
-#### Experimental Helm feature
-
-If `dotspacemacs-feature-toggle-leader-on-jk` is non nil, pressing `jk` while
-in `helm` buffer will trigger the evil leader.
-
-When evil leader is triggered the following commands are available:
-
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-<kbd>1</kbd>  | execute action 0
-<kbd>2</kbd>  | execute action 1
-<kbd>3</kbd>  | execute action 2
-<kbd>4</kbd>  | execute action 3
-<kbd>5</kbd>  | execute action 4
-<kbd>6</kbd>  | execute action 5
-<kbd>7</kbd>  | execute action 6
-<kbd>8</kbd>  | execute action 7
-<kbd>9</kbd>  | execute action 8
-<kbd>0</kbd>  | execute action 9
-<kbd>a</kbd>  | toggle action selection menu
-
 ### Ledger
 
     Key Binding    |                 Description
@@ -1970,22 +1920,6 @@ your `~/.spacemacs` the following snippet:
 (defun dotspacemacs/config ()
   (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
 ```
-
-## "jk" to trigger evil leader
-
-It is possible to activate an experimental feature which allows to trigger the
-evil leader in `insert state`, in `ido` minibuffer and in `helm` buffers.
-
-To activate it, set `dotspacemacs-feature-toggle-leader-on-jk` to `t`.
-
-```elisp
-(setq-default dotspacemacs-feature-toggle-leader-on-jk t)
-```
-
-More info on this feature:
-- [insert state](#experimental-insert-state-feature)
-- [helm](#experimental-helm-feature)
-- [ido](#experimental-ido-feature)
 
 # Achievements
 

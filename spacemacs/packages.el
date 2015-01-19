@@ -637,17 +637,7 @@ which require an initialization must be listed explicitly in the list.")
     (setq evil-iedit-insert-state-cursor `((spacemacs/state-color 'iedit-insert) (bar . 2)))
     ;; activate leader in iedit and iedit-insert states
     (define-key evil-iedit-state-map
-      (kbd evil-leader/leader) evil-leader--default-map)
-    ;; evil-escape support
-    ;; (when (and (boundp 'evil-escape-mode)
-    ;;            (symbol-value evil-escape-mode))
-    ;;   (key-chord-define evil-iedit-state-map
-    ;;                     evil-escape-key-sequence
-    ;;                     'evil-iedit-state/quit-iedit-mode)
-    ;;   (key-chord-define evil-iedit-insert-state-map
-    ;;                     evil-escape-key-sequence
-    ;;                     'evil-iedit-state/quit-iedit-mode))
-    )
+      (kbd evil-leader/leader) evil-leader--default-map))
 
   (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode)
   (add-to-hooks 'spacemacs/evil-state-lazy-loading '(prog-mode-hook
@@ -687,14 +677,10 @@ which require an initialization must be listed explicitly in the list.")
         evil-leader--default-map)
       (define-key evil-motion-state-map (kbd dotspacemacs-leader-key)
         evil-leader--default-map)
-      ;; experimental: invoke leader with "jk" in insert mode
-      ;; (when dotspacemacs-feature-toggle-leader-on-jk
-      ;;   (key-chord-define evil-insert-state-map (kbd "jk")
-      ;;                     evil-leader--default-map))
       ;; experimental: map SPC m to ,
       (when dotspacemacs-major-mode-leader-key
-        (add-hook 'after-change-major-mode-hook 'spacemacs/activate-major-mode-leader))
-        )))
+        (add-hook 'after-change-major-mode-hook
+                  'spacemacs/activate-major-mode-leader)))))
 
 (defun spacemacs/init-evil-nerd-commenter ()
   (use-package evil-nerd-commenter
@@ -1185,21 +1171,6 @@ which require an initialization must be listed explicitly in the list.")
       (define-key helm-map (kbd "C-k") 'helm-previous-line)
       (define-key helm-map (kbd "C-h") 'helm-next-source)
       (define-key helm-map (kbd "C-l") 'helm-previous-source)
-      ;; experimental: toggle evil-leader with "jk" with helm specific commands
-      ;; (when dotspacemacs-feature-toggle-leader-on-jk
-      ;;   (evil-leader/set-key-for-mode 'helm-mode
-      ;;     "1" (lambda () (interactive) (helm-select-nth-action 0))
-      ;;     "2" (lambda () (interactive) (helm-select-nth-action 1))
-      ;;     "3" (lambda () (interactive) (helm-select-nth-action 2))
-      ;;     "4" (lambda () (interactive) (helm-select-nth-action 3))
-      ;;     "5" (lambda () (interactive) (helm-select-nth-action 4))
-      ;;     "6" (lambda () (interactive) (helm-select-nth-action 5))
-      ;;     "7" (lambda () (interactive) (helm-select-nth-action 6))
-      ;;     "8" (lambda () (interactive) (helm-select-nth-action 7))
-      ;;     "9" (lambda () (interactive) (helm-select-nth-action 8))
-      ;;     "0" (lambda () (interactive) (helm-select-nth-action 9))
-      ;;     "a" 'helm-select-action)
-      ;;   (key-chord-define helm-map (kbd "jk") (cdr (assoc 'helm-mode evil-leader--mode-maps))))
 
       ;; eshell
       (defun spacemacs/helm-eshell-history ()
@@ -1349,16 +1320,7 @@ which require an initialization must be listed explicitly in the list.")
         (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
         (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
-        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
-        ;; (when dotspacemacs-feature-toggle-leader-on-jk
-        ;;   (evil-leader/set-key-for-mode 'ido-mode
-        ;;     "s" 'ido-invoke-in-vertical-split
-        ;;     "t" 'ido-invoke-in-new-frame
-        ;;     "v" 'ido-invoke-in-horizontal-split
-        ;;     "x" 'ido-invoke-in-other-window)
-        ;;   (key-chord-define ido-completion-map (kbd "jk")
-        ;;                     (cdr (assoc 'ido-mode evil-leader--mode-maps))))
-        )
+        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer))
       (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys))
       ))
 
