@@ -7,7 +7,6 @@
 (defvar go-post-extensions
   '(
     ;; post extension gos go here
-    go-autocomplete
     go-oracle
     )
   "List of all extensions to load after the packages.")
@@ -21,9 +20,6 @@
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:
 ;; https://github.com/jwiegley/use-package
-(defun go/init-go-autocomplete()
-  (load-file "$GOPATH/src/github.com/nsf/gocode/emacs/go-autocomplete.el")
-)
 
 (defun go/init-go-oracle()
   (load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
