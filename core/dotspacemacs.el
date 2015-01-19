@@ -76,10 +76,6 @@ can be toggled through `toggle-transparency'.")
 overrides the default behavior of Emacs which recenters the point when
 it reaches the top or bottom of the screen.")
 
-(defvar dotspacemacs-feature-toggle-leader-on-jk nil
-  "If non nil pressing 'jk' in insert state, ido or helm will activate the
-evil leader.")
-
 (defvar dotspacemacs-persistent-server nil
   "If non nil advises quit functions to keep server open when quitting.")
 
