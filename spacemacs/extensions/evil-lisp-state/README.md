@@ -13,8 +13,6 @@ using mnemonic key bindings.
         - [Manually](#manually)
     - [Principle](#principle)
     - [Commands and key bindings](#commands-and-key-bindings)
-        - [hjkl](#hjkl)
-        - [Other commands:](#other-commands)
     - [Configuration](#configuration)
 
 <!-- markdown-toc end -->
@@ -52,49 +50,42 @@ Examples:
 
 - to slurp three times while in normal state:
 
-    <leader> m s s s
+    <leader> m 3 n
 
 - to wrap a symbol in parenthesis then slurping two times:
 
-    <leader> m w s s
+    <leader> m w 2 n
 
 ## Commands and key bindings
 
-### hjkl
-
-Evil Lisp state binds the most common commands on hjkl:
-
-Key Binding                | Function
----------------------------|------------------------------------------------------------
-<kbd>\<leader\> m h</kbd>  | previous symbol
-<kbd>\<leader\> m H</kbd>  | forward barf sexp (move the current symbol or sexp outside)
-<kbd>\<leader\> m j</kbd>  | next closing parenthesis
-<kbd>\<leader\> m J</kbd>  | wrap symbol with parenthesis (down one level)
-<kbd>\<leader\> m k</kbd>  | previous opening parenthesis
-<kbd>\<leader\> m K</kbd>  | unwrap current sexp (up one level)
-<kbd>\<leader\> m l</kbd>  | next symbol
-<kbd>\<leader\> m L</kbd>  | forward slurp sexp (move next outside sexp into current one)
-
-So with just hjkl keys you can:
-- navigate between symbols and sexps
-- slurp and barf symbols and sexps
-- wrap and unwrap symbols and sexps
-
-**Notes:**
-Slurping, barfing and wrapping are also bound on other keys.
-
-### Other commands:
-
 Key Binding                 | Function
 ----------------------------|------------------------------------------------------------
+<kbd>\<leader\></kbd>       | evil leader
+<kbd>\<leader\> m %</kbd>   | evil jump item
+<kbd>\<leader\> m :</kbd>   | ex command
 <kbd>\<leader\> m (</kbd>   | insert expression before (same level as current one)
 <kbd>\<leader\> m )</kbd>   | insert expression after (same level as current one)
+<kbd>\<leader\> m $</kbd>   | go to the end of current sexp
+<kbd>\<leader\> m 0</kbd>   | go to the beginning of current sexp
 <kbd>\<leader\> m a</kbd>   | absorb expression
 <kbd>\<leader\> m b</kbd>   | forward barf expression
 <kbd>\<leader\> m B</kbd>   | backward barf expression
 <kbd>\<leader\> m c</kbd>   | convolute expression
+<kbd>\<leader\> m d</kbd>   | describe elisp thing at point (show documentation)
+<kbd>\<leader\> m e $</kbd> | go to end of line and evaluate last sexp
+<kbd>\<leader\> m e e</kbd> | evaluate last sexp
+<kbd>\<leader\> m e f</kbd> | evaluate current defun
+<kbd>\<leader\> m g</kbd>   | go to definition
+<kbd>\<leader\> m h</kbd>   | backward char
+<kbd>\<leader\> m H</kbd>   | previous symbol
 <kbd>\<leader\> m i</kbd>   | switch to `insert state`
 <kbd>\<leader\> m I</kbd>   | go to beginning of current expression and switch to `insert state`
+<kbd>\<leader\> m j</kbd>   | next visual line
+<kbd>\<leader\> m J</kbd>   | next closing parenthesis
+<kbd>\<leader\> m k</kbd>   | previous visual line
+<kbd>\<leader\> m K</kbd>   | previous opening parenthesis
+<kbd>\<leader\> m l</kbd>   | forward char
+<kbd>\<leader\> m L</kbd>   | next symbol
 <kbd>\<leader\> m m</kbd>   | merge (join) expression
 <kbd>\<leader\> m n</kbd>   | forwared slurp expression
 <kbd>\<leader\> m N</kbd>   | backward slurp expression
@@ -103,6 +94,8 @@ Key Binding                 | Function
 <kbd>\<leader\> m q</kbd>   | unwrap current expression and kill all symbols after point
 <kbd>\<leader\> m Q</kbd>   | unwrap current expression and kill all symbols before point
 <kbd>\<leader\> m r</kbd>   | raise expression (replace parent expression by current one)
+<kbd>\<leader\> m t b</kbd> | execute buffer tests
+<kbd>\<leader\> m t q</kbd> | ask for test function to execute
 <kbd>\<leader\> m T</kbd>   | transpose expression
 <kbd>\<leader\> m u</kbd>   | undo
 <kbd>\<leader\> m C-r</kbd> | redo

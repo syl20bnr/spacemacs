@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil smartparens lisp mnemonic
 ;; Created: 9 Oct 2014
-;; Version: 5.1.0
+;; Version: 6.1
 ;; Package-Requires: ((evil "1.0.9") (evil-leader "0.4.3") (smartparens "1.6.1"))
 ;; URL: https://github.com/syl20bnr/evil-lisp-state
 
@@ -36,64 +36,63 @@
 ;; By default, the prefix for each command is `<leader> m`.
 ;; Each command when executed set the current state to `lisp state`.
 ;; By example, to slurp three times while in normal state:
-;;     <leader> m s s s
+;;     <leader> m 3 n
 ;; Or to wrap a symbol in parenthesis then slurping two times:
-;;     <leader> m w s s
+;;     <leader> m w 2 n
 
 ;; Commands and key bindings:
 ;; --------------------------
 
-;; Evil Lisp state binds the most common commands on hjkl:
-;;
-;; Key Binding     | Function
-;; ----------------|------------------------------------------------------------
-;; `<leader> m h`  | previous symbol
-;; `<leader> m H`  | forward barf sexp (move the current symbol or sexp outside)
-;; `<leader> m j`  | next closing parenthesis
-;; `<leader> m J`  | wrap symbol with parenthesis (down one level)
-;; `<leader> m k`  | previous opening parenthesis
-;; `<leader> m K`  | unwrap current sexp (up one level)
-;; `<leader> m l`  | next symbol
-;; `<leader> m L`  | forward slurp sexp (move next outside sexp into current one)
-;;
-;; So with just hjkl keys you can:
-;; - navigate between symbols and sexps
-;; - slurp and barf symbols and sexps
-;; - wrap and unwrap symbols and sexps
-
-;; Slurping, barfing and wrapping are also bound on other keys.
-;; All the other commands are:
-
-;; Key Binding     | Function
-;; ----------------|------------------------------------------------------------
-;; `<leader> m (`  | insert expression before (same level as current one)
-;; `<leader> m )`  | insert expression after (same level as current one)
-;; `<leader> m a`  | absorb expression
-;; `<leader> m b`  | forward barf expression
-;; `<leader> m B`  | backward barf expression
-;; `<leader> m c`  | convolute expression
-;; `<leader> m i`  | switch to `insert state`
-;; `<leader> m I`  | go to beginning of current expression and switch to `insert state`
-;; `<leader> m m`  | merge (join) expression
-;; `<leader> m n`  | forwared slurp expression
-;; `<leader> m N`  | backward slurp expression
-;; `<leader> m p`  | paste after
-;; `<leader> m P`  | paste before
-;; `<leader> m q`  | unwrap current expression and kill all symbols after point
-;; `<leader> m Q`  | unwrap current expression and kill all symbols before point
-;; `<leader> m r`  | raise expression (replace parent expression by current one)
-;; `<leader> m T`  | transpose expression
-;; `<leader> m u`  | undo
-;; `<leader> m C-r`| redo
-;; `<leader> m v`  | switch to `visual state`
-;; `<leader> m V`  | switch to `visual line state`
-;; `<leader> m C-v`| switch to `visual block state`
-;; `<leader> m w`  | wrap expression with parenthesis
-;; `<leader> m W`  | unwrap expression
-;; `<leader> m xs` | delete symbol
-;; `<leader> m xw` | delete word
-;; `<leader> m xx` | delete expression
-;; `<leader> m y`  | copy expression
+;; Key Binding    | Function
+;; ---------------|------------------------------------------------------------
+;; `leader'       | evil leader
+;; `leader m %'   | evil jump item
+;; `leader m :'   | ex command
+;; `leader m ('   | insert expression before (same level as current one)
+;; `leader m )'   | insert expression after (same level as current one)
+;; `leader m $'   | go to the end of current sexp
+;; `leader m 0'   | go to the beginning of current sexp
+;; `leader m a'   | absorb expression
+;; `leader m b'   | forward barf expression
+;; `leader m B'   | backward barf expression
+;; `leader m c'   | convolute expression
+;; `leader m d'   | describe elisp thing at point (show documentation)
+;; `leader m e $' | go to end of line and evaluate last sexp
+;; `leader m e e' | evaluate last sexp
+;; `leader m e f' | evaluate current defun
+;; `leader m g'   | go to definition
+;; `leader m h'   | backward char
+;; `leader m H'   | previous symbol
+;; `leader m i'   | switch to `insert state`
+;; `leader m I'   | go to beginning of current expression and switch to `insert state`
+;; `leader m j'   | next visual line
+;; `leader m J'   | next closing parenthesis
+;; `leader m k'   | previous visual line
+;; `leader m K'   | previous opening parenthesis
+;; `leader m l'   | forward char
+;; `leader m L'   | next symbol
+;; `leader m m'   | merge (join) expression
+;; `leader m n'   | forwared slurp expression
+;; `leader m N'   | backward slurp expression
+;; `leader m p'   | paste after
+;; `leader m P'   | paste before
+;; `leader m q'   | unwrap current expression and kill all symbols after point
+;; `leader m Q'   | unwrap current expression and kill all symbols before point
+;; `leader m r'   | raise expression (replace parent expression by current one)
+;; `leader m t b' | execute buffer tests
+;; `leader m t q' | ask for test function to execute
+;; `leader m T'   | transpose expression
+;; `leader m u'   | undo
+;; `leader m C-r' | redo
+;; `leader m v'   | switch to `visual state`
+;; `leader m V'   | switch to `visual line state`
+;; `leader m C-v' | switch to `visual block state`
+;; `leader m w'   | wrap expression with parenthesis
+;; `leader m W'   | unwrap expression
+;; `leader m xs'  | delete symbol
+;; `leader m xw'  | delete word
+;; `leader m xx'  | delete expression
+;; `leader m y'   | copy expression
 
 ;; Configuration:
 ;; --------------
@@ -159,10 +158,25 @@
      (evil-normal-state)
      (call-interactively ',command)))
 
+;; escape
 (define-key evil-lisp-state-map [escape] 'evil-normal-state)
+
+;; toggle lisp state
+(define-key evil-lisp-state-map ",," 'lisp-state-toggle-lisp-state)
+(dolist (mm evil-lisp-state-major-modes)
+  (evil-leader/set-key-for-mode mm "m," 'lisp-state-toggle-lisp-state))
+
+;; leader
+(define-key evil-lisp-state-map (kbd evil-leader/leader) evil-leader--default-map)
+
+;; auto-switch to lisp state commands
 (defconst evil-lisp-state-commands
-  `(("("   . lisp-state-insert-sexp-before)
+  `(("%"   . evil-jump-item)
+    (":"   . evil-ex)
+    ("("   . lisp-state-insert-sexp-before)
     (")"   . lisp-state-insert-sexp-after)
+    ("$"   . sp-end-of-sexp)
+    ("0"   . lisp-state-beginning-of-sexp)
     ("1"   . digit-argument)
     ("2"   . digit-argument)
     ("3"   . digit-argument)
@@ -176,16 +190,21 @@
     ("b"   . sp-forward-barf-sexp)
     ("B"   . sp-backward-barf-sexp)
     ("c"   . sp-convolute-sexp)
-    ("h"   . sp-backward-symbol)
-    ("H"   . sp-forward-barf-sexp)
+    ("d"   . elisp-slime-nav-describe-elisp-thing-at-point)
+    ("e$"  . lisp-state-eval-sexp-end-of-line)
+    ("ee"  . eval-last-sexp)
+    ("ef"  . eval-defun)
+    ("g"   . elisp-slime-nav-find-elisp-thing-at-point)
+    ("h"   . evil-backward-char)
+    ("H"   . sp-backward-symbol)
     ("i"   . evil-insert-state)
     ("I"   . evil-insert-line)
-    ("j"   . lisp-state-next-closing-paren)
-    ("J"   . lisp-state-wrap)
-    ("k"   . lisp-state-prev-opening-paren)
-    ("K"   . sp-unwrap-sexp)
-    ("l"   . lisp-state-forward-symbol)
-    ("L"   . sp-forward-slurp-sexp)
+    ("j"   . evil-next-visual-line)
+    ("J"   . lisp-state-next-closing-paren)
+    ("k"   . evil-previous-visual-line)
+    ("K"   . lisp-state-prev-opening-paren)
+    ("l"   . evil-forward-char)
+    ("L"   . lisp-state-forward-symbol)
     ("m"   . sp-join-sexp)
     ("n"   . sp-forward-slurp-sexp)
     ("N"   . sp-backward-slurp-sexp)
@@ -194,7 +213,9 @@
     ("q"   . sp-splice-sexp-killing-forward)
     ("Q"   . sp-splice-sexp-killing-backward)
     ("r"   . sp-raise-sexp)
-    ("T"  . sp-transpose-sexp)
+    ("tb"  . spacemacs/ert-run-tests-buffer)
+    ("tq"  . ert)
+    ("T"   . sp-transpose-sexp)
     ("u"   . undo-tree-undo)
     ("C-r" . undo-tree-redo)
     ("v"   . evil-visual-char)
@@ -220,6 +241,14 @@
           (evil-leader/set-key-for-mode mm
             ,(kbd (concat evil-lisp-state-leader-prefix key))
             (evil-lisp-state-enter-command ,cmd)))))))
+
+(defun lisp-state-toggle-lisp-state ()
+  "Toggle the lisp state."
+  (interactive)
+  (message "state: %s" evil-state)
+  (if (eq 'lisp evil-state)
+      (evil-normal-state)
+    (evil-lisp-state)))
 
 (defun lisp-state-wrap (&optional arg)
   "Wrap a symbol with parenthesis."
@@ -275,6 +304,20 @@
     (insert " ")
     (sp-insert-pair "(")
     (indent-for-tab-command)))
+
+(defun lisp-state-eval-sexp-end-of-line ()
+  "Evaluate the last sexp at the end of the current line."
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (eval-last-sexp nil)))
+
+(defun lisp-state-beginning-of-sexp (&optional arg)
+  "Go to the beginning of current s-exp"
+  (interactive "P")
+  (sp-beginning-of-sexp)
+  (evil-backward-char))
+
 
 (provide 'evil-lisp-state)
 

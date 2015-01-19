@@ -60,7 +60,6 @@
     - [Navigating](#navigating)
         - [Point/Cursor](#pointcursor)
             - [Smooth scrolling](#smooth-scrolling)
-            - [Experimental insert state feature](#experimental-insert-state-feature)
         - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
         - [Window manipulation](#window-manipulation)
             - [Resizing windows](#resizing-windows)
@@ -69,7 +68,6 @@
         - [Buffers and Files](#buffers-and-files)
             - [Emacs and Spacemacs files](#emacs-and-spacemacs-files)
         - [Ido](#ido)
-            - [Experimental Ido feature](#experimental-ido-feature)
         - [NeoTree file tree](#neotree-file-tree)
             - [NeoTree navigation](#neotree-navigation)
             - [Opening files with NeoTree](#opening-files-with-neotree)
@@ -110,9 +108,7 @@
         - [Commenting](#commenting)
         - [Deleting files](#deleting-files)
         - [Editing Lisp code](#editing-lisp-code)
-            - [Key bindings maps](#key-bindings-maps)
-                - [Regular normal state bindings](#regular-normal-state-bindings)
-                - [Lisp specific bindings](#lisp-specific-bindings)
+        - [Commands:](#commands)
     - [Project management](#project-management)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
@@ -120,7 +116,6 @@
     - [Modes](#modes)
         - [Major Mode leader key](#major-mode-leader-key)
         - [Helm](#helm)
-            - [Experimental Helm feature](#experimental-helm-feature)
         - [Ledger](#ledger)
         - [Org](#org)
         - [Python](#python)
@@ -135,7 +130,6 @@
         - [I have no file ~/.spacemacs](#i-have-no-file-spacemacs)
 - [Tips](#tips)
     - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
-    - ["jk" to trigger evil leader](#jk-to-trigger-evil-leader)
 - [Achievements](#achievements)
 - [Thank you](#thank-you)
 
@@ -872,16 +866,12 @@ The choice of `fd` was made to be able to use the same sequence to escape from
 - quit gist-list menu
 - hide neotree buffer
 
-This sequence can be customized in your `~/.spacemacs`, but `evil-escape`
-is not guaranteed to work properly with sequences based on `h j k or l` so
-it is recommended to avoid defining sequences like `jj` or `jk`.
-
-Example to set it to `jn` (it is important to put it in `dotspacemacs/init`):
+This sequence can be customized in your `~/.spacemacs`. Example to set it
+to `jj` (it is important set the variable in `dotspacemacs/init`):
 
 ```elisp
 (defun dotspacemacs/init ()
-  (setq-default evil-escape-key-sequence (kbd "jn"))
-)
+  (setq-default evil-escape-key-sequence "jj"))
 ```
 
 ## Executing Vim, Emacs and shell commands
@@ -926,12 +916,6 @@ the `dotspacemacs-smooth-scrolling` variable in your `~/.spacemacs` to `nil`:
 ```elisp
 (setq-default dotspacemacs-smooth-scrolling t)
 ```
-
-#### Experimental insert state feature
-
-If `dotspacemacs-feature-toggle-leader-on-jk` is non nil, pressing `jk` while
-in `insert state` will trigger the evil leader as if you pressed <kbd>SPC</kbd> in
-normal mode.
 
 ### Vim motions with ace-jump mode
 
@@ -1109,20 +1093,6 @@ Key Binding             |                 Description
 <kbd>C-t</kbd>          | open selected file in a new frame
 <kbd>C-v</kbd>          | open selected file in a horizontally split window
 
-#### Experimental Ido feature
-
-If `dotspacemacs-feature-toggle-leader-on-jk` is non nil, pressing `jk` while
-in `ido` minibuffer will trigger the evil leader.
-
-When evil leader is triggered the following commands are available:
-
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-<kbd>s</kbd>  | open selected file in a vertically split window
-<kbd>t</kbd>  | open selected file in a new frame
-<kbd>v</kbd>  | open selected file in a horizontally split window
-<kbd>x</kbd>  | open selected file in other window
-
 ### NeoTree file tree
 
 `Spacemacs` provides a quick and simple way to navigate in an unknown project
@@ -1205,12 +1175,9 @@ Key Binding         |                 Description
 
 Navigating in shell buffers can be tricky because it is not possible to use the
 leader in `insert state`. Switching back and forth between normal and insert
-states can be tedious.
-
-There are two solutions for this:
-- use <kbd>C-o</kbd> then use the leader key
-- enable the [leader on `jk`](#experimental-insert-state-feature)
-experimental feature.
+states can be tedious. The solution to this is to use <kbd>C-o</kbd> then use
+the leader key. <kbd>C-o</kbd> set the next key to be evaluated in
+`normal state`.
 
 ### Bookmarks
 
@@ -1662,44 +1629,38 @@ the commands can be repeated without pressing on <kbd>SPC m</kbd>.
 When in `lisp state` the color of the mode-line changes to pink.
 
 Examples:
-- to slurp three times while in normal state: <kbd>SPC m n n n</kbd>
-- to wrap a symbol in parenthesis then slurping two times: <kbd>SPC m w n n</kbd>
+- to slurp three times while in normal state: <kbd>SPC m 3 n</kbd>
+- to wrap a symbol in parenthesis then slurping two times: <kbd>SPC m w 2 n</kbd>
 
-#### hjkl keys for quickly editing lisp code
-
-Evil Lisp state binds the most common commands on hjkl:
-
-Key Binding         | Function
---------------------|------------------------------------------------------------
-<kbd>SPC m h</kbd>  | previous symbol
-<kbd>SPC m H</kbd>  | forward barf sexp (move the current symbol or sexp outside)
-<kbd>SPC m j</kbd>  | next closing parenthesis
-<kbd>SPC m J</kbd>  | wrap symbol with parenthesis (down one level)
-<kbd>SPC m k</kbd>  | previous opening parenthesis
-<kbd>SPC m K</kbd>  | unwrap current sexp (up one level)
-<kbd>SPC m l</kbd>  | next symbol
-<kbd>SPC m L</kbd>  | forward slurp sexp (move next outside sexp into current one)
-
-So with just hjkl keys you can:
-- navigate between symbols and sexps
-- slurp and barf symbols and sexps
-- wrap and unwrap symbols and sexps
-
-**Notes:**
-Slurping, barfing and wrapping are also bound on other keys, see below.
-
-### Other commands:
+### Commands:
 
 Key Binding          | Function
 ---------------------|------------------------------------------------------------
+<kbd>SPC m %</kbd>   | evil jump item
+<kbd>SPC m :</kbd>   | ex command
 <kbd>SPC m (</kbd>   | insert expression before (same level as current one)
 <kbd>SPC m )</kbd>   | insert expression after (same level as current one)
+<kbd>SPC m $</kbd>   | go to the end of current sexp
+<kbd>SPC m 0</kbd>   | go to the beginning of current sexp
 <kbd>SPC m a</kbd>   | absorb expression
 <kbd>SPC m b</kbd>   | forward barf expression
 <kbd>SPC m B</kbd>   | backward barf expression
 <kbd>SPC m c</kbd>   | convolute expression
+<kbd>SPC m d</kbd>   | describe elisp thing at point (show documentation)
+<kbd>SPC m e $</kbd> | go to end of line and evaluate last sexp
+<kbd>SPC m e e</kbd> | evaluate last sexp
+<kbd>SPC m e f</kbd> | evaluate current defun
+<kbd>SPC m g</kbd>   | go to definition
+<kbd>SPC m h</kbd>   | backward char
+<kbd>SPC m H</kbd>   | previous symbol
 <kbd>SPC m i</kbd>   | switch to `insert state`
 <kbd>SPC m I</kbd>   | go to beginning of current expression and switch to `insert state`
+<kbd>SPC m j</kbd>   | next visual line
+<kbd>SPC m J</kbd>   | next closing parenthesis
+<kbd>SPC m k</kbd>   | previous visual line
+<kbd>SPC m K</kbd>   | previous opening parenthesis
+<kbd>SPC m l</kbd>   | forward char
+<kbd>SPC m L</kbd>   | next symbol
 <kbd>SPC m m</kbd>   | merge (join) expression
 <kbd>SPC m n</kbd>   | forwared slurp expression
 <kbd>SPC m N</kbd>   | backward slurp expression
@@ -1708,6 +1669,8 @@ Key Binding          | Function
 <kbd>SPC m q</kbd>   | unwrap current expression and kill all symbols after point
 <kbd>SPC m Q</kbd>   | unwrap current expression and kill all symbols before point
 <kbd>SPC m r</kbd>   | raise expression (replace parent expression by current one)
+<kbd>SPC m t b</kbd> | execute buffer tests
+<kbd>SPC m t q</kbd> | ask for test function to execute
 <kbd>SPC m T</kbd>   | transpose expression
 <kbd>SPC m u</kbd>   | undo
 <kbd>SPC m C-r</kbd> | redo
@@ -1826,27 +1789,6 @@ setup the key on tabulation:
 <kbd>CTRL+j</kbd> | go to previous item
 <kbd>CTRL+k</kbd> | go to next item
 <kbd>CTRL+l</kbd> | go to next page
-
-#### Experimental Helm feature
-
-If `dotspacemacs-feature-toggle-leader-on-jk` is non nil, pressing `jk` while
-in `helm` buffer will trigger the evil leader.
-
-When evil leader is triggered the following commands are available:
-
-Key Binding   |                 Description
---------------|----------------------------------------------------------------
-<kbd>1</kbd>  | execute action 0
-<kbd>2</kbd>  | execute action 1
-<kbd>3</kbd>  | execute action 2
-<kbd>4</kbd>  | execute action 3
-<kbd>5</kbd>  | execute action 4
-<kbd>6</kbd>  | execute action 5
-<kbd>7</kbd>  | execute action 6
-<kbd>8</kbd>  | execute action 7
-<kbd>9</kbd>  | execute action 8
-<kbd>0</kbd>  | execute action 9
-<kbd>a</kbd>  | toggle action selection menu
 
 ### Ledger
 
@@ -1978,22 +1920,6 @@ your `~/.spacemacs` the following snippet:
 (defun dotspacemacs/config ()
   (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
 ```
-
-## "jk" to trigger evil leader
-
-It is possible to activate an experimental feature which allows to trigger the
-evil leader in `insert state`, in `ido` minibuffer and in `helm` buffers.
-
-To activate it, set `dotspacemacs-feature-toggle-leader-on-jk` to `t`.
-
-```elisp
-(setq-default dotspacemacs-feature-toggle-leader-on-jk t)
-```
-
-More info on this feature:
-- [insert state](#experimental-insert-state-feature)
-- [helm](#experimental-helm-feature)
-- [ido](#experimental-ido-feature)
 
 # Achievements
 
