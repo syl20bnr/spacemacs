@@ -872,16 +872,12 @@ The choice of `fd` was made to be able to use the same sequence to escape from
 - quit gist-list menu
 - hide neotree buffer
 
-This sequence can be customized in your `~/.spacemacs`, but `evil-escape`
-is not guaranteed to work properly with sequences based on `h j k or l` so
-it is recommended to avoid defining sequences like `jj` or `jk`.
-
-Example to set it to `jn` (it is important to put it in `dotspacemacs/init`):
+This sequence can be customized in your `~/.spacemacs`. Example to set it
+to `jj` (it is important set the variable in `dotspacemacs/init`):
 
 ```elisp
 (defun dotspacemacs/init ()
-  (setq-default evil-escape-key-sequence (kbd "jn"))
-)
+  (setq-default evil-escape-key-sequence "jj"))
 ```
 
 ## Executing Vim, Emacs and shell commands
