@@ -1137,7 +1137,7 @@ Key Binding                       |                 Description
 ----------------------------------|----------------------------------------------------------------
 <kbd>l</kbd> or <kbd>RET</kbd>    | open file in last active window
 <kbd># l</kbd> or <kbd>2 RET</kbd>| open file in window number `#`
-<kbd>|</kbd>                      | open file in an vertically split window
+<kbd>\|</kbd>                     | open file in an vertically split window
 <kbd>-</kbd>                      | open file in an horizontally split window
 
 #### Other NeoTree key bindings
