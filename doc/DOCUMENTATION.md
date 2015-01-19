@@ -1662,44 +1662,38 @@ the commands can be repeated without pressing on <kbd>SPC m</kbd>.
 When in `lisp state` the color of the mode-line changes to pink.
 
 Examples:
-- to slurp three times while in normal state: <kbd>SPC m n n n</kbd>
-- to wrap a symbol in parenthesis then slurping two times: <kbd>SPC m w n n</kbd>
+- to slurp three times while in normal state: <kbd>SPC m 3 n</kbd>
+- to wrap a symbol in parenthesis then slurping two times: <kbd>SPC m w 2 n</kbd>
 
-#### hjkl keys for quickly editing lisp code
-
-Evil Lisp state binds the most common commands on hjkl:
-
-Key Binding         | Function
---------------------|------------------------------------------------------------
-<kbd>SPC m h</kbd>  | previous symbol
-<kbd>SPC m H</kbd>  | forward barf sexp (move the current symbol or sexp outside)
-<kbd>SPC m j</kbd>  | next closing parenthesis
-<kbd>SPC m J</kbd>  | wrap symbol with parenthesis (down one level)
-<kbd>SPC m k</kbd>  | previous opening parenthesis
-<kbd>SPC m K</kbd>  | unwrap current sexp (up one level)
-<kbd>SPC m l</kbd>  | next symbol
-<kbd>SPC m L</kbd>  | forward slurp sexp (move next outside sexp into current one)
-
-So with just hjkl keys you can:
-- navigate between symbols and sexps
-- slurp and barf symbols and sexps
-- wrap and unwrap symbols and sexps
-
-**Notes:**
-Slurping, barfing and wrapping are also bound on other keys, see below.
-
-### Other commands:
+### Commands:
 
 Key Binding          | Function
 ---------------------|------------------------------------------------------------
+<kbd>SPC m %</kbd>   | evil jump item
+<kbd>SPC m :</kbd>   | ex command
 <kbd>SPC m (</kbd>   | insert expression before (same level as current one)
 <kbd>SPC m )</kbd>   | insert expression after (same level as current one)
+<kbd>SPC m $</kbd>   | go to the end of current sexp
+<kbd>SPC m 0</kbd>   | go to the beginning of current sexp
 <kbd>SPC m a</kbd>   | absorb expression
 <kbd>SPC m b</kbd>   | forward barf expression
 <kbd>SPC m B</kbd>   | backward barf expression
 <kbd>SPC m c</kbd>   | convolute expression
+<kbd>SPC m d</kbd>   | describe elisp thing at point (show documentation)
+<kbd>SPC m e $</kbd> | go to end of line and evaluate last sexp
+<kbd>SPC m e e</kbd> | evaluate last sexp
+<kbd>SPC m e f</kbd> | evaluate current defun
+<kbd>SPC m g</kbd>   | go to definition
+<kbd>SPC m h</kbd>   | backward char
+<kbd>SPC m H</kbd>   | previous symbol
 <kbd>SPC m i</kbd>   | switch to `insert state`
 <kbd>SPC m I</kbd>   | go to beginning of current expression and switch to `insert state`
+<kbd>SPC m j</kbd>   | next visual line
+<kbd>SPC m J</kbd>   | next closing parenthesis
+<kbd>SPC m k</kbd>   | previous visual line
+<kbd>SPC m K</kbd>   | previous opening parenthesis
+<kbd>SPC m l</kbd>   | forward char
+<kbd>SPC m L</kbd>   | next symbol
 <kbd>SPC m m</kbd>   | merge (join) expression
 <kbd>SPC m n</kbd>   | forwared slurp expression
 <kbd>SPC m N</kbd>   | backward slurp expression
@@ -1708,6 +1702,8 @@ Key Binding          | Function
 <kbd>SPC m q</kbd>   | unwrap current expression and kill all symbols after point
 <kbd>SPC m Q</kbd>   | unwrap current expression and kill all symbols before point
 <kbd>SPC m r</kbd>   | raise expression (replace parent expression by current one)
+<kbd>SPC m t b</kbd> | execute buffer tests
+<kbd>SPC m t q</kbd> | ask for test function to execute
 <kbd>SPC m T</kbd>   | transpose expression
 <kbd>SPC m u</kbd>   | undo
 <kbd>SPC m C-r</kbd> | redo

@@ -208,12 +208,3 @@
 ;; google translate -----------------------------------------------------------
 (evil-leader/set-key
   "xgl" 'set-google-translate-languages)
-;; Lisps ----------------------------------------------------------------------
-(evil-leader/set-key-for-mode 'emacs-lisp-mode
-  "me$" 'spacemacs/eval-sexp-end-of-line
-  "mee" 'eval-last-sexp
-  "mef" 'eval-defun
-  "md"  'elisp-slime-nav-describe-elisp-thing-at-point
-  "mg"  'elisp-slime-nav-find-elisp-thing-at-point
-  "mtb" 'spacemacs/ert-run-tests-buffer
-  "mtt" 'ert)
