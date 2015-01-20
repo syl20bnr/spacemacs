@@ -17,11 +17,6 @@
 (require 'emacs-backports)
 (require 'themes-support)
 
-(defconst spacemacs-version "0.48.2"
-  "Spacemacs version.")
-(defconst spacemacs-min-version "24.3"
-  "Mininal required version of Emacs.")
-
 (defconst spacemacs-repository "spacemacs"
   "Name of the Spacemacs remote repository.")
 (defconst spacemacs-repository-owner "syl20bnr"
@@ -203,9 +198,6 @@ FILE-TO-LOAD is an explicit file to load after the installation."
        (when file-to-load
          (load-file (concat pkg-elpa-dir file-to-load)))
        pkg-elpa-dir))))
-
-(defun spacemacs/emacs-version-ok ()
-  (version<= spacemacs-min-version emacs-version))
 
 (defun spacemacs/display-and-copy-version ()
   "Echo the current spacemacs version and copy it."
