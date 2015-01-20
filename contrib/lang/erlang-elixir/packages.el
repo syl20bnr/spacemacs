@@ -12,6 +12,7 @@
 
 (defvar erlang-elixir-packages
   '(
+    alchemist
     edts
     elixir-mode
     erlang
@@ -20,6 +21,39 @@
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
+
+(defun erlang-elixir/init-alchemist ()
+  (add-hook 'elixir-mode-hook 'alchemist-mode)
+  (setq alchemist-project-compile-when-needed t)
+  (evil-leader/set-key-for-mode 'elixir-mode
+    "mm:" 'alchemist-mix
+    "mta" 'alchemist-mix-test
+    "mtb" 'alchemist-mix-test-this-buffer
+    "mtt" 'alchemist-mix-test-at-point
+    "mmc" 'alchemist-mix-compile
+    "mmx" 'alchemist-mix-run
+    "mmh" 'alchemist-mix-help
+    "mgt" 'alchemist-project-open-tests-for-current-file
+    "mcb" 'alchemist-compile-this-buffer
+    "mxb" 'alchemist-execute-this-buffer
+    "mxf" 'alchemist-execute-file
+    "mx:" 'alchemist-execute
+    "mh:" 'alchemist-help
+    "mhH" 'alchemist-help-history
+    "mhh" 'alchemist-help-search-at-point
+    "mhr" 'alchemist-help-search-marked-region
+    "mi"  'alchemist-iex-run
+    "mmi" 'alchemist-iex-project-run
+    "msl" 'alchemist-iex-send-current-line
+    "msL" 'alchemist-iex-send-current-line-and-go
+    "msr" 'alchemist-iex-send-region
+    "msR" 'alchemist-iex-send-region-and-go
+    "mel" 'alchemist-eval-current-line
+    "meL" 'alchemist-eval-print-current-line
+    "mer" 'alchemist-eval-region
+    "meR" 'alchemist-eval-print-region
+    "meb" 'alchemist-eval-buffer
+    "meB" 'alchemist-eval-print-buffer))
 
 (defun erlang-elixir/init-edts ()
 
