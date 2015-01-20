@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil
 ;; Created: 22 Oct 2014
-;; Version: 2.02
+;; Version: 2.03
 ;; Package-Requires: ((emacs "24") (evil "1.0.9"))
 ;; URL: https://github.com/syl20bnr/evil-escape
 
@@ -112,6 +112,10 @@ with a key sequence."
            (fkeystr (char-to-string first-key)))
       fkeystr)))
 
+(defun evil-escape--escape-function-symbol (from)
+  "Return the function symbol for the passed FROM string."
+  (intern (format "evil-escape-%s" from)))
+
 (defmacro evil-escape-define-escape (from map command &rest properties)
   "Define a function to escape from FROM in MAP keymap by executing COMMAND.
 
@@ -129,7 +133,7 @@ with a key sequence."
         (delete-func (plist-get properties :delete-func)))
     `(progn
        (define-key ,map ,(evil-escape--first-key)
-         (evil-define-motion ,(intern (format "evil-escape-%s" from))
+         (evil-define-motion ,(evil-escape--escape-function-symbol from)
            (count)
            ;; called by the user
            (if (called-interactively-p 'interactive)
@@ -156,7 +160,7 @@ with a key sequence."
                      (cond ((string-match "magit" (symbol-name major-mode))
                               (evil-escape--escape-with-q))
                              ((eq 'paradox-menu-mode major-mode)
-                              (paradox-quit-and-close))
+                              (evil-escape--escape-with-q))
                              ((eq 'gist-list-menu-mode major-mode)
                               (quit-window))
                              (t  evil-normal-state)))))
@@ -240,13 +244,38 @@ with a key sequence."
   "Send `q' key press event to exit from a buffer."
   (setq unread-command-events (listify-key-sequence "q")))
 
-(defun evil-escape--execute-shadow-func (func)
+(defun evil-escape--execute-shadowed-func (func)
   "Execute the passed FUNC if the context allows it."
   (unless (or (null func)
               (eq 'insert evil-state)
               (and (boundp 'isearch-mode) (symbol-value 'isearch-mode))
               (minibufferp))
     (call-interactively func)))
+
+(defun evil-escape--passthrough (from key map hfunc)
+  "Allow the next command KEY to pass through MAP.
+Once the command KEY passed through MAP the function HFUNC is removed
+from the `post-command-hook'."
+  (if (lookup-key map key)
+      (define-key map key nil)
+    (let ((escape-func (evil-escape--escape-function-symbol from)))
+      (define-key map key escape-func)
+      (remove-hook 'post-command-hook hfunc))))
+
+(defun evil-escape--emacs-state-passthrough ()
+  "Allow next command KEY to pass through `evil-emcs-state-map'"
+  (evil-escape--passthrough "emacs-state"
+                            (evil-escape--first-key)
+                            evil-emacs-state-map
+                            'evil-escape--emacs-state-passthrough))
+
+(defun evil-escape--setup-emacs-state-passthrough ()
+  "Setup a pass through for emacs state map"
+  (when (eq 'emacs evil-state)
+    (add-hook 'post-command-hook 'evil-escape--emacs-state-passthrough)
+    (setq unread-command-events
+          (append unread-command-events (listify-key-sequence
+                                         (evil-escape--first-key))))))
 
 (defun evil-escape--escape
     (keys callback &optional shadowed-func insert-func delete-func)
@@ -269,7 +298,8 @@ DELETE-FUNC when calling CALLBACK. "
     (let* ((evt (read-event nil nil evil-escape-delay)))
       (cond
        ((null evt)
-        (evil-escape--execute-shadow-func shadowed-func))
+        (evil-escape--setup-emacs-state-passthrough)
+        (evil-escape--execute-shadowed-func shadowed-func))
        ((and (integerp evt)
              (char-equal evt skey))
         ;; remove the f character
@@ -277,9 +307,10 @@ DELETE-FUNC when calling CALLBACK. "
         (set-buffer-modified-p modified)
         (call-interactively callback))
        (t ; otherwise
+        (evil-escape--setup-emacs-state-passthrough)
         (setq unread-command-events
               (append unread-command-events (list evt)))
-        (evil-escape--execute-shadow-func shadowed-func))))))
+        (evil-escape--execute-shadowed-func shadowed-func))))))
 
 (provide 'evil-escape)
 
