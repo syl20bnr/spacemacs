@@ -46,6 +46,8 @@
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
+  "b0"  'beginning-of-buffer
+  "b$"  'end-of-buffer
   "bb"  'spacemacs/alternate-buffer ;; switch back and forth between two last buffers
   "TAB" 'spacemacs/alternate-buffer
   "be"  'spacemacs/safe-erase-buffer
