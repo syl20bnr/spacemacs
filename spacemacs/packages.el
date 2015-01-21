@@ -2078,6 +2078,7 @@ which require an initialization must be listed explicitly in the list.")
       (when (configuration-layer/package-declaredp 'powerline)
         (defun window-numbering-install-mode-line (&optional position)
           "Do nothing, the display is handled by the powerline."))
+      (setq window-numbering-auto-assign-0-to-minibuffer nil)
       (evil-leader/set-key
         "0" 'select-window-0
         "1" 'select-window-1
