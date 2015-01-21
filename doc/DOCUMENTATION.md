@@ -565,7 +565,7 @@ argument binding to <kbd>SPC u</kbd>.
 ## Micro-states
 
 `Spacemacs` defines a wide variety of `micro-states` (temporary overlay maps)
-where it makes sense. This prevent from repetitive and tedious presses on the
+where it makes sense. This prevents one from doing repetitive and tedious presses on the
 <kbd>SPC</kbd> key.
 
 When a `micro-state` is active, a documentation is displayed in the minibuffer.
@@ -1237,7 +1237,7 @@ Key Binding            |                 Description
 ### Highlight current symbol
 
 `Spacemacs` supports highlighting of the current symbol on demand (provided by
-the [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to
+the [auto-highlight-symbol][auto-highlight] mode) and adding a micro-state to
 easily navigate and rename this symbol.
 
 It is also possible to change the range of the navigation on the fly to:
