@@ -149,8 +149,8 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (evil-leader/set-key-for-mode 'js2-mode "mc" 'tern-rename-variable)
       (evil-leader/set-key-for-mode 'js2-mode "mhd" 'tern-get-docs)
-      (evil-leader/set-key-for-mode 'js2-mode "mg" 'tern-find-definition)
-      (evil-leader/set-key-for-mode 'js2-mode "mG" 'tern-find-definition-by-name)
+      (evil-leader/set-key-for-mode 'js2-mode "mgg" 'tern-find-definition)
+      (evil-leader/set-key-for-mode 'js2-mode "mgG" 'tern-find-definition-by-name)
       (evil-leader/set-key-for-mode 'js2-mode (kbd "m C-g") 'tern-pop-find-definition)
       (evil-leader/set-key-for-mode 'js2-mode "mt" 'tern-get-type))))
 

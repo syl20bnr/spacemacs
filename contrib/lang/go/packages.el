@@ -23,7 +23,7 @@ which require an initialization must be listed explicitly in the list.")
         "mpb"  'go-play-buffer
         "mpr"  'go-play-region
         "mpd"  'go-download-play
-        "mg"   'godef-jump
+        "mgg"   'godef-jump
       ))
     :config
     (add-hook 'before-save-hook 'gofmt-before-save)
