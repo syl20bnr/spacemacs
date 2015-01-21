@@ -100,7 +100,7 @@
     ;; rainbow-blocks
     rainbow-delimiters
     ;; install fail on windows
-    ;; rainbow-mode
+    rainbow-mode
     rcirc
     rcirc-color
     recentf
@@ -2111,8 +2111,10 @@ which require an initialization must be listed explicitly in the list.")
 
     (defun spacemacs//window-numbering-assign (windows)
       "Custom number assignment for special buffers."
-      (mapc (lambda (w) (when (eq w neo-global--window)
-                          (window-numbering-assign w 0)))
+      (mapc (lambda (w)
+              (when (and (boundp 'neo-global--window)
+                         (eq w neo-global--window))
+                (window-numbering-assign w 0)))
             windows))
     (add-hook 'window-numbering-before-hook 'spacemacs//window-numbering-assign)))
 
