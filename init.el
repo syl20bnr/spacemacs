@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 (defconst spacemacs-version     "0.48.5" "Spacemacs version.")
-(defconst spacemacs-min-version   "24.3" "Mininal required version of Emacs.")
+(defconst spacemacs-min-version   "24.3" "Minimal required version of Emacs.")
 
 (defun spacemacs/emacs-version-ok ()
   (version<= spacemacs-min-version emacs-version))
