@@ -110,6 +110,7 @@
         - [Editing Lisp code](#editing-lisp-code)
             - [Lisp state Key Bindings](#lisp-state-key-bindings)
                 - [Lisp state Auto-switch commands](#lisp-state-auto-switch-commands)
+                - [Lisp state commands](#lisp-state-commands)
                 - [Lisp state Other commands](#lisp-state-other-commands)
     - [Project management](#project-management)
     - [Registers](#registers)
@@ -1687,17 +1688,28 @@ Key Binding          | Function
 <kbd>SPC m xx</kbd>  | delete expression
 <kbd>SPC m y</kbd>   | copy expression
 
+##### Lisp state commands
+
+These commands can be executed in `lisp state'.
+
+Key Binding    | Function
+---------------|------------------------------------------------------------
+<kbd>h</kbd>   | backward char
+<kbd>j</kbd>   | next visual line
+<kbd>k</kbd>   | previous visual line
+<kbd>l</kbd>   | forward char
+
 ##### Lisp state Other commands
 
-These command does not change the current state.
+These commands can be executed in any state.
 
 Key Binding          | Function
 ---------------------|------------------------------------------------------------
 <kbd>SPC m e $</kbd> | go to end of line and evaluate last sexp
 <kbd>SPC m e e</kbd> | evaluate last sexp
 <kbd>SPC m e f</kbd> | evaluate current defun
-<kbd>SPC m d d</kbd> | describe elisp thing at point (show documentation)
 <kbd>SPC m g g</kbd> | go to definition
+<kbd>SPC m h h</kbd> | describe elisp thing at point (show documentation)
 <kbd>SPC m t b</kbd> | execute buffer tests
 <kbd>SPC m t q</kbd> | ask for test function to execute
 

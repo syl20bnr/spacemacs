@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil smartparens lisp mnemonic
 ;; Created: 9 Oct 2014
-;; Version: 6.2
+;; Version: 6.3
 ;; Package-Requires: ((evil "1.0.9") (evil-leader "0.4.3") (smartparens "1.6.1"))
 ;; URL: https://github.com/syl20bnr/evil-lisp-state
 
@@ -60,15 +60,11 @@
 ;; `leader m b'   | forward barf expression
 ;; `leader m B'   | backward barf expression
 ;; `leader m c'   | convolute expression
-;; `leader m h'   | backward char
 ;; `leader m H'   | previous symbol
 ;; `leader m i'   | switch to `insert state`
 ;; `leader m I'   | go to beginning of current expression and switch to `insert state`
-;; `leader m j'   | next visual line
 ;; `leader m J'   | next closing parenthesis
-;; `leader m k'   | previous visual line
 ;; `leader m K'   | previous opening parenthesis
-;; `leader m l'   | forward char
 ;; `leader m L'   | next symbol
 ;; `leader m m'   | merge (join) expression
 ;; `leader m n'   | forwared slurp expression
@@ -90,18 +86,30 @@
 ;; `leader m xx'  | delete expression
 ;; `leader m y'   | copy expression
 
+;; Lisp state commands:
+;; --------------------
+
+;; These commands can be executed in `lisp state'.
+
+;; Key Binding    | Function
+;; ---------------|------------------------------------------------------------
+;; `h'            | backward char
+;; `j'            | next visual line
+;; `k'            | previous visual line
+;; `l'            | forward char
+
 ;; Other commands:
 ;; ---------------
 
-;; These commands don't change the current state.
+;; These commands can be executed in any state.
 
 ;; Key Binding    | Function
 ;; ---------------|------------------------------------------------------------
 ;; `leader m e $' | go to end of line and evaluate last sexp
 ;; `leader m e e' | evaluate last sexp
 ;; `leader m e f' | evaluate current defun
-;; `leader m d d' | describe elisp thing at point (show documentation)
 ;; `leader m g g' | go to definition
+;; `leader m h h' | describe elisp thing at point (show documentation)
 ;; `leader m t b' | execute buffer tests
 ;; `leader m t q' | ask for test function to execute
 
@@ -173,6 +181,11 @@
 (define-key evil-lisp-state-map [escape] 'evil-normal-state)
 ;; toggle lisp state
 (define-key evil-lisp-state-map ",," 'lisp-state-toggle-lisp-state)
+;; hjkl
+(define-key evil-lisp-state-map "h" 'evil-backward-char)
+(define-key evil-lisp-state-map "j" 'evil-next-visual-line)
+(define-key evil-lisp-state-map "k" 'evil-previous-visual-line)
+(define-key evil-lisp-state-map "l" 'evil-forward-char)
 ;; leader
 (define-key evil-lisp-state-map (kbd evil-leader/leader) evil-leader--default-map)
 ;; commands that wont switch to lisp state
@@ -181,7 +194,7 @@
   (evil-leader/set-key-for-mode mm "mee" 'eval-last-sexp)
   (evil-leader/set-key-for-mode mm "mef" 'eval-defun)
   (evil-leader/set-key-for-mode mm "mgg" 'elisp-slime-nav-find-elisp-thing-at-point)
-  (evil-leader/set-key-for-mode mm "mhd" 'elisp-slime-nav-describe-elisp-thing-at-point)
+  (evil-leader/set-key-for-mode mm "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point)
   (evil-leader/set-key-for-mode mm "m,"  'lisp-state-toggle-lisp-state)
   (evil-leader/set-key-for-mode mm "mtb" 'spacemacs/ert-run-tests-buffer)
   (evil-leader/set-key-for-mode mm "mtq" 'ert))
@@ -208,15 +221,11 @@
     ("b"   . sp-forward-barf-sexp)
     ("B"   . sp-backward-barf-sexp)
     ("c"   . sp-convolute-sexp)
-    ("h"   . evil-backward-char)
     ("H"   . sp-backward-symbol)
     ("i"   . evil-insert-state)
     ("I"   . evil-insert-line)
-    ("j"   . evil-next-visual-line)
     ("J"   . lisp-state-next-closing-paren)
-    ("k"   . evil-previous-visual-line)
     ("K"   . lisp-state-prev-opening-paren)
-    ("l"   . evil-forward-char)
     ("L"   . lisp-state-forward-symbol)
     ("m"   . sp-join-sexp)
     ("n"   . sp-forward-slurp-sexp)
