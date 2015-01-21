@@ -17,6 +17,7 @@
     flycheck
     helm-css-scss
     less-css-mode
+    rainbow-mode
     scss-mode
     tagedit
     web-mode
