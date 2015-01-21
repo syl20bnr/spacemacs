@@ -272,9 +272,12 @@ found."
   "Fetch the tags for BRANCH in REMOTE repository."
   (let((proc-buffer "git-fetch-tags")
        (default-directory user-emacs-directory))
-    (prog1
+    (prog2
         (eq 0 (process-file "git" nil proc-buffer nil
                             "fetch" remote branch))
+        ;; explicitly fetch the new tags
+        (eq 0 (process-file "git" nil proc-buffer nil
+                            "fetch" "--tags" remote branch))
       (kill-buffer proc-buffer))))
 
 (defun spacemacs/git-latest-tag (remote branch)
@@ -284,11 +287,16 @@ found."
        (where (format "%s/%s" remote branch)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
                               "describe" "--tags" "--abbrev=0"
-                              "--match=v*" where))
+                              "--match=v*" where "FETCH_HEAD"))
       (with-current-buffer proc-buffer
         (prog1
-            (if (buffer-string)
-                (replace-regexp-in-string "\n$" "" (buffer-string)))
+            (when (buffer-string)
+                (end-of-buffer)
+                (forward-line -1)
+                (replace-regexp-in-string
+                 "\n$" ""
+                 (buffer-substring (line-beginning-position)
+                                   (line-end-position))))
           (kill-buffer proc-buffer))))))
 
 (defun spacemacs//deffaces-new-version-lighter (state)
