@@ -9,7 +9,7 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(defconst spacemacs-version     "0.48.3" "Spacemacs version.")
+(defconst spacemacs-version     "0.48.5" "Spacemacs version.")
 (defconst spacemacs-min-version   "24.3" "Mininal required version of Emacs.")
 
 (defun spacemacs/emacs-version-ok ()
