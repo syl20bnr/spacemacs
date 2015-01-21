@@ -107,17 +107,28 @@ Key Binding                 | Function
 <kbd>\<leader\> m xx</kbd>  | delete expression
 <kbd>\<leader\> m y</kbd>   | copy expression
 
+### Lisp state commands
+
+These commands can be executed in `lisp state'.
+
+Key Binding    | Function
+---------------|------------------------------------------------------------
+<kbd>h</kbd>   | backward char
+<kbd>j</kbd>   | next visual line
+<kbd>k</kbd>   | previous visual line
+<kbd>l</kbd>   | forward char
+
 ### Other commands
 
-These command does not change the current state.
+These commands can be executed in any state.
 
 Key Binding                 | Function
 ----------------------------|------------------------------------------------------------
 <kbd>\<leader\> m e $</kbd> | go to end of line and evaluate last sexp
 <kbd>\<leader\> m e e</kbd> | evaluate last sexp
 <kbd>\<leader\> m e f</kbd> | evaluate current defun
-<kbd>\<leader\> m d d</kbd> | describe elisp thing at point (show documentation)
 <kbd>\<leader\> m g g</kbd> | go to definition
+<kbd>\<leader\> m h h</kbd> | describe elisp thing at point (show documentation)
 <kbd>\<leader\> m t b</kbd> | execute buffer tests
 <kbd>\<leader\> m t q</kbd> | ask for test function to execute
 
