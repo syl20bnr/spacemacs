@@ -2109,11 +2109,12 @@ which require an initialization must be listed explicitly in the list.")
          ((equal str "9")  " ➒ ")
          ((equal str "0")  " ⓿ "))))
 
-    (defun spacemacs//window-numbering-assign ()
+    (defun spacemacs//window-numbering-assign (windows)
       "Custom number assignment for special buffers."
-      (when (equal (buffer-name) " *NeoTree*") 0))
-    (setq window-numbering-assign-func ''spacemacs//window-numbering-assign)
-    ))
+      (mapc (lambda (w) (when (eq w neo-global--window)
+                          (window-numbering-assign w 0)))
+            windows))
+    (add-hook 'window-numbering-before-hook 'spacemacs//window-numbering-assign)))
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
