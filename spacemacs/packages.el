@@ -100,7 +100,7 @@
     ;; rainbow-blocks
     rainbow-delimiters
     ;; install fail on windows
-    ;; rainbow-mode
+    rainbow-mode
     rcirc
     rcirc-color
     recentf
@@ -2078,6 +2078,7 @@ which require an initialization must be listed explicitly in the list.")
       (when (configuration-layer/package-declaredp 'powerline)
         (defun window-numbering-install-mode-line (&optional position)
           "Do nothing, the display is handled by the powerline."))
+      (setq window-numbering-auto-assign-0-to-minibuffer nil)
       (evil-leader/set-key
         "0" 'select-window-0
         "1" 'select-window-1
@@ -2108,11 +2109,14 @@ which require an initialization must be listed explicitly in the list.")
          ((equal str "9")  " ➒ ")
          ((equal str "0")  " ⓿ "))))
 
-    (defun spacemacs//window-numbering-assign ()
+    (defun spacemacs//window-numbering-assign (windows)
       "Custom number assignment for special buffers."
-      (when (equal (buffer-name) " *NeoTree*") 0))
-    (setq window-numbering-assign-func ''spacemacs//window-numbering-assign)
-    ))
+      (mapc (lambda (w)
+              (when (and (boundp 'neo-global--window)
+                         (eq w neo-global--window))
+                (window-numbering-assign w 0)))
+            windows))
+    (add-hook 'window-numbering-before-hook 'spacemacs//window-numbering-assign)))
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
