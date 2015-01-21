@@ -41,7 +41,7 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (evil-leader/set-key-for-mode 'python-mode
         "mhd" 'anaconda-mode-view-doc
-        "mg"  'anaconda-mode-goto)
+        "mgg"  'anaconda-mode-goto)
       (spacemacs|hide-lighter anaconda-mode))))
 
 (defun python/init-company-anaconda ()

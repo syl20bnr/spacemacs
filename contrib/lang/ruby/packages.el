@@ -46,7 +46,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package robe
     :defer t
     :init (add-hook 'enh-ruby-mode-hook 'robe-mode)
-    :config (progn (evil-leader/set-key-for-mode 'enh-ruby-mode "mg" 'robe-jump)
+    :config (progn (evil-leader/set-key-for-mode 'enh-ruby-mode "mgg" 'robe-jump)
                    (evil-leader/set-key-for-mode 'enh-ruby-mode "mhd" 'robe-doc)
                    (evil-leader/set-key-for-mode 'enh-ruby-mode "mR" 'robe-rails-refresh)
                    (evil-leader/set-key-for-mode 'enh-ruby-mode "mi" 'robe-start))))

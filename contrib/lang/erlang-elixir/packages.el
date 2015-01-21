@@ -78,7 +78,7 @@ which require an initialization must be listed explicitly in the list.")
         "mGh" 'edts-find-header-source
         "mGl"  'edts-find-local-function
         "mGr" 'edts-find-record-source
-        "mg"  'edts-find-source-under-point
+        "mgg"  'edts-find-source-under-point
         "mhd" 'edts-find-doc
         "mm"  'edts-find-macro-source))))
 

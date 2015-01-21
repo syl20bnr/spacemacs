@@ -86,7 +86,7 @@
         "mt"   'haskell-process-do-type
         "mi"   'haskell-process-do-info
         "mu"   'haskell-mode-find-uses
-        "mg"   'haskell-mode-jump-to-def-or-tag
+        "mgg"  'haskell-mode-jump-to-def-or-tag
         "mf"   'haskell-mode-stylish-buffer
 
         "msb"  'haskell-process-load-or-reload

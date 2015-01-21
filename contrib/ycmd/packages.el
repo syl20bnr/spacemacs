@@ -26,8 +26,8 @@ which require an initialization must be listed explicitly in the list.")
                     (expand-file-name "~/.emacs.d/contrib/ycmd/global_conf.py")))
     :config
     (evil-leader/set-key-for-mode 'c++-mode
-      "mg" 'ycmd-goto
-      "mG" 'ycmd-goto-imprecise)))
+      "mgg" 'ycmd-goto
+      "mgG" 'ycmd-goto-imprecise)))
 
 (defun ycmd/init-company-ycmd ()
   (use-package company-ycmd
