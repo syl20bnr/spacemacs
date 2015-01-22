@@ -851,7 +851,7 @@ is **guaranteed** to never conflict with `Spacemacs` defaults key bindings.
 ## Escaping
 
 `Spacemacs` uses [evil-escape][] to easily switch between `insert state` and
-`normal state` with the key chord `fd`.
+`normal state` by quickly pressing the `fd` keys.
 
 The choice of `fd` was made to be able to use the same sequence to escape from
 "everything" in Emacs:
@@ -876,6 +876,10 @@ to `jj` (it is important set the variable in `dotspacemacs/init`):
 (defun dotspacemacs/init ()
   (setq-default evil-escape-key-sequence "jj"))
 ```
+
+**Note:** Although `jj` or `jk` are popular choices of vim users, these key
+sequences are not optimal for `Spacemacs`. Indeed it is very easy in
+`visual state` to press quickly `jj` and inadvertently escape to `normal state`.
 
 ## Executing Vim, Emacs and shell commands
 
