@@ -328,7 +328,7 @@ Example:
 that `Spacemacs` will auto-install the new packages in `<layer>-packages` lists
 _and_ auto-delete orphan packages in your `elpa` directory.
 
-It effectively makes `Spacemacs` to behave like [Vundle][vundle].
+It effectively makes `Spacemacs` behave like [Vundle][vundle].
 
 ## Types of configuration layers
 
