@@ -11,6 +11,7 @@
     - [Customization](#customization)
         - [Key sequence](#key-sequence)
         - [Delay between keys](#delay-between-keys)
+    - [Limitations](#limitations)
 
 <!-- markdown-toc end -->
 
@@ -83,5 +84,53 @@ composed with the two same characters it is recommended to set the delay to
 
 **Note:** The variable `evil-escape-delay` must be set before requiring
 `evil-escape`.
+
+## Limitations
+
+Due to the current implementation only the following characters can be used
+as the first character of the key sequence:
+
+|   Keys     |
+|:----------:|
+|<kbd>b</kbd>|
+|<kbd>B</kbd>|
+|<kbd>e</kbd>|
+|<kbd>E</kbd>|
+|<kbd>f</kbd>|
+|<kbd>F</kbd>|
+|<kbd>G</kbd>|
+|<kbd>h</kbd>|
+|<kbd>H</kbd>|
+|<kbd>j</kbd>|
+|<kbd>k</kbd>|
+|<kbd>l</kbd>|
+|<kbd> </kbd>|
+|<kbd>K</kbd>|
+|<kbd>L</kbd>|
+|<kbd>M</kbd>|
+|<kbd>n</kbd>|
+|<kbd>N</kbd>|
+|<kbd>t</kbd>|
+|<kbd>T</kbd>|
+|<kbd>w</kbd>|
+|<kbd>W</kbd>|
+|<kbd>{</kbd>|
+|<kbd>}</kbd>|
+|<kbd>#</kbd>|
+|<kbd>%</kbd>|
+|<kbd>`</kbd>|
+|<kbd>'</kbd>|
+|<kbd>(</kbd>|
+|<kbd>)</kbd>|
+|<kbd>*</kbd>|
+|<kbd>,</kbd>|
+|<kbd>/</kbd>|
+|<kbd>;</kbd>|
+|<kbd>?</kbd>|
+|<kbd>|</kbd>|
+|<kbd>^</kbd>|
+|<kbd>+</kbd>|
+|<kbd>_</kbd>|
+|<kbd>-</kbd>|
 
 [MELPA]: http://melpa.org/

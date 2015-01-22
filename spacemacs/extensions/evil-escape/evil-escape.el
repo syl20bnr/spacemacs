@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil
 ;; Created: 22 Oct 2014
-;; Version: 2.05
+;; Version: 2.06
 ;; Package-Requires: ((emacs "24") (evil "1.0.9"))
 ;; URL: https://github.com/syl20bnr/evil-escape
 
@@ -128,13 +128,16 @@ with a key sequence."
 
 `:delete-func FUNCTION'
      Specify the delete function to call when deleting the first key."
-  (let ((shadowed-func (plist-get properties :shadowed-func))
-        (insert-func (plist-get properties :insert-func))
-        (delete-func (plist-get properties :delete-func)))
+  (let* ((shadowed-func (plist-get properties :shadowed-func))
+         (evil-func-props (when shadowed-func
+                            (evil-get-command-properties shadowed-func)))
+         (insert-func (plist-get properties :insert-func))
+         (delete-func (plist-get properties :delete-func)))
     `(progn
        (define-key ,map ,(evil-escape--first-key)
          (evil-define-motion ,(evil-escape--escape-function-symbol from)
            (count)
+           ,@evil-func-props
            ;; called by the user
            (if (called-interactively-p 'interactive)
                (evil-escape--escape ,evil-escape-key-sequence
