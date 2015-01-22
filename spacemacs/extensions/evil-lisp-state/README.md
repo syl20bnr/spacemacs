@@ -44,7 +44,8 @@ both `evil`, `evil-leader` and `smartparens` to be installed.
 
 To execute a command while in normal state, the evil-leader is used.
 By default, the prefix for each command is `<leader> m`.
-Each command when executed set the current state to `lisp state`.
+
+Some commands when executed set the current state to `lisp state`.
 
 Examples:
 
@@ -56,7 +57,11 @@ Examples:
 
     <leader> m w 2 n
 
-## Commands and key bindings
+## Key Bindings
+
+### Auto-switch commands
+
+These commands switch to `lisp state`.
 
 Key Binding                 | Function
 ----------------------------|------------------------------------------------------------
@@ -68,14 +73,10 @@ Key Binding                 | Function
 <kbd>\<leader\> m $</kbd>   | go to the end of current sexp
 <kbd>\<leader\> m 0</kbd>   | go to the beginning of current sexp
 <kbd>\<leader\> m a</kbd>   | absorb expression
+<kbd>\<leader\> m A</kbd>   | transpose expression
 <kbd>\<leader\> m b</kbd>   | forward barf expression
 <kbd>\<leader\> m B</kbd>   | backward barf expression
 <kbd>\<leader\> m c</kbd>   | convolute expression
-<kbd>\<leader\> m d</kbd>   | describe elisp thing at point (show documentation)
-<kbd>\<leader\> m e $</kbd> | go to end of line and evaluate last sexp
-<kbd>\<leader\> m e e</kbd> | evaluate last sexp
-<kbd>\<leader\> m e f</kbd> | evaluate current defun
-<kbd>\<leader\> m g</kbd>   | go to definition
 <kbd>\<leader\> m h</kbd>   | backward char
 <kbd>\<leader\> m H</kbd>   | previous symbol
 <kbd>\<leader\> m i</kbd>   | switch to `insert state`
@@ -94,9 +95,6 @@ Key Binding                 | Function
 <kbd>\<leader\> m q</kbd>   | unwrap current expression and kill all symbols after point
 <kbd>\<leader\> m Q</kbd>   | unwrap current expression and kill all symbols before point
 <kbd>\<leader\> m r</kbd>   | raise expression (replace parent expression by current one)
-<kbd>\<leader\> m t b</kbd> | execute buffer tests
-<kbd>\<leader\> m t q</kbd> | ask for test function to execute
-<kbd>\<leader\> m T</kbd>   | transpose expression
 <kbd>\<leader\> m u</kbd>   | undo
 <kbd>\<leader\> m C-r</kbd> | redo
 <kbd>\<leader\> m v</kbd>   | switch to `visual state`
@@ -108,6 +106,31 @@ Key Binding                 | Function
 <kbd>\<leader\> m xw</kbd>  | delete word
 <kbd>\<leader\> m xx</kbd>  | delete expression
 <kbd>\<leader\> m y</kbd>   | copy expression
+
+### Lisp state commands
+
+These commands can be executed in `lisp state'.
+
+Key Binding    | Function
+---------------|------------------------------------------------------------
+<kbd>h</kbd>   | backward char
+<kbd>j</kbd>   | next visual line
+<kbd>k</kbd>   | previous visual line
+<kbd>l</kbd>   | forward char
+
+### Other commands
+
+These commands can be executed in any state.
+
+Key Binding                 | Function
+----------------------------|------------------------------------------------------------
+<kbd>\<leader\> m e $</kbd> | go to end of line and evaluate last sexp
+<kbd>\<leader\> m e e</kbd> | evaluate last sexp
+<kbd>\<leader\> m e f</kbd> | evaluate current defun
+<kbd>\<leader\> m g g</kbd> | go to definition
+<kbd>\<leader\> m h h</kbd> | describe elisp thing at point (show documentation)
+<kbd>\<leader\> m t b</kbd> | execute buffer tests
+<kbd>\<leader\> m t q</kbd> | ask for test function to execute
 
 ## Configuration
 

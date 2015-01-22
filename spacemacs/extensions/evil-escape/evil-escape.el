@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil
 ;; Created: 22 Oct 2014
-;; Version: 2.04
+;; Version: 2.05
 ;; Package-Requires: ((emacs "24") (evil "1.0.9"))
 ;; URL: https://github.com/syl20bnr/evil-escape
 
@@ -208,10 +208,13 @@ with a key sequence."
   ;; iedit state if installed
   (eval-after-load 'evil-iedit-state
     '(progn
-       (eval '(evil-escape-define-escape "iedit-state" evil-iedit-state-map
-                                         evil-iedit-state/quit-iedit-mode))
+       (eval `(evil-escape-define-escape "iedit-state" evil-iedit-state-map
+                                         evil-iedit-state/quit-iedit-mode
+                                         :shadowed-func ,evil-escape-motion-state-shadowed-func))
        (eval '(evil-escape-define-escape "iedit-insert-state" evil-iedit-insert-state-map
-                                         evil-iedit-state/quit-iedit-mode)))))
+                                         evil-iedit-state/quit-iedit-mode
+                                         :insert-func evil-escape--default-insert-func
+                                         :delete-func evil-escape--default-delete-func)))))
 
 (defun evil-escape--undefine-keys ()
   "Unset the key bindings defined in `evil-escape--define-keys'."
@@ -261,7 +264,8 @@ with a key sequence."
     (call-interactively func)))
 
 (defun evil-escape--passthrough (from key map hfunc)
-  "Allow the next command KEY to pass through MAP.
+  "Allow the next command KEY to pass through MAP so they can reach
+the underlying major or minor modes map.
 Once the command KEY passed through MAP the function HFUNC is removed
 from the `post-command-hook'."
   (if (lookup-key map key)

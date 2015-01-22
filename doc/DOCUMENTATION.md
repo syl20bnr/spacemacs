@@ -108,7 +108,10 @@
         - [Commenting](#commenting)
         - [Deleting files](#deleting-files)
         - [Editing Lisp code](#editing-lisp-code)
-        - [Commands:](#commands)
+            - [Lisp state Key Bindings](#lisp-state-key-bindings)
+                - [Lisp state Auto-switch commands](#lisp-state-auto-switch-commands)
+                - [Lisp state commands](#lisp-state-commands)
+                - [Lisp state Other commands](#lisp-state-other-commands)
     - [Project management](#project-management)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
@@ -1025,6 +1028,8 @@ Buffer manipulation commands (start with `b`):
 
 Key Binding                               |              Description
 ------------------------------------------|----------------------------------------------------------------
+<kbd>SPC b 0</kbd>                        | move to the beginning of buffer (useful in `emacs state` buffers)
+<kbd>SPC b $</kbd>                        | move to the end of buffer (useful in `emacs state` buffers)
 <kbd>SPC b b</kbd> or <kbd>SPC TAB</kbd>  | switch to alternate buffer (switch back and forth)
 <kbd>SPC b e</kbd>                        | erase the content of the buffer (ask for confirmation)
 <kbd>SPC b k</kbd>                        | kill the current buffer
@@ -1623,8 +1628,9 @@ to `nil` in your `~/.spacemacs`.
 
 Edition of lisp code is provided by [evil-lisp-state][].
 
-Every commands below will set the current state to `lisp state` where
-the commands can be repeated without pressing on <kbd>SPC m</kbd>.
+Some commands will set the current state to `lisp state` where
+different commands combo can be repeated without pressing on
+<kbd>SPC m</kbd>.
 
 When in `lisp state` the color of the mode-line changes to pink.
 
@@ -1632,10 +1638,15 @@ Examples:
 - to slurp three times while in normal state: <kbd>SPC m 3 n</kbd>
 - to wrap a symbol in parenthesis then slurping two times: <kbd>SPC m w 2 n</kbd>
 
-### Commands:
+#### Lisp state Key Bindings
+
+##### Lisp state Auto-switch commands
+
+These commands switch to `lisp state`.
 
 Key Binding          | Function
 ---------------------|------------------------------------------------------------
+<kbd>SPC</kbd>       | evil leader
 <kbd>SPC m %</kbd>   | evil jump item
 <kbd>SPC m :</kbd>   | ex command
 <kbd>SPC m (</kbd>   | insert expression before (same level as current one)
@@ -1643,14 +1654,10 @@ Key Binding          | Function
 <kbd>SPC m $</kbd>   | go to the end of current sexp
 <kbd>SPC m 0</kbd>   | go to the beginning of current sexp
 <kbd>SPC m a</kbd>   | absorb expression
+<kbd>SPC m A</kbd>   | transpose expression
 <kbd>SPC m b</kbd>   | forward barf expression
 <kbd>SPC m B</kbd>   | backward barf expression
 <kbd>SPC m c</kbd>   | convolute expression
-<kbd>SPC m d</kbd>   | describe elisp thing at point (show documentation)
-<kbd>SPC m e $</kbd> | go to end of line and evaluate last sexp
-<kbd>SPC m e e</kbd> | evaluate last sexp
-<kbd>SPC m e f</kbd> | evaluate current defun
-<kbd>SPC m g</kbd>   | go to definition
 <kbd>SPC m h</kbd>   | backward char
 <kbd>SPC m H</kbd>   | previous symbol
 <kbd>SPC m i</kbd>   | switch to `insert state`
@@ -1669,9 +1676,6 @@ Key Binding          | Function
 <kbd>SPC m q</kbd>   | unwrap current expression and kill all symbols after point
 <kbd>SPC m Q</kbd>   | unwrap current expression and kill all symbols before point
 <kbd>SPC m r</kbd>   | raise expression (replace parent expression by current one)
-<kbd>SPC m t b</kbd> | execute buffer tests
-<kbd>SPC m t q</kbd> | ask for test function to execute
-<kbd>SPC m T</kbd>   | transpose expression
 <kbd>SPC m u</kbd>   | undo
 <kbd>SPC m C-r</kbd> | redo
 <kbd>SPC m v</kbd>   | switch to `visual state`
@@ -1683,6 +1687,31 @@ Key Binding          | Function
 <kbd>SPC m xw</kbd>  | delete word
 <kbd>SPC m xx</kbd>  | delete expression
 <kbd>SPC m y</kbd>   | copy expression
+
+##### Lisp state commands
+
+These commands can be executed in `lisp state'.
+
+Key Binding    | Function
+---------------|------------------------------------------------------------
+<kbd>h</kbd>   | backward char
+<kbd>j</kbd>   | next visual line
+<kbd>k</kbd>   | previous visual line
+<kbd>l</kbd>   | forward char
+
+##### Lisp state Other commands
+
+These commands can be executed in any state.
+
+Key Binding          | Function
+---------------------|------------------------------------------------------------
+<kbd>SPC m e $</kbd> | go to end of line and evaluate last sexp
+<kbd>SPC m e e</kbd> | evaluate last sexp
+<kbd>SPC m e f</kbd> | evaluate current defun
+<kbd>SPC m g g</kbd> | go to definition
+<kbd>SPC m h h</kbd> | describe elisp thing at point (show documentation)
+<kbd>SPC m t b</kbd> | execute buffer tests
+<kbd>SPC m t q</kbd> | ask for test function to execute
 
 ## Project management
 

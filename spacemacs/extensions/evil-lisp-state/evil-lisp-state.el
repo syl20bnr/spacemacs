@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil smartparens lisp mnemonic
 ;; Created: 9 Oct 2014
-;; Version: 6.1
+;; Version: 6.3
 ;; Package-Requires: ((evil "1.0.9") (evil-leader "0.4.3") (smartparens "1.6.1"))
 ;; URL: https://github.com/syl20bnr/evil-lisp-state
 
@@ -34,14 +34,17 @@
 
 ;; To execute a command while in normal state, the evil-leader is used.
 ;; By default, the prefix for each command is `<leader> m`.
-;; Each command when executed set the current state to `lisp state`.
+;; Some commands when executed set the current state to `lisp state`.
+
 ;; By example, to slurp three times while in normal state:
 ;;     <leader> m 3 n
 ;; Or to wrap a symbol in parenthesis then slurping two times:
 ;;     <leader> m w 2 n
 
-;; Commands and key bindings:
-;; --------------------------
+;; Auto-switch to lisp state commands:
+;; ----------------------------------
+
+;; These commands switch the current state to `lisp state'.
 
 ;; Key Binding    | Function
 ;; ---------------|------------------------------------------------------------
@@ -53,35 +56,24 @@
 ;; `leader m $'   | go to the end of current sexp
 ;; `leader m 0'   | go to the beginning of current sexp
 ;; `leader m a'   | absorb expression
+;; `leader m A'   | transpose expression
 ;; `leader m b'   | forward barf expression
 ;; `leader m B'   | backward barf expression
 ;; `leader m c'   | convolute expression
-;; `leader m d'   | describe elisp thing at point (show documentation)
-;; `leader m e $' | go to end of line and evaluate last sexp
-;; `leader m e e' | evaluate last sexp
-;; `leader m e f' | evaluate current defun
-;; `leader m g'   | go to definition
-;; `leader m h'   | backward char
 ;; `leader m H'   | previous symbol
 ;; `leader m i'   | switch to `insert state`
 ;; `leader m I'   | go to beginning of current expression and switch to `insert state`
-;; `leader m j'   | next visual line
 ;; `leader m J'   | next closing parenthesis
-;; `leader m k'   | previous visual line
 ;; `leader m K'   | previous opening parenthesis
-;; `leader m l'   | forward char
 ;; `leader m L'   | next symbol
 ;; `leader m m'   | merge (join) expression
 ;; `leader m n'   | forwared slurp expression
 ;; `leader m N'   | backward slurp expression
 ;; `leader m p'   | paste after
 ;; `leader m P'   | paste before
-;; `leader m q'   | unwrap current expression and kill all symbols after point
-;; `leader m Q'   | unwrap current expression and kill all symbols before point
+;; `leader m q'   | (splice) unwrap current expression and kill all symbols after point
+;; `leader m Q'   | (splice) unwrap current expression and kill all symbols before point
 ;; `leader m r'   | raise expression (replace parent expression by current one)
-;; `leader m t b' | execute buffer tests
-;; `leader m t q' | ask for test function to execute
-;; `leader m T'   | transpose expression
 ;; `leader m u'   | undo
 ;; `leader m C-r' | redo
 ;; `leader m v'   | switch to `visual state`
@@ -93,6 +85,33 @@
 ;; `leader m xw'  | delete word
 ;; `leader m xx'  | delete expression
 ;; `leader m y'   | copy expression
+
+;; Lisp state commands:
+;; --------------------
+
+;; These commands can be executed in `lisp state'.
+
+;; Key Binding    | Function
+;; ---------------|------------------------------------------------------------
+;; `h'            | backward char
+;; `j'            | next visual line
+;; `k'            | previous visual line
+;; `l'            | forward char
+
+;; Other commands:
+;; ---------------
+
+;; These commands can be executed in any state.
+
+;; Key Binding    | Function
+;; ---------------|------------------------------------------------------------
+;; `leader m e $' | go to end of line and evaluate last sexp
+;; `leader m e e' | evaluate last sexp
+;; `leader m e f' | evaluate current defun
+;; `leader m g g' | go to definition
+;; `leader m h h' | describe elisp thing at point (show documentation)
+;; `leader m t b' | execute buffer tests
+;; `leader m t q' | ask for test function to execute
 
 ;; Configuration:
 ;; --------------
@@ -160,14 +179,25 @@
 
 ;; escape
 (define-key evil-lisp-state-map [escape] 'evil-normal-state)
-
 ;; toggle lisp state
 (define-key evil-lisp-state-map ",," 'lisp-state-toggle-lisp-state)
-(dolist (mm evil-lisp-state-major-modes)
-  (evil-leader/set-key-for-mode mm "m," 'lisp-state-toggle-lisp-state))
-
+;; hjkl
+(define-key evil-lisp-state-map "h" 'evil-backward-char)
+(define-key evil-lisp-state-map "j" 'evil-next-visual-line)
+(define-key evil-lisp-state-map "k" 'evil-previous-visual-line)
+(define-key evil-lisp-state-map "l" 'evil-forward-char)
 ;; leader
 (define-key evil-lisp-state-map (kbd evil-leader/leader) evil-leader--default-map)
+;; commands that wont switch to lisp state
+(dolist (mm evil-lisp-state-major-modes)
+  (evil-leader/set-key-for-mode mm "me$" 'lisp-state-eval-sexp-end-of-line)
+  (evil-leader/set-key-for-mode mm "mee" 'eval-last-sexp)
+  (evil-leader/set-key-for-mode mm "mef" 'eval-defun)
+  (evil-leader/set-key-for-mode mm "mgg" 'elisp-slime-nav-find-elisp-thing-at-point)
+  (evil-leader/set-key-for-mode mm "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point)
+  (evil-leader/set-key-for-mode mm "m,"  'lisp-state-toggle-lisp-state)
+  (evil-leader/set-key-for-mode mm "mtb" 'spacemacs/ert-run-tests-buffer)
+  (evil-leader/set-key-for-mode mm "mtq" 'ert))
 
 ;; auto-switch to lisp state commands
 (defconst evil-lisp-state-commands
@@ -187,23 +217,15 @@
     ("8"   . digit-argument)
     ("9"   . digit-argument)
     ("a"   . sp-absorb-sexp)
+    ("A"   . sp-transpose-sexp)
     ("b"   . sp-forward-barf-sexp)
     ("B"   . sp-backward-barf-sexp)
     ("c"   . sp-convolute-sexp)
-    ("d"   . elisp-slime-nav-describe-elisp-thing-at-point)
-    ("e$"  . lisp-state-eval-sexp-end-of-line)
-    ("ee"  . eval-last-sexp)
-    ("ef"  . eval-defun)
-    ("g"   . elisp-slime-nav-find-elisp-thing-at-point)
-    ("h"   . evil-backward-char)
     ("H"   . sp-backward-symbol)
     ("i"   . evil-insert-state)
     ("I"   . evil-insert-line)
-    ("j"   . evil-next-visual-line)
     ("J"   . lisp-state-next-closing-paren)
-    ("k"   . evil-previous-visual-line)
     ("K"   . lisp-state-prev-opening-paren)
-    ("l"   . evil-forward-char)
     ("L"   . lisp-state-forward-symbol)
     ("m"   . sp-join-sexp)
     ("n"   . sp-forward-slurp-sexp)
@@ -213,9 +235,6 @@
     ("q"   . sp-splice-sexp-killing-forward)
     ("Q"   . sp-splice-sexp-killing-backward)
     ("r"   . sp-raise-sexp)
-    ("tb"  . spacemacs/ert-run-tests-buffer)
-    ("tq"  . ert)
-    ("T"   . sp-transpose-sexp)
     ("u"   . undo-tree-undo)
     ("C-r" . undo-tree-redo)
     ("v"   . evil-visual-char)
