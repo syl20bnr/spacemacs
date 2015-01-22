@@ -1354,8 +1354,6 @@ which require an initialization must be listed explicitly in the list.")
     (evil-leader/set-key "ast" 'multi-term)
     :config
     (progn
-      (setq multi-term-program "/bin/zsh")
-
       (defun term-send-tab ()
         "Send tab in term mode."
         (interactive)
