@@ -10,7 +10,7 @@
 ##
 ## License: GPLv3
 EMACS_DIR=~/.emacs.d/
-TEST_DIR=$(EMACS_DIR)core/test/
+TEST_DIR=$(EMACS_DIR)core/tests/
 
 all: test
 
