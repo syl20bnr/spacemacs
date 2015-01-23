@@ -10,5 +10,6 @@
 ## This file is not part of GNU Emacs.
 ##
 ## License: GPLv3
-cd core
+ln -s `pwd` /home/travis/.emacs.d
+cd ~/.emacs.d/core
 make test
