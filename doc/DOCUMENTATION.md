@@ -77,6 +77,7 @@
             - [Key bindings](#key-bindings)
             - [Staying in insert state](#staying-in-insert-state)
         - [Bookmarks](#bookmarks)
+        - [DocView mode](#docview-mode)
     - [Searching](#searching)
         - [Project Searching](#project-searching)
         - [Persistent highlighting](#persistent-highlighting)
@@ -1208,6 +1209,36 @@ Key Binding        |                 Description
 <kbd>CTRL+o</kbd>  | open the selected bookmark in another window
 
 To save a new bookmark, just type the name of the bookmark and press `RET`.
+
+### DocView mode
+
+`doc-view-mode` is a built-in major mode to view DVI, PostScript (PS), PDF,
+OpenDocument, and Microsoft Office documents.
+
+Key Binding        |                 Description
+-------------------|----------------------------------------------------------------
+<kbd>/</kbd>       | search forward
+<kbd>?</kbd>       | search backward
+<kbd>+</kbd>       | enlarge
+<kbd>-</kbd>       | shrink
+<kbd>gg</kbd>      | go to first page
+<kbd>G</kbd>       | go to last page
+<kbd>h</kbd>       | previous page
+<kbd>H</kbd>       | adjust to height
+<kbd>j</kbd>       | next line
+<kbd>k</kbd>       | previous line
+<kbd>K</kbd>       | kill proc and buffer
+<kbd>l</kbd>       | next page
+<kbd>n</kbd>       | go to next search occurrence
+<kbd>N</kbd>       | go to previous search occurrence
+<kbd>P</kbd>       | fit page to window
+<kbd>r</kbd>       | revert
+<kbd>W</kbd>       | adjust to width
+<kbd>C-d</kbd>     | scroll down
+<kbd>C-k</kbd>     | kill proc
+<kbd>C-u</kbd>     | scroll up
+<kbd>C-c C-c</kbd> | toggle display text and image display
+<kbd>C-c C-t</kbd> | open new buffer with doc's text contents
 
 ## Searching
 
