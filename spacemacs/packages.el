@@ -16,7 +16,6 @@
     ace-jump-mode
     ag
     aggressive-indent
-    anzu
     async
     auto-complete
     auto-complete-clang
@@ -28,9 +27,11 @@
     dash
     diminish
     dired+
+    doc-view
     elisp-slime-nav
     eldoc
     evil
+    evil-anzu
     evil-args
     evil-exchange
     evil-iedit-state
@@ -178,61 +179,28 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (spacemacs|diminish aggressive-indent-mode " Ⓘ" " I")))
 
-(defun spacemacs/init-anzu ()
-  (use-package anzu
+(defun spacemacs/init-evil-anzu ()
+  (use-package evil-anzu
     :init
     (global-anzu-mode t)
     :config
     (progn
       (spacemacs|hide-lighter anzu-mode)
-
-      (defun spacemacs/anzu-update-mode-line (here total)
-        "Custom update function which does not propertize the status."
-        (when anzu--state
-          (let ((status (cl-case anzu--state
-                          (search (format "(%s/%d%s)"
-                                          (anzu--format-here-position here total)
-                                          total (if anzu--overflow-p "+" "")))
-                          (replace-query (format "(%d replace)" total))
-                          (replace (format "(%d/%d)" here total)))))
-            status)))
-
-      (defvar spacemacs-anzu-timer nil
-        "The current timer for ephemeral anzu display.")
-      (defun spacemacs/anzu-ephemeral-display ()
-        "Show anzu status for a limited amount of time."
-        (interactive)
-        (setq spacemacs-anzu-timer nil)
-        (anzu--reset-mode-line))
-      (defun spacemacs/anzu-evil-search (arg func)
-        "Show anzu status when pressing `n` or `N`"
-        (anzu--cons-mode-line-search)
-        (funcall func arg)
-        (let ((query (if evil-regexp-search
-                         (car-safe regexp-search-ring)
-                       (car-safe search-ring))))
-          (anzu--update query))
-        (if spacemacs-anzu-timer (cancel-timer spacemacs-anzu-timer))
-        (setq spacemacs-anzu-timer
-              (run-at-time "2 sec" nil 'spacemacs/anzu-ephemeral-display)))
-      (evil-define-command spacemacs/anzu-evil-search-next (arg)
-        "Show anzu status when executing evil-search-next"
-        :repeat ignore
-        (interactive "P")
-        (spacemacs/anzu-evil-search arg 'evil-search-next))
-      (evil-define-command spacemacs/anzu-evil-search-previous (arg)
-        "Show anzu status when executing evil-search-previous"
-        :repeat ignore
-        (interactive "P")
-        (spacemacs/anzu-evil-search arg 'evil-search-previous))
-      ;; (define-key evil-normal-state-map "n" 'spacemacs/anzu-evil-search-next)
-      ;; (define-key evil-normal-state-map "N" 'spacemacs/anzu-evil-search-previous)
-      (define-key evil-motion-state-map "n" 'spacemacs/anzu-evil-search-next)
-      (define-key evil-motion-state-map "N" 'spacemacs/anzu-evil-search-previous)
-
       (setq anzu-search-threshold 1000
-            anzu-cons-mode-line-p nil
-            anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line))))
+            anzu-cons-mode-line-p nil)
+      ;; powerline integration
+      (when (configuration-layer/package-declaredp 'powerline)
+        (defun spacemacs/anzu-update-mode-line (here total)
+          "Custom update function which does not propertize the status."
+          (when anzu--state
+            (let ((status (cl-case anzu--state
+                            (search (format "(%s/%d%s)"
+                                            (anzu--format-here-position here total)
+                                            total (if anzu--overflow-p "+" "")))
+                            (replace-query (format "(%d replace)" total))
+                            (replace (format "(%d/%d)" here total)))))
+              status)))
+        (setq anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line)))))
 
 (defun spacemacs/init-auto-complete ()
   (use-package auto-complete
@@ -477,6 +445,51 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-dired+ ()
   (use-package dired+
     :defer t))
+
+(defun spacemacs/init-doc-view ()
+  (use-package doc-view
+    :defer t
+    :config
+    (progn
+      (add-to-list 'evil-emacs-state-modes 'doc-view-mode)
+
+      (defun spacemacs/doc-view-search-new-query ()
+        "Initiate a new query."
+        (interactive)
+        (doc-view-search 'newquery))
+      
+      (defun spacemacs/doc-view-search-new-query-backward ()
+        "Initiate a new query."
+        (interactive)
+        (doc-view-search 'newquery t))
+
+      ;; fixed a weird issue where toggling display does not
+      ;; swtich to text mode
+      (defadvice doc-view-toggle-display
+          (around spacemacs/doc-view-toggle-display activate)
+        (if (eq major-mode 'doc-view-mode)
+            (progn
+              ad-do-it
+              (text-mode)
+              (doc-view-minor-mode))
+          ad-do-it))
+
+      (spacemacs|evilify doc-view-mode-map
+                         "/"  'spacemacs/doc-view-search-new-query
+                         "?"  'spacemacs/doc-view-search-new-query-backward
+                         "gg" 'doc-view-first-page
+                         "G"  'doc-view-last-page
+                         "h"  'doc-view-previous-page
+                         "j"  'doc-view-next-line-or-next-page
+                         "k"  'doc-view-previous-line-or-previous-page
+                         "K"  'doc-view-kill-proc-and-buffer
+                         "l"  'doc-view-next-page
+                         "n"  'doc-view-search
+                         "N"  'doc-view-search-backward
+                         (kbd "C-d") 'doc-view-scroll-up-or-next-page
+                         (kbd "C-k") 'doc-view-kill-proc
+                         (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
+      (spacemacs/activate-evil-leader-for-map 'doc-view-mode-map))))
 
 (defun spacemacs/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
@@ -1387,8 +1400,6 @@ which require an initialization must be listed explicitly in the list.")
     (evil-leader/set-key "ast" 'multi-term)
     :config
     (progn
-      (setq multi-term-program "/bin/zsh")
-
       (defun term-send-tab ()
         "Send tab in term mode."
         (interactive)
@@ -2131,7 +2142,14 @@ which require an initialization must be listed explicitly in the list.")
                   (setq yas-snippet-dirs yas-dir)
                   (yas-global-mode 1)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
-                                                org-mode-hook)))
+                                                org-mode-hook))
+
+      (defun spacemacs/force-yasnippet-off ()
+        (yas-minor-mode -1)
+        (setq yas-dont-activate t))
+
+      (add-to-hooks 'spacemacs/force-yasnippet-off '(term-mode-hook
+                                                     shell-mode-hook)))
     :config
     (progn
       (spacemacs|diminish yas-minor-mode " Ⓨ" " Y")

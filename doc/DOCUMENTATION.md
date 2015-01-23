@@ -77,6 +77,7 @@
             - [Key bindings](#key-bindings)
             - [Staying in insert state](#staying-in-insert-state)
         - [Bookmarks](#bookmarks)
+        - [DocView mode](#docview-mode)
     - [Searching](#searching)
         - [Project Searching](#project-searching)
         - [Persistent highlighting](#persistent-highlighting)
@@ -328,7 +329,7 @@ Example:
 that `Spacemacs` will auto-install the new packages in `<layer>-packages` lists
 _and_ auto-delete orphan packages in your `elpa` directory.
 
-It effectively makes `Spacemacs` to behave like [Vundle][vundle].
+It effectively makes `Spacemacs` behave like [Vundle][vundle].
 
 ## Types of configuration layers
 
@@ -568,7 +569,7 @@ argument binding to <kbd>SPC u</kbd>.
 ## Micro-states
 
 `Spacemacs` defines a wide variety of `micro-states` (temporary overlay maps)
-where it makes sense. This prevent from repetitive and tedious presses on the
+where it makes sense. This prevents one from doing repetitive and tedious presses on the
 <kbd>SPC</kbd> key.
 
 When a `micro-state` is active, a documentation is displayed in the minibuffer.
@@ -1209,6 +1210,36 @@ Key Binding        |                 Description
 
 To save a new bookmark, just type the name of the bookmark and press `RET`.
 
+### DocView mode
+
+`doc-view-mode` is a built-in major mode to view DVI, PostScript (PS), PDF,
+OpenDocument, and Microsoft Office documents.
+
+Key Binding        |                 Description
+-------------------|----------------------------------------------------------------
+<kbd>/</kbd>       | search forward
+<kbd>?</kbd>       | search backward
+<kbd>+</kbd>       | enlarge
+<kbd>-</kbd>       | shrink
+<kbd>gg</kbd>      | go to first page
+<kbd>G</kbd>       | go to last page
+<kbd>h</kbd>       | previous page
+<kbd>H</kbd>       | adjust to height
+<kbd>j</kbd>       | next line
+<kbd>k</kbd>       | previous line
+<kbd>K</kbd>       | kill proc and buffer
+<kbd>l</kbd>       | next page
+<kbd>n</kbd>       | go to next search occurrence
+<kbd>N</kbd>       | go to previous search occurrence
+<kbd>P</kbd>       | fit page to window
+<kbd>r</kbd>       | revert
+<kbd>W</kbd>       | adjust to width
+<kbd>C-d</kbd>     | scroll down
+<kbd>C-k</kbd>     | kill proc
+<kbd>C-u</kbd>     | scroll up
+<kbd>C-c C-c</kbd> | toggle display text and image display
+<kbd>C-c C-t</kbd> | open new buffer with doc's text contents
+
 ## Searching
 
 ### Project Searching
@@ -1246,7 +1277,7 @@ Key Binding            |                 Description
 ### Highlight current symbol
 
 `Spacemacs` supports highlighting of the current symbol on demand (provided by
-the [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to
+the [auto-highlight-symbol][auto-highlight] mode) and adding a micro-state to
 easily navigate and rename this symbol.
 
 It is also possible to change the range of the navigation on the fly to:

@@ -10,13 +10,13 @@
 ;;
 ;;; License: GPLv3
 (defconst spacemacs-version     "0.48.7" "Spacemacs version.")
-(defconst spacemacs-min-version   "24.3" "Mininal required version of Emacs.")
+(defconst spacemacs-min-version   "24.3" "Minimal required version of Emacs.")
 
 (defun spacemacs/emacs-version-ok ()
   (version<= spacemacs-min-version emacs-version))
 
 (when (spacemacs/emacs-version-ok)
-  (add-to-list 'load-path (concat user-emacs-directory "core/"))
+  (load-file (concat user-emacs-directory "core/load-paths.el"))
   (require 'spacemacs-mode)
   (require 'configuration-layer)
   (dotspacemacs/load)

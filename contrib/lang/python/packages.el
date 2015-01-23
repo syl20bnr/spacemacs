@@ -23,6 +23,7 @@
     python
     semantic
     smartparens
+    cython-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -49,6 +50,15 @@ which require an initialization must be listed explicitly in the list.")
     :if (boundp 'company-backends)
     :defer t
     :init (add-to-list 'company-backends 'company-anaconda)))
+
+(defun python/init-cython-mode ()
+  (use-package cython-mode
+    :init
+    (progn
+      (evil-leader/set-key-for-mode 'cython-mode
+        "mhd" 'anaconda-mode-view-doc
+        "mgg"  'anaconda-mode-goto)
+      )))
 
 (defun python/init-eldoc ()
   (add-hook 'python-mode-hook 'eldoc-mode))
