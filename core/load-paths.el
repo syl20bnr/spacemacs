@@ -14,5 +14,5 @@
 (mapc 'add-to-load-path
       `(
         ,(concat user-emacs-directory "core/")
-        ,(concat user-emacs-directory "core/lib/")
+        ,(concat user-emacs-directory "core/libs/")
         ))
