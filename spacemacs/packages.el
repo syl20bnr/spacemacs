@@ -2131,7 +2131,14 @@ which require an initialization must be listed explicitly in the list.")
                   (setq yas-snippet-dirs yas-dir)
                   (yas-global-mode 1)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
-                                                org-mode-hook)))
+                                                org-mode-hook))
+
+      (defun spacemacs/force-yasnippet-off ()
+        (yas-minor-mode -1)
+        (setq yas-dont-activate t))
+
+      (add-to-hooks 'spacemacs/force-yasnippet-off '(term-mode-hook
+                                                     shell-mode-hook)))
     :config
     (progn
       (spacemacs|diminish yas-minor-mode " Ⓨ" " Y")
