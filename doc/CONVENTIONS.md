@@ -218,6 +218,7 @@ _Evilifying_ a buffer is to:
 - add `hjkl` navigation
 - add incremental search with `/`, `n` and `N`
 - add `visual state` and `visual line state`
+- add yank (copy) with `y`
 - activate evil-leader key
 - fix all bindings shadows by the above additions
 

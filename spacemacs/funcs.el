@@ -111,6 +111,7 @@ bindings contained in BODY."
     "v" 'evil-visual-char
     "V" 'evil-visual-line
     (kbd "C-v") 'evil-visual-block
+    "y" 'evil-yank
     ,@body))
 
 ;; From http://stackoverflow.com/a/18796138
