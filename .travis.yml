@@ -10,5 +10,4 @@ before_install:
   sudo apt-get -qqy install emacs-snapshot;
 
 script:
-  cd ~/.emacs.d/core
-  make test
+  ./travis/run_build.sh
