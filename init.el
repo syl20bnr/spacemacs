@@ -16,7 +16,7 @@
   (version<= spacemacs-min-version emacs-version))
 
 (when (spacemacs/emacs-version-ok)
-  (add-to-list 'load-path (concat user-emacs-directory "core/"))
+  (load-file (concat user-emacs-directory "core/load-paths.el"))
   (require 'spacemacs-mode)
   (require 'configuration-layer)
   (dotspacemacs/load)
