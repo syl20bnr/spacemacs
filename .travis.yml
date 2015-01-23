@@ -10,4 +10,5 @@ before_install:
   sudo apt-get -qqy install emacs-snapshot;
 
 script:
-  emacs -batch -l ert -l core/test/* -f ert-run-tests-batch-and-exit
+  cd ~/.emacs.d/core
+  make test
