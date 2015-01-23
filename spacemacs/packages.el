@@ -27,6 +27,7 @@
     dash
     diminish
     dired+
+    doc-view
     elisp-slime-nav
     eldoc
     evil
@@ -444,6 +445,51 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-dired+ ()
   (use-package dired+
     :defer t))
+
+(defun spacemacs/init-doc-view ()
+  (use-package doc-view
+    :defer t
+    :config
+    (progn
+      (add-to-list 'evil-emacs-state-modes 'doc-view-mode)
+
+      (defun spacemacs/doc-view-search-new-query ()
+        "Initiate a new query."
+        (interactive)
+        (doc-view-search 'newquery))
+      
+      (defun spacemacs/doc-view-search-new-query-backward ()
+        "Initiate a new query."
+        (interactive)
+        (doc-view-search 'newquery t))
+
+      ;; fixed a weird issue where toggling display does not
+      ;; swtich to text mode
+      (defadvice doc-view-toggle-display
+          (around spacemacs/doc-view-toggle-display activate)
+        (if (eq major-mode 'doc-view-mode)
+            (progn
+              ad-do-it
+              (text-mode)
+              (doc-view-minor-mode))
+          ad-do-it))
+
+      (spacemacs|evilify doc-view-mode-map
+                         "/"  'spacemacs/doc-view-search-new-query
+                         "?"  'spacemacs/doc-view-search-new-query-backward
+                         "gg" 'doc-view-first-page
+                         "G"  'doc-view-last-page
+                         "h"  'doc-view-previous-page
+                         "j"  'doc-view-next-line-or-next-page
+                         "k"  'doc-view-previous-line-or-previous-page
+                         "K"  'doc-view-kill-proc-and-buffer
+                         "l"  'doc-view-next-page
+                         "n"  'doc-view-search
+                         "N"  'doc-view-search-backward
+                         (kbd "C-d") 'doc-view-scroll-up-or-next-page
+                         (kbd "C-k") 'doc-view-kill-proc
+                         (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
+      (spacemacs/activate-evil-leader-for-map 'doc-view-mode-map))))
 
 (defun spacemacs/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
