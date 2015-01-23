@@ -36,11 +36,11 @@ which require an initialization must be listed explicitly in the list.")
           (smex-major-mode-commands)))
 
       (defun spacemacs/smex-define-keys ()
-        (when dotspacemacs-feature-toggle-leader-on-jk
-          (evil-leader/set-key-for-mode 'ido-mode
-            "g"   'smex-find-function
-            "hdf" 'smex-describe-function
-            "hw"  'smex-where-is))
+        ;; (when dotspacemacs-feature-toggle-leader-on-jk
+        ;;   (evil-leader/set-key-for-mode 'ido-mode
+        ;;     "g"   'smex-find-function
+        ;;     "hdf" 'smex-describe-function
+        ;;     "hw"  'smex-where-is))
         ;; (key-chord-define ido-completion-map (kbd "jk")
         ;;                   (cdr (assoc 'ido-mode evil-leader--mode-maps)))
         )
