@@ -97,11 +97,6 @@
     popwin
     powerline
     projectile
-    ;; not working well for now
-    ;; rainbow-blocks
-    rainbow-delimiters
-    ;; install fail on windows
-    rainbow-mode
     rcirc
     rcirc-color
     recentf
@@ -1863,30 +1858,6 @@ which require an initialization must be listed explicitly in the list.")
       (progn
         (projectile-global-mode)
         (spacemacs|hide-lighter projectile-mode))))
-
-(defun spacemacs/init-rainbow-blocks ()
-  (use-package rainbow-blocks
-    :disabled t
-    :init
-    (progn (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode))))
-
-(defun spacemacs/init-rainbow-delimiters ()
-  (use-package rainbow-delimiters
-    :defer t
-    :init
-    (progn
-      (defun turn-on-rainbow-delimiters-mode ()
-        (interactive)
-        (rainbow-delimiters-mode 1))
-      (add-to-hooks
-       'turn-on-rainbow-delimiters-mode '(prog-mode-hook)))))
-
-(defun spacemacs/init-rainbow-mode ()
-  (use-package rainbow-mode
-    :defer t
-    :init (evil-leader/set-key "tc" 'rainbow-mode)
-    :config
-    (spacemacs|hide-lighter rainbow-mode)))
 
 (defun spacemacs/init-rcirc ()
   (use-package rcirc

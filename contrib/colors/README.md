@@ -10,8 +10,8 @@
     - [Install](#install)
     - [Key bindings](#key-bindings)
         - [Rainbow Identifiers](#rainbow-identifiers)
-    - [Screenshots](#screenshots)
-        - [Python](#python)
+        - [Rainbow delimiters](#rainbow-delimiters)
+        - [Rainbow Mode](#rainbow-mode)
 
 <!-- markdown-toc end -->
 
@@ -19,10 +19,18 @@
 
 This layer colors your life with:
 - [rainbow identifiers][]
+- [rainbow delimiters][]
+- [rainbow mode][]
 
 [rainbow identifiers][] mode will colorize each variables and functions with an
 almost unique color. The keywords and the declaration of function colors are
 disabled in order to make the colorized variables and functions stand out.
+
+[rainbow delimiters][] highlights delimiters such as parentheses, brackets or
+braces according to their depth.
+
+[rainbow mode][] displays strings representing colors with the color they
+represent as background.
 
 ## Install
 
@@ -39,6 +47,8 @@ To use this contribution add it to your `~/.spacemacs`
 The prefix associated with colors is <kbd>C</kbd>.
 
 ### Rainbow Identifiers
+
+![theme_tweaks_python](img/theme-tweaks-python.png)
 
 `rainbow-identifiers` mode can be toggled on and off with:
 
@@ -58,10 +68,25 @@ Key Binding   | Description
 `=`           | reset the `saturation` or `lightness`
 Any other key | leave the change mini-mode
 
-## Screenshots
+### Rainbow delimiters
 
-### Python
+`rainbow-delimiters` mode can be toggled on and off with:
 
-![theme_tweaks_python](img/theme-tweaks-python.png)
+    <SPC> t C d
+
+Note that the toggle is local to the current buffer.
+
+### Rainbow Mode
+
+![rainbow_mode](img/rainbow-mode.png)
+
+`rainbow-mode` mode can be toggled on and off with:
+
+    <SPC> t C c
+
+Note that the toggle is local to the current buffer.
 
 [rainbow identifiers]: https://github.com/Fanael/rainbow-identifiers
+[rainbow delimiters]: https://github.com/Fanael/rainbow-delimiters
+[rainbow mode]: https://julien.danjou.info/projects/emacs-packages
+

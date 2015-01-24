@@ -12,10 +12,27 @@
 
 (defvar colors-packages
   '(
+    ;; not working well for now
+    ;; rainbow-blocks
+    rainbow-delimiters
     rainbow-identifiers
+    rainbow-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
+
+(defun colors/init-rainbow-blocks ()
+  (use-package rainbow-blocks
+    :disabled t
+    :init (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)))
+
+(defun colors/init-rainbow-delimiters ()
+  (use-package rainbow-delimiters
+    :defer t
+    :init
+    (progn
+      (evil-leader/set-key "tCd" 'rainbow-delimiters-mode)
+      (add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook)))))
 
 (defun colors/init-rainbow-identifiers ()
   (use-package rainbow-identifiers
@@ -172,3 +189,9 @@ Press any other key to exit." component (eval var) component component)))
       ;; key bindings
       (evil-leader/set-key "Cis" 'colors/start-change-color-saturation)
       (evil-leader/set-key "Cil" 'colors/start-change-color-lightness))))
+
+(defun colors/init-rainbow-mode ()
+  (use-package rainbow-mode
+    :commands rainbow-mode
+    :init (evil-leader/set-key "tCc" 'rainbow-mode)
+    :config (spacemacs|hide-lighter rainbow-mode)))
