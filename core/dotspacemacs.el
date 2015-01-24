@@ -29,8 +29,10 @@ the value is nil then no banner is displayed.")
   "list of contribution to load."
 )
 
-(defvar dotspacemacs-default-theme 'solarized-light
-  "Default theme used to start Spacemacs.")
+(defvar dotspacemacs-themes '(solarized-light solarized-dark)
+  "List of themes, the first of the list is loaded when spacemacs starts.
+Press <SPC> T n to cycle to the next theme in the list (works great
+with 2 themes variants, one dark and one light")
 
 (defvar dotspacemacs-leader-key "SPC"
   "The leader key.")
