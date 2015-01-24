@@ -1993,6 +1993,7 @@ PR gunner (8 PRs in a row)                           | [ralesi][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
 400th star                                           | [dbohdan][]
+600th star                                           | [laat][]
 
 # Thank you
 
@@ -2096,6 +2097,7 @@ developers to elisp hackers!
 [chrisbarrett]:https://github.com/chrisbarrett
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
+[laat]:https://github.com/laat
 [bru]:https://github.com/bru
 [smt]:https://github.com/smt
 [ralesi]:https://github.com/ralesi
