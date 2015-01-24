@@ -134,6 +134,7 @@
   "t8" 'toggle-fill-column-indicator
   "tF" 'spacemacs/toggle-frame-fullscreen
   "tf" 'fringe-mode
+  "th" 'global-hl-line-mode
   "tl" 'toggle-truncate-lines
   "tL" 'visual-line-mode
   "tM" 'toggle-frame-maximized

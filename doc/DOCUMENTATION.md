@@ -679,6 +679,7 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 <kbd>SPC t 8</kbd>    | display a mark on the 80th column
 <kbd>SPC t F</kbd>    | toggle frame fullscreen
 <kbd>SPC t f</kbd>    | toggle display of the fringe
+<kbd>SPC t h</kbd>    | toggle highlight of the current line
 <kbd>SPC t i</kbd>    | toggle aggressive indent
 <kbd>SPC t l</kbd>    | toggle truncate lines
 <kbd>SPC t L</kbd>    | toggle visual lines
