@@ -87,11 +87,11 @@ disabling some faces in order to make colored identifiers stand out."
                 (face-all-attributes font-lock-keyword-face frame)))
         ;; tweak the font locks
         (colors//tweak-theme-colors-font-lock)))
-    (colors//tweak-theme-colors spacemacs-cur-theme)
+    (colors//tweak-theme-colors spacemacs--cur-theme)
 
     (defadvice spacemacs/post-theme-init (after colors/post-theme-init activate)
       "Adjust lightness and brightness of rainbow-identifiers on post theme init."
-      (colors//tweak-theme-colors spacemacs-cur-theme))
+      (colors//tweak-theme-colors spacemacs--cur-theme))
 
     :config
     (progn

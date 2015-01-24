@@ -90,8 +90,11 @@
   (setq cursor-type nil)
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
-  ;; theme
-  (spacemacs/load-default-theme)
+  ;; default theme
+  (let ((default-theme (car dotspacemacs-themes)))
+    (spacemacs/load-theme default-theme)
+    (setq-default spacemacs--cur-theme default-theme)
+    (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
   ;; remove GUI elements if supported
   (when window-system
     ;; those unless tests are for the case when the user has a ~/.emacs file

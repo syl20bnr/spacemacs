@@ -633,38 +633,28 @@ your `~/.spacemacs`):
 [evil-jumper][]                         | jump list emulation
 [NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
 
-# Color theme
+# Color themes
 
 By default, `Spacemacs` uses the theme [solarized-light][solarized-theme].
 
-It is possible to define your default theme in your `~/.spacemacs` with
-the variable `dotspacemacs-default-theme`. For instance, to specify `zenburn`:
+It is possible to define your default themes in your `~/.spacemacs` with
+the variable `dotspacemacs-themes`. For instance, to specify `leuven` and
+`zenburn` (high contract theme and low contrast theme):
 
 ```elisp
-(setq-default
- ;; Default theme applied at startup
- dotspacemacs-default-theme 'zenburn)
+(setq-default dotspacemacs-themes '(leuven zenburn))
 ```
-
-Some themes are supported by `Spacemacs`:
-- [Solarized][solarized-theme]
-- [Leuven][leuven-theme]
-- [Monokai][monokai-theme]
-- [Zenburn][zenburn-theme]
-
-It is possible to set any other themes but their compatibility with `Spacemacs`
-is not guaranteed (i.e. there may be some missing faces etc...).
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC T n</kbd>   | switch to next theme supported by `Spacemacs`.
-<kbd>SPC h t</kbd>   | select a theme using a `helm` buffer.
+<kbd>SPC T n</kbd>   | switch to next theme listed in `dotspacemacs-themes`.
+<kbd>SPC T h</kbd>   | select a theme using `helm`.
 
 **Note:** Due to the inner working of themes in Emacs, switching theme during
 the same session may have some weird side effects. Although these side effects
-should be pretty rare (especially when switching to a supported theme).
+should be pretty rare.
 
-**Hint** If you are an `Org` user, [leuven-theme][] is amazing.
+**Hint** If you are an `Org` user, [leuven-theme][] is amazing ;-)
 
 # UI elements
 

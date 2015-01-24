@@ -114,17 +114,6 @@ bindings contained in BODY."
     "y" 'evil-yank
     ,@body))
 
-;; From http://stackoverflow.com/a/18796138
-;; Cycle through this set of themes
-(defvar spacemacs-themes '(solarized-light
-                           solarized-dark
-                           leuven
-                           monokai
-                           zenburn)
-  "Themes officially supported by spacemacs.")
-(defvar spacemacs-cur-theme (pop spacemacs-themes)
-  "Current spacemacs theme.")
-
 (defun spacemacs/split-and-new-line ()
   "Split a quoted string or s-expression and insert a new line with
 auto-indent."
@@ -143,37 +132,6 @@ auto-indent."
   (interactive)
   (push-mark (point))
   (evil-end-of-line))
-
-(defun spacemacs/cycle-spacemacs-theme ()
-  "Cycle through themes defined in spacemacs-themes."
-  (interactive)
-  (when  spacemacs-cur-theme
-    (disable-theme  spacemacs-cur-theme)
-    (setq spacemacs-themes (append spacemacs-themes
-                                   (list spacemacs-cur-theme))))
-  (setq  spacemacs-cur-theme (pop spacemacs-themes))
-  (message "Loading theme %s..." spacemacs-cur-theme)
-  (load-theme spacemacs-cur-theme t))
-
-(defadvice load-theme (after spacemacs/load-theme-adv activate)
-  "Perform post load processing."
-  (let ((theme (ad-get-arg 0)))
-    (setq spacemacs-cur-theme theme)
-    (spacemacs/post-theme-init theme)))
-
-(defun spacemacs/post-theme-init (theme)
-  " Some processing that needs to be done when the current theme has been
-changed to THEME."
-  (interactive)
-      ;; Define a face for each state
-  (if (fboundp 'spacemacs/set-state-faces)
-      (spacemacs/set-state-faces))
-  (if (fboundp 'spacemacs/set-flycheck-mode-line-faces)
-      (spacemacs/set-flycheck-mode-line-faces))
-  (if (fboundp 'spacemacs/set-new-version-lighter-mode-line-faces)
-      (spacemacs/set-new-version-lighter-mode-line-faces))
-  (if (fboundp 'powerline-reset)
-      (powerline-reset)))
 
 ;; insert one or several line below without changing current evil state
 (defun evil-insert-line-below (count)
