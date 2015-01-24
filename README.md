@@ -391,7 +391,7 @@ info on this.
 [achievements]: doc/DOCUMENTATION.md#achievements
 [troubleshoot]: doc/DOCUMENTATION.md#troubleshoot
 [contrib layers]: doc/DOCUMENTATION.md#using-configuration-layers
-[Git support]: doc/DOCUMENTATION.md#working-with-git
+[Git support]: contrib/git/README.md
 [ace-jump]: doc/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
 [project management]: doc/DOCUMENTATION.md#project-management
 [Evil Mode]: doc/DOCUMENTATION.md#evil
