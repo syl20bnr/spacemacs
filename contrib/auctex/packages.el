@@ -60,7 +60,6 @@
 
       (setq-default TeX-auto-save t)
       (setq-default TeX-parse-self t)
-      (setq-default TeX-master nil)
       (setq-default TeX-PDF-mode t))))
 
 (defun auctex/init-evil-matchit ()
