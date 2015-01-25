@@ -657,7 +657,7 @@ is not guaranteed (i.e. there may be some missing faces etc...).
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
 <kbd>SPC T n</kbd>   | switch to next theme supported by `Spacemacs`.
-<kbd>SPC h t</kbd>   | select a theme using a `helm` buffer.
+<kbd>SPC T h</kbd>   | select a theme using a `helm` buffer.
 
 **Note:** Due to the inner working of themes in Emacs, switching theme during
 the same session may have some weird side effects. Although these side effects
