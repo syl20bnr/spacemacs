@@ -1662,11 +1662,12 @@ which require an initialization must be listed explicitly in the list.")
           (setq spacemacs-mode-line-new-version-lighterp t)))
       (evil-leader/set-key "tmv" 'spacemacs/mode-line-new-version-lighter-toggle)
 
+      ;; disable this hack for now to see if we can fix it differently
       ;; for now we hardcode the height value of powerline depending on the
       ;; window system, a better solution would be to compute it correctly
       ;; in powerline package.
-      (let ((height (if (eq 'w32 window-system) 18 17)))
-        (setq-default powerline-height height))
+      ;; (let ((height (if (eq 'w32 window-system) 18 17)))
+      ;;   (setq-default powerline-height height))
       (setq-default powerline-default-separator 'wave)
 
       (defun spacemacs/mode-line-prepare-left ()
