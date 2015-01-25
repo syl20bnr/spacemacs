@@ -665,7 +665,7 @@ the variable `dotspacemacs-themes`. For instance, to specify `leuven` and
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
 <kbd>SPC T n</kbd>   | switch to next theme listed in `dotspacemacs-themes`.
-<kbd>SPC T h</kbd>   | select a theme using `helm`.
+<kbd>SPC T h</kbd>   | select a theme using a `helm` buffer.
 
 **Note:** Due to the inner working of themes in Emacs, switching theme during
 the same session may have some weird side effects. Although these side effects
