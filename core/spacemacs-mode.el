@@ -31,32 +31,6 @@
   :group 'starter-kit
   :prefix 'spacemacs-)
 
-;; paths
-(defconst spacemacs-core-directory
-  (expand-file-name (concat user-emacs-directory "core/"))
-  "Spacemacs core directory.")
-(defconst spacemacs-banner-directory
-  (expand-file-name (concat spacemacs-core-directory "banners/"))
-  "Spacemacs banners directory.")
-(defconst user-home-directory
-  (expand-file-name "~/")
-  "User home directory (~/).")
-(defconst spacemacs-directory
-  (expand-file-name (concat user-emacs-directory "spacemacs/"))
-  "Spacemacs base directory.")
-(defconst spacemacs-cache-directory
-  (expand-file-name (concat user-emacs-directory ".cache/"))
-  "Spacemacs storage area for persistent files.")
-(defconst pcache-directory
-  (concat spacemacs-cache-directory "pcache"))
-(unless (file-exists-p spacemacs-cache-directory)
-    (make-directory spacemacs-cache-directory))
-(defconst user-dropbox-directory
-  (expand-file-name (concat user-home-directory "Dropbox/"))
-  "Dropbox directory.")
-;; if you have a dropbox, then ~/Dropbox/emacs is added to load path
-(add-to-list 'load-path (concat user-dropbox-directory "emacs/"))
-
 ;; new version variables
 (defvar spacemacs-new-version nil
   "If non-nil a new Spacemacs version is available.")
