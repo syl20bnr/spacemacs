@@ -212,23 +212,28 @@ Update of `Spacemacs` by clicking on the indicator will be implemented _soon_.
 # Configuration
 
 `Spacemacs` divides its configuration into self-contained units called
-[configuration layers][config]. It uses a dotfile, `~/.spacemacs`, to control
-which of these features to enable.
+[configuration layers][config]. These layers can be stacked on top of each other
+to achieve a custom configuration.
+
+`Spacemacs` also uses a dotfile `~/.spacemacs` to control which layers to
+load and to quick configure some `Spacemacs` features.
 
 ## Configuration layers
 
 A configuration layer is a directory containing at least the following files:
 
-- `packages.el`: Defines and configures packages to be downloaded from Emacs package repositories
-- `extensions.el`: Configures packages that do not need to be downloaded with
-  the package manager, such as built-in Emacs features and git submodules.
+- `packages.el`: Defines and configures packages to be downloaded from Emacs
+package repositories using `package.el`
+- `extensions.el`: Configures packages which cannot be downloaded with
+  `package.el` such as built-in Emacs features and git submodules.
 
-You should create your own configuration layers in the [private][] directory.
-The following command automates this process:
+If you already have your own `Emacs` configuration you can move it to your
+own layer.
+The following command creates a layer in the `private` directory:
 
     <SPC> : configuration-layer/create-layer RET
 
-_Caveat:_ For your privacy, the contents of the `private` directory are not
+_Note:_ For your privacy, the contents of the `private` directory are not
 under source control. See the documentation for a discussion on how to
 [manage your private configuration][manage_config].
 
@@ -237,10 +242,10 @@ Any configuration layers you create must be explicitly loaded in your
 
 ## Dotfile (.spacemacs)
 
-The `.spacemacs` file controls which features to load and provides a way to
-customize Spacemacs.
+The `.spacemacs` file controls which configuration layers to load and provides
+a way to customize `Spacemacs`.
 
-The following command will create `.spacemacs` in your home directory:
+The following command will create a `.spacemacs` file in your home directory:
 
     <SPC> : dotspacemacs/install RET
 
@@ -248,12 +253,26 @@ To open the installed dotfile:
 
     <SPC> f e d
 
-To load configuration layers, add them to the list beside
+Example to load some configuration layers using the variable
 `dotspacemacs-configuration-layers`:
 
-```lisp
+```elisp
 ;; List of configuration layers to load.
 dotspacemacs-configuration-layers '(company-mode smex)
+```
+
+Some configuration layers have configuration variables to enable specific
+support. For instance the [git layer][] has several configuration variables,
+they can be set directly in the `dotspacemacs-configuration-layers` like this:
+
+```elisp
+;; List of configuration layers to load.
+dotspacemacs-configuration-layers '(company-mode
+                                    (git :variables
+                                         git-magit-status-fullscreen t
+                                         git-enable-github-support t
+                                         git-gutter-use-fringe t)
+                                    smex)
 ```
 
 The comments in this file contain further information about how to customize
@@ -392,6 +411,7 @@ info on this.
 [troubleshoot]: doc/DOCUMENTATION.md#troubleshoot
 [contrib layers]: doc/DOCUMENTATION.md#using-configuration-layers
 [Git support]: contrib/git/README.md
+[git layer]: contrib/git
 [ace-jump]: doc/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
 [project management]: doc/DOCUMENTATION.md#project-management
 [Evil Mode]: doc/DOCUMENTATION.md#evil

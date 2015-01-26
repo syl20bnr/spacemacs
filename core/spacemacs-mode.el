@@ -9,14 +9,13 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(require 'spacemacs-buffer)
-
 (setq message-log-max 16384)
 (defconst emacs-start-time (current-time))
 
 (require 'subr-x nil 'noerror)
 (require 'emacs-backports)
 (require 'themes-support)
+(require 'spacemacs-buffer)
 
 (defconst spacemacs-repository "spacemacs"
   "Name of the Spacemacs remote repository.")

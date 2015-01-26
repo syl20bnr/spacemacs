@@ -29,6 +29,7 @@
     - [Installation](#installation)
     - [Content](#content)
         - [Using configuration layers](#using-configuration-layers)
+        - [Setting configuration layers variables](#setting-configuration-layers-variables)
         - [Excluding packages](#excluding-packages)
         - [Hooks](#hooks)
         - [Custom variables](#custom-variables)
@@ -43,7 +44,7 @@
 - [Differences between Vim, Evil and Spacemacs](#differences-between-vim-evil-and-spacemacs)
     - [The vim-surround case](#the-vim-surround-case)
 - [Evil plugins](#evil-plugins)
-- [Color theme](#color-theme)
+- [Color themes](#color-themes)
 - [UI elements](#ui-elements)
     - [Toggles](#toggles)
     - [Mode-line](#mode-line)
@@ -414,7 +415,7 @@ For instance to add the configuration layer of [RMS](#thank-you):
 (setq-default dotspacemacs-configuration-layers '(rms))
 ```
 If this layer does not exist you can still try another one in
-[the `contrib` directory](https://github.com/syl20bnr/spacemacs/tree/master/contrib).
+[the `contrib` directory](../contrib).
 
 Configuration layers are expected to be stored in `~/.emacs.d/private` or
 `~/.emacs.d/contrib`. But you are free to keep them somewhere else by declaring
@@ -424,6 +425,22 @@ This is done by setting the list
 
 ```elisp
 (setq-default dotspacemacs-configuration-layer-path '("~/.myconfig/"))
+```
+
+### Setting configuration layers variables
+
+Some configuration layers have configuration variables to enable specific
+support. For instance the [git layer][] has several configuration variables,
+they can be set directly in the `dotspacemacs-configuration-layers` like this:
+
+```elisp
+;; List of configuration layers to load.
+dotspacemacs-configuration-layers '(company-mode
+                                    (git :variables
+                                         git-magit-status-fullscreen t
+                                         git-enable-github-support t
+                                         git-gutter-use-fringe t)
+                                    smex)
 ```
 
 ### Excluding packages
@@ -2073,6 +2090,7 @@ developers to elisp hackers!
 [javascript-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/javascript
 [themes-megapack]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/themes-megapack
 [python-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/python
+[git layer]: ../contrib/git
 [html-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/html
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
