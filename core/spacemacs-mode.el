@@ -95,21 +95,7 @@
       (pcase window-system
         (`x (spacemacs/set-font font 10))
         (`mac (spacemacs/set-font font 12))
-        (`w32
-         (spacemacs/set-font font 9)
-         (let ((fallback-font "Lucida Sans Unicode"))
-           ;; window numbers
-           (set-fontset-font "fontset-default"
-                             '(#x2776 . #x2793) fallback-font nil 'append)
-           ;; mode-line circled letters
-           (set-fontset-font "fontset-default"
-                             '(#x24b6 . #x24fe) fallback-font nil 'append)
-           ;; mode-line additional characters (i.e. golden ratio)
-           (set-fontset-font "fontset-default"
-                             '(#x2295 . #x22a1) fallback-font nil 'append)
-           ;; new version lighter
-           (set-fontset-font "fontset-default"
-                             '(#x2190 . #x2200) fallback-font nil 'append)))
+        (`w32 (spacemacs/set-font font 13))
         (other (spacemacs/set-font font 10)))))
   
   ;; banner
@@ -329,7 +315,41 @@ version and the NEW version."
                       (format "%s-%s:%s" font size options)
                     (format "%s-%s" font size))))
     (spacemacs/message (format "Set default font: %s" fontstr))
-    (add-to-list 'default-frame-alist (cons 'font fontstr))
-    (set-default-font fontstr)))
+    ;; (add-to-list 'default-frame-alist `(font . ,fontstr) `(height . ,(* 10 size)))
+    (set-default-font (font-spec :family font
+                        :size size
+                        :weight 'normal
+                        :width 'normal))
+    (setq-default powerline-height (+ size 4))
+    (pcase window-system
+      (`x (setq fallback-font-name nil)
+          (setq fallback-font-name2 nil))
+      (`mac (setq fallback-font-name nil)
+            (setq fallback-font-name2 nil))
+      (`w32 (setq fallback-font-name "MS Gothic")
+            (setq fallback-font-name2 "Lucida Sans Unicode"))
+      (other (setq fallback-font-name nil)
+             (setq fallback-font-name2 nil)))
+    (when (and fallback-font-name fallback-font-name2)
+      (let ((fallback-font (font-spec :family fallback-font-name
+                                      :size size
+                                      :weight 'normal
+                                      :width 'normal))
+            (fallback-font2 (font-spec :family fallback-font-name2
+                                       :size size
+                                       :weight 'normal
+                                       :width 'normal)))
+        ;; window numbers
+        (set-fontset-font "fontset-default"
+                          '(#x2776 . #x2793) fallback-font nil 'prepend)
+        ;; mode-line circled letters
+        (set-fontset-font "fontset-default"
+                          '(#x24b6 . #x24fe) fallback-font nil 'prepend)
+        ;; mode-line additional characters (i.e. golden ratio)
+        (set-fontset-font "fontset-default"
+                          '(#x2295 . #x22a1) fallback-font nil 'prepend)
+        ;; new version lighter
+        (set-fontset-font "fontset-default"
+                          '(#x2190 . #x2200) fallback-font2 nil 'prepend)))))
 
 (provide 'spacemacs-mode)
