@@ -227,8 +227,8 @@ the following keys:
 (defun configuration-layer/load-layers ()
   "Load all declared layers."
   (let ((layers (reverse configuration-layer-layers)))
-    (configuration-layer//load-layer-files layers '("funcs.el" "config.el"))
     (configuration-layer//set-layers-variables layers)
+    (configuration-layer//load-layer-files layers '("funcs.el" "config.el"))
     ;; fill the hash tables
     (setq configuration-layer-excluded-packages (configuration-layer/get-excluded-packages layers))
     (setq configuration-layer-all-packages (configuration-layer/get-packages layers))
