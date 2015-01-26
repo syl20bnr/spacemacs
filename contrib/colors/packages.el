@@ -15,11 +15,13 @@
     ;; not working well for now
     ;; rainbow-blocks
     rainbow-delimiters
-    rainbow-identifiers
     rainbow-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
+
+(when colors-enable-rainbow-identifiers
+  (push 'rainbow-identifiers colors-packages))
 
 (defun colors/init-rainbow-blocks ()
   (use-package rainbow-blocks
