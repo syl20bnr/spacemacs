@@ -1,5 +1,5 @@
 ***
-![title](https://raw.githubusercontent.com/syl20bnr/spacemacs/master/doc/img/title.png)
+![title](./doc/img/title.png)
 [philosophy][] | [goals][] | [for who?][] | [screenshots][] | [documentation][DOCUMENTATION.md] | [contribute][CONTRIBUTE.md] | [achievements][] | [FAQ][]
 ***
 [![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
@@ -233,12 +233,12 @@ The following command creates a layer in the `private` directory:
 
     <SPC> : configuration-layer/create-layer RET
 
-_Note:_ For your privacy, the contents of the `private` directory are not
-under source control. See the documentation for a discussion on how to
-[manage your private configuration][manage_config].
-
 Any configuration layers you create must be explicitly loaded in your
 `~/.spacemacs` file.
+
+**Note:** For your privacy, the contents of the `private` directory are not
+under source control. See the documentation for a discussion on how to
+[manage your private configuration][manage_config].
 
 ## Dotfile (.spacemacs)
 
@@ -275,9 +275,9 @@ dotspacemacs-configuration-layers '(company-mode
                                     smex)
 ```
 
-The comments in this file contain further information about how to customize
-Spacemacs. See the [dotfile configuration][dotfile] section of the documentation
-for more information.
+The [comments in this file][dotfile template] contain further information about
+how to customize Spacemacs. See the [dotfile configuration][dotfile] section of
+the documentation for more information.
 
 # Learning Spacemacs
 
@@ -415,13 +415,14 @@ info on this.
 [ace-jump]: doc/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
 [project management]: doc/DOCUMENTATION.md#project-management
 [Evil Mode]: doc/DOCUMENTATION.md#evil
-[private]: https://github.com/syl20bnr/spacemacs/tree/master/private
+[private]: ./private
 [DOCUMENTATION.md]: doc/DOCUMENTATION.md
 [font section]: doc/DOCUMENTATION.md#font
 [CONTRIBUTE.md]: doc/CONTRIBUTE.md
 [powerline-seps]: doc/DOCUMENTATION.md#powerline-separators
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
 [dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
+[dotfile template]: ./core/templates/.spacemacs.template
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
 [osx layer]: contrib/osx/README.md
 [guide-key]: https://github.com/kai2nenobu/guide-key
