@@ -14,6 +14,7 @@
 (require 'dotspacemacs)
 (require 'ht)
 (require 'package)
+(require 'spacemacs-buffer)
 
 (unless package--initialized
   (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
@@ -200,6 +201,17 @@ the following keys:
           (cons name-sym plist))
       (spacemacs/message "Warning: Cannot find layer %s !" layer))))
 
+(defun configuration-layer//set-layers-variables (layers)
+  "Set the configuration variables for the passed LAYERS."
+  (dolist (layer layers)
+    (let ((variables (configuration-layer//mplist-get layer :variables)))
+      (while variables
+        (let ((var (pop variables)))
+          (if (consp variables)
+              (set-default var (pop variables))
+            (spacemacs/message "Warning: Missing value for variable %s !"
+                               var)))))))
+
 (defun configuration-layer/package-declaredp (pkg)
   "Return non-nil if PKG symbol corresponds to a used package."
   (ht-contains? configuration-layer-all-packages pkg))
@@ -216,6 +228,7 @@ the following keys:
   "Load all declared layers."
   (let ((layers (reverse configuration-layer-layers)))
     (configuration-layer//load-layer-files layers '("funcs.el" "config.el"))
+    (configuration-layer//set-layers-variables layers)
     ;; fill the hash tables
     (setq configuration-layer-excluded-packages (configuration-layer/get-excluded-packages layers))
     (setq configuration-layer-all-packages (configuration-layer/get-packages layers))
@@ -613,5 +626,22 @@ deleted safely."
                          (configuration-layer//initialized-packages-count)
                          elapsed)))
               (spacemacs/check-for-new-version spacemacs-version-check-interval))))
+
+(defun configuration-layer//mplist-get (plist prop)
+  "Get the values associated to PROP in PLIST, a modified plist.
+
+A modified plist is one where keys are keywords and values are
+all non-keywords elements that follow it.
+
+Currently this function infloops when the list is circular."
+  (let ((tail plist)
+        result)
+    (while (and (consp tail) (not (eq prop (car tail))))
+      (pop tail))
+    ;; pop the found keyword
+    (pop tail)
+    (while (and (consp tail) (not (keywordp (car tail))))
+      (push (pop tail) result))
+    (nreverse result)))
 
 (provide 'configuration-layer)
