@@ -9,10 +9,12 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+()
 
 (require 'dotspacemacs)
 (require 'ht)
 (require 'package)
+(require 'spacemacs-buffer)
 
 (unless package--initialized
   (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
@@ -163,18 +165,52 @@ for that layer."
           (push (cons (intern f) dir) result)))
       result)))
 
-(defun configuration-layer//declare-layer (name)
+(defun configuration-layer/declare-all-layers ()
+  "Declare default layers and user layers from the dotfile by filling the
+`configuration-layer-layers' variable."
+  (setq configuration-layer-paths (configuration-layer//discover-layers))
+  (push (configuration-layer//declare-layer 'spacemacs)
+        configuration-layer-layers)
+  (mapc (lambda (layer) (push layer configuration-layer-layers))
+        (configuration-layer//declare-layers
+         dotspacemacs-configuration-layers)))
+
+(defun configuration-layer//declare-layers (layers)
+  "Declare the passed configuration LAYERS.
+LAYERS is a list of layer symbols."
+  (reduce (lambda (acc elt) (push elt acc))
+          (mapcar 'configuration-layer//declare-layer layers)
+          :initial-value nil))
+
+(defun configuration-layer//declare-layer (layer)
   "Declare a layer with NAME symbol. Return a cons cell (symbol . plist)
 where `symbol' is the name of the layer and `plist' is a property list with
 the following keys:
-- `:dir'     the absolute path to the base directory of the layer.
-- `:ext-dir' the absolute path to the directory containing the extensions."
-  (let* ((namestr (symbol-name name))
-         (base-dir (configuration-layer/get-layer-path name))
-         (dir (format "%s%s/" base-dir namestr))
-         (ext-dir (format "%sextensions/" dir)))
-    (when (and base-dir (file-exists-p dir))
-        (cons name (list :dir dir :ext-dir ext-dir)))))
+- `:dir'       the absolute path to the base directory of the layer.
+- `:ext-dir'   the absolute path to the directory containing the extensions.
+- `:variables' list of layer configuration variables to set
+- `:excluded'  list of packages to exlcude."
+  (let* ((name-sym (if (listp layer) (car layer) layer))
+         (name-str (symbol-name name-sym))
+         (base-dir (configuration-layer/get-layer-path name-sym)))
+    (if base-dir
+        (let* ((dir (format "%s%s/" base-dir name-str))
+               (ext-dir (format "%sextensions/" dir))
+               (plist (append (list :dir dir :ext-dir ext-dir)
+                              (when (listp layer) (cdr layer)))))
+          (cons name-sym plist))
+      (spacemacs/message "Warning: Cannot find layer %s !" layer))))
+
+(defun configuration-layer//set-layers-variables (layers)
+  "Set the configuration variables for the passed LAYERS."
+  (dolist (layer layers)
+    (let ((variables (configuration-layer//mplist-get layer :variables)))
+      (while variables
+        (let ((var (pop variables)))
+          (if (consp variables)
+              (set-default var (pop variables))
+            (spacemacs/message "Warning: Missing value for variable %s !"
+                               var)))))))
 
 (defun configuration-layer/package-declaredp (pkg)
   "Return non-nil if PKG symbol corresponds to a used package."
@@ -186,13 +222,12 @@ the following keys:
 
 (defun configuration-layer/get-layer-path (layer)
   "Return the path for LAYER symbol."
-  (let ((path (ht-get configuration-layer-paths layer)))
-    (unless path (spacemacs/message "Warning: Cannot find layer %s !" layer))
-    path))
+  (ht-get configuration-layer-paths layer))
 
 (defun configuration-layer/load-layers ()
   "Load all declared layers."
   (let ((layers (reverse configuration-layer-layers)))
+    (configuration-layer//set-layers-variables layers)
     (configuration-layer//load-layer-files layers '("funcs.el" "config.el"))
     ;; fill the hash tables
     (setq configuration-layer-excluded-packages (configuration-layer/get-excluded-packages layers))
@@ -451,24 +486,6 @@ If PRE is non nil then the extension is a pre-extensions."
      (ht-size configuration-layer-all-pre-extensions)
      (ht-size configuration-layer-all-post-extensions)))
 
-(defun configuration-layer/declare-layers ()
-  "Declare default layers and user layers from the dotfile by filling the
-`configuration-layer-layers' variable."
-  (setq configuration-layer-paths (configuration-layer//discover-layers))
-  (push (configuration-layer//declare-layer 'spacemacs) configuration-layer-layers)
-  (mapc (lambda (layer) (push layer configuration-layer-layers))
-        (configuration-layer//declare-dotspacemacs-configuration-layers)))
-
-(defun configuration-layer//declare-dotspacemacs-configuration-layers ()
-  "Declare the configuration layer in order of appearance in list
-`dotspacemacs-configuration-layers' defined in ~/.spacemacs."
-  ;; (message "layer paths: %s" configuration-layer-paths)
-  (let (result '())
-    (if (boundp 'dotspacemacs-configuration-layers)
-        (dolist (layer dotspacemacs-configuration-layers)
-          (push (configuration-layer//declare-layer layer) result)))
-    result))
-
 (defun configuration-layer/get-layer-property (symlayer prop)
   "Return the value of the PROPerty for the given SYMLAYER symbol."
   (let* ((layer (assq symlayer configuration-layer-layers)))
@@ -609,5 +626,22 @@ deleted safely."
                          (configuration-layer//initialized-packages-count)
                          elapsed)))
               (spacemacs/check-for-new-version spacemacs-version-check-interval))))
+
+(defun configuration-layer//mplist-get (plist prop)
+  "Get the values associated to PROP in PLIST, a modified plist.
+
+A modified plist is one where keys are keywords and values are
+all non-keywords elements that follow it.
+
+Currently this function infloops when the list is circular."
+  (let ((tail plist)
+        result)
+    (while (and (consp tail) (not (eq prop (car tail))))
+      (pop tail))
+    ;; pop the found keyword
+    (pop tail)
+    (while (and (consp tail) (not (keywordp (car tail))))
+      (push (pop tail) result))
+    (nreverse result)))
 
 (provide 'configuration-layer)

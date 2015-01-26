@@ -9,14 +9,14 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(defconst spacemacs-version     "0.48.7" "Spacemacs version.")
-(defconst spacemacs-min-version   "24.3" "Mininal required version of Emacs.")
+(defconst spacemacs-version     "0.49.0" "Spacemacs version.")
+(defconst spacemacs-min-version   "24.3" "Minimal required version of Emacs.")
 
 (defun spacemacs/emacs-version-ok ()
   (version<= spacemacs-min-version emacs-version))
 
 (when (spacemacs/emacs-version-ok)
-  (add-to-list 'load-path (concat user-emacs-directory "core/"))
+  (load-file (concat user-emacs-directory "core/load-paths.el"))
   (require 'spacemacs-mode)
   (require 'configuration-layer)
   (dotspacemacs/load)
@@ -24,7 +24,7 @@
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init)
   ;; synchronize and load configuration layers
-  (configuration-layer/declare-layers)
+  (configuration-layer/declare-all-layers)
   (configuration-layer/load-layers)
   (configuration-layer/delete-orphan-packages)
   ;; Ultimate configuration decisions are given to the user who can defined

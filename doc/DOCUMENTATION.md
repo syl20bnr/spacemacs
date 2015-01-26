@@ -29,6 +29,7 @@
     - [Installation](#installation)
     - [Content](#content)
         - [Using configuration layers](#using-configuration-layers)
+        - [Setting configuration layers variables](#setting-configuration-layers-variables)
         - [Excluding packages](#excluding-packages)
         - [Hooks](#hooks)
         - [Custom variables](#custom-variables)
@@ -43,7 +44,7 @@
 - [Differences between Vim, Evil and Spacemacs](#differences-between-vim-evil-and-spacemacs)
     - [The vim-surround case](#the-vim-surround-case)
 - [Evil plugins](#evil-plugins)
-- [Color theme](#color-theme)
+- [Color themes](#color-themes)
 - [UI elements](#ui-elements)
     - [Toggles](#toggles)
     - [Mode-line](#mode-line)
@@ -77,6 +78,7 @@
             - [Key bindings](#key-bindings)
             - [Staying in insert state](#staying-in-insert-state)
         - [Bookmarks](#bookmarks)
+        - [DocView mode](#docview-mode)
     - [Searching](#searching)
         - [Project Searching](#project-searching)
         - [Persistent highlighting](#persistent-highlighting)
@@ -328,7 +330,7 @@ Example:
 that `Spacemacs` will auto-install the new packages in `<layer>-packages` lists
 _and_ auto-delete orphan packages in your `elpa` directory.
 
-It effectively makes `Spacemacs` to behave like [Vundle][vundle].
+It effectively makes `Spacemacs` behave like [Vundle][vundle].
 
 ## Types of configuration layers
 
@@ -413,7 +415,7 @@ For instance to add the configuration layer of [RMS](#thank-you):
 (setq-default dotspacemacs-configuration-layers '(rms))
 ```
 If this layer does not exist you can still try another one in
-[the `contrib` directory](https://github.com/syl20bnr/spacemacs/tree/master/contrib).
+[the `contrib` directory](../contrib).
 
 Configuration layers are expected to be stored in `~/.emacs.d/private` or
 `~/.emacs.d/contrib`. But you are free to keep them somewhere else by declaring
@@ -423,6 +425,22 @@ This is done by setting the list
 
 ```elisp
 (setq-default dotspacemacs-configuration-layer-path '("~/.myconfig/"))
+```
+
+### Setting configuration layers variables
+
+Some configuration layers have configuration variables to enable specific
+support. For instance the [git layer][] has several configuration variables,
+they can be set directly in the `dotspacemacs-configuration-layers` like this:
+
+```elisp
+;; List of configuration layers to load.
+dotspacemacs-configuration-layers '(company-mode
+                                    (git :variables
+                                         git-magit-status-fullscreen t
+                                         git-enable-github-support t
+                                         git-gutter-use-fringe t)
+                                    smex)
 ```
 
 ### Excluding packages
@@ -568,7 +586,7 @@ argument binding to <kbd>SPC u</kbd>.
 ## Micro-states
 
 `Spacemacs` defines a wide variety of `micro-states` (temporary overlay maps)
-where it makes sense. This prevent from repetitive and tedious presses on the
+where it makes sense. This prevents one from doing repetitive and tedious presses on the
 <kbd>SPC</kbd> key.
 
 When a `micro-state` is active, a documentation is displayed in the minibuffer.
@@ -632,38 +650,28 @@ your `~/.spacemacs`):
 [evil-jumper][]                         | jump list emulation
 [NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
 
-# Color theme
+# Color themes
 
 By default, `Spacemacs` uses the theme [solarized-light][solarized-theme].
 
-It is possible to define your default theme in your `~/.spacemacs` with
-the variable `dotspacemacs-default-theme`. For instance, to specify `zenburn`:
+It is possible to define your default themes in your `~/.spacemacs` with
+the variable `dotspacemacs-themes`. For instance, to specify `leuven` and
+`zenburn` (high contract theme and low contrast theme):
 
 ```elisp
-(setq-default
- ;; Default theme applied at startup
- dotspacemacs-default-theme 'zenburn)
+(setq-default dotspacemacs-themes '(leuven zenburn))
 ```
-
-Some themes are supported by `Spacemacs`:
-- [Solarized][solarized-theme]
-- [Leuven][leuven-theme]
-- [Monokai][monokai-theme]
-- [Zenburn][zenburn-theme]
-
-It is possible to set any other themes but their compatibility with `Spacemacs`
-is not guaranteed (i.e. there may be some missing faces etc...).
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC T n</kbd>   | switch to next theme supported by `Spacemacs`.
-<kbd>SPC h t</kbd>   | select a theme using a `helm` buffer.
+<kbd>SPC T n</kbd>   | switch to next theme listed in `dotspacemacs-themes`.
+<kbd>SPC T h</kbd>   | select a theme using a `helm` buffer.
 
 **Note:** Due to the inner working of themes in Emacs, switching theme during
 the same session may have some weird side effects. Although these side effects
-should be pretty rare (especially when switching to a supported theme).
+should be pretty rare.
 
-**Hint** If you are an `Org` user, [leuven-theme][] is amazing.
+**Hint** If you are an `Org` user, [leuven-theme][] is amazing ;-)
 
 # UI elements
 
@@ -688,6 +696,7 @@ Some UI indicators can be toggled on and off (toggles start with `t`):
 <kbd>SPC t 8</kbd>    | display a mark on the 80th column
 <kbd>SPC t F</kbd>    | toggle frame fullscreen
 <kbd>SPC t f</kbd>    | toggle display of the fringe
+<kbd>SPC t h</kbd>    | toggle highlight of the current line
 <kbd>SPC t i</kbd>    | toggle aggressive indent
 <kbd>SPC t l</kbd>    | toggle truncate lines
 <kbd>SPC t L</kbd>    | toggle visual lines
@@ -1209,6 +1218,36 @@ Key Binding        |                 Description
 
 To save a new bookmark, just type the name of the bookmark and press `RET`.
 
+### DocView mode
+
+`doc-view-mode` is a built-in major mode to view DVI, PostScript (PS), PDF,
+OpenDocument, and Microsoft Office documents.
+
+Key Binding        |                 Description
+-------------------|----------------------------------------------------------------
+<kbd>/</kbd>       | search forward
+<kbd>?</kbd>       | search backward
+<kbd>+</kbd>       | enlarge
+<kbd>-</kbd>       | shrink
+<kbd>gg</kbd>      | go to first page
+<kbd>G</kbd>       | go to last page
+<kbd>h</kbd>       | previous page
+<kbd>H</kbd>       | adjust to height
+<kbd>j</kbd>       | next line
+<kbd>k</kbd>       | previous line
+<kbd>K</kbd>       | kill proc and buffer
+<kbd>l</kbd>       | next page
+<kbd>n</kbd>       | go to next search occurrence
+<kbd>N</kbd>       | go to previous search occurrence
+<kbd>P</kbd>       | fit page to window
+<kbd>r</kbd>       | revert
+<kbd>W</kbd>       | adjust to width
+<kbd>C-d</kbd>     | scroll down
+<kbd>C-k</kbd>     | kill proc
+<kbd>C-u</kbd>     | scroll up
+<kbd>C-c C-c</kbd> | toggle display text and image display
+<kbd>C-c C-t</kbd> | open new buffer with doc's text contents
+
 ## Searching
 
 ### Project Searching
@@ -1246,7 +1285,7 @@ Key Binding            |                 Description
 ### Highlight current symbol
 
 `Spacemacs` supports highlighting of the current symbol on demand (provided by
-the [auto-highlight-symbol][auto-highlight] mode) and add a micro-state to
+the [auto-highlight-symbol][auto-highlight] mode) and adding a micro-state to
 easily navigate and rename this symbol.
 
 It is also possible to change the range of the navigation on the fly to:
@@ -1972,6 +2011,7 @@ PR gunner (8 PRs in a row)                           | [ralesi][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
 400th star                                           | [dbohdan][]
+600th star                                           | [laat][]
 
 # Thank you
 
@@ -2005,7 +2045,6 @@ developers to elisp hackers!
 [yasnippet]: https://github.com/capitaomorte/yasnippet
 [expand-region]: https://github.com/magnars/expand-region.el
 [multiple-cursors]: https://github.com/magnars/multiple-cursors.el
-[keybindings]: https://github.com/syl20bnr/vimacs/blob/master/my-keybindings.el
 [hswoop]: https://github.com/ShingoFukuyama/helm-swoop
 [hcss]: https://github.com/ShingoFukuyama/helm-css-scss
 [hyas]: https://github.com/emacs-helm/helm-c-yasnippet
@@ -2047,14 +2086,15 @@ developers to elisp hackers!
 [issues]: https://github.com/syl20bnr/spacemacs/issues
 [vundle]: https://github.com/gmarik/Vundle.vim
 [anzu]: https://github.com/syohex/emacs-anzu
-[javascript-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/javascript
-[themes-megapack]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/themes-megapack
-[python-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/python
-[html-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/html
+[javascript-contrib]: ../contrib/lang/javascript
+[themes-megapack]: ../contrib/themes-megapack
+[python-contrib]: ../contrib/lang/python
+[git layer]: ../contrib/git
+[html-contrib]: ../contrib/lang/html
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [gitter]: https://gitter.im/syl20bnr/spacemacs
-[CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/CONTRIBUTE.md
+[CONTRIBUTE.md]: ./CONTRIBUTE.md
 [neotree]: https://github.com/jaypei/emacs-neotree
 [nerdtree]: https://github.com/scrooloose/nerdtree
 [anaconda-mode]: https://github.com/proofit404/anaconda-mode
@@ -2075,6 +2115,7 @@ developers to elisp hackers!
 [chrisbarrett]:https://github.com/chrisbarrett
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
+[laat]:https://github.com/laat
 [bru]:https://github.com/bru
 [smt]:https://github.com/smt
 [ralesi]:https://github.com/ralesi
