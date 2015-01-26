@@ -2090,7 +2090,7 @@ which require an initialization must be listed explicitly in the list.")
          ((equal str "7")  " ➐ ")
          ((equal str "8")  " ➑ ")
          ((equal str "9")  " ➒ ")
-         ((equal str "0")  " ⓿ "))))
+         ((equal str "0")  " ➓ "))))
 
     (defun spacemacs//window-numbering-assign (windows)
       "Custom number assignment for special buffers."
