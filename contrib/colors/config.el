@@ -14,8 +14,16 @@
 ;; Prefixes 
 ;; ---------------------------------------------------------------------------
 
-(setq spacemacs/key-binding-prefixes '(("C" .  "colors")
-                                       ("Ci" . "colors-identifiers")
-                                       ("tC" . "toggles-colors")))
+;; Variables
+
+(defvar colors-enable-rainbow-identifiers nil
+  "If non nil the `rainbow-identifers' package is enabled.")
+
+;; Command prefixes
+
+(setq colors/key-binding-prefixes '(("C" .  "colors")
+                                    ("tC" . "toggles-colors")))
+(when colors-enable-rainbow-identifiers
+  (push (cons "Ci" "colors-identifiers") colors/key-binding-prefixes))
 (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-      spacemacs/key-binding-prefixes)
+       colors/key-binding-prefixes)
