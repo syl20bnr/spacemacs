@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil
 ;; Created: 22 Oct 2014
-;; Version: 2.06
+;; Version: 2.07
 ;; Package-Requires: ((emacs "24") (evil "1.0.9"))
 ;; URL: https://github.com/syl20bnr/evil-escape
 
@@ -170,7 +170,7 @@ with a key sequence."
                               (evil-escape--escape-with-q))
                              ((eq 'gist-list-menu-mode major-mode)
                               (quit-window))
-                             (t  evil-normal-state)))))
+                             (t  (evil-normal-state))))))
     (eval `(evil-escape-define-escape "emacs-state" evil-emacs-state-map ,exit-func)))
   ;; visual state
   (eval `(evil-escape-define-escape "visual-state" evil-visual-state-map evil-exit-visual-state
