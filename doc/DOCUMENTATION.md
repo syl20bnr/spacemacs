@@ -2045,7 +2045,6 @@ developers to elisp hackers!
 [yasnippet]: https://github.com/capitaomorte/yasnippet
 [expand-region]: https://github.com/magnars/expand-region.el
 [multiple-cursors]: https://github.com/magnars/multiple-cursors.el
-[keybindings]: https://github.com/syl20bnr/vimacs/blob/master/my-keybindings.el
 [hswoop]: https://github.com/ShingoFukuyama/helm-swoop
 [hcss]: https://github.com/ShingoFukuyama/helm-css-scss
 [hyas]: https://github.com/emacs-helm/helm-c-yasnippet
@@ -2087,15 +2086,15 @@ developers to elisp hackers!
 [issues]: https://github.com/syl20bnr/spacemacs/issues
 [vundle]: https://github.com/gmarik/Vundle.vim
 [anzu]: https://github.com/syohex/emacs-anzu
-[javascript-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/javascript
-[themes-megapack]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/themes-megapack
-[python-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/python
+[javascript-contrib]: ../contrib/lang/javascript
+[themes-megapack]: ../contrib/themes-megapack
+[python-contrib]: ../contrib/lang/python
 [git layer]: ../contrib/git
-[html-contrib]: https://github.com/syl20bnr/spacemacs/tree/master/contrib/lang/html
+[html-contrib]: ../contrib/lang/html
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [gitter]: https://gitter.im/syl20bnr/spacemacs
-[CONTRIBUTE.md]: https://github.com/syl20bnr/spacemacs/blob/master/doc/CONTRIBUTE.md
+[CONTRIBUTE.md]: ./CONTRIBUTE.md
 [neotree]: https://github.com/jaypei/emacs-neotree
 [nerdtree]: https://github.com/scrooloose/nerdtree
 [anaconda-mode]: https://github.com/proofit404/anaconda-mode
