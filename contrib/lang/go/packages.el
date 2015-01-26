@@ -15,9 +15,9 @@ which require an initialization must be listed explicitly in the list.")
 (defun go/init-go-mode()
   (use-package go-mode
     :defer t
-    :init
-    (progn
-      (evil-leader/set-key
+    :config
+      (add-hook 'before-save-hook 'gofmt-before-save)
+      (evil-leader/set-key-for-mode 'go-mode
         "mdp"  'godoc-at-point
         "mig"  'go-goto-imports
         "mia"  'go-import-add
@@ -26,9 +26,7 @@ which require an initialization must be listed explicitly in the list.")
         "mpr"  'go-play-region
         "mpd"  'go-download-play
         "mgg"   'godef-jump
-      ))
-    :config
-    (add-hook 'before-save-hook 'gofmt-before-save)
+      )
     ))
 
 (defun go/init-go-eldoc()
@@ -37,15 +35,14 @@ which require an initialization must be listed explicitly in the list.")
 (defun go/init-go-autocomplete()
   (use-package go-autocomplete
     :if (boundp 'ac-sources)
+    :defer t
+    :init (add-to-list 'ac-sources 'ac-source-go)
   )
 )
 (defun go/init-company-go ()
  (use-package company-go
    :if (boundp 'company-backends)
    :defer t
-   :config
-   (progn
-     (add-to-list 'company-backends 'company-go)
-    )
+   :init (add-to-list 'company-backends 'company-go)
   )
 )
