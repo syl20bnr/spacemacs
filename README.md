@@ -384,11 +384,11 @@ also recommended to disable the smooth scrolling on Windows.
 
 2. **How to fix the error: The directory ~/.emacs.d/server is unsafe ?**
 Change the owner of the directory `~/.emacs.d/server`:
-- from Properties select the Tab “Security”,
-- select the button “Advanced”,
-- select the Tab “Owner”
-- change the owner to your account name
-Source: [Stackoverflow][so-server-unsafe]
+  - from Properties select the Tab “Security”,
+  - select the button “Advanced”,
+  - select the Tab “Owner”
+  - change the owner to your account name
+  Source: [Stackoverflow][so-server-unsafe]
 
 ## OS X
 
