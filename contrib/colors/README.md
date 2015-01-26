@@ -8,6 +8,7 @@
 - [Colors contribution layer for Spacemacs](#colors-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
+        - [Enable rainbow-identifiers](#enable-rainbow-identifiers)
     - [Key bindings](#key-bindings)
         - [Rainbow Identifiers](#rainbow-identifiers)
         - [Rainbow delimiters](#rainbow-delimiters)
@@ -38,6 +39,19 @@ To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(colors)
+  "List of contribution to load."
+)
+```
+
+### Enable rainbow-identifiers
+
+To enable the package `rainbow-identifiers` set the variable
+`colors-enable-rainbow-identifiers` to `t`:
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(
+  (colors :variables
+          colors-enable-rainbow-identifiers t))
   "List of contribution to load."
 )
 ```
