@@ -2,7 +2,7 @@
 
 ![logo_erlang](img/erlang.png)
 
-![logo_elixir](img/elixir.png)
+![logo_elixir](img/elixir.png) with ![logo_alchemist](img/alchemist.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
