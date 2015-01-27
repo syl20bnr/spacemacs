@@ -1,4 +1,4 @@
-;;; spacemacs-mode.el --- Spacemacs Core File
+;;; core-spacemacs-mode.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -13,10 +13,10 @@
 (defconst emacs-start-time (current-time))
 
 (require 'subr-x nil 'noerror)
-(require 'emacs-backports)
-(require 'themes-support)
-(require 'spacemacs-fonts-support)
-(require 'spacemacs-buffer)
+(require 'core-emacs-backports)
+(require 'core-themes-support)
+(require 'core-fonts-support)
+(require 'core-spacemacs-buffer)
 
 (defconst spacemacs-repository "spacemacs"
   "Name of the Spacemacs remote repository.")
@@ -186,7 +186,7 @@ found."
   (async-start
    (lambda ()
      (add-to-list 'load-path (concat user-emacs-directory "core/"))
-     (require 'spacemacs-mode)
+     (require 'core-spacemacs-mode)
      (spacemacs/get-last-version spacemacs-repository
                                  spacemacs-repository-owner
                                  spacemacs-checkversion-remote
@@ -303,4 +303,4 @@ version and the NEW version."
      ((< diff 5000) 'spacemacs-mode-line-new-version-lighter-warning-face)
      (t 'spacemacs-mode-line-new-version-lighter-error-face))))
 
-(provide 'spacemacs-mode)
+(provide 'core-spacemacs-mode)

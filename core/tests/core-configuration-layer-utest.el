@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 (require 'mocker)
-(require 'configuration-layer)
+(require 'core-configuration-layer)
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//declare-layers

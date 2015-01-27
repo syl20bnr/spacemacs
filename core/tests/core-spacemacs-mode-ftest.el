@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 (require 'mocker)
-(require 'spacemacs-mode)
+(require 'core-spacemacs-mode)
  
 (ert-deftest assertion-library-should-work ()
   "the assertion library should works"

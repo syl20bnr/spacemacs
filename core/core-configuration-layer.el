@@ -1,4 +1,4 @@
-;;; configuration-layer.el --- Spacemacs Core File
+;;; core-configuration-layer.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -9,11 +9,11 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(require 'dotspacemacs)
 (require 'ht)
 (require 'package)
-(require 'spacemacs-funcs)
-(require 'spacemacs-buffer)
+(require 'core-dotspacemacs)
+(require 'core-funcs)
+(require 'core-spacemacs-buffer)
 
 (unless package--initialized
   (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
@@ -626,4 +626,4 @@ deleted safely."
                          elapsed)))
               (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
-(provide 'configuration-layer)
+(provide 'core-configuration-layer)

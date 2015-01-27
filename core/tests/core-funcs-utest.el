@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 (require 'mocker)
-(require 'spacemacs-funcs)
+(require 'core-funcs)
 
 ;; ---------------------------------------------------------------------------
 ;; spacemacs/mplist-get

@@ -1,4 +1,4 @@
-;;; load-paths.el --- Spacemacs Core File
+;;; core-load-paths.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors

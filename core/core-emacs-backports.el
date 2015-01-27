@@ -1,4 +1,4 @@
-;;; emacs-backports.el --- Spacemacs Core File
+;;; core-emacs-backports.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -36,4 +36,4 @@
       "Check whether STRING is empty."
       (string= string "")))
 
-(provide 'emacs-backports)
+(provide 'core-emacs-backports)

@@ -1,4 +1,4 @@
-;;; spacemacs-buffer.el --- Spacemacs Core File
+;;; core-spacemacs-buffer.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -123,4 +123,4 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
   (insert "\n\n")
   )
 
-(provide 'spacemacs-buffer)
+(provide 'core-spacemacs-buffer)
