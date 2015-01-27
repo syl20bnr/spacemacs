@@ -25,13 +25,13 @@ PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
     (setq-default powerline-height (+ powerline-offset (frame-char-height)))
     ;; fallback font for unicode characters used in spacemacs
     (pcase system-type
-      ("gnu/linux"
+      (`gnu/linux
        (setq fallback-font-name "NanumGothic")
        (setq fallback-font-name2 "NanumGothic"))
-      ("darwin"
+      (`darwin
        (setq fallback-font-name "Arial Unicode MS")
        (setq fallback-font-name2 "Arial Unicode MS"))
-      ("windows-nt"
+      (`windows-nt
        (setq fallback-font-name "MS Gothic")
        (setq fallback-font-name2 "Lucida Sans Unicode"))
       (other
