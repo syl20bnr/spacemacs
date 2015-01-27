@@ -1,4 +1,4 @@
-;;; fonts-support.el --- Spacemacs Core File
+;;; core-fonts-support.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -9,7 +9,7 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(require 'spacemacs-funcs)
+(require 'core-funcs)
 
 (defun spacemacs/set-font (plist)
   "Set the font given the passed PLIST.
@@ -55,4 +55,4 @@ PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
                           '(#x2190 . #x2200) fallback-spec2 nil 'prepend)))
     ))
 
-(provide 'spacemacs-fonts-support)
+(provide 'core-fonts-support)

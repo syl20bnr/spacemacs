@@ -1,4 +1,4 @@
-;;; themes-support.el --- Spacemacs Core File
+;;; core-themes-support.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -123,4 +123,4 @@ changed to THEME."
   (if (fboundp 'powerline-reset)
       (powerline-reset)))
 
-(provide 'themes-support)
+(provide 'core-themes-support)

@@ -1,4 +1,4 @@
-;;; dotspacemacs.el --- Spacemacs Core File
+;;; core-dotspacemacs.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -9,7 +9,6 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-
 (defconst dotspacemacs-template-directory
   (expand-file-name (concat spacemacs-core-directory "templates/"))
   "Templates directory.")
@@ -129,4 +128,4 @@ before installing the file if the destination already exists."
   "Call the function from the dotfile only if it is bound."
   `(if (fboundp ',func) (,func)))
 
-(provide 'dotspacemacs)
+(provide 'core-dotspacemacs)
