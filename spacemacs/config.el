@@ -35,6 +35,7 @@
                                        ("s" .  "search/symbol")
                                        ("S" .  "spelling")
                                        ("t" .  "toggles")
+                                       ("tC" . "toggles-colors")
                                        ("tm" . "toggles-modeline")
                                        ("T" .  "themes")
                                        ("w" .  "windows")

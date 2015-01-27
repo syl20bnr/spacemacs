@@ -14,30 +14,20 @@
   '(
     ;; not working well for now
     ;; rainbow-blocks
-    rainbow-delimiters
+    rainbow-identifiers
     rainbow-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
-
-(when colors-enable-rainbow-identifiers
-  (push 'rainbow-identifiers colors-packages))
 
 (defun colors/init-rainbow-blocks ()
   (use-package rainbow-blocks
     :disabled t
     :init (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)))
 
-(defun colors/init-rainbow-delimiters ()
-  (use-package rainbow-delimiters
-    :defer t
-    :init
-    (progn
-      (evil-leader/set-key "tCd" 'rainbow-delimiters-mode)
-      (add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook)))))
-
 (defun colors/init-rainbow-identifiers ()
   (use-package rainbow-identifiers
+    :if colors-enable-rainbow-identifiers
     :commands rainbow-identifiers-mode
     :init
     (progn 

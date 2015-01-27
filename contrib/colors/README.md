@@ -11,7 +11,6 @@
         - [Enable rainbow-identifiers](#enable-rainbow-identifiers)
     - [Key bindings](#key-bindings)
         - [Rainbow Identifiers](#rainbow-identifiers)
-        - [Rainbow delimiters](#rainbow-delimiters)
         - [Rainbow Mode](#rainbow-mode)
 
 <!-- markdown-toc end -->
@@ -20,15 +19,11 @@
 
 This layer colors your life with:
 - [rainbow identifiers][]
-- [rainbow delimiters][]
 - [rainbow mode][]
 
 [rainbow identifiers][] mode will colorize each variables and functions with an
 almost unique color. The keywords and the declaration of function colors are
 disabled in order to make the colorized variables and functions stand out.
-
-[rainbow delimiters][] highlights delimiters such as parentheses, brackets or
-braces according to their depth.
 
 [rainbow mode][] displays strings representing colors with the color they
 represent as background.
@@ -82,14 +77,6 @@ Key Binding   | Description
 `=`           | reset the `saturation` or `lightness`
 Any other key | leave the change mini-mode
 
-### Rainbow delimiters
-
-`rainbow-delimiters` mode can be toggled on and off with:
-
-    <SPC> t C d
-
-Note that the toggle is local to the current buffer.
-
 ### Rainbow Mode
 
 ![rainbow_mode](img/rainbow-mode.png)
@@ -101,6 +88,5 @@ Note that the toggle is local to the current buffer.
 Note that the toggle is local to the current buffer.
 
 [rainbow identifiers]: https://github.com/Fanael/rainbow-identifiers
-[rainbow delimiters]: https://github.com/Fanael/rainbow-delimiters
 [rainbow mode]: https://julien.danjou.info/projects/emacs-packages
 
