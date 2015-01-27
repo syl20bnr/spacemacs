@@ -32,6 +32,9 @@ which require an initialization must be listed explicitly in the list.")
           magit-gh-pulls
           )))
 
+(when git-enable-magit-svn-plugin
+    (push 'magit-svn git-packages))
+
 (if git-gutter-use-fringe
     (push 'git-gutter-fringe git-packages)
   (push 'git-gutter git-packages))
@@ -261,6 +264,15 @@ which require an initialization must be listed explicitly in the list.")
     :commands turn-on-magit-gitflow
     :init (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
     :config (spacemacs|diminish magit-gitflow-mode "Flow")))
+
+(defun git/init-magit-svn ()
+  (use-package magit-svn
+    :commands turn-on-magit-svn
+    :init (add-hook 'magit-mode-hook 'turn-on-magit-svn)
+    :config
+    (progn
+      (evil-define-key 'emacs magit-status-mode-map
+        "N" 'magit-key-mode-popup-svn))))
 
 (defun git/init-smeargle ()
   (use-package smeargle
