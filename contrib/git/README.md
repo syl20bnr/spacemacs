@@ -12,6 +12,7 @@
         - [Github support](#github-support)
         - [Magit status fullscreen](#magit-status-fullscreen)
         - [Magit auto-complete](#magit-auto-complete)
+        - [Magit SVN plugin](#magit-svn-plugin)
         - [Git gutter](#git-gutter)
         - [Git](#git)
     - [Working with Git](#working-with-git)
@@ -83,6 +84,17 @@ function (the path should end up with a `/` to respect Emacs conventions):
 
 ```elisp
 (setq magit-repo-dirs '("~/git/"))
+```
+
+### Magit SVN plugin
+
+For convenience the magit SVN plugin can be activated directly in the Git
+layer by setting the variable `git-enable-magit-svn-plugin` to `t`.
+
+```elisp
+(defun dotspacemacs/init ()
+  (setq-default git-enable-magit-svn-plugin t)
+)
 ```
 
 ### Git gutter
@@ -159,7 +171,7 @@ Here are the often used bindings inside a `status buffer`:
 <kbd>L l</kbd>    | open `log buffer`
 <kbd>n</kbd>      | next search occurrence
 <kbd>C-n</kbd     | goto next magit section
-<kbd>N</kbd>      | previous search occurrence
+<kbd>N</kbd>      | previous search occurrence _or_ SVN sub-menu
 <kbd>P P</kbd>    | push
 <kbd>C-p</kbd     | goto previous magit section
 <kbd>q</kbd>      | quit
