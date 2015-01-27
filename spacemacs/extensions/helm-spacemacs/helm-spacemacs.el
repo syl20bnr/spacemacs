@@ -26,9 +26,9 @@
 
 ;;; Code:
 
-(require 'configuration-layer)
-(require 'helm)
 (require 'ht)
+(require 'helm)
+(require 'core-configuration-layer)
 
 (defvar helm-spacemacs-all-layers '()
   "Alist of all configuration layers.")
