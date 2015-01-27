@@ -852,12 +852,53 @@ By default its value is:
 ```
 
 The properties should be pretty straightforward, it is possible to set any
-valid property of a [font-spec][].
+valid property of a [font-spec][]:
+- `:family` Font family or fontset (a string).
+- `:width` Relative character width. This should be one of the symbols:
+  - ultra-condensed
+  - extra-condensed
+  - condensed
+  - semi-condensed
+  - normal
+  - semi-expanded
+  - expanded
+  - extra-expanded
+  - ultra-expanded
+- `:height` The height of the font. In the simplest case, this is an integer in
+units of 1/10 point.
+- `:weight` Font weight—one of the symbols (from densest to faintest):
+  - ultra-bold
+  - extra-bold
+  - bold
+  - semi-bold
+  - normal
+  - semi-light
+  - light
+  - extra-light
+  - ultra-light
+On text terminals which support variable-brightness text, any weight greater
+than normal is displayed as extra bright, and any weight less than normal is
+displayed as half-bright.
+- `:slant` Font slant—one of the symbols:
+  - italic
+  - oblique
+  - normal
+  - reverse-italic
+  - reverse-oblique.
+On text terminals that support variable-brightness text, slanted text is
+displayed as half-bright. 
+- `:size` The font size—either a non-negative integer that specifies the pixel
+size, or a floating-point number that specifies the point size. 
+- `:adstyle` Additional typographic style information for the font, such as
+‘sans’. The value should be a string or a symbol.
+- `:registry` The charset registry and encoding of the font, such as
+‘iso8859-1’. The value should be a string or a symbol. 
+- `:script` The script that the font must support (a symbol). 
 
-The special property `:powerline-offset` is for quick tweaking of the
-mode-line height in order to avoid crappy rendering of the separators like on
-the following screenshot (in this extreme case bump the offset to `+8` or more
-but most of the time `2` or `4` is alright).
+The special property `:powerline-offset` is `Spacemacs` specific and it is for
+quick tweaking of the mode-line height in order to avoid crappy rendering of
+the separators like on the following screenshot (in this extreme case bump the
+offset to `+8` or more but most of the time `2` or `4` is alright).
 
 _Ugly separators_
 
