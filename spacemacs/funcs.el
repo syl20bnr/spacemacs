@@ -593,14 +593,14 @@ kill internal buffers too."
 (defadvice kill-emacs (around spacemacs-really-exit activate)
   "Only kill emacs if a prefix is set"
   (if (or spacemacs-really-kill-emacs (not dotspacemacs-persistent-server))
-      ad-do-it)
-  (spacemacs/frame-killer))
+      ad-do-it
+    (spacemacs/frame-killer)))
 
 (defadvice save-buffers-kill-emacs (around spacemacs-really-exit activate)
   "Only kill emacs if a prefix is set"
   (if (or spacemacs-really-kill-emacs (not dotspacemacs-persistent-server))
-      ad-do-it)
-  (spacemacs/frame-killer))
+      ad-do-it
+    (spacemacs/frame-killer)))
 
 (defun spacemacs/save-buffers-kill-emacs ()
   (interactive)
