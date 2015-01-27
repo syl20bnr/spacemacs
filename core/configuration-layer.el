@@ -9,11 +9,10 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-()
-
 (require 'dotspacemacs)
 (require 'ht)
 (require 'package)
+(require 'spacemacs-funcs)
 (require 'spacemacs-buffer)
 
 (unless package--initialized
@@ -204,7 +203,7 @@ the following keys:
 (defun configuration-layer//set-layers-variables (layers)
   "Set the configuration variables for the passed LAYERS."
   (dolist (layer layers)
-    (let ((variables (configuration-layer//mplist-get layer :variables)))
+    (let ((variables (spacemacs/mplist-get layer :variables)))
       (while variables
         (let ((var (pop variables)))
           (if (consp variables)
@@ -626,22 +625,5 @@ deleted safely."
                          (configuration-layer//initialized-packages-count)
                          elapsed)))
               (spacemacs/check-for-new-version spacemacs-version-check-interval))))
-
-(defun configuration-layer//mplist-get (plist prop)
-  "Get the values associated to PROP in PLIST, a modified plist.
-
-A modified plist is one where keys are keywords and values are
-all non-keywords elements that follow it.
-
-Currently this function infloops when the list is circular."
-  (let ((tail plist)
-        result)
-    (while (and (consp tail) (not (eq prop (car tail))))
-      (pop tail))
-    ;; pop the found keyword
-    (pop tail)
-    (while (and (consp tail) (not (keywordp (car tail))))
-      (push (pop tail) result))
-    (nreverse result)))
 
 (provide 'configuration-layer)

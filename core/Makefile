@@ -20,19 +20,20 @@ unit_tests:
 	@echo "-----------------------------------------------------------------"
 	@echo "Unit Tests"
 	@echo "-----------------------------------------------------------------"
-	@emacs -batch -l ert                           \
-    -l $(EMACS_DIR)core/load-paths.el            \
-    -l $(TEST_DIR)configuration-layer-utest.el   \
+	@emacs -batch -l ert  \
+    -l $(EMACS_DIR)core/load-paths.el  \
+    -l $(TEST_DIR)configuration-layer-utest.el \
+    -l $(TEST_DIR)spacemacs-funcs-utest.el  \
     -f ert-run-tests-batch-and-exit
 
 func_tests:
 	@echo "-----------------------------------------------------------------"
 	@echo "Functional Tests"
 	@echo "-----------------------------------------------------------------"
-	@emacs -batch -l ert                          \
-    -l $(EMACS_DIR)core/load-paths.el           \
-    -l $(TEST_DIR)spacemacs-mode-ftest.el       \
+	@emacs -batch -l ert  \
+    -l $(EMACS_DIR)core/load-paths.el  \
+    -l $(TEST_DIR)spacemacs-mode-ftest.el  \
     -f ert-run-tests-batch-and-exit
 
 
-.PHONY: test unit_tests func_tests
+.PHONY: test unit_tests func_test
