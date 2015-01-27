@@ -362,13 +362,18 @@ the quick start guide [here](#configuration).
 Install the default font supported by Spacemacs or choose a fixed witdh font.
 More information in the [font section][] of the documentation.
 
-4. **Why the powerline has no arrows in terminal even with a patched font ?**
+4. **The powerline separators are ugly, how can I fix them ?**
+Use the property `:powerline-offset` of the variable
+`dotspacemacs-default-font`. More information in the [font section][]
+of the documentation.
+
+5. **Why the powerline has no arrows in terminal even with a patched font ?**
 Emacs powerline implementation does not use patched fonts. There exist currently
 no mode-lines in Emacs that support patched font.
 The corresponding feature request for the powerline can be found
 [here][pw-patched-fonts].
 
-5. **The powerline separators have no anti-aliasing, what can I do ?**
+6. **The powerline separators have no anti-aliasing, what can I do ?**
 Emacs powerline uses XMP images to draw the separators. Enabling anti-aliasing
 may not be a trivial task so unfortunately you'll have to live with it.
 Nevertheless it exists a [large number of different separators][powerline-seps]
