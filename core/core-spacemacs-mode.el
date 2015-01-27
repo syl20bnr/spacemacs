@@ -90,7 +90,8 @@
                                "able to launch a graphical instance of Emacs"
                                "with this build.")))
   ;; font
-  (spacemacs/set-font dotspacemacs-default-font)
+  (when (member (car dotspacemacs-default-font) (font-family-list))
+    (spacemacs/set-font dotspacemacs-default-font))
   ;; banner
   (spacemacs//insert-banner)
   ;; bind-key is required by use-package
