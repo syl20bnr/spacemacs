@@ -91,7 +91,7 @@
                                "with this build.")))
   ;; font
   (when (member (car dotspacemacs-default-font) (font-family-list))
-    (spacemacs/set-font dotspacemacs-default-font))
+    (spacemacs/set-default-font dotspacemacs-default-font))
   ;; banner
   (spacemacs//insert-banner)
   ;; bind-key is required by use-package

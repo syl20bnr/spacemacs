@@ -10,8 +10,9 @@
 ;;
 ;;; License: GPLv3
 (require 'core-funcs)
+(require 'core-spacemacs-buffer)
 
-(defun spacemacs/set-font (plist)
+(defun spacemacs/set-default-font (plist)
   "Set the font given the passed PLIST.
 
 PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
@@ -54,5 +55,13 @@ PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
         (set-fontset-font "fontset-default"
                           '(#x2190 . #x2200) fallback-spec2 nil 'prepend)))
     ))
+
+(defun spacemacs/set-font (&rest args)
+  "Deprecated function, display a warning message."
+  (spacemacs/message (concat "Warning: spacemacs/set-font is deprecated. "
+                             "Use the variable `dotspacemacs-default-font' "
+                             "instead (see Font section in "
+                             "~/.emacs.d/doc/DOCUMENTATION.md for more "
+                             "info).")))
 
 (provide 'core-fonts-support)
