@@ -1,4 +1,4 @@
-;;; configuration-layer.el --- Spacemacs Core File
+;;; core-configuration-layer.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -9,12 +9,11 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-()
-
-(require 'dotspacemacs)
 (require 'ht)
 (require 'package)
-(require 'spacemacs-buffer)
+(require 'core-dotspacemacs)
+(require 'core-funcs)
+(require 'core-spacemacs-buffer)
 
 (unless package--initialized
   (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
@@ -204,7 +203,7 @@ the following keys:
 (defun configuration-layer//set-layers-variables (layers)
   "Set the configuration variables for the passed LAYERS."
   (dolist (layer layers)
-    (let ((variables (configuration-layer//mplist-get layer :variables)))
+    (let ((variables (spacemacs/mplist-get layer :variables)))
       (while variables
         (let ((var (pop variables)))
           (if (consp variables)
@@ -627,21 +626,4 @@ deleted safely."
                          elapsed)))
               (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
-(defun configuration-layer//mplist-get (plist prop)
-  "Get the values associated to PROP in PLIST, a modified plist.
-
-A modified plist is one where keys are keywords and values are
-all non-keywords elements that follow it.
-
-Currently this function infloops when the list is circular."
-  (let ((tail plist)
-        result)
-    (while (and (consp tail) (not (eq prop (car tail))))
-      (pop tail))
-    ;; pop the found keyword
-    (pop tail)
-    (while (and (consp tail) (not (keywordp (car tail))))
-      (push (pop tail) result))
-    (nreverse result)))
-
-(provide 'configuration-layer)
+(provide 'core-configuration-layer)

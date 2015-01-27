@@ -28,6 +28,13 @@
  ;; Press <SPC> T n to cycle to the next theme in the list (works great
  ;; with 2 themes variants, one dark and one light)
  dotspacemacs-themes '(solarized-light solarized-dark)
+ ;; Default font. The powerline-offset allows to quickly tweak the mode-line
+ ;; size to make separators look not too crappy.
+ dotspacemacs-default-font '("Source Code Pro"
+                             :size 13
+                             :weight normal
+                             :width normal
+                             :powerline-offset 2)
  ;; The leader key
  dotspacemacs-leader-key "SPC"
  ;; Major mode leader key is a shortcut key which is the equivalent of

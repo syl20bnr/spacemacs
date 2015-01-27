@@ -15,22 +15,18 @@
     fringe-helper
     git-messenger
     git-timemachine
+    gist
+    github-browse-file
+    ;; not up to date
+    ;; helm-gist
     magit
+    magit-gh-pulls
     magit-gitflow
+    magit-svn
     smeargle
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
-
-(when git-enable-github-support
-  (mapc (lambda (x) (push x git-packages))
-        '(
-          gist
-          github-browse-file
-          ;; not up to date
-          ;; helm-gist
-          magit-gh-pulls
-          )))
 
 (if git-gutter-use-fringe
     (push 'git-gutter-fringe git-packages)
@@ -38,6 +34,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun git/init-gist ()
   (use-package gist
+    :if git-enable-github-support
     :defer t
     :init
     (progn
@@ -245,12 +242,14 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun git/init-magit-gh-pulls ()
   (use-package magit-gh-pulls ()
+    :if git-enable-github-support
     :defer t
     :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
     :config (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))
 
 (defun git/init-github-browse-file ()
   (use-package github-browse-file
+    :if git-enable-github-support
     :defer t
     :init
     (evil-leader/set-key
@@ -261,6 +260,16 @@ which require an initialization must be listed explicitly in the list.")
     :commands turn-on-magit-gitflow
     :init (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
     :config (spacemacs|diminish magit-gitflow-mode "Flow")))
+
+(defun git/init-magit-svn ()
+  (use-package magit-svn
+    :if git-enable-magit-svn-plugin
+    :commands turn-on-magit-svn
+    :init (add-hook 'magit-mode-hook 'turn-on-magit-svn)
+    :config
+    (progn
+      (evil-define-key 'emacs magit-status-mode-map
+        "N" 'magit-key-mode-popup-svn))))
 
 (defun git/init-smeargle ()
   (use-package smeargle

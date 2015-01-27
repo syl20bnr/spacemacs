@@ -1,4 +1,4 @@
-;;; spacemacs-mode.el --- Spacemacs Core File
+;;; core-spacemacs-mode.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -13,9 +13,10 @@
 (defconst emacs-start-time (current-time))
 
 (require 'subr-x nil 'noerror)
-(require 'emacs-backports)
-(require 'themes-support)
-(require 'spacemacs-buffer)
+(require 'core-emacs-backports)
+(require 'core-themes-support)
+(require 'core-fonts-support)
+(require 'core-spacemacs-buffer)
 
 (defconst spacemacs-repository "spacemacs"
   "Name of the Spacemacs remote repository.")
@@ -89,29 +90,7 @@
                                "able to launch a graphical instance of Emacs"
                                "with this build.")))
   ;; font
-  ;; Dynamic font size depending on the system
-  (let ((font "Source Code Pro"))
-    (when (member font (font-family-list))
-      (pcase window-system
-        (`x (spacemacs/set-font font 10))
-        (`mac (spacemacs/set-font font 12))
-        (`w32
-         (spacemacs/set-font font 9)
-         (let ((fallback-font "Lucida Sans Unicode"))
-           ;; window numbers
-           (set-fontset-font "fontset-default"
-                             '(#x2776 . #x2793) fallback-font nil 'append)
-           ;; mode-line circled letters
-           (set-fontset-font "fontset-default"
-                             '(#x24b6 . #x24fe) fallback-font nil 'append)
-           ;; mode-line additional characters (i.e. golden ratio)
-           (set-fontset-font "fontset-default"
-                             '(#x2295 . #x22a1) fallback-font nil 'append)
-           ;; new version lighter
-           (set-fontset-font "fontset-default"
-                             '(#x2190 . #x2200) fallback-font nil 'append)))
-        (other (spacemacs/set-font font 10)))))
-  
+  (spacemacs/set-font dotspacemacs-default-font)
   ;; banner
   (spacemacs//insert-banner)
   ;; bind-key is required by use-package
@@ -207,7 +186,7 @@ found."
   (async-start
    (lambda ()
      (add-to-list 'load-path (concat user-emacs-directory "core/"))
-     (require 'spacemacs-mode)
+     (require 'core-spacemacs-mode)
      (spacemacs/get-last-version spacemacs-repository
                                  spacemacs-repository-owner
                                  spacemacs-checkversion-remote
@@ -324,12 +303,4 @@ version and the NEW version."
      ((< diff 5000) 'spacemacs-mode-line-new-version-lighter-warning-face)
      (t 'spacemacs-mode-line-new-version-lighter-error-face))))
 
-(defun spacemacs/set-font (font size &optional options)
-  (let* ((fontstr (if options
-                      (format "%s-%s:%s" font size options)
-                    (format "%s-%s" font size))))
-    (spacemacs/message (format "Set default font: %s" fontstr))
-    (add-to-list 'default-frame-alist (cons 'font fontstr))
-    (set-default-font fontstr)))
-
-(provide 'spacemacs-mode)
+(provide 'core-spacemacs-mode)

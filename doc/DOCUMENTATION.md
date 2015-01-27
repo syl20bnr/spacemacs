@@ -838,15 +838,30 @@ display ASCII characters instead (may be useful in terminal).
 The default font used by `Spacemacs` is [source code pro][] by Adobe. It is
 recommended to install it on your system.
 
-Basic font support is provided in `Spacemacs`, you can change the font and
-its size using the function `spacemacs/set-font` in the `dotspacemacs/config`
-function of your `~/.spacemacs`.
+To change the default font set the variable `dotspacemacs-default-font` in
+your `.spacemacs` file.
+
+By default its value is:
 
 ```elisp
-(defun dotspacemacs/config ()
-  (spacemacs/set-font "DejaVu Sans Mono" 10)
-)
+(setq-default dotspacemacs-default-font '("Source Code Pro"
+                                          :size 13
+                                          :weight normal
+                                          :width normal
+                                          :powerline-offset 2))
 ```
+
+The properties should be pretty straightforward, it is possible to set any
+valid property of a [font-spec][].
+
+The special property `:powerline-offset` is for quick tweaking of the
+mode-line height in order to avoid crappy rendering of the separators like on
+the following screenshot (in this extreme case bump the offset to `+8` or more
+but most of the time `2` or `4` is alright).
+
+_Ugly separators_
+
+![ugly-separators](img/crappy-powerline-separators.png)
 
 # Commands
 
@@ -2034,6 +2049,7 @@ developers to elisp hackers!
 [golden-ratio]: https://github.com/roman/golden-ratio.el
 [solarized-theme]: https://github.com/bbatsov/solarized-emacs
 [powerline]: https://github.com/milkypostman/powerline
+[font-spec]: http://www.gnu.org/software/emacs/manual/html_node/elisp/Low_002dLevel-Font.html
 [diminish]: http://www.emacswiki.org/emacs/DiminishedModes
 [auto-complete]: https://github.com/auto-complete
 [auto-highlight]: https://github.com/emacsmirror/auto-highlight-symbol

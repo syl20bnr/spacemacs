@@ -15,6 +15,9 @@
 (defvar git-enable-github-support nil
   "If non nil the Github packages and extensions are enabled.")
 
+(defvar git-enable-magit-svn-plugin nil
+  "If non nil `magit-svn' plugin is enabled.")
+
 (defvar git-magit-status-fullscreen nil
   "If non nil magit-status buffer is displayed in fullscreen.")
 

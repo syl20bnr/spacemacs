@@ -1,4 +1,4 @@
-;;; configuration-layer.el --- Spacemacs Unit Test File
+;;; configuration-layer-utest.el --- Spacemacs Unit Test File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 (require 'mocker)
-(require 'configuration-layer)
+(require 'core-configuration-layer)
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//declare-layers
@@ -59,40 +59,6 @@
                                   excludedlayer
                                   )))
         (should (equal result expected))))))
-
-;; ---------------------------------------------------------------------------
-;; configuration-layer//mplist-get
-;; ---------------------------------------------------------------------------
-
-(ert-deftest test-mplist-get--one-property ()
-  (let* ((input '(dummy :property sym1 sym2 sym3))
-         (result (configuration-layer//mplist-get input :property)))
-    (should (equal '(sym1 sym2 sym3) result))))
-
-(ert-deftest test-mplist-get--multiple-properties-get-first ()
-  (let* ((input '(dummy :prop1 sym1 sym2 sym3 :prop2 sym4 :prop3 sym5 sym6))
-         (result (configuration-layer//mplist-get input :prop1)))
-    (should (equal '(sym1 sym2 sym3) result))))
-
-(ert-deftest test-mplist-get--multiple-properties-get-middle ()
-  (let* ((input '(dummy :prop1 sym1 sym2 sym3 :prop2 sym4 :prop3 sym5 sym6))
-         (result (configuration-layer//mplist-get input :prop2)))
-    (should (equal '(sym4) result))))
-
-(ert-deftest test-mplist-get--multiple-properties-get-last ()
-  (let* ((input '(dummy :prop1 sym1 sym2 sym3 :prop2 sym4 :prop3 sym5 sym6))
-         (result (configuration-layer//mplist-get input :prop3)))
-    (should (equal '(sym5 sym6) result))))
-
-(ert-deftest test-mplist-get--one-property-no-value ()
-  (let* ((input '(dummy :property))
-         (result (configuration-layer//mplist-get input :property)))
-    (should (null result))))
-
-(ert-deftest test-mplist-get--multiple-same-poperty-ignore-all-but-first ()
-  (let* ((input '(dummy :property val1 :property val2))
-         (result (configuration-layer//mplist-get input :property)))
-    (should (equal '(val1) result))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//set-layers-variables
