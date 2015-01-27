@@ -97,6 +97,7 @@
     popwin
     powerline
     projectile
+    rainbow-delimiters
     rcirc
     rcirc-color
     recentf
@@ -1853,6 +1854,14 @@ which require an initialization must be listed explicitly in the list.")
       (progn
         (projectile-global-mode)
         (spacemacs|hide-lighter projectile-mode))))
+
+(defun spacemacs/init-rainbow-delimiters ()
+  (use-package rainbow-delimiters
+    :defer t
+    :init
+    (progn
+      (evil-leader/set-key "tCd" 'rainbow-delimiters-mode)
+      (add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook)))))
 
 (defun spacemacs/init-rcirc ()
   (use-package rcirc
