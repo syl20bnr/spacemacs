@@ -31,17 +31,34 @@ This layer adds support for [Clojure][] language using [Cider][].
 - [Cider Auto Complete][]
 - [align-cljlet][]
 
-### Goodies
-
-- Pretty symbols for anonymous functions and set literals, like
-`(λ [a] (+ a 5))`, `ƒ(+ % 5)`, and `∈{2 4 6}`.
-
 ## Install
+
+### Layer
 
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(clojure)
+  "List of contribution to load."
+)
+```
+
+### Pretty Symbols support
+
+Pretty symbols for anonymous functions and set literals, like `(λ [a] (+ a 5))`, `ƒ(+ % 5)`, and `∈{2 4 6}`.
+
+To enable this feature, add the following snippet to the dotspacemacs/config
+section of your `~/.spacemacs` file:
+
+```elisp
+(setq clojure-enable-fancify-symbols t)
+```
+
+Or set this variable when loading the configuration layer:
+```elisp
+(setq-default dotspacemacs-configuration-layers '(
+  (clojure :variables
+           clojure-enable-fancify-symbols t))
   "List of contribution to load."
 )
 ```

@@ -16,5 +16,5 @@
 
 ;; Variables
 
-(defvar clojure-enable-fancify-symbols t
+(defvar clojure-enable-fancify-symbols nil
   "If non nil the `fancify-symbols' function is enabled.")

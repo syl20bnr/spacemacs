@@ -34,7 +34,7 @@ which require an initialization must be listed explicitly in the list.")
                                         rainbow-delimiters-mode)))
     :config
     (progn
-      (if clojure-enable-fancify-symbols
+      (when clojure-enable-fancify-symbols
           (clojure/fancify-symbols))
       (evil-leader/set-key-for-mode 'clojure-mode  "mj" 'cider-jack-in))))
 
