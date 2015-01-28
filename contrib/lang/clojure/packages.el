@@ -34,7 +34,8 @@ which require an initialization must be listed explicitly in the list.")
                                         rainbow-delimiters-mode)))
     :config
     (progn
-      (clojure/fancify-symbols)
+      (when spacemacs-clojure-fancify-symbols
+        (clojure/fancify-symbols))
       (evil-leader/set-key-for-mode 'clojure-mode  "mj" 'cider-jack-in))))
 
 (defun clojure/init-cider ()
