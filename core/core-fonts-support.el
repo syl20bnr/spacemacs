@@ -41,10 +41,18 @@ PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
        (setq fallback-font-name nil)
        (setq fallback-font-name2 nil)))
     (when (and fallback-font-name fallback-font-name2)
-      (let ((fallback-spec (apply 'font-spec
-                                   :family fallback-font-name font-props))
-            (fallback-spec2 (apply 'font-spec
-                                   :family fallback-font-name2 font-props)))
+      ;; remove any size or height properties in order to be able to
+      ;; scale the fallback fonts with the default one (for zoom-in/out
+      ;; for instance)
+      (let* ((fallback-props (spacemacs/mplist-remove
+                              (spacemacs/mplist-remove font-props :size)
+                              :height))
+             (fallback-spec (apply 'font-spec
+                                   :family fallback-font-name
+                                   fallback-props))
+             (fallback-spec2 (apply 'font-spec
+                                    :family fallback-font-name2
+                                    fallback-props)))
         ;; window numbers
         (set-fontset-font "fontset-default"
                           '(#x2776 . #x2793) fallback-spec nil 'prepend)
