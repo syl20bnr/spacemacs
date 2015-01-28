@@ -1806,11 +1806,13 @@ which require an initialization must be listed explicitly in the list.")
 
       (defun spacemacs//set-powerline-for-startup-buffers ()
         "Set the powerline for buffers created when Emacs starts."
-        (dolist (buffer '("*Messages*" "*spacemacs*" "Compile-Log"))
+        (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
           (when (get-buffer buffer)
             (with-current-buffer buffer
               (setq-local mode-line-format
-                          '("%e" (:eval (spacemacs/mode-line-prepare))))))))
+                          '("%e" (:eval (spacemacs/mode-line-prepare))))
+              (powerline-set-selected-window)
+              (powerline-reset)))))
       (add-hook 'after-init-hook
                 'spacemacs//set-powerline-for-startup-buffers))))
 
