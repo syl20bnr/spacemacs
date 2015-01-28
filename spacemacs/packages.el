@@ -2128,10 +2128,12 @@ which require an initialization must be listed explicitly in the list.")
           (if (not (boundp 'yas-minor-mode))
               (progn
                 (let* ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir))
-                       (yas-dir (list (concat dir "yasnippet-snippets"))))
-                  (setq yas-snippet-dirs yas-dir)
+                       (private-yas-dir (concat configuration-layer-private-directory "snippets"))
+                       (yas-dir (concat dir "yasnippet-snippets")))
+                  (setq yas-snippet-dirs (list  private-yas-dir yas-dir))
                   (yas-global-mode 1)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
+                                                markdown-mode-hook
                                                 org-mode-hook))
 
       (defun spacemacs/force-yasnippet-off ()
