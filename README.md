@@ -363,7 +363,7 @@ Install the default font supported by Spacemacs or choose a fixed witdh font.
 More information in the [font section][] of the documentation.
 
 4. **The powerline separators are ugly, how can I fix them ?**
-Use the property `:powerline-offset` of the variable
+Use the property `:powerline-scale` of the variable
 `dotspacemacs-default-font`. More information in the [font section][]
 of the documentation.
 
