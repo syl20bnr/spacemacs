@@ -18,11 +18,14 @@
 PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
   (let* ((font (car plist))
          (props (cdr plist))
-         (powerline-offset (plist-get props :powerline-offset))
-         (font-props (spacemacs/mplist-remove props :powerline-offset))
+         (scale (plist-get props :powerline-scale))
+         (font-props (spacemacs/mplist-remove
+                      (spacemacs/mplist-remove props :powerline-scale)
+                      :powerline-offset))
          (fontspec (apply 'font-spec :family font font-props)))
     (set-default-font fontspec nil t)
-    (setq-default powerline-height (+ powerline-offset (frame-char-height)))
+    (setq-default powerline-scale scale)
+    (setq-default powerline-height (spacemacs/compute-powerline-height))
     ;; fallback font for unicode characters used in spacemacs
     (pcase system-type
       (`gnu/linux
@@ -38,10 +41,18 @@ PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
        (setq fallback-font-name nil)
        (setq fallback-font-name2 nil)))
     (when (and fallback-font-name fallback-font-name2)
-      (let ((fallback-spec (apply 'font-spec
-                                   :family fallback-font-name font-props))
-            (fallback-spec2 (apply 'font-spec
-                                   :family fallback-font-name2 font-props)))
+      ;; remove any size or height properties in order to be able to
+      ;; scale the fallback fonts with the default one (for zoom-in/out
+      ;; for instance)
+      (let* ((fallback-props (spacemacs/mplist-remove
+                              (spacemacs/mplist-remove font-props :size)
+                              :height))
+             (fallback-spec (apply 'font-spec
+                                   :family fallback-font-name
+                                   fallback-props))
+             (fallback-spec2 (apply 'font-spec
+                                    :family fallback-font-name2
+                                    fallback-props)))
         ;; window numbers
         (set-fontset-font "fontset-default"
                           '(#x2776 . #x2793) fallback-spec nil 'prepend)
@@ -55,6 +66,12 @@ PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
         (set-fontset-font "fontset-default"
                           '(#x2190 . #x2200) fallback-spec2 nil 'prepend)))
     ))
+
+(defun spacemacs/compute-powerline-height ()
+  "Return an adjusted powerline height."
+  (let ((scale (if (and (boundp 'powerline-scale) powerline-scale)
+                   powerline-scale 1)))
+    (truncate (* scale (frame-char-height)))))
 
 (defun spacemacs/set-font (&rest args)
   "Deprecated function, display a warning message."

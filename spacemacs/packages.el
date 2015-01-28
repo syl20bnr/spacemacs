@@ -774,7 +774,11 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-evil-terminal-cursor-changer ()
   (unless (display-graphic-p)
-    (require 'evil-terminal-cursor-changer)))
+    (require 'evil-terminal-cursor-changer)
+    (setq etcc--evil-insert-state-cursor 'bar) ; ⎸
+    (setq etcc--evil-visual-state-cursor 'box) ; _
+    (setq etcc--evil-emacs-state-cursor 'hbar) ; █
+    ))
 
 (defun spacemacs/init-evil-tutor ()
   (use-package evil-tutor
@@ -1802,7 +1806,19 @@ which require an initialization must be listed explicitly in the list.")
                   (powerline-render rhs))))
 
       (setq-default mode-line-format
-                    '("%e" (:eval (spacemacs/mode-line-prepare)))))))
+                    '("%e" (:eval (spacemacs/mode-line-prepare))))
+
+      (defun spacemacs//set-powerline-for-startup-buffers ()
+        "Set the powerline for buffers created when Emacs starts."
+        (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
+          (when (get-buffer buffer)
+            (with-current-buffer buffer
+              (setq-local mode-line-format
+                          '("%e" (:eval (spacemacs/mode-line-prepare))))
+              (powerline-set-selected-window)
+              (powerline-reset)))))
+      (add-hook 'after-init-hook
+                'spacemacs//set-powerline-for-startup-buffers))))
 
 (defun spacemacs/init-projectile ()
   (use-package projectile
