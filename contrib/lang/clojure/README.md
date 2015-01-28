@@ -9,6 +9,8 @@
     - [Description](#description)
     - [Packages Included](#packages-included)
     - [Install](#install)
+        - [Layer](#layer)
+        - [Pretty Symbols](#pretty-symbols)
         - [Cider](#cider)
     - [Key Bindings](#key-bindings)
         - [Documentation](#documentation)
@@ -43,7 +45,7 @@ To use this contribution add it to your `~/.spacemacs`
 )
 ```
 
-### Pretty Symbols support
+### Pretty Symbols
 
 Pretty symbols for anonymous functions and set literals, like `(λ [a] (+ a 5))`, `ƒ(+ % 5)`, and `∈{2 4 6}`.
 
