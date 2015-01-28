@@ -448,7 +448,7 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
 
 (defun configuration-layer//activate-package (pkg)
   "Activate PKG."
-  (if (version< emacs-version "24.4")
+  (if (version< emacs-version "24.3.50")
       ;; fake version list to always activate the package
       (package-activate pkg '(0 0 0 0))
     (package-activate pkg)))
@@ -541,13 +541,13 @@ deleted safely."
   "Return the dependencies alist for PACKAGE."
   (let ((pkg (assq package package-alist)))
     (cond
-     ((version< emacs-version "24.4") (aref (cdr pkg) 1))
+     ((version< emacs-version "24.3.50") (aref (cdr pkg) 1))
      (t (package-desc-reqs (cadr pkg))))))
 
 (defun configuration-layer//get-package-dependencies-from-archive (pkg)
   "Return the dependencies alist for a PKG from the archive data."
   (let* ((arch (assq pkg package-archive-contents))
-         (reqs (when arch (if (version< emacs-version "24.4")
+         (reqs (when arch (if (version< emacs-version "24.3.50")
                               (aref (cdr arch) 1)
                             (package-desc-reqs (cadr arch))))))
     ;; recursively get the requirements of reqs
@@ -562,20 +562,20 @@ deleted safely."
   (let ((pkg (or (assq package package-alist)
                  (assq package package--builtins))))
     (cond
-     ((version< emacs-version "24.4") (package-version-join (aref (cdr pkg) 0)))
+     ((version< emacs-version "24.3.50") (package-version-join (aref (cdr pkg) 0)))
      (t (package-version-join (package-desc-version (cadr pkg)))))))
 
 (defun configuration-layer//get-latest-package-version (package)
   "Return the version string for PACKAGE."
   (let ((pkg (assq package package-archive-contents)))
     (cond
-     ((version< emacs-version "24.4") (package-version-join (aref (cdr pkg) 0)))
+     ((version< emacs-version "24.3.50") (package-version-join (aref (cdr pkg) 0)))
      (t (package-version-join (package-desc-version (cadr pkg)))))))
 
 (defun configuration-layer//package-delete (package)
   "Delete the passed PACKAGE."
   (cond
-   ((version< emacs-version "24.4")
+   ((version< emacs-version "24.3.50")
     (package-delete (symbol-name package)
                     (configuration-layer//get-package-version package)))
    (t (package-delete (cadr (assq package package-alist))))))
