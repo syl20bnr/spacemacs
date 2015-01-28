@@ -57,7 +57,7 @@
 (defvar spacemacs-loading-dots-chunk-threshold 0)
 (defvar spacemacs-solarized-dark-createdp nil)
 
-(define-derived-mode spacemacs-mode special-mode "spacemacs-mode"
+(define-derived-mode spacemacs-mode special-mode "Spacemacs"
   "Spacemacs major mode for startup screen."
   :syntax-table nil
   :abbrev-table nil
