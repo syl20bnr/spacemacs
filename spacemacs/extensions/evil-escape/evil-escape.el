@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil
 ;; Created: 22 Oct 2014
-;; Version: 2.07
+;; Version: 2.08
 ;; Package-Requires: ((emacs "24") (evil "1.0.9"))
 ;; URL: https://github.com/syl20bnr/evil-escape
 
@@ -155,13 +155,9 @@ with a key sequence."
         (lookup-key evil-motion-state-map (evil-escape--first-key)))
   ;; evil states
   ;; insert state
-  (let ((insert-func (lambda (key) (interactive)
-                       (cond ((eq 'term-mode major-mode)
-                              (call-interactively 'term-send-raw))
-                             (t (evil-escape--default-insert-func key))))))
-    (eval `(evil-escape-define-escape "insert-state" evil-insert-state-map evil-normal-state
-                                      :insert-func ,insert-func
-                                      :delete-func evil-escape--default-delete-func)))
+  (eval `(evil-escape-define-escape "insert-state" evil-insert-state-map evil-normal-state
+                                    :insert-func evil-escape--insert-state-insert-func
+                                    :delete-func evil-escape--default-delete-func))
   ;; emacs state
   (let ((exit-func (lambda () (interactive)
                      (cond ((string-match "magit" (symbol-name major-mode))
@@ -241,6 +237,13 @@ with a key sequence."
 (defun evil-escape--default-insert-func (key)
   "Insert KEY in current buffer if not read only."
   (when (not buffer-read-only) (insert key)))
+
+(defun evil-escape--insert-state-insert-func (key)
+  "Take care of term-mode."
+  (interactive)
+  (cond ((eq 'term-mode major-mode)
+         (call-interactively 'term-send-raw))
+        (t (evil-escape--default-insert-func key))))
 
 (defun evil-escape--isearch-insert-func (key)
   "Insert KEY in current buffer if not read only."
