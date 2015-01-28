@@ -48,7 +48,7 @@ pressing `<leader> m`")
                                     :size 13
                                     :weight normal
                                     :width normal
-                                    :powerline-offset 2)
+                                    :powerline-scale 1.1)
   "Default font. The powerline-offset allows to quickly tweak the mode-line
 size to make separators look not too crappy.")
 
