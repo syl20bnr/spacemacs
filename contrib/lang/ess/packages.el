@@ -44,6 +44,12 @@ which require an initialization must be listed explicitly in the list.")
          "mp" 'ess-R-object-popup
          "mB" 'ess-eval-buffer-and-go
          "mb" 'ess-eval-buffer
+         "mcC" 'ess-eval-chunk-and-go
+         "mcc" 'ess-eval-chunk
+         "mcd" 'ess-eval-chunk-and-step
+         "mcm" 'ess-noweb-mark-chunk
+         "mcN" 'ess-noweb-previous-chunk
+         "mcn" 'ess-noweb-next-chunk
          "mhD" 'ess-eval-function-or-paragraph-and-step
          "mhd" 'ess-eval-region-or-line-and-step
          "mL" 'ess-eval-line-and-go
