@@ -42,4 +42,5 @@ python-*-docs-html
 # Private directory
 private/*
 !private/README.md
+!private/snippets/README.md
 /games/
