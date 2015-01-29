@@ -113,6 +113,7 @@
 (defun spacemacs/initialize ()
   "Create the special buffer for `spacemacs-mode' and perform startup
 initialization."
+  (require 'core-toggles)
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
   (spacemacs-mode))
 
