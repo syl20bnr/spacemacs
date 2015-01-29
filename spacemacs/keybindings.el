@@ -130,19 +130,54 @@
   "Sc" 'cofi/helm-flyspell-correct
   "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
-(evil-leader/set-key
-  "t8" 'toggle-fill-column-indicator
-  "tF" 'spacemacs/toggle-frame-fullscreen
-  "tf" 'fringe-mode
-  "th" 'global-hl-line-mode
-  "tl" 'toggle-truncate-lines
-  "tL" 'visual-line-mode
-  "tM" 'toggle-frame-maximized
-  "tn" 'global-linum-mode
-  "tt" 'toggle-transparency
-  "tT" 'spacemacs/toggle-tool-bar
-  "tU" 'spacemacs/toggle-menu-bar
-  "t SPC" 'whitespace-mode)
+(spacemacs|add-toggle fill-column-indicator
+                      :toggle-function toggle-fill-column-indicator
+                      :documentation "Display the fill column indicator."
+                      :key "t8")
+(spacemacs|add-toggle fringe
+                      :toggle-function fringe-mode
+                      :documentation "Display the fringe in GUI mode."
+                      :key "tf")
+(spacemacs|add-toggle fullscreen-frame
+                      :toggle-function spacemacs/toggle-frame-fullscreen
+                      :documentation "Display the current frame in full screen."
+                      :key "tF")
+(spacemacs|add-toggle highlight-current-line
+                      :toggle-function global-hl-line-mode
+                      :documentation "Highlight the current line."
+                      :key "th")
+(spacemacs|add-toggle truncate-lines
+                      :toggle-function toggle-truncate-lines
+                      :documentation "Truncate the long lines (no wrap)."
+                      :key "tl")
+(spacemacs|add-toggle visual-line-navigation
+                      :toggle-function visual-line-mode
+                      :documentation "Move point according to visual lines."
+                      :key "tL")
+(spacemacs|add-toggle maximize-frame
+                      :toggle-function toggle-frame-maximized
+                      :documentation "Maximize the current frame."
+                      :key "tM")
+(spacemacs|add-toggle line-numbers
+                      :toggle-function global-linum-mode
+                      :documentation "Show the line numbers."
+                      :key "tn")
+(spacemacs|add-toggle transparent-frame
+                      :toggle-function toggle-transparency
+                      :documentation "Make the current frame non-opaque."
+                      :key "tt")
+(spacemacs|add-toggle tool-bar
+                      :toggle-function spacemacs/toggle-tool-bar
+                      :documentation "Display the tool bar in GUI mode."
+                      :key "tT")
+(spacemacs|add-toggle menu-bar
+                      :toggle-function spacemacs/toggle-menu-bar
+                      :documentation "Display the menu bar."
+                      :key "tU")
+(spacemacs|add-toggle whitespaces
+                      :toggle-function whitespace-mode
+                      :documentation "Display the whitespaces."
+                      :key "t SPC")
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "q s" 'spacemacs/save-buffers-kill-emacs
