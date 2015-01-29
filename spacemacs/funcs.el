@@ -603,19 +603,28 @@ kill internal buffers too."
     (spacemacs/frame-killer)))
 
 (defun spacemacs/save-buffers-kill-emacs ()
+  "Save all changed buffers and exit Spacemacs"
   (interactive)
   (setq spacemacs-really-kill-emacs t)
   (save-buffers-kill-emacs))
 
 (defun spacemacs/kill-emacs ()
+  "Lose all changes and exit Spacemacs"
   (interactive)
   (setq spacemacs-really-kill-emacs t)
   (kill-emacs))
 
-(defun spacemacs/frame-killer ()
-  "Exit server buffers and hide the main Emacs window"
+(defun spacemacs/prompt-kill-emacs ()
+  "Prompt to save changed buffers and exit Spacemacs"
   (interactive)
-  (server-edit)
+  (setq spacemacs-really-kill-emacs t)
+  (save-some-buffers)
+  (kill-emacs))
+
+(defun spacemacs/frame-killer ()
+  "Kill server buffer and hide the main Emacs window"
+  (interactive)
+  (server-kill-buffer)
   (make-frame-invisible nil 1))
 
 ;; A small minor mode to use a big fringe

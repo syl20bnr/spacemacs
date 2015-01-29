@@ -2003,8 +2003,10 @@ server is to use the following bindings:
 
     Key Binding    |                 Description
 -------------------|------------------------------------------------------------
-<kbd>SPC q q</kbd> | Quit Emacs and kill the server
+<kbd>SPC q q</kbd> | Quit Emacs and kill the server, prompt for changed buffers to save
+<kbd>SPC q Q</kbd> | Quit Emacs and kill the server, lose all unsaved changes.
 <kbd>SPC q s</kbd> | Save the buffers, quit Emacs and kill the server
+<kbd>SPC q z</kbd> | Kill the current frame
 
 ## Troubleshoot
 
