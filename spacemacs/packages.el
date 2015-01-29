@@ -760,7 +760,7 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (global-evil-search-highlight-persist)
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
-      (evil-ex-define-cmd "nohl" 'evil-search-highlight-persist-remove-all))))
+      (evil-ex-define-cmd "noh[lsearch]" 'evil-search-highlight-persist-remove-all))))
 
 (defun spacemacs/init-evil-surround ()
   (use-package evil-surround
