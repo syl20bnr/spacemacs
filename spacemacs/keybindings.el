@@ -203,7 +203,9 @@
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "q s" 'spacemacs/save-buffers-kill-emacs
-  "q q" 'spacemacs/kill-emacs)
+  "q q" 'spacemacs/prompt-kill-emacs
+  "q Q" 'spacemacs/kill-emacs
+  "q z" 'spacemacs/frame-killer)
 ;; window ---------------------------------------------------------------------
 (defun split-window-below-and-focus ()
   "Split the window vertically and focus the new window."
