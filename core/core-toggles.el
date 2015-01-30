@@ -20,44 +20,73 @@ property list (name :func FUNCTION :doc STRING :key STRING).")
 
 Avaiblabe PROPS:
 
-`:function FUNCTION'
-    A symbol of a function to handle the toggle or one of the following
-    symbols: `global' or `globalized'.
+`:status EXPRESSION'
+    The EXPRESSION to evaluate to get the current status of the toggle.
 
-    `global' define a default function to handle the toggle of a minor mode
-    defined with the property `:global t'
+`:if EXPRESSION'
+    If this EXPRESSION evaluate to nil then no attempt to update the toggle
+    status will be performed.
 
-    `globalized' define a default function to handle the toogle of a minor
-    mode defined with `define-globalized-minor-mode'.
+`:on BODY'
+    Evaluate BODY when the toggle is switched on.
+
+`:off BODY'
+    Evaluate BODY when the toggle is switched off.
 
 `:documentation STRING'
-    A docstring to describe what the toggle does.
+    STRING describes what the toggle does.
 
-`:key STRING'
-    A key sequence to use the toggle."
+`:evil-leader STRING'
+    A key sequence string to be set with `evil-leader/set-key'.
+
+`:evil-leader-for-mode CONS CELL'
+    A cons cell (MODE . KEY) where MODE is a major-mode symbol and KEY is a
+    key sequence string to be set with `evil-leader/set-key-for-mode'.
+
+`:global-key STRING'
+    A key sequence string to be set with `global-set-key'.
+
+`:local-key CONS CELL'
+    A cons cell (MAP . KEY) where MAP is a mode map and KEY is a
+    key sequence string to be set with `define-key'. "
   (let* ((wrapper-func (intern (format "spacemacs/toggle-%s"
                                        (symbol-name name))))
-         (toggle-func (plist-get props :toggle-function))
-         (toggle-var (if (plist-get props :toggle-variable)
-                         (plist-get props :toggle-variable)
-                       toggle-func))
+         (status (plist-get props :status))
+         (condition (plist-get props :if))
          (doc (plist-get props :documentation))
          (on-body (spacemacs/mplist-get props :on))
          (off-body (spacemacs/mplist-get props :off))
-         (key (plist-get props :key)))
-    (push `(,name :func ,wrapper-func :doc ,doc :key ,key)
+         (evil-leader (plist-get props :evil-leader))
+         (evil-leader-for-mode (plist-get props :evil-leader-for-mode))
+         (global-key (plist-get props :global-key))
+         (local-key (plist-get props :local-key)))
+    (push (append (list name) (list :function wrapper-func) props)
           spacemacs-toggles)
     `(progn
+       ;; toggle function
        (defun ,wrapper-func ()
          ,(format "Toggle %s on and off." (symbol-name name))
          (interactive)
-         (if (and (boundp ',toggle-var) ,toggle-var)
-             (progn
-               (,toggle-func -1)
-               ,@on-body)
-           (,toggle-func)
-           ,@off-body))
-       (when ,key
-         (evil-leader/set-key ,key ',wrapper-func)))))
+         ;; we evaluate condition and status only if they are a list or
+         ;; a bound symbol
+         (if (or (null ',condition)
+                   (and (or (and (symbolp ',condition) (boundp ',condition))
+                            (listp ',condition))
+                        ,condition))
+             (if (and (or (and (symbolp ',status) (boundp ',status))
+                          (listp ',status))
+                      ,status) (progn ,@off-body) ,@on-body)
+           (message "This toggle is not supported.")))
+       ;; key bindings
+       (when ,evil-leader
+         (evil-leader/set-key ,evil-leader ',wrapper-func))
+       (when ,evil-leader-for-mode
+         (evil-leader/set-key-for-mode
+           '(car ,evil-leader-for-mode)
+           (cdr ,evil-leader-for-mode) ',wrapper-func))
+       (when ,global-key
+         (global-set-key (kbd ,global-key) ',wrapper-func))
+       (when ,local-key
+         (define-key (car ,local-key) (kbd ,(cdr local-key)) ',wrapper-func)))))
 
 (provide 'core-toggles)
