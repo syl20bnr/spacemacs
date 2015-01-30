@@ -84,6 +84,7 @@ which require an initialization must be listed explicitly in the list.")
         "Lazy load git gutter and choose between fringe and no fringe."
         (when (display-graphic-p) (require 'git-gutter-fringe))
         (init-git-gutter))
+      (setq git-gutter-fr:side 'right-fringe)
       (add-to-hooks 'git/load-git-gutter '(markdown-mode-hook
                                            org-mode-hook
                                            prog-mode-hook)))
@@ -97,7 +98,6 @@ which require an initialization must be listed explicitly in the list.")
         "ghr" 'git-gutter:revert-hunk
         "ghN" 'git-gutter:previous-hunk
         "ghn" 'git-gutter:next-hunk)
-      (setq git-gutter-fr:side 'right-fringe)
       ;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
       ;; custom graphics that works nice with half-width fringes
       (fringe-helper-define 'git-gutter-fr:added nil
