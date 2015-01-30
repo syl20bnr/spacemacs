@@ -20,6 +20,7 @@
     flycheck
     hy-mode
     pony-mode
+    pyenv-mode
     pyvenv
     python
     semantic
@@ -114,6 +115,14 @@ which require an initialization must be listed explicitly in the list.")
               ; d*j*ango f*a*bric
               "mjaf" 'pony-fabric
               "mjad" 'pony-fabric-deploy))))
+
+(defun python/init-pyenv-mode ()
+  (use-package pyenv-mode
+    :defer t
+    :init (progn
+            (evil-leader/set-key-for-mode
+              "mps" 'pyenv-mode-set
+              "mpu" 'pyenv-mode-unset))))
 
 (defun python/init-pyvenv ()
   (use-package pyvenv

@@ -20,7 +20,10 @@
         ("mjs" . "south/syncdb")
         ("mjt" . "test")
         ("mjf" . "files")
-        ("mja" . "fabric")))
+        ("mja" . "fabric")
+
+        ; pyenv/pyenv-mode
+        ("mp" . "pyenv")))
 
 (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
       python/key-binding-prefixes)
