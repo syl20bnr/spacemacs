@@ -22,7 +22,7 @@ PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
          (font-props (spacemacs/mplist-remove
                       (spacemacs/mplist-remove props :powerline-scale)
                       :powerline-offset))
-         (fontspec (apply 'font-spec :family font font-props)))
+         (fontspec (apply 'font-spec :name font font-props)))
     (spacemacs/message "Setting font \"%s\"..." font)
     (set-default-font fontspec nil t)
     (setq-default powerline-scale scale)
@@ -49,10 +49,10 @@ PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
                               (spacemacs/mplist-remove font-props :size)
                               :height))
              (fallback-spec (apply 'font-spec
-                                   :family fallback-font-name
+                                   :name fallback-font-name
                                    fallback-props))
              (fallback-spec2 (apply 'font-spec
-                                    :family fallback-font-name2
+                                    :name fallback-font-name2
                                     fallback-props)))
         ;; window numbers
         (set-fontset-font "fontset-default"
