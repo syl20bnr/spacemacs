@@ -75,7 +75,7 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init (progn
             (evil-leader/set-key-for-mode 'python-mode
-              ; d*j*ango r*u*nserver
+              ; d*j*ango *r*unserver
               "mjru" 'pony-runserver
               "mjrr" 'pony-restart-server
               "mjrd" 'pony-stopserver
