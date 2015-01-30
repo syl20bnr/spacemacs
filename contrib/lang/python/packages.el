@@ -120,7 +120,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package pyenv-mode
     :defer t
     :init (progn
-            (evil-leader/set-key-for-mode
+            (evil-leader/set-key-for-mode 'python-mode
               "mps" 'pyenv-mode-set
               "mpu" 'pyenv-mode-unset))))
 
