@@ -137,7 +137,7 @@
   "Toggle candidate."
   (let ((toggle (assq (intern candidate) spacemacs-toggles)))
     (when toggle
-      (funcall (plist-get (cdr toggle) :func)))))
+      (funcall (plist-get (cdr toggle) :function)))))
 
 (provide 'helm-spacemacs)
 

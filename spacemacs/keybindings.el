@@ -131,53 +131,75 @@
   "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (spacemacs|add-toggle fill-column-indicator
-                      :toggle-function toggle-fill-column-indicator
+                      :status nil
+                      :on (toggle-fill-column-indicator)
                       :documentation "Display the fill column indicator."
-                      :key "t8")
+                      :evil-leader "t8")
 (spacemacs|add-toggle fringe
-                      :toggle-function fringe-mode
+                      :status (not (equal fringe-mode 0))
+                      :on (call-interactively 'fringe-mode)
+                      :off (fringe-mode 0)
                       :documentation "Display the fringe in GUI mode."
-                      :key "tf")
+                      :evil-leader "tf")
 (spacemacs|add-toggle fullscreen-frame
-                      :toggle-function spacemacs/toggle-frame-fullscreen
+                      :status nil
+                      :on (spacemacs/toggle-frame-fullscreen)
                       :documentation "Display the current frame in full screen."
-                      :key "tF")
-(spacemacs|add-toggle highlight-current-line
-                      :toggle-function global-hl-line-mode
-                      :documentation "Highlight the current line."
-                      :key "th")
+                      :evil-leader "tF")
+(spacemacs|add-toggle highlight-current-line-globally
+                      :status global-hl-line-mode
+                      :on (global-hl-line-mode)
+                      :off (global-hl-line-mode -1)
+                      :documentation "Globally Highlight the current line."
+                      :evil-leader "th")
 (spacemacs|add-toggle truncate-lines
-                      :toggle-function toggle-truncate-lines
+                      :status nil
+                      :on (toggle-truncate-lines)
                       :documentation "Truncate the long lines (no wrap)."
-                      :key "tl")
+                      :evil-leader "tl")
 (spacemacs|add-toggle visual-line-navigation
-                      :toggle-function visual-line-mode
+                      :status visual-line-mode
+                      :on (visual-line-mode)
+                      :off (visual-line-mode -1)
                       :documentation "Move point according to visual lines."
-                      :key "tL")
+                      :evil-leader "tL")
 (spacemacs|add-toggle maximize-frame
-                      :toggle-function toggle-frame-maximized
+                      :if (version< "24.3.50" emacs-version)
+                      :status nil
+                      :on (toggle-frame-maximized)
                       :documentation "Maximize the current frame."
-                      :key "tM")
+                      :evil-leader "tM")
 (spacemacs|add-toggle line-numbers
-                      :toggle-function global-linum-mode
+                      :status linum-mode
+                      :on (global-linum-mode)
+                      :off (global-linum-mode -1)
                       :documentation "Show the line numbers."
-                      :key "tn")
+                      :evil-leader "tn")
 (spacemacs|add-toggle transparent-frame
-                      :toggle-function toggle-transparency
+                      :status nil
+                      :on (toggle-transparency)
                       :documentation "Make the current frame non-opaque."
-                      :key "tt")
+                      :evil-leader "tt")
 (spacemacs|add-toggle tool-bar
-                      :toggle-function spacemacs/toggle-tool-bar
+                      :if window-system
+                      :status tool-bar-mode
+                      :on (tool-bar-mode)
+                      :off (tool-bar-mode -1)
                       :documentation "Display the tool bar in GUI mode."
-                      :key "tT")
+                      :evil-leader "tT")
 (spacemacs|add-toggle menu-bar
-                      :toggle-function spacemacs/toggle-menu-bar
+                      :if (or window-system (version<= "24.3.1" emacs-version))
+                      :status menu-bar-mode
+                      :on (menu-bar-mode)
+                      :off (menu-bar-mode -1)
                       :documentation "Display the menu bar."
-                      :key "tU")
+                      :evil-leader "tU")
 (spacemacs|add-toggle whitespaces
-                      :toggle-function whitespace-mode
+                      :status whitespace-mode
+                      :on (whitespace-mode)
+                      :off (whitespace-mode -1)
                       :documentation "Display the whitespaces."
-                      :key "t SPC")
+                      :evil-leader "t SPC")
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "q s" 'spacemacs/save-buffers-kill-emacs
