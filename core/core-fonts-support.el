@@ -23,6 +23,7 @@ PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
                       (spacemacs/mplist-remove props :powerline-scale)
                       :powerline-offset))
          (fontspec (apply 'font-spec :family font font-props)))
+    (spacemacs/message "Setting font \"%s\"..." font)
     (set-default-font fontspec nil t)
     (setq-default powerline-scale scale)
     (setq-default powerline-height (spacemacs/compute-powerline-height))
