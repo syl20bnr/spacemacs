@@ -19,6 +19,7 @@
     evil-jumper
     flycheck
     hy-mode
+    pony-mode
     pyvenv
     python
     semantic
@@ -67,6 +68,52 @@ which require an initialization must be listed explicitly in the list.")
 (defun python/init-evil-jumper ()
   (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
     (evil-jumper--push)))
+
+(defun python/init-pony-mode ()
+  (use-package pony-mode
+    :defer t
+    :init (progn
+            (evil-leader/set-key-for-mode 'python-mode
+              ; d*j*ango r*u*nserver
+              "mjru" 'pony-runserver
+              "mjrr" 'pony-restart-server
+              "mjrd" 'pony-stopserver
+              "mjrt" 'pony-temp-server
+              "mjro" 'pony-browser
+
+              ; d*j*ango *i*nteractive
+              "mjis" 'pony-shell
+              "mjid" 'pony-db-shell
+
+              ; d*j*ango *s*outh/*s*yncdb
+              "mjss" 'pony-syncdb
+              "mjsc" 'pony-south-convert
+              "mjsi" 'pony-south-initial
+              "mjsh" 'pony-south-schemamigration
+              "mjsm" 'pony-south-migrate
+
+              ; d*j*ango *t*est
+              "mjtt" 'pony-test
+              "mjto" 'pony-test-open
+              "mjtu" 'pony-test-up
+              "mjtd" 'pony-test-down
+              "mjtg" 'pony-test-goto-err
+
+              ; d*j*ango *m*anage
+              ; not including one-off management commands like "flush" and
+              ; "startapp" even though they're implemented in pony-mode,
+              ; because this is much handier
+              "mjm" 'pony-manage
+
+              ; d*j*ango *f*iles
+              "mjfs" 'pony-goto-settings
+              "mjfc" 'pony-setting
+              "mjft" 'pony-goto-template
+              "mjfr" 'pony-resolve
+
+              ; d*j*ango f*a*bric
+              "mjaf" 'pony-fabric
+              "mjad" 'pony-fabric-deploy))))
 
 (defun python/init-pyvenv ()
   (use-package pyvenv
