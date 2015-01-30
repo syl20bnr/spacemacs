@@ -46,7 +46,7 @@ Avaiblabe PROPS:
 `:global-key STRING'
     A key sequence string to be set with `global-set-key'.
 
-`:local-key CONS CELL'
+`:define-key CONS CELL'
     A cons cell (MAP . KEY) where MAP is a mode map and KEY is a
     key sequence string to be set with `define-key'. "
   (let* ((wrapper-func (intern (format "spacemacs/toggle-%s"
@@ -59,7 +59,7 @@ Avaiblabe PROPS:
          (evil-leader (plist-get props :evil-leader))
          (evil-leader-for-mode (plist-get props :evil-leader-for-mode))
          (global-key (plist-get props :global-key))
-         (local-key (plist-get props :local-key)))
+         (def-key (plist-get props :define-key)))
     (push (append (list name) (list :function wrapper-func) props)
           spacemacs-toggles)
     `(progn
@@ -86,7 +86,7 @@ Avaiblabe PROPS:
            (cdr ,evil-leader-for-mode) ',wrapper-func))
        (when ,global-key
          (global-set-key (kbd ,global-key) ',wrapper-func))
-       (when ,local-key
-         (define-key (car ,local-key) (kbd ,(cdr local-key)) ',wrapper-func)))))
+       (when ,def-key
+         (define-key (car ,def-key) (kbd ,(cdr def-key)) ',wrapper-func)))))
 
 (provide 'core-toggles)
