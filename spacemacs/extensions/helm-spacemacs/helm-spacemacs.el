@@ -41,6 +41,8 @@
   "Layers discovery with helm interface."
   :group 'spacemacs
   :global t
+  (setq helm-spacemacs-all-layers nil
+        helm-spacemacs-all-packages nil)
   (if helm-spacemacs-mode
       (progn
         (mapc (lambda (layer) (push (configuration-layer//declare-layer layer)
@@ -49,9 +51,7 @@
         (configuration-layer//load-layer-files helm-spacemacs-all-layers
                                                '("funcs.el" "config.el"))
         (setq helm-spacemacs-all-packages (configuration-layer/get-packages
-                                           helm-spacemacs-all-layers)))
-    (setq helm-spacemacs-all-layers nil
-          helm-spacemacs-all-packages nil)))
+                                           helm-spacemacs-all-layers)))))
 
 ;;;###autoload
 (defun helm-spacemacs ()
