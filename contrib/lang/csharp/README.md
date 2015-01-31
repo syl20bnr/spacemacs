@@ -9,10 +9,14 @@
     - [Description](#description)
     - [Packages Included](#packages-included)
     - [Install](#install)
+        - [Prerequisites](#prerequisites)
+            - [APS.NET 5](#apsnet-5)
+            - [curl](#curl)
+            - [Omnisharp server](#omnisharp-server)
+    - [Caveats](#caveats)
     - [Key Bindings](#key-bindings)
         - [Tests](#tests)
         - [Navigation](#navigation)
-        - [Type information](#type-information)
         - [Refactoring](#refactoring)
         - [Solution/Project manipulation](#solutionproject-manipulation)
         - [Compilation](#compilation)
@@ -23,13 +27,12 @@
 
 ## Description
 
-This layer adds experimental support for C# language using [OmniSharp](https://github.com/OmniSharp/omnisharp-emacs).
-The layer requires the OmniSharp server, refer to the install section.
+This layer adds experimental support for C# language using [OmniSharp][].
 
 ## Packages Included
 
-- [OmniSharp-emacs](https://github.com/OmniSharp/omnisharp-emacs)
-- [OmniSharp-server](https://github.com/OmniSharp/omnisharp-server)
+- [OmniSharp-emacs][]
+- [OmniSharp-server][]
 
 ## Install
 
@@ -41,21 +44,49 @@ To use this contribution add it to your `~/.spacemacs`
 )
 ```
 
-- Compile the OmniSharp server, following the instructions found here: https://github.com/OmniSharp/omnisharp-server
+### Prerequisites
 
-- Then do one of:
+#### APS.NET 5
 
-    a) In `.spacemacs` add the path to OmniSharp to an Emacs variable `(setq omnisharp-server-executable-path "/PATH/TO/OMNISHARP/OmniSharpServer")`
+Follow the instructions for your platform [here][aspnet].
 
-    b) Ensure that the binary `OmniSharp` is available in Emacs' `exec-path`.
+#### curl
 
-OmniSharp should now automatically load and start a server when you open a `.cs` file.
+You'll need [curl][] to be able to use the Omnisharp package. Use your favorite
+package manager to install it (on Windows you can use [chocolatey][]).
 
-## Limitations
-It's currently not possible to create C# solutions outside of IDEs such as MonoDevelop,
-it's therefore recommended that you install a C# IDE and use that for creating a solution.
+Be sure to make the `curl` binary available to your PATH environment variable,
+or set the variable `omnisharp--curl-executable-path` in your dotfile function
+`dotspacemacs-config`:
 
-Debugging is possible using [SDB](https://github.com/mono/sdb), or by using an IDE.
+```elisp
+(setq-default omnisharp--curl-executable-path "/PATH/TO/CURL/curl")
+```
+
+#### Omnisharp server
+
+You have to compile the OmniSharp server following the instructions which can
+be found [here][server_install].
+
+Don't forget to add the server binary directory to your system PATH environment
+variable. The full path the binary can also be directly referenced in the
+variable `omnisharp-server-executable-path` (put this in your
+`dotspacemacs-config` function):
+
+```elisp
+(setq-default omnisharp-server-executable-path "/PATH/TO/OMNISHARP/OmniSharpServer")
+```
+
+OmniSharp should now automatically load and start a server when you open a
+`.cs` file.
+
+## Caveats
+
+- It's currently not possible to create a C# solution outside of an IDE such as
+[MonoDevelop][], it's therefore recommended that you install it to create your
+solutions.
+
+- Debugging is possible using [SDB][].
 
 ## Key Bindings
 
@@ -82,12 +113,6 @@ Debugging is possible using [SDB](https://github.com/mono/sdb), or by using an I
                 "mgf" |   Go to solution file
                 "mgF" |   Go to solution file then member
 
-### Type information
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-                 "mt" | Get type information for symbol under cursor
-                 "mT" | Get type information for symbol under cursor and put it into kill-ring
 
 ### Refactoring
 
@@ -127,3 +152,13 @@ Debugging is possible using [SDB](https://github.com/mono/sdb), or by using an I
                 "mss" | Start the OmniSharp server
                 "msS" | Stop the OmniSharp server
                 "msr" | Reload the solution
+
+[server_install]: https://github.com/OmniSharp/omnisharp-server
+[aspnet]: https://github.com/aspnet/home#getting-started
+[OmniSharp]: https://github.com/OmniSharp/omnisharp-emacs
+[OmniSharp-emacs]: https://github.com/OmniSharp/omnisharp-emacs
+[OmniSharp-server]: https://github.com/OmniSharp/omnisharp-server
+[MonoDevelop]: http://www.monodevelop.com/
+[SDB]: https://github.com/mono/sdb
+[curl]: http://curl.haxx.se/
+[chocolatey]: https://chocolatey.org/
