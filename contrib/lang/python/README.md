@@ -110,60 +110,63 @@ Test commands (start with <kbd>m t</kbd> or <kbd>m T</kbd>):
 Django related key bindings uses [pony-mode][] and are behind the prefix
 <kbd>SPC m j</kbd>.
 
+Configuration options for pony-mode are documented at
+[deadpansincerity.com](http://www.deadpansincerity.com/docs/pony/configuration.html)
+
 Manage Django with <kbd>SPC m j m</kbd>.
 
 #### Fabric
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>mjaf</kbd>       | pony-fabric
-<kbd>mjad</kbd>       | pony-fabric-deploy
+<kbd>mjaf</kbd>       | Run a fabric command
+<kbd>mjad</kbd>       | Deploy project with `fab deploy`
 
 #### Files
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>mjfs</kbd>       | pony-goto-settings
-<kbd>mjfc</kbd>       | pony-setting
-<kbd>mjft</kbd>       | pony-goto-template
-<kbd>mjfr</kbd>       | pony-resolve
+<kbd>mjfs</kbd>       | Open the `settings.py` for this project
+<kbd>mjfc</kbd>       | Interactively display a setting value in the minibuffer
+<kbd>mjft</kbd>       | Jump to template at point
+<kbd>mjfr</kbd>       | Jump to the view file that the URL resolves to (experimental)
 
 #### Interactive
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>mjid</kbd>       | pony-db-shell
-<kbd>mjis</kbd>       | pony-shell
+<kbd>mjid</kbd>       | Run interpreter for this project's default database as an inferior process
+<kbd>mjis</kbd>       | Open a Python shell with the current pony project's context loaded. If the project has the django_extras package installed, then use the excellent `shell_plus` command. Otherwise, fall back to `manage.py shell`
 
 #### Server
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>mjrd</kbd>       | pony-stopserver
-<kbd>mjro</kbd>       | pony-browser
-<kbd>mjrr</kbd>       | pony-restart-server
-<kbd>mjru</kbd>       | pony-runserver
-<kbd>mjrt</kbd>       | pony-temp-server
+<kbd>mjrd</kbd>       | Stop the dev server
+<kbd>mjro</kbd>       | Open a tab at the dev server
+<kbd>mjrr</kbd>       | Restart the dev server (works better with django_extras/werkzeug)
+<kbd>mjru</kbd>       | Start or open the dev server
+<kbd>mjrt</kbd>       | Open a second server with a "throwaway" host/port
 
 #### South/Syncdb
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>mjsc</kbd>       | pony-south-convert
-<kbd>mjsh</kbd>       | pony-south-schemamigration
-<kbd>mjsi</kbd>       | pony-south-initial
-<kbd>mjsm</kbd>       | pony-south-migrate
-<kbd>mjss</kbd>       | pony-syncdb
+<kbd>mjsc</kbd>       | Convert an existing app to south
+<kbd>mjsh</kbd>       | Create migration for modification
+<kbd>mjsi</kbd>       | Run the initial south migration for an app
+<kbd>mjsm</kbd>       | Migrate an app
+<kbd>mjss</kbd>       | Run syncdb on the current project
 
 #### Test
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>mjtd</kbd>       | go down the stack
-<kbd>mjte</kbd>       | go to test error
-<kbd>mjto</kbd>       | pony-test-open
-<kbd>mjtt</kbd>       | pony-test
-<kbd>mjtu</kbd>       | go up the stack
+<kbd>mjtd</kbd>       | Move down the traceback one level
+<kbd>mjte</kbd>       | Go to the file and line of the last stack trace in a test buffer
+<kbd>mjto</kbd>       | Open the file in a traceback at the line specified
+<kbd>mjtt</kbd>       | Run the test(s) given by `command`
+<kbd>mjtu</kbd>       | Move up the traceback one level
 
 
 [anaconda-mode]: https://github.com/proofit404/anaconda-mode
