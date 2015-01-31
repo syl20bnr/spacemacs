@@ -1,6 +1,6 @@
 # C# contribution layer for Spacemacs
 
-![logo](img/csharp.png)
+![logo_csharp](img/csharp.png) ![logo_dotnet](img/dotnet.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
