@@ -2059,6 +2059,7 @@ Achievements                                         | Account
 [100th pull request][100th-PR]                       | [bru][]
 [200th pull request][200th-PR]                       | [smt][]
 PR gunner (8 PRs in a row)                           | [ralesi][]
+100th fork                                           | [balajisivaraman][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
 400th star                                           | [dbohdan][]
@@ -2173,6 +2174,7 @@ developers to elisp hackers!
 [bru]:https://github.com/bru
 [smt]:https://github.com/smt
 [ralesi]:https://github.com/ralesi
+[balajisivaraman]:https://github.com/balajisivaraman
 [Jackneill]:https://github.com/Jackneill
 [jb55]:https://github.com/jb55
 [use-package]: https://github.com/jwiegley/use-package
