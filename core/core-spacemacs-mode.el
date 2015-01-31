@@ -90,8 +90,10 @@
                                "able to launch a graphical instance of Emacs"
                                "with this build.")))
   ;; font
-  (when (member (car dotspacemacs-default-font) (font-family-list))
-    (spacemacs/set-default-font dotspacemacs-default-font))
+  (if (find-font (font-spec :name (car dotspacemacs-default-font)))
+      (spacemacs/set-default-font dotspacemacs-default-font)
+    (spacemacs/message "Warning: Cannot find font \"%s\"!"
+                       (car dotspacemacs-default-font)))
   ;; banner
   (spacemacs//insert-banner)
   ;; bind-key is required by use-package
@@ -113,6 +115,7 @@
 (defun spacemacs/initialize ()
   "Create the special buffer for `spacemacs-mode' and perform startup
 initialization."
+  (require 'core-toggles)
   (switch-to-buffer (get-buffer-create "*spacemacs*"))
   (spacemacs-mode))
 

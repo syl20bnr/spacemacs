@@ -760,7 +760,7 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (global-evil-search-highlight-persist)
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
-      (evil-ex-define-cmd "nohl" 'evil-search-highlight-persist-remove-all))))
+      (evil-ex-define-cmd "nohlsearch" 'evil-search-highlight-persist-remove-all))))
 
 (defun spacemacs/init-evil-surround ()
   (use-package evil-surround
@@ -1045,15 +1045,14 @@ which require an initialization must be listed explicitly in the list.")
   (use-package golden-ratio
     :defer t
     :init
-    (progn
-      (defun spacemacs/toggle-golden-ratio ()
-        "Toggle golden-ratio mode on and off."
-        (interactive)
-        (if (symbol-value golden-ratio-mode)
-            (progn (golden-ratio-mode -1)(balance-windows))
-          (golden-ratio-mode)
-          (golden-ratio)))
-      (evil-leader/set-key "tg" 'spacemacs/toggle-golden-ratio))
+    (eval `(spacemacs|add-toggle
+            golden-ratio
+            :status golden-ratio-mode
+            :on (golden-ratio-mode) (golden-ratio)
+            :off (golden-ratio-mode -1) (balance-windows)
+            :documentation ,(concat "Dynamically resize the focused window "
+                                    "using the golden ratio.")
+            :evil-leader "tg"))
     :config
     (progn
       (setq golden-ratio-extra-commands
@@ -2129,10 +2128,12 @@ which require an initialization must be listed explicitly in the list.")
           (if (not (boundp 'yas-minor-mode))
               (progn
                 (let* ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir))
-                       (yas-dir (list (concat dir "yasnippet-snippets"))))
-                  (setq yas-snippet-dirs yas-dir)
+                       (private-yas-dir (concat configuration-layer-private-directory "snippets"))
+                       (yas-dir (concat dir "yasnippet-snippets")))
+                  (setq yas-snippet-dirs (list  private-yas-dir yas-dir))
                   (yas-global-mode 1)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
+                                                markdown-mode-hook
                                                 org-mode-hook))
 
       (defun spacemacs/force-yasnippet-off ()

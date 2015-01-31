@@ -41,19 +41,28 @@ which require an initialization must be listed explicitly in the list.")
     '(progn
        (evil-leader/set-key-for-mode 'ess-mode
          "mi" 'R
-         "mp" 'ess-R-object-popup
-         "mB" 'ess-eval-buffer-and-go
-         "mb" 'ess-eval-buffer
-         "mhD" 'ess-eval-function-or-paragraph-and-step
-         "mhd" 'ess-eval-region-or-line-and-step
-         "mL" 'ess-eval-line-and-go
-         "ml" 'ess-eval-line
-         "mR" 'ess-eval-region-and-go
-         "mr" 'ess-eval-region
-         "mT" 'ess-eval-function-and-go
-         "mt" 'ess-eval-function
-         "mvp" 'ess-R-dv-pprint
-         "mvt" 'ess-R-dv-ctable
+         ;; noweb
+         "mcC" 'ess-eval-chunk-and-go
+         "mcc" 'ess-eval-chunk
+         "mcd" 'ess-eval-chunk-and-step
+         "mcm" 'ess-noweb-mark-chunk
+         "mcN" 'ess-noweb-previous-chunk
+         "mcn" 'ess-noweb-next-chunk
+         ;; helpers
+         "mhd" 'ess-R-dv-pprint
+         "mhi" 'ess-R-object-popup
+         "mht" 'ess-R-dv-ctable
+         ;; REPL
+         "msB" 'ess-eval-buffer-and-go
+         "msb" 'ess-eval-buffer
+         "msD" 'ess-eval-function-or-paragraph-and-step
+         "msd" 'ess-eval-region-or-line-and-step
+         "msL" 'ess-eval-line-and-go
+         "msl" 'ess-eval-line
+         "msR" 'ess-eval-region-and-go
+         "msr" 'ess-eval-region
+         "msT" 'ess-eval-function-and-go
+         "mst" 'ess-eval-function
          )
        (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
        (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))))

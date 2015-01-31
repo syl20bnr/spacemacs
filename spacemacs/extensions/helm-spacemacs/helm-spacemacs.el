@@ -60,7 +60,8 @@
   (helm-spacemacs-mode)
   (helm :buffer "*helm: spacemacs*"
         :sources `(,(helm-spacemacs//layer-source)
-                   ,(helm-spacemacs//package-source))))
+                   ,(helm-spacemacs//package-source)
+                   ,(helm-spacemacs//toggle-source))))
 
 (defun helm-spacemacs//layer-source ()
   "Construct the helm source for the layer section."
@@ -82,6 +83,19 @@
     (ht-aeach (dolist (layer value)
                 (push (format "(%s) %s" layer key) result))
               helm-spacemacs-all-packages)
+    (sort result 'string<)))
+
+(defun helm-spacemacs//toggle-source ()
+  "Construct the helm source for the toggles."
+  `((name . "Toggles")
+    (candidates . ,(helm-spacemacs//toggle-candidates))
+    (action . (("Toggle" . helm-spacemacs//toggle)))))
+
+(defun helm-spacemacs//toggle-candidates ()
+  "Return the sorted candidates for toggle source."
+  (let (result)
+    (dolist (toggle spacemacs-toggles)
+      (push (symbol-name (car toggle)) result))
     (sort result 'string<)))
 
 (defun helm-spacemacs//layer-action-open-file (file candidate)
@@ -118,6 +132,12 @@
       (goto-char (point-min))
       (re-search-forward (format "init-%s" package))
       (beginning-of-line))))
+
+(defun helm-spacemacs//toggle (candidate)
+  "Toggle candidate."
+  (let ((toggle (assq (intern candidate) spacemacs-toggles)))
+    (when toggle
+      (funcall (plist-get (cdr toggle) :function)))))
 
 (provide 'helm-spacemacs)
 

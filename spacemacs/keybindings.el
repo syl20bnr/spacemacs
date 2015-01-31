@@ -130,19 +130,76 @@
   "Sc" 'cofi/helm-flyspell-correct
   "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
-(evil-leader/set-key
-  "t8" 'toggle-fill-column-indicator
-  "tF" 'spacemacs/toggle-frame-fullscreen
-  "tf" 'fringe-mode
-  "th" 'global-hl-line-mode
-  "tl" 'toggle-truncate-lines
-  "tL" 'visual-line-mode
-  "tM" 'toggle-frame-maximized
-  "tn" 'global-linum-mode
-  "tt" 'toggle-transparency
-  "tT" 'spacemacs/toggle-tool-bar
-  "tU" 'spacemacs/toggle-menu-bar
-  "t SPC" 'whitespace-mode)
+(spacemacs|add-toggle fill-column-indicator
+                      :status nil
+                      :on (toggle-fill-column-indicator)
+                      :documentation "Display the fill column indicator."
+                      :evil-leader "t8")
+(spacemacs|add-toggle fringe
+                      :status (not (equal fringe-mode 0))
+                      :on (call-interactively 'fringe-mode)
+                      :off (fringe-mode 0)
+                      :documentation "Display the fringe in GUI mode."
+                      :evil-leader "tf")
+(spacemacs|add-toggle fullscreen-frame
+                      :status nil
+                      :on (spacemacs/toggle-frame-fullscreen)
+                      :documentation "Display the current frame in full screen."
+                      :evil-leader "tF")
+(spacemacs|add-toggle highlight-current-line-globally
+                      :status global-hl-line-mode
+                      :on (global-hl-line-mode)
+                      :off (global-hl-line-mode -1)
+                      :documentation "Globally Highlight the current line."
+                      :evil-leader "th")
+(spacemacs|add-toggle truncate-lines
+                      :status nil
+                      :on (toggle-truncate-lines)
+                      :documentation "Truncate the long lines (no wrap)."
+                      :evil-leader "tl")
+(spacemacs|add-toggle visual-line-navigation
+                      :status visual-line-mode
+                      :on (visual-line-mode)
+                      :off (visual-line-mode -1)
+                      :documentation "Move point according to visual lines."
+                      :evil-leader "tL")
+(spacemacs|add-toggle maximize-frame
+                      :if (version< "24.3.50" emacs-version)
+                      :status nil
+                      :on (toggle-frame-maximized)
+                      :documentation "Maximize the current frame."
+                      :evil-leader "tM")
+(spacemacs|add-toggle line-numbers
+                      :status linum-mode
+                      :on (global-linum-mode)
+                      :off (global-linum-mode -1)
+                      :documentation "Show the line numbers."
+                      :evil-leader "tn")
+(spacemacs|add-toggle transparent-frame
+                      :status nil
+                      :on (toggle-transparency)
+                      :documentation "Make the current frame non-opaque."
+                      :evil-leader "tt")
+(spacemacs|add-toggle tool-bar
+                      :if window-system
+                      :status tool-bar-mode
+                      :on (tool-bar-mode)
+                      :off (tool-bar-mode -1)
+                      :documentation "Display the tool bar in GUI mode."
+                      :evil-leader "tT")
+(spacemacs|add-toggle menu-bar
+                      :if (or window-system (version<= "24.3.1" emacs-version))
+                      :status menu-bar-mode
+                      :on (menu-bar-mode)
+                      :off (menu-bar-mode -1)
+                      :documentation "Display the menu bar."
+                      :evil-leader "tU")
+(spacemacs|add-toggle whitespaces
+                      :status whitespace-mode
+                      :on (whitespace-mode)
+                      :off (whitespace-mode -1)
+                      :documentation "Display the whitespaces."
+                      :evil-leader "t SPC")
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "q s" 'spacemacs/save-buffers-kill-emacs
