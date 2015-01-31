@@ -5,16 +5,12 @@
     flycheck
     ruby-test-mode
     robe
-    yaml-mode
-
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    yaml-mode))
 
 (when ruby-version-manager
   (add-to-list 'ruby-packages ruby-version-manager))
 
-(when ruby-on-rails-support
+(when ruby-enable-ruby-on-rails-support
   (add-to-list 'ruby-packages 'haml-mode)
   (add-to-list 'ruby-packages 'feature-mode)
   (add-to-list 'ruby-packages 'projectile-rails))
@@ -54,63 +50,49 @@ which require an initialization must be listed explicitly in the list.")
             (add-hook 'projectile-mode-hook 'projectile-rails-on))
     :config (progn
               (spacemacs|diminish projectile-rails-mode " ⇋" " R")
-              ;; GOTO commands
-              (evil-leader/set-key "mrf" 'projectile-rails-goto-file-at-point)
-              (evil-leader/set-key "mrg" 'projectile-rails-goto-gemfile)
-              (evil-leader/set-key "mrr" 'projectile-rails-goto-routes)
-              (evil-leader/set-key "mrd" 'projectile-rails-goto-schema)
-              (evil-leader/set-key "mrs" 'projectile-rails-goto-seeds)
-              (evil-leader/set-key "mrh" 'projectile-rails-goto-spec-helper)
-              ;; Find commands
-              (evil-leader/set-key "mrm" 'projectile-rails-find-model)
-              (evil-leader/set-key "mrM" 'projectile-rails-find-current-model)
-
-              (evil-leader/set-key "mrc" 'projectile-rails-find-controller)
-              (evil-leader/set-key "mrC" 'projectile-rails-find-current-controller)
-
-              (evil-leader/set-key "mrv" 'projectile-rails-find-view)
-              (evil-leader/set-key "mrV" 'projectile-rails-find-current-view)
-
-              (evil-leader/set-key "mrj" 'projectile-rails-find-javascript)
-              (evil-leader/set-key "mrJ" 'projectile-rails-find-current-javascript)
-
-              (evil-leader/set-key "mrs" 'projectile-rails-find-stylesheet)
-              (evil-leader/set-key "mrS" 'projectile-rails-find-current-stylesheet)
-
-              (evil-leader/set-key "mrh" 'projectile-rails-find-helper)
-              (evil-leader/set-key "mrH" 'projectile-rails-find-current-helper)
-
-              (evil-leader/set-key "mrp" 'projectile-rails-find-spec)
-              (evil-leader/set-key "mrP" 'projectile-rails-find-current-spec)
-
-              (evil-leader/set-key "mrt" 'projectile-rails-find-test)
-              (evil-leader/set-key "mrT" 'projectile-rails-find-current-test)
-
-              (evil-leader/set-key "mrn" 'projectile-rails-find-migration)
-              (evil-leader/set-key "mrN" 'projectile-rails-find-current-migration)
-
-              (evil-leader/set-key "mru" 'projectile-rails-find-fixture)
-              (evil-leader/set-key "mrU" 'projectile-rails-find-current-fixture)
-
-              (evil-leader/set-key "mrl" 'projectile-rails-find-lib)
-              (evil-leader/set-key "mrf" 'projectile-rails-find-feature)
-              (evil-leader/set-key "mri" 'projectile-rails-find-initializer)
-              (evil-leader/set-key "mro" 'projectile-rails-find-log)
-              (evil-leader/set-key "mre" 'projectile-rails-find-environment)
-              (evil-leader/set-key "mra" 'projectile-rails-find-locale)
-              (evil-leader/set-key "mr@" 'projectile-rails-find-mailer)
-              (evil-leader/set-key "mry" 'projectile-rails-find-layout)
-              (evil-leader/set-key "mrk" 'projectile-rails-find-rake-task)
-
-              (evil-leader/set-key "mrx" 'projectile-rails-extract-region)
-
-              ;; RUN commands
-              (evil-leader/set-key "mrc" 'projectile-rails-console)
-              (evil-leader/set-key "mrs" 'projectile-rails-server)
-              (evil-leader/set-key "mrr" 'projectile-rails-rake)
-              (evil-leader/set-key "mrg" 'projectile-rails-generate)
-   )
-  ))
+              ;; Code navigation
+              (evil-leader/set-key "mgA" 'projectile-rails-find-locale)
+              (evil-leader/set-key "mgC" 'projectile-rails-find-controller)
+              (evil-leader/set-key "mgc" 'projectile-rails-find-current-controller)
+              (evil-leader/set-key "mgd" 'projectile-rails-goto-schema)
+              (evil-leader/set-key "mge" 'projectile-rails-goto-seeds)
+              (evil-leader/set-key "mgE" 'projectile-rails-find-environment)
+              (evil-leader/set-key "mgF" 'projectile-rails-find-feature)
+              (evil-leader/set-key "mgH" 'projectile-rails-find-helper)
+              (evil-leader/set-key "mgh" 'projectile-rails-find-current-helper)
+              (evil-leader/set-key "mgI" 'projectile-rails-find-initializer)
+              (evil-leader/set-key "mgJ" 'projectile-rails-find-javascript)
+              (evil-leader/set-key "mgj" 'projectile-rails-find-current-javascript)
+              (evil-leader/set-key "mgK" 'projectile-rails-find-rake-task)
+              (evil-leader/set-key "mgL" 'projectile-rails-find-lib)
+              (evil-leader/set-key "mgl" 'projectile-rails-goto-gemfile)
+              (evil-leader/set-key "mgM" 'projectile-rails-find-model)
+              (evil-leader/set-key "mgm" 'projectile-rails-find-current-model)
+              (evil-leader/set-key "mgN" 'projectile-rails-find-migration)
+              (evil-leader/set-key "mgn" 'projectile-rails-find-current-migration)
+              (evil-leader/set-key "mgO" 'projectile-rails-find-log)
+              (evil-leader/set-key "mgP" 'projectile-rails-find-spec)
+              (evil-leader/set-key "mgp" 'projectile-rails-find-current-spec)
+              (evil-leader/set-key "mgr" 'projectile-rails-goto-routes)
+              (evil-leader/set-key "mgS" 'projectile-rails-find-stylesheet)
+              (evil-leader/set-key "mgs" 'projectile-rails-find-current-stylesheet)
+              (evil-leader/set-key "mgT" 'projectile-rails-find-test)
+              (evil-leader/set-key "mgt" 'projectile-rails-find-current-test)
+              (evil-leader/set-key "mgU" 'projectile-rails-find-fixture)
+              (evil-leader/set-key "mgu" 'projectile-rails-find-current-fixture)
+              (evil-leader/set-key "mgV" 'projectile-rails-find-view)
+              (evil-leader/set-key "mgv" 'projectile-rails-find-current-view)
+              (evil-leader/set-key "mgx" 'projectile-rails-goto-spec-helper)
+              (evil-leader/set-key "mgY" 'projectile-rails-find-layout)
+              (evil-leader/set-key "mg@" 'projectile-rails-find-mailer)
+              (evil-leader/set-key "mg." 'projectile-rails-goto-file-at-point)
+              ;; Rails external commands
+              (evil-leader/set-key "mRc" 'projectile-rails-console)
+              (evil-leader/set-key "mRs" 'projectile-rails-server)
+              (evil-leader/set-key "mRk" 'projectile-rails-rake)
+              (evil-leader/set-key "mRg" 'projectile-rails-generate)
+              ;; Refactoring
+              (evil-leader/set-key "mrx" 'projectile-rails-extract-region))))
 
 (defun ruby/init-robe ()
   "Initialize Robe mode"
@@ -119,10 +101,17 @@ which require an initialization must be listed explicitly in the list.")
     :init (add-hook 'enh-ruby-mode-hook 'robe-mode)
     :config (progn
               (spacemacs|diminish robe-mode " ♦" " r")
+              ;; robe mode specific
               (evil-leader/set-key-for-mode 'enh-ruby-mode "mgg" 'robe-jump)
               (evil-leader/set-key-for-mode 'enh-ruby-mode "mhd" 'robe-doc)
-              (evil-leader/set-key-for-mode 'enh-ruby-mode "mR" 'robe-rails-refresh)
-              (evil-leader/set-key-for-mode 'enh-ruby-mode "mi" 'robe-start))))
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mRR" 'robe-rails-refresh)
+              ;; inf-ruby-mode
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "msf" 'ruby-send-definition)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "msF" 'ruby-send-definition-and-go)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "msi" 'robe-start)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "msr" 'ruby-send-region)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "msR" 'ruby-send-region-and-go)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mss" 'ruby-switch-to-inf))))
 
 (defun ruby/init-yaml-mode ()
   "Initialize YAML mode"

@@ -15,5 +15,5 @@
 (defvar ruby-version-manager nil
   "If non nil defines the Ruby version manager (i.e. rbenv, rvm)")
 
-(defvar ruby-on-rails-support nil
+(defvar ruby-enable-ruby-on-rails-support nil
   "If non nil we'll load support for Rails (haml, features, navigation)")
