@@ -21,7 +21,6 @@
         ("mjt" . "test")
         ("mjf" . "files")
         ("mja" . "fabric")
-
         ; pyenv/pyenv-mode
         ("mp" . "pyenv")))
 
