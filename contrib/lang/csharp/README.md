@@ -15,13 +15,14 @@
             - [Omnisharp server](#omnisharp-server)
     - [Caveats](#caveats)
     - [Key Bindings](#key-bindings)
-        - [Tests](#tests)
-        - [Navigation](#navigation)
-        - [Refactoring](#refactoring)
-        - [Solution/Project manipulation](#solutionproject-manipulation)
         - [Compilation](#compilation)
-        - [Code manipulation](#code-manipulation)
+        - [File/Solution/Project manipulation](#filesolutionproject-manipulation)
+        - [Navigation](#navigation)
+        - [Helpers (documentation, info)](#helpers-documentation-info)
+        - [Refactoring](#refactoring)
         - [OmniSharp server interaction](#omnisharp-server-interaction)
+        - [Tests](#tests)
+        - [Code manipulation](#code-manipulation)
 
 <!-- markdown-toc end -->
 
@@ -90,68 +91,75 @@ solutions.
 
 ## Key Bindings
 
-### Tests
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-                "mta" | Run all tests in project
-                "mtb" | Run all tests in current file/fixture
-                "mtt" | Run test under cursor
-
-### Navigation
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-                "mgg" |   Go to definition
-                "mgG" |   Go to definition in other window
-                "mgu" |   Find usages of symbol under cursor using Helm
-                "mgs" |   Find symbols using Helm
-                "mgi" |   Find implementations
-                "mgr" |   Go to region
-                "mgm" |   Go to solution member
-                "mgM" |   Go to solution member in other window
-                "mgf" |   Go to solution file
-                "mgF" |   Go to solution file then member
-
-
-### Refactoring
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-                "mrm" | Rename symbol under cursor
-                "mrr" | Refactor symbol under cursor
-
-### Solution/Project manipulation
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-                "mpa" | Add the current file to solution
-                "mpA" | Add files selected in dired to solution
-                "mpr" | Remove the current file from solution
-                "mpR" | Removed files selected in dired from solution
-                "mpl" | Add reference to solution
 
 ### Compilation
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-                 "mb" | Build the solution
+<kbd>mcc</kbd>        | Build the solution
 
-### Code manipulation
+### File/Solution/Project manipulation
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-                 "mo" | Auto complete overrides
-                 "mi" | Fix usings/imports
-                 "m=" | Format the current buffer
+<kbd>mfa</kbd>        | Add the current file to solution
+<kbd>mfA</kbd>        | Add files selected in dired to solution
+<kbd>mfr</kbd>        | Remove the current file from solution
+<kbd>mfR</kbd>        | Removed files selected in dired from solution
+<kbd>mpl</kbd>        | Add reference to solution
+
+### Navigation
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>mgf</kbd>        | Go to solution file
+<kbd>mgF</kbd>        | Go to solution file then member
+<kbd>mgg</kbd>        | Go to definition
+<kbd>mgG</kbd>        | Go to definition in other window
+<kbd>mgi</kbd>        | Find implementations
+<kbd>mgm</kbd>        | Go to solution member
+<kbd>mgM</kbd>        | Go to solution member in other window
+<kbd>mgr</kbd>        | Go to region
+<kbd>mgs</kbd>        | Find symbols using Helm
+<kbd>mgu</kbd>        | Find usages of symbol under cursor using Helm
+
+### Helpers (documentation, info)
+
+    Key Binding        |                 Description
+-----------------------|------------------------------------------------------------
+"mht"                  | Get type information for symbol under cursor
+"mhT"                  | Get type information for symbol under cursor and put it into kill-ring
+
+### Refactoring
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>mrm</kbd>        | Rename symbol under cursor
+<kbd>mrr</kbd>        | Refactor symbol under cursor
 
 ### OmniSharp server interaction
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-                "mss" | Start the OmniSharp server
-                "msS" | Stop the OmniSharp server
-                "msr" | Reload the solution
+<kbd>msr</kbd>        | Reload the solution
+<kbd>mss</kbd>        | Start the OmniSharp server
+<kbd>msS</kbd>        | Stop the OmniSharp server
+
+### Tests
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>mta</kbd>        | Run all tests in project
+<kbd>mtb</kbd>        | Run all tests in current file/fixture
+<kbd>mtt</kbd>        | Run test under cursor
+
+### Code manipulation
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>mo</kbd>         | Auto complete overrides
+<kbd>mi</kbd>         | Fix usings/imports
+<kbd>m=</kbd>         | Format the current buffer
 
 [server_install]: https://github.com/OmniSharp/omnisharp-server
 [aspnet]: https://github.com/aspnet/home#getting-started
