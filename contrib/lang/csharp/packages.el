@@ -22,11 +22,14 @@
   (use-package omnisharp
     :defer t
     :config  (evil-leader/set-key-for-mode 'csharp-mode
-              ;; Tests
-              "mta" 'omnisharp-unit-test-all
-              "mtb" 'omnisharp-unit-test-fixture
-              "mtt" 'omnisharp-unit-test-single
-
+              ;; Compile
+              "mcc" 'omnisharp-build-in-emacs ;; Only one compile command so use top-level
+              ;; Solution/project manipulation
+              "mfa" 'omnisharp-add-to-solution-current-file
+              "mfA" 'omnisharp-add-to-solution-dired-selected-files
+              "mfr" 'omnisharp-remove-from-project-current-file
+              "mfR" 'omnisharp-remove-from-project-dired-selected-files
+              "mpl" 'omnisharp-add-reference
               ;; Navigation
               "mgg"   'omnisharp-go-to-definition
               "mgG"   'omnisharp-go-to-definition-other-window
@@ -38,34 +41,24 @@
               "mgM"   'omnisharp-navigate-to-solution-member-other-window
               "mgf"   'omnisharp-navigate-to-solution-file
               "mgF"   'omnisharp-navigate-to-solution-file-then-file-member
-
-              ;; Type info
+              ;; Help, documentation, info
               "mht" 'omnisharp-current-type-information
               "mhT" 'omnisharp-current-type-information-to-kill-ring
-
               ;; Refactoring
               "mrm" 'omnisharp-rename
               "mrr" 'omnisharp-run-code-action-refactoring
-
-              ;; Solution/project manipulation
-              "mfa" 'omnisharp-add-to-solution-current-file
-              "mfA" 'omnisharp-add-to-solution-dired-selected-files
-              "mfr" 'omnisharp-remove-from-project-current-file
-              "mfR" 'omnisharp-remove-from-project-dired-selected-files
-              "mpl" 'omnisharp-add-reference
-
-              ;; Compile
-              "mcc" 'omnisharp-build-in-emacs ;; Only one compile command so use top-level
-
-              ;; Code manipulation
-              "mu" 'omnisharp-auto-complete-overrides
-              "mi" 'omnisharp-fix-usings
-              "m=" 'omnisharp-code-format
-
               ;; Server manipulation, inspired spacemacs REPL bindings since C# does not provice a REPL
               "mss" 'omnisharp-start-omnisharp-server
               "msS" 'omnisharp-stop-server
               "msr" 'omnisharp-reload-solution)
+              ;; Tests
+              "mta" 'omnisharp-unit-test-all
+              "mtb" 'omnisharp-unit-test-fixture
+              "mtt" 'omnisharp-unit-test-single
+              ;; Code manipulation
+              "mu" 'omnisharp-auto-complete-overrides
+              "mi" 'omnisharp-fix-usings
+              "m=" 'omnisharp-code-format
 
     ;; Init omnisharp company backend
     (eval-after-load 'company
