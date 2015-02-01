@@ -9,6 +9,7 @@
     - [Description](#description)
     - [Install](#install)
         - [Enable rainbow-identifiers](#enable-rainbow-identifiers)
+        - [Enable Nyan cat](#enable-nyan-cat)
     - [Key bindings](#key-bindings)
         - [Rainbow Identifiers](#rainbow-identifiers)
         - [Rainbow Mode](#rainbow-mode)
@@ -20,6 +21,7 @@
 This layer colors your life with:
 - [rainbow identifiers][]
 - [rainbow mode][]
+- [nyan mode][]
 
 [rainbow identifiers][] mode will colorize each variables and functions with an
 almost unique color. The keywords and the declaration of function colors are
@@ -27,6 +29,8 @@ disabled in order to make the colorized variables and functions stand out.
 
 [rainbow mode][] displays strings representing colors with the color they
 represent as background.
+
+[nyan mode][] display a Nyan cat progress bar in the mode-line.
 
 ## Install
 
@@ -45,8 +49,19 @@ To enable the package `rainbow-identifiers` set the variable
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(
-  (colors :variables
-          colors-enable-rainbow-identifiers t))
+  (colors :variables colors-enable-rainbow-identifiers t))
+  "List of contribution to load."
+)
+```
+
+### Enable Nyan cat
+
+To enable the package `nyan-mode` set the variable
+`colors-enable-nyan-cat` to `t`:
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(
+  (colors :variables colors-enable-nyan-cat t))
   "List of contribution to load."
 )
 ```

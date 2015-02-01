@@ -1695,10 +1695,9 @@ which require an initialization must be listed explicitly in the list.")
                (list (powerline-raw (spacemacs/window-number) state-face))
              (list (powerline-raw (evil-state-property evil-state :tag t) state-face)))
            (if (and active anzup)
-               (list
-                (funcall separator-right state-face face1)
-                (powerline-raw (anzu--update-mode-line) face1)
-                (funcall separator-right face1 line-face))
+               (list (funcall separator-right state-face face1)
+                     (powerline-raw (anzu--update-mode-line) face1)
+                     (funcall separator-right face1 line-face))
              (list (funcall separator-right state-face line-face)))
            ;; evil state
            ;; (powerline-raw evil-mode-line-tag state-face)
@@ -1713,35 +1712,34 @@ which require an initialization must be listed explicitly in the list.")
             (funcall separator-left line-face face1)
             (powerline-major-mode face1 'l)
             (powerline-raw " " face1)
-            (if active (funcall separator-right face1 line-face)))
+            (when active
+              (funcall separator-right face1 line-face)))
            ;; flycheck
-           (if (and active flycheckp)
-               (list
-                (powerline-raw " " line-face)
-                (powerline-raw (spacemacs|custom-flycheck-lighter error)
-                               'spacemacs-mode-line-flycheck-error-face)
-                (powerline-raw (spacemacs|custom-flycheck-lighter warning)
-                               'spacemacs-mode-line-flycheck-warning-face)
-                (powerline-raw (spacemacs|custom-flycheck-lighter info)
-                               'spacemacs-mode-line-flycheck-info-face)))
+           (when (and active flycheckp)
+               (list (powerline-raw " " line-face)
+                     (powerline-raw (spacemacs|custom-flycheck-lighter error)
+                                    'spacemacs-mode-line-flycheck-error-face)
+                     (powerline-raw (spacemacs|custom-flycheck-lighter warning)
+                                    'spacemacs-mode-line-flycheck-warning-face)
+                     (powerline-raw (spacemacs|custom-flycheck-lighter info)
+                                    'spacemacs-mode-line-flycheck-info-face)))
            ;; separator between flycheck and minor modes
-           (if (and active flycheckp spacemacs-mode-line-minor-modesp)
-               (list
-                (funcall separator-left line-face face1)
-                (powerline-raw "  " face1)
-                (funcall separator-right face1 line-face)))
+           (when (and active flycheckp spacemacs-mode-line-minor-modesp)
+             (list (funcall separator-left line-face face1)
+                   (powerline-raw "  " face1)
+                   (funcall separator-right face1 line-face)))
            ;; minor modes
-           (if (and active spacemacs-mode-line-minor-modesp)
-               (list
-                (spacemacs-powerline-minor-modes line-face 'l)
-                (powerline-raw mode-line-process line-face 'l)
-                (powerline-raw " " line-face)))
+           (when (and active spacemacs-mode-line-minor-modesp)
+             (list (spacemacs-powerline-minor-modes line-face 'l)
+                   (powerline-raw mode-line-process line-face 'l)
+                   (powerline-raw " " line-face)))
            ;; version control
-           (if (and active (or flycheckp spacemacs-mode-line-minor-modesp))
-               (list (funcall separator-left (if vc-face line-face face1) vc-face)))
-           (if active (list (powerline-vc vc-face)
-                            (powerline-raw " " vc-face)
-                            (funcall separator-right vc-face face2))
+           (when (and active (or flycheckp spacemacs-mode-line-minor-modesp))
+             (list (funcall separator-left (if vc-face line-face face1) vc-face)))
+           (if active
+               (list (powerline-vc vc-face)
+                     (powerline-raw " " vc-face)
+                     (funcall separator-right vc-face face2))
              (list (funcall separator-right face1 face2))))))
 
       (defun spacemacs/mode-line-prepare-right ()
@@ -1750,6 +1748,7 @@ which require an initialization must be listed explicitly in the list.")
                (face1 (if active 'powerline-active1 'powerline-inactive1))
                (face2 (if active 'powerline-active2 'powerline-inactive2))
                (state-face (if active (spacemacs/current-state-face) face2))
+               (nyancatp (and (boundp 'nyan-mode) nyan-mode))
                (batteryp (and (boundp 'fancy-battery-mode)
                               (symbol-value fancy-battery-mode)))
                (battery-face (if batteryp (fancy-battery-powerline-face)))
@@ -1785,13 +1784,13 @@ which require an initialization must be listed explicitly in the list.")
                 (spacemacs-powerline-new-version
                  (spacemacs/get-new-version-lighter-face
                   spacemacs-version spacemacs-new-version) 'r)))
-           (list
-            ;; percentage in the file
-            (powerline-raw "%p" line-face 'r)
-            (when active
-              ;; display hud only if necessary
-              (powerline-chamfer-left line-face face1)
-              (let ((progress (format-mode-line "%p")))
+           (when (and active (not nyancatp))
+             (let ((progress (format-mode-line "%p")))
+               (list
+                ;; percentage in the file
+                (powerline-raw "%p" line-face 'r)
+                ;; display hud
+                (powerline-chamfer-left line-face face1)
                 (if (string-match "\%" progress)
                     (powerline-hud state-face face1))))))))
 
@@ -1799,8 +1798,11 @@ which require an initialization must be listed explicitly in the list.")
         (let* ((active (powerline-selected-window-active))
                (face2 (if active 'powerline-active2 'powerline-inactive2))
                (lhs (spacemacs/mode-line-prepare-left))
-               (rhs (spacemacs/mode-line-prepare-right)))
+               (rhs (spacemacs/mode-line-prepare-right))
+               (nyancatp (and (boundp 'nyan-mode) nyan-mode)))
           (concat (powerline-render lhs)
+                  (when (and active nyancatp)
+                    (powerline-render (spacemacs/powerline-nyan-cat)))
                   (powerline-fill face2 (powerline-width rhs))
                   (powerline-render rhs))))
 
