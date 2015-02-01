@@ -15,6 +15,14 @@
 (defun spacemacs/emacs-version-ok ()
   (version<= spacemacs-min-version emacs-version))
 
+;; Set current spacemacs init.el file-directory as default emacs
+;; config dir, this will help user use following command to testing
+;; spacemacs without breaking their original emacs config:
+;;
+;;    emacs -q -l ~/spacemacs/init.el
+;;
+(setq user-emacs-directory (file-name-directory load-file-name))
+
 (when (spacemacs/emacs-version-ok)
   (load-file (concat user-emacs-directory "core/core-load-paths.el"))
   (require 'core-spacemacs-mode)
