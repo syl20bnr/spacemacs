@@ -100,6 +100,12 @@ Any other key | leave the change mini-mode
 
     <SPC> t C c
 
+### Nyan Mode
+
+`nyan-mode` mode can be toggled on and off with:
+
+    <SPC> t m n
+
 Note that the toggle is local to the current buffer.
 
 [rainbow identifiers]: https://github.com/Fanael/rainbow-identifiers
