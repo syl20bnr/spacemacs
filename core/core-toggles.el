@@ -60,9 +60,9 @@ Avaiblabe PROPS:
          (evil-leader-for-mode (plist-get props :evil-leader-for-mode))
          (global-key (plist-get props :global-key))
          (def-key (plist-get props :define-key)))
-    (push (append (list name) (list :function wrapper-func) props)
-          spacemacs-toggles)
     `(progn
+       (push (append '(,name) '(:function ,wrapper-func) ',props)
+             spacemacs-toggles)
        ;; toggle function
        (defun ,wrapper-func ()
          ,(format "Toggle %s on and off." (symbol-name name))
