@@ -24,14 +24,19 @@ which require an initialization must be listed explicitly in the list.")
        (0 (progn (compose-region (match-beginning 1)
                                  (match-end 1) "∈")))))))
 
+(defun clojure/general-mode ()
+  "Start general modes for both clojure-mode and repl"
+  (progn
+    (subword-mode t)
+    (paredit-mode t)
+    (rainbow-delimiters-mode t)))
+
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
     :defer t
     :init
     (progn
-      (add-to-hook 'clojure-mode-hook '(subword-mode
-                                        paredit-mode
-                                        rainbow-delimiters-mode)))
+      (add-to-hook 'clojure-mode-hook '(clojure/general-mode)))
     :config
     (progn
       (when clojure-enable-fancify-symbols
@@ -49,8 +54,7 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-hook 'cider-mode-hook '(cider-turn-on-eldoc-mode
                                       ac-flyspell-workaround
                                       ac-cider-setup))
-      (add-to-hook 'cider-repl-mode-hook '(subword-mode
-                                           rainbow-delimiters-mode
+      (add-to-hook 'cider-repl-mode-hook '(clojure/general-mode
                                            ac-cider-setup
                                            auto-complete-mode)))
     :config
