@@ -57,11 +57,11 @@ To enable the package `rainbow-identifiers` set the variable
 ### Enable Nyan cat
 
 To enable the package `nyan-mode` set the variable
-`colors-enable-nyan-cat` to `t`:
+`colors-enable-nyan-cat-progress-bar` to `t`:
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(
-  (colors :variables colors-enable-nyan-cat t))
+  (colors :variables colors-enable-nyan-cat-progress-bar t))
   "List of contribution to load."
 )
 ```
