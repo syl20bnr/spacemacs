@@ -23,8 +23,6 @@
     - [Emacs version](#emacs-version)
     - [OS X](#os-x)
 - [Install](#install)
-    - [Standard setup](#standard-setup)
-    - [Alternative setup](#alternative-setup)
 - [Update](#update)
     - [Update notification](#update-notification)
 - [Configuration](#configuration)
@@ -154,8 +152,6 @@ Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
 
 # Install
 
-## Standard setup
-
 1. If you have an existing Emacs configuration, back it up:
 
    ```sh
@@ -175,26 +171,6 @@ Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
 3. Launch Emacs. Spacemacs will automatically install the packages it requires.
 
 4. Restart Emacs to complete the installation.
-
-See the [troubleshooting][troubleshoot] guide if you have any issues.
-
-## Alternative setup
-
-If you have an existing Emacs configuration you may find this procedure better
-to try out `Spacemacs`:
-
-1. Clone this repository _with its submodules_ anywhere you like:
-
-   ```sh
-   git clone --recursive http://github.com/syl20bnr/spacemacs
-   ```
-
-2. Then start Emacs in command line with the path of the freshly cloned
-`Spacemacs` directory:
-
-   ```sh
-   emacs -q -l ~/path_to_spacemacs_dir/init.el
-   ```
 
 See the [troubleshooting][troubleshoot] guide if you have any issues.
 
