@@ -11,8 +11,6 @@
 ;;; License: GPLv3
 (defconst spacemacs-version     "0.52.1" "Spacemacs version.")
 (defconst spacemacs-min-version   "24.3" "Minimal required version of Emacs.")
-(setq user-emacs-directory (file-name-directory load-file-name))
-(setq user-init-file (expand-file-name (concat user-emacs-directory "init.el")))
 
 (defun spacemacs/emacs-version-ok ()
   (version<= spacemacs-min-version emacs-version))
