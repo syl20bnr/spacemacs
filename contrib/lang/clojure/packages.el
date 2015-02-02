@@ -59,6 +59,7 @@ which require an initialization must be listed explicitly in the list.")
                                            auto-complete-mode)))
     :config
     (progn
+      (add-to-list 'evil-emacs-state-modes 'cider-stacktrace-mode)
       (evil-leader/set-key-for-mode 'clojure-mode
         "meb" 'cider-eval-buffer
         "mer" 'cider-eval-region
