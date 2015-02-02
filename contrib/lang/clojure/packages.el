@@ -10,10 +10,10 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defun clojure/fancify-symbols ()
+(defun clojure/fancify-symbols (mode)
   "Pretty symbols for Clojure's anonymous functions and sets,
    like (λ [a] (+ a 5)), ƒ(+ % 5), and ∈{2 4 6}."
-  (font-lock-add-keywords 'clojure-mode
+  (font-lock-add-keywords mode
     `(("(\\(fn\\)[\[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
                                  (match-end 1) "λ"))))
@@ -40,7 +40,7 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (when clojure-enable-fancify-symbols
-          (clojure/fancify-symbols))
+        (clojure/fancify-symbols 'clojure-mode))
       (evil-leader/set-key-for-mode 'clojure-mode  "mj" 'cider-jack-in))))
 
 (defun clojure/init-cider ()
@@ -50,7 +50,8 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (setq cider-stacktrace-default-filters '(tooling dup)
             cider-repl-pop-to-buffer-on-connect nil
-            cider-prompt-save-file-on-load nil)
+            cider-prompt-save-file-on-load nil
+            cider-repl-use-clojure-font-lock t)
       (add-to-hook 'cider-mode-hook '(cider-turn-on-eldoc-mode
                                       ac-flyspell-workaround
                                       ac-cider-setup))
@@ -73,7 +74,9 @@ which require an initialization must be listed explicitly in the list.")
         "mgr" 'cider-jump-to-resource
         "mge" 'cider-jump-to-compilation-error
         "mgs" 'cider-jump
-        "mtt" 'cider-test-run-tests))))
+        "mtt" 'cider-test-run-tests)
+      (when clojure-enable-fancify-symbols 
+        (clojure/fancify-symbols 'cider-repl-mode)))))
 
 (defun clojure/init-ac-cider ()
   (use-package ac-cider
