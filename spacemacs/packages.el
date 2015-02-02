@@ -1045,14 +1045,13 @@ which require an initialization must be listed explicitly in the list.")
   (use-package golden-ratio
     :defer t
     :init
-    (eval `(spacemacs|add-toggle
-            golden-ratio
-            :status golden-ratio-mode
-            :on (golden-ratio-mode) (golden-ratio)
-            :off (golden-ratio-mode -1) (balance-windows)
-            :documentation ,(concat "Dynamically resize the focused window "
-                                    "using the golden ratio.")
-            :evil-leader "tg"))
+    (spacemacs|add-toggle
+     golden-ratio
+     :status golden-ratio-mode
+     :on (golden-ratio-mode) (golden-ratio)
+     :off (golden-ratio-mode -1) (balance-windows)
+     :documentation "Dynamically resize the focused window using the golden ratio."
+     :evil-leader "tg")
     :config
     (progn
       (setq golden-ratio-extra-commands

@@ -2,14 +2,14 @@
 
 (defun colors/init-nyan-mode ()
   (use-package nyan-mode
-    :if colors-enable-nyan-cat
+    :if colors-enable-nyan-cat-progress-bar
     :init
     (progn
       (setq nyan-wavy-trail t)
       (setq nyan-animate-nyancat t)
       (nyan-mode)
 
-      (spacemacs|add-toggle nyan-cat-mode-line
+      (spacemacs|add-toggle nyan-cat-progress-bar
                             :status nyan-mode
                             :on (nyan-mode)
                             :off (nyan-mode -1)
