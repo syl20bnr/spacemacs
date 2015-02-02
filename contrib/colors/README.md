@@ -66,6 +66,17 @@ To enable the package `nyan-mode` set the variable
 )
 ```
 
+It may be handy to enable it only in a GUI, you can do it by using
+a quasi-quoted list:
+
+```elisp
+(setq-default dotspacemacs-configuration-layers
+  `((colors :variables
+            colors-enable-nyan-cat-progress-bar ,(display-graphic-p)))
+  "List of contribution to load."
+)
+```
+
 ## Key bindings
 
 The prefix associated with colors is <kbd>C</kbd>.
