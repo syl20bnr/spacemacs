@@ -116,57 +116,57 @@ Key binding          | Description
 
 Key binding          | Description
 ---------------------|------------
-<kbd>SPC m g A</kbd> | go to localization
-<kbd>SPC m g C</kbd> | go to controller
-<kbd>SPC m g c</kbd> | go to current controller
-<kbd>SPC m g d</kbd> | go to DB schema
-<kbd>SPC m g e</kbd> | go to DB seeds
-<kbd>SPC m g E</kbd> | go to environment
-<kbd>SPC m g F</kbd> | go to feature
-<kbd>SPC m g H</kbd> | go to helper
-<kbd>SPC m g h</kbd> | go to current helper
-<kbd>SPC m g I</kbd> | go to initializer
-<kbd>SPC m g J</kbd> | go to javascript
-<kbd>SPC m g j</kbd> | go to current javascript
-<kbd>SPC m g K</kbd> | go to rake task
-<kbd>SPC m g L</kbd> | go to lib
-<kbd>SPC m g l</kbd> | go to Gemfile
-<kbd>SPC m g M</kbd> | go to model
-<kbd>SPC m g m</kbd> | go to current model
-<kbd>SPC m g N</kbd> | go to migration
-<kbd>SPC m g n</kbd> | go to current migration
-<kbd>SPC m g O</kbd> | go to log
-<kbd>SPC m g P</kbd> | go to spec
-<kbd>SPC m g p</kbd> | go to current spec
-<kbd>SPC m g r</kbd> | go to routes
-<kbd>SPC m g S</kbd> | go to stylesheet
-<kbd>SPC m g s</kbd> | go to current stylesheet
-<kbd>SPC m g T</kbd> | go to test
-<kbd>SPC m g t</kbd> | go to current test
-<kbd>SPC m g U</kbd> | go to fixture
-<kbd>SPC m g u</kbd> | go to current fixture
-<kbd>SPC m g V</kbd> | go to view
-<kbd>SPC m g v</kbd> | go to current view
-<kbd>SPC m g x</kbd> | go to spec helper
-<kbd>SPC m g Y</kbd> | go to layout
-<kbd>SPC m g @</kbd> | go to mailer
-<kbd>SPC m g .</kbd> | go to file at point (faster but less powerful than <kbd>SPC m g g</kbd>)
+<kbd>SPC m r A</kbd> | go to localization
+<kbd>SPC m r C</kbd> | go to controller
+<kbd>SPC m r c</kbd> | go to current controller
+<kbd>SPC m r d</kbd> | go to DB schema
+<kbd>SPC m r e</kbd> | go to DB seeds
+<kbd>SPC m r E</kbd> | go to environment
+<kbd>SPC m r F</kbd> | go to feature
+<kbd>SPC m r H</kbd> | go to helper
+<kbd>SPC m r h</kbd> | go to current helper
+<kbd>SPC m r I</kbd> | go to initializer
+<kbd>SPC m r J</kbd> | go to javascript
+<kbd>SPC m r j</kbd> | go to current javascript
+<kbd>SPC m r K</kbd> | go to rake task
+<kbd>SPC m r L</kbd> | go to lib
+<kbd>SPC m r l</kbd> | go to Gemfile
+<kbd>SPC m r M</kbd> | go to model
+<kbd>SPC m r m</kbd> | go to current model
+<kbd>SPC m r N</kbd> | go to migration
+<kbd>SPC m r n</kbd> | go to current migration
+<kbd>SPC m r O</kbd> | go to log
+<kbd>SPC m r P</kbd> | go to spec
+<kbd>SPC m r p</kbd> | go to current spec
+<kbd>SPC m r r</kbd> | go to routes
+<kbd>SPC m r S</kbd> | go to stylesheet
+<kbd>SPC m r s</kbd> | go to current stylesheet
+<kbd>SPC m r T</kbd> | go to test
+<kbd>SPC m r t</kbd> | go to current test
+<kbd>SPC m r U</kbd> | go to fixture
+<kbd>SPC m r u</kbd> | go to current fixture
+<kbd>SPC m r V</kbd> | go to view
+<kbd>SPC m r v</kbd> | go to current view
+<kbd>SPC m r x</kbd> | go to spec helper
+<kbd>SPC m r Y</kbd> | go to layout
+<kbd>SPC m r @</kbd> | go to mailer
+<kbd>SPC m r .</kbd> | go to file at point (faster but less powerful than <kbd>SPC m g g</kbd>)
 
 #### Refactoring
 
 Key binding          | Description
 ---------------------|------------
-<kbd>SPC m r x</kbd> | extract region into partial
+<kbd>SPC m R x</kbd> | extract region into partial
 
 #### RUN commands
 
 Key binding          | Description
 ---------------------|------------
-<kbd>SPC m R c</kbd> | start rails console
-<kbd>SPC m R s</kbd> | start rails server
-<kbd>SPC m R k</kbd> | run rake task
-<kbd>SPC m R g</kbd> | run rails generator
-<kbd>SPC m R R</kbd> | reload project (REPL)
+<kbd>SPC m r x c</kbd> | start rails console
+<kbd>SPC m r x s</kbd> | start rails server
+<kbd>SPC m r x k</kbd> | run rake task
+<kbd>SPC m r x g</kbd> | run rails generator
+<kbd>SPC m r x R</kbd> | reload project (REPL)
 
 
 [enh-ruby-mode]: https://github.com/zenspider/enhanced-ruby-mode
