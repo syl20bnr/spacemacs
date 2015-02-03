@@ -392,19 +392,27 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
 
 (defun configuration-layer//get-packages-to-update (packages)
   "Return a list of packages to update given a list of PACKAGES."
-  (let (result)
-    (dolist (pkg packages)
-      ;; do not stop with errors on builtins and compilation fails
-      (let ((installed-version (configuration-layer//get-package-version pkg))
-            (newest-version (configuration-layer//get-latest-package-version
-                             pkg)))
-        ;; (message "package - %s" pkg)
-        ;; (message "installed - %s" installed-version)
-        ;; (message "latest - %s" newest-version)
-        (unless (or (null installed-version)
-                    (version<= newest-version installed-version))
-          (push pkg result))))
-    (reverse result)))
+  (when packages
+    (let (result)
+      (dolist (pkg packages)
+        ;; recursively check dependencies
+        (let* ((deps
+                (configuration-layer//get-package-dependencies-from-archive pkg))
+               (update-deps
+                (when deps (configuration-layer//get-packages-to-update
+                            (mapcar 'car deps)))))
+          (when update-deps
+            (setq result (append update-deps result))))
+        (let ((installed-version (configuration-layer//get-package-version pkg))
+              (newest-version (configuration-layer//get-latest-package-version
+                               pkg)))
+          ;; (message "package - %s" pkg)
+          ;; (message "installed - %s" installed-version)
+          ;; (message "latest - %s" newest-version)
+          (unless (or (null installed-version)
+                      (version<= newest-version installed-version))
+            (add-to-list 'result pkg t))))
+      (delete-dups result))))
 
 (defun configuration-layer/update-packages ()
   "Upgrade elpa packages"
@@ -420,22 +428,21 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
          (upgrade-count (length pkgs-to-update))
          (upgraded-count 0))
     (if (> upgrade-count 0)
-        (progn
-          (ignore-errors
-            (spacemacs/append-to-buffer
-             (format "Found %s package(s) to update...\n" upgrade-count))
-            (dolist (pkg pkgs-to-update)
-              (setq upgraded-count (1+ upgraded-count))
-              (spacemacs/replace-last-line-of-buffer
-               (format "--> updating package %s:%s... [%s/%s]"
-                       (ht-get configuration-layer-all-packages pkg)
-                       pkg upgraded-count upgrade-count) t)
-              (redisplay)
-              (configuration-layer//package-delete pkg)
-              (package-install pkg))
-            (spacemacs/append-to-buffer
-             (format "\n--> %s packages updated.\n" upgraded-count))
-            (redisplay)))
+        (ignore-errors
+          ;; (message "package to update: %s" pkgs-to-update)
+          (spacemacs/append-to-buffer
+           (format "Found %s package(s) to update...\n" upgrade-count))
+          (dolist (pkg pkgs-to-update)
+            (setq upgraded-count (1+ upgraded-count))
+            (spacemacs/replace-last-line-of-buffer
+             (format "--> updating package %s... [%s/%s]"
+                     pkg upgraded-count upgrade-count) t)
+            (redisplay)
+            (configuration-layer//package-delete pkg)
+            (package-install pkg))
+          (spacemacs/append-to-buffer
+           (format "\n--> %s packages updated.\n" upgraded-count))
+          (redisplay))
       (spacemacs/append-to-buffer "--> All packages are up to date.\n"))
     (redisplay)))
 
