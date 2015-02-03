@@ -1,4 +1,4 @@
- # PHP contribution layer for Spacemacs
+#PHP contribution layer for Spacemacs
  
 ![logo](img/php.png)
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
