@@ -377,9 +377,7 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
             (spacemacs/replace-last-line-of-buffer
              (format "--> installing %s:%s... [%s/%s]"
                      (ht-get configuration-layer-all-packages pkg)
-                     pkg
-                     installed-count
-                     not-installed-count) t)
+                     pkg installed-count not-installed-count) t)
             (unless (package-installed-p pkg)
               (if (not (assq pkg package-archive-contents))
                   (spacemacs/append-to-buffer
@@ -392,6 +390,22 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
             (redisplay))
           (spacemacs/append-to-buffer "\n")))))
 
+(defun configuration-layer//get-packages-to-update (packages)
+  "Return a list of packages to update given a list of PACKAGES."
+  (let (result)
+    (dolist (pkg packages)
+      ;; do not stop with errors on builtins and compilation fails
+      (let ((installed-version (configuration-layer//get-package-version pkg))
+            (newest-version (configuration-layer//get-latest-package-version
+                             pkg)))
+        ;; (message "package - %s" pkg)
+        ;; (message "installed - %s" installed-version)
+        ;; (message "latest - %s" newest-version)
+        (unless (or (null installed-version)
+                    (version<= newest-version installed-version))
+          (push pkg result))))
+    (reverse result)))
+
 (defun configuration-layer/update-packages ()
   "Upgrade elpa packages"
   (interactive)
@@ -401,33 +415,29 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
    "--> fetching new package repository indexes...\n")
   (redisplay)
   (package-refresh-contents)
-  (setq upgraded-count 0)
-  (dolist (pkg configuration-layer-all-packages-sorted)
-    ;; do not stop with errors on builtins and compilation fails
-    (ignore-errors
-      (let ((installed-version (configuration-layer//get-package-version pkg))
-            (newest-version (configuration-layer//get-latest-package-version pkg)))
-        ;; (message "package - %s" pkg)
-        ;; (message "installed - %s" installed-version)
-        ;; (message "latest - %s" newest-version)
-        (unless (version<= newest-version installed-version)
-          (progn 
-            (setq upgraded-count (1+ upgraded-count))
-            (spacemacs/replace-last-line-of-buffer
-             (format "--> updating packge %s:%s (%s)..."
-                     (ht-get configuration-layer-all-packages pkg)
-                     pkg
-                     upgraded-count
-                     ))
-            (redisplay)
-            (configuration-layer//package-delete pkg)
-            (package-install pkg)
-            )))))
-  (spacemacs/append-to-buffer
-   (format (concat (if (> upgraded-count 0) "\n" "")
-                   "--> %s packages updated.\n")
-           upgraded-count))
-  (redisplay))
+  (let* ((pkgs-to-update (configuration-layer//get-packages-to-update
+                          configuration-layer-all-packages-sorted))
+         (upgrade-count (length pkgs-to-update))
+         (upgraded-count 0))
+    (if (> upgrade-count 0)
+        (progn
+          (ignore-errors
+            (spacemacs/append-to-buffer
+             (format "Found %s package(s) to update...\n" upgrade-count))
+            (dolist (pkg pkgs-to-update)
+              (setq upgraded-count (1+ upgraded-count))
+              (spacemacs/replace-last-line-of-buffer
+               (format "--> updating package %s:%s... [%s/%s]"
+                       (ht-get configuration-layer-all-packages pkg)
+                       pkg upgraded-count upgrade-count) t)
+              (redisplay)
+              (configuration-layer//package-delete pkg)
+              (package-install pkg))
+            (spacemacs/append-to-buffer
+             (format "\n--> %s packages updated.\n" upgraded-count))
+            (redisplay)))
+      (spacemacs/append-to-buffer "--> All packages are up to date.\n"))
+    (redisplay)))
 
 (defun configuration-layer//initialize-packages ()
   "Initialize all the declared packages."
