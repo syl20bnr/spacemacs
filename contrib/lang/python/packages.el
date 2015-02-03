@@ -34,7 +34,16 @@ which require an initialization must be listed explicitly in the list.")
   (use-package ac-anaconda
     :if (boundp 'ac-sources)
     :defer t
-    :init (add-hook 'python-mode-hook 'ac-anaconda-setup)))
+    :init (add-hook 'python-mode-hook 'ac-anaconda-setup)
+    :config
+    (progn
+      (add-to-list 'evil-emacs-state-modes 'anaconda-nav-mode)
+      (spacemacs/activate-evil-leader-for-map 'anaconda-nav-mode-map)
+      (spacemacs|evilify anaconda-nav-mode-map
+                         (kbd "H") 'previous-error
+                         (kbd "J") 'anaconda-nav-next-module
+                         (kbd "K") 'anaconda-nav-previous-module
+                         (kbd "L") 'next-error))))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
