@@ -559,18 +559,21 @@ deleted safely."
 
 (defun configuration-layer//get-package-version (package)
   "Return the version string for PACKAGE."
-  (let ((pkg (or (assq package package-alist)
-                 (assq package package--builtins))))
-    (cond
-     ((version< emacs-version "24.3.50") (package-version-join (aref (cdr pkg) 0)))
-     (t (package-version-join (package-desc-version (cadr pkg)))))))
+  (let ((pkg (assq package package-alist)))
+    (when pkg
+      (cond
+       ((version< emacs-version "24.3.50")
+        (package-version-join (aref (cdr pkg) 0)))
+       (t (package-version-join (package-desc-version (cadr pkg))))))))
 
 (defun configuration-layer//get-latest-package-version (package)
   "Return the version string for PACKAGE."
   (let ((pkg (assq package package-archive-contents)))
-    (cond
-     ((version< emacs-version "24.3.50") (package-version-join (aref (cdr pkg) 0)))
-     (t (package-version-join (package-desc-version (cadr pkg)))))))
+    (when pkg
+      (cond
+       ((version< emacs-version "24.3.50")
+        (package-version-join (aref (cdr pkg) 0)))
+       (t (package-version-join (package-desc-version (cadr pkg))))))))
 
 (defun configuration-layer//package-delete (package)
   "Delete the passed PACKAGE."
