@@ -178,13 +178,7 @@ See the [troubleshooting][troubleshoot] guide if you have any issues.
 
 Spacemacs currently requires manual updates using the following procedure:
 
-1. Update Emacs packages.
-  1. Open the package list using `<SPC> a P` or `M-x paradox-list-packages`
-  2. Mark all packages for updating by pressing `U`, and
-  3. install them with `x`.
-
-  [See the documentation][using_package_buf] for more information about how to use
-  the package list.
+1. Update Emacs packages using the `Update Spacemacs` link on the starting page
 
 2. Close Emacs and update the git repository:
 

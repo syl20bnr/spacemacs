@@ -34,7 +34,6 @@
         - [Hooks](#hooks)
         - [Custom variables](#custom-variables)
 - [Using the package list buffer](#using-the-package-list-buffer)
-    - [Update all the packages](#update-all-the-packages)
 - [Main principles](#main-principles)
     - [Evil](#evil)
         - [States](#states)
@@ -490,6 +489,10 @@ buffer. If those packages are not referenced in a configuration layer
 then `Spacemacs` will treat them as orphans during the next start of
 Emacs and they will be deleted.
 
+**Important Note** Some user reported broken upgrade using Paradox or
+`package-list-packages` so it is highly recommended to update packages
+with the startup page link `Update Spacemacs`.
+
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
 <kbd>/</kbd>         | evil-search
@@ -512,15 +515,6 @@ Emacs and they will be deleted.
 <kbd>v</kbd>         | `visual state`
 <kbd>V</kbd>         | `visual-line state`
 <kbd>x</kbd>         | execute (action flags)
-
-## Update all the packages
-
-To update all the buffers:
-- open paradox: <kbd>SPC a P</kbd>
-- filter packages (optional): <kbd>f u</kbd>
-- update all: <kbd>U x y</kbd>
-
-When asked for old packages deletion hit `y`.
 
 # Main principles
 
