@@ -40,8 +40,7 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'clojure-mode)
-        (clojure/fancify-symbols 'cider-repl-mode))
+        (clojure/fancify-symbols 'clojure-mode))
       (evil-leader/set-key-for-mode 'clojure-mode  "mj" 'cider-jack-in))))
 
 (defun clojure/init-cider ()
@@ -74,7 +73,9 @@ which require an initialization must be listed explicitly in the list.")
         "mgr" 'cider-jump-to-resource
         "mge" 'cider-jump-to-compilation-error
         "mgs" 'cider-jump
-        "mtt" 'cider-test-run-tests))))
+        "mtt" 'cider-test-run-tests)
+      (when clojure-enable-fancify-symbols 
+        (clojure/fancify-symbols 'cider-repl-mode)))))
 
 (defun clojure/init-ac-cider ()
   (use-package ac-cider
