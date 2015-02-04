@@ -14,6 +14,7 @@
   '(
     fringe-helper
     git-messenger
+    git-rebase-mode
     git-timemachine
     gist
     github-browse-file
@@ -128,6 +129,16 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (evil-leader/set-key
       "gm" 'git-messenger:popup-message)))
+
+(defun git/git-rebase-mode ()
+  (use-package git-rebase-mode
+    :defer t
+    :config
+    (progn
+      (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
+      (spacemacs|evilify 'git-rebase-mode-map)
+      (spacemacs/activate-evil-leader-for-map 'git-rebase-mode-map
+                                              (kbd "Y") 'git-rebase-insert))))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
