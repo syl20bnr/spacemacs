@@ -18,19 +18,21 @@
 (defconst spacemacs-banner-directory
   (expand-file-name (concat spacemacs-core-directory "banners/"))
   "Spacemacs banners directory.")
-(defconst user-home-directory
-  (expand-file-name "~/")
-  "User home directory (~/).")
 (defconst spacemacs-directory
   (expand-file-name (concat user-emacs-directory "spacemacs/"))
   "Spacemacs base directory.")
 (defconst spacemacs-cache-directory
   (expand-file-name (concat user-emacs-directory ".cache/"))
   "Spacemacs storage area for persistent files.")
+
+(defconst user-home-directory
+  (expand-file-name "~/")
+  "User home directory (~/).")
 (defconst pcache-directory
   (concat spacemacs-cache-directory "pcache"))
 (unless (file-exists-p spacemacs-cache-directory)
     (make-directory spacemacs-cache-directory))
+
 (defconst user-dropbox-directory
   (expand-file-name (concat user-home-directory "Dropbox/"))
   "Dropbox directory.")
