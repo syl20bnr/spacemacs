@@ -473,9 +473,11 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
               (package-install pkg)))
           (spacemacs/append-to-buffer
            (format "\n--> %s packages updated.\n" upgraded-count))
+          (spacemacs/append-to-buffer
+           "\nEmacs has to be restarted for the changes to take effect.\n")
           (redisplay))
-      (spacemacs/append-to-buffer "--> All packages are up to date.\n"))
-    (redisplay)))
+      (spacemacs/append-to-buffer "--> All packages are up to date.\n")
+      (redisplay))))
 
 (defun configuration-layer//ido-candidate-rollback-slot ()
   "Return a list of candidates to select a rollback slot."
@@ -531,7 +533,9 @@ to select one."
               (configuration-layer//package-delete pkg)
               (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content)))
           (spacemacs/append-to-buffer
-           (format "\n--> %s packages rollbacked.\n" rollbacked-count))))
+           (format "\n--> %s packages rollbacked.\n" rollbacked-count))
+          (spacemacs/append-to-buffer
+           "\nEmacs has to be restarted for the changes to take effect.\n")))
     (message "No rollback slot available.")))
 
 (defun configuration-layer//initialize-packages ()
