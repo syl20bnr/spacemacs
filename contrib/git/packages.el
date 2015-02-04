@@ -130,15 +130,15 @@ which require an initialization must be listed explicitly in the list.")
     (evil-leader/set-key
       "gm" 'git-messenger:popup-message)))
 
-(defun git/git-rebase-mode ()
+(defun git/init-git-rebase-mode ()
   (use-package git-rebase-mode
     :defer t
+    :init
+    (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
     :config
     (progn
-      (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
-      (spacemacs|evilify 'git-rebase-mode-map)
-      (spacemacs/activate-evil-leader-for-map 'git-rebase-mode-map
-                                              (kbd "y") 'git-rebase-insert))))
+      (spacemacs|evilify git-rebase-mode-map "y" 'git-rebase-insert)
+      (spacemacs/activate-evil-leader-for-map 'git-rebase-mode-map))))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
