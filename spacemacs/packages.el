@@ -14,6 +14,7 @@
   '(
     ac-ispell
     ace-jump-mode
+    ace-jump-zap
     ag
     aggressive-indent
     async
@@ -159,6 +160,13 @@ which require an initialization must be listed explicitly in the list.")
       (setq ace-jump-mode-scope 'global)
       (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
 
+(defun spacemacs/init-ace-jump-zap ()
+  (use-package ace-jump-zap
+    :defer t
+    :init
+    (progn
+      (evil-leader/set-key "d" 'ace-jump-zap-to-char))))
+     
 (defun spacemacs/init-aggressive-indent ()
   (use-package aggressive-indent
     :defer t
