@@ -138,7 +138,7 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
       (spacemacs|evilify 'git-rebase-mode-map)
       (spacemacs/activate-evil-leader-for-map 'git-rebase-mode-map
-                                              (kbd "Y") 'git-rebase-insert))))
+                                              (kbd "y") 'git-rebase-insert))))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
