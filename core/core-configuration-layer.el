@@ -41,6 +41,13 @@
   (expand-file-name (concat user-emacs-directory "private/"))
   "Spacemacs private layers base directory.")
 
+(defconst configuration-layer-rollback-directory
+  (expand-file-name (concat spacemacs-cache-directory ".rollback/"))
+  "Spacemacs rollback directory.")
+
+(defconst configuration-layer-rollback-info "rollback-info"
+  "Spacemacs rollback information file.")
+
 (defvar configuration-layer-layers '()
   "Alist of declared configuration layers.")
 
@@ -423,28 +430,111 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
    "--> fetching new package repository indexes...\n")
   (redisplay)
   (package-refresh-contents)
-  (let* ((pkgs-to-update (configuration-layer//get-packages-to-update
-                          configuration-layer-all-packages-sorted))
-         (upgrade-count (length pkgs-to-update))
-         (upgraded-count 0))
+  (let* ((update-packages (configuration-layer//get-packages-to-update
+                           configuration-layer-all-packages-sorted))
+         (date (format-time-string "%y-%m-%d_%H.%M.%S"))
+         (rollback-dir (expand-file-name
+                        (concat configuration-layer-rollback-directory
+                                (file-name-as-directory date))))
+         (upgrade-count (length update-packages))
+         (upgraded-count 0)
+         (update-packages-alist))
     (if (> upgrade-count 0)
-        (ignore-errors
-          ;; (message "package to update: %s" pkgs-to-update)
+        (progn
+        ;; (let (toto)
+          ;; (message "package to update: %s" update-packages)
           (spacemacs/append-to-buffer
            (format "Found %s package(s) to update...\n" upgrade-count))
-          (dolist (pkg pkgs-to-update)
+          ;; backup the package directory and construct an alist
+          ;; variable to be cached for easy update and rollback
+          (spacemacs/replace-last-line-of-buffer
+           "--> performing backup of package to update...\n" t)
+          (redisplay)
+          (dolist (pkg update-packages)
+            (let* ((pkg-desc (cadr (assq pkg package-alist)))
+                   (src-dir (package-desc-dir pkg-desc))
+                   (dest-dir (expand-file-name
+                              (concat rollback-dir
+                                      (file-name-as-directory
+                                       (file-name-nondirectory src-dir))))))
+              (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content)
+              (push (cons pkg (file-name-nondirectory src-dir))
+                    update-packages-alist)))
+          (spacemacs/dump-vars-to-file
+           '(update-packages-alist)
+           (expand-file-name (concat rollback-dir
+                                     configuration-layer-rollback-info)))
+          (dolist (pkg update-packages)
             (setq upgraded-count (1+ upgraded-count))
             (spacemacs/replace-last-line-of-buffer
              (format "--> updating package %s... [%s/%s]"
                      pkg upgraded-count upgrade-count) t)
             (redisplay)
-            (configuration-layer//package-delete pkg)
-            (package-install pkg))
+            (ignore-errors
+              (configuration-layer//package-delete pkg)
+              (package-install pkg)))
           (spacemacs/append-to-buffer
            (format "\n--> %s packages updated.\n" upgraded-count))
           (redisplay))
       (spacemacs/append-to-buffer "--> All packages are up to date.\n"))
     (redisplay)))
+
+(defun configuration-layer//ido-candidate-rollback-slot ()
+  "Return a list of candidates to select a rollback slot."
+  (let ((rolldir configuration-layer-rollback-directory))
+    (when (file-exists-p rolldir)
+      (reverse
+       (delq nil (mapcar
+                  (lambda (x)
+                    (and (not (or (string= "." x) (string= ".." x))) x))
+                  (directory-files rolldir)))))))
+
+(defun configuration-layer/rollback (slot)
+  "Rollback all the packages in the given SLOT.
+If called interactively and SLOT is nil then an ido buffers appears
+to select one."
+  (interactive
+   (list
+    (if (boundp 'slot) slot
+      (let ((candidates (configuration-layer//ido-candidate-rollback-slot)))
+        (when candidates
+          (ido-completing-read "Rollback slots (most recent is first): "
+                               candidates))))))
+  (if slot
+      (let* ((rollback-dir (file-name-as-directory
+                            (concat configuration-layer-rollback-directory
+                                    (file-name-as-directory slot))))
+             (info-file (expand-file-name
+                         (concat rollback-dir
+                                 configuration-layer-rollback-info))))
+        (spacemacs/append-to-buffer
+         (format "\nRollbacking ELPA packages from slot %s...\n" slot))
+        (load-file info-file)
+        (let ((rollback-count (length update-packages-alist))
+              (rollbacked-count 0))
+          (spacemacs/append-to-buffer
+           (format "Found %s package(s) to rollback...\n" rollback-count))
+          (redisplay)
+          (dolist (apkg update-packages-alist)
+            (let* ((pkg (car apkg))
+                   (pkg-dir-name (cdr apkg))
+                   (elpa-dir (concat user-emacs-directory "elpa/"))
+                   (src-dir (expand-file-name
+                             (concat rollback-dir (file-name-as-directory
+                                                   pkg-dir-name))))
+                   (dest-dir (expand-file-name
+                              (concat elpa-dir (file-name-as-directory
+                                                pkg-dir-name)))))
+              (setq rollbacked-count (1+ rollbacked-count))
+              (spacemacs/replace-last-line-of-buffer
+               (format "--> rollbacking package %s... [%s/%s]"
+                       pkg rollbacked-count rollback-count) t)
+              (redisplay)
+              (configuration-layer//package-delete pkg)
+              (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content)))
+          (spacemacs/append-to-buffer
+           (format "\n--> %s packages rollbacked.\n" rollbacked-count))))
+    (message "No rollback slot available.")))
 
 (defun configuration-layer//initialize-packages ()
   "Initialize all the declared packages."
