@@ -489,9 +489,9 @@ buffer. If those packages are not referenced in a configuration layer
 then `Spacemacs` will treat them as orphans during the next start of
 Emacs and they will be deleted.
 
-**Important Note** Some user reported broken upgrade using Paradox or
-`package-list-packages` so it is highly recommended to update packages
-with the startup page link `Update Spacemacs`.
+**Important Note** Don't upgrade your packages via `Paradox` or
+`package-list-packages` because they don't support the rollback feature of
+Spacemacs.
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
