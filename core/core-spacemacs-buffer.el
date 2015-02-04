@@ -9,6 +9,9 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+(defconst spacemacs-buffer-name "*spacemacs*"
+  "The name of the spacemacs buffer.")
+
 (defun spacemacs//insert-banner ()
   "Choose a banner and insert in spacemacs buffer.
 
@@ -101,26 +104,33 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
 
 (defun spacemacs/insert-buttons ()
   (goto-char (point-max))
-  (insert "   ")
-  (insert-button "Homepage" 'action
+  (insert "      ")
+  (insert-button "[Homepage]" 'action
                  (lambda (b) (browse-url "https://github.com/syl20bnr/spacemacs"))
                  'follow-link t)
   (insert " ")
-  (insert-button "Documentation" 'action
+  (insert-button "[Documentation]" 'action
                  (lambda (b) (browse-url "https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md"))
                  'follow-link t)
   (insert " ")
-  (insert-button "Gitter Chat" 'action
+  (insert-button "[Gitter Chat]" 'action
                  (lambda (b) (browse-url "https://gitter.im/syl20bnr/spacemacs"))
                  'follow-link t)
   (insert " ")
-  (insert-button "Messages Buffer" 'action (lambda (b) (switch-to-buffer "*Messages*")) 'follow-link t)
+  (insert-button "[Update]" 'action
+                 (lambda (b) (configuration-layer/update-packages)) 'follow-link t)
   (insert " ")
-  (insert-button "Spacemacs Folder" 'action (lambda (b) (find-file user-emacs-directory)) 'follow-link t)
-  (insert "\n")
-  (insert "                            ")
-  (insert-button "Update Spacemacs" 'action (lambda (b) (configuration-layer/update-packages)) 'follow-link t)
+  (insert-button "[Rollback]" 'action
+                 (lambda (b) (call-interactively 'configuration-layer/rollback)) 'follow-link t)
   (insert "\n\n")
   )
+
+(defun spacemacs/goto-link-line ()
+  "Move the point to the beginning of the link line."
+  (interactive)
+  (switch-to-buffer spacemacs-buffer-name)
+  (goto-char (point-min))
+  (re-search-forward "Homepage")
+  (beginning-of-line))
 
 (provide 'core-spacemacs-buffer)

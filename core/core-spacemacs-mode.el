@@ -116,8 +116,9 @@
   "Create the special buffer for `spacemacs-mode' and perform startup
 initialization."
   (require 'core-toggles)
-  (switch-to-buffer (get-buffer-create "*spacemacs*"))
-  (spacemacs-mode))
+  (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
+  (spacemacs-mode)
+  (add-hook 'after-init-hook 'spacemacs/goto-link-line))
 
 (defun spacemacs//get-package-directory (pkg)
   "Return the directory of PKG. Return nil if not found."
