@@ -17,6 +17,9 @@ which require an initialization must be listed explicitly in the list.")
     `(("(\\(fn\\)[\[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
                                  (match-end 1) "λ"))))
+      ("(\\(partial\\)[\[[:space:]]"
+       (0 (progn (compose-region (match-beginning 1)
+                                 (match-end 1) "Ƥ"))))
       ("\\(#\\)("
        (0 (progn (compose-region (match-beginning 1)
                                  (match-end 1) "ƒ"))))
