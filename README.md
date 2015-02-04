@@ -25,6 +25,7 @@
 - [Install](#install)
 - [Update](#update)
     - [Update notification](#update-notification)
+    - [Rollback](#rollback)
 - [Configuration](#configuration)
     - [Configuration layers](#configuration-layers)
     - [Dotfile (.spacemacs)](#dotfile-spacemacs)
@@ -178,7 +179,8 @@ See the [troubleshooting][troubleshoot] guide if you have any issues.
 
 Spacemacs currently requires manual updates using the following procedure:
 
-1. Update Emacs packages using the `Update Spacemacs` link on the starting page
+1. Update Emacs packages by clicking (press `RET`) on the `[Update]` link of
+the starting page
 
 2. Close Emacs and update the git repository:
 
@@ -202,6 +204,18 @@ version of `Spacemacs` is available.
 
 **Note:**
 Update of `Spacemacs` by clicking on the indicator will be implemented _soon_.
+
+## Rollback
+
+You can rollback ELPA packages to a previous version if anything went wrong
+during an update.
+
+To rollback to a previous state click (press `RET`) on the `[Rollback]`
+link of the startup page and choose a rollback slot.
+
+Rollback slot names are dates with the following format `YYYY-MM-DD_HH.MM.SS`.
+The date corresponds to the date of an update. The most recent slots are
+listed first.
 
 # Configuration
 
