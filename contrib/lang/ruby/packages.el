@@ -68,6 +68,7 @@
               (evil-leader/set-key "mrfs" 'projectile-rails-find-stylesheet)
               (evil-leader/set-key "mrft" 'projectile-rails-find-test)
               (evil-leader/set-key "mrfu" 'projectile-rails-find-fixture)
+              (evil-leader/set-key "mrfv" 'projectile-rails-find-view)
               (evil-leader/set-key "mrfy" 'projectile-rails-find-layout)
               (evil-leader/set-key "mrf@" 'projectile-rails-find-mailer)
               ;; Goto file
@@ -84,17 +85,16 @@
               (evil-leader/set-key "mrgs" 'projectile-rails-find-current-stylesheet)
               (evil-leader/set-key "mrgt" 'projectile-rails-find-current-test)
               (evil-leader/set-key "mrgu" 'projectile-rails-find-current-fixture)
-              (evil-leader/set-key "mrfv" 'projectile-rails-find-view)
               (evil-leader/set-key "mrgv" 'projectile-rails-find-current-view)
               (evil-leader/set-key "mrgz" 'projectile-rails-goto-spec-helper)
               (evil-leader/set-key "mrg." 'projectile-rails-goto-file-at-point)
               ;; Rails external commands
               (evil-leader/set-key "mrcc" 'projectile-rails-generate)
               (evil-leader/set-key "mri" 'projectile-rails-console)
-              (evil-leader/set-key "mrr" 'projectile-rails-rake)
+              (evil-leader/set-key "mrxr" 'projectile-rails-rake)
               (evil-leader/set-key "mrxs" 'projectile-rails-server)
               ;; Refactoring
-              (evil-leader/set-key "mRx" 'projectile-rails-extract-region))))
+              (evil-leader/set-key "mrrx" 'projectile-rails-extract-region))))
 
 (defun ruby/init-robe ()
   "Initialize Robe mode"
@@ -106,7 +106,7 @@
               ;; robe mode specific
               (evil-leader/set-key-for-mode 'enh-ruby-mode "mgg" 'robe-jump)
               (evil-leader/set-key-for-mode 'enh-ruby-mode "mhd" 'robe-doc)
-              (evil-leader/set-key-for-mode 'enh-ruby-mode "mRR" 'robe-rails-refresh)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mrR" 'robe-rails-refresh)
               ;; inf-ruby-mode
               (evil-leader/set-key-for-mode 'enh-ruby-mode "mi" 'robe-start)
               (evil-leader/set-key-for-mode 'enh-ruby-mode "msf" 'ruby-send-definition)
