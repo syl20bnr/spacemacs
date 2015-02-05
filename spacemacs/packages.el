@@ -1235,7 +1235,8 @@ which require an initialization must be listed explicitly in the list.")
           "Action to perform when switching back to helm insert state."
           (interactive)
           ;; restore helm key map
-          (define-key helm-map (kbd "C-i") 'helm-select-action)
+          (define-key helm-map (kbd "C-i")
+            'spacemacs/helm-navigation-micro-state)
           (define-key helm-map (kbd "<tab>")
             'spacemacs/helm-navigation-micro-state)
           (define-key helm-map "r" nil)
