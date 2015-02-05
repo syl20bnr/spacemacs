@@ -972,12 +972,14 @@ will turn-off the micro-state).
 Key Binding         | Description
 --------------------|------------------------------------------------------------
 <kbd>TAB</kbd>      | initiate the micro-state
+<kbd>a</kbd>        | switch to actions page
 <kbd>g</kbd>        | go to first candidate
 <kbd>G</kbd>        | go to last candidate
 <kbd>h</kbd>        | go to previous page
 <kbd>j</kbd>        | select next candidate
 <kbd>k</kbd>        | select previous candidate
 <kbd>l</kbd>        | go to next page
+<kbd>r</kbd>        | switch to actions page and leave the micro-state (useful combined with <kbd>TAB</kbd>)
 <kbd>t</kbd>        | mark current candidate
 <kbd>T</kbd>        | mark all candidates
 <kbd>v</kbd>        | execute persistent action
