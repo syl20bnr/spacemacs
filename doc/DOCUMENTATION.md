@@ -57,6 +57,8 @@
     - [Reserved prefix command for user](#reserved-prefix-command-for-user)
     - [Escaping](#escaping)
     - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
+    - [Helm](#helm)
+        - [Helm micro-state](#helm-micro-state)
     - [Navigating](#navigating)
         - [Point/Cursor](#pointcursor)
             - [Smooth scrolling](#smooth-scrolling)
@@ -940,12 +942,46 @@ sequences are not optimal for `Spacemacs`. Indeed it is very easy in
 :---------------:|------------------------------------------------------------------
 Vim (ex-command) | <kbd>`:`</kbd>
 Emacs (M-x)      | <kbd>SPC :</kbd>
-Shell            | <kbd>SPC !</kbd> or just <kbd>!</kbd>
 
 The command key `:` can be easily changed with the variable
 `dotspacemacs-command-key` of your `~/.spacemacs`. Note that is will change both
 `:` and `SPC :` bindings to keep the symmetry between Vim and Emacs. A good
 key can be `,` for example.
+
+## Helm
+
+`Spacemacs` is powered by [Helm][helm-link] which is an incremental completion
+and selection narrowing framework.
+
+`Helm` is the central control tower of `Spacemacs`, it is used to manage
+buffers, projects, search results, configuration layers, toggles and more...
+
+Mastering `Helm` will make you a `Spacemacs` power user. Do not hesitate
+to read the [Helm documentation wiki][helm-doc].
+
+### Helm micro-state
+
+`Spacemacs` defines a [micro-state](#micro-states) for `Helm` to make it
+work like [Vim's Unit][] plugin.
+
+Initiate the micro-state with <kbd>TAB</kbd> while in a `Helm` buffer. Use
+<kbd>TAB</kbd> again to exit from the micro-state (actually, like with any
+micro-state, pressing any key that is not bound to the micro-state key map
+will turn-off the micro-state).
+
+Key Binding         | Description
+--------------------|------------------------------------------------------------
+<kbd>TAB</kbd>      | initiate the micro-state
+<kbd>g</kbd>        | go to first candidate
+<kbd>G</kbd>        | go to last candidate
+<kbd>h</kbd>        | go to previous page
+<kbd>j</kbd>        | select next candidate
+<kbd>k</kbd>        | select previous candidate
+<kbd>l</kbd>        | go to next page
+<kbd>t</kbd>        | mark current candidate
+<kbd>T</kbd>        | mark all candidates
+<kbd>v</kbd>        | execute persistent action
+Any other key       | leave the micro-state
 
 ## Navigating
 
@@ -2077,7 +2113,8 @@ developers to elisp hackers!
 [keychords]: http://www.emacswiki.org/emacs/KeyChord
 [centered-cursor]: http://www.emacswiki.org/emacs/centered-cursor-mode.el
 [ace-jump]: https://github.com/winterTTr/ace-jump-mode
-[helm]: https://github.com/emacs-helm/helm
+[helm-link]: https://github.com/emacs-helm/helm
+[helm-doc]: https://github.com/emacs-helm/helm/wiki
 [popwin]: http://www.emacswiki.org/emacs/PopWin
 [golden-ratio]: https://github.com/roman/golden-ratio.el
 [solarized-theme]: https://github.com/bbatsov/solarized-emacs
@@ -2121,6 +2158,7 @@ developers to elisp hackers!
 [evil-numbers]: https://github.com/cofi/evil-numbers
 [evil-org-mode]: https://github.com/edwtjo/evil-org-mode
 [evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
+[Vim's Unit]: https://github.com/Shougo/unite.vim
 [git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
 [nose]: https://github.com/nose-devs/nose/
 [nose.el]: https://github.com/syl20bnr/nose.el
