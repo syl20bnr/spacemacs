@@ -1220,6 +1220,7 @@ which require an initialization must be listed explicitly in the list.")
           (set-temporary-overlay-map
            (let ((map (make-sparse-keymap)))
              (define-key map "?" 'helm-help)
+             (define-key map "a" 'helm-select-action)
              (define-key map "g" 'helm-beginning-of-buffer)
              (define-key map "G" 'helm-end-of-buffer)
              (define-key map "h" 'helm-previous-page)
