@@ -3,7 +3,7 @@
     ess
     ess-R-data-view
     ess-R-object-popup
-    ess-smart-underscore
+    ess-smart-equals
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -18,7 +18,7 @@ which require an initialization must be listed explicitly in the list.")
   (defun load-ess-on-demand ()
     (interactive)
     (use-package ess-site)
-    (use-package ess-smart-underscore)
+    (use-package ess-smart-equals)
     (use-package ess-R-object-popup)
     (use-package ess-R-data-view)
     )
@@ -27,6 +27,8 @@ which require an initialization must be listed explicitly in the list.")
   ;; R --------------------------------------------------------------------------
   (eval-after-load "ess-site"
     '(progn
+       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
+       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode)
        (evil-leader/set-key-for-mode 'ess-mode
          "mi" 'R
          "mp" 'ess-R-object-popup
