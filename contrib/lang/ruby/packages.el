@@ -91,10 +91,10 @@
               ;; Rails external commands
               (evil-leader/set-key "mrcc" 'projectile-rails-generate)
               (evil-leader/set-key "mri" 'projectile-rails-console)
-              (evil-leader/set-key "mrxr" 'projectile-rails-rake)
+              (evil-leader/set-key "mrr:" 'projectile-rails-rake)
               (evil-leader/set-key "mrxs" 'projectile-rails-server)
               ;; Refactoring
-              (evil-leader/set-key "mrrx" 'projectile-rails-extract-region))))
+              (evil-leader/set-key "mrRx" 'projectile-rails-extract-region))))
 
 (defun ruby/init-robe ()
   "Initialize Robe mode"
@@ -106,7 +106,7 @@
               ;; robe mode specific
               (evil-leader/set-key-for-mode 'enh-ruby-mode "mgg" 'robe-jump)
               (evil-leader/set-key-for-mode 'enh-ruby-mode "mhd" 'robe-doc)
-              (evil-leader/set-key-for-mode 'enh-ruby-mode "mrR" 'robe-rails-refresh)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mrsr" 'robe-rails-refresh)
               ;; inf-ruby-mode
               (evil-leader/set-key-for-mode 'enh-ruby-mode "mi" 'robe-start)
               (evil-leader/set-key-for-mode 'enh-ruby-mode "msf" 'ruby-send-definition)

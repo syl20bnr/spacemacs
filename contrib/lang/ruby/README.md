@@ -156,7 +156,7 @@ Key binding            | Description
 
 Key binding            | Description
 -----------------------|------------
-<kbd>SPC m r r x</kbd> | extract region into partial
+<kbd>SPC m r R x</kbd> | extract region into partial
 
 #### RUN commands
 
@@ -164,8 +164,8 @@ Key binding            | Description
 -----------------------|------------
 <kbd>SPC m r c c</kbd> | run rails generator
 <kbd>SPC m r i</kbd>   | start rails console
-<kbd>SPC m r R</kbd>   | reload project (REPL)
-<kbd>SPC m r x r</kbd> | run rake task
+<kbd>SPC m r s r</kbd> | reload Rails project
+<kbd>SPC m r r :</kbd> | run rake task
 <kbd>SPC m r x s</kbd> | start rails server
 
 
