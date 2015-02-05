@@ -1220,6 +1220,7 @@ which require an initialization must be listed explicitly in the list.")
           (set-temporary-overlay-map
            (let ((map (make-sparse-keymap)))
              (define-key map "?" 'helm-help)
+             (define-key map "a" 'helm-select-action)
              (define-key map "g" 'helm-beginning-of-buffer)
              (define-key map "G" 'helm-end-of-buffer)
              (define-key map "h" 'helm-previous-page)
@@ -1235,7 +1236,8 @@ which require an initialization must be listed explicitly in the list.")
           "Action to perform when switching back to helm insert state."
           (interactive)
           ;; restore helm key map
-          (define-key helm-map (kbd "C-i") 'helm-select-action)
+          (define-key helm-map (kbd "C-i")
+            'spacemacs/helm-navigation-micro-state)
           (define-key helm-map (kbd "<tab>")
             'spacemacs/helm-navigation-micro-state)
           (define-key helm-map "r" nil)
