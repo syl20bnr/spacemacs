@@ -60,7 +60,7 @@ with `:' and Emacs commands are executed with `<leader> :'.")
 (defvar dotspacemacs-guide-key-delay 0.4
   "Guide-key delay in seconds.")
 
-(defvar dotspacemacs-enable-helm-micro-state t
+(defvar dotspacemacs-helm-micro-state t
   "Enable micro-state for helm buffer when pressing on TAB.")
 
 (defvar dotspacemacs-fullscreen-at-startup nil
