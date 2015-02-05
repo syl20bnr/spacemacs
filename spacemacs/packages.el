@@ -1203,6 +1203,52 @@ which require an initialization must be listed explicitly in the list.")
       ;;shell
       (evil-leader/set-key-for-mode 'shell-mode "mH" 'spacemacs/helm-shell-history)
 
+      (when dotspacemacs-helm-micro-state
+        (defun spacemacs/helm-navigation-micro-state ()
+          "Set a temporary overlay map to navigate in a helm buffer."
+          (interactive)
+          (set-face-attribute
+           'helm-header nil :background (face-attribute
+                                         'error :foreground))
+          ;; deactivate TAB during the micro-state (any key can be used to exit
+          ;; the micro-state but this one seems to be a better choice so it
+          ;; deserves a special treatment)
+          (define-key helm-map (kbd "C-i") '(lambda () (interactive)))
+          (define-key helm-map (kbd "<tab>") '(lambda () (interactive)))
+          ;; "r" switches to the action buffer and exit the micro-state
+          (define-key helm-map "r" 'helm-select-action)
+          (set-temporary-overlay-map
+           (let ((map (make-sparse-keymap)))
+             (define-key map "?" 'helm-help)
+             (define-key map "g" 'helm-beginning-of-buffer)
+             (define-key map "G" 'helm-end-of-buffer)
+             (define-key map "h" 'helm-previous-page)
+             (define-key map "j" 'helm-next-line)
+             (define-key map "k" 'helm-previous-line)
+             (define-key map "l" 'helm-next-page)
+             (define-key map "t" 'helm-toggle-visible-mark)
+             (define-key map "T" 'helm-toggle-all-marks)
+             ;; not sure if there's a better way to do this
+             (define-key map "/" (lambda ()
+                                   (interactive)
+                                   (execute-kbd-macro [?\C-s])))
+             (define-key map "v" 'helm-execute-persistent-action)
+             map) t 'spacemacs/on-exit-helm-micro-state))
+
+        (defun spacemacs/on-exit-helm-micro-state ()
+          "Action to perform when switching back to helm insert state."
+          (interactive)
+          ;; restore helm key map
+          (define-key helm-map (kbd "C-i") 'helm-select-action)
+          (define-key helm-map (kbd "<tab>")
+            'spacemacs/helm-navigation-micro-state)
+          (define-key helm-map "r" nil)
+          ;; restore faces
+          (set-face-attribute
+           'helm-header nil :background (face-attribute
+                                         'header-line :background)))
+        (spacemacs/on-exit-helm-micro-state))
+
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
 
