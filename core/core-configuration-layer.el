@@ -468,9 +468,13 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
              (format "--> updating package %s... [%s/%s]"
                      pkg upgraded-count upgrade-count) t)
             (redisplay)
-            (ignore-errors
-              (configuration-layer//package-delete pkg)
-              (package-install pkg)))
+            (configuration-layer//package-delete pkg)
+            (condition-case err (package-install pkg)
+              ('error
+               (message (format
+                         (concat "An error occurred during the update of "
+                                 "this package %s, retrying...") err))
+               (package-install pkg))))
           (spacemacs/append-to-buffer
            (format "\n--> %s packages updated.\n" upgraded-count))
           (spacemacs/append-to-buffer
