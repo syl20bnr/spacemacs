@@ -1228,10 +1228,6 @@ which require an initialization must be listed explicitly in the list.")
              (define-key map "l" 'helm-next-page)
              (define-key map "t" 'helm-toggle-visible-mark)
              (define-key map "T" 'helm-toggle-all-marks)
-             ;; not sure if there's a better way to do this
-             (define-key map "/" (lambda ()
-                                   (interactive)
-                                   (execute-kbd-macro [?\C-s])))
              (define-key map "v" 'helm-execute-persistent-action)
              map) t 'spacemacs/on-exit-helm-micro-state))
 
