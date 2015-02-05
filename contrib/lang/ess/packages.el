@@ -4,6 +4,7 @@
     ess-R-data-view
     ess-R-object-popup
     ess-smart-equals
+    rainbow-delimiters
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -28,9 +29,6 @@ which require an initialization must be listed explicitly in the list.")
   (eval-after-load "ess-site"
     '(progn
        (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
-       (add-hook 'ess-mode-hook #'rainbow-delimiters-mode)
-       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
-       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode)
        ;; Follow Hadley Wickham's R style guide
        (setq ess-first-continued-statement-offset 2
              ess-continued-statement-offset 0
@@ -56,3 +54,10 @@ which require an initialization must be listed explicitly in the list.")
        (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
        (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
        (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))))
+
+(defun ess/init-rainbow-delimiters ()
+  (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
+
+(defun ess/init-ess-smart-equals ()
+  (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
+  (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))
