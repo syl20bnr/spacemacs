@@ -16,6 +16,22 @@ the macro `custom-persp` as follows:
             (... stuff to be done in the persp activating a major mode like twittering or whatever ...)))
 ```
 
+You can check out the layer's packages.el to see some examples of the
+custom-perspectives. if you define something like this you may be able
+to define a perspective with a layout.
+
+```elisp
+      (defun custom-persp/c++-project ()
+        (interactive)
+        (custom-persp "c++"
+            (progn
+                (find-file "~/path/to/first/file.cpp")
+                (split-window-right)
+                (find-file "~/path/to/second/file.cpp")
+                (... do more stuff but be careful not to destroy the universe ...)
+            )))
+```
+
 Then you just need to add a keybinding to your custom persp, we use
 `<SPC> P o [your key here]` (Perspective open <key>)
 
@@ -33,12 +49,17 @@ Perspective-mode defines keybindings under `C-x x` so we will take a
 more `spacemacsy` approach and define them under out perspective map
 `<SPC> P`
 
+  (projectile-persp-bridge helm-projectile)
+  (setq projectile-switch-project-action 'helm-projectile)
+
 
 ## Persp-Projectile
 
 As the name suggests, this persp-projectile mode creates a new
-perspective once you switch to a new project with `<SPC> p s` you can
-enable it by putting `(require 'persp-projectile)` in your configuration files.
+perspective once you switch to a new project with `<SPC> p s`. It must
+be said that in the current implementation in order for this to work
+you must first open a custom-perspective like `SPC P o e` to go to the
+init.el in the spacemacs.
 
 If you are a helm person, and would rather use helm for projectile add this to your config as well:
 
