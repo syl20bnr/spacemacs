@@ -96,6 +96,8 @@
                        (car dotspacemacs-default-font)))
   ;; banner
   (spacemacs//insert-banner)
+  ;; dash is required to prevent a package.el bug with f on 24.3.1
+  (spacemacs/load-or-install-package 'dash t)
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-package 'bind-key t)
   (spacemacs/load-or-install-package 'use-package t)
