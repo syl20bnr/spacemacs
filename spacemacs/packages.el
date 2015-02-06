@@ -1148,11 +1148,12 @@ which require an initialization must be listed explicitly in the list.")
   (use-package helm
     :defer t
     :init
-    (setq helm-split-window-in-side-p nil
-          helm-bookmark-show-location t
-          helm-buffers-fuzzy-matching t
-          helm-always-two-windows     t)
-    (evil-leader/set-key
+    (progn
+      (setq helm-split-window-in-side-p nil
+            helm-bookmark-show-location t
+            helm-buffers-fuzzy-matching t
+            helm-always-two-windows     t)
+      (evil-leader/set-key
         dotspacemacs-command-key 'helm-M-x
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
@@ -1163,12 +1164,16 @@ which require an initialization must be listed explicitly in the list.")
         "rm"  'helm-all-mark-rings
         "fh"  'helm-find-files
         "fr"  'helm-recentf
-        "<f1>" 'helm-apropos
-        )
+        "<f1>" 'helm-apropos)
+      (defcustom spacemacs-helm-micro-state-color (face-attribute
+                                                   'error :foreground)
+        "Background color of helm header when helm micro-state is activated."
+        :type 'color
+        :group 'spacemacs))
+
     :config
     (progn
       (helm-mode +1)
-
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
@@ -1208,8 +1213,9 @@ which require an initialization must be listed explicitly in the list.")
           "Set a temporary overlay map to navigate in a helm buffer."
           (interactive)
           (set-face-attribute
-           'helm-header nil :background (face-attribute
-                                         'error :foreground))
+           'helm-header nil
+           :background spacemacs-helm-micro-state-color)
+
           ;; deactivate TAB during the micro-state (any key can be used to exit
           ;; the micro-state but this one seems to be a better choice so it
           ;; deserves a special treatment)
@@ -1217,16 +1223,21 @@ which require an initialization must be listed explicitly in the list.")
           (define-key helm-map (kbd "<tab>") '(lambda () (interactive)))
           ;; "r" switches to the action buffer and exit the micro-state
           (define-key helm-map "r" 'helm-select-action)
+          ;; bind actions on numbers starting from 1 which executes action 0
+          (dotimes (n 10)
+            (define-key helm-map (number-to-string n)
+              `(lambda () (interactive) (helm-select-nth-action
+                                         ,(% (+ n 9) 10)))))
           (set-temporary-overlay-map
            (let ((map (make-sparse-keymap)))
              (define-key map "?" 'helm-help)
              (define-key map "a" 'helm-select-action)
              (define-key map "g" 'helm-beginning-of-buffer)
              (define-key map "G" 'helm-end-of-buffer)
-             (define-key map "h" 'helm-previous-page)
+             (define-key map "h" 'helm-previous-source)
              (define-key map "j" 'helm-next-line)
              (define-key map "k" 'helm-previous-line)
-             (define-key map "l" 'helm-next-page)
+             (define-key map "l" 'helm-next-source)
              (define-key map "t" 'helm-toggle-visible-mark)
              (define-key map "T" 'helm-toggle-all-marks)
              (define-key map "v" 'helm-execute-persistent-action)
@@ -1241,10 +1252,12 @@ which require an initialization must be listed explicitly in the list.")
           (define-key helm-map (kbd "<tab>")
             'spacemacs/helm-navigation-micro-state)
           (define-key helm-map "r" nil)
+          (dotimes (n 10)
+            (define-key helm-map (number-to-string n) nil))
           ;; restore faces
           (set-face-attribute
-           'helm-header nil :background (face-attribute
-                                         'header-line :background)))
+           'helm-header nil
+           :background (face-attribute 'header-line :background)))
         (spacemacs/on-exit-helm-micro-state))
 
       (eval-after-load "helm-mode" ; required
