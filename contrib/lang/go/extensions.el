@@ -8,6 +8,7 @@
   '(
     ;; post extension gos go here
     go-oracle
+    go-rename
     )
   "List of all extensions to load after the packages.")
 
@@ -39,3 +40,29 @@
     "mos" 'go-oracle-callstack
     "mot" 'go-oracle-describe
   ))
+
+(defun go/init-go-rename()
+;;; Copyright 2014 The Go Authors. All rights reserved.
+;;; Use of this source code is governed by a BSD-style
+;;; license that can be found in the LICENSE file.
+;;;
+;;; Integration of the 'gorename' tool into Emacs.
+;;;
+;;; To install:
+;;; % go get golang.org/x/tools/cmd/gorename
+;;; % go build golang.org/x/tools/cmd/gorename
+;;; % mv gorename $HOME/bin/         # or elsewhere on $PATH
+;;;
+;;; The go-rename-command variable can be customized to specify an
+;;; alternative location for the installed command.
+  (defgroup go-rename nil
+    "Options specific to the Go rename."
+    :group 'go)
+
+  (defcustom go-rename-command "gorename"
+    "The `gorename' command; by the default, $PATH is searched."
+    :type 'string
+    :group 'go-rename)
+
+  (evil-leader/set-key-for-mode 'go-mode "mr" 'go-rename)
+  )
