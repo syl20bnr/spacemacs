@@ -7,6 +7,5 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun osx/init-pbcopy ()
   (use-package pbcopy
-    :init
-    (unless (display-graphic-p)
-      (turn-on-pbcopy))))
+    :if (not (display-graphic-p))
+    :init (turn-on-pbcopy)))
