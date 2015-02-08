@@ -2,7 +2,16 @@
 
 ![logo](img/ocaml.png)
 
-;; Generate TOC here, use the command `markdown-toc/generate-toc`
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [Ocaml contribution layer for Spacemacs](#ocaml-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+        - [OPAM packages](#opam-packages)
+    - [TODO](#todo)
+
+<!-- markdown-toc end -->
 
 ## Description
 
@@ -21,7 +30,7 @@ To use this contribution add it to your `~/.spacemacs`
 )
 ```
 
-## OPAM packages
+### OPAM packages
 
 This layer requires some [opam](http://opam.ocaml.org) packages:
 
