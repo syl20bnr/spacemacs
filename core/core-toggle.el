@@ -1,4 +1,4 @@
-;;; core-toggles.el --- Spacemacs Core File
+;;; core-toggle.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -89,4 +89,4 @@ Avaiblabe PROPS:
        (when ,def-key
          (define-key (car ,def-key) (kbd ,(cdr def-key)) ',wrapper-func)))))
 
-(provide 'core-toggles)
+(provide 'core-toggle)

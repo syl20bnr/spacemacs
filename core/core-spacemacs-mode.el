@@ -117,8 +117,8 @@
 (defun spacemacs/initialize ()
   "Create the special buffer for `spacemacs-mode' and perform startup
 initialization."
-  (require 'core-toggles)
-  (require 'core-micro-states)
+  (require 'core-toggle)
+  (require 'core-micro-state)
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
   (spacemacs-mode)
   (add-hook 'after-init-hook 'spacemacs/goto-link-line))

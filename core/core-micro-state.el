@@ -1,5 +1,5 @@
 ;;; -*- lexical-binding: t -*-
-;;; core-micro-states.el --- Spacemacs Core File
+;;; core-micro-state.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -77,4 +77,4 @@ Available PROPS:
                          :initial-value nil)
                  't ,@on-exit nil)))))
 
-(provide 'core-micro-states)
+(provide 'core-micro-state)
