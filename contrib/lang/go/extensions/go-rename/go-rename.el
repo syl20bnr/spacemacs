@@ -11,6 +11,14 @@
 ;;;
 ;;; The go-rename-command variable can be customized to specify an
 ;;; alternative location for the installed command.
+(defgroup go-rename nil
+  "Options specific to the Go rename."
+  :group 'go)
+
+(defcustom go-rename-command "gorename"
+  "The `gorename' command; by the default, $PATH is searched."
+  :type 'string
+  :group 'go-rename)
 
 (defun go-rename (new-name)
   "Rename the entity denoted by the identifier at point, using
@@ -77,3 +85,5 @@ the `gorename' tool."
   (replace-regexp-in-string "[\t\n ]*\\'"
                             ""
                             (buffer-substring (point-min) (point-max))))
+
+(provide 'go-rename)
