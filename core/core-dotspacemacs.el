@@ -49,7 +49,7 @@ pressing `<leader> m`")
                                     :weight normal
                                     :width normal
                                     :powerline-scale 1.1)
-  "Default font. The powerline-offset allows to quickly tweak the mode-line
+  "Default font. `powerline-scale' allows to quickly tweak the mode-line
 size to make separators look not too crappy.")
 
 (defvar dotspacemacs-command-key ":"
