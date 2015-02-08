@@ -5,14 +5,9 @@
     go-eldoc
     go-autocomplete
     company-go
-    thingatpt
-    compile
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
-
-(defun go/init-thingatpt ())
-(defun go/init-compile ())
 
 (defun go/init-flycheck ()
     (add-hook 'go-mode-hook 'flycheck-mode))
