@@ -1166,8 +1166,8 @@ which require an initialization must be listed explicitly in the list.")
         "fr"  'helm-recentf
         "<f1>" 'helm-apropos)
       (when dotspacemacs-helm-micro-state
-        (defcustom spacemacs-helm-micro-state-color (face-attribute
-                                                     'error :foreground)
+        (defcustom spacemacs-helm-navigation-micro-state-color
+          (face-attribute 'error :foreground)
           "Background color of helm header when helm micro-state is activated."
           :type 'color
           :group 'spacemacs)))
@@ -1210,11 +1210,11 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key-for-mode 'shell-mode "mH" 'spacemacs/helm-shell-history)
 
       (when dotspacemacs-helm-micro-state
-        (defun spacemacs//on-enter-helm-navigation ()
+        (defun spacemacs//on-enter-helm-navigation-micro-state ()
           "Initialization of helm micro-state."
           (set-face-attribute
            'helm-header nil
-           :background spacemacs-helm-micro-state-color)
+           :background spacemacs-helm-navigation-micro-state-color)
           ;; deactivate TAB during the micro-state (any key can be used to exit
           ;; the micro-state but this one seems to be a better choice so it
           ;; deserves a special treatment)
@@ -1228,7 +1228,7 @@ which require an initialization must be listed explicitly in the list.")
               `(lambda () (interactive) (helm-select-nth-action
                                          ,(% (+ n 9) 10))))))
 
-        (defun spacemacs//on-exit-helm-micro-state ()
+        (defun spacemacs//on-exit-helm-navigation-micro-state ()
           "Action to perform when exiting helm micor-state."
           ;; restore helm key map
           (define-key helm-map (kbd "C-i")
@@ -1242,11 +1242,11 @@ which require an initialization must be listed explicitly in the list.")
           (set-face-attribute
            'helm-header nil
            :background (face-attribute 'header-line :background)))
-        (spacemacs//on-exit-helm-micro-state)
+        (spacemacs//on-exit-helm-navigation-micro-state)
 
-        (spacemacs/define-micro-state helm-navigation
-          :on-enter (spacemacs//on-enter-helm-navigation)
-          :on-exit  (spacemacs//on-exit-helm-micro-state)
+        (spacemacs|define-micro-state helm-navigation
+          :on-enter (spacemacs//on-enter-helm-navigation-micro-state)
+          :on-exit  (spacemacs//on-exit-helm-navigation-micro-state)
           :bindings
           ("?" helm-help)
           ("a" helm-select-action)

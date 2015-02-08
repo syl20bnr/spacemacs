@@ -11,7 +11,7 @@
 ;;
 ;;; License: GPLv3
 
-(defmacro spacemacs/define-micro-state (name &rest props)
+(defmacro spacemacs|define-micro-state (name &rest props)
   "Define a micro-state called NAME.
 
 NAME is a symbol.
