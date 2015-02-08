@@ -8,6 +8,7 @@
   '(
     ;; post extension gos go here
     go-oracle
+    go-rename
     )
   "List of all extensions to load after the packages.")
 
@@ -39,3 +40,8 @@
     "mos" 'go-oracle-callstack
     "mot" 'go-oracle-describe
   ))
+
+(defun go/init-go-rename()
+  (use-package go-rename
+    :init
+    (evil-leader/set-key-for-mode 'go-mode "mr" 'go-rename)))

@@ -1165,11 +1165,12 @@ which require an initialization must be listed explicitly in the list.")
         "fh"  'helm-find-files
         "fr"  'helm-recentf
         "<f1>" 'helm-apropos)
-      (defcustom spacemacs-helm-micro-state-color (face-attribute
-                                                   'error :foreground)
-        "Background color of helm header when helm micro-state is activated."
-        :type 'color
-        :group 'spacemacs))
+      (when dotspacemacs-helm-micro-state
+        (defcustom spacemacs-helm-navigation-micro-state-color
+          (face-attribute 'error :foreground)
+          "Background color of helm header when helm micro-state is activated."
+          :type 'color
+          :group 'spacemacs)))
 
     :config
     (progn
@@ -1209,13 +1210,11 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key-for-mode 'shell-mode "mH" 'spacemacs/helm-shell-history)
 
       (when dotspacemacs-helm-micro-state
-        (defun spacemacs/helm-navigation-micro-state ()
-          "Set a temporary overlay map to navigate in a helm buffer."
-          (interactive)
+        (defun spacemacs//on-enter-helm-navigation-micro-state ()
+          "Initialization of helm micro-state."
           (set-face-attribute
            'helm-header nil
-           :background spacemacs-helm-micro-state-color)
-
+           :background spacemacs-helm-navigation-micro-state-color)
           ;; deactivate TAB during the micro-state (any key can be used to exit
           ;; the micro-state but this one seems to be a better choice so it
           ;; deserves a special treatment)
@@ -1227,25 +1226,10 @@ which require an initialization must be listed explicitly in the list.")
           (dotimes (n 10)
             (define-key helm-map (number-to-string n)
               `(lambda () (interactive) (helm-select-nth-action
-                                         ,(% (+ n 9) 10)))))
-          (set-temporary-overlay-map
-           (let ((map (make-sparse-keymap)))
-             (define-key map "?" 'helm-help)
-             (define-key map "a" 'helm-select-action)
-             (define-key map "g" 'helm-beginning-of-buffer)
-             (define-key map "G" 'helm-end-of-buffer)
-             (define-key map "h" 'helm-previous-source)
-             (define-key map "j" 'helm-next-line)
-             (define-key map "k" 'helm-previous-line)
-             (define-key map "l" 'helm-next-source)
-             (define-key map "t" 'helm-toggle-visible-mark)
-             (define-key map "T" 'helm-toggle-all-marks)
-             (define-key map "v" 'helm-execute-persistent-action)
-             map) t 'spacemacs/on-exit-helm-micro-state))
+                                         ,(% (+ n 9) 10))))))
 
-        (defun spacemacs/on-exit-helm-micro-state ()
-          "Action to perform when switching back to helm insert state."
-          (interactive)
+        (defun spacemacs//on-exit-helm-navigation-micro-state ()
+          "Action to perform when exiting helm micor-state."
           ;; restore helm key map
           (define-key helm-map (kbd "C-i")
             'spacemacs/helm-navigation-micro-state)
@@ -1258,7 +1242,23 @@ which require an initialization must be listed explicitly in the list.")
           (set-face-attribute
            'helm-header nil
            :background (face-attribute 'header-line :background)))
-        (spacemacs/on-exit-helm-micro-state))
+        (spacemacs//on-exit-helm-navigation-micro-state)
+
+        (spacemacs|define-micro-state helm-navigation
+          :on-enter (spacemacs//on-enter-helm-navigation-micro-state)
+          :on-exit  (spacemacs//on-exit-helm-navigation-micro-state)
+          :bindings
+          ("?" helm-help)
+          ("a" helm-select-action)
+          ("g" helm-beginning-of-buffer)
+          ("G" helm-end-of-buffer)
+          ("h" helm-previous-source)
+          ("j" helm-next-line)
+          ("k" helm-previous-line)
+          ("l" helm-next-source)
+          ("t" helm-toggle-visible-mark)
+          ("T" helm-toggle-all-marks)
+          ("v" helm-execute-persistent-action)))
 
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
