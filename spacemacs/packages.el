@@ -1051,6 +1051,10 @@ which require an initialization must be listed explicitly in the list.")
                       windmove-right
                       windmove-up
                       windmove-down
+                      evil-window-left
+                      evil-window-right
+                      evil-window-up
+                      evil-window-down
                       select-window-0
                       select-window-1
                       select-window-2
