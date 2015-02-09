@@ -1976,12 +1976,6 @@ which require an initialization must be listed explicitly in the list.")
   (use-package rfringe
     :defer t))
 
-(defun spacemacs/init-ruby-mode ()
-  (use-package ruby-mode
-    :defer t
-    :mode (("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode)
-           ("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))))
-
 (defun spacemacs/init-shell ()
   (defun shell-comint-input-sender-hook ()
     "Check certain shell commands.
