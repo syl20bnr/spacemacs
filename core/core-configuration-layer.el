@@ -475,8 +475,7 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
                          (concat "An error occurred during the update of "
                                  "this package %s, retrying one more time...")
                          err))
-               (package-install pkg)
-               ))
+               (package-install pkg)))
             (when (version< emacs-version "24.3.50")
               ;; explicitly force activation
               (setq package-activated-list (delq pkg package-activated-list))
