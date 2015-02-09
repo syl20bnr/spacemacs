@@ -74,6 +74,7 @@
     helm-themes
     highlight
     hl-anything
+    hungry-delete
     ido-vertical-mode
     iedit
     let-alist
@@ -1328,6 +1329,23 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (spacemacs|diminish hl-paren-mode " (Ⓗ)" " (H)")
       (spacemacs|hide-lighter hl-highlight-mode))))
+
+(defun spacemacs/init-hungry-delete ()
+  (use-package hungry-delete
+    :defer t
+    :init
+    (spacemacs|add-toggle hungry-delete
+                          :status hungry-delete-mode
+                          :on (hungry-delete-mode)
+                          :off (hungry-delete-mode -1)
+                          :documentation "Delete consecutive horizontal whitespace with a single key.
+Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
+                          :evil-leader "td")
+    :config
+    (progn
+      (setq-default hungry-delete-chars-to-skip " \t\f\v") ; only horizontal whitespace
+      (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward)
+      (define-key hungry-delete-mode-map (kbd "S-DEL") 'delete-backward-char))))
 
 (defun spacemacs/init-ido-vertical-mode ()
   (use-package ido-vertical-mode
