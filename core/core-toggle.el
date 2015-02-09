@@ -1,4 +1,4 @@
-;;; core-toggles.el --- Spacemacs Core File
+;;; core-toggle.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -60,9 +60,9 @@ Avaiblabe PROPS:
          (evil-leader-for-mode (plist-get props :evil-leader-for-mode))
          (global-key (plist-get props :global-key))
          (def-key (plist-get props :define-key)))
-    (push (append (list name) (list :function wrapper-func) props)
-          spacemacs-toggles)
     `(progn
+       (push (append '(,name) '(:function ,wrapper-func) ',props)
+             spacemacs-toggles)
        ;; toggle function
        (defun ,wrapper-func ()
          ,(format "Toggle %s on and off." (symbol-name name))
@@ -89,4 +89,4 @@ Avaiblabe PROPS:
        (when ,def-key
          (define-key (car ,def-key) (kbd ,(cdr def-key)) ',wrapper-func)))))
 
-(provide 'core-toggles)
+(provide 'core-toggle)

@@ -96,6 +96,8 @@
                        (car dotspacemacs-default-font)))
   ;; banner
   (spacemacs//insert-banner)
+  ;; dash is required to prevent a package.el bug with f on 24.3.1
+  (spacemacs/load-or-install-package 'dash t)
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-package 'bind-key t)
   (spacemacs/load-or-install-package 'use-package t)
@@ -115,9 +117,11 @@
 (defun spacemacs/initialize ()
   "Create the special buffer for `spacemacs-mode' and perform startup
 initialization."
-  (require 'core-toggles)
-  (switch-to-buffer (get-buffer-create "*spacemacs*"))
-  (spacemacs-mode))
+  (require 'core-toggle)
+  (require 'core-micro-state)
+  (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
+  (spacemacs-mode)
+  (add-hook 'after-init-hook 'spacemacs/goto-link-line))
 
 (defun spacemacs//get-package-directory (pkg)
   "Return the directory of PKG. Return nil if not found."

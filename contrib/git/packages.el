@@ -14,6 +14,7 @@
   '(
     fringe-helper
     git-messenger
+    git-rebase-mode
     git-timemachine
     gist
     github-browse-file
@@ -84,7 +85,6 @@ which require an initialization must be listed explicitly in the list.")
         "Lazy load git gutter and choose between fringe and no fringe."
         (when (display-graphic-p) (require 'git-gutter-fringe))
         (init-git-gutter))
-      (setq git-gutter-fr:side 'right-fringe)
       (add-to-hooks 'git/load-git-gutter '(markdown-mode-hook
                                            org-mode-hook
                                            prog-mode-hook)))
@@ -128,6 +128,16 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (evil-leader/set-key
       "gm" 'git-messenger:popup-message)))
+
+(defun git/init-git-rebase-mode ()
+  (use-package git-rebase-mode
+    :defer t
+    :init
+    (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
+    :config
+    (progn
+      (spacemacs|evilify git-rebase-mode-map "y" 'git-rebase-insert)
+      (spacemacs/activate-evil-leader-for-map 'git-rebase-mode-map))))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine

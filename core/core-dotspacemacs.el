@@ -49,7 +49,7 @@ pressing `<leader> m`")
                                     :weight normal
                                     :width normal
                                     :powerline-scale 1.1)
-  "Default font. The powerline-offset allows to quickly tweak the mode-line
+  "Default font. `powerline-scale' allows to quickly tweak the mode-line
 size to make separators look not too crappy.")
 
 (defvar dotspacemacs-command-key ":"
@@ -59,6 +59,9 @@ with `:' and Emacs commands are executed with `<leader> :'.")
 
 (defvar dotspacemacs-guide-key-delay 0.4
   "Guide-key delay in seconds.")
+
+(defvar dotspacemacs-helm-micro-state t
+  "Enable micro-state for helm buffer when pressing on TAB.")
 
 (defvar dotspacemacs-fullscreen-at-startup nil
   "If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).")

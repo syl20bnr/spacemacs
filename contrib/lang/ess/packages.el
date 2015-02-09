@@ -15,7 +15,8 @@
     ess
     ess-R-data-view
     ess-R-object-popup
-    ess-smart-underscore
+    ess-smart-equals
+    rainbow-delimiters
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -29,16 +30,73 @@ which require an initialization must be listed explicitly in the list.")
   ;; keybinding)
   (defun load-ess-on-demand ()
     (interactive)
-    (use-package ess-site)
-    (use-package ess-smart-underscore)
-    (use-package ess-R-object-popup)
-    (use-package ess-R-data-view)
-    )
+    (-all? '---truthy? (list
+                        (use-package ess-site)
+                        (use-package ess-smart-underscore)
+                        (use-package ess-R-object-popup)
+                        (use-package ess-R-data-view))))
+
   (evil-leader/set-key "ess" 'load-ess-on-demand)
+
+  (use-package ess
+    :defer t
+    :init
+    (progn
+      (setq auto-mode-alist (append
+                             '(("\\.sp\\'"          . S-mode)
+                               ("/R/.*\\.q\\'"      . R-mode)
+                               ("\\.[qsS]\\'"       . S-mode)
+                               ("\\.ssc\\'"         . S-mode)
+                               ("\\.SSC\\'"         . S-mode)
+                               ("\\.[rR]\\'"        . R-mode)
+                               ("\\.[rR]nw\\'"      . Rnw-mode)
+                               ("\\.[sS]nw\\'"      . Snw-mode)
+                               ("\\.[rR]profile\\'" . R-mode)
+                               ("NAMESPACE\\'"      . R-mode)
+                               ("CITATION\\'"       . R-mode)
+                               ("\\.omg\\'"         . omegahat-mode)
+                               ("\\.hat\\'"         . omegahat-mode)
+                               ("\\.lsp\\'"         . XLS-mode)
+                               ("\\.do\\'"          . STA-mode)
+                               ("\\.ado\\'"         . STA-mode)
+                               ("\\.[Ss][Aa][Ss]\\'"        . SAS-mode)
+                               ("\\.[Ss]t\\'"       . S-transcript-mode)
+                               ("\\.Sout"           . S-transcript-mode)
+                               ("\\.[Rr]out"        . R-transcript-mode)
+                               ("\\.Rd\\'"          . Rd-mode)
+                               ("\\.[Bb][Uu][Gg]\\'"         . ess-bugs-mode)
+                               ("\\.[Bb][Oo][Gg]\\'"         . ess-bugs-mode)
+                               ("\\.[Bb][Mm][Dd]\\'"         . ess-bugs-mode)
+                               ("\\.[Jj][Aa][Gg]\\'"         . ess-jags-mode)
+                               ("\\.[Jj][Oo][Gg]\\'"         . ess-jags-mode)
+                               ("\\.[Jj][Mm][Dd]\\'"         . ess-jags-mode))
+                             auto-mode-alist))
+
+      (defun ess/auto-load-hack (mode-symbol)
+        (eval
+         `(defun ,mode-symbol ()
+            "This is a function that will hijack itself with its
+definition from ess. The reason this exists is that ess does
+not play nicely with autoloads"
+            (when (load-ess-on-demand)
+              (,mode-symbol)))))
+
+      (defvar ess/r-modes-list '(R-mode R-transcript-mode Rd-mode Rnw-mode S-mode S-transcript-mode
+                                        SAS-mode STA-mode Snw-mode XLS-mode ess-bugs-mode ess-jags-mode omegahat-mode)
+        "This is the list of modes defined by ess")
+
+      (mapc (lambda (sym) (ess/auto-load-hack sym)) ess/r-modes-list)))
 
   ;; R --------------------------------------------------------------------------
   (eval-after-load "ess-site"
     '(progn
+       (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
+       ;; Follow Hadley Wickham's R style guide
+       (setq ess-first-continued-statement-offset 2
+             ess-continued-statement-offset 0
+             ess-expression-offset 2
+             ess-nuke-trailing-whitespace-p t
+             ess-default-style 'DEFAULT)
        (evil-leader/set-key-for-mode 'ess-mode
          "mi" 'R
          ;; noweb
@@ -64,5 +122,13 @@ which require an initialization must be listed explicitly in the list.")
          "msT" 'ess-eval-function-and-go
          "mst" 'ess-eval-function
          )
+       (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
        (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
        (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))))
+
+(defun ess/init-rainbow-delimiters ()
+  (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
+
+(defun ess/init-ess-smart-equals ()
+  (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
+  (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))

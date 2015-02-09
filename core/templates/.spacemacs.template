@@ -32,7 +32,7 @@
                        leuven
                        monokai
                        zenburn)
- ;; Default font. The powerline-offset allows to quickly tweak the mode-line
+ ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
  ;; size to make separators look not too crappy.
  dotspacemacs-default-font '("Source Code Pro"
                              :size 13
@@ -52,6 +52,8 @@
  ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
  ;; the commands bound to the current keystrokes.
  dotspacemacs-guide-key-delay 0.4
+ ;; Enable micro-state for helm buffer when pressing on TAB."
+ dotspacemacs-helm-micro-state t
  ;; If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).
  dotspacemacs-fullscreen-at-startup nil
  ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.

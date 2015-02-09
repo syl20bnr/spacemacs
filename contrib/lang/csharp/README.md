@@ -10,7 +10,7 @@
     - [Packages Included](#packages-included)
     - [Install](#install)
         - [Prerequisites](#prerequisites)
-            - [APS.NET 5](#apsnet-5)
+            - [ASP.NET 5](#aspnet-5)
             - [curl](#curl)
             - [Omnisharp server](#omnisharp-server)
     - [Caveats](#caveats)
@@ -47,7 +47,7 @@ To use this contribution add it to your `~/.spacemacs`
 
 ### Prerequisites
 
-#### APS.NET 5
+#### ASP.NET 5
 
 Follow the instructions for your platform [here][aspnet].
 

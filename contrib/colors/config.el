@@ -17,7 +17,10 @@
 ;; Variables
 
 (defvar colors-enable-rainbow-identifiers nil
-  "If non nil the `rainbow-identifers' package is enabled.")
+  "if non nil the `rainbow-identifers' package is enabled.")
+
+(defvar colors-enable-nyan-cat-progress-bar nil
+  "if non nil all nyan cat packges are enabled (for now only `nyan-mode').")
 
 ;; Command prefixes
 

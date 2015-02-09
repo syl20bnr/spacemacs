@@ -660,7 +660,6 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (evil-jumper-mode t)
-      (setq evil-jumper-auto-center t)
       (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
       (setq evil-jumper-auto-save-interval 3600))))
 
@@ -1045,14 +1044,13 @@ which require an initialization must be listed explicitly in the list.")
   (use-package golden-ratio
     :defer t
     :init
-    (eval `(spacemacs|add-toggle
-            golden-ratio
-            :status golden-ratio-mode
-            :on (golden-ratio-mode) (golden-ratio)
-            :off (golden-ratio-mode -1) (balance-windows)
-            :documentation ,(concat "Dynamically resize the focused window "
-                                    "using the golden ratio.")
-            :evil-leader "tg"))
+    (spacemacs|add-toggle
+     golden-ratio
+     :status golden-ratio-mode
+     :on (golden-ratio-mode) (golden-ratio)
+     :off (golden-ratio-mode -1) (balance-windows)
+     :documentation "Dynamically resize the focused window using the golden ratio."
+     :evil-leader "tg")
     :config
     (progn
       (setq golden-ratio-extra-commands
@@ -1149,11 +1147,12 @@ which require an initialization must be listed explicitly in the list.")
   (use-package helm
     :defer t
     :init
-    (setq helm-split-window-in-side-p nil
-          helm-bookmark-show-location t
-          helm-buffers-fuzzy-matching t
-          helm-always-two-windows     t)
-    (evil-leader/set-key
+    (progn
+      (setq helm-split-window-in-side-p nil
+            helm-bookmark-show-location t
+            helm-buffers-fuzzy-matching t
+            helm-always-two-windows     t)
+      (evil-leader/set-key
         dotspacemacs-command-key 'helm-M-x
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
@@ -1164,12 +1163,17 @@ which require an initialization must be listed explicitly in the list.")
         "rm"  'helm-all-mark-rings
         "fh"  'helm-find-files
         "fr"  'helm-recentf
-        "<f1>" 'helm-apropos
-        )
+        "<f1>" 'helm-apropos)
+      (when dotspacemacs-helm-micro-state
+        (defcustom spacemacs-helm-navigation-micro-state-color
+          (face-attribute 'error :foreground)
+          "Background color of helm header when helm micro-state is activated."
+          :type 'color
+          :group 'spacemacs)))
+
     :config
     (progn
       (helm-mode +1)
-
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
@@ -1203,6 +1207,49 @@ which require an initialization must be listed explicitly in the list.")
       (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
       ;;shell
       (evil-leader/set-key-for-mode 'shell-mode "mH" 'spacemacs/helm-shell-history)
+
+      (when dotspacemacs-helm-micro-state
+        (defun spacemacs//on-enter-helm-navigation-micro-state ()
+          "Initialization of helm micro-state."
+          (set-face-attribute
+           'helm-header nil
+           :background spacemacs-helm-navigation-micro-state-color)
+          ;; bind actions on numbers starting from 1 which executes action 0
+          (dotimes (n 10)
+            (define-key helm-map (number-to-string n)
+              `(lambda () (interactive) (helm-select-nth-action
+                                         ,(% (+ n 9) 10))))))
+
+        (defun spacemacs//on-exit-helm-navigation-micro-state ()
+          "Action to perform when exiting helm micor-state."
+          ;; restore helm key map
+          (dotimes (n 10) (define-key helm-map (number-to-string n) nil))
+          ;; restore faces
+          (set-face-attribute
+           'helm-header nil
+           :background (face-attribute 'header-line :background)))
+
+        (spacemacs|define-micro-state helm-navigation
+          :on-enter (spacemacs//on-enter-helm-navigation-micro-state)
+          :on-exit  (spacemacs//on-exit-helm-navigation-micro-state)
+          :bindings
+          ("<tab>" nil :exit t)
+          ("C-i" nil :exit t)
+          ("?" helm-help)
+          ("a" helm-select-action)
+          ("g" helm-beginning-of-buffer)
+          ("G" helm-end-of-buffer)
+          ("h" helm-previous-source)
+          ("j" helm-next-line)
+          ("k" helm-previous-line)
+          ("l" helm-next-source)
+          ("r" helm-select-action :exit t)
+          ("t" helm-toggle-visible-mark)
+          ("T" helm-toggle-all-marks)
+          ("v" helm-execute-persistent-action)))
+
+      (define-key helm-map (kbd "C-i") 'spacemacs/helm-navigation-micro-state)
+      (define-key helm-map (kbd "<tab>") 'spacemacs/helm-navigation-micro-state)
 
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
@@ -1695,10 +1742,9 @@ which require an initialization must be listed explicitly in the list.")
                (list (powerline-raw (spacemacs/window-number) state-face))
              (list (powerline-raw (evil-state-property evil-state :tag t) state-face)))
            (if (and active anzup)
-               (list
-                (funcall separator-right state-face face1)
-                (powerline-raw (anzu--update-mode-line) face1)
-                (funcall separator-right face1 line-face))
+               (list (funcall separator-right state-face face1)
+                     (powerline-raw (anzu--update-mode-line) face1)
+                     (funcall separator-right face1 line-face))
              (list (funcall separator-right state-face line-face)))
            ;; evil state
            ;; (powerline-raw evil-mode-line-tag state-face)
@@ -1713,35 +1759,34 @@ which require an initialization must be listed explicitly in the list.")
             (funcall separator-left line-face face1)
             (powerline-major-mode face1 'l)
             (powerline-raw " " face1)
-            (if active (funcall separator-right face1 line-face)))
+            (when active
+              (funcall separator-right face1 line-face)))
            ;; flycheck
-           (if (and active flycheckp)
-               (list
-                (powerline-raw " " line-face)
-                (powerline-raw (spacemacs|custom-flycheck-lighter error)
-                               'spacemacs-mode-line-flycheck-error-face)
-                (powerline-raw (spacemacs|custom-flycheck-lighter warning)
-                               'spacemacs-mode-line-flycheck-warning-face)
-                (powerline-raw (spacemacs|custom-flycheck-lighter info)
-                               'spacemacs-mode-line-flycheck-info-face)))
+           (when (and active flycheckp)
+               (list (powerline-raw " " line-face)
+                     (powerline-raw (spacemacs|custom-flycheck-lighter error)
+                                    'spacemacs-mode-line-flycheck-error-face)
+                     (powerline-raw (spacemacs|custom-flycheck-lighter warning)
+                                    'spacemacs-mode-line-flycheck-warning-face)
+                     (powerline-raw (spacemacs|custom-flycheck-lighter info)
+                                    'spacemacs-mode-line-flycheck-info-face)))
            ;; separator between flycheck and minor modes
-           (if (and active flycheckp spacemacs-mode-line-minor-modesp)
-               (list
-                (funcall separator-left line-face face1)
-                (powerline-raw "  " face1)
-                (funcall separator-right face1 line-face)))
+           (when (and active flycheckp spacemacs-mode-line-minor-modesp)
+             (list (funcall separator-left line-face face1)
+                   (powerline-raw "  " face1)
+                   (funcall separator-right face1 line-face)))
            ;; minor modes
-           (if (and active spacemacs-mode-line-minor-modesp)
-               (list
-                (spacemacs-powerline-minor-modes line-face 'l)
-                (powerline-raw mode-line-process line-face 'l)
-                (powerline-raw " " line-face)))
+           (when (and active spacemacs-mode-line-minor-modesp)
+             (list (spacemacs-powerline-minor-modes line-face 'l)
+                   (powerline-raw mode-line-process line-face 'l)
+                   (powerline-raw " " line-face)))
            ;; version control
-           (if (and active (or flycheckp spacemacs-mode-line-minor-modesp))
-               (list (funcall separator-left (if vc-face line-face face1) vc-face)))
-           (if active (list (powerline-vc vc-face)
-                            (powerline-raw " " vc-face)
-                            (funcall separator-right vc-face face2))
+           (when (and active (or flycheckp spacemacs-mode-line-minor-modesp))
+             (list (funcall separator-left (if vc-face line-face face1) vc-face)))
+           (if active
+               (list (powerline-vc vc-face)
+                     (powerline-raw " " vc-face)
+                     (funcall separator-right vc-face face2))
              (list (funcall separator-right face1 face2))))))
 
       (defun spacemacs/mode-line-prepare-right ()
@@ -1750,6 +1795,7 @@ which require an initialization must be listed explicitly in the list.")
                (face1 (if active 'powerline-active1 'powerline-inactive1))
                (face2 (if active 'powerline-active2 'powerline-inactive2))
                (state-face (if active (spacemacs/current-state-face) face2))
+               (nyancatp (and (boundp 'nyan-mode) nyan-mode))
                (batteryp (and (boundp 'fancy-battery-mode)
                               (symbol-value fancy-battery-mode)))
                (battery-face (if batteryp (fancy-battery-powerline-face)))
@@ -1785,13 +1831,13 @@ which require an initialization must be listed explicitly in the list.")
                 (spacemacs-powerline-new-version
                  (spacemacs/get-new-version-lighter-face
                   spacemacs-version spacemacs-new-version) 'r)))
-           (list
-            ;; percentage in the file
-            (powerline-raw "%p" line-face 'r)
-            (when active
-              ;; display hud only if necessary
-              (powerline-chamfer-left line-face face1)
-              (let ((progress (format-mode-line "%p")))
+           (when (and active (not nyancatp))
+             (let ((progress (format-mode-line "%p")))
+               (list
+                ;; percentage in the file
+                (powerline-raw "%p" line-face 'r)
+                ;; display hud
+                (powerline-chamfer-left line-face face1)
                 (if (string-match "\%" progress)
                     (powerline-hud state-face face1))))))))
 
@@ -1799,8 +1845,11 @@ which require an initialization must be listed explicitly in the list.")
         (let* ((active (powerline-selected-window-active))
                (face2 (if active 'powerline-active2 'powerline-inactive2))
                (lhs (spacemacs/mode-line-prepare-left))
-               (rhs (spacemacs/mode-line-prepare-right)))
+               (rhs (spacemacs/mode-line-prepare-right))
+               (nyancatp (and (boundp 'nyan-mode) nyan-mode)))
           (concat (powerline-render lhs)
+                  (when (and active nyancatp)
+                    (powerline-render (spacemacs/powerline-nyan-cat)))
                   (powerline-fill face2 (powerline-width rhs))
                   (powerline-render rhs))))
 
