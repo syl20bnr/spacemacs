@@ -1,6 +1,4 @@
 # Tristan Hume's Contrib Layer
 
-Mostly consists of support for additional languages including:
-Idris, OpenSCAD, Julia, Arduino, QML, Lua and Racket.
-
-Also includes some nice editing plugins like hungry-delete and aggressive-indent.
+Deprecated. Functionality that used to be here is now either in default spacemacs
+or the extra-langs layer.
