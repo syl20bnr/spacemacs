@@ -1215,13 +1215,6 @@ which require an initialization must be listed explicitly in the list.")
           (set-face-attribute
            'helm-header nil
            :background spacemacs-helm-navigation-micro-state-color)
-          ;; deactivate TAB during the micro-state (any key can be used to exit
-          ;; the micro-state but this one seems to be a better choice so it
-          ;; deserves a special treatment)
-          (define-key helm-map (kbd "C-i") '(lambda () (interactive)))
-          (define-key helm-map (kbd "<tab>") '(lambda () (interactive)))
-          ;; "r" switches to the action buffer and exit the micro-state
-          (define-key helm-map "r" 'helm-select-action)
           ;; bind actions on numbers starting from 1 which executes action 0
           (dotimes (n 10)
             (define-key helm-map (number-to-string n)
@@ -1231,23 +1224,18 @@ which require an initialization must be listed explicitly in the list.")
         (defun spacemacs//on-exit-helm-navigation-micro-state ()
           "Action to perform when exiting helm micor-state."
           ;; restore helm key map
-          (define-key helm-map (kbd "C-i")
-            'spacemacs/helm-navigation-micro-state)
-          (define-key helm-map (kbd "<tab>")
-            'spacemacs/helm-navigation-micro-state)
-          (define-key helm-map "r" nil)
-          (dotimes (n 10)
-            (define-key helm-map (number-to-string n) nil))
+          (dotimes (n 10) (define-key helm-map (number-to-string n) nil))
           ;; restore faces
           (set-face-attribute
            'helm-header nil
            :background (face-attribute 'header-line :background)))
-        (spacemacs//on-exit-helm-navigation-micro-state)
 
         (spacemacs|define-micro-state helm-navigation
           :on-enter (spacemacs//on-enter-helm-navigation-micro-state)
           :on-exit  (spacemacs//on-exit-helm-navigation-micro-state)
           :bindings
+          ("<tab>" nil :exit t)
+          ("C-i" nil :exit t)
           ("?" helm-help)
           ("a" helm-select-action)
           ("g" helm-beginning-of-buffer)
@@ -1256,9 +1244,13 @@ which require an initialization must be listed explicitly in the list.")
           ("j" helm-next-line)
           ("k" helm-previous-line)
           ("l" helm-next-source)
+          ("r" helm-select-action :exit t)
           ("t" helm-toggle-visible-mark)
           ("T" helm-toggle-all-marks)
           ("v" helm-execute-persistent-action)))
+
+      (define-key helm-map (kbd "C-i") 'spacemacs/helm-navigation-micro-state)
+      (define-key helm-map (kbd "<tab>") 'spacemacs/helm-navigation-micro-state)
 
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
