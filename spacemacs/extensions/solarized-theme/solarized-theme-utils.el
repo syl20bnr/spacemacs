@@ -63,10 +63,11 @@ in the format of solarized-theme.el."
                        (if (get face 'theme-face)
                            (format " ;; Already set by current theme!")
                          "")))))
-	  faces)))
+          faces)))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not cl-functions)
+;; indent-tabs-mode: nil
 ;; End:
 (provide 'solarized-theme-utils)
 ;;; solarized-theme-utils.el ends here

@@ -1,4 +1,2 @@
-(require 'solarized-dark-theme)
-(require 'solarized-light-theme)
-
+(require 'solarized)
 (provide 'solarized-theme)
