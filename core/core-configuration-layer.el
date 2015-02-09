@@ -473,8 +473,14 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
               ('error
                (message (format
                          (concat "An error occurred during the update of "
-                                 "this package %s, retrying...") err))
-               (package-install pkg))))
+                                 "this package %s, retrying one more time...")
+                         err))
+               (package-install pkg)
+               ))
+            (when (version< emacs-version "24.3.50")
+              ;; explicitly force activation
+              (setq package-activated-list (delq pkg package-activated-list))
+              (configuration-layer//activate-package pkg)))
           (spacemacs/append-to-buffer
            (format "\n--> %s packages updated.\n" upgraded-count))
           (spacemacs/append-to-buffer
