@@ -660,7 +660,6 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (evil-jumper-mode t)
-      (setq evil-jumper-auto-center t)
       (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
       (setq evil-jumper-auto-save-interval 3600))))
 
