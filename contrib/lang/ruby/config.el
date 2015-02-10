@@ -19,12 +19,13 @@
   "If non nil we'll load support for Rails (haml, features, navigation)")
 
 (setq ruby/key-binding-prefixes
-      '(
+      '(("mrc" . "compile/generate")
         ("mrg" . "goto")
         ("mrf" . "find")
         ("mrr" . "rake")
-        ("mrx" . "run")
-        ("mrc" . "compule/generate")))
+        ("mrR" . "refactoring")
+        ("mrs" . "REPL")
+        ("mrx" . "run")))
 
 (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
       ruby/key-binding-prefixes)
