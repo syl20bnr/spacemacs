@@ -55,7 +55,6 @@
     fish-mode
     flx-ido
     flycheck
-    flycheck-ledger
     flyspell
     ;; required for update
     gh
@@ -77,7 +76,6 @@
     hl-anything
     ido-vertical-mode
     iedit
-    ledger-mode
     let-alist
     leuven-theme
     linum-relative
@@ -1024,10 +1022,6 @@ which require an initialization must be listed explicitly in the list.")
         "en" 'spacemacs/next-error
         "eN" 'spacemacs/previous-error))))
 
-(defun spacemacs/init-flycheck-ledger ()
-  (eval-after-load 'flycheck
-    '(require 'flycheck-ledger)))
-
 (defun spacemacs/init-flyspell ()
   (use-package flyspell
     :defer t
@@ -1386,17 +1380,6 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-iedit ()
   (use-package iedit
     :defer t))
-
-(defun spacemacs/init-ledger-mode ()
-  (use-package ledger-mode
-    :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode)
-    :defer t
-    :init
-    (progn
-      (setq ledger-post-amount-alignment-column 62)
-      (evil-leader/set-key-for-mode 'ledger-mode
-        "mhd" 'ledger-delete-current-transaction
-        "ma"  'ledger-add-transaction))))
 
 (defun spacemacs/init-leuven-theme ()
   (use-package leuven-theme
