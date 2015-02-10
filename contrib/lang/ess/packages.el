@@ -24,6 +24,10 @@ which require an initialization must be listed explicitly in the list.")
 (defvar ess-excluded-packages '()
   "List of packages to exclude.")
 
+;; Only load company-ess if company-mode is enabled
+(when (member 'company-mode dotspacemacs-configuration-layers)
+  (add-to-list 'ess-packages 'company-ess))
+
 (defun ess/init-ess ()
   ;; ESS is not quick to load so we just load it when
   ;; we need it (see my-keybindings.el for the associated
@@ -132,3 +136,9 @@ not play nicely with autoloads"
 (defun ess/init-ess-smart-equals ()
   (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
   (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))
+
+(defun ess/init-company-ess ()
+  (use-package company-ess
+    :defer t
+    :init
+    (add-to-list 'company-backends (company-mode/backend-with-yas 'company-ess-backend))))
