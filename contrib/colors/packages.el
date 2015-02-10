@@ -80,8 +80,8 @@ disabling some faces in order to make colored identifiers stand out."
                                   rainbow-identifiers-cie-l*a*b*-lightness 40))
           (`monokai (setq rainbow-identifiers-cie-l*a*b*-saturation 55
                           rainbow-identifiers-cie-l*a*b*-lightness 60))
-          (`solarized-dark (setq rainbow-identifiers-cie-l*a*b*-saturation 85
-                                 rainbow-identifiers-cie-l*a*b*-lightness 65))
+          (`solarized-dark (setq rainbow-identifiers-cie-l*a*b*-saturation 65
+                                 rainbow-identifiers-cie-l*a*b*-lightness 55))
           (`solarized-light (setq rainbow-identifiers-cie-l*a*b*-saturation 100
                                   rainbow-identifiers-cie-l*a*b*-lightness 40))
           (`zenburn (setq rainbow-identifiers-cie-l*a*b*-saturation 40
