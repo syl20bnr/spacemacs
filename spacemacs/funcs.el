@@ -849,3 +849,19 @@ If ASCII si not provided then UNICODE is used instead."
      ((system-is-linux) (let ((process-connection-type nil))
                           (start-process "" nil "xdg-open" file-path)))
      )))
+
+(defun spacemacs/next-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (if (and (boundp 'flycheck-mode)
+           (symbol-value flycheck-mode))
+      (call-interactively 'flycheck-next-error)
+    (call-interactively 'next-error)))
+
+(defun spacemacs/previous-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (if (and (boundp 'flycheck-mode)
+           (symbol-value flycheck-mode))
+      (call-interactively 'flycheck-previous-error)
+    (call-interactively 'previous-error)))
