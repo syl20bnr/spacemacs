@@ -1,4 +1,6 @@
-# Colors contribution layer for Spacemacs
+# Markdown contribution layer for Spacemacs
+
+![logo](img/markdown.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
@@ -13,31 +15,31 @@
 
 ## Description
 
-This layer add finance related packages:
-- [ledger][] support via [ledger-mode][]
+This layer adds markdown support to Spacemacs.
 
-![ledger-mode-img](img/ledger.png)
+Features:
+- markdown files support via [markdown-mode][]
+- TOC generation via [markdown-toc][]
 
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(finance)
+(setq-default dotspacemacs-configuration-layers '(markdown)
   "List of contribution to load."
 )
 ```
 
+## Usage
+
+To generate a table of contents type on top of the buffer:
+<kbd>SPC : markdown-toc/generate-toc RET</kbd>
+
 ## Key bindings
 
-### Ledger
+**TODO**
 
-    Key Binding    |                 Description
--------------------|------------------------------------------------------------
-<kbd>SPC m a</kbd> | add a transaction
-<kbd>SPC m d</kbd> | delete current transaction
-
-
-[ledger]: https://github.com/ledger/ledger
-[ledger-mode]: https://github.com/ledger/ledger/tree/next/lisp
+[markdown-mode]: http://jblevins.org/git/markdown-mode.git/
+[markdown-toc]: https://github.com/ardumont/markdown-toc
 
