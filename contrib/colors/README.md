@@ -121,4 +121,5 @@ Note that the toggle is local to the current buffer.
 
 [rainbow identifiers]: https://github.com/Fanael/rainbow-identifiers
 [rainbow mode]: https://julien.danjou.info/projects/emacs-packages
+[nyan mode]: https://github.com/syl20bnr/nyan-mode
 
