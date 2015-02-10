@@ -60,7 +60,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package company-anaconda
     :if (boundp 'company-backends)
     :defer t
-    :init (add-to-list 'company-backends 'company-anaconda)))
+    :init (add-to-list 'company-backends '(company-anaconda :with company-yasnippet))))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode
