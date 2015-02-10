@@ -226,6 +226,7 @@
     (golden-ratio)))
 
 (evil-leader/set-key
+  "w."  'spacemacs/window-manipulation-micro-state
   "w2"  'layout-double-columns
   "w3"  'layout-triple-columns
   "wc"  'delete-window

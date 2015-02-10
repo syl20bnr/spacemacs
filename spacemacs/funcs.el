@@ -849,3 +849,54 @@ If ASCII si not provided then UNICODE is used instead."
      ((system-is-linux) (let ((process-connection-type nil))
                           (start-process "" nil "xdg-open" file-path)))
      )))
+
+
+(defun spacemacs/window-manipulation-micro-state-doc ()
+  "Display a short documentation in the mini buffer."
+  (echo "Window navigation micro-state
+  h,j,k,l to go to left|bottom|top|right
+  H,J,K,L to move windows to to far/very left|bottom|top|right
+  R to Rotate windows
+  c,C to delete current|other window|windows
+  -,/ to split windows bellow|right and focus
+  u,U restore previous|next window configuration
+  o/w other frame|window
+Press any other key to exit."))
+
+(defun spacemacs//on-enter-window-manipulation-micro-state ()
+  "Initialization of window navigation micro-state."
+  (spacemacs/window-manipulation-micro-state-doc))
+
+(defun spacemacs//on-exit-window-manipulation-micro-state ()
+  "Action to perform when exiting window navigation micor-state."
+  ;; restore window navigation key map
+  )
+
+
+(spacemacs|define-micro-state window-manipulation
+  :on-enter (spacemacs//on-enter-window-manipulation-micro-state)
+  :on-exit  (spacemacs//on-exit-window-manipulation-micro-state)
+  :bindings
+  ("h" evil-window-left)
+  ("j" evil-window-down)
+  ("k" evil-window-up)
+  ("l" evil-window-right)
+  ("H" evil-window-move-far-left)
+  ("J" evil-window-move-very-bottom)
+  ("K" evil-window-move-very-top)
+  ("L" evil-window-move-far-right)
+  ("R" rotate-windows)
+  ("c" delete-window)
+  ("C" delete-other-windows)
+  ("-" split-window-below-and-focus)
+  ("/" split-window-right-and-focus)
+  ("u" winner-undo)
+  ("U" winner-redo)
+  ("o" other-frame)
+  ("w" other-window)
+  ;; ("[" spacemacs/shrink-window-horizontally)
+  ;; ("]" spacemacs/enlarge-window-horizontally)
+  ;; ("{" spacemacs/shrink-window)
+  ;; ("}" spacemacs/enlarge-window)
+  ("?" spacemacs/window-manipulation-micro-state)
+  )
