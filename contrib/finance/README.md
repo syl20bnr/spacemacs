@@ -1,9 +1,9 @@
-# Colors contribution layer for Spacemacs
+# Finance contribution layer for Spacemacs
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
-- [Colors contribution layer for Spacemacs](#colors-contribution-layer-for-spacemacs)
+- [Finance contribution layer for Spacemacs](#finance-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
     - [Key bindings](#key-bindings)
@@ -13,7 +13,7 @@
 
 ## Description
 
-This layer add finance related packages:
+This layer adds finance related packages:
 - [ledger][] support via [ledger-mode][]
 
 ![ledger-mode-img](img/ledger.png)
