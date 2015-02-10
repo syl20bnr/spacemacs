@@ -72,8 +72,9 @@
   "hdv" 'describe-variable)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key
-  "en" 'next-error
-  "ep" 'previous-error)
+  "en" 'spacemacs/next-error
+  "ep" 'spacemacs/previous-error
+  "eN" 'spacemacs/previous-error)
 ;; find -----------------------------------------------------------------------
 (evil-leader/set-key
   "ff" 'ido-find-file
