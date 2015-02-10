@@ -80,7 +80,7 @@
   "fg" 'rgrep)
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key
-  "fd"  'delete-current-buffer-file
+  "fD"  'delete-current-buffer-file
   "fei" 'find-user-init-file
   "fes" 'find-spacemacs-file
   "fec" 'find-contrib-file
