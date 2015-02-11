@@ -440,14 +440,15 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
          (upgraded-count 0)
          (update-packages-alist))
     (if (> upgrade-count 0)
-        (progn
-          ;; (message "package to update: %s" update-packages)
-          (spacemacs/append-to-buffer
-           (format "Found %s package(s) to update...\n" upgrade-count))
+        (if (not (yes-or-no-p (format (concat "%s package(s) to update, "
+                                              "do you want to continue ? ")
+                                      upgrade-count)))
+            (spacemacs/append-to-buffer
+             "Packages update has been cancelled.\n")
           ;; backup the package directory and construct an alist
           ;; variable to be cached for easy update and rollback
           (spacemacs/replace-last-line-of-buffer
-           "--> performing backup of package to update...\n" t)
+           "--> performing backup of package(s) to update...\n" t)
           (redisplay)
           (dolist (pkg update-packages)
             (let* ((src-dir (configuration-layer//get-package-directory pkg))
