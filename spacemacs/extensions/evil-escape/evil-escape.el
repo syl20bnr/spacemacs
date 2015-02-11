@@ -203,7 +203,12 @@ with a key sequence."
                                     :delete-func isearch-delete-char))
   ;; lisp state if installed
   (eval-after-load 'evil-lisp-state
-    '(eval '(evil-escape-define-escape "lisp-state" evil-lisp-state-map evil-normal-state)))
+    '(progn
+       (setq evil-escape-lisp-state-shadowed-func
+             (lookup-key evil-lisp-state-map (evil-escape--first-key)))
+       (eval `(evil-escape-define-escape "lisp-state" evil-lisp-state-map
+                                         evil-normal-state
+                                         :shadowed-func ,evil-escape-lisp-state-shadowed-func))))
   ;; iedit state if installed
   (eval-after-load 'evil-iedit-state
     '(progn
