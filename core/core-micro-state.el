@@ -22,10 +22,10 @@ Available PROPS:
     Evaluate BODY when the micro-state is switched on.
 
 `:on-exit BODY'
-    Evaluate BODDY when leaving the micro-state.
+    Evaluate BODY when leaving the micro-state.
 
-`:documentation STRING'
-    A documentation STRING displayed in the minibuffer
+`:documentation BODY'
+    Evaluate BODY which must return a string
 
 `:bindings EXPRESSIONS'
     One or several EXPRESSIONS with the form
@@ -37,7 +37,7 @@ Available PROPS:
       pressing this key will leave the micro-state (default is nil)."
   (declare (indent 1))
   (let* ((func (spacemacs//micro-state-func-name name))
-         (doc (plist-get props :documentation))
+         (doc (spacemacs/mplist-get props :documentation))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
          (bindings (spacemacs/mplist-get props :bindings))
@@ -46,7 +46,7 @@ Available PROPS:
     `(defun ,func ()
        ,(format "%s micro-state." (symbol-name name))
        (interactive)
-       (when ,doc (echo ,doc))
+       (let ((doc ,@doc)) (when doc (echo doc)))
        ,@on-enter
        (,(if (version< emacs-version "24.4")
              'set-temporary-overlay-map
@@ -72,7 +72,7 @@ Available PROPS:
          (wrapper-func (eval `(defun ,wrapper-name ()
                                 "Auto-generated function"
                                 (interactive)
-                                (echo ,doc)
+                                (let ((doc ,@doc)) (when doc (echo doc)))
                                 (when ',wrapped
                                   (call-interactively ',wrapped))))))
     (append (list (car binding) wrapper-func) binding)))
