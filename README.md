@@ -69,7 +69,7 @@ following:
 - [Elixir][]
 - [Haskell][]
 - [JavaScript][]
-- LaTex
+- [LaTeX][]
 - [Python][]
 - [R][]
 - [Ruby][]
@@ -449,6 +449,7 @@ info on this.
 [homebrew]: https://github.com/Homebrew/homebrew
 [Elixir]: contrib/lang/erlang-elixir
 [Haskell]: contrib/lang/haskell
+[LaTeX]: contrib/auctex
 [JavaScript]: contrib/lang/javascript
 [Python]: contrib/lang/python
 [R]: contrib/lang/ess

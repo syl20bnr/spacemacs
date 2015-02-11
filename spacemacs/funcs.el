@@ -736,51 +736,6 @@ otherwise it is scaled down."
 
 ;;; end scale font micro-state
 
-;;; begin resize window micro-state
-
-(defun spacemacs//resize-window-micro-state-doc ()
-  (echo (format
-         "[%sx%s] Resize window: (H/L) shrink/enlarge horizontally, (J/K) shrink/enlarge vertically"
-         (window-total-width) (window-total-height))))
-
-(defun spacemacs/resize-window-overlay-map ()
-  "Set a temporary overlay map to easily resize a window."
-  (interactive)
-  (set-temporary-overlay-map
-   (let ((map (make-sparse-keymap)))
-     (define-key map (kbd "H") 'spacemacs/shrink-window-horizontally)
-     (define-key map (kbd "J") 'spacemacs/shrink-window)
-     (define-key map (kbd "K") 'spacemacs/enlarge-window)
-     (define-key map (kbd "L") 'spacemacs/enlarge-window-horizontally)
-     map) t)
-  (spacemacs//resize-window-micro-state-doc))
-
-(defun spacemacs/shrink-window-horizontally (delta)
-  "Wrap `spacemacs/shrink-window-horizontally'."
-  (interactive "p")
-  (shrink-window delta t)
-  (spacemacs/resize-window-overlay-map))
-
-(defun spacemacs/shrink-window (delta)
-  "Wrap `spacemacs/shrink-window'."
-  (interactive "p")
-  (shrink-window delta)
-  (spacemacs/resize-window-overlay-map))
-
-(defun spacemacs/enlarge-window (delta)
-  "Wrap `spacemacs/enlarge-window'."
-  (interactive "p")
-  (enlarge-window delta)
-  (spacemacs/resize-window-overlay-map))
-
-(defun spacemacs/enlarge-window-horizontally (delta)
-  "Wrap `spacemacs/enlarge-window-horizontally'."
-  (interactive "p")
-  (enlarge-window delta t)
-  (spacemacs/resize-window-overlay-map))
-
-;;; end resize window micro-state
-
 (defmacro spacemacs|diminish (mode unicode &optional ascii)
   "Diminish MODE name in mode line to UNICODE or ASCII depending on the value
 `dotspacemacs-mode-line-unicode-symbols'.
@@ -849,3 +804,84 @@ If ASCII si not provided then UNICODE is used instead."
      ((system-is-linux) (let ((process-connection-type nil))
                           (start-process "" nil "xdg-open" file-path)))
      )))
+
+(defun spacemacs/next-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (if (and (boundp 'flycheck-mode)
+           (symbol-value flycheck-mode))
+      (call-interactively 'flycheck-next-error)
+    (call-interactively 'next-error)))
+
+(defun spacemacs/previous-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (if (and (boundp 'flycheck-mode)
+           (symbol-value flycheck-mode))
+      (call-interactively 'flycheck-previous-error)
+    (call-interactively 'previous-error)))
+
+;; Window Manipulation Micro State
+
+(defun spacemacs/shrink-window-horizontally (delta)
+  "Wrap `spacemacs/shrink-window-horizontally'."
+  (interactive "p")
+  (shrink-window delta t))
+
+(defun spacemacs/shrink-window (delta)
+  "Wrap `spacemacs/shrink-window'."
+  (interactive "p")
+  (shrink-window delta))
+
+(defun spacemacs/enlarge-window (delta)
+  "Wrap `spacemacs/enlarge-window'."
+  (interactive "p")
+  (enlarge-window delta))
+
+(defun spacemacs/enlarge-window-horizontally (delta)
+  "Wrap `spacemacs/enlarge-window-horizontally'."
+  (interactive "p")
+  (enlarge-window delta t))
+
+(spacemacs|define-micro-state window-manipulation
+  :documentation
+  "Window Manipulation micro-state
+  h,j,k,l to go to left|bottom|top|right
+  H,J,K,L to move windows to to far/very left|bottom|top|right
+  R to Rotate windows
+  c,C to delete current|other window|windows
+  -,/ to split windows bellow|right and focus
+  u,U restore previous|next window configuration
+  o/w other frame|window
+  [,] to shrink/enlarge horizontaly
+  {,} to shrink/enlarge verticaly
+Press any other key to exit."
+  :bindings
+  ("h" evil-window-left)
+  ("j" evil-window-down)
+  ("k" evil-window-up)
+  ("l" evil-window-right)
+  ("H" evil-window-move-far-left)
+  ("J" evil-window-move-very-bottom)
+  ("K" evil-window-move-very-top)
+  ("L" evil-window-move-far-right)
+  ("R" rotate-windows)
+  ("c" delete-window)
+  ("C" delete-other-windows)
+  ("-" split-window-below-and-focus)
+  ("/" split-window-right-and-focus)
+  ("s" split-window-below)
+  ("v" split-window-right)
+  ("S" split-window-below-and-focus)
+  ("V" split-window-right-and-focus)
+  ("u" winner-undo)
+  ("U" winner-redo)
+  ("o" other-frame)
+  ("w" other-window)
+  ("[" spacemacs/shrink-window-horizontally)
+  ("]" spacemacs/enlarge-window-horizontally)
+  ("{" spacemacs/shrink-window)
+  ("}" spacemacs/enlarge-window)
+  )
+
+;; end of Window Manipulation Micro State

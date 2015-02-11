@@ -55,7 +55,6 @@
     fish-mode
     flx-ido
     flycheck
-    flycheck-ledger
     flyspell
     ;; required for update
     gh
@@ -77,12 +76,9 @@
     hl-anything
     ido-vertical-mode
     iedit
-    ledger-mode
     let-alist
     leuven-theme
     linum-relative
-    markdown-mode
-    markdown-toc
     monokai-theme
     move-text
     multi-term
@@ -116,6 +112,7 @@
     wdired
     whitespace
     window-numbering
+    winner
     yasnippet
     zenburn-theme
     )
@@ -453,7 +450,7 @@ which require an initialization must be listed explicitly in the list.")
         "Initiate a new query."
         (interactive)
         (doc-view-search 'newquery))
-      
+
       (defun spacemacs/doc-view-search-new-query-backward ()
         "Initiate a new query."
         (interactive)
@@ -642,7 +639,7 @@ which require an initialization must be listed explicitly in the list.")
 
   (defun spacemacs/evil-state-lazy-loading ()
     (require 'evil-iedit-state)
-    (setq evil-iedit-state-cursor `(,(spacemacs/state-color 'iedit) box))   
+    (setq evil-iedit-state-cursor `(,(spacemacs/state-color 'iedit) box))
     (setq evil-iedit-insert-state-cursor `((spacemacs/state-color 'iedit-insert) (bar . 2)))
     ;; activate leader in iedit and iedit-insert states
     (define-key evil-iedit-state-map
@@ -1000,33 +997,12 @@ which require an initialization must be listed explicitly in the list.")
         :fringe-bitmap 'my-flycheck-fringe-indicator
         :fringe-face 'flycheck-fringe-info)
 
-      (defun spacemacs/next-error (&optional n reset)
-        "Dispatch to flycheck or standard emacs error."
-        (interactive "P")
-        (if (and (boundp 'flycheck-mode)
-                 (symbol-value flycheck-mode))
-            (call-interactively 'flycheck-next-error)
-          (call-interactively 'next-error)))
-
-      (defun spacemacs/previous-error (&optional n reset)
-        "Dispatch to flycheck or standard emacs error."
-        (interactive "P")
-        (if (and (boundp 'flycheck-mode)
-                 (symbol-value flycheck-mode))
-            (call-interactively 'flycheck-previous-error)
-          (call-interactively 'previous-error)))
 
       ;; key bindings
       (evil-leader/set-key
         "ec" 'flycheck-clear
         "ef" 'flycheck-mode
-        "el" 'flycheck-list-errors
-        "en" 'spacemacs/next-error
-        "eN" 'spacemacs/previous-error))))
-
-(defun spacemacs/init-flycheck-ledger ()
-  (eval-after-load 'flycheck
-    '(require 'flycheck-ledger)))
+        "el" 'flycheck-list-errors))))
 
 (defun spacemacs/init-flyspell ()
   (use-package flyspell
@@ -1059,6 +1035,10 @@ which require an initialization must be listed explicitly in the list.")
                       windmove-right
                       windmove-up
                       windmove-down
+                      evil-window-left
+                      evil-window-right
+                      evil-window-up
+                      evil-window-down
                       select-window-0
                       select-window-1
                       select-window-2
@@ -1387,17 +1367,6 @@ which require an initialization must be listed explicitly in the list.")
   (use-package iedit
     :defer t))
 
-(defun spacemacs/init-ledger-mode ()
-  (use-package ledger-mode
-    :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode)
-    :defer t
-    :init
-    (progn
-      (setq ledger-post-amount-alignment-column 62)
-      (evil-leader/set-key-for-mode 'ledger-mode
-        "mhd" 'ledger-delete-current-transaction
-        "ma"  'ledger-add-transaction))))
-
 (defun spacemacs/init-leuven-theme ()
   (use-package leuven-theme
     :defer t
@@ -1413,23 +1382,6 @@ which require an initialization must be listed explicitly in the list.")
       (setq linum-format 'linum-relative)
       (setq linum-relative-current-symbol "")
       (linum-relative-toggle))))
-
-(defun spacemacs/init-markdown-mode ()
-  (use-package markdown-mode
-    :mode ("\\.md" . markdown-mode)
-    :defer t
-    :init
-    (eval-after-load 'smartparens
-      '(add-hook 'markdown-mode-hook 'smartparens-mode))
-    :config
-    ;; Don't do terrible things with Github code blocks (```)
-    (when (fboundp 'sp-local-pair)
-      (sp-local-pair 'markdown-mode "`" nil :actions '(:rem autoskip))
-      (sp-local-pair 'markdown-mode "'" nil :actions nil))))
-
-(defun spacemacs/init-markdown-toc ()
-  (use-package markdown-toc
-    :defer t))
 
 (defun spacemacs/init-move-text ()
   (use-package move-text
@@ -1976,12 +1928,6 @@ which require an initialization must be listed explicitly in the list.")
   (use-package rfringe
     :defer t))
 
-(defun spacemacs/init-ruby-mode ()
-  (use-package ruby-mode
-    :defer t
-    :mode (("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode)
-           ("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))))
-
 (defun spacemacs/init-shell ()
   (defun shell-comint-input-sender-hook ()
     "Check certain shell commands.
@@ -2021,7 +1967,11 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (require 'smartparens-config)
+
       (spacemacs|diminish smartparens-mode " (Ⓢ)" " (S)")
+      (custom-set-variables
+       '(sp-cancel-autoskip-on-backward-movement nil))
+
       (defun spacemacs/smartparens-pair-newline (id action context)
         (save-excursion
           (newline)
@@ -2167,6 +2117,29 @@ which require an initialization must be listed explicitly in the list.")
                 (window-numbering-assign w 0)))
             windows))
     (add-hook 'window-numbering-before-hook 'spacemacs//window-numbering-assign)))
+
+(defun spacemacs/init-winner ()
+  (use-package winner
+    :init
+    (progn
+      (setq spacemacs/winner-boring-buffers '("*helm mini*"
+                                              "*helm projectile*"
+                                              "*helm M-x*"
+                                              "*helm resume*"
+                                              "*Completions*"
+                                              "*Compile-Log*"
+                                              "*inferior-lisp*"
+                                              "*Fuzzy Completions*"
+                                              "*Apropos*"
+                                              "*Help*"
+                                              "*cvs*"
+                                              "*Buffer List*"
+                                              "*Ibuffer*"
+                                              "*esh command on file*"
+                                              ))
+      (setq winner-boring-buffers
+            (append winner-boring-buffers spacemacs/winner-boring-buffers))
+      (winner-mode t))))
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
