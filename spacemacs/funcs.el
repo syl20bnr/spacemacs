@@ -850,8 +850,7 @@ If ASCII si not provided then UNICODE is used instead."
                           (start-process "" nil "xdg-open" file-path)))
      )))
 
-(spacemacs|define-micro-state window-manipulation
-  :documentation
+(defun spacemacs//window-manipulation-documentation ()
   "Window navigation micro-state
   h,j,k,l to go to left|bottom|top|right
   H,J,K,L to move windows to to far/very left|bottom|top|right
@@ -860,7 +859,10 @@ If ASCII si not provided then UNICODE is used instead."
   -,/ to split windows bellow|right and focus
   u,U restore previous|next window configuration
   o/w other frame|window
-Press any other key to exit."
+Press any other key to exit.")
+
+(spacemacs|define-micro-state window-manipulation
+  :documentation (spacemacs//window-manipulation-documentation)
   :bindings
   ("h" evil-window-left)
   ("j" evil-window-down)
