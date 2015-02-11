@@ -131,8 +131,11 @@ before installing the file if the destination already exists."
   (let ((dotspacemacs (dotspacemacs/location)))
     (if (file-exists-p dotspacemacs) (load dotspacemacs))))
 
-(defmacro dotspacemacs|call-func (func)
-  "Call the function from the dotfile only if it is bound."
-  `(if (fboundp ',func) (,func)))
+(defmacro dotspacemacs|call-func (func &optional msg)
+  "Call the function from the dotfile only if it is bound.
+If MSG is not nil then display a message in `*Messages'."
+  `(progn
+     (when ,msg (spacemacs/message ,msg))
+     (if (fboundp ',func) (,func))))
 
 (provide 'core-dotspacemacs)

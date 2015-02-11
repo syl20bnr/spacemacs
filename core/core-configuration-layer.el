@@ -775,6 +775,7 @@ deleted safely."
   "Add post init processing."
   (add-hook 'after-init-hook
             (lambda ()
+              (dotspacemacs|call-func dotspacemacs/config "Executing user config...")
               (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text))
               ;; from jwiegley
               ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
