@@ -55,7 +55,6 @@
     fish-mode
     flx-ido
     flycheck
-    flycheck-ledger
     flyspell
     ;; required for update
     gh
@@ -77,12 +76,9 @@
     hl-anything
     ido-vertical-mode
     iedit
-    ledger-mode
     let-alist
     leuven-theme
     linum-relative
-    markdown-mode
-    markdown-toc
     monokai-theme
     move-text
     multi-term
@@ -660,7 +656,6 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (evil-jumper-mode t)
-      (setq evil-jumper-auto-center t)
       (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps"))
       (setq evil-jumper-auto-save-interval 3600))))
 
@@ -1025,10 +1020,6 @@ which require an initialization must be listed explicitly in the list.")
         "en" 'spacemacs/next-error
         "eN" 'spacemacs/previous-error))))
 
-(defun spacemacs/init-flycheck-ledger ()
-  (eval-after-load 'flycheck
-    '(require 'flycheck-ledger)))
-
 (defun spacemacs/init-flyspell ()
   (use-package flyspell
     :defer t
@@ -1388,17 +1379,6 @@ which require an initialization must be listed explicitly in the list.")
   (use-package iedit
     :defer t))
 
-(defun spacemacs/init-ledger-mode ()
-  (use-package ledger-mode
-    :mode ("\\.\\(ledger\\|ldg\\)\\'" . ledger-mode)
-    :defer t
-    :init
-    (progn
-      (setq ledger-post-amount-alignment-column 62)
-      (evil-leader/set-key-for-mode 'ledger-mode
-        "mhd" 'ledger-delete-current-transaction
-        "ma"  'ledger-add-transaction))))
-
 (defun spacemacs/init-leuven-theme ()
   (use-package leuven-theme
     :defer t
@@ -1414,23 +1394,6 @@ which require an initialization must be listed explicitly in the list.")
       (setq linum-format 'linum-relative)
       (setq linum-relative-current-symbol "")
       (linum-relative-toggle))))
-
-(defun spacemacs/init-markdown-mode ()
-  (use-package markdown-mode
-    :mode ("\\.md" . markdown-mode)
-    :defer t
-    :init
-    (eval-after-load 'smartparens
-      '(add-hook 'markdown-mode-hook 'smartparens-mode))
-    :config
-    ;; Don't do terrible things with Github code blocks (```)
-    (when (fboundp 'sp-local-pair)
-      (sp-local-pair 'markdown-mode "`" nil :actions '(:rem autoskip))
-      (sp-local-pair 'markdown-mode "'" nil :actions nil))))
-
-(defun spacemacs/init-markdown-toc ()
-  (use-package markdown-toc
-    :defer t))
 
 (defun spacemacs/init-move-text ()
   (use-package move-text
@@ -1976,12 +1939,6 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-rfringe ()
   (use-package rfringe
     :defer t))
-
-(defun spacemacs/init-ruby-mode ()
-  (use-package ruby-mode
-    :defer t
-    :mode (("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\)file\\'" . ruby-mode)
-           ("\\.\\(rb\\|ru\\|builder\\|rake\\|thor\\|gemspec\\)\\'" . ruby-mode))))
 
 (defun spacemacs/init-shell ()
   (defun shell-comint-input-sender-hook ()

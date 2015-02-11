@@ -4,13 +4,17 @@
 **Table of Contents**
 
 - [Spacemacs Documentation](#spacemacs-documentation)
-- [Philosophy](#philosophy)
-    - [Easy](#easy)
+- [Core Pillars](#core-pillars)
+    - [Mnemonic](#mnemonic)
+    - [Discoverability](#discoverability)
     - [Consistency](#consistency)
     - [Crowd-Configured](#crowd-configured)
 - [Goals](#goals)
 - [Screenshots](#screenshots)
 - [Who can benefit from this ?](#who-can-benefit-from-this-)
+- [Update and Rollback](#update-and-rollback)
+    - [Update Spacemacs repository](#update-spacemacs-repository)
+    - [Update packages](#update-packages)
 - [Configuration layers](#configuration-layers)
     - [Structure](#structure)
     - [Extensions and Packages](#extensions-and-packages)
@@ -33,7 +37,6 @@
         - [Excluding packages](#excluding-packages)
         - [Hooks](#hooks)
         - [Custom variables](#custom-variables)
-- [Using the package list buffer](#using-the-package-list-buffer)
 - [Main principles](#main-principles)
     - [Evil](#evil)
         - [States](#states)
@@ -43,22 +46,31 @@
 - [Differences between Vim, Evil and Spacemacs](#differences-between-vim-evil-and-spacemacs)
     - [The vim-surround case](#the-vim-surround-case)
 - [Evil plugins](#evil-plugins)
-- [Color themes](#color-themes)
-- [UI elements](#ui-elements)
-    - [Toggles](#toggles)
-    - [Mode-line](#mode-line)
-        - [Flycheck integration](#flycheck-integration)
-        - [Anzu integration](#anzu-integration)
-        - [Battery status integration](#battery-status-integration)
-        - [Powerline separators](#powerline-separators)
-        - [Minor Modes](#minor-modes)
-- [Font](#font)
+- [Spacemacs UI](#spacemacs-ui)
+    - [Graphical UI](#graphical-ui)
+        - [Color themes](#color-themes)
+        - [Font](#font)
+        - [Graphical UI Toggles](#graphical-ui-toggles)
+        - [Mode-line](#mode-line)
+            - [Flycheck integration](#flycheck-integration)
+            - [Anzu integration](#anzu-integration)
+            - [Battery status integration](#battery-status-integration)
+            - [Powerline separators](#powerline-separators)
+            - [Minor Modes](#minor-modes)
 - [Commands](#commands)
+    - [Vim key bindings](#vim-key-bindings)
+        - [Escaping](#escaping)
+        - [Executing Vim and Emacs ex/M-x commands](#executing-vim-and-emacs-exm-x-commands)
+        - [Leader key](#leader-key)
     - [Reserved prefix command for user](#reserved-prefix-command-for-user)
-    - [Escaping](#escaping)
-    - [Executing Vim, Emacs and shell commands](#executing-vim-emacs-and-shell-commands)
     - [Helm](#helm)
         - [Helm micro-state](#helm-micro-state)
+    - [Discovering](#discovering)
+        - [Key bindings](#key-bindings)
+        - [Available layers](#available-layers)
+            - [Available packages in Spacemacs](#available-packages-in-spacemacs)
+            - [New packages from ELPA repositories](#new-packages-from-elpa-repositories)
+        - [Toggles](#toggles)
     - [Navigating](#navigating)
         - [Point/Cursor](#pointcursor)
             - [Smooth scrolling](#smooth-scrolling)
@@ -115,14 +127,13 @@
                 - [Lisp state Auto-switch commands](#lisp-state-auto-switch-commands)
                 - [Lisp state commands](#lisp-state-commands)
                 - [Lisp state Other commands](#lisp-state-other-commands)
-    - [Project management](#project-management)
+        - [Managing projects](#managing-projects)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
     - [Compiling](#compiling)
     - [Modes](#modes)
         - [Major Mode leader key](#major-mode-leader-key)
         - [Helm](#helm)
-        - [Ledger](#ledger)
         - [Org](#org)
         - [Python](#python)
         - [JavaScript](#javascript)
@@ -141,44 +152,56 @@
 
 <!-- markdown-toc end -->
 
-# Philosophy
+# Core Pillars
 
-Three core pillars: Easy, Consistency, "Crowd-Configured".
+Four core pillars: Mnemonic, Discoverability, Consistency, "Crowd-Configured".
 
-## Easy
+If any of these core pillars is violated open an issue and we'll fix it.
 
-`Spacemacs` organizes key bindings by mnemonic namespaces. If you are looking
-for commands to operate on your buffer, they are right under <kbd>SPC b</kbd>,
-if you want to operate on your project, then it is <kbd>SPC p</kbd>, etc...
+## Mnemonic
+
+`Spacemacs` organizes key bindings by mnemonic namespaces as much as possible.
+If you are looking for commands to operate on your buffer, they are right under
+<kbd>SPC b</kbd>, if you want to operate on your project, then it is
+<kbd>SPC p</kbd>, etc...
+
+## Discoverability
 
 `Spacemacs` comes with a dedicated major mode `spacemacs-mode`. Its goal is to
-give useful feedbacks and perform maintenance tasks easily.
+give useful feedbacks and easily perform maintenance tasks.
+
+It also comes with dedicated [helm][] sources to quickly find layers, packages
+and more.
+
+[guide-key][] is enabled by default, it will display all the available key
+bindings in a dedicated popup buffer.
 
 ## Consistency
 
-Similar functionalities should have the same key binding. For instance if you are
-looking for the definition of a function, the binding is <kbd>SPC m g</kbd>,
-`m` for `major mode` and `g` for `go to`. And no matter what is the major mode it
-should be the same binding.
+Similar functionalities should have the same key binding no matter which major
+is currently active. For instance if you are looking for the definition of a
+function, the binding is <kbd>SPC m g g</kbd>, `m` for `major mode` and `g g`
+for `go to thing at point`. No matter what is the major mode it is the same
+binding to perform this action.
+
+This is also true for the documentation, each configuration layer comes with
+an associated `README.md` file with the same base layout.
+
+The consistency core pillar is supported by a convention file:
+[CONVENTIONS.md][]
 
 ## Crowd-Configured
 
-This term does not really exist but I'm sure you know what it means.
+By defining an very light structure called `configuration layer` which is easy
+to understand, `Spacemacs` makes it easy to contribute additional support.
 
-This is the most powerful feature of `Spacemacs`. Anybody can submit upstream
-his or her configuration layer and anybody can use it in a second by adding it
-in a dotfile and by optionally filtering it (ie. removing unwanted packages).
+The conventions in [CONVENTIONS.md][] make it easy to get the spacemacs way
+and keep consistency even if there are a lot of contributions.
 
-So by cloning this repository you have a centralized place of configured
-packages tuned by expert in their domain. And most importantly it should be
-consistent with the whole experience provided by `Spacemacs`.
-
-If some packages are missing from core `Spacemacs` but they are present in
-several contribution layers, chances are that they should be in core and we
-can easily move them there.
-
-If any of this core pillars are violated open an issue and we'll try to fix
-this.
+`Crowd-configuration` is the most powerful pillar of `Spacemacs`. Anybody can
+submit upstream improvements to configuration layers or a whole new one. Any
+user can easily and directly use this layer by adding it to a list in a
+dotfile. It is even possible to exclude _any_ unwanted packages.
 
 # Goals
 
@@ -188,18 +211,18 @@ this.
 **keep your fingers on the home row** as much as possible, no matter the mode
 you are in.
 
-- **Crowed-configured**: Contribute your own personal layer upstream and
-everybody can use it.
+- **Crowed-configured**: Contribute easily your improvements and new
+configuration layers.
 
-- **Minimalistic and nice UI**, keep your available screen space for what
-matters: your text files.
+- **Minimalistic and nice graphical UI**, keep your available screen space for
+what matters: your text files.
 
 - **Mnemonic and consistent key bindings** which should be easier to learn
-and remember.
+and remember and be the same in all major modes.
 
-- **Fast boot time**.
+- **Fast boot time**, everything is lazy-loaded.
 
-- **Lower the risk of RSI**.
+- **Lower the risk of RSI** by heavily using the space bar instead of modifiers.
 
 - Hopefully, if it's not already the case:
 
@@ -226,7 +249,8 @@ project.*
 next level by using Emacs.
 
 It is also a good fit for people wanting to **lower the [risk of RSI][RSI]**
-induced by the default Emacs key bindings.
+induced by the default Emacs key bindings (this is an assumption, there is no
+official studies to prove this).
 
 Emacs users wanting to learn **a different way to edit files** or wanting to
 learn Vim key bindings.
@@ -235,10 +259,31 @@ As a side note, if you are a programmer and you don't know Vim key bindings
 yet, I deeply recommend you to learn the basics as recommended in
 [Sacha Chua's one-page guide][sacha_guide] about how to learn Emacs.
 
-# Configuration layers
+# Update and Rollback
 
-_This part of Spacemacs is still in beta, the structure can change over
-time. Refer to commit messages for more information in case of big changes._
+For now it is still needed to update the `Spacemacs` repository manually.
+
+## Update Spacemacs repository
+
+Close Emacs and update the git repository:
+
+   ```sh
+   git pull --rebase
+   git submodule sync; git submodule update
+   ```
+
+**Note** It is recommended to update the packages first, see next session.
+
+## Update packages
+
+To update `Spacemacs` press <kbd>RET</kbd> (enter) or click on the link
+`[Update]` in the startup page under the banner then restart Emacs.
+
+If anything goes wrong you should be able to rollback the update by pressing
+<kbd>RET</kbd> or clicking on the `[Rollback]` link next to the `[Update]`
+link and choose a rollback slot (sorted by date).
+
+# Configuration layers
 
 ## Structure
 
@@ -475,49 +520,6 @@ Custom variables configuration from `M-x customize-group` which are
 automatically saved by Emacs are stored at the end of your `~/.spacemacs`
 file.
 
-# Using the package list buffer
-
-The package list buffer is where you can selectively update one or all
-packages installed in your configuration as well as browse for all
-available packages in the different Elpa repositories.
-
-`Spacemacs` replaces the default package list buffer with [Paradox][].
-Paradox enhances the package list buffer with better feedbacks, new
-filters and Github information like the number of stars. Optionally you
-can also star packages directly in the buffer.
-
-**Important Note** Don't install new packages from the package list
-buffer. If those packages are not referenced in a configuration layer
-then `Spacemacs` will treat them as orphans during the next start of
-Emacs and they will be deleted.
-
-**Important Note** Don't upgrade your packages via `Paradox` or
-`package-list-packages` because they don't support the rollback feature of
-Spacemacs.
-
-    Key Binding      |                 Description
----------------------|------------------------------------------------------------
-<kbd>/</kbd>         | evil-search
-<kbd>f k</kbd>       | filter by keywords
-<kbd>f r</kbd>       | filter by regexp
-<kbd>f u</kbd>       | display only installed package with updates available
-<kbd>h</kbd>         | go left
-<kbd>H</kbd>         | show help (not accurate)
-<kbd>j</kbd>         | go down
-<kbd>k</kbd>         | go up
-<kbd>l</kbd>         | go right
-<kbd>L</kbd>         | show last commits
-<kbd>n</kbd>         | next search occurrence
-<kbd>N</kbd>         | previous search occurrence
-<kbd>o</kbd>         | open package homepage
-<kbd>r</kbd>         | refresh
-<kbd>S P</kbd>       | sort by package name
-<kbd>S S</kbd>       | sort by status (installed, available, etc...)
-<kbd>S *</kbd>       | sort by Github stars
-<kbd>v</kbd>         | `visual state`
-<kbd>V</kbd>         | `visual-line state`
-<kbd>x</kbd>         | execute (action flags)
-
 # Main principles
 
 ## Evil
@@ -646,7 +648,27 @@ your `~/.spacemacs`):
 [evil-jumper][]                         | jump list emulation
 [NeoTree][neotree]                      | mimic [NERD Tree][nerdtree]
 
-# Color themes
+# Spacemacs UI
+
+ `Spacemacs` has unique UI elements to make the Emacs experience even
+ more enjoyable:
+ - dedicated startup page with a mode aimed at easily managing `Spacemacs`
+ - dedicated helm source via `helm-spacemacs`
+ - a [guide-key][] buffer
+
+## Graphical UI
+
+`Spacemacs` has a minimalistic and distraction free graphical UI:
+- custom [powerline][powerline] mode-line
+[with color feedback](#flycheck-integration) according to current
+ [Flycheck][flycheck] status
+ - unicode symbols for minor mode lighters which appear in the mode-line
+ - [custom fringe bitmaps](#errors-handling) and error feedbacks for
+ [Flycheck][flycheck]
+ - [custom fringe bitmaps](../contrib/git/README.md#git-gutter-bitmaps) for
+ git gutter (available in [git layer][])
+
+### Color themes
 
 By default, `Spacemacs` uses the theme [solarized-light][solarized-theme].
 
@@ -669,167 +691,7 @@ should be pretty rare.
 
 **Hint** If you are an `Org` user, [leuven-theme][] is amazing ;-)
 
-# UI elements
-
-`Spacemacs` has a minimalistic and distraction free UI with a lot of subtle
-customization which make it unique compared to other kits:
- - beautiful custom [powerline][powerline] mode-line
- [with color feedback](#flycheck-integration) according to current
- [Flycheck][flycheck]
- status
- - unicode symbols for minor mode lighters which appear in the mode-line
- - [custom fringe bitmaps](#errors-handling) and error feedbacks for
- [Flycheck][flycheck]
- - [custom fringe bitmaps](../contrib/git/README.md#git-gutter-bitmaps) for [git gutter][]
- - dedicated startup page with a mode aimed at easily managing `Spacemacs`
-
-## Toggles
-
-Some UI indicators can be toggled on and off (toggles start with `t`):
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>SPC t 8</kbd>    | display a mark on the 80th column
-<kbd>SPC t F</kbd>    | toggle frame fullscreen
-<kbd>SPC t f</kbd>    | toggle display of the fringe
-<kbd>SPC t h</kbd>    | toggle highlight of the current line
-<kbd>SPC t i</kbd>    | toggle aggressive indent
-<kbd>SPC t l</kbd>    | toggle truncate lines
-<kbd>SPC t L</kbd>    | toggle visual lines
-<kbd>SPC t M</kbd>    | toggle frame maximize
-<kbd>SPC t n</kbd>    | show the absolute line numbers
-<kbd>SPC t t</kbd>    | toggle frame transparency
-<kbd>SPC t T</kbd>    | toggle tool bar
-<kbd>SPC t U</kbd>    | toggle menu bar
-
-## Mode-line
-
-The mode line is an heavily customized [powerline][powerline] with the
-following capabilities:
-- show the window number
-- color code for current state
-- show the number of search occurrences via anzu
-- toggle flycheck info
-- toggle battery info
-- toggle minor mode lighters
-
-Reminder of the color codes for the states:
-
-   Evil State      |       Color
--------------------|------------------
-Normal             | Orange
-Insert             | Green
-Visual             | Grey
-Emacs              | Blue
-Motion             | Purple
-Lisp               | Pink
-Iedit/Iedit-Insert | Red
-
-Some elements can be dynamically toggled:
-
-    Key Binding        |                 Description
------------------------|------------------------------------------------------------
-<kbd>SPC t m m</kbd>   | toggle the minor mode lighters
-<kbd>SPC t m b</kbd>   | toggle the battery status
-<kbd>SPC t m f</kbd>   | toggle the flycheck info
-<kbd>SPC t m v</kbd>   | toggle the new version lighter
-
-### Flycheck integration
-
-When [Flycheck][flycheck] minor mode is enabled, a new element appears showing
-the number of errors, warnings and info.
-
-![powerline-wave](img/powerline-wave.png)
-
-### Anzu integration
-
-[Anzu][anzu] shows the number of occurrence when performing a search. `Spacemacs`
-integrates nicely the Anzu status by displaying it temporarily when `n` or `N` are
-being pressed. See the `5/6` segment on the screenshot below.
-
-![powerline-anzu](img/powerline-anzu.png)
-
-### Battery status integration
-
-[fancy-battery][] displays the percentage of total charge of the battery as
-well as the time remaining to charge or discharge completely the battery.
-
-A color code is used for the battery status:
-
- Battery State    |       Color
-------------------|------------------
-Charging          | Green
-Discharging       | Orange
-Critical          | Red
-
-Note the these colors may vary depending on your theme.
-
-### Powerline separators
-
-It is possible to easily customize the `powerline separator` by setting the
-`powerline-default-separator` variable in your `~./spacemacs`. For instance
-if you want to set back the separator to the well-known `arrow` separator
-add the following snippet to your configuration file:
-
-```elisp
-(defun dotspacemacs/config ()
-  "This is were you can ultimately override default Spacemacs configuration.
-This function is called at the very end of Spacemacs initialization."
-  (setq powerline-default-separator 'arrow)
-)
-```
-
-To save you the time to try all the possible separators provided by the
-powerline, here is an exhaustive set of screenshots:
-
-    Separator     |                 Screenshot
-------------------|------------------------------------------------------------
-`alternate`       | ![powerline-alternate](img/powerline-alternate.png)
-`arrow`           | ![powerline-arrow](img/powerline-arrow.png)
-`arrow-fade`      | ![powerline-arrow-fade](img/powerline-arrow-fade.png)
-`bar`             | ![powerline-bar](img/powerline-bar.png)
-`box`             | ![powerline-box](img/powerline-box.png)
-`brace`           | ![powerline-brace](img/powerline-brace.png)
-`butt`            | ![powerline-butt](img/powerline-butt.png)
-`chamfer`         | ![powerline-chamfer](img/powerline-chamfer.png)
-`contour`         | ![powerline-contour](img/powerline-contour.png)
-`curve`           | ![powerline-curve](img/powerline-curve.png)
-`rounded`         | ![powerline-rounded](img/powerline-rounded.png)
-`roundstub`       | ![powerline-roundstub](img/powerline-roundstub.png)
-`slant`           | ![powerline-slant](img/powerline-slant.png)
-`wave`            | ![powerline-wave](img/powerline-wave.png)
-`zigzag`          | ![powerline-zigzag](img/powerline-zigzag.png)
-`nil`             | ![powerline-nil](img/powerline-nil.png)
-
-### Minor Modes
-
-`Spacemacs` uses [diminish][diminish] mode to reduce the size of minor mode
-indicators:
-
-The minor mode area can be toggled on and off with:
-
-    <SPC> t m m
-
-Unicode symbols are displayed by default. Setting the variable
-`dotspacemacs-mode-line-unicode-symbols` to `nil` in your `~/.spacemacs` will
-display ASCII characters instead (may be useful in terminal).
-
-   Unicode   |   ASCII    |                    Mode
-:-----------:|:----------:|----------------------------------------------------
-`⊞`          | G          | [golden-ratio][golden-ratio] mode
-`Ⓐ`          | A          | [auto-complete][auto-complete] mode
-`Ⓒ`          | C          | [centered-cursor][centered-cursor] mode
-`Ⓔ`          | E          | [evil-org][evil-org-mode] mode
-`Ⓕ`          | F          | flycheck mode
-`Ⓚ`          | K          | guide-key mode
-`Ⓘ`          | I          | aggressive indent mode
-`(Ⓟ)`        | (P)        | paredit mode
-`Ⓢ`          | S          | flyspell mode
-`(Ⓢ)`        | (S)        | [smartparens][sp] mode
-`Ⓦ`          | W          | whitespace mode
-`Ⓨ`          | Y          | [yasnippet][yasnippet] mode
-
-# Font
+### Font
 
 The default font used by `Spacemacs` is [source code pro][] by Adobe. It is
 recommended to install it on your system.
@@ -894,16 +756,164 @@ _Ugly separators_
 
 ![ugly-separators](img/crappy-powerline-separators.png)
 
+### Graphical UI Toggles
+
+Some graphical UI indicators can be toggled on and off (toggles start with `t`):
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC t 8</kbd>    | display a mark on the 80th column
+<kbd>SPC t F</kbd>    | toggle frame fullscreen
+<kbd>SPC t f</kbd>    | toggle display of the fringe
+<kbd>SPC t h</kbd>    | toggle highlight of the current line
+<kbd>SPC t i</kbd>    | toggle aggressive indent
+<kbd>SPC t l</kbd>    | toggle truncate lines
+<kbd>SPC t L</kbd>    | toggle visual lines
+<kbd>SPC t M</kbd>    | toggle frame maximize
+<kbd>SPC t n</kbd>    | show the absolute line numbers
+<kbd>SPC t t</kbd>    | toggle frame transparency
+<kbd>SPC t T</kbd>    | toggle tool bar
+<kbd>SPC t U</kbd>    | toggle menu bar
+
+**Note** These toggles are all available via the `helm-spacemacs` interface
+(press <kbd>SPC fe h</kbd> to display the `helm-spacemacs` buffer).
+
+### Mode-line
+
+The mode line is an heavily customized [powerline][powerline] with the
+following capabilities:
+- show the window number
+- color code for current state
+- show the number of search occurrences via anzu
+- toggle flycheck info
+- toggle battery info
+- toggle minor mode lighters
+
+Reminder of the color codes for the states:
+
+   Evil State      |       Color
+-------------------|------------------
+Normal             | Orange
+Insert             | Green
+Visual             | Grey
+Emacs              | Blue
+Motion             | Purple
+Lisp               | Pink
+Iedit/Iedit-Insert | Red
+
+Some elements can be dynamically toggled:
+
+    Key Binding        |                 Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC t m m</kbd>   | toggle the minor mode lighters
+<kbd>SPC t m b</kbd>   | toggle the battery status
+<kbd>SPC t m f</kbd>   | toggle the flycheck info
+<kbd>SPC t m v</kbd>   | toggle the new version lighter
+
+#### Flycheck integration
+
+When [Flycheck][flycheck] minor mode is enabled, a new element appears showing
+the number of errors, warnings and info.
+
+![powerline-wave](img/powerline-wave.png)
+
+#### Anzu integration
+
+[Anzu][anzu] shows the number of occurrence when performing a search. `Spacemacs`
+integrates nicely the Anzu status by displaying it temporarily when `n` or `N` are
+being pressed. See the `5/6` segment on the screenshot below.
+
+![powerline-anzu](img/powerline-anzu.png)
+
+#### Battery status integration
+
+[fancy-battery][] displays the percentage of total charge of the battery as
+well as the time remaining to charge or discharge completely the battery.
+
+A color code is used for the battery status:
+
+ Battery State    |       Color
+------------------|------------------
+Charging          | Green
+Discharging       | Orange
+Critical          | Red
+
+Note the these colors may vary depending on your theme.
+
+#### Powerline separators
+
+It is possible to easily customize the `powerline separator` by setting the
+`powerline-default-separator` variable in your `~./spacemacs`. For instance
+if you want to set back the separator to the well-known `arrow` separator
+add the following snippet to your configuration file:
+
+```elisp
+(defun dotspacemacs/config ()
+  "This is were you can ultimately override default Spacemacs configuration.
+This function is called at the very end of Spacemacs initialization."
+  (setq powerline-default-separator 'arrow)
+)
+```
+
+To save you the time to try all the possible separators provided by the
+powerline, here is an exhaustive set of screenshots:
+
+    Separator     |                 Screenshot
+------------------|------------------------------------------------------------
+`alternate`       | ![powerline-alternate](img/powerline-alternate.png)
+`arrow`           | ![powerline-arrow](img/powerline-arrow.png)
+`arrow-fade`      | ![powerline-arrow-fade](img/powerline-arrow-fade.png)
+`bar`             | ![powerline-bar](img/powerline-bar.png)
+`box`             | ![powerline-box](img/powerline-box.png)
+`brace`           | ![powerline-brace](img/powerline-brace.png)
+`butt`            | ![powerline-butt](img/powerline-butt.png)
+`chamfer`         | ![powerline-chamfer](img/powerline-chamfer.png)
+`contour`         | ![powerline-contour](img/powerline-contour.png)
+`curve`           | ![powerline-curve](img/powerline-curve.png)
+`rounded`         | ![powerline-rounded](img/powerline-rounded.png)
+`roundstub`       | ![powerline-roundstub](img/powerline-roundstub.png)
+`slant`           | ![powerline-slant](img/powerline-slant.png)
+`wave`            | ![powerline-wave](img/powerline-wave.png)
+`zigzag`          | ![powerline-zigzag](img/powerline-zigzag.png)
+`nil`             | ![powerline-nil](img/powerline-nil.png)
+
+#### Minor Modes
+
+`Spacemacs` uses [diminish][diminish] mode to reduce the size of minor mode
+indicators:
+
+The minor mode area can be toggled on and off with:
+
+    <SPC> t m m
+
+Unicode symbols are displayed by default. Setting the variable
+`dotspacemacs-mode-line-unicode-symbols` to `nil` in your `~/.spacemacs` will
+display ASCII characters instead (may be useful in terminal).
+
+   Unicode   |   ASCII    |                    Mode
+:-----------:|:----------:|----------------------------------------------------
+`⊞`          | G          | [golden-ratio][golden-ratio] mode
+`Ⓐ`          | A          | [auto-complete][auto-complete] mode
+`Ⓒ`          | C          | [centered-cursor][centered-cursor] mode
+`Ⓔ`          | E          | [evil-org][evil-org-mode] mode
+`Ⓕ`          | F          | flycheck mode
+`Ⓚ`          | K          | guide-key mode
+`Ⓘ`          | I          | aggressive indent mode
+`(Ⓟ)`        | (P)        | paredit mode
+`Ⓢ`          | S          | flyspell mode
+`(Ⓢ)`        | (S)        | [smartparens][sp] mode
+`Ⓦ`          | W          | whitespace mode
+`Ⓨ`          | Y          | [yasnippet][yasnippet] mode
+
 # Commands
 
-Every sequences must be performed in `normal` mode.
+## Vim key bindings
 
-## Reserved prefix command for user
+`Spacemacs` is based on `Vim` modal user interface to navigate and edit text.
+If you are not familiar with the `Vim` way of editing text you can try the
+[evil tutor][] lessons by pressing <kbd>SPC h T</kbd> at any time.
 
-<kbd>SPC o</kbd> is reserved for the user. Setting key bindings behind `<SPC> o`
-is **guaranteed** to never conflict with `Spacemacs` defaults key bindings.
-
-## Escaping
+### Escaping
 
 `Spacemacs` uses [evil-escape][] to easily switch between `insert state` and
 `normal state` by quickly pressing the `fd` keys.
@@ -936,7 +946,7 @@ to `jj` (it is important set the variable in `dotspacemacs/init`):
 sequences are not optimal for `Spacemacs`. Indeed it is very easy in
 `visual state` to press quickly `jj` and inadvertently escape to `normal state`.
 
-## Executing Vim, Emacs and shell commands
+### Executing Vim and Emacs ex/M-x commands
 
     Command      |                 Key Binding
 :---------------:|------------------------------------------------------------------
@@ -947,6 +957,19 @@ The command key `:` can be easily changed with the variable
 `dotspacemacs-command-key` of your `~/.spacemacs`. Note that is will change both
 `:` and `SPC :` bindings to keep the symmetry between Vim and Emacs. A good
 key can be `,` for example.
+
+### Leader key
+
+On top of `Vim` modes (modes are called states in `Spacemacs`) there is a
+special key called the leader key which once pressed gives a whole new
+keyboard layer. The leader key is by default <kbd>SPC</kbd> (space).
+It is possible to change this key with the variable `dotspacemacs-leader-key`.
+
+## Reserved prefix command for user
+
+<kbd>SPC o</kbd> is reserved for the user. Setting key bindings behind
+`<SPC> o` is **guaranteed** to never conflict with `Spacemacs` defaults key
+bindings.
 
 ## Helm
 
@@ -994,6 +1017,93 @@ Key Binding         | Description
 <kbd>T</kbd>        | mark all candidates
 <kbd>v</kbd>        | execute persistent action
 Any other key       | leave the micro-state
+
+## Discovering
+
+### Key bindings
+
+An help buffer is displayed each time the <kbd>SPC</kbd> key is pressed in
+normal mode. It lists the available key bindings and their associated
+commands.
+
+By default the [guide-key][] buffer will be displayed quickly after the key
+has been pressed. You can change the delay by setting the variable
+`dotspacemacs-guide-key-delay` to your liking (the value is in second).
+
+### Available layers
+
+All layers can be easily discovered via `helm-spacemacs` accessible with
+<kbd>SPC f e h</kbd>.
+
+The following helm actions are available:
+- default: open the layer `README.md`
+- 2nd: open the layer `packages.el`
+- 3nd: open the layer `extensions.el`
+
+#### Available packages in Spacemacs
+
+`helm-spacemacs` also lists all the packages available in `Spacemacs`.
+The entry format is `(layer) packages`. If you type `flycheck` you'll
+be able to see all the layers where `flycheck` is used.
+
+The following helm actions are available on packages:
+- default: go the package init function
+
+#### New packages from ELPA repositories
+
+`package-list-packages` is where you can browse for all available packages
+in the different Elpa repositories. It is possible to upgrade packages
+from there but it is not recommended, use the `[Update]` link on the
+`Spacemacs` startup page instead.
+
+`Spacemacs` proposes to use [Paradox][] instead of `package-list-packages`
+to list available ELPA packages.
+Paradox enhances the package list buffer with better feedbacks, new
+filters and Github information like the number of stars. Optionally you
+can also star packages directly in the buffer.
+
+**Important Note 1** Installing a new package from `Paradox` won't make it
+persistent. To install a package persistently you have to add it explicitly
+to a configuration layer.
+
+**Important Note 2** Don't _update_ your packages from `Paradox` or
+`package-list-packages` because they don't support the rollback feature of
+Spacemacs.
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>/</kbd>         | evil-search
+<kbd>f k</kbd>       | filter by keywords
+<kbd>f r</kbd>       | filter by regexp
+<kbd>f u</kbd>       | display only installed package with updates available
+<kbd>h</kbd>         | go left
+<kbd>H</kbd>         | show help (not accurate)
+<kbd>j</kbd>         | go down
+<kbd>k</kbd>         | go up
+<kbd>l</kbd>         | go right
+<kbd>L</kbd>         | show last commits
+<kbd>n</kbd>         | next search occurrence
+<kbd>N</kbd>         | previous search occurrence
+<kbd>o</kbd>         | open package homepage
+<kbd>r</kbd>         | refresh
+<kbd>S P</kbd>       | sort by package name
+<kbd>S S</kbd>       | sort by status (installed, available, etc...)
+<kbd>S *</kbd>       | sort by Github stars
+<kbd>v</kbd>         | `visual state`
+<kbd>V</kbd>         | `visual-line state`
+<kbd>x</kbd>         | execute (action flags)
+
+### Toggles
+
+`helm-spacemacs` is also a central place to discover the available toggles.
+To display only the toggles source press <kbd>C-l</kbd> (or in
+[Helm micro-state](#helm-micro-state) you can press just <kbd>l</kbd>).
+
+The following helm actions are available on packages:
+- default: toggle on/off
+
+**Tips** Use <kbd>SPC h l</kbd> to resume the last helm session. It is
+handy to quickly toggle on and off a toggle.
 
 ## Navigating
 
@@ -1848,7 +1958,7 @@ Key Binding          | Function
 <kbd>SPC m t b</kbd> | execute buffer tests
 <kbd>SPC m t q</kbd> | ask for test function to execute
 
-## Project management
+### Managing projects
 
 Projects in `Spacemacs` are managed with [projectile][projectile]. In
 `projectile` projects are defined implicitly, for instance the root of a
@@ -1953,13 +2063,6 @@ setup the key on tabulation:
 <kbd>CTRL+j</kbd> | go to previous item
 <kbd>CTRL+k</kbd> | go to next item
 <kbd>CTRL+l</kbd> | go to next page
-
-### Ledger
-
-    Key Binding    |                 Description
--------------------|------------------------------------------------------------
-<kbd>SPC m a</kbd> | add a transaction
-<kbd>SPC m d</kbd> | delete current transaction
 
 ### Org
 
@@ -2117,6 +2220,7 @@ piece of software.
 Thank you to all the contributors and the whole Emacs community from core
 developers to elisp hackers!
 
+[CONVENTIONS.md]: ./CONVENTIONS.md
 [evil]: https://gitorious.org/evil/pages/Home
 [evil-leader]: https://github.com/cofi/evil-leader
 [RSI]: http://en.wikipedia.org/wiki/Repetitive_strain_injury

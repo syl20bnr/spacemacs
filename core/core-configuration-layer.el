@@ -410,8 +410,8 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
                             (mapcar 'car deps)))))
           (when update-deps
             (setq result (append update-deps result))))
-        (let ((installed-version (configuration-layer//get-package-version pkg))
-              (newest-version (configuration-layer//get-latest-package-version
+        (let ((installed-version (configuration-layer//get-package-version-string pkg))
+              (newest-version (configuration-layer//get-latest-package-version-string
                                pkg)))
           ;; (message "package - %s" pkg)
           ;; (message "installed - %s" installed-version)
@@ -473,8 +473,13 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
               ('error
                (message (format
                          (concat "An error occurred during the update of "
-                                 "this package %s, retrying...") err))
-               (package-install pkg))))
+                                 "this package %s, retrying one more time...")
+                         err))
+               (package-install pkg)))
+            (when (version< emacs-version "24.3.50")
+              ;; explicitly force activation
+              (setq package-activated-list (delq pkg package-activated-list))
+              (configuration-layer//activate-package pkg)))
           (spacemacs/append-to-buffer
            (format "\n--> %s packages updated.\n" upgraded-count))
           (spacemacs/append-to-buffer
@@ -684,30 +689,42 @@ deleted safely."
         (when reqs2 (setq reqs (append reqs2 reqs)))))
     reqs))
 
-(defun configuration-layer//get-package-version (pkg)
+(defun configuration-layer//get-package-version-string (pkg)
   "Return the version string for PKG."
   (let ((pkg-desc (assq pkg package-alist)))
     (when pkg-desc
       (cond
-       ((version< emacs-version "24.3.50")
-        (package-version-join (aref (cdr pkg-desc) 0)))
+       ((version< emacs-version "24.3.50") (package-version-join
+                                            (aref (cdr pkg-desc) 0)))
        (t (package-version-join (package-desc-version (cadr pkg-desc))))))))
 
-(defun configuration-layer//get-latest-package-version (pkg)
+(defun configuration-layer//get-package-version (pkg)
+  "Return the version list for PKG."
+  (let ((version-string (configuration-layer//get-package-version-string pkg)))
+    (unless (string-empty-p version-string)
+      (version-to-list version-string))))
+
+(defun configuration-layer//get-latest-package-version-string (pkg)
   "Return the version string for PKG."
   (let ((pkg-arch (assq pkg package-archive-contents)))
     (when pkg-arch
       (cond
-       ((version< emacs-version "24.3.50")
-        (package-version-join (aref (cdr pkg-arch) 0)))
+       ((version< emacs-version "24.3.50") (package-version-join
+                                            (aref (cdr pkg-arch) 0)))
        (t (package-version-join (package-desc-version (cadr pkg-arch))))))))
+
+(defun configuration-layer//get-latest-package-version (pkg)
+  "Return the versio list for PKG."
+  (let ((version-string (configuration-layer//get-latest-package-version-string pkg)))
+    (unless (string-empty-p version-string)
+      (version-to-list version-string))))
 
 (defun configuration-layer//package-delete (pkg)
   "Delete the passed PKG."
   (cond
    ((version< emacs-version "24.3.50")
     (package-delete (symbol-name pkg)
-                    (configuration-layer//get-package-version pkg)))
+                    (configuration-layer//get-package-version-string pkg)))
    (t (package-delete (cadr (assq pkg package-alist))))))
 
 (defun configuration-layer/delete-orphan-packages ()
