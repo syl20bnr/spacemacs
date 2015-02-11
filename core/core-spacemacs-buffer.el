@@ -128,9 +128,9 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
 (defun spacemacs/goto-link-line ()
   "Move the point to the beginning of the link line."
   (interactive)
-  (switch-to-buffer spacemacs-buffer-name)
-  (goto-char (point-min))
-  (re-search-forward "Homepage")
-  (beginning-of-line))
+  (with-current-buffer spacemacs-buffer-name
+    (goto-char (point-min))
+    (re-search-forward "Homepage")
+    (beginning-of-line)))
 
 (provide 'core-spacemacs-buffer)
