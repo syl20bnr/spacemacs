@@ -243,7 +243,6 @@
   "wM"  'toggle-maximize-centered-buffer
   "wm"  'toggle-maximize-buffer
   "wo"  'other-frame
-  "wr"  'spacemacs/resize-window-overlay-map
   "wR"  'rotate-windows
   ;; "wv"  'evenly-split-window-below)
   "ws"  'split-window-below
