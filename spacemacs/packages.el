@@ -112,6 +112,7 @@
     wdired
     whitespace
     window-numbering
+    winner
     yasnippet
     zenburn-theme
     )
@@ -996,29 +997,12 @@ which require an initialization must be listed explicitly in the list.")
         :fringe-bitmap 'my-flycheck-fringe-indicator
         :fringe-face 'flycheck-fringe-info)
 
-      (defun spacemacs/next-error (&optional n reset)
-        "Dispatch to flycheck or standard emacs error."
-        (interactive "P")
-        (if (and (boundp 'flycheck-mode)
-                 (symbol-value flycheck-mode))
-            (call-interactively 'flycheck-next-error)
-          (call-interactively 'next-error)))
-
-      (defun spacemacs/previous-error (&optional n reset)
-        "Dispatch to flycheck or standard emacs error."
-        (interactive "P")
-        (if (and (boundp 'flycheck-mode)
-                 (symbol-value flycheck-mode))
-            (call-interactively 'flycheck-previous-error)
-          (call-interactively 'previous-error)))
 
       ;; key bindings
       (evil-leader/set-key
         "ec" 'flycheck-clear
         "ef" 'flycheck-mode
-        "el" 'flycheck-list-errors
-        "en" 'spacemacs/next-error
-        "eN" 'spacemacs/previous-error))))
+        "el" 'flycheck-list-errors))))
 
 (defun spacemacs/init-flyspell ()
   (use-package flyspell
@@ -1051,6 +1035,10 @@ which require an initialization must be listed explicitly in the list.")
                       windmove-right
                       windmove-up
                       windmove-down
+                      evil-window-left
+                      evil-window-right
+                      evil-window-up
+                      evil-window-down
                       select-window-0
                       select-window-1
                       select-window-2
@@ -2125,6 +2113,29 @@ which require an initialization must be listed explicitly in the list.")
                 (window-numbering-assign w 0)))
             windows))
     (add-hook 'window-numbering-before-hook 'spacemacs//window-numbering-assign)))
+
+(defun spacemacs/init-winner ()
+  (use-package winner
+    :init
+    (progn
+      (setq spacemacs/winner-boring-buffers '("*helm mini*"
+                                              "*helm projectile*"
+                                              "*helm M-x*"
+                                              "*helm resume*"
+                                              "*Completions*"
+                                              "*Compile-Log*"
+                                              "*inferior-lisp*"
+                                              "*Fuzzy Completions*"
+                                              "*Apropos*"
+                                              "*Help*"
+                                              "*cvs*"
+                                              "*Buffer List*"
+                                              "*Ibuffer*"
+                                              "*esh command on file*"
+                                              ))
+      (setq winner-boring-buffers
+            (append winner-boring-buffers spacemacs/winner-boring-buffers))
+      (winner-mode t))))
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet

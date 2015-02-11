@@ -72,15 +72,16 @@
   "hdv" 'describe-variable)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key
-  "en" 'next-error
-  "ep" 'previous-error)
+  "en" 'spacemacs/next-error
+  "ep" 'spacemacs/previous-error
+  "eN" 'spacemacs/previous-error)
 ;; find -----------------------------------------------------------------------
 (evil-leader/set-key
   "ff" 'ido-find-file
   "fg" 'rgrep)
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key
-  "fd"  'delete-current-buffer-file
+  "fD"  'delete-current-buffer-file
   "fei" 'find-user-init-file
   "fes" 'find-spacemacs-file
   "fec" 'find-contrib-file
@@ -226,6 +227,7 @@
     (golden-ratio)))
 
 (evil-leader/set-key
+  "w."  'spacemacs/window-manipulation-micro-state
   "w2"  'layout-double-columns
   "w3"  'layout-triple-columns
   "wc"  'delete-window
@@ -242,7 +244,6 @@
   "wM"  'toggle-maximize-centered-buffer
   "wm"  'toggle-maximize-buffer
   "wo"  'other-frame
-  "wr"  'spacemacs/resize-window-overlay-map
   "wR"  'rotate-windows
   ;; "wv"  'evenly-split-window-below)
   "ws"  'split-window-below

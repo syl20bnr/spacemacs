@@ -1265,7 +1265,7 @@ Files manipulation commands (start with `f`):
 
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
-<kbd>SPC f d</kbd>                        | delete a file and the associated buffer (ask for confirmation)
+<kbd>SPC f D</kbd>                        | delete a file and the associated buffer (ask for confirmation)
 <kbd>SPC f f</kbd>                        | open a file using `ido`
 <kbd>SPC f j</kbd>                        | jump to the current buffer file in dired
 <kbd>SPC f o</kbd>                        | open a file using the default external program
