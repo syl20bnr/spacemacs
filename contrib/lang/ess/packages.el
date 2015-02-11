@@ -25,7 +25,7 @@ which require an initialization must be listed explicitly in the list.")
   "List of packages to exclude.")
 
 ;; Only load company-ess if company-mode is enabled
-(when (member 'company-mode dotspacemacs-configuration-layers)
+(when (configuration-layer/layer-declaredp 'company-mode)
   (add-to-list 'ess-packages 'company-ess))
 
 (defun ess/init-ess ()
