@@ -722,7 +722,8 @@ deleted safely."
 
 (defun configuration-layer//get-latest-package-version (pkg)
   "Return the versio list for PKG."
-  (let ((version-string (configuration-layer//get-latest-package-version-string pkg)))
+  (let ((version-string
+         (configuration-layer//get-latest-package-version-string pkg)))
     (unless (string-empty-p version-string)
       (version-to-list version-string))))
 
@@ -730,9 +731,10 @@ deleted safely."
   "Delete the passed PKG."
   (cond
    ((version< emacs-version "24.3.50")
-    (package-delete (symbol-name pkg)
-                    (configuration-layer//get-package-version-string pkg)))
-   (t (package-delete (cadr (assq pkg package-alist))))))
+    (let ((v (configuration-layer//get-package-version-string pkg)))
+      (when v (package-delete (symbol-name pkg) v))))
+   (t (let ((p (cadr (assq pkg package-alist))))
+        (when p (package-delete p))))))
 
 (defun configuration-layer/delete-orphan-packages ()
   "Delete all the orphan packages."
