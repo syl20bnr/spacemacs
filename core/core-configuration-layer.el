@@ -219,8 +219,12 @@ the following keys:
                                var)))))))
 
 (defun configuration-layer/package-declaredp (pkg)
-  "Return non-nil if PKG symbol corresponds to a used package."
+  "Return non-nil if PKG symbol corresponds to a declared package."
   (ht-contains? configuration-layer-all-packages pkg))
+
+(defun configuration-layer/layer-declaredp (layer)
+  "Return non-nil if LAYER symbol corresponds to a declared layer."
+  (not (null (assq layer configuration-layer-layers))))
 
 (defun configuration-layer/get-layers-list ()
   "Return a list of all discovered layer symbols."
