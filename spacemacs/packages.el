@@ -450,7 +450,7 @@ which require an initialization must be listed explicitly in the list.")
         "Initiate a new query."
         (interactive)
         (doc-view-search 'newquery))
-      
+
       (defun spacemacs/doc-view-search-new-query-backward ()
         "Initiate a new query."
         (interactive)
@@ -639,7 +639,7 @@ which require an initialization must be listed explicitly in the list.")
 
   (defun spacemacs/evil-state-lazy-loading ()
     (require 'evil-iedit-state)
-    (setq evil-iedit-state-cursor `(,(spacemacs/state-color 'iedit) box))   
+    (setq evil-iedit-state-cursor `(,(spacemacs/state-color 'iedit) box))
     (setq evil-iedit-insert-state-cursor `((spacemacs/state-color 'iedit-insert) (bar . 2)))
     ;; activate leader in iedit and iedit-insert states
     (define-key evil-iedit-state-map
@@ -1967,7 +1967,11 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (require 'smartparens-config)
+
       (spacemacs|diminish smartparens-mode " (Ⓢ)" " (S)")
+      (custom-set-variables
+       '(sp-cancel-autoskip-on-backward-movement nil))
+
       (defun spacemacs/smartparens-pair-newline (id action context)
         (save-excursion
           (newline)
