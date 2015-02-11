@@ -77,7 +77,7 @@ which require an initialization must be listed explicitly in the list.")
         "mgv" 'cider-jump-to-var
         "mgr" 'cider-jump-to-resource
         "mge" 'cider-jump-to-compilation-error
-        "mgs" 'cider-jump
+        "mgb" 'cider-jump-back
         "mtt" 'cider-test-run-tests)
       (when clojure-enable-fancify-symbols 
         (clojure/fancify-symbols 'cider-repl-mode)))))
