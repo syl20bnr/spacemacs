@@ -112,6 +112,7 @@
     wdired
     whitespace
     window-numbering
+    winner
     yasnippet
     zenburn-theme
     )
@@ -2125,6 +2126,29 @@ which require an initialization must be listed explicitly in the list.")
                 (window-numbering-assign w 0)))
             windows))
     (add-hook 'window-numbering-before-hook 'spacemacs//window-numbering-assign)))
+
+(defun spacemacs/init-winner ()
+  (use-package winner
+    :init
+    (progn
+      (setq spacemacs/winner-boring-buffers '("*helm mini*"
+                                              "*helm projectile*"
+                                              "*helm M-x*"
+                                              "*helm resume*"
+                                              "*Completions*"
+                                              "*Compile-Log*"
+                                              "*inferior-lisp*"
+                                              "*Fuzzy Completions*"
+                                              "*Apropos*"
+                                              "*Help*"
+                                              "*cvs*"
+                                              "*Buffer List*"
+                                              "*Ibuffer*"
+                                              "*esh command on file*"
+                                              ))
+      (setq winner-boring-buffers
+            (append winner-boring-buffers spacemacs/winner-boring-buffers))
+      (winner-mode t))))
 
 (defun spacemacs/init-yasnippet ()
   (use-package yasnippet
