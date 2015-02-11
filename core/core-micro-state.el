@@ -18,26 +18,27 @@ NAME is a symbol.
 
 Available PROPS:
 
-`:on-enter BODY'
-    Evaluate BODY when the micro-state is switched on.
+`:on-enter SEXP'
+    Evaluate SEXP when the micro-state is switched on.
 
-`:on-exit BODY'
-    Evaluate BODY when leaving the micro-state.
+`:on-exit SEXP'
+    Evaluate SEXP when leaving the micro-state.
 
-`:documentation STRING or BODY'
-    A STRING or a BODY that once evaluated must return a string
+`:doc STRING or SEXP'
+    A STRING or a SEXP that evaluates to a string
 
 `:bindings EXPRESSIONS'
     One or several EXPRESSIONS with the form
-    (STRING1 SYMBOL1 :documentation STRING :exit SYMBOL)
+    (STRING1 SYMBOL1 :doc STRING :exit SYMBOL)
     where:
     - STRING1 is a key to bound to the function SYMBOL1.
-    - :documentation STRING is a doc string (not used for now)
+    - :doc STRING or SEXP is a STRING or an SEXP that evalutes
+      to a string
     - :exit SYMBOL is either `:exit t' or `:exit nil', if non nil then
       pressing this key will leave the micro-state (default is nil)."
   (declare (indent 1))
   (let* ((func (spacemacs//micro-state-func-name name))
-         (doc (spacemacs/mplist-get props :documentation))
+         (doc (spacemacs/mplist-get props :doc))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
          (bindings (spacemacs/mplist-get props :bindings))
@@ -64,17 +65,23 @@ Available PROPS:
   (mapcar (lambda (x) (spacemacs//micro-state-create-wrapper name doc x))
           bindings))
 
-(defun spacemacs//micro-state-create-wrapper (name doc binding)
+(defun spacemacs//micro-state-create-wrapper (name default-doc binding)
   "Create a wrapper of FUNC and return a tuple (key wrapper BINDING)."
   (let* ((wrapped (cadr binding))
+         (binding-doc (spacemacs/mplist-get binding :doc))
          (wrapper-name (intern (format "spacemacs//%s-%s" (symbol-name name)
                                        (symbol-name wrapped))))
          (wrapper-func (eval `(defun ,wrapper-name ()
                                 "Auto-generated function"
                                 (interactive)
-                                (let ((doc ,@doc)) (when doc (echo doc)))
                                 (when ',wrapped
-                                  (call-interactively ',wrapped))))))
+                                  (call-interactively ',wrapped))
+                                (let ((bdoc ,@binding-doc)
+                                      (defdoc ,@default-doc))
+                                  (if bdoc
+                                      (echo (concat ,(symbol-name name)
+                                                    ": " bdoc))
+                                    (when defdoc (echo defdoc))))))))
     (append (list (car binding) wrapper-func) binding)))
 
 (defun spacemacs//micro-state-fill-map-sexps (wrappers)
