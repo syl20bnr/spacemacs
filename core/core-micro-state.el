@@ -24,8 +24,8 @@ Available PROPS:
 `:on-exit BODY'
     Evaluate BODY when leaving the micro-state.
 
-`:documentation BODY'
-    Evaluate BODY which must return a string
+`:documentation STRING or BODY'
+    A STRING or a BODY that once evaluated must return a string
 
 `:bindings EXPRESSIONS'
     One or several EXPRESSIONS with the form
