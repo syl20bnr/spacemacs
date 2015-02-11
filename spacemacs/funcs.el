@@ -850,10 +850,9 @@ If ASCII si not provided then UNICODE is used instead."
                           (start-process "" nil "xdg-open" file-path)))
      )))
 
-
-(defun spacemacs/window-manipulation-micro-state-doc ()
-  "Display a short documentation in the mini buffer."
-  (echo "Window navigation micro-state
+(spacemacs|define-micro-state window-manipulation
+  :documentation
+  "Window navigation micro-state
   h,j,k,l to go to left|bottom|top|right
   H,J,K,L to move windows to to far/very left|bottom|top|right
   R to Rotate windows
@@ -861,21 +860,7 @@ If ASCII si not provided then UNICODE is used instead."
   -,/ to split windows bellow|right and focus
   u,U restore previous|next window configuration
   o/w other frame|window
-Press any other key to exit."))
-
-(defun spacemacs//on-enter-window-manipulation-micro-state ()
-  "Initialization of window navigation micro-state."
-  (spacemacs/window-manipulation-micro-state-doc))
-
-(defun spacemacs//on-exit-window-manipulation-micro-state ()
-  "Action to perform when exiting window navigation micor-state."
-  ;; restore window navigation key map
-  )
-
-
-(spacemacs|define-micro-state window-manipulation
-  :on-enter (spacemacs//on-enter-window-manipulation-micro-state)
-  :on-exit  (spacemacs//on-exit-window-manipulation-micro-state)
+Press any other key to exit."
   :bindings
   ("h" evil-window-left)
   ("j" evil-window-down)
@@ -890,6 +875,8 @@ Press any other key to exit."))
   ("C" delete-other-windows)
   ("-" split-window-below-and-focus)
   ("/" split-window-right-and-focus)
+  ("s" split-window-below-and-focus)
+  ("v" split-window-right-and-focus)
   ("u" winner-undo)
   ("U" winner-redo)
   ("o" other-frame)
