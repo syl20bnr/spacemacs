@@ -11,20 +11,29 @@
 ;;
 ;;; License: GPLv3
 
-(defface spacemacs-micro-state-header-face
-  `((t (:background
-        "DarkGoldenrod2"
-        :foreground "black"
-        :bold t :box ,(face-attribute 'mode-line :box))))
-  "Face for micro-state header in echo area.
-The header is composed of the text before the first `:'"
-  :group 'spacemacs)
-
-(defface spacemacs-micro-state-binding-face
-    `((t (:foreground ,(face-attribute 'error :foreground) :bold t)))
-  "Face for micro-state key binding in echo area.
+(defun spacemacs//defface-micro-state-faces ()
+  "Define faces for micro-states."
+  (let* ((hname 'spacemacs-micro-state-header-face)
+         (bname 'spacemacs-micro-state-binding-face)
+         (box (face-attribute 'mode-line :box))
+         (err (face-attribute 'error :foreground)))
+    (eval `(defface ,hname '((t ()))
+             "Face for micro-state header in echo area.
+The header is the name of the micro-state."
+             :group 'spacemacs))
+    (set-face-attribute hname nil
+                        :background "DarkGoldenrod2"
+                        :foreground "black"
+                        :bold t
+                        :box box)
+    (eval `(defface ,bname '((t ()))
+             "Face for micro-state key binding in echo area.
 Characters enclosed in `[]' will have this face applied to them."
-  :group 'spacemacs)
+             :group 'spacemacs))
+    (set-face-attribute bname nil
+                        :foreground err
+                        :bold t)))
+(spacemacs//defface-micro-state-faces)
 
 (defmacro spacemacs|define-micro-state (name &rest props)
   "Define a micro-state called NAME.
@@ -98,7 +107,7 @@ Available PROPS:
                          (defdoc ,@default-doc))
                      (if bdoc
                          (echo (spacemacs//micro-state-propertize-doc
-                                (concat ,(symbol-name name) ":" bdoc)))
+                                (concat ,(symbol-name name) ": " bdoc)))
                        (when defdoc
                          (echo (spacemacs//micro-state-propertize-doc
                                 (concat ,(symbol-name name) ":"

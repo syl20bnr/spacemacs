@@ -120,6 +120,8 @@ changed to THEME."
       (spacemacs/set-flycheck-mode-line-faces))
   (if (fboundp 'spacemacs/set-new-version-lighter-mode-line-faces)
       (spacemacs/set-new-version-lighter-mode-line-faces))
+  (if (fboundp 'spacemacs//defface-micro-state-faces)
+      (spacemacs//defface-micro-state-faces))
   (if (fboundp 'powerline-reset)
       (powerline-reset)))
 
