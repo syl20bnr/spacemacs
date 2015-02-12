@@ -215,8 +215,8 @@ which require an initialization must be listed explicitly in the list.")
       (define-key ac-completing-map (kbd "C-k") 'ac-previous)
       (define-key ac-completing-map (kbd "<S-tab>") 'ac-previous)
       ;; customization
-      (setq ac-auto-start 2
-            ac-delay 0.
+      (setq ac-auto-start 0
+            ac-delay 0.2
             ac-quick-help-delay 1.
             ac-use-fuzzy t
             ac-fuzzy-enable t
