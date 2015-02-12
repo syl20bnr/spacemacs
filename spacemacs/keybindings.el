@@ -271,3 +271,120 @@
 ;; google translate -----------------------------------------------------------
 (evil-leader/set-key
   "xgl" 'set-google-translate-languages)
+
+;; ---------------------------------------------------------------------------
+;; Micro-states
+;; ---------------------------------------------------------------------------
+
+;; Window Manipulation Micro State
+
+(defun spacemacs/shrink-window-horizontally (delta)
+  "Wrap `spacemacs/shrink-window-horizontally'."
+  (interactive "p")
+  (shrink-window delta t))
+
+(defun spacemacs/shrink-window (delta)
+  "Wrap `spacemacs/shrink-window'."
+  (interactive "p")
+  (shrink-window delta))
+
+(defun spacemacs/enlarge-window (delta)
+  "Wrap `spacemacs/enlarge-window'."
+  (interactive "p")
+  (enlarge-window delta))
+
+(defun spacemacs/enlarge-window-horizontally (delta)
+  "Wrap `spacemacs/enlarge-window-horizontally'."
+  (interactive "p")
+  (enlarge-window delta t))
+
+(defun spacemacs//window-manipulation-full-doc ()
+  "Full documentation for window manipulation micro-state."
+  "
+  [?]                       display this menu again
+  [0,9]                     go to numbered window
+  [-] [/] [s] [v] [S] [V]   split windows bellow|right and focus
+  [c] [C]                   close current|other windows
+  [g]                       toggle golden-ratio
+  [h] [j] [k] [l]           go to left|bottom|top|right
+  [H] [J] [K] [L]           move windows to far/very left|bottom|top|right
+  [[] []] [{] [}]           shrink/enlarge horizontaly and verticaly respectively
+  [o] [w]                   other frame|window
+  [R]                       rotate windows
+  [u] [U]                   restore previous|next window layout")
+
+(defun spacemacs//window-manipulation-move-doc ()
+  "Help string for moving between windows"
+  (concat "[h] [j] [k] [l] to move focus, "
+          "[H] [J] [K] [L] to move window, "
+          "[R]otate windows, other [f]rame, other [w]indow"))
+
+(defun spacemacs//window-manipulation-resize-doc ()
+  "Dynamic help string when resizing windows."
+  (format
+   (concat "[%sx%s] Resize window: [[] []] shrink/enlarge horizontally, "
+           "[{] [}] shrink/enlarge vertically.")
+   (window-total-width) (window-total-height)))
+
+(defun spacemacs//window-manipulation-split-doc ()
+  "Help string for moving between windows"
+  (concat "[-], [s] to split horizontally,  [/], [v] to split vertically, "
+          "[S], [V] to split and focus"))
+
+(defun spacemacs//window-manipulation-number-doc ()
+  "Help string for selecting window with number."
+  (format "(selected window #%s) press [0,9] to select the corresponding numbered window."
+          (window-numbering-get-number-string)))
+
+(defun spacemacs//window-manipulation-layout-doc ()
+  "Help string for layout manipulation"
+  (concat "[c]lose window, [C]lose other windows, "
+          "[u]ndo window layout, [U] redo window layout."))
+
+(defun spacemacs//window-manipulation-gratio-doc ()
+  "Help string for golden ratio"
+  (format "(golden-ration %s) toggle with [g]"
+          (if (symbol-value golden-ratio-mode) "enabled" "disabled")))
+
+(spacemacs|define-micro-state window-manipulation
+  :doc (spacemacs//window-manipulation-full-doc)
+  :bindings
+  ("?" nil :doc (spacemacs//window-manipulation-full-doc))
+  ("0" select-window-0                       :doc (spacemacs//window-manipulation-number-doc))
+  ("1" select-window-1                       :doc (spacemacs//window-manipulation-number-doc))
+  ("2" select-window-2                       :doc (spacemacs//window-manipulation-number-doc))
+  ("3" select-window-3                       :doc (spacemacs//window-manipulation-number-doc))
+  ("4" select-window-4                       :doc (spacemacs//window-manipulation-number-doc))
+  ("5" select-window-5                       :doc (spacemacs//window-manipulation-number-doc))
+  ("6" select-window-6                       :doc (spacemacs//window-manipulation-number-doc))
+  ("7" select-window-7                       :doc (spacemacs//window-manipulation-number-doc))
+  ("8" select-window-8                       :doc (spacemacs//window-manipulation-number-doc))
+  ("9" select-window-9                       :doc (spacemacs//window-manipulation-number-doc))
+  ("-" split-window-below-and-focus          :doc (spacemacs//window-manipulation-split-doc))
+  ("/" split-window-right-and-focus          :doc (spacemacs//window-manipulation-split-doc))
+  ("[" spacemacs/shrink-window-horizontally  :doc (spacemacs//window-manipulation-resize-doc))
+  ("]" spacemacs/enlarge-window-horizontally :doc (spacemacs//window-manipulation-resize-doc))
+  ("{" spacemacs/shrink-window               :doc (spacemacs//window-manipulation-resize-doc))
+  ("}" spacemacs/enlarge-window              :doc (spacemacs//window-manipulation-resize-doc))
+  ("c" delete-window                         :doc (spacemacs//window-manipulation-layout-doc))
+  ("C" delete-other-windows                  :doc (spacemacs//window-manipulation-layout-doc))
+  ("g" spacemacs/toggle-golden-ratio         :doc (spacemacs//window-manipulation-gratio-doc))
+  ("h" evil-window-left                      :doc (spacemacs//window-manipulation-move-doc))
+  ("j" evil-window-down                      :doc (spacemacs//window-manipulation-move-doc))
+  ("k" evil-window-up                        :doc (spacemacs//window-manipulation-move-doc))
+  ("l" evil-window-right                     :doc (spacemacs//window-manipulation-move-doc))
+  ("H" evil-window-move-far-left             :doc (spacemacs//window-manipulation-move-doc))
+  ("J" evil-window-move-very-bottom          :doc (spacemacs//window-manipulation-move-doc))
+  ("K" evil-window-move-very-top             :doc (spacemacs//window-manipulation-move-doc))
+  ("L" evil-window-move-far-right            :doc (spacemacs//window-manipulation-move-doc))
+  ("o" other-frame                           :doc (spacemacs//window-manipulation-move-doc))
+  ("R" rotate-windows                        :doc (spacemacs//window-manipulation-move-doc))
+  ("s" split-window-below                    :doc (spacemacs//window-manipulation-split-doc))
+  ("S" split-window-below-and-focus          :doc (spacemacs//window-manipulation-split-doc))
+  ("u" winner-undo                           :doc (spacemacs//window-manipulation-layout-doc))
+  ("U" winner-redo                           :doc (spacemacs//window-manipulation-layout-doc))
+  ("v" split-window-right                    :doc (spacemacs//window-manipulation-split-doc))
+  ("V" split-window-right-and-focus          :doc (spacemacs//window-manipulation-split-doc))
+  ("w" other-window                          :doc (spacemacs//window-manipulation-move-doc)))
+
+;; end of Window Manipulation Micro State
