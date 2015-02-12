@@ -11,6 +11,21 @@
 ;;
 ;;; License: GPLv3
 
+(defface spacemacs-micro-state-header-face
+  `((t (:background
+        "DarkGoldenrod2"
+        :foreground "black"
+        :bold t :box ,(face-attribute 'mode-line :box))))
+  "Face for micro-state header in echo area.
+The header is composed of the text before the first `:'"
+  :group 'spacemacs)
+
+(defface spacemacs-micro-state-binding-face
+    `((t (:foreground ,(face-attribute 'error :foreground) :bold t)))
+  "Face for micro-state key binding in echo area.
+Characters enclosed in `[]' will have this face applied to them."
+  :group 'spacemacs)
+
 (defmacro spacemacs|define-micro-state (name &rest props)
   "Define a micro-state called NAME.
 
@@ -47,7 +62,9 @@ Available PROPS:
     `(defun ,func ()
        ,(format "%s micro-state." (symbol-name name))
        (interactive)
-       (let ((doc ,@doc)) (when doc (echo doc)))
+       (let ((doc ,@doc)) (when doc
+                            (echo (spacemacs//micro-state-propertize-doc
+                                   (concat ,(symbol-name name) ":" doc)))))
        ,@on-enter
        (,(if (version< emacs-version "24.4")
              'set-temporary-overlay-map
@@ -71,17 +88,21 @@ Available PROPS:
          (binding-doc (spacemacs/mplist-get binding :doc))
          (wrapper-name (intern (format "spacemacs//%s-%s" (symbol-name name)
                                        (symbol-name wrapped))))
-         (wrapper-func (eval `(defun ,wrapper-name ()
-                                "Auto-generated function"
-                                (interactive)
-                                (when ',wrapped
-                                  (call-interactively ',wrapped))
-                                (let ((bdoc ,@binding-doc)
-                                      (defdoc ,@default-doc))
-                                  (if bdoc
-                                      (echo (concat ,(symbol-name name)
-                                                    ": " bdoc))
-                                    (when defdoc (echo defdoc))))))))
+         (wrapper-func
+          (eval `(defun ,wrapper-name ()
+                   "Auto-generated function"
+                   (interactive)
+                   (when ',wrapped
+                     (call-interactively ',wrapped))
+                   (let ((bdoc ,@binding-doc)
+                         (defdoc ,@default-doc))
+                     (if bdoc
+                         (echo (spacemacs//micro-state-propertize-doc
+                                (concat ,(symbol-name name) ":" bdoc)))
+                       (when defdoc
+                         (echo (spacemacs//micro-state-propertize-doc
+                                (concat ,(symbol-name name) ":"
+                                        defdoc))))))))))
     (append (list (car binding) wrapper-func) binding)))
 
 (defun spacemacs//micro-state-fill-map-sexps (wrappers)
@@ -113,5 +134,30 @@ micro-state."
                    (eq this-command func))
                (equal (this-command-keys) (kbd key)))
       (not (plist-get wrapper :exit)))))
+
+(defun spacemacs//micro-state-propertize-doc (doc)
+  "Return a propertized doc string from DOC."
+  (when (string-match "^\\(.+?\\):\\([[:ascii:]]*\\)$" doc)
+    (let* ((header (match-string 1 doc))
+           (pheader (when header
+                      (propertize (concat " " header " ")
+                                  'face 'spacemacs-micro-state-header-face)))
+           (tail (spacemacs//micro-state-propertize-doc-1
+                  (match-string 2 doc))))
+      (message (concat pheader tail))
+      (concat pheader tail))))
+
+(defun spacemacs//micro-state-propertize-doc-1 (doc)
+  "Recursively propertize keys"
+  (message "doc %s" doc)
+  (if (string-match "^\\([[:ascii:]]*?\\)\\(\\[.+?\\]\\)\\([[:ascii:]]*\\)$" doc)
+      (let* ((head (match-string 1 doc))
+             (key (match-string 2 doc))
+             (pkey (when key
+                     (propertize key 'face 'spacemacs-micro-state-binding-face)))
+             (tail (spacemacs//micro-state-propertize-doc-1
+                    (match-string 3 doc))))
+        (concat head pkey tail))
+    doc))
 
 (provide 'core-micro-state)
