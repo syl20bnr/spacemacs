@@ -1967,10 +1967,8 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (require 'smartparens-config)
-
+      (setq sp-cancel-autoskip-on-backward-movement nil)
       (spacemacs|diminish smartparens-mode " (Ⓢ)" " (S)")
-      (custom-set-variables
-       '(sp-cancel-autoskip-on-backward-movement nil))
 
       (defun spacemacs/smartparens-pair-newline (id action context)
         (save-excursion
