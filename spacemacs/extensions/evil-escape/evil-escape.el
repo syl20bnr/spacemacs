@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil
 ;; Created: 22 Oct 2014
-;; Version: 2.08
+;; Version: 2.09
 ;; Package-Requires: ((emacs "24") (evil "1.0.9"))
 ;; URL: https://github.com/syl20bnr/evil-escape
 
@@ -87,6 +87,12 @@ mode is disabled.")
 
 (defvar evil-escape-isearch-shadowed-func nil
   "Original function of `isearch-mode-map' shadowed by `evil-escape'.
+This variable is used to restore the original function bound to the
+first key of the escape key sequence when `evil-escape'
+mode is disabled.")
+
+(defvar evil-escape-lisp-state-shadowed-func nil
+  "Original function of `evil-lisp-state-map' shadowed by `evil-escape'.
 This variable is used to restore the original function bound to the
 first key of the escape key sequence when `evil-escape'
 mode is disabled.")
@@ -232,8 +238,9 @@ with a key sequence."
         (define-key isearch-mode-map
           (kbd first-key) evil-escape-isearch-shadowed-func))
     ;; list state
-    (eval-after-load 'evil-lisp-state
-      '(define-key evil-lisp-state-map (kbd first-key) nil))
+    (if evil-escape-lisp-state-shadowed-func
+        (define-key evil-lisp-state-map
+          (kbd first-key) evil-escape-lisp-state-shadowed-func))
     ;; iedit state
     (eval-after-load 'evil-iedit-state
       '(progn (define-key evil-iedit-state-map (kbd first-key) nil)
