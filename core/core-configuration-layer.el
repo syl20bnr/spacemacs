@@ -171,7 +171,7 @@ for that layer."
           (push (cons (intern f) dir) result)))
       result)))
 
-(defun configuration-layer/declare-all-layers ()
+(defun configuration-layer/declare-layers ()
   "Declare default layers and user layers from the dotfile by filling the
 `configuration-layer-layers' variable."
   (setq configuration-layer-paths (configuration-layer//discover-layers))
