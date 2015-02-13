@@ -87,6 +87,10 @@ package name does not match theme name + `-theme' suffix.")
      ((assq theme spacemacs-theme-name-to-package)
       (let* ((pkg (cdr (assq theme spacemacs-theme-name-to-package)))
              (pkg-dir (spacemacs/load-or-install-package pkg)))
+        (when (or (eq 'moe-light theme)
+                  (eq 'moe-dark theme))
+          (load-file (concat pkg-dir "moe-light-theme.el"))
+          (load-file (concat pkg-dir "moe-dark-theme.el")))
         (add-to-list 'custom-theme-load-path pkg-dir)))
      (t
       ;; other themes
