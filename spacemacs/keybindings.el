@@ -301,7 +301,7 @@
 (defun spacemacs//window-manipulation-full-doc ()
   "Full documentation for window manipulation micro-state."
   "
-  [?]                       display this menu again
+  [?]                       display this help
   [0,9]                     go to numbered window
   [-] [/] [s] [v] [S] [V]   split windows bellow|right and focus
   [c] [C]                   close current|other windows
@@ -347,7 +347,7 @@
           (if (symbol-value golden-ratio-mode) "enabled" "disabled")))
 
 (spacemacs|define-micro-state window-manipulation
-  :doc (spacemacs//window-manipulation-full-doc)
+  :doc "[?] for help"
   :bindings
   ("?" nil :doc (spacemacs//window-manipulation-full-doc))
   ("0" select-window-0                       :doc (spacemacs//window-manipulation-number-doc))
