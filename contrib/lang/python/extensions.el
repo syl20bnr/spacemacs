@@ -60,7 +60,7 @@
       (add-to-list 'evil-emacs-state-modes 'pylookup-mode)
       (evil-add-hjkl-bindings pylookup-mode-map 'emacs)
       (evil-leader/set-key-for-mode 'python-mode
-        "mhD"  'pylookup-lookup)
+        "mhH"  'pylookup-lookup)
 
       (let ((dir (configuration-layer/get-layer-property 'python :ext-dir)))
         (setq pylookup-dir (concat dir "/pylookup")
