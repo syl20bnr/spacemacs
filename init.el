@@ -24,7 +24,7 @@
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init "Executing user init...")
   ;; synchronize and load configuration layers
-  (configuration-layer/declare-all-layers)
+  (configuration-layer/declare-layers)
   (configuration-layer/load-layers)
   (configuration-layer/delete-orphan-packages)
   ;; Ultimate configuration decisions are given to the user who can defined
