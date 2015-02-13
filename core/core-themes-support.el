@@ -67,6 +67,12 @@ package name does not match theme name + `-theme' suffix.")
 (defun spacemacs/load-theme (theme)
   "Load THEME."
   ;; Unless Emacs stock themes
+  (when (or (eq 'zonokai-blue theme)
+            (eq 'zonokai-red theme)
+            (eq 'solarized-light theme)
+            (eq 'solarized-dark theme))
+        ;; required dependencies
+        (spacemacs/load-or-install-package 'dash))
   (unless (memq theme (custom-available-themes))
     (cond
      ;; solarized theme, official spacemacs theme
@@ -74,8 +80,6 @@ package name does not match theme name + `-theme' suffix.")
           (eq 'solarized-dark theme))
       (add-to-list 'load-path (concat spacemacs-directory
                                       "extensions/solarized-theme/"))
-      ;; solarized dependency
-      (spacemacs/load-or-install-package 'dash)
       (require 'solarized)
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))
@@ -96,7 +100,7 @@ package name does not match theme name + `-theme' suffix.")
   "Cycle through themes defined in `dotspacemacs-themes.'"
   (interactive)
   (when  spacemacs--cur-theme
-    (disable-theme  spacemacs--cur-theme)
+    (disable-theme spacemacs--cur-theme)
     (setq spacemacs--cycle-themes
           (append spacemacs--cycle-themes (list spacemacs--cur-theme))))
   (setq  spacemacs--cur-theme (pop spacemacs--cycle-themes))
