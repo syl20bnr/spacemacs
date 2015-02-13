@@ -73,7 +73,7 @@ Available PROPS:
        (interactive)
        (let ((doc ,@doc)) (when doc
                             (echo (spacemacs//micro-state-propertize-doc
-                                   (concat ,(symbol-name name) ":" doc)))))
+                                   (concat ,(symbol-name name) ": " doc)))))
        ,@on-enter
        (,(if (version< emacs-version "24.4")
              'set-temporary-overlay-map
@@ -110,7 +110,7 @@ Available PROPS:
                                 (concat ,(symbol-name name) ": " bdoc)))
                        (when defdoc
                          (echo (spacemacs//micro-state-propertize-doc
-                                (concat ,(symbol-name name) ":"
+                                (concat ,(symbol-name name) ": "
                                         defdoc))))))))))
     (append (list (car binding) wrapper-func) binding)))
 
