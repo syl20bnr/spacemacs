@@ -9,11 +9,11 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(defconst spacemacs-version     "0.60.0" "Spacemacs version.")
-(defconst spacemacs-min-version   "24.3" "Minimal required version of Emacs.")
+(defconst spacemacs-version           "0.60.0" "Spacemacs version.")
+(defconst spacemacs-emacs-min-version   "24.3" "Minimal version of Emacs.")
 
 (defun spacemacs/emacs-version-ok ()
-  (version<= spacemacs-min-version emacs-version))
+  (version<= spacemacs-emacs-min-version emacs-version))
 
 (when (spacemacs/emacs-version-ok)
   (load-file (concat user-emacs-directory "core/core-load-paths.el"))
