@@ -134,7 +134,6 @@
     - [Modes](#modes)
         - [Major Mode leader key](#major-mode-leader-key)
         - [Helm](#helm)
-        - [Ledger](#ledger)
         - [Org](#org)
         - [Python](#python)
         - [JavaScript](#javascript)
@@ -1266,7 +1265,7 @@ Files manipulation commands (start with `f`):
 
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
-<kbd>SPC f d</kbd>                        | delete a file and the associated buffer (ask for confirmation)
+<kbd>SPC f D</kbd>                        | delete a file and the associated buffer (ask for confirmation)
 <kbd>SPC f f</kbd>                        | open a file using `ido`
 <kbd>SPC f j</kbd>                        | jump to the current buffer file in dired
 <kbd>SPC f o</kbd>                        | open a file using the default external program
@@ -2064,13 +2063,6 @@ setup the key on tabulation:
 <kbd>CTRL+j</kbd> | go to previous item
 <kbd>CTRL+k</kbd> | go to next item
 <kbd>CTRL+l</kbd> | go to next page
-
-### Ledger
-
-    Key Binding    |                 Description
--------------------|------------------------------------------------------------
-<kbd>SPC m a</kbd> | add a transaction
-<kbd>SPC m d</kbd> | delete current transaction
 
 ### Org
 

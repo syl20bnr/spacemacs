@@ -736,51 +736,6 @@ otherwise it is scaled down."
 
 ;;; end scale font micro-state
 
-;;; begin resize window micro-state
-
-(defun spacemacs//resize-window-micro-state-doc ()
-  (echo (format
-         "[%sx%s] Resize window: (H/L) shrink/enlarge horizontally, (J/K) shrink/enlarge vertically"
-         (window-total-width) (window-total-height))))
-
-(defun spacemacs/resize-window-overlay-map ()
-  "Set a temporary overlay map to easily resize a window."
-  (interactive)
-  (set-temporary-overlay-map
-   (let ((map (make-sparse-keymap)))
-     (define-key map (kbd "H") 'spacemacs/shrink-window-horizontally)
-     (define-key map (kbd "J") 'spacemacs/shrink-window)
-     (define-key map (kbd "K") 'spacemacs/enlarge-window)
-     (define-key map (kbd "L") 'spacemacs/enlarge-window-horizontally)
-     map) t)
-  (spacemacs//resize-window-micro-state-doc))
-
-(defun spacemacs/shrink-window-horizontally (delta)
-  "Wrap `spacemacs/shrink-window-horizontally'."
-  (interactive "p")
-  (shrink-window delta t)
-  (spacemacs/resize-window-overlay-map))
-
-(defun spacemacs/shrink-window (delta)
-  "Wrap `spacemacs/shrink-window'."
-  (interactive "p")
-  (shrink-window delta)
-  (spacemacs/resize-window-overlay-map))
-
-(defun spacemacs/enlarge-window (delta)
-  "Wrap `spacemacs/enlarge-window'."
-  (interactive "p")
-  (enlarge-window delta)
-  (spacemacs/resize-window-overlay-map))
-
-(defun spacemacs/enlarge-window-horizontally (delta)
-  "Wrap `spacemacs/enlarge-window-horizontally'."
-  (interactive "p")
-  (enlarge-window delta t)
-  (spacemacs/resize-window-overlay-map))
-
-;;; end resize window micro-state
-
 (defmacro spacemacs|diminish (mode unicode &optional ascii)
   "Diminish MODE name in mode line to UNICODE or ASCII depending on the value
 `dotspacemacs-mode-line-unicode-symbols'.
@@ -849,3 +804,19 @@ If ASCII si not provided then UNICODE is used instead."
      ((system-is-linux) (let ((process-connection-type nil))
                           (start-process "" nil "xdg-open" file-path)))
      )))
+
+(defun spacemacs/next-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (if (and (boundp 'flycheck-mode)
+           (symbol-value flycheck-mode))
+      (call-interactively 'flycheck-next-error)
+    (call-interactively 'next-error)))
+
+(defun spacemacs/previous-error (&optional n reset)
+  "Dispatch to flycheck or standard emacs error."
+  (interactive "P")
+  (if (and (boundp 'flycheck-mode)
+           (symbol-value flycheck-mode))
+      (call-interactively 'flycheck-previous-error)
+    (call-interactively 'previous-error)))

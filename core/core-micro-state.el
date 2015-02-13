@@ -11,6 +11,30 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs//defface-micro-state-faces ()
+  "Define faces for micro-states."
+  (let* ((hname 'spacemacs-micro-state-header-face)
+         (bname 'spacemacs-micro-state-binding-face)
+         (box (face-attribute 'mode-line :box))
+         (err (face-attribute 'error :foreground)))
+    (eval `(defface ,hname '((t ()))
+             "Face for micro-state header in echo area.
+The header is the name of the micro-state."
+             :group 'spacemacs))
+    (set-face-attribute hname nil
+                        :background "DarkGoldenrod2"
+                        :foreground "black"
+                        :bold t
+                        :box box)
+    (eval `(defface ,bname '((t ()))
+             "Face for micro-state key binding in echo area.
+Characters enclosed in `[]' will have this face applied to them."
+             :group 'spacemacs))
+    (set-face-attribute bname nil
+                        :foreground err
+                        :bold t)))
+(spacemacs//defface-micro-state-faces)
+
 (defmacro spacemacs|define-micro-state (name &rest props)
   "Define a micro-state called NAME.
 
@@ -18,30 +42,38 @@ NAME is a symbol.
 
 Available PROPS:
 
-`:on-enter BODY'
-    Evaluate BODY when the micro-state is switched on.
+`:on-enter SEXP'
+    Evaluate SEXP when the micro-state is switched on.
 
-`:on-exit BODY'
-    Evaluate BODDY when leaving the micro-state.
+`:on-exit SEXP'
+    Evaluate SEXP when leaving the micro-state.
+
+`:doc STRING or SEXP'
+    A STRING or a SEXP that evaluates to a string
 
 `:bindings EXPRESSIONS'
     One or several EXPRESSIONS with the form
-    (STRING1 SYMBOL1 :documentation STRING :exit SYMBOL)
+    (STRING1 SYMBOL1 :doc STRING :exit SYMBOL)
     where:
     - STRING1 is a key to bound to the function SYMBOL1.
-    - :documentation STRING is a doc string (not used for now)
+    - :doc STRING or SEXP is a STRING or an SEXP that evalutes
+      to a string
     - :exit SYMBOL is either `:exit t' or `:exit nil', if non nil then
       pressing this key will leave the micro-state (default is nil)."
   (declare (indent 1))
   (let* ((func (spacemacs//micro-state-func-name name))
+         (doc (spacemacs/mplist-get props :doc))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
          (bindings (spacemacs/mplist-get props :bindings))
-         (wrappers (spacemacs//micro-state-create-wrappers name bindings))
+         (wrappers (spacemacs//micro-state-create-wrappers name doc bindings))
          (keymap-body (spacemacs//micro-state-fill-map-sexps wrappers)))
     `(defun ,func ()
        ,(format "%s micro-state." (symbol-name name))
        (interactive)
+       (let ((doc ,@doc)) (when doc
+                            (echo (spacemacs//micro-state-propertize-doc
+                                   (concat ,(symbol-name name) ": " doc)))))
        ,@on-enter
        (,(if (version< emacs-version "24.4")
              'set-temporary-overlay-map
@@ -54,21 +86,32 @@ Available PROPS:
   "Return the name of the micro-state function."
   (intern (format "spacemacs/%s-micro-state" (symbol-name name))))
 
-(defun spacemacs//micro-state-create-wrappers (name bindings)
+(defun spacemacs//micro-state-create-wrappers (name doc bindings)
   "Return an alist (key wrapper) for each binding in BINDINGS."
-  (mapcar (lambda (x) (spacemacs//micro-state-create-wrapper name x))
+  (mapcar (lambda (x) (spacemacs//micro-state-create-wrapper name doc x))
           bindings))
 
-(defun spacemacs//micro-state-create-wrapper (name binding)
+(defun spacemacs//micro-state-create-wrapper (name default-doc binding)
   "Create a wrapper of FUNC and return a tuple (key wrapper BINDING)."
   (let* ((wrapped (cadr binding))
+         (binding-doc (spacemacs/mplist-get binding :doc))
          (wrapper-name (intern (format "spacemacs//%s-%s" (symbol-name name)
                                        (symbol-name wrapped))))
-         (wrapper-func (eval `(defun ,wrapper-name ()
-                                "Auto-generated function"
-                                (interactive)
-                                (when ',wrapped
-                                  (call-interactively ',wrapped))))))
+         (wrapper-func
+          (eval `(defun ,wrapper-name ()
+                   "Auto-generated function"
+                   (interactive)
+                   (when ',wrapped
+                     (call-interactively ',wrapped))
+                   (let ((bdoc ,@binding-doc)
+                         (defdoc ,@default-doc))
+                     (if bdoc
+                         (echo (spacemacs//micro-state-propertize-doc
+                                (concat ,(symbol-name name) ": " bdoc)))
+                       (when defdoc
+                         (echo (spacemacs//micro-state-propertize-doc
+                                (concat ,(symbol-name name) ": "
+                                        defdoc))))))))))
     (append (list (car binding) wrapper-func) binding)))
 
 (defun spacemacs//micro-state-fill-map-sexps (wrappers)
@@ -100,5 +143,30 @@ micro-state."
                    (eq this-command func))
                (equal (this-command-keys) (kbd key)))
       (not (plist-get wrapper :exit)))))
+
+(defun spacemacs//micro-state-propertize-doc (doc)
+  "Return a propertized doc string from DOC."
+  (when (string-match "^\\(.+?\\):\\([[:ascii:]]*\\)$" doc)
+    (let* ((header (match-string 1 doc))
+           (pheader (when header
+                      (propertize (concat " " header " ")
+                                  'face 'spacemacs-micro-state-header-face)))
+           (tail (spacemacs//micro-state-propertize-doc-1
+                  (match-string 2 doc))))
+      (message (concat pheader tail))
+      (concat pheader tail))))
+
+(defun spacemacs//micro-state-propertize-doc-1 (doc)
+  "Recursively propertize keys"
+  (message "doc %s" doc)
+  (if (string-match "^\\([[:ascii:]]*?\\)\\(\\[.+?\\]\\)\\([[:ascii:]]*\\)$" doc)
+      (let* ((head (match-string 1 doc))
+             (key (match-string 2 doc))
+             (pkey (when key
+                     (propertize key 'face 'spacemacs-micro-state-binding-face)))
+             (tail (spacemacs//micro-state-propertize-doc-1
+                    (match-string 3 doc))))
+        (concat head pkey tail))
+    doc))
 
 (provide 'core-micro-state)
