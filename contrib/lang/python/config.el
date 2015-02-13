@@ -12,17 +12,17 @@
 
 ;; Command prefixes
 
-(setq python/key-binding-prefixes
-      '(; django/pony-mode
-        ("mj" . "django")
-        ("mjr" . "runserver")
-        ("mji" . "shells")
-        ("mjs" . "south/syncdb")
-        ("mjt" . "test")
-        ("mjf" . "files")
-        ("mja" . "fabric")
-        ; pyenv/pyenv-mode
-        ("mp" . "pyenv")))
-
-(mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-      python/key-binding-prefixes)
+;; not supported for now
+;; (setq python/key-binding-prefixes
+;;       '(; django/pony-mode
+;;         ("mj" . "django")
+;;         ("mjr" . "django-runserver")
+;;         ("mji" . "django-shells")
+;;         ("mjs" . "django-south/syncdb")
+;;         ("mjt" . "django-test")
+;;         ("mjf" . "django-files")
+;;         ("mja" . "django-fabric")
+;;         ; pyenv/pyenv-mode
+;;         ("mp" . "pyenv")))
+;; (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
+;;       python/key-binding-prefixes)

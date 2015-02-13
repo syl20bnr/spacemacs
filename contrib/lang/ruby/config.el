@@ -18,14 +18,15 @@
 (defvar ruby-enable-ruby-on-rails-support nil
   "If non nil we'll load support for Rails (haml, features, navigation)")
 
-(setq ruby/key-binding-prefixes
-      '(("mrc" . "compile/generate")
-        ("mrg" . "goto")
-        ("mrf" . "find")
-        ("mrr" . "rake")
-        ("mrR" . "refactoring")
-        ("mrs" . "REPL")
-        ("mrx" . "run")))
-
-(mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-      ruby/key-binding-prefixes)
+;; not supported for now
+;; (setq ruby/key-binding-prefixes
+;;       '(("mr" . "RoR")
+;;         ("mrc" . "RoR-compile/generate")
+;;         ("mrg" . "RoR-goto")
+;;         ("mrf" . "RoR-find")
+;;         ("mrr" . "RoR-rake")
+;;         ("mrR" . "RoR-refactoring")
+;;         ("mrs" . "RoR-REPL")
+;;         ("mrx" . "RoR-run")))
+;; (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
+;;       ruby/key-binding-prefixes)
