@@ -820,3 +820,9 @@ If ASCII si not provided then UNICODE is used instead."
            (symbol-value flycheck-mode))
       (call-interactively 'flycheck-previous-error)
     (call-interactively 'previous-error)))
+
+(defun switch-to-minibuffer-window ()
+  "switch to minibuffer window (if active)"
+  (interactive)
+  (when (active-minibuffer-window)
+    (select-window (active-minibuffer-window))))

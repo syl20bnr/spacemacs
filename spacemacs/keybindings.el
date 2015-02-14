@@ -230,6 +230,7 @@
   "w."  'spacemacs/window-manipulation-micro-state
   "w2"  'layout-double-columns
   "w3"  'layout-triple-columns
+  "wb"  'switch-to-minibuffer-window
   "wc"  'delete-window
   "wC"  'delete-other-windows
   "wd"  'toggle-current-window-dedication
