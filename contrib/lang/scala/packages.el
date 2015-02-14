@@ -47,6 +47,78 @@ which require an initialization must be listed explicitly in the list.")
         (kbd "n") 'forward-button
         (kbd "N") 'backward-button)
 
+      (defun ensime-gen-and-reload()
+        (interactive)
+        (progn
+          (sbt-command "gen-ensime")
+          (ensime-shutdown)
+          (ensime))
+        )
+      
+      (evil-leader/set-key-for-mode 'scala-mode
+        "mg"     'ensime-edit-definition
+
+        "m."      'ensime-gen-and-reload
+        "m,"      'ensime
+        "mri"     'ensime-refactor-inline-local
+        "mrl"     'ensime-refactor-extract-local
+        "mrm"     'ensime-refactor-extract-method
+        "mro"     'ensime-refactor-organize-imports
+        "mrr"     'ensime-refactor-rename
+        "mrt"     'ensime-import-type-at-point
+
+        "mbS"     'ensime-stacktrace-switch
+        "mbT"     'ensime-sbt-do-test
+        "mbc"     'ensime-sbt-do-compile
+        "mbn"     'ensime-sbt-do-clean
+        "mbo"     'ensime-sbt-do-test-only
+        "mbp"     'ensime-sbt-do-package
+        "mbr"     'ensime-sbt-do-run
+        "mbs"     'ensime-sbt-switch
+        "mbt"     'ensime-sbt-do-test-quick
+
+        "mda"     'ensime-db-clear-all-breaks
+        "mdb"     'ensime-db-set-break
+        "mdc"     'ensime-db-continue
+        "mdd"     'ensime-db-start
+        "mdi"     'ensime-db-inspect-value-at-point
+        "mdl"     'ensime-db-list-locals
+        "mdn"     'ensime-db-next
+        "mdo"     'ensime-db-step-out
+        "mdq"     'ensime-db-quit
+        "mdr"     'ensime-db-run
+        "mds"     'ensime-db-step
+        "mdt"     'ensime-db-backtrace
+        "mdu"     'ensime-db-clear-break
+
+        "mti"     'ensime-goto-impl
+        "mtt"     'ensime-goto-test
+
+        "mca"     'ensime-typecheck-all
+        "mcc"     'ensime-typecheck-current-file
+        "mce"     'ensime-show-all-errors-and-warnings
+        "mcr"     'ensime-reload-open-files
+
+        "mvR"     'ensime-inf-eval-region
+        "mv."     'ensime-expand-selection-command
+        "mvb"     'ensime-inf-eval-buffer
+        "mvd"     'ensime-show-doc-for-symbol-at-point
+        "mve"     'ensime-print-errors-at-point
+        "mvf"     'ensime-format-source
+        "mvi"     'ensime-inspect-type-at-point
+        "mvI"     'ensime-inspect-type-at-point-other-frame
+        "mvl"     'ensime-inf-load-file
+        "mvo"     'ensime-inspect-project-package
+        "mvp"     'ensime-inspect-package-at-point
+        "mvr"     'ensime-show-uses-of-symbol-at-point
+        "mvs"     'ensime-sbt-switch
+        "mvt"     'ensime-print-type-at-point
+        "mvu"     'ensime-undo-peek
+        "mvv"     'ensime-search
+        "mvx"     'ensime-scalex
+        "mvz"     'ensime-inf-switch
+        )
+
       ;; Don't use scala checker if ensime mode is active, since it provides
       ;; better error checking.
       (eval-after-load 'flycheck
