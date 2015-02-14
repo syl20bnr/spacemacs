@@ -826,3 +826,8 @@ If ASCII si not provided then UNICODE is used instead."
   (interactive)
   (when (active-minibuffer-window)
     (select-window (active-minibuffer-window))))
+
+(defun comint-clear-buffer ()
+  (interactive)
+  (let ((comint-buffer-maximum-size 0))
+    (comint-truncate-buffer)))
