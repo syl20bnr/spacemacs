@@ -1128,7 +1128,8 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (setq helm-split-window-in-side-p nil
+      (setq helm-prevent-escaping-from-minibuffer t
+            helm-split-window-in-side-p nil
             helm-bookmark-show-location t
             helm-buffers-fuzzy-matching t
             helm-always-two-windows     t)
