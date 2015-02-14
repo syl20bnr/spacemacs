@@ -52,7 +52,7 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (evil-leader/set-key-for-mode 'python-mode
-        "mhd" 'anaconda-mode-view-doc
+        "mhh" 'anaconda-mode-view-doc
         "mgg"  'anaconda-mode-goto)
       (spacemacs|hide-lighter anaconda-mode))))
 
@@ -72,7 +72,7 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (evil-leader/set-key-for-mode 'cython-mode
-        "mhd" 'anaconda-mode-view-doc
+        "mhh" 'anaconda-mode-view-doc
         "mgg"  'anaconda-mode-goto)
       )))
 

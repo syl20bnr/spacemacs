@@ -171,7 +171,7 @@ for that layer."
           (push (cons (intern f) dir) result)))
       result)))
 
-(defun configuration-layer/declare-all-layers ()
+(defun configuration-layer/declare-layers ()
   "Declare default layers and user layers from the dotfile by filling the
 `configuration-layer-layers' variable."
   (setq configuration-layer-paths (configuration-layer//discover-layers))
@@ -775,6 +775,7 @@ deleted safely."
   "Add post init processing."
   (add-hook 'after-init-hook
             (lambda ()
+              (dotspacemacs|call-func dotspacemacs/config "Executing user config...")
               (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text))
               ;; from jwiegley
               ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el

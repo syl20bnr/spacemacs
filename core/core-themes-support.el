@@ -67,6 +67,12 @@ package name does not match theme name + `-theme' suffix.")
 (defun spacemacs/load-theme (theme)
   "Load THEME."
   ;; Unless Emacs stock themes
+  (when (or (eq 'zonokai-blue theme)
+            (eq 'zonokai-red theme)
+            (eq 'solarized-light theme)
+            (eq 'solarized-dark theme))
+        ;; required dependencies
+        (spacemacs/load-or-install-package 'dash))
   (unless (memq theme (custom-available-themes))
     (cond
      ;; solarized theme, official spacemacs theme
@@ -74,8 +80,6 @@ package name does not match theme name + `-theme' suffix.")
           (eq 'solarized-dark theme))
       (add-to-list 'load-path (concat spacemacs-directory
                                       "extensions/solarized-theme/"))
-      ;; solarized dependency
-      (spacemacs/load-or-install-package 'dash)
       (require 'solarized)
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))
@@ -83,6 +87,10 @@ package name does not match theme name + `-theme' suffix.")
      ((assq theme spacemacs-theme-name-to-package)
       (let* ((pkg (cdr (assq theme spacemacs-theme-name-to-package)))
              (pkg-dir (spacemacs/load-or-install-package pkg)))
+        (when (or (eq 'moe-light theme)
+                  (eq 'moe-dark theme))
+          (load-file (concat pkg-dir "moe-light-theme.el"))
+          (load-file (concat pkg-dir "moe-dark-theme.el")))
         (add-to-list 'custom-theme-load-path pkg-dir)))
      (t
       ;; other themes
@@ -96,7 +104,7 @@ package name does not match theme name + `-theme' suffix.")
   "Cycle through themes defined in `dotspacemacs-themes.'"
   (interactive)
   (when  spacemacs--cur-theme
-    (disable-theme  spacemacs--cur-theme)
+    (disable-theme spacemacs--cur-theme)
     (setq spacemacs--cycle-themes
           (append spacemacs--cycle-themes (list spacemacs--cur-theme))))
   (setq  spacemacs--cur-theme (pop spacemacs--cycle-themes))
@@ -120,6 +128,8 @@ changed to THEME."
       (spacemacs/set-flycheck-mode-line-faces))
   (if (fboundp 'spacemacs/set-new-version-lighter-mode-line-faces)
       (spacemacs/set-new-version-lighter-mode-line-faces))
+  (if (fboundp 'spacemacs//defface-micro-state-faces)
+      (spacemacs//defface-micro-state-faces))
   (if (fboundp 'powerline-reset)
       (powerline-reset)))
 
