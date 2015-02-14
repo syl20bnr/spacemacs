@@ -1175,6 +1175,7 @@ Windows manipulation commands (start with `w`):
 
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
+<kbd>SPC w b</kbd>                        | force the focus back to the minibuffer (usefull with `helm` popups)
 <kbd>SPC w c</kbd>                        | close a window
 <kbd>SPC w d</kbd>                        | toggle window dedication (dedicated window cannot be reused by a mode)
 <kbd>SPC w H</kbd>                        | move window to the left
