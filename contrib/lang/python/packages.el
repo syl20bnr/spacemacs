@@ -215,7 +215,9 @@ which require an initialization must be listed explicitly in the list.")
         "mr"  'python-shell-send-region)
 
       (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
-      (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input))))
+      (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input)
+      (define-key inferior-python-mode-map (kbd "C-l") 'comint-clear-buffer)
+      (define-key inferior-python-mode-map (kbd "C-r") 'comint-history-isearch-backward))))
 
 (defun python/init-flycheck ()
   (add-hook 'python-mode-hook 'flycheck-mode))

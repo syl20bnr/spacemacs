@@ -820,3 +820,8 @@ If ASCII si not provided then UNICODE is used instead."
            (symbol-value flycheck-mode))
       (call-interactively 'flycheck-previous-error)
     (call-interactively 'previous-error)))
+
+(defun comint-clear-buffer ()
+  (interactive)
+  (let ((comint-buffer-maximum-size 0))
+    (comint-truncate-buffer)))
