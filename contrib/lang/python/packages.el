@@ -172,7 +172,10 @@ which require an initialization must be listed explicitly in the list.")
                        'python-setup-shell))
     :config
     (progn
-      (add-hook 'inferior-python-mode-hook 'smartparens-mode)
+      (add-hook 'inferior-python-mode-hook '(lambda ()
+                                              (smartparens-mode)
+                                              (evil-search-highlight-persist -1)
+                                              (global-evil-search-highlight-persist -1)))
       ;; add support for `ahs-range-beginning-of-defun' for python-mode
       (eval-after-load 'auto-highlight-symbol
         '(add-to-list 'ahs-plugin-bod-modes 'python-mode))
