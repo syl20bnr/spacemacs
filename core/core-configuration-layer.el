@@ -569,14 +569,15 @@ to select one."
 
 (defun configuration-layer//initialize-package (pkg layers)
   "Initialize the package PKG from the configuration layers LAYERS."
-  (dolist (layer layers)
-    (let* ((init-func (intern (format "%s/init-%s" layer pkg))))
-      (spacemacs/loading-animation)
-      (if (and (package-installed-p pkg) (fboundp init-func))
-          (progn
-            (spacemacs/message "Package: Initializing %s:%s..." layer pkg)
-            (configuration-layer//activate-package pkg)
-            (funcall init-func))))))
+  (let (initializedp)
+   (dolist (layer layers)
+     (let* ((init-func (intern (format "%s/init-%s" layer pkg))))
+       (when (and (package-installed-p pkg) (fboundp init-func))
+         (spacemacs/message "Package: Initializing %s:%s..." layer pkg)
+         (configuration-layer//activate-package pkg)
+         (funcall init-func)
+         (setq initializedp t))))
+   (when initializedp) (spacemacs/loading-animation)))
 
 (defun configuration-layer//activate-package (pkg)
   "Activate PKG."
