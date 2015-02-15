@@ -1518,7 +1518,7 @@ Key Binding            |                 Description
 ### Highlight current symbol
 
 `Spacemacs` supports highlighting of the current symbol on demand (provided by
-the [auto-highlight-symbol][auto-highlight] mode) and adding a micro-state to
+the [auto-highlight-symbol][auto-highlight] mode) and adds a micro-state to
 easily navigate and rename this symbol.
 
 It is also possible to change the range of the navigation on the fly to:
@@ -1533,16 +1533,17 @@ Navigation between the highlighted symbols can be done with the commands:
 
 Key Binding            | Description
 -----------------------|------------------------------------------------------------
-<kbd>*</kbd>           | initiate navigation micro-state
 <kbd>SPC s b</kbd>     | go to the last searched occurrence of the last highlighted symbol
 <kbd>SPC s e</kbd>     | edit all occurrences of the current symbol(*)
-<kbd>SPC s h</kbd>     | highlight the current symbol and all its occurrence within the current range
+<kbd>SPC s h</kbd>     | initiate navigation micro-state
 <kbd>SPC s R</kbd>     | change range to default (`whole buffer`)
 
 In 'Spacemacs' highlight symbol micro-state:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
+<kbd>*</kbd>  | search next occurrence using evil
+<kbd>#</kbd>  | search previous occurrence using evil
 <kbd>e</kbd>  | edit occurrences (*)
 <kbd>n</kbd>  | go to next occurrence
 <kbd>N</kbd>  | go to previous occurrence

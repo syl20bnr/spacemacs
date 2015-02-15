@@ -286,26 +286,27 @@ which require an initialization must be listed explicitly in the list.")
           (message "No symbol has been searched for now.")))
 
       (defun spacemacs/integrate-evil-search (forward)
-        (eval '(progn
-                 ;; isearch-string is last searched item.  Next time
-                 ;; "n" is hit we will use this.
-                 (setq isearch-string (concat "\\<" (evil-find-thing forward 'symbol) "\\>"))
-                 ;; Next time "n" is hit, go the correct direction.
-                 (setq isearch-forward forward)
-                 ;; ahs does a case sensitive search.  We could set
-                 ;; this, but it would break the user's current
-                 ;; sensitivity settings.  We could save the setting,
-                 ;; then next time the user starts a search we could
-                 ;; restore the setting.
-                 ;;(setq case-fold-search nil)
-                 ;; Place the search term into the search rings.
-                 (isearch-update-ring isearch-string t)
-                 (evil-push-search-history isearch-string forward)
-                 ;; Use this search term for empty pattern "%s//replacement/"
-                 ;; Append case sensitivity
-                 (setq evil-ex-last-was-search nil
-                       evil-ex-substitute-pattern `(,(concat isearch-string "\\C") nil (0 0)))
-                 ) nil))
+        ;; isearch-string is last searched item.  Next time
+        ;; "n" is hit we will use this.
+        (setq isearch-string (concat "\\<" (evil-find-thing forward 'symbol) "\\>"))
+        (setq isearch-regexp (concat "\\<" (evil-find-thing forward 'symbol) "\\>"))
+        ;; Next time "n" is hit, go the correct direction.
+        (setq isearch-forward forward)
+        ;; ahs does a case sensitive search.  We could set
+        ;; this, but it would break the user's current
+        ;; sensitivity settings.  We could save the setting,
+        ;; then next time the user starts a search we could
+        ;; restore the setting.
+        ;;(setq case-fold-search nil)
+        ;; Place the search term into the search rings.
+        (isearch-update-ring isearch-string t)
+        (evil-push-search-history isearch-string forward)
+        ;; Use this search term for empty pattern "%s//replacement/"
+        ;; Append case sensitivity
+        (setq evil-ex-last-was-search nil
+              evil-ex-substitute-pattern
+              `(,(concat isearch-string "\\C") nil (0 0)))
+        (evil-search-next))
 
       (defun spacemacs/symbol-highlight ()
         "Highlight the symbol under point with `auto-highlight-symbol'."
@@ -313,9 +314,7 @@ which require an initialization must be listed explicitly in the list.")
         (eval '(progn
                  (ahs-highlight-now)
                  (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-                 (spacemacs/auto-highlight-symbol-overlay-map)
-                 (spacemacs/integrate-evil-search nil)
-                 ) nil))
+                 (spacemacs/auto-highlight-symbol-overlay-map)) nil))
 
       (defun spacemacs/symbol-highlight-reset-range ()
         "Reset the range for `auto-highlight-symbol'."
@@ -346,6 +345,10 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap)))
+           (define-key map (kbd "*") (lambda () (interactive)
+                                       (spacemacs/integrate-evil-search t)))
+           (define-key map (kbd "#") (lambda () (interactive)
+                                       (spacemacs/integrate-evil-search nil)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
            (if (ht-contains? configuration-layer-all-packages 'evil-iedit-state)
@@ -366,10 +369,10 @@ which require an initialization must be listed explicitly in the list.")
                (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
                                               ((string= plighter "HSA") "B")
                                               ((string= plighter "HSD") "F"))))
-               (propplugin (propertize plugin 'face `(
-                                                      :foreground "#ffffff"
-                                                      :background ,(face-attribute
-                                                                    'ahs-plugin-defalt-face :foreground)))))
+               (propplugin (propertize plugin 'face
+                                       `(:foreground "#ffffff"
+                                         :background ,(face-attribute
+                                                       'ahs-plugin-defalt-face :foreground)))))
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
@@ -377,7 +380,9 @@ which require an initialization must be listed explicitly in the list.")
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset"
+            (echo (concat "%s %s%s press (n/N) to navigate, (e) to edit, "
+                          "(r) to change range, (*) to search with evil or "
+                          "(R) for reset")
                   propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
