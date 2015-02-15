@@ -98,6 +98,11 @@ it reaches the top or bottom of the screen.")
 (defvar dotspacemacs-smartparens-strict-mode nil
   "If non-nil smartparens-strict-mode will be enabled in programming modes.")
 
+(defvar dotspacemacs-delete-orhpan-packages t
+  "If non-nil spacemacs will delete any orphan packages, i.e. packages that are
+declared in a layer which is not a member of
+ `dotspacemacs-configuration-layers'")
+
 (defvar dotspacemacs-default-package-repository 'melpa-stable
   "The default package repository used if no explicit repository has been
 specified with an installed package.

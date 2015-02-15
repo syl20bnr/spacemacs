@@ -26,7 +26,8 @@
   ;; synchronize and load configuration layers
   (configuration-layer/declare-layers)
   (configuration-layer/load-layers)
-  (configuration-layer/delete-orphan-packages)
+  (when dotspacemacs-delete-orhpan-packages
+    (configuration-layer/delete-orphan-packages))
   ;; Ultimate configuration decisions are given to the user who can defined
   ;; them in his/her ~/.spacemacs file
   (configuration-layer/setup-after-init-hook)
