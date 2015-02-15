@@ -22,8 +22,23 @@
 ;; For more info on `use-package', see readme:
 ;; https://github.com/jwiegley/use-package
 
+
+(defun load-gopath-file(name)
+  (setq paths
+    (split-string
+      (substitute-in-file-name "$GOPATH")
+      ":"
+      )
+    )
+  (loop for p in paths
+    for file = (concat p name)
+    when (file-exists-p file)
+    do (load-file file)
+    )
+  )
+
 (defun go/init-go-oracle()
-  (load-file "$GOPATH/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
+  (load-gopath-file "/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
   (add-hook 'go-mode-hook 'go-oracle-mode)
   (spacemacs|diminish go-oracle-mode " O")
   (evil-leader/set-key-for-mode 'go-mode
