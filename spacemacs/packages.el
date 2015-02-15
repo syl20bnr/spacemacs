@@ -282,7 +282,7 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (if spacemacs-last-ahs-highlight-p
             (progn (goto-char (nth 1 spacemacs-last-ahs-highlight-p))
-                   (eval '(progn (ahs-highlight-now) (ahs-back-to-start)) nil))
+                   (eval '(progn (spacemacs/ahs-highlight-now-wrapper) (ahs-back-to-start)) nil))
           (message "No symbol has been searched for now.")))
 
       (defun spacemacs/integrate-evil-search (forward)
@@ -304,17 +304,53 @@ which require an initialization must be listed explicitly in the list.")
         ;; Use this search term for empty pattern "%s//replacement/"
         ;; Append case sensitivity
         (setq evil-ex-last-was-search nil
-              evil-ex-substitute-pattern
-              `(,(concat isearch-string "\\C") nil (0 0)))
-        (evil-search-next))
+              evil-ex-substitute-pattern `(,(concat isearch-string "\\C") nil (0 0)))
+        )
+
+      (defun spacemacs/ensure-ahs-enabled-locally ()
+        "Ensures ahs is enabled for the local buffer."
+        (unless
+            (bound-and-true-p ahs-mode-line)
+          (auto-highlight-symbol-mode)
+          ))
+
+      (defun spacemacs/ahs-highlight-now-wrapper ()
+        "Safe wrapper for ahs-highlight-now"
+        (eval '(progn
+                 (spacemacs/ensure-ahs-enabled-locally)
+                 (ahs-highlight-now)
+                 ) nil))
+
+      (defun spacemacs/quick-ahs-forward ()
+        "Go to the next occurrence of symbol under point with
+`auto-highlight-symbol'"
+        (interactive)
+        (eval '(progn (spacemacs/integrate-evil-search t)
+                      (spacemacs/ahs-highlight-now-wrapper)
+                      (ahs-forward)) nil))
+
+      (defun spacemacs/quick-ahs-backward ()
+        "Go to the previous occurrence of symbol under point with
+`auto-highlight-symbol'"
+        (interactive)
+        (eval '(progn (spacemacs/integrate-evil-search nil)
+                      (spacemacs/ahs-highlight-now-wrapper)
+                      (ahs-backward)) nil))
+
+      (eval-after-load 'evil
+        '(progn
+           (define-key evil-motion-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
+           (define-key evil-motion-state-map (kbd "#") 'spacemacs/quick-ahs-backward)))
 
       (defun spacemacs/symbol-highlight ()
         "Highlight the symbol under point with `auto-highlight-symbol'."
         (interactive)
         (eval '(progn
-                 (ahs-highlight-now)
+                 (spacemacs/ahs-highlight-now-wrapper)
                  (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-                 (spacemacs/auto-highlight-symbol-overlay-map)) nil))
+                 (spacemacs/auto-highlight-symbol-overlay-map)
+                 (spacemacs/integrate-evil-search nil)
+                 ) nil))
 
       (defun spacemacs/symbol-highlight-reset-range ()
         "Reset the range for `auto-highlight-symbol'."
@@ -336,7 +372,7 @@ which require an initialization must be listed explicitly in the list.")
                      ahs-change-range))
         (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
           (eval `(defadvice ,sym (after ,advice activate)
-                   (ahs-highlight-now)
+                   (spacemacs/ahs-highlight-now-wrapper)
                    (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
                    (spacemacs/auto-highlight-symbol-overlay-map)))))
       (defun spacemacs/auto-highlight-symbol-overlay-map ()
@@ -345,10 +381,6 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap)))
-           (define-key map (kbd "*") (lambda () (interactive)
-                                       (spacemacs/integrate-evil-search t)))
-           (define-key map (kbd "#") (lambda () (interactive)
-                                       (spacemacs/integrate-evil-search nil)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
            (if (ht-contains? configuration-layer-all-packages 'evil-iedit-state)
@@ -380,9 +412,7 @@ which require an initialization must be listed explicitly in the list.")
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo (concat "%s %s%s press (n/N) to navigate, (e) to edit, "
-                          "(r) to change range, (*) to search with evil or "
-                          "(R) for reset")
+            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset"
                   propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
@@ -788,7 +818,14 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-evil-visualstar ()
   (use-package evil-visualstar
-    :init (global-evil-visualstar-mode)))
+    :commands (evil-visualstar/begin-search-forward
+               evil-visualstar/begin-search-backward)
+    :init
+    (progn
+      (define-key evil-visual-state-map (kbd "*")
+        'evil-visualstar/begin-search-forward)
+      (define-key evil-visual-state-map (kbd "#")
+        'evil-visualstar/begin-search-backward))))
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
