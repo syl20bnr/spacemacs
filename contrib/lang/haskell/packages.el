@@ -12,16 +12,13 @@
 
 (defvar haskell-packages
   '(
+    company-ghc
     flycheck
     flycheck-haskell
     ghc
     haskell-mode
     hi2
     ))
-
-;; Only load company-ghc if company-mode is enabled
-(when (member 'company-mode dotspacemacs-configuration-layers)
-  (add-to-list 'haskell-packages 'company-ghc))
 
 (defun haskell/init-flycheck ()
   ;;(add-hook 'haskell-mode-hook 'flycheck-mode))
@@ -161,11 +158,12 @@
         (define-key haskell-cabal-mode-map [?\C-c ?\C-z] 'haskell-interactive-switch)))))
 
 (defun haskell/init-company-ghc ()
-  (use-package ghc
-    :init 
-    (add-to-list 'company-backends 'company-ghc)
-    (ghc-comp-init)
-    ))
+  (use-package company-ghc
+    :if (configuration-layer/layer-declaredp 'company-mode)
+    :init
+    (progn
+      (add-to-list 'company-backends 'company-ghc)
+      (add-hook 'haskell-mode-hook 'ghc-comp-init))))
 
 (defun haskell/init-hi2 ()
   (use-package hi2
