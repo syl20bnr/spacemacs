@@ -350,7 +350,7 @@
 (spacemacs|define-micro-state window-manipulation
   :doc "[?] for help"
   :bindings
-  ("?" nil :doc (spacemacs//window-manipulation-full-doc))
+  ("?" nil                                   :doc (spacemacs//window-manipulation-full-doc))
   ("0" select-window-0                       :doc (spacemacs//window-manipulation-number-doc))
   ("1" select-window-1                       :doc (spacemacs//window-manipulation-number-doc))
   ("2" select-window-2                       :doc (spacemacs//window-manipulation-number-doc))
