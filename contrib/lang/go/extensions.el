@@ -22,11 +22,19 @@
 ;; For more info on `use-package', see readme:
 ;; https://github.com/jwiegley/use-package
 
+(defun load-gopath-file(gopath name)
+  "Search for NAME file in all paths referenced in GOPATH."
+  (setq paths (split-string gopath ":"))
+  (loop for p in paths
+        for file = (concat p name) when (file-exists-p file)
+        do (load-file file)))
+
 (defun go/init-go-oracle()
   (let ((go-path (getenv "GOPATH")))
     (if (not go-path)
         (spacemacs/message (concat "Warning: GOPATH variable not found, "
                                    "go-oracle configuration skipped."))
+      (load-gopath-file "/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
       (load-file (concat (file-name-as-directory go-path)
                          "src/code.google.com/p/go.tools/cmd/oracle/oracle.el"))
       (add-hook 'go-mode-hook 'go-oracle-mode)
@@ -43,11 +51,7 @@
         "mop" 'go-oracle-pointsto
         "mor" 'go-oracle-referrers
         "mos" 'go-oracle-callstack
-        "mot" 'go-oracle-describe)
-
-      )
-    )
-  )
+        "mot" 'go-oracle-describe))))
 
 (defun go/init-go-rename()
   (use-package go-rename
