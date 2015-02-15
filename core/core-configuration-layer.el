@@ -175,11 +175,11 @@ for that layer."
   "Declare default layers and user layers from the dotfile by filling the
 `configuration-layer-layers' variable."
   (setq configuration-layer-paths (configuration-layer//discover-layers))
-  (push (configuration-layer//declare-layer 'spacemacs)
-        configuration-layer-layers)
-  (when (eq 'all dotspacemacs-configuration-layers)
-    (setq dotspacemacs-configuration-layers
-          (ht-keys configuration-layer-paths)))
+  (if (eq 'all dotspacemacs-configuration-layers)
+      (setq dotspacemacs-configuration-layers
+            (ht-keys configuration-layer-paths))
+    (push (configuration-layer//declare-layer 'spacemacs)
+          configuration-layer-layers))
   (mapc (lambda (layer) (push layer configuration-layer-layers))
         (configuration-layer//declare-layers
          dotspacemacs-configuration-layers)))
