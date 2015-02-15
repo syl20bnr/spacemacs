@@ -568,6 +568,15 @@ which require an initialization must be listed explicitly in the list.")
       (set-default-evil-visual-state-cursor)
       (set-default-evil-motion-state-cursor)
       (set-default-evil-lisp-state-cursor)
+
+      (defun spacemacs/set-evil-cursor-color (state color)
+        "Change the evil cursor COLOR for STATE."
+        (let ((face (intern (format "spacemacs-%s-face" (symbol-name state))))
+              (func (intern (format "set-default-evil-%s-state-cursor"
+                                    (symbol-name state)))))
+          (set-face-attribute face nil :background "#FFFFEF")
+          (funcall func)))
+
       (evil-mode 1))
     :config
     (progn
