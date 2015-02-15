@@ -15,8 +15,7 @@
 
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
-Paths must have a trailing slash (ie. `~/.mycontribs/')"
-  )
+Paths must have a trailing slash (ie. `~/.mycontribs/')")
 
 (defvar dotspacemacs-startup-banner 'random
   "Specify the startup banner. If the value is an integer then the
@@ -25,8 +24,8 @@ then the banner is chosen randomly among the available banners, if
 the value is nil then no banner is displayed.")
 
 (defvar dotspacemacs-configuration-layers '()
-  "list of contribution to load."
-)
+  "List of configuration layers to load. If it is the symbol `all' instead
+of a list then all discovered layers will be installed.")
 
 (defvar dotspacemacs-themes '(solarized-light
                               solarized-dark
@@ -106,8 +105,7 @@ declared in a layer which is not a member of
 (defvar dotspacemacs-default-package-repository 'melpa-stable
   "The default package repository used if no explicit repository has been
 specified with an installed package.
-NOT USED FOR NOW :-)"
-)
+NOT USED FOR NOW :-)")
 
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")

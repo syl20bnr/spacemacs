@@ -177,6 +177,9 @@ for that layer."
   (setq configuration-layer-paths (configuration-layer//discover-layers))
   (push (configuration-layer//declare-layer 'spacemacs)
         configuration-layer-layers)
+  (when (eq 'all dotspacemacs-configuration-layers)
+    (setq dotspacemacs-configuration-layers
+          (ht-keys configuration-layer-paths)))
   (mapc (lambda (layer) (push layer configuration-layer-layers))
         (configuration-layer//declare-layers
          dotspacemacs-configuration-layers)))
