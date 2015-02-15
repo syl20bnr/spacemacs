@@ -307,30 +307,15 @@ which require an initialization must be listed explicitly in the list.")
                        evil-ex-substitute-pattern `(,(concat isearch-string "\\C") nil (0 0)))
                  ) nil))
 
-      (defun spacemacs/quick-ahs-forward ()
-        "Go to the next occurrence of symbol under point with
-`auto-highlight-symbol'"
-        (interactive)
-        (eval '(progn (spacemacs/integrate-evil-search t) (ahs-highlight-now) (ahs-forward)) nil))
-
-      (defun spacemacs/quick-ahs-backward ()
-        "Go to the previous occurrence of symbol under point with
-`auto-highlight-symbol'"
-        (interactive)
-        (eval '(progn (spacemacs/integrate-evil-search nil) (ahs-highlight-now) (ahs-backward)) nil))
-
-      (eval-after-load 'evil
-        '(progn
-           (define-key evil-motion-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
-           (define-key evil-motion-state-map (kbd "#") 'spacemacs/quick-ahs-backward)))
-
       (defun spacemacs/symbol-highlight ()
         "Highlight the symbol under point with `auto-highlight-symbol'."
         (interactive)
         (eval '(progn
                  (ahs-highlight-now)
                  (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-                 (spacemacs/auto-highlight-symbol-overlay-map)) nil))
+                 (spacemacs/auto-highlight-symbol-overlay-map)
+                 (spacemacs/integrate-evil-search nil)
+                 ) nil))
 
       (defun spacemacs/symbol-highlight-reset-range ()
         "Reset the range for `auto-highlight-symbol'."
@@ -765,7 +750,8 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (global-evil-search-highlight-persist)
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
-      (evil-ex-define-cmd "nohlsearch" 'evil-search-highlight-persist-remove-all))))
+      (evil-ex-define-cmd "nohlsearch"
+                          'evil-search-highlight-persist-remove-all))))
 
 (defun spacemacs/init-evil-surround ()
   (use-package evil-surround
@@ -797,14 +783,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-evil-visualstar ()
   (use-package evil-visualstar
-    :commands (evil-visualstar/begin-search-forward
-               evil-visualstar/begin-search-backward)
-    :init
-    (progn
-      (define-key evil-visual-state-map (kbd "*")
-        'evil-visualstar/begin-search-forward)
-      (define-key evil-visual-state-map (kbd "#")
-        'evil-visualstar/begin-search-backward))))
+    :init (global-evil-visualstar-mode)))
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
