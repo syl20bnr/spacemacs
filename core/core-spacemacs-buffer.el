@@ -92,15 +92,14 @@ buffer, right justified."
 SPACEMACS-TITLE-LENGTH. New loading title is displayed by chunk
 of size LOADING-DOTS-CHUNK-THRESHOLD."
   (setq spacemacs-loading-counter (1+ spacemacs-loading-counter))
-  (if (>= spacemacs-loading-counter spacemacs-loading-dots-chunk-threshold)
-      (progn
-        (setq spacemacs-loading-counter 0)
-        (let ((i 0))
-          (while (< i spacemacs-loading-dots-chunk-size)
-            (setq spacemacs-loading-text (concat spacemacs-loading-text "."))
-            (setq i (1+ i))))
-        (spacemacs/replace-last-line-of-buffer spacemacs-loading-text)
-        (redisplay))))
+  (when (>= spacemacs-loading-counter spacemacs-loading-dots-chunk-threshold)
+    (setq spacemacs-loading-counter 0)
+    (let ((i 0))
+      (while (< i spacemacs-loading-dots-chunk-size)
+        (setq spacemacs-loading-text (concat spacemacs-loading-text "."))
+        (setq i (1+ i))))
+    (spacemacs/replace-last-line-of-buffer spacemacs-loading-text)
+    (redisplay)))
 
 (defun spacemacs/insert-buttons ()
   (goto-char (point-max))
