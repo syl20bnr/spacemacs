@@ -175,8 +175,11 @@ for that layer."
   "Declare default layers and user layers from the dotfile by filling the
 `configuration-layer-layers' variable."
   (setq configuration-layer-paths (configuration-layer//discover-layers))
-  (push (configuration-layer//declare-layer 'spacemacs)
-        configuration-layer-layers)
+  (if (eq 'all dotspacemacs-configuration-layers)
+      (setq dotspacemacs-configuration-layers
+            (ht-keys configuration-layer-paths))
+    (push (configuration-layer//declare-layer 'spacemacs)
+          configuration-layer-layers))
   (mapc (lambda (layer) (push layer configuration-layer-layers))
         (configuration-layer//declare-layers
          dotspacemacs-configuration-layers)))
@@ -566,14 +569,15 @@ to select one."
 
 (defun configuration-layer//initialize-package (pkg layers)
   "Initialize the package PKG from the configuration layers LAYERS."
-  (dolist (layer layers)
-    (let* ((init-func (intern (format "%s/init-%s" layer pkg))))
-      (spacemacs/loading-animation)
-      (if (and (package-installed-p pkg) (fboundp init-func))
-          (progn
-            (spacemacs/message "Package: Initializing %s:%s..." layer pkg)
-            (configuration-layer//activate-package pkg)
-            (funcall init-func))))))
+  (let (initializedp)
+   (dolist (layer layers)
+     (let* ((init-func (intern (format "%s/init-%s" layer pkg))))
+       (when (and (package-installed-p pkg) (fboundp init-func))
+         (spacemacs/message "Package: Initializing %s:%s..." layer pkg)
+         (configuration-layer//activate-package pkg)
+         (funcall init-func)
+         (setq initializedp t))))
+   (when initializedp) (spacemacs/loading-animation)))
 
 (defun configuration-layer//activate-package (pkg)
   "Activate PKG."

@@ -286,43 +286,27 @@ which require an initialization must be listed explicitly in the list.")
           (message "No symbol has been searched for now.")))
 
       (defun spacemacs/integrate-evil-search (forward)
-        (eval '(progn
-                 ;; isearch-string is last searched item.  Next time
-                 ;; "n" is hit we will use this.
-                 (setq isearch-string (concat "\\<" (evil-find-thing forward 'symbol) "\\>"))
-                 ;; Next time "n" is hit, go the correct direction.
-                 (setq isearch-forward forward)
-                 ;; ahs does a case sensitive search.  We could set
-                 ;; this, but it would break the user's current
-                 ;; sensitivity settings.  We could save the setting,
-                 ;; then next time the user starts a search we could
-                 ;; restore the setting.
-                 ;;(setq case-fold-search nil)
-                 ;; Place the search term into the search rings.
-                 (isearch-update-ring isearch-string t)
-                 (evil-push-search-history isearch-string forward)
-                 ;; Use this search term for empty pattern "%s//replacement/"
-                 ;; Append case sensitivity
-                 (setq evil-ex-last-was-search nil
-                       evil-ex-substitute-pattern `(,(concat isearch-string "\\C") nil (0 0)))
-                 ) nil))
-
-      (defun spacemacs/quick-ahs-forward ()
-        "Go to the next occurrence of symbol under point with
-`auto-highlight-symbol'"
-        (interactive)
-        (eval '(progn (spacemacs/integrate-evil-search t) (ahs-highlight-now) (ahs-forward)) nil))
-
-      (defun spacemacs/quick-ahs-backward ()
-        "Go to the previous occurrence of symbol under point with
-`auto-highlight-symbol'"
-        (interactive)
-        (eval '(progn (spacemacs/integrate-evil-search nil) (ahs-highlight-now) (ahs-backward)) nil))
-
-      (eval-after-load 'evil
-        '(progn
-           (define-key evil-motion-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
-           (define-key evil-motion-state-map (kbd "#") 'spacemacs/quick-ahs-backward)))
+        ;; isearch-string is last searched item.  Next time
+        ;; "n" is hit we will use this.
+        (setq isearch-string (concat "\\<" (evil-find-thing forward 'symbol) "\\>"))
+        (setq isearch-regexp (concat "\\<" (evil-find-thing forward 'symbol) "\\>"))
+        ;; Next time "n" is hit, go the correct direction.
+        (setq isearch-forward forward)
+        ;; ahs does a case sensitive search.  We could set
+        ;; this, but it would break the user's current
+        ;; sensitivity settings.  We could save the setting,
+        ;; then next time the user starts a search we could
+        ;; restore the setting.
+        ;;(setq case-fold-search nil)
+        ;; Place the search term into the search rings.
+        (isearch-update-ring isearch-string t)
+        (evil-push-search-history isearch-string forward)
+        ;; Use this search term for empty pattern "%s//replacement/"
+        ;; Append case sensitivity
+        (setq evil-ex-last-was-search nil
+              evil-ex-substitute-pattern
+              `(,(concat isearch-string "\\C") nil (0 0)))
+        (evil-search-next))
 
       (defun spacemacs/symbol-highlight ()
         "Highlight the symbol under point with `auto-highlight-symbol'."
@@ -361,6 +345,10 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap)))
+           (define-key map (kbd "*") (lambda () (interactive)
+                                       (spacemacs/integrate-evil-search t)))
+           (define-key map (kbd "#") (lambda () (interactive)
+                                       (spacemacs/integrate-evil-search nil)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
            (if (ht-contains? configuration-layer-all-packages 'evil-iedit-state)
@@ -381,10 +369,10 @@ which require an initialization must be listed explicitly in the list.")
                (plugin (format " <%s> " (cond ((string= plighter "HS") "D")
                                               ((string= plighter "HSA") "B")
                                               ((string= plighter "HSD") "F"))))
-               (propplugin (propertize plugin 'face `(
-                                                      :foreground "#ffffff"
-                                                      :background ,(face-attribute
-                                                                    'ahs-plugin-defalt-face :foreground)))))
+               (propplugin (propertize plugin 'face
+                                       `(:foreground "#ffffff"
+                                         :background ,(face-attribute
+                                                       'ahs-plugin-defalt-face :foreground)))))
           (while (not (string= overlay current-overlay))
             (setq i (1+ i))
             (setq overlay (format "%s" (nth i ahs-overlay-list))))
@@ -392,7 +380,9 @@ which require an initialization must be listed explicitly in the list.")
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset"
+            (echo (concat "%s %s%s press (n/N) to navigate, (e) to edit, "
+                          "(r) to change range, (*) to search with evil or "
+                          "(R) for reset")
                   propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
@@ -568,6 +558,15 @@ which require an initialization must be listed explicitly in the list.")
       (set-default-evil-visual-state-cursor)
       (set-default-evil-motion-state-cursor)
       (set-default-evil-lisp-state-cursor)
+
+      (defun spacemacs/set-evil-cursor-color (state color)
+        "Change the evil cursor COLOR for STATE."
+        (let ((face (intern (format "spacemacs-%s-face" (symbol-name state))))
+              (func (intern (format "set-default-evil-%s-state-cursor"
+                                    (symbol-name state)))))
+          (set-face-attribute face nil :background "#FFFFEF")
+          (funcall func)))
+
       (evil-mode 1))
     :config
     (progn
@@ -756,7 +755,8 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (global-evil-search-highlight-persist)
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
-      (evil-ex-define-cmd "nohlsearch" 'evil-search-highlight-persist-remove-all))))
+      (evil-ex-define-cmd "nohlsearch"
+                          'evil-search-highlight-persist-remove-all))))
 
 (defun spacemacs/init-evil-surround ()
   (use-package evil-surround
@@ -788,14 +788,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-evil-visualstar ()
   (use-package evil-visualstar
-    :commands (evil-visualstar/begin-search-forward
-               evil-visualstar/begin-search-backward)
-    :init
-    (progn
-      (define-key evil-visual-state-map (kbd "*")
-        'evil-visualstar/begin-search-forward)
-      (define-key evil-visual-state-map (kbd "#")
-        'evil-visualstar/begin-search-backward))))
+    :init (global-evil-visualstar-mode)))
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
@@ -1128,7 +1121,8 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (setq helm-split-window-in-side-p nil
+      (setq helm-prevent-escaping-from-minibuffer t
+            helm-split-window-in-side-p nil
             helm-bookmark-show-location t
             helm-buffers-fuzzy-matching t
             helm-always-two-windows     t)

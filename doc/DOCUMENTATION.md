@@ -1155,12 +1155,14 @@ Hint: you may change to char mode by `C-c C-c` in word mode.
 
 ### Window manipulation
 
+#### Window manipulation key bindings
+
 Every window has a number displayed at the start of the mode-line and can
 be quickly accessed using `<SPC> number`.
 
 Key Binding         |                    Description
 --------------------|----------------------------------------------------------------
-<kbd>SPC 1</kbd>    | go to first window
+<kbd>SPC 1</kbd>    | go to window number 1
 <kbd>SPC 2</kbd>    | go to window number 2
 <kbd>SPC 3</kbd>    | go to window number 3
 <kbd>SPC 4</kbd>    | go to window number 4
@@ -1169,24 +1171,29 @@ Key Binding         |                    Description
 <kbd>SPC 7</kbd>    | go to window number 7
 <kbd>SPC 8</kbd>    | go to window number 8
 <kbd>SPC 9</kbd>    | go to window number 9
-<kbd>SPC 0</kbd>    | go to window number 10
+<kbd>SPC 0</kbd>    | go to window number 0
 
 Windows manipulation commands (start with `w`):
 
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
+<kbd>SPC w b</kbd>                        | force the focus back to the minibuffer (usefull with `helm` popups)
 <kbd>SPC w c</kbd>                        | close a window
+<kbd>SPC w C</kbd>                        | close other windows
 <kbd>SPC w d</kbd>                        | toggle window dedication (dedicated window cannot be reused by a mode)
+<kbd>SPC w h</kbd>                        | move to window on the left
 <kbd>SPC w H</kbd>                        | move window to the left
+<kbd>SPC w j</kbd>                        | move to window below
 <kbd>SPC w J</kbd>                        | move window to the bottom
+<kbd>SPC w k</kbd>                        | move to window above
 <kbd>SPC w K</kbd>                        | move window to the top
+<kbd>SPC w l</kbd>                        | move to window on the right
 <kbd>SPC w L</kbd>                        | move window to the right
 <kbd>SPC w m</kbd>                        | maximize/minimize a window
 <kbd>SPC w M</kbd>                        | maximize/minimize a window, when maximized the buffer is centered
 <kbd>SPC w o</kbd>                        | cycle and focus between frames
 <kbd>SPC w p m</kbd>                      | open messages buffer in a popup window
 <kbd>SPC w p p</kbd>                      | close the current sticky popup window
-<kbd>SPC w r</kbd>                        | initiate window size micro-state
 <kbd>SPC w R</kbd>                        | rotate windows clockwise
 <kbd>SPC w s</kbd> or <kbd>SPC w /</kbd>  | horizontal split
 <kbd>SPC w S</kbd>                        | horizontal split and focus new window
@@ -1196,30 +1203,53 @@ Key Binding                               |                 Description
 <kbd>SPC w V</kbd>                        | vertical split and focus new window
 <kbd>SPC w w</kbd>                        | cycle and focus between windows
 
-#### Resizing windows
+#### Window manipulation micro-state
 
-`Spacemacs` defines a micro-state to resize windows.
+A convenient window manipulation micro-state allows to perform most of the
+actions listed above. The micro-state allows additional actions as well like
+window resizing.
 
 Key Binding         | Description
 --------------------|------------------------------------------------------------
-<kbd>SPC w S</kbd>  | initiate micro-state
-<kbd>H</kbd>        | shrink window horizontally
-<kbd>J</kbd>        | shrink window vertically
-<kbd>K</kbd>        | enlarge window vertically
-<kbd>L</kbd>        | enlarge window horizontally
+<kbd>SPC w .</kbd>  | initiate micro-state
+<kbd>?</kbd>        | display the full documentation in minibuffer
+<kbd>0</kbd>        | go to window number 0
+<kbd>1</kbd>        | go to window number 1
+<kbd>2</kbd>        | go to window number 2
+<kbd>3</kbd>        | go to window number 3
+<kbd>4</kbd>        | go to window number 4
+<kbd>5</kbd>        | go to window number 5
+<kbd>6</kbd>        | go to window number 6
+<kbd>7</kbd>        | go to window number 7
+<kbd>8</kbd>        | go to window number 8
+<kbd>9</kbd>        | go to window number 9
+<kbd>-</kbd>        | vertical split
+<kbd>/</kbd>        | horizontal split
+<kbd>[</kbd>        | shrink window horizontally
+<kbd>]</kbd>        | enlarge window horizontally
+<kbd>{</kbd>        | shrink window vertically
+<kbd>}</kbd>        | enlarge window vertically
+<kbd>c</kbd>        | close window
+<kbd>C</kbd>        | close other windows
+<kbd>g</kbd>        | toggle `golden-ratio` on and off
+<kbd>h</kbd>        | go to window on the left
+<kbd>j</kbd>        | go to window below
+<kbd>k</kbd>        | go to window above
+<kbd>l</kbd>        | go to window on the right
+<kbd>H</kbd>        | move window to the left
+<kbd>J</kbd>        | move window to the bottom
+<kbd>K</kbd>        | move bottom to the top
+<kbd>L</kbd>        | move window to the right
+<kbd>o</kbd>        | focus other frame
+<kbd>R</kbd>        | rotate windows
+<kbd>s</kbd>        | horizontal split
+<kbd>S</kbd>        | horizontal split and focus new window
+<kbd>u</kbd>        | undo window layout (used to effectively undo a closed window)
+<kbd>U</kbd>        | redo window layout
+<kbd>v</kbd>        | vertical split
+<kbd>V</kbd>        | horizontal split and focus new window
+<kbd>w</kbd>        | focus other window
 Any other key       | leave the micro-state
-
-The micro-state text in minibuffer display the following information:
-
-    [WidthxHeight] Resize window: (H/L) shrink/enlarge horizontally, (J/K) shrink/enlarge vertically
-
-#### Reposition window
-
-Key Binding         | Description
---------------------|------------------------------------------------------------
-<kbd>z f</kbd>      | Make current function or comments visible
-
-`z f` tries to accommodate current function or comments into window as much as possible.
 
 #### Golden ratio
 
@@ -1260,6 +1290,7 @@ Key Binding                               |              Description
 <kbd>SPC b R</kbd>                        | revert the current buffer (reload from disk)
 <kbd>SPC b s</kbd>                        | switch to a buffer using `helm`
 <kbd>SPC b w</kbd>                        | toggle read-only (writable state)
+<kbd>z f</kbd>                            | Make current function or comments visible in buffer as much as possible
 
 Files manipulation commands (start with `f`):
 
@@ -1487,7 +1518,7 @@ Key Binding            |                 Description
 ### Highlight current symbol
 
 `Spacemacs` supports highlighting of the current symbol on demand (provided by
-the [auto-highlight-symbol][auto-highlight] mode) and adding a micro-state to
+the [auto-highlight-symbol][auto-highlight] mode) and adds a micro-state to
 easily navigate and rename this symbol.
 
 It is also possible to change the range of the navigation on the fly to:
@@ -1502,16 +1533,17 @@ Navigation between the highlighted symbols can be done with the commands:
 
 Key Binding            | Description
 -----------------------|------------------------------------------------------------
-<kbd>*</kbd>           | initiate navigation micro-state
 <kbd>SPC s b</kbd>     | go to the last searched occurrence of the last highlighted symbol
 <kbd>SPC s e</kbd>     | edit all occurrences of the current symbol(*)
-<kbd>SPC s h</kbd>     | highlight the current symbol and all its occurrence within the current range
+<kbd>SPC s h</kbd>     | initiate navigation micro-state
 <kbd>SPC s R</kbd>     | change range to default (`whole buffer`)
 
 In 'Spacemacs' highlight symbol micro-state:
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
+<kbd>*</kbd>  | search next occurrence using evil
+<kbd>#</kbd>  | search previous occurrence using evil
 <kbd>e</kbd>  | edit occurrences (*)
 <kbd>n</kbd>  | go to next occurrence
 <kbd>N</kbd>  | go to previous occurrence
