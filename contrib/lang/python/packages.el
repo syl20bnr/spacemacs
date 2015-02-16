@@ -61,7 +61,7 @@ which require an initialization must be listed explicitly in the list.")
     :if (boundp 'company-backends)
     :defer t
     :init
-    (if (configuration-layer/layer-declaredp 'yasnippet)
+    (if (configuration-layer/package-declaredp 'yasnippet)
         (add-to-list 'company-backends (company-mode/backend-with-yas
                                         'company-anaconda))
       (add-to-list 'company-backends 'company-anaconda))))
