@@ -59,6 +59,11 @@ with `:' and Emacs commands are executed with `<leader> :'.")
 (defvar dotspacemacs-guide-key-delay 0.4
   "Guide-key delay in seconds.")
 
+(defvar dotspacemacs-loading-progress-bar t
+  "If non nil a progress bar is displayed when spacemacs is loading. This
+may increase the boot time on some systems and emacs builds, set it to nil
+to boost the loading time.")
+
 (defvar dotspacemacs-helm-micro-state t
   "Enable micro-state for helm buffer when pressing on TAB.")
 

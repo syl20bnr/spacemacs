@@ -106,7 +106,6 @@ initialization."
                        (car dotspacemacs-default-font)))
   ;; banner
   (spacemacs//insert-banner)
-  (redisplay)
   (setq-default evil-want-C-u-scroll t)
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init "Executing user init...")
@@ -157,7 +156,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
          (when log
            (spacemacs/append-to-buffer
             (format "(Bootstrap) Installing %s...\n" pkg))
-           (redisplay))
+           (spacemacs//redisplay))
          (package-refresh-contents)
          (package-install pkg)
          (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))

@@ -65,4 +65,11 @@ and its values are removed."
         (print (list 'setq var (list 'quote (symbol-value var)))
                buffer)))
 
+(defvar spacemacs--init-redisplay-count 0
+  "The number of calls to `redisplay'")
+(defun spacemacs//redisplay ()
+  "`redisplay' wrapper."
+  (setq spacemacs--init-redisplay-count (1+ spacemacs--init-redisplay-count))
+  (redisplay))
+
 (provide 'core-funcs)
