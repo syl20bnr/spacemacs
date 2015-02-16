@@ -37,6 +37,12 @@ which require an initialization must be listed explicitly in the list.")
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
     :defer t
+    :mode (("\.clj$"      . clojure-mode)
+           ("\.cljs$"     . clojure-mode)
+           ("\.cljx$"     . clojure-mode)
+           ("\.edn$"      . clojure-mode)
+           ("\.boot$"     . clojure-mode)
+           ("\.cljs\.hl$" . clojure-mode))
     :init
     (progn
       (add-to-hook 'clojure-mode-hook '(clojure/general-mode)))
