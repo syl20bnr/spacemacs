@@ -779,6 +779,8 @@ deleted safely."
   "Add post init processing."
   (add-hook 'after-init-hook
             (lambda ()
+              ;; Ultimate configuration decisions are given to the user who can defined
+              ;; them in his/her ~/.spacemacs file
               (dotspacemacs|call-func dotspacemacs/config "Executing user config...")
               (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text))
               ;; from jwiegley
