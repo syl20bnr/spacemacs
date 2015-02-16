@@ -101,7 +101,8 @@ which require an initialization must be listed explicitly in the list.")
         (add-hook 'clojure-mode-hook
                   (lambda ()
                     (clj-refactor-mode 1)
-                    (cljr-add-keybindings-with-prefix "C-c C-m")))
+                    (cljr-add-keybindings-with-prefix "C-c C-f")))
+
         (spacemacs/declare-prefix "mr" "clj-refactor")
 
         (evil-leader/set-key-for-mode 'clojure-mode
