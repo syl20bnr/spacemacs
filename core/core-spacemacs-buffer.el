@@ -31,7 +31,8 @@ Doge special banner can be reachable via `999', `doge' or `random*'.
       (spacemacs/message (format "Banner: %s" banner))
       (insert-file-contents banner)
       (spacemacs//inject-version-in-buffer)
-      (spacemacs/insert-buttons))))
+      (spacemacs/insert-buttons)
+      (spacemacs//redisplay))))
 
 (defun spacemacs//choose-random-banner (&optional all)
   "Return the full path of a banner chosen randomly.
@@ -91,15 +92,16 @@ buffer, right justified."
   "Display LOADING-TITLE with trailing dots of max length
 SPACEMACS-TITLE-LENGTH. New loading title is displayed by chunk
 of size LOADING-DOTS-CHUNK-THRESHOLD."
-  (setq spacemacs-loading-counter (1+ spacemacs-loading-counter))
-  (when (>= spacemacs-loading-counter spacemacs-loading-dots-chunk-threshold)
-    (setq spacemacs-loading-counter 0)
-    (let ((i 0))
-      (while (< i spacemacs-loading-dots-chunk-size)
-        (setq spacemacs-loading-text (concat spacemacs-loading-text "."))
-        (setq i (1+ i))))
-    (spacemacs/replace-last-line-of-buffer spacemacs-loading-text)
-    (redisplay)))
+  (when dotspacemacs-loading-progress-bar
+    (setq spacemacs-loading-counter (1+ spacemacs-loading-counter))
+    (when (>= spacemacs-loading-counter spacemacs-loading-dots-chunk-threshold)
+      (setq spacemacs-loading-counter 0)
+      (let ((i 0))
+        (while (< i spacemacs-loading-dots-chunk-size)
+          (setq spacemacs-loading-text (concat spacemacs-loading-text "."))
+          (setq i (1+ i))))
+      (spacemacs/replace-last-line-of-buffer spacemacs-loading-text)
+      (spacemacs//redisplay))))
 
 (defun spacemacs/insert-buttons ()
   (goto-char (point-max))

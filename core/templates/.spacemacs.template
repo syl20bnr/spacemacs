@@ -57,6 +57,10 @@
  ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
  ;; the commands bound to the current keystrokes.
  dotspacemacs-guide-key-delay 0.4
+ ;; If non nil a progress bar is displayed when spacemacs is loading. This
+ ;; may increase the boot time on some systems and emacs builds, set it to nil
+ ;; to boost the loading time.
+ dotspacemacs-loading-progress-bar t
  ;; Enable micro-state for helm buffer when pressing on TAB."
  dotspacemacs-helm-micro-state t
  ;; If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).
