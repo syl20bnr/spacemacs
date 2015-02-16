@@ -63,6 +63,16 @@
   :abbrev-table nil
   (setq truncate-lines t)
   (setq cursor-type nil)
+  ;; motion state since this is a special mode
+  (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
+
+(defun spacemacs/initialize ()
+  "Create the special buffer for `spacemacs-mode' and perform startup
+initialization."
+  (require 'core-toggle)
+  (require 'core-micro-state)
+  (dotspacemacs/load)
+  (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
   ;; default theme
@@ -96,6 +106,10 @@
                        (car dotspacemacs-default-font)))
   ;; banner
   (spacemacs//insert-banner)
+  (redisplay)
+  (setq-default evil-want-C-u-scroll t)
+  ;; Initializing configuration from ~/.spacemacs
+  (dotspacemacs|call-func dotspacemacs/init "Executing user init...")
   ;; dash is required to prevent a package.el bug with f on 24.3.1
   (spacemacs/load-or-install-package 'dash t)
   ;; bind-key is required by use-package
@@ -103,25 +117,14 @@
   (spacemacs/load-or-install-package 'use-package t)
   ;; evil and evil-leader must be installed at the beginning of the boot sequence
   ;; use C-u as scroll-up (must be set before actually loading evil)
-  (setq-default evil-want-C-u-scroll t)
-  (setq-default evil-want-fine-undo nil)
   (spacemacs/load-or-install-package 'evil t)
   (spacemacs/load-or-install-package 'evil-leader t)
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
   (spacemacs/set-new-version-lighter-mode-line-faces)
-  ;; motion state since this is a special mode
-  (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
-
-(defun spacemacs/initialize ()
-  "Create the special buffer for `spacemacs-mode' and perform startup
-initialization."
-  (require 'core-toggle)
-  (require 'core-micro-state)
-  (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
-  (spacemacs-mode)
-  (add-hook 'after-init-hook 'spacemacs/goto-link-line))
+  (add-hook 'after-init-hook 'spacemacs/goto-link-line)
+  (spacemacs-mode))
 
 (defun spacemacs//get-package-directory (pkg)
   "Return the directory of PKG. Return nil if not found."
