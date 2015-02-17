@@ -51,24 +51,27 @@
 ;; `leader m $'   | go to the end of current sexp
 ;; `leader m 0'   | go to the beginning of current sexp
 ;; `leader m a'   | absorb expression
-;; `leader m A'   | transpose expression
 ;; `leader m b'   | forward barf expression
 ;; `leader m B'   | backward barf expression
 ;; `leader m c'   | convolute expression
-;; `leader m H'   | previous symbol
+;; `leader m ds'  | delete symbol
+;; `leader m dw'  | delete word
+;; `leader m dx'  | delete expression
+;; `leader m h'   | previous symbol
 ;; `leader m i'   | switch to `insert state`
 ;; `leader m I'   | go to beginning of current expression and switch to `insert state`
-;; `leader m J'   | next closing parenthesis
-;; `leader m K'   | previous opening parenthesis
-;; `leader m L'   | next symbol
-;; `leader m m'   | merge (join) expression
-;; `leader m n'   | forwared slurp expression
-;; `leader m N'   | backward slurp expression
+;; `leader m j'   | next closing parenthesis
+;; `leader m J'   | join expression
+;; `leader m k'   | previous opening parenthesis
+;; `leader m l'   | next symbol
 ;; `leader m p'   | paste after
 ;; `leader m P'   | paste before
-;; `leader m q'   | (splice) unwrap current expression and kill all symbols after point
-;; `leader m Q'   | (splice) unwrap current expression and kill all symbols before point
 ;; `leader m r'   | raise expression (replace parent expression by current one)
+;; `leader m s'   | forwared slurp expression
+;; `leader m S'   | backward slurp expression
+;; `leader m t'   | transpose expression
+;; `leader m C-s' | (splice) unwrap current expression and kill all symbols after point
+;; `leader m C-S' | (splice) unwrap current expression and kill all symbols before point
 ;; `leader m u'   | undo
 ;; `leader m C-r' | redo
 ;; `leader m v'   | switch to `visual state`
@@ -76,9 +79,6 @@
 ;; `leader m C-v' | switch to `visual block state`
 ;; `leader m w'   | wrap expression with parenthesis
 ;; `leader m W'   | unwrap expression
-;; `leader m xs'  | delete symbol
-;; `leader m xw'  | delete word
-;; `leader m xx'  | delete expression
 ;; `leader m y'   | copy expression
 
 ;; Configuration:
@@ -185,24 +185,30 @@ If `evil-lisp-state-global' is non nil then this variable has no effect."
     ("8"   . digit-argument)
     ("9"   . digit-argument)
     ("a"   . sp-absorb-sexp)
-    ("A"   . sp-transpose-sexp)
     ("b"   . sp-forward-barf-sexp)
     ("B"   . sp-backward-barf-sexp)
     ("c"   . sp-convolute-sexp)
+    ("ds"  . sp-kill-symbol)
+    ("Ds"  . sp-backward-kill-symbol)
+    ("dw"  . sp-kill-word)
+    ("Dw"  . sp-backward-kill-word)
+    ("dx"  . sp-kill-sexp)
+    ("Dx"  . sp-backward-kill-sexp)
     ("h"   . sp-backward-symbol)
     ("i"   . evil-insert-state)
     ("I"   . evil-insert-line)
     ("j"   . lisp-state-next-closing-paren)
+    ("J"   . sp-join-sexp)
     ("k"   . lisp-state-prev-opening-paren)
     ("l"   . lisp-state-forward-symbol)
-    ("m"   . sp-join-sexp)
-    ("n"   . sp-forward-slurp-sexp)
-    ("N"   . sp-backward-slurp-sexp)
     ("p"   . evil-past-after)
     ("P"   . evil-past-before)
-    ("q"   . sp-splice-sexp-killing-forward)
-    ("Q"   . sp-splice-sexp-killing-backward)
     ("r"   . sp-raise-sexp)
+    ("s"   . sp-forward-slurp-sexp)
+    ("S"   . sp-backward-slurp-sexp)
+    ("C-s" . sp-splice-sexp-killing-forward)
+    ("C-S" . sp-splice-sexp-killing-backward)
+    ("t"   . sp-transpose-sexp)
     ("u"   . undo-tree-undo)
     ("C-r" . undo-tree-redo)
     ("v"   . evil-visual-char)
@@ -210,12 +216,6 @@ If `evil-lisp-state-global' is non nil then this variable has no effect."
     ("C-v" . evil-visual-block)
     ("w"   . lisp-state-wrap)
     ("W"   . sp-unwrap-sexp)
-    ("xs"  . sp-kill-symbol)
-    ("Xs"  . sp-backward-kill-symbol)
-    ("xw"  . sp-kill-word)
-    ("Xw"  . sp-backward-kill-word)
-    ("xx"  . sp-kill-sexp)
-    ("Xx"  . sp-backward-kill-sexp)
     ("y"   . sp-copy-sexp))
   "alist of keys and commands in lisp state.")
 (dolist (x evil-lisp-state-commands)
