@@ -29,6 +29,8 @@
                                        ("i" .  "insertion")
                                        ("j" .  "join/split")
                                        ("k" .  "lisp")
+                                       ("kd" .  "lisp-delete")
+                                       ("kD" .  "lisp-delete-backward")
                                        ("n" .  "narrow/numbers")
                                        ("p" .  "projects")
                                        ("q" .  "quit")
