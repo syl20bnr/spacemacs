@@ -57,6 +57,8 @@
 ;; `leader m ds'  | delete symbol
 ;; `leader m dw'  | delete word
 ;; `leader m dx'  | delete expression
+;; `leader m e'   | (splice) unwrap current expression and kill all symbols after point
+;; `leader m E'   | (splice) unwrap current expression and kill all symbols before point
 ;; `leader m h'   | previous symbol
 ;; `leader m i'   | switch to `insert state`
 ;; `leader m I'   | go to beginning of current expression and switch to `insert state`
@@ -70,8 +72,6 @@
 ;; `leader m s'   | forwared slurp expression
 ;; `leader m S'   | backward slurp expression
 ;; `leader m t'   | transpose expression
-;; `leader m C-s' | (splice) unwrap current expression and kill all symbols after point
-;; `leader m C-S' | (splice) unwrap current expression and kill all symbols before point
 ;; `leader m u'   | undo
 ;; `leader m C-r' | redo
 ;; `leader m v'   | switch to `visual state`
@@ -194,6 +194,8 @@ If `evil-lisp-state-global' is non nil then this variable has no effect."
     ("Dw"  . sp-backward-kill-word)
     ("dx"  . sp-kill-sexp)
     ("Dx"  . sp-backward-kill-sexp)
+    ("e"   . sp-splice-sexp-killing-forward)
+    ("E"   . sp-splice-sexp-killing-backward)
     ("h"   . sp-backward-symbol)
     ("i"   . evil-insert-state)
     ("I"   . evil-insert-line)
@@ -206,8 +208,6 @@ If `evil-lisp-state-global' is non nil then this variable has no effect."
     ("r"   . sp-raise-sexp)
     ("s"   . sp-forward-slurp-sexp)
     ("S"   . sp-backward-slurp-sexp)
-    ("C-s" . sp-splice-sexp-killing-forward)
-    ("C-S" . sp-splice-sexp-killing-backward)
     ("t"   . sp-transpose-sexp)
     ("u"   . undo-tree-undo)
     ("C-r" . undo-tree-redo)
@@ -226,11 +226,11 @@ If `evil-lisp-state-global' is non nil then this variable has no effect."
         (define-key evil-lisp-state-map ,(kbd key) ',cmd)
         (if evil-lisp-state-global
             (evil-leader/set-key
-              ,(kbd (concat evil-lisp-state-leader-prefix key))
+              ,(kbd (concat evil-lisp-state-leader-prefix " "key))
               (evil-lisp-state-enter-command ,cmd))
           (dolist (mm evil-lisp-state-major-modes)
             (evil-leader/set-key-for-mode mm
-              ,(kbd (concat evil-lisp-state-leader-prefix key))
+              ,(kbd (concat evil-lisp-state-leader-prefix " " key))
               (evil-lisp-state-enter-command ,cmd))))))))
 
 (defun lisp-state-toggle-lisp-state ()

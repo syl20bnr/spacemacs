@@ -1941,6 +1941,8 @@ Key Binding          | Function
 <kbd>SPC k Dw</kbd>  | backward delete word
 <kbd>SPC k dx</kbd>  | delete expression
 <kbd>SPC k Dx</kbd>  | backward delete expression
+<kbd>SPC k e</kbd>   | unwrap current expression and kill all symbols after point
+<kbd>SPC k E</kbd>   | unwrap current expression and kill all symbols before point
 <kbd>SPC k h</kbd>   | previous symbol
 <kbd>SPC k i</kbd>   | switch to `insert state`
 <kbd>SPC k I</kbd>   | go to beginning of current expression and switch to `insert state`
@@ -1953,8 +1955,6 @@ Key Binding          | Function
 <kbd>SPC k r</kbd>   | raise expression (replace parent expression by current one)
 <kbd>SPC k s</kbd>   | forwared slurp expression
 <kbd>SPC k S</kbd>   | backward slurp expression
-<kbd>SPC k C-s</kbd> | unwrap current expression and kill all symbols after point
-<kbd>SPC k C-S</kbd> | unwrap current expression and kill all symbols before point
 <kbd>SPC k t</kbd>   | transpose expression
 <kbd>SPC k u</kbd>   | undo
 <kbd>SPC k C-r</kbd> | redo
