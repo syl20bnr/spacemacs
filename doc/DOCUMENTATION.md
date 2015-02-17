@@ -1932,24 +1932,30 @@ Key Binding          | Function
 <kbd>SPC k $</kbd>   | go to the end of current sexp
 <kbd>SPC k 0</kbd>   | go to the beginning of current sexp
 <kbd>SPC k a</kbd>   | absorb expression
-<kbd>SPC k A</kbd>   | transpose expression
 <kbd>SPC k b</kbd>   | forward barf expression
 <kbd>SPC k B</kbd>   | backward barf expression
 <kbd>SPC k c</kbd>   | convolute expression
+<kbd>SPC k ds</kbd>  | delete symbol
+<kbd>SPC k Ds</kbd>  | backward delete symbol
+<kbd>SPC k dw</kbd>  | delete word
+<kbd>SPC k Dw</kbd>  | backward delete word
+<kbd>SPC k dx</kbd>  | delete expression
+<kbd>SPC k Dx</kbd>  | backward delete expression
 <kbd>SPC k h</kbd>   | previous symbol
 <kbd>SPC k i</kbd>   | switch to `insert state`
 <kbd>SPC k I</kbd>   | go to beginning of current expression and switch to `insert state`
 <kbd>SPC k j</kbd>   | next closing parenthesis
+<kbd>SPC k J</kbd>   | join expression
 <kbd>SPC k k</kbd>   | previous opening parenthesis
 <kbd>SPC k l</kbd>   | next symbol
-<kbd>SPC k m</kbd>   | merge (join) expression
-<kbd>SPC k n</kbd>   | forwared slurp expression
-<kbd>SPC k N</kbd>   | backward slurp expression
 <kbd>SPC k p</kbd>   | paste after
 <kbd>SPC k P</kbd>   | paste before
-<kbd>SPC k q</kbd>   | unwrap current expression and kill all symbols after point
-<kbd>SPC k Q</kbd>   | unwrap current expression and kill all symbols before point
 <kbd>SPC k r</kbd>   | raise expression (replace parent expression by current one)
+<kbd>SPC k s</kbd>   | forwared slurp expression
+<kbd>SPC k S</kbd>   | backward slurp expression
+<kbd>SPC k C-s</kbd> | unwrap current expression and kill all symbols after point
+<kbd>SPC k C-S</kbd> | unwrap current expression and kill all symbols before point
+<kbd>SPC k t</kbd>   | transpose expression
 <kbd>SPC k u</kbd>   | undo
 <kbd>SPC k C-r</kbd> | redo
 <kbd>SPC k v</kbd>   | switch to `visual state`
@@ -1957,9 +1963,6 @@ Key Binding          | Function
 <kbd>SPC k C-v</kbd> | switch to `visual block state`
 <kbd>SPC k w</kbd>   | wrap expression with parenthesis
 <kbd>SPC k W</kbd>   | unwrap expression
-<kbd>SPC k xs</kbd>  | delete symbol
-<kbd>SPC k xw</kbd>  | delete word
-<kbd>SPC k xx</kbd>  | delete expression
 <kbd>SPC k y</kbd>   | copy expression
 
 ##### Emacs lisp specific key bindings
