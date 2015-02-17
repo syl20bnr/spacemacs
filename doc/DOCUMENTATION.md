@@ -1905,80 +1905,64 @@ to `nil` in your `~/.spacemacs`.
 
 Edition of lisp code is provided by [evil-lisp-state][].
 
-Some commands will set the current state to `lisp state` where
+Commands will set the current state to `lisp state` where
 different commands combo can be repeated without pressing on
 <kbd>SPC m</kbd>.
 
 When in `lisp state` the color of the mode-line changes to pink.
 
 Examples:
-- to slurp three times while in normal state: <kbd>SPC m 3 n</kbd>
-- to wrap a symbol in parenthesis then slurping two times: <kbd>SPC m w 2 n</kbd>
+- to slurp three times while in normal state: <kbd>SPC k 3 n</kbd>
+- to wrap a symbol in parenthesis then slurping two times: <kbd>SPC k w 2 n</kbd>
 
-#### Lisp state Key Bindings
+**Note** The `lisp state` commands are available in _any_ modes! Try it out.
 
-##### Lisp state Auto-switch commands
+#### Lisp Key Bindings
 
-These commands switch to `lisp state`.
+##### Lisp state key bindings
+
+These commands automatically switch to `lisp state`.
 
 Key Binding          | Function
 ---------------------|------------------------------------------------------------
-<kbd>SPC</kbd>       | evil leader
-<kbd>SPC m %</kbd>   | evil jump item
-<kbd>SPC m :</kbd>   | ex command
-<kbd>SPC m (</kbd>   | insert expression before (same level as current one)
-<kbd>SPC m )</kbd>   | insert expression after (same level as current one)
-<kbd>SPC m $</kbd>   | go to the end of current sexp
-<kbd>SPC m 0</kbd>   | go to the beginning of current sexp
-<kbd>SPC m a</kbd>   | absorb expression
-<kbd>SPC m A</kbd>   | transpose expression
-<kbd>SPC m b</kbd>   | forward barf expression
-<kbd>SPC m B</kbd>   | backward barf expression
-<kbd>SPC m c</kbd>   | convolute expression
-<kbd>SPC m h</kbd>   | backward char
-<kbd>SPC m H</kbd>   | previous symbol
-<kbd>SPC m i</kbd>   | switch to `insert state`
-<kbd>SPC m I</kbd>   | go to beginning of current expression and switch to `insert state`
-<kbd>SPC m j</kbd>   | next visual line
-<kbd>SPC m J</kbd>   | next closing parenthesis
-<kbd>SPC m k</kbd>   | previous visual line
-<kbd>SPC m K</kbd>   | previous opening parenthesis
-<kbd>SPC m l</kbd>   | forward char
-<kbd>SPC m L</kbd>   | next symbol
-<kbd>SPC m m</kbd>   | merge (join) expression
-<kbd>SPC m n</kbd>   | forwared slurp expression
-<kbd>SPC m N</kbd>   | backward slurp expression
-<kbd>SPC m p</kbd>   | paste after
-<kbd>SPC m P</kbd>   | paste before
-<kbd>SPC m q</kbd>   | unwrap current expression and kill all symbols after point
-<kbd>SPC m Q</kbd>   | unwrap current expression and kill all symbols before point
-<kbd>SPC m r</kbd>   | raise expression (replace parent expression by current one)
-<kbd>SPC m u</kbd>   | undo
-<kbd>SPC m C-r</kbd> | redo
-<kbd>SPC m v</kbd>   | switch to `visual state`
-<kbd>SPC m V</kbd>   | switch to `visual line state`
-<kbd>SPC m C-v</kbd> | switch to `visual block state`
-<kbd>SPC m w</kbd>   | wrap expression with parenthesis
-<kbd>SPC m W</kbd>   | unwrap expression
-<kbd>SPC m xs</kbd>  | delete symbol
-<kbd>SPC m xw</kbd>  | delete word
-<kbd>SPC m xx</kbd>  | delete expression
-<kbd>SPC m y</kbd>   | copy expression
+<kbd>SPC k %</kbd>   | evil jump item
+<kbd>SPC k :</kbd>   | ex command
+<kbd>SPC k (</kbd>   | insert expression before (same level as current one)
+<kbd>SPC k )</kbd>   | insert expression after (same level as current one)
+<kbd>SPC k $</kbd>   | go to the end of current sexp
+<kbd>SPC k 0</kbd>   | go to the beginning of current sexp
+<kbd>SPC k a</kbd>   | absorb expression
+<kbd>SPC k A</kbd>   | transpose expression
+<kbd>SPC k b</kbd>   | forward barf expression
+<kbd>SPC k B</kbd>   | backward barf expression
+<kbd>SPC k c</kbd>   | convolute expression
+<kbd>SPC k h</kbd>   | previous symbol
+<kbd>SPC k i</kbd>   | switch to `insert state`
+<kbd>SPC k I</kbd>   | go to beginning of current expression and switch to `insert state`
+<kbd>SPC k j</kbd>   | next closing parenthesis
+<kbd>SPC k k</kbd>   | previous opening parenthesis
+<kbd>SPC k l</kbd>   | next symbol
+<kbd>SPC k m</kbd>   | merge (join) expression
+<kbd>SPC k n</kbd>   | forwared slurp expression
+<kbd>SPC k N</kbd>   | backward slurp expression
+<kbd>SPC k p</kbd>   | paste after
+<kbd>SPC k P</kbd>   | paste before
+<kbd>SPC k q</kbd>   | unwrap current expression and kill all symbols after point
+<kbd>SPC k Q</kbd>   | unwrap current expression and kill all symbols before point
+<kbd>SPC k r</kbd>   | raise expression (replace parent expression by current one)
+<kbd>SPC k u</kbd>   | undo
+<kbd>SPC k C-r</kbd> | redo
+<kbd>SPC k v</kbd>   | switch to `visual state`
+<kbd>SPC k V</kbd>   | switch to `visual line state`
+<kbd>SPC k C-v</kbd> | switch to `visual block state`
+<kbd>SPC k w</kbd>   | wrap expression with parenthesis
+<kbd>SPC k W</kbd>   | unwrap expression
+<kbd>SPC k xs</kbd>  | delete symbol
+<kbd>SPC k xw</kbd>  | delete word
+<kbd>SPC k xx</kbd>  | delete expression
+<kbd>SPC k y</kbd>   | copy expression
 
-##### Lisp state commands
-
-These commands can be executed in `lisp state'.
-
-Key Binding    | Function
----------------|------------------------------------------------------------
-<kbd>h</kbd>   | backward char
-<kbd>j</kbd>   | next visual line
-<kbd>k</kbd>   | previous visual line
-<kbd>l</kbd>   | forward char
-
-##### Lisp state Other commands
-
-These commands can be executed in any state.
+##### Emacs lisp specific key bindings
 
 Key Binding          | Function
 ---------------------|------------------------------------------------------------
