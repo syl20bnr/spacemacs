@@ -28,6 +28,7 @@
                                        ("hd" . "help-describe")
                                        ("i" .  "insertion")
                                        ("j" .  "join/split")
+                                       ("k" .  "lisp")
                                        ("n" .  "narrow/numbers")
                                        ("p" .  "projects")
                                        ("q" .  "quit")
