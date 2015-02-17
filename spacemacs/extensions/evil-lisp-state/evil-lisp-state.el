@@ -34,17 +34,12 @@
 
 ;; To execute a command while in normal state, the evil-leader is used.
 ;; By default, the prefix for each command is `<leader> m`.
-;; Some commands when executed set the current state to `lisp state`.
+;; Commands when executed set the current state to `lisp state`.
 
 ;; By example, to slurp three times while in normal state:
 ;;     <leader> m 3 n
 ;; Or to wrap a symbol in parenthesis then slurping two times:
 ;;     <leader> m w 2 n
-
-;; Auto-switch to lisp state commands:
-;; ----------------------------------
-
-;; These commands switch the current state to `lisp state'.
 
 ;; Key Binding    | Function
 ;; ---------------|------------------------------------------------------------
