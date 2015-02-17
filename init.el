@@ -23,7 +23,7 @@
   ;; synchronize and load configuration layers
   (configuration-layer/declare-layers)
   (configuration-layer/load-layers)
-  (when dotspacemacs-delete-orhpan-packages
+  (when dotspacemacs-delete-orphan-packages
     (configuration-layer/delete-orphan-packages))
   (configuration-layer/setup-after-init-hook)
   ;; start a server for subsequent emacs clients
