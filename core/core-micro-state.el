@@ -153,12 +153,10 @@ micro-state."
                                   'face 'spacemacs-micro-state-header-face)))
            (tail (spacemacs//micro-state-propertize-doc-1
                   (match-string 2 doc))))
-      (message (concat pheader tail))
       (concat pheader tail))))
 
 (defun spacemacs//micro-state-propertize-doc-1 (doc)
   "Recursively propertize keys"
-  (message "doc %s" doc)
   (if (string-match "^\\([[:ascii:]]*?\\)\\(\\[.+?\\]\\)\\([[:ascii:]]*\\)$" doc)
       (let* ((head (match-string 1 doc))
              (key (match-string 2 doc))
