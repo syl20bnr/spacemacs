@@ -149,5 +149,6 @@
   "Define keybindings for ruby test mode"
   (use-package ruby-test-mode
     :defer t
+    :init (add-hook 'ruby-mode-hook 'ruby-test-mode)
     :config (progn (evil-leader/set-key "mtb" 'ruby-test-run)
                    (evil-leader/set-key "mtt" 'ruby-test-run-at-point))))
