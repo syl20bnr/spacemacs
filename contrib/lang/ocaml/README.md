@@ -25,9 +25,7 @@ This is a very basic layer for editing ocaml files.
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(ocaml)
-"List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(ocaml))
 ```
 
 ### OPAM packages

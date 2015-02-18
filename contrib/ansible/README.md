@@ -21,9 +21,7 @@ This layer adds support for Ansible-flavored YAML buffers.
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(ansible)
-"List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(ansible))
 ```
 
 ## Key bindings

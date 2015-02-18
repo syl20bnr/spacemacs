@@ -40,9 +40,7 @@ This layer adds support for [Clojure][] language using [Cider][].
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(clojure)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(clojure))
 ```
 
 ### Pretty Symbols
@@ -58,11 +56,8 @@ section of your `~/.spacemacs` file:
 
 Or set this variable when loading the configuration layer:
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(
-  (clojure :variables
-           clojure-enable-fancify-symbols t))
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers
+'((clojure :variables clojure-enable-fancify-symbols t)))
 ```
 
 ### Cider
