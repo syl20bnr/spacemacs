@@ -87,9 +87,10 @@ instructions at the [cider repository][cider_install].
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m g v</kbd>  | goto var
+<kbd>SPC m g g</kbd>  | goto var
 <kbd>SPC m g e</kbd>  | goto error
-<kbd>SPC m g s</kbd>  | goto symbol
+<kbd>SPC m g r</kbd>  | goto resource
+<kbd>SPC m g b</kbd>  | go back
 
 ### REPL
 
