@@ -31,5 +31,16 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (setq ledger-post-amount-alignment-column 62)
       (evil-leader/set-key-for-mode 'ledger-mode
-        "mhd" 'ledger-delete-current-transaction
-        "ma"  'ledger-add-transaction))))
+        "mhd"   'ledger-delete-current-transaction
+        "ma"    'ledger-add-transaction
+        "mb"    'ledger-post-edit-amount
+        "mc"    'ledger-toggle-current
+        "mC"    'ledger-mode-clean-buffer
+        "ml"    'ledger-display-ledger-stats
+        "mp"    'ledger-display-balance-at-point
+        "mq"    'ledger-post-align-xact
+        "mr"    'ledger-reconcile
+        "mR"    'ledger-report
+        "mt"    'ledger-insert-effective-date
+        "my"    'ledger-set-year
+        "m RET" 'ledger-set-month))))
