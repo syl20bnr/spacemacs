@@ -74,7 +74,7 @@ which require an initialization must be listed explicitly in the list.")
         "mdd" 'cider-doc
         "mdg" 'cider-grimoire
         "mdj" 'cider-javadoc
-        "mgv" 'cider-jump-to-var
+        "mgg" 'cider-jump-to-var
         "mgr" 'cider-jump-to-resource
         "mge" 'cider-jump-to-compilation-error
         "mgb" 'cider-jump-back
