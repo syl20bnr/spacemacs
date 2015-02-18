@@ -93,9 +93,9 @@ Key binding          | Description
 ---------------------|------------
 <kbd>SPC m g g</kbd> | go to definition (robe-jump)
 <kbd>SPC m h d</kbd> | go to Documentation
-<kbd>SPC m s i</kbd> | start REPL
 <kbd>SPC m s f</kbd> | send function definition
 <kbd>SPC m s F</kbd> | send function definition and switch to REPL
+<kbd>SPC m s i</kbd> | start REPL
 <kbd>SPC m s r</kbd> | send region
 <kbd>SPC m s R</kbd> | send region and switch to REPL
 <kbd>SPC m s s</kbd> | switch to REPL
