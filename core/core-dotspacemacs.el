@@ -134,8 +134,7 @@ before installing the file if the destination already exists."
       (message "%s has been installed." dotfile))))
 
 (defun dotspacemacs/load ()
-  "Load ~/.spacemacs. If it is not found then copy .spacemacs.template to
-~/.spacemacs"
+  "Load ~/.spacemacs if it exists."
   (let ((dotspacemacs (dotspacemacs/location)))
     (if (file-exists-p dotspacemacs) (load dotspacemacs))))
 
