@@ -31,7 +31,7 @@ manually via the key binding: <kbd>SPC e s s</kbd>
 
 ### Inferior REPL process
 
-Start an `R` inferior REPL process with <kbd>SPC m i</kbd>.
+Start an `R` inferior REPL process with <kbd>SPC m s i</kbd>.
 
 Send code to inferior process commands:
 
@@ -47,6 +47,7 @@ Send code to inferior process commands:
 <kbd>SPC m s B</kbd> | send buffer and switch to REPL in insert mode
 <kbd>SPC m s d</kbd> | send region or line and step (debug)
 <kbd>SPC m s D</kbd> | send function or paragraph and step (debug)
+<kbd>SPC m s i</kbd> | start an inferior REPL process
 <kbd>SPC m s l</kbd> | send line and keep code buffer focused
 <kbd>SPC m s L</kbd> | send line and switch to REPL in insert mode
 <kbd>SPC m s r</kbd> | send region and keep code buffer focused
