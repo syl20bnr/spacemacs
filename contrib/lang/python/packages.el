@@ -61,7 +61,7 @@ which require an initialization must be listed explicitly in the list.")
     :if (boundp 'company-backends)
     :defer t
     :init
-    (if (configuration-layer/layer-declaredp 'yasnippet)
+    (if (configuration-layer/package-declaredp 'yasnippet)
         (add-to-list 'company-backends (company-mode/backend-with-yas
                                         'company-anaconda))
       (add-to-list 'company-backends 'company-anaconda))))
@@ -191,7 +191,7 @@ which require an initialization must be listed explicitly in the list.")
         (python-shell-switch-to-shell)
         (evil-insert-state))
 
-      (defun python-shell-send-region-switch ()
+      (defun python-shell-send-region-switch (start end)
         "Send region content to shell and switch to it in insert mode."
         (interactive "r")
         (python-shell-send-region start end)
@@ -205,17 +205,19 @@ which require an initialization must be listed explicitly in the list.")
         (evil-insert-state))
 
       (evil-leader/set-key-for-mode 'python-mode
-        "mB"  'python-shell-send-buffer-switch
-        "mb"  'python-shell-send-buffer
         "mdb" 'python-toggle-breakpoint
-        "mF"  'python-shell-send-defun-switch
-        "mf"  'python-shell-send-defun
-        "mi"  'python-start-or-switch-repl
-        "mR"  'python-shell-send-region-switch
-        "mr"  'python-shell-send-region)
+        "msB" 'python-shell-send-buffer-switch
+        "msb" 'python-shell-send-buffer
+        "msF" 'python-shell-send-defun-switch
+        "msf" 'python-shell-send-defun
+        "msi" 'python-start-or-switch-repl
+        "msR" 'python-shell-send-region-switch
+        "msr" 'python-shell-send-region)
 
       (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
-      (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input))))
+      (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input)
+      (define-key inferior-python-mode-map (kbd "C-l") 'comint-clear-buffer)
+      (define-key inferior-python-mode-map (kbd "C-r") 'comint-history-isearch-backward))))
 
 (defun python/init-flycheck ()
   (add-hook 'python-mode-hook 'flycheck-mode))

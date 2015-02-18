@@ -28,9 +28,7 @@ Incuded packages for extensions:
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(windows-scripts)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(windows-scripts))
 ```
 
 ## Key Bindings

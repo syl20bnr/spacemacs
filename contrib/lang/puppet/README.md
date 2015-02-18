@@ -21,9 +21,7 @@ This layer aims at providing support for the Puppet DSL using [puppet-mode][].
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(puppet)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(puppet))
 ```
 
 ## Key bindings

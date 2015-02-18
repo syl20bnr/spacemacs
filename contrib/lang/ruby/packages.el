@@ -121,9 +121,9 @@
               (evil-leader/set-key-for-mode 'ruby-mode "mhd" 'robe-doc)
               (evil-leader/set-key-for-mode 'ruby-mode "mrsr" 'robe-rails-refresh)
               ;; inf-ruby-mode
-              (evil-leader/set-key-for-mode 'ruby-mode "mi" 'robe-start)
               (evil-leader/set-key-for-mode 'ruby-mode "msf" 'ruby-send-definition)
               (evil-leader/set-key-for-mode 'ruby-mode "msF" 'ruby-send-definition-and-go)
+              (evil-leader/set-key-for-mode 'ruby-mode "msi" 'robe-start)
               (evil-leader/set-key-for-mode 'ruby-mode "msr" 'ruby-send-region)
               (evil-leader/set-key-for-mode 'ruby-mode "msR" 'ruby-send-region-and-go)
               (evil-leader/set-key-for-mode 'ruby-mode "mss" 'ruby-switch-to-inf))))
@@ -149,5 +149,6 @@
   "Define keybindings for ruby test mode"
   (use-package ruby-test-mode
     :defer t
+    :init (add-hook 'ruby-mode-hook 'ruby-test-mode)
     :config (progn (evil-leader/set-key "mtb" 'ruby-test-run)
                    (evil-leader/set-key "mtt" 'ruby-test-run-at-point))))

@@ -102,7 +102,7 @@ not play nicely with autoloads"
              ess-nuke-trailing-whitespace-p t
              ess-default-style 'DEFAULT)
        (evil-leader/set-key-for-mode 'ess-mode
-         "mi" 'R
+         "msi" 'R
          ;; noweb
          "mcC" 'ess-eval-chunk-and-go
          "mcc" 'ess-eval-chunk

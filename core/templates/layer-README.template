@@ -14,9 +14,7 @@ This layer does wondeful things:
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(LAYER)
-"List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(LAYER))
 ```
 
 ## Key bindings

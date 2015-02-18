@@ -18,8 +18,6 @@ For details, see the [vim-empty-lines-mode][] repository.
 To use this contribution add it to your `~/.spacemacs`.
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(vim-empty-lines)
-"List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(vim-empty-lines))
 ```
 [vim-empty-lines-mode]: https://github.com/jmickelin/vim-empty-lines-mode

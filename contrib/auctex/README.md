@@ -25,9 +25,7 @@ Includes support for Auctex including some bindings, sane defaults, and manual l
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(auctex)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(auctex))
 ```
 
 ## Features

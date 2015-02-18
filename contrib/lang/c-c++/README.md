@@ -25,9 +25,7 @@ improve it and make it consistent with the Spacemacs experience.**
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(c-c++)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(c-c++))
 ```
 
 [CMake]: http://www.cmake.org/
