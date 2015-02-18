@@ -138,8 +138,7 @@ A lot of languages can interact with a REPL. To help keeping a consistent
 behavior between those languages the following conventions should be
 followed:
 - `<SPC> m s` is the prefix for sending code. This allows fast
-interaction with the REPL whenever it is possible (don't forget that `,` is
-a shortcut for `<SPC> m`).
+interaction with the REPL whenever it is possible
 - lower case key bindings keep the focus on the current buffer
 - upper case key bindings move the focus to the REPL buffer
 
@@ -151,6 +150,7 @@ a shortcut for `<SPC> m`).
 <kbd>m s D</kbd>  | second key to send buffer and switch to REPL to debug (step)
 <kbd>m s f</kbd>  | send function
 <kbd>m s F</kbd>  | send function and switch to REPL
+<kbd>m s i</kbd>  | start/switch to REPL inferior process
 <kbd>m s l</kbd>  | send line
 <kbd>m s L</kbd>  | send line and switch to REPL
 <kbd>m s r</kbd>  | send region
