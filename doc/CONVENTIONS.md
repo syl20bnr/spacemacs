@@ -191,10 +191,14 @@ The base prefix for debugging commands is <kbd>SPC d</kbd>.
 ---------------------|------------------------------------------------------------
 <kbd>m d a</kbd>     | abandon current process
 <kbd>m d b</kbd>     | toggle a breakpoint
-<kbd>m d c</kbd>     | continue current process
-<kbd>m d n</kbd>     | next breakpoint
-<kbd>m d N</kbd>     | previous breakpoint
-<kbd>m d s</kbd>     | start debug process
+<kbd>m d B</kbd>     | clear all breakpoints
+<kbd>m d c</kbd>     | continue
+<kbd>m d d</kbd>     | start debug session
+<kbd>m d i</kbd>     | inspect value at point
+<kbd>m d l</kbd>     | local variables
+<kbd>m d n</kbd>     | next
+<kbd>m d r</kbd>     | run
+<kbd>m d s</kbd>     | step
 
 Notes:
 - Ideally a micro-state for breakpoint navigation should be provided.
