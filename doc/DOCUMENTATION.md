@@ -2225,6 +2225,7 @@ Achievements                                         | Account
 [600th issue (PR)][600th-issue]                      | [bjarkevad][]
 [100th pull request][100th-PR]                       | [bru][]
 [200th pull request][200th-PR]                       | [smt][]
+[300th pull request][300th-PR]                       | [BrianHicks][]
 PR gunner (8 PRs in a row)                           | [ralesi][]
 100th fork                                           | [balajisivaraman][]
 100th star                                           | [Jackneill][]
@@ -2334,6 +2335,7 @@ developers to elisp hackers!
 [600th-issue]: https://github.com/syl20bnr/spacemacs/pull/600
 [100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [200th-PR]: https://github.com/syl20bnr/spacemacs/pull/418
+[300th-PR]: https://github.com/syl20bnr/spacemacs/pull/617
 [trishume]:https://github.com/trishume
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
