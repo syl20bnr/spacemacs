@@ -270,7 +270,8 @@ the following keys:
     ;; install and initialize packages and extensions
     (configuration-layer//initialize-extensions configuration-layer-all-pre-extensions-sorted t)
     (configuration-layer//install-packages)
-    (spacemacs/append-to-buffer spacemacs-loading-text)
+    (when dotspacemacs-loading-progress-bar
+      (spacemacs/append-to-buffer spacemacs-loading-text))
     (configuration-layer//initialize-packages)
     (configuration-layer//initialize-extensions configuration-layer-all-post-extensions-sorted)
     ;; restore warning level before initialization
@@ -383,7 +384,7 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
                    not-installed-count))
           (spacemacs/append-to-buffer
            "--> fetching new package repository indexes...\n")
-          (redisplay)
+          (spacemacs//redisplay)
           (package-refresh-contents)
           (setq installed-count 0)
           (dolist (pkg not-installed)
@@ -401,7 +402,7 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
                               pkg))
                   (configuration-layer//activate-package (car dep)))
                 (package-install pkg)))
-            (redisplay))
+            (spacemacs//redisplay))
           (spacemacs/append-to-buffer "\n")))))
 
 (defun configuration-layer//get-packages-to-update (packages)
@@ -435,7 +436,7 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
    "\nUpdating Spacemacs... (for now only ELPA packages are updated)\n")
   (spacemacs/append-to-buffer
    "--> fetching new package repository indexes...\n")
-  (redisplay)
+  (spacemacs//redisplay)
   (package-refresh-contents)
   (let* ((update-packages (configuration-layer//get-packages-to-update
                            configuration-layer-all-packages-sorted))
@@ -456,7 +457,7 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
           ;; variable to be cached for easy update and rollback
           (spacemacs/replace-last-line-of-buffer
            "--> performing backup of package(s) to update...\n" t)
-          (redisplay)
+          (spacemacs//redisplay)
           (dolist (pkg update-packages)
             (let* ((src-dir (configuration-layer//get-package-directory pkg))
                    (dest-dir (expand-file-name
@@ -475,7 +476,7 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
             (spacemacs/replace-last-line-of-buffer
              (format "--> updating package %s... [%s/%s]"
                      pkg upgraded-count upgrade-count) t)
-            (redisplay)
+            (spacemacs//redisplay)
             (configuration-layer//package-delete pkg)
             (condition-case err (package-install pkg)
               ('error
@@ -492,9 +493,9 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
            (format "\n--> %s packages updated.\n" upgraded-count))
           (spacemacs/append-to-buffer
            "\nEmacs has to be restarted for the changes to take effect.\n")
-          (redisplay))
+          (spacemacs//redisplay))
       (spacemacs/append-to-buffer "--> All packages are up to date.\n")
-      (redisplay))))
+      (spacemacs//redisplay))))
 
 (defun configuration-layer//ido-candidate-rollback-slot ()
   "Return a list of candidates to select a rollback slot."
@@ -538,7 +539,7 @@ to select one."
             (rollbacked-count 0))
         (spacemacs/append-to-buffer
          (format "Found %s package(s) to rollback...\n" rollback-count))
-        (redisplay)
+        (spacemacs//redisplay)
         (dolist (apkg update-packages-alist)
           (let* ((pkg (car apkg))
                  (pkg-dir-name (cdr apkg))
@@ -553,7 +554,7 @@ to select one."
             (spacemacs/replace-last-line-of-buffer
              (format "--> rollbacking package %s... [%s/%s]"
                      pkg rollbacked-count rollback-count) t)
-            (redisplay)
+            (spacemacs//redisplay)
             (configuration-layer//package-delete pkg)
             (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content)))
         (spacemacs/append-to-buffer
@@ -758,7 +759,8 @@ deleted safely."
     (if orphans
         (progn
           ;; for the loading dot bar
-          (spacemacs/append-to-buffer "OK!\n")
+          (when dotspacemacs-loading-progress-bar
+            (spacemacs/append-to-buffer "OK!\n"))
           (spacemacs/append-to-buffer
            (format "Found %s orphan package(s) to delete...\n"
                    orphans-count))
@@ -771,24 +773,28 @@ deleted safely."
                      deleted-count
                      orphans-count) t)
             (configuration-layer//package-delete orphan)
-            (redisplay))
+            (spacemacs//redisplay))
           (spacemacs/append-to-buffer "\n"))
       (spacemacs/message "No orphan package to delete."))))
 
 (defun configuration-layer/setup-after-init-hook ()
   "Add post init processing."
-  (add-hook 'after-init-hook
-            (lambda ()
-              (dotspacemacs|call-func dotspacemacs/config "Executing user config...")
-              (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text))
-              ;; from jwiegley
-              ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
-              (let ((elapsed (float-time
-                              (time-subtract (current-time) emacs-start-time))))
-                (spacemacs/append-to-buffer
-                 (format "[%s packages loaded in %.3fs]\n"
-                         (configuration-layer//initialized-packages-count)
-                         elapsed)))
-              (spacemacs/check-for-new-version spacemacs-version-check-interval))))
+  (add-hook
+   'after-init-hook
+   (lambda ()
+     ;; Ultimate configuration decisions are given to the user who can defined
+     ;; them in his/her ~/.spacemacs file
+     (dotspacemacs|call-func dotspacemacs/config "Executing user config...")
+     (when dotspacemacs-loading-progress-bar
+       (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text)))
+     ;; from jwiegley
+     ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
+     (let ((elapsed (float-time
+                     (time-subtract (current-time) emacs-start-time))))
+       (spacemacs/append-to-buffer
+        (format "[%s packages loaded in %.3fs]\n"
+                (configuration-layer//initialized-packages-count)
+                elapsed)))
+     (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
 (provide 'core-configuration-layer)

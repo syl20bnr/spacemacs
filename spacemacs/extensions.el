@@ -66,6 +66,8 @@
     (spacemacs|hide-lighter evil-escape-mode)))
 
 (defun spacemacs/init-evil-lisp-state ()
+  (setq evil-lisp-state-global t)
+  (setq evil-lisp-state-leader-prefix "k")
   (require 'evil-lisp-state))
 
 (defun spacemacs/init-helm-rcirc ()
