@@ -47,6 +47,8 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
       (define-key company-active-map (kbd "<tab>") nil)
       (define-key company-active-map [tab] nil)
 
+      (company-mode/setup-keybindings)
+
       (add-hook 'markdown-mode-hook '(lambda () (company-mode -1)))
 
       ;; The default common face is a really ugly underlined thing with a different background.
@@ -69,3 +71,12 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
     :defer t
     :init
     (add-to-list 'company-backends (company-mode/backend-with-yas 'company-tern))))
+
+(defun company-mode/setup-keybindings ()
+  (progn
+    (define-key company-active-map (kbd "C-j") 'company-select-next)
+    (define-key company-active-map (kbd "C-k") 'company-select-previous)
+    (define-key company-active-map (kbd "C-/") 'company-search-candidates)
+    (define-key company-active-map (kbd "C-M-/") 'company-filter-candidates)
+    (define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
+    ))
