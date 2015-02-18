@@ -18,9 +18,7 @@
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(ess)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(ess))
 ```
 
 **Important**:

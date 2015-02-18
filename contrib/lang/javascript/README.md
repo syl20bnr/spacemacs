@@ -31,9 +31,7 @@ Main features:
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(javascript)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(javascript))
 ```
 
 You will also need to install `tern` to use the auto-completion and

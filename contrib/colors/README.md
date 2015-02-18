@@ -37,9 +37,7 @@ represent as background.
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(colors)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(colors))
 ```
 
 ### Enable rainbow-identifiers
@@ -49,9 +47,7 @@ To enable the package `rainbow-identifiers` set the variable
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(
-  (colors :variables colors-enable-rainbow-identifiers t))
-  "List of contribution to load."
-)
+  (colors :variables colors-enable-rainbow-identifiers t)))
 ```
 
 ### Enable Nyan cat
@@ -61,9 +57,7 @@ To enable the package `nyan-mode` set the variable
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(
-  (colors :variables colors-enable-nyan-cat-progress-bar t))
-  "List of contribution to load."
-)
+  (colors :variables colors-enable-nyan-cat-progress-bar t)))
 ```
 
 It may be handy to enable it only in a GUI, you can do it by using
@@ -72,9 +66,7 @@ a quasi-quoted list:
 ```elisp
 (setq-default dotspacemacs-configuration-layers
   `((colors :variables
-            colors-enable-nyan-cat-progress-bar ,(display-graphic-p)))
-  "List of contribution to load."
-)
+            colors-enable-nyan-cat-progress-bar ,(display-graphic-p))))
 ```
 
 ## Key bindings

@@ -40,9 +40,7 @@ This layer adds experimental support for C# language using [OmniSharp][].
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(csharp)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(csharp))
 ```
 
 ### Prerequisites

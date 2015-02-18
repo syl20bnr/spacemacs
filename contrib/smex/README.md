@@ -23,9 +23,7 @@ activated in the Spacemacs layer.
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(smex)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(smex))
 ```
 
 ## Key bindings

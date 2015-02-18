@@ -21,9 +21,7 @@ This layer adds support for [Perforce][] (p4).
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(perforce)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(perforce))
 ```
 
 You'll have to install the `p4`` command line, [download page][].

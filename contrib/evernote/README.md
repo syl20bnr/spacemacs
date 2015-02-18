@@ -34,9 +34,7 @@ exposed features.
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(evernote)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(evernote))
 ```
 
 ### geeknote

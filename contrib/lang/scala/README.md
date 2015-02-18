@@ -38,9 +38,7 @@ client/server.
 Add this contribution to your `~/.spacemacs`.
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(scala)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(scala))
 ```
 
 ## Ensime

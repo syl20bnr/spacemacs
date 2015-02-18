@@ -26,9 +26,7 @@ The integration is implemented in the package [emacs-fasd][].
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(fasd)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(fasd))
 ```
 
 ### fasd

@@ -37,9 +37,7 @@ Contributed and maintained by [Rich Alesi][].
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(autohotkey)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(autohotkey))
 ```
 
 ## Key Bindings

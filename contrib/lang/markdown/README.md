@@ -26,9 +26,7 @@ Features:
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(markdown)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(markdown))
 ```
 
 ## Usage

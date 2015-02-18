@@ -30,9 +30,7 @@ to intelligently guess specific docsets to use based off of your current mode.
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(dash)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(dash))
 ```
 
 ### Dash

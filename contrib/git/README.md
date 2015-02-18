@@ -49,9 +49,7 @@ This layer also provides support for Github with:
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(git)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(git))
 ```
 
 ### Github support
