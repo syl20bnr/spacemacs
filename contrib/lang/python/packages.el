@@ -191,7 +191,7 @@ which require an initialization must be listed explicitly in the list.")
         (python-shell-switch-to-shell)
         (evil-insert-state))
 
-      (defun python-shell-send-region-switch ()
+      (defun python-shell-send-region-switch (start end)
         "Send region content to shell and switch to it in insert mode."
         (interactive "r")
         (python-shell-send-region start end)
