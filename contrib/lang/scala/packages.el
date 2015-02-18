@@ -129,9 +129,9 @@ which require an initialization must be listed explicitly in the list.")
         "mtr"     'ensime-sbt-do-test-quick
         "mtt"     'ensime-sbt-do-test-only
 
+        "msa"     'ensime-inf-load-file
         "msb"     'ensime-inf-eval-buffer
         "msB"     'ensime-inf-eval-buffer-switch
-        "msf"     'ensime-inf-load-file
         "msi"     'ensime-inf-switch
         "msr"     'ensime-inf-eval-region
         "msR"     'ensime-inf-eval-region-switch

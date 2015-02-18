@@ -199,9 +199,9 @@ See the [flycheck documentation][] for up-to-date configuration instructions.
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
+<kbd>SPC m s a</kbd>  | ask for a file to be loaded in the REPL
 <kbd>SPC m s b</kbd>  | send buffer to the REPL
 <kbd>SPC m s B</kbd>  | send buffer to the REPL and focus the REPL buffer in `insert state`
-<kbd>SPC m s f</kbd>  | ask for a file to be loaded in the REPL
 <kbd>SPC m s i</kbd>  | start or switch to the REPL inferior process
 <kbd>SPC m s r</kbd>  | send region to the REPL
 <kbd>SPC m s R</kbd>  | send region to the REPL and focus the REPL buffer in `insert state`
