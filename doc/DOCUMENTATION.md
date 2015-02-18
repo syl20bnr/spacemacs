@@ -2222,6 +2222,7 @@ Achievements                                         | Account
 [300th issue (PR)][300th-issue]                      | [danielwuz][]
 [400th issue (PR)][400th-issue]                      | [CestDiego][]
 [500th issue (PR)][500th-issue]                      | [bjarkevad][]
+[600th issue (PR)][600th-issue]                      | [bjarkevad][]
 [100th pull request][100th-PR]                       | [bru][]
 [200th pull request][200th-PR]                       | [smt][]
 PR gunner (8 PRs in a row)                           | [ralesi][]
@@ -2230,6 +2231,7 @@ PR gunner (8 PRs in a row)                           | [ralesi][]
 200th star                                           | [jb55][]
 400th star                                           | [dbohdan][]
 600th star                                           | [laat][]
+700th star                                           | [kendall][]
 
 # Thank you
 
@@ -2325,10 +2327,11 @@ developers to elisp hackers!
 [1st-article]: http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/
 [1st-cbanner]: https://github.com/syl20bnr/spacemacs/commit/7b44a56263049482ed540ed6815a295633ffe9d1
 [100th-issue]: https://github.com/syl20bnr/spacemacs/pull/100
-[200th-issue]: https://github.com/syl20bnr/spacemacs/pull/200
+[200th-issue]: https://github.com/syl20bnr/spacemacs/issues/200
 [300th-issue]: https://github.com/syl20bnr/spacemacs/pull/300
 [400th-issue]: https://github.com/syl20bnr/spacemacs/pull/400
 [500th-issue]: https://github.com/syl20bnr/spacemacs/pull/500
+[600th-issue]: https://github.com/syl20bnr/spacemacs/pull/600
 [100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [200th-PR]: https://github.com/syl20bnr/spacemacs/pull/418
 [trishume]:https://github.com/trishume
