@@ -14,7 +14,7 @@
 
 ## Description
 
-This layer add support for Ansible-flavored YAML buffers.
+This layer adds support for Ansible-flavored YAML buffers.
 
 ## Install
 
