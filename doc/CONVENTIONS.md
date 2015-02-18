@@ -11,19 +11,22 @@
         - [Reserved prefix](#reserved-prefix)
             - [User prefix](#user-prefix)
             - [Major mode prefix](#major-mode-prefix)
+        - [Evilify buffers](#evilify-buffers)
         - [Navigation](#navigation)
-            - [Navigation with n and N](#navigation-with-n-and-n)
+            - [n and N](#n-and-n)
             - [Code Navigation](#code-navigation)
-        - [In buffer evaluation of code](#in-buffer-evaluation-of-code)
-        - [Interactions with REPLs](#interactions-with-repls)
-        - [Interactions with Tests](#interactions-with-tests)
-            - [For all languages](#for-all-languages)
-            - [Depending on the language](#depending-on-the-language)
+            - [`insert state` buffers](#insert-state-buffers)
+        - [Evaluation](#evaluation)
+        - [REPLs](#repls)
+            - [Send code](#send-code)
+            - [In terminal](#in-terminal)
         - [Building and Compilation](#building-and-compilation)
         - [Debugging](#debugging)
-        - [Getting Help or Documentation](#getting-help-or-documentation)
-        - [Navigation in `insert state` buffers](#navigation-in-insert-state-buffers)
-        - [Evilify buffers](#evilify-buffers)
+        - [Tests](#tests)
+            - [All languages](#all-languages)
+            - [Language specific](#language-specific)
+        - [Refactoring](#refactoring)
+        - [Help or Documentation](#help-or-documentation)
 
 <!-- markdown-toc end -->
 
@@ -60,9 +63,30 @@ A package is initialized in a function with name `<layer>/init-xxx` where:
 are not an issue (ie. <kbd>SPC m h d</kbd>) since <kbd>SPC m</kbd> can be
 accessed via <kbd>,</kbd>.
 
+### Evilify buffers
+
+`Spacemacs` offers convenient functions to _evilify_ a buffer.
+_Evilifying_ a buffer is to:
+- add `hjkl` navigation
+- add incremental search with `/`, `n` and `N`
+- add `visual state` and `visual line state`
+- add yank (copy) with `y`
+- activate evil-leader key
+- fix all bindings shadows by the above additions
+
+To fix the shadowed bindings we capitalize them, for instance:
+shadowed `h` is transposed to `H`, if `H` is taken then it is
+transposed to `C-h` and so on...
+
+Example of _evilified_ buffers are `magit status`, `paradox buffer`.
+
+The related functions are:
+- `spacemacs/activate-evil-leader-for-maps` and `spacemacs/activate-evil-leader-for-map`
+- `spacemacs/evilify`
+
 ### Navigation
 
-#### Navigation with n and N
+#### n and N
 
 To be consistent with the Vim way, <kbd>n</kbd> and <kbd>N</kbd> are favored
 over Emacs <kbd>n</kbd> and <kbd>p</kbd>.
@@ -82,7 +106,18 @@ The prefix for going to something is `<SPC> m g`.
 <kbd>m g g</kbd>  | go to things under point
 <kbd>m g t</kbd>  | go to corresponding test file if any
 
-### In buffer evaluation of code
+#### `insert state` buffers
+
+Navigation in buffers like `Helm` and `ido` which are in `insert state` should
+be performed with <kbd>C-j</kbd> and <kbd>C-k</kbd> bindings for vertical
+movements.
+
+    Key         |                 Description
+----------------|------------------------------------------------------------
+<kbd>C-j</kbd>  | go down
+<kbd>C-k</kbd>  | go up
+
+### Evaluation
 
 Live evaluation of code is under the prefix `<SPC> m e`.
 
@@ -95,8 +130,9 @@ Live evaluation of code is under the prefix `<SPC> m e`.
 <kbd>m e l</kbd>  | evaluate line
 <kbd>m e r</kbd>  | evaluate region
 
+### REPLs
 
-### Interactions with REPLs
+#### Send code
 
 A lot of languages can interact with a REPL. To help keeping a consistent
 behavior between those languages the following conventions should be
@@ -122,33 +158,17 @@ a shortcut for `<SPC> m`).
 
 Note: we don't distinguish between the file and the buffer.
 
-### Interactions with Tests
+#### In terminal
 
-A lot of languages have their own test frameworks. These frameworks share
-common actions that we can unite under the same key bindings:
-- `<SPC> m t` is the prefix for test execution.
-- `<SPC> m T` is the prefix for test execution in debug mode (if supported).
+History navigation in shells or REPLs buffers should be bound as well to
+<kbd>C-j</kbd> and <kbd>C-k</kbd>.
 
-#### For all languages
-
-    Key           |                 Description
-------------------|------------------------------------------------------------
-<kbd>m t a</kbd>  | execute all the tests of the current project
-<kbd>m t b</kbd>  | execute all the tests of the current buffer
-<kbd>m t t</kbd>  | execute the current test (thing at point, function)
-
-Note: we don't distinguish between the file and the buffer. We can implement
-an auto-save of the buffer before executing the tests of buffer.
-
-#### Depending on the language
-
-    Key           |                 Description
-------------------|------------------------------------------------------------
-<kbd>m t m</kbd>  | execute the tests of the current module
-<kbd>m t s</kbd>  | execute the tests of the current suite
-
-Note that there are overlaps, depending on the language we will choose one
-or more bindings for the same thing
+    Key         |                 Description
+----------------|------------------------------------------------------------
+<kbd>C-j</kbd>  | next item in history
+<kbd>C-k</kbd>  | previous item in history
+<kbd>C-l</kbd>  | clear screen
+<kbd>C-r</kbd>  | search backward in history
 
 ### Building and Compilation
 
@@ -182,7 +202,39 @@ Notes:
 the spacemacs level and ideally the function should be proposed as a patch
 upstream (major mode repository).
 
-### Getting Help or Documentation
+### Tests
+
+A lot of languages have their own test frameworks. These frameworks share
+common actions that we can unite under the same key bindings:
+- `<SPC> m t` is the prefix for test execution.
+- `<SPC> m T` is the prefix for test execution in debug mode (if supported).
+
+#### All languages
+
+    Key           |                 Description
+------------------|------------------------------------------------------------
+<kbd>m t a</kbd>  | execute all the tests of the current project
+<kbd>m t b</kbd>  | execute all the tests of the current buffer
+<kbd>m t t</kbd>  | execute the current test (thing at point, function)
+
+Note: we don't distinguish between the file and the buffer. We can implement
+an auto-save of the buffer before executing the tests of buffer.
+
+#### Language specific
+
+    Key           |                 Description
+------------------|------------------------------------------------------------
+<kbd>m t m</kbd>  | execute the tests of the current module
+<kbd>m t s</kbd>  | execute the tests of the current suite
+
+Note that there are overlaps, depending on the language we will choose one
+or more bindings for the same thing
+
+### Refactoring
+
+Refactoring prefix is <kbd>SPC m r</kbd>.
+
+### Help or Documentation
 
 The base prefix for help commands is <kbd>SPC h</kbd>. Documentation is
 considered as an help command.
@@ -191,43 +243,3 @@ considered as an help command.
 ------------------|------------------------------------------------------------
 <kbd>m h h</kbd>  | documentation of thing under point
 <kbd>m h r</kbd>  | documentation of selected region
-
-### Navigation in `insert state` buffers
-
-Navigation in buffers like `Helm` and `ido` which are in `insert state` should
-be performed with <kbd>C-j</kbd> and <kbd>C-k</kbd> bindings for vertical
-movements.
-
-    Key         |                 Description
-----------------|------------------------------------------------------------
-<kbd>C-j</kbd>  | go down
-<kbd>C-k</kbd>  | go up
-
-History navigation in shells or REPLs buffers should be bound as well to
-<kbd>C-j</kbd> and <kbd>C-k</kbd>.
-
-    Key         |                 Description
-----------------|------------------------------------------------------------
-<kbd>C-j</kbd>  | next item in history
-<kbd>C-k</kbd>  | previous item in history
-
-### Evilify buffers
-
-`Spacemacs` offers convenient functions to _evilify_ a buffer.
-_Evilifying_ a buffer is to:
-- add `hjkl` navigation
-- add incremental search with `/`, `n` and `N`
-- add `visual state` and `visual line state`
-- add yank (copy) with `y`
-- activate evil-leader key
-- fix all bindings shadows by the above additions
-
-To fix the shadowed bindings we capitalize them, for instance:
-shadowed `h` is transposed to `H`, if `H` is taken then it is
-transposed to `C-h` and so on...
-
-Example of _evilified_ buffers are `magit status`, `paradox buffer`.
-
-The related functions are:
-- `spacemacs/activate-evil-leader-for-maps` and `spacemacs/activate-evil-leader-for-map`
-- `spacemacs/evilify`
