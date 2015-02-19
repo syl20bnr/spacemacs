@@ -128,7 +128,7 @@
     "nw" 'widen))
 ;; spell check  ---------------------------------------------------------------
 (evil-leader/set-key
-  "Sc" 'cofi/helm-flyspell-correct
+  "Sc" 'helm-flyspell-correct
   "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (spacemacs|add-toggle fill-column-indicator

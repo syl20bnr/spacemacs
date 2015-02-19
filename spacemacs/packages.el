@@ -65,6 +65,7 @@
     helm-ag
     helm-c-yasnippet
     helm-descbinds
+    helm-flyspell
     helm-make
     helm-mode-manager
     ;; not working for now
@@ -1275,6 +1276,10 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (evil-leader/set-key "?" 'helm-descbinds)))
+
+(defun spacemacs/init-helm-flyspell ()
+  (use-package helm-flyspell)
+  )
 
 (defun spacemacs/init-helm-make ()
   (use-package helm-make
