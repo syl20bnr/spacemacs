@@ -43,6 +43,6 @@ which require an initialization must be listed explicitly in the list.")
  (use-package company-go
    :if (boundp 'company-backends)
    :defer t
-   :init (add-to-list 'company-backends 'company-go)
+   :init (eval-after-load 'go-mode '(add-to-list 'company-backends 'company-go))
   )
 )
