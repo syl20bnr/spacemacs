@@ -1278,8 +1278,9 @@ which require an initialization must be listed explicitly in the list.")
     (evil-leader/set-key "?" 'helm-descbinds)))
 
 (defun spacemacs/init-helm-flyspell ()
-  (use-package helm-flyspell)
-  )
+  (use-package helm-flyspell
+    :commands helm-flyspell-correct
+    :init (evil-leader/set-key "Sc" 'helm-flyspell-correct)))
 
 (defun spacemacs/init-helm-make ()
   (use-package helm-make
