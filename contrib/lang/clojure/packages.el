@@ -1,7 +1,6 @@
 (defvar clojure-packages
   '(
     clojure-mode
-    paredit
     cider
     clj-refactor
     ac-cider
@@ -31,7 +30,6 @@ which require an initialization must be listed explicitly in the list.")
   "Start general modes for both clojure-mode and repl"
   (progn
     (subword-mode t)
-    (paredit-mode t)
     (rainbow-delimiters-mode t)))
 
 (defun clojure/init-clojure-mode ()
