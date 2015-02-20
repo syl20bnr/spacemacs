@@ -33,6 +33,7 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (evil-leader/set-key-for-mode 'markdown-mode
         ;; Element insertion
+        "m\""   'markdown-insert-hr
         "mal"   'markdown-insert-link
         "maL"   'markdown-insert-reference-link-dwim
         "mau"   'markdown-insert-uri
@@ -57,7 +58,6 @@ which require an initialization must be listed explicitly in the list.")
         "msB"   'markdown-blockquote-region
         "msp"   'markdown-insert-pre
         "msP"   'markdown-pre-region
-        "m\""   'markdown-insert-hr
         ;; Element removal
         "mk"    'markdown-kill-thing-at-point
         ;; Promotion, Demotion, Completion, and Cycling
@@ -77,6 +77,7 @@ which require an initialization must be listed explicitly in the list.")
         "mb"   'outline-backward-same-level
         "mu"   'outline-up-heading
         ;; Buffer-wide commands
+        "mc]"  'markdown-complete-buffer
         "mcm"  'markdown-other-window
         "mcp"  'markdown-preview
         "mce"  'markdown-export
@@ -85,7 +86,6 @@ which require an initialization must be listed explicitly in the list.")
         "mcw"  'markdown-kill-ring-save
         "mcc"  'markdown-check-refs
         "mcn"  'markdown-cleanup-list-numbers
-        "mc]"  'markdown-complete-buffer
         ;; List editing
         "mlk"  'markdown-move-up
         "mlj"  'markdown-move-down
