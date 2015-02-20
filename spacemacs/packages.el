@@ -65,6 +65,7 @@
     helm-ag
     helm-c-yasnippet
     helm-descbinds
+    helm-flyspell
     helm-make
     helm-mode-manager
     ;; not working for now
@@ -1101,6 +1102,7 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-list 'golden-ratio-inhibit-functions
                    'spacemacs/no-golden-ratio-guide-key)
       (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
+      (add-to-list 'golden-ratio-exclude-buffer-names "*LV*")
 
       (spacemacs|diminish golden-ratio-mode " ⊞" " G"))))
 
@@ -1243,6 +1245,9 @@ which require an initialization must be listed explicitly in the list.")
            :background (face-attribute 'header-line :background)))
 
         (spacemacs|define-micro-state helm-navigation
+          :doc (concat "[h] [j] [k] [l] select candidate "
+                       "[v] persistent action [a] action "
+                       "[t] select candidate")
           :on-enter (spacemacs//on-enter-helm-navigation-micro-state)
           :on-exit  (spacemacs//on-exit-helm-navigation-micro-state)
           :bindings
@@ -1276,6 +1281,11 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (evil-leader/set-key "?" 'helm-descbinds)))
+
+(defun spacemacs/init-helm-flyspell ()
+  (use-package helm-flyspell
+    :commands helm-flyspell-correct
+    :init (evil-leader/set-key "Sc" 'helm-flyspell-correct)))
 
 (defun spacemacs/init-helm-make ()
   (use-package helm-make
