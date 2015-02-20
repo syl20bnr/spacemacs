@@ -1101,6 +1101,7 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-list 'golden-ratio-inhibit-functions
                    'spacemacs/no-golden-ratio-guide-key)
       (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
+      (add-to-list 'golden-ratio-exclude-buffer-names "*LV*")
 
       (spacemacs|diminish golden-ratio-mode " ⊞" " G"))))
 
