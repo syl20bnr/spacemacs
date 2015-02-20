@@ -49,8 +49,7 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'clojure-mode))
-      (evil-leader/set-key-for-mode 'clojure-mode  "mj" 'cider-jack-in))))
+        (clojure/fancify-symbols 'clojure-mode)))))
 
 (defun clojure/init-cider ()
   (use-package cider
@@ -71,22 +70,90 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (add-to-list 'evil-emacs-state-modes 'cider-stacktrace-mode)
 
+      (defun spacemacs//cider-eval-in-repl-no-focus (form)
+        "Insert FORM in the REPL buffer and eval it."
+        (let ((start-pos (point)))
+          (while (string-match "\\`[ \t\n\r]+\\|[ \t\n\r]+\\'" form)
+            (setq form (replace-match "" t t form)))
+          (with-current-buffer (cider-current-repl-buffer)
+            (insert form)
+            (indent-region start-pos (point))
+            (cider-repl-return))))
+
+      (defun spacemacs/send-last-sexp-to-repl ()
+        "Send last sexp to REPL and evaluate it without changing
+the focus."
+        (interactive)
+        (spacemacs//cider-eval-in-repl-no-focus (cider-last-sexp)))
+
+      (defun spacemacs/send-last-sexp-to-repl-focus ()
+        "Send last sexp to REPL and evaluate it and switch to the REPL in
+`insert state'."
+        (interactive)
+        (cider-insert-last-sexp-in-repl t)
+        (evil-insert-state))
+
+      (defun spacemacs/send-function-to-repl ()
+        "Send current function to REPL and evaluate it without changing
+the focus."
+        (interactive)
+        (spacemacs//cider-eval-in-repl-no-focus (cider-defun-at-point)))
+
+      (defun spacemacs/send-function-to-repl-focus ()
+        "Send current function to REPL and evaluate it and switch to the REPL in
+`insert state'."
+        (interactive)
+        (cider-insert-defun-in-repl t)
+        (evil-insert-state))
+
+      (defun spacemacs/send-ns-form-to-repl ()
+        "Send buffer's ns form to REPL and evaluate it without changing
+the focus."
+        (interactive)
+        (spacemacs//cider-eval-in-repl-no-focus (cider-ns-form)))
+
+      (defun spacemacs/send-function-to-repl-focus ()
+        "Send ns form to REPL and evaluate it and switch to the REPL in
+`insert state'."
+        (interactive)
+        (cider-insert-ns-form-in-repl t)
+        (evil-insert-state))
+
+      (defun spacemacs/send-buffer-in-repl-and-focus ()
+        "Send the current buffer in the REPL and switch to the REPL in
+`insert state'."
+        (interactive)
+        (cider-load-buffer)
+        (cider-switch-to-repl-buffer)
+        (evil-insert-state))
+
       (spacemacs/activate-evil-leader-for-map 'cider-stacktrace-mode-map)
       (evil-leader/set-key-for-mode 'clojure-mode
         "mdd" 'cider-doc
         "mdg" 'cider-grimoire
         "mdj" 'cider-javadoc
+
         "meb" 'cider-eval-buffer
         "mer" 'cider-eval-region
         "mes" 'cider-eval-last-sexp
+
         "mgb" 'cider-jump-back
         "mge" 'cider-jump-to-compilation-error
         "mgg" 'cider-jump-to-var
         "mgr" 'cider-jump-to-resource
-        "mk"  'cider-load-buffer
-        "mtt" 'cider-test-run-tests
-        "mz"  'cider-switch-to-repl-buffer
-        )
+
+        "msb" 'cider-load-buffer
+        "msB" 'spacemacs/send-buffer-in-repl-and-focus
+        "mse" 'spacemacs/send-last-sexp-to-repl
+        "msE" 'spacemacs/send-last-sexp-to-repl-focus
+        "msf" 'spacemacs/send-function-to-repl
+        "msF" 'spacemacs/send-function-to-repl-focus
+        "msi" 'cider-jack-in
+        "msn" 'spacemacs/send-ns-form-to-repl
+        "msN" 'spacemacs/send-function-to-repl-focus
+        "mss" 'cider-switch-to-repl-buffer
+
+        "mtt" 'cider-test-run-tests)
       (when clojure-enable-fancify-symbols 
         (clojure/fancify-symbols 'cider-repl-mode)))))
 
