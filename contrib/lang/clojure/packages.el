@@ -11,23 +11,6 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defun clojure/fancify-symbols (mode)
-  "Pretty symbols for Clojure's anonymous functions and sets,
-   like (λ [a] (+ a 5)), ƒ(+ % 5), and ∈{2 4 6}."
-  (font-lock-add-keywords mode
-    `(("(\\(fn\\)[\[[:space:]]"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "λ"))))
-      ("(\\(partial\\)[\[[:space:]]"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "Ƥ"))))
-      ("\\(#\\)("
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "ƒ"))))
-      ("\\(#\\){"
-       (0 (progn (compose-region (match-beginning 1)
-                                 (match-end 1) "∈")))))))
-
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
     :defer t
