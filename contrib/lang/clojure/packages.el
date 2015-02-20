@@ -73,19 +73,20 @@ which require an initialization must be listed explicitly in the list.")
 
       (spacemacs/activate-evil-leader-for-map 'cider-stacktrace-mode-map)
       (evil-leader/set-key-for-mode 'clojure-mode
-        "meb" 'cider-eval-buffer
-        "mer" 'cider-eval-region
-        "mes" 'cider-eval-last-sexp
-        "mk"  'cider-load-buffer
-        "mz"  'cider-switch-to-repl-buffer
         "mdd" 'cider-doc
         "mdg" 'cider-grimoire
         "mdj" 'cider-javadoc
+        "meb" 'cider-eval-buffer
+        "mer" 'cider-eval-region
+        "mes" 'cider-eval-last-sexp
+        "mgb" 'cider-jump-back
+        "mge" 'cider-jump-to-compilation-error
         "mgg" 'cider-jump-to-var
         "mgr" 'cider-jump-to-resource
-        "mge" 'cider-jump-to-compilation-error
-        "mgb" 'cider-jump-back
-        "mtt" 'cider-test-run-tests)
+        "mk"  'cider-load-buffer
+        "mtt" 'cider-test-run-tests
+        "mz"  'cider-switch-to-repl-buffer
+        )
       (when clojure-enable-fancify-symbols 
         (clojure/fancify-symbols 'cider-repl-mode)))))
 
@@ -109,21 +110,29 @@ which require an initialization must be listed explicitly in the list.")
         (evil-leader/set-key-for-mode 'clojure-mode
           "mr-ad" 'cljr-add-declaration
           "mr-ai" 'cljr-add-import-to-ns
+          "mr-am" 'cljr-add-missing-libspec
+          "mr-ap" 'cljr-add-project-dependency
           "mr-ar" 'cljr-add-require-to-ns
           "mr-au" 'cljr-add-use-to-ns
           "mr-cc" 'cljr-cycle-coll
           "mr-ci" 'cljr-cycle-if
+          "mr-cn" 'cljr-clean-ns
           "mr-cp" 'cljr-cycle-privacy
           "mr-dk" 'cljr-destructure-keys
+          "mr-ef" 'cljr-extract-function
           "mr-el" 'cljr-expand-let
+          "mr-fu" 'cljr-find-usages
+          "mr-hd" 'cljr-hotload-dependency
           "mr-il" 'cljr-introduce-let
           "mr-mf" 'cljr-move-form
           "mr-ml" 'cljr-move-to-let
           "mr-pc" 'cljr-project-clean
           "mr-pf" 'cljr-promote-function
+          "mr-rd" 'cljr-remove-debug-fns
           "mr-rf" 'cljr-rename-file
           "mr-rl" 'cljr-remove-let
           "mr-rr" 'cljr-remove-unused-requires
+          "mr-rs" 'cljr-rename-symbol
           "mr-ru" 'cljr-replace-use
           "mr-sn" 'cljr-sort-ns
           "mr-sp" 'cljr-sort-project-dependencies
@@ -132,12 +141,4 @@ which require an initialization must be listed explicitly in the list.")
           "mr-th" 'cljr-thread
           "mr-tl" 'cljr-thread-last-all
           "mr-ua" 'cljr-unwind-all
-          "mr-uw" 'cljr-unwind
-          "mr-am" 'cljr-add-missing-libspec
-          "mr-ap" 'cljr-add-project-dependency
-          "mr-cn" 'cljr-clean-ns
-          "mr-ef" 'cljr-extract-function
-          "mr-fu" 'cljr-find-usages
-          "mr-hd" 'cljr-hotload-dependency
-          "mr-rd" 'cljr-remove-debug-fns
-          "mr-rs" 'cljr-rename-symbol))))
+          "mr-uw" 'cljr-unwind))))
