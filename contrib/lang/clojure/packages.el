@@ -14,6 +14,13 @@ which require an initialization must be listed explicitly in the list.")
 (defun clojure/init-ac-cider ()
   (use-package ac-cider
     :defer t
+    :if (configuration-layer/package-declaredp 'auto-complete)
+    :init
+    (progn
+      (add-to-hook 'cider-mode-hook '(ac-flyspell-workaround
+                                      ac-cider-setup))
+      (add-to-hook 'cider-repl-mode-hook '(ac-cider-setup
+                                           auto-complete-mode)))
     :config (add-to-list 'ac-modes 'cider-mode)))
 
 (defun clojure/init-cider ()
@@ -25,11 +32,7 @@ which require an initialization must be listed explicitly in the list.")
             cider-repl-pop-to-buffer-on-connect nil
             cider-prompt-save-file-on-load nil
             cider-repl-use-clojure-font-lock t)
-      (add-to-hook 'cider-mode-hook '(cider-turn-on-eldoc-mode
-                                      ac-flyspell-workaround
-                                      ac-cider-setup))
-      (add-to-hook 'cider-repl-mode-hook '(ac-cider-setup
-                                           auto-complete-mode)))
+      (add-to-hook 'cider-mode-hook '(cider-turn-on-eldoc-mode)))
     :config
     (progn
       (add-to-list 'evil-emacs-state-modes 'cider-stacktrace-mode)
