@@ -12,6 +12,7 @@
 
 (defvar scala-packages
   '(
+    projectile
     ensime
     sbt-mode
     scala-mode2
@@ -19,13 +20,18 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
+(defun scala/init-projectile ()
+  (use-package projectile
+    :defer t))
+
 (defun scala/init-ensime ()
   (use-package ensime
     :commands (ensime-mode)
     :init
     (progn
       (add-hook 'scala-mode-hook 'scala/configure-flyspell)
-      (add-hook 'scala-mode-hook 'scala/configure-ensime))
+      (add-hook 'scala-mode-hook 'scala/configure-ensime)
+      (add-hook 'scala-mode-hook 'scala/maybe-start-ensime))
     :config
     (progn
       (evil-define-key 'insert ensime-mode-map
@@ -109,7 +115,7 @@ which require an initialization must be listed explicitly in the list.")
         "mee"     'ensime-print-errors-at-point
         "mel"     'ensime-show-all-errors-and-warnings
         "mes"     'ensime-stacktrace-switch
-        
+
         "mgg"     'ensime-edit-definition
         "mgi"     'ensime-goto-impl
         "mgt"     'ensime-goto-test
