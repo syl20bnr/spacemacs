@@ -5,6 +5,8 @@
     clj-refactor
     ac-cider
     align-cljlet
+    rainbow-delimiters
+    subword
    )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -26,11 +28,6 @@ which require an initialization must be listed explicitly in the list.")
        (0 (progn (compose-region (match-beginning 1)
                                  (match-end 1) "∈")))))))
 
-(defun clojure/general-mode ()
-  "Start general modes for both clojure-mode and repl"
-  (progn
-    (subword-mode t)))
-
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
     :defer t
@@ -40,9 +37,6 @@ which require an initialization must be listed explicitly in the list.")
            ("\.edn$"      . clojure-mode)
            ("\.boot$"     . clojure-mode)
            ("\.cljs\.hl$" . clojure-mode))
-    :init
-    (progn
-      (add-to-hook 'clojure-mode-hook '(clojure/general-mode)))
     :config
     (progn
       (when clojure-enable-fancify-symbols
@@ -60,8 +54,7 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-hook 'cider-mode-hook '(cider-turn-on-eldoc-mode
                                       ac-flyspell-workaround
                                       ac-cider-setup))
-      (add-to-hook 'cider-repl-mode-hook '(clojure/general-mode
-                                           ac-cider-setup
+      (add-to-hook 'cider-repl-mode-hook '(ac-cider-setup
                                            auto-complete-mode)))
     :config
     (progn
@@ -206,3 +199,11 @@ the focus."
           "mr-tl" 'cljr-thread-last-all
           "mr-ua" 'cljr-unwind-all
           "mr-uw" 'cljr-unwind))))
+
+(defun clojure/init-rainbow-delimiters ()
+  (if configuration-layer/package-declaredp 'cider
+    (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
+
+(defun clojure/init-subword ()
+  (unless (version< emacs-version "24.4")
+    (add-hook 'cider-mode-hook 'subword-mode)))
