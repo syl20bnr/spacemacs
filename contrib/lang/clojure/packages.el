@@ -29,8 +29,7 @@ which require an initialization must be listed explicitly in the list.")
 (defun clojure/general-mode ()
   "Start general modes for both clojure-mode and repl"
   (progn
-    (subword-mode t)
-    (rainbow-delimiters-mode t)))
+    (subword-mode t)))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
