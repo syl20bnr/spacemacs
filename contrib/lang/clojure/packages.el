@@ -11,19 +11,10 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defun clojure/init-clojure-mode ()
-  (use-package clojure-mode
+(defun clojure/init-ac-cider ()
+  (use-package ac-cider
     :defer t
-    :mode (("\.clj$"      . clojure-mode)
-           ("\.cljs$"     . clojure-mode)
-           ("\.cljx$"     . clojure-mode)
-           ("\.edn$"      . clojure-mode)
-           ("\.boot$"     . clojure-mode)
-           ("\.cljs\.hl$" . clojure-mode))
-    :config
-    (progn
-      (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'clojure-mode)))))
+    :config (add-to-list 'ac-modes 'cider-mode)))
 
 (defun clojure/init-cider ()
   (use-package cider
@@ -130,11 +121,6 @@ the focus."
       (when clojure-enable-fancify-symbols 
         (clojure/fancify-symbols 'cider-repl-mode)))))
 
-(defun clojure/init-ac-cider ()
-  (use-package ac-cider
-    :defer t
-    :config (add-to-list 'ac-modes 'cider-mode)))
-
 (defun clojure/init-clj-refactor ()
  (use-package clj-refactor
       :defer t
@@ -182,6 +168,20 @@ the focus."
           "mr-tl" 'cljr-thread-last-all
           "mr-ua" 'cljr-unwind-all
           "mr-uw" 'cljr-unwind))))
+
+(defun clojure/init-clojure-mode ()
+  (use-package clojure-mode
+    :defer t
+    :mode (("\.clj$"      . clojure-mode)
+           ("\.cljs$"     . clojure-mode)
+           ("\.cljx$"     . clojure-mode)
+           ("\.edn$"      . clojure-mode)
+           ("\.boot$"     . clojure-mode)
+           ("\.cljs\.hl$" . clojure-mode))
+    :config
+    (progn
+      (when clojure-enable-fancify-symbols
+        (clojure/fancify-symbols 'clojure-mode)))))
 
 (defun clojure/init-rainbow-delimiters ()
   (if configuration-layer/package-declaredp 'cider
