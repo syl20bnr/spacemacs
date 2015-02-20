@@ -1244,6 +1244,9 @@ which require an initialization must be listed explicitly in the list.")
            :background (face-attribute 'header-line :background)))
 
         (spacemacs|define-micro-state helm-navigation
+          :doc (concat "[h] [j] [k] [l] select candidate "
+                       "[v] persistent action [a] action "
+                       "[t] select candidate")
           :on-enter (spacemacs//on-enter-helm-navigation-micro-state)
           :on-exit  (spacemacs//on-exit-helm-navigation-micro-state)
           :bindings
