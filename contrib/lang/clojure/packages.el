@@ -187,8 +187,8 @@ the focus."
         (clojure/fancify-symbols 'clojure-mode)))))
 
 (defun clojure/init-rainbow-delimiters ()
-  (if configuration-layer/package-declaredp 'cider
-    (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
+  (if (configuration-layer/package-declaredp 'cider)
+      (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
 
 (defun clojure/init-subword ()
   (unless (version< emacs-version "24.4")
