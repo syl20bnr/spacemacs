@@ -149,6 +149,7 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
+      (add-hook 'ace-jump-mode-before-jump-hook 'evil-set-jump)
       (add-hook 'ace-jump-mode-end-hook 'golden-ratio)
       (evil-leader/set-key "SPC" 'evil-ace-jump-word-mode)
       (evil-leader/set-key "l" 'evil-ace-jump-line-mode))
