@@ -28,9 +28,19 @@ which require an initialization must be listed explicitly in the list.")
       (add-hook 'scala-mode-hook 'scala/configure-ensime))
     :config
     (progn
-      (evil-define-key 'insert ensime-mode-map (kbd ".") 'scala/completing-dot)
+      (evil-define-key 'insert ensime-mode-map
+        (kbd ".") 'scala/completing-dot
+        (kbd "M-.") 'ensime-edit-definition
+        (kbd "M-,") 'ensime-pop-find-definition-stack)
+
+      (evil-define-key 'normal ensime-mode-map
+        (kbd "M-.") 'ensime-edit-definition
+        (kbd "M-,") 'ensime-pop-find-definition-stack)
 
       (evil-define-key 'normal ensime-popup-buffer-map
+        (kbd "q") 'ensime-popup-buffer-quit-function)
+
+      (evil-define-key 'normal ensime-inspector-mode-map
         (kbd "q") 'ensime-popup-buffer-quit-function)
 
       (evil-define-key 'normal ensime-refactor-info-map
