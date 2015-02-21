@@ -59,12 +59,15 @@
   "Set LV window contents to (`format' FORMAT-STRING ARGS)."
   (let ((ori (selected-window))
         (str (apply #'format format-string args))
+        (golden-ratio (when (boundp 'golden-ratio-mode) golden-ratio-mode))
         deactivate-mark)
+    (when (bound-and-true-p golden-ratio-mode) (golden-ratio-mode -1))
     (select-window (lv-window))
+    (when golden-ratio (golden-ratio-mode))
     (unless (string= (buffer-string) str)
       (delete-region (point-min) (point-max))
       (insert str)
-      (fit-window-to-buffer nil (count-lines (point-min) (point-max)) 1))
+      (fit-window-to-buffer nil nil 1))
     (goto-char (point-max))
     (select-window ori)))
 
