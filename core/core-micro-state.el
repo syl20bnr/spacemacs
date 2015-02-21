@@ -105,16 +105,16 @@ Available PROPS:
                    "Auto-generated function"
                    (interactive)
                    (when ',wrapped
-                     (call-interactively ',wrapped)
-                     (let ((bdoc ,@binding-doc)
-                           (defdoc ,@default-doc))
-                       (if bdoc
-                           (lv-message (spacemacs//micro-state-propertize-doc
-                                        (concat ,(symbol-name name) ": " bdoc)))
-                         (when defdoc
-                           (lv-message (spacemacs//micro-state-propertize-doc
-                                        (concat ,(symbol-name name) ": "
-                                                defdoc)))))))))))
+                     (call-interactively ',wrapped))
+                   (let ((bdoc ,@binding-doc)
+                         (defdoc ,@default-doc))
+                     (if bdoc
+                         (lv-message (spacemacs//micro-state-propertize-doc
+                                      (concat ,(symbol-name name) ": " bdoc)))
+                       (when (and defdoc ',wrapped)
+                         (lv-message (spacemacs//micro-state-propertize-doc
+                                      (concat ,(symbol-name name) ": "
+                                              defdoc))))))))))
     (append (list (car binding) wrapper-func) binding)))
 
 (defun spacemacs//micro-state-fill-map-sexps (wrappers)
