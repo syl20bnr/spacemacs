@@ -10,12 +10,14 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+(require 'lv)
 
 (defun spacemacs//defface-micro-state-faces ()
   "Define faces for micro-states."
   (let* ((hname 'spacemacs-micro-state-header-face)
          (bname 'spacemacs-micro-state-binding-face)
-         (box (face-attribute 'mode-line :box))
+         (box '(:line-width -1 :color (plist-get (face-attribute
+                                                  'mode-line :box) :color)))
          (err (face-attribute 'error :foreground)))
     (eval `(defface ,hname '((t ()))
              "Face for micro-state header in echo area.
@@ -71,9 +73,10 @@ Available PROPS:
     `(defun ,func ()
        ,(format "%s micro-state." (symbol-name name))
        (interactive)
-       (let ((doc ,@doc)) (when doc
-                            (echo (spacemacs//micro-state-propertize-doc
-                                   (concat ,(symbol-name name) ": " doc)))))
+       (let ((doc ,@doc))
+         (when doc
+           (lv-message (spacemacs//micro-state-propertize-doc
+                        (concat ,(symbol-name name) ": " doc)))))
        ,@on-enter
        (,(if (version< emacs-version "24.4")
              'set-temporary-overlay-map
@@ -89,7 +92,10 @@ Available PROPS:
 (defun spacemacs//micro-state-create-wrappers (name doc bindings)
   "Return an alist (key wrapper) for each binding in BINDINGS."
   (mapcar (lambda (x) (spacemacs//micro-state-create-wrapper name doc x))
-          bindings))
+          (append bindings
+                  ;; force SPC to quit the micro-state to avoid a edge case
+                  ;; with evil-leader
+                  (list '("SPC" nil :exit t)))))
 
 (defun spacemacs//micro-state-create-wrapper (name default-doc binding)
   "Create a wrapper of FUNC and return a tuple (key wrapper BINDING)."
@@ -106,12 +112,12 @@ Available PROPS:
                    (let ((bdoc ,@binding-doc)
                          (defdoc ,@default-doc))
                      (if bdoc
-                         (echo (spacemacs//micro-state-propertize-doc
-                                (concat ,(symbol-name name) ": " bdoc)))
-                       (when defdoc
-                         (echo (spacemacs//micro-state-propertize-doc
-                                (concat ,(symbol-name name) ": "
-                                        defdoc))))))))))
+                         (lv-message (spacemacs//micro-state-propertize-doc
+                                      (concat ,(symbol-name name) ": " bdoc)))
+                       (when (and defdoc ',wrapped)
+                         (lv-message (spacemacs//micro-state-propertize-doc
+                                      (concat ,(symbol-name name) ": "
+                                              defdoc))))))))))
     (append (list (car binding) wrapper-func) binding)))
 
 (defun spacemacs//micro-state-fill-map-sexps (wrappers)
@@ -132,7 +138,10 @@ micro-state."
                                    (spacemacs//micro-state-stay? ',name x))
                                  ',wrappers)
                          :initial-value nil)
-                 't ,@on-exit nil)))))
+                 't
+               ,@on-exit
+               (spacemacs//micro-state-close-window)
+               nil)))))
 
 (defun spacemacs//micro-state-stay? (name wrapper)
   "Return non nil if WRAPPER does not leave the micro-state."
@@ -166,5 +175,12 @@ micro-state."
                     (match-string 3 doc))))
         (concat head pkey tail))
     doc))
+
+(defun spacemacs//micro-state-close-window ()
+  "Close micro-state help window."
+  (when (window-live-p lv-wnd)
+    (let ((buf (window-buffer lv-wnd)))
+      (delete-window lv-wnd)
+      (kill-buffer buf))))
 
 (provide 'core-micro-state)
