@@ -68,7 +68,7 @@
       (delete-region (point-min) (point-max))
       (insert str)
       (fit-window-to-buffer nil nil 1))
-    (goto-char (point-max))
+    (goto-char (point-min)) (end-of-line)
     (select-window ori)))
 
 (provide 'lv)
