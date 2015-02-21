@@ -618,7 +618,7 @@ which is a _very_ narrow use case,
 - `c` accept motions and can do everything `s` can do in `normal state`,
 - this is also true for `r` but `r` is more useful because it stays in
 `normal state`.
-- `surround` command is just a more powerful command that `s`
+- `surround` command is just a more powerful command than `s`
 
 If you are not convinced, then here is the snippet to revert back to the default
 `Vim + vim-surround` setup (add it to your `dotspacemacs/config` function or
@@ -674,7 +674,7 @@ By default, `Spacemacs` uses the theme [solarized-light][solarized-theme].
 
 It is possible to define your default themes in your `~/.spacemacs` with
 the variable `dotspacemacs-themes`. For instance, to specify `leuven` and
-`zenburn` (high contract theme and low contrast theme):
+`zenburn` (high contrast theme and low contrast theme):
 
 ```elisp
 (setq-default dotspacemacs-themes '(leuven zenburn))
@@ -780,7 +780,7 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 
 ### Mode-line
 
-The mode line is an heavily customized [powerline][powerline] with the
+The mode line is a heavily customized [powerline][powerline] with the
 following capabilities:
 - show the window number
 - color code for current state
@@ -911,7 +911,7 @@ display ASCII characters instead (may be useful in terminal).
 
 `Spacemacs` is based on `Vim` modal user interface to navigate and edit text.
 If you are not familiar with the `Vim` way of editing text you can try the
-[evil tutor][] lessons by pressing <kbd>SPC h T</kbd> at any time.
+ [evil tutor][] lessons by pressing <kbd>SPC h T</kbd> at any time.
 
 ### Escaping
 
