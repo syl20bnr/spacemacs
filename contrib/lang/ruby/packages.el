@@ -1,7 +1,7 @@
 (defvar ruby-packages
   '(
     ;; package rubys go here
-    ruby-mode
+    enh-ruby-mode
     ruby-tools
     flycheck
     ruby-test-mode
@@ -22,7 +22,7 @@
   (use-package rbenv
     :defer t
     :init (global-rbenv-mode)
-    :config (add-hook 'ruby-mode-hook
+    :config (add-hook 'enh-ruby-mode-hook
                       (lambda () (rbenv-use-corresponding)))))
 
 (defun ruby/init-rvm ()
@@ -30,31 +30,31 @@
   (use-package rvm
     :defer t
     :init (rvm-use-default)
-    :config (add-hook 'ruby-mode-hook
+    :config (add-hook 'enh-ruby-mode-hook
                       (lambda () (rvm-activate-corresponding-ruby)))))
 
-(defun ruby/init-ruby-mode ()
+(defun ruby/init-enh-ruby-mode ()
   "Initialize Ruby Mode"
-  (use-package ruby-mode
+  (use-package enh-ruby-mode
     :defer t
     :mode (("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\|berks\\|pod\\|puppet\\)file\\'" . ruby-mode)
-           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . ruby-mode))))
+           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))))
 
 (defun ruby/init-flycheck ()
-  (add-hook 'ruby-mode-hook 'flycheck-mode))
+  (add-hook 'enh-ruby-mode-hook 'flycheck-mode))
 
 (defun ruby/init-ruby-tools ()
-  (add-hook 'ruby-mode-hook 'ruby-tools-mode))
+  (add-hook 'enh-ruby-mode-hook 'ruby-tools-mode))
 
 (defun ruby/init-bundler ()
   (use-package bundler
     :defer t
     :init (progn
-              (evil-leader/set-key-for-mode 'ruby-mode "mbc" 'bundle-check)
-              (evil-leader/set-key-for-mode 'ruby-mode "mbi" 'bundle-install)
-              (evil-leader/set-key-for-mode 'ruby-mode "mbs" 'bundle-console)
-              (evil-leader/set-key-for-mode 'ruby-mode "mbu" 'bundle-update)
-              (evil-leader/set-key-for-mode 'ruby-mode "mbx" 'bundle-exec))))
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mbc" 'bundle-check)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mbi" 'bundle-install)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mbs" 'bundle-console)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mbu" 'bundle-update)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mbx" 'bundle-exec))))
 
 (defun ruby/init-projectile-rails ()
   (use-package projectile-rails
@@ -113,20 +113,20 @@
   "Initialize Robe mode"
   (use-package robe
     :defer t
-    :init (add-hook 'ruby-mode-hook 'robe-mode)
+    :init (add-hook 'enh-ruby-mode-hook 'robe-mode)
     :config (progn
               (spacemacs|diminish robe-mode " ♦" " r")
               ;; robe mode specific
-              (evil-leader/set-key-for-mode 'ruby-mode "mgg" 'robe-jump)
-              (evil-leader/set-key-for-mode 'ruby-mode "mhd" 'robe-doc)
-              (evil-leader/set-key-for-mode 'ruby-mode "mrsr" 'robe-rails-refresh)
-              ;; inf-ruby-mode
-              (evil-leader/set-key-for-mode 'ruby-mode "msf" 'ruby-send-definition)
-              (evil-leader/set-key-for-mode 'ruby-mode "msF" 'ruby-send-definition-and-go)
-              (evil-leader/set-key-for-mode 'ruby-mode "msi" 'robe-start)
-              (evil-leader/set-key-for-mode 'ruby-mode "msr" 'ruby-send-region)
-              (evil-leader/set-key-for-mode 'ruby-mode "msR" 'ruby-send-region-and-go)
-              (evil-leader/set-key-for-mode 'ruby-mode "mss" 'ruby-switch-to-inf))))
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mgg" 'robe-jump)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mhd" 'robe-doc)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mrsr" 'robe-rails-refresh)
+              ;; inf-enh-ruby-mode
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "msf" 'ruby-send-definition)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "msF" 'ruby-send-definition-and-go)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "msi" 'robe-start)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "msr" 'ruby-send-region)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "msR" 'ruby-send-region-and-go)
+              (evil-leader/set-key-for-mode 'enh-ruby-mode "mss" 'ruby-switch-to-inf))))
 
 (defun ruby/init-yaml-mode ()
   "Initialize YAML mode"
