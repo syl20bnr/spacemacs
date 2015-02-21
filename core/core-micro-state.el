@@ -92,7 +92,10 @@ Available PROPS:
 (defun spacemacs//micro-state-create-wrappers (name doc bindings)
   "Return an alist (key wrapper) for each binding in BINDINGS."
   (mapcar (lambda (x) (spacemacs//micro-state-create-wrapper name doc x))
-          bindings))
+          (append bindings
+                  ;; force SPC to quit the micro-state to avoid a edge case
+                  ;; with evil-leader
+                  (list '("SPC" nil :exit t)))))
 
 (defun spacemacs//micro-state-create-wrapper (name default-doc binding)
   "Create a wrapper of FUNC and return a tuple (key wrapper BINDING)."
