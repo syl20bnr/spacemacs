@@ -37,7 +37,7 @@
   "Initialize Ruby Mode"
   (use-package enh-ruby-mode
     :defer t
-    :mode (("\\(rake\\|thor\\|guard\\|gem\\|cap\\|vagrant\\|berks\\|pod\\|puppet\\)file\\'" . ruby-mode)
+    :mode (("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
            ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))))
 
 (defun ruby/init-flycheck ()
