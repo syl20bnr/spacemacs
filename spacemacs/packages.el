@@ -1234,6 +1234,17 @@ which require an initialization must be listed explicitly in the list.")
               `(lambda () (interactive) (helm-select-nth-action
                                          ,(% (+ n 9) 10))))))
 
+        (defun spacemacs//helm-navigation-micro-state-full-doc ()
+          "Full documentation for helm navigation micro-state."
+          "
+  [?]          display this help
+  [a]          toggle action selection page
+  [j] [k]      next/previous candidate
+  [h] [l]      previous/next source
+  [t]          toggle visible mark
+  [T]          toggle all mark
+  [v]          persistent action")
+
         (defun spacemacs//on-exit-helm-navigation-micro-state ()
           "Action to perform when exiting helm micro-state."
           ;; restore helm key map
@@ -1244,19 +1255,14 @@ which require an initialization must be listed explicitly in the list.")
            :background (face-attribute 'header-line :background)))
 
         (spacemacs|define-micro-state helm-navigation
-          :doc (concat "[h] [j] [k] [l] select candidate "
-                       "[v] persistent action [a] action "
-                       "[t] select candidate")
           :on-enter (spacemacs//on-enter-helm-navigation-micro-state)
           :on-exit  (spacemacs//on-exit-helm-navigation-micro-state)
           :bindings
           ("S-SPC" nil :exit t)
           ("<tab>" helm-select-action :exit t)
           ("C-i" helm-select-action :exit t)
-          ("?" helm-help)
+          ("?" nil :doc (spacemacs//helm-navigation-micro-state-full-doc))
           ("a" helm-select-action)
-          ("g" helm-beginning-of-buffer)
-          ("G" helm-end-of-buffer)
           ("h" helm-previous-source)
           ("j" helm-next-line)
           ("k" helm-previous-line)
@@ -1447,19 +1453,18 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (defun spacemacs//ido-navigation-micro-state-full-doc ()
         "Full documentation for ido navigation micro-state."
         "
-  [?]                       display this help
-  [j] [k]                   next/previous match
-  [J] [K]                   sub/parent directory
-  [h]                       delete backward or parent directory
-  [l]                       select match
-  [n] [p]                   next/previous directory in history
-  [o]                       open in other window
-  [s]                       open in a new horizontal split
-  [t]                       open in other frame
-  [v]                       open in a new vertical split")
+  [?]          display this help
+  [j] [k]      next/previous match
+  [J] [K]      sub/parent directory
+  [h]          delete backward or parent directory
+  [l]          select match
+  [n] [p]      next/previous directory in history
+  [o]          open in other window
+  [s]          open in a new horizontal split
+  [t]          open in other frame
+  [v]          open in a new vertical split")
 
       (spacemacs|define-micro-state ido-navigation
-        :doc "[?] for help"
         :on-enter (spacemacs//on-enter-ido-navigation-micro-state)
         :on-exit  (spacemacs//on-exit-ido-navigation-micro-state)
         ;; :doc (concat
