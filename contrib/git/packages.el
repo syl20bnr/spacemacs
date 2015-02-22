@@ -150,18 +150,26 @@ which require an initialization must be listed explicitly in the list.")
 
     :config
     (progn
+
+      (defun spacemacs//time-machine-ms-on-enter ()
+        "Initiate git-timemachine properly with goden-ratio support."
+        (let ((golden-ratio (when (boundp 'golden-ratio-mode)
+                              golden-ratio-mode)))
+          (when (bound-and-true-p golden-ratio-mode) (golden-ratio-mode -1))
+          (git-timemachine)
+          (when golden-ratio (golden-ratio-mode))))
+
       (spacemacs|define-micro-state time-machine
-        :doc "[q] quit [p] previous [n] next [c] current"
-        :on-enter (git-timemachine)
+        :doc "[p] [N] previous [n] next [c] current [q] quit"
+        :on-enter (spacemacs//time-machine-ms-on-enter)
         :on-exit (git-timemachine-quit)
         :persistent t
         :bindings
         ("c" git-timemachine-show-current-revision)
         ("p" git-timemachine-show-previous-revision)
         ("n" git-timemachine-show-next-revision)
-        ("q" nil :exit t)
-        )
-      )))
+        ("N" git-timemachine-show-previous-revision)
+        ("q" nil :exit t)))))
 
 ;; this mode is not up to date
 ;; any contributor to make it up to date is welcome:
