@@ -137,7 +137,7 @@
 
       ;; Haskell main editing mode key bindings.
       (defun haskell-hook ()
-        (lambda () (ghc-init))
+        (ghc-init)
         ;; Use advanced indention
         (turn-on-haskell-indentation)
 
