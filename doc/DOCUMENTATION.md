@@ -76,12 +76,13 @@
             - [Smooth scrolling](#smooth-scrolling)
         - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
         - [Window manipulation](#window-manipulation)
-            - [Resizing windows](#resizing-windows)
-            - [Reposition window](#reposition-window)
+            - [Window manipulation key bindings](#window-manipulation-key-bindings)
+            - [Window manipulation micro-state](#window-manipulation-micro-state)
             - [Golden ratio](#golden-ratio)
         - [Buffers and Files](#buffers-and-files)
             - [Emacs and Spacemacs files](#emacs-and-spacemacs-files)
         - [Ido](#ido)
+        - [Ido micro-state](#ido-micro-state)
         - [NeoTree file tree](#neotree-file-tree)
             - [NeoTree navigation](#neotree-navigation)
             - [Opening files with NeoTree](#opening-files-with-neotree)
@@ -123,10 +124,9 @@
         - [Commenting](#commenting)
         - [Deleting files](#deleting-files)
         - [Editing Lisp code](#editing-lisp-code)
-            - [Lisp state Key Bindings](#lisp-state-key-bindings)
-                - [Lisp state Auto-switch commands](#lisp-state-auto-switch-commands)
-                - [Lisp state commands](#lisp-state-commands)
-                - [Lisp state Other commands](#lisp-state-other-commands)
+            - [Lisp Key Bindings](#lisp-key-bindings)
+                - [Lisp state key bindings](#lisp-state-key-bindings)
+                - [Emacs lisp specific key bindings](#emacs-lisp-specific-key-bindings)
         - [Managing projects](#managing-projects)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
@@ -987,12 +987,12 @@ to read the [Helm documentation wiki][helm-doc].
 `Spacemacs` defines a [micro-state](#micro-states) for `Helm` to make it
 work like [Vim's Unit][] plugin.
 
-Initiate the micro-state with <kbd>Shift-SPC</kbd> while in a `Helm` buffer.
-Use <kbd>Shift-SPC</kbd> again to exit from the micro-state.
+Initiate the micro-state with <kbd>C-SPC</kbd> while in a `Helm` buffer.
+Use <kbd>C-SPC</kbd> again to exit from the micro-state.
 
 Key Binding           | Description
 ----------------------|------------------------------------------------------------
-<kbd>Shift-SPC</kbd>  | initiate or leave the micro-state
+<kbd>C-SPC</kbd>      | initiate or leave the micro-state
 <kbd>TAB</kbd>        | switch to actions page and leave the micro-state
 <kbd>1</kbd>          | execute action 0
 <kbd>2</kbd>          | execute action 1
@@ -1340,6 +1340,30 @@ Key Binding             |                 Description
 <kbd>C-s</kbd>          | open selected file in a vertically split window
 <kbd>C-t</kbd>          | open selected file in a new frame
 <kbd>C-v</kbd>          | open selected file in a horizontally split window
+
+### Ido micro-state
+
+`Spacemacs` defines a [micro-state](#micro-states) for `ido`.
+
+Initiate the micro-state with <kbd>C-SPC</kbd> while in a `ido` buffer.
+Use <kbd>C-SPC</kbd> again to exit from the micro-state.
+
+Key Binding           | Description
+----------------------|------------------------------------------------------------
+<kbd>C-SPC</kbd>      | initiate or leave the micro-state
+<kbd>?</kbd>          | display help
+<kbd>h</kbd>          | delete backward or parent directory
+<kbd>j</kbd>          | next match
+<kbd>J</kbd>          | sub directory
+<kbd>k</kbd>          | previous match
+<kbd>K</kbd>          | parent directory
+<kbd>l</kbd>          | select match
+<kbd>n</kbd>          | next directory in history
+<kbd>o</kbd>          | open in other window
+<kbd>p</kbd>          | previous directory in history
+<kbd>s</kbd>          | open in a new horizontal split
+<kbd>t</kbd>          | open in other frame
+<kbd>v</kbd>          | open in a new vertical split
 
 ### NeoTree file tree
 
