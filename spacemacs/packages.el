@@ -1417,9 +1417,69 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
         (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
-        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer))
-      (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys))
-      ))
+        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
+        ;; initiate micro-state
+        (define-key ido-completion-map (kbd "S-SPC") 'spacemacs/ido-navigation-micro-state)
+        )
+      (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys)
+
+      (defcustom spacemacs-ido-navigation-micro-state-color
+        (face-attribute 'error :foreground)
+        "Background color of ido minibuffer prompt when ido micro-state is activated."
+        :type 'color
+        :group 'spacemacs)
+
+      (defun spacemacs//on-enter-ido-navigation-micro-state ()
+        "Initialization of ido micro-state."
+        (setq spacemacs-ido-navigation-prev-color
+              (face-attribute 'minibuffer-prompt :background))
+        (set-face-attribute
+         'minibuffer-prompt nil
+         :background spacemacs-ido-navigation-micro-state-color))
+
+      (defun spacemacs//on-exit-ido-navigation-micro-state ()
+        "Action to perform when exiting ido micro-state."
+        ;; restore faces
+        (set-face-attribute
+         'minibuffer-prompt nil
+         :background spacemacs-ido-navigation-prev-color))
+
+      (defun spacemacs//ido-navigation-micro-state-full-doc ()
+        "Full documentation for ido navigation micro-state."
+        "
+  [?]                       display this help
+  [j] [k]                   next/previous match
+  [J] [K]                   sub/parent directory
+  [h]                       delete backward or parent directory
+  [l]                       select match
+  [n] [p]                   next/previous directory in history
+  [o]                       open in other window
+  [s]                       open in a new horizontal split
+  [t]                       open in other frame
+  [v]                       open in a new vertical split")
+
+      (spacemacs|define-micro-state ido-navigation
+        :doc "[?] for help"
+        :on-enter (spacemacs//on-enter-ido-navigation-micro-state)
+        :on-exit  (spacemacs//on-exit-ido-navigation-micro-state)
+        ;; :doc (concat
+        ;;       "[j] [k] prev/next match [h] delete [l] select match "
+        ;;       "[J] [K] parent/sub directory [n] [p] history ")
+        :bindings
+        ("S-SPC" nil :exit t)
+        ("?" nil :doc (spacemacs//ido-navigation-micro-state-full-doc))
+        ("h" ido-delete-backward-updir)
+        ("j" ido-next-match)
+        ("J" ido-next-match-dir)
+        ("k" ido-prev-match)
+        ("K" ido-prev-match-dir)
+        ("l" ido-exit-minibuffer)
+        ("n" ido-next-match-dir)
+        ("o" ido-invoke-in-other-window)
+        ("p" ido-prev-match-dir)
+        ("s" ido-invoke-in-vertical-split)
+        ("t" ido-invoke-in-new-frame)
+        ("v" ido-invoke-in-horizontal-split)))))
 
 (defun spacemacs/init-iedit ()
   (use-package iedit
