@@ -1235,7 +1235,7 @@ which require an initialization must be listed explicitly in the list.")
                                          ,(% (+ n 9) 10))))))
 
         (defun spacemacs//on-exit-helm-navigation-micro-state ()
-          "Action to perform when exiting helm micor-state."
+          "Action to perform when exiting helm micro-state."
           ;; restore helm key map
           (dotimes (n 10) (define-key helm-map (number-to-string n) nil))
           ;; restore faces
@@ -1244,7 +1244,6 @@ which require an initialization must be listed explicitly in the list.")
            :background (face-attribute 'header-line :background)))
 
         (spacemacs|define-micro-state helm-navigation
-          :persistent t
           :doc (concat "[h] [j] [k] [l] select candidate "
                        "[v] persistent action [a] action "
                        "[t] select candidate")
