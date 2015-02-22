@@ -59,11 +59,16 @@ Available PROPS:
 
 `:bindings EXPRESSIONS'
     One or several EXPRESSIONS with the form
-    (STRING1 SYMBOL1 :doc STRING :exit SYMBOL)
+    (STRING1 SYMBOL1 :doc STRING
+                     :pre SEXP
+                     :post SEXP
+                     :exit SYMBOL)
     where:
     - STRING1 is a key to bound to the function SYMBOL1.
     - :doc STRING or SEXP is a STRING or an SEXP that evalutes
       to a string
+    - :pre is an SEXP evaluated before the bound action
+    - :post is an SEXP evaluated after the bound action
     - :exit SYMBOL is either `:exit t' or `:exit nil', if non nil then
       pressing this key will leave the micro-state (default is nil)."
   (declare (indent 1))
@@ -107,6 +112,8 @@ Available PROPS:
   (let* ((key (car binding))
          (wrapped (cadr binding))
          (binding-doc (spacemacs/mplist-get binding :doc))
+         (binding-pre (spacemacs/mplist-get binding :pre))
+         (binding-post (spacemacs/mplist-get binding :post))
          (wrapper-name (intern (format "spacemacs//%s-%s-%s"
                                        (symbol-name name)
                                        (symbol-name wrapped)
@@ -115,8 +122,10 @@ Available PROPS:
           (eval `(defun ,wrapper-name ()
                    "Auto-generated function"
                    (interactive)
+                   ,@binding-pre
                    (when ',wrapped
                      (call-interactively ',wrapped))
+                   ,@binding-post
                    (let ((bdoc ,@binding-doc)
                          (defdoc ,@default-doc))
                      (if bdoc
