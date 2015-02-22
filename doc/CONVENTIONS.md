@@ -11,6 +11,7 @@
         - [Reserved prefix](#reserved-prefix)
             - [User prefix](#user-prefix)
             - [Major mode prefix](#major-mode-prefix)
+            - [Micro-state key binding](#micro-state-key-binding)
         - [Evilify buffers](#evilify-buffers)
         - [Navigation](#navigation)
             - [n and N](#n-and-n)
@@ -65,9 +66,12 @@ accessed via <kbd>,</kbd>.
 
 #### Micro-state key binding
 
-Whenever possible a micro-state should be enabled with <kbd>Shift-SPC</kbd>.
+Whenever possible a micro-state should be enabled with <kbd>C-SPC</kbd>.
 For instance micro-states dedicated to special buffers like `helm` or `ido`
-buffers are good candidates to be put on <kbd>Shift-SPC</kbd>.
+buffers are good candidates to be put on <kbd>C-SPC</kbd>.
+
+**Important Note** Due to terminal limitation the micro-states _must_ also
+be bound to <kbd>C-@</kbd>.
 
 ### Evilify buffers
 

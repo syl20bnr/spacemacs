@@ -1178,12 +1178,11 @@ which require an initialization must be listed explicitly in the list.")
         "fh"  'helm-find-files
         "fr"  'helm-recentf
         "<f1>" 'helm-apropos)
-      (when dotspacemacs-helm-micro-state
-        (defcustom spacemacs-helm-navigation-micro-state-color
-          (face-attribute 'error :foreground)
-          "Background color of helm header when helm micro-state is activated."
-          :type 'color
-          :group 'spacemacs)))
+
+      (defface spacemacs-helm-navigation-ms-face
+        `((t :background ,(face-attribute 'error :foreground) :foreground "black"))
+        "Face for helm heder when helm micro-state is activated."
+        :group 'spacemacs))
 
     :config
     (progn
@@ -1222,21 +1221,29 @@ which require an initialization must be listed explicitly in the list.")
       ;;shell
       (evil-leader/set-key-for-mode 'shell-mode "mH" 'spacemacs/helm-shell-history)
 
-      (when dotspacemacs-helm-micro-state
-        (defun spacemacs//on-enter-helm-navigation-micro-state ()
-          "Initialization of helm micro-state."
-          (set-face-attribute
-           'helm-header nil
-           :background spacemacs-helm-navigation-micro-state-color)
-          ;; bind actions on numbers starting from 1 which executes action 0
-          (dotimes (n 10)
-            (define-key helm-map (number-to-string n)
-              `(lambda () (interactive) (helm-select-nth-action
-                                         ,(% (+ n 9) 10))))))
+      (defun spacemacs//on-enter-helm-navigation-ms ()
+        "Initialization of helm micro-state."
+        (set (make-variable-buffer-local
+              'spacemacs--helm-navigation-ms-face-cookie)
+             (face-remap-add-relative
+              'minibuffer-prompt
+              'spacemacs-helm-navigation-ms-face))
+        ;; bind actions on numbers starting from 1 which executes action 0
+        (dotimes (n 10)
+          (define-key helm-map (number-to-string n)
+            `(lambda () (interactive) (helm-select-nth-action
+                                       ,(% (+ n 9) 10))))))
 
-        (defun spacemacs//helm-navigation-micro-state-full-doc ()
-          "Full documentation for helm navigation micro-state."
-          "
+      (defun spacemacs//on-exit-helm-navigation-ms ()
+        "Action to perform when exiting helm micro-state."
+        ;; restore helm key map
+        (dotimes (n 10) (define-key helm-map (number-to-string n) nil))
+        ;; restore faces
+        (face-remap-remove-relative spacemacs--helm-navigation-ms-face-cookie))
+
+      (defun spacemacs//helm-navigation-ms-full-doc ()
+        "Full documentation for helm navigation micro-state."
+        "
   [?]          display this help
   [a]          toggle action selection page
   [j] [k]      next/previous candidate
@@ -1245,33 +1252,27 @@ which require an initialization must be listed explicitly in the list.")
   [T]          toggle all mark
   [v]          persistent action")
 
-        (defun spacemacs//on-exit-helm-navigation-micro-state ()
-          "Action to perform when exiting helm micro-state."
-          ;; restore helm key map
-          (dotimes (n 10) (define-key helm-map (number-to-string n) nil))
-          ;; restore faces
-          (set-face-attribute
-           'helm-header nil
-           :background (face-attribute 'header-line :background)))
 
-        (spacemacs|define-micro-state helm-navigation
-          :on-enter (spacemacs//on-enter-helm-navigation-micro-state)
-          :on-exit  (spacemacs//on-exit-helm-navigation-micro-state)
-          :bindings
-          ("S-SPC" nil :exit t)
-          ("<tab>" helm-select-action :exit t)
-          ("C-i" helm-select-action :exit t)
-          ("?" nil :doc (spacemacs//helm-navigation-micro-state-full-doc))
-          ("a" helm-select-action)
-          ("h" helm-previous-source)
-          ("j" helm-next-line)
-          ("k" helm-previous-line)
-          ("l" helm-next-source)
-          ("t" helm-toggle-visible-mark)
-          ("T" helm-toggle-all-marks)
-          ("v" helm-execute-persistent-action)))
+      (spacemacs|define-micro-state helm-navigation
+        :on-enter (spacemacs//on-enter-helm-navigation-ms)
+        :on-exit  (spacemacs//on-exit-helm-navigation-ms)
+        :bindings
+        ("C-SPC" nil :exit t)
+        ("C-@" nil :exit t)
+        ("<tab>" helm-select-action :exit t)
+        ("C-i" helm-select-action :exit t)
+        ("?" nil :doc (spacemacs//helm-navigation-ms-full-doc))
+        ("a" helm-select-action)
+        ("h" helm-previous-source)
+        ("j" helm-next-line)
+        ("k" helm-previous-line)
+        ("l" helm-next-source)
+        ("t" helm-toggle-visible-mark)
+        ("T" helm-toggle-all-marks)
+        ("v" helm-execute-persistent-action))
 
-      (define-key helm-map (kbd "S-SPC") 'spacemacs/helm-navigation-micro-state)
+      (define-key helm-map (kbd "C-SPC") 'spacemacs/helm-navigation-micro-state)
+      (define-key helm-map (kbd "C-@") 'spacemacs/helm-navigation-micro-state)
 
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
@@ -1425,32 +1426,29 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
         (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
         ;; initiate micro-state
-        (define-key ido-completion-map (kbd "S-SPC") 'spacemacs/ido-navigation-micro-state)
+        (define-key ido-completion-map (kbd "C-SPC") 'spacemacs/ido-navigation-micro-state)
+        (define-key ido-completion-map (kbd "C-@") 'spacemacs/ido-navigation-micro-state)
         )
       (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys)
 
-      (defcustom spacemacs-ido-navigation-micro-state-color
-        (face-attribute 'error :foreground)
-        "Background color of ido minibuffer prompt when ido micro-state is activated."
-        :type 'color
+      (defface spacemacs-ido-navigation-ms-face
+        `((t :background ,(face-attribute 'error :foreground) :foreground "black"))
+        "Face for ido minibuffer prompt when ido micro-state is activated."
         :group 'spacemacs)
 
       (defun spacemacs//on-enter-ido-navigation-micro-state ()
         "Initialization of ido micro-state."
-        (setq spacemacs-ido-navigation-prev-color
-              (face-attribute 'minibuffer-prompt :background))
-        (set-face-attribute
-         'minibuffer-prompt nil
-         :background spacemacs-ido-navigation-micro-state-color))
+        (set (make-variable-buffer-local
+              'spacemacs--ido-navigation-ms-face-cookie)
+             (face-remap-add-relative
+              'minibuffer-prompt
+              'spacemacs-ido-navigation-ms-face)))
 
-      (defun spacemacs//on-exit-ido-navigation-micro-state ()
+      (defun spacemacs//on-exit-ido-navigation-ms ()
         "Action to perform when exiting ido micro-state."
-        ;; restore faces
-        (set-face-attribute
-         'minibuffer-prompt nil
-         :background spacemacs-ido-navigation-prev-color))
+        (face-remap-remove-relative spacemacs--ido-navigation-ms-face-cookie))
 
-      (defun spacemacs//ido-navigation-micro-state-full-doc ()
+      (defun spacemacs//ido-navigation-ms-full-doc ()
         "Full documentation for ido navigation micro-state."
         "
   [?]          display this help
@@ -1466,13 +1464,14 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 
       (spacemacs|define-micro-state ido-navigation
         :on-enter (spacemacs//on-enter-ido-navigation-micro-state)
-        :on-exit  (spacemacs//on-exit-ido-navigation-micro-state)
+        :on-exit  (spacemacs//on-exit-ido-navigation-ms)
         ;; :doc (concat
         ;;       "[j] [k] prev/next match [h] delete [l] select match "
         ;;       "[J] [K] parent/sub directory [n] [p] history ")
         :bindings
-        ("S-SPC" nil :exit t)
-        ("?" nil :doc (spacemacs//ido-navigation-micro-state-full-doc))
+        ("C-SPC" nil :exit t)
+        ("C-@" nil :exit t)
+        ("?" nil :doc (spacemacs//ido-navigation-ms-full-doc))
         ("h" ido-delete-backward-updir)
         ("j" ido-next-match)
         ("J" ido-next-match-dir)
