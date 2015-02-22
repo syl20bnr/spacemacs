@@ -81,12 +81,12 @@ Available PROPS:
          (wrappers (spacemacs//micro-state-create-wrappers name doc bindings))
          (keymap-body (spacemacs//micro-state-fill-map-sexps wrappers)))
     `(defun ,func ()
-       ,(format "%s micro-state." (symbol-name name))
+       ,(format "%S micro-state." name)
        (interactive)
        (let ((doc ,@doc))
          (when doc
            (lv-message (spacemacs//micro-state-propertize-doc
-                        (concat ,(symbol-name name) ": " doc)))))
+                        (format "%S: %s" ',name doc)))))
        ,@on-enter
        (,(if (version< emacs-version "24.4")
              'set-temporary-overlay-map
@@ -97,7 +97,7 @@ Available PROPS:
 
 (defun spacemacs//micro-state-func-name (name)
   "Return the name of the micro-state function."
-  (intern (format "spacemacs/%s-micro-state" (symbol-name name))))
+  (intern (format "spacemacs/%S-micro-state" name)))
 
 (defun spacemacs//micro-state-create-wrappers (name doc bindings)
   "Return an alist (key wrapper) for each binding in BINDINGS."
@@ -114,10 +114,7 @@ Available PROPS:
          (binding-doc (spacemacs/mplist-get binding :doc))
          (binding-pre (spacemacs/mplist-get binding :pre))
          (binding-post (spacemacs/mplist-get binding :post))
-         (wrapper-name (intern (format "spacemacs//%s-%s-%s"
-                                       (symbol-name name)
-                                       (symbol-name wrapped)
-                                       key)))
+         (wrapper-name (intern (format "spacemacs//%S-%S-%s" name wrapped key)))
          (wrapper-func
           (eval `(defun ,wrapper-name ()
                    "Auto-generated function"
@@ -130,12 +127,11 @@ Available PROPS:
                          (defdoc ,@default-doc))
                      (if bdoc
                          (lv-message (spacemacs//micro-state-propertize-doc
-                                      (concat ,(symbol-name name) ": " bdoc)))
+                                      (format "%S: %s" ',name bdoc)))
                        (when (and defdoc
                                   ',wrapped (not (plist-get ',binding :exit)))
                          (lv-message (spacemacs//micro-state-propertize-doc
-                                      (concat ,(symbol-name name) ": "
-                                              defdoc))))))))))
+                                      (format "%S: %s" ',name defdoc))))))))))
     (append (list (car binding) wrapper-func) binding)))
 
 (defun spacemacs//micro-state-fill-map-sexps (wrappers)
