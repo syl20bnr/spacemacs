@@ -32,8 +32,7 @@
     (progn
       ;; Customization
       (custom-set-variables
-       ;; Use cabal-repl for the GHCi session. Ensures our dependencies are in scope.
-       ;; cabal-dev is deprecated
+
        '(haskell-process-type 'auto)
 
        ;; Use notify.el (if you have it installed) at the end of running
@@ -82,7 +81,6 @@
       (evil-leader/set-key-for-mode 'haskell-mode
         "mt"   'haskell-process-do-type
         "mi"   'haskell-process-do-info
-        "mu"   'haskell-mode-find-uses
         "mgg"  'haskell-mode-jump-to-def-or-tag
         "mf"   'haskell-mode-stylish-buffer
 
@@ -109,6 +107,8 @@
         "mda"  'haskell-debug/abandon
         "mdr"  'haskell-debug/refresh
         )
+
+
       ;; Switch back to editor from REPL
       (evil-leader/set-key-for-mode 'interactive-haskell-mode
         "msS"  'haskell-interactive-switch
@@ -155,7 +155,26 @@
 
       ;; Useful to have these keybindings for .cabal files, too.
       (defun haskell-cabal-hook ()
-        (define-key haskell-cabal-mode-map [?\C-c ?\C-z] 'haskell-interactive-switch)))))
+        (define-key haskell-cabal-mode-map [?\C-c ?\C-z] 'haskell-interactive-switch))
+
+      ;;GHCi-ng
+      (defun ghci-ng-setup()
+        (progn
+          ;; haskell-process-type is set to auto, so setup ghci-ng for either case
+          ;; if haskell-process-type == cabal-repl
+          (setq haskell-process-args-cabal-repl '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
+          ;; if haskell-process-type == GHCi
+          (setq haskell-process-path-ghci "ghci-ng")
+
+          (evil-leader/set-key-for-mode 'haskell-mode
+            "mu"   'haskell-mode-find-uses
+            "mt"   'haskell-mode-show-type-at
+            "mgg"  'haskell-mode-goto-loc
+            ))
+        )
+
+      (if haskell-ghci-ng-support
+          (ghci-ng-setup)))))
 
 (defun haskell/init-company-ghc ()
   (use-package company-ghc
