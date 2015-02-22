@@ -987,36 +987,33 @@ to read the [Helm documentation wiki][helm-doc].
 `Spacemacs` defines a [micro-state](#micro-states) for `Helm` to make it
 work like [Vim's Unit][] plugin.
 
-Initiate the micro-state with <kbd>TAB</kbd> while in a `Helm` buffer. Use
-<kbd>TAB</kbd> again to exit from the micro-state (actually, like with any
-micro-state, pressing any key that is not bound to the micro-state key map
-will turn-off the micro-state).
+Initiate the micro-state with <kbd>Shift-SPC</kbd> while in a `Helm` buffer.
+Use <kbd>Shift-SPC</kbd> again to exit from the micro-state.
 
-Key Binding         | Description
---------------------|------------------------------------------------------------
-<kbd>TAB</kbd>      | initiate the micro-state
-<kbd>1</kbd>        | execute action 0
-<kbd>2</kbd>        | execute action 1
-<kbd>3</kbd>        | execute action 2
-<kbd>4</kbd>        | execute action 3
-<kbd>5</kbd>        | execute action 4
-<kbd>6</kbd>        | execute action 5
-<kbd>7</kbd>        | execute action 6
-<kbd>8</kbd>        | execute action 7
-<kbd>9</kbd>        | execute action 8
-<kbd>0</kbd>        | execute action 9
-<kbd>a</kbd>        | switch to actions page
-<kbd>g</kbd>        | go to first candidate
-<kbd>G</kbd>        | go to last candidate
-<kbd>h</kbd>        | go to previous source
-<kbd>j</kbd>        | select next candidate
-<kbd>k</kbd>        | select previous candidate
-<kbd>l</kbd>        | go to next source
-<kbd>r</kbd>        | switch to actions page and leave the micro-state (useful combined with <kbd>TAB</kbd>)
-<kbd>t</kbd>        | mark current candidate
-<kbd>T</kbd>        | mark all candidates
-<kbd>v</kbd>        | execute persistent action
-Any other key       | leave the micro-state
+Key Binding           | Description
+----------------------|------------------------------------------------------------
+<kbd>Shift-SPC</kbd>  | initiate or leave the micro-state
+<kbd>TAB</kbd>        | switch to actions page and leave the micro-state
+<kbd>1</kbd>          | execute action 0
+<kbd>2</kbd>          | execute action 1
+<kbd>3</kbd>          | execute action 2
+<kbd>4</kbd>          | execute action 3
+<kbd>5</kbd>          | execute action 4
+<kbd>6</kbd>          | execute action 5
+<kbd>7</kbd>          | execute action 6
+<kbd>8</kbd>          | execute action 7
+<kbd>9</kbd>          | execute action 8
+<kbd>0</kbd>          | execute action 9
+<kbd>a</kbd>          | switch to actions page
+<kbd>g</kbd>          | go to first candidate
+<kbd>G</kbd>          | go to last candidate
+<kbd>h</kbd>          | go to previous source
+<kbd>j</kbd>          | select next candidate
+<kbd>k</kbd>          | select previous candidate
+<kbd>l</kbd>          | go to next source
+<kbd>t</kbd>          | mark current candidate
+<kbd>T</kbd>          | mark all candidates
+<kbd>v</kbd>          | execute persistent action
 
 ## Discovering
 

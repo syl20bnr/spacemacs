@@ -1244,14 +1244,16 @@ which require an initialization must be listed explicitly in the list.")
            :background (face-attribute 'header-line :background)))
 
         (spacemacs|define-micro-state helm-navigation
+          :persistent t
           :doc (concat "[h] [j] [k] [l] select candidate "
                        "[v] persistent action [a] action "
                        "[t] select candidate")
           :on-enter (spacemacs//on-enter-helm-navigation-micro-state)
           :on-exit  (spacemacs//on-exit-helm-navigation-micro-state)
           :bindings
-          ("<tab>" nil :exit t)
-          ("C-i" nil :exit t)
+          ("S-SPC" nil :exit t)
+          ("<tab>" helm-select-action :exit t)
+          ("C-i" helm-select-action :exit t)
           ("?" helm-help)
           ("a" helm-select-action)
           ("g" helm-beginning-of-buffer)
@@ -1260,13 +1262,11 @@ which require an initialization must be listed explicitly in the list.")
           ("j" helm-next-line)
           ("k" helm-previous-line)
           ("l" helm-next-source)
-          ("r" helm-select-action :exit t)
           ("t" helm-toggle-visible-mark)
           ("T" helm-toggle-all-marks)
           ("v" helm-execute-persistent-action)))
 
-      (define-key helm-map (kbd "C-i") 'spacemacs/helm-navigation-micro-state)
-      (define-key helm-map (kbd "<tab>") 'spacemacs/helm-navigation-micro-state)
+      (define-key helm-map (kbd "S-SPC") 'spacemacs/helm-navigation-micro-state)
 
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
