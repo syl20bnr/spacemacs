@@ -1221,25 +1221,38 @@ which require an initialization must be listed explicitly in the list.")
       ;;shell
       (evil-leader/set-key-for-mode 'shell-mode "mH" 'spacemacs/helm-shell-history)
 
-      (defun spacemacs//on-enter-helm-navigation-ms ()
+      (defun spacemacs//helm-navigation-ms-on-enter ()
         "Initialization of helm micro-state."
-        (set (make-variable-buffer-local
-              'spacemacs--helm-navigation-ms-face-cookie)
-             (face-remap-add-relative
-              'minibuffer-prompt
-              'spacemacs-helm-navigation-ms-face))
+        ;; faces
+        (spacemacs//helm-navigation-ms-set-face)
+        (setq spacemacs--helm-navigation-ms-face-cookie-minibuffer
+              (face-remap-add-relative
+               'minibuffer-prompt
+               'spacemacs-helm-navigation-ms-face))
         ;; bind actions on numbers starting from 1 which executes action 0
         (dotimes (n 10)
           (define-key helm-map (number-to-string n)
             `(lambda () (interactive) (helm-select-nth-action
                                        ,(% (+ n 9) 10))))))
 
-      (defun spacemacs//on-exit-helm-navigation-ms ()
+      (defun spacemacs//helm-navigation-ms-set-face ()
+        "Set the face for helm header in helm navigation micro-state"
+        (with-helm-window
+          (setq spacemacs--helm-navigation-ms-face-cookie-header
+                (face-remap-add-relative
+                 'helm-header
+                 'spacemacs-helm-navigation-ms-face))))
+
+      (defun spacemacs//helm-navigation-ms-on-exit ()
         "Action to perform when exiting helm micro-state."
         ;; restore helm key map
         (dotimes (n 10) (define-key helm-map (number-to-string n) nil))
         ;; restore faces
-        (face-remap-remove-relative spacemacs--helm-navigation-ms-face-cookie))
+        (with-helm-window
+          (face-remap-remove-relative
+           spacemacs--helm-navigation-ms-face-cookie-header))
+        (face-remap-remove-relative
+         spacemacs--helm-navigation-ms-face-cookie-minibuffer))
 
       (defun spacemacs//helm-navigation-ms-full-doc ()
         "Full documentation for helm navigation micro-state."
@@ -1254,15 +1267,15 @@ which require an initialization must be listed explicitly in the list.")
 
 
       (spacemacs|define-micro-state helm-navigation
-        :on-enter (spacemacs//on-enter-helm-navigation-ms)
-        :on-exit  (spacemacs//on-exit-helm-navigation-ms)
+        :on-enter (spacemacs//helm-navigation-ms-on-enter)
+        :on-exit  (spacemacs//helm-navigation-ms-on-exit)
         :bindings
         ("C-SPC" nil :exit t)
         ("C-@" nil :exit t)
         ("<tab>" helm-select-action :exit t)
         ("C-i" helm-select-action :exit t)
         ("?" nil :doc (spacemacs//helm-navigation-ms-full-doc))
-        ("a" helm-select-action)
+        ("a" helm-select-action :post (spacemacs//helm-navigation-ms-set-face))
         ("h" helm-previous-source)
         ("j" helm-next-line)
         ("k" helm-previous-line)
@@ -1432,21 +1445,24 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys)
 
       (defface spacemacs-ido-navigation-ms-face
-        `((t :background ,(face-attribute 'error :foreground) :foreground "black"))
+        `((t :background ,(face-attribute 'error :foreground)
+             :foreground "black"
+             :weight bold))
         "Face for ido minibuffer prompt when ido micro-state is activated."
         :group 'spacemacs)
 
-      (defun spacemacs//on-enter-ido-navigation-micro-state ()
-        "Initialization of ido micro-state."
-        (set (make-variable-buffer-local
-              'spacemacs--ido-navigation-ms-face-cookie)
-             (face-remap-add-relative
-              'minibuffer-prompt
-              'spacemacs-ido-navigation-ms-face)))
+      (defun spacemacs//ido-navigation-ms-set-face ()
+        "Set faces for ido navigation micro-state."
+        (push '(minibuffer-prompt . spacemacs-ido-navigation-ms-face)
+              face-remapping-alist))
 
-      (defun spacemacs//on-exit-ido-navigation-ms ()
+      (defun spacemacs//ido-navigation-ms-on-enter ()
+        "Initialization of ido micro-state."
+        (spacemacs//ido-navigation-ms-set-face))
+
+      (defun spacemacs//ido-navigation-ms-on-exit ()
         "Action to perform when exiting ido micro-state."
-        (face-remap-remove-relative spacemacs--ido-navigation-ms-face-cookie))
+        (setq face-remapping-alist nil))
 
       (defun spacemacs//ido-navigation-ms-full-doc ()
         "Full documentation for ido navigation micro-state."
@@ -1463,8 +1479,8 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
   [v]          open in a new vertical split")
 
       (spacemacs|define-micro-state ido-navigation
-        :on-enter (spacemacs//on-enter-ido-navigation-micro-state)
-        :on-exit  (spacemacs//on-exit-ido-navigation-ms)
+        :on-enter (spacemacs//ido-navigation-ms-on-enter)
+        :on-exit  (spacemacs//ido-navigation-ms-on-exit)
         ;; :doc (concat
         ;;       "[j] [k] prev/next match [h] delete [l] select match "
         ;;       "[J] [K] parent/sub directory [n] [p] history ")
