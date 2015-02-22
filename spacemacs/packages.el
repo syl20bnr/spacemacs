@@ -1481,9 +1481,6 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (spacemacs|define-micro-state ido-navigation
         :on-enter (spacemacs//ido-navigation-ms-on-enter)
         :on-exit  (spacemacs//ido-navigation-ms-on-exit)
-        ;; :doc (concat
-        ;;       "[j] [k] prev/next match [h] delete [l] select match "
-        ;;       "[J] [K] parent/sub directory [n] [p] history ")
         :bindings
         ("C-SPC" nil :exit t)
         ("C-@" nil :exit t)
