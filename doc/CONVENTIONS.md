@@ -63,6 +63,12 @@ A package is initialized in a function with name `<layer>/init-xxx` where:
 are not an issue (ie. <kbd>SPC m h d</kbd>) since <kbd>SPC m</kbd> can be
 accessed via <kbd>,</kbd>.
 
+#### Micro-state key binding
+
+Whenever possible a micro-state should be enabled with <kbd>Shift-SPC</kbd>.
+For instance micro-states dedicated to special buffers like `helm` or `ido`
+buffers are good candidates to be put on <kbd>Shift-SPC</kbd>.
+
 ### Evilify buffers
 
 `Spacemacs` offers convenient functions to _evilify_ a buffer.
