@@ -1263,10 +1263,11 @@ which require an initialization must be listed explicitly in the list.")
   [h] [l]      previous/next source
   [t]          toggle visible mark
   [T]          toggle all mark
-  [v]          persistent action")
-
+  [v]          persistent action
+  [q]          quit")
 
       (spacemacs|define-micro-state helm-navigation
+        :persistent t
         :on-enter (spacemacs//helm-navigation-ms-on-enter)
         :on-exit  (spacemacs//helm-navigation-ms-on-exit)
         :bindings
@@ -1274,12 +1275,14 @@ which require an initialization must be listed explicitly in the list.")
         ("C-@" nil :exit t)
         ("<tab>" helm-select-action :exit t)
         ("C-i" helm-select-action :exit t)
+        ("<RET>" helm-maybe-exit-minibuffer :exit t)
         ("?" nil :doc (spacemacs//helm-navigation-ms-full-doc))
         ("a" helm-select-action :post (spacemacs//helm-navigation-ms-set-face))
         ("h" helm-previous-source)
         ("j" helm-next-line)
         ("k" helm-previous-line)
         ("l" helm-next-source)
+        ("q" nil :exit t)
         ("t" helm-toggle-visible-mark)
         ("T" helm-toggle-all-marks)
         ("v" helm-execute-persistent-action))
@@ -1411,7 +1414,15 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :init
     (progn
       (ido-vertical-mode t)
+
+      (defun spacemacs//ido-vertical-minibuffer-setup ()
+        (when face-remapping-alist
+          (setq face-remapping-alist nil)))
+      (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-vertical-minibuffer-setup)
+
       (defun spacemacs//ido-vertical-define-keys ()
+        (when face-remapping-alist
+          (setq face-remapping-alist nil))
         ;; overwrite the key bindings for ido vertical mode only
         (define-key ido-completion-map (kbd "C-d") 'ido-delete-file-at-head)
         (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
@@ -1442,7 +1453,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key ido-completion-map (kbd "C-SPC") 'spacemacs/ido-navigation-micro-state)
         (define-key ido-completion-map (kbd "C-@") 'spacemacs/ido-navigation-micro-state)
         )
-      (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys)
+      (add-hook 'ido-setup-hook 'spacemacs//ido-vertical-define-keys)
 
       (defface spacemacs-ido-navigation-ms-face
         `((t :background ,(face-attribute 'error :foreground)
@@ -1476,14 +1487,17 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
   [o]          open in other window
   [s]          open in a new horizontal split
   [t]          open in other frame
-  [v]          open in a new vertical split")
+  [v]          open in a new vertical split
+  [q]          quit")
 
       (spacemacs|define-micro-state ido-navigation
+        :persistent t
         :on-enter (spacemacs//ido-navigation-ms-on-enter)
         :on-exit  (spacemacs//ido-navigation-ms-on-exit)
         :bindings
         ("C-SPC" nil :exit t)
         ("C-@" nil :exit t)
+        ("<RET>" ido-exit-minibuffer)
         ("?" nil :doc (spacemacs//ido-navigation-ms-full-doc))
         ("h" ido-delete-backward-updir)
         ("j" ido-next-match)
@@ -1494,6 +1508,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         ("n" ido-next-match-dir)
         ("o" ido-invoke-in-other-window)
         ("p" ido-prev-match-dir)
+        ("q" nil :exit t)
         ("s" ido-invoke-in-vertical-split)
         ("t" ido-invoke-in-new-frame)
         ("v" ido-invoke-in-horizontal-split)))))
