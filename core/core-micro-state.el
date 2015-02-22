@@ -115,6 +115,15 @@ Available PROPS:
          (binding-pre (spacemacs/mplist-get binding :pre))
          (binding-post (spacemacs/mplist-get binding :post))
          (wrapper-name (intern (format "spacemacs//%S-%S-%s" name wrapped key)))
+         (doc-body `((let ((bdoc ,@binding-doc)
+                           (defdoc ,@default-doc))
+                       (if bdoc
+                           (lv-message (spacemacs//micro-state-propertize-doc
+                                        (format "%S: %s" ',name bdoc)))
+                         (when (and defdoc
+                                    ',wrapped (not (plist-get ',binding :exit)))
+                           (lv-message (spacemacs//micro-state-propertize-doc
+                                        (format "%S: %s" ',name defdoc))))))))
          (wrapper-func
           (eval `(defun ,wrapper-name ()
                    "Auto-generated function"
@@ -123,15 +132,8 @@ Available PROPS:
                    (when ',wrapped
                      (call-interactively ',wrapped))
                    ,@binding-post
-                   (let ((bdoc ,@binding-doc)
-                         (defdoc ,@default-doc))
-                     (if bdoc
-                         (lv-message (spacemacs//micro-state-propertize-doc
-                                      (format "%S: %s" ',name bdoc)))
-                       (when (and defdoc
-                                  ',wrapped (not (plist-get ',binding :exit)))
-                         (lv-message (spacemacs//micro-state-propertize-doc
-                                      (format "%S: %s" ',name defdoc))))))))))
+                   ,@doc-body
+                   ))))
     (append (list (car binding) wrapper-func) binding)))
 
 (defun spacemacs//micro-state-fill-map-sexps (wrappers)
