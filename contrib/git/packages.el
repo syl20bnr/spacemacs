@@ -143,9 +143,25 @@ which require an initialization must be listed explicitly in the list.")
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
     :defer t
+    :commands spacemacs/time-machine-micro-state
     :init
     (evil-leader/set-key
-      "gt" 'git-timemachine)))
+      "gt" 'spacemacs/time-machine-micro-state)
+
+    :config
+    (progn
+      (spacemacs|define-micro-state time-machine
+        :doc "[q] quit [p] previous [n] next [c] current"
+        :on-enter (git-timemachine)
+        :on-exit (git-timemachine-quit)
+        :persistent t
+        :bindings
+        ("c" git-timemachine-show-current-revision)
+        ("p" git-timemachine-show-previous-revision)
+        ("n" git-timemachine-show-next-revision)
+        ("q" nil :exit t)
+        )
+      )))
 
 ;; this mode is not up to date
 ;; any contributor to make it up to date is welcome:
