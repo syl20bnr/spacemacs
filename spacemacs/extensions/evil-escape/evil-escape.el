@@ -5,7 +5,7 @@
 ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
 ;; Keywords: convenience editing evil
 ;; Created: 22 Oct 2014
-;; Version: 2.09
+;; Version: 2.10
 ;; Package-Requires: ((emacs "24") (evil "1.0.9"))
 ;; URL: https://github.com/syl20bnr/evil-escape
 
@@ -335,6 +335,8 @@ DELETE-FUNC when calling CALLBACK. "
         ;; remove the f character
         (if delete-func (funcall delete-func))
         (set-buffer-modified-p modified)
+        ;; disable any running transient map first
+        (setq overriding-terminal-local-map nil)
         (call-interactively callback))
        (t ; otherwise
         (evil-escape--setup-emacs-state-passthrough)
