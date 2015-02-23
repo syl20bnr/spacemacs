@@ -1530,6 +1530,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key evil-motion-state-local-map (kbd "L")   'neotree-select-next-sibling-node)
         (define-key evil-motion-state-local-map (kbd "q")   'neotree-hide)
         (define-key evil-motion-state-local-map (kbd "r")   'neotree-rename-node)
+        (define-key evil-motion-state-local-map (kbd "R")   'neotree-change-root)
         (define-key evil-motion-state-local-map (kbd "s")   'neotree-hidden-file-toggle))
 
       (evil-leader/set-key "ft" 'neotree-toggle))
