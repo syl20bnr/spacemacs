@@ -11,7 +11,9 @@
         - [Layer](#layer)
         - [Cabal packages](#cabal-packages)
         - [OS X](#os-x)
-        - [Enabling GHCi-ng support](#enabling-ghci-ng-support)
+        - [Optional extras](#optional-extras)
+            - [GHCi-ng support](#ghci-ng-support)
+            - [structured-haskell-mode](#structured-haskell-mode)
     - [Key bindings](#key-bindings)
         - [Haskell source code:](#haskell-source-code)
             - [Haskell commands:](#haskell-commands)
@@ -22,6 +24,7 @@
         - [Cabal files:](#cabal-files)
 
 <!-- markdown-toc end -->
+
 
 ## Description
 
@@ -84,7 +87,10 @@ so that the path is added before any layers is loaded.
 Note that `emacs.app` for OS X does not pick up `$PATH` from `~/.bashrc` or
 `~/.zshrc` when launched from outside a terminal.
 
-### Enabling GHCi-ng support
+### Optional extras
+The Haskell layer supports some extra features that can be enabled through layer variables.
+
+#### GHCi-ng support
 [ghci-ng][] adds some nice features to `haskell-mode`, and is supported in Spacemacs by a layer variable:
 
 Follow the instructions to install [ghci-ng][] (remember to add `:set +c` in `~/.ghci`,
@@ -101,6 +107,14 @@ Once ghci-ng is enabled, two of the old keybindings are overriden with improved 
 <kbd>SPC m t</kbd>    | gets the type of the identifier under the cursor or for the active region
 <kbd>SPC m g g</kbd>  | go to definition
 <kbd>SPC m u</kbd>    | finds uses of identifier
+
+#### structured-haskell-mode
+[structured-haskell-mode][], or shm, replaces hi2 and adds some nice functionality.
+To enable shm, run `cabal install structured-haskell-mode` and set the layer variable:
+```elisp
+;; List of configuration layers to load.
+dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-shm-support t) git)
+```
 
 ## Key bindings
 
@@ -183,3 +197,4 @@ REPL commands are prefixed by <kbd>SPC m s</kbd>:
 [company-ghc]: https://github.com/iquiw/company-ghc
 [hi2]: https://github.com/nilcons/hi2
 [ghci-ng]: https://github.com/chrisdone/ghci-ng
+[structured-haskell-mode]: https://github.com/chrisdone/structured-haskell-mode

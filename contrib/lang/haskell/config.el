@@ -11,4 +11,7 @@
 
 ;; Variables
 (defvar haskell-ghci-ng-support nil
-  "If non nil ghci-ng support is enabled")
+  "If non-nil ghci-ng support is enabled")
+
+(defvar haskell-shm-support nil
+  "If non-nil structured-haskell-mode support is enabled")
