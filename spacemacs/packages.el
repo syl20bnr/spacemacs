@@ -1347,6 +1347,7 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (defconst spacemacs-use-helm-projectile t
       "This variable is only defined if helm-projectile is used.")
+    (setq projectile-switch-project-action 'helm-projectile)
     (evil-leader/set-key
       "/" 'helm-projectile-ag
       "pa" 'helm-projectile-ag
@@ -2014,6 +2015,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :init
     (progn
       (setq-default projectile-enable-caching t)
+      (setq projectile-sort-order 'recentf)
       (setq projectile-cache-file (concat spacemacs-cache-directory
                                           "projectile.cache"))
       (setq projectile-known-projects-file (concat spacemacs-cache-directory
@@ -2038,10 +2040,10 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         "pR" 'projectile-regenerate-tags
         "pt" 'projectile-find-tag
         "pT" 'projectile-find-test-file))
-      :config
-      (progn
-        (projectile-global-mode)
-        (spacemacs|hide-lighter projectile-mode))))
+    :config
+    (progn
+      (projectile-global-mode)
+      (spacemacs|hide-lighter projectile-mode))))
 
 (defun spacemacs/init-rainbow-delimiters ()
   (use-package rainbow-delimiters
