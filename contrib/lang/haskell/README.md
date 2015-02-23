@@ -11,6 +11,7 @@
         - [Layer](#layer)
         - [Cabal packages](#cabal-packages)
         - [OS X](#os-x)
+        - [Enabling GHCi-ng support](#enabling-ghci-ng-support)
     - [Key bindings](#key-bindings)
         - [Haskell source code:](#haskell-source-code)
             - [Haskell commands:](#haskell-commands)
@@ -83,7 +84,7 @@ so that the path is added before any layers is loaded.
 Note that `emacs.app` for OS X does not pick up `$PATH` from `~/.bashrc` or
 `~/.zshrc` when launched from outside a terminal.
 
-*** Enabling GHCi-ng support
+### Enabling GHCi-ng support
 [ghci-ng][] adds some nice features to `haskell-mode`, and is supported in Spacemacs by a layer variable:
 
 Follow the instructions to install [ghci-ng][] (remember to add `:set +c` in `~/.ghci`,
