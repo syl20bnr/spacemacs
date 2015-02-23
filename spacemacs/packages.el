@@ -1493,6 +1493,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         "Full documentation for ido navigation micro-state."
         "
   [?]          display this help
+  [e]          enter dired
   [j] [k]      next/previous match
   [J] [K]      sub/parent directory
   [h]          delete backward or parent directory
