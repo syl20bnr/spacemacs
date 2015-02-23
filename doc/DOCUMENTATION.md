@@ -1372,6 +1372,7 @@ Key Binding                      |                 Description
 <kbd>K</kbd>                     | parent directory, when reaching the root change it to parent directory
 <kbd>l</kbd> or <kbd>RET</kbd>   | expand directory
 <kbd>L</kbd>                     | next sibling
+<kbd>R</kbd>                     | make a directory the root directory
 
 **Note:** The point is automatically set to the first letter of a node for a
 smoother experience.
