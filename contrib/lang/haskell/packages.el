@@ -18,11 +18,24 @@
     ghc
     haskell-mode
     hi2
+    shm
     ))
 
 (defun haskell/init-flycheck ()
   ;;(add-hook 'haskell-mode-hook 'flycheck-mode))
   (add-hook 'flycheck-mode-hook 'flycheck-haskell-setup))
+
+(defun haskell/init-shm ()
+  (use-package shm
+    :defer t
+    :if haskell-shm-support
+    :init
+    (add-hook 'haskell-mode-hook 'structured-haskell-mode)
+    :config
+    (progn
+
+      )))
+
 
 (defun haskell/init-haskell-mode ()
   (require 'haskell-yas)
@@ -139,7 +152,9 @@
       (defun haskell-hook ()
         (ghc-init)
         ;; Use advanced indention
-        (turn-on-haskell-indentation)
+        (if (not haskell-shm-support)
+            (turn-on-haskell-indentation)
+          )
 
         ;; Indent the below lines on columns after the current column.
         ;; Might need better bindings for spacemacs and OS X
@@ -188,6 +203,7 @@
   (use-package hi2
     :diminish hi2-mode
     :commands turn-on-hi2
+    :if (not haskell-shm-support)
     :init
     (add-hook 'haskell-mode-hook 'turn-on-hi2)
     :config
