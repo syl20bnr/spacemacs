@@ -129,9 +129,13 @@ Available PROPS:
                    "Auto-generated function"
                    (interactive)
                    ,@binding-pre
-                   (when ',wrapped
-                     (call-interactively ',wrapped))
-                   ,@binding-post
+                   (let ((throwp t))
+                     (catch 'exit
+                       (when ',wrapped
+                         (call-interactively ',wrapped))
+                       (setq throwp nil))
+                     ,@binding-post
+                     (when throwp (throw 'exit nil)))
                    ,@doc-body
                    ))))
     (append (list (car binding) wrapper-func) binding)))
