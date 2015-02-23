@@ -89,6 +89,8 @@
   "fS" 'evil-write-all
   "fs" 'evil-write
   "fy" 'show-and-copy-buffer-filename)
+(unless (configuration-layer/package-declaredp 'ido-vertical-mode)
+  (evil-leader/set-key "ff" 'ido-find-file))
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
   "ij"  (lambda (count)
