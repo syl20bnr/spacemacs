@@ -174,29 +174,6 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (spacemacs|diminish aggressive-indent-mode " Ⓘ" " I")))
 
-(defun spacemacs/init-evil-anzu ()
-  (use-package evil-anzu
-    :init
-    (global-anzu-mode t)
-    :config
-    (progn
-      (spacemacs|hide-lighter anzu-mode)
-      (setq anzu-search-threshold 1000
-            anzu-cons-mode-line-p nil)
-      ;; powerline integration
-      (when (configuration-layer/package-declaredp 'powerline)
-        (defun spacemacs/anzu-update-mode-line (here total)
-          "Custom update function which does not propertize the status."
-          (when anzu--state
-            (let ((status (cl-case anzu--state
-                            (search (format "(%s/%d%s)"
-                                            (anzu--format-here-position here total)
-                                            total (if anzu--overflow-p "+" "")))
-                            (replace-query (format "(%d replace)" total))
-                            (replace (format "(%d/%d)" here total)))))
-              status)))
-        (setq anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line)))))
-
 (defun spacemacs/init-auto-complete ()
   (use-package auto-complete
     :commands global-auto-complete-mode
@@ -651,6 +628,29 @@ which require an initialization must be listed explicitly in the list.")
             (if smartparens-strict-mode
                 (call-interactively 'sp-backward-delete-char)
               ad-do-it))))))
+
+(defun spacemacs/init-evil-anzu ()
+  (use-package evil-anzu
+    :init
+    (global-anzu-mode t)
+    :config
+    (progn
+      (spacemacs|hide-lighter anzu-mode)
+      (setq anzu-search-threshold 1000
+            anzu-cons-mode-line-p nil)
+      ;; powerline integration
+      (when (configuration-layer/package-declaredp 'powerline)
+        (defun spacemacs/anzu-update-mode-line (here total)
+          "Custom update function which does not propertize the status."
+          (when anzu--state
+            (let ((status (cl-case anzu--state
+                            (search (format "(%s/%d%s)"
+                                            (anzu--format-here-position here total)
+                                            total (if anzu--overflow-p "+" "")))
+                            (replace-query (format "(%d replace)" total))
+                            (replace (format "(%d/%d)" here total)))))
+              status)))
+        (setq anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line)))))
 
 (defun spacemacs/init-evil-args ()
   (use-package evil-args
