@@ -1352,6 +1352,7 @@ Key Binding           | Description
 ----------------------|------------------------------------------------------------
 <kbd>C-SPC</kbd>      | initiate or leave the micro-state
 <kbd>?</kbd>          | display help
+<kbd>e</kbd>          | open dired
 <kbd>h</kbd>          | delete backward or parent directory
 <kbd>j</kbd>          | next match
 <kbd>J</kbd>          | sub directory
