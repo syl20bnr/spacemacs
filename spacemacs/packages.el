@@ -590,6 +590,8 @@ which require an initialization must be listed explicitly in the list.")
       (define-key evil-normal-state-map (kbd "L")
         (lambda () (interactive)
           (evil-window-bottom)
+          ;; required to make repeated presses on L and H idempotent
+          (evil-next-visual-line)
           (let ((recenter-redisplay nil))
             (recenter nil))))
       (define-key evil-normal-state-map (kbd "H")
