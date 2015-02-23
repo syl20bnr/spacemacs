@@ -127,6 +127,7 @@
     "nw" 'widen))
 ;; spell check  ---------------------------------------------------------------
 (evil-leader/set-key
+  "Sd" 'ispell-change-dictionary
   "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (spacemacs|add-toggle fill-column-indicator
