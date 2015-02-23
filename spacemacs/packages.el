@@ -788,6 +788,7 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (global-evil-search-highlight-persist)
+      ;; (set-face-attribute )
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
       (evil-ex-define-cmd "nohlsearch"
                           'evil-search-highlight-persist-remove-all))))
@@ -1417,9 +1418,16 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     (progn
       (ido-vertical-mode t)
 
+      (defun spacemacs/ido-find-file ()
+        "Start `ido-find-file'"
+        (interactive)
+        (setq spacemacs--ido-navigation-ms-enabled nil)
+        (ido-find-file))
+      (evil-leader/set-key "ff" 'spacemacs/ido-find-file)
+
       (defun spacemacs//ido-vertical-minibuffer-setup ()
-        (when face-remapping-alist
-          (setq face-remapping-alist nil)))
+        (when spacemacs--ido-navigation-ms-enabled
+          (spacemacs/ido-navigation-micro-state)))
       (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-vertical-minibuffer-setup)
 
       (defun spacemacs//ido-vertical-define-keys ()
@@ -1457,6 +1465,9 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         )
       (add-hook 'ido-setup-hook 'spacemacs//ido-vertical-define-keys)
 
+      (defvar spacemacs--ido-navigation-ms-enabled nil
+        "Flag which is non nil when ido navigation micro-state is enabled.")
+
       (defface spacemacs-ido-navigation-ms-face
         `((t :background ,(face-attribute 'error :foreground)
              :foreground "black"
@@ -1471,8 +1482,9 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 
       (defun spacemacs//ido-navigation-ms-on-enter ()
         "Initialization of ido micro-state."
-        (spacemacs//ido-navigation-ms-set-face))
-
+        (setq spacemacs--ido-navigation-ms-enabled t)
+        (spacemacs//ido-navigation-ms-set-face)
+        ) 
       (defun spacemacs//ido-navigation-ms-on-exit ()
         "Action to perform when exiting ido micro-state."
         (setq face-remapping-alist nil))
@@ -1497,23 +1509,24 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         :on-enter (spacemacs//ido-navigation-ms-on-enter)
         :on-exit  (spacemacs//ido-navigation-ms-on-exit)
         :bindings
+        ("?" nil :doc (spacemacs//ido-navigation-ms-full-doc))
         ("C-SPC" nil :exit t)
         ("C-@" nil :exit t)
-        ("<RET>" ido-exit-minibuffer)
-        ("?" nil :doc (spacemacs//ido-navigation-ms-full-doc))
+        ("<RET>" ido-exit-minibuffer :exit t)
+        ("e" ido-select-text :exit t)
         ("h" ido-delete-backward-updir)
         ("j" ido-next-match)
         ("J" ido-next-match-dir)
         ("k" ido-prev-match)
         ("K" ido-prev-match-dir)
-        ("l" ido-exit-minibuffer)
+        ("l" ido-exit-minibuffer :exit t)
         ("n" ido-next-match-dir)
-        ("o" ido-invoke-in-other-window)
+        ("o" ido-invoke-in-other-window :exit t)
         ("p" ido-prev-match-dir)
         ("q" nil :exit t)
-        ("s" ido-invoke-in-vertical-split)
-        ("t" ido-invoke-in-new-frame)
-        ("v" ido-invoke-in-horizontal-split)))))
+        ("s" ido-invoke-in-vertical-split :exit t)
+        ("t" ido-invoke-in-new-frame :exit t)
+        ("v" ido-invoke-in-horizontal-split :exit t)))))
 
 (defun spacemacs/init-iedit ()
   (use-package iedit

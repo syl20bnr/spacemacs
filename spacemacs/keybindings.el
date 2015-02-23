@@ -75,10 +75,6 @@
   "en" 'spacemacs/next-error
   "ep" 'spacemacs/previous-error
   "eN" 'spacemacs/previous-error)
-;; find -----------------------------------------------------------------------
-(evil-leader/set-key
-  "ff" 'ido-find-file
-  "fg" 'rgrep)
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key
   "fD"  'delete-current-buffer-file
@@ -87,6 +83,7 @@
   "fec" 'find-contrib-file
   "fed" 'find-dotfile
   "fev" 'spacemacs/display-and-copy-version
+  "fg" 'rgrep
   "fj" 'dired-jump
   "fo" 'spacemacs/open-in-external-app
   "fS" 'evil-write-all
