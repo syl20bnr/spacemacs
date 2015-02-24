@@ -108,7 +108,6 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
 
 (defun company-mode/init-company-quickhelp ()
   (use-package company-quickhelp
-    :defer t
     :init
-    (progn
-      (when (display-graphic-p) (company-quickhelp-mode 1)))))
+    (when (display-graphic-p)
+      (add-hook 'company-mode-hook 'company-quickhelp-mode))))
