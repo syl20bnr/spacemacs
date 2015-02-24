@@ -1205,6 +1205,12 @@ which require an initialization must be listed explicitly in the list.")
         (setq face-remapping-alist nil))
       (add-hook 'helm-before-initialize-hook 'spacemacs//helm-before-initialize)
 
+      (defun spacemacs//helm-cleanup ()
+        "Cleanup some helm related states when quitting."
+        ;; deactivate any running transient map (micro-state)
+        (setq overriding-terminal-local-map nil))
+      (add-hook 'helm-cleanup-hook 'spacemacs//helm-cleanup)
+
       (defface spacemacs-helm-navigation-ms-face
         `((t :background ,(face-attribute 'error :foreground) :foreground "black"))
         "Face for helm heder when helm micro-state is activated."
