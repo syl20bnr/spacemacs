@@ -508,7 +508,9 @@ which require an initialization must be listed explicitly in the list.")
                                              (emacs  . "SkyBlue2")
                                              (visual . "gray")
                                              (motion . "plum3")
-                                             (lisp   . "HotPink1"))
+                                             (lisp   . "HotPink1")
+                                             (iedit  . "firebrick1")
+                                             (iedit-insert  . "firebrick1"))
         "Colors assigned to evil states.")
 
       (defun spacemacs/state-color-face (state)
@@ -552,25 +554,47 @@ which require an initialization must be listed explicitly in the list.")
       (spacemacs/set-state-faces)
 
       (defun set-default-evil-emacs-state-cursor ()
-        (setq evil-emacs-state-cursor `(,(spacemacs/state-color 'emacs) box)))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'emacs))))
+          (setq evil-emacs-state-cursor `(,c box))))
       (defun set-default-evil-normal-state-cursor ()
-        (setq evil-normal-state-cursor `(,(spacemacs/state-color 'normal) box)))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'normal))))
+          (setq evil-normal-state-cursor `(,c box))))
       (defun set-default-evil-insert-state-cursor ()
-        (setq evil-insert-state-cursor `(,(spacemacs/state-color 'insert) (bar . 2))))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'insert))))
+          (setq evil-insert-state-cursor `(,c (bar . 2)))))
       (defun set-default-evil-visual-state-cursor ()
-        (setq evil-visual-state-cursor `(,(spacemacs/state-color 'visual) (hbar . 2))))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'visual))))
+          (setq evil-visual-state-cursor `(,c (hbar . 2)))))
       (defun set-default-evil-motion-state-cursor ()
-        (setq evil-motion-state-cursor `(,(spacemacs/state-color 'motion) box)))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'motion))))
+          (setq evil-motion-state-cursor `(,c box))))
       (defun set-default-evil-lisp-state-cursor ()
-        (setq evil-lisp-state-cursor `(,(spacemacs/state-color 'lisp) box)))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'lisp))))
+          (setq evil-lisp-state-cursor `(,c box))))
+      (defun set-default-evil-iedit-state-cursor ()
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'iedit))))
+          (setq evil-iedit-state-cursor `(,c box))))
+      (defun set-default-evil-iedit-insert-state-cursor ()
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'iedit-insert))))
+          (setq evil-iedit-insert-state-cursor `(,c (bar . 2)))))
       (defun evil-insert-state-cursor-hide ()
-        (setq evil-insert-state-cursor `(,(spacemacs/state-color 'insert) (hbar . 0))))
+        (setq evil-insert-state-cursor '((hbar . 0))))
       (set-default-evil-emacs-state-cursor)
       (set-default-evil-normal-state-cursor)
       (set-default-evil-insert-state-cursor)
       (set-default-evil-visual-state-cursor)
       (set-default-evil-motion-state-cursor)
       (set-default-evil-lisp-state-cursor)
+      (set-default-evil-iedit-state-cursor)
+      (set-default-evil-iedit-insert-state-cursor)
 
       (evil-mode 1))
     :config
@@ -663,13 +687,9 @@ which require an initialization must be listed explicitly in the list.")
     :init (evil-exchange-install)))
 
 (defun spacemacs/init-evil-iedit-state ()
-  (spacemacs/defface-state-color 'iedit "firebrick1")
-  (spacemacs/defface-state-color 'iedit-insert "firebrick1")
 
   (defun spacemacs/evil-state-lazy-loading ()
     (require 'evil-iedit-state)
-    (setq evil-iedit-state-cursor `(,(spacemacs/state-color 'iedit) box))
-    (setq evil-iedit-insert-state-cursor `((spacemacs/state-color 'iedit-insert) (bar . 2)))
     ;; activate leader in iedit and iedit-insert states
     (define-key evil-iedit-state-map
       (kbd evil-leader/leader) evil-leader--default-map))
