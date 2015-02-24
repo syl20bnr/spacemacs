@@ -106,8 +106,8 @@ the focus."
         "mdj" 'cider-javadoc
 
         "meb" 'cider-eval-buffer
+        "mee" 'cider-eval-last-sexp
         "mer" 'cider-eval-region
-        "mes" 'cider-eval-last-sexp
 
         "mgb" 'cider-jump-back
         "mge" 'cider-jump-to-compilation-error
