@@ -574,7 +574,7 @@ which require an initialization must be listed explicitly in the list.")
         (let ((face (intern (format "spacemacs-%s-face" (symbol-name state))))
               (func (intern (format "set-default-evil-%s-state-cursor"
                                     (symbol-name state)))))
-          (set-face-attribute face nil :background "#FFFFEF")
+          (set-face-attribute face nil :background color)
           (funcall func)))
 
       (evil-mode 1))
