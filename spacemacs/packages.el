@@ -1182,6 +1182,13 @@ which require an initialization must be listed explicitly in the list.")
         "fr"  'helm-recentf
         "<f1>" 'helm-apropos)
 
+      (defun spacemacs//helm-before-initialize ()
+        "Stuff to do before helm initializes."
+        ;; be sure that any previous micro-state face override are
+        ;; wiped out
+        (setq face-remapping-alist nil))
+      (add-hook 'helm-before-initialize-hook 'spacemacs//helm-before-initialize)
+
       (defface spacemacs-helm-navigation-ms-face
         `((t :background ,(face-attribute 'error :foreground) :foreground "black"))
         "Face for helm heder when helm micro-state is activated."
