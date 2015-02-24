@@ -121,7 +121,6 @@ package name does not match theme name + `-theme' suffix.")
   " Some processing that needs to be done when the current theme has been
 changed to THEME."
   (interactive)
-      ;; Define a face for each state
   (if (fboundp 'spacemacs/set-state-faces)
       (spacemacs/set-state-faces))
   (if (fboundp 'spacemacs/set-flycheck-mode-line-faces)
