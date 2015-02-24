@@ -11,6 +11,7 @@
         - [Reserved prefix](#reserved-prefix)
             - [User prefix](#user-prefix)
             - [Major mode prefix](#major-mode-prefix)
+            - [Micro-state key binding](#micro-state-key-binding)
         - [Evilify buffers](#evilify-buffers)
         - [Navigation](#navigation)
             - [n and N](#n-and-n)
@@ -62,6 +63,17 @@ A package is initialized in a function with name `<layer>/init-xxx` where:
 <kbd>SPC m</kbd> is reserved for the current major mode. Three keys bindings
 are not an issue (ie. <kbd>SPC m h d</kbd>) since <kbd>SPC m</kbd> can be
 accessed via <kbd>,</kbd>.
+
+#### Micro-state
+
+Whenever possible a micro-state should be enabled with <kbd>C-SPC</kbd>.
+For instance micro-states dedicated to special buffers like `helm` or `ido`
+buffers are good candidates to be put on <kbd>C-SPC</kbd>.
+
+**Important Note** Due to terminal limitation the micro-states _must_ also
+be bound to <kbd>C-@</kbd>.
+
+It is recommended to add <kbd>q</kbd> to leave the micro-state.
 
 ### Evilify buffers
 

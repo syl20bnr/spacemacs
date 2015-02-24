@@ -92,6 +92,9 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
   ;; (tabulated-list-print t)
   (tabulated-list-print))
 
+;; Mouse cursor in terminal mode
+(xterm-mouse-mode 1)
+
 ;; ---------------------------------------------------------------------------
 ;; Edit
 ;; ---------------------------------------------------------------------------
@@ -100,7 +103,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; because it avoids autoloads of elisp modes)
 (setq initial-major-mode 'text-mode)
 ;; whitespace-mode
-(setq-default show-trailing-whitespace nil)
+(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace 1)))
 ;; When point is on paranthesis, highlight the matching one
 (show-paren-mode t)
 ;; use only spaces and no tabs

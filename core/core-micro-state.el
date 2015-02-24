@@ -10,12 +10,14 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+(require 'lv)
 
 (defun spacemacs//defface-micro-state-faces ()
   "Define faces for micro-states."
   (let* ((hname 'spacemacs-micro-state-header-face)
          (bname 'spacemacs-micro-state-binding-face)
-         (box (face-attribute 'mode-line :box))
+         (box '(:line-width -1 :color (plist-get (face-attribute
+                                                  'mode-line :box) :color)))
          (err (face-attribute 'error :foreground)))
     (eval `(defface ,hname '((t ()))
              "Face for micro-state header in echo area.
@@ -51,67 +53,96 @@ Available PROPS:
 `:doc STRING or SEXP'
     A STRING or a SEXP that evaluates to a string
 
+`:persistent BOOLEAN'
+    If BOOLEAN in non nil then the micro-state never exits. A binding
+    with an explicitly set `exit t' property is required.
+
 `:bindings EXPRESSIONS'
     One or several EXPRESSIONS with the form
-    (STRING1 SYMBOL1 :doc STRING :exit SYMBOL)
+    (STRING1 SYMBOL1 :doc STRING
+                     :pre SEXP
+                     :post SEXP
+                     :exit SYMBOL)
     where:
     - STRING1 is a key to bound to the function SYMBOL1.
     - :doc STRING or SEXP is a STRING or an SEXP that evalutes
       to a string
+    - :pre is an SEXP evaluated before the bound action
+    - :post is an SEXP evaluated after the bound action
     - :exit SYMBOL is either `:exit t' or `:exit nil', if non nil then
-      pressing this key will leave the micro-state (default is nil)."
+      pressing this key will leave the micro-state (default is nil).
+
+All properties supported by `spacemacs//create-key-binding-form' can be
+used."
   (declare (indent 1))
   (let* ((func (spacemacs//micro-state-func-name name))
          (doc (spacemacs/mplist-get props :doc))
+         (persistent (plist-get props :persistent))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
          (bindings (spacemacs/mplist-get props :bindings))
          (wrappers (spacemacs//micro-state-create-wrappers name doc bindings))
-         (keymap-body (spacemacs//micro-state-fill-map-sexps wrappers)))
-    `(defun ,func ()
-       ,(format "%s micro-state." (symbol-name name))
-       (interactive)
-       (let ((doc ,@doc)) (when doc
-                            (echo (spacemacs//micro-state-propertize-doc
-                                   (concat ,(symbol-name name) ": " doc)))))
-       ,@on-enter
-       (,(if (version< emacs-version "24.4")
-             'set-temporary-overlay-map
-           'set-transient-map)
-        (let ((map (make-sparse-keymap)))
-          ,@keymap-body map) ',(spacemacs//micro-state-create-exit-func
-                                name wrappers on-exit))))) 
+         (keymap-body (spacemacs//micro-state-fill-map-sexps wrappers))
+         (bindkeys (spacemacs//create-key-binding-form props func)))
+    `(progn (defun ,func ()
+              ,(format "%S micro-state." name)
+              (interactive)
+              (let ((doc ,@doc))
+                (when doc
+                  (lv-message (spacemacs//micro-state-propertize-doc
+                               (format "%S: %s" ',name doc)))))
+              ,@on-enter
+              (,(if (version< emacs-version "24.4")
+                    'set-temporary-overlay-map
+                  'set-transient-map)
+               (let ((map (make-sparse-keymap)))
+                 ,@keymap-body map) ',(spacemacs//micro-state-create-exit-func
+                                       name wrappers persistent on-exit)))
+            ,@bindkeys)))
 
 (defun spacemacs//micro-state-func-name (name)
   "Return the name of the micro-state function."
-  (intern (format "spacemacs/%s-micro-state" (symbol-name name))))
+  (intern (format "spacemacs/%S-micro-state" name)))
 
 (defun spacemacs//micro-state-create-wrappers (name doc bindings)
   "Return an alist (key wrapper) for each binding in BINDINGS."
   (mapcar (lambda (x) (spacemacs//micro-state-create-wrapper name doc x))
-          bindings))
+          (append bindings
+                  ;; force SPC to quit the micro-state to avoid a edge case
+                  ;; with evil-leader
+                  (list '("SPC" nil :exit t)))))
 
 (defun spacemacs//micro-state-create-wrapper (name default-doc binding)
   "Create a wrapper of FUNC and return a tuple (key wrapper BINDING)."
-  (let* ((wrapped (cadr binding))
+  (let* ((key (car binding))
+         (wrapped (cadr binding))
          (binding-doc (spacemacs/mplist-get binding :doc))
-         (wrapper-name (intern (format "spacemacs//%s-%s" (symbol-name name)
-                                       (symbol-name wrapped))))
+         (binding-pre (spacemacs/mplist-get binding :pre))
+         (binding-post (spacemacs/mplist-get binding :post))
+         (wrapper-name (intern (format "spacemacs//%S-%S-%s" name wrapped key)))
+         (doc-body `((let ((bdoc ,@binding-doc)
+                           (defdoc ,@default-doc))
+                       (if bdoc
+                           (lv-message (spacemacs//micro-state-propertize-doc
+                                        (format "%S: %s" ',name bdoc)))
+                         (when (and defdoc
+                                    ',wrapped (not (plist-get ',binding :exit)))
+                           (lv-message (spacemacs//micro-state-propertize-doc
+                                        (format "%S: %s" ',name defdoc))))))))
          (wrapper-func
           (eval `(defun ,wrapper-name ()
                    "Auto-generated function"
                    (interactive)
-                   (when ',wrapped
-                     (call-interactively ',wrapped))
-                   (let ((bdoc ,@binding-doc)
-                         (defdoc ,@default-doc))
-                     (if bdoc
-                         (echo (spacemacs//micro-state-propertize-doc
-                                (concat ,(symbol-name name) ": " bdoc)))
-                       (when defdoc
-                         (echo (spacemacs//micro-state-propertize-doc
-                                (concat ,(symbol-name name) ": "
-                                        defdoc))))))))))
+                   ,@binding-pre
+                   (let ((throwp t))
+                     (catch 'exit
+                       (when ',wrapped
+                         (call-interactively ',wrapped))
+                       (setq throwp nil))
+                     ,@binding-post
+                     (when throwp (throw 'exit nil)))
+                   ,@doc-body
+                   ))))
     (append (list (car binding) wrapper-func) binding)))
 
 (defun spacemacs//micro-state-fill-map-sexps (wrappers)
@@ -119,7 +150,8 @@ Available PROPS:
   (mapcar (lambda (x) `(define-key map ,(kbd (car x)) ',(cadr x)))
           wrappers))
 
-(defun spacemacs//micro-state-create-exit-func (name wrappers on-exit)
+(defun spacemacs//micro-state-create-exit-func
+    (name wrappers persistent on-exit)
   "Return a function to execute when leaving the micro-state.
 
 The returned function returns nil if the executed command exits the
@@ -127,22 +159,27 @@ micro-state."
   (let ((func (intern (format "spacemacs//%s-on-exit" name))))
     (eval `(defun ,func ()
              "Function executed after each micro-state command."
-             (if (reduce (lambda (x y) (or x y))
-                         (mapcar (lambda (x)
-                                   (spacemacs//micro-state-stay? ',name x))
-                                 ',wrappers)
-                         :initial-value nil)
-                 't ,@on-exit nil)))))
+             (let* ((cur-wrapper (spacemacs//get-current-wrapper
+                                  ',name ',wrappers))
+                    (exitp (if cur-wrapper (plist-get cur-wrapper :exit)
+                             ,(not persistent))))
+               (when exitp ,@on-exit (spacemacs//micro-state-close-window))
+               (not exitp))))))
 
-(defun spacemacs//micro-state-stay? (name wrapper)
-  "Return non nil if WRAPPER does not leave the micro-state."
-  (let ((micro-state-fun (spacemacs//micro-state-func-name name))
-        (key (car wrapper))
-        (func (cadr wrapper)))
-    (when (and (or (eq this-command micro-state-fun)
-                   (eq this-command func))
-               (equal (this-command-keys) (kbd key)))
-      (not (plist-get wrapper :exit)))))
+(defun spacemacs//get-current-wrapper (name wrappers)
+  "Return the wrapper being executed.
+Returns nil if no wrapper is being executed (i.e. an unbound key has been
+pressed)."
+  (let ((micro-state-fun (spacemacs//micro-state-func-name name)))
+    (catch 'found
+      (dolist (wrapper wrappers)
+        (let ((key (car wrapper))
+              (func (cadr wrapper)))
+          (if (and (or (eq this-command micro-state-fun)
+                       (eq this-command func))
+                   (equal (this-command-keys) (kbd key)))
+              (throw 'found wrapper))))
+      nil)))
 
 (defun spacemacs//micro-state-propertize-doc (doc)
   "Return a propertized doc string from DOC."
@@ -166,5 +203,12 @@ micro-state."
                     (match-string 3 doc))))
         (concat head pkey tail))
     doc))
+
+(defun spacemacs//micro-state-close-window ()
+  "Close micro-state help window."
+  (when (window-live-p lv-wnd)
+    (let ((buf (window-buffer lv-wnd)))
+      (delete-window lv-wnd)
+      (kill-buffer buf))))
 
 (provide 'core-micro-state)

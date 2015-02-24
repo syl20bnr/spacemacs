@@ -75,10 +75,6 @@
   "en" 'spacemacs/next-error
   "ep" 'spacemacs/previous-error
   "eN" 'spacemacs/previous-error)
-;; find -----------------------------------------------------------------------
-(evil-leader/set-key
-  "ff" 'ido-find-file
-  "fg" 'rgrep)
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key
   "fD"  'delete-current-buffer-file
@@ -87,6 +83,8 @@
   "fec" 'find-contrib-file
   "fed" 'find-dotfile
   "fev" 'spacemacs/display-and-copy-version
+  "ff" 'ido-find-file
+  "fg" 'rgrep
   "fj" 'dired-jump
   "fo" 'spacemacs/open-in-external-app
   "fS" 'evil-write-all
@@ -128,7 +126,7 @@
     "nw" 'widen))
 ;; spell check  ---------------------------------------------------------------
 (evil-leader/set-key
-  "Sc" 'cofi/helm-flyspell-correct
+  "Sd" 'ispell-change-dictionary
   "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (spacemacs|add-toggle fill-column-indicator
@@ -227,7 +225,6 @@
     (golden-ratio)))
 
 (evil-leader/set-key
-  "w."  'spacemacs/window-manipulation-micro-state
   "w2"  'layout-double-columns
   "w3"  'layout-triple-columns
   "wb"  'switch-to-minibuffer-window
@@ -359,6 +356,7 @@
 
 (spacemacs|define-micro-state window-manipulation
   :doc "[?] for help"
+  :evil-leader "w."
   :bindings
   ("?" nil                                   :doc (spacemacs//window-manipulation-full-doc))
   ("0" select-window-0                       :doc (spacemacs//window-manipulation-number-doc))

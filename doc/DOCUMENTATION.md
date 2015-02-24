@@ -76,12 +76,13 @@
             - [Smooth scrolling](#smooth-scrolling)
         - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
         - [Window manipulation](#window-manipulation)
-            - [Resizing windows](#resizing-windows)
-            - [Reposition window](#reposition-window)
+            - [Window manipulation key bindings](#window-manipulation-key-bindings)
+            - [Window manipulation micro-state](#window-manipulation-micro-state)
             - [Golden ratio](#golden-ratio)
         - [Buffers and Files](#buffers-and-files)
             - [Emacs and Spacemacs files](#emacs-and-spacemacs-files)
         - [Ido](#ido)
+        - [Ido micro-state](#ido-micro-state)
         - [NeoTree file tree](#neotree-file-tree)
             - [NeoTree navigation](#neotree-navigation)
             - [Opening files with NeoTree](#opening-files-with-neotree)
@@ -123,10 +124,9 @@
         - [Commenting](#commenting)
         - [Deleting files](#deleting-files)
         - [Editing Lisp code](#editing-lisp-code)
-            - [Lisp state Key Bindings](#lisp-state-key-bindings)
-                - [Lisp state Auto-switch commands](#lisp-state-auto-switch-commands)
-                - [Lisp state commands](#lisp-state-commands)
-                - [Lisp state Other commands](#lisp-state-other-commands)
+            - [Lisp Key Bindings](#lisp-key-bindings)
+                - [Lisp state key bindings](#lisp-state-key-bindings)
+                - [Emacs lisp specific key bindings](#emacs-lisp-specific-key-bindings)
         - [Managing projects](#managing-projects)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
@@ -618,7 +618,7 @@ which is a _very_ narrow use case,
 - `c` accept motions and can do everything `s` can do in `normal state`,
 - this is also true for `r` but `r` is more useful because it stays in
 `normal state`.
-- `surround` command is just a more powerful command that `s`
+- `surround` command is just a more powerful command than `s`
 
 If you are not convinced, then here is the snippet to revert back to the default
 `Vim + vim-surround` setup (add it to your `dotspacemacs/config` function or
@@ -674,7 +674,7 @@ By default, `Spacemacs` uses the theme [solarized-light][solarized-theme].
 
 It is possible to define your default themes in your `~/.spacemacs` with
 the variable `dotspacemacs-themes`. For instance, to specify `leuven` and
-`zenburn` (high contract theme and low contrast theme):
+`zenburn` (high contrast theme and low contrast theme):
 
 ```elisp
 (setq-default dotspacemacs-themes '(leuven zenburn))
@@ -780,7 +780,7 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 
 ### Mode-line
 
-The mode line is an heavily customized [powerline][powerline] with the
+The mode line is a heavily customized [powerline][powerline] with the
 following capabilities:
 - show the window number
 - color code for current state
@@ -911,7 +911,7 @@ display ASCII characters instead (may be useful in terminal).
 
 `Spacemacs` is based on `Vim` modal user interface to navigate and edit text.
 If you are not familiar with the `Vim` way of editing text you can try the
-[evil tutor][] lessons by pressing <kbd>SPC h T</kbd> at any time.
+ [evil tutor][] lessons by pressing <kbd>SPC h T</kbd> at any time.
 
 ### Escaping
 
@@ -987,36 +987,33 @@ to read the [Helm documentation wiki][helm-doc].
 `Spacemacs` defines a [micro-state](#micro-states) for `Helm` to make it
 work like [Vim's Unit][] plugin.
 
-Initiate the micro-state with <kbd>TAB</kbd> while in a `Helm` buffer. Use
-<kbd>TAB</kbd> again to exit from the micro-state (actually, like with any
-micro-state, pressing any key that is not bound to the micro-state key map
-will turn-off the micro-state).
+Initiate the micro-state with <kbd>C-SPC</kbd> while in a `Helm` buffer.
+Use <kbd>C-SPC</kbd> again to exit from the micro-state.
 
-Key Binding         | Description
---------------------|------------------------------------------------------------
-<kbd>TAB</kbd>      | initiate the micro-state
-<kbd>1</kbd>        | execute action 0
-<kbd>2</kbd>        | execute action 1
-<kbd>3</kbd>        | execute action 2
-<kbd>4</kbd>        | execute action 3
-<kbd>5</kbd>        | execute action 4
-<kbd>6</kbd>        | execute action 5
-<kbd>7</kbd>        | execute action 6
-<kbd>8</kbd>        | execute action 7
-<kbd>9</kbd>        | execute action 8
-<kbd>0</kbd>        | execute action 9
-<kbd>a</kbd>        | switch to actions page
-<kbd>g</kbd>        | go to first candidate
-<kbd>G</kbd>        | go to last candidate
-<kbd>h</kbd>        | go to previous source
-<kbd>j</kbd>        | select next candidate
-<kbd>k</kbd>        | select previous candidate
-<kbd>l</kbd>        | go to next source
-<kbd>r</kbd>        | switch to actions page and leave the micro-state (useful combined with <kbd>TAB</kbd>)
-<kbd>t</kbd>        | mark current candidate
-<kbd>T</kbd>        | mark all candidates
-<kbd>v</kbd>        | execute persistent action
-Any other key       | leave the micro-state
+Key Binding           | Description
+----------------------|------------------------------------------------------------
+<kbd>C-SPC</kbd>      | initiate or leave the micro-state
+<kbd>TAB</kbd>        | switch to actions page and leave the micro-state
+<kbd>1</kbd>          | execute action 0
+<kbd>2</kbd>          | execute action 1
+<kbd>3</kbd>          | execute action 2
+<kbd>4</kbd>          | execute action 3
+<kbd>5</kbd>          | execute action 4
+<kbd>6</kbd>          | execute action 5
+<kbd>7</kbd>          | execute action 6
+<kbd>8</kbd>          | execute action 7
+<kbd>9</kbd>          | execute action 8
+<kbd>0</kbd>          | execute action 9
+<kbd>a</kbd>          | switch to actions page
+<kbd>g</kbd>          | go to first candidate
+<kbd>G</kbd>          | go to last candidate
+<kbd>h</kbd>          | go to previous source
+<kbd>j</kbd>          | select next candidate
+<kbd>k</kbd>          | select previous candidate
+<kbd>l</kbd>          | go to next source
+<kbd>t</kbd>          | mark current candidate
+<kbd>T</kbd>          | mark all candidates
+<kbd>v</kbd>          | execute persistent action
 
 ## Discovering
 
@@ -1344,6 +1341,31 @@ Key Binding             |                 Description
 <kbd>C-t</kbd>          | open selected file in a new frame
 <kbd>C-v</kbd>          | open selected file in a horizontally split window
 
+### Ido micro-state
+
+`Spacemacs` defines a [micro-state](#micro-states) for `ido`.
+
+Initiate the micro-state with <kbd>C-SPC</kbd> while in a `ido` buffer.
+Use <kbd>C-SPC</kbd> again to exit from the micro-state.
+
+Key Binding           | Description
+----------------------|------------------------------------------------------------
+<kbd>C-SPC</kbd>      | initiate or leave the micro-state
+<kbd>?</kbd>          | display help
+<kbd>e</kbd>          | open dired
+<kbd>h</kbd>          | delete backward or parent directory
+<kbd>j</kbd>          | next match
+<kbd>J</kbd>          | sub directory
+<kbd>k</kbd>          | previous match
+<kbd>K</kbd>          | parent directory
+<kbd>l</kbd>          | select match
+<kbd>n</kbd>          | next directory in history
+<kbd>o</kbd>          | open in other window
+<kbd>p</kbd>          | previous directory in history
+<kbd>s</kbd>          | open in a new horizontal split
+<kbd>t</kbd>          | open in other frame
+<kbd>v</kbd>          | open in a new vertical split
+
 ### NeoTree file tree
 
 `Spacemacs` provides a quick and simple way to navigate in an unknown project
@@ -1372,6 +1394,7 @@ Key Binding                      |                 Description
 <kbd>K</kbd>                     | parent directory, when reaching the root change it to parent directory
 <kbd>l</kbd> or <kbd>RET</kbd>   | expand directory
 <kbd>L</kbd>                     | next sibling
+<kbd>R</kbd>                     | make a directory the root directory
 
 **Note:** The point is automatically set to the first letter of a node for a
 smoother experience.

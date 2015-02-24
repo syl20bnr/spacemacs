@@ -15,6 +15,28 @@ header files and skip the actual problems.
 
 Basically, Spacemacs now has better Clang/C++ than any other Emacs config.
 
+## Key Bindings
+
+    No Debug         |                 Description
+---------------------|------------------------------------------------------------
+<kbd>C-j</kbd>       | go down in company dropdown menu
+<kbd>C-k</kbd>       | go up in company dropdown menu
+<kbd>C-/</kbd>       | search in company dropdown
+<kbd>C-M-/</kbd>     | filter the company dropdown menu
+<kbd>C-d</kbd>       | open minibuffer with documentation of thing at point in company dropdown
+
+## Settings
+
+To use tab instead of enter to complete your selection, `dotspacemacs/init` set `company-mode/use-tab-instead-of-enter-to-complete` to true, for example:
+```
+(defun dotspacemacs/init ()
+  "User initialization for Spacemacs. This function is called at the very
+ startup."
+  (setq company-mode/use-tab-instead-of-enter-to-complete t)
+  )
+
+```
+
 ## Maintainer
 
 This contrib layer was written by and should be maintained by @trishume, everyone else is

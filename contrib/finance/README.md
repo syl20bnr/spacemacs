@@ -30,10 +30,20 @@ To use this contribution add it to your `~/.spacemacs`
 
 ### Ledger
 
-    Key Binding    |                 Description
--------------------|------------------------------------------------------------
-<kbd>SPC m a</kbd> | add a transaction
-<kbd>SPC m d</kbd> | delete current transaction
+    Key Binding      |                 Description
+---------------------|----------------------------------------------------------
+<kbd>SPC m a</kbd>   | add a transaction
+<kbd>SPC m b</kbd>   | edit a post amount with Emacs Calculator mode
+<kbd>SPC m c</kbd>   | toggle 'cleared' flag on transaction or post
+<kbd>SPC m C</kbd>   | sort and align the entire buffer
+<kbd>SPC m d</kbd>   | delete current transaction
+<kbd>SPC m p</kbd>   | display balance at point
+<kbd>SPC m q</kbd>   | align a single transaction's posts
+<kbd>SPC m r</kbd>   | reconcile an account
+<kbd>SPC m R</kbd>   | display a report
+<kbd>SPC m t</kbd>   | append an effective date to a post
+<kbd>SPC m y</kbd>   | set the year for quicker entry
+<kbd>SPC m RET</kbd> | set the month for quicker entry
 
 
 [ledger]: https://github.com/ledger/ledger

@@ -65,6 +65,7 @@
     helm-ag
     helm-c-yasnippet
     helm-descbinds
+    helm-flyspell
     helm-make
     helm-mode-manager
     ;; not working for now
@@ -73,6 +74,7 @@
     helm-swoop
     helm-themes
     highlight
+    hippie-exp
     hl-anything
     hungry-delete
     ido-vertical-mode
@@ -172,29 +174,6 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key "ti" 'spacemacs/toggle-aggressive-indent))
     :config
     (spacemacs|diminish aggressive-indent-mode " Ⓘ" " I")))
-
-(defun spacemacs/init-evil-anzu ()
-  (use-package evil-anzu
-    :init
-    (global-anzu-mode t)
-    :config
-    (progn
-      (spacemacs|hide-lighter anzu-mode)
-      (setq anzu-search-threshold 1000
-            anzu-cons-mode-line-p nil)
-      ;; powerline integration
-      (when (configuration-layer/package-declaredp 'powerline)
-        (defun spacemacs/anzu-update-mode-line (here total)
-          "Custom update function which does not propertize the status."
-          (when anzu--state
-            (let ((status (cl-case anzu--state
-                            (search (format "(%s/%d%s)"
-                                            (anzu--format-here-position here total)
-                                            total (if anzu--overflow-p "+" "")))
-                            (replace-query (format "(%d replace)" total))
-                            (replace (format "(%d/%d)" here total)))))
-              status)))
-        (setq anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line)))))
 
 (defun spacemacs/init-auto-complete ()
   (use-package auto-complete
@@ -524,6 +503,16 @@ which require an initialization must be listed explicitly in the list.")
   (use-package evil
     :init
     (progn
+      (defvar spacemacs-evil-cursor-colors '((normal . "DarkGoldenrod2")
+                                             (insert . "chartreuse3")
+                                             (emacs  . "SkyBlue2")
+                                             (visual . "gray")
+                                             (motion . "plum3")
+                                             (lisp   . "HotPink1")
+                                             (iedit  . "firebrick1")
+                                             (iedit-insert  . "firebrick1"))
+        "Colors assigned to evil states.")
+
       (defun spacemacs/state-color-face (state)
         "Return the symbol of the face for the given STATE."
         (intern (format "spacemacs-%s-face" (symbol-name state))))
@@ -561,42 +550,51 @@ which require an initialization must be listed explicitly in the list.")
       (defun spacemacs/set-state-faces ()
         "Define or set the state faces."
         (mapcar (lambda (x) (spacemacs/defface-state-color (car x) (cdr x)))
-                '((normal . "DarkGoldenrod2")
-                  (insert . "chartreuse3")
-                  (emacs  . "SkyBlue2")
-                  (visual . "gray")
-                  (motion . "plum3")
-                  (lisp   . "HotPink1"))))
+                spacemacs-evil-cursor-colors))
       (spacemacs/set-state-faces)
 
       (defun set-default-evil-emacs-state-cursor ()
-        (setq evil-emacs-state-cursor `(,(spacemacs/state-color 'emacs) box)))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'emacs))))
+          (setq evil-emacs-state-cursor `(,c box))))
       (defun set-default-evil-normal-state-cursor ()
-        (setq evil-normal-state-cursor `(,(spacemacs/state-color 'normal) box)))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'normal))))
+          (setq evil-normal-state-cursor `(,c box))))
       (defun set-default-evil-insert-state-cursor ()
-        (setq evil-insert-state-cursor `(,(spacemacs/state-color 'insert) (bar . 2))))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'insert))))
+          (setq evil-insert-state-cursor `(,c (bar . 2)))))
       (defun set-default-evil-visual-state-cursor ()
-        (setq evil-visual-state-cursor `(,(spacemacs/state-color 'visual) (hbar . 2))))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'visual))))
+          (setq evil-visual-state-cursor `(,c (hbar . 2)))))
       (defun set-default-evil-motion-state-cursor ()
-        (setq evil-motion-state-cursor `(,(spacemacs/state-color 'motion) box)))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'motion))))
+          (setq evil-motion-state-cursor `(,c box))))
       (defun set-default-evil-lisp-state-cursor ()
-        (setq evil-lisp-state-cursor `(,(spacemacs/state-color 'lisp) box)))
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'lisp))))
+          (setq evil-lisp-state-cursor `(,c box))))
+      (defun set-default-evil-iedit-state-cursor ()
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'iedit))))
+          (setq evil-iedit-state-cursor `(,c box))))
+      (defun set-default-evil-iedit-insert-state-cursor ()
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'iedit-insert))))
+          (setq evil-iedit-insert-state-cursor `(,c (bar . 2)))))
       (defun evil-insert-state-cursor-hide ()
-        (setq evil-insert-state-cursor `(,(spacemacs/state-color 'insert) (hbar . 0))))
+        (setq evil-insert-state-cursor '((hbar . 0))))
       (set-default-evil-emacs-state-cursor)
       (set-default-evil-normal-state-cursor)
       (set-default-evil-insert-state-cursor)
       (set-default-evil-visual-state-cursor)
       (set-default-evil-motion-state-cursor)
       (set-default-evil-lisp-state-cursor)
-
-      (defun spacemacs/set-evil-cursor-color (state color)
-        "Change the evil cursor COLOR for STATE."
-        (let ((face (intern (format "spacemacs-%s-face" (symbol-name state))))
-              (func (intern (format "set-default-evil-%s-state-cursor"
-                                    (symbol-name state)))))
-          (set-face-attribute face nil :background "#FFFFEF")
-          (funcall func)))
+      (set-default-evil-iedit-state-cursor)
+      (set-default-evil-iedit-insert-state-cursor)
 
       (evil-mode 1))
     :config
@@ -612,6 +610,8 @@ which require an initialization must be listed explicitly in the list.")
       (define-key evil-normal-state-map (kbd "L")
         (lambda () (interactive)
           (evil-window-bottom)
+          ;; required to make repeated presses on L and H idempotent
+          (evil-next-visual-line)
           (let ((recenter-redisplay nil))
             (recenter nil))))
       (define-key evil-normal-state-map (kbd "H")
@@ -651,6 +651,29 @@ which require an initialization must be listed explicitly in the list.")
                 (call-interactively 'sp-backward-delete-char)
               ad-do-it))))))
 
+(defun spacemacs/init-evil-anzu ()
+  (use-package evil-anzu
+    :init
+    (global-anzu-mode t)
+    :config
+    (progn
+      (spacemacs|hide-lighter anzu-mode)
+      (setq anzu-search-threshold 1000
+            anzu-cons-mode-line-p nil)
+      ;; powerline integration
+      (when (configuration-layer/package-declaredp 'powerline)
+        (defun spacemacs/anzu-update-mode-line (here total)
+          "Custom update function which does not propertize the status."
+          (when anzu--state
+            (let ((status (cl-case anzu--state
+                            (search (format "(%s/%d%s)"
+                                            (anzu--format-here-position here total)
+                                            total (if anzu--overflow-p "+" "")))
+                            (replace-query (format "(%d replace)" total))
+                            (replace (format "(%d/%d)" here total)))))
+              status)))
+        (setq anzu-mode-line-update-function 'spacemacs/anzu-update-mode-line)))))
+
 (defun spacemacs/init-evil-args ()
   (use-package evil-args
     :init
@@ -664,13 +687,9 @@ which require an initialization must be listed explicitly in the list.")
     :init (evil-exchange-install)))
 
 (defun spacemacs/init-evil-iedit-state ()
-  (spacemacs/defface-state-color 'iedit "firebrick1")
-  (spacemacs/defface-state-color 'iedit-insert "firebrick1")
 
   (defun spacemacs/evil-state-lazy-loading ()
     (require 'evil-iedit-state)
-    (setq evil-iedit-state-cursor `(,(spacemacs/state-color 'iedit) box))
-    (setq evil-iedit-insert-state-cursor `((spacemacs/state-color 'iedit-insert) (bar . 2)))
     ;; activate leader in iedit and iedit-insert states
     (define-key evil-iedit-state-map
       (kbd evil-leader/leader) evil-leader--default-map))
@@ -785,6 +804,7 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (global-evil-search-highlight-persist)
+      ;; (set-face-attribute )
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
       (evil-ex-define-cmd "nohlsearch"
                           'evil-search-highlight-persist-remove-all))))
@@ -1100,6 +1120,7 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-list 'golden-ratio-inhibit-functions
                    'spacemacs/no-golden-ratio-guide-key)
       (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
+      (add-to-list 'golden-ratio-exclude-buffer-names "*LV*")
 
       (spacemacs|diminish golden-ratio-mode " ⊞" " G"))))
 
@@ -1176,12 +1197,18 @@ which require an initialization must be listed explicitly in the list.")
         "fh"  'helm-find-files
         "fr"  'helm-recentf
         "<f1>" 'helm-apropos)
-      (when dotspacemacs-helm-micro-state
-        (defcustom spacemacs-helm-navigation-micro-state-color
-          (face-attribute 'error :foreground)
-          "Background color of helm header when helm micro-state is activated."
-          :type 'color
-          :group 'spacemacs)))
+
+      (defun spacemacs//helm-before-initialize ()
+        "Stuff to do before helm initializes."
+        ;; be sure that any previous micro-state face override are
+        ;; wiped out
+        (setq face-remapping-alist nil))
+      (add-hook 'helm-before-initialize-hook 'spacemacs//helm-before-initialize)
+
+      (defface spacemacs-helm-navigation-ms-face
+        `((t :background ,(face-attribute 'error :foreground) :foreground "black"))
+        "Face for helm heder when helm micro-state is activated."
+        :group 'spacemacs))
 
     :config
     (progn
@@ -1220,48 +1247,72 @@ which require an initialization must be listed explicitly in the list.")
       ;;shell
       (evil-leader/set-key-for-mode 'shell-mode "mH" 'spacemacs/helm-shell-history)
 
-      (when dotspacemacs-helm-micro-state
-        (defun spacemacs//on-enter-helm-navigation-micro-state ()
-          "Initialization of helm micro-state."
-          (set-face-attribute
-           'helm-header nil
-           :background spacemacs-helm-navigation-micro-state-color)
-          ;; bind actions on numbers starting from 1 which executes action 0
-          (dotimes (n 10)
-            (define-key helm-map (number-to-string n)
-              `(lambda () (interactive) (helm-select-nth-action
-                                         ,(% (+ n 9) 10))))))
+      (defun spacemacs//helm-navigation-ms-on-enter ()
+        "Initialization of helm micro-state."
+        ;; faces
+        (spacemacs//helm-navigation-ms-set-face)
+        (setq spacemacs--helm-navigation-ms-face-cookie-minibuffer
+              (face-remap-add-relative
+               'minibuffer-prompt
+               'spacemacs-helm-navigation-ms-face))
+        ;; bind actions on numbers starting from 1 which executes action 0
+        (dotimes (n 10)
+          (define-key helm-map (number-to-string n)
+            `(lambda () (interactive) (helm-select-nth-action
+                                       ,(% (+ n 9) 10))))))
 
-        (defun spacemacs//on-exit-helm-navigation-micro-state ()
-          "Action to perform when exiting helm micor-state."
-          ;; restore helm key map
-          (dotimes (n 10) (define-key helm-map (number-to-string n) nil))
-          ;; restore faces
-          (set-face-attribute
-           'helm-header nil
-           :background (face-attribute 'header-line :background)))
+      (defun spacemacs//helm-navigation-ms-set-face ()
+        "Set the face for helm header in helm navigation micro-state"
+        (with-helm-window
+          (setq spacemacs--helm-navigation-ms-face-cookie-header
+                (face-remap-add-relative
+                 'helm-header
+                 'spacemacs-helm-navigation-ms-face))))
 
-        (spacemacs|define-micro-state helm-navigation
-          :on-enter (spacemacs//on-enter-helm-navigation-micro-state)
-          :on-exit  (spacemacs//on-exit-helm-navigation-micro-state)
-          :bindings
-          ("<tab>" nil :exit t)
-          ("C-i" nil :exit t)
-          ("?" helm-help)
-          ("a" helm-select-action)
-          ("g" helm-beginning-of-buffer)
-          ("G" helm-end-of-buffer)
-          ("h" helm-previous-source)
-          ("j" helm-next-line)
-          ("k" helm-previous-line)
-          ("l" helm-next-source)
-          ("r" helm-select-action :exit t)
-          ("t" helm-toggle-visible-mark)
-          ("T" helm-toggle-all-marks)
-          ("v" helm-execute-persistent-action)))
+      (defun spacemacs//helm-navigation-ms-on-exit ()
+        "Action to perform when exiting helm micro-state."
+        ;; restore helm key map
+        (dotimes (n 10) (define-key helm-map (number-to-string n) nil))
+        ;; restore faces
+        (with-helm-window
+          (face-remap-remove-relative
+           spacemacs--helm-navigation-ms-face-cookie-header))
+        (face-remap-remove-relative
+         spacemacs--helm-navigation-ms-face-cookie-minibuffer))
 
-      (define-key helm-map (kbd "C-i") 'spacemacs/helm-navigation-micro-state)
-      (define-key helm-map (kbd "<tab>") 'spacemacs/helm-navigation-micro-state)
+      (defun spacemacs//helm-navigation-ms-full-doc ()
+        "Full documentation for helm navigation micro-state."
+        "
+  [?]          display this help
+  [a]          toggle action selection page
+  [j] [k]      next/previous candidate
+  [h] [l]      previous/next source
+  [t]          toggle visible mark
+  [T]          toggle all mark
+  [v]          persistent action
+  [q]          quit")
+
+      (spacemacs|define-micro-state helm-navigation
+        :persistent t
+        :define-key (helm-map . "C-SPC") (helm-map . "C-@")
+        :on-enter (spacemacs//helm-navigation-ms-on-enter)
+        :on-exit  (spacemacs//helm-navigation-ms-on-exit)
+        :bindings
+        ("C-SPC" nil :exit t)
+        ("C-@" nil :exit t)
+        ("<tab>" helm-select-action :exit t)
+        ("C-i" helm-select-action :exit t)
+        ("<RET>" helm-maybe-exit-minibuffer :exit t)
+        ("?" nil :doc (spacemacs//helm-navigation-ms-full-doc))
+        ("a" helm-select-action :post (spacemacs//helm-navigation-ms-set-face))
+        ("h" helm-previous-source)
+        ("j" helm-next-line)
+        ("k" helm-previous-line)
+        ("l" helm-next-source)
+        ("q" nil :exit t)
+        ("t" helm-toggle-visible-mark)
+        ("T" helm-toggle-all-marks)
+        ("v" helm-execute-persistent-action))
 
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
@@ -1275,6 +1326,11 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (evil-leader/set-key "?" 'helm-descbinds)))
+
+(defun spacemacs/init-helm-flyspell ()
+  (use-package helm-flyspell
+    :commands helm-flyspell-correct
+    :init (evil-leader/set-key "Sc" 'helm-flyspell-correct)))
 
 (defun spacemacs/init-helm-make ()
   (use-package helm-make
@@ -1307,6 +1363,7 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (defconst spacemacs-use-helm-projectile t
       "This variable is only defined if helm-projectile is used.")
+    (setq projectile-switch-project-action 'helm-projectile)
     (evil-leader/set-key
       "/" 'helm-projectile-ag
       "pa" 'helm-projectile-ag
@@ -1337,6 +1394,32 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (evil-leader/set-key "Th" 'helm-themes)))
+
+(defun spacemacs/init-hippie-exp ()
+  (global-set-key (kbd "M-/") 'hippie-expand) ;; replace dabbrev-expand
+  (setq hippie-expand-try-functions-list
+        '(
+          ;; Try to expand word "dynamically", searching the current buffer.
+          try-expand-dabbrev
+          ;; Try to expand word "dynamically", searching all other buffers.
+          try-expand-dabbrev-all-buffers
+          ;; Try to expand word "dynamically", searching the kill ring.
+          try-expand-dabbrev-from-kill
+          ;; Try to complete text as a file name, as many characters as unique.
+          try-complete-file-name-partially
+          ;; Try to complete text as a file name.
+          try-complete-file-name
+          ;; Try to expand word before point according to all abbrev tables.
+          try-expand-all-abbrevs
+          ;; Try to complete the current line to an entire line in the buffer.
+          try-expand-list
+          ;; Try to complete the current line to an entire line in the buffer.
+          try-expand-line
+          ;; Try to complete as an Emacs Lisp symbol, as many characters as
+          ;; unique.
+          try-complete-lisp-symbol-partially
+          ;; Try to complete word as an Emacs Lisp symbol.
+          try-complete-lisp-symbol)))
 
 (defun spacemacs/init-hl-anything ()
   (use-package hl-anything
@@ -1382,7 +1465,22 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :init
     (progn
       (ido-vertical-mode t)
-      (defun spacemacs//ido-vertical-define-keys ()
+
+      (defun spacemacs//ido-minibuffer-setup ()
+        "Setup the minibuffer."
+        ;; Since ido is implemented in a while loop where each
+        ;; iteration setup a whole new minibuffer, we have to keep
+        ;; track of any activated ido navigation micro-state and force
+        ;; the reactivation at each iteration.
+        (when spacemacs--ido-navigation-ms-enabled
+          (spacemacs/ido-navigation-micro-state)))
+      (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-minibuffer-setup)
+
+      (defun spacemacs//ido-setup ()
+        (when face-remapping-alist
+          (setq face-remapping-alist nil))
+        ;; be sure to wipe any previous micro-state flag
+        (setq spacemacs--ido-navigation-ms-enabled nil)
         ;; overwrite the key bindings for ido vertical mode only
         (define-key ido-completion-map (kbd "C-d") 'ido-delete-file-at-head)
         (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
@@ -1408,9 +1506,76 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key ido-completion-map (kbd "<up>") 'ido-prev-match)
         (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
-        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer))
-      (add-to-list 'ido-setup-hook 'spacemacs//ido-vertical-define-keys))
-      ))
+        (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
+        ;; initiate micro-state
+        (define-key ido-completion-map (kbd "C-SPC") 'spacemacs/ido-navigation-micro-state)
+        (define-key ido-completion-map (kbd "C-@") 'spacemacs/ido-navigation-micro-state)
+        )
+      (add-hook 'ido-setup-hook 'spacemacs//ido-setup)
+
+      (defvar spacemacs--ido-navigation-ms-enabled nil
+        "Flag which is non nil when ido navigation micro-state is enabled.")
+
+      (defface spacemacs-ido-navigation-ms-face
+        `((t :background ,(face-attribute 'error :foreground)
+             :foreground "black"
+             :weight bold))
+        "Face for ido minibuffer prompt when ido micro-state is activated."
+        :group 'spacemacs)
+
+      (defun spacemacs//ido-navigation-ms-set-face ()
+        "Set faces for ido navigation micro-state."
+        (push '(minibuffer-prompt . spacemacs-ido-navigation-ms-face)
+              face-remapping-alist))
+
+      (defun spacemacs//ido-navigation-ms-on-enter ()
+        "Initialization of ido micro-state."
+        (setq spacemacs--ido-navigation-ms-enabled t)
+        (spacemacs//ido-navigation-ms-set-face)
+        ) 
+      (defun spacemacs//ido-navigation-ms-on-exit ()
+        "Action to perform when exiting ido micro-state."
+        (setq face-remapping-alist nil))
+
+      (defun spacemacs//ido-navigation-ms-full-doc ()
+        "Full documentation for ido navigation micro-state."
+        "
+  [?]          display this help
+  [e]          enter dired
+  [j] [k]      next/previous match
+  [J] [K]      sub/parent directory
+  [h]          delete backward or parent directory
+  [l]          select match
+  [n] [p]      next/previous directory in history
+  [o]          open in other window
+  [s]          open in a new horizontal split
+  [t]          open in other frame
+  [v]          open in a new vertical split
+  [q]          quit")
+
+      (spacemacs|define-micro-state ido-navigation
+        :persistent t
+        :on-enter (spacemacs//ido-navigation-ms-on-enter)
+        :on-exit  (spacemacs//ido-navigation-ms-on-exit)
+        :bindings
+        ("?" nil :doc (spacemacs//ido-navigation-ms-full-doc))
+        ("C-SPC" nil :exit t)
+        ("C-@" nil :exit t)
+        ("<RET>" ido-exit-minibuffer :exit t)
+        ("e" ido-select-text :exit t)
+        ("h" ido-delete-backward-updir)
+        ("j" ido-next-match)
+        ("J" ido-next-match-dir)
+        ("k" ido-prev-match)
+        ("K" ido-prev-match-dir)
+        ("l" ido-exit-minibuffer :exit t)
+        ("n" ido-next-match-dir)
+        ("o" ido-invoke-in-other-window :exit t)
+        ("p" ido-prev-match-dir)
+        ("q" nil :exit t)
+        ("s" ido-invoke-in-vertical-split :exit t)
+        ("t" ido-invoke-in-new-frame :exit t)
+        ("v" ido-invoke-in-horizontal-split :exit t)))))
 
 (defun spacemacs/init-iedit ()
   (use-package iedit
@@ -1530,6 +1695,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key evil-motion-state-local-map (kbd "L")   'neotree-select-next-sibling-node)
         (define-key evil-motion-state-local-map (kbd "q")   'neotree-hide)
         (define-key evil-motion-state-local-map (kbd "r")   'neotree-rename-node)
+        (define-key evil-motion-state-local-map (kbd "R")   'neotree-change-root)
         (define-key evil-motion-state-local-map (kbd "s")   'neotree-hidden-file-toggle))
 
       (evil-leader/set-key "ft" 'neotree-toggle))
@@ -1891,6 +2057,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :init
     (progn
       (setq-default projectile-enable-caching t)
+      (setq projectile-sort-order 'recentf)
       (setq projectile-cache-file (concat spacemacs-cache-directory
                                           "projectile.cache"))
       (setq projectile-known-projects-file (concat spacemacs-cache-directory
@@ -1915,10 +2082,10 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         "pR" 'projectile-regenerate-tags
         "pt" 'projectile-find-tag
         "pT" 'projectile-find-test-file))
-      :config
-      (progn
-        (projectile-global-mode)
-        (spacemacs|hide-lighter projectile-mode))))
+    :config
+    (progn
+      (projectile-global-mode)
+      (spacemacs|hide-lighter projectile-mode))))
 
 (defun spacemacs/init-rainbow-delimiters ()
   (use-package rainbow-delimiters

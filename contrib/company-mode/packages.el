@@ -3,6 +3,7 @@
     company
     company-tern
     company-c-headers
+    company-quickhelp
     ))
 
 (defvar company-mode-excluded-packages
@@ -15,6 +16,9 @@
 (defvar company-mode/enable-yas t
   "Enable yasnippet for all backends.")
 
+(defvar company-mode/use-tab-instead-of-enter-to-complete nil
+  "use tab instead of enter for completion in company-mode")
+
 (defun company-mode/backend-with-yas (backend)
   (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
       backend
@@ -25,15 +29,22 @@
   (use-package company
     :config
     (progn
-      (defun company-mode/keyword-cancel-transformer (candidates)
-        "company frontend that cancels completion when a keyword is typed
+      ;; this isn't needed if we use tab instead of enter
+      (if (not company-mode/use-tab-instead-of-enter-to-complete)
+          (progn
+            (defun company-mode/keyword-cancel-transformer (candidates)
+              "company frontend that cancels completion when a keyword is typed
 so that you don't have 'do' completed to 'downcase' in Ruby"
-        (if (member company-prefix company-mode/completion-cancel-keywords) '() candidates))
+              (if (member company-prefix company-mode/completion-cancel-keywords) '() candidates))
+            (setq
+             company-transformers '(company-mode/keyword-cancel-transformer company-sort-by-occurrence))
+            )
+          (setq company-transformers '(company-sort-by-occurrence)) ;else
+          )
 
       (setq company-idle-delay 0.0
             company-minimum-prefix-length 2
             company-require-match nil
-            company-transformers '(company-mode/keyword-cancel-transformer company-sort-by-occurrence)
             company-dabbrev-ignore-case nil
             company-dabbrev-downcase nil
             company-tooltip-flip-when-above t
@@ -42,10 +53,10 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
 
       (global-company-mode 1)
 
-      ;; Fix integration of company and yasnippet
-      (define-key company-active-map (kbd "TAB") nil)
-      (define-key company-active-map (kbd "<tab>") nil)
-      (define-key company-active-map [tab] nil)
+      ;; set completion key
+      (company-mode/set-completion-key)
+
+      (company-mode/setup-keybindings)
 
       (add-hook 'markdown-mode-hook '(lambda () (company-mode -1)))
 
@@ -69,3 +80,34 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
     :defer t
     :init
     (add-to-list 'company-backends (company-mode/backend-with-yas 'company-tern))))
+
+(defun company-mode/setup-keybindings ()
+  (progn
+    (define-key company-active-map (kbd "C-j") 'company-select-next)
+    (define-key company-active-map (kbd "C-k") 'company-select-previous)
+    (define-key company-active-map (kbd "C-/") 'company-search-candidates)
+    (define-key company-active-map (kbd "C-M-/") 'company-filter-candidates)
+    (define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
+    ))
+
+(defun company-mode/set-completion-key ()
+  (if company-mode/use-tab-instead-of-enter-to-complete
+      (progn
+        (define-key company-active-map (kbd "TAB") 'company-complete-selection) ;have tab stand in for enter
+        (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+        (define-key company-active-map [tab] 'company-complete-selection)
+        (define-key company-active-map [return] nil) ;disable enter
+        (define-key company-active-map (kbd "RET") nil)
+        )
+      (progn
+        ;; Fix integration of company and yasnippet
+        (define-key company-active-map (kbd "TAB") nil)
+        (define-key company-active-map (kbd "<tab>") nil)
+        (define-key company-active-map [tab] nil)
+        )))
+
+(defun company-mode/init-company-quickhelp ()
+  (use-package company-quickhelp
+    :init
+    (when (display-graphic-p)
+      (add-hook 'company-mode-hook 'company-quickhelp-mode))))

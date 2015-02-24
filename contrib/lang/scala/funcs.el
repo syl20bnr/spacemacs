@@ -12,11 +12,42 @@
 
 ;;; Ensime
 
+(autoload 'ensime-config-find-file "ensime-config")
+(autoload 'ensime-config-find "ensime-config")
+(autoload 'projectile-project-p "projectile")
+
 (defun scala/configure-ensime ()
   "Ensure the file exists before starting `ensime-mode'."
   (if (file-exists-p (buffer-file-name))
       (ensime-mode +1)
     (add-hook 'after-save-hook (lambda () (ensime-mode +1)) nil t)))
+
+(defun scala/maybe-start-ensime ()
+  (when (buffer-file-name)
+    (let ((ensime-buffer (scala/ensime-buffer-for-file (buffer-file-name)))
+          (file (ensime-config-find-file (buffer-file-name)))
+          (is-source-file (s-matches? (rx (or "/src/" "/test/")) (buffer-file-name))))
+
+      (when (and is-source-file (null ensime-buffer))
+        (noflet ((ensime-config-find (&rest _) file))
+          (save-window-excursion
+            (ensime)))))))
+
+(defun scala/ensime-buffer-for-file (file)
+  "Find the Ensime server buffer corresponding to FILE."
+  (let ((default-directory (file-name-directory file)))
+    (-when-let (project-name (projectile-project-p))
+      (--first (-when-let (bufname (buffer-name it))
+                 (and (s-contains? "inferior-ensime-server" bufname)
+                      (s-contains? (file-name-nondirectory project-name) bufname)))
+               (buffer-list)))))
+
+(defun scala/enable-eldoc ()
+  (setq-local eldoc-documentation-function
+              (lambda ()
+                (when (ensime-connected-p)
+                  (ensime-print-type-at-point))))
+  (eldoc-mode +1))
 
 (defun spacemacs/ensime-refactor-accept ()
   (interactive)
@@ -57,8 +88,14 @@ point to the position of the join."
   (when (s-matches? (rx (+ (not space)))
                     (buffer-substring (line-beginning-position) (point)))
     (delete-horizontal-space t))
-  (insert ".")
-  (company-complete))
+
+  (cond (company-backend
+         (company-complete-selection)
+         (scala/completing-dot))
+
+        (t
+         (insert ".")
+         (company-complete))))
 
 ;;; Flyspell
 
