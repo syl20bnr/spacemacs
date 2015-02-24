@@ -21,7 +21,8 @@ which require an initialization must be listed explicitly in the list.")
                                       ac-cider-setup))
       (add-to-hook 'cider-repl-mode-hook '(ac-cider-setup
                                            auto-complete-mode)))
-    :config (add-to-list 'ac-modes 'cider-mode)))
+    :config
+    (push 'cider-mode ac-modes)))
 
 (defun clojure/init-cider ()
   (use-package cider
