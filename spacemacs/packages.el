@@ -503,6 +503,14 @@ which require an initialization must be listed explicitly in the list.")
   (use-package evil
     :init
     (progn
+      (defvar spacemacs-evil-cursor-colors '((normal . "DarkGoldenrod2")
+                                             (insert . "chartreuse3")
+                                             (emacs  . "SkyBlue2")
+                                             (visual . "gray")
+                                             (motion . "plum3")
+                                             (lisp   . "HotPink1"))
+        "Colors assigned to evil states.")
+
       (defun spacemacs/state-color-face (state)
         "Return the symbol of the face for the given STATE."
         (intern (format "spacemacs-%s-face" (symbol-name state))))
@@ -540,12 +548,7 @@ which require an initialization must be listed explicitly in the list.")
       (defun spacemacs/set-state-faces ()
         "Define or set the state faces."
         (mapcar (lambda (x) (spacemacs/defface-state-color (car x) (cdr x)))
-                '((normal . "DarkGoldenrod2")
-                  (insert . "chartreuse3")
-                  (emacs  . "SkyBlue2")
-                  (visual . "gray")
-                  (motion . "plum3")
-                  (lisp   . "HotPink1"))))
+                spacemacs-evil-cursor-colors))
       (spacemacs/set-state-faces)
 
       (defun set-default-evil-emacs-state-cursor ()
@@ -568,14 +571,6 @@ which require an initialization must be listed explicitly in the list.")
       (set-default-evil-visual-state-cursor)
       (set-default-evil-motion-state-cursor)
       (set-default-evil-lisp-state-cursor)
-
-      (defun spacemacs/set-evil-cursor-color (state color)
-        "Change the evil cursor COLOR for STATE."
-        (let ((face (intern (format "spacemacs-%s-face" (symbol-name state))))
-              (func (intern (format "set-default-evil-%s-state-cursor"
-                                    (symbol-name state)))))
-          (set-face-attribute face nil :background color)
-          (funcall func)))
 
       (evil-mode 1))
     :config
