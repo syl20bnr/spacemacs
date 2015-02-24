@@ -188,7 +188,7 @@ More info [here][align-cljlet].
 
     Key Binding         |                 Description
 ------------------------|------------------------------------------------------------
-<kbd>SPC m =</kbd>      | reformat current form
+<kbd>SPC m f l</kbd>      | reformat current form
 
 [Clojure]: http://clojure.org
 [Cider]: https://github.com/clojure-emacs/cider
