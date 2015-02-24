@@ -90,7 +90,6 @@
       ;; ;; use "mh" as prefix for documentation commands
       ;; (setq spacemacs/key-binding-prefixes '(("mh" . "Haskell Documentation")))
 
-      
       (evil-leader/set-key-for-mode 'haskell-mode
         "mt"   'haskell-process-do-type
         "mi"   'haskell-process-do-info
@@ -196,8 +195,7 @@
     :if (configuration-layer/layer-declaredp 'company-mode)
     :init
     (progn
-      (add-to-list 'company-backends 'company-ghc)
-      (add-hook 'haskell-mode-hook 'ghc-comp-init))))
+      (add-to-list 'company-backends (company-mode/backend-with-yas 'company-ghc)))))
 
 (defun haskell/init-hi2 ()
   (use-package hi2
