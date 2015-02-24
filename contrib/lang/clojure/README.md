@@ -195,6 +195,6 @@ More info [here][align-cljlet].
 [cider_install]: https://github.com/clojure-emacs/cider#installation
 [clojure-mode]: https://github.com/clojure-emacs/clojure-mode
 [clj-refactor]: https://github.com/clojure-emacs/clj-refactor.el
-[Cider Auto Complete]: https://github.com/clojure-emacs/ac-cider
+[ac-cider]: https://github.com/clojure-emacs/ac-cider
 [align-cljlet]: https://github.com/gstamp/align-cljlet
 [refactor-nrepl]: https://github.com/clojure-emacs/refactor-nrepl
