@@ -32,10 +32,15 @@ which require an initialization must be listed explicitly in the list.")
             cider-repl-pop-to-buffer-on-connect nil
             cider-prompt-save-file-on-load nil
             cider-repl-use-clojure-font-lock t)
-      (add-to-hook 'cider-mode-hook '(cider-turn-on-eldoc-mode)))
+      (add-hook 'clojure-mode-hook 'cider-mode)
+      (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
     :config
     (progn
-      (add-to-list 'evil-emacs-state-modes 'cider-stacktrace-mode)
+      ;; add support for golden-ratio
+      (push 'cider-popup-buffer-quit-function golden-ratio-extra-commands)
+      ;; add support for evil
+      (push 'cider-stacktrace-mode evil-motion-state-modes)
+      (push 'cider-popup-buffer-mode evil-motion-state-modes)
 
       (defun spacemacs//cider-eval-in-repl-no-focus (form)
         "Insert FORM in the REPL buffer and eval it."
