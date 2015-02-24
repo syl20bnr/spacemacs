@@ -75,6 +75,21 @@ the focus."
         (cider-insert-last-sexp-in-repl t)
         (evil-insert-state))
 
+      (defun spacemacs/send-region-to-repl ()
+        "Send region to REPL and evaluate it without changing
+the focus."
+        (interactive)
+        (spacemacs//cider-eval-in-repl-no-focus
+         (buffer-substring-no-properties (region-beginning) (region-end))))
+
+      (defun spacemacs/send-region-to-repl-focus ()
+        "Send region to REPL and evaluate it and switch to the REPL in
+`insert state'."
+        (interactive)
+        (cider-insert-in-repl
+         (buffer-substring-no-properties (region-beginning) (region-end)) t)
+        (evil-insert-state))
+
       (defun spacemacs/send-function-to-repl ()
         "Send current function to REPL and evaluate it without changing
 the focus."
@@ -133,6 +148,8 @@ the focus."
         "msi" 'cider-jack-in
         "msn" 'spacemacs/send-ns-form-to-repl
         "msN" 'spacemacs/send-function-to-repl-focus
+        "msr" 'spacemacs/send-region-to-repl
+        "msR" 'spacemacs/send-region-to-repl-focus
         "mss" 'cider-switch-to-repl-buffer
 
         "mtt" 'cider-test-run-tests)
