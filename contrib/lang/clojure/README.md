@@ -80,8 +80,8 @@ instructions at the [cider repository][cider_install].
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC m e b</kbd>  | eval buffer
+<kbd>SPC m e e</kbd>  | eval last sexp
 <kbd>SPC m e r</kbd>  | eval region
-<kbd>SPC m e s</kbd>  | eval last sexp
 
 ### Goto
 
