@@ -224,7 +224,6 @@
     (golden-ratio)))
 
 (evil-leader/set-key
-  "w."  'spacemacs/window-manipulation-micro-state
   "w2"  'layout-double-columns
   "w3"  'layout-triple-columns
   "wb"  'switch-to-minibuffer-window
@@ -356,6 +355,7 @@
 
 (spacemacs|define-micro-state window-manipulation
   :doc "[?] for help"
+  :evil-leader "w."
   :bindings
   ("?" nil                                   :doc (spacemacs//window-manipulation-full-doc))
   ("0" select-window-0                       :doc (spacemacs//window-manipulation-number-doc))

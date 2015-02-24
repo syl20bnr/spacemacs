@@ -1278,6 +1278,7 @@ which require an initialization must be listed explicitly in the list.")
 
       (spacemacs|define-micro-state helm-navigation
         :persistent t
+        :define-key (helm-map . "C-SPC") (helm-map . "C-@")
         :on-enter (spacemacs//helm-navigation-ms-on-enter)
         :on-exit  (spacemacs//helm-navigation-ms-on-exit)
         :bindings
@@ -1296,9 +1297,6 @@ which require an initialization must be listed explicitly in the list.")
         ("t" helm-toggle-visible-mark)
         ("T" helm-toggle-all-marks)
         ("v" helm-execute-persistent-action))
-
-      (define-key helm-map (kbd "C-SPC") 'spacemacs/helm-navigation-micro-state)
-      (define-key helm-map (kbd "C-@") 'spacemacs/helm-navigation-micro-state)
 
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
