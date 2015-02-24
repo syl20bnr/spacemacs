@@ -1,6 +1,6 @@
 # Clojure contribution layer for Spacemacs
 
-![logo_clojure](img/clojure.png) ![logo_cider](img/cider.png)
+![logo_clojure](img/clojure.png) _with_ ![logo_cider](img/cider.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
@@ -21,6 +21,7 @@
         - [REPL](#repl)
         - [Tests](#tests)
         - [Refactoring](#refactoring)
+        - [Reformatting](#reformatting)
 
 <!-- markdown-toc end -->
 
@@ -166,6 +167,26 @@ More info regarding installation of nREPL middleware can be found here:
 <kbd>SPC m r t l</kbd>  | thread last all
 <kbd>SPC m r u a</kbd>  | unwind all
 <kbd>SPC m r u w</kbd>  | unwind
+
+### Reformatting
+
+Forms currently handled:
+- let
+- when-let
+- if-let
+- binding
+- loop
+- with-open
+- literal hashes {}
+- defroute
+- cond
+- condp (except :>> subforms)
+
+More info [here][align-cljlet].
+
+    Key Binding         |                 Description
+------------------------|------------------------------------------------------------
+<kbd>SPC m =</kbd>      | reformat current form
 
 [Clojure]: http://clojure.org
 [Cider]: https://github.com/clojure-emacs/cider

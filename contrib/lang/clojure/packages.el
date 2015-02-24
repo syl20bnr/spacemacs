@@ -24,6 +24,15 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (push 'cider-mode ac-modes)))
 
+(defun clojure/init-align-cljlet ()
+  (use-package align-cljlet
+    :defer t
+    :init
+    (add-hook 'clojure-mode-hook (lambda () (require 'align-cljlet)))
+    :config
+    (evil-leader/set-key-for-mode 'clojure-mode
+      "m=" 'align-cljlet)))
+
 (defun clojure/init-cider ()
   (use-package cider
     :defer t
