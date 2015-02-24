@@ -1418,21 +1418,21 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     (progn
       (ido-vertical-mode t)
 
-      (defun spacemacs/ido-find-file ()
-        "Start `ido-find-file'"
-        (interactive)
-        (setq spacemacs--ido-navigation-ms-enabled nil)
-        (ido-find-file))
-      (evil-leader/set-key "ff" 'spacemacs/ido-find-file)
-
-      (defun spacemacs//ido-vertical-minibuffer-setup ()
+      (defun spacemacs//ido-minibuffer-setup ()
+        "Setup the minibuffer."
+        ;; Since ido is implemented in a while loop where each
+        ;; iteration setup a whole new minibuffer, we have to keep
+        ;; track of any activated ido navigation micro-state and force
+        ;; the reactivation at each iteration.
         (when spacemacs--ido-navigation-ms-enabled
           (spacemacs/ido-navigation-micro-state)))
-      (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-vertical-minibuffer-setup)
+      (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-minibuffer-setup)
 
-      (defun spacemacs//ido-vertical-define-keys ()
+      (defun spacemacs//ido-setup ()
         (when face-remapping-alist
           (setq face-remapping-alist nil))
+        ;; be sure to wipe any previous micro-state flag
+        (setq spacemacs--ido-navigation-ms-enabled nil)
         ;; overwrite the key bindings for ido vertical mode only
         (define-key ido-completion-map (kbd "C-d") 'ido-delete-file-at-head)
         (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
@@ -1463,7 +1463,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key ido-completion-map (kbd "C-SPC") 'spacemacs/ido-navigation-micro-state)
         (define-key ido-completion-map (kbd "C-@") 'spacemacs/ido-navigation-micro-state)
         )
-      (add-hook 'ido-setup-hook 'spacemacs//ido-vertical-define-keys)
+      (add-hook 'ido-setup-hook 'spacemacs//ido-setup)
 
       (defvar spacemacs--ido-navigation-ms-enabled nil
         "Flag which is non nil when ido navigation micro-state is enabled.")

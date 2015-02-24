@@ -83,14 +83,13 @@
   "fec" 'find-contrib-file
   "fed" 'find-dotfile
   "fev" 'spacemacs/display-and-copy-version
+  "ff" 'ido-find-file
   "fg" 'rgrep
   "fj" 'dired-jump
   "fo" 'spacemacs/open-in-external-app
   "fS" 'evil-write-all
   "fs" 'evil-write
   "fy" 'show-and-copy-buffer-filename)
-(unless (configuration-layer/package-declaredp 'ido-vertical-mode)
-  (evil-leader/set-key "ff" 'ido-find-file))
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
   "ij"  (lambda (count)
