@@ -36,19 +36,8 @@ Avaiblabe PROPS:
 `:documentation STRING'
     STRING describes what the toggle does.
 
-`:evil-leader STRING'
-    A key sequence string to be set with `evil-leader/set-key'.
-
-`:evil-leader-for-mode CONS CELL'
-    A cons cell (MODE . KEY) where MODE is a major-mode symbol and KEY is a
-    key sequence string to be set with `evil-leader/set-key-for-mode'.
-
-`:global-key STRING'
-    A key sequence string to be set with `global-set-key'.
-
-`:define-key CONS CELL'
-    A cons cell (MAP . KEY) where MAP is a mode map and KEY is a
-    key sequence string to be set with `define-key'. "
+All properties supported by `spacemacs//create-key-binding-form' can be
+used."
   (let* ((wrapper-func (intern (format "spacemacs/toggle-%s"
                                        (symbol-name name))))
          (status (plist-get props :status))
@@ -56,10 +45,7 @@ Avaiblabe PROPS:
          (doc (plist-get props :documentation))
          (on-body (spacemacs/mplist-get props :on))
          (off-body (spacemacs/mplist-get props :off))
-         (evil-leader (plist-get props :evil-leader))
-         (evil-leader-for-mode (plist-get props :evil-leader-for-mode))
-         (global-key (plist-get props :global-key))
-         (def-key (plist-get props :define-key)))
+         (bindkeys (spacemacs//create-key-binding-form props wrapper-func)))
     `(progn
        (push (append '(,name) '(:function ,wrapper-func) ',props)
              spacemacs-toggles)
@@ -77,16 +63,6 @@ Avaiblabe PROPS:
                           (listp ',status))
                       ,status) (progn ,@off-body) ,@on-body)
            (message "This toggle is not supported.")))
-       ;; key bindings
-       (when ,evil-leader
-         (evil-leader/set-key ,evil-leader ',wrapper-func))
-       (when ,evil-leader-for-mode
-         (evil-leader/set-key-for-mode
-           '(car ,evil-leader-for-mode)
-           (cdr ,evil-leader-for-mode) ',wrapper-func))
-       (when ,global-key
-         (global-set-key (kbd ,global-key) ',wrapper-func))
-       (when ,def-key
-         (define-key (car ,def-key) (kbd ,(cdr def-key)) ',wrapper-func)))))
+       ,@bindkeys)))
 
 (provide 'core-toggle)

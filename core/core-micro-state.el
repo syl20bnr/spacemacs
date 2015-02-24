@@ -70,7 +70,10 @@ Available PROPS:
     - :pre is an SEXP evaluated before the bound action
     - :post is an SEXP evaluated after the bound action
     - :exit SYMBOL is either `:exit t' or `:exit nil', if non nil then
-      pressing this key will leave the micro-state (default is nil)."
+      pressing this key will leave the micro-state (default is nil).
+
+All properties supported by `spacemacs//create-key-binding-form' can be
+used."
   (declare (indent 1))
   (let* ((func (spacemacs//micro-state-func-name name))
          (doc (spacemacs/mplist-get props :doc))
@@ -79,21 +82,23 @@ Available PROPS:
          (on-exit (spacemacs/mplist-get props :on-exit))
          (bindings (spacemacs/mplist-get props :bindings))
          (wrappers (spacemacs//micro-state-create-wrappers name doc bindings))
-         (keymap-body (spacemacs//micro-state-fill-map-sexps wrappers)))
-    `(defun ,func ()
-       ,(format "%S micro-state." name)
-       (interactive)
-       (let ((doc ,@doc))
-         (when doc
-           (lv-message (spacemacs//micro-state-propertize-doc
-                        (format "%S: %s" ',name doc)))))
-       ,@on-enter
-       (,(if (version< emacs-version "24.4")
-             'set-temporary-overlay-map
-           'set-transient-map)
-        (let ((map (make-sparse-keymap)))
-          ,@keymap-body map) ',(spacemacs//micro-state-create-exit-func
-                                name wrappers persistent on-exit)))))
+         (keymap-body (spacemacs//micro-state-fill-map-sexps wrappers))
+         (bindkeys (spacemacs//create-key-binding-form props func)))
+    `(progn (defun ,func ()
+              ,(format "%S micro-state." name)
+              (interactive)
+              (let ((doc ,@doc))
+                (when doc
+                  (lv-message (spacemacs//micro-state-propertize-doc
+                               (format "%S: %s" ',name doc)))))
+              ,@on-enter
+              (,(if (version< emacs-version "24.4")
+                    'set-temporary-overlay-map
+                  'set-transient-map)
+               (let ((map (make-sparse-keymap)))
+                 ,@keymap-body map) ',(spacemacs//micro-state-create-exit-func
+                                       name wrappers persistent on-exit)))
+            ,@bindkeys)))
 
 (defun spacemacs//micro-state-func-name (name)
   "Return the name of the micro-state function."

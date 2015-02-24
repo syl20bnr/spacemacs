@@ -72,4 +72,41 @@ and its values are removed."
   (setq spacemacs--init-redisplay-count (1+ spacemacs--init-redisplay-count))
   (redisplay))
 
+(defun spacemacs//create-key-binding-form (props func)
+  "Helper which returns a from to bind FUNC to a key according to PROPS.
+
+Supported properties:
+
+`:evil-leader STRING'
+    One or several key sequence strings to be set with `evil-leader/set-key'.
+
+`:evil-leader-for-mode CONS CELL'
+    One or several cons cells (MODE . KEY) where MODE is a major-mode symbol
+    and KEY is a key sequence string to be set with
+    `evil-leader/set-key-for-mode'.
+
+`:global-key STRING'
+    One or several key sequence strings to be set with `global-set-key'.
+
+`:define-key CONS CELL'
+    One or several cons cells (MAP . KEY) where MAP is a mode map and KEY is a
+    key sequence string to be set with `define-key'. "
+  (let ((evil-leader (spacemacs/mplist-get props :evil-leader))
+        (evil-leader-for-mode (spacemacs/mplist-get props :evil-leader-for-mode))
+        (global-key (spacemacs/mplist-get props :global-key))
+        (def-key (spacemacs/mplist-get props :define-key)))
+    `((unless (null ',evil-leader)
+        (dolist (key ',evil-leader)
+          (evil-leader/set-key key ',func)))
+      (unless (null ',evil-leader-for-mode)
+        (dolist (val ',evil-leader-for-mode)
+          (evil-leader/set-key-for-mode
+            (car val) (cdr val) ',func)))
+      (unless (null ',global-key)
+        (dolist (key ',global-key)
+          (global-set-key (kbd key) ',func)))
+      (unless (null ',def-key)
+        (dolist (val ',def-key)
+          (define-key (eval (car val)) (kbd (cdr val)) ',func))))))
+
 (provide 'core-funcs)
