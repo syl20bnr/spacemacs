@@ -133,50 +133,48 @@ the focus."
 (defun clojure/init-clj-refactor ()
  (use-package clj-refactor
       :defer t
+      :init
+      (add-hook 'clojure-mode-hook 'clj-refactor-mode)
       :config
       (progn
-        (add-hook 'clojure-mode-hook
-                  (lambda ()
-                    (clj-refactor-mode 1)
-                    (cljr-add-keybindings-with-prefix "C-c C-f")))
-
-        (spacemacs/declare-prefix "mr" "clj-refactor")
-
+        (cljr-add-keybindings-with-prefix "C-c C-f")
+        ;; not supported for now
+        ;; (spacemacs/declare-prefix "mr" "clj-refactor")
         (evil-leader/set-key-for-mode 'clojure-mode
-          "mr-ad" 'cljr-add-declaration
-          "mr-ai" 'cljr-add-import-to-ns
-          "mr-am" 'cljr-add-missing-libspec
-          "mr-ap" 'cljr-add-project-dependency
-          "mr-ar" 'cljr-add-require-to-ns
-          "mr-au" 'cljr-add-use-to-ns
-          "mr-cc" 'cljr-cycle-coll
-          "mr-ci" 'cljr-cycle-if
-          "mr-cn" 'cljr-clean-ns
-          "mr-cp" 'cljr-cycle-privacy
-          "mr-dk" 'cljr-destructure-keys
-          "mr-ef" 'cljr-extract-function
-          "mr-el" 'cljr-expand-let
-          "mr-fu" 'cljr-find-usages
-          "mr-hd" 'cljr-hotload-dependency
-          "mr-il" 'cljr-introduce-let
-          "mr-mf" 'cljr-move-form
-          "mr-ml" 'cljr-move-to-let
-          "mr-pc" 'cljr-project-clean
-          "mr-pf" 'cljr-promote-function
-          "mr-rd" 'cljr-remove-debug-fns
-          "mr-rf" 'cljr-rename-file
-          "mr-rl" 'cljr-remove-let
-          "mr-rr" 'cljr-remove-unused-requires
-          "mr-rs" 'cljr-rename-symbol
-          "mr-ru" 'cljr-replace-use
-          "mr-sn" 'cljr-sort-ns
-          "mr-sp" 'cljr-sort-project-dependencies
-          "mr-sr" 'cljr-stop-referring
-          "mr-tf" 'cljr-thread-first-all
-          "mr-th" 'cljr-thread
-          "mr-tl" 'cljr-thread-last-all
-          "mr-ua" 'cljr-unwind-all
-          "mr-uw" 'cljr-unwind))))
+          "mrad" 'cljr-add-declaration
+          "mrai" 'cljr-add-import-to-ns
+          "mram" 'cljr-add-missing-libspec
+          "mrap" 'cljr-add-project-dependency
+          "mrar" 'cljr-add-require-to-ns
+          "mrau" 'cljr-add-use-to-ns
+          "mrcc" 'cljr-cycle-coll
+          "mrci" 'cljr-cycle-if
+          "mrcn" 'cljr-clean-ns
+          "mrcp" 'cljr-cycle-privacy
+          "mrdk" 'cljr-destructure-keys
+          "mref" 'cljr-extract-function
+          "mrel" 'cljr-expand-let
+          "mrfu" 'cljr-find-usages
+          "mrhd" 'cljr-hotload-dependency
+          "mril" 'cljr-introduce-let
+          "mrmf" 'cljr-move-form
+          "mrml" 'cljr-move-to-let
+          "mrpc" 'cljr-project-clean
+          "mrpf" 'cljr-promote-function
+          "mrrd" 'cljr-remove-debug-fns
+          "mrrf" 'cljr-rename-file
+          "mrrl" 'cljr-remove-let
+          "mrrr" 'cljr-remove-unused-requires
+          "mrrs" 'cljr-rename-symbol
+          "mrru" 'cljr-replace-use
+          "mrsn" 'cljr-sort-ns
+          "mrsp" 'cljr-sort-project-dependencies
+          "mrsr" 'cljr-stop-referring
+          "mrtf" 'cljr-thread-first-all
+          "mrth" 'cljr-thread
+          "mrtl" 'cljr-thread-last-all
+          "mrua" 'cljr-unwind-all
+          "mruw" 'cljr-unwind))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
