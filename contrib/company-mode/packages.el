@@ -3,6 +3,7 @@
     company
     company-tern
     company-c-headers
+    company-quickhelp
     ))
 
 (defvar company-mode-excluded-packages
@@ -104,3 +105,10 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
         (define-key company-active-map (kbd "<tab>") nil)
         (define-key company-active-map [tab] nil)
         )))
+
+(defun company-mode/init-company-quickhelp ()
+  (use-package company-quickhelp
+    :defer t
+    :init
+    (progn
+      (when (display-graphic-p) (company-quickhelp-mode 1)))))
