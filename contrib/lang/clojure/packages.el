@@ -146,7 +146,6 @@ the focus."
         "msE" 'spacemacs/send-last-sexp-to-repl-focus
         "msf" 'spacemacs/send-function-to-repl
         "msF" 'spacemacs/send-function-to-repl-focus
-        "msi" 'cider-jack-in
         "msn" 'spacemacs/send-ns-form-to-repl
         "msN" 'spacemacs/send-function-to-repl-focus
         "msr" 'spacemacs/send-region-to-repl
@@ -215,7 +214,8 @@ the focus."
     :config
     (progn
       (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'clojure-mode)))))
+        (clojure/fancify-symbols 'clojure-mode))
+      (evil-leader/set-key-for-mode 'clojure-mode "msi" 'cider-jack-in))))
 
 (defun clojure/init-rainbow-delimiters ()
   (if (configuration-layer/package-declaredp 'cider)
