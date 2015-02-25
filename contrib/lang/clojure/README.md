@@ -1,6 +1,6 @@
 # Clojure contribution layer for Spacemacs
 
-![logo_clojure](img/clojure.png) _with_ ![logo_cider](img/cider.png)
+![logo_clojure](img/clojure.png) ![logo_cider](img/cider.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
