@@ -62,3 +62,13 @@ Send code to inferior process commands:
 <kbd>SPC m h d</kbd>  | view data under point using [ess-R-data-view][ess-R-data-view] 
 <kbd>SPC m h i</kbd>  | object introspection popup [ess-R-object-popup][ess-R-object-popup]
 <kbd>SPC m h t</kbd>  | view table using [ess-R-data-view][ess-R-data-view] 
+
+## Options
+
+`ess-smart-equals` and `ess-smart-underscore` are enabled by default. In order to disable them, set in your `~/.spacemacs`
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '((ess :variables
+                                                       ess-enable-smart-underscore nil
+                                                       ess-enable-smart-equals nil)))
+```
