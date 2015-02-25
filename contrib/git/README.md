@@ -201,7 +201,6 @@ you can answer `y` with no issue.
   - `L l` to open `log buffer`
   - `E` on the second to last commit, it opens the `rebase buffer`
   - `j` to put point on last commit
-  - `i` to pass in `insert state`
   - `s` to squash it
   - `C-c C-c` to continue to the `commit message buffer`
   - `C-c C-c` again when you have finished to edit the commit message
