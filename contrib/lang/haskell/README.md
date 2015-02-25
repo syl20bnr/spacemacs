@@ -97,7 +97,7 @@ Follow the instructions to install [ghci-ng][] (remember to add `:set +c` in `~/
 next set the layer variable:
 ```elisp
 ;; List of configuration layers to load.
-dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-ghci-ng-support t) git)
+dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-enable-ghci-ng-support t) git)
 ```
 
 Once ghci-ng is enabled, two of the old keybindings are overriden with improved versions from ghci-ng, and a new keybinding available: 
@@ -113,7 +113,7 @@ Once ghci-ng is enabled, two of the old keybindings are overriden with improved 
 To enable shm, run `cabal install structured-haskell-mode` and set the layer variable:
 ```elisp
 ;; List of configuration layers to load.
-dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-shm-support t) git)
+dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-enable-shm-support t) git)
 ```
 
 ## Key bindings
