@@ -10,17 +10,8 @@
   '(auto-complete ac-ispell tern-auto-complete auto-complete-clang edts)
   "Packages that use auto-complete that are no longer necessary and might conflict.")
 
-(defvar company-mode/completion-cancel-keywords '("do" "then" "begin" "case")
-  "Keywords on which to cancel completion so that you can use RET to complet without blocking common line endings.")
-
-(defvar company-mode/enable-yas t
-  "Enable yasnippet for all backends.")
-
-(defvar company-mode/use-tab-instead-of-enter-to-complete nil
-  "use tab instead of enter for completion in company-mode")
-
 (defun company-mode/backend-with-yas (backend)
-  (if (or (not company-mode/enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+  (if (or (not company-mode-enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
       backend
     (append (if (consp backend) backend (list backend))
             '(:with company-yasnippet))))
@@ -30,12 +21,12 @@
     :config
     (progn
       ;; this isn't needed if we use tab instead of enter
-      (if (not company-mode/use-tab-instead-of-enter-to-complete)
+      (if (not company-mode-use-tab-instead-of-enter)
           (progn
             (defun company-mode/keyword-cancel-transformer (candidates)
               "company frontend that cancels completion when a keyword is typed
 so that you don't have 'do' completed to 'downcase' in Ruby"
-              (if (member company-prefix company-mode/completion-cancel-keywords) '() candidates))
+              (if (member company-prefix company-mode-completion-cancel-keywords) '() candidates))
             (setq
              company-transformers '(company-mode/keyword-cancel-transformer company-sort-by-occurrence))
             )
@@ -91,7 +82,7 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
     ))
 
 (defun company-mode/set-completion-key ()
-  (if company-mode/use-tab-instead-of-enter-to-complete
+  (if company-mode-use-tab-instead-of-enter
       (progn
         (define-key company-active-map (kbd "TAB") 'company-complete-selection) ;have tab stand in for enter
         (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
