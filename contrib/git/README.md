@@ -18,6 +18,7 @@
     - [Working with Git](#working-with-git)
         - [Magit](#magit)
         - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
+        - [Git time machine](#git-time-machine)
         - [Git gutter](#git-gutter)
     - [Github support](#github-support)
         - [magit-gh-pulls](#magit-gh-pulls)
@@ -217,6 +218,19 @@ you can answer `y` with no issue.
   - `F -r C-u F` and choose `upstream` or the name you gave to it
   - `P P` to push the commit to `origin`
 
+### Git time machine
+
+[git-timemachine] allows to quickly browse the commits of the current buffer.
+
+    Key Binding     |                 Description
+--------------------|------------------------------------------------------------
+<kbd>SPC g t</kbd>  | start git timemachine and initiate micro-state
+<kbd>c</kbd>        | show current commit
+<kbd>n</kbd>        | show next commit
+<kbd>N</kbd>        | show previous commit
+<kbd>p</kbd>        | show previous commit
+<kbd>q</kbd>        | leave micro-state and git timemachine
+
 ### Git gutter
 
 With [git-gutter][] it is possible to navigate between hunks, stage them and
@@ -224,12 +238,12 @@ revert them.
 
 Git gutter hunks commands start with `gh`:
 
-    Key Binding     |                 Description
---------------------|------------------------------------------------------------
-<kbd>g h n</kbd>    | next hunk in buffer
-<kbd>g h N</kbd>    | previous hunk in buffer
-<kbd>g h r</kbd>    | revert current hunk
-<kbd>g h s</kbd>    | stage current hunk
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC g h n</kbd>  | next hunk in buffer
+<kbd>SPC g h N</kbd>  | previous hunk in buffer
+<kbd>SPC g h r</kbd>  | revert current hunk
+<kbd>SPC g h s</kbd>  | stage current hunk
 
 `Spacemacs` has custom fringe bitmaps for [git-gutter-fringe][git-gutter]:
 
@@ -286,6 +300,12 @@ In the gist list buffer:
 <kbd>V</kbd>                 | `visual-line state`
 <kbd>y</kbd>                 | print URL and copy it
 
+### github-browse-file
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC g f b</kbd>  | browse to file on github
+
 [git]: http://git-scm.com/
 [download page]: http://git-scm.com/downloads
 [git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
@@ -296,10 +316,3 @@ In the gist list buffer:
 [git-messenger]: https://github.com/syohex/emacs-git-messenger
 [magit-gh-pulls]: https://github.com/sigma/magit-gh-pulls
 [gist.el]: https://github.com/defunkt/gist.el
-
-### github-browse-file
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>SPC g f b</kbd>  | browse to file on github
-
