@@ -10,6 +10,7 @@
     - [Key Bindings](#key-bindings)
         - [Inferior REPL process](#inferior-repl-process)
         - [Helpers](#helpers)
+    - [Options](#options)
 
 <!-- markdown-toc end -->
 
@@ -62,3 +63,12 @@ Send code to inferior process commands:
 <kbd>SPC m h d</kbd>  | view data under point using [ess-R-data-view][ess-R-data-view] 
 <kbd>SPC m h i</kbd>  | object introspection popup [ess-R-object-popup][ess-R-object-popup]
 <kbd>SPC m h t</kbd>  | view table using [ess-R-data-view][ess-R-data-view] 
+
+## Options
+
+`ess-smart-equals` is enabled by default. In order to disable it, set in your `~/.spacemacs`
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '((ess :variables
+                                                       ess-enable-smart-equals nil)))
+```

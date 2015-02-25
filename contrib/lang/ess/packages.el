@@ -15,11 +15,13 @@
     ess
     ess-R-data-view
     ess-R-object-popup
-    ess-smart-equals
     rainbow-delimiters
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
+
+(when ess-enable-smart-equals
+  (add-to-list 'ess-packages '(ess-smart-equals)))
 
 (defvar ess-excluded-packages '()
   "List of packages to exclude.")
@@ -36,7 +38,6 @@ which require an initialization must be listed explicitly in the list.")
     (interactive)
     (-all? '---truthy? (list
                         (use-package ess-site)
-                        (use-package ess-smart-underscore)
                         (use-package ess-R-object-popup)
                         (use-package ess-R-data-view))))
 
@@ -134,8 +135,13 @@ not play nicely with autoloads"
   (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
 (defun ess/init-ess-smart-equals ()
-  (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
-  (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))
+  (use-package ess-smart-equals
+    :defer t
+    :if ess-enable-smart-equals
+    :init
+    (progn
+      (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
+      (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
 
 (defun ess/init-company-ess ()
   (use-package company-ess
