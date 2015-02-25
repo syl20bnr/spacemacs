@@ -28,7 +28,7 @@
 (defun haskell/init-shm ()
   (use-package shm
     :defer t
-    :if haskell-shm-support
+    :if haskell-enable-shm-support
     :init
     (add-hook 'haskell-mode-hook 'structured-haskell-mode)
     :config
@@ -151,7 +151,7 @@
       (defun haskell-hook ()
         (ghc-init)
         ;; Use advanced indention
-        (if (not haskell-shm-support)
+        (if (not haskell-enable-shm-support)
             (turn-on-haskell-indentation)
           )
 
@@ -187,7 +187,7 @@
             ))
         )
 
-      (if haskell-ghci-ng-support
+      (if haskell-enable-ghci-ng-support
           (ghci-ng-setup)))))
 
 (defun haskell/init-company-ghc ()
@@ -201,7 +201,7 @@
   (use-package hi2
     :diminish hi2-mode
     :commands turn-on-hi2
-    :if (not haskell-shm-support)
+    :if (not haskell-enable-shm-support)
     :init
     (add-hook 'haskell-mode-hook 'turn-on-hi2)
     :config
