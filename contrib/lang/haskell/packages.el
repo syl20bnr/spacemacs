@@ -18,8 +18,13 @@
     ghc
     haskell-mode
     hi2
-    shm
     ))
+
+(when haskell-enable-shm-support
+  (add-to-list 'haskell-packages 'shm))
+
+(when haskell-enable-hindent-support
+  (add-to-list 'haskell-packages 'hindent))
 
 (defun haskell/init-flycheck ()
   ;;(add-hook 'haskell-mode-hook 'flycheck-mode))
@@ -30,12 +35,18 @@
     :defer t
     :if haskell-enable-shm-support
     :init
-    (add-hook 'haskell-mode-hook 'structured-haskell-mode)
+    (add-hook 'haskell-mode-hook 'structured-haskell-mode)))
+
+(defun haskell/init-hindent ()
+  (use-package hindent
+    :defer t
+    :if haskell-enable-hindent-support
+    :init
+    (add-hook 'haskell-mode-hook #'hindent-mode)
     :config
     (progn
-
-      )))
-
+      (evil-leader/set-key-for-mode 'haskell-mode
+        "mF"   'hindent/reformat-decl))))
 
 (defun haskell/init-haskell-mode ()
   (require 'haskell-yas)

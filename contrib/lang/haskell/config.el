@@ -15,3 +15,6 @@
 
 (defvar haskell-enable-shm-support nil
   "If non-nil structured-haskell-mode support is enabled")
+
+(defvar haskell-enable-hindent-support nil
+  "If non-nil structured-haskell-mode support is enabled")
