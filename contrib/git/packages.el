@@ -160,7 +160,7 @@ which require an initialization must be listed explicitly in the list.")
           (when golden-ratio (golden-ratio-mode))))
 
       (spacemacs|define-micro-state time-machine
-        :doc "[p] [N] previous [n] next [c] current [q] quit"
+        :doc "[p] [N] previous [n] next [c] current [y] copy hash [q] quit"
         :on-enter (spacemacs//time-machine-ms-on-enter)
         :on-exit (git-timemachine-quit)
         :persistent t
@@ -169,6 +169,7 @@ which require an initialization must be listed explicitly in the list.")
         ("p" git-timemachine-show-previous-revision)
         ("n" git-timemachine-show-next-revision)
         ("N" git-timemachine-show-previous-revision)
+        ("y" git-timemachine-kill-revision)
         ("q" nil :exit t)))))
 
 ;; this mode is not up to date
