@@ -21,6 +21,8 @@
     tagedit
     web-mode
     yasnippet
+    haml-mode
+    slim-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -86,3 +88,11 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (add-hook 'css-mode-hook 'spacemacs/load-yasnippet)))
+
+(defun html/init-haml-mode ()
+  (use-package haml-mode
+    :defer t))
+
+(defun html/init-slim-mode ()
+  (use-package slim-mode
+    :defer t))
