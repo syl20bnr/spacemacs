@@ -47,7 +47,8 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       ;; add support for golden-ratio
-      (push 'cider-popup-buffer-quit-function golden-ratio-extra-commands)
+      (eval-after-load 'golden-ratio
+        '(push 'cider-popup-buffer-quit-function golden-ratio-extra-commands))
       ;; add support for evil
       (push 'cider-stacktrace-mode evil-motion-state-modes)
       (push 'cider-popup-buffer-mode evil-motion-state-modes)

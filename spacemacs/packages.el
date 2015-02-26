@@ -1327,6 +1327,20 @@ which require an initialization must be listed explicitly in the list.")
   (use-package helm-ag
     :defer t))
 
+(defun spacemacs/init-helm-c-yasnippet ()
+  (use-package helm-c-yasnippet
+    :defer t
+    :init
+    (progn
+      (defun spacemacs/helm-yas ()
+        "Properly lazy load helm-c-yasnipper."
+        (interactive)
+        (spacemacs/load-yasnippet)
+        (require 'helm-c-yasnippet)
+        (call-interactively 'helm-yas-complete))
+      (evil-leader/set-key "is" 'spacemacs/helm-yas)
+      (setq helm-c-yas-space-match-any-greedy t))))
+
 (defun spacemacs/init-helm-descbinds ()
   (use-package helm-descbinds
     :defer t
@@ -2386,10 +2400,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                                                      shell-mode-hook)))
     :config
     (progn
-      (spacemacs|diminish yas-minor-mode " Ⓨ" " Y")
-      (require 'helm-c-yasnippet)
-      (evil-leader/set-key "is" 'helm-yas-complete)
-      (setq helm-c-yas-space-match-any-greedy t))))
+      (spacemacs|diminish yas-minor-mode " Ⓨ" " Y"))))
 
 (defun spacemacs/init-zenburn-theme ()
   (use-package zenburn-theme
