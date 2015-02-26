@@ -92,6 +92,9 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
   ;; (tabulated-list-print t)
   (tabulated-list-print))
 
+(add-to-list 'evil-emacs-state-modes 'process-menu-mode)
+(spacemacs|evilify 'process-menu-mode)
+
 ;; Mouse cursor in terminal mode
 (xterm-mouse-mode 1)
 
