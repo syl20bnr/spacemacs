@@ -2386,7 +2386,10 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                 (let* ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir))
                        (private-yas-dir (concat configuration-layer-private-directory "snippets"))
                        (yas-dir (concat dir "yasnippet-snippets")))
-                  (setq yas-snippet-dirs (list  private-yas-dir yas-dir))
+                  (setq yas-snippet-dirs
+                        (append (when (boundp 'yas-snippet-dirs)
+                                  yas-snippet-dirs)
+                                (list  private-yas-dir yas-dir)))
                   (yas-global-mode 1)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                 markdown-mode-hook
