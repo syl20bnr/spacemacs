@@ -84,6 +84,7 @@
   "fed" 'find-dotfile
   "fev" 'spacemacs/display-and-copy-version
   "ff" 'ido-find-file
+  "fF" 'helm-find-files
   "fg" 'rgrep
   "fj" 'dired-jump
   "fo" 'spacemacs/open-in-external-app
