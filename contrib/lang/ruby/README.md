@@ -70,12 +70,12 @@ Possible values are `rbenv` and `rvm`.
 ### Rails support
 
 Rails support is available through [projectile-rails][].
-To enable it, set the `ruby-on-rails-support` var in your
+To enable it, set the `ruby-enable-ruby-on-rails-support` var in your
 `~/.spacemacs`:
 
 ```elisp
 (defun dotspacemacs/init ()
-  (setq-default ruby-on-rails-support t)
+  (setq-default ruby-enable-ruby-on-rails-support t)
 )
 ```
 
