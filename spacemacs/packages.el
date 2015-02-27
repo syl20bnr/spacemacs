@@ -1555,7 +1555,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         "Initialization of ido micro-state."
         (setq spacemacs--ido-navigation-ms-enabled t)
         (spacemacs//ido-navigation-ms-set-face)
-        ) 
+        )
       (defun spacemacs//ido-navigation-ms-on-exit ()
         "Action to perform when exiting ido micro-state."
         (setq face-remapping-alist nil))
@@ -1645,6 +1645,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 (defun spacemacs/init-neotree ()
   (use-package neotree
     :defer t
+    :commands neo-global--window-exists-p
     :init
     (progn
       (add-to-list 'evil-motion-state-modes 'neotree-mode)
@@ -1700,6 +1701,12 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                   (neotree-select-up-node))
               (neotree-select-up-node)))))
 
+      (defun neotree-find-project-root ()
+        (interactive)
+        (if (neo-global--window-exists-p)
+            (neotree-hide)
+          (neotree-find (projectile-project-root))))
+
       (defun spacemacs//neotree-key-bindings ()
         "Set the key bindings for a neotree buffer."
         (define-key evil-motion-state-local-map (kbd "TAB") 'neotree-stretch-toggle)
@@ -1721,7 +1728,10 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key evil-motion-state-local-map (kbd "R")   'neotree-change-root)
         (define-key evil-motion-state-local-map (kbd "s")   'neotree-hidden-file-toggle))
 
-      (evil-leader/set-key "ft" 'neotree-toggle))
+      (evil-leader/set-key
+        "ft" 'neotree-toggle
+        "pt" 'neotree-find-project-root))
+
     :config
     (add-to-hook 'neotree-mode-hook '(spacemacs//init-neotree
                                       spacemacs//neotree-key-bindings))))
@@ -2076,7 +2086,9 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                projectile-find-tag
                projectile-kill-buffers
                projectile-recentf
-               projectile-invalidate-cache)
+               projectile-invalidate-cache
+               projectile-project-root
+               )
     :init
     (progn
       (setq-default projectile-enable-caching t)
@@ -2104,7 +2116,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         "po" 'projectile-multi-occur
         "pr" 'projectile-replace
         "pR" 'projectile-regenerate-tags
-        "pt" 'projectile-find-tag
+        "py" 'projectile-find-tag
         "pT" 'projectile-find-test-file))
     :config
     (progn
