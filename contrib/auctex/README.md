@@ -11,6 +11,7 @@
     - [Features](#features)
         - [Company Auctex](#company-auctex)
         - [Tags navigation](#tags-navigation)
+        - [Previewing](#previewing)
     - [Keybindings](#keybindings)
     - [Maintainer](#maintainer)
 
@@ -25,7 +26,9 @@ Includes support for Auctex including some bindings, sane defaults, and manual l
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(auctex))
+(setq-default dotspacemacs-configuration-layers '(auctex)
+  "List of contribution to load."
+)
 ```
 
 ## Features
@@ -37,6 +40,14 @@ Along with other things this layer includes company-auctex, it's only enabled if
 ### Tags navigation
 
 Tags navigation can be performed with key `%` thanks to [evil-matchit][].
+
+### Previewing
+
+To perform full-document previews (that is, aside from the inline previewing under `SPC m p`), add the following to your `.spacemacs` under `dotspacemacs/config`. Then when you open up a compiled PDF, the preview will update automatically when you recompile.
+
+```elisp
+(add-hook 'doc-view-mode-hook 'auto-revert-mode)
+```
 
 ## Keybindings
 
