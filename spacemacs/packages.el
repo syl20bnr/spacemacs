@@ -1950,6 +1950,19 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
           (setq spacemacs-mode-line-new-version-lighterp t)))
       (evil-leader/set-key "tmv" 'spacemacs/mode-line-new-version-lighter-toggle)
 
+      (defvar spacemacs-mode-line-org-clock-current-taskp nil
+        "If not nil, the currently clocked org-mode task will be
+displayed in the mode-line.")
+      (defvar spacemacs-mode-line-org-clock-format-function
+        'org-clock-get-clock-string
+        "Function used to render the currently clocked org-mode task.")
+      (defun spacemacs/mode-line-org-org-clock-current-task-toggle ()
+        (interactive)
+        (if spacemacs-mode-line-org-clock-current-taskp
+            (setq spacemacs-mode-line-org-clock-current-taskp nil)
+          (setq spacemacs-mode-line-org-clock-current-taskp t)))
+      (evil-leader/set-key "tmc" 'spacemacs/mode-line-org-clock-current-task-toggle)
+
       (setq-default powerline-default-separator 'wave)
 
       (defun spacemacs/mode-line-prepare-left ()
@@ -2024,7 +2037,15 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                (list (powerline-vc vc-face)
                      (powerline-raw " " vc-face)
                      (funcall separator-right vc-face face2))
-             (list (funcall separator-right face1 face2))))))
+             (list (funcall separator-right face1 face2)))
+           ;; org clocked task
+           (when (and active
+                      spacemacs-mode-line-org-clock-current-taskp
+                      (fboundp 'org-clocking-p) 
+                      (org-clocking-p))
+             (list (powerline-raw " " face2)
+                   (funcall spacemacs-mode-line-org-clock-format-function)
+                   (powerline-raw " " face2))))))
 
       (defun column-number-at-pos (pos)
         "Analog to line-number-at-pos."
