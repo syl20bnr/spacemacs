@@ -35,8 +35,6 @@
         (spacemacs/message (concat "Warning: GOPATH variable not found, "
                                    "go-oracle configuration skipped."))
       (load-gopath-file go-path "/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
-      (load-file (concat (file-name-as-directory go-path)
-                         "src/code.google.com/p/go.tools/cmd/oracle/oracle.el"))
       (add-hook 'go-mode-hook 'go-oracle-mode)
       (spacemacs|diminish go-oracle-mode " O")
       (evil-leader/set-key-for-mode 'go-mode
