@@ -14,6 +14,7 @@
         - [Optional extras](#optional-extras)
             - [GHCi-ng support](#ghci-ng-support)
             - [structured-haskell-mode](#structured-haskell-mode)
+            - [hindent](#hindent)
     - [Key bindings](#key-bindings)
         - [Haskell source code:](#haskell-source-code)
             - [Haskell commands:](#haskell-commands)
@@ -115,6 +116,17 @@ To enable shm, run `cabal install structured-haskell-mode` and set the layer var
 ;; List of configuration layers to load.
 dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-enable-shm-support t) git)
 ```
+#### hindent
+[hindent]() is an extensible Haskell pretty printer, which let's you
+reformat your code. You need to install the executable with `cabal
+install hindent`; to enable it set:
+```elisp
+;; List of configuration layers to load.
+dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-enable-hindent-support t) git)
+```
+By default it uses the style called `fundamental`, if you want to use
+another, `johan-tibell`, run `M-x customize-variable
+hindent-style`.
 
 ## Key bindings
 
@@ -131,6 +143,7 @@ Top-level commands are prefixed by <kbd>SPC m</kbd>:
 <kbd>SPC m i</kbd>    | gets information for the identifier under the cursor
 <kbd>SPC m g g</kbd>  | go to definition or tag
 <kbd>SPC m f</kbd>    | format buffer using haskell-stylish
+<kbd>SPC m F</kbd>    | format declaration using hindent (if enabled)
 
 #### Documentation commands:
 Documentation commands are prefixed by <kbd>SPC m h</kbd>
@@ -198,3 +211,4 @@ REPL commands are prefixed by <kbd>SPC m s</kbd>:
 [hi2]: https://github.com/nilcons/hi2
 [ghci-ng]: https://github.com/chrisdone/ghci-ng
 [structured-haskell-mode]: https://github.com/chrisdone/structured-haskell-mode
+[hindent]: https://github.com/chrisdone/hindent
