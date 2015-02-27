@@ -307,6 +307,7 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (eval '(progn (spacemacs/integrate-evil-search t)
                       (spacemacs/ahs-highlight-now-wrapper)
+                      (evil-set-jump)
                       (ahs-forward)) nil))
 
       (defun spacemacs/quick-ahs-backward ()
@@ -315,6 +316,7 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (eval '(progn (spacemacs/integrate-evil-search nil)
                       (spacemacs/ahs-highlight-now-wrapper)
+                      (evil-set-jump)
                       (ahs-backward)) nil))
 
       (eval-after-load 'evil
