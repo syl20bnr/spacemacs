@@ -614,18 +614,30 @@ which require an initialization must be listed explicitly in the list.")
       ;; Make the current definition and/or comment visible.
       (define-key evil-normal-state-map "zf" 'reposition-window)
       ;; quick navigation
-      (define-key evil-normal-state-map (kbd "L")
-        (lambda () (interactive)
-          (evil-window-bottom)
-          ;; required to make repeated presses on L and H idempotent
-          (evil-next-visual-line)
-          (let ((recenter-redisplay nil))
-            (recenter nil))))
-      (define-key evil-normal-state-map (kbd "H")
-        (lambda () (interactive)
-          (evil-window-top)
-          (let ((recenter-redisplay nil))
-            (recenter nil))))
+      (defun spacemacs/scroll-half-page-up ()
+        "Scroll half a page up while keeping cursor in middle of page."
+        (interactive)
+        (evil-window-top)
+        (let ((recenter-redisplay nil))
+          (recenter nil)))
+      (defun spacemacs/scroll-half-page-down ()
+        "Scroll half a page down while keeping cursor in middle of page."
+        (interactive)
+        (evil-window-bottom)
+        ;; required to make repeated presses idempotent
+        (evil-next-visual-line)
+        (let ((recenter-redisplay nil))
+          (recenter nil)))
+      (spacemacs|define-micro-state navagation
+        :doc "[,] page up [.] page down [<] half page up [>] half page down"
+        :bindings
+        ;; page
+        ("," evil-scroll-page-up)
+        ("." evil-scroll-page-down)
+        ;; half page
+        ("<" spacemacs/scroll-half-page-up)
+        (">" spacemacs/scroll-half-page-down))
+      (evil-leader/set-key "n." 'spacemacs/navagation-micro-state)
       (evil-leader/set-key "re" 'evil-show-registers)
       ;; define text objects
       (defmacro spacemacs|define-and-bind-text-object (key name start-regex end-regex)
