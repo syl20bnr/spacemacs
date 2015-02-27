@@ -162,11 +162,12 @@ for that layer."
   (spacemacs/message "Looking for configuration layers in %s" dir)
   (ignore-errors
     (let ((files (directory-files dir nil nil 'nosort))
-          (filter-out (append configuration-layer-contrib-categories '("." "..")))
+          (filter-out configuration-layer-contrib-categories)
           result '())
       (dolist (f files)
         (when (and (file-directory-p (concat dir f))
-                   (not (member f filter-out)))
+                   (not (member f filter-out))
+                   (not (equalp ?. (aref f 0))))  ;; Remove hidden, traversal
           (spacemacs/message "-> Discovered configuration layer: %s" f)
           (push (cons (intern f) dir) result)))
       result)))
