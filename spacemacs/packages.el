@@ -307,6 +307,7 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (eval '(progn (spacemacs/integrate-evil-search t)
                       (spacemacs/ahs-highlight-now-wrapper)
+                      (evil-set-jump)
                       (ahs-forward)) nil))
 
       (defun spacemacs/quick-ahs-backward ()
@@ -315,6 +316,7 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (eval '(progn (spacemacs/integrate-evil-search nil)
                       (spacemacs/ahs-highlight-now-wrapper)
+                      (evil-set-jump)
                       (ahs-backward)) nil))
 
       (eval-after-load 'evil
@@ -1407,7 +1409,9 @@ which require an initialization must be listed explicitly in the list.")
     (evil-leader/set-key
       "sS"    'helm-multi-swoop
       "ss"    'helm-swoop
-      "s C-s" 'helm-multi-swoop-all)))
+      "s C-s" 'helm-multi-swoop-all)
+    (defadvice helm-swoop (before add-evil-jump activate)
+      (evil-set-jump))))
 
 (defun spacemacs/init-helm-themes ()
   (use-package helm-themes
