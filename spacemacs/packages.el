@@ -1552,7 +1552,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         "Initialization of ido micro-state."
         (setq spacemacs--ido-navigation-ms-enabled t)
         (spacemacs//ido-navigation-ms-set-face)
-        ) 
+        )
       (defun spacemacs//ido-navigation-ms-on-exit ()
         "Action to perform when exiting ido micro-state."
         (setq face-remapping-alist nil))
@@ -1976,6 +1976,18 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                      (funcall separator-right vc-face face2))
              (list (funcall separator-right face1 face2))))))
 
+      (defun column-number-at-pos (pos)
+        "Analog to line-number-at-pos."
+        (save-excursion (goto-char pos) (current-column)))
+
+      (defun selection-info ()
+        "String holding the number of columns in the selection
+         if it covers only one line, else number of lines in the selection"
+        (let* ((lines (count-lines (region-beginning) (region-end)))
+               (chars (- (region-end) (region-beginning))))
+          (number-to-string (if (> lines 1) lines chars)))
+        )
+
       (defun spacemacs/mode-line-prepare-right ()
         (let* ((active (powerline-selected-window-active))
                (line-face (if active 'mode-line 'mode-line-inactive))
@@ -2000,6 +2012,15 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                                     battery-face 'r)
                      (funcall separator-right battery-face face1))
              (list (funcall separator-right face2 face1)))
+           (if (use-region-p)
+               ;; selection info, if there is a selection.
+               (list
+                (powerline-raw " " face1)
+                (powerline-raw (selection-info) face1)
+                (powerline-raw " " face1)
+                (funcall separator-left face1 face2)
+                (powerline-raw " " face2)
+                (funcall separator-right face2 face1)))
            (list
             ;; row:column
             (powerline-raw " " face1)
