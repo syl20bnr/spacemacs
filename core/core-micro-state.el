@@ -78,6 +78,7 @@ used."
   (let* ((func (spacemacs//micro-state-func-name name))
          (doc (spacemacs/mplist-get props :doc))
          (persistent (plist-get props :persistent))
+         (exec-command (plist-get props :execute-command-on-enter))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
          (bindings (spacemacs/mplist-get props :bindings))
@@ -91,6 +92,8 @@ used."
                 (when doc
                   (lv-message (spacemacs//micro-state-propertize-doc
                                (format "%S: %s" ',name doc)))))
+              ,(when exec-command
+                 (spacemacs//micro-state-auto-execute bindings))
               ,@on-enter
               (,(if (version< emacs-version "24.4")
                     'set-temporary-overlay-map
@@ -103,6 +106,14 @@ used."
 (defun spacemacs//micro-state-func-name (name)
   "Return the name of the micro-state function."
   (intern (format "spacemacs/%S-micro-state" name)))
+
+(defun spacemacs//micro-state-auto-execute (bindings)
+  "Auto execute the binding corresponding to `this-command-keys'."
+  `(let* ((key (substring (this-command-keys)
+                          (1- (length (this-command-keys)))))
+          (binding (assoc key ',bindings)))
+     (when binding
+       (call-interactively (cadr binding)))))
 
 (defun spacemacs//micro-state-create-wrappers (name doc bindings)
   "Return an alist (key wrapper) for each binding in BINDINGS."
