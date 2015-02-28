@@ -1608,6 +1608,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         ("C-SPC" nil :exit t)
         ("C-@" nil :exit t)
         ("<RET>" ido-exit-minibuffer :exit t)
+        ("<escape>" nil :exit t)
         ("e" ido-select-text :exit t)
         ("h" ido-delete-backward-updir)
         ("j" ido-next-match)
