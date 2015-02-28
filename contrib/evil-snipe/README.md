@@ -19,7 +19,29 @@ The package [evil-snipe](https://github.com/hlissner/evil-snipe)
 - enables more efficient searches with `f/F/t/T`.
 - adds a new, more precise search with `s/S`
 
-### Improved f and t searches
+`evil-snipe` changes `s/S` behavior in order to search forward/backwards in the
+buffer with two chars.
+
+## Install
+
+### Layer
+
+To use this contribution add it to your `~/.spacemacs`
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(evil-snipe))
+```
+
+### Alternate behavior for `f/F` and `t/T`
+
+This alternate behavior is disabled by default, to enable it set the
+layer variable `evil-snipe-enable-alternate-f-and-t-behaviors` to `t`:
+
+```elisp
+(setq-default dotspacemacs-configuration-layers
+  '(evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t ))
+```
+
 Instead of repeating searches with `,/;` you can just press `f/t` again to
 continue the search (`F/T` to go the opposite direction). 
 
@@ -39,20 +61,6 @@ whole-visible    | same as 'visible, but highlight *all* visible matches in buff
 If you do not want to replace the regular `f/F/t/T` behavior, just
 remove this line from `evil-snipe/packages.el`:
 `(evil-snipe-replace-evil)`
-
-### Improved precision search
-
-Now you can press `s/S` to search forward/backwards in the buffer with two chars.
-This greatly improves the precision of the search and is much more useful than it
-might sound at first.
-
-## Install
-
-To use this contribution add it to your `~/.spacemacs`
-
-```elisp
-(setq-default dotspacemacs-configuration-layers '(evil-snipe))
-```
 
 ## Key bindings
 
