@@ -399,7 +399,7 @@ you can find it [here][themes-megapack].
 To install it, just add `themes-megapack` to your `~/.spacemacs` like so:
 
 ```elisp
-dotspacemacs-configuration-layers '(themes-megapack)
+(setq-default dotspacemacs-configuration-layers '(themes-megapack))
 ```
 
 You have now installed around 100 themes you are free to try with <kbd>SPC T h</kbd>
