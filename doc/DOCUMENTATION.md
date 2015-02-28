@@ -1295,7 +1295,7 @@ Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC f D</kbd>                        | delete a file and the associated buffer (ask for confirmation)
 <kbd>SPC f f</kbd>                        | open a file using `ido`
-<kbd>SPC f F</kbd>                        | open a file under point
+<kbd>SPC f F</kbd>                        | open a file under point using `helm`
 <kbd>SPC f j</kbd>                        | jump to the current buffer file in dired
 <kbd>SPC f o</kbd>                        | open a file using the default external program
 <kbd>SPC f s</kbd>                        | save a file
