@@ -727,8 +727,7 @@ which require an initialization must be listed explicitly in the list.")
       (kbd evil-leader/leader) evil-leader--default-map))
 
   (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode)
-  (add-to-hooks 'spacemacs/evil-state-lazy-loading '(prog-mode-hook
-                                                     markdown-mode-hook)))
+  (add-to-hooks 'spacemacs/evil-state-lazy-loading '(find-file-hook)))
 
 (defun spacemacs/init-evil-indent-textobject ()
   (use-package evil-indent-textobject))
