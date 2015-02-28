@@ -613,7 +613,10 @@ which require an initialization must be listed explicitly in the list.")
       (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
       ;; Make the current definition and/or comment visible.
       (define-key evil-normal-state-map "zf" 'reposition-window)
-      ;; quick navigation
+
+      (evil-leader/set-key "re" 'evil-show-registers)
+
+      ;; scrolling micro state
       (defun spacemacs/scroll-half-page-up ()
         "Scroll half a page up while keeping cursor in middle of page."
         (interactive)
@@ -628,8 +631,10 @@ which require an initialization must be listed explicitly in the list.")
         (evil-next-visual-line)
         (let ((recenter-redisplay nil))
           (recenter nil)))
-      (spacemacs|define-micro-state navagation
+      (spacemacs|define-micro-state scroll
         :doc "[,] page up [.] page down [<] half page up [>] half page down"
+        :execute-command-on-enter t
+        :evil-leader "n." "n," "n<" "n>"
         :bindings
         ;; page
         ("," evil-scroll-page-up)
@@ -637,8 +642,7 @@ which require an initialization must be listed explicitly in the list.")
         ;; half page
         ("<" spacemacs/scroll-half-page-up)
         (">" spacemacs/scroll-half-page-down))
-      (evil-leader/set-key "n." 'spacemacs/navagation-micro-state)
-      (evil-leader/set-key "re" 'evil-show-registers)
+
       ;; define text objects
       (defmacro spacemacs|define-and-bind-text-object (key name start-regex end-regex)
         (let ((inner-name (make-symbol (concat "evil-inner-" name)))
