@@ -2094,6 +2094,8 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
           "ph" 'helm-projectile
           "ps" 'projectile-switch-project))
       (evil-leader/set-key
+        "p!" 'projectile-run-shell-command-in-root
+        "p&" 'projectile-run-async-shell-command-in-root
         "pD" 'projectile-dired
         "pI" 'projectile-invalidate-cache
         "pk" 'projectile-kill-buffers

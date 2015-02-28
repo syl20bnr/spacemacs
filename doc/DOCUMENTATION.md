@@ -2016,6 +2016,8 @@ To search in a project see [project searching](#project-searching).
     Key Binding     |                 Description
 --------------------|------------------------------------------------------------
 <kbd>SPC p /</kbd>  | run `ag`
+<kbd>SPC p !</kbd>  | run shell command in root
+<kbd>SPC p &</kbd>  | run async shell command in root
 <kbd>SPC p a</kbd>  | run `ag`
 <kbd>SPC p A</kbd>  | run `ack`
 <kbd>SPC p b</kbd>  | switch to project buffer
