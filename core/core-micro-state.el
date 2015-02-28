@@ -78,7 +78,7 @@ used."
   (let* ((func (spacemacs//micro-state-func-name name))
          (doc (spacemacs/mplist-get props :doc))
          (persistent (plist-get props :persistent))
-         (exec-command (plist-get props :execute-command-on-enter))
+         (exec-binding (plist-get props :execute-binding-on-enter))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
          (bindings (spacemacs/mplist-get props :bindings))
@@ -92,7 +92,7 @@ used."
                 (when doc
                   (lv-message (spacemacs//micro-state-propertize-doc
                                (format "%S: %s" ',name doc)))))
-              ,(when exec-command
+              ,(when exec-binding
                  (spacemacs//micro-state-auto-execute bindings))
               ,@on-enter
               (,(if (version< emacs-version "24.4")
