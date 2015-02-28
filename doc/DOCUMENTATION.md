@@ -2020,7 +2020,7 @@ To search in a project see [project searching](#project-searching).
 <kbd>SPC p a</kbd>  | run `ag`
 <kbd>SPC p A</kbd>  | run `ack`
 <kbd>SPC p b</kbd>  | switch to project buffer
-<kbd>SPC p c</kbd>  | compile project
+<kbd>SPC p c</kbd>  | compile project using `projectile`
 <kbd>SPC p d</kbd>  | find directory
 <kbd>SPC p D</kbd>  | open project root in `dired`
 <kbd>SPC p f</kbd>  | find file
