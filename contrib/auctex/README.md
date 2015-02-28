@@ -26,16 +26,15 @@ Includes support for Auctex including some bindings, sane defaults, and manual l
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(auctex)
-  "List of contribution to load."
-)
+(setq-default dotspacemacs-configuration-layers '(auctex))
 ```
 
 ## Features
 
 ### Company Auctex
 
-Along with other things this layer includes company-auctex, it's only enabled if you also enable my other contrib layer `company-mode`.
+Along with other things this layer includes company-auctex, it's only enabled
+if you also enable my other contrib layer `company-mode`.
 
 ### Tags navigation
 
@@ -43,7 +42,10 @@ Tags navigation can be performed with key `%` thanks to [evil-matchit][].
 
 ### Previewing
 
-To perform full-document previews (that is, aside from the inline previewing under `SPC m p`), add the following to your `.spacemacs` under `dotspacemacs/config`. Then when you open up a compiled PDF, the preview will update automatically when you recompile.
+To perform full-document previews (that is, aside from the inline previewing
+under `SPC m p`), add the following to your `.spacemacs`
+under `dotspacemacs/config`. Then when you open up a compiled PDF, the preview
+will update automatically when you recompile.
 
 ```elisp
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
@@ -71,7 +73,8 @@ Key Binding         |                 Description
 
 ## Maintainer
 
-This layer was created by and is maintained by @trishume, ping me in the Gitter chat if you have questions. Feel free to submit
-PRs for this layer though if you have improvements.
+This layer was created by and is maintained by @trishume, ping me in the Gitter
+chat if you have questions. Feel free to submit PRs for this layer though if
+you have improvements.
 
 [evil-matchit]: https://github.com/redguardtoo/evil-matchit
