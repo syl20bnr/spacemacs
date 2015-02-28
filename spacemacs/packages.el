@@ -33,11 +33,13 @@
     evil
     evil-anzu
     evil-args
+    evil-escape
     evil-exchange
     evil-iedit-state
     evil-indent-textobject
     evil-jumper
     evil-leader
+    evil-lisp-state
     evil-nerd-commenter
     evil-matchit
     evil-numbers
@@ -705,6 +707,13 @@ which require an initialization must be listed explicitly in the list.")
       (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
       (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))))
 
+(defun spacemacs/init-evil-escape ()
+  (use-package evil-escape
+    :init
+    (evil-escape-mode)
+    :config
+    (spacemacs|hide-lighter evil-escape-mode)))
+
 (defun spacemacs/init-evil-exchange ()
   (use-package evil-exchange
     :init (evil-exchange-install)))
@@ -758,6 +767,11 @@ which require an initialization must be listed explicitly in the list.")
       (when dotspacemacs-major-mode-leader-key
         (add-hook 'after-change-major-mode-hook
                   'spacemacs/activate-major-mode-leader)))))
+
+(defun spacemacs/init-evil-lisp-state ()
+  (setq evil-lisp-state-global t)
+  (setq evil-lisp-state-leader-prefix "k")
+  (require 'evil-lisp-state))
 
 (defun spacemacs/init-evil-nerd-commenter ()
   (use-package evil-nerd-commenter
