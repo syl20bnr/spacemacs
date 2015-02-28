@@ -1372,9 +1372,8 @@ Key Binding           | Description
 `Spacemacs` provides a quick and simple way to navigate in an unknown project
 file tree with [NeoTree][neotree].
 
-To toggle the `NeoTree` buffer press:
-
-    <SPC> f t
+To toggle the `NeoTree` buffer press <kbd>SPC f t</kbd> or <kbd>SPC p t</kbd>
+(the latter open NeoTree with the root set to the projectile project root).
 
 The NeoTree window always has the number `0` so it does not shift the current
 number of the other windows. To select the NeoTree window you then use
@@ -2033,9 +2032,10 @@ To search in a project see [project searching](#project-searching).
 <kbd>SPC p R</kbd>  | regenerate the project's [e|g]tags
 <kbd>SPC p r</kbd>  | replace a string
 <kbd>SPC p s</kbd>  | switch project
-<kbd>SPC p t</kbd>  | find tags
+<kbd>SPC p t</kbd>  | open `NeoTree` in `projectile` root
 <kbd>SPC p T</kbd>  | find test files
 <kbd>SPC p v</kbd>  | open project root in `vc-dir` or `magit`
+<kbd>SPC p y</kbd>  | find tags
 
 ## Registers
 
