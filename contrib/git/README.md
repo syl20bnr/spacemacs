@@ -43,7 +43,7 @@ This layer also provides support for Github with:
 - [magit-gh-pulls][]: handy `magit` add-on to manage Github pull requests.
 - [gist.el][]: full-featured mode to browse and post Githug gists.
 
-New to Magit? Checkout the [official intro](https://magit.github.io/master/magit.html#Introduction)
+New to Magit? Checkout the [official intro][].
 
 ## Install
 
@@ -81,13 +81,14 @@ To display the `magit status` buffer in fullscreen set the variable
 
 Magit auto-complete feature is enabled. For this feature to work best you
 have to setup your Git repository directory in your `dotspacemacs/config`
-function, this is the folder where you keep all your git-controlled projects (the path should end up with a `/` to respect Emacs conventions):
+function, this is the folder where you keep all your git-controlled projects
+(the path should end up with a `/` to respect Emacs conventions):
 
 ```elisp
 (setq magit-repo-dirs '("~/repos/"))
 ```
 
-For more, see [Magit-User-Manual#Status](https://magit.github.io/master/magit.html#Status)
+For more information, see [Magit-User-Manual#Status][]
 
 ### Magit SVN plugin
 
@@ -314,6 +315,8 @@ In the gist list buffer:
 [download page]: http://git-scm.com/downloads
 [git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
 [magit]: http://magit.github.io/
+[official intro]: https://magit.github.io/master/magit.html#Introduction
+[Magit-User-Manual#Status]: https://magit.github.io/master/magit.html#Status
 [git-flow]: https://github.com/jtatarik/magit-gitflow
 [smeargle]: https://github.com/syohex/emacs-smeargle
 [git-timemachine]: https://github.com/pidu/git-timemachine
