@@ -43,6 +43,8 @@ This layer also provides support for Github with:
 - [magit-gh-pulls][]: handy `magit` add-on to manage Github pull requests.
 - [gist.el][]: full-featured mode to browse and post Githug gists.
 
+New to Magit? Checkout the [official intro](https://magit.github.io/master/magit.html#Introduction)
+
 ## Install
 
 ### Layer
@@ -79,11 +81,13 @@ To display the `magit status` buffer in fullscreen set the variable
 
 Magit auto-complete feature is enabled. For this feature to work best you
 have to setup your Git repository directory in your `dotspacemacs/config`
-function (the path should end up with a `/` to respect Emacs conventions):
+function, this is the folder where you keep all your git-controlled projects (the path should end up with a `/` to respect Emacs conventions):
 
 ```elisp
-(setq magit-repo-dirs '("~/git/"))
+(setq magit-repo-dirs '("~/repos/"))
 ```
+
+For more, see [Magit-User-Manual#Status](https://magit.github.io/master/magit.html#Status)
 
 ### Magit SVN plugin
 
