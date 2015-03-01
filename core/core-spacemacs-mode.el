@@ -61,10 +61,10 @@
 
 (define-derived-mode spacemacs-mode special-mode "Spacemacs"
   "Spacemacs major mode for startup screen."
+  :group 'spacemacs
   :syntax-table nil
   :abbrev-table nil
   (setq truncate-lines t)
-  (setq cursor-type nil)
   ;; motion state since this is a special mode
   (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
 
