@@ -2250,6 +2250,7 @@ Achievements                                         | Account
 [400th issue (PR)][400th-issue]                      | [CestDiego][]
 [500th issue (PR)][500th-issue]                      | [bjarkevad][]
 [600th issue (PR)][600th-issue]                      | [bjarkevad][]
+[700th issue (enhancement)][700th-issue]             | [jcpetkovich][]
 [100th pull request][100th-PR]                       | [bru][]
 [200th pull request][200th-PR]                       | [smt][]
 [300th pull request][300th-PR]                       | [BrianHicks][]
@@ -2360,6 +2361,7 @@ developers to elisp hackers!
 [400th-issue]: https://github.com/syl20bnr/spacemacs/pull/400
 [500th-issue]: https://github.com/syl20bnr/spacemacs/pull/500
 [600th-issue]: https://github.com/syl20bnr/spacemacs/pull/600
+[700th-issue]: https://github.com/syl20bnr/spacemacs/pull/700
 [100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [200th-PR]: https://github.com/syl20bnr/spacemacs/pull/418
 [300th-PR]: https://github.com/syl20bnr/spacemacs/pull/617
@@ -2368,6 +2370,8 @@ developers to elisp hackers!
 [danielwuz]:https://github.com/danielwuz
 [CestDiego]:https://github.com/CestDiego
 [bjarkevad]:https://github.com/bjarkevad
+[jcpetkovich]:https://github.com/jcpetkovich
+[BrianHicks]:https://github.com/BrianHicks
 [chrisbarrett]:https://github.com/chrisbarrett
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
