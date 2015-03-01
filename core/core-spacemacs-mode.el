@@ -17,6 +17,8 @@
 (require 'core-themes-support)
 (require 'core-fonts-support)
 (require 'core-spacemacs-buffer)
+(require 'core-toggle)
+(require 'core-micro-state)
 
 (defconst spacemacs-repository "spacemacs"
   "Name of the Spacemacs remote repository.")
@@ -66,12 +68,9 @@
   ;; motion state since this is a special mode
   (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
 
-(defun spacemacs/initialize ()
+(defun spacemacs/init ()
   "Create the special buffer for `spacemacs-mode' and perform startup
 initialization."
-  (require 'core-toggle)
-  (require 'core-micro-state)
-  (dotspacemacs/load)
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
@@ -195,20 +194,22 @@ found."
   (message "Start checking for new version...")
   (async-start
    (lambda ()
-     (add-to-list 'load-path (concat user-emacs-directory "core/"))
+     (load-file (concat user-emacs-directory "core/core-load-paths.el"))
      (require 'core-spacemacs-mode)
      (spacemacs/get-last-version spacemacs-repository
                                  spacemacs-repository-owner
                                  spacemacs-checkversion-remote
                                  spacemacs-checkversion-branch))
    (lambda (result)
-     (when result
-       (unless (or (version< result spacemacs-version)
-                   (string= result spacemacs-version)
-                   (if spacemacs-new-version
-                       (string= result spacemacs-new-version)))
-         (message "New version of Spacemacs available: %s" result)
-         (setq spacemacs-new-version result)))))
+     (if result
+         (if (or (version< result spacemacs-version)
+                 (string= result spacemacs-version)
+                 (if spacemacs-new-version
+                     (string= result spacemacs-new-version)))
+             (message "Spacemacs is up to date.")
+           (message "New version of Spacemacs available: %s" result)
+           (setq spacemacs-new-version result))
+       (message "Unable to check for new version."))))
   (when interval
     (setq spacemacs-version-check-timer
           (run-at-time t (timer-duration interval)

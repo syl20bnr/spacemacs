@@ -172,7 +172,7 @@ for that layer."
           (push (cons (intern f) dir) result)))
       result)))
 
-(defun configuration-layer/declare-layers ()
+(defun configuration-layer/init-layers ()
   "Declare default layers and user layers from the dotfile by filling the
 `configuration-layer-layers' variable."
   (setq configuration-layer-paths (configuration-layer//discover-layers))
@@ -785,7 +785,7 @@ deleted safely."
    (lambda ()
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file
-     (dotspacemacs|call-func dotspacemacs/config "Executing user config...")
+     (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
      (when dotspacemacs-loading-progress-bar
        (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text)))
      ;; from jwiegley

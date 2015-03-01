@@ -67,9 +67,6 @@ with `:' and Emacs commands are executed with `<leader> :'.")
 may increase the boot time on some systems and emacs builds, set it to nil
 to boost the loading time.")
 
-(defvar dotspacemacs-helm-micro-state t
-  "Enable micro-state for helm buffer when pressing on TAB.")
-
 (defvar dotspacemacs-fullscreen-at-startup nil
   "If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).")
 
@@ -136,7 +133,7 @@ before installing the file if the destination already exists."
                          ".spacemacs.template") dotfile t)
       (message "%s has been installed." dotfile))))
 
-(defun dotspacemacs/load ()
+(defun dotspacemacs/load-file ()
   "Load ~/.spacemacs if it exists."
   (let ((dotspacemacs (dotspacemacs/location)))
     (if (file-exists-p dotspacemacs) (load dotspacemacs))))
