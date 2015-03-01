@@ -115,6 +115,11 @@ NOT USED FOR NOW :-)")
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")
 
+(define-derived-mode dotspacemacs-mode emacs-lisp-mode "dotspacemacs"
+  "dotspacemacs major mode for Spacemacs dotfile."
+  :group 'spacemacs
+  )
+
 (defun dotspacemacs/location ()
   "Return the absolute path to the spacemacs dotfile."
   (concat user-home-directory ".spacemacs"))
@@ -124,10 +129,11 @@ NOT USED FOR NOW :-)")
 before installing the file if the destination already exists."
   (interactive)
   (let* ((dotfile "~/.spacemacs")
-         (install (if (file-exists-p dotfile)
-                      (y-or-n-p (format "%s already exists. Do you want to overwite it ? "
-                                        dotfile))
-                    t)))
+         (install
+          (if (file-exists-p dotfile)
+              (y-or-n-p
+               (format "%s already exists. Do you want to overwite it ? "
+                       dotfile)) t)))
     (when install
       (copy-file (concat dotspacemacs-template-directory
                          ".spacemacs.template") dotfile t)
