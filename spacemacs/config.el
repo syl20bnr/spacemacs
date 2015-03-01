@@ -225,6 +225,8 @@ Can be installed with `brew install trash'."
 
 ;; keep buffers opened when leaving an emacs client
 (setq server-kill-new-buffers nil)
+;; Kill magit temp buffers when done with them
+(setq server-temp-file-regexp "^/tmp/Re\\|/draft\\|COMMIT_EDITMSG$")
 ;; increase memory threshold for GC
 (setq gc-cons-threshold 20000000)
 
