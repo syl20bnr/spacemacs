@@ -18,13 +18,9 @@
     ghc
     haskell-mode
     hi2
+    hindent
+    shm
     ))
-
-(when haskell-enable-shm-support
-  (add-to-list 'haskell-packages 'shm))
-
-(when haskell-enable-hindent-support
-  (add-to-list 'haskell-packages 'hindent))
 
 (defun haskell/init-flycheck ()
   ;;(add-hook 'haskell-mode-hook 'flycheck-mode))
