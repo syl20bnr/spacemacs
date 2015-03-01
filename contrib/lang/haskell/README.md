@@ -110,12 +110,24 @@ Once ghci-ng is enabled, two of the old keybindings are overriden with improved 
 <kbd>SPC m u</kbd>    | finds uses of identifier
 
 #### structured-haskell-mode
-[structured-haskell-mode][], or shm, replaces hi2 and adds some nice functionality.
+[structured-haskell-mode][], or shm, replaces hi2 (and any other Haskell-indentation modes) and adds some nice functionality.
 To enable shm, run `cabal install structured-haskell-mode` and set the layer variable:
 ```elisp
 ;; List of configuration layers to load.
 dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-enable-shm-support t) git)
 ```
+After shm has been enabled, some of the evil normal-mode bindings are overridden:
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>D</kbd>          | `shm/kill-line`
+<kbd>R</kbd>          | `shm/raise`
+<kbd>P</kbd>          | `shm/yank`
+<kbd>(</kbd>          | `shm/forward-node`
+<kbd>)</kbd>          | `shm/backward-node`
+
+For a nice visualization of these functions, please refer to the github page for [structured-haskell-mode][].
+
 #### hindent
 [hindent]() is an extensible Haskell pretty printer, which let's you
 reformat your code. You need to install the executable with `cabal
