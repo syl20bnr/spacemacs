@@ -229,7 +229,6 @@
   "w2"  'layout-double-columns
   "w3"  'layout-triple-columns
   "wb"  'switch-to-minibuffer-window
-  "wc"  'delete-window
   "wC"  'delete-other-windows
   "wd"  'toggle-current-window-dedication
   "wH"  'evil-window-move-far-left
@@ -241,10 +240,8 @@
   "wL"  'evil-window-move-far-right
   "wl"  'evil-window-right
   "wM"  'toggle-maximize-centered-buffer
-  "wm"  'toggle-maximize-buffer
   "wo"  'other-frame
   "wR"  'rotate-windows
-  ;; "wv"  'evenly-split-window-below)
   "ws"  'split-window-below
   "wS"  'split-window-below-and-focus
   "w-"  'split-window-below
@@ -252,8 +249,12 @@
   "wu"  'winner-undo
   "wv"  'split-window-right
   "wV"  'split-window-right-and-focus
-  "w/"  'split-window-right
-  "ww"  'other-window)
+  "w/"  'split-window-right)
+(unless (configuration-layer/package-declaredp 'ace-window)
+  (evil-leader/set-key
+    "wc" 'delete-window
+    "wm" 'toggle-maximize-buffer
+    "ww" 'other-window))
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
   "zx="  'spacemacs/reset-font-size
