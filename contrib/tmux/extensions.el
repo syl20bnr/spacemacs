@@ -1,5 +1,5 @@
-(defvar evil-tmux-navigator-post-extensions '(evil-tmux-navigator))
+(defvar tmux-post-extensions '(tmux))
 
-(defun evil-tmux-navigator/init-evil-tmux-navigator ()
-  "Initialize evil-tmux-navigator"
-  (use-package evil-tmux-navigator))
+(defun tmux/init-tmux ()
+  "Initialize tmux"
+  (use-package tmux))
