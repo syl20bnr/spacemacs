@@ -61,11 +61,12 @@ refer to the `geeknote.el` [documentation][geeknote.el].
 
 Key Binding           |                 Description
 ----------------------|------------------------------------------------
-<kbd>SPC a g c</kbd>  | create a new note
-<kbd>SPC a g e</kbd>  | edit an existing note
-<kbd>SPC a g f</kbd>  | find a note using a keyword
-<kbd>SPC a g s</kbd>  | show an existing note
-<kbd>SPC a g r</kbd>  | remove an existing note
+<kbd>SPC a e c</kbd>  | create a new note
+<kbd>SPC a e e</kbd>  | edit an existing note
+<kbd>SPC a e f</kbd>  | find a note using a keyword
+<kbd>SPC a e s</kbd>  | show an existing note
+<kbd>SPC a e r</kbd>  | remove an existing note
+<kbd>SPC a e m</kbd>  | move a note to a different notebook
 
 [Evernote]: https://evernote.com/
 [geeknote]: http://www.geeknote.me
