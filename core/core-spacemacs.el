@@ -1,4 +1,4 @@
-;;; core-spacemacs-mode.el --- Spacemacs Core File
+;;; core-spacemacs.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -71,6 +71,10 @@
 (defun spacemacs/init ()
   "Create the special buffer for `spacemacs-mode' and perform startup
 initialization."
+  ;; dotfile init
+  (dotspacemacs/load-file)
+  (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
+  ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
@@ -195,7 +199,7 @@ found."
   (async-start
    (lambda ()
      (load-file (concat user-emacs-directory "core/core-load-paths.el"))
-     (require 'core-spacemacs-mode)
+     (require 'core-spacemacs)
      (spacemacs/get-last-version spacemacs-repository
                                  spacemacs-repository-owner
                                  spacemacs-checkversion-remote
@@ -314,4 +318,24 @@ version and the NEW version."
      ((< diff 5000) 'spacemacs-mode-line-new-version-lighter-warning-face)
      (t 'spacemacs-mode-line-new-version-lighter-error-face))))
 
-(provide 'core-spacemacs-mode)
+(defun spacemacs/setup-after-init-hook ()
+  "Add post init processing."
+  (add-hook
+   'after-init-hook
+   (lambda ()
+     ;; Ultimate configuration decisions are given to the user who can defined
+     ;; them in his/her ~/.spacemacs file
+     (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
+     (when dotspacemacs-loading-progress-bar
+       (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text)))
+     ;; from jwiegley
+     ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
+     (let ((elapsed (float-time
+                     (time-subtract (current-time) emacs-start-time))))
+       (spacemacs/append-to-buffer
+        (format "[%s packages loaded in %.3fs]\n"
+                (configuration-layer//initialized-packages-count)
+                elapsed)))
+     (spacemacs/check-for-new-version spacemacs-version-check-interval))))
+
+(provide 'core-spacemacs)
