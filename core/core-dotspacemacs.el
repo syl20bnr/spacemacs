@@ -125,7 +125,10 @@ NOT USED FOR NOW :-)")
   "dotspacemacs major mode for Spacemacs dotfile.
 
 \\{dotspacemacs-mode-map}"
-  :group 'spacemacs)
+  :group 'spacemacs
+  (run-at-time
+   "2 sec" nil
+   (lambda () (message "C-c C-c to apply your changes."))))
 
 (defun dotspacemacs/sync-configuration-layers ()
   "Synchronize declared layers in dotfile with spacemacs."
