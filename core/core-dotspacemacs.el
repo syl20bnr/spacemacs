@@ -137,7 +137,7 @@ If ARG is non nil then `dotspacemacs/config' is skipped."
   (interactive "P")
   (let ((dotspacemacs-loading-progress-bar nil))
     (load-file buffer-file-name)
-    (dotspacemacs|call-func dotspacemacs/config "Calling dotfile init...")
+    (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
     (configuration-layer/sync)
     (if arg
         (message "Done (`dotspacemacs/config' function has been skipped).")
