@@ -126,9 +126,11 @@ NOT USED FOR NOW :-)")
 
 \\{dotspacemacs-mode-map}"
   :group 'spacemacs
+  (evil-leader/set-key-for-mode 'dotspacemacs-mode
+    "mcc" 'dotspacemacs/sync-configuration-layers)
   (run-at-time
    "2 sec" nil
-   (lambda () (message "C-c C-c to apply your changes."))))
+   (lambda () (message "SPC m c c (or C-c C-c) to apply your changes."))))
 
 (defun dotspacemacs/sync-configuration-layers (arg)
   "Synchronize declared layers in dotfile with spacemacs.
