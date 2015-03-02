@@ -91,7 +91,6 @@ sub-directory of the contribution directory.")
 
 (defun configuration-layer/sync ()
   "Synchronize declared layers in dotfile with spacemacs."
-  (interactive)
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   (configuration-layer/init-layers)
   (configuration-layer/load-layers)
@@ -127,7 +126,6 @@ NAME."
                      (format "%s.template" template)))
         (dest (concat (configuration-layer//get-private-layer-dir name)
                       (format "%s.el" template))))
-    
     (copy-file src dest)
     (find-file dest)
     (save-excursion
@@ -187,12 +185,13 @@ for that layer."
   (setq configuration-layer-paths (configuration-layer//discover-layers))
   (if (eq 'all dotspacemacs-configuration-layers)
       (setq dotspacemacs-configuration-layers
+            ;; spacemacs is contained in configuration-layer-paths
             (ht-keys configuration-layer-paths))
-    (push (configuration-layer//declare-layer 'spacemacs)
-          configuration-layer-layers))
-  (mapc (lambda (layer) (push layer configuration-layer-layers))
-        (configuration-layer//declare-layers
-         dotspacemacs-configuration-layers)))
+    (setq configuration-layer-layers
+          (list (configuration-layer//declare-layer 'spacemacs))))
+  (setq configuration-layer-layers
+        (append (configuration-layer//declare-layers
+                 dotspacemacs-configuration-layers) configuration-layer-layers)))
 
 (defun configuration-layer//declare-layers (layers)
   "Declare the passed configuration LAYERS.
@@ -295,7 +294,7 @@ the following keys:
            (dir (plist-get (cdr layer) :dir)))
       (dolist (file files)
         (let ((file (concat dir file)))
-          (if (file-exists-p file) (configuration-layer/load-file file)))))))
+          (if (file-exists-p file) (load file)))))))
 
 (defsubst configuration-layer//add-layer-to-hash (pkg layer hash)
   "Add LAYER to the list value stored in HASH with key PKG."
