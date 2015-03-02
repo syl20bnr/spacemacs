@@ -24,14 +24,50 @@
 
 (defun haskell/init-flycheck ()
   ;;(add-hook 'haskell-mode-hook 'flycheck-mode))
-  (add-hook 'flycheck-mode-hook 'flycheck-haskell-setup))
+  (add-hook 'flycheck-mode-hook 'flycheck-haskell-setup)
+  (setq flycheck-display-errors-delay 0)
+  )
 
 (defun haskell/init-shm ()
   (use-package shm
     :defer t
     :if haskell-enable-shm-support
     :init
-    (add-hook 'haskell-mode-hook 'structured-haskell-mode)))
+    (add-hook 'haskell-mode-hook 'structured-haskell-mode)
+    :config
+    (progn
+      (when (require 'shm-case-split nil 'noerror)
+        ;;TODO: Find some better bindings for case-splits
+        (define-key shm-map (kbd "C-c S") 'shm/case-split)
+        (define-key shm-map (kbd "C-c C-s") 'shm/do-case-split))
+
+      (evil-define-key 'normal shm-map
+        (kbd "RET") nil
+        (kbd "C-k") nil
+        (kbd "C-j") nil
+        (kbd "D") 'shm/kill-line
+        (kbd "R") 'shm/raise
+        (kbd "P") 'shm/yank
+        (kbd "RET") 'shm/newline-indent
+        (kbd "RET") 'shm/newline-indent
+        (kbd "M-RET") 'evil-ret
+        )
+
+      (evil-define-key 'operator map
+        (kbd ")") 'shm/forward-node
+        (kbd "(") 'shm/backward-node
+        )
+
+      (evil-define-key 'motion map
+        (kbd ")") 'shm/forward-node
+        (kbd "(") 'shm/backward-node
+        )
+
+      (define-key shm-map (kbd "C-j") nil)
+      (define-key shm-map (kbd "C-k") nil)
+      )
+    )
+  )
 
 (defun haskell/init-hindent ()
   (use-package hindent
@@ -41,6 +77,7 @@
     (add-hook 'haskell-mode-hook #'hindent-mode)
     :config
     (progn
+      (setq hindent-style "chris-done")
       (evil-leader/set-key-for-mode 'haskell-mode
         "mF"   'hindent/reformat-decl))))
 
@@ -161,18 +198,7 @@
         (if (not haskell-enable-shm-support)
             (turn-on-haskell-indentation)
           )
-
-        ;; Indent the below lines on columns after the current column.
-        ;; Might need better bindings for spacemacs and OS X
-        (define-key haskell-mode-map (kbd "C-<right>")
-          (lambda ()
-            (interactive)
-            (haskell-move-nested 1)))
-        ;; Same as above but backwards.
-        (define-key haskell-mode-map (kbd "C-<left>")
-          (lambda ()
-            (interactive)
-            (haskell-move-nested -1))))
+        )
 
       ;; Useful to have these keybindings for .cabal files, too.
       (defun haskell-cabal-hook ()
