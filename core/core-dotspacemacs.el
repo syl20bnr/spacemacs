@@ -138,6 +138,7 @@ synchronization."
   (interactive "P")
   (let ((dotspacemacs-loading-progress-bar nil))
     (load-file buffer-file-name)
+    (dotspacemacs|call-func dotspacemacs/config "Calling dotfile init...")
     (configuration-layer/sync)
     (if arg
         (progn
