@@ -2155,7 +2155,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                                           "projectile.cache"))
       (setq projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
-      (unless (boundp spacemacs-use-helm-projectile)
+      (unless (boundp 'spacemacs-use-helm-projectile)
         (evil-leader/set-key
           "pa" 'projectile-ack
           "pA" 'projectile-ag
