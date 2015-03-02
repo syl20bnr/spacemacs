@@ -2301,7 +2301,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
   ;; this is not a conventional package
   ;; no require are needed for this package everything is auto-loaded
   (if dotspacemacs-smooth-scrolling
-      (setq scroll-margin 5
+      (setq smooth-scroll-margin 5
             scroll-conservatively 9999
             scroll-step 1)
     ;; deactivate the defadvice's
