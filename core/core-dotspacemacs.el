@@ -130,12 +130,20 @@ NOT USED FOR NOW :-)")
    "2 sec" nil
    (lambda () (message "C-c C-c to apply your changes."))))
 
-(defun dotspacemacs/sync-configuration-layers ()
-  "Synchronize declared layers in dotfile with spacemacs."
-  (interactive)
+(defun dotspacemacs/sync-configuration-layers (arg)
+  "Synchronize declared layers in dotfile with spacemacs.
+
+If ARG is non nil then `dotspacemacs/config' is called at the end of the
+synchronization."
+  (interactive "P")
   (let ((dotspacemacs-loading-progress-bar nil))
     (load-file buffer-file-name)
-    (configuration-layer/sync)))
+    (configuration-layer/sync)
+    (if arg
+        (progn
+          (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
+          (message "Done (`dotspacemacs/config' function has been called)."))
+      (message "Done."))))
 
 (defun dotspacemacs/location ()
   "Return the absolute path to the spacemacs dotfile."
