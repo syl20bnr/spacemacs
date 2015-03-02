@@ -89,6 +89,15 @@ sub-directory of the contribution directory.")
 (defvar configuration-layer--loaded-files '()
   "List of loaded files.")
 
+(defun configuration-layer/sync ()
+  "Synchronize declared layers in dotfile with spacemacs."
+  (interactive)
+  (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
+  (configuration-layer/init-layers)
+  (configuration-layer/load-layers)
+  (when dotspacemacs-delete-orphan-packages
+    (configuration-layer/delete-orphan-packages)))
+
 (defun configuration-layer/create-layer (name)
   "Ask the user for a configuration layer name and create a layer with this
 name in the private layers directory."
@@ -777,25 +786,5 @@ deleted safely."
             (spacemacs//redisplay))
           (spacemacs/append-to-buffer "\n"))
       (spacemacs/message "No orphan package to delete."))))
-
-(defun configuration-layer/setup-after-init-hook ()
-  "Add post init processing."
-  (add-hook
-   'after-init-hook
-   (lambda ()
-     ;; Ultimate configuration decisions are given to the user who can defined
-     ;; them in his/her ~/.spacemacs file
-     (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
-     (when dotspacemacs-loading-progress-bar
-       (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text)))
-     ;; from jwiegley
-     ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
-     (let ((elapsed (float-time
-                     (time-subtract (current-time) emacs-start-time))))
-       (spacemacs/append-to-buffer
-        (format "[%s packages loaded in %.3fs]\n"
-                (configuration-layer//initialized-packages-count)
-                elapsed)))
-     (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
 (provide 'core-configuration-layer)

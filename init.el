@@ -17,19 +17,10 @@
 
 (when (spacemacs/emacs-version-ok)
   (load-file (concat user-emacs-directory "core/core-load-paths.el"))
-  (require 'core-spacemacs-mode)
+  (require 'core-spacemacs)
   (require 'core-configuration-layer)
-  (dotspacemacs/load-file)
-  ;; initialization
-  (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   (spacemacs/init)
-  ;; layers configuration
-  (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-  (configuration-layer/init-layers)
-  (configuration-layer/load-layers)
-  (when dotspacemacs-delete-orphan-packages
-    (configuration-layer/delete-orphan-packages))
-  ;; post initialization
-  (configuration-layer/setup-after-init-hook)
+  (configuration-layer/sync)
+  (spacemacs/setup-after-init-hook)
   (require 'server)
   (unless (server-running-p) (server-start)))

@@ -10,8 +10,8 @@
 ;;
 ;;; License: GPLv3
 (require 'mocker)
-(require 'core-spacemacs-mode)
- 
+(require 'core-spacemacs)
+
 (ert-deftest assertion-library-should-work ()
   "the assertion library should works"
   (mocker-let ((foo (n)
@@ -20,11 +20,11 @@
                     ((:input '(2 2) :output 2))))
               (should (equal (foo 1) 1))
               (should (equal (bar 2 2) 2))))
- 
+
 (ert-deftest git-has-remote ()
   (should (equal (spacemacs/git-has-remote "clearly-not-a-R3M0T3!") nil))
   (should (numberp (spacemacs/git-has-remote "origin"))))
- 
+
 (ert-deftest git-fetch-tags ()
   (mocker-let ((process-file (git infile buffer display action &rest args)
                              :ordered nil

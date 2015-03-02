@@ -117,8 +117,7 @@ NOT USED FOR NOW :-)")
 
 (define-derived-mode dotspacemacs-mode emacs-lisp-mode "dotspacemacs"
   "dotspacemacs major mode for Spacemacs dotfile."
-  :group 'spacemacs
-  )
+  :group 'spacemacs)
 
 (defun dotspacemacs/location ()
   "Return the absolute path to the spacemacs dotfile."

@@ -32,7 +32,7 @@ func_tests:
 	@echo "-----------------------------------------------------------------"
 	@emacs -batch -l ert  \
     -l $(EMACS_DIR)core/core-load-paths.el  \
-    -l $(TEST_DIR)core-spacemacs-mode-ftest.el  \
+    -l $(TEST_DIR)core-spacemacs-ftest.el  \
     -f ert-run-tests-batch-and-exit
 
 
