@@ -67,8 +67,10 @@
   "Declare a prefix PREFIX. PREFIX is a string describing
 a key sequence. NAME is a symbol name used as the prefix command."
   (let ((command (intern (concat spacemacs/prefix-command-string name))))
-    (define-prefix-command command)
-    (evil-leader/set-key prefix command)))
+    ;; define the prefix command only if it does not already exist
+    (unless (lookup-key evil-leader--default-map prefix)
+      (define-prefix-command command)
+      (evil-leader/set-key prefix command))))
 
 ;; Waiting to fix the issue with guide-key before reactivating/updating this
 ;; function
