@@ -133,17 +133,15 @@ NOT USED FOR NOW :-)")
 (defun dotspacemacs/sync-configuration-layers (arg)
   "Synchronize declared layers in dotfile with spacemacs.
 
-If ARG is non nil then `dotspacemacs/config' is called at the end of the
-synchronization."
+If ARG is non nil then `dotspacemacs/config' is skipped."
   (interactive "P")
   (let ((dotspacemacs-loading-progress-bar nil))
     (load-file buffer-file-name)
     (dotspacemacs|call-func dotspacemacs/config "Calling dotfile init...")
     (configuration-layer/sync)
     (if arg
-        (progn
-          (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
-          (message "Done (`dotspacemacs/config' function has been called)."))
+        (message "Done (`dotspacemacs/config' function has been skipped).")
+      (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
       (message "Done."))))
 
 (defun dotspacemacs/location ()
