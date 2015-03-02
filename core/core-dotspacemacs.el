@@ -115,9 +115,24 @@ NOT USED FOR NOW :-)")
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")
 
+(defvar dotspacemacs-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-c") 'dotspacemacs/sync-configuration-layers)
+    map)
+  "Keymap for dostpacemacs-mode.")
+
 (define-derived-mode dotspacemacs-mode emacs-lisp-mode "dotspacemacs"
-  "dotspacemacs major mode for Spacemacs dotfile."
+  "dotspacemacs major mode for Spacemacs dotfile.
+
+\\{dotspacemacs-mode-map}"
   :group 'spacemacs)
+
+(defun dotspacemacs/sync-configuration-layers ()
+  "Synchronize declared layers in dotfile with spacemacs."
+  (interactive)
+  (let ((dotspacemacs-loading-progress-bar nil))
+    (load-file buffer-file-name)
+    (configuration-layer/sync)))
 
 (defun dotspacemacs/location ()
   "Return the absolute path to the spacemacs dotfile."
