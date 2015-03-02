@@ -17,6 +17,7 @@
     flycheck-haskell
     ghc
     haskell-mode
+    hindent
     hi2
     shm
     ))
@@ -219,3 +220,11 @@
       (add-hook 'evil-normal-state-entry-hook 'spacemacs/haskell-hide-hi2-guides)
       (add-hook 'evil-insert-state-entry-hook 'spacemacs/haskell-show-hi2-guides)
       (add-hook 'evil-insert-state-exit-hook  'spacemacs/haskell-hide-hi2-guides))))
+
+(defun haskell/init-hindent ()
+  (use-package hindent
+    :if (haskell-enable-hindent-support)
+    :init
+    (progn
+      (custom-set-variables
+       '(hindent-style haskell-hindent-style))))) 

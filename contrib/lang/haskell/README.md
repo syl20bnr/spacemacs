@@ -116,6 +116,15 @@ To enable shm, run `cabal install structured-haskell-mode` and set the layer var
 dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-enable-shm-support t) git)
 ```
 
+#### hindent support
+To enable `hindent`, run `cabal install hindent` and set the layer variables:
+```elisp
+;; List of configuration layers to load.
+dotspacemacs-configuration-layers '(company-mode (haskell :variables
+                                                          haskell-enable-hindent-support t
+                                                          haskell-hindent-style "johan-tibell") git)
+```
+
 ## Key bindings
 
 All Haskell specific bindings are prefixed with <kbd>SPC m</kbd>
