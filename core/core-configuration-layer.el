@@ -86,9 +86,6 @@ sub-directory of the contribution directory.")
 (defvar configuration-layer-excluded-packages '()
   "List of all excluded packages declared at the layer level.")
 
-(defvar configuration-layer--loaded-files '()
-  "List of loaded files.")
-
 (defun configuration-layer/sync ()
   "Synchronize declared layers in dotfile with spacemacs."
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
@@ -323,12 +320,6 @@ the following keys:
   "Return a sorted list of the keys in the given hash table H."
   (mapcar 'intern (sort (mapcar 'symbol-name (ht-keys h)) 'string<)))
 
-(defun configuration-layer/load-file (file)
-  "Assure that FILE is loaded only once."
-  (unless (member file configuration-layer--loaded-files)
-    (load file)
-    (push file configuration-layer--loaded-files)))
-
 (defun configuration-layer/get-excluded-packages (layers)
   "Read `layer-excluded-packages' lists for all passed LAYERS and return a list
 of all excluded packages."
@@ -338,7 +329,7 @@ of all excluded packages."
              (dir (plist-get (cdr layer) :dir))
              (pkg-file (concat dir "packages.el")))
         (when (file-exists-p pkg-file)
-          (configuration-layer/load-file pkg-file)
+          (load pkg-file)
           (let ((excl-var (intern (format "%s-excluded-packages"
                                           (symbol-name layer-sym)))))
             (when (boundp excl-var)
@@ -357,7 +348,7 @@ VAR is a string with value `packages', `pre-extensions' or `post-extensions'."
              (dir (plist-get (cdr layer) :dir))
              (pkg-file (concat dir (format "%s.el" file))))
         (when (file-exists-p pkg-file)
-          (configuration-layer/load-file pkg-file)
+          (load pkg-file)
           (let* ((layer-name (symbol-name layer-sym))
                  (packages-var (intern (format "%s-%s" layer-name var))))
             (when (boundp packages-var)
