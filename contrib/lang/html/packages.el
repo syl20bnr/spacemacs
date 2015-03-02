@@ -37,6 +37,50 @@ which require an initialization must be listed explicitly in the list.")
 (defun html/init-web-mode ()
   (use-package web-mode
     :defer t
+    :config
+    (progn
+
+      (defun web-mode-micro-state-doc ()
+        "Full documentation for web mode micro-state."
+        "
+  [?] display this help
+  [h] previous [l] next   [L] sibling [k] parent [j] child
+  [c] clone    [d] delete [r] rename  [w] wrap   [p] xpath
+  [q] quit")
+
+      (evil-leader/set-key-for-mode 'web-mode
+        "mgp" 'web-mode-element-parent
+        "mgc" 'web-mode-element-child
+        "mgb" 'web-mode-element-beginning
+        "m." 'spacemacs/web-mode-micro-state
+        "mgs" 'web-mode-element-sibling-next
+        "mhp" 'web-mode-dom-xpath
+        "meu" 'web-mode-dom-errors-show
+        "mrr" 'web-mode-element-rename
+        "mrd" 'web-mode-element-vanish
+        "mrw" 'web-mode-element-wrap
+        "mrc" 'web-mode-element-clone
+        "mf" 'web-mode-fold-or-unfold
+        ;; TODO element close would be nice but broken with evil.
+        )
+
+      (spacemacs|define-micro-state web-mode
+        :doc "[?] for help"
+        :persistent t
+        :bindings
+        ("?" nil :doc (web-mode-micro-state-doc))
+        ("h" web-mode-element-previous)
+        ("l" web-mode-element-next)
+        ("L" web-mode-element-sibling-next)
+        ("k" web-mode-element-parent)
+        ("j" web-mode-element-child)
+        ("p" web-mode-dom-xpath)
+        ("r" web-mode-element-rename)
+        ("d" web-mode-element-vanish)
+        ("w" web-mode-element-wrap)
+        ("c" web-mode-element-clone)
+        ("q" nil :exit t))
+      )
     :mode (("\\.phtml\\'"      . web-mode)
            ("\\.tpl\\.php\\'"  . web-mode)
            ("\\.html\\'"       . web-mode)
