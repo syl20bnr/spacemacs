@@ -1499,8 +1499,8 @@ which require an initialization must be listed explicitly in the list.")
         "hgc" 'hl-unhighlight-all-global
         "hgh" 'hl-highlight-thingatpt-global
         "hh"  'hl-highlight-thingatpt-local
-        "hn"  'hl-find-thing-forwardly
-        "hN"  'hl-find-thing-backwardly
+        "hn"  'hl-find-next-thing
+        "hN"  'hl-find-prev-thing
         "hp"  'hl-paren-mode
         "hr"  'hl-restore-highlights
         "hs"  'hl-save-highlights))
