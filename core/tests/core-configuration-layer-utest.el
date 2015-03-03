@@ -16,15 +16,15 @@
 ;; configuration-layer//declare-layers
 ;; ---------------------------------------------------------------------------
 
-(ert-deftest test-declare-layers--result-order-is-reversed ()
+(ert-deftest test-declare-layers--result-order-is-not-reversed ()
   (mocker-let ((configuration-layer//declare-layer
                 (x)
-                ((:input '(layer1) :output 'layer1)
+                ((:input '(layer3) :output 'layer3)
                  (:input '(layer2) :output 'layer2)
-                 (:input '(layer3) :output 'layer3))))
+                 (:input '(layer1) :output 'layer1))))
     (let* ((input '(layer1 layer2 layer3))
            (result (configuration-layer//declare-layers input)))
-      (should (equal (reverse result) input)))))
+      (should (equal result input)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//declare-layer
