@@ -9,7 +9,7 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(defconst spacemacs-version           "0.63.0" "Spacemacs version.")
+(defconst spacemacs-version           "0.64.0" "Spacemacs version.")
 (defconst spacemacs-emacs-min-version   "24.3" "Minimal version of Emacs.")
 
 (defun spacemacs/emacs-version-ok ()
@@ -17,16 +17,10 @@
 
 (when (spacemacs/emacs-version-ok)
   (load-file (concat user-emacs-directory "core/core-load-paths.el"))
-  (require 'core-spacemacs-mode)
+  (require 'core-spacemacs)
   (require 'core-configuration-layer)
-  (spacemacs/initialize)
-  ;; synchronize and load configuration layers
-  (configuration-layer/declare-layers)
-  (configuration-layer/load-layers)
-  (when dotspacemacs-delete-orphan-packages
-    (configuration-layer/delete-orphan-packages))
-  (configuration-layer/setup-after-init-hook)
-  ;; start a server for subsequent emacs clients
+  (spacemacs/init)
+  (configuration-layer/sync)
+  (spacemacs/setup-after-init-hook)
   (require 'server)
-  (unless (server-running-p)
-    (server-start)))
+  (unless (server-running-p) (server-start)))

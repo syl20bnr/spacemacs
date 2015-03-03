@@ -27,6 +27,7 @@ which require an initialization must be listed explicitly in the list.")
                geeknote-find
                geeknote-show
                geeknote-remove
+               geeknote-move
                )
     :init
     (progn
@@ -35,4 +36,5 @@ which require an initialization must be listed explicitly in the list.")
         "aee" 'geeknote-edit
         "aef" 'geeknote-find
         "aes" 'geeknote-show
-        "aer" 'geeknote-remove))))
+        "aer" 'geeknote-remove
+        "aem" 'geeknote-move))))

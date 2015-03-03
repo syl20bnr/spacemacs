@@ -108,21 +108,30 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
   (insert "      ")
   (insert-button "[Homepage]" 'action
                  (lambda (b) (browse-url "https://github.com/syl20bnr/spacemacs"))
-                 'follow-link t)
+                 'follow-link t 'help-echo "Open the Spacemacs Github page in your browser.")
   (insert " ")
   (insert-button "[Documentation]" 'action
                  (lambda (b) (browse-url "https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md"))
-                 'follow-link t)
+                 'follow-link t 'help-echo "Open the Spacemacs documentation in your browser.")
   (insert " ")
   (insert-button "[Gitter Chat]" 'action
                  (lambda (b) (browse-url "https://gitter.im/syl20bnr/spacemacs"))
-                 'follow-link t)
+                 'follow-link t 'help-echo "Ask questions and chat with fellow users in our chat room.")
   (insert " ")
   (insert-button "[Update]" 'action
-                 (lambda (b) (configuration-layer/update-packages)) 'follow-link t)
+                 (lambda (b) (configuration-layer/update-packages))
+                 'follow-link t 'help-echo "Update all ELPA packages to the latest versions.")
   (insert " ")
   (insert-button "[Rollback]" 'action
-                 (lambda (b) (call-interactively 'configuration-layer/rollback)) 'follow-link t)
+                 (lambda (b) (call-interactively 'configuration-layer/rollback))
+                 'follow-link t 'help-echo "Rollback ELPA package upgrades if something got borked.")
+  (insert "\n")
+  (let ((button-title "[Search Spacemacs]"))
+    ; Compute the correct number of spaces to center the button.
+    (dotimes (i (/ (- spacemacs-title-length (string-width button-title)) 2)) (insert " "))
+    (insert-button button-title 'action
+                   (lambda (b) (call-interactively 'helm-spacemacs)) 'follow-link t
+                   'help-echo "Find Spacemacs package and layer configs using helm-spacemacs."))
   (insert "\n\n")
   )
 

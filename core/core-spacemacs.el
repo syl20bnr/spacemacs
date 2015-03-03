@@ -1,4 +1,4 @@
-;;; core-spacemacs-mode.el --- Spacemacs Core File
+;;; core-spacemacs.el --- Spacemacs Core File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -17,6 +17,8 @@
 (require 'core-themes-support)
 (require 'core-fonts-support)
 (require 'core-spacemacs-buffer)
+(require 'core-toggle)
+(require 'core-micro-state)
 
 (defconst spacemacs-repository "spacemacs"
   "Name of the Spacemacs remote repository.")
@@ -59,19 +61,20 @@
 
 (define-derived-mode spacemacs-mode special-mode "Spacemacs"
   "Spacemacs major mode for startup screen."
+  :group 'spacemacs
   :syntax-table nil
   :abbrev-table nil
   (setq truncate-lines t)
-  (setq cursor-type nil)
   ;; motion state since this is a special mode
   (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
 
-(defun spacemacs/initialize ()
+(defun spacemacs/init ()
   "Create the special buffer for `spacemacs-mode' and perform startup
 initialization."
-  (require 'core-toggle)
-  (require 'core-micro-state)
-  (dotspacemacs/load)
+  ;; dotfile init
+  (dotspacemacs/load-file)
+  (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
+  ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
@@ -195,20 +198,22 @@ found."
   (message "Start checking for new version...")
   (async-start
    (lambda ()
-     (add-to-list 'load-path (concat user-emacs-directory "core/"))
-     (require 'core-spacemacs-mode)
+     (load-file (concat user-emacs-directory "core/core-load-paths.el"))
+     (require 'core-spacemacs)
      (spacemacs/get-last-version spacemacs-repository
                                  spacemacs-repository-owner
                                  spacemacs-checkversion-remote
                                  spacemacs-checkversion-branch))
    (lambda (result)
-     (when result
-       (unless (or (version< result spacemacs-version)
-                   (string= result spacemacs-version)
-                   (if spacemacs-new-version
-                       (string= result spacemacs-new-version)))
-         (message "New version of Spacemacs available: %s" result)
-         (setq spacemacs-new-version result)))))
+     (if result
+         (if (or (version< result spacemacs-version)
+                 (string= result spacemacs-version)
+                 (if spacemacs-new-version
+                     (string= result spacemacs-new-version)))
+             (message "Spacemacs is up to date.")
+           (message "New version of Spacemacs available: %s" result)
+           (setq spacemacs-new-version result))
+       (message "Unable to check for new version."))))
   (when interval
     (setq spacemacs-version-check-timer
           (run-at-time t (timer-duration interval)
@@ -313,4 +318,24 @@ version and the NEW version."
      ((< diff 5000) 'spacemacs-mode-line-new-version-lighter-warning-face)
      (t 'spacemacs-mode-line-new-version-lighter-error-face))))
 
-(provide 'core-spacemacs-mode)
+(defun spacemacs/setup-after-init-hook ()
+  "Add post init processing."
+  (add-hook
+   'after-init-hook
+   (lambda ()
+     ;; Ultimate configuration decisions are given to the user who can defined
+     ;; them in his/her ~/.spacemacs file
+     (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
+     (when dotspacemacs-loading-progress-bar
+       (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text)))
+     ;; from jwiegley
+     ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
+     (let ((elapsed (float-time
+                     (time-subtract (current-time) emacs-start-time))))
+       (spacemacs/append-to-buffer
+        (format "[%s packages loaded in %.3fs]\n"
+                (configuration-layer//initialized-packages-count)
+                elapsed)))
+     (spacemacs/check-for-new-version spacemacs-version-check-interval))))
+
+(provide 'core-spacemacs)

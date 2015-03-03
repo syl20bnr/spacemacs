@@ -10,6 +10,7 @@
     :init
     (add-to-hooks 'vim-empty-lines-mode '(prog-mode-hook
                                           erlang-mode-hook
-                                          text-mode-hook))
+                                          text-mode-hook
+                                          ess-mode-hook))
     :config
     (spacemacs|hide-lighter vim-empty-lines-mode)))

@@ -47,7 +47,8 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       ;; add support for golden-ratio
-      (push 'cider-popup-buffer-quit-function golden-ratio-extra-commands)
+      (eval-after-load 'golden-ratio
+        '(push 'cider-popup-buffer-quit-function golden-ratio-extra-commands))
       ;; add support for evil
       (push 'cider-stacktrace-mode evil-motion-state-modes)
       (push 'cider-popup-buffer-mode evil-motion-state-modes)
@@ -75,19 +76,19 @@ the focus."
         (cider-insert-last-sexp-in-repl t)
         (evil-insert-state))
 
-      (defun spacemacs/send-region-to-repl ()
+      (defun spacemacs/send-region-to-repl (start end)
         "Send region to REPL and evaluate it without changing
 the focus."
-        (interactive)
+        (interactive "r")
         (spacemacs//cider-eval-in-repl-no-focus
-         (buffer-substring-no-properties (region-beginning) (region-end))))
+         (buffer-substring-no-properties start end)))
 
-      (defun spacemacs/send-region-to-repl-focus ()
+      (defun spacemacs/send-region-to-repl-focus (start end)
         "Send region to REPL and evaluate it and switch to the REPL in
 `insert state'."
-        (interactive)
+        (interactive "r")
         (cider-insert-in-repl
-         (buffer-substring-no-properties (region-beginning) (region-end)) t)
+         (buffer-substring-no-properties start end) t)
         (evil-insert-state))
 
       (defun spacemacs/send-function-to-repl ()

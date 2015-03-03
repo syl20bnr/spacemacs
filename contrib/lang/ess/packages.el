@@ -36,7 +36,6 @@ which require an initialization must be listed explicitly in the list.")
     (interactive)
     (-all? '---truthy? (list
                         (use-package ess-site)
-                        (use-package ess-smart-underscore)
                         (use-package ess-R-object-popup)
                         (use-package ess-R-data-view))))
 
@@ -134,8 +133,13 @@ not play nicely with autoloads"
   (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
 (defun ess/init-ess-smart-equals ()
-  (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
-  (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))
+  (use-package ess-smart-equals
+    :defer t
+    :if ess-enable-smart-equals
+    :init
+    (progn
+      (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
+      (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
 
 (defun ess/init-company-ess ()
   (use-package company-ess

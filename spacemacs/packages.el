@@ -33,11 +33,13 @@
     evil
     evil-anzu
     evil-args
+    evil-escape
     evil-exchange
     evil-iedit-state
     evil-indent-textobject
     evil-jumper
     evil-leader
+    evil-lisp-state
     evil-nerd-commenter
     evil-matchit
     evil-numbers
@@ -307,6 +309,8 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (eval '(progn (spacemacs/integrate-evil-search t)
                       (spacemacs/ahs-highlight-now-wrapper)
+                      (when (configuration-layer/package-declaredp 'evil-jumper)
+                        (evil-set-jump))
                       (ahs-forward)) nil))
 
       (defun spacemacs/quick-ahs-backward ()
@@ -315,6 +319,8 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (eval '(progn (spacemacs/integrate-evil-search nil)
                       (spacemacs/ahs-highlight-now-wrapper)
+                      (when (configuration-layer/package-declaredp 'evil-jumper)
+                        (evil-set-jump))
                       (ahs-backward)) nil))
 
       (eval-after-load 'evil
@@ -604,22 +610,41 @@ which require an initialization must be listed explicitly in the list.")
       ;; Make evil-mode up/down operate in screen lines instead of logical lines
       (define-key evil-normal-state-map "j" 'evil-next-visual-line)
       (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
+      ;; Also in visual mode
+      (define-key evil-visual-state-map "j" 'evil-next-visual-line)
+      (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
       ;; Make the current definition and/or comment visible.
       (define-key evil-normal-state-map "zf" 'reposition-window)
-      ;; quick navigation
-      (define-key evil-normal-state-map (kbd "L")
-        (lambda () (interactive)
-          (evil-window-bottom)
-          ;; required to make repeated presses on L and H idempotent
-          (evil-next-visual-line)
-          (let ((recenter-redisplay nil))
-            (recenter nil))))
-      (define-key evil-normal-state-map (kbd "H")
-        (lambda () (interactive)
-          (evil-window-top)
-          (let ((recenter-redisplay nil))
-            (recenter nil))))
+
       (evil-leader/set-key "re" 'evil-show-registers)
+
+      ;; scrolling micro state
+      (defun spacemacs/scroll-half-page-up ()
+        "Scroll half a page up while keeping cursor in middle of page."
+        (interactive)
+        (evil-window-top)
+        (let ((recenter-redisplay nil))
+          (recenter nil)))
+      (defun spacemacs/scroll-half-page-down ()
+        "Scroll half a page down while keeping cursor in middle of page."
+        (interactive)
+        (evil-window-bottom)
+        ;; required to make repeated presses idempotent
+        (evil-next-visual-line)
+        (let ((recenter-redisplay nil))
+          (recenter nil)))
+      (spacemacs|define-micro-state scroll
+        :doc "[,] page up [.] page down [<] half page up [>] half page down"
+        :execute-binding-on-enter t
+        :evil-leader "n." "n," "n<" "n>"
+        :bindings
+        ;; page
+        ("," evil-scroll-page-up)
+        ("." evil-scroll-page-down)
+        ;; half page
+        ("<" spacemacs/scroll-half-page-up)
+        (">" spacemacs/scroll-half-page-down))
+
       ;; define text objects
       (defmacro spacemacs|define-and-bind-text-object (key name start-regex end-regex)
         (let ((inner-name (make-symbol (concat "evil-inner-" name)))
@@ -682,6 +707,13 @@ which require an initialization must be listed explicitly in the list.")
       (define-key evil-inner-text-objects-map "a" 'evil-inner-arg)
       (define-key evil-outer-text-objects-map "a" 'evil-outer-arg))))
 
+(defun spacemacs/init-evil-escape ()
+  (use-package evil-escape
+    :init
+    (evil-escape-mode)
+    :config
+    (spacemacs|hide-lighter evil-escape-mode)))
+
 (defun spacemacs/init-evil-exchange ()
   (use-package evil-exchange
     :init (evil-exchange-install)))
@@ -695,8 +727,7 @@ which require an initialization must be listed explicitly in the list.")
       (kbd evil-leader/leader) evil-leader--default-map))
 
   (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode)
-  (add-to-hooks 'spacemacs/evil-state-lazy-loading '(prog-mode-hook
-                                                     markdown-mode-hook)))
+  (add-to-hooks 'spacemacs/evil-state-lazy-loading '(find-file-hook)))
 
 (defun spacemacs/init-evil-indent-textobject ()
   (use-package evil-indent-textobject))
@@ -735,6 +766,11 @@ which require an initialization must be listed explicitly in the list.")
       (when dotspacemacs-major-mode-leader-key
         (add-hook 'after-change-major-mode-hook
                   'spacemacs/activate-major-mode-leader)))))
+
+(defun spacemacs/init-evil-lisp-state ()
+  (setq evil-lisp-state-global t)
+  (setq evil-lisp-state-leader-prefix "k")
+  (require 'evil-lisp-state))
 
 (defun spacemacs/init-evil-nerd-commenter ()
   (use-package evil-nerd-commenter
@@ -1327,6 +1363,20 @@ which require an initialization must be listed explicitly in the list.")
   (use-package helm-ag
     :defer t))
 
+(defun spacemacs/init-helm-c-yasnippet ()
+  (use-package helm-c-yasnippet
+    :defer t
+    :init
+    (progn
+      (defun spacemacs/helm-yas ()
+        "Properly lazy load helm-c-yasnipper."
+        (interactive)
+        (spacemacs/load-yasnippet)
+        (require 'helm-c-yasnippet)
+        (call-interactively 'helm-yas-complete))
+      (evil-leader/set-key "is" 'spacemacs/helm-yas)
+      (setq helm-c-yas-space-match-any-greedy t))))
+
 (defun spacemacs/init-helm-descbinds ()
   (use-package helm-descbinds
     :defer t
@@ -1393,7 +1443,10 @@ which require an initialization must be listed explicitly in the list.")
     (evil-leader/set-key
       "sS"    'helm-multi-swoop
       "ss"    'helm-swoop
-      "s C-s" 'helm-multi-swoop-all)))
+      "s C-s" 'helm-multi-swoop-all)
+    (defadvice helm-swoop (before add-evil-jump activate)
+      (when (configuration-layer/package-declaredp 'evil-jumper)
+        (evil-set-jump)))))
 
 (defun spacemacs/init-helm-themes ()
   (use-package helm-themes
@@ -1538,7 +1591,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         "Initialization of ido micro-state."
         (setq spacemacs--ido-navigation-ms-enabled t)
         (spacemacs//ido-navigation-ms-set-face)
-        ) 
+        )
       (defun spacemacs//ido-navigation-ms-on-exit ()
         "Action to perform when exiting ido micro-state."
         (setq face-remapping-alist nil))
@@ -1568,6 +1621,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         ("C-SPC" nil :exit t)
         ("C-@" nil :exit t)
         ("<RET>" ido-exit-minibuffer :exit t)
+        ("<escape>" nil :exit t)
         ("e" ido-select-text :exit t)
         ("h" ido-delete-backward-updir)
         ("j" ido-next-match)
@@ -1628,6 +1682,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 (defun spacemacs/init-neotree ()
   (use-package neotree
     :defer t
+    :commands neo-global--window-exists-p
     :init
     (progn
       (add-to-list 'evil-motion-state-modes 'neotree-mode)
@@ -1683,6 +1738,12 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                   (neotree-select-up-node))
               (neotree-select-up-node)))))
 
+      (defun neotree-find-project-root ()
+        (interactive)
+        (if (neo-global--window-exists-p)
+            (neotree-hide)
+          (neotree-find (projectile-project-root))))
+
       (defun spacemacs//neotree-key-bindings ()
         "Set the key bindings for a neotree buffer."
         (define-key evil-motion-state-local-map (kbd "TAB") 'neotree-stretch-toggle)
@@ -1704,7 +1765,10 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key evil-motion-state-local-map (kbd "R")   'neotree-change-root)
         (define-key evil-motion-state-local-map (kbd "s")   'neotree-hidden-file-toggle))
 
-      (evil-leader/set-key "ft" 'neotree-toggle))
+      (evil-leader/set-key
+        "ft" 'neotree-toggle
+        "pt" 'neotree-find-project-root))
+
     :config
     (add-to-hook 'neotree-mode-hook '(spacemacs//init-neotree
                                       spacemacs//neotree-key-bindings))))
@@ -1886,6 +1950,19 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
           (setq spacemacs-mode-line-new-version-lighterp t)))
       (evil-leader/set-key "tmv" 'spacemacs/mode-line-new-version-lighter-toggle)
 
+      (defvar spacemacs-mode-line-org-clock-current-taskp nil
+        "If not nil, the currently clocked org-mode task will be
+displayed in the mode-line.")
+      (defvar spacemacs-mode-line-org-clock-format-function
+        'org-clock-get-clock-string
+        "Function used to render the currently clocked org-mode task.")
+      (defun spacemacs/mode-line-org-clock-current-task-toggle ()
+        (interactive)
+        (if spacemacs-mode-line-org-clock-current-taskp
+            (setq spacemacs-mode-line-org-clock-current-taskp nil)
+          (setq spacemacs-mode-line-org-clock-current-taskp t)))
+      (evil-leader/set-key "tmc" 'spacemacs/mode-line-org-clock-current-task-toggle)
+
       (setq-default powerline-default-separator 'wave)
 
       (defun spacemacs/mode-line-prepare-left ()
@@ -1960,7 +2037,27 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                (list (powerline-vc vc-face)
                      (powerline-raw " " vc-face)
                      (funcall separator-right vc-face face2))
-             (list (funcall separator-right face1 face2))))))
+             (list (funcall separator-right face1 face2)))
+           ;; org clocked task
+           (when (and active
+                      spacemacs-mode-line-org-clock-current-taskp
+                      (fboundp 'org-clocking-p) 
+                      (org-clocking-p))
+             (list (powerline-raw " " face2)
+                   (funcall spacemacs-mode-line-org-clock-format-function)
+                   (powerline-raw " " face2))))))
+
+      (defun column-number-at-pos (pos)
+        "Analog to line-number-at-pos."
+        (save-excursion (goto-char pos) (current-column)))
+
+      (defun selection-info ()
+        "String holding the number of columns in the selection
+         if it covers only one line, else number of lines in the selection"
+        (let* ((lines (count-lines (region-beginning) (1+ (region-end))))
+               (chars (- (1+ (region-end)) (region-beginning))))
+          (if (> lines 1) (format "%s lines" (number-to-string lines))
+            (format "%s chars" (number-to-string chars)))))
 
       (defun spacemacs/mode-line-prepare-right ()
         (let* ((active (powerline-selected-window-active))
@@ -1986,6 +2083,15 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                                     battery-face 'r)
                      (funcall separator-right battery-face face1))
              (list (funcall separator-right face2 face1)))
+           (if (use-region-p)
+               ;; selection info, if there is a selection.
+               (list
+                (powerline-raw " " face1)
+                (powerline-raw (selection-info) face1)
+                (powerline-raw " " face1)
+                (funcall separator-left face1 face2)
+                (powerline-raw " " face2)
+                (funcall separator-right face2 face1)))
            (list
             ;; row:column
             (powerline-raw " " face1)
@@ -2059,7 +2165,9 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                projectile-find-tag
                projectile-kill-buffers
                projectile-recentf
-               projectile-invalidate-cache)
+               projectile-invalidate-cache
+               projectile-project-root
+               )
     :init
     (progn
       (setq-default projectile-enable-caching t)
@@ -2068,7 +2176,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                                           "projectile.cache"))
       (setq projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
-      (unless (boundp spacemacs-use-helm-projectile)
+      (unless (boundp 'spacemacs-use-helm-projectile)
         (evil-leader/set-key
           "pa" 'projectile-ack
           "pA" 'projectile-ag
@@ -2080,13 +2188,16 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
           "ph" 'helm-projectile
           "ps" 'projectile-switch-project))
       (evil-leader/set-key
+        "p!" 'projectile-run-shell-command-in-root
+        "p&" 'projectile-run-async-shell-command-in-root
+        "pc" 'projectile-compile-project
         "pD" 'projectile-dired
         "pI" 'projectile-invalidate-cache
         "pk" 'projectile-kill-buffers
         "po" 'projectile-multi-occur
         "pr" 'projectile-replace
         "pR" 'projectile-regenerate-tags
-        "pt" 'projectile-find-tag
+        "py" 'projectile-find-tag
         "pT" 'projectile-find-test-file))
     :config
     (progn
@@ -2211,7 +2322,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
   ;; this is not a conventional package
   ;; no require are needed for this package everything is auto-loaded
   (if dotspacemacs-smooth-scrolling
-      (setq scroll-margin 5
+      (setq smooth-scroll-margin 5
             scroll-conservatively 9999
             scroll-step 1)
     ;; deactivate the defadvice's
@@ -2372,7 +2483,10 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                 (let* ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir))
                        (private-yas-dir (concat configuration-layer-private-directory "snippets"))
                        (yas-dir (concat dir "yasnippet-snippets")))
-                  (setq yas-snippet-dirs (list  private-yas-dir yas-dir))
+                  (setq yas-snippet-dirs
+                        (append (when (boundp 'yas-snippet-dirs)
+                                  yas-snippet-dirs)
+                                (list  private-yas-dir yas-dir)))
                   (yas-global-mode 1)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                 markdown-mode-hook
@@ -2386,10 +2500,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                                                      shell-mode-hook)))
     :config
     (progn
-      (spacemacs|diminish yas-minor-mode " Ⓨ" " Y")
-      (require 'helm-c-yasnippet)
-      (evil-leader/set-key "is" 'helm-yas-complete)
-      (setq helm-c-yas-space-match-any-greedy t))))
+      (spacemacs|diminish yas-minor-mode " Ⓨ" " Y"))))
 
 (defun spacemacs/init-zenburn-theme ()
   (use-package zenburn-theme

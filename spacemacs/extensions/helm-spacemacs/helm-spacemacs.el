@@ -100,10 +100,13 @@
 
 (defun helm-spacemacs//layer-action-open-file (file candidate)
   "Open FILE of the passed CANDIDATE."
-  (let ((path (file-name-as-directory
-               (concat (ht-get configuration-layer-paths
-                               (intern candidate))
-                       candidate))))
+  (let ((path (if (and (equalp file "README.md") (equalp candidate "spacemacs"))
+                  ;; Readme for spacemacs is in the project root
+                  (ht-get configuration-layer-paths (intern candidate))
+                (file-name-as-directory
+                 (concat (ht-get configuration-layer-paths
+                                 (intern candidate))
+                         candidate)))))
     (find-file (concat path file))))
 
 (defun helm-spacemacs//layer-action-open-readme (candidate)

@@ -67,9 +67,6 @@ with `:' and Emacs commands are executed with `<leader> :'.")
 may increase the boot time on some systems and emacs builds, set it to nil
 to boost the loading time.")
 
-(defvar dotspacemacs-helm-micro-state t
-  "Enable micro-state for helm buffer when pressing on TAB.")
-
 (defvar dotspacemacs-fullscreen-at-startup nil
   "If non nil the frame is fullscreen when Emacs starts up (Emacs 24.4+ only).")
 
@@ -118,6 +115,37 @@ NOT USED FOR NOW :-)")
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")
 
+(defvar dotspacemacs-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-c") 'dotspacemacs/sync-configuration-layers)
+    map)
+  "Keymap for dostpacemacs-mode.")
+
+(define-derived-mode dotspacemacs-mode emacs-lisp-mode "dotspacemacs"
+  "dotspacemacs major mode for Spacemacs dotfile.
+
+\\{dotspacemacs-mode-map}"
+  :group 'spacemacs
+  (evil-leader/set-key-for-mode 'dotspacemacs-mode
+    "mcc" 'dotspacemacs/sync-configuration-layers)
+  (run-at-time
+   "2 sec" nil
+   (lambda () (message "SPC m c c (or C-c C-c) to apply your changes."))))
+
+(defun dotspacemacs/sync-configuration-layers (arg)
+  "Synchronize declared layers in dotfile with spacemacs.
+
+If ARG is non nil then `dotspacemacs/config' is skipped."
+  (interactive "P")
+  (let ((dotspacemacs-loading-progress-bar nil))
+    (load-file buffer-file-name)
+    (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
+    (configuration-layer/sync)
+    (if arg
+        (message "Done (`dotspacemacs/config' function has been skipped).")
+      (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
+      (message "Done."))))
+
 (defun dotspacemacs/location ()
   "Return the absolute path to the spacemacs dotfile."
   (concat user-home-directory ".spacemacs"))
@@ -127,16 +155,17 @@ NOT USED FOR NOW :-)")
 before installing the file if the destination already exists."
   (interactive)
   (let* ((dotfile "~/.spacemacs")
-         (install (if (file-exists-p dotfile)
-                      (y-or-n-p (format "%s already exists. Do you want to overwite it ? "
-                                        dotfile))
-                    t)))
+         (install
+          (if (file-exists-p dotfile)
+              (y-or-n-p
+               (format "%s already exists. Do you want to overwite it ? "
+                       dotfile)) t)))
     (when install
       (copy-file (concat dotspacemacs-template-directory
                          ".spacemacs.template") dotfile t)
       (message "%s has been installed." dotfile))))
 
-(defun dotspacemacs/load ()
+(defun dotspacemacs/load-file ()
   "Load ~/.spacemacs if it exists."
   (let ((dotspacemacs (dotspacemacs/location)))
     (if (file-exists-p dotspacemacs) (load dotspacemacs))))

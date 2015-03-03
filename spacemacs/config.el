@@ -92,6 +92,10 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
   ;; (tabulated-list-print t)
   (tabulated-list-print))
 
+;; evilify process-menu
+(add-to-list 'evil-emacs-state-modes 'process-menu-mode)
+(spacemacs|evilify 'process-menu-mode)
+
 ;; Mouse cursor in terminal mode
 (xterm-mouse-mode 1)
 
@@ -132,9 +136,6 @@ Can be installed with `brew install trash'."
 ;; UI
 ;; ---------------------------------------------------------------------------
 
-;; reduce the mode name in mode line for emacs-lisp-mode
- (add-hook 'emacs-lisp-mode-hook
-           (lambda () (setq mode-name "Elisp")))
 ;; important for golden-ratio to better work
 (setq window-combination-resize t)
 ;; fringes
@@ -221,6 +222,8 @@ Can be installed with `brew install trash'."
 
 ;; keep buffers opened when leaving an emacs client
 (setq server-kill-new-buffers nil)
+;; Kill magit temp buffers when done with them
+(setq server-temp-file-regexp "^/tmp/Re\\|/draft\\|COMMIT_EDITMSG$")
 ;; increase memory threshold for GC
 (setq gc-cons-threshold 20000000)
 

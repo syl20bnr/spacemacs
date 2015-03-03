@@ -14,6 +14,7 @@
         - [Optional extras](#optional-extras)
             - [GHCi-ng support](#ghci-ng-support)
             - [structured-haskell-mode](#structured-haskell-mode)
+            - [hindent](#hindent)
     - [Key bindings](#key-bindings)
         - [Haskell source code:](#haskell-source-code)
             - [Haskell commands:](#haskell-commands)
@@ -88,19 +89,25 @@ Note that `emacs.app` for OS X does not pick up `$PATH` from `~/.bashrc` or
 `~/.zshrc` when launched from outside a terminal.
 
 ### Optional extras
-The Haskell layer supports some extra features that can be enabled through layer variables.
+The Haskell layer supports some extra features that can be enabled through
+layer variables.
 
 #### GHCi-ng support
-[ghci-ng][] adds some nice features to `haskell-mode`, and is supported in Spacemacs by a layer variable:
+[ghci-ng][] adds some nice features to `haskell-mode`, and is supported in
+Spacemacs by a layer variable:
 
-Follow the instructions to install [ghci-ng][] (remember to add `:set +c` in `~/.ghci`,
-next set the layer variable:
+Follow the instructions to install [ghci-ng][] (remember to add `:set +c`
+in `~/.ghci`, next set the layer variable:
 ```elisp
 ;; List of configuration layers to load.
-dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-enable-ghci-ng-support t) git)
+dotspacemacs-configuration-layers
+'(company-mode
+  git
+  (haskell :variables haskell-enable-ghci-ng-support t))
 ```
 
-Once ghci-ng is enabled, two of the old keybindings are overriden with improved versions from ghci-ng, and a new keybinding available: 
+Once ghci-ng is enabled, two of the old keybindings are overriden with improved
+versions from ghci-ng, and a new keybinding available: 
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -109,12 +116,41 @@ Once ghci-ng is enabled, two of the old keybindings are overriden with improved 
 <kbd>SPC m u</kbd>    | finds uses of identifier
 
 #### structured-haskell-mode
-[structured-haskell-mode][], or shm, replaces hi2 and adds some nice functionality.
-To enable shm, run `cabal install structured-haskell-mode` and set the layer variable:
+[structured-haskell-mode][], or shm, replaces hi2 (and any other
+Haskell-indentation modes) and adds some nice functionality.
+To enable shm, run `cabal install structured-haskell-mode` and set the layer
+variable:
 ```elisp
 ;; List of configuration layers to load.
 dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-enable-shm-support t) git)
 ```
+After shm has been enabled, some of the evil normal-mode bindings are overridden:
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>D</kbd>          | `shm/kill-line`
+<kbd>R</kbd>          | `shm/raise`
+<kbd>P</kbd>          | `shm/yank`
+<kbd>(</kbd>          | `shm/forward-node`
+<kbd>)</kbd>          | `shm/backward-node`
+
+For a nice visualization of these functions, please refer to the github page
+for [structured-haskell-mode][].
+
+#### hindent
+[hindent]() is an extensible Haskell pretty printer, which let's you
+reformat your code. You need to install the executable with `cabal
+install hindent`; to enable it set:
+```elisp
+;; List of configuration layers to load.
+dotspacemacs-configuration-layers
+  '(company-mode
+    git
+    (haskell :variables haskell-enable-hindent-support t))
+```
+By default it uses the style called `fundamental`, if you want to use
+another, `johan-tibell`, run `M-x customize-variable
+hindent-style`.
 
 ## Key bindings
 
@@ -131,6 +167,7 @@ Top-level commands are prefixed by <kbd>SPC m</kbd>:
 <kbd>SPC m i</kbd>    | gets information for the identifier under the cursor
 <kbd>SPC m g g</kbd>  | go to definition or tag
 <kbd>SPC m f</kbd>    | format buffer using haskell-stylish
+<kbd>SPC m F</kbd>    | format declaration using hindent (if enabled)
 
 #### Documentation commands:
 Documentation commands are prefixed by <kbd>SPC m h</kbd>
@@ -198,3 +235,4 @@ REPL commands are prefixed by <kbd>SPC m s</kbd>:
 [hi2]: https://github.com/nilcons/hi2
 [ghci-ng]: https://github.com/chrisdone/ghci-ng
 [structured-haskell-mode]: https://github.com/chrisdone/structured-haskell-mode
+[hindent]: https://github.com/chrisdone/hindent

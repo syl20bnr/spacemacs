@@ -86,8 +86,13 @@ sub-directory of the contribution directory.")
 (defvar configuration-layer-excluded-packages '()
   "List of all excluded packages declared at the layer level.")
 
-(defvar configuration-layer--loaded-files '()
-  "List of loaded files.")
+(defun configuration-layer/sync ()
+  "Synchronize declared layers in dotfile with spacemacs."
+  (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
+  (configuration-layer/init-layers)
+  (configuration-layer/load-layers)
+  (when dotspacemacs-delete-orphan-packages
+    (configuration-layer/delete-orphan-packages)))
 
 (defun configuration-layer/create-layer (name)
   "Ask the user for a configuration layer name and create a layer with this
@@ -118,7 +123,6 @@ NAME."
                      (format "%s.template" template)))
         (dest (concat (configuration-layer//get-private-layer-dir name)
                       (format "%s.el" template))))
-    
     (copy-file src dest)
     (find-file dest)
     (save-excursion
@@ -162,27 +166,29 @@ for that layer."
   (spacemacs/message "Looking for configuration layers in %s" dir)
   (ignore-errors
     (let ((files (directory-files dir nil nil 'nosort))
-          (filter-out (append configuration-layer-contrib-categories '("." "..")))
+          (filter-out configuration-layer-contrib-categories)
           result '())
       (dolist (f files)
         (when (and (file-directory-p (concat dir f))
-                   (not (member f filter-out)))
+                   (not (member f filter-out))
+                   (not (equalp ?. (aref f 0))))  ;; Remove hidden, traversal
           (spacemacs/message "-> Discovered configuration layer: %s" f)
           (push (cons (intern f) dir) result)))
       result)))
 
-(defun configuration-layer/declare-layers ()
+(defun configuration-layer/init-layers ()
   "Declare default layers and user layers from the dotfile by filling the
 `configuration-layer-layers' variable."
   (setq configuration-layer-paths (configuration-layer//discover-layers))
   (if (eq 'all dotspacemacs-configuration-layers)
       (setq dotspacemacs-configuration-layers
+            ;; spacemacs is contained in configuration-layer-paths
             (ht-keys configuration-layer-paths))
-    (push (configuration-layer//declare-layer 'spacemacs)
-          configuration-layer-layers))
-  (mapc (lambda (layer) (push layer configuration-layer-layers))
-        (configuration-layer//declare-layers
-         dotspacemacs-configuration-layers)))
+    (setq configuration-layer-layers
+          (list (configuration-layer//declare-layer 'spacemacs))))
+  (setq configuration-layer-layers
+        (append (configuration-layer//declare-layers
+                 dotspacemacs-configuration-layers) configuration-layer-layers)))
 
 (defun configuration-layer//declare-layers (layers)
   "Declare the passed configuration LAYERS.
@@ -285,7 +291,7 @@ the following keys:
            (dir (plist-get (cdr layer) :dir)))
       (dolist (file files)
         (let ((file (concat dir file)))
-          (if (file-exists-p file) (configuration-layer/load-file file)))))))
+          (if (file-exists-p file) (load file)))))))
 
 (defsubst configuration-layer//add-layer-to-hash (pkg layer hash)
   "Add LAYER to the list value stored in HASH with key PKG."
@@ -314,12 +320,6 @@ the following keys:
   "Return a sorted list of the keys in the given hash table H."
   (mapcar 'intern (sort (mapcar 'symbol-name (ht-keys h)) 'string<)))
 
-(defun configuration-layer/load-file (file)
-  "Assure that FILE is loaded only once."
-  (unless (member file configuration-layer--loaded-files)
-    (load file)
-    (push file configuration-layer--loaded-files)))
-
 (defun configuration-layer/get-excluded-packages (layers)
   "Read `layer-excluded-packages' lists for all passed LAYERS and return a list
 of all excluded packages."
@@ -329,7 +329,7 @@ of all excluded packages."
              (dir (plist-get (cdr layer) :dir))
              (pkg-file (concat dir "packages.el")))
         (when (file-exists-p pkg-file)
-          (configuration-layer/load-file pkg-file)
+          (load pkg-file)
           (let ((excl-var (intern (format "%s-excluded-packages"
                                           (symbol-name layer-sym)))))
             (when (boundp excl-var)
@@ -348,7 +348,7 @@ VAR is a string with value `packages', `pre-extensions' or `post-extensions'."
              (dir (plist-get (cdr layer) :dir))
              (pkg-file (concat dir (format "%s.el" file))))
         (when (file-exists-p pkg-file)
-          (configuration-layer/load-file pkg-file)
+          (load pkg-file)
           (let* ((layer-name (symbol-name layer-sym))
                  (packages-var (intern (format "%s-%s" layer-name var))))
             (when (boundp packages-var)
@@ -776,25 +776,5 @@ deleted safely."
             (spacemacs//redisplay))
           (spacemacs/append-to-buffer "\n"))
       (spacemacs/message "No orphan package to delete."))))
-
-(defun configuration-layer/setup-after-init-hook ()
-  "Add post init processing."
-  (add-hook
-   'after-init-hook
-   (lambda ()
-     ;; Ultimate configuration decisions are given to the user who can defined
-     ;; them in his/her ~/.spacemacs file
-     (dotspacemacs|call-func dotspacemacs/config "Executing user config...")
-     (when dotspacemacs-loading-progress-bar
-       (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text)))
-     ;; from jwiegley
-     ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
-     (let ((elapsed (float-time
-                     (time-subtract (current-time) emacs-start-time))))
-       (spacemacs/append-to-buffer
-        (format "[%s packages loaded in %.3fs]\n"
-                (configuration-layer//initialized-packages-count)
-                elapsed)))
-     (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
 (provide 'core-configuration-layer)

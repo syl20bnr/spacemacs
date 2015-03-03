@@ -31,6 +31,7 @@
         - [Using a personal branch](#using-a-personal-branch)
 - [Dotfile Configuration](#dotfile-configuration)
     - [Installation](#installation)
+    - [Synchronization of doftile changes](#synchronization-of-doftile-changes)
     - [Content](#content)
         - [Using configuration layers](#using-configuration-layers)
         - [Setting configuration layers variables](#setting-configuration-layers-variables)
@@ -399,7 +400,7 @@ you can find it [here][themes-megapack].
 To install it, just add `themes-megapack` to your `~/.spacemacs` like so:
 
 ```elisp
-dotspacemacs-configuration-layers '(themes-megapack)
+(setq-default dotspacemacs-configuration-layers '(themes-megapack))
 ```
 
 You have now installed around 100 themes you are free to try with <kbd>SPC T h</kbd>
@@ -448,6 +449,20 @@ manually from the template file `~/.emacs.d/core/templates/.spacemacs.template`
 ```sh
 $ cp ~/.emacs.d/core/templates/.spacemacs.template ~/.spacemacs
 ```
+
+## Synchronization of doftile changes
+
+To apply the modifications made in `~/.spacemacs` press <kbd>SPC m c c</kbd>.
+It will re-execute the `Spacemacs` initialization process.
+
+**Note:** A synchronization re-execute the functions `dotspacemacs/init` and
+`dotspacemacs/config`. Depending on the content of this functions you may
+encounter some unwanted side effects. For instance if you use a toggle in
+`dotspacemac/config` to enable some behavior, this behavior will be turned off
+whenever the dotfile is re-synchronize. To avoid these side-effects it is
+recommended to use `setq` expressions instead of toggle functions.
+It is also possible to _skip_ the execution of `dotspacemacs/config` with the
+universal argument (<kbd>SPC u SPC m c c</kbd>).
 
 ## Content
 
@@ -1295,6 +1310,7 @@ Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC f D</kbd>                        | delete a file and the associated buffer (ask for confirmation)
 <kbd>SPC f f</kbd>                        | open a file using `ido`
+<kbd>SPC f F</kbd>                        | open a file under point using `helm`
 <kbd>SPC f j</kbd>                        | jump to the current buffer file in dired
 <kbd>SPC f o</kbd>                        | open a file using the default external program
 <kbd>SPC f s</kbd>                        | save a file
@@ -1371,9 +1387,8 @@ Key Binding           | Description
 `Spacemacs` provides a quick and simple way to navigate in an unknown project
 file tree with [NeoTree][neotree].
 
-To toggle the `NeoTree` buffer press:
-
-    <SPC> f t
+To toggle the `NeoTree` buffer press <kbd>SPC f t</kbd> or <kbd>SPC p t</kbd>
+(the latter open NeoTree with the root set to the projectile project root).
 
 The NeoTree window always has the number `0` so it does not shift the current
 number of the other windows. To select the NeoTree window you then use
@@ -2016,9 +2031,12 @@ To search in a project see [project searching](#project-searching).
     Key Binding     |                 Description
 --------------------|------------------------------------------------------------
 <kbd>SPC p /</kbd>  | run `ag`
+<kbd>SPC p !</kbd>  | run shell command in root
+<kbd>SPC p &</kbd>  | run async shell command in root
 <kbd>SPC p a</kbd>  | run `ag`
 <kbd>SPC p A</kbd>  | run `ack`
 <kbd>SPC p b</kbd>  | switch to project buffer
+<kbd>SPC p c</kbd>  | compile project using `projectile`
 <kbd>SPC p d</kbd>  | find directory
 <kbd>SPC p D</kbd>  | open project root in `dired`
 <kbd>SPC p f</kbd>  | find file
@@ -2031,9 +2049,10 @@ To search in a project see [project searching](#project-searching).
 <kbd>SPC p R</kbd>  | regenerate the project's [e|g]tags
 <kbd>SPC p r</kbd>  | replace a string
 <kbd>SPC p s</kbd>  | switch project
-<kbd>SPC p t</kbd>  | find tags
+<kbd>SPC p t</kbd>  | open `NeoTree` in `projectile` root
 <kbd>SPC p T</kbd>  | find test files
 <kbd>SPC p v</kbd>  | open project root in `vc-dir` or `magit`
+<kbd>SPC p y</kbd>  | find tags
 
 ## Registers
 
@@ -2246,6 +2265,7 @@ Achievements                                         | Account
 [400th issue (PR)][400th-issue]                      | [CestDiego][]
 [500th issue (PR)][500th-issue]                      | [bjarkevad][]
 [600th issue (PR)][600th-issue]                      | [bjarkevad][]
+[700th issue (enhancement)][700th-issue]             | [jcpetkovich][]
 [100th pull request][100th-PR]                       | [bru][]
 [200th pull request][200th-PR]                       | [smt][]
 [300th pull request][300th-PR]                       | [BrianHicks][]
@@ -2356,6 +2376,7 @@ developers to elisp hackers!
 [400th-issue]: https://github.com/syl20bnr/spacemacs/pull/400
 [500th-issue]: https://github.com/syl20bnr/spacemacs/pull/500
 [600th-issue]: https://github.com/syl20bnr/spacemacs/pull/600
+[700th-issue]: https://github.com/syl20bnr/spacemacs/pull/700
 [100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [200th-PR]: https://github.com/syl20bnr/spacemacs/pull/418
 [300th-PR]: https://github.com/syl20bnr/spacemacs/pull/617
@@ -2364,6 +2385,8 @@ developers to elisp hackers!
 [danielwuz]:https://github.com/danielwuz
 [CestDiego]:https://github.com/CestDiego
 [bjarkevad]:https://github.com/bjarkevad
+[jcpetkovich]:https://github.com/jcpetkovich
+[BrianHicks]:https://github.com/BrianHicks
 [chrisbarrett]:https://github.com/chrisbarrett
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
