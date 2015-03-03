@@ -606,6 +606,8 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       ;; evil ex-command key
+      (define-key evil-normal-state-map (kbd dotspacemacs-command-key) 'evil-ex)
+      (define-key evil-visual-state-map (kbd dotspacemacs-command-key) 'evil-ex)
       (define-key evil-motion-state-map (kbd dotspacemacs-command-key) 'evil-ex)
       ;; Make evil-mode up/down operate in screen lines instead of logical lines
       (define-key evil-normal-state-map "j" 'evil-next-visual-line)
@@ -1222,7 +1224,6 @@ which require an initialization must be listed explicitly in the list.")
             helm-buffers-fuzzy-matching t
             helm-always-two-windows     t)
       (evil-leader/set-key
-        dotspacemacs-command-key 'helm-M-x
         "bs"  'helm-mini
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
@@ -1233,6 +1234,12 @@ which require an initialization must be listed explicitly in the list.")
         "fh"  'helm-find-files
         "fr"  'helm-recentf
         "<f1>" 'helm-apropos)
+
+      ;; define the key binding at the very end in order to allow the user
+      ;; to overwrite any key binding
+      (add-hook 'after-init-hook
+                (lambda ()
+                  (evil-leader/set-key dotspacemacs-command-key 'helm-M-x)))
 
       (defun spacemacs//helm-before-initialize ()
         "Stuff to do before helm initializes."
