@@ -15,11 +15,13 @@
     ess
     ess-R-data-view
     ess-R-object-popup
-    ess-smart-equals
     rainbow-delimiters
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
+
+(when ess-enable-smart-equals
+  (add-to-list 'ess-packages '(ess-smart-equals)))
 
 (defvar ess-excluded-packages '()
   "List of packages to exclude.")
