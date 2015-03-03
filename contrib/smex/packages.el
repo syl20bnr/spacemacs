@@ -45,7 +45,11 @@ which require an initialization must be listed explicitly in the list.")
         ;;                   (cdr (assoc 'ido-mode evil-leader--mode-maps)))
         )
 
-      (evil-leader/set-key dotspacemacs-command-key 'spacemacs/smex)
+      ;; define the key binding at the very end in order to allow the user
+      ;; to overwrite any key binding
+      (add-hook 'after-init-hook
+                (lambda () (evil-leader/set-key dotspacemacs-command-key
+                             'spacemacs/smex)))
       (evil-leader/set-key "m:" 'spacemacs/smex-major-mode-commands)
       (global-set-key (kbd "M-x") 'smex)
       (global-set-key (kbd "M-X") 'smex)
