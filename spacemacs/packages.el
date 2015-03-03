@@ -1956,7 +1956,7 @@ displayed in the mode-line.")
       (defvar spacemacs-mode-line-org-clock-format-function
         'org-clock-get-clock-string
         "Function used to render the currently clocked org-mode task.")
-      (defun spacemacs/mode-line-org-org-clock-current-task-toggle ()
+      (defun spacemacs/mode-line-org-clock-current-task-toggle ()
         (interactive)
         (if spacemacs-mode-line-org-clock-current-taskp
             (setq spacemacs-mode-line-org-clock-current-taskp nil)
