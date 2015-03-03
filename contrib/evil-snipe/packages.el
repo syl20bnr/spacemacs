@@ -16,6 +16,6 @@ which require an initialization must be listed explicitly in the list.")
         evil-snipe-show-prompt nil
         evil-snipe-smart-case t)
 
-  (when evil-snipe-enable-alternate-f-and-t-behaviors
-    (evil-snipe-replace-evil)
-    (setq evil-snipe-repeat-scope 'whole-buffer)))
+ (when evil-snipe-enable-alternate-f-and-t-behaviors
+   (evil-snipe-override-mode t)
+   (setq evil-snipe-repeat-scope 'whole-buffer))
