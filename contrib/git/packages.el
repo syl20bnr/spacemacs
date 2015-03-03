@@ -169,7 +169,7 @@ which require an initialization must be listed explicitly in the list.")
         ("p" git-timemachine-show-previous-revision)
         ("n" git-timemachine-show-next-revision)
         ("N" git-timemachine-show-previous-revision)
-        ("y" git-timemachine-kill-revision)
+        ("Y" git-timemachine-kill-revision)
         ("q" nil :exit t)))))
 
 ;; this mode is not up to date

@@ -235,6 +235,7 @@ you can answer `y` with no issue.
 <kbd>N</kbd>        | show previous commit
 <kbd>p</kbd>        | show previous commit
 <kbd>q</kbd>        | leave micro-state and git timemachine
+<kbd>Y</kbd>        | copy current commit hash
 
 ### Git gutter
 
