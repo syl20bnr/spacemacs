@@ -31,6 +31,7 @@
         - [Using a personal branch](#using-a-personal-branch)
 - [Dotfile Configuration](#dotfile-configuration)
     - [Installation](#installation)
+    - [Synchronization of doftile changes](#synchronization-of-doftile-changes)
     - [Content](#content)
         - [Using configuration layers](#using-configuration-layers)
         - [Setting configuration layers variables](#setting-configuration-layers-variables)
@@ -448,6 +449,20 @@ manually from the template file `~/.emacs.d/core/templates/.spacemacs.template`
 ```sh
 $ cp ~/.emacs.d/core/templates/.spacemacs.template ~/.spacemacs
 ```
+
+## Synchronization of doftile changes
+
+To apply the modifications made in `~/.spacemacs` press <kbd>SPC m c c</kbd>.
+It will re-execute the `Spacemacs` initialization process.
+
+**Note:** A synchronization re-execute the functions `dotspacemacs/init` and
+`dotspacemacs/config`. Depending on the content of this functions you may
+encounter some unwanted side effects. For instance if you use a toggle in
+`dotspacemac/config` to enable some behavior, this behavior will be turned off
+whenever the dotfile is re-synchronize. To avoid these side-effects it is
+recommended to use `setq` expressions instead of toggle functions.
+It is also possible to _skip_ the execution of `dotspacemacs/config` with the
+universal argument (<kbd>SPC u SPC m c c</kbd>).
 
 ## Content
 
