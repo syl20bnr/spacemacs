@@ -194,7 +194,7 @@ for that layer."
   "Declare the passed configuration LAYERS.
 LAYERS is a list of layer symbols."
   (reduce (lambda (acc elt) (push elt acc))
-          (mapcar 'configuration-layer//declare-layer layers)
+          (mapcar 'configuration-layer//declare-layer (reverse layers))
           :initial-value nil))
 
 (defun configuration-layer//declare-layer (layer)
