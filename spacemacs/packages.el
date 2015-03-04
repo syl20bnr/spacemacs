@@ -14,6 +14,7 @@
   '(
     ac-ispell
     ace-jump-mode
+    ace-window
     ag
     aggressive-indent
     async
@@ -160,6 +161,27 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (setq ace-jump-mode-scope 'global)
       (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
+
+(defun spacemacs/init-ace-window ()
+  (use-package ace-window
+    :defer t
+    :init
+    (evil-leader/set-key
+      "bM"  'ace-swap-window
+      "wC"  'ace-delete-window
+      "wW"  'ace-window)
+    :config
+    (progn
+      ;; add support for golden-ratio
+      (eval-after-load 'golden-ratio
+        '(setq golden-ratio-extra-commands
+               (append golden-ratio-extra-commands
+                       '(ace-window
+                         ace-delete-window
+                         ace-select-window
+                         ace-swap-window
+                         ace-maximize-window
+                         )))))))
 
 (defun spacemacs/init-aggressive-indent ()
   (use-package aggressive-indent

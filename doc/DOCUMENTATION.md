@@ -1191,7 +1191,7 @@ Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC w b</kbd>                        | force the focus back to the minibuffer (usefull with `helm` popups)
 <kbd>SPC w c</kbd>                        | close a window
-<kbd>SPC w C</kbd>                        | close other windows
+<kbd>SPC w C</kbd>                        | delete another window using [ace-delete-window][ace-window]
 <kbd>SPC w d</kbd>                        | toggle window dedication (dedicated window cannot be reused by a mode)
 <kbd>SPC w h</kbd>                        | move to window on the left
 <kbd>SPC w H</kbd>                        | move window to the left
@@ -1201,7 +1201,7 @@ Key Binding                               |                 Description
 <kbd>SPC w K</kbd>                        | move window to the top
 <kbd>SPC w l</kbd>                        | move to window on the right
 <kbd>SPC w L</kbd>                        | move window to the right
-<kbd>SPC w m</kbd>                        | maximize/minimize a window
+<kbd>SPC w m</kbd>                        | maximize/minimize a window (maximize is equivalent to delete otehr windows)
 <kbd>SPC w M</kbd>                        | maximize/minimize a window, when maximized the buffer is centered
 <kbd>SPC w o</kbd>                        | cycle and focus between frames
 <kbd>SPC w p m</kbd>                      | open messages buffer in a popup window
@@ -1214,6 +1214,7 @@ Key Binding                               |                 Description
 <kbd>SPC w v</kbd> or  <kbd>SPC w -</kbd> | vertical split
 <kbd>SPC w V</kbd>                        | vertical split and focus new window
 <kbd>SPC w w</kbd>                        | cycle and focus between windows
+<kbd>SPC w W</kbd>                        | select window using [ace-window][ace-window]
 
 #### Window manipulation micro-state
 
@@ -1296,6 +1297,7 @@ Key Binding                               |              Description
 <kbd>SPC b m j</kbd>                      | move a buffer to the bottom
 <kbd>SPC b m k</kbd>                      | move a buffer to the top
 <kbd>SPC b m l</kbd>                      | move a buffer to the right
+<kbd>SPC b M</kbd>                        | swap windows using [ace-swap-window][ace-window]
 <kbd>SPC b n</kbd>                        | switch to next buffer
 <kbd>SPC b p</kbd>                        | switch to previous buffer
 <kbd>SPC b r</kbd>                        | rename the current buffer
@@ -2294,6 +2296,7 @@ developers to elisp hackers!
 [keychords]: http://www.emacswiki.org/emacs/KeyChord
 [centered-cursor]: http://www.emacswiki.org/emacs/centered-cursor-mode.el
 [ace-jump]: https://github.com/winterTTr/ace-jump-mode
+[ace-window]: https://github.com/abo-abo/ace-window
 [helm-link]: https://github.com/emacs-helm/helm
 [helm-doc]: https://github.com/emacs-helm/helm/wiki
 [popwin]: http://www.emacswiki.org/emacs/PopWin
