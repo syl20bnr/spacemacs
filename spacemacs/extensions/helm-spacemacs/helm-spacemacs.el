@@ -48,8 +48,10 @@
         (mapc (lambda (layer) (push (configuration-layer//declare-layer layer)
                                     helm-spacemacs-all-layers))
               (configuration-layer/get-layers-list))
-        (configuration-layer//load-layer-files helm-spacemacs-all-layers
-                                               '("funcs.el" "config.el"))
+        (dolist (layer helm-spacemacs-all-layers)
+          (unless (configuration-layer/layer-declaredp (car layer))
+            (configuration-layer//load-layer-files layer '("funcs.el"
+                                                           "config.el"))))
         (setq helm-spacemacs-all-packages (configuration-layer/get-packages
                                            helm-spacemacs-all-layers)))))
 
