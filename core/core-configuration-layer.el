@@ -247,7 +247,7 @@ the following keys:
   "Load all declared layers."
   (let ((layers (reverse configuration-layer-layers)))
     (configuration-layer//set-layers-variables layers)
-    (configuration-layer//load-layer-files layers '("funcs.el" "config.el"))
+    (configuration-layer//load-layers-files layers '("funcs.el" "config.el"))
     ;; fill the hash tables
     (setq configuration-layer-excluded-packages (configuration-layer/get-excluded-packages layers))
     (setq configuration-layer-all-packages (configuration-layer/get-packages layers))
@@ -282,16 +282,20 @@ the following keys:
     (configuration-layer//initialize-extensions configuration-layer-all-post-extensions-sorted)
     ;; restore warning level before initialization
     (setq warning-minimum-level :warning)
-    (configuration-layer//load-layer-files layers '("keybindings.el"))))
+    (configuration-layer//load-layers-files layers '("keybindings.el"))))
 
-(defun configuration-layer//load-layer-files (layers files)
-  "Load the files of list FILES for all LAYERS."
+(defun configuration-layer//load-layers-files (layers files)
+  "Load the files of list FILES for all passed LAYERS."
   (dolist (layer layers)
-    (let* ((sym (car layer))
-           (dir (plist-get (cdr layer) :dir)))
-      (dolist (file files)
-        (let ((file (concat dir file)))
-          (if (file-exists-p file) (load file)))))))
+    (configuration-layer//load-layer-files layer files)))
+
+(defun configuration-layer//load-layer-files (layer files)
+  "Load the files of list FILES for the given LAYER."
+  (let* ((sym (car layer))
+         (dir (plist-get (cdr layer) :dir)))
+    (dolist (file files)
+      (let ((file (concat dir file)))
+        (if (file-exists-p file) (load file))))))
 
 (defsubst configuration-layer//add-layer-to-hash (pkg layer hash)
   "Add LAYER to the list value stored in HASH with key PKG."
