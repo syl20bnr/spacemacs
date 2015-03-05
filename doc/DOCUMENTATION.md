@@ -450,7 +450,7 @@ manually from the template file `~/.emacs.d/core/templates/.spacemacs.template`
 $ cp ~/.emacs.d/core/templates/.spacemacs.template ~/.spacemacs
 ```
 
-## Synchronization of doftile changes
+## Synchronization of dotfile changes
 
 To apply the modifications made in `~/.spacemacs` press <kbd>SPC m c c</kbd>.
 It will re-execute the `Spacemacs` initialization process.
