@@ -212,7 +212,7 @@ dotfile. It is even possible to exclude _any_ unwanted packages.
 **keep your fingers on the home row** as much as possible, no matter the mode
 you are in.
 
-- **Crowed-configured**: Contribute easily your improvements and new
+- **Crowd-configured**: Contribute easily your improvements and new
 configuration layers.
 
 - **Minimalistic and nice graphical UI**, keep your available screen space for
