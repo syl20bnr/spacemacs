@@ -18,4 +18,4 @@ which require an initialization must be listed explicitly in the list.")
 
  (when evil-snipe-enable-alternate-f-and-t-behaviors
    (evil-snipe-override-mode t)
-   (setq evil-snipe-repeat-scope 'whole-buffer))
+   (setq evil-snipe-repeat-scope 'whole-buffer)))
