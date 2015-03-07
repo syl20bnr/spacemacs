@@ -40,14 +40,6 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
 
-      (defun web-mode-micro-state-doc ()
-        "Full documentation for web mode micro-state."
-        "
-  [?] display this help
-  [h] previous [l] next   [L] sibling [k] parent [j] child
-  [c] clone    [d] delete [r] rename  [w] wrap   [p] xpath
-  [q] quit")
-
       (evil-leader/set-key-for-mode 'web-mode
         "meh" 'web-mode-dom-errors-show
         "mgb" 'web-mode-element-beginning
@@ -63,11 +55,32 @@ which require an initialization must be listed explicitly in the list.")
         ;; TODO element close would be nice but broken with evil.
         )
 
+      (defvar spacemacs--web-mode-ms-doc-toggle 0
+        "Display a short doc when nil, full doc otherwise.")
+
+      (defun spacemacs//web-mode-ms-doc ()
+        (if (equal 0 spacemacs--web-mode-ms-doc-toggle)
+            "[?] for help"
+          "
+  [?] display this help
+  [h] previous [l] next   [L] sibling [k] parent [j] child
+  [c] clone    [d] delete [r] rename  [w] wrap   [p] xpath
+  [q] quit"))
+
+      (defun spacemacs//web-mode-ms-toggle-doc ()
+        (interactive)
+        (setq spacemacs--web-mode-ms-doc-toggle
+              (logxor spacemacs--web-mode-ms-doc-toggle 1)))
+
       (spacemacs|define-micro-state web-mode
-        :doc "[?] for help"
+        :doc (spacemacs//web-mode-ms-doc)
         :persistent t
+        :evil-leader-for-mode (web-mode . "m.")
         :bindings
-        ("?" nil :doc (web-mode-micro-state-doc))
+        ("<escape>" nil :exit t)
+        ("?" spacemacs//web-mode-ms-toggle-doc)
+        ("c" web-mode-element-clone)
+        ("d" web-mode-element-vanish)
         ("h" web-mode-element-previous)
         ("l" web-mode-element-next)
         ("L" web-mode-element-sibling-next)
@@ -75,22 +88,21 @@ which require an initialization must be listed explicitly in the list.")
         ("j" web-mode-element-child)
         ("p" web-mode-dom-xpath)
         ("r" web-mode-element-rename)
-        ("d" web-mode-element-vanish)
-        ("w" web-mode-element-wrap)
-        ("c" web-mode-element-clone)
-        ("q" nil :exit t))
-      )
-    :mode (("\\.phtml\\'"      . web-mode)
-           ("\\.tpl\\.php\\'"  . web-mode)
-           ("\\.html\\'"       . web-mode)
-           ("\\.htm\\'"        . web-mode)
-           ("\\.[gj]sp\\'"     . web-mode)
-           ("\\.as[cp]x\\'"    . web-mode)
-           ("\\.erb\\'"        . web-mode)
-           ("\\.mustache\\'"   . web-mode)
-           ("\\.handlebars\\'" . web-mode)
-           ("\\.hbs\\'"        . web-mode)
-           ("\\.djhtml\\'"     . web-mode))))
+        ("q" nil :exit t)
+        ("w" web-mode-element-wrap)))
+
+    :mode
+    (("\\.phtml\\'"      . web-mode)
+     ("\\.tpl\\.php\\'"  . web-mode)
+     ("\\.html\\'"       . web-mode)
+     ("\\.htm\\'"        . web-mode)
+     ("\\.[gj]sp\\'"     . web-mode)
+     ("\\.as[cp]x\\'"    . web-mode)
+     ("\\.erb\\'"        . web-mode)
+     ("\\.mustache\\'"   . web-mode)
+     ("\\.handlebars\\'" . web-mode)
+     ("\\.hbs\\'"        . web-mode)
+     ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
