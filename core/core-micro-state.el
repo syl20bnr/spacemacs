@@ -148,7 +148,8 @@ used."
                    (let ((throwp t))
                      (catch 'exit
                        (when ',wrapped
-                         (call-interactively ',wrapped))
+                         (call-interactively ',wrapped)
+                         (setq last-command ',wrapped))
                        (setq throwp nil))
                      ,@binding-post
                      (when throwp (throw 'exit nil)))
