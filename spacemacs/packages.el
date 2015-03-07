@@ -670,42 +670,17 @@ which require an initialization must be listed explicitly in the list.")
         (">" spacemacs/scroll-half-page-down))
 
       ;; pasting micro-state
+      (defadvice evil-paste-before (after spacemacs/evil-paste-before activate)
+        "Initate the paste micro-state after the execution of evil-paste-before"
+        (spacemacs/paste-micro-state))
+      (defadvice evil-paste-after (after spacemacs/evil-paste-after activate)
+        "Initate the paste micro-state after the execution of evil-paste-after"
+        (spacemacs/paste-micro-state))
       (spacemacs|define-micro-state paste
         :doc "keep pressing [p] or [P] to cycle between previous or next yanked text"
         :bindings
-        ("p" spacemacs/paste-pop)
-        ("P" spacemacs/paste-pop-next))
-
-      (defun spacemacs/paste-pop (count)
-        "Paste and pop yank ring"
-        (interactive "p")
-        (setq last-command 'evil-paste-before)
-        (evil-paste-pop count))
-
-      (defun spacemacs/paste-pop-next (count)
-        "Paste and pop yank ring with negative argument"
-        (interactive "p")
-        (setq last-command 'evil-paste-before)
-        (evil-paste-pop-next count))
-
-      (evil-define-command spacemacs/paste-before
-        (count &optional register yank-handler)
-        "Paste yanked text before point and switch to micro-state."
-        (interactive "P<x>")
-        (evil-paste-before count register yank-handler)
-        (setq last-command 'evil-paste-before)
-        (spacemacs/paste-micro-state))
-
-      (evil-define-command spacemacs/paste-after
-        (count &optional register yank-handler)
-        "Paste yanked text after point and switch to micro-state."
-        (interactive "P<x>")
-        (evil-paste-after count register yank-handler)
-        (setq last-command 'evil-paste-after)
-        (spacemacs/paste-micro-state))
-
-      (define-key evil-normal-state-map "p" 'spacemacs/paste-after)
-      (define-key evil-normal-state-map "P" 'spacemacs/paste-before)
+        ("p" evil-paste-pop)
+        ("P" evil-paste-pop-next))
 
       ;; define text objects
       (defmacro spacemacs|define-and-bind-text-object (key name start-regex end-regex)
