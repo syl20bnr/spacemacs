@@ -54,7 +54,7 @@ Available PROPS:
     A STRING or a SEXP that evaluates to a string
 
 `:persistent BOOLEAN'
-    If BOOLEAN in non nil then the micro-state never exits. A binding
+    If BOOLEAN is non nil then the micro-state never exits. A binding
     with an explicitly set `exit t' property is required.
 
 `:bindings EXPRESSIONS'
@@ -64,7 +64,7 @@ Available PROPS:
                      :post SEXP
                      :exit SYMBOL)
     where:
-    - STRING1 is a key to bound to the function SYMBOL1.
+    - STRING1 is a key to be bound to the function SYMBOL1.
     - :doc STRING or SEXP is a STRING or an SEXP that evalutes
       to a string
     - :pre is an SEXP evaluated before the bound action
@@ -179,7 +179,7 @@ micro-state."
 
 (defun spacemacs//get-current-wrapper (name wrappers)
   "Return the wrapper being executed.
-Returns nil if no wrapper is being executed (i.e. an unbound key has been
+Return nil if no wrapper is being executed (i.e. an unbound key has been
 pressed)."
   (let ((micro-state-fun (spacemacs//micro-state-func-name name)))
     (catch 'found
@@ -199,18 +199,18 @@ pressed)."
            (pheader (when header
                       (propertize (concat " " header " ")
                                   'face 'spacemacs-micro-state-header-face)))
-           (tail (spacemacs//micro-state-propertize-doc-1
+           (tail (spacemacs//micro-state-propertize-doc-rec
                   (match-string 2 doc))))
       (concat pheader tail))))
 
-(defun spacemacs//micro-state-propertize-doc-1 (doc)
+(defun spacemacs//micro-state-propertize-doc-rec (doc)
   "Recursively propertize keys"
   (if (string-match "^\\([[:ascii:]]*?\\)\\(\\[.+?\\]\\)\\([[:ascii:]]*\\)$" doc)
       (let* ((head (match-string 1 doc))
              (key (match-string 2 doc))
              (pkey (when key
                      (propertize key 'face 'spacemacs-micro-state-binding-face)))
-             (tail (spacemacs//micro-state-propertize-doc-1
+             (tail (spacemacs//micro-state-propertize-doc-rec
                     (match-string 3 doc))))
         (concat head pkey tail))
     doc))
