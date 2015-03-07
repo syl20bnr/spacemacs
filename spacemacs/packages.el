@@ -676,8 +676,11 @@ which require an initialization must be listed explicitly in the list.")
       (defadvice evil-paste-after (after spacemacs/evil-paste-after activate)
         "Initate the paste micro-state after the execution of evil-paste-after"
         (spacemacs/paste-micro-state))
+      (defadvice evil-visual-paste (after spacemacs/evil-visual-paste activate)
+        "Initate the paste micro-state after the execution of evil-visual-paste"
+        (spacemacs/paste-micro-state))
       (spacemacs|define-micro-state paste
-        :doc "keep pressing [p] or [P] to cycle between previous or next yanked text"
+        :doc "Type [p] or [P] to paste again and ycle between previous or next copied text"
         :bindings
         ("p" evil-paste-pop)
         ("P" evil-paste-pop-next))
