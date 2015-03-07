@@ -49,18 +49,17 @@ which require an initialization must be listed explicitly in the list.")
   [q] quit")
 
       (evil-leader/set-key-for-mode 'web-mode
-        "mgp" 'web-mode-element-parent
-        "mgc" 'web-mode-element-child
+        "meh" 'web-mode-dom-errors-show
         "mgb" 'web-mode-element-beginning
-        "m." 'spacemacs/web-mode-micro-state
+        "mgc" 'web-mode-element-child
+        "mgp" 'web-mode-element-parent
         "mgs" 'web-mode-element-sibling-next
         "mhp" 'web-mode-dom-xpath
-        "meu" 'web-mode-dom-errors-show
-        "mrr" 'web-mode-element-rename
-        "mrd" 'web-mode-element-vanish
-        "mrw" 'web-mode-element-wrap
         "mrc" 'web-mode-element-clone
-        "mf" 'web-mode-fold-or-unfold
+        "mrd" 'web-mode-element-vanish
+        "mrr" 'web-mode-element-rename
+        "mrw" 'web-mode-element-wrap
+        "mz" 'web-mode-fold-or-unfold
         ;; TODO element close would be nice but broken with evil.
         )
 
