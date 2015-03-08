@@ -41,7 +41,7 @@ Doge special banner can be reachable via `999', `doge' or `random*'.
           (insert-file-contents banner)
           (spacemacs//inject-version-in-buffer)))
         (spacemacs/insert-buttons)
-      (spacemacs//redisplay))))
+        (spacemacs//redisplay))))
 
 (defun spacemacs//choose-random-banner (&optional all)
   "Return the full path of a banner chosen randomly.
