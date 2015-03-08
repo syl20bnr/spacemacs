@@ -137,7 +137,7 @@ NOT USED FOR NOW :-)")
   (evil-leader/set-key-for-mode 'dotspacemacs-mode
     "mcc" 'dotspacemacs/sync-configuration-layers)
   (run-at-time
-   "2 sec" nil
+   "1 sec" nil
    (lambda () (message "SPC m c c (or C-c C-c) to apply your changes."))))
 
 (defun dotspacemacs/sync-configuration-layers (arg)
@@ -146,6 +146,7 @@ NOT USED FOR NOW :-)")
 If ARG is non nil then `dotspacemacs/config' is skipped."
   (interactive "P")
   (let ((dotspacemacs-loading-progress-bar nil))
+    (save-buffer)
     (load-file buffer-file-name)
     (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
     (configuration-layer/sync)
