@@ -25,13 +25,22 @@ Doge special banner can be reachable via `999', `doge' or `random*'.
                  ((eq 'doge dotspacemacs-startup-banner)
                   (spacemacs//get-banner-path 999))
                  ((integerp dotspacemacs-startup-banner)
-                  (spacemacs//get-banner-path dotspacemacs-startup-banner))))
+                  (spacemacs//get-banner-path dotspacemacs-startup-banner))
+                 ((string-match "\\.png\\'" dotspacemacs-startup-banner)
+                  dotspacemacs-startup-banner)))
         (buffer-read-only nil))
     (when banner
       (spacemacs/message (format "Banner: %s" banner))
-      (insert-file-contents banner)
-      (spacemacs//inject-version-in-buffer)
-      (spacemacs/insert-buttons)
+      (if (string-match "\\.png\\'" banner)
+          (progn
+            (insert "   ")
+            (insert-image (create-image banner))
+            (insert (format "%s" spacemacs-version))
+            (insert "\n"))
+        (progn
+          (insert-file-contents banner)
+          (spacemacs//inject-version-in-buffer)))
+        (spacemacs/insert-buttons)
       (spacemacs//redisplay))))
 
 (defun spacemacs//choose-random-banner (&optional all)
