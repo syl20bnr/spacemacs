@@ -186,6 +186,11 @@
                       :off (auto-fill-mode -1)
                       :documentation "Break line beyond `current-fill-column` while editing."
                       :evil-leader "t C-f")
+(spacemacs|add-toggle debug-on-error
+                      :status nil
+                      :on (toggle-debug-on-error)
+                      :documentation "Toggle display of backtrace when an error happens."
+                      :evil-leader "t D")
 (spacemacs|add-toggle tool-bar
                       :if window-system
                       :status tool-bar-mode
