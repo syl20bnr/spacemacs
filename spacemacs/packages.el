@@ -679,10 +679,14 @@ which require an initialization must be listed explicitly in the list.")
       (defadvice evil-visual-paste (after spacemacs/evil-visual-paste activate)
         "Initate the paste micro-state after the execution of evil-visual-paste"
         (spacemacs/paste-micro-state))
+      (defun spacemacs//paste-ms-doc ()
+        "The documentation for the paste micro-state."
+        (format (concat "[%s/%s] Type [p] or [P] to paste the previous or "
+                        "next copied text, [C-p] or [C-P] to paste the same "
+                        "text before of after the point.")
+                (length kill-ring-yank-pointer) (length kill-ring)))
       (spacemacs|define-micro-state paste
-        :doc (concat "Type [p] or [P] to paste the previous or "
-                     "next copied text, [C-p] or [C-P] to paste the same text "
-                     "before of after the point.")
+        :doc (spacemacs//paste-ms-doc)
         :use-minibuffer t
         :bindings
         ("p" evil-paste-pop)
