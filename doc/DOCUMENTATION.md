@@ -1666,6 +1666,7 @@ Key Binding                   |                    Description
 <kbd>C-P</kbd>                | in micro-state: paste the last paste text before point
 Any other key                 | leave the micro-state
 
+**Tips** If you want to paste several the same text you can use <kbd>.</kbd>
 
 ### Text manipulation commands
 
