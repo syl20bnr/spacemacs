@@ -780,7 +780,6 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 <kbd>SPC t 8</kbd>    | display a mark on the 80th column
 <kbd>SPC t F</kbd>    | toggle frame fullscreen
 <kbd>SPC t f</kbd>    | toggle display of the fringe
-<kbd>SPC t C-f</kbd>  | toggle auto fill mode (break lines beyond `current-fill-column`)
 <kbd>SPC t h</kbd>    | toggle highlight of the current line
 <kbd>SPC t i</kbd>    | toggle aggressive indent
 <kbd>SPC t l</kbd>    | toggle truncate lines
@@ -2019,7 +2018,7 @@ Key Binding          | Function
 <kbd>SPC m t b</kbd> | execute buffer tests
 <kbd>SPC m t q</kbd> | ask for test function to execute
 
-### Managing projects
+## Managing projects
 
 Projects in `Spacemacs` are managed with [projectile][projectile]. In
 `projectile` projects are defined implicitly, for instance the root of a
