@@ -180,6 +180,12 @@
                       :on (toggle-transparency)
                       :documentation "Make the current frame non-opaque."
                       :evil-leader "tt")
+(spacemacs|add-toggle auto-fill-mode
+                      :status auto-fill-function
+                      :on (auto-fill-mode)
+                      :off (auto-fill-mode -1)
+                      :documentation "Break line beyond `current-fill-column` while editing."
+                      :evil-leader "t C-f")
 (spacemacs|add-toggle tool-bar
                       :if window-system
                       :status tool-bar-mode

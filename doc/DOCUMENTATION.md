@@ -780,6 +780,7 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 <kbd>SPC t 8</kbd>    | display a mark on the 80th column
 <kbd>SPC t F</kbd>    | toggle frame fullscreen
 <kbd>SPC t f</kbd>    | toggle display of the fringe
+<kbd>SPC t C-f</kbd>  | toggle auto fill mode (break lines beyond `current-fill-column`)
 <kbd>SPC t h</kbd>    | toggle highlight of the current line
 <kbd>SPC t i</kbd>    | toggle aggressive indent
 <kbd>SPC t l</kbd>    | toggle truncate lines
@@ -912,6 +913,7 @@ display ASCII characters instead (may be useful in terminal).
 `Ⓒ`          | C          | [centered-cursor][centered-cursor] mode
 `Ⓔ`          | E          | [evil-org][evil-org-mode] mode
 `Ⓕ`          | F          | flycheck mode
+`ⓕ`          | f          | auto-fill mode
 `Ⓚ`          | K          | guide-key mode
 `Ⓘ`          | I          | aggressive indent mode
 `(Ⓟ)`        | (P)        | paredit mode
