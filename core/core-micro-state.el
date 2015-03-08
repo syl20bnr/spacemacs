@@ -51,11 +51,15 @@ Available PROPS:
     Evaluate SEXP when leaving the micro-state.
 
 `:doc STRING or SEXP'
-    A STRING or a SEXP that evaluates to a string
+    A STRING or a SEXP that evaluates to a string.
+
+`:use-minibuffer BOOLEAN'
+    If non nil then the minibuffer is used to display the documenation
+    strings. Default is nil.
 
 `:persistent BOOLEAN'
     If BOOLEAN is non nil then the micro-state never exits. A binding
-    with an explicitly set `exit t' property is required.
+    with an explicitly set `exit t' property is required. Default is nil.
 
 `:bindings EXPRESSIONS'
     One or several EXPRESSIONS with the form
@@ -78,11 +82,13 @@ used."
   (let* ((func (spacemacs//micro-state-func-name name))
          (doc (spacemacs/mplist-get props :doc))
          (persistent (plist-get props :persistent))
+         (msg-func (if (plist-get props :use-minibuffer) 'message 'lv-message))
          (exec-binding (plist-get props :execute-binding-on-enter))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
          (bindings (spacemacs/mplist-get props :bindings))
-         (wrappers (spacemacs//micro-state-create-wrappers name doc bindings))
+         (wrappers (spacemacs//micro-state-create-wrappers
+                    name doc msg-func bindings))
          (keymap-body (spacemacs//micro-state-fill-map-sexps wrappers))
          (bindkeys (spacemacs//create-key-binding-form props func)))
     `(progn (defun ,func ()
@@ -90,8 +96,8 @@ used."
               (interactive)
               (let ((doc ,@doc))
                 (when doc
-                  (lv-message (spacemacs//micro-state-propertize-doc
-                               (format "%S: %s" ',name doc)))))
+                  (apply ',msg-func (list (spacemacs//micro-state-propertize-doc
+                                      (format "%S: %s" ',name doc))))))
               ,(when exec-binding
                  (spacemacs//micro-state-auto-execute bindings))
               ,@on-enter
@@ -115,15 +121,16 @@ used."
      (when binding
        (call-interactively (cadr binding)))))
 
-(defun spacemacs//micro-state-create-wrappers (name doc bindings)
+(defun spacemacs//micro-state-create-wrappers (name doc msg-func bindings)
   "Return an alist (key wrapper) for each binding in BINDINGS."
-  (mapcar (lambda (x) (spacemacs//micro-state-create-wrapper name doc x))
+  (mapcar (lambda (x) (spacemacs//micro-state-create-wrapper
+                       name doc msg-func x))
           (append bindings
                   ;; force SPC to quit the micro-state to avoid a edge case
                   ;; with evil-leader
                   (list '("SPC" nil :exit t)))))
 
-(defun spacemacs//micro-state-create-wrapper (name default-doc binding)
+(defun spacemacs//micro-state-create-wrapper (name default-doc msg-func binding)
   "Create a wrapper of FUNC and return a tuple (key wrapper BINDING)."
   (let* ((key (car binding))
          (wrapped (cadr binding))
@@ -134,12 +141,14 @@ used."
          (doc-body `((let ((bdoc ,@binding-doc)
                            (defdoc ,@default-doc))
                        (if bdoc
-                           (lv-message (spacemacs//micro-state-propertize-doc
-                                        (format "%S: %s" ',name bdoc)))
+                           (apply ',msg-func
+                                  (list (spacemacs//micro-state-propertize-doc
+                                    (format "%S: %s" ',name bdoc))))
                          (when (and defdoc
                                     ',wrapped (not (plist-get ',binding :exit)))
-                           (lv-message (spacemacs//micro-state-propertize-doc
-                                        (format "%S: %s" ',name defdoc))))))))
+                           (apply ',msg-func
+                                  (list (spacemacs//micro-state-propertize-doc
+                                    (format "%S: %s" ',name defdoc)))))))))
          (wrapper-func
           (eval `(defun ,wrapper-name ()
                    "Auto-generated function"
