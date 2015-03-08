@@ -132,6 +132,10 @@ Can be installed with `brew install trash'."
     ;; regular move to trash directory
     (setq trash-directory "~/.Trash/emacs")))
 
+;; auto fill breaks line beyond current-fill-column
+(setq-default default-fill-column 78)
+(spacemacs|diminish auto-fill-function " ⓕ" " f")
+
 ;; ---------------------------------------------------------------------------
 ;; UI
 ;; ---------------------------------------------------------------------------
