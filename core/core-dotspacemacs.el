@@ -44,7 +44,7 @@ with 2 themes variants, one dark and one light")
 
 (defvar dotspacemacs-major-mode-leader-key ","
   "Major mode leader key is a shortcut key which is the equivalent of
-pressing `<leader> m`")
+pressing `<leader> m`. Set it to `nil` to disable it.")
 
 (defvar dotspacemacs-default-font '("Source Code Pro"
                                     :size 13
