@@ -31,7 +31,7 @@
         - [Using a personal branch](#using-a-personal-branch)
 - [Dotfile Configuration](#dotfile-configuration)
     - [Installation](#installation)
-    - [Synchronization of doftile changes](#synchronization-of-doftile-changes)
+    - [Synchronization of dotfile changes](#synchronization-of-dotfile-changes)
     - [Content](#content)
         - [Using configuration layers](#using-configuration-layers)
         - [Setting configuration layers variables](#setting-configuration-layers-variables)
@@ -103,6 +103,7 @@
         - [Listing symbols by semantic](#listing-symbols-by-semantic)
         - [Helm-swoop](#helm-swoop)
     - [Editing](#editing)
+        - [Paste text](#paste-text)
         - [Text manipulation commands](#text-manipulation-commands)
         - [Smartparens Strict mode](#smartparens-strict-mode)
         - [Zooming](#zooming)
@@ -128,7 +129,7 @@
             - [Lisp Key Bindings](#lisp-key-bindings)
                 - [Lisp state key bindings](#lisp-state-key-bindings)
                 - [Emacs lisp specific key bindings](#emacs-lisp-specific-key-bindings)
-        - [Managing projects](#managing-projects)
+    - [Managing projects](#managing-projects)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
     - [Compiling](#compiling)
@@ -1646,6 +1647,25 @@ Key Binding            |                    Description
 <kbd>SPC s C-s</kbd>   | execute `helm-multi-swoop-all`
 
 ## Editing
+
+### Paste text
+
+Whenever you paste some text a `paste` micro-state is initiated. Pressing
+<kbd>p</kbd> again will replace the pasted text with the previous
+yanked (copied) text on the kill ring.
+
+For example if you copy `foo` and `bar` then press <kbd>p</kbd> the text `bar`
+will be pasted, pressing <kbd>p</kbd> again will replace `bar` with `foo`.
+
+Key Binding                   |                    Description
+------------------------------|----------------------------------------------------------------
+<kbd>p</kbd> or <kbd>P</kbd>  | paste the text before or after point and initiate the `paste` micro-state
+<kbd>p</kbd>                  | in micro-state: replace paste text with the previously copied one
+<kbd>P</kbd>                  | in micro-state: replace paste text with the next copied one
+<kbd>C-p</kbd>                | in micro-state: paste the last paste text after point
+<kbd>C-P</kbd>                | in micro-state: paste the last paste text before point
+Any other key                 | leave the micro-state
+
 
 ### Text manipulation commands
 
