@@ -680,10 +680,15 @@ which require an initialization must be listed explicitly in the list.")
         "Initate the paste micro-state after the execution of evil-visual-paste"
         (spacemacs/paste-micro-state))
       (spacemacs|define-micro-state paste
-        :doc "Type [p] or [P] to paste again and ycle between previous or next copied text"
+        :doc (concat "Type [p] or [P] to paste the previous or "
+                     "next copied text, [C-p] or [C-P] to paste the same text "
+                     "before of after the point.")
+        :use-minibuffer t
         :bindings
         ("p" evil-paste-pop)
-        ("P" evil-paste-pop-next))
+        ("P" evil-paste-pop-next)
+        ("C-p" evil-paste-after)
+        ("C-P" evil-paste-before))
 
       ;; define text objects
       (defmacro spacemacs|define-and-bind-text-object (key name start-regex end-regex)
