@@ -30,7 +30,13 @@
 
 (defun vagrant/init-vagrant-tramp ()
   (use-package vagrant-tramp
+    :defer t
     :init
     (progn
-      (vagrant-tramp-enable)
+      (defvar spacemacs--vagrant-tramp-loaded nil)
+      (defadvice vagrant-tramp-term (before spacemacs//load-vagrant activate)
+        "Lazy load vagrant-tramp."
+        (unless spacemacs--vagrant-tramp-loaded
+          (vagrant-tramp-enable)
+          (setq spacemacs--vagrant-tramp-loaded t)))
       (evil-leader/set-key "Vt" 'vagrant-tramp-term))))
