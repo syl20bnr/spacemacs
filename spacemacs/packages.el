@@ -682,17 +682,14 @@ which require an initialization must be listed explicitly in the list.")
       (defun spacemacs//paste-ms-doc ()
         "The documentation for the paste micro-state."
         (format (concat "[%s/%s] Type [p] or [P] to paste the previous or "
-                        "next copied text, [C-p] or [C-P] to paste the same "
-                        "text before of after the point.")
+                        "next copied text, [.] to paste the same text")
                 (length kill-ring-yank-pointer) (length kill-ring)))
       (spacemacs|define-micro-state paste
         :doc (spacemacs//paste-ms-doc)
         :use-minibuffer t
         :bindings
         ("p" evil-paste-pop)
-        ("P" evil-paste-pop-next)
-        ("C-p" evil-paste-after)
-        ("C-P" evil-paste-before))
+        ("P" evil-paste-pop-next))
 
       ;; define text objects
       (defmacro spacemacs|define-and-bind-text-object (key name start-regex end-regex)
