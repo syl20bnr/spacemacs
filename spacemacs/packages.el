@@ -1037,12 +1037,10 @@ which require an initialization must be listed explicitly in the list.")
     (setq fci-enabled 1)
     (fci-mode 1))
 
-
   (defun toggle-fill-column-indicator-custom  ()
     (interactive)
     (make-local-variable 'fci-enabled)
     (if (> fci-enabled 0) (deactivate-fci) (activate-fci fill-column)))
-
 
   (defun deactivate-fci ()
     (setq fci-enabled 0)
