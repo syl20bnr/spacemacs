@@ -14,34 +14,28 @@
 <!-- markdown-toc end -->
 
 ## Description
-A Spacemacs contribution layer for [SLIME](https://github.com/slime/slime).
+
+A Spacemacs contribution layer for [SLIME][].
 
 ## Install
 
 To use this contribution, add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(slime)
-  ;; List of contribution to load.
-)
+(setq-default dotspacemacs-configuration-layers '(slime))
 ```
 
-This contrib defaults to using [sbcl](http://www.sbcl.org/).
-If you wan to use a different implementation of Common Lisp,
-you can specify it in your `~/.spacemacs`
+This layer defaults to using [sbcl][]. If you wan to use a different
+implementation of Common Lisp, you can specify it in your `~/.spacemacs`:
 
 ```elisp
- (defun dotspacemacs/config ()
-  "Configuration function.
- This function is called at the very end of Spacemacs initialization after
-layers configuration."
-  (setq inferior-lisp-program "/path/to/your/lisp")
-)
+(defun dotspacemacs/config ()
+  (setq inferior-lisp-program "/path/to/your/lisp"))
 ```
 
 ## Key Bindings
 
-This contrib doesn't yet include Spacemacsy keybindings.
+This layer doesn't yet include Spacemacsy keybindings.
 The following is a list of some of SLIME's default keybindings.
 
     Key Binding   |       Description
@@ -59,3 +53,6 @@ C-h m             | check emacs mode help for all of SLIME's keybindings
 ## Future Work
 
 - Add proper Spacemacs keybindings
+
+[SLIME]: https://github.com/slime/slime
+[sbcl]: http://www.sbcl.org/
