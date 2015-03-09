@@ -42,10 +42,11 @@ $ brew install fasd
 
 ## Keybindings
 
-Key Binding               |                 Description
---------------------------|------------------------------------------------------------------
-<kbd>SPC f z</kbd>        | find a file or directory with fasd
-<kbd>SPC u SPC f z</kbd>  | find a directory with fasd
+Key Binding                 |                 Description
+----------------------------|------------------------------------------------------------------
+<kbd>SPC f z z</kbd>        | find a file or directory with fasd
+<kbd>SPC f z d</kbd>        | find a directory with fasd
+<kbd>SPC f z f</kbd>        | find a file with fasd
 
 [fasd]: https://github.com/clvv/fasd
 [fasd-install]: https://github.com/clvv/fasd#install
