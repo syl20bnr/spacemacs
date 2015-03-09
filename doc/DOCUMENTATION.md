@@ -1662,11 +1662,8 @@ Key Binding                   |                    Description
 <kbd>p</kbd> or <kbd>P</kbd>  | paste the text before or after point and initiate the `paste` micro-state
 <kbd>p</kbd>                  | in micro-state: replace paste text with the previously copied one
 <kbd>P</kbd>                  | in micro-state: replace paste text with the next copied one
-<kbd>C-p</kbd>                | in micro-state: paste the last paste text after point
-<kbd>C-P</kbd>                | in micro-state: paste the last paste text before point
+<kbd>.</kbd>                  | paste the same text and leave the micro-state
 Any other key                 | leave the micro-state
-
-**Tips** If you want to paste several the same text you can use <kbd>.</kbd>
 
 ### Text manipulation commands
 
