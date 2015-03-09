@@ -17,17 +17,7 @@
 
 Doge special banner can be reachable via `999', `doge' or `random*'.
 `random' ignore special banners whereas `random*' does not."
-  (let ((banner (cond
-                 ((eq 'random dotspacemacs-startup-banner)
-                  (spacemacs//choose-random-banner))
-                 ((eq 'random* dotspacemacs-startup-banner)
-                  (spacemacs//choose-random-banner t))
-                 ((eq 'doge dotspacemacs-startup-banner)
-                  (spacemacs//get-banner-path 999))
-                 ((integerp dotspacemacs-startup-banner)
-                  (spacemacs//get-banner-path dotspacemacs-startup-banner))
-                 ((string-match "\\.png\\'" dotspacemacs-startup-banner)
-                  dotspacemacs-startup-banner)))
+  (let ((banner (spacemacs//choose-banner))
         (buffer-read-only nil))
     (when banner
       (spacemacs/message (format "Banner: %s" banner))
@@ -43,7 +33,27 @@ Doge special banner can be reachable via `999', `doge' or `random*'.
         (spacemacs/insert-buttons)
         (spacemacs//redisplay))))
 
-(defun spacemacs//choose-random-banner (&optional all)
+(defun spacemacs//choose-banner ()
+  "Return the full path of a banner based on the dotfile value."
+  (cond
+   ((eq 'random dotspacemacs-startup-banner)
+    (spacemacs//choose-random-text-banner))
+   ((eq 'random* dotspacemacs-startup-banner)
+    (spacemacs//choose-random-text-banner t))
+   ((eq 'doge dotspacemacs-startup-banner)
+    (spacemacs//get-banner-path 999))
+   ((integerp dotspacemacs-startup-banner)
+    (spacemacs//get-banner-path dotspacemacs-startup-banner))
+   ((string-match "\\.png\\'" dotspacemacs-startup-banner)
+    (if (image-type-available-p 'png)
+        (if (file-exists-p dotspacemacs-startup-banner)
+            dotspacemacs-startup-banner
+          (spacemacs/message (format "Warning: could not find banner %s"
+                                     dotspacemacs-startup-banner))
+          (spacemacs//get-banner-path 1))
+      (spacemacs//get-banner-path 1)))))
+
+(defun spacemacs//choose-random-text-banner (&optional all)
   "Return the full path of a banner chosen randomly.
 
 If ALL is non-nil then truly all banners can be selected."
