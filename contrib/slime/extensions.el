@@ -1,4 +1,4 @@
-;;; extensions.el --- ace-window Layer extensions File for Spacemacs
+;;; extensions.el --- slime Layer extensions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,21 +10,21 @@
 ;;
 ;;; License: GPLv3
 
-(defvar ace-window-pre-extensions
+(defvar slime-pre-extensions
   '(
-    ;; pre extension ace-windows go here
+    ;; pre extension slimes go here
     )
   "List of all extensions to load before the packages.")
 
-(defvar ace-window-post-extensions
+(defvar slime-post-extensions
   '(
-    ;; post extension ace-windows go here
+    ;; post extension slimes go here
     )
   "List of all extensions to load after the packages.")
 
-;; For each extension, define a function ace-window/init-<extension-ace-window>
+;; For each extension, define a function slime/init-<extension-slime>
 ;;
-;; (defun ace-window/init-my-extension ()
+;; (defun slime/init-my-extension ()
 ;;   "Initialize my extension"
 ;;   )
 ;;

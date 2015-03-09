@@ -37,17 +37,72 @@ which require an initialization must be listed explicitly in the list.")
 (defun html/init-web-mode ()
   (use-package web-mode
     :defer t
-    :mode (("\\.phtml\\'"      . web-mode)
-           ("\\.tpl\\.php\\'"  . web-mode)
-           ("\\.html\\'"       . web-mode)
-           ("\\.htm\\'"        . web-mode)
-           ("\\.[gj]sp\\'"     . web-mode)
-           ("\\.as[cp]x\\'"    . web-mode)
-           ("\\.erb\\'"        . web-mode)
-           ("\\.mustache\\'"   . web-mode)
-           ("\\.handlebars\\'" . web-mode)
-           ("\\.hbs\\'"        . web-mode)
-           ("\\.djhtml\\'"     . web-mode))))
+    :config
+    (progn
+
+      (evil-leader/set-key-for-mode 'web-mode
+        "meh" 'web-mode-dom-errors-show
+        "mgb" 'web-mode-element-beginning
+        "mgc" 'web-mode-element-child
+        "mgp" 'web-mode-element-parent
+        "mgs" 'web-mode-element-sibling-next
+        "mhp" 'web-mode-dom-xpath
+        "mrc" 'web-mode-element-clone
+        "mrd" 'web-mode-element-vanish
+        "mrr" 'web-mode-element-rename
+        "mrw" 'web-mode-element-wrap
+        "mz" 'web-mode-fold-or-unfold
+        ;; TODO element close would be nice but broken with evil.
+        )
+
+      (defvar spacemacs--web-mode-ms-doc-toggle 0
+        "Display a short doc when nil, full doc otherwise.")
+
+      (defun spacemacs//web-mode-ms-doc ()
+        (if (equal 0 spacemacs--web-mode-ms-doc-toggle)
+            "[?] for help"
+          "
+  [?] display this help
+  [h] previous [l] next   [L] sibling [k] parent [j] child
+  [c] clone    [d] delete [r] rename  [w] wrap   [p] xpath
+  [q] quit"))
+
+      (defun spacemacs//web-mode-ms-toggle-doc ()
+        (interactive)
+        (setq spacemacs--web-mode-ms-doc-toggle
+              (logxor spacemacs--web-mode-ms-doc-toggle 1)))
+
+      (spacemacs|define-micro-state web-mode
+        :doc (spacemacs//web-mode-ms-doc)
+        :persistent t
+        :evil-leader-for-mode (web-mode . "m.")
+        :bindings
+        ("<escape>" nil :exit t)
+        ("?" spacemacs//web-mode-ms-toggle-doc)
+        ("c" web-mode-element-clone)
+        ("d" web-mode-element-vanish)
+        ("h" web-mode-element-previous)
+        ("l" web-mode-element-next)
+        ("L" web-mode-element-sibling-next)
+        ("k" web-mode-element-parent)
+        ("j" web-mode-element-child)
+        ("p" web-mode-dom-xpath)
+        ("r" web-mode-element-rename)
+        ("q" nil :exit t)
+        ("w" web-mode-element-wrap)))
+
+    :mode
+    (("\\.phtml\\'"      . web-mode)
+     ("\\.tpl\\.php\\'"  . web-mode)
+     ("\\.html\\'"       . web-mode)
+     ("\\.htm\\'"        . web-mode)
+     ("\\.[gj]sp\\'"     . web-mode)
+     ("\\.as[cp]x\\'"    . web-mode)
+     ("\\.erb\\'"        . web-mode)
+     ("\\.mustache\\'"   . web-mode)
+     ("\\.handlebars\\'" . web-mode)
+     ("\\.hbs\\'"        . web-mode)
+     ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode

@@ -48,8 +48,10 @@
         (mapc (lambda (layer) (push (configuration-layer//declare-layer layer)
                                     helm-spacemacs-all-layers))
               (configuration-layer/get-layers-list))
-        (configuration-layer//load-layer-files helm-spacemacs-all-layers
-                                               '("funcs.el" "config.el"))
+        (dolist (layer helm-spacemacs-all-layers)
+          (unless (configuration-layer/layer-declaredp (car layer))
+            (configuration-layer//load-layer-files layer '("funcs.el"
+                                                           "config.el"))))
         (setq helm-spacemacs-all-packages (configuration-layer/get-packages
                                            helm-spacemacs-all-layers)))))
 
@@ -67,6 +69,7 @@
   "Construct the helm source for the layer section."
   `((name . "Layers")
     (candidates . ,(sort (configuration-layer/get-layers-list) 'string<))
+    (candidate-number-limit)
     (action . (("Open README.md" . helm-spacemacs//layer-action-open-readme)
                ("Open packages.el" . helm-spacemacs//layer-action-open-packages)
                ("Open extensions.el" . helm-spacemacs//layer-action-open-extensions)))))
@@ -75,6 +78,7 @@
   "Construct the helm source for the packages."
   `((name . "Packages")
     (candidates . ,(helm-spacemacs//package-candidates))
+    (candidate-number-limit)
     (action . (("Go to init function" . helm-spacemacs//package-action-goto-init-func)))))
 
 (defun helm-spacemacs//package-candidates ()
@@ -89,6 +93,7 @@
   "Construct the helm source for the toggles."
   `((name . "Toggles")
     (candidates . ,(helm-spacemacs//toggle-candidates))
+    (candidate-number-limit)
     (action . (("Toggle" . helm-spacemacs//toggle)))))
 
 (defun helm-spacemacs//toggle-candidates ()

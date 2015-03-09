@@ -31,7 +31,7 @@
         - [Using a personal branch](#using-a-personal-branch)
 - [Dotfile Configuration](#dotfile-configuration)
     - [Installation](#installation)
-    - [Synchronization of doftile changes](#synchronization-of-doftile-changes)
+    - [Synchronization of dotfile changes](#synchronization-of-dotfile-changes)
     - [Content](#content)
         - [Using configuration layers](#using-configuration-layers)
         - [Setting configuration layers variables](#setting-configuration-layers-variables)
@@ -103,6 +103,7 @@
         - [Listing symbols by semantic](#listing-symbols-by-semantic)
         - [Helm-swoop](#helm-swoop)
     - [Editing](#editing)
+        - [Paste text](#paste-text)
         - [Text manipulation commands](#text-manipulation-commands)
         - [Smartparens Strict mode](#smartparens-strict-mode)
         - [Zooming](#zooming)
@@ -128,7 +129,7 @@
             - [Lisp Key Bindings](#lisp-key-bindings)
                 - [Lisp state key bindings](#lisp-state-key-bindings)
                 - [Emacs lisp specific key bindings](#emacs-lisp-specific-key-bindings)
-        - [Managing projects](#managing-projects)
+    - [Managing projects](#managing-projects)
     - [Registers](#registers)
     - [Errors handling](#errors-handling)
     - [Compiling](#compiling)
@@ -212,7 +213,7 @@ dotfile. It is even possible to exclude _any_ unwanted packages.
 **keep your fingers on the home row** as much as possible, no matter the mode
 you are in.
 
-- **Crowed-configured**: Contribute easily your improvements and new
+- **Crowd-configured**: Contribute easily your improvements and new
 configuration layers.
 
 - **Minimalistic and nice graphical UI**, keep your available screen space for
@@ -450,7 +451,7 @@ manually from the template file `~/.emacs.d/core/templates/.spacemacs.template`
 $ cp ~/.emacs.d/core/templates/.spacemacs.template ~/.spacemacs
 ```
 
-## Synchronization of doftile changes
+## Synchronization of dotfile changes
 
 To apply the modifications made in `~/.spacemacs` press <kbd>SPC m c c</kbd>.
 It will re-execute the `Spacemacs` initialization process.
@@ -912,6 +913,7 @@ display ASCII characters instead (may be useful in terminal).
 `Ⓒ`          | C          | [centered-cursor][centered-cursor] mode
 `Ⓔ`          | E          | [evil-org][evil-org-mode] mode
 `Ⓕ`          | F          | flycheck mode
+`ⓕ`          | f          | auto-fill mode
 `Ⓚ`          | K          | guide-key mode
 `Ⓘ`          | I          | aggressive indent mode
 `(Ⓟ)`        | (P)        | paredit mode
@@ -960,6 +962,9 @@ to `jj` (it is important set the variable in `dotspacemacs/init`):
 **Note:** Although `jj` or `jk` are popular choices of vim users, these key
 sequences are not optimal for `Spacemacs`. Indeed it is very easy in
 `visual state` to press quickly `jj` and inadvertently escape to `normal state`.
+
+**Important Note** One caveat of `evil-escape` is that you must not use it
+while recording macros. Use `escape` key instead.
 
 ### Executing Vim and Emacs ex/M-x commands
 
@@ -1191,7 +1196,7 @@ Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC w b</kbd>                        | force the focus back to the minibuffer (usefull with `helm` popups)
 <kbd>SPC w c</kbd>                        | close a window
-<kbd>SPC w C</kbd>                        | close other windows
+<kbd>SPC w C</kbd>                        | delete another window using [ace-delete-window][ace-window]
 <kbd>SPC w d</kbd>                        | toggle window dedication (dedicated window cannot be reused by a mode)
 <kbd>SPC w h</kbd>                        | move to window on the left
 <kbd>SPC w H</kbd>                        | move window to the left
@@ -1201,7 +1206,7 @@ Key Binding                               |                 Description
 <kbd>SPC w K</kbd>                        | move window to the top
 <kbd>SPC w l</kbd>                        | move to window on the right
 <kbd>SPC w L</kbd>                        | move window to the right
-<kbd>SPC w m</kbd>                        | maximize/minimize a window
+<kbd>SPC w m</kbd>                        | maximize/minimize a window (maximize is equivalent to delete otehr windows)
 <kbd>SPC w M</kbd>                        | maximize/minimize a window, when maximized the buffer is centered
 <kbd>SPC w o</kbd>                        | cycle and focus between frames
 <kbd>SPC w p m</kbd>                      | open messages buffer in a popup window
@@ -1214,6 +1219,7 @@ Key Binding                               |                 Description
 <kbd>SPC w v</kbd> or  <kbd>SPC w -</kbd> | vertical split
 <kbd>SPC w V</kbd>                        | vertical split and focus new window
 <kbd>SPC w w</kbd>                        | cycle and focus between windows
+<kbd>SPC w W</kbd>                        | select window using [ace-window][ace-window]
 
 #### Window manipulation micro-state
 
@@ -1296,6 +1302,7 @@ Key Binding                               |              Description
 <kbd>SPC b m j</kbd>                      | move a buffer to the bottom
 <kbd>SPC b m k</kbd>                      | move a buffer to the top
 <kbd>SPC b m l</kbd>                      | move a buffer to the right
+<kbd>SPC b M</kbd>                        | swap windows using [ace-swap-window][ace-window]
 <kbd>SPC b n</kbd>                        | switch to next buffer
 <kbd>SPC b p</kbd>                        | switch to previous buffer
 <kbd>SPC b r</kbd>                        | rename the current buffer
@@ -1643,6 +1650,23 @@ Key Binding            |                    Description
 <kbd>SPC s C-s</kbd>   | execute `helm-multi-swoop-all`
 
 ## Editing
+
+### Paste text
+
+Whenever you paste some text a `paste` micro-state is initiated. Pressing
+<kbd>p</kbd> again will replace the pasted text with the previous
+yanked (copied) text on the kill ring.
+
+For example if you copy `foo` and `bar` then press <kbd>p</kbd> the text `bar`
+will be pasted, pressing <kbd>p</kbd> again will replace `bar` with `foo`.
+
+Key Binding                   |                    Description
+------------------------------|----------------------------------------------------------------
+<kbd>p</kbd> or <kbd>P</kbd>  | paste the text before or after point and initiate the `paste` micro-state
+<kbd>p</kbd>                  | in micro-state: replace paste text with the previously copied one
+<kbd>P</kbd>                  | in micro-state: replace paste text with the next copied one
+<kbd>.</kbd>                  | paste the same text and leave the micro-state
+Any other key                 | leave the micro-state
 
 ### Text manipulation commands
 
@@ -2015,7 +2039,7 @@ Key Binding          | Function
 <kbd>SPC m t b</kbd> | execute buffer tests
 <kbd>SPC m t q</kbd> | ask for test function to execute
 
-### Managing projects
+## Managing projects
 
 Projects in `Spacemacs` are managed with [projectile][projectile]. In
 `projectile` projects are defined implicitly, for instance the root of a
@@ -2294,6 +2318,7 @@ developers to elisp hackers!
 [keychords]: http://www.emacswiki.org/emacs/KeyChord
 [centered-cursor]: http://www.emacswiki.org/emacs/centered-cursor-mode.el
 [ace-jump]: https://github.com/winterTTr/ace-jump-mode
+[ace-window]: https://github.com/abo-abo/ace-window
 [helm-link]: https://github.com/emacs-helm/helm
 [helm-doc]: https://github.com/emacs-helm/helm/wiki
 [popwin]: http://www.emacswiki.org/emacs/PopWin
