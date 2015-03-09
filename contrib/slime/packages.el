@@ -18,17 +18,16 @@ which require an initialization must be listed explicitly in the list.")
 (defvar slime-excluded-packages '()
   "List of packages to exclude.")
 
-;; For each package, define a function slime/init-<package-slime>
-;;
-;; (defun slime/init-my-package ()
-;;   "Initialize my package"
-;;   )
-;;
 (defun slime/init-slime ()
-  (require 'slime)
-  (setq inferior-lisp-program "sbcl")
-  (setq slime-contribs '(slime-fancy))
-  (slime-setup))
-;; Often the body of an initialize function uses `use-package'
-;; For more info on `use-package', see readme:
-;; https://github.com/jwiegley/use-package
+  (use-package slime
+    :commands slime-mode
+    :init
+    (progn
+      (setq slime-contribs '(slime-fancy)
+            inferior-lisp-program "sbcl")
+      (add-to-hooks 'slime-mode '(lisp-mode-hook
+                                  emacs-lisp-mode-hook
+                                  scheme-mode-hook)))
+    :config
+    (message "loading slime...")
+    (slime-setup)))
