@@ -13,24 +13,24 @@
                            vagrant-tramp))
 
 (defun vagrant/init-vagrant ()
-    (use-package vagrant
-      :defer t
-      :init (progn
-                (spacemacs/declare-prefix "V" "vagrant")
-                (evil-leader/set-key
-                   "VV" 'vagrant-up
-                   "Vp" 'vagrant-provision
-                   "VD" 'vagrant-destroy
-                   "Vs" 'vagrant-status
-                   "VS" 'vagrant-suspend
-                   "Vr" 'vagrant-resume
-                   "VH" 'vagrant-halt
-                   "Ve" 'vagrant-edit))))
+  (use-package vagrant
+    :defer t
+    :init
+    (progn
+      (spacemacs/declare-prefix "V" "vagrant")
+      (evil-leader/set-key
+        "VD" 'vagrant-destroy
+        "Ve" 'vagrant-edit
+        "VH" 'vagrant-halt
+        "Vp" 'vagrant-provision
+        "Vr" 'vagrant-resume
+        "Vs" 'vagrant-status
+        "VS" 'vagrant-suspend
+        "VV" 'vagrant-up))))
 
 (defun vagrant/init-vagrant-tramp ()
   (use-package vagrant-tramp
-    :defer t
-    :init (progn
-            (vagrant-tramp-enable)
-            (evil-leader/set-key
-               "Vt" 'vagrant-tramp-term))))
+    :init
+    (progn
+      (vagrant-tramp-enable)
+      (evil-leader/set-key "Vt" 'vagrant-tramp-term))))
