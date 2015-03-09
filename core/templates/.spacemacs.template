@@ -26,9 +26,10 @@ before layers configuration."
   ;; spacemacs settings.
   (setq-default
    ;; Specify the startup banner. If the value is an integer then the
-   ;; banner with the corresponding index is used, if the value is `random'
-   ;; then the banner is chosen randomly among the available banners, if
-   ;; the value is nil then no banner is displayed.
+   ;; text banner with the corresponding index is used, if the value is
+   ;; `random' then the banner is chosen randomly among the available banners,
+   ;; if the value is a string then it must be a path to a .PNG file,
+   ;; if the value is nil then no banner is displayed.
    dotspacemacs-startup-banner 'random
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great

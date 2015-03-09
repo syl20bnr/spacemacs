@@ -18,10 +18,11 @@
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
 
 (defvar dotspacemacs-startup-banner 'random
-  "Specify the startup banner. If the value is an integer then the
-banner with the corresponding index is used, if the value is `random'
-then the banner is chosen randomly among the available banners, if
-the value is nil then no banner is displayed.")
+   "Specify the startup banner. If the value is an integer then the
+   text banner with the corresponding index is used, if the value is
+   `random' then the banner is chosen randomly among the available banners,
+   if the value is a string then it must be a path to a .PNG file,
+   if the value is nil then no banner is displayed.")
 
 (defvar dotspacemacs-configuration-layers '()
   "List of configuration layers to load. If it is the symbol `all' instead
