@@ -119,7 +119,7 @@ More info regarding installation of nREPL middleware can be found here:
 <kbd>SPC m s E</kbd>  | send and eval last sexp and switch to REPL in `insert state`
 <kbd>SPC m s f</kbd>  | send and eval function in REPL
 <kbd>SPC m s F</kbd>  | send and eval function and switch to REPL in `insert state`
-<kbd>SPC m s i</kbd>  | start REPL
+<kbd>SPC m s i</kbd>  | start REPL (cider-jack-in)
 <kbd>SPC m s n</kbd>  | send and eval ns form in REPL
 <kbd>SPC m s N</kbd>  | send and eval ns form and switch to REPL in `insert state`
 <kbd>SPC m s r</kbd>  | send and eval region in REPL
