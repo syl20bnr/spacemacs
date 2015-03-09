@@ -963,6 +963,9 @@ to `jj` (it is important set the variable in `dotspacemacs/init`):
 sequences are not optimal for `Spacemacs`. Indeed it is very easy in
 `visual state` to press quickly `jj` and inadvertently escape to `normal state`.
 
+**Important Note** One caveat of `evil-escape` is that you must not use it
+while recording macros. Use `escape` key instead.
+
 ### Executing Vim and Emacs ex/M-x commands
 
     Command      |                 Key Binding
