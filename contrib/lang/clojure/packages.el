@@ -43,7 +43,9 @@ which require an initialization must be listed explicitly in the list.")
             cider-prompt-save-file-on-load nil
             cider-repl-use-clojure-font-lock t)
       (add-hook 'clojure-mode-hook 'cider-mode)
-      (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode))
+      (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+      (if dotspacemacs-smartparens-strict-mode
+          (add-hook 'cider-repl-mode-hook #'smartparens-strict-mode)))
     :config
     (progn
       ;; add support for golden-ratio
@@ -154,7 +156,7 @@ the focus."
         "mss" 'cider-switch-to-repl-buffer
 
         "mtt" 'cider-test-run-tests)
-      (when clojure-enable-fancify-symbols 
+      (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))))
 
 (defun clojure/init-clj-refactor ()

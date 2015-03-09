@@ -19,6 +19,10 @@ The package [evil-snipe](https://github.com/hlissner/evil-snipe)
 - enables more efficient searches with `f/F/t/T`.
 - adds a new, more precise search with `s/S`
 
+Evil-snipe allows you to search more quickly and precisely in the buffer.
+It does so by improving on the built in `f`/`F`/`t`/`T` searches and
+adding another search command, namely `s`/`S`.
+
 `evil-snipe` changes `s/S` behavior in order to search forward/backwards in the
 buffer with two chars.
 
@@ -32,7 +36,12 @@ To use this contribution add it to your `~/.spacemacs`
 (setq-default dotspacemacs-configuration-layers '(evil-snipe))
 ```
 
-### Alternate behavior for `f/F` and `t/T`
+### Improved f and t search behavior
+
+With evil-snipe you can define your own search scope for `f` and `t` searches
+which means that you won't have to jump to the correct line before searching
+with `f`/`t`/`F`/`T`. And after you have found a match, you can just press `f`
+or `t` again afterwards to continue the search. No need to use `;`/`,`.
 
 This alternate behavior is disabled by default, to enable it set the
 layer variable `evil-snipe-enable-alternate-f-and-t-behaviors` to `t`:
@@ -42,8 +51,16 @@ layer variable `evil-snipe-enable-alternate-f-and-t-behaviors` to `t`:
   '(evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t ))
 ```
 
-Instead of repeating searches with `,/;` you can just press `f/t` again to
-continue the search (`F/T` to go the opposite direction). 
+### Two-character search with s
+
+With the `s`/`S` keys you can do a simple search like `f`/`t`, but instead
+of searching for one character, you search for two. This makes the search a lot
+more precise than regular `f`/`t` searches. While you can search
+forward or backwards in the buffer with `/` and `?`, `s`/`S` are much easier
+to reach, don't require you to press enter and they are precise enough for
+many common purposes.
+
+### More scopes
 
 Evil-snipe also adds several scope options for searches (set
 `evil-snipe-scope` and `evil-snipe-repeat-scope` to one of these, the default
@@ -61,6 +78,29 @@ whole-visible    | same as 'visible, but highlight *all* visible matches in buff
 If you do not want to replace the regular `f/F/t/T` behavior, just
 remove this line from `evil-snipe/packages.el`:
 `(evil-snipe-replace-evil)`
+
+### Symbol groups
+
+With symbol groups you can let a character stand for a regex, for example a
+group of characters.  By adding a pair of `'(CHAR REGEX)` to the list
+`'evil-snipe-symbol-groups` you can search for a regex very simply:
+
+- Here we set the `[` character to mean `all characters "[({"` so a search
+with `sa[` would find `a[`, `a{` or `a(`.
+
+```elisp
+;; Alias [ and ] to all types of brackets
+(add-to-list 'evil-snipe-symbol-groups '(?\\[ \"[[{(]\"))
+```
+
+- Here we set the char `:` to mean `a regex matching python function
+definitions` so by searching with `f:fff` you can quickly cycle through
+all function definitions in a buffer!
+
+```elisp
+;; For python style functions
+(add-to-list 'evil-snipe-symbol-groups '(?\\: \"def .+:\"\))
+```
 
 ## Key bindings
 

@@ -14,6 +14,7 @@
   '(
     ac-ispell
     ace-jump-mode
+    ace-window
     ag
     aggressive-indent
     async
@@ -160,6 +161,27 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (setq ace-jump-mode-scope 'global)
       (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
+
+(defun spacemacs/init-ace-window ()
+  (use-package ace-window
+    :defer t
+    :init
+    (evil-leader/set-key
+      "bM"  'ace-swap-window
+      "wC"  'ace-delete-window
+      "wW"  'ace-window)
+    :config
+    (progn
+      ;; add support for golden-ratio
+      (eval-after-load 'golden-ratio
+        '(setq golden-ratio-extra-commands
+               (append golden-ratio-extra-commands
+                       '(ace-window
+                         ace-delete-window
+                         ace-select-window
+                         ace-swap-window
+                         ace-maximize-window
+                         )))))))
 
 (defun spacemacs/init-aggressive-indent ()
   (use-package aggressive-indent
@@ -646,6 +668,28 @@ which require an initialization must be listed explicitly in the list.")
         ;; half page
         ("<" spacemacs/scroll-half-page-up)
         (">" spacemacs/scroll-half-page-down))
+
+      ;; pasting micro-state
+      (defadvice evil-paste-before (after spacemacs/evil-paste-before activate)
+        "Initate the paste micro-state after the execution of evil-paste-before"
+        (spacemacs/paste-micro-state))
+      (defadvice evil-paste-after (after spacemacs/evil-paste-after activate)
+        "Initate the paste micro-state after the execution of evil-paste-after"
+        (spacemacs/paste-micro-state))
+      (defadvice evil-visual-paste (after spacemacs/evil-visual-paste activate)
+        "Initate the paste micro-state after the execution of evil-visual-paste"
+        (spacemacs/paste-micro-state))
+      (defun spacemacs//paste-ms-doc ()
+        "The documentation for the paste micro-state."
+        (format (concat "[%s/%s] Type [p] or [P] to paste the previous or "
+                        "next copied text, [.] to paste the same text")
+                (length kill-ring-yank-pointer) (length kill-ring)))
+      (spacemacs|define-micro-state paste
+        :doc (spacemacs//paste-ms-doc)
+        :use-minibuffer t
+        :bindings
+        ("p" evil-paste-pop)
+        ("P" evil-paste-pop-next))
 
       ;; define text objects
       (defmacro spacemacs|define-and-bind-text-object (key name start-regex end-regex)
@@ -1499,8 +1543,8 @@ which require an initialization must be listed explicitly in the list.")
         "hgc" 'hl-unhighlight-all-global
         "hgh" 'hl-highlight-thingatpt-global
         "hh"  'hl-highlight-thingatpt-local
-        "hn"  'hl-find-thing-forwardly
-        "hN"  'hl-find-thing-backwardly
+        "hn"  'hl-find-next-thing
+        "hN"  'hl-find-prev-thing
         "hp"  'hl-paren-mode
         "hr"  'hl-restore-highlights
         "hs"  'hl-save-highlights))

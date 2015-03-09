@@ -180,6 +180,17 @@
                       :on (toggle-transparency)
                       :documentation "Make the current frame non-opaque."
                       :evil-leader "tt")
+(spacemacs|add-toggle auto-fill-mode
+                      :status auto-fill-function
+                      :on (auto-fill-mode)
+                      :off (auto-fill-mode -1)
+                      :documentation "Break line beyond `current-fill-column` while editing."
+                      :evil-leader "t C-f")
+(spacemacs|add-toggle debug-on-error
+                      :status nil
+                      :on (toggle-debug-on-error)
+                      :documentation "Toggle display of backtrace when an error happens."
+                      :evil-leader "t D")
 (spacemacs|add-toggle tool-bar
                       :if window-system
                       :status tool-bar-mode
@@ -229,7 +240,7 @@
   "w2"  'layout-double-columns
   "w3"  'layout-triple-columns
   "wb"  'switch-to-minibuffer-window
-  "wC"  'delete-other-windows
+  "wc"  'delete-window
   "wd"  'toggle-current-window-dedication
   "wH"  'evil-window-move-far-left
   "wh"  'evil-window-left
@@ -239,6 +250,7 @@
   "wk"  'evil-window-up
   "wL"  'evil-window-move-far-right
   "wl"  'evil-window-right
+  "wm"  'toggle-maximize-buffer
   "wM"  'toggle-maximize-centered-buffer
   "wo"  'other-frame
   "wR"  'rotate-windows
@@ -249,12 +261,8 @@
   "wu"  'winner-undo
   "wv"  'split-window-right
   "wV"  'split-window-right-and-focus
+  "ww"  'other-window
   "w/"  'split-window-right)
-(unless (configuration-layer/package-declaredp 'ace-window)
-  (evil-leader/set-key
-    "wc" 'delete-window
-    "wm" 'toggle-maximize-buffer
-    "ww" 'other-window))
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
   "zx="  'spacemacs/reset-font-size
