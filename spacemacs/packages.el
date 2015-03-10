@@ -690,6 +690,14 @@ which require an initialization must be listed explicitly in the list.")
         :bindings
         ("p" evil-paste-pop)
         ("P" evil-paste-pop-next))
+      (unless dotspacemacs-enable-paste-micro-state
+        (ad-disable-advice 'evil-paste-before 'after 'spacemacs/evil-paste-before)
+        (ad-activate 'evil-paste-before)
+        (ad-disable-advice 'evil-paste-after 'after 'spacemacs/evil-paste-after)
+        (ad-activate 'evil-paste-after)
+        (ad-disable-advice 'evil-visual-paste 'after 'spacemacs/evil-visual-paste)
+        (ad-activate 'evil-visual-paste))
+
 
       ;; define text objects
       (defmacro spacemacs|define-and-bind-text-object (key name start-regex end-regex)

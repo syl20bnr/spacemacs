@@ -60,6 +60,10 @@ size to make separators look not too crappy.")
 By default the command key is `:' so ex-commands are executed like in Vim
 with `:' and Emacs commands are executed with `<leader> :'.")
 
+(defvar dotspacemacs-enable-paste-micro-state t
+  "If non nil the paste micro-state is enabled. While enabled pressing `p`
+several times cycle between the kill ring content.'")
+
 (defvar dotspacemacs-guide-key-delay 0.4
   "Guide-key delay in seconds.")
 
