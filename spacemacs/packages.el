@@ -940,7 +940,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
-    :init (when (memq window-system '(mac ns))
+    :init (when (memq window-system '(mac ns x))
             (exec-path-from-shell-initialize))))
 
 (defun spacemacs/init-expand-region ()
