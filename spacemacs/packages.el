@@ -2019,6 +2019,15 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
           (setq spacemacs-mode-line-new-version-lighterp t)))
       (evil-leader/set-key "tmv" 'spacemacs/mode-line-new-version-lighter-toggle)
 
+      (defvar spacemacs-mode-line-display-point-p nil
+        "If not nil, display point alongside row/column in the mode-line.")
+      (defun spacemacs/mode-line-display-point-toggle ()
+        (interactive)
+        (if spacemacs-mode-line-display-point-p
+            (setq spacemacs-mode-line-display-point-p nil)
+          (setq spacemacs-mode-line-display-point-p t)))
+      (evil-leader/set-key "tmp" 'spacemacs/mode-line-display-point-toggle)
+      
       (defvar spacemacs-mode-line-org-clock-current-taskp nil
         "If not nil, the currently clocked org-mode task will be
 displayed in the mode-line.")
@@ -2164,7 +2173,10 @@ displayed in the mode-line.")
            (list
             ;; row:column
             (powerline-raw " " face1)
-            (powerline-raw "%l:%2c" face1 'r)
+            (powerline-raw (if spacemacs-mode-line-display-point-p
+                               (concat (format "%d | " (point)) "%l:%2c" )
+                             "%l:%2c")
+                           face1 'r)
             (funcall separator-left face1 line-face)
             (powerline-raw " " line-face))
            (list
