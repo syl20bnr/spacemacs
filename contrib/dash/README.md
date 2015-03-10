@@ -50,20 +50,16 @@ on customizing specific docsets for modes.
 <kbd>SPC d d</kbd>  | Lookup thing at point in Dash
 <kbd>SPC d D</kbd>  | Lookup thing at point in Dash within a specified Docset
 
+### helm-dash
+dash-at-point is linked to the GUI app and is only available for OSX. On linux, 
+[helm-dash](https://github.com/areina/helm-dash) is used instead. It requires no app.
+You can use `dash/helm-dash-docset-newpath` to set the location path of your docsets.
+
 ## TODO
 
 ### Check zeal
 
 [zeal][] is an open source alternative to dash with Emacs integration available.
-
-### Check helm-dash
-
-dash-at-point is linked to the GUI app and is only available for OSX. Another
-project, [helm-dash](https://github.com/areina/helm-dash) is in the works.
-It appears to currently only be available for linux though, but working towards
-mac and windows support. It would be great to supplement or even replace
-dash-at-point considering that it doesn't require paying for the app, and
-integrates with helm.
 
 [dash]: http://kapeli.com/dash
 [dash-at-point]: https://github.com/stanaka/dash-at-point
