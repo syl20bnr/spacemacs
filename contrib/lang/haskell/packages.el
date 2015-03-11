@@ -80,12 +80,17 @@
       (evil-leader/set-key-for-mode 'haskell-mode
         "mF"   'hindent/reformat-decl))))
 
+(defun haskell-process-do-type-on-prev-line ()
+  (interactive)
+  (haskell-process-do-type 1))
+
 (defun haskell/init-haskell-mode ()
   (require 'haskell-yas)
   (use-package haskell-mode
     :defer t
     :config
     (progn
+
       ;; Customization
       (custom-set-variables
 
@@ -122,19 +127,20 @@
       ;;;;;;;;; Keybindings ;;;;;;;;;;
 
       ;; ;; use "mc" as prefix for cabal commands
-      ;; (setq spacemacs/key-binding-prefixes '(("mc" . "cabal")))
+      ;; (spacemacs/declare-prefix "mc" "cabal") ; this does not work. not sure why
 
       ;; ;; use "ms" as prefix for REPL commands
-      ;; (setq spacemacs/key-binding-prefixes '(("ms" . "Haskell REPL")))
+      ;; (spacemacs/declare-prefix "ms" "shell")
 
       ;; ;; use "md" as prefix for debug commands
-      ;; (setq spacemacs/key-binding-prefixes '(("md" . "Haskell Debug")))
+      ;; (spacemacs/declare-prefix "md" "debug")
 
       ;; ;; use "mh" as prefix for documentation commands
-      ;; (setq spacemacs/key-binding-prefixes '(("mh" . "Haskell Documentation")))
+      ;; (spacemacs/declare-prefix "mh" "documentation")
 
       (evil-leader/set-key-for-mode 'haskell-mode
         "mt"   'haskell-process-do-type
+        "mT"   'haskell-process-do-type-on-prev-line
         "mi"   'haskell-process-do-info
         "mgg"  'haskell-mode-jump-to-def-or-tag
         "mf"   'haskell-mode-stylish-buffer
