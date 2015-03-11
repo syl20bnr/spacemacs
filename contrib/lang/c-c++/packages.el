@@ -28,18 +28,15 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (require 'compile)
-      (mapc (lambda (m)
-              (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-              (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
-              (semantic-mode 1)
-              (c-toggle-auto-newline 1))
-            '(c-mode c++-mode))
-      (setq srecode-map-save-file (concat user-emacs-directory ".cache/srecode-map.el"))
-      (setq semanticdb-default-save-directory (concat user-emacs-directory ".cache/semanticdb")))))
+      (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+      (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
+      (semantic-mode 1)
+      (c-toggle-auto-newline 1)
+      (setq srecode-map-save-file (concat spacemacs-cache-directory "srecode-map.el"))
+      (setq semanticdb-default-save-directory (concat spacemacs-cache-directory "semanticdb/")))))
 
 (defun c-c++/init-srefactor ()
   (use-package srefactor
-    :if (not (version< emacs-version "24.4"))
     :init
     (progn
       (evil-leader/set-key-for-mode 'c-mode
