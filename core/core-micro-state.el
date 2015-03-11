@@ -57,6 +57,10 @@ Available PROPS:
     If non nil then the minibuffer is used to display the documenation
     strings. Default is nil.
 
+`:disable-evil-leader BOOLEAN'
+    If non nil then the evil leader has no effect when the micro state
+    is active. Default to nil.
+
 `:persistent BOOLEAN'
     If BOOLEAN is non nil then the micro-state never exits. A binding
     with an explicitly set `exit t' property is required. Default is nil.
@@ -82,13 +86,14 @@ used."
   (let* ((func (spacemacs//micro-state-func-name name))
          (doc (spacemacs/mplist-get props :doc))
          (persistent (plist-get props :persistent))
+         (disable-leader (plist-get props :disable-evil-leader))
          (msg-func (if (plist-get props :use-minibuffer) 'message 'lv-message))
          (exec-binding (plist-get props :execute-binding-on-enter))
          (on-enter (spacemacs/mplist-get props :on-enter))
          (on-exit (spacemacs/mplist-get props :on-exit))
          (bindings (spacemacs/mplist-get props :bindings))
          (wrappers (spacemacs//micro-state-create-wrappers
-                    name doc msg-func bindings))
+                    name doc msg-func disable-leader bindings))
          (keymap-body (spacemacs//micro-state-fill-map-sexps wrappers))
          (bindkeys (spacemacs//create-key-binding-form props func)))
     `(progn (defun ,func ()
@@ -121,14 +126,17 @@ used."
      (when binding
        (call-interactively (cadr binding)))))
 
-(defun spacemacs//micro-state-create-wrappers (name doc msg-func bindings)
+(defun spacemacs//micro-state-create-wrappers
+    (name doc msg-func disable-leader bindings)
   "Return an alist (key wrapper) for each binding in BINDINGS."
   (mapcar (lambda (x) (spacemacs//micro-state-create-wrapper
                        name doc msg-func x))
           (append bindings
                   ;; force SPC to quit the micro-state to avoid a edge case
                   ;; with evil-leader
-                  (list '("SPC" evil-leader--default-map :exit t)))))
+                  (list `(,dotspacemacs-leader-key
+                          ,(unless disable-leader 'evil-leader--default-map)
+                          :exit t)))))
 
 (defun spacemacs//micro-state-create-wrapper (name default-doc msg-func binding)
   "Create a wrapper of FUNC and return a tuple (key wrapper BINDING)."
