@@ -821,9 +821,12 @@ Some elements can be dynamically toggled:
 
     Key Binding        |                 Description
 -----------------------|------------------------------------------------------------
-<kbd>SPC t m m</kbd>   | toggle the minor mode lighters
 <kbd>SPC t m b</kbd>   | toggle the battery status
+<kbd>SPC t m c</kbd>   | toggle the `org` task clock
 <kbd>SPC t m f</kbd>   | toggle the flycheck info
+<kbd>SPC t m m</kbd>   | toggle the minor mode lighters
+<kbd>SPC t m n</kbd>   | toggle the cat! (if `colors` layer is declared in your dotfile)
+<kbd>SPC t m p</kbd>   | toggle the point character position
 <kbd>SPC t m v</kbd>   | toggle the new version lighter
 
 #### Flycheck integration
