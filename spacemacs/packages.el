@@ -1040,17 +1040,28 @@ which require an initialization must be listed explicitly in the list.")
     (make-local-variable 'fci-enabled)
     (if (> fci-enabled 0) (deactivate-fci) (activate-fci)))
 
-  (defun activate-fci ()
-    (setq fci-rule-column 79)
+
+  (defun activate-fci (&optional fci--width)
+    (if fci--width
+        (setq fci-rule-column fci--width)
+      (setq fci-rule-column 79))
     (setq fci-enabled 1)
     (fci-mode 1))
+
+  (defun toggle-fill-column-indicator-custom  ()
+    (interactive)
+    (make-local-variable 'fci-enabled)
+    (if (> fci-enabled 0) (deactivate-fci) (activate-fci fill-column)))
 
   (defun deactivate-fci ()
     (setq fci-enabled 0)
     (fci-mode 0))
 
   (use-package fill-column-indicator
-    :commands toggle-fill-column-indicator))
+    :commands toggle-fill-column-indicator)
+
+  (use-package fill-column-indicator
+    :commands toggle-fill-column-indicator-custom))
 
 (defun spacemacs/init-flx-ido ()
   (use-package flx-ido
@@ -2029,7 +2040,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
             (setq spacemacs-mode-line-display-point-p nil)
           (setq spacemacs-mode-line-display-point-p t)))
       (evil-leader/set-key "tmp" 'spacemacs/mode-line-display-point-toggle)
-      
+
       (defvar spacemacs-mode-line-org-clock-current-taskp nil
         "If not nil, the currently clocked org-mode task will be
 displayed in the mode-line.")
@@ -2121,7 +2132,7 @@ displayed in the mode-line.")
            ;; org clocked task
            (when (and active
                       spacemacs-mode-line-org-clock-current-taskp
-                      (fboundp 'org-clocking-p) 
+                      (fboundp 'org-clocking-p)
                       (org-clocking-p))
              (list (powerline-raw " " face2)
                    (funcall spacemacs-mode-line-org-clock-format-function)
