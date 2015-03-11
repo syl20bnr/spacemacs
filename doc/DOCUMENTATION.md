@@ -2292,6 +2292,7 @@ Achievements                                         | Account
 [500th issue (PR)][500th-issue]                      | [bjarkevad][]
 [600th issue (PR)][600th-issue]                      | [bjarkevad][]
 [700th issue (enhancement)][700th-issue]             | [jcpetkovich][]
+[800th issue (PR)][800th-issue]                      | [ryansroberts][]
 [100th pull request][100th-PR]                       | [bru][]
 [200th pull request][200th-PR]                       | [smt][]
 [300th pull request][300th-PR]                       | [BrianHicks][]
@@ -2302,6 +2303,7 @@ PR gunner (8 PRs in a row)                           | [ralesi][]
 400th star                                           | [dbohdan][]
 600th star                                           | [laat][]
 700th star                                           | [kendall][]
+800th star                                           | [urso][]
 
 # Thank you
 
@@ -2404,6 +2406,7 @@ developers to elisp hackers!
 [500th-issue]: https://github.com/syl20bnr/spacemacs/pull/500
 [600th-issue]: https://github.com/syl20bnr/spacemacs/pull/600
 [700th-issue]: https://github.com/syl20bnr/spacemacs/pull/700
+[800th-issue]: https://github.com/syl20bnr/spacemacs/pull/800
 [100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [200th-PR]: https://github.com/syl20bnr/spacemacs/pull/418
 [300th-PR]: https://github.com/syl20bnr/spacemacs/pull/617
@@ -2418,6 +2421,9 @@ developers to elisp hackers!
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
 [laat]:https://github.com/laat
+[ryansroberts]:https://github.com/laat
+[kendall]:https://github.com/kendall
+[urso]:https://github.com/urso
 [bru]:https://github.com/bru
 [smt]:https://github.com/smt
 [ralesi]:https://github.com/ralesi
