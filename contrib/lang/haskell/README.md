@@ -86,7 +86,7 @@ so that the path is added before any layers is loaded.
 ### OS X
 
 Note that `emacs.app` for OS X does not pick up `$PATH` from `~/.bashrc` or
-`~/.zshrc` when launched from outside a terminal.
+`~/.zshrc` when launched from outside a terminal. If you want it to do so, install [exec-path-from-shell](https://github.com/purcell/exec-path-from-shell) package.
 
 ### Optional extras
 The Haskell layer supports some extra features that can be enabled through
