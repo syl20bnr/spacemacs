@@ -22,8 +22,7 @@ scripts.
 - Support syntax checking with Clang.
 - Display function or variable definition at the bottom.
 - Display current function cursor is in at the top.
-- Support common refactoring with Srefactor. See
-[this page](https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org)
+- Support common refactoring with [semantic-refactor][]. See [this page][demos]
 for demonstration of refactoring features.
 
 **This layer is not fully adapted for Spacemacs, it needs you, C/C++ experts, to
@@ -37,4 +36,8 @@ To use this contribution add it to your `~/.spacemacs`
 (setq-default dotspacemacs-configuration-layers '(c-c++))
 ```
 
+** Note: ** [semantic-refactor][] is only available for Emacs 24.4+
+
 [CMake]: http://www.cmake.org/
+[semantic-refactor]: https://github.com/tuhdo/semantic-refactor
+[demos]: https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org
