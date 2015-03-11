@@ -660,6 +660,7 @@ which require an initialization must be listed explicitly in the list.")
           (recenter nil)))
       (spacemacs|define-micro-state scroll
         :doc "[,] page up [.] page down [<] half page up [>] half page down"
+        :use-minibuffer t
         :execute-binding-on-enter t
         :evil-leader "n." "n," "n<" "n>"
         :bindings
