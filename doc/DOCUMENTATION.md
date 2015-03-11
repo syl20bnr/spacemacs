@@ -757,12 +757,12 @@ units of 1/10 point.
   - reverse-italic
   - reverse-oblique
 - `:size` The font size—either a non-negative integer that specifies the pixel
-size, or a floating-point number that specifies the point size. 
+size, or a floating-point number that specifies the point size.
 - `:adstyle` Additional typographic style information for the font, such as
 ‘sans’. The value should be a string or a symbol.
 - `:registry` The charset registry and encoding of the font, such as
-‘iso8859-1’. The value should be a string or a symbol. 
-- `:script` The script that the font must support (a symbol). 
+‘iso8859-1’. The value should be a string or a symbol.
+- `:script` The script that the font must support (a symbol).
 
 The special property `:powerline-scale` is `Spacemacs` specific and it is for
 quick tweaking of the mode-line height in order to avoid crappy rendering of
@@ -779,6 +779,7 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC t 8</kbd>    | display a mark on the 80th column
+<kbd>SPC t 0</kbd>    | display a mark on the `fill-column`
 <kbd>SPC t F</kbd>    | toggle frame fullscreen
 <kbd>SPC t f</kbd>    | toggle display of the fringe
 <kbd>SPC t h</kbd>    | toggle highlight of the current line

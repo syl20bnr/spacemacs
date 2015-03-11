@@ -135,6 +135,11 @@
                       :on (toggle-fill-column-indicator)
                       :documentation "Display the fill column indicator."
                       :evil-leader "t8")
+(spacemacs|add-toggle fill-column-indicator-custom
+                      :status nil
+                      :on (toggle-fill-column-indicator-custom)
+                      :documentation "Display the fill column indicator at `fill-column`."
+                      :evil-leader "t0")
 (spacemacs|add-toggle fringe
                       :status (not (equal fringe-mode 0))
                       :on (call-interactively 'fringe-mode)
