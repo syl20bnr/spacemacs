@@ -22,10 +22,10 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (global-fasd-mode 1)
-      (spacemacs/declare-prefix "fz" "fasd-find")
-      (evil-leader/set-key "fzd" 'fasd-find-directory-only)
-      (evil-leader/set-key "fzf" 'fasd-find-file-only)
-      (evil-leader/set-key "fzz" 'fasd-find-file)
+      (spacemacs/declare-prefix "fa" "fasd-find")
+      (evil-leader/set-key "fad" 'fasd-find-directory-only)
+      (evil-leader/set-key "faf" 'fasd-find-file-only)
+      (evil-leader/set-key "fas" 'fasd-find-file)
 
       ;; we will fall back to using the default completing-read function, which is helm once helm is loaded.
       (setq fasd-completing-read-function 'nil)
