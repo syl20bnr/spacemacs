@@ -20,6 +20,7 @@
   '(
     nose
     pylookup
+    python-compile
     ))
 
 ;; Initialize the extensions
@@ -66,3 +67,25 @@
         (setq pylookup-dir (concat dir "/pylookup")
               pylookup-program (concat pylookup-dir "/pylookup.py")
               pylookup-db-file (concat pylookup-dir "/pylookup.db"))))))
+
+(defun python/init-python-compile ()
+   "Initialize Compile command for python buffers"
+   ;; set compile command to buffer-file-name
+   ;; if buffer-file-name exists
+   ;; otherwise error occurs on e.g. org export including python src
+   (add-hook 'python-mode-hook
+           (lambda ()
+             (set (make-local-variable 'compile-command)
+                  (if buffer-file-name
+                      (format "python %s" (file-name-nondirectory buffer-file-name))))))
+
+    (defadvice compile (before ad-compile-smart activate)
+    "Advises `compile' so it sets the argument COMINT to t
+    in `python-mode' files"
+    (when (derived-mode-p major-mode 'python-mode)
+        (save-excursion
+        (save-match-data
+            (goto-char (point-min))
+                ;; set COMINT argument to `t'.
+                (ad-set-arg 1 t)))))
+)
