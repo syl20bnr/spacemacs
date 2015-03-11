@@ -68,7 +68,7 @@ Available PROPS:
                      :post SEXP
                      :exit SYMBOL)
     where:
-    - STRING1 is a key to be bound to the function SYMBOL1.
+    - STRING1 is a key to be bound to the function or key map SYMBOL1.
     - :doc STRING or SEXP is a STRING or an SEXP that evalutes
       to a string
     - :pre is an SEXP evaluated before the bound action
@@ -128,7 +128,7 @@ used."
           (append bindings
                   ;; force SPC to quit the micro-state to avoid a edge case
                   ;; with evil-leader
-                  (list '("SPC" nil :exit t)))))
+                  (list '("SPC" evil-leader--default-map :exit t)))))
 
 (defun spacemacs//micro-state-create-wrapper (name default-doc msg-func binding)
   "Create a wrapper of FUNC and return a tuple (key wrapper BINDING)."
@@ -150,21 +150,23 @@ used."
                                   (list (spacemacs//micro-state-propertize-doc
                                     (format "%S: %s" ',name defdoc)))))))))
          (wrapper-func
-          (eval `(defun ,wrapper-name ()
-                   "Auto-generated function"
-                   (interactive)
-                   ,@binding-pre
-                   (let ((throwp t))
-                     (catch 'exit
-                       (when ',wrapped
-                         (call-interactively ',wrapped)
-                         (setq last-command ',wrapped))
-                       (setq throwp nil))
-                     ,@binding-post
-                     (when throwp (throw 'exit nil)))
-                   ,@doc-body
-                   ))))
-    (append (list (car binding) wrapper-func) binding)))
+          (if (and (boundp wrapped)
+                   (eval `(keymapp ,wrapped)))
+              wrapped
+            `(defun ,wrapper-name ()
+               "Auto-generated function"
+               (interactive)
+               ,@binding-pre
+               (let ((throwp t))
+                 (catch 'exit
+                   (when ',wrapped
+                     (call-interactively ',wrapped)
+                     (setq last-command ',wrapped))
+                   (setq throwp nil))
+                 ,@binding-post
+                 (when throwp (throw 'exit nil)))
+               ,@doc-body))))
+    (append (list (car binding) (eval wrapper-func)) binding)))
 
 (defun spacemacs//micro-state-fill-map-sexps (wrappers)
   "Return a list of `define-key' sexp to fill the micro-state temporary map."
