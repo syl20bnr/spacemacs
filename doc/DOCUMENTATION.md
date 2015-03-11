@@ -1512,6 +1512,7 @@ Key Binding        |                 Description
 <kbd>-</kbd>       | shrink
 <kbd>gg</kbd>      | go to first page
 <kbd>G</kbd>       | go to last page
+<kbd>gt</kbd>      | go to page number
 <kbd>h</kbd>       | previous page
 <kbd>H</kbd>       | adjust to height
 <kbd>j</kbd>       | next line
