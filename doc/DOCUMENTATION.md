@@ -2067,7 +2067,6 @@ To search in a project see [project searching](#project-searching).
 <kbd>SPC p g</kbd>  | run `grep`
 <kbd>SPC p h</kbd>  | find file using `helm`
 <kbd>SPC p I</kbd>  | invalidate the projectile cache
-<kbd>SPC p j</kbd>  | find a tag
 <kbd>SPC p k</kbd>  | kill all project buffers
 <kbd>SPC p o</kbd>  | run `multi-occur`
 <kbd>SPC p R</kbd>  | regenerate the project's [e|g]tags
