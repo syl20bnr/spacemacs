@@ -584,18 +584,19 @@ kill internal buffers too."
   :variable bzg-big-fringe-mode
   :group 'editing-basics
   (if (not bzg-big-fringe-mode)
-      (set-fringe-style nil)
+      (progn (set-fringe-style nil)
+      (guide-key-mode 1))
+    (progn
     (set-fringe-mode
      (/ (- (frame-pixel-width)
            (* 100 (frame-char-width)))
-        2))))
+        2))
+    (guide-key-mode -1))))
 
 (defun fill-char-to-column (char column)
   " Fill the line with CHAR up to the given COLUMN"
   (interactive "cFill with char: \nnUp to column: "
-               char column)
-
-)
+               char column))
 
 (defun spacemacs/toggle-frame-fullscreen ()
   "Respect the `dotspacemacs-fullscreen-use-non-native' variable when
