@@ -1244,6 +1244,14 @@ which require an initialization must be listed explicitly in the list.")
         (if (symbol-value guide-key-mode)
             (guide-key-mode -1)
           (guide-key-mode)))
+
+      (defadvice guide-key/popup-guide-buffer-p
+          (around spacemacs/inhibit-guide-buffer activate)
+        "Prevent the popup of the guide-key buffer in some case."
+        ;; a micro-state is running
+        (unless overriding-terminal-local-map
+          ad-do-it))
+
       (evil-leader/set-key "tk" 'spacemacs/toggle-guide-key)
       (setq guide-key/guide-key-sequence `("C-x"
                                            "C-c"
