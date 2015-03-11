@@ -1403,6 +1403,7 @@ which require an initialization must be listed explicitly in the list.")
 
       (spacemacs|define-micro-state helm-navigation
         :persistent t
+        :disable-evil-leader t
         :define-key (helm-map . "C-SPC") (helm-map . "C-@")
         :on-enter (spacemacs//helm-navigation-ms-on-enter)
         :on-exit  (spacemacs//helm-navigation-ms-on-exit)
@@ -1681,6 +1682,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 
       (spacemacs|define-micro-state ido-navigation
         :persistent t
+        :disable-evil-leader t
         :on-enter (spacemacs//ido-navigation-ms-on-enter)
         :on-exit  (spacemacs//ido-navigation-ms-on-exit)
         :bindings
