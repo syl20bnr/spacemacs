@@ -46,18 +46,16 @@
 
 ;; loading progress bar variables
 (defvar spacemacs-title-length 75)
+(defvar spacemacs-loading-char ?█)
+(defvar spacemacs-loading-string "")
 (defvar spacemacs-loading-counter 0)
-(defvar spacemacs-loading-text "Loading")
-(defvar spacemacs-loading-done-text "Ready!")
+;; (defvar spacemacs-loading-text "Loading")
+;; (defvar spacemacs-loading-done-text "Ready!")
 (defvar spacemacs-loading-dots-chunk-count 3)
-(defvar spacemacs-loading-dots-count
-  (- spacemacs-title-length
-     (length spacemacs-loading-text)
-     (length spacemacs-loading-done-text)))
+(defvar spacemacs-loading-dots-count (window-total-size nil 'width))
 (defvar spacemacs-loading-dots-chunk-size
   (/ spacemacs-loading-dots-count spacemacs-loading-dots-chunk-count))
 (defvar spacemacs-loading-dots-chunk-threshold 0)
-(defvar spacemacs-solarized-dark-createdp nil)
 
 (define-derived-mode spacemacs-mode special-mode "Spacemacs"
   "Spacemacs major mode for startup screen."
@@ -76,6 +74,7 @@ initialization."
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
+  (setq mode-line-format "")
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
   ;; default theme
@@ -326,8 +325,7 @@ version and the NEW version."
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file
      (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
-     (when dotspacemacs-loading-progress-bar
-       (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text)))
+     (message "%s" (window-width))
      ;; from jwiegley
      ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
      (let ((elapsed (float-time
