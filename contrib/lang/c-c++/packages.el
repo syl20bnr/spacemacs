@@ -15,6 +15,7 @@
     cc-mode
     cmake-mode
     flycheck
+    stickyfunc-enhance
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -31,6 +32,7 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
       (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
       (semantic-mode 1)
+      (require 'stickyfunc-enhance)
       (c-toggle-auto-newline 1)
       (setq srecode-map-save-file (concat spacemacs-cache-directory "srecode-map.el"))
       (setq semanticdb-default-save-directory (concat spacemacs-cache-directory "semanticdb/")))))
