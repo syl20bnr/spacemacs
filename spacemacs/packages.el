@@ -420,7 +420,7 @@ which require an initialization must be listed explicitly in the list.")
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset"
+            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset (d) to go to next definition (D) to go to previous definition"
                   propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
