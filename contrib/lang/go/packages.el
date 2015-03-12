@@ -41,7 +41,7 @@ which require an initialization must be listed explicitly in the list.")
 )
 (defun go/init-company-go ()
  (use-package company-go
-   :if (boundp 'company-backends)
+   :if (configuration-layer/package-declaredp 'company)
    :defer t
    :init (eval-after-load 'go-mode '(add-to-list 'company-backends 'company-go))
   )
