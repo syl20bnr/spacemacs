@@ -115,11 +115,11 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
     (setq spacemacs-loading-counter (1+ spacemacs-loading-counter))
     (when (>= spacemacs-loading-counter spacemacs-loading-dots-chunk-threshold)
       (setq spacemacs-loading-counter 0)
-      (let ((i 0))
-        (while (< i spacemacs-loading-dots-chunk-size)
-          (setq spacemacs-loading-text (concat spacemacs-loading-text "."))
-          (setq i (1+ i))))
-      (spacemacs/replace-last-line-of-buffer spacemacs-loading-text)
+      (setq spacemacs-loading-string
+            (concat spacemacs-loading-string
+                    (make-string spacemacs-loading-dots-chunk-size
+                                 spacemacs-loading-char)))
+      (setq mode-line-format spacemacs-loading-string)
       (spacemacs//redisplay))))
 
 (defun spacemacs/insert-buttons ()
