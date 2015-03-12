@@ -24,32 +24,37 @@
 
 (defun load-gopath-file(gopath name)
   "Search for NAME file in all paths referenced in GOPATH."
-  (setq paths (split-string gopath ":"))
-  (loop for p in paths
-        for file = (concat p name) when (file-exists-p file)
-        do (load-file file)))
+  (let ((paths (split-string gopath ":"))
+        found)
+    (loop for p in paths
+          for file = (concat p name) when (file-exists-p file)
+          do
+          (load-file file)
+          (setq found t)
+          finally return found)))
 
 (defun go/init-go-oracle()
   (let ((go-path (getenv "GOPATH")))
     (if (not go-path)
         (spacemacs/message (concat "Warning: GOPATH variable not found, "
                                    "go-oracle configuration skipped."))
-      (load-gopath-file go-path "/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
-      (add-hook 'go-mode-hook 'go-oracle-mode)
-      (spacemacs|diminish go-oracle-mode " O")
-      (evil-leader/set-key-for-mode 'go-mode
-        "moo" 'go-oracle-set-scope
-        "mo<" 'go-oracle-callers
-        "mo>" 'go-oracle-callees
-        "moc" 'go-oracle-peers
-        "mod" 'go-oracle-definition
-        "mof" 'go-oracle-freevars
-        "mog" 'go-oracle-callgraph
-        "moi" 'go-oracle-implements
-        "mop" 'go-oracle-pointsto
-        "mor" 'go-oracle-referrers
-        "mos" 'go-oracle-callstack
-        "mot" 'go-oracle-describe))))
+      (when (load-gopath-file
+             go-path "/src/code.google.com/p/go.tools/cmd/oracle/oracle.el")
+        (add-hook 'go-mode-hook 'go-oracle-mode)
+        (spacemacs|diminish go-oracle-mode " O")
+        (evil-leader/set-key-for-mode 'go-mode
+          "moo" 'go-oracle-set-scope
+          "mo<" 'go-oracle-callers
+          "mo>" 'go-oracle-callees
+          "moc" 'go-oracle-peers
+          "mod" 'go-oracle-definition
+          "mof" 'go-oracle-freevars
+          "mog" 'go-oracle-callgraph
+          "moi" 'go-oracle-implements
+          "mop" 'go-oracle-pointsto
+          "mor" 'go-oracle-referrers
+          "mos" 'go-oracle-callstack
+          "mot" 'go-oracle-describe)))))
 
 (defun go/init-go-rename()
   (use-package go-rename
