@@ -95,7 +95,8 @@ buffer, right justified."
     (goto-char (point-max))
     (let ((buffer-read-only nil))
       (insert msg)
-      (if messagebuf (message "(Spacemacs) %s" msg)))))
+      (if messagebuf (message "(Spacemacs) %s" msg)))
+    (setq mode-line-format "")))
 
 (defun spacemacs/replace-last-line-of-buffer (msg &optional messagebuf)
   "Replace the last line of the spacemacs buffer with MSG. If MESSAGEBUF is
@@ -105,7 +106,8 @@ buffer, right justified."
     (let ((buffer-read-only nil))
       (delete-region (line-beginning-position) (point-max))
       (insert msg)
-      (if messagebuf (message "(Spacemacs) %s" msg)))))
+      (if messagebuf (message "(Spacemacs) %s" msg)))
+    (setq mode-line-format "")))
 
 (defun spacemacs/loading-animation ()
   "Display LOADING-TITLE with trailing dots of max length

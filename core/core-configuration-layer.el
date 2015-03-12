@@ -760,9 +760,6 @@ deleted safely."
     ;; (message "orphans: %s" orphans)
     (if orphans
         (progn
-          ;; for the loading dot bar
-          (when dotspacemacs-loading-progress-bar
-            (spacemacs/append-to-buffer "OK!\n"))
           (spacemacs/append-to-buffer
            (format "Found %s orphan package(s) to delete...\n"
                    orphans-count))
