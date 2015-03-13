@@ -101,8 +101,6 @@
     powerline
     projectile
     rainbow-delimiters
-    rcirc
-    rcirc-color
     recentf
     rfringe
     s
@@ -2323,34 +2321,6 @@ displayed in the mode-line.")
     (progn
       (evil-leader/set-key "tCd" 'rainbow-delimiters-mode)
       (add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook)))))
-
-(defun spacemacs/init-rcirc ()
-  (use-package rcirc
-    :commands irc
-    :init
-    (progn
-      (add-to-hook 'rcirc-mode-hook '(rcirc-track-minor-mode
-                                      rcirc-omit-mode
-                                      ;; rcirc-reconnect-mode
-                                      flyspell-mode))
-      (setq evil-normal-state-modes
-            (cons 'rcirc-mode evil-normal-state-modes)))
-    :config
-    (progn
-      (setq rcirc-fill-column 80
-            rcirc-buffer-maximum-lines 2048
-            rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
-            rcirc-omit-threshold 20)
-      (require 'rcirc-color)
-      (let ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir)))
-        (require 'rcirc-reconnect
-                 (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
-      ;; identify info are stored in a separate location, skip errors
-      ;; if the feature cannot be found.
-      (require 'pinit-rcirc nil 'noerror)
-      (define-key rcirc-mode-map (kbd "C-j") 'rcirc-insert-prev-input)
-      (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input)
-      )))
 
 (defun spacemacs/init-recentf ()
   (use-package recentf

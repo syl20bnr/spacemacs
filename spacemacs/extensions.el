@@ -19,7 +19,6 @@
   '(
     centered-cursor
     emoji-cheat-sheet
-    helm-rcirc
     helm-spacemacs
     solarized-theme
     spray
@@ -55,12 +54,6 @@
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet
     :commands emoji-cheat-sheet))
-
-(defun spacemacs/init-helm-rcirc ()
-  (use-package helm-rcirc
-    :commands helm-rcirc-auto-join-channels
-    :init
-    (evil-leader/set-key "irc" 'helm-rcirc-auto-join-channels)))
 
 (defun spacemacs/init-helm-spacemacs ()
   (use-package helm-spacemacs

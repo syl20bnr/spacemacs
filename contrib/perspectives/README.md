@@ -39,31 +39,51 @@ Then you just need to add a keybinding to your custom persp, we use
         (evil-leader/set-key "Po<your key here>" 'custom-persp/<persp-function-name>))
 ```
 
-### org-agenda `<SPC> P o o` (Perspective Open Org)
-
-Here we define a custom perspective that adds items to your org-agenda if you do not know what that is check the [docs](https://www.gnu.org/software/emacs/manual/html_node/org/Agenda-commands.html). The cool part is that you can have many org files with todos in the agenda and with one simple command you can gather all the todos from all the agenda files you have and show them in a single buffer. (in evil the command starts with `; a`)
 
 ## Keybindings
 
-Perspective-mode defines keybindings under `C-x x` so we will take a
-more `spacemacsy` approach and define them under out perspective map
-`<SPC> P`
+Perspective-mode defines keybindings under `C-x x` so we will take a more
+`spacemacsy` approach and define them under out perspective map `<SPC> P`
 
+```elisp
   (projectile-persp-bridge helm-projectile)
   (setq projectile-switch-project-action 'helm-projectile)
+```
 
+### org-agenda `<SPC> P o o` (Perspective Open Org)
+
+Here we define a custom perspective that adds items to your org-agenda if you
+do not know what that is check the
+[docs](https://www.gnu.org/software/emacs/manual/html_node/org/Agenda-commands.html).
+
+The cool part is that you can have many org files with todos in the agenda and
+with one simple command you can gather all the todos from all the agenda files
+you have and show them in a single buffer. (in evil the command starts with `;
+a`)
 
 ## Persp-Projectile
 
-As the name suggests, this persp-projectile mode creates a new
-perspective once you switch to a new project with `<SPC> p s`. It must
-be said that in the current implementation in order for this to work
-you must first open a custom-perspective like `SPC P o e` to go to the
-init.el in the spacemacs.
+As the name suggests, this persp-projectile mode creates a new perspective
+once you switch to a new project with `<SPC> p s`. It must be said that in the
+current implementation in order for this to work you must first open a
+custom-perspective like `SPC P o e` to go to the init.el in the spacemacs.
 
-If you are a helm person, and would rather use helm for projectile add this to your config as well:
+If you are a helm person, and would rather use helm for projectile add this to
+your config as well:
 
 ```elisp 
 (projectile-persp-bridge helm-projectile)
 (setq projectile-switch-project-action 'helm-projectile)
+```
+
+## RCIRC
+
+Now you can also open rcirc in a new layer to keep all the chat buffers in one
+perspective isolated from your work buffers.
+
+You will have to use the perspective layer as well as the rcirc layer:
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(rcirc
+                                                  perspectives))
 ```

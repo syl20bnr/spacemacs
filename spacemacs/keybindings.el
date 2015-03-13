@@ -39,7 +39,6 @@
 (evil-leader/set-key
   "ac"  'calc-dispatch
   "ad"  'dired
-  "ai"  'irc
   "ap"  'proced
   "ase" 'eshell
   "asi" 'shell
