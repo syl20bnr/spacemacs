@@ -81,19 +81,18 @@ initialization."
     (spacemacs/load-theme default-theme)
     (setq-default spacemacs--cur-theme default-theme)
     (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
-  ;; remove GUI elements if supported
-  (when window-system
-    ;; those unless tests are for the case when the user has a ~/.emacs file
-    ;; were he/she ;; removes the GUI elements
-    (unless (eq tool-bar-mode -1)
-      (tool-bar-mode -1))
-    (unless (eq scroll-bar-mode -1)
-      (scroll-bar-mode -1))
-    ;; tooltips in echo-aera
-    (unless (eq tooltip-mode -1)
-      (tooltip-mode -1))
-    (setq tooltip-use-echo-area t))
-  (unless (eq window-system 'mac)
+  ;; removes the GUI elements
+  (unless (or (not (boundp 'tool-bar-mode)) (eq tool-bar-mode -1))
+    (tool-bar-mode -1))
+  (unless (or (not (boundp 'scroll-bar-mode)) (eq scroll-bar-mode -1))
+    (scroll-bar-mode -1))
+  ;; tooltips in echo-aera
+  (unless (or (not (boundp 'tooltip-mode)) (eq tooltip-mode -1))
+    (tooltip-mode -1))
+  (setq tooltip-use-echo-area t)
+  (unless (or (not (boundp 'tooltip-mode))
+              (eq window-system 'mac)
+              (eq tooltip-mode -1))
     (menu-bar-mode -1))
   ;; for convenience and user support
   (unless (boundp 'tool-bar-mode)
