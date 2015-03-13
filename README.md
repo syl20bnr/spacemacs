@@ -1,6 +1,7 @@
 ***
-![title](./doc/img/title.png)
-[philosophy][] | [goals][] | [for who?][] | [screenshots][] | [documentation][DOCUMENTATION.md] | [contribute][CONTRIBUTE.md] | [achievements][] | [FAQ][]
+<p align="center"><img src="./doc/img/title2.png" alt="Spacemacs"/></p>
+
+| [philosophy][] | [goals][] | [for who?][] | [screenshots][] | [documentation][DOCUMENTATION.md] | [contribute][CONTRIBUTE.md] | [achievements][] | [FAQ][] |
 ***
 [![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
 ***
@@ -33,10 +34,11 @@
     - [Evil-tutor](#evil-tutor)
     - [The leader key](#the-leader-key)
     - [Universal argument](#universal-argument)
-    - [Configuration layers and Packages discovery](#configuration-layers-and-packages-discovery)
+    - [Configuration layers and Package discovery](#configuration-layers-and-package-discovery)
     - [Key bindings discovery](#key-bindings-discovery)
     - [Describe functions](#describe-functions)
 - [Contributions](#contributions)
+- [Credits](#credits)
 - [FAQ](#faq)
     - [Common](#common)
     - [Windows](#windows)
@@ -352,6 +354,11 @@ support for new languages.
 
 If you are ready to contribute please begin by consulting the [contribution guidelines][CONTRIBUTE.md], thanks!
 
+# Credits
+
+[Spacemacs logo][] by [Nasser Alshammari][]
+released under a Creative Commons license.
+
 # FAQ
 
 ## Common
@@ -457,3 +464,5 @@ details.
 [C-C++]: contrib/lang/c-c++
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
+[Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
+[Nasser Alshammari]: https://github.com/nashamri
