@@ -45,7 +45,6 @@
   "Text displayed in the mode-line when a new version is available.")
 
 ;; loading progress bar variables
-(defvar spacemacs-title-length 75)
 (defvar spacemacs-loading-char ?█)
 (defvar spacemacs-loading-string "")
 (defvar spacemacs-loading-counter 0)
@@ -107,7 +106,7 @@ initialization."
     (spacemacs/message "Warning: Cannot find font \"%s\"!"
                        (car dotspacemacs-default-font)))
   ;; banner
-  (spacemacs//insert-banner)
+  (spacemacs//insert-banner-and-buttons)
   (setq-default evil-want-C-u-scroll t)
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init "Executing user init...")
@@ -325,7 +324,6 @@ version and the NEW version."
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file
      (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
-     (message "%s" (window-width))
      ;; from jwiegley
      ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
      (let ((elapsed (float-time
