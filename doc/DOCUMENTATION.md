@@ -139,7 +139,6 @@
         - [Org](#org)
         - [Python](#python)
         - [JavaScript](#javascript)
-        - [rcirc](#rcirc)
         - [HTML and CSS](#html-and-css)
 - [Emacs Server](#emacs-server)
     - [Connecting to the Emacs server](#connecting-to-the-emacs-server)
@@ -2205,13 +2204,6 @@ Writing python code with spacemacs is supported by python contribution. Please s
 
 More featured JavaScript support is provided by the javascript contribution. Please see
 [javascript contribution][javascript-contrib] documentation for detail.
-
-### rcirc
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-<kbd>CTRL+j</kbd> | next item in command history
-<kbd>CTRL+k</kbd> | previous item in command history
 
 ### HTML and CSS
 

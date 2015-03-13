@@ -29,10 +29,17 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (custom-persp ".emacs.d"
                       (find-file "~/.emacs.d/init.el")))
+
       (defun custom-persp/org ()
         (interactive)
         (custom-persp "@org"
                       (find-file (first org-agenda-files))))
+
+      (defun custom-persp/rcirc ()
+        (interactive)
+        (custom-persp "@RCIRC" (rcirc-config)))
+      (evil-leader/set-key
+        "Poi" 'custom-persp/rcirc)
 
       (spacemacs/declare-prefix "P" "perspectives")
       (spacemacs/declare-prefix "Po" "custom-perspectives")
