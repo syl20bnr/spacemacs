@@ -277,7 +277,7 @@ which require an initialization must be listed explicitly in the list.")
       (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
 
 (defun git/init-magit-gh-pulls ()
-  (use-package magit-gh-pulls ()
+  (use-package magit-gh-pulls
     :if git-enable-github-support
     :defer t
     :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
