@@ -210,26 +210,21 @@ which require an initialization must be listed explicitly in the list.")
         "Execute a python script in a shell."
         (interactive "P")
         ;; set compile command to buffer-file-name
-        ;; if buffer-file-name exists
-        ;; otherwise error occurs on e.g. org export including python src
         ;; universal argument put compile buffer in comint mode
         (setq universal-argument t)
         (if arg
             (call-interactively 'compile)
-          (unless compile-command
             (setq compile-command (format "python %s" (file-name-nondirectory
-                                                       buffer-file-name))))
+                                                       buffer-file-name)))
           (compile compile-command t)))
 
       (defun spacemacs/python-execute-file-focus (arg)
         "Execute a python script in a shell and switch to the shell buffer in
 `insert state'."
         (interactive "P")
-        ;; set compile command to buffer-file-name
-        ;; if buffer-file-name exists
-        ;; otherwise error occurs on e.g. org export including python src
         (spacemacs/python-execute-file arg)
         (switch-to-buffer-other-window "*compilation*")
+        (end-of-buffer)
         (evil-insert-state))
 
       (evil-leader/set-key-for-mode 'python-mode
