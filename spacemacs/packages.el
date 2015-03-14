@@ -2043,7 +2043,9 @@ displayed in the mode-line.")
           (setq spacemacs-mode-line-org-clock-current-taskp t)))
       (evil-leader/set-key "tmc" 'spacemacs/mode-line-org-clock-current-task-toggle)
 
-      (setq-default powerline-default-separator 'wave)
+      (if (display-graphic-p)
+          (setq-default powerline-default-separator 'wave)
+        (setq-default powerline-default-separator 'uf8))
 
       (defun spacemacs/mode-line-prepare-left ()
         (let* ((active (powerline-selected-window-active))

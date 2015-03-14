@@ -380,19 +380,11 @@ More information in the [font section][] of the documentation.
 Use the property `:powerline-scale` of the variable
 `dotspacemacs-default-font`. See [font][] documentation for more details.
 
-5. **Why are the powerline arrows missing in terminal, even with a patched font ?**
-Emacs powerline implementation does not use patched fonts. Currently there are
-no mode-lines in Emacs that support patched fonts.
-The corresponding feature request for the powerline can be found
-[here][pw-patched-fonts].
-
-6. **The powerline separators have no anti-aliasing, what can I do ?**
-Emacs powerline uses XMP images to draw the separators. Enabling anti-aliasing
-may not be a trivial task so unfortunately you'll have to live with it.
-Nevertheless there exist a [large number of different separators][powerline-seps] --
-you can try to set up a different one with less aliasing (arrows for
-instance), alternatively you can disable them (note that the tilde characters
-on buffer empty lines have the same limitations).
+5. **The powerline separators have no anti-aliasing, what can I do ?**
+Emacs powerline uses XMP images to draw the separators in a graphical
+environment. You can have anti-aliasing if you use the `utf8` separator.
+Note that by default the `utf8` separator is used in a terminal.
+See the powerline section in the [documentation][powerline-doc].
 
 ## Windows
 
@@ -447,7 +439,6 @@ details.
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
-[pw-patched-fonts]: https://github.com/milkypostman/powerline/issues/15
 [MacType]: https://code.google.com/p/mactype/
 [emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
 [emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
@@ -463,6 +454,7 @@ details.
 [Clojure]: contrib/lang/clojure
 [C-C++]: contrib/lang/c-c++
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
+[powerline-doc]: doc/DOCUMENTATION.md#powerline-separators
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
 [Nasser Alshammari]: https://github.com/nashamri
