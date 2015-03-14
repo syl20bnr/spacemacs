@@ -1,14 +1,13 @@
 # F# contribution layer for Spacemacs
 
 ![logo_fsharp](img/fsharp.png)
-
 ## Description
 
-This layer adds support for F# language using [fsharpbindng](https://github.com/fsharp/fsharpbinding).
+This layer adds support for F# language using [fsharpbinding][].
 
 ## Packages Included
 
-- [fsharp-mode](https://github.com/fsharp/fsharpbinding) 
+- [fsharp-mode][]
 
 ## Install
 
@@ -20,31 +19,25 @@ To use this contribution add it to your `~/.spacemacs`
 
 ## Key Bindings
 
-### Compilation
 
     Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>mcc</kbd>        | Build the project 
-
-### Navigation
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>mcd</kbd>        | Go to definition at point
-<kbd>men</kbd>        | Next error
-<kbd>mep</kbd>        | Previous error
+----------------------|--------------------------------------------------------
+<kbd>mcc</kbd>        | Build the project
+<kbd>mgg</kbd>        | Go to definition at point
+<kbd>mht</kbd>        | Show tooltip help at point
 
 ### REPL
 
     Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>mer</kbd>        | Evaluate region
-<kbd>mep</kbd>        | Evaluate phrase
-<kbd>mef</kbd>        | Evaluate buffer
-<kbd>mss</kbd>        | Start REPL
+----------------------|--------------------------------------------------------
+<kbd>msb</kbd>        | Send buffer to the REPL
+<kbd>msB</kbd>        | Send buffer to the REPL and switch to the REPL in `insert state`
+<kbd>msi</kbd>        | Start a REPL
+<kbd>msp</kbd>        | Send phrase to the REPL
+<kbd>msP</kbd>        | Send phrase to the REPL and switch to the REPL in `insert state`
+<kbd>msr</kbd>        | Send region to the REPL
+<kbd>msR</kbd>        | Send region to the REPL and switch to the REPL in `insert state`
+<kbd>mss</kbd>        | Show the REPL
 
-### Helpers (documentation, info)
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>mst</kbd>        | Show tooltip at point
+[fsharpbinding]: https://github.com/fsharp/fsharpbinding
+[fsharp-mode]: https://github.com/fsharp/fsharpbinding
