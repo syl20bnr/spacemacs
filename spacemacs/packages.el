@@ -2029,7 +2029,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
             (setq spacemacs-mode-line-display-point-p nil)
           (setq spacemacs-mode-line-display-point-p t)))
       (evil-leader/set-key "tmp" 'spacemacs/mode-line-display-point-toggle)
-      
+
       (defvar spacemacs-mode-line-org-clock-current-taskp nil
         "If not nil, the currently clocked org-mode task will be
 displayed in the mode-line.")
@@ -2045,7 +2045,7 @@ displayed in the mode-line.")
 
       (if (display-graphic-p)
           (setq-default powerline-default-separator 'wave)
-        (setq-default powerline-default-separator 'uf8))
+        (setq-default powerline-default-separator 'utf-8))
 
       (defun spacemacs/mode-line-prepare-left ()
         (let* ((active (powerline-selected-window-active))
