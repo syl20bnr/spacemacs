@@ -2220,15 +2220,19 @@ displayed in the mode-line.")
       (setq-default mode-line-format
                     '("%e" (:eval (spacemacs/mode-line-prepare))))
 
+      (defun spacemacs//restore-powerline (buffer)
+        "Restore the powerline in buffer"
+        (with-current-buffer buffer
+              (setq-local mode-line-format
+                          '("%e" (:eval (spacemacs/mode-line-prepare))))
+              (powerline-set-selected-window)
+              (powerline-reset)))
+
       (defun spacemacs//set-powerline-for-startup-buffers ()
         "Set the powerline for buffers created when Emacs starts."
         (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
           (when (get-buffer buffer)
-            (with-current-buffer buffer
-              (setq-local mode-line-format
-                          '("%e" (:eval (spacemacs/mode-line-prepare))))
-              (powerline-set-selected-window)
-              (powerline-reset)))))
+            (spacemacs//restore-powerline buffer))))
       (add-hook 'after-init-hook
                 'spacemacs//set-powerline-for-startup-buffers))))
 
