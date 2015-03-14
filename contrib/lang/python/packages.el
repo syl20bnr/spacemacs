@@ -204,7 +204,37 @@ which require an initialization must be listed explicitly in the list.")
         (python-shell-switch-to-shell)
         (evil-insert-state))
 
+      ;; reset compile-command (by default it is `make -k')
+      (setq compile-command nil)
+      (defun spacemacs/python-execute-file (arg)
+        "Execute a python script in a shell."
+        (interactive "P")
+        ;; set compile command to buffer-file-name
+        ;; if buffer-file-name exists
+        ;; otherwise error occurs on e.g. org export including python src
+        ;; universal argument put compile buffer in comint mode
+        (setq universal-argument t)
+        (if arg
+            (call-interactively 'compile)
+          (unless compile-command
+            (setq compile-command (format "python %s" (file-name-nondirectory
+                                                       buffer-file-name))))
+          (compile compile-command t)))
+
+      (defun spacemacs/python-execute-file-focus (arg)
+        "Execute a python script in a shell and switch to the shell buffer in
+`insert state'."
+        (interactive "P")
+        ;; set compile command to buffer-file-name
+        ;; if buffer-file-name exists
+        ;; otherwise error occurs on e.g. org export including python src
+        (spacemacs/python-execute-file arg)
+        (switch-to-buffer-other-window "*compilation*")
+        (evil-insert-state))
+
       (evil-leader/set-key-for-mode 'python-mode
+        "mcc" 'spacemacs/python-execute-file
+        "mcC" 'spacemacs/python-execute-file-focus
         "mdb" 'python-toggle-breakpoint
         "msB" 'python-shell-send-buffer-switch
         "msb" 'python-shell-send-buffer
