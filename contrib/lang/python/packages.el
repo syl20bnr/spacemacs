@@ -214,9 +214,12 @@ which require an initialization must be listed explicitly in the list.")
         (setq universal-argument t)
         (if arg
             (call-interactively 'compile)
+
             (setq compile-command (format "python %s" (file-name-nondirectory
                                                        buffer-file-name)))
-          (compile compile-command t)))
+            (compile compile-command t)
+            (with-current-buffer (get-buffer "*compilation*")
+              (inferior-python-mode))))
 
       (defun spacemacs/python-execute-file-focus (arg)
         "Execute a python script in a shell and switch to the shell buffer in
