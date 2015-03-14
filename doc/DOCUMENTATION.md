@@ -778,8 +778,7 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC t 8</kbd>    | display a mark on the 80th column
-<kbd>SPC t 0</kbd>    | display a mark on the `fill-column`
+<kbd>SPC t c</kbd>    | display the fill column (by default the fill column is set to 80)
 <kbd>SPC t F</kbd>    | toggle frame fullscreen
 <kbd>SPC t f</kbd>    | toggle display of the fringe
 <kbd>SPC t h</kbd>    | toggle highlight of the current line

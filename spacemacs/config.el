@@ -133,7 +133,7 @@ Can be installed with `brew install trash'."
     (setq trash-directory "~/.Trash/emacs")))
 
 ;; auto fill breaks line beyond current-fill-column
-(setq-default default-fill-column 78)
+(setq-default default-fill-column 80)
 (spacemacs|diminish auto-fill-function " ⓕ" " f")
 
 ;; ---------------------------------------------------------------------------
