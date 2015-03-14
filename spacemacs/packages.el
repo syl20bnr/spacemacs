@@ -2492,7 +2492,7 @@ displayed in the mode-line.")
 
 (defun spacemacs/init-volatile-highlights ()
   (use-package volatile-highlights
-    :init
+    :config
     (progn
       (volatile-highlights-mode t)
       (spacemacs|hide-lighter volatile-highlights-mode))))
