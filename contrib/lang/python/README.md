@@ -67,6 +67,13 @@ Send code to inferior process commands:
 <kbd>CTRL+j</kbd>     | next item in REPL history
 <kbd>CTRL+k</kbd>     | previous item in REPL history
 
+### Running Python Script in Comint Mode
+
+To run a Python script like you would in the shell
+press <kbd>SPC c C RET</kbd> to start the Python script in
+Comint mode. This is useful when working with multiple Python files
+since the REPL does not reload changes made in other modules.
+
 ### Testing in Python
 
 `Spacemacs` uses [nose][nose] as a test runner. An improved version of
