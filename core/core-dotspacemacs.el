@@ -158,7 +158,9 @@ If ARG is non nil then `dotspacemacs/config' is skipped."
     (if arg
         (message "Done (`dotspacemacs/config' function has been skipped).")
       (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
-      (message "Done."))))
+      (message "Done."))
+    (when (configuration-layer/package-declaredp 'powerline)
+      (spacemacs//restore-powerline (current-buffer)))))
 
 (defun dotspacemacs/location ()
   "Return the absolute path to the spacemacs dotfile."
