@@ -29,6 +29,7 @@
     diminish
     dired+
     doc-view
+    ediff
     elisp-slime-nav
     eldoc
     evil
@@ -512,6 +513,36 @@ which require an initialization must be listed explicitly in the list.")
                          (kbd "C-k") 'doc-view-kill-proc
                          (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
       (spacemacs/activate-evil-leader-for-map 'doc-view-mode-map))))
+
+;; notes from mijoharas
+;; We currently just set a few variables to make it look nicer.
+;; Here is my first attempt at evilifying the buffer, does not work correctly, help is very much welcome.
+
+;; ```
+;; (defun ediff/setup-ediff-keymaps ()
+;;   "setup the evil ediff keymap"
+;;     (progn
+;;      (add-to-list 'evil-emacs-state-modes 'Ediff)
+;;      (spacemacs|evilify ediff-mode-map)
+;;      (spacemacs/activate-evil-leader-for-map 'ediff-mode-map)
+;;       )
+;;   )
+
+;; ;; inside the use-package function
+;; (add-hook 'ediff-keymap-setup-hook 'ediff/setup-ediff-keymaps)
+;; ```
+(defun spacemacs/init-ediff ()
+  (use-package ediff
+    :defer t
+    :init
+    (progn
+      ;; first we set some sane defaults
+      (setq-default
+       ediff-window-setup-function 'ediff-setup-windows-plain
+       ;; emacs is evil and decrees that vertical shall henceforth be horizontal
+       ediff-split-window-function 'split-window-horizontally
+       ediff-merge-split-window-function 'split-window-horizontally))))
+
 
 (defun spacemacs/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
