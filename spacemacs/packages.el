@@ -1063,36 +1063,17 @@ which require an initialization must be listed explicitly in the list.")
     ))
 
 (defun spacemacs/init-fill-column-indicator ()
-  (setq fci-rule-width 1)
-  (setq fci-enabled 0)
-
-  (defun toggle-fill-column-indicator ()
-    (interactive)
-    (make-local-variable 'fci-enabled)
-    (if (> fci-enabled 0) (deactivate-fci) (activate-fci)))
-
-
-  (defun activate-fci (&optional fci--width)
-    (if fci--width
-        (setq fci-rule-column fci--width)
-      (setq fci-rule-column 79))
-    (setq fci-enabled 1)
-    (fci-mode 1))
-
-  (defun toggle-fill-column-indicator-custom  ()
-    (interactive)
-    (make-local-variable 'fci-enabled)
-    (if (> fci-enabled 0) (deactivate-fci) (activate-fci fill-column)))
-
-  (defun deactivate-fci ()
-    (setq fci-enabled 0)
-    (fci-mode 0))
-
   (use-package fill-column-indicator
-    :commands toggle-fill-column-indicator)
-
-  (use-package fill-column-indicator
-    :commands toggle-fill-column-indicator-custom))
+    :defer t
+    :init
+    (progn
+      (setq fci-rule-width 1)
+      (spacemacs|add-toggle fill-column-indicator
+                            :status fci-mode
+                            :on (turn-on-fci-mode)
+                            :off (turn-off-fci-mode)
+                            :documentation "Display the fill column indicator."
+                            :evil-leader "tc"))))
 
 (defun spacemacs/init-flx-ido ()
   (use-package flx-ido
