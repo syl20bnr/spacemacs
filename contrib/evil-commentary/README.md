@@ -19,4 +19,4 @@ To use this contribution add it to your `~/.spacemacs`.
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(evil-commentary))
 ```
-[evil-commentary]: https://github.com/jmickelin/vim-empty-lines-mode
+[evil-commentary]: https://github.com/linktohack/evil-commentary
