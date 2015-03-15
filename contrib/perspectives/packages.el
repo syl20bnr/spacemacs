@@ -38,22 +38,21 @@ which require an initialization must be listed explicitly in the list.")
       (defun custom-persp/rcirc ()
         (interactive)
         (custom-persp "@RCIRC" (rcirc-config)))
-      (evil-leader/set-key
-        "Poi" 'custom-persp/rcirc)
 
-      (spacemacs/declare-prefix "P" "perspectives")
-      (spacemacs/declare-prefix "Po" "custom-perspectives")
+      (spacemacs/declare-prefix "L" "layouts")
+      (spacemacs/declare-prefix "Lo" "custom-perspectives")
       (evil-leader/set-key
-        "Pa"  'persp-add-buffer
-        "PA"  'persp-set-buffer
-        "Pc"  'persp-kill
-        "Pk"  'persp-remove-buffer
-        "Pn"  'persp-next
-        "Poe" 'custom-persp/emacs
-        "Poo" 'custom-persp/org
-        "Pp"  'persp-prev
-        "Pr"  'persp-rename
-        "Ps"  'persp-switch))
+        "La"  'persp-add-buffer
+        "LA"  'persp-set-buffer
+        "Lc"  'persp-kill
+        "Lk"  'persp-remove-buffer
+        "Ln"  'persp-next
+        "Loe" 'custom-persp/emacs
+        "Loi" 'custom-persp/rcirc
+        "Loo" 'custom-persp/org
+        "Lp"  'persp-prev
+        "Lr"  'persp-rename
+        "Ls"  'persp-switch))
     :config
     (progn
       (persp-mode t)
