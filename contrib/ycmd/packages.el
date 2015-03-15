@@ -35,7 +35,8 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun ycmd/init-flycheck-ycmd ()
   (use-package flycheck-ycmd
-    :init
+    :config
     (progn
       (add-hook 'ycmd-file-parse-result-hook 'flycheck-ycmd--cache-parse-results)
-      (add-to-list 'flycheck-checkers 'ycmd))))
+      (add-to-list 'flycheck-checkers 'ycmd)
+      )))
