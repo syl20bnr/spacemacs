@@ -279,6 +279,7 @@
   "me$" 'lisp-state-eval-sexp-end-of-line
   "mee" 'eval-last-sexp
   "mef" 'eval-defun
+  "mel" 'lisp-state-eval-sexp-end-of-line
   "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
   "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point
   "m,"  'lisp-state-toggle-lisp-state
