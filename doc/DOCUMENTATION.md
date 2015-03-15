@@ -2038,6 +2038,10 @@ Key Binding          | Function
 <kbd>SPC m e $</kbd> | go to end of line and evaluate last sexp
 <kbd>SPC m e e</kbd> | evaluate last sexp
 <kbd>SPC m e f</kbd> | evaluate current defun
+<kbd>SPC m e l</kbd> | go to end of line and evaluate last sexp
+
+Key Binding          | Function
+---------------------|------------------------------------------------------------
 <kbd>SPC m g g</kbd> | go to definition
 <kbd>SPC m h h</kbd> | describe elisp thing at point (show documentation)
 <kbd>SPC m t b</kbd> | execute buffer tests
