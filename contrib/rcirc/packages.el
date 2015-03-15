@@ -12,7 +12,8 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc
-    :init
+    :ensure rcirc-color
+    :config
     (progn
       (setq rcirc-fill-column 80
             rcirc-buffer-maximum-lines 2048
@@ -211,7 +212,3 @@ This doesn't support the chanserv auth method"
     )
   )
 
-(defun rcirc/init-rcirc-color ()
-  (use-package rcirc-color()
-    :init)
-  )
