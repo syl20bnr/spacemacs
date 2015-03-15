@@ -71,12 +71,12 @@
 (defun haskell/init-hindent ()
   (use-package hindent
     :defer t
-    :if haskell-enable-hindent-support
+    :if (stringp haskell-enable-hindent-style)
     :init
     (add-hook 'haskell-mode-hook #'hindent-mode)
     :config
     (progn
-      (setq hindent-style "chris-done")
+      (setq hindent-style haskell-enable-hindent-style)
       (evil-leader/set-key-for-mode 'haskell-mode
         "mF"   'hindent/reformat-decl))))
 
