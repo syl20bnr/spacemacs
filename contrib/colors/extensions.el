@@ -3,7 +3,7 @@
 (defun colors/init-nyan-mode ()
   (use-package nyan-mode
     :if colors-enable-nyan-cat-progress-bar
-    :init
+    :config
     (progn
       (setq nyan-wavy-trail t)
       (setq nyan-animate-nyancat t)
