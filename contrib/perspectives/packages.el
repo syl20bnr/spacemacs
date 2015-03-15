@@ -95,8 +95,9 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun perspectives/init-persp-projectile ()
   (use-package persp-projectile
+    :if perspective-enable-persp-projectile
     :config
-    (when perspective-use-persp-projectile
+    (progn
       (projectile-persp-bridge helm-projectile-switch-project)
 
       (evil-leader/set-key
@@ -109,5 +110,4 @@ which require an initialization must be listed explicitly in the list.")
         (find-file "~/.spacemacs")
         (helm-projectile-switch-project)
         (persp-add-buffer "*spacemacs*")
-        (persp-kill "@spacemacs")))
-    ))
+        (persp-kill "@spacemacs")))))
