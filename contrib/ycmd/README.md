@@ -1,26 +1,55 @@
-# YCMD
+# YCMD contribution layer for Spacemacs
 
-This contrib layer adds [emacs-ycmd](https://github.com/abingham/emacs-ycmd) support.
-In order to use this layer you must have a local [ycmd](https://github.com/Valloric/ycmd#building) installation
-and must set the `ycmd-server-command` variable to reflect the path to that installation. See the emacs-ycmd
-Readme for more instructions on this.
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
 
-This package also requires the `company-mode` layer in order to get actual completion rather than just flychecking and
-key bindings.
+- [YCMD contribution layer for Spacemacs](#ycmd-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+        - [Layer](#layer)
+        - [YCMD](#ycmd)
+        - [Company](#company)
+    - [Configuration](#configuration)
+    - [Key Bindings](#key-bindings)
 
-## Key Bindings
+<!-- markdown-toc end -->
 
-Adds the `SPC m g` go to definition binding to `c++-mode` as well as `SPC m G` for the more imprecise but faster version.
+## Description
+
+This layer adds [emacs-ycmd][] support.
+
+## Install
+
+### Layer
+
+To use this contribution add it to your `~/.spacemacs`
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(ycmd))
+```
+
+### YCMD
+
+In order to use this layer you must have a local [ycmd][] installation and must
+set the `ycmd-server-command` variable to reflect the path to that installation.
+See the [emacs-ycmd][] readme for more instructions on this.
+
+### Company
+
+This package also requires the `company-mode` layer in order to get actual
+completion rather than just flychecking and key bindings.
 
 ## Configuration
 
-By default this layer only activates ycmd for `c++-mode` so company can provide completion that is better than mere keyword
-completion for all the modes it would otherwise add itself to. If you want ycmd in all sorts of other modes then put this
-snippet in your dotspacemacs init function:
-```elisp
-(setq ycmd/all-the-modes t)
-```
-otherwise you might just want to add it for specific languages like:
-```elisp
-(add-hook 'c++-mode-hook 'ycmd-mode)
-```
+By default this layer only activates ycmd for `c++-mode`.
+
+If you want ycmd suppoert in other modes you might just want to add it for
+specific languages like: ```elisp (add-hook 'c++-mode-hook 'ycmd-mode) ```
+
+## Key Bindings
+
+Adds `SPC m g g` go to definition binding to `c++-mode` as well as `SPC m g G`
+for the more imprecise but faster version.
+
+[ycmd]: https://github.com/Valloric/ycmd#building
+[emacs-ycmd]: https://github.com/abingham/emacs-ycmd
