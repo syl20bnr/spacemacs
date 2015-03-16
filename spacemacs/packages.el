@@ -1891,7 +1891,8 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (define-key global-map "\C-cl" 'org-store-link)
       (define-key global-map "\C-ca" 'org-agenda)
       (use-package org-bullets
-        :config
+        :defer t
+        :init
         (defun spacemacs//org-mode-hook ()
           (org-bullets-mode 1))
         (add-hook 'org-mode-hook 'spacemacs//org-mode-hook))
