@@ -105,7 +105,6 @@ buffer, right justified."
 
 (defun spacemacs/set-mode-line (format)
   "Set mode-line format for spacemacs buffer."
-  (message "toto %s" format)
   (with-current-buffer (get-buffer-create "*spacemacs*")
     (setq mode-line-format format)))
 
