@@ -17,19 +17,7 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (add-to-hook 'rcirc-mode-hook '(flyspell-mode rcirc-omit-mode))
 
-      (defun spacemacs/rcirc (arg)
-        "Configure rcirc"
-        (interactive "P")
-        (when (and rcirc-enable-authinfo-support
-                   (file-exists-p "~/.authinfo.gpg"))
-          ;; Allow rcirc to read authinfo from ~/.authinfo.gpg
-          ;; via the auth-source API. This doesn't support the
-          ;; chanserv auth method.
-          (unless arg (spacemacs//rcirc-authinfo-config))
-          ;; znc need
-          (when rcirc-enable-znc-support (spacemacs//rcirc-znc-config)))
-        (rcirc arg))
-      (evil-leader/set-key "ai" 'spacemacs/rcirc)
+      (evil-leader/set-key "ai" 'rcirc)
 
       (defun spacemacs//rcirc-authinfo-config ()
         "Initialize authinfo."
@@ -105,10 +93,20 @@ which require an initialization must be listed explicitly in the list.")
               ;; This will replace :auth with the correct thing, see the
               ;; doc for that function
               (dim:rcirc-server-alist-get-authinfo
-               rcirc-server-alist))
-        ))
+               rcirc-server-alist))))
     :config
     (progn
+      (when (and rcirc-enable-authinfo-support
+                 (file-exists-p "~/.authinfo.gpg"))
+        ;; Allow rcirc to read authinfo from ~/.authinfo.gpg
+        ;; via the auth-source API. This doesn't support the
+        ;; chanserv auth method.
+        (spacemacs//rcirc-authinfo-config))
+
+      ;; Prepare for use with znc
+      (when rcirc-enable-znc-support
+        (spacemacs//rcirc-znc-config))
+
       (dim:rcirc)
       ;; (set-input-method "latin-1-prefix")
       (set (make-local-variable 'scroll-conservatively) 8192)
