@@ -82,10 +82,12 @@ initialization."
     (setq-default spacemacs--cur-theme default-theme)
     (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
   ;; removes the GUI elements
-  (unless (or (not (boundp 'tool-bar-mode)) (eq tool-bar-mode -1))
-    (tool-bar-mode -1))
-  (unless (or (not (boundp 'scroll-bar-mode)) (eq scroll-bar-mode -1))
-    (scroll-bar-mode -1))
+  (if window-system
+    (progn 
+      (unless (or (not (boundp 'tool-bar-mode)) (eq tool-bar-mode -1))
+        (tool-bar-mode -1))
+      (unless (or (not (boundp 'scroll-bar-mode)) (eq scroll-bar-mode -1))
+        (scroll-bar-mode -1))))
   ;; tooltips in echo-aera
   (unless (or (not (boundp 'tooltip-mode)) (eq tooltip-mode -1))
     (tooltip-mode -1))
