@@ -73,7 +73,7 @@ initialization."
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
-  (setq mode-line-format "")
+  (spacemacs/set-mode-line "")
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
   ;; default theme
@@ -331,6 +331,15 @@ version and the NEW version."
         (format "[%s packages loaded in %.3fs]\n"
                 (configuration-layer//initialized-packages-count)
                 elapsed)))
+     (when configuration-layer-error-count
+       ;; ("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position evil-mode-line-tag
+        ;; (vc-mode vc-mode)
+       ;; "  " mode-line-modes mode-line-misc-info mode-line-end-spaces
+       (spacemacs/set-mode-line
+        (format (concat "%s errors at startup! "
+                        "Spacemacs may not be able to operate properly.")
+                configuration-layer-error-count))
+       (force-mode-line-update))
      (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
 (provide 'core-spacemacs)
