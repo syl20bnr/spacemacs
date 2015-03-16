@@ -1266,7 +1266,10 @@ which require an initialization must be listed explicitly in the list.")
           (around spacemacs/inhibit-guide-buffer activate)
         "Prevent the popup of the guide-key buffer in some case."
         ;; a micro-state is running
-        (unless overriding-terminal-local-map
+        ;; or
+        ;; bzg-big-fringe-mode is on
+        (unless (or overriding-terminal-local-map
+                    bzg-big-fringe-mode)
           ad-do-it))
 
       (evil-leader/set-key "tk" 'spacemacs/toggle-guide-key)
