@@ -103,8 +103,8 @@ The way to enable ZNC with authinfo support is to have this on your
 
 In `dotspacemacs/init`
 ```elisp
-(setq rcirc-authinfo-support t
-      rcirc-uses-znc t)
+(setq rcirc-enable-authinfo-support t
+      rcirc-enable-znc-support t)
 ```
 
 In `dotspacemacs/config`
