@@ -204,8 +204,6 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (add-to-hooks 'auto-complete-mode '(org-mode-hook
                                         prog-mode-hook))
-    :idle (global-auto-complete-mode)
-    :idle-priority 1
     :config
     (progn
       (require 'auto-complete-config)
