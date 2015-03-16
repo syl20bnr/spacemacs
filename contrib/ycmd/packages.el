@@ -12,31 +12,26 @@ which require an initialization must be listed explicitly in the list.")
 (when (member 'company-mode dotspacemacs-configuration-layers)
   (add-to-list 'ycmd-packages 'company-ycmd))
 
-(defvar ycmd/all-the-modes nil
-  "use ycmd for all the modes it supports, most will only use fancy keyword completion.")
-
 (defun ycmd/init-ycmd ()
   (use-package ycmd
+    :defer t
     :init
     (progn
-      (if ycmd/all-the-modes
-          (ycmd-setup)
-        (add-hook 'c++-mode-hook 'ycmd-mode))
+      ;; we don't use ycmd-setup, to correctly lazy-load ycmd we
+      ;; define excplicitly the hooks here
+      (add-hook 'c++-mode-hook 'ycmd-mode)
       (setq-default ycmd-global-config
-                    (expand-file-name "~/.emacs.d/contrib/ycmd/global_conf.py")))
-    :config
-    (evil-leader/set-key-for-mode 'c++-mode
-      "mgg" 'ycmd-goto
-      "mgG" 'ycmd-goto-imprecise)))
+                    (expand-file-name "~/.emacs.d/contrib/ycmd/global_conf.py"))
+      (evil-leader/set-key-for-mode 'c++-mode
+        "mgg" 'ycmd-goto
+        "mgG" 'ycmd-goto-imprecise))))
 
 (defun ycmd/init-company-ycmd ()
   (use-package company-ycmd
-    :init (company-ycmd-setup)))
+    :defer t
+    :init (add-hook 'ycmd-mode-hook 'company-ycmd-setup)))
 
 (defun ycmd/init-flycheck-ycmd ()
   (use-package flycheck-ycmd
-    :config
-    (progn
-      (add-hook 'ycmd-file-parse-result-hook 'flycheck-ycmd--cache-parse-results)
-      (add-to-list 'flycheck-checkers 'ycmd)
-      )))
+    :defer t
+    :init (add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup)))
