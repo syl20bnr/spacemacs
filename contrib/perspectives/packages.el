@@ -37,7 +37,7 @@ which require an initialization must be listed explicitly in the list.")
 
       (defun custom-persp/rcirc ()
         (interactive)
-        (custom-persp "@RCIRC" (rcirc-config)))
+        (custom-persp "@RCIRC" (spacemacs/rcirc nil)))
 
       (spacemacs/declare-prefix "L" "layouts")
       (spacemacs/declare-prefix "Lo" "custom-perspectives")
