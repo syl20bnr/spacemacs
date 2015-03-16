@@ -209,12 +209,6 @@ the focus."
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
     :defer t
-    :mode (("\.clj$"      . clojure-mode)
-           ("\.cljs$"     . clojure-mode)
-           ("\.cljx$"     . clojure-mode)
-           ("\.edn$"      . clojure-mode)
-           ("\.boot$"     . clojure-mode)
-           ("\.cljs\.hl$" . clojure-mode))
     :config
     (progn
       (when clojure-enable-fancify-symbols
