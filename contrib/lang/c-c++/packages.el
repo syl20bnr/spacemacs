@@ -26,7 +26,6 @@ which require an initialization must be listed explicitly in the list.")
 (defun c-c++/init-cc-mode ()
   (use-package cc-mode
     :defer t
-    :ensure stickyfunc-enhance
     :config
     (progn
       (require 'compile)
@@ -36,15 +35,6 @@ which require an initialization must be listed explicitly in the list.")
       (c-toggle-auto-newline 1)
       (setq srecode-map-save-file (concat spacemacs-cache-directory "srecode-map.el"))
       (setq semanticdb-default-save-directory (concat spacemacs-cache-directory "semanticdb/")))))
-
-(defun c-c++/init-srefactor ()
-  (use-package srefactor
-    :init
-    (progn
-      (evil-leader/set-key-for-mode 'c-mode
-        "mr" 'srefactor-refactor-at-point)
-      (evil-leader/set-key-for-mode 'c++-mode
-        "mr" 'srefactor-refactor-at-point))))
 
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
@@ -58,3 +48,27 @@ which require an initialization must be listed explicitly in the list.")
 (defun c-c++/init-flycheck ()
   (add-hook 'c-mode-hook 'flycheck-mode)
   (add-hook 'c++-mode-hook 'flycheck-mode))
+
+(defun c-c++/init-srefactor ()
+  (use-package srefactor
+    :defer t
+    :init
+    (progn
+      (evil-leader/set-key-for-mode 'c-mode
+        "mr" 'srefactor-refactor-at-point)
+      (evil-leader/set-key-for-mode 'c++-mode
+        "mr" 'srefactor-refactor-at-point))))
+
+(defun c-c++/init-stickyfunc-enhance ()
+  (use-package stickyfunc-enhance
+    :defer t
+    :init
+    (progn
+
+      (defun spacemacs/lazy-load-stickyfunc-enhance ()
+        "Lazy load the package."
+        (require 'stickyfunc-enhance))
+
+      (add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance
+                    '(c-mode c++-mode)))))
+
