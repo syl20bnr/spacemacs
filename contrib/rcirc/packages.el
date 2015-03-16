@@ -106,9 +106,10 @@ which require an initialization must be listed explicitly in the list.")
               ;; doc for that function
               (dim:rcirc-server-alist-get-authinfo
                rcirc-server-alist))
-        (dim:rcirc)))
+        ))
     :config
     (progn
+      (dim:rcirc)
       ;; (set-input-method "latin-1-prefix")
       (set (make-local-variable 'scroll-conservatively) 8192)
 
