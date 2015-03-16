@@ -2245,9 +2245,10 @@ displayed in the mode-line.")
 
       (defun spacemacs//set-powerline-for-startup-buffers ()
         "Set the powerline for buffers created when Emacs starts."
-        (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
-          (when (get-buffer buffer)
-            (spacemacs//restore-powerline buffer))))
+        (unless configuration-layer-error-count
+          (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
+            (when (get-buffer buffer)
+              (spacemacs//restore-powerline buffer)))))
       (add-hook 'after-init-hook
                 'spacemacs//set-powerline-for-startup-buffers))))
 

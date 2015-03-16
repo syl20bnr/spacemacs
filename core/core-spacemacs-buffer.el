@@ -103,6 +103,12 @@ buffer, right justified."
       (delete-char (length injected))
       (insert injected))))
 
+(defun spacemacs/set-mode-line (format)
+  "Set mode-line format for spacemacs buffer."
+  (message "toto %s" format)
+  (with-current-buffer (get-buffer-create "*spacemacs*")
+    (setq mode-line-format format)))
+
 (defun spacemacs/message (msg &rest args)
   "Display MSG in message prepended with '(Spacemacs)'."
   (message "(Spacemacs) %s" (apply 'format msg args)))
@@ -115,7 +121,7 @@ buffer, right justified."
     (let ((buffer-read-only nil))
       (insert msg)
       (if messagebuf (message "(Spacemacs) %s" msg)))
-    (setq mode-line-format "")))
+    (spacemacs/set-mode-line "")))
 
 (defun spacemacs/replace-last-line-of-buffer (msg &optional messagebuf)
   "Replace the last line of the spacemacs buffer with MSG. If MESSAGEBUF is
@@ -126,7 +132,7 @@ buffer, right justified."
       (delete-region (line-beginning-position) (point-max))
       (insert msg)
       (if messagebuf (message "(Spacemacs) %s" msg)))
-    (setq mode-line-format "")))
+    (spacemacs/set-mode-line "")))
 
 (defun spacemacs/loading-animation ()
   "Display the progress bar by chunk of size `spacemacs--loading-dots-chunk-threshold'."
@@ -176,7 +182,8 @@ buffer, right justified."
 (defun spacemacs/goto-link-line ()
   "Move the point to the beginning of the link line."
   (interactive)
-  (when dotspacemacs-startup-banner
+  (when (and dotspacemacs-startup-banner
+             (not configuration-layer-error-count))
     (with-current-buffer spacemacs-buffer-name
       (goto-char (point-min))
       (re-search-forward "Homepage")
