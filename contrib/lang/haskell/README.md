@@ -26,7 +26,6 @@
 
 <!-- markdown-toc end -->
 
-
 ## Description
 
 This layer adds support for the [Haskell][] language.
@@ -98,12 +97,10 @@ Spacemacs by a layer variable:
 
 Follow the instructions to install [ghci-ng][] (remember to add `:set +c`
 in `~/.ghci`, next set the layer variable:
+
 ```elisp
-;; List of configuration layers to load.
-dotspacemacs-configuration-layers
-'(company-mode
-  git
-  (haskell :variables haskell-enable-ghci-ng-support t))
+(setq-default dotspacemacs-configuration-layers
+  '((haskell :variables haskell-enable-ghci-ng-support t)))
 ```
 
 Once ghci-ng is enabled, two of the old keybindings are overriden with improved
@@ -120,10 +117,12 @@ versions from ghci-ng, and a new keybinding available:
 Haskell-indentation modes) and adds some nice functionality.
 To enable shm, run `cabal install structured-haskell-mode` and set the layer
 variable:
+
 ```elisp
-;; List of configuration layers to load.
-dotspacemacs-configuration-layers '(company-mode (haskell :variables haskell-enable-shm-support t) git)
+(setq-default dotspacemacs-configuration-layers
+  '((haskell :variables haskell-enable-shm-support t)))
 ```
+
 After shm has been enabled, some of the evil normal-mode bindings are overridden:
 
     Key Binding       |                 Description
@@ -138,16 +137,24 @@ For a nice visualization of these functions, please refer to the github page
 for [structured-haskell-mode][].
 
 #### hindent
-[hindent]() is an extensible Haskell pretty printer, which let's you
+[hindent][] is an extensible Haskell pretty printer, which let's you
 reformat your code. You need to install the executable with `cabal
-install hindent`; to enable it set:
+install hindent`.
+
+To enable it you have to set the variable `haskell-enable-hindent-support`
+to a supported style. The available styles are:
+- fundamental
+- johan-tibell
+- chris-done
+- andrew-gibiansky
+
+See examples [here][hindent-examples]
+
 ```elisp
-;; List of configuration layers to load.
-dotspacemacs-configuration-layers
-  '(company-mode
-    git
-    (haskell :variables haskell-enable-hindent-support t))
+(setq-default dotspacemacs-configuration-layers
+  '((haskell :variables haskell-enable-hindent-support "johan-tibell")))
 ```
+
 By default it uses the style called `fundamental`, if you want to use
 another, `johan-tibell`, run `M-x customize-variable
 hindent-style`.
@@ -236,3 +243,4 @@ REPL commands are prefixed by <kbd>SPC m s</kbd>:
 [ghci-ng]: https://github.com/chrisdone/ghci-ng
 [structured-haskell-mode]: https://github.com/chrisdone/structured-haskell-mode
 [hindent]: https://github.com/chrisdone/hindent
+[hindent-examples]: https://github.com/chrisdone/hindent#example

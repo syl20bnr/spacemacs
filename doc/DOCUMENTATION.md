@@ -139,7 +139,6 @@
         - [Org](#org)
         - [Python](#python)
         - [JavaScript](#javascript)
-        - [rcirc](#rcirc)
         - [HTML and CSS](#html-and-css)
 - [Emacs Server](#emacs-server)
     - [Connecting to the Emacs server](#connecting-to-the-emacs-server)
@@ -757,12 +756,12 @@ units of 1/10 point.
   - reverse-italic
   - reverse-oblique
 - `:size` The font size—either a non-negative integer that specifies the pixel
-size, or a floating-point number that specifies the point size. 
+size, or a floating-point number that specifies the point size.
 - `:adstyle` Additional typographic style information for the font, such as
 ‘sans’. The value should be a string or a symbol.
 - `:registry` The charset registry and encoding of the font, such as
-‘iso8859-1’. The value should be a string or a symbol. 
-- `:script` The script that the font must support (a symbol). 
+‘iso8859-1’. The value should be a string or a symbol.
+- `:script` The script that the font must support (a symbol).
 
 The special property `:powerline-scale` is `Spacemacs` specific and it is for
 quick tweaking of the mode-line height in order to avoid crappy rendering of
@@ -778,7 +777,7 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC t 8</kbd>    | display a mark on the 80th column
+<kbd>SPC t c</kbd>    | display the fill column (by default the fill column is set to 80)
 <kbd>SPC t F</kbd>    | toggle frame fullscreen
 <kbd>SPC t f</kbd>    | toggle display of the fringe
 <kbd>SPC t h</kbd>    | toggle highlight of the current line
@@ -821,9 +820,12 @@ Some elements can be dynamically toggled:
 
     Key Binding        |                 Description
 -----------------------|------------------------------------------------------------
-<kbd>SPC t m m</kbd>   | toggle the minor mode lighters
 <kbd>SPC t m b</kbd>   | toggle the battery status
+<kbd>SPC t m c</kbd>   | toggle the `org` task clock
 <kbd>SPC t m f</kbd>   | toggle the flycheck info
+<kbd>SPC t m m</kbd>   | toggle the minor mode lighters
+<kbd>SPC t m n</kbd>   | toggle the cat! (if `colors` layer is declared in your dotfile)
+<kbd>SPC t m p</kbd>   | toggle the point character position
 <kbd>SPC t m v</kbd>   | toggle the new version lighter
 
 #### Flycheck integration
@@ -1509,6 +1511,7 @@ Key Binding        |                 Description
 <kbd>-</kbd>       | shrink
 <kbd>gg</kbd>      | go to first page
 <kbd>G</kbd>       | go to last page
+<kbd>gt</kbd>      | go to page number
 <kbd>h</kbd>       | previous page
 <kbd>H</kbd>       | adjust to height
 <kbd>j</kbd>       | next line
@@ -2034,6 +2037,10 @@ Key Binding          | Function
 <kbd>SPC m e $</kbd> | go to end of line and evaluate last sexp
 <kbd>SPC m e e</kbd> | evaluate last sexp
 <kbd>SPC m e f</kbd> | evaluate current defun
+<kbd>SPC m e l</kbd> | go to end of line and evaluate last sexp
+
+Key Binding          | Function
+---------------------|------------------------------------------------------------
 <kbd>SPC m g g</kbd> | go to definition
 <kbd>SPC m h h</kbd> | describe elisp thing at point (show documentation)
 <kbd>SPC m t b</kbd> | execute buffer tests
@@ -2067,7 +2074,6 @@ To search in a project see [project searching](#project-searching).
 <kbd>SPC p g</kbd>  | run `grep`
 <kbd>SPC p h</kbd>  | find file using `helm`
 <kbd>SPC p I</kbd>  | invalidate the projectile cache
-<kbd>SPC p j</kbd>  | find a tag
 <kbd>SPC p k</kbd>  | kill all project buffers
 <kbd>SPC p o</kbd>  | run `multi-occur`
 <kbd>SPC p R</kbd>  | regenerate the project's [e|g]tags
@@ -2204,13 +2210,6 @@ Writing python code with spacemacs is supported by python contribution. Please s
 More featured JavaScript support is provided by the javascript contribution. Please see
 [javascript contribution][javascript-contrib] documentation for detail.
 
-### rcirc
-
-    Key Binding   |                 Description
-------------------|------------------------------------------------------------
-<kbd>CTRL+j</kbd> | next item in command history
-<kbd>CTRL+k</kbd> | previous item in command history
-
 ### HTML and CSS
 
 HTML contribution provides support for editing HTML, CSS, Scss and Less files. Please see
@@ -2290,9 +2289,11 @@ Achievements                                         | Account
 [500th issue (PR)][500th-issue]                      | [bjarkevad][]
 [600th issue (PR)][600th-issue]                      | [bjarkevad][]
 [700th issue (enhancement)][700th-issue]             | [jcpetkovich][]
+[800th issue (PR)][800th-issue]                      | [ryansroberts][]
 [100th pull request][100th-PR]                       | [bru][]
 [200th pull request][200th-PR]                       | [smt][]
 [300th pull request][300th-PR]                       | [BrianHicks][]
+[400th pull request][400th-PR]                       | [cpaulik][]
 PR gunner (8 PRs in a row)                           | [ralesi][]
 100th fork                                           | [balajisivaraman][]
 100th star                                           | [Jackneill][]
@@ -2300,6 +2301,7 @@ PR gunner (8 PRs in a row)                           | [ralesi][]
 400th star                                           | [dbohdan][]
 600th star                                           | [laat][]
 700th star                                           | [kendall][]
+800th star                                           | [urso][]
 
 # Thank you
 
@@ -2402,9 +2404,11 @@ developers to elisp hackers!
 [500th-issue]: https://github.com/syl20bnr/spacemacs/pull/500
 [600th-issue]: https://github.com/syl20bnr/spacemacs/pull/600
 [700th-issue]: https://github.com/syl20bnr/spacemacs/pull/700
+[800th-issue]: https://github.com/syl20bnr/spacemacs/pull/800
 [100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [200th-PR]: https://github.com/syl20bnr/spacemacs/pull/418
 [300th-PR]: https://github.com/syl20bnr/spacemacs/pull/617
+[400th-PR]: https://github.com/syl20bnr/spacemacs/pull/806
 [trishume]:https://github.com/trishume
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
@@ -2412,10 +2416,14 @@ developers to elisp hackers!
 [bjarkevad]:https://github.com/bjarkevad
 [jcpetkovich]:https://github.com/jcpetkovich
 [BrianHicks]:https://github.com/BrianHicks
+[cpaulik]: https://github.com/cpaulik
 [chrisbarrett]:https://github.com/chrisbarrett
 [justrajdeep]:https://github.com/justrajdeep
 [dbohdan]:https://github.com/dbohdan
 [laat]:https://github.com/laat
+[ryansroberts]:https://github.com/laat
+[kendall]:https://github.com/kendall
+[urso]:https://github.com/urso
 [bru]:https://github.com/bru
 [smt]:https://github.com/smt
 [ralesi]:https://github.com/ralesi

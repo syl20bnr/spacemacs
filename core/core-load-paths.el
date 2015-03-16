@@ -18,6 +18,9 @@
 (defconst spacemacs-banner-directory
   (expand-file-name (concat spacemacs-core-directory "banners/"))
   "Spacemacs banners directory.")
+(defconst spacemacs-banner-official-png
+  (expand-file-name (concat spacemacs-banner-directory "img/spacemacs.png"))
+  "Spacemacs official banner image.")
 (defconst spacemacs-directory
   (expand-file-name (concat user-emacs-directory "spacemacs/"))
   "Spacemacs base directory.")

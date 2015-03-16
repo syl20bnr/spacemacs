@@ -10,6 +10,7 @@
     - [Install](#install)
     - [Key Bindings](#key-bindings)
         - [Inferior REPL process](#inferior-repl-process)
+        - [Running Python Script in shell](#running-python-script-in-shell)
         - [Testing in Python](#testing-in-python)
         - [Other Python commands](#other-python-commands)
         - [Django](#django)
@@ -66,6 +67,21 @@ Send code to inferior process commands:
 <kbd>SPC m s R</kbd>  | send region and switch to REPL in insert mode
 <kbd>CTRL+j</kbd>     | next item in REPL history
 <kbd>CTRL+k</kbd>     | previous item in REPL history
+
+### Running Python Script in shell
+
+To run a Python script like you would in the shell press <kbd>SPC m c c</kbd>
+to start the Python script in comint mode. This is useful when working with
+multiple Python files since the REPL does not reload changes made in other
+modules.
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC m c c</kbd>  | Execute current file in a comint shell
+<kbd>SPC m c C</kbd>  | Execute current file in a comint shell and switch to it in `insert state`
+
+**Note** With the universal argument <kbd>SPC u</kbd> you can enter a new
+compilation command.
 
 ### Testing in Python
 

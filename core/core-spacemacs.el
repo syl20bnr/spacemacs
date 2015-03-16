@@ -45,19 +45,16 @@
   "Text displayed in the mode-line when a new version is available.")
 
 ;; loading progress bar variables
-(defvar spacemacs-title-length 75)
+(defvar spacemacs-loading-char ?█)
+(defvar spacemacs-loading-string "")
 (defvar spacemacs-loading-counter 0)
-(defvar spacemacs-loading-text "Loading")
-(defvar spacemacs-loading-done-text "Ready!")
+;; (defvar spacemacs-loading-text "Loading")
+;; (defvar spacemacs-loading-done-text "Ready!")
 (defvar spacemacs-loading-dots-chunk-count 3)
-(defvar spacemacs-loading-dots-count
-  (- spacemacs-title-length
-     (length spacemacs-loading-text)
-     (length spacemacs-loading-done-text)))
+(defvar spacemacs-loading-dots-count (window-total-size nil 'width))
 (defvar spacemacs-loading-dots-chunk-size
   (/ spacemacs-loading-dots-count spacemacs-loading-dots-chunk-count))
 (defvar spacemacs-loading-dots-chunk-threshold 0)
-(defvar spacemacs-solarized-dark-createdp nil)
 
 (define-derived-mode spacemacs-mode special-mode "Spacemacs"
   "Spacemacs major mode for startup screen."
@@ -76,6 +73,7 @@ initialization."
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
+  (spacemacs/set-mode-line "")
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
   ;; default theme
@@ -83,19 +81,18 @@ initialization."
     (spacemacs/load-theme default-theme)
     (setq-default spacemacs--cur-theme default-theme)
     (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
-  ;; remove GUI elements if supported
-  (when window-system
-    ;; those unless tests are for the case when the user has a ~/.emacs file
-    ;; were he/she ;; removes the GUI elements
-    (unless (eq tool-bar-mode -1)
-      (tool-bar-mode -1))
-    (unless (eq scroll-bar-mode -1)
-      (scroll-bar-mode -1))
-    ;; tooltips in echo-aera
-    (unless (eq tooltip-mode -1)
-      (tooltip-mode -1))
-    (setq tooltip-use-echo-area t))
-  (unless (eq window-system 'mac)
+  ;; removes the GUI elements
+  (unless (or (not (boundp 'tool-bar-mode)) (eq tool-bar-mode -1))
+    (tool-bar-mode -1))
+  (unless (or (not (boundp 'scroll-bar-mode)) (eq scroll-bar-mode -1))
+    (scroll-bar-mode -1))
+  ;; tooltips in echo-aera
+  (unless (or (not (boundp 'tooltip-mode)) (eq tooltip-mode -1))
+    (tooltip-mode -1))
+  (setq tooltip-use-echo-area t)
+  (unless (or (not (boundp 'tooltip-mode))
+              (eq window-system 'mac)
+              (eq tooltip-mode -1))
     (menu-bar-mode -1))
   ;; for convenience and user support
   (unless (boundp 'tool-bar-mode)
@@ -108,7 +105,7 @@ initialization."
     (spacemacs/message "Warning: Cannot find font \"%s\"!"
                        (car dotspacemacs-default-font)))
   ;; banner
-  (spacemacs//insert-banner)
+  (spacemacs//insert-banner-and-buttons)
   (setq-default evil-want-C-u-scroll t)
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init "Executing user init...")
@@ -326,8 +323,6 @@ version and the NEW version."
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file
      (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
-     (when dotspacemacs-loading-progress-bar
-       (spacemacs/append-to-buffer (format "%s\n" spacemacs-loading-done-text)))
      ;; from jwiegley
      ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
      (let ((elapsed (float-time
@@ -336,6 +331,15 @@ version and the NEW version."
         (format "[%s packages loaded in %.3fs]\n"
                 (configuration-layer//initialized-packages-count)
                 elapsed)))
+     (when configuration-layer-error-count
+       ;; ("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position evil-mode-line-tag
+        ;; (vc-mode vc-mode)
+       ;; "  " mode-line-modes mode-line-misc-info mode-line-end-spaces
+       (spacemacs/set-mode-line
+        (format (concat "%s errors at startup! "
+                        "Spacemacs may not be able to operate properly.")
+                configuration-layer-error-count))
+       (force-mode-line-update))
      (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
 (provide 'core-spacemacs)

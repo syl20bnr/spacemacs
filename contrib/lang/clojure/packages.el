@@ -65,27 +65,27 @@ which require an initialization must be listed explicitly in the list.")
             (indent-region start-pos (point))
             (cider-repl-return))))
 
-      (defun spacemacs/send-last-sexp-to-repl ()
+      (defun spacemacs/cider-send-last-sexp-to-repl ()
         "Send last sexp to REPL and evaluate it without changing
 the focus."
         (interactive)
         (spacemacs//cider-eval-in-repl-no-focus (cider-last-sexp)))
 
-      (defun spacemacs/send-last-sexp-to-repl-focus ()
+      (defun spacemacs/cider-send-last-sexp-to-repl-focus ()
         "Send last sexp to REPL and evaluate it and switch to the REPL in
 `insert state'."
         (interactive)
         (cider-insert-last-sexp-in-repl t)
         (evil-insert-state))
 
-      (defun spacemacs/send-region-to-repl (start end)
+      (defun spacemacs/cider-send-region-to-repl (start end)
         "Send region to REPL and evaluate it without changing
 the focus."
         (interactive "r")
         (spacemacs//cider-eval-in-repl-no-focus
          (buffer-substring-no-properties start end)))
 
-      (defun spacemacs/send-region-to-repl-focus (start end)
+      (defun spacemacs/cider-send-region-to-repl-focus (start end)
         "Send region to REPL and evaluate it and switch to the REPL in
 `insert state'."
         (interactive "r")
@@ -93,33 +93,33 @@ the focus."
          (buffer-substring-no-properties start end) t)
         (evil-insert-state))
 
-      (defun spacemacs/send-function-to-repl ()
+      (defun spacemacs/cider-send-function-to-repl ()
         "Send current function to REPL and evaluate it without changing
 the focus."
         (interactive)
         (spacemacs//cider-eval-in-repl-no-focus (cider-defun-at-point)))
 
-      (defun spacemacs/send-function-to-repl-focus ()
+      (defun spacemacs/cider-send-function-to-repl-focus ()
         "Send current function to REPL and evaluate it and switch to the REPL in
 `insert state'."
         (interactive)
         (cider-insert-defun-in-repl t)
         (evil-insert-state))
 
-      (defun spacemacs/send-ns-form-to-repl ()
+      (defun spacemacs/cider-send-ns-form-to-repl ()
         "Send buffer's ns form to REPL and evaluate it without changing
 the focus."
         (interactive)
         (spacemacs//cider-eval-in-repl-no-focus (cider-ns-form)))
 
-      (defun spacemacs/send-function-to-repl-focus ()
+      (defun spacemacs/cider-send-function-to-repl-focus ()
         "Send ns form to REPL and evaluate it and switch to the REPL in
 `insert state'."
         (interactive)
         (cider-insert-ns-form-in-repl t)
         (evil-insert-state))
 
-      (defun spacemacs/send-buffer-in-repl-and-focus ()
+      (defun spacemacs/cider-send-buffer-in-repl-and-focus ()
         "Send the current buffer in the REPL and switch to the REPL in
 `insert state'."
         (interactive)
@@ -143,16 +143,17 @@ the focus."
         "mgr" 'cider-jump-to-resource
 
         "msb" 'cider-load-buffer
-        "msB" 'spacemacs/send-buffer-in-repl-and-focus
-        "mse" 'spacemacs/send-last-sexp-to-repl
-        "msE" 'spacemacs/send-last-sexp-to-repl-focus
-        "msf" 'spacemacs/send-function-to-repl
-        "msF" 'spacemacs/send-function-to-repl-focus
+        "msB" 'spacemacs/cider-send-buffer-in-repl-and-focus
+        "mse" 'spacemacs/cider-send-last-sexp-to-repl
+        "msE" 'spacemacs/cider-send-last-sexp-to-repl-focus
+        "msf" 'spacemacs/cider-send-function-to-repl
+        "msF" 'spacemacs/cider-send-function-to-repl-focus
         "msi" 'cider-jack-in
-        "msn" 'spacemacs/send-ns-form-to-repl
-        "msN" 'spacemacs/send-function-to-repl-focus
-        "msr" 'spacemacs/send-region-to-repl
-        "msR" 'spacemacs/send-region-to-repl-focus
+        "msn" 'spacemacs/cider-send-ns-form-to-repl
+        "msN" 'spacemacs/cider-send-function-to-repl-focus
+        "msq" 'cider-quit
+        "msr" 'spacemacs/cider-send-region-to-repl
+        "msR" 'spacemacs/cider-send-region-to-repl-focus
         "mss" 'cider-switch-to-repl-buffer
 
         "mtt" 'cider-test-run-tests)
@@ -208,12 +209,6 @@ the focus."
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
     :defer t
-    :mode (("\.clj$"      . clojure-mode)
-           ("\.cljs$"     . clojure-mode)
-           ("\.cljx$"     . clojure-mode)
-           ("\.edn$"      . clojure-mode)
-           ("\.boot$"     . clojure-mode)
-           ("\.cljs\.hl$" . clojure-mode))
     :config
     (progn
       (when clojure-enable-fancify-symbols

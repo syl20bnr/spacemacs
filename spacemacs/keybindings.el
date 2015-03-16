@@ -39,7 +39,6 @@
 (evil-leader/set-key
   "ac"  'calc-dispatch
   "ad"  'dired
-  "ai"  'irc
   "ap"  'proced
   "ase" 'eshell
   "asi" 'shell
@@ -130,11 +129,6 @@
   "Sd" 'ispell-change-dictionary
   "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
-(spacemacs|add-toggle fill-column-indicator
-                      :status nil
-                      :on (toggle-fill-column-indicator)
-                      :documentation "Display the fill column indicator."
-                      :evil-leader "t8")
 (spacemacs|add-toggle fringe
                       :status (not (equal fringe-mode 0))
                       :on (call-interactively 'fringe-mode)
@@ -284,6 +278,7 @@
   "me$" 'lisp-state-eval-sexp-end-of-line
   "mee" 'eval-last-sexp
   "mef" 'eval-defun
+  "mel" 'lisp-state-eval-sexp-end-of-line
   "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
   "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point
   "m,"  'lisp-state-toggle-lisp-state

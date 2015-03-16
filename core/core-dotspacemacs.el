@@ -17,12 +17,12 @@
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
 
-(defvar dotspacemacs-startup-banner 'random
-   "Specify the startup banner. If the value is an integer then the
-   text banner with the corresponding index is used, if the value is
-   `random' then the banner is chosen randomly among the available banners,
-   if the value is a string then it must be a path to a .PNG file,
-   if the value is nil then no banner is displayed.")
+(defvar dotspacemacs-startup-banner 'official
+   "Specify the startup banner. Default value is `official', it displays
+the official spacemacs logo. An integer value is the index of text
+banner, `random' chooses a random text banner in `core/banners'
+directory. A string value must be a path to a .PNG file.
+If the value is nil then no banner is displayed.")
 
 (defvar dotspacemacs-configuration-layers '()
   "List of configuration layers to load. If it is the symbol `all' instead
@@ -158,7 +158,9 @@ If ARG is non nil then `dotspacemacs/config' is skipped."
     (if arg
         (message "Done (`dotspacemacs/config' function has been skipped).")
       (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
-      (message "Done."))))
+      (message "Done."))
+    (when (configuration-layer/package-declaredp 'powerline)
+      (spacemacs//restore-powerline (current-buffer)))))
 
 (defun dotspacemacs/location ()
   "Return the absolute path to the spacemacs dotfile."

@@ -1,6 +1,7 @@
 ***
-![title](./doc/img/title.png)
-[philosophy][] | [goals][] | [for who?][] | [screenshots][] | [documentation][DOCUMENTATION.md] | [contribute][CONTRIBUTE.md] | [achievements][] | [FAQ][]
+<p align="center"><img src="./doc/img/title2.png" alt="Spacemacs"/></p>
+
+| [philosophy][] | [goals][] | [for who?][] | [screenshots][] | [documentation][DOCUMENTATION.md] | [contribute][CONTRIBUTE.md] | [achievements][] | [FAQ][] |
 ***
 [![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
 ***
@@ -33,10 +34,11 @@
     - [Evil-tutor](#evil-tutor)
     - [The leader key](#the-leader-key)
     - [Universal argument](#universal-argument)
-    - [Configuration layers and Packages discovery](#configuration-layers-and-packages-discovery)
+    - [Configuration layers and Package discovery](#configuration-layers-and-package-discovery)
     - [Key bindings discovery](#key-bindings-discovery)
     - [Describe functions](#describe-functions)
 - [Contributions](#contributions)
+- [Credits](#credits)
 - [FAQ](#faq)
     - [Common](#common)
     - [Windows](#windows)
@@ -50,11 +52,11 @@
 best Emacs packages out there. It uses [Evil Mode][] to combine the ergonomic
 editing features of Vim with the extensibility of Emacs.
 
-Spacemacs is designed to be approachable to users coming from Vim--you do not
-need any prior experience with Emacs to get started.
+Spacemacs is designed to be approachable for users coming from Vim–you do not
+need prior experience with Emacs to get started.
 
-If you are already an experienced Emacs user, you will appreciate the clean
-customization system and tight integration of the included packages.
+If you are already an experienced Emacs user, you will appreciate the elegantly
+customized system and carefully curated, tightly integrated, set of packages.
 
 Spacemacs is currently in beta, and contributions are welcome.
 
@@ -63,8 +65,7 @@ Spacemacs is currently in beta, and contributions are welcome.
 ## Batteries Included
 
 Spacemacs integrates hundreds of packages and is ready to use with no additional
-configuration. It provides excellent support for many languages, including the
-following:
+configuration. It provides excellent support for many languages, including these:
 
 - [Elixir][]
 - [Haskell][]
@@ -78,26 +79,25 @@ following:
 - [Clojure][]
 - [C-C++][]
 
-It also comes with [Git support][] and [project management][] tools. All these
-features are loaded on-demand to keep startup time short.
+It also ships with [Git support][] and [project management][] tools. All
+features are lazily loaded (on-demand) to minimize startup time.
 
 The Spacemacs community provides [additional configurations][contrib layers]
-that extend the default distribution.
+that extend this default distribution.
 
 **[Visit the Documentation][DOCUMENTATION.MD]**
 
 ## Nice UI
 
-Spacemacs looks good. It comes with high-quality themes and a custom low-clutter
+Spacemacs looks good. It ships with quality themes and a minimalist
 modeline.
 
 ![spacemacs_python](doc/img/spacemacs-python.png)
 
 ## Excellent Evil Support
 
-Spacemacs is designed around Vim keyboard bindings, provided by [Evil Mode][].
-The packages distributed with Spacemacs are customized to integrate seamlessly
-with Evil.
+Spacemacs is designed around Vim keyboard bindings powered by [Evil Mode][].
+The core packages are customized to integrate seamlessly with Evil.
 
 Spacemacs improves upon Vim by using task-specific states to group related
 commands. These states reduce the keystrokes needed to issue repetitive commands
@@ -109,13 +109,13 @@ and reduce the number of keyboard bindings to learn.
 to operate on the buffer are prefixed by `<SPC> b`, and commands to operate on
 the project are under `<SPC> p`.
 
-There is no need to learn convoluted Emacs key chords--Spacemacs uses memorable
+There is no need to learn convoluted Emacs key chords–Spacemacs uses memorable
 bindings that are easy to type.
 
 ### Great [Documentation][DOCUMENTATION.MD]
 
-Most of Spacemacs' features are extensively documented, along with key bindings
-and configuration options.
+Most of Spacemacs' features, key bindings, and configuration options
+are extensively documented.
 
 If you need help, ask your question in the [Gitter Chat][] and a member of the
 community will help you out.
@@ -124,8 +124,8 @@ community will help you out.
 
 ## Emacs version
 
-`Spacemacs` is tested with Emacs 24.3 and 24.4. It should boot on all the major
-OSes where these versions can be installed.
+`Spacemacs` is tested with Emacs 24.3 and 24.4 and therefore should boot
+on all the major OSes where these versions are installable.
 
 Some modes require third-party tools that you'll have to install via your
 favorite package manager.
@@ -133,7 +133,7 @@ favorite package manager.
 ## OS X
 
 The recommended version for OS X is [emacs-mac-port][]. It can be installed
-from [homebrew][] with the following commands:
+via [homebrew][] with the following commands:
 
 ```sh
 $ brew tap railwaycat/emacsmacport
@@ -176,14 +176,14 @@ Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
 Loading............................................................Ready!
 [121 packages loaded in 3.208s]
 ```
-You should be good to go! Otherwise, see the [troubleshooting][troubleshoot] guide.
+then you should be good to go! Otherwise, see the [troubleshooting][troubleshoot] guide.
 
 # Update
 
 Spacemacs currently requires manual updates using the following procedure:
 
 1. Update Emacs packages by clicking (press `RET`) on the `[Update]` link of
-the starting page
+the starting page.
 
 2. Close Emacs and update the git repository:
 
@@ -201,20 +201,18 @@ version of `Spacemacs` is available.
 
            Symbol                     | Description
 :------------------------------------:|----------------------------------
-![git-new](doc/img/update-green.png)  | less than 3 releases behind
-![git-del](doc/img/update-orange.png) | less than 5 releases behind
-![git-mod](doc/img/update-red.png)    | 5 or more releases behind
+![git-new](doc/img/update-green.png)  | < 3 releases behind
+![git-del](doc/img/update-orange.png) | < 5 releases behind
+![git-mod](doc/img/update-red.png)    | >= 5  releases behind
 
 **Note:**
-Update of `Spacemacs` by clicking on the indicator will be implemented _soon_.
+A feature allowing update by merely clicking on the indicator will be implemented _soon_!
 
 ## Rollback
 
-You can rollback ELPA packages to a previous version if anything went wrong
-during an update.
-
-To rollback to a previous state click (press `RET`) on the `[Rollback]`
-link of the startup page and choose a rollback slot.
+Should anything go wrong during an update, you can rollback ELPA packages to a
+previous version. Click (press `RET`) on the `[Rollback]` link of the startup
+page, choose a rollback slot.
 
 Rollback slot names are dates with the following format `YYYY-MM-DD_HH.MM.SS`.
 The date corresponds to the date of an update. The most recent slots are
@@ -223,11 +221,11 @@ listed first.
 # Configuration
 
 `Spacemacs` divides its configuration into self-contained units called
-[configuration layers][config]. These layers can be stacked on top of each other
+[configuration layers][config]. These layers are stacked on top of each other
 to achieve a custom configuration.
 
-`Spacemacs` also uses a dotfile `~/.spacemacs` to control which layers to
-load and to quick configure some `Spacemacs` features.
+`Spacemacs` uses the dotfile `~/.spacemacs` to control which layers to
+load. Within this file you may also generally configure certain features.
 
 ## Configuration layers
 
@@ -240,12 +238,12 @@ package repositories using `package.el`
 
 If you already have your own `Emacs` configuration you can move it to your
 own layer.
+
 The following command creates a layer in the `private` directory:
 
     <SPC> : configuration-layer/create-layer RET
 
-Any configuration layers you create must be explicitly loaded in your
-`~/.spacemacs` file.
+Any configuration layers you create must be explicitly loaded in `~/.spacemacs`.
 
 **Note:** For your privacy, the contents of the `private` directory are not
 under source control. See the documentation for a discussion on how to
@@ -253,18 +251,18 @@ under source control. See the documentation for a discussion on how to
 
 ## Dotfile (.spacemacs)
 
-The `.spacemacs` file controls which configuration layers to load and provides
-a way to customize `Spacemacs`.
+As mentioned `.spacemacs` controls which configuration layers to load and
+is also a means to customizing `Spacemacs`.
 
 The following command will create a `.spacemacs` file in your home directory:
 
     <SPC> : dotspacemacs/install RET
 
-To open the installed dotfile:
+...to open the installed dotfile:
 
     <SPC> f e d
 
-Example to load some configuration layers using the variable
+...to load some configuration layers using the variable
 `dotspacemacs-configuration-layers`:
 
 ```elisp
@@ -272,9 +270,9 @@ Example to load some configuration layers using the variable
 dotspacemacs-configuration-layers '(company-mode smex)
 ```
 
-Some configuration layers have configuration variables to enable specific
-support. For instance the [git layer][] has several configuration variables,
-they can be set directly in the `dotspacemacs-configuration-layers` like this:
+Some configuration layers support configuration variables to expose granular
+control over layer-specific features, [git layer][] being one such example.
+Variables can be directly set within `dotspacemacs-configuration-layers` like so:
 
 ```elisp
 ;; List of configuration layers to load.
@@ -290,29 +288,28 @@ At anytime you can apply the changes made to the dotfile _without restarting_
 `Spacemacs` by pressing <kbd>SPC m c c</kbd>.
 
 The [comments in this file][dotfile template] contain further information about
-how to customize Spacemacs. See the [dotfile configuration][dotfile] section of
-the documentation for more information.
+how to customize `Spacemacs`. See the [dotfile configuration][dotfile] section of
+the documentation for more details.
 
 # Learning Spacemacs
 
 ## Evil-tutor
 
-Press <kbd>SPC h T</kbd> to start the Vimtutor adapted for Evil.
+Press <kbd>SPC h T</kbd> to begin an Evil-adapted Vimtutor.
 
 ## The leader key
 
-Spacemacs key bindings use a leader key which is set by default to
-<kbd>SPC</kbd> key (space bar).
+`Spacemacs` key bindings use a leader key which is by default bound to
+<kbd>SPC</kbd> (space bar).
 
-You can change it easily by setting the variable `dotspacemacs-leader-key` in
-your `~/.spacemacs` file.
+Change it by setting the variable `dotspacemacs-leader-key` in `~/.spacemacs`.
 
 ## Universal argument
 
-In spacemacs the universal argument is by default on `<SPC> u` instead of `C-u`
-which is used to scroll up as in Vim.
+In `Spacemacs` the universal argument defaults to `<SPC> u` instead of `C-u`
+because the latter is used to scroll up as in Vim.
 
-## Configuration layers and Packages discovery
+## Configuration layers and Package discovery
 
 By using `helm-spacemacs` with <kbd>SPC f e h</kbd> you can quickly search
 for a package and get the name of the layers using it.
@@ -329,19 +326,17 @@ It is also possible to search for specific key bindings by pressing:
 
     <SPC> ?
 
-To narrow the list to `Spacemacs` key bindings starting with prefix `<SPC>`,
-set the pattern to something like the regular expression:
+To narrow the bindings list to those prefixed with `<SPC>`,
+type a pattern like this regular expression:
 
     SPC\ b
 
-The example above will list all the `buffer` related bindings.
+which would list all `buffer` related bindings.
 
 ## Describe functions
 
 `Describe functions` are powerful Emacs introspection commands to get information
-about functions, variables, modes and so on.
-
-These functions are accessible with the following bindings:
+about functions, variables, modes etc. These commands are bound thusly:
 
 Key Binding   |                 Description
 --------------|------------------------------------------------------------------
@@ -352,25 +347,30 @@ Key Binding   |                 Description
 
 # Contributions
 
-`Spacemacs` needs you!
+`Spacemacs` needs _you_!
 
-Especially to grow the number of configuration layers, for instance to support new languages.
+We especially need to create more configuration layers that, for instance, bring
+support for new languages.
 
-If you are ready to contribute please consult the [contribution guidelines][CONTRIBUTE.md]
-first.
+If you are ready to contribute please begin by consulting the [contribution guidelines][CONTRIBUTE.md], thanks!
+
+# Credits
+
+[Spacemacs logo][] by [Nasser Alshammari][]
+released under a Creative Commons license.
 
 # FAQ
 
 ## Common
 
 1. **Which version of Spacemacs am I running ?**
-The version is displayed on the upper right corner of the loading screen. It
-is also possible to display the version with <kbd>SPC f e v</kbd>.
+The version is displayed on the upper right corner of the loading screen.
+You may also just type <kbd>SPC f e v</kbd>.
 
-2. **Why are packages installed with package-install automatically deleted by
-Spacemacs when it starts ?**
+2. **Why are packages installed with `package-install` automatically deleted by
+Spacemacs when it boots ?**
 To declare new packages you have to create a new configuration layer, see
-the quick start guide [here](#configuration).
+the [quick start guide](#configuration).
 
 3. **The Spacemacs banner is ugly, what should I do ?**
 Install the default font supported by Spacemacs or choose a fixed width font.
@@ -378,22 +378,13 @@ More information in the [font section][] of the documentation.
 
 4. **The powerline separators are ugly, how can I fix them ?**
 Use the property `:powerline-scale` of the variable
-`dotspacemacs-default-font`. More information in the [font section][]
-of the documentation.
+`dotspacemacs-default-font`. See [font][] documentation for more details.
 
-5. **Why don't the powerline arrows show in the terminal, even with a patched font ?**
-Emacs powerline implementation does not use patched fonts. Currently there are
-no mode-lines in Emacs that support patched fonts.
-The corresponding feature request for the powerline can be found
-[here][pw-patched-fonts].
-
-6. **The powerline separators have no anti-aliasing, what can I do ?**
-Emacs powerline uses XMP images to draw the separators. Enabling anti-aliasing
-may not be a trivial task so unfortunately you'll have to live with it.
-Nevertheless there exist a [large number of different separators][powerline-seps] --
-you can try to set up a different one with less aliasing (arrows for
-instance), alternatively you can disable them (note that the tilde characters
-on buffer empty lines have the same limitations).
+5. **The powerline separators have no anti-aliasing, what can I do ?**
+Emacs powerline uses XMP images to draw the separators in a graphical
+environment. You can have anti-aliasing if you use the `utf8` separator.
+Note that by default the `utf8` separator is used in a terminal.
+See the powerline section in the [documentation][powerline-doc].
 
 ## Windows
 
@@ -415,7 +406,7 @@ Change the owner of the directory `~/.emacs.d/server`:
 This is a [known issue][powerline-srgb-issue] as of Emacs 24.4 due to
 `ns-use-srgb-colorspace` defaulting to true. It is recommended to use
 the [emacs-mac-port][] build. See the [install OSX section][] for more
-info on this.
+details.
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [philosophy]: doc/DOCUMENTATION.md#philosophy
@@ -448,7 +439,6 @@ info on this.
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
-[pw-patched-fonts]: https://github.com/milkypostman/powerline/issues/15
 [MacType]: https://code.google.com/p/mactype/
 [emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
 [emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
@@ -464,4 +454,7 @@ info on this.
 [Clojure]: contrib/lang/clojure
 [C-C++]: contrib/lang/c-c++
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
+[powerline-doc]: doc/DOCUMENTATION.md#powerline-separators
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
+[Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
+[Nasser Alshammari]: https://github.com/nashamri

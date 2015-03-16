@@ -12,30 +12,34 @@
 (defconst spacemacs-buffer-name "*spacemacs*"
   "The name of the spacemacs buffer.")
 
-(defun spacemacs//insert-banner ()
-  "Choose a banner and insert in spacemacs buffer.
+(defconst spacemacs--banner-length 75
+  "Width of a banner.")
 
-Doge special banner can be reachable via `999', `doge' or `random*'.
+(defun spacemacs//insert-banner-and-buttons ()
+  "Choose a banner accordingly to `dotspacemacs-startup-banner'and insert it
+in spacemacs buffer along whith quick buttons underneath.
+
+Easter egg:
+Doge special text banner can be reachable via `999', `doge' or `random*'.
 `random' ignore special banners whereas `random*' does not."
   (let ((banner (spacemacs//choose-banner))
         (buffer-read-only nil))
     (when banner
       (spacemacs/message (format "Banner: %s" banner))
       (if (string-match "\\.png\\'" banner)
-          (progn
-            (insert "   ")
-            (insert-image (create-image banner))
-            (insert (format "%s" spacemacs-version))
-            (insert "\n"))
-        (progn
-          (insert-file-contents banner)
-          (spacemacs//inject-version-in-buffer)))
-        (spacemacs/insert-buttons)
-        (spacemacs//redisplay))))
+          (spacemacs//insert-image-banner banner)
+        (insert-file-contents banner))
+      (spacemacs//inject-version)
+      (spacemacs/insert-buttons)
+      (spacemacs//redisplay))))
 
 (defun spacemacs//choose-banner ()
   "Return the full path of a banner based on the dotfile value."
   (cond
+   ((eq 'official dotspacemacs-startup-banner)
+    (if (and (display-graphic-p) (image-type-available-p 'png))
+        spacemacs-banner-official-png
+      (spacemacs//get-banner-path 1)))
    ((eq 'random dotspacemacs-startup-banner)
     (spacemacs//choose-random-text-banner))
    ((eq 'random* dotspacemacs-startup-banner)
@@ -44,8 +48,9 @@ Doge special banner can be reachable via `999', `doge' or `random*'.
     (spacemacs//get-banner-path 999))
    ((integerp dotspacemacs-startup-banner)
     (spacemacs//get-banner-path dotspacemacs-startup-banner))
-   ((string-match "\\.png\\'" dotspacemacs-startup-banner)
-    (if (image-type-available-p 'png)
+   ((and dotspacemacs-startup-banner
+         (string-match "\\.png\\'" dotspacemacs-startup-banner))
+    (if (and (display-graphic-p) (image-type-available-p 'png))
         (if (file-exists-p dotspacemacs-startup-banner)
             dotspacemacs-startup-banner
           (spacemacs/message (format "Warning: could not find banner %s"
@@ -67,12 +72,26 @@ If ALL is non-nil then truly all banners can be selected."
   "Return the full path to banner with index INDEX."
   (concat spacemacs-banner-directory (format "%03d-banner.txt" index)))
 
-(defun spacemacs//inject-version-in-buffer ()
+(defun spacemacs//insert-image-banner (banner)
+  "Display an image banner."
+  (when (file-exists-p banner)
+    (let* ((spec (create-image banner))
+           (size (image-size spec))
+           (width (car size))
+           (left-margin (floor (- spacemacs--banner-length width) 2)))
+      (beginning-of-buffer)
+      (insert "\n")
+      (insert (make-string (- left-margin 1) ?\ ))
+      (insert-image spec)
+      (insert "\n\n")
+      (insert "                           [S P A C E M A C S]\n\n"))))
+
+(defun spacemacs//inject-version ()
   "Inject the current version of spacemacs in the first line of the
 buffer, right justified."
   (save-excursion
     (beginning-of-buffer)
-    (let* ((maxcol spacemacs-title-length)
+    (let* ((maxcol spacemacs--banner-length)
            (injected (format "(%s)" spacemacs-version))
            (pos (- maxcol (length injected)))
            (buffer-read-only nil))
@@ -83,6 +102,11 @@ buffer, right justified."
       (goto-char pos)
       (delete-char (length injected))
       (insert injected))))
+
+(defun spacemacs/set-mode-line (format)
+  "Set mode-line format for spacemacs buffer."
+  (with-current-buffer (get-buffer-create "*spacemacs*")
+    (setq mode-line-format format)))
 
 (defun spacemacs/message (msg &rest args)
   "Display MSG in message prepended with '(Spacemacs)'."
@@ -95,7 +119,8 @@ buffer, right justified."
     (goto-char (point-max))
     (let ((buffer-read-only nil))
       (insert msg)
-      (if messagebuf (message "(Spacemacs) %s" msg)))))
+      (if messagebuf (message "(Spacemacs) %s" msg)))
+    (spacemacs/set-mode-line "")))
 
 (defun spacemacs/replace-last-line-of-buffer (msg &optional messagebuf)
   "Replace the last line of the spacemacs buffer with MSG. If MESSAGEBUF is
@@ -105,21 +130,20 @@ buffer, right justified."
     (let ((buffer-read-only nil))
       (delete-region (line-beginning-position) (point-max))
       (insert msg)
-      (if messagebuf (message "(Spacemacs) %s" msg)))))
+      (if messagebuf (message "(Spacemacs) %s" msg)))
+    (spacemacs/set-mode-line "")))
 
 (defun spacemacs/loading-animation ()
-  "Display LOADING-TITLE with trailing dots of max length
-SPACEMACS-TITLE-LENGTH. New loading title is displayed by chunk
-of size LOADING-DOTS-CHUNK-THRESHOLD."
+  "Display the progress bar by chunk of size `spacemacs--loading-dots-chunk-threshold'."
   (when dotspacemacs-loading-progress-bar
     (setq spacemacs-loading-counter (1+ spacemacs-loading-counter))
     (when (>= spacemacs-loading-counter spacemacs-loading-dots-chunk-threshold)
       (setq spacemacs-loading-counter 0)
-      (let ((i 0))
-        (while (< i spacemacs-loading-dots-chunk-size)
-          (setq spacemacs-loading-text (concat spacemacs-loading-text "."))
-          (setq i (1+ i))))
-      (spacemacs/replace-last-line-of-buffer spacemacs-loading-text)
+      (setq spacemacs-loading-string
+            (concat spacemacs-loading-string
+                    (make-string spacemacs-loading-dots-chunk-size
+                                 spacemacs-loading-char)))
+      (setq mode-line-format spacemacs-loading-string)
       (spacemacs//redisplay))))
 
 (defun spacemacs/insert-buttons ()
@@ -145,9 +169,9 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
                  (lambda (b) (call-interactively 'configuration-layer/rollback))
                  'follow-link t 'help-echo "Rollback ELPA package upgrades if something got borked.")
   (insert "\n")
-  (let ((button-title "[Search Spacemacs]"))
+  (let ((button-title "[Search in Spacemacs]"))
     ; Compute the correct number of spaces to center the button.
-    (dotimes (i (/ (- spacemacs-title-length (string-width button-title)) 2)) (insert " "))
+    (dotimes (i (/ (- spacemacs--banner-length (string-width button-title) 1) 2)) (insert " "))
     (insert-button button-title 'action
                    (lambda (b) (call-interactively 'helm-spacemacs)) 'follow-link t
                    'help-echo "Find Spacemacs package and layer configs using helm-spacemacs."))
@@ -157,9 +181,11 @@ of size LOADING-DOTS-CHUNK-THRESHOLD."
 (defun spacemacs/goto-link-line ()
   "Move the point to the beginning of the link line."
   (interactive)
-  (with-current-buffer spacemacs-buffer-name
-    (goto-char (point-min))
-    (re-search-forward "Homepage")
-    (beginning-of-line)))
+  (when (and dotspacemacs-startup-banner
+             (not configuration-layer-error-count))
+    (with-current-buffer spacemacs-buffer-name
+      (goto-char (point-min))
+      (re-search-forward "Homepage")
+      (beginning-of-line))))
 
 (provide 'core-spacemacs-buffer)

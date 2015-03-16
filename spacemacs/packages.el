@@ -29,6 +29,7 @@
     diminish
     dired+
     doc-view
+    ediff
     elisp-slime-nav
     eldoc
     evil
@@ -100,8 +101,6 @@
     powerline
     projectile
     rainbow-delimiters
-    rcirc
-    rcirc-color
     recentf
     rfringe
     s
@@ -205,8 +204,6 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (add-to-hooks 'auto-complete-mode '(org-mode-hook
                                         prog-mode-hook))
-    :idle (global-auto-complete-mode)
-    :idle-priority 1
     :config
     (progn
       (require 'auto-complete-config)
@@ -261,7 +258,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol
-    :commands auto-highlight-symbol-mode
+    :defer t
     :init
     (add-to-hooks 'auto-highlight-symbol-mode '(prog-mode-hook
                                                 markdown-mode-hook))
@@ -420,19 +417,15 @@ which require an initialization must be listed explicitly in the list.")
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset"
+            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset (d) to go to next definition (D) to go to previous definition"
                   propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bookmark ()
   (use-package bookmark
-    :commands (bookmark-delete
-               bookmark-jump
-               bookmark-rename
-               bookmark-set)
-    :config
-    (setq
-     bookmark-default-file "~/.emacs.d/bookmarks" ; keep my ~/ clean
-     bookmark-save-flag 1)))                      ; autosave each change
+    :defer t
+    :init
+    (setq bookmark-default-file "~/.emacs.d/bookmarks" ; keep my ~/ clean
+          bookmark-save-flag 1)))                      ; autosave each change
 
 (defun spacemacs/init-buffer-move ()
   (use-package buffer-move
@@ -500,6 +493,7 @@ which require an initialization must be listed explicitly in the list.")
                          "?"  'spacemacs/doc-view-search-new-query-backward
                          "gg" 'doc-view-first-page
                          "G"  'doc-view-last-page
+                         "gt" 'doc-view-goto-page
                          "h"  'doc-view-previous-page
                          "j"  'doc-view-next-line-or-next-page
                          "k"  'doc-view-previous-line-or-previous-page
@@ -511,6 +505,36 @@ which require an initialization must be listed explicitly in the list.")
                          (kbd "C-k") 'doc-view-kill-proc
                          (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
       (spacemacs/activate-evil-leader-for-map 'doc-view-mode-map))))
+
+;; notes from mijoharas
+;; We currently just set a few variables to make it look nicer.
+;; Here is my first attempt at evilifying the buffer, does not work correctly, help is very much welcome.
+
+;; ```
+;; (defun ediff/setup-ediff-keymaps ()
+;;   "setup the evil ediff keymap"
+;;     (progn
+;;      (add-to-list 'evil-emacs-state-modes 'Ediff)
+;;      (spacemacs|evilify ediff-mode-map)
+;;      (spacemacs/activate-evil-leader-for-map 'ediff-mode-map)
+;;       )
+;;   )
+
+;; ;; inside the use-package function
+;; (add-hook 'ediff-keymap-setup-hook 'ediff/setup-ediff-keymaps)
+;; ```
+(defun spacemacs/init-ediff ()
+  (use-package ediff
+    :defer t
+    :init
+    (progn
+      ;; first we set some sane defaults
+      (setq-default
+       ediff-window-setup-function 'ediff-setup-windows-plain
+       ;; emacs is evil and decrees that vertical shall henceforth be horizontal
+       ediff-split-window-function 'split-window-horizontally
+       ediff-merge-split-window-function 'split-window-horizontally))))
+
 
 (defun spacemacs/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
@@ -659,6 +683,7 @@ which require an initialization must be listed explicitly in the list.")
           (recenter nil)))
       (spacemacs|define-micro-state scroll
         :doc "[,] page up [.] page down [<] half page up [>] half page down"
+        :use-minibuffer t
         :execute-binding-on-enter t
         :evil-leader "n." "n," "n<" "n>"
         :bindings
@@ -940,7 +965,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
-    :init (when (memq window-system '(mac ns))
+    :init (when (memq window-system '(mac ns x))
             (exec-path-from-shell-initialize))))
 
 (defun spacemacs/init-expand-region ()
@@ -1030,25 +1055,17 @@ which require an initialization must be listed explicitly in the list.")
     ))
 
 (defun spacemacs/init-fill-column-indicator ()
-  (setq fci-rule-width 1)
-  (setq fci-enabled 0)
-
-  (defun toggle-fill-column-indicator ()
-    (interactive)
-    (make-local-variable 'fci-enabled)
-    (if (> fci-enabled 0) (deactivate-fci) (activate-fci)))
-
-  (defun activate-fci ()
-    (setq fci-rule-column 79)
-    (setq fci-enabled 1)
-    (fci-mode 1))
-
-  (defun deactivate-fci ()
-    (setq fci-enabled 0)
-    (fci-mode 0))
-
   (use-package fill-column-indicator
-    :commands toggle-fill-column-indicator))
+    :defer t
+    :init
+    (progn
+      (setq fci-rule-width 1)
+      (spacemacs|add-toggle fill-column-indicator
+                            :status fci-mode
+                            :on (turn-on-fci-mode)
+                            :off (turn-off-fci-mode)
+                            :documentation "Display the fill column indicator."
+                            :evil-leader "tc"))))
 
 (defun spacemacs/init-flx-ido ()
   (use-package flx-ido
@@ -1244,6 +1261,14 @@ which require an initialization must be listed explicitly in the list.")
         (if (symbol-value guide-key-mode)
             (guide-key-mode -1)
           (guide-key-mode)))
+
+      (defadvice guide-key/popup-guide-buffer-p
+          (around spacemacs/inhibit-guide-buffer activate)
+        "Prevent the popup of the guide-key buffer in some case."
+        ;; a micro-state is running
+        (unless overriding-terminal-local-map
+          ad-do-it))
+
       (evil-leader/set-key "tk" 'spacemacs/toggle-guide-key)
       (setq guide-key/guide-key-sequence `("C-x"
                                            "C-c"
@@ -1395,6 +1420,7 @@ which require an initialization must be listed explicitly in the list.")
 
       (spacemacs|define-micro-state helm-navigation
         :persistent t
+        :disable-evil-leader t
         :define-key (helm-map . "C-SPC") (helm-map . "C-@")
         :on-enter (spacemacs//helm-navigation-ms-on-enter)
         :on-exit  (spacemacs//helm-navigation-ms-on-exit)
@@ -1673,6 +1699,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 
       (spacemacs|define-micro-state ido-navigation
         :persistent t
+        :disable-evil-leader t
         :on-enter (spacemacs//ido-navigation-ms-on-enter)
         :on-exit  (spacemacs//ido-navigation-ms-on-exit)
         :bindings
@@ -2009,6 +2036,15 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
           (setq spacemacs-mode-line-new-version-lighterp t)))
       (evil-leader/set-key "tmv" 'spacemacs/mode-line-new-version-lighter-toggle)
 
+      (defvar spacemacs-mode-line-display-point-p nil
+        "If not nil, display point alongside row/column in the mode-line.")
+      (defun spacemacs/mode-line-display-point-toggle ()
+        (interactive)
+        (if spacemacs-mode-line-display-point-p
+            (setq spacemacs-mode-line-display-point-p nil)
+          (setq spacemacs-mode-line-display-point-p t)))
+      (evil-leader/set-key "tmp" 'spacemacs/mode-line-display-point-toggle)
+
       (defvar spacemacs-mode-line-org-clock-current-taskp nil
         "If not nil, the currently clocked org-mode task will be
 displayed in the mode-line.")
@@ -2022,7 +2058,9 @@ displayed in the mode-line.")
           (setq spacemacs-mode-line-org-clock-current-taskp t)))
       (evil-leader/set-key "tmc" 'spacemacs/mode-line-org-clock-current-task-toggle)
 
-      (setq-default powerline-default-separator 'wave)
+      (if (display-graphic-p)
+          (setq-default powerline-default-separator 'wave)
+        (setq-default powerline-default-separator 'utf-8))
 
       (defun spacemacs/mode-line-prepare-left ()
         (let* ((active (powerline-selected-window-active))
@@ -2100,7 +2138,7 @@ displayed in the mode-line.")
            ;; org clocked task
            (when (and active
                       spacemacs-mode-line-org-clock-current-taskp
-                      (fboundp 'org-clocking-p) 
+                      (fboundp 'org-clocking-p)
                       (org-clocking-p))
              (list (powerline-raw " " face2)
                    (funcall spacemacs-mode-line-org-clock-format-function)
@@ -2154,7 +2192,10 @@ displayed in the mode-line.")
            (list
             ;; row:column
             (powerline-raw " " face1)
-            (powerline-raw "%l:%2c" face1 'r)
+            (powerline-raw (if spacemacs-mode-line-display-point-p
+                               (concat (format "%d | " (point)) "%l:%2c" )
+                             "%l:%2c")
+                           face1 'r)
             (funcall separator-left face1 line-face)
             (powerline-raw " " line-face))
            (list
@@ -2194,15 +2235,20 @@ displayed in the mode-line.")
       (setq-default mode-line-format
                     '("%e" (:eval (spacemacs/mode-line-prepare))))
 
-      (defun spacemacs//set-powerline-for-startup-buffers ()
-        "Set the powerline for buffers created when Emacs starts."
-        (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
-          (when (get-buffer buffer)
-            (with-current-buffer buffer
+      (defun spacemacs//restore-powerline (buffer)
+        "Restore the powerline in buffer"
+        (with-current-buffer buffer
               (setq-local mode-line-format
                           '("%e" (:eval (spacemacs/mode-line-prepare))))
               (powerline-set-selected-window)
-              (powerline-reset)))))
+              (powerline-reset)))
+
+      (defun spacemacs//set-powerline-for-startup-buffers ()
+        "Set the powerline for buffers created when Emacs starts."
+        (unless configuration-layer-error-count
+          (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
+            (when (get-buffer buffer)
+              (spacemacs//restore-powerline buffer)))))
       (add-hook 'after-init-hook
                 'spacemacs//set-powerline-for-startup-buffers))))
 
@@ -2270,34 +2316,6 @@ displayed in the mode-line.")
     (progn
       (evil-leader/set-key "tCd" 'rainbow-delimiters-mode)
       (add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook)))))
-
-(defun spacemacs/init-rcirc ()
-  (use-package rcirc
-    :commands irc
-    :init
-    (progn
-      (add-to-hook 'rcirc-mode-hook '(rcirc-track-minor-mode
-                                      rcirc-omit-mode
-                                      ;; rcirc-reconnect-mode
-                                      flyspell-mode))
-      (setq evil-normal-state-modes
-            (cons 'rcirc-mode evil-normal-state-modes)))
-    :config
-    (progn
-      (setq rcirc-fill-column 80
-            rcirc-buffer-maximum-lines 2048
-            rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")
-            rcirc-omit-threshold 20)
-      (require 'rcirc-color)
-      (let ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir)))
-        (require 'rcirc-reconnect
-                 (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
-      ;; identify info are stored in a separate location, skip errors
-      ;; if the feature cannot be found.
-      (require 'pinit-rcirc nil 'noerror)
-      (define-key rcirc-mode-map (kbd "C-j") 'rcirc-insert-prev-input)
-      (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input)
-      )))
 
 (defun spacemacs/init-recentf ()
   (use-package recentf
@@ -2439,7 +2457,7 @@ displayed in the mode-line.")
 
 (defun spacemacs/init-volatile-highlights ()
   (use-package volatile-highlights
-    :init
+    :config
     (progn
       (volatile-highlights-mode t)
       (spacemacs|hide-lighter volatile-highlights-mode))))
@@ -2463,7 +2481,8 @@ displayed in the mode-line.")
 (defun spacemacs/init-window-numbering ()
   (use-package window-numbering
     ;; not deferred on puprose
-    :init
+    :init (require 'window-numbering)
+    :config
     (progn
       (when (configuration-layer/package-declaredp 'powerline)
         (defun window-numbering-install-mode-line (&optional position)

@@ -71,14 +71,18 @@
 (defun haskell/init-hindent ()
   (use-package hindent
     :defer t
-    :if haskell-enable-hindent-support
+    :if (stringp haskell-enable-hindent-style)
     :init
     (add-hook 'haskell-mode-hook #'hindent-mode)
     :config
     (progn
-      (setq hindent-style "chris-done")
+      (setq hindent-style haskell-enable-hindent-style)
       (evil-leader/set-key-for-mode 'haskell-mode
         "mF"   'hindent/reformat-decl))))
+
+(defun haskell-process-do-type-on-prev-line ()
+  (interactive)
+  (haskell-process-do-type 1))
 
 (defun haskell/init-haskell-mode ()
   (require 'haskell-yas)
@@ -86,6 +90,7 @@
     :defer t
     :config
     (progn
+
       ;; Customization
       (custom-set-variables
 
@@ -121,20 +126,15 @@
 
       ;;;;;;;;; Keybindings ;;;;;;;;;;
 
-      ;; ;; use "mc" as prefix for cabal commands
-      ;; (setq spacemacs/key-binding-prefixes '(("mc" . "cabal")))
-
-      ;; ;; use "ms" as prefix for REPL commands
-      ;; (setq spacemacs/key-binding-prefixes '(("ms" . "Haskell REPL")))
-
-      ;; ;; use "md" as prefix for debug commands
-      ;; (setq spacemacs/key-binding-prefixes '(("md" . "Haskell Debug")))
-
-      ;; ;; use "mh" as prefix for documentation commands
-      ;; (setq spacemacs/key-binding-prefixes '(("mh" . "Haskell Documentation")))
+      ;; major mode specfic prefixes not support for now
+      ;; (spacemacs/declare-prefix "mc" "cabal")
+      ;; (spacemacs/declare-prefix "ms" "repl")
+      ;; (spacemacs/declare-prefix "md" "debug")
+      ;; (spacemacs/declare-prefix "mh" "documentation")
 
       (evil-leader/set-key-for-mode 'haskell-mode
         "mt"   'haskell-process-do-type
+        "mT"   'haskell-process-do-type-on-prev-line
         "mi"   'haskell-process-do-info
         "mgg"  'haskell-mode-jump-to-def-or-tag
         "mf"   'haskell-mode-stylish-buffer
