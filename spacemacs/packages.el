@@ -937,9 +937,9 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-evil-terminal-cursor-changer ()
   (unless (display-graphic-p)
     (require 'evil-terminal-cursor-changer)
-    (setq etcc--evil-insert-state-cursor 'bar) ; ⎸
-    (setq etcc--evil-visual-state-cursor 'box) ; _
-    (setq etcc--evil-emacs-state-cursor 'hbar) ; █
+     (setq evil-visual-state-cursor 'box) ; █
+     (setq evil-insert-state-cursor 'bar) ; ⎸
+     (setq evil-emacs-state-cursor 'hbar) ; _
     ))
 
 (defun spacemacs/init-evil-tutor ()
