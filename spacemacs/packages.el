@@ -258,7 +258,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol
-    :commands auto-highlight-symbol-mode
+    :defer t
     :init
     (add-to-hooks 'auto-highlight-symbol-mode '(prog-mode-hook
                                                 markdown-mode-hook))
