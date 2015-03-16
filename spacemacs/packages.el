@@ -2481,7 +2481,8 @@ displayed in the mode-line.")
 (defun spacemacs/init-window-numbering ()
   (use-package window-numbering
     ;; not deferred on puprose
-    :init
+    :init (require 'window-numbering)
+    :config
     (progn
       (when (configuration-layer/package-declaredp 'powerline)
         (defun window-numbering-install-mode-line (&optional position)
