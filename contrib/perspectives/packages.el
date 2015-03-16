@@ -105,7 +105,7 @@ which require an initialization must be listed explicitly in the list.")
       (defun spacemacs/persp-switch-project ()
         (interactive)
         (evil-leader/set-key
-          "ps" 'helm-projectile-persp-switch-project)
+          "ps" 'helm-projectile-switch-project)
         (find-file "~/.spacemacs")
         (helm-projectile-switch-project)
         (persp-add-buffer "*spacemacs*")
