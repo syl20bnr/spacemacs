@@ -12,169 +12,137 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc
-    :ensure rcirc-color
+    :defer t
+    :init
+    (progn
+      (add-to-hook 'rcirc-mode-hook '(flyspell-mode rcirc-omit-mode))
+
+      (defun spacemacs/rcirc (arg)
+        "Configure rcirc"
+        (interactive "P")
+        (when (and rcirc-enable-authinfo-support
+                   (file-exists-p "~/.authinfo.gpg"))
+          ;; Allow rcirc to read authinfo from ~/.authinfo.gpg
+          ;; via the auth-source API. This doesn't support the
+          ;; chanserv auth method.
+          (unless arg (spacemacs//rcirc-authinfo-config))
+          ;; znc need
+          (when rcirc-enable-znc-support (spacemacs//rcirc-znc-config)))
+        (rcirc arg))
+      (evil-leader/set-key "ai" 'spacemacs/rcirc)
+
+      (defun spacemacs//rcirc-authinfo-config ()
+        "Initialize authinfo."
+        (dolist (p (auth-source-search
+                    :port '("nickserv" "bitlbee" "quakenet")
+                    :require '(:port :user :secret)))
+          (let ((secret (plist-get p :secret))
+                (method (intern (plist-get p :port))))
+            (add-to-list
+             'rcirc-authinfo
+             (list (plist-get p :host) method
+                   (plist-get p :user) (if (functionp secret)
+                                           (funcall secret)
+                                         secret))))))
+
+      (defun spacemacs//rcirc-znc-config ()
+        "Initialize ZNC, requires authinfo."
+
+        (defun dim:auth-source-fetch-password (server)
+          "Given a server with at least :host :port :login, return the :password"
+          (destructuring-bind (&key host auth &allow-other-keys)
+              (cdr server)
+            (destructuring-bind (&key secret &allow-other-keys)
+                (car (auth-source-search :host host
+                                         :port "irc"
+                                         :user auth
+                                         :require '(:user :secret)))
+              (if (functionp secret) (funcall secret) secret))))
+
+        ;; (setq auth (auth-source--aput :host ""))
+        ;; build rcirc-authinfo from rcirc-server-alist and authinfo
+        (defun dim:rcirc-server-alist-get-authinfo (server-alist)
+          "replace :auth in rcirc-server-alist with :password \"user:password\" from .authinfo.gpg"
+          (dolist (server server-alist server-alist)
+            (let* ((host  (car server))
+                   (plist (cdr server))
+                   (auth  (plist-get plist :auth))
+                   (pass  (dim:auth-source-fetch-password server)))
+              (when auth
+                (plist-put plist
+                           :password (format "%s:%s" auth pass))))))
+
+        ;; rcirc does not know how to connect to the same server more than once, so
+        ;; we build our own connection routine from our own rcirc-server-alist,
+        ;; using :host rather than the server name for connecting.
+        (defun dim:rcirc ()
+          "Connect to rcirc-server-alist servers."
+          (loop
+           for s in rcirc-server-alist
+           collect
+           (destructuring-bind (&key host
+                                     (port rcirc-default-port)
+                                     (nick rcirc-default-nick)
+                                     (user-name rcirc-default-user-name)
+                                     (full-name rcirc-default-full-name)
+                                     channels
+                                     password
+                                     encryption
+                                     &allow-other-keys
+                                     &aux contact (server (car s)))
+               (cdr s)
+             (let ((host (or host server)) ; catter with server without :host
+                   (connected
+                    (loop for p in (rcirc-process-list)
+                          thereis (string= server (process-get p :rcirc-server)))))
+               (unless connected
+                 (let ((process
+                        (rcirc-connect host port nick user-name
+                                       full-name channels password encryption)))
+                   (process-put process :rcirc-server server)))))))
+
+        (setq rcirc-server-alist
+              ;; This will replace :auth with the correct thing, see the
+              ;; doc for that function
+              (dim:rcirc-server-alist-get-authinfo
+               rcirc-server-alist))
+        (dim:rcirc)))
     :config
     (progn
+      ;; (set-input-method "latin-1-prefix")
+      (set (make-local-variable 'scroll-conservatively) 8192)
+
       (setq rcirc-fill-column 80
             rcirc-buffer-maximum-lines 2048
             rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY" "MODE")
             rcirc-time-format "%Y-%m-%d %H:%M "
             rcirc-omit-threshold 20)
 
-      ;; add a key for EMMS integration
-      (when (boundp 'emms-track-description)
-        (defun rcirc/insert-current-emms-track ()
-          (interactive)
-          (insert (emms-track-description (emms-playlist-current-selected-track))))
-
-        (define-key rcirc-mode-map (kbd "C-c C-e") 'rcirc/insert-current-emms-track)
-        )
-
       ;; Exclude rcirc properties when yanking, in order to be able to send mails
       ;; for example.
       (add-to-list 'yank-excluded-properties 'rcirc-text)
-      ;;###autoload
-      (add-hook 'rcirc-mode-hook '(lambda ()
-                                    ;; Turn on spell checking.
-                                    (flyspell-mode 1)
-                                    (rcirc-omit-mode)
-                                    ;; (set-input-method "latin-1-prefix")
-                                    (set (make-local-variable 'scroll-conservatively) 8192)
-                                    ))
 
+      ;; rcirc-reconnect
       (let ((dir (configuration-layer/get-layer-property 'rcirc :ext-dir)))
         (require 'rcirc-reconnect
                  (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
+
+      ;; load this file from the dropbox location load-path
+      ;; this is where you can store personal information
       (require 'pinit-rcirc nil 'noerror)
 
       (define-key rcirc-mode-map (kbd "C-j") 'rcirc-insert-prev-input)
       (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input)
 
-      ;; Join these channels at startup.
-      ;; (setq rcirc-server-alist
-      ;;       '(("irc.freenode.net"
-      ;;          :user "spacemacs_user"
-      ;;          :port "1337"
-      ;;          :password "le_passwd"
-      ;;          :channels ("#emacs"))))
-
-      (if (and rcirc-authinfo-support
-               (file-exists-p "~/.authinfo.gpg"))
-          (progn
-            (defun barebones-rcirc-config ()
-              (defadvice rcirc (before rcirc-read-from-authinfo activate)
-                "Allow rcirc to read authinfo from ~/.authinfo.gpg via the auth-source API.
-This doesn't support the chanserv auth method"
-                (unless arg
-                  (dolist (p (auth-source-search :port '("nickserv" "bitlbee" "quakenet")
-                                                 :require '(:port :user :secret)))
-                    (let ((secret (plist-get
-                                   p :secret))
-                          (method (intern (plist-get p :port))))
-                      (add-to-list 'rcirc-authinfo
-                                   (list (plist-get p :host)
-                                         method
-                                         (plist-get p :user)
-                                         (if (functionp secret)
-                                             (funcall secret)
-                                           secret)))))))
-              (rcirc nil)
-              )
-            (defun znc-rcirc-config ()
-              (defun dim:auth-source-fetch-password (server)
-                "Given a server with at least :host :port :login, return the :password"
-                (destructuring-bind (&key host auth &allow-other-keys)
-                    (cdr server)
-                  (destructuring-bind (&key secret &allow-other-keys)
-                      (car (auth-source-search :host host
-                                               :port "irc"
-                                               :user auth
-                                               :require '(:user :secret)))
-                    (if (functionp secret) (funcall secret) secret))))
-
-              ;; (setq auth (auth-source--aput :host ""))
-              ;; build rcirc-authinfo from rcirc-server-alist and authinfo
-              (defun dim:rcirc-server-alist-get-authinfo (server-alist)
-                "replace :auth in rcirc-server-alist with :password \"user:password\" from .authinfo.gpg"
-                (dolist (server server-alist server-alist)
-                  (let* ((host  (car server))
-                         (plist (cdr server))
-                         (auth  (plist-get plist :auth))
-                         (pass  (dim:auth-source-fetch-password server)))
-                    (when auth
-                      (plist-put plist
-                                 :password (format "%s:%s" auth pass)))
-                    ))
-                )
-
-              ;; rcirc does not know how to connect to the same server more than once, so
-              ;; we build our own connection routine from our own rcirc-server-alist,
-              ;; using :host rather than the server name for connecting.
-              (defun dim:rcirc ()
-                "Connect to rcirc-server-alist servers."
-                (loop
-                 for s in rcirc-server-alist
-                 collect
-                 (destructuring-bind (&key host
-                                           (port rcirc-default-port)
-                                           (nick rcirc-default-nick)
-                                           (user-name rcirc-default-user-name)
-                                           (full-name rcirc-default-full-name)
-                                           channels
-                                           password
-                                           encryption
-                                           &allow-other-keys
-                                           &aux contact (server (car s)))
-                     (cdr s)
-                   (let ((host (or host server))	; catter with server without :host
-                         (connected
-                          (loop for p in (rcirc-process-list)
-                                thereis (string= server (process-get p :rcirc-server)))))
-                     (unless connected
-                       (let ((process
-                              (rcirc-connect host port nick user-name
-                                             full-name channels password encryption)))
-                         (process-put process :rcirc-server server)))))))
-
-              (setq rcirc-server-alist
-                    ;; This will replace :auth with the correct thing, see the
-                    ;; doc for that function
-                    (dim:rcirc-server-alist-get-authinfo
-                     rcirc-server-alist))
-
-              ;; you should have sth like this in your dotfile
-              ;; (setq rcirc-server-alist
-              ;;       '(("freenode"
-              ;;          :host "freenode.spacemacsserver.me"
-              ;;          :port "1337"
-              ;;          :auth "spacemacs_user/freenode"
-              ;;          :channels ("#emacs"))
-              ;;         ("geekshed"
-              ;;          :host "geekshed.spacemacsserver.me"
-              ;;          :port "1337"
-              ;;          :auth "spacemacs_user/geekshed"
-              ;;          :channels ("#jupiterbroadcasting")))
-              ;;       )
-
-              ;; This is what the line on the ~/.authinfo.gpg file should look like
-              ;; machine freenode.spacemacsserver.me port irc user spacemacs_user/freenode password my_znc_passwd
-              ;; machine geekshed.spacemacsserver.me port irc user spacemacs_user/geekshed password my_znc_passwd
-              (dim:rcirc)
-              )
-            (defun rcirc-config()
-              (interactive)
-              (if rcirc-uses-znc
-                  (znc-rcirc-config)
-                (barebones-rcirc-config)))
-            (evil-leader/set-key
-              "ai" 'rcirc-config))
-        (evil-leader/set-leader
-         "ai" 'irc)
-        )
+      ;; add a key for EMMS integration
+      (when (boundp 'emms-track-description)
+        (defun rcirc/insert-current-emms-track ()
+          (interactive)
+          (insert (emms-track-description (emms-playlist-current-selected-track))))
+        (define-key rcirc-mode-map (kbd "C-c C-e") 'rcirc/insert-current-emms-track))
 
       ;; Minimal logging to `~/.rcirc-logs/channel'
       ;; by courtesy of Trent Buck.
-      (add-hook 'rcirc-print-hooks 'rcirc-write-log)
       (setq rcirc-log-directory "~/.emacs/.cache/rcirc-logs/")
       (setq rcirc-log-flag t)
       (defun rcirc-write-log (process sender response target text)
@@ -196,19 +164,26 @@ This doesn't support the chanserv auth method"
                 (write-region (point-min) (point-max)
                               (concat rcirc-log-directory  (downcase target))
                               t 'quietly))))))
-      )
-    ))
+      (add-hook 'rcirc-print-hooks 'rcirc-write-log)
+
+      ;; dependencies
+      ;; will autoload rcirc-notify
+      (rcirc-notify-add-hooks)
+      (require 'rcirc-color))))
 
 (defun rcirc/init-rcirc-notify ()
   (use-package rcirc-notify
-    :init
+    :defer t
+    :config
     (progn
-      (rcirc-notify-add-hooks)
-      (add-hook 'rcirc-notify-page-me-hooks
-                (lambda (msg)
-                  (start-process "beep-process" nil
-                                 "mplayer" "~/.emacs.d/site-misc/startup.ogg" )))
-      )
-    )
-  )
+      (defun spacemacs/rcirc-notify-beep (msg)
+        "Beep when notifying."
+        (let ((player "mplayer")
+              (sound "~/.emacs.d/site-misc/startup.ogg"))
+          (when (and (executable-find player)
+                     (file-exists-p sound)))
+          (start-process "beep-process" nil player sound)))
+      (add-hook 'rcirc-notify-page-me-hooks 'spacemacs/rcirc-notify-beep))))
 
+(defun rcirc/init-rcirc-color ()
+  (use-package rcirc-color :defer t))
