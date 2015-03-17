@@ -1889,22 +1889,17 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     (progn
       (require 'org-install)
       (define-key global-map "\C-cl" 'org-store-link)
-      (define-key global-map "\C-ca" 'org-agenda)
-      (use-package org-bullets
-        :defer t
-        :init
-        (defun spacemacs//org-mode-hook ()
-          (org-bullets-mode 1))
-        (add-hook 'org-mode-hook 'spacemacs//org-mode-hook))
-      ;; (use-package org-trello
-      ;;   :config
-      ;;   (add-hook 'org-mode-hook 'org-trello-mode))
-      ))
+      (define-key global-map "\C-ca" 'org-agenda)))
 
   (eval-after-load "org-agenda"
     '(progn
        (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
        (define-key org-agenda-mode-map "k" 'org-agenda-previous-line))))
+
+(defun spacemacs/init-org-bullets ()
+  (use-package org-bullets
+    :defer t
+    :init (add-hook 'org-mode-hook 'org-bullets-mode)))
 
 (defun spacemacs/init-page-break-lines ()
   (use-package page-break-lines
