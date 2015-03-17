@@ -1,6 +1,19 @@
 # F# contribution layer for Spacemacs
 
 ![logo_fsharp](img/fsharp.png)
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [F# contribution layer for Spacemacs](#f-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Packages Included](#packages-included)
+    - [Install](#install)
+    - [Key Bindings](#key-bindings)
+        - [REPL](#repl)
+
+<!-- markdown-toc end -->
+
 ## Description
 
 This layer adds support for F# language using [fsharpbinding][].
