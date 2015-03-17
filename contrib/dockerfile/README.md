@@ -1,6 +1,6 @@
 # dockerfile contribution layer for Spacemacs
 
-![logo](img/dockerfile.png)
+![logo](img/docker.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
