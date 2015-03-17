@@ -82,18 +82,17 @@ initialization."
     (setq-default spacemacs--cur-theme default-theme)
     (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
   ;; removes the GUI elements
-  (unless (or (not (boundp 'tool-bar-mode)) (eq tool-bar-mode -1))
+  (when (and (boundp 'tool-bar-mode) (not (eq tool-bar-mode -1)))
     (tool-bar-mode -1))
-  (unless (or (not (boundp 'scroll-bar-mode)) (eq scroll-bar-mode -1))
+  (when (and (boundp 'scroll-bar-mode) (not (eq scroll-bar-mode -1)))
     (scroll-bar-mode -1))
   ;; tooltips in echo-aera
-  (unless (or (not (boundp 'tooltip-mode)) (eq tooltip-mode -1))
+  (when (and (boundp 'tooltip-mode) (not (eq tooltip-mode -1)))
     (tooltip-mode -1))
   (setq tooltip-use-echo-area t)
-  (unless (or (not (boundp 'tooltip-mode))
-              (eq window-system 'mac)
-              (eq tooltip-mode -1))
-    (menu-bar-mode -1))
+  (unless (eq window-system 'mac)
+    (when (not (eq menu-bar-mode -1))
+      (menu-bar-mode -1)))
   ;; for convenience and user support
   (unless (boundp 'tool-bar-mode)
     (spacemacs/message (concat "No graphical support detected, you won't be"
