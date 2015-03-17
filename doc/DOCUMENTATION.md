@@ -613,12 +613,9 @@ Additional information may as well be displayed in the minibuffer.
 
 # Differences between Vim, Evil and Spacemacs
 
-No doubt that `Evil` is one of the most advanced `Vim` emulation and you should
-not see big difference between `Vim` and `Emacs`. I did not find any command I
-used in Vim that I missed in Emacs with `Evil`.
-
-The `,` key does "repeat last `f`, `t`, `F`, or `T` command in opposite direction"
-in `Vim`, but not in `Spacemacs`.
+- The `,` key does "repeat last `f`, `t`, `F`, or `T` command in opposite
+direction in `Vim`, but in `Spacemacs` it the major mode specific leader
+key by default (which can be set on another key binding in the dotfile).
 
 Send a PR to add the differences you found in this section.
 
