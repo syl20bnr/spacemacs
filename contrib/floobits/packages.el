@@ -21,6 +21,7 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
+      (spacemacs/declare-prefix "P" "PP/floobits")
 
       (defun spacemacs/floobits-rclocation ()
         "Return the absolute path to the floobits dotfile."
