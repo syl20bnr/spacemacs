@@ -12,5 +12,6 @@
                                           erlang-mode-hook
                                           text-mode-hook
                                           ess-mode-hook))
+    (add-hook 'org-mode-hook (lambda () (vim-empty-lines-mode -1)))
     :config
     (spacemacs|hide-lighter vim-empty-lines-mode)))

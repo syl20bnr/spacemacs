@@ -13,6 +13,13 @@ the fringe. The indicator behaviour with trailing empty lines matches
 
 For details, see the [vim-empty-lines-mode][] repository.
 
+## Known Incompatibilities
+- Company-mode
+When the company completion overlay occurs on the last line of the buffer, the cursor position is bugged. Functionality remains.
+
+- Org-mode
+Weird undocumented bugs with `normal-mode` operators, such as `G` or `o`. Currently disabled for this mode, as functionality breaks.
+
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`.
