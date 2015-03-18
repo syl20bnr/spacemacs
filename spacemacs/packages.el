@@ -2255,6 +2255,7 @@ displayed in the mode-line.")
   (use-package projectile
     :commands (projectile-ack
                projectile-ag
+               projectile-compile-project
                projectile-find-file
                projectile-find-test-file
                projectile-switch-to-buffer
@@ -2271,6 +2272,8 @@ displayed in the mode-line.")
                projectile-recentf
                projectile-invalidate-cache
                projectile-project-root
+               projectile-run-async-shell-command-in-root
+               projectile-run-shell-command-in-root
                )
     :init
     (progn
