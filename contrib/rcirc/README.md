@@ -126,11 +126,12 @@ machine irc.freenode.net port nickserv user <user> password <passwd>
 
 #### Connecting behind a ZNC bouncer and storing the credentials in authinfo
 
-This methods is also secured since it uses authinfo. ZNC is a popular bouncer
-which is easy to setup. A bouncer is a proxy that connects to your IRC
-channels on your behalf, instead of connecting to the IRC server you connect
-to your ZNC server. The ZNC server can store the discussions in a buffer while
-you are not connected.
+This methods is also secured since it uses authinfo _but_ you must secure your
+ZNC server configuration as well!
+ZNC is a popular bouncer which is easy to setup. A bouncer is a proxy that
+connects to your IRC channels on your behalf, instead of connecting to the IRC
+server you connect to your ZNC server. The ZNC server can store the discussions
+in a buffer while you are not connected.
 
 **Disclaimer**
 This assumes that you are familiar with ZNC and you have a ZNC server properly
