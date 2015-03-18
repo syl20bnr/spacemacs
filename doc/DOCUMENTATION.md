@@ -613,9 +613,9 @@ Additional information may as well be displayed in the minibuffer.
 
 # Differences between Vim, Evil and Spacemacs
 
-No doubt that `Evil` is one of the most advanced `Vim` emulation and you should
-not see big difference between `Vim` and `Emacs`. I did not find any command I
-used in Vim that I missed in Emacs with `Evil`.
+- The `,` key does "repeat last `f`, `t`, `F`, or `T` command in opposite
+direction in `Vim`, but in `Spacemacs` it the major mode specific leader
+key by default (which can be set on another key binding in the dotfile).
 
 Send a PR to add the differences you found in this section.
 
@@ -2247,15 +2247,10 @@ server is to use the following bindings:
 
 ### Loading fails
 
-If during the first boot of Emacs nothing seems to happen or if the
-installation seems to abort prematurely, you can check for an error message
-by opening the `*Warning*` buffer:
-
-    C-x b warning RET
-
-_('C-x b' means 'Ctrl + x then b' and 'RET' means 'return')_
-
-Then you can copy/paste the error in a [Github issue][issues], thank you.
+If any errors happen during the loading the mode-line will turn red and the
+errors should appear inline in the startup buffer. Spacemacs should still be
+usable, if it is not the case then restart Emacs with `emacs --debug-init` and
+open a [Github issue][issues] with the backtrace.
 
 ### I have no file ~/.spacemacs
 

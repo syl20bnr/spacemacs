@@ -937,9 +937,9 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-evil-terminal-cursor-changer ()
   (unless (display-graphic-p)
     (require 'evil-terminal-cursor-changer)
-    (setq etcc--evil-insert-state-cursor 'bar) ; ⎸
-    (setq etcc--evil-visual-state-cursor 'box) ; _
-    (setq etcc--evil-emacs-state-cursor 'hbar) ; █
+     (setq evil-visual-state-cursor 'box) ; █
+     (setq evil-insert-state-cursor 'bar) ; ⎸
+     (setq evil-emacs-state-cursor 'hbar) ; _
     ))
 
 (defun spacemacs/init-evil-tutor ()
@@ -1266,7 +1266,10 @@ which require an initialization must be listed explicitly in the list.")
           (around spacemacs/inhibit-guide-buffer activate)
         "Prevent the popup of the guide-key buffer in some case."
         ;; a micro-state is running
-        (unless overriding-terminal-local-map
+        ;; or
+        ;; bzg-big-fringe-mode is on
+        (unless (or overriding-terminal-local-map
+                    bzg-big-fringe-mode)
           ad-do-it))
 
       (evil-leader/set-key "tk" 'spacemacs/toggle-guide-key)
@@ -1889,21 +1892,17 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     (progn
       (require 'org-install)
       (define-key global-map "\C-cl" 'org-store-link)
-      (define-key global-map "\C-ca" 'org-agenda)
-      (use-package org-bullets
-        :config
-        (defun spacemacs//org-mode-hook ()
-          (org-bullets-mode 1))
-        (add-hook 'org-mode-hook 'spacemacs//org-mode-hook))
-      ;; (use-package org-trello
-      ;;   :config
-      ;;   (add-hook 'org-mode-hook 'org-trello-mode))
-      ))
+      (define-key global-map "\C-ca" 'org-agenda)))
 
   (eval-after-load "org-agenda"
     '(progn
        (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
        (define-key org-agenda-mode-map "k" 'org-agenda-previous-line))))
+
+(defun spacemacs/init-org-bullets ()
+  (use-package org-bullets
+    :defer t
+    :init (add-hook 'org-mode-hook 'org-bullets-mode)))
 
 (defun spacemacs/init-page-break-lines ()
   (use-package page-break-lines
@@ -2531,11 +2530,7 @@ displayed in the mode-line.")
   (use-package winner
     :init
     (progn
-      (setq spacemacs/winner-boring-buffers '("*helm mini*"
-                                              "*helm projectile*"
-                                              "*helm M-x*"
-                                              "*helm resume*"
-                                              "*Completions*"
+      (setq spacemacs/winner-boring-buffers '("*Completions*"
                                               "*Compile-Log*"
                                               "*inferior-lisp*"
                                               "*Fuzzy Completions*"

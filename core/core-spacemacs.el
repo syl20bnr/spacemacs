@@ -82,20 +82,19 @@ initialization."
     (setq-default spacemacs--cur-theme default-theme)
     (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
   ;; removes the GUI elements
-  (unless (or (not (boundp 'tool-bar-mode)) (eq tool-bar-mode -1))
+  (when (and (fboundp 'tool-bar-mode) (not (eq tool-bar-mode -1)))
     (tool-bar-mode -1))
-  (unless (or (not (boundp 'scroll-bar-mode)) (eq scroll-bar-mode -1))
+  (when (and (fboundp 'scroll-bar-mode) (not (eq scroll-bar-mode -1)))
     (scroll-bar-mode -1))
   ;; tooltips in echo-aera
-  (unless (or (not (boundp 'tooltip-mode)) (eq tooltip-mode -1))
+  (when (and (fboundp 'tooltip-mode) (not (eq tooltip-mode -1)))
     (tooltip-mode -1))
   (setq tooltip-use-echo-area t)
-  (unless (or (not (boundp 'tooltip-mode))
-              (eq window-system 'mac)
-              (eq tooltip-mode -1))
-    (menu-bar-mode -1))
+  (unless (eq window-system 'mac)
+    (when (and (fboundp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
+      (menu-bar-mode -1)))
   ;; for convenience and user support
-  (unless (boundp 'tool-bar-mode)
+  (unless (fboundp 'tool-bar-mode)
     (spacemacs/message (concat "No graphical support detected, you won't be"
                                "able to launch a graphical instance of Emacs"
                                "with this build.")))

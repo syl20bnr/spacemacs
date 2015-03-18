@@ -151,6 +151,7 @@ NOT USED FOR NOW :-)")
 If ARG is non nil then `dotspacemacs/config' is skipped."
   (interactive "P")
   (let ((dotspacemacs-loading-progress-bar nil))
+    (setq spacemacs-loading-string "")
     (save-buffer)
     (load-file buffer-file-name)
     (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
