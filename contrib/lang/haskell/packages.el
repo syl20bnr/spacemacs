@@ -22,7 +22,7 @@
     shm
     ))
 
-(defun haskell/init-flycheck ()
+(defun haskell/init-flycheck-haskell ()
   (add-hook 'haskell-mode-hook 'flycheck-mode)
   (add-hook 'flycheck-mode-hook 'flycheck-haskell-setup)
   (setq flycheck-display-errors-delay 0))
