@@ -29,6 +29,15 @@ for demonstration of refactoring features.
 **This layer is not fully adapted for Spacemacs, it needs you, C/C++ experts, to
 improve it and make it consistent with the Spacemacs experience.**
 
+## Key Bindings
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC m g o</kbd>  | open matching file (e.g. switch between .cpp and .h)
+<kbd>SPC m g O</kbd>  | open matching file in another window (e.g. switch between .cpp and .h)
+<kbd>SPC m r</kbd>    | srefactor: refactor thing at point.
+
+
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
