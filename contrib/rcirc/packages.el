@@ -12,7 +12,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc
-    :commands spacemacs/rcirc
+    :defer t
     :init
     (progn
       (add-to-hook 'rcirc-mode-hook '(flyspell-mode rcirc-omit-mode))
@@ -40,6 +40,7 @@ which require an initialization must be listed explicitly in the list.")
       (defun spacemacs/rcirc (arg)
         "Launch rcirc."
         (interactive "P")
+        (require 'rcirc)
         ;; dispatch to rcirc launcher with appropriate support
         (cond
          (rcirc-enable-authinfo-support (spacemacs//rcirc-with-authinfo arg))
