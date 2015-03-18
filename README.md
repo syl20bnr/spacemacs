@@ -171,12 +171,10 @@ Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
 
 3. Launch Emacs. Spacemacs will automatically install the packages it requires.
 
-4. Restart Emacs to complete the installation. If you see something like this:
-```
-Loading............................................................Ready!
-[121 packages loaded in 3.208s]
-```
-then you should be good to go! Otherwise, see the [troubleshooting][troubleshoot] guide.
+4. Restart Emacs to complete the installation.
+
+If the mode-line turns red then be sure to visit the [troubleshooting][troubleshoot]
+guide and consult the [FAQ](#faq).
 
 # Update
 
