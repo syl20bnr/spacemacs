@@ -11,10 +11,10 @@
     - [Install](#install)
         - [Layer](#layer)
         - [Configuration](#configuration)
-        - [Storing the credentials in your dotfile](#storing-the-credentials-in-your-dotfile)
-        - [Storing the credentials in your Dropbox](#storing-the-credentials-in-your-dropbox)
-        - [Storing the credentials in authinfo](#storing-the-credentials-in-authinfo)
-        - [Connecting behind a ZNC bouncer and storing the credentials in authinfo](#connecting-behind-a-znc-bouncer-and-storing-the-credentials-in-authinfo)
+            - [Storing the credentials in your dotfile](#storing-the-credentials-in-your-dotfile)
+            - [Storing the credentials in your Dropbox](#storing-the-credentials-in-your-dropbox)
+            - [Storing the credentials in authinfo](#storing-the-credentials-in-authinfo)
+            - [Connecting behind a ZNC bouncer and storing the credentials in authinfo](#connecting-behind-a-znc-bouncer-and-storing-the-credentials-in-authinfo)
     - [Key Bindings](#key-bindings)
     - [Rcirc documentation](#rcirc-documentation)
 
@@ -53,7 +53,7 @@ There are several ways to configure rcirc supported by the layer:
 - by storing your credentials in authinfo (secured)
 - by using a ZNC bouncer _and_ storing your credentials (secured)
 
-### Storing the credentials in your dotfile
+#### Storing the credentials in your dotfile
 
 You can store your servers configuration along with your credentials in the
 `dotspacemacs/config` of your dotfile.
@@ -73,7 +73,7 @@ Example:
       :channels ("#emacs"))))
 ```
 
-### Storing the credentials in your Dropbox
+#### Storing the credentials in your Dropbox
 
 You can store your servers configuration along with your credentials in
 your dropbox in the file `~/Dropbox/emacs/pinit-rcirc.el`.
@@ -95,12 +95,12 @@ Example:
       :channels ("#emacs"))))
 ```
 
-### Storing the credentials in authinfo
+#### Storing the credentials in authinfo
 
 This method is considered secured and is the recommended way to configure
 rcirc.
 
-1. If you want to use authinfo.gpg you have to enable the support for it
+1) If you want to use authinfo.gpg you have to enable the support for it
 by setting `rcirc-enable-authinfo-support` to `t` in your dotfile:
 
 ```elisp
@@ -108,12 +108,12 @@ by setting `rcirc-enable-authinfo-support` to `t` in your dotfile:
   (rcirc :variables rcirc-enable-authinfo-support t)))
 ```
 
-2. In your `~/.authinfo.gpg` file store your credentials like this:
+2) In your `~/.authinfo.gpg` file store your credentials like this:
 ```
 machine irc.freenode.net port nickserv user <user> password <passwd>
 ```
 
-3. At last you need to provide your servers configuration in the
+3) At last you need to provide your servers configuration in the
 `dotspacemacs/config` function of your dotfile:
 
 ```elisp
@@ -124,7 +124,7 @@ machine irc.freenode.net port nickserv user <user> password <passwd>
       :channels ("#emacs"))))
   ```
 
-### Connecting behind a ZNC bouncer and storing the credentials in authinfo
+#### Connecting behind a ZNC bouncer and storing the credentials in authinfo
 
 This methods is also secured since it uses authinfo. ZNC is a popular bouncer
 which is easy to setup. A bouncer is a proxy that connects to your IRC
@@ -140,7 +140,7 @@ setup. If it is not the case then it is recommended to read about ZNC
 **Note**
 For now authinfo is mandatory to use the ZNC configuration.
 
-1. To enable ZNC support set the variable `rcirc-enable-znc-support` to `t` in
+1) To enable ZNC support set the variable `rcirc-enable-znc-support` to `t` in
 your dotfile:
 
 ```elisp
@@ -148,7 +148,7 @@ your dotfile:
   (rcirc :variables rcirc-enable-authinfo-support t)))
 ```
 
-2. In your `~/.authinfo.gpg` file store your credentials like this:
+2) In your `~/.authinfo.gpg` file store your credentials like this:
 
 ```
 machine freenode.spacemacsserver.me port irc user spacemacs_user/freenode password ZNC_PASSWORD
@@ -158,7 +158,7 @@ machine geekshed.spacemacsserver.me port irc user spacemacs_user/geekshed passwo
 **Important** `port` must be set to `irc`. This is a convention of the layer
 to retrieve the credentials for the ZNC configuration.
 
-3. Then setup your servers configuration using subdomains in the
+3) Then setup your servers configuration using subdomains in the
 `dotspacemacs/config` function of your dotfile. The `:auth` keyword arguments
 will be replaced by the credentials stored in your `~/.authinfo.gpg`. 
 
