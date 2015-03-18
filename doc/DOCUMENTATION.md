@@ -2247,15 +2247,10 @@ server is to use the following bindings:
 
 ### Loading fails
 
-If during the first boot of Emacs nothing seems to happen or if the
-installation seems to abort prematurely, you can check for an error message
-by opening the `*Warning*` buffer:
-
-    C-x b warning RET
-
-_('C-x b' means 'Ctrl + x then b' and 'RET' means 'return')_
-
-Then you can copy/paste the error in a [Github issue][issues], thank you.
+If any errors happen during the loading the mode-line will turn red and the
+errors should appear inline in the startup buffer. Spacemacs should still be
+usable, if it is not the case then restart Emacs with `emacs --debug-init` and
+open a [Github issue][issues] with the backtrace.
 
 ### I have no file ~/.spacemacs
 
