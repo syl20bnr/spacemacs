@@ -2530,11 +2530,7 @@ displayed in the mode-line.")
   (use-package winner
     :init
     (progn
-      (setq spacemacs/winner-boring-buffers '("*helm mini*"
-                                              "*helm projectile*"
-                                              "*helm M-x*"
-                                              "*helm resume*"
-                                              "*Completions*"
+      (setq spacemacs/winner-boring-buffers '("*Completions*"
                                               "*Compile-Log*"
                                               "*inferior-lisp*"
                                               "*Fuzzy Completions*"
