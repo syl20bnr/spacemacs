@@ -20,6 +20,7 @@
                            ("gnu" . "http://elpa.gnu.org/packages/")
                            ("melpa" . "http://melpa.org/packages/")))
   ;; optimization, no need to activate all the packages so early
+  (setq package-enable-at-startup nil)
   (package-initialize 'noactivate)
   ;; Emacs 24.3 and above ships with python.el but in some Emacs 24.3.1 packages
   ;; for Ubuntu, python.el seems to be missing.
