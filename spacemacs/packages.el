@@ -2256,24 +2256,24 @@ displayed in the mode-line.")
     :commands (projectile-ack
                projectile-ag
                projectile-compile-project
-               projectile-find-file
-               projectile-find-test-file
-               projectile-switch-to-buffer
-               projectile-find-dir
                projectile-dired
-               projectile-vc
-               projectile-replace
-               projectile-regenerate-tags
                projectile-grep
-               projectile-switch-project
-               projectile-multi-occur
+               projectile-find-dir
+               projectile-find-file
                projectile-find-tag
-               projectile-kill-buffers
-               projectile-recentf
+               projectile-find-test-file
                projectile-invalidate-cache
+               projectile-kill-buffers
+               projectile-multi-occur
                projectile-project-root
+               projectile-recentf
+               projectile-regenerate-tags
+               projectile-replace
                projectile-run-async-shell-command-in-root
                projectile-run-shell-command-in-root
+               projectile-switch-project
+               projectile-switch-to-buffer
+               projectile-vc
                )
     :init
     (progn
