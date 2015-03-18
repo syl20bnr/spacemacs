@@ -12,103 +12,41 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc
-    :defer t
-    :commands rcirc
+    :commands spacemacs/rcirc
     :init
     (progn
       (add-to-hook 'rcirc-mode-hook '(flyspell-mode rcirc-omit-mode))
 
-      (evil-leader/set-key "ai" 'rcirc)
+      (defun spacemacs//rcirc-with-authinfo (arg)
+        "Fire rcirc with support for authinfo."
+        (unless arg
+          (if (file-exists-p "~/.authinfo.gpg")
+              (spacemacs//rcirc-authinfo-config)
+            (message "Warning: Cannot find file ~/.authinfo.gpg")))
+        (rcirc arg))
 
-      (defun spacemacs//rcirc-authinfo-config ()
-        "Initialize authinfo."
-        (dolist (p (auth-source-search
-                    :port '("nickserv" "bitlbee" "quakenet")
-                    :require '(:port :user :secret)))
-          (let ((secret (plist-get p :secret))
-                (method (intern (plist-get p :port))))
-            (add-to-list
-             'rcirc-authinfo
-             (list (plist-get p :host) method
-                   (plist-get p :user) (if (functionp secret)
-                                           (funcall secret)
-                                         secret))))))
+      (defun spacemacs//rcirc-with-znc (arg)
+        "Fire rcirc with support for znc."
+        (if arg
+            (rcirc arg)
+          (setq rcirc-server-alist
+                ;; This will replace :auth with the correct thing, see the
+                ;; doc for that function
+                (spacemacs//znc-rcirc-server-alist-get-authinfo
+                 rcirc-server-alist))
+          (spacemacs//znc-rcirc-connect)))
 
-      (defun spacemacs//rcirc-znc-config ()
-        "Initialize ZNC, requires authinfo."
-
-        (defun dim:auth-source-fetch-password (server)
-          "Given a server with at least :host :port :login, return the :password"
-          (destructuring-bind (&key host auth &allow-other-keys)
-              (cdr server)
-            (destructuring-bind (&key secret &allow-other-keys)
-                (car (auth-source-search :host host
-                                         :port "irc"
-                                         :user auth
-                                         :require '(:user :secret)))
-              (if (functionp secret) (funcall secret) secret))))
-
-        ;; (setq auth (auth-source--aput :host ""))
-        ;; build rcirc-authinfo from rcirc-server-alist and authinfo
-        (defun dim:rcirc-server-alist-get-authinfo (server-alist)
-          "replace :auth in rcirc-server-alist with :password \"user:password\" from .authinfo.gpg"
-          (dolist (server server-alist server-alist)
-            (let* ((host  (car server))
-                   (plist (cdr server))
-                   (auth  (plist-get plist :auth))
-                   (pass  (dim:auth-source-fetch-password server)))
-              (when auth
-                (plist-put plist
-                           :password (format "%s:%s" auth pass))))))
-
-        ;; rcirc does not know how to connect to the same server more than once, so
-        ;; we build our own connection routine from our own rcirc-server-alist,
-        ;; using :host rather than the server name for connecting.
-        (defun dim:rcirc ()
-          "Connect to rcirc-server-alist servers."
-          (loop
-           for s in rcirc-server-alist
-           collect
-           (destructuring-bind (&key host
-                                     (port rcirc-default-port)
-                                     (nick rcirc-default-nick)
-                                     (user-name rcirc-default-user-name)
-                                     (full-name rcirc-default-full-name)
-                                     channels
-                                     password
-                                     encryption
-                                     &allow-other-keys
-                                     &aux contact (server (car s)))
-               (cdr s)
-             (let ((host (or host server)) ; catter with server without :host
-                   (connected
-                    (loop for p in (rcirc-process-list)
-                          thereis (string= server (process-get p :rcirc-server)))))
-               (unless connected
-                 (let ((process
-                        (rcirc-connect host port nick user-name
-                                       full-name channels password encryption)))
-                   (process-put process :rcirc-server server)))))))
-
-        (setq rcirc-server-alist
-              ;; This will replace :auth with the correct thing, see the
-              ;; doc for that function
-              (dim:rcirc-server-alist-get-authinfo
-               rcirc-server-alist))))
+      (evil-leader/set-key "ai" 'spacemacs/rcirc)
+      (defun spacemacs/rcirc (arg)
+        "Launch rcirc."
+        (interactive "P")
+        ;; dispatch to rcirc launcher with appropriate support
+        (cond
+         (rcirc-enable-authinfo-support (spacemacs//rcirc-with-authinfo arg))
+         (rcirc-enable-znc-support (spacemacs//rcirc-with-znc arg))
+         (t (rcirc arg)))))
     :config
     (progn
-      (when (and rcirc-enable-authinfo-support
-                 (file-exists-p "~/.authinfo.gpg"))
-        ;; Allow rcirc to read authinfo from ~/.authinfo.gpg
-        ;; via the auth-source API. This doesn't support the
-        ;; chanserv auth method.
-        (spacemacs//rcirc-authinfo-config))
-
-      ;; Prepare for use with znc
-      (when rcirc-enable-znc-support
-        (spacemacs//rcirc-znc-config))
-
-      (dim:rcirc)
       ;; (set-input-method "latin-1-prefix")
       (set (make-local-variable 'scroll-conservatively) 8192)
 
