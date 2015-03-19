@@ -823,24 +823,32 @@ which require an initialization must be listed explicitly in the list.")
   (use-package evil-leader
     :init
     (progn
-      (setq evil-leader/in-all-states t
-            evil-leader/leader dotspacemacs-leader-key
-            evil-leader/non-normal-prefix "s-")
+      (setq evil-leader/leader dotspacemacs-leader-key)
       (global-evil-leader-mode))
     :config
     (progn
       ;; Unset shortcuts which shadow evil leader
       (eval-after-load "compile"
         '(progn
-           (define-key compilation-mode-map (kbd dotspacemacs-leader-key) nil)
+           ;; (define-key compilation-mode-map (kbd dotspacemacs-leader-key) nil)
            (define-key compilation-mode-map (kbd "h") nil)))
-      (eval-after-load "dired"
-        '(define-key dired-mode-map (kbd dotspacemacs-leader-key) nil))
-      ;; make leader available in visual mode
-      (define-key evil-visual-state-map (kbd dotspacemacs-leader-key)
-        evil-leader--default-map)
-      (define-key evil-motion-state-map (kbd dotspacemacs-leader-key)
-        evil-leader--default-map)
+      ;; (eval-after-load "dired"
+      ;;   '(define-key dired-mode-map (kbd dotspacemacs-leader-key) nil))
+      ;; make leader available in visual and motion states
+      (mapc (lambda (s)
+              (eval `(define-key
+                       ,(intern (format "evil-%S-state-map" s))
+                       ,(kbd dotspacemacs-leader-key)
+                       evil-leader--default-map)))
+            '(motion visual))
+      ;; emacs and insert states (make it also available in other states
+      ;; for consistency and POLA.)
+      (mapc (lambda (s)
+              (eval `(define-key
+                       ,(intern (format "evil-%S-state-map" s))
+                       ,(kbd dotspacemacs-emacs-leader-key)
+                       evil-leader--default-map)))
+            '(emacs insert normal visual motion))
       ;; experimental: map SPC m to ,
       (when dotspacemacs-major-mode-leader-key
         (add-hook 'after-change-major-mode-hook

@@ -20,6 +20,7 @@
     centered-cursor
     emoji-cheat-sheet
     helm-spacemacs
+    holy-mode
     solarized-theme
     spray
     zoom-frm
@@ -54,6 +55,17 @@
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet
     :commands emoji-cheat-sheet))
+
+(defun spacemacs/init-holy-mode ()
+  (use-package holy-mode
+    :commands holy-mode
+    :init
+    (when (eq 'emacs dotspacemacs-editing-style)
+      (holy-mode))
+    ;; secret cheat code
+    (global-set-key
+      (kbd "C-` <up><up><down><down><left><right><left><right>ab")
+      'holy-mode)))
 
 (defun spacemacs/init-helm-spacemacs ()
   (use-package helm-spacemacs
