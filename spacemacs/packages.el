@@ -1284,7 +1284,9 @@ which require an initialization must be listed explicitly in the list.")
       (setq guide-key/guide-key-sequence `("C-x"
                                            "C-c"
                                            ,dotspacemacs-leader-key
+                                           ,dotspacemacs-emacs-leader-key
                                            ,dotspacemacs-major-mode-leader-key
+                                           ,dotspacemacs-major-mode-emacs-leader-key
                                            "g"
                                            "z"
                                            "C-h")
