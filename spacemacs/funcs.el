@@ -98,10 +98,18 @@ a key sequence. NAME is a symbol name used as the prefix command."
   (setq mode-map (cdr (assoc major-mode evil-leader--mode-maps)))
   (when mode-map
     (setq major-mode-map (lookup-key mode-map (kbd "m")))
-    (define-key evil-normal-state-local-map
-      (kbd dotspacemacs-major-mode-leader-key) major-mode-map)
-    (define-key evil-motion-state-local-map
-      (kbd dotspacemacs-major-mode-leader-key) major-mode-map)))
+    (mapc (lambda (s)
+            (eval `(define-key
+                     ,(intern (format "evil-%S-state-local-map" s))
+                     ,(kbd dotspacemacs-major-mode-leader-key)
+                     major-mode-map)))
+          '(normal motion))
+    (mapc (lambda (s)
+            (eval `(define-key
+                     ,(intern (format "evil-%S-state-local-map" s))
+                     ,(kbd dotspacemacs-major-mode-emacs-leader-key)
+                     major-mode-map)))
+          '(emacs insert normal motion visual))))
 
 (defmacro spacemacs|evilify (map &rest body)
   "Add `hjkl' navigation, search and visual state to MAP and set additional
