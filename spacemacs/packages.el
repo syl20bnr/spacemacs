@@ -1540,7 +1540,9 @@ which require an initialization must be listed explicitly in the list.")
   (use-package helm-themes
     :defer t
     :init
-    (evil-leader/set-key "Th" 'helm-themes)))
+    (evil-leader/set-key
+      "Th" 'helm-themes
+      "Tc" 'helm-colors)))
 
 (defun spacemacs/init-hippie-exp ()
   (global-set-key (kbd "M-/") 'hippie-expand) ;; replace dabbrev-expand
