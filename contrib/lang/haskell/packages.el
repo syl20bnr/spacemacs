@@ -133,9 +133,6 @@
       ;; (spacemacs/declare-prefix "mh" "documentation")
 
       (evil-leader/set-key-for-mode 'haskell-mode
-        "mt"   'haskell-process-do-type
-        "mT"   'haskell-process-do-type-on-prev-line
-        "mi"   'haskell-process-do-info
         "mgg"  'haskell-mode-jump-to-def-or-tag
         "mf"   'haskell-mode-stylish-buffer
 
@@ -149,9 +146,12 @@
         "mcc"  'haskell-compile
         "mcv"  'haskell-cabal-visit-file
 
-        "mhh"  'hoogle
-        "mhy"  'hayoo
         "mhd"  'inferior-haskell-find-haddock
+        "mhh"  'hoogle
+        "mhi"  'haskell-process-do-info
+        "mht"  'haskell-process-do-type
+        "mhT"  'haskell-process-do-type-on-prev-line
+        "mhy"  'hayoo
 
         "mdd"  'haskell-debug
         "mdb"  'haskell-debug/break-on-function
