@@ -32,6 +32,7 @@
     ediff
     elisp-slime-nav
     eldoc
+    eval-sexp-fu
     evil
     evil-anzu
     evil-args
@@ -550,6 +551,9 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (spacemacs|hide-lighter eldoc-mode))))
+
+(defun spacemacs/init-eval-sexp-fu ()
+  (use-package eval-sexp-fu))
 
 (defun spacemacs/init-evil ()
   (use-package evil
