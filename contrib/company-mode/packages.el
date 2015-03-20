@@ -11,7 +11,9 @@
   "Packages that use auto-complete that are no longer necessary and might conflict.")
 
 (defun company-mode/backend-with-yas (backend)
-  (if (or (not company-mode-enable-yas) (and (listp backend) (member 'company-yasnippet backend)))
+  (if (or (not company-mode-enable-yas)
+          (and (listp backend) (member 'company-yasnippet backend))
+          (eq 'company-semantic backend))
       backend
     (append (if (consp backend) backend (list backend))
             '(:with company-yasnippet))))
@@ -30,8 +32,8 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
             (setq
              company-transformers '(company-mode/keyword-cancel-transformer company-sort-by-occurrence))
             )
-          (setq company-transformers '(company-sort-by-occurrence)) ;else
-          )
+        (setq company-transformers '(company-sort-by-occurrence)) ;else
+        )
 
       (setq company-idle-delay 0.0
             company-minimum-prefix-length 2
@@ -57,6 +59,13 @@ so that you don't have 'do' completed to 'downcase' in Ruby"
        '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
 
       (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends))
+
+      ;; remove company-semantic since the value 0.0 is too low for Semantic to
+      ;; finish its job and make Emacs hanging due to company-semantic
+      ;; constantly requests Semantic to parse. We must remove it or change
+      ;; delay value. The delay value is more useful in other places, so we
+      ;; remove company-semantic
+      (setq company-backends (remove 'company-semantic company-backends))
 
       (spacemacs|diminish company-mode " Ⓒ" " C"))))
 
