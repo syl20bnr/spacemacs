@@ -129,6 +129,10 @@ not play nicely with autoloads"
        (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
        (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))))
 
+(defun ess/init-ess-R-data-view ())
+
+(defun ess/init-ess-R-object-popup ())
+
 (defun ess/init-rainbow-delimiters ()
   (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
