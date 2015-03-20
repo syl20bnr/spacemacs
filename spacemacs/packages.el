@@ -60,6 +60,7 @@
     fish-mode
     flx-ido
     flycheck
+    flycheck-pos-tip
     flyspell
     ;; required for update
     gh
@@ -1173,7 +1174,13 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key
         "ec" 'flycheck-clear
         "ef" 'flycheck-mode
-        "el" 'flycheck-list-errors))))
+        "el" 'flycheck-list-errors)
+
+      ;; flycheck-pos-tip
+      (use-package flycheck-pos-tip
+        :defer t
+        :init
+        (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))))
 
 (defun spacemacs/init-flyspell ()
   (use-package flyspell
