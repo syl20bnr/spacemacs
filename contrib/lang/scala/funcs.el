@@ -29,7 +29,7 @@
           (is-source-file (s-matches? (rx (or "/src/" "/test/")) (buffer-file-name))))
 
       (when (and is-source-file (null ensime-buffer))
-        (noflet ((ensime-config-find (&rest _) file))
+        (cl-flet ((ensime-config-find (&rest _) file))
           (save-window-excursion
             (ensime)))))))
 
