@@ -99,6 +99,7 @@ More info regarding installation of nREPL middleware can be found here:
 ----------------------|------------------------------------------------------------
 <kbd>SPC m e b</kbd>  | eval buffer
 <kbd>SPC m e e</kbd>  | eval last sexp
+<kbd>SPC m e f</kbd>  | eval function at point
 <kbd>SPC m e r</kbd>  | eval region
 
 ### Goto

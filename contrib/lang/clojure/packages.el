@@ -135,6 +135,7 @@ the focus."
 
         "meb" 'cider-eval-buffer
         "mee" 'cider-eval-last-sexp
+        "mef" 'cider-eval-defun-at-point
         "mer" 'cider-eval-region
 
         "mgb" 'cider-jump-back
