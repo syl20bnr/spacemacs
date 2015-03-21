@@ -86,6 +86,8 @@ which require an initialization must be listed explicitly in the list.")
       (setq rcirc-log-flag t)
       (defun rcirc-write-log (process sender response target text)
         (when rcirc-log-directory
+          (when (not (file-directory-p rcirc-log-directory))
+            (make-directory rcirc-log-directory))
           (with-temp-buffer
             ;; Sometimes TARGET is a buffer :-(
             (when (bufferp target)
