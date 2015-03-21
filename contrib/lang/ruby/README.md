@@ -79,9 +79,8 @@ To enable it, set the `ruby-enable-ruby-on-rails-support` var in your
 )
 ```
 
-This will also add [haml-mode][] (for templates written in [haml
-language](http://haml.info) and [feature-mode][] for
-[Cucumber](http://cukes.info) support.
+This will also add [haml-mode][] (for templates written in [haml language][]
+and [feature-mode][] for [Cucumber][] support.
 
 ## Key bindings
 
@@ -175,3 +174,5 @@ Key binding            | Description
 [haml-mode]: https://github.com/nex3/haml-mode
 [feature-mode]: https://github.com/michaelklishin/cucumber.el
 [rspec-mode]: https://github.com/pezra/rspec-mode
+[Cucumber]: http://cukes.info
+[haml language]: http://haml.info
