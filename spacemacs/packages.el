@@ -1352,6 +1352,13 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (helm-mode +1)
+      (defun spacemacs/set-dotted-directory ()
+        (set-face-attribute 'helm-ff-dotted-directory
+                            nil
+                            :foreground nil
+                            :background nil
+                            :inherit 'helm-ff-directory))
+      (add-hook 'helm-find-files-before-init-hook 'spacemacs/set-dotted-directory)
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
