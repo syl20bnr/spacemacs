@@ -21,7 +21,7 @@ which require an initialization must be listed explicitly in the list.")
       ;; define excplicitly the hooks here
       (add-hook 'c++-mode-hook 'ycmd-mode)
       (setq-default ycmd-global-config
-                    (expand-file-name "~/.emacs.d/contrib/ycmd/global_conf.py"))
+                    (expand-file-name (concat user-emacs-directory "/contrib/ycmd/global_conf.py")))
       (evil-leader/set-key-for-mode 'c++-mode
         "mgg" 'ycmd-goto
         "mgG" 'ycmd-goto-imprecise))))

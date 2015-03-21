@@ -427,7 +427,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package bookmark
     :defer t
     :init
-    (setq bookmark-default-file "~/.emacs.d/bookmarks" ; keep my ~/ clean
+    (setq bookmark-default-file (concat user-emacs-directory "/bookmarks") ; keep my ~/ clean
           bookmark-save-flag 1)))                      ; autosave each change
 
 (defun spacemacs/init-buffer-move ()
@@ -2391,7 +2391,7 @@ displayed in the mode-line.")
                                            (recentf-track-opened-file))))
     :config
     (progn
-      (setq recentf-exclude '("~/.emacs.d/.cache"))
+      (setq recentf-exclude `(,(concat user-emacs-directory ".cache")))
       (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
       (setq recentf-save-file (concat spacemacs-cache-directory "/recentf"))
       (setq recentf-max-saved-items 100)
