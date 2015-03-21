@@ -1671,6 +1671,9 @@ Key Binding                   |                    Description
 <kbd>.</kbd>                  | paste the same text and leave the micro-state
 Any other key                 | leave the micro-state
 
+This micro-state can be disabled by setting
+`dotspacemacs-enable-paste-micro-state` to `nil` in `~/.spacemacs`.
+
 ### Text manipulation commands
 
 Text related commands (start with `x`):
