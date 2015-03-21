@@ -1196,6 +1196,7 @@ Windows manipulation commands (start with `w`):
 
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
+<kbd>SPC w =</kbd>                        | balance split windows
 <kbd>SPC w b</kbd>                        | force the focus back to the minibuffer (usefull with `helm` popups)
 <kbd>SPC w c</kbd>                        | close a window
 <kbd>SPC w C</kbd>                        | delete another window using [ace-delete-window][ace-window]
