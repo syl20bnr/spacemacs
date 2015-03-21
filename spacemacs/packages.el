@@ -553,7 +553,7 @@ which require an initialization must be listed explicitly in the list.")
       (spacemacs|hide-lighter eldoc-mode))))
 
 (defun spacemacs/init-eval-sexp-fu ()
-  (use-package eval-sexp-fu))
+  (require 'eval-sexp-fu))
 
 (defun spacemacs/init-evil ()
   (use-package evil
