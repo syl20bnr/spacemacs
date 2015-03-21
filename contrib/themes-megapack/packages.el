@@ -49,6 +49,7 @@
     leuven-theme
     light-soap-theme
     lush-theme
+    material-theme
     minimal-theme
     moe-theme
     molokai-theme
