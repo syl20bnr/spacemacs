@@ -1582,6 +1582,14 @@ which require an initialization must be listed explicitly in the list.")
       (add-hook 'prog-mode-hook 'highlight-numbers-mode)
       (add-hook 'asm-mode-hook (lambda () (highlight-numbers-mode -1))))))
 
+(defun spacemacs/init-highlight-numbers ()
+  (use-package highlight-numbers
+    :defer t
+    :init
+    (progn
+      (add-hook 'prog-mode-hook 'highlight-numbers-mode)
+      (add-hook 'asm-mode-hook (lambda () (highlight-numbers-mode -1))))))
+
 (defun spacemacs/init-hippie-exp ()
   (global-set-key (kbd "M-/") 'hippie-expand) ;; replace dabbrev-expand
   (setq hippie-expand-try-functions-list
