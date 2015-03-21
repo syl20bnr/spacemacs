@@ -17,6 +17,10 @@
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
 
+(defvar dotspacemacs-editing-style 'vim
+  "Either `vim' or `emacs'. Evil is always enabled but if the variable
+is `emacs' then the `holy-mode' is enabled at startup.")
+
 (defvar dotspacemacs-startup-banner 'official
    "Specify the startup banner. Default value is `official', it displays
 the official spacemacs logo. An integer value is the index of text
@@ -43,9 +47,15 @@ with 2 themes variants, one dark and one light")
 (defvar dotspacemacs-leader-key "SPC"
   "The leader key.")
 
+(defvar dotspacemacs-emacs-leader-key "C-c"
+  "The leader key accessible in `emacs state' and `insert state'")
+
 (defvar dotspacemacs-major-mode-leader-key ","
   "Major mode leader key is a shortcut key which is the equivalent of
 pressing `<leader> m`. Set it to `nil` to disable it.")
+
+(defvar dotspacemacs-major-mode-emacs-leader-key "C-,"
+  "Major mode leader key accessible in `emacs state' and `insert state'")
 
 (defvar dotspacemacs-default-font '("Source Code Pro"
                                     :size 13
