@@ -85,6 +85,7 @@
     hl-anything
     hungry-delete
     ido-vertical-mode
+    info+
     iedit
     let-alist
     leuven-theme
@@ -1797,6 +1798,14 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 (defun spacemacs/init-iedit ()
   (use-package iedit
     :defer t))
+
+(defun spacemacs/init-info+ ()
+  (use-package info
+    :commands (info Info-mode)
+    :config
+    (use-package info+
+      :config
+      (setq Info-fontify-angle-bracketed-flag nil))))
 
 (defun spacemacs/init-leuven-theme ()
   (use-package leuven-theme
