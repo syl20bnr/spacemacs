@@ -131,7 +131,7 @@
     :init (add-hook 'enh-ruby-mode-hook 'robe-mode)
     :config
     (progn
-      (spacemacs|diminish robe-mode " ♦" " r")
+      (spacemacs|hide-lighter robe-mode)
       ;; robe mode specific
       (evil-leader/set-key-for-mode 'enh-ruby-mode "mgg" 'robe-jump)
       (evil-leader/set-key-for-mode 'enh-ruby-mode "mhd" 'robe-doc)
