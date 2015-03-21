@@ -74,11 +74,11 @@
     :defer t
     :init
     (progn
-      (add-hook 'projectile-mode-hook 'projectile-rails-on))
+      (add-hook 'enh-ruby-mode-hook 'projectile-rails-on))
     :config
     (progn
-      (spacemacs|diminish projectile-rails-mode " ⇋" " R")
-                                        ; Code navigation
+      (spacemacs|diminish projectile-rails-mode " ⇋" " RoR")
+
       ;; Find files
       (evil-leader/set-key "mrfa" 'projectile-rails-find-locale)
       (evil-leader/set-key "mrfc" 'projectile-rails-find-controller)
