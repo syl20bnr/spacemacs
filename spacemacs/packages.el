@@ -1325,6 +1325,9 @@ which require an initialization must be listed explicitly in the list.")
             helm-bookmark-show-location t
             helm-buffers-fuzzy-matching t
             helm-always-two-windows     t)
+      ;; use helm by default for M-x
+      (unless (configuration-layer/package-declaredp 'smex)
+        (global-set-key (kbd "M-x") 'helm-M-x))
       (evil-leader/set-key
         "bs"  'helm-mini
         "Cl"  'helm-colors
