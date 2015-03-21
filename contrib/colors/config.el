@@ -20,8 +20,7 @@
 
 ;; Command prefixes
 
-(setq colors/key-binding-prefixes '(("C" .  "colors")))
 (when colors-enable-rainbow-identifiers
-  (push (cons "Ci" "colors-identifiers") colors/key-binding-prefixes))
-(mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-       colors/key-binding-prefixes)
+  (setq colors/key-binding-prefixes '(("Ci" . "colors-identifiers")))
+  (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
+        colors/key-binding-prefixes))

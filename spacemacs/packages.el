@@ -1315,6 +1315,7 @@ which require an initialization must be listed explicitly in the list.")
             helm-always-two-windows     t)
       (evil-leader/set-key
         "bs"  'helm-mini
+        "Cl"  'helm-colors
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
         "hl"  'helm-resume
@@ -1559,8 +1560,7 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (evil-leader/set-key
-      "Th" 'helm-themes
-      "Tc" 'helm-colors)))
+      "Th" 'helm-themes)))
 
 (defun spacemacs/init-hippie-exp ()
   (global-set-key (kbd "M-/") 'hippie-expand) ;; replace dabbrev-expand
