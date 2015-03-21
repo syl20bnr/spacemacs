@@ -1342,7 +1342,8 @@ which require an initialization must be listed explicitly in the list.")
       ;; to overwrite any key binding
       (add-hook 'after-init-hook
                 (lambda ()
-                  (evil-leader/set-key dotspacemacs-command-key 'helm-M-x)))
+                  (unless (configuration-layer/package-declaredp 'smex)
+                    (evil-leader/set-key dotspacemacs-command-key 'helm-M-x))))
 
       (defun spacemacs//helm-before-initialize ()
         "Stuff to do before helm initializes."
