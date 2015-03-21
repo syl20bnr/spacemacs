@@ -120,7 +120,7 @@ which require an initialization must be listed explicitly in the list.")
       (defun spacemacs/rcirc-notify-beep (msg)
         "Beep when notifying."
         (let ((player "mplayer")
-              (sound "~/.emacs.d/site-misc/startup.ogg"))
+              (sound (concat user-emacs-directory "/site-misc/startup.ogg")))
           (when (and (executable-find player)
                      (file-exists-p sound)))
           (start-process "beep-process" nil player sound)))
