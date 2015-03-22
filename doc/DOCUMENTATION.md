@@ -996,6 +996,8 @@ It is possible to change this key with the variable `dotspacemacs-leader-key`.
 `<SPC> o` is **guaranteed** to never conflict with `Spacemacs` defaults key
 bindings.
 
+Example: Put `(evil-leader/set-key "oc" 'org-capture)` inside `dotspacemacs/config` in your `~/.spacemacs` file, to be able to use `SPC o c` to run org mode capture.
+
 ## Helm
 
 `Spacemacs` is powered by [Helm][helm-link] which is an incremental completion
