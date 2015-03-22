@@ -13,6 +13,7 @@
 (defvar javascript-packages
   '(
     coffee-mode
+    company-tern
     flycheck
     js2-mode
     js2-refactor
@@ -156,5 +157,22 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun javascript/init-tern-auto-complete ()
   (use-package tern-auto-complete
+    :if (and (configuration-layer/package-declaredp 'tern)
+             (configuration-layer/package-declaredp 'auto-complete))
     :defer t
     :init (add-hook 'tern-mode-hook 'tern-ac-setup)))
+
+(defun javascript/init-company-tern ()
+  (use-package company-tern
+    :if (and (configuration-layer/package-declaredp 'tern)
+             (configuration-layer/package-declaredp 'company))
+    :defer t
+    :init
+    (progn
+      (spacemacs|reset-local-company-backends tern-mode)
+      (defun spacemacs//tern-company-backend ()
+        "Add tern company backend."
+        (push (spacemacs/company-backend-with-yas 'company-tern)
+              company-backends))
+      (add-hook 'tern-mode-hook 'spacemacs//tern-company-backend t))))
+

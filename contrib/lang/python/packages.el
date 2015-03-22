@@ -58,13 +58,16 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
-    :if (boundp 'company-backends)
+    :if (configuration-layer/package-declaredp 'company)
     :defer t
     :init
-    (if (configuration-layer/package-declaredp 'yasnippet)
-        (add-to-list 'company-backends (company-mode/backend-with-yas
-                                        'company-anaconda))
-      (add-to-list 'company-backends 'company-anaconda))))
+    (progn
+      (spacemacs|reset-local-company-backends python-mode)
+      (defun spacemacs//anaconda-company-backend ()
+        "Add anaconda company backend."
+        (push (spacemacs/company-backend-with-yas 'company-anaconda)
+              company-backends))
+      (add-hook 'python-mode-hook 'spacemacs//anaconda-company-backend t))))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode
