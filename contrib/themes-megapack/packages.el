@@ -32,6 +32,7 @@
     dakrone-theme
     darkburn-theme
     darkmine-theme
+    darktooth-theme
     django-theme
     espresso-theme
     firebelly-theme
