@@ -24,6 +24,7 @@
     - [Emacs version](#emacs-version)
     - [OS X](#os-x)
 - [Install](#install)
+    - [Spacemacs logo](#spacemacs-logo)
 - [Update](#update)
     - [Update notification](#update-notification)
     - [Rollback](#rollback)
@@ -175,6 +176,11 @@ Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
 
 If the mode-line turns red then be sure to visit the [troubleshooting][troubleshoot]
 guide and consult the [FAQ](#faq).
+
+## Spacemacs logo
+
+If you are using Ubuntu and Unity then you can add the Spacemacs logo by
+following the instructions [here][cpaulik-unity-icon]
 
 # Update
 
@@ -456,3 +462,4 @@ details.
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
 [Nasser Alshammari]: https://github.com/nashamri
+[cpaulik-unity-icon]: http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/
