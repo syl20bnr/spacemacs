@@ -585,11 +585,14 @@ to select one."
   "Initialize the package PKG from the configuration layers LAYERS."
   (dolist (layer layers)
     (condition-case err
-        (let* ((init-func (intern (format "%s/init-%s" layer pkg))))
-          (when (and (package-installed-p pkg) (fboundp init-func))
-            (spacemacs/message "Package: Initializing %s:%s..." layer pkg)
+        (let* ((init-func (intern (format "%s/init-%s" layer pkg)))
+               (msg (format "Package: Initializing %s:%s..." layer pkg)))
+          (when (package-installed-p pkg)
             (configuration-layer//activate-package pkg)
-            (funcall init-func)
+            (if (not (fboundp init-func))
+                (spacemacs/message (concat msg " (no init function)"))
+              (spacemacs/message msg)
+              (funcall init-func))
             (setq initializedp t)))
       ('error
        (configuration-layer//set-error)
