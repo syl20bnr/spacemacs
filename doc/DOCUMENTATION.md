@@ -2222,7 +2222,17 @@ your Emacs windows.
 
 ## Connecting to the Emacs server
 
-TODO
+You can open a file in Emacs from the terminal using `emacsclient`.
+Use `emacsclient -c` to open the file in Emacs GUI.
+Use `emacsclient -t` to open the file in Emacs within the terminal.
+
+If you want your Linux/OS X system to use Emacs by default for any prompt, use `export EDITOR="emacsclient -c"` in your shell configuration.
+
+Note that if you're on OS X, you may have to refer to the emacsclient that comes with your GUI Emacs, e.g. `export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c"`.
+
+Tip: Remember to use `C-x #` after you are done editing the file in Emacs.
+
+See [Emacs as a Server][] in the official Emacs manual for more details.
 
 ## Keeping the server alive
 
@@ -2429,3 +2439,4 @@ developers to elisp hackers!
 [Paradox]: https://github.com/Bruce-Connor/paradox
 [fancy-battery]: https://github.com/lunaryorn/fancy-battery.el
 [MacType]: https://code.google.com/p/mactype/
+[Emacs as a Server]: https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html
