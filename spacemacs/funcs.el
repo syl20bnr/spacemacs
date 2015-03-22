@@ -786,3 +786,9 @@ If ASCII si not provided then UNICODE is used instead."
   (interactive)
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
+
+(defmacro spacemacs|reset-local-company-backends (mode)
+  "Helper to make `company-backends' buffer local and reset it."
+  `(add-hook ',(intern (format "%S-hook" mode))
+             (lambda ()
+               (set (make-variable-buffer-local 'company-backends) nil))))

@@ -18,9 +18,10 @@
 (defvar company-mode-use-tab-instead-of-enter nil
   "If non nil use tab instead of enter for completion in company-mode")
 
-(defvar company-mode-completion-cancel-keywords '("do"
-                                                   "then"
-                                                   "begin"
-                                                   "case")
+(defvar company-mode-completion-cancel-keywords
+  '("do"
+    "then"
+    "begin"
+    "case")
   "Keywords on which to cancel completion so that you can use RET
 to complet without blocking common line endings.")
