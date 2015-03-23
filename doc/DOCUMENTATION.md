@@ -545,7 +545,7 @@ than just a Vim emulation. It has more states than Vim for instance.
 
 ### States
 
-`Spacemacs` has 8 states:
+`Spacemacs` has 9 states:
 
 - **Normal** (orange) - like the `normal mode of Vim`, used to execute and
                         combine commands
@@ -557,6 +557,9 @@ than just a Vim emulation. It has more states than Vim for instance.
                         buffers
 - **Emacs** (blue) - exclusive to `Evil`, using this state is like using a
                      regular Emacs without Vim
+- **Evilified** (yellow) - exclusive to `Spacemacs`, this is an `emacs state`
+                           modified to bring Vim navigation, selection and
+                           search.
 - **Lisp** (pink) - exclusive to `Spacemacs`, used to navigate Lisp code and
                     modify it (see [Editing Lisp code](#editing-lisp-code))
 - **Iedit** (red) - exclusive to `Spacemacs`, used to navigate between multiple

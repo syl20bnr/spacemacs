@@ -82,17 +82,6 @@ a key sequence. NAME is a symbol name used as the prefix command."
 ;;     (define-prefix-command command)
 ;;     (evil-leader/set-key-for-mode mode prefix command)))
 
-(defun spacemacs/activate-evil-leader-for-maps (map-list)
-  "Remove the evil-leader binding from all the maps in MAP-LIST."
-  (mapc (lambda (x)
-          (eval `(define-key ,x (kbd evil-leader/leader)
-                   evil-leader--default-map)))
-        map-list))
-
-(defun spacemacs/activate-evil-leader-for-map (map)
-  "Remove the evil-leader binding from the passed MAP."
-  (spacemacs/activate-evil-leader-for-maps `(,map)))
-
 (defun spacemacs/activate-major-mode-leader ()
   "Bind major mode key map to `dotspacemacs-major-mode-leader-key'."
   (setq mode-map (cdr (assoc major-mode evil-leader--mode-maps)))
@@ -110,19 +99,6 @@ a key sequence. NAME is a symbol name used as the prefix command."
                      ,(kbd dotspacemacs-major-mode-emacs-leader-key)
                      major-mode-map)))
           '(emacs insert normal motion visual))))
-
-(defmacro spacemacs|evilify (map &rest body)
-  "Add `hjkl' navigation, search and visual state to MAP and set additional
-bindings contained in BODY."
-  `(evil-add-hjkl-bindings ,map 'emacs
-    "/" 'evil-search-forward
-    "n" ',(lookup-key evil-motion-state-map "n")
-    "N" ',(lookup-key evil-motion-state-map "N")
-    "v" 'evil-visual-char
-    "V" 'evil-visual-line
-    (kbd "C-v") 'evil-visual-block
-    "y" 'evil-yank
-    ,@body))
 
 (defun spacemacs/split-and-new-line ()
   "Split a quoted string or s-expression and insert a new line with

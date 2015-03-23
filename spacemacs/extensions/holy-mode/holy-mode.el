@@ -52,6 +52,11 @@ The `insert state' is replaced by the `emacs state'."
 
 (defun in-nominus-patris-et-filii-et-sipritus-sancti ()
   "Enter the church of Emacs (wash your hands)."
+  ;; transfert all modes defaulting to `evilified state' to
+  ;; `emacs state'
+  (setq evil-evilified-state-modes nil)
+  (mapc (lambda (x) (push x evil-emacs-state-modes))
+        evil-evilified-state--modes)
   ;; allow to return to `normal state' with escape
   (define-key evil-emacs-state-map [escape] 'evil-normal-state)
   ;; replace `insert state' by `emacs state'
@@ -68,10 +73,14 @@ The `insert state' is replaced by the `emacs state'."
   (setq holy-mode-motion-state-modes-backup evil-motion-state-modes)
   (setq evil-motion-state-modes nil)
   ;; initiate `emacs state' and enter the church
-  (evil-emacs-state))
+  (holy-mode//update-states-for-current-buffers t))
 
 (defun amen ()
   "May the force be with you my son (or not)."
+  ;; restore default `evilified state'
+  (mapc (lambda (x) (delq x evil-emacs-state-modes))
+        evil-evilified-state--modes)
+  (setq evil-evilified-state-modes evil-evilified-state--modes)
   ;; restore `insert state'
   (ad-disable-advice 'evil-insert-state 'around 'benedictus-dominus)
   (ad-activate 'evil-insert-state)
@@ -81,4 +90,21 @@ The `insert state' is replaced by the `emacs state'."
   (setq evil-normal-state-modes holy-mode-normal-state-modes-backup)
   (setq evil-motion-state-modes holy-mode-motion-state-modes-backup)
   ;; (set-default-evil-emacs-state-cursor)
-  (evil-normal-state))
+  ;; restore the states
+  (holy-mode//update-states-for-current-buffers))
+
+(defun holy-mode//update-states-for-current-buffers (&optional arg)
+  "Update the active state in all current buffers depending on the
+value of `holy-mode' passed as ARG."
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      ;; switch to holy-mode
+      (when (and arg (or (eq 'evilified evil-state)
+                         (eq 'normal evil-state)))
+        (evil-emacs-state))
+      ;; disable holy-mode
+      (when (and (not arg) (eq 'emacs evil-state))
+        (cond
+         ((memq major-mode evil-evilified-state-modes) (evil-evilified-state))
+         ((memq major-mode evil-motion-state-modes) (evil-motion-state))
+         (t (evil-normal-state)))))))
