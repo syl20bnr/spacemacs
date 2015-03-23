@@ -53,7 +53,7 @@ conflict.")
       ;; Transformers
       (defun spacemacs//company-transformer-cancel (candidates)
         "Cancel completion if prefix is in the list `company-mode-completion-cancel-keywords'"
-        (unless (or company-mode-use-tab-instead-of-enter
+        (unless (or (not company-mode-use-tab-instead-of-enter)
                     (member company-prefix
                             company-mode-completion-cancel-keywords))
           candidates))
