@@ -1380,6 +1380,7 @@ which require an initialization must be listed explicitly in the list.")
                             :background nil
                             :inherit 'helm-ff-directory))
       (add-hook 'helm-find-files-before-init-hook 'spacemacs//set-dotted-directory)
+
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
@@ -1388,11 +1389,23 @@ which require an initialization must be listed explicitly in the list.")
         (define-key helm-bookmark-map (kbd "C-o") 'helm-bookmark-run-jump-other-window)
         (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
       (add-hook 'helm-mode-hook 'simpler-helm-bookmark-keybindings)
+
       ;; helm navigation on hjkl
-      (define-key helm-map (kbd "C-j") 'helm-next-line)
-      (define-key helm-map (kbd "C-k") 'helm-previous-line)
-      (define-key helm-map (kbd "C-h") 'helm-next-source)
-      (define-key helm-map (kbd "C-l") 'helm-previous-source)
+      (defun spacemacs//helm-hjkl-navigation (&optional arg)
+        "Set navigation in helm on `jklh'.
+ARG non nil means that the editing style is `vim'."
+        (cond
+         (arg
+          (define-key helm-map (kbd "C-j") 'helm-next-line)
+          (define-key helm-map (kbd "C-k") 'helm-previous-line)
+          (define-key helm-map (kbd "C-h") 'helm-next-source)
+          (define-key helm-map (kbd "C-l") 'helm-previous-source))
+         (t
+          (define-key helm-map (kbd "C-j") 'helm-execute-persistent-action)
+          (define-key helm-map (kbd "C-k") 'helm-delete-minibuffer-contents)
+          (define-key helm-map (kbd "C-h") nil)
+          (define-key helm-map (kbd "C-l") 'helm-recenter-top-bottom-other-window))))
+      (spacemacs//helm-hjkl-navigation (eq 'vim dotspacemacs-editing-style))
 
       ;; eshell
       (defun spacemacs/helm-eshell-history ()
