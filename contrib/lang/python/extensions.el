@@ -58,7 +58,6 @@
     :commands pylookup-lookup
     :config
     (progn
-      (add-to-list 'evil-emacs-state-modes 'pylookup-mode)
       (evil-add-hjkl-bindings pylookup-mode-map 'emacs)
       (evil-leader/set-key-for-mode 'python-mode
         "mhH"  'pylookup-lookup)

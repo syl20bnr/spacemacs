@@ -466,10 +466,25 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-doc-view ()
   (use-package doc-view
     :defer t
+    :init
+    (evilify doc-view-mode doc-view-mode-map
+             "/"  'spacemacs/doc-view-search-new-query
+             "?"  'spacemacs/doc-view-search-new-query-backward
+             "gg" 'doc-view-first-page
+             "G"  'doc-view-last-page
+             "gt" 'doc-view-goto-page
+             "h"  'doc-view-previous-page
+             "j"  'doc-view-next-line-or-next-page
+             "k"  'doc-view-previous-line-or-previous-page
+             "K"  'doc-view-kill-proc-and-buffer
+             "l"  'doc-view-next-page
+             "n"  'doc-view-search
+             "N"  'doc-view-search-backward
+             (kbd "C-d") 'doc-view-scroll-up-or-next-page
+             (kbd "C-k") 'doc-view-kill-proc
+             (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
     :config
     (progn
-      (add-to-list 'evil-emacs-state-modes 'doc-view-mode)
-
       (defun spacemacs/doc-view-search-new-query ()
         "Initiate a new query."
         (interactive)
@@ -489,25 +504,7 @@ which require an initialization must be listed explicitly in the list.")
               ad-do-it
               (text-mode)
               (doc-view-minor-mode))
-          ad-do-it))
-
-      (spacemacs|evilify doc-view-mode-map
-                         "/"  'spacemacs/doc-view-search-new-query
-                         "?"  'spacemacs/doc-view-search-new-query-backward
-                         "gg" 'doc-view-first-page
-                         "G"  'doc-view-last-page
-                         "gt" 'doc-view-goto-page
-                         "h"  'doc-view-previous-page
-                         "j"  'doc-view-next-line-or-next-page
-                         "k"  'doc-view-previous-line-or-previous-page
-                         "K"  'doc-view-kill-proc-and-buffer
-                         "l"  'doc-view-next-page
-                         "n"  'doc-view-search
-                         "N"  'doc-view-search-backward
-                         (kbd "C-d") 'doc-view-scroll-up-or-next-page
-                         (kbd "C-k") 'doc-view-kill-proc
-                         (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
-      (spacemacs/activate-evil-leader-for-map 'doc-view-mode-map))))
+          ad-do-it)))))
 
 ;; notes from mijoharas
 ;; We currently just set a few variables to make it look nicer.
@@ -564,6 +561,7 @@ which require an initialization must be listed explicitly in the list.")
       (defvar spacemacs-evil-cursor-colors '((normal . "DarkGoldenrod2")
                                              (insert . "chartreuse3")
                                              (emacs  . "SkyBlue2")
+                                             (evilified . "yellow")
                                              (visual . "gray")
                                              (motion . "plum3")
                                              (lisp   . "HotPink1")
@@ -615,6 +613,10 @@ which require an initialization must be listed explicitly in the list.")
         (let ((c (when dotspacemacs-colorize-cursor-according-to-state
                    (spacemacs/state-color 'emacs))))
           (setq evil-emacs-state-cursor `(,c box))))
+      (defun set-default-evil-evilified-state-cursor ()
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'evilified))))
+          (setq evil-evilified-state-cursor `(,c box))))
       (defun set-default-evil-normal-state-cursor ()
         (let ((c (when dotspacemacs-colorize-cursor-according-to-state
                    (spacemacs/state-color 'normal))))
@@ -646,6 +648,7 @@ which require an initialization must be listed explicitly in the list.")
       (defun evil-insert-state-cursor-hide ()
         (setq evil-insert-state-cursor '((hbar . 0))))
       (set-default-evil-emacs-state-cursor)
+      (set-default-evil-evilified-state-cursor)
       (set-default-evil-normal-state-cursor)
       (set-default-evil-insert-state-cursor)
       (set-default-evil-visual-state-cursor)
@@ -1959,7 +1962,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :commands paradox-list-packages
     :init
     (progn
-
+      (setq paradox-execute-asynchronously nil)
       (defun spacemacs/paradox-list-packages ()
         "Load depdendencies for auth and open the package list."
         (interactive)
@@ -1979,19 +1982,14 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                                            paradox-token)))))
         (paradox-list-packages nil))
 
-      (add-to-list 'evil-emacs-state-modes 'paradox-menu-mode)
-      (spacemacs|evilify paradox-menu-mode-map
-        "H" 'paradox-menu-quick-help
-        "J" 'paradox-next-describe
-        "K" 'paradox-previous-describe
-        "L" 'paradox-menu-view-commit-list
-        "o" 'paradox-menu-visit-homepage)
+      (evilify paradox-menu-mode paradox-menu-mode-map
+               "H" 'paradox-menu-quick-help
+               "J" 'paradox-next-describe
+               "K" 'paradox-previous-describe
+               "L" 'paradox-menu-view-commit-list
+               "o" 'paradox-menu-visit-homepage)
       (evil-leader/set-key
-        "aP" 'spacemacs/paradox-list-packages))
-    :config
-    (setq paradox-execute-asynchronously nil)
-    (spacemacs/activate-evil-leader-for-map 'paradox-menu-mode-map)
-    ))
+        "aP" 'spacemacs/paradox-list-packages))))
 
 (defun spacemacs/init-popup ()
   (use-package popup
