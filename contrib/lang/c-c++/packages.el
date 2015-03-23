@@ -36,11 +36,11 @@ which require an initialization must be listed explicitly in the list.")
       (setq srecode-map-save-file (concat spacemacs-cache-directory "srecode-map.el"))
       (setq semanticdb-default-save-directory (concat spacemacs-cache-directory "semanticdb/"))
       (evil-leader/set-key-for-mode 'c-mode
-        "mgo" 'projectile-find-other-file
-        "mgO" 'projectile-find-other-file-other-window)
+        "mga" 'projectile-find-other-file
+        "mgA" 'projectile-find-other-file-other-window)
       (evil-leader/set-key-for-mode 'c++-mode
-        "mgo" 'projectile-find-other-file
-        "mgO" 'projectile-find-other-file-other-window)
+        "mga" 'projectile-find-other-file
+        "mgA" 'projectile-find-other-file-other-window)
       )))
 
 (defun c-c++/init-cmake-mode ()
