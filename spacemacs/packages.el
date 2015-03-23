@@ -1302,8 +1302,10 @@ which require an initialization must be listed explicitly in the list.")
                                            ,dotspacemacs-emacs-leader-key
                                            ,dotspacemacs-major-mode-leader-key
                                            ,dotspacemacs-major-mode-emacs-leader-key
-                                           "<ESC>n"
+                                           ;; M-m in terminal
                                            "<ESC>m"
+                                           ;; C-M-m in terminal
+                                           "<ESC><RET>"
                                            "g"
                                            "z"
                                            "C-h")
