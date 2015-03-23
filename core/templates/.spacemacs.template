@@ -55,12 +55,12 @@ before layers configuration."
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
-   dotspacemacs-emacs-leader-key "C-;"
+   dotspacemacs-emacs-leader-key "M-1"
    ;; Major mode leader key is a shortcut key which is the equivalent of
    ;; pressing `<leader> m`. Set it to `nil` to disable it.
    dotspacemacs-major-mode-leader-key ","
    ;; Major mode leader key accessible in `emacs state' and `insert state'
-   dotspacemacs-major-mode-emacs-leader-key "C-'"
+   dotspacemacs-major-mode-emacs-leader-key "M-0"
    ;; The command key used for Evil commands (ex-commands) and
    ;; Emacs commands (M-x).
    ;; By default the command key is `:' so ex-commands are executed like in Vim
