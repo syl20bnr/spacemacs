@@ -52,10 +52,10 @@ conflict.")
          ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
       ;; Transformers
       (defun spacemacs//company-transformer-cancel (candidates)
-        "Cancel completion if prefix is in the list `company-mode-completion-cancel-keywords'"
-        (unless (or (not company-mode-use-tab-instead-of-enter)
-                    (member company-prefix
-                            company-mode-completion-cancel-keywords))
+        "Cancel completion if prefix is in the list
+`company-mode-completion-cancel-keywords'"
+        (unless (and (member company-prefix company-mode-completion-cancel-keywords)
+                     (not company-mode-use-tab-instead-of-enter))
           candidates))
       (setq company-transformers '(spacemacs//company-transformer-cancel
                                    company-sort-by-occurrence))
