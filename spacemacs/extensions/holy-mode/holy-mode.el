@@ -72,8 +72,11 @@ The `insert state' is replaced by the `emacs state'."
   (setq evil-normal-state-modes nil)
   (setq holy-mode-motion-state-modes-backup evil-motion-state-modes)
   (setq evil-motion-state-modes nil)
+  ;; helm navigation
+  (when (fboundp 'spacemacs//helm-hjkl-navigation)
+    (spacemacs//helm-hjkl-navigation nil))
   ;; initiate `emacs state' and enter the church
-  (holy-mode//update-states-for-current-buffers t))
+  (holy-mode//update-states-for-current-buffers))
 
 (defun amen ()
   "May the force be with you my son (or not)."
@@ -89,21 +92,24 @@ The `insert state' is replaced by the `emacs state'."
   ;; restore per mode default states
   (setq evil-normal-state-modes holy-mode-normal-state-modes-backup)
   (setq evil-motion-state-modes holy-mode-motion-state-modes-backup)
+  ;; restore helm navigation
+  (when (fboundp 'spacemacs//helm-hjkl-navigation)
+    (spacemacs//helm-hjkl-navigation t))
   ;; (set-default-evil-emacs-state-cursor)
   ;; restore the states
-  (holy-mode//update-states-for-current-buffers))
+  (holy-mode//update-states-for-current-buffers t))
 
 (defun holy-mode//update-states-for-current-buffers (&optional arg)
-  "Update the active state in all current buffers depending on the
-value of `holy-mode' passed as ARG."
+  "Update the active state in all current buffers.
+ARG non nil means that the editing style is `vim'."
   (dolist (buffer (buffer-list))
     (with-current-buffer buffer
       ;; switch to holy-mode
-      (when (and arg (or (eq 'evilified evil-state)
+      (when (and (not arg) (or (eq 'evilified evil-state)
                          (eq 'normal evil-state)))
         (evil-emacs-state))
       ;; disable holy-mode
-      (when (and (not arg) (eq 'emacs evil-state))
+      (when (and arg (eq 'emacs evil-state))
         (cond
          ((memq major-mode evil-evilified-state-modes) (evil-evilified-state))
          ((memq major-mode evil-motion-state-modes) (evil-motion-state))
