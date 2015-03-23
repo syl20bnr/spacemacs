@@ -47,14 +47,14 @@ with 2 themes variants, one dark and one light")
 (defvar dotspacemacs-leader-key "SPC"
   "The leader key.")
 
-(defvar dotspacemacs-emacs-leader-key "C-;"
+(defvar dotspacemacs-emacs-leader-key "M-1"
   "The leader key accessible in `emacs state' and `insert state'")
 
 (defvar dotspacemacs-major-mode-leader-key ","
   "Major mode leader key is a shortcut key which is the equivalent of
 pressing `<leader> m`. Set it to `nil` to disable it.")
 
-(defvar dotspacemacs-major-mode-emacs-leader-key "C-'"
+(defvar dotspacemacs-major-mode-emacs-leader-key "M-0"
   "Major mode leader key accessible in `emacs state' and `insert state'")
 
 (defvar dotspacemacs-default-font '("Source Code Pro"
