@@ -1690,18 +1690,21 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (setq spacemacs--ido-navigation-ms-enabled nil)
         ;; overwrite the key bindings for ido vertical mode only
         (define-key ido-completion-map (kbd "C-d") 'ido-delete-file-at-head)
-        (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
         (define-key ido-completion-map (kbd "C-<return>") 'ido-select-text)
         ;; use M-RET in terminal
         (define-key ido-completion-map "\M-\r" 'ido-select-text)
         (define-key ido-completion-map (kbd "C-h") 'ido-delete-backward-updir)
         (define-key ido-completion-map (kbd "C-j") 'ido-next-match)
+        (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
         (define-key ido-completion-map (kbd "C-l") 'ido-exit-minibuffer)
-        (define-key ido-completion-map (kbd "C-S-j") 'ido-next-match-dir)
-        (define-key ido-completion-map (kbd "C-S-k") 'ido-prev-match-dir)
-        ;; history navigation
-        (define-key ido-completion-map (kbd "C-n") 'next-history-element)
-        (define-key ido-completion-map (kbd "C-p") 'previous-history-element)
+        (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+        (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
+        (define-key ido-completion-map (kbd "C-S-h") 'ido-prev-match-dir)
+        (define-key ido-completion-map (kbd "C-S-j") 'next-history-element)
+        (define-key ido-completion-map (kbd "C-S-k") 'previous-history-element)
+        (define-key ido-completion-map (kbd "C-S-l") 'ido-next-match-dir)
+        (define-key ido-completion-map (kbd "C-S-n") 'next-history-element)
+        (define-key ido-completion-map (kbd "C-S-p") 'previous-history-element)
         ;; ido-other window maps
         (define-key ido-completion-map (kbd "C-o") 'ido-invoke-in-other-window)
         (define-key ido-completion-map (kbd "C-s") 'ido-invoke-in-vertical-split)
