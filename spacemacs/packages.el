@@ -1357,6 +1357,14 @@ which require an initialization must be listed explicitly in the list.")
                   (unless (configuration-layer/package-declaredp 'smex)
                     (evil-leader/set-key dotspacemacs-command-key 'helm-M-x))))
 
+      ;; disable popwin-mode in an active Helm session It should be disabled
+      ;; otherwise it will conflict with other window opened by Helm persistent
+      ;; action, such as *Help* window.
+      (add-hook 'helm-after-initialize-hook (lambda () (popwin-mode -1)))
+
+      ;;  Restore popwin-mode after a Helm session finishes.
+      (add-hook 'helm-cleanup-hook (lambda () (popwin-mode 1)))
+
       (defun spacemacs//helm-before-initialize ()
         "Stuff to do before helm initializes."
         ;; be sure that any previous micro-state face override are
