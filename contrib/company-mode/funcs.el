@@ -12,12 +12,18 @@
 
 (defun spacemacs/company-backend-with-yas (backend)
   "Return BACKEND with support for yasnippet candidates."
-  (if (and (configuration-layer/package-declaredp 'yasnippet)
-           company-mode-enable-yas
-           (not (eq 'company-semantic backend)))
-      (unless (and (listp backend) (member 'company-yasnippet backend))
-        (append (if (listp backend) backend (list backend))
-                (list :with 'company-yasnippet)))
-        ;; (cons backend '(company-yasnippet)))
-    backend))
+  backend
+  ;; ------------------
+  ;; syl20bnr: For now adding company-snippet to some backend like anaconda
+  ;; has weird side effects, I need to investigate a little more on this
+  ;; ------------------
+  ;; (if (and (configuration-layer/package-declaredp 'yasnippet)
+  ;;          company-mode-enable-yas
+  ;;          (not (eq 'company-semantic backend)))
+  ;;     (unless (and (listp backend) (member 'company-yasnippet backend))
+  ;;       (append (if (listp backend) backend (list backend))
+  ;;               (list :with 'company-yasnippet)))
+  ;;       ;; (cons backend '(company-yasnippet)))
+  ;;   backend)
+  )
 
