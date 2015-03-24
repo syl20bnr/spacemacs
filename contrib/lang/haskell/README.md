@@ -16,13 +16,11 @@
             - [structured-haskell-mode](#structured-haskell-mode)
             - [hindent](#hindent)
     - [Key bindings](#key-bindings)
-        - [Haskell source code:](#haskell-source-code)
-            - [Haskell commands:](#haskell-commands)
-            - [Documentation commands:](#documentation-commands)
-            - [Cabal commands:](#cabal-commands)
-            - [Debug commands:](#debug-commands)
-            - [REPL commands:](#repl-commands)
-        - [Cabal files:](#cabal-files)
+        - [-](#-)
+        - [Debug](#debug)
+        - [REPL](#repl)
+        - [Cabal commands](#cabal-commands)
+        - [Cabal files](#cabal-files)
 
 <!-- markdown-toc end -->
 
@@ -123,7 +121,7 @@ variable:
   '((haskell :variables haskell-enable-shm-support t)))
 ```
 
-After shm has been enabled, some of the evil normal-mode bindings are overridden:
+After shm has been enabled, some of the evil normal state bindings are overridden:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -155,48 +153,33 @@ See examples [here][hindent-examples]
   '((haskell :variables haskell-enable-hindent-support "johan-tibell")))
 ```
 
-By default it uses the style called `fundamental`, if you want to use
-another, `johan-tibell`, run `M-x customize-variable
-hindent-style`.
-
 ## Key bindings
 
-All Haskell specific bindings are prefixed with <kbd>SPC m</kbd>
+All Haskell specific bindings are prefixed with the major-mode leader
+<kbd>SPC m</kbd>.
 
-### Haskell source code:
-
-#### Haskell commands:
 Top-level commands are prefixed by <kbd>SPC m</kbd>:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m t</kbd>    | gets the type of the identifier under the cursor
-<kbd>SPC m i</kbd>    | gets information for the identifier under the cursor
 <kbd>SPC m g g</kbd>  | go to definition or tag
 <kbd>SPC m f</kbd>    | format buffer using haskell-stylish
 <kbd>SPC m F</kbd>    | format declaration using hindent (if enabled)
 
-#### Documentation commands:
+### Documentation
+
 Documentation commands are prefixed by <kbd>SPC m h</kbd>
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC m h d</kbd>  | find or generate Haddock documentation for the identifier under the cursor
 <kbd>SPC m h h</kbd>  | do a Hoogle lookup
+<kbd>SPC m h i</kbd>  | gets information for the identifier under the cursor
+<kbd>SPC m h t</kbd>  | gets the type of the identifier under the cursor
 <kbd>SPC m h y</kbd>  | do a Hayoo lookup
 
+### Debug
 
-#### Cabal commands:
-Cabal commands are prefixed by <kbd>SPC m c</kbd>:
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>SPC m c a</kbd>  | cabal actions
-<kbd>SPC m c b</kbd>  | build the current cabal project, i.e. invoke `cabal build`
-<kbd>SPC m c c</kbd>  | compile the current project, i.e. invoke `ghc`
-<kbd>SPC m c v</kbd>  | visit the cabal file
-
-#### Debug commands:
 Debug commands are prefixed by <kbd>SPC m d</kbd>:
 
     Key Binding       |                 Description
@@ -210,7 +193,8 @@ Debug commands are prefixed by <kbd>SPC m d</kbd>:
 <kbd>SPC m d a </kbd> | abandon current process
 <kbd>SPC m d r </kbd> | refresh process buffer
 
-#### REPL commands:
+### REPL
+
 REPL commands are prefixed by <kbd>SPC m s</kbd>:
 
     Key Binding       |                 Description
@@ -220,7 +204,20 @@ REPL commands are prefixed by <kbd>SPC m s</kbd>:
 <kbd>SPC m s s</kbd>  | show the REPL
 <kbd>SPC m s S</kbd>  | show and switch to the REPL
 
-### Cabal files:
+### Cabal commands
+
+Cabal commands are prefixed by <kbd>SPC m c</kbd>:
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC m c a</kbd>  | cabal actions
+<kbd>SPC m c b</kbd>  | build the current cabal project, i.e. invoke `cabal build`
+<kbd>SPC m c c</kbd>  | compile the current project, i.e. invoke `ghc`
+<kbd>SPC m c v</kbd>  | visit the cabal file
+
+### Cabal files
+
+This commands are available in a cabal file.
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------

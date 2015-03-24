@@ -20,6 +20,7 @@
                                        ("b" .  "buffers")
                                        ("bm" . "buffers-move")
                                        ("c" .  "compile/comments")
+                                       ("C" .  "colors")
                                        ("e" .  "errors")
                                        ("f" .  "files")
                                        ("fe" . "files-emacs/spacemacs")
@@ -93,10 +94,6 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
   ;; hack is here
   ;; (tabulated-list-print t)
   (tabulated-list-print))
-
-;; evilify process-menu
-(add-to-list 'evil-emacs-state-modes 'process-menu-mode)
-(spacemacs|evilify 'process-menu-mode)
 
 ;; Mouse cursor in terminal mode
 (xterm-mouse-mode 1)

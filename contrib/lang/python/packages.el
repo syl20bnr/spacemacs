@@ -34,16 +34,14 @@ which require an initialization must be listed explicitly in the list.")
   (use-package ac-anaconda
     :if (boundp 'ac-sources)
     :defer t
-    :init (add-hook 'python-mode-hook 'ac-anaconda-setup)
-    :config
+    :init
     (progn
-      (add-to-list 'evil-emacs-state-modes 'anaconda-nav-mode)
-      (spacemacs/activate-evil-leader-for-map 'anaconda-nav-mode-map)
-      (spacemacs|evilify anaconda-nav-mode-map
-                         (kbd "H") 'previous-error
-                         (kbd "J") 'anaconda-nav-next-module
-                         (kbd "K") 'anaconda-nav-previous-module
-                         (kbd "L") 'next-error))))
+      (add-hook 'python-mode-hook 'ac-anaconda-setup)
+      (evilify anaconda-nav-mode anaconda-nav-mode-map
+               (kbd "H") 'previous-error
+               (kbd "J") 'anaconda-nav-next-module
+               (kbd "K") 'anaconda-nav-previous-module
+               (kbd "L") 'next-error))))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
@@ -58,13 +56,16 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
-    :if (boundp 'company-backends)
+    :if (configuration-layer/package-declaredp 'company)
     :defer t
     :init
-    (if (configuration-layer/package-declaredp 'yasnippet)
-        (add-to-list 'company-backends (company-mode/backend-with-yas
-                                        'company-anaconda))
-      (add-to-list 'company-backends 'company-anaconda))))
+    (progn
+      (spacemacs|reset-local-company-backends python-mode)
+      (defun spacemacs//anaconda-company-backend ()
+        "Add anaconda company backend."
+        (push (spacemacs/company-backend-with-yas 'company-anaconda)
+              company-backends))
+      (add-hook 'python-mode-hook 'spacemacs//anaconda-company-backend t))))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode

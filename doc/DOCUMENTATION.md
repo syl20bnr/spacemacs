@@ -545,7 +545,7 @@ than just a Vim emulation. It has more states than Vim for instance.
 
 ### States
 
-`Spacemacs` has 8 states:
+`Spacemacs` has 9 states:
 
 - **Normal** (orange) - like the `normal mode of Vim`, used to execute and
                         combine commands
@@ -557,6 +557,9 @@ than just a Vim emulation. It has more states than Vim for instance.
                         buffers
 - **Emacs** (blue) - exclusive to `Evil`, using this state is like using a
                      regular Emacs without Vim
+- **Evilified** (yellow) - exclusive to `Spacemacs`, this is an `emacs state`
+                           modified to bring Vim navigation, selection and
+                           search.
 - **Lisp** (pink) - exclusive to `Spacemacs`, used to navigate Lisp code and
                     modify it (see [Editing Lisp code](#editing-lisp-code))
 - **Iedit** (red) - exclusive to `Spacemacs`, used to navigate between multiple
@@ -1196,6 +1199,7 @@ Windows manipulation commands (start with `w`):
 
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
+<kbd>SPC w =</kbd>                        | balance split windows
 <kbd>SPC w b</kbd>                        | force the focus back to the minibuffer (usefull with `helm` popups)
 <kbd>SPC w c</kbd>                        | close a window
 <kbd>SPC w C</kbd>                        | delete another window using [ace-delete-window][ace-window]
@@ -1355,16 +1359,20 @@ Key Binding             |                 Description
 <kbd>C-d</kbd>          | delete selected file (ask for confirmation)
 <kbd>C-h</kbd>          | go to parent directory
 <kbd>C-j</kbd>          | select next file or directory
-<kbd>C-S-j</kbd>        | go to next directory
 <kbd>C-k</kbd>          | select previous file or directory
-<kbd>C-S-k</kbd>        | go to previous directory
 <kbd>C-l</kbd>          | open the selected file
-<kbd>C-n</kbd>          | next history element
+<kbd>C-n</kbd>          | select next file or directory
 <kbd>C-o</kbd>          | open selected file in other window
-<kbd>C-p</kbd>          | previous history element
+<kbd>C-p</kbd>          | select previous file or directory
 <kbd>C-s</kbd>          | open selected file in a vertically split window
 <kbd>C-t</kbd>          | open selected file in a new frame
 <kbd>C-v</kbd>          | open selected file in a horizontally split window
+<kbd>C-S-h</kbd>        | go to previous directory
+<kbd>C-S-j</kbd>        | next history element
+<kbd>C-S-k</kbd>        | previous history element
+<kbd>C-S-l</kbd>        | go to next directory
+<kbd>C-S-n</kbd         | next history element
+<kbd>C-S-p</kbd         | previous history element
 
 ### Ido micro-state
 
@@ -1670,6 +1678,9 @@ Key Binding                   |                    Description
 <kbd>P</kbd>                  | in micro-state: replace paste text with the next copied one
 <kbd>.</kbd>                  | paste the same text and leave the micro-state
 Any other key                 | leave the micro-state
+
+This micro-state can be disabled by setting
+`dotspacemacs-enable-paste-micro-state` to `nil` in `~/.spacemacs`.
 
 ### Text manipulation commands
 

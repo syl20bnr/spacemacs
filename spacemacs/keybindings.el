@@ -61,14 +61,24 @@
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
-(evil-leader/set-key
-  "hdc" 'describe-char
-  "hdf" 'describe-function
-  "hdk" 'describe-key
-  "hdm" 'describe-mode
-  "hdp" 'describe-package
-  "hdt" 'describe-theme
-  "hdv" 'describe-variable)
+(defmacro spacemacs||describe-set-key (keys func)
+  "Define a key bindings for FUNC using KEYS.
+Ensure that helm is required before calling FUNC."
+  (let ((func-name (intern (format "spacemacs/%s" (symbol-name func)))))
+    `(progn
+       (defun ,func-name ()
+         ,(format "Wrapper for %s" (symbol-name func))
+         (interactive)
+         (require 'helm)
+         (call-interactively ',func))
+       (evil-leader/set-key ,keys ',func-name))))
+(spacemacs||describe-set-key "hdc" describe-char)
+(spacemacs||describe-set-key "hdf" describe-function)
+(spacemacs||describe-set-key "hdk" describe-key)
+(spacemacs||describe-set-key "hdm" describe-mode)
+(spacemacs||describe-set-key "hdp" describe-package)
+(spacemacs||describe-set-key "hdt" describe-theme)
+(spacemacs||describe-set-key "hdv" describe-variable)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key
   "en" 'spacemacs/next-error
@@ -256,7 +266,8 @@
   "wv"  'split-window-right
   "wV"  'split-window-right-and-focus
   "ww"  'other-window
-  "w/"  'split-window-right)
+  "w/"  'split-window-right
+  "w="  'balance-windows)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
   "zx="  'spacemacs/reset-font-size
