@@ -1,6 +1,8 @@
-(defvar company-mode-packages
-  '(company
-    company-quickhelp))
+(defvar company-mode-packages '(company))
+
+;; company-quickhelp from MELPA is not compatible with 24.3 anymore
+(unless (version< emacs-version "24.4")
+  (push 'company-quickhelp company-mode-packages))
 
 (defvar company-mode-excluded-packages
   '(auto-complete ac-ispell tern-auto-complete auto-complete-clang edts)
