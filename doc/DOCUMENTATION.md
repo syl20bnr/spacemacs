@@ -2213,18 +2213,19 @@ In `org`, [evil-org-mode][] is activated.
 
 ### Python
 
-Writing python code with spacemacs is supported by python contribution. Please see
-[python contribution][python-contrib] documentation for detail.
+Writing python code with spacemacs is supported by python contribution. Please
+see [python contribution][python-contrib] documentation for detail.
 
 ### JavaScript
 
-More featured JavaScript support is provided by the javascript contribution. Please see
-[javascript contribution][javascript-contrib] documentation for detail.
+More featured JavaScript support is provided by the javascript
+contribution. Please see [javascript contribution][javascript-contrib]
+documentation for detail.
 
 ### HTML and CSS
 
-HTML contribution provides support for editing HTML, CSS, Scss and Less files. Please see
-[html contribution][html-contrib] documentation for detail.
+HTML contribution provides support for editing HTML, CSS, Scss and Less
+files. Please see [html contribution][html-contrib] documentation for detail.
 
 # Emacs Server
 
@@ -2233,15 +2234,19 @@ your Emacs windows.
 
 ## Connecting to the Emacs server
 
-You can open a file in Emacs from the terminal using `emacsclient`.
-Use `emacsclient -c` to open the file in Emacs GUI.
-Use `emacsclient -t` to open the file in Emacs within the terminal.
+You can open a file in Emacs from the terminal using `emacsclient`. Use
+`emacsclient -c` to open the file in Emacs GUI. Use `emacsclient -t` to open
+the file in Emacs within the terminal.
 
-If you want your Linux/OS X system to use Emacs by default for any prompt, use `export EDITOR="emacsclient -c"` in your shell configuration.
+If you want your Linux/OS X system to use Emacs by default for any prompt, use
+`export EDITOR="emacsclient -c"` in your shell configuration.
 
-Note that if you're on OS X, you may have to refer to the emacsclient that comes with your GUI Emacs, e.g. `export EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c"`.
+Note that if you're on OS X, you may have to refer to the emacsclient that comes
+with your GUI Emacs, e.g. `export
+EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c"`.
 
-Tip: Remember to use `C-x #` after you are done editing the file in Emacs.
+Tip: Remember to use `:qw` or `C-x #` after you are done editing the file
+in Emacs.
 
 See [Emacs as a Server][] in the official Emacs manual for more details.
 
