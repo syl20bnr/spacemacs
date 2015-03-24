@@ -1800,12 +1800,12 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :defer t))
 
 (defun spacemacs/init-info+ ()
-  (use-package info
-    :commands (info Info-mode)
+  (use-package info+
+    :defer t
+    :init
+    (add-hook 'Info-mode-hook (lambda () (require 'info+)))
     :config
-    (use-package info+
-      :config
-      (setq Info-fontify-angle-bracketed-flag nil))))
+    (setq Info-fontify-angle-bracketed-flag nil)))
 
 (defun spacemacs/init-leuven-theme ()
   (use-package leuven-theme
