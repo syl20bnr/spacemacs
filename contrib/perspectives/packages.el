@@ -28,7 +28,7 @@ which require an initialization must be listed explicitly in the list.")
       (defun custom-persp/emacs ()
         (interactive)
         (custom-persp ".emacs.d"
-                      (find-file "~/.emacs.d/init.el")))
+                      (find-file (locate-user-emacs-file "init.el"))))
 
       (defun custom-persp/org ()
         (interactive)
