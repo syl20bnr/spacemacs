@@ -116,10 +116,9 @@ Ensure that helm is required before calling FUNC."
 ;; <SPC> J split the current line at point and indent it
 (evil-leader/set-key
   "J"  'sp-split-sexp
-  "jj" 'evil-join
-  "jJ" 'spacemacs/split-and-new-line
-  "jn" 'sp-newline
   "ji" 'spacemacs/indent-region-or-buffer
+  "jj" 'sp-newline
+  "jJ" 'spacemacs/split-and-new-line
   "jk" 'evil-goto-next-line-and-indent)
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key
