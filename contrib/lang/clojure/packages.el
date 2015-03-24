@@ -127,6 +127,8 @@ the focus."
         (cider-switch-to-repl-buffer)
         (evil-insert-state))
 
+      (evilify cider-stacktrace-mode cider-stacktrace-mode-map)
+
       (evil-leader/set-key-for-mode 'clojure-mode
         "mdd" 'cider-doc
         "mdg" 'cider-grimoire
