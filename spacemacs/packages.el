@@ -32,6 +32,7 @@
     ediff
     elisp-slime-nav
     eldoc
+    eval-sexp-fu
     evil
     evil-anzu
     evil-args
@@ -59,6 +60,7 @@
     fish-mode
     flx-ido
     flycheck
+    flycheck-pos-tip
     flyspell
     ;; required for update
     gh
@@ -78,6 +80,7 @@
     helm-swoop
     helm-themes
     highlight
+    highlight-numbers
     hippie-exp
     hl-anything
     hungry-delete
@@ -463,10 +466,25 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-doc-view ()
   (use-package doc-view
     :defer t
+    :init
+    (evilify doc-view-mode doc-view-mode-map
+             "/"  'spacemacs/doc-view-search-new-query
+             "?"  'spacemacs/doc-view-search-new-query-backward
+             "gg" 'doc-view-first-page
+             "G"  'doc-view-last-page
+             "gt" 'doc-view-goto-page
+             "h"  'doc-view-previous-page
+             "j"  'doc-view-next-line-or-next-page
+             "k"  'doc-view-previous-line-or-previous-page
+             "K"  'doc-view-kill-proc-and-buffer
+             "l"  'doc-view-next-page
+             "n"  'doc-view-search
+             "N"  'doc-view-search-backward
+             (kbd "C-d") 'doc-view-scroll-up-or-next-page
+             (kbd "C-k") 'doc-view-kill-proc
+             (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
     :config
     (progn
-      (add-to-list 'evil-emacs-state-modes 'doc-view-mode)
-
       (defun spacemacs/doc-view-search-new-query ()
         "Initiate a new query."
         (interactive)
@@ -486,25 +504,7 @@ which require an initialization must be listed explicitly in the list.")
               ad-do-it
               (text-mode)
               (doc-view-minor-mode))
-          ad-do-it))
-
-      (spacemacs|evilify doc-view-mode-map
-                         "/"  'spacemacs/doc-view-search-new-query
-                         "?"  'spacemacs/doc-view-search-new-query-backward
-                         "gg" 'doc-view-first-page
-                         "G"  'doc-view-last-page
-                         "gt" 'doc-view-goto-page
-                         "h"  'doc-view-previous-page
-                         "j"  'doc-view-next-line-or-next-page
-                         "k"  'doc-view-previous-line-or-previous-page
-                         "K"  'doc-view-kill-proc-and-buffer
-                         "l"  'doc-view-next-page
-                         "n"  'doc-view-search
-                         "N"  'doc-view-search-backward
-                         (kbd "C-d") 'doc-view-scroll-up-or-next-page
-                         (kbd "C-k") 'doc-view-kill-proc
-                         (kbd "C-u") 'doc-view-scroll-down-or-previous-page)
-      (spacemacs/activate-evil-leader-for-map 'doc-view-mode-map))))
+          ad-do-it)))))
 
 ;; notes from mijoharas
 ;; We currently just set a few variables to make it look nicer.
@@ -551,6 +551,9 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (spacemacs|hide-lighter eldoc-mode))))
 
+(defun spacemacs/init-eval-sexp-fu ()
+  (require 'eval-sexp-fu))
+
 (defun spacemacs/init-evil ()
   (use-package evil
     :init
@@ -558,6 +561,7 @@ which require an initialization must be listed explicitly in the list.")
       (defvar spacemacs-evil-cursor-colors '((normal . "DarkGoldenrod2")
                                              (insert . "chartreuse3")
                                              (emacs  . "SkyBlue2")
+                                             (evilified . "yellow")
                                              (visual . "gray")
                                              (motion . "plum3")
                                              (lisp   . "HotPink1")
@@ -609,6 +613,10 @@ which require an initialization must be listed explicitly in the list.")
         (let ((c (when dotspacemacs-colorize-cursor-according-to-state
                    (spacemacs/state-color 'emacs))))
           (setq evil-emacs-state-cursor `(,c box))))
+      (defun set-default-evil-evilified-state-cursor ()
+        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
+                   (spacemacs/state-color 'evilified))))
+          (setq evil-evilified-state-cursor `(,c box))))
       (defun set-default-evil-normal-state-cursor ()
         (let ((c (when dotspacemacs-colorize-cursor-according-to-state
                    (spacemacs/state-color 'normal))))
@@ -640,6 +648,7 @@ which require an initialization must be listed explicitly in the list.")
       (defun evil-insert-state-cursor-hide ()
         (setq evil-insert-state-cursor '((hbar . 0))))
       (set-default-evil-emacs-state-cursor)
+      (set-default-evil-evilified-state-cursor)
       (set-default-evil-normal-state-cursor)
       (set-default-evil-insert-state-cursor)
       (set-default-evil-visual-state-cursor)
@@ -823,24 +832,32 @@ which require an initialization must be listed explicitly in the list.")
   (use-package evil-leader
     :init
     (progn
-      (setq evil-leader/in-all-states t
-            evil-leader/leader dotspacemacs-leader-key
-            evil-leader/non-normal-prefix "s-")
+      (setq evil-leader/leader dotspacemacs-leader-key)
       (global-evil-leader-mode))
     :config
     (progn
       ;; Unset shortcuts which shadow evil leader
       (eval-after-load "compile"
         '(progn
-           (define-key compilation-mode-map (kbd dotspacemacs-leader-key) nil)
+           ;; (define-key compilation-mode-map (kbd dotspacemacs-leader-key) nil)
            (define-key compilation-mode-map (kbd "h") nil)))
-      (eval-after-load "dired"
-        '(define-key dired-mode-map (kbd dotspacemacs-leader-key) nil))
-      ;; make leader available in visual mode
-      (define-key evil-visual-state-map (kbd dotspacemacs-leader-key)
-        evil-leader--default-map)
-      (define-key evil-motion-state-map (kbd dotspacemacs-leader-key)
-        evil-leader--default-map)
+      ;; (eval-after-load "dired"
+      ;;   '(define-key dired-mode-map (kbd dotspacemacs-leader-key) nil))
+      ;; make leader available in visual and motion states
+      (mapc (lambda (s)
+              (eval `(define-key
+                       ,(intern (format "evil-%S-state-map" s))
+                       ,(kbd dotspacemacs-leader-key)
+                       evil-leader--default-map)))
+            '(motion visual))
+      ;; emacs and insert states (make it also available in other states
+      ;; for consistency and POLA.)
+      (mapc (lambda (s)
+              (eval `(define-key
+                       ,(intern (format "evil-%S-state-map" s))
+                       ,(kbd dotspacemacs-emacs-leader-key)
+                       evil-leader--default-map)))
+            '(emacs insert normal visual motion))
       ;; experimental: map SPC m to ,
       (when dotspacemacs-major-mode-leader-key
         (add-hook 'after-change-major-mode-hook
@@ -1162,6 +1179,12 @@ which require an initialization must be listed explicitly in the list.")
         "ef" 'flycheck-mode
         "el" 'flycheck-list-errors))))
 
+(defun spacemacs/init-flycheck-pos-tip ()
+  (use-package flycheck-pos-tip
+    :defer t
+    :init
+    (setq flycheck-display-errors-function 'flycheck-pos-tip-error-messages)))
+
 (defun spacemacs/init-flyspell ()
   (use-package flyspell
     :defer t
@@ -1276,7 +1299,11 @@ which require an initialization must be listed explicitly in the list.")
       (setq guide-key/guide-key-sequence `("C-x"
                                            "C-c"
                                            ,dotspacemacs-leader-key
+                                           ,dotspacemacs-emacs-leader-key
                                            ,dotspacemacs-major-mode-leader-key
+                                           ,dotspacemacs-major-mode-emacs-leader-key
+                                           "<ESC>n"
+                                           "<ESC>m"
                                            "g"
                                            "z"
                                            "C-h")
@@ -1303,8 +1330,12 @@ which require an initialization must be listed explicitly in the list.")
             helm-bookmark-show-location t
             helm-buffers-fuzzy-matching t
             helm-always-two-windows     t)
+      ;; use helm by default for M-x
+      (unless (configuration-layer/package-declaredp 'smex)
+        (global-set-key (kbd "M-x") 'helm-M-x))
       (evil-leader/set-key
         "bs"  'helm-mini
+        "Cl"  'helm-colors
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
         "hl"  'helm-resume
@@ -1319,7 +1350,8 @@ which require an initialization must be listed explicitly in the list.")
       ;; to overwrite any key binding
       (add-hook 'after-init-hook
                 (lambda ()
-                  (evil-leader/set-key dotspacemacs-command-key 'helm-M-x)))
+                  (unless (configuration-layer/package-declaredp 'smex)
+                    (evil-leader/set-key dotspacemacs-command-key 'helm-M-x))))
 
       (defun spacemacs//helm-before-initialize ()
         "Stuff to do before helm initializes."
@@ -1342,6 +1374,15 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (progn
       (helm-mode +1)
+      (defun spacemacs//set-dotted-directory ()
+        "Set the face of diretories for `.' and `..'"
+        (set-face-attribute 'helm-ff-dotted-directory
+                            nil
+                            :foreground nil
+                            :background nil
+                            :inherit 'helm-ff-directory))
+      (add-hook 'helm-find-files-before-init-hook 'spacemacs//set-dotted-directory)
+
       ;; alter helm-bookmark key bindings to be simpler
       (defun simpler-helm-bookmark-keybindings ()
         (define-key helm-bookmark-map (kbd "C-d") 'helm-bookmark-run-delete)
@@ -1350,11 +1391,23 @@ which require an initialization must be listed explicitly in the list.")
         (define-key helm-bookmark-map (kbd "C-o") 'helm-bookmark-run-jump-other-window)
         (define-key helm-bookmark-map (kbd "C-/") 'helm-bookmark-help))
       (add-hook 'helm-mode-hook 'simpler-helm-bookmark-keybindings)
+
       ;; helm navigation on hjkl
-      (define-key helm-map (kbd "C-j") 'helm-next-line)
-      (define-key helm-map (kbd "C-k") 'helm-previous-line)
-      (define-key helm-map (kbd "C-h") 'helm-next-source)
-      (define-key helm-map (kbd "C-l") 'helm-previous-source)
+      (defun spacemacs//helm-hjkl-navigation (&optional arg)
+        "Set navigation in helm on `jklh'.
+ARG non nil means that the editing style is `vim'."
+        (cond
+         (arg
+          (define-key helm-map (kbd "C-j") 'helm-next-line)
+          (define-key helm-map (kbd "C-k") 'helm-previous-line)
+          (define-key helm-map (kbd "C-h") 'helm-next-source)
+          (define-key helm-map (kbd "C-l") 'helm-previous-source))
+         (t
+          (define-key helm-map (kbd "C-j") 'helm-execute-persistent-action)
+          (define-key helm-map (kbd "C-k") 'helm-delete-minibuffer-contents)
+          (define-key helm-map (kbd "C-h") nil)
+          (define-key helm-map (kbd "C-l") 'helm-recenter-top-bottom-other-window))))
+      (spacemacs//helm-hjkl-navigation (eq 'vim dotspacemacs-editing-style))
 
       ;; eshell
       (defun spacemacs/helm-eshell-history ()
@@ -1540,7 +1593,16 @@ which require an initialization must be listed explicitly in the list.")
   (use-package helm-themes
     :defer t
     :init
-    (evil-leader/set-key "Th" 'helm-themes)))
+    (evil-leader/set-key
+      "Th" 'helm-themes)))
+
+(defun spacemacs/init-highlight-numbers ()
+  (use-package highlight-numbers
+    :defer t
+    :init
+    (progn
+      (add-hook 'prog-mode-hook 'highlight-numbers-mode)
+      (add-hook 'asm-mode-hook (lambda () (highlight-numbers-mode -1))))))
 
 (defun spacemacs/init-hippie-exp ()
   (global-set-key (kbd "M-/") 'hippie-expand) ;; replace dabbrev-expand
@@ -1630,18 +1692,21 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (setq spacemacs--ido-navigation-ms-enabled nil)
         ;; overwrite the key bindings for ido vertical mode only
         (define-key ido-completion-map (kbd "C-d") 'ido-delete-file-at-head)
-        (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
         (define-key ido-completion-map (kbd "C-<return>") 'ido-select-text)
         ;; use M-RET in terminal
         (define-key ido-completion-map "\M-\r" 'ido-select-text)
         (define-key ido-completion-map (kbd "C-h") 'ido-delete-backward-updir)
         (define-key ido-completion-map (kbd "C-j") 'ido-next-match)
+        (define-key ido-completion-map (kbd "C-k") 'ido-prev-match)
         (define-key ido-completion-map (kbd "C-l") 'ido-exit-minibuffer)
-        (define-key ido-completion-map (kbd "C-S-j") 'ido-next-match-dir)
-        (define-key ido-completion-map (kbd "C-S-k") 'ido-prev-match-dir)
-        ;; history navigation
-        (define-key ido-completion-map (kbd "C-n") 'next-history-element)
-        (define-key ido-completion-map (kbd "C-p") 'previous-history-element)
+        (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
+        (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
+        (define-key ido-completion-map (kbd "C-S-h") 'ido-prev-match-dir)
+        (define-key ido-completion-map (kbd "C-S-j") 'next-history-element)
+        (define-key ido-completion-map (kbd "C-S-k") 'previous-history-element)
+        (define-key ido-completion-map (kbd "C-S-l") 'ido-next-match-dir)
+        (define-key ido-completion-map (kbd "C-S-n") 'next-history-element)
+        (define-key ido-completion-map (kbd "C-S-p") 'previous-history-element)
         ;; ido-other window maps
         (define-key ido-completion-map (kbd "C-o") 'ido-invoke-in-other-window)
         (define-key ido-completion-map (kbd "C-s") 'ido-invoke-in-vertical-split)
@@ -1915,7 +1980,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :commands paradox-list-packages
     :init
     (progn
-
+      (setq paradox-execute-asynchronously nil)
       (defun spacemacs/paradox-list-packages ()
         "Load depdendencies for auth and open the package list."
         (interactive)
@@ -1935,19 +2000,14 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                                            paradox-token)))))
         (paradox-list-packages nil))
 
-      (add-to-list 'evil-emacs-state-modes 'paradox-menu-mode)
-      (spacemacs|evilify paradox-menu-mode-map
-        "H" 'paradox-menu-quick-help
-        "J" 'paradox-next-describe
-        "K" 'paradox-previous-describe
-        "L" 'paradox-menu-view-commit-list
-        "o" 'paradox-menu-visit-homepage)
+      (evilify paradox-menu-mode paradox-menu-mode-map
+               "H" 'paradox-menu-quick-help
+               "J" 'paradox-next-describe
+               "K" 'paradox-previous-describe
+               "L" 'paradox-menu-view-commit-list
+               "o" 'paradox-menu-visit-homepage)
       (evil-leader/set-key
-        "aP" 'spacemacs/paradox-list-packages))
-    :config
-    (setq paradox-execute-asynchronously nil)
-    (spacemacs/activate-evil-leader-for-map 'paradox-menu-mode-map)
-    ))
+        "aP" 'spacemacs/paradox-list-packages))))
 
 (defun spacemacs/init-popup ()
   (use-package popup
@@ -2255,22 +2315,25 @@ displayed in the mode-line.")
   (use-package projectile
     :commands (projectile-ack
                projectile-ag
-               projectile-find-file
-               projectile-find-test-file
-               projectile-switch-to-buffer
-               projectile-find-dir
+               projectile-compile-project
                projectile-dired
-               projectile-vc
-               projectile-replace
-               projectile-regenerate-tags
                projectile-grep
-               projectile-switch-project
-               projectile-multi-occur
+               projectile-find-dir
+               projectile-find-file
                projectile-find-tag
-               projectile-kill-buffers
-               projectile-recentf
+               projectile-find-test-file
                projectile-invalidate-cache
+               projectile-kill-buffers
+               projectile-multi-occur
                projectile-project-root
+               projectile-recentf
+               projectile-regenerate-tags
+               projectile-replace
+               projectile-run-async-shell-command-in-root
+               projectile-run-shell-command-in-root
+               projectile-switch-project
+               projectile-switch-to-buffer
+               projectile-vc
                )
     :init
     (progn

@@ -39,21 +39,17 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (add-to-list 'evil-emacs-state-modes 'gist-list-menu-mode)
-      (spacemacs|evilify gist-list-menu-mode-map
-                         "f" 'gist-fetch-current
-                         "K" 'gist-kill-current
-                         "o" 'gist-browse-current-url)
+      (evilify gist-list-menu-mode gist-list-menu-mode-map
+               "f" 'gist-fetch-current
+               "K" 'gist-kill-current
+               "o" 'gist-browse-current-url)
 
       (evil-leader/set-key
         "ggb" 'gist-buffer
         "ggB" 'gist-buffer-private
         "ggl" 'gist-list
         "ggr" 'gist-region
-        "ggR" 'gist-region-private))
-    :config
-    (spacemacs/activate-evil-leader-for-map 'gist-list-menu-mode-map)
-    ))
+        "ggR" 'gist-region-private))))
 
 (defun init-git-gutter ()
   "Common initialization of git-gutter."
@@ -133,12 +129,8 @@ which require an initialization must be listed explicitly in the list.")
 (defun git/init-git-rebase-mode ()
   (use-package git-rebase-mode
     :defer t
-    :init
-    (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
-    :config
-    (progn
-      (spacemacs|evilify git-rebase-mode-map "y" 'git-rebase-insert)
-      (spacemacs/activate-evil-leader-for-map 'git-rebase-mode-map))))
+    :init (evilify git-rebase-mode git-rebase-mode-map
+                   "y" 'git-rebase-insert)))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
@@ -194,57 +186,51 @@ which require an initialization must be listed explicitly in the list.")
   (use-package magit
     :defer t
     :init
-    (setq magit-completing-read-function 'magit-ido-completing-read)
-    (evil-leader/set-key
-      "gb" 'magit-blame-mode
-      "gl" 'magit-log
-      "gs" 'magit-status
-      "gC" 'magit-commit)
+    (progn
+      (setq magit-completing-read-function 'magit-ido-completing-read)
+      (evil-leader/set-key
+        "gb" 'magit-blame-mode
+        "gl" 'magit-log
+        "gs" 'magit-status
+        "gC" 'magit-commit)
+      (evilify magit-commit-mode magit-commit-mode-map
+               (kbd "C-j") 'magit-goto-next-section
+               (kbd "C-k") 'magit-goto-previous-section
+               (kbd "C-n") 'magit-goto-next-section
+               (kbd "C-p") 'magit-goto-previous-section
+               (kbd "C-v") 'magit-revert-item)
+      (evilify magit-log-mode magit-log-mode-map
+               (kbd "C-j") 'magit-goto-next-section
+               (kbd "C-k") 'magit-goto-previous-section
+               (kbd "C-n") 'magit-goto-next-section
+               (kbd "C-p") 'magit-goto-previous-section
+               (kbd "C-v") 'magit-revert-item)
+      (evilify magit-process-mode magit-process-mode-map
+               (kbd "C-j") 'magit-goto-next-section
+               (kbd "C-k") 'magit-goto-previous-section
+               (kbd "C-n") 'magit-goto-next-section
+               (kbd "C-p") 'magit-goto-previous-section
+               (kbd "C-v") 'magit-revert-item)
+      (evilify magit-branch-manager-mode magit-branch-manager-mode-map
+               "K" 'magit-discard-item
+               "L" 'magit-key-mode-popup-logging
+               (kbd "C-j") 'magit-goto-next-section
+               (kbd "C-k") 'magit-goto-previous-section
+               (kbd "C-n") 'magit-goto-next-section
+               (kbd "C-p") 'magit-goto-previous-section
+               (kbd "C-v") 'magit-revert-item)
+      (evilify magit-status-mode magit-status-mode-map
+               "K" 'magit-discard-item
+               "L" 'magit-key-mode-popup-logging
+               "H" 'magit-key-mode-popup-diff-options
+               (kbd "C-j") 'magit-goto-next-section
+               (kbd "C-k") 'magit-goto-previous-section
+               (kbd "C-n") 'magit-goto-next-section
+               (kbd "C-p") 'magit-goto-previous-section
+               (kbd "C-v") 'magit-revert-item))
     :config
     (progn
       (spacemacs|hide-lighter magit-auto-revert-mode)
-
-      ;; hjkl key bindings
-      (spacemacs|evilify magit-commit-mode-map
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-log-mode-map
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-process-mode-map
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-branch-manager-mode-map
-        "K" 'magit-discard-item
-        "L" 'magit-key-mode-popup-logging
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-status-mode-map
-        "K" 'magit-discard-item
-        "L" 'magit-key-mode-popup-logging
-        "H" 'magit-key-mode-popup-diff-options
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      ;; remove conflicts with evil leader
-      (spacemacs/activate-evil-leader-for-maps '(magit-mode-map
-                                                 magit-commit-mode-map
-                                                 magit-diff-mode-map))
-
       ;; full screen magit-status
       (when git-magit-status-fullscreen
         (defadvice magit-status (around magit-fullscreen activate)

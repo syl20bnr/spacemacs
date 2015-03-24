@@ -18,6 +18,7 @@
     helm-css-scss
     less-css-mode
     scss-mode
+    sass-mode
     tagedit
     web-mode
     yasnippet
@@ -125,9 +126,15 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :mode ("\\.scss\\'" . scss-mode)))
 
+(defun html/init-sass-mode ()
+  (use-package sass-mode
+    :defer t
+    :mode ("\\.sass\\'" . sass-mode)))
+
 (defun html/init-flycheck ()
   (add-hook 'web-mode-hook 'flycheck-mode)
-  (add-hook 'scss-mode-hook 'flycheck-mode))
+  (add-hook 'scss-mode-hook 'flycheck-mode)
+  (add-hook 'sass-mode-hook 'flycheck-mode))
 
 (defun html/init-tagedit ()
   (use-package tagedit

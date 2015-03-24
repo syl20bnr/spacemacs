@@ -78,23 +78,26 @@ It is recommended to add <kbd>q</kbd> to leave the micro-state.
 ### Evilify buffers
 
 `Spacemacs` offers convenient functions to _evilify_ a buffer.
-_Evilifying_ a buffer is to:
+_Evilifying_ a buffer is to set the `evilified state` as the default
+state for the major mode of the buffer.
+
+The `evilified state` is derived from the `emacs state` and modify the
+map to:
 - add `hjkl` navigation
 - add incremental search with `/`, `n` and `N`
 - add `visual state` and `visual line state`
 - add yank (copy) with `y`
 - activate evil-leader key
-- fix all bindings shadows by the above additions
+
+Setting the `evilified state` to a mode is done by calling the macro `evilify`
+which takes optional parameters to fix the key bindings shadowed by the above
+modifications.
 
 To fix the shadowed bindings we capitalize them, for instance:
 shadowed `h` is transposed to `H`, if `H` is taken then it is
 transposed to `C-h` and so on...
 
 Example of _evilified_ buffers are `magit status`, `paradox buffer`.
-
-The related functions are:
-- `spacemacs/activate-evil-leader-for-maps` and `spacemacs/activate-evil-leader-for-map`
-- `spacemacs/evilify`
 
 ### Navigation
 
