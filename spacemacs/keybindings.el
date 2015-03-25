@@ -117,8 +117,10 @@ Ensure that helm is required before calling FUNC."
 (evil-leader/set-key
   "J"  'sp-split-sexp
   "jj" 'sp-newline
+  "j=" 'spacemacs/indent-region-or-buffer
   "jJ" 'spacemacs/split-and-new-line
   "jk" 'evil-goto-next-line-and-indent)
+
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key
   "jh" 'spacemacs/push-mark-and-goto-beginning-of-line
