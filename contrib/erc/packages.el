@@ -38,11 +38,29 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (evil-leader/set-key "ae" 'erc)
+
+      (defun erc-list-command ()
+      "execute the list command"
+      (interactive)
+        (insert "/list")
+        (erc-send-current-line))
+
       (setq erc-kill-buffer-on-part t)
       (setq erc-kill-queries-on-quit t)
       (setq erc-kill-server-buffer-on-quit t)
       (erc-track-mode t)
       (setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"))
       (setq erc-server-coding-system '(utf-8 . utf-8))))
+
+      ;; keybindings
+      (evil-leader/set-key "ae" 'erc)
+      (evil-leader/set-key-for-mode 'erc-mode
+        "mb" 'erc-iswitchb
+        "md" 'erc-input-action
+        "mj" 'erc-join-channel
+        "mn" 'erc-channel-names
+        "ml" 'erc-list-command
+        "mp" 'erc-part-from-channel
+        "mq" 'erc-quit-server
+        )
   )
