@@ -778,20 +778,22 @@ _Ugly separators_
 
 Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>SPC t c</kbd>    | display the fill column (by default the fill column is set to 80)
-<kbd>SPC t F</kbd>    | toggle frame fullscreen
-<kbd>SPC t f</kbd>    | toggle display of the fringe
-<kbd>SPC t h</kbd>    | toggle highlight of the current line
-<kbd>SPC t i</kbd>    | toggle aggressive indent
-<kbd>SPC t l</kbd>    | toggle truncate lines
-<kbd>SPC t L</kbd>    | toggle visual lines
-<kbd>SPC t M</kbd>    | toggle frame maximize
-<kbd>SPC t n</kbd>    | show the absolute line numbers
-<kbd>SPC t t</kbd>    | toggle frame transparency
-<kbd>SPC t T</kbd>    | toggle tool bar
-<kbd>SPC t U</kbd>    | toggle menu bar
+    Key Binding         |                 Description
+------------------------|------------------------------------------------------------
+<kbd>SPC t c</kbd>      | display the fill column (by default the fill column is set to 80)
+<kbd>SPC t F</kbd>      | toggle frame fullscreen
+<kbd>SPC t f</kbd>      | toggle display of the fringe
+<kbd>SPC t h h</kbd>    | toggle highlight of the current line
+<kbd>SPC t h i</kbd>    | toggle highlight indentation levels
+<kbd>SPC t h c</kbd>    | toggle highlight indentation current column
+<kbd>SPC t i</kbd>      | toggle aggressive indent
+<kbd>SPC t l</kbd>      | toggle truncate lines
+<kbd>SPC t L</kbd>      | toggle visual lines
+<kbd>SPC t M</kbd>      | toggle frame maximize
+<kbd>SPC t n</kbd>      | show the absolute line numbers
+<kbd>SPC t t</kbd>      | toggle frame transparency
+<kbd>SPC t T</kbd>      | toggle tool bar
+<kbd>SPC t U</kbd>      | toggle menu bar
 
 **Note** These toggles are all available via the `helm-spacemacs` interface
 (press <kbd>SPC fe h</kbd> to display the `helm-spacemacs` buffer).
