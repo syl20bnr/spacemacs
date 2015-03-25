@@ -80,6 +80,7 @@
     helm-swoop
     helm-themes
     highlight
+    highlight-indentation
     highlight-numbers
     hippie-exp
     hl-anything
