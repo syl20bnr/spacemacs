@@ -155,7 +155,19 @@ Ensure that helm is required before calling FUNC."
                       :on (global-hl-line-mode)
                       :off (global-hl-line-mode -1)
                       :documentation "Globally Highlight the current line."
-                      :evil-leader "th")
+                      :evil-leader "thh")
+(spacemacs|add-toggle highlight-indentation
+                      :status highlight-indentation-mode
+                      :on (highlight-indentation-mode)
+                      :off (highlight-indentation-mode -1)
+                      :documentation "Highlight indentation levels."
+                      :evil-leader "thi")
+(spacemacs|add-toggle highlight-indentation-current-column
+                      :status highlight-indentation-current-column-mode
+                      :on (highlight-indentation-current-column-mode)
+                      :off (highlight-indentation-current-column-mode -1)
+                      :documentation "Highlight indentation level at point."
+                      :evil-leader "thc")
 (spacemacs|add-toggle truncate-lines
                       :status nil
                       :on (toggle-truncate-lines)

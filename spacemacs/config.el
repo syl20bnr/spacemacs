@@ -41,6 +41,7 @@
                                        ("S" .  "spelling")
                                        ("t" .  "toggles")
                                        ("tC" . "toggles-colors")
+                                       ("th" . "toggles-highlight")
                                        ("tm" . "toggles-modeline")
                                        ("T" .  "themes")
                                        ("w" .  "windows")
