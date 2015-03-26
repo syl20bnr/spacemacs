@@ -13,6 +13,8 @@
 (defvar git-packages
   '(
     fringe-helper
+    gitconfig-mode
+    git-commit-mode
     git-messenger
     git-rebase-mode
     git-timemachine
