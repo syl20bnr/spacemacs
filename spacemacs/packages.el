@@ -2018,7 +2018,15 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 (defun spacemacs/init-org-bullets ()
   (use-package org-bullets
     :defer t
-    :init (add-hook 'org-mode-hook 'org-bullets-mode)))
+    :init
+    (progn
+      (add-hook 'org-mode-hook 'org-bullets-mode)
+      (setq org-bullets-bullet-list '("■" "◆" "▲" "▶")))))
+
+(defun spacemacs/init-org-trello ()
+  (use-package org-trello
+    :init
+    (add-hook 'org-mode-hook 'org-trello-mode)))
 
 (defun spacemacs/init-page-break-lines ()
   (use-package page-break-lines
