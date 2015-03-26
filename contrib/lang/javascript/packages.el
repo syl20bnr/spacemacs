@@ -165,7 +165,7 @@ which require an initialization must be listed explicitly in the list.")
 (defun javascript/init-company-tern ()
   (use-package company-tern
     :if (and (configuration-layer/package-declaredp 'tern)
-             (configuration-layer/package-declaredp 'company))
+             (configuration-layer/layer-declaredp 'company-mode))
     :defer t
     :init
     (progn
