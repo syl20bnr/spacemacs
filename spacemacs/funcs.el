@@ -521,11 +521,18 @@ kill internal buffers too."
 (defvar spacemacs-really-kill-emacs nil
   "prevent window manager close from closing instance.")
 
+(defun spacemacs-persistent-server-running-p ()
+  "requires spacemacs-really-kill-emacs to be toggled and dotspacemacs-persistent-server to be t"
+  (and (fboundp 'server-running-p) 
+         (server-running-p)
+         dotspacemacs-persistent-server))
+
 (defadvice kill-emacs (around spacemacs-really-exit activate)
   "Only kill emacs if a prefix is set"
-  (if (or spacemacs-really-kill-emacs (not dotspacemacs-persistent-server))
-      ad-do-it
-    (spacemacs/frame-killer)))
+  (if (and (not spacemacs-really-kill-emacs) (spacemacs-persistent-server-running-p))
+      (spacemacs/frame-killer)
+    ad-do-it
+    ))
 
 (defadvice save-buffers-kill-emacs (around spacemacs-really-exit activate)
   "Only kill emacs if a prefix is set"
