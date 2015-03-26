@@ -269,10 +269,15 @@ Ensure that helm is required before calling FUNC."
   "w/"  'split-window-right
   "w="  'balance-windows)
 ;; text -----------------------------------------------------------------------
+(spacemacs|define-micro-state scale-font
+  :doc "Scale Font [+] scale up [-] scale down [=] reset font" 
+  :evil-leader "zx"
+  :use-minibuffer t
+  :bindings
+  ("+" spacemacs/scale-up-font)
+  ("-" spacemacs/scale-down-font)
+  ("=" spacemacs/reset-font-size))
 (evil-leader/set-key
-  "zx="  'spacemacs/reset-font-size
-  "zx+"  'spacemacs/scale-up-font
-  "zx-"  'spacemacs/scale-down-font
   "xdw" 'delete-trailing-whitespace
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
