@@ -77,6 +77,7 @@
     ;; not working for now
     ;; helm-proc
     helm-projectile
+    helm-pt
     helm-swoop
     helm-themes
     highlight
@@ -1341,6 +1342,7 @@ which require an initialization must be listed explicitly in the list.")
         "bs"  'helm-mini
         "Cl"  'helm-colors
         "sl"  'helm-semantic-or-imenu
+        "sg"  'helm-do-grep
         "hb"  'helm-bookmarks
         "hl"  'helm-resume
         "ry"  'helm-show-kill-ring
@@ -1585,6 +1587,14 @@ ARG non nil means that the editing style is `vim'."
       "ph" 'helm-projectile
       "ps" 'helm-projectile-switch-project
       "pv" 'helm-projectile-vc)))
+
+(defun spacemacs/init-helm-pt ()
+  (use-package helm-pt
+    :defer t
+    :init
+    (evil-leader/set-key
+      "p p" 'helm-projectile-pt
+      "s p" 'helm-do-pt)))
 
 (defun spacemacs/init-helm-swoop ()
   (use-package helm-swoop
