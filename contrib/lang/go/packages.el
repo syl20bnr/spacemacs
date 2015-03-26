@@ -41,7 +41,7 @@ which require an initialization must be listed explicitly in the list.")
 )
 (defun go/init-company-go ()
  (use-package company-go
-   :if (configuration-layer/package-declaredp 'company)
+   :if (configuration-layer/package-declaredp 'company-mode)
    :defer t
    :init
    (progn

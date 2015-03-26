@@ -222,7 +222,7 @@
 
 (defun haskell/init-company-ghc ()
   (use-package company-ghc
-    :if (configuration-layer/package-declaredp 'company)
+    :if (configuration-layer/package-declaredp 'company-mode)
     :defer t
     :init
     (progn
