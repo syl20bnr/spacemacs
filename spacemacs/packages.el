@@ -170,10 +170,13 @@ which require an initialization must be listed explicitly in the list.")
   (use-package ace-window
     :defer t
     :init
-    (evil-leader/set-key
-      "bM"  'ace-swap-window
-      "wC"  'ace-delete-window
-      "wW"  'ace-window)
+    (progn
+      (evil-leader/set-key
+        "bM"  'ace-swap-window
+        "wC"  'ace-delete-window
+        "w <SPC>"  'ace-window)
+      ;; set ace-window keys to home-row
+      (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
     :config
     (progn
       ;; add support for golden-ratio
