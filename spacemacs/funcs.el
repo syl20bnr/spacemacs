@@ -502,6 +502,12 @@ For instance pass En as source for english."
   (let ((newbuf (generate-new-buffer-name "untitled")))
     (switch-to-buffer newbuf)))
 
+(defun spacemacs/home ()
+  "Go to home Spacemacs buffer"
+  (interactive)
+  (switch-to-buffer "*spacemacs*")
+  )
+
 ;; from https://github.com/gempesaw/dotemacs/blob/emacs/dg-defun.el
 (defun kill-matching-buffers-rudely (regexp &optional internal-too)
   "Kill buffers whose name matches the specified REGEXP. This
