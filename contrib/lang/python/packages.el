@@ -60,12 +60,7 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (spacemacs|reset-local-company-backends python-mode)
-      (defun spacemacs//anaconda-company-backend ()
-        "Add anaconda company backend."
-        (push (spacemacs/company-backend-with-yas 'company-anaconda)
-              company-backends))
-      (add-hook 'python-mode-hook 'spacemacs//anaconda-company-backend t))))
+      (spacemacs|add-mode-company-backend python-mode company-anaconda))))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode

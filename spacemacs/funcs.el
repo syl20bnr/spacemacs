@@ -778,7 +778,24 @@ If ASCII si not provided then UNICODE is used instead."
     (comint-truncate-buffer)))
 
 (defmacro spacemacs|reset-local-company-backends (mode)
-  "Helper to make `company-backends' buffer local and reset it."
+  "Helper to make `company-backends' buffer local and reset it.
+Use *only* if a default backend interferes with completion in a specific mode."
   `(add-hook ',(intern (format "%S-hook" mode))
              (lambda ()
                (set (make-variable-buffer-local 'company-backends) nil))))
+
+(defun spacemacs//make-company-backends-local ()
+  "Helper to make `company-backends' buffer local and reset it."
+  (make-variable-buffer-local 'company-backends))
+
+(defmacro spacemacs|add-mode-company-backend (mode backend)
+  "Add a new `company-mode' backend for a specific mode."
+  (let ((back-hook-sym (intern (format "spacemacs//add-%S-%S" mode backend)))
+        (mode-hook-sym (intern (format "%S-hook" mode))))
+    ; Need the company *layer* for the backend-with-yas function, not just the package. See #961
+    `(when (configuration-layer/layer-declaredp 'company-mode)
+       ;; this hook will be added once even if this macro is used multiple times on the same mode.
+       (add-hook ',mode-hook-sym 'spacemacs//make-company-backends-local)
+       (defun ,back-hook-sym ()
+         (add-to-list 'company-backends (spacemacs/company-backend-with-yas ',backend)))
+       (add-hook ',mode-hook-sym ',back-hook-sym t))))

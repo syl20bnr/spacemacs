@@ -169,10 +169,4 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (spacemacs|reset-local-company-backends tern-mode)
-      (defun spacemacs//tern-company-backend ()
-        "Add tern company backend."
-        (push (spacemacs/company-backend-with-yas 'company-tern)
-              company-backends))
-      (add-hook 'tern-mode-hook 'spacemacs//tern-company-backend t))))
-
+      (spacemacs|add-mode-company-backend tern-mode company-tern))))
