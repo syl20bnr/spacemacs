@@ -87,6 +87,7 @@
     ido-vertical-mode
     info+
     iedit
+    indent-guide
     let-alist
     leuven-theme
     linum-relative
@@ -1806,6 +1807,12 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 (defun spacemacs/init-iedit ()
   (use-package iedit
     :defer t))
+
+(defun spacemacs/init-indent-guide ()
+  (use-package indent-guide
+    :defer t
+    :init
+    (evil-leader/set-key "tI" 'indent-guide-mode)))
 
 (defun spacemacs/init-info+ ()
   (use-package info+
