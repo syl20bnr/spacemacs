@@ -52,6 +52,7 @@
         - [Color themes](#color-themes)
         - [Font](#font)
         - [Graphical UI Toggles](#graphical-ui-toggles)
+        - [Mouse usage](#mouse-usage)
         - [Mode-line](#mode-line)
             - [Flycheck integration](#flycheck-integration)
             - [Anzu integration](#anzu-integration)
@@ -796,6 +797,14 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 
 **Note** These toggles are all available via the `helm-spacemacs` interface
 (press <kbd>SPC fe h</kbd> to display the `helm-spacemacs` buffer).
+
+### Mouse usage
+
+There are some added mouse features set for the line number margin (if shown):
+
+- single click in line number margin visually selects the entire line
+- drag across line number margin visually selects the region
+- double click in line number margin visually select the current code block
 
 ### Mode-line
 
