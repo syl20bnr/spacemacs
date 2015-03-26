@@ -1593,8 +1593,19 @@ ARG non nil means that the editing style is `vim'."
     (defconst spacemacs-use-helm-projectile t
       "This variable is only defined if helm-projectile is used.")
     (setq projectile-switch-project-action 'helm-projectile)
+    (defun spacemacs/helm-projectile-dwim ()
+      (interactive)
+      (progn
+        (call-interactively (cond ((executable-find "ag")
+                                   'helm-projectile-ag)
+                                  ((executable-find "ack")
+                                   'helm-projectile-ack)
+                                  ((executable-find "pt")
+                                   'helm-projectile-pt)
+                                  (t
+                                   'helm-projectile-grep)))))
     (evil-leader/set-key
-      "/" 'helm-projectile-ag
+      "/"  'spacemacs/helm-projectile-dwim
       "pa" 'helm-projectile-ag
       "pA" 'helm-projectile-ack
       "pb" 'helm-projectile-switch-to-buffer
