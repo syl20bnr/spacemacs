@@ -279,6 +279,26 @@ argument takes the kindows rotate backwards."
   (interactive "p")
   (rotate-windows (* -1 count)))
 
+(defun spacemacs/next-real-buffer ()
+  (interactive)
+  (switch-to-next-buffer)
+  (let ((i 0))
+    (while (and (< i 100) (string-equal "*" (substring (buffer-name) 0 1)))
+      (1+ i)
+      (switch-to-next-buffer))))
+
+(defun spacemacs/prev-real-buffer ()
+  (interactive)
+  (switch-to-prev-buffer)
+  (let ((i 0))
+    (while (and (< i 100) (string-equal "*" (substring (buffer-name) 0 1)))
+      (1+ i)
+      (switch-to-prev-buffer))))
+
+(defun spacemacs/kill-this-buffer ()
+  (interactive)
+  (kill-buffer (current-buffer)))
+
 ;; from magnars
 (defun rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."
