@@ -226,12 +226,7 @@
     :defer t
     :init
     (progn
-      (spacemacs|reset-local-company-backends haskell-mode)
-      (defun spacemacs//ghc-company-backend ()
-        "Add GHC company backend."
-        (push (spacemacs/company-backend-with-yas 'company-ghc)
-              company-backends))
-      (add-hook 'haskell-mode-hook 'spacemacs//ghc-company-backend t))))
+      (spacemacs|add-mode-company-backend haskell-mode company-ghc))))
 
 (defun haskell/init-hi2 ()
   (use-package hi2
