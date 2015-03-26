@@ -47,6 +47,7 @@
 (evil-leader/set-key
   "b0"  'beginning-of-buffer
   "b$"  'end-of-buffer
+  "bd"  'spacemacs/kill-this-buffer
   "bb"  'spacemacs/alternate-buffer ;; switch back and forth between two last buffers
   "TAB" 'spacemacs/alternate-buffer
   "be"  'spacemacs/safe-erase-buffer
@@ -313,6 +314,19 @@ Ensure that helm is required before calling FUNC."
 ;; ---------------------------------------------------------------------------
 ;; Micro-states
 ;; ---------------------------------------------------------------------------
+
+;; define buffer micro state
+
+(spacemacs|define-micro-state buffer-micro-state
+  :disable-evil-leader t
+  :doc "Buffer micro-state [n] next [p] previous [k] kill"
+  :use-minibuffer t
+  :evil-leader "b."
+  :bindings
+  ("p" spacemacs/prev-real-buffer)
+  ("n" spacemacs/next-real-buffer)
+  ("k" spacemacs/kill-this-buffer)
+  )
 
 ;; Window Manipulation Micro State
 
