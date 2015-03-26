@@ -1305,6 +1305,7 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key "tk" 'spacemacs/toggle-guide-key)
       (setq guide-key/guide-key-sequence `("C-x"
                                            "C-c"
+                                           "C-w"
                                            ,dotspacemacs-leader-key
                                            ,dotspacemacs-emacs-leader-key
                                            ,dotspacemacs-major-mode-leader-key
@@ -1314,6 +1315,8 @@ which require an initialization must be listed explicitly in the list.")
                                            ;; C-M-m in terminal
                                            "<ESC><RET>"
                                            "g"
+                                           "\["
+                                           "\]"
                                            "z"
                                            "C-h")
             guide-key/recursive-key-sequence-flag t
