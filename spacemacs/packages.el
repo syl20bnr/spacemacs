@@ -572,6 +572,10 @@ which require an initialization must be listed explicitly in the list.")
                                              (iedit-insert  . "firebrick1"))
         "Colors assigned to evil states.")
 
+      ;; put back refresh of the cursor on post-command-hook see status of:
+      ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
+      (add-hook 'post-command-hook 'evil-refresh-cursor)
+
       (defun spacemacs/state-color-face (state)
         "Return the symbol of the face for the given STATE."
         (intern (format "spacemacs-%s-face" (symbol-name state))))
