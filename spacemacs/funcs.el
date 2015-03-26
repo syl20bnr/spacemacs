@@ -143,6 +143,18 @@ the current state and point position."
       (sp-newline)
       (setq counter (1- counter)))))
 
+;; eval lisp helpers
+(defun spacemacs/eval-last-sexp ()
+  (interactive "P")
+  (spacemacs/message "Executing code ...")
+  (eval-last-sexp))
+
+(defun spacemacs/eval-region ()
+  (interactive)
+  (spacemacs/message "Executing code ...")
+  (eval-region (region-beginning) (region-end))
+  (evil-normal-state))
+  
 ;; from magnars
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."

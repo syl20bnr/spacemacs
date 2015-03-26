@@ -287,7 +287,9 @@ Ensure that helm is required before calling FUNC."
 ;; emacs-lisp -----------------------------------------------------------------
 (evil-leader/set-key-for-mode 'emacs-lisp-mode
   "me$" 'lisp-state-eval-sexp-end-of-line
-  "mee" 'eval-last-sexp
+  "meb" 'eval-buffer
+  "mee" 'spacemacs/eval-last-sexp
+  "mer" 'spacemacs/eval-region
   "mef" 'eval-defun
   "mel" 'lisp-state-eval-sexp-end-of-line
   "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
