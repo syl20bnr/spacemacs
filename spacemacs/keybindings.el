@@ -309,8 +309,6 @@ Ensure that helm is required before calling FUNC."
   "mee" 'eval-last-sexp
   "mef" 'eval-defun
   "mel" 'lisp-state-eval-sexp-end-of-line
-  "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
-  "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point
   "m,"  'lisp-state-toggle-lisp-state
   "mtb" 'spacemacs/ert-run-tests-buffer
   "mtq" 'ert)
