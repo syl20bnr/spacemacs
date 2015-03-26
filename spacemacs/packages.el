@@ -708,10 +708,12 @@ which require an initialization must be listed explicitly in the list.")
       ;; pasting micro-state
       (defadvice evil-paste-before (after spacemacs/evil-paste-before activate)
         "Initate the paste micro-state after the execution of evil-paste-before"
-        (spacemacs/paste-micro-state))
+        (unless (evil-ex-p)
+          (spacemacs/paste-micro-state)))
       (defadvice evil-paste-after (after spacemacs/evil-paste-after activate)
         "Initate the paste micro-state after the execution of evil-paste-after"
-        (spacemacs/paste-micro-state))
+        (unless (evil-ex-p)
+          (spacemacs/paste-micro-state)))
       (defadvice evil-visual-paste (after spacemacs/evil-visual-paste activate)
         "Initate the paste micro-state after the execution of evil-visual-paste"
         (spacemacs/paste-micro-state))
