@@ -479,3 +479,10 @@ otherwise it is scaled down."
   ("=" spacemacs/reset-font-size))
 
 ;; end of Text Manipulation Micro State
+
+;; linum margin bindings ---------------------------------------------------------------
+
+(global-set-key (kbd "<left-margin> <down-mouse-1>") 'spacemacs/md-select-linum)
+(global-set-key (kbd "<left-margin> <mouse-1>") 'spacemacs/mu-select-linum)
+(global-set-key (kbd "<left-margin> <double-mouse-1>") 'spacemacs/select-current-block)
+(global-set-key (kbd "<left-margin> <drag-mouse-1>") 'spacemacs/mu-select-linum)
