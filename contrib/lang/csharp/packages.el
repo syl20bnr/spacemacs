@@ -60,7 +60,4 @@
               "mi" 'omnisharp-fix-usings
               "m=" 'omnisharp-code-format
 
-    ;; Init omnisharp company backend
-    (eval-after-load 'company
-      '(add-to-list 'company-backends 'company-omnisharp))
-    ))
+    (spacemacs|add-mode-company-backend csharp-mode company-omnisharp)))

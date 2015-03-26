@@ -30,7 +30,10 @@ which require an initialization must be listed explicitly in the list.")
 (defun ycmd/init-company-ycmd ()
   (use-package company-ycmd
     :defer t
-    :init (add-hook 'ycmd-mode-hook 'company-ycmd-setup)))
+    :init
+    (progn
+      (spacemacs|add-mode-company-backend c-mode company-ycmd)
+      (spacemacs|add-mode-company-backend c++-mode company-ycmd))))
 
 (defun ycmd/init-flycheck-ycmd ()
   (use-package flycheck-ycmd

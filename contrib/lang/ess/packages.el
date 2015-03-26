@@ -147,9 +147,4 @@ not play nicely with autoloads"
     :defer t
     :init
     (progn
-      (spacemacs|reset-local-company-backends ess-mode)
-      (defun spacemacs//ess-company-backend ()
-        "Add ESS company backend."
-        (push (spacemacs/company-backend-with-yas 'company-ess-backend)
-              company-backends))
-      (add-hook 'ess-mode-hook 'spacemacs//ess-company-backend t))))
+      (spacemacs|add-mode-company-backend ess-mode company-ess-backend))))

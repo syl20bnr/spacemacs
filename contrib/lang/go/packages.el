@@ -45,8 +45,4 @@ which require an initialization must be listed explicitly in the list.")
    :defer t
    :init
    (progn
-     (spacemacs|reset-local-company-backends go-mode)
-     (defun spacemacs//go-company-backend ()
-       (push (spacemacs/company-backend-with-yas 'company-go)
-             company-backends))
-   (add-hook 'go-mode-hook 'spacemacs//go-company-backend t))))
+     (spacemacs|add-mode-company-backend go-mode company-go))))

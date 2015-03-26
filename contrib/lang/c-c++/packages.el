@@ -50,12 +50,7 @@ which require an initialization must be listed explicitly in the list.")
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
     :init
     (progn
-      (spacemacs|reset-local-company-backends cmake-mode)
-      (defun spacemacs//cmake-company-backend ()
-        "Add cmake company backend."
-        (push (spacemacs/company-backend-with-yas 'company-cmake)
-              company-backends))
-      (add-hook 'cmake-mode-hook 'spacemacs//cmake-company-backend t))))
+      (spacemacs|add-mode-company-backend cmake-mode company-cmake))))
 
 (defun c-c++/init-company ()
   ;; .clang_complete file loading
@@ -107,14 +102,8 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (spacemacs|reset-local-company-backends c-mode)
-      (spacemacs|reset-local-company-backends c++-mode)
-      (defun spacemacs//c-headers-company-backend ()
-        "Add c-headers company backend."
-        (push (spacemacs/company-backend-with-yas 'company-c-headers)
-              company-backends))
-      (add-hook 'c-mode-hook 'spacemacs//c-headers-company-backend t)
-      (add-hook 'c++-mode-hook 'spacemacs//c-headers-company-backend t))))
+      (spacemacs|add-mode-company-backend c-mode company-c-headers)
+      (spacemacs|add-mode-company-backend c++-mode company-c-headers))))
 
 (defun c-c++/init-flycheck ()
   (add-to-hooks 'flycheck-mode '(c-mode-hook c++-mode-hook)))
@@ -139,4 +128,3 @@ which require an initialization must be listed explicitly in the list.")
         (require 'stickyfunc-enhance))
       (add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance
                     '(c-mode-hook c++-mode-hook)))))
-
