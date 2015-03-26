@@ -13,7 +13,9 @@
 (defvar git-packages
   '(
     fringe-helper
+    gitattributes-mode
     gitconfig-mode
+    gitignore-mode
     git-commit-mode
     git-messenger
     git-rebase-mode
@@ -182,8 +184,16 @@ which require an initialization must be listed explicitly in the list.")
         ("Y" git-timemachine-kill-revision)
         ("q" nil :exit t)))))
 
+(defun git/init-gitattributes-mode ()
+  (use-package gitattributes-mode
+    :defer t))
+
 (defun git/init-gitconfig-mode ()
   (use-package gitconfig-mode
+    :defer t))
+
+(defun git/init-gitignore-mode ()
+  (use-package gitignore-mode
     :defer t))
 
 ;; this mode is not up to date
