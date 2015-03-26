@@ -103,7 +103,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun c-c++/init-company-c-headers ()
   (use-package company-c-headers
-    :if (configuration-layer/package-declaredp 'company)
+    :if (configuration-layer/layer-declaredp 'company-mode)
     :defer t
     :init
     (progn

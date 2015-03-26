@@ -25,7 +25,7 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (add-hook 'markdown-mode-hook 'smartparens-mode)
-      (when (configuration-layer/package-declaredp 'company)
+      (when (configuration-layer/layer-declaredp 'company-mode)
         (add-hook 'markdown-mode-hook (lambda () (company-mode -1)))))
     :config
     ;; Don't do terrible things with Github code blocks (```)

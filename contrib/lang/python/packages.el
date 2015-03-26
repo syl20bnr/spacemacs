@@ -56,7 +56,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
-    :if (configuration-layer/package-declaredp 'company)
+    :if (configuration-layer/layer-declaredp 'company-mode)
     :defer t
     :init
     (progn
