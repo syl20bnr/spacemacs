@@ -220,6 +220,21 @@ the current state and point position."
         (setq p2 (point))))
     (set-mark p1)))
 
+;; eval lisp helpers
+(defun spacemacs/eval-region ()
+  (interactive)
+  (eval-region (region-beginning) (region-end))
+  (evil-normal-state))
+
+;; idea from http://www.reddit.com/r/emacs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
+(defun spacemacs/eval-current-form ()
+  "Looks for the current def* or set* command then evaluates, unlike `eval-defun', does not go to topmost function"
+  (interactive)
+  (save-excursion
+    (search-backward-regexp "(def\\|(set")
+    (forward-list)
+    (call-interactively 'eval-last-sexp)))
+
 ;; from magnars
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
@@ -798,8 +813,7 @@ If ASCII si not provided then UNICODE is used instead."
      ((system-is-mswindows) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" file-path)))
      ((system-is-mac) (shell-command (format "open \"%s\"" file-path)))
      ((system-is-linux) (let ((process-connection-type nil))
-                          (start-process "" nil "xdg-open" file-path)))
-     )))
+                          (start-process "" nil "xdg-open" file-path))))))
 
 (defun spacemacs/next-error (&optional n reset)
   "Dispatch to flycheck or standard emacs error."
