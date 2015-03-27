@@ -143,7 +143,7 @@ not play nicely with autoloads"
 
 (defun ess/init-company-ess ()
   (use-package company-ess
-    :if (configuration-layer/package-declaredp 'company-mode)
+    :if (configuration-layer/layer-declaredp 'company-mode)
     :defer t
     :init
     (progn
