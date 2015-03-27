@@ -112,7 +112,7 @@ the focus."
         (interactive)
         (spacemacs//cider-eval-in-repl-no-focus (cider-ns-form)))
 
-      (defun spacemacs/cider-send-function-to-repl-focus ()
+      (defun spacemacs/cider-send-ns-form-to-repl-focus ()
         "Send ns form to REPL and evaluate it and switch to the REPL in
 `insert state'."
         (interactive)
@@ -150,7 +150,7 @@ the focus."
         "msF" 'spacemacs/cider-send-function-to-repl-focus
         "msi" 'cider-jack-in
         "msn" 'spacemacs/cider-send-ns-form-to-repl
-        "msN" 'spacemacs/cider-send-function-to-repl-focus
+        "msN" 'spacemacs/cider-send-ns-form-to-repl-focus
         "msq" 'cider-quit
         "msr" 'spacemacs/cider-send-region-to-repl
         "msR" 'spacemacs/cider-send-region-to-repl-focus
