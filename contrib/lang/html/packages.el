@@ -50,6 +50,7 @@ which require an initialization must be listed explicitly in the list.")
         "mhp" 'web-mode-dom-xpath
         "mrc" 'web-mode-element-clone
         "mrd" 'web-mode-element-vanish
+        "mrk" 'web-mode-element-kill
         "mrr" 'web-mode-element-rename
         "mrw" 'web-mode-element-wrap
         "mz" 'web-mode-fold-or-unfold
@@ -64,8 +65,9 @@ which require an initialization must be listed explicitly in the list.")
             "[?] for help"
           "
   [?] display this help
-  [h] previous [l] next   [L] sibling [k] parent [j] child
-  [c] clone    [d] delete [r] rename  [w] wrap   [p] xpath
+  [k] previous [j] next   [K] previous sibling [J] next sibling
+  [h] parent   [l] child  [c] clone [d] delete [D] kill [r] rename
+  [w] wrap     [p] xpath
   [q] quit"))
 
       (defun spacemacs//web-mode-ms-toggle-doc ()
@@ -82,11 +84,13 @@ which require an initialization must be listed explicitly in the list.")
         ("?" spacemacs//web-mode-ms-toggle-doc)
         ("c" web-mode-element-clone)
         ("d" web-mode-element-vanish)
-        ("h" web-mode-element-previous)
-        ("l" web-mode-element-next)
-        ("L" web-mode-element-sibling-next)
-        ("k" web-mode-element-parent)
-        ("j" web-mode-element-child)
+        ("D" web-mode-element-kill)
+        ("j" web-mode-element-next)
+        ("J" web-mode-element-sibling-next)
+        ("k" web-mode-element-previous)
+        ("K" web-mode-element-sibling-previous)
+        ("h" web-mode-element-parent)
+        ("l" web-mode-element-child)
         ("p" web-mode-dom-xpath)
         ("r" web-mode-element-rename)
         ("q" nil :exit t)
