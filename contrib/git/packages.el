@@ -21,6 +21,7 @@
     git-timemachine
     gist
     github-browse-file
+    git-link
     ;; not up to date
     ;; helm-gist
     magit
@@ -321,6 +322,14 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (evil-leader/set-key
       "gfb" 'github-browse-file)))
+
+(defun git/init-git-link ()
+  (use-package git-link
+    :init
+    (evil-leader/set-key
+      "gfl" 'git-link
+      "gfc" 'git-link-commit)
+    (setq git-link-open-in-browser t)))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
