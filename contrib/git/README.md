@@ -24,6 +24,7 @@
         - [magit-gh-pulls](#magit-gh-pulls)
         - [gist.el](#gistel)
         - [github-browse-file](#github-browse-file)
+        - [git-link](#git-link)
 
 <!-- markdown-toc end -->
 
@@ -311,6 +312,23 @@ In the gist list buffer:
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC g f b</kbd>  | browse to file on github
+
+### git-link
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC g f l</kbd>  | browse to file on github/bitbucket/etc (on current line possition)
+<kbd>SPC g f c</kbd>  | browse to file on github/bitbucket/etc (on current line at commit)
+
+Pro Tip: if you have multiple remotes, try prepending `SPC u` to the calls to the git-link
+
+Pro Tip #2: You can select a region and use git-link to have the whole region selected in the link
+
+Pro tip #3: The link is openned automatically, but it's copied to the clipboard
+too if you don't want for any reason to have the link opened all the time, put this on your `dotspacemacs/config`:
+```elisp
+(setq git-link-open-in-browser nil)
+```
 
 [git]: http://git-scm.com/
 [download page]: http://git-scm.com/downloads
