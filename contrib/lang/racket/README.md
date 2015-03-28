@@ -1,6 +1,21 @@
-# Racket
+# Racket contribution layer for Spacemacs
 
 ![logo_racket](img/racket.png)
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [Racket contribution layer for Spacemacs](#racket-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+    - [Key Bindings](#key-bindings)
+        - [Navigation](#navigation)
+        - [Documentation](#documentation)
+        - [Tests](#tests)
+        - [REPL](#repl)
+        - [Other key bindings](#other-key-bindings)
+
+<!-- markdown-toc end -->
 
 ## Description
 
