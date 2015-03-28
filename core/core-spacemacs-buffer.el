@@ -31,7 +31,6 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
         (insert-file-contents banner))
       (spacemacs//inject-version)
       (spacemacs/insert-buttons)
-      ;; (spacemacs/insert-startupify-lists)
       (spacemacs//redisplay))))
 
 (defun spacemacs//choose-banner ()
@@ -196,17 +195,20 @@ buffer, right justified."
           (list-separator "\n\n"))
       (goto-char (point-max))
 
-      (recentf-mode)
-      (when (spacemacs//insert-file-list "  Recent Files:" (recentf-elements 5))
-        (insert list-separator))
-
-      (helm-mode)
-      (when (spacemacs//insert-file-list "  Bookmarks:" (bookmark-all-names))
-        (insert list-separator))
-
-      (projectile-mode)
-      (when (spacemacs//insert-file-list "  Projects:" (projectile-relevant-known-projects))
-        (insert list-separator)))))
+      (mapc (lambda (el)
+              (cond
+               ((equal el 'recents)
+                (recentf-mode)
+                (when (spacemacs//insert-file-list "  Recent Files:" (recentf-elements 5))
+                  (insert list-separator)))
+               ((equal el 'bookmarks)
+                (helm-mode)
+                (when (spacemacs//insert-file-list "  Bookmarks:" (bookmark-all-names))
+                  (insert list-separator)))
+               ((equal el 'projects)
+                (projectile-mode)
+                (when (spacemacs//insert-file-list "  Projects:" (projectile-relevant-known-projects))
+                  (insert list-separator))))) dotspacemacs-startup-lists))))
 
 (defun spacemacs/goto-link-line ()
   "Move the point to the beginning of the link line."
