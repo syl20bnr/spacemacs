@@ -53,6 +53,14 @@ which require an initialization must be listed explicitly in the list.")
         "ggr" 'gist-region
         "ggR" 'gist-region-private))))
 
+(defun git/init-git-commit-mode ()
+  (use-package git-commit-mode
+    :defer t
+    :config
+    (evil-leader/set-key-for-mode 'git-commit-mode
+      "mcc" 'git-commit-commit
+      "mk" 'git-commit-abort)))
+
 (defun init-git-gutter ()
   "Common initialization of git-gutter."
   (git-gutter-mode)
@@ -165,6 +173,10 @@ which require an initialization must be listed explicitly in the list.")
         ("N" git-timemachine-show-previous-revision)
         ("Y" git-timemachine-kill-revision)
         ("q" nil :exit t)))))
+
+(defun git/init-gitconfig-mode ()
+  (use-package gitconfig-mode
+    :defer t))
 
 ;; this mode is not up to date
 ;; any contributor to make it up to date is welcome:
