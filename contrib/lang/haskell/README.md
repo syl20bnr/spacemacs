@@ -135,7 +135,7 @@ for [structured-haskell-mode][].
 reformat your code. You need to install the executable with `cabal
 install hindent`.
 
-To enable it you have to set the variable `haskell-enable-hindent-support`
+To enable it you have to set the variable `haskell-enable-hindent-style`
 to a supported style. The available styles are:
 - fundamental
 - johan-tibell
@@ -146,7 +146,7 @@ See examples [here][hindent-examples]
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers
-  '((haskell :variables haskell-enable-hindent-support "johan-tibell")))
+  '((haskell :variables haskell-enable-hindent-style "johan-tibell")))
 ```
 
 ## Key bindings
