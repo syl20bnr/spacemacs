@@ -57,14 +57,10 @@ To install them, use the following command:
 cabal install stylish-haskell hlint ghc-mod
 ```
 
-Next Emacs needs to know where to find these binaries, you can locate them with
-the following shell command:
-
-```sh
-dirname $(which ghc-mod)
-```
-
 Then you have to add this path to your system `$PATH` (preferred):
+Note that on **Linux** distributions the installed binaries should be in
+`~/.cabal/bin` and on **OS X** the binaries are installed in
+`/Users/<username>/Library/Haskell/bin`.
 
 ```sh
 export PATH=~/.cabal/bin/:$PATH
