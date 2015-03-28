@@ -2013,6 +2013,10 @@ Key Binding          | Function
 <kbd>SPC k (</kbd>   | insert expression before (same level as current one)
 <kbd>SPC k )</kbd>   | insert expression after (same level as current one)
 <kbd>SPC k $</kbd>   | go to the end of current sexp
+<kbd>SPC k ` k</kbd> | hybrid version of kill sexp (can be used in non lisp dialects)
+<kbd>SPC k ` p</kbd> | hybrid version of push sexp (can be used in non lisp dialects)
+<kbd>SPC k ` s</kbd> | hybrid version of slurp sexp (can be used in non lisp dialects)
+<kbd>SPC k ` t</kbd> | hybrid version of transpose sexp (can be used in non lisp dialects)
 <kbd>SPC k 0</kbd>   | go to the beginning of current sexp
 <kbd>SPC k a</kbd>   | absorb expression
 <kbd>SPC k b</kbd>   | forward barf expression
@@ -2027,12 +2031,14 @@ Key Binding          | Function
 <kbd>SPC k e</kbd>   | unwrap current expression and kill all symbols after point
 <kbd>SPC k E</kbd>   | unwrap current expression and kill all symbols before point
 <kbd>SPC k h</kbd>   | previous symbol
+<kbd>SPC k H</kbd>   | go to previous sexp
 <kbd>SPC k i</kbd>   | switch to `insert state`
 <kbd>SPC k I</kbd>   | go to beginning of current expression and switch to `insert state`
 <kbd>SPC k j</kbd>   | next closing parenthesis
 <kbd>SPC k J</kbd>   | join expression
 <kbd>SPC k k</kbd>   | previous opening parenthesis
 <kbd>SPC k l</kbd>   | next symbol
+<kbd>SPC k L</kbd>   | go to next sexp
 <kbd>SPC k p</kbd>   | paste after
 <kbd>SPC k P</kbd>   | paste before
 <kbd>SPC k r</kbd>   | raise expression (replace parent expression by current one)
@@ -2040,6 +2046,7 @@ Key Binding          | Function
 <kbd>SPC k S</kbd>   | backward slurp expression
 <kbd>SPC k t</kbd>   | transpose expression
 <kbd>SPC k u</kbd>   | undo
+<kbd>SPC k U</kbd>   | got to parent sexp backward
 <kbd>SPC k C-r</kbd> | redo
 <kbd>SPC k v</kbd>   | switch to `visual state`
 <kbd>SPC k V</kbd>   | switch to `visual line state`
