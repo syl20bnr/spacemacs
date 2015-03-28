@@ -322,6 +322,7 @@ version and the NEW version."
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file
      (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
+     (spacemacs/insert-startupify-lists)
      ;; from jwiegley
      ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
      (let ((elapsed (float-time
