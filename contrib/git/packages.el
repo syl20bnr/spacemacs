@@ -243,6 +243,7 @@ which require an initialization must be listed explicitly in the list.")
                (kbd "C-v") 'magit-revert-item)
       (evilify magit-status-mode magit-status-mode-map
                "K" 'magit-discard-item
+               "f" 'magit-key-mode-popup-fetching
                "L" 'magit-key-mode-popup-logging
                "H" 'magit-key-mode-popup-diff-options
                (kbd "C-j") 'magit-goto-next-section
