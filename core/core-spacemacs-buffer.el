@@ -178,6 +178,38 @@ buffer, right justified."
   (insert "\n\n")
   )
 
+(defun spacemacs//insert-file-list (list-display-name list)
+  (when (car list)
+    (insert list-display-name)
+    (mapc (lambda (el)
+            (insert "\n    ")
+            (insert-button el
+                           'action `(lambda (b) (find-file-existing ,el))
+                           'follow-link t))
+          list)))
+
+(defun spacemacs/insert-startupify-lists ()
+  (interactive)
+  (with-current-buffer (get-buffer-create "*spacemacs*")
+    (let ((buffer-read-only nil)
+          (list-separator "\n\n"))
+      (goto-char (point-max))
+
+      (mapc (lambda (el)
+              (cond
+               ((eq el 'recents)
+                (recentf-mode)
+                (when (spacemacs//insert-file-list "  Recent Files:" (recentf-elements 5))
+                  (insert list-separator)))
+               ((eq el 'bookmarks)
+                (helm-mode)
+                (when (spacemacs//insert-file-list "  Bookmarks:" (bookmark-all-names))
+                  (insert list-separator)))
+               ((eq el 'projects)
+                (projectile-mode)
+                (when (spacemacs//insert-file-list "  Projects:" (projectile-relevant-known-projects))
+                  (insert list-separator))))) dotspacemacs-startup-lists))))
+
 (defun spacemacs/goto-link-line ()
   "Move the point to the beginning of the link line."
   (interactive)
