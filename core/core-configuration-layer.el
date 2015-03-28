@@ -84,7 +84,9 @@ and configuring the package.")
 (defvar configuration-layer-all-post-extensions-sorted '()
   "Sorted list of all post extensions symbols.")
 
-(defvar configuration-layer-contrib-categories '("usr" "lang")
+(defvar configuration-layer-contrib-categories '("irc"
+                                                 "lang"
+                                                 "usr")
   "List of strings corresponding to category names. A category is a
 sub-directory of the contribution directory.")
 
