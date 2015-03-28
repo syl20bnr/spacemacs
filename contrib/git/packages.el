@@ -139,8 +139,16 @@ which require an initialization must be listed explicitly in the list.")
 (defun git/init-git-rebase-mode ()
   (use-package git-rebase-mode
     :defer t
-    :init (evilify git-rebase-mode git-rebase-mode-map
-                   "y" 'git-rebase-insert)))
+    :config
+    (progn
+      (evilify git-rebase-mode git-rebase-mode-map
+               "J" 'git-rebase-move-line-down
+               "K" 'git-rebase-move-line-up
+               "u" 'git-rebase-undo
+               "y" 'git-rebase-insert)
+      (evil-leader/set-key-for-mode 'git-rebase-mode
+        "mcc" 'git-rebase-server-edit
+        "mk" 'git-rebase-abort))))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine

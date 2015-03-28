@@ -17,6 +17,8 @@
         - [Git](#git)
     - [Working with Git](#working-with-git)
         - [Magit](#magit)
+        - [Commit message edition buffer](#commit-message-edition-buffer)
+        - [Interactive rebase buffer](#interactive-rebase-buffer)
         - [Quick guide for recurring use cases in Magit](#quick-guide-for-recurring-use-cases-in-magit)
         - [Git time machine](#git-time-machine)
         - [Git gutter](#git-gutter)
@@ -191,11 +193,43 @@ Here are the often used bindings inside a `status buffer`:
 <kbd>C-v</kbd>    | revert item at point
 <kbd>z z</kbd>    | stash changes
 
-In a commit message buffer press `C-c C-c` to commit the changes with the
-entered message. `C-c C-k` will discard the commit message.
+### Commit message edition buffer
 
-**Note:** Sometimes you will be asked about reverting the commit buffer,
-you can answer `y` with no issue.
+In a commit message buffer press <kbd>C-c C-c</kbd> or <kbd>SPC m c c</kbd>
+to commit the changes with the entered message.
+Pressing <kbd>C-c C-k</kbd> or <kbd>SPC m k</kbd> will discard the commit
+message.
+
+    Key Binding       |                 Description
+----------------------|--------------------------------------------------------
+<kbd>h</kbd>          | go left
+<kbd>j</kbd>          | go down
+<kbd>k</kbd>          | go up
+<kbd>l</kbd>          | go right
+<kbd>SPC m c c</kbd>  | commit
+<kbd>SPC m k</kbd>    | abort
+
+### Interactive rebase buffer
+
+    Key Binding       |                 Description
+----------------------|--------------------------------------------------------
+<kbd>c</kbd>          | pick
+<kbd>e</kbd>          | edit
+<kbd>f</kbd>          | fixup
+<kbd>h</kbd>          | go left
+<kbd>j</kbd>          | go down
+<kbd>J</kbd>          | move line down
+<kbd>k</kbd>          | go up
+<kbd>K</kbd>          | move line up
+<kbd>C-k</kbd>        | kill line
+<kbd>l</kbd>          | go right
+<kbd>r</kbd>          | reword
+<kbd>s</kbd>          | squash
+<kbd>u</kbd>          | undo
+<kbd>x</kbd>          | execute
+<kbd>y</kbd>          | insert
+<kbd>SPC m c c</kbd>  | rebase
+<kbd>SPC m k</kbd>    | abort
 
 ### Quick guide for recurring use cases in Magit
 
