@@ -1179,7 +1179,6 @@ which require an initialization must be listed explicitly in the list.")
         :fringe-bitmap 'my-flycheck-fringe-indicator
         :fringe-face 'flycheck-fringe-info)
 
-
       ;; key bindings
       (evil-leader/set-key
         "ec" 'flycheck-clear
@@ -2459,11 +2458,11 @@ displayed in the mode-line.")
       (add-to-hooks (if dotspacemacs-smartparens-strict-mode
                         'smartparens-strict-mode
                       'smartparens-mode)
-                    '(prog-mode-hook)))
+                    '(prog-mode-hook))
+      (setq sp-cancel-autoskip-on-backward-movement nil))
     :config
     (progn
       (require 'smartparens-config)
-      (setq sp-cancel-autoskip-on-backward-movement nil)
       (spacemacs|diminish smartparens-mode " (Ⓢ)" " (S)")
 
       (defun spacemacs/smartparens-pair-newline (id action context)
