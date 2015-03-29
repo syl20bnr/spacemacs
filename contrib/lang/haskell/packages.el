@@ -13,6 +13,7 @@
 (defvar haskell-packages
   '(
     company-ghc
+    flycheck
     flycheck-haskell
     ghc
     haskell-mode
@@ -21,10 +22,13 @@
     shm
     ))
 
+(defun haskell/init-flycheck ()
+  (add-hook 'haskell-mode-hook 'flycheck-mode))
+
 (defun haskell/init-flycheck-haskell ()
   (use-package flycheck-haskell
-    :defer t
-    :init (add-hook 'haskell-mode-hook 'flycheck-haskell-setup)))
+    :commands flycheck-haskell-configure
+    :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure)))
 
 (defun haskell/init-shm ()
   (use-package shm
