@@ -127,7 +127,8 @@ the focus."
         (cider-switch-to-repl-buffer)
         (evil-insert-state))
 
-      (spacemacs/activate-evil-leader-for-map 'cider-stacktrace-mode-map)
+      (evilify cider-stacktrace-mode cider-stacktrace-mode-map)
+
       (evil-leader/set-key-for-mode 'clojure-mode
         "mdd" 'cider-doc
         "mdg" 'cider-grimoire
@@ -135,6 +136,7 @@ the focus."
 
         "meb" 'cider-eval-buffer
         "mee" 'cider-eval-last-sexp
+        "mef" 'cider-eval-defun-at-point
         "mer" 'cider-eval-region
 
         "mgb" 'cider-jump-back

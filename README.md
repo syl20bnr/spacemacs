@@ -1,7 +1,7 @@
 ***
 <p align="center"><img src="./doc/img/title2.png" alt="Spacemacs"/></p>
 
-| [philosophy][] | [goals][] | [for who?][] | [screenshots][] | [documentation][DOCUMENTATION.md] | [contribute][CONTRIBUTE.md] | [achievements][] | [FAQ][] |
+| [philosophy][] | [goals][] | [for whom?][] | [screenshots][] | [documentation][DOCUMENTATION.md] | [contribute][CONTRIBUTE.md] | [achievements][] | [FAQ][] |
 ***
 [![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
 ***
@@ -24,6 +24,7 @@
     - [Emacs version](#emacs-version)
     - [OS X](#os-x)
 - [Install](#install)
+    - [Spacemacs logo](#spacemacs-logo)
 - [Update](#update)
     - [Update notification](#update-notification)
     - [Rollback](#rollback)
@@ -175,6 +176,11 @@ Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
 
 If the mode-line turns red then be sure to visit the [troubleshooting][troubleshoot]
 guide and consult the [FAQ](#faq).
+
+## Spacemacs logo
+
+If you are using Ubuntu and Unity then you can add the Spacemacs logo by
+following the instructions [here][cpaulik-unity-icon]
 
 # Update
 
@@ -409,7 +415,7 @@ details.
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [philosophy]: doc/DOCUMENTATION.md#philosophy
 [goals]: doc/DOCUMENTATION.md#goals
-[for who?]: doc/DOCUMENTATION.md#who-can-benefit-from-this-
+[for whom?]: doc/DOCUMENTATION.md#who-can-benefit-from-this-
 [screenshots]: doc/DOCUMENTATION.md#screenshots
 [config]: doc/DOCUMENTATION.md#configuration-layers
 [dotfile]: doc/DOCUMENTATION.md#dotfile-configuration
@@ -456,3 +462,4 @@ details.
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
 [Nasser Alshammari]: https://github.com/nashamri
+[cpaulik-unity-icon]: http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/

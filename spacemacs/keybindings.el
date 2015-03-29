@@ -61,14 +61,24 @@
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
-(evil-leader/set-key
-  "hdc" 'describe-char
-  "hdf" 'describe-function
-  "hdk" 'describe-key
-  "hdm" 'describe-mode
-  "hdp" 'describe-package
-  "hdt" 'describe-theme
-  "hdv" 'describe-variable)
+(defmacro spacemacs||describe-set-key (keys func)
+  "Define a key bindings for FUNC using KEYS.
+Ensure that helm is required before calling FUNC."
+  (let ((func-name (intern (format "spacemacs/%s" (symbol-name func)))))
+    `(progn
+       (defun ,func-name ()
+         ,(format "Wrapper for %s" (symbol-name func))
+         (interactive)
+         (require 'helm)
+         (call-interactively ',func))
+       (evil-leader/set-key ,keys ',func-name))))
+(spacemacs||describe-set-key "hdc" describe-char)
+(spacemacs||describe-set-key "hdf" describe-function)
+(spacemacs||describe-set-key "hdk" describe-key)
+(spacemacs||describe-set-key "hdm" describe-mode)
+(spacemacs||describe-set-key "hdp" describe-package)
+(spacemacs||describe-set-key "hdt" describe-theme)
+(spacemacs||describe-set-key "hdv" describe-variable)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key
   "en" 'spacemacs/next-error
@@ -106,9 +116,11 @@
 ;; <SPC> J split the current line at point and indent it
 (evil-leader/set-key
   "J"  'sp-split-sexp
-  "jJ" 'spacemacs/split-and-new-line
   "jj" 'sp-newline
+  "j=" 'spacemacs/indent-region-or-buffer
+  "jJ" 'spacemacs/split-and-new-line
   "jk" 'evil-goto-next-line-and-indent)
+
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key
   "jh" 'spacemacs/push-mark-and-goto-beginning-of-line
@@ -145,7 +157,19 @@
                       :on (global-hl-line-mode)
                       :off (global-hl-line-mode -1)
                       :documentation "Globally Highlight the current line."
-                      :evil-leader "th")
+                      :evil-leader "thh")
+(spacemacs|add-toggle highlight-indentation
+                      :status highlight-indentation-mode
+                      :on (highlight-indentation-mode)
+                      :off (highlight-indentation-mode -1)
+                      :documentation "Highlight indentation levels."
+                      :evil-leader "thi")
+(spacemacs|add-toggle highlight-indentation-current-column
+                      :status highlight-indentation-current-column-mode
+                      :on (highlight-indentation-current-column-mode)
+                      :off (highlight-indentation-current-column-mode -1)
+                      :documentation "Highlight indentation level at point."
+                      :evil-leader "thc")
 (spacemacs|add-toggle truncate-lines
                       :status nil
                       :on (toggle-truncate-lines)
@@ -256,7 +280,8 @@
   "wv"  'split-window-right
   "wV"  'split-window-right-and-focus
   "ww"  'other-window
-  "w/"  'split-window-right)
+  "w/"  'split-window-right
+  "w="  'balance-windows)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
   "zx="  'spacemacs/reset-font-size

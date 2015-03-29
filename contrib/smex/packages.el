@@ -35,24 +35,10 @@ which require an initialization must be listed explicitly in the list.")
         (let ((smex-prompt-string (format "%s commands:" major-mode)))
           (smex-major-mode-commands)))
 
-      (defun spacemacs/smex-define-keys ()
-        ;; (when dotspacemacs-feature-toggle-leader-on-jk
-        ;;   (evil-leader/set-key-for-mode 'ido-mode
-        ;;     "g"   'smex-find-function
-        ;;     "hdf" 'smex-describe-function
-        ;;     "hw"  'smex-where-is))
-        ;; (key-chord-define ido-completion-map (kbd "jk")
-        ;;                   (cdr (assoc 'ido-mode evil-leader--mode-maps)))
-        )
-
       ;; define the key binding at the very end in order to allow the user
       ;; to overwrite any key binding
       (add-hook 'after-init-hook
                 (lambda () (evil-leader/set-key dotspacemacs-command-key
                              'spacemacs/smex)))
       (evil-leader/set-key "m:" 'spacemacs/smex-major-mode-commands)
-      (global-set-key (kbd "M-x") 'smex)
-      (global-set-key (kbd "M-X") 'smex)
-      (add-to-list 'ido-setup-hook 'spacemacs/smex-define-keys)
-      )
-    ))
+      (global-set-key (kbd "M-x") 'spacemacs/smex)))) 

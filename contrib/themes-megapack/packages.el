@@ -32,6 +32,7 @@
     dakrone-theme
     darkburn-theme
     darkmine-theme
+    darktooth-theme
     django-theme
     espresso-theme
     firebelly-theme
@@ -49,6 +50,7 @@
     leuven-theme
     light-soap-theme
     lush-theme
+    material-theme
     minimal-theme
     moe-theme
     molokai-theme

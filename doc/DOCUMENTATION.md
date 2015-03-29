@@ -545,26 +545,19 @@ than just a Vim emulation. It has more states than Vim for instance.
 
 ### States
 
-`Spacemacs` has 8 states:
+`Spacemacs` has 9 states:
 
-- **Normal** (orange) - like the `normal mode of Vim`, used to execute and
-                        combine commands
-- **Insert** (green) - like the `insert mode of Vim`, used to actually insert
-                       text
-- **Visual** (gray) - like the `visual mode of Vim`, used to make text
-                      selection
-- **Motion** (purple) - exclusive to `Evil`, used to navigate read only
-                        buffers
-- **Emacs** (blue) - exclusive to `Evil`, using this state is like using a
-                     regular Emacs without Vim
-- **Lisp** (pink) - exclusive to `Spacemacs`, used to navigate Lisp code and
-                    modify it (see [Editing Lisp code](#editing-lisp-code))
-- **Iedit** (red) - exclusive to `Spacemacs`, used to navigate between multiple
-                    regions of text using `iedit`
-                    (see [Replacing text with iedit](#replacing-text-with-iedit))
-- **Iedit Insert** (red) - exclusive to `Spacemacs`, used to replace multiple
-                   regions of text using `iedit`
-                   (see [Replacing text with iedit](#replacing-text-with-iedit))
+State        | Color       | Description
+-------------|-------------|--------------------------------------------------------
+normal       | orange      | like the `normal mode of Vim`, used to execute and combine commands
+insert       | green       | like the `insert mode of Vim`, used to actually insert text
+visual       | gray        | like the `visual mode of Vim`, used to make text selection
+motion       | purple      | exclusive to `Evil`, used to navigate read only buffers
+emacs        | blue        | exclusive to `Evil`, using this state is like using a regular Emacs without Vim
+evilified    | light brown | exclusive to `Spacemacs`, this is an `emacs state` modified to bring Vim navigation, selection and search.
+lisp         | pink        | exclusive to `Spacemacs`, used to navigate Lisp code and modify it (more [info](#editing-lisp-code))
+iedit        | red         | exclusive to `Spacemacs`, used to navigate between multiple regions of text using `iedit` (more [info](#replacing-text-with-iedit))
+iedit-insert | red         | exclusive to `Spacemacs`, used to replace multiple regions of text using `iedit` (more [info](#replacing-text-with-iedit))
 
 Note: Technically speaking there are also the `operator` and `replace` evil
 states.
@@ -775,20 +768,22 @@ _Ugly separators_
 
 Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>SPC t c</kbd>    | display the fill column (by default the fill column is set to 80)
-<kbd>SPC t F</kbd>    | toggle frame fullscreen
-<kbd>SPC t f</kbd>    | toggle display of the fringe
-<kbd>SPC t h</kbd>    | toggle highlight of the current line
-<kbd>SPC t i</kbd>    | toggle aggressive indent
-<kbd>SPC t l</kbd>    | toggle truncate lines
-<kbd>SPC t L</kbd>    | toggle visual lines
-<kbd>SPC t M</kbd>    | toggle frame maximize
-<kbd>SPC t n</kbd>    | show the absolute line numbers
-<kbd>SPC t t</kbd>    | toggle frame transparency
-<kbd>SPC t T</kbd>    | toggle tool bar
-<kbd>SPC t U</kbd>    | toggle menu bar
+    Key Binding         |                 Description
+------------------------|------------------------------------------------------------
+<kbd>SPC t c</kbd>      | display the fill column (by default the fill column is set to 80)
+<kbd>SPC t F</kbd>      | toggle frame fullscreen
+<kbd>SPC t f</kbd>      | toggle display of the fringe
+<kbd>SPC t h h</kbd>    | toggle highlight of the current line
+<kbd>SPC t h i</kbd>    | toggle highlight indentation levels
+<kbd>SPC t h c</kbd>    | toggle highlight indentation current column
+<kbd>SPC t i</kbd>      | toggle aggressive indent
+<kbd>SPC t l</kbd>      | toggle truncate lines
+<kbd>SPC t L</kbd>      | toggle visual lines
+<kbd>SPC t M</kbd>      | toggle frame maximize
+<kbd>SPC t n</kbd>      | show the absolute line numbers
+<kbd>SPC t t</kbd>      | toggle frame transparency
+<kbd>SPC t T</kbd>      | toggle tool bar
+<kbd>SPC t U</kbd>      | toggle menu bar
 
 **Note** These toggles are all available via the `helm-spacemacs` interface
 (press <kbd>SPC fe h</kbd> to display the `helm-spacemacs` buffer).
@@ -993,6 +988,11 @@ It is possible to change this key with the variable `dotspacemacs-leader-key`.
 `<SPC> o` is **guaranteed** to never conflict with `Spacemacs` defaults key
 bindings.
 
+**Example:**
+Put `(evil-leader/set-key "oc" 'org-capture)` inside `dotspacemacs/config`
+in your `~/.spacemacs` file, to be able to use <kbd>SPC o c</kbd> to run
+org mode capture.
+
 ## Helm
 
 `Spacemacs` is powered by [Helm][helm-link] which is an incremental completion
@@ -1007,7 +1007,7 @@ to read the [Helm documentation wiki][helm-doc].
 ### Helm micro-state
 
 `Spacemacs` defines a [micro-state](#micro-states) for `Helm` to make it
-work like [Vim's Unit][] plugin.
+work like [Vim's Unite][] plugin.
 
 Initiate the micro-state with <kbd>C-SPC</kbd> while in a `Helm` buffer.
 Use <kbd>C-SPC</kbd> again to exit from the micro-state.
@@ -1196,6 +1196,7 @@ Windows manipulation commands (start with `w`):
 
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
+<kbd>SPC w =</kbd>                        | balance split windows
 <kbd>SPC w b</kbd>                        | force the focus back to the minibuffer (usefull with `helm` popups)
 <kbd>SPC w c</kbd>                        | close a window
 <kbd>SPC w C</kbd>                        | delete another window using [ace-delete-window][ace-window]
@@ -1355,16 +1356,20 @@ Key Binding             |                 Description
 <kbd>C-d</kbd>          | delete selected file (ask for confirmation)
 <kbd>C-h</kbd>          | go to parent directory
 <kbd>C-j</kbd>          | select next file or directory
-<kbd>C-S-j</kbd>        | go to next directory
 <kbd>C-k</kbd>          | select previous file or directory
-<kbd>C-S-k</kbd>        | go to previous directory
 <kbd>C-l</kbd>          | open the selected file
-<kbd>C-n</kbd>          | next history element
+<kbd>C-n</kbd>          | select next file or directory
 <kbd>C-o</kbd>          | open selected file in other window
-<kbd>C-p</kbd>          | previous history element
+<kbd>C-p</kbd>          | select previous file or directory
 <kbd>C-s</kbd>          | open selected file in a vertically split window
 <kbd>C-t</kbd>          | open selected file in a new frame
 <kbd>C-v</kbd>          | open selected file in a horizontally split window
+<kbd>C-S-h</kbd>        | go to previous directory
+<kbd>C-S-j</kbd>        | next history element
+<kbd>C-S-k</kbd>        | previous history element
+<kbd>C-S-l</kbd>        | go to next directory
+<kbd>C-S-n</kbd         | next history element
+<kbd>C-S-p</kbd         | previous history element
 
 ### Ido micro-state
 
@@ -1670,6 +1675,9 @@ Key Binding                   |                    Description
 <kbd>P</kbd>                  | in micro-state: replace paste text with the next copied one
 <kbd>.</kbd>                  | paste the same text and leave the micro-state
 Any other key                 | leave the micro-state
+
+This micro-state can be disabled by setting
+`dotspacemacs-enable-paste-micro-state` to `nil` in `~/.spacemacs`.
 
 ### Text manipulation commands
 
@@ -1995,6 +2003,10 @@ Key Binding          | Function
 <kbd>SPC k (</kbd>   | insert expression before (same level as current one)
 <kbd>SPC k )</kbd>   | insert expression after (same level as current one)
 <kbd>SPC k $</kbd>   | go to the end of current sexp
+<kbd>SPC k ` k</kbd> | hybrid version of kill sexp (can be used in non lisp dialects)
+<kbd>SPC k ` p</kbd> | hybrid version of push sexp (can be used in non lisp dialects)
+<kbd>SPC k ` s</kbd> | hybrid version of slurp sexp (can be used in non lisp dialects)
+<kbd>SPC k ` t</kbd> | hybrid version of transpose sexp (can be used in non lisp dialects)
 <kbd>SPC k 0</kbd>   | go to the beginning of current sexp
 <kbd>SPC k a</kbd>   | absorb expression
 <kbd>SPC k b</kbd>   | forward barf expression
@@ -2009,12 +2021,14 @@ Key Binding          | Function
 <kbd>SPC k e</kbd>   | unwrap current expression and kill all symbols after point
 <kbd>SPC k E</kbd>   | unwrap current expression and kill all symbols before point
 <kbd>SPC k h</kbd>   | previous symbol
+<kbd>SPC k H</kbd>   | go to previous sexp
 <kbd>SPC k i</kbd>   | switch to `insert state`
 <kbd>SPC k I</kbd>   | go to beginning of current expression and switch to `insert state`
 <kbd>SPC k j</kbd>   | next closing parenthesis
 <kbd>SPC k J</kbd>   | join expression
 <kbd>SPC k k</kbd>   | previous opening parenthesis
 <kbd>SPC k l</kbd>   | next symbol
+<kbd>SPC k L</kbd>   | go to next sexp
 <kbd>SPC k p</kbd>   | paste after
 <kbd>SPC k P</kbd>   | paste before
 <kbd>SPC k r</kbd>   | raise expression (replace parent expression by current one)
@@ -2022,6 +2036,7 @@ Key Binding          | Function
 <kbd>SPC k S</kbd>   | backward slurp expression
 <kbd>SPC k t</kbd>   | transpose expression
 <kbd>SPC k u</kbd>   | undo
+<kbd>SPC k U</kbd>   | got to parent sexp backward
 <kbd>SPC k C-r</kbd> | redo
 <kbd>SPC k v</kbd>   | switch to `visual state`
 <kbd>SPC k V</kbd>   | switch to `visual line state`
@@ -2202,18 +2217,19 @@ In `org`, [evil-org-mode][] is activated.
 
 ### Python
 
-Writing python code with spacemacs is supported by python contribution. Please see
-[python contribution][python-contrib] documentation for detail.
+Writing python code with spacemacs is supported by python contribution. Please
+see [python contribution][python-contrib] documentation for detail.
 
 ### JavaScript
 
-More featured JavaScript support is provided by the javascript contribution. Please see
-[javascript contribution][javascript-contrib] documentation for detail.
+More featured JavaScript support is provided by the javascript
+contribution. Please see [javascript contribution][javascript-contrib]
+documentation for detail.
 
 ### HTML and CSS
 
-HTML contribution provides support for editing HTML, CSS, Scss and Less files. Please see
-[html contribution][html-contrib] documentation for detail.
+HTML contribution provides support for editing HTML, CSS, Scss and Less
+files. Please see [html contribution][html-contrib] documentation for detail.
 
 # Emacs Server
 
@@ -2222,7 +2238,21 @@ your Emacs windows.
 
 ## Connecting to the Emacs server
 
-TODO
+You can open a file in Emacs from the terminal using `emacsclient`. Use
+`emacsclient -c` to open the file in Emacs GUI. Use `emacsclient -t` to open
+the file in Emacs within the terminal.
+
+If you want your Linux/OS X system to use Emacs by default for any prompt, use
+`export EDITOR="emacsclient -c"` in your shell configuration.
+
+Note that if you're on OS X, you may have to refer to the emacsclient that comes
+with your GUI Emacs, e.g. `export
+EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c"`.
+
+Tip: Remember to use `:qw` or `C-x #` after you are done editing the file
+in Emacs.
+
+See [Emacs as a Server][] in the official Emacs manual for more details.
 
 ## Keeping the server alive
 
@@ -2361,7 +2391,7 @@ developers to elisp hackers!
 [evil-numbers]: https://github.com/cofi/evil-numbers
 [evil-org-mode]: https://github.com/edwtjo/evil-org-mode
 [evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
-[Vim's Unit]: https://github.com/Shougo/unite.vim
+[Vim's Unite]: https://github.com/Shougo/unite.vim
 [git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
 [nose]: https://github.com/nose-devs/nose/
 [nose.el]: https://github.com/syl20bnr/nose.el
@@ -2429,3 +2459,4 @@ developers to elisp hackers!
 [Paradox]: https://github.com/Bruce-Connor/paradox
 [fancy-battery]: https://github.com/lunaryorn/fancy-battery.el
 [MacType]: https://code.google.com/p/mactype/
+[Emacs as a Server]: https://www.gnu.org/software/emacs/manual/html_node/emacs/Emacs-Server.html
