@@ -18,6 +18,7 @@
     eldoc
     evil-jumper
     flycheck
+    helm-pydoc
     hy-mode
     pony-mode
     pyenv-mode
@@ -254,6 +255,12 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-hy-mode ()
   (use-package hy-mode
     :defer t))
+
+(defun python/init-helm-pydoc ()
+  (use-package helm-pydoc
+    :defer t
+    :init
+    (evil-leader/set-key-for-mode 'python-mode "mhd" 'helm-pydoc)))
 
 (defun python/init-semantic ()
   ;; required to correctly load semantic mode
