@@ -50,23 +50,30 @@
 
 # Introduction
 
-You are a Vim user ? You do not need to know Emacs to use Spacemacs!
+_You are a Vim user ?_
 
-You are an Emacs user ? You do not need to know Vim to use Spacemacs!
+You do not need to know Emacs to use Spacemacs!
+
+_You are an Emacs user ?_
+
+You do not need to know Vim to use Spacemacs!
 
 Since version 0.101.0 and later Spacemacs totally abolishes the frontiers
-between Vim and Emacs editing styles. The user can choose his/her editing
-style. Even better, it is possible to dynamically switch between the two
+between Vim and Emacs. The user can now choose his/her preferred editing
+style and enjoy all the Spacemacs features.
+
+Even better, it is possible to dynamically switch between the two
 styles _seamlessly_ which makes it possible for programmers with different
-editing style to do pair programming in the same editor.
+styles to do seat pair programming using the _same_ editor.
 
 Since switching between the two styles is so simple, Spacemacs is the perfect
-setup to learn the editing style of the other side.
+setup to learn the "other way" or even crazier, to get the best of both
+worlds by developing your own hybrid style.
 
-`Spacemacs` is a user-friendly and well-documented Emacs kit that integrates
-the best Emacs packages out there. It uses [Evil Mode][] to combine the
-ergonomic editing features of Vim and Emacs with the extensibility of a lisp
-powered engine.
+Spacemacs is also a user-friendly and well-documented Emacs kit that
+integrates the best Emacs packages out there. It uses [Evil Mode][] to combine
+the ergonomic editing features of Vim and Emacs with the flexibility of a
+lisp powered engine.
 
 If you are already an experienced Emacs user, you will appreciate the elegantly
 customized system and carefully curated, tightly integrated, set of packages.
