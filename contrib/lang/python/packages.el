@@ -18,6 +18,7 @@
     eldoc
     evil-jumper
     flycheck
+    helm-pydoc
     hy-mode
     pony-mode
     pyenv-mode
@@ -178,6 +179,11 @@ which require an initialization must be listed explicitly in the list.")
       (eval-after-load 'auto-highlight-symbol
         '(add-to-list 'ahs-plugin-bod-modes 'python-mode))
 
+      (eval-after-load 'helm-pydoc
+        '(progn
+          (make-variable-buffer-local evil-lookup-func)
+          (setq evil-lookup-func 'helm-pydoc)))
+
       (defun python-shell-send-buffer-switch ()
         "Send buffer content to shell and switch to it in insert mode."
         (interactive)
@@ -254,6 +260,9 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-hy-mode ()
   (use-package hy-mode
     :defer t))
+
+(defun python/init-helm-pydoc ()
+  (use-package helm-pydoc))
 
 (defun python/init-semantic ()
   ;; required to correctly load semantic mode
