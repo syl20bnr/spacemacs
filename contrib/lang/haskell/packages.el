@@ -59,7 +59,7 @@
 
         (evil-leader/set-key-for-mode 'haskell-mode
           "mu"   'haskell-mode-find-uses
-          "mt"   'haskell-mode-show-type-at
+          "mht"   'haskell-mode-show-type-at
           "mgg"  'haskell-mode-goto-loc))
 
       ;; hooks

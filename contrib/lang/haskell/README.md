@@ -102,7 +102,7 @@ versions from ghci-ng, and a new keybinding available:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m t</kbd>    | gets the type of the identifier under the cursor or for the active region
+<kbd>SPC m h t</kbd>  | gets the type of the identifier under the cursor or for the active region
 <kbd>SPC m g g</kbd>  | go to definition
 <kbd>SPC m u</kbd>    | finds uses of identifier
 
