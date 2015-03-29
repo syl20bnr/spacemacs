@@ -197,15 +197,15 @@ buffer, right justified."
 
       (mapc (lambda (el)
               (cond
-               ((equal el 'recents)
+               ((eq el 'recents)
                 (recentf-mode)
                 (when (spacemacs//insert-file-list "  Recent Files:" (recentf-elements 5))
                   (insert list-separator)))
-               ((equal el 'bookmarks)
+               ((eq el 'bookmarks)
                 (helm-mode)
                 (when (spacemacs//insert-file-list "  Bookmarks:" (bookmark-all-names))
                   (insert list-separator)))
-               ((equal el 'projects)
+               ((eq el 'projects)
                 (projectile-mode)
                 (when (spacemacs//insert-file-list "  Projects:" (projectile-relevant-known-projects))
                   (insert list-separator))))) dotspacemacs-startup-lists))))
