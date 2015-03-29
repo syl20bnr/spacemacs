@@ -33,8 +33,8 @@
     - [Dotfile (.spacemacs)](#dotfile-spacemacs)
 - [Learning Spacemacs](#learning-spacemacs)
     - [Editing Styles](#editing-styles)
-    - [Evil-tutor](#evil-tutor)
     - [The leader key](#the-leader-key)
+    - [Evil-tutor](#evil-tutor)
     - [Universal argument](#universal-argument)
     - [Configuration layers and Package discovery](#configuration-layers-and-package-discovery)
     - [Key bindings discovery](#key-bindings-discovery)
@@ -303,20 +303,24 @@ Spacemacs can be used by Vim users or Emacs users by setting the
 `dotspacemacs-editing-style` variable to `vim` or `emacs` in the dotfile
 `~/.spacemacs`.
 
-## Evil-tutor
-
-Press <kbd>SPC h T</kbd> to begin an Evil-adapted Vimtutor.
-
 ## The leader key
 
 `Spacemacs` key bindings use a leader key which is by default bound to
 <kbd>SPC</kbd> (space bar) in `vim` editing style and <kbd>M-m</kbd> in
 `emacs` style.
 
-You can change it by setting the variable `dotspacemacs-leader-key` in
-`~/.spacemacs`.
+You can change it by setting the variable `dotspacemacs-leader-key` if
+you use the `vim` style or `dotspacemacs-emacs-leader-key` if you use
+the `emacs` style (these variables must be set in the file `~/.spacemacs`).
 
-For simplicity the documentation refers to the leader key as <kbd>SPC</kbd>.
+For simplicity the documentation always refers to the leader key as
+<kbd>SPC</kbd>.
+
+## Evil-tutor
+
+If you are willing to learn the Vim key bindings (highly recommended since
+you can benefit from them even in `emacs` style), press <kbd>SPC h T</kbd>
+to begin an Evil-adapted Vimtutor.
 
 ## Universal argument
 
