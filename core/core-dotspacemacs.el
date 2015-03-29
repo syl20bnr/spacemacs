@@ -188,8 +188,13 @@ before installing the file if the destination already exists."
                (format "%s already exists. Do you want to overwite it ? "
                        dotfile)) t)))
     (when install
-      (copy-file (concat dotspacemacs-template-directory
-                         ".spacemacs.template") dotfile t)
+      (with-current-buffer (find-file-noselect (concat dotspacemacs-template-directory
+                                                       ".spacemacs.template"))
+        (re-search-forward "\$editing-style")
+        (replace-match (if (y-or-n-p "Do you want to use Vim style editing? (press \"n\" to choose Emacs)")
+                           "'vim"
+                         "'emacs"))
+        (write-file dotfile))
       (message "%s has been installed." dotfile))))
 
 (defun dotspacemacs/load-file ()
