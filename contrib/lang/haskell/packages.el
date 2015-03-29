@@ -196,10 +196,12 @@
       (defun haskell-hook ()
         (ghc-init)
         ;; Use advanced indention
-        (if (not haskell-enable-shm-support)
-            (turn-on-haskell-indentation)
-          )
-        )
+        ;; (if (not haskell-enable-shm-support)
+        ;;     (turn-on-haskell-indentation))
+        (when (configuration-layer/package-declaredp 'flycheck)
+          ;; remove overlays from ghc-check.el if flycheck is enabled
+          (set-face-attribute 'ghc-face-error nil :underline nil)
+          (set-face-attribute 'ghc-face-warn nil :underline nil)))
 
       ;; Useful to have these keybindings for .cabal files, too.
       (defun haskell-cabal-hook ()
