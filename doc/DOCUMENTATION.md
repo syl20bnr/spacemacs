@@ -547,27 +547,17 @@ than just a Vim emulation. It has more states than Vim for instance.
 
 `Spacemacs` has 9 states:
 
-- **Normal** (orange) - like the `normal mode of Vim`, used to execute and
-                        combine commands
-- **Insert** (green) - like the `insert mode of Vim`, used to actually insert
-                       text
-- **Visual** (gray) - like the `visual mode of Vim`, used to make text
-                      selection
-- **Motion** (purple) - exclusive to `Evil`, used to navigate read only
-                        buffers
-- **Emacs** (blue) - exclusive to `Evil`, using this state is like using a
-                     regular Emacs without Vim
-- **Evilified** (yellow) - exclusive to `Spacemacs`, this is an `emacs state`
-                           modified to bring Vim navigation, selection and
-                           search.
-- **Lisp** (pink) - exclusive to `Spacemacs`, used to navigate Lisp code and
-                    modify it (see [Editing Lisp code](#editing-lisp-code))
-- **Iedit** (red) - exclusive to `Spacemacs`, used to navigate between multiple
-                    regions of text using `iedit`
-                    (see [Replacing text with iedit](#replacing-text-with-iedit))
-- **Iedit Insert** (red) - exclusive to `Spacemacs`, used to replace multiple
-                   regions of text using `iedit`
-                   (see [Replacing text with iedit](#replacing-text-with-iedit))
+State        | Color       | Description
+-------------|-------------|--------------------------------------------------------
+normal       | orange      | like the `normal mode of Vim`, used to execute and combine commands
+insert       | green       | like the `insert mode of Vim`, used to actually insert text
+visual       | gray        | like the `visual mode of Vim`, used to make text selection
+motion       | purple      | exclusive to `Evil`, used to navigate read only buffers
+emacs        | blue        | exclusive to `Evil`, using this state is like using a regular Emacs without Vim
+evilified    | light brown | exclusive to `Spacemacs`, this is an `emacs state` modified to bring Vim navigation, selection and search.
+lisp         | pink        | exclusive to `Spacemacs`, used to navigate Lisp code and modify it (more [info](#editing-lisp-code))
+iedit        | red         | exclusive to `Spacemacs`, used to navigate between multiple regions of text using `iedit` (more [info](#replacing-text-with-iedit))
+iedit-insert | red         | exclusive to `Spacemacs`, used to replace multiple regions of text using `iedit` (more [info](#replacing-text-with-iedit))
 
 Note: Technically speaking there are also the `operator` and `replace` evil
 states.
