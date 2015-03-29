@@ -1,9 +1,23 @@
+[![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
 ***
 <p align="center"><img src="./doc/img/title2.png" alt="Spacemacs"/></p>
-
-| [philosophy][] | [goals][] | [for whom?][] | [screenshots][] | [documentation][DOCUMENTATION.md] | [contribute][CONTRIBUTE.md] | [achievements][] | [FAQ][] |
-***
-[![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)[![Twitter][]](http://www.twitter.com/spacemacs)
+<p align="center">
+<b><a href="doc/DOCUMENTATION.md#philosophy">philosophy</a></b>
+|
+<b><a href="doc/DOCUMENTATION.md#goals">goals</a></b>
+|
+<b><a href="doc/DOCUMENTATION.md#who-can-benefit-from-this-">for whom?</a></b>
+|
+<b><a href="doc/DOCUMENTATION.md#screenshots">screenshots</a></b>
+|
+<b><a href="doc/DOCUMENTATION.md">documentation</a></b>
+|
+<b><a href="doc/CONTRIBUTE.md">contribute</a></b>
+|
+<b><a href="doc/DOCUMENTATION.md#achievements">achievements</a></b>
+|
+<b><a href="#faq">FAQ</a></b>
+</p>
 ***
 
 **Quick Install:**
@@ -429,16 +443,11 @@ the [emacs-mac-port][] build. See the [install OSX section][] for more
 details.
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
-[philosophy]: doc/DOCUMENTATION.md#philosophy
-[goals]: doc/DOCUMENTATION.md#goals
-[for whom?]: doc/DOCUMENTATION.md#who-can-benefit-from-this-
-[screenshots]: doc/DOCUMENTATION.md#screenshots
 [CONVENTIONS.md]: doc/CONVENTIONS.md
 [config]: doc/DOCUMENTATION.md#configuration-layers
 [dotfile]: doc/DOCUMENTATION.md#dotfile-configuration
 [manage_config]: doc/DOCUMENTATION.md#managing-private-configuration-layers
 [using_package_buf]: doc/DOCUMENTATION.md#using-the-package-list-buffer
-[achievements]: doc/DOCUMENTATION.md#achievements
 [troubleshoot]: doc/DOCUMENTATION.md#troubleshoot
 [contrib layers]: doc/DOCUMENTATION.md#using-configuration-layers
 [Git support]: contrib/git/README.md
