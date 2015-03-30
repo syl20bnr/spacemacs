@@ -1824,7 +1824,9 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
   (use-package indent-guide
     :defer t
     :init
-    (evil-leader/set-key "tI" 'indent-guide-mode)))
+    (progn
+      (setq indent-guide-delay 0.3)
+      (evil-leader/set-key "tI" 'indent-guide-mode))))
 
 (defun spacemacs/init-info+ ()
   (use-package info+
