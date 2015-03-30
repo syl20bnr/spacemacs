@@ -56,7 +56,7 @@
 (define-key evil-evilified-state-map "n" 'evil-search-next)
 (define-key evil-evilified-state-map "N" 'evil-search-previous)
 (define-key evil-evilified-state-map "v" 'evil-visual-char)
-(define-key evil-evilified-state-map (kbd "C-v") 'evil-visual-line)
+(define-key evil-evilified-state-map "V" 'evil-visual-line)
 (define-key evil-evilified-state-map "y" 'evil-yank)
 
 (defmacro evilify (mode map &rest body)
