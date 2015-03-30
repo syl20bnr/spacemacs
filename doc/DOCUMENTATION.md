@@ -775,6 +775,7 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 <kbd>SPC t f</kbd>      | toggle display of the fringe
 <kbd>SPC t h h</kbd>    | toggle highlight of the current line
 <kbd>SPC t h i</kbd>    | toggle highlight indentation levels
+<kbd>SPC t h I</kbd>    | toggle indentation guide at point
 <kbd>SPC t h c</kbd>    | toggle highlight indentation current column
 <kbd>SPC t i</kbd>      | toggle aggressive indent
 <kbd>SPC t l</kbd>      | toggle truncate lines
@@ -913,6 +914,7 @@ display ASCII characters instead (may be useful in terminal).
 `ⓕ`          | f          | auto-fill mode
 `Ⓚ`          | K          | guide-key mode
 `Ⓘ`          | I          | aggressive indent mode
+`ⓘ`          | i          | indentation guide
 `(Ⓟ)`        | (P)        | paredit mode
 `Ⓢ`          | S          | flyspell mode
 `(Ⓢ)`        | (S)        | [smartparens][sp] mode

@@ -1826,7 +1826,17 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :init
     (progn
       (setq indent-guide-delay 0.3)
-      (evil-leader/set-key "tI" 'indent-guide-mode))))
+      (spacemacs|add-toggle global-indent-guide
+                            :status indent-guide-mode
+                            :on (indent-guide-global-mode)
+                            :off (indent-guide-global-mode -1)
+                            :documentation
+                            (concat  "Guide to highlight the current "
+                                     "indentation (alternative to the toggle"
+                                     "highlight-indentation-current-column).")
+                            :evil-leader "thI"))
+    :config
+    (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
 
 (defun spacemacs/init-info+ ()
   (use-package info+
