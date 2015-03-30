@@ -76,7 +76,9 @@ The `insert state' is replaced by the `emacs state'."
   (when (fboundp 'spacemacs//helm-hjkl-navigation)
     (spacemacs//helm-hjkl-navigation nil))
   ;; initiate `emacs state' and enter the church
-  (holy-mode//update-states-for-current-buffers))
+  (holy-mode//update-states-for-current-buffers)
+  ;; remove annoying tildes
+  (add-hook 'after-init-hook (lambda () (global-vi-tilde-fringe-mode -1))))
 
 (defun amen ()
   "May the force be with you my son (or not)."
