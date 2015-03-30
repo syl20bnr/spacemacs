@@ -131,45 +131,44 @@
     :init
     (progn
       (spacemacs|define-micro-state zoom-frm
-        :doc "Zoom Frame [+] zoom frame in [-] zoom frame out [=] reset zoom" 
+        :doc "[+] zoom frame in [-] zoom frame out [=] reset zoom"
         :evil-leader "zf"
         :use-minibuffer t
         :bindings
-        ("+" spacemacs/zoom-frm-in :post 'spacemacs//powerline-calc)
-        ("-" spacemacs/zoom-frm-out :post 'spacemacs//powerline-calc)
-        ("=" spacemacs/zoom-frm-unzoom :post 'spacemacs//powerline-calc))
+        ("+" spacemacs/zoom-frm-in :post (spacemacs//zoom-frm-powerline-reset))
+        ("-" spacemacs/zoom-frm-out :post (spacemacs//zoom-frm-powerline-reset))
+        ("=" spacemacs/zoom-frm-unzoom :post (spacemacs//zoom-frm-powerline-reset)))
 
-      (defun spacemacs//powerline-calc ()
+      (defun spacemacs//zoom-frm-powerline-reset ()
         (when (fboundp 'powerline-reset)
           (setq-default powerline-height (spacemacs/compute-powerline-height))
           (powerline-reset)))
 
+      (defun spacemacs//zoom-frm-do (arg)
+        "Perform a zoom action depending on ARG value."
+        (let ((zoom-action (cond ((eq arg 0) 'zoom-frm-unzoom)
+                                 ((< arg 0) 'zoom-frm-out)
+                                 ((> arg 0) 'zoom-frm-in)))
+              (fwp (* (frame-char-width) (frame-width)))
+              (fhp (* (frame-char-height) (frame-height))))
+          (funcall zoom-action)
+          (set-frame-size nil fwp fhp t)))
+
       (defun spacemacs/zoom-frm-in ()
         "zoom in frame, but keep the same pixel size"
         (interactive)
-        (let ((fwp (* (frame-char-width) (frame-width)))
-              (fhp (* (frame-char-height) (frame-height))))
-          (zoom-frm-in)
-          (set-frame-size nil fwp fhp t)
-          ))
+        (spacemacs//zoom-frm-do 1))
 
       (defun spacemacs/zoom-frm-out ()
         "zoom out frame, but keep the same pixel size"
         (interactive)
-        (let ((fwp (* (frame-char-width) (frame-width)))
-              (fhp (* (frame-char-height) (frame-height))))
-          (zoom-frm-out)
-          (set-frame-size nil fwp fhp t)
-          ))
+        (spacemacs//zoom-frm-do -1))
 
       (defun spacemacs/zoom-frm-unzoom ()
         "Unzoom current frame, keeping the same pixel size"
         (interactive)
-        (let ((fwp (* (frame-char-width) (frame-width)))
-              (fhp (* (frame-char-height) (frame-height))))
-          (zoom-frm-unzoom)
-          (set-frame-size nil fwp fhp t)
-          ))
+        (spacemacs//zoom-frm-do 0))
+
       ;; Font size, either with ctrl + mouse wheel
       (global-set-key (kbd "C-<wheel-up>") 'spacemacs/zoom-frm-in)
       (global-set-key (kbd "C-<wheel-down>") 'spacemacs/zoom-frm-out))))
