@@ -427,3 +427,10 @@ Ensure that helm is required before calling FUNC."
   ("w" other-window                          :doc (spacemacs//window-manipulation-move-doc)))
 
 ;; end of Window Manipulation Micro State
+
+;; shell ----------------------------------------------------------------------
+
+(eval-after-load "shell"
+  '(progn
+    (define-key comint-mode-map [up] 'comint-previous-input)
+    (define-key comint-mode-map [down] 'comint-next-input)))
