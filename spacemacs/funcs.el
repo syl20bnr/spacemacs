@@ -280,6 +280,7 @@ argument takes the kindows rotate backwards."
   (rotate-windows (* -1 count)))
 
 (defun spacemacs/next-real-buffer ()
+  "Swtich to the next buffer and avoid special buffers."
   (interactive)
   (switch-to-next-buffer)
   (let ((i 0))
@@ -288,6 +289,7 @@ argument takes the kindows rotate backwards."
       (switch-to-next-buffer))))
 
 (defun spacemacs/prev-real-buffer ()
+  "Swtich to the previous buffer and avoid special buffers."
   (interactive)
   (switch-to-prev-buffer)
   (let ((i 0))
@@ -296,6 +298,7 @@ argument takes the kindows rotate backwards."
       (switch-to-prev-buffer))))
 
 (defun spacemacs/kill-this-buffer ()
+  "Kill the current buffer."
   (interactive)
   (kill-buffer (current-buffer)))
 
