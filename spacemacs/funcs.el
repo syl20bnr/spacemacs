@@ -652,36 +652,6 @@ toggling fullscreen."
 		 'maximized)
 	   'fullboth)))))
 
-;;; begin scale font functions
-
-(defun spacemacs/scale-up-or-down-font-size (direction)
-  "Scale the font. If DIRECTION is positive or zero the font is scaled up,
-otherwise it is scaled down."
-  (interactive)
-  (let ((scale 0.5))
-    (if (eq direction 0)
-        (text-scale-set 0)
-      (if (< direction 0)
-          (text-scale-decrease scale)
-        (text-scale-increase scale)))))
-
-(defun spacemacs/scale-up-font ()
-  "Scale up the font."
-  (interactive)
-  (spacemacs/scale-up-or-down-font-size 1))
-
-(defun spacemacs/scale-down-font ()
-  "Scale up the font."
-  (interactive)
-  (spacemacs/scale-up-or-down-font-size -1))
-
-(defun spacemacs/reset-font-size ()
-  "Reset the font size."
-  (interactive)
-  (spacemacs/scale-up-or-down-font-size 0))
-
-;;; end scale font microstate
-
 (defmacro spacemacs|diminish (mode unicode &optional ascii)
   "Diminish MODE name in mode line to UNICODE or ASCII depending on the value
 `dotspacemacs-mode-line-unicode-symbols'.

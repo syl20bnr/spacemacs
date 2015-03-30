@@ -283,14 +283,6 @@ Ensure that helm is required before calling FUNC."
   "w/"  'split-window-right
   "w="  'balance-windows)
 ;; text -----------------------------------------------------------------------
-(spacemacs|define-micro-state scale-font
-  :doc "Scale Font [+] scale up [-] scale down [=] reset font" 
-  :evil-leader "zx"
-  :use-minibuffer t
-  :bindings
-  ("+" spacemacs/scale-up-font)
-  ("-" spacemacs/scale-down-font)
-  ("=" spacemacs/reset-font-size))
 (evil-leader/set-key
   "xdw" 'delete-trailing-whitespace
   "xtc" 'transpose-chars
@@ -432,3 +424,42 @@ Ensure that helm is required before calling FUNC."
   ("w" other-window                          :doc (spacemacs//window-manipulation-move-doc)))
 
 ;; end of Window Manipulation Micro State
+
+;; text Manipulation Micro State
+
+(defun spacemacs/scale-up-or-down-font-size (direction)
+  "Scale the font. If DIRECTION is positive or zero the font is scaled up,
+otherwise it is scaled down."
+  (interactive)
+  (let ((scale 0.5))
+    (if (eq direction 0)
+        (text-scale-set 0)
+      (if (< direction 0)
+          (text-scale-decrease scale)
+        (text-scale-increase scale)))))
+
+(defun spacemacs/scale-up-font ()
+  "Scale up the font."
+  (interactive)
+  (spacemacs/scale-up-or-down-font-size 1))
+
+(defun spacemacs/scale-down-font ()
+  "Scale up the font."
+  (interactive)
+  (spacemacs/scale-up-or-down-font-size -1))
+
+(defun spacemacs/reset-font-size ()
+  "Reset the font size."
+  (interactive)
+  (spacemacs/scale-up-or-down-font-size 0))
+
+(spacemacs|define-micro-state scale-font
+  :doc "[+] scale up [-] scale down [=] reset font"
+  :evil-leader "zx"
+  :use-minibuffer t
+  :bindings
+  ("+" spacemacs/scale-up-font)
+  ("-" spacemacs/scale-down-font)
+  ("=" spacemacs/reset-font-size))
+
+;; end of Text Manipulation Micro State
