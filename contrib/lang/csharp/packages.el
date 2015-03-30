@@ -60,4 +60,4 @@
               "mi" 'omnisharp-fix-usings
               "m=" 'omnisharp-code-format
 
-    (spacemacs|add-mode-company-backend csharp-mode company-omnisharp)))
+    (spacemacs|add-local-company-backend csharp-mode company-omnisharp)))

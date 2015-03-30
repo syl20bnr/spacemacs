@@ -32,8 +32,8 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (spacemacs|add-mode-company-backend c-mode company-ycmd)
-      (spacemacs|add-mode-company-backend c++-mode company-ycmd))))
+      (spacemacs|add-local-company-backend c-mode company-ycmd)
+      (spacemacs|add-local-company-backend c++-mode company-ycmd))))
 
 (defun ycmd/init-flycheck-ycmd ()
   (use-package flycheck-ycmd

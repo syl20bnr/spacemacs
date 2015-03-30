@@ -232,7 +232,7 @@
     :defer t
     :init
     (progn
-      (spacemacs|add-mode-company-backend haskell-mode company-ghc))))
+      (spacemacs|add-local-company-backend haskell-mode company-ghc))))
 
 (defun haskell/init-hi2 ()
   (use-package hi2

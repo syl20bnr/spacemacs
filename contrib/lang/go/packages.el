@@ -45,4 +45,4 @@ which require an initialization must be listed explicitly in the list.")
    :defer t
    :init
    (progn
-     (spacemacs|add-mode-company-backend go-mode company-go))))
+     (spacemacs|add-local-company-backend go-mode company-go))))
