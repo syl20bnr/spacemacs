@@ -147,4 +147,4 @@ not play nicely with autoloads"
     :defer t
     :init
     (progn
-      (spacemacs|add-mode-company-backend ess-mode company-ess-backend))))
+      (spacemacs|add-local-company-backend ess-mode company-ess-backend))))

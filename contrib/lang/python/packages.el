@@ -60,7 +60,7 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (spacemacs|add-mode-company-backend python-mode company-anaconda))))
+      (spacemacs|add-local-company-backend python-mode company-anaconda))))
 
 (defun python/init-cython-mode ()
   (use-package cython-mode

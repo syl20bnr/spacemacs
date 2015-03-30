@@ -50,7 +50,7 @@ which require an initialization must be listed explicitly in the list.")
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
     :init
     (progn
-      (spacemacs|add-mode-company-backend cmake-mode company-cmake))))
+      (spacemacs|add-local-company-backend cmake-mode company-cmake))))
 
 (defun c-c++/init-company ()
   ;; .clang_complete file loading
@@ -102,8 +102,8 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (spacemacs|add-mode-company-backend c-mode company-c-headers)
-      (spacemacs|add-mode-company-backend c++-mode company-c-headers))))
+      (spacemacs|add-local-company-backend c-mode company-c-headers)
+      (spacemacs|add-local-company-backend c++-mode company-c-headers))))
 
 (defun c-c++/init-flycheck ()
   (add-to-hooks 'flycheck-mode '(c-mode-hook c++-mode-hook)))
