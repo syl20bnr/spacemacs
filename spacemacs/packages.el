@@ -1105,12 +1105,12 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-flycheck ()
   (use-package flycheck
     :defer t
+    :init
+    (setq flycheck-check-syntax-automatically '(save mode-enabled)
+          flycheck-standard-error-navigation nil)
     :config
     (progn
       (spacemacs|diminish flycheck-mode " Ⓕ" " F")
-
-      (setq flycheck-check-syntax-automatically '(save mode-enabled)
-            flycheck-standard-error-navigation nil)
 
       (defun spacemacs/mode-line-flycheck-info-toggle ()
         "Toggle display of flycheck info."
