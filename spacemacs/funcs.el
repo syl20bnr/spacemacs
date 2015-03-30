@@ -169,11 +169,12 @@ the current state and point position."
           (message "Indented buffer.")))
       (whitespace-cleanup))))
 
-
 ;; linum gutter helpers
-(defvar *linum-mdown-line* nil)
+(defvar *linum-mdown-line* nil
+  "Define persistent variable for linum selection")
 
 (defun spacemacs/line-at-click ()
+  "Determine the visual line at click"
   (save-excursion
     (let ((click-y (cddr (mouse-position)))
           (debug-on-error t)
@@ -184,6 +185,7 @@ the current state and point position."
       )))
 
 (defun spacemacs/md-select-linum (event)
+  "Set point as *linum-mdown-line*"
   (interactive "e")
   (mouse-select-window event)
   (goto-line (spacemacs/line-at-click))
@@ -192,10 +194,10 @@ the current state and point position."
         (line-number-at-pos)))
 
 (defun spacemacs/mu-select-linum ()
+  "Select code block between point and *linum-mdown-line*"
   (interactive)
   (when *linum-mdown-line*
     (let (mu-line)
-      ;; (goto-line (spacemacs/line-at-click))
       (setq mu-line (spacemacs/line-at-click))
       (goto-line (max *linum-mdown-line* mu-line))
       (set-mark (line-end-position))
