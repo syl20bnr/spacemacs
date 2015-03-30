@@ -312,18 +312,19 @@ Ensure that helm is required before calling FUNC."
 ;; Micro-states
 ;; ---------------------------------------------------------------------------
 
-;; define buffer micro state
+;; Buffer micro state
 
-(spacemacs|define-micro-state buffer-micro-state
+(spacemacs|define-micro-state buffer
+  :doc "[n] next, [N] or [p] previous, [K] kill"
   :disable-evil-leader t
-  :doc "Buffer micro-state [n] next [p] previous [k] kill"
   :use-minibuffer t
   :evil-leader "b."
   :bindings
-  ("p" spacemacs/prev-real-buffer)
+  ("K" spacemacs/kill-this-buffer)
   ("n" spacemacs/next-real-buffer)
-  ("k" spacemacs/kill-this-buffer)
-  )
+  ("N" spacemacs/prev-real-buffer))
+
+;; end of Buffer micro state
 
 ;; Window Manipulation Micro State
 
