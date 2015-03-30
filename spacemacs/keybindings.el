@@ -307,8 +307,6 @@ Ensure that helm is required before calling FUNC."
   "mtb" 'spacemacs/ert-run-tests-buffer
   "mtq" 'ert)
 
-(evil-define-key 'normal emacs-lisp-mode-map (kbd "C-t") 'find-function)
-
 ;; ---------------------------------------------------------------------------
 ;; Micro-states
 ;; ---------------------------------------------------------------------------

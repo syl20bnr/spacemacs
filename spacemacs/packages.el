@@ -552,12 +552,7 @@ which require an initialization must be listed explicitly in the list.")
       (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
       (evil-leader/set-key-for-mode 'emacs-lisp-mode
         "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
-        "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point))
-    :config
-    (progn
-      ;; mapping similarities to Vim
-      (evil-define-key 'normal emacs-lisp-mode-map (kbd "K") 'elisp-slime-nav-describe-elisp-thing-at-point)
-      (evil-define-key 'normal emacs-lisp-mode-map (kbd "C-t") 'elisp-slime-nav-find-elisp-thing-at-point))))
+        "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point))))
 
 (defun spacemacs/init-eldoc ()
   (use-package eldoc
