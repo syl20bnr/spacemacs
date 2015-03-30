@@ -81,6 +81,9 @@
             - [Window manipulation micro-state](#window-manipulation-micro-state)
             - [Golden ratio](#golden-ratio)
         - [Buffers and Files](#buffers-and-files)
+            - [Buffers manipulation key bindings](#buffers-manipulation-key-bindings)
+            - [Buffers manipulation manipulation micro-state](#buffers-manipulation-manipulation-micro-state)
+            - [Files manipulations key bindings](#files-manipulations-key-bindings)
             - [Emacs and Spacemacs files](#emacs-and-spacemacs-files)
         - [Ido](#ido)
         - [Ido micro-state](#ido-micro-state)
@@ -1292,6 +1295,8 @@ the file system is better than `helm` in my opinion (especially because `ido` ca
 remember the last selected directories and buffers, maybe helm can do this ?).
 `ido` is also used to kill buffers.
 
+#### Buffers manipulation key bindings
+
 Buffer manipulation commands (start with `b`):
 
 Key Binding                               |              Description
@@ -1315,6 +1320,21 @@ Key Binding                               |              Description
 <kbd>SPC b s</kbd>                        | switch to a buffer using `helm`
 <kbd>SPC b w</kbd>                        | toggle read-only (writable state)
 <kbd>z f</kbd>                            | Make current function or comments visible in buffer as much as possible
+
+#### Buffers manipulation manipulation micro-state
+
+A convenient buffer manipulation micro-state allows to quickly cycles through
+the opened buffer and kill them.
+
+Key Binding         | Description
+--------------------|------------------------------------------------------------
+<kbd>SPC b .</kbd>  | initiate micro-state
+<kbd>K</kbd>        | kill current buffer
+<kbd>n</kbd>        | go to next buffer (avoid special buffers)
+<kbd>N</kbd>        | go to previous buffer (avoid special buffers)
+Any other key       | leave the micro-state
+
+#### Files manipulations key bindings
 
 Files manipulation commands (start with `f`):
 
