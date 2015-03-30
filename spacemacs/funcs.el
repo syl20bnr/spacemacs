@@ -644,24 +644,7 @@ toggling fullscreen."
 		 'maximized)
 	   'fullboth)))))
 
-;;; begin scale font micro-state
-
-(defun spacemacs/scale-font-size-overlay-map ()
-  "Set a temporary overlay map to easily change the font size."
-  (set-temporary-overlay-map
-   (let ((map (make-sparse-keymap)))
-     (define-key map (kbd "+") 'spacemacs/scale-up-font)
-     (define-key map (kbd "-") 'spacemacs/scale-down-font)
-     (define-key map (kbd "=") 'spacemacs/reset-font-size)
-     map) t))
-
-(defun spacemacs/font-scaling-micro-state-doc ()
-  "Display a short documentation in the mini buffer."
-  (echo "Scale Font micro-state:
-  + to scale up
-  - to scale down
-  = to reset
-Press any other key to exit."))
+;;; begin scale font functions
 
 (defun spacemacs/scale-up-or-down-font-size (direction)
   "Scale the font. If DIRECTION is positive or zero the font is scaled up,
@@ -672,9 +655,7 @@ otherwise it is scaled down."
         (text-scale-set 0)
       (if (< direction 0)
           (text-scale-decrease scale)
-        (text-scale-increase scale))))
-  (spacemacs/scale-font-size-overlay-map)
-  (spacemacs/font-scaling-micro-state-doc))
+        (text-scale-increase scale)))))
 
 (defun spacemacs/scale-up-font ()
   "Scale up the font."
@@ -691,7 +672,7 @@ otherwise it is scaled down."
   (interactive)
   (spacemacs/scale-up-or-down-font-size 0))
 
-;;; end scale font micro-state
+;;; end scale font microstate
 
 (defmacro spacemacs|diminish (mode unicode &optional ascii)
   "Diminish MODE name in mode line to UNICODE or ASCII depending on the value
