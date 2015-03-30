@@ -316,7 +316,7 @@ Ensure that helm is required before calling FUNC."
 ;; Buffer micro state
 
 (spacemacs|define-micro-state buffer
-  :doc "[n] next, [N] or [p] previous, [K] kill"
+  :doc "[n] next [N] previous [K] kill"
   :disable-evil-leader t
   :use-minibuffer t
   :evil-leader "b."
