@@ -203,7 +203,7 @@ which require an initialization must be listed explicitly in the list.")
         (if (symbol-value aggressive-indent-mode)
             (global-aggressive-indent-mode -1)
           (global-aggressive-indent-mode)))
-      (evil-leader/set-key "ti" 'spacemacs/toggle-aggressive-indent))
+      (evil-leader/set-key "tI" 'spacemacs/toggle-aggressive-indent))
     :config
     (spacemacs|diminish aggressive-indent-mode " Ⓘ" " I")))
 
@@ -1834,7 +1834,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                             (concat  "Guide to highlight the current "
                                      "indentation (alternative to the toggle"
                                      "highlight-indentation-current-column).")
-                            :evil-leader "thI"))
+                            :evil-leader "ti"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
 

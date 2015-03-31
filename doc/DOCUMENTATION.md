@@ -778,9 +778,9 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 <kbd>SPC t f</kbd>      | toggle display of the fringe
 <kbd>SPC t h h</kbd>    | toggle highlight of the current line
 <kbd>SPC t h i</kbd>    | toggle highlight indentation levels
-<kbd>SPC t h I</kbd>    | toggle indentation guide at point
 <kbd>SPC t h c</kbd>    | toggle highlight indentation current column
-<kbd>SPC t i</kbd>      | toggle aggressive indent
+<kbd>SPC t i</kbd>      | toggle indentation guide at point
+<kbd>SPC t I</kbd>      | toggle aggressive indent
 <kbd>SPC t l</kbd>      | toggle truncate lines
 <kbd>SPC t L</kbd>      | toggle visual lines
 <kbd>SPC t M</kbd>      | toggle frame maximize
