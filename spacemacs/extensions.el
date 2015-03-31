@@ -68,14 +68,15 @@
   (use-package holy-mode
     :commands holy-mode
     :init
-    (when (eq 'emacs dotspacemacs-editing-style)
-      (holy-mode))
-    (spacemacs|add-toggle holy-mode
-                          :status holy-mode
-                          :on (holy-mode)
-                          :off (holy-mode -1)
-                          :documentation "Globally toggle the holy mode."
-                          :evil-leader "P <tab>" "P C-i")))
+    (progn
+      (when (eq 'emacs dotspacemacs-editing-style)
+        (holy-mode))
+      (spacemacs|add-toggle holy-mode
+                            :status holy-mode
+                            :on (holy-mode)
+                            :off (holy-mode -1)
+                            :documentation "Globally toggle the holy mode."
+                            :evil-leader "P <tab>" "P C-i"))))
 
 (defun spacemacs/init-helm-spacemacs ()
   (use-package helm-spacemacs

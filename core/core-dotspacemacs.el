@@ -153,28 +153,28 @@ NOT USED FOR NOW :-)")
             evil-leader--mode-maps)))
   ;; then define additional leader key bindings
   (evil-leader/set-key-for-mode 'dotspacemacs-mode
-    "mcc" 'dotspacemacs/sync-configuration-layers)
-  (run-at-time
-   "1 sec" nil
-   (lambda () (message "SPC m c c (or C-c C-c) to apply your changes."))))
+    "mcc" 'dotspacemacs/sync-configuration-layers))
 
-(defun dotspacemacs/sync-configuration-layers (arg)
+(defun dotspacemacs/sync-configuration-layers (&optional arg)
   "Synchronize declared layers in dotfile with spacemacs.
 
 If ARG is non nil then `dotspacemacs/config' is skipped."
   (interactive "P")
-  (let ((dotspacemacs-loading-progress-bar nil))
-    (setq spacemacs-loading-string "")
-    (save-buffer)
-    (load-file buffer-file-name)
-    (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
-    (configuration-layer/sync)
-    (if arg
-        (message "Done (`dotspacemacs/config' function has been skipped).")
-      (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
-      (message "Done."))
-    (when (configuration-layer/package-declaredp 'powerline)
-      (spacemacs//restore-powerline (current-buffer)))))
+  (when (file-exists-p dotspacemacs-filepath)
+    (with-current-buffer (find-file-noselect dotspacemacs-filepath)
+      (let ((dotspacemacs-loading-progress-bar nil))
+        (setq spacemacs-loading-string "")
+        (save-buffer)
+        (load-file buffer-file-name)
+        (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
+        (configuration-layer/sync)
+        (if arg
+            (message "Done (`dotspacemacs/config' function has been skipped).")
+          (dotspacemacs|call-func dotspacemacs/config
+                                  "Calling dotfile config...")
+          (message "Done."))
+        (when (configuration-layer/package-declaredp 'powerline)
+          (spacemacs//restore-powerline (current-buffer)))))))
 
 (defun dotspacemacs/location ()
   "Return the absolute path to the spacemacs dotfile."
@@ -196,11 +196,12 @@ before copying the file if the destination already exists."
 (defun dotspacemacs//ido-completing-read (prompt candidates)
   "Call `ido-completing-read' with a CANDIDATES alist where the key is
 a display strng and the value is the actual value to return."
-  (let ((result (ido-completing-read prompt (mapcar 'car candidates))))
-    (cadr (assoc result candidates))))
+  (let ((ido-max-window-height (1+ (length candidates))))
+    (cadr (assoc (ido-completing-read prompt (mapcar 'car candidates))
+                 candidates))))
 
 (defun dotspacemacs/install (arg)
-  "Install the dotfile.
+  "Install the dotfile, return non nil if the doftile has been installed.
 
 If ARG is non nil then Ask questions to the user before installing the dotfile."
   (interactive "P")
@@ -229,7 +230,10 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
                  (y-or-n-p
                   (format "%s already exists. Do you want to overwite it ? "
                           dotspacemacs-filepath)) t)))
-        (when install (write-file dotspacemacs-filepath))))))
+        (when install
+          (write-file dotspacemacs-filepath)
+          (message "%s has been installed." dotspacemacs-filepath)
+          t)))))
 
 (defun dotspacemacs//install-and-replace (&optional values)
   "Install the dotfile and replace its content according to VALUES.
