@@ -2012,7 +2012,8 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
   (eval-after-load "org-agenda"
     '(progn
        (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
-       (define-key org-agenda-mode-map "k" 'org-agenda-previous-line))))
+       (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)
+       (define-key org-agenda-mode-map (kbd "SPC") evil-leader--default-map))))
 
 (defun spacemacs/init-org-bullets ()
   (use-package org-bullets
