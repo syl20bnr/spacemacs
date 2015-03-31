@@ -23,11 +23,22 @@ which require an initialization must be listed explicitly in the list.")
     :commands slime-mode
     :init
     (progn
-      (setq slime-contribs '(slime-fancy)
+      (setq slime-contribs '(slime-fancy
+                             slime-indentation
+                             slime-sbcl-exts
+                             slime-scratch)
             inferior-lisp-program "sbcl")
-      (add-to-hooks 'slime-mode '(lisp-mode-hook
-                                  emacs-lisp-mode-hook
-                                  scheme-mode-hook)))
+
+      ;; enable fuzzy matching in code buffer and SLIME REPL
+      (setq slime-complete-symbol*-fancy t)
+      (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
+
+      ;; enabel smartparen in code buffer and SLIME REPL
+      (add-hook 'slime-repl-mode-hook #'smartparens-strict-mode)
+
+      (add-to-hooks 'slime-mode '(lisp-mode-hook scheme-mode-hook)))
     :config
     (message "loading slime...")
-    (slime-setup)))
+    (slime-setup)
+    (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
+      (define-key m [(tab)] 'slime-fuzzy-complete-symbol))))
