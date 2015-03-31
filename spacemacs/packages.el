@@ -556,6 +556,13 @@ which require an initialization must be listed explicitly in the list.")
     :init (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
     :config
     (progn
+      ;; enable eldoc in `eval-expression'
+      (add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
+
+      ;; enable eldoc in IELM
+      (add-hook 'ielm-mode-hook #'eldoc-mode)
+
+      ;; don't display eldoc on modeline
       (spacemacs|hide-lighter eldoc-mode))))
 
 (defun spacemacs/init-eval-sexp-fu ()
