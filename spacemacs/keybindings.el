@@ -18,6 +18,8 @@
 ;; exiting isearch
 (define-key isearch-mode-map (kbd "S-<return>") 'isearch-repeat-forward)
 (define-key isearch-mode-map (kbd "M-S-<return>") 'isearch-repeat-backward)
+;; Escape from isearch-mode("/" and "?" in evil-mode) like vim
+(define-key isearch-mode-map (kbd "<escape>") 'isearch-cancel)
 
 ;; Make <escape> quit as much as possible
 (define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
