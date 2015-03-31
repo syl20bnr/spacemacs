@@ -1548,6 +1548,9 @@ ARG non nil means that the editing style is `vim'."
   (use-package helm-descbinds
     :defer t
     :init
+    (add-hook 'helm-mode-hook (lambda ()
+                                (helm-descbinds-mode 1)
+                                (setq helm-descbinds-window-style 'split)))
     (evil-leader/set-key "?" 'helm-descbinds)))
 
 (defun spacemacs/init-helm-flyspell ()
