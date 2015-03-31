@@ -70,8 +70,8 @@ which require an initialization must be listed explicitly in the list.")
       ;; this is where you can store personal information
       (require 'pinit-rcirc nil 'noerror)
 
-      (define-key rcirc-mode-map (kbd "C-j") 'rcirc-insert-prev-input)
-      (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input)
+      (define-key rcirc-mode-map (kbd "M-j") 'rcirc-insert-prev-input)
+      (define-key rcirc-mode-map (kbd "M-k") 'rcirc-insert-next-input)
 
       ;; add a key for EMMS integration
       (when (boundp 'emms-track-description)
