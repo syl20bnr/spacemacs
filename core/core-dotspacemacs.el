@@ -13,6 +13,9 @@
   (expand-file-name (concat spacemacs-core-directory "templates/"))
   "Templates directory.")
 
+(defconst dotspacemacs-filepath "~/.spacemacs"
+  "Filepath to the installed dotfile.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
@@ -177,25 +180,63 @@ If ARG is non nil then `dotspacemacs/config' is skipped."
   "Return the absolute path to the spacemacs dotfile."
   (concat user-home-directory ".spacemacs"))
 
-(defun dotspacemacs/install ()
-  "Install `.spacemacs.template' in home directory. Ask for confirmation
-before installing the file if the destination already exists."
+(defun dotspacemacs/copy-template ()
+  "Copy `.spacemacs.template' in home directory. Ask for confirmation
+before copying the file if the destination already exists."
   (interactive)
-  (let* ((dotfile "~/.spacemacs")
-         (install
-          (if (file-exists-p dotfile)
-              (y-or-n-p
-               (format "%s already exists. Do you want to overwite it ? "
-                       dotfile)) t)))
-    (when install
-      (with-current-buffer (find-file-noselect (concat dotspacemacs-template-directory
-                                                       ".spacemacs.template"))
-        (re-search-forward "\$editing-style")
-        (replace-match (if (y-or-n-p "Do you want to use Vim style editing? (press \"n\" to choose Emacs)")
-                           "'vim"
-                         "'emacs"))
-        (write-file dotfile))
-      (message "%s has been installed." dotfile))))
+  (let* ((copy? (if (file-exists-p dotspacemacs-filepath)
+                    (y-or-n-p
+                     (format "%s already exists. Do you want to overwite it ? "
+                             dotspacemacs-filepath)) t)))
+    (when copy?
+      (copy-file (concat dotspacemacs-template-directory
+                         ".spacemacs.template") dotspacemacs-filepath t)
+      (message "%s has been installed." dotspacemacs-filepath))))
+
+(defun dotspacemacs//ido-completing-read (prompt candidates)
+  "Call `ido-completing-read' with a CANDIDATES alist where the key is
+a display strng and the value is the actual value to return."
+  (let ((result (ido-completing-read prompt (mapcar 'car candidates))))
+    (cadr (assoc result candidates))))
+
+(defun dotspacemacs/install (arg)
+  "Install the dotfile.
+
+If ARG is non nil then Ask questions to the user before installing the dotfile."
+  (interactive "P")
+  ;; preferences is an alist where the key is the text to replace by
+  ;; the value in the dotfile
+  (let ((preferences
+         (when arg
+           ;; editing style
+           `(("dotspacemacs-editing-style 'vim"
+              ,(format "dotspacemacs-editing-style '%S"
+                       (dotspacemacs//ido-completing-read
+                        "What is your preferred style? "
+                        '(("Among the stars aboard the Evil flagship (vim)"
+                           vim)
+                          ("On the planet Emacs in the Holy control tower (emacs)"
+                           emacs)))))))))
+    (with-current-buffer (find-file-noselect
+                       (concat dotspacemacs-template-directory
+                               ".spacemacs.template"))
+      (dolist (p preferences)
+        (beginning-of-buffer)
+        (re-search-forward (car p))
+        (replace-match (cadr p)))
+      (let ((install
+             (if (file-exists-p dotspacemacs-filepath)
+                 (y-or-n-p
+                  (format "%s already exists. Do you want to overwite it ? "
+                          dotspacemacs-filepath)) t)))
+        (when install (write-file dotspacemacs-filepath))))))
+
+(defun dotspacemacs//install-and-replace (&optional values)
+  "Install the dotfile and replace its content according to VALUES.
+
+VALUES is an alist where the key is the text to replace and value is the new
+value."
+  )
 
 (defun dotspacemacs/load-file ()
   "Load ~/.spacemacs if it exists."
