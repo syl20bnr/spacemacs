@@ -15,7 +15,9 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (add-to-hook 'rcirc-mode-hook '(flyspell-mode rcirc-omit-mode))
+      (add-to-hook 'rcirc-mode-hook '(flyspell-mode
+                                      rcirc-omit-mode
+                                      rcirc-track-minor-mode))
 
       (defun spacemacs//rcirc-with-authinfo (arg)
         "Fire rcirc with support for authinfo."
