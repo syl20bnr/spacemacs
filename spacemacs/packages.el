@@ -1717,6 +1717,8 @@ If ARG is non nil then `ag' and `pt' and ignored."
   (global-set-key (kbd "M-/") 'hippie-expand) ;; replace dabbrev-expand
   (setq hippie-expand-try-functions-list
         '(
+          ;; Try to expand yasnippet snippets based on prefix
+          yas-hippie-try-expand
           ;; Try to expand word "dynamically", searching the current buffer.
           try-expand-dabbrev
           ;; Try to expand word "dynamically", searching all other buffers.
@@ -2800,16 +2802,17 @@ It is a string holding:
     :init
     (progn
       (defun spacemacs/load-yasnippet ()
-          (if (not (boundp 'yas-minor-mode))
-              (progn
-                (let* ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir))
-                       (private-yas-dir (concat configuration-layer-private-directory "snippets"))
-                       (yas-dir (concat dir "yasnippet-snippets")))
-                  (setq yas-snippet-dirs
-                        (append (when (boundp 'yas-snippet-dirs)
-                                  yas-snippet-dirs)
-                                (list  private-yas-dir yas-dir)))
-                  (yas-global-mode 1)))))
+        (if (not (boundp 'yas-minor-mode))
+            (progn
+              (let* ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir))
+                     (private-yas-dir (concat configuration-layer-private-directory "snippets"))
+                     (yas-dir (concat dir "yasnippet-snippets")))
+                (setq yas-snippet-dirs
+                      (append (when (boundp 'yas-snippet-dirs)
+                                yas-snippet-dirs)
+                              (list  private-yas-dir yas-dir)))
+                (setq yas-wrap-around-region t)
+                (yas-global-mode 1)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                 markdown-mode-hook
                                                 org-mode-hook))
