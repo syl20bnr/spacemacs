@@ -4,14 +4,20 @@
 (defun racket/init-racket-mode ()
   (use-package racket-mode
     :defer t
+    ;; Bug exists in Racket company backend that opens docs in new window when
+    ;; company-quickhelp calls it. Note hook is appendended for proper ordering.
+    :init
+    (when (configuration-layer/package-declaredp 'company-quickhelp)
+      (add-hook 'company-mode-hook
+                '(lambda () (when (equal major-mode 'racket-mode) (company-quickhelp-mode -1))) t))
     :config
     (progn
       ;; smartparens configuration
       (eval-after-load 'smartparens
         '(progn (add-to-list 'sp--lisp-modes 'racket-mode)
                 (when (fboundp 'sp-local-pair)
+                  (sp-local-pair 'racket-mode "'" nil :actions nil)
                   (sp-local-pair 'racket-mode "`" nil :actions nil))))
-      (sp-local-pair 'racket-mode "'" nil :actions nil)
 
       (defun spacemacs/racket-test-with-coverage ()
         "Call `racket-test' with universal argument."
@@ -67,9 +73,4 @@
         ;; Tests
         "mtb" 'racket-test
         "mtB" 'spacemacs/racket-test-with-coverage)
-      (define-key racket-mode-map (kbd "H-r") 'racket-run)
-      ;; Bug exists in Racket company backend that opens docs in new window when
-      ;; company-quickhelp calls it. Note hook is appendended for proper ordering.
-      (when (configuration-layer/package-declaredp 'company-quickhelp)
-        (add-hook 'company-mode-hook
-                  '(lambda () (when (equal major-mode 'racket-mode) (company-quickhelp-mode -1))) t)))))
+      (define-key racket-mode-map (kbd "H-r") 'racket-run))))

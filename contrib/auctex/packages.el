@@ -14,7 +14,7 @@
     (progn
       (when (member 'company-mode dotspacemacs-configuration-layers)
         (use-package company-auctex
-          :init (company-auctex-init)))
+          :config (company-auctex-init)))
 
       (defun auctex/build-view ()
         (interactive)
@@ -33,6 +33,7 @@
 
       (add-hook 'LaTeX-mode-hook '(lambda () (local-set-key (kbd "H-r") 'auctex/build-view)))
       (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+      (add-hook 'LaTeX-mode-hook 'company-mode)
       (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
       (add-hook 'LaTeX-mode-hook 'spacemacs/load-yasnippet)
 
