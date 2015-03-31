@@ -2504,6 +2504,9 @@ displayed in the mode-line.")
       (require 'smartparens-config)
       (spacemacs|diminish smartparens-mode " (Ⓢ)" " (S)")
 
+      ;; When point is on a pair, highlight the matching one
+      (show-smartparens-global-mode +1)
+
       (defun spacemacs/smartparens-pair-newline (id action context)
         (save-excursion
           (newline)

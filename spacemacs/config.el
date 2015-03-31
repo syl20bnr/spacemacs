@@ -114,8 +114,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 (setq initial-major-mode 'text-mode)
 ;; whitespace-mode
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace 1)))
-;; When point is on paranthesis, highlight the matching one
-(show-paren-mode t)
+
 ;; use only spaces and no tabs
 (setq-default indent-tabs-mode nil
               default-tab-width 2)
