@@ -143,7 +143,7 @@ buffer, right justified."
             (concat spacemacs-loading-string
                     (make-string spacemacs-loading-dots-chunk-size
                                  spacemacs-loading-char)))
-      (setq mode-line-format spacemacs-loading-string)
+      (spacemacs/set-mode-line spacemacs-loading-string)
       (spacemacs//redisplay))))
 
 (defun spacemacs/insert-buttons ()

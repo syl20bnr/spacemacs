@@ -317,10 +317,6 @@ Spacemacs can be used by Vim users or Emacs users by setting the
 `dotspacemacs-editing-style` variable to `'vim` or `'emacs` in the dotfile
 `~/.spacemacs`.
 
-You can also set the variable automatically when generating `.spacemacs` file by
-executing the command <kbd>M-x dotspacemacs/install</kbd>. Spacemacs then asks
-you an editing style and create `.spacemacs` file with appropriate editing style.
-
 ## The leader key
 
 `Spacemacs` key bindings use a leader key which is by default bound to

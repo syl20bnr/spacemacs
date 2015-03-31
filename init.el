@@ -22,5 +22,6 @@
   (spacemacs/init)
   (configuration-layer/sync)
   (spacemacs/setup-after-init-hook)
+  (spacemacs/maybe-install-dotfile)
   (require 'server)
   (unless (server-running-p) (server-start)))

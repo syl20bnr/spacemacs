@@ -164,6 +164,16 @@ FILE-TO-LOAD is an explicit file to load after the installation."
          (load-file (concat pkg-elpa-dir file-to-load)))
        pkg-elpa-dir))))
 
+(defun spacemacs/maybe-install-dotfile ()
+  "Install the dotfile if it does not exist."
+  (unless (file-exists-p dotspacemacs-filepath)
+    (spacemacs/set-mode-line "Dotfile wizard installer")
+    (spacemacs//redisplay)
+    (when (dotspacemacs/install 'with-wizard)
+      (dotspacemacs/sync-configuration-layers)
+      (spacemacs/append-to-buffer
+       "The dofile has been installed, please restart Emacs.\n"))))
+
 (defun spacemacs/display-and-copy-version ()
   "Echo the current spacemacs version and copy it."
   (interactive)

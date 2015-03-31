@@ -62,10 +62,6 @@ The `insert state' is replaced by the `emacs state'."
   ;; replace `insert state' by `emacs state'
   (ad-enable-advice 'evil-insert-state 'around 'benedictus-dominus)
   (ad-activate 'evil-insert-state)
-  ;; change the cursor shape (not sure about this for now)
-  ;; (let ((c (when dotspacemacs-colorize-cursor-according-to-state
-  ;;            (spacemacs/state-color 'emacs))))
-  ;;   (setq evil-emacs-state-cursor `(,c (bar . 2))))
   ;; start all buffers in `emacs state'
   (setq evil-default-state 'emacs)
   (setq holy-mode-normal-state-modes-backup evil-normal-state-modes)
@@ -95,7 +91,6 @@ The `insert state' is replaced by the `emacs state'."
   ;; restore helm navigation
   (when (fboundp 'spacemacs//helm-hjkl-navigation)
     (spacemacs//helm-hjkl-navigation t))
-  ;; (set-default-evil-emacs-state-cursor)
   ;; restore the states
   (holy-mode//update-states-for-current-buffers t))
 
