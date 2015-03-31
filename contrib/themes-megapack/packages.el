@@ -39,6 +39,7 @@
     flatland-theme
     flatui-theme
     gandalf-theme
+    gotham-theme
     grandshell-theme
     gruber-darker-theme
     gruvbox-theme
