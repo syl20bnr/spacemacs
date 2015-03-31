@@ -148,6 +148,9 @@ Can be installed with `brew install trash'."
 ;; persistent abbreviation file
 (setq abbrev-file-name (concat spacemacs-cache-directory "abbrev_defs"))
 
+;; Save clipboard contents into kill-ring before replace them
+(setq save-interprogram-paste-before-kill t)
+
 ;; ---------------------------------------------------------------------------
 ;; UI
 ;; ---------------------------------------------------------------------------
