@@ -50,7 +50,7 @@ which require an initialization must be listed explicitly in the list.")
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
     :init
     ;; lower priority for this backend, we append it
-    (add-to-list 'company-cmake 'company-backends-c-c++ 'append)))
+    (add-to-list 'company-backends-c-c++ 'company-cmake 'append)))
 
 (defun c-c++/init-company ()
   ;; push this backend by default
