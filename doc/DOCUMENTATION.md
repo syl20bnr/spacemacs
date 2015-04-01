@@ -152,6 +152,10 @@
 - [Tips](#tips)
     - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
 - [Achievements](#achievements)
+    - [Issues](#issues)
+    - [Merged Pull Requests](#merged-pull-requests)
+    - [Stars and forks](#stars-and-forks)
+    - [Specials](#specials)
 - [Thank you](#thank-you)
 
 <!-- markdown-toc end -->
@@ -2326,12 +2330,10 @@ your `~/.spacemacs` the following snippet:
 
 # Achievements
 
+## Issues
+
 Achievements                                         | Account
 -----------------------------------------------------|------------------------
-[First contribution][1st-contrib]                    | [trishume][]
-[First contribution layer][1st-clayer]               | [trishume][]
-[First blog article on Spacemacs][1st-article]       | [Wolfy87][]
-[First contributed banner][1st-cbanner]              | [chrisbarrett][]
 [100th issue (PR)][100th-issue]                      | [danielwuz][]
 [200th issue (question)][200th-issue]                | [justrajdeep][]
 [300th issue (PR)][300th-issue]                      | [danielwuz][]
@@ -2340,18 +2342,44 @@ Achievements                                         | Account
 [600th issue (PR)][600th-issue]                      | [bjarkevad][]
 [700th issue (enhancement)][700th-issue]             | [jcpetkovich][]
 [800th issue (PR)][800th-issue]                      | [ryansroberts][]
+[900th issue (PR)][900th-issue]                      | [jcpetkovich][]
+[1000th issue (PR)][1000th-issue]                    | [tuhdo][]
+
+## Merged Pull Requests
+
+Achievements                                         | Account
+-----------------------------------------------------|------------------------
 [100th pull request][100th-PR]                       | [bru][]
 [200th pull request][200th-PR]                       | [smt][]
 [300th pull request][300th-PR]                       | [BrianHicks][]
 [400th pull request][400th-PR]                       | [cpaulik][]
-PR gunner (8 PRs in a row)                           | [ralesi][]
+
+## Stars and forks
+
+Achievements                                         | Account
+-----------------------------------------------------|------------------------
 100th fork                                           | [balajisivaraman][]
+200th fork                                           | [alcol80][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
 400th star                                           | [dbohdan][]
 600th star                                           | [laat][]
 700th star                                           | [kendall][]
 800th star                                           | [urso][]
+900th star                                           | [luisgerhorst][]
+
+## Specials
+
+Achievements                                         | Account
+-----------------------------------------------------|------------------------
+[First contribution][1st-contrib]                    | [trishume][]
+[First contribution layer][1st-clayer]               | [trishume][]
+[First blog article on Spacemacs][1st-article]       | [Wolfy87][]
+[First contributed banner][1st-cbanner]              | [chrisbarrett][]
+The Gunner (made 18 PRs in a row)                    | [ralesi][]
+The Saint (unlocked the holy-mode)                   | [trishume][]
+The Artist (made the spacemacs logo)                 | [nashamri][]
+The Meme Master (made the doge banner)               | [chrisbarrett][]
 
 # Thank you
 
@@ -2455,16 +2483,20 @@ developers to elisp hackers!
 [600th-issue]: https://github.com/syl20bnr/spacemacs/pull/600
 [700th-issue]: https://github.com/syl20bnr/spacemacs/pull/700
 [800th-issue]: https://github.com/syl20bnr/spacemacs/pull/800
+[900th-issue]: https://github.com/syl20bnr/spacemacs/pull/900
+[1000th-issue]: https://github.com/syl20bnr/spacemacs/pull/1000
 [100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [200th-PR]: https://github.com/syl20bnr/spacemacs/pull/418
 [300th-PR]: https://github.com/syl20bnr/spacemacs/pull/617
 [400th-PR]: https://github.com/syl20bnr/spacemacs/pull/806
 [trishume]:https://github.com/trishume
+[nashamri]: https://github.com/nashamri
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
 [CestDiego]:https://github.com/CestDiego
 [bjarkevad]:https://github.com/bjarkevad
 [jcpetkovich]:https://github.com/jcpetkovich
+[tuhdo]:https://github.com/tuhdo
 [BrianHicks]:https://github.com/BrianHicks
 [cpaulik]: https://github.com/cpaulik
 [chrisbarrett]:https://github.com/chrisbarrett
@@ -2474,9 +2506,11 @@ developers to elisp hackers!
 [ryansroberts]:https://github.com/laat
 [kendall]:https://github.com/kendall
 [urso]:https://github.com/urso
+[luisgerhorst]:https://github.com/luisgerhorst
 [bru]:https://github.com/bru
 [smt]:https://github.com/smt
 [ralesi]:https://github.com/ralesi
+[alcol80]:https://github.com/alcol80
 [balajisivaraman]:https://github.com/balajisivaraman
 [Jackneill]:https://github.com/Jackneill
 [jb55]:https://github.com/jb55
