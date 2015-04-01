@@ -18,7 +18,7 @@
     flycheck-haskell
     ghc
     haskell-mode
-    hi2
+    ;; hi2
     hindent
     shm
     ))
@@ -68,19 +68,14 @@
 
       (evil-define-key 'operator map
         (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node
-        )
+        (kbd "(") 'shm/backward-node)
 
       (evil-define-key 'motion map
         (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node
-        )
+        (kbd "(") 'shm/backward-node)
 
       (define-key shm-map (kbd "C-j") nil)
-      (define-key shm-map (kbd "C-k") nil)
-      )
-    )
-  )
+      (define-key shm-map (kbd "C-k") nil))))
 
 (defun haskell/init-hindent ()
   (use-package hindent
@@ -92,11 +87,7 @@
     (progn
       (setq hindent-style haskell-enable-hindent-style)
       (evil-leader/set-key-for-mode 'haskell-mode
-        "mF"   'hindent/reformat-decl))))
-
-(defun haskell-process-do-type-on-prev-line ()
-  (interactive)
-  (haskell-process-do-type 1))
+        "mF" 'hindent/reformat-decl))))
 
 (defun haskell/init-haskell-mode ()
   (require 'haskell-yas)
@@ -104,46 +95,72 @@
     :defer t
     :config
     (progn
-      ;; Customization
-      (custom-set-variables
 
-       '(haskell-process-type 'auto)
+      ;; Haskell main editing mode key bindings.
+      (defun spacemacs/init-haskell-mode ()
+        (ghc-init)
+        (when (configuration-layer/package-declaredp 'flycheck)
+          ;; remove overlays from ghc-check.el if flycheck is enabled
+          (set-face-attribute 'ghc-face-error nil :underline nil)
+          (set-face-attribute 'ghc-face-warn nil :underline nil)))
 
-       ;; Use notify.el (if you have it installed) at the end of running
-       ;; Cabal commands or generally things worth notifying.
-       '(haskell-notify-p t)
+      ;;GHCi-ng
+      (when haskell-enable-ghci-ng-support
+        ;; haskell-process-type is set to auto, so setup ghci-ng for either case
+        ;; if haskell-process-type == cabal-repl
+        (setq haskell-process-args-cabal-repl '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
+        ;; if haskell-process-type == GHCi
+        (setq haskell-process-path-ghci "ghci-ng")
 
-       ;; To enable tags generation on save.
-       '(haskell-tags-on-save t)
+        (evil-leader/set-key-for-mode 'haskell-mode
+          "mu"   'haskell-mode-find-uses
+          "mt"   'haskell-mode-show-type-at
+          "mgg"  'haskell-mode-goto-loc))
 
-       ;; Remove annoying error popups
-       '(haskell-interactive-popup-error nil)
-
-       ;; Better import handling
-       '(haskell-process-suggest-remove-import-lines t)
-       '(haskell-process-auto-import-loaded-modules t)
-
-       ;; Disable haskell-stylish on save, it breaks flycheck highlighting
-       '(haskell-stylish-on-save nil))
-
-      ;; Make sure company-ghc is properly initialized
-      (autoload 'ghc-init "ghc" nil t)
-      (autoload 'ghc-debug "ghc" nil t)
-
-      (add-hook 'haskell-mode-hook 'haskell-hook)
+      ;; hooks
+      (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
       (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
+      (unless haskell-enable-shm-support
+        (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
 
-      ;; Make "RET" behaviour in REPL saner
-      (evil-define-key 'insert haskell-interactive-mode-map (kbd "RET") 'haskell-interactive-mode-return)
-      (evil-define-key 'normal haskell-interactive-mode-map (kbd "RET") 'haskell-interactive-mode-return)
+      ;; settings
+      (setq haskell-process-type 'auto
+            ;; Use notify.el (if you have it installed) at the end of running
+            ;; Cabal commands or generally things worth notifying.
+            haskell-notify-p t
+            ;; To enable tags generation on save.
+            haskell-tags-on-save t
+            ;; Remove annoying error popups
+            haskell-interactive-popup-error nil
+            ;; Better import handling
+            haskell-process-suggest-remove-import-lines t
+            haskell-process-auto-import-loaded-modules t
+            ;; Disable haskell-stylish on save, it breaks flycheck highlighting
+            haskell-stylish-on-save nil)
 
-      ;;;;;;;;; Keybindings ;;;;;;;;;;
+      ;; Show indentation guides in insert or emacs state only.
+      (defun spacemacs//haskell-identation-show-guides ()
+        "Show the indent guides."
+        (when (eq 'haskell-mode major-mode)
+          (funcall 'haskell-indentation-enable-show-indentations)))
+      (defun spacemacs//haskell-identation-hide-guides ()
+        "Hide the indent guides."
+        (when (eq 'haskell-mode major-mode)
+          (funcall 'haskell-indentation-disable-show-indentations)))
+      ;; first entry in normal state
+      (add-hook 'evil-normal-state-entry-hook
+                'spacemacs//haskell-identation-hide-guides)
+      (dolist (state '(insert emacs))
+        (eval `(progn
+                 (add-hook ',(intern (format "evil-%S-state-entry-hook" state))
+                           'spacemacs//haskell-identation-show-guides)
+                 (add-hook ',(intern (format "evil-%S-state-exit-hook" state))
+                           'spacemacs//haskell-identation-hide-guides))))
 
-      ;; major mode specfic prefixes not support for now
-      ;; (spacemacs/declare-prefix "mc" "cabal")
-      ;; (spacemacs/declare-prefix "ms" "repl")
-      ;; (spacemacs/declare-prefix "md" "debug")
-      ;; (spacemacs/declare-prefix "mh" "documentation")
+      ;; key bindings
+      (defun spacemacs/haskell-process-do-type-on-prev-line ()
+        (interactive)
+        (haskell-process-do-type 1))
 
       (evil-leader/set-key-for-mode 'haskell-mode
         "mgg"  'haskell-mode-jump-to-def-or-tag
@@ -163,7 +180,7 @@
         "mhh"  'hoogle
         "mhi"  'haskell-process-do-info
         "mht"  'haskell-process-do-type
-        "mhT"  'haskell-process-do-type-on-prev-line
+        "mhT"  'spacemacs/haskell-process-do-type-on-prev-line
         "mhy"  'hayoo
 
         "mdd"  'haskell-debug
@@ -173,22 +190,19 @@
         "mdB"  'haskell-debug/delete
         "mdc"  'haskell-debug/continue
         "mda"  'haskell-debug/abandon
-        "mdr"  'haskell-debug/refresh
-        )
-
+        "mdr"  'haskell-debug/refresh)
 
       ;; Switch back to editor from REPL
       (evil-leader/set-key-for-mode 'interactive-haskell-mode
-        "msS"  'haskell-interactive-switch
-        )
+        "msS"  'haskell-interactive-switch)
 
       ;; Compile
       (evil-leader/set-key-for-mode 'haskell-cabal
-        "mC"  'haskell-compile
-        )
+        "mC"  'haskell-compile)
 
       ;; Cabal-file bindings
       (evil-leader/set-key-for-mode 'haskell-cabal-mode
+        ;; "m="  'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
         "md" 'haskell-cabal-add-dependency
         "mb" 'haskell-cabal-goto-benchmark-section
         "me" 'haskell-cabal-goto-executable-section
@@ -199,63 +213,16 @@
         "mp" 'haskell-cabal-previous-subsection
         "mN" 'haskell-cabal-next-section
         "mP" 'haskell-cabal-previous-section
-        "mf" 'haskell-cabal-find-or-create-source-file
-        ;; "m="  'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
-        )
+        "mf" 'haskell-cabal-find-or-create-source-file)
 
-      ;; Haskell main editing mode key bindings.
-      (defun haskell-hook ()
-        (ghc-init)
-        ;; Use advanced indention
-        ;; (if (not haskell-enable-shm-support)
-        ;;     (turn-on-haskell-indentation))
-        (when (configuration-layer/package-declaredp 'flycheck)
-          ;; remove overlays from ghc-check.el if flycheck is enabled
-          (set-face-attribute 'ghc-face-error nil :underline nil)
-          (set-face-attribute 'ghc-face-warn nil :underline nil)))
+      ;; Make "RET" behaviour in REPL saner
+      (evil-define-key 'insert haskell-interactive-mode-map
+        (kbd "RET") 'haskell-interactive-mode-return)
+      (evil-define-key 'normal haskell-interactive-mode-map
+        (kbd "RET") 'haskell-interactive-mode-return)
 
       ;; Useful to have these keybindings for .cabal files, too.
-      (defun haskell-cabal-hook ()
-        (define-key haskell-cabal-mode-map [?\C-c ?\C-z] 'haskell-interactive-switch))
+      (eval-after-load 'haskell-cabal-mode-map
+        '(define-key haskell-cabal-mode-map
+           [?\C-c ?\C-z] 'haskell-interactive-switch)))))
 
-      ;;GHCi-ng
-      (defun ghci-ng-setup()
-        (progn
-          ;; haskell-process-type is set to auto, so setup ghci-ng for either case
-          ;; if haskell-process-type == cabal-repl
-          (setq haskell-process-args-cabal-repl '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
-          ;; if haskell-process-type == GHCi
-          (setq haskell-process-path-ghci "ghci-ng")
-
-          (evil-leader/set-key-for-mode 'haskell-mode
-            "mu"   'haskell-mode-find-uses
-            "mt"   'haskell-mode-show-type-at
-            "mgg"  'haskell-mode-goto-loc
-            ))
-        )
-
-      (if haskell-enable-ghci-ng-support
-          (ghci-ng-setup)))))
-
-(defun haskell/init-hi2 ()
-  (use-package hi2
-    :diminish hi2-mode
-    :commands turn-on-hi2
-    :if (not haskell-enable-shm-support)
-    :init
-    (add-hook 'haskell-mode-hook 'turn-on-hi2)
-    :config
-    (progn
-
-      (defun spacemacs/haskell-show-hi2-guides ()
-        (when (and (boundp 'hi2-mode) hi2-mode)
-          (hi2-enable-show-indentations)))
-
-      (defun spacemacs/haskell-hide-hi2-guides ()
-        (when (and (boundp 'hi2-mode) hi2-mode)
-          (hi2-disable-show-indentations)))
-
-      ;; Show indentation guides for hi2 only in insert state.
-      (add-hook 'evil-normal-state-entry-hook 'spacemacs/haskell-hide-hi2-guides)
-      (add-hook 'evil-insert-state-entry-hook 'spacemacs/haskell-show-hi2-guides)
-      (add-hook 'evil-insert-state-exit-hook  'spacemacs/haskell-hide-hi2-guides))))
