@@ -99,6 +99,8 @@
       ;; Haskell main editing mode key bindings.
       (defun spacemacs/init-haskell-mode ()
         (ghc-init)
+        ;; use only internal indentation system from haskell
+        (electric-indent-local-mode -1)
         (when (configuration-layer/package-declaredp 'flycheck)
           ;; remove overlays from ghc-check.el if flycheck is enabled
           (set-face-attribute 'ghc-face-error nil :underline nil)
