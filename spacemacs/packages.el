@@ -2554,7 +2554,16 @@ displayed in the mode-line.")
   (use-package vi-tilde-fringe
     :if window-system
     :init
-    (global-vi-tilde-fringe-mode)
+    (progn
+      (global-vi-tilde-fringe-mode)
+      (spacemacs|add-toggle vi-tilde-fringe
+                            :status vi-tilde-fringe-mode
+                            :on (global-vi-tilde-fringe-mode)
+                            :off (global-vi-tilde-fringe-mode -1)
+                            :documentation
+                            (concat "Globally display a ~ on "
+                                    "empty lines in the fringe.")
+                            :evil-leader "t~"))
     :config
     (spacemacs|hide-lighter vi-tilde-fringe-mode)))
 
