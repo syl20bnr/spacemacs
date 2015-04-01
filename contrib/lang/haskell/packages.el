@@ -12,6 +12,7 @@
 
 (defvar haskell-packages
   '(
+    company
     company-ghc
     flycheck
     flycheck-haskell
@@ -21,6 +22,16 @@
     hindent
     shm
     ))
+
+(defun haskell/init-company ()
+  (spacemacs|enable-company haskell-mode))
+
+(defun haskell/init-company-ghc ()
+  (use-package company-ghc
+    :if (configuration-layer/layer-declaredp 'company-mode)
+    :defer t
+    :init (push '(company-ghc :with company-yasnippet)
+                company-backends-haskell-mode)))
 
 (defun haskell/init-flycheck ()
   (add-hook 'haskell-mode-hook 'flycheck-mode))
@@ -225,14 +236,6 @@
 
       (if haskell-enable-ghci-ng-support
           (ghci-ng-setup)))))
-
-(defun haskell/init-company-ghc ()
-  (use-package company-ghc
-    :if (configuration-layer/layer-declaredp 'company-mode)
-    :defer t
-    :init
-    (progn
-      (spacemacs|add-local-company-backend haskell-mode company-ghc))))
 
 (defun haskell/init-hi2 ()
   (use-package hi2

@@ -1,13 +1,17 @@
 (defvar go-packages
   '(
+    company
+    company-go
     flycheck
     go-mode
     go-eldoc
     go-autocomplete
-    company-go
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
+
+(defun go/init-company ()
+  (spacemacs|enable-company go-mode))
 
 (defun go/init-flycheck ()
     (add-hook 'go-mode-hook 'flycheck-mode))
@@ -25,9 +29,7 @@ which require an initialization must be listed explicitly in the list.")
         "mpb"  'go-play-buffer
         "mpr"  'go-play-region
         "mpd"  'go-download-play
-        "mgg"   'godef-jump
-      )
-    ))
+        "mgg"   'godef-jump)))
 
 (defun go/init-go-eldoc()
     (add-hook 'go-mode-hook 'go-eldoc-setup))
@@ -43,6 +45,5 @@ which require an initialization must be listed explicitly in the list.")
  (use-package company-go
    :if (configuration-layer/layer-declaredp 'company-mode)
    :defer t
-   :init
-   (progn
-     (spacemacs|add-local-company-backend go-mode company-go))))
+   :init (push '(company-go :with company-yasnippet)
+               company-backends-go-mode)))

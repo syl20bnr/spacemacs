@@ -49,10 +49,14 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
     :init
-    (progn
-      (spacemacs|add-local-company-backend cmake-mode company-cmake))))
+    ;; lower priority for this backend, we append it
+    (add-to-list 'company-cmake 'company-backends-c-c++ 'append)))
 
 (defun c-c++/init-company ()
+  ;; push this backend by default
+  (push '(company-clang :with company-yasnippet) company-backends-c-c++)
+  (spacemacs|enable-company c-c++ c-common-mode-hook)
+
   ;; .clang_complete file loading
   ;; Sets the arguments for company-clang based on a project-specific text file.
 
@@ -100,10 +104,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package company-c-headers
     :if (configuration-layer/layer-declaredp 'company-mode)
     :defer t
-    :init
-    (progn
-      (spacemacs|add-local-company-backend c-mode company-c-headers)
-      (spacemacs|add-local-company-backend c++-mode company-c-headers))))
+    :init (push 'company-c-headers company-backends-c-c++)))
 
 (defun c-c++/init-flycheck ()
   (add-to-hooks 'flycheck-mode '(c-mode-hook c++-mode-hook)))

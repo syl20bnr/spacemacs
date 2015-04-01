@@ -13,13 +13,13 @@
 (defvar javascript-packages
   '(
     coffee-mode
+    company
     company-tern
     flycheck
     js2-mode
     js2-refactor
     json-mode
     tern
-    tern-auto-complete
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -40,6 +40,16 @@ which require an initialization must be listed explicitly in the list.")
       (add-hook 'coffee-mode-hook '(lambda ()
                                      (setq indent-line-function 'javascript/coffee-indent
                                            evil-shift-width coffee-tab-width))))))
+(defun javascript/init-company ()
+  (spacemacs|enable-company js2-mode))
+
+(defun javascript/init-company-tern ()
+  (use-package company-tern
+    :if (and (configuration-layer/package-declaredp 'tern)
+             (configuration-layer/layer-declaredp 'company-mode))
+    :defer t
+    :init (push '(company-tern :with company-yasnippet)
+                company-backends-js2-mode)))
 
 (defun javascript/init-flycheck ()
   (add-hook 'coffee-mode-hook 'flycheck-mode)
@@ -154,19 +164,3 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key-for-mode 'js2-mode "mgG" 'tern-find-definition-by-name)
       (evil-leader/set-key-for-mode 'js2-mode (kbd "m C-g") 'tern-pop-find-definition)
       (evil-leader/set-key-for-mode 'js2-mode "mt" 'tern-get-type))))
-
-(defun javascript/init-tern-auto-complete ()
-  (use-package tern-auto-complete
-    :if (and (configuration-layer/package-declaredp 'tern)
-             (configuration-layer/package-declaredp 'auto-complete))
-    :defer t
-    :init (add-hook 'tern-mode-hook 'tern-ac-setup)))
-
-(defun javascript/init-company-tern ()
-  (use-package company-tern
-    :if (and (configuration-layer/package-declaredp 'tern)
-             (configuration-layer/layer-declaredp 'company-mode))
-    :defer t
-    :init
-    (progn
-      (spacemacs|add-local-company-backend tern-mode company-tern))))

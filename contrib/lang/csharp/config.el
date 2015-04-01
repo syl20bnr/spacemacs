@@ -1,4 +1,4 @@
-;;; config.el --- ESS Layer configuration File for Spacemacs
+;;; packages.el --- C# Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,9 +10,6 @@
 ;;
 ;;; License: GPLv3
 
-;; Variables
+;; variables
 
-(spacemacs|init-company-backends ess-mode)
-
-(defvar ess-enable-smart-equals t
-  "If non-nil smart-equal support is enabled")
+(spacemacs|init-company-backends csharp-mode)
