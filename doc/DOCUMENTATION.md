@@ -773,6 +773,7 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 
     Key Binding         |                 Description
 ------------------------|------------------------------------------------------------
+<kbd>SPC t ~</kbd>      | display `~` in the fringe on empty lines
 <kbd>SPC t c</kbd>      | display the fill column (by default the fill column is set to 80)
 <kbd>SPC t F</kbd>      | toggle frame fullscreen
 <kbd>SPC t f</kbd>      | toggle display of the fringe
