@@ -12,6 +12,8 @@
 
 (defvar ess-packages
   '(
+    company
+    company-ess
     ess
     ess-R-data-view
     ess-R-object-popup
@@ -24,9 +26,15 @@ which require an initialization must be listed explicitly in the list.")
 (defvar ess-excluded-packages '()
   "List of packages to exclude.")
 
-;; Only load company-ess if company-mode is enabled
-(when (configuration-layer/layer-declaredp 'company-mode)
-  (add-to-list 'ess-packages 'company-ess))
+(defun ess/init-company ()
+  (spacemacs|enable-company ess-mode))
+
+(defun ess/init-company-ess ()
+  (use-package company-ess
+    :if (configuration-layer/layer-declaredp 'company-mode)
+    :defer t
+    :init (push '(company-ess-backend :with company-yasnippet)
+                company-backends-ess-mode)))
 
 (defun ess/init-ess ()
   ;; ESS is not quick to load so we just load it when
@@ -46,33 +54,33 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (setq auto-mode-alist (append
-                             '(("\\.sp\\'"          . S-mode)
-                               ("/R/.*\\.q\\'"      . R-mode)
-                               ("\\.[qsS]\\'"       . S-mode)
-                               ("\\.ssc\\'"         . S-mode)
-                               ("\\.SSC\\'"         . S-mode)
-                               ("\\.[rR]\\'"        . R-mode)
-                               ("\\.[rR]nw\\'"      . Rnw-mode)
-                               ("\\.[sS]nw\\'"      . Snw-mode)
-                               ("\\.[rR]profile\\'" . R-mode)
-                               ("NAMESPACE\\'"      . R-mode)
-                               ("CITATION\\'"       . R-mode)
-                               ("\\.omg\\'"         . omegahat-mode)
-                               ("\\.hat\\'"         . omegahat-mode)
-                               ("\\.lsp\\'"         . XLS-mode)
-                               ("\\.do\\'"          . STA-mode)
-                               ("\\.ado\\'"         . STA-mode)
-                               ("\\.[Ss][Aa][Ss]\\'"        . SAS-mode)
-                               ("\\.[Ss]t\\'"       . S-transcript-mode)
-                               ("\\.Sout"           . S-transcript-mode)
-                               ("\\.[Rr]out"        . R-transcript-mode)
-                               ("\\.Rd\\'"          . Rd-mode)
-                               ("\\.[Bb][Uu][Gg]\\'"         . ess-bugs-mode)
-                               ("\\.[Bb][Oo][Gg]\\'"         . ess-bugs-mode)
-                               ("\\.[Bb][Mm][Dd]\\'"         . ess-bugs-mode)
-                               ("\\.[Jj][Aa][Gg]\\'"         . ess-jags-mode)
-                               ("\\.[Jj][Oo][Gg]\\'"         . ess-jags-mode)
-                               ("\\.[Jj][Mm][Dd]\\'"         . ess-jags-mode))
+                             '(("\\.sp\\'"           . S-mode)
+                               ("/R/.*\\.q\\'"       . R-mode)
+                               ("\\.[qsS]\\'"        . S-mode)
+                               ("\\.ssc\\'"          . S-mode)
+                               ("\\.SSC\\'"          . S-mode)
+                               ("\\.[rR]\\'"         . R-mode)
+                               ("\\.[rR]nw\\'"       . Rnw-mode)
+                               ("\\.[sS]nw\\'"       . Snw-mode)
+                               ("\\.[rR]profile\\'"  . R-mode)
+                               ("NAMESPACE\\'"       . R-mode)
+                               ("CITATION\\'"        . R-mode)
+                               ("\\.omg\\'"          . omegahat-mode)
+                               ("\\.hat\\'"          . omegahat-mode)
+                               ("\\.lsp\\'"          . XLS-mode)
+                               ("\\.do\\'"           . STA-mode)
+                               ("\\.ado\\'"          . STA-mode)
+                               ("\\.[Ss][Aa][Ss]\\'" . SAS-mode)
+                               ("\\.[Ss]t\\'"        . S-transcript-mode)
+                               ("\\.Sout"            . S-transcript-mode)
+                               ("\\.[Rr]out"         . R-transcript-mode)
+                               ("\\.Rd\\'"           . Rd-mode)
+                               ("\\.[Bb][Uu][Gg]\\'" . ess-bugs-mode)
+                               ("\\.[Bb][Oo][Gg]\\'" . ess-bugs-mode)
+                               ("\\.[Bb][Mm][Dd]\\'" . ess-bugs-mode)
+                               ("\\.[Jj][Aa][Gg]\\'" . ess-jags-mode)
+                               ("\\.[Jj][Oo][Gg]\\'" . ess-jags-mode)
+                               ("\\.[Jj][Mm][Dd]\\'" . ess-jags-mode))
                              auto-mode-alist))
 
       (defun ess/auto-load-hack (mode-symbol)
@@ -140,11 +148,3 @@ not play nicely with autoloads"
     (progn
       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
-
-(defun ess/init-company-ess ()
-  (use-package company-ess
-    :if (configuration-layer/layer-declaredp 'company-mode)
-    :defer t
-    :init
-    (progn
-      (spacemacs|add-local-company-backend ess-mode company-ess-backend))))

@@ -777,26 +777,25 @@ If ASCII si not provided then UNICODE is used instead."
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 
-(defun spacemacs//make-company-backends-buffer-local ()
-  "Helper to make `company-backends' buffer local and reset it."
-  (set (make-variable-buffer-local 'company-backends) nil))
+(defmacro spacemacs|init-company-backends (mode)
+  "Initialize a MODE specific company backend variable.
+The variable name format is company-backends-MODE."
+  `(defvar ,(intern (format "company-backends-%S" mode)) nil
+     ,(format "Company backend list for %S" mode)))
 
-(defmacro spacemacs|add-local-company-backend (mode backend &optional with-yas)
-  "Helper macro to add local `company-mode' BACKEND for MODE.
+(defmacro spacemacs|enable-company (mode &optional hook)
+  "Enable company for the given MODE.
+MODE must match the symbol passed in `spacemacs|init-company-backends'.
+By default the initialization function is hooked to `MODE-hook', it is
+possible to explicitly define a hook with HOOK."
+  (when (configuration-layer/layer-declaredp 'company-mode)
+    (let ((mode-hook (if hook hook
+                       (intern (format "%S-hook" mode))))
+          (func (intern (format "spacemacs//init-company-%S" mode))))
+      `(progn
+         (defun ,func ()
+           ,(format "Initialize company for %S" mode)
+           (set (make-variable-buffer-local 'company-backends)
+                ,(intern (format "company-backends-%S" mode))))
+         (add-hook ',mode-hook ',func)))))
 
-If WITH-YAS is non nil then the the `company-yasnippet' is consed to BACKEND."
-  (let ((mode-hook (intern (format "%S-hook" mode)))
-        (add-backend (intern (format "spacemacs//%S-add-%S-backend"
-                                     mode backend)))
-        (backend2 (if with-yas
-                      `(spacemacs/company-backend-with-yas ',backend)
-                    `(quote ,backend))))
-    `(when (configuration-layer/layer-declaredp 'company-mode)
-       (add-hook ',mode-hook
-                 'spacemacs//make-company-backends-buffer-local)
-       (defun ,add-backend ()
-         ,(format "Add %S backend to %S" backend mode)
-         (add-to-list 'company-backends ,backend2))
-       ;; important to append this function to the hook in order to
-       ;; execute it at the end
-       (add-hook ',mode-hook ',add-backend t))))

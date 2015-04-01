@@ -1,4 +1,4 @@
-;;; config.el --- ESS Layer configuration File for Spacemacs
+;;; config.el --- Javascript Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -12,7 +12,4 @@
 
 ;; Variables
 
-(spacemacs|init-company-backends ess-mode)
-
-(defvar ess-enable-smart-equals t
-  "If non-nil smart-equal support is enabled")
+(spacemacs|init-company-backends js2-mode)
