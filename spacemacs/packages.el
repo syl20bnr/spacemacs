@@ -1393,6 +1393,8 @@ ignored)."
         "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
         "hl"  'helm-resume
+        "hi"  'helm-info-at-point
+        "hm"  'helm-man-woman
         "ry"  'helm-show-kill-ring
         "rr"  'helm-register
         "rm"  'helm-all-mark-rings
@@ -1414,6 +1416,9 @@ ignored)."
 
       ;;  Restore popwin-mode after a Helm session finishes.
       (add-hook 'helm-cleanup-hook (lambda () (popwin-mode 1)))
+
+      ;; Add minibuffer history with `helm-minibuffer-history'
+      (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
 
       (defun spacemacs//helm-before-initialize ()
         "Stuff to do before helm initializes."
