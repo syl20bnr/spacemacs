@@ -89,6 +89,7 @@ Ensure that helm is required before calling FUNC."
 (spacemacs||describe-set-key "hdp" describe-package)
 (spacemacs||describe-set-key "hdt" describe-theme)
 (spacemacs||describe-set-key "hdv" describe-variable)
+(spacemacs||describe-set-key "hL" helm-locate-library)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key
   "en" 'spacemacs/next-error
