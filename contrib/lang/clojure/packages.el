@@ -130,9 +130,9 @@ the focus."
       (evilify cider-stacktrace-mode cider-stacktrace-mode-map)
 
       (evil-leader/set-key-for-mode 'clojure-mode
-        "mdd" 'cider-doc
-        "mdg" 'cider-grimoire
-        "mdj" 'cider-javadoc
+        "mhh" 'cider-doc
+        "mhg" 'cider-grimoire
+        "mhj" 'cider-javadoc
 
         "meb" 'cider-eval-buffer
         "mee" 'cider-eval-last-sexp
