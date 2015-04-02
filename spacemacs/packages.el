@@ -1590,32 +1590,36 @@ ARG non nil means that the editing style is `vim'."
                helm-projectile-switch-project
                helm-projectile-vc)
     :init
-    (defconst spacemacs-use-helm-projectile t
-      "This variable is only defined if helm-projectile is used.")
-    (setq projectile-switch-project-action 'helm-projectile)
-    (defun spacemacs/helm-projectile-dwim ()
-      (interactive)
-      (progn
-        (call-interactively (cond ((executable-find "ag")
-                                   'helm-projectile-ag)
-                                  ((executable-find "ack")
-                                   'helm-projectile-ack)
-                                  ((executable-find "pt")
-                                   'helm-projectile-pt)
-                                  (t
-                                   'helm-projectile-grep)))))
-    (evil-leader/set-key
-      "/"  'spacemacs/helm-projectile-dwim
-      "pa" 'helm-projectile-ag
-      "pA" 'helm-projectile-ack
-      "pb" 'helm-projectile-switch-to-buffer
-      "pd" 'helm-projectile-find-dir
-      "pe" 'helm-projectile-recentf
-      "pf" 'helm-projectile-find-file
-      "pg" 'helm-projectile-grep
-      "ph" 'helm-projectile
-      "ps" 'helm-projectile-switch-project
-      "pv" 'helm-projectile-vc)))
+    (progn
+      (setq projectile-switch-project-action 'helm-projectile)
+
+      (defconst spacemacs-use-helm-projectile t
+        "This variable is only defined if helm-projectile is used.")
+
+      (defun spacemacs/helm-projectile-search-dwim ()
+        "Execute the first found search tool."
+        (interactive)
+        (call-interactively
+         (cond ((executable-find "pt")
+                'helm-projectile-pt)
+               ((executable-find "ag")
+                'helm-projectile-ag)
+               ((executable-find "ack")
+                'helm-projectile-ack)
+               (t 'helm-projectile-grep))))
+
+      (evil-leader/set-key
+        "/"  'spacemacs/helm-projectile-search-dwim
+        "pa" 'helm-projectile-ag
+        "pA" 'helm-projectile-ack
+        "pb" 'helm-projectile-switch-to-buffer
+        "pd" 'helm-projectile-find-dir
+        "pe" 'helm-projectile-recentf
+        "pf" 'helm-projectile-find-file
+        "pg" 'helm-projectile-grep
+        "ph" 'helm-projectile
+        "ps" 'helm-projectile-switch-project
+        "pv" 'helm-projectile-vc))))
 
 (defun spacemacs/init-helm-pt ()
   (use-package helm-pt
