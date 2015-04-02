@@ -56,12 +56,13 @@
 (defun python/init-pylookup ()
   (use-package pylookup
     :commands pylookup-lookup
+    :init
+    (progn
+      (evilify pylookup-mode pylookup-mode-map)
+      (evil-leader/set-key-for-mode 'python-mode
+        "mhH"  'pylookup-lookup))
     :config
     (progn
-      (evil-add-hjkl-bindings pylookup-mode-map 'emacs)
-      (evil-leader/set-key-for-mode 'python-mode
-        "mhH"  'pylookup-lookup)
-
       (let ((dir (configuration-layer/get-layer-property 'python :ext-dir)))
         (setq pylookup-dir (concat dir "/pylookup")
               pylookup-program (concat pylookup-dir "/pylookup.py")
