@@ -206,7 +206,13 @@ which require an initialization must be listed explicitly in the list.")
           (global-aggressive-indent-mode)))
       (evil-leader/set-key "tI" 'spacemacs/toggle-aggressive-indent))
     :config
-    (spacemacs|diminish aggressive-indent-mode " Ⓘ" " I")))
+    (progn
+      (defun spacemacs/disable-aggressive-indent ()
+        (aggressive-indent-mode -1))
+
+      (add-hook 'diff-auto-refine-mode-hook 'spacemacs/disable-aggressive-indent)
+
+      (spacemacs|diminish aggressive-indent-mode " Ⓘ" " I"))))
 
 (defun spacemacs/init-auto-complete ()
   (use-package auto-complete
