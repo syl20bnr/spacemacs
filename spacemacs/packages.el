@@ -1391,6 +1391,7 @@ ignored)."
         "sg"  'helm-do-grep
         "sk"  'spacemacs/helm-do-ack
         "sl"  'helm-semantic-or-imenu
+        "sg"  'helm-do-grep
         "hb"  'helm-bookmarks
         "hl"  'helm-resume
         "ry"  'helm-show-kill-ring
@@ -1663,6 +1664,14 @@ ignored)."
     (evil-leader/set-key
       "psp" 'helm-projectile-pt
       "sp" 'helm-do-pt)))
+
+(defun spacemacs/init-helm-pt ()
+  (use-package helm-pt
+    :defer t
+    :init
+    (evil-leader/set-key
+      "p p" 'helm-projectile-pt
+      "s p" 'helm-do-pt)))
 
 (defun spacemacs/init-helm-swoop ()
   (use-package helm-swoop
