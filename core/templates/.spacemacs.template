@@ -107,7 +107,11 @@ before layers configuration."
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now.
-   dotspacemacs-default-package-repository nil)
+   dotspacemacs-default-package-repository nil
+   ;; If one or more of ('recents 'projects 'bookmarks), shows lists of those
+   ;; files at startup in that order.
+   dotspacemacs-startup-lists '(recents projects)
+   )
   ;; User initialization goes here
   )
 
