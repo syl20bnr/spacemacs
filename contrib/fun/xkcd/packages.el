@@ -26,4 +26,9 @@
                "h" 'xkcd-prev
                "j" 'xkcd-next
                "k" 'xkcd-prev
-               "l" 'xkcd-next))))
+               "l" 'xkcd-next
+               "w" 'xkcd-open-browser
+               "e" 'xkcd-open-explanation-browser
+               "r" 'xkcd-rand
+               "a" 'xkcd-alt-text
+               "t" 'xkcd-get-latest))))
