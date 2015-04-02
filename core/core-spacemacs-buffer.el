@@ -153,43 +153,67 @@ buffer, right justified."
 (defun spacemacs/insert-buttons ()
   (goto-char (point-max))
   (insert "      ")
-  (insert-button "[Homepage]" 'action
-                 (lambda (b) (browse-url "https://github.com/syl20bnr/spacemacs"))
-                 'follow-link t 'help-echo "Open the Spacemacs Github page in your browser.")
+  (widget-create 'url-link
+                 :tag "Homepage"
+                 :help-echo "Open the Spacemacs Github page in your browser."
+                 :mouse-face 'highlight
+                 :follow-link "\C-m"
+                 "https://github.com/syl20bnr/spacemacs")
   (insert " ")
-  (insert-button "[Documentation]" 'action
-                 (lambda (b) (browse-url "https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md"))
-                 'follow-link t 'help-echo "Open the Spacemacs documentation in your browser.")
+  (widget-create 'url-link
+                 :tag "Documentation"
+                 :help-echo "Open the Spacemacs documentation in your browser."
+                 :mouse-face 'highlight
+                 :follow-link "\C-m"
+                 "https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md")
   (insert " ")
-  (insert-button "[Gitter Chat]" 'action
-                 (lambda (b) (browse-url "https://gitter.im/syl20bnr/spacemacs"))
-                 'follow-link t 'help-echo "Ask questions and chat with fellow users in our chat room.")
+  (widget-create 'url-link
+                 :tag "Gitter Chat"
+                 :help-echo "Ask questions and chat with fellow users in our chat room."
+                 :mouse-face 'highlight
+                 :follow-link "\C-m"
+                 "https://gitter.im/syl20bnr/spacemacs")
   (insert " ")
-  (insert-button "[Update]" 'action
-                 (lambda (b) (configuration-layer/update-packages))
-                 'follow-link t 'help-echo "Update all ELPA packages to the latest versions.")
+  (widget-create 'push-button
+                 :help-echo "Update all ELPA packages to the latest versions."
+                 :action (lambda (&rest ignore) (configuration-layer/update-packages))
+                 :mouse-face 'highlight
+                 :follow-link "\C-m"
+                 "Update")
   (insert " ")
-  (insert-button "[Rollback]" 'action
-                 (lambda (b) (call-interactively 'configuration-layer/rollback))
-                 'follow-link t 'help-echo "Rollback ELPA package upgrades if something got borked.")
+  (widget-create 'push-button
+                 :help-echo "Rollback ELPA package upgrades if something got borked."
+                 :action (lambda (&rest ignore) (call-interactively 'configuration-layer/rollback))
+                 :mouse-face 'highlight
+                 :follow-link "\C-m"
+                 "Rollback")
   (insert "\n")
-  (let ((button-title "[Search in Spacemacs]"))
+  (let ((button-title "Search in Spacemacs"))
     ; Compute the correct number of spaces to center the button.
     (dotimes (i (/ (- spacemacs--banner-length (string-width button-title) 1) 2)) (insert " "))
-    (insert-button button-title 'action
-                   (lambda (b) (call-interactively 'helm-spacemacs)) 'follow-link t
-                   'help-echo "Find Spacemacs package and layer configs using helm-spacemacs."))
+    (widget-create 'url-link
+                   :help-echo "Find Spacemacs package and layer configs using helm-spacemacs."
+                   :action (lambda (&rest ignore) (call-interactively 'helm-spacemacs))
+                   :mouse-face 'highlight
+                   :follow-link "\C-m"
+                   button-title))
   (insert "\n\n")
   )
 
-(defun spacemacs//insert-file-list (list-display-name list)
+(defun spacemacs//insert-file-list (list-display-name list shortcut-char)
   (when (car list)
+    (define-key spacemacs-mode-map shortcut-char `(lambda () (interactive)(goto-char ,(point))))
     (insert list-display-name)
     (mapc (lambda (el)
             (insert "\n    ")
-            (insert-button el
-                           'action `(lambda (b) (find-file-existing ,el))
-                           'follow-link t))
+            (widget-create 'push-button
+                           :action `(lambda (&rest ignore) (find-file-existing ,el))
+                           :mouse-face 'highlight
+                           :follow-link "\C-m"
+                           :button-prefix ""
+                           :button-suffix ""
+                           :format "%[%t%]"
+                           (abbreviate-file-name el)))
           list)))
 
 (defun spacemacs/insert-startupify-lists ()
@@ -204,15 +228,15 @@ buffer, right justified."
               (cond
                ((eq el 'recents)
                 (recentf-mode)
-                (when (spacemacs//insert-file-list "  Recent Files:" (recentf-elements 5))
+                (when (spacemacs//insert-file-list "  Recent Files:" (recentf-elements 5) "r")
                   (insert list-separator)))
                ((eq el 'bookmarks)
                 (helm-mode)
-                (when (spacemacs//insert-file-list "  Bookmarks:" (bookmark-all-names))
+                (when (spacemacs//insert-file-list "  Bookmarks:" (bookmark-all-names) "b")
                   (insert list-separator)))
                ((eq el 'projects)
                 (projectile-mode)
-                (when (spacemacs//insert-file-list "  Projects:" (projectile-relevant-known-projects))
+                (when (spacemacs//insert-file-list "  Projects:" (projectile-relevant-known-projects) "p")
                   (insert list-separator))))) dotspacemacs-startup-lists))))
 
 (defun spacemacs/goto-link-line ()
@@ -224,5 +248,10 @@ buffer, right justified."
       (goto-char (point-min))
       (re-search-forward "Homepage")
       (beginning-of-line))))
+
+;;this feels like the wrong place to put these
+(add-hook 'spacemacs-mode-hook (lambda ()
+                                 (local-set-key [tab] 'widget-forward)
+                                 (local-set-key [S-tab] 'widget-backward)))
 
 (provide 'core-spacemacs-buffer)
