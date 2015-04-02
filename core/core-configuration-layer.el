@@ -221,7 +221,8 @@ the following keys:
                (plist (append (list :dir dir :ext-dir ext-dir)
                               (when (listp layer) (cdr layer)))))
           (cons name-sym plist))
-      (spacemacs/message "Warning: Cannot find layer %s !" layer))))
+      (spacemacs/message "Warning: Cannot find layer %S !" name-sym)
+      nil)))
 
 (defun configuration-layer//set-layers-variables (layers)
   "Set the configuration variables for the passed LAYERS."
