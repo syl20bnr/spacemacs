@@ -2166,10 +2166,10 @@ To search in a project see [project searching](#project-searching).
 <kbd>SPC p I</kbd>  | invalidate the projectile cache
 <kbd>SPC p k</kbd>  | kill all project buffers
 <kbd>SPC p o</kbd>  | run `multi-occur`
+<kbd>SPC p p</kbd>  | switch project
 <kbd>SPC p R</kbd>  | regenerate the project's [e|g]tags
 <kbd>SPC p r</kbd>  | replace a string
 <kbd>SPC p s</kbd>  | see [search in project](#searching-in-a-project)
-<kbd>SPC p S</kbd>  | switch project
 <kbd>SPC p t</kbd>  | open `NeoTree` in `projectile` root
 <kbd>SPC p T</kbd>  | find test files
 <kbd>SPC p v</kbd>  | open project root in `vc-dir` or `magit`
