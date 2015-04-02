@@ -691,6 +691,14 @@ which require an initialization must be listed explicitly in the list.")
 
       (evil-leader/set-key "re" 'evil-show-registers)
 
+      (defun spacemacs/smart-doc-lookup ()
+        "Bind K to SPC m h h and fall back to `evil-lookup'"
+        (interactive)
+        (condition-case nil
+            (execute-kbd-macro (kbd "SPC m h h"))
+          (error (evil-lookup))))
+      (define-key evil-normal-state-map (kbd "K") 'spacemacs/smart-doc-lookup)
+
       ;; scrolling micro state
       (defun spacemacs/scroll-half-page-up ()
         "Scroll half a page up while keeping cursor in middle of page."
