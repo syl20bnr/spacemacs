@@ -284,6 +284,7 @@ Git gutter hunks commands start with `gh`:
 <kbd>SPC g h N</kbd>  | previous hunk in buffer
 <kbd>SPC g h r</kbd>  | revert current hunk
 <kbd>SPC g h s</kbd>  | stage current hunk
+<kbd>SPC g h p</kbd>  | preview current hunk
 
 `Spacemacs` has custom fringe bitmaps for [git-gutter-fringe][git-gutter]:
 
