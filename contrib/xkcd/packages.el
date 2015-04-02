@@ -22,8 +22,8 @@
         (make-directory xkcd-cache-dir))
       (evil-leader/set-key
         "ax" 'xkcd)
-      (add-to-list 'evil-emacs-state-modes 'xkcd-mode))
-    :config
-    (progn
-      (define-key xkcd-mode-map (kbd "j") 'xkcd-next)
-      (define-key xkcd-mode-map (kbd "k") 'xkcd-prev))))
+      (evilify xkcd-mode xkcd-mode-map
+               "h" 'xkcd-prev
+               "j" 'xkcd-next
+               "k" 'xkcd-prev
+               "l" 'xkcd-next))))
