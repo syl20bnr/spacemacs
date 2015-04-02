@@ -99,7 +99,9 @@
         - [Bookmarks](#bookmarks)
         - [DocView mode](#docview-mode)
     - [Searching](#searching)
-        - [Project Searching](#project-searching)
+        - [With an external tool](#with-an-external-tool)
+            - [Searching in an arbitrary directory](#searching-in-an-arbitrary-directory)
+            - [Searching in a project](#searching-in-a-project)
         - [Persistent highlighting](#persistent-highlighting)
         - [Stacking highlights](#stacking-highlights)
         - [Highlight current symbol](#highlight-current-symbol)
@@ -1574,14 +1576,49 @@ Key Binding        |                 Description
 
 ## Searching
 
-### Project Searching
 
-Key Binding                           |                 Description
---------------------------------------|---------------------------------------------
-<kbd>SPC /</kbd> or  <kbd>SPC a</kbd> | with [The Silver Searcher][ag]
-<kbd>SPC A</kbd>                      | with `ack`
-<kbd>SPC g</kbd>                      | with `grep`
-<kbd>SPC h l</kbd>                    | show last helm popup
+### With an external tool
+
+`Spacemacs` can be interfaced with different search utilities:
+- ack
+- grep
+- [ag][]
+- [pt][]
+
+**Note** `ag` and `pt` are optimized to be used in a source control repository
+but they can be used in an arbitrary directory as well.
+
+#### Searching in an arbitrary directory
+
+To use these utilities in one or several arbitrary directories:
+
+Key Binding               |                 Description
+--------------------------|---------------------------------------------
+<kbd>SPC s /</kbd>        | execute the first found utility in this order `pt`, `ag`, `ack` and `grep`
+<kbd>SPC s a</kbd>        | `ag`
+<kbd>SPC s g</kbd>        | `grep`
+<kbd>SPC s k</kbd>        | `ack`
+<kbd>SPC s p</kbd>        | `pt`
+
+**Note** Use the universal argument to change the search list of
+<kbd>SPC s /</kbd> to `ack` and `grep` (does not look for `ag` or `pt`).
+
+**Note** It is also possible to search in several directories at once by
+marking them in the helm buffer.
+
+#### Searching in a project
+
+To use these utilities in a project using `projectile`:
+
+Key Binding               |                 Description
+--------------------------|---------------------------------------------
+<kbd>SPC /</kbd>          | execute the first found utility in this order `pt`, `ag`, `ack` and `grep`
+<kbd>SPC p s a</kbd>      | `ag`
+<kbd>SPC p s g</kbd>      | `grep`
+<kbd>SPC p s k</kbd>      | `ack`
+<kbd>SPC p s p</kbd>      | `pt`
+
+**Pro Tip** Use <kbd>SPC h l</kbd> to bring back the last helm session.
 
 ### Persistent highlighting
 
@@ -2131,7 +2168,8 @@ To search in a project see [project searching](#project-searching).
 <kbd>SPC p o</kbd>  | run `multi-occur`
 <kbd>SPC p R</kbd>  | regenerate the project's [e|g]tags
 <kbd>SPC p r</kbd>  | replace a string
-<kbd>SPC p s</kbd>  | switch project
+<kbd>SPC p s</kbd>  | see [search in project](#searching-in-a-project)
+<kbd>SPC p S</kbd>  | switch project
 <kbd>SPC p t</kbd>  | open `NeoTree` in `projectile` root
 <kbd>SPC p T</kbd>  | find test files
 <kbd>SPC p v</kbd>  | open project root in `vc-dir` or `magit`
@@ -2422,6 +2460,7 @@ developers to elisp hackers!
 [projectile]: https://github.com/bbatsov/projectile
 [sp]: https://github.com/Fuco1/smartparens
 [ag]: https://github.com/ggreer/the_silver_searcher
+[pt]: https://github.com/monochromegane/the_platinum_searcher
 [flycheck]: https://github.com/flycheck
 [yasnippet]: https://github.com/capitaomorte/yasnippet
 [expand-region]: https://github.com/magnars/expand-region.el
