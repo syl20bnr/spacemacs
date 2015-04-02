@@ -14,6 +14,7 @@
   '(
     ace-jump-mode
     ace-window
+    adaptive-wrap
     aggressive-indent
     auto-dictionary
     auto-highlight-symbol
@@ -118,7 +119,7 @@ which require an initialization must be listed explicitly in the list.")
 
 ;; Paradox from MELPA is not compatible with 24.3 anymore
 (unless  (version< emacs-version "24.4")
-    (push 'paradox spacemacs-packages))
+  (push 'paradox spacemacs-packages))
 
 ;; Initialization of packages
 
@@ -158,6 +159,12 @@ which require an initialization must be listed explicitly in the list.")
                          ace-swap-window
                          ace-maximize-window
                          )))))))
+
+(defun spacemacs/init-adaptive-wrap ()
+  (use-package adaptive-wrap
+    :config
+    (progn
+      (add-hook 'visual-line-mode-hook 'adaptive-wrap-prefix-mode))))
 
 (defun spacemacs/init-aggressive-indent ()
   (use-package aggressive-indent
