@@ -1644,17 +1644,17 @@ ignored)."
                  (t 'helm-projectile-grep)))))
 
       (evil-leader/set-key
-        "/"  'spacemacs/helm-projectile-search-dwim
-        "pb" 'helm-projectile-switch-to-buffer
-        "pd" 'helm-projectile-find-dir
-        "pe" 'helm-projectile-recentf
-        "pf" 'helm-projectile-find-file
-        "ph" 'helm-projectile
+        "/"   'spacemacs/helm-projectile-search-dwim
+        "pb"  'helm-projectile-switch-to-buffer
+        "pd"  'helm-projectile-find-dir
+        "pe"  'helm-projectile-recentf
+        "pf"  'helm-projectile-find-file
+        "ph"  'helm-projectile
+        "pp"  'helm-projectile-switch-project
         "psa" 'helm-projectile-ag
         "psg" 'helm-projectile-grep
         "psk" 'helm-projectile-ack
-        "pS" 'helm-projectile-switch-project
-        "pv" 'helm-projectile-vc))))
+        "pv"  'helm-projectile-vc))))
 
 (defun spacemacs/init-helm-pt ()
   (use-package helm-pt
