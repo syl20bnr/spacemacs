@@ -194,7 +194,8 @@ buffer, right justified."
     (let ((buffer-read-only nil)
           (list-separator "\n\n"))
       (goto-char (point-max))
-
+      (page-break-lines-mode)
+      (spacemacs/append-to-buffer "\n\n\n")
       (mapc (lambda (el)
               (cond
                ((eq el 'recents)
