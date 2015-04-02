@@ -35,6 +35,9 @@ before layers configuration."
    ;; If the value is nil then no banner is displayed.
    ;; dotspacemacs-startup-banner 'official
    dotspacemacs-startup-banner 'official
+   ;; List of items to show in the startup buffer. If nil it is disabled.
+   ;; Possible values are: `recents' `bookmarks' `projects'."
+   dotspacemacs-startup-lists '(recents projects)
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -108,9 +111,6 @@ before layers configuration."
    ;; specified with an installed package.
    ;; Not used for now.
    dotspacemacs-default-package-repository nil
-   ;; If one or more of ('recents 'projects 'bookmarks), shows lists of those
-   ;; files at startup in that order.
-   dotspacemacs-startup-lists '(recents projects)
    )
   ;; User initialization goes here
   )

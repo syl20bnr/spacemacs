@@ -130,9 +130,9 @@ declared in a layer which is not a member of
 specified with an installed package.
 NOT USED FOR NOW :-)")
 
-(defvar dotspacemacs-startup-lists '()
-  "Which file lists to show in the startup buffer. '() for none.
-Options are: 'recent 'bookmarks 'projects.")
+(defvar dotspacemacs-startup-lists '(recents projects)
+  "List of items to show in the startup buffer. If nil it is disabled.
+Possible values are: `recents' `bookmarks' `projects'.")
 
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")
