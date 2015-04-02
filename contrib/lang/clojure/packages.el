@@ -129,6 +129,11 @@ the focus."
 
       (evilify cider-stacktrace-mode cider-stacktrace-mode-map)
 
+      ;; open cider-doc directly and close it with q
+      (setq cider-prompt-for-symbol nil)
+      (evilify cider-docview-mode cider-docview-mode-map
+        (kbd "q") 'cider-popup-buffer-quit)
+
       (evil-leader/set-key-for-mode 'clojure-mode
         "mdd" 'cider-doc
         "mdg" 'cider-grimoire
