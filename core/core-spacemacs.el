@@ -332,9 +332,6 @@ version and the NEW version."
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file
      (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
-     ;; Display useful lists of items
-     (when dotspacemacs-startup-lists
-       (spacemacs/insert-startupify-lists))
      ;; from jwiegley
      ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
      (let ((elapsed (float-time
@@ -343,6 +340,9 @@ version and the NEW version."
         (format "[%s packages loaded in %.3fs]\n"
                 (configuration-layer//initialized-packages-count)
                 elapsed)))
+     ;; Display useful lists of items
+     (when dotspacemacs-startup-lists
+       (spacemacs/insert-startupify-lists))
      (when configuration-layer-error-count
        ;; ("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position evil-mode-line-tag
         ;; (vc-mode vc-mode)
