@@ -1348,19 +1348,49 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
+
       (setq helm-prevent-escaping-from-minibuffer t
             helm-split-window-in-side-p nil
             helm-bookmark-show-location t
             helm-buffers-fuzzy-matching t
             helm-always-two-windows     t)
+
+      (defun spacemacs/helm-do-ack ()
+        "Perform a search using ack."
+        (interactive)
+        (let ((helm-grep-default-command "ack -Hn --no-group %e %p %f")
+              (helm-grep-default-recurse-command "ack -H --no-group %e %p %f"))
+          (helm-do-grep)))
+
+      (defun spacemacs/helm-do-search-dwim (&optional arg)
+        "Execute the first found search tool.
+
+Search for a search tool in the following order pt > ag > ack > grep.
+If ARG is non nil then the search order is changed to ack > grep (ag and pt are
+ignored)."
+        (interactive "P")
+        (call-interactively
+         (if arg
+             (cond (((executable-find "ack") 'spacemacs/helm-do-ack)
+                    (t 'helm-do-grep)))
+           (cond ((and (configuration-layer/package-declaredp 'helm-pt)
+                       (executable-find "pt")) 'helm-do-pt)
+                 ((executable-find "ag") 'helm-do-ag)
+                 ((executable-find "ack") 'spacemacs/helm-do-ack)
+                 (t 'helm-do-grep)))))
+
       ;; use helm by default for M-x
       (unless (configuration-layer/package-declaredp 'smex)
         (global-set-key (kbd "M-x") 'helm-M-x))
+
       (evil-leader/set-key
         "bs"  'helm-mini
         "Cl"  'helm-colors
-        "sl"  'helm-semantic-or-imenu
+        "s/"  'spacemacs/helm-do-search-dwim
+        "sa"  'helm-do-ag
         "sg"  'helm-do-grep
+        "sk"  'spacemacs/helm-do-ack
+        "sl"  'helm-semantic-or-imenu
         "hb"  'helm-bookmarks
         "hl"  'helm-resume
         "ry"  'helm-show-kill-ring
@@ -1596,29 +1626,34 @@ ARG non nil means that the editing style is `vim'."
       (defconst spacemacs-use-helm-projectile t
         "This variable is only defined if helm-projectile is used.")
 
-      (defun spacemacs/helm-projectile-search-dwim ()
-        "Execute the first found search tool."
-        (interactive)
+      (defun spacemacs/helm-projectile-search-dwim (&optional arg)
+        "Execute the first found search tool.
+
+Search for a search tool in the following order pt > ag > ack > grep.
+If ARG is non nil then the search order is changed to ack > grep (ag and pt are
+ignored)."
+        (interactive "P")
         (call-interactively
-         (cond ((executable-find "pt")
-                'helm-projectile-pt)
-               ((executable-find "ag")
-                'helm-projectile-ag)
-               ((executable-find "ack")
-                'helm-projectile-ack)
-               (t 'helm-projectile-grep))))
+         (if arg
+             (cond (((executable-find "ack") 'helm-projectile-ack)
+                    (t 'helm-projectile-grep)))
+           (cond ((and (configuration-layer/package-declaredp 'helm-pt)
+                       (executable-find "pt")) 'helm-projectile-pt)
+                 ((executable-find "ag") 'helm-projectile-ag)
+                 ((executable-find "ack") 'spacemacs/helm-projectile-ack)
+                 (t 'helm-projectile-grep)))))
 
       (evil-leader/set-key
         "/"  'spacemacs/helm-projectile-search-dwim
-        "pa" 'helm-projectile-ag
-        "pA" 'helm-projectile-ack
         "pb" 'helm-projectile-switch-to-buffer
         "pd" 'helm-projectile-find-dir
         "pe" 'helm-projectile-recentf
         "pf" 'helm-projectile-find-file
-        "pg" 'helm-projectile-grep
         "ph" 'helm-projectile
-        "ps" 'helm-projectile-switch-project
+        "psa" 'helm-projectile-ag
+        "psg" 'helm-projectile-grep
+        "psk" 'helm-projectile-ack
+        "pS" 'helm-projectile-switch-project
         "pv" 'helm-projectile-vc))))
 
 (defun spacemacs/init-helm-pt ()
@@ -1626,8 +1661,8 @@ ARG non nil means that the editing style is `vim'."
     :defer t
     :init
     (evil-leader/set-key
-      "p p" 'helm-projectile-pt
-      "s p" 'helm-do-pt)))
+      "psp" 'helm-projectile-pt
+      "sp" 'helm-do-pt)))
 
 (defun spacemacs/init-helm-swoop ()
   (use-package helm-swoop
