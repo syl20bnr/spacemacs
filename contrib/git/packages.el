@@ -78,7 +78,8 @@ which require an initialization must be listed explicitly in the list.")
       "ghs" 'git-gutter:stage-hunk
       "ghr" 'git-gutter:revert-hunk
       "ghN" 'git-gutter:previous-hunk
-      "ghn" 'git-gutter:next-hunk)))
+      "ghn" 'git-gutter:next-hunk
+      "ghp" 'git-gutter:popup-hunk)))
 
 (defun git/init-git-gutter ()
   (use-package git-gutter
