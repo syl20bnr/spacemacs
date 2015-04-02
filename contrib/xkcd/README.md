@@ -1,4 +1,7 @@
 # xkcd contribution layer for Spacemacs
+
+![logo_xkcd](img/xkcd.png)
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
@@ -11,18 +14,15 @@
 
 <!-- markdown-toc end -->
 
-![logo_xkcd](img/xkcd.png)
-
-
 ## Description
 
-This layer adds a XKCD navigation mode. (it just enables [this package](https://github.com/vibhavp/emacs-xkcd))
+This layer adds a [xkcd][] navigation mode using [emacs-xkcd][].
 
 Features:
 - Load a random xkcd
 - Show the text in the modeline
 - Open explanation and current comic in browser
-- Cache the comics in .cache/xkcd
+- Cache the comics in `.cache/xkcd`
 
 ## Install
 
@@ -44,12 +44,15 @@ To use this contribution add it to your `~/.spacemacs`
 
 You can now move through the comics with these
 
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>j</kbd>          | Next comic
-<kbd>k</kbd>          | Previous comic
-<kbd>r</kbd>          | Random comic
-<kbd>t</kbd>          | Show alternate text in the modeline
-<kbd>o</kbd>          | Open the browser
-<kbd>e</kbd>          | Open explanation in the browser
-<kbd>q</kbd>          | Quit the buffer
+    Key Binding               |                 Description
+------------------------------|------------------------------------------------------------
+<kbd>e</kbd>                  | Open explanation in the browser
+<kbd>j</kbd> or <kbd>l</kbd>  | Next comic
+<kbd>k</kbd> or <kbd>h</kbd>  | Previous comic
+<kbd>o</kbd>                  | Open the browser
+<kbd>q</kbd>                  | Quit the buffer
+<kbd>r</kbd>                  | Random comic
+<kbd>t</kbd>                  | Show alternate text in the modeline
+
+[xkcd]: http://xkcd.com/
+[emacs-xkcd]: https://github.com/vibhavp/emacs-xkcd
