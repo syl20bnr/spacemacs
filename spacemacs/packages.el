@@ -55,6 +55,7 @@
     flycheck
     flycheck-pos-tip
     flyspell
+    fringe-helper
     golden-ratio
     google-translate
     guide-key-tip
@@ -184,6 +185,8 @@ which require an initialization must be listed explicitly in the list.")
       (add-hook 'flyspell-mode-hook '(lambda () (auto-dictionary-mode 1)))
       (evil-leader/set-key
         "Sd" 'adict-change-dictionary))))
+
+(defun spacemacs/init-base16-theme ())
 
 (defun spacemacs/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol
@@ -1125,6 +1128,8 @@ which require an initialization must be listed explicitly in the list.")
     :config
     (spacemacs|diminish flyspell-mode " Ⓢ" " S")))
 
+(defun spacemacs/init-fringe-helper ())
+
 (defun spacemacs/init-golden-ratio ()
   (use-package golden-ratio
     :defer t
@@ -1598,6 +1603,8 @@ ignored)."
     :init
     (evil-leader/set-key
       "Th" 'helm-themes)))
+
+(defun spacemacs/init-highlight-indentation ())
 
 (defun spacemacs/init-highlight-numbers ()
   (use-package highlight-numbers

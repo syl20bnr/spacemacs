@@ -12,7 +12,6 @@
 
 (defvar git-packages
   '(
-    fringe-helper
     gitattributes-mode
     gitconfig-mode
     gitignore-mode

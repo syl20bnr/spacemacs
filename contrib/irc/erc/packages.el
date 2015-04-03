@@ -51,3 +51,5 @@ which require an initialization must be listed explicitly in the list.")
         "ml" 'erc-list-command
         "mp" 'erc-part-from-channel
         "mq" 'erc-quit-server))))
+
+(defun erc/init-erc-terminal-notifier ())

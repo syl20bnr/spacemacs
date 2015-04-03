@@ -20,7 +20,6 @@
   '(
     nose
     pylookup
-    python-compile
     ))
 
 ;; Initialize the extensions
