@@ -31,7 +31,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun ess/init-company-ess ()
   (use-package company-ess
-    :if (configuration-layer/layer-declaredp 'company-mode)
+    :if (configuration-layer/layer-declaredp 'auto-completion)
     :defer t
     :init (push '(company-ess-backend :with company-yasnippet)
                 company-backends-ess-mode)))

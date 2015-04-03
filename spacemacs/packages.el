@@ -12,12 +12,9 @@
 
 (defvar spacemacs-packages
   '(
-    ac-ispell
     ace-jump-mode
     ace-window
     aggressive-indent
-    auto-complete
-    auto-complete-clang
     auto-dictionary
     auto-highlight-symbol
     base16-theme
@@ -124,18 +121,6 @@ which require an initialization must be listed explicitly in the list.")
 
 ;; Initialization of packages
 
-(defun spacemacs/init-ac-ispell ()
-  (use-package ac-ispell
-    :defer t
-    :init
-    (progn
-      (custom-set-variables
-       '(ac-ispell-requires 4))
-      (eval-after-load "auto-complete"
-        '(progn
-           (ac-ispell-setup)))
-      (add-hook 'markdown-mode-hook 'ac-ispell-ac-setup))))
-
 (defun spacemacs/init-ace-jump-mode ()
   (use-package ace-jump-mode
     :defer t
@@ -188,54 +173,6 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key "tI" 'spacemacs/toggle-aggressive-indent))
     :config
     (spacemacs|diminish aggressive-indent-mode " Ⓘ" " I")))
-
-(defun spacemacs/init-auto-complete ()
-  (use-package auto-complete
-    :commands global-auto-complete-mode
-    :init
-    (add-to-hooks 'auto-complete-mode '(org-mode-hook
-                                        prog-mode-hook))
-    :config
-    (progn
-      (require 'auto-complete-config)
-      (ac-config-default)
-      (when (configuration-layer/package-declaredp 'yasnippet)
-        (push 'ac-source-yasnippet ac-sources))
-      (add-to-list 'completion-styles 'initials t)
-      (evil-leader/set-key "ta" 'auto-complete-mode)
-      (define-key ac-completing-map (kbd "C-j") 'ac-next)
-      (define-key ac-completing-map (kbd "C-k") 'ac-previous)
-      (define-key ac-completing-map (kbd "<S-tab>") 'ac-previous)
-      ;; customization
-      (setq ac-auto-start 0
-            ac-delay 0.2
-            ac-quick-help-delay 1.
-            ac-use-fuzzy t
-            ac-fuzzy-enable t
-            ac-comphist-file (concat spacemacs-cache-directory "ac-comphist.dat")
-            tab-always-indent 'complete ; use 'complete when auto-complete is disabled
-            ac-dwim t)
-      (spacemacs|diminish auto-complete-mode " Ⓐ" " A"))))
-
-(defun spacemacs/init-auto-complete-clang ()
-  (use-package auto-complete-clang
-    :defer t
-    :config
-    (progn
-      (setq ac-clang-flags
-            (mapcar (lambda (item)(concat "-I" item))
-                    (split-string
-                     "
- /usr/include/c++/4.7
- /usr/include/i386-linux-gnu/c++/4.7/.
- /usr/include/c++/4.7/backward
- /usr/lib/gcc/i686-linux-gnu/4.7/include
- /usr/local/include
- /usr/lib/gcc/i686-linux-gnu/4.7/include-fixed
- /usr/include/i386-linux-gnu
- /usr/include
- "
-                     ))))))
 
 (defun spacemacs/init-auto-dictionary ()
   (use-package auto-dictionary

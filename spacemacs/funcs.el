@@ -828,25 +828,10 @@ If ASCII si not provided then UNICODE is used instead."
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 
+;; cannot move it to auto-completion layer since it is
+;; required in config.el file of the layers
 (defmacro spacemacs|init-company-backends (mode)
   "Initialize a MODE specific company backend variable.
 The variable name format is company-backends-MODE."
   `(defvar ,(intern (format "company-backends-%S" mode)) nil
      ,(format "Company backend list for %S" mode)))
-
-(defmacro spacemacs|enable-company (mode &optional hook)
-  "Enable company for the given MODE.
-MODE must match the symbol passed in `spacemacs|init-company-backends'.
-By default the initialization function is hooked to `MODE-hook', it is
-possible to explicitly define a hook with HOOK."
-  (when (configuration-layer/layer-declaredp 'company-mode)
-    (let ((mode-hook (if hook hook
-                       (intern (format "%S-hook" mode))))
-          (func (intern (format "spacemacs//init-company-%S" mode))))
-      `(progn
-         (defun ,func ()
-           ,(format "Initialize company for %S" mode)
-           (set (make-variable-buffer-local 'company-backends)
-                ,(intern (format "company-backends-%S" mode))))
-         (add-hook ',mode-hook ',func)))))
-

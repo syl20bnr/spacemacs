@@ -28,6 +28,7 @@
     spray
     zoom-frm
     ;; hack to be able to wrap built-in emacs modes in an init function
+    emacs-builtin-emacs-lisp
     emacs-builtin-process-menu
     ))
 
@@ -173,6 +174,14 @@
       ;; Font size, either with ctrl + mouse wheel
       (global-set-key (kbd "C-<wheel-up>") 'spacemacs/zoom-frm-in)
       (global-set-key (kbd "C-<wheel-down>") 'spacemacs/zoom-frm-out))))
+
+(defun spacemacs/init-emacs-builtin-emacs-lisp ()
+    (when (configuration-layer/layer-declaredp 'auto-completion)
+      ;; from lower priority to higher
+      (push 'company-dabbrev company-backends-emacs-lisp-mode)
+      (push 'company-files company-backends-emacs-lisp-mode)
+      (push 'company-capf company-backends-emacs-lisp-mode)
+      (spacemacs|enable-company emacs-lisp-mode)))
 
 (defun spacemacs/init-emacs-builtin-process-menu ()
   (evilify process-menu-mode process-menu-mode-map))

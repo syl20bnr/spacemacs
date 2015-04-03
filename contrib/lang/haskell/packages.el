@@ -28,7 +28,7 @@
 
 (defun haskell/init-company-ghc ()
   (use-package company-ghc
-    :if (configuration-layer/layer-declaredp 'company-mode)
+    :if (configuration-layer/layer-declaredp 'auto-completion)
     :defer t
     :init (push '(company-ghc :with company-yasnippet)
                 company-backends-haskell-mode)))

@@ -22,11 +22,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package markdown-mode
     :mode ("\\.md" . markdown-mode)
     :defer t
-    :init
-    (progn
-      (add-hook 'markdown-mode-hook 'smartparens-mode)
-      (when (configuration-layer/layer-declaredp 'company-mode)
-        (add-hook 'markdown-mode-hook (lambda () (company-mode -1)))))
+    :init (add-hook 'markdown-mode-hook 'smartparens-mode)
     :config
     ;; Don't do terrible things with Github code blocks (```)
     (when (fboundp 'sp-local-pair)

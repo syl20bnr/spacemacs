@@ -43,7 +43,7 @@ which require an initialization must be listed explicitly in the list.")
 )
 (defun go/init-company-go ()
  (use-package company-go
-   :if (configuration-layer/layer-declaredp 'company-mode)
+   :if (configuration-layer/layer-declaredp 'auto-completion)
    :defer t
    :init (push '(company-go :with company-yasnippet)
                company-backends-go-mode)))

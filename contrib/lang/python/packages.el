@@ -60,7 +60,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
-    :if (configuration-layer/layer-declaredp 'company-mode)
+    :if (configuration-layer/layer-declaredp 'auto-completion)
     :defer t
     :init
     ;; we don't use the yasnippet backend here because it

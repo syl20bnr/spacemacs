@@ -46,7 +46,7 @@ which require an initialization must be listed explicitly in the list.")
 (defun javascript/init-company-tern ()
   (use-package company-tern
     :if (and (configuration-layer/package-declaredp 'tern)
-             (configuration-layer/layer-declaredp 'company-mode))
+             (configuration-layer/layer-declaredp 'auto-completion))
     :defer t
     :init (push '(company-tern :with company-yasnippet)
                 company-backends-js2-mode)))

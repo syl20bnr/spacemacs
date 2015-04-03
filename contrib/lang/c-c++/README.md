@@ -26,8 +26,16 @@ for demos in some programming languages.
 - Support common refactoring with [semantic-refactor][]. See [this page][srefactor-demos]
 for demonstration of refactoring features.
 
-**This layer is not fully adapted for Spacemacs, it needs you, C/C++ experts, to
-improve it and make it consistent with the Spacemacs experience.**
+### Clang Fanciness
+
+This layer adds some fancy improvements to `company-clang`.
+It includes a hook to load a projects `.clang_complete` file, which is
+just a text file with one clang flag per line, a format also used by
+other text editor clang plugins.
+
+Not only does this allow proper autocomplete on projects with extra
+includes and flags, but there is also support for flycheck so that it
+doesn't complain about missing header files.
 
 ## Key Bindings
 
