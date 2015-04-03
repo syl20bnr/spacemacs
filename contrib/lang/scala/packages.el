@@ -164,6 +164,10 @@ which require an initialization must be listed explicitly in the list.")
            (defun scala/disable-flycheck () (flycheck-mode -1))
            (add-hook 'ensime-mode-hook 'scala/disable-flycheck))))))
 
+(defun scala/init-noflet ())
+
+(defun scala/init-sbt-mode ())
+
 (defun scala/init-scala-mode2 ()
   (use-package scala-mode2
     :defer t

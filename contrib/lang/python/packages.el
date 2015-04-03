@@ -239,7 +239,7 @@ which require an initialization must be listed explicitly in the list.")
 (defun python/init-flycheck ()
   (add-hook 'python-mode-hook 'flycheck-mode))
 
-(defun spacemacs/init-hy-mode ()
+(defun python/init-hy-mode ()
   (use-package hy-mode
     :defer t))
 
