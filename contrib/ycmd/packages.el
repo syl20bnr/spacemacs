@@ -20,8 +20,9 @@ which require an initialization must be listed explicitly in the list.")
       ;; we don't use ycmd-setup, to correctly lazy-load ycmd we
       ;; define excplicitly the hooks here
       (add-hook 'c++-mode-hook 'ycmd-mode)
-      (setq-default ycmd-global-config
-                    (expand-file-name "~/.emacs.d/contrib/ycmd/global_conf.py"))
+      (unless (boundp 'ycmd-global-config)
+        (setq-default ycmd-global-config
+                      (expand-file-name "~/.emacs.d/contrib/ycmd/global_conf.py")))
       (evil-leader/set-key-for-mode 'c++-mode
         "mgg" 'ycmd-goto
         "mgG" 'ycmd-goto-imprecise))))
