@@ -3,14 +3,13 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
-- [Colors contribution layer for Spacemacs](#colors-contribution-layer-for-spacemacs)
+- [Auto-Completion configuration layer for Spacemacs](#auto-completion-configuration-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
-        - [Enable rainbow-identifiers](#enable-rainbow-identifiers)
-        - [Enable Nyan cat](#enable-nyan-cat)
-    - [Key bindings](#key-bindings)
-        - [Rainbow Identifiers](#rainbow-identifiers)
-        - [Rainbow Mode](#rainbow-mode)
+        - [Company variables](#company-variables)
+    - [Key Bindings](#key-bindings)
+        - [Company](#company)
+        - [Auto-complete](#auto-complete)
 
 <!-- markdown-toc end -->
 
@@ -75,3 +74,6 @@ to `t`
 <kbd>TAB</kbd>     | expand selection or select next candidate
 <kbd>S-TAB</kbd>   | select previous candidate
 <kbd>return</kbd>  | complete word, if word is already completed insert a carriage return
+
+[company]: http://company-mode.github.io/
+[auto-complete]: http://auto-complete.org/
