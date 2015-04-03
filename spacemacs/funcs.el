@@ -144,17 +144,22 @@ the current state and point position."
       (setq counter (1- counter)))))
 
 ;; eval lisp helpers
-(defun spacemacs/eval-last-sexp ()
-  (interactive "P")
-  (spacemacs/message "Executing code ...")
-  (eval-last-sexp))
-
 (defun spacemacs/eval-region ()
   (interactive)
-  (spacemacs/message "Executing code ...")
   (eval-region (region-beginning) (region-end))
   (evil-normal-state))
-  
+
+;; idea from http://www.reddit.com/r/emacs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
+(defun spacemacs/eval-current-form ()
+  "Looks for the current def* or set* command then evaluates, unlike `eval-defun', does not go to topmost function"
+  (interactive)
+  (save-excursion
+    (search-backward-regexp "(def\\|(set")
+    (forward-list)
+    (call-interactively 'eval-last-sexp)
+    )
+  )
+
 ;; from magnars
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
