@@ -6,16 +6,16 @@ which require an initialization must be listed explicitly in the list.")
   "List of packages to exclude.")
 
 (defun evil-snipe/init-evil-snipe ()
-  (require 'evil-snipe)
-  (global-evil-snipe-mode t)
-
-  (setq evil-snipe-scope 'whole-buffer
-        evil-snipe-enable-highlight t
-        evil-snipe-enable-incremental-highlight t
-        evil-snipe-enable-half-cursor nil
-        evil-snipe-show-prompt nil
-        evil-snipe-smart-case t)
-
-  (when evil-snipe-enable-alternate-f-and-t-behaviors
-    (setq evil-snipe-repeat-scope 'whole-buffer
-          evil-snipe-override-evil t)))
+  (use-package evil-snipe
+    :init
+    (setq evil-snipe-scope 'whole-buffer
+          evil-snipe-enable-highlight t
+          evil-snipe-enable-incremental-highlight t
+          evil-snipe-enable-half-cursor nil
+          evil-snipe-show-prompt nil
+          evil-snipe-smart-case t)
+    (when evil-snipe-enable-alternate-f-and-t-behaviors
+      (setq evil-snipe-repeat-scope 'whole-buffer
+            evil-snipe-override-evil t))
+    :config
+    (global-evil-snipe-mode t)))
