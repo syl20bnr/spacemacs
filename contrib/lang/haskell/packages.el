@@ -44,7 +44,7 @@
         (ghc-init)
         ;; use only internal indentation system from haskell
         (electric-indent-local-mode -1)
-        (when (configuration-layer/package-declaredp 'flycheck)
+        (when (configuration-layer/package-usedp 'flycheck)
           ;; remove overlays from ghc-check.el if flycheck is enabled
           (set-face-attribute 'ghc-face-error nil :underline nil)
           (set-face-attribute 'ghc-face-warn nil :underline nil)))
@@ -219,12 +219,13 @@
       (define-key shm-map (kbd "C-j") nil)
       (define-key shm-map (kbd "C-k") nil))))
 
-(when (configuration-layer/layer-declaredp 'auto-completion)
+(when (configuration-layer/layer-usedp 'auto-completion)
   (defun haskell/post-init-company ()
     (spacemacs|enable-company haskell-mode))
 
   (defun haskell/init-company-ghc ()
     (use-package company-ghc
+      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init (push '(company-ghc :with company-yasnippet)
                   company-backends-haskell-mode))))

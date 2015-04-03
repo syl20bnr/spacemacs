@@ -37,7 +37,7 @@
 MODE must match the symbol passed in `spacemacs|init-company-backends'.
 By default the initialization function is hooked to `MODE-hook', it is
 possible to explicitly define a hook with HOOK."
-  (when (configuration-layer/layer-declaredp 'auto-completion)
+  (when (configuration-layer/pacakge-usedp 'company)
     (let ((mode-hook (if hook hook
                        (intern (format "%S-hook" mode))))
           (func (intern (format "spacemacs//init-company-%S" mode))))
@@ -58,7 +58,7 @@ possible to explicitly define a hook with HOOK."
   ;; syl20bnr: For now adding company-snippet to some backend like anaconda
   ;; has weird side effects, I need to investigate a little more on this
   ;; ------------------
-  ;; (if (and (configuration-layer/package-declaredp 'yasnippet)
+  ;; (if (and (configuration-layer/package-usedp 'yasnippet)
   ;;          auto-completion-enable-company-yasnippet
   ;;          (not (eq 'company-semantic backend)))
   ;;     (unless (and (listp backend) (member 'company-yasnippet backend))
@@ -74,7 +74,7 @@ possible to explicitly define a hook with HOOK."
   "Enable auto-complete for the given MODE.
 By default the initialization function is hooked to `MODE-hook', it is
 possible to explicitly define a hook with HOOK."
-  (when (configuration-layer/layer-declaredp 'auto-completion)
+  (when (configuration-layer/layer-usedp 'auto-completion)
     (let ((mode-hook (if hook hook
                        (intern (format "%S-hook" mode))))
           (func (intern (format "spacemacs//init-auto-complete-%S" mode))))

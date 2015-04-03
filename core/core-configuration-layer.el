@@ -248,12 +248,12 @@ the following keys:
             (spacemacs/message "Warning: Missing value for variable %s !"
                                var)))))))
 
-(defun configuration-layer/package-declaredp (pkg)
-  "Return non-nil if PKG symbol corresponds to a declared package."
+(defun configuration-layer/package-usedp (pkg)
+  "Return non-nil if PKG symbol corresponds to a used package."
   (ht-contains? configuration-layer-all-packages pkg))
 
-(defun configuration-layer/layer-declaredp (layer)
-  "Return non-nil if LAYER symbol corresponds to a declared layer."
+(defun configuration-layer/layer-usedp (layer)
+  "Return non-nil if LAYER symbol corresponds to a used layer."
   (not (null (assq layer configuration-layer-layers))))
 
 (defun configuration-layer/get-layers-list ()

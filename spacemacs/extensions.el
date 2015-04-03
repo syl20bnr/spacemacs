@@ -176,7 +176,7 @@
       (global-set-key (kbd "C-<wheel-down>") 'spacemacs/zoom-frm-out))))
 
 (defun spacemacs/init-emacs-builtin-emacs-lisp ()
-    (when (configuration-layer/layer-declaredp 'auto-completion)
+    (when (configuration-layer/layer-usedp 'auto-completion)
       ;; from lower priority to higher
       (push 'company-dabbrev company-backends-emacs-lisp-mode)
       (push 'company-files company-backends-emacs-lisp-mode)
