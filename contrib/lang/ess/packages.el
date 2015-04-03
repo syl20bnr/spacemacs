@@ -143,7 +143,7 @@ not play nicely with autoloads"
       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
 
-(when (configuration-layer/layer-declaredp 'auto-completion)
+(when (configuration-layer/layer-usedp 'auto-completion)
   (defun ess/post-init-company ()
     (spacemacs|enable-company ess-mode))
 

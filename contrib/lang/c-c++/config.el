@@ -13,6 +13,6 @@
 ;; variables
 
 
-(when (configuration-layer/layer-declaredp 'auto-completion)
+(when (configuration-layer/layer-usedp 'auto-completion)
   (spacemacs|init-company-backends c-c++)
   (spacemacs|init-company-backends cmake-mode))

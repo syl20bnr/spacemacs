@@ -55,7 +55,7 @@ conflict.")
       (setq-default ac-sources '(ac-source-abbrev
                                  ac-source-dictionary
                                  ac-source-words-in-same-mode-buffers))
-      (when (configuration-layer/package-declaredp 'yasnippet)
+      (when (configuration-layer/package-usedp 'yasnippet)
         (push 'ac-source-yasnippet ac-sources))
       (add-to-list 'completion-styles 'initials t)
       (define-key ac-completing-map (kbd "C-j") 'ac-next)

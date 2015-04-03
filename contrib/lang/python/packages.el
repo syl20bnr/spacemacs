@@ -257,12 +257,13 @@ which require an initialization must be listed explicitly in the list.")
           ad-do-it
         (call-interactively 'sp-backward-delete-char)))))
 
-(when (configuration-layer/layer-declaredp 'auto-completion)
+(when (configuration-layer/layer-usedp 'auto-completion)
   (defun python/post-init-company ()
     (spacemacs|enable-company python-mode))
 
   (defun python/init-company-anaconda ()
     (use-package company-anaconda
+      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
       ;; we don't use the yasnippet backend here because it

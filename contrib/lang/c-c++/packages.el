@@ -48,7 +48,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package cmake-mode
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
     :config
-    (when (configuration-layer/layer-declaredp 'auto-completion)
+    (when (configuration-layer/layer-usedp 'auto-completion)
       (push 'company-cmake company-backends-cmake-mode))))
 
 (defun c-c++/init-flycheck ()
@@ -75,7 +75,7 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance
                     '(c-mode-hook c++-mode-hook)))))
 
-(when (configuration-layer/layer-declaredp 'auto-completion)
+(when (configuration-layer/layer-usedp 'auto-completion)
   (defun c-c++/post-init-company ()
     ;; push this backend by default
     (push '(company-clang :with company-yasnippet) company-backends-c-c++)
@@ -126,5 +126,6 @@ which require an initialization must be listed explicitly in the list.")
 
   (defun c-c++/init-company-c-headers ()
     (use-package company-c-headers
+      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init (push 'company-c-headers company-backends-c-c++))))

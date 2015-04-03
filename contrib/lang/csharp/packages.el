@@ -63,6 +63,6 @@
               "mi" 'omnisharp-fix-usings
               "m=" 'omnisharp-code-format)))
 
-(when (configuration-layer/layer-declaredp 'auto-completion)
+(when (configuration-layer/layer-usedp 'auto-completion)
   (defun csharp/post-init-company ()
     (spacemacs|enable-company csharp-mode)))

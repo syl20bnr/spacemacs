@@ -204,16 +204,17 @@ the focus."
         (clojure/fancify-symbols 'clojure-mode)))))
 
 (defun clojure/init-rainbow-delimiters ()
-  (if (configuration-layer/package-declaredp 'cider)
+  (if (configuration-layer/package-usedp 'cider)
       (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
 
 (defun clojure/init-subword ()
   (unless (version< emacs-version "24.4")
     (add-hook 'cider-mode-hook 'subword-mode)))
 
-(when (configuration-layer/layer-declaredp 'auto-completion)
+(when (configuration-layer/layer-usedp 'auto-completion)
   (defun clojure/init-ac-cider ()
     (use-package ac-cider
+      :if (configuration-layer/layer-usedp 'auto-complete)
       :defer t
       :init
       (progn

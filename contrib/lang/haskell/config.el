@@ -11,7 +11,7 @@
 
 ;; Variables
 
-(when (configuration-layer/layer-declaredp 'auto-completion)
+(when (configuration-layer/layer-usedp 'auto-completion)
   (spacemacs|init-company-backends haskell-mode))
 
 (defvar haskell-enable-ghci-ng-support nil

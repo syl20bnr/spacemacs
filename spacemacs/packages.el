@@ -259,7 +259,7 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (eval '(progn (spacemacs/integrate-evil-search t)
                       (spacemacs/ahs-highlight-now-wrapper)
-                      (when (configuration-layer/package-declaredp 'evil-jumper)
+                      (when (configuration-layer/package-usedp 'evil-jumper)
                         (evil-set-jump))
                       (ahs-forward)) nil))
 
@@ -269,7 +269,7 @@ which require an initialization must be listed explicitly in the list.")
         (interactive)
         (eval '(progn (spacemacs/integrate-evil-search nil)
                       (spacemacs/ahs-highlight-now-wrapper)
-                      (when (configuration-layer/package-declaredp 'evil-jumper)
+                      (when (configuration-layer/package-usedp 'evil-jumper)
                         (evil-set-jump))
                       (ahs-backward)) nil))
 
@@ -715,7 +715,7 @@ which require an initialization must be listed explicitly in the list.")
       (setq anzu-search-threshold 1000
             anzu-cons-mode-line-p nil)
       ;; powerline integration
-      (when (configuration-layer/package-declaredp 'powerline)
+      (when (configuration-layer/package-usedp 'powerline)
         (defun spacemacs/anzu-update-mode-line (here total)
           "Custom update function which does not propertize the status."
           (when anzu--state
@@ -1287,14 +1287,14 @@ ignored)."
          (if arg
              (cond (((executable-find "ack") 'spacemacs/helm-do-ack)
                     (t 'helm-do-grep)))
-           (cond ((and (configuration-layer/package-declaredp 'helm-pt)
+           (cond ((and (configuration-layer/package-usedp 'helm-pt)
                        (executable-find "pt")) 'helm-do-pt)
                  ((executable-find "ag") 'helm-do-ag)
                  ((executable-find "ack") 'spacemacs/helm-do-ack)
                  (t 'helm-do-grep)))))
 
       ;; use helm by default for M-x
-      (unless (configuration-layer/package-declaredp 'smex)
+      (unless (configuration-layer/package-usedp 'smex)
         (global-set-key (kbd "M-x") 'helm-M-x))
 
       (evil-leader/set-key
@@ -1318,7 +1318,7 @@ ignored)."
       ;; to overwrite any key binding
       (add-hook 'after-init-hook
                 (lambda ()
-                  (unless (configuration-layer/package-declaredp 'smex)
+                  (unless (configuration-layer/package-usedp 'smex)
                     (evil-leader/set-key dotspacemacs-command-key 'helm-M-x))))
 
       ;; disable popwin-mode in an active Helm session It should be disabled
@@ -1554,7 +1554,7 @@ ignored)."
          (if arg
              (cond (((executable-find "ack") 'helm-projectile-ack)
                     (t 'helm-projectile-grep)))
-           (cond ((and (configuration-layer/package-declaredp 'helm-pt)
+           (cond ((and (configuration-layer/package-usedp 'helm-pt)
                        (executable-find "pt")) 'helm-projectile-pt)
                  ((executable-find "ag") 'helm-projectile-ag)
                  ((executable-find "ack") 'spacemacs/helm-projectile-ack)
@@ -1593,7 +1593,7 @@ ignored)."
       "ss"    'helm-swoop
       "s C-s" 'helm-multi-swoop-all)
     (defadvice helm-swoop (before add-evil-jump activate)
-      (when (configuration-layer/package-declaredp 'evil-jumper)
+      (when (configuration-layer/package-usedp 'evil-jumper)
         (evil-set-jump)))))
 
 (defun spacemacs/init-helm-themes ()
@@ -2587,7 +2587,7 @@ displayed in the mode-line.")
     :init (require 'window-numbering)
     :config
     (progn
-      (when (configuration-layer/package-declaredp 'powerline)
+      (when (configuration-layer/package-usedp 'powerline)
         (defun window-numbering-install-mode-line (&optional position)
           "Do nothing, the display is handled by the powerline."))
       (setq window-numbering-auto-assign-0-to-minibuffer nil)
