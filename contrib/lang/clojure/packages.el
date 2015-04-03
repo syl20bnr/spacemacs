@@ -11,19 +11,6 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defun clojure/init-ac-cider ()
-  (use-package ac-cider
-    :defer t
-    :if (configuration-layer/package-declaredp 'auto-complete)
-    :init
-    (progn
-      (add-to-hook 'cider-mode-hook '(ac-flyspell-workaround
-                                      ac-cider-setup))
-      (add-to-hook 'cider-repl-mode-hook '(ac-cider-setup
-                                           auto-complete-mode)))
-    :config
-    (push 'cider-mode ac-modes)))
-
 (defun clojure/init-align-cljlet ()
   (use-package align-cljlet
     :defer t
@@ -223,3 +210,17 @@ the focus."
 (defun clojure/init-subword ()
   (unless (version< emacs-version "24.4")
     (add-hook 'cider-mode-hook 'subword-mode)))
+
+(when (configuration-layer/layer-declaredp 'auto-completion)
+  (defun clojure/init-ac-cider ()
+    (use-package ac-cider
+      :defer t
+      :init
+      (progn
+        (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+        (add-to-hooks 'ac-cider-setup '(clojure-mode-hook
+                                        cider-mode-hook
+                                        cider-repl-mode-hook))
+        (add-to-hooks 'auto-complete-mode '(clojure-mode-hook
+                                            cider-mode-hook
+                                            cider-repl-mode-hook))))))
