@@ -125,6 +125,11 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :mode ("\\.scss\\'" . scss-mode)))
 
+(defun html/init-less-css-mode ()
+  (use-package less-css-mode
+    :defer t
+    :mode ("\\.less\\'" . less-css-mode)))
+
 (defun html/init-flycheck ()
   (add-hook 'web-mode-hook 'flycheck-mode)
   (add-hook 'scss-mode-hook 'flycheck-mode))
