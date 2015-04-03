@@ -348,7 +348,7 @@ version and the NEW version."
         ;; (vc-mode vc-mode)
        ;; "  " mode-line-modes mode-line-misc-info mode-line-end-spaces
        (spacemacs/set-mode-line
-        (format (concat "%s errors at startup! "
+        (format (concat "%s error(s) at startup! "
                         "Spacemacs may not be able to operate properly.")
                 configuration-layer-error-count))
        (force-mode-line-update))
