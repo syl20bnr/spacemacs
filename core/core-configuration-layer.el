@@ -268,7 +268,9 @@ the following keys:
   "Load all declared layers."
   (let ((layers (reverse configuration-layer-layers)))
     (configuration-layer//set-layers-variables layers)
+    ;; first load the config files then the package files
     (configuration-layer//load-layers-files layers '("funcs.el" "config.el"))
+    (configuration-layer//load-layers-files layers '("packages.el" "extensions.el"))
     ;; fill the hash tables
     (setq configuration-layer-all-packages (configuration-layer/get-packages layers))
     (setq configuration-layer-excluded-packages (configuration-layer/get-excluded-packages layers))
@@ -404,7 +406,6 @@ VAR is a string with value `packages', `pre-extensions' or `post-extensions'."
              (dir (plist-get (cdr layer) :dir))
              (pkg-file (concat dir (format "%s.el" file))))
         (when (file-exists-p pkg-file)
-          (load pkg-file)
           (let* ((layer-name (symbol-name layer-sym))
                  (packages-var (intern (format "%s-%s" layer-name var))))
             (when (boundp packages-var)
