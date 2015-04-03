@@ -449,6 +449,7 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
 (defun configuration-layer/update-packages ()
   "Upgrade elpa packages"
   (interactive)
+  (spacemacs/insert-page-break)
   (spacemacs/append-to-buffer
    "\nUpdating Spacemacs... (for now only ELPA packages are updated)\n")
   (spacemacs/append-to-buffer
@@ -472,7 +473,7 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
              "Packages update has been cancelled.\n")
           ;; backup the package directory and construct an alist
           ;; variable to be cached for easy update and rollback
-          (spacemacs/replace-last-line-of-buffer
+          (spacemacs/append-to-buffer
            "--> performing backup of package(s) to update...\n" t)
           (spacemacs//redisplay)
           (dolist (pkg update-packages)
@@ -491,25 +492,14 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
           (dolist (pkg update-packages)
             (setq upgraded-count (1+ upgraded-count))
             (spacemacs/replace-last-line-of-buffer
-             (format "--> updating package %s... [%s/%s]"
+             (format "--> preparing update of package %s... [%s/%s]"
                      pkg upgraded-count upgrade-count) t)
             (spacemacs//redisplay)
-            (configuration-layer//package-delete pkg)
-            (condition-case err (package-install pkg)
-              ('error
-               (message (format
-                         (concat "An error occurred during the update of "
-                                 "this package %s, retrying one more time...")
-                         err))
-               (package-install pkg)))
-            (when (version< emacs-version "24.3.50")
-              ;; explicitly force activation
-              (setq package-activated-list (delq pkg package-activated-list))
-              (configuration-layer//activate-package pkg)))
+            (configuration-layer//package-delete pkg))
           (spacemacs/append-to-buffer
-           (format "\n--> %s packages updated.\n" upgraded-count))
+           (format "\n--> %s package(s) to be updated.\n" upgraded-count))
           (spacemacs/append-to-buffer
-           "\nEmacs has to be restarted for the changes to take effect.\n")
+           "\nEmacs has to be restarted to actually install the new packages.\n")
           (spacemacs//redisplay))
       (spacemacs/append-to-buffer "--> All packages are up to date.\n")
       (spacemacs//redisplay))))
@@ -539,6 +529,7 @@ to select one."
         (when candidates
           (ido-completing-read "Rollback slots (most recent are first): "
                                candidates))))))
+  (spacemacs/insert-page-break)
   (if (not slot)
       (message "No rollback slot available.")
     (string-match "^\\(.+?\\)\s.*$" slot)
