@@ -20,6 +20,7 @@
     hi2
     hindent
     shm
+    cmm-mode
     ))
 
 (defun haskell/init-flycheck ()
@@ -251,3 +252,7 @@
       (add-hook 'evil-normal-state-entry-hook 'spacemacs/haskell-hide-hi2-guides)
       (add-hook 'evil-insert-state-entry-hook 'spacemacs/haskell-show-hi2-guides)
       (add-hook 'evil-insert-state-exit-hook  'spacemacs/haskell-hide-hi2-guides))))
+
+(defun haskell/init-cmm-mode ()
+  (use-package cmm-mode
+    :defer t))
