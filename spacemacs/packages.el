@@ -50,7 +50,6 @@
     expand-region
     fancy-battery
     fill-column-indicator
-    fish-mode
     flx-ido
     flycheck
     flycheck-pos-tip
