@@ -258,8 +258,8 @@ the following keys:
     (configuration-layer//set-layers-variables layers)
     (configuration-layer//load-layers-files layers '("funcs.el" "config.el"))
     ;; fill the hash tables
-    (setq configuration-layer-excluded-packages (configuration-layer/get-excluded-packages layers))
     (setq configuration-layer-all-packages (configuration-layer/get-packages layers))
+    (setq configuration-layer-excluded-packages (configuration-layer/get-excluded-packages layers))
     (setq configuration-layer-all-pre-extensions (configuration-layer/get-extensions layers t))
     (setq configuration-layer-all-post-extensions (configuration-layer/get-extensions layers))
     ;; This is what you get when you have no test cases... hopefully I will code
@@ -337,14 +337,10 @@ of all excluded packages."
   (let (result)
     (dolist (layer layers)
       (let* ((layer-sym (car layer))
-             (dir (plist-get (cdr layer) :dir))
-             (pkg-file (concat dir "packages.el")))
-        (when (file-exists-p pkg-file)
-          (load pkg-file)
-          (let ((excl-var (intern (format "%s-excluded-packages"
-                                          (symbol-name layer-sym)))))
-            (when (boundp excl-var)
-              (mapc (lambda (x) (push x result)) (eval excl-var)))))))
+             (excl-var (intern (format "%s-excluded-packages"
+                                       (symbol-name layer-sym)))))
+        (when (boundp excl-var)
+          (mapc (lambda (x) (push x result)) (eval excl-var)))))
     result))
 
 (defun configuration-layer//get-packages-or-extensions (layers file var)
