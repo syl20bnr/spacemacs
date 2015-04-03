@@ -20,7 +20,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
-    :mode ("\\.md" . markdown-mode)
+    :mode ("\\.m[k]d" . markdown-mode)
     :defer t
     :init
     (eval-after-load 'smartparens
