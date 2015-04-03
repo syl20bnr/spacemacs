@@ -1845,6 +1845,8 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (setq linum-relative-current-symbol "")
       (linum-relative-toggle))))
 
+(defun spacemacs/init-monokai-theme ())
+
 (defun spacemacs/init-move-text ()
   (use-package move-text
     :defer t
