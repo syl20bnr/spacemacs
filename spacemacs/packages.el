@@ -15,9 +15,7 @@
     ac-ispell
     ace-jump-mode
     ace-window
-    ag
     aggressive-indent
-    async
     auto-complete
     auto-complete-clang
     auto-dictionary
@@ -25,9 +23,7 @@
     base16-theme
     bookmark
     buffer-move
-    dash
     diminish
-    dired+
     doc-view
     ediff
     elisp-slime-nav
@@ -55,15 +51,12 @@
     exec-path-from-shell
     expand-region
     fancy-battery
-    fancy-narrow
     fill-column-indicator
     fish-mode
     flx-ido
     flycheck
     flycheck-pos-tip
     flyspell
-    ;; required for update
-    gh
     golden-ratio
     google-translate
     guide-key-tip
@@ -80,7 +73,6 @@
     helm-pt
     helm-swoop
     helm-themes
-    highlight
     highlight-indentation
     highlight-numbers
     hippie-exp
@@ -90,18 +82,14 @@
     info+
     iedit
     indent-guide
-    let-alist
     leuven-theme
     linum-relative
     monokai-theme
     move-text
     multi-term
     neotree
-    noflet
     org
     org-bullets
-    ;; annoying error message, disable it for now
-    ;; org-trello
     page-break-lines
     popup
     popwin
@@ -110,18 +98,14 @@
     rainbow-delimiters
     recentf
     rfringe
-    s
     shell
     smartparens
     smooth-scrolling
-    string-edit
     subword
     undo-tree
     use-package
     vi-tilde-fringe
-    visual-regexp-steroids
     volatile-highlights
-    wdired
     whitespace
     window-numbering
     winner
@@ -131,10 +115,7 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defvar spacemacs-excluded-packages
-  '(
-    fancy-narrow     ; too much bugs and bad side effects
-    )
+(defvar spacemacs-excluded-packages '()
   "List of packages to exclude.")
 
 ;; Paradox from MELPA is not compatible with 24.3 anymore
@@ -1077,17 +1058,6 @@ which require an initialization must be listed explicitly in the list.")
               ("+"  'fancy-battery-charging)
               ("-"  'fancy-battery-discharging)
               (_ 'fancy-battery-discharging))))))
-    ))
-
-(defun spacemacs/init-fancy-narrow ()
-  (use-package fancy-narrow
-    :defer t
-    :init
-    (evil-leader/set-key
-      "nr" 'fancy-narrow-to-region
-      "np" 'fancy-narrow-to-page
-      "nf" 'fancy-narrow-to-defun
-      "nw" 'fancy-widen)
     ))
 
 (defun spacemacs/init-fill-column-indicator ()
@@ -2589,12 +2559,6 @@ displayed in the mode-line.")
     (ad-activate 'next-line)
     (ad-disable-advice 'isearch-repeat 'after 'isearch-smooth-scroll)
     (ad-activate 'isearch-repeat)))
-
-(defun spacemacs/init-string-edit ()
-  (use-package string-edit
-    :defer t
-    :init
-    (evil-leader/set-key "eds" 'string-edit-at-point)))
 
 (defun spacemacs/init-subword ()
   (unless (version< emacs-version "24.4")

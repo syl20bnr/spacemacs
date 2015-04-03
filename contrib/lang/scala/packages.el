@@ -14,6 +14,7 @@
   '(
     projectile
     ensime
+    noflet
     sbt-mode
     scala-mode2
     )

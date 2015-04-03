@@ -140,12 +140,11 @@ Ensure that helm is required before calling FUNC."
 (evil-leader/set-key "cC" 'compile)
 (evil-leader/set-key "cr" 'recompile)
 ;; narrow & widen -------------------------------------------------------------
-(unless (configuration-layer/package-declaredp 'fancy-narrow)
-  (evil-leader/set-key
-    "nr" 'narrow-to-region
-    "np" 'narrow-to-page
-    "nf" 'narrow-to-defun
-    "nw" 'widen))
+(evil-leader/set-key
+  "nr" 'narrow-to-region
+  "np" 'narrow-to-page
+  "nf" 'narrow-to-defun
+  "nw" 'widen)
 ;; spell check  ---------------------------------------------------------------
 (evil-leader/set-key
   "Sd" 'ispell-change-dictionary
