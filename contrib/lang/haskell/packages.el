@@ -12,6 +12,7 @@
 
 (defvar haskell-packages
   '(
+    cmm-mode
     company
     company-ghc
     flycheck
@@ -21,6 +22,10 @@
     hindent
     shm
     ))
+
+(defun haskell/init-cmm-mode ()
+  (use-package cmm-mode
+    :defer t))
 
 (defun haskell/post-init-flycheck ()
   (add-hook 'haskell-mode-hook 'flycheck-mode))
@@ -224,7 +229,7 @@
       (define-key shm-map (kbd "C-k") nil))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-(defun haskell/post-init-company ()
+  (defun haskell/post-init-company ()
     (spacemacs|add-company-hook haskell-mode))
 
   (defun haskell/init-company-ghc ()
