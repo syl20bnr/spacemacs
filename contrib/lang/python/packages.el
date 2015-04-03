@@ -56,7 +56,8 @@ which require an initialization must be listed explicitly in the list.")
       (spacemacs|hide-lighter anaconda-mode))))
 
 (defun python/init-company ()
-  (spacemacs|enable-company python-mode))
+  (if (configuration-layer/layer-declaredp 'auto-completion)
+     (spacemacs|enable-company python-mode)))
 
 (defun python/init-company-anaconda ()
   (use-package company-anaconda
