@@ -102,7 +102,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun c-c++/init-company-c-headers ()
   (use-package company-c-headers
-    :if (configuration-layer/layer-declaredp 'company-mode)
+    :if (configuration-layer/layer-declaredp 'auto-completion)
     :defer t
     :init (push 'company-c-headers company-backends-c-c++)))
 

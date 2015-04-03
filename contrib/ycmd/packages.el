@@ -13,7 +13,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun ycmd/init-company-ycmd ()
   (use-package company-ycmd
-    :if (configuration-layer/layer-declaredp 'company-mode)
+    :if (configuration-layer/layer-declaredp 'auto-completion)
     :defer t
     :init (push '(company-ycmd :with company-yasnippet)
                 company-backends-c-c++)))

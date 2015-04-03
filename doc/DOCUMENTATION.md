@@ -122,7 +122,6 @@
             - [Indent text object](#indent-text-object)
         - [Region narrowing](#region-narrowing)
         - [Line formatting](#line-formatting)
-        - [Auto-completion](#auto-completion)
         - [Replacing text with iedit](#replacing-text-with-iedit)
             - [iedit states key bindings](#iedit-states-key-bindings)
                 - [State transitions](#state-transitions)
@@ -1922,18 +1921,6 @@ Line formatting commands start with `j`:
 <kbd>SPC j k</kbd>         | go to next line and indent it using auto-indent rules
 
 Used together these key bindings are very powerful to quickly reformat the code.
-
-### Auto-completion
-
-`Spacemacs` uses [auto-complete][] auto-completion engine.
-
-    Key Binding    |                 Description
--------------------|------------------------------------------------------------
-<kbd>C-j</kbd>     | select next candidate
-<kbd>C-k</kbd>     | select previous candidate
-<kbd>TAB</kbd>     | expand selection or select next candidate
-<kbd>S-TAB</kbd>   | select previous candidate
-<kbd>return</kbd>  | complete word, if word is already completed insert a carriage return
 
 ### Replacing text with iedit
 
