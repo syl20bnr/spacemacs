@@ -10,9 +10,6 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defun go/init-company ()
-  (spacemacs|enable-company go-mode))
-
 (defun go/init-flycheck ()
     (add-hook 'go-mode-hook 'flycheck-mode))
 
@@ -38,12 +35,14 @@ which require an initialization must be listed explicitly in the list.")
   (use-package go-autocomplete
     :if (boundp 'ac-sources)
     :defer t
-    :init (add-to-list 'ac-sources 'ac-source-go)
-  )
-)
-(defun go/init-company-go ()
- (use-package company-go
-   :if (configuration-layer/layer-declaredp 'auto-completion)
-   :defer t
-   :init (push '(company-go :with company-yasnippet)
-               company-backends-go-mode)))
+    :init (add-to-list 'ac-sources 'ac-source-go)))
+
+(when (configuration-layer/layer-declaredp 'auto-completion)
+  (defun go/post-init-company ()
+    (spacemacs|enable-company go-mode))
+
+  (defun go/init-company-go ()
+    (use-package company-go
+      :defer t
+      :init (push '(company-go :with company-yasnippet)
+                  company-backends-go-mode))))

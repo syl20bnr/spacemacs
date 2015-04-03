@@ -55,20 +55,6 @@ which require an initialization must be listed explicitly in the list.")
         "mgg"  'anaconda-mode-goto)
       (spacemacs|hide-lighter anaconda-mode))))
 
-(defun python/init-company ()
-  (spacemacs|enable-company python-mode))
-
-(defun python/init-company-anaconda ()
-  (use-package company-anaconda
-    :if (configuration-layer/layer-declaredp 'auto-completion)
-    :defer t
-    :init
-    ;; we don't use the yasnippet backend here because it
-    ;; produces some weird bug in company-anaconda back end
-    ;; (like the f, s, v suffix being at the wrong place in the
-    ;; completion menu)
-    (push 'company-anaconda company-backends-python-mode)))
-
 (defun python/init-cython-mode ()
   (use-package cython-mode
     :defer t
@@ -270,3 +256,17 @@ which require an initialization must be listed explicitly in the list.")
       (if pythonp
           ad-do-it
         (call-interactively 'sp-backward-delete-char)))))
+
+(when (configuration-layer/layer-declaredp 'auto-completion)
+  (defun python/post-init-company ()
+    (spacemacs|enable-company python-mode))
+
+  (defun python/init-company-anaconda ()
+    (use-package company-anaconda
+      :defer t
+      :init
+      ;; we don't use the yasnippet backend here because it
+      ;; produces some weird bug in company-anaconda back end
+      ;; (like the f, s, v suffix being at the wrong place in the
+      ;; completion menu)
+      (push 'company-anaconda company-backends-python-mode))))
