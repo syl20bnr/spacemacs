@@ -20,9 +20,10 @@ The following front-ends are supported:
 - [company][]
 - [auto-complete][]
 
-**Notes***
-- `company` is the most supported and preferred front-end in Spacemacs.
-- For a given language, Spacemacs supports one and only one front-end.
+**Notes**
+- `company` is the preferred front-end in Spacemacs.
+- For a given language, Spacemacs supports one and only one front-end (hopefully
+the best).
 
 ## Install
 
@@ -57,7 +58,7 @@ to `t`
 
 ### Company
 
-    No Debug         |                 Description
+    Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
 <kbd>C-j</kbd>       | go down in company dropdown menu
 <kbd>C-k</kbd>       | go up in company dropdown menu
