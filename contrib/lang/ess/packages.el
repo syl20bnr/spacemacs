@@ -26,16 +26,6 @@ which require an initialization must be listed explicitly in the list.")
 (defvar ess-excluded-packages '()
   "List of packages to exclude.")
 
-(defun ess/init-company ()
-  (spacemacs|enable-company ess-mode))
-
-(defun ess/init-company-ess ()
-  (use-package company-ess
-    :if (configuration-layer/layer-declaredp 'auto-completion)
-    :defer t
-    :init (push '(company-ess-backend :with company-yasnippet)
-                company-backends-ess-mode)))
-
 (defun ess/init-ess ()
   ;; ESS is not quick to load so we just load it when
   ;; we need it (see my-keybindings.el for the associated
@@ -148,3 +138,13 @@ not play nicely with autoloads"
     (progn
       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
+
+(when (configuration-layer/layer-declaredp 'auto-completion)
+  (defun ess/post-init-company ()
+    (spacemacs|enable-company ess-mode))
+
+  (defun ess/init-company-ess ()
+    (use-package company-ess
+      :defer t
+      :init (push '(company-ess-backend :with company-yasnippet)
+                  company-backends-ess-mode))))

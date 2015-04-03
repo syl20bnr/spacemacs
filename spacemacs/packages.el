@@ -18,6 +18,7 @@
     auto-dictionary
     auto-highlight-symbol
     base16-theme
+    bind-key
     bookmark
     buffer-move
     diminish
@@ -347,6 +348,8 @@ which require an initialization must be listed explicitly in the list.")
                  (prophidden (propertize hidden 'face '(:weight bold))))
             (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset (d) to go to next definition (D) to go to previous definition"
                   propplugin propx/y prophidden)))))))
+
+(defun spacemacs/init-bind-key ())
 
 (defun spacemacs/init-bookmark ()
   (use-package bookmark
@@ -2517,6 +2520,8 @@ displayed in the mode-line.")
     (setq undo-tree-visualizer-diff t)
     :config
     (spacemacs|hide-lighter undo-tree-mode)))
+
+(defun spacemacs/init-use-package ())
 
 (defun spacemacs/init-vi-tilde-fringe ()
   (use-package vi-tilde-fringe

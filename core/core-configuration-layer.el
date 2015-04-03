@@ -56,11 +56,11 @@ installation of initialization.")
 (defvar configuration-layer-layers '()
   "Alist of declared configuration layers.")
 
-(defvar configuration-layer-paths (make-hash-table :size 128)
+(defvar configuration-layer-paths (make-hash-table :size 256)
   "Hash table of layers locations. The key is a layer symbol and the value is
 the path for this layer.")
 
-(defvar configuration-layer-all-packages (make-hash-table :size 256)
+(defvar configuration-layer-all-packages (make-hash-table :size 512)
   "Hash table of all declared packages in all layers where the key is a package
 symbol and the value is a list of layer symbols responsible for initializing
 and configuring the package.")
@@ -68,7 +68,11 @@ and configuring the package.")
 (defvar configuration-layer-all-packages-sorted '()
   "Sorted list of all package symbols.")
 
-(defvar configuration-layer-all-pre-extensions (make-hash-table :size 128)
+(defvar configuration-layer-packages-init-funcs '(make-hash-table :size 512)
+  "Hash table of packages initialization functions. The key is a package symbol
+and the value is an odered list of initialization functions to execute.")
+
+(defvar configuration-layer-all-pre-extensions (make-hash-table :size 256)
   "Hash table of all declared pre-extensions in all layers where the key is a
 extension symbol and the value is the layer symbols responsible for initializing
 and configuring the package.")
@@ -76,10 +80,18 @@ and configuring the package.")
 (defvar configuration-layer-all-pre-extensions-sorted '()
   "Sorted list of all pre extensions symbols.")
 
-(defvar configuration-layer-all-post-extensions (make-hash-table :size 128)
+(defvar configuration-layer-pre-extensions-init-funcs '(make-hash-table :size 256)
+  "Hash table of pre-extensions initialization functions. The key is a package
+symbol and the value is an odered list of initialization functions to execute.")
+
+(defvar configuration-layer-all-post-extensions (make-hash-table :size 256)
   "Hash table of all declared post-extensions in all layers where the key is a
 extension symbol and the value is the layer symbols responsible for initializing
 and configuring the package.")
+
+(defvar configuration-layer-post-extensions-init-funcs '(make-hash-table :size 256)
+  "Hash table of post-extensions initialization functions. The key is a package
+symbol and the value is an odered list of initialization functions to execute.")
 
 (defvar configuration-layer-all-post-extensions-sorted '()
   "Sorted list of all post extensions symbols.")
@@ -151,7 +163,7 @@ in `configuration-layer-contrib-categories'"
   "Return a hash table where the key is the layer symbol and the value is its
 path."
   (let ((cat-dirs (configuration-layer//get-contrib-category-dirs))
-        (result (make-hash-table :size 128)))
+        (result (make-hash-table :size 256)))
     ;; add spacemacs layer
     (puthash 'spacemacs (expand-file-name user-emacs-directory) result)
     (mapc (lambda (dir)
@@ -274,19 +286,26 @@ the following keys:
       (configuration-layer//filter-out-excluded configuration-layer-all-packages excluded)
       (configuration-layer//filter-out-excluded configuration-layer-all-pre-extensions excluded)
       (configuration-layer//filter-out-excluded configuration-layer-all-post-extensions excluded))
+    (setq configuration-layer-packages-init-funcs
+          (configuration-layer//filter-init-funcs configuration-layer-all-packages))
+    (setq configuration-layer-pre-extensions-init-funcs
+          (configuration-layer//filter-init-funcs configuration-layer-all-pre-extensions t))
+    (setq configuration-layer-post-extensions-init-funcs
+          (configuration-layer//filter-init-funcs configuration-layer-all-post-extensions t))
+    ;; (message "package init-funcs: %s" configuration-layer-packages-init-funcs)
     ;; number of chuncks for the loading screen
     (let ((total (+ (ht-size configuration-layer-all-packages)
                     (ht-size configuration-layer-all-pre-extensions)
                     (ht-size configuration-layer-all-post-extensions))))
       (setq spacemacs-loading-dots-chunk-threshold
             (/ total spacemacs-loading-dots-chunk-count)))
-    ;; filter them
+    ;; sort packages before initializing them
     (configuration-layer//sort-packages-and-extensions)
     ;; install and initialize packages and extensions
-    (configuration-layer//initialize-extensions configuration-layer-all-pre-extensions-sorted t)
+    (configuration-layer//initialize-pre-extensions)
     (configuration-layer//install-packages)
     (configuration-layer//initialize-packages)
-    (configuration-layer//initialize-extensions configuration-layer-all-post-extensions-sorted)
+    (configuration-layer//initialize-post-extensions)
     ;; restore warning level before initialization
     (setq warning-minimum-level :warning)
     (configuration-layer//load-layers-files layers '("keybindings.el"))))
@@ -310,10 +329,40 @@ the following keys:
     (eval `(push ',layer list))
     (puthash pkg list hash)))
 
-(defsubst configuration-layer//filter-out-excluded (hash excluded)
+(defun configuration-layer//filter-out-excluded (hash excluded)
   "Remove EXCLUDED packages from the hash tables HASH."
-  (dolist (pkg (ht-keys (eval hash)))
-    (when (or (member pkg excluded)) (ht-remove (eval hash) pkg))))
+  (dolist (pkg (ht-keys hash))
+    (when (or (member pkg excluded)) (ht-remove hash pkg))))
+
+(defun configuration-layer//filter-init-funcs (hash &optional extension-p)
+  "Remove from HASH packages with no corresponding initialization function and
+returns a hash table of package symbols mapping to a list of initialization
+functions to execute."
+  (let ((result (make-hash-table :size 512)))
+    (dolist (pkg (ht-keys hash))
+      (let (initlayer prefuncs initfuncs postfuncs)
+        (dolist (layer (ht-get hash pkg))
+          (let ((initf (intern (format "%s/init-%S" layer pkg)))
+                (pref (intern (format "%s/pre-init-%S" layer pkg)))
+                (postf (intern (format "%s/post-init-%S" layer pkg))))
+            (when (fboundp initf)
+              (setq initlayer layer)
+              (push initf initfuncs))
+            (when (fboundp pref) (push pref prefuncs))
+            (when (fboundp postf) (push postf postfuncs))))
+        (if initfuncs
+            (progn
+              (puthash pkg (append prefuncs initfuncs postfuncs) result)
+              (when extension-p
+                (push (format "%s%s/"
+                              (configuration-layer/get-layer-property
+                               initlayer :ext-dir) pkg)
+                      load-path)))
+          (spacemacs/message
+           (format "%s %S is ignored since it has no init function."
+                   (if extension-p "Extension" "Package") pkg))
+          (ht-remove hash pkg))))
+    result))
 
 (defun configuration-layer//sort-packages-and-extensions ()
   "Sort the packages and extensions symbol and store them in
@@ -568,29 +617,42 @@ to select one."
 
 (defun configuration-layer//initialize-packages ()
   "Initialize all the declared packages."
-  (mapc (lambda (x) (configuration-layer//initialize-package
-                     x (ht-get configuration-layer-all-packages x)))
+  (mapc (lambda (x)
+          (spacemacs/message (format "Package: Initializing %S..." x))
+          (configuration-layer//eval-init-functions
+           x (ht-get configuration-layer-packages-init-funcs x)))
         configuration-layer-all-packages-sorted))
 
-(defun configuration-layer//initialize-package (pkg layers)
-  "Initialize the package PKG from the configuration layers LAYERS."
-  (dolist (layer layers)
-    (condition-case err
-        (let* ((init-func (intern (format "%s/init-%s" layer pkg)))
-               (msg (format "Package: Initializing %s:%s..." layer pkg)))
-          (when (package-installed-p pkg)
-            (configuration-layer//activate-package pkg)
-            (if (not (fboundp init-func))
-                (spacemacs/message (concat msg " (no init function)"))
-              (spacemacs/message msg)
-              (funcall init-func))
-            (setq initializedp t)))
-      ('error
-       (configuration-layer//set-error)
-       (spacemacs/append-to-buffer
-        (format (concat "An error occurred while initializing %s "
-                        "(error: %s)\n") pkg err)))))
-  (spacemacs/loading-animation))
+(defun configuration-layer//initialize-pre-extensions ()
+  "Initialize all the declared pre-extensions."
+  (mapc (lambda (x)
+          (spacemacs/message (format "Pre-extension: Initializing %S..." x))
+          (configuration-layer//eval-init-functions
+           x (ht-get configuration-layer-pre-extensions-init-funcs x) t))
+        configuration-layer-all-pre-extensions-sorted))
+
+(defun configuration-layer//initialize-post-extensions ()
+  "Initialize all the declared post-extensions."
+  (mapc (lambda (x)
+          (spacemacs/message (format "Post-extension: Initializing %S..." x))
+          (configuration-layer//eval-init-functions
+           x (ht-get configuration-layer-post-extensions-init-funcs x) t))
+        configuration-layer-all-post-extensions-sorted))
+
+(defun configuration-layer//eval-init-functions (pkg funcs &optional extension-p)
+  "Initialize the package PKG by evaluating the functions of FUNCS."
+  (when (or extension-p (package-installed-p pkg))
+    (configuration-layer//activate-package pkg)
+    (dolist (f funcs)
+      (spacemacs/message (format "-> %S..." f))
+      (condition-case err
+          (funcall f)
+        ('error
+         (configuration-layer//set-error)
+         (spacemacs/append-to-buffer
+          (format (concat "An error occurred while initializing %s "
+                          "(error: %s)\n") pkg err)))))
+    (spacemacs/loading-animation)))
 
 (defun configuration-layer//activate-package (pkg)
   "Activate PKG."
@@ -598,38 +660,6 @@ to select one."
       ;; fake version list to always activate the package
       (package-activate pkg '(0 0 0 0))
     (package-activate pkg)))
-
-(defun configuration-layer//initialize-pre-extension (ext layers)
-  "Initialize the pre-extensions EXT from configuration layers LAYERS."
-  (configuration-layer//initialize-extension ext layers t))
-
-(defun configuration-layer//initialize-extensions (ext-list &optional pre)
-  "Initialize all the declared extensions in EXT-LIST hash table.
-If PRE is non nil then the extensions are pre-extensions."
-  (let ((func (if pre 'configuration-layer//initialize-pre-extension
-                'configuration-layer//initialize-extension))
-        (hash (if pre configuration-layer-all-pre-extensions
-                configuration-layer-all-post-extensions)))
-    (mapc (lambda (x) (funcall func x (ht-get hash x))) ext-list)))
-
-(defun configuration-layer//initialize-extension (ext layers &optional pre)
-  "Initialize the extension EXT from the configuration layers LAYERS.
-If PRE is non nil then the extension is a pre-extensions."
-  (dolist (layer layers)
-    (condition-case err
-        (let* ((l (assq layer configuration-layer-layers))
-               (ext-dir (plist-get (cdr l) :ext-dir))
-               (init-func (intern (format "%s/init-%s" layer ext))))
-          (add-to-list 'load-path (format "%s%s/" ext-dir ext))
-          (spacemacs/loading-animation)
-          (spacemacs/message "%s-extension: Initializing %s:%s..."
-                             (if pre "Pre" "Post") layer ext)
-          (if (fboundp init-func) (funcall init-func)))
-      ('error
-       (configuration-layer//set-error)
-       (spacemacs/append-to-buffer
-        (format (concat "An error occurred while initializing %s "
-                        "(error: %s)\n") ext err))))))
 
 (defun configuration-layer//initialized-packages-count ()
   "Return the number of initialized packages and extensions."
@@ -645,7 +675,7 @@ If PRE is non nil then the extension is a pre-extensions."
 (defun configuration-layer//get-packages-dependencies ()
   "Returns a hash map where key is a dependency package symbol and value is
 a list of all packages which depend on it."
-  (let ((result (make-hash-table :size 200)))
+  (let ((result (make-hash-table :size 256)))
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
              (deps (configuration-layer//get-package-dependencies pkg-sym)))
