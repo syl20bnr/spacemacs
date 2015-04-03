@@ -7,6 +7,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun evil-snipe/init-evil-snipe ()
   (use-package evil-snipe
+    :diminish evil-snipe-mode
     :init
     (setq evil-snipe-scope 'whole-buffer
           evil-snipe-enable-highlight t
