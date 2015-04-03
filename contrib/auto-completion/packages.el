@@ -31,7 +31,7 @@ conflict.")
     :init
     (progn
       (setq ac-ispell-requires 4)
-      (eval-after-load "auto-complete"
+      (eval-after-load 'auto-complete
         '(ac-ispell-setup))
       ;; (add-hook 'markdown-mode-hook 'ac-ispell-ac-setup)
       )))
@@ -46,12 +46,15 @@ conflict.")
           ac-use-fuzzy t
           ac-fuzzy-enable t
           ac-comphist-file (concat spacemacs-cache-directory "ac-comphist.dat")
-          tab-always-indent 'complete ; use 'complete when auto-complete is disabled
+          ;; use 'complete when auto-complete is disabled
+          tab-always-indent 'complete
           ac-dwim t)
     :config
     (progn
       (require 'auto-complete-config)
-      (ac-config-default)
+      (setq-default ac-sources '(ac-source-abbrev
+                                 ac-source-dictionary
+                                 ac-source-words-in-same-mode-buffers))
       (when (configuration-layer/package-declaredp 'yasnippet)
         (push 'ac-source-yasnippet ac-sources))
       (add-to-list 'completion-styles 'initials t)
