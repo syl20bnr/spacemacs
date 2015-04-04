@@ -112,7 +112,7 @@ buffer, right justified."
     (beginning-of-buffer)
     (search-forward "Spacemacs\]")
     (next-line)
-  (let* ((file-contents (with-temp-buffer (insert-file-contents "CHANGELOG.md") (buffer-string)))
+  (let* ((file-contents (with-temp-buffer (insert-file-contents spacemacs-changelog-file) (buffer-string)))
          (changelog-header "\nCHANGELOG"))
     (setq spacemacs--changelog-widgets (cons (widget-create 'text changelog-header) spacemacs--changelog-widgets))
     (setq spacemacs--changelog-widgets (cons (widget-create 'text (concat "\n" file-contents)) spacemacs--changelog-widgets)))))
