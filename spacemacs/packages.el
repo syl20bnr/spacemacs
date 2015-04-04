@@ -858,7 +858,9 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-evil-matchit ()
   (use-package evil-matchit
-    :defer t))
+    :defer t
+    :init
+    (define-key evil-normal-state-map "%" 'evilmi-jump-items)))
 
 (defun spacemacs/init-evil-numbers ()
   (use-package evil-numbers
