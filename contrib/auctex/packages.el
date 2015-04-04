@@ -63,5 +63,5 @@
       (setq-default TeX-parse-self t)
       (setq-default TeX-PDF-mode t))))
 
-(defun auctex/init-evil-matchit ()
+(defun auctex/post-init-evil-matchit ()
   (add-hook 'web-mode-hook 'evil-matchit-mode))
