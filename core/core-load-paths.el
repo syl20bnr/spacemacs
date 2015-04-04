@@ -27,6 +27,9 @@
 (defconst spacemacs-cache-directory
   (expand-file-name (concat user-emacs-directory ".cache/"))
   "Spacemacs storage area for persistent files.")
+(defconst spacemacs-changelog-file
+  (expand-file-name (concat user-emacs-directory "CHANGELOG.md"))
+  "Spacemacs changelog")
 
 (defconst user-home-directory
   (expand-file-name "~/")
