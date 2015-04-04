@@ -31,6 +31,8 @@ banner, `random' chooses a random text banner in `core/banners'
 directory. A string value must be a path to a .PNG file.
 If the value is nil then no banner is displayed.")
 
+(defvar dotspacemacs-always-show-changelog t)
+
 (defvar dotspacemacs-configuration-layers '()
   "List of configuration layers to load. If it is the symbol `all' instead
 of a list then all discovered layers will be installed.")

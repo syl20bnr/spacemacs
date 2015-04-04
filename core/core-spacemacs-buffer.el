@@ -15,6 +15,8 @@
 (defconst spacemacs--banner-length 75
   "Width of a banner.")
 
+(defvar spacemacs--changelog-widgets ())
+
 (defun spacemacs//insert-banner-and-buttons ()
   "Choose a banner accordingly to `dotspacemacs-startup-banner'and insert it
 in spacemacs buffer along whith quick buttons underneath.
@@ -31,6 +33,8 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
         (insert-file-contents banner))
       (spacemacs//inject-version)
       (spacemacs/insert-buttons)
+      (when (eq t dotspacemacs-always-show-changelog)
+        (spacemacs/toggle-changelog))
       (spacemacs//redisplay))))
 
 (defun spacemacs//choose-banner ()
@@ -102,6 +106,24 @@ buffer, right justified."
       (goto-char pos)
       (delete-char (length injected))
       (insert injected))))
+
+(defun spacemacs//insert-changelog ()
+  (save-excursion
+    (beginning-of-buffer)
+    (search-forward "Spacemacs\]")
+    (next-line)
+  (let* ((file-contents (with-temp-buffer (insert-file-contents "CHANGELOG.md") (buffer-string)))
+         (changelog-header "\nCHANGELOG"))
+    (setq spacemacs--changelog-widgets (cons (widget-create 'text changelog-header) spacemacs--changelog-widgets))
+    (setq spacemacs--changelog-widgets (cons (widget-create 'text (concat "\n" file-contents)) spacemacs--changelog-widgets)))))
+
+(defun spacemacs/toggle-changelog ()
+  (if (eq spacemacs--changelog-widgets nil)
+      (spacemacs//insert-changelog)
+    (mapc (lambda (el)
+            (widget-delete el)
+            (setq spacemacs--changelog-widgets (remove el spacemacs--changelog-widgets)))
+          spacemacs--changelog-widgets)))
 
 (defun spacemacs/set-mode-line (format)
   "Set mode-line format for spacemacs buffer."
@@ -188,15 +210,22 @@ buffer, right justified."
                  :follow-link "\C-m"
                  "Rollback")
   (insert "\n")
-  (let ((button-title "Search in Spacemacs"))
+  (let ((button-title "[Toggle Changelog] [Search in Spacemacs]"))
     ; Compute the correct number of spaces to center the button.
     (dotimes (i (/ (- spacemacs--banner-length (string-width button-title) 1) 2)) (insert " "))
+    (widget-create 'push-button
+                   :help-echo "Hide or show the Changelog"
+                   :action (lambda (&rest ignore) (spacemacs/toggle-changelog))
+                   :mouse-face 'highlight
+                   :follow-link "\C-m"
+                   "Toggle Changelog"))
+    (widget-insert " ")
     (widget-create 'url-link
                    :help-echo "Find Spacemacs package and layer configs using helm-spacemacs."
                    :action (lambda (&rest ignore) (call-interactively 'helm-spacemacs))
                    :mouse-face 'highlight
                    :follow-link "\C-m"
-                   button-title))
+                   "Search in Spacemacs")
   (insert "\n\n")
   )
 
