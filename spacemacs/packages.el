@@ -13,6 +13,7 @@
 (defvar spacemacs-packages
   '(
     ace-jump-mode
+    ace-link
     ace-window
     adaptive-wrap
     aggressive-indent
@@ -135,6 +136,11 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (setq ace-jump-mode-scope 'global)
       (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
+
+(defun spacemacs/init-ace-link ()
+  (use-package ace-link
+    :defer t
+    :init (ace-link-setup-default)))
 
 (defun spacemacs/init-ace-window ()
   (use-package ace-window
