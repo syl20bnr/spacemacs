@@ -37,7 +37,7 @@
 MODE must match the symbol passed in `spacemacs|init-company-backends'.
 By default the initialization function is hooked to `MODE-hook', it is
 possible to explicitly define a hook with HOOK."
-  (when (configuration-layer/pacakge-usedp 'company)
+  (when (configuration-layer/package-usedp 'company)
     (let ((mode-hook (if hook hook
                        (intern (format "%S-hook" mode))))
           (func (intern (format "spacemacs//init-company-%S" mode))))
