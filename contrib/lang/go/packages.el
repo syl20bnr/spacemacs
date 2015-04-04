@@ -13,15 +13,17 @@ which require an initialization must be listed explicitly in the list.")
 (defun go/init-flycheck ()
     (add-hook 'go-mode-hook 'flycheck-mode))
 
-(defun go/run-package-tests ()
-  (interactive)
-  (shell-command "go test"))
-
 (defun go/init-go-mode()
   (use-package go-mode
     :defer t
     :config
+    (progn
       (add-hook 'before-save-hook 'gofmt-before-save)
+
+      (defun spacemacs/go-run-package-tests ()
+        (interactive)
+        (shell-command "go test"))
+
       (evil-leader/set-key-for-mode 'go-mode
         "mdp" 'godoc-at-point
         "mig" 'go-goto-imports
@@ -31,7 +33,7 @@ which require an initialization must be listed explicitly in the list.")
         "mpr" 'go-play-region
         "mpd" 'go-download-play
         "mgg" 'godef-jump
-        "mtp" 'go/run-package-tests)))
+        "mtp" 'spacemacs/go-run-package-tests))))
 
 (defun go/init-go-eldoc()
     (add-hook 'go-mode-hook 'go-eldoc-setup))
