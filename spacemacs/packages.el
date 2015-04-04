@@ -107,6 +107,7 @@
     volatile-highlights
     whitespace
     window-numbering
+    window-purpose
     winner
     yasnippet
     zenburn-theme
@@ -1255,6 +1256,69 @@ which require an initialization must be listed explicitly in the list.")
         (unless (or overriding-terminal-local-map
                     bzg-big-fringe-mode)
           ad-do-it))
+
+      (eval-after-load 'window-purpose
+        '(progn
+           (defun spacemacs/horizontal-position-p (window-position)
+             (member window-position '(left right)))
+
+           (defun spacemacs/display-guide-key (buffer alist)
+             (let* ((display-fn
+                     (cl-case guide-key/popup-window-position
+                       (top 'purpose-display-at-top)
+                       (bottom 'purpose-display-at-bottom)
+                       (left 'purpose-display-at-left)
+                       (right 'purpose-display-at-right)
+                       (otherwise
+                        (error "Invalid guide-key/popup-window-position: %s"
+                               guide-key/popup-window-position))))
+                    (size (guide-key/popup-window-size
+                           (spacemacs/horizontal-position-p
+                            guide-key/popup-window-position)))
+                    (window (funcall display-fn buffer alist size)))
+               (when window
+                 (purpose-set-window-purpose-dedicated-p window t)
+                 window)))
+
+           (defun spacemacs/sync-guide-key-and-window-purpose ()
+             (if guide-key-mode
+                 (progn
+                   (purpose-set-extension-configuration
+                    :guide-key
+                    (purpose-conf "guide-key"
+                                  :name-purposes
+                                  `((,guide-key/guide-buffer-name . guide-key))))
+                   (add-to-list 'purpose-special-action-sequences
+                                '(guide-key purpose-display-reuse-window-buffer
+                                            purpose-display-reuse-window-purpose
+                                            spacemacs/display-guide-key)))
+               (purpose-del-extension-configuration :guide-key)
+               (setq purpose-special-action-sequences
+                     (cl-delete 'guide-key purpose-special-action-sequences
+                                :key 'car))))
+
+           (defadvice guide-key/popup-guide-buffer
+             (around spacemacs/guide-buffer-with-window-purpose activate)
+             "Use window-purpose instead of popwin to popup guide-key buffer."
+             (if purpose--active-p
+                 (or (display-buffer (get-buffer guide-key/guide-buffer-name))
+                     ad-do-it)
+               (let ((buffer (get-buffer guide-key/guide-buffer-name)))
+                 (or (purpose-display-reuse-window-buffer buffer nil)
+                     (purpose-display-reuse-window-purpose buffer nil)
+                     (spacemacs/display-guide-key buffer nil)
+                     ad-do-it))))
+
+           (defadvice guide-key/close-guide-buffer
+             (around spacemacs/guide-buffer-with-window-purpose activate)
+             "Use window-purpose instead of popwin to close guide-key buffer."
+             (mapc 'delete-window (purpose-windows-with-purpose 'guide-key))
+             (guide-key/turn-off-idle-timer))
+
+           (defadvice guide-key-mode
+             (after spacemacs/guide-buffer-with-window-purpose activate)
+             (spacemacs/sync-guide-key-and-window-purpose))
+           (spacemacs/sync-guide-key-and-window-purpose)))
 
       (evil-leader/set-key "tk" 'spacemacs/toggle-guide-key)
       (setq guide-key/guide-key-sequence `("C-x"
@@ -2674,6 +2738,9 @@ displayed in the mode-line.")
                 (window-numbering-assign w 0)))
             windows))
     (add-hook 'window-numbering-before-hook 'spacemacs//window-numbering-assign)))
+
+(defun spacemacs/init-window-purpose ()
+  (use-package window-purpose))
 
 (defun spacemacs/init-winner ()
   (use-package winner
