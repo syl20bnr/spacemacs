@@ -1878,8 +1878,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 
       (defun spacemacs//init-neotree ()
         "Initialize the neotree mode."
-        (if (fboundp 'global-vi-tilde-fringe-mode)
-            (vi-tilde-fringe-mode -1)))
+        )
 
       (defun spacemacs/neotree-expand-or-open ()
         "Collapse a neotree node."
@@ -2531,7 +2530,15 @@ displayed in the mode-line.")
                             :documentation
                             (concat "Globally display a ~ on "
                                     "empty lines in the fringe.")
-                            :evil-leader "t~"))
+                            :evil-leader "t~")
+      ;; don't enable it on spacemacs home buffer
+      (with-current-buffer  "*spacemacs*"
+        (vi-tilde-fringe-mode -1))
+      ;; after a major mode is loaded, check if the buffer is read only
+      ;; if so, disable vi-tilde-fringe-mode
+      (add-hook 'after-change-major-mode-hook (lambda ()
+                                                (when buffer-read-only
+                                                  (vi-tilde-fringe-mode -1)))))
     :config
     (spacemacs|hide-lighter vi-tilde-fringe-mode)))
 
