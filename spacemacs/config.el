@@ -198,8 +198,8 @@ Can be installed with `brew install trash'."
       eval-expression-print-level nil)
 ;; Save point position between sessions
 (require 'saveplace)
-(setq save-place t
-      save-place-file (concat spacemacs-cache-directory "places"))
+(setq-default save-place t
+              save-place-file (concat spacemacs-cache-directory "places"))
 
 ;; minibuffer history
 (require 'savehist)
