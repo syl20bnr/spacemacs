@@ -231,8 +231,12 @@ buffer, right justified."
 
 (defun spacemacs//insert-file-list (list-display-name list shortcut-char)
   (when (car list)
-    (define-key spacemacs-mode-map shortcut-char `(lambda () (interactive)(goto-char ,(point))))
-    (insert list-display-name)
+    (define-key spacemacs-mode-map shortcut-char `(lambda ()
+                                                    (interactive)
+                                                    (goto-char ,(point))
+                                                    (next-line)
+                                                    (back-to-indentation)))
+    (insert (concat "  " (format "[%s] " shortcut-char) list-display-name))
     (mapc (lambda (el)
             (insert "\n    ")
             (widget-create 'push-button
@@ -257,15 +261,15 @@ buffer, right justified."
               (cond
                ((eq el 'recents)
                 (recentf-mode)
-                (when (spacemacs//insert-file-list "  Recent Files:" (recentf-elements 5) "r")
+                (when (spacemacs//insert-file-list "Recent Files:" (recentf-elements 5) "r")
                   (insert list-separator)))
                ((eq el 'bookmarks)
                 (helm-mode)
-                (when (spacemacs//insert-file-list "  Bookmarks:" (bookmark-all-names) "b")
+                (when (spacemacs//insert-file-list "Bookmarks:" (bookmark-all-names) "b")
                   (insert list-separator)))
                ((eq el 'projects)
                 (projectile-mode)
-                (when (spacemacs//insert-file-list "  Projects:" (projectile-relevant-known-projects) "p")
+                (when (spacemacs//insert-file-list "Projects:" (projectile-relevant-known-projects) "p")
                   (insert list-separator))))) dotspacemacs-startup-lists))))
 
 (defun spacemacs/goto-link-line ()
