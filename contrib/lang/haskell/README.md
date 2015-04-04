@@ -33,6 +33,7 @@ This layer adds support for the [Haskell][] language.
 Features:
 - auto-completion with [company-ghc][],
 - auto-indentation with [hi2][].
+- syntax highlighting for [C-- source][cmm-mode].
 
 **This layer is in construction, it needs your contributions and bug reports.**
 
@@ -238,6 +239,7 @@ REPL commands are prefixed by <kbd>SPC m s</kbd>:
 
 [Haskell]: https://www.haskell.org/
 [cabal]: https://www.haskell.org/cabal/
+[cmm-mode]: http://github.com/bgamari/cmm-mode
 [company-ghc]: https://github.com/iquiw/company-ghc
 [hi2]: https://github.com/nilcons/hi2
 [ghci-ng]: https://github.com/chrisdone/ghci-ng
