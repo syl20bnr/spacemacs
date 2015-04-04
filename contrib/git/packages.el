@@ -221,6 +221,9 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (setq magit-last-seen-setup-instructions "1.4.0"
             magit-completing-read-function 'magit-ido-completing-read)
+      ;; On Windows, we must use Git GUI to enter username and password
+      ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
+      (setenv "GIT_ASKPASS" "git-gui--askpass")
       (evil-leader/set-key
         "gb" 'magit-blame-mode
         "gl" 'magit-log
