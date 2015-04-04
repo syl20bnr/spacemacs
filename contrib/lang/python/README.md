@@ -116,6 +116,7 @@ Test commands (start with <kbd>m t</kbd> or <kbd>m T</kbd>):
 ----------------------|------------------------------------------------------------
 <kbd>SPC m d b</kbd>  | toggle a breakpoint
 <kbd>SPC m g g</kbd>  | go to definition using `anaconda-mode-goto` (<kbd>C-o</kbd> to jump back)
+<kbd>SPC m h d</kbd>  | look for documentation using `helm-pydoc`
 <kbd>SPC m h h</kbd>  | quick documentation using anaconda
 <kbd>SPC m h H</kbd>  | open documentation in `firefox` using [pylookup][pylookup]
 <kbd>SPC m v</kbd>    | activate a virtual environment with [pyenv][pyenv]
