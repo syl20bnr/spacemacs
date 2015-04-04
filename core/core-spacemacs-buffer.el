@@ -179,35 +179,35 @@ buffer, right justified."
                  :tag "Homepage"
                  :help-echo "Open the Spacemacs Github page in your browser."
                  :mouse-face 'highlight
-                 :follow-link t
+                 :follow-link "\C-m"
                  "https://github.com/syl20bnr/spacemacs")
   (insert " ")
   (widget-create 'url-link
                  :tag "Documentation"
                  :help-echo "Open the Spacemacs documentation in your browser."
                  :mouse-face 'highlight
-                 :follow-link t
+                 :follow-link "\C-m"
                  "https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md")
   (insert " ")
   (widget-create 'url-link
                  :tag "Gitter Chat"
                  :help-echo "Ask questions and chat with fellow users in our chat room."
                  :mouse-face 'highlight
-                 :follow-link t
+                 :follow-link "\C-m"
                  "https://gitter.im/syl20bnr/spacemacs")
   (insert " ")
   (widget-create 'push-button
                  :help-echo "Update all ELPA packages to the latest versions."
                  :action (lambda (&rest ignore) (configuration-layer/update-packages))
                  :mouse-face 'highlight
-                 :follow-link t
+                 :follow-link "\C-m"
                  "Update")
   (insert " ")
   (widget-create 'push-button
                  :help-echo "Rollback ELPA package upgrades if something got borked."
                  :action (lambda (&rest ignore) (call-interactively 'configuration-layer/rollback))
                  :mouse-face 'highlight
-                 :follow-link t
+                 :follow-link "\C-m"
                  "Rollback")
   (insert "\n")
   (let ((button-title "[Toggle Changelog] [Search in Spacemacs]"))
@@ -217,14 +217,14 @@ buffer, right justified."
                    :help-echo "Hide or show the Changelog"
                    :action (lambda (&rest ignore) (spacemacs/toggle-changelog))
                    :mouse-face 'highlight
-                   :follow-link t
+                   :follow-link "\C-m"
                    "Toggle Changelog"))
     (widget-insert " ")
     (widget-create 'url-link
                    :help-echo "Find Spacemacs package and layer configs using helm-spacemacs."
                    :action (lambda (&rest ignore) (call-interactively 'helm-spacemacs))
                    :mouse-face 'highlight
-                   :follow-link t
+                   :follow-link "\C-m"
                    "Search in Spacemacs")
   (insert "\n\n")
   )
@@ -238,7 +238,7 @@ buffer, right justified."
             (widget-create 'push-button
                            :action `(lambda (&rest ignore) (find-file-existing ,el))
                            :mouse-face 'highlight
-                           :follow-link t
+                           :follow-link "\C-m"
                            :button-prefix ""
                            :button-suffix ""
                            :format "%[%t%]"
@@ -280,7 +280,6 @@ buffer, right justified."
 
 ;;this feels like the wrong place to put these
 (add-hook 'spacemacs-mode-hook (lambda ()
-                                 (widget-minor-mode 1)
                                  (local-set-key [tab] 'widget-forward)
                                  (local-set-key [S-tab] 'widget-backward)))
 
