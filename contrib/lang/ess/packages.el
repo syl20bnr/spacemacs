@@ -26,16 +26,6 @@ which require an initialization must be listed explicitly in the list.")
 (defvar ess-excluded-packages '()
   "List of packages to exclude.")
 
-(defun ess/init-company ()
-  (spacemacs|enable-company ess-mode))
-
-(defun ess/init-company-ess ()
-  (use-package company-ess
-    :if (configuration-layer/layer-declaredp 'company-mode)
-    :defer t
-    :init (push '(company-ess-backend :with company-yasnippet)
-                company-backends-ess-mode)))
-
 (defun ess/init-ess ()
   ;; ESS is not quick to load so we just load it when
   ;; we need it (see my-keybindings.el for the associated
@@ -137,6 +127,10 @@ not play nicely with autoloads"
        (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
        (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))))
 
+(defun ess/init-ess-R-data-view ())
+
+(defun ess/init-ess-R-object-popup ())
+
 (defun ess/init-rainbow-delimiters ()
   (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
@@ -148,3 +142,13 @@ not play nicely with autoloads"
     (progn
       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun ess/post-init-company ()
+    (spacemacs|enable-company ess-mode))
+
+  (defun ess/init-company-ess ()
+    (use-package company-ess
+      :defer t
+      :init (push '(company-ess-backend :with company-yasnippet)
+                  company-backends-ess-mode))))

@@ -118,7 +118,7 @@ which require an initialization must be listed explicitly in the list.")
       (local-set-key (kbd "<tab>") 'emmet-expand-yas)
       (spacemacs|hide-lighter emmet-mode))))
 
-(defun html/init-evil-matchit ()
+(defun html/post-init-evil-matchit ()
   (add-hook 'web-mode-hook 'evil-matchit-mode))
 
 (defun html/init-scss-mode ()

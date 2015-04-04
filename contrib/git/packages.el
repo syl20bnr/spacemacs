@@ -12,7 +12,6 @@
 
 (defvar git-packages
   '(
-    fringe-helper
     gitattributes-mode
     gitconfig-mode
     gitignore-mode
@@ -219,7 +218,8 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (setq magit-completing-read-function 'magit-ido-completing-read)
+      (setq magit-last-seen-setup-instructions "1.4.0"
+            magit-completing-read-function 'magit-ido-completing-read)
       (evil-leader/set-key
         "gb" 'magit-blame-mode
         "gl" 'magit-log

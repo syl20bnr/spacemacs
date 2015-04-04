@@ -112,6 +112,10 @@ buffer, right justified."
   "Display MSG in message prepended with '(Spacemacs)'."
   (message "(Spacemacs) %s" (apply 'format msg args)))
 
+(defun spacemacs/insert-page-break ()
+  "Insert a page break line in spacemacs buffer."
+  (spacemacs/append-to-buffer "\n\n\n"))
+
 (defun spacemacs/append-to-buffer (msg &optional messagebuf)
   "Append MSG to spacemacs buffer. If MESSAGEBUF is not nil then MSG is
  also written in message buffer."
@@ -196,7 +200,7 @@ buffer, right justified."
           (list-separator "\n\n"))
       (goto-char (point-max))
       (page-break-lines-mode)
-      (spacemacs/append-to-buffer "\n\n\n")
+      (spacemacs/insert-page-break)
       (mapc (lambda (el)
               (cond
                ((eq el 'recents)

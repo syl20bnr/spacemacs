@@ -13,7 +13,7 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun ycmd/init-company-ycmd ()
   (use-package company-ycmd
-    :if (configuration-layer/layer-declaredp 'company-mode)
+    :if (configuration-layer/layer-usedp 'auto-completion)
     :defer t
     :init (push '(company-ycmd :with company-yasnippet)
                 company-backends-c-c++)))
@@ -31,9 +31,9 @@ which require an initialization must be listed explicitly in the list.")
       ;; we don't use ycmd-setup, to correctly lazy-load ycmd we
       ;; define excplicitly the hooks here
       (add-hook 'c++-mode-hook 'ycmd-mode)
-      (setq-default ycmd-global-config
-                    (expand-file-name (concat user-emacs-directory
-                                              "contrib/ycmd/global_conf.py")))
+      (unless (boundp 'ycmd-global-config)
+        (let ((dir (configuration-layer/get-layer-property 'ycmd :dir)))
+          (setq-default ycmd-global-config (concat dir "global_conf.py"))))
       (evil-leader/set-key-for-mode 'c++-mode
         "mgg" 'ycmd-goto
         "mgG" 'ycmd-goto-imprecise))))

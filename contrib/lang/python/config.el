@@ -12,7 +12,8 @@
 
 ;; variables
 
-(spacemacs|init-company-backends python-mode)
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (spacemacs|init-company-backends python-mode))
 
 ;; Command prefixes
 

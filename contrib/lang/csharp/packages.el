@@ -17,9 +17,6 @@
 (defvar csharp-excluded-packages '()
   "List of packages to exclude.")
 
-(defun csharp/init-company ()
-  (spacemacs|enable-company csharp-mode))
-
 (defun csharp/init-omnisharp ()
   ;; Load omnisharp-mode with csharp-mode, this should start the omnisharp server automatically
   (add-hook 'csharp-mode-hook 'omnisharp-mode)
@@ -65,3 +62,7 @@
               "mu" 'omnisharp-auto-complete-overrides
               "mi" 'omnisharp-fix-usings
               "m=" 'omnisharp-code-format)))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun csharp/post-init-company ()
+    (spacemacs|enable-company csharp-mode)))

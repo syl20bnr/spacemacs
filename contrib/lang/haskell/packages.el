@@ -18,20 +18,9 @@
     flycheck-haskell
     ghc
     haskell-mode
-    ;; hi2
     hindent
     shm
     ))
-
-(defun haskell/init-company ()
-  (spacemacs|enable-company haskell-mode))
-
-(defun haskell/init-company-ghc ()
-  (use-package company-ghc
-    :if (configuration-layer/layer-declaredp 'company-mode)
-    :defer t
-    :init (push '(company-ghc :with company-yasnippet)
-                company-backends-haskell-mode)))
 
 (defun haskell/init-flycheck ()
   (add-hook 'haskell-mode-hook 'flycheck-mode))
@@ -41,53 +30,7 @@
     :commands flycheck-haskell-configure
     :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure)))
 
-(defun haskell/init-shm ()
-  (use-package shm
-    :defer t
-    :if haskell-enable-shm-support
-    :init
-    (add-hook 'haskell-mode-hook 'structured-haskell-mode)
-    :config
-    (progn
-      (when (require 'shm-case-split nil 'noerror)
-        ;;TODO: Find some better bindings for case-splits
-        (define-key shm-map (kbd "C-c S") 'shm/case-split)
-        (define-key shm-map (kbd "C-c C-s") 'shm/do-case-split))
-
-      (evil-define-key 'normal shm-map
-        (kbd "RET") nil
-        (kbd "C-k") nil
-        (kbd "C-j") nil
-        (kbd "D") 'shm/kill-line
-        (kbd "R") 'shm/raise
-        (kbd "P") 'shm/yank
-        (kbd "RET") 'shm/newline-indent
-        (kbd "RET") 'shm/newline-indent
-        (kbd "M-RET") 'evil-ret
-        )
-
-      (evil-define-key 'operator map
-        (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node)
-
-      (evil-define-key 'motion map
-        (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node)
-
-      (define-key shm-map (kbd "C-j") nil)
-      (define-key shm-map (kbd "C-k") nil))))
-
-(defun haskell/init-hindent ()
-  (use-package hindent
-    :defer t
-    :if (stringp haskell-enable-hindent-style)
-    :init
-    (add-hook 'haskell-mode-hook #'hindent-mode)
-    :config
-    (progn
-      (setq hindent-style haskell-enable-hindent-style)
-      (evil-leader/set-key-for-mode 'haskell-mode
-        "mF" 'hindent/reformat-decl))))
+(defun haskell/init-ghc ())
 
 (defun haskell/init-haskell-mode ()
   (require 'haskell-yas)
@@ -101,7 +44,7 @@
         (ghc-init)
         ;; use only internal indentation system from haskell
         (electric-indent-local-mode -1)
-        (when (configuration-layer/package-declaredp 'flycheck)
+        (when (configuration-layer/package-usedp 'flycheck)
           ;; remove overlays from ghc-check.el if flycheck is enabled
           (set-face-attribute 'ghc-face-error nil :underline nil)
           (set-face-attribute 'ghc-face-warn nil :underline nil)))
@@ -116,7 +59,7 @@
 
         (evil-leader/set-key-for-mode 'haskell-mode
           "mu"   'haskell-mode-find-uses
-          "mt"   'haskell-mode-show-type-at
+          "mht"   'haskell-mode-show-type-at
           "mgg"  'haskell-mode-goto-loc))
 
       ;; hooks
@@ -228,3 +171,61 @@
         '(define-key haskell-cabal-mode-map
            [?\C-c ?\C-z] 'haskell-interactive-switch)))))
 
+(defun haskell/init-hindent ()
+  (use-package hindent
+    :defer t
+    :if (stringp haskell-enable-hindent-style)
+    :init
+    (add-hook 'haskell-mode-hook #'hindent-mode)
+    :config
+    (progn
+      (setq hindent-style haskell-enable-hindent-style)
+      (evil-leader/set-key-for-mode 'haskell-mode
+        "mF" 'hindent/reformat-decl))))
+
+(defun haskell/init-shm ()
+  (use-package shm
+    :defer t
+    :if haskell-enable-shm-support
+    :init
+    (add-hook 'haskell-mode-hook 'structured-haskell-mode)
+    :config
+    (progn
+      (when (require 'shm-case-split nil 'noerror)
+        ;;TODO: Find some better bindings for case-splits
+        (define-key shm-map (kbd "C-c S") 'shm/case-split)
+        (define-key shm-map (kbd "C-c C-s") 'shm/do-case-split))
+
+      (evil-define-key 'normal shm-map
+        (kbd "RET") nil
+        (kbd "C-k") nil
+        (kbd "C-j") nil
+        (kbd "D") 'shm/kill-line
+        (kbd "R") 'shm/raise
+        (kbd "P") 'shm/yank
+        (kbd "RET") 'shm/newline-indent
+        (kbd "RET") 'shm/newline-indent
+        (kbd "M-RET") 'evil-ret
+        )
+
+      (evil-define-key 'operator map
+        (kbd ")") 'shm/forward-node
+        (kbd "(") 'shm/backward-node)
+
+      (evil-define-key 'motion map
+        (kbd ")") 'shm/forward-node
+        (kbd "(") 'shm/backward-node)
+
+      (define-key shm-map (kbd "C-j") nil)
+      (define-key shm-map (kbd "C-k") nil))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun haskell/post-init-company ()
+    (spacemacs|enable-company haskell-mode))
+
+  (defun haskell/init-company-ghc ()
+    (use-package company-ghc
+      :if (configuration-layer/package-usedp 'company)
+      :defer t
+      :init (push '(company-ghc :with company-yasnippet)
+                  company-backends-haskell-mode))))

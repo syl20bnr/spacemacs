@@ -11,19 +11,6 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defun clojure/init-ac-cider ()
-  (use-package ac-cider
-    :defer t
-    :if (configuration-layer/package-declaredp 'auto-complete)
-    :init
-    (progn
-      (add-to-hook 'cider-mode-hook '(ac-flyspell-workaround
-                                      ac-cider-setup))
-      (add-to-hook 'cider-repl-mode-hook '(ac-cider-setup
-                                           auto-complete-mode)))
-    :config
-    (push 'cider-mode ac-modes)))
-
 (defun clojure/init-align-cljlet ()
   (use-package align-cljlet
     :defer t
@@ -129,10 +116,15 @@ the focus."
 
       (evilify cider-stacktrace-mode cider-stacktrace-mode-map)
 
+      ;; open cider-doc directly and close it with q
+      (setq cider-prompt-for-symbol nil)
+      (evilify cider-docview-mode cider-docview-mode-map
+        (kbd "q") 'cider-popup-buffer-quit)
+
       (evil-leader/set-key-for-mode 'clojure-mode
-        "mdd" 'cider-doc
-        "mdg" 'cider-grimoire
-        "mdj" 'cider-javadoc
+        "mhh" 'cider-doc
+        "mhg" 'cider-grimoire
+        "mhj" 'cider-javadoc
 
         "meb" 'cider-eval-buffer
         "mee" 'cider-eval-last-sexp
@@ -217,9 +209,24 @@ the focus."
         (clojure/fancify-symbols 'clojure-mode)))))
 
 (defun clojure/init-rainbow-delimiters ()
-  (if (configuration-layer/package-declaredp 'cider)
+  (if (configuration-layer/package-usedp 'cider)
       (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
 
 (defun clojure/init-subword ()
   (unless (version< emacs-version "24.4")
     (add-hook 'cider-mode-hook 'subword-mode)))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun clojure/init-ac-cider ()
+    (use-package ac-cider
+      :if (configuration-layer/layer-usedp 'auto-complete)
+      :defer t
+      :init
+      (progn
+        (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+        (add-to-hooks 'ac-cider-setup '(clojure-mode-hook
+                                        cider-mode-hook
+                                        cider-repl-mode-hook))
+        (add-to-hooks 'auto-complete-mode '(clojure-mode-hook
+                                            cider-mode-hook
+                                            cider-repl-mode-hook))))))

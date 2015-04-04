@@ -158,6 +158,9 @@
   (use-package feature-mode
     :mode (("\\.feature\\'" . feature-mode))))
 
+(defun ruby/init-haml-mode ()
+  (use-package haml-mode
+    :defer t))
 
 (defun ruby/init-ruby-test-mode ()
   "Define keybindings for ruby test mode"

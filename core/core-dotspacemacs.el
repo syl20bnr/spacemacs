@@ -177,7 +177,7 @@ If ARG is non nil then `dotspacemacs/config' is skipped."
           (dotspacemacs|call-func dotspacemacs/config
                                   "Calling dotfile config...")
           (message "Done."))
-        (when (configuration-layer/package-declaredp 'powerline)
+        (when (configuration-layer/package-usedp 'powerline)
           (spacemacs//restore-powerline (current-buffer)))))))
 
 (defun dotspacemacs/location ()
