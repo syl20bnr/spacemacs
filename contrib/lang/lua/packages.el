@@ -18,6 +18,7 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (setq lua-indent-level 2
             lua-indent-string-contents t)
+      (add-hook 'lua-mode-hook 'flycheck-mode)
       (evil-leader/set-key-for-mode 'lua-mode "md" 'lua-search-documentation)
       (evil-leader/set-key-for-mode 'lua-mode "msb" 'lua-send-buffer)
       (evil-leader/set-key-for-mode 'lua-mode "msf" 'lua-send-defun)
