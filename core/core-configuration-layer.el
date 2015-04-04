@@ -406,6 +406,8 @@ VAR is a string with value `packages', `pre-extensions' or `post-extensions'."
              (dir (plist-get (cdr layer) :dir))
              (pkg-file (concat dir (format "%s.el" file))))
         (when (file-exists-p pkg-file)
+          (unless (configuration-layer/layer-usedp layer-sym)
+            (load pkg-file))
           (let* ((layer-name (symbol-name layer-sym))
                  (packages-var (intern (format "%s-%s" layer-name var))))
             (when (boundp packages-var)
