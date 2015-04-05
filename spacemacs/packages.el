@@ -13,6 +13,7 @@
 (defvar spacemacs-packages
   '(
     ace-jump-mode
+    ace-link
     ace-window
     adaptive-wrap
     aggressive-indent
@@ -135,6 +136,35 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (setq ace-jump-mode-scope 'global)
       (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
+
+(defun spacemacs/init-ace-link ()
+  (use-package ace-link
+    :defer t
+    :init (ace-link-setup-default)
+    :config
+    (progn
+      (defvar spacemacs--link-pattern "~?/.+\\|\s\\[")
+
+      (defun spacemacs//collect-spacemacs-buffer-links ()
+        (let ((end (window-end))
+              points)
+          (save-excursion
+            (goto-char (window-start))
+            (while (re-search-forward spacemacs--link-pattern end t)
+              (push (+ (match-beginning 0) 1) points))
+            (nreverse points))))
+
+      (defun spacemacs//ace-buffer-links ()
+        "Ace jump to links in `spacemacs' buffer."
+        (interactive)
+        (ali-generic
+            (spacemacs//collect-spacemacs-buffer-links)
+          (forward-char 1)
+          (push-button)
+          ))
+
+      (define-key spacemacs-mode-map "o" 'spacemacs//ace-buffer-links)
+      )))
 
 (defun spacemacs/init-ace-window ()
   (use-package ace-window
