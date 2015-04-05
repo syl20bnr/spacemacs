@@ -1205,6 +1205,15 @@ Key Binding          |                 Description
 
 Hint: you may change to char mode by `C-c C-c` in word mode.
 
+#### ace-link mode
+
+Similar to `ace-jump-mode`, [ace-link][ace-link] allows one to jump to any link in
+`help-mode` and `info-mode` with two key strokes.
+
+Key Binding          |                 Description
+---------------------|------------------------------------------------------------------
+<kbd>o</kbd>         | initiate ace link mode in `help-mode` and `info-mode`
+
 ### Window manipulation
 
 #### Window manipulation key bindings
@@ -2445,6 +2454,7 @@ developers to elisp hackers!
 [keychords]: http://www.emacswiki.org/emacs/KeyChord
 [centered-cursor]: http://www.emacswiki.org/emacs/centered-cursor-mode.el
 [ace-jump]: https://github.com/winterTTr/ace-jump-mode
+[ace-link]: https://github.com/abo-abo/ace-link
 [ace-window]: https://github.com/abo-abo/ace-window
 [helm-link]: https://github.com/emacs-helm/helm
 [helm-doc]: https://github.com/emacs-helm/helm/wiki
