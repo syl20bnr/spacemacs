@@ -301,7 +301,20 @@ which require an initialization must be listed explicitly in the list.")
   (use-package magit-gh-pulls
     :if git-enable-github-support
     :defer t
-    :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
+    :init
+    (progn
+      (when (fboundp 'magit-gh-pulls-mode)
+        (eval-after-load 'magit
+          '(define-key magit-mode-map "#gg"
+             #'spacemacs/load-gh-pulls-mode))
+
+        (defun spacemacs/load-gh-pulls-mode ()
+          "Start `magit-gh-pulls-mode' only after a manual request."
+          (interactive)
+          (add-hook 'magit-mode-hook #'turn-on-magit-gh-pulls)
+          (magit-gh-pulls-mode 1)
+          (magit-gh-pulls-reload)))
+      )
     :config (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))
 
 (defun git/init-github-browse-file ()
