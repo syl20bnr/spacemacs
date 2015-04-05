@@ -2,6 +2,7 @@
   '(
     clojure-mode
     cider
+    cider-eval-sexp-fu
     clj-refactor
     ac-cider
     align-cljlet
@@ -153,6 +154,10 @@ the focus."
         "mtt" 'cider-test-run-tests)
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))))
+
+(defun clojure/init-cider-eval-sexp-fu ()
+  (eval-after-load 'eval-sexp-fu
+    '(require 'cider-eval-sexp-fu)))
 
 (defun clojure/init-clj-refactor ()
  (use-package clj-refactor
