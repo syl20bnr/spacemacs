@@ -2519,8 +2519,11 @@ displayed in the mode-line.")
       (require 'smartparens-config)
       (spacemacs|diminish smartparens-mode " (Ⓢ)" " (S)")
 
+      ;; disabled for now because it does not play well with evil
+      ;; the point has to be on behind a closing parenthesis to
+      ;; trigger the highlight.
       ;; When point is on a pair, highlight the matching one
-      (show-smartparens-global-mode +1)
+      ;; (show-smartparens-global-mode +1)
 
       (defun spacemacs/smartparens-pair-newline (id action context)
         (save-excursion
