@@ -833,5 +833,7 @@ If ASCII si not provided then UNICODE is used instead."
 (defmacro spacemacs|init-company-backends (mode)
   "Initialize a MODE specific company backend variable.
 The variable name format is company-backends-MODE."
-  `(defvar ,(intern (format "company-backends-%S" mode)) nil
+  `(defvar ,(intern (format "company-backends-%S" mode))
+     '((company-dabbrev-code company-keywords)
+       company-files company-dabbrev)
      ,(format "Company backend list for %S" mode)))
