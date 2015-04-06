@@ -1,0 +1,588 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Spacemacs by syl20bnr</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/syl20bnr/spacemacs">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/syl20bnr/spacemacs/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/syl20bnr/spacemacs/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Spacemacs</h1>
+          <p>The best editor is neither Emacs nor Vim,  it&#39;s Emacs *and* Vim!</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/syl20bnr">syl20bnr</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <hr>
+
+<p align="center"><img src="./doc/img/title2.png" alt="Spacemacs"></p>
+
+<p>| <a href="doc/DOCUMENTATION.md#philosophy">philosophy</a> | <a href="doc/DOCUMENTATION.md#goals">goals</a> | <a href="doc/DOCUMENTATION.md#who-can-benefit-from-this-">for who?</a> | <a href="doc/DOCUMENTATION.md#screenshots">screenshots</a> | <a href="doc/DOCUMENTATION.md">documentation</a> | <a href="doc/CONTRIBUTE.md">contribute</a> | <a href="doc/DOCUMENTATION.md#achievements">achievements</a> | <a href="https://github.com/syl20bnr/spacemacs#faq">FAQ</a> |</p>
+
+<hr>
+
+<p><a href="https://travis-ci.org/syl20bnr/spacemacs"><img src="https://travis-ci.org/syl20bnr/spacemacs.svg" alt="Build Status"></a> <a href="https://gitter.im/syl20bnr/spacemacs?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Gitter"></a><a href="http://www.twitter.com/spacemacs"><img src="http://i.imgur.com/tXSoThF.png" alt="Twitter"></a></p>
+
+<hr>
+
+<p><strong>Quick Install:</strong></p>
+
+<pre><code>git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
+</code></pre>
+
+
+
+<p><strong>Table of Contents</strong></p>
+
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li>
+<a href="#features">Features</a>
+
+<ul>
+<li><a href="#batteries-included">Batteries Included</a></li>
+<li><a href="#nice-ui">Nice UI</a></li>
+<li><a href="#excellent-evil-support">Excellent Evil Support</a></li>
+<li>
+<a href="#convenient-and-mnemonic-key-bindings">Convenient and Mnemonic Key Bindings</a>
+
+<ul>
+<li>
+<a href="#great-documentationdocumentationmd">Great </a><a href="doc/DOCUMENTATION.md">Documentation</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#prerequisites">Prerequisites</a>
+
+<ul>
+<li><a href="#emacs-version">Emacs version</a></li>
+<li><a href="#os-x">OS X</a></li>
+</ul>
+</li>
+<li><a href="#install">Install</a></li>
+<li>
+<a href="#update">Update</a>
+
+<ul>
+<li><a href="#update-notification">Update notification</a></li>
+<li><a href="#rollback">Rollback</a></li>
+</ul>
+</li>
+<li>
+<a href="#configuration">Configuration</a>
+
+<ul>
+<li><a href="#configuration-layers">Configuration layers</a></li>
+<li><a href="#dotfile-spacemacs">Dotfile (.spacemacs)</a></li>
+</ul>
+</li>
+<li>
+<a href="#learning-spacemacs">Learning Spacemacs</a>
+
+<ul>
+<li><a href="#evil-tutor">Evil-tutor</a></li>
+<li><a href="#the-leader-key">The leader key</a></li>
+<li><a href="#universal-argument">Universal argument</a></li>
+<li><a href="#configuration-layers-and-package-discovery">Configuration layers and Package discovery</a></li>
+<li><a href="#key-bindings-discovery">Key bindings discovery</a></li>
+<li><a href="#describe-functions">Describe functions</a></li>
+</ul>
+</li>
+<li><a href="#contributions">Contributions</a></li>
+<li><a href="#credits">Credits</a></li>
+<li>
+<a href="#faq">FAQ</a>
+
+<ul>
+<li><a href="#common">Common</a></li>
+<li><a href="#windows">Windows</a></li>
+<li><a href="#os-x">OS X</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+<h1>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
+
+<p><code>Spacemacs</code> is a user-friendly and well-documented Emacs kit that integrates the
+best Emacs packages out there. It uses <a href="doc/DOCUMENTATION.md#evil">Evil Mode</a> to combine the ergonomic
+editing features of Vim with the extensibility of Emacs.</p>
+
+<p>Spacemacs is designed to be approachable for users coming from Vim–you do not
+need prior experience with Emacs to get started.</p>
+
+<p>If you are already an experienced Emacs user, you will appreciate the elegantly
+customized system and carefully curated, tightly integrated, set of packages.</p>
+
+<p>Spacemacs is currently in beta, and contributions are welcome.</p>
+
+<h1>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h1>
+
+<h2>
+<a id="batteries-included" class="anchor" href="#batteries-included" aria-hidden="true"><span class="octicon octicon-link"></span></a>Batteries Included</h2>
+
+<p>Spacemacs integrates hundreds of packages and is ready to use with no additional
+configuration. It provides excellent support for many languages, including these:</p>
+
+<ul>
+<li><a href="contrib/lang/erlang-elixir">Elixir</a></li>
+<li><a href="contrib/lang/haskell">Haskell</a></li>
+<li><a href="contrib/lang/javascript">JavaScript</a></li>
+<li><a href="contrib/auctex">LaTeX</a></li>
+<li><a href="contrib/lang/python">Python</a></li>
+<li><a href="contrib/lang/ess">R</a></li>
+<li><a href="contrib/lang/ruby">Ruby</a></li>
+<li>SCSS</li>
+<li><a href="contrib/lang/scala">Scala</a></li>
+<li><a href="contrib/lang/clojure">Clojure</a></li>
+<li><a href="contrib/lang/c-c++">C-C++</a></li>
+</ul>
+
+<p>It also ships with <a href="contrib/git/README.md">Git support</a> and <a href="doc/DOCUMENTATION.md#project-management">project management</a> tools. All
+features are lazily loaded (on-demand) to minimize startup time.</p>
+
+<p>The Spacemacs community provides <a href="doc/DOCUMENTATION.md#using-configuration-layers">additional configurations</a>
+that extend this default distribution.</p>
+
+<p><strong><a href="doc/DOCUMENTATION.md">Visit the Documentation</a></strong></p>
+
+<h2>
+<a id="nice-ui" class="anchor" href="#nice-ui" aria-hidden="true"><span class="octicon octicon-link"></span></a>Nice UI</h2>
+
+<p>Spacemacs looks good. It ships with quality themes and a minimalist
+modeline.</p>
+
+<p><img src="doc/img/spacemacs-python.png" alt="spacemacs_python"></p>
+
+<h2>
+<a id="excellent-evil-support" class="anchor" href="#excellent-evil-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Excellent Evil Support</h2>
+
+<p>Spacemacs is designed around Vim keyboard bindings powered by <a href="doc/DOCUMENTATION.md#evil">Evil Mode</a>.
+The core packages are customized to integrate seamlessly with Evil.</p>
+
+<p>Spacemacs improves upon Vim by using task-specific states to group related
+commands. These states reduce the keystrokes needed to issue repetitive commands
+and reduce the number of keyboard bindings to learn.</p>
+
+<h2>
+<a id="convenient-and-mnemonic-key-bindings" class="anchor" href="#convenient-and-mnemonic-key-bindings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Convenient and Mnemonic Key Bindings</h2>
+
+<p><code>Spacemacs</code> organizes key bindings into mnemonic groups. For example, commands
+to operate on the buffer are prefixed by <code>&lt;SPC&gt; b</code>, and commands to operate on
+the project are under <code>&lt;SPC&gt; p</code>.</p>
+
+<p>There is no need to learn convoluted Emacs key chords–Spacemacs uses memorable
+bindings that are easy to type.</p>
+
+<h3>
+<a id="great-documentation" class="anchor" href="#great-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Great <a href="doc/DOCUMENTATION.md">Documentation</a>
+</h3>
+
+<p>Most of Spacemacs' features, key bindings, and configuration options
+are extensively documented.</p>
+
+<p>If you need help, ask your question in the <a href="https://gitter.im/syl20bnr/spacemacs">Gitter Chat</a> and a member of the
+community will help you out.</p>
+
+<h1>
+<a id="prerequisites" class="anchor" href="#prerequisites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prerequisites</h1>
+
+<h2>
+<a id="emacs-version" class="anchor" href="#emacs-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Emacs version</h2>
+
+<p><code>Spacemacs</code> is tested with Emacs 24.3 and 24.4 and therefore should boot
+on all the major OSes where these versions are installable.</p>
+
+<p>Some modes require third-party tools that you'll have to install via your
+favorite package manager.</p>
+
+<h2>
+<a id="os-x" class="anchor" href="#os-x" aria-hidden="true"><span class="octicon octicon-link"></span></a>OS X</h2>
+
+<p>The recommended version for OS X is <a href="https://github.com/railwaycat/emacs-mac-port">emacs-mac-port</a>. It can be installed
+via <a href="https://github.com/Homebrew/homebrew">homebrew</a> with the following commands:</p>
+
+<div class="highlight highlight-sh"><pre>$ brew tap railwaycat/emacsmacport
+$ brew install emacs-mac</pre></div>
+
+<p>The default key handling is different from the official OS X port. To correct
+this you can add the <a href="contrib/osx/README.md">osx layer</a> to your <a href="https://github.com/syl20bnr/spacemacs#dotfile-spacemacs">dotfile</a> layer list:</p>
+
+<div class="highlight highlight-elisp"><pre>(<span class="pl-c1">setq</span>-default dotspacemacs-configuration-layers '(osx))</pre></div>
+
+<p>Note that the <code>emacs-mac-port</code> server behaves differently than the regular
+Emacs server.
+Details can be found on the emacs-mac-port <a href="https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213">README</a>.</p>
+
+<h1>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h1>
+
+<ol>
+<li>
+<p>If you have an existing Emacs configuration, back it up:</p>
+
+<div class="highlight highlight-sh"><pre><span class="pl-c1">cd</span> <span class="pl-k">~</span>
+mv .emacs.d .emacs.bak</pre></div>
+</li>
+<li>
+<p>Clone this repository <em>with its submodules</em>:</p>
+
+<div class="highlight highlight-sh"><pre>git clone --recursive http://github.com/syl20bnr/spacemacs <span class="pl-k">~</span>/.emacs.d</pre></div>
+
+<p><code>master</code> is the stable branch and is regularly updated. Switch to the <code>develop</code>
+branch if you want to use the bleeding-edge version.</p>
+</li>
+<li><p>Launch Emacs. Spacemacs will automatically install the packages it requires.</p></li>
+<li><p>Restart Emacs to complete the installation.</p></li>
+</ol>
+
+<p>If the mode-line turns red then be sure to visit the <a href="doc/DOCUMENTATION.md#troubleshoot">troubleshooting</a>
+guide and consult the <a href="#faq">FAQ</a>.</p>
+
+<h1>
+<a id="update" class="anchor" href="#update" aria-hidden="true"><span class="octicon octicon-link"></span></a>Update</h1>
+
+<p>Spacemacs currently requires manual updates using the following procedure:</p>
+
+<ol>
+<li><p>Update Emacs packages by clicking (press <code>RET</code>) on the <code>[Update]</code> link of
+the starting page.</p></li>
+<li>
+<p>Close Emacs and update the git repository:</p>
+
+<div class="highlight highlight-sh"><pre>git pull --rebase
+git submodule sync<span class="pl-k">;</span> git submodule update</pre></div>
+</li>
+<li><p>Restart Emacs to complete the upgrade.</p></li>
+</ol>
+
+<h2>
+<a id="update-notification" class="anchor" href="#update-notification" aria-hidden="true"><span class="octicon octicon-link"></span></a>Update notification</h2>
+
+<p>For convenience an indicator is displayed in the mode-line whenever a new
+version of <code>Spacemacs</code> is available.</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">Symbol</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><img src="doc/img/update-green.png" alt="git-new"></td>
+<td>&lt; 3 releases behind</td>
+</tr>
+<tr>
+<td align="center"><img src="doc/img/update-orange.png" alt="git-del"></td>
+<td>&lt; 5 releases behind</td>
+</tr>
+<tr>
+<td align="center"><img src="doc/img/update-red.png" alt="git-mod"></td>
+<td>&gt;= 5  releases behind</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Note:</strong>
+A feature allowing update by merely clicking on the indicator will be implemented <em>soon</em>!</p>
+
+<h2>
+<a id="rollback" class="anchor" href="#rollback" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rollback</h2>
+
+<p>Should anything go wrong during an update, you can rollback ELPA packages to a
+previous version. Click (press <code>RET</code>) on the <code>[Rollback]</code> link of the startup
+page, choose a rollback slot.</p>
+
+<p>Rollback slot names are dates with the following format <code>YYYY-MM-DD_HH.MM.SS</code>.
+The date corresponds to the date of an update. The most recent slots are
+listed first.</p>
+
+<h1>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h1>
+
+<p><code>Spacemacs</code> divides its configuration into self-contained units called
+<a href="doc/DOCUMENTATION.md#configuration-layers">configuration layers</a>. These layers are stacked on top of each other
+to achieve a custom configuration.</p>
+
+<p><code>Spacemacs</code> uses the dotfile <code>~/.spacemacs</code> to control which layers to
+load. Within this file you may also generally configure certain features.</p>
+
+<h2>
+<a id="configuration-layers" class="anchor" href="#configuration-layers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration layers</h2>
+
+<p>A configuration layer is a directory containing at least the following files:</p>
+
+<ul>
+<li>
+<code>packages.el</code>: Defines and configures packages to be downloaded from Emacs
+package repositories using <code>package.el</code>
+</li>
+<li>
+<code>extensions.el</code>: Configures packages which cannot be downloaded with
+<code>package.el</code> such as built-in Emacs features and git submodules.</li>
+</ul>
+
+<p>If you already have your own <code>Emacs</code> configuration you can move it to your
+own layer.</p>
+
+<p>The following command creates a layer in the <code>private</code> directory:</p>
+
+<pre><code>&lt;SPC&gt; : configuration-layer/create-layer RET
+</code></pre>
+
+<p>Any configuration layers you create must be explicitly loaded in <code>~/.spacemacs</code>.</p>
+
+<p><strong>Note:</strong> For your privacy, the contents of the <code>private</code> directory are not
+under source control. See the documentation for a discussion on how to
+<a href="doc/DOCUMENTATION.md#managing-private-configuration-layers">manage your private configuration</a>.</p>
+
+<h2>
+<a id="dotfile-spacemacs" class="anchor" href="#dotfile-spacemacs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dotfile (.spacemacs)</h2>
+
+<p>As mentioned <code>.spacemacs</code> controls which configuration layers to load and
+is also a means to customizing <code>Spacemacs</code>.</p>
+
+<p>The following command will create a <code>.spacemacs</code> file in your home directory:</p>
+
+<pre><code>&lt;SPC&gt; : dotspacemacs/install RET
+</code></pre>
+
+<p>...to open the installed dotfile:</p>
+
+<pre><code>&lt;SPC&gt; f e d
+</code></pre>
+
+<p>...to load some configuration layers using the variable
+<code>dotspacemacs-configuration-layers</code>:</p>
+
+<div class="highlight highlight-elisp"><pre><span class="pl-c">;; List of configuration layers to load.</span>
+dotspacemacs-configuration-layers '(company-mode smex)</pre></div>
+
+<p>Some configuration layers support configuration variables to expose granular
+control over layer-specific features, <a href="contrib/git">git layer</a> being one such example.
+Variables can be directly set within <code>dotspacemacs-configuration-layers</code> like so:</p>
+
+<div class="highlight highlight-elisp"><pre><span class="pl-c">;; List of configuration layers to load.</span>
+dotspacemacs-configuration-layers '(company-mode
+                                    (git :variables
+                                         git-magit-status-fullscreen <span class="pl-c1">t</span>
+                                         git-enable-github-support <span class="pl-c1">t</span>
+                                         git-gutter-use-fringe <span class="pl-c1">t</span>)
+                                    smex)</pre></div>
+
+<p>At anytime you can apply the changes made to the dotfile <em>without restarting</em>
+<code>Spacemacs</code> by pressing <kbd>SPC m c c</kbd>.</p>
+
+<p>The <a href="./core/templates/.spacemacs.template">comments in this file</a> contain further information about
+how to customize <code>Spacemacs</code>. See the <a href="https://github.com/syl20bnr/spacemacs#dotfile-spacemacs">dotfile configuration</a> section of
+the documentation for more details.</p>
+
+<h1>
+<a id="learning-spacemacs" class="anchor" href="#learning-spacemacs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Learning Spacemacs</h1>
+
+<h2>
+<a id="evil-tutor" class="anchor" href="#evil-tutor" aria-hidden="true"><span class="octicon octicon-link"></span></a>Evil-tutor</h2>
+
+<p>Press <kbd>SPC h T</kbd> to begin an Evil-adapted Vimtutor.</p>
+
+<h2>
+<a id="the-leader-key" class="anchor" href="#the-leader-key" aria-hidden="true"><span class="octicon octicon-link"></span></a>The leader key</h2>
+
+<p><code>Spacemacs</code> key bindings use a leader key which is by default bound to
+<kbd>SPC</kbd> (space bar).</p>
+
+<p>Change it by setting the variable <code>dotspacemacs-leader-key</code> in <code>~/.spacemacs</code>.</p>
+
+<h2>
+<a id="universal-argument" class="anchor" href="#universal-argument" aria-hidden="true"><span class="octicon octicon-link"></span></a>Universal argument</h2>
+
+<p>In <code>Spacemacs</code> the universal argument defaults to <code>&lt;SPC&gt; u</code> instead of <code>C-u</code>
+because the latter is used to scroll up as in Vim.</p>
+
+<h2>
+<a id="configuration-layers-and-package-discovery" class="anchor" href="#configuration-layers-and-package-discovery" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration layers and Package discovery</h2>
+
+<p>By using <code>helm-spacemacs</code> with <kbd>SPC f e h</kbd> you can quickly search
+for a package and get the name of the layers using it.</p>
+
+<p>You can also easily go to the <code>README.md</code> of a layer or go to the initialization
+function of a package.</p>
+
+<h2>
+<a id="key-bindings-discovery" class="anchor" href="#key-bindings-discovery" aria-hidden="true"><span class="octicon octicon-link"></span></a>Key bindings discovery</h2>
+
+<p>Thanks to <a href="https://github.com/kai2nenobu/guide-key">guide-key</a>, whenever a prefix command is pressed (like <code>&lt;SPC&gt;</code>)
+a buffer appears after one second listing the possible keys for this prefix.</p>
+
+<p>It is also possible to search for specific key bindings by pressing:</p>
+
+<pre><code>&lt;SPC&gt; ?
+</code></pre>
+
+<p>To narrow the bindings list to those prefixed with <code>&lt;SPC&gt;</code>,
+type a pattern like this regular expression:</p>
+
+<pre><code>SPC\ b
+</code></pre>
+
+<p>which would list all <code>buffer</code> related bindings.</p>
+
+<h2>
+<a id="describe-functions" class="anchor" href="#describe-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Describe functions</h2>
+
+<p><code>Describe functions</code> are powerful Emacs introspection commands to get information
+about functions, variables, modes etc. These commands are bound thusly:</p>
+
+<table>
+<thead>
+<tr>
+<th>Key Binding</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;SPC&gt; h d f</code></td>
+<td>describe-function</td>
+</tr>
+<tr>
+<td><code>&lt;SPC&gt; h d k</code></td>
+<td>describe-key</td>
+</tr>
+<tr>
+<td><code>&lt;SPC&gt; h d m</code></td>
+<td>describe-mode</td>
+</tr>
+<tr>
+<td><code>&lt;SPC&gt; h d v</code></td>
+<td>describe-variable</td>
+</tr>
+</tbody>
+</table>
+
+<h1>
+<a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributions</h1>
+
+<p><code>Spacemacs</code> needs <em>you</em>!</p>
+
+<p>We especially need to create more configuration layers that, for instance, bring
+support for new languages.</p>
+
+<p>If you are ready to contribute please begin by consulting the <a href="doc/CONTRIBUTE.md">contribution guidelines</a>, thanks!</p>
+
+<h1>
+<a id="credits" class="anchor" href="#credits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Credits</h1>
+
+<p><a href="https://github.com/nashamri/spacemacs-logo">Spacemacs logo</a> by <a href="https://github.com/nashamri">Nasser Alshammari</a>
+released under a Creative Commons license.</p>
+
+<h1>
+<a id="faq" class="anchor" href="#faq" aria-hidden="true"><span class="octicon octicon-link"></span></a>FAQ</h1>
+
+<h2>
+<a id="common" class="anchor" href="#common" aria-hidden="true"><span class="octicon octicon-link"></span></a>Common</h2>
+
+<ol>
+<li><p><strong>Which version of Spacemacs am I running ?</strong>
+The version is displayed on the upper right corner of the loading screen.
+You may also just type <kbd>SPC f e v</kbd>.</p></li>
+<li><p><strong>Why are packages installed with <code>package-install</code> automatically deleted by
+Spacemacs when it boots ?</strong>
+To declare new packages you have to create a new configuration layer, see
+the <a href="#configuration">quick start guide</a>.</p></li>
+<li><p><strong>The Spacemacs banner is ugly, what should I do ?</strong>
+Install the default font supported by Spacemacs or choose a fixed width font.
+More information in the <a href="doc/DOCUMENTATION.md#font">font section</a> of the documentation.</p></li>
+<li><p><strong>The powerline separators are ugly, how can I fix them ?</strong>
+Use the property <code>:powerline-scale</code> of the variable
+<code>dotspacemacs-default-font</code>. See [font][] documentation for more details.</p></li>
+<li><p><strong>The powerline separators have no anti-aliasing, what can I do ?</strong>
+Emacs powerline uses XMP images to draw the separators in a graphical
+environment. You can have anti-aliasing if you use the <code>utf8</code> separator.
+Note that by default the <code>utf8</code> separator is used in a terminal.
+See the powerline section in the <a href="doc/DOCUMENTATION.md#powerline-separators">documentation</a>.</p></li>
+</ol>
+
+<h2>
+<a id="windows" class="anchor" href="#windows" aria-hidden="true"><span class="octicon octicon-link"></span></a>Windows</h2>
+
+<ol>
+<li><p><strong>Why do the fonts on Windows looks so crappy ?</strong>
+You can install <a href="https://code.google.com/p/mactype/">MacType</a> on Windows to get very nice looking fonts. It is
+also recommended to disable smooth scrolling on Windows.</p></li>
+<li>
+<p><strong>How to fix the error: The directory ~/.emacs.d/server is unsafe ?</strong>
+Change the owner of the directory <code>~/.emacs.d/server</code>:</p>
+
+<ul>
+<li>from Properties select the Tab “Security”,</li>
+<li>select the button “Advanced”,</li>
+<li>select the Tab “Owner”</li>
+<li>change the owner to your account name
+Source: <a href="http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start">Stackoverflow</a>
+</li>
+</ul>
+</li>
+</ol>
+
+<h2>
+<a id="os-x-1" class="anchor" href="#os-x-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>OS X</h2>
+
+<ol>
+<li>
+<strong>Why are the powerline colors not correct on OS X ?</strong>
+This is a <a href="https://github.com/milkypostman/powerline/issues/54">known issue</a> as of Emacs 24.4 due to
+<code>ns-use-srgb-colorspace</code> defaulting to true. It is recommended to use
+the <a href="https://github.com/railwaycat/emacs-mac-port">emacs-mac-port</a> build. See the <a href="https://github.com/syl20bnr/spacemacs#os-x">install OSX section</a> for more
+details.</li>
+</ol>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-28326243-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
