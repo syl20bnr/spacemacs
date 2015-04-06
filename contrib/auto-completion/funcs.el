@@ -20,13 +20,14 @@
                         (if (eq 'company auto-completion-front-end)
                             (company-mode)
                           (auto-complete-mode))
-                        (message "Enabled %S." auto-completion-front-end))
+                        (message "Enabled auto-completion (using %S)."
+                                 auto-completion-front-end))
                       :off
                       (progn
                         (if (eq 'company auto-completion-front-end)
                             (company-mode -1)
                           (auto-complete-mode -1))
-                        (message "Disabled %S." auto-completion-front-end))
+                        (message "Disabled auto-completion."))
                       :documentation "Activate auto-completion."
                       :evil-leader "ta")
 
