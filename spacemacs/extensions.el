@@ -177,9 +177,6 @@
 
 (defun spacemacs/init-emacs-builtin-emacs-lisp ()
     (when (configuration-layer/layer-usedp 'auto-completion)
-      ;; from lower priority to higher
-      (push 'company-dabbrev company-backends-emacs-lisp-mode)
-      (push 'company-files company-backends-emacs-lisp-mode)
       (push 'company-capf company-backends-emacs-lisp-mode)
       (spacemacs|enable-company emacs-lisp-mode)))
 
