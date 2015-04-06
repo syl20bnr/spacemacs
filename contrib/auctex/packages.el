@@ -2,19 +2,16 @@
   '(
     auctex
     evil-matchit
+    company-auctex
     ))
-
-(when (member 'company-mode dotspacemacs-configuration-layers)
-  (add-to-list 'auctex-packages 'company-auctex))
 
 (defun auctex/init-auctex ()
   (use-package tex
     :defer t
     :config
     (progn
-      (when (member 'company-mode dotspacemacs-configuration-layers)
-        (use-package company-auctex
-          :config (company-auctex-init)))
+      (when (configuration-layer/layer-usedp 'auto-completion)
+        (company-auctex-init))
 
       (defun auctex/build-view ()
         (interactive)
@@ -62,6 +59,10 @@
       (setq-default TeX-auto-save t)
       (setq-default TeX-parse-self t)
       (setq-default TeX-PDF-mode t))))
+
+(defun auctex/init-company-auctex ()
+  (use-package company-auctex :defer t
+    :if (configuration-layer/layer-usedp 'auto-completion)))
 
 (defun auctex/post-init-evil-matchit ()
   (add-hook 'web-mode-hook 'evil-matchit-mode))
