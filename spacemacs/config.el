@@ -142,7 +142,7 @@ Can be installed with `brew install trash'."
 
 ;; auto fill breaks line beyond current-fill-column
 (setq-default default-fill-column 80)
-(spacemacs|diminish auto-fill-function " ⓕ" " f")
+(spacemacs|diminish auto-fill-function " Ⓕ" " F")
 
 ;; ---------------------------------------------------------------------------
 ;; UI

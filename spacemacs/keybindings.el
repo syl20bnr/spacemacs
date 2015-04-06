@@ -167,18 +167,6 @@ Ensure that helm is required before calling FUNC."
                       :off (global-hl-line-mode -1)
                       :documentation "Globally Highlight the current line."
                       :evil-leader "thh")
-(spacemacs|add-toggle highlight-indentation
-                      :status highlight-indentation-mode
-                      :on (highlight-indentation-mode)
-                      :off (highlight-indentation-mode -1)
-                      :documentation "Highlight indentation levels."
-                      :evil-leader "thi")
-(spacemacs|add-toggle highlight-indentation-current-column
-                      :status highlight-indentation-current-column-mode
-                      :on (highlight-indentation-current-column-mode)
-                      :off (highlight-indentation-current-column-mode -1)
-                      :documentation "Highlight indentation level at point."
-                      :evil-leader "thc")
 (spacemacs|add-toggle truncate-lines
                       :status nil
                       :on (toggle-truncate-lines)
@@ -212,12 +200,12 @@ Ensure that helm is required before calling FUNC."
                       :on (auto-fill-mode)
                       :off (auto-fill-mode -1)
                       :documentation "Break line beyond `current-fill-column` while editing."
-                      :evil-leader "t C-f")
+                      :evil-leader "tF")
 (spacemacs|add-toggle debug-on-error
                       :status nil
                       :on (toggle-debug-on-error)
                       :documentation "Toggle display of backtrace when an error happens."
-                      :evil-leader "t D")
+                      :evil-leader "tD")
 (spacemacs|add-toggle tool-bar
                       :if window-system
                       :status tool-bar-mode
@@ -232,12 +220,6 @@ Ensure that helm is required before calling FUNC."
                       :off (menu-bar-mode -1)
                       :documentation "Display the menu bar."
                       :evil-leader "tU")
-(spacemacs|add-toggle whitespaces
-                      :status whitespace-mode
-                      :on (whitespace-mode)
-                      :off (whitespace-mode -1)
-                      :documentation "Display the whitespaces."
-                      :evil-leader "t SPC")
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "qs" 'spacemacs/save-buffers-kill-emacs
