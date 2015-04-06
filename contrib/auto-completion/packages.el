@@ -67,14 +67,16 @@ conflict.")
   (use-package company
     :defer t
     :init
-    (setq company-idle-delay 0.2
-          company-minimum-prefix-length 2
-          company-require-match nil
-          company-dabbrev-ignore-case nil
-          company-dabbrev-downcase nil
-          company-tooltip-flip-when-above t
-          company-frontends '(company-pseudo-tooltip-frontend)
-          company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser)
+    (progn
+      (setq company-idle-delay 0.2
+            company-minimum-prefix-length 2
+            company-require-match nil
+            company-dabbrev-ignore-case nil
+            company-dabbrev-downcase nil
+            company-tooltip-flip-when-above t
+            company-frontends '(company-pseudo-tooltip-frontend)
+            company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser)
+      (add-hook 'after-init-hook 'global-company-mode))
     :config
     (progn
       (spacemacs|diminish company-mode " ⓐ" " a")
