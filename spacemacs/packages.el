@@ -2349,11 +2349,16 @@ displayed in the mode-line.")
 
       (defun selection-info ()
         "String holding the number of columns in the selection
-         if it covers only one line, else number of lines in the selection"
+         if it covers only one line, else number of lines in the selection,
+         and rows+cols if it's a block selection"
         (let* ((lines (count-lines (region-beginning) (1+ (region-end))))
-               (chars (- (1+ (region-end)) (region-beginning))))
-          (if (> lines 1) (format "%s lines" (number-to-string lines))
-            (format "%s chars" (number-to-string chars)))))
+               (chars (- (1+ (region-end)) (region-beginning)))
+               (cols (1+ (abs (- (column-number-at-pos (region-end))
+                                 (column-number-at-pos (region-beginning)))))))
+          (if (eq evil-visual-selection 'block)
+              (format "%dx%d" lines cols)
+            (if (> lines 1) (format "%d lines" lines)
+              (format "%d chars" chars)))))
 
       (defun spacemacs/mode-line-prepare-right ()
         (let* ((active (powerline-selected-window-active))
@@ -2379,7 +2384,7 @@ displayed in the mode-line.")
                                     battery-face 'r)
                      (funcall separator-right battery-face face1))
              (list (funcall separator-right face2 face1)))
-           (if (use-region-p)
+           (if (evil-visual-state-p)
                ;; selection info, if there is a selection.
                (list
                 (powerline-raw " " face1)
