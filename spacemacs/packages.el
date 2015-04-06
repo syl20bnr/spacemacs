@@ -1213,7 +1213,7 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
       (add-to-list 'golden-ratio-exclude-buffer-names "*LV*")
 
-      (spacemacs|diminish golden-ratio-mode " ⊞" " G"))))
+      (spacemacs|diminish golden-ratio-mode " Ⓖ" " G"))))
 
 (defun spacemacs/init-google-translate ()
   (use-package google-translate
