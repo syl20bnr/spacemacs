@@ -61,7 +61,7 @@ conflict.")
       (define-key ac-completing-map (kbd "C-j") 'ac-next)
       (define-key ac-completing-map (kbd "C-k") 'ac-previous)
       (define-key ac-completing-map (kbd "<S-tab>") 'ac-previous)
-      (spacemacs|diminish auto-complete-mode " Ⓐ" " A"))))
+      (spacemacs|diminish auto-complete-mode " ⓐ" " a"))))
 
 (defun auto-completion/init-company ()
   (use-package company
@@ -77,7 +77,7 @@ conflict.")
           company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser)
     :config
     (progn
-      (spacemacs|diminish company-mode " Ⓐ" " A")
+      (spacemacs|diminish company-mode " ⓐ" " a")
       ;; Set the completion key
       (if auto-completion-use-tab-instead-of-enter
           (progn

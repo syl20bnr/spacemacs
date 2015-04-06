@@ -178,7 +178,19 @@ which require an initialization must be listed explicitly in the list.")
         (if (symbol-value aggressive-indent-mode)
             (global-aggressive-indent-mode -1)
           (global-aggressive-indent-mode)))
-      (evil-leader/set-key "tI" 'spacemacs/toggle-aggressive-indent))
+
+      (spacemacs|add-toggle aggressive-indent
+                            :status aggressive-indent-mode
+                            :on (aggressive-indent-mode)
+                            :off (aggressive-indent-mode -1)
+                            :documentation "Keep code always indented."
+                            :evil-leader "tI")
+      (spacemacs|add-toggle aggressive-indent-globally
+                            :status aggressive-indent-mode
+                            :on (global-aggressive-indent-mode)
+                            :off (global-aggressive-indent-mode -1)
+                            :documentation "Globally keep code always indented."
+                            :evil-leader "t C-I"))
     :config
     (progn
       (defun spacemacs/disable-aggressive-indent ()
@@ -899,7 +911,7 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       ;; to gather all the bindings at the same place the bindnings
       ;; for evil-org have been moved to `spacemacs/init-org'
-      (spacemacs|diminish evil-org-mode " Ⓔ" " E"))))
+      (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()
   (use-package evil-search-highlight-persist
@@ -1037,12 +1049,17 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (setq fci-rule-width 1)
+      ;; manually register the minor mode since it does not define any
+      ;; lighter
+      (push '(fci-mode "") minor-mode-alist)
       (spacemacs|add-toggle fill-column-indicator
                             :status fci-mode
                             :on (turn-on-fci-mode)
                             :off (turn-off-fci-mode)
                             :documentation "Display the fill column indicator."
-                            :evil-leader "tc"))))
+                            :evil-leader "tc"))
+    :config
+    (spacemacs|diminish fci-mode " ⓒ" " c")))
 
 (defun spacemacs/init-flx-ido ()
   (use-package flx-ido
@@ -1052,11 +1069,25 @@ which require an initialization must be listed explicitly in the list.")
   (use-package flycheck
     :defer t
     :init
-    (setq flycheck-check-syntax-automatically '(save mode-enabled)
-          flycheck-standard-error-navigation nil)
+    (progn
+      (setq flycheck-check-syntax-automatically '(save mode-enabled)
+            flycheck-standard-error-navigation nil)
+      (spacemacs|add-toggle syntax-checking
+                            :status flycheck-mode
+                            :on (flycheck-mode)
+                            :off (flycheck-mode -1)
+                            :documentation "Enable error and syntax checking."
+                            :evil-leader "tf")
+      (spacemacs|add-toggle syntax-checking-globally
+                            :status flycheck-mode
+                            :on (global-flycheck-mode)
+                            :off (global-flycheck-mode -1)
+                            :documentation
+                            "Enable error and syntax checking globally."
+                            :evil-leader "t C-f"))
     :config
     (progn
-      (spacemacs|diminish flycheck-mode " Ⓕ" " F")
+      (spacemacs|diminish flycheck-mode " ⓕ" " f")
 
       (defun spacemacs/mode-line-flycheck-info-toggle ()
         "Toggle display of flycheck info."
@@ -1152,9 +1183,18 @@ which require an initialization must be listed explicitly in the list.")
       (setq-default ispell-program-name "aspell")
       (setq-default ispell-dictionary "english")
       (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
-      (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1))))
+      (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1)))
+      (spacemacs|add-toggle spelling-checking
+                            :status flyspell-mode
+                            :on (flyspell-mode)
+                            :off (flyspell-mode -1)
+                            :documentation
+                            "Enable flyspell for automatic spelling checking."
+                            :evil-leader "ts"))
     :config
-    (spacemacs|diminish flyspell-mode " Ⓢ" " S")))
+    (progn
+      (flyspell-prog-mode)
+      (spacemacs|diminish flyspell-mode " ⓢ" " s"))))
 
 (defun spacemacs/init-fringe-helper ())
 
@@ -1162,13 +1202,14 @@ which require an initialization must be listed explicitly in the list.")
   (use-package golden-ratio
     :defer t
     :init
-    (spacemacs|add-toggle
-     golden-ratio
-     :status golden-ratio-mode
-     :on (golden-ratio-mode) (golden-ratio)
-     :off (golden-ratio-mode -1) (balance-windows)
-     :documentation "Dynamically resize the focused window using the golden ratio."
-     :evil-leader "tg")
+    (spacemacs|add-toggle golden-ratio
+                          :status golden-ratio-mode
+                          :on (golden-ratio-mode) (golden-ratio)
+                          :off (golden-ratio-mode -1) (balance-windows)
+                          :documentation
+                          (concat "Dynamically resize the focused window using "
+                                  "the golden ratio.")
+                          :evil-leader "tg")
     :config
     (progn
       (setq golden-ratio-extra-commands
@@ -1213,7 +1254,7 @@ which require an initialization must be listed explicitly in the list.")
       (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
       (add-to-list 'golden-ratio-exclude-buffer-names "*LV*")
 
-      (spacemacs|diminish golden-ratio-mode " Ⓖ" " G"))))
+      (spacemacs|diminish golden-ratio-mode " ⓖ" " g"))))
 
 (defun spacemacs/init-google-translate ()
   (use-package google-translate
@@ -1256,7 +1297,14 @@ which require an initialization must be listed explicitly in the list.")
                     bzg-big-fringe-mode)
           ad-do-it))
 
-      (evil-leader/set-key "tk" 'spacemacs/toggle-guide-key)
+      (spacemacs|add-toggle guide-key
+                      :status guide-key-mode
+                      :on (guide-key-mode)
+                      :off (guide-key-mode -1)
+                      :documentation
+                      "Display a buffer with available key bindings."
+                      :evil-leader "tG")
+
       (setq guide-key/guide-key-sequence `("C-x"
                                            "C-c"
                                            "C-w"
@@ -1284,7 +1332,7 @@ which require an initialization must be listed explicitly in the list.")
       (setq guide-key/highlight-command-regexp
                    (cons spacemacs/prefix-command-string font-lock-warning-face))
       (guide-key-mode 1)
-      (spacemacs|diminish guide-key-mode " Ⓚ" " K"))))
+      (spacemacs|diminish guide-key-mode " Ⓖ" " G"))))
 
 (defun spacemacs/init-helm ()
   (use-package helm
@@ -1632,7 +1680,23 @@ ignored)."
     (evil-leader/set-key
       "Th" 'helm-themes)))
 
-(defun spacemacs/init-highlight-indentation ())
+(defun spacemacs/init-highlight-indentation ()
+  (use-package highlight-indentation
+    :defer t
+    :init
+    (progn
+      (spacemacs|add-toggle highlight-indentation
+                            :status highlight-indentation-mode
+                            :on (highlight-indentation-mode)
+                            :off (highlight-indentation-mode -1)
+                            :documentation "Highlight indentation levels."
+                            :evil-leader "thi")
+      (spacemacs|add-toggle highlight-indentation-current-column
+                            :status highlight-indentation-current-column-mode
+                            :on (highlight-indentation-current-column-mode)
+                            :off (highlight-indentation-current-column-mode -1)
+                            :documentation "Highlight indentation level at point."
+                            :evil-leader "thc"))))
 
 (defun spacemacs/init-highlight-numbers ()
   (use-package highlight-numbers
@@ -1838,15 +1902,26 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :init
     (progn
       (setq indent-guide-delay 0.3)
-      (spacemacs|add-toggle global-indent-guide
+      (spacemacs|add-toggle indent-guide
+                            :status indent-guide-mode
+                            :on (indent-guide-mode)
+                            :off (indent-guide-mode -1)
+                            :documentation
+                            (concat "Enbale a guide to highlight "
+                                    "the current indentation (alternative "
+                                    "to the toggle"
+                                    "highlight-indentation-current-column).")
+                            :evil-leader "ti")
+      (spacemacs|add-toggle indent-guide-globally
                             :status indent-guide-mode
                             :on (indent-guide-global-mode)
                             :off (indent-guide-global-mode -1)
                             :documentation
-                            (concat  "Guide to highlight the current "
-                                     "indentation (alternative to the toggle"
-                                     "highlight-indentation-current-column).")
-                            :evil-leader "ti"))
+                            (concat "Enbale globally a guide to highlight "
+                                    "the current indentation (alternative "
+                                    "to the toggle"
+                                    "highlight-indentation-current-column).")
+                            :evil-leader "t C-i"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
 
@@ -2515,14 +2590,14 @@ displayed in the mode-line.")
                             :on (smartparens-mode)
                             :off (smartparens-mode -1)
                             :documentation "Enable smartparens."
-                            :evil-leader "ts")
+                            :evil-leader "tp")
 
       (spacemacs|add-toggle smartparens-globally
                             :status smartparens-mode
                             :on (smartparens-global-mode)
                             :off (smartparens-global-mode -1)
                             :documentation "Enable smartparens globally."
-                            :evil-leader "tS")
+                            :evil-leader "t C-p")
 
       ;; don't create a pair with single quote in minibuffer
       (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
@@ -2531,7 +2606,7 @@ displayed in the mode-line.")
     :config
     (progn
       (require 'smartparens-config)
-      (spacemacs|diminish smartparens-mode " (Ⓢ)" " (S)")
+      (spacemacs|diminish smartparens-mode " ⓟ" " p")
 
       ;; disabled for now because it does not play well with evil
       ;; the point has to be on behind a closing parenthesis to
@@ -2648,7 +2723,22 @@ displayed in the mode-line.")
 (defun spacemacs/init-whitespace ()
   (use-package whitespace
     :defer t
-    :config (spacemacs|diminish whitespace-mode " Ⓦ" " W")))
+    :init
+    (progn
+      (spacemacs|add-toggle whitespaces
+                            :status whitespace-mode
+                            :on (whitespace-mode)
+                            :off (whitespace-mode -1)
+                            :documentation "Display the whitespaces."
+                            :evil-leader "tw")
+      (spacemacs|add-toggle whitespaces-globally
+                            :status whitespace-mode
+                            :on (global-whitespace-mode)
+                            :off (global-whitespace-mode -1)
+                            :documentation "Globally display the whitespaces."
+                            :evil-leader "t C-w"))
+    :config
+    (spacemacs|diminish whitespace-mode " ⓦ" " w")))
 
 (defun spacemacs/init-window-numbering ()
   (use-package window-numbering
@@ -2750,7 +2840,7 @@ displayed in the mode-line.")
                             :on (yas-global-mode)
                             :off (yas-global-mode -1)
                             :documentation "Enable yasnippet globally."
-                            :evil-leader "tY")
+                            :evil-leader "t C-y")
 
       (defun spacemacs/force-yasnippet-off ()
         (yas-minor-mode -1)
@@ -2760,7 +2850,7 @@ displayed in the mode-line.")
                                                      shell-mode-hook)))
     :config
     (progn
-      (spacemacs|diminish yas-minor-mode " Ⓨ" " Y"))))
+      (spacemacs|diminish yas-minor-mode " ⓨ" " y"))))
 
 (defun spacemacs/init-zenburn-theme ()
   (use-package zenburn-theme

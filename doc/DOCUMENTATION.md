@@ -920,24 +920,37 @@ The minor mode area can be toggled on and off with:
 
 Unicode symbols are displayed by default. Setting the variable
 `dotspacemacs-mode-line-unicode-symbols` to `nil` in your `~/.spacemacs` will
-display ASCII characters instead (may be useful in terminal).
+display ASCII characters instead (may be useful in terminal if you
+cannot set an appropriate font).
 
-   Unicode   |   ASCII    |                    Mode
-:-----------:|:----------:|----------------------------------------------------
-`⊞`          | G          | [golden-ratio][golden-ratio] mode
-`Ⓐ`          | A          | [auto-complete][auto-complete] mode
-`Ⓒ`          | C          | [centered-cursor][centered-cursor] mode
-`Ⓔ`          | E          | [evil-org][evil-org-mode] mode
-`Ⓕ`          | F          | flycheck mode
-`ⓕ`          | f          | auto-fill mode
-`Ⓚ`          | K          | guide-key mode
-`Ⓘ`          | I          | aggressive indent mode
-`ⓘ`          | i          | indentation guide
-`(Ⓟ)`        | (P)        | paredit mode
-`Ⓢ`          | S          | flyspell mode
-`(Ⓢ)`        | (S)        | [smartparens][sp] mode
-`Ⓦ`          | W          | whitespace mode
-`Ⓨ`          | Y          | [yasnippet][yasnippet] mode
+The letters displayed in the mode-line correspond to the key bindings used
+to toggle them.
+
+Some toggle have two flavors: local and glocal. The global version of the
+toggle can be reached using the `control` key.
+
+Key Binding          |   Unicode   |   ASCII    |                    Mode
+---------------------|:-----------:|:----------:|----------------------------------------------------
+<kbd>SPC t -</kbd>   | `⊝`        | -          | [centered-cursor][] mode
+<kbd>SPC t C--</kbd> |            |            | global
+<kbd>SPC t a</kbd>   | `ⓐ`        | a          | auto-completion
+<kbd>SPC t c</kbd>   | `ⓒ`        | c          | fill-column-indicator mode
+`none`               | `ⓔ`        | e          | [evil-org][evil-org-mode] mode
+<kbd>SPC t f</kbd>   | `ⓕ`        | f          | flycheck mode
+<kbd>SPC t C-f</kbd> |             |            | global
+<kbd>SPC t F</kbd>   | `Ⓕ`        | F          | auto-fill mode
+<kbd>SPC t g</kbd>   | `ⓖ`        | g          | [golden-ratio][] mode
+<kbd>SPC t k</kbd>   | `Ⓖ`        | G          | guide-key mode
+<kbd>SPC t i</kbd>   | `ⓘ`        | i          | indentation guide
+<kbd>SPC t C-i</kbd> |             |            | global
+<kbd>SPC t I</kbd>   | `Ⓘ`        | I          | aggressive indent mode
+<kbd>SPC t p</kbd>   | `ⓟ`        | p          | [smartparens][sp] mode
+<kbd>SPC t C-p</kbd> |             |            | global
+<kbd>SPC t s</kbd>   | `ⓢ`        | s          | flyspell mode
+<kbd>SPC t w</kbd>   | `ⓦ`        | w          | whitespace mode
+<kbd>SPC t C-w</kbd> |             |            | global
+<kbd>SPC t y</kbd>   | `ⓨ`        | y          | [yasnippet][yasnippet] mode
+<kbd>SPC t C-y</kbd> |             |            | global
 
 # Commands
 
