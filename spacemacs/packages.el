@@ -2486,6 +2486,8 @@ displayed in the mode-line.")
              (t (comint-simple-send proc command))))))
   (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
 
+  (add-hook 'eshell-mode-hook (lambda () (setq pcomplete-cycle-completions nil)))
+
   (defun eshell/clear ()
     "Clear contents in eshell."
     (interactive)
