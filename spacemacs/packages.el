@@ -2510,6 +2510,20 @@ displayed in the mode-line.")
 
       (add-hook 'minibuffer-setup-hook 'conditionally-enable-smartparens-mode)
 
+      (spacemacs|add-toggle smartparens
+                            :status smartparens-mode
+                            :on (smartparens-mode)
+                            :off (smartparens-mode -1)
+                            :documentation "Enable smartparens."
+                            :evil-leader "ts")
+
+      (spacemacs|add-toggle smartparens-globally
+                            :status smartparens-mode
+                            :on (smartparens-global-mode)
+                            :off (smartparens-global-mode -1)
+                            :documentation "Enable smartparens globally."
+                            :evil-leader "tS")
+
       ;; don't create a pair with single quote in minibuffer
       (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
 
@@ -2723,6 +2737,20 @@ displayed in the mode-line.")
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                 markdown-mode-hook
                                                 org-mode-hook))
+
+      (spacemacs|add-toggle yasnippet
+                            :status yas-minor-mode
+                            :on (yas-minor-mode)
+                            :off (yas-minor-mode -1)
+                            :documentation "Enable yasnippet."
+                            :evil-leader "ty")
+
+      (spacemacs|add-toggle yasnippet-globally
+                            :status yas-minor-mode
+                            :on (yas-global-mode)
+                            :off (yas-global-mode -1)
+                            :documentation "Enable yasnippet globally."
+                            :evil-leader "tY")
 
       (defun spacemacs/force-yasnippet-off ()
         (yas-minor-mode -1)
