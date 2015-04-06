@@ -2567,13 +2567,14 @@ It is a string holding:
               (funcall 'man command))
              ;; Send other commands to the default handler.
              (t (comint-simple-send proc command))))))
-  (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
-
   (defun eshell/clear ()
     "Clear contents in eshell."
     (interactive)
     (let ((inhibit-read-only t))
-      (erase-buffer))))
+      (erase-buffer)))
+  (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
+  (add-hook 'eshell-mode-hook (lambda ()
+                                (setq pcomplete-cycle-completions nil))))
 
 (defun spacemacs/init-smartparens ()
   (use-package smartparens
