@@ -2544,9 +2544,12 @@ displayed in the mode-line.")
   ;; this is not a conventional package
   ;; no require are needed for this package everything is auto-loaded
   (if dotspacemacs-smooth-scrolling
-      (setq smooth-scroll-margin 5
-            scroll-conservatively 9999
-            scroll-step 1)
+      ;; enable smooth scrolling
+      (setq scroll-step 1
+            scroll-conservatively 10000
+            auto-window-vscroll nil
+            smooth-scroll-margin 5)
+
     ;; deactivate the defadvice's
     (ad-disable-advice 'previous-line 'after 'smooth-scroll-down)
     (ad-activate 'previous-line)
