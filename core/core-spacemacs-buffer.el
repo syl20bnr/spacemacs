@@ -110,7 +110,8 @@ buffer, right justified."
 
 (defun spacemacs/message (msg &rest args)
   "Display MSG in message prepended with '(Spacemacs)'."
-  (message "(Spacemacs) %s" (apply 'format msg args)))
+  (when dotspacemacs-verbose-loading
+    (message "(Spacemacs) %s" (apply 'format msg args))))
 
 (defun spacemacs/insert-page-break ()
   "Insert a page break line in spacemacs buffer."

@@ -16,6 +16,9 @@
 (defconst dotspacemacs-filepath "~/.spacemacs"
   "Filepath to the installed dotfile.")
 
+(defvar dotspacemacs-verbose-loading nil
+  "If non nil output loading progess in `*Messages*' buffer.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
