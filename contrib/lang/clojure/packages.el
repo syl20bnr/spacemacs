@@ -1,11 +1,11 @@
 (defvar clojure-packages
   '(
-    clojure-mode
+    align-cljlet
     cider
     cider-eval-sexp-fu
     clj-refactor
-    ac-cider
-    align-cljlet
+    clojure-mode
+    company
     rainbow-delimiters
     subword
    )
@@ -212,7 +212,6 @@ the focus."
     (progn
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'clojure-mode)))))
-
 (defun clojure/init-rainbow-delimiters ()
   (if (configuration-layer/package-usedp 'cider)
       (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
@@ -222,16 +221,8 @@ the focus."
     (add-hook 'cider-mode-hook 'subword-mode)))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (defun clojure/init-ac-cider ()
-    (use-package ac-cider
-      :if (configuration-layer/layer-usedp 'auto-complete)
-      :defer t
-      :init
-      (progn
-        (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-        (add-to-hooks 'ac-cider-setup '(clojure-mode-hook
-                                        cider-mode-hook
-                                        cider-repl-mode-hook))
-        (add-to-hooks 'auto-complete-mode '(clojure-mode-hook
-                                            cider-mode-hook
-                                            cider-repl-mode-hook))))))
+  (defun clojure/post-init-company ()
+    (push 'company-capf company-backends-cider-mode)
+    (spacemacs|enable-company cider-mode)
+    (push 'company-capf company-backends-cider-repl-mode)
+    (spacemacs|enable-company cider-repl-mode)))
