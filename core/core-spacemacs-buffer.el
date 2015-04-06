@@ -137,6 +137,93 @@ buffer, right justified."
       (if messagebuf (message "(Spacemacs) %s" msg)))
     (spacemacs/set-mode-line "")))
 
+(defun spacemacs/insert-framed-text-to-buffer
+    (msg &optional caption hpadding)
+  "Insert MSG in spacemacs buffer within a frame of width FILL-COLUMN.
+
+See `spacemacs//render-framed-text' for documentation of the other
+parameters."
+  (with-current-buffer (get-buffer-create "*spacemacs*")
+    (let ((buffer-read-only nil))
+      (insert (spacemacs//render-framed-text msg spacemacs--banner-length
+                                             caption hpadding)))))
+
+(defun spacemacs/insert-framed-text-from-file-to-buffer
+    (filepath &optional caption hpadding)
+  "Insert at point the content of FILENAME file in spacemacs buffer in a
+frame.
+
+If FILEPATH does not exists the function returns nil.
+
+See `spacemacs//render-framed-text' for documentation of the other
+parameters."
+  (when (file-exists-p filepath)
+    (with-current-buffer (get-buffer-create "*spacemacs*")
+      (let ((buffer-read-only nil))
+        (insert (spacemacs//render-framed-text filepath spacemacs--banner-length
+                                               caption hpadding))))))
+
+(defun spacemacs//render-framed-text (content &optional width caption hpadding)
+  "Return a formated string framed with plained lines of width FILL-COLUMN.
+
+CONTENT can be a text or a filepath.
+
+WIDTH set the `fill-column' variable.
+
+If CAPTION is non nil string then it is included in at the top of the frame.
+If CAPTION length is greater than FILL-COLUMN minus 5 the function returns
+nil.
+
+HPADDING is the horizontal spacing between the text and the frame.
+The vertical spacing is always one line."
+  (with-temp-buffer
+    (if (not (file-exists-p content))
+        (insert content)
+      (insert-file-contents content)
+      ;; remove additional newline at eof
+      (goto-char (point-max))
+      (delete-char -1))
+    (let* ((hpadding (or hpadding 1))
+           (fill-column (if width
+                            (- width hpadding)
+                          fill-column))
+           (sentence-end-double-space nil)
+           (caption-len (length caption)))
+      (fill-region (point-min) (point-max) 'justify)
+      (concat
+       ;; top
+       "╭─"
+       (if caption
+           (concat caption
+                   (make-string (+ (- fill-column caption-len 1)
+                                   hpadding) ?─))
+         (make-string fill-column ?─))
+       (make-string hpadding ?─) "╮\n"
+       ;; content
+       (spacemacs//render-framed-line "" hpadding)
+       (mapconcat (lambda (x)
+                    (spacemacs//render-framed-line x hpadding))
+                  (split-string (buffer-string) "\n" nil) "")
+       (spacemacs//render-framed-line "" hpadding)
+       ;; bottom
+       "╰" (make-string hpadding ?─)
+       (make-string fill-column ?─)
+       (make-string hpadding ?─) "╯\n"))))
+
+(defun spacemacs//render-framed-line (line hpadding)
+  "Return a formated LINE with borders of a frame on each side and
+with width FILL-COLUMN.
+
+If length of LINE is bigger than FILL-COLUMN it returns nil.
+
+HPADDING is the horizontal spacing betwee the content line and the frame border."
+  (let* ((len (length line))
+         (fill (- fill-column len)))
+    (when (>= fill 0)
+      (concat "│" (make-string hpadding ?\s)
+              line (make-string fill ?\s)
+              (make-string hpadding ?\s) "│\n"))))
+
 (defun spacemacs/loading-animation ()
   "Display the progress bar by chunk of size `spacemacs--loading-dots-chunk-threshold'."
   (when dotspacemacs-loading-progress-bar
@@ -197,8 +284,7 @@ buffer, right justified."
                    :mouse-face 'highlight
                    :follow-link "\C-m"
                    button-title))
-  (insert "\n\n")
-  )
+  (insert "\n\n"))
 
 (defun spacemacs//insert-file-list (list-display-name list shortcut-char)
   (when (car list)
