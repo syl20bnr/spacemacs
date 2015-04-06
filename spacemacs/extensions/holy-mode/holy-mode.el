@@ -72,7 +72,10 @@ The `insert state' is replaced by the `emacs state'."
   (when (fboundp 'spacemacs//helm-hjkl-navigation)
     (spacemacs//helm-hjkl-navigation nil))
   ;; initiate `emacs state' and enter the church
-  (holy-mode//update-states-for-current-buffers))
+  (holy-mode//update-states-for-current-buffers)
+  ;; enable superior pair highlighting
+  (show-paren-mode -1)
+  (show-smartparens-global-mode +1))
 
 (defun amen ()
   "May the force be with you my son (or not)."
