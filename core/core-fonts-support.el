@@ -63,7 +63,7 @@ PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
         ;; mode-line circled letters
         (set-fontset-font "fontset-default"
                           '(#x24b6 . #x24fe) fallback-spec nil 'prepend)
-        ;; mode-line additional characters (i.e. golden ratio)
+        ;; mode-line additional characters
         (set-fontset-font "fontset-default"
                           '(#x2295 . #x22a1) fallback-spec nil 'prepend)
         ;; new version lighter
