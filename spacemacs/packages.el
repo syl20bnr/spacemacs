@@ -2611,6 +2611,9 @@ It is a string holding:
       ;; don't create a pair with single quote in minibuffer
       (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
 
+      ;; don't create a pair with single quote in dotspacemacs-mode
+      (sp-local-pair 'dotspacemacs-mode "'" nil :actions nil)
+
       (setq sp-cancel-autoskip-on-backward-movement nil))
     :config
     (progn
