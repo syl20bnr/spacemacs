@@ -303,19 +303,15 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (when (fboundp 'magit-gh-pulls-mode)
-        (eval-after-load 'magit
-          '(define-key magit-mode-map "#gg"
-             #'spacemacs/load-gh-pulls-mode))
-
-        (defun spacemacs/load-gh-pulls-mode ()
-          "Start `magit-gh-pulls-mode' only after a manual request."
-          (interactive)
-          (add-hook 'magit-mode-hook #'turn-on-magit-gh-pulls)
-          (magit-gh-pulls-mode 1)
-          (magit-gh-pulls-reload)))
-      )
-    :config (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))
+      (defun spacemacs/load-gh-pulls-mode ()
+        "Start `magit-gh-pulls-mode' only after a manual request."
+        (interactive)
+        (magit-gh-pulls-mode)
+        (magit-gh-pulls-reload))
+      (eval-after-load 'magit
+          '(define-key magit-mode-map "#gg" 'spacemacs/load-gh-pulls-mode)))
+    :config
+    (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))
 
 (defun git/init-github-browse-file ()
   (use-package github-browse-file
