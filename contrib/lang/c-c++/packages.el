@@ -79,7 +79,7 @@ which require an initialization must be listed explicitly in the list.")
   (defun c-c++/post-init-company ()
     ;; push this backend by default
     (push '(company-clang :with company-yasnippet) company-backends-c-c++)
-    (spacemacs|enable-company c-c++ c-common-mode-hook)
+    (spacemacs|enable-company c-c++ c-mode-common-hook)
 
     ;; .clang_complete file loading
     ;; Sets the arguments for company-clang based on a project-specific text file.

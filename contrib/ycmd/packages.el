@@ -15,6 +15,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package company-ycmd
     :if (configuration-layer/layer-usedp 'auto-completion)
     :defer t
+    :commands company-ycmd
     :init (push '(company-ycmd :with company-yasnippet)
                 company-backends-c-c++)))
 
