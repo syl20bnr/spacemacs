@@ -139,7 +139,6 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun spacemacs/init-ace-link ()
   (use-package ace-link
-    :defer t
     :commands spacemacs/ace-buffer-links
     :init
     (define-key spacemacs-mode-map "o" 'spacemacs/ace-buffer-links)
