@@ -12,9 +12,6 @@
 
 ;; variables
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-company-backends python-mode))
-
 ;; Command prefixes
 
 ;; not supported for now
