@@ -2348,15 +2348,18 @@ displayed in the mode-line.")
         (save-excursion (goto-char pos) (current-column)))
 
       (defun selection-info ()
-        "String holding the number of columns in the selection
-         if it covers only one line, else number of lines in the selection,
-         and rows+cols if it's a block selection"
+        "Info on the current selection for the mode-line.
+
+It is a string holding:
+- the number of columns in the selection if it covers only one line,
+- the number of lines in the selection if if covers several full lines
+- or rowsxcols if it's a block selection."
         (let* ((lines (count-lines (region-beginning) (1+ (region-end))))
                (chars (- (1+ (region-end)) (region-beginning)))
                (cols (1+ (abs (- (column-number-at-pos (region-end))
                                  (column-number-at-pos (region-beginning)))))))
           (if (eq evil-visual-selection 'block)
-              (format "%dx%d" lines cols)
+              (format "%dx%d block" lines cols)
             (if (> lines 1) (format "%d lines" lines)
               (format "%d chars" chars)))))
 
