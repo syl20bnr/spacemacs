@@ -227,5 +227,8 @@
     (use-package company-ghc
       :if (configuration-layer/package-usedp 'company)
       :defer t
-      :init (push '(company-ghc :with company-yasnippet)
-                  company-backends-haskell-mode))))
+      :init
+      ;; remove yasnippet for now, it seems to prevent
+      ;; company-ghc to work properly the first time
+      ;; it is activated
+      (push 'company-ghc company-backends-haskell-mode))))
