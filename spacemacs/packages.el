@@ -140,11 +140,13 @@ which require an initialization must be listed explicitly in the list.")
 (defun spacemacs/init-ace-link ()
   (use-package ace-link
     :defer t
-    :init (ace-link-setup-default)
+    :commands spacemacs/ace-buffer-links
+    :init
+    (define-key spacemacs-mode-map "o" 'spacemacs/ace-buffer-links)
     :config
     (progn
+      (ace-link-setup-default)
       (defvar spacemacs--link-pattern "~?/.+\\|\s\\[")
-
       (defun spacemacs//collect-spacemacs-buffer-links ()
         (let ((end (window-end))
               points)
@@ -153,18 +155,13 @@ which require an initialization must be listed explicitly in the list.")
             (while (re-search-forward spacemacs--link-pattern end t)
               (push (+ (match-beginning 0) 1) points))
             (nreverse points))))
-
-      (defun spacemacs//ace-buffer-links ()
+      (defun spacemacs/ace-buffer-links ()
         "Ace jump to links in `spacemacs' buffer."
         (interactive)
         (ali-generic
-            (spacemacs//collect-spacemacs-buffer-links)
-          (forward-char 1)
-          (push-button)
-          ))
-
-      (define-key spacemacs-mode-map "o" 'spacemacs//ace-buffer-links)
-      )))
+         (spacemacs//collect-spacemacs-buffer-links)
+         (forward-char 1)
+         (widget-button-press (point)))))))
 
 (defun spacemacs/init-ace-window ()
   (use-package ace-window
