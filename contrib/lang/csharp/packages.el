@@ -11,7 +11,8 @@
 ;;; License: GPLv3
 
 (defvar csharp-packages
-  '(omnisharp))
+  '(company
+    omnisharp))
 
 (defvar csharp-excluded-packages '()
   "List of packages to exclude.")
@@ -21,7 +22,9 @@
   (add-hook 'csharp-mode-hook 'omnisharp-mode)
   (use-package omnisharp
     :defer t
-    :config  (evil-leader/set-key-for-mode 'csharp-mode
+    :init (push '(company-omnisharp :with company-yasnippet)
+                company-backends-csharp-mode)
+    :config (evil-leader/set-key-for-mode 'csharp-mode
               ;; Compile
               "mcc" 'omnisharp-build-in-emacs ;; Only one compile command so use top-level
               ;; Solution/project manipulation
@@ -50,7 +53,7 @@
               ;; Server manipulation, inspired spacemacs REPL bindings since C# does not provice a REPL
               "mss" 'omnisharp-start-omnisharp-server
               "msS" 'omnisharp-stop-server
-              "msr" 'omnisharp-reload-solution)
+              "msr" 'omnisharp-reload-solution
               ;; Tests
               "mta" 'omnisharp-unit-test-all
               "mtb" 'omnisharp-unit-test-fixture
@@ -58,6 +61,8 @@
               ;; Code manipulation
               "mu" 'omnisharp-auto-complete-overrides
               "mi" 'omnisharp-fix-usings
-              "m=" 'omnisharp-code-format
+              "m=" 'omnisharp-code-format)))
 
-    (spacemacs|add-local-company-backend csharp-mode company-omnisharp)))
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun csharp/post-init-company ()
+    (spacemacs|enable-company csharp-mode)))

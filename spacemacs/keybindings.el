@@ -18,6 +18,8 @@
 ;; exiting isearch
 (define-key isearch-mode-map (kbd "S-<return>") 'isearch-repeat-forward)
 (define-key isearch-mode-map (kbd "M-S-<return>") 'isearch-repeat-backward)
+;; Escape from isearch-mode("/" and "?" in evil-mode) like vim
+(define-key isearch-mode-map (kbd "<escape>") 'isearch-cancel)
 
 ;; Make <escape> quit as much as possible
 (define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
@@ -26,6 +28,12 @@
 (define-key minibuffer-local-completion-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-isearch-map (kbd "<escape>") 'keyboard-escape-quit)
+
+;; linum margin bindings-------------------------------------------------------
+(global-set-key (kbd "<left-margin> <down-mouse-1>") 'spacemacs/md-select-linum)
+(global-set-key (kbd "<left-margin> <mouse-1>") 'spacemacs/mu-select-linum)
+(global-set-key (kbd "<left-margin> <double-mouse-1>") 'spacemacs/select-current-block)
+(global-set-key (kbd "<left-margin> <drag-mouse-1>") 'spacemacs/mu-select-linum)
 
 ;; ---------------------------------------------------------------------------
 ;; evil-leader key bindings
@@ -132,12 +140,11 @@ Ensure that helm is required before calling FUNC."
 (evil-leader/set-key "cC" 'compile)
 (evil-leader/set-key "cr" 'recompile)
 ;; narrow & widen -------------------------------------------------------------
-(unless (configuration-layer/package-declaredp 'fancy-narrow)
-  (evil-leader/set-key
-    "nr" 'narrow-to-region
-    "np" 'narrow-to-page
-    "nf" 'narrow-to-defun
-    "nw" 'widen))
+(evil-leader/set-key
+  "nr" 'narrow-to-region
+  "np" 'narrow-to-page
+  "nf" 'narrow-to-defun
+  "nw" 'widen)
 ;; spell check  ---------------------------------------------------------------
 (evil-leader/set-key
   "Sd" 'ispell-change-dictionary
@@ -160,18 +167,6 @@ Ensure that helm is required before calling FUNC."
                       :off (global-hl-line-mode -1)
                       :documentation "Globally Highlight the current line."
                       :evil-leader "thh")
-(spacemacs|add-toggle highlight-indentation
-                      :status highlight-indentation-mode
-                      :on (highlight-indentation-mode)
-                      :off (highlight-indentation-mode -1)
-                      :documentation "Highlight indentation levels."
-                      :evil-leader "thi")
-(spacemacs|add-toggle highlight-indentation-current-column
-                      :status highlight-indentation-current-column-mode
-                      :on (highlight-indentation-current-column-mode)
-                      :off (highlight-indentation-current-column-mode -1)
-                      :documentation "Highlight indentation level at point."
-                      :evil-leader "thc")
 (spacemacs|add-toggle truncate-lines
                       :status nil
                       :on (toggle-truncate-lines)
@@ -205,12 +200,12 @@ Ensure that helm is required before calling FUNC."
                       :on (auto-fill-mode)
                       :off (auto-fill-mode -1)
                       :documentation "Break line beyond `current-fill-column` while editing."
-                      :evil-leader "t C-f")
+                      :evil-leader "tF")
 (spacemacs|add-toggle debug-on-error
                       :status nil
                       :on (toggle-debug-on-error)
                       :documentation "Toggle display of backtrace when an error happens."
-                      :evil-leader "t D")
+                      :evil-leader "tD")
 (spacemacs|add-toggle tool-bar
                       :if window-system
                       :status tool-bar-mode
@@ -225,12 +220,6 @@ Ensure that helm is required before calling FUNC."
                       :off (menu-bar-mode -1)
                       :documentation "Display the menu bar."
                       :evil-leader "tU")
-(spacemacs|add-toggle whitespaces
-                      :status whitespace-mode
-                      :on (whitespace-mode)
-                      :off (whitespace-mode -1)
-                      :documentation "Display the whitespaces."
-                      :evil-leader "t SPC")
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "qs" 'spacemacs/save-buffers-kill-emacs
@@ -303,8 +292,6 @@ Ensure that helm is required before calling FUNC."
   "mee" 'eval-last-sexp
   "mef" 'eval-defun
   "mel" 'lisp-state-eval-sexp-end-of-line
-  "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
-  "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point
   "m,"  'lisp-state-toggle-lisp-state
   "mtb" 'spacemacs/ert-run-tests-buffer
   "mtq" 'ert)

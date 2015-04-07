@@ -52,6 +52,7 @@
         - [Color themes](#color-themes)
         - [Font](#font)
         - [Graphical UI Toggles](#graphical-ui-toggles)
+        - [Mouse usage](#mouse-usage)
         - [Mode-line](#mode-line)
             - [Flycheck integration](#flycheck-integration)
             - [Anzu integration](#anzu-integration)
@@ -98,7 +99,9 @@
         - [Bookmarks](#bookmarks)
         - [DocView mode](#docview-mode)
     - [Searching](#searching)
-        - [Project Searching](#project-searching)
+        - [With an external tool](#with-an-external-tool)
+            - [Searching in an arbitrary directory](#searching-in-an-arbitrary-directory)
+            - [Searching in a project](#searching-in-a-project)
         - [Persistent highlighting](#persistent-highlighting)
         - [Stacking highlights](#stacking-highlights)
         - [Highlight current symbol](#highlight-current-symbol)
@@ -119,7 +122,6 @@
             - [Indent text object](#indent-text-object)
         - [Region narrowing](#region-narrowing)
         - [Line formatting](#line-formatting)
-        - [Auto-completion](#auto-completion)
         - [Replacing text with iedit](#replacing-text-with-iedit)
             - [iedit states key bindings](#iedit-states-key-bindings)
                 - [State transitions](#state-transitions)
@@ -152,6 +154,10 @@
 - [Tips](#tips)
     - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
 - [Achievements](#achievements)
+    - [Issues](#issues)
+    - [Merged Pull Requests](#merged-pull-requests)
+    - [Stars and forks](#stars-and-forks)
+    - [Specials](#specials)
 - [Thank you](#thank-you)
 
 <!-- markdown-toc end -->
@@ -773,6 +779,7 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 
     Key Binding         |                 Description
 ------------------------|------------------------------------------------------------
+<kbd>SPC t ~</kbd>      | display `~` in the fringe on empty lines
 <kbd>SPC t c</kbd>      | display the fill column (by default the fill column is set to 80)
 <kbd>SPC t F</kbd>      | toggle frame fullscreen
 <kbd>SPC t f</kbd>      | toggle display of the fringe
@@ -791,6 +798,14 @@ Some graphical UI indicators can be toggled on and off (toggles start with `t`):
 
 **Note** These toggles are all available via the `helm-spacemacs` interface
 (press <kbd>SPC fe h</kbd> to display the `helm-spacemacs` buffer).
+
+### Mouse usage
+
+There are some added mouse features set for the line number margin (if shown):
+
+- single click in line number margin visually selects the entire line
+- drag across line number margin visually selects the region
+- double click in line number margin visually select the current code block
 
 ### Mode-line
 
@@ -905,24 +920,37 @@ The minor mode area can be toggled on and off with:
 
 Unicode symbols are displayed by default. Setting the variable
 `dotspacemacs-mode-line-unicode-symbols` to `nil` in your `~/.spacemacs` will
-display ASCII characters instead (may be useful in terminal).
+display ASCII characters instead (may be useful in terminal if you
+cannot set an appropriate font).
 
-   Unicode   |   ASCII    |                    Mode
-:-----------:|:----------:|----------------------------------------------------
-`⊞`          | G          | [golden-ratio][golden-ratio] mode
-`Ⓐ`          | A          | [auto-complete][auto-complete] mode
-`Ⓒ`          | C          | [centered-cursor][centered-cursor] mode
-`Ⓔ`          | E          | [evil-org][evil-org-mode] mode
-`Ⓕ`          | F          | flycheck mode
-`ⓕ`          | f          | auto-fill mode
-`Ⓚ`          | K          | guide-key mode
-`Ⓘ`          | I          | aggressive indent mode
-`ⓘ`          | i          | indentation guide
-`(Ⓟ)`        | (P)        | paredit mode
-`Ⓢ`          | S          | flyspell mode
-`(Ⓢ)`        | (S)        | [smartparens][sp] mode
-`Ⓦ`          | W          | whitespace mode
-`Ⓨ`          | Y          | [yasnippet][yasnippet] mode
+The letters displayed in the mode-line correspond to the key bindings used
+to toggle them.
+
+Some toggle have two flavors: local and glocal. The global version of the
+toggle can be reached using the `control` key.
+
+Key Binding          |   Unicode   |   ASCII    |                    Mode
+---------------------|:-----------:|:----------:|----------------------------------------------------
+<kbd>SPC t -</kbd>   | `⊝`        | -          | [centered-cursor][] mode
+<kbd>SPC t C--</kbd> |            |            | global
+<kbd>SPC t a</kbd>   | `ⓐ`        | a          | auto-completion
+<kbd>SPC t c</kbd>   | `ⓒ`        | c          | fill-column-indicator mode
+`none`               | `ⓔ`        | e          | [evil-org][evil-org-mode] mode
+<kbd>SPC t f</kbd>   | `ⓕ`        | f          | flycheck mode
+<kbd>SPC t C-f</kbd> |             |            | global
+<kbd>SPC t F</kbd>   | `Ⓕ`        | F          | auto-fill mode
+<kbd>SPC t g</kbd>   | `ⓖ`        | g          | [golden-ratio][] mode
+<kbd>SPC t k</kbd>   | `Ⓖ`        | G          | guide-key mode
+<kbd>SPC t i</kbd>   | `ⓘ`        | i          | indentation guide
+<kbd>SPC t C-i</kbd> |             |            | global
+<kbd>SPC t I</kbd>   | `Ⓘ`        | I          | aggressive indent mode
+<kbd>SPC t p</kbd>   | `ⓟ`        | p          | [smartparens][sp] mode
+<kbd>SPC t C-p</kbd> |             |            | global
+<kbd>SPC t s</kbd>   | `ⓢ`        | s          | flyspell mode
+<kbd>SPC t w</kbd>   | `ⓦ`        | w          | whitespace mode
+<kbd>SPC t C-w</kbd> |             |            | global
+<kbd>SPC t y</kbd>   | `ⓨ`        | y          | [yasnippet][yasnippet] mode
+<kbd>SPC t C-y</kbd> |             |            | global
 
 # Commands
 
@@ -1176,6 +1204,15 @@ Key Binding          |                 Description
 <kbd>SPC `</kbd>     | go back to the previous location (before the jump)
 
 Hint: you may change to char mode by `C-c C-c` in word mode.
+
+#### ace-link mode
+
+Similar to `ace-jump-mode`, [ace-link][ace-link] allows one to jump to any link in
+`help-mode` and `info-mode` with two key strokes.
+
+Key Binding          |                 Description
+---------------------|------------------------------------------------------------------
+<kbd>o</kbd>         | initiate ace link mode in `help-mode` and `info-mode`
 
 ### Window manipulation
 
@@ -1560,14 +1597,49 @@ Key Binding        |                 Description
 
 ## Searching
 
-### Project Searching
 
-Key Binding                           |                 Description
---------------------------------------|---------------------------------------------
-<kbd>SPC /</kbd> or  <kbd>SPC a</kbd> | with [The Silver Searcher][ag]
-<kbd>SPC A</kbd>                      | with `ack`
-<kbd>SPC g</kbd>                      | with `grep`
-<kbd>SPC h l</kbd>                    | show last helm popup
+### With an external tool
+
+`Spacemacs` can be interfaced with different search utilities:
+- ack
+- grep
+- [ag][]
+- [pt][]
+
+**Note** `ag` and `pt` are optimized to be used in a source control repository
+but they can be used in an arbitrary directory as well.
+
+#### Searching in an arbitrary directory
+
+To use these utilities in one or several arbitrary directories:
+
+Key Binding               |                 Description
+--------------------------|---------------------------------------------
+<kbd>SPC s /</kbd>        | execute the first found utility in this order `pt`, `ag`, `ack` and `grep`
+<kbd>SPC s a</kbd>        | `ag`
+<kbd>SPC s g</kbd>        | `grep`
+<kbd>SPC s k</kbd>        | `ack`
+<kbd>SPC s p</kbd>        | `pt`
+
+**Note** Use the universal argument to change the search list of
+<kbd>SPC s /</kbd> to `ack` and `grep` (does not look for `ag` or `pt`).
+
+**Note** It is also possible to search in several directories at once by
+marking them in the helm buffer.
+
+#### Searching in a project
+
+To use these utilities in a project using `projectile`:
+
+Key Binding               |                 Description
+--------------------------|---------------------------------------------
+<kbd>SPC /</kbd>          | execute the first found utility in this order `pt`, `ag`, `ack` and `grep`
+<kbd>SPC p s a</kbd>      | `ag`
+<kbd>SPC p s g</kbd>      | `grep`
+<kbd>SPC p s k</kbd>      | `ack`
+<kbd>SPC p s p</kbd>      | `pt`
+
+**Pro Tip** Use <kbd>SPC h l</kbd> to bring back the last helm session.
 
 ### Persistent highlighting
 
@@ -1872,18 +1944,6 @@ Line formatting commands start with `j`:
 
 Used together these key bindings are very powerful to quickly reformat the code.
 
-### Auto-completion
-
-`Spacemacs` uses [auto-complete][] auto-completion engine.
-
-    Key Binding    |                 Description
--------------------|------------------------------------------------------------
-<kbd>C-j</kbd>     | select next candidate
-<kbd>C-k</kbd>     | select previous candidate
-<kbd>TAB</kbd>     | expand selection or select next candidate
-<kbd>S-TAB</kbd>   | select previous candidate
-<kbd>return</kbd>  | complete word, if word is already completed insert a carriage return
-
 ### Replacing text with iedit
 
 `Spacemacs` uses the powerful [iedit][] mode through [evil-iedit-state][] to
@@ -2115,9 +2175,10 @@ To search in a project see [project searching](#project-searching).
 <kbd>SPC p I</kbd>  | invalidate the projectile cache
 <kbd>SPC p k</kbd>  | kill all project buffers
 <kbd>SPC p o</kbd>  | run `multi-occur`
+<kbd>SPC p p</kbd>  | switch project
 <kbd>SPC p R</kbd>  | regenerate the project's [e|g]tags
 <kbd>SPC p r</kbd>  | replace a string
-<kbd>SPC p s</kbd>  | switch project
+<kbd>SPC p s</kbd>  | see [search in project](#searching-in-a-project)
 <kbd>SPC p t</kbd>  | open `NeoTree` in `projectile` root
 <kbd>SPC p T</kbd>  | find test files
 <kbd>SPC p v</kbd>  | open project root in `vc-dir` or `magit`
@@ -2325,12 +2386,10 @@ your `~/.spacemacs` the following snippet:
 
 # Achievements
 
+## Issues
+
 Achievements                                         | Account
 -----------------------------------------------------|------------------------
-[First contribution][1st-contrib]                    | [trishume][]
-[First contribution layer][1st-clayer]               | [trishume][]
-[First blog article on Spacemacs][1st-article]       | [Wolfy87][]
-[First contributed banner][1st-cbanner]              | [chrisbarrett][]
 [100th issue (PR)][100th-issue]                      | [danielwuz][]
 [200th issue (question)][200th-issue]                | [justrajdeep][]
 [300th issue (PR)][300th-issue]                      | [danielwuz][]
@@ -2339,18 +2398,44 @@ Achievements                                         | Account
 [600th issue (PR)][600th-issue]                      | [bjarkevad][]
 [700th issue (enhancement)][700th-issue]             | [jcpetkovich][]
 [800th issue (PR)][800th-issue]                      | [ryansroberts][]
+[900th issue (PR)][900th-issue]                      | [jcpetkovich][]
+[1000th issue (PR)][1000th-issue]                    | [tuhdo][]
+
+## Merged Pull Requests
+
+Achievements                                         | Account
+-----------------------------------------------------|------------------------
 [100th pull request][100th-PR]                       | [bru][]
 [200th pull request][200th-PR]                       | [smt][]
 [300th pull request][300th-PR]                       | [BrianHicks][]
 [400th pull request][400th-PR]                       | [cpaulik][]
-PR gunner (8 PRs in a row)                           | [ralesi][]
+
+## Stars and forks
+
+Achievements                                         | Account
+-----------------------------------------------------|------------------------
 100th fork                                           | [balajisivaraman][]
+200th fork                                           | [alcol80][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
 400th star                                           | [dbohdan][]
 600th star                                           | [laat][]
 700th star                                           | [kendall][]
 800th star                                           | [urso][]
+900th star                                           | [luisgerhorst][]
+
+## Specials
+
+Achievements                                         | Account
+-----------------------------------------------------|------------------------
+[First contribution][1st-contrib]                    | [trishume][]
+[First contribution layer][1st-clayer]               | [trishume][]
+[First blog article on Spacemacs][1st-article]       | [Wolfy87][]
+[First contributed banner][1st-cbanner]              | [chrisbarrett][]
+The Gunner (made 18 PRs in a row)                    | [ralesi][]
+The Saint (unlocked the holy-mode)                   | [trishume][]
+The Artist (made the spacemacs logo)                 | [nashamri][]
+The Meme Master (made the doge banner)               | [chrisbarrett][]
 
 # Thank you
 
@@ -2369,6 +2454,7 @@ developers to elisp hackers!
 [keychords]: http://www.emacswiki.org/emacs/KeyChord
 [centered-cursor]: http://www.emacswiki.org/emacs/centered-cursor-mode.el
 [ace-jump]: https://github.com/winterTTr/ace-jump-mode
+[ace-link]: https://github.com/abo-abo/ace-link
 [ace-window]: https://github.com/abo-abo/ace-window
 [helm-link]: https://github.com/emacs-helm/helm
 [helm-doc]: https://github.com/emacs-helm/helm/wiki
@@ -2384,6 +2470,7 @@ developers to elisp hackers!
 [projectile]: https://github.com/bbatsov/projectile
 [sp]: https://github.com/Fuco1/smartparens
 [ag]: https://github.com/ggreer/the_silver_searcher
+[pt]: https://github.com/monochromegane/the_platinum_searcher
 [flycheck]: https://github.com/flycheck
 [yasnippet]: https://github.com/capitaomorte/yasnippet
 [expand-region]: https://github.com/magnars/expand-region.el
@@ -2454,16 +2541,20 @@ developers to elisp hackers!
 [600th-issue]: https://github.com/syl20bnr/spacemacs/pull/600
 [700th-issue]: https://github.com/syl20bnr/spacemacs/pull/700
 [800th-issue]: https://github.com/syl20bnr/spacemacs/pull/800
+[900th-issue]: https://github.com/syl20bnr/spacemacs/pull/900
+[1000th-issue]: https://github.com/syl20bnr/spacemacs/pull/1000
 [100th-PR]: https://github.com/syl20bnr/spacemacs/pull/228
 [200th-PR]: https://github.com/syl20bnr/spacemacs/pull/418
 [300th-PR]: https://github.com/syl20bnr/spacemacs/pull/617
 [400th-PR]: https://github.com/syl20bnr/spacemacs/pull/806
 [trishume]:https://github.com/trishume
+[nashamri]: https://github.com/nashamri
 [Wolfy87]:https://github.com/Wolfy87
 [danielwuz]:https://github.com/danielwuz
 [CestDiego]:https://github.com/CestDiego
 [bjarkevad]:https://github.com/bjarkevad
 [jcpetkovich]:https://github.com/jcpetkovich
+[tuhdo]:https://github.com/tuhdo
 [BrianHicks]:https://github.com/BrianHicks
 [cpaulik]: https://github.com/cpaulik
 [chrisbarrett]:https://github.com/chrisbarrett
@@ -2473,9 +2564,11 @@ developers to elisp hackers!
 [ryansroberts]:https://github.com/laat
 [kendall]:https://github.com/kendall
 [urso]:https://github.com/urso
+[luisgerhorst]:https://github.com/luisgerhorst
 [bru]:https://github.com/bru
 [smt]:https://github.com/smt
 [ralesi]:https://github.com/ralesi
+[alcol80]:https://github.com/alcol80
 [balajisivaraman]:https://github.com/balajisivaraman
 [Jackneill]:https://github.com/Jackneill
 [jb55]:https://github.com/jb55

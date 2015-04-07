@@ -46,64 +46,10 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
-    :defer t
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
-    :init
-    (progn
-      (spacemacs|add-local-company-backend cmake-mode company-cmake))))
-
-(defun c-c++/init-company ()
-  ;; .clang_complete file loading
-  ;; Sets the arguments for company-clang based on a project-specific text file.
-
-  ;; START Based on the Sarcasm/irony-mode compilation database code.
-  (defun company-mode/find-clang-complete-file ()
-    (when buffer-file-name
-      (let ((dir (locate-dominating-file buffer-file-name ".clang_complete")))
-        (when dir
-          (concat (file-name-as-directory dir) ".clang_complete")))))
-
-  (defun company-mode/load-clang-complete-file (cc-file)
-    "Load the flags from CC-FILE, one flag per line."
-    (let ((invocation-dir (expand-file-name (file-name-directory cc-file)))
-          (case-fold-search nil)
-          compile-flags)
-      (with-temp-buffer
-        (insert-file-contents cc-file)
-        ;; Replace relative paths with absolute paths (by @trishume)
-        ;; (goto-char (point-min))
-        (while (re-search-forward "\\(-I\\|-isystem\n\\)\\(\\S-\\)" nil t)
-          (replace-match (format "%s%s" (match-string 1)
-                                 (expand-file-name (match-string 2) invocation-dir))))
-        ;; Turn lines into a list
-        (setq compile-flags
-              ;; remove whitespaces at the end of each line, if any
-              (mapcar #'(lambda (line)
-                          (if (string-match "[ \t]+$" line)
-                              (replace-match "" t t line)
-                            line))
-                      (split-string (buffer-string) "\n" t))))
-      compile-flags))
-  ;; END Back to things written by @trishume
-
-  (defun company-mode/more-than-prefix-guesser ()
-    (unless company-clang-arguments
-      (let* ((cc-file (company-mode/find-clang-complete-file))
-             (flags (if cc-file (company-mode/load-clang-complete-file cc-file) '())))
-        (setq-local company-clang-arguments flags)
-        (setq flycheck-clang-args flags)))
-    (company-clang-guess-prefix))
-
-  (setq company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser))
-
-(defun c-c++/init-company-c-headers ()
-  (use-package company-c-headers
-    :if (configuration-layer/layer-declaredp 'company-mode)
-    :defer t
-    :init
-    (progn
-      (spacemacs|add-local-company-backend c-mode company-c-headers)
-      (spacemacs|add-local-company-backend c++-mode company-c-headers))))
+    :config
+    (when (configuration-layer/layer-usedp 'auto-completion)
+      (push 'company-cmake company-backends-cmake-mode))))
 
 (defun c-c++/init-flycheck ()
   (add-to-hooks 'flycheck-mode '(c-mode-hook c++-mode-hook)))
@@ -128,3 +74,58 @@ which require an initialization must be listed explicitly in the list.")
         (require 'stickyfunc-enhance))
       (add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance
                     '(c-mode-hook c++-mode-hook)))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun c-c++/post-init-company ()
+    ;; push this backend by default
+    (push '(company-clang :with company-yasnippet) company-backends-c-c++)
+    (spacemacs|enable-company c-c++ c-common-mode-hook)
+
+    ;; .clang_complete file loading
+    ;; Sets the arguments for company-clang based on a project-specific text file.
+
+    ;; START Based on the Sarcasm/irony-mode compilation database code.
+    (defun company-mode/find-clang-complete-file ()
+      (when buffer-file-name
+        (let ((dir (locate-dominating-file buffer-file-name ".clang_complete")))
+          (when dir
+            (concat (file-name-as-directory dir) ".clang_complete")))))
+
+    (defun company-mode/load-clang-complete-file (cc-file)
+      "Load the flags from CC-FILE, one flag per line."
+      (let ((invocation-dir (expand-file-name (file-name-directory cc-file)))
+            (case-fold-search nil)
+            compile-flags)
+        (with-temp-buffer
+          (insert-file-contents cc-file)
+          ;; Replace relative paths with absolute paths (by @trishume)
+          ;; (goto-char (point-min))
+          (while (re-search-forward "\\(-I\\|-isystem\n\\)\\(\\S-\\)" nil t)
+            (replace-match (format "%s%s" (match-string 1)
+                                   (expand-file-name (match-string 2) invocation-dir))))
+          ;; Turn lines into a list
+          (setq compile-flags
+                ;; remove whitespaces at the end of each line, if any
+                (mapcar #'(lambda (line)
+                            (if (string-match "[ \t]+$" line)
+                                (replace-match "" t t line)
+                              line))
+                        (split-string (buffer-string) "\n" t))))
+        compile-flags))
+    ;; END Back to things written by @trishume
+
+    (defun company-mode/more-than-prefix-guesser ()
+      (unless company-clang-arguments
+        (let* ((cc-file (company-mode/find-clang-complete-file))
+               (flags (if cc-file (company-mode/load-clang-complete-file cc-file) '())))
+          (setq-local company-clang-arguments flags)
+          (setq flycheck-clang-args flags)))
+      (company-clang-guess-prefix))
+
+    (setq company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser))
+
+  (defun c-c++/init-company-c-headers ()
+    (use-package company-c-headers
+      :if (configuration-layer/package-usedp 'company)
+      :defer t
+      :init (push 'company-c-headers company-backends-c-c++))))

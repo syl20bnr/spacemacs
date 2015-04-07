@@ -12,7 +12,6 @@
 
 (defvar git-packages
   '(
-    fringe-helper
     gitattributes-mode
     gitconfig-mode
     gitignore-mode
@@ -219,7 +218,11 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (setq magit-completing-read-function 'magit-ido-completing-read)
+      (setq magit-last-seen-setup-instructions "1.4.0"
+            magit-completing-read-function 'magit-ido-completing-read)
+      ;; On Windows, we must use Git GUI to enter username and password
+      ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
+      (setenv "GIT_ASKPASS" "git-gui--askpass")
       (evil-leader/set-key
         "gb" 'magit-blame-mode
         "gl" 'magit-log
@@ -298,8 +301,17 @@ which require an initialization must be listed explicitly in the list.")
   (use-package magit-gh-pulls
     :if git-enable-github-support
     :defer t
-    :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-    :config (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))
+    :init
+    (progn
+      (defun spacemacs/load-gh-pulls-mode ()
+        "Start `magit-gh-pulls-mode' only after a manual request."
+        (interactive)
+        (magit-gh-pulls-mode)
+        (magit-gh-pulls-reload))
+      (eval-after-load 'magit
+          '(define-key magit-mode-map "#gg" 'spacemacs/load-gh-pulls-mode)))
+    :config
+    (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))
 
 (defun git/init-github-browse-file ()
   (use-package github-browse-file

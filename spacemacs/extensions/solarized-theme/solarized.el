@@ -1751,8 +1751,6 @@ customize the resulting theme."
 ;;;;; table
      `(table-cell ((,class (:foreground ,base0 :background ,base02))))
 ;;;;; term
-     `(term-default-fg-color (t (:foreground ,base0))) ;; @deprecated24.3
-     `(term-default-bg-color (t (:background ,base03))) ;; @deprecated24.3
      `(term ((t ( :background ,base03 :foreground ,base0))))
      `(term-color-black ((t (:foreground ,base02 :background ,base02))))
      `(term-color-red ((t (:foreground ,red :background ,red))))

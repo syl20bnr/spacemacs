@@ -340,12 +340,15 @@ version and the NEW version."
         (format "[%s packages loaded in %.3fs]\n"
                 (configuration-layer//initialized-packages-count)
                 elapsed)))
+     ;; Display useful lists of items
+     (when dotspacemacs-startup-lists
+       (spacemacs/insert-startupify-lists))
      (when configuration-layer-error-count
        ;; ("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position evil-mode-line-tag
         ;; (vc-mode vc-mode)
        ;; "  " mode-line-modes mode-line-misc-info mode-line-end-spaces
        (spacemacs/set-mode-line
-        (format (concat "%s errors at startup! "
+        (format (concat "%s error(s) at startup! "
                         "Spacemacs may not be able to operate properly.")
                 configuration-layer-error-count))
        (force-mode-line-update))

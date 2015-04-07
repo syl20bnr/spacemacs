@@ -99,17 +99,25 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Mouse cursor in terminal mode
 (xterm-mouse-mode 1)
 
+;; Highlight and allow to open http link at point in programming buffers
+;; goto-address-prog-mode only highlights links in strings and comments
+(add-hook 'prog-mode-hook 'goto-address-prog-mode)
+
+;; When point is on paranthesis, highlight the matching one
+(show-paren-mode t)
+
 ;; ---------------------------------------------------------------------------
 ;; Edit
 ;; ---------------------------------------------------------------------------
 
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (spacemacs|init-company-backends emacs-lisp-mode))
 ;; start scratch in text mode (usefull to get a faster Emacs load time
 ;; because it avoids autoloads of elisp modes)
 (setq initial-major-mode 'text-mode)
 ;; whitespace-mode
 (add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace 1)))
-;; When point is on paranthesis, highlight the matching one
-(show-paren-mode t)
+
 ;; use only spaces and no tabs
 (setq-default indent-tabs-mode nil
               default-tab-width 2)
@@ -134,7 +142,7 @@ Can be installed with `brew install trash'."
 
 ;; auto fill breaks line beyond current-fill-column
 (setq-default default-fill-column 80)
-(spacemacs|diminish auto-fill-function " ⓕ" " f")
+(spacemacs|diminish auto-fill-function " Ⓕ" " F")
 
 ;; Save clipboard contents into kill-ring before replace them
 (setq save-interprogram-paste-before-kill t)
@@ -164,6 +172,11 @@ Can be installed with `brew install trash'."
 ;; (add-hook 'window-configuration-change-hook
 ;;           (lambda ()
 ;;             (set-window-margins (car (get-buffer-window-list (current-buffer) nil t)) 0 0)))
+
+;; don't let the cursor go into minibuffer prompt
+;; Tip taken from Xah Lee: http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html
+(setq minibuffer-prompt-properties
+      '(read-only t point-entered minibuffer-avoid-prompt face minibuffer-prompt))
 
 ;; Emacs 24.4 new features
 (unless (version< emacs-version "24.4")
@@ -196,8 +209,8 @@ Can be installed with `brew install trash'."
       eval-expression-print-level nil)
 ;; Save point position between sessions
 (require 'saveplace)
-(setq save-place t
-      save-place-file (concat spacemacs-cache-directory "places"))
+(setq-default save-place t
+              save-place-file (concat spacemacs-cache-directory "places"))
 
 ;; minibuffer history
 (require 'savehist)

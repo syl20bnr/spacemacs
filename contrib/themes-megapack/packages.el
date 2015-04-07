@@ -39,6 +39,7 @@
     flatland-theme
     flatui-theme
     gandalf-theme
+    gotham-theme
     grandshell-theme
     gruber-darker-theme
     gruvbox-theme
@@ -54,7 +55,6 @@
     minimal-theme
     moe-theme
     molokai-theme
-    monokai-theme
     monochrome-theme
     mustang-theme
     naquadah-theme
@@ -105,3 +105,6 @@ which require an initialization must be listed explicitly in the list.")
 (defvar themes-megapack-excluded-packages '()
   "List of packages to exclude.")
 
+;; programmatically defin the init functions
+(dolist (pkg themes-megapack-packages)
+  (eval `(defun ,(intern (format "themes-megapack/init-%S" pkg)) nil)))

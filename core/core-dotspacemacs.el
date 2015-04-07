@@ -16,6 +16,9 @@
 (defconst dotspacemacs-filepath "~/.spacemacs"
   "Filepath to the installed dotfile.")
 
+(defvar dotspacemacs-verbose-loading nil
+  "If non nil output loading progess in `*Messages*' buffer.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
@@ -130,6 +133,10 @@ declared in a layer which is not a member of
 specified with an installed package.
 NOT USED FOR NOW :-)")
 
+(defvar dotspacemacs-startup-lists '(recents projects)
+  "List of items to show in the startup buffer. If nil it is disabled.
+Possible values are: `recents' `bookmarks' `projects'.")
+
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")
 
@@ -173,7 +180,7 @@ If ARG is non nil then `dotspacemacs/config' is skipped."
           (dotspacemacs|call-func dotspacemacs/config
                                   "Calling dotfile config...")
           (message "Done."))
-        (when (configuration-layer/package-declaredp 'powerline)
+        (when (configuration-layer/package-usedp 'powerline)
           (spacemacs//restore-powerline (current-buffer)))))))
 
 (defun dotspacemacs/location ()

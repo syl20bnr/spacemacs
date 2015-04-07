@@ -169,6 +169,57 @@ the current state and point position."
           (message "Indented buffer.")))
       (whitespace-cleanup))))
 
+;; linum gutter helpers
+(defvar *linum-mdown-line* nil
+  "Define persistent variable for linum selection")
+
+(defun spacemacs/line-at-click ()
+  "Determine the visual line at click"
+  (save-excursion
+    (let ((click-y (cddr (mouse-position)))
+          (debug-on-error t)
+          (line-move-visual t))
+      (goto-char (window-start))
+      (next-line (1- click-y))
+      (1+ (line-number-at-pos))
+      )))
+
+(defun spacemacs/md-select-linum (event)
+  "Set point as *linum-mdown-line*"
+  (interactive "e")
+  (mouse-select-window event)
+  (goto-line (spacemacs/line-at-click))
+  (set-mark (point))
+  (setq *linum-mdown-line*
+        (line-number-at-pos)))
+
+(defun spacemacs/mu-select-linum ()
+  "Select code block between point and *linum-mdown-line*"
+  (interactive)
+  (when *linum-mdown-line*
+    (let (mu-line)
+      (setq mu-line (spacemacs/line-at-click))
+      (goto-line (max *linum-mdown-line* mu-line))
+      (set-mark (line-end-position))
+      (goto-line (min *linum-mdown-line* mu-line))
+      (setq *linum-mdown*
+            nil))))
+
+(defun spacemacs/select-current-block ()
+  "Select the current block of text between blank lines."
+  (interactive)
+  (let (p1 p2)
+    (progn
+      (if (re-search-backward "\n[ \t]*\n" nil "move")
+          (progn (re-search-forward "\n[ \t]*\n")
+                 (setq p1 (point)))
+        (setq p1 (point)))
+      (if (re-search-forward "\n[ \t]*\n" nil "move")
+          (progn (re-search-backward "\n[ \t]*\n")
+                 (setq p2 (point)))
+        (setq p2 (point))))
+    (set-mark p1)))
+
 ;; from magnars
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
@@ -777,26 +828,12 @@ If ASCII si not provided then UNICODE is used instead."
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 
-(defun spacemacs//make-company-backends-buffer-local ()
-  "Helper to make `company-backends' buffer local and reset it."
-  (set (make-variable-buffer-local 'company-backends) nil))
-
-(defmacro spacemacs|add-local-company-backend (mode backend &optional with-yas)
-  "Helper macro to add local `company-mode' BACKEND for MODE.
-
-If WITH-YAS is non nil then the the `company-yasnippet' is consed to BACKEND."
-  (let ((mode-hook (intern (format "%S-hook" mode)))
-        (add-backend (intern (format "spacemacs//%S-add-%S-backend"
-                                     mode backend)))
-        (backend2 (if with-yas
-                      `(spacemacs/company-backend-with-yas ',backend)
-                    `(quote ,backend))))
-    `(when (configuration-layer/layer-declaredp 'company-mode)
-       (add-hook ',mode-hook
-                 'spacemacs//make-company-backends-buffer-local)
-       (defun ,add-backend ()
-         ,(format "Add %S backend to %S" backend mode)
-         (add-to-list 'company-backends ,backend2))
-       ;; important to append this function to the hook in order to
-       ;; execute it at the end
-       (add-hook ',mode-hook ',add-backend t))))
+;; cannot move it to auto-completion layer since it is
+;; required in config.el file of the layers
+(defmacro spacemacs|init-company-backends (mode)
+  "Initialize a MODE specific company backend variable.
+The variable name format is company-backends-MODE."
+  `(defvar ,(intern (format "company-backends-%S" mode))
+     '((company-dabbrev-code company-keywords)
+       company-files company-dabbrev)
+     ,(format "Company backend list for %S" mode)))

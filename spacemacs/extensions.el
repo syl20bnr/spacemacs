@@ -28,6 +28,7 @@
     spray
     zoom-frm
     ;; hack to be able to wrap built-in emacs modes in an init function
+    emacs-builtin-emacs-lisp
     emacs-builtin-process-menu
     ))
 
@@ -46,9 +47,24 @@
 
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
-    :commands global-centered-cursor-mode
+    :commands (centered-cursor-mode
+               global-centered-cursor-mode)
     :init
-    (evil-leader/set-key "zz" 'global-centered-cursor-mode)
+    (progn
+      (spacemacs|add-toggle centered-point
+                            :status centered-cursor-mode
+                            :on (centered-cursor-mode)
+                            :off (centered-cursor-mode -1)
+                            :documentation
+                            "Keep point always at the center of the window."
+                            :evil-leader "t-")
+      (spacemacs|add-toggle centered-point-globally
+                            :status centered-cursor-mode
+                            :on (global-centered-cursor-mode)
+                            :off (global-centered-cursor-mode -1)
+                            :documentation
+                            "Globally keep point always at the center of the window."
+                            :evil-leader "t C--"))
     :config
     (progn
       (custom-set-variables
@@ -58,7 +74,7 @@
                                       widget-button-click
                                       scroll-bar-toolkit-scroll
                                       evil-mouse-drag-region))))
-      (spacemacs|diminish centered-cursor-mode " Ⓒ" " C"))))
+      (spacemacs|diminish centered-cursor-mode " ⊝" " -"))))
 
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet
@@ -173,6 +189,11 @@
       ;; Font size, either with ctrl + mouse wheel
       (global-set-key (kbd "C-<wheel-up>") 'spacemacs/zoom-frm-in)
       (global-set-key (kbd "C-<wheel-down>") 'spacemacs/zoom-frm-out))))
+
+(defun spacemacs/init-emacs-builtin-emacs-lisp ()
+    (when (configuration-layer/layer-usedp 'auto-completion)
+      (push 'company-capf company-backends-emacs-lisp-mode)
+      (spacemacs|enable-company emacs-lisp-mode)))
 
 (defun spacemacs/init-emacs-builtin-process-menu ()
   (evilify process-menu-mode process-menu-mode-map))
