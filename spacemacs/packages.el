@@ -141,10 +141,18 @@ which require an initialization must be listed explicitly in the list.")
   (use-package ace-link
     :commands spacemacs/ace-buffer-links
     :init
-    (define-key spacemacs-mode-map "o" 'spacemacs/ace-buffer-links)
+    (progn
+      (define-key spacemacs-mode-map "o" 'spacemacs/ace-buffer-links)
+      (eval-after-load "info"
+        '(define-key Info-mode-map "o" 'ace-link-info))
+      (eval-after-load "help-mode"
+        '(define-key help-mode-map "o" 'ace-link-help))
+      (eval-after-load "eww"
+        '(progn
+           (define-key eww-link-keymap "o" 'ace-link-eww)
+           (define-key eww-mode-map "o" 'ace-link-eww))))
     :config
     (progn
-      (ace-link-setup-default)
       (defvar spacemacs--link-pattern "~?/.+\\|\s\\[")
       (defun spacemacs//collect-spacemacs-buffer-links ()
         (let ((end (window-end))
