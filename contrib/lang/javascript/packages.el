@@ -13,7 +13,6 @@
 (defvar javascript-packages
   '(
     coffee-mode
-    company
     company-tern
     flycheck
     js2-mode
@@ -156,9 +155,7 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key-for-mode 'js2-mode "mt" 'tern-get-type))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (defun javascript/post-init-company ()
-    (spacemacs|enable-company js2-mode))
-
+  (spacemacs|init-layer-company javascript js2-mode)
   (defun javascript/init-company-tern ()
     (use-package company-tern
       :if (and (configuration-layer/package-usedp 'company)

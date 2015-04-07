@@ -86,3 +86,16 @@ possible to explicitly define a hook with HOOK."
               ,(intern (format "company-backends-%S" mode))))
        (add-hook ',mode-hook ',func)
        (add-hook ',mode-hook 'auto-complete-mode))))
+
+(defmacro spacemacs|init-layer-company (layer mode)
+  "Helper to initialize the company-backends-MODE list and enable
+company auto-completion for the mode. If you require more direct control
+use spacemacs|init-company-backends and spacemacs|enable-company."
+  (let ((mode-hook (intern (format "%S-hook" mode)))
+        (pkg-list (intern (format "%S-packages" layer)))
+        (func (intern (format "%S/post-init-company" layer))))
+    `(progn
+       (spacemacs|init-company-backends ,mode)
+       (add-to-list ',pkg-list 'company)
+       (defun ,func ()
+         (spacemacs|enable-company ,mode)))))

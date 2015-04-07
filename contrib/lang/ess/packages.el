@@ -12,7 +12,6 @@
 
 (defvar ess-packages
   '(
-    company
     company-ess
     ess
     ess-R-data-view
@@ -144,8 +143,7 @@ not play nicely with autoloads"
       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (defun ess/post-init-company ()
-    (spacemacs|enable-company ess-mode))
+  (spacemacs|init-layer-company ess ess-mode)
 
   (defun ess/init-company-ess ()
     (use-package company-ess
