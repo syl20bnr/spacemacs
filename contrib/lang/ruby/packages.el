@@ -128,7 +128,11 @@
   "Initialize Robe mode"
   (use-package robe
     :defer t
-    :init (add-hook 'enh-ruby-mode-hook 'robe-mode)
+    :init
+    (progn
+      (add-hook 'enh-ruby-mode-hook 'robe-mode)
+      (when (configuration-layer/layer-usedp 'auto-completion)
+        (push '(company-robe :with company-yasnippet) company-backends-enh-ruby-mode)))
     :config
     (progn
       (spacemacs|hide-lighter robe-mode)
@@ -173,3 +177,6 @@
       (evil-leader/set-key
         "mtb" 'ruby-test-run
         "mtt" 'ruby-test-run-at-point))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (spacemacs|init-layer-company ruby enh-ruby-mode))

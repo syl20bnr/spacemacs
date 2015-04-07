@@ -29,6 +29,7 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
+      (push '(company-capf :with company-yasnippet) company-backends-ledger-mode)
       (setq ledger-post-amount-alignment-column 62)
       (evil-leader/set-key-for-mode 'ledger-mode
         "mhd"   'ledger-delete-current-transaction
@@ -44,3 +45,6 @@ which require an initialization must be listed explicitly in the list.")
         "mt"    'ledger-insert-effective-date
         "my"    'ledger-set-year
         "m RET" 'ledger-set-month))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (spacemacs|init-layer-company finance ledger-mode))
