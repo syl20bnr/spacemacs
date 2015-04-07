@@ -10,9 +10,6 @@
     :defer t
     :config
     (progn
-      (when (configuration-layer/layer-usedp 'auto-completion)
-        (company-auctex-init))
-
       (defun auctex/build-view ()
         (interactive)
         (if (buffer-modified-p)
@@ -60,9 +57,16 @@
       (setq-default TeX-parse-self t)
       (setq-default TeX-PDF-mode t))))
 
-(defun auctex/init-company-auctex ()
-  (use-package company-auctex :defer t
-    :if (configuration-layer/layer-usedp 'auto-completion)))
 
 (defun auctex/post-init-evil-matchit ()
   (add-hook 'web-mode-hook 'evil-matchit-mode))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (spacemacs|init-layer-company auctex LaTeX-mode)
+  (defun auctex/init-company-auctex ()
+    (use-package company-auctex :defer t
+      :init (progn
+              (add-to-list 'company-backends-LaTeX-mode 'company-auctex-labels)
+              (add-to-list 'company-backends-LaTeX-mode 'company-auctex-bibs)
+              (add-to-list 'company-backends-LaTeX-mode
+                           '(company-auctex-macros company-auctex-symbols company-auctex-environments))))))
