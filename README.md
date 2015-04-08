@@ -53,6 +53,7 @@
     - [Configuration layers and Package discovery](#configuration-layers-and-package-discovery)
     - [Key bindings discovery](#key-bindings-discovery)
     - [Describe functions](#describe-functions)
+- [How-To's](#how-tos)
 - [Contributions](#contributions)
 - [Credits](#credits)
 - [FAQ](#faq)
@@ -377,6 +378,10 @@ Key Binding   |                 Description
 `<SPC> h d m` | describe-mode
 `<SPC> h d v` | describe-variable
 
+# How-To's
+
+Some quick `how-to's` are compiled in the [HOWTOs.md][] file.
+
 # Contributions
 
 `Spacemacs` needs _you_!
@@ -444,6 +449,7 @@ details.
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
 [CONVENTIONS.md]: doc/CONVENTIONS.md
+[HOWTOs.md]: doc/HOWTOs.md
 [config]: doc/DOCUMENTATION.md#configuration-layers
 [dotfile]: doc/DOCUMENTATION.md#dotfile-configuration
 [manage_config]: doc/DOCUMENTATION.md#managing-private-configuration-layers
