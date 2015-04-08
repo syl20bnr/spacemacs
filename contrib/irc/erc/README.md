@@ -36,10 +36,11 @@ Key Binding   | Description
 `<SPC> m b`   | Switch between ERC buffers
 `<SPC> m d`   | Interactively input a user action and send it to IRC.
 `<SPC> m j`   | Join a channel, executes the /join command
-`<SPC> m n`   | Run "/names #channel" in the current channel. 
+`<SPC> m n`   | Run "/names #channel" in the current channel.
 `<SPC> m l`   | Run the /list command
 `<SPC> m p`   | Part from the channel
 `<SPC> m q`   | Quit server
 
+## SSL
 
-
+Note that if you want to connect securely to an IRC server, you must run `erc-tls` command instead of the `erc` command that this layer defaults to.
