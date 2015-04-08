@@ -280,11 +280,13 @@ Ensure that helm is required before calling FUNC."
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
   "xdw" 'delete-trailing-whitespace
+  "xp"  'copy-clipboard-to-whole-buffer
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
   "xtw" 'transpose-words
   "xU"  'upcase-region
   "xu"  'downcase-region
+  "xy"  'copy-whole-buffer-to-clipboard
   "xwC" 'count-words-analysis
   "xwc" 'count-words-region)
 ;; google translate -----------------------------------------------------------
