@@ -13,6 +13,7 @@
         - [Folding (js2-mode)](#folding-js2-mode)
         - [Refactoring (js2-refactor)](#refactoring-js2-refactor)
         - [Auto-complete and documentation (tern)](#auto-complete-and-documentation-tern)
+        - [Documentation JSDoc (js-doc)](#documentation-jsdoc-js-doc)
 
 <!-- markdown-toc end -->
 
@@ -108,6 +109,16 @@ Bindings should match the plain emacs assignments.
 <kbd>SPC m C-g</kbd> | brings you back to last place you were when you pressed M-..
 <kbd>SPC m t</kbd>   | find the type of the thing under the cursor
 
+### Documentation JSDoc (js-doc)
+
+    Key Binding        |                 Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC m d b</kbd>   | insert JSDoc comment for current file
+<kbd>SPC m d f</kbd>   | insert JSDoc comment for function
+<kbd>SPC m d t</kbd>   | insert tag to comment
+<kbd>SPC m d h</kbd>   | show list of available jsdoc tags
+
 [js2-mode]: https://github.com/mooz/js2-mode
 [js2-refactor]: https://github.com/magnars/js2-refactor.el
 [tern]: http://ternjs.net/
+[js-doc]: https://github.com/mooz/js-doc/
