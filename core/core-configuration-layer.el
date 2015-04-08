@@ -432,8 +432,8 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
 (defun configuration-layer//install-packages ()
   "Install the packages all the packages if there are not currently installed."
   (interactive)
-  (let* ((not-installed (remove-if 'package-installed-p
-                                   configuration-layer-all-packages-sorted))
+  (let* ((not-installed (configuration-layer//get-packages-to-install
+                         configuration-layer-all-packages-sorted))
          (not-installed-count (length not-installed)))
     ;; installation
     (if not-installed
@@ -448,10 +448,11 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
           (setq installed-count 0)
           (dolist (pkg not-installed)
             (setq installed-count (1+ installed-count))
-            (spacemacs/replace-last-line-of-buffer
-             (format "--> installing %s:%s... [%s/%s]"
-                     (ht-get configuration-layer-all-packages pkg)
-                     pkg installed-count not-installed-count) t)
+            (let ((layer (ht-get configuration-layer-all-packages pkg)))
+              (spacemacs/replace-last-line-of-buffer
+               (format "--> installing %s%s... [%s/%s]"
+                       (if layer (format "%s:" layer) "")
+                       pkg installed-count not-installed-count) t))
             (unless (package-installed-p pkg)
               (condition-case err
                   (if (not (assq pkg package-archive-contents))
@@ -470,29 +471,48 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
             (spacemacs//redisplay))
           (spacemacs/append-to-buffer "\n")))))
 
-(defun configuration-layer//get-packages-to-update (packages)
-  "Return a list of packages to update given a list of PACKAGES."
-  (when packages
+(defun configuration-layer//filter-packages-with-deps (packages filter)
+  "Filter a PACKAGES list according to a FILTER predicate.
+
+FILTER is a function applied to each element of PACKAGES, if FILTER returns
+non nil then element is removed from the list otherwise element is kept in
+the list.
+
+This function also processed recursively the package dependencies."
+(when packages
     (let (result)
       (dolist (pkg packages)
         ;; recursively check dependencies
         (let* ((deps
                 (configuration-layer//get-package-dependencies-from-archive pkg))
-               (update-deps
-                (when deps (configuration-layer//get-packages-to-update
-                            (mapcar 'car deps)))))
-          (when update-deps
-            (setq result (append update-deps result))))
-        (let ((installed-version (configuration-layer//get-package-version-string pkg))
-              (newest-version (configuration-layer//get-latest-package-version-string
-                               pkg)))
-          ;; (message "package - %s" pkg)
-          ;; (message "installed - %s" installed-version)
-          ;; (message "latest - %s" newest-version)
-          (unless (or (null installed-version)
-                      (version<= newest-version installed-version))
-            (add-to-list 'result pkg t))))
+               (install-deps
+                (when deps (configuration-layer//filter-packages-with-deps
+                            (mapcar 'car deps) filter))))
+          (when install-deps
+            (setq result (append install-deps result))))
+        (unless (apply filter `(,pkg))
+          (add-to-list 'result pkg t)))
       (delete-dups result))))
+
+(defun configuration-layer//get-packages-to-install (packages)
+  "Return a list of packages to install given a list of PACKAGES."
+  (configuration-layer//filter-packages-with-deps
+   packages
+   (lambda (x)
+     ;; the package is already installed
+     (package-installed-p x))))
+
+(defun configuration-layer//get-packages-to-update (packages)
+  "Return a list of packages to update given a list of PACKAGES."
+  (configuration-layer//filter-packages-with-deps
+   packages
+   (lambda (x)
+     ;; the package is a built-in package
+     ;; or a newest version is available
+     (let ((installed-ver (configuration-layer//get-package-version-string x)))
+       (or (null installed-ver)
+           (version<= (configuration-layer//get-latest-package-version-string x)
+                      installed-ver))))))
 
 (defun configuration-layer/update-packages ()
   "Upgrade elpa packages"
@@ -599,6 +619,8 @@ to select one."
         (dolist (apkg update-packages-alist)
           (let* ((pkg (car apkg))
                  (pkg-dir-name (cdr apkg))
+                 (installed-ver
+                  (configuration-layer//get-package-version-string pkg))
                  (elpa-dir (concat user-emacs-directory "elpa/"))
                  (src-dir (expand-file-name
                            (concat rollback-dir (file-name-as-directory
@@ -607,12 +629,17 @@ to select one."
                             (concat elpa-dir (file-name-as-directory
                                               pkg-dir-name)))))
             (setq rollbacked-count (1+ rollbacked-count))
-            (spacemacs/replace-last-line-of-buffer
-             (format "--> rollbacking package %s... [%s/%s]"
-                     pkg rollbacked-count rollback-count) t)
-            (spacemacs//redisplay)
-            (configuration-layer//package-delete pkg)
-            (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content)))
+            (if (string-equal (format "%S-%s" pkg installed-ver) pkg-dir-name)
+                (spacemacs/replace-last-line-of-buffer
+                 (format "--> package %s already rollbacked! [%s/%s]"
+                         pkg rollbacked-count rollback-count) t)
+              ;; rollback the package
+              (spacemacs/replace-last-line-of-buffer
+               (format "--> rollbacking package %s... [%s/%s]"
+                       pkg rollbacked-count rollback-count) t)
+              (configuration-layer//package-delete pkg)
+              (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content))
+            (spacemacs//redisplay)))
         (spacemacs/append-to-buffer
          (format "\n--> %s packages rollbacked.\n" rollbacked-count))
         (spacemacs/append-to-buffer
