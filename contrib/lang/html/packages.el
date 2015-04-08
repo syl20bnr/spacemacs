@@ -165,5 +165,5 @@ which require an initialization must be listed explicitly in the list.")
     :defer t))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-layer-company html css-mode)
+  (spacemacs|init-company html css-mode)
   (push '(company-css :with company-yasnippet) company-backends-css-mode))

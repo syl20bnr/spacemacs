@@ -63,4 +63,4 @@
               "m=" 'omnisharp-code-format)))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-layer-company csharp csharp-mode))
+  (spacemacs|init-company csharp csharp-mode))

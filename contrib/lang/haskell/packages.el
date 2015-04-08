@@ -219,7 +219,7 @@
       (define-key shm-map (kbd "C-k") nil))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-layer-company haskell haskell-mode)
+  (spacemacs|init-company haskell haskell-mode)
 
   (defun haskell/init-company-ghc ()
     (use-package company-ghc

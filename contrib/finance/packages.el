@@ -47,4 +47,4 @@ which require an initialization must be listed explicitly in the list.")
         "m RET" 'ledger-set-month))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-layer-company finance ledger-mode))
+  (spacemacs|init-company finance ledger-mode))

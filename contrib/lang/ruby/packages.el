@@ -179,4 +179,4 @@
         "mtt" 'ruby-test-run-at-point))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-layer-company ruby enh-ruby-mode))
+  (spacemacs|init-company ruby enh-ruby-mode))
