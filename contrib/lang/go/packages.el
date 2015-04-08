@@ -44,7 +44,7 @@ which require an initialization must be listed explicitly in the list.")
     :init (add-to-list 'ac-sources 'ac-source-go)))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-layer-company go go-mode)
+  (spacemacs|init-company go go-mode)
   (defun go/init-company-go ()
     (use-package company-go
       :defer t

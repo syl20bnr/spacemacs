@@ -264,7 +264,7 @@ which require an initialization must be listed explicitly in the list.")
         (call-interactively 'sp-backward-delete-char)))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-layer-company python python-mode)
+  (spacemacs|init-company python python-mode)
 
   (defun python/init-company-anaconda ()
     (use-package company-anaconda

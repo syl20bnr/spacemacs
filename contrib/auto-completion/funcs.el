@@ -87,7 +87,7 @@ possible to explicitly define a hook with HOOK."
        (add-hook ',mode-hook ',func)
        (add-hook ',mode-hook 'auto-complete-mode))))
 
-(defmacro spacemacs|init-layer-company (layer mode)
+(defmacro spacemacs|init-company (layer mode)
   "Helper to initialize the company-backends-MODE list and enable
 company auto-completion for the mode. If you require more direct control
 use spacemacs|init-company-backends and spacemacs|enable-company."
@@ -96,6 +96,6 @@ use spacemacs|init-company-backends and spacemacs|enable-company."
         (func (intern (format "%S/post-init-company" layer))))
     `(progn
        (spacemacs|init-company-backends ,mode)
-       (add-to-list ',pkg-list 'company)
+       (push 'company ,pkg-list)
        (defun ,func ()
          (spacemacs|enable-company ,mode)))))
