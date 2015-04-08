@@ -113,8 +113,9 @@ initialization."
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-package 'bind-key t)
   (spacemacs/load-or-install-package 'use-package t)
-  ;; evil and evil-leader must be installed at the beginning of the boot sequence
-  ;; use C-u as scroll-up (must be set before actually loading evil)
+  ;; evil and evil-leader must be installed at the beginning of the
+  ;; boot sequence.
+  ;; Use C-u as scroll-up (must be set before actually loading evil)
   (spacemacs/load-or-install-package 'evil t)
   (spacemacs/load-or-install-package 'evil-leader t)
   ;; check for new version
@@ -131,7 +132,9 @@ initialization."
       (let ((dir (reduce (lambda (x y) (if x x y))
                          (mapcar (lambda (x)
                                    (if (string-match
-                                        (concat "/" (symbol-name pkg) "-") x) x))
+                                        (concat "/"
+                                                (symbol-name pkg)
+                                                "-[0-9]+") x) x))
                                  (directory-files elpa-dir 'full))
                          :initial-value nil)))
         (if dir (file-name-as-directory dir))))))
