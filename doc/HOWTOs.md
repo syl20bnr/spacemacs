@@ -17,7 +17,7 @@ is part of your used layers, look for the variable
 to it:
 
 ```elisp
-dotspacemacs-excluded-packages '(package1 package2 ...))
+dotspacemacs-excluded-packages '(package1 package2 ...)
 ```
 
 ## Disable a package only for a specific major-mode
