@@ -56,6 +56,7 @@
     - [Describe functions](#describe-functions)
 - [How-To's](#how-tos)
 - [Contributions](#contributions)
+- [License](#license)
 - [Special Credits](#special-credits)
 - [Supporting Spacemacs](#supporting-spacemacs)
 - [FAQ](#faq)
@@ -394,6 +395,13 @@ support for new languages.
 If you are ready to contribute please begin by consulting the
 [contribution guidelines][CONTRIBUTE.md] and [conventions][CONVENTIONS.md],
 thanks!
+
+# License
+
+The license is GPLv3 for all parts specific to `Spacemacs`, this includes:
+- the initialization and core files
+- all the layer files.
+- the documentation
 
 # Special Credits
 
