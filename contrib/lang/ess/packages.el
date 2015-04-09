@@ -12,6 +12,7 @@
 
 (defvar ess-packages
   '(
+    company
     company-ess
     ess
     ess-R-data-view
@@ -143,10 +144,13 @@ not play nicely with autoloads"
       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-company ess ess-mode)
+  (defun ess/post-init-company ()
+    (spacemacs|add-company-hook ess-mode))
 
   (defun ess/init-company-ess ()
     (use-package company-ess
+      :if (configuration-layer/package-usedp 'company)
       :defer t
-      :init (push '(company-ess-backend :with company-yasnippet)
-                  company-backends-ess-mode))))
+      :init
+      (push '(company-ess-backend :with company-yasnippet)
+            company-backends-ess-mode))))

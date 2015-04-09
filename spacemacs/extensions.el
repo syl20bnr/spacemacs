@@ -193,7 +193,7 @@
 (defun spacemacs/init-emacs-builtin-emacs-lisp ()
     (when (configuration-layer/layer-usedp 'auto-completion)
       (push 'company-capf company-backends-emacs-lisp-mode)
-      (spacemacs|enable-company emacs-lisp-mode)))
+      (spacemacs|add-company-hook emacs-lisp-mode)))
 
 (defun spacemacs/init-emacs-builtin-process-menu ()
   (evilify process-menu-mode process-menu-mode-map))

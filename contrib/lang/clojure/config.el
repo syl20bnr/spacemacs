@@ -16,8 +16,8 @@
 
 ;; Variables
 
-(spacemacs|init-company-backends cider-mode)
-(spacemacs|init-company-backends cider-repl-mode)
+(spacemacs|defvar-company-backends cider-mode)
+(spacemacs|defvar-company-backends cider-repl-mode)
 
 (defvar clojure-enable-fancify-symbols nil
   "If non nil the `fancify-symbols' function is enabled.")

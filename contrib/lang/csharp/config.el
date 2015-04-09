@@ -11,3 +11,5 @@
 ;;; License: GPLv3
 
 ;; variables
+
+(spacemacs|defvar-company-backends csharp-mode)

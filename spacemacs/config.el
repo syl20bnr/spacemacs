@@ -110,8 +110,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Edit
 ;; ---------------------------------------------------------------------------
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-company-backends emacs-lisp-mode))
+(spacemacs|defvar-company-backends emacs-lisp-mode)
 ;; start scratch in text mode (usefull to get a faster Emacs load time
 ;; because it avoids autoloads of elisp modes)
 (setq initial-major-mode 'text-mode)

@@ -12,6 +12,8 @@
 
 (defvar html-packages
   '(
+    company
+    css-mode
     emmet-mode
     evil-matchit
     flycheck
@@ -27,6 +29,12 @@
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
+
+(defun html/init-css-mode ()
+  (use-package css-mode
+    :defer t
+    :init
+    (push '(company-css :with company-yasnippet) company-backends-css-mode)))
 
 (defun html/init-helm-css-scss ()
   (use-package helm-css-scss
@@ -165,5 +173,5 @@ which require an initialization must be listed explicitly in the list.")
     :defer t))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-company html css-mode)
-  (push '(company-css :with company-yasnippet) company-backends-css-mode))
+  (defun html/post-init-company ()
+    (spacemacs|add-company-hook css-mode)))

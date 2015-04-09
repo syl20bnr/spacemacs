@@ -13,8 +13,9 @@
 (defvar python-packages
   '(
     anaconda-mode
-    ac-anaconda
+    company
     company-anaconda
+    cython-mode
     eldoc
     evil-jumper
     flycheck
@@ -26,23 +27,9 @@
     python
     semantic
     smartparens
-    cython-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
-
-(defun python/init-ac-anaconda ()
-  (use-package ac-anaconda
-    :if (boundp 'ac-sources)
-    :defer t
-    :init
-    (progn
-      (add-hook 'python-mode-hook 'ac-anaconda-setup)
-      (evilify anaconda-nav-mode anaconda-nav-mode-map
-               (kbd "H") 'previous-error
-               (kbd "J") 'anaconda-nav-next-module
-               (kbd "K") 'anaconda-nav-previous-module
-               (kbd "L") 'next-error))))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
@@ -264,10 +251,12 @@ which require an initialization must be listed explicitly in the list.")
         (call-interactively 'sp-backward-delete-char)))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-company python python-mode)
+  (defun python/post-init-company ()
+    (spacemacs|add-company-hook python-mode))
 
   (defun python/init-company-anaconda ()
     (use-package company-anaconda
+      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
       ;; we don't use the yasnippet backend here because it

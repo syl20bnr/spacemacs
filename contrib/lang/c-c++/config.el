@@ -12,7 +12,5 @@
 
 ;; variables
 
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-company-backends c-c++)
-  (spacemacs|init-company-backends cmake-mode))
+(spacemacs|defvar-company-backends c-mode-common)
+(spacemacs|defvar-company-backends cmake-mode)

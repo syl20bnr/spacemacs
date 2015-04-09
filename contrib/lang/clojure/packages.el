@@ -223,6 +223,7 @@ the focus."
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun clojure/post-init-company ()
     (push 'company-capf company-backends-cider-mode)
-    (spacemacs|enable-company cider-mode)
+    (spacemacs|add-company-hook cider-mode)
+
     (push 'company-capf company-backends-cider-repl-mode)
-    (spacemacs|enable-company cider-repl-mode)))
+    (spacemacs|add-company-hook cider-repl-mode)))
