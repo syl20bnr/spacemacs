@@ -65,7 +65,7 @@ conflict.")
 
 (defun auto-completion/init-company ()
   (use-package company
-    :defer t
+    :defer 2
     :init
     (progn
       (setq company-idle-delay 0.2
@@ -78,6 +78,7 @@ conflict.")
             company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser))
     :config
     (progn
+      (global-company-mode)
       (spacemacs|diminish company-mode " ⓐ" " a")
       ;; Set the completion key
       (if auto-completion-use-tab-instead-of-enter
