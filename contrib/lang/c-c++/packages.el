@@ -128,4 +128,4 @@ which require an initialization must be listed explicitly in the list.")
     (use-package company-c-headers
       :if (configuration-layer/package-usedp 'company)
       :defer t
-      :init (push 'company-c-headers company-backends-c-c++))))
+      :init (push 'company-c-headers company-backends-c-mode-common))))

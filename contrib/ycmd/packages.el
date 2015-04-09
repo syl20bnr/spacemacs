@@ -17,7 +17,7 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :commands company-ycmd
     :init (push '(company-ycmd :with company-yasnippet)
-                company-backends-c-c++)))
+                company-backends-c-mode-common)))
 
 (defun ycmd/init-flycheck-ycmd ()
   (use-package flycheck-ycmd
