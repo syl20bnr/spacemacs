@@ -1,15 +1,27 @@
 (defvar racket-packages
-  '(racket-mode))
+  '(
+    company
+    company-quickhelp-mode
+    racket-mode
+    ))
+
+(defun racket/post-init-company ()
+  ;; this is the only thing to do to enable company in racket-mode
+  ;; because racket-mode handle everything for us when company
+  ;; is loaded.
+  (add-hook 'racket-mode-hook 'company-mode))
+
+(defun racket/post-init-company-quickhelp ()
+  ;; Bug exists in Racket company backend that opens docs in new window when
+  ;; company-quickhelp calls it. Note hook is appendended for proper ordering.
+  (add-hook 'company-mode-hook
+            '(lambda ()
+               (when (equal major-mode 'racket-mode)
+                 (company-quickhelp-mode -1))) t))
 
 (defun racket/init-racket-mode ()
   (use-package racket-mode
     :defer t
-    ;; Bug exists in Racket company backend that opens docs in new window when
-    ;; company-quickhelp calls it. Note hook is appendended for proper ordering.
-    :init
-    (when (configuration-layer/package-usedp 'company-quickhelp)
-      (add-hook 'company-mode-hook
-                '(lambda () (when (equal major-mode 'racket-mode) (company-quickhelp-mode -1))) t))
     :config
     (progn
       ;; smartparens configuration
