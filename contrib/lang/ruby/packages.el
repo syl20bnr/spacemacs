@@ -1,12 +1,11 @@
 (defvar ruby-packages
   '(
-    ;; package rubys go here
-    enh-ruby-mode
-    ruby-tools
-    flycheck
-    ruby-test-mode
-    robe
     bundler
+    enh-ruby-mode
+    flycheck
+    robe
+    ruby-test-mode
+    ruby-tools
     yaml-mode))
 
 (when ruby-version-manager
@@ -179,4 +178,5 @@
         "mtt" 'ruby-test-run-at-point))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-company ruby enh-ruby-mode))
+  (defun ruby/post-init-company ()
+    (spacemacs|add-company-hook enh-ruby-mode)))

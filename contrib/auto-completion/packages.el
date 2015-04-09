@@ -75,8 +75,7 @@ conflict.")
             company-dabbrev-downcase nil
             company-tooltip-flip-when-above t
             company-frontends '(company-pseudo-tooltip-frontend)
-            company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser)
-      (add-hook 'after-init-hook 'global-company-mode))
+            company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser))
     :config
     (progn
       (spacemacs|diminish company-mode " ⓐ" " a")
@@ -114,10 +113,7 @@ conflict.")
                      (not auto-completion-use-tab-instead-of-enter))
           candidates))
       (setq company-transformers '(spacemacs//company-transformer-cancel
-                                   company-sort-by-occurrence))
-      ;; Backends
-      (setq company-backends
-            (mapcar 'spacemacs/company-backend-with-yas company-backends)))))
+                                   company-sort-by-occurrence)))))
 
 (defun auto-completion/init-company-quickhelp ()
   (use-package company-quickhelp

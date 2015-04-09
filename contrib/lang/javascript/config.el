@@ -11,3 +11,5 @@
 ;;; License: GPLv3
 
 ;; Variables
+
+(spacemacs|defvar-company-backends js2-mode)

@@ -828,12 +828,51 @@ If ASCII si not provided then UNICODE is used instead."
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 
-;; cannot move it to auto-completion layer since it is
-;; required in config.el file of the layers
-(defmacro spacemacs|init-company-backends (mode)
-  "Initialize a MODE specific company backend variable.
+;; begin Auto-completion helpers
+
+(defmacro spacemacs|defvar-company-backends (mode)
+  "Define a MODE specific company backend variable with default backends.
 The variable name format is company-backends-MODE."
   `(defvar ,(intern (format "company-backends-%S" mode))
      '((company-dabbrev-code company-gtags company-etags company-keywords)
        company-files company-dabbrev)
      ,(format "Company backend list for %S" mode)))
+
+(defmacro spacemacs|add-company-hook (mode)
+  "Enable company for the given MODE.
+MODE must match the symbol passed in `spacemacs|defvar-company-backends'.
+The initialization function is hooked to `MODE-hook'."
+  (let ((mode-hook (intern (format "%S-hook" mode)))
+        (func (intern (format "spacemacs//init-company-%S" mode))))
+    `(when (configuration-layer/package-usedp 'company)
+       (defun ,func ()
+         ,(format "Initialize company for %S" mode)
+         (set (make-variable-buffer-local 'auto-completion-front-end)
+              'company)
+         (set (make-variable-buffer-local 'company-backends)
+              ,(intern (format "company-backends-%S" mode))))
+       (add-hook ',mode-hook ',func)
+       (add-hook ',mode-hook 'company-mode))))
+
+(defmacro spacemacs|disable-company (mode)
+  "Disable company for the given MODE.
+MODE parameter must match the parameter used in the call to
+`spacemacs|add-company-hook'."
+)
+
+(defmacro spacemacs|enable-auto-complete (mode)
+  "Enable auto-complete for the given MODE.
+The initialization function is hooked to `MODE-hook'."
+  (let ((mode-hook (intern (format "%S-hook" mode)))
+        (func (intern (format "spacemacs//init-auto-complete-%S" mode))))
+    `(when (configuration-layer/package-usedp 'auto-complete)
+       (defun ,func ()
+         ,(format "Initialize auto-complete for %S" mode)
+         (set (make-variable-buffer-local 'auto-completion-front-end)
+              'auto-complete)
+         (set (make-variable-buffer-local 'company-backends)
+              ,(intern (format "company-backends-%S" mode))))
+       (add-hook ',mode-hook ',func)
+       (add-hook ',mode-hook 'auto-complete-mode))))
+
+;; end Auto-completion helpers
