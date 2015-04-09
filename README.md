@@ -482,6 +482,7 @@ details.
 [project management]: doc/DOCUMENTATION.md#project-management
 [Evil Mode]: doc/DOCUMENTATION.md#evil
 [private]: ./private
+[layers]: ./contrib
 [DOCUMENTATION.md]: doc/DOCUMENTATION.md
 [font section]: doc/DOCUMENTATION.md#font
 [CONTRIBUTE.md]: doc/CONTRIBUTE.md
