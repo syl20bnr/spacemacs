@@ -14,7 +14,6 @@
   '(
     anaconda-mode
     ac-anaconda
-    company
     company-anaconda
     eldoc
     evil-jumper
@@ -265,12 +264,10 @@ which require an initialization must be listed explicitly in the list.")
         (call-interactively 'sp-backward-delete-char)))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (defun python/post-init-company ()
-    (spacemacs|enable-company python-mode))
+  (spacemacs|init-company python python-mode)
 
   (defun python/init-company-anaconda ()
     (use-package company-anaconda
-      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
       ;; we don't use the yasnippet backend here because it

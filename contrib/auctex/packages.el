@@ -2,20 +2,14 @@
   '(
     auctex
     evil-matchit
+    company-auctex
     ))
-
-(when (member 'company-mode dotspacemacs-configuration-layers)
-  (add-to-list 'auctex-packages 'company-auctex))
 
 (defun auctex/init-auctex ()
   (use-package tex
     :defer t
     :config
     (progn
-      (when (member 'company-mode dotspacemacs-configuration-layers)
-        (use-package company-auctex
-          :config (company-auctex-init)))
-
       (defun auctex/build-view ()
         (interactive)
         (if (buffer-modified-p)
@@ -63,5 +57,16 @@
       (setq-default TeX-parse-self t)
       (setq-default TeX-PDF-mode t))))
 
+
 (defun auctex/post-init-evil-matchit ()
   (add-hook 'web-mode-hook 'evil-matchit-mode))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (spacemacs|init-company auctex LaTeX-mode)
+  (defun auctex/init-company-auctex ()
+    (use-package company-auctex :defer t
+      :init (progn
+              (push 'company-auctex-labels company-backends-LaTeX-mode)
+              (push 'company-auctex-bibs company-backends-LaTeX-mode)
+              (push '(company-auctex-macros company-auctex-symbols company-auctex-environments)
+                    company-backends-LaTeX-mode)))))

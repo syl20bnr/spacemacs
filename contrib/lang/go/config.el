@@ -11,6 +11,3 @@
 ;;; License: GPLv3
 
 ;; variables
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-company-backends go-mode))

@@ -12,7 +12,6 @@
 
 (defvar haskell-packages
   '(
-    company
     company-ghc
     flycheck
     flycheck-haskell
@@ -220,12 +219,10 @@
       (define-key shm-map (kbd "C-k") nil))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (defun haskell/post-init-company ()
-    (spacemacs|enable-company haskell-mode))
+  (spacemacs|init-company haskell haskell-mode)
 
   (defun haskell/init-company-ghc ()
     (use-package company-ghc
-      :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
       ;; remove yasnippet for now, it seems to prevent

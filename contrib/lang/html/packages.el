@@ -163,3 +163,7 @@ which require an initialization must be listed explicitly in the list.")
 (defun html/init-slim-mode ()
   (use-package slim-mode
     :defer t))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (spacemacs|init-company html css-mode)
+  (push '(company-css :with company-yasnippet) company-backends-css-mode))
