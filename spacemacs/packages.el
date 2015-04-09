@@ -1409,23 +1409,23 @@ ignored)."
         (global-set-key (kbd "M-x") 'helm-M-x))
 
       (evil-leader/set-key
+        "<f1>" 'helm-apropos
         "bs"  'helm-mini
         "Cl"  'helm-colors
-        "s/"  'spacemacs/helm-do-search-dwim
-        "sa"  'helm-do-ag
-        "sg"  'helm-do-grep
-        "sk"  'spacemacs/helm-do-ack
-        "sl"  'helm-semantic-or-imenu
+        "fh"  'helm-find-files
+        "fr"  'helm-recentf
         "hb"  'helm-bookmarks
-        "hl"  'helm-resume
         "hi"  'helm-info-at-point
+        "hl"  'helm-resume
         "hm"  'helm-man-woman
         "ry"  'helm-show-kill-ring
         "rr"  'helm-register
         "rm"  'helm-all-mark-rings
-        "fh"  'helm-find-files
-        "fr"  'helm-recentf
-        "<f1>" 'helm-apropos)
+        "s/"  'spacemacs/helm-do-search-dwim
+        "sa"  'helm-do-ag
+        "sg"  'helm-do-grep
+        "sk"  'spacemacs/helm-do-ack
+        "sl"  'helm-semantic-or-imenu)
 
       ;; define the key binding at the very end in order to allow the user
       ;; to overwrite any key binding
