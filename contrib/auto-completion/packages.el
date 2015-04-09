@@ -65,7 +65,7 @@ conflict.")
 
 (defun auto-completion/init-company ()
   (use-package company
-    :defer 2
+    :defer 1
     :init
     (progn
       (setq company-idle-delay 0.2
