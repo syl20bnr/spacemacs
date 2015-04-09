@@ -36,7 +36,7 @@ which require an initialization must be listed explicitly in the list.")
                  rcirc-server-alist))
           (spacemacs//znc-rcirc-connect)))
 
-      (evil-leader/set-key "ai" 'spacemacs/rcirc)
+      (evil-leader/set-key "air" 'spacemacs/rcirc)
       (defun spacemacs/rcirc (arg)
         "Launch rcirc."
         (interactive "P")

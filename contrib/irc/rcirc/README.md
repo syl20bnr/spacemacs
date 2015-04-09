@@ -182,7 +182,7 @@ will be replaced by the credentials stored in your `~/.authinfo.gpg`.
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC a i</kbd>    | Open rcirc
+<kbd>SPC a i r</kbd>  | Open rcirc
 <kbd>SPC L o i</kbd>  | Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled)
 
 

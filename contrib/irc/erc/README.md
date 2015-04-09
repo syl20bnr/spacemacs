@@ -32,7 +32,7 @@ To use this contribution add it to your `~/.spacemacs`
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`<SPC> a e`   | Starts ERC
+`<SPC> a i e` | Starts ERC
 `<SPC> m b`   | Switch between ERC buffers
 `<SPC> m d`   | Interactively input a user action and send it to IRC.
 `<SPC> m j`   | Join a channel, executes the /join command
