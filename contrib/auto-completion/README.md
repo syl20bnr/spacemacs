@@ -8,7 +8,7 @@
     - [Install](#install)
         - [Company variables](#company-variables)
     - [Configure](#configure)
-        - [Enable company or auto-complete globally](#enable-company-or-auto-complete-globally)
+        - [Remove global activation of company](#remove-global-activation-of-company)
         - [Replacing company by auto-complete](#replacing-company-by-auto-complete)
         - [Add auto-completion in a layer](#add-auto-completion-in-a-layer)
     - [Key Bindings](#key-bindings)
@@ -55,27 +55,14 @@ to `t`
 
 ## Configure
 
-### Enable company or auto-complete globally
+### Remove global activation of company
 
-By default Spacemacs enables auto-completion explicitly for each supported
-major-mode, it means that `company` and `auto-complete` are not enabled
-globally, it allows more flexibility to choose an auto-completion engine
-for a given mode.
-
-You may want to enable company globally to get auto-completion
-everywhere even in the modes which are not configured by Spacemacs. To do
-so, you just have to add `(global-company-mode)` in the
-`dotspacemacs/config` function of your dotfile.
-
-Note that if you want to enable auto-complete globally you will have to
-disable company first, see the next section to do so.
+TODO (when use-package hooks will be used)
 
 ### Replacing company by auto-complete
 
 You can disable company by adding it to the `dotspacemacs-excluded-packages`
-variable, then you are free to configure auto-complete and enable it
-globally.
-```
+variable, then you are free to enable auto-complete globally.
 
 ### Add auto-completion in a layer
 
