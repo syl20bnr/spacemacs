@@ -16,6 +16,7 @@
 
 ;; We define prefix commands only for the sake of guide-key
 (setq spacemacs/key-binding-prefixes '(("a" .  "applications")
+                                       ("ai" . "applications-irc")
                                        ("as" . "applications-shells")
                                        ("b" .  "buffers")
                                        ("bm" . "buffers-move")
