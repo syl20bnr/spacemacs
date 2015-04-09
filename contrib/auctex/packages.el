@@ -1,8 +1,9 @@
 (defvar auctex-packages
   '(
     auctex
-    evil-matchit
+    company
     company-auctex
+    evil-matchit
     ))
 
 (defun auctex/init-auctex ()
@@ -59,14 +60,19 @@
 
 
 (defun auctex/post-init-evil-matchit ()
-  (add-hook 'web-mode-hook 'evil-matchit-mode))
+  (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (spacemacs|init-company auctex LaTeX-mode)
+  (defun auctex/post-init-company ()
+    (spacemacs|add-company-hook LaTeX-mode))
+
   (defun auctex/init-company-auctex ()
-    (use-package company-auctex :defer t
-      :init (progn
-              (push 'company-auctex-labels company-backends-LaTeX-mode)
-              (push 'company-auctex-bibs company-backends-LaTeX-mode)
-              (push '(company-auctex-macros company-auctex-symbols company-auctex-environments)
-                    company-backends-LaTeX-mode)))))
+    (use-package company-auctex
+      :if (configuration-layer/package-usedp 'company)
+      :defer t
+      :init
+      (progn
+        (push 'company-auctex-labels company-backends-LaTeX-mode)
+        (push 'company-auctex-bibs company-backends-LaTeX-mode)
+        (push '(company-auctex-macros company-auctex-symbols company-auctex-environments)
+              company-backends-LaTeX-mode)))))
