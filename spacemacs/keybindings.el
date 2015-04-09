@@ -71,7 +71,7 @@
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
-(defmacro spacemacs||describe-set-key (keys func)
+(defmacro spacemacs||set-helm-key (keys func)
   "Define a key bindings for FUNC using KEYS.
 Ensure that helm is required before calling FUNC."
   (let ((func-name (intern (format "spacemacs/%s" (symbol-name func)))))
@@ -82,14 +82,14 @@ Ensure that helm is required before calling FUNC."
          (require 'helm)
          (call-interactively ',func))
        (evil-leader/set-key ,keys ',func-name))))
-(spacemacs||describe-set-key "hdc" describe-char)
-(spacemacs||describe-set-key "hdf" describe-function)
-(spacemacs||describe-set-key "hdk" describe-key)
-(spacemacs||describe-set-key "hdm" describe-mode)
-(spacemacs||describe-set-key "hdp" describe-package)
-(spacemacs||describe-set-key "hdt" describe-theme)
-(spacemacs||describe-set-key "hdv" describe-variable)
-(spacemacs||describe-set-key "hL" helm-locate-library)
+(spacemacs||set-helm-key "hdc" describe-char)
+(spacemacs||set-helm-key "hdf" describe-function)
+(spacemacs||set-helm-key "hdk" describe-key)
+(spacemacs||set-helm-key "hdm" describe-mode)
+(spacemacs||set-helm-key "hdp" describe-package)
+(spacemacs||set-helm-key "hdt" describe-theme)
+(spacemacs||set-helm-key "hdv" describe-variable)
+(spacemacs||set-helm-key "hL" helm-locate-library)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key
   "en" 'spacemacs/next-error

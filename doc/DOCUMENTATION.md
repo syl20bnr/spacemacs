@@ -69,6 +69,9 @@
         - [Helm micro-state](#helm-micro-state)
     - [Discovering](#discovering)
         - [Key bindings](#key-bindings)
+            - [Guide-key](#guide-key)
+            - [Helm describe key bindings](#helm-describe-key-bindings)
+        - [Getting help](#getting-help)
         - [Available layers](#available-layers)
             - [Available packages in Spacemacs](#available-packages-in-spacemacs)
             - [New packages from ELPA repositories](#new-packages-from-elpa-repositories)
@@ -77,6 +80,7 @@
         - [Point/Cursor](#pointcursor)
             - [Smooth scrolling](#smooth-scrolling)
         - [Vim motions with ace-jump mode](#vim-motions-with-ace-jump-mode)
+            - [ace-link mode](#ace-link-mode)
         - [Window manipulation](#window-manipulation)
             - [Window manipulation key bindings](#window-manipulation-key-bindings)
             - [Window manipulation micro-state](#window-manipulation-micro-state)
@@ -1074,6 +1078,8 @@ Key Binding           | Description
 
 ### Key bindings
 
+#### Guide-key
+
 An help buffer is displayed each time the <kbd>SPC</kbd> key is pressed in
 normal mode. It lists the available key bindings and their associated
 commands.
@@ -1081,6 +1087,41 @@ commands.
 By default the [guide-key][] buffer will be displayed quickly after the key
 has been pressed. You can change the delay by setting the variable
 `dotspacemacs-guide-key-delay` to your liking (the value is in second).
+
+#### Helm describe key bindings
+
+It is possible to search for specific key bindings by pressing
+<kbd>SPC ?</kbd>.
+
+To narrow the list to some key bindings using the leader key type a pattern
+like this regular expression:
+
+    SPC\ b
+
+which would list all `buffer` related bindings.
+
+### Getting help
+
+`Describe functions` are powerful Emacs introspection commands to get
+information about functions, variables, modes etc. These commands are bound
+thusly:
+
+Key Binding          |                 Description
+---------------------|------------------------------------------------------------------
+<kbd>SPC h d c</kbd> | describe current character under point
+<kbd>SPC h d f</kbd> | describe a function
+<kbd>SPC h d k</kbd> | describe a key
+<kbd>SPC h d m</kbd> | describe current modes
+<kbd>SPC h d p</kbd> | describe a package
+<kbd>SPC h d t</kbd> | describe a theme
+<kbd>SPC h d v</kbd> | describe a variable
+
+Other help key bindings
+
+Key Binding          |                 Description
+---------------------|------------------------------------------------------------------
+<kbd>SPC h i</kbd>   | search in info pages with the symbol at point
+<kbd>SPC h m</kbd>   | search available man pages
 
 ### Available layers
 
