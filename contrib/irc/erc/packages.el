@@ -25,7 +25,7 @@ which require an initialization must be listed explicitly in the list.")
   (use-package erc
     :defer t
     :init
-    (evil-leader/set-key "ae" 'erc)
+    (evil-leader/set-key "aie" 'erc)
     :config
     (progn
 
