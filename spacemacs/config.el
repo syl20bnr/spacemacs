@@ -54,7 +54,7 @@
                                        ("xm" . "text-move")
                                        ("xt" . "text-transpose")
                                        ("xw" . "text-words")
-                                       ("z" .  "z")))
+                                       ("z" .  "zoom")))
 (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
       spacemacs/key-binding-prefixes)
 
