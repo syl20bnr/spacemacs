@@ -44,7 +44,7 @@
                                        ("tC" . "toggles-colors")
                                        ("th" . "toggles-highlight")
                                        ("tm" . "toggles-modeline")
-                                       ("T" .  "themes")
+                                       ("T" .  "toggles/themes")
                                        ("w" .  "windows")
                                        ("wp" . "windows-popup")
                                        ("wS" . "windows-size")
