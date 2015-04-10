@@ -30,7 +30,15 @@
     :commands flycheck-haskell-configure
     :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure)))
 
-(defun haskell/init-ghc ())
+(defun haskell/init-ghc ()
+  (use-package ghc
+    :defer t
+    :init (add-hook 'haskell-mode-hook 'ghc-init)
+    :config
+    (when (configuration-layer/package-usedp 'flycheck)
+          ;; remove overlays from ghc-check.el if flycheck is enabled
+          (set-face-attribute 'ghc-face-error nil :underline nil)
+          (set-face-attribute 'ghc-face-warn nil :underline nil))))
 
 (defun haskell/init-haskell-mode ()
   (require 'haskell-yas)
@@ -38,16 +46,10 @@
     :defer t
     :config
     (progn
-
       ;; Haskell main editing mode key bindings.
       (defun spacemacs/init-haskell-mode ()
-        (ghc-init)
         ;; use only internal indentation system from haskell
-        (electric-indent-local-mode -1)
-        (when (configuration-layer/package-usedp 'flycheck)
-          ;; remove overlays from ghc-check.el if flycheck is enabled
-          (set-face-attribute 'ghc-face-error nil :underline nil)
-          (set-face-attribute 'ghc-face-warn nil :underline nil)))
+        (electric-indent-local-mode -1))
 
       ;;GHCi-ng
       (when haskell-enable-ghci-ng-support
@@ -228,4 +230,5 @@
       :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
-      (push '(company-ghc :with yasnippet) company-backends-haskell-mode))))
+      (push '(company-ghc company-dabbrev-code company-yasnippet)
+            company-backends-haskell-mode))))
