@@ -1682,6 +1682,13 @@ Key Binding               |                 Description
 
 **Pro Tip** Use <kbd>SPC h l</kbd> to bring back the last helm session.
 
+#### Searching the web
+
+Key Binding               |                 Description
+--------------------------|---------------------------------------------
+<kbd>SPC s w g</kbd>      | Get Google suggestions in emacs. Opens Google results in Browser.
+<kbd>SPC s w w</kbd>      | Get Wikipedia suggestions in emacs. Opens Wikipedia page in Browser.
+
 ### Persistent highlighting
 
 `Spacemacs` uses `evil-search-highlight-persist` to keep the searched expression
