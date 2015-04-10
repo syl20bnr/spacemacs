@@ -834,8 +834,9 @@ If ASCII si not provided then UNICODE is used instead."
   "Define a MODE specific company backend variable with default backends.
 The variable name format is company-backends-MODE."
   `(defvar ,(intern (format "company-backends-%S" mode))
-     '((company-dabbrev-code company-gtags company-etags company-keywords)
-       company-files company-dabbrev)
+     '(company-bbdb company-nxml company-css company-eclim company-semantic company-clang company-xcode company-cmake company-capf
+                    (company-dabbrev-code company-gtags company-etags company-keywords)
+                    company-oddmuse company-files company-dabbrev)
      ,(format "Company backend list for %S" mode)))
 
 (defmacro spacemacs|add-company-hook (mode)
@@ -851,8 +852,8 @@ The initialization function is hooked to `MODE-hook'."
               'company)
          (set (make-variable-buffer-local 'company-backends)
               ,(intern (format "company-backends-%S" mode))))
-       (add-hook ',mode-hook ',func)
-       (add-hook ',mode-hook 'company-mode))))
+       (add-hook ',mode-hook ',func t)
+       (add-hook ',mode-hook 'company-mode t))))
 
 (defmacro spacemacs|disable-company (mode)
   "Disable company for the given MODE.
