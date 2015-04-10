@@ -151,17 +151,6 @@ Ensure that helm is required before calling FUNC."
   "Sd" 'ispell-change-dictionary
   "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
-(spacemacs|add-toggle fringe
-                      :status (not (equal fringe-mode 0))
-                      :on (call-interactively 'fringe-mode)
-                      :off (fringe-mode 0)
-                      :documentation "Display the fringe in GUI mode."
-                      :evil-leader "tf")
-(spacemacs|add-toggle fullscreen-frame
-                      :status nil
-                      :on (spacemacs/toggle-frame-fullscreen)
-                      :documentation "Display the current frame in full screen."
-                      :evil-leader "tF")
 (spacemacs|add-toggle highlight-current-line-globally
                       :status global-hl-line-mode
                       :on (global-hl-line-mode)
@@ -179,23 +168,12 @@ Ensure that helm is required before calling FUNC."
                       :off (visual-line-mode -1)
                       :documentation "Move point according to visual lines."
                       :evil-leader "tL")
-(spacemacs|add-toggle maximize-frame
-                      :if (version< "24.3.50" emacs-version)
-                      :status nil
-                      :on (toggle-frame-maximized)
-                      :documentation "Maximize the current frame."
-                      :evil-leader "tM")
 (spacemacs|add-toggle line-numbers
                       :status linum-mode
                       :on (global-linum-mode)
                       :off (global-linum-mode -1)
                       :documentation "Show the line numbers."
                       :evil-leader "tn")
-(spacemacs|add-toggle transparent-frame
-                      :status nil
-                      :on (toggle-transparency)
-                      :documentation "Make the current frame non-opaque."
-                      :evil-leader "tt")
 (spacemacs|add-toggle auto-fill-mode
                       :status auto-fill-function
                       :on (auto-fill-mode)
@@ -207,20 +185,42 @@ Ensure that helm is required before calling FUNC."
                       :on (toggle-debug-on-error)
                       :documentation "Toggle display of backtrace when an error happens."
                       :evil-leader "tD")
+(spacemacs|add-toggle fringe
+                      :status (not (equal fringe-mode 0))
+                      :on (call-interactively 'fringe-mode)
+                      :off (fringe-mode 0)
+                      :documentation "Display the fringe in GUI mode."
+                      :evil-leader "Tf")
+(spacemacs|add-toggle fullscreen-frame
+                      :status nil
+                      :on (spacemacs/toggle-frame-fullscreen)
+                      :documentation "Display the current frame in full screen."
+                      :evil-leader "TF")
+(spacemacs|add-toggle maximize-frame
+                      :if (version< "24.3.50" emacs-version)
+                      :status nil
+                      :on (toggle-frame-maximized)
+                      :documentation "Maximize the current frame."
+                      :evil-leader "TM")
+(spacemacs|add-toggle transparent-frame
+                      :status nil
+                      :on (toggle-transparency)
+                      :documentation "Make the current frame non-opaque."
+                      :evil-leader "TT")
 (spacemacs|add-toggle tool-bar
                       :if window-system
                       :status tool-bar-mode
                       :on (tool-bar-mode)
                       :off (tool-bar-mode -1)
                       :documentation "Display the tool bar in GUI mode."
-                      :evil-leader "tT")
+                      :evil-leader "Tt")
 (spacemacs|add-toggle menu-bar
                       :if (or window-system (version<= "24.3.1" emacs-version))
                       :status menu-bar-mode
                       :on (menu-bar-mode)
                       :off (menu-bar-mode -1)
                       :documentation "Display the menu bar."
-                      :evil-leader "tU")
+                      :evil-leader "Tm")
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "qs" 'spacemacs/save-buffers-kill-emacs
