@@ -1111,14 +1111,7 @@ which require an initialization must be listed explicitly in the list.")
                             :on (flycheck-mode)
                             :off (flycheck-mode -1)
                             :documentation "Enable error and syntax checking."
-                            :evil-leader "tf")
-      (spacemacs|add-toggle syntax-checking-globally
-                            :status flycheck-mode
-                            :on (global-flycheck-mode)
-                            :off (global-flycheck-mode -1)
-                            :documentation
-                            "Enable error and syntax checking globally."
-                            :evil-leader "t C-f"))
+                            :evil-leader "tf"))
     :config
     (progn
       (spacemacs|diminish flycheck-mode " ⓕ" " f")
@@ -2888,13 +2881,6 @@ It is a string holding:
                             :off (yas-minor-mode -1)
                             :documentation "Enable yasnippet."
                             :evil-leader "ty")
-
-      (spacemacs|add-toggle yasnippet-globally
-                            :status yas-minor-mode
-                            :on (yas-global-mode)
-                            :off (yas-global-mode -1)
-                            :documentation "Enable yasnippet globally."
-                            :evil-leader "t C-y")
 
       (defun spacemacs/force-yasnippet-off ()
         (yas-minor-mode -1)
