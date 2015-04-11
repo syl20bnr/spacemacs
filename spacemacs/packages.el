@@ -2005,9 +2005,11 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         "mc" 'org-capture
         "md" 'org-deadline
         "me" 'org-export-dispatch
+        "mf" 'org-set-effort
         "mi" 'org-clock-in
         "mo" 'org-clock-out
         "mm" 'org-ctrl-c-ctrl-c
+        "mq" 'org-clock-cancel
         "mr" 'org-refile
         "ms" 'org-schedule)
       (eval-after-load 'evil-org
