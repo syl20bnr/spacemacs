@@ -43,8 +43,11 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (setq org-log-done t)
+
+      (eval-after-load 'org-indent
+        '(spacemacs|hide-lighter org-indent-mode))
       (add-hook 'org-mode-hook 'org-indent-mode)
-      (spacemacs|hide-lighter org-indent-mode)
+
       (evil-leader/set-key-for-mode 'org-mode
         "mc" 'org-capture
         "md" 'org-deadline
