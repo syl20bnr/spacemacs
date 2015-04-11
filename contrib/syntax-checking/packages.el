@@ -115,7 +115,6 @@ conflict.")
       ;; key bindings
       (evil-leader/set-key
         "ec" 'flycheck-clear
-        "ef" 'flycheck-mode
         "el" 'flycheck-list-errors))))
 
 (defun syntax-checking/init-flycheck-pos-tip ()
