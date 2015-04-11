@@ -106,6 +106,7 @@
         - [With an external tool](#with-an-external-tool)
             - [Searching in an arbitrary directory](#searching-in-an-arbitrary-directory)
             - [Searching in a project](#searching-in-a-project)
+            - [Searching the web](#searching-the-web)
         - [Persistent highlighting](#persistent-highlighting)
         - [Stacking highlights](#stacking-highlights)
         - [Highlight current symbol](#highlight-current-symbol)

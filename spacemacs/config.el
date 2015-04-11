@@ -39,6 +39,7 @@
                                        ("q" .  "quit")
                                        ("r" .  "registers/rings")
                                        ("s" .  "search/symbol")
+                                       ("sw" .  "search-web")
                                        ("S" .  "spelling")
                                        ("t" .  "toggles")
                                        ("tC" . "toggles-colors")
