@@ -14,6 +14,7 @@
                                        (git :variables
                                             git-gutter-use-fringe t)
                                        markdown
+                                       org
                                        syntax-checking)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()

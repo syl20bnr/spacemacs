@@ -42,7 +42,6 @@
     evil-nerd-commenter
     evil-matchit
     evil-numbers
-    evil-org
     evil-search-highlight-persist
     evil-surround
     evil-terminal-cursor-changer
@@ -86,8 +85,6 @@
     move-text
     multi-term
     neotree
-    org
-    org-bullets
     page-break-lines
     popup
     popwin
@@ -933,17 +930,6 @@ which require an initialization must be listed explicitly in the list.")
         (spacemacs/evil-numbers-micro-state-overlay-map))
       (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
       (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease))))
-
-(defun spacemacs/init-evil-org ()
-  (use-package evil-org
-    :commands evil-org-mode
-    :init
-    (add-hook 'org-mode-hook 'evil-org-mode)
-    :config
-    (progn
-      ;; to gather all the bindings at the same place the bindnings
-      ;; for evil-org have been moved to `spacemacs/init-org'
-      (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()
   (use-package evil-search-highlight-persist
@@ -1992,51 +1978,6 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :config
     (add-to-hook 'neotree-mode-hook '(spacemacs//init-neotree
                                       spacemacs//neotree-key-bindings))))
-
-(defun spacemacs/init-org ()
-  (use-package org
-    :mode ("\\.org$" . org-mode)
-    :defer t
-    :init
-    (progn
-      (setq org-log-done t)
-      (add-hook 'org-mode-hook 'org-indent-mode)
-      (evil-leader/set-key-for-mode 'org-mode
-        "mc" 'org-capture
-        "md" 'org-deadline
-        "me" 'org-export-dispatch
-        "mf" 'org-set-effort
-        "mi" 'org-clock-in
-        "mo" 'org-clock-out
-        "mm" 'org-ctrl-c-ctrl-c
-        "mq" 'org-clock-cancel
-        "mr" 'org-refile
-        "ms" 'org-schedule)
-      (eval-after-load 'evil-org
-        ;; move the leader bindings to `m` prefix to be consistent with
-        ;; the rest of spacemacs bindings
-        '(evil-leader/set-key-for-mode 'org-mode
-           "a" nil "ma" 'org-agenda
-           "c" nil "mA" 'org-archive-subtree
-           "o" nil "mC" 'evil-org-recompute-clocks
-           "l" nil "ml" 'evil-org-open-links
-           "t" nil "mt" 'org-show-todo-tree)))
-    :config
-    (progn
-      (require 'org-install)
-      (define-key global-map "\C-cl" 'org-store-link)
-      (define-key global-map "\C-ca" 'org-agenda)))
-
-  (eval-after-load "org-agenda"
-    '(progn
-       (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
-       (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)
-       (define-key org-agenda-mode-map (kbd "SPC") evil-leader--default-map))))
-
-(defun spacemacs/init-org-bullets ()
-  (use-package org-bullets
-    :defer t
-    :init (add-hook 'org-mode-hook 'org-bullets-mode)))
 
 (defun spacemacs/init-page-break-lines ()
   (use-package page-break-lines
