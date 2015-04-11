@@ -5,14 +5,13 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
-- [Colors contribution layer for Spacemacs](#colors-contribution-layer-for-spacemacs)
+- [Org contribution layer for Spacemacs](#org-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
-        - [Enable rainbow-identifiers](#enable-rainbow-identifiers)
-        - [Enable Nyan cat](#enable-nyan-cat)
     - [Key bindings](#key-bindings)
-        - [Rainbow Identifiers](#rainbow-identifiers)
-        - [Rainbow Mode](#rainbow-mode)
+        - [Org with evil-org-mode](#org-with-evil-org-mode)
+        - [Pomodoro](#pomodoro)
+        - [Org-repo-todo](#org-repo-todo)
 
 <!-- markdown-toc end -->
 
