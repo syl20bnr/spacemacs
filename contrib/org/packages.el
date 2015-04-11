@@ -79,7 +79,7 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init (add-hook 'org-mode-hook 'org-bullets-mode)))
 
-(defun org-pomodoro/init-org-pomodoro ()
+(defun org/init-org-pomodoro ()
   (use-package org-pomodoro
     :defer t
     :init
