@@ -1,126 +1,35 @@
-# Auto-Completion configuration layer for Spacemacs
+# Syntax Checking configuration layer for Spacemacs
+
+![logo](img/flycheck.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
-- [Auto-Completion configuration layer for Spacemacs](#auto-completion-configuration-layer-for-spacemacs)
+- [Syntax Checking configuration layer for Spacemacs](#syntax-checking-configuration-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
-        - [Company variables](#company-variables)
-    - [Configure](#configure)
-        - [Remove global activation of company](#remove-global-activation-of-company)
-        - [Replacing company by auto-complete](#replacing-company-by-auto-complete)
-        - [Add auto-completion in a layer](#add-auto-completion-in-a-layer)
     - [Key Bindings](#key-bindings)
-        - [Company](#company)
-        - [Auto-complete](#auto-complete)
 
 <!-- markdown-toc end -->
 
 ## Description
 
-This layer provides auto-completion to Spacemacs.
-
-The following completion engines are supported:
-- [company][]
-- [auto-complete][]
+This layer provides on the fly syntax checking using [Flycheck][] to Spacemacs.
 
 ## Install
 
 To use this configuration layer add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(auto-completion))
-```
-
-### Company variables
-
-To use tab instead of enter to complete your selection,
-`dotspacemacs/init` set `auto-completion-use-tab-instead-of-enter` to
-`t`, for example:
-
-``` elisp
-(setq-default dotspacemacs-configuration-layers
-  '(auto-completion :variables
-                    auto-completion-use-tab-instead-of-enter t))
-```
-
-To enable docstring tooltips set `auto-completion-enable-company-help-tooltip`
-to `t`
-
-``` elisp
-(setq-default dotspacemacs-configuration-layers
-  '(auto-completion :variables
-                    auto-completion-enable-company-help-tooltip t))
-
-## Configure
-
-### Remove global activation of company
-
-TODO (when use-package hooks will be used)
-
-### Replacing company by auto-complete
-
-You can disable company by adding it to the `dotspacemacs-excluded-packages`
-variable, then you are free to enable auto-complete globally.
-
-### Add auto-completion in a layer
-
-Here is an example to add `company` auto-completion to python buffer:
-
-In `config.el`:
-
-```elisp
-;; Define the buffer local company backend variable
-(spacemacs|defvar-company-backends python-mode)
-```
-
-In `packages.el`:
-
-```elisp
-;; Add the relevant packages to the layer
-(defvar python-packages
-  '(...
-    company
-    company-anaconda
-    ...))
-
-;; Configure the packages
-(when (configuration-layer/layer-usedp 'auto-completion)
-
-  ;; Hook company to python-mode
-  (defun python/post-init-company ()
-    (spacemacs|add-company-hook python-mode))
-
-  ;; Add the backend to the major-mode specific backend list
-  (defun python/init-company-anaconda ()
-    (use-package company-anaconda
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init (push 'company-anaconda company-backends-python-mode))))
+(setq-default dotspacemacs-configuration-layers '(syntax-checking))
 ```
 
 ## Key Bindings
 
-### Company
-
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>C-j</kbd>       | go down in company dropdown menu
-<kbd>C-k</kbd>       | go up in company dropdown menu
-<kbd>C-/</kbd>       | search in company dropdown
-<kbd>C-M-/</kbd>     | filter the company dropdown menu
-<kbd>C-d</kbd>       | open minibuffer with documentation of thing at point in company dropdown
+<kbd>SPC e c</kbd>   | clear errors
+<kbd>SPC e l</kbd>   | display a list of all the errors
+<kbd>SPC t f</kbd>   | toggle flycheck
 
-### Auto-complete
- 
-    Key Binding    |                 Description
--------------------|------------------------------------------------------------
-<kbd>C-j</kbd>     | select next candidate
-<kbd>C-k</kbd>     | select previous candidate
-<kbd>TAB</kbd>     | expand selection or select next candidate
-<kbd>S-TAB</kbd>   | select previous candidate
-<kbd>return</kbd>  | complete word, if word is already completed insert a carriage return
-
-[company]: http://company-mode.github.io/
-[auto-complete]: http://auto-complete.org/
+[Flycheck]: http://www.flycheck.org/
