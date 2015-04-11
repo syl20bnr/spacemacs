@@ -46,7 +46,7 @@
           (unless (equal attr 'unspecified)
             (color-darken-name attr 20) "#000000"))))))
 
-(defun ruby/init-flycheck ()
+(defun ruby/post-init-flycheck ()
   (add-hook 'enh-ruby-mode-hook 'flycheck-mode))
 
 (defun ruby/init-ruby-tools ()

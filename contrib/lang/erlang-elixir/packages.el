@@ -125,7 +125,7 @@ which require an initialization must be listed explicitly in the list.")
         "mhd" 'edts-find-doc
         "mm"  'edts-find-macro-source))))
 
-(defun erlang-elixir/init-flycheck ()
+(defun erlang-elixir/post-init-flycheck ()
   (add-hook 'elixir-mode-hook 'flycheck-mode)
   (unless spacemacs-erlang-elixir-use-edts
     (add-hook 'erlang-mode-hook 'flycheck-mode)))

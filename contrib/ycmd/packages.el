@@ -19,10 +19,12 @@ which require an initialization must be listed explicitly in the list.")
     :init (push '(company-ycmd :with company-yasnippet)
                 company-backends-c-mode-common)))
 
-(defun ycmd/init-flycheck-ycmd ()
-  (use-package flycheck-ycmd
-    :defer t
-    :init (add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup)))
+(when (configuration-layer/layer-usedp 'syntax-checking)
+  (defun ycmd/init-flycheck-ycmd ()
+    (use-package flycheck-ycmd
+      :if (configuration-layer/package-usedp 'flycheck)
+      :defer t
+      :init (add-hook 'ycmd-mode-hook 'flycheck-ycmd-setup))))
 
 (defun ycmd/init-ycmd ()
   (use-package ycmd

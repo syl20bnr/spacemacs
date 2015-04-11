@@ -41,7 +41,7 @@ which require an initialization must be listed explicitly in the list.")
                                      (setq indent-line-function 'javascript/coffee-indent
                                            evil-shift-width coffee-tab-width))))))
 
-(defun javascript/init-flycheck ()
+(defun javascript/post-init-flycheck ()
   (add-hook 'coffee-mode-hook 'flycheck-mode)
   (add-hook 'js2-mode-hook    'flycheck-mode)
   (add-hook 'json-mode-hook   'flycheck-mode))

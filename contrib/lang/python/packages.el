@@ -223,7 +223,7 @@ which require an initialization must be listed explicitly in the list.")
       (define-key inferior-python-mode-map (kbd "C-l") 'comint-clear-buffer)
       (define-key inferior-python-mode-map (kbd "C-r") 'comint-history-isearch-backward))))
 
-(defun python/init-flycheck ()
+(defun python/post-init-flycheck ()
   (add-hook 'python-mode-hook 'flycheck-mode))
 
 (defun python/init-hy-mode ()

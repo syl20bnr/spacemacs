@@ -9,7 +9,7 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
-(defun go/init-flycheck ()
+(defun go/post-init-flycheck ()
     (add-hook 'go-mode-hook 'flycheck-mode))
 
 (defun go/init-go-mode()
