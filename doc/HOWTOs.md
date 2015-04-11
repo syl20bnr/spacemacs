@@ -6,6 +6,7 @@
 - [Compilation of quick HOW-TOs for Spacemacs](#compilation-of-quick-how-tos-for-spacemacs)
     - [Disable a package completely](#disable-a-package-completely)
     - [Disable a package only for a specific major-mode](#disable-a-package-only-for-a-specific-major-mode)
+    - [Disable company for a specific major-mode](#disable-company-for-a-specific-major-mode)
 
 <!-- markdown-toc end -->
 
@@ -32,3 +33,15 @@ remove `flycheck` support in python buffers, look for the function
 
 **Hint** to know the name of the major-mode of the current buffer press:
 <kbd>SPC h d v major-mode RET</kbd>
+
+## Disable company for a specific major-mode
+
+It may be handy to disable `company` for a given mode if you plan on
+configuring `auto-complete` instead. On easy way to do it is to use
+the macro `spacemacs|disable-company` in the function
+`dotspacemacs/config` of your dotfile. The following snippet disables
+company for `python-mode`:
+
+```elisp
+(spacemacs|disable-company python-mode)
+```
