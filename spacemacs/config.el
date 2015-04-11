@@ -21,7 +21,7 @@
                                        ("b" .  "buffers")
                                        ("bm" . "buffers-move")
                                        ("c" .  "compile/comments")
-                                       ("C" .  "colors")
+                                       ("C" .  "capture/colors")
                                        ("e" .  "errors")
                                        ("f" .  "files")
                                        ("fe" . "files-emacs/spacemacs")

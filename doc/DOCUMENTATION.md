@@ -843,8 +843,8 @@ Some elements can be dynamically toggled:
     Key Binding        |                 Description
 -----------------------|------------------------------------------------------------
 <kbd>SPC t m b</kbd>   | toggle the battery status
-<kbd>SPC t m c</kbd>   | toggle the `org` task clock
-<kbd>SPC t m f</kbd>   | toggle the flycheck info
+<kbd>SPC t m c</kbd>   | toggle the `org` task clock (available in `org` layer)
+<kbd>SPC t m f</kbd>   | toggle the flycheck info (available in `syntax-checking` layer)
 <kbd>SPC t m m</kbd>   | toggle the minor mode lighters
 <kbd>SPC t m n</kbd>   | toggle the cat! (if `colors` layer is declared in your dotfile)
 <kbd>SPC t m p</kbd>   | toggle the point character position
@@ -2305,53 +2305,6 @@ setup the key on tabulation:
 <kbd>CTRL+k</kbd> | go to next item
 <kbd>CTRL+l</kbd> | go to next page
 
-### Org
-
-In `org`, [evil-org-mode][] is activated.
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>SPC m a</kbd>    | org-agenda
-<kbd>SPC m A</kbd>    | org-archive-subtree
-<kbd>SPC m c</kbd>    | org-capture
-<kbd>SPC m C</kbd>    | evil-org-recompute-clocks
-<kbd>SPC m d</kbd>    | org-deadline
-<kbd>SPC m e</kbd>    | org-export-dispatch
-<kbd>SPC m f</kbd>    | org-set-effort
-<kbd>SPC m i</kbd>    | org-clock-in
-<kbd>SPC m l</kbd>    | evil-org-open-links
-<kbd>SPC m m</kbd>    | org-ctrl-c-ctrl-c
-<kbd>SPC m o</kbd>    | org-clock-out
-<kbd>SPC m q</kbd>    | org-clock-cancel
-<kbd>SPC m r</kbd>    | org-refile
-<kbd>SPC m s</kbd>    | org-schedule
-<kbd>SPC m t</kbd>    | org-show-todo-tree
-<kbd>gh</kbd>         | outline-up-heading
-<kbd>gj</kbd>         | org-forward-heading-same-level
-<kbd>gk</kbd>         | org-backward-heading-same-level
-<kbd>gl</kbd>         | outline-next-visible-heading
-<kbd>t</kbd>          | org-todo
-<kbd>T</kbd>          | org-insert-todo-heading nil
-<kbd>H</kbd>          | org-beginning-of-line
-<kbd>L</kbd>          | org-end-of-line
-<kbd>o</kbd>          | always-insert-item
-<kbd>O</kbd>          | org-insert-heading
-<kbd>$</kbd>          | org-end-of-line
-<kbd>^</kbd>          | org-beginning-of-line
-<kbd><</kbd>          | org-metaleft
-<kbd>></kbd>          | org-metaright
-<kbd>TAB</kbd>        | org-cycle
-<kbd>M-l</kbd>        | org-metaright
-<kbd>M-h</kbd>        | org-metaleft
-<kbd>M-k</kbd>        | org-metaup
-<kbd>M-j</kbd>        | org-metadown
-<kbd>M-L</kbd>        | org-shiftmetaright
-<kbd>M-H</kbd>        | org-shiftmetaleft
-<kbd>M-K</kbd>        | org-shiftmetaup
-<kbd>M-J</kbd>        | org-shiftmetadown
-<kbd>M-o</kbd>        | org-insert-heading+org-metaright
-<kbd>M-t</kbd>        | org-insert-todo-heading nil+ org-metaright
-
 ### Python
 
 Writing python code with spacemacs is supported by python contribution. Please
@@ -2552,7 +2505,6 @@ developers to elisp hackers!
 [evil-args]: https://github.com/wcsmith/evil-args
 [evil-jumper]: https://github.com/bling/evil-jumper
 [evil-numbers]: https://github.com/cofi/evil-numbers
-[evil-org-mode]: https://github.com/edwtjo/evil-org-mode
 [evil-lisp-state]: https://github.com/syl20bnr/evil-lisp-state
 [Vim's Unite]: https://github.com/Shougo/unite.vim
 [git-gutter]: https://github.com/syohex/emacs-git-gutter-fringe
