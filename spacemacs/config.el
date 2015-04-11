@@ -145,6 +145,9 @@ Can be installed with `brew install trash'."
 (setq-default default-fill-column 80)
 (spacemacs|diminish auto-fill-function " Ⓕ" " F")
 
+;; persistent abbreviation file
+(setq abbrev-file-name (concat spacemacs-cache-directory "abbrev_defs"))
+
 ;; ---------------------------------------------------------------------------
 ;; UI
 ;; ---------------------------------------------------------------------------
