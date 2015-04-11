@@ -290,18 +290,6 @@ Ensure that helm is required before calling FUNC."
 ;; google translate -----------------------------------------------------------
 (evil-leader/set-key
   "xgl" 'set-google-translate-languages)
-;; emacs-lisp -----------------------------------------------------------------
-(evil-leader/set-key-for-mode 'emacs-lisp-mode
-  "me$" 'lisp-state-eval-sexp-end-of-line
-  "meb" 'eval-buffer
-  "mec" 'spacemacs/eval-current-form
-  "mee" 'eval-last-sexp
-  "mer" 'spacemacs/eval-region
-  "mef" 'eval-defun
-  "mel" 'lisp-state-eval-sexp-end-of-line
-  "m,"  'lisp-state-toggle-lisp-state
-  "mtb" 'spacemacs/ert-run-tests-buffer
-  "mtq" 'ert)
 
 ;; ---------------------------------------------------------------------------
 ;; Micro-states
