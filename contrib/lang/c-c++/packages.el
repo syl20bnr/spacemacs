@@ -49,7 +49,7 @@ which require an initialization must be listed explicitly in the list.")
     :mode (("CMakeLists\\.txt\\'" . cmake-mode) ("\\.cmake\\'" . cmake-mode))
     :init (push 'company-cmake company-backends-cmake-mode)))
 
-(defun c-c++/init-flycheck ()
+(defun c-c++/post-init-flycheck ()
   (add-to-hooks 'flycheck-mode '(c-mode-hook c++-mode-hook)))
 
 (defun c-c++/init-srefactor ()

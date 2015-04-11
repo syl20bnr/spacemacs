@@ -22,13 +22,15 @@
     shm
     ))
 
-(defun haskell/init-flycheck ()
+(defun haskell/post-init-flycheck ()
   (add-hook 'haskell-mode-hook 'flycheck-mode))
 
-(defun haskell/init-flycheck-haskell ()
-  (use-package flycheck-haskell
-    :commands flycheck-haskell-configure
-    :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure)))
+(when (configuration-layer/layer-usedp 'syntax-checking)
+  (defun haskell/init-flycheck-haskell ()
+    (use-package flycheck-haskell
+      :if (configuration-layer/package-usedp 'flycheck)
+      :commands flycheck-haskell-configure
+      :init (add-hook 'flycheck-mode-hook 'flycheck-haskell-configure))))
 
 (defun haskell/init-ghc ()
   (use-package ghc

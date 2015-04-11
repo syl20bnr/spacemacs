@@ -53,8 +53,6 @@
     fancy-battery
     fill-column-indicator
     flx-ido
-    flycheck
-    flycheck-pos-tip
     flyspell
     fringe-helper
     golden-ratio
@@ -1099,109 +1097,6 @@ which require an initialization must be listed explicitly in the list.")
   (use-package flx-ido
     :init (flx-ido-mode 1)))
 
-(defun spacemacs/init-flycheck ()
-  (use-package flycheck
-    :defer t
-    :init
-    (progn
-      (setq flycheck-check-syntax-automatically '(save mode-enabled)
-            flycheck-standard-error-navigation nil)
-      (spacemacs|add-toggle syntax-checking
-                            :status flycheck-mode
-                            :on (flycheck-mode)
-                            :off (flycheck-mode -1)
-                            :documentation "Enable error and syntax checking."
-                            :evil-leader "tf"))
-    :config
-    (progn
-      (spacemacs|diminish flycheck-mode " ⓕ" " f")
-
-      (defun spacemacs/mode-line-flycheck-info-toggle ()
-        "Toggle display of flycheck info."
-        (interactive)
-        (if flycheck-mode
-            (flycheck-mode -1)
-          (flycheck-mode)))
-      (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
-
-      ;; color mode line faces
-      (defun spacemacs/defface-flycheck-mode-line-color (state)
-        "Define a face for the given Flycheck STATE."
-        (let* ((fname (intern (format "spacemacs-mode-line-flycheck-%s-face"
-                                      (symbol-name state))))
-              (foreground (face-foreground
-                           (intern (format "flycheck-fringe-%s" state)))))
-          (eval `(defface ,fname '((t ()))
-                   ,(format "Color for Flycheck %s feedback in mode line."
-                            (symbol-name state))
-                   :group 'spacemacs))
-          (set-face-attribute fname nil
-                              :foreground foreground
-                              :box (face-attribute 'mode-line :box))))
-
-      (defun spacemacs/set-flycheck-mode-line-faces ()
-        "Define or set the flycheck info mode-line faces."
-        (mapcar 'spacemacs/defface-flycheck-mode-line-color
-                '(error warning info)))
-      (spacemacs/set-flycheck-mode-line-faces)
-
-      (defmacro spacemacs|custom-flycheck-lighter (error)
-        "Return a formatted string for the given ERROR (error, warning, info)."
-        `(let* ((error-counts (flycheck-count-errors
-                               flycheck-current-errors))
-                (errorp (flycheck-has-current-errors-p ',error))
-                (err (or (cdr (assq ',error error-counts)) "?"))
-                (running (eq 'running flycheck-last-status-change)))
-           (if (or errorp running) (format "•%s " err))))
-
-      ;; Custom fringe indicator
-      (when (fboundp 'define-fringe-bitmap)
-        (define-fringe-bitmap 'my-flycheck-fringe-indicator
-          (vector #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00011100
-                  #b00111110
-                  #b00111110
-                  #b00111110
-                  #b00011100
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b00000000
-                  #b01111111)))
-
-      (flycheck-define-error-level 'error
-        :overlay-category 'flycheck-error-overlay
-        :fringe-bitmap 'my-flycheck-fringe-indicator
-        :fringe-face 'flycheck-fringe-error)
-
-      (flycheck-define-error-level 'warning
-        :overlay-category 'flycheck-warning-overlay
-        :fringe-bitmap 'my-flycheck-fringe-indicator
-        :fringe-face 'flycheck-fringe-warning)
-
-      (flycheck-define-error-level 'info
-        :overlay-category 'flycheck-info-overlay
-        :fringe-bitmap 'my-flycheck-fringe-indicator
-        :fringe-face 'flycheck-fringe-info)
-
-      ;; key bindings
-      (evil-leader/set-key
-        "ec" 'flycheck-clear
-        "ef" 'flycheck-mode
-        "el" 'flycheck-list-errors))))
-
-(defun spacemacs/init-flycheck-pos-tip ()
-  (use-package flycheck-pos-tip
-    :defer t
-    :init
-    (setq flycheck-display-errors-function 'flycheck-pos-tip-error-messages)))
-
 (defun spacemacs/init-flyspell ()
   (use-package flyspell
     :defer t
@@ -2195,7 +2090,6 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (push '("*ert*"                      :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("*grep*"                     :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("*nosetests*"                :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
-      (push '("^\*Flycheck.+\*$" :regexp t :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
       (push '("^\*WoMan.+\*$"    :regexp t              :position bottom                     ) popwin:special-display-config)
       (defun spacemacs/remove-popwin-display-config (str)
         "Removes the popwin display configurations that matches the passed STR"
