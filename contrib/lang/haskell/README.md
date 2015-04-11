@@ -28,9 +28,8 @@
 
 This layer adds support for the [Haskell][] language.
 
-Features:
+Some features:
 - auto-completion with [company-ghc][],
-- auto-indentation with [hi2][].
 - syntax highlighting for [C-- source][cmm-mode].
 
 **This layer is in construction, it needs your contributions and bug reports.**
@@ -108,8 +107,8 @@ versions from ghci-ng, and a new keybinding available:
 <kbd>SPC m u</kbd>    | finds uses of identifier
 
 #### structured-haskell-mode
-[structured-haskell-mode][], or shm, replaces hi2 (and any other
-Haskell-indentation modes) and adds some nice functionality.
+[structured-haskell-mode][], or shm, replaces default haskell-mode
+auto-indentation and adds some nice functionalities.
 To enable shm, run `cabal install structured-haskell-mode` and set the layer
 variable:
 
@@ -234,7 +233,6 @@ This commands are available in a cabal file.
 [cabal]: https://www.haskell.org/cabal/
 [cmm-mode]: http://github.com/bgamari/cmm-mode
 [company-ghc]: https://github.com/iquiw/company-ghc
-[hi2]: https://github.com/nilcons/hi2
 [ghci-ng]: https://github.com/chrisdone/ghci-ng
 [structured-haskell-mode]: https://github.com/chrisdone/structured-haskell-mode
 [hindent]: https://github.com/chrisdone/hindent
