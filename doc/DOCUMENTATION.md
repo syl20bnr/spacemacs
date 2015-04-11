@@ -944,7 +944,6 @@ Key Binding          |   Unicode   |   ASCII    |                    Mode
 <kbd>SPC t c</kbd>   | `ⓒ`        | c          | fill-column-indicator mode
 `none`               | `ⓔ`        | e          | [evil-org][evil-org-mode] mode
 <kbd>SPC t f</kbd>   | `ⓕ`        | f          | flycheck mode
-<kbd>SPC t C-f</kbd> |             |            | global
 <kbd>SPC t F</kbd>   | `Ⓕ`        | F          | auto-fill mode
 <kbd>SPC t g</kbd>   | `ⓖ`        | g          | [golden-ratio][] mode
 <kbd>SPC t k</kbd>   | `Ⓖ`        | G          | guide-key mode
@@ -957,7 +956,6 @@ Key Binding          |   Unicode   |   ASCII    |                    Mode
 <kbd>SPC t w</kbd>   | `ⓦ`        | w          | whitespace mode
 <kbd>SPC t C-w</kbd> |             |            | global
 <kbd>SPC t y</kbd>   | `ⓨ`        | y          | [yasnippet][yasnippet] mode
-<kbd>SPC t C-y</kbd> |             |            | global
 
 # Commands
 
