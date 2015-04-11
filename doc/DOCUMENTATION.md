@@ -2184,9 +2184,12 @@ Key Binding          | Function
 Key Binding          | Function
 ---------------------|------------------------------------------------------------
 <kbd>SPC m e $</kbd> | go to end of line and evaluate last sexp
+<kbd>SPC m e b</kbd> | evaluate buffer
+<kbd>SPC m e c</kbd> | evaluate current form (a `def` or a `set`)
 <kbd>SPC m e e</kbd> | evaluate last sexp
 <kbd>SPC m e f</kbd> | evaluate current defun
 <kbd>SPC m e l</kbd> | go to end of line and evaluate last sexp
+<kbd>SPC m e r</kbd> | evaluate region
 
 Key Binding          | Function
 ---------------------|------------------------------------------------------------
