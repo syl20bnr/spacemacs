@@ -26,6 +26,7 @@
     helm-spacemacs
     solarized-theme
     spray
+    vim-empty-lines-mode
     zoom-frm
     ;; hack to be able to wrap built-in emacs modes in an init function
     emacs-builtin-emacs-lisp
@@ -38,7 +39,7 @@
 ;; the init-paradox from packages.el will be called
 ;; automatically.
 (when (version< emacs-version "24.4")
-    (push 'paradox spacemacs-post-extensions))
+  (push 'paradox spacemacs-post-extensions))
 
 ;; Initialize the extensions
 
@@ -139,6 +140,29 @@
     (progn
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))))
+
+(defun spacemacs/init-vim-empty-lines-mode ()
+  (use-package vim-empty-lines-mode
+    :diminish vim-empty-lines-mode
+    :config
+    (progn
+      (global-vim-empty-lines-mode)
+      (spacemacs|add-toggle vim-empty-lines-mode
+                            :status vim-empty-lines-mode
+                            :on (global-vim-empty-lines-mode)
+                            :off (global-vim-empty-lines-mode -1)
+                            :documentation
+                            (concat "Display an overlay of ~ on "
+                                    "empty lines.")
+                            :evil-leader "t~")
+      ;; don't enable it on spacemacs home buffer
+      (with-current-buffer  "*spacemacs*"
+        (vim-empty-lines-mode -1))
+      ;; after a major mode is loaded, check if the buffer is read only
+      ;; if so, disable vim-empty-lines-mode
+      (add-hook 'after-change-major-mode-hook (lambda ()
+                                                (when buffer-read-only
+                                                  (vim-empty-lines-mode -1)))))))
 
 (defun spacemacs/init-zoom-frm ()
   (use-package zoom-frm
