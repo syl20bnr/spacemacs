@@ -102,8 +102,8 @@ initialization."
   ;; font
   (if (find-font (font-spec :name (car dotspacemacs-default-font)))
       (spacemacs/set-default-font dotspacemacs-default-font)
-    (spacemacs-buffer/message "Warning: Cannot find font \"%s\"!"
-                       (car dotspacemacs-default-font)))
+    (spacemacs-buffer/warning "Cannot find font \"%s\"!"
+                              (car dotspacemacs-default-font)))
   ;; banner
   (spacemacs-buffer/insert-banner-and-buttons)
   (setq-default evil-want-C-u-scroll t)
