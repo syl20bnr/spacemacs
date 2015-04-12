@@ -133,6 +133,7 @@
                 - [In iedit state](#in-iedit-state)
                 - [In iedit-insert state](#in-iedit-insert-state)
             - [Examples](#examples)
+        - [Replacing text in several files](#replacing-text-in-several-files)
         - [Commenting](#commenting)
         - [Deleting files](#deleting-files)
         - [Editing Lisp code](#editing-lisp-code)
@@ -146,7 +147,6 @@
     - [Modes](#modes)
         - [Major Mode leader key](#major-mode-leader-key)
         - [Helm](#helm)
-        - [Org](#org)
         - [Python](#python)
         - [JavaScript](#javascript)
         - [HTML and CSS](#html-and-css)
@@ -2076,6 +2076,21 @@ default Vim behavior when used outside of an occurrence.
 - substitute symbol _with expand-region_: <kbd>SPC v v e S "toto" ESC ESC</kbd>
 - replace symbol with yanked (copied) text _with expand region_: <kbd>SPC v e p ESC ESC</kbd>
 
+### Replacing text in several files
+
+Replacing an occurrence of text in several files can be performed via
+[helm-ag][].
+
+Say you want to replace all `foo` occurrences by `bar` in your current project:
+- initiate a search with <kbd>SPC /</kbd>
+- enter in edit mode with <kbd>C-c C-e</kbd>
+- go to the occurrence and enter in `iedit state` with <kbd>SPC s e</kbd>
+- edit the occurrences then leave the `iedit state`
+- press <kbd>C-c C-c</kbd>
+
+**Note** in Spacemacs, `helm-ag` despite its name works with `ack` and `pt` as
+well.
+
 ### Commenting
 
 Comments are handled by [evil-nerd-commenter][], it's bound to the following keys.
@@ -2466,6 +2481,7 @@ developers to elisp hackers!
 [ace-window]: https://github.com/abo-abo/ace-window
 [helm-link]: https://github.com/emacs-helm/helm
 [helm-doc]: https://github.com/emacs-helm/helm/wiki
+[helm-ag]: https://github.com/syohex/emacs-helm-ag
 [popwin]: http://www.emacswiki.org/emacs/PopWin
 [golden-ratio]: https://github.com/roman/golden-ratio.el
 [solarized-theme]: https://github.com/bbatsov/solarized-emacs
