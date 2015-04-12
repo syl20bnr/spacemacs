@@ -184,7 +184,7 @@ path."
 (defun configuration-layer//discover-layers-in-dir (dir)
   "Return an alist where the key is a layer symbol and the value is the path
 for that layer."
-  (spacemacs/message "Looking for configuration layers in %s" dir)
+  (spacemacs-buffer/message "Looking for configuration layers in %s" dir)
   (ignore-errors
     (let ((files (directory-files dir nil nil 'nosort))
           (filter-out configuration-layer-contrib-categories)
@@ -193,7 +193,7 @@ for that layer."
         (when (and (file-directory-p (concat dir f))
                    (not (member f filter-out))
                    (not (equalp ?. (aref f 0))))  ;; Remove hidden, traversal
-          (spacemacs/message "-> Discovered configuration layer: %s" f)
+          (spacemacs-buffer/message "-> Discovered configuration layer: %s" f)
           (push (cons (intern f) dir) result)))
       result)))
 
@@ -235,7 +235,7 @@ the following keys:
                (plist (append (list :dir dir :ext-dir ext-dir)
                               (when (listp layer) (cdr layer)))))
           (cons name-sym plist))
-      (spacemacs/message "Warning: Cannot find layer %S !" name-sym)
+      (spacemacs-buffer/message "Warning: Cannot find layer %S !" name-sym)
       nil)))
 
 (defun configuration-layer//set-layers-variables (layers)
@@ -246,7 +246,7 @@ the following keys:
         (let ((var (pop variables)))
           (if (consp variables)
               (set-default var (pop variables))
-            (spacemacs/message "Warning: Missing value for variable %s !"
+            (spacemacs-buffer/message "Warning: Missing value for variable %s !"
                                var)))))))
 
 (defun configuration-layer/package-usedp (pkg)
@@ -361,7 +361,7 @@ functions to execute."
                               (configuration-layer/get-layer-property
                                initlayer :ext-dir) pkg)
                       load-path)))
-          (spacemacs/message
+          (spacemacs-buffer/message
            (format "%s %S is ignored since it has no init function."
                    (if extension-p "Extension" "Package") pkg))
           (ht-remove hash pkg))))
@@ -439,10 +439,10 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
     ;; installation
     (if not-installed
         (progn
-          (spacemacs/append-to-buffer
+          (spacemacs-buffer/append
            (format "Found %s new package(s) to install...\n"
                    not-installed-count))
-          (spacemacs/append-to-buffer
+          (spacemacs-buffer/append
            "--> fetching new package repository indexes...\n")
           (spacemacs//redisplay)
           (package-refresh-contents)
@@ -450,14 +450,14 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
           (dolist (pkg not-installed)
             (setq installed-count (1+ installed-count))
             (let ((layer (ht-get configuration-layer-all-packages pkg)))
-              (spacemacs/replace-last-line-of-buffer
+              (spacemacs-buffer/replace-last-line
                (format "--> installing %s%s... [%s/%s]"
                        (if layer (format "%s:" layer) "")
                        pkg installed-count not-installed-count) t))
             (unless (package-installed-p pkg)
               (condition-case err
                   (if (not (assq pkg package-archive-contents))
-                      (spacemacs/append-to-buffer
+                      (spacemacs-buffer/append
                        (format "\nPackage %s is unavailable. Is the package name misspelled?\n"
                                pkg))
                     (dolist (dep (configuration-layer//get-package-dependencies-from-archive
@@ -466,11 +466,11 @@ If PRE is non nil then `layer-pre-extensions' is read instead of
                     (package-install pkg))
                 ('error
                  (configuration-layer//set-error)
-                 (spacemacs/append-to-buffer
+                 (spacemacs-buffer/append
                   (format (concat "An error occurred while installing %s "
                                   "(error: %s)\n") pkg err)))))
             (spacemacs//redisplay))
-          (spacemacs/append-to-buffer "\n")))))
+          (spacemacs-buffer/append "\n")))))
 
 (defun configuration-layer//filter-packages-with-deps (packages filter)
   "Filter a PACKAGES list according to a FILTER predicate.
@@ -518,10 +518,10 @@ This function also processed recursively the package dependencies."
 (defun configuration-layer/update-packages ()
   "Upgrade elpa packages"
   (interactive)
-  (spacemacs/insert-page-break)
-  (spacemacs/append-to-buffer
+  (spacemacs-buffer/insert-page-break)
+  (spacemacs-buffer/append
    "\nUpdating Spacemacs... (for now only ELPA packages are updated)\n")
-  (spacemacs/append-to-buffer
+  (spacemacs-buffer/append
    "--> fetching new package repository indexes...\n")
   (spacemacs//redisplay)
   (package-refresh-contents)
@@ -538,11 +538,11 @@ This function also processed recursively the package dependencies."
         (if (not (yes-or-no-p (format (concat "%s package(s) to update, "
                                               "do you want to continue ? ")
                                       upgrade-count)))
-            (spacemacs/append-to-buffer
+            (spacemacs-buffer/append
              "Packages update has been cancelled.\n")
           ;; backup the package directory and construct an alist
           ;; variable to be cached for easy update and rollback
-          (spacemacs/append-to-buffer
+          (spacemacs-buffer/append
            "--> performing backup of package(s) to update...\n" t)
           (spacemacs//redisplay)
           (dolist (pkg update-packages)
@@ -560,17 +560,17 @@ This function also processed recursively the package dependencies."
                                      configuration-layer-rollback-info)))
           (dolist (pkg update-packages)
             (setq upgraded-count (1+ upgraded-count))
-            (spacemacs/replace-last-line-of-buffer
+            (spacemacs-buffer/replace-last-line
              (format "--> preparing update of package %s... [%s/%s]"
                      pkg upgraded-count upgrade-count) t)
             (spacemacs//redisplay)
             (configuration-layer//package-delete pkg))
-          (spacemacs/append-to-buffer
+          (spacemacs-buffer/append
            (format "\n--> %s package(s) to be updated.\n" upgraded-count))
-          (spacemacs/append-to-buffer
+          (spacemacs-buffer/append
            "\nEmacs has to be restarted to actually install the new packages.\n")
           (spacemacs//redisplay))
-      (spacemacs/append-to-buffer "--> All packages are up to date.\n")
+      (spacemacs-buffer/append "--> All packages are up to date.\n")
       (spacemacs//redisplay))))
 
 (defun configuration-layer//ido-candidate-rollback-slot ()
@@ -598,7 +598,7 @@ to select one."
         (when candidates
           (ido-completing-read "Rollback slots (most recent are first): "
                                candidates))))))
-  (spacemacs/insert-page-break)
+  (spacemacs-buffer/insert-page-break)
   (if (not slot)
       (message "No rollback slot available.")
     (string-match "^\\(.+?\\)\s.*$" slot)
@@ -609,12 +609,12 @@ to select one."
            (info-file (expand-file-name
                        (concat rollback-dir
                                configuration-layer-rollback-info))))
-      (spacemacs/append-to-buffer
+      (spacemacs-buffer/append
        (format "\nRollbacking ELPA packages from slot %s...\n" slot-dir))
       (load-file info-file)
       (let ((rollback-count (length update-packages-alist))
             (rollbacked-count 0))
-        (spacemacs/append-to-buffer
+        (spacemacs-buffer/append
          (format "Found %s package(s) to rollback...\n" rollback-count))
         (spacemacs//redisplay)
         (dolist (apkg update-packages-alist)
@@ -631,25 +631,25 @@ to select one."
                                               pkg-dir-name)))))
             (setq rollbacked-count (1+ rollbacked-count))
             (if (string-equal (format "%S-%s" pkg installed-ver) pkg-dir-name)
-                (spacemacs/replace-last-line-of-buffer
+                (spacemacs-buffer/replace-last-line
                  (format "--> package %s already rollbacked! [%s/%s]"
                          pkg rollbacked-count rollback-count) t)
               ;; rollback the package
-              (spacemacs/replace-last-line-of-buffer
+              (spacemacs-buffer/replace-last-line
                (format "--> rollbacking package %s... [%s/%s]"
                        pkg rollbacked-count rollback-count) t)
               (configuration-layer//package-delete pkg)
               (copy-directory src-dir dest-dir 'keeptime 'create 'copy-content))
             (spacemacs//redisplay)))
-        (spacemacs/append-to-buffer
+        (spacemacs-buffer/append
          (format "\n--> %s packages rollbacked.\n" rollbacked-count))
-        (spacemacs/append-to-buffer
+        (spacemacs-buffer/append
          "\nEmacs has to be restarted for the changes to take effect.\n")))))
 
 (defun configuration-layer//initialize-packages ()
   "Initialize all the declared packages."
   (mapc (lambda (x)
-          (spacemacs/message (format "Package: Initializing %S..." x))
+          (spacemacs-buffer/message (format "Package: Initializing %S..." x))
           (configuration-layer//eval-init-functions
            x (ht-get configuration-layer-packages-init-funcs x)))
         configuration-layer-all-packages-sorted))
@@ -657,7 +657,7 @@ to select one."
 (defun configuration-layer//initialize-pre-extensions ()
   "Initialize all the declared pre-extensions."
   (mapc (lambda (x)
-          (spacemacs/message (format "Pre-extension: Initializing %S..." x))
+          (spacemacs-buffer/message (format "Pre-extension: Initializing %S..." x))
           (configuration-layer//eval-init-functions
            x (ht-get configuration-layer-pre-extensions-init-funcs x) t))
         configuration-layer-all-pre-extensions-sorted))
@@ -665,7 +665,7 @@ to select one."
 (defun configuration-layer//initialize-post-extensions ()
   "Initialize all the declared post-extensions."
   (mapc (lambda (x)
-          (spacemacs/message (format "Post-extension: Initializing %S..." x))
+          (spacemacs-buffer/message (format "Post-extension: Initializing %S..." x))
           (configuration-layer//eval-init-functions
            x (ht-get configuration-layer-post-extensions-init-funcs x) t))
         configuration-layer-all-post-extensions-sorted))
@@ -675,15 +675,15 @@ to select one."
   (when (or extension-p (package-installed-p pkg))
     (configuration-layer//activate-package pkg)
     (dolist (f funcs)
-      (spacemacs/message (format "-> %S..." f))
+      (spacemacs-buffer/message (format "-> %S..." f))
       (condition-case err
           (funcall f)
         ('error
          (configuration-layer//set-error)
-         (spacemacs/append-to-buffer
+         (spacemacs-buffer/append
           (format (concat "An error occurred while initializing %s "
                           "(error: %s)\n") pkg err)))))
-    (spacemacs/loading-animation)))
+    (spacemacs-buffer/loading-animation)))
 
 (defun configuration-layer//activate-package (pkg)
   "Activate PKG."
@@ -837,21 +837,21 @@ deleted safely."
     ;; (message "orphans: %s" orphans)
     (if orphans
         (progn
-          (spacemacs/append-to-buffer
+          (spacemacs-buffer/append
            (format "Found %s orphan package(s) to delete...\n"
                    orphans-count))
           (setq deleted-count 0)
           (dolist (orphan orphans)
             (setq deleted-count (1+ deleted-count))
-            (spacemacs/replace-last-line-of-buffer
+            (spacemacs-buffer/replace-last-line
              (format "--> deleting %s... [%s/%s]"
                      orphan
                      deleted-count
                      orphans-count) t)
             (configuration-layer//package-delete orphan)
             (spacemacs//redisplay))
-          (spacemacs/append-to-buffer "\n"))
-      (spacemacs/message "No orphan package to delete."))))
+          (spacemacs-buffer/append "\n"))
+      (spacemacs-buffer/message "No orphan package to delete."))))
 
 (defun configuration-layer//set-error ()
   "Set the error flag and change the mode-line color to red."

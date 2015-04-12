@@ -12,57 +12,57 @@
 (defconst spacemacs-buffer-name "*spacemacs*"
   "The name of the spacemacs buffer.")
 
-(defconst spacemacs--banner-length 75
+(defconst spacemacs-buffer--banner-length 75
   "Width of a banner.")
 
-(defvar spacemacs--changelog-widgets ())
+(defvar spacemacs-buffer--changelog-widgets ())
 
-(defun spacemacs//insert-banner-and-buttons ()
+(defun spacemacs-buffer/insert-banner-and-buttons ()
   "Choose a banner accordingly to `dotspacemacs-startup-banner'and insert it
 in spacemacs buffer along whith quick buttons underneath.
 
 Easter egg:
 Doge special text banner can be reachable via `999', `doge' or `random*'.
 `random' ignore special banners whereas `random*' does not."
-  (let ((banner (spacemacs//choose-banner))
+  (let ((banner (spacemacs-buffer//choose-banner))
         (buffer-read-only nil))
     (when banner
-      (spacemacs/message (format "Banner: %s" banner))
+      (spacemacs-buffer/message (format "Banner: %s" banner))
       (if (string-match "\\.png\\'" banner)
-          (spacemacs//insert-image-banner banner)
+          (spacemacs-buffer//insert-image-banner banner)
         (insert-file-contents banner))
-      (spacemacs//inject-version)
-      (spacemacs/insert-buttons)
+      (spacemacs-buffer//inject-version)
+      (spacemacs-buffer//insert-buttons)
       (when (eq t dotspacemacs-always-show-changelog)
-        (spacemacs/toggle-changelog))
+        (spacemacs-buffer/toggle-changelog))
       (spacemacs//redisplay))))
 
-(defun spacemacs//choose-banner ()
+(defun spacemacs-buffer//choose-banner ()
   "Return the full path of a banner based on the dotfile value."
   (cond
    ((eq 'official dotspacemacs-startup-banner)
     (if (and (display-graphic-p) (image-type-available-p 'png))
         spacemacs-banner-official-png
-      (spacemacs//get-banner-path 1)))
+      (spacemacs-buffer//get-banner-path 1)))
    ((eq 'random dotspacemacs-startup-banner)
-    (spacemacs//choose-random-text-banner))
+    (spacemacs-buffer//choose-random-text-banner))
    ((eq 'random* dotspacemacs-startup-banner)
-    (spacemacs//choose-random-text-banner t))
+    (spacemacs-buffer//choose-random-text-banner t))
    ((eq 'doge dotspacemacs-startup-banner)
-    (spacemacs//get-banner-path 999))
+    (spacemacs-buffer//get-banner-path 999))
    ((integerp dotspacemacs-startup-banner)
-    (spacemacs//get-banner-path dotspacemacs-startup-banner))
+    (spacemacs-buffer//get-banner-path dotspacemacs-startup-banner))
    ((and dotspacemacs-startup-banner
          (string-match "\\.png\\'" dotspacemacs-startup-banner))
     (if (and (display-graphic-p) (image-type-available-p 'png))
         (if (file-exists-p dotspacemacs-startup-banner)
             dotspacemacs-startup-banner
-          (spacemacs/message (format "Warning: could not find banner %s"
+          (spacemacs-buffer/message (format "Warning: could not find banner %s"
                                      dotspacemacs-startup-banner))
-          (spacemacs//get-banner-path 1))
-      (spacemacs//get-banner-path 1)))))
+          (spacemacs-buffer//get-banner-path 1))
+      (spacemacs-buffer//get-banner-path 1)))))
 
-(defun spacemacs//choose-random-text-banner (&optional all)
+(defun spacemacs-buffer//choose-random-text-banner (&optional all)
   "Return the full path of a banner chosen randomly.
 
 If ALL is non-nil then truly all banners can be selected."
@@ -72,17 +72,17 @@ If ALL is non-nil then truly all banners can be selected."
          (choice (+ 2 (random (- count (if all 2 3))))))
     (nth choice files)))
 
-(defun spacemacs//get-banner-path (index)
+(defun spacemacs-buffer//get-banner-path (index)
   "Return the full path to banner with index INDEX."
   (concat spacemacs-banner-directory (format "%03d-banner.txt" index)))
 
-(defun spacemacs//insert-image-banner (banner)
+(defun spacemacs-buffer//insert-image-banner (banner)
   "Display an image banner."
   (when (file-exists-p banner)
     (let* ((spec (create-image banner))
            (size (image-size spec))
            (width (car size))
-           (left-margin (floor (- spacemacs--banner-length width) 2)))
+           (left-margin (floor (- spacemacs-buffer--banner-length width) 2)))
       (beginning-of-buffer)
       (insert "\n")
       (insert (make-string (- left-margin 1) ?\ ))
@@ -90,12 +90,12 @@ If ALL is non-nil then truly all banners can be selected."
       (insert "\n\n")
       (insert "                           [S P A C E M A C S]\n\n"))))
 
-(defun spacemacs//inject-version ()
+(defun spacemacs-buffer//inject-version ()
   "Inject the current version of spacemacs in the first line of the
 buffer, right justified."
   (save-excursion
     (beginning-of-buffer)
-    (let* ((maxcol spacemacs--banner-length)
+    (let* ((maxcol spacemacs-buffer--banner-length)
            (injected (format "(%s)" spacemacs-version))
            (pos (- maxcol (length injected)))
            (buffer-read-only nil))
@@ -107,39 +107,40 @@ buffer, right justified."
       (delete-char (length injected))
       (insert injected))))
 
-(defun spacemacs//insert-changelog ()
+(defun spacemacs-buffer//insert-changelog ()
   (save-excursion
     (beginning-of-buffer)
     (search-forward "Spacemacs\]")
     (next-line)
   (let* ((file-contents (with-temp-buffer (insert-file-contents spacemacs-changelog-file) (buffer-string)))
          (changelog-header "\nCHANGELOG"))
-    (setq spacemacs--changelog-widgets (cons (widget-create 'text changelog-header) spacemacs--changelog-widgets))
-    (setq spacemacs--changelog-widgets (cons (widget-create 'text (concat "\n" file-contents)) spacemacs--changelog-widgets)))))
+    (setq spacemacs-buffer--changelog-widgets (cons (widget-create 'text changelog-header) spacemacs-buffer--changelog-widgets))
+    (setq spacemacs-buffer--changelog-widgets (cons (widget-create 'text (concat "\n" file-contents)) spacemacs-buffer--changelog-widgets)))))
 
-(defun spacemacs/toggle-changelog ()
-  (if (eq spacemacs--changelog-widgets nil)
-      (spacemacs//insert-changelog)
+(defun spacemacs-buffer/toggle-changelog ()
+  (interactive)
+  (if (eq spacemacs-buffer--changelog-widgets nil)
+      (spacemacs-buffer//insert-changelog)
     (mapc (lambda (el)
             (widget-delete el)
-            (setq spacemacs--changelog-widgets (remove el spacemacs--changelog-widgets)))
-          spacemacs--changelog-widgets)))
+            (setq spacemacs-buffer--changelog-widgets (remove el spacemacs-buffer--changelog-widgets)))
+          spacemacs-buffer--changelog-widgets)))
 
-(defun spacemacs/set-mode-line (format)
+(defun spacemacs-buffer/set-mode-line (format)
   "Set mode-line format for spacemacs buffer."
   (with-current-buffer (get-buffer-create "*spacemacs*")
     (setq mode-line-format format)))
 
-(defun spacemacs/message (msg &rest args)
+(defun spacemacs-buffer/message (msg &rest args)
   "Display MSG in message prepended with '(Spacemacs)'."
   (when dotspacemacs-verbose-loading
     (message "(Spacemacs) %s" (apply 'format msg args))))
 
-(defun spacemacs/insert-page-break ()
+(defun spacemacs-buffer/insert-page-break ()
   "Insert a page break line in spacemacs buffer."
-  (spacemacs/append-to-buffer "\n\n\n"))
+  (spacemacs-buffer/append "\n\n\n"))
 
-(defun spacemacs/append-to-buffer (msg &optional messagebuf)
+(defun spacemacs-buffer/append (msg &optional messagebuf)
   "Append MSG to spacemacs buffer. If MESSAGEBUF is not nil then MSG is
  also written in message buffer."
   (with-current-buffer (get-buffer-create "*spacemacs*")
@@ -147,9 +148,9 @@ buffer, right justified."
     (let ((buffer-read-only nil))
       (insert msg)
       (if messagebuf (message "(Spacemacs) %s" msg)))
-    (spacemacs/set-mode-line "")))
+    (spacemacs-buffer/set-mode-line "")))
 
-(defun spacemacs/replace-last-line-of-buffer (msg &optional messagebuf)
+(defun spacemacs-buffer/replace-last-line (msg &optional messagebuf)
   "Replace the last line of the spacemacs buffer with MSG. If MESSAGEBUF is
  not nil then MSG is also written in message buffer."
   (with-current-buffer (get-buffer-create "*spacemacs*")
@@ -158,9 +159,9 @@ buffer, right justified."
       (delete-region (line-beginning-position) (point-max))
       (insert msg)
       (if messagebuf (message "(Spacemacs) %s" msg)))
-    (spacemacs/set-mode-line "")))
+    (spacemacs-buffer/set-mode-line "")))
 
-(defun spacemacs/insert-framed-text-to-buffer
+(defun spacemacs-buffer/insert-framed-text
     (msg &optional caption hpadding)
   "Insert MSG in spacemacs buffer within a frame of width FILL-COLUMN.
 
@@ -168,10 +169,10 @@ See `spacemacs//render-framed-text' for documentation of the other
 parameters."
   (with-current-buffer (get-buffer-create "*spacemacs*")
     (let ((buffer-read-only nil))
-      (insert (spacemacs//render-framed-text msg spacemacs--banner-length
+      (insert (spacemacs//render-framed-text msg spacemacs-buffer--banner-length
                                              caption hpadding)))))
 
-(defun spacemacs/insert-framed-text-from-file-to-buffer
+(defun spacemacs-buffer/insert-framed-text-from-file
     (filepath &optional caption hpadding)
   "Insert at point the content of FILENAME file in spacemacs buffer in a
 frame.
@@ -183,7 +184,7 @@ parameters."
   (when (file-exists-p filepath)
     (with-current-buffer (get-buffer-create "*spacemacs*")
       (let ((buffer-read-only nil))
-        (insert (spacemacs//render-framed-text filepath spacemacs--banner-length
+        (insert (spacemacs//render-framed-text filepath spacemacs-buffer--banner-length
                                                caption hpadding))))))
 
 (defun spacemacs//render-framed-text (content &optional width caption hpadding)
@@ -247,7 +248,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
               line (make-string fill ?\s)
               (make-string hpadding ?\s) "│\n"))))
 
-(defun spacemacs/loading-animation ()
+(defun spacemacs-buffer/loading-animation ()
   "Display the progress bar by chunk of size `spacemacs--loading-dots-chunk-threshold'."
   (when dotspacemacs-loading-progress-bar
     (setq spacemacs-loading-counter (1+ spacemacs-loading-counter))
@@ -257,10 +258,10 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
             (concat spacemacs-loading-string
                     (make-string spacemacs-loading-dots-chunk-size
                                  spacemacs-loading-char)))
-      (spacemacs/set-mode-line spacemacs-loading-string)
+      (spacemacs-buffer/set-mode-line spacemacs-loading-string)
       (spacemacs//redisplay))))
 
-(defun spacemacs/insert-buttons ()
+(defun spacemacs-buffer//insert-buttons ()
   (goto-char (point-max))
   (insert "      ")
   (widget-create 'url-link
@@ -298,25 +299,24 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :follow-link "\C-m"
                  "Rollback")
   (insert "\n")
-  (let ((button-title "[Toggle Changelog] [Search in Spacemacs]"))
-    ; Compute the correct number of spaces to center the button.
-    (dotimes (i (/ (- spacemacs--banner-length (string-width button-title) 1) 2)) (insert " "))
-    (widget-create 'push-button
-                   :help-echo "Hide or show the Changelog"
-                   :action (lambda (&rest ignore) (spacemacs/toggle-changelog))
-                   :mouse-face 'highlight
-                   :follow-link "\C-m"
-                   "Toggle Changelog"))
-    (widget-insert " ")
-    (widget-create 'url-link
-                   :help-echo "Find Spacemacs package and layer configs using helm-spacemacs."
-                   :action (lambda (&rest ignore) (call-interactively 'helm-spacemacs))
-                   :mouse-face 'highlight
-                   :follow-link "\C-m"
-                   "Search in Spacemacs")
+  (insert "                 ")
+  (widget-create 'push-button
+                 :tag "Release Notes"
+                 :help-echo "Hide or show the Changelog"
+                 :action (lambda (&rest ignore) (spacemacs-buffer/toggle-changelog))
+                 :mouse-face 'highlight
+                 :follow-link "\C-m"
+                 )
+  (insert " ")
+  (widget-create 'url-link
+                 :tag "Search in Spacemacs"
+                 :help-echo "Find Spacemacs package and layer configs using helm-spacemacs."
+                 :action (lambda (&rest ignore) (call-interactively 'helm-spacemacs))
+                 :mouse-face 'highlight
+                 :follow-link "\C-m")
   (insert "\n\n"))
 
-(defun spacemacs//insert-file-list (list-display-name list shortcut-char)
+(defun spacemacs-buffer//insert-file-list (list-display-name list shortcut-char)
   (when (car list)
     (define-key spacemacs-mode-map shortcut-char `(lambda ()
                                                     (interactive)
@@ -336,30 +336,30 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                            (abbreviate-file-name el)))
           list)))
 
-(defun spacemacs/insert-startupify-lists ()
+(defun spacemacs-buffer/insert-startupify-lists ()
   (interactive)
   (with-current-buffer (get-buffer-create "*spacemacs*")
     (let ((buffer-read-only nil)
           (list-separator "\n\n"))
       (goto-char (point-max))
       (page-break-lines-mode)
-      (spacemacs/insert-page-break)
+      (spacemacs-buffer/insert-page-break)
       (mapc (lambda (el)
               (cond
                ((eq el 'recents)
                 (recentf-mode)
-                (when (spacemacs//insert-file-list "Recent Files:" (recentf-elements 5) "r")
+                (when (spacemacs-buffer//insert-file-list "Recent Files:" (recentf-elements 5) "r")
                   (insert list-separator)))
                ((eq el 'bookmarks)
                 (helm-mode)
-                (when (spacemacs//insert-file-list "Bookmarks:" (bookmark-all-names) "b")
+                (when (spacemacs-buffer//insert-file-list "Bookmarks:" (bookmark-all-names) "b")
                   (insert list-separator)))
                ((eq el 'projects)
                 (projectile-mode)
-                (when (spacemacs//insert-file-list "Projects:" (projectile-relevant-known-projects) "p")
+                (when (spacemacs-buffer//insert-file-list "Projects:" (projectile-relevant-known-projects) "p")
                   (insert list-separator))))) dotspacemacs-startup-lists))))
 
-(defun spacemacs/goto-link-line ()
+(defun spacemacs-buffer/goto-link-line ()
   "Move the point to the beginning of the link line."
   (interactive)
   (when (and dotspacemacs-startup-banner
