@@ -6,6 +6,9 @@
 ;; URL: https://github.com/paetzke/py-yapf.el
 ;; Version: 0.1
 
+;; Licensed under GPLv3
+;; This file is NOT part of GNU Emacs.
+
 ;;; Commentary:
 
 ;; Provides commands, which use the external "yapf"
