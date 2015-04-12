@@ -235,7 +235,7 @@ the following keys:
                (plist (append (list :dir dir :ext-dir ext-dir)
                               (when (listp layer) (cdr layer)))))
           (cons name-sym plist))
-      (spacemacs-buffer/message "Warning: Cannot find layer %S !" name-sym)
+      (spacemacs-buffer/warning "Cannot find layer %S !" name-sym)
       nil)))
 
 (defun configuration-layer//set-layers-variables (layers)
@@ -246,8 +246,8 @@ the following keys:
         (let ((var (pop variables)))
           (if (consp variables)
               (set-default var (pop variables))
-            (spacemacs-buffer/message "Warning: Missing value for variable %s !"
-                               var)))))))
+            (spacemacs-buffer/warning "Missing value for variable %s !"
+                                      var)))))))
 
 (defun configuration-layer/package-usedp (pkg)
   "Return non-nil if PKG symbol corresponds to a used package."

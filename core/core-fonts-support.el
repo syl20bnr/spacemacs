@@ -79,7 +79,7 @@ PLIST has the form (\"fontname\" :prop1 val1 :prop2 val2 ...)"
 
 (defun spacemacs/set-font (&rest args)
   "Deprecated function, display a warning message."
-  (spacemacs-buffer/message (concat "Warning: spacemacs/set-font is deprecated. "
+  (spacemacs-buffer/warning (concat "spacemacs/set-font is deprecated. "
                              "Use the variable `dotspacemacs-default-font' "
                              "instead (see Font section in "
                              "~/.emacs.d/doc/DOCUMENTATION.md for more "

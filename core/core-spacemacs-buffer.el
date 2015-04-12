@@ -57,8 +57,8 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
     (if (and (display-graphic-p) (image-type-available-p 'png))
         (if (file-exists-p dotspacemacs-startup-banner)
             dotspacemacs-startup-banner
-          (spacemacs-buffer/message (format "Warning: could not find banner %s"
-                                     dotspacemacs-startup-banner))
+          (spacemacs-buffer/warning (format "could not find banner %s"
+                                            dotspacemacs-startup-banner))
           (spacemacs-buffer//get-banner-path 1))
       (spacemacs-buffer//get-banner-path 1)))))
 
@@ -132,9 +132,15 @@ buffer, right justified."
     (setq mode-line-format format)))
 
 (defun spacemacs-buffer/message (msg &rest args)
-  "Display MSG in message prepended with '(Spacemacs)'."
+  "Display MSG in message prepended with '(Spacemacs)'.
+The message is displayed only if `dotspacemacs-verbose-loading' is non nil."
   (when dotspacemacs-verbose-loading
     (message "(Spacemacs) %s" (apply 'format msg args))))
+
+(defun spacemacs-buffer/warning (msg &rest args)
+  "Display MSG as a warning message but in buffer `*Messages*'.
+The message is always displayed. "
+  (message "(Spacemacs) Warning: %s" (apply 'format msg args)))
 
 (defun spacemacs-buffer/insert-page-break ()
   "Insert a page break line in spacemacs buffer."

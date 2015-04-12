@@ -36,8 +36,8 @@
 (defun go/init-go-oracle()
   (let ((go-path (getenv "GOPATH")))
     (if (not go-path)
-        (spacemacs-buffer/message (concat "Warning: GOPATH variable not found, "
-                                   "go-oracle configuration skipped."))
+        (spacemacs-buffer/warning
+         "GOPATH variable not found, go-oracle configuration skipped.")
       (when (load-gopath-file
              go-path "/src/golang.org/x/tools/cmd/oracle/oracle.el")
         (evil-leader/set-key-for-mode 'go-mode
