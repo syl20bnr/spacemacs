@@ -1395,6 +1395,13 @@ ARG non nil means that the editing style is `vim'."
       ;;shell
       (evil-leader/set-key-for-mode 'shell-mode "mH" 'spacemacs/helm-shell-history)
 
+      (defun spacemacs/helm-edit ()
+        "Switch in edit mode depending on the current helm buffer."
+        (interactive)
+        (cond
+         ((string-equal "*helm-ag*" helm-buffer)
+          (helm-ag-edit))))
+
       (defun spacemacs//helm-navigation-ms-on-enter ()
         "Initialization of helm micro-state."
         ;; faces
@@ -1433,6 +1440,7 @@ ARG non nil means that the editing style is `vim'."
         "
   [?]          display this help
   [a]          toggle action selection page
+  [e]          edit occurrences if supported
   [j] [k]      next/previous candidate
   [h] [l]      previous/next source
   [t]          toggle visible mark
@@ -1454,6 +1462,7 @@ ARG non nil means that the editing style is `vim'."
         ("<RET>" helm-maybe-exit-minibuffer :exit t)
         ("?" nil :doc (spacemacs//helm-navigation-ms-full-doc))
         ("a" helm-select-action :post (spacemacs//helm-navigation-ms-set-face))
+        ("e" spacemacs/helm-edit)
         ("h" helm-previous-source)
         ("j" helm-next-line)
         ("k" helm-previous-line)
@@ -1468,7 +1477,9 @@ ARG non nil means that the editing style is `vim'."
 
 (defun spacemacs/init-helm-ag ()
   (use-package helm-ag
-    :defer t))
+    :defer t
+    :config
+    (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)))
 
 (defun spacemacs/init-helm-c-yasnippet ()
   (use-package helm-c-yasnippet
