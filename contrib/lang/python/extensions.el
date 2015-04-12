@@ -73,4 +73,4 @@
   (use-package py-yapf
     :init
     (evil-leader/set-key-for-mode 'python-mode
-        "mcf" 'py-yapf-buffer)))
+        "m=" 'py-yapf-buffer)))
