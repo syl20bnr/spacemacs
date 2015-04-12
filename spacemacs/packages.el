@@ -67,7 +67,6 @@
     ;; not working for now
     ;; helm-proc
     helm-projectile
-    helm-pt
     helm-swoop
     helm-themes
     highlight-indentation
@@ -1255,11 +1254,20 @@ which require an initialization must be listed explicitly in the list.")
             helm-always-two-windows     t)
 
       (defun spacemacs/helm-do-ack ()
-        "Perform a search using ack."
+        "Perform a search with ack using `helm-ag.'"
         (interactive)
-        (let ((helm-grep-default-command "ack -Hn --no-group %e %p %f")
-              (helm-grep-default-recurse-command "ack -H --no-group %e %p %f"))
-          (helm-do-grep)))
+        (if (configuration-layer/package-usedp 'helm-ag)
+            (let ((helm-ag-base-command "ack --nocolor --nogroup"))
+              (call-interactively 'helm-do-ag))
+          (message "error: helm-ag not found.")))
+
+      (defun spacemacs/helm-do-pt ()
+        "Perform a search with the platinum searcher using `helm-ag.'"
+        (interactive)
+        (if (configuration-layer/package-usedp 'helm-ag)
+            (let ((helm-ag-base-command "pt --nocolor --nogroup"))
+              (call-interactively 'helm-do-ag))
+          (message "error: helm-ag not found.")))
 
       (defun spacemacs/helm-do-search-dwim (&optional arg)
         "Execute the first found search tool.
@@ -1272,8 +1280,7 @@ ignored)."
          (if arg
              (cond (((executable-find "ack") 'spacemacs/helm-do-ack)
                     (t 'helm-do-grep)))
-           (cond ((and (configuration-layer/package-usedp 'helm-pt)
-                       (executable-find "pt")) 'helm-do-pt)
+           (cond ((executable-find "pt") 'spacemacs/helm-do-pt)
                  ((executable-find "ag") 'helm-do-ag)
                  ((executable-find "ack") 'spacemacs/helm-do-ack)
                  (t 'helm-do-grep)))))
@@ -1299,6 +1306,7 @@ ignored)."
         "sa"  'helm-do-ag
         "sg"  'helm-do-grep
         "sk"  'spacemacs/helm-do-ack
+        "sp"  'spacemacs/helm-do-pt
         "sl"  'helm-semantic-or-imenu)
 
       ;; define the key binding at the very end in order to allow the user
@@ -1478,6 +1486,12 @@ ARG non nil means that the editing style is `vim'."
 (defun spacemacs/init-helm-ag ()
   (use-package helm-ag
     :defer t
+    :init
+    (progn
+      (defun spacemacs/helm-do-ack ()
+
+        )
+      )
     :config
     (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)))
 
@@ -1544,6 +1558,14 @@ ARG non nil means that the editing style is `vim'."
       (defconst spacemacs-use-helm-projectile t
         "This variable is only defined if helm-projectile is used.")
 
+      (defun spacemacs/helm-projectile-pt ()
+        "Perform a search with the platinum searcher using `helm-projectile.'"
+        (interactive)
+        (if (configuration-layer/package-usedp 'helm-ag)
+            (let ((helm-ag-base-command "pt --nocolor --nogroup"))
+              (call-interactively 'helm-projectile-ag))
+          (message "error: helm-ag not found.")))
+
       (defun spacemacs/helm-projectile-search-dwim (&optional arg)
         "Execute the first found search tool.
 
@@ -1555,8 +1577,7 @@ ignored)."
          (if arg
              (cond (((executable-find "ack") 'helm-projectile-ack)
                     (t 'helm-projectile-grep)))
-           (cond ((and (configuration-layer/package-usedp 'helm-pt)
-                       (executable-find "pt")) 'helm-projectile-pt)
+           (cond ((executable-find "pt") 'spacemacs/helm-projectile-pt)
                  ((executable-find "ag") 'helm-projectile-ag)
                  ((executable-find "ack") 'spacemacs/helm-projectile-ack)
                  (t 'helm-projectile-grep)))))
@@ -1572,15 +1593,8 @@ ignored)."
         "psa" 'helm-projectile-ag
         "psg" 'helm-projectile-grep
         "psk" 'helm-projectile-ack
+        "psp" 'helm-projectile-pt
         "pv"  'helm-projectile-vc))))
-
-(defun spacemacs/init-helm-pt ()
-  (use-package helm-pt
-    :defer t
-    :init
-    (evil-leader/set-key
-      "psp" 'helm-projectile-pt
-      "sp" 'helm-do-pt)))
 
 (defun spacemacs/init-helm-swoop ()
   (use-package helm-swoop
