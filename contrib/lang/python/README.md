@@ -8,6 +8,8 @@
 - [Python contribution layer for Spacemacs](#python-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
+        - [Layer](#layer)
+        - [Anaconda dependencies](#anaconda-dependencies)
     - [Key Bindings](#key-bindings)
         - [Inferior REPL process](#inferior-repl-process)
         - [Running Python Script in shell](#running-python-script-in-shell)
@@ -38,11 +40,27 @@ Features:
 
 ## Install
 
+### Layer
+
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(python))
 ```
+
+### Anaconda dependencies
+
+`anaconda-mode` tries to install the dependencies itself but sometimes
+it does not work and you may encounter the following message when
+opening a python buffer:
+
+    Blocking call to accept-process-output with quit inhibited!!
+
+To fix this, install the `anaconda-mode` [dependencies][anaconda-deps] by hand:
+
+    pip install  jedi==0.8.1 json-rpc==1.8.1 service_factory==0.1.2
+
+Source: https://github.com/proofit404/anaconda-mode#issues
 
 ## Key Bindings
 
@@ -193,3 +211,4 @@ Manage Django with <kbd>SPC m j m</kbd>.
 [nose]: https://github.com/nose-devs/nose/
 [nose.el]: https://github.com/syl20bnr/nose.el
 [pony-mode]: https://github.com/davidmiller/pony-mode
+[anaconda-deps]: https://github.com/proofit404/anaconda-mode/blob/master/requirements.txt
