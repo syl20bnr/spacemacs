@@ -426,20 +426,23 @@ Thank you !
 The version is displayed on the upper right corner of the loading screen.
 You may also just type <kbd>SPC f e v</kbd>.
 
-2. **Why are packages installed with `package-install` automatically deleted by
+2. **What is the official pronunciation of Spacemacs ?**
+As it is written, that is _space_ then _macs_.
+
+3. **Why are packages installed with `package-install` automatically deleted by
 Spacemacs when it boots ?**
 To declare new packages you have to create a new configuration layer, see
 the [quick start guide](#configuration).
 
-3. **The Spacemacs banner is ugly, what should I do ?**
+4. **The Spacemacs banner is ugly, what should I do ?**
 Install the default font supported by Spacemacs or choose a fixed width font.
 More information in the [font section][] of the documentation.
 
-4. **The powerline separators are ugly, how can I fix them ?**
+5. **The powerline separators are ugly, how can I fix them ?**
 Use the property `:powerline-scale` of the variable
 `dotspacemacs-default-font`. See [font][] documentation for more details.
 
-5. **The powerline separators have no anti-aliasing, what can I do ?**
+6. **The powerline separators have no anti-aliasing, what can I do ?**
 Emacs powerline uses XMP images to draw the separators in a graphical
 environment. You can have anti-aliasing if you use the `utf8` separator.
 Note that by default the `utf8` separator is used in a terminal.
