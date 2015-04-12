@@ -1562,7 +1562,7 @@ ARG non nil means that the editing style is `vim'."
         "Perform a search with the platinum searcher using `helm-projectile.'"
         (interactive)
         (if (configuration-layer/package-usedp 'helm-ag)
-            (let ((helm-ag-base-command "pt --nocolor --nogroup"))
+            (let ((helm-ag-base-command "pt -e --nocolor --nogroup"))
               (call-interactively 'helm-projectile-ag))
           (message "error: helm-ag not found.")))
 
