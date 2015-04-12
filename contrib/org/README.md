@@ -8,6 +8,8 @@
 - [Org contribution layer for Spacemacs](#org-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
+        - [Layer](#layer)
+        - [Different bullets](#different-bullets)
     - [Key bindings](#key-bindings)
         - [Org with evil-org-mode](#org-with-evil-org-mode)
         - [Pomodoro](#pomodoro)
@@ -27,10 +29,22 @@ This layer enables [org mode][] for Spacemacs.
 
 ## Install
 
+### Layer
+
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(org))
+```
+
+### Different bullets
+
+You can tweak the bullets displayed in the org buffer in the function
+`dotspacemacs/config` of your dotfile by setting the variable
+`org-bullets-bullet-list`. By default the list is set to `("◉" "○" "✸" "✿")`.
+
+```elisp
+(setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
 ```
 
 ## Key bindings
