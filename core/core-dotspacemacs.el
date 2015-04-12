@@ -260,7 +260,7 @@ value."
   "Call the function from the dotfile only if it is bound.
 If MSG is not nil then display a message in `*Messages'."
   `(progn
-     (when ,msg (spacemacs/message ,msg))
+     (when ,msg (spacemacs-buffer/message ,msg))
      (if (fboundp ',func) (,func))))
 
 (provide 'core-dotspacemacs)
