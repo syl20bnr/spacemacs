@@ -440,7 +440,7 @@ More information in the [font section][] of the documentation.
 
 5. **The powerline separators are ugly, how can I fix them ?**
 Use the property `:powerline-scale` of the variable
-`dotspacemacs-default-font`. See [font][] documentation for more details.
+`dotspacemacs-default-font`. See [font section][] documentation for more details.
 
 6. **The powerline separators have no anti-aliasing, what can I do ?**
 Emacs powerline uses XMP images to draw the separators in a graphical
