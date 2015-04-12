@@ -25,8 +25,7 @@
     - [Github support](#github-support)
         - [magit-gh-pulls](#magit-gh-pulls)
         - [gist.el](#gistel)
-        - [github-browse-file](#github-browse-file)
-        - [git-link](#git-link)
+        - [Browse files](#browse-files)
 
 <!-- markdown-toc end -->
 
@@ -45,6 +44,8 @@ Features:
 This layer also provides support for Github with:
 - [magit-gh-pulls][]: handy `magit` add-on to manage Github pull requests.
 - [gist.el][]: full-featured mode to browse and post Githug gists.
+- [github-browse-file][] and [git-link][]: quickly browse github URL in your
+browser.
 
 New to Magit? Checkout the [official intro][].
 
@@ -341,28 +342,22 @@ In the gist list buffer:
 <kbd>V</kbd>                 | `visual-line state`
 <kbd>y</kbd>                 | print URL and copy it
 
-### github-browse-file
+### Browse files
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC g f b</kbd>  | browse to file on github
-
-### git-link
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>SPC g f l</kbd>  | browse to file on github/bitbucket/etc (on current line possition)
 <kbd>SPC g f c</kbd>  | browse to file on github/bitbucket/etc (on current line at commit)
+<kbd>SPC g f C</kbd>  | only copy the generated link on the kill ring
+<kbd>SPC g f l</kbd>  | browse to file on github/bitbucket/etc (on current line position)
+<kbd>SPC g f L</kbd>  | only copy the generated link on the kill ring
 
-Pro Tip: if you have multiple remotes, try prepending `SPC u` to the calls to the git-link
-
-Pro Tip #2: You can select a region and use git-link to have the whole region selected in the link
-
-Pro tip #3: The link is openned automatically, but it's copied to the clipboard
-too if you don't want for any reason to have the link opened all the time, put this on your `dotspacemacs/config`:
-```elisp
-(setq git-link-open-in-browser nil)
-```
+**Notes**
+- You can use the universal argument `SPC u` to select a remote repository.
+- You can use `git-link` on a region.
+- When the link is opened, the URL is also copied in the kill ring, you can
+override this behavior by setting the variable `git-link-open-in-browser` to
+`nil`.
 
 [git]: http://git-scm.com/
 [download page]: http://git-scm.com/downloads
@@ -376,3 +371,5 @@ too if you don't want for any reason to have the link opened all the time, put t
 [git-messenger]: https://github.com/syohex/emacs-git-messenger
 [magit-gh-pulls]: https://github.com/sigma/magit-gh-pulls
 [gist.el]: https://github.com/defunkt/gist.el
+[git-link]: https://github.com/sshaw/git-link
+[github-browse-file]: https://github.com/osener/github-browse-file
