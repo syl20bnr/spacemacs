@@ -345,23 +345,35 @@ argument takes the kindows rotate backwards."
   (interactive "p")
   (rotate-windows (* -1 count)))
 
-(defun spacemacs/next-real-buffer ()
+(defvar spacemacs-useless-buffers-regexp '("*\.\+")
+  "Regexp used to determine if a buffer is not useful.")
+(defvar spacemacs-useful-buffers-regexp "\\*\\(scratch\\|terminal\.\+\\|ansi-term\\|eshell\\)\\*"
+  "Regexp used to define buffers that are useful despite matching
+`spacemacs-useless-buffers-regexp'.")
+
+(defun spacemacs/useful-buffer-p (buffer-name)
+  "Determines if a buffer is useful."
+  (catch 'found-useful-buffer
+    (mapc (lambda (useless-buffers-regexp)
+            (when (and (not (string-match spacemacs-useful-buffers-regexp buffer-name))
+                       (string-match useless-buffers-regexp buffer-name))
+              (throw 'found-useful-buffer t)))
+          spacemacs-useless-buffers-regexp)
+    nil))
+
+(defun spacemacs/next-useful-buffer ()
   "Swtich to the next buffer and avoid special buffers."
   (interactive)
-  (switch-to-next-buffer)
-  (let ((i 0))
-    (while (and (< i 100) (string-equal "*" (substring (buffer-name) 0 1)))
-      (1+ i)
-      (switch-to-next-buffer))))
+  (next-buffer)
+  (while (spacemacs/useful-buffer-p (buffer-name (current-buffer)))
+    (next-buffer)))
 
-(defun spacemacs/prev-real-buffer ()
-  "Swtich to the previous buffer and avoid special buffers."
+(defun spacemacs/previous-useful-buffer ()
+  "Switch to the previous buffer and avoid special buffers."
   (interactive)
-  (switch-to-prev-buffer)
-  (let ((i 0))
-    (while (and (< i 100) (string-equal "*" (substring (buffer-name) 0 1)))
-      (1+ i)
-      (switch-to-prev-buffer))))
+  (previous-buffer)
+  (while (spacemacs/useful-buffer-p (buffer-name (current-buffer)))
+    (previous-buffer)))
 
 (defun spacemacs/kill-this-buffer ()
   "Kill the current buffer."
