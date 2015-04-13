@@ -363,7 +363,8 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                                                     (goto-char ,(point))
                                                     (next-line)
                                                     (back-to-indentation)))
-    (insert (concat "  " (format "[%s] " shortcut-char) list-display-name))
+    (insert (concat "  " ;; (format "[%s] " shortcut-char)
+                    list-display-name))
     (mapc (lambda (el)
             (insert "\n    ")
             (widget-create 'push-button
