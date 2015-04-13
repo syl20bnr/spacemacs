@@ -22,6 +22,13 @@
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
 
+(defvar org-excluded-packages
+  '(
+    ;; seems to be problematic, to investigate
+    ox-gfm
+    )
+  "List of packages to exclude.")
+
 (defun org/init-evil-org ()
   (use-package evil-org
     :commands evil-org-mode
