@@ -17,6 +17,7 @@
     org-bullets
     org-pomodoro
     org-repo-todo
+    ox-gfm
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -68,11 +69,9 @@ which require an initialization must be listed explicitly in the list.")
              (kbd "SPC") evil-leader--default-map))))
     :config
     (progn
-      (require 'org-install)
+      (require 'org-indent)
       (define-key global-map "\C-cl" 'org-store-link)
-      (define-key global-map "\C-ca" 'org-agenda)))
-
-  )
+      (define-key global-map "\C-ca" 'org-agenda))))
 
 (defun org/init-org-bullets ()
   (use-package org-bullets
@@ -101,3 +100,7 @@ which require an initialization must be listed explicitly in the list.")
         "CT"  'ort/capture-todo-check)
       (evil-leader/set-key-for-mode 'org-mode
         "mgt" 'ort/goto-todos))))
+
+(defun org/init-ox-gfm ()
+  (use-package ox-gfm
+    :defer t))
