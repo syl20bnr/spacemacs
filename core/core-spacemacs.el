@@ -69,6 +69,9 @@
 (defun spacemacs/init ()
   "Create the special buffer for `spacemacs-mode' and perform startup
 initialization."
+  ;; explicitly set the prefered coding systems to avoid annoying prompt
+  ;; from emacs (especially on Microsoft Windows)
+  (prefer-coding-system 'utf-8)
   ;; dotfile init
   (dotspacemacs/load-file)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
