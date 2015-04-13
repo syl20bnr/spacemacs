@@ -1515,12 +1515,6 @@ ARG non nil means that the editing style is `vim'."
 (defun spacemacs/init-helm-ag ()
   (use-package helm-ag
     :defer t
-    :init
-    (progn
-      (defun spacemacs/helm-do-ack ()
-
-        )
-      )
     :config
     (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)))
 
