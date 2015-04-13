@@ -326,10 +326,11 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
   (when (car list)
     (define-key spacemacs-mode-map shortcut-char `(lambda ()
                                                     (interactive)
-                                                    (goto-char ,(point))
-                                                    (next-line)
+                                                    (unless (search-forward (concat "[" ,shortcut-char "]" ) (point-max) t)
+                                                      (search-backward (concat "[" ,shortcut-char "]" ) (point-min) t))
+                                                    (forward-line 1)
                                                     (back-to-indentation)))
-    (insert (concat "  " (format "[%s] " shortcut-char) list-display-name))
+    (insert (concat "   [" (propertize (format "%s" shortcut-char) 'face 'error) "] " list-display-name))
     (mapc (lambda (el)
             (insert "\n    ")
             (widget-create 'push-button
@@ -380,6 +381,9 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                                  (local-set-key [tab] 'widget-forward)
                                  (local-set-key [S-tab] 'widget-backward)
                                  ;; S-tab is backtab in terminal
-                                 (local-set-key [backtab] 'widget-backward)))
+                                 (local-set-key [backtab] 'widget-backward)
+                                 (local-set-key [return] 'widget-button-press)
+                                 (local-set-key [down-mouse-1] 'widget-button-press)
+                                 ))
 
 (provide 'core-spacemacs-buffer)
