@@ -33,8 +33,6 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
         (insert-file-contents banner))
       (spacemacs-buffer//inject-version)
       (spacemacs-buffer//insert-buttons)
-      (when (eq t dotspacemacs-always-show-changelog)
-        (spacemacs-buffer/toggle-changelog))
       (spacemacs//redisplay))))
 
 (defun spacemacs-buffer//choose-banner ()
@@ -271,21 +269,21 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
   (goto-char (point-max))
   (insert "      ")
   (widget-create 'url-link
-                 :tag "Homepage"
+                 :tag (propertize "Homepage" 'face 'font-lock-keyword-face)
                  :help-echo "Open the Spacemacs Github page in your browser."
                  :mouse-face 'highlight
                  :follow-link "\C-m"
                  "https://github.com/syl20bnr/spacemacs")
   (insert " ")
   (widget-create 'url-link
-                 :tag "Documentation"
+                 :tag (propertize "Documentation" 'face 'font-lock-keyword-face)
                  :help-echo "Open the Spacemacs documentation in your browser."
                  :mouse-face 'highlight
                  :follow-link "\C-m"
                  "https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md")
   (insert " ")
   (widget-create 'url-link
-                 :tag "Gitter Chat"
+                 :tag (propertize "Gitter Chat" 'face 'font-lock-keyword-face)
                  :help-echo "Ask questions and chat with fellow users in our chat room."
                  :mouse-face 'highlight
                  :follow-link "\C-m"
@@ -296,18 +294,18 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :action (lambda (&rest ignore) (configuration-layer/update-packages))
                  :mouse-face 'highlight
                  :follow-link "\C-m"
-                 "Update")
+                 (propertize "Update" 'face 'font-lock-keyword-face))
   (insert " ")
   (widget-create 'push-button
                  :help-echo "Rollback ELPA package upgrades if something got borked."
                  :action (lambda (&rest ignore) (call-interactively 'configuration-layer/rollback))
                  :mouse-face 'highlight
                  :follow-link "\C-m"
-                 "Rollback")
+                 (propertize "Rollback" 'face 'font-lock-keyword-face))
   (insert "\n")
   (insert "                 ")
   (widget-create 'push-button
-                 :tag "Release Notes"
+                 :tag (propertize "Release Notes" 'face 'font-lock-preprocessor-face)
                  :help-echo "Hide or show the Changelog"
                  :action (lambda (&rest ignore) (spacemacs-buffer/toggle-changelog))
                  :mouse-face 'highlight
@@ -315,7 +313,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  )
   (insert " ")
   (widget-create 'url-link
-                 :tag "Search in Spacemacs"
+                 :tag (propertize "Search in Spacemacs" 'face 'font-lock-function-name-face)
                  :help-echo "Find Spacemacs package and layer configs using helm-spacemacs."
                  :action (lambda (&rest ignore) (call-interactively 'helm-spacemacs))
                  :mouse-face 'highlight
@@ -326,10 +324,11 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
   (when (car list)
     (define-key spacemacs-mode-map shortcut-char `(lambda ()
                                                     (interactive)
-                                                    (goto-char ,(point))
-                                                    (next-line)
+                                                    (unless (search-forward (concat "[" ,shortcut-char "]" ) (point-max) t)
+                                                      (search-backward (concat "[" ,shortcut-char "]" ) (point-min) t))
+                                                    (forward-line 1)
                                                     (back-to-indentation)))
-    (insert (concat "  " (format "[%s] " shortcut-char) list-display-name))
+    (insert (concat "   [" (propertize (format "%s" shortcut-char) 'face 'error) "] " list-display-name))
     (mapc (lambda (el)
             (insert "\n    ")
             (widget-create 'push-button
@@ -380,6 +379,9 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                                  (local-set-key [tab] 'widget-forward)
                                  (local-set-key [S-tab] 'widget-backward)
                                  ;; S-tab is backtab in terminal
-                                 (local-set-key [backtab] 'widget-backward)))
+                                 (local-set-key [backtab] 'widget-backward)
+                                 (local-set-key [return] 'widget-button-press)
+                                 (local-set-key [down-mouse-1] 'widget-button-press)
+                                 ))
 
 (provide 'core-spacemacs-buffer)
