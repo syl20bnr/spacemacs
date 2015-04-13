@@ -19,16 +19,16 @@ Spacemacs now officially support auto-completion. The old layer
 `company-mode` has been removed and `auto-complete` has been removed
 from the spacemacs layer.
 They are now part of a new layer called `auto-completion`.
-You'll have to this layer to your dotfile to enable auto-completion.
+You'll have to this add layer to your dotfile to enable auto-completion.
 *** Syntax checking
 Flycheck has been removed from the Spacemacs layer and moved to a new
 layer called `syntax-checking`.
-You'll have to this layer to your dotfile to enable on the fly syntax
+You'll have to add this layer to your dotfile to enable the fly syntax
 checking.
 *** Org
 Org packages have been removed from Spacemacs layer and moved to a new
 `org` layer.
-You'll have to this layer to your dotfile to enable the Org
+You'll have to add this layer to your dotfile to enable the Org
 configuration of Spacemacs.
 *** New shortcuts in startup buffer
 Recent files, project and bookmarks can be displayed on the startup
