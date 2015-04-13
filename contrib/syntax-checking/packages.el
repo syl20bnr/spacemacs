@@ -17,8 +17,8 @@
     popwin
     ))
 
-(defvar auto-completion-excluded-packages '()
-  "Packages that use auto-complete that are no longer necessary and might
+(defvar syntax-checking-excluded-packages '()
+  "Packages that use syntax-checking that are no longer necessary and might
 conflict.")
 
 (defun syntax-checking/init-flycheck ()
