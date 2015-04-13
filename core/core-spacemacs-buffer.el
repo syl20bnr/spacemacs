@@ -43,7 +43,8 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
         (insert-file-contents banner))
       (spacemacs-buffer//inject-version)
       (spacemacs-buffer//insert-buttons)
-      (load spacemacs-buffer--cache-file)
+      (when (file-exists-p spacemacs-buffer--cache-file)
+        (load spacemacs-buffer--cache-file))
       (when (or (not spacemacs-buffer--release-note-version)
                 (version< spacemacs-buffer--release-note-version
                           spacemacs-version))
