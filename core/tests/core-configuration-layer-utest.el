@@ -102,7 +102,7 @@
                             var1 bar
                             var2))))
     (mocker-let
-     ((spacemacs-buffer/message
+     ((spacemacs-buffer/warning
        (msg &rest args)
        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
      (setq var1 'foo)
