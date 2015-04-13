@@ -179,7 +179,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
     (when (dotspacemacs/install 'with-wizard)
       (dotspacemacs/sync-configuration-layers)
       (spacemacs-buffer/append
-       "The dofile has been installed, please restart Emacs.\n"))))
+       "The dofile has been installed.\n"))))
 
 (defun spacemacs/display-and-copy-version ()
   "Echo the current spacemacs version and copy it."
