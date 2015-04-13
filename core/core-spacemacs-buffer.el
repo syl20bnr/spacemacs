@@ -43,8 +43,13 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
         (insert-file-contents banner))
       (spacemacs-buffer//inject-version)
       (spacemacs-buffer//insert-buttons)
-      (when (file-exists-p spacemacs-buffer--cache-file)
-        (load spacemacs-buffer--cache-file))
+      (if (file-exists-p spacemacs-buffer--cache-file)
+          (load spacemacs-buffer--cache-file)
+        (unless (file-exists-p dotspacemacs-filepath)
+          ;; fresh install of spacemacs, the release notes are not displayed
+          (setq spacemacs-buffer--release-note-version spacemacs-version)
+          (spacemacs/dump-vars-to-file
+           '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)))
       ;; if there is an installed dotfile we check the variable
       ;; spacemacs-buffer--release-note-version to decide whether
       ;; we show the release note
