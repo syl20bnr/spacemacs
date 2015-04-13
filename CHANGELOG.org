@@ -1,0 +1,257 @@
+* Releases 0.101.x (2015/04/13)
+** Hot new features
+*** Choose your own editing style
+Thanks to the new `holy-mode` Spacemacs can now  be used by Vim users
+or Emacs users by setting the `dotspacemacs-editing-style` variable to
+`'vim` or `'emacs` in the dotfile. In `Emacs` style the leader is
+available on `M-m`. It is possible to dynamically switch between the
+two style with `SPC P tab`.
+*** Mandatory init function and new Pre and Post init functions
+A package is now considered to be used only if there is a corresponding
+`<layer>/init-<package>` function explicitly defined.
+There is now two new functions to initialize a given package:
+- `<layer>/pre-init-<package>` which is called before the init function
+- `<layer>/post-init-<package>` which is called after the init function
+Even if  a `pre` or `post` function exist for a given package, an `init`
+function is still required to consider the package to be used.
+*** Auto-completion
+Spacemacs now officially support auto-completion. The old layer
+`company-mode` has been removed and `auto-complete` has been removed
+from the spacemacs layer.
+They are now part of a new layer called `auto-completion`.
+You'll have to this layer to your dotfile to enable auto-completion.
+*** Syntax checking
+Flycheck has been removed from the Spacemacs layer and moved to a new
+layer called `syntax-checking`.
+You'll have to this layer to your dotfile to enable on the fly syntax
+checking.
+*** Org
+Org packages have been removed from Spacemacs layer and moved to a new
+`org` layer.
+You'll have to this layer to your dotfile to enable the Org
+configuration of Spacemacs.
+*** New shortcuts in startup buffer
+Recent files, project and bookmarks can be displayed on the startup
+buffer. Check for the new dotfile variable `dotspacemacs-startup-lists`.
+(thanks to CarlQLange)
+*** New lighter in the mode line
+Lighter letters have been updated, now the letter corresponds to the
+key binding to toggle the associated mode. For instance auto-completion
+is on ⓐ and thus can be toggled with `SPC t a`.
+*** Better package update
+The package update should now prevent even more errors when upgrading
+a batch of packages.
+** Initial Release
+*** New layers
+- evil-commentary: Alternative to `evil-nerd-commenter`
+  (thanks to person808)
+- better-defaults: layer providing better defaults for Emacs commands,
+  rather empty for now. (thanks to tuhdo)
+- ERC: an IRC client (thanks to swaroopch)
+- Racket: a lisp dialect (thanks to trishume)
+- xkcd: browse for XKCD in Emacs (thanks to CestDiego)
+- shell-scripts: layer containing shell specific modes like `fish-mode`
+- editorconfig: add support for EditorConfig (thanks to jupl)
+*** New dotfile variables:
+- `dotspacemacs-editing-style` can be either `vim` or `emacs`.
+- `dotspacemacs-verbose-loading` if non nil the loading prints logs in
+  the `*Messages*` buffer. Default value is `nil`.
+- `dotspacemacs-startup-lists` is a list of symbols to display recent
+  items in the startup buffer, possible values are:  `recents`,
+  `bookmarks` and `projects` (thanks to CarlQLange)
+*** Auto-complete
+- Move to `auto-completion` layer
+*** C/C++
+- Add key bindings `SPC m g a` and `SPC m g A` for open alternate file
+  (thanks to mijoharas)
+*** Clojure
+- Add `SPC m e f` eval function at point
+- Add `cider-eval-sexp-fu`
+- Fix for `cider-send-function-to-repl` (thanks to nashamri)
+- Replace `auto-complete` by `company` for auto-completion
+- Move `SPC d` commands on `SPC h` to meet Spacemacs convetions (thanks to
+  cpaulik)
+- Open `cider-doc` without asking for symbol, close it with `q` (thanks to
+  cpaulik)
+*** Company
+- Move to `auto-completion` layer
+- Refactoring of `company` configuration, it is now lazy-loaded and the
+  `company-backends` list is now a buffer local variable. `company` is
+  not enabled globally anymore.
+- Set `company-delay` to 0.2 instead of 0
+- Ignore `company-quickhelp` for Emacs version < 24.4
+- Add support for `company` in various languages (thanks to trishume)
+*** Emacs Lisp
+- Add `eval-sexp-fu` (thanks to tuhdo)
+- Enable eldoc in eval-expression and IELM (thanks to tuhdo)
+- New key bindings `SPC m e b`, `SPC m e c` and `SPC m e r` to evaluate
+  the buffer, the current form starting by `set` or `def` and the region
+  respectively (thanks to ralesi)
+*** Ess
+- Fix loading of `ess-R-object-popup` and `ess-R-data-view`
+  (thanks to jcpetkovich)
+*** Extra-Lang layer
+- Add `Nim` language (thanks to trishume)
+*** Flycheck
+- Move to `syntax-checking` layer
+- Add `flycheck-pos-tip` (thanks to tuhdo)
+- Enable flycheck for `lua` files (thanks rphillips)
+*** Git
+- Add `gitconfig-mode` and `git-commit-mode` (thanks to ralesi)
+- Add `gitattributes-mode` and `gitignore-mode` (thanks to r4ts0n)
+- Add key bindings in rebase mode
+- Add `git-link` package (thanks to CestDiego)
+- Enable Magit authentication on Windows (thanks to tuhdo)
+- Loads `magit-gh-pulls` only after requesting it (thanks to cpaulik)
+*** Go
+- Add `run-package-tests` command on `SPC m t p` (thanks to robmerrell)
+- Fix path to `go-oracle` (thanks to Pursuit92)
+*** Haskell
+- Move `SPC m t` and `SPC m i` under `SPC m h`
+- Remove `hi2` (it is now integrated in `haskell-mode`)
+- Disable `eletric-indent-mode`
+- Fix `flycheck-haskell` autoload (thanks to jcpetkovich)
+- Fix `flycheck` loading
+- Move `SPC m t` to `SPC m h t` according to Spacemacs conventions (thanks
+  to jeremyjh)
+- Add C-- `cmm-mode` (thanks to bgamari) 
+*** Helm
+- Add `helm-colors` key binding on `SPC C l` (thanks to tuhdo)
+- Make `helm-ff-doted-directory` consistent (thanks to tuhdo)
+- Disable popwin-mode when a Helm session is active (thanks to tuhdo)
+- Fix lazy-loading of helm for describe commands
+- Add support for `pt` the platinum searcher (thanks to ralesi)
+- Add support for `helm-ag-edit`
+- Add function `spacemacs/helm-projectile-search-dwim` which select the
+  first available external search tool (pt, ag, ack or grep) (thanks to
+  ralesi)
+- Enable `helm-descbinds` globally  (thanks to tuhdo)
+- Add key bindings for useful Helm commands: `helm-info-at-point`,
+  `helm-man-woman`, `helm-locate-library` and `helm-minibuffer-history`
+  (thanks to tuhdo)
+- Add key bindings for searching the web using `helm-suggest` (thanks to
+  cpaulik)
+*** Holy-mode
+- New package providing Emacs edition style to Spacemacs
+*** IRC
+- rcirc: Create rcirc logging directory during init
+  (thanks to jcpetkovich)
+- New ERC layer (thanks to swaroopch)
+- Add ERC keybindings (thans to cpaulik)
+- Move startup key bindings to prefix `SPC a i`
+*** Markdown
+- Associate `.mkd` with `markdown-mode` (thanks to bgamari)
+*** Org
+- Move to `org` layer
+- Bind evil-leader in org-agenda-map (thanks to luxbock)
+- Add `org-pomodoro` on `SPC m p` (thanks to swaroopch)
+- Add key bindings for `org-clock-cancel` on `SPC m q`,
+  and `org-set-effort` on `SPC m f` (thanks to swaroopch)
+- Fix diminish of `org-indent`
+*** Perspective
+- Rebind `spacemacs/persp-switch-project` to `SPC p p`
+  (thanks to CestDiego)
+*** Projectile
+- Move projectile switch project from `SPC p S` to `SPC p p`
+*** Python
+- Add helm-pydoc on `SPC m h d` (thanks to danielwuz)
+- Fix `pylookup` configuration
+*** Racket
+- Add key bindings for REPL interaction
+*** Ruby
+- Lazy-load `projectile-rails`
+- Remove mode-line lighter for `robe`
+*** Scala
+- Do not enable ensime in non-file buffers (thanks to chrisbarrett)
+*** SLIME
+- Use slime for indentation (thanks to tuhdo)
+- Add extension for SBCL (thanks to tuhdo)
+- Allow to create a common lisp scratch buffer with slime-scratch
+  (thanks to tuhdo)
+- Enable fuzzy completion with score (thanks to tuhdo)
+- Don't enable SLIME in Emacs Lisp (thanks to tuhdo)
+*** Smartparens
+- Enable smartparens in eval-expression (thanks to tuhdo)
+*** Themes
+- Fix `themes-megapack` layer where themes could not be browsed in Helm.
+- Add `material` theme (thanks to cpaulik)
+- Add `darktooth` theme (thanks to person808)
+- Add `gotham` theme (thanks to person808)
+*** ycmd
+- Set global config only if not already set (thanks naseer)
+*** Web
+- Add `sass-mode` (thanks to ryanartecona)
+- Ensure that less gets loaded (thanks to mijoharas)
+*** Various Improvements and Changes
+- New `evil` state called `evilified` which is used in _evilified_
+  buffers.
+- Remove the following packages from Spacemacs layer: `dired+`,
+  `fancy-narrow`, `string-edit`, `visual-regexp-steroids` and `wdired`
+- Rename `*-declarep` functions to `*-usedp` functions
+- Display block selection info in the mode line
+  (thanks to emmanueltouzery)
+- Bind `K` in normal state to `SPC m h h` if it exists
+  (thanks to person808)
+- Add key binding for balancing windows on `SPC w =` (thanks to kini)
+- Add key binding to indent region on `SPC j =` (thanks to tuhdo)
+- Add key binding `SPC w SPC` for `ace-window` (thanks to ralesi)
+- Add key binding `SPC b h` to open the startup buffer (thanks to ralesi)
+- Add key binding `SPC t ~` to toggle Vim tildes
+- Add adaptive wrap which appropriately indents wrapped lines (thanks to
+  person808)
+- Add mouse support to line number column (thanks to ralesi)
+  - single click selects line
+  - double click selects text block
+  - drag across lines selects all lines dragged across
+- Add `highlight-numbers` (thanks to tuhdo)
+- Add `highlight-indentation` on `SPC t h i` and `SPC t h c` (thanks to
+  cpaulik)
+- Add ace-link package to spacemacs layer (thanks to danielwuz)
+- Add `indent-guide` on `SPC t i` (thanks to ralesi)
+- Add link to cpaulik tutorial to use the Spacemacs icons in Ubuntu Unity
+- Add C-w and brackets [] to guide-key-sequence (thanks to ralesi)
+- Add `info+` to improve Info reading experience (thanks to tuhdo)
+- Add default layers to dotfile template: `auto-completion`,
+  `better-defaults`, `git`, `markdown`, `org` and `syntax-checking`
+  (thanks to CarlQLange)
+- Move some toggles on `SPC T`: fringe, menu bar, tool bar,
+  frame maximize, frame fullscreen, frame transparency
+- Restore rectangle-mark-mode key binding (thanks to tuhdo)
+- Make <escape> quit the isearch-mode like vim (thanks to dsdshcym)
+- Enable goto-address-prog-mode which makes URL in code comments clickable
+  (thanks to tuhdo)
+- Disable aggressive indent for ediff buffers (thanks chrisbarrett)
+- Prevent cursor from moving into minibuffer prompt (thanks to tuhdo)
+- Remove tildes in Spacemacs buffer and read-only buffers like Info and
+  help (thanks to tuhdo)
+- Ask user editing style when creating .spacemacs file (thanks to tuhdo)
+- Fix for persistent-server if server never got started (thanks to ralesi)
+- Fix nyan cat starting rainbow on a light background
+- Fix some double loading of some packages
+- Fix double loading of `extensions.el` files
+- Fix question for preferred coding systems on Microsoft Windows
+- Properly enable saveplace (thanks to tuhdo)
+- Don't bind `C-d` in `ido-completion-map` to `ido-delete-file-at-head`
+  (thanks to segv)
+- Don't refer to ~/.emacs.d/ directly at various places
+  (thanks to jcpetkovich)
+- Don't want paste-micro-state to pop up when pasting in ex command
+  prompt (thanks to ralesi)
+- Don't cycle when press TAB in eshell (thanks to tuhdo)
+- Don't insert extra quote in dotspacemacs-mode (thanks to tuhdo)
+- Adapt some micro-states to the micro-state macro (thanks to ralesi)
+- Improve smooth scrolling configuration (reduce some point jump)
+  (thanks to tuhdo)
+- Improve `doge` banner grammar (thanks to mathpunk)
+- New `HOTOWs.md` file in `/doc`
+- Add `Buy A Drink` badge to README.md
+- Typo and documentation updates (thanks to danielwuz, swaroopch,
+  CestDiego, IvanMalison, agevelt, nwolfe)
+** Hot Fixes
+None
+** Backports
+None
+* Previous Releases
+- See Github release page
+
+
