@@ -16,13 +16,11 @@
             - [structured-haskell-mode](#structured-haskell-mode)
             - [hindent](#hindent)
     - [Key bindings](#key-bindings)
-        - [Haskell source code:](#haskell-source-code)
-            - [Haskell commands:](#haskell-commands)
-            - [Documentation commands:](#documentation-commands)
-            - [Cabal commands:](#cabal-commands)
-            - [Debug commands:](#debug-commands)
-            - [REPL commands:](#repl-commands)
-        - [Cabal files:](#cabal-files)
+        - [-](#-)
+        - [Debug](#debug)
+        - [REPL](#repl)
+        - [Cabal commands](#cabal-commands)
+        - [Cabal files](#cabal-files)
 
 <!-- markdown-toc end -->
 
@@ -30,9 +28,9 @@
 
 This layer adds support for the [Haskell][] language.
 
-Features:
+Some features:
 - auto-completion with [company-ghc][],
-- auto-indentation with [hi2][].
+- syntax highlighting for [C-- source][cmm-mode].
 
 **This layer is in construction, it needs your contributions and bug reports.**
 
@@ -59,14 +57,10 @@ To install them, use the following command:
 cabal install stylish-haskell hlint ghc-mod
 ```
 
-Next Emacs needs to know where to find these binaries, you can locate them with
-the following shell command:
-
-```sh
-dirname $(which ghc-mod)
-```
-
 Then you have to add this path to your system `$PATH` (preferred):
+Note that on **Linux** distributions the installed binaries should be in
+`~/.cabal/bin` and on **OS X** the binaries are installed in
+`/Users/<username>/Library/Haskell/bin`.
 
 ```sh
 export PATH=~/.cabal/bin/:$PATH
@@ -108,13 +102,13 @@ versions from ghci-ng, and a new keybinding available:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m t</kbd>    | gets the type of the identifier under the cursor or for the active region
+<kbd>SPC m h t</kbd>  | gets the type of the identifier under the cursor or for the active region
 <kbd>SPC m g g</kbd>  | go to definition
 <kbd>SPC m u</kbd>    | finds uses of identifier
 
 #### structured-haskell-mode
-[structured-haskell-mode][], or shm, replaces hi2 (and any other
-Haskell-indentation modes) and adds some nice functionality.
+[structured-haskell-mode][], or shm, replaces default haskell-mode
+auto-indentation and adds some nice functionalities.
 To enable shm, run `cabal install structured-haskell-mode` and set the layer
 variable:
 
@@ -123,7 +117,7 @@ variable:
   '((haskell :variables haskell-enable-shm-support t)))
 ```
 
-After shm has been enabled, some of the evil normal-mode bindings are overridden:
+After shm has been enabled, some of the evil normal state bindings are overridden:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -141,7 +135,7 @@ for [structured-haskell-mode][].
 reformat your code. You need to install the executable with `cabal
 install hindent`.
 
-To enable it you have to set the variable `haskell-enable-hindent-support`
+To enable it you have to set the variable `haskell-enable-hindent-style`
 to a supported style. The available styles are:
 - fundamental
 - johan-tibell
@@ -152,51 +146,36 @@ See examples [here][hindent-examples]
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers
-  '((haskell :variables haskell-enable-hindent-support "johan-tibell")))
+  '((haskell :variables haskell-enable-hindent-style "johan-tibell")))
 ```
-
-By default it uses the style called `fundamental`, if you want to use
-another, `johan-tibell`, run `M-x customize-variable
-hindent-style`.
 
 ## Key bindings
 
-All Haskell specific bindings are prefixed with <kbd>SPC m</kbd>
+All Haskell specific bindings are prefixed with the major-mode leader
+<kbd>SPC m</kbd>.
 
-### Haskell source code:
-
-#### Haskell commands:
 Top-level commands are prefixed by <kbd>SPC m</kbd>:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m t</kbd>    | gets the type of the identifier under the cursor
-<kbd>SPC m i</kbd>    | gets information for the identifier under the cursor
 <kbd>SPC m g g</kbd>  | go to definition or tag
 <kbd>SPC m f</kbd>    | format buffer using haskell-stylish
 <kbd>SPC m F</kbd>    | format declaration using hindent (if enabled)
 
-#### Documentation commands:
+### Documentation
+
 Documentation commands are prefixed by <kbd>SPC m h</kbd>
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC m h d</kbd>  | find or generate Haddock documentation for the identifier under the cursor
 <kbd>SPC m h h</kbd>  | do a Hoogle lookup
+<kbd>SPC m h i</kbd>  | gets information for the identifier under the cursor
+<kbd>SPC m h t</kbd>  | gets the type of the identifier under the cursor
 <kbd>SPC m h y</kbd>  | do a Hayoo lookup
 
+### Debug
 
-#### Cabal commands:
-Cabal commands are prefixed by <kbd>SPC m c</kbd>:
-
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>SPC m c a</kbd>  | cabal actions
-<kbd>SPC m c b</kbd>  | build the current cabal project, i.e. invoke `cabal build`
-<kbd>SPC m c c</kbd>  | compile the current project, i.e. invoke `ghc`
-<kbd>SPC m c v</kbd>  | visit the cabal file
-
-#### Debug commands:
 Debug commands are prefixed by <kbd>SPC m d</kbd>:
 
     Key Binding       |                 Description
@@ -210,7 +189,8 @@ Debug commands are prefixed by <kbd>SPC m d</kbd>:
 <kbd>SPC m d a </kbd> | abandon current process
 <kbd>SPC m d r </kbd> | refresh process buffer
 
-#### REPL commands:
+### REPL
+
 REPL commands are prefixed by <kbd>SPC m s</kbd>:
 
     Key Binding       |                 Description
@@ -220,7 +200,20 @@ REPL commands are prefixed by <kbd>SPC m s</kbd>:
 <kbd>SPC m s s</kbd>  | show the REPL
 <kbd>SPC m s S</kbd>  | show and switch to the REPL
 
-### Cabal files:
+### Cabal commands
+
+Cabal commands are prefixed by <kbd>SPC m c</kbd>:
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC m c a</kbd>  | cabal actions
+<kbd>SPC m c b</kbd>  | build the current cabal project, i.e. invoke `cabal build`
+<kbd>SPC m c c</kbd>  | compile the current project, i.e. invoke `ghc`
+<kbd>SPC m c v</kbd>  | visit the cabal file
+
+### Cabal files
+
+This commands are available in a cabal file.
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -238,8 +231,8 @@ REPL commands are prefixed by <kbd>SPC m s</kbd>:
 
 [Haskell]: https://www.haskell.org/
 [cabal]: https://www.haskell.org/cabal/
+[cmm-mode]: http://github.com/bgamari/cmm-mode
 [company-ghc]: https://github.com/iquiw/company-ghc
-[hi2]: https://github.com/nilcons/hi2
 [ghci-ng]: https://github.com/chrisdone/ghci-ng
 [structured-haskell-mode]: https://github.com/chrisdone/structured-haskell-mode
 [hindent]: https://github.com/chrisdone/hindent

@@ -28,6 +28,8 @@ which require an initialization must be listed explicitly in the list.")
   (add-hook 'tuareg-mode-hook #'merlin-mode)
   )
 
+(defun ocaml/init-merlin ())
+
 ;; (defun ocaml/init-flycheck-ocaml ()
 ;;   (progn
 ;;     (setq merlin-error-after-save nil)

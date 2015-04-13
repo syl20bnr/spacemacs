@@ -1,4 +1,4 @@
-;;; configuration-layer-utest.el --- Spacemacs Unit Test File
+;;; core-configuration-layer-utest.el --- Spacemacs Unit Test File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -102,7 +102,7 @@
                             var1 bar
                             var2))))
     (mocker-let
-     ((spacemacs/message
+     ((spacemacs-buffer/warning
        (msg &rest args)
        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
      (setq var1 'foo)

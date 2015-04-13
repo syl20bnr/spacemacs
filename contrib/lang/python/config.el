@@ -10,6 +10,10 @@
 ;;
 ;;; License: GPLv3
 
+;; variables
+
+(spacemacs|defvar-company-backends python-mode)
+
 ;; Command prefixes
 
 ;; not supported for now

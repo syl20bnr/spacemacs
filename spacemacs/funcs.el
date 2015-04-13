@@ -82,39 +82,23 @@ a key sequence. NAME is a symbol name used as the prefix command."
 ;;     (define-prefix-command command)
 ;;     (evil-leader/set-key-for-mode mode prefix command)))
 
-(defun spacemacs/activate-evil-leader-for-maps (map-list)
-  "Remove the evil-leader binding from all the maps in MAP-LIST."
-  (mapc (lambda (x)
-          (eval `(define-key ,x (kbd evil-leader/leader)
-                   evil-leader--default-map)))
-        map-list))
-
-(defun spacemacs/activate-evil-leader-for-map (map)
-  "Remove the evil-leader binding from the passed MAP."
-  (spacemacs/activate-evil-leader-for-maps `(,map)))
-
 (defun spacemacs/activate-major-mode-leader ()
   "Bind major mode key map to `dotspacemacs-major-mode-leader-key'."
   (setq mode-map (cdr (assoc major-mode evil-leader--mode-maps)))
   (when mode-map
     (setq major-mode-map (lookup-key mode-map (kbd "m")))
-    (define-key evil-normal-state-local-map
-      (kbd dotspacemacs-major-mode-leader-key) major-mode-map)
-    (define-key evil-motion-state-local-map
-      (kbd dotspacemacs-major-mode-leader-key) major-mode-map)))
-
-(defmacro spacemacs|evilify (map &rest body)
-  "Add `hjkl' navigation, search and visual state to MAP and set additional
-bindings contained in BODY."
-  `(evil-add-hjkl-bindings ,map 'emacs
-    "/" 'evil-search-forward
-    "n" ',(lookup-key evil-motion-state-map "n")
-    "N" ',(lookup-key evil-motion-state-map "N")
-    "v" 'evil-visual-char
-    "V" 'evil-visual-line
-    (kbd "C-v") 'evil-visual-block
-    "y" 'evil-yank
-    ,@body))
+    (mapc (lambda (s)
+            (eval `(define-key
+                     ,(intern (format "evil-%S-state-local-map" s))
+                     ,(kbd dotspacemacs-major-mode-leader-key)
+                     major-mode-map)))
+          '(normal motion))
+    (mapc (lambda (s)
+            (eval `(define-key
+                     ,(intern (format "evil-%S-state-local-map" s))
+                     ,(kbd dotspacemacs-major-mode-emacs-leader-key)
+                     major-mode-map)))
+          '(emacs insert normal motion visual))))
 
 (defun spacemacs/split-and-new-line ()
   "Split a quoted string or s-expression and insert a new line with
@@ -158,6 +142,98 @@ the current state and point position."
       (join-line 1)
       (sp-newline)
       (setq counter (1- counter)))))
+
+;; from Prelude
+(defvar spacemacs-indent-sensitive-modes
+  '(coffee-mode
+    python-mode
+    slim-mode
+    haml-mode
+    yaml-mode
+    makefile-mode
+    makefile-gmake-mode
+    makefile-imake-mode
+    makefile-bsdmake-mode)
+  "Modes for which auto-indenting is suppressed.")
+(defun spacemacs/indent-region-or-buffer ()
+  "Indent a region if selected, otherwise the whole buffer."
+  (interactive)
+  (unless (member major-mode spacemacs-indent-sensitive-modes)
+    (save-excursion
+      (if (region-active-p)
+          (progn
+            (indent-region (region-beginning) (region-end))
+            (message "Indented selected region."))
+        (progn
+          (evil-indent (point-min) (point-max))
+          (message "Indented buffer.")))
+      (whitespace-cleanup))))
+
+;; linum gutter helpers
+(defvar *linum-mdown-line* nil
+  "Define persistent variable for linum selection")
+
+(defun spacemacs/line-at-click ()
+  "Determine the visual line at click"
+  (save-excursion
+    (let ((click-y (cddr (mouse-position)))
+          (debug-on-error t)
+          (line-move-visual t))
+      (goto-char (window-start))
+      (next-line (1- click-y))
+      (1+ (line-number-at-pos))
+      )))
+
+(defun spacemacs/md-select-linum (event)
+  "Set point as *linum-mdown-line*"
+  (interactive "e")
+  (mouse-select-window event)
+  (goto-line (spacemacs/line-at-click))
+  (set-mark (point))
+  (setq *linum-mdown-line*
+        (line-number-at-pos)))
+
+(defun spacemacs/mu-select-linum ()
+  "Select code block between point and *linum-mdown-line*"
+  (interactive)
+  (when *linum-mdown-line*
+    (let (mu-line)
+      (setq mu-line (spacemacs/line-at-click))
+      (goto-line (max *linum-mdown-line* mu-line))
+      (set-mark (line-end-position))
+      (goto-line (min *linum-mdown-line* mu-line))
+      (setq *linum-mdown*
+            nil))))
+
+(defun spacemacs/select-current-block ()
+  "Select the current block of text between blank lines."
+  (interactive)
+  (let (p1 p2)
+    (progn
+      (if (re-search-backward "\n[ \t]*\n" nil "move")
+          (progn (re-search-forward "\n[ \t]*\n")
+                 (setq p1 (point)))
+        (setq p1 (point)))
+      (if (re-search-forward "\n[ \t]*\n" nil "move")
+          (progn (re-search-backward "\n[ \t]*\n")
+                 (setq p2 (point)))
+        (setq p2 (point))))
+    (set-mark p1)))
+
+;; eval lisp helpers
+(defun spacemacs/eval-region ()
+  (interactive)
+  (eval-region (region-beginning) (region-end))
+  (evil-normal-state))
+
+;; idea from http://www.reddit.com/r/emacs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
+(defun spacemacs/eval-current-form ()
+  "Looks for the current def* or set* command then evaluates, unlike `eval-defun', does not go to topmost function"
+  (interactive)
+  (save-excursion
+    (search-backward-regexp "(def\\|(set")
+    (forward-list)
+    (call-interactively 'eval-last-sexp)))
 
 ;; from magnars
 (defun eval-and-replace ()
@@ -268,6 +344,29 @@ argument takes the kindows rotate backwards."
  "Rotate your windows backward."
   (interactive "p")
   (rotate-windows (* -1 count)))
+
+(defun spacemacs/next-real-buffer ()
+  "Swtich to the next buffer and avoid special buffers."
+  (interactive)
+  (switch-to-next-buffer)
+  (let ((i 0))
+    (while (and (< i 100) (string-equal "*" (substring (buffer-name) 0 1)))
+      (1+ i)
+      (switch-to-next-buffer))))
+
+(defun spacemacs/prev-real-buffer ()
+  "Swtich to the previous buffer and avoid special buffers."
+  (interactive)
+  (switch-to-prev-buffer)
+  (let ((i 0))
+    (while (and (< i 100) (string-equal "*" (substring (buffer-name) 0 1)))
+      (1+ i)
+      (switch-to-prev-buffer))))
+
+(defun spacemacs/kill-this-buffer ()
+  "Kill the current buffer."
+  (interactive)
+  (kill-buffer (current-buffer)))
 
 ;; from magnars
 (defun rename-current-buffer-file ()
@@ -518,6 +617,12 @@ For instance pass En as source for english."
   (let ((newbuf (generate-new-buffer-name "untitled")))
     (switch-to-buffer newbuf)))
 
+(defun spacemacs/home ()
+  "Go to home Spacemacs buffer"
+  (interactive)
+  (switch-to-buffer "*spacemacs*")
+  )
+
 ;; from https://github.com/gempesaw/dotemacs/blob/emacs/dg-defun.el
 (defun kill-matching-buffers-rudely (regexp &optional internal-too)
   "Kill buffers whose name matches the specified REGEXP. This
@@ -537,11 +642,19 @@ kill internal buffers too."
 (defvar spacemacs-really-kill-emacs nil
   "prevent window manager close from closing instance.")
 
+(defun spacemacs-persistent-server-running-p ()
+  "Requires spacemacs-really-kill-emacs to be toggled and
+dotspacemacs-persistent-server to be t"
+  (and (fboundp 'server-running-p)
+       (server-running-p)
+       dotspacemacs-persistent-server))
+
 (defadvice kill-emacs (around spacemacs-really-exit activate)
   "Only kill emacs if a prefix is set"
-  (if (or spacemacs-really-kill-emacs (not dotspacemacs-persistent-server))
-      ad-do-it
-    (spacemacs/frame-killer)))
+  (if (and (not spacemacs-really-kill-emacs)
+           (spacemacs-persistent-server-running-p))
+      (spacemacs/frame-killer)
+    ad-do-it))
 
 (defadvice save-buffers-kill-emacs (around spacemacs-really-exit activate)
   "Only kill emacs if a prefix is set"
@@ -634,55 +747,6 @@ toggling fullscreen."
 		 'maximized)
 	   'fullboth)))))
 
-;;; begin scale font micro-state
-
-(defun spacemacs/scale-font-size-overlay-map ()
-  "Set a temporary overlay map to easily change the font size."
-  (set-temporary-overlay-map
-   (let ((map (make-sparse-keymap)))
-     (define-key map (kbd "+") 'spacemacs/scale-up-font)
-     (define-key map (kbd "-") 'spacemacs/scale-down-font)
-     (define-key map (kbd "=") 'spacemacs/reset-font-size)
-     map) t))
-
-(defun spacemacs/font-scaling-micro-state-doc ()
-  "Display a short documentation in the mini buffer."
-  (echo "Scale Font micro-state:
-  + to scale up
-  - to scale down
-  = to reset
-Press any other key to exit."))
-
-(defun spacemacs/scale-up-or-down-font-size (direction)
-  "Scale the font. If DIRECTION is positive or zero the font is scaled up,
-otherwise it is scaled down."
-  (interactive)
-  (let ((scale 0.5))
-    (if (eq direction 0)
-        (text-scale-set 0)
-      (if (< direction 0)
-          (text-scale-decrease scale)
-        (text-scale-increase scale))))
-  (spacemacs/scale-font-size-overlay-map)
-  (spacemacs/font-scaling-micro-state-doc))
-
-(defun spacemacs/scale-up-font ()
-  "Scale up the font."
-  (interactive)
-  (spacemacs/scale-up-or-down-font-size 1))
-
-(defun spacemacs/scale-down-font ()
-  "Scale up the font."
-  (interactive)
-  (spacemacs/scale-up-or-down-font-size -1))
-
-(defun spacemacs/reset-font-size ()
-  "Reset the font size."
-  (interactive)
-  (spacemacs/scale-up-or-down-font-size 0))
-
-;;; end scale font micro-state
-
 (defmacro spacemacs|diminish (mode unicode &optional ascii)
   "Diminish MODE name in mode line to UNICODE or ASCII depending on the value
 `dotspacemacs-mode-line-unicode-symbols'.
@@ -749,8 +813,7 @@ If ASCII si not provided then UNICODE is used instead."
      ((system-is-mswindows) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" file-path)))
      ((system-is-mac) (shell-command (format "open \"%s\"" file-path)))
      ((system-is-linux) (let ((process-connection-type nil))
-                          (start-process "" nil "xdg-open" file-path)))
-     )))
+                          (start-process "" nil "xdg-open" file-path))))))
 
 (defun spacemacs/next-error (&optional n reset)
   "Dispatch to flycheck or standard emacs error."

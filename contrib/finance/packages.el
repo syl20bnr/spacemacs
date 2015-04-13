@@ -12,6 +12,7 @@
 
 (defvar finance-packages
   '(
+    company
     flycheck-ledger
     ledger-mode
     )
@@ -19,9 +20,10 @@
 which require an initialization must be listed explicitly in the list.")
 
 
-(defun finance/init-flycheck-ledger ()
-  (eval-after-load 'flycheck
-    '(require 'flycheck-ledger)))
+(when (configuration-layer/layer-usedp 'syntax-checking)
+  (defun finance/init-flycheck-ledger ()
+    (eval-after-load 'flycheck
+      '(require 'flycheck-ledger))))
 
 (defun finance/init-ledger-mode ()
   (use-package ledger-mode
@@ -30,6 +32,7 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (setq ledger-post-amount-alignment-column 62)
+      (push '(company-capf :with company-yasnippet) company-backends-ledger-mode)
       (evil-leader/set-key-for-mode 'ledger-mode
         "mhd"   'ledger-delete-current-transaction
         "ma"    'ledger-add-transaction
@@ -44,3 +47,7 @@ which require an initialization must be listed explicitly in the list.")
         "mt"    'ledger-insert-effective-date
         "my"    'ledger-set-year
         "m RET" 'ledger-set-month))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun finance/post-init-company ()
+    (spacemacs|add-company-hook ledger-mode)))

@@ -30,7 +30,7 @@ which require an initialization must be listed explicitly in the list.")
     :if colors-enable-rainbow-identifiers
     :commands rainbow-identifiers-mode
     :init
-    (progn 
+    (progn
       (setq rainbow-identifiers-choose-face-function 'rainbow-identifiers-cie-l*a*b*-choose-face
             rainbow-identifiers-cie-l*a*b*-saturation 100
             rainbow-identifiers-cie-l*a*b*-lightness 40
@@ -82,8 +82,8 @@ disabling some faces in order to make colored identifiers stand out."
                           rainbow-identifiers-cie-l*a*b*-lightness 60))
           (`solarized-dark (setq rainbow-identifiers-cie-l*a*b*-saturation 65
                                  rainbow-identifiers-cie-l*a*b*-lightness 55))
-          (`solarized-light (setq rainbow-identifiers-cie-l*a*b*-saturation 100
-                                  rainbow-identifiers-cie-l*a*b*-lightness 40))
+          (`solarized-light (setq rainbow-identifiers-cie-l*a*b*-saturation 60
+                                  rainbow-identifiers-cie-l*a*b*-lightness 55))
           (`zenburn (setq rainbow-identifiers-cie-l*a*b*-saturation 40
                           rainbow-identifiers-cie-l*a*b*-lightness 65))
           (_ (setq rainbow-identifiers-cie-l*a*b*-saturation 80

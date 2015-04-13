@@ -1,6 +1,6 @@
 ;;; solarized.el --- Solarized for Emacs.
 
-;; Copyright (C) 2011-2014 Bozhidar Batsov
+;; Copyright (C) 2011-2015 Bozhidar Batsov
 
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; Author: Thomas Frössman <thomasf@jossystem.se>
@@ -31,10 +31,6 @@
 ;; and enjoy!
 ;;
 ;; Don't forget that the theme requires Emacs 24.
-;;
-;;; Bugs
-;;
-;; None that I'm aware of.
 ;;
 ;;; Credits
 ;;
@@ -259,8 +255,7 @@ customize the resulting theme."
                                'variable-pitch 'default))
          (s-fringe-bg (if solarized-distinct-fringe-background
                           base02 base03))
-         (s-fringe-fg (if solarized-distinct-fringe-background
-                          base0 base01))
+         (s-fringe-fg base01)
 
 
          (s-header-line-fg (if solarized-high-contrast-mode-line
@@ -297,7 +292,7 @@ customize the resulting theme."
                                     :inverse-video t))))
      `(mouse ((,class (:foreground ,base03 :background ,base0
                                    :inverse-video t))))
-     `(escape-glyph ((,class (:foreground ,violet))))     
+     `(escape-glyph ((,class (:foreground ,violet))))
      `(fringe ((,class (:foreground ,s-fringe-fg :background ,s-fringe-bg))))
      `(highlight ((,class (:background ,base02))))
      `(link ((,class (:foreground ,yellow :underline t :weight bold))))
@@ -307,6 +302,7 @@ customize the resulting theme."
      `(error ((,class (:foreground ,orange))))
      `(lazy-highlight ((,class (:foreground ,base03 :background ,yellow
                                             :weight normal))))
+     `(widget-field ((,class (:background ,base02))))
      '(button ((t (:underline t))))
 ;;;;; compilation
      `(compilation-column-face ((,class (:foreground ,cyan :underline nil))))
@@ -396,6 +392,8 @@ customize the resulting theme."
      `(enh-ruby-op-face ((,class (:foreground ,base0))))
      `(erm-syn-errline ((,class (:inherit flymake-errline))))
      `(erm-syn-warnline ((,class (:inherit flymake-warnline))))
+;;;;; completions
+     `(completions-annotations ((t (:foreground ,base01))))
 ;;;;; grep
      `(grep-context-face ((,class (:foreground ,base0))))
      `(grep-error-face ((,class (:foreground ,red :weight bold :underline t))))
@@ -501,7 +499,6 @@ customize the resulting theme."
      `(ac-gtags-selection-face ((,class (:background ,blue-lc :foreground ,blue-hc))))
      `(ac-yasnippet-candidate-face ((,class (:background ,base02 :foreground ,yellow))))
      `(ac-yasnippet-selection-face ((,class (:background ,yellow-lc :foreground ,yellow-hc))))
-
 ;;;;; auto highlight symbol
      `(ahs-definition-face ((,class (:foreground ,magenta :background unspecified :underline t
                                                  :slant normal :weight bold))))
@@ -552,6 +549,8 @@ customize the resulting theme."
      `(clojure-test-failure-face ((t (:foreground ,orange :weight bold :underline t))))
      `(clojure-test-error-face ((t (:foreground ,red :weight bold :underline t))))
      `(clojure-test-success-face ((t (:foreground ,green :weight bold :underline t))))
+;;;;; cider-repl-mode
+     `(cider-repl-err-output-face ((t (:inherit ,font-lock-warning-face :underline nil))))
 ;;;;; cider-test-mode
      `(cider-test-failure-face ((t (:foreground ,orange :weight bold :underline t))))
      `(cider-test-error-face ((t (:foreground ,red :weight bold :underline t))))
@@ -563,6 +562,7 @@ customize the resulting theme."
      `(company-tooltip-mouse ((,class (:background ,cyan-hc :foreground ,cyan-lc))))
      `(company-tooltip-common ((,class (:foreground ,base1 :underline t))))
      `(company-tooltip-common-selection ((,class (:foreground ,base1 :underline t))))
+     `(company-tooltip-annotation ((,class (:foreground ,base1 :background ,base02))))
      `(company-scrollbar-fg ((,class (:foreground ,base03 :background ,base0))))
      `(company-scrollbar-bg ((,class (:background ,base02 :foreground ,cyan))))
      `(company-preview ((,class (:background ,base02 :foreground ,cyan))))
@@ -806,8 +806,10 @@ customize the resulting theme."
      `(flycheck-fringe-warning
        ((,class (:foreground ,(if (eq variant 'light) yellow-l yellow) :background unspecified :weight bold))))
      `(flycheck-fringe-info
-       ((,class (:foreground ,(if (eq variant 'light) blue-l blue) :background unspecified :weight bold))))
-
+       ((,class (:foreground ,(if solarized-emphasize-indicators
+                                  blue-hc base01)
+                             :background ,(if solarized-emphasize-indicators
+                                              blue-lc base03) :weight bold))))
 ;;;;; flyspell
      `(flyspell-duplicate
        ((,(append '((supports :underline (:style wave))) class)
@@ -1058,10 +1060,6 @@ customize the resulting theme."
        ((,class (:foreground ,yellow :background ,base02))))
      `(info-menu
        ((,class (:foreground ,violet :background ,base02))))
-     `(info-quoted-name
-       ((,class (:foreground ,green :inherit font-lock-string-face))))
-     `(info-string
-       ((,class (:foreground ,cyan :inherit font-lock-string-face))))
      `(info-single-quote
        ((,class (:foreground ,cyan :inherit font-lock-string-face))))
      `(info-quoted-name
@@ -1082,8 +1080,6 @@ customize the resulting theme."
        ((,class (:foreground ,magenta :background ,base02))))
      `(info-syntax-class-item
        ((,class (:foreground ,magenta :background ,base02))))
-     `(info-user-option-ref-item
-       ((,class (:foreground ,red :background ,base02))))
      `(info-user-option-ref-item
        ((,class (:foreground ,orange :background ,base02))))
 ;;;;; jabber
@@ -1212,7 +1208,6 @@ customize the resulting theme."
      `(ledger-font-posting-account-cleared-face ((t (:foreground ,base0))))
      `(ledger-font-posting-account-pending-face ((t (:foreground ,yellow))))
      `(ledger-font-posting-amount-face ((t (:foreground ,yellow))))
-     `(ledger-font-posting-account-pending-face ((t (:foreground ,yellow))))
      `(ledger-occur-narrowed-face ((t (:foreground ,base3 :invisible t))))
      `(ledger-occur-xact-face ((t (:background ,base02))))
      `(ledger-font-comment-face ((t (:foreground ,base01))))
@@ -1414,7 +1409,6 @@ customize the resulting theme."
                                             (list yellow base03 0.2)
                                           (list cyan base03 0.3)))))))
 ;;;;; navi2ch
-     `(navi2ch-list-category-face ((,class (:foreground ,base0 :background ,blue  :weight bold))))
      `(navi2ch-list-category-face ((,class (:foreground ,blue ))))
      `(navi2ch-list-add-board-name-face ((,class (:foreground ,yellow))))
      `(navi2ch-list-board-name-face ((,class (:foreground ,blue))))
@@ -1423,7 +1417,7 @@ customize the resulting theme."
      `(navi2ch-bm-view-face ((,class (:foreground ,yellow))))
      `(navi2ch-bm-cache-face ((,class (:foreground ,blue))))
      `(navi2ch-bm-update-face ((,class (:foreground ,orange))))
-     `(navi2ch-bm-down-face ((,class (:foreground ,base03))))
+     `(navi2ch-bm-down-face ((,class (:foreground ,base1))))
      `(navi2ch-bm-mark-face ((,class (:foreground ,red))))
      `(navi2ch-bm-new-unread-face ((,class (:foreground ,green))))
      `(navi2ch-bm-new-view-face ((,class (:foreground ,yellow))))
@@ -1440,7 +1434,7 @@ customize the resulting theme."
      `(navi2ch-bm-seen-cache-face ((,class (:foreground ,blue))))
      `(navi2ch-bm-seen-update-face ((,class (:foreground ,orange))))
      `(navi2ch-bm-seen-mark-face ((,class (:foreground ,red))))
-     `(navi2ch-article-header-face ((,class (:foreground ,base03))))
+     `(navi2ch-article-header-face ((,class (:foreground ,base1))))
      `(navi2ch-article-header-contents-face ((,class (:foreground ,blue))))
      `(navi2ch-article-header-fusianasan-face ((,class (:foreground ,blue :underline t))))
      `(navi2ch-article-link-face ((,class (:weight bold))))
@@ -1452,6 +1446,13 @@ customize the resulting theme."
      `(navi2ch-message-link-face ((,class (:weight bold))))
      `(navi2ch-message-url-face ((,class (:weight bold))))
      `(navi2ch-message-citation-face ((,class (:foreground ,magenta))))
+;;;;; neotree
+     `(neo-banner-face ((,class (:foreground ,base01))))
+     `(neo-header-face ((,class (:foreground ,blue))))
+     `(neo-root-dir-face ((,class (:foreground ,base1 :weight bold))))
+     `(neo-dir-link-face ((,class (:foreground ,blue))))
+     `(neo-file-link-face ((,class (:foreground ,base0))))
+     `(neo-expand-btn-face ((,class (:foreground ,base01))))
 ;;;;; org-mode
      `(org-agenda-structure
        ((,class (:foreground ,base1 :background ,base02
@@ -1570,6 +1571,19 @@ customize the resulting theme."
      `(popup-scroll-bar-background-face ((,class (:background ,base01))))
      `(popup-scroll-bar-foreground-face ((,class (:background ,base1))))
      `(popup-tip-face ((,class (:background ,base02 :foreground ,base0))))
+;;;;; powerline
+     `(powerline-active1 ((,class ,(if solarized-high-contrast-mode-line
+                                       `(:background ,base00 :foreground ,base03)
+                                       `(:background ,base03 :foreground ,base00)))))
+     `(powerline-active2 ((,class ,(if solarized-high-contrast-mode-line
+                                       `(:background ,base01 :foreground ,base03)
+                                       `(:background ,base02 :foreground ,base00)))))
+     `(powerline-inactive1 ((,class ,(if solarized-high-contrast-mode-line
+                                         `(:background ,base03 :foreground ,base1)
+                                         `(:background ,base02 :foreground ,base01)))))
+     `(powerline-inactive2 ((,class ,(if solarized-high-contrast-mode-line
+                                         `(:background ,base02 :foreground ,base1)
+                                         `(:background ,base03 :foreground ,base01)))))
 ;;;;; rainbow-blocks
      `(rainbow-blocks-depth-1-face ((,class (:foreground ,cyan))))
      `(rainbow-blocks-depth-2-face ((,class (:foreground ,yellow))))
@@ -1620,6 +1634,19 @@ customize the resulting theme."
 ;;;;; skewer-mode
      `(skewer-error-face ((,class (:foreground ,orange :underline nil))))
      `(skewer-repl-log-face ((,class (:foreground ,violet))))
+;;;;; smart-mode-line
+     ;; use (setq sml/theme nil) to enable Solarized for sml
+     `(sml/filename ((,class (:foreground ,base1 :weight bold))))
+     `(sml/prefix ((,class (:foreground unspecified))))
+     `(sml/git ((,class (:foreground unspecified))))
+     `(sml/process ((,class (:weight bold))))
+     `(sml/sudo ((,class  (:foreground ,orange :weight bold))))
+     `(sml/read-only ((,class (:foreground ,cyan))))
+     `(sml/outside-modified ((,class (:foreground , cyan))))
+     `(sml/modified ((,class (:foreground ,cyan))))
+     `(sml/vc-edited ((,class (:foreground ,green))))
+     `(sml/charging ((,class (:foreground ,base1))))
+     `(sml/discharging ((,class (:foreground ,base1 :weight bold))))
 ;;;;; smartparens
      `(sp-pair-overlay-face ((,class (:background ,base02))))
      `(sp-wrap-overlay-face ((,class (:background ,base02))))
@@ -1721,14 +1748,10 @@ customize the resulting theme."
      `(swoop-face-line-number ((,class (:foreground ,base01))))
      `(swoop-face-target-line ((,class (:background ,base02 :foreground unspecified))))
      `(swoop-face-target-words ((,class (:background unspecified :foreground ,magenta))))
-
 ;;;;; table
      `(table-cell ((,class (:foreground ,base0 :background ,base02))))
-
 ;;;;; term
-     (unless (version< emacs-version "24.4")
-       `(term-default-fg-color (t (:foreground ,base0)))
-       `(term-default-bg-color (t (:background ,base03))))
+     `(term ((t ( :background ,base03 :foreground ,base0))))
      `(term-color-black ((t (:foreground ,base02 :background ,base02))))
      `(term-color-red ((t (:foreground ,red :background ,red))))
      `(term-color-green ((t (:foreground ,green :background ,green))))
@@ -1737,18 +1760,15 @@ customize the resulting theme."
      `(term-color-magenta ((t (:foreground ,magenta :background ,magenta))))
      `(term-color-cyan ((t (:foreground ,cyan :background ,cyan))))
      `(term-color-white ((t (:foreground ,base2 :background ,base2))))
-
-     ;; todotxt
+;;;;; todotxt
      `(todotxt-priority-a-face ((,class (:foreground ,orange))))
      `(todotxt-priority-b-face ((,class (:foreground ,yellow))))
      `(todotxt-priority-c-face ((,class (:foreground ,violet))))
-
 ;;;;; tooltip
      ;; NOTE: This setting has no effect on the os widgets for me
      ;; zencoding uses this.
      `(tooltip ((,class (:background ,yellow-lc :foreground ,yellow-hc
                                      :inherit ,s-variable-pitch))))
-
 ;;;;; tuareg
      `(tuareg-font-lock-governing-face ((,class (:foreground ,magenta :weight bold))))
      `(tuareg-font-lock-multistage-face ((,class (:foreground ,blue :background ,base02
@@ -1942,11 +1962,8 @@ customize the resulting theme."
      `(ztreep-header-face ((,class (:foreground ,base01 :weight bold :height 1.2))))
      `(ztreep-leaf-face ((,class (:foreground  ,base0))))
      `(ztreep-node-face ((,class (:foreground ,blue))))
-
-
      ) ; END custom-theme-set-faces
 ;;; Theme Variables
-
     (custom-theme-set-variables
      theme-name
 ;;;;; ansi-colors
@@ -1954,50 +1971,39 @@ customize the resulting theme."
        [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00])
 ;;;;; compilation
      `(compilation-message-face 'default)
-
 ;;;;; cua
      `(cua-normal-cursor-color ,base0)
      `(cua-read-only-cursor-color ,green)
      `(cua-global-mark-cursor-color ,cyan)
      `(cua-overwrite-cursor-color ,yellow)
-
 ;;;;; fill-column-indicator
      `(fci-rule-color ,base02)
-
 ;;;;; magit
      `(magit-diff-use-overlays nil)
-
 ;;;;; highlight-changes
      `(highlight-changes-colors '(,magenta ,violet))
-
 ;;;;; highlight-symbol
      `(highlight-symbol-foreground-color ,base1)
      `(highlight-symbol-colors
        (--map (solarized-color-blend it ,base03 0.25)
               '(,yellow ,cyan ,red ,violet ,green ,orange ,blue)))
-                 
 ;;;;; highlight-tail
      `(highlight-tail-colors
        '((,base02 . 0)(,green-lc . 20)(,cyan-lc . 30)(,blue-lc . 50)
          (,yellow-lc . 60)(,orange-lc . 70)(,magenta-lc . 85)(,base02 . 100)))
-
 ;;;;; hl-anything
      `(hl-fg-colors '(,base03 ,base03 ,base03 ,base03 ,base03 ,base03
                               ,base03 ,base03))
      `(hl-bg-colors '(,yellow-lc ,orange-lc ,red-lc ,magenta-lc
-                                 ,violet-lc ,blue-lc ,cyan-lc ,green-lc)) 
+                                 ,violet-lc ,blue-lc ,cyan-lc ,green-lc))
 ;;;;; pos-tip
      `(pos-tip-foreground-color ,base1)
      `(pos-tip-background-color ,base02)
 ;;;;; smartrep
      `(smartrep-mode-line-active-bg (solarized-color-blend ,green ,s-mode-line-bg 0.2))
-
 ;;;;; term
-     `(if (version< emacs-version "24.4")
-         (progn
-           (term-default-fg-color ,base0)
-           (term-default-bg-color ,base03)))
-
+     `(term-default-fg-color ,base0) ;; @deprecated24.3
+     `(term-default-bg-color ,base03) ;; @deprecated24.3
 ;;;;; vc
      `(vc-annotate-color-map
        '((20 . ,red)

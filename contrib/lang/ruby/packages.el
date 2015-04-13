@@ -1,12 +1,11 @@
 (defvar ruby-packages
   '(
-    ;; package rubys go here
-    enh-ruby-mode
-    ruby-tools
-    flycheck
-    ruby-test-mode
-    robe
     bundler
+    enh-ruby-mode
+    flycheck
+    robe
+    ruby-test-mode
+    ruby-tools
     yaml-mode))
 
 (when ruby-version-manager
@@ -37,13 +36,26 @@
   "Initialize Ruby Mode"
   (use-package enh-ruby-mode
     :mode (("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
-           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))))
+           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
+    :config
+    (progn
+      ;; work arround for a bug with wrong number of argument
+      ;; https://github.com/zenspider/enhanced-ruby-mode/blob/master/test/enh-ruby-mode-test.el#L4
+      (defun erm-darken-color (name)
+        (let ((attr (face-attribute name :foreground)))
+          (unless (equal attr 'unspecified)
+            (color-darken-name attr 20) "#000000"))))))
 
-(defun ruby/init-flycheck ()
+(defun ruby/post-init-flycheck ()
   (add-hook 'enh-ruby-mode-hook 'flycheck-mode))
 
 (defun ruby/init-ruby-tools ()
-  (add-hook 'enh-ruby-mode-hook 'ruby-tools-mode))
+  (use-package ruby-tools
+    :defer t
+    :init
+    (add-hook 'enh-ruby-mode-hook 'ruby-tools-mode)
+    :config
+    (spacemacs|hide-lighter ruby-tools-mode)))
 
 (defun ruby/init-bundler ()
   (use-package bundler
@@ -61,11 +73,11 @@
     :defer t
     :init
     (progn
-      (add-hook 'projectile-mode-hook 'projectile-rails-on))
+      (add-hook 'enh-ruby-mode-hook 'projectile-rails-on))
     :config
     (progn
-      (spacemacs|diminish projectile-rails-mode " ⇋" " R")
-                                        ; Code navigation
+      (spacemacs|diminish projectile-rails-mode " ⇋" " RoR")
+
       ;; Find files
       (evil-leader/set-key "mrfa" 'projectile-rails-find-locale)
       (evil-leader/set-key "mrfc" 'projectile-rails-find-controller)
@@ -115,10 +127,14 @@
   "Initialize Robe mode"
   (use-package robe
     :defer t
-    :init (add-hook 'enh-ruby-mode-hook 'robe-mode)
+    :init
+    (progn
+      (add-hook 'enh-ruby-mode-hook 'robe-mode)
+      (when (configuration-layer/layer-usedp 'auto-completion)
+        (push '(company-robe :with company-yasnippet) company-backends-enh-ruby-mode)))
     :config
     (progn
-      (spacemacs|diminish robe-mode " ♦" " r")
+      (spacemacs|hide-lighter robe-mode)
       ;; robe mode specific
       (evil-leader/set-key-for-mode 'enh-ruby-mode "mgg" 'robe-jump)
       (evil-leader/set-key-for-mode 'enh-ruby-mode "mhd" 'robe-doc)
@@ -145,6 +161,9 @@
   (use-package feature-mode
     :mode (("\\.feature\\'" . feature-mode))))
 
+(defun ruby/init-haml-mode ()
+  (use-package haml-mode
+    :defer t))
 
 (defun ruby/init-ruby-test-mode ()
   "Define keybindings for ruby test mode"
@@ -157,3 +176,7 @@
       (evil-leader/set-key
         "mtb" 'ruby-test-run
         "mtt" 'ruby-test-run-at-point))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun ruby/post-init-company ()
+    (spacemacs|add-company-hook enh-ruby-mode)))

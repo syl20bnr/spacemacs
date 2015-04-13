@@ -77,11 +77,10 @@ once you switch to a new project with `<SPC> p s`. It must be said that in the
 current implementation in order for this to work you must first open a
 custom-perspective like `SPC L o e` to go to the init.el in the spacemacs.
 
-If you are a helm person, and would rather use helm for projectile add this to
-your config as well:
-
 ```elisp 
-(projectile-persp-bridge helm-projectile)
+(setq-default dotspacemacs-configuration-layers '(
+  (perspectives :variables
+                perspective-enable-persp-projectile t)))
 ```
 
 #### Org-agenda custom perspective
@@ -126,5 +125,5 @@ Key Binding           |                 Description
 Key Binding           |                 Description
 ----------------------|------------------------------------------------
 <kbd>SPC L o e</kbd>  | Emacs custom perspective
-<kbd>SPC L o i</kbd>  | RCIRC custom perspective
+<kbd>SPC L o i</kbd>  | RCIRC custom perspective (needs the rcirc layer enabled)
 <kbd>SPC L o o</kbd>  | Org custom perspective

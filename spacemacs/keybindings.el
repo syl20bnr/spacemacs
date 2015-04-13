@@ -18,6 +18,8 @@
 ;; exiting isearch
 (define-key isearch-mode-map (kbd "S-<return>") 'isearch-repeat-forward)
 (define-key isearch-mode-map (kbd "M-S-<return>") 'isearch-repeat-backward)
+;; Escape from isearch-mode("/" and "?" in evil-mode) like vim
+(define-key isearch-mode-map (kbd "<escape>") 'isearch-cancel)
 
 ;; Make <escape> quit as much as possible
 (define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
@@ -26,6 +28,12 @@
 (define-key minibuffer-local-completion-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-isearch-map (kbd "<escape>") 'keyboard-escape-quit)
+
+;; linum margin bindings-------------------------------------------------------
+(global-set-key (kbd "<left-margin> <down-mouse-1>") 'spacemacs/md-select-linum)
+(global-set-key (kbd "<left-margin> <mouse-1>") 'spacemacs/mu-select-linum)
+(global-set-key (kbd "<left-margin> <double-mouse-1>") 'spacemacs/select-current-block)
+(global-set-key (kbd "<left-margin> <drag-mouse-1>") 'spacemacs/mu-select-linum)
 
 ;; ---------------------------------------------------------------------------
 ;; evil-leader key bindings
@@ -47,8 +55,10 @@
 (evil-leader/set-key
   "b0"  'beginning-of-buffer
   "b$"  'end-of-buffer
+  "bd"  'spacemacs/kill-this-buffer
   "bb"  'spacemacs/alternate-buffer ;; switch back and forth between two last buffers
   "TAB" 'spacemacs/alternate-buffer
+  "bh"  'spacemacs/home
   "be"  'spacemacs/safe-erase-buffer
   "bK"  'kill-other-buffers
   "bk"  'ido-kill-buffer
@@ -61,14 +71,28 @@
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
-(evil-leader/set-key
-  "hdc" 'describe-char
-  "hdf" 'describe-function
-  "hdk" 'describe-key
-  "hdm" 'describe-mode
-  "hdp" 'describe-package
-  "hdt" 'describe-theme
-  "hdv" 'describe-variable)
+(defmacro spacemacs||set-helm-key (keys func)
+  "Define a key bindings for FUNC using KEYS.
+Ensure that helm is required before calling FUNC."
+  (let ((func-name (intern (format "spacemacs/%s" (symbol-name func)))))
+    `(progn
+       (defun ,func-name ()
+         ,(format "Wrapper for %s" (symbol-name func))
+         (interactive)
+         (require 'helm)
+         (call-interactively ',func))
+       (evil-leader/set-key ,keys ',func-name))))
+(spacemacs||set-helm-key "hdc" describe-char)
+(spacemacs||set-helm-key "hdf" describe-function)
+(spacemacs||set-helm-key "hdk" describe-key)
+(spacemacs||set-helm-key "hdm" describe-mode)
+(spacemacs||set-helm-key "hdp" describe-package)
+(spacemacs||set-helm-key "hdt" describe-theme)
+(spacemacs||set-helm-key "hdv" describe-variable)
+(spacemacs||set-helm-key "hL" helm-locate-library)
+;; search functions -----------------------------------------------------------
+(spacemacs||set-helm-key "sww" helm-wikipedia-suggest)
+(spacemacs||set-helm-key "swg" helm-google-suggest)
 ;; errors ---------------------------------------------------------------------
 (evil-leader/set-key
   "en" 'spacemacs/next-error
@@ -106,9 +130,11 @@
 ;; <SPC> J split the current line at point and indent it
 (evil-leader/set-key
   "J"  'sp-split-sexp
-  "jJ" 'spacemacs/split-and-new-line
   "jj" 'sp-newline
+  "j=" 'spacemacs/indent-region-or-buffer
+  "jJ" 'spacemacs/split-and-new-line
   "jk" 'evil-goto-next-line-and-indent)
+
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key
   "jh" 'spacemacs/push-mark-and-goto-beginning-of-line
@@ -118,34 +144,22 @@
 (evil-leader/set-key "cC" 'compile)
 (evil-leader/set-key "cr" 'recompile)
 ;; narrow & widen -------------------------------------------------------------
-(unless (configuration-layer/package-declaredp 'fancy-narrow)
-  (evil-leader/set-key
-    "nr" 'narrow-to-region
-    "np" 'narrow-to-page
-    "nf" 'narrow-to-defun
-    "nw" 'widen))
+(evil-leader/set-key
+  "nr" 'narrow-to-region
+  "np" 'narrow-to-page
+  "nf" 'narrow-to-defun
+  "nw" 'widen)
 ;; spell check  ---------------------------------------------------------------
 (evil-leader/set-key
   "Sd" 'ispell-change-dictionary
   "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
-(spacemacs|add-toggle fringe
-                      :status (not (equal fringe-mode 0))
-                      :on (call-interactively 'fringe-mode)
-                      :off (fringe-mode 0)
-                      :documentation "Display the fringe in GUI mode."
-                      :evil-leader "tf")
-(spacemacs|add-toggle fullscreen-frame
-                      :status nil
-                      :on (spacemacs/toggle-frame-fullscreen)
-                      :documentation "Display the current frame in full screen."
-                      :evil-leader "tF")
 (spacemacs|add-toggle highlight-current-line-globally
                       :status global-hl-line-mode
                       :on (global-hl-line-mode)
                       :off (global-hl-line-mode -1)
                       :documentation "Globally Highlight the current line."
-                      :evil-leader "th")
+                      :evil-leader "thh")
 (spacemacs|add-toggle truncate-lines
                       :status nil
                       :on (toggle-truncate-lines)
@@ -157,54 +171,59 @@
                       :off (visual-line-mode -1)
                       :documentation "Move point according to visual lines."
                       :evil-leader "tL")
-(spacemacs|add-toggle maximize-frame
-                      :if (version< "24.3.50" emacs-version)
-                      :status nil
-                      :on (toggle-frame-maximized)
-                      :documentation "Maximize the current frame."
-                      :evil-leader "tM")
 (spacemacs|add-toggle line-numbers
                       :status linum-mode
                       :on (global-linum-mode)
                       :off (global-linum-mode -1)
                       :documentation "Show the line numbers."
                       :evil-leader "tn")
-(spacemacs|add-toggle transparent-frame
-                      :status nil
-                      :on (toggle-transparency)
-                      :documentation "Make the current frame non-opaque."
-                      :evil-leader "tt")
 (spacemacs|add-toggle auto-fill-mode
                       :status auto-fill-function
                       :on (auto-fill-mode)
                       :off (auto-fill-mode -1)
                       :documentation "Break line beyond `current-fill-column` while editing."
-                      :evil-leader "t C-f")
+                      :evil-leader "tF")
 (spacemacs|add-toggle debug-on-error
                       :status nil
                       :on (toggle-debug-on-error)
                       :documentation "Toggle display of backtrace when an error happens."
-                      :evil-leader "t D")
+                      :evil-leader "tD")
+(spacemacs|add-toggle fringe
+                      :status (not (equal fringe-mode 0))
+                      :on (call-interactively 'fringe-mode)
+                      :off (fringe-mode 0)
+                      :documentation "Display the fringe in GUI mode."
+                      :evil-leader "Tf")
+(spacemacs|add-toggle fullscreen-frame
+                      :status nil
+                      :on (spacemacs/toggle-frame-fullscreen)
+                      :documentation "Display the current frame in full screen."
+                      :evil-leader "TF")
+(spacemacs|add-toggle maximize-frame
+                      :if (version< "24.3.50" emacs-version)
+                      :status nil
+                      :on (toggle-frame-maximized)
+                      :documentation "Maximize the current frame."
+                      :evil-leader "TM")
+(spacemacs|add-toggle transparent-frame
+                      :status nil
+                      :on (toggle-transparency)
+                      :documentation "Make the current frame non-opaque."
+                      :evil-leader "TT")
 (spacemacs|add-toggle tool-bar
                       :if window-system
                       :status tool-bar-mode
                       :on (tool-bar-mode)
                       :off (tool-bar-mode -1)
                       :documentation "Display the tool bar in GUI mode."
-                      :evil-leader "tT")
+                      :evil-leader "Tt")
 (spacemacs|add-toggle menu-bar
                       :if (or window-system (version<= "24.3.1" emacs-version))
                       :status menu-bar-mode
                       :on (menu-bar-mode)
                       :off (menu-bar-mode -1)
                       :documentation "Display the menu bar."
-                      :evil-leader "tU")
-(spacemacs|add-toggle whitespaces
-                      :status whitespace-mode
-                      :on (whitespace-mode)
-                      :off (whitespace-mode -1)
-                      :documentation "Display the whitespaces."
-                      :evil-leader "t SPC")
+                      :evil-leader "Tm")
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "qs" 'spacemacs/save-buffers-kill-emacs
@@ -256,12 +275,10 @@
   "wv"  'split-window-right
   "wV"  'split-window-right-and-focus
   "ww"  'other-window
-  "w/"  'split-window-right)
+  "w/"  'split-window-right
+  "w="  'balance-windows)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
-  "zx="  'spacemacs/reset-font-size
-  "zx+"  'spacemacs/scale-up-font
-  "zx-"  'spacemacs/scale-down-font
   "xdw" 'delete-trailing-whitespace
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
@@ -273,21 +290,24 @@
 ;; google translate -----------------------------------------------------------
 (evil-leader/set-key
   "xgl" 'set-google-translate-languages)
-;; emacs-lisp -----------------------------------------------------------------
-(evil-leader/set-key-for-mode 'emacs-lisp-mode
-  "me$" 'lisp-state-eval-sexp-end-of-line
-  "mee" 'eval-last-sexp
-  "mef" 'eval-defun
-  "mel" 'lisp-state-eval-sexp-end-of-line
-  "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
-  "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point
-  "m,"  'lisp-state-toggle-lisp-state
-  "mtb" 'spacemacs/ert-run-tests-buffer
-  "mtq" 'ert)
 
 ;; ---------------------------------------------------------------------------
 ;; Micro-states
 ;; ---------------------------------------------------------------------------
+
+;; Buffer micro state
+
+(spacemacs|define-micro-state buffer
+  :doc "[n] next [N] previous [K] kill"
+  :disable-evil-leader t
+  :use-minibuffer t
+  :evil-leader "b."
+  :bindings
+  ("K" spacemacs/kill-this-buffer)
+  ("n" spacemacs/next-real-buffer)
+  ("N" spacemacs/prev-real-buffer))
+
+;; end of Buffer micro state
 
 ;; Window Manipulation Micro State
 
@@ -402,3 +422,42 @@
   ("w" other-window                          :doc (spacemacs//window-manipulation-move-doc)))
 
 ;; end of Window Manipulation Micro State
+
+;; text Manipulation Micro State
+
+(defun spacemacs/scale-up-or-down-font-size (direction)
+  "Scale the font. If DIRECTION is positive or zero the font is scaled up,
+otherwise it is scaled down."
+  (interactive)
+  (let ((scale 0.5))
+    (if (eq direction 0)
+        (text-scale-set 0)
+      (if (< direction 0)
+          (text-scale-decrease scale)
+        (text-scale-increase scale)))))
+
+(defun spacemacs/scale-up-font ()
+  "Scale up the font."
+  (interactive)
+  (spacemacs/scale-up-or-down-font-size 1))
+
+(defun spacemacs/scale-down-font ()
+  "Scale up the font."
+  (interactive)
+  (spacemacs/scale-up-or-down-font-size -1))
+
+(defun spacemacs/reset-font-size ()
+  "Reset the font size."
+  (interactive)
+  (spacemacs/scale-up-or-down-font-size 0))
+
+(spacemacs|define-micro-state scale-font
+  :doc "[+] scale up [-] scale down [=] reset font"
+  :evil-leader "zx"
+  :use-minibuffer t
+  :bindings
+  ("+" spacemacs/scale-up-font)
+  ("-" spacemacs/scale-down-font)
+  ("=" spacemacs/reset-font-size))
+
+;; end of Text Manipulation Micro State

@@ -20,11 +20,9 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
-    :mode ("\\.md" . markdown-mode)
+    :mode ("\\.m[k]d" . markdown-mode)
     :defer t
-    :init
-    (eval-after-load 'smartparens
-      '(add-hook 'markdown-mode-hook 'smartparens-mode))
+    :init (add-hook 'markdown-mode-hook 'smartparens-mode)
     :config
     ;; Don't do terrible things with Github code blocks (```)
     (when (fboundp 'sp-local-pair)

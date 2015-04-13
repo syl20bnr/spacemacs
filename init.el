@@ -9,7 +9,7 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(defconst spacemacs-version          "0.100.1" "Spacemacs version.")
+(defconst spacemacs-version          "0.101.0" "Spacemacs version.")
 (defconst spacemacs-emacs-min-version   "24.3" "Minimal version of Emacs.")
 
 (defun spacemacs/emacs-version-ok ()
@@ -22,5 +22,6 @@
   (spacemacs/init)
   (configuration-layer/sync)
   (spacemacs/setup-after-init-hook)
+  (spacemacs/maybe-install-dotfile)
   (require 'server)
   (unless (server-running-p) (server-start)))

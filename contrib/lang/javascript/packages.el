@@ -13,12 +13,13 @@
 (defvar javascript-packages
   '(
     coffee-mode
+    company
+    company-tern
     flycheck
     js2-mode
     js2-refactor
     json-mode
     tern
-    tern-auto-complete
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -40,7 +41,7 @@ which require an initialization must be listed explicitly in the list.")
                                      (setq indent-line-function 'javascript/coffee-indent
                                            evil-shift-width coffee-tab-width))))))
 
-(defun javascript/init-flycheck ()
+(defun javascript/post-init-flycheck ()
   (add-hook 'coffee-mode-hook 'flycheck-mode)
   (add-hook 'js2-mode-hook    'flycheck-mode)
   (add-hook 'json-mode-hook   'flycheck-mode))
@@ -154,7 +155,15 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key-for-mode 'js2-mode (kbd "m C-g") 'tern-pop-find-definition)
       (evil-leader/set-key-for-mode 'js2-mode "mt" 'tern-get-type))))
 
-(defun javascript/init-tern-auto-complete ()
-  (use-package tern-auto-complete
-    :defer t
-    :init (add-hook 'tern-mode-hook 'tern-ac-setup)))
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun javascript/post-init-company ()
+    (spacemacs|add-company-hook js2-mode))
+
+  (defun javascript/init-company-tern ()
+    (use-package company-tern
+      :if (and (configuration-layer/package-usedp 'company)
+               (configuration-layer/package-usedp 'tern))
+      :defer t
+      :init
+      (push '(company-tern :with company-yasnippet)
+            company-backends-js2-mode))))

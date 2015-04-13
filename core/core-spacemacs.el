@@ -14,6 +14,7 @@
 
 (require 'subr-x nil 'noerror)
 (require 'core-emacs-backports)
+(require 'core-auto-completion)
 (require 'core-themes-support)
 (require 'core-fonts-support)
 (require 'core-spacemacs-buffer)
@@ -68,12 +69,15 @@
 (defun spacemacs/init ()
   "Create the special buffer for `spacemacs-mode' and perform startup
 initialization."
+  ;; explicitly set the prefered coding systems to avoid annoying prompt
+  ;; from emacs (especially on Microsoft Windows)
+  (prefer-coding-system 'utf-8)
   ;; dotfile init
   (dotspacemacs/load-file)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
-  (spacemacs/set-mode-line "")
+  (spacemacs-buffer/set-mode-line "")
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
   ;; default theme
@@ -95,16 +99,16 @@ initialization."
       (menu-bar-mode -1)))
   ;; for convenience and user support
   (unless (fboundp 'tool-bar-mode)
-    (spacemacs/message (concat "No graphical support detected, you won't be"
+    (spacemacs-buffer/message (concat "No graphical support detected, you won't be"
                                "able to launch a graphical instance of Emacs"
                                "with this build.")))
   ;; font
   (if (find-font (font-spec :name (car dotspacemacs-default-font)))
       (spacemacs/set-default-font dotspacemacs-default-font)
-    (spacemacs/message "Warning: Cannot find font \"%s\"!"
-                       (car dotspacemacs-default-font)))
+    (spacemacs-buffer/warning "Cannot find font \"%s\"!"
+                              (car dotspacemacs-default-font)))
   ;; banner
-  (spacemacs//insert-banner-and-buttons)
+  (spacemacs-buffer/insert-banner-and-buttons)
   (setq-default evil-want-C-u-scroll t)
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init "Executing user init...")
@@ -113,15 +117,16 @@ initialization."
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-package 'bind-key t)
   (spacemacs/load-or-install-package 'use-package t)
-  ;; evil and evil-leader must be installed at the beginning of the boot sequence
-  ;; use C-u as scroll-up (must be set before actually loading evil)
+  ;; evil and evil-leader must be installed at the beginning of the
+  ;; boot sequence.
+  ;; Use C-u as scroll-up (must be set before actually loading evil)
   (spacemacs/load-or-install-package 'evil t)
   (spacemacs/load-or-install-package 'evil-leader t)
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
   (spacemacs/set-new-version-lighter-mode-line-faces)
-  (add-hook 'after-init-hook 'spacemacs/goto-link-line)
+  (add-hook 'after-init-hook 'spacemacs-buffer/goto-link-line)
   (spacemacs-mode))
 
 (defun spacemacs//get-package-directory (pkg)
@@ -131,7 +136,9 @@ initialization."
       (let ((dir (reduce (lambda (x y) (if x x y))
                          (mapcar (lambda (x)
                                    (if (string-match
-                                        (concat "/" (symbol-name pkg) "-") x) x))
+                                        (concat "/"
+                                                (symbol-name pkg)
+                                                "-[0-9]+") x) x))
                                  (directory-files elpa-dir 'full))
                          :initial-value nil)))
         (if dir (file-name-as-directory dir))))))
@@ -153,7 +160,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
            (add-to-list 'load-path pkg-elpa-dir)
          ;; install the package
          (when log
-           (spacemacs/append-to-buffer
+           (spacemacs-buffer/append
             (format "(Bootstrap) Installing %s...\n" pkg))
            (spacemacs//redisplay))
          (package-refresh-contents)
@@ -163,6 +170,16 @@ FILE-TO-LOAD is an explicit file to load after the installation."
        (when file-to-load
          (load-file (concat pkg-elpa-dir file-to-load)))
        pkg-elpa-dir))))
+
+(defun spacemacs/maybe-install-dotfile ()
+  "Install the dotfile if it does not exist."
+  (unless (file-exists-p dotspacemacs-filepath)
+    (spacemacs-buffer/set-mode-line "Dotfile wizard installer")
+    (spacemacs//redisplay)
+    (when (dotspacemacs/install 'with-wizard)
+      (dotspacemacs/sync-configuration-layers)
+      (spacemacs-buffer/append
+       "The dofile has been installed.\n"))))
 
 (defun spacemacs/display-and-copy-version ()
   "Echo the current spacemacs version and copy it."
@@ -326,16 +343,19 @@ version and the NEW version."
      ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
      (let ((elapsed (float-time
                      (time-subtract (current-time) emacs-start-time))))
-       (spacemacs/append-to-buffer
-        (format "[%s packages loaded in %.3fs]\n"
+       (spacemacs-buffer/append
+        (format "\n[%s packages loaded in %.3fs]\n"
                 (configuration-layer//initialized-packages-count)
                 elapsed)))
+     ;; Display useful lists of items
+     (when dotspacemacs-startup-lists
+       (spacemacs-buffer/insert-startupify-lists))
      (when configuration-layer-error-count
        ;; ("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification "   " mode-line-position evil-mode-line-tag
         ;; (vc-mode vc-mode)
        ;; "  " mode-line-modes mode-line-misc-info mode-line-end-spaces
-       (spacemacs/set-mode-line
-        (format (concat "%s errors at startup! "
+       (spacemacs-buffer/set-mode-line
+        (format (concat "%s error(s) at startup! "
                         "Spacemacs may not be able to operate properly.")
                 configuration-layer-error-count))
        (force-mode-line-update))
