@@ -72,7 +72,14 @@ which require an initialization must be listed explicitly in the list.")
   (spacemacs|hide-lighter git-gutter-mode)
   (if (and (not git-gutter-use-fringe)
            global-linum-mode)
-      (git-gutter:linum-setup)))
+      (git-gutter:linum-setup))
+  (with-eval-after-load (or 'git-gutter 'git-gutter-fringe)
+    (evil-leader/set-key
+      "ghs" 'git-gutter:stage-hunk
+      "ghr" 'git-gutter:revert-hunk
+      "ghN" 'git-gutter:previous-hunk
+      "ghn" 'git-gutter:next-hunk
+      "ghp" 'git-gutter:popup-hunk)))
 
 (defun git/init-git-gutter ()
   (use-package git-gutter
@@ -102,34 +109,29 @@ which require an initialization must be listed explicitly in the list.")
       (setq git-gutter:hide-gutter t)
       ;; Don't need log/message.
       (setq git-gutter:verbosity 0)
-      (evil-leader/set-key
-        "ghs" 'git-gutter:stage-hunk
-        "ghr" 'git-gutter:revert-hunk
-        "ghN" 'git-gutter:previous-hunk
-        "ghn" 'git-gutter:next-hunk)
       ;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
       ;; custom graphics that works nice with half-width fringes
       (fringe-helper-define 'git-gutter-fr:added nil
-        "..X...."
-        "..X...."
-        "XXXXX.."
-        "..X...."
-        "..X...."
-        )
+                            "..X...."
+                            "..X...."
+                            "XXXXX.."
+                            "..X...."
+                            "..X...."
+                            )
       (fringe-helper-define 'git-gutter-fr:deleted nil
-        "......."
-        "......."
-        "XXXXX.."
-        "......."
-        "......."
-        )
+                            "......."
+                            "......."
+                            "XXXXX.."
+                            "......."
+                            "......."
+                            )
       (fringe-helper-define 'git-gutter-fr:modified nil
-        "..X...."
-        ".XXX..."
-        "XXXXX.."
-        ".XXX..."
-        "..X...."
-        ))))
+                            "..X...."
+                            ".XXX..."
+                            "XXXXX.."
+                            ".XXX..."
+                            "..X...."
+                            ))))
 
 (defun git/init-git-messenger ()
   (use-package git-messenger
