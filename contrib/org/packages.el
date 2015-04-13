@@ -38,7 +38,7 @@
            "c" nil "mA" 'org-archive-subtree
            "o" nil "mC" 'evil-org-recompute-clocks
            "l" nil "m <RET>" 'evil-org-open-links
-           "t" nil "mt" 'org-show-todo-tree)
+           "t" nil "mT" 'org-show-todo-tree)
       (evil-define-key 'normal evil-org-mode-map
         "O" 'evil-open-above
         )
@@ -56,6 +56,11 @@
         '(spacemacs|hide-lighter org-indent-mode))
       (setq org-startup-indented t)
 
+      (defmacro spacemacs|org-emphasize (fname char)
+        "Make function for setting the emphasize in org mode"
+        `(defun ,fname () (interactive)
+                (org-emphasize ,char))
+        )
       (evil-leader/set-key-for-mode 'org-mode
         "mc" 'org-capture
         "md" 'org-deadline
@@ -73,12 +78,13 @@
         "mhh" 'org-insert-heading
         "mhH" 'org-insert-heading-after-current
         ;; changeing emphasis
-        "msb" '(lambda () (interactive) (org-emphasize ?*))
-        "msi" '(lambda () (interactive) (org-emphasize ?/))
-        "msc" '(lambda () (interactive) (org-emphasize ?~))
-        "msu" '(lambda () (interactive) (org-emphasize ?_))
-        "msv" '(lambda () (interactive) (org-emphasize ?=))
-        "mss" '(lambda () (interactive) (org-emphasize ?+))
+        "mtb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
+        "mti" (spacemacs|org-emphasize spacemacs/org-italic ?/)
+        "mtc" (spacemacs|org-emphasize spacemacs/org-code ?~)
+        "mtu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
+        "mtv" (spacemacs|org-emphasize spacemacs/org-verbose ?=)
+        "mts" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
+        "mt <SPC>" (spacemacs|org-emphasize spacemacs/org-clear ? )
         )
 
       (eval-after-load "org-agenda"
