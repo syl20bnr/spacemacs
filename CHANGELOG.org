@@ -248,7 +248,9 @@ a batch of packages.
 - Typo and documentation updates (thanks to danielwuz, swaroopch,
   CestDiego, IvanMalison, agevelt, nwolfe)
 ** Hot Fixes
-None
+- Don't display the release notes in the startup buffer when Emacs is restarted
+  after a fresh install
+- Org layer: exclude ox-gfm since it seems problematic for some users.
 ** Backports
 None
 * Previous Releases
