@@ -98,7 +98,6 @@
     subword
     undo-tree
     use-package
-    vi-tilde-fringe
     volatile-highlights
     whitespace
     window-numbering
@@ -2575,31 +2574,6 @@ It is a string holding:
     (spacemacs|hide-lighter undo-tree-mode)))
 
 (defun spacemacs/init-use-package ())
-
-(defun spacemacs/init-vi-tilde-fringe ()
-  (use-package vi-tilde-fringe
-    :if window-system
-    :init
-    (progn
-      (global-vi-tilde-fringe-mode)
-      (spacemacs|add-toggle vi-tilde-fringe
-                            :status vi-tilde-fringe-mode
-                            :on (global-vi-tilde-fringe-mode)
-                            :off (global-vi-tilde-fringe-mode -1)
-                            :documentation
-                            (concat "Globally display a ~ on "
-                                    "empty lines in the fringe.")
-                            :evil-leader "t~")
-      ;; don't enable it on spacemacs home buffer
-      (with-current-buffer  "*spacemacs*"
-        (vi-tilde-fringe-mode -1))
-      ;; after a major mode is loaded, check if the buffer is read only
-      ;; if so, disable vi-tilde-fringe-mode
-      (add-hook 'after-change-major-mode-hook (lambda ()
-                                                (when buffer-read-only
-                                                  (vi-tilde-fringe-mode -1)))))
-    :config
-    (spacemacs|hide-lighter vi-tilde-fringe-mode)))
 
 (defun spacemacs/init-visual-regexp-steroids ()
   (use-package visual-regexp-steroids
