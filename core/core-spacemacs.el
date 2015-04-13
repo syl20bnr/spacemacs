@@ -344,7 +344,7 @@ version and the NEW version."
      (let ((elapsed (float-time
                      (time-subtract (current-time) emacs-start-time))))
        (spacemacs-buffer/append
-        (format "[%s packages loaded in %.3fs]\n"
+        (format "\n[%s packages loaded in %.3fs]\n"
                 (configuration-layer//initialized-packages-count)
                 elapsed)))
      ;; Display useful lists of items
