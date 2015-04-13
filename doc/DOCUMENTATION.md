@@ -1,5 +1,3 @@
-# Spacemacs Documentation
-
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
@@ -91,6 +89,7 @@
         - [Buffers and Files](#buffers-and-files)
             - [Buffers manipulation key bindings](#buffers-manipulation-key-bindings)
             - [Buffers manipulation manipulation micro-state](#buffers-manipulation-manipulation-micro-state)
+            - [Special Buffers](#special-buffers)
             - [Files manipulations key bindings](#files-manipulations-key-bindings)
             - [Emacs and Spacemacs files](#emacs-and-spacemacs-files)
         - [Ido](#ido)
@@ -169,6 +168,8 @@
 - [Thank you](#thank-you)
 
 <!-- markdown-toc end -->
+# Spacemacs Documentation
+
 
 # Core Pillars
 
@@ -1437,8 +1438,8 @@ Key Binding            |              Description
 <kbd>SPC b m k</kbd>   | move a buffer to the top
 <kbd>SPC b m l</kbd>   | move a buffer to the right
 <kbd>SPC b M</kbd>     | swap windows using [ace-swap-window][ace-window]
-<kbd>SPC b n</kbd>     | switch to next buffer
-<kbd>SPC b p</kbd>     | switch to previous buffer
+<kbd>SPC b n</kbd>     | switch to next buffer avoiding special buffers
+<kbd>SPC b p</kbd>     | switch to previous buffer avoiding special buffers
 <kbd>SPC b P</kbd>     | copy clipboard and replace buffer (useful when pasting from a browser)
 <kbd>SPC b r</kbd>     | rename the current buffer
 <kbd>SPC b R</kbd>     | revert the current buffer (reload from disk)
@@ -1458,6 +1459,13 @@ Key Binding         | Description
 <kbd>n</kbd>        | go to next buffer (avoid special buffers)
 <kbd>N</kbd>        | go to previous buffer (avoid special buffers)
 Any other key       | leave the micro-state
+
+#### Special Buffers
+
+Unlike vim, emacs creates many buffers that most people do not need to see.
+Some examples are `*Messages*` and `*Compile-Log*`. Spacemacs tries to automatically
+ignore buffers that are not useful. However, you may want to change the way
+Spacemacs marks buffers as useful. For instructions, see the [special buffer howto][].
 
 #### Files manipulations key bindings
 
@@ -2607,6 +2615,7 @@ developers to elisp hackers!
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [gitter]: https://gitter.im/syl20bnr/spacemacs
 [CONTRIBUTE.md]: ./CONTRIBUTE.md
+[special buffer howto]: ./HOWTOs.md#change-special-buffer-rules
 [neotree]: https://github.com/jaypei/emacs-neotree
 [nerdtree]: https://github.com/scrooloose/nerdtree
 [anaconda-mode]: https://github.com/proofit404/anaconda-mode

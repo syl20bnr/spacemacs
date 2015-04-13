@@ -28,6 +28,7 @@
             cider-repl-pop-to-buffer-on-connect nil
             cider-prompt-save-file-on-load nil
             cider-repl-use-clojure-font-lock t)
+      (push "\\*cider-repl\.\+\\*" spacemacs-useful-buffers-regexp)
       (add-hook 'clojure-mode-hook 'cider-mode)
       (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
       (if dotspacemacs-smartparens-strict-mode
@@ -118,7 +119,7 @@ the focus."
       ;; open cider-doc directly and close it with q
       (setq cider-prompt-for-symbol nil)
       (evilify cider-docview-mode cider-docview-mode-map
-        (kbd "q") 'cider-popup-buffer-quit)
+               (kbd "q") 'cider-popup-buffer-quit)
 
       (evil-leader/set-key-for-mode 'clojure-mode
         "mhh" 'cider-doc
