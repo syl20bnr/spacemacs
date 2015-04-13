@@ -37,8 +37,11 @@
            "a" nil "ma" 'org-agenda
            "c" nil "mA" 'org-archive-subtree
            "o" nil "mC" 'evil-org-recompute-clocks
-           "l" nil "ml" 'evil-org-open-links
+           "l" nil "m <RET>" 'evil-org-open-links
            "t" nil "mt" 'org-show-todo-tree)
+      (evil-define-key 'normal evil-org-mode-map
+        "O" 'evil-open-above
+        )
       (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
 
 (defun org/init-org ()
@@ -62,9 +65,21 @@
         "mj" 'helm-org-in-buffer-headings
         "mo" 'org-clock-out
         "mm" 'org-ctrl-c-ctrl-c
+        (concat "m" dotspacemacs-major-mode-leader-key) 'org-ctrl-c-ctrl-c
         "mq" 'org-clock-cancel
         "mr" 'org-refile
-        "ms" 'org-schedule)
+        "mS" 'org-schedule
+        ;; headings
+        "mhh" 'org-insert-heading
+        "mhH" 'org-insert-heading-after-current
+        ;; changeing emphasis
+        "msb" '(lambda () (interactive) (org-emphasize ?*))
+        "msi" '(lambda () (interactive) (org-emphasize ?/))
+        "msc" '(lambda () (interactive) (org-emphasize ?~))
+        "msu" '(lambda () (interactive) (org-emphasize ?_))
+        "msv" '(lambda () (interactive) (org-emphasize ?=))
+        "mss" '(lambda () (interactive) (org-emphasize ?+))
+        )
 
       (eval-after-load "org-agenda"
         '(progn
@@ -79,7 +94,13 @@
     (progn
       (require 'org-indent)
       (define-key global-map "\C-cl" 'org-store-link)
-      (define-key global-map "\C-ca" 'org-agenda))))
+      (define-key global-map "\C-ca" 'org-agenda)
+      (evil-leader/set-key
+        "Cc" 'org-capture
+        )
+      ))
+
+  )
 
 (defun org/init-org-bullets ()
   (use-package org-bullets

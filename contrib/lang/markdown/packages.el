@@ -30,35 +30,33 @@
       (evil-leader/set-key-for-mode 'markdown-mode
         ;; Element insertion
         "m\""   'markdown-insert-hr
-        "mal"   'markdown-insert-link
-        "maL"   'markdown-insert-reference-link-dwim
-        "mau"   'markdown-insert-uri
-        "maf"   'markdown-insert-footnote
-        "maw"   'markdown-insert-wiki-link
+        "mil"   'markdown-insert-link
+        "miL"   'markdown-insert-reference-link-dwim
+        "miu"   'markdown-insert-uri
+        "mif"   'markdown-insert-footnote
+        "miw"   'markdown-insert-wiki-link
         "mii"   'markdown-insert-image
         "miI"   'markdown-insert-reference-image
-        "mth"   'markdown-insert-header-dwim
-        "mtH"   'markdown-insert-header-setext-dwim
-        "mt1"   'markdown-insert-header-atx-1
-        "mt2"   'markdown-insert-header-atx-2
-        "mt3"   'markdown-insert-header-atx-3
-        "mt4"   'markdown-insert-header-atx-4
-        "mt5"   'markdown-insert-header-atx-5
-        "mt6"   'markdown-insert-header-atx-6
-        "mt!"   'markdown-insert-header-setext-1
-        "mt@"   'markdown-insert-header-setext-2
-        "mss"   'markdown-insert-bold
-        "mse"   'markdown-insert-italic
+        "mhh"   'markdown-insert-header-dwim
+        "mhH"   'markdown-insert-header-setext-dwim
+        "mh1"   'markdown-insert-header-atx-1
+        "mh2"   'markdown-insert-header-atx-2
+        "mh3"   'markdown-insert-header-atx-3
+        "mh4"   'markdown-insert-header-atx-4
+        "mh5"   'markdown-insert-header-atx-5
+        "mh6"   'markdown-insert-header-atx-6
+        "mh!"   'markdown-insert-header-setext-1
+        "mh@"   'markdown-insert-header-setext-2
+        "msb"   'markdown-insert-bold
+        "msi"   'markdown-insert-italic
         "msc"   'markdown-insert-code
-        "msb"   'markdown-insert-blockquote
-        "msB"   'markdown-blockquote-region
+        "msq"   'markdown-insert-blockquote
+        "msQ"   'markdown-blockquote-region
         "msp"   'markdown-insert-pre
         "msP"   'markdown-pre-region
         ;; Element removal
         "mk"    'markdown-kill-thing-at-point
         ;; Promotion, Demotion, Completion, and Cycling
-        "m="    'markdown-promote
-        "m-"    'markdown-demote
         "m]"    'markdown-complete
         ;; Following and Jumping
         "mo"   'markdown-follow-thing-at-point
@@ -92,7 +90,11 @@
         "m{"   'markdown-backward-paragraph
         "m}"   'markdown-forward-paragraph
         "mN"   'markdown-next-link
-        "mP"   'markdown-previous-link))))
+        "mP"   'markdown-previous-link)
+
+
+      (define-key markdown-mode-map (kbd "M-h") 'markdown-promote)
+      (define-key markdown-mode-map (kbd "M-l") 'markdown-demote))))
 
 (defun markdown/init-markdown-toc ()
   (use-package markdown-toc

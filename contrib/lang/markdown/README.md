@@ -49,7 +49,7 @@ To generate a table of contents type on top of the buffer:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m "</kbd>    | insert hr
+<kbd>SPC m -</kbd>    | insert hr
 <kbd>SPC m a l</kbd>  | insert link
 <kbd>SPC m a L</kbd>  | insert reference link dwim
 <kbd>SPC m a u</kbd>  | insert uri
