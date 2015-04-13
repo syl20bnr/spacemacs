@@ -68,6 +68,24 @@ which require an initialization must be listed explicitly in the list.")
         "mr" 'org-refile
         "ms" 'org-schedule)
 
+      (setq org-src-fontify-natively t)
+      (setq org-src-tab-acts-natively t)
+      (setq org-confirm-babel-evaluate nil)
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '(
+         (R . t)
+         (emacs-lisp . t)
+         (python . t)
+         (sh . t)
+         (haskell . t)
+         (js . t)
+         (latex . t)
+         (gnuplot . t)
+         (C . t)
+         (sql . t)
+         ))
+
       (eval-after-load "org-agenda"
         '(progn
            (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
