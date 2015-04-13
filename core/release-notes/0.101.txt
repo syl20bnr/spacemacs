@@ -1,0 +1,10 @@
+New layers:
+company-mode layer has been replaced by the new layer auto-completion.
+Org packages have been moved to the new layer org.
+Flycheck has been moved to the new layer syntax-checking.
+Be sure to update your dotfile to add these layers.
+
+Init functions:
+The init function <layer>/init-<package> is now mandatory. Any package
+without an explicit init function will be ignored and uninstalled by
+Spacemacs.

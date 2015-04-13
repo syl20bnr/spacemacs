@@ -15,7 +15,17 @@
 (defconst spacemacs-buffer--banner-length 75
   "Width of a banner.")
 
-(defvar spacemacs-buffer--changelog-widgets ())
+(defconst spacemacs-buffer--cache-file
+  (expand-file-name (concat spacemacs-cache-directory "spacemacs-buffer.el"))
+  "Cache file for various persistent data for the spacemacs startup buffer")
+
+(defvar spacemacs-buffer--release-note-version nil
+  "If nil the release note is displayed. If non nil it contains
+a version number, if the version number is lesser than the current
+version the release note it displayed")
+
+(defvar spacemacs-buffer--release-note-widgets ()
+  "List of widgets used to display the release note.")
 
 (defun spacemacs-buffer/insert-banner-and-buttons ()
   "Choose a banner accordingly to `dotspacemacs-startup-banner'and insert it
@@ -33,8 +43,11 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
         (insert-file-contents banner))
       (spacemacs-buffer//inject-version)
       (spacemacs-buffer//insert-buttons)
-      (when (eq t dotspacemacs-always-show-changelog)
-        (spacemacs-buffer/toggle-changelog))
+      (load spacemacs-buffer--cache-file)
+      (when (or (not spacemacs-buffer--release-note-version)
+                (version< spacemacs-buffer--release-note-version
+                          spacemacs-version))
+        (spacemacs-buffer/toggle-release-note))
       (spacemacs//redisplay))))
 
 (defun spacemacs-buffer//choose-banner ()
@@ -107,24 +120,40 @@ buffer, right justified."
       (delete-char (length injected))
       (insert injected))))
 
-(defun spacemacs-buffer//insert-changelog ()
+(defun spacemacs-buffer//insert-release-note ()
+  "Insert the release note just under the banner."
   (save-excursion
     (beginning-of-buffer)
     (search-forward "Spacemacs\]")
     (next-line)
-  (let* ((file-contents (with-temp-buffer (insert-file-contents spacemacs-changelog-file) (buffer-string)))
-         (changelog-header "\nCHANGELOG"))
-    (setq spacemacs-buffer--changelog-widgets (cons (widget-create 'text changelog-header) spacemacs-buffer--changelog-widgets))
-    (setq spacemacs-buffer--changelog-widgets (cons (widget-create 'text (concat "\n" file-contents)) spacemacs-buffer--changelog-widgets)))))
+    ;; for now the path to the release note if hardcoded
+    (let* ((file (concat spacemacs-release-notes-directory "0.101.txt"))
+           (note (concat "\n" (spacemacs//render-framed-text
+                               file spacemacs-buffer--banner-length
+                               " Important Notes (Release 0.101.x) "))))
+      (setq spacemacs-buffer--release-note-widgets
+            (list (widget-create 'text note)
+                  (widget-create 'url-link
+                                 :tag "Click here for full change log"
+                                 :help-echo "Open the full change log."
+                                 :action (lambda (&rest ignore) (funcall 'spacemacs/open-change-log))
+                                 :mouse-face 'highlight
+                                 :follow-link "\C-m"))))))
 
-(defun spacemacs-buffer/toggle-changelog ()
+(defun spacemacs-buffer/toggle-release-note ()
+  "Toggle the release note for the buffer."
   (interactive)
-  (if (eq spacemacs-buffer--changelog-widgets nil)
-      (spacemacs-buffer//insert-changelog)
-    (mapc (lambda (el)
-            (widget-delete el)
-            (setq spacemacs-buffer--changelog-widgets (remove el spacemacs-buffer--changelog-widgets)))
-          spacemacs-buffer--changelog-widgets)))
+  (if (eq spacemacs-buffer--release-note-widgets nil)
+      (progn
+        (spacemacs-buffer//insert-release-note)
+        (setq spacemacs-buffer--release-note-version nil)
+        (spacemacs/dump-vars-to-file
+         '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file))
+    (mapc 'widget-delete spacemacs-buffer--release-note-widgets)
+    (setq spacemacs-buffer--release-note-widgets nil)
+    (setq spacemacs-buffer--release-note-version spacemacs-version)
+    (spacemacs/dump-vars-to-file
+     '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)))
 
 (defun spacemacs-buffer/set-mode-line (format)
   "Set mode-line format for spacemacs buffer."
@@ -238,7 +267,7 @@ The vertical spacing is always one line."
        ;; bottom
        "╰" (make-string hpadding ?─)
        (make-string fill-column ?─)
-       (make-string hpadding ?─) "╯\n"))))
+       (make-string hpadding ?─) "╯"))))
 
 (defun spacemacs//render-framed-line (line hpadding)
   "Return a formated LINE with borders of a frame on each side and
@@ -309,7 +338,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
   (widget-create 'push-button
                  :tag "Release Notes"
                  :help-echo "Hide or show the Changelog"
-                 :action (lambda (&rest ignore) (spacemacs-buffer/toggle-changelog))
+                 :action (lambda (&rest ignore) (spacemacs-buffer/toggle-release-note))
                  :mouse-face 'highlight
                  :follow-link "\C-m"
                  )

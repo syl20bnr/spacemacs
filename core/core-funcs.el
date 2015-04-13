@@ -109,4 +109,14 @@ Supported properties:
         (dolist (val ',def-key)
           (define-key (eval (car val)) (kbd (cdr val)) ',func))))))
 
+(defun spacemacs/open-change-log ()
+  "Open the change log for the current version."
+  (interactive)
+  ;; For now hardcode it
+  (find-file (concat user-emacs-directory "CHANGELOG.org"))
+  (goto-char (point-min))
+  (re-search-forward "Releases 0.101.x")
+  (beginning-of-line)
+  (show-subtree))
+
 (provide 'core-funcs)
