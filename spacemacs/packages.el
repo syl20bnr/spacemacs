@@ -2508,7 +2508,9 @@ It is a string holding:
       ;; don't create a pair with single quote in dotspacemacs-mode
       (sp-local-pair 'dotspacemacs-mode "'" nil :actions nil)
 
-      (setq sp-cancel-autoskip-on-backward-movement nil))
+      (setq sp-show-pair-delay 0
+            sp-show-pair-from-inside t ; fix paren highlighting in normal mode
+            sp-cancel-autoskip-on-backward-movement nil))
     :config
     (progn
       (require 'smartparens-config)
