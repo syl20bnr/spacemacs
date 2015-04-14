@@ -1246,11 +1246,18 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-
       (setq helm-prevent-escaping-from-minibuffer t
             helm-split-window-in-side-p nil
+            helm-M-x-fuzzy-match t
+            helm-apropos-fuzzy-match t
             helm-bookmark-show-location t
             helm-buffers-fuzzy-matching t
+            helm-file-cache-fuzzy-match t
+            helm-imenu-fuzzy-match t
+            helm-lisp-fuzzy-completion t
+            helm-locate-fuzzy-match t
+            helm-recentf-fuzzy-match t
+            helm-semantic-fuzzy-match t
             helm-always-two-windows     t)
 
       (defun spacemacs/helm-do-ack ()
