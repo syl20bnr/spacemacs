@@ -37,7 +37,7 @@
            "a" nil "ma" 'org-agenda
            "c" nil "mA" 'org-archive-subtree
            "o" nil "mC" 'evil-org-recompute-clocks
-           "l" nil "m <RET>" 'evil-org-open-links
+           "l" nil "mo" 'evil-org-open-links
            "t" nil "mT" 'org-show-todo-tree)
       (evil-define-key 'normal evil-org-mode-map
         "O" 'evil-open-above
@@ -57,7 +57,7 @@
       (setq org-startup-indented t)
 
       (defmacro spacemacs|org-emphasize (fname char)
-        "Make function for setting the emphasize in org mode"
+        "Make function for setting the emphasis in org mode"
         `(defun ,fname () (interactive)
                 (org-emphasize ,char))
         )
@@ -74,8 +74,9 @@
         "mN" 'widen
         "mO" 'org-clock-out
         "mq" 'org-clock-cancel
-        "mr" 'org-refile
-        "mS" 'org-schedule
+        "mR" 'org-refile
+        "ms" 'org-schedule
+        "m'" 'org-edit-special
         ;; headings
         "mhh" 'org-insert-heading-after-current
         "mhH" 'org-insert-heading
@@ -84,14 +85,14 @@
         "mif" 'org-footnote-new
         ;; images and other link types have no commands in org mode-line
         ;; could be inserted using yasnippet?
-        ;; text manipulation
-        "mtb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
-        "mti" (spacemacs|org-emphasize spacemacs/org-italic ?/)
-        "mtc" (spacemacs|org-emphasize spacemacs/org-code ?~)
-        "mtu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
-        "mtv" (spacemacs|org-emphasize spacemacs/org-verbose ?=)
-        "mts" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
-        "mt <SPC>" (spacemacs|org-emphasize spacemacs/org-clear ? )
+        ;; region manipulation
+        "mrb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
+        "mri" (spacemacs|org-emphasize spacemacs/org-italic ?/)
+        "mrc" (spacemacs|org-emphasize spacemacs/org-code ?~)
+        "mru" (spacemacs|org-emphasize spacemacs/org-underline ?_)
+        "mrv" (spacemacs|org-emphasize spacemacs/org-verbose ?=)
+        "mrs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
+        "mr <SPC>" (spacemacs|org-emphasize spacemacs/org-clear ? )
         )
 
       (eval-after-load "org-agenda"
