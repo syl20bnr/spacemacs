@@ -741,29 +741,40 @@ which require an initialization must be listed explicitly in the list.")
         (ad-disable-advice 'evil-visual-paste 'after 'spacemacs/evil-visual-paste)
         (ad-activate 'evil-visual-paste))
 
-
       ;; define text objects
-      (defmacro spacemacs|define-and-bind-text-object (key name start-regex end-regex)
+      (defmacro spacemacs|define-text-object (key name start end)
         (let ((inner-name (make-symbol (concat "evil-inner-" name)))
-              (outer-name (make-symbol (concat "evil-outer-" name))))
+              (outer-name (make-symbol (concat "evil-outer-" name)))
+              (start-regex (regexp-opt (list start)))
+              (end-regex (regexp-opt (list end))))
           `(progn
              (evil-define-text-object ,inner-name (count &optional beg end type)
                (evil-select-paren ,start-regex ,end-regex beg end type count nil))
              (evil-define-text-object ,outer-name (count &optional beg end type)
                (evil-select-paren ,start-regex ,end-regex beg end type count t))
              (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
-             (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
-      ;; between dollars sign:
-      (spacemacs|define-and-bind-text-object "$" "dollar" "\\$" "\\$")
-      ;; between pipe characters:
-      (spacemacs|define-and-bind-text-object "|" "bar" "|" "|")
-      ;; between percent signs:
-      (spacemacs|define-and-bind-text-object "%" "percent" "%" "%")
+             (define-key evil-outer-text-objects-map ,key (quote ,outer-name))
+             (when (configuration-layer/package-usedp 'evil-surround)
+               (push (cons (string-to-char ,key)
+                           (if ,end
+                               (cons ,start ,end)
+                             ,start))
+                     evil-surround-pairs-alist)))))
 
-      ;; add star block
-      (spacemacs|define-and-bind-text-object "*" "star-block" "/*" "*/")
-      ;; add slash block
-      (spacemacs|define-and-bind-text-object "/" "slash-block" "//" "//")
+      (defun spacemacs//standard-text-objects ()
+        ;; between dollars sign:
+        (spacemacs|define-text-object "$" "dollar" "$" "$")
+        ;; define stars
+        (spacemacs|define-text-object "*" "star" "*" "*")
+        ;; define block star text object
+        (spacemacs|define-text-object "8" "block-star" "/*" "*/")
+        ;; between pipe characters:
+        (spacemacs|define-text-object "|" "bar" "|" "|")
+        ;; between percent signs:
+        (spacemacs|define-text-object "%" "percent" "%" "%"))
+
+      (add-to-hook 'prog-mode-hook '(spacemacs//standard-text-objects))
+      (add-to-hook 'emacs-lisp-mode '(lambda () (spacemacs|define-text-object ";" "elisp-comment" ";; " "")))
 
       ;; support smart 1parens-strict-mode
       (if (ht-contains? configuration-layer-all-packages 'smartparens)
