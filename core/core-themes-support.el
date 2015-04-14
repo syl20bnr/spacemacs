@@ -10,6 +10,9 @@
 ;;
 ;;; License: GPLv3
 
+(defconst emacs-built-in-themes (custom-available-themes)
+  "List of emacs built-in themes")
+
 (defconst spacemacs-theme-name-to-package
   '(
     (alect-black-alt . alect-themes)
@@ -37,6 +40,8 @@
     (sanityinc-tomorrow-day      . color-theme-sanityinc-tomorrow)
     (sanityinc-tomorrow-eighties . color-theme-sanityinc-tomorrow)
     (sanityinc-tomorrow-night    . color-theme-sanityinc-tomorrow)
+    (solarized-light . solarized-theme)
+    (solarized-dark . solarized-theme)
     (colorsarenice-dark  . colorsarenice-theme)
     (colorsarenice-light . colorsarenice-theme)
     (hemisu-dark  . hemisu-theme)
@@ -64,15 +69,29 @@
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")
 
+(defvar spacemacs-used-theme-packages nil
+  "List of packages of used themes.")
+
+(defun spacemacs//get-theme-package (theme)
+  "Returns the package theme for the given THEME name."
+  (cond
+   ;; built-in
+   ((memq theme emacs-built-in-themes) nil)
+   ;; from explicit alist
+   ((assq theme spacemacs-theme-name-to-package)
+    (cdr (assq theme spacemacs-theme-name-to-package)))
+   ;; fallback to <name>-theme
+   (t (intern (format "%S-theme" theme)))))
+
 (defun spacemacs/load-theme (theme)
   "Load THEME."
-  ;; Unless Emacs stock themes
+  ;; Required dependencies for some themes
   (when (or (eq 'zonokai-blue theme)
             (eq 'zonokai-red theme)
             (eq 'solarized-light theme)
             (eq 'solarized-dark theme))
-        ;; required dependencies
         (spacemacs/load-or-install-package 'dash))
+  ;; Unless Emacs stock themes
   (unless (memq theme (custom-available-themes))
     (cond
      ;; solarized theme, official spacemacs theme
@@ -85,7 +104,7 @@ package name does not match theme name + `-theme' suffix.")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))
      ;; themes with explicitly declared package names
      ((assq theme spacemacs-theme-name-to-package)
-      (let* ((pkg (cdr (assq theme spacemacs-theme-name-to-package)))
+      (let* ((pkg (spacemacs//get-theme-package theme))
              (pkg-dir (spacemacs/load-or-install-package pkg)))
         (when (or (eq 'moe-light theme)
                   (eq 'moe-dark theme))
@@ -96,8 +115,8 @@ package name does not match theme name + `-theme' suffix.")
       ;; other themes
       ;; we assume that the package name is suffixed with `-theme'
       ;; if not we will handle the special themes as we get issues in the tracker.
-      (let ((pkg (format "%s-theme" (symbol-name theme))))
-        (spacemacs/load-or-install-package (intern pkg))))))
+      (let ((pkg (spacemacs//get-theme-package theme)))
+        (spacemacs/load-or-install-package pkg)))))
   (load-theme theme t))
 
 (defun spacemacs/cycle-spacemacs-theme ()

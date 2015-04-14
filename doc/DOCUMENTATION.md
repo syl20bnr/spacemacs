@@ -707,7 +707,11 @@ the variable `dotspacemacs-themes`. For instance, to specify `leuven` and
 <kbd>SPC T n</kbd>   | switch to next theme listed in `dotspacemacs-themes`.
 <kbd>SPC T h</kbd>   | select a theme using a `helm` buffer.
 
-**Note:** Due to the inner working of themes in Emacs, switching theme during
+**Note:**
+- You don't need to explicitly list in a layer the theme packages you are
+defining in `dotspacemacs-themes`, Spacemacs is smart enough to remove those
+packages from the list of orphans.
+- Due to the inner working of themes in Emacs, switching theme during
 the same session may have some weird side effects. Although these side effects
 should be pretty rare.
 
