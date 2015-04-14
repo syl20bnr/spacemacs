@@ -935,6 +935,9 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       (global-evil-search-highlight-persist)
+      (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
+                          :inverse-video t
+                          :background nil)
       ;; (set-face-attribute )
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
       (define-key evil-search-highlight-persist-map (kbd "C-x SPC") 'rectangle-mark-mode)
