@@ -76,8 +76,12 @@ disabling some faces in order to make colored identifiers stand out."
         (interactive)
         ;; tweak the saturation and lightness of identifier colors
         (pcase theme
+          (`gotham (setq rainbow-identifiers-cie-l*a*b*-saturation 45
+                         rainbow-identifiers-cie-l*a*b*-lightness 60))
           (`leuven (setq rainbow-identifiers-cie-l*a*b*-saturation 100
-                                  rainbow-identifiers-cie-l*a*b*-lightness 40))
+                         rainbow-identifiers-cie-l*a*b*-lightness 40))
+          (`material (setq rainbow-identifiers-cie-l*a*b*-saturation 95
+                           rainbow-identifiers-cie-l*a*b*-lightness 105))
           (`monokai (setq rainbow-identifiers-cie-l*a*b*-saturation 55
                           rainbow-identifiers-cie-l*a*b*-lightness 60))
           (`solarized-dark (setq rainbow-identifiers-cie-l*a*b*-saturation 65
