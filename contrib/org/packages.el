@@ -66,18 +66,23 @@
         "md" 'org-deadline
         "me" 'org-export-dispatch
         "mf" 'org-set-effort
-        "mi" 'org-clock-in
+        "mI" 'org-clock-in
         "mj" 'helm-org-in-buffer-headings
-        "mo" 'org-clock-out
+        "mO" 'org-clock-out
         "mm" 'org-ctrl-c-ctrl-c
         (concat "m" dotspacemacs-major-mode-leader-key) 'org-ctrl-c-ctrl-c
         "mq" 'org-clock-cancel
         "mr" 'org-refile
         "mS" 'org-schedule
         ;; headings
-        "mhh" 'org-insert-heading
-        "mhH" 'org-insert-heading-after-current
-        ;; changeing emphasis
+        "mhh" 'org-insert-heading-after-current
+        "mhH" 'org-insert-heading
+        ;; insertion of common elements
+        "mil" 'org-insert-link
+        "mif" 'org-footnote-new
+        ;; images and other link types have no commands in org mode-line
+        ;; could be inserted using yasnippet?
+        ;; text manipulation
         "mtb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
         "mti" (spacemacs|org-emphasize spacemacs/org-italic ?/)
         "mtc" (spacemacs|org-emphasize spacemacs/org-code ?~)

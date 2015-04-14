@@ -28,8 +28,8 @@
       (sp-local-pair 'markdown-mode "'" nil :actions nil))
     (progn
       (evil-leader/set-key-for-mode 'markdown-mode
-        ;; Element insertion
-        "m\""   'markdown-insert-hr
+        ;; Insertion of common elements
+        "m-"   'markdown-insert-hr
         "mil"   'markdown-insert-link
         "miL"   'markdown-insert-reference-link-dwim
         "miu"   'markdown-insert-uri
@@ -37,6 +37,7 @@
         "miw"   'markdown-insert-wiki-link
         "mii"   'markdown-insert-image
         "miI"   'markdown-insert-reference-image
+        ;; headings
         "mhh"   'markdown-insert-header-dwim
         "mhH"   'markdown-insert-header-setext-dwim
         "mh1"   'markdown-insert-header-atx-1
@@ -47,29 +48,26 @@
         "mh6"   'markdown-insert-header-atx-6
         "mh!"   'markdown-insert-header-setext-1
         "mh@"   'markdown-insert-header-setext-2
-        "msb"   'markdown-insert-bold
-        "msi"   'markdown-insert-italic
-        "msc"   'markdown-insert-code
-        "msq"   'markdown-insert-blockquote
-        "msQ"   'markdown-blockquote-region
-        "msp"   'markdown-insert-pre
-        "msP"   'markdown-pre-region
+        ;; text manipulation
+        "mtb"   'markdown-insert-bold
+        "mti"   'markdown-insert-italic
+        "mtc"   'markdown-insert-code
+        "mtq"   'markdown-insert-blockquote
+        "mtQ"   'markdown-blockquote-region
+        "mtp"   'markdown-insert-pre
+        "mtP"   'markdown-pre-region
         ;; Element removal
         "mk"    'markdown-kill-thing-at-point
         ;; Promotion, Demotion, Completion, and Cycling
         "m]"    'markdown-complete
         ;; Following and Jumping
         "mo"   'markdown-follow-thing-at-point
-        "mj"   'markdown-jump
+        "m <RET>"   'markdown-jump
         ;; Indentation
         "m>"   'markdown-indent-region
         "m<"   'markdown-exdent-region
         ;; Header navigation
-        "mn"   'outline-next-visible-heading
         "mp"   'outline-previous-visible-heading
-        "mf"   'outline-forward-same-level
-        "mb"   'outline-backward-same-level
-        "mu"   'outline-up-heading
         ;; Buffer-wide commands
         "mc]"  'markdown-complete-buffer
         "mcm"  'markdown-other-window
@@ -81,10 +79,6 @@
         "mcc"  'markdown-check-refs
         "mcn"  'markdown-cleanup-list-numbers
         ;; List editing
-        "mlk"  'markdown-move-up
-        "mlj"  'markdown-move-down
-        "mlh"  'markdown-promote
-        "mll"  'markdown-demote
         "mli"  'markdown-insert-list-item
         ;; Movement
         "m{"   'markdown-backward-paragraph
@@ -92,7 +86,16 @@
         "mN"   'markdown-next-link
         "mP"   'markdown-previous-link)
 
-
+      ;; normal state movements
+      (evil-define-key 'normal markdown-mode-map
+        "gj" 'outline-forward-same-level
+        "gk" 'outline-backward-same-level
+        "gh" 'outline-up-heading
+        ;; next visible heading is not exactly what we want but close enough
+        "gl" 'outline-next-visible-heading
+        )
+      (define-key markdown-mode-map (kbd "M-k") 'markdown-move-up)
+      (define-key markdown-mode-map (kbd "M-j") 'markdown-move-down)
       (define-key markdown-mode-map (kbd "M-h") 'markdown-promote)
       (define-key markdown-mode-map (kbd "M-l") 'markdown-demote))))
 
