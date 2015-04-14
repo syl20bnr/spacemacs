@@ -30,6 +30,9 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :config
     (progn
+      (add-to-list 'auto-mode-alist '("\\.cxx$" . c++-mode))
+      (add-to-list 'auto-mode-alist '("\\.hpp$" . c++-mode))
+      (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
       (require 'compile)
       (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
       (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
