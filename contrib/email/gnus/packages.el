@@ -96,4 +96,4 @@
       (evil-leader/set-key-for-mode 'message-mode
         "mo" 'org-mime-htmlize)
       (evil-leader/set-key-for-mode 'org-mode
-        "mh" 'org-mime-org-buffer-htmlize))))
+        "mH" 'org-mime-org-buffer-htmlize))))

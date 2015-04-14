@@ -48,17 +48,17 @@
         "mh6"   'markdown-insert-header-atx-6
         "mh!"   'markdown-insert-header-setext-1
         "mh@"   'markdown-insert-header-setext-2
-        ;; text manipulation
-        "mtb"   'markdown-insert-bold
-        "mti"   'markdown-insert-italic
-        "mtc"   'markdown-insert-code
-        "mtq"   'markdown-insert-blockquote
-        "mtQ"   'markdown-blockquote-region
-        "mtp"   'markdown-insert-pre
-        "mtP"   'markdown-pre-region
+        ;; region manipulation
+        "mrb"   'markdown-insert-bold
+        "mri"   'markdown-insert-italic
+        "mrc"   'markdown-insert-code
+        "mrq"   'markdown-insert-blockquote
+        "mrQ"   'markdown-blockquote-region
+        "mrp"   'markdown-insert-pre
+        "mrP"   'markdown-pre-region
         ;; Element removal
         "mk"    'markdown-kill-thing-at-point
-        ;; Promotion, Demotion, Completion, and Cycling
+        ;; Completion, and Cycling
         "m]"    'markdown-complete
         ;; Following and Jumping
         "mo"   'markdown-follow-thing-at-point
@@ -66,8 +66,6 @@
         ;; Indentation
         "m>"   'markdown-indent-region
         "m<"   'markdown-exdent-region
-        ;; Header navigation
-        "mp"   'outline-previous-visible-heading
         ;; Buffer-wide commands
         "mc]"  'markdown-complete-buffer
         "mcm"  'markdown-other-window
@@ -86,7 +84,7 @@
         "mN"   'markdown-next-link
         "mP"   'markdown-previous-link)
 
-      ;; normal state movements
+      ;; Header navigation in normal state movements
       (evil-define-key 'normal markdown-mode-map
         "gj" 'outline-forward-same-level
         "gk" 'outline-backward-same-level
@@ -94,6 +92,8 @@
         ;; next visible heading is not exactly what we want but close enough
         "gl" 'outline-next-visible-heading
         )
+
+      ;; Promotion, Demotion
       (define-key markdown-mode-map (kbd "M-k") 'markdown-move-up)
       (define-key markdown-mode-map (kbd "M-j") 'markdown-move-down)
       (define-key markdown-mode-map (kbd "M-h") 'markdown-promote)

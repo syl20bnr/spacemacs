@@ -12,6 +12,8 @@
         - [Different bullets](#different-bullets)
     - [Key bindings](#key-bindings)
         - [Org with evil-org-mode](#org-with-evil-org-mode)
+            - [Element insertion](#element-insertion)
+            - [Org emphasize](#org-emphasize)
         - [Pomodoro](#pomodoro)
         - [Org-repo-todo](#org-repo-todo)
 
@@ -51,26 +53,27 @@ You can tweak the bullets displayed in the org buffer in the function
 
 ### Org with evil-org-mode
 
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>SPC m a</kbd>    | org-agenda
-<kbd>SPC m A</kbd>    | org-archive-subtree
-<kbd>SPC m c</kbd>    | org-capture
-<kbd>SPC m C</kbd>    | evil-org-recompute-clocks
-<kbd>SPC m d</kbd>    | org-deadline
-<kbd>SPC m e</kbd>    | org-export-dispatch
-<kbd>SPC m f</kbd>    | org-set-effort
-<kbd>SPC m i</kbd>    | org-clock-in
-<kbd>SPC m j</kbd>    | helm-org-in-buffer-headings
-<kbd>SPC m l</kbd>    | evil-org-open-links
-<kbd>SPC m m</kbd>    | org-ctrl-c-ctrl-c
-<kbd>SPC m n</kbd>    | org-narrow-to-subtree
-<kbd>SPC m N</kbd>    | widen
-<kbd>SPC m o</kbd>    | org-clock-out
-<kbd>SPC m q</kbd>    | org-clock-cancel
-<kbd>SPC m r</kbd>    | org-refile
-<kbd>SPC m s</kbd>    | org-schedule
-<kbd>SPC m t</kbd>    | org-show-todo-tree
+    Key Binding                                       |          Description
+------------------------------------------------------|------------------------------
+<kbd>SPC m '</kbd>                                    | org-edit-special
+<kbd>SPC m a</kbd>                                    | org-agenda
+<kbd>SPC m A</kbd>                                    | org-archive-subtree
+<kbd>SPC m c</kbd>                                    | org-capture
+<kbd>SPC m C</kbd>                                    | evil-org-recompute-clocks
+<kbd>SPC m d</kbd>                                    | org-deadline
+<kbd>SPC m e</kbd>                                    | org-export-dispatch
+<kbd>SPC m f</kbd>                                    | org-set-effort
+<kbd>SPC m I</kbd>                                    | org-clock-in
+<kbd>SPC m j</kbd>                                    | helm-org-in-buffer-headings
+<kbd>SPC m n</kbd>                                    | org-narrow-to-subtree
+<kbd>SPC m N</kbd>                                    | widen
+<kbd>SPC m <dotspacemacs-major-mode-leader-key></kbd> | org-ctrl-c-ctrl-c
+<kbd>SPC m o</kbd>                                    | evil-org-open-links
+<kbd>SPC m O</kbd>                                    | org-clock-out
+<kbd>SPC m q</kbd>                                    | org-clock-cancel
+<kbd>SPC m R</kbd>                                    | org-refile
+<kbd>SPC m s</kbd>                                    | org-schedule
+<kbd>SPC m T</kbd>                                    | org-show-todo-tree
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -88,7 +91,7 @@ You can tweak the bullets displayed in the org buffer in the function
 <kbd>H</kbd>          | org-beginning-of-line
 <kbd>L</kbd>          | org-end-of-line
 <kbd>o</kbd>          | always-insert-item
-<kbd>O</kbd>          | org-insert-heading
+<kbd>O</kbd>          | org-open-above
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -103,6 +106,27 @@ You can tweak the bullets displayed in the org buffer in the function
 <kbd>M-o</kbd>        | org-insert-heading+org-metaright
 <kbd>M-t</kbd>        | org-insert-todo-heading nil+ org-metaright
 
+#### Element insertion
+
+    Key Binding             |                 Description
+----------------------------|------------------------------------------------------------
+<kbd>SPC m h h</kbd>        | org-insert-heading-after-current
+<kbd>SPC m h H</kbd>        | org-insert-heading
+<kbd>SPC m i l</kbd>        | org-insert-link
+<kbd>SPC m i f</kbd>        | org-insert-footnote
+
+#### Org emphasize
+
+    Key Binding             |                 Description
+----------------------------|------------------------------------------------------------
+<kbd>SPC m r b</kbd>        | make region bold
+<kbd>SPC m r i</kbd>        | make region italic
+<kbd>SPC m r c</kbd>        | make region code
+<kbd>SPC m r u</kbd>        | make region underline
+<kbd>SPC m r v</kbd>        | make region verbose
+<kbd>SPC m r s</kbd>        | make region strike-through
+<kbd>SPC m r SPC</kbd>      | clear region emphasis
+
 ### Pomodoro
 
     Key Binding       |                 Description
@@ -113,6 +137,7 @@ You can tweak the bullets displayed in the org buffer in the function
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
+<kbd>SPC C c</kbd>    | org-capture
 <kbd>SPC C t</kbd>    | ort/capture-todo
 <kbd>SPC C T</kbd>    | ort/capture-todo-check
 <kbd>SPC m g t</kbd>  | ort/goto-todos
