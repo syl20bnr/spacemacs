@@ -222,6 +222,72 @@ Notes:
 the spacemacs level and ideally the function should be proposed as a patch
 upstream (major mode repository).
 
+### Plain Text Markup Languages
+
+For layers supporting markup languages please follow the following keybindings
+whenever applicable.
+
+#### Headers ####
+
+All header functionality should be grouped under <kbd>SPC m h</kbd>
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>m h h</kbd>     | Insert a header 
+<kbd>m h H</kbd>     | Insert a header alternative method (if existing) 
+<kbd>m h 1</kbd>     | Insert a header of level 1 (if possible)
+<kbd>m h 2</kbd>     | Insert a header of level 2 (if possible)
+
+#### Text manipulation ####
+
+Text manipulation commands should be grouped under <kbd>SPC m t</kbd>
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>m t b</kbd>     | Make text bold
+<kbd>m t i</kbd>     | Make text italic
+<kbd>m t c</kbd>     | Make text code
+<kbd>m t u</kbd>     | Make text underlined
+<kbd>m t v</kbd>     | Make text verbose
+<kbd>m t s</kbd>     | Make text strike-through
+<kbd>m t q</kbd>     | Quote a text
+<kbd>m t <SPC></kbd> | Remove formatting from text
+
+#### Insertion of common elements ####
+
+Insertion of common elements like links or footnotes should be grouped under <kbd>SPC m i</kbd>
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>m i l</kbd>     | Insert link
+<kbd>m i u</kbd>     | Insert url
+<kbd>m i f</kbd>     | Insert footnote
+<kbd>m i w</kbd>     | Insert wiki-link
+<kbd>m i i</kbd>     | Insert image
+
+#### Movement in normal mode ####
+
+In normal mode Vim style movement should be enabled
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>gh</kbd>        | Move up one level in headings
+<kbd>gl</kbd>        | Move down one level in headings
+<kbd>gj</kbd>        | Move to next heading on same level
+<kbd>gk</kbd>        | Move to previous heading on same level
+
+#### Promotion, Demotion and element movement ####
+
+Promotion and demotion and movement of headings or list elements (whatever is possible)
+should be enabled with the following keys in any mode
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>M-j</kbd>       | Move element down
+<kbd>M-k</kbd>       | Move element up
+<kbd>M-h</kbd>       | Promote heading by one level
+<kbd>M-l</kbd>       | Demote heading by one level
+
 ### Tests
 
 A lot of languages have their own test frameworks. These frameworks share
