@@ -54,6 +54,7 @@
     flx-ido
     flyspell
     fringe-helper
+    gh-md
     golden-ratio
     google-translate
     guide-key-tip
@@ -1104,6 +1105,8 @@ which require an initialization must be listed explicitly in the list.")
       (spacemacs|diminish flyspell-mode " ⓢ" " s"))))
 
 (defun spacemacs/init-fringe-helper ())
+
+(defun spacemacs/init-gh-md ())
 
 (defun spacemacs/init-golden-ratio ()
   (use-package golden-ratio
