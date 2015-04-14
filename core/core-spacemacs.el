@@ -83,6 +83,10 @@ initialization."
   ;; default theme
   (let ((default-theme (car dotspacemacs-themes)))
     (spacemacs/load-theme default-theme)
+    ;; used to prevent automatic deletion of used packages
+    (setq spacemacs-used-theme-packages
+          (delq nil (mapcar 'spacemacs//get-theme-package
+                            dotspacemacs-themes)))
     (setq-default spacemacs--cur-theme default-theme)
     (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
   ;; removes the GUI elements

@@ -824,13 +824,21 @@ deleted safely."
    (t (let ((p (cadr (assq pkg package-alist))))
         (when p (package-delete p))))))
 
+(defun configuration-layer//filter-used-themes (orphans)
+  "Filter out used theme packages from ORPHANS candidates.
+Returns the filtered list."
+  (delq nil (mapcar (lambda (x)
+                      (and (not (memq x spacemacs-used-theme-packages))
+                           x)) orphans)))
+
 (defun configuration-layer/delete-orphan-packages ()
   "Delete all the orphan packages."
   (interactive)
   (let* ((dependencies (configuration-layer//get-packages-dependencies))
          (implicit-packages (configuration-layer//get-implicit-packages))
-         (orphans (configuration-layer//get-orphan-packages implicit-packages
-                                                  dependencies))
+         (orphans (configuration-layer//filter-used-themes
+                   (configuration-layer//get-orphan-packages implicit-packages
+                                                             dependencies)))
          (orphans-count (length orphans)))
     ;; (message "dependencies: %s" dependencies)
     ;; (message "implicit: %s" implicit-packages)
