@@ -14,17 +14,29 @@
 (defvar purescript-packages
   '(
     purescript-mode
-    psci))
+    psci
+    ))
 
 (defun purescript/init-purescript-mode ()
   (use-package purescript-mode
     :defer t
-    :config
-    (add-hook 'purescript-mode-hook
-                      (lambda () (turn-on-purescript-indentation)))))
+    :init
+    (progn
+      (add-hook 'purescript-mode-hook 'turn-on-purescript-indentation)
+      (evil-leader/set-key-for-mode 'purescript-mode
+        "mi="  'purescript-mode-format-imports
+        "mi`"  'purescript-navigate-imports-return
+        "mia"  'purescript-align-imports
+        "min"  'purescript-navigate-imports))))
 
 (defun purescript/init-psci ()
   (use-package psci
     :defer t
     :init
-    (add-hook 'purescript-mode-hook 'inferior-psci-mode)))
+    (progn
+      (add-hook 'purescript-mode-hook 'inferior-psci-mode)
+      (evil-leader/set-key-for-mode 'purescript-mode
+        "msb" 'psci/load-current-file!
+        "msi" 'psci
+        "msm" 'psci/load-module!
+        "msp" 'psci/load-project-modules!))))
