@@ -1274,12 +1274,19 @@
     :defer t
     :init
     (progn
-
       (setq helm-prevent-escaping-from-minibuffer t
-            helm-split-window-in-side-p nil
             helm-bookmark-show-location t
-            helm-buffers-fuzzy-matching t
-            helm-split-window-in-side-p t)
+            helm-split-window-in-side-p t
+            helm-always-two-windows t)
+      ;; fuzzy matching setting
+      (setq helm-M-x-fuzzy-match t
+            helm-apropos-fuzzy-match t
+            helm-file-cache-fuzzy-match t
+            helm-imenu-fuzzy-match t
+            helm-lisp-fuzzy-completion t
+            helm-locate-fuzzy-match t
+            helm-recentf-fuzzy-match t
+            helm-semantic-fuzzy-match t)
 
       (defun spacemacs/helm-do-ack ()
         "Perform a search with ack using `helm-ag.'"
