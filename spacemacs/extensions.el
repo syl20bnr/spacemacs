@@ -166,10 +166,15 @@
         (let ((zoom-action (cond ((eq arg 0) 'zoom-frm-unzoom)
                                  ((< arg 0) 'zoom-frm-out)
                                  ((> arg 0) 'zoom-frm-in)))
+              (fm (cdr (assoc 'fullscreen (frame-parameters))))
               (fwp (* (frame-char-width) (frame-width)))
               (fhp (* (frame-char-height) (frame-height))))
+          (when (equal fm 'maximized)
+            (toggle-frame-maximized))
           (funcall zoom-action)
-          (set-frame-size nil fwp fhp t)))
+          (set-frame-size nil fwp fhp t)
+          (when (equal fm 'maximized)
+            (toggle-frame-maximized))))
 
       (defun spacemacs/zoom-frm-in ()
         "zoom in frame, but keep the same pixel size"
@@ -187,8 +192,8 @@
         (spacemacs//zoom-frm-do 0))
 
       ;; Font size, either with ctrl + mouse wheel
-      (global-set-key (kbd "C-<wheel-up>") 'spacemacs/zoom-frm-in)
-      (global-set-key (kbd "C-<wheel-down>") 'spacemacs/zoom-frm-out))))
+      (global-set-key (kbd "<C-wheel-up>") 'spacemacs/zoom-frm-in)
+      (global-set-key (kbd "<C-wheel-down>") 'spacemacs/zoom-frm-out))))
 
 (defun spacemacs/init-emacs-builtin-emacs-lisp ()
 
