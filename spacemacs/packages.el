@@ -1644,6 +1644,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
     :init
     (setq helm-swoop-split-with-multiple-windows t
           helm-swoop-split-direction 'split-window-vertically
+          helm-swoop-speed-or-color t
           helm-swoop-split-window-function 'helm-default-display-buffer)
     (evil-leader/set-key
       "sS"    'helm-multi-swoop
