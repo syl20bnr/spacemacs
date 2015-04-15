@@ -1,4 +1,14 @@
-* Releases 0.101.x (2015/04/13)
+* Release 0.102.x (in progress)
+_(includes all the hot fixes and backports of version 0.101.x)_
+** Initial Release
+*** New dotfile variables
+- `dotspacemacs-search-tools` list of search tool executable names.
+  Spacemacs uses the first installed tool of the list. Supported
+  tools are `ag`, `pt`, `ack` and `grep`.
+*** Various Improvements and Changes
+- Startup buffer: beautify widgets by giving them different faces
+  (thanks to tuhdo)
+* Release 0.101.x (2015/04/13)
 ** Hot new features
 *** Choose your own editing style
 Thanks to the new `holy-mode` Spacemacs can now  be used by Vim users
@@ -251,6 +261,11 @@ a batch of packages.
 - Don't display the release notes in the startup buffer when Emacs is restarted
   after a fresh install
 - Org layer: exclude ox-gfm since it seems problematic for some users.
+- Startup buffer: fix widget activation in `holy-mode` (thanks to tuhdo)
+- Startup buffer: Don't fontify the startup buffer when `rainbow-identifiers`
+  package is used
+- revert back `ag` as the default search tool instead of `pt`, `pt` can
+  conflict with `pt` command line tool from TCL parser tools.
 ** Backports
 None
 * Previous Releases
