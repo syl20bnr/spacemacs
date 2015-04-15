@@ -1,4 +1,4 @@
-* Releases 0.101.x (2015/04/13)
+* Release 0.101.x (2015/04/13)
 ** Hot new features
 *** Choose your own editing style
 Thanks to the new `holy-mode` Spacemacs can now  be used by Vim users
@@ -251,6 +251,11 @@ a batch of packages.
 - Don't display the release notes in the startup buffer when Emacs is restarted
   after a fresh install
 - Org layer: exclude ox-gfm since it seems problematic for some users.
+- Startup buffer: fix widget activation in `holy-mode` (thanks to tuhdo)
+- Startup buffer: Don't fontify the startup buffer when `rainbow-identifiers`
+  package is used
+- revert back `ag` as the default search tool instead of `pt`, `pt` can
+  conflict with `pt` command line tool from TCL parser tools.
 ** Backports
 None
 * Previous Releases
