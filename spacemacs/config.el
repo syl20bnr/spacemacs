@@ -105,9 +105,6 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; goto-address-prog-mode only highlights links in strings and comments
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 
-;; When point is on paranthesis, highlight the matching one
-(show-paren-mode t)
-
 ;; ---------------------------------------------------------------------------
 ;; Edit
 ;; ---------------------------------------------------------------------------
