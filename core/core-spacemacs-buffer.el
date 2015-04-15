@@ -149,8 +149,7 @@ HELP-STRING is the help message of the button for additional action."
                                                              spacemacs-buffer--banner-length
                                                              caption))))
       (add-to-list 'spacemacs-buffer--note-widgets (widget-create 'text note))
-      (dolist (w additional-widgets)
-        (add-to-list 'spacemacs-buffer--note-widgets (funcall w))))))
+      (funcall additional-widgets))))
 
 (defun spacemacs-buffer//insert-note-p (type)
   "Decicde if whether to insert note widget or not based on current note TYPE.
@@ -187,38 +186,41 @@ If TYPE is nil, just remove widgets."
 (defun spacemacs-buffer//insert-quickhelp-widget (file)
   "Insert quickhelp with content from FILE."
   (spacemacs-buffer//remove-existing-widget-if-exist)
-  (let ((w1 (lambda ()
-              (widget-create 'push-button
-                             :tag (propertize "Evil Tutorial" 'face 'font-lock-warning-face)
-                             :help-echo "Teach you how to use Vim basics."
-                             :action (lambda (&rest ignore) (call-interactively #'evil-tutor-start))
-                             :mouse-face 'highlight
-                             :follow-link "\C-m")))
-        (w2 (lambda ()
-              (widget-create 'push-button
-                             :tag (propertize "Emacs Tutorial" 'face 'font-lock-warning-face)
-                             :help-echo "Teach you how to use Emacs basics."
-                             :action (lambda (&rest ignore) (call-interactively #'help-with-tutorial))
-                             :mouse-face 'highlight
-                             :follow-link "\C-m"))))
-    (spacemacs-buffer//insert-note file "Quick Help" (list w1 w2)))
+  (let ((widget-func (lambda ()
+                       (add-to-list 'spacemacs-buffer--note-widgets
+                                    (widget-create 'push-button
+                                                   :tag (propertize "Evil Tutorial" 'face 'font-lock-keyword-face)
+                                                   :help-echo "Teach you how to use Vim basics."
+                                                   :action (lambda (&rest ignore) (call-interactively #'evil-tutor-start))
+                                                   :mouse-face 'highlight
+                                                   :follow-link "\C-m"))
+                       (add-to-list 'spacemacs-buffer--note-widgets
+                                    (widget-create 'push-button
+                                                   :tag (propertize "Emacs Tutorial" 'face 'font-lock-keyword-face)
+                                                   :help-echo "Teach you how to use Emacs basics."
+                                                   :action (lambda (&rest ignore) (call-interactively #'help-with-tutorial))
+                                                   :mouse-face 'highlight
+                                                   :follow-link "\C-m")))))
+    (spacemacs-buffer//insert-note file "Quick Help" widget-func))
   (setq spacemacs-buffer--previous-insert-type 'quickhelp))
 
 (defun spacemacs-buffer//insert-release-note-widget (file)
   "Insert release note with content from FILE."
   (spacemacs-buffer//remove-existing-widget-if-exist)
-  (let ((w1 (lambda () (widget-create 'push-button
-                                      :tag (propertize "Click here for full change log" 'face 'font-lock-warning-face)
-                                      :help-echo "Open the full change log."
-                                      :action (lambda (&rest ignore)
-                                                (funcall 'spacemacs/open-file
-                                                         (concat user-emacs-directory "CHANGELOG.org")
-                                                         "Release 0.102.x"))
-                                      :mouse-face 'highlight
-                                      :follow-link "\C-m"))))
+  (let ((widget-func (lambda ()
+                       (add-to-list 'spacemacs-buffer--note-widgets
+                                    (widget-create 'push-button
+                                                   :tag (propertize "Click here for full change log" 'face 'font-lock-warning-face)
+                                                   :help-echo "Open the full change log."
+                                                   :action (lambda (&rest ignore)
+                                                             (funcall 'spacemacs/open-file
+                                                                      (concat user-emacs-directory "CHANGELOG.org")
+                                                                      "Release 0.102.x"))
+                                                   :mouse-face 'highlight
+                                                   :follow-link "\C-m")))))
     (spacemacs-buffer//insert-note file
                                    " Important Notes (Release 0.102.x) "
-                                   (list w1)))
+                                   widget-func))
 
   (setq spacemacs-buffer--release-note-version nil)
   (spacemacs/dump-vars-to-file
@@ -497,7 +499,8 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
     (with-current-buffer spacemacs-buffer-name
       (goto-char (point-min))
       (re-search-forward "Homepage")
-      (beginning-of-line))))
+      (beginning-of-line)
+      (widget-forward 1))))
 
 ;;this feels like the wrong place to put these
 (add-hook 'spacemacs-mode-hook (lambda ()
