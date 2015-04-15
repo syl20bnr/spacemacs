@@ -948,7 +948,7 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (global-evil-search-highlight-persist)
       (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
-                          :inverse-video t
+                          :inherit 'region
                           :background nil)
       ;; (set-face-attribute )
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
