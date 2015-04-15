@@ -52,19 +52,19 @@ which require an initialization must be listed explicitly in the list.")
 
       (dolist (m '(c-mode c++-mode java-mode asm-mode dired-mode eshell-mode term-mode shell-mode))
         (evil-leader/set-key-for-mode 'c++-mode
-          "mgs" 'helm-gtags-select                ; select any tag in a project retreived by gtags
-          "mgR" 'helm-gtags-resume                ; resume previous helm-gtags sesssion
-          "mgg" 'helm-gtags-dwim                  ; jump to a location based on context
-          "mgd" 'helm-gtags-find-tag              ; find definitions
-          "mgr" 'helm-gtags-find-rtag             ; find references
-          "mgi" 'helm-gtags-tags-in-this-function ; present tags in current function only
           "mgc" 'helm-gtags-create-tags           ; create a tag databas
+          "mgd" 'helm-gtags-find-tag              ; find definitions
+          "mgf" 'helm-gtags-select-path           ; jump to a file in tag database
+          "mgg" 'helm-gtags-dwim                  ; jump to a location based on context
+          "mgi" 'helm-gtags-tags-in-this-function ; present tags in current function only
           "mgl" 'helm-gtags-parse-file            ; jump to definitions in file
-          "mgS" 'helm-gtags-show-stack            ; show stack of visited locations
-          "mgu" 'helm-gtags-update-tags           ; manually update tag database
           "mgn" 'helm-gtags-next-history          ; jump to next location in context stack
           "mgp" 'helm-gtags-previous-history      ; jump to previous location in context stack
-          "mgf" 'helm-gtags-select-path           ; jump to a file in tag database
+          "mgr" 'helm-gtags-find-rtag             ; find references
+          "mgR" 'helm-gtags-resume                ; resume previous helm-gtags sesssion
+          "mgs" 'helm-gtags-select                ; select any tag in a project retreived by gtags
+          "mgS" 'helm-gtags-show-stack            ; show stack of visited locations
+          "mgu" 'helm-gtags-update-tags           ; manually update tag database
           )))))
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:

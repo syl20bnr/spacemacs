@@ -21,13 +21,13 @@ definitions or references.
 
 ## Features
 
-- Select any tag in a project retreived by gtags
-- Resume previous helm-gtags sesssion
+- Select any tag in a project retrieved by gtags
+- Resume previous helm-gtags session
 - Jump to a location based on context
 - Find definitions
 - Find references
 - Present tags in current function only
-- Create a tag databas
+- Create a tag database
 - Jump to definitions in file
 - Show stack of visited locations
 - Manually update tag database
@@ -90,16 +90,16 @@ gtags --gtagslabel=ctags
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m g s</kbd>  | select any tag in a project retreived by gtags
-<kbd>SPC m g R</kbd>  | resume previous helm-gtags sesssion
-<kbd>SPC m g g</kbd>  | jump to a location based on context
+<kbd>SPC m g c</kbd>  | create a tag database
 <kbd>SPC m g d</kbd>  | find definitions
-<kbd>SPC m g r</kbd>  | find references
+<kbd>SPC m g f</kbd>  | jump to a file in tag database
+<kbd>SPC m g g</kbd>  | jump to a location based on context
 <kbd>SPC m g i</kbd>  | present tags in current function only
-<kbd>SPC m g c</kbd>  | create a tag databas
 <kbd>SPC m g l</kbd>  | jump to definitions in file
-<kbd>SPC m g S</kbd>  | show stack of visited locations
-<kbd>SPC m g u</kbd>  | manually update tag database
 <kbd>SPC m g n</kbd>  | jump to next location in context stack
 <kbd>SPC m g p</kbd>  | jump to previous location in context stack
-<kbd>SPC m g f</kbd>  | jump to a file in tag database
+<kbd>SPC m g R</kbd>  | resume previous helm-gtags session
+<kbd>SPC m g r</kbd>  | find references
+<kbd>SPC m g s</kbd>  | select any tag in a project retrieved by gtags
+<kbd>SPC m g S</kbd>  | show stack of visited locations
+<kbd>SPC m g u</kbd>  | manually update tag database
