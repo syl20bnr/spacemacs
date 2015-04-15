@@ -239,7 +239,7 @@ found."
 (defun spacemacs/git-has-remote (remote)
   "Return non nil if REMOTE is declared."
   (let((proc-buffer "git-has-remote")
-       (default-directory user-emacs-directory))
+       (default-directory (file-truename user-emacs-directory)))
     (when (eq 0 (process-file "git" nil proc-buffer nil "remote"))
         (with-current-buffer proc-buffer
           (prog2
@@ -250,7 +250,7 @@ found."
 (defun spacemacs/git-declare-remote (remote url)
   "Declare a new REMOTE pointing to URL, return t if no error."
   (let((proc-buffer "git-declare-remote")
-       (default-directory user-emacs-directory))
+       (default-directory (file-truename user-emacs-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "remote" "add" remote url))
@@ -259,7 +259,7 @@ found."
 (defun spacemacs/git-fetch-tags (remote branch)
   "Fetch the tags for BRANCH in REMOTE repository."
   (let((proc-buffer "git-fetch-tags")
-       (default-directory user-emacs-directory))
+       (default-directory (file-truename user-emacs-directory)))
     (prog2
         (eq 0 (process-file "git" nil proc-buffer nil
                             "fetch" remote branch))
@@ -271,7 +271,7 @@ found."
 (defun spacemacs/git-latest-tag (remote branch)
   "Returns the latest tag on REMOTE/BRANCH."
   (let((proc-buffer "git-latest-tag")
-       (default-directory user-emacs-directory)
+       (default-directory (file-truename user-emacs-directory))
        (where (format "%s/%s" remote branch)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
                               "describe" "--tags" "--abbrev=0"
