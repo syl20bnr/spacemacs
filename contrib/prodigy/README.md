@@ -1,12 +1,11 @@
 # Prodigy contribution layer for Spacemacs
 
-![logo_prodigy](img/prodigy.png)
-
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
 - [Prodigy contribution layer for Spacemacs](#prodigy-contribution-layer-for-spacemacs)
     - [Description](#description)
+    - [Screenshot](#screenshot)
     - [Install](#install)
     - [Key Bindings](#key-bindings)
         - [Spawn prodigy](#spawn-prodigy)
@@ -22,6 +21,10 @@ documentation for more details
 
 It is recommended that when you try to put your prodigy services to put them in
 the `dotspacemacs/config` part of your .spacemacs file.
+
+## Screenshot
+
+![logo_prodigy](img/prodigy.png)
 
 ## Install
 
