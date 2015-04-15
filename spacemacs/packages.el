@@ -1269,21 +1269,33 @@ which require an initialization must be listed explicitly in the list.")
               (call-interactively 'helm-do-ag))
           (message "error: helm-ag not found.")))
 
-      (defun spacemacs/helm-do-search-dwim (&optional arg)
-        "Execute the first found search tool.
+      (defun spacemacs//helm-do-search-find-tool (tools)
+        "Create a cond form given a TOOLS string list and evaluate it."
+        (eval `(cond
+                ,@(mapcar (lambda (x)
+                            `((executable-find ,x)
+                              ',(let ((func (intern
+                                             (format "spacemacs/helm-do-%s"
+                                                     x))))
+                                  (if (fboundp func)
+                                      func
+                                    (intern (format "helm-do-%s" x))))))
+                          tools)
+                (t 'helm-do-grep))))
 
-Search for a search tool in the following order pt > ag > ack > grep.
-If ARG is non nil then the search order is changed to ack > grep (ag and pt are
-ignored)."
+      (defun spacemacs/helm-smart-do-search (&optional arg)
+        "Execute the first found search tool in `dotspacemacs-search-tools'.
+
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If ARG is non nil then `ag' and `pt' and ignored."
         (interactive "P")
-        (call-interactively
-         (if arg
-             (cond (((executable-find "ack") 'spacemacs/helm-do-ack)
-                    (t 'helm-do-grep)))
-           (cond ((executable-find "pt") 'spacemacs/helm-do-pt)
-                 ((executable-find "ag") 'helm-do-ag)
-                 ((executable-find "ack") 'spacemacs/helm-do-ack)
-                 (t 'helm-do-grep)))))
+        (let ((tools
+               (if arg
+                   (delq nil (mapcar (lambda (x)
+                                       (and (not (member x '("ag" "pt"))) x))
+                                     dotspacemacs-search-tools))
+                 dotspacemacs-search-tools)))
+          (call-interactively (spacemacs//helm-do-search-find-tool tools))))
 
       ;; use helm by default for M-x
       (unless (configuration-layer/package-usedp 'smex)
@@ -1302,7 +1314,7 @@ ignored)."
         "ry"  'helm-show-kill-ring
         "rr"  'helm-register
         "rm"  'helm-all-mark-rings
-        "s/"  'spacemacs/helm-do-search-dwim
+        "s/"  'spacemacs/helm-smart-do-search
         "sa"  'helm-do-ag
         "sg"  'helm-do-grep
         "sk"  'spacemacs/helm-do-ack
@@ -1566,24 +1578,37 @@ ARG non nil means that the editing style is `vim'."
               (call-interactively 'helm-projectile-ag))
           (message "error: helm-ag not found.")))
 
-      (defun spacemacs/helm-projectile-search-dwim (&optional arg)
-        "Execute the first found search tool.
+      (defun spacemacs//helm-projectile-do-search-find-tool (tools)
+        "Create a cond form given a TOOLS string list and evaluate it."
+        (eval `(cond
+                ,@(mapcar (lambda (x)
+                            `((executable-find ,x)
+                              ',(let ((func (intern
+                                             (format "spacemacs/helm-projectile-%s"
+                                                     x))))
+                                  (if (fboundp func)
+                                      func
+                                    (intern (format "helm-projectile-%s" x))))))
+                          tools)
+                (t 'helm-do-grep))))
 
-Search for a search tool in the following order pt > ag > ack > grep.
-If ARG is non nil then the search order is changed to ack > grep (ag and pt are
-ignored)."
+      (defun spacemacs/helm-projectile-smart-do-search (&optional arg)
+        "Execute the first found search tool in `dotspacemacs-search-tools'.
+
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If ARG is non nil then `ag' and `pt' and ignored."
         (interactive "P")
-        (call-interactively
-         (if arg
-             (cond (((executable-find "ack") 'helm-projectile-ack)
-                    (t 'helm-projectile-grep)))
-           (cond ((executable-find "pt") 'spacemacs/helm-projectile-pt)
-                 ((executable-find "ag") 'helm-projectile-ag)
-                 ((executable-find "ack") 'spacemacs/helm-projectile-ack)
-                 (t 'helm-projectile-grep)))))
+        (let ((tools
+               (if arg
+                   (delq nil (mapcar (lambda (x)
+                                       (and (not (member x '("ag" "pt"))) x))
+                                     dotspacemacs-search-tools))
+                 dotspacemacs-search-tools)))
+          (call-interactively (spacemacs//helm-projectile-do-search-find-tool
+                               tools))))
 
       (evil-leader/set-key
-        "/"   'spacemacs/helm-projectile-search-dwim
+        "/"   'spacemacs/helm-projectile-smart-do-search
         "pb"  'helm-projectile-switch-to-buffer
         "pd"  'helm-projectile-find-dir
         "pe"  'helm-projectile-recentf
