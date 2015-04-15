@@ -134,7 +134,7 @@ buffer, right justified."
       (delete-char (length injected))
       (insert injected))))
 
-(defun spacemacs-buffer//insert-release-note (file caption tag-string help-string action)
+(defun spacemacs-buffer//insert-note (file caption &optional additional-widgets)
   "Insert the release note just under the banner.
 
 FILE is the file that contains the content to show.
@@ -148,14 +148,9 @@ HELP-STRING is the help message of the button for additional action."
     (let* ((note (concat "\n" (spacemacs//render-framed-text file
                                                              spacemacs-buffer--banner-length
                                                              caption))))
-      (setq spacemacs-buffer--note-widgets
-            (list (widget-create 'text note)
-                  (widget-create 'push-button
-                                 :tag tag-string
-                                 :help-echo help-string
-                                 :action action
-                                 :mouse-face 'highlight
-                                 :follow-link "\C-m"))))))
+      (add-to-list 'spacemacs-buffer--note-widgets (widget-create 'text note))
+      (dolist (w additional-widgets)
+        (add-to-list 'spacemacs-buffer--note-widgets (funcall w))))))
 
 (defun spacemacs-buffer//insert-note-p (type)
   "Decicde if whether to insert note widget or not based on current note TYPE.
@@ -181,7 +176,8 @@ If TYPE is nil, just remove widgets."
     (spacemacs-buffer//insert-quickhelp-widget file))
    ((eq type 'release-note)
     (spacemacs-buffer//insert-release-note-widget file))
-   (t)))
+   (t))
+  (recenter))
 
 (defun spacemacs-buffer//remove-existing-widget-if-exist ()
   "Remove existing note widgets if exists."
@@ -191,24 +187,39 @@ If TYPE is nil, just remove widgets."
 (defun spacemacs-buffer//insert-quickhelp-widget (file)
   "Insert quickhelp with content from FILE."
   (spacemacs-buffer//remove-existing-widget-if-exist)
-  (spacemacs-buffer//insert-release-note file
-                                         "Quick Help"
-                                         ""
-                                         ""
-                                         nil)
+  (let ((w1 (lambda ()
+              (widget-create 'push-button
+                             :tag (propertize "Evil Tutorial" 'face 'font-lock-warning-face)
+                             :help-echo "Teach you how to use Vim basics."
+                             :action (lambda (&rest ignore) (call-interactively #'evil-tutor-start))
+                             :mouse-face 'highlight
+                             :follow-link "\C-m")))
+        (w2 (lambda ()
+              (widget-create 'push-button
+                             :tag (propertize "Emacs Tutorial" 'face 'font-lock-warning-face)
+                             :help-echo "Teach you how to use Emacs basics."
+                             :action (lambda (&rest ignore) (call-interactively #'help-with-tutorial))
+                             :mouse-face 'highlight
+                             :follow-link "\C-m"))))
+    (spacemacs-buffer//insert-note file "Quick Help" (list w1 w2)))
   (setq spacemacs-buffer--previous-insert-type 'quickhelp))
 
 (defun spacemacs-buffer//insert-release-note-widget (file)
   "Insert release note with content from FILE."
   (spacemacs-buffer//remove-existing-widget-if-exist)
-  (spacemacs-buffer//insert-release-note file
-                                         " Important Notes (Release 0.102.x) "
-                                         "Click here for full change log"
-                                         "Open the full change log."
-                                         (lambda (&rest ignore)
-                                           (funcall 'spacemacs/open-file
-                                                    (concat user-emacs-directory "CHANGELOG.org")
-                                                    "Release 0.102.x")))
+  (let ((w1 (lambda () (widget-create 'push-button
+                                      :tag (propertize "Click here for full change log" 'face 'font-lock-warning-face)
+                                      :help-echo "Open the full change log."
+                                      :action (lambda (&rest ignore)
+                                                (funcall 'spacemacs/open-file
+                                                         (concat user-emacs-directory "CHANGELOG.org")
+                                                         "Release 0.102.x"))
+                                      :mouse-face 'highlight
+                                      :follow-link "\C-m"))))
+    (spacemacs-buffer//insert-note file
+                                   " Important Notes (Release 0.102.x) "
+                                   (list w1)))
+
   (setq spacemacs-buffer--release-note-version nil)
   (spacemacs/dump-vars-to-file
    '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)
