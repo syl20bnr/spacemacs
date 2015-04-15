@@ -202,13 +202,13 @@ If TYPE is nil, just remove widgets."
   "Insert release note with content from FILE."
   (spacemacs-buffer//remove-existing-widget-if-exist)
   (spacemacs-buffer//insert-release-note file
-                                         " Important Notes (Release 0.101.x) "
+                                         " Important Notes (Release 0.102.x) "
                                          "Click here for full change log"
                                          "Open the full change log."
                                          (lambda (&rest ignore)
                                            (funcall 'spacemacs/open-file
                                                     (concat user-emacs-directory "CHANGELOG.org")
-                                                    "Releases 0.101.x")))
+                                                    "Release 0.102.x")))
   (setq spacemacs-buffer--release-note-version nil)
   (spacemacs/dump-vars-to-file
    '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)
