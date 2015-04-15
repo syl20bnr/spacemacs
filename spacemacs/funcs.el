@@ -345,11 +345,19 @@ argument takes the kindows rotate backwards."
   (interactive "p")
   (rotate-windows (* -1 count)))
 
-(defvar spacemacs-useless-buffers-regexp '("*\.\+")
-  "Regexp used to determine if a buffer is not useful.")
-(defvar spacemacs-useful-buffers-regexp '("\\*\\(scratch\\|terminal\.\+\\|ansi-term\\|eshell\\)\\*")
-  "Regexp used to define buffers that are useful despite matching
-`spacemacs-useless-buffers-regexp'.")
+(defun spacemacs//mark-repl-as-useful ()
+  "Marks all buffers derived from `comint-mode' as useful."
+  (when (eq (get (buffer-local-value 'major-mode (current-buffer)) 'derived-mode-parent)
+            'comint-mode)
+    (let ((buffer-regexp (format "*\\%s\\*" (replace-regexp-in-string "*" "" (buffer-name)))))
+      (add-to-list 'spacemacs-useful-buffers-regexp buffer-regexp)
+      (add-to-list 'spacemacs--comint-buffer-regexp buffer-regexp))))
+
+(defun spacemacs//trim-useful-buffers-list ()
+  "Removes old regexp from `spacemacs-useful-buffers-regexp'"
+  (dolist (regexp spacemacs--comint-buffer-regexp)
+    (setq spacemacs-useful-buffers-regexp (delete regexp spacemacs-useful-buffers-regexp)))
+  (setq spacemacs--comint-buffer-regexp '()))
 
 (defun spacemacs/useless-buffer-p (buffer-name)
   "Determines if a buffer is useful."
