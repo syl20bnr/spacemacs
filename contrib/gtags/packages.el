@@ -48,40 +48,32 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      ;; add to Dired so we can select tag in Dired buffer
-      ;; with helm-gtags-select
-      ;; so is eshell
       (add-hook 'prog-mode-hook 'helm-gtags-mode)
       (setq helm-gtags-ignore-case t
             helm-gtags-auto-update t
             helm-gtags-use-input-at-cursor t
-            helm-gtags-pulse-at-cursor t))
+            helm-gtags-pulse-at-cursor t)
+
+      (defun spacemacs/gtags-define-keys-for-mode (mode)
+        "Define key bindings for the specific MODE."
+        (evil-leader/set-key-for-mode mode
+          "mgc" 'helm-gtags-create-tags
+          "mgd" 'helm-gtags-find-tag
+          "mgf" 'helm-gtags-select-path
+          "mgg" 'helm-gtags-dwim
+          "mgi" 'helm-gtags-tags-in-this-function
+          "mgl" 'helm-gtags-parse-file
+          "mgn" 'helm-gtags-next-history
+          "mgp" 'helm-gtags-previous-history
+          "mgr" 'helm-gtags-find-rtag
+          "mgR" 'helm-gtags-resume
+          "mgs" 'helm-gtags-select
+          "mgS" 'helm-gtags-show-stack
+          "mgu" 'helm-gtags-update-tags)))
     :config
     (progn
       ;; if anyone uses helm-gtags, they would want to use these key bindings
       (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
       (define-key helm-gtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
       (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-      (define-key helm-gtags-mode-map (kbd "M-*") 'pop-tag-mark)
-
-      (let ((l (if (eq dotspacemacs-editing-style 'emacs)
-                  dotspacemacs-major-mode-emacs-leader-key
-                dotspacemacs-major-mode-leader-key)))
-        (define-key helm-gtags-mode-map (kbd (concat l " gc")) 'helm-gtags-create-tags)
-        (define-key helm-gtags-mode-map (kbd (concat l " gd")) 'helm-gtags-find-tag)
-        (define-key helm-gtags-mode-map (kbd (concat l " gf")) 'helm-gtags-select-path)
-        (define-key helm-gtags-mode-map (kbd (concat l " gg")) 'helm-gtags-dwim)
-        (define-key helm-gtags-mode-map (kbd (concat l " gn")) 'helm-gtags-next-history)
-        (define-key helm-gtags-mode-map (kbd (concat l " gp")) ''helm-gtags-previous-history)
-        (define-key helm-gtags-mode-map (kbd (concat l " gr")) 'helm-gtags-find-rtag)
-        (define-key helm-gtags-mode-map (kbd (concat l " gR")) 'helm-gtags-resume)
-        (define-key helm-gtags-mode-map (kbd (concat l " gi")) 'helm-gtags-tags-in-this-function)
-        (define-key helm-gtags-mode-map (kbd (concat l " gl")) 'helm-gtags-parse-file)
-        (define-key helm-gtags-mode-map (kbd (concat l " gs")) 'helm-gtags-select)
-        (define-key helm-gtags-mode-map (kbd (concat l " gS")) 'helm-gtags-show-stack)
-        (define-key helm-gtags-mode-map (kbd (concat l " gu")) helm-gtags-update-tags)
-        ))
-    ;; Often the body of an initialize function uses `use-package'
-    ;; For more info on `use-package', see readme:
-    ;; https://github.com/jwiegley/use-package
-    ))
+      (define-key helm-gtags-mode-map (kbd "M-*") 'pop-tag-mark))))
