@@ -119,4 +119,3 @@ Since these modes have better Eldoc integration already.
 <kbd>SPC m g s</kbd>  | select any tag in a project retrieved by gtags
 <kbd>SPC m g S</kbd>  | show stack of visited locations
 <kbd>SPC m g u</kbd>  | manually update tag database
-
