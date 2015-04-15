@@ -24,8 +24,11 @@
 a version number, if the version number is lesser than the current
 version the release note it displayed")
 
-(defvar spacemacs-buffer--release-note-widgets ()
+(defvar spacemacs-buffer--note-widgets nil
   "List of widgets used to display the release note.")
+
+(defvar spacemacs-buffer--previous-insert-type nil
+  "Previous type of note inserted.")
 
 (defun spacemacs-buffer/insert-banner-and-buttons ()
   "Choose a banner accordingly to `dotspacemacs-startup-banner'and insert it
@@ -57,7 +60,8 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
                  (or (not spacemacs-buffer--release-note-version)
                      (version< spacemacs-buffer--release-note-version
                                spacemacs-version)))
-        (spacemacs-buffer/toggle-release-note))
+        (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.101.txt")
+                                      'release-note))
       (spacemacs//redisplay))))
 
 (defun spacemacs-buffer//choose-banner ()
@@ -130,40 +134,92 @@ buffer, right justified."
       (delete-char (length injected))
       (insert injected))))
 
-(defun spacemacs-buffer//insert-release-note ()
-  "Insert the release note just under the banner."
+(defun spacemacs-buffer//insert-release-note (file caption tag-string help-string action)
+  "Insert the release note just under the banner.
+
+FILE is the file that contains the content to show.
+CAPTION is the title of the note.
+TAG-STRING is the label of the button for additional action.
+HELP-STRING is the help message of the button for additional action."
   (save-excursion
     (beginning-of-buffer)
     (search-forward "Spacemacs\]")
     (next-line)
-    ;; for now the path to the release note if hardcoded
-    (let* ((file (concat spacemacs-release-notes-directory "0.101.txt"))
-           (note (concat "\n" (spacemacs//render-framed-text
-                               file spacemacs-buffer--banner-length
-                               " Important Notes (Release 0.101.x) "))))
-      (setq spacemacs-buffer--release-note-widgets
+    (let* ((note (concat "\n" (spacemacs//render-framed-text file
+                                                             spacemacs-buffer--banner-length
+                                                             caption))))
+      (setq spacemacs-buffer--note-widgets
             (list (widget-create 'text note)
-                  (widget-create 'url-link
-                                 :tag "Click here for full change log"
-                                 :help-echo "Open the full change log."
-                                 :action (lambda (&rest ignore) (funcall 'spacemacs/open-change-log))
+                  (widget-create 'push-button
+                                 :tag tag-string
+                                 :help-echo help-string
+                                 :action action
                                  :mouse-face 'highlight
                                  :follow-link "\C-m"))))))
 
-(defun spacemacs-buffer/toggle-release-note ()
-  "Toggle the release note for the buffer."
+(defun spacemacs-buffer//insert-note-p (type)
+  "Decicde if whether to insert note widget or not based on current note TYPE.
+
+If note TYPE is `quickhelp' or `release-note' and is equal to
+previous insert type in `spacemacs-buffer--previous-insert-type',
+which means previous note widget of the same type already
+inserted. In this case, we simply delete the widgets but don't insert.
+
+Otherwise, delete and allow insert note of TYPE."
+  (if (not (eq spacemacs-buffer--previous-insert-type type))
+      type
+    (setq spacemacs-buffer--previous-insert-type nil)))
+
+(defun spacemacs-buffer/toggle-note (file type)
+  "Toggle the note in FILE for the buffer based on TYPE.
+
+If TYPE is nil, just remove widgets."
   (interactive)
-  (if (eq spacemacs-buffer--release-note-widgets nil)
-      (progn
-        (spacemacs-buffer//insert-release-note)
-        (setq spacemacs-buffer--release-note-version nil)
-        (spacemacs/dump-vars-to-file
-         '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file))
-    (mapc 'widget-delete spacemacs-buffer--release-note-widgets)
-    (setq spacemacs-buffer--release-note-widgets nil)
-    (setq spacemacs-buffer--release-note-version spacemacs-version)
-    (spacemacs/dump-vars-to-file
-     '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)))
+  (spacemacs-buffer//remove-existing-widget-if-exist)
+  (cond
+   ((eq type 'quickhelp)
+    (spacemacs-buffer//insert-quickhelp-widget file))
+   ((eq type 'release-note)
+    (spacemacs-buffer//insert-release-note-widget file))
+   (t)))
+
+(defun spacemacs-buffer//remove-existing-widget-if-exist ()
+  "Remove existing note widgets if exists."
+  (when spacemacs-buffer--note-widgets
+    (spacemacs-buffer//remove-note-widgets)))
+
+(defun spacemacs-buffer//insert-quickhelp-widget (file)
+  "Insert quickhelp with content from FILE."
+  (spacemacs-buffer//remove-existing-widget-if-exist)
+  (spacemacs-buffer//insert-release-note file
+                                         "Quick Help"
+                                         ""
+                                         ""
+                                         nil)
+  (setq spacemacs-buffer--previous-insert-type 'quickhelp))
+
+(defun spacemacs-buffer//insert-release-note-widget (file)
+  "Insert release note with content from FILE."
+  (spacemacs-buffer//remove-existing-widget-if-exist)
+  (spacemacs-buffer//insert-release-note file
+                                         " Important Notes (Release 0.101.x) "
+                                         "Click here for full change log"
+                                         "Open the full change log."
+                                         (lambda (&rest ignore)
+                                           (funcall 'spacemacs/open-file
+                                                    (concat user-emacs-directory "CHANGELOG.org")
+                                                    "Releases 0.101.x")))
+  (setq spacemacs-buffer--release-note-version nil)
+  (spacemacs/dump-vars-to-file
+   '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)
+  (setq spacemacs-buffer--previous-insert-type 'release-note))
+
+(defun spacemacs-buffer//remove-note-widgets ()
+  (mapc 'widget-delete spacemacs-buffer--note-widgets)
+  (setq spacemacs-buffer--note-widgets nil)
+  (setq spacemacs-buffer--release-note-version spacemacs-version)
+  (spacemacs/dump-vars-to-file
+   '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file))
 
 (defun spacemacs-buffer/set-mode-line (format)
   "Set mode-line format for spacemacs buffer."
@@ -310,6 +366,16 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
   (goto-char (point-max))
   (insert "      ")
   (widget-create 'url-link
+                 :tag (propertize "?" 'face 'font-lock-doc-face)
+                 :help-echo "Open the quickhelp."
+                 :action (lambda (&rest ignore)
+                           (spacemacs-buffer/toggle-note (concat dotspacemacs-template-directory "quickhelp.txt")
+                                                         ;; if nil is returned, just delete the current note widgets
+                                                         (spacemacs-buffer//insert-note-p 'quickhelp)))
+                 :mouse-face 'highlight
+                 :follow-link "\C-m"
+                 )
+  (widget-create 'url-link
                  :tag (propertize "Homepage" 'face 'font-lock-keyword-face)
                  :help-echo "Open the Spacemacs Github page in your browser."
                  :mouse-face 'highlight
@@ -348,7 +414,10 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
   (widget-create 'push-button
                  :tag (propertize "Release Notes" 'face 'font-lock-preprocessor-face)
                  :help-echo "Hide or show the Changelog"
-                 :action (lambda (&rest ignore) (spacemacs-buffer/toggle-release-note))
+                 :action (lambda (&rest ignore)
+                           (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.101.txt")
+                                                         ;; if nil is returned, just delete the current note widgets
+                                                         (spacemacs-buffer//insert-note-p 'release-note)))
                  :mouse-face 'highlight
                  :follow-link "\C-m"
                  )
