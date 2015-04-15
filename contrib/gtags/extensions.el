@@ -1,4 +1,4 @@
-;;; extensions.el --- helm-gtags Layer extensions File for Spacemacs
+;;; extensions.el --- gtags Layer extensions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,21 +10,21 @@
 ;;
 ;;; License: GPLv3
 
-(defvar helm-gtags-pre-extensions
+(defvar gtags-pre-extensions
   '(
-    ;; pre extension helm-gtagss go here
+    ;; pre extension gtagss go here
     )
   "List of all extensions to load before the packages.")
 
-(defvar helm-gtags-post-extensions
+(defvar gtags-post-extensions
   '(
-    ;; post extension helm-gtagss go here
+    ;; post extension gtagss go here
     )
   "List of all extensions to load after the packages.")
 
-;; For each extension, define a function helm-gtags/init-<extension-helm-gtags>
+;; For each extension, define a function gtags/init-<extension-gtags>
 ;;
-;; (defun helm-gtags/init-my-extension ()
+;; (defun gtags/init-my-extension ()
 ;;   "Initialize my extension"
 ;;   )
 ;;
