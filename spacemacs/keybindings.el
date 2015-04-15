@@ -224,6 +224,18 @@ Ensure that helm is required before calling FUNC."
                       :off (menu-bar-mode -1)
                       :documentation "Display the menu bar."
                       :evil-leader "Tm")
+(spacemacs|add-toggle semantic-stickyfunc
+                      :status semantic-stickyfunc-mode
+                      :on (semantic-stickyfunc-mode)
+                      :off (semantic-stickyfunc-mode -1)
+                      :documentation "Enable semantic-stickyfunc."
+                      :evil-leader "Ts")
+(spacemacs|add-toggle semantic-stickfunc-globally
+                      :status global-semantic-stickyfunc-mode
+                      :on (global-semantic-stickyfunc-mode)
+                      :off (global-semantic-stickyfunc-mode -1)
+                      :documentation "Enable semantic-stickyfunc globally."
+                      :evil-leader "T C-s")
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "qs" 'spacemacs/save-buffers-kill-emacs

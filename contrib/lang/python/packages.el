@@ -27,6 +27,7 @@
     python
     semantic
     smartparens
+    stickyfunc-enhance
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -239,7 +240,20 @@ which require an initialization must be listed explicitly in the list.")
 (defun python/init-semantic ()
   ;; required to correctly load semantic mode
   ;; using the python-mode-hook triggers an error about a deleted buffer.
-  (eval-after-load 'python '(semantic-mode 1)))
+  (eval-after-load 'python '(semantic-mode 1))
+  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode))
+
+(defun python/init-stickyfunc-enhance ()
+  (use-package stickyfunc-enhance
+    :defer t
+    :init
+    (progn
+      (defun spacemacs/lazy-load-stickyfunc-enhance ()
+        "Lazy load the package."
+        (interactive)
+        (require 'stickyfunc-enhance))
+      (add-hook 'python-mode-hook 'spacemacs/lazy-load-stickyfunc-enhance)
+                    )))
 
 (defun python/init-smartparens ()
   (defadvice python-indent-dedent-line-backspace
