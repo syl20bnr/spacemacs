@@ -2291,6 +2291,11 @@ displayed in the mode-line.")
                      (powerline-raw " " vc-face)
                      (funcall separator-right vc-face face2))
              (list (funcall separator-right face1 face2)))
+           ;; org-pomodoro current pomodoro
+           (when (and active
+                      (fboundp 'org-pomodoro-active-p)
+                      (org-pomodoro-active-p))
+             org-pomodoro-mode-line)
            ;; org clocked task
            (when (and active
                       spacemacs-mode-line-org-clock-current-taskp
