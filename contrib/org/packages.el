@@ -72,6 +72,9 @@ which require an initialization must be listed explicitly in the list.")
         '(progn
            (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
            (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)
+           ;; Since we override SPC, let's make RET do that functionality
+           (define-key org-agenda-mode-map
+             (kbd "RET") 'org-agenda-show-and-scroll-up)
            (define-key org-agenda-mode-map
              (kbd "SPC") evil-leader--default-map))))
     :config
