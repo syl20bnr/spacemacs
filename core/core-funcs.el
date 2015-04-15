@@ -113,7 +113,9 @@ Supported properties:
   "Open the change log for the current version."
   (interactive)
   ;; For now hardcode it
-  (find-file  file)
+  (find-file file)
+  (org-indent-mode)
+  (view-mode)
   (goto-char (point-min))
   (re-search-forward anchor-text)
   (beginning-of-line)
