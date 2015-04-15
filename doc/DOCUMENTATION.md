@@ -1656,13 +1656,20 @@ Key Binding        |                 Description
 **Note** `ag` and `pt` are optimized to be used in a source control repository
 but they can be used in an arbitrary directory as well.
 
+By default Spacemacs will look for the first installed tool in the list
+`("ag", "pt", "ack", "grep")`. This list can be changed in the dotfile with
+the variable `dotspacemacs-search-tools`.
+
+**Beware** if you use `pt`, [TCL parser tools][tcl] also install a command line
+tool called `pt`.
+
 #### Searching in an arbitrary directory
 
 To use these utilities in one or several arbitrary directories:
 
 Key Binding               |                 Description
 --------------------------|---------------------------------------------
-<kbd>SPC s /</kbd>        | execute the first found utility in this order `pt`, `ag`, `ack` and `grep`
+<kbd>SPC s /</kbd>        | execute the first found utility (by default `ag`, `pt`, `ack` and `grep`)
 <kbd>SPC s a</kbd>        | `ag`
 <kbd>SPC s g</kbd>        | `grep`
 <kbd>SPC s k</kbd>        | `ack`
@@ -1680,7 +1687,7 @@ To use these utilities in a project using `projectile`:
 
 Key Binding               |                 Description
 --------------------------|---------------------------------------------
-<kbd>SPC /</kbd>          | execute the first found utility in this order `pt`, `ag`, `ack` and `grep`
+<kbd>SPC /</kbd>          | execute the first found utility (by default `ag`, `pt`, `ack` and `grep`)
 <kbd>SPC p s a</kbd>      | `ag`
 <kbd>SPC p s g</kbd>      | `grep`
 <kbd>SPC p s k</kbd>      | `ack`
@@ -2226,7 +2233,7 @@ encountered in the file tree.
 
 `Helm` is used whenever it is possible.
 
-To search in a project see [project searching](#project-searching).
+To search in a project see [project searching](#searching-in-a-project).
 
 `projectile` commands start with <kbd>p</kbd>:
 
@@ -2499,6 +2506,7 @@ developers to elisp hackers!
 [sp]: https://github.com/Fuco1/smartparens
 [ag]: https://github.com/ggreer/the_silver_searcher
 [pt]: https://github.com/monochromegane/the_platinum_searcher
+[tcl]: https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/apps/pt.html
 [flycheck]: https://github.com/flycheck
 [yasnippet]: https://github.com/capitaomorte/yasnippet
 [expand-region]: https://github.com/magnars/expand-region.el
