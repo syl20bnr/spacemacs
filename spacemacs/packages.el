@@ -1136,6 +1136,26 @@ which require an initialization must be listed explicitly in the list.")
                           :evil-leader "tg")
     :config
     (progn
+      (setq golden-ratio-exclude-modes '("bs-mode"
+                                         "calc-mode"
+                                         "ediff-mode"
+                                         "dired-mode"
+                                         "gud-mode"
+                                         "gdb-locals-mode"
+                                         "gdb-registers-mode"
+                                         "gdb-breakpoints-mode"
+                                         "gdb-threads-mode"
+                                         "gdb-frames-mode"
+                                         "gdb-inferior-io-mode"
+                                         "gud-mode"
+                                         "gdb-inferior-io-mode"
+                                         "gdb-disassembly-mode"
+                                         "gdb-memory-mode"
+                                         "restclient-mode"
+                                         "speedbar-mode"
+                                         "restclient-mode"
+                                         ))
+
       (setq golden-ratio-extra-commands
             (append golden-ratio-extra-commands
                     '(windmove-left
