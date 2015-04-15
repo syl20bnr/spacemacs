@@ -169,13 +169,12 @@
   "Define keybindings for ruby test mode"
   (use-package ruby-test-mode
     :defer t
-    :init (add-hook 'ruby-mode-hook 'ruby-test-mode)
+    :init (add-hook 'enh-ruby-mode-hook 'ruby-test-mode)
     :config
     (progn
       (spacemacs|hide-lighter ruby-test-mode)
-      (evil-leader/set-key
-        "mtb" 'ruby-test-run
-        "mtt" 'ruby-test-run-at-point))))
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtb" 'ruby-test-run)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mtt" 'ruby-test-run-at-point))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
