@@ -33,12 +33,7 @@
       (add-to-list 'auto-mode-alist '("\\.hpp$" . c++-mode))
       (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
       (require 'compile)
-      (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-      (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
-      (semantic-mode 1)
       (c-toggle-auto-newline 1)
-      (setq srecode-map-save-file (concat spacemacs-cache-directory "srecode-map.el"))
-      (setq semanticdb-default-save-directory (concat spacemacs-cache-directory "semanticdb/"))
       (evil-leader/set-key-for-mode 'c-mode
         "mga" 'projectile-find-other-file
         "mgA" 'projectile-find-other-file-other-window)
@@ -59,26 +54,14 @@
   (spacemacs/gtags-define-keys-for-mode 'c-mode)
   (spacemacs/gtags-define-keys-for-mode 'c++-mode))
 
-(defun c-c++/init-srefactor ()
-  (use-package srefactor
-    :defer t
-    :init
-    (progn
-      (evil-leader/set-key-for-mode 'c-mode
-        "mr" 'srefactor-refactor-at-point)
-      (evil-leader/set-key-for-mode 'c++-mode
-        "mr" 'srefactor-refactor-at-point))))
+(defun c-c++/post-init-srefactor ()
+  (semantic/enable-semantic-mode 'c-mode)
+  (semantic/enable-semantic-mode 'c++-mode)
+  (evil-leader/set-key-for-mode 'c-mode "mr" 'srefactor-refactor-at-point)
+  (evil-leader/set-key-for-mode 'c++-mode "mr" 'srefactor-refactor-at-point))
 
-(defun c-c++/init-stickyfunc-enhance ()
-  (use-package stickyfunc-enhance
-    :defer t
-    :init
-    (progn
-      (defun spacemacs/lazy-load-stickyfunc-enhance ()
-        "Lazy load the package."
-        (require 'stickyfunc-enhance))
-      (add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance
-                    '(c-mode-hook c++-mode-hook)))))
+(defun c-c++/post-init-stickyfunc-enhance ()
+  (add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance '(c-mode-hook c++-mode-hook)))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun c-c++/post-init-company ()

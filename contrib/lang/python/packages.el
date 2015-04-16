@@ -235,24 +235,6 @@
     :init
     (evil-leader/set-key-for-mode 'python-mode "mhd" 'helm-pydoc)))
 
-(defun python/init-semantic ()
-  ;; required to correctly load semantic mode
-  ;; using the python-mode-hook triggers an error about a deleted buffer.
-  (eval-after-load 'python '(semantic-mode 1))
-  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode))
-
-(defun python/init-stickyfunc-enhance ()
-  (use-package stickyfunc-enhance
-    :defer t
-    :init
-    (progn
-      (defun spacemacs/lazy-load-stickyfunc-enhance ()
-        "Lazy load the package."
-        (interactive)
-        (require 'stickyfunc-enhance))
-      (add-hook 'python-mode-hook 'spacemacs/lazy-load-stickyfunc-enhance)
-                    )))
-
 (defun python/init-smartparens ()
   (defadvice python-indent-dedent-line-backspace
       (around python/sp-backward-delete-char activate)
@@ -273,3 +255,7 @@
       :init
       (push '(company-anaconda :with company-yasnippet)
             company-backends-python-mode))))
+
+(defun python/post-init-stickyfunc-enhance ()
+  (semantic/enable-semantic-mode 'python-mode)
+  (add-hook 'python-mode-hook 'spacemacs/lazy-load-stickyfunc-enhance))
