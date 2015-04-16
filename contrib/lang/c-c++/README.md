@@ -20,11 +20,11 @@ scripts.
 ## Features
 
 - Support syntax checking with Clang.
-- Display function or variable definition at the bottom.
+- Display function or variable definition at the bottom. (when `cedet` layer is included)
 - Display current function cursor is in at the top. See [this page][stickyfunc-demos]
-for demos in some programming languages.
+for demos in some programming languages. (when `cedet` layer is included)
 - Support common refactoring with [semantic-refactor][]. See [this page][srefactor-demos]
-for demonstration of refactoring features.
+for demonstration of refactoring features. (when `cedet` layer is included)
 
 ### Clang Fanciness
 
