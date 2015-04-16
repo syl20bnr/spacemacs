@@ -7,6 +7,7 @@
     - [Disable a package completely](#disable-a-package-completely)
     - [Disable a package only for a specific major-mode](#disable-a-package-only-for-a-specific-major-mode)
     - [Disable company for a specific major-mode](#disable-company-for-a-specific-major-mode)
+    - [Change special buffer rules](#change-special-buffer-rules)
 
 <!-- markdown-toc end -->
 
@@ -44,4 +45,28 @@ company for `python-mode`:
 
 ```elisp
 (spacemacs|disable-company python-mode)
+```
+
+## Change special buffer rules
+
+To change the way spacemacs marks buffers as useless, you can customize
+`spacemacs-useless-buffers-regexp` which marks buffers matching the regexp
+as useless. The variable `spacemacs-useful-buffers-regexp` marks buffers
+matching the regexp as useful buffers. Both can be customized the same way.
+
+Examples:
+
+```elisp
+;; Only mark helm buffers as useless
+(setq spacemacs-useless-buffers-regexp '("\\*helm\.\+\\*"))
+
+;; Marking the *Messages* buffer as useful
+(push "\\*Messages\\*" spacemacs-useful-buffers-regexp)
+```
+
+Most repl buffers are marked useful by default. This behavior can be disabled
+with the following code:
+
+```elisp
+(remove-hook 'after-change-major-mode-hook 'spacemacs//mark-repl-as-useful)
 ```
