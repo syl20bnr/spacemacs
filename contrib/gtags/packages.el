@@ -48,7 +48,6 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (add-hook 'prog-mode-hook 'helm-gtags-mode)
       (setq helm-gtags-ignore-case t
             helm-gtags-auto-update t
             helm-gtags-use-input-at-cursor t
