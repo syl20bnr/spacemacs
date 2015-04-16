@@ -57,6 +57,7 @@ which require an initialization must be listed explicitly in the list.")
   (add-to-hooks 'flycheck-mode '(c-mode-hook c++-mode-hook)))
 
 (defun c-c++/post-init-helm-gtags ()
+  (add-hook 'c-mode-common-hook 'helm-gtags-mode)
   (spacemacs/gtags-define-keys-for-mode 'c-mode)
   (spacemacs/gtags-define-keys-for-mode 'c++-mode))
 
