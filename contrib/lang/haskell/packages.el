@@ -43,9 +43,9 @@
     :init (add-hook 'haskell-mode-hook 'ghc-init)
     :config
     (when (configuration-layer/package-usedp 'flycheck)
-          ;; remove overlays from ghc-check.el if flycheck is enabled
-          (set-face-attribute 'ghc-face-error nil :underline nil)
-          (set-face-attribute 'ghc-face-warn nil :underline nil))))
+      ;; remove overlays from ghc-check.el if flycheck is enabled
+      (set-face-attribute 'ghc-face-error nil :underline nil)
+      (set-face-attribute 'ghc-face-warn nil :underline nil))))
 
 (defun haskell/init-haskell-mode ()
   (require 'haskell-yas)
