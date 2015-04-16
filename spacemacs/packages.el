@@ -2276,6 +2276,13 @@ displayed in the mode-line.")
              (list (spacemacs-powerline-minor-modes line-face 'l)
                    (powerline-raw mode-line-process line-face 'l)
                    (powerline-raw " " line-face)))
+           ;; erc
+           (when (and active
+                      (boundp 'erc-track-mode))
+             ;; Copied from erc-track.el -> erc-modified-channels-display
+             (let* ((buffers (mapcar 'car erc-modified-channels-alist))
+                    (long-names (mapcar #'(lambda (buf) (or (buffer-name buf) "")) buffers)))
+               long-names))
            ;; version control
            (when (and active (or flycheckp spacemacs-mode-line-minor-modesp))
              (list (funcall separator-left (if vc-face line-face face1) vc-face)))
