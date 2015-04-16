@@ -72,6 +72,7 @@
     helm-themes
     highlight-indentation
     highlight-numbers
+    highlight-parentheses
     hippie-exp
     hl-anything
     hungry-delete
@@ -1697,6 +1698,17 @@ If ARG is non nil then `ag' and `pt' and ignored."
       (add-hook 'prog-mode-hook 'highlight-numbers-mode)
       (add-hook 'asm-mode-hook (lambda () (highlight-numbers-mode -1))))))
 
+(defun spacemacs/init-highlight-parentheses ()
+  (use-package highlight-parentheses
+    :defer t
+    :init
+    (progn
+      (when (eq dotspacemacs-highlight-delimiters 'scope)
+        (add-hook 'prog-mode-hook #'highlight-parentheses-mode))
+      (evil-leader/set-key "tCp" 'highlight-parentheses-mode)
+      ;; use green to clearly distinguish the sexp we are in
+      (setq hl-paren-colors '("Springgreen3" "IndianRed1" "IndianRed3" "IndianRed4")))))
+
 (defun spacemacs/init-hippie-exp ()
   (global-set-key (kbd "M-/") 'hippie-expand) ;; replace dabbrev-expand
   (setq hippie-expand-try-functions-list
@@ -2484,7 +2496,8 @@ It is a string holding:
     :init
     (progn
       (evil-leader/set-key "tCd" 'rainbow-delimiters-mode)
-      (add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook)))))
+      (when (eq dotspacemacs-highlight-delimiters 'all)
+        (add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook))))))
 
 (defun spacemacs/init-recentf ()
   (use-package recentf
