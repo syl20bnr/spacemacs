@@ -15,13 +15,13 @@
 
 ## Description
 
-`helm-gtags` is a helm client for GNU Global. GNU GLOBAL is a source code
-tagging system that allows querying symbol locations in source code, such as
-definitions or references.
+`helm-gtags` and `ggtags` are clients for GNU Global. GNU Global is a source
+code tagging system that allows querying symbol locations in source code, such
+as definitions or references.
 
 ## Features
 
-- Select any tag in a project retrieved by gtags
+- Select any tag in a project retrieves by gtags
 - Resume previous helm-gtags session
 - Jump to a location based on context
 - Find definitions
@@ -62,7 +62,7 @@ sudo make install
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(helm-gtags))
+(setq-default dotspacemacs-configuration-layers '(gtags))
 ```
 
 ## Usage
@@ -86,20 +86,38 @@ If the language is not directly supported by `gtags` but `ctags`, use this comma
 gtags --gtagslabel=ctags
 ```
 
+### Eldoc integration
+
+This layer also integrates `ggtags` for its Eldoc feature. That means, when
+writing code, you can look at the minibuffer (at the bottom) and see variable
+and function definition of the symbol the cursor is on. However, this feature is
+only activated for programming modes that are not one of these languages:
+
+- C mode
+- C++ mode
+- Common Lisp
+- Emacs Lisp
+- Python
+- Ruby-mode
+
+Since these modes have better Eldoc integration already.
+
 ## Key bindings
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m g c</kbd>  | create a tag database
-<kbd>SPC m g d</kbd>  | find definitions
-<kbd>SPC m g f</kbd>  | jump to a file in tag database
-<kbd>SPC m g g</kbd>  | jump to a location based on context
-<kbd>SPC m g i</kbd>  | present tags in current function only
-<kbd>SPC m g l</kbd>  | jump to definitions in file
-<kbd>SPC m g n</kbd>  | jump to next location in context stack
-<kbd>SPC m g p</kbd>  | jump to previous location in context stack
-<kbd>SPC m g R</kbd>  | resume previous helm-gtags session
-<kbd>SPC m g r</kbd>  | find references
-<kbd>SPC m g s</kbd>  | select any tag in a project retrieved by gtags
-<kbd>SPC m g S</kbd>  | show stack of visited locations
-<kbd>SPC m g u</kbd>  | manually update tag database
+<kbd>, m g c</kbd>  | create a tag database
+<kbd>, m g f</kbd>  | jump to a file in tag database
+<kbd>, m g g</kbd>  | jump to a location based on context
+<kbd>, m g d</kbd>  | find definitions
+<kbd>, m g i</kbd>  | present tags in current function only
+<kbd>, m g l</kbd>  | jump to definitions in file
+<kbd>, m g n</kbd>  | jump to next location in context stack
+<kbd>, m g p</kbd>  | jump to previous location in context stack
+<kbd>, m g r</kbd>  | find references
+<kbd>, m g R</kbd>  | resume previous helm-gtags session
+<kbd>, m g s</kbd>  | select any tag in a project retrieved by gtags
+<kbd>, m g S</kbd>  | show stack of visited locations
+<kbd>, m g u</kbd>  | manually update tag database
+
+In Emacs mode, instead of pressing <kbd>,</kbd>, you press <kbd>M-RET</kbd>.
