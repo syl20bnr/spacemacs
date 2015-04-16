@@ -128,7 +128,7 @@
         "mdr"  'haskell-debug/refresh)
 
       ;; Switch back to editor from REPL
-      (evil-leader/set-key-for-mode 'interactive-haskell-mode
+      (evil-leader/set-key-for-mode 'haskell-interactive-mode
         "msS"  'haskell-interactive-switch)
 
       ;; Compile
@@ -221,11 +221,11 @@
         (kbd "M-RET") 'evil-ret
         )
 
-      (evil-define-key 'operator map
+      (evil-define-key 'operator shm-map
         (kbd ")") 'shm/forward-node
         (kbd "(") 'shm/backward-node)
 
-      (evil-define-key 'motion map
+      (evil-define-key 'motion shm-map
         (kbd ")") 'shm/forward-node
         (kbd "(") 'shm/backward-node)
 
