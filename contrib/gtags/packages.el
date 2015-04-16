@@ -50,24 +50,36 @@
 
       (defun spacemacs/gtags-define-keys-for-mode (mode)
         "Define key bindings for the specific MODE."
-        (evil-leader/set-key-for-mode mode
-          "mgc" 'helm-gtags-create-tags
-          "mgd" 'helm-gtags-find-tag
-          "mgf" 'helm-gtags-select-path
-          "mgg" 'helm-gtags-dwim
-          "mgi" 'helm-gtags-tags-in-this-function
-          "mgl" 'helm-gtags-parse-file
-          "mgn" 'helm-gtags-next-history
-          "mgp" 'helm-gtags-previous-history
-          "mgr" 'helm-gtags-find-rtag
-          "mgR" 'helm-gtags-resume
-          "mgs" 'helm-gtags-select
-          "mgS" 'helm-gtags-show-stack
-          "mgu" 'helm-gtags-update-tags)))
+        (when (fboundp mode)
+          (add-hook (intern (concat (symbol-name mode) "-hook")) 'helm-gtags-mode)
+
+          (evil-leader/set-key-for-mode mode
+            "mgc" 'helm-gtags-create-tags
+            "mgd" 'helm-gtags-find-tag
+            "mgf" 'helm-gtags-select-path
+            "mgg" 'helm-gtags-dwim
+            "mgi" 'helm-gtags-tags-in-this-function
+            "mgl" 'helm-gtags-parse-file
+            "mgn" 'helm-gtags-next-history
+            "mgp" 'helm-gtags-previous-history
+            "mgr" 'helm-gtags-find-rtag
+            "mgR" 'helm-gtags-resume
+            "mgs" 'helm-gtags-select
+            "mgS" 'helm-gtags-show-stack
+            "mgu" 'helm-gtags-update-tags))))
     :config
     (progn
       ;; if anyone uses helm-gtags, they would want to use these key bindings
       (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
       (define-key helm-gtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
       (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-      (define-key helm-gtags-mode-map (kbd "M-*") 'pop-tag-mark))))
+      (define-key helm-gtags-mode-map (kbd "M-*") 'pop-tag-mark)
+
+      ;; modes that do not have a layer, define here
+      (spacemacs/gtags-define-keys-for-mode 'tcl-mode)
+      (spacemacs/gtags-define-keys-for-mode 'java-mode)
+      (spacemacs/gtags-define-keys-for-mode 'vhdl-mode)
+      (spacemacs/gtags-define-keys-for-mode 'shell-script-mode)
+      (spacemacs/gtags-define-keys-for-mode 'awk-mode)
+      (spacemacs/gtags-define-keys-for-mode 'asm-mode)
+      (spacemacs/gtags-define-keys-for-mode 'dired-mode))))
