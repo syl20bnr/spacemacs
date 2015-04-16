@@ -166,23 +166,23 @@
     :config
     (progn
       ;; Show indentation guides in insert or emacs state only.
-      (defun spacemacs//haskell-identation-show-guides ()
+      (defun spacemacs//haskell-indentation-show-guides ()
         "Show visual indentation guides."
         (when (derived-mode-p 'haskell-mode)
           (haskell-indentation-enable-show-indentations)))
 
-      (defun spacemacs//haskell-identation-hide-guides ()
+      (defun spacemacs//haskell-indentation-hide-guides ()
         "Hide visual indentation guides."
         (when (derived-mode-p 'haskell-mode)
           (haskell-indentation-disable-show-indentations)))
 
       ;; first entry in normal state
-      (add-hook 'evil-normal-state-entry-hook 'spacemacs//haskell-identation-hide-guides)
+      (add-hook 'evil-normal-state-entry-hook 'spacemacs//haskell-indentation-hide-guides)
 
-      (add-hook 'evil-insert-state-entry-hook 'spacemacs//haskell-identation-show-guides)
-      (add-hook 'evil-emacs-state-entry-hook 'spacemacs//haskell-identation-show-guides)
-      (add-hook 'evil-insert-state-exit-hook 'spacemacs//haskell-identation-hide-guides)
-      (add-hook 'evil-emacs-state-exit-hook 'spacemacs//haskell-identation-hide-guides))))
+      (add-hook 'evil-insert-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
+      (add-hook 'evil-emacs-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
+      (add-hook 'evil-insert-state-exit-hook 'spacemacs//haskell-indentation-hide-guides)
+      (add-hook 'evil-emacs-state-exit-hook 'spacemacs//haskell-indentation-hide-guides))))
 
 (defun haskell/init-hindent ()
   (use-package hindent
