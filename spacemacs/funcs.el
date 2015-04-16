@@ -363,11 +363,6 @@ argument takes the kindows rotate backwards."
       (1+ i)
       (switch-to-prev-buffer))))
 
-(defun spacemacs/kill-this-buffer ()
-  "Kill the current buffer."
-  (interactive)
-  (kill-buffer (current-buffer)))
-
 ;; from magnars
 (defun rename-current-buffer-file ()
   "Renames current buffer and file it is visiting."

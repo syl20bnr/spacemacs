@@ -55,7 +55,7 @@
 (evil-leader/set-key
   "b0"  'beginning-of-buffer
   "b$"  'end-of-buffer
-  "bd"  'spacemacs/kill-this-buffer
+  "bd"  'kill-this-buffer
   "bb"  'spacemacs/alternate-buffer ;; switch back and forth between two last buffers
   "TAB" 'spacemacs/alternate-buffer
   "bh"  'spacemacs/home
@@ -316,7 +316,7 @@ Ensure that helm is required before calling FUNC."
   :use-minibuffer t
   :evil-leader "b."
   :bindings
-  ("K" spacemacs/kill-this-buffer)
+  ("K" kill-this-buffer)
   ("n" spacemacs/next-real-buffer)
   ("N" spacemacs/prev-real-buffer))
 
