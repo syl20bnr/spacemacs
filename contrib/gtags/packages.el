@@ -73,7 +73,7 @@
       (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
       (define-key helm-gtags-mode-map (kbd "C-x 4 .") 'helm-gtags-find-tag-other-window)
       (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-      (define-key helm-gtags-mode-map (kbd "M-*") 'pop-tag-mark)
+      (define-key helm-gtags-mode-map (kbd "M-*") 'helm-gtags-pop-stack)
 
       ;; modes that do not have a layer, define here
       (spacemacs/gtags-define-keys-for-mode 'tcl-mode)
