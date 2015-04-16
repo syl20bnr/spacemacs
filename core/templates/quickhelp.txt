@@ -6,6 +6,8 @@ Press r to jump to recent file list.
 
 Press p to jump to project list.
 
-Press SPC (in Vim mode) or `Alt-m` (in Emacs mode) to access Spacemacs commands.
+Press m to jump to the top menu.
+
+Press SPC (in Vim mode) or Alt-m (in Emacs mode) to access Spacemacs commands.
 
 Please consult Spacemacs documentation for more details.

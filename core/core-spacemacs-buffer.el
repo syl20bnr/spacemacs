@@ -378,6 +378,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
 (defun spacemacs-buffer//insert-buttons ()
   (goto-char (point-max))
   (insert "      ")
+  (spacemacs//insert--shorcut "m" "[?]" t)
   (widget-create 'url-link
                  :tag (propertize "?" 'face 'font-lock-doc-face)
                  :help-echo "Open the quickhelp."
@@ -443,18 +444,19 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :follow-link "\C-m")
   (insert "\n\n"))
 
-(defmacro spacemacs//insert-widget-with-shorcut (shortcut-char search-label)
+(defmacro spacemacs//insert--shorcut (shortcut-char search-label &optional no-next-line)
   `(define-key spacemacs-mode-map ,shortcut-char (lambda ()
                                                    (interactive)
                                                    (unless (search-forward ,search-label (point-max) t)
                                                      (search-backward ,search-label (point-min) t))
-                                                   (forward-line 1)
+                                                   (unless ,no-next-line
+                                                     (forward-line 1))
                                                    (back-to-indentation))))
 
 (defun spacemacs-buffer//insert-file-list (list-display-name list shortcut-char)
   (when (car list)
-    (spacemacs//insert-widget-with-shorcut "r" "Recent Files:")
-    (spacemacs//insert-widget-with-shorcut "p" "Projects:")
+    (spacemacs//insert--shorcut "r" "Recent Files:")
+    (spacemacs//insert--shorcut "p" "Projects:")
     (insert list-display-name)
     (mapc (lambda (el)
             (insert "\n    ")
