@@ -92,25 +92,6 @@
             ;; Disable haskell-stylish on save, it breaks flycheck highlighting
             haskell-stylish-on-save nil)
 
-      ;; Show indentation guides in insert or emacs state only.
-      (defun spacemacs//haskell-identation-show-guides ()
-        "Show the indent guides."
-        (when (eq 'haskell-mode major-mode)
-          (funcall 'haskell-indentation-enable-show-indentations)))
-      (defun spacemacs//haskell-identation-hide-guides ()
-        "Hide the indent guides."
-        (when (eq 'haskell-mode major-mode)
-          (funcall 'haskell-indentation-disable-show-indentations)))
-      ;; first entry in normal state
-      (add-hook 'evil-normal-state-entry-hook
-                'spacemacs//haskell-identation-hide-guides)
-      (dolist (state '(insert emacs))
-        (eval `(progn
-                 (add-hook ',(intern (format "evil-%S-state-entry-hook" state))
-                           'spacemacs//haskell-identation-show-guides)
-                 (add-hook ',(intern (format "evil-%S-state-exit-hook" state))
-                           'spacemacs//haskell-identation-hide-guides))))
-
       ;; key bindings
       (defun spacemacs/haskell-process-do-type-on-prev-line ()
         (interactive)
@@ -178,7 +159,30 @@
       ;; Useful to have these keybindings for .cabal files, too.
       (eval-after-load 'haskell-cabal-mode-map
         '(define-key haskell-cabal-mode-map
-           [?\C-c ?\C-z] 'haskell-interactive-switch)))))
+           [?\C-c ?\C-z] 'haskell-interactive-switch))))
+
+  (use-package haskell-indentation
+    :defer t
+    :config
+    (progn
+      ;; Show indentation guides in insert or emacs state only.
+      (defun spacemacs//haskell-identation-show-guides ()
+        "Show visual indentation guides."
+        (when (derived-mode-p 'haskell-mode)
+          (haskell-indentation-enable-show-indentations)))
+
+      (defun spacemacs//haskell-identation-hide-guides ()
+        "Hide visual indentation guides."
+        (when (derived-mode-p 'haskell-mode)
+          (haskell-indentation-disable-show-indentations)))
+
+      ;; first entry in normal state
+      (add-hook 'evil-normal-state-entry-hook 'spacemacs//haskell-identation-hide-guides)
+
+      (add-hook 'evil-insert-state-entry-hook 'spacemacs//haskell-identation-show-guides)
+      (add-hook 'evil-emacs-state-entry-hook 'spacemacs//haskell-identation-show-guides)
+      (add-hook 'evil-insert-state-exit-hook 'spacemacs//haskell-identation-hide-guides)
+      (add-hook 'evil-emacs-state-exit-hook 'spacemacs//haskell-identation-hide-guides))))
 
 (defun haskell/init-hindent ()
   (use-package hindent
