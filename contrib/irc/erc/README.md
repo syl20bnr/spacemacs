@@ -12,13 +12,7 @@
 
 ## Description
 
-Basic layer for ERC.
-
-TBD:
-
-- show mode-line tracking of active channels (so that you know when to <kbd>C-c C-SPC</kbd> or it's equivalent evil-ized shortcut)
-- evil-ized keyboard shortcuts
-- documentation on storing credentials and preferred channels list
+Layer for [ERC IRC chat.](http://www.emacswiki.org/emacs/ERC)
 
 ## Install
 
@@ -27,6 +21,10 @@ To use this contribution add it to your `~/.spacemacs`
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(erc))
 ```
+
+*NOTE:* If you're on OS X, it's recommended to install the
+[terminal-notifier gem](https://github.com/alloy/terminal-notifier) so that you get notifications
+via the OS X Notification Center.
 
 ## Key bindings
 
