@@ -510,7 +510,7 @@ they can be set directly in the `dotspacemacs-configuration-layers` like this:
 
 ```elisp
 ;; List of configuration layers to load.
-dotspacemacs-configuration-layers '(company-mode
+dotspacemacs-configuration-layers '(auto-completion
                                     (git :variables
                                          git-magit-status-fullscreen t
                                          git-enable-github-support t
