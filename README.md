@@ -289,7 +289,7 @@ The following command will create a `.spacemacs` file in your home directory:
 
 ```elisp
 ;; List of configuration layers to load.
-dotspacemacs-configuration-layers '(company-mode smex)
+dotspacemacs-configuration-layers '(auto-completion smex)
 ```
 
 Some configuration layers support configuration variables to expose granular
@@ -298,7 +298,7 @@ Variables can be directly set within `dotspacemacs-configuration-layers` like so
 
 ```elisp
 ;; List of configuration layers to load.
-dotspacemacs-configuration-layers '(company-mode
+dotspacemacs-configuration-layers '(auto-completion
                                     (git :variables
                                          git-magit-status-fullscreen t
                                          git-enable-github-support t
