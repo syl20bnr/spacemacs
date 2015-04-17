@@ -1526,6 +1526,13 @@ ARG non nil means that the editing style is `vim'."
         ("T" helm-toggle-all-marks)
         ("v" helm-execute-persistent-action))
 
+      ;; Swap default TAB and C-z commands.
+      ;; For GUI.
+      (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+      ;; For terminal.
+      (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+      (define-key helm-map (kbd "C-z") 'helm-select-action)
+
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
 
