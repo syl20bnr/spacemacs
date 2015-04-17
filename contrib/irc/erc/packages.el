@@ -27,7 +27,8 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (evil-leader/set-key
       "aie" 'erc
-      "aiE" 'erc-tls)
+      "aiE" 'erc-tls
+      "ais" 'erc-track-switch-buffer)
     :config
     (progn
 
