@@ -450,7 +450,7 @@ See the powerline section in the [documentation][powerline-doc].
 
 ## Windows
 
-1. **Why do the fonts on Windows looks so crappy ?**
+1. **Why do the fonts look crappy on Windows ?**
 You can install [MacType][] on Windows to get very nice looking fonts. It is
 also recommended to disable smooth scrolling on Windows.
 
