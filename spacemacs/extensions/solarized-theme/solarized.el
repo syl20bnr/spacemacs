@@ -290,8 +290,9 @@ customize the resulting theme."
      `(match ((,class (:background ,base02 :foreground ,base1 :weight bold))))
      `(cursor ((,class (:foreground ,base03 :background ,base0
                                     :inverse-video t))))
-     `(mouse ((,class (:foreground ,base03 :background ,base0
-                                   :inverse-video t))))
+     (when dotspacemacs-theme-override-os-mouse
+       `(mouse ((,class (:foreground ,base03 :background ,base0
+                                     :inverse-video t)))))
      `(escape-glyph ((,class (:foreground ,violet))))
      `(fringe ((,class (:foreground ,s-fringe-fg :background ,s-fringe-bg))))
      `(highlight ((,class (:background ,base02))))
