@@ -27,6 +27,10 @@
   (evil-leader/set-key-for-mode 'tuareg-mode
    "mcc" 'compile
   )
+  ;; don't auto-close apostrophes (type 'a = foo)
+  (when (fboundp 'sp-local-pair)
+    (sp-local-pair 'tuareg-mode "'" nil :actions nil)
+  )
   )
 
 (defun ocaml/opam ()
@@ -75,7 +79,6 @@
 
 (defun ocaml/init-ocp-indent ()
   (use-package ocp-indent
-    :defer t
     :init
     (ocaml/opam)
     )
