@@ -3,7 +3,7 @@
 ;; Copyright (C) 2012 Thomas Frössman
 
 ;; Author: Thomas Frössman <thomasf@jossystem.se>
-;; URL: http://github.com/bbatsov/solarized-emacs
+;; URL: https://github.com/bbatsov/solarized-emacs
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by

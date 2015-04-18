@@ -4,7 +4,7 @@
 
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; Author: Thomas Frössman <thomasf@jossystem.se>
-;; URL: http://github.com/bbatsov/solarized-emacs
+;; URL: https://github.com/bbatsov/solarized-emacs
 ;; Version: 1.2.1
 
 ;; This program is free software; you can redistribute it and/or modify
