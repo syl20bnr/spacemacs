@@ -29,6 +29,9 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun ocaml/init-tuareg ()
   (add-hook 'tuareg-mode-hook #'merlin-mode)
+  (evil-leader/set-key-for-mode 'tuareg-mode
+   "mcc" 'compile
+  )
   )
 
 (defun ocaml/opam ()
@@ -49,7 +52,30 @@ which require an initialization must be listed explicitly in the list.")
     ;; Update the emacs path
     (setq exec-path (append (parse-colon-path (getenv "PATH"))
                             (list exec-directory)))
+    (defun utop-eval-phrase-and-go ()
+      (interactive)
+      (utop-eval-phrase)
+      (utop))
+    (defun utop-eval-buffer-and-go ()
+      (interactive)
+      (utop-eval-buffer)
+      (utop))
+    (defun utop-eval-region-and-go (start end)
+      (interactive "r")
+      (utop-eval-region start end)
+      (utop))
+    (evil-leader/set-key-for-mode 'tuareg-mode
+      "msb" 'utop-eval-buffer
+      "msB" 'utop-eval-buffer-and-go
+      "msi" 'utop
+      "msp" 'utop-eval-phrase
+      "msP" 'utop-eval-phrase-and-go
+      "msr" 'utop-eval-region
+      "msR" 'utop-eval-region-and-go
+      )
     )
+    (define-key utop-mode-map (kbd "C-j") 'utop-history-goto-next)
+    (define-key utop-mode-map (kbd "C-k") 'utop-history-goto-prev)
   )
 
 (defun ocaml/init-ocp-indent ()
@@ -69,6 +95,11 @@ which require an initialization must be listed explicitly in the list.")
     (when (configuration-layer/package-usedp 'company)
       (push 'merlin-company-backend company-backends-merlin-mode))
     )
+    (evil-leader/set-key-for-mode 'tuareg-mode
+      "mgg" 'merlin-locate
+      "met" 'merlin-type-enclosing
+     ;;      "mhh" 'merlin-document
+      )
   )
 
 (when (configuration-layer/layer-usedp 'auto-completion)
