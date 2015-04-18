@@ -94,6 +94,7 @@ conflict.")
         (define-key company-active-map (kbd "<tab>") nil)
         (define-key company-active-map [tab] nil))
       ;; key bindings
+      (define-key company-active-map [escape] 'company-abort)
       (define-key company-active-map (kbd "C-j") 'company-select-next)
       (define-key company-active-map (kbd "C-k") 'company-select-previous)
       (define-key company-active-map (kbd "C-/") 'company-search-candidates)
