@@ -127,7 +127,8 @@ which require an initialization must be listed explicitly in the list.")
       (add-hook 'css-mode-hook 'emmet-mode))
     :config
     (progn
-      (local-set-key (kbd "<tab>") 'emmet-expand-yas)
+      (evil-define-key 'insert emmet-mode-keymap "TAB" 'emmet-expand-yas)
+      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
       (spacemacs|hide-lighter emmet-mode))))
 
 (defun html/post-init-evil-matchit ()
