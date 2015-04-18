@@ -115,6 +115,7 @@ which require an initialization must be listed explicitly in the list.")
      ("\\.mustache\\'"   . web-mode)
      ("\\.handlebars\\'" . web-mode)
      ("\\.hbs\\'"        . web-mode)
+     ("\\.eco\\'"        . web-mode)
      ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/init-emmet-mode ()
