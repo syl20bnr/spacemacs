@@ -18,6 +18,11 @@
     :defer t
     :init
     (progn
+      (setq deft-extension "txt"
+            deft-text-mode 'org-mode
+            deft-use-filename-as-title t)
+      (evil-leader/set-key "an" 'spacemacs/deft)
+
       (defun spacemacs/deft ()
         "Helper to call deft and then fix things so that it is nice and works"
         (interactive)
@@ -26,16 +31,11 @@
         (when (fboundp 'hungry-delete-mode)
           (hungry-delete-mode -1))
         ;; When opening it you always want to filter right away
-        (evil-insert-state nil))
-      (evil-leader/set-key "an" 'spacemacs/deft)
-      )
+        (evil-insert-state nil)))
     :config
     (progn
       (evil-leader/set-key-for-mode 'deft-mode
-        "m d" 'deft-delete-file
-        "m r" 'deft-rename-file
-        "m i" 'deft-toggle-incremental-search
-        "m n" 'deft-new-file)
-      (setq deft-extension "txt"
-            deft-text-mode 'org-mode
-            deft-use-filename-as-title t))))
+        "md" 'deft-delete-file
+        "mi" 'deft-toggle-incremental-search
+        "mn" 'deft-new-file
+        "mr" 'deft-rename-file))))
