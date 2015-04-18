@@ -30,6 +30,10 @@ To use this contribution add it to your `~/.spacemacs`
 (setq-default dotspacemacs-configuration-layers '(ocaml))
 ```
 
+Optional configuration layers supported:
+ * auto-completion (company mode via merlin)
+ * syntax-checking (flycheck-ocaml)
+
 ### OPAM packages
 
 This layer requires some [opam](http://opam.ocaml.org) packages:
