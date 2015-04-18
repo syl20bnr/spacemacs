@@ -198,7 +198,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
 (defun spacemacs/get-last-version (repo owner remote branch)
   "Return the last tagged version of BRANCH on REMOTE repository from
 OWNER REPO."
-  (let ((url (format "http://github.com/%s/%s" owner repo)))
+  (let ((url (format "https://github.com/%s/%s" owner repo)))
     (unless (spacemacs/git-has-remote remote)
       (spacemacs/git-declare-remote remote url)))
   (spacemacs/git-fetch-tags remote branch)
