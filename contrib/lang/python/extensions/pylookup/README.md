@@ -16,7 +16,7 @@
 
  Please check, 
     Web  : http://taesoo.org/proj/pylookup.html
-    Repo : http://github.com/tsgates/pylookup
+    Repo : https://github.com/tsgates/pylookup
 
 # INSTALL
 

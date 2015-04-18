@@ -1,24 +1,24 @@
 [submodule "spacemacs/extensions/projmake-mode"]
 	path = extensions/projmake-mode
-	url = http://github.com/ericbmerritt/projmake-mode
+	url = https://github.com/ericbmerritt/projmake-mode
 [submodule "spacemacs/extensions/revive"]
 	path = spacemacs/extensions/revive
-	url = http://github.com/vedang/revive-mode.git
+	url = https://github.com/vedang/revive-mode.git
 [submodule "spacemacs/extensions/helm-c-moccur"]
 	path = extensions/helm-c-moccur
-	url = http://github.com/syl20bnr/helm-c-moccur
+	url = https://github.com/syl20bnr/helm-c-moccur
 [submodule "spacemacs/extensions/emoji-cheat-sheet"]
 	path = spacemacs/extensions/emoji-cheat-sheet
-	url = http://github.com/ShingoFukuyama/emacs-emoji-cheat-sheet
+	url = https://github.com/ShingoFukuyama/emacs-emoji-cheat-sheet
 [submodule "spacemacs/extensions/evil-org-mode"]
 	path = spacemacs/extensions/evil-org-mode
-	url = http://github.com/syl20bnr/evil-org-mode
+	url = https://github.com/syl20bnr/evil-org-mode
 [submodule "spacemacs/extensions/helm-rcirc"]
 	path = spacemacs/extensions/helm-rcirc
-	url = http://github.com/syl20bnr/helm-rcirc
+	url = https://github.com/syl20bnr/helm-rcirc
 [submodule "spacemacs/extensions/spray"]
 	path = spacemacs/extensions/spray
-	url = http://github.com/syl20bnr/spray
+	url = https://github.com/syl20bnr/spray
 [submodule "spacemacs/extensions/yasnippet-snippets"]
 	path = spacemacs/extensions/yasnippet-snippets
-	url = http://github.com/AndreaCrotti/yasnippet-snippets.git
+	url = https://github.com/AndreaCrotti/yasnippet-snippets.git

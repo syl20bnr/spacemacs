@@ -23,7 +23,7 @@
 
 **Quick Install:**
 
-    git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
+    git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
@@ -182,7 +182,7 @@ Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
 2. Clone this repository _with its submodules_:
 
    ```sh
-   git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
+   git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
    ```
 
    `master` is the stable branch and is regularly updated. Switch to the `develop`

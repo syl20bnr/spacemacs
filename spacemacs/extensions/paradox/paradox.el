@@ -3,7 +3,7 @@
 ;; Copyright (C) 2014 Artur Malabarba <bruce.connor.am@gmail.com>
 
 ;; Author: Artur Malabarba <bruce.connor.am@gmail.com>
-;; URL: http://github.com/Bruce-Connor/paradox
+;; URL: https://github.com/Bruce-Connor/paradox
 ;; Version: 2.0
 ;; Keywords: package packages mode-line
 ;; Package-Requires: ((emacs "24.1") (dash "2.6.0") (cl-lib "0.5") (json "1.3"))

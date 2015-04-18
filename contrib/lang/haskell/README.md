@@ -231,7 +231,7 @@ This commands are available in a cabal file.
 
 [Haskell]: https://www.haskell.org/
 [cabal]: https://www.haskell.org/cabal/
-[cmm-mode]: http://github.com/bgamari/cmm-mode
+[cmm-mode]: https://github.com/bgamari/cmm-mode
 [company-ghc]: https://github.com/iquiw/company-ghc
 [ghci-ng]: https://github.com/chrisdone/ghci-ng
 [structured-haskell-mode]: https://github.com/chrisdone/structured-haskell-mode
