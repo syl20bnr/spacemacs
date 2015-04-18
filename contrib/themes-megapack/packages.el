@@ -26,7 +26,6 @@
     clues-theme
     color-theme-sanityinc-solarized
     color-theme-sanityinc-tomorrow
-    color-theme-solarized
     colorsarenice-theme
     cyberpunk-theme
     dakrone-theme
