@@ -17,8 +17,8 @@
     utop
     ocp-indent
     company
-;;    flycheck
-;;    flycheck-ocaml
+    flycheck
+    flycheck-ocaml
     ;; package ocamls go here
     )
   "List of all packages to install and/or initialize. Built-in packages
@@ -74,14 +74,22 @@ which require an initialization must be listed explicitly in the list.")
 (when (configuration-layer/layer-usedp 'auto-completion)
   ;; Hook company to merlin-mode
   (defun ocaml/post-init-company ()
-    (spacemacs|add-company-hook merlin-mode)))
+    (spacemacs|add-company-hook merlin-mode)
+    ))
 
-;; (defun ocaml/init-flycheck-ocaml ()
-;;   (progn
-;;     (setq merlin-error-after-save nil)
-;;     (flycheck-ocaml-setup)
-;;     )
-;; )
+(when (configuration-layer/layer-usedp 'syntax-checking)
+  (defun ocaml/init-flycheck-ocaml ()
+    (use-package flycheck-ocaml
+      :if (configuration-layer/package-usedp 'flycheck)
+      :defer t
+      :init
+      (add-hook 'merlin-mode-hook 'flycheck-mode)
+      (with-eval-after-load 'merlin
+        ;; Disable Merlin's own error checking
+        (setq merlin-error-after-save nil)
+        ;; Enable Flycheck checker
+        (flycheck-ocaml-setup))
+      )))
 
 ;; For each package, define a function ocaml/init-<package-ocaml>
 ;;
