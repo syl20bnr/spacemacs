@@ -16,6 +16,7 @@
     merlin
     utop
     ocp-indent
+    company
 ;;    flycheck
 ;;    flycheck-ocaml
     ;; package ocamls go here
@@ -54,7 +55,22 @@
     )
   )
 
-(defun ocaml/init-merlin ())
+(defun ocaml/init-merlin ()
+  (use-package merlin
+    :defer t
+    :init
+    (ocaml/opam)
+    (set-default 'merlin-use-auto-complete-mode 'easy)
+    (when (configuration-layer/package-usedp 'company)
+      (push 'merlin-company-backend company-backends-merlin-mode))
+    )
+  )
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  ;; Hook company to merlin-mode
+  (defun ocaml/post-init-company ()
+    (spacemacs|add-company-hook merlin-mode)))
+
 ;; (defun ocaml/init-flycheck-ocaml ()
 ;;   (progn
 ;;     (setq merlin-error-after-save nil)
