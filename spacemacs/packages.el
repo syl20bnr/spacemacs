@@ -1947,7 +1947,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (term-send-raw-string "\t"))
 
       (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab))
-      (add-to-list 'term-bind-key-alist `(,(kbd "C-c C-d") . term-send-eof)))))
+      (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof))))
 
 (defun spacemacs/init-neotree ()
   (use-package neotree
