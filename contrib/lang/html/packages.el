@@ -130,6 +130,8 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (evil-define-key 'insert emmet-mode-keymap "TAB" 'emmet-expand-yas)
       (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
+      (evil-define-key 'emacs emmet-mode-keymap "TAB" 'emmet-expand-yas)
+      (evil-define-key 'emacs emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
       (spacemacs|hide-lighter emmet-mode))))
 
 (defun html/post-init-evil-matchit ()
