@@ -1,6 +1,7 @@
 (setq ruby-packages
   '(
     bundler
+    company
     enh-ruby-mode
     flycheck
     robe
