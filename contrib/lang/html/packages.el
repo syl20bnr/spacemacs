@@ -48,6 +48,9 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :config
     (progn
+      ;; Only use smartparens in web-mode
+      (sp-local-pair 'web-mode "<%" "%>")
+      (setq web-mode-enable-auto-pairing nil)
 
       (evil-leader/set-key-for-mode 'web-mode
         "meh" 'web-mode-dom-errors-show
