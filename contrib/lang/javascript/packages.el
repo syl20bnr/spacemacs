@@ -20,6 +20,7 @@
     js2-refactor
     json-mode
     tern
+    js-doc
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -154,6 +155,22 @@ which require an initialization must be listed explicitly in the list.")
       (evil-leader/set-key-for-mode 'js2-mode "mgG" 'tern-find-definition-by-name)
       (evil-leader/set-key-for-mode 'js2-mode (kbd "m C-g") 'tern-pop-find-definition)
       (evil-leader/set-key-for-mode 'js2-mode "mt" 'tern-get-type))))
+
+(defun javascript/init-js-doc ()
+  (use-package js-doc
+    :defer t
+    :init
+    (progn
+      (defun javascript/load-js-doc ()
+          "Lazy load js-doc"
+        (require 'js-doc))
+      (add-hook 'js2-mode-hook 'javascript/load-js-doc))
+    :config
+    (progn
+      (evil-leader/set-key-for-mode 'js2-mode "mdb" 'js-doc-insert-file-doc)
+      (evil-leader/set-key-for-mode 'js2-mode "mdf" 'js-doc-insert-function-doc)
+      (evil-leader/set-key-for-mode 'js2-mode "mdt" 'js-doc-insert-tag)
+      (evil-leader/set-key-for-mode 'js2-mode "mdh" 'js-doc-describe-tag))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun javascript/post-init-company ()
