@@ -200,6 +200,12 @@ guide and consult the [FAQ](#faq).
 If you are using Ubuntu and Unity then you can add the Spacemacs logo by
 following the instructions [here][cpaulik-unity-icon].
 
+If you are using Windows, then a version of emacs with the image display binaries
+included is required. You can follow the instructions [here][http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files].
+
+Alternatively you can download a version of emacs with image support included such
+as this [one][http://emacsbinw64.sourceforge.net/].
+
 # Update
 
 Spacemacs currently requires manual updates using the following procedure:
