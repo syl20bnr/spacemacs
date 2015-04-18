@@ -46,6 +46,9 @@
     :defer t
     :config
     (progn
+      ;; Only use smartparens in web-mode
+      (sp-local-pair 'web-mode "<%" "%>")
+      (setq web-mode-enable-auto-pairing nil)
 
       (evil-leader/set-key-for-mode 'web-mode
         "meh" 'web-mode-dom-errors-show
@@ -113,6 +116,7 @@
      ("\\.mustache\\'"   . web-mode)
      ("\\.handlebars\\'" . web-mode)
      ("\\.hbs\\'"        . web-mode)
+     ("\\.eco\\'"        . web-mode)
      ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/init-emmet-mode ()
@@ -127,6 +131,8 @@
     (progn
       (evil-define-key 'insert emmet-mode-keymap "TAB" 'emmet-expand-yas)
       (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
+      (evil-define-key 'emacs emmet-mode-keymap "TAB" 'emmet-expand-yas)
+      (evil-define-key 'emacs emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
       (spacemacs|hide-lighter emmet-mode))))
 
 (defun html/post-init-evil-matchit ()
