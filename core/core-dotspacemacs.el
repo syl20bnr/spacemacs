@@ -151,6 +151,10 @@ Possible values are: `recents' `bookmarks' `projects'.")
     map)
   "Keymap for dostpacemacs-mode.")
 
+(defvar dotspacemacs-theme-override-os-mouse t
+  "If non nil set the mouse cursor in the theme instead of using the OS
+default.")
+
 (define-derived-mode dotspacemacs-mode emacs-lisp-mode "dotspacemacs"
   "dotspacemacs major mode for Spacemacs dotfile.
 
