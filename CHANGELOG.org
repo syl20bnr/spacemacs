@@ -256,6 +256,8 @@ a batch of packages.
   package is used
 - revert back `ag` as the default search tool instead of `pt`, `pt` can
   conflict with `pt` command line tool from TCL parser tools.
+- Fix conflict between official Spacemacs solarized theme and
+  `color-theme-solarized` declared in `themes-megapack` layer.
 ** Backports
 None
 * Previous Releases
