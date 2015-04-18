@@ -810,7 +810,7 @@ If ASCII si not provided then UNICODE is used instead."
                        (dired-get-file-for-visit)
                      (buffer-file-name))))
     (cond
-     ((system-is-mswindows) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" file-path)))
+     ((system-is-mswindows) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\\\" file-path)))
      ((system-is-mac) (shell-command (format "open \"%s\"" file-path)))
      ((system-is-linux) (let ((process-connection-type nil))
                           (start-process "" nil "xdg-open" file-path))))))
