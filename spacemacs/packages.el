@@ -2209,6 +2209,10 @@ displayed in the mode-line.")
           (setq-default powerline-default-separator 'wave)
         (setq-default powerline-default-separator 'utf-8))
 
+      ;; change powerline-inactive2 face to make it usable across themes
+      (set-face-attribute 'powerline-inactive2 nil
+                          :inherit 'font-lock-preprocessor-face)
+
       (defun spacemacs/mode-line-prepare-left ()
         (let* ((active (powerline-selected-window-active))
                (line-face (if active 'mode-line 'mode-line-inactive))
