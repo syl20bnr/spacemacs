@@ -349,7 +349,7 @@ Ensure that helm is required before calling FUNC."
   "
   [?]                       display this help
   [0,9]                     go to numbered window
-  [-] [/] [s] [v] [S] [V]   split windows bellow|right and focus
+  [-] [/] [s] [v] [S] [V]   split windows below|right and focus
   [c] [C]                   close current|other windows
   [g]                       toggle golden-ratio
   [h] [j] [k] [l]           go to left|bottom|top|right
