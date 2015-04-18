@@ -1052,8 +1052,8 @@ to read the [Helm documentation wiki][helm-doc].
 `Spacemacs` defines a [micro-state](#micro-states) for `Helm` to make it
 work like [Vim's Unite][] plugin.
 
-Initiate the micro-state with <kbd>C-SPC</kbd> while in a `Helm` buffer.
-Use <kbd>C-SPC</kbd> again to exit from the micro-state.
+Initiate the micro-state with <kbd>M-SPC</kbd> while in a `Helm` buffer.
+Use <kbd>M-SPC</kbd> again to exit from the micro-state.
 
 Key Binding           | Description
 ----------------------|------------------------------------------------------------
