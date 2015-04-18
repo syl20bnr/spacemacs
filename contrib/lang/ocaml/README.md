@@ -39,11 +39,13 @@ Optional configuration layers supported:
 This layer requires some [opam](http://opam.ocaml.org) packages:
 
 - `merlin`
+- `utop`
+- `ocp-indent`
 
 To install them, use the following command: 
 
 ```sh
-opam install merlin 
+opam install merlin utop ocp-indent
 ```
 
 ## Key Bindings
