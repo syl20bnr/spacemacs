@@ -10,12 +10,12 @@
 ;;
 ;;; License: GPLv3
 
-(defvar slime-pre-extensions
+(setq slime-pre-extensions
   '(
     ;; pre extension slimes go here
     ))
 
-(defvar slime-post-extensions
+(setq slime-post-extensions
   '(
     ;; post extension slimes go here
     ))

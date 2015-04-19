@@ -1,4 +1,4 @@
-(defvar rcirc-post-extensions
+(setq rcirc-post-extensions
   '(
     helm-rcirc
     ))
