@@ -1703,11 +1703,15 @@ If ARG is non nil then `ag' and `pt' and ignored."
     :defer t
     :init
     (progn
-      (when (eq dotspacemacs-highlight-delimiters 'scope)
+      (when (eq dotspacemacs-highlight-delimiters 'current)
         (add-hook 'prog-mode-hook #'highlight-parentheses-mode))
       (evil-leader/set-key "tCp" 'highlight-parentheses-mode)
-      ;; use green to clearly distinguish the sexp we are in
-      (setq hl-paren-colors '("Springgreen3" "IndianRed1" "IndianRed3" "IndianRed4")))))
+      (setq hl-paren-colors '("Springgreen3"
+                              "IndianRed1"
+                              "IndianRed3"
+                              "IndianRed4")))
+    :config
+    (set-face-attribute 'hl-paren-face nil :weight 'ultra-bold)))
 
 (defun spacemacs/init-hippie-exp ()
   (global-set-key (kbd "M-/") 'hippie-expand) ;; replace dabbrev-expand
