@@ -222,7 +222,10 @@ which require an initialization must be listed explicitly in the list.")
       (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
       (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input)
       (define-key inferior-python-mode-map (kbd "C-l") 'comint-clear-buffer)
-      (define-key inferior-python-mode-map (kbd "C-r") 'comint-history-isearch-backward))))
+      (define-key inferior-python-mode-map (kbd "C-r") 'comint-history-isearch-backward)
+
+      ;; Make underscore count as a word character in Python mode.
+      (modify-syntax-entry ?_ "w" python-mode-syntax-table))))
 
 (defun python/post-init-flycheck ()
   (add-hook 'python-mode-hook 'flycheck-mode))
