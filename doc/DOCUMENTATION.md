@@ -2443,6 +2443,8 @@ Achievements                                         | Account
 [200th pull request][200th-PR]                       | [smt][]
 [300th pull request][300th-PR]                       | [BrianHicks][]
 [400th pull request][400th-PR]                       | [cpaulik][]
+[500th pull request][500th-PR]                       | [tuhdo][]
+[600th pull request][600th-PR]                       | [trishume][]
 
 ## Stars and forks
 
@@ -2457,6 +2459,7 @@ Achievements                                         | Account
 700th star                                           | [kendall][]
 800th star                                           | [urso][]
 900th star                                           | [luisgerhorst][]
+1000th star!                                         | [rashly][]
 
 ## Specials
 
@@ -2470,6 +2473,7 @@ The Gunner (made 18 PRs in a row)                    | [ralesi][]
 The Saint (unlocked the holy-mode)                   | [trishume][]
 The Artist (made the spacemacs logo)                 | [nashamri][]
 The Meme Master (made the doge banner)               | [chrisbarrett][]
+The Helm captain (see [here][tuhdo-tuto])            | [tuhdo][]
 
 # Thank you
 
@@ -2582,6 +2586,8 @@ developers to elisp hackers!
 [200th-PR]: https://github.com/syl20bnr/spacemacs/pull/418
 [300th-PR]: https://github.com/syl20bnr/spacemacs/pull/617
 [400th-PR]: https://github.com/syl20bnr/spacemacs/pull/806
+[500th-PR]: https://github.com/syl20bnr/spacemacs/pull/993
+[600th-PR]: https://github.com/syl20bnr/spacemacs/pull/1205
 [trishume]:https://github.com/trishume
 [nashamri]: https://github.com/nashamri
 [Wolfy87]:https://github.com/Wolfy87
@@ -2590,6 +2596,7 @@ developers to elisp hackers!
 [bjarkevad]:https://github.com/bjarkevad
 [jcpetkovich]:https://github.com/jcpetkovich
 [tuhdo]:https://github.com/tuhdo
+[tuhdo-tuto]:http://tuhdo.github.io/helm-intro.html
 [BrianHicks]:https://github.com/BrianHicks
 [cpaulik]: https://github.com/cpaulik
 [chrisbarrett]:https://github.com/chrisbarrett
@@ -2600,6 +2607,7 @@ developers to elisp hackers!
 [kendall]:https://github.com/kendall
 [urso]:https://github.com/urso
 [luisgerhorst]:https://github.com/luisgerhorst
+[rashly]:https://github.com/rashly
 [bru]:https://github.com/bru
 [smt]:https://github.com/smt
 [ralesi]:https://github.com/ralesi
