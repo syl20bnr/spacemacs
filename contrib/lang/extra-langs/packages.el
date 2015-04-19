@@ -1,4 +1,4 @@
-(defvar extra-langs-packages
+(setq extra-langs-packages
   '(
     arduino-mode
     d-mode

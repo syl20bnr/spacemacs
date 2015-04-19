@@ -10,12 +10,9 @@
 ;;
 ;;; License: GPLv3
 
-(defvar evil-commentary-packages '(evil-commentary)
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+(setq evil-commentary-packages '(evil-commentary))
 
-(defvar evil-commentary-excluded-packages '(evil-nerd-commenter)
-  "List of packages to exclude.")
+(setq evil-commentary-excluded-packages '(evil-nerd-commenter))
 
 (defun evil-commentary/init-evil-commentary ()
   "Initialize evil-commentary."

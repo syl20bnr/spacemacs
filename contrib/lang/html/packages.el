@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar html-packages
+(setq html-packages
   '(
     company
     css-mode
@@ -26,9 +26,7 @@
     yasnippet
     haml-mode
     slim-mode
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (defun html/init-css-mode ()
   (use-package css-mode

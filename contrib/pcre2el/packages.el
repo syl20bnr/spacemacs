@@ -1,4 +1,4 @@
-(defvar pcre2el-packages
+(setq pcre2el-packages
   '(
     pcre2el
     ))

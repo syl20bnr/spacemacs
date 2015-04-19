@@ -144,27 +144,8 @@ Possible values are: `recents' `bookmarks' `projects'.")
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")
 
-(defvar dotspacemacs-mode-map
-  (let ((map (make-sparse-keymap)))
-    (set-keymap-parent map emacs-lisp-mode-map)
-    (define-key map (kbd "C-c C-c") 'dotspacemacs/sync-configuration-layers)
-    map)
-  "Keymap for dostpacemacs-mode.")
-
-(define-derived-mode dotspacemacs-mode emacs-lisp-mode "dotspacemacs"
-  "dotspacemacs major mode for Spacemacs dotfile.
-
-\\{dotspacemacs-mode-map}"
-  :group 'spacemacs
-  ;; first import evil-leader keymap for emacs-lisp-mode
-  (let ((mode-map (cdr (assoc 'dotspacemacs-mode evil-leader--mode-maps))))
-    (unless mode-map
-      (push (cons 'dotspacemacs-mode
-                  (cdr (assoc 'emacs-lisp-mode evil-leader--mode-maps)))
-            evil-leader--mode-maps)))
-  ;; then define additional leader key bindings
-  (evil-leader/set-key-for-mode 'dotspacemacs-mode
-    "mcc" 'dotspacemacs/sync-configuration-layers))
+;; only for backward compatibility
+(defalias 'dotspacemacs-mode 'emacs-lisp-mode)
 
 (defun dotspacemacs/sync-configuration-layers (&optional arg)
   "Synchronize declared layers in dotfile with spacemacs.

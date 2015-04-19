@@ -11,7 +11,7 @@
 ;;; License: GPLv3
 
 
-(defvar purescript-packages
+(setq purescript-packages
   '(
     purescript-mode
     psci

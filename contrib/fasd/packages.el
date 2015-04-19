@@ -1,12 +1,7 @@
-(defvar fasd-packages
+(setq fasd-packages
   '(
     fasd
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
-
-(defvar fasd-excluded-packages '()
-  "List of packages to exclude.")
+    ))
 
 (defun fasd-find-file-only ()
   (interactive)

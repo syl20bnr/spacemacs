@@ -1,6 +1,5 @@
-(defvar dash-packages '() ;; see conditional package inclusion below
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+ ;; see conditional package inclusion
+(setq dash-packages '())
 
 (cond
  ((system-is-mac) (push 'dash-at-point dash-packages))

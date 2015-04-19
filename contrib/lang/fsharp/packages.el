@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar fsharp-packages '(fsharp-mode))
+(setq fsharp-packages '(fsharp-mode))
 
 (defun fsharp/init-fsharp-mode ()
   (use-package fsharp-mode

@@ -91,7 +91,7 @@ In `packages.el`:
 
 ```elisp
 ;; Add the relevant packages to the layer
-(defvar python-packages
+(setq python-packages
   '(...
     company
     company-anaconda

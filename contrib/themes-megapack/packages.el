@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar themes-megapack-packages
+(setq themes-megapack-packages
   '(
     afternoon-theme
     alect-themes
@@ -97,12 +97,7 @@
     zen-and-art-theme
     zenburn-theme
     zonokai-theme
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
-
-(defvar themes-megapack-excluded-packages '()
-  "List of packages to exclude.")
+    ))
 
 ;; programmatically defin the init functions
 (dolist (pkg themes-megapack-packages)

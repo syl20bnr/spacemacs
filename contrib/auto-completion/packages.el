@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar auto-completion-packages
+(setq auto-completion-packages
   '(
     company
     ac-ispell
@@ -20,10 +20,6 @@
 ;; company-quickhelp from MELPA is not compatible with 24.3 anymore
 (unless (version< emacs-version "24.4")
   (push 'company-quickhelp auto-completion-packages))
-
-(defvar auto-completion-excluded-packages '()
-  "Packages that use auto-complete that are no longer necessary and might
-conflict.")
 
 (defun auto-completion/init-ac-ispell ()
   (use-package ac-ispell

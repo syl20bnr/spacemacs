@@ -1,7 +1,7 @@
-(defvar vim-empty-lines-packages
+(setq vim-empty-lines-packages
   '(vim-empty-lines-mode))
 
-(defvar vim-empty-lines-excluded-packages
+(setq vim-empty-lines-excluded-packages
   '(vi-tilde-fringe))
 
 (defun vim-empty-lines/init-vim-empty-lines-mode ()

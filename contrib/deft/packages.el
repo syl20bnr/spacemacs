@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar deft-packages
+(setq deft-packages
   '(deft))
 
 (defun deft/init-deft ()

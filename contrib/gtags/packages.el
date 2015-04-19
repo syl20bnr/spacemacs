@@ -10,17 +10,12 @@
 ;;
 ;;; License: GPLv3
 
-(defvar gtags-packages
+(setq gtags-packages
   '(
     ;; package gtagss go here
     helm-gtags
     ggtags
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
-
-(defvar gtags-excluded-packages '()
-  "List of packages to exclude.")
+    ))
 
 ;; For each package, define a function gtags/init-<package-gtags>
 ;;

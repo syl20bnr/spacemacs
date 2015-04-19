@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar git-packages
+(setq git-packages
   '(
     gitattributes-mode
     gitconfig-mode
@@ -29,9 +29,7 @@
     magit-gitflow
     magit-svn
     smeargle
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (if git-gutter-use-fringe
     (push 'git-gutter-fringe git-packages)

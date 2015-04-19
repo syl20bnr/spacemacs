@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar python-packages
+(setq python-packages
   '(
     anaconda-mode
     company
@@ -28,9 +28,7 @@
     semantic
     smartparens
     stickyfunc-enhance
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode

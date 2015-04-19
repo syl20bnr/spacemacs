@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar haskell-packages
+(setq haskell-packages
   '(
     cmm-mode
     company

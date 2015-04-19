@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar c-c++-packages
+(setq c-c++-packages
   '(
     cc-mode
     cmake-mode
@@ -19,9 +19,7 @@
     flycheck
     helm-gtags
     stickyfunc-enhance
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (unless (version< emacs-version "24.4")
   (add-to-list 'c-c++-packages 'srefactor))

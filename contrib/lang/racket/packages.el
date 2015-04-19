@@ -1,4 +1,4 @@
-(defvar racket-packages
+(setq racket-packages
   '(
     company
     company-quickhelp-mode

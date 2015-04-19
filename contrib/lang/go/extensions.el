@@ -1,16 +1,14 @@
 (defvar go-pre-extensions
   '(
     ;; pre extension gos go here
-    )
-  "List of all extensions to load before the packages.")
+    ))
 
 (defvar go-post-extensions
   '(
     ;; post extension gos go here
     go-oracle
     go-rename
-    )
-  "List of all extensions to load after the packages.")
+    ))
 
 ;; For each extension, define a function go/init-<extension-go>
 ;;

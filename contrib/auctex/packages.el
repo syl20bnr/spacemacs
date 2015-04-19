@@ -1,4 +1,4 @@
-(defvar auctex-packages
+(setq auctex-packages
   '(
     auctex
     company

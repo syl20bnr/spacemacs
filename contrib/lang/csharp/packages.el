@@ -10,14 +10,11 @@
 ;;
 ;;; License: GPLv3
 
-(defvar csharp-packages
+(setq csharp-packages
   '(
     company
     omnisharp
     ))
-
-(defvar csharp-excluded-packages '()
-  "List of packages to exclude.")
 
 (defun csharp/init-omnisharp ()
   ;; Load omnisharp-mode with csharp-mode, this should start the omnisharp server automatically

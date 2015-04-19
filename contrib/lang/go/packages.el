@@ -1,13 +1,11 @@
-(defvar go-packages
+(setq go-packages
   '(
     company
     company-go
     flycheck
     go-mode
     go-eldoc
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (defun go/post-init-flycheck ()
     (add-hook 'go-mode-hook 'flycheck-mode))

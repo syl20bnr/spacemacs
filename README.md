@@ -306,8 +306,8 @@ dotspacemacs-configuration-layers '(company-mode
                                     smex)
 ```
 
-At anytime you can apply the changes made to the dotfile _without restarting_
-`Spacemacs` by pressing <kbd>SPC m c c</kbd>.
+At anytime you can apply the changes made to the dotfile or layers
+_without restarting_ `Spacemacs` by pressing <kbd>SPC f e R</kbd>.
 
 The [comments in this file][dotfile template] contain further information about
 how to customize `Spacemacs`. See the [dotfile configuration][dotfile] section of
