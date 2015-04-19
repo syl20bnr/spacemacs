@@ -11,10 +11,8 @@
 ;;
 ;;; License: GPLv3
 
-(defvar autohotkey-packages
-  '(ahk-mode)
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.") 
+(setq autohotkey-packages
+  '(ahk-mode)) 
 
 (defun autohotkey/init-ahk-mode ()
   (use-package ahk-mode

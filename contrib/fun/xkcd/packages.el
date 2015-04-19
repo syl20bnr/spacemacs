@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar xkcd-packages '(xkcd))
+(setq xkcd-packages '(xkcd))
 
 (defun xkcd/init-xkcd ()
   (use-package xkcd-mode

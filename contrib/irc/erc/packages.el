@@ -10,15 +10,10 @@
 ;;
 ;;; License: GPLv3
 
-(defvar erc-packages '(erc)
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+(setq erc-packages '(erc))
 
 (when (system-is-mac)
   (push 'erc-terminal-notifier erc-packages))
-
-(defvar erc-excluded-packages '()
-  "List of packages to exclude.")
 
 (defun erc/init-erc ()
   "Initialize ERC"

@@ -13,14 +13,12 @@
 (defvar slime-pre-extensions
   '(
     ;; pre extension slimes go here
-    )
-  "List of all extensions to load before the packages.")
+    ))
 
 (defvar slime-post-extensions
   '(
     ;; post extension slimes go here
-    )
-  "List of all extensions to load after the packages.")
+    ))
 
 ;; For each extension, define a function slime/init-<extension-slime>
 ;;

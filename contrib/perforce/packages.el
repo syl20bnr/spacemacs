@@ -10,9 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar perforce-packages '(p4)
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+(setq perforce-packages '(p4))
 
 (defun perforce/init-p4 ()
   (use-package p4

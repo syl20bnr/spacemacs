@@ -10,12 +10,9 @@
 ;;
 ;;; License: GPLv3
 
-(defvar php-packages '(php-mode)
-  "A list of the pacakges to install for php-mode.")
-   
+(setq php-packages '(php-mode))
+
 (defun php/init-php-mode ()
   (use-package php-mode
     :defer t
-    :mode ("\\.php\\'" . php-mode)
-  )
-)
+    :mode ("\\.php\\'" . php-mode)))

@@ -9,15 +9,10 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(defvar evernote-packages
+(setq evernote-packages
   '(
     geeknote
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
-
-(defvar evernote-excluded-packages '()
-  "List of packages to exclude.")
+    ))
 
 (defun evernote/init-geeknote ()
   "Initializes geeknote and adds keybindings for its exposed functionalities."

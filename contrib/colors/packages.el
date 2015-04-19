@@ -10,15 +10,13 @@
 ;;
 ;;; License: GPLv3
 
-(defvar colors-packages
+(setq colors-packages
   '(
     ;; not working well for now
     ;; rainbow-blocks
     rainbow-identifiers
     rainbow-mode
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (defun colors/init-rainbow-blocks ()
   (use-package rainbow-blocks

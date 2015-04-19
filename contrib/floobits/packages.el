@@ -9,12 +9,10 @@
 ;;
 ;;; License: GPLv3
 
-(defvar floobits-packages
+(setq floobits-packages
   '(
     floobits
-    )
-  "List of all packages to instal and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (defun floobits/init-floobits ()
   (use-package floobits

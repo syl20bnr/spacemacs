@@ -1,2 +1,2 @@
-(defvar trishume-packages
+(setq trishume-packages
   '())

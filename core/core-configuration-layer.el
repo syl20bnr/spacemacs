@@ -104,8 +104,7 @@ symbol and the value is an odered list of initialization functions to execute.")
   "List of strings corresponding to category names. A category is a
 sub-directory of the contribution directory.")
 
-(defvar configuration-layer-excluded-packages '()
-  "List of all excluded packages declared at the layer level.")
+(defvar configuration-layer-excluded-packages '())
 
 (defun configuration-layer/sync ()
   "Synchronize declared layers in dotfile with spacemacs."

@@ -1,14 +1,9 @@
-(defvar rcirc-packages
+(setq rcirc-packages
   '(
     rcirc
     rcirc-notify
     rcirc-color
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
-
-(defvar rcirc-excluded-packages '()
-  "List of packages to exclude.")
+    ))
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc

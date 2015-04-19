@@ -9,7 +9,7 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(defvar vagrant-packages '(vagrant
+(setq vagrant-packages '(vagrant
                            vagrant-tramp))
 
 (defun vagrant/init-vagrant ()

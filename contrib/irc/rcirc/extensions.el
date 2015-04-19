@@ -1,8 +1,7 @@
 (defvar rcirc-post-extensions
   '(
     helm-rcirc
-    )
-  "List of all extensions to load after the packages.")
+    ))
 
 (defun rcirc/init-helm-rcirc ()
   (use-package helm-rcirc

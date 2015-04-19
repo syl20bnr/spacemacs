@@ -13,14 +13,12 @@
 (defvar csharp-pre-extensions
   '(
     ;; pre extension csharps go here
-    )
-  "List of all extensions to load before the packages.")
+    ))
 
 (defvar csharp-post-extensions
   '(
     ;; post extension csharps go here
-    )
-  "List of all extensions to load after the packages.")
+    ))
 
 ;; For each extension, define a function csharp/init-<extension-csharp>
 ;;

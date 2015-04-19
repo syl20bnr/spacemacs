@@ -1,4 +1,4 @@
-(defvar restclient-packages
+(setq restclient-packages
   '(
     restclient
     )

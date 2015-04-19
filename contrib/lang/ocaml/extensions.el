@@ -13,14 +13,12 @@
 (defvar ocaml-pre-extensions
   '(
     ;; pre extension ocamls go here
-    )
-  "List of all extensions to load before the packages.")
+    ))
 
 (defvar ocaml-post-extensions
   '(
     ;; post extension ocamls go here
-    )
-  "List of all extensions to load after the packages.")
+    ))
 
 ;; For each extension, define a function ocaml/init-<extension-ocaml>
 ;;

@@ -10,9 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar smex-packages '(smex)
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+(setq smex-packages '(smex))
 
 (defun smex/init-smex ()
   (use-package smex

@@ -1,4 +1,4 @@
-(defvar clojure-packages
+(setq clojure-packages
   '(
     align-cljlet
     cider
@@ -8,9 +8,7 @@
     company
     rainbow-delimiters
     subword
-   )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+   ))
 
 (defun clojure/init-align-cljlet ()
   (use-package align-cljlet

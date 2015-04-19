@@ -1,11 +1,9 @@
-(defvar ycmd-packages
+(setq ycmd-packages
   '(
     company-ycmd
     flycheck-ycmd
     ycmd
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (unless (boundp 'ycmd-server-command)
   (message (concat "YCMD won't work unless you set the ycmd-server-command "

@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar spacemacs-packages
+(setq spacemacs-packages
   '(
     ace-jump-mode
     ace-link
@@ -106,12 +106,9 @@
     winner
     yasnippet
     zenburn-theme
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
-(defvar spacemacs-excluded-packages '()
-  "List of packages to exclude.")
+(setq spacemacs-excluded-packages '())
 
 ;; Paradox from MELPA is not compatible with 24.3 anymore
 (unless  (version< emacs-version "24.4")
@@ -2572,9 +2569,6 @@ It is a string holding:
 
       ;; don't create a pair with single quote in minibuffer
       (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
-
-      ;; don't create a pair with single quote in dotspacemacs-mode
-      (sp-local-pair 'dotspacemacs-mode "'" nil :actions nil)
 
       (setq sp-show-pair-delay 0
             sp-show-pair-from-inside t ; fix paren highlighting in normal mode

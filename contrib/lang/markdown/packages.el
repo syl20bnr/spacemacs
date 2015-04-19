@@ -10,13 +10,11 @@
 ;;
 ;;; License: GPLv3
 
-(defvar markdown-packages
+(setq markdown-packages
   '(
     markdown-mode
     markdown-toc
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode

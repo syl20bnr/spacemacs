@@ -1,4 +1,4 @@
-(defvar ruby-packages
+(setq ruby-packages
   '(
     bundler
     enh-ruby-mode

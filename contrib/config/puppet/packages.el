@@ -1,12 +1,8 @@
-(defvar puppet-packages
+(setq puppet-packages
   '(
     ;; package puppets go here
     puppet-mode
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
-
-(defvar puppet-excluded-packages '())
+    ))
 
 ;; For each package, define a function puppet-mode/init-<package-puppet-mode>
 ;;

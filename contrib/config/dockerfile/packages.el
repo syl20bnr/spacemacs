@@ -10,12 +10,10 @@
 ;;
 ;;; License: GPLv3
 
-(defvar dockerfile-packages
+(setq dockerfile-packages
   '(
     dockerfile-mode
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (defun dockerfile/init-dockerfile-mode ()
   (use-package dockerfile-mode
