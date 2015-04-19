@@ -137,10 +137,10 @@ buffer, right justified."
     (search-forward "Spacemacs\]")
     (next-line)
     ;; for now the path to the release note if hardcoded
-    (let* ((file (concat spacemacs-release-notes-directory "0.101.txt"))
+    (let* ((file (concat spacemacs-release-notes-directory "0.102.txt"))
            (note (concat "\n" (spacemacs//render-framed-text
                                file spacemacs-buffer--banner-length
-                               " Important Notes (Release 0.101.x) "))))
+                               " Important Notes (Release 0.102.x) "))))
       (setq spacemacs-buffer--release-note-widgets
             (list (widget-create 'text note)
                   (widget-create 'url-link
@@ -258,7 +258,7 @@ The vertical spacing is always one line."
                           fill-column))
            (sentence-end-double-space nil)
            (caption-len (length caption)))
-      (fill-region (point-min) (point-max) 'justify)
+      (fill-region (point-min) (point-max) 'justify 'nosqueeze)
       (concat
        ;; top
        "╭─"
