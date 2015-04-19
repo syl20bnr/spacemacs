@@ -1703,15 +1703,12 @@ If ARG is non nil then `ag' and `pt' and ignored."
     :defer t
     :init
     (progn
-      (when (eq dotspacemacs-highlight-delimiters 'current)
-        (add-hook 'prog-mode-hook #'highlight-parentheses-mode))
+      (add-hook 'prog-mode-hook #'highlight-parentheses-mode)
       (evil-leader/set-key "tCp" 'highlight-parentheses-mode)
-      (setq hl-paren-colors '("Springgreen3"
-                              "IndianRed1"
-                              "IndianRed3"
-                              "IndianRed4")))
+      (setq hl-paren-colors nil)
+      (setq hl-paren-background-colors '("white" "white" "white" "white")))
     :config
-    (set-face-attribute 'hl-paren-face nil :weight 'ultra-bold)))
+    (set-face-attribute 'hl-paren-face nil :weight 'bold :inverse-video t)))
 
 (defun spacemacs/init-hippie-exp ()
   (global-set-key (kbd "M-/") 'hippie-expand) ;; replace dabbrev-expand
@@ -2500,8 +2497,7 @@ It is a string holding:
     :init
     (progn
       (evil-leader/set-key "tCd" 'rainbow-delimiters-mode)
-      (when (eq dotspacemacs-highlight-delimiters 'all)
-        (add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook))))))
+      (add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook)))))
 
 (defun spacemacs/init-recentf ()
   (use-package recentf
