@@ -69,7 +69,7 @@
   (setq git-gutter:deleted-sign "-")
   (spacemacs|hide-lighter git-gutter-mode)
   (if (and (not git-gutter-use-fringe)
-           (or linum-mode global-linum-mode))
+           (or 'linum-mode global-linum-mode))
       (git-gutter:linum-setup))
   (with-eval-after-load (or 'git-gutter 'git-gutter-fringe)
     (evil-leader/set-key
