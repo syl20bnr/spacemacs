@@ -175,8 +175,7 @@ If TYPE is nil, just remove widgets."
     (spacemacs-buffer//insert-quickhelp-widget file))
    ((eq type 'release-note)
     (spacemacs-buffer//insert-release-note-widget file))
-   (t))
-  (recenter))
+   (t)))
 
 (defun spacemacs-buffer//remove-existing-widget-if-exist ()
   "Remove existing note widgets if exists."
@@ -377,7 +376,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
 
 (defun spacemacs-buffer//insert-buttons ()
   (goto-char (point-max))
-  (insert "      ")
+  (insert "    ")
   (spacemacs//insert--shorcut "m" "[?]" t)
   (widget-create 'url-link
                  :tag (propertize "?" 'face 'font-lock-doc-face)
@@ -389,6 +388,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :mouse-face 'highlight
                  :follow-link "\C-m"
                  )
+  (insert " ")
   (widget-create 'url-link
                  :tag (propertize "Homepage" 'face 'font-lock-keyword-face)
                  :help-echo "Open the Spacemacs Github page in your browser."
