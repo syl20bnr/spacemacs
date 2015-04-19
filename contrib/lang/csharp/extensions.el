@@ -10,12 +10,12 @@
 ;;
 ;;; License: GPLv3
 
-(defvar csharp-pre-extensions
+(setq csharp-pre-extensions
   '(
     ;; pre extension csharps go here
     ))
 
-(defvar csharp-post-extensions
+(setq csharp-post-extensions
   '(
     ;; post extension csharps go here
     ))

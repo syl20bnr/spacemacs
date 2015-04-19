@@ -11,12 +11,12 @@
 ;;; License: GPLv3
 
 ;; Pre extensions are loaded *before* the packages
-(defvar python-pre-extensions
+(setq python-pre-extensions
   '(
     ))
 
 ;; Post extensions are loaded *after* the packages
-(defvar python-post-extensions
+(setq python-post-extensions
   '(
     nose
     pylookup

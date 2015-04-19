@@ -10,12 +10,12 @@
 ;;
 ;;; License: GPLv3
 
-(defvar ocaml-pre-extensions
+(setq ocaml-pre-extensions
   '(
     ;; pre extension ocamls go here
     ))
 
-(defvar ocaml-post-extensions
+(setq ocaml-post-extensions
   '(
     ;; post extension ocamls go here
     ))

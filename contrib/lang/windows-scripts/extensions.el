@@ -11,7 +11,7 @@
 ;;; License: GPLv3
 
 ;; Post extensions are loaded *after* the packages
-(defvar windows-scripts-post-extensions '(dos))
+(setq windows-scripts-post-extensions '(dos))
 
 ;; Initialize the extensions
 

@@ -10,12 +10,12 @@
 ;;
 ;;; License: GPLv3
 
-(defvar NAME-pre-extensions
+(setq NAME-pre-extensions
   '(
     ;; pre extension names go here
     ))
 
-(defvar NAME-post-extensions
+(setq NAME-post-extensions
   '(
     ;; post extension names go here
     ))

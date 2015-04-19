@@ -1,9 +1,9 @@
-(defvar go-pre-extensions
+(setq go-pre-extensions
   '(
     ;; pre extension gos go here
     ))
 
-(defvar go-post-extensions
+(setq go-post-extensions
   '(
     ;; post extension gos go here
     go-oracle

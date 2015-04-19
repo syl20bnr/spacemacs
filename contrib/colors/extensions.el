@@ -1,4 +1,4 @@
-(defvar colors-post-extensions '(nyan-mode))
+(setq colors-post-extensions '(nyan-mode))
 
 (defun colors/init-nyan-mode ()
   (use-package nyan-mode

@@ -12,14 +12,14 @@
 
 ;; Extensions are in emacs_paths/extensions
 ;; Pre extensions are loaded *before* the packages
-(defvar spacemacs-pre-extensions
+(setq spacemacs-pre-extensions
   '(
     evil-evilified-state
     holy-mode
     ))
 
 ;; Post extensions are loaded *after* the packages
-(defvar spacemacs-post-extensions
+(setq spacemacs-post-extensions
   '(
     centered-cursor
     emoji-cheat-sheet

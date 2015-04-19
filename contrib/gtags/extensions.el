@@ -10,12 +10,12 @@
 ;;
 ;;; License: GPLv3
 
-(defvar gtags-pre-extensions
+(setq gtags-pre-extensions
   '(
     ;; pre extension gtagss go here
     ))
 
-(defvar gtags-post-extensions
+(setq gtags-post-extensions
   '(
     ;; post extension gtagss go here
     ))
