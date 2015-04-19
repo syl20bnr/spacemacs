@@ -8,7 +8,7 @@
     - [Install](#install)
         - [Layer](#layer)
         - [YCMD](#ycmd)
-        - [Company](#company)
+        - [Other Requirements](#other-requirements)
     - [Configuration](#configuration)
     - [Key Bindings](#key-bindings)
 
@@ -34,10 +34,10 @@ In order to use this layer you must have a local [ycmd][] installation and must
 set the `ycmd-server-command` variable to reflect the path to that installation.
 See the [emacs-ycmd][] readme for more instructions on this.
 
-### Company
+### Other Requirements
 
-This package also requires the `company-mode` layer in order to get actual
-completion rather than just flychecking and key bindings.
+This package requires the `auto-completion` layer in order to get actual
+completion. The `syntax-checking` layer is required for flycheck support.
 
 ## Configuration
 
