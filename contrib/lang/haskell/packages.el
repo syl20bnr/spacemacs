@@ -161,9 +161,7 @@
         '(define-key haskell-cabal-mode-map
            [?\C-c ?\C-z] 'haskell-interactive-switch))))
 
-  (use-package haskell-indentation
-    :defer t
-    :config
+  (eval-after-load 'haskell-indentation
     (progn
       ;; Show indentation guides in insert or emacs state only.
       (defun spacemacs//haskell-indentation-show-guides ()
