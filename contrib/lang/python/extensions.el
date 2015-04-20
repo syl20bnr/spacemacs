@@ -20,6 +20,7 @@
   '(
     nose
     pylookup
+    py-yapf
     ))
 
 ;; Initialize the extensions
@@ -66,3 +67,13 @@
         (setq pylookup-dir (concat dir "/pylookup")
               pylookup-program (concat pylookup-dir "/pylookup.py")
               pylookup-db-file (concat pylookup-dir "/pylookup.db"))))))
+
+(defun python/init-py-yapf ()
+  (use-package py-yapf
+    :init
+    (evil-leader/set-key-for-mode 'python-mode
+      "m=" 'py-yapf-buffer)
+    :config
+    (progn
+      (if yapf-format-on-save
+          (add-hook 'python-mode-hook 'py-yapf-enable-on-save)))))
