@@ -61,6 +61,7 @@ You can tweak the bullets displayed in the org buffer in the function
 <kbd>SPC m e</kbd>    | org-export-dispatch
 <kbd>SPC m f</kbd>    | org-set-effort
 <kbd>SPC m i</kbd>    | org-clock-in
+<kbd>SPC m j</kbd>    | helm-org-in-buffer-headings
 <kbd>SPC m l</kbd>    | evil-org-open-links
 <kbd>SPC m m</kbd>    | org-ctrl-c-ctrl-c
 <kbd>SPC m o</kbd>    | org-clock-out

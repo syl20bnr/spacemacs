@@ -59,6 +59,7 @@
         "me" 'org-export-dispatch
         "mf" 'org-set-effort
         "mi" 'org-clock-in
+        "mj" 'helm-org-in-buffer-headings
         "mo" 'org-clock-out
         "mm" 'org-ctrl-c-ctrl-c
         "mq" 'org-clock-cancel
