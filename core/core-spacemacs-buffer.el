@@ -375,10 +375,19 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
       (spacemacs-buffer/set-mode-line spacemacs-loading-string)
       (spacemacs//redisplay))))
 
+(defmacro spacemacs//insert--shortcut (shortcut-char search-label &optional no-next-line)
+  `(define-key spacemacs-mode-map ,shortcut-char (lambda ()
+                                                   (interactive)
+                                                   (unless (search-forward ,search-label (point-max) t)
+                                                     (search-backward ,search-label (point-min) t))
+                                                   ,@(unless no-next-line
+                                                       '((forward-line 1)))
+                                                   (back-to-indentation))))
+
 (defun spacemacs-buffer//insert-buttons ()
   (goto-char (point-max))
   (insert "    ")
-  (spacemacs//insert--shorcut "m" "[?]" t)
+  (spacemacs//insert--shortcut "m" "[?]" t)
   (widget-create 'url-link
                  :tag (propertize "?" 'face 'font-lock-doc-face)
                  :help-echo "Open the quickhelp."
@@ -445,19 +454,10 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :follow-link "\C-m")
   (insert "\n\n"))
 
-(defmacro spacemacs//insert--shorcut (shortcut-char search-label &optional no-next-line)
-  `(define-key spacemacs-mode-map ,shortcut-char (lambda ()
-                                                   (interactive)
-                                                   (unless (search-forward ,search-label (point-max) t)
-                                                     (search-backward ,search-label (point-min) t))
-                                                   (unless ,no-next-line
-                                                     (forward-line 1))
-                                                   (back-to-indentation))))
-
 (defun spacemacs-buffer//insert-file-list (list-display-name list shortcut-char)
   (when (car list)
-    (spacemacs//insert--shorcut "r" "Recent Files:")
-    (spacemacs//insert--shorcut "p" "Projects:")
+    (spacemacs//insert--shortcut "r" "Recent Files:")
+    (spacemacs//insert--shortcut "p" "Projects:")
     (insert list-display-name)
     (mapc (lambda (el)
             (insert "\n    ")
