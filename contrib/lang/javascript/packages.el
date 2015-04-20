@@ -36,7 +36,7 @@ which require an initialization must be listed explicitly in the list.")
           ;; otherwise keep at the same indentation level
           (coffee-insert-spaces (coffee-previous-indent)))
         )
-      ;; indent to right position after `evil-open-blow' and `evil-open-above'
+      ;; indent to right position after `evil-open-below' and `evil-open-above'
       (add-hook 'coffee-mode-hook '(lambda ()
                                      (setq indent-line-function 'javascript/coffee-indent
                                            evil-shift-width coffee-tab-width))))))
