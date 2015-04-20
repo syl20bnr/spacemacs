@@ -1,9 +1,9 @@
 ;;; packages.el --- ibuffer Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2014-2015 Aleksandr Guljajev & Contributors
 ;;
-;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; Author: Sylvain Benner <aleksandr.guljajev@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
@@ -30,7 +30,8 @@
     (progn
       (evil-leader/set-key
         "B" 'ibuffer)
-      (add-hook 'ibuffer-hook 'ibuffer/create-buffs-group)
+      (if ibuffer-group-by-major-mode
+          (add-hook 'ibuffer-hook 'ibuffer/create-buffs-group))
       ))
   )
 ;;
