@@ -12,12 +12,16 @@
 
 (defvar git-packages
   '(
-    fringe-helper
+    gitattributes-mode
+    gitconfig-mode
+    gitignore-mode
+    git-commit-mode
     git-messenger
     git-rebase-mode
     git-timemachine
     gist
     github-browse-file
+    git-link
     ;; not up to date
     ;; helm-gist
     magit
@@ -39,21 +43,25 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (add-to-list 'evil-emacs-state-modes 'gist-list-menu-mode)
-      (spacemacs|evilify gist-list-menu-mode-map
-                         "f" 'gist-fetch-current
-                         "K" 'gist-kill-current
-                         "o" 'gist-browse-current-url)
+      (evilify gist-list-menu-mode gist-list-menu-mode-map
+               "f" 'gist-fetch-current
+               "K" 'gist-kill-current
+               "o" 'gist-browse-current-url)
 
       (evil-leader/set-key
         "ggb" 'gist-buffer
         "ggB" 'gist-buffer-private
         "ggl" 'gist-list
         "ggr" 'gist-region
-        "ggR" 'gist-region-private))
+        "ggR" 'gist-region-private))))
+
+(defun git/init-git-commit-mode ()
+  (use-package git-commit-mode
+    :defer t
     :config
-    (spacemacs/activate-evil-leader-for-map 'gist-list-menu-mode-map)
-    ))
+    (evil-leader/set-key-for-mode 'git-commit-mode
+      "mcc" 'git-commit-commit
+      "mk" 'git-commit-abort)))
 
 (defun init-git-gutter ()
   "Common initialization of git-gutter."
@@ -133,12 +141,16 @@ which require an initialization must be listed explicitly in the list.")
 (defun git/init-git-rebase-mode ()
   (use-package git-rebase-mode
     :defer t
-    :init
-    (add-to-list 'evil-emacs-state-modes 'git-rebase-mode)
     :config
     (progn
-      (spacemacs|evilify git-rebase-mode-map "y" 'git-rebase-insert)
-      (spacemacs/activate-evil-leader-for-map 'git-rebase-mode-map))))
+      (evilify git-rebase-mode git-rebase-mode-map
+               "J" 'git-rebase-move-line-down
+               "K" 'git-rebase-move-line-up
+               "u" 'git-rebase-undo
+               "y" 'git-rebase-insert)
+      (evil-leader/set-key-for-mode 'git-rebase-mode
+        "mcc" 'git-rebase-server-edit
+        "mk" 'git-rebase-abort))))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
@@ -172,6 +184,18 @@ which require an initialization must be listed explicitly in the list.")
         ("Y" git-timemachine-kill-revision)
         ("q" nil :exit t)))))
 
+(defun git/init-gitattributes-mode ()
+  (use-package gitattributes-mode
+    :defer t))
+
+(defun git/init-gitconfig-mode ()
+  (use-package gitconfig-mode
+    :defer t))
+
+(defun git/init-gitignore-mode ()
+  (use-package gitignore-mode
+    :defer t))
+
 ;; this mode is not up to date
 ;; any contributor to make it up to date is welcome:
 ;; https://github.com/emacs-helm/helm-gist
@@ -194,57 +218,56 @@ which require an initialization must be listed explicitly in the list.")
   (use-package magit
     :defer t
     :init
-    (setq magit-completing-read-function 'magit-ido-completing-read)
-    (evil-leader/set-key
-      "gb" 'magit-blame-mode
-      "gl" 'magit-log
-      "gs" 'magit-status
-      "gC" 'magit-commit)
+    (progn
+      (setq magit-last-seen-setup-instructions "1.4.0"
+            magit-completing-read-function 'magit-ido-completing-read)
+      ;; On Windows, we must use Git GUI to enter username and password
+      ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
+      (when (eq window-system 'w32)
+        (setenv "GIT_ASKPASS" "git-gui--askpass"))
+      (evil-leader/set-key
+        "gb" 'magit-blame-mode
+        "gl" 'magit-log
+        "gs" 'magit-status
+        "gC" 'magit-commit)
+      (evilify magit-commit-mode magit-commit-mode-map
+               (kbd "C-j") 'magit-goto-next-section
+               (kbd "C-k") 'magit-goto-previous-section
+               (kbd "C-n") 'magit-goto-next-section
+               (kbd "C-p") 'magit-goto-previous-section
+               (kbd "C-v") 'magit-revert-item)
+      (evilify magit-log-mode magit-log-mode-map
+               (kbd "C-j") 'magit-goto-next-section
+               (kbd "C-k") 'magit-goto-previous-section
+               (kbd "C-n") 'magit-goto-next-section
+               (kbd "C-p") 'magit-goto-previous-section
+               (kbd "C-v") 'magit-revert-item)
+      (evilify magit-process-mode magit-process-mode-map
+               (kbd "C-j") 'magit-goto-next-section
+               (kbd "C-k") 'magit-goto-previous-section
+               (kbd "C-n") 'magit-goto-next-section
+               (kbd "C-p") 'magit-goto-previous-section
+               (kbd "C-v") 'magit-revert-item)
+      (evilify magit-branch-manager-mode magit-branch-manager-mode-map
+               "K" 'magit-discard-item
+               "L" 'magit-key-mode-popup-logging
+               (kbd "C-j") 'magit-goto-next-section
+               (kbd "C-k") 'magit-goto-previous-section
+               (kbd "C-n") 'magit-goto-next-section
+               (kbd "C-p") 'magit-goto-previous-section
+               (kbd "C-v") 'magit-revert-item)
+      (evilify magit-status-mode magit-status-mode-map
+               "K" 'magit-discard-item
+               "L" 'magit-key-mode-popup-logging
+               "H" 'magit-key-mode-popup-diff-options
+               (kbd "C-j") 'magit-goto-next-section
+               (kbd "C-k") 'magit-goto-previous-section
+               (kbd "C-n") 'magit-goto-next-section
+               (kbd "C-p") 'magit-goto-previous-section
+               (kbd "C-v") 'magit-revert-item))
     :config
     (progn
       (spacemacs|hide-lighter magit-auto-revert-mode)
-
-      ;; hjkl key bindings
-      (spacemacs|evilify magit-commit-mode-map
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-log-mode-map
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-process-mode-map
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-branch-manager-mode-map
-        "K" 'magit-discard-item
-        "L" 'magit-key-mode-popup-logging
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      (spacemacs|evilify magit-status-mode-map
-        "K" 'magit-discard-item
-        "L" 'magit-key-mode-popup-logging
-        "H" 'magit-key-mode-popup-diff-options
-        (kbd "C-j") 'magit-goto-next-section
-        (kbd "C-k") 'magit-goto-previous-section
-        (kbd "C-n") 'magit-goto-next-section
-        (kbd "C-p") 'magit-goto-previous-section
-        (kbd "C-v") 'magit-revert-item)
-      ;; remove conflicts with evil leader
-      (spacemacs/activate-evil-leader-for-maps '(magit-mode-map
-                                                 magit-commit-mode-map
-                                                 magit-diff-mode-map))
-
       ;; full screen magit-status
       (when git-magit-status-fullscreen
         (defadvice magit-status (around magit-fullscreen activate)
@@ -280,8 +303,17 @@ which require an initialization must be listed explicitly in the list.")
   (use-package magit-gh-pulls
     :if git-enable-github-support
     :defer t
-    :init (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls)
-    :config (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))
+    :init
+    (progn
+      (defun spacemacs/load-gh-pulls-mode ()
+        "Start `magit-gh-pulls-mode' only after a manual request."
+        (interactive)
+        (magit-gh-pulls-mode)
+        (magit-gh-pulls-reload))
+      (eval-after-load 'magit
+          '(define-key magit-mode-map "#gg" 'spacemacs/load-gh-pulls-mode)))
+    :config
+    (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))
 
 (defun git/init-github-browse-file ()
   (use-package github-browse-file
@@ -290,6 +322,33 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (evil-leader/set-key
       "gfb" 'github-browse-file)))
+
+(defun git/init-git-link ()
+  (use-package git-link
+    :if git-enable-github-support
+    :defer t
+    :init
+    (progn
+
+      (defun spacemacs/git-link-copy-url-only ()
+        "Only copy the generated link to the kill ring."
+        (interactive)
+        (let (git-link-open-in-browser)
+          (call-interactively 'git-link)))
+
+      (defun spacemacs/git-link-commit-copy-url-only ()
+        "Only copy the generated link to the kill ring."
+        (interactive)
+        (let (git-link-open-in-browser)
+          (call-interactively 'git-link-commit)))
+
+      (evil-leader/set-key
+        "gfl" 'git-link
+        "gfL" 'spacemacs/git-link-copy-url-only
+        "gfc" 'git-link-commit
+        "gfC" 'spacemacs/git-link-commit-copy-url-only)
+      ;; default is to open the generated link
+      (setq git-link-open-in-browser t))))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow

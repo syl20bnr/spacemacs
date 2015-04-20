@@ -12,7 +12,11 @@
 
 ;; Extensions are in emacs_paths/extensions
 ;; Pre extensions are loaded *before* the packages
-(defvar spacemacs-pre-extensions '())
+(defvar spacemacs-pre-extensions
+  '(
+    evil-evilified-state
+    holy-mode
+    ))
 
 ;; Post extensions are loaded *after* the packages
 (defvar spacemacs-post-extensions
@@ -23,6 +27,9 @@
     solarized-theme
     spray
     zoom-frm
+    ;; hack to be able to wrap built-in emacs modes in an init function
+    emacs-builtin-emacs-lisp
+    emacs-builtin-process-menu
     ))
 
 ;; use the last 24.3 compatible version of paradox as
@@ -35,11 +42,29 @@
 
 ;; Initialize the extensions
 
+(defun spacemacs/init-evil-evilified-state ()
+  (require 'evil-evilified-state))
+
 (defun spacemacs/init-centered-cursor ()
   (use-package centered-cursor-mode
-    :commands global-centered-cursor-mode
+    :commands (centered-cursor-mode
+               global-centered-cursor-mode)
     :init
-    (evil-leader/set-key "zz" 'global-centered-cursor-mode)
+    (progn
+      (spacemacs|add-toggle centered-point
+                            :status centered-cursor-mode
+                            :on (centered-cursor-mode)
+                            :off (centered-cursor-mode -1)
+                            :documentation
+                            "Keep point always at the center of the window."
+                            :evil-leader "t-")
+      (spacemacs|add-toggle centered-point-globally
+                            :status centered-cursor-mode
+                            :on (global-centered-cursor-mode)
+                            :off (global-centered-cursor-mode -1)
+                            :documentation
+                            "Globally keep point always at the center of the window."
+                            :evil-leader "t C--"))
     :config
     (progn
       (custom-set-variables
@@ -49,11 +74,25 @@
                                       widget-button-click
                                       scroll-bar-toolkit-scroll
                                       evil-mouse-drag-region))))
-      (spacemacs|diminish centered-cursor-mode " Ⓒ" " C"))))
+      (spacemacs|diminish centered-cursor-mode " ⊝" " -"))))
 
 (defun spacemacs/init-emoji-cheat-sheet ()
   (use-package emoji-cheat-sheet
     :commands emoji-cheat-sheet))
+
+(defun spacemacs/init-holy-mode ()
+  (use-package holy-mode
+    :commands holy-mode
+    :init
+    (progn
+      (when (eq 'emacs dotspacemacs-editing-style)
+        (holy-mode))
+      (spacemacs|add-toggle holy-mode
+                            :status holy-mode
+                            :on (holy-mode)
+                            :off (holy-mode -1)
+                            :documentation "Globally toggle the holy mode."
+                            :evil-leader "P <tab>" "P C-i"))))
 
 (defun spacemacs/init-helm-spacemacs ()
   (use-package helm-spacemacs
@@ -108,52 +147,67 @@
                zoom-frm-in)
     :init
     (progn
-      (defun spacemacs/zoom-frame-overlay-map ()
-        "Set a temporary overlay map to easily change the font size."
-        (set-temporary-overlay-map
-         (let ((map (make-sparse-keymap)))
-           (define-key map (kbd "+") 'spacemacs/zoom-in-frame)
-           (define-key map (kbd "-") 'spacemacs/zoom-out-frame)
-           (define-key map (kbd "=") 'spacemacs/reset-zoom)
-           map) t))
+      (spacemacs|define-micro-state zoom-frm
+        :doc "[+] zoom frame in [-] zoom frame out [=] reset zoom"
+        :evil-leader "zf"
+        :use-minibuffer t
+        :bindings
+        ("+" spacemacs/zoom-frm-in :post (spacemacs//zoom-frm-powerline-reset))
+        ("-" spacemacs/zoom-frm-out :post (spacemacs//zoom-frm-powerline-reset))
+        ("=" spacemacs/zoom-frm-unzoom :post (spacemacs//zoom-frm-powerline-reset)))
 
-      (defun spacemacs/zoom-frame-micro-state-doc ()
-        "Display a short documentation in the mini buffer."
-        (echo "Zoom Frame micro-state
-  + to zoom frame in
-  - to zoom frame out
-  = to reset zoom
-Press any other key to exit."))
-
-      (defun spacemacs/zoom-in-frame ()
-        "Zoom in frame."
-        (interactive)
-        (spacemacs/zoom-in-or-out 1))
-
-      (defun spacemacs/zoom-out-frame ()
-        "Zoom out frame."
-        (interactive)
-        (spacemacs/zoom-in-or-out -1))
-
-      (defun spacemacs/reset-zoom ()
-        "Reset the zoom."
-        (interactive)
-        (spacemacs/zoom-in-or-out 0))
-
-      (defun spacemacs/zoom-in-or-out (direction)
-        "Zoom the buffer in/out. If DIRECTION is positive or zero the frame text is enlarged,
-otherwise it is reduced."
-        (interactive)
-        (cond
-         ((eq direction 0) (zoom-frm-unzoom))
-         ((< direction 0) (zoom-frm-out))
-         ((> direction 0) (zoom-frm-in)))
+      (defun spacemacs//zoom-frm-powerline-reset ()
         (when (fboundp 'powerline-reset)
           (setq-default powerline-height (spacemacs/compute-powerline-height))
-          (powerline-reset))
-        (spacemacs/zoom-frame-overlay-map)
-        (spacemacs/zoom-frame-micro-state-doc))
-      (evil-leader/set-key
-        "zf+"  'spacemacs/zoom-in-frame
-        "zf-"  'spacemacs/zoom-out-frame
-        "zf="  'spacemacs/reset-zoom))))
+          (powerline-reset)))
+
+      (defun spacemacs//zoom-frm-do (arg)
+        "Perform a zoom action depending on ARG value."
+        (let ((zoom-action (cond ((eq arg 0) 'zoom-frm-unzoom)
+                                 ((< arg 0) 'zoom-frm-out)
+                                 ((> arg 0) 'zoom-frm-in)))
+              (fwp (* (frame-char-width) (frame-width)))
+              (fhp (* (frame-char-height) (frame-height))))
+          (funcall zoom-action)
+          (set-frame-size nil fwp fhp t)))
+
+      (defun spacemacs/zoom-frm-in ()
+        "zoom in frame, but keep the same pixel size"
+        (interactive)
+        (spacemacs//zoom-frm-do 1))
+
+      (defun spacemacs/zoom-frm-out ()
+        "zoom out frame, but keep the same pixel size"
+        (interactive)
+        (spacemacs//zoom-frm-do -1))
+
+      (defun spacemacs/zoom-frm-unzoom ()
+        "Unzoom current frame, keeping the same pixel size"
+        (interactive)
+        (spacemacs//zoom-frm-do 0))
+
+      ;; Font size, either with ctrl + mouse wheel
+      (global-set-key (kbd "C-<wheel-up>") 'spacemacs/zoom-frm-in)
+      (global-set-key (kbd "C-<wheel-down>") 'spacemacs/zoom-frm-out))))
+
+(defun spacemacs/init-emacs-builtin-emacs-lisp ()
+
+  (evil-leader/set-key-for-mode 'emacs-lisp-mode
+    "me$" 'lisp-state-eval-sexp-end-of-line
+    "meb" 'eval-buffer
+    "mec" 'spacemacs/eval-current-form
+    "mee" 'eval-last-sexp
+    "mer" 'spacemacs/eval-region
+    "mef" 'eval-defun
+    "mel" 'lisp-state-eval-sexp-end-of-line
+    "m,"  'lisp-state-toggle-lisp-state
+    "mtb" 'spacemacs/ert-run-tests-buffer
+    "mtq" 'ert)
+
+  (when (configuration-layer/layer-usedp 'auto-completion)
+    (push '(company-capf :with company-yasnippet)
+          company-backends-emacs-lisp-mode)
+    (spacemacs|add-company-hook emacs-lisp-mode)))
+
+(defun spacemacs/init-emacs-builtin-process-menu ()
+  (evilify process-menu-mode process-menu-mode-map))

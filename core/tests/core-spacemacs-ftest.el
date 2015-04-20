@@ -1,4 +1,4 @@
-;;; spacemacs-mode-test.el --- Spacemacs Functional Test File
+;;; core-spacemacs-ftest.el --- Spacemacs Functional Test File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Alberto Zaccagni & Contributors

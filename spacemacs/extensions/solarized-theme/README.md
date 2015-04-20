@@ -1,4 +1,8 @@
-# Solarized for Emacs
+[![License GPL 3][badge-license]](http://www.gnu.org/licenses/gpl-3.0.txt)
+[![MELPA](http://melpa.org/packages/solarized-theme-badge.svg)](http://melpa.org/#/solarized-theme)
+[![MELPA Stable](http://stable.melpa.org/packages/solarized-theme-badge.svg)](http://stable.melpa.org/#/solarized-theme)
+
+## Solarized for Emacs
 
 Solarized for Emacs is an Emacs port of the [Solarized theme for vim](http://ethanschoonover.com/solarized),
 developed by Ethan Schoonover.
@@ -8,11 +12,10 @@ working under Emacs 23 as well. The theme is implemented in terms of
 customizations and `deftheme` and does not require the
 `color-theme-package`.
 
-# Installation
-
+## Installation
 
 Solarized for Emacs is available for installation via the
-[MELPA](http://melpa.milkbox.net) and
+[MELPA](http://melpa.org) and
 [Marmalade](http://marmalade-repo.org/) `package.el`
 repositories. Assuming you've set one of the them up (I recommend
 MELPA) you can install solarized like this:
@@ -22,18 +25,18 @@ MELPA) you can install solarized like this:
 Afterwards - business as usual, just load one of the theme variants with `M-x
 load-theme`.
 
-(If you want to install manually that procedure is briefly documentet in the
+(If you want to install manually that procedure is briefly documented in the
 FAQ at the end of this document.)
 
-# Customisations
+## Customisations
 
-## Theme specific settings
+### Theme specific settings
+
 If you don't like low-contrast modeline or fringe, you can `customize` them
 either by doing `M-x customize-group solarized` or setting the values using
 elisp code:
 
-
-```lisp
+```el
 ;; make the fringe stand out from the background
 (setq solarized-distinct-fringe-background t)
 
@@ -49,34 +52,45 @@ elisp code:
 ;; Use less colors for indicators such as git:gutter, flycheck and similar.
 (setq solarized-emphasize-indicators nil)
 
+;; Don't change size of org-mode headlines (but keep other size-changes)
+(setq solarized-scale-org-headlines nil)
+
+;; Avoid all font-size changes
+(setq solarized-height-minus-1 1)
+(setq solarized-height-plus-1 1)
+(setq solarized-height-plus-2 1)
+(setq solarized-height-plus-3 1)
+(setq solarized-height-plus-4 1)
+
 ```
+
 Note that these need to be set **before** `load-theme` is invoked for Solarized.
 
-## Underline position setting for X
+### Underline position setting for X
 
-If you are using emacs under X you might like the following setting which puts
+If you are using Emacs under X you might like the following setting which puts
 the underline below the
 [font bottomline instead of the baseline](https://publib.boulder.ibm.com/infocenter/pseries/v5r3/topic/com.ibm.aix.graPHIGS/doc/phigstrf/figures/afma5rbd.jpg).
 
-Ihmo it enhances the general readability and also it fits well with the default
+Imho it enhances the general readability and also it fits well with the default
 `solarized-high-contrast-mode-line` setting which uses an slightly emphazised
-underline for the modeline to create one horisontal window border in the same
+underline for the modeline to create one horizontal window border in the same
 manner as the vertical border.
 
-```lisp
+```el
 (setq x-underline-at-descent-line t)
 ```
 
-# Bugs & Improvements
+## Bugs & Improvements
 
 Please, report any problems that you find on the projects integrated
 issue tracker. If you've added some improvements and you want them
 included upstream don't hesitate to send me a patch or even better - a
 GitHub pull request.
 
-# FAQ
+## FAQ
 
-## Stand-alone manual installation
+### Stand-alone manual installation
 
 Save the following files in a folder that's on your Emacs' `load-path`:
 
@@ -85,20 +99,24 @@ Save the following files in a folder that's on your Emacs' `load-path`:
 
 Save the following files into `~/.emacs.d/themes`:
 
-* [solarized-light-theme.el](https://raw.githubusercontent.com/bbatsov/solarized-emacs/master/solarized-light-theme.el) 
+* [solarized-light-theme.el](https://raw.githubusercontent.com/bbatsov/solarized-emacs/master/solarized-light-theme.el)
 * [solarized-dark-theme.el](https://raw.githubusercontent.com/bbatsov/solarized-emacs/master/solarized-dark-theme.el)
 
 Add this your `.emacs.d`:
 
-```lisp
+```el
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 ```
 
 Now you can load the theme with the interactive function `load-theme`.
 
-
-# Contributors
+## Contributors
 
 - [Thomas Frössman](http://t.jossystem.se)
 
 (Add yourself to the list)
+
+Cheers,<br\>
+[Bozhidar](http://twitter.com/bbatsov)
+
+[badge-license]: https://img.shields.io/badge/license-GPL_3-green.svg

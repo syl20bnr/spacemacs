@@ -1,28 +1,16 @@
 (defvar clojure-packages
   '(
-    clojure-mode
-    cider
-    clj-refactor
-    ac-cider
     align-cljlet
+    cider
+    cider-eval-sexp-fu
+    clj-refactor
+    clojure-mode
+    company
     rainbow-delimiters
     subword
    )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
-
-(defun clojure/init-ac-cider ()
-  (use-package ac-cider
-    :defer t
-    :if (configuration-layer/package-declaredp 'auto-complete)
-    :init
-    (progn
-      (add-to-hook 'cider-mode-hook '(ac-flyspell-workaround
-                                      ac-cider-setup))
-      (add-to-hook 'cider-repl-mode-hook '(ac-cider-setup
-                                           auto-complete-mode)))
-    :config
-    (push 'cider-mode ac-modes)))
 
 (defun clojure/init-align-cljlet ()
   (use-package align-cljlet
@@ -112,7 +100,7 @@ the focus."
         (interactive)
         (spacemacs//cider-eval-in-repl-no-focus (cider-ns-form)))
 
-      (defun spacemacs/cider-send-function-to-repl-focus ()
+      (defun spacemacs/cider-send-ns-form-to-repl-focus ()
         "Send ns form to REPL and evaluate it and switch to the REPL in
 `insert state'."
         (interactive)
@@ -127,14 +115,21 @@ the focus."
         (cider-switch-to-repl-buffer)
         (evil-insert-state))
 
-      (spacemacs/activate-evil-leader-for-map 'cider-stacktrace-mode-map)
+      (evilify cider-stacktrace-mode cider-stacktrace-mode-map)
+
+      ;; open cider-doc directly and close it with q
+      (setq cider-prompt-for-symbol nil)
+      (evilify cider-docview-mode cider-docview-mode-map
+        (kbd "q") 'cider-popup-buffer-quit)
+
       (evil-leader/set-key-for-mode 'clojure-mode
-        "mdd" 'cider-doc
-        "mdg" 'cider-grimoire
-        "mdj" 'cider-javadoc
+        "mhh" 'cider-doc
+        "mhg" 'cider-grimoire
+        "mhj" 'cider-javadoc
 
         "meb" 'cider-eval-buffer
         "mee" 'cider-eval-last-sexp
+        "mef" 'cider-eval-defun-at-point
         "mer" 'cider-eval-region
 
         "mgb" 'cider-jump-back
@@ -150,7 +145,7 @@ the focus."
         "msF" 'spacemacs/cider-send-function-to-repl-focus
         "msi" 'cider-jack-in
         "msn" 'spacemacs/cider-send-ns-form-to-repl
-        "msN" 'spacemacs/cider-send-function-to-repl-focus
+        "msN" 'spacemacs/cider-send-ns-form-to-repl-focus
         "msq" 'cider-quit
         "msr" 'spacemacs/cider-send-region-to-repl
         "msR" 'spacemacs/cider-send-region-to-repl-focus
@@ -159,6 +154,10 @@ the focus."
         "mtt" 'cider-test-run-tests)
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))))
+
+(defun clojure/init-cider-eval-sexp-fu ()
+  (eval-after-load 'eval-sexp-fu
+    '(require 'cider-eval-sexp-fu)))
 
 (defun clojure/init-clj-refactor ()
  (use-package clj-refactor
@@ -213,11 +212,18 @@ the focus."
     (progn
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'clojure-mode)))))
-
 (defun clojure/init-rainbow-delimiters ()
-  (if (configuration-layer/package-declaredp 'cider)
+  (if (configuration-layer/package-usedp 'cider)
       (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
 
 (defun clojure/init-subword ()
   (unless (version< emacs-version "24.4")
     (add-hook 'cider-mode-hook 'subword-mode)))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun clojure/post-init-company ()
+    (push 'company-capf company-backends-cider-mode)
+    (spacemacs|add-company-hook cider-mode)
+
+    (push 'company-capf company-backends-cider-repl-mode)
+    (spacemacs|add-company-hook cider-repl-mode)))

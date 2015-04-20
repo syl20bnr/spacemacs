@@ -8,6 +8,8 @@
 - [Python contribution layer for Spacemacs](#python-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
+        - [Layer](#layer)
+        - [Anaconda dependencies](#anaconda-dependencies)
     - [Key Bindings](#key-bindings)
         - [Inferior REPL process](#inferior-repl-process)
         - [Running Python Script in shell](#running-python-script-in-shell)
@@ -32,17 +34,33 @@ Features:
 - Code Navigation using  [anaconda-mode][]
 - Documentation Lookup using  [anaconda-mode][] and [pylookup][]
 - Test Runner using [nose.el][]
-- Virtual Environment using [pyvenv][]
+- Virtual Environment using [pyvenv][] and [pyenv][]
 - semantic mode is enabled
 - Django support via [pony-mode][]
 
 ## Install
+
+### Layer
 
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(python))
 ```
+
+### Anaconda dependencies
+
+`anaconda-mode` tries to install the dependencies itself but sometimes
+it does not work and you may encounter the following message when
+opening a python buffer:
+
+    Blocking call to accept-process-output with quit inhibited!!
+
+To fix this, install the `anaconda-mode` [dependencies][anaconda-deps] by hand:
+
+    pip install  jedi==0.8.1 json-rpc==1.8.1 service_factory==0.1.2
+
+Source: https://github.com/proofit404/anaconda-mode#issues
 
 ## Key Bindings
 
@@ -116,9 +134,11 @@ Test commands (start with <kbd>m t</kbd> or <kbd>m T</kbd>):
 ----------------------|------------------------------------------------------------
 <kbd>SPC m d b</kbd>  | toggle a breakpoint
 <kbd>SPC m g g</kbd>  | go to definition using `anaconda-mode-goto` (<kbd>C-o</kbd> to jump back)
+<kbd>SPC m h d</kbd>  | look for documentation using `helm-pydoc`
 <kbd>SPC m h h</kbd>  | quick documentation using anaconda
 <kbd>SPC m h H</kbd>  | open documentation in `firefox` using [pylookup][pylookup]
-<kbd>SPC m v</kbd>    | activate a virtual environment with [pyvenv][pyvenv]
+<kbd>SPC m v</kbd>    | activate a virtual environment with [pyenv][pyenv]
+<kbd>SPC m V</kbd>    | activate a virtual environment with [pyvenv][pyvenv]
 
 ### Django
 
@@ -186,7 +206,9 @@ Manage Django with <kbd>SPC m j m</kbd>.
 
 [anaconda-mode]: https://github.com/proofit404/anaconda-mode
 [pyvenv]: https://github.com/jorgenschaefer/pyvenv
+[pyenv]: https://github.com/yyuu/pyenv
 [pylookup]: https://github.com/tsgates/pylookup
 [nose]: https://github.com/nose-devs/nose/
 [nose.el]: https://github.com/syl20bnr/nose.el
 [pony-mode]: https://github.com/davidmiller/pony-mode
+[anaconda-deps]: https://github.com/proofit404/anaconda-mode/blob/master/requirements.txt
