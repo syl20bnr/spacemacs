@@ -1705,8 +1705,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
     (progn
       (add-hook 'prog-mode-hook #'highlight-parentheses-mode)
       (evil-leader/set-key "tCp" 'highlight-parentheses-mode)
-      (setq hl-paren-colors nil)
-      (setq hl-paren-background-colors '("white" "white" "white" "white")))
+      (setq hl-paren-colors '("Springgreen3" "IndianRed1" "IndianRed3" "IndianRed4")))
     :config
     (set-face-attribute 'hl-paren-face nil :weight 'bold :inverse-video t)))
 
