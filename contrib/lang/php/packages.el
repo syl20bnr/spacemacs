@@ -10,12 +10,15 @@
 ;;
 ;;; License: GPLv3
 
-(defvar php-packages '(php-mode)
+(defvar php-packages '(php-mode
+                       helm-gtags
+                       ggtags)
   "A list of the pacakges to install for php-mode.")
-   
+
 (defun php/init-php-mode ()
   (use-package php-mode
     :defer t
-    :mode ("\\.php\\'" . php-mode)
-  )
-)
+    :mode ("\\.php\\'" . php-mode)))
+
+(defun php/post-init-helm-gtags ()
+  (spacemacs/gtags-define-keys-for-mode 'php-mode))
