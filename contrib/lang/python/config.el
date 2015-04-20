@@ -26,3 +26,6 @@
 ;;         ("mp" . "pyenv")))
 ;; (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
 ;;       python/key-binding-prefixes)
+
+(defvar yapf-format-on-save nil
+  "If non-nil, automatically format code with YAPF on save.")

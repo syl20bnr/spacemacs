@@ -73,4 +73,8 @@
   (use-package py-yapf
     :init
     (evil-leader/set-key-for-mode 'python-mode
-        "m=" 'py-yapf-buffer)))
+      "m=" 'py-yapf-buffer)
+    :config
+    (progn
+      (if yapf-format-on-save
+          (add-hook 'python-mode-hook 'py-yapf-enable-on-save)))))
