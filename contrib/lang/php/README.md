@@ -11,10 +11,15 @@
 <!-- markdown-toc end -->
 
 ## Description
-This layer adds PHP language support to Spacemacs
+This layer adds PHP language support to Spacemacs.
 
 Features:
-- Edit php files using [php-mode][]
+- Edit PHP files using [php-mode][]
+- Edit Drupal files
+- Run tests with PHPUnit
+- Reformat code with PHP CBF
+
+The `gtags` layer is strongly recommended.
 
 ## Install
 
