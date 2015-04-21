@@ -1,11 +1,12 @@
 # Prodigy contribution layer for Spacemacs
 
+![logo_prodigy](img/prodigy.png)
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
 - [Prodigy contribution layer for Spacemacs](#prodigy-contribution-layer-for-spacemacs)
     - [Description](#description)
-    - [Screenshot](#screenshot)
     - [Install](#install)
     - [Key Bindings](#key-bindings)
         - [Spawn prodigy](#spawn-prodigy)
@@ -15,16 +16,11 @@
 
 ## Description
 
-This layer adds support for the [prodigy](https://github.com/rejeep/prodigy.el)
-package to manage external services from within Emacs, check the package's
-documentation for more details
+This layer adds support for the [prodigy][] package to manage external
+services from within Emacs, check the package's documentation for more details
 
-It is recommended that when you try to put your prodigy services to put them in
-the `dotspacemacs/config` part of your .spacemacs file.
-
-## Screenshot
-
-![logo_prodigy](img/prodigy.png)
+It is recommended to put  to put your prodigy services in the
+`dotspacemacs/config` part of your .spacemacs file.
 
 ## Install
 
@@ -42,7 +38,7 @@ You start prodigy with this:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC a r</kbd>    | Open the prodigy buffer
+<kbd>SPC a S</kbd>    | Open the prodigy buffer
 
 ### Navigate through it
 
@@ -65,3 +61,5 @@ You start prodigy with this:
 <kbd>f t</kbd>        | Add tag filter
 <kbd>f n</kbd>        | Add name filter
 <kbd>F</kbd>          | Clear filters
+
+[prodigy]: https://github.com/rejeep/prodigy.el

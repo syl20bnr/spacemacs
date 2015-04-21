@@ -15,8 +15,7 @@
 (defun prodigy/init-prodigy ()
   (use-package prodigy
     :init
-    (evil-leader/set-key
-      "ar" 'prodigy)
+    (evil-leader/set-key "aS" 'prodigy)
     :config
     (evilify prodigy-mode prodigy-mode-map
              "h" 'prodigy-first
