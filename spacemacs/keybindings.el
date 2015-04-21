@@ -353,7 +353,7 @@ Ensure that helm is required before calling FUNC."
   [g]                       toggle golden-ratio
   [h] [j] [k] [l]           go to left|bottom|top|right
   [H] [J] [K] [L]           move windows to far/very left|bottom|top|right
-  [[] []] [{] [}]           shrink/enlarge horizontaly and verticaly respectively
+  [[] []] [{] [}]           shrink/enlarge horizontally and vertically respectively
   [o] [w]                   other frame|window
   [R]                       rotate windows
   [u] [U]                   restore previous|next window layout")
