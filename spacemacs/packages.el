@@ -1337,7 +1337,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
 
       (evil-leader/set-key
         "<f1>" 'helm-apropos
-        "bs"  'helm-mini
+        "bb"  'helm-mini
         "Cl"  'helm-colors
         "fh"  'helm-find-files
         "fr"  'helm-recentf
