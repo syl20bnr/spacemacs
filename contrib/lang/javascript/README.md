@@ -13,7 +13,8 @@
         - [Folding (js2-mode)](#folding-js2-mode)
         - [Refactoring (js2-refactor)](#refactoring-js2-refactor)
         - [Auto-complete and documentation (tern)](#auto-complete-and-documentation-tern)
-        - [Documentation JSDoc (js-doc)](#documentation-jsdoc-js-doc)
+        - [Refactoring](#refactoring)
+            - [Documentation](#documentation)
 
 <!-- markdown-toc end -->
 
@@ -98,6 +99,15 @@ Bindings should match the plain emacs assignments.
 <kbd>SPC m r w i</kbd>  | wraps the entire buffer in an immediately invoked function expression
 <kbd>SPC m r w l</kbd>  | wraps the region in a for-loop
 
+#### Documentation (js-doc)
+
+    Key Binding        |                 Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC m r d b</kbd> | insert JSDoc comment for current file
+<kbd>SPC m r d f</kbd> | insert JSDoc comment for function
+<kbd>SPC m r d t</kbd> | insert tag to comment
+<kbd>SPC m r d h</kbd> | show list of available jsdoc tags
+
 ### Auto-complete and documentation (tern)
 
     Key Binding      |                 Description
@@ -108,15 +118,6 @@ Bindings should match the plain emacs assignments.
 <kbd>SPC m G</kbd>   | jump to definition for the given name
 <kbd>SPC m C-g</kbd> | brings you back to last place you were when you pressed M-..
 <kbd>SPC m t</kbd>   | find the type of the thing under the cursor
-
-### Documentation JSDoc (js-doc)
-
-    Key Binding        |                 Description
------------------------|------------------------------------------------------------
-<kbd>SPC m d b</kbd>   | insert JSDoc comment for current file
-<kbd>SPC m d f</kbd>   | insert JSDoc comment for function
-<kbd>SPC m d t</kbd>   | insert tag to comment
-<kbd>SPC m d h</kbd>   | show list of available jsdoc tags
 
 [js2-mode]: https://github.com/mooz/js2-mode
 [js2-refactor]: https://github.com/magnars/js2-refactor.el
