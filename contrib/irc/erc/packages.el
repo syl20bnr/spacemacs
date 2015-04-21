@@ -23,7 +23,7 @@
     (evil-leader/set-key
       "aie" 'erc
       "aiE" 'erc-tls
-      "ais" 'erc-track-switch-buffer)
+      "aii" 'erc-track-switch-buffer)
     :config
     (progn
 

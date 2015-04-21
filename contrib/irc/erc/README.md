@@ -32,6 +32,7 @@ Key Binding   | Description
 --------------|------------------------------------------------------------
 `<SPC> a i e` | Starts ERC
 `<SPC> a i E` | Starts ERC via TLS/SSL
+`<SPC> a i i` | Switch to next active ERC buffer
 `<SPC> m b`   | Switch between ERC buffers
 `<SPC> m d`   | Interactively input a user action and send it to IRC.
 `<SPC> m j`   | Join a channel, executes the /join command
