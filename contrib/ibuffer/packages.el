@@ -16,24 +16,37 @@
   '(
     cl
     ibuffer
+    ibuffer-projectile
     ))
 
-;; List of packages to exclude.
-(defvar ibuffer-excluded-packages '())
+(defun init-buff-leader ()
+  (evilify ibuffer-mode ibuffer-mode-map)
+  (evil-leader/set-key
+    "B" 'ibuffer))
 
-;; For each package, define a function ibuffer/init-<package-ibuffer>
-;;
 (defun ibuffer/init-ibuffer()
   (use-package ibuffer
     :defer t
     :init
     (progn
-      (evil-leader/set-key
-        "B" 'ibuffer)
+      (init-buff-leader)
       (if ibuffer-group-by-major-mode
           (add-hook 'ibuffer-hook 'ibuffer/create-buffs-group))
-      ))
-  )
+      )))
+
+(defun ibuffer/init-ibuffer-projectile()
+    (use-package ibuffer-projectile
+      :defer t
+      :init
+      (progn
+        (init-buff-leader)
+        (if ibuffer-group-by-projectile
+                 (add-hook 'ibuffer-hook
+                           (lambda ()
+                             (ibuffer-projectile-set-filter-groups)
+                             (unless (eq ibuffer-sorting-mode 'alphabetic)
+                               (ibuffer-do-sort-by-alphabetic))))))))
+
 ;;
 ;; Often the body of an initialize function uses `use-package'
 ;; For more info on `use-package', see readme:

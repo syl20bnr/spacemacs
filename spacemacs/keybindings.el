@@ -474,3 +474,5 @@ otherwise it is scaled down."
   ("=" spacemacs/reset-font-size))
 
 ;; end of Text Manipulation Micro State
+;; ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
