@@ -18,6 +18,7 @@
     org-pomodoro
     org-repo-todo
     ox-gfm
+    htmlize
     ))
 
 (setq org-excluded-packages
@@ -110,4 +111,8 @@
 
 (defun org/init-ox-gfm ()
   (use-package ox-gfm
+    :defer t))
+
+(defun org/init-htmlize ()
+ (use-package htmlize
     :defer t))
