@@ -193,7 +193,7 @@ If TYPE is nil, just remove widgets."
                                                    :action (lambda (&rest ignore) (call-interactively #'evil-tutor-start))
                                                    :mouse-face 'highlight
                                                    :follow-link "\C-m"))
-                       (add-to-list 'spacemacs-buffer--note-widgets (widget-insert " "))
+                       (widget-insert " ")
                        (add-to-list 'spacemacs-buffer--note-widgets
                                     (widget-create 'push-button
                                                    :tag (propertize "Emacs Tutorial" 'face 'font-lock-keyword-face)
