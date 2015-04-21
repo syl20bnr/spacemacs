@@ -18,15 +18,14 @@ language, instead of plain text structure. Semantic is the core of CEDET.
 
 ## Features
 
-- Display function or variable definition at the bottom. (when `semantic` layer is included)
-
-- Display current function cursor is in at the top. See [this page][stickyfunc-demos]
-for demos in some programming languages.
-
-- Support common C/C++ refactoring with [semantic-refactor][]. See [this page][srefactor-demos]
-for demonstration of refactoring features.
-
-- Support Lisp source code formatting with [semantic-refactor][]. See [this page][srefactor-lisp-demos] for demonstration of Lisp formatting features.
+- Display function or variable definition at the bottom.
+- Display current function cursor is in at the top. See
+  [this page][stickyfunc-demos] for demos in some programming languages.
+- Support common C/C++ refactoring with [semantic-refactor][]. See
+  [this page][srefactor-demos] for demonstration of refactoring features.
+- Support Lisp source code formatting with [semantic-refactor][]. See
+  [this page][srefactor-lisp-demos] for demonstration of Lisp formatting
+  features.
 
 ## Install
 
