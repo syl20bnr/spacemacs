@@ -56,7 +56,6 @@
   "b0"  'beginning-of-buffer
   "b$"  'end-of-buffer
   "bd"  'kill-this-buffer
-  "bb"  'spacemacs/alternate-buffer ;; switch back and forth between two last buffers
   "TAB" 'spacemacs/alternate-buffer
   "bh"  'spacemacs/home
   "be"  'spacemacs/safe-erase-buffer
