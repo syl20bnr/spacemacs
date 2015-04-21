@@ -10,19 +10,8 @@
 ;;
 ;;; License: GPLv3
 
-(defvar gnus-packages
-  '(
-    ;; package gnuss go here
-    gnus
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+(setq gnus-packages '(gnus))
 
-(defvar gnus-excluded-packages '()
-  "List of packages to exclude.")
-
-;; For each package, define a function gnus/init-<package-gnus>
-;;
 (defun gnus/init-gnus ()
   "Initialize my package"
   (use-package gnus
@@ -93,10 +82,7 @@ which require an initialization must be listed explicitly in the list.")
     (evilify gnus-summary-mode gnus-summary-mode-map
       (kbd "J") 'gnus-summary-next-article
       (kbd "K") 'gnus-summary-prev-article
-      (kbd "<RET>") 'spacemacs/browse-nnrss-url)
-
-    )
-  )
+      (kbd "<RET>") 'spacemacs/browse-nnrss-url)))
 
   ;; org-mime is initialized here because otherwise spacemacs
   ;; complains that the org-mime package does not exist
@@ -107,13 +93,7 @@ which require an initialization must be listed explicitly in the list.")
     :init
     (progn
       ;; setup org-mime
-      (evil-leader/set-key-for-mode 'message-mode "mo" 'org-mime-htmlize)
-      (evil-leader/set-key-for-mode 'org-mode "mh" 'org-mime-org-buffer-htmlize)
-      )
-    )
-)
-
-;;
-;; Often the body of an initialize function uses `use-package'
-;; For more info on `use-package', see readme:
-;; https://github.com/jwiegley/use-package
+      (evil-leader/set-key-for-mode 'message-mode
+        "mo" 'org-mime-htmlize)
+      (evil-leader/set-key-for-mode 'org-mode
+        "mh" 'org-mime-org-buffer-htmlize))))
