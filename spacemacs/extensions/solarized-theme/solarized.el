@@ -1574,13 +1574,15 @@ customize the resulting theme."
 ;;;;; powerline
      `(powerline-active1 ((,class ,(if solarized-high-contrast-mode-line
                                        `(:background ,base00 :foreground ,base03)
-                                       `(:background ,base03 :foreground ,base00)))))
+                                     (if (eq variant 'light)
+                                         `(:background ,s-base02 :foreground ,s-base1)
+                                       `(:background ,base03  :foreground ,base00))))))
      `(powerline-active2 ((,class ,(if solarized-high-contrast-mode-line
                                        `(:background ,base01 :foreground ,base03)
-                                       `(:background ,base02 :foreground ,base00)))))
+                                       `(:background ,base02 :foreground ,base1)))))
      `(powerline-inactive1 ((,class ,(if solarized-high-contrast-mode-line
                                          `(:background ,base03 :foreground ,base1)
-                                         `(:background ,base02 :foreground ,base01)))))
+                                         `(:background ,s-base02 :foreground ,s-base1)))))
      `(powerline-inactive2 ((,class ,(if solarized-high-contrast-mode-line
                                          `(:background ,base02 :foreground ,base1)
                                          `(:background ,base03 :foreground ,base01)))))
