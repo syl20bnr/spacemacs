@@ -165,10 +165,10 @@
       (add-hook 'js2-mode-hook 'javascript/load-js-doc))
     :config
     (progn
-      (evil-leader/set-key-for-mode 'js2-mode "mdb" 'js-doc-insert-file-doc)
-      (evil-leader/set-key-for-mode 'js2-mode "mdf" 'js-doc-insert-function-doc)
-      (evil-leader/set-key-for-mode 'js2-mode "mdt" 'js-doc-insert-tag)
-      (evil-leader/set-key-for-mode 'js2-mode "mdh" 'js-doc-describe-tag))))
+      (evil-leader/set-key-for-mode 'js2-mode "mrdb" 'js-doc-insert-file-doc)
+      (evil-leader/set-key-for-mode 'js2-mode "mrdf" 'js-doc-insert-function-doc)
+      (evil-leader/set-key-for-mode 'js2-mode "mrdt" 'js-doc-insert-tag)
+      (evil-leader/set-key-for-mode 'js2-mode "mrdh" 'js-doc-describe-tag))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun javascript/post-init-company ()
