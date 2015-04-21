@@ -916,13 +916,14 @@
     (progn
       (defun spacemacs/evil-numbers-micro-state-doc ()
         "Display a short documentation in the mini buffer."
-        (echo "+ to increase the value or - to decrease it"))
+        (echo "+/= to increase the value or - to decrease it"))
 
       (defun spacemacs/evil-numbers-micro-state-overlay-map ()
         "Set a temporary overlay map to easily increase or decrease a number"
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap)))
            (define-key map (kbd "+") 'spacemacs/evil-numbers-increase)
+           (define-key map (kbd "=") 'spacemacs/evil-numbers-increase)
            (define-key map (kbd "-") 'spacemacs/evil-numbers-decrease)
            map) t)
         (spacemacs/evil-numbers-micro-state-doc))
@@ -938,6 +939,7 @@
         (evil-numbers/dec-at-pt amount)
         (spacemacs/evil-numbers-micro-state-overlay-map))
       (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
+      (evil-leader/set-key "n=" 'spacemacs/evil-numbers-increase)
       (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()
