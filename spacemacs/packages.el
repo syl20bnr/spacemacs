@@ -1285,7 +1285,7 @@
             helm-split-window-in-side-p nil
             helm-bookmark-show-location t
             helm-buffers-fuzzy-matching t
-            helm-always-two-windows     t)
+            helm-split-window-in-side-p t)
 
       (defun spacemacs/helm-do-ack ()
         "Perform a search with ack using `helm-ag.'"
