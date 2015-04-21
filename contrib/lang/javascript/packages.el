@@ -147,12 +147,12 @@
     :init (add-hook 'js2-mode-hook 'tern-mode)
     :config
     (progn
-      (evil-leader/set-key-for-mode 'js2-mode "mc" 'tern-rename-variable)
+      (evil-leader/set-key-for-mode 'js2-mode "mrrV" 'tern-rename-variable)
       (evil-leader/set-key-for-mode 'js2-mode "mhd" 'tern-get-docs)
       (evil-leader/set-key-for-mode 'js2-mode "mgg" 'tern-find-definition)
       (evil-leader/set-key-for-mode 'js2-mode "mgG" 'tern-find-definition-by-name)
       (evil-leader/set-key-for-mode 'js2-mode (kbd "m C-g") 'tern-pop-find-definition)
-      (evil-leader/set-key-for-mode 'js2-mode "mt" 'tern-get-type))))
+      (evil-leader/set-key-for-mode 'js2-mode "mht" 'tern-get-type))))
 
 (defun javascript/init-js-doc ()
   (use-package js-doc
