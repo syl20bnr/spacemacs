@@ -23,6 +23,12 @@
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
 
+(defvar dotspacemacs-additional-packages '()
+  "List of additional packages that will be installed wihout being
+wrapped in a layer. If you need some configuration for these
+packages then consider to create a layer, you can also put the
+configuration in `dostspacemacs/config'.")
+
 (defvar dotspacemacs-editing-style 'vim
   "Either `vim' or `emacs'. Evil is always enabled but if the variable
 is `emacs' then the `holy-mode' is enabled at startup.")
