@@ -18,9 +18,11 @@
 - [Configuration layers](#configuration-layers)
     - [Structure](#structure)
     - [Extensions and Packages](#extensions-and-packages)
-        - [Declaration](#declaration)
-        - [Initialization](#initialization)
-        - [Exclusion](#exclusion)
+        - [Within a layer](#within-a-layer)
+            - [Declaration](#declaration)
+            - [Initialization](#initialization)
+            - [Exclusion](#exclusion)
+        - [Without a layer](#without-a-layer)
     - [Packages synchronization (Vundle like feature)](#packages-synchronization-vundle-like-feature)
     - [Types of configuration layers](#types-of-configuration-layers)
     - [Submitting a configuration layer upstream](#submitting-a-configuration-layer-upstream)
@@ -334,7 +336,9 @@ repository, and `Extensions` are generally elisp code from git submodules.
 
 ## Extensions and Packages
 
-### Declaration
+### Within a layer
+
+#### Declaration
 
 `Extensions` and `Packages` are declared in variables `<layer>-pre-extensions`,
 `<layer>-post-extensions` and `<layer>-packages` where `<layer>` is the layer
@@ -351,10 +355,11 @@ Example:
   '(
     package1
     package2
+    ...
     )
 ```
 
-### Initialization
+#### Initialization
 
 To initialize an extension or a package `xxx`, define a function with this
 format in `extensions.el` or `packages.el`:
@@ -367,7 +372,7 @@ format in `extensions.el` or `packages.el`:
 
 It is common to define the body with the [use-package][use-package] macro.
 
-### Exclusion
+#### Exclusion
 
 It is possible to exclude some packages from `Spacemacs` in a per layer basis.
 This is useful when a configuration layer aims to replace a stock package
@@ -382,6 +387,31 @@ Example:
 (setq <layer>-excluded-packages
   '(
     package1
+    package2
+    ...
+    )
+```
+
+### Without a layer
+
+Sometimes a layer can be an unnecessary overhead, this is the case if you just
+want yo install a package without any configuration associated to it. A good
+example is some niche language where you are only interested syntax
+highlighting.
+
+You can install such packages by adding them to the variable
+`dotspacemacs-additional-packages` in your dotfile.
+
+If you want to add some configuration for them then consider to create a layer,
+or just put the configuration in the `dotspacemacs/config` function.
+
+Example to install `llvm-mode` and `dts-mode`:
+
+```elisp
+(setq dotspacemacs-additional-packages
+  '(
+    llvm-mode
+    dts-mode
     )
 ```
 

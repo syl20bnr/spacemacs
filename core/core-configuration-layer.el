@@ -296,6 +296,9 @@ the following keys:
     (setq configuration-layer-post-extensions-init-funcs
           (configuration-layer//filter-init-funcs configuration-layer-all-post-extensions t))
     ;; (message "package init-funcs: %s" configuration-layer-packages-init-funcs)
+    ;; Add additional packages not tied to a layer
+    (dolist (add-package dotspacemacs-additional-packages)
+      (puthash add-package nil configuration-layer-all-packages))
     ;; number of chuncks for the loading screen
     (let ((total (+ (ht-size configuration-layer-all-packages)
                     (ht-size configuration-layer-all-pre-extensions)
