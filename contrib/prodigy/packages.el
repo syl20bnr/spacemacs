@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar prodigy-packages '(prodigy))
+(setq prodigy-packages '(prodigy))
 
 (defun prodigy/init-prodigy ()
   (use-package prodigy

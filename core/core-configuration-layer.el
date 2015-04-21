@@ -97,6 +97,7 @@ symbol and the value is an odered list of initialization functions to execute.")
   "Sorted list of all post extensions symbols.")
 
 (defvar configuration-layer-contrib-categories '("config"
+                                                 "email"
                                                  "fun"
                                                  "irc"
                                                  "lang"
