@@ -185,6 +185,12 @@ will be replaced by the credentials stored in your `~/.authinfo.gpg`.
 <kbd>SPC a i r</kbd>  | Open rcirc
 <kbd>SPC L o i</kbd>  | Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled)
 
+In normal state:
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>C-j</kbd>        | next item in history
+<kbd>C-k</kbd>        | previous item in history
 
 ## Rcirc documentation
 

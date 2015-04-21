@@ -42,7 +42,8 @@
         (cond
          (rcirc-enable-authinfo-support (spacemacs//rcirc-with-authinfo arg))
          (rcirc-enable-znc-support (spacemacs//rcirc-with-znc arg))
-         (t (rcirc arg)))))
+         (t (rcirc arg))))
+      (push 'rcirc-mode evil-insert-state-modes))
     :config
     (progn
       ;; (set-input-method "latin-1-prefix")
@@ -67,8 +68,9 @@
       ;; this is where you can store personal information
       (require 'pinit-rcirc nil 'noerror)
 
-      (define-key rcirc-mode-map (kbd "C-j") 'rcirc-insert-prev-input)
-      (define-key rcirc-mode-map (kbd "C-k") 'rcirc-insert-next-input)
+      (evil-define-key 'normal rcirc-mode-map
+        (kbd "C-j") 'rcirc-insert-prev-input
+        (kbd "C-k") 'rcirc-insert-next-input)
 
       ;; add a key for EMMS integration
       (when (boundp 'emms-track-description)
