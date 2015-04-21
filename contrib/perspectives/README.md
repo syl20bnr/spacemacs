@@ -65,7 +65,7 @@ Then you just need to add a keybinding to your custom persp, we use
 <kbd>SPC L o [your key here]</kbd> (Perspective open <key>)
 
 ```elisp
-(evil-leader/set-key "Lo<your key here>" 'custom-persp/<persp-function-name>))
+(evil-leader/set-key "Lo<your key here>" 'custom-persp/<persp-function-name>)
 ```
 
 ## Predefined custom perspectives
