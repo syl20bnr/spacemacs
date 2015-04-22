@@ -2714,7 +2714,20 @@ It is a string holding:
                             :on (global-whitespace-mode)
                             :off (global-whitespace-mode -1)
                             :documentation "Globally display the whitespaces."
-                            :evil-leader "t C-w"))
+                            :evil-leader "t C-w")
+      (add-hook 'diff-mode-hook (lambda ()
+                                  (setq-local whitespace-style
+                                              '(face
+                                                tabs
+                                                tab-mark
+                                                spaces
+                                                space-mark
+                                                trailing
+                                                indentation::space
+                                                indentation::tab
+                                                newline
+                                                newline-mark))
+                                  (whitespace-mode 1))))
     :config
     (progn
       (set-face-attribute 'whitespace-space nil
