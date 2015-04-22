@@ -10,6 +10,7 @@
     - [Install](#install)
         - [Layer](#layer)
         - [Anaconda dependencies](#anaconda-dependencies)
+        - [Automatic buffer formatting on save](#automatic-buffer-formatting-on-save)
     - [Key Bindings](#key-bindings)
         - [Inferior REPL process](#inferior-repl-process)
         - [Running Python Script in shell](#running-python-script-in-shell)
@@ -37,6 +38,7 @@ Features:
 - Virtual Environment using [pyvenv][] and [pyenv][]
 - semantic mode is enabled
 - Django support via [pony-mode][]
+- PEP8 compliant formatting via [YAPF][]
 
 ## Install
 
@@ -61,6 +63,16 @@ To fix this, install the `anaconda-mode` [dependencies][anaconda-deps] by hand:
     pip install  jedi==0.8.1 json-rpc==1.8.1 service_factory==0.1.2
 
 Source: https://github.com/proofit404/anaconda-mode#issues
+
+### Automatic buffer formatting on save
+
+To enable automatic buffer formatting on save with [YAPF][] set the variable
+`python-enable-yapf-format-on-save` to `t`.
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(
+  (python :variables python-enable-yapf-format-on-save t)))
+```
 
 ## Key Bindings
 
@@ -132,6 +144,7 @@ Test commands (start with <kbd>m t</kbd> or <kbd>m T</kbd>):
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
+<kbd>SPC m =</kbd>    | Reformat the buffer according to PEP8 using [YAPF][]
 <kbd>SPC m d b</kbd>  | toggle a breakpoint
 <kbd>SPC m g g</kbd>  | go to definition using `anaconda-mode-goto` (<kbd>C-o</kbd> to jump back)
 <kbd>SPC m h d</kbd>  | look for documentation using `helm-pydoc`
@@ -212,3 +225,4 @@ Manage Django with <kbd>SPC m j m</kbd>.
 [nose.el]: https://github.com/syl20bnr/nose.el
 [pony-mode]: https://github.com/davidmiller/pony-mode
 [anaconda-deps]: https://github.com/proofit404/anaconda-mode/blob/master/requirements.txt
+[YAPF]: https://github.com/google/yapf

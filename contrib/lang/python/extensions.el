@@ -11,9 +11,7 @@
 ;;; License: GPLv3
 
 ;; Pre extensions are loaded *before* the packages
-(setq python-pre-extensions
-  '(
-    ))
+(setq python-pre-extensions '())
 
 ;; Post extensions are loaded *after* the packages
 (setq python-post-extensions
@@ -72,9 +70,7 @@
 (defun python/init-py-yapf ()
   (use-package py-yapf
     :init
-    (evil-leader/set-key-for-mode 'python-mode
-      "m=" 'py-yapf-buffer)
+    (evil-leader/set-key-for-mode 'python-mode "m=" 'py-yapf-buffer)
     :config
-    (progn
-      (if yapf-format-on-save
-          (add-hook 'python-mode-hook 'py-yapf-enable-on-save)))))
+    (if python-enable-yapf-format-on-save
+        (add-hook 'python-mode-hook 'py-yapf-enable-on-save))))
