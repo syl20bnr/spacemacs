@@ -19,4 +19,6 @@
 (defun quickrun/init-quickrun ()
   (use-package quickrun
     :init
-    (require 'quickrun)))
+    (progn
+      (require 'quickrun)
+      (evil-leader/set-key "aq"   'quickrun))))
