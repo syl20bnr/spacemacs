@@ -310,8 +310,15 @@
         (interactive)
         (magit-gh-pulls-mode)
         (magit-gh-pulls-reload))
+      (defun spacemacs/fetch-gh-pulls-mode ()
+        "Start `magit-gh-pulls-mode' only after a manual request."
+        (interactive)
+        (magit-gh-pulls-mode)
+        (magit-gh-pulls-fetch-commits))
       (eval-after-load 'magit
-          '(define-key magit-mode-map "#gg" 'spacemacs/load-gh-pulls-mode)))
+        '(progn
+           (define-key magit-mode-map "#gg" 'spacemacs/load-gh-pulls-mode)
+           (define-key magit-mode-map "#gf" 'spacemacs/fetch-gh-pulls-mode))))
     :config
     (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))
 
