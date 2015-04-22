@@ -29,15 +29,17 @@
     :defer t))
 
 (defun php/post-init-eldoc ()
-  (add-hook 'php-mode-hook 'eldoc-mode))
+  (add-hook 'php-mode-hook 'eldoc-mode)
+  (when (configuration-layer/package-usedp 'ggtags)
+    (add-hook 'php-mode-hook
+              (lambda () (setq-local eldoc-documentation-function
+                                     #'ggtags-eldoc-function)))))
 
 (defun php/post-init-ggtags ()
-  (when (configuration-layer/package-usedp 'eldoc)
-    (add-hook 'php-mode-hook 'setq-local eldoc-documentation-function
-              'ggtags-eldoc-function)))
+  (add-hook php-mode-hook 'ggtags-mode))
 
 (defun php/post-init-helm-gtags ()
-  (spacemacs/gtags-define-keys-for-mode 'php-mode))
+  (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))
 
 (defun php/init-php-auto-yasnippets ()
   (use-package php-auto-yasnippets
