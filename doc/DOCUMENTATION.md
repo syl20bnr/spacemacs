@@ -1893,6 +1893,8 @@ Text related commands (start with `x`):
 <kbd>SPC x t l</kbd>   | swap (transpose) the current line with the previous one
 <kbd>SPC x w c</kbd>   | count the number of words in the selection region
 <kbd>SPC x w C</kbd>   | count the number of occurrences per word in the select region
+<kbd>SPC x y</kbd>     | copy whole buffer to clipboard (useful when copying to a browser)
+<kbd>SPC x p</kbd>     | copy clipboard and replace buffer (useful when pasting from a browser)
 
 ### Smartparens Strict mode
 
