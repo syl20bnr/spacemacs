@@ -29,3 +29,10 @@
       "mgs" 'helm-gtags-select
       "mgS" 'helm-gtags-show-stack
       "mgu" 'helm-gtags-update-tags)))
+
+(defun spacemacs/ggtags-enable-eldoc (mode)
+  (add-hook (intern (concat (symbol-name mode) "-hook"))
+            (lambda ()
+              (ggtags-mode 1)
+              (setq-local eldoc-documentation-function
+                          #'ggtags-eldoc-function))))
