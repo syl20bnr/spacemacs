@@ -144,7 +144,7 @@ not play nicely with autoloads"
 
   (defun ess/init-company-ess ()
     (use-package company-ess
-      :if (configuration-layer/package-usedp 'company)
+      :if (configuration-layer/package-usedp 'auto-completion)
       :defer t
       :init
       (push '(company-ess-backend :with company-yasnippet)
