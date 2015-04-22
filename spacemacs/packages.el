@@ -80,6 +80,7 @@
     info+
     iedit
     indent-guide
+    open-junk-file
     leuven-theme
     linum-relative
     monokai-theme
@@ -1942,6 +1943,14 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                             :evil-leader "t C-i"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
+
+(defun spacemacs/init-open-junk-file ()
+  (use-package open-junk-file
+    :defer t
+    :commands (open-junk-file)
+    :init
+    (evil-leader/set-key "fJ" 'open-junk-file)
+    (setq open-junk-file-directory (concat spacemacs-cache-directory "junk/"))))
 
 (defun spacemacs/init-info+ ()
   (use-package info+
