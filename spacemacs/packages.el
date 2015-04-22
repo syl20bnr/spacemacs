@@ -1098,7 +1098,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
                             :on (turn-on-fci-mode)
                             :off (turn-off-fci-mode)
                             :documentation "Display the fill column indicator."
-                            :evil-leader "tc"))
+                            :evil-leader "tc")
+      (setq fci-rule-color "#D0BF8F"))
     :config
     (spacemacs|diminish fci-mode " ⓒ" " c")))
 
