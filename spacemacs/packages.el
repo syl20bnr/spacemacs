@@ -2736,7 +2736,15 @@ It is a string holding:
                             :documentation "Globally display the whitespaces."
                             :evil-leader "t C-w"))
     :config
-    (spacemacs|diminish whitespace-mode " ⓦ" " w")))
+    (progn
+      (set-face-attribute 'whitespace-space nil
+                          :background nil
+                          :foreground (face-attribute 'font-lock-warning-face :foreground))
+      (set-face-attribute 'whitespace-tab nil
+                          :background nil)
+      (set-face-attribute 'whitespace-indentation nil
+                          :background nil)
+      (spacemacs|diminish whitespace-mode " ⓦ" " w"))))
 
 (defun spacemacs/init-window-numbering ()
   (use-package window-numbering
