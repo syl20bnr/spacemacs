@@ -36,7 +36,8 @@
                                      #'ggtags-eldoc-function)))))
 
 (defun php/post-init-ggtags ()
-  (add-hook php-mode-hook 'ggtags-mode))
+  (when (configuration-layer/package-usedp 'ggtags)
+    (add-hook 'php-mode-hook 'ggtags-mode)))
 
 (defun php/post-init-helm-gtags ()
   (spacemacs/helm-gtags-define-keys-for-mode 'php-mode))
