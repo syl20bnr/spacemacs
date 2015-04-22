@@ -31,9 +31,7 @@
 (defun php/post-init-eldoc ()
   (add-hook 'php-mode-hook 'eldoc-mode)
   (when (configuration-layer/package-usedp 'ggtags)
-    (add-hook 'php-mode-hook
-              (lambda () (setq-local eldoc-documentation-function
-                                     #'ggtags-eldoc-function)))))
+    (spacemacs/ggtags-enable-eldoc 'php-mode)))
 
 (defun php/post-init-ggtags ()
   (add-hook php-mode-hook 'ggtags-mode))
