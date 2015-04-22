@@ -1432,9 +1432,11 @@ Key Binding            |              Description
 <kbd>SPC b M</kbd>     | swap windows using [ace-swap-window][ace-window]
 <kbd>SPC b n</kbd>     | switch to next buffer
 <kbd>SPC b p</kbd>     | switch to previous buffer
+<kbd>SPC b P</kbd>     | copy clipboard and replace buffer (useful when pasting from a browser)
 <kbd>SPC b r</kbd>     | rename the current buffer
 <kbd>SPC b R</kbd>     | revert the current buffer (reload from disk)
 <kbd>SPC b w</kbd>     | toggle read-only (writable state)
+<kbd>SPC b Y</kbd>     | copy whole buffer to clipboard (useful when copying to a browser)
 <kbd>z f</kbd>         | Make current function or comments visible in buffer as much as possible
 
 #### Buffers manipulation manipulation micro-state
@@ -1885,8 +1887,6 @@ Text related commands (start with `x`):
 <kbd>SPC x t l</kbd>   | swap (transpose) the current line with the previous one
 <kbd>SPC x w c</kbd>   | count the number of words in the selection region
 <kbd>SPC x w C</kbd>   | count the number of occurrences per word in the select region
-<kbd>SPC x y</kbd>     | copy whole buffer to clipboard (useful when copying to a browser)
-<kbd>SPC x p</kbd>     | copy clipboard and replace buffer (useful when pasting from a browser)
 
 ### Smartparens Strict mode
 

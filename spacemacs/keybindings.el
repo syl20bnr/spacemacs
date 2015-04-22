@@ -64,8 +64,10 @@
   "b C-k" 'kill-matching-buffers-rudely
   "bn"  'switch-to-next-buffer
   "bp"  'switch-to-prev-buffer
+  "bP"  'copy-clipboard-to-whole-buffer
   "bR"  'spacemacs/safe-revert-buffer
   "br"  'rename-current-buffer-file
+  "bY"  'copy-whole-buffer-to-clipboard
   "bw"  'toggle-read-only)
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
@@ -292,13 +294,11 @@ Ensure that helm is required before calling FUNC."
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
   "xdw" 'delete-trailing-whitespace
-  "xp"  'copy-clipboard-to-whole-buffer
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
   "xtw" 'transpose-words
   "xU"  'upcase-region
   "xu"  'downcase-region
-  "xy"  'copy-whole-buffer-to-clipboard
   "xwC" 'count-words-analysis
   "xwc" 'count-words-region)
 ;; google translate -----------------------------------------------------------
