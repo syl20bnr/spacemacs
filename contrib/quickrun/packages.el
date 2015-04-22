@@ -21,4 +21,8 @@
     :init
     (progn
       (require 'quickrun)
-      (evil-leader/set-key "aq"   'quickrun))))
+      (evil-leader/set-key "aq"
+        'quickrun)
+      )
+    )
+  )
