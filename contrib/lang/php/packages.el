@@ -10,65 +10,56 @@
 ;;
 ;;; License: GPLv3
 
-(defvar php-packages '(
-                       php-mode
-                       phpcbf
-                       helm-gtags
-                       ggtags
-                       php-extras
-                       flycheck
-                       company
-                       php-auto-yasnippets
-                       phpunit
-                       drupal-mode
-                       )
-  )
+(setq php-packages '(
+                     company
+                     drupal-mode
+                     eldoc
+                     ggtags
+                     helm-gtags
+                     php-auto-yasnippets
+                     php-extras
+                     php-mode
+                     phpcbf
+                     phpunit
+                     flycheck
+                     ))
+
+(defun php/init-drupal-mode ()
+  (use-package drupal-mode
+    :defer t))
+
+(defun php/post-init-eldoc ()
+  (add-hook 'php-mode-hook 'eldoc-mode))
+
+(defun php/post-init-ggtags ()
+  (when (configuration-layer/package-usedp 'eldoc)
+    (add-hook 'php-mode-hook 'setq-local eldoc-documentation-function
+              'ggtags-eldoc-function)))
+
+(defun php/post-init-helm-gtags ()
+  (spacemacs/gtags-define-keys-for-mode 'php-mode))
+
+(defun php/init-php-auto-yasnippets ()
+  (use-package php-auto-yasnippets
+    :defer t))
+
+(defun php/init-php-extras ()
+  (use-package php-extras
+    :defer t))
 
 (defun php/init-php-mode ()
   (use-package php-mode
     :defer t
-    :mode ("\\.php\\'" . php-mode)
-    :config
-    (progn
-        (add-hook 'php-mode-hook 'eldoc-mode)
-        (add-hook 'php-mode-hook 'setq-local eldoc-documentation-function #'ggtags-eldoc-function)
-        (add-hook 'php-mode-hook
-            (lambda ()
-                (set (make-local-variable 'company-backends)
-                    '((company-yasnippet company-gtags company-capf company-dabbrev-code company-keywords company-files php-extras-company)))))
-
-      )))
-
-(defun php/init-php-extras ()
-  (use-package php-extras
-    :defer t
-    )
-  )
+    :mode ("\\.php\\'" . php-mode)))
 
 (defun php/init-phpcbf ()
   (use-package phpcbf
-    :defer t
-    )
-  )
-
-(defun php/init-php-auto-yasnippets ()
-  (use-package php-auto-yasnippets
     :defer t))
 
 (defun php/init-phpunit ()
   (use-package phpunit
     :defer t))
 
-(defun php/init-drupal-mode ()
-  (use-package drupal-mode
-    :defer t
-  )
-)
-
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun php/post-init-company ()
-    (spacemacs|add-company-hook php-mode))
-  )
-
-(defun php/post-init-helm-gtags ()
-  (spacemacs/gtags-define-keys-for-mode 'php-mode))
+    (spacemacs|add-company-hook php-mode)))
