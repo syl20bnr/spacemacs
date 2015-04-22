@@ -68,6 +68,7 @@
         - [Leader key](#leader-key)
     - [Reserved prefix command for user](#reserved-prefix-command-for-user)
     - [Helm](#helm)
+        - [C-z and Tab switch](#c-z-and-tab-switch)
         - [Helm micro-state](#helm-micro-state)
     - [Discovering](#discovering)
         - [Key bindings](#key-bindings)
@@ -1076,6 +1077,11 @@ buffers, projects, search results, configuration layers, toggles and more...
 
 Mastering `Helm` will make you a `Spacemacs` power user. Do not hesitate
 to read the [Helm documentation wiki][helm-doc].
+
+### C-z and Tab switch
+
+The command bound to C-z is much more useful than the one bound to Tab, so it
+makes sense to swap them.  It's also recommended [here][tuhdo-tuto].
 
 ### Helm micro-state
 
