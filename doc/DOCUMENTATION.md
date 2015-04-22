@@ -1488,7 +1488,7 @@ Convenient key bindings are located under the prefix <kbd>SPC F</kbd> for frame 
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC F N</kbd>                        | rename a frame
-<kbd>SPC f n</kbd>                        | switch to a named frame
+<kbd>SPC F n</kbd>                        | switch to a named frame
 
 ### Ido
 
