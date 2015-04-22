@@ -37,6 +37,7 @@
     (progn
       (evil-leader/set-key-for-mode 'org-mode
            "a" nil "ma" 'org-agenda
+           "b" nil "mb" 'org-tree-to-indirect-buffer 
            "c" nil "mA" 'org-archive-subtree
            "o" nil "mC" 'evil-org-recompute-clocks
            "l" nil "mo" 'evil-org-open-links

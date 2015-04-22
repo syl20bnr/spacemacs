@@ -59,6 +59,7 @@ You can tweak the bullets displayed in the org buffer in the function
 ------------------------------------------------------|------------------------------
 <kbd>SPC m '</kbd>                                    | org-edit-special
 <kbd>SPC m a</kbd>                                    | org-agenda
+<kbd>SPC m b</kbd>                                    | org-tree-to-indirect-buffer
 <kbd>SPC m A</kbd>                                    | org-archive-subtree
 <kbd>SPC m c</kbd>                                    | org-capture
 <kbd>SPC m C</kbd>                                    | evil-org-recompute-clocks
