@@ -95,6 +95,7 @@
     recentf
     rfringe
     shell
+    shell-pop
     smartparens
     smooth-scrolling
     subword
@@ -2554,6 +2555,23 @@ It is a string holding:
   (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
   (add-hook 'eshell-mode-hook (lambda ()
                                 (setq pcomplete-cycle-completions nil))))
+
+(defun spacemacs/init-shell-pop ()
+  (use-package shell-pop
+    :defer t
+    :init
+    (defmacro make-shell-pop-command (type &optional shell)
+      (let* ((name (symbol-name type)))
+        `(defun ,(intern (concat "shell-pop-" name)) (index)
+           (interactive "P")
+           (require 'shell-pop)
+           (shell-pop--set-shell-type 'shell-pop-shell-type (backquote (,name
+                                                                        ,(concat "*" name "*")
+                                                                        (lambda nil (funcall ',type ,shell)))))
+           (shell-pop index))))
+    (make-shell-pop-command eshell)
+    (make-shell-pop-command shell)
+    (make-shell-pop-command term shell-pop-term-shell)))
 
 (defun spacemacs/init-smartparens ()
   (use-package smartparens

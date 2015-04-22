@@ -48,8 +48,8 @@
   "ac"  'calc-dispatch
   "ad"  'dired
   "ap"  'proced
-  "ase" 'eshell
-  "asi" 'shell
+  "ase" 'shell-pop-eshell
+  "asi" 'shell-pop-shell
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
