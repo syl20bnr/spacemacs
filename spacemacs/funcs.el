@@ -491,6 +491,12 @@ argument takes the kindows rotate backwards."
   (interactive)
   (find-file-existing (dotspacemacs/location)))
 
+(defun ediff-dotfile-and-template ()
+  "ediff the current `dotfile' with the template"
+  (interactive)
+  (ediff-files (dotspacemacs/location)
+               (concat dotspacemacs-template-directory ".spacemacs.template")))
+
 (defun find-spacemacs-file ()
   (interactive)
   "Edit the `file' in the spacemacs base directory, in the current window."

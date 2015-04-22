@@ -106,6 +106,7 @@ Ensure that helm is required before calling FUNC."
   "fes" 'find-spacemacs-file
   "fec" 'find-contrib-file
   "fed" 'find-dotfile
+  "feD" 'ediff-dotfile-and-template
   "feR" 'dotspacemacs/sync-configuration-layers
   "fev" 'spacemacs/display-and-copy-version
   "ff" 'ido-find-file
