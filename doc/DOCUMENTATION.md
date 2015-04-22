@@ -2484,12 +2484,14 @@ Achievements                                         | Account
 [500th pull request][500th-PR]                       | [tuhdo][]
 [600th pull request][600th-PR]                       | [trishume][]
 
-## Stars and forks
+## Stars, forks and watchers
 
 Achievements                                         | Account
 -----------------------------------------------------|------------------------
+100th watcher                                        | [adouzzy][]
 100th fork                                           | [balajisivaraman][]
 200th fork                                           | [alcol80][]
+300th fork                                           | [mlopes][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
 400th star                                           | [dbohdan][]
@@ -2650,6 +2652,8 @@ developers to elisp hackers!
 [smt]:https://github.com/smt
 [ralesi]:https://github.com/ralesi
 [alcol80]:https://github.com/alcol80
+[adouzzy]:https://github.com/adouzzy
+[mlopes]:https://github.com/mlopes
 [balajisivaraman]:https://github.com/balajisivaraman
 [Jackneill]:https://github.com/Jackneill
 [jb55]:https://github.com/jb55
