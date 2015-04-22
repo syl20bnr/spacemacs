@@ -24,6 +24,16 @@ Features:
 
 ## Install
 
+### Pre-requisites 
+
+You will need gocode:
+
+```
+go get -u github.com/nsf/gocode
+```
+
+Make sure that `gocode` executable is in your PATH.
+
 ### Layer
 
 To use this contribution add it to your `~/.spacemacs`
