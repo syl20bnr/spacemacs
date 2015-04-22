@@ -50,8 +50,7 @@
   "ap"  'proced
   "ase" 'eshell
   "asi" 'shell
-  "au"  'undo-tree-visualize
-  "aq"  'quickrun)
+  "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
   "b0"  'beginning-of-buffer
