@@ -188,8 +188,15 @@ If ARG is non nil then `dotspacemacs/config' is skipped."
           (spacemacs//restore-powerline (current-buffer)))))))
 
 (defun dotspacemacs/location ()
-  "Return the absolute path to the spacemacs dotfile."
-  (concat user-home-directory ".spacemacs"))
+  "Return the absolute path to the spacemacs dotfile.
+
+If there exists a file called init.el in the private configuration directory
+that will be used, otherwise we look for dotspacemacs-filepath."
+  (let ((init.el (expand-file-name "~/.emacs.d/private/init.el"))
+        (.spacemacs dotspacemacs-filepath))
+    (if (file-exists-p init.el)
+        init.el
+      .spacemacs)))
 
 (defun dotspacemacs/copy-template ()
   "Copy `.spacemacs.template' in home directory. Ask for confirmation
