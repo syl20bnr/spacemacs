@@ -947,14 +947,15 @@
     :init
     (progn
       (global-evil-search-highlight-persist)
-      (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
-                          :inherit 'region
-                          :background nil)
       ;; (set-face-attribute )
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
       (define-key evil-search-highlight-persist-map (kbd "C-x SPC") 'rectangle-mark-mode)
       (evil-ex-define-cmd "nohlsearch"
-                          'evil-search-highlight-persist-remove-all))))
+                          'evil-search-highlight-persist-remove-all))
+    :config
+    (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
+                          :inherit 'region
+                          :background nil)))
 
 (defun spacemacs/init-evil-surround ()
   (use-package evil-surround
