@@ -418,5 +418,5 @@ Ensure that helm is required before calling FUNC."
 
 (eval-after-load "shell"
   '(progn
-    (define-key comint-mode-map [up] 'comint-previous-input)
-    (define-key comint-mode-map [down] 'comint-next-input)))
+    (evil-define-key 'insert comint-mode-map [up] 'comint-previous-input)
+    (evil-define-key 'insert comint-mode-map [down] 'comint-next-input)))
