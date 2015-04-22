@@ -1090,6 +1090,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :init
     (progn
       (setq fci-rule-width 1)
+      (setq fci-rule-color "#D0BF8F")
       ;; manually register the minor mode since it does not define any
       ;; lighter
       (push '(fci-mode "") minor-mode-alist)
@@ -1098,8 +1099,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
                             :on (turn-on-fci-mode)
                             :off (turn-off-fci-mode)
                             :documentation "Display the fill column indicator."
-                            :evil-leader "tc")
-      (setq fci-rule-color "#D0BF8F"))
+                            :evil-leader "tc"))
     :config
     (spacemacs|diminish fci-mode " ⓒ" " c")))
 
