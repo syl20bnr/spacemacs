@@ -392,7 +392,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :tag (propertize "?" 'face 'font-lock-doc-face)
                  :help-echo "Open the quickhelp."
                  :action (lambda (&rest ignore)
-                           (spacemacs-buffer/toggle-note (concat dotspacemacs-template-directory "quickhelp.txt")
+                           (spacemacs-buffer/toggle-note (concat spacemacs-info-directory "quickhelp.txt")
                                                          ;; if nil is returned, just delete the current note widgets
                                                          (spacemacs-buffer//insert-note-p 'quickhelp)))
                  :mouse-face 'highlight
