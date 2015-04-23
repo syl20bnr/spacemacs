@@ -53,8 +53,6 @@
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
-  "b0"  'beginning-of-buffer
-  "b$"  'end-of-buffer
   "bd"  'kill-this-buffer
   "TAB" 'spacemacs/alternate-buffer
   "bh"  'spacemacs/home
