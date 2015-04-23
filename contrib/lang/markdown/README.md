@@ -124,6 +124,7 @@ To generate a table of contents type on top of the buffer:
 <kbd>SPC m c n</kbd>  | check refs
 <kbd>SPC m c o</kbd>  | export and preview
 <kbd>SPC m c p</kbd>  | other window
+<kbd>SPC m c r</kbd>  | render buffer
 <kbd>SPC m c v</kbd>  | export
 <kbd>SPC m c w</kbd>  | open
 
