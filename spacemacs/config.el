@@ -78,8 +78,7 @@
 (defvar spacemacs-useful-buffers-regexp '("\\*\\(scratch\\|terminal\.\+\\|ansi-term\\|eshell\\)\\*")
   "Regexp used to define buffers that are useful despite matching
 `spacemacs-useless-buffers-regexp'.")
-;; Automatically make comint buffers useful-buffers
-(add-hook 'buffer-list-update-hook 'spacemacs//mark-repl-as-useful)
+
 ;; activate winner mode use to undo and redo windows layout
 (winner-mode t)
 ;; no beep pleeeeeease ! (and no visual blinking too please)
