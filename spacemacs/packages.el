@@ -679,6 +679,9 @@ Example: (evil-map visual \"<\" \"<gv\")"
                        (call-interactively ',(lookup-key evil-normal-state-map key))
                        (execute-kbd-macro ,(substring seq 1)))
                   (execute-kbd-macro ,seq))))))
+      ;; Keep the region active when shifting
+      (evil-map visual "<" "<gv")
+      (evil-map visual ">" ">gv")
 
       (defun spacemacs/smart-doc-lookup ()
         "Bind K to SPC m h h and fall back to `evil-lookup'"
