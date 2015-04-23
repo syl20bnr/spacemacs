@@ -126,6 +126,7 @@ To generate a table of contents type on top of the buffer:
 <kbd>SPC m c c</kbd>  | kill ring save
 <kbd>SPC m c n</kbd>  | check refs
 <kbd>SPC m c ]</kbd>  | cleanup list numbers
+<kbd>SPC m c r</kbd>  | render buffer
 
 ### List editing
 
