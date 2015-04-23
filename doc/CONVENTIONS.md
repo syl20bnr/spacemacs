@@ -66,12 +66,13 @@ accessed via <kbd>,</kbd>.
 
 #### Micro-state
 
-Whenever possible a micro-state should be enabled with <kbd>C-SPC</kbd>.
-For instance micro-states dedicated to special buffers like `helm` or `ido`
-buffers are good candidates to be put on <kbd>C-SPC</kbd>.
+Whenever possible a micro-state should be enabled with <kbd>M-SPC</kbd> and
+<kbd>s-M-SPC</kbd>. We need the latter bindings on OS X since <kbd>M-SPC</kbd>
+is used by the OS for spotlight.
 
-**Important Note** Due to terminal limitation the micro-states _must_ also
-be bound to <kbd>C-@</kbd>.
+For instance micro-states dedicated to special buffers like `helm` or `ido`
+buffers are good candidates to be put on <kbd>M-SPC</kbd> and
+<kbd>s-M-SPC</kbd>.
 
 It is recommended to add <kbd>q</kbd> to leave the micro-state.
 
