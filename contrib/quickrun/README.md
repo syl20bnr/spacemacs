@@ -1,5 +1,7 @@
 # Quickrun contribution layer for Spacemacs
 
+![logo](img/quickrun.png)
+
 - [Quickrun contribution layer for Spacemacs](#quickrun-contribution-layer-for-spacemacs)
     - [Install](#install)
     - [Key bindings](#key-bindings)
