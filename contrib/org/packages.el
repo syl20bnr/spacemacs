@@ -52,6 +52,7 @@
       (eval-after-load 'org-indent
         '(spacemacs|hide-lighter org-indent-mode))
       (setq org-startup-indented t)
+      (setq org-export-async-init-file (concat user-emacs-directory "contrib/org/org-async-init.el"))
 
       (evil-leader/set-key-for-mode 'org-mode
         "mc" 'org-capture
