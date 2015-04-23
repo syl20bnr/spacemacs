@@ -1,5 +1,7 @@
 # Org2blog contribution layer for Spacemacs
 
+![logo](img/org2blog.png)
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
