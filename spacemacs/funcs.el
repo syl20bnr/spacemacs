@@ -345,29 +345,28 @@ argument takes the kindows rotate backwards."
   (interactive "p")
   (rotate-windows (* -1 count)))
 
-(defun spacemacs//mark-repl-as-useful ()
-  "Marks all buffers derived from `comint-mode' as useful."
-  (if (eq (get (buffer-local-value 'major-mode (current-buffer)) 'derived-mode-parent)
-          'comint-mode)
-      (add-to-list (format "*\\%s\\*" (replace-regexp-in-string "*" "" (buffer-name)))
-                   spacemacs-useful-buffers-regexp)))
-
-(defun spacemacs/useless-buffer-p (buffer-name)
+(defun spacemacs/useless-buffer-p (buffer)
   "Determines if a buffer is useful."
-  (cond ((cl-loop for regexp in spacemacs-useful-buffers-regexp do
-                  (if (string-match regexp buffer-name)
-                      (return t))) nil)
-        ((cl-loop for regexp in spacemacs-useless-buffers-regexp do
-                  (if (string-match regexp buffer-name)
-                      (return t))) t)
-        (t nil)))
+  (let ((buf-paren-major-mode (get (with-current-buffer buffer
+                                     major-mode)
+                                   'derived-mode-parent))
+        (buf-name (buffer-name buffer)))
+    ;; first find if useful buffer exists, if so returns nil and don't check for
+    ;; useless buffers. If no useful buffer is found, check for useless buffers.
+    (unless (cl-loop for regexp in spacemacs-useful-buffers-regexp do
+                     (when (or (eq buf-paren-major-mode 'comint-mode)
+                               (string-match regexp buf-name))
+                       (return t)))
+      (cl-loop for regexp in spacemacs-useless-buffers-regexp do
+               (when (string-match regexp buf-name)
+                 (return t))))))
 
 (defun spacemacs/next-useful-buffer ()
   "Switch to the next buffer and avoid special buffers."
   (interactive)
   (let ((start-buffer (current-buffer)))
     (next-buffer)
-    (while (and (spacemacs/useless-buffer-p (buffer-name (current-buffer)))
+    (while (and (spacemacs/useless-buffer-p (current-buffer))
                 (not (eq (current-buffer) start-buffer)))
       (next-buffer))))
 
@@ -376,7 +375,7 @@ argument takes the kindows rotate backwards."
   (interactive)
   (let ((start-buffer (current-buffer)))
     (previous-buffer)
-    (while (and (spacemacs/useless-buffer-p (buffer-name (current-buffer)))
+    (while (and (spacemacs/useless-buffer-p (current-buffer))
                 (not (eq (current-buffer) start-buffer)))
       (previous-buffer))))
 

@@ -64,9 +64,3 @@ Examples:
 (push "\\*Messages\\*" spacemacs-useful-buffers-regexp)
 ```
 
-Most repl buffers are marked useful by default. This behavior can be disabled
-with the following code:
-
-```elisp
-(remove-hook 'after-change-major-mode-hook 'spacemacs//mark-repl-as-useful)
-```
