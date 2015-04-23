@@ -15,7 +15,7 @@
 
 ## Description
 
-This layers adds extensive support for go.
+This layer adds extensive support for go.
 
 Features:
 - gofmt on file save
