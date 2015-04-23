@@ -268,6 +268,8 @@
       (push '(company-anaconda :with company-yasnippet)
             company-backends-python-mode))))
 
+(defun python/post-init-semantic ()
+  (semantic/enable-semantic-mode 'python-mode))
+
 (defun python/post-init-stickyfunc-enhance ()
-  (semantic/enable-semantic-mode 'python-mode)
   (add-hook 'python-mode-hook 'spacemacs/lazy-load-stickyfunc-enhance))
