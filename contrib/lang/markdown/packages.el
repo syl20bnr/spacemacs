@@ -82,6 +82,7 @@
         "mcw"  'markdown-kill-ring-save
         "mcc"  'markdown-check-refs
         "mcn"  'markdown-cleanup-list-numbers
+        "mcr"  'gh-md-render-buffer
         ;; List editing
         "mlk"  'markdown-move-up
         "mlj"  'markdown-move-down
