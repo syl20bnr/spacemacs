@@ -1499,11 +1499,11 @@ ARG non nil means that the editing style is `vim'."
       (spacemacs|define-micro-state helm-navigation
         :persistent t
         :disable-evil-leader t
-        :define-key (helm-map . "C-SPC") (helm-map . "C-@")
+        :define-key (helm-map . "M-SPC")
         :on-enter (spacemacs//helm-navigation-ms-on-enter)
         :on-exit  (spacemacs//helm-navigation-ms-on-exit)
         :bindings
-        ("C-SPC" nil :exit t)
+        ("M-SPC" nil :exit t)
         ("C-@" nil :exit t)
         ("<tab>" helm-select-action :exit t)
         ("C-i" helm-select-action :exit t)
@@ -1789,9 +1789,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
         (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
         ;; initiate micro-state
-        (define-key ido-completion-map (kbd "C-SPC") 'spacemacs/ido-navigation-micro-state)
-        (define-key ido-completion-map (kbd "C-@") 'spacemacs/ido-navigation-micro-state)
-        )
+        (define-key ido-completion-map (kbd "M-SPC") 'spacemacs/ido-navigation-micro-state))
       (add-hook 'ido-setup-hook 'spacemacs//ido-setup)
 
       (defvar spacemacs--ido-navigation-ms-enabled nil
