@@ -108,8 +108,7 @@ Ensure that helm is required before calling FUNC."
   "fed" 'find-dotfile
   "feR" 'dotspacemacs/sync-configuration-layers
   "fev" 'spacemacs/display-and-copy-version
-  "ff" 'ido-find-file
-  "fF" 'helm-find-files
+  "fF" 'ido-find-file
   "fg" 'rgrep
   "fj" 'dired-jump
   "fo" 'spacemacs/open-in-external-app
