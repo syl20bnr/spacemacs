@@ -669,14 +669,14 @@
         "Map for a given STATE a KEY to a sequence SEQ of keys.
 
 Can handle recursive definition only if KEY is the first key of SEQ.
-Example: (evil-map normal \"<\" \"<gv\")"
+Example: (evil-map visual \"<\" \"<gv\")"
         (let ((map (intern (format "evil-%S-state-map" state))))
           `(define-key ,map ,key
              (lambda ()
                (interactive)
                ,(if (string-equal key (substring seq 0 1))
                     `(progn
-                       (call-interactively ',(lookup-key (eval map) key))
+                       (call-interactively ',(lookup-key evil-normal-state-map key))
                        (execute-kbd-macro ,(substring seq 1)))
                   (execute-kbd-macro ,seq))))))
 
