@@ -312,56 +312,80 @@ the current state and point position."
 
 ;; from magnars modified by ffevotte for dedicated windows support
 (defun rotate-windows (count)
- "Rotate your windows.
+  "Rotate your windows.
 Dedicated windows are left untouched. Giving a negative prefix
 argument takes the kindows rotate backwards."
- (interactive "p")
- (let* ((non-dedicated-windows (remove-if 'window-dedicated-p (window-list)))
-        (num-windows (length non-dedicated-windows))
-        (i 0)
-        (step (+ num-windows count)))
-   (cond ((not (> num-windows 1))
-          (message "You can't rotate a single window!"))
-         (t
-          (dotimes (counter (- num-windows 1))
-            (let* ((next-i (% (+ step i) num-windows))
+  (interactive "p")
+  (let* ((non-dedicated-windows (remove-if 'window-dedicated-p (window-list)))
+         (num-windows (length non-dedicated-windows))
+         (i 0)
+         (step (+ num-windows count)))
+    (cond ((not (> num-windows 1))
+           (message "You can't rotate a single window!"))
+          (t
+           (dotimes (counter (- num-windows 1))
+             (let* ((next-i (% (+ step i) num-windows))
 
-                   (w1 (elt non-dedicated-windows i))
-                   (w2 (elt non-dedicated-windows next-i))
+                    (w1 (elt non-dedicated-windows i))
+                    (w2 (elt non-dedicated-windows next-i))
 
-                   (b1 (window-buffer w1))
-                   (b2 (window-buffer w2))
+                    (b1 (window-buffer w1))
+                    (b2 (window-buffer w2))
 
-                   (s1 (window-start w1))
-                   (s2 (window-start w2)))
-              (set-window-buffer w1 b2)
-              (set-window-buffer w2 b1)
-              (set-window-start w1 s2)
-              (set-window-start w2 s1)
-              (setq i next-i)))))))
+                    (s1 (window-start w1))
+                    (s2 (window-start w2)))
+               (set-window-buffer w1 b2)
+               (set-window-buffer w2 b1)
+               (set-window-start w1 s2)
+               (set-window-start w2 s1)
+               (setq i next-i)))))))
 
 (defun rotate-windows-backward (count)
- "Rotate your windows backward."
+  "Rotate your windows backward."
   (interactive "p")
   (rotate-windows (* -1 count)))
 
-(defun spacemacs/next-real-buffer ()
-  "Swtich to the next buffer and avoid special buffers."
-  (interactive)
-  (switch-to-next-buffer)
-  (let ((i 0))
-    (while (and (< i 100) (string-equal "*" (substring (buffer-name) 0 1)))
-      (1+ i)
-      (switch-to-next-buffer))))
+(defun spacemacs//mark-repl-as-useful ()
+  "Marks all buffers derived from `comint-mode' as useful."
+  (when (eq (get (buffer-local-value 'major-mode (current-buffer)) 'derived-mode-parent)
+            'comint-mode)
+    (let ((buffer-regexp (format "*\\%s\\*" (replace-regexp-in-string "*" "" (buffer-name)))))
+      (add-to-list 'spacemacs-useful-buffers-regexp buffer-regexp)
+      (add-to-list 'spacemacs--comint-buffer-regexp buffer-regexp))))
 
-(defun spacemacs/prev-real-buffer ()
-  "Swtich to the previous buffer and avoid special buffers."
+(defun spacemacs//trim-useful-buffers-list ()
+  "Removes old regexp from `spacemacs-useful-buffers-regexp'"
+  (dolist (regexp spacemacs--comint-buffer-regexp)
+    (setq spacemacs-useful-buffers-regexp (delete regexp spacemacs-useful-buffers-regexp)))
+  (setq spacemacs--comint-buffer-regexp '()))
+
+(defun spacemacs/useless-buffer-p (buffer-name)
+  "Determines if a buffer is useful."
+  (cond ((cl-loop for regexp in spacemacs-useful-buffers-regexp do
+                  (if (string-match regexp buffer-name)
+                      (return t))) nil)
+        ((cl-loop for regexp in spacemacs-useless-buffers-regexp do
+                  (if (string-match regexp buffer-name)
+                      (return t))) t)
+        (t nil)))
+
+(defun spacemacs/next-useful-buffer ()
+  "Switch to the next buffer and avoid special buffers."
   (interactive)
-  (switch-to-prev-buffer)
-  (let ((i 0))
-    (while (and (< i 100) (string-equal "*" (substring (buffer-name) 0 1)))
-      (1+ i)
-      (switch-to-prev-buffer))))
+  (let ((start-buffer (current-buffer)))
+    (next-buffer)
+    (while (and (spacemacs/useless-buffer-p (buffer-name (current-buffer)))
+                (not (eq (current-buffer) start-buffer)))
+      (next-buffer))))
+
+(defun spacemacs/previous-useful-buffer ()
+  "Switch to the previous buffer and avoid special buffers."
+  (interactive)
+  (let ((start-buffer (current-buffer)))
+    (previous-buffer)
+    (while (and (spacemacs/useless-buffer-p (buffer-name (current-buffer)))
+                (not (eq (current-buffer) start-buffer)))
+      (previous-buffer))))
 
 ;; from magnars
 (defun rename-current-buffer-file ()

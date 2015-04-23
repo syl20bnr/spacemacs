@@ -62,9 +62,9 @@
   "bK"  'kill-other-buffers
   "bk"  'ido-kill-buffer
   "b C-k" 'kill-matching-buffers-rudely
-  "bn"  'switch-to-next-buffer
-  "bp"  'switch-to-prev-buffer
   "bP"  'copy-clipboard-to-whole-buffer
+  "bn"  'spacemacs/next-useful-buffer
+  "bp"  'spacemacs/previous-useful-buffer
   "bR"  'spacemacs/safe-revert-buffer
   "br"  'rename-current-buffer-file
   "bY"  'copy-whole-buffer-to-clipboard
@@ -322,8 +322,8 @@ Ensure that helm is required before calling FUNC."
   :evil-leader "b."
   :bindings
   ("K" kill-this-buffer)
-  ("n" spacemacs/next-real-buffer)
-  ("N" spacemacs/prev-real-buffer))
+  ("n" spacemacs/next-useful-buffer)
+  ("N" spacemacs/previous-useful-buffer))
 
 ;; end of Buffer micro state
 
