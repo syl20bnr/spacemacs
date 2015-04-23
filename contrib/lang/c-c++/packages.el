@@ -18,6 +18,8 @@
     company-c-headers
     flycheck
     helm-gtags
+    semantic
+    srefactor
     stickyfunc-enhance
     ))
 
@@ -53,11 +55,14 @@
   (spacemacs/helm-gtags-define-keys-for-mode 'c-mode)
   (spacemacs/helm-gtags-define-keys-for-mode 'c++-mode))
 
-(defun c-c++/post-init-srefactor ()
+(defun c-c++/post-init-semantic ()
   (semantic/enable-semantic-mode 'c-mode)
-  (semantic/enable-semantic-mode 'c++-mode)
+  (semantic/enable-semantic-mode 'c++-mode))
+
+(defun c-c++/post-init-srefactor ()
   (evil-leader/set-key-for-mode 'c-mode "mr" 'srefactor-refactor-at-point)
-  (evil-leader/set-key-for-mode 'c++-mode "mr" 'srefactor-refactor-at-point))
+  (evil-leader/set-key-for-mode 'c++-mode "mr" 'srefactor-refactor-at-point)
+  (add-to-hooks 'spacemacs/lazy-load-srefactor '(c-mode-hook c++-mode-hook)))
 
 (defun c-c++/post-init-stickyfunc-enhance ()
   (add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance '(c-mode-hook c++-mode-hook)))
