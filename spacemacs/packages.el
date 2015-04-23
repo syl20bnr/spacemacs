@@ -1499,12 +1499,10 @@ ARG non nil means that the editing style is `vim'."
       (spacemacs|define-micro-state helm-navigation
         :persistent t
         :disable-evil-leader t
-        :define-key (helm-map . "C-SPC") (helm-map . "C-@")
+        :define-key (helm-map . "M-SPC") (helm-map . "s-M-SPC")
         :on-enter (spacemacs//helm-navigation-ms-on-enter)
         :on-exit  (spacemacs//helm-navigation-ms-on-exit)
         :bindings
-        ("C-SPC" nil :exit t)
-        ("C-@" nil :exit t)
         ("<tab>" helm-select-action :exit t)
         ("C-i" helm-select-action :exit t)
         ("<RET>" helm-maybe-exit-minibuffer :exit t)
@@ -1789,8 +1787,8 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
         (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
         ;; initiate micro-state
-        (define-key ido-completion-map (kbd "C-SPC") 'spacemacs/ido-navigation-micro-state)
-        (define-key ido-completion-map (kbd "C-@") 'spacemacs/ido-navigation-micro-state)
+        (define-key ido-completion-map (kbd "M-SPC") 'spacemacs/ido-navigation-micro-state)
+        (define-key ido-completion-map (kbd "s-M-SPC") 'spacemacs/ido-navigation-micro-state)
         )
       (add-hook 'ido-setup-hook 'spacemacs//ido-setup)
 
@@ -1841,8 +1839,6 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         :on-exit  (spacemacs//ido-navigation-ms-on-exit)
         :bindings
         ("?" nil :doc (spacemacs//ido-navigation-ms-full-doc))
-        ("C-SPC" nil :exit t)
-        ("C-@" nil :exit t)
         ("<RET>" ido-exit-minibuffer :exit t)
         ("<escape>" nil :exit t)
         ("e" ido-select-text :exit t)

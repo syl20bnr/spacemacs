@@ -1088,33 +1088,34 @@ makes sense to swap them.  It's also recommended [here][tuhdo-tuto].
 `Spacemacs` defines a [micro-state](#micro-states) for `Helm` to make it
 work like [Vim's Unite][] plugin.
 
-Initiate the micro-state with <kbd>C-SPC</kbd> while in a `Helm` buffer.
-Use <kbd>C-SPC</kbd> again to exit from the micro-state.
+Initiate the micro-state with <kbd>M-SPC</kbd> or <kbd>s-M-SPC</kbd>
+while in a `Helm` buffer.
 
-Key Binding           | Description
-----------------------|------------------------------------------------------------
-<kbd>C-SPC</kbd>      | initiate or leave the micro-state
-<kbd>TAB</kbd>        | switch to actions page and leave the micro-state
-<kbd>1</kbd>          | execute action 0
-<kbd>2</kbd>          | execute action 1
-<kbd>3</kbd>          | execute action 2
-<kbd>4</kbd>          | execute action 3
-<kbd>5</kbd>          | execute action 4
-<kbd>6</kbd>          | execute action 5
-<kbd>7</kbd>          | execute action 6
-<kbd>8</kbd>          | execute action 7
-<kbd>9</kbd>          | execute action 8
-<kbd>0</kbd>          | execute action 9
-<kbd>a</kbd>          | switch to actions page
-<kbd>g</kbd>          | go to first candidate
-<kbd>G</kbd>          | go to last candidate
-<kbd>h</kbd>          | go to previous source
-<kbd>j</kbd>          | select next candidate
-<kbd>k</kbd>          | select previous candidate
-<kbd>l</kbd>          | go to next source
-<kbd>t</kbd>          | mark current candidate
-<kbd>T</kbd>          | mark all candidates
-<kbd>v</kbd>          | execute persistent action
+Key Binding                            | Description
+---------------------------------------|------------------------------------------------------------
+<kbd>M-SPC</kbd> or <kbd>s-M-SPC</kbd> | initiate or leave the micro-state
+<kbd>TAB</kbd>                         | switch to actions page and leave the micro-state
+<kbd>1</kbd>                           | execute action 0
+<kbd>2</kbd>                           | execute action 1
+<kbd>3</kbd>                           | execute action 2
+<kbd>4</kbd>                           | execute action 3
+<kbd>5</kbd>                           | execute action 4
+<kbd>6</kbd>                           | execute action 5
+<kbd>7</kbd>                           | execute action 6
+<kbd>8</kbd>                           | execute action 7
+<kbd>9</kbd>                           | execute action 8
+<kbd>0</kbd>                           | execute action 9
+<kbd>a</kbd>                           | switch to actions page
+<kbd>g</kbd>                           | go to first candidate
+<kbd>G</kbd>                           | go to last candidate
+<kbd>h</kbd>                           | go to previous source
+<kbd>j</kbd>                           | select next candidate
+<kbd>k</kbd>                           | select previous candidate
+<kbd>l</kbd>                           | go to next source
+<kbd>q</kbd>                           | quit micro-state
+<kbd>t</kbd>                           | mark current candidate
+<kbd>T</kbd>                           | mark all candidates
+<kbd>v</kbd>                           | execute persistent action
 
 ## Discovering
 
@@ -1521,26 +1522,27 @@ Key Binding             |                 Description
 
 `Spacemacs` defines a [micro-state](#micro-states) for `ido`.
 
-Initiate the micro-state with <kbd>C-SPC</kbd> while in a `ido` buffer.
-Use <kbd>C-SPC</kbd> again to exit from the micro-state.
+Initiate the micro-state with <kbd>M-SPC</kbd> or <kbd>s-M-SPC</kbd>
+while in a `ido` buffer.
 
-Key Binding           | Description
-----------------------|------------------------------------------------------------
-<kbd>C-SPC</kbd>      | initiate or leave the micro-state
-<kbd>?</kbd>          | display help
-<kbd>e</kbd>          | open dired
-<kbd>h</kbd>          | delete backward or parent directory
-<kbd>j</kbd>          | next match
-<kbd>J</kbd>          | sub directory
-<kbd>k</kbd>          | previous match
-<kbd>K</kbd>          | parent directory
-<kbd>l</kbd>          | select match
-<kbd>n</kbd>          | next directory in history
-<kbd>o</kbd>          | open in other window
-<kbd>p</kbd>          | previous directory in history
-<kbd>s</kbd>          | open in a new horizontal split
-<kbd>t</kbd>          | open in other frame
-<kbd>v</kbd>          | open in a new vertical split
+Key Binding                            | Description
+---------------------------------------|------------------------------------------------------------
+<kbd>M-SPC</kbd> or <kbd>s-M-SPC</kbd> | initiate or leave the micro-state
+<kbd>?</kbd>                           | display help
+<kbd>e</kbd>                           | open dired
+<kbd>h</kbd>                           | delete backward or parent directory
+<kbd>j</kbd>                           | next match
+<kbd>J</kbd>                           | sub directory
+<kbd>k</kbd>                           | previous match
+<kbd>K</kbd>                           | parent directory
+<kbd>l</kbd>                           | select match
+<kbd>n</kbd>                           | next directory in history
+<kbd>o</kbd>                           | open in other window
+<kbd>p</kbd>                           | previous directory in history
+<kbd>q</kbd>                           | quit micro-state
+<kbd>s</kbd>                           | open in a new horizontal split
+<kbd>t</kbd>                           | open in other frame
+<kbd>v</kbd>                           | open in a new vertical split
 
 ### NeoTree file tree
 
