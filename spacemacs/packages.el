@@ -1333,7 +1333,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "<f1>" 'helm-apropos
         "bb"  'helm-mini
         "Cl"  'helm-colors
-        "fh"  'helm-find-files
+        "ff"  'helm-find-files
         "fr"  'helm-recentf
         "hb"  'helm-bookmarks
         "hi"  'helm-info-at-point
