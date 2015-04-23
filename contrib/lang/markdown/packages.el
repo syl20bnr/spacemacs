@@ -46,6 +46,7 @@
         "mcw"  'markdown-kill-ring-save
         "mcc"  'markdown-check-refs
         "mcn"  'markdown-cleanup-list-numbers
+        "mcr"  'gh-md-render-buffer
         ;; headings
         "mhi"  'markdown-insert-header-dwim
         "mhI"  'markdown-insert-header-setext-dwim
