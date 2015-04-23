@@ -14,3 +14,8 @@ by pressing `SPC f e R`. Be sure to remove the docstring when replacing the
 2. Yasnippet
 
 Yasnippet has been moved to the layer `auto-completion`.
+
+3. Key bindings
+
+`SPC b s` to switch buffer is now on `SPC b b`
+`SPC f f` uses helm instead of ido
