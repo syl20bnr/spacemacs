@@ -10,3 +10,7 @@ and `(defvar <layer>-excluded-packages ...)` by `(setq ...)`. This will
 allow to install newly added packages to a layer without restarting spacemacs
 by pressing `SPC f e R`. Be sure to remove the docstring when replacing the
 `defvar` since `setq` does not take a third argument. 
+
+2. Yasnippet
+
+Yasnippet has been moved to the layer `auto-completion`.
