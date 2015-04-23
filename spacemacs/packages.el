@@ -19,7 +19,6 @@
     aggressive-indent
     auto-dictionary
     auto-highlight-symbol
-    base16-theme
     bind-key
     bookmark
     buffer-move
@@ -80,7 +79,6 @@
     indent-guide
     leuven-theme
     linum-relative
-    monokai-theme
     move-text
     multi-term
     neotree
@@ -103,7 +101,6 @@
     whitespace
     window-numbering
     winner
-    zenburn-theme
     ))
 
 (setq spacemacs-excluded-packages '())
@@ -233,8 +230,6 @@
       (add-hook 'flyspell-mode-hook '(lambda () (auto-dictionary-mode 1)))
       (evil-leader/set-key
         "Sd" 'adict-change-dictionary))))
-
-(defun spacemacs/init-base16-theme ())
 
 (defun spacemacs/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol
@@ -1922,8 +1917,6 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (setq linum-relative-current-symbol "")
       (linum-relative-toggle))))
 
-(defun spacemacs/init-monokai-theme ())
-
 (defun spacemacs/init-move-text ()
   (use-package move-text
     :defer t
@@ -2761,6 +2754,3 @@ It is a string holding:
             (append winner-boring-buffers spacemacs/winner-boring-buffers))
       (winner-mode t))))
 
-(defun spacemacs/init-zenburn-theme ()
-  (use-package zenburn-theme
-    :defer t))
