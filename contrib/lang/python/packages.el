@@ -27,7 +27,6 @@
     python
     semantic
     smartparens
-;;    elpy
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -250,18 +249,6 @@ which require an initialization must be listed explicitly in the list.")
       (if pythonp
           ad-do-it
         (call-interactively 'sp-backward-delete-char)))))
-
-;; (defun python/init-elpy ()
-;;   (use-package elpy
-;;     :config
-;;     (elpy-enable t)
-;;     (setq elpy-rpc-backend "jedi")
-;;     (when (executable-find "ipython")
-;;       (elpy-use-ipython))
-;;     (define-key python-mode-map (kbd "RET")
-;;       'newline-and-indent)
-;;     (add-hook 'python-mode-hook
-;;               (lambda () (set (make-local-variable 'comment-inline-offset) 2)))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun python/post-init-company ()
