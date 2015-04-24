@@ -1296,6 +1296,13 @@ Example: (evil-map visual \"<\" \"<gv\")"
             helm-bookmark-show-location t
             helm-split-window-in-side-p t
             helm-always-two-windows t)
+
+      (setq helm-display-function
+            (lambda (buf)
+              (split-window-vertically-and-switch)
+              (evil-window-move-very-bottom)
+              (spacemacs/shrink-window (/ (window-height) 3))
+              (switch-to-buffer buf)))
       ;; fuzzy matching setting
       (setq helm-M-x-fuzzy-match t
             helm-apropos-fuzzy-match t
