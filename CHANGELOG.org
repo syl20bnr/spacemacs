@@ -258,16 +258,22 @@ a batch of packages.
 - Typo and documentation updates (thanks to danielwuz, swaroopch,
   CestDiego, IvanMalison, agevelt, nwolfe)
 ** Hot Fixes
+*** Startup Buffer
 - Don't display the release notes in the startup buffer when Emacs is restarted
   after a fresh install
-- Org layer: exclude ox-gfm since it seems problematic for some users.
 - Startup buffer: fix widget activation in `holy-mode` (thanks to tuhdo)
 - Startup buffer: Don't fontify the startup buffer when `rainbow-identifiers`
+*** Org
+- Org layer: exclude ox-gfm since it seems problematic for some users.
   package is used
-- revert back `ag` as the default search tool instead of `pt`, `pt` can
-  conflict with `pt` command line tool from TCL parser tools.
+*** Ruby
+- Fix auto-completion activation.
+*** Themes
 - Fix conflict between official Spacemacs solarized theme and
   `color-theme-solarized` declared in `themes-megapack` layer.
+*** Various Fixes
+- revert back `ag` as the default search tool instead of `pt`, `pt` can
+  conflict with `pt` command line tool from TCL parser tools.
 ** Backports
 None
 * Previous Releases
