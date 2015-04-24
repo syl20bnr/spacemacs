@@ -13,13 +13,12 @@
     (progn
       (defun auctex/build-view ()
         (interactive)
-        (if (buffer-modified-p)
-            (progn
-              (let ((TeX-save-query nil))
-                (TeX-save-document (TeX-master-file)))
-              (setq build-proc (TeX-command "LaTeX" 'TeX-master-file -1))
-              (set-process-sentinel  build-proc  'auctex/build-sentinel))
-          (TeX-view)))
+        (progn
+          (let ((TeX-save-query nil))
+            (TeX-save-document (TeX-master-file)))
+          (setq build-proc (TeX-command "LaTeX" 'TeX-master-file -1))
+          (set-process-sentinel  build-proc  'auctex/build-sentinel))
+        (TeX-view))
 
       (defun auctex/build-sentinel (process event)
         (if (string= event "finished\n")
