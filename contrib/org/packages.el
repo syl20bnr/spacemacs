@@ -55,6 +55,7 @@ which require an initialization must be listed explicitly in the list.")
       (eval-after-load 'org-indent
         '(spacemacs|hide-lighter org-indent-mode))
       (add-hook 'org-mode-hook 'org-indent-mode)
+      (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
       (evil-leader/set-key-for-mode 'org-mode
         "mc" 'org-capture
