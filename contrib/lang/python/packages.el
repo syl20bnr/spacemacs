@@ -21,6 +21,7 @@
     flycheck
     helm-pydoc
     hy-mode
+    pip-requirements
     pony-mode
     pyenv-mode
     pyvenv
@@ -57,6 +58,14 @@
 (defun python/init-evil-jumper ()
   (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
     (evil-jumper--push)))
+
+(defun python/init-pip-requirements ()
+  (use-package pip-requirements
+    :init
+    (when (configuration-layer/layer-usedp 'auto-completion)
+      (push '(company-capf :with company-yasnippet)
+            company-backends-pip-requirements-mode)
+      (spacemacs|add-company-hook pip-requirements-mode))))
 
 (defun python/init-pony-mode ()
   (use-package pony-mode
