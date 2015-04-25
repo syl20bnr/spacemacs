@@ -122,7 +122,9 @@
       (evil-leader/set-key "mrr:" 'projectile-rails-rake)
       (evil-leader/set-key "mrxs" 'projectile-rails-server)
       ;; Refactoring
-      (evil-leader/set-key "mrRx" 'projectile-rails-extract-region))))
+      (evil-leader/set-key "mrRx" 'projectile-rails-extract-region)
+      ;; Ex-commands
+      (evil-ex-define-cmd "A" 'projectile-toggle-between-implementation-and-test))))
 
 (defun ruby/init-robe ()
   "Initialize Robe mode"
