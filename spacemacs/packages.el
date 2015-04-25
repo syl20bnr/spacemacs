@@ -1297,12 +1297,6 @@ Example: (evil-map visual \"<\" \"<gv\")"
             helm-split-window-in-side-p t
             helm-always-two-windows t)
 
-      (setq helm-display-function
-            (lambda (buf)
-              (split-window-vertically-and-switch)
-              (evil-window-move-very-bottom)
-              (spacemacs/shrink-window (/ (window-height) 3))
-              (switch-to-buffer buf)))
       ;; fuzzy matching setting
       (setq helm-M-x-fuzzy-match t
             helm-apropos-fuzzy-match t
@@ -1391,10 +1385,15 @@ If ARG is non nil then `ag' and `pt' and ignored."
       ;; disable popwin-mode in an active Helm session It should be disabled
       ;; otherwise it will conflict with other window opened by Helm persistent
       ;; action, such as *Help* window.
-      (add-hook 'helm-after-initialize-hook (lambda () (popwin-mode -1)))
-
+      (when (configuration-layer/package-usedp 'popwin)
+        (push '("^\*helm.+\*$" :regexp t) popwin:special-display-config))
+      (defun spacemacs//display-helm-at-bottom ()
+        "Display the helm buffer at the bottom of the frame."
+        (popwin:display-buffer helm-buffer t)
+        (popwin-mode -1))
+      (add-hook 'helm-after-initialize-hook 'spacemacs//display-helm-at-bottom)
       ;;  Restore popwin-mode after a Helm session finishes.
-      (add-hook 'helm-cleanup-hook (lambda () (popwin-mode 1)))
+      (add-hook 'helm-cleanup-hook 'popwin-mode)
 
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
