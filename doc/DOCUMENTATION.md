@@ -1336,7 +1336,7 @@ Key Binding                               |                 Description
 <kbd>SPC w K</kbd>                        | move window to the top
 <kbd>SPC w l</kbd>                        | move to window on the right
 <kbd>SPC w L</kbd>                        | move window to the right
-<kbd>SPC w m</kbd>                        | maximize/minimize a window (maximize is equivalent to delete otehr windows)
+<kbd>SPC w m</kbd>                        | maximize/minimize a window (maximize is equivalent to delete other windows)
 <kbd>SPC w M</kbd>                        | maximize/minimize a window, when maximized the buffer is centered
 <kbd>SPC w o</kbd>                        | cycle and focus between frames
 <kbd>SPC w p m</kbd>                      | open messages buffer in a popup window
