@@ -9,8 +9,8 @@
     - [Description](#description)
     - [Install](#install)
     - [Key bindings](#key-bindings)
-        - [Dialects and Clients](#dialects-and-clients)
-        - [Inferior Process interactions (SQLi)](#inferior-process-interactions-sqli)
+        - [Highlighting](#highlighting)
+        - [Inferior Process Interactions (SQLi)](#inferior-process-interactions-sqli)
         - [SQLi buffer](#sqli-buffer)
 
 <!-- markdown-toc end -->
@@ -30,26 +30,13 @@ To use this contribution layer add it to your `~/.spacemacs`
 
 ## Key bindings
 
-### Dialects and Clients
+### Highlighting
 
-Database  | Client + Dialect     | Dialect (highlighting) only
-----------|----------------------|----------------------------
-ANSI SQL  | n/a                  | <kbd>SPC m h k a</kbd>
-DB2       | <kbd>SPC m c d</kbd> | <kbd>SPC m h k d</kbd>
-Informix  | <kbd>SPC m c i</kbd> | <kbd>SPC m h k i</kbd>
-Ingrex    | <kbd>SPC m c n</kbd> | <kbd>SPC m h k n</kbd>
-Interbase | <kbd>SPC m c t</kbd> | <kbd>SPC m h k t</kbd>
-Linter    | <kbd>SPC m c l</kbd> | <kbd>SPC m h k l</kbd>
-Microsoft | <kbd>SPC m c s</kbd> | <kbd>SPC m h k s</kbd>
-MySQL     | <kbd>SPC m c m</kbd> | <kbd>SPC m h k m</kbd>
-Oracle    | <kbd>SPC m c o</kbd> | <kbd>SPC m h k o</kbd>
-Postgres  | <kbd>SPC m c p</kbd> | <kbd>SPC m h k p</kbd>
-Solid     | <kbd>SPC m c S</kbd> | <kbd>SPC m h k S</kbd>
-SQLite    | <kbd>SPC m c q</kbd> | <kbd>SPC m h k q</kbd>
-Sybase    | <kbd>SPC m c b</kbd> | <kbd>SPC m h k b</kbd>
-Vertica   | <kbd>SPC m c v</kbd> | <kbd>SPC m h k v</kbd>
+Key Binding          | Description
+---------------------|--------------------------------------------------------------------
+<kbd>SPC m h k</kbd> | select a SQL dialect to highlight
 
-### Inferior Process interactions (SQLi)
+### Inferior Process Interactions (SQLi)
 
 Key Binding          | Description
 ---------------------|--------------------------------------------------------------------
@@ -64,6 +51,7 @@ Key Binding          | Description
 ---------------------|--------------------------------------------------------------------
 <kbd>SPC m s b</kbd> | Send the whole buffer to the SQLi buffer
 <kbd>SPC m s B</kbd> | Send the whole buffer to the SQLi buffer and switch to it in `insert state`
+<kbd>SPC m s i</kbd> | Start the SQLi process
 <kbd>SPC m s f</kbd> | Send the paragraph under the point to the SQLi buffer
 <kbd>SPC m s F</kbd> | Send the paragraph under the point to the SQLi buffer and switch to it in `insert state`
 <kbd>SPC m s q</kbd> | Prompt for a string to send to the SQLi buffer
