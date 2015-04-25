@@ -11,10 +11,12 @@
         - [Layer](#layer)
         - [Anaconda dependencies](#anaconda-dependencies)
         - [Automatic buffer formatting on save](#automatic-buffer-formatting-on-save)
+        - [autoflake](#autoflake)
     - [Key Bindings](#key-bindings)
         - [Inferior REPL process](#inferior-repl-process)
         - [Running Python Script in shell](#running-python-script-in-shell)
         - [Testing in Python](#testing-in-python)
+        - [Refactoring](#refactoring)
         - [Other Python commands](#other-python-commands)
         - [Django](#django)
             - [Fabric](#fabric)
@@ -39,6 +41,7 @@ Features:
 - semantic mode is enabled
 - Django support via [pony-mode][]
 - PEP8 compliant formatting via [YAPF][]
+- Suppression of unused import with [autoflake][]
 
 ## Install
 
@@ -72,6 +75,14 @@ To enable automatic buffer formatting on save with [YAPF][] set the variable
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(
   (python :variables python-enable-yapf-format-on-save t)))
+```
+
+### autoflake
+
+To be able to suppress unused imports easily, install [autoflake][]:
+
+```sh
+pip install autoflake
 ```
 
 ## Key Bindings
@@ -140,6 +151,12 @@ Test commands (start with <kbd>m t</kbd> or <kbd>m T</kbd>):
 <kbd>SPC m T s</kbd> | launch all tests of the current suite in debug mode
 <kbd>SPC m T t</kbd> | launch the current test (function) in debug mode
 
+### Refactoring
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC m r i</kbd>  | remove unused imports with [autoflake][]
+
 ### Other Python commands
 
     Key Binding       |                 Description
@@ -152,7 +169,6 @@ Test commands (start with <kbd>m t</kbd> or <kbd>m T</kbd>):
 <kbd>SPC m h H</kbd>  | open documentation in `firefox` using [pylookup][pylookup]
 <kbd>SPC m v</kbd>    | activate a virtual environment with [pyenv][pyenv]
 <kbd>SPC m V</kbd>    | activate a virtual environment with [pyvenv][pyvenv]
-<kbd>SPC c i</kbd>    | remove unused imports with [autoflake][autoflake]
 
 ### Django
 

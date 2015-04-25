@@ -208,9 +208,10 @@
       (evil-leader/set-key-for-mode 'python-mode
         "mcc" 'spacemacs/python-execute-file
         "mcC" 'spacemacs/python-execute-file-focus
-        "mci" 'python-remove-unused-imports
         "mdb" 'python-toggle-breakpoint
+        "mri" 'python-remove-unused-imports
         "msB" 'python-shell-send-buffer-switch
+        "mri" 'python-remove-unused-imports
         "msb" 'python-shell-send-buffer
         "msF" 'python-shell-send-defun-switch
         "msf" 'python-shell-send-defun
