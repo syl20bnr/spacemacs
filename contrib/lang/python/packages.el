@@ -211,7 +211,6 @@
         "mdb" 'python-toggle-breakpoint
         "mri" 'python-remove-unused-imports
         "msB" 'python-shell-send-buffer-switch
-        "mri" 'python-remove-unused-imports
         "msb" 'python-shell-send-buffer
         "msF" 'python-shell-send-defun-switch
         "msf" 'python-shell-send-defun
