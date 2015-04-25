@@ -1099,9 +1099,9 @@ Example: (evil-map visual \"<\" \"<gv\")"
                             :on (turn-on-fci-mode)
                             :off (turn-off-fci-mode)
                             :documentation "Display the fill column indicator."
-                            :evil-leader "tc"))
+                            :evil-leader "tF"))
     :config
-    (spacemacs|diminish fci-mode " ⓒ" " c")))
+    (diminish 'fci-mode)))
 
 (defun spacemacs/init-flx-ido ()
   (use-package flx-ido
@@ -2616,7 +2616,30 @@ It is a string holding:
     (use-package subword
       :defer t
       :init
-      (add-hook 'prog-mode-hook 'subword-mode))))
+      (progn
+        (define-category ?U "Uppercase")
+        (define-category ?u "Lowercase")
+        (modify-category-entry (cons ?A ?Z) ?U)
+        (modify-category-entry (cons ?a ?z) ?u)
+        (make-variable-buffer-local 'evil-cjk-word-separating-categories)
+        (add-hook 'subword-mode-hook (lambda ()
+                                       (if subword-mode
+                                           (push '(?u . ?U) evil-cjk-word-separating-categories)
+                                         (setq evil-cjk-word-separating-categories (default-value 'evil-cjk-word-separating-categories)))))
+        (spacemacs|add-toggle camel-case-motion
+                              :status subword-mode
+                              :on (subword-mode +1)
+                              :off (subword-mode -1)
+                              :documentation "Toggle CamelCase motion."
+                              :evil-leader "tc")
+        (spacemacs|add-toggle camel-case-motion-globally
+                              :status subword-mode
+                              :on (global-subword-mode +1)
+                              :off (global-subword-mode -1)
+                              :documentation "Globally toggle CamelCase motion."
+                              :evil-leader "t C-c"))
+      :config
+      (spacemacs|diminish subword-mode " ⓒ" " c"))))
 
 (defun spacemacs/init-undo-tree ()
   (use-package undo-tree
