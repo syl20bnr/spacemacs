@@ -37,7 +37,9 @@
   "Use Autoflake to remove unused function"
   "autoflake --remove-all-unused-imports -i unused_imports.py"
   (interactive)
-  (shell-command
-   (format "autoflake --remove-all-unused-imports -i %s"
-           (shell-quote-argument (buffer-file-name))))
-  (revert-buffer t t t))
+  (if (executable-find "autoflake")
+      (progn
+        (shell-command (format "autoflake --remove-all-unused-imports -i %s"
+                               (shell-quote-argument (buffer-file-name))))
+        (revert-buffer t t t))
+    (message "Error: Cannot find autoflake executable.")))
