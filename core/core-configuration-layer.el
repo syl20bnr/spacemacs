@@ -166,39 +166,44 @@ in `configuration-layer-contrib-categories'"
 (defun configuration-layer//discover-layers ()
   "Return a hash table where the key is the layer symbol and the value is its
 path."
-  (let ((cat-dirs (configuration-layer//get-contrib-category-dirs))
+  (let ((contrib-cat-dirs (configuration-layer//get-contrib-category-dirs))
+        (discovered '())
         (result (make-hash-table :size 256)))
+    (setq discovered
+          (append discovered (configuration-layer//discover-layers-in-dir
+                              configuration-layer-contrib-directory
+                              configuration-layer-contrib-categories)))
+    (dolist (dir (append contrib-cat-dirs
+                         dotspacemacs-configuration-layer-path))
+      (setq discovered
+            (append discovered (configuration-layer//discover-layers-in-dir
+                                dir))))
+    ;; load private layers at the end on purpose
+    ;; we asume that the user layers must have the final word
+    ;; on configuration choices.
+    (setq discovered
+          (append discovered (configuration-layer//discover-layers-in-dir
+                              configuration-layer-private-directory
+                              '("snippets"))))
     ;; add spacemacs layer
     (puthash 'spacemacs (expand-file-name user-emacs-directory) result)
-    (mapc (lambda (dir)
-            (let ((layers (configuration-layer//discover-layers-in-dir dir)))
-              (mapc (lambda (layer)
-                      (puthash (car layer) (cdr layer) result))
-                    layers)))
-          (append (list configuration-layer-contrib-directory)
-                  cat-dirs
-                  dotspacemacs-configuration-layer-path
-                  ;; load private layers at the end on purpose
-                  ;; we asume that the user layers must have the final word
-                  ;; on configuration choices.
-                  (list configuration-layer-private-directory)))
+    ;; add discovered
+    (mapc (lambda (l) (puthash (car l) (cdr l) result)) discovered)
     result))
 
-(defun configuration-layer//discover-layers-in-dir (dir)
-  "Return an alist where the key is a layer symbol and the value is the path
-for that layer."
+(defun configuration-layer//discover-layers-in-dir (dir &optional exclude)
+  "Return an alist of layer and absolute path in Dir."
   (spacemacs-buffer/message "Looking for configuration layers in %s" dir)
-  (ignore-errors
-    (let ((files (directory-files dir nil nil 'nosort))
-          (filter-out configuration-layer-contrib-categories)
-          result '())
-      (dolist (f files)
-        (when (and (file-directory-p (concat dir f))
-                   (not (member f filter-out))
-                   (not (equalp ?. (aref f 0))))  ;; Remove hidden, traversal
+  (let* ((files (directory-files dir nil nil 'nosort))
+         (result '()))
+    (dolist (f files)
+      (let ((full (file-name-as-directory (concat dir f))))
+        (when (and (not (string-prefix-p "." f))
+                   (not (and exclude (member f exclude)))
+                   (file-directory-p full))
           (spacemacs-buffer/message "-> Discovered configuration layer: %s" f)
-          (push (cons (intern f) dir) result)))
-      result)))
+          (push (cons (intern f) dir) result))))
+    result))
 
 (defun configuration-layer/init-layers ()
   "Declare default layers and user layers from the dotfile by filling the
