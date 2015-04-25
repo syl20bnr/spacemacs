@@ -16,7 +16,10 @@
 ## Description
 
 This layer provides support for [EditorConfig][].
-Syntax highlighting is also provided for `.editorconfig` files.
+
+Features:
+- Indent shifting in Evil is adjusted for a buffer.
+- Syntax highlighting is provided for `.editorconfig` files.
 
 ## Install
 
