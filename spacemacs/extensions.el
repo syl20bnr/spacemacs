@@ -209,10 +209,10 @@
     "mtb" 'spacemacs/ert-run-tests-buffer
     "mtq" 'ert)
 
-  (when (configuration-layer/layer-usedp 'auto-completion)
-    (push '(company-capf :with company-yasnippet)
-          company-backends-emacs-lisp-mode)
-    (spacemacs|add-company-hook emacs-lisp-mode)))
+  ;; company support
+  (push '(company-capf :with company-yasnippet)
+        company-backends-emacs-lisp-mode)
+  (spacemacs|add-company-hook emacs-lisp-mode))
 
 (defun spacemacs/init-emacs-builtin-process-menu ()
   (evilify process-menu-mode process-menu-mode-map))
