@@ -101,7 +101,9 @@ symbol and the value is an odered list of initialization functions to execute.")
                                                  "fun"
                                                  "irc"
                                                  "lang"
+                                                 "tools"
                                                  "usr"
+                                                 "vim"
                                                  "window-management")
   "List of strings corresponding to category names. A category is a
 sub-directory of the contribution directory.")
