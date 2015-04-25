@@ -23,6 +23,8 @@
     (alect-light     . alect-themes)
     (ample-light . ample-theme)
     (ample-flat  . ample-theme)
+    (apropospriate-light . apropospriate-theme)
+    (apropospriate-dark  . apropospriate-theme)
     (base16-chalk       . base16-theme)
     (base16-default     . base16-theme)
     (base16-eighties    . base16-theme)
