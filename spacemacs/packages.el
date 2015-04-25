@@ -2344,7 +2344,11 @@ It is a string holding:
                 ;; display hud
                 (powerline-chamfer-left line-face face1)
                 (if (string-match "\%" progress)
-                    (powerline-hud state-face face1))))))))
+                    (powerline-hud state-face face1)))))
+            (list
+            ;; fixes emms modeline, and probably other things too
+            (powerline-raw global-mode-string face1 'r))
+            )))
 
       (defun spacemacs/mode-line-prepare ()
         (let* ((active (powerline-selected-window-active))
