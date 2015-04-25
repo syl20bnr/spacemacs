@@ -61,8 +61,10 @@
 
 (defun python/init-pip-requirements ()
   (use-package pip-requirements
+    :defer t
     :init
-    (when (configuration-layer/layer-usedp 'auto-completion)
+    (progn
+      ;; company support
       (push '(company-capf :with company-yasnippet)
             company-backends-pip-requirements-mode)
       (spacemacs|add-company-hook pip-requirements-mode))))
