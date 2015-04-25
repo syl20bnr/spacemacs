@@ -31,3 +31,13 @@
         (insert-string trace)
         (insert-string "\n")
         (python-indent-line)))))
+
+;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
+(defun python-remove-unused-imports()
+  "Use Autoflake to remove unused function"
+  "autoflake --remove-all-unused-imports -i unused_imports.py"
+  (interactive)
+  (shell-command
+   (format "autoflake --remove-all-unused-imports -i %s"
+           (shell-quote-argument (buffer-file-name))))
+  (revert-buffer t t t))

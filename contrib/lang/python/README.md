@@ -152,6 +152,7 @@ Test commands (start with <kbd>m t</kbd> or <kbd>m T</kbd>):
 <kbd>SPC m h H</kbd>  | open documentation in `firefox` using [pylookup][pylookup]
 <kbd>SPC m v</kbd>    | activate a virtual environment with [pyenv][pyenv]
 <kbd>SPC m V</kbd>    | activate a virtual environment with [pyvenv][pyvenv]
+<kbd>SPC c i</kbd>    | remove unused imports with [autoflake][autoflake]
 
 ### Django
 
@@ -226,3 +227,4 @@ Manage Django with <kbd>SPC m j m</kbd>.
 [pony-mode]: https://github.com/davidmiller/pony-mode
 [anaconda-deps]: https://github.com/proofit404/anaconda-mode/blob/master/requirements.txt
 [YAPF]: https://github.com/google/yapf
+[autoflake]: https://github.com/myint/autoflake
