@@ -8,20 +8,27 @@
 - [Auctex Layer for Spacemacs](#auctex-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
-    - [Features](#features)
-        - [Company Auctex](#company-auctex)
-        - [Tags navigation](#tags-navigation)
+        - [Layer](#layer)
+        - [Auto-completion](#auto-completion)
         - [Previewing](#previewing)
     - [Keybindings](#keybindings)
+        - [RefTeX](#reftex)
     - [Maintainer](#maintainer)
 
 <!-- markdown-toc end -->
 
 ## Description
 
-Includes support for Auctex including some bindings, sane defaults, and manual loading for better startup times.
+This layer adds support for LaTeX files with [AucTeX][].
+
+**Features:**
+- auto-completion with [company-auctex][]
+- tags navigation on <kbd>%</kbd> with [evil-matchit][]
+- labels, references, citations and index entries management with [RefTeX][]
 
 ## Install
+
+### Layer
 
 To use this contribution add it to your `~/.spacemacs`
 
@@ -29,27 +36,23 @@ To use this contribution add it to your `~/.spacemacs`
 (setq-default dotspacemacs-configuration-layers '(auctex))
 ```
 
-## Features
+### Auto-completion
 
-### Company Auctex
-
-Along with other things this layer includes company-auctex, it's only enabled
-if you also enable my other contrib layer `company-mode`.
-
-### Tags navigation
-
-Tags navigation can be performed with key `%` thanks to [evil-matchit][].
+Add the layer `auto-completion` to the variable
+`dotspacemacs-configuration-layers` of your dotfile `~/.spacemacs`.
 
 ### Previewing
 
 To perform full-document previews (that is, aside from the inline previewing
-under `SPC m p`), add the following to your `.spacemacs`
-under `dotspacemacs/config`. Then when you open up a compiled PDF, the preview
-will update automatically when you recompile.
+under <kbd>SPC m p</kbd>), add the following to your `.spacemacs`
+under `dotspacemacs/config`:
 
 ```elisp
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 ```
+
+Then when you open up a compiled PDF, the preview will update automatically
+when you recompile.
 
 ## Keybindings
 
@@ -59,7 +62,7 @@ Key Binding         |                 Description
 <kbd>SPC m e  </kbd>| insert LaTeX environment
 <kbd>SPC m c  </kbd>| close LaTeX environment
 <kbd>SPC m i  </kbd>| insert `\item`
-<kbd>SPC m f  </kbd>| insert LaTeX font - full bindings here: [AUCTeX documentation](https://www.gnu.org/software/auctex/manual/auctex/Font-Specifiers.html)
+<kbd>SPC m f  </kbd>| insert LaTeX font - full bindings here: [AUCTeX documentation][AUCTeX Font]
 <kbd>SPC m C  </kbd>| TeX command on master file
 <kbd>SPC m p r <kbd>| preview region
 <kbd>SPC m p b</kbd>| preview buffer
@@ -71,10 +74,31 @@ Key Binding         |                 Description
 <kbd>SPC m p c</kbd>| clear previews
 <kbd>SPC m *</kbd>  | TeX documentation, can be very slow
 
+### RefTeX
+
+Key Binding            |                 Description
+-----------------------|------------------------------------------------------------------
+<kbd>SPC m r c</kbd>   | reftex-citation
+<kbd>SPC m r g</kbd>   | reftex-grep-document
+<kbd>SPC m r i</kbd>   | reftex-index-selection-or-word
+<kbd>SPC m r I</kbd>   | reftex-display-index
+<kbd>SPC m r C-i</kbd> | reftex-index
+<kbd>SPC m r l</kbd>   | reftex-label
+<kbd>SPC m r p</kbd>   | reftex-index-phrase-selection-or-word
+<kbd>SPC m r P</kbd>   | reftex-index-visit-phrases-buffer
+<kbd>SPC m r r</kbd>   | reftex-reference
+<kbd>SPC m r s</kbd>   | reftex-search-document
+<kbd>SPC m r t</kbd>   | reftex-toc
+<kbd>SPC m r T</kbd>   | reftex-toc-recenter
+<kbd>SPC m r v</kbd>   | reftex-view-crossref
+
 ## Maintainer
 
 This layer was created by and is maintained by @trishume, ping me in the Gitter
 chat if you have questions. Feel free to submit PRs for this layer though if
 you have improvements.
 
+[AUCTex]: https://savannah.gnu.org/projects/auctex/
+[AUCTeX Font]: https://www.gnu.org/software/auctex/manual/auctex/Font-Specifiers.html
+[RefTeX]: http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html
 [evil-matchit]: https://github.com/redguardtoo/evil-matchit
