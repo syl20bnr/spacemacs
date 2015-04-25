@@ -13,6 +13,7 @@
 ;; variables
 
 (spacemacs|defvar-company-backends python-mode)
+(spacemacs|defvar-company-backends pip-requirements-mode)
 
 (defvar python-enable-yapf-format-on-save nil
   "If non-nil, automatically format code with YAPF on save.")
