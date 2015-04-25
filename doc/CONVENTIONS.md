@@ -240,18 +240,18 @@ All header functionality should be grouped under <kbd>SPC m h</kbd>
 
 #### Text manipulation ####
 
-Text manipulation commands should be grouped under <kbd>SPC m t</kbd>
+Manipulation of text regions should be grouped under <kbd>SPC m r</kbd>
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>m t b</kbd>     | Make text bold
-<kbd>m t i</kbd>     | Make text italic
-<kbd>m t c</kbd>     | Make text code
-<kbd>m t u</kbd>     | Make text underlined
-<kbd>m t v</kbd>     | Make text verbose
-<kbd>m t s</kbd>     | Make text strike-through
-<kbd>m t q</kbd>     | Quote a text
-<kbd>m t <SPC></kbd> | Remove formatting from text
+<kbd>m r b</kbd>     | Make region bold
+<kbd>m r i</kbd>     | Make region italic
+<kbd>m r c</kbd>     | Make region code
+<kbd>m r u</kbd>     | Make region underlined
+<kbd>m r v</kbd>     | Make region verbose
+<kbd>m r s</kbd>     | Make region strike-through
+<kbd>m r q</kbd>     | Quote a region
+<kbd>m r <SPC></kbd> | Remove formatting from region
 
 #### Insertion of common elements ####
 
@@ -267,7 +267,7 @@ Insertion of common elements like links or footnotes should be grouped under <kb
 
 #### Movement in normal mode ####
 
-In normal mode Vim style movement should be enabled
+In normal mode Vim style movement should be enabled with these keybindings:
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
@@ -287,6 +287,10 @@ should be enabled with the following keys in any mode
 <kbd>M-k</kbd>       | Move element up
 <kbd>M-h</kbd>       | Promote heading by one level
 <kbd>M-l</kbd>       | Demote heading by one level
+
+#### Table editing ####
+
+If table specific commands are available the they are grouped under the <kbd>SPC m t</kbd> group.
 
 ### Tests
 
