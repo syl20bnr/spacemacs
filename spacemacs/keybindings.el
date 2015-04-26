@@ -66,7 +66,7 @@
   "bR"  'spacemacs/safe-revert-buffer
   "br"  'rename-current-buffer-file
   "bY"  'copy-whole-buffer-to-clipboard
-  "bw"  'toggle-read-only)
+  "bw"  'read-only-mode)
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
