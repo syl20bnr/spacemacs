@@ -17,7 +17,8 @@
     :diminish eyebrowse-mode
     :init
     (progn
-      (setq eyebrowse-new-workspace #'spacemacs/home)
+      (setq eyebrowse-new-workspace #'spacemacs/home
+            eyebrowse-wrap-around t)
       (eyebrowse-mode)
 
       (defun spacemacs/workspace-number ()
