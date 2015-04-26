@@ -17,11 +17,12 @@
     :diminish eyebrowse-mode
     :init
     (progn
+      (setq eyebrowse-new-workspace #'spacemacs/home)
       (eyebrowse-mode)
 
       (defun spacemacs/workspace-number ()
         "Return the number of the current workspace."
-        (let* ((num (eyebrowse-get 'current-slot))
+        (let* ((num (eyebrowse--get 'current-slot))
                (str (if num (int-to-string num))))
           (cond
            ((not dotspacemacs-mode-line-unicode-symbols) (concat " " str " "))
@@ -38,8 +39,8 @@
 
       (defun spacemacs//workspaces-ms-documentation ()
         "Return the docstring for the workspaces micro-state."
-        (let* ((current-slot (number-to-string (eyebrowse-get 'current-slot)))
-               (window-configs (eyebrowse-get 'window-configs))
+        (let* ((current-slot (number-to-string (eyebrowse--get 'current-slot)))
+               (window-configs (eyebrowse--get 'window-configs))
                (window-config-slots (mapcar (lambda (x)
                                               (number-to-string (car x)))
                                             window-configs)))
