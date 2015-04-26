@@ -2217,11 +2217,10 @@ displayed in the mode-line.")
                (face1 (if active 'powerline-active1 'powerline-inactive1))
                (face2 (if active 'powerline-active2 'powerline-inactive2))
                (state-face (if active (spacemacs/current-state-face) face2))
-               (window-numberingp (and (boundp 'window-numbering-mode)
-                                       (symbol-value window-numbering-mode)))
+               (eyebrowsep (bound-and-true-p eyebrowse-mode))
+               (window-numberingp (bound-and-true-p window-numbering-mode))
                (anzup (and (boundp 'anzu--state) anzu--state))
-               (flycheckp (and (boundp 'flycheck-mode)
-                               (symbol-value flycheck-mode)
+               (flycheckp (and (bound-and-true-p flycheck-mode)
                                (or flycheck-current-errors
                                    (eq 'running flycheck-last-status-change))))
                (vc-face (if (or flycheckp spacemacs-mode-line-minor-modesp)
@@ -2232,10 +2231,19 @@ displayed in the mode-line.")
                (separator-right (intern (format "powerline-%s-%s"
                                                 powerline-default-separator
                                                 (cdr powerline-default-separator-dir)))))
+
           (append
+           ;; workspace number
+           (when (and eyebrowsep (spacemacs/workspace-number))
+             (list (powerline-raw " " state-face)
+                   (powerline-raw (spacemacs/workspace-number) state-face)))
            ;; window number
            (if (and window-numberingp (spacemacs/window-number))
-               (list (powerline-raw (spacemacs/window-number) state-face))
+               (list (if eyebrowsep
+                         (powerline-raw "|" state-face)
+                       (powerline-raw " " state-face))
+                     (powerline-raw (spacemacs/window-number) state-face)
+                     (powerline-raw " " state-face))
              (list (powerline-raw (evil-state-property evil-state :tag t) state-face)))
            (if (and active anzup)
                (list (funcall separator-right state-face face1)
@@ -2742,16 +2750,16 @@ It is a string holding:
              (str (if num (int-to-string num))))
         (cond
          ((not dotspacemacs-mode-line-unicode-symbols) (concat " " str " "))
-         ((equal str "1")  " ➊ ")
-         ((equal str "2")  " ➋ ")
-         ((equal str "3")  " ➌ ")
-         ((equal str "4")  " ➍ ")
-         ((equal str "5")  " ➎ ")
-         ((equal str "6")  " ❻ ")
-         ((equal str "7")  " ➐ ")
-         ((equal str "8")  " ➑ ")
-         ((equal str "9")  " ➒ ")
-         ((equal str "0")  " ➓ "))))
+         ((equal str "1")  "➊")
+         ((equal str "2")  "➋")
+         ((equal str "3")  "➌")
+         ((equal str "4")  "➍")
+         ((equal str "5")  "➎")
+         ((equal str "6")  "❻")
+         ((equal str "7")  "➐")
+         ((equal str "8")  "➑")
+         ((equal str "9")  "➒")
+         ((equal str "0")  "➓"))))
 
     (defun spacemacs//window-numbering-assign (windows)
       "Custom number assignment for special buffers."
