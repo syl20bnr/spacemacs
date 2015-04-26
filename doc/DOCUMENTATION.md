@@ -1423,8 +1423,6 @@ Buffer manipulation commands (start with `b`):
 
 Key Binding            |              Description
 -----------------------|----------------------------------------------------------------
-<kbd>SPC b 0</kbd>     | move to the beginning of buffer (useful in `emacs state` buffers)
-<kbd>SPC b $</kbd>     | move to the end of buffer (useful in `emacs state` buffers)
 <kbd>SPC TAB</kbd>     | switch to alternate buffer (switch back and forth)
 <kbd>SPC b b</kbd>     | switch to a buffer using `helm`
 <kbd>SPC b d</kbd>     | kill the current buffer (does not delete the visited file)
