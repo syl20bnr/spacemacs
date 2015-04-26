@@ -16,6 +16,7 @@
     alect-themes
     ample-theme
     ample-zen-theme
+    apropospriate-theme
     anti-zenburn-theme
     ;; contains errors
     ; badger-theme
