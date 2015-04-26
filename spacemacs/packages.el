@@ -1275,7 +1275,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
                                            "z"
                                            "C-h")
             guide-key/recursive-key-sequence-flag t
-            guide-key/popup-window-position 'right
+            guide-key/popup-window-position 'bottom
             guide-key/idle-delay dotspacemacs-guide-key-delay
             guide-key/text-scale-amount 0
             ;; use this in your ~/.spacemacs file to enable tool tip in a
