@@ -47,5 +47,6 @@ pressed again, go to the beginning of the line.
 Key Binding   | Description
 --------------|------------------------------------------------------------
 `C-a`         | smart beginning of line
+`C-o`         | get into Vim normal mode to execute one command, then go back Emacs edit              | ing mode
 
 [Prelude]: https://github.com/bbatsov/prelude
