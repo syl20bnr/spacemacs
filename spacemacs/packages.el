@@ -2750,7 +2750,7 @@ It is a string holding:
       (let* ((num (window-numbering-get-number))
              (str (if num (int-to-string num))))
         (cond
-         ((not dotspacemacs-mode-line-unicode-symbols) (concat " " str " "))
+         ((not dotspacemacs-mode-line-unicode-symbols) str)
          ((equal str "1")  "➊")
          ((equal str "2")  "➋")
          ((equal str "3")  "➌")
