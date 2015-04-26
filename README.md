@@ -139,6 +139,9 @@ are extensively documented.
 If you need help, ask your question in the [Gitter Chat][] and a member of the
 community will help you out.
 
+If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
+`#syl20bnr/spacemacs` channel.
+
 # Prerequisites
 
 ## Emacs version
@@ -504,6 +507,7 @@ details.
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
+[Gitter Chat IRC server]: https://irc.gitter.im/
 [MacType]: https://code.google.com/p/mactype/
 [emacs-mac-port]: https://github.com/railwaycat/homebrew-emacsmacport
 [emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
