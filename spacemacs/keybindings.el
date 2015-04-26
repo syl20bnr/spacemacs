@@ -113,6 +113,10 @@ Ensure that helm is required before calling FUNC."
   "fS" 'evil-write-all
   "fs" 'evil-write
   "fy" 'show-and-copy-buffer-filename)
+;; frames ---------------------------------------------------------------------
+(evil-leader/set-key
+  "FN" 'set-frame-name
+  "Fn" 'select-frame-by-name)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
   "ij"  (lambda (count)

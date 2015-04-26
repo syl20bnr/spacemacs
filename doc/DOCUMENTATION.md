@@ -92,6 +92,7 @@
             - [Special Buffers](#special-buffers)
             - [Files manipulations key bindings](#files-manipulations-key-bindings)
             - [Emacs and Spacemacs files](#emacs-and-spacemacs-files)
+        - [Frames](#frames)
         - [Ido](#ido)
         - [Ido micro-state](#ido-micro-state)
         - [NeoTree file tree](#neotree-file-tree)
@@ -1494,6 +1495,15 @@ Key Binding                               |                 Description
 <kbd>SPC f e h</kbd>                      | discover `Spacemacs` layers and packages using `helm`
 <kbd>SPC f e i</kbd>                      | open the all mighty `init.el`
 <kbd>SPC f e s</kbd>                      | open `ido` in the `spacemacs` layer folder
+
+### Frames
+
+Convenient key bindings are located under the prefix <kbd>SPC F</kbd> for frame operations.
+
+Key Binding                               |                 Description
+------------------------------------------|----------------------------------------------------------------
+<kbd>SPC F N</kbd>                        | rename a frame
+<kbd>SPC F n</kbd>                        | switch to a named frame
 
 ### Ido
 
