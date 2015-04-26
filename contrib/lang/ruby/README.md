@@ -8,13 +8,17 @@
 - [Ruby contribution layer for Spacemacs](#ruby-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
-        - [Ruby version manager](#ruby-version-manager)
-    - [Prerequisites](#prerequisites)
-    - [Ruby version management](#ruby-version-management)
-    - [Rails support](#rails-support)
-   - [Key bindings](#key-bindings)
-        - [enh-ruby-mode](#enh-ruby-mode)
+        - [Prerequisites](#prerequisites)
+        - [Ruby version management](#ruby-version-management)
+        - [Rails support](#rails-support)
+    - [Key bindings](#key-bindings)
+        - [Ruby (enh-ruby-mode, robe, inf-ruby)](#ruby-enh-ruby-mode-robe-inf-ruby)
         - [ruby-test-mode](#ruby-test-mode)
+        - [Rails (projectile-rails)](#rails-projectile-rails)
+            - [Code Navigation](#code-navigation)
+            - [Refactoring](#refactoring)
+            - [RUN commands](#run-commands)
+            - [Ex-commands](#ex-commands)
 
 <!-- markdown-toc end -->
 
@@ -165,6 +169,11 @@ Key binding            | Description
 <kbd>SPC m r r :</kbd> | run rake task
 <kbd>SPC m r x s</kbd> | start rails server
 
+#### Ex-commands
+
+Key binding            | Description
+-----------------------|------------
+:A                     | Switch between implementation and tests
 
 [enh-ruby-mode]: https://github.com/zenspider/enhanced-ruby-mode
 [robe-mode]: https://github.com/dgutov/robe
