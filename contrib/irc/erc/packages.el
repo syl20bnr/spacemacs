@@ -42,7 +42,6 @@
             erc-server-coding-system '(utf-8 . utf-8))
       ;; keybindings
       (evil-leader/set-key-for-mode 'erc-mode
-        "mb" 'erc-iswitchb
         "md" 'erc-input-action
         "mj" 'erc-join-channel
         "mn" 'erc-channel-names
