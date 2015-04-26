@@ -13,9 +13,11 @@
 (defvar syntax-checking-packages
   '(
     flycheck
-    flycheck-pos-tip
     popwin
     ))
+
+(if syntax-checking-flycheck-pos-tip
+    (push 'flycheck-pos-tip syntax-checking-packages))
 
 (defvar syntax-checking-excluded-packages '()
   "Packages that use syntax-checking that are no longer necessary and might
@@ -119,6 +121,7 @@ conflict.")
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
+    :if syntax-checking-flycheck-pos-tip
     :defer t
     :init
     (setq flycheck-display-errors-function 'flycheck-pos-tip-error-messages)))
