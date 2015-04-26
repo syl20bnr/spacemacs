@@ -1390,8 +1390,12 @@ If ARG is non nil then `ag' and `pt' and ignored."
         (push '("^\*helm.+\*$" :regexp t) popwin:special-display-config))
       (defun spacemacs//display-helm-at-bottom ()
         "Display the helm buffer at the bottom of the frame."
-        (popwin:display-buffer helm-buffer t)
-        (popwin-mode -1))
+        ;; avoid Helm buffer being diplaye twice when user
+        ;; sets this variable to some function that pop buffer to
+        ;; a window. See https://github.com/syl20bnr/spacemacs/issues/1396
+        (let ((display-buffer-base-action '(nil)))
+          (popwin:display-buffer helm-buffer t)
+          (popwin-mode -1)))
       (add-hook 'helm-after-initialize-hook 'spacemacs//display-helm-at-bottom)
       ;;  Restore popwin-mode after a Helm session finishes.
       (add-hook 'helm-cleanup-hook 'popwin-mode)
@@ -2789,4 +2793,3 @@ It is a string holding:
       (setq winner-boring-buffers
             (append winner-boring-buffers spacemacs/winner-boring-buffers))
       (winner-mode t))))
-
