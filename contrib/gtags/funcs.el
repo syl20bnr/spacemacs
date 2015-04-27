@@ -10,6 +10,15 @@
 ;;
 ;;; License: GPLv3
 
+
+(defun helm-gtags-dwim-other-window ()
+  "helm-gtags-dwim in the other window"
+  (interactive)
+  (let ((helm-gtags--use-otherwin t)
+        (split-height-threshold nil)
+        (split-width-threshold 140))
+    (helm-gtags-dwim)))
+
 (defun spacemacs/helm-gtags-define-keys-for-mode (mode)
   "Define key bindings for the specific MODE."
   (when (fboundp mode)
@@ -20,6 +29,7 @@
       "mgd" 'helm-gtags-find-tag
       "mgf" 'helm-gtags-select-path
       "mgg" 'helm-gtags-dwim
+      "mgG" 'helm-gtags-dwim-other-window
       "mgi" 'helm-gtags-tags-in-this-function
       "mgl" 'helm-gtags-parse-file
       "mgn" 'helm-gtags-next-history
