@@ -86,7 +86,6 @@
         (define-key map [tab] 'company-complete-common)
         (define-key map (kbd "TAB") 'company-complete-common)
         (define-key map (kbd "<tab>") 'company-complete-common)
-        (define-key map [escape] 'company-abort)
         (define-key map (kbd "C-j") 'company-select-next)
         (define-key map (kbd "C-k") 'company-select-previous)
         (define-key map (kbd "C-/") 'company-search-candidates)
