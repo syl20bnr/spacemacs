@@ -80,12 +80,18 @@
       (spacemacs|diminish company-mode " ⓐ" " a")
       ;; key bindings
       ;; use TAB to auto-complete instead of RET
+      (defun spacemacs//company-complete-common-or-cycle-backward ()
+        "Complete common prefix or cycle backward."
+        (interactive)
+        (company-complete-common-or-cycle -1))
       (let ((map company-active-map))
         (define-key map [tab] 'company-complete-common-or-cycle)
         (define-key map (kbd "TAB") 'company-complete-common-or-cycle)
         (define-key map (kbd "<tab>") 'company-complete-common-or-cycle)
-        (define-key map (kbd "<S-tab>") (lambda () (interactive)
-                                          (company-complete-common-or-cycle -1)))
+        (define-key map (kbd "<S-tab>")
+          'spacemacs//company-complete-common-or-cycle-backward)
+        (define-key map (kbd "<backtab>")
+          'spacemacs//company-complete-common-or-cycle-backward)
         (define-key map (kbd "C-j") 'company-select-next)
         (define-key map (kbd "C-k") 'company-select-previous)
         (define-key map (kbd "C-/") 'company-search-candidates)
