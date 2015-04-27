@@ -20,9 +20,6 @@ Not used for now.")
 (defvar auto-completion-enable-company-help-tooltip nil
   "If non nil the docstring appears in a tooltip.")
 
-(defvar auto-completion-use-tab-instead-of-enter nil
-  "If non nil use tab instead of enter for completion.")
-
 (defvar company-mode-completion-cancel-keywords
   '("do"
     "then"

@@ -78,21 +78,10 @@
     :config
     (progn
       (spacemacs|diminish company-mode " ⓐ" " a")
-      ;; Set the completion key
-      (if auto-completion-use-tab-instead-of-enter
-          (progn
-            ;; have tab stand in for enter
-            (define-key company-active-map (kbd "TAB") 'company-complete-selection)
-            (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
-            (define-key company-active-map [tab] 'company-complete-selection)
-            ;;disable enter
-            (define-key company-active-map [return] nil)
-            (define-key company-active-map (kbd "RET") nil))
-        ;; Fix integration of company and yasnippet
-        (define-key company-active-map (kbd "TAB") nil)
-        (define-key company-active-map (kbd "<tab>") nil)
-        (define-key company-active-map [tab] nil))
       ;; key bindings
+      (define-key company-active-map [tab] 'company-complete-common)
+      (define-key company-active-map (kbd "TAB") 'company-complete-common)
+      (define-key company-active-map (kbd "<tab>") 'company-complete-common)
       (define-key company-active-map [escape] 'company-abort)
       (define-key company-active-map (kbd "C-j") 'company-select-next)
       (define-key company-active-map (kbd "C-k") 'company-select-previous)
@@ -109,8 +98,7 @@
       (defun spacemacs//company-transformer-cancel (candidates)
         "Cancel completion if prefix is in the list
 `company-mode-completion-cancel-keywords'"
-        (unless (and (member company-prefix company-mode-completion-cancel-keywords)
-                     (not auto-completion-use-tab-instead-of-enter))
+        (unless (member company-prefix company-mode-completion-cancel-keywords)
           candidates))
       (setq company-transformers '(spacemacs//company-transformer-cancel
                                    company-sort-by-occurrence)))))
