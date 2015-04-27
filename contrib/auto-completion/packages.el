@@ -79,15 +79,19 @@
     (progn
       (spacemacs|diminish company-mode " ⓐ" " a")
       ;; key bindings
-      (define-key company-active-map [tab] 'company-complete-common)
-      (define-key company-active-map (kbd "TAB") 'company-complete-common)
-      (define-key company-active-map (kbd "<tab>") 'company-complete-common)
-      (define-key company-active-map [escape] 'company-abort)
-      (define-key company-active-map (kbd "C-j") 'company-select-next)
-      (define-key company-active-map (kbd "C-k") 'company-select-previous)
-      (define-key company-active-map (kbd "C-/") 'company-search-candidates)
-      (define-key company-active-map (kbd "C-M-/") 'company-filter-candidates)
-      (define-key company-active-map (kbd "C-d") 'company-show-doc-buffer)
+      ;; use TAB to auto-complete instead of RET
+      (let ((map company-active-map))
+        (define-key map [return] 'nil)
+        (define-key map (kbd "RET") 'nil)
+        (define-key map [tab] 'company-complete-common)
+        (define-key map (kbd "TAB") 'company-complete-common)
+        (define-key map (kbd "<tab>") 'company-complete-common)
+        (define-key map [escape] 'company-abort)
+        (define-key map (kbd "C-j") 'company-select-next)
+        (define-key map (kbd "C-k") 'company-select-previous)
+        (define-key map (kbd "C-/") 'company-search-candidates)
+        (define-key map (kbd "C-M-/") 'company-filter-candidates)
+        (define-key map (kbd "C-d") 'company-show-doc-buffer))
       ;; Nicer looking faces
       (custom-set-faces
        '(company-tooltip-common
