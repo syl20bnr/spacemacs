@@ -81,11 +81,11 @@
       ;; key bindings
       ;; use TAB to auto-complete instead of RET
       (let ((map company-active-map))
-        (define-key map [return] 'nil)
-        (define-key map (kbd "RET") 'nil)
-        (define-key map [tab] 'company-complete-common)
-        (define-key map (kbd "TAB") 'company-complete-common)
-        (define-key map (kbd "<tab>") 'company-complete-common)
+        (define-key map [tab] 'company-complete-common-or-cycle)
+        (define-key map (kbd "TAB") 'company-complete-common-or-cycle)
+        (define-key map (kbd "<tab>") 'company-complete-common-or-cycle)
+        (define-key map (kbd "<S-tab>") (lambda () (interactive)
+                                          (company-complete-common-or-cycle -1)))
         (define-key map (kbd "C-j") 'company-select-next)
         (define-key map (kbd "C-k") 'company-select-previous)
         (define-key map (kbd "C-/") 'company-search-candidates)
