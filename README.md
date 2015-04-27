@@ -496,7 +496,6 @@ details.
 [CONTRIBUTE.md]: doc/CONTRIBUTE.md
 [powerline-seps]: doc/DOCUMENTATION.md#powerline-separators
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
-[dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
 [dotfile template]: ./core/templates/.spacemacs.template
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
 [osx layer]: contrib/osx/README.md
