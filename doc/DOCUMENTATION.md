@@ -841,7 +841,7 @@ Some graphical UI indicators can be toggled on and off
 <kbd>SPC T T</kbd>      | toggle frame transparency
 
 **Note** These toggles are all available via the `helm-spacemacs` interface
-(press <kbd>SPC fe h</kbd> to display the `helm-spacemacs` buffer).
+(press <kbd>SPC f e h</kbd> to display the `helm-spacemacs` buffer).
 
 ### Mouse usage
 
