@@ -8,6 +8,8 @@
 - [Syntax Checking configuration layer for Spacemacs](#syntax-checking-configuration-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
+        - [Layer](#layer)
+        - [Enabling/Disabling tooltips](#enablingdisabling-tooltips)
     - [Key Bindings](#key-bindings)
 
 <!-- markdown-toc end -->
@@ -18,11 +20,25 @@ This layer provides on the fly syntax checking using [Flycheck][] to Spacemacs.
 
 ## Install
 
+### Layer
+
 To use this configuration layer add it to your `~/.spacemacs`
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(syntax-checking))
 ```
+
+### Enabling/Disabling tooltips
+
+By default tooltips are enabled and used whenever it is possible.
+You can disable them by setting the variable `syntax-checking-enable-tooltips`
+to `nil`:
+
+```elisp
+(setq-default dotspacemacs-configuration-layers
+  '((syntax-checking :variables syntax-checking-enable-tooltips nil)))
+```
+
 
 ## Key Bindings
 

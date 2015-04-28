@@ -12,5 +12,5 @@
 
 ;; Variables
 
-(defvar syntax-checking-flycheck-pos-tip t
-  "If non nil the `flycheck-pos-tip` package is is enabled.")
+(defvar syntax-checking-enable-tooltips t
+  "If non nil some feedback are displayed in tooltips.")
