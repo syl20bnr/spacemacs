@@ -175,14 +175,11 @@
   (use-package web-beautify
     :defer t
     :init
-    (eval-after-load 'js2-mode
-      '(evil-leader/set-key-for-mode 'js2-mode "mb" 'web-beautify-js))
-    (eval-after-load 'json-mode
-      '(evil-leader/set-key-for-mode 'json-mode "mb" 'web-beautify-js))
-    (eval-after-load 'web-mode
-      '(evil-leader/set-key-for-mode 'web-mode "mb" 'web-beautify-html))
-    (eval-after-load 'css-mode
-      '(evil-leader/set-key-for-mode 'css-mode "mb" 'web-beautify-css))))
+    (progn
+      (evil-leader/set-key-for-mode 'js2-mode  "m=" 'web-beautify-js)
+      (evil-leader/set-key-for-mode 'json-mode "m=" 'web-beautify-js)
+      (evil-leader/set-key-for-mode 'web-mode  "m=" 'web-beautify-html)
+      (evil-leader/set-key-for-mode 'css-mode  "m=" 'web-beautify-css))))
 
 
 (when (configuration-layer/layer-usedp 'auto-completion)
