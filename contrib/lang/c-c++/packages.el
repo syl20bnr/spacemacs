@@ -127,13 +127,12 @@
       :init (push 'company-c-headers company-backends-c-mode-common))))
 
 
-(when (configuration-layer/layer-usedp 'ycmd)
-  (defun ycmd/post-init-ycmd ()
-    (add-hook 'c++-mode-hook 'ycmd-mode)
-    (evil-leader/set-key-for-mode 'c++-mode
-      "mgg" 'ycmd-goto
-      "mgG" 'ycmd-goto-imprecise))
+(defun c-c++/post-init-ycmd ()
+  (add-hook 'c++-mode-hook 'ycmd-mode)
+  (evil-leader/set-key-for-mode 'c++-mode
+    "mgg" 'ycmd-goto
+    "mgG" 'ycmd-goto-imprecise))
 
-  (defun ycmd/post-init-company-ycmd ()
-    (push '(company-ycmd :with company-yasnippet)
-          company-backends-c-mode-common)))
+(defun c-c++/post-init-company-ycmd ()
+  (push '(company-ycmd :with company-yasnippet)
+        company-backends-c-mode-common))
