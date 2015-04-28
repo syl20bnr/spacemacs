@@ -1395,20 +1395,22 @@ If ARG is non nil then `ag' and `pt' and ignored."
                   (unless (configuration-layer/package-usedp 'smex)
                     (evil-leader/set-key dotspacemacs-command-key 'helm-M-x))))
 
+      (add-to-list 'display-buffer-alist
+                    `(,(rx bos "*helm" (* not-newline) "*" eos)
+                         (display-buffer-in-side-window)
+                         (inhibit-same-window . t)
+                         (window-height . 0.4)))
       ;; disable popwin-mode in an active Helm session It should be disabled
       ;; otherwise it will conflict with other window opened by Helm persistent
       ;; action, such as *Help* window.
-      (when (configuration-layer/package-usedp 'popwin)
-        (push '("^\*helm.+\*$" :regexp t) popwin:special-display-config))
-      (defun spacemacs//display-helm-at-bottom ()
+      (defun spacemacs//helm-disable-popwin ()
         "Display the helm buffer at the bottom of the frame."
         ;; avoid Helm buffer being diplaye twice when user
         ;; sets this variable to some function that pop buffer to
         ;; a window. See https://github.com/syl20bnr/spacemacs/issues/1396
         (let ((display-buffer-base-action '(nil)))
-          (popwin:display-buffer helm-buffer t)
           (popwin-mode -1)))
-      (add-hook 'helm-after-initialize-hook 'spacemacs//display-helm-at-bottom)
+      (add-hook 'helm-after-initialize-hook 'spacemacs//helm-disable-popwin)
       ;;  Restore popwin-mode after a Helm session finishes.
       (add-hook 'helm-cleanup-hook 'popwin-mode)
 
