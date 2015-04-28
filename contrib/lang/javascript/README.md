@@ -105,6 +105,12 @@ Bindings should match the plain emacs assignments.
 <kbd>SPC m r w i</kbd>  | wraps the entire buffer in an immediately invoked function expression
 <kbd>SPC m r w l</kbd>  | wraps the region in a for-loop
 
+### Formatting (web-beautify)
+
+    Key Binding        |                 Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC m =</kbd>     | beautify code in js2-mode, json-mode, web-mode, and css-mode
+
 #### Documentation (js-doc)
 
     Key Binding        |                 Description
@@ -124,12 +130,6 @@ Bindings should match the plain emacs assignments.
 <kbd>SPC m h d</kbd>   | find docs of the thing under the cursor. Press again to open the associated URL (if any)
 <kbd>SPC m h t</kbd>   | find the type of the thing under the cursor
 <kbd>SPC m r r V</kbd> | rename variable under the cursor using tern
-
-### Formatting (web-beautify)
-
-    Key Binding        |                 Description
------------------------|------------------------------------------------------------
-<kbd>SPC m b</kbd>     | beautify code in js2-mode, json-mode, web-mode, and css-mode
 
 [js2-mode]: https://github.com/mooz/js2-mode
 [js2-refactor]: https://github.com/magnars/js2-refactor.el
