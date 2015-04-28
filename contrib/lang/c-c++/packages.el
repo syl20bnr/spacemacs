@@ -16,11 +16,13 @@
     cmake-mode
     company
     company-c-headers
+    company-ycmd
     flycheck
     helm-gtags
     semantic
     srefactor
     stickyfunc-enhance
+    ycmd
     ))
 
 (unless (version< emacs-version "24.4")
@@ -123,3 +125,15 @@
       :if (configuration-layer/package-usedp 'company)
       :defer t
       :init (push 'company-c-headers company-backends-c-mode-common))))
+
+
+(when (configuration-layer/layer-usedp 'ycmd)
+  (defun ycmd/post-init-ycmd ()
+    (add-hook 'c++-mode-hook 'ycmd-mode)
+    (evil-leader/set-key-for-mode 'c++-mode
+      "mgg" 'ycmd-goto
+      "mgG" 'ycmd-goto-imprecise))
+
+  (defun ycmd/post-init-company-ycmd ()
+    (push '(company-ycmd :with company-yasnippet)
+          company-backends-c-mode-common)))
