@@ -1,4 +1,4 @@
-;;; funcs.el --- Better Emacs Defaults Layer key bindings File
+;;; config.el --- Syntax Checking Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(global-set-key (kbd "C-a") 'spacemacs/smart-move-beginning-of-line)
+;; Variables
 
-;; emacs state bindings
-(define-key evil-emacs-state-map (kbd "C-o") 'evil-execute-in-normal-state)
+(defvar syntax-checking-enable-tooltips t
+  "If non nil some feedback are displayed in tooltips.")

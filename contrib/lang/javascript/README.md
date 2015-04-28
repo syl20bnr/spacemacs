@@ -12,9 +12,9 @@
         - [js2-mode](#js2-mode)
         - [Folding (js2-mode)](#folding-js2-mode)
         - [Refactoring (js2-refactor)](#refactoring-js2-refactor)
+            - [Documentation (js-doc)](#documentation-js-doc)
         - [Auto-complete and documentation (tern)](#auto-complete-and-documentation-tern)
-        - [Refactoring](#refactoring)
-            - [Documentation](#documentation)
+        - [Formatting (web-beautify)](#formatting-web-beautify)
 
 <!-- markdown-toc end -->
 
@@ -27,6 +27,7 @@ Main features:
 - Refactoring: done using [js2-refactor][].
 - Auto-completion and documentation: provided by [tern][]
 - CoffeeScript support
+- Formatting with [web-beautify][]
 
 ## Install
 
@@ -38,6 +39,11 @@ To use this contribution add it to your `~/.spacemacs`
 
 You will also need to install `tern` to use the auto-completion and
 documentation features:
+
+```shell
+$ npm install -g tern
+```
+To use the formatting features, install `js-beautify`:
 
 ```shell
 $ npm install -g tern
@@ -99,6 +105,12 @@ Bindings should match the plain emacs assignments.
 <kbd>SPC m r w i</kbd>  | wraps the entire buffer in an immediately invoked function expression
 <kbd>SPC m r w l</kbd>  | wraps the region in a for-loop
 
+### Formatting (web-beautify)
+
+    Key Binding        |                 Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC m =</kbd>     | beautify code in js2-mode, json-mode, web-mode, and css-mode
+
 #### Documentation (js-doc)
 
     Key Binding        |                 Description
@@ -123,3 +135,4 @@ Bindings should match the plain emacs assignments.
 [js2-refactor]: https://github.com/magnars/js2-refactor.el
 [tern]: http://ternjs.net/
 [js-doc]: https://github.com/mooz/js-doc/
+[web-beautify]: https://github.com/yasuyk/web-beautify

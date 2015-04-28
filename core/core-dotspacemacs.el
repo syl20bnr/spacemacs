@@ -27,7 +27,7 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')")
   "List of additional packages that will be installed wihout being
 wrapped in a layer. If you need some configuration for these
 packages then consider to create a layer, you can also put the
-configuration in `dostspacemacs/config'.")
+configuration in `dotspacemacs/config'.")
 
 (defvar dotspacemacs-editing-style 'vim
   "Either `vim' or `emacs'. Evil is always enabled but if the variable

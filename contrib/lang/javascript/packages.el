@@ -21,6 +21,7 @@
     json-mode
     tern
     js-doc
+    web-beautify
     ))
 
 (defun javascript/init-coffee-mode ()
@@ -169,6 +170,17 @@
       (evil-leader/set-key-for-mode 'js2-mode "mrdf" 'js-doc-insert-function-doc)
       (evil-leader/set-key-for-mode 'js2-mode "mrdt" 'js-doc-insert-tag)
       (evil-leader/set-key-for-mode 'js2-mode "mrdh" 'js-doc-describe-tag))))
+
+(defun javascript/init-web-beautify ()
+  (use-package web-beautify
+    :defer t
+    :init
+    (progn
+      (evil-leader/set-key-for-mode 'js2-mode  "m=" 'web-beautify-js)
+      (evil-leader/set-key-for-mode 'json-mode "m=" 'web-beautify-js)
+      (evil-leader/set-key-for-mode 'web-mode  "m=" 'web-beautify-html)
+      (evil-leader/set-key-for-mode 'css-mode  "m=" 'web-beautify-css))))
+
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun javascript/post-init-company ()

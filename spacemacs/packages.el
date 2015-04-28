@@ -691,6 +691,18 @@ Example: (evil-map visual \"<\" \"<gv\")"
           (error (evil-lookup))))
       (define-key evil-normal-state-map (kbd "K") 'spacemacs/smart-doc-lookup)
 
+      (defun spacemacs/evil-smart-goto-definition ()
+        "Version of `evil-goto-definition' that attempts to use
+        the mode specific goto-definition binding,
+        i.e. `SPC m g g`, to lookup the source of the definition,
+        while falling back to `evil-goto-definition'."
+        (interactive)
+        (condition-case nil
+            (execute-kbd-macro (kbd "SPC m g g"))
+          (error (evil-goto-definition))))
+      (define-key evil-normal-state-map
+        (kbd "gd") 'spacemacs/evil-smart-goto-definition)
+
       ;; scrolling micro state
       (defun spacemacs/scroll-half-page-up ()
         "Scroll half a page up while keeping cursor in middle of page."
@@ -1276,7 +1288,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
                                            "z"
                                            "C-h")
             guide-key/recursive-key-sequence-flag t
-            guide-key/popup-window-position 'right
+            guide-key/popup-window-position 'bottom
             guide-key/idle-delay dotspacemacs-guide-key-delay
             guide-key/text-scale-amount 0
             ;; use this in your ~/.spacemacs file to enable tool tip in a
@@ -1390,8 +1402,12 @@ If ARG is non nil then `ag' and `pt' and ignored."
         (push '("^\*helm.+\*$" :regexp t) popwin:special-display-config))
       (defun spacemacs//display-helm-at-bottom ()
         "Display the helm buffer at the bottom of the frame."
-        (popwin:display-buffer helm-buffer t)
-        (popwin-mode -1))
+        ;; avoid Helm buffer being diplaye twice when user
+        ;; sets this variable to some function that pop buffer to
+        ;; a window. See https://github.com/syl20bnr/spacemacs/issues/1396
+        (let ((display-buffer-base-action '(nil)))
+          (popwin:display-buffer helm-buffer t)
+          (popwin-mode -1)))
       (add-hook 'helm-after-initialize-hook 'spacemacs//display-helm-at-bottom)
       ;;  Restore popwin-mode after a Helm session finishes.
       (add-hook 'helm-cleanup-hook 'popwin-mode)
@@ -2789,4 +2805,3 @@ It is a string holding:
       (setq winner-boring-buffers
             (append winner-boring-buffers spacemacs/winner-boring-buffers))
       (winner-mode t))))
-

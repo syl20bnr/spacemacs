@@ -66,7 +66,7 @@
   "bR"  'spacemacs/safe-revert-buffer
   "br"  'rename-current-buffer-file
   "bY"  'copy-whole-buffer-to-clipboard
-  "bw"  'toggle-read-only)
+  "bw"  'read-only-mode)
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
@@ -81,6 +81,7 @@ Ensure that helm is required before calling FUNC."
          (require 'helm)
          (call-interactively ',func))
        (evil-leader/set-key ,keys ',func-name))))
+(spacemacs||set-helm-key "hdb" describe-bindings)
 (spacemacs||set-helm-key "hdc" describe-char)
 (spacemacs||set-helm-key "hdf" describe-function)
 (spacemacs||set-helm-key "hdk" describe-key)
@@ -104,6 +105,7 @@ Ensure that helm is required before calling FUNC."
   "fes" 'find-spacemacs-file
   "fec" 'find-contrib-file
   "fed" 'find-dotfile
+  "feD" 'ediff-dotfile-and-template
   "feR" 'dotspacemacs/sync-configuration-layers
   "fev" 'spacemacs/display-and-copy-version
   "fF" 'ido-find-file
@@ -130,6 +132,7 @@ Ensure that helm is required before calling FUNC."
 (evil-leader/set-key
   "J"  'sp-split-sexp
   "jj" 'sp-newline
+  "jo" 'open-line
   "j=" 'spacemacs/indent-region-or-buffer
   "jJ" 'spacemacs/split-and-new-line
   "jk" 'evil-goto-next-line-and-indent)
