@@ -1399,7 +1399,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
       ;; otherwise it will conflict with other window opened by Helm persistent
       ;; action, such as *Help* window.
       (when (configuration-layer/package-usedp 'popwin)
-        (push '("^\*helm.+\*$" :regexp t) popwin:special-display-config))
+        (push '("^\*helm.+\*$" :regexp t :height 0.33) popwin:special-display-config))
       (defun spacemacs//display-helm-at-bottom ()
         "Display the helm buffer at the bottom of the frame."
         ;; avoid Helm buffer being diplaye twice when user
