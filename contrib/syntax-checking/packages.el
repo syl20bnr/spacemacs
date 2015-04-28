@@ -13,11 +13,9 @@
 (setq syntax-checking-packages
   '(
     flycheck
+    flycheck-pos-tip
     popwin
     ))
-
-(if syntax-checking-flycheck-pos-tip
-    (push 'flycheck-pos-tip syntax-checking-packages))
 
 (defun syntax-checking/init-flycheck ()
   (use-package flycheck
@@ -117,7 +115,7 @@
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
-    :if syntax-checking-flycheck-pos-tip
+    :if syntax-checking-enable-tooltips
     :defer t
     :init
     (setq flycheck-display-errors-function 'flycheck-pos-tip-error-messages)))
