@@ -691,16 +691,17 @@ Example: (evil-map visual \"<\" \"<gv\")"
           (error (evil-lookup))))
       (define-key evil-normal-state-map (kbd "K") 'spacemacs/smart-doc-lookup)
 
-      (defun spacemacs/smart-goto-definition ()
+      (defun spacemacs/evil-smart-goto-definition ()
         "Version of `evil-goto-definition' that attempts to use
-        the mode the mode specific goto-definition binding,
+        the mode specific goto-definition binding,
         i.e. `SPC m g g`, to lookup the source of the definition,
         while falling back to `evil-goto-definition'."
         (interactive)
         (condition-case nil
             (execute-kbd-macro (kbd "SPC m g g"))
           (error (evil-goto-definition))))
-      (define-key evil-normal-state-map (kbd "gd") 'spacemacs/smart-goto-definition)
+      (define-key evil-normal-state-map
+        (kbd "gd") 'spacemacs/evil-smart-goto-definition)
 
       ;; scrolling micro state
       (defun spacemacs/scroll-half-page-up ()
