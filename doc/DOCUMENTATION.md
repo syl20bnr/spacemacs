@@ -1492,9 +1492,12 @@ Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC f e c</kbd>                      | open `ido` in the `contrib` folder
 <kbd>SPC f e d</kbd>                      | open the spacemacs dotfile (`~/.spacemacs`)
+<kbd>SPC f e D</kbd>                      | open `ediff` buffer of `~/.spacemacs` and `.spacemacs.template`
 <kbd>SPC f e h</kbd>                      | discover `Spacemacs` layers and packages using `helm`
 <kbd>SPC f e i</kbd>                      | open the all mighty `init.el`
+<kbd>SPC f e R</kbd>                      | resync the dotfile with spacemacs
 <kbd>SPC f e s</kbd>                      | open `ido` in the `spacemacs` layer folder
+<kbd>SPC f e v</kbd>                      | display and copy the spacemacs version
 
 ### Ido
 
