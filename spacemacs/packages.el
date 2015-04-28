@@ -1376,22 +1376,36 @@ If ARG is non nil then `ag' and `pt' and ignored."
                   (unless (configuration-layer/package-usedp 'smex)
                     (evil-leader/set-key dotspacemacs-command-key 'helm-M-x))))
 
-      ;; disable popwin-mode in an active Helm session It should be disabled
-      ;; otherwise it will conflict with other window opened by Helm persistent
-      ;; action, such as *Help* window.
-      (when (configuration-layer/package-usedp 'popwin)
-        (push '("^\*helm.+\*$" :regexp t) popwin:special-display-config))
+      (defvar spacemacs-helm-display-buffer-regexp `(,(rx bos "*helm" (* not-newline) "*" eos)
+                                                     (display-buffer-in-side-window)
+                                                     (inhibit-same-window . t)
+                                                     (window-height . 0.4)))
+      (defvar spacemacs-display-buffer-alist nil)
+
       (defun spacemacs//display-helm-at-bottom ()
         "Display the helm buffer at the bottom of the frame."
         ;; avoid Helm buffer being diplaye twice when user
         ;; sets this variable to some function that pop buffer to
         ;; a window. See https://github.com/syl20bnr/spacemacs/issues/1396
         (let ((display-buffer-base-action '(nil)))
-          (popwin:display-buffer helm-buffer t)
+          ;; backup old display-buffer-base-action
+          (setq spacemacs-display-buffer-alist display-buffer-alist)
+          ;; the only buffer to display is Helm, nothing else we must set this
+          ;; otherwise Helm cannot reuse its own windows for copyinng/deleting
+          ;; etc... because of existing popwin buffers in the alist
+          (setq display-buffer-alist (list spacemacs-helm-display-buffer-regexp))
           (popwin-mode -1)))
+
+      (defun spacemacs//restore-previous-display-config ()
+        (popwin-mode 1)
+        ;; we must enable popwin-mode first then restore `display-buffer-alist'
+        ;; Otherwise, popwin keeps adding up its own buffers to `display-buffer-alist'
+        ;; and could slow down Emacs as the list grows
+        (setq display-buffer-alist spacemacs-display-buffer-alist))
+
       (add-hook 'helm-after-initialize-hook 'spacemacs//display-helm-at-bottom)
       ;;  Restore popwin-mode after a Helm session finishes.
-      (add-hook 'helm-cleanup-hook 'popwin-mode)
+      (add-hook 'helm-cleanup-hook 'spacemacs//restore-previous-display-config)
 
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
@@ -2109,10 +2123,21 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (popwin-mode 1)
       (evil-leader/set-key "wpm" 'popwin:messages)
       (evil-leader/set-key "wpp" 'popwin:close-popup-window)
-      (push '("*ert*"                      :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
-      (push '("*grep*"                     :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
-      (push '("*nosetests*"                :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
-      (push '("^\*WoMan.+\*$"    :regexp t              :position bottom                     ) popwin:special-display-config)
+
+      ;; don't use default value but manage it ourselves
+      (setq popwin:special-display-config nil)
+
+      ;; buffers that we manage
+      (push '("*Help*"                 :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
+      (push '("*compilation*"          :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
+      (push '("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
+      (push '("*Async Shell Command*"  :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
+      (push '(" *undo-tree*"           :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
+      (push '("*ert*"                  :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
+      (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
+      (push '("*nosetests*"            :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
+      (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                 ) popwin:special-display-config)
+
       (defun spacemacs/remove-popwin-display-config (str)
         "Removes the popwin display configurations that matches the passed STR"
         (setq popwin:special-display-config
