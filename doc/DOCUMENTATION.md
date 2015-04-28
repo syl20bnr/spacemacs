@@ -1152,6 +1152,7 @@ thusly:
 
 Key Binding          |                 Description
 ---------------------|------------------------------------------------------------------
+<kbd>SPC h d b</kbd> | describe bindings in a `helm` buffer
 <kbd>SPC h d c</kbd> | describe current character under point
 <kbd>SPC h d f</kbd> | describe a function
 <kbd>SPC h d k</kbd> | describe a key
