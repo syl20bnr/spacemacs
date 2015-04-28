@@ -39,9 +39,9 @@
     (defun no-linum (&rest ignore)
       (when (or 'linum-mode global-linum-mode)
         (linum-mode 0)))
-    (add-hook 'erc-mode-hook 'no-linum)
-    (add-hook 'erc-hook 'no-linum)
-    (add-hook 'erc-insert-pre-hook 'no-linum)
+    (add-to-hooks 'no-linum '(erc-hook
+                              erc-mode-hook
+                              erc-insert-pre-hook))
     :config
     (progn
       (use-package erc-autoaway
@@ -86,68 +86,66 @@
 
 (defun erc/init-erc-hl-nicks ()
   (use-package erc-hl-nicks
-    :init
+    :defer t
+    ;; may need a hook ?
     ))
 
 (defun erc/init-erc-social-graph ()
   (use-package erc-social-graph
-    :config
-    (erc-social-graph-enable)
-    (setq erc-social-graph-dynamic-graph t)
-
-    (evil-leader/set-key-for-mode 'erc-mode
-      "mD" 'erc-social-graph-draw)
-    ))
+    :init
+    (progn
+      ;; does not exist ?
+      ;; (erc-social-graph-enable)
+      (setq erc-social-graph-dynamic-graph t)
+      (evil-leader/set-key-for-mode 'erc-mode
+        "mD" 'erc-social-graph-draw))))
 
 (defun erc/init-erc-yt ()
   (use-package erc-yt
-    :config
-    (add-to-list 'erc-modules 'youtube)
-    ))
+    :init (eval-after-load 'erc '(add-to-list 'erc-modules 'youtube))))
 
 (defun erc/init-erc-view-log ()
   (use-package erc-view-log
     :init
-    (add-to-list 'erc-modules 'log)
-    (setq erc-log-channels-directory
-          (expand-file-name
-           (concat spacemacs-cache-directory
-                   "erc-logs")))
-    (unless (file-exists-p erc-log-channels-directory)
-      (make-directory erc-log-channels-directory))
+    (progn
+      (eval-after-load 'erc '(add-to-list 'erc-modules 'log))
+      (setq erc-log-channels-directory
+            (expand-file-name
+             (concat spacemacs-cache-directory
+                     "erc-logs")))
+      (unless (file-exists-p erc-log-channels-directory)
+        (make-directory erc-log-channels-directory)))
 
     :config
     ;; ERC Logging
-    (add-to-list 'auto-mode-alist
-                 `(,(format "%s/.*\\.[log|txt]"
-                            (regexp-quote
-                             (expand-file-name
-                              erc-log-channels-directory))) . erc-view-log-mode))
-    ;; Following https://raw.githubusercontent.com/Niluge-KiWi/erc-view-log/master/erc-view-log.el
-    ;; installation instructions
-    (add-hook 'erc-view-log-mode-hook 'turn-on-auto-revert-tail-mode)
+    (progn
+      (add-to-list 'auto-mode-alist
+                   `(,(format "%s/.*\\.[log|txt]"
+                              (regexp-quote
+                               (expand-file-name
+                                erc-log-channels-directory))) . erc-view-log-mode))
+      ;; Following https://raw.githubusercontent.com/Niluge-KiWi/erc-view-log/master/erc-view-log.el
+      ;; installation instructions
+      (add-hook 'erc-view-log-mode-hook 'turn-on-auto-revert-tail-mode)
 
 
-    (defun spacemacs//erc-log-ms-documentation ()
-      "Return the docstring for the workspaces micro-state."
-      (concat
-       "\n[r]  to reload the log file"
-       "[>], [<] to go to the next/prev mention"))
+      (defun spacemacs//erc-log-ms-documentation ()
+        "Return the docstring for the workspaces micro-state."
+        (concat
+         "\n[r]  to reload the log file"
+         "[>], [<] to go to the next/prev mention"))
 
-    (spacemacs|define-micro-state erc-log
-      :doc (spacemacs//erc-log-ms-documentation)
-      :use-minibuffer t
-      :evil-leader "m."
-      :bindings
-      ("r" erc-view-log-reload-file)
-      (">" erc-view-log-next-mention)
-      ("<" erc-view-log-previous-mention))
-    ))
+      (spacemacs|define-micro-state erc-log
+        :doc (spacemacs//erc-log-ms-documentation)
+        :use-minibuffer t
+        :evil-leader "m."
+        :bindings
+        ("r" erc-view-log-reload-file)
+        (">" erc-view-log-next-mention)
+        ("<" erc-view-log-previous-mention)))))
 
 (defun erc/init-erc-image ()
   (use-package erc-image
-    :config
-    (add-to-list 'erc-modules 'image)
-    ))
+    :init (eval-after-load 'erc '(add-to-list 'erc-modules 'image))))
 
 (defun erc/init-erc-terminal-notifier ())
