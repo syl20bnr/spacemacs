@@ -1287,6 +1287,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     (progn
       (setq helm-prevent-escaping-from-minibuffer t
             helm-bookmark-show-location t
+            helm-display-header-line nil
             helm-split-window-in-side-p t
             helm-always-two-windows t)
 
