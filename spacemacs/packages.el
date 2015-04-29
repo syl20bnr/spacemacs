@@ -2410,7 +2410,8 @@ It is a string holding:
                 ;; percentage in the file
                 (powerline-raw "%p" line-face 'r)
                 ;; display hud
-                (powerline-chamfer-left line-face face1)
+                ;; Not sure why but commenting out next line fixes #1426
+                ;; (powerline-chamfer-left line-face face1)
                 (if (string-match "\%" progress)
                     (powerline-hud state-face face1))))))))
 
