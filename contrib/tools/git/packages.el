@@ -71,13 +71,14 @@
   (if (and (not git-gutter-use-fringe)
            (or 'linum-mode global-linum-mode))
       (git-gutter:linum-setup))
-  (with-eval-after-load (or 'git-gutter 'git-gutter-fringe)
-    (evil-leader/set-key
-      "ghs" 'git-gutter:stage-hunk
-      "ghr" 'git-gutter:revert-hunk
-      "ghN" 'git-gutter:previous-hunk
-      "ghn" 'git-gutter:next-hunk
-      "ghp" 'git-gutter:popup-hunk)))
+  (eval-after-load (or 'git-gutter 'git-gutter-fringe)
+    (progn
+      (evil-leader/set-key
+        "ghs" 'git-gutter:stage-hunk
+        "ghr" 'git-gutter:revert-hunk
+        "ghN" 'git-gutter:previous-hunk
+        "ghn" 'git-gutter:next-hunk
+        "ghp" 'git-gutter:popup-hunk))))
 
 (defun git/init-git-gutter ()
   (use-package git-gutter
