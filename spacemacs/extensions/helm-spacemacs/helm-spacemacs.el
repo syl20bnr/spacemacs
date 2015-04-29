@@ -112,8 +112,8 @@
                  (concat (ht-get configuration-layer-paths
                                  (intern candidate))
                          candidate)))))
-    (if (or (equal (file-name-extension file) "md")
-            helm-current-prefix-arg)
+    (if (and (equal (file-name-extension file) "md")
+             (not helm-current-prefix-arg))
         (condition-case nil
             (with-current-buffer (find-file-noselect (concat path file))
               (gh-md-render-buffer)
