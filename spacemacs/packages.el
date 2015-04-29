@@ -677,22 +677,25 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (evil-map visual "<" "<gv")
       (evil-map visual ">" ">gv")
 
-      (defun spacemacs/smart-doc-lookup ()
-        "Bind K to SPC m h h and fall back to `evil-lookup'"
+      (defun spacemacs/evil-smart-doc-lookup ()
+        "Version of `evil-lookup' that attempts to use
+        the mode specific goto-definition binding,
+        i.e. `SPC m h h`, to lookup the source of the definition,
+        while falling back to `evil-lookup'"
         (interactive)
         (condition-case nil
-            (execute-kbd-macro (kbd "SPC m h h"))
+            (execute-kbd-macro (kbd (concat dotspacemacs-leader-key " m h h")))
           (error (evil-lookup))))
-      (define-key evil-normal-state-map (kbd "K") 'spacemacs/smart-doc-lookup)
+      (define-key evil-normal-state-map (kbd "K") 'spacemacs/evil-smart-doc-lookup)
 
       (defun spacemacs/evil-smart-goto-definition ()
         "Version of `evil-goto-definition' that attempts to use
         the mode specific goto-definition binding,
         i.e. `SPC m g g`, to lookup the source of the definition,
-        while falling back to `evil-goto-definition'."
+        while falling back to `evil-goto-definition'"
         (interactive)
         (condition-case nil
-            (execute-kbd-macro (kbd "SPC m g g"))
+            (execute-kbd-macro (kbd (concat dotspacemacs-leader-key "m g g")))
           (error (evil-goto-definition))))
       (define-key evil-normal-state-map
         (kbd "gd") 'spacemacs/evil-smart-goto-definition)
