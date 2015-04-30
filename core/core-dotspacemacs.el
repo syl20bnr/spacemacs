@@ -13,7 +13,8 @@
   (expand-file-name (concat spacemacs-core-directory "templates/"))
   "Templates directory.")
 
-(defconst dotspacemacs-filepath "~/.spacemacs"
+(defconst dotspacemacs-filepath
+  (concat user-home-directory ".spacemacs")
   "Filepath to the installed dotfile.")
 
 (defvar dotspacemacs-verbose-loading nil
@@ -180,7 +181,7 @@ If ARG is non nil then `dotspacemacs/config' is skipped."
 
 (defun dotspacemacs/location ()
   "Return the absolute path to the spacemacs dotfile."
-  (concat user-home-directory ".spacemacs"))
+  dotspacemacs-filepath)
 
 (defun dotspacemacs/copy-template ()
   "Copy `.spacemacs.template' in home directory. Ask for confirmation
