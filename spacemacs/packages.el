@@ -19,7 +19,6 @@
     aggressive-indent
     auto-dictionary
     auto-highlight-symbol
-    base16-theme
     bind-key
     bookmark
     buffer-move
@@ -60,7 +59,6 @@
     guide-key-tip
     helm
     helm-ag
-    helm-c-yasnippet
     helm-descbinds
     helm-flyspell
     helm-make
@@ -73,7 +71,6 @@
     highlight-indentation
     highlight-numbers
     highlight-parentheses
-    hippie-exp
     hl-anything
     hungry-delete
     ido-vertical-mode
@@ -82,7 +79,6 @@
     indent-guide
     leuven-theme
     linum-relative
-    monokai-theme
     move-text
     multi-term
     neotree
@@ -105,8 +101,6 @@
     whitespace
     window-numbering
     winner
-    yasnippet
-    zenburn-theme
     ))
 
 (setq spacemacs-excluded-packages '())
@@ -236,8 +230,6 @@
       (add-hook 'flyspell-mode-hook '(lambda () (auto-dictionary-mode 1)))
       (evil-leader/set-key
         "Sd" 'adict-change-dictionary))))
-
-(defun spacemacs/init-base16-theme ())
 
 (defun spacemacs/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol
@@ -673,6 +665,24 @@
 
       (evil-leader/set-key "re" 'evil-show-registers)
 
+      (defmacro evil-map (state key seq)
+        "Map for a given STATE a KEY to a sequence SEQ of keys.
+
+Can handle recursive definition only if KEY is the first key of SEQ.
+Example: (evil-map visual \"<\" \"<gv\")"
+        (let ((map (intern (format "evil-%S-state-map" state))))
+          `(define-key ,map ,key
+             (lambda ()
+               (interactive)
+               ,(if (string-equal key (substring seq 0 1))
+                    `(progn
+                       (call-interactively ',(lookup-key evil-normal-state-map key))
+                       (execute-kbd-macro ,(substring seq 1)))
+                  (execute-kbd-macro ,seq))))))
+      ;; Keep the region active when shifting
+      (evil-map visual "<" "<gv")
+      (evil-map visual ">" ">gv")
+
       (defun spacemacs/smart-doc-lookup ()
         "Bind K to SPC m h h and fall back to `evil-lookup'"
         (interactive)
@@ -680,6 +690,18 @@
             (execute-kbd-macro (kbd "SPC m h h"))
           (error (evil-lookup))))
       (define-key evil-normal-state-map (kbd "K") 'spacemacs/smart-doc-lookup)
+
+      (defun spacemacs/evil-smart-goto-definition ()
+        "Version of `evil-goto-definition' that attempts to use
+        the mode specific goto-definition binding,
+        i.e. `SPC m g g`, to lookup the source of the definition,
+        while falling back to `evil-goto-definition'."
+        (interactive)
+        (condition-case nil
+            (execute-kbd-macro (kbd "SPC m g g"))
+          (error (evil-goto-definition))))
+      (define-key evil-normal-state-map
+        (kbd "gd") 'spacemacs/evil-smart-goto-definition)
 
       ;; scrolling micro state
       (defun spacemacs/scroll-half-page-up ()
@@ -916,13 +938,14 @@
     (progn
       (defun spacemacs/evil-numbers-micro-state-doc ()
         "Display a short documentation in the mini buffer."
-        (echo "+ to increase the value or - to decrease it"))
+        (echo "+/= to increase the value or - to decrease it"))
 
       (defun spacemacs/evil-numbers-micro-state-overlay-map ()
         "Set a temporary overlay map to easily increase or decrease a number"
         (set-temporary-overlay-map
          (let ((map (make-sparse-keymap)))
            (define-key map (kbd "+") 'spacemacs/evil-numbers-increase)
+           (define-key map (kbd "=") 'spacemacs/evil-numbers-increase)
            (define-key map (kbd "-") 'spacemacs/evil-numbers-decrease)
            map) t)
         (spacemacs/evil-numbers-micro-state-doc))
@@ -938,6 +961,7 @@
         (evil-numbers/dec-at-pt amount)
         (spacemacs/evil-numbers-micro-state-overlay-map))
       (evil-leader/set-key "n+" 'spacemacs/evil-numbers-increase)
+      (evil-leader/set-key "n=" 'spacemacs/evil-numbers-increase)
       (evil-leader/set-key "n-" 'spacemacs/evil-numbers-decrease))))
 
 (defun spacemacs/init-evil-search-highlight-persist ()
@@ -945,14 +969,15 @@
     :init
     (progn
       (global-evil-search-highlight-persist)
-      (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
-                          :inherit 'region
-                          :background nil)
       ;; (set-face-attribute )
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
       (define-key evil-search-highlight-persist-map (kbd "C-x SPC") 'rectangle-mark-mode)
       (evil-ex-define-cmd "nohlsearch"
-                          'evil-search-highlight-persist-remove-all))))
+                          'evil-search-highlight-persist-remove-all))
+    :config
+    (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
+                          :inherit 'region
+                          :background nil)))
 
 (defun spacemacs/init-evil-surround ()
   (use-package evil-surround
@@ -1263,7 +1288,7 @@
                                            "z"
                                            "C-h")
             guide-key/recursive-key-sequence-flag t
-            guide-key/popup-window-position 'right
+            guide-key/popup-window-position 'bottom
             guide-key/idle-delay dotspacemacs-guide-key-delay
             guide-key/text-scale-amount 0
             ;; use this in your ~/.spacemacs file to enable tool tip in a
@@ -1280,12 +1305,20 @@
     :defer t
     :init
     (progn
-
       (setq helm-prevent-escaping-from-minibuffer t
-            helm-split-window-in-side-p nil
             helm-bookmark-show-location t
-            helm-buffers-fuzzy-matching t
-            helm-always-two-windows     t)
+            helm-split-window-in-side-p t
+            helm-always-two-windows t)
+
+      ;; fuzzy matching setting
+      (setq helm-M-x-fuzzy-match t
+            helm-apropos-fuzzy-match t
+            helm-file-cache-fuzzy-match t
+            helm-imenu-fuzzy-match t
+            helm-lisp-fuzzy-completion t
+            helm-locate-fuzzy-match t
+            helm-recentf-fuzzy-match t
+            helm-semantic-fuzzy-match t)
 
       (defun spacemacs/helm-do-ack ()
         "Perform a search with ack using `helm-ag.'"
@@ -1337,9 +1370,9 @@ If ARG is non nil then `ag' and `pt' and ignored."
 
       (evil-leader/set-key
         "<f1>" 'helm-apropos
-        "bs"  'helm-mini
+        "bb"  'helm-mini
         "Cl"  'helm-colors
-        "fh"  'helm-find-files
+        "ff"  'helm-find-files
         "fr"  'helm-recentf
         "hb"  'helm-bookmarks
         "hi"  'helm-info-at-point
@@ -1365,10 +1398,19 @@ If ARG is non nil then `ag' and `pt' and ignored."
       ;; disable popwin-mode in an active Helm session It should be disabled
       ;; otherwise it will conflict with other window opened by Helm persistent
       ;; action, such as *Help* window.
-      (add-hook 'helm-after-initialize-hook (lambda () (popwin-mode -1)))
-
+      (when (configuration-layer/package-usedp 'popwin)
+        (push '("^\*helm.+\*$" :regexp t) popwin:special-display-config))
+      (defun spacemacs//display-helm-at-bottom ()
+        "Display the helm buffer at the bottom of the frame."
+        ;; avoid Helm buffer being diplaye twice when user
+        ;; sets this variable to some function that pop buffer to
+        ;; a window. See https://github.com/syl20bnr/spacemacs/issues/1396
+        (let ((display-buffer-base-action '(nil)))
+          (popwin:display-buffer helm-buffer t)
+          (popwin-mode -1)))
+      (add-hook 'helm-after-initialize-hook 'spacemacs//display-helm-at-bottom)
       ;;  Restore popwin-mode after a Helm session finishes.
-      (add-hook 'helm-cleanup-hook (lambda () (popwin-mode 1)))
+      (add-hook 'helm-cleanup-hook 'popwin-mode)
 
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
@@ -1505,12 +1547,10 @@ ARG non nil means that the editing style is `vim'."
       (spacemacs|define-micro-state helm-navigation
         :persistent t
         :disable-evil-leader t
-        :define-key (helm-map . "C-SPC") (helm-map . "C-@")
+        :define-key (helm-map . "M-SPC") (helm-map . "s-M-SPC")
         :on-enter (spacemacs//helm-navigation-ms-on-enter)
         :on-exit  (spacemacs//helm-navigation-ms-on-exit)
         :bindings
-        ("C-SPC" nil :exit t)
-        ("C-@" nil :exit t)
         ("<tab>" helm-select-action :exit t)
         ("C-i" helm-select-action :exit t)
         ("<RET>" helm-maybe-exit-minibuffer :exit t)
@@ -1526,6 +1566,13 @@ ARG non nil means that the editing style is `vim'."
         ("T" helm-toggle-all-marks)
         ("v" helm-execute-persistent-action))
 
+      ;; Swap default TAB and C-z commands.
+      ;; For GUI.
+      (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+      ;; For terminal.
+      (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+      (define-key helm-map (kbd "C-z") 'helm-select-action)
+
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
 
@@ -1534,20 +1581,6 @@ ARG non nil means that the editing style is `vim'."
     :defer t
     :config
     (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)))
-
-(defun spacemacs/init-helm-c-yasnippet ()
-  (use-package helm-c-yasnippet
-    :defer t
-    :init
-    (progn
-      (defun spacemacs/helm-yas ()
-        "Properly lazy load helm-c-yasnipper."
-        (interactive)
-        (spacemacs/load-yasnippet)
-        (require 'helm-c-yasnippet)
-        (call-interactively 'helm-yas-complete))
-      (evil-leader/set-key "is" 'spacemacs/helm-yas)
-      (setq helm-c-yas-space-match-any-greedy t))))
 
 (defun spacemacs/init-helm-descbinds ()
   (use-package helm-descbinds
@@ -1713,32 +1746,6 @@ If ARG is non nil then `ag' and `pt' and ignored."
     :config
     (set-face-attribute 'hl-paren-face nil :weight 'ultra-bold)))
 
-(defun spacemacs/init-hippie-exp ()
-  (global-set-key (kbd "M-/") 'hippie-expand) ;; replace dabbrev-expand
-  (setq hippie-expand-try-functions-list
-        '(
-          ;; Try to expand word "dynamically", searching the current buffer.
-          try-expand-dabbrev
-          ;; Try to expand word "dynamically", searching all other buffers.
-          try-expand-dabbrev-all-buffers
-          ;; Try to expand word "dynamically", searching the kill ring.
-          try-expand-dabbrev-from-kill
-          ;; Try to complete text as a file name, as many characters as unique.
-          try-complete-file-name-partially
-          ;; Try to complete text as a file name.
-          try-complete-file-name
-          ;; Try to expand word before point according to all abbrev tables.
-          try-expand-all-abbrevs
-          ;; Try to complete the current line to an entire line in the buffer.
-          try-expand-list
-          ;; Try to complete the current line to an entire line in the buffer.
-          try-expand-line
-          ;; Try to complete as an Emacs Lisp symbol, as many characters as
-          ;; unique.
-          try-complete-lisp-symbol-partially
-          ;; Try to complete word as an Emacs Lisp symbol.
-          try-complete-lisp-symbol)))
-
 (defun spacemacs/init-hl-anything ()
   (use-package hl-anything
     :defer t
@@ -1828,8 +1835,8 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key ido-completion-map (kbd "<left>") 'ido-delete-backward-updir)
         (define-key ido-completion-map (kbd "<right>") 'ido-exit-minibuffer)
         ;; initiate micro-state
-        (define-key ido-completion-map (kbd "C-SPC") 'spacemacs/ido-navigation-micro-state)
-        (define-key ido-completion-map (kbd "C-@") 'spacemacs/ido-navigation-micro-state)
+        (define-key ido-completion-map (kbd "M-SPC") 'spacemacs/ido-navigation-micro-state)
+        (define-key ido-completion-map (kbd "s-M-SPC") 'spacemacs/ido-navigation-micro-state)
         )
       (add-hook 'ido-setup-hook 'spacemacs//ido-setup)
 
@@ -1880,8 +1887,6 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         :on-exit  (spacemacs//ido-navigation-ms-on-exit)
         :bindings
         ("?" nil :doc (spacemacs//ido-navigation-ms-full-doc))
-        ("C-SPC" nil :exit t)
-        ("C-@" nil :exit t)
         ("<RET>" ido-exit-minibuffer :exit t)
         ("<escape>" nil :exit t)
         ("e" ido-select-text :exit t)
@@ -1956,8 +1961,6 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (setq linum-relative-current-symbol "")
       (linum-relative-toggle))))
 
-(defun spacemacs/init-monokai-theme ())
-
 (defun spacemacs/init-move-text ()
   (use-package move-text
     :defer t
@@ -1978,7 +1981,8 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (interactive)
         (term-send-raw-string "\t"))
 
-      (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab)))))
+      (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
+      (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab))))
 
 (defun spacemacs/init-neotree ()
   (use-package neotree
@@ -2230,11 +2234,10 @@ displayed in the mode-line.")
                (face1 (if active 'powerline-active1 'powerline-inactive1))
                (face2 (if active 'powerline-active2 'powerline-inactive2))
                (state-face (if active (spacemacs/current-state-face) face2))
-               (window-numberingp (and (boundp 'window-numbering-mode)
-                                       (symbol-value window-numbering-mode)))
+               (eyebrowsep (bound-and-true-p eyebrowse-mode))
+               (window-numberingp (bound-and-true-p window-numbering-mode))
                (anzup (and (boundp 'anzu--state) anzu--state))
-               (flycheckp (and (boundp 'flycheck-mode)
-                               (symbol-value flycheck-mode)
+               (flycheckp (and (bound-and-true-p flycheck-mode)
                                (or flycheck-current-errors
                                    (eq 'running flycheck-last-status-change))))
                (vc-face (if (or flycheckp spacemacs-mode-line-minor-modesp)
@@ -2245,10 +2248,19 @@ displayed in the mode-line.")
                (separator-right (intern (format "powerline-%s-%s"
                                                 powerline-default-separator
                                                 (cdr powerline-default-separator-dir)))))
+
           (append
+           ;; workspace number
+           (when (and eyebrowsep (spacemacs/workspace-number))
+             (list (powerline-raw " " state-face)
+                   (powerline-raw (spacemacs/workspace-number) state-face)))
            ;; window number
            (if (and window-numberingp (spacemacs/window-number))
-               (list (powerline-raw (spacemacs/window-number) state-face))
+               (list (if eyebrowsep
+                         (powerline-raw "|" state-face)
+                       (powerline-raw " " state-face))
+                     (powerline-raw (spacemacs/window-number) state-face)
+                     (powerline-raw " " state-face))
              (list (powerline-raw (evil-state-property evil-state :tag t) state-face)))
            (if (and active anzup)
                (list (funcall separator-right state-face face1)
@@ -2754,17 +2766,17 @@ It is a string holding:
       (let* ((num (window-numbering-get-number))
              (str (if num (int-to-string num))))
         (cond
-         ((not dotspacemacs-mode-line-unicode-symbols) (concat " " str " "))
-         ((equal str "1")  " ➊ ")
-         ((equal str "2")  " ➋ ")
-         ((equal str "3")  " ➌ ")
-         ((equal str "4")  " ➍ ")
-         ((equal str "5")  " ➎ ")
-         ((equal str "6")  " ❻ ")
-         ((equal str "7")  " ➐ ")
-         ((equal str "8")  " ➑ ")
-         ((equal str "9")  " ➒ ")
-         ((equal str "0")  " ➓ "))))
+         ((not dotspacemacs-mode-line-unicode-symbols) str)
+         ((equal str "1")  "➊")
+         ((equal str "2")  "➋")
+         ((equal str "3")  "➌")
+         ((equal str "4")  "➍")
+         ((equal str "5")  "➎")
+         ((equal str "6")  "❻")
+         ((equal str "7")  "➐")
+         ((equal str "8")  "➑")
+         ((equal str "9")  "➒")
+         ((equal str "0")  "➓"))))
 
     (defun spacemacs//window-numbering-assign (windows)
       "Custom number assignment for special buffers."
@@ -2793,44 +2805,3 @@ It is a string holding:
       (setq winner-boring-buffers
             (append winner-boring-buffers spacemacs/winner-boring-buffers))
       (winner-mode t))))
-
-(defun spacemacs/init-yasnippet ()
-  (use-package yasnippet
-    :commands yas-global-mode
-    :init
-    (progn
-      (defun spacemacs/load-yasnippet ()
-          (if (not (boundp 'yas-minor-mode))
-              (progn
-                (let* ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir))
-                       (private-yas-dir (concat configuration-layer-private-directory "snippets"))
-                       (yas-dir (concat dir "yasnippet-snippets")))
-                  (setq yas-snippet-dirs
-                        (append (when (boundp 'yas-snippet-dirs)
-                                  yas-snippet-dirs)
-                                (list  private-yas-dir yas-dir)))
-                  (yas-global-mode 1)))))
-      (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
-                                                markdown-mode-hook
-                                                org-mode-hook))
-
-      (spacemacs|add-toggle yasnippet
-                            :status yas-minor-mode
-                            :on (yas-minor-mode)
-                            :off (yas-minor-mode -1)
-                            :documentation "Enable yasnippet."
-                            :evil-leader "ty")
-
-      (defun spacemacs/force-yasnippet-off ()
-        (yas-minor-mode -1)
-        (setq yas-dont-activate t))
-
-      (add-to-hooks 'spacemacs/force-yasnippet-off '(term-mode-hook
-                                                     shell-mode-hook)))
-    :config
-    (progn
-      (spacemacs|diminish yas-minor-mode " ⓨ" " y"))))
-
-(defun spacemacs/init-zenburn-theme ()
-  (use-package zenburn-theme
-    :defer t))

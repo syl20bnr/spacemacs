@@ -53,21 +53,20 @@
   "au"  'undo-tree-visualize)
 ;; buffers --------------------------------------------------------------------
 (evil-leader/set-key
-  "b0"  'beginning-of-buffer
-  "b$"  'end-of-buffer
   "bd"  'kill-this-buffer
-  "bb"  'spacemacs/alternate-buffer ;; switch back and forth between two last buffers
   "TAB" 'spacemacs/alternate-buffer
   "bh"  'spacemacs/home
   "be"  'spacemacs/safe-erase-buffer
   "bK"  'kill-other-buffers
   "bk"  'ido-kill-buffer
   "b C-k" 'kill-matching-buffers-rudely
-  "bn"  'switch-to-next-buffer
-  "bp"  'switch-to-prev-buffer
+  "bP"  'copy-clipboard-to-whole-buffer
+  "bn"  'spacemacs/next-useful-buffer
+  "bp"  'spacemacs/previous-useful-buffer
   "bR"  'spacemacs/safe-revert-buffer
   "br"  'rename-current-buffer-file
-  "bw"  'toggle-read-only)
+  "bY"  'copy-whole-buffer-to-clipboard
+  "bw"  'read-only-mode)
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
 ;; describe functions ---------------------------------------------------------
@@ -82,6 +81,7 @@ Ensure that helm is required before calling FUNC."
          (require 'helm)
          (call-interactively ',func))
        (evil-leader/set-key ,keys ',func-name))))
+(spacemacs||set-helm-key "hdb" describe-bindings)
 (spacemacs||set-helm-key "hdc" describe-char)
 (spacemacs||set-helm-key "hdf" describe-function)
 (spacemacs||set-helm-key "hdk" describe-key)
@@ -105,10 +105,10 @@ Ensure that helm is required before calling FUNC."
   "fes" 'find-spacemacs-file
   "fec" 'find-contrib-file
   "fed" 'find-dotfile
+  "feD" 'ediff-dotfile-and-template
   "feR" 'dotspacemacs/sync-configuration-layers
   "fev" 'spacemacs/display-and-copy-version
-  "ff" 'ido-find-file
-  "fF" 'helm-find-files
+  "fF" 'ido-find-file
   "fg" 'rgrep
   "fj" 'dired-jump
   "fo" 'spacemacs/open-in-external-app
@@ -132,6 +132,7 @@ Ensure that helm is required before calling FUNC."
 (evil-leader/set-key
   "J"  'sp-split-sexp
   "jj" 'sp-newline
+  "jo" 'open-line
   "j=" 'spacemacs/indent-region-or-buffer
   "jJ" 'spacemacs/split-and-new-line
   "jk" 'evil-goto-next-line-and-indent)
@@ -303,6 +304,11 @@ Ensure that helm is required before calling FUNC."
 ;; google translate -----------------------------------------------------------
 (evil-leader/set-key
   "xgl" 'set-google-translate-languages)
+;; shell ----------------------------------------------------------------------
+(eval-after-load "shell"
+  '(progn
+    (evil-define-key 'insert comint-mode-map [up] 'comint-previous-input)
+    (evil-define-key 'insert comint-mode-map [down] 'comint-next-input)))
 
 ;; ---------------------------------------------------------------------------
 ;; Micro-states
@@ -317,8 +323,8 @@ Ensure that helm is required before calling FUNC."
   :evil-leader "b."
   :bindings
   ("K" kill-this-buffer)
-  ("n" spacemacs/next-real-buffer)
-  ("N" spacemacs/prev-real-buffer))
+  ("n" spacemacs/next-useful-buffer)
+  ("N" spacemacs/previous-useful-buffer))
 
 ;; end of Buffer micro state
 
@@ -354,7 +360,7 @@ Ensure that helm is required before calling FUNC."
   [g]                       toggle golden-ratio
   [h] [j] [k] [l]           go to left|bottom|top|right
   [H] [J] [K] [L]           move windows to far/very left|bottom|top|right
-  [[] []] [{] [}]           shrink/enlarge horizontaly and verticaly respectively
+  [[] []] [{] [}]           shrink/enlarge horizontally and vertically respectively
   [o] [w]                   other frame|window
   [R]                       rotate windows
   [u] [U]                   restore previous|next window layout")

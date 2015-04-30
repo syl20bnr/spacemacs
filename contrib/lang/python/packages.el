@@ -21,6 +21,7 @@
     flycheck
     helm-pydoc
     hy-mode
+    pip-requirements
     pony-mode
     pyenv-mode
     pyvenv
@@ -57,6 +58,16 @@
 (defun python/init-evil-jumper ()
   (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
     (evil-jumper--push)))
+
+(defun python/init-pip-requirements ()
+  (use-package pip-requirements
+    :defer t
+    :init
+    (progn
+      ;; company support
+      (push '(company-capf :with company-yasnippet)
+            company-backends-pip-requirements-mode)
+      (spacemacs|add-company-hook pip-requirements-mode))))
 
 (defun python/init-pony-mode ()
   (use-package pony-mode
@@ -190,11 +201,11 @@
         (if arg
             (call-interactively 'compile)
 
-            (setq compile-command (format "python %s" (file-name-nondirectory
-                                                       buffer-file-name)))
-            (compile compile-command t)
-            (with-current-buffer (get-buffer "*compilation*")
-              (inferior-python-mode))))
+          (setq compile-command (format "python %s" (file-name-nondirectory
+                                                     buffer-file-name)))
+          (compile compile-command t)
+          (with-current-buffer (get-buffer "*compilation*")
+            (inferior-python-mode))))
 
       (defun spacemacs/python-execute-file-focus (arg)
         "Execute a python script in a shell and switch to the shell buffer in
@@ -209,6 +220,7 @@
         "mcc" 'spacemacs/python-execute-file
         "mcC" 'spacemacs/python-execute-file-focus
         "mdb" 'python-toggle-breakpoint
+        "mri" 'python-remove-unused-imports
         "msB" 'python-shell-send-buffer-switch
         "msb" 'python-shell-send-buffer
         "msF" 'python-shell-send-defun-switch
@@ -235,24 +247,6 @@
     :init
     (evil-leader/set-key-for-mode 'python-mode "mhd" 'helm-pydoc)))
 
-(defun python/init-semantic ()
-  ;; required to correctly load semantic mode
-  ;; using the python-mode-hook triggers an error about a deleted buffer.
-  (eval-after-load 'python '(semantic-mode 1))
-  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode))
-
-(defun python/init-stickyfunc-enhance ()
-  (use-package stickyfunc-enhance
-    :defer t
-    :init
-    (progn
-      (defun spacemacs/lazy-load-stickyfunc-enhance ()
-        "Lazy load the package."
-        (interactive)
-        (require 'stickyfunc-enhance))
-      (add-hook 'python-mode-hook 'spacemacs/lazy-load-stickyfunc-enhance)
-                    )))
-
 (defun python/init-smartparens ()
   (defadvice python-indent-dedent-line-backspace
       (around python/sp-backward-delete-char activate)
@@ -273,3 +267,9 @@
       :init
       (push '(company-anaconda :with company-yasnippet)
             company-backends-python-mode))))
+
+(defun python/post-init-semantic ()
+  (semantic/enable-semantic-mode 'python-mode))
+
+(defun python/post-init-stickyfunc-enhance ()
+  (add-hook 'python-mode-hook 'spacemacs/lazy-load-stickyfunc-enhance))

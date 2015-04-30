@@ -20,6 +20,8 @@
     js2-refactor
     json-mode
     tern
+    js-doc
+    web-beautify
     ))
 
 (defun javascript/init-coffee-mode ()
@@ -34,7 +36,7 @@
           ;; otherwise keep at the same indentation level
           (coffee-insert-spaces (coffee-previous-indent)))
         )
-      ;; indent to right position after `evil-open-blow' and `evil-open-above'
+      ;; indent to right position after `evil-open-below' and `evil-open-above'
       (add-hook 'coffee-mode-hook '(lambda ()
                                      (setq indent-line-function 'javascript/coffee-indent
                                            evil-shift-width coffee-tab-width))))))
@@ -146,12 +148,39 @@
     :init (add-hook 'js2-mode-hook 'tern-mode)
     :config
     (progn
-      (evil-leader/set-key-for-mode 'js2-mode "mc" 'tern-rename-variable)
+      (evil-leader/set-key-for-mode 'js2-mode "mrrV" 'tern-rename-variable)
       (evil-leader/set-key-for-mode 'js2-mode "mhd" 'tern-get-docs)
       (evil-leader/set-key-for-mode 'js2-mode "mgg" 'tern-find-definition)
       (evil-leader/set-key-for-mode 'js2-mode "mgG" 'tern-find-definition-by-name)
       (evil-leader/set-key-for-mode 'js2-mode (kbd "m C-g") 'tern-pop-find-definition)
-      (evil-leader/set-key-for-mode 'js2-mode "mt" 'tern-get-type))))
+      (evil-leader/set-key-for-mode 'js2-mode "mht" 'tern-get-type))))
+
+(defun javascript/init-js-doc ()
+  (use-package js-doc
+    :defer t
+    :init
+    (progn
+      (defun javascript/load-js-doc ()
+          "Lazy load js-doc"
+        (require 'js-doc))
+      (add-hook 'js2-mode-hook 'javascript/load-js-doc))
+    :config
+    (progn
+      (evil-leader/set-key-for-mode 'js2-mode "mrdb" 'js-doc-insert-file-doc)
+      (evil-leader/set-key-for-mode 'js2-mode "mrdf" 'js-doc-insert-function-doc)
+      (evil-leader/set-key-for-mode 'js2-mode "mrdt" 'js-doc-insert-tag)
+      (evil-leader/set-key-for-mode 'js2-mode "mrdh" 'js-doc-describe-tag))))
+
+(defun javascript/init-web-beautify ()
+  (use-package web-beautify
+    :defer t
+    :init
+    (progn
+      (evil-leader/set-key-for-mode 'js2-mode  "m=" 'web-beautify-js)
+      (evil-leader/set-key-for-mode 'json-mode "m=" 'web-beautify-js)
+      (evil-leader/set-key-for-mode 'web-mode  "m=" 'web-beautify-html)
+      (evil-leader/set-key-for-mode 'css-mode  "m=" 'web-beautify-css))))
+
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun javascript/post-init-company ()

@@ -1,5 +1,3 @@
-# Spacemacs Documentation
-
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
@@ -18,9 +16,11 @@
 - [Configuration layers](#configuration-layers)
     - [Structure](#structure)
     - [Extensions and Packages](#extensions-and-packages)
-        - [Declaration](#declaration)
-        - [Initialization](#initialization)
-        - [Exclusion](#exclusion)
+        - [Within a layer](#within-a-layer)
+            - [Declaration](#declaration)
+            - [Initialization](#initialization)
+            - [Exclusion](#exclusion)
+        - [Without a layer](#without-a-layer)
     - [Packages synchronization (Vundle like feature)](#packages-synchronization-vundle-like-feature)
     - [Types of configuration layers](#types-of-configuration-layers)
     - [Submitting a configuration layer upstream](#submitting-a-configuration-layer-upstream)
@@ -66,6 +66,7 @@
         - [Leader key](#leader-key)
     - [Reserved prefix command for user](#reserved-prefix-command-for-user)
     - [Helm](#helm)
+        - [C-z and Tab switch](#c-z-and-tab-switch)
         - [Helm micro-state](#helm-micro-state)
     - [Discovering](#discovering)
         - [Key bindings](#key-bindings)
@@ -88,6 +89,7 @@
         - [Buffers and Files](#buffers-and-files)
             - [Buffers manipulation key bindings](#buffers-manipulation-key-bindings)
             - [Buffers manipulation manipulation micro-state](#buffers-manipulation-manipulation-micro-state)
+            - [Special Buffers](#special-buffers)
             - [Files manipulations key bindings](#files-manipulations-key-bindings)
             - [Emacs and Spacemacs files](#emacs-and-spacemacs-files)
         - [Ido](#ido)
@@ -166,6 +168,8 @@
 - [Thank you](#thank-you)
 
 <!-- markdown-toc end -->
+# Spacemacs Documentation
+
 
 # Core Pillars
 
@@ -334,7 +338,9 @@ repository, and `Extensions` are generally elisp code from git submodules.
 
 ## Extensions and Packages
 
-### Declaration
+### Within a layer
+
+#### Declaration
 
 `Extensions` and `Packages` are declared in variables `<layer>-pre-extensions`,
 `<layer>-post-extensions` and `<layer>-packages` where `<layer>` is the layer
@@ -351,10 +357,11 @@ Example:
   '(
     package1
     package2
+    ...
     )
 ```
 
-### Initialization
+#### Initialization
 
 To initialize an extension or a package `xxx`, define a function with this
 format in `extensions.el` or `packages.el`:
@@ -367,7 +374,7 @@ format in `extensions.el` or `packages.el`:
 
 It is common to define the body with the [use-package][use-package] macro.
 
-### Exclusion
+#### Exclusion
 
 It is possible to exclude some packages from `Spacemacs` in a per layer basis.
 This is useful when a configuration layer aims to replace a stock package
@@ -382,6 +389,31 @@ Example:
 (setq <layer>-excluded-packages
   '(
     package1
+    package2
+    ...
+    )
+```
+
+### Without a layer
+
+Sometimes a layer can be an unnecessary overhead, this is the case if you just
+want yo install a package without any configuration associated to it. A good
+example is some niche language where you are only interested syntax
+highlighting.
+
+You can install such packages by adding them to the variable
+`dotspacemacs-additional-packages` in your dotfile.
+
+If you want to add some configuration for them then consider to create a layer,
+or just put the configuration in the `dotspacemacs/config` function.
+
+Example to install `llvm-mode` and `dts-mode`:
+
+```elisp
+(setq dotspacemacs-additional-packages
+  '(
+    llvm-mode
+    dts-mode
     )
 ```
 
@@ -582,7 +614,7 @@ states.
 Vim leader key to the Emacs world.
 
 This leader key is commonly set to `,` by Vim users, in `Spacemacs` the leader
-key is set on <kbd>SPC</kbd> (space bar, this is why the name `spacemacs`).
+key is set to <kbd>SPC</kbd> (space bar, this is why the name `spacemacs`).
 This key is the most accessible key on a keyboard and it is pressed with the
 thumb which is a good choice to lower the risk of [RSI][RSI].
 
@@ -621,8 +653,8 @@ Additional information may as well be displayed in the minibuffer.
 # Differences between Vim, Evil and Spacemacs
 
 - The `,` key does "repeat last `f`, `t`, `F`, or `T` command in opposite
-direction in `Vim`, but in `Spacemacs` it the major mode specific leader
-key by default (which can be set on another key binding in the dotfile).
+direction in `Vim`, but in `Spacemacs` it is the major mode specific leader
+key by default (which can be set to another key binding in the dotfile).
 
 Send a PR to add the differences you found in this section.
 
@@ -809,7 +841,7 @@ Some graphical UI indicators can be toggled on and off
 <kbd>SPC T T</kbd>      | toggle frame transparency
 
 **Note** These toggles are all available via the `helm-spacemacs` interface
-(press <kbd>SPC fe h</kbd> to display the `helm-spacemacs` buffer).
+(press <kbd>SPC f e h</kbd> to display the `helm-spacemacs` buffer).
 
 ### Mouse usage
 
@@ -1047,38 +1079,44 @@ buffers, projects, search results, configuration layers, toggles and more...
 Mastering `Helm` will make you a `Spacemacs` power user. Do not hesitate
 to read the [Helm documentation wiki][helm-doc].
 
+### C-z and Tab switch
+
+The command bound to C-z is much more useful than the one bound to Tab, so it
+makes sense to swap them.  It's also recommended [here][tuhdo-tuto].
+
 ### Helm micro-state
 
 `Spacemacs` defines a [micro-state](#micro-states) for `Helm` to make it
 work like [Vim's Unite][] plugin.
 
-Initiate the micro-state with <kbd>C-SPC</kbd> while in a `Helm` buffer.
-Use <kbd>C-SPC</kbd> again to exit from the micro-state.
+Initiate the micro-state with <kbd>M-SPC</kbd> or <kbd>s-M-SPC</kbd>
+while in a `Helm` buffer.
 
-Key Binding           | Description
-----------------------|------------------------------------------------------------
-<kbd>C-SPC</kbd>      | initiate or leave the micro-state
-<kbd>TAB</kbd>        | switch to actions page and leave the micro-state
-<kbd>1</kbd>          | execute action 0
-<kbd>2</kbd>          | execute action 1
-<kbd>3</kbd>          | execute action 2
-<kbd>4</kbd>          | execute action 3
-<kbd>5</kbd>          | execute action 4
-<kbd>6</kbd>          | execute action 5
-<kbd>7</kbd>          | execute action 6
-<kbd>8</kbd>          | execute action 7
-<kbd>9</kbd>          | execute action 8
-<kbd>0</kbd>          | execute action 9
-<kbd>a</kbd>          | switch to actions page
-<kbd>g</kbd>          | go to first candidate
-<kbd>G</kbd>          | go to last candidate
-<kbd>h</kbd>          | go to previous source
-<kbd>j</kbd>          | select next candidate
-<kbd>k</kbd>          | select previous candidate
-<kbd>l</kbd>          | go to next source
-<kbd>t</kbd>          | mark current candidate
-<kbd>T</kbd>          | mark all candidates
-<kbd>v</kbd>          | execute persistent action
+Key Binding                            | Description
+---------------------------------------|------------------------------------------------------------
+<kbd>M-SPC</kbd> or <kbd>s-M-SPC</kbd> | initiate or leave the micro-state
+<kbd>TAB</kbd>                         | switch to actions page and leave the micro-state
+<kbd>1</kbd>                           | execute action 0
+<kbd>2</kbd>                           | execute action 1
+<kbd>3</kbd>                           | execute action 2
+<kbd>4</kbd>                           | execute action 3
+<kbd>5</kbd>                           | execute action 4
+<kbd>6</kbd>                           | execute action 5
+<kbd>7</kbd>                           | execute action 6
+<kbd>8</kbd>                           | execute action 7
+<kbd>9</kbd>                           | execute action 8
+<kbd>0</kbd>                           | execute action 9
+<kbd>a</kbd>                           | switch to actions page
+<kbd>g</kbd>                           | go to first candidate
+<kbd>G</kbd>                           | go to last candidate
+<kbd>h</kbd>                           | go to previous source
+<kbd>j</kbd>                           | select next candidate
+<kbd>k</kbd>                           | select previous candidate
+<kbd>l</kbd>                           | go to next source
+<kbd>q</kbd>                           | quit micro-state
+<kbd>t</kbd>                           | mark current candidate
+<kbd>T</kbd>                           | mark all candidates
+<kbd>v</kbd>                           | execute persistent action
 
 ## Discovering
 
@@ -1114,6 +1152,7 @@ thusly:
 
 Key Binding          |                 Description
 ---------------------|------------------------------------------------------------------
+<kbd>SPC h d b</kbd> | describe bindings in a `helm` buffer
 <kbd>SPC h d c</kbd> | describe current character under point
 <kbd>SPC h d f</kbd> | describe a function
 <kbd>SPC h d k</kbd> | describe a key
@@ -1298,7 +1337,7 @@ Key Binding                               |                 Description
 <kbd>SPC w K</kbd>                        | move window to the top
 <kbd>SPC w l</kbd>                        | move to window on the right
 <kbd>SPC w L</kbd>                        | move window to the right
-<kbd>SPC w m</kbd>                        | maximize/minimize a window (maximize is equivalent to delete otehr windows)
+<kbd>SPC w m</kbd>                        | maximize/minimize a window (maximize is equivalent to delete other windows)
 <kbd>SPC w M</kbd>                        | maximize/minimize a window, when maximized the buffer is centered
 <kbd>SPC w o</kbd>                        | cycle and focus between frames
 <kbd>SPC w p m</kbd>                      | open messages buffer in a popup window
@@ -1383,29 +1422,29 @@ remember the last selected directories and buffers, maybe helm can do this ?).
 
 Buffer manipulation commands (start with `b`):
 
-Key Binding                               |              Description
-------------------------------------------|----------------------------------------------------------------
-<kbd>SPC b 0</kbd>                        | move to the beginning of buffer (useful in `emacs state` buffers)
-<kbd>SPC b $</kbd>                        | move to the end of buffer (useful in `emacs state` buffers)
-<kbd>SPC b b</kbd> or <kbd>SPC TAB</kbd>  | switch to alternate buffer (switch back and forth)
-<kbd>SPC b d</kbd>                        | kill the current buffer (does not delete the visited file)
-<kbd>SPC b e</kbd>                        | erase the content of the buffer (ask for confirmation)
-<kbd>SPC b h</kbd>                        | open `*spacemacs*` home buffer
-<kbd>SPC b k</kbd>                        | kill the current buffer
-<kbd>SPC b K</kbd>                        | kill all buffers except the current one
-<kbd>SPC b C-K</kbd>                      | kill all buffers matching the regexp
-<kbd>SPC b m h</kbd>                      | move a buffer to the left
-<kbd>SPC b m j</kbd>                      | move a buffer to the bottom
-<kbd>SPC b m k</kbd>                      | move a buffer to the top
-<kbd>SPC b m l</kbd>                      | move a buffer to the right
-<kbd>SPC b M</kbd>                        | swap windows using [ace-swap-window][ace-window]
-<kbd>SPC b n</kbd>                        | switch to next buffer
-<kbd>SPC b p</kbd>                        | switch to previous buffer
-<kbd>SPC b r</kbd>                        | rename the current buffer
-<kbd>SPC b R</kbd>                        | revert the current buffer (reload from disk)
-<kbd>SPC b s</kbd>                        | switch to a buffer using `helm`
-<kbd>SPC b w</kbd>                        | toggle read-only (writable state)
-<kbd>z f</kbd>                            | Make current function or comments visible in buffer as much as possible
+Key Binding            |              Description
+-----------------------|----------------------------------------------------------------
+<kbd>SPC TAB</kbd>     | switch to alternate buffer (switch back and forth)
+<kbd>SPC b b</kbd>     | switch to a buffer using `helm`
+<kbd>SPC b d</kbd>     | kill the current buffer (does not delete the visited file)
+<kbd>SPC b e</kbd>     | erase the content of the buffer (ask for confirmation)
+<kbd>SPC b h</kbd>     | open `*spacemacs*` home buffer
+<kbd>SPC b k</kbd>     | kill the current buffer
+<kbd>SPC b K</kbd>     | kill all buffers except the current one
+<kbd>SPC b C-K</kbd>   | kill all buffers matching the regexp
+<kbd>SPC b m h</kbd>   | move a buffer to the left
+<kbd>SPC b m j</kbd>   | move a buffer to the bottom
+<kbd>SPC b m k</kbd>   | move a buffer to the top
+<kbd>SPC b m l</kbd>   | move a buffer to the right
+<kbd>SPC b M</kbd>     | swap windows using [ace-swap-window][ace-window]
+<kbd>SPC b n</kbd>     | switch to next buffer avoiding special buffers
+<kbd>SPC b p</kbd>     | switch to previous buffer avoiding special buffers
+<kbd>SPC b P</kbd>     | copy clipboard and replace buffer (useful when pasting from a browser)
+<kbd>SPC b r</kbd>     | rename the current buffer
+<kbd>SPC b R</kbd>     | revert the current buffer (reload from disk)
+<kbd>SPC b w</kbd>     | toggle read-only (writable state)
+<kbd>SPC b Y</kbd>     | copy whole buffer to clipboard (useful when copying to a browser)
+<kbd>z f</kbd>         | Make current function or comments visible in buffer as much as possible
 
 #### Buffers manipulation manipulation micro-state
 
@@ -1420,6 +1459,13 @@ Key Binding         | Description
 <kbd>N</kbd>        | go to previous buffer (avoid special buffers)
 Any other key       | leave the micro-state
 
+#### Special Buffers
+
+Unlike vim, emacs creates many buffers that most people do not need to see.
+Some examples are `*Messages*` and `*Compile-Log*`. Spacemacs tries to automatically
+ignore buffers that are not useful. However, you may want to change the way
+Spacemacs marks buffers as useful. For instructions, see the [special buffer howto][].
+
 #### Files manipulations key bindings
 
 Files manipulation commands (start with `f`):
@@ -1427,8 +1473,8 @@ Files manipulation commands (start with `f`):
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC f D</kbd>                        | delete a file and the associated buffer (ask for confirmation)
-<kbd>SPC f f</kbd>                        | open a file using `ido`
-<kbd>SPC f F</kbd>                        | open a file under point using `helm`
+<kbd>SPC f f</kbd>                        | open a file under point using `helm`
+<kbd>SPC f F</kbd>                        | open a file using `ido`
 <kbd>SPC f j</kbd>                        | jump to the current buffer file in dired
 <kbd>SPC f o</kbd>                        | open a file using the default external program
 <kbd>SPC f s</kbd>                        | save a file
@@ -1446,9 +1492,12 @@ Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC f e c</kbd>                      | open `ido` in the `contrib` folder
 <kbd>SPC f e d</kbd>                      | open the spacemacs dotfile (`~/.spacemacs`)
+<kbd>SPC f e D</kbd>                      | open `ediff` buffer of `~/.spacemacs` and `.spacemacs.template`
 <kbd>SPC f e h</kbd>                      | discover `Spacemacs` layers and packages using `helm`
 <kbd>SPC f e i</kbd>                      | open the all mighty `init.el`
+<kbd>SPC f e R</kbd>                      | resync the dotfile with spacemacs
 <kbd>SPC f e s</kbd>                      | open `ido` in the `spacemacs` layer folder
+<kbd>SPC f e v</kbd>                      | display and copy the spacemacs version
 
 ### Ido
 
@@ -1483,26 +1532,27 @@ Key Binding             |                 Description
 
 `Spacemacs` defines a [micro-state](#micro-states) for `ido`.
 
-Initiate the micro-state with <kbd>C-SPC</kbd> while in a `ido` buffer.
-Use <kbd>C-SPC</kbd> again to exit from the micro-state.
+Initiate the micro-state with <kbd>M-SPC</kbd> or <kbd>s-M-SPC</kbd>
+while in a `ido` buffer.
 
-Key Binding           | Description
-----------------------|------------------------------------------------------------
-<kbd>C-SPC</kbd>      | initiate or leave the micro-state
-<kbd>?</kbd>          | display help
-<kbd>e</kbd>          | open dired
-<kbd>h</kbd>          | delete backward or parent directory
-<kbd>j</kbd>          | next match
-<kbd>J</kbd>          | sub directory
-<kbd>k</kbd>          | previous match
-<kbd>K</kbd>          | parent directory
-<kbd>l</kbd>          | select match
-<kbd>n</kbd>          | next directory in history
-<kbd>o</kbd>          | open in other window
-<kbd>p</kbd>          | previous directory in history
-<kbd>s</kbd>          | open in a new horizontal split
-<kbd>t</kbd>          | open in other frame
-<kbd>v</kbd>          | open in a new vertical split
+Key Binding                            | Description
+---------------------------------------|------------------------------------------------------------
+<kbd>M-SPC</kbd> or <kbd>s-M-SPC</kbd> | initiate or leave the micro-state
+<kbd>?</kbd>                           | display help
+<kbd>e</kbd>                           | open dired
+<kbd>h</kbd>                           | delete backward or parent directory
+<kbd>j</kbd>                           | next match
+<kbd>J</kbd>                           | sub directory
+<kbd>k</kbd>                           | previous match
+<kbd>K</kbd>                           | parent directory
+<kbd>l</kbd>                           | select match
+<kbd>n</kbd>                           | next directory in history
+<kbd>o</kbd>                           | open in other window
+<kbd>p</kbd>                           | previous directory in history
+<kbd>q</kbd>                           | quit micro-state
+<kbd>s</kbd>                           | open in a new horizontal split
+<kbd>t</kbd>                           | open in other frame
+<kbd>v</kbd>                           | open in a new vertical split
 
 ### NeoTree file tree
 
@@ -2446,12 +2496,14 @@ Achievements                                         | Account
 [500th pull request][500th-PR]                       | [tuhdo][]
 [600th pull request][600th-PR]                       | [trishume][]
 
-## Stars and forks
+## Stars, forks and watchers
 
 Achievements                                         | Account
 -----------------------------------------------------|------------------------
+100th watcher                                        | [adouzzy][]
 100th fork                                           | [balajisivaraman][]
 200th fork                                           | [alcol80][]
+300th fork                                           | [mlopes][]
 100th star                                           | [Jackneill][]
 200th star                                           | [jb55][]
 400th star                                           | [dbohdan][]
@@ -2565,6 +2617,7 @@ developers to elisp hackers!
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [gitter]: https://gitter.im/syl20bnr/spacemacs
 [CONTRIBUTE.md]: ./CONTRIBUTE.md
+[special buffer howto]: ./HOWTOs.md#change-special-buffer-rules
 [neotree]: https://github.com/jaypei/emacs-neotree
 [nerdtree]: https://github.com/scrooloose/nerdtree
 [anaconda-mode]: https://github.com/proofit404/anaconda-mode
@@ -2612,6 +2665,8 @@ developers to elisp hackers!
 [smt]:https://github.com/smt
 [ralesi]:https://github.com/ralesi
 [alcol80]:https://github.com/alcol80
+[adouzzy]:https://github.com/adouzzy
+[mlopes]:https://github.com/mlopes
 [balajisivaraman]:https://github.com/balajisivaraman
 [Jackneill]:https://github.com/Jackneill
 [jb55]:https://github.com/jb55

@@ -11,15 +11,15 @@
 ;;; License: GPLv3
 
 ;; Pre extensions are loaded *before* the packages
-(setq python-pre-extensions
-  '(
-    ))
+(setq python-pre-extensions '())
 
 ;; Post extensions are loaded *after* the packages
 (setq python-post-extensions
   '(
     nose
     pylookup
+    python-compile
+    py-yapf
     ))
 
 ;; Initialize the extensions
@@ -66,3 +66,11 @@
         (setq pylookup-dir (concat dir "/pylookup")
               pylookup-program (concat pylookup-dir "/pylookup.py")
               pylookup-db-file (concat pylookup-dir "/pylookup.db"))))))
+
+(defun python/init-py-yapf ()
+  (use-package py-yapf
+    :init
+    (evil-leader/set-key-for-mode 'python-mode "m=" 'py-yapf-buffer)
+    :config
+    (if python-enable-yapf-format-on-save
+        (add-hook 'python-mode-hook 'py-yapf-enable-on-save))))

@@ -139,6 +139,9 @@ are extensively documented.
 If you need help, ask your question in the [Gitter Chat][] and a member of the
 community will help you out.
 
+If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
+`#syl20bnr/spacemacs` channel.
+
 # Prerequisites
 
 ## Emacs version
@@ -456,8 +459,8 @@ also recommended to disable smooth scrolling on Windows.
 
 2. **Why is there no Spacemacs logo in the startup buffer ?**
 A GUI build of emacs supporting image display is required.
-You can follow the instructions [here][http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files]. Alternatively you can download binaries of emacs with image support
-included such as this [one][http://emacsbinw64.sourceforge.net/].
+You can follow the instructions [here][Windows Image Support]. Alternatively you can download binaries of emacs with image support
+included such as this [one][Windows Gui Build].
 
 3. **How to fix the error: The directory ~/.emacs.d/server is unsafe ?**
 Change the owner of the directory `~/.emacs.d/server`:
@@ -496,7 +499,6 @@ details.
 [CONTRIBUTE.md]: doc/CONTRIBUTE.md
 [powerline-seps]: doc/DOCUMENTATION.md#powerline-separators
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
-[dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
 [dotfile template]: ./core/templates/.spacemacs.template
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
 [osx layer]: contrib/osx/README.md
@@ -504,8 +506,9 @@ details.
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
+[Gitter Chat IRC server]: https://irc.gitter.im/
 [MacType]: https://code.google.com/p/mactype/
-[emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
+[emacs-mac-port]: https://github.com/railwaycat/homebrew-emacsmacport
 [emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
 [homebrew]: https://github.com/Homebrew/homebrew
 [Elixir]: contrib/lang/erlang-elixir
@@ -524,3 +527,5 @@ details.
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
 [Nasser Alshammari]: https://github.com/nashamri
 [cpaulik-unity-icon]: http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/
+[Windows Image Support]: http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files
+[Windows Gui Build]: http://emacsbinw64.sourceforge.net/

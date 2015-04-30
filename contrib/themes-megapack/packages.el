@@ -16,6 +16,7 @@
     alect-themes
     ample-theme
     ample-zen-theme
+    apropospriate-theme
     anti-zenburn-theme
     ;; contains errors
     ; badger-theme
@@ -47,6 +48,7 @@
     heroku-theme
     inkpot-theme
     ir-black-theme
+    jazz-theme
     leuven-theme
     light-soap-theme
     lush-theme

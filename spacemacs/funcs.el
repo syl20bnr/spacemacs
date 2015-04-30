@@ -312,56 +312,72 @@ the current state and point position."
 
 ;; from magnars modified by ffevotte for dedicated windows support
 (defun rotate-windows (count)
- "Rotate your windows.
+  "Rotate your windows.
 Dedicated windows are left untouched. Giving a negative prefix
 argument takes the kindows rotate backwards."
- (interactive "p")
- (let* ((non-dedicated-windows (remove-if 'window-dedicated-p (window-list)))
-        (num-windows (length non-dedicated-windows))
-        (i 0)
-        (step (+ num-windows count)))
-   (cond ((not (> num-windows 1))
-          (message "You can't rotate a single window!"))
-         (t
-          (dotimes (counter (- num-windows 1))
-            (let* ((next-i (% (+ step i) num-windows))
+  (interactive "p")
+  (let* ((non-dedicated-windows (remove-if 'window-dedicated-p (window-list)))
+         (num-windows (length non-dedicated-windows))
+         (i 0)
+         (step (+ num-windows count)))
+    (cond ((not (> num-windows 1))
+           (message "You can't rotate a single window!"))
+          (t
+           (dotimes (counter (- num-windows 1))
+             (let* ((next-i (% (+ step i) num-windows))
 
-                   (w1 (elt non-dedicated-windows i))
-                   (w2 (elt non-dedicated-windows next-i))
+                    (w1 (elt non-dedicated-windows i))
+                    (w2 (elt non-dedicated-windows next-i))
 
-                   (b1 (window-buffer w1))
-                   (b2 (window-buffer w2))
+                    (b1 (window-buffer w1))
+                    (b2 (window-buffer w2))
 
-                   (s1 (window-start w1))
-                   (s2 (window-start w2)))
-              (set-window-buffer w1 b2)
-              (set-window-buffer w2 b1)
-              (set-window-start w1 s2)
-              (set-window-start w2 s1)
-              (setq i next-i)))))))
+                    (s1 (window-start w1))
+                    (s2 (window-start w2)))
+               (set-window-buffer w1 b2)
+               (set-window-buffer w2 b1)
+               (set-window-start w1 s2)
+               (set-window-start w2 s1)
+               (setq i next-i)))))))
 
 (defun rotate-windows-backward (count)
- "Rotate your windows backward."
+  "Rotate your windows backward."
   (interactive "p")
   (rotate-windows (* -1 count)))
 
-(defun spacemacs/next-real-buffer ()
-  "Swtich to the next buffer and avoid special buffers."
-  (interactive)
-  (switch-to-next-buffer)
-  (let ((i 0))
-    (while (and (< i 100) (string-equal "*" (substring (buffer-name) 0 1)))
-      (1+ i)
-      (switch-to-next-buffer))))
+(defun spacemacs/useless-buffer-p (buffer)
+  "Determines if a buffer is useful."
+  (let ((buf-paren-major-mode (get (with-current-buffer buffer
+                                     major-mode)
+                                   'derived-mode-parent))
+        (buf-name (buffer-name buffer)))
+    ;; first find if useful buffer exists, if so returns nil and don't check for
+    ;; useless buffers. If no useful buffer is found, check for useless buffers.
+    (unless (cl-loop for regexp in spacemacs-useful-buffers-regexp do
+                     (when (or (eq buf-paren-major-mode 'comint-mode)
+                               (string-match regexp buf-name))
+                       (return t)))
+      (cl-loop for regexp in spacemacs-useless-buffers-regexp do
+               (when (string-match regexp buf-name)
+                 (return t))))))
 
-(defun spacemacs/prev-real-buffer ()
-  "Swtich to the previous buffer and avoid special buffers."
+(defun spacemacs/next-useful-buffer ()
+  "Switch to the next buffer and avoid special buffers."
   (interactive)
-  (switch-to-prev-buffer)
-  (let ((i 0))
-    (while (and (< i 100) (string-equal "*" (substring (buffer-name) 0 1)))
-      (1+ i)
-      (switch-to-prev-buffer))))
+  (let ((start-buffer (current-buffer)))
+    (next-buffer)
+    (while (and (spacemacs/useless-buffer-p (current-buffer))
+                (not (eq (current-buffer) start-buffer)))
+      (next-buffer))))
+
+(defun spacemacs/previous-useful-buffer ()
+  "Switch to the previous buffer and avoid special buffers."
+  (interactive)
+  (let ((start-buffer (current-buffer)))
+    (previous-buffer)
+    (while (and (spacemacs/useless-buffer-p (current-buffer))
+                (not (eq (current-buffer) start-buffer)))
+      (previous-buffer))))
 
 ;; from magnars
 (defun rename-current-buffer-file ()
@@ -490,6 +506,12 @@ argument takes the kindows rotate backwards."
   "Edit the `dotfile', in the current window."
   (interactive)
   (find-file-existing (dotspacemacs/location)))
+
+(defun ediff-dotfile-and-template ()
+  "ediff the current `dotfile' with the template"
+  (interactive)
+  (ediff-files (dotspacemacs/location)
+               (concat dotspacemacs-template-directory ".spacemacs.template")))
 
 (defun find-spacemacs-file ()
   (interactive)
@@ -836,3 +858,17 @@ If ASCII si not provided then UNICODE is used instead."
   (interactive)
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
+
+;; http://stackoverflow.com/a/10216338/4869
+(defun copy-whole-buffer-to-clipboard ()
+  "Copy entire buffer to clipboard"
+  (interactive)
+  (clipboard-kill-ring-save (point-min) (point-max)))
+
+
+(defun copy-clipboard-to-whole-buffer ()
+  "Copy clipboard and replace buffer"
+  (interactive)
+  (delete-region (point-min) (point-max))
+  (clipboard-yank)
+  (deactivate-mark))

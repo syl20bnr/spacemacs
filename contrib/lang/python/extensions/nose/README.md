@@ -4,7 +4,7 @@ nose.el
 This gives a bunch of functions that handle running nosetests on a
 particular buffer or part of a buffer.
 
-This is a fork from the the [bitbucket repository][fork].
+This is a fork from the [bitbucket repository][fork].
 
 What's different ?
 ------------------
@@ -14,6 +14,7 @@ This fork:
 - calls python with an inline script to launch nose.
 - can launch test suites (require to install the nose fixes via
 `easy_install nose-fixes`)
+- is compatible with virtualenv
 
 Install
 -------
@@ -75,7 +76,6 @@ For instance (typical example to make `PyDev` *and* `nose.el` happy):
 Thanks
 ------
 
-To the original author of nose.el:  `Jason Pellerin` and `Augie Fackler`
-
+To the original authors of nose.el:  `Jason Pellerin` and `Augie Fackler`
 
 [fork]: https://bitbucket.org/durin42/nosemacs/overview
