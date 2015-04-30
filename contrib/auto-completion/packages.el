@@ -81,10 +81,13 @@
 
       ;; allow to complete selection with `jk'
       (defvar spacemacs--company-complete-time nil)
+      (defvar spacemacs--company-complete-last-candidate nil)
       (defun spacemacs//company-complete-start ()
         "Get time of last `j' when company is active."
         (interactive)
         (self-insert-command 1)
+        (setq spacemacs--company-complete-last-candidate
+              (nth company-selection company-candidates))
         (setq spacemacs--company-complete-time (current-time)))
       (defun spacemacs//company-complete-end ()
         "Check time since last `j' inserted when company was active."
@@ -98,7 +101,7 @@
             (delete-char -1))
           (let ((company-idle-delay))
             (company-auto-begin)
-            (company-complete-selection)))
+            (company-finish spacemacs--company-complete-last-candidate)))
         (setq spacemacs--company-complete-time nil))
 
       ;; key bindings
