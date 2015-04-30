@@ -16,7 +16,7 @@
   "Define a MODE specific company backend variable with default backends.
 The variable name format is company-backends-MODE."
   `(defvar ,(intern (format "company-backends-%S" mode))
-     '((company-dabbrev-code company-gtags company-etags company-keywords :with company-yasnippet)
+     '((company-dabbrev-code company-gtags company-etags company-keywords)
        company-files company-dabbrev)
      ,(format "Company backend list for %S" mode)))
 

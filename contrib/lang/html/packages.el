@@ -32,7 +32,7 @@
   (use-package css-mode
     :defer t
     :init
-    (push '(company-css :with company-yasnippet) company-backends-css-mode)))
+    (push 'company-css company-backends-css-mode)))
 
 (defun html/init-helm-css-scss ()
   (use-package helm-css-scss

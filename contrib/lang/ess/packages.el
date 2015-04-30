@@ -147,5 +147,4 @@ not play nicely with autoloads"
       :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
-      (push '(company-ess-backend :with company-yasnippet)
-            company-backends-ess-mode))))
+      (push 'company-ess-backend company-backends-ess-mode))))
