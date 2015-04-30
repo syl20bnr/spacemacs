@@ -210,8 +210,7 @@
     "mtq" 'ert)
 
   ;; company support
-  (push '(company-capf :with company-yasnippet)
-        company-backends-emacs-lisp-mode)
+  (push 'company-capf company-backends-emacs-lisp-mode)
   (spacemacs|add-company-hook emacs-lisp-mode))
 
 (defun spacemacs/init-emacs-builtin-process-menu ()

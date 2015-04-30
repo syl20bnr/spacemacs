@@ -65,8 +65,7 @@
     :init
     (progn
       ;; company support
-      (push '(company-capf :with company-yasnippet)
-            company-backends-pip-requirements-mode)
+      (push 'company-capf company-backends-pip-requirements-mode)
       (spacemacs|add-company-hook pip-requirements-mode))))
 
 (defun python/init-pony-mode ()
@@ -265,8 +264,7 @@
       :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
-      (push '(company-anaconda :with company-yasnippet)
-            company-backends-python-mode))))
+      (push 'company-anaconda company-backends-python-mode))))
 
 (defun python/post-init-semantic ()
   (semantic/enable-semantic-mode 'python-mode))

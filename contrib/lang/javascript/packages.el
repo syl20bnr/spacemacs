@@ -192,5 +192,4 @@
                (configuration-layer/package-usedp 'tern))
       :defer t
       :init
-      (push '(company-tern :with company-yasnippet)
-            company-backends-js2-mode))))
+      (push 'company-tern company-backends-js2-mode))))

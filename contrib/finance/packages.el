@@ -30,7 +30,7 @@
     :init
     (progn
       (setq ledger-post-amount-alignment-column 62)
-      (push '(company-capf :with company-yasnippet) company-backends-ledger-mode)
+      (push 'company-capf company-backends-ledger-mode)
       (evil-leader/set-key-for-mode 'ledger-mode
         "mhd"   'ledger-delete-current-transaction
         "ma"    'ledger-add-transaction

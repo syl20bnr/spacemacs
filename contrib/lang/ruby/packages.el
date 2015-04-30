@@ -134,7 +134,7 @@
     (progn
       (add-hook 'enh-ruby-mode-hook 'robe-mode)
       (when (configuration-layer/layer-usedp 'auto-completion)
-        (push '(company-robe :with company-yasnippet) company-backends-enh-ruby-mode)))
+        (push 'company-robe company-backends-enh-ruby-mode)))
     :config
     (progn
       (spacemacs|hide-lighter robe-mode)

@@ -72,8 +72,7 @@
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun c-c++/post-init-company ()
     ;; push this backend by default
-    (push '(company-clang :with company-yasnippet)
-          company-backends-c-mode-common)
+    (push 'company-clang company-backends-c-mode-common)
     (spacemacs|add-company-hook c-mode-common)
     (spacemacs|add-company-hook cmake-mode)
 
@@ -134,5 +133,4 @@
     "mgG" 'ycmd-goto-imprecise))
 
 (defun c-c++/post-init-company-ycmd ()
-  (push '(company-ycmd :with company-yasnippet)
-        company-backends-c-mode-common))
+  (push 'company-ycmd company-backends-c-mode-common))
