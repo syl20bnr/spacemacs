@@ -78,25 +78,45 @@
     :config
     (progn
       (spacemacs|diminish company-mode " ⓐ" " a")
-      ;; key bindings
-      ;; use TAB to auto-complete instead of RET
-      (defun spacemacs//company-complete-common-or-cycle-backward ()
-        "Complete common prefix or cycle backward."
+
+      ;; allow to complete selection with `jk'
+      (defvar spacemacs--company-complete-time nil)
+      (defun spacemacs//company-complete-start ()
+        "Get time of last `j' when company is active."
         (interactive)
-        (company-complete-common-or-cycle -1))
+        (self-insert-command 1)
+        (setq spacemacs--company-complete-time (current-time)))
+      (defun spacemacs//company-complete-end ()
+        "Check time since last `j' inserted when company was active."
+        (interactive)
+        (if (or (null spacemacs--company-complete-time)
+                (< 0.1 (float-time (time-since spacemacs--company-complete-time))))
+            (self-insert-command 1)
+          ;; if company is still active then we don't need to delete the last
+          ;; inserted `j'
+          (unless company-candidates
+            (delete-char -1))
+          (let ((company-idle-delay))
+            (company-auto-begin)
+            (company-complete-selection)))
+        (setq spacemacs--company-complete-time nil))
+
+      ;; key bindings
+      (define-key evil-insert-state-map "k" 'spacemacs//company-complete-end)
       (let ((map company-active-map))
+        ;; use TAB to auto-complete instead of RET
+        (define-key map (kbd "j") 'spacemacs//company-complete-start)
+        (define-key map [return] 'nil)
+        (define-key map (kbd "RET") 'nil)
         (define-key map [tab] 'company-complete-common-or-cycle)
         (define-key map (kbd "TAB") 'company-complete-common-or-cycle)
         (define-key map (kbd "<tab>") 'company-complete-common-or-cycle)
-        (define-key map (kbd "<S-tab>")
-          'spacemacs//company-complete-common-or-cycle-backward)
-        (define-key map (kbd "<backtab>")
-          'spacemacs//company-complete-common-or-cycle-backward)
-        (define-key map (kbd "C-j") 'company-select-next)
-        (define-key map (kbd "C-k") 'company-select-previous)
         (define-key map (kbd "C-/") 'company-search-candidates)
         (define-key map (kbd "C-M-/") 'company-filter-candidates)
-        (define-key map (kbd "C-d") 'company-show-doc-buffer))
+        (define-key map (kbd "C-d") 'company-show-doc-buffer)
+        (define-key map (kbd "C-j") 'company-select-next)
+        (define-key map (kbd "C-k") 'company-select-previous)
+        (define-key map (kbd "C-l") 'company-complete-selection))
       ;; Nicer looking faces
       (custom-set-faces
        '(company-tooltip-common
@@ -136,6 +156,7 @@
 (defun auto-completion/init-hippie-exp ()
  ;; replace dabbrev-expand
   (global-set-key (kbd "M-/") 'hippie-expand)
+  (define-key evil-insert-state-map (kbd "C-p") 'hippie-expand)
   (setq hippie-expand-try-functions-list
         '(
           ;; Try to expand word "dynamically", searching the current buffer.
@@ -168,6 +189,10 @@
     :commands yas-global-mode
     :init
     (progn
+      ;; disable yas minor mode map
+      ;; use hippie-expand instead
+      (setq yas-minor-mode-map (make-sparse-keymap))
+
       (defun spacemacs/load-yasnippet ()
         (if (not (boundp 'yas-minor-mode))
             (progn
