@@ -50,11 +50,12 @@ This layer requires some [cabal][] packages:
 - `ghc-mod`
 - `hlint`
 - `stylish-haskell`
+- `hasktags`
 
 To install them, use the following command: 
 
 ```sh
-cabal install stylish-haskell hlint ghc-mod
+cabal install stylish-haskell hlint ghc-mod hasktags
 ```
 
 Then you have to add this path to your system `$PATH` (preferred):
