@@ -11,8 +11,9 @@
     - [Features](#features)
     - [Install](#install)
         - [Layer](#layer)
+        - [Default mode for header files](#default-mode-for-header-files)
         - [Enable Clang support](#enable-clang-support)
-        - [clang-format](#clang-format)
+            - [clang-format](#clang-format)
             - [Company-clang and flycheck](#company-clang-and-flycheck)
     - [Key Bindings](#key-bindings)
 
@@ -45,6 +46,20 @@ To use this contribution add it to your `~/.spacemacs`
 
 ** Note: ** [semantic-refactor][] is only available for Emacs 24.4+
 
+### Default mode for header files
+
+By default header files are open in `c-mode`, you can open them in `c++-mode`
+by setting the variable `c-c++-use-c++-mode-for-dot-h` to `t`.
+
+```elisp
+(setq-default dotspacemacs-configuration-layers
+  '((c-c++ variables: c-c++-use-c++-mode-for-dot-h t)))
+```
+
+**Note** To set the variable for a given project, create a directory local
+variable at the root of your project. More info on directory local variables
+can be found in the [emacs documentation][dir-locals].
+
 ### Enable Clang support
 
 To enable Clang support set the layer variable `c-c++-enable-clang-support`
@@ -55,7 +70,7 @@ to `t` in the dotfile:
   '((c-c++ :variables c-c++-enable-clang-support t)))
 ```
 
-### clang-format
+#### clang-format
 
 [clang-format][] allows reformatting either a selected region of code
 (`clang-format-region`) or a whole buffer (`clang-format-buffer`) to make it
@@ -95,8 +110,11 @@ doesn't complain about missing header files.
 <kbd>SPC m g O</kbd>  | open matching file in another window (e.g. switch between .cpp and .h)
 <kbd>SPC m r</kbd>    | srefactor: refactor thing at point.
 
+** Note: ** [semantic-refactor][] is only available for Emacs 24.4+
+
 [CMake]: http://www.cmake.org/
 [semantic-refactor]: https://github.com/tuhdo/semantic-refactor
 [srefactor-demos]: https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org
 [stickyfunc-demos]: https://github.com/tuhdo/semantic-stickyfunc-enhance
 [clang-format]: http://clang.llvm.org/docs/ClangFormat.html
+[dir-locals]: http://www.gnu.org/software/emacs/manual/html_node/elisp/Directory-Local-Variables.html
