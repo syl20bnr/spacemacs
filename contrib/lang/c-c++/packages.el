@@ -33,8 +33,6 @@
     :defer t
     :config
     (progn
-      (add-to-list 'auto-mode-alist '("\\.cxx$" . c++-mode))
-      (add-to-list 'auto-mode-alist '("\\.hpp$" . c++-mode))
       (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
       (require 'compile)
       (c-toggle-auto-newline 1)
