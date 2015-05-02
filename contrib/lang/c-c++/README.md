@@ -8,6 +8,9 @@
 
 - [C/C++ contribution layer for Spacemacs](#cc-contribution-layer-for-spacemacs)
     - [Description](#description)
+    - [Features](#features)
+        - [Clang Fanciness](#clang-fanciness)
+    - [Key Bindings](#key-bindings)
     - [Install](#install)
 
 <!-- markdown-toc end -->
@@ -48,10 +51,14 @@ doesn't complain about missing header files.
 
 ## Install
 
-To use this contribution add it to your `~/.spacemacs`
+To use this contribution add it to your `~/.spacemacs`.
+This layer has a single configuration variable: c-c++-use-c++-mode-for-dot-h,
+when this value is non-nil then *.h files will open with c++-mode, otherwise
+they will open in C mode. The default is nil.
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(c-c++))
+(setq-default dotspacemacs-configuration-layers
+    '((c-c++ variables: c-c++-use-c++-mode-for-dot-h t)))
 ```
 
 ** Note: ** [semantic-refactor][] is only available for Emacs 24.4+
