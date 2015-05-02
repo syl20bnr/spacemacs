@@ -221,14 +221,6 @@
     (progn
       (setq magit-last-seen-setup-instructions "1.4.0"
             magit-completing-read-function 'magit-ido-completing-read)
-
-      (defun spacemacs/magit-status ()
-        "Open a magit status buffer"
-        (interactive)
-        (call-interactively 'magit-status)
-        (evil-surround-mode -1)
-        (evil-define-key 'visual magit-status-mode-map (kbd "s") 'magit-stage-item))
-
       ;; On Windows, we must use Git GUI to enter username and password
       ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
       (when (eq window-system 'w32)
@@ -236,7 +228,7 @@
       (evil-leader/set-key
         "gb" 'magit-blame-mode
         "gl" 'magit-log
-        "gs" 'spacemacs/magit-status
+        "gs" 'magit-status
         "gC" 'magit-commit)
       (evilify magit-commit-mode magit-commit-mode-map
                (kbd "C-j") 'magit-goto-next-section

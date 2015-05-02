@@ -42,7 +42,16 @@
   :tag " <Ev> "
   :enable (emacs)
   :message "-- EVILIFIED BUFFER --"
-  :cursor box)
+  :cursor box
+  (when (evil-evilified-state-p)
+    (when (bound-and-true-p evil-surround-mode)
+      (evil-surround-mode -1))
+    (setq-local evil-normal-state-map (cons 'keymap nil))
+    (setq-local evil-visual-state-map (cons 'keymap nil))
+    (add-hook 'evil-visual-state-entry-hook
+              (lambda () (interactive)
+                (local-set-key evil-visual-state-map "y" 'evil-yank))
+              nil 'local)))
 
 ;; default key bindings for all evilified buffers
 (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
