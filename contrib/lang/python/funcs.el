@@ -22,7 +22,7 @@
   (interactive)
   (let ((trace (cond ((executable-find "ipdb") "import ipdb; ipdb.set_trace()")
                      ((executable-find "pudb") "import pudb; pudb.set_trace()")
-                     ((t "import pdb; pdb.set_trace()"))))
+                     (t "import pdb; pdb.set_trace()")))
         (line (thing-at-point 'line)))
     (if (and line (string-match trace line))
         (kill-whole-line)
