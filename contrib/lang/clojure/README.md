@@ -133,7 +133,9 @@ More info regarding installation of nREPL middleware can be found here:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m t t</kbd>  | run tests
+<kbd>SPC m t t</kbd>  | run all tests in namespace
+<kbd>SPC m t T</kbd>  | run test at point
+<kbd>SPC m t r</kbd>  | re-run test failures for namespace
 
 ### Refactoring
 

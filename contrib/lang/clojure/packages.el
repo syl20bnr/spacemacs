@@ -114,6 +114,21 @@ the focus."
         (cider-switch-to-repl-buffer)
         (evil-insert-state))
 
+      (defun spacemacs/cider-test-run-focused-test ()
+        (interactive)
+        (cider-load-buffer)
+        (spacemacs//cider-eval-in-repl-no-focus (cider-test-run-test)))
+
+      (defun spacemacs/cider-test-run-all-tests ()
+        (interactive)
+        (cider-load-buffer)
+        (spacemacs//cider-eval-in-repl-no-focus (cider-test-run-tests nil)))
+
+      (defun spacemacs/cider-test-rerun-tests ()
+        (interactive)
+        (cider-load-buffer)
+        (spacemacs//cider-eval-in-repl-no-focus (cider-test-rerun-tests)))
+
       (evilify cider-stacktrace-mode cider-stacktrace-mode-map)
 
       ;; open cider-doc directly and close it with q
@@ -150,7 +165,9 @@ the focus."
         "msR" 'spacemacs/cider-send-region-to-repl-focus
         "mss" 'cider-switch-to-repl-buffer
 
-        "mtt" 'cider-test-run-tests)
+        "mtt" 'spacemacs/cider-test-run-all-tests
+        "mtT" 'spacemacs/cider-test-run-focused-test
+        "mtr" 'spacemacs/cider-test-rerun-tests)
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))))
 
