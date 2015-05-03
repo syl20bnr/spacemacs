@@ -10,17 +10,15 @@
 ;;
 ;;; License: GPLv3
 
-(defvar csharp-pre-extensions
+(setq csharp-pre-extensions
   '(
     ;; pre extension csharps go here
-    )
-  "List of all extensions to load before the packages.")
+    ))
 
-(defvar csharp-post-extensions
+(setq csharp-post-extensions
   '(
     ;; post extension csharps go here
-    )
-  "List of all extensions to load after the packages.")
+    ))
 
 ;; For each extension, define a function csharp/init-<extension-csharp>
 ;;

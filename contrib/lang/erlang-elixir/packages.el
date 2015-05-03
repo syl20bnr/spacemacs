@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar erlang-elixir-packages
+(setq erlang-elixir-packages
   '(
     alchemist
     edts
@@ -18,9 +18,7 @@
     erlang
     flycheck
     ruby-end
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (defun erlang-elixir/init-alchemist ()
   (add-hook 'elixir-mode-hook 'alchemist-mode)

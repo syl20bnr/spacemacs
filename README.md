@@ -23,7 +23,7 @@
 
 **Quick Install:**
 
-    git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
+    git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
@@ -139,6 +139,9 @@ are extensively documented.
 If you need help, ask your question in the [Gitter Chat][] and a member of the
 community will help you out.
 
+If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
+`#syl20bnr/spacemacs` channel.
+
 # Prerequisites
 
 ## Emacs version
@@ -182,7 +185,7 @@ Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
 2. Clone this repository _with its submodules_:
 
    ```sh
-   git clone --recursive http://github.com/syl20bnr/spacemacs ~/.emacs.d
+   git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
    ```
 
    `master` is the stable branch and is regularly updated. Switch to the `develop`
@@ -289,7 +292,7 @@ The following command will create a `.spacemacs` file in your home directory:
 
 ```elisp
 ;; List of configuration layers to load.
-dotspacemacs-configuration-layers '(company-mode smex)
+dotspacemacs-configuration-layers '(auto-completion smex)
 ```
 
 Some configuration layers support configuration variables to expose granular
@@ -298,7 +301,7 @@ Variables can be directly set within `dotspacemacs-configuration-layers` like so
 
 ```elisp
 ;; List of configuration layers to load.
-dotspacemacs-configuration-layers '(company-mode
+dotspacemacs-configuration-layers '(auto-completion
                                     (git :variables
                                          git-magit-status-fullscreen t
                                          git-enable-github-support t
@@ -306,8 +309,8 @@ dotspacemacs-configuration-layers '(company-mode
                                     smex)
 ```
 
-At anytime you can apply the changes made to the dotfile _without restarting_
-`Spacemacs` by pressing <kbd>SPC m c c</kbd>.
+At anytime you can apply the changes made to the dotfile or layers
+_without restarting_ `Spacemacs` by pressing <kbd>SPC f e R</kbd>.
 
 The [comments in this file][dotfile template] contain further information about
 how to customize `Spacemacs`. See the [dotfile configuration][dotfile] section of
@@ -450,11 +453,16 @@ See the powerline section in the [documentation][powerline-doc].
 
 ## Windows
 
-1. **Why do the fonts on Windows looks so crappy ?**
+1. **Why do the fonts look crappy on Windows ?**
 You can install [MacType][] on Windows to get very nice looking fonts. It is
 also recommended to disable smooth scrolling on Windows.
 
-2. **How to fix the error: The directory ~/.emacs.d/server is unsafe ?**
+2. **Why is there no Spacemacs logo in the startup buffer ?**
+A GUI build of emacs supporting image display is required.
+You can follow the instructions [here][Windows Image Support]. Alternatively you can download binaries of emacs with image support
+included such as this [one][Windows Gui Build].
+
+3. **How to fix the error: The directory ~/.emacs.d/server is unsafe ?**
 Change the owner of the directory `~/.emacs.d/server`:
   - from Properties select the Tab “Security”,
   - select the button “Advanced”,
@@ -491,7 +499,6 @@ details.
 [CONTRIBUTE.md]: doc/CONTRIBUTE.md
 [powerline-seps]: doc/DOCUMENTATION.md#powerline-separators
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
-[dotfile]: https://github.com/syl20bnr/spacemacs#dotfile-spacemacs
 [dotfile template]: ./core/templates/.spacemacs.template
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
 [osx layer]: contrib/osx/README.md
@@ -499,8 +506,9 @@ details.
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
+[Gitter Chat IRC server]: https://irc.gitter.im/
 [MacType]: https://code.google.com/p/mactype/
-[emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
+[emacs-mac-port]: https://github.com/railwaycat/homebrew-emacsmacport
 [emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
 [homebrew]: https://github.com/Homebrew/homebrew
 [Elixir]: contrib/lang/erlang-elixir
@@ -519,3 +527,5 @@ details.
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
 [Nasser Alshammari]: https://github.com/nashamri
 [cpaulik-unity-icon]: http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/
+[Windows Image Support]: http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files
+[Windows Gui Build]: http://emacsbinw64.sourceforge.net/

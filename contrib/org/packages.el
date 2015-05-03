@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar org-packages
+(setq org-packages
   '(
     evil-org
     org
@@ -18,9 +18,13 @@
     org-pomodoro
     org-repo-todo
     ox-gfm
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
+
+(setq org-excluded-packages
+  '(
+    ;; seems to be problematic, to investigate
+    ox-gfm
+    ))
 
 (defvar org-excluded-packages
   '(
@@ -54,7 +58,7 @@ which require an initialization must be listed explicitly in the list.")
 
       (eval-after-load 'org-indent
         '(spacemacs|hide-lighter org-indent-mode))
-      (add-hook 'org-mode-hook 'org-indent-mode)
+      (setq org-startup-indented t)
 
       (evil-leader/set-key-for-mode 'org-mode
         "mc" 'org-capture
@@ -62,6 +66,7 @@ which require an initialization must be listed explicitly in the list.")
         "me" 'org-export-dispatch
         "mf" 'org-set-effort
         "mi" 'org-clock-in
+        "mj" 'helm-org-in-buffer-headings
         "mo" 'org-clock-out
         "mm" 'org-ctrl-c-ctrl-c
         "mq" 'org-clock-cancel
@@ -72,6 +77,9 @@ which require an initialization must be listed explicitly in the list.")
         '(progn
            (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
            (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)
+           ;; Since we override SPC, let's make RET do that functionality
+           (define-key org-agenda-mode-map
+             (kbd "RET") 'org-agenda-show-and-scroll-up)
            (define-key org-agenda-mode-map
              (kbd "SPC") evil-leader--default-map))))
     :config

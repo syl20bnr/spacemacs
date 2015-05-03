@@ -72,6 +72,13 @@
 ;; Also auto refresh dired, but be quiet about it
 (setq global-auto-revert-non-file-buffers t
       auto-revert-verbose nil)
+;; Regexp for useful and useless buffers for smarter buffer switching
+(defvar spacemacs-useless-buffers-regexp '("*\.\+")
+  "Regexp used to determine if a buffer is not useful.")
+(defvar spacemacs-useful-buffers-regexp '("\\*\\(scratch\\|terminal\.\+\\|ansi-term\\|eshell\\)\\*")
+  "Regexp used to define buffers that are useful despite matching
+`spacemacs-useless-buffers-regexp'.")
+
 ;; activate winner mode use to undo and redo windows layout
 (winner-mode t)
 ;; no beep pleeeeeease ! (and no visual blinking too please)
@@ -104,9 +111,6 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Highlight and allow to open http link at point in programming buffers
 ;; goto-address-prog-mode only highlights links in strings and comments
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)
-
-;; When point is on paranthesis, highlight the matching one
-(show-paren-mode t)
 
 ;; ---------------------------------------------------------------------------
 ;; Edit

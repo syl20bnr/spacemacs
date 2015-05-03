@@ -10,12 +10,10 @@
 ;;
 ;;; License: GPLv3
 
-(defvar shell-scripts-packages
+(setq shell-scripts-packages
   '(
     fish-mode
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (defun shell-scripts/init-fish-mode ()
   (use-package fish-mode

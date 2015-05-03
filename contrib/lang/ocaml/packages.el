@@ -10,19 +10,14 @@
 ;;
 ;;; License: GPLv3
 
-(defvar ocaml-packages
+(setq ocaml-packages
   '(
     tuareg
     merlin
 ;;    flycheck
 ;;    flycheck-ocaml
     ;; package ocamls go here
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
-
-(defvar ocaml-excluded-packages '()
-  "List of packages to exclude.")
+    ))
 
 (defun ocaml/init-tuareg ()
   (add-hook 'tuareg-mode-hook #'merlin-mode)

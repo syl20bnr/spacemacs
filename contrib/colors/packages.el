@@ -10,15 +10,13 @@
 ;;
 ;;; License: GPLv3
 
-(defvar colors-packages
+(setq colors-packages
   '(
     ;; not working well for now
     ;; rainbow-blocks
     rainbow-identifiers
     rainbow-mode
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (defun colors/init-rainbow-blocks ()
   (use-package rainbow-blocks
@@ -36,40 +34,18 @@ which require an initialization must be listed explicitly in the list.")
             rainbow-identifiers-cie-l*a*b*-lightness 40
             ;; override theme faces
             rainbow-identifiers-faces-to-override '(highlight-quoted-symbol
+                                                    font-lock-keyword-face
+                                                    font-lock-function-name-face
                                                     font-lock-variable-name-face))
 
-      (defun colors/toggle-rainbow-indentifiers ()
-        "Toggle rainbow identifiers."
-        (interactive)
-        (if (and (boundp 'rainbow-identifiers-mode)
-                 (symbol-value rainbow-identifiers-mode))
-            (progn
-              (colors//tweak-theme-colors-font-lock t)
-              (rainbow-identifiers-mode -1))
-          (colors//tweak-theme-colors-font-lock)
-          (rainbow-identifiers-mode)))
-      (evil-leader/set-key "tCi" 'colors/toggle-rainbow-indentifiers)
+      (spacemacs|add-toggle rainbow-identifier-globally
+                            :status rainbow-identifiers-mode
+                            :on (rainbow-identifiers-mode)
+                            :off (rainbow-identifiers-mode -1)
+                            :documentation "Colorize identifiers globally."
+                            :evil-leader "tCi")
 
-      (add-to-hooks 'rainbow-identifiers-mode '(prog-mode-hook
-                                                erlang-mode-hook))
-
-      (defun colors//tweak-theme-colors-font-lock (&optional restore)
-        "Nilify some font locks. If RESTORE in non nil the font locks are
- restored."
-        (unless (eq 'spacemacs-mode major-mode)
-          ;; To make the variables stand out, keyword coloring is disabled
-          (cond
-           (restore
-            (set-attributes-from-alist
-             'font-lock-function-name-face original-font-lock-function-name-face-attributes)
-            (set-attributes-from-alist
-             'font-lock-keyword-face original-font-lock-keyword-face-attributes))
-           (t
-            (set-face-attribute 'font-lock-function-name-face nil
-                                :foreground nil :slant 'normal :weight 'normal)
-            (set-face-attribute 'font-lock-keyword-face nil
-                                :foreground nil :slant 'normal :weight 'bold)))
-          (font-lock-fontify-buffer)))
+      (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 
       (defun colors//tweak-theme-colors (theme)
         "Tweak color themes by adjusting rainbow-identifiers colors settings an by
@@ -77,8 +53,12 @@ disabling some faces in order to make colored identifiers stand out."
         (interactive)
         ;; tweak the saturation and lightness of identifier colors
         (pcase theme
+          (`gotham (setq rainbow-identifiers-cie-l*a*b*-saturation 45
+                         rainbow-identifiers-cie-l*a*b*-lightness 60))
           (`leuven (setq rainbow-identifiers-cie-l*a*b*-saturation 100
-                                  rainbow-identifiers-cie-l*a*b*-lightness 40))
+                         rainbow-identifiers-cie-l*a*b*-lightness 40))
+          (`material (setq rainbow-identifiers-cie-l*a*b*-saturation 95
+                           rainbow-identifiers-cie-l*a*b*-lightness 105))
           (`monokai (setq rainbow-identifiers-cie-l*a*b*-saturation 55
                           rainbow-identifiers-cie-l*a*b*-lightness 60))
           (`solarized-dark (setq rainbow-identifiers-cie-l*a*b*-saturation 65
@@ -94,9 +74,7 @@ disabling some faces in order to make colored identifiers stand out."
           (setq original-font-lock-function-name-face-attributes
                 (face-all-attributes font-lock-function-name-face frame))
           (setq original-font-lock-keyword-face-attributes
-                (face-all-attributes font-lock-keyword-face frame)))
-        ;; tweak the font locks
-        (colors//tweak-theme-colors-font-lock)))
+                (face-all-attributes font-lock-keyword-face frame)))))
     (colors//tweak-theme-colors spacemacs--cur-theme)
 
     (defadvice spacemacs/post-theme-init (after colors/post-theme-init activate)
@@ -129,7 +107,7 @@ Press any other key to exit." component (eval var) component component)))
            (define-key map (kbd "-") down-func)
            (define-key map (kbd "=") reset-func)
            map) t)
-           (colors//change-color-mini-mode-doc component)) 
+           (colors//change-color-mini-mode-doc component))
 
       (defun colors/start-change-color-saturation ()
         "Initiate the overlay map to change the saturation."

@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar haskell-packages
+(setq haskell-packages
   '(
     cmm-mode
     company
@@ -43,9 +43,9 @@
     :init (add-hook 'haskell-mode-hook 'ghc-init)
     :config
     (when (configuration-layer/package-usedp 'flycheck)
-          ;; remove overlays from ghc-check.el if flycheck is enabled
-          (set-face-attribute 'ghc-face-error nil :underline nil)
-          (set-face-attribute 'ghc-face-warn nil :underline nil))))
+      ;; remove overlays from ghc-check.el if flycheck is enabled
+      (set-face-attribute 'ghc-face-error nil :underline nil)
+      (set-face-attribute 'ghc-face-warn nil :underline nil))))
 
 (defun haskell/init-haskell-mode ()
   (require 'haskell-yas)
@@ -92,25 +92,6 @@
             ;; Disable haskell-stylish on save, it breaks flycheck highlighting
             haskell-stylish-on-save nil)
 
-      ;; Show indentation guides in insert or emacs state only.
-      (defun spacemacs//haskell-identation-show-guides ()
-        "Show the indent guides."
-        (when (eq 'haskell-mode major-mode)
-          (funcall 'haskell-indentation-enable-show-indentations)))
-      (defun spacemacs//haskell-identation-hide-guides ()
-        "Hide the indent guides."
-        (when (eq 'haskell-mode major-mode)
-          (funcall 'haskell-indentation-disable-show-indentations)))
-      ;; first entry in normal state
-      (add-hook 'evil-normal-state-entry-hook
-                'spacemacs//haskell-identation-hide-guides)
-      (dolist (state '(insert emacs))
-        (eval `(progn
-                 (add-hook ',(intern (format "evil-%S-state-entry-hook" state))
-                           'spacemacs//haskell-identation-show-guides)
-                 (add-hook ',(intern (format "evil-%S-state-exit-hook" state))
-                           'spacemacs//haskell-identation-hide-guides))))
-
       ;; key bindings
       (defun spacemacs/haskell-process-do-type-on-prev-line ()
         (interactive)
@@ -147,7 +128,7 @@
         "mdr"  'haskell-debug/refresh)
 
       ;; Switch back to editor from REPL
-      (evil-leader/set-key-for-mode 'interactive-haskell-mode
+      (evil-leader/set-key-for-mode 'haskell-interactive-mode
         "msS"  'haskell-interactive-switch)
 
       ;; Compile
@@ -178,7 +159,28 @@
       ;; Useful to have these keybindings for .cabal files, too.
       (eval-after-load 'haskell-cabal-mode-map
         '(define-key haskell-cabal-mode-map
-           [?\C-c ?\C-z] 'haskell-interactive-switch)))))
+           [?\C-c ?\C-z] 'haskell-interactive-switch))))
+
+  (eval-after-load 'haskell-indentation
+    (progn
+      ;; Show indentation guides in insert or emacs state only.
+      (defun spacemacs//haskell-indentation-show-guides ()
+        "Show visual indentation guides."
+        (when (derived-mode-p 'haskell-mode)
+          (haskell-indentation-enable-show-indentations)))
+
+      (defun spacemacs//haskell-indentation-hide-guides ()
+        "Hide visual indentation guides."
+        (when (derived-mode-p 'haskell-mode)
+          (haskell-indentation-disable-show-indentations)))
+
+      ;; first entry in normal state
+      (add-hook 'evil-normal-state-entry-hook 'spacemacs//haskell-indentation-hide-guides)
+
+      (add-hook 'evil-insert-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
+      (add-hook 'evil-emacs-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
+      (add-hook 'evil-insert-state-exit-hook 'spacemacs//haskell-indentation-hide-guides)
+      (add-hook 'evil-emacs-state-exit-hook 'spacemacs//haskell-indentation-hide-guides))))
 
 (defun haskell/init-hindent ()
   (use-package hindent
@@ -217,11 +219,11 @@
         (kbd "M-RET") 'evil-ret
         )
 
-      (evil-define-key 'operator map
+      (evil-define-key 'operator shm-map
         (kbd ")") 'shm/forward-node
         (kbd "(") 'shm/backward-node)
 
-      (evil-define-key 'motion map
+      (evil-define-key 'motion shm-map
         (kbd ")") 'shm/forward-node
         (kbd "(") 'shm/backward-node)
 

@@ -97,15 +97,18 @@ symbol and the value is an odered list of initialization functions to execute.")
   "Sorted list of all post extensions symbols.")
 
 (defvar configuration-layer-contrib-categories '("config"
+                                                 "email"
                                                  "fun"
                                                  "irc"
                                                  "lang"
-                                                 "usr")
+                                                 "tools"
+                                                 "usr"
+                                                 "vim"
+                                                 "window-management")
   "List of strings corresponding to category names. A category is a
 sub-directory of the contribution directory.")
 
-(defvar configuration-layer-excluded-packages '()
-  "List of all excluded packages declared at the layer level.")
+(defvar configuration-layer-excluded-packages '())
 
 (defun configuration-layer/sync ()
   "Synchronize declared layers in dotfile with spacemacs."
@@ -163,39 +166,44 @@ in `configuration-layer-contrib-categories'"
 (defun configuration-layer//discover-layers ()
   "Return a hash table where the key is the layer symbol and the value is its
 path."
-  (let ((cat-dirs (configuration-layer//get-contrib-category-dirs))
+  (let ((contrib-cat-dirs (configuration-layer//get-contrib-category-dirs))
+        (discovered '())
         (result (make-hash-table :size 256)))
+    (setq discovered
+          (append discovered (configuration-layer//discover-layers-in-dir
+                              configuration-layer-contrib-directory
+                              configuration-layer-contrib-categories)))
+    (dolist (dir (append contrib-cat-dirs
+                         dotspacemacs-configuration-layer-path))
+      (setq discovered
+            (append discovered (configuration-layer//discover-layers-in-dir
+                                dir))))
+    ;; load private layers at the end on purpose
+    ;; we asume that the user layers must have the final word
+    ;; on configuration choices.
+    (setq discovered
+          (append discovered (configuration-layer//discover-layers-in-dir
+                              configuration-layer-private-directory
+                              '("snippets"))))
     ;; add spacemacs layer
     (puthash 'spacemacs (expand-file-name user-emacs-directory) result)
-    (mapc (lambda (dir)
-            (let ((layers (configuration-layer//discover-layers-in-dir dir)))
-              (mapc (lambda (layer)
-                      (puthash (car layer) (cdr layer) result))
-                    layers)))
-          (append (list configuration-layer-contrib-directory)
-                  cat-dirs
-                  dotspacemacs-configuration-layer-path
-                  ;; load private layers at the end on purpose
-                  ;; we asume that the user layers must have the final word
-                  ;; on configuration choices.
-                  (list configuration-layer-private-directory)))
+    ;; add discovered
+    (mapc (lambda (l) (puthash (car l) (cdr l) result)) discovered)
     result))
 
-(defun configuration-layer//discover-layers-in-dir (dir)
-  "Return an alist where the key is a layer symbol and the value is the path
-for that layer."
+(defun configuration-layer//discover-layers-in-dir (dir &optional exclude)
+  "Return an alist of layer and absolute path in Dir."
   (spacemacs-buffer/message "Looking for configuration layers in %s" dir)
-  (ignore-errors
-    (let ((files (directory-files dir nil nil 'nosort))
-          (filter-out configuration-layer-contrib-categories)
-          result '())
-      (dolist (f files)
-        (when (and (file-directory-p (concat dir f))
-                   (not (member f filter-out))
-                   (not (equalp ?. (aref f 0))))  ;; Remove hidden, traversal
+  (let* ((files (directory-files dir nil nil 'nosort))
+         (result '()))
+    (dolist (f files)
+      (let ((full (file-name-as-directory (concat dir f))))
+        (when (and (not (string-prefix-p "." f))
+                   (not (and exclude (member f exclude)))
+                   (file-directory-p full))
           (spacemacs-buffer/message "-> Discovered configuration layer: %s" f)
-          (push (cons (intern f) dir) result)))
-      result)))
+          (push (cons (intern f) dir) result))))
+    result))
 
 (defun configuration-layer/init-layers ()
   "Declare default layers and user layers from the dotfile by filling the
@@ -296,6 +304,9 @@ the following keys:
     (setq configuration-layer-post-extensions-init-funcs
           (configuration-layer//filter-init-funcs configuration-layer-all-post-extensions t))
     ;; (message "package init-funcs: %s" configuration-layer-packages-init-funcs)
+    ;; Add additional packages not tied to a layer
+    (dolist (add-package dotspacemacs-additional-packages)
+      (puthash add-package nil configuration-layer-all-packages))
     ;; number of chuncks for the loading screen
     (let ((total (+ (ht-size configuration-layer-all-packages)
                     (ht-size configuration-layer-all-pre-extensions)
@@ -824,13 +835,21 @@ deleted safely."
    (t (let ((p (cadr (assq pkg package-alist))))
         (when p (package-delete p))))))
 
+(defun configuration-layer//filter-used-themes (orphans)
+  "Filter out used theme packages from ORPHANS candidates.
+Returns the filtered list."
+  (delq nil (mapcar (lambda (x)
+                      (and (not (memq x spacemacs-used-theme-packages))
+                           x)) orphans)))
+
 (defun configuration-layer/delete-orphan-packages ()
   "Delete all the orphan packages."
   (interactive)
   (let* ((dependencies (configuration-layer//get-packages-dependencies))
          (implicit-packages (configuration-layer//get-implicit-packages))
-         (orphans (configuration-layer//get-orphan-packages implicit-packages
-                                                  dependencies))
+         (orphans (configuration-layer//filter-used-themes
+                   (configuration-layer//get-orphan-packages implicit-packages
+                                                             dependencies)))
          (orphans-count (length orphans)))
     ;; (message "dependencies: %s" dependencies)
     ;; (message "implicit: %s" implicit-packages)

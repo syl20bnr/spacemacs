@@ -23,6 +23,12 @@
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
 
+(defvar dotspacemacs-additional-packages '()
+  "List of additional packages that will be installed wihout being
+wrapped in a layer. If you need some configuration for these
+packages then consider to create a layer, you can also put the
+configuration in `dotspacemacs/config'.")
+
 (defvar dotspacemacs-editing-style 'vim
   "Either `vim' or `emacs'. Evil is always enabled but if the variable
 is `emacs' then the `holy-mode' is enabled at startup.")
@@ -123,6 +129,10 @@ it reaches the top or bottom of the screen.")
 (defvar dotspacemacs-smartparens-strict-mode nil
   "If non-nil smartparens-strict-mode will be enabled in programming modes.")
 
+(defvar dotspacemacs-highlight-delimiters 'all
+  "Select a scope to highlight delimiters. Possible value is `all', `current'
+or `nil'. Default is `all'")
+
 (defvar dotspacemacs-delete-orphan-packages t
   "If non-nil spacemacs will delete any orphan packages, i.e. packages that are
 declared in a layer which is not a member of
@@ -144,27 +154,8 @@ Possible values are: `recents' `bookmarks' `projects'.")
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")
 
-(defvar dotspacemacs-mode-map
-  (let ((map (make-sparse-keymap)))
-    (set-keymap-parent map emacs-lisp-mode-map)
-    (define-key map (kbd "C-c C-c") 'dotspacemacs/sync-configuration-layers)
-    map)
-  "Keymap for dostpacemacs-mode.")
-
-(define-derived-mode dotspacemacs-mode emacs-lisp-mode "dotspacemacs"
-  "dotspacemacs major mode for Spacemacs dotfile.
-
-\\{dotspacemacs-mode-map}"
-  :group 'spacemacs
-  ;; first import evil-leader keymap for emacs-lisp-mode
-  (let ((mode-map (cdr (assoc 'dotspacemacs-mode evil-leader--mode-maps))))
-    (unless mode-map
-      (push (cons 'dotspacemacs-mode
-                  (cdr (assoc 'emacs-lisp-mode evil-leader--mode-maps)))
-            evil-leader--mode-maps)))
-  ;; then define additional leader key bindings
-  (evil-leader/set-key-for-mode 'dotspacemacs-mode
-    "mcc" 'dotspacemacs/sync-configuration-layers))
+;; only for backward compatibility
+(defalias 'dotspacemacs-mode 'emacs-lisp-mode)
 
 (defun dotspacemacs/sync-configuration-layers (&optional arg)
   "Synchronize declared layers in dotfile with spacemacs.

@@ -208,18 +208,6 @@ customize the resulting theme."
          (base3 (if (eq variant 'light) s-base03 s-base3))
          (base03 (if (eq variant 'light) s-base3 s-base03))
 
-         ;; Light/Dark adaptive solarized colors
-         ;;
-         ;; NOTE: the symbols -fg, -bg, -hl, -emph, -comments -fg-hc -fg-lc are only here to
-         ;; keep being compatible with preexisting child themes.
-         (solarized-fg (if (eq variant 'light) s-base00 s-base0))
-         (solarized-bg (if (eq variant 'light) s-base3 s-base03))
-         (solarized-hl (if (eq variant 'light) s-base2 s-base02))
-         (solarized-emph (if (eq variant 'light) s-base01 s-base1))
-         (solarized-comments (if (eq variant 'light) s-base1 s-base01))
-         (solarized-fg-hc (if (eq variant 'light) s-base3 s-base03))
-         (solarized-fg-lc (if (eq variant 'light) s-base03 s-base3))
-
          ;; Line drawing color
          ;;
          ;; NOTE only use this for very thin lines that are hard to see using base02, in low
@@ -290,8 +278,6 @@ customize the resulting theme."
      `(match ((,class (:background ,base02 :foreground ,base1 :weight bold))))
      `(cursor ((,class (:foreground ,base03 :background ,base0
                                     :inverse-video t))))
-     `(mouse ((,class (:foreground ,base03 :background ,base0
-                                   :inverse-video t))))
      `(escape-glyph ((,class (:foreground ,violet))))
      `(fringe ((,class (:foreground ,s-fringe-fg :background ,s-fringe-bg))))
      `(highlight ((,class (:background ,base02))))
@@ -321,7 +307,7 @@ customize the resulting theme."
      `(compilation-warning-face ((,class (:foreground ,yellow :weight normal :underline nil))))
 
      `(compilation-mode-line-exit
-       ((,class (:inherit compilation-info :foreground ,green :weight bold))))
+       ((,class (:foreground unspecified :weight bold))))
      `(compilation-mode-line-fail
        ((,class (:inherit compilation-error :foreground ,red :weight bold))))
      `(compilation-mode-line-run ((,class (:foreground ,orange :weight bold))))
@@ -451,7 +437,7 @@ customize the resulting theme."
      `(font-lock-string-face ((,class (:foreground ,cyan))))
      `(font-lock-type-face ((,class (:foreground ,yellow))))
      `(font-lock-variable-name-face ((,class (:foreground ,blue))))
-     `(font-lock-warning-face ((,class (:foreground ,orange :weight bold :underline t))))
+     `(font-lock-warning-face ((,class (:inherit error :weight bold))))
      `(c-annotation-face ((,class (:inherit font-lock-constant-face))))
 ;;;; Third-party
 ;;;;; ace-jump-mode
@@ -585,6 +571,12 @@ customize the resulting theme."
 ;;;;; coffee
      `(coffee-mode-class-name ((,class (:foreground ,yellow :weight bold))))
      `(coffee-mode-function-param ((,class (:foreground ,violet :slant italic))))
+
+;;;;; cperl-mode
+     `(cperl-array-face ((,class (:background unspecified :foreground ,blue))))
+     `(cperl-hash-face ((,class (:background unspecified :foreground ,blue))))
+     `(cperl-nonoverridable-face ((,class (:foreground ,base0 :weight bold))))
+
 ;;;;; custom
      `(custom-face-tag ((,class (:inherit ,s-variable-pitch :height ,solarized-height-plus-3
                                           :foreground ,violet :weight normal))))
@@ -882,6 +874,10 @@ customize the resulting theme."
      `(git-gutter-fr+-added ((,class (:foreground ,green :weight bold))))
      `(git-gutter-fr+-deleted ((,class (:foreground ,red :weight bold))))
      `(git-gutter-fr+-modified ((,class (:foreground ,blue :weight bold))))
+;;;;; go-direx
+     `(go-direx-header ((,class (:foreground ,blue))))
+     `(go-direx-label ((,class (:foreground ,green))))
+     `(go-direx-package ((,class (:foreground ,base1 :weight bold))))
 ;;;;; guide-key
      `(guide-key/highlight-command-face ((,class (:foreground ,blue))))
      `(guide-key/key-face ((,class (:foreground ,base01))))
@@ -1566,11 +1562,15 @@ customize the resulting theme."
      `(popup-face ((,class (:background ,base02 :foreground ,base0))))
      `(popup-isearch-match ((,class (:background ,yellow :foreground ,base03))))
      `(popup-menu-face ((,class (:background ,base02 :foreground ,base0))))
-     `(popup-menu-mouse-face ((,class (:background ,blue :foreground ,base0))))
+     `(popup-menu-mouse-face ((,class (:background ,blue :foreground ,base03))))
      `(popup-menu-selection-face ((,class (:background ,magenta :foreground ,base03))))
      `(popup-scroll-bar-background-face ((,class (:background ,base01))))
      `(popup-scroll-bar-foreground-face ((,class (:background ,base1))))
      `(popup-tip-face ((,class (:background ,base02 :foreground ,base0))))
+;;;;; pophint
+     `(pophint:tip-face ((,class (:background ,magenta :foreground ,base03))))
+     `(pophint:match-face ((,class (:background ,blue :foreground ,base03))))
+     `(pophint:pos-tip-face ((,class (:background ,base02 :foreground ,base0))))
 ;;;;; powerline
      `(powerline-active1 ((,class ,(if solarized-high-contrast-mode-line
                                        `(:background ,base00 :foreground ,base03)

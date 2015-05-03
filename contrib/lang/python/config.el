@@ -1,4 +1,4 @@
-;;; packages.el --- Python Layer packages File for Spacemacs
+;;; config.el --- Python Layer Configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -13,6 +13,10 @@
 ;; variables
 
 (spacemacs|defvar-company-backends python-mode)
+(spacemacs|defvar-company-backends pip-requirements-mode)
+
+(defvar python-enable-yapf-format-on-save nil
+  "If non-nil, automatically format code with YAPF on save.")
 
 ;; Command prefixes
 

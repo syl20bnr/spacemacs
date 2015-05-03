@@ -14,15 +14,15 @@
 (defun annotate-pdb ()
   "Highlight break point lines."
   (interactive)
-  (highlight-lines-matching-regexp "import i?pdb")
-  (highlight-lines-matching-regexp "i?pdb.set_trace()"))
+  (highlight-lines-matching-regexp "import i?pu?db")
+  (highlight-lines-matching-regexp "i?pu?db.set_trace()"))
 
 (defun python-toggle-breakpoint ()
   "Add a break point, highlight it."
   (interactive)
-  (let ((trace (if (executable-find "ipdb")
-                   "import ipdb; ipdb.set_trace()"
-                 "import pdb; pdb.set_trace()"))
+  (let ((trace (cond ((executable-find "ipdb") "import ipdb; ipdb.set_trace()")
+                     ((executable-find "pudb") "import pudb; pudb.set_trace()")
+                     ((t "import pdb; pdb.set_trace()"))))
         (line (thing-at-point 'line)))
     (if (and line (string-match trace line))
         (kill-whole-line)
@@ -31,3 +31,15 @@
         (insert-string trace)
         (insert-string "\n")
         (python-indent-line)))))
+
+;; from https://www.snip2code.com/Snippet/127022/Emacs-auto-remove-unused-import-statemen
+(defun python-remove-unused-imports()
+  "Use Autoflake to remove unused function"
+  "autoflake --remove-all-unused-imports -i unused_imports.py"
+  (interactive)
+  (if (executable-find "autoflake")
+      (progn
+        (shell-command (format "autoflake --remove-all-unused-imports -i %s"
+                               (shell-quote-argument (buffer-file-name))))
+        (revert-buffer t t t))
+    (message "Error: Cannot find autoflake executable.")))

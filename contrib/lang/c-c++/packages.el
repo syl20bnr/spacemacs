@@ -10,17 +10,20 @@
 ;;
 ;;; License: GPLv3
 
-(defvar c-c++-packages
+(setq c-c++-packages
   '(
     cc-mode
     cmake-mode
     company
     company-c-headers
+    company-ycmd
     flycheck
+    helm-gtags
+    semantic
+    srefactor
     stickyfunc-enhance
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ycmd
+    ))
 
 (unless (version< emacs-version "24.4")
   (add-to-list 'c-c++-packages 'srefactor))
@@ -30,13 +33,11 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :config
     (progn
+      (add-to-list 'auto-mode-alist '("\\.cxx$" . c++-mode))
+      (add-to-list 'auto-mode-alist '("\\.hpp$" . c++-mode))
+      (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
       (require 'compile)
-      (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-      (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
-      (semantic-mode 1)
       (c-toggle-auto-newline 1)
-      (setq srecode-map-save-file (concat spacemacs-cache-directory "srecode-map.el"))
-      (setq semanticdb-default-save-directory (concat spacemacs-cache-directory "semanticdb/"))
       (evil-leader/set-key-for-mode 'c-mode
         "mga" 'projectile-find-other-file
         "mgA" 'projectile-find-other-file-other-window)
@@ -52,32 +53,26 @@ which require an initialization must be listed explicitly in the list.")
 (defun c-c++/post-init-flycheck ()
   (add-to-hooks 'flycheck-mode '(c-mode-hook c++-mode-hook)))
 
-(defun c-c++/init-srefactor ()
-  (use-package srefactor
-    :defer t
-    :init
-    (progn
-      (evil-leader/set-key-for-mode 'c-mode
-        "mr" 'srefactor-refactor-at-point)
-      (evil-leader/set-key-for-mode 'c++-mode
-        "mr" 'srefactor-refactor-at-point))))
+(defun c-c++/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'c-mode)
+  (spacemacs/helm-gtags-define-keys-for-mode 'c++-mode))
 
-(defun c-c++/init-stickyfunc-enhance ()
-  (use-package stickyfunc-enhance
-    :defer t
-    :init
-    (progn
-      (defun spacemacs/lazy-load-stickyfunc-enhance ()
-        "Lazy load the package."
-        (require 'stickyfunc-enhance))
-      (add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance
-                    '(c-mode-hook c++-mode-hook)))))
+(defun c-c++/post-init-semantic ()
+  (semantic/enable-semantic-mode 'c-mode)
+  (semantic/enable-semantic-mode 'c++-mode))
+
+(defun c-c++/post-init-srefactor ()
+  (evil-leader/set-key-for-mode 'c-mode "mr" 'srefactor-refactor-at-point)
+  (evil-leader/set-key-for-mode 'c++-mode "mr" 'srefactor-refactor-at-point)
+  (add-to-hooks 'spacemacs/lazy-load-srefactor '(c-mode-hook c++-mode-hook)))
+
+(defun c-c++/post-init-stickyfunc-enhance ()
+  (add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance '(c-mode-hook c++-mode-hook)))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun c-c++/post-init-company ()
     ;; push this backend by default
-    (push '(company-clang :with company-yasnippet)
-          company-backends-c-mode-common)
+    (push 'company-clang company-backends-c-mode-common)
     (spacemacs|add-company-hook c-mode-common)
     (spacemacs|add-company-hook cmake-mode)
 
@@ -129,3 +124,13 @@ which require an initialization must be listed explicitly in the list.")
       :if (configuration-layer/package-usedp 'company)
       :defer t
       :init (push 'company-c-headers company-backends-c-mode-common))))
+
+
+(defun c-c++/post-init-ycmd ()
+  (add-hook 'c++-mode-hook 'ycmd-mode)
+  (evil-leader/set-key-for-mode 'c++-mode
+    "mgg" 'ycmd-goto
+    "mgG" 'ycmd-goto-imprecise))
+
+(defun c-c++/post-init-company-ycmd ()
+  (push 'company-ycmd company-backends-c-mode-common))

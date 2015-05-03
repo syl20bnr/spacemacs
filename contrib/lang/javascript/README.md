@@ -12,7 +12,9 @@
         - [js2-mode](#js2-mode)
         - [Folding (js2-mode)](#folding-js2-mode)
         - [Refactoring (js2-refactor)](#refactoring-js2-refactor)
+            - [Documentation (js-doc)](#documentation-js-doc)
         - [Auto-complete and documentation (tern)](#auto-complete-and-documentation-tern)
+        - [Formatting (web-beautify)](#formatting-web-beautify)
 
 <!-- markdown-toc end -->
 
@@ -25,6 +27,7 @@ Main features:
 - Refactoring: done using [js2-refactor][].
 - Auto-completion and documentation: provided by [tern][]
 - CoffeeScript support
+- Formatting with [web-beautify][]
 
 ## Install
 
@@ -36,6 +39,11 @@ To use this contribution add it to your `~/.spacemacs`
 
 You will also need to install `tern` to use the auto-completion and
 documentation features:
+
+```shell
+$ npm install -g tern
+```
+To use the formatting features, install `js-beautify`:
 
 ```shell
 $ npm install -g tern
@@ -97,17 +105,34 @@ Bindings should match the plain emacs assignments.
 <kbd>SPC m r w i</kbd>  | wraps the entire buffer in an immediately invoked function expression
 <kbd>SPC m r w l</kbd>  | wraps the region in a for-loop
 
+### Formatting (web-beautify)
+
+    Key Binding        |                 Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC m =</kbd>     | beautify code in js2-mode, json-mode, web-mode, and css-mode
+
+#### Documentation (js-doc)
+
+    Key Binding        |                 Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC m r d b</kbd> | insert JSDoc comment for current file
+<kbd>SPC m r d f</kbd> | insert JSDoc comment for function
+<kbd>SPC m r d t</kbd> | insert tag to comment
+<kbd>SPC m r d h</kbd> | show list of available jsdoc tags
+
 ### Auto-complete and documentation (tern)
 
-    Key Binding      |                 Description
----------------------|------------------------------------------------------------
-<kbd>SPC m c</kbd>   | rename variable under the cursor using tern
-<kbd>SPC m d</kbd>   | find docs of the thing under the cursor. Press again to open the associated URL (if any)
-<kbd>SPC m g</kbd>   | jump to the definition of the thing under the cursor
-<kbd>SPC m G</kbd>   | jump to definition for the given name
-<kbd>SPC m C-g</kbd> | brings you back to last place you were when you pressed M-..
-<kbd>SPC m t</kbd>   | find the type of the thing under the cursor
+    Key Binding        |                 Description
+-----------------------|------------------------------------------------------------
+<kbd>SPC m C-g</kbd>   | brings you back to last place you were when you pressed M-..
+<kbd>SPC m g g</kbd>   | jump to the definition of the thing under the cursor
+<kbd>SPC m g G</kbd>   | jump to definition for the given name
+<kbd>SPC m h d</kbd>   | find docs of the thing under the cursor. Press again to open the associated URL (if any)
+<kbd>SPC m h t</kbd>   | find the type of the thing under the cursor
+<kbd>SPC m r r V</kbd> | rename variable under the cursor using tern
 
 [js2-mode]: https://github.com/mooz/js2-mode
 [js2-refactor]: https://github.com/magnars/js2-refactor.el
 [tern]: http://ternjs.net/
+[js-doc]: https://github.com/mooz/js-doc/
+[web-beautify]: https://github.com/yasuyk/web-beautify

@@ -8,14 +8,17 @@
 - [go contribution layer for Spacemacs](#go-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
+        - [Pre-requisites](#pre-requisites)
         - [Layer](#layer)
     - [Working with Go](#working-with-go)
+        - [Go commands (start with `m`):](#go-commands-start-with-m)
+        - [Go Oracle](#go-oracle)
 
 <!-- markdown-toc end -->
 
 ## Description
 
-This layers adds extensive support for go.
+This layer adds extensive support for go.
 
 Features:
 - gofmt on file save
@@ -23,6 +26,16 @@ Features:
 - Source analysis using [go-oracle](http://golang.org/s/oracle-user-manual)
 
 ## Install
+
+### Pre-requisites
+
+You will need gocode:
+
+```
+go get -u github.com/nsf/gocode
+```
+
+Make sure that `gocode` executable is in your PATH.
 
 ### Layer
 

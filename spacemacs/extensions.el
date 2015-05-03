@@ -12,14 +12,14 @@
 
 ;; Extensions are in emacs_paths/extensions
 ;; Pre extensions are loaded *before* the packages
-(defvar spacemacs-pre-extensions
+(setq spacemacs-pre-extensions
   '(
     evil-evilified-state
     holy-mode
     ))
 
 ;; Post extensions are loaded *after* the packages
-(defvar spacemacs-post-extensions
+(setq spacemacs-post-extensions
   '(
     centered-cursor
     emoji-cheat-sheet
@@ -166,10 +166,15 @@
         (let ((zoom-action (cond ((eq arg 0) 'zoom-frm-unzoom)
                                  ((< arg 0) 'zoom-frm-out)
                                  ((> arg 0) 'zoom-frm-in)))
+              (fm (cdr (assoc 'fullscreen (frame-parameters))))
               (fwp (* (frame-char-width) (frame-width)))
               (fhp (* (frame-char-height) (frame-height))))
+          (when (equal fm 'maximized)
+            (toggle-frame-maximized))
           (funcall zoom-action)
-          (set-frame-size nil fwp fhp t)))
+          (set-frame-size nil fwp fhp t)
+          (when (equal fm 'maximized)
+            (toggle-frame-maximized))))
 
       (defun spacemacs/zoom-frm-in ()
         "zoom in frame, but keep the same pixel size"
@@ -187,8 +192,8 @@
         (spacemacs//zoom-frm-do 0))
 
       ;; Font size, either with ctrl + mouse wheel
-      (global-set-key (kbd "C-<wheel-up>") 'spacemacs/zoom-frm-in)
-      (global-set-key (kbd "C-<wheel-down>") 'spacemacs/zoom-frm-out))))
+      (global-set-key (kbd "<C-wheel-up>") 'spacemacs/zoom-frm-in)
+      (global-set-key (kbd "<C-wheel-down>") 'spacemacs/zoom-frm-out))))
 
 (defun spacemacs/init-emacs-builtin-emacs-lisp ()
 
@@ -204,10 +209,9 @@
     "mtb" 'spacemacs/ert-run-tests-buffer
     "mtq" 'ert)
 
-  (when (configuration-layer/layer-usedp 'auto-completion)
-    (push '(company-capf :with company-yasnippet)
-          company-backends-emacs-lisp-mode)
-    (spacemacs|add-company-hook emacs-lisp-mode)))
+  ;; company support
+  (push 'company-capf company-backends-emacs-lisp-mode)
+  (spacemacs|add-company-hook emacs-lisp-mode))
 
 (defun spacemacs/init-emacs-builtin-process-menu ()
   (evilify process-menu-mode process-menu-mode-map))

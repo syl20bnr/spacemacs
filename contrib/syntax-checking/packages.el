@@ -10,16 +10,12 @@
 ;;
 ;;; License: GPLv3
 
-(defvar syntax-checking-packages
+(setq syntax-checking-packages
   '(
     flycheck
     flycheck-pos-tip
     popwin
     ))
-
-(defvar syntax-checking-excluded-packages '()
-  "Packages that use syntax-checking that are no longer necessary and might
-conflict.")
 
 (defun syntax-checking/init-flycheck ()
   (use-package flycheck
@@ -119,6 +115,7 @@ conflict.")
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
+    :if syntax-checking-enable-tooltips
     :defer t
     :init
     (setq flycheck-display-errors-function 'flycheck-pos-tip-error-messages)))

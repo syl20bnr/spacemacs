@@ -1,6 +1,7 @@
-(defvar extra-langs-packages
+(setq extra-langs-packages
   '(
     arduino-mode
+    d-mode
     idris-mode
     julia-mode
     nim-mode
@@ -14,6 +15,9 @@
 
 (defun extra-langs/init-arduino-mode ()
   (use-package arduino-mode :defer t))
+
+(defun extra-langs/init-d-mode ()
+  (use-package d-mode :defer t))
 
 (defun extra-langs/init-idris-mode ()
   (use-package idris-mode :defer t))

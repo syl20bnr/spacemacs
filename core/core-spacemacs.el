@@ -83,6 +83,10 @@ initialization."
   ;; default theme
   (let ((default-theme (car dotspacemacs-themes)))
     (spacemacs/load-theme default-theme)
+    ;; used to prevent automatic deletion of used packages
+    (setq spacemacs-used-theme-packages
+          (delq nil (mapcar 'spacemacs//get-theme-package
+                            dotspacemacs-themes)))
     (setq-default spacemacs--cur-theme default-theme)
     (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
   ;; removes the GUI elements
@@ -179,7 +183,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
     (when (dotspacemacs/install 'with-wizard)
       (dotspacemacs/sync-configuration-layers)
       (spacemacs-buffer/append
-       "The dofile has been installed.\n"))))
+       "The dotfile has been installed.\n"))))
 
 (defun spacemacs/display-and-copy-version ()
   "Echo the current spacemacs version and copy it."
@@ -194,7 +198,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
 (defun spacemacs/get-last-version (repo owner remote branch)
   "Return the last tagged version of BRANCH on REMOTE repository from
 OWNER REPO."
-  (let ((url (format "http://github.com/%s/%s" owner repo)))
+  (let ((url (format "https://github.com/%s/%s" owner repo)))
     (unless (spacemacs/git-has-remote remote)
       (spacemacs/git-declare-remote remote url)))
   (spacemacs/git-fetch-tags remote branch)
@@ -235,7 +239,7 @@ found."
 (defun spacemacs/git-has-remote (remote)
   "Return non nil if REMOTE is declared."
   (let((proc-buffer "git-has-remote")
-       (default-directory user-emacs-directory))
+       (default-directory (file-truename user-emacs-directory)))
     (when (eq 0 (process-file "git" nil proc-buffer nil "remote"))
         (with-current-buffer proc-buffer
           (prog2
@@ -246,7 +250,7 @@ found."
 (defun spacemacs/git-declare-remote (remote url)
   "Declare a new REMOTE pointing to URL, return t if no error."
   (let((proc-buffer "git-declare-remote")
-       (default-directory user-emacs-directory))
+       (default-directory (file-truename user-emacs-directory)))
     (prog1
         (eq 0 (process-file "git" nil proc-buffer nil
                             "remote" "add" remote url))
@@ -255,7 +259,7 @@ found."
 (defun spacemacs/git-fetch-tags (remote branch)
   "Fetch the tags for BRANCH in REMOTE repository."
   (let((proc-buffer "git-fetch-tags")
-       (default-directory user-emacs-directory))
+       (default-directory (file-truename user-emacs-directory)))
     (prog2
         (eq 0 (process-file "git" nil proc-buffer nil
                             "fetch" remote branch))
@@ -267,7 +271,7 @@ found."
 (defun spacemacs/git-latest-tag (remote branch)
   "Returns the latest tag on REMOTE/BRANCH."
   (let((proc-buffer "git-latest-tag")
-       (default-directory user-emacs-directory)
+       (default-directory (file-truename user-emacs-directory))
        (where (format "%s/%s" remote branch)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
                               "describe" "--tags" "--abbrev=0"

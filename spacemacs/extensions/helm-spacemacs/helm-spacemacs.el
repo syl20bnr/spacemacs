@@ -112,7 +112,15 @@
                  (concat (ht-get configuration-layer-paths
                                  (intern candidate))
                          candidate)))))
-    (find-file (concat path file))))
+    (if (or (equal (file-name-extension file) "md")
+            helm-current-prefix-arg)
+        (condition-case nil
+            (with-current-buffer (find-file-noselect (concat path file))
+              (gh-md-render-buffer)
+              (kill-this-buffer))
+          ;; if anything fails, fall back to simply open file
+          (find-file (concat path file)))
+      (find-file (concat path file)))))
 
 (defun helm-spacemacs//layer-action-open-readme (candidate)
   "Open the `README.md' file of the passed CANDIDATE."

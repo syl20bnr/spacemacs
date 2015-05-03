@@ -1,0 +1,21 @@
+1. Private layers
+
+It is now possible to reload the dotfile and layers anywhere with `SPC f e
+R`. This key binding **replaces** the old `C-c C-c` and `SPC m c c` only
+available in the dotfile.
+
+**Important** You should replace your `(defvar <layer>-packages ...)`,
+`(defvar <layer>-pre-extensions ...)`, `(defvar <layer>-post-extensions ...)`
+and `(defvar <layer>-excluded-packages ...)` by `(setq ...)`. This will
+allow to install newly added packages to a layer without restarting spacemacs
+by pressing `SPC f e R`. Be sure to remove the docstring when replacing the
+`defvar` since `setq` does not take a third argument. 
+
+2. Yasnippet
+
+Yasnippet has been moved to the layer `auto-completion`.
+
+3. Key bindings
+
+`SPC b s` to switch buffer is now on `SPC b b`
+`SPC f f` uses helm instead of ido

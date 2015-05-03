@@ -10,13 +10,8 @@
 ;;
 ;;; License: GPLv3
 
-(defvar slime-packages
-  '(slime)
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
-
-(defvar slime-excluded-packages '()
-  "List of packages to exclude.")
+(setq slime-packages
+  '(slime))
 
 (defun slime/init-slime ()
   (use-package slime

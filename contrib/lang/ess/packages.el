@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar ess-packages
+(setq ess-packages
   '(
     company
     company-ess
@@ -19,12 +19,7 @@
     ess-R-object-popup
     ess-smart-equals
     rainbow-delimiters
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
-
-(defvar ess-excluded-packages '()
-  "List of packages to exclude.")
+    ))
 
 (defun ess/init-ess ()
   ;; ESS is not quick to load so we just load it when
@@ -152,5 +147,4 @@ not play nicely with autoloads"
       :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
-      (push '(company-ess-backend :with company-yasnippet)
-            company-backends-ess-mode))))
+      (push 'company-ess-backend company-backends-ess-mode))))
