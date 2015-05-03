@@ -4,6 +4,7 @@
     company
     company-auctex
     evil-matchit
+    flycheck
     ))
 
 (defun auctex/init-auctex ()
@@ -60,6 +61,9 @@
 
 (defun auctex/post-init-evil-matchit ()
   (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
+
+(defun python/post-init-flycheck ()
+  (add-hook 'LaTeX-mode-hook 'flycheck-mode))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun auctex/post-init-company ()
