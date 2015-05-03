@@ -253,6 +253,8 @@ a batch of packages.
   after a fresh install
 - Startup buffer: fix widget activation in `holy-mode` (thanks to tuhdo)
 - Startup buffer: Don't fontify the startup buffer when `rainbow-identifiers`
+*** Haskell
+- Add new `haskell-snippets` package (fixes error with required `haskell-yas`)
 *** Org
 - Org layer: exclude ox-gfm since it seems problematic for some users.
   package is used
