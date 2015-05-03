@@ -19,6 +19,7 @@
     flycheck-haskell
     ghc
     haskell-mode
+    haskell-snippets
     hindent
     shm
     ))
@@ -48,7 +49,6 @@
       (set-face-attribute 'ghc-face-warn nil :underline nil))))
 
 (defun haskell/init-haskell-mode ()
-  (require 'haskell-yas)
   (use-package haskell-mode
     :defer t
     :config
@@ -181,6 +181,10 @@
       (add-hook 'evil-emacs-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
       (add-hook 'evil-insert-state-exit-hook 'spacemacs//haskell-indentation-hide-guides)
       (add-hook 'evil-emacs-state-exit-hook 'spacemacs//haskell-indentation-hide-guides))))
+
+(defun haskell/init-haskell-snippets ()
+  (use-package haskell-snippets
+    :defer t))
 
 (defun haskell/init-hindent ()
   (use-package hindent
