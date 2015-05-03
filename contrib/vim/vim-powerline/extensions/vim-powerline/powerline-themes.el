@@ -275,9 +275,7 @@
   "Find whether or not FACE is a valid face,
 and if not, try to get the corresponding 
 '-normal' face "
-  (message "%s" face)
-  (let* ((face (if (eq 'powerline-state_indicator-iedit-insert face)
-                   'powerline-state_indicator-iedit face))
+  (let* ((face (replace-regexp-in-string "iedit-insert" "iedit" face))
          (split-face-name nil) (concat-face-name nil) ; some variables we'll use later on
          (report-wrong-prefix ; Our error reporter. Because we don't want to return nil.
           (lambda () (let ((prefix (subseq (or split-face-name (split-string face "-")) 0 2)))
