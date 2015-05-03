@@ -19,6 +19,7 @@
     flycheck-haskell
     ghc
     haskell-mode
+    haskell-snippets
     hindent
     shm
     ))
@@ -48,7 +49,6 @@
           (set-face-attribute 'ghc-face-warn nil :underline nil))))
 
 (defun haskell/init-haskell-mode ()
-  (require 'haskell-yas)
   (use-package haskell-mode
     :defer t
     :config
@@ -179,6 +179,10 @@
       (eval-after-load 'haskell-cabal-mode-map
         '(define-key haskell-cabal-mode-map
            [?\C-c ?\C-z] 'haskell-interactive-switch)))))
+
+(defun haskell/init-haskell-snippets ()
+  (use-package haskell-snippets
+    :defer t))
 
 (defun haskell/init-hindent ()
   (use-package hindent
