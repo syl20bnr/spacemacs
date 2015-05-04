@@ -16,12 +16,9 @@
   "Initialize reftex"
 
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-  (setq reftex-plug-into-AUCTeX t)
+  (setq reftex-plug-into-AUCTeX auctex-reftex-plugin)
 
-  ;; not supported for now
-  ;; (setq spacemacs/key-binding-prefixes '(("mr" . "RefTeX")))
-
-  (evil-leader/set-key-for-mode 'LaTeX-mode
+  (evil-leader/set-key-for-mode 'latex-mode
     "mrc"    'reftex-citation
     "mrg"    'reftex-grep-document
     "mri"    'reftex-index-selection-or-word
