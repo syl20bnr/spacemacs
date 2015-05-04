@@ -181,8 +181,17 @@
            [?\C-c ?\C-z] 'haskell-interactive-switch)))))
 
 (defun haskell/init-haskell-snippets ()
-  (use-package haskell-snippets
-    :defer t))
+  ;; manually load the package since the current implementation is not lazy
+  ;; loading friendly (funny coming from the haskell mode :-))
+  (setq haskell-snippets-dir (spacemacs//get-package-directory
+                              'haskell-snippets))
+
+  (defun haskell-snippets-initialize ()
+    (let ((snip-dir (expand-file-name "snippets" haskell-snippets-dir)))
+      (add-to-list 'yas-snippet-dirs snip-dir t)
+      (yas-load-directory snip-dir)))
+
+  (eval-after-load 'yasnippet '(haskell-snippets-initialize)))
 
 (defun haskell/init-hindent ()
   (use-package hindent
