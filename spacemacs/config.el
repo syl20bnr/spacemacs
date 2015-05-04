@@ -214,11 +214,14 @@ Can be installed with `brew install trash'."
 (setq custom-file (dotspacemacs/location))
 ;; scratch buffer empty
 (setq initial-scratch-message nil)
-;; don't create backup~ or #auto-save# files
+;; don't create backup~ files
 (setq backup-by-copying t
       make-backup-files nil
-      auto-save-default nil
       create-lockfiles nil)
+
+(setq auto-save-file-name-transforms `((".*" ,spacemacs-cache-directory t)))
+(add-hook 'auto-save-hook 'save-buffer-if-visiting-file)
+
 (require 'uniquify)
 ;; When having windows with repeated filenames, uniquify them
 ;; by the folder they are in rather those annoying <2>,<3>,.. etc
