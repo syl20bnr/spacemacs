@@ -2326,9 +2326,8 @@ It is a string holding:
             (powerline-raw " " line-face))
            (list
             ;; global-mode
-            (unless (equal '("") global-mode-string)
               (powerline-raw global-mode-string)
-              (powerline-raw " " line-face))
+              (powerline-raw " " line-face)
             ;; new version
             (if (and active
                      spacemacs-new-version
@@ -2344,7 +2343,8 @@ It is a string holding:
                 ;; display hud
                 (powerline-chamfer-left line-face face1)
                 (if (string-match "\%" progress)
-                    (powerline-hud state-face face1))))))))
+                    (powerline-hud state-face face1)))))
+                      )))
 
       (defun spacemacs/mode-line-prepare ()
         (let* ((active (powerline-selected-window-active))
