@@ -582,7 +582,7 @@ states.
 Vim leader key to the Emacs world.
 
 This leader key is commonly set to `,` by Vim users, in `Spacemacs` the leader
-key is set on <kbd>SPC</kbd> (space bar, this is why the name `spacemacs`).
+key is set on <kbd>SPC</kbd> (space bar, hence the name `spacemacs`).
 This key is the most accessible key on a keyboard and it is pressed with the
 thumb which is a good choice to lower the risk of [RSI][RSI].
 
@@ -621,7 +621,7 @@ Additional information may as well be displayed in the minibuffer.
 # Differences between Vim, Evil and Spacemacs
 
 - The `,` key does "repeat last `f`, `t`, `F`, or `T` command in opposite
-direction in `Vim`, but in `Spacemacs` it the major mode specific leader
+direction in `Vim`, but in `Spacemacs` it is the major mode specific leader
 key by default (which can be set on another key binding in the dotfile).
 
 Send a PR to add the differences you found in this section.
