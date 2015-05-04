@@ -96,6 +96,9 @@ before layers configuration."
    ;; By default the command key is `:' so ex-commands are executed like in Vim
    ;; with `:' and Emacs commands are executed with `<leader> :'.
    dotspacemacs-command-key ":"
+   ;; If non-nil, auto-save to the file directly. If nil, just save
+   ;; to auto-save file in `spacemacs-cache-directory'
+   dotspacemacs-autosave-file-directly nil
    ;; If non nil then `ido' replaces `helm' for some commands. For now only
    ;; `find-files' (SPC f f) is replaced.
    dotspacemacs-use-ido nil
