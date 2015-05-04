@@ -114,8 +114,7 @@
 
 (defun auto-completion/init-company-quickhelp ()
   (use-package company-quickhelp
-    :if (and auto-completion-enable-company-help-tooltip
-             (display-graphic-p))
+    :if (and auto-completion-enable-help-tooltip (display-graphic-p))
     :defer t
     :init (add-hook 'company-mode-hook 'company-quickhelp-mode)))
 
