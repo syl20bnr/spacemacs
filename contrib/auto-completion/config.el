@@ -12,10 +12,16 @@
 
 ;; Company -------------------------------------------------------------------
 
-;; not used for now
-(defvar auto-completion-enable-company-yasnippet t
-  "If non nil enable yasnippet for all company backends.
-Not used for now.")
+(defvar auto-completion-return-key-behavior 'complete
+  "What the RET key should do when auto-completion menu is active.
+Possible values are `complete' or `nil'.")
+
+(defvar auto-completion-tab-key-behavior 'cycle
+  "What the TAB key should do when auto-completion menu is active.
+Possible values are `complete', `cycle' or `nil'.")
+
+(defvar auto-completion-complete-with-key-sequence "jk"
+  "Provide a key sequence to complete the current selection.")
 
 (defvar auto-completion-enable-company-help-tooltip nil
   "If non nil the docstring appears in a tooltip.")

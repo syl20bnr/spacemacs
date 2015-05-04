@@ -6,8 +6,9 @@
 - [Auto-Completion configuration layer for Spacemacs](#auto-completion-configuration-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
-        - [Company variables](#company-variables)
-    - [Configure](#configure)
+    - [Configuration](#configuration)
+        - [Key bindings](#key-bindings)
+        - [Tooltips](#tooltips)
         - [Enable company or auto-complete globally](#enable-company-or-auto-complete-globally)
         - [Replacing company by auto-complete](#replacing-company-by-auto-complete)
         - [Add auto-completion in a layer](#add-auto-completion-in-a-layer)
@@ -37,28 +38,43 @@ To use this configuration layer add it to your `~/.spacemacs`
 (setq-default dotspacemacs-configuration-layers '(auto-completion))
 ```
 
-### Company variables
+## Configuration
 
-To use tab instead of enter to complete your selection,
-`dotspacemacs/init` set `auto-completion-use-tab-instead-of-enter` to
-`t`, for example:
+### Key bindings
+
+You can customize the user experience of auto-completion with the following
+layer variables:
+
+`auto-completion-return-key-behavior` set the action to perform when the
+<kbd>RET</kbd> key is pressed, the possible values are:
+- `complete` completes with the current selection
+- `nil` does nothing
+
+`auto-completion-tab-key-behavior` set the action to perform when the
+<kbd>TAB</kbd> key is pressed, the possible values are:
+- `complete` completes with the current selection
+- `cycle` completes the common prefix and cycle between candidates
+- `nil` does nothing
+
+`auto-completion-complete-with-key-sequence` is a string of two characters
+denoting a key sequence that will perform a `complete` action if the sequence
+as been entered quickly enough. If its value is `nil` then the feature is
+disabled.
+
+The stock configuration of this layer is:
+- `auto-completion-return-key-behavior` = complete
+- `auto-completion-tab-key-behavior` = cycle
+- `auto-completion-complete-with-key-sequence` = "jk"
+
+### Tooltips
+
+To enable docstring tooltips set `auto-completion-enable-help-tooltip` to `t`
 
 ``` elisp
 (setq-default dotspacemacs-configuration-layers
   '(auto-completion :variables
-                    auto-completion-use-tab-instead-of-enter t))
+                    auto-completion-enable-help-tooltip t))
 ```
-
-To enable docstring tooltips set `auto-completion-enable-company-help-tooltip`
-to `t`
-
-``` elisp
-(setq-default dotspacemacs-configuration-layers
-  '(auto-completion :variables
-                    auto-completion-enable-company-help-tooltip t))
-```
-
-## Configure
 
 ### Enable company or auto-complete globally
 
