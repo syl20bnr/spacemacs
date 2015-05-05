@@ -47,6 +47,7 @@ pressed again, go to the beginning of the line.
 Key Binding   | Description
 --------------|------------------------------------------------------------
 `C-a`         | smart beginning of line
-`C-o`         | get into Vim normal mode to execute one command, then go back Emacs edit              | ing mode
+`C-o`         | get into Vim normal mode to execute one command, then go back Emacs editing mode
+`M-o` (Dired) | Open file in other window without moving point. It is the replacement for `C-o` in Dired.
 
 [Prelude]: https://github.com/bbatsov/prelude
