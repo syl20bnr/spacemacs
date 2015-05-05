@@ -872,3 +872,19 @@ If ASCII si not provided then UNICODE is used instead."
   (delete-region (point-min) (point-max))
   (clipboard-yank)
   (deactivate-mark))
+
+;; color utilities
+(defun spacemacs//check-color (color)
+  (cond
+   ((> color 1.0)
+    1.0)
+   ((< color 0.0)
+    0.0)
+   (t color)))
+
+(defun spacemacs//rgb-add (hex-str number)
+  (let* ((rgb-values (color-name-to-rgb hex-str))
+         (red (spacemacs//check-color (+ (car rgb-values) number)))
+         (green (spacemacs//check-color (+ (cadr rgb-values) number)))
+         (blue (spacemacs//check-color (+ (caddr rgb-values) number))))
+    (color-rgb-to-hex red green blue)))
