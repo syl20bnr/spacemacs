@@ -52,6 +52,7 @@ to `t`
 (setq-default dotspacemacs-configuration-layers
   '(auto-completion :variables
                     auto-completion-enable-company-help-tooltip t))
+```
 
 ## Configure
 
