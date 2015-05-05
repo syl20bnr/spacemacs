@@ -98,11 +98,21 @@
         (define-key map (kbd "C-M-/") 'company-filter-candidates)
         (define-key map (kbd "C-d") 'company-show-doc-buffer))
       ;; Nicer looking faces
-      (custom-set-faces
-       '(company-tooltip-common
-         ((t (:inherit company-tooltip :weight bold :underline nil))))
-       '(company-tooltip-common-selection
-         ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+      (set-face-attribute 'company-scrollbar-bg nil
+                          :background (face-attribute 'font-lock-comment-face :foreground))
+      (set-face-attribute 'company-scrollbar-fg nil
+                          :background (face-attribute 'font-lock-builtin-face :foreground))
+      (set-face-attribute 'company-tooltip-selection nil
+                          :background (face-attribute 'highlight :background))
+      ;; just disable the below face, it's redundant
+      (set-face-attribute 'company-tooltip-common-selection nil
+                          :background nil)
+      (set-face-attribute 'company-tooltip-annotation nil
+                          :foreground (face-attribute 'font-lock-constant-face :foreground))
+      (set-face-attribute 'company-tooltip nil
+                          :foreground (face-attribute 'default :foreground)
+                          :background (face-attribute 'default :background))
+
       ;; Transformers
       (defun spacemacs//company-transformer-cancel (candidates)
         "Cancel completion if prefix is in the list
