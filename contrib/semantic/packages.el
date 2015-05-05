@@ -70,6 +70,11 @@ which require an initialization must be listed explicitly in the list.")
         ;; enable specific major mode setup before it can be used
         ;; properly. For now, only Emacs Lisp.
         (when (eq major-mode 'emacs-lisp-mode)
+          (use-package srefactor-lisp
+            :commands (srefactor-lisp-format-buffer
+                       srefactor-lisp-format-defun
+                       srefactor-lisp-format-sexp
+                       srefactor-lisp-one-line))
           (evil-leader/set-key-for-mode 'emacs-lisp-mode "mfb" 'srefactor-lisp-format-buffer)
           (evil-leader/set-key-for-mode 'emacs-lisp-mode "mfd" 'srefactor-lisp-format-defun)
           (evil-leader/set-key-for-mode 'emacs-lisp-mode "mfr" 'srefactor-lisp-format-sexp)
