@@ -7,6 +7,7 @@
     nix-mode
     qml-mode
     rust-mode
+    toml-mode
     scad-mode
     wolfram-mode
     yaml-mode
@@ -42,6 +43,9 @@
     :config
     (when (fboundp 'sp-local-pair) ; Don't pair lifetime specifiers
       (sp-local-pair 'rust-mode "'" nil :actions nil))))
+
+(defun extra-langs/init-toml-mode ()
+  (use-package toml-mode :defer t))
 
 ;; no associated extension because conflicts with more common Objective-C, manually invoke for .m files.
 (defun extra-langs/init-wolfram-mode ()
