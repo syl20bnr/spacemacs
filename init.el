@@ -11,6 +11,7 @@
 ;;; License: GPLv3
 (defconst spacemacs-version          "0.101.3" "Spacemacs version.")
 (defconst spacemacs-emacs-min-version   "24.3" "Minimal version of Emacs.")
+(defconst spacemacs-base-path  (file-name-directory (or (buffer-file-name) load-file-name)))
 
 (defun spacemacs/emacs-version-ok ()
   (version<= spacemacs-emacs-min-version emacs-version))
