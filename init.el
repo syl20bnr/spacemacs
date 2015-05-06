@@ -17,6 +17,8 @@
   (version<= spacemacs-emacs-min-version emacs-version))
 
 (when (spacemacs/emacs-version-ok)
+  ;; ensure that packages using `user-emacs-directory' find the right files
+  (setq user-emacs-directory spacemacs-base-path)
   (load-file (concat user-emacs-directory "core/core-load-paths.el"))
   (require 'core-spacemacs)
   (require 'core-configuration-layer)
