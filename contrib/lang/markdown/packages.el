@@ -14,6 +14,7 @@
   '(
     markdown-mode
     markdown-toc
+    mmm-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -99,3 +100,22 @@ which require an initialization must be listed explicitly in the list.")
 (defun markdown/init-markdown-toc ()
   (use-package markdown-toc
     :defer t))
+
+(defun markdown/init-mmm-mode ()
+  (use-package mmm-mode
+    :config
+    (mmm-add-classes
+     '((markdown-python
+        :submode python-mode
+        :face mmm-declaration-submode-face
+        :front "^```python[\n\r]+"
+        :back "^```$"))
+     )
+    (setq mmm-global-mode 't)
+    (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-python)
+    (progn
+      (evil-leader/set-key-for-mode 'markdown-mode
+        ;; Highlight code blocks
+        "mcs"   'mmm-parse-buffer
+        ))
+    ))
