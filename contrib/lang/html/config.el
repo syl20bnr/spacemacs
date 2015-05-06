@@ -13,3 +13,5 @@
 ;; Variables
 
 (spacemacs|defvar-company-backends css-mode)
+(spacemacs|defvar-company-backends web-mode)
+
