@@ -9,6 +9,7 @@
     - [Configuration](#configuration)
         - [Key bindings](#key-bindings)
         - [Tooltips](#tooltips)
+        - [Sort results by usage](#sort-results-by-usage)
         - [Enable company or auto-complete globally](#enable-company-or-auto-complete-globally)
         - [Replacing company by auto-complete](#replacing-company-by-auto-complete)
         - [Add auto-completion in a layer](#add-auto-completion-in-a-layer)
@@ -85,6 +86,18 @@ To enable docstring tooltips set `auto-completion-enable-help-tooltip` to `t`
                     auto-completion-enable-help-tooltip t))
 ```
 
+### Sort results by usage
+
+To enable sorting auto-completion results by their usage frequency set
+`auto-completion-sort-by-usage` to `t`. This feature uses the
+[company-statistics][] package.
+
+```elisp
+(setq-default dotspacemacs-configuration-layers
+  '(auto-completion :variables
+                    auto-completion-sort-by-usage t))
+```
+
 ### Enable company or auto-complete globally
 
 By default Spacemacs enables auto-completion explicitly for each supported
@@ -154,7 +167,7 @@ In `packages.el`:
 <kbd>C-d</kbd>       | open minibuffer with documentation of thing at point in company dropdown
 
 ### Auto-complete
- 
+
     Key Binding    |                 Description
 -------------------|------------------------------------------------------------
 <kbd>C-j</kbd>     | select next candidate
@@ -166,3 +179,4 @@ In `packages.el`:
 [company]: http://company-mode.github.io/
 [auto-complete]: http://auto-complete.org/
 [yasnippet]: https://github.com/capitaomorte/yasnippet
+[company-statistics]: https://github.com/company-mode/company-statistics
