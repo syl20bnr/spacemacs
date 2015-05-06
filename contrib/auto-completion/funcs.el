@@ -33,13 +33,14 @@
 
 ;; auto-completion key bindings functions
 
-(defun spacemacs//auto-completion-set-RET-key-behavior (package behavior)
-  "Bind RET key appropriately for the given PACKAGE and BEHAVIOR."
+(defun spacemacs//auto-completion-set-RET-key-behavior (package)
+  "Bind RET key appropriately for the given PACKAGE and value of
+`auto-completion-return-key-behavior'."
   (cond
    ((eq 'company package)
     (let ((map company-active-map))
       (cond
-       ((eq 'complete behavior)
+       ((eq 'complete auto-completion-return-key-behavior)
         (define-key map [return] 'company-complete-selection)
         (define-key map (kbd "RET") 'company-complete-selection))
        (t
@@ -47,16 +48,17 @@
         (define-key map (kbd "RET") 'nil)))))
    (t (message "Not yet implemented for package %S" package))))
 
-(defun spacemacs//auto-completion-set-TAB-key-behavior (package behavior)
-  "Bind TAB key appropriately for the given PACKAGE and BEHAVIOR."
+(defun spacemacs//auto-completion-set-TAB-key-behavior (package)
+  "Bind TAB key appropriately for the given PACKAGE and value of
+`auto-completion-tab-key-behavior'."
   (cond
    ((eq 'company package)
     (let ((map company-active-map))
       (cond
-       ((eq 'complete behavior)
+       ((eq 'complete auto-completion-tab-key-behavior)
         (define-key map (kbd "TAB") 'company-complete-selection)
         (define-key map (kbd "<tab>") 'company-complete-selection))
-       ((eq 'cycle behavior)
+       ((eq 'cycle auto-completion-tab-key-behavior)
         (define-key map (kbd "TAB") 'company-complete-common-or-cycle)
         (define-key map (kbd "<tab>") 'company-complete-common-or-cycle)
         (define-key map (kbd "<S-tab>")
@@ -68,25 +70,21 @@
         (define-key map (kbd "<tab>") nil)))))
    (t (message "Not yet implemented for package %S" package))))
 
-(defun spacemacs//auto-completion-setup-key-sequence (package keys)
-  "Setup the key sequence to complete current selection"
-  (when keys
-    (let ((first-key (elt keys 0))
-          (second-key (elt keys 1)))
-      (cond
-       ((eq 'company package)
-        (define-key company-active-map (kbd (char-to-string first-key))
-          'spacemacs//auto-completion-key-sequence-start))
-       (t (message "Not yet implemented for package %S" package)))
-      (define-key evil-insert-state-map (kbd (char-to-string second-key))
-        'spacemacs//auto-completion-key-sequence-end)
-      (define-key evil-emacs-state-map (kbd (char-to-string second-key))
-        'spacemacs//auto-completion-key-sequence-end))))
+(defun spacemacs//auto-completion-setup-key-sequence (package)
+  "Setup the key sequence to complete current selection."
+  (when auto-completion-complete-with-key-sequence
+    (let ((first-key (elt auto-completion-complete-with-key-sequence 0)))
+      (cond ((eq 'company package)
+             (define-key company-active-map (kbd (char-to-string first-key))
+               'spacemacs//auto-completion-key-sequence-start))
+            (t (message "Not yet implemented for package %S" package))))))
 
 ;; key sequence to complete selection
 
 (defvar spacemacs--auto-completion-time nil)
 (defvar spacemacs--auto-completion-complete-last-candidate nil)
+(defvar spacemacs--auto-completion-shadowed-insert-binding nil)
+(defvar spacemacs--auto-completion-shadowed-emacs-binding nil)
 
 (defun spacemacs//auto-completion-key-sequence-start ()
   "Initiate auto-completion sequence."
@@ -96,6 +94,23 @@
         (cond
          ((bound-and-true-p company-mode)
           (nth company-selection company-candidates))))
+  ;; enable second key of the sequence
+  (let ((second-key (kbd (char-to-string
+                          (elt auto-completion-complete-with-key-sequence 1)))))
+    (setq spacemacs--auto-completion-shadowed-insert-binding
+          (lookup-key evil-insert-state-map second-key))
+    (setq spacemacs--auto-completion-shadowed-emacs-binding
+          (lookup-key evil-emacs-state-map second-key))
+    (define-key
+      evil-insert-state-map
+      second-key
+      'spacemacs//auto-completion-key-sequence-end)
+    (define-key
+      evil-emacs-state-map
+      second-key
+      'spacemacs//auto-completion-key-sequence-end))
+  ;; set a timer to restore the old bindings
+  (run-at-time 0.1 nil 'spacemacs//auto-completion-key-sequence-restore)
   (when spacemacs--auto-completion-complete-last-candidate
     (setq spacemacs--auto-completion-time (current-time))))
 
@@ -105,13 +120,27 @@
   (if (or (null spacemacs--auto-completion-time)
           (< 0.1 (float-time (time-since spacemacs--auto-completion-time))))
       (self-insert-command 1)
-    ;; if the auto-completion menu is still active then we don't need to delete
-    ;; the last inserted first key of the sequence
     (cond
      ((bound-and-true-p company-mode)
       (unless company-candidates
-         (delete-char -1))
+        ;; if the auto-completion menu is still active then we don't need to
+        ;; delete the last inserted first key of the sequence
+        (delete-char -1))
       (let ((company-idle-delay))
         (company-auto-begin)
         (company-finish spacemacs--auto-completion-complete-last-candidate)))))
+  (spacemacs//auto-completion-key-sequence-restore)
   (setq spacemacs--auto-completion-time nil))
+
+(defun spacemacs//auto-completion-key-sequence-restore ()
+  "Restore the shadowed key bindings used to auto-complete."
+  (let ((second-key (kbd (char-to-string
+                          (elt auto-completion-complete-with-key-sequence 1)))))
+    (define-key
+      evil-insert-state-map
+      second-key
+      spacemacs--auto-completion-shadowed-insert-binding)
+    (define-key
+      evil-emacs-state-map
+      second-key
+      spacemacs--auto-completion-shadowed-emacs-binding)))
