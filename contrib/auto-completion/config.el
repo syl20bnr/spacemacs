@@ -20,8 +20,9 @@ Possible values are `complete' or `nil'.")
   "What the TAB key should do when auto-completion menu is active.
 Possible values are `complete', `cycle' or `nil'.")
 
-(defvar auto-completion-complete-with-key-sequence "jk"
-  "Provide a key sequence to complete the current selection.")
+(defvar auto-completion-complete-with-key-sequence nil
+  "Provide a key sequence (string) to complete the current
+selection.")
 
 (defvar auto-completion-enable-help-tooltip nil
   "If non nil the docstring appears in a tooltip.")

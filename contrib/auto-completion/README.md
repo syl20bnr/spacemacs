@@ -61,10 +61,19 @@ denoting a key sequence that will perform a `complete` action if the sequence
 as been entered quickly enough. If its value is `nil` then the feature is
 disabled.
 
-The stock configuration of this layer is:
-- `auto-completion-return-key-behavior` = complete
-- `auto-completion-tab-key-behavior` = cycle
-- `auto-completion-complete-with-key-sequence` = "jk"
+The default configuration of the layer is:
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(
+  (auto-completion :variables
+                   auto-completion-return-key-behavior complete
+                   auto-completion-tab-key-behavior cycle
+                   auto-completion-complete-with-key-sequence nil)
+                   ))
+```
+
+`"jk"` is a good candidate for `auto-completion-complete-with-key-sequence` if
+you don't use it already.
 
 ### Tooltips
 

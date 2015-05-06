@@ -84,12 +84,9 @@
         "Complete common prefix or cycle backward."
         (interactive)
         (company-complete-common-or-cycle -1))
-      (spacemacs//auto-completion-set-RET-key-behavior
-       'company auto-completion-return-key-behavior)
-      (spacemacs//auto-completion-set-TAB-key-behavior
-       'company auto-completion-tab-key-behavior)
-      (spacemacs//auto-completion-setup-key-sequence
-       'company auto-completion-complete-with-key-sequence)
+      (spacemacs//auto-completion-set-RET-key-behavior 'company)
+      (spacemacs//auto-completion-set-TAB-key-behavior 'company)
+      (spacemacs//auto-completion-setup-key-sequence 'company)
       (let ((map company-active-map))
         (define-key map (kbd "C-/") 'company-search-candidates)
         (define-key map (kbd "C-M-/") 'company-filter-candidates)
