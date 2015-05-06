@@ -500,7 +500,7 @@ details.
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [MacType]: https://code.google.com/p/mactype/
-[emacs-mac-port]: https://github.com/railwaycat/emacs-mac-port
+[emacs-mac-port]: https://github.com/railwaycat/homebrew-emacsmacport
 [emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
 [homebrew]: https://github.com/Homebrew/homebrew
 [Elixir]: contrib/lang/erlang-elixir
