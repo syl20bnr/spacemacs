@@ -64,6 +64,8 @@ You can tweak the bullets displayed in the org buffer in the function
 <kbd>SPC m j</kbd>    | helm-org-in-buffer-headings
 <kbd>SPC m l</kbd>    | evil-org-open-links
 <kbd>SPC m m</kbd>    | org-ctrl-c-ctrl-c
+<kbd>SPC m n</kbd>    | org-narrow-to-subtree
+<kbd>SPC m N</kbd>    | widen
 <kbd>SPC m o</kbd>    | org-clock-out
 <kbd>SPC m q</kbd>    | org-clock-cancel
 <kbd>SPC m r</kbd>    | org-refile
