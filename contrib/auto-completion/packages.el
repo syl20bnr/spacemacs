@@ -72,7 +72,6 @@
             company-require-match nil
             company-dabbrev-ignore-case nil
             company-dabbrev-downcase nil
-            company-tooltip-flip-when-above t
             company-frontends '(company-pseudo-tooltip-frontend)
             company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser))
     :config
