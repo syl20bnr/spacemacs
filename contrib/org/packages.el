@@ -62,6 +62,8 @@
         "mj" 'helm-org-in-buffer-headings
         "mo" 'org-clock-out
         "mm" 'org-ctrl-c-ctrl-c
+        "mn" 'org-narrow-to-subtree
+        "mN" 'widen
         "mq" 'org-clock-cancel
         "mr" 'org-refile
         "ms" 'org-schedule)
