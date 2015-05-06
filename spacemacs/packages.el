@@ -684,7 +684,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
         while falling back to `evil-lookup'"
         (interactive)
         (condition-case nil
-            (execute-kbd-macro (kbd (concat dotspacemacs-leader-key " m h h")))
+            (execute-kbd-macro (listify-key-sequence
+                                (concat dotspacemacs-leader-key "mhh")))
           (error (evil-lookup))))
       (define-key evil-normal-state-map (kbd "K") 'spacemacs/evil-smart-doc-lookup)
 
@@ -695,7 +696,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
         while falling back to `evil-goto-definition'"
         (interactive)
         (condition-case nil
-            (execute-kbd-macro (kbd (concat dotspacemacs-leader-key "m g g")))
+            (execute-kbd-macro (listify-key-sequence
+                                (concat dotspacemacs-leader-key "mgg")))
           (error (evil-goto-definition))))
       (define-key evil-normal-state-map
         (kbd "gd") 'spacemacs/evil-smart-goto-definition)
