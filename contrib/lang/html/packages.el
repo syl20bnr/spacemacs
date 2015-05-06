@@ -13,6 +13,7 @@
 (setq html-packages
   '(
     company
+    company-web
     css-mode
     emmet-mode
     evil-matchit
@@ -27,6 +28,9 @@
     haml-mode
     slim-mode
     ))
+
+(defun html/init-company-web ()
+  (use-package company-web))
 
 (defun html/init-css-mode ()
   (use-package css-mode
@@ -44,6 +48,8 @@
 (defun html/init-web-mode ()
   (use-package web-mode
     :defer t
+    :init
+    (push 'company-web-html company-backends-web-mode)
     :config
     (progn
       ;; Only use smartparens in web-mode
@@ -183,4 +189,5 @@
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun html/post-init-company ()
-    (spacemacs|add-company-hook css-mode)))
+    (spacemacs|add-company-hook css-mode)
+    (spacemacs|add-company-hook web-mode)))
