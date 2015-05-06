@@ -79,41 +79,15 @@
     (progn
       (spacemacs|diminish company-mode " ⓐ" " a")
 
-      ;; allow to complete selection with `jk'
-      (defvar spacemacs--company-complete-time nil)
-      (defvar spacemacs--company-complete-last-candidate nil)
-      (defun spacemacs//company-complete-start ()
-        "Get time of last `j' when company is active."
-        (interactive)
-        (self-insert-command 1)
-        (setq spacemacs--company-complete-last-candidate
-              (nth company-selection company-candidates))
-        (setq spacemacs--company-complete-time (current-time)))
-      (defun spacemacs//company-complete-end ()
-        "Check time since last `j' inserted when company was active."
-        (interactive)
-        (if (or (null spacemacs--company-complete-time)
-                (< 0.1 (float-time (time-since spacemacs--company-complete-time))))
-            (self-insert-command 1)
-          ;; if company is still active then we don't need to delete the last
-          ;; inserted `j'
-          (unless company-candidates
-            (delete-char -1))
-          (let ((company-idle-delay))
-            (company-auto-begin)
-            (company-finish spacemacs--company-complete-last-candidate)))
-        (setq spacemacs--company-complete-time nil))
-
       ;; key bindings
-      (define-key evil-insert-state-map "k" 'spacemacs//company-complete-end)
+      (defun spacemacs//company-complete-common-or-cycle-backward ()
+        "Complete common prefix or cycle backward."
+        (interactive)
+        (company-complete-common-or-cycle -1))
+      (spacemacs//auto-completion-set-RET-key-behavior 'company)
+      (spacemacs//auto-completion-set-TAB-key-behavior 'company)
+      (spacemacs//auto-completion-setup-key-sequence 'company)
       (let ((map company-active-map))
-        ;; use TAB to auto-complete instead of RET
-        (define-key map (kbd "j") 'spacemacs//company-complete-start)
-        (define-key map [return] 'nil)
-        (define-key map (kbd "RET") 'nil)
-        (define-key map [tab] 'company-complete-common-or-cycle)
-        (define-key map (kbd "TAB") 'company-complete-common-or-cycle)
-        (define-key map (kbd "<tab>") 'company-complete-common-or-cycle)
         (define-key map (kbd "C-/") 'company-search-candidates)
         (define-key map (kbd "C-M-/") 'company-filter-candidates)
         (define-key map (kbd "C-d") 'company-show-doc-buffer)
@@ -137,8 +111,7 @@
 
 (defun auto-completion/init-company-quickhelp ()
   (use-package company-quickhelp
-    :if (and auto-completion-enable-company-help-tooltip
-             (display-graphic-p))
+    :if (and auto-completion-enable-help-tooltip (display-graphic-p))
     :defer t
     :init (add-hook 'company-mode-hook 'company-quickhelp-mode)))
 

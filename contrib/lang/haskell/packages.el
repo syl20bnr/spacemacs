@@ -19,6 +19,7 @@
     flycheck-haskell
     ghc
     haskell-mode
+    haskell-snippets
     hindent
     shm
     ))
@@ -48,7 +49,6 @@
       (set-face-attribute 'ghc-face-warn nil :underline nil))))
 
 (defun haskell/init-haskell-mode ()
-  (require 'haskell-yas)
   (use-package haskell-mode
     :defer t
     :config
@@ -181,6 +181,19 @@
       (add-hook 'evil-emacs-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
       (add-hook 'evil-insert-state-exit-hook 'spacemacs//haskell-indentation-hide-guides)
       (add-hook 'evil-emacs-state-exit-hook 'spacemacs//haskell-indentation-hide-guides))))
+
+(defun haskell/init-haskell-snippets ()
+  ;; manually load the package since the current implementation is not lazy
+  ;; loading friendly (funny coming from the haskell mode :-))
+  (setq haskell-snippets-dir (spacemacs//get-package-directory
+                              'haskell-snippets))
+
+  (defun haskell-snippets-initialize ()
+    (let ((snip-dir (expand-file-name "snippets" haskell-snippets-dir)))
+      (add-to-list 'yas-snippet-dirs snip-dir t)
+      (yas-load-directory snip-dir)))
+
+  (eval-after-load 'yasnippet '(haskell-snippets-initialize)))
 
 (defun haskell/init-hindent ()
   (use-package hindent
