@@ -80,7 +80,6 @@ which require an initialization must be listed explicitly in the list.")
 
 (defun ocaml/init-ocp-indent ()
   (use-package ocp-indent
-    :defer t
     :init
     (ocaml/opam)
     )
