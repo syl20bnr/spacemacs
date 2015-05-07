@@ -7,7 +7,6 @@
     nim-mode
     nix-mode
     qml-mode
-    rust-mode
     scad-mode
     wolfram-mode
     yaml-mode
@@ -39,13 +38,6 @@
 
 (defun extra-langs/init-yaml-mode ()
   (use-package yaml-mode :defer t))
-
-(defun extra-langs/init-rust-mode ()
-  (use-package rust-mode
-    :defer t
-    :config
-    (when (fboundp 'sp-local-pair) ; Don't pair lifetime specifiers
-      (sp-local-pair 'rust-mode "'" nil :actions nil))))
 
 ;; no associated extension because conflicts with more common Objective-C, manually invoke for .m files.
 (defun extra-langs/init-wolfram-mode ()
