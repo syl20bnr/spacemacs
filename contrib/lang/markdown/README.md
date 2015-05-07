@@ -12,13 +12,14 @@
     - [Key bindings](#key-bindings)
         - [Element insertion](#element-insertion)
         - [Element removal](#element-removal)
-        - [Promotion, Demotion, Completion, and Cycling](#promotion-demotion-completion-and-cycling)
+        - [Completion, and Cycling](#completion-and-cycling)
         - [Following and Jumping](#following-and-jumping)
         - [Indentation](#indentation)
         - [Header navigation](#header-navigation)
         - [Buffer-wide commands](#buffer-wide-commands)
         - [List editing](#list-editing)
         - [Movement](#movement)
+        - [Promotion, Demotion](#promotion-demotion)
 
 <!-- markdown-toc end -->
 
@@ -49,31 +50,31 @@ To generate a table of contents type on top of the buffer:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m "</kbd>    | insert hr
-<kbd>SPC m a l</kbd>  | insert link
-<kbd>SPC m a L</kbd>  | insert reference link dwim
-<kbd>SPC m a u</kbd>  | insert uri
-<kbd>SPC m a f</kbd>  | insert footnote
-<kbd>SPC m a w</kbd>  | insert wiki link
+<kbd>SPC m -</kbd>    | insert horizontal line
+<kbd>SPC m i l</kbd>  | insert link
+<kbd>SPC m i L</kbd>  | insert reference link dwim
+<kbd>SPC m i u</kbd>  | insert uri
+<kbd>SPC m i f</kbd>  | insert footnote
+<kbd>SPC m i w</kbd>  | insert wiki link
 <kbd>SPC m i i</kbd>  | insert image
 <kbd>SPC m i I</kbd>  | insert reference image
-<kbd>SPC m t h</kbd>  | insert header dwim
-<kbd>SPC m t H</kbd>  | insert header setext dwim
-<kbd>SPC m t 1</kbd>  | insert header atx 1
-<kbd>SPC m t 2</kbd>  | insert header atx 2
-<kbd>SPC m t 3</kbd>  | insert header atx 3
-<kbd>SPC m t 4</kbd>  | insert header atx 4
-<kbd>SPC m t 5</kbd>  | insert header atx 5
-<kbd>SPC m t 6</kbd>  | insert header atx 6
-<kbd>SPC m t !</kbd>  | insert header setext 1
-<kbd>SPC m t @</kbd>  | insert header setext 2
-<kbd>SPC m s s</kbd>  | insert bold
-<kbd>SPC m s e</kbd>  | insert italic
-<kbd>SPC m s c</kbd>  | insert code
-<kbd>SPC m s b</kbd>  | insert blockquote
-<kbd>SPC m s B</kbd>  | blockquote region
-<kbd>SPC m s p</kbd>  | insert pre
-<kbd>SPC m s P</kbd>  | pre region
+<kbd>SPC m h h</kbd>  | insert header dwim
+<kbd>SPC m h H</kbd>  | insert header setext dwim
+<kbd>SPC m h 1</kbd>  | insert header atx 1
+<kbd>SPC m h 2</kbd>  | insert header atx 2
+<kbd>SPC m h 3</kbd>  | insert header atx 3
+<kbd>SPC m h 4</kbd>  | insert header atx 4
+<kbd>SPC m h 5</kbd>  | insert header atx 5
+<kbd>SPC m h 6</kbd>  | insert header atx 6
+<kbd>SPC m h !</kbd>  | insert header setext 1
+<kbd>SPC m h @</kbd>  | insert header setext 2
+<kbd>SPC m r b</kbd>  | make region bold or insert bold
+<kbd>SPC m r i</kbd>  | make region italic or insert italic
+<kbd>SPC m r c</kbd>  | make region code or insert code
+<kbd>SPC m r q</kbd>  | make region blockquote or insert blockquote
+<kbd>SPC m r Q</kbd>  | blockquote region
+<kbd>SPC m r p</kbd>  | make region or insert pre
+<kbd>SPC m r P</kbd>  | pre region
 
 ### Element removal
 
@@ -81,7 +82,7 @@ To generate a table of contents type on top of the buffer:
 ----------------------|------------------------------------------------------------
 <kbd>SPC m k</kbd>    | kill thing at point
 
-### Promotion, Demotion, Completion, and Cycling
+### Completion, and Cycling
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -107,11 +108,10 @@ To generate a table of contents type on top of the buffer:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m n</kbd>    | outline next visible heading
-<kbd>SPC m p</kbd>    | outline previous visible heading
-<kbd>SPC m f</kbd>    | outline forward same level
-<kbd>SPC m b</kbd>    | outline backward same level
-<kbd>SPC m u</kbd>    | outline up heading
+<kbd>gj</kbd>         | outline forward same level
+<kbd>gk</kbd>         | outline backward same level
+<kbd>gh</kbd>         | outline up one level
+<kbd>gl</kbd>         | outline next visible heading
 
 ### Buffer-wide commands
 
@@ -145,6 +145,15 @@ To generate a table of contents type on top of the buffer:
 <kbd>SPC m }</kbd>    | forward paragraph
 <kbd>SPC m N</kbd>    | next link
 <kbd>SPC m P</kbd>    | previous link
+
+### Promotion, Demotion
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>M-k</kbd>        | markdown-move-up
+<kbd>M-j</kbd>        | markdown-move-down
+<kbd>M-h</kbd>        | markdown-promote
+<kbd>M-l</kbd>        | markdown-demote
 
 [markdown-mode]: http://jblevins.org/git/markdown-mode.git/
 [markdown-toc]: https://github.com/ardumont/markdown-toc
