@@ -969,7 +969,7 @@ If you are not familiar with the `Vim` way of editing text you can try the
 ### Escaping
 
 `Spacemacs` uses [evil-escape][] to easily switch between `insert state` and
-`normal state` by quickly pressing the `fd` keys.
+`normal state` by quickly pressing the <kbd>fd</kbd> keys.
 
 The choice of `fd` was made to be able to use the same sequence to escape from
 "everything" in Emacs:
@@ -986,6 +986,9 @@ The choice of `fd` was made to be able to use the same sequence to escape from
 - quit paradox
 - quit gist-list menu
 - hide neotree buffer
+ 
+If you find yourself in a buffer where the `Spacemacs` (<kbd>SPC</kbd>) or Vim keybindings don't work
+you can use this to get back to `normal state` (for example in <kbd>SPC : customize</kbd> press <kbd>fd</kbd> to make  <kbd>SPC b s</kbd> work again).
 
 This sequence can be customized in your `~/.spacemacs`. Example to set it
 to `jj` (it is important set the variable in `dotspacemacs/init`):
