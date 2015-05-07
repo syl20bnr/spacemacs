@@ -28,7 +28,6 @@
     spray
     zoom-frm
     ;; hack to be able to wrap built-in emacs modes in an init function
-    emacs-builtin-emacs-lisp
     emacs-builtin-process-menu
     ))
 
@@ -194,24 +193,6 @@
       ;; Font size, either with ctrl + mouse wheel
       (global-set-key (kbd "<C-wheel-up>") 'spacemacs/zoom-frm-in)
       (global-set-key (kbd "<C-wheel-down>") 'spacemacs/zoom-frm-out))))
-
-(defun spacemacs/init-emacs-builtin-emacs-lisp ()
-
-  (evil-leader/set-key-for-mode 'emacs-lisp-mode
-    "me$" 'lisp-state-eval-sexp-end-of-line
-    "meb" 'eval-buffer
-    "mec" 'spacemacs/eval-current-form
-    "mee" 'eval-last-sexp
-    "mer" 'spacemacs/eval-region
-    "mef" 'eval-defun
-    "mel" 'lisp-state-eval-sexp-end-of-line
-    "m,"  'lisp-state-toggle-lisp-state
-    "mtb" 'spacemacs/ert-run-tests-buffer
-    "mtq" 'ert)
-
-  ;; company support
-  (push 'company-capf company-backends-emacs-lisp-mode)
-  (spacemacs|add-company-hook emacs-lisp-mode))
 
 (defun spacemacs/init-emacs-builtin-process-menu ()
   (evilify process-menu-mode process-menu-mode-map))

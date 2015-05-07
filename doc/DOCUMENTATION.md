@@ -158,12 +158,10 @@
     - [Troubleshoot](#troubleshoot)
         - [Loading fails](#loading-fails)
         - [I have no file ~/.spacemacs](#i-have-no-file-spacemacs)
-- [Tips](#tips)
-    - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
 - [Achievements](#achievements)
     - [Issues](#issues)
     - [Merged Pull Requests](#merged-pull-requests)
-    - [Stars and forks](#stars-and-forks)
+    - [Stars, forks and watchers](#stars-forks-and-watchers)
     - [Specials](#specials)
 - [Thank you](#thank-you)
 
@@ -2455,18 +2453,6 @@ open a [Github issue][issues] with the backtrace.
 
 You have to manually copy the `~/.emacs.d/core/templates/.spacemacs.template`
 file to `~/.spacemacs`
-
-# Tips
-
-## evil-lisp-state as default state
-
-To Make `lisp state` the default state in `Emacs Lisp` buffers, insert in
-your `~/.spacemacs` the following snippet:
-
-```elisp
-(defun dotspacemacs/config ()
-  (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
-```
 
 # Achievements
 
