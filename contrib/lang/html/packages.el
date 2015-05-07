@@ -29,9 +29,6 @@
     slim-mode
     ))
 
-(defun html/init-company-web ()
-  (use-package company-web))
-
 (defun html/init-css-mode ()
   (use-package css-mode
     :defer t
@@ -190,4 +187,7 @@
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun html/post-init-company ()
     (spacemacs|add-company-hook css-mode)
-    (spacemacs|add-company-hook web-mode)))
+    (spacemacs|add-company-hook web-mode))
+
+  (defun html/init-company-web ()
+    (use-package company-web)))
