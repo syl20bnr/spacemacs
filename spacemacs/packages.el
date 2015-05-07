@@ -2714,9 +2714,30 @@ It is a string holding:
                             :on (global-whitespace-mode)
                             :off (global-whitespace-mode -1)
                             :documentation "Globally display the whitespaces."
-                            :evil-leader "t C-w"))
+                            :evil-leader "t C-w")
+      (add-hook 'diff-mode-hook (lambda ()
+                                  (setq-local whitespace-style
+                                              '(face
+                                                tabs
+                                                tab-mark
+                                                spaces
+                                                space-mark
+                                                trailing
+                                                indentation::space
+                                                indentation::tab
+                                                newline
+                                                newline-mark))
+                                  (whitespace-mode 1))))
     :config
-    (spacemacs|diminish whitespace-mode " ⓦ" " w")))
+    (progn
+      (set-face-attribute 'whitespace-space nil
+                          :background nil
+                          :foreground (face-attribute 'font-lock-warning-face :foreground))
+      (set-face-attribute 'whitespace-tab nil
+                          :background nil)
+      (set-face-attribute 'whitespace-indentation nil
+                          :background nil)
+      (spacemacs|diminish whitespace-mode " ⓦ" " w"))))
 
 (defun spacemacs/init-window-numbering ()
   (use-package window-numbering
