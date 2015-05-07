@@ -25,7 +25,6 @@
     diminish
     doc-view
     ediff
-    elisp-slime-nav
     eldoc
     eval-sexp-fu
     evil
@@ -510,30 +509,15 @@
        ediff-split-window-function 'split-window-horizontally
        ediff-merge-split-window-function 'split-window-horizontally))))
 
-
-(defun spacemacs/init-elisp-slime-nav ()
-  ;; Elisp go-to-definition with M-. and back again with M-,
-  (use-package elisp-slime-nav
-    :defer t
-    :init
-    (progn
-      (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
-      (evil-leader/set-key-for-mode 'emacs-lisp-mode
-        "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
-        "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point))))
-
 (defun spacemacs/init-eldoc ()
   (use-package eldoc
     :defer t
-    :init (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
     :config
     (progn
       ;; enable eldoc in `eval-expression'
       (add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
-
       ;; enable eldoc in IELM
       (add-hook 'ielm-mode-hook #'eldoc-mode)
-
       ;; don't display eldoc on modeline
       (spacemacs|hide-lighter eldoc-mode))))
 
@@ -792,7 +776,6 @@ Example: (evil-map visual \"<\" \"<gv\")"
         (spacemacs|define-text-object "%" "percent" "%" "%"))
 
       (add-to-hook 'prog-mode-hook '(spacemacs//standard-text-objects))
-      (add-to-hook 'emacs-lisp-mode '(lambda () (spacemacs|define-text-object ";" "elisp-comment" ";; " "")))
 
       ;; support smart 1parens-strict-mode
       (if (ht-contains? configuration-layer-all-packages 'smartparens)
