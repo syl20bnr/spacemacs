@@ -1300,6 +1300,12 @@ Example: (evil-map visual \"<\" \"<gv\")"
             helm-recentf-fuzzy-match t
             helm-semantic-fuzzy-match t)
 
+      (defun spacemacs/helm-find-files-navigate-back (orig-fun &rest args)
+        (if (= (length helm-pattern) (length (helm-find-files-initial-input)))
+            (helm-find-files-up-one-level 1)
+          (apply orig-fun args)))
+      (advice-add 'helm-ff-delete-char-backward :around #'spacemacs/helm-find-files-navigate-back)
+
       (defun spacemacs/helm-do-ack ()
         "Perform a search with ack using `helm-ag.'"
         (interactive)
