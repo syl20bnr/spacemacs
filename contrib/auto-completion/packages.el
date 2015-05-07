@@ -112,11 +112,12 @@
 
 (defun auto-completion/init-company-statistics ()
   (use-package company-statistics
-    :if auto-completion-sort-by-usage
+    :if auto-completion-enable-sort-by-usage
     :defer t
     :init
     (progn
-      (setq company-statistics-file (concat spacemacs-cache-directory "company-statistics-cache.el"))
+      (setq company-statistics-file (concat spacemacs-cache-directory
+                                            "company-statistics-cache.el"))
       (add-hook 'company-mode-hook 'company-statistics-mode))))
 
 (defun auto-completion/init-company-quickhelp ()

@@ -89,13 +89,15 @@ To enable docstring tooltips set `auto-completion-enable-help-tooltip` to `t`
 ### Sort results by usage
 
 To enable sorting auto-completion results by their usage frequency set
-`auto-completion-sort-by-usage` to `t`. This feature uses the
-[company-statistics][] package.
+`auto-completion-enable-sort-by-usage` to `t`.
+This feature is provided by the [company-statistics][] package when `company`
+is used.
+The variable has no effect when `auto-complete` is used.
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers
   '(auto-completion :variables
-                    auto-completion-sort-by-usage t))
+                    auto-completion-enable-sort-by-usage t))
 ```
 
 ### Enable company or auto-complete globally
