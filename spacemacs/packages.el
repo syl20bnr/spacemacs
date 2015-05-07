@@ -2715,19 +2715,20 @@ It is a string holding:
                             :off (global-whitespace-mode -1)
                             :documentation "Globally display the whitespaces."
                             :evil-leader "t C-w")
-      (add-hook 'diff-mode-hook (lambda ()
-                                  (setq-local whitespace-style
-                                              '(face
-                                                tabs
-                                                tab-mark
-                                                spaces
-                                                space-mark
-                                                trailing
-                                                indentation::space
-                                                indentation::tab
-                                                newline
-                                                newline-mark))
-                                  (whitespace-mode 1))))
+      (defun spacemacs//set-whitespace-style-for-diff ()
+        "Whitespace configuration for `diff-mode'"
+        (setq-local whitespace-style '(face
+                                       tabs
+                                       tab-mark
+                                       spaces
+                                       space-mark
+                                       trailing
+                                       indentation::space
+                                       indentation::tab
+                                       newline
+                                       newline-mark)))
+      (add-hook 'diff-mode-hook 'whitespace-mode)
+      (add-hook 'diff-mode-hook 'spacemacs//set-whitespace-style-for-diff))
     :config
     (progn
       (set-face-attribute 'whitespace-space nil
