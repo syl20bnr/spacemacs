@@ -5,6 +5,8 @@
     :diminish evil-snipe-mode
     :init
     (progn
+      (if (configuration-layer/package-usedp 'magit)
+          (add-hook 'magit-status-mode-hook (lambda () (evil-snipe-mode -1))))
       (setq evil-snipe-scope 'whole-buffer
             evil-snipe-enable-highlight t
             evil-snipe-enable-incremental-highlight t
