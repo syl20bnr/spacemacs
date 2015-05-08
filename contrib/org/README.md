@@ -110,22 +110,22 @@ You can tweak the bullets displayed in the org buffer in the function
 
     Key Binding             |                 Description
 ----------------------------|------------------------------------------------------------
-<kbd>SPC m h h</kbd>        | org-insert-heading-after-current
-<kbd>SPC m h H</kbd>        | org-insert-heading
-<kbd>SPC m i l</kbd>        | org-insert-link
+<kbd>SPC m h i</kbd>        | org-insert-heading-after-current
+<kbd>SPC m h I</kbd>        | org-insert-heading
 <kbd>SPC m i f</kbd>        | org-insert-footnote
+<kbd>SPC m i l</kbd>        | org-insert-link
 
 #### Org emphasize
 
     Key Binding             |                 Description
 ----------------------------|------------------------------------------------------------
-<kbd>SPC m r b</kbd>        | make region bold
-<kbd>SPC m r i</kbd>        | make region italic
-<kbd>SPC m r c</kbd>        | make region code
-<kbd>SPC m r u</kbd>        | make region underline
-<kbd>SPC m r v</kbd>        | make region verbose
-<kbd>SPC m r s</kbd>        | make region strike-through
-<kbd>SPC m r SPC</kbd>      | clear region emphasis
+<kbd>SPC m x b</kbd>        | make region bold
+<kbd>SPC m x c</kbd>        | make region code
+<kbd>SPC m x i</kbd>        | make region italic
+<kbd>SPC m x r</kbd>        | clear region emphasis
+<kbd>SPC m x s</kbd>        | make region strike-through
+<kbd>SPC m x u</kbd>        | make region underline
+<kbd>SPC m x v</kbd>        | make region verbose
 
 ### Pomodoro
 
@@ -141,7 +141,6 @@ You can tweak the bullets displayed in the org buffer in the function
 <kbd>SPC C t</kbd>    | ort/capture-todo
 <kbd>SPC C T</kbd>    | ort/capture-todo-check
 <kbd>SPC m g t</kbd>  | ort/goto-todos
-
 
 [org mode]: http://orgmode.org/
 [evil-org-mode]: https://github.com/edwtjo/evil-org-mode
