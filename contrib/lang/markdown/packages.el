@@ -28,41 +28,11 @@
       (sp-local-pair 'markdown-mode "'" nil :actions nil))
     (progn
       (evil-leader/set-key-for-mode 'markdown-mode
-        ;; Insertion of common elements
-        "m-"   'markdown-insert-hr
-        "mil"   'markdown-insert-link
-        "miL"   'markdown-insert-reference-link-dwim
-        "miu"   'markdown-insert-uri
-        "mif"   'markdown-insert-footnote
-        "miw"   'markdown-insert-wiki-link
-        "mii"   'markdown-insert-image
-        "miI"   'markdown-insert-reference-image
-        ;; headings
-        "mhh"   'markdown-insert-header-dwim
-        "mhH"   'markdown-insert-header-setext-dwim
-        "mh1"   'markdown-insert-header-atx-1
-        "mh2"   'markdown-insert-header-atx-2
-        "mh3"   'markdown-insert-header-atx-3
-        "mh4"   'markdown-insert-header-atx-4
-        "mh5"   'markdown-insert-header-atx-5
-        "mh6"   'markdown-insert-header-atx-6
-        "mh!"   'markdown-insert-header-setext-1
-        "mh@"   'markdown-insert-header-setext-2
-        ;; region manipulation
-        "mrb"   'markdown-insert-bold
-        "mri"   'markdown-insert-italic
-        "mrc"   'markdown-insert-code
-        "mrq"   'markdown-insert-blockquote
-        "mrQ"   'markdown-blockquote-region
-        "mrp"   'markdown-insert-pre
-        "mrP"   'markdown-pre-region
-        ;; Element removal
-        "mk"    'markdown-kill-thing-at-point
+        ;; Movement
+        "m{"   'markdown-backward-paragraph
+        "m}"   'markdown-forward-paragraph
         ;; Completion, and Cycling
-        "m]"    'markdown-complete
-        ;; Following and Jumping
-        "mo"   'markdown-follow-thing-at-point
-        "m <RET>"   'markdown-jump
+        "m]"   'markdown-complete
         ;; Indentation
         "m>"   'markdown-indent-region
         "m<"   'markdown-exdent-region
@@ -76,13 +46,43 @@
         "mcw"  'markdown-kill-ring-save
         "mcc"  'markdown-check-refs
         "mcn"  'markdown-cleanup-list-numbers
+        ;; headings
+        "mhi"  'markdown-insert-header-dwim
+        "mhI"  'markdown-insert-header-setext-dwim
+        "mh1"  'markdown-insert-header-atx-1
+        "mh2"  'markdown-insert-header-atx-2
+        "mh3"  'markdown-insert-header-atx-3
+        "mh4"  'markdown-insert-header-atx-4
+        "mh5"  'markdown-insert-header-atx-5
+        "mh6"  'markdown-insert-header-atx-6
+        "mh!"  'markdown-insert-header-setext-1
+        "mh@"  'markdown-insert-header-setext-2
+        ;; Insertion of common elements
+        "m-"   'markdown-insert-hr
+        "mif"  'markdown-insert-footnote
+        "mii"  'markdown-insert-image
+        "miI"  'markdown-insert-reference-image
+        "mil"  'markdown-insert-link
+        "miL"  'markdown-insert-reference-link-dwim
+        "miw"  'markdown-insert-wiki-link
+        "miu"  'markdown-insert-uri
+        ;; Element removal
+        "mk"   'markdown-kill-thing-at-point
         ;; List editing
         "mli"  'markdown-insert-list-item
-        ;; Movement
-        "m{"   'markdown-backward-paragraph
-        "m}"   'markdown-forward-paragraph
+        ;; region manipulation
+        "mxb"  'markdown-insert-bold
+        "mxi"  'markdown-insert-italic
+        "mxc"  'markdown-insert-code
+        "mxq"  'markdown-insert-blockquote
+        "mxQ"  'markdown-blockquote-region
+        "mxp"  'markdown-insert-pre
+        "mxP"  'markdown-pre-region
+        ;; Following and Jumping
         "mN"   'markdown-next-link
-        "mP"   'markdown-previous-link)
+        "mo"   'markdown-follow-thing-at-point
+        "mP"   'markdown-previous-link
+        "m <RET>" 'markdown-jump)
 
       ;; Header navigation in normal state movements
       (evil-define-key 'normal markdown-mode-map
@@ -90,13 +90,12 @@
         "gk" 'outline-backward-same-level
         "gh" 'outline-up-heading
         ;; next visible heading is not exactly what we want but close enough
-        "gl" 'outline-next-visible-heading
-        )
+        "gl" 'outline-next-visible-heading)
 
       ;; Promotion, Demotion
-      (define-key markdown-mode-map (kbd "M-k") 'markdown-move-up)
-      (define-key markdown-mode-map (kbd "M-j") 'markdown-move-down)
       (define-key markdown-mode-map (kbd "M-h") 'markdown-promote)
+      (define-key markdown-mode-map (kbd "M-j") 'markdown-move-down)
+      (define-key markdown-mode-map (kbd "M-k") 'markdown-move-up)
       (define-key markdown-mode-map (kbd "M-l") 'markdown-demote))))
 
 (defun markdown/init-markdown-toc ()

@@ -51,15 +51,8 @@ To generate a table of contents type on top of the buffer:
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC m -</kbd>    | insert horizontal line
-<kbd>SPC m i l</kbd>  | insert link
-<kbd>SPC m i L</kbd>  | insert reference link dwim
-<kbd>SPC m i u</kbd>  | insert uri
-<kbd>SPC m i f</kbd>  | insert footnote
-<kbd>SPC m i w</kbd>  | insert wiki link
-<kbd>SPC m i i</kbd>  | insert image
-<kbd>SPC m i I</kbd>  | insert reference image
-<kbd>SPC m h h</kbd>  | insert header dwim
-<kbd>SPC m h H</kbd>  | insert header setext dwim
+<kbd>SPC m h i</kbd>  | insert header dwim
+<kbd>SPC m h I</kbd>  | insert header setext dwim
 <kbd>SPC m h 1</kbd>  | insert header atx 1
 <kbd>SPC m h 2</kbd>  | insert header atx 2
 <kbd>SPC m h 3</kbd>  | insert header atx 3
@@ -68,13 +61,20 @@ To generate a table of contents type on top of the buffer:
 <kbd>SPC m h 6</kbd>  | insert header atx 6
 <kbd>SPC m h !</kbd>  | insert header setext 1
 <kbd>SPC m h @</kbd>  | insert header setext 2
-<kbd>SPC m r b</kbd>  | make region bold or insert bold
-<kbd>SPC m r i</kbd>  | make region italic or insert italic
-<kbd>SPC m r c</kbd>  | make region code or insert code
-<kbd>SPC m r q</kbd>  | make region blockquote or insert blockquote
-<kbd>SPC m r Q</kbd>  | blockquote region
-<kbd>SPC m r p</kbd>  | make region or insert pre
-<kbd>SPC m r P</kbd>  | pre region
+<kbd>SPC m i l</kbd>  | insert link
+<kbd>SPC m i L</kbd>  | insert reference link dwim
+<kbd>SPC m i u</kbd>  | insert uri
+<kbd>SPC m i f</kbd>  | insert footnote
+<kbd>SPC m i w</kbd>  | insert wiki link
+<kbd>SPC m i i</kbd>  | insert image
+<kbd>SPC m i I</kbd>  | insert reference image
+<kbd>SPC m x b</kbd>  | make region bold or insert bold
+<kbd>SPC m x i</kbd>  | make region italic or insert italic
+<kbd>SPC m x c</kbd>  | make region code or insert code
+<kbd>SPC m x q</kbd>  | make region blockquote or insert blockquote
+<kbd>SPC m x Q</kbd>  | blockquote region
+<kbd>SPC m x p</kbd>  | make region or insert pre
+<kbd>SPC m x P</kbd>  | pre region
 
 ### Element removal
 
@@ -117,25 +117,25 @@ To generate a table of contents type on top of the buffer:
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m c m</kbd>  | complete buffer
-<kbd>SPC m c p</kbd>  | other window
-<kbd>SPC m c e</kbd>  | preview
-<kbd>SPC m c v</kbd>  | export
-<kbd>SPC m c o</kbd>  | export and preview
-<kbd>SPC m c w</kbd>  | open
-<kbd>SPC m c c</kbd>  | kill ring save
-<kbd>SPC m c n</kbd>  | check refs
 <kbd>SPC m c ]</kbd>  | cleanup list numbers
+<kbd>SPC m c c</kbd>  | kill ring save
+<kbd>SPC m c e</kbd>  | preview
+<kbd>SPC m c m</kbd>  | complete buffer
+<kbd>SPC m c n</kbd>  | check refs
+<kbd>SPC m c o</kbd>  | export and preview
+<kbd>SPC m c p</kbd>  | other window
+<kbd>SPC m c v</kbd>  | export
+<kbd>SPC m c w</kbd>  | open
 
 ### List editing
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m l k</kbd>  | move up
-<kbd>SPC m l j</kbd>  | move down
 <kbd>SPC m l h</kbd>  | promote
-<kbd>SPC m l l</kbd>  | demote
 <kbd>SPC m l i</kbd>  | insert list item
+<kbd>SPC m l j</kbd>  | move down
+<kbd>SPC m l k</kbd>  | move up
+<kbd>SPC m l l</kbd>  | demote
 
 ### Movement
 
