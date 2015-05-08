@@ -15,15 +15,18 @@
 
 ## Description
 
-This adds support for TypeScript editing via [typescript-tools](https://github.com/clausreinke/typescript-tools) and [emacs-tss](https://github.com/aki2o/emacs-tss).
+This layer adds support for TypeScript editing via [typescript-tools][] and
+[emacs-tss][].
 
-These provide:
+This layer provides:
 - syntax coloring
 - error highlighting
-- autocompletion
+- auto-completion via Flymake
 - jump-to-definition
 
 ## Install
+
+### Layer
 
 To use this contribution add it to your `~/.spacemacs`
 
@@ -33,9 +36,10 @@ To use this contribution add it to your `~/.spacemacs`
 
 ### Prerequisites
 
-You'll need [typescript-tools](https://github.com/clausreinke/typescript-tools) and fairly obviously also the TypeScript compiler:
+You'll need [typescript-tools][] and fairly obviously also the TypeScript
+compiler:
 
-```
+```sh
 $ npm install typescript
 $ git clone git://github.com/clausreinke/typescript-tools.git
 $ cd typescript-tools/
@@ -46,6 +50,8 @@ $ npm install -g
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`<SPC> m h`   | Show popup help (with type info)
-`<SPC> m d`   | Jump to definition
-`<SPC> m c f` | Flymake check (is done automatically on save)
+`<SPC> m g g` | Jump to definition
+`<SPC> m h h` | Show popup help (with type info)
+
+[emacs-tss]: https://github.com/aki2o/emacs-tss
+[typescript-tools]: https://github.com/clausreinke/typescript-tools

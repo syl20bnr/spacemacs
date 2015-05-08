@@ -10,26 +10,14 @@
 ;;
 ;;; License: GPLv3
 
-(defvar typescript-packages '(tss)
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
-
-(defvar typescript-excluded-packages '()
-  "List of packages to exclude.")
+(setq typescript-packages '(tss))
 
 (defun typescript/init-tss ()
   "Initialize my package"
   (use-package tss
-    :mode ("\\.ts\\'" . typescript-mode)
     :defer t
-    :init
-    (progn
-      (require 'typescript)
-      (require 'tss)
-      (evil-leader/set-key-for-mode 'typescript-mode
-        "mh" 'tss-popup-help
-        "md" 'tss-jump-to-definition
-        "mcf" 'tss-run-flymake))
-    :config
-    (progn
-      (tss-config-default))))
+    :mode ("\\.ts\\'" . typescript-mode)
+    :init (evil-leader/set-key-for-mode 'typescript-mode
+            "mgg" 'tss-jump-to-definition
+            "mhh" 'tss-popup-help)
+    :config (tss-config-default)))
