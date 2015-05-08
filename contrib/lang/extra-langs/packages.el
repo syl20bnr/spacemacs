@@ -4,6 +4,7 @@
     d-mode
     idris-mode
     julia-mode
+    matlab-mode
     nim-mode
     nix-mode
     qml-mode
@@ -36,6 +37,9 @@
 
 (defun extra-langs/init-julia-mode ()
   (use-package julia-mode :defer t))
+
+(defun extra-langs/init-matlab-mode ()
+  (use-package matlab-mode :defer t))
 
 (defun extra-langs/init-yaml-mode ()
   (use-package yaml-mode :defer t))
