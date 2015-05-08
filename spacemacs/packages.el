@@ -2237,7 +2237,7 @@ displayed in the mode-line.")
       (defun spacemacs//customize-powerline-faces ()
         "Alter powerline face to make them work with more themes."
         (set-face-attribute 'powerline-inactive2 nil
-                            :inherit 'font-lock-preprocessor-face))
+                            :inherit 'font-lock-comment-face))
       (spacemacs//customize-powerline-faces)
 
 
