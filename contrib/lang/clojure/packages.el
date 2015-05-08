@@ -138,6 +138,7 @@ the focus."
 
         "msb" 'cider-load-buffer
         "msB" 'spacemacs/cider-send-buffer-in-repl-and-focus
+        "msc" 'cider-connect
         "mse" 'spacemacs/cider-send-last-sexp-to-repl
         "msE" 'spacemacs/cider-send-last-sexp-to-repl-focus
         "msf" 'spacemacs/cider-send-function-to-repl
