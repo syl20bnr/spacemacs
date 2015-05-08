@@ -117,6 +117,7 @@ More info regarding installation of nREPL middleware can be found here:
 ----------------------|------------------------------------------------------------
 <kbd>SPC m s b</kbd>  | send and eval buffer in REPL
 <kbd>SPC m s B</kbd>  | send and eval buffer and switch to REPL in `insert state`
+<kbd>SPC m s c</kbd>  | connect to REPL (cider-connect)
 <kbd>SPC m s e</kbd>  | send and eval last sexp in REPL
 <kbd>SPC m s E</kbd>  | send and eval last sexp and switch to REPL in `insert state`
 <kbd>SPC m s f</kbd>  | send and eval function in REPL
