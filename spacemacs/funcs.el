@@ -872,3 +872,8 @@ If ASCII si not provided then UNICODE is used instead."
   (delete-region (point-min) (point-max))
   (clipboard-yank)
   (deactivate-mark))
+
+(defun projectile-multi-term-in-root ()
+  "Invoke `multi-term' in the project's root."
+  (interactive)
+  (projectile-with-default-dir (projectile-project-root) (multi-term)))
