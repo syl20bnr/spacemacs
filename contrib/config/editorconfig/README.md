@@ -16,7 +16,6 @@
 ## Description
 
 This layer provides support for [EditorConfig][].
-Syntax highlighting is also provided for `.editorconfig` files.
 
 ## Install
 
