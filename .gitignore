@@ -38,6 +38,9 @@ server/
 /*.zip
 *.db
 python-*-docs-html
+.cask/
+Cask
+el-get/
 
 # Private directory
 private/*
