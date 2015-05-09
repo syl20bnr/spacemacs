@@ -2,6 +2,7 @@
   '(
     ;; package puppets go here
     puppet-mode
+    company
     ))
 
 ;; For each package, define a function puppet-mode/init-<package-puppet-mode>
@@ -32,3 +33,8 @@
         "mv" 'puppet-validate
         "ml" 'puppet-lint
       ))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun puppet/post-init-company ()
+    (spacemacs|add-company-hook puppet-mode))
+)
