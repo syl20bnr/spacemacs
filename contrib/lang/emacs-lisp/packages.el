@@ -58,6 +58,6 @@
     (evil-leader/set-key-for-mode 'emacs-lisp-mode
       "m=b" 'srefactor-lisp-format-buffer
       "m=d" 'srefactor-lisp-format-defun
-      "m=s" 'srefactor-lisp-format-sexp
       "m=o" 'srefactor-lisp-one-line
+      "m=s" 'srefactor-lisp-format-sexp
       )))
