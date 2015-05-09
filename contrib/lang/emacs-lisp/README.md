@@ -41,6 +41,7 @@ Key Binding                                  | Description
 <kbd>SPC m ,</kbd>                           | toggle `lisp state`
 <kbd>SPC m t b</kbd>                         | run tests of current buffer
 <kbd>SPC m t q</kbd>                         | run `ert`
+<kbd>SPC m d m</kbd>                         | open [macrostep][] micro-state
 
 ### srefactor
 
@@ -54,4 +55,5 @@ Key Binding          | Description
 <kbd>SPC m = o</kbd> | format all on one line
 <kbd>SPC m = s</kbd> | format current sexp
 
+[macrostep]: https://github.com/joddie/macrostep
 [semantic-layer]: ../../semantic/README.md
