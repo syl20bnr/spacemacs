@@ -11,14 +11,15 @@
 ;;; License: GPLv3
 
 (setq emacs-lisp-packages
-  '(
-    eldoc
-    elisp-slime-nav
-    evil
-    semantic
-    smartparens
-    srefactor
-    ))
+      '(
+        eldoc
+        elisp-slime-nav
+        evil
+        macrostep
+        semantic
+        smartparens
+        srefactor
+        ))
 
 (defun emacs-lisp/post-init-eldoc ()
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
@@ -33,6 +34,25 @@
       (evil-leader/set-key-for-mode 'emacs-lisp-mode
         "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
         "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point))))
+
+(defun emacs-lisp/init-macrostep ()
+  (use-package macrostep
+    :defer t
+    :mode ("\\*.el\\'" . emacs-lisp-mode)
+    :init
+    (progn
+      (spacemacs|define-micro-state macrostep
+        :doc "[e] expand [c] collapse [n/N] next/previous [q] quit"
+        :disable-evil-leader t
+        :persistent t
+        :use-minibuffer t
+        :evil-leader-for-mode (emacs-lisp-mode . "mdm")
+        :bindings
+        ("e" macrostep-expand)
+        ("c" macrostep-collapse)
+        ("n" macrostep-next-macro)
+        ("N" macrostep-prev-macro)
+        ("q" macrostep-collapse-all :exit t)))))
 
 (defun emacs-lisp/post-init-evil ()
   (add-to-hook 'emacs-lisp-mode
