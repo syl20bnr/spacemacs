@@ -51,7 +51,7 @@ Key Binding          | Description
 ---------------------|------------------------------------------------------------
 <kbd>SPC m = b</kbd> | format current buffer
 <kbd>SPC m = f</kbd> | format current function
-<kbd>SPC m = r</kbd> | format current sexp
+<kbd>SPC m = s</kbd> | format current sexp
 <kbd>SPC m = o</kbd> | format all on one line
 
 [semantic-layer]: ../../semantic/README.md
