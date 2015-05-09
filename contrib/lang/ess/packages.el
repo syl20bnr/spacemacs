@@ -28,9 +28,9 @@
   (defun load-ess-on-demand ()
     (interactive)
     (-all? '---truthy? (list
-                        (use-package ess-site)
-                        (use-package ess-R-object-popup)
-                        (use-package ess-R-data-view))))
+                        (require 'ess-site)
+                        (require 'ess-R-object-popup)
+                        (require 'ess-R-data-view))))
 
   (evil-leader/set-key "ess" 'load-ess-on-demand)
 
@@ -147,5 +147,4 @@ not play nicely with autoloads"
       :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
-      (push '(company-ess-backend :with company-yasnippet)
-            company-backends-ess-mode))))
+      (push 'company-ess-backend company-backends-ess-mode))))

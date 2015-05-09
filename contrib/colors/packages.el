@@ -18,10 +18,10 @@
     rainbow-mode
     ))
 
-(defun colors/init-rainbow-blocks ()
-  (use-package rainbow-blocks
-    :disabled t
-    :init (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)))
+;; (defun colors/init-rainbow-blocks ()
+;;   (use-package rainbow-blocks
+;;     :disabled t
+;;     :init (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)))
 
 (defun colors/init-rainbow-identifiers ()
   (use-package rainbow-identifiers

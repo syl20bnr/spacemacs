@@ -116,12 +116,22 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Edit
 ;; ---------------------------------------------------------------------------
 
-(spacemacs|defvar-company-backends emacs-lisp-mode)
 ;; start scratch in text mode (usefull to get a faster Emacs load time
 ;; because it avoids autoloads of elisp modes)
 (setq initial-major-mode 'text-mode)
 ;; whitespace-mode
-(add-hook 'prog-mode-hook (lambda () (setq show-trailing-whitespace 1)))
+(defcustom spacemacs-show-trailing-whitespace t
+  "If t, show trailing whitespace."
+  :type 'boolean
+  :group 'spacemacs)
+
+(add-hook 'prog-mode-hook (lambda ()
+                            (when spacemacs-show-trailing-whitespace
+                              (set-face-attribute 'trailing-whitespace nil
+                                                  :background (face-attribute 'font-lock-comment-face
+                                                                              :foreground))
+                              (setq show-trailing-whitespace 1))))
+
 
 ;; use only spaces and no tabs
 (setq-default indent-tabs-mode nil

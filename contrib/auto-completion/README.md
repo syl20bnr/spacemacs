@@ -6,8 +6,10 @@
 - [Auto-Completion configuration layer for Spacemacs](#auto-completion-configuration-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
-        - [Company variables](#company-variables)
-    - [Configure](#configure)
+    - [Configuration](#configuration)
+        - [Key bindings](#key-bindings)
+        - [Tooltips](#tooltips)
+        - [Sort results by usage](#sort-results-by-usage)
         - [Enable company or auto-complete globally](#enable-company-or-auto-complete-globally)
         - [Replacing company by auto-complete](#replacing-company-by-auto-complete)
         - [Add auto-completion in a layer](#add-auto-completion-in-a-layer)
@@ -37,28 +39,66 @@ To use this configuration layer add it to your `~/.spacemacs`
 (setq-default dotspacemacs-configuration-layers '(auto-completion))
 ```
 
-### Company variables
+## Configuration
 
-To use tab instead of enter to complete your selection,
-`dotspacemacs/init` set `auto-completion-use-tab-instead-of-enter` to
-`t`, for example:
+### Key bindings
+
+You can customize the user experience of auto-completion with the following
+layer variables:
+
+`auto-completion-return-key-behavior` set the action to perform when the
+<kbd>RET</kbd> key is pressed, the possible values are:
+- `complete` completes with the current selection
+- `nil` does nothing
+
+`auto-completion-tab-key-behavior` set the action to perform when the
+<kbd>TAB</kbd> key is pressed, the possible values are:
+- `complete` completes with the current selection
+- `cycle` completes the common prefix and cycle between candidates
+- `nil` does nothing
+
+`auto-completion-complete-with-key-sequence` is a string of two characters
+denoting a key sequence that will perform a `complete` action if the sequence
+as been entered quickly enough. If its value is `nil` then the feature is
+disabled.
+
+The default configuration of the layer is:
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(
+  (auto-completion :variables
+                   auto-completion-return-key-behavior complete
+                   auto-completion-tab-key-behavior cycle
+                   auto-completion-complete-with-key-sequence nil)
+                   ))
+```
+
+`"jk"` is a good candidate for `auto-completion-complete-with-key-sequence` if
+you don't use it already.
+
+### Tooltips
+
+To enable docstring tooltips set `auto-completion-enable-help-tooltip` to `t`
 
 ``` elisp
 (setq-default dotspacemacs-configuration-layers
   '(auto-completion :variables
-                    auto-completion-use-tab-instead-of-enter t))
+                    auto-completion-enable-help-tooltip t))
 ```
 
-To enable docstring tooltips set `auto-completion-enable-company-help-tooltip`
-to `t`
+### Sort results by usage
 
-``` elisp
+To enable sorting auto-completion results by their usage frequency set
+`auto-completion-enable-sort-by-usage` to `t`.
+This feature is provided by the [company-statistics][] package when `company`
+is used.
+The variable has no effect when `auto-complete` is used.
+
+```elisp
 (setq-default dotspacemacs-configuration-layers
   '(auto-completion :variables
-                    auto-completion-enable-company-help-tooltip t))
+                    auto-completion-enable-sort-by-usage t))
 ```
-
-## Configure
 
 ### Enable company or auto-complete globally
 
@@ -129,7 +169,7 @@ In `packages.el`:
 <kbd>C-d</kbd>       | open minibuffer with documentation of thing at point in company dropdown
 
 ### Auto-complete
- 
+
     Key Binding    |                 Description
 -------------------|------------------------------------------------------------
 <kbd>C-j</kbd>     | select next candidate
@@ -141,3 +181,4 @@ In `packages.el`:
 [company]: http://company-mode.github.io/
 [auto-complete]: http://auto-complete.org/
 [yasnippet]: https://github.com/capitaomorte/yasnippet
+[company-statistics]: https://github.com/company-mode/company-statistics

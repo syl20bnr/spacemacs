@@ -25,7 +25,6 @@
     diminish
     doc-view
     ediff
-    elisp-slime-nav
     eldoc
     eval-sexp-fu
     evil
@@ -510,30 +509,15 @@
        ediff-split-window-function 'split-window-horizontally
        ediff-merge-split-window-function 'split-window-horizontally))))
 
-
-(defun spacemacs/init-elisp-slime-nav ()
-  ;; Elisp go-to-definition with M-. and back again with M-,
-  (use-package elisp-slime-nav
-    :defer t
-    :init
-    (progn
-      (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
-      (evil-leader/set-key-for-mode 'emacs-lisp-mode
-        "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
-        "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point))))
-
 (defun spacemacs/init-eldoc ()
   (use-package eldoc
     :defer t
-    :init (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
     :config
     (progn
       ;; enable eldoc in `eval-expression'
       (add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
-
       ;; enable eldoc in IELM
       (add-hook 'ielm-mode-hook #'eldoc-mode)
-
       ;; don't display eldoc on modeline
       (spacemacs|hide-lighter eldoc-mode))))
 
@@ -654,12 +638,6 @@
       (define-key evil-normal-state-map (kbd dotspacemacs-command-key) 'evil-ex)
       (define-key evil-visual-state-map (kbd dotspacemacs-command-key) 'evil-ex)
       (define-key evil-motion-state-map (kbd dotspacemacs-command-key) 'evil-ex)
-      ;; Make evil-mode up/down operate in screen lines instead of logical lines
-      (define-key evil-normal-state-map "j" 'evil-next-visual-line)
-      (define-key evil-normal-state-map "k" 'evil-previous-visual-line)
-      ;; Also in visual mode
-      (define-key evil-visual-state-map "j" 'evil-next-visual-line)
-      (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
       ;; Make the current definition and/or comment visible.
       (define-key evil-normal-state-map "zf" 'reposition-window)
 
@@ -683,22 +661,25 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (evil-map visual "<" "<gv")
       (evil-map visual ">" ">gv")
 
-      (defun spacemacs/smart-doc-lookup ()
-        "Bind K to SPC m h h and fall back to `evil-lookup'"
+      (defun spacemacs/evil-smart-doc-lookup ()
+        "Version of `evil-lookup' that attempts to use
+        the mode specific goto-definition binding,
+        i.e. `SPC m h h`, to lookup the source of the definition,
+        while falling back to `evil-lookup'"
         (interactive)
         (condition-case nil
-            (execute-kbd-macro (kbd "SPC m h h"))
+            (execute-kbd-macro (kbd (concat dotspacemacs-leader-key " mhh")))
           (error (evil-lookup))))
-      (define-key evil-normal-state-map (kbd "K") 'spacemacs/smart-doc-lookup)
+      (define-key evil-normal-state-map (kbd "K") 'spacemacs/evil-smart-doc-lookup)
 
       (defun spacemacs/evil-smart-goto-definition ()
         "Version of `evil-goto-definition' that attempts to use
         the mode specific goto-definition binding,
         i.e. `SPC m g g`, to lookup the source of the definition,
-        while falling back to `evil-goto-definition'."
+        while falling back to `evil-goto-definition'"
         (interactive)
         (condition-case nil
-            (execute-kbd-macro (kbd "SPC m g g"))
+            (execute-kbd-macro (kbd (concat dotspacemacs-leader-key " mgg")))
           (error (evil-goto-definition))))
       (define-key evil-normal-state-map
         (kbd "gd") 'spacemacs/evil-smart-goto-definition)
@@ -795,7 +776,6 @@ Example: (evil-map visual \"<\" \"<gv\")"
         (spacemacs|define-text-object "%" "percent" "%" "%"))
 
       (add-to-hook 'prog-mode-hook '(spacemacs//standard-text-objects))
-      (add-to-hook 'emacs-lisp-mode '(lambda () (spacemacs|define-text-object ";" "elisp-comment" ";; " "")))
 
       ;; support smart 1parens-strict-mode
       (if (ht-contains? configuration-layer-all-packages 'smartparens)
@@ -1307,6 +1287,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     (progn
       (setq helm-prevent-escaping-from-minibuffer t
             helm-bookmark-show-location t
+            helm-display-header-line nil
             helm-split-window-in-side-p t
             helm-always-two-windows t)
 
@@ -1395,22 +1376,36 @@ If ARG is non nil then `ag' and `pt' and ignored."
                   (unless (configuration-layer/package-usedp 'smex)
                     (evil-leader/set-key dotspacemacs-command-key 'helm-M-x))))
 
-      ;; disable popwin-mode in an active Helm session It should be disabled
-      ;; otherwise it will conflict with other window opened by Helm persistent
-      ;; action, such as *Help* window.
-      (when (configuration-layer/package-usedp 'popwin)
-        (push '("^\*helm.+\*$" :regexp t) popwin:special-display-config))
+      (defvar spacemacs-helm-display-buffer-regexp `(,(rx bos "*helm" (* not-newline) "*" eos)
+                                                     (display-buffer-in-side-window)
+                                                     (inhibit-same-window . t)
+                                                     (window-height . 0.4)))
+      (defvar spacemacs-display-buffer-alist nil)
+
       (defun spacemacs//display-helm-at-bottom ()
         "Display the helm buffer at the bottom of the frame."
         ;; avoid Helm buffer being diplaye twice when user
         ;; sets this variable to some function that pop buffer to
         ;; a window. See https://github.com/syl20bnr/spacemacs/issues/1396
         (let ((display-buffer-base-action '(nil)))
-          (popwin:display-buffer helm-buffer t)
+          ;; backup old display-buffer-base-action
+          (setq spacemacs-display-buffer-alist display-buffer-alist)
+          ;; the only buffer to display is Helm, nothing else we must set this
+          ;; otherwise Helm cannot reuse its own windows for copyinng/deleting
+          ;; etc... because of existing popwin buffers in the alist
+          (setq display-buffer-alist (list spacemacs-helm-display-buffer-regexp))
           (popwin-mode -1)))
+
+      (defun spacemacs//restore-previous-display-config ()
+        (popwin-mode 1)
+        ;; we must enable popwin-mode first then restore `display-buffer-alist'
+        ;; Otherwise, popwin keeps adding up its own buffers to `display-buffer-alist'
+        ;; and could slow down Emacs as the list grows
+        (setq display-buffer-alist spacemacs-display-buffer-alist))
+
       (add-hook 'helm-after-initialize-hook 'spacemacs//display-helm-at-bottom)
       ;;  Restore popwin-mode after a Helm session finishes.
-      (add-hook 'helm-cleanup-hook 'popwin-mode)
+      (add-hook 'helm-cleanup-hook 'spacemacs//restore-previous-display-config)
 
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
@@ -2128,10 +2123,21 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (popwin-mode 1)
       (evil-leader/set-key "wpm" 'popwin:messages)
       (evil-leader/set-key "wpp" 'popwin:close-popup-window)
-      (push '("*ert*"                      :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
-      (push '("*grep*"                     :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
-      (push '("*nosetests*"                :dedicated t :position bottom :stick t :noselect t) popwin:special-display-config)
-      (push '("^\*WoMan.+\*$"    :regexp t              :position bottom                     ) popwin:special-display-config)
+
+      ;; don't use default value but manage it ourselves
+      (setq popwin:special-display-config nil)
+
+      ;; buffers that we manage
+      (push '("*Help*"                 :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
+      (push '("*compilation*"          :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
+      (push '("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
+      (push '("*Async Shell Command*"  :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
+      (push '(" *undo-tree*"           :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
+      (push '("*ert*"                  :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
+      (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
+      (push '("*nosetests*"            :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
+      (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                 ) popwin:special-display-config)
+
       (defun spacemacs/remove-popwin-display-config (str)
         "Removes the popwin display configurations that matches the passed STR"
         (setq popwin:special-display-config
@@ -2227,6 +2233,13 @@ displayed in the mode-line.")
       (if (display-graphic-p)
           (setq-default powerline-default-separator 'wave)
         (setq-default powerline-default-separator 'utf-8))
+
+      (defun spacemacs//customize-powerline-faces ()
+        "Alter powerline face to make them work with more themes."
+        (set-face-attribute 'powerline-inactive2 nil
+                            :inherit 'font-lock-preprocessor-face))
+      (spacemacs//customize-powerline-faces)
+
 
       (defun spacemacs/mode-line-prepare-left ()
         (let* ((active (powerline-selected-window-active))
@@ -2734,9 +2747,31 @@ It is a string holding:
                             :on (global-whitespace-mode)
                             :off (global-whitespace-mode -1)
                             :documentation "Globally display the whitespaces."
-                            :evil-leader "t C-w"))
+                            :evil-leader "t C-w")
+      (defun spacemacs//set-whitespace-style-for-diff ()
+        "Whitespace configuration for `diff-mode'"
+        (setq-local whitespace-style '(face
+                                       tabs
+                                       tab-mark
+                                       spaces
+                                       space-mark
+                                       trailing
+                                       indentation::space
+                                       indentation::tab
+                                       newline
+                                       newline-mark)))
+      (add-hook 'diff-mode-hook 'whitespace-mode)
+      (add-hook 'diff-mode-hook 'spacemacs//set-whitespace-style-for-diff))
     :config
-    (spacemacs|diminish whitespace-mode " ⓦ" " w")))
+    (progn
+      (set-face-attribute 'whitespace-space nil
+                          :background nil
+                          :foreground (face-attribute 'font-lock-warning-face :foreground))
+      (set-face-attribute 'whitespace-tab nil
+                          :background nil)
+      (set-face-attribute 'whitespace-indentation nil
+                          :background nil)
+      (spacemacs|diminish whitespace-mode " ⓦ" " w"))))
 
 (defun spacemacs/init-window-numbering ()
   (use-package window-numbering

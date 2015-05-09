@@ -1,4 +1,4 @@
-;;; packages.el --- HTML Layer packages File for Spacemacs
+;;; config.el --- Emacs Lisp Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -11,7 +11,4 @@
 ;;; License: GPLv3
 
 ;; Variables
-
-(spacemacs|defvar-company-backends css-mode)
-(spacemacs|defvar-company-backends web-mode)
-
+(spacemacs|defvar-company-backends emacs-lisp-mode)

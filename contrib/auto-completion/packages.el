@@ -11,14 +11,15 @@
 ;;; License: GPLv3
 
 (setq auto-completion-packages
-  '(
-    auto-complete
-    ac-ispell
-    company
-    helm-c-yasnippet
-    hippie-exp
-    yasnippet
-    ))
+      '(
+        auto-complete
+        ac-ispell
+        company
+        company-statistics
+        helm-c-yasnippet
+        hippie-exp
+        yasnippet
+        ))
 
 ;; company-quickhelp from MELPA is not compatible with 24.3 anymore
 (unless (version< emacs-version "24.4")
@@ -72,31 +73,27 @@
             company-require-match nil
             company-dabbrev-ignore-case nil
             company-dabbrev-downcase nil
-            company-tooltip-flip-when-above t
             company-frontends '(company-pseudo-tooltip-frontend)
             company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser))
     :config
     (progn
       (spacemacs|diminish company-mode " ⓐ" " a")
+
       ;; key bindings
-      ;; use TAB to auto-complete instead of RET
       (defun spacemacs//company-complete-common-or-cycle-backward ()
         "Complete common prefix or cycle backward."
         (interactive)
         (company-complete-common-or-cycle -1))
+      (spacemacs//auto-completion-set-RET-key-behavior 'company)
+      (spacemacs//auto-completion-set-TAB-key-behavior 'company)
+      (spacemacs//auto-completion-setup-key-sequence 'company)
       (let ((map company-active-map))
-        (define-key map [tab] 'company-complete-common-or-cycle)
-        (define-key map (kbd "TAB") 'company-complete-common-or-cycle)
-        (define-key map (kbd "<tab>") 'company-complete-common-or-cycle)
-        (define-key map (kbd "<S-tab>")
-          'spacemacs//company-complete-common-or-cycle-backward)
-        (define-key map (kbd "<backtab>")
-          'spacemacs//company-complete-common-or-cycle-backward)
-        (define-key map (kbd "C-j") 'company-select-next)
-        (define-key map (kbd "C-k") 'company-select-previous)
         (define-key map (kbd "C-/") 'company-search-candidates)
         (define-key map (kbd "C-M-/") 'company-filter-candidates)
-        (define-key map (kbd "C-d") 'company-show-doc-buffer))
+        (define-key map (kbd "C-d") 'company-show-doc-buffer)
+        (define-key map (kbd "C-j") 'company-select-next)
+        (define-key map (kbd "C-k") 'company-select-previous)
+        (define-key map (kbd "C-l") 'company-complete-selection))
       ;; Nicer looking faces
       (custom-set-faces
        '(company-tooltip-common
@@ -112,10 +109,19 @@
       (setq company-transformers '(spacemacs//company-transformer-cancel
                                    company-sort-by-occurrence)))))
 
+(defun auto-completion/init-company-statistics ()
+  (use-package company-statistics
+    :if auto-completion-enable-sort-by-usage
+    :defer t
+    :init
+    (progn
+      (setq company-statistics-file (concat spacemacs-cache-directory
+                                            "company-statistics-cache.el"))
+      (add-hook 'company-mode-hook 'company-statistics-mode))))
+
 (defun auto-completion/init-company-quickhelp ()
   (use-package company-quickhelp
-    :if (and auto-completion-enable-company-help-tooltip
-             (display-graphic-p))
+    :if (and auto-completion-enable-help-tooltip (display-graphic-p))
     :defer t
     :init (add-hook 'company-mode-hook 'company-quickhelp-mode)))
 
@@ -134,8 +140,9 @@
       (setq helm-c-yas-space-match-any-greedy t))))
 
 (defun auto-completion/init-hippie-exp ()
- ;; replace dabbrev-expand
+  ;; replace dabbrev-expand
   (global-set-key (kbd "M-/") 'hippie-expand)
+  (define-key evil-insert-state-map (kbd "C-p") 'hippie-expand)
   (setq hippie-expand-try-functions-list
         '(
           ;; Try to expand word "dynamically", searching the current buffer.
@@ -168,6 +175,10 @@
     :commands yas-global-mode
     :init
     (progn
+      ;; disable yas minor mode map
+      ;; use hippie-expand instead
+      (setq yas-minor-mode-map (make-sparse-keymap))
+
       (defun spacemacs/load-yasnippet ()
         (if (not (boundp 'yas-minor-mode))
             (progn

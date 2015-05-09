@@ -44,4 +44,4 @@
       :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
-      (push '(company-go :with company-yasnippet) company-backends-go-mode))))
+      (push 'company-go company-backends-go-mode))))

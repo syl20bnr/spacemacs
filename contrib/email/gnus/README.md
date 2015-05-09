@@ -117,7 +117,7 @@ Key Binding  | Gnus mode - Description
 `<RET>`      | Summary Buffer(RSS) - Open article Link in browser 
 `<TAB>`      | Summary Buffer(RSS) - Open article and switch to it
 `<SPC> m o`  | Message Buffer - Use org mode to convert into html email
-`<SPC> m h`  | Org Mode - Send current buffer as email message
+`<SPC> m H`  | Org Mode - Send current buffer as HTML email message
 
 
 [application specific password]: https://support.google.com/accounts/answer/185833?hl=en
