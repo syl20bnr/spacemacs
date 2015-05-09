@@ -28,9 +28,9 @@
   (defun load-ess-on-demand ()
     (interactive)
     (-all? '---truthy? (list
-                        (use-package ess-site)
-                        (use-package ess-R-object-popup)
-                        (use-package ess-R-data-view))))
+                        (require 'ess-site)
+                        (require 'ess-R-object-popup)
+                        (require 'ess-R-data-view))))
 
   (evil-leader/set-key "ess" 'load-ess-on-demand)
 

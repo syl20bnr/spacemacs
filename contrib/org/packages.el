@@ -44,8 +44,10 @@
            "a" nil "ma" 'org-agenda
            "c" nil "mA" 'org-archive-subtree
            "o" nil "mC" 'evil-org-recompute-clocks
-           "l" nil "ml" 'evil-org-open-links
-           "t" nil "mt" 'org-show-todo-tree)
+           "l" nil "mo" 'evil-org-open-links
+           "t" nil "mT" 'org-show-todo-tree)
+      (evil-define-key 'normal evil-org-mode-map
+        "O" 'evil-open-above)
       (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
 
 (defun org/init-org ()
@@ -60,18 +62,45 @@
         '(spacemacs|hide-lighter org-indent-mode))
       (setq org-startup-indented t)
 
+      (defmacro spacemacs|org-emphasize (fname char)
+        "Make function for setting the emphasis in org mode"
+        `(defun ,fname () (interactive)
+                (org-emphasize ,char)))
       (evil-leader/set-key-for-mode 'org-mode
+        "m'" 'org-edit-special
         "mc" 'org-capture
         "md" 'org-deadline
         "me" 'org-export-dispatch
         "mf" 'org-set-effort
-        "mi" 'org-clock-in
+
+        ;; headings
+        "mhi" 'org-insert-heading-after-current
+        "mhI" 'org-insert-heading
+
+        "mI" 'org-clock-in
         "mj" 'helm-org-in-buffer-headings
-        "mo" 'org-clock-out
-        "mm" 'org-ctrl-c-ctrl-c
+        (concat "m" dotspacemacs-major-mode-leader-key) 'org-ctrl-c-ctrl-c
+        "mn" 'org-narrow-to-subtree
+        "mN" 'widen
+        "mO" 'org-clock-out
         "mq" 'org-clock-cancel
-        "mr" 'org-refile
-        "ms" 'org-schedule)
+        "mR" 'org-refile
+        "ms" 'org-schedule
+
+        ;; insertion of common elements
+        "mil" 'org-insert-link
+        "mif" 'org-footnote-new
+
+        ;; images and other link types have no commands in org mode-line
+        ;; could be inserted using yasnippet?
+        ;; region manipulation
+        "mxb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
+        "mxc" (spacemacs|org-emphasize spacemacs/org-code ?~)
+        "mxi" (spacemacs|org-emphasize spacemacs/org-italic ?/)
+        "mxr" (spacemacs|org-emphasize spacemacs/org-clear ? )
+        "mxs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
+        "mxu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
+        "mxv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
 
       (eval-after-load "org-agenda"
         '(progn
@@ -86,7 +115,9 @@
     (progn
       (require 'org-indent)
       (define-key global-map "\C-cl" 'org-store-link)
-      (define-key global-map "\C-ca" 'org-agenda))))
+      (define-key global-map "\C-ca" 'org-agenda)
+      (evil-leader/set-key
+        "Cc" 'org-capture))))
 
 (defun org/init-org-bullets ()
   (use-package org-bullets

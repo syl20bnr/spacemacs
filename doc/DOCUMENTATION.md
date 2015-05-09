@@ -158,12 +158,10 @@
     - [Troubleshoot](#troubleshoot)
         - [Loading fails](#loading-fails)
         - [I have no file ~/.spacemacs](#i-have-no-file-spacemacs)
-- [Tips](#tips)
-    - [evil-lisp-state as default state](#evil-lisp-state-as-default-state)
 - [Achievements](#achievements)
     - [Issues](#issues)
     - [Merged Pull Requests](#merged-pull-requests)
-    - [Stars and forks](#stars-and-forks)
+    - [Stars, forks and watchers](#stars-forks-and-watchers)
     - [Specials](#specials)
 - [Thank you](#thank-you)
 
@@ -614,7 +612,7 @@ states.
 Vim leader key to the Emacs world.
 
 This leader key is commonly set to `,` by Vim users, in `Spacemacs` the leader
-key is set to <kbd>SPC</kbd> (space bar, this is why the name `spacemacs`).
+key is set on <kbd>SPC</kbd> (space bar, hence the name `spacemacs`).
 This key is the most accessible key on a keyboard and it is pressed with the
 thumb which is a good choice to lower the risk of [RSI][RSI].
 
@@ -654,7 +652,7 @@ Additional information may as well be displayed in the minibuffer.
 
 - The `,` key does "repeat last `f`, `t`, `F`, or `T` command in opposite
 direction in `Vim`, but in `Spacemacs` it is the major mode specific leader
-key by default (which can be set to another key binding in the dotfile).
+key by default (which can be set on another key binding in the dotfile).
 
 Send a PR to add the differences you found in this section.
 
@@ -2455,18 +2453,6 @@ open a [Github issue][issues] with the backtrace.
 
 You have to manually copy the `~/.emacs.d/core/templates/.spacemacs.template`
 file to `~/.spacemacs`
-
-# Tips
-
-## evil-lisp-state as default state
-
-To Make `lisp state` the default state in `Emacs Lisp` buffers, insert in
-your `~/.spacemacs` the following snippet:
-
-```elisp
-(defun dotspacemacs/config ()
-  (add-hook 'emacs-lisp-mode-hook 'evil-lisp-state))
-```
 
 # Achievements
 

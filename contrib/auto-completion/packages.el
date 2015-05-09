@@ -11,14 +11,15 @@
 ;;; License: GPLv3
 
 (setq auto-completion-packages
-  '(
-    auto-complete
-    ac-ispell
-    company
-    helm-c-yasnippet
-    hippie-exp
-    yasnippet
-    ))
+      '(
+        auto-complete
+        ac-ispell
+        company
+        company-statistics
+        helm-c-yasnippet
+        hippie-exp
+        yasnippet
+        ))
 
 ;; company-quickhelp from MELPA is not compatible with 24.3 anymore
 (unless (version< emacs-version "24.4")
@@ -72,7 +73,6 @@
             company-require-match nil
             company-dabbrev-ignore-case nil
             company-dabbrev-downcase nil
-            company-tooltip-flip-when-above t
             company-frontends '(company-pseudo-tooltip-frontend)
             company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser))
     :config
@@ -109,6 +109,16 @@
       (setq company-transformers '(spacemacs//company-transformer-cancel
                                    company-sort-by-occurrence)))))
 
+(defun auto-completion/init-company-statistics ()
+  (use-package company-statistics
+    :if auto-completion-enable-sort-by-usage
+    :defer t
+    :init
+    (progn
+      (setq company-statistics-file (concat spacemacs-cache-directory
+                                            "company-statistics-cache.el"))
+      (add-hook 'company-mode-hook 'company-statistics-mode))))
+
 (defun auto-completion/init-company-quickhelp ()
   (use-package company-quickhelp
     :if (and auto-completion-enable-help-tooltip (display-graphic-p))
@@ -130,7 +140,7 @@
       (setq helm-c-yas-space-match-any-greedy t))))
 
 (defun auto-completion/init-hippie-exp ()
- ;; replace dabbrev-expand
+  ;; replace dabbrev-expand
   (global-set-key (kbd "M-/") 'hippie-expand)
   (define-key evil-insert-state-map (kbd "C-p") 'hippie-expand)
   (setq hippie-expand-try-functions-list
