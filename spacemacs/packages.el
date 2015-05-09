@@ -1355,7 +1355,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "Cl"  'helm-colors
         "ff"  'helm-find-files
         "fr"  'helm-recentf
-        "hb"  'helm-bookmarks
+        "hb"  'helm-pp-bookmarks
         "hi"  'helm-info-at-point
         "hl"  'helm-resume
         "hm"  'helm-man-woman
