@@ -26,6 +26,13 @@
     ox-gfm
     ))
 
+(defvar org-excluded-packages
+  '(
+    ;; seems to be problematic, to investigate
+    ox-gfm
+    )
+  "List of packages to exclude.")
+
 (defun org/init-evil-org ()
   (use-package evil-org
     :commands evil-org-mode

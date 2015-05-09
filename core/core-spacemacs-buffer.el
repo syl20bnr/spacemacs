@@ -454,6 +454,14 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :follow-link "\C-m")
   (insert "\n\n"))
 
+(defmacro spacemacs//insert-widget-with-shorcut (shortcut-char search-label)
+  `(define-key spacemacs-mode-map ,shortcut-char (lambda ()
+                                                   (interactive)
+                                                   (unless (search-forward ,search-label (point-max) t)
+                                                     (search-backward ,search-label (point-min) t))
+                                                   (forward-line 1)
+                                                   (back-to-indentation))))
+
 (defun spacemacs-buffer//insert-file-list (list-display-name list shortcut-char)
   (when (car list)
     (spacemacs//insert--shortcut "r" "Recent Files:")
@@ -512,7 +520,11 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                                  ;; S-tab is backtab in terminal
                                  (local-set-key [backtab] 'widget-backward)
                                  (local-set-key [return] 'widget-button-press)
+<<<<<<< HEAD
+                                 (local-set-key [down-mouse-1] 'widget-button-press)
+=======
                                  (local-set-key [down-mouse-1] 'widget-button-click)
+>>>>>>> develop
                                  ))
 
 (provide 'core-spacemacs-buffer)
