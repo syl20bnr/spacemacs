@@ -56,8 +56,8 @@
                srefactor-lisp-one-line)
     :init
     (evil-leader/set-key-for-mode 'emacs-lisp-mode
-      "mfb" 'srefactor-lisp-format-buffer
-      "mfd" 'srefactor-lisp-format-defun
-      "mfs" 'srefactor-lisp-format-sexp
-      "mfo" 'srefactor-lisp-one-line
+      "m=b" 'srefactor-lisp-format-buffer
+      "m=d" 'srefactor-lisp-format-defun
+      "m=s" 'srefactor-lisp-format-sexp
+      "m=o" 'srefactor-lisp-one-line
       )))
