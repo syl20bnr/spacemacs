@@ -73,28 +73,30 @@
 
         "mI" 'org-clock-in
         "mj" 'helm-org-in-buffer-headings
-        (concat "m" dotspacemacs-major-mode-leader-key) 'org-ctrl-c-ctrl-c
-        "mn" 'org-narrow-to-subtree
-        "mN" 'widen
-        "mO" 'org-clock-out
-        "mq" 'org-clock-cancel
-        "mR" 'org-refile
-        "ms" 'org-schedule
+        (if dotspacemacs-major-mode-leader-key
+            (concat "m" dotspacemacs-major-mode-leader-key)
+          "m,") 'org-ctrl-c-ctrl-c
+          "mn" 'org-narrow-to-subtree
+          "mN" 'widen
+          "mO" 'org-clock-out
+          "mq" 'org-clock-cancel
+          "mR" 'org-refile
+          "ms" 'org-schedule
 
-        ;; insertion of common elements
-        "mil" 'org-insert-link
-        "mif" 'org-footnote-new
+          ;; insertion of common elements
+          "mil" 'org-insert-link
+          "mif" 'org-footnote-new
 
-        ;; images and other link types have no commands in org mode-line
-        ;; could be inserted using yasnippet?
-        ;; region manipulation
-        "mxb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
-        "mxc" (spacemacs|org-emphasize spacemacs/org-code ?~)
-        "mxi" (spacemacs|org-emphasize spacemacs/org-italic ?/)
-        "mxr" (spacemacs|org-emphasize spacemacs/org-clear ? )
-        "mxs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
-        "mxu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
-        "mxv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
+          ;; images and other link types have no commands in org mode-line
+          ;; could be inserted using yasnippet?
+          ;; region manipulation
+          "mxb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
+          "mxc" (spacemacs|org-emphasize spacemacs/org-code ?~)
+          "mxi" (spacemacs|org-emphasize spacemacs/org-italic ?/)
+          "mxr" (spacemacs|org-emphasize spacemacs/org-clear ? )
+          "mxs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
+          "mxu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
+          "mxv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
 
       (eval-after-load "org-agenda"
         '(progn
