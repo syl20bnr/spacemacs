@@ -65,6 +65,10 @@ Available PROPS:
     If BOOLEAN is non nil then the micro-state never exits. A binding
     with an explicitly set `exit t' property is required. Default is nil.
 
+`:execute-binding-on-enter BOOLEAN'
+    If BOOLEAN is non nil then execute the micro-state command bound to
+    to the pressed key that started the micro-state.
+
 `:bindings EXPRESSIONS'
     One or several EXPRESSIONS with the form
     (STRING1 SYMBOL1 :doc STRING
