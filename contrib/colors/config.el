@@ -13,10 +13,21 @@
 ;; Variables
 
 (defvar colors-enable-rainbow-identifiers nil
-  "if non nil the `rainbow-identifers' package is enabled.")
+  "If non nil the `rainbow-identifers' package is enabled.")
 
 (defvar colors-enable-nyan-cat-progress-bar nil
-  "if non nil all nyan cat packges are enabled (for now only `nyan-mode').")
+  "If non nil all nyan cat packges are enabled (for now only `nyan-mode').")
+
+(defvar colors-theme-identifiers-sat&light
+  '((jazz . (50 55))
+    (gotham . (45 60))
+    (leuven . (100 40))
+    (material . (95 105))
+    (monokai . (55 60))
+    (solarized-dark . (65 55))
+    (solarized-light . (60 55))
+    (zenburn . (40 65)))
+  "alist of theme symbols and pair of saturation and lightness values.")
 
 ;; Command prefixes
 
