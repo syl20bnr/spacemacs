@@ -47,6 +47,7 @@ pressed again, go to the beginning of the line.
 Key Binding   | Description
 --------------|------------------------------------------------------------
 `C-a`         | smart beginning of line
-`C-o`         | get into Vim normal mode to execute one command, then go back Emacs edit              | ing mode
+`C-o`         | get into Vim normal mode to execute one command, then go back Emac               | s editing mode
+`C-y`         | Automatically indenting after pasting. With prefix argument, paste               | text as it is
 
 [Prelude]: https://github.com/bbatsov/prelude

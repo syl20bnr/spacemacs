@@ -155,6 +155,13 @@ the current state and point position."
     makefile-imake-mode
     makefile-bsdmake-mode)
   "Modes for which auto-indenting is suppressed.")
+
+(defcustom spacemacs-yank-indent-threshold 1000
+  "Threshold (# chars) over which indentation does not automatically occur."
+  :type 'number
+  :group 'spacemacs)
+
+
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)
@@ -778,6 +785,16 @@ If ASCII si not provided then UNICODE is used instead."
   "Diminish MODE name in mode line to LIGHTER."
   `(eval-after-load 'diminish '(diminish ',mode)))
 
+;; taken from Prelude: https://github.com/bbatsov/prelude
+(defmacro spacemacs|advise-commands (advice-name commands class &rest body)
+  "Apply advice named ADVICE-NAME to multiple COMMANDS.
+The body of the advice is in BODY."
+  `(progn
+     ,@(mapcar (lambda (command)
+                 `(defadvice ,command (,class ,(intern (concat (symbol-name command) "-" advice-name)) activate)
+                    ,@body))
+               commands)))
+
 (defun disable-electric-indent-mode ()
   (if (fboundp 'electric-indent-local-mode)
       ;; for 24.4
@@ -872,3 +889,20 @@ If ASCII si not provided then UNICODE is used instead."
   (delete-region (point-min) (point-max))
   (clipboard-yank)
   (deactivate-mark))
+
+;; indent on paste
+;; from Prelude: https://github.com/bbatsov/prelude
+(defun yank-advised-indent-function (beg end)
+  "Do indentation, as long as the region isn't too large."
+  (if (<= (- end beg) spacemacs-yank-indent-threshold)
+      (indent-region beg end nil)))
+
+(spacemacs|advise-commands "indent" (yank yank-pop) after
+  "If current mode is not one of `spacemacs-indent-sensitive-modes'
+indent yanked text (with prefix arg don't indent)."
+  (if (and (not (ad-get-arg 0))
+           (not (member major-mode spacemacs-indent-sensitive-modes))
+           (or (derived-mode-p 'prog-mode)
+               (member major-mode spacemacs-indent-sensitive-modes)))
+      (let ((transient-mark-mode nil))
+        (yank-advised-indent-function (region-beginning) (region-end)))))
