@@ -155,8 +155,8 @@ the focus."
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))
 
-    (defadvice cider-jump-to-var (before add-evil-jump activate)
-      (when (configuration-layer/package-usedp 'evil-jumper)
+    (when (configuration-layer/package-usedp 'evil-jumper)
+      (defadvice cider-jump-to-var (before add-evil-jump activate)
         (evil-set-jump)))))
 
 (defun clojure/init-cider-eval-sexp-fu ()
