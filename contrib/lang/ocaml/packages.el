@@ -32,6 +32,10 @@ which require an initialization must be listed explicitly in the list.")
   (evil-leader/set-key-for-mode 'tuareg-mode
    "mcc" 'compile
   )
+  ;; don't auto-close apostrophes (type 'a = foo)
+  (when (fboundp 'sp-local-pair)
+    (sp-local-pair 'tuareg-mode "'" nil :actions nil)
+  )
   )
 
 (defun ocaml/opam ()
