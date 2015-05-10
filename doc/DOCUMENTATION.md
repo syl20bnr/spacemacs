@@ -1438,7 +1438,6 @@ Key Binding            |              Description
 <kbd>SPC b n</kbd>     | switch to next buffer avoiding special buffers
 <kbd>SPC b p</kbd>     | switch to previous buffer avoiding special buffers
 <kbd>SPC b P</kbd>     | copy clipboard and replace buffer (useful when pasting from a browser)
-<kbd>SPC b r</kbd>     | rename the current buffer
 <kbd>SPC b R</kbd>     | revert the current buffer (reload from disk)
 <kbd>SPC b w</kbd>     | toggle read-only (writable state)
 <kbd>SPC b Y</kbd>     | copy whole buffer to clipboard (useful when copying to a browser)
@@ -1475,6 +1474,7 @@ Key Binding                               |                 Description
 <kbd>SPC f F</kbd>                        | open a file using `ido`
 <kbd>SPC f j</kbd>                        | jump to the current buffer file in dired
 <kbd>SPC f o</kbd>                        | open a file using the default external program
+<kbd>SPC f R</kbd>                        | rename the current file
 <kbd>SPC f s</kbd>                        | save a file
 <kbd>SPC f S</kbd>                        | save all files
 <kbd>SPC f r</kbd>                        | open a recent file with `helm`
