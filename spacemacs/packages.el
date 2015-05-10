@@ -1960,9 +1960,14 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
   (use-package move-text
     :defer t
     :init
-    (evil-leader/set-key
-      "xmj" 'move-text-down
-      "xmk" 'move-text-up)))
+    (spacemacs|define-micro-state move-text
+      :doc "[J] move down [K] move up"
+        :use-minibuffer t
+      :execute-binding-on-enter t
+      :evil-leader "xJ" "xK"
+      :bindings
+      ("J" move-text-down)
+      ("K" move-text-up))))
 
 (defun spacemacs/init-multi-term ()
   (use-package multi-term

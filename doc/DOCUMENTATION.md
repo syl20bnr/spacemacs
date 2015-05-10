@@ -1896,8 +1896,8 @@ Text related commands (start with `x`):
 <kbd>SPC x g l</kbd>   | set languages used by translate commands
 <kbd>SPC x g t</kbd>   | translate current word using Google Translate
 <kbd>SPC x g T</kbd>   | reverse source and target languages
-<kbd>SPC x m j</kbd>   | move down a line of text
-<kbd>SPC x m k</kbd>   | move up a line of text
+<kbd>SPC x J</kbd>     | move down a line of text (enter micro-state)
+<kbd>SPC x K</kbd>     | move up a line of text (enter micro-state)
 <kbd>SPC x t c</kbd>   | swap (transpose) the current character with the previous one
 <kbd>SPC x t w</kbd>   | swap (transpose) the current word with the previous one
 <kbd>SPC x t l</kbd>   | swap (transpose) the current line with the previous one
