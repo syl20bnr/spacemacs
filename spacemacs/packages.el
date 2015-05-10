@@ -1980,6 +1980,9 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (interactive)
         (term-send-raw-string "\t"))
 
+      ;; hack to fix pasting issue, the paste micro-state won't
+      ;; work in multi-term
+      (evil-define-key 'normal term-raw-map "p" 'term-paste)
       (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
       (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab))))
 
