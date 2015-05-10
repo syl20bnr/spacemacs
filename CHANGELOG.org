@@ -46,7 +46,8 @@
 - Layers are now auto-discovered recursively which allow arbitrary
   directory hierarchy. Directory names starting with =!= are categories.
   (thanks to TheBB)
-*** Other fixes
+*** Other fixes and improvements
+- Add a guide for Vimmers in =doc= directory (thanks to person808)
 - Typos and documentation improvements (thanks to JoshTGreenwood)
 * Release 0.102.x
 ** 0.102.2 (2015/06/03)
