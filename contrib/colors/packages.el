@@ -48,33 +48,15 @@
       (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 
       (defun colors//tweak-theme-colors (theme)
-        "Tweak color themes by adjusting rainbow-identifiers colors settings an by
-disabling some faces in order to make colored identifiers stand out."
+        "Tweak color themes by adjusting rainbow-identifiers."
         (interactive)
         ;; tweak the saturation and lightness of identifier colors
-        (pcase theme
-          (`gotham (setq rainbow-identifiers-cie-l*a*b*-saturation 45
-                         rainbow-identifiers-cie-l*a*b*-lightness 60))
-          (`leuven (setq rainbow-identifiers-cie-l*a*b*-saturation 100
-                         rainbow-identifiers-cie-l*a*b*-lightness 40))
-          (`material (setq rainbow-identifiers-cie-l*a*b*-saturation 95
-                           rainbow-identifiers-cie-l*a*b*-lightness 105))
-          (`monokai (setq rainbow-identifiers-cie-l*a*b*-saturation 55
-                          rainbow-identifiers-cie-l*a*b*-lightness 60))
-          (`solarized-dark (setq rainbow-identifiers-cie-l*a*b*-saturation 65
-                                 rainbow-identifiers-cie-l*a*b*-lightness 55))
-          (`solarized-light (setq rainbow-identifiers-cie-l*a*b*-saturation 60
-                                  rainbow-identifiers-cie-l*a*b*-lightness 55))
-          (`zenburn (setq rainbow-identifiers-cie-l*a*b*-saturation 40
-                          rainbow-identifiers-cie-l*a*b*-lightness 65))
-          (_ (setq rainbow-identifiers-cie-l*a*b*-saturation 80
-                   rainbow-identifiers-cie-l*a*b*-lightness 45)))
-        ;; backup to original font locks
-        (let ((frame (selected-frame)))
-          (setq original-font-lock-function-name-face-attributes
-                (face-all-attributes font-lock-function-name-face frame))
-          (setq original-font-lock-keyword-face-attributes
-                (face-all-attributes font-lock-keyword-face frame)))))
+        (let ((sat&light (assq theme colors-theme-identifiers-sat&light)))
+          (if sat&light
+              (setq rainbow-identifiers-cie-l*a*b*-saturation (cadr sat&light)
+                    rainbow-identifiers-cie-l*a*b*-lightness (caddr sat&light))
+            (setq rainbow-identifiers-cie-l*a*b*-saturation 80
+                  rainbow-identifiers-cie-l*a*b*-lightness 45)))))
     (colors//tweak-theme-colors spacemacs--cur-theme)
 
     (defadvice spacemacs/post-theme-init (after colors/post-theme-init activate)
