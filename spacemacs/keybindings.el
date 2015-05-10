@@ -21,6 +21,9 @@
 ;; Escape from isearch-mode("/" and "?" in evil-mode) like vim
 (define-key isearch-mode-map (kbd "<escape>") 'isearch-cancel)
 
+;; add Ctrl-P functionality to normal mode
+(define-key evil-normal-state-map (kbd "C-/") 'helm-projectile)
+
 ;; Make <escape> quit as much as possible
 (define-key minibuffer-local-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key evil-visual-state-map (kbd "<escape>") 'keyboard-quit)

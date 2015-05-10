@@ -1677,14 +1677,19 @@ If ARG is non nil then `ag' and `pt' and ignored."
           (call-interactively (spacemacs//helm-projectile-do-search-find-tool
                                tools))))
 
+      (setq helm-projectile-sources-list '(helm-source-projectile-projects
+                                           helm-source-projectile-files-list
+                                           helm-source-recentf
+                                           helm-source-pp-bookmarks
+                                           helm-source-file-cache))
+
       (evil-leader/set-key
         "/"   'spacemacs/helm-projectile-smart-do-search
         "pb"  'helm-projectile-switch-to-buffer
         "pd"  'helm-projectile-find-dir
         "pe"  'helm-projectile-recentf
         "pf"  'helm-projectile-find-file
-        "ph"  'helm-projectile
-        "pp"  'helm-projectile-switch-project
+        "pp"  'helm-projectile
         "psa" 'helm-projectile-ag
         "psg" 'helm-projectile-grep
         "psk" 'helm-projectile-ack
