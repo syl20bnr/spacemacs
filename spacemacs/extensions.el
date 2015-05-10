@@ -115,22 +115,24 @@
     :commands spray-mode
     :init
     (progn
-      (evil-leader/set-key "asr"
-        (lambda ()
-          (interactive)
-          (evil-insert-state)
-          (spray-mode t)
-          (evil-insert-state-cursor-hide))))
+      (defun spacemacs/start-spray ()
+        "Start spray speed reading on current buffer at current point."
+        (interactive)
+        (evil-insert-state)
+        (spray-mode t)
+        (evil-insert-state-cursor-hide))
+      (evil-leader/set-key "asr" 'spacemacs/start-spray)
+
+      (defun spacemacs//quit-spray ()
+        "Correctly quit spray."
+        (set-default-evil-insert-state-cursor)
+        (evil-normal-state))
+      (advice-add 'spray-quit :after 'spacemacs//quit-spray))
     :config
     (progn
       (define-key spray-mode-map (kbd "h") 'spray-backward-word)
       (define-key spray-mode-map (kbd "l") 'spray-forward-word)
-      (define-key spray-mode-map (kbd "q")
-        (lambda ()
-          (interactive)
-          (spray-quit)
-          (set-default-evil-insert-state-cursor)
-          (evil-normal-state))))))
+      (define-key spray-mode-map (kbd "q") 'spray-quit))))
 
 (defun spacemacs/init-solarized-theme ()
   (use-package solarized
