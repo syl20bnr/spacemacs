@@ -92,11 +92,6 @@
     (spacemacs|hide-lighter hs-minor-mode)))
 (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode)
 
-;; single-space sentence navigation to match vim if vim is selected as the
-;; editing style
-(when (eq 'vim dotspacemacs-editing-style)
-  (setq-default sentence-end-double-space nil))
-
 ;; Hack to fix a bug with tabulated-list.el
 ;; see: http://redd.it/2dgy52
 (defun tabulated-list-revert (&rest ignored)
@@ -169,6 +164,9 @@ Can be installed with `brew install trash'."
 
 ;; Save clipboard contents into kill-ring before replace them
 (setq save-interprogram-paste-before-kill t)
+
+;; Single space between sentencs is more widespread than double
+(setq-default sentence-end-double-space nil)
 
 ;; ---------------------------------------------------------------------------
 ;; UI
