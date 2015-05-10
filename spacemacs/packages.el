@@ -2743,17 +2743,17 @@ It is a string holding:
     :defer t
     :init
     (progn
-      (spacemacs|add-toggle whitespaces
+      (spacemacs|add-toggle whitespace
                             :status whitespace-mode
                             :on (whitespace-mode)
                             :off (whitespace-mode -1)
-                            :documentation "Display the whitespaces."
+                            :documentation "Display whitespace."
                             :evil-leader "tw")
-      (spacemacs|add-toggle whitespaces-globally
-                            :status whitespace-mode
+      (spacemacs|add-toggle whitespace-globally
+                            :status global-whitespace-mode
                             :on (global-whitespace-mode)
                             :off (global-whitespace-mode -1)
-                            :documentation "Globally display the whitespaces."
+                            :documentation "Globally display whitespace."
                             :evil-leader "t C-w")
       (defun spacemacs//set-whitespace-style-for-diff ()
         "Whitespace configuration for `diff-mode'"
@@ -2778,7 +2778,8 @@ It is a string holding:
                           :background nil)
       (set-face-attribute 'whitespace-indentation nil
                           :background nil)
-      (spacemacs|diminish whitespace-mode " ⓦ" " w"))))
+      (spacemacs|diminish whitespace-mode " ⓦ" " w")
+      (spacemacs|diminish global-whitespace-mode " Ⓦ" " W"))))
 
 (defun spacemacs/init-window-numbering ()
   (use-package window-numbering
