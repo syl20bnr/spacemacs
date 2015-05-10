@@ -152,7 +152,11 @@ the focus."
 
         "mtt" 'cider-test-run-tests)
       (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'cider-repl-mode)))))
+        (clojure/fancify-symbols 'cider-repl-mode)))
+
+    (defadvice cider-jump-to-var (before add-evil-jump activate)
+      (when (configuration-layer/package-usedp 'evil-jumper)
+        (evil-set-jump)))))
 
 (defun clojure/init-cider-eval-sexp-fu ()
   (eval-after-load 'eval-sexp-fu
