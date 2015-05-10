@@ -9,6 +9,8 @@
     - [Description](#description)
     - [Philosophy](#philosophy)
     - [Install](#install)
+        - [Layer](#layer)
+        - [Coreutils](#coreutils)
     - [Key Bindings](#key-bindings)
     - [Future Work](#future-work)
 
@@ -21,6 +23,8 @@ This layer globally defines common OSX keybindings. ⌘ is set to
 `super` and ⌥ is set to `meta`. Aside from that, there's nothing
 much, really.
 
+While in `dired` this layer will try to use `gls` instead of `ls`.
+
 ## Philosophy
 
 While this layer enables common OSX bindings, it does not implement
@@ -29,12 +33,22 @@ and we encourage you to do so :)
 
 ## Install
 
+### Layer
+
 To use this configuration layer, add it to your `~/.spacemacs`
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(osx)
   ;; List of contribution to load.
 )
+```
+
+### Coreutils
+
+To get `gls` install coreutils homebrew:
+
+```sh
+brew install coreutils
 ```
 
 ## Key Bindings
