@@ -34,7 +34,5 @@
         "ml" 'puppet-lint
       ))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun puppet/post-init-company ()
-    (spacemacs|add-company-hook puppet-mode))
-)
+(defun puppet/post-init-company ()
+  (spacemacs|add-company-hook puppet-mode))
