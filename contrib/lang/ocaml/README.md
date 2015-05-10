@@ -9,6 +9,8 @@
     - [Description](#description)
     - [Install](#install)
         - [OPAM packages](#opam-packages)
+    - [Key Bindings](#key-bindings)
+        - [REPL (utop)](#repl-utop)
     - [TODO](#todo)
 
 <!-- markdown-toc end -->
@@ -28,20 +30,47 @@ To use this contribution add it to your `~/.spacemacs`
 (setq-default dotspacemacs-configuration-layers '(ocaml))
 ```
 
+Optional configuration layers supported:
+ * auto-completion (company mode via merlin)
+ * syntax-checking (flycheck-ocaml)
+
 ### OPAM packages
 
 This layer requires some [opam](http://opam.ocaml.org) packages:
 
 - `merlin`
+- `utop`
+- `ocp-indent`
 
 To install them, use the following command: 
 
 ```sh
-opam install merlin 
+opam install merlin utop ocp-indent
 ```
+
+## Key Bindings
+
+    Key Binding       |                 Description
+----------------------|--------------------------------------------------------
+<kbd>SPC m c c</kbd>  | Compile
+<kbd>SPC m e t</kbd>  | Highlight identifier under cursor and print its type
+
+### REPL (utop)
+
+    Key Binding       |                 Description
+----------------------|--------------------------------------------------------
+<kbd>SPC m s b</kbd>  | Send buffer to the REPL
+<kbd>SPC m s B</kbd>  | Send buffer to the REPL and switch to the REPL in `insert state`
+<kbd>SPC m s i</kbd>  | Start a REPL
+<kbd>SPC m s p</kbd>  | Send phrase to the REPL
+<kbd>SPC m s P</kbd>  | Send phrase to the REPL and switch to the REPL in `insert state`
+<kbd>SPC m s r</kbd>  | Send region to the REPL
+<kbd>SPC m s R</kbd>  | Send region to the REPL and switch to the REPL in `insert state`
+<kbd>C-j</kbd>        | next item in history
+<kbd>C-k</kbd>        | previous item in history
 
 ## TODO
 
-- Add support for `flycheck` (using `flycheck-ocaml`)
-- Add proper spacemacs key-bindings for basic merlin tasks
-
+- Add more proper spacemacs key-bindings for basic merlin tasks
+- Add proper keybindings for ocamldebug
+- Add more keybindings for tuareg-mode
