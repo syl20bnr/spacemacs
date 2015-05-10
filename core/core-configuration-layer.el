@@ -191,9 +191,9 @@ path."
     (mapc (lambda (l)
             (if (ht-contains? result (car l))
                 (spacemacs-buffer/warning
-                 (concat "Duplicated layer detected: %s! "
-                         "Keeping only the layer in directory %s")
-                 (car l) (ht-get result (car l)))
+                 (concat "Duplicated layer %s detected in directory \"%s\", "
+                         "keeping only the layer in directory \"%s\"")
+                 (car l) (cdr l) (ht-get result (car l)))
               (puthash (car l) (cdr l) result))) discovered)
     result))
 
