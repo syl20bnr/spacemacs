@@ -143,11 +143,6 @@
       (evil-define-key 'normal haskell-interactive-mode-map
         (kbd "RET") 'haskell-interactive-mode-return)
 
-      ;; Useful to have these keybindings for .cabal files, too.
-      (eval-after-load 'haskell-cabal-mode-map
-        '(define-key haskell-cabal-mode-map
-           [?\C-c ?\C-z] 'haskell-interactive-switch))))
-
       ;;GHCi-ng
       (when haskell-enable-ghci-ng-support
         ;; haskell-process-type is set to auto, so setup ghci-ng for either case
@@ -160,6 +155,12 @@
           "mu"   'haskell-mode-find-uses
           "mht"   'haskell-mode-show-type-at
           "mgg"  'haskell-mode-goto-loc))
+
+      ;; Useful to have these keybindings for .cabal files, too.
+      (eval-after-load 'haskell-cabal-mode-map
+        '(define-key haskell-cabal-mode-map
+           [?\C-c ?\C-z] 'haskell-interactive-switch))))
+
 
   (eval-after-load 'haskell-indentation
     '(progn
