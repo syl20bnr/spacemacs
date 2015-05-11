@@ -2290,31 +2290,32 @@ To search in a project see [project searching](#searching-in-a-project).
 
 `projectile` commands start with <kbd>p</kbd>:
 
-    Key Binding     |                 Description
---------------------|------------------------------------------------------------
-<kbd>SPC p /</kbd>  | run `ag`
-<kbd>SPC p !</kbd>  | run shell command in root
-<kbd>SPC p &</kbd>  | run async shell command in root
-<kbd>SPC p a</kbd>  | run `ag`
-<kbd>SPC p A</kbd>  | run `ack`
-<kbd>SPC p b</kbd>  | switch to project buffer
-<kbd>SPC p c</kbd>  | compile project using `projectile`
-<kbd>SPC p d</kbd>  | find directory
-<kbd>SPC p D</kbd>  | open project root in `dired`
-<kbd>SPC p f</kbd>  | find file
-<kbd>SPC p g</kbd>  | run `grep`
-<kbd>SPC p h</kbd>  | find file using `helm`
-<kbd>SPC p I</kbd>  | invalidate the projectile cache
-<kbd>SPC p k</kbd>  | kill all project buffers
-<kbd>SPC p o</kbd>  | run `multi-occur`
-<kbd>SPC p p</kbd>  | switch project
-<kbd>SPC p R</kbd>  | regenerate the project's [e|g]tags
-<kbd>SPC p r</kbd>  | replace a string
-<kbd>SPC p s</kbd>  | see [search in project](#searching-in-a-project)
-<kbd>SPC p t</kbd>  | open `NeoTree` in `projectile` root
-<kbd>SPC p T</kbd>  | find test files
-<kbd>SPC p v</kbd>  | open project root in `vc-dir` or `magit`
-<kbd>SPC p y</kbd>  | find tags
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC p /</kbd>   | run `ag`
+<kbd>SPC p !</kbd>   | run shell command in root
+<kbd>SPC p &</kbd>   | run async shell command in root
+<kbd>SPC p $ t</kbd> | run multi-term shell in root
+<kbd>SPC p a</kbd>   | run `ag`
+<kbd>SPC p A</kbd>   | run `ack`
+<kbd>SPC p b</kbd>   | switch to project buffer
+<kbd>SPC p c</kbd>   | compile project using `projectile`
+<kbd>SPC p d</kbd>   | find directory
+<kbd>SPC p D</kbd>   | open project root in `dired`
+<kbd>SPC p f</kbd>   | find file
+<kbd>SPC p g</kbd>   | run `grep`
+<kbd>SPC p h</kbd>   | find file using `helm`
+<kbd>SPC p I</kbd>   | invalidate the projectile cache
+<kbd>SPC p k</kbd>   | kill all project buffers
+<kbd>SPC p o</kbd>   | run `multi-occur`
+<kbd>SPC p p</kbd>   | switch project
+<kbd>SPC p R</kbd>   | regenerate the project's [e|g]tags
+<kbd>SPC p r</kbd>   | replace a string
+<kbd>SPC p s</kbd>   | see [search in project](#searching-in-a-project)
+<kbd>SPC p t</kbd>   | open `NeoTree` in `projectile` root
+<kbd>SPC p T</kbd>   | find test files
+<kbd>SPC p v</kbd>   | open project root in `vc-dir` or `magit`
+<kbd>SPC p y</kbd>   | find tags
 
 ## Registers
 
