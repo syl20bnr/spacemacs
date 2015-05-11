@@ -719,18 +719,21 @@ Example: (evil-map visual \"<\" \"<gv\")"
         ("<" spacemacs/scroll-half-page-up)
         (">" spacemacs/scroll-half-page-down))
 
+      ;; support for auto-indentation inhibition on universal argument
+      (spacemacs|advise-commands
+       "handle-indent" (evil-paste-before evil-paste-after) around
+       "Handle the universal prefix argument for auto-indentation."
+       (let ((prefix (ad-get-arg 0)))
+         (ad-set-arg 0 (unless (equal '(4) prefix) prefix))
+         ad-do-it
+         (ad-set-arg 0 prefix)))
+
       ;; pasting micro-state
-      (defadvice evil-paste-before (after spacemacs/evil-paste-before activate)
-        "Initate the paste micro-state after the execution of evil-paste-before"
-        (unless (evil-ex-p)
-          (spacemacs/paste-micro-state)))
-      (defadvice evil-paste-after (after spacemacs/evil-paste-after activate)
-        "Initate the paste micro-state after the execution of evil-paste-after"
-        (unless (evil-ex-p)
-          (spacemacs/paste-micro-state)))
-      (defadvice evil-visual-paste (after spacemacs/evil-visual-paste activate)
-        "Initate the paste micro-state after the execution of evil-visual-paste"
-        (spacemacs/paste-micro-state))
+      (spacemacs|advise-commands
+       "past-micro-state"
+       (evil-paste-before evil-paste-after evil-visual-paste) after
+       "Initate the paste micro-state."
+       (unless (evil-ex-p) (spacemacs/paste-micro-state)))
       (defun spacemacs//paste-ms-doc ()
         "The documentation for the paste micro-state."
         (format (concat "[%s/%s] Type [p] or [P] to paste the previous or "
@@ -743,11 +746,14 @@ Example: (evil-map visual \"<\" \"<gv\")"
         ("p" evil-paste-pop)
         ("P" evil-paste-pop-next))
       (unless dotspacemacs-enable-paste-micro-state
-        (ad-disable-advice 'evil-paste-before 'after 'spacemacs/evil-paste-before)
+        (ad-disable-advice 'evil-paste-before 'after
+                           'spacemacs/evil-paste-before-after-ad)
         (ad-activate 'evil-paste-before)
-        (ad-disable-advice 'evil-paste-after 'after 'spacemacs/evil-paste-after)
+        (ad-disable-advice 'evil-paste-after 'after
+                           'spacemacs/evil-paste-after-after-ad)
         (ad-activate 'evil-paste-after)
-        (ad-disable-advice 'evil-visual-paste 'after 'spacemacs/evil-visual-paste)
+        (ad-disable-advice 'evil-visual-paste 'after
+                           'spacemacs/evil-visual-paste)
         (ad-activate 'evil-visual-paste))
 
       ;; define text objects

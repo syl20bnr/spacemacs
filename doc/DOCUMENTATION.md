@@ -117,6 +117,8 @@
         - [Helm-swoop](#helm-swoop)
     - [Editing](#editing)
         - [Paste text](#paste-text)
+            - [Paste Micro-state](#paste-micro-state)
+            - [Auto-indent pasted text](#auto-indent-pasted-text)
         - [Text manipulation commands](#text-manipulation-commands)
         - [Smartparens Strict mode](#smartparens-strict-mode)
         - [Zooming](#zooming)
@@ -1871,6 +1873,8 @@ Key Binding            |                    Description
 
 ### Paste text
 
+#### Paste Micro-state
+
 Whenever you paste some text a `paste` micro-state is initiated. Pressing
 <kbd>p</kbd> again will replace the pasted text with the previous
 yanked (copied) text on the kill ring.
@@ -1888,6 +1892,15 @@ Any other key                 | leave the micro-state
 
 This micro-state can be disabled by setting
 `dotspacemacs-enable-paste-micro-state` to `nil` in `~/.spacemacs`.
+
+#### Auto-indent pasted text
+
+By default any pasted text will be auto-indented. To paste text un-indented
+use the universal argument.
+
+It is possible to disable the auto-indentation for specific major-modes by
+adding a major-mode to the variable `spacemacs-indent-sensitive-modes` in
+your `dotspacemacs/config` function.
 
 ### Text manipulation commands
 
