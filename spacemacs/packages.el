@@ -730,7 +730,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
       ;; pasting micro-state
       (spacemacs|advise-commands
-       "past-micro-state"
+       "paste-micro-state"
        (evil-paste-before evil-paste-after evil-visual-paste) after
        "Initate the paste micro-state."
        (unless (evil-ex-p) (spacemacs/paste-micro-state)))
@@ -747,13 +747,13 @@ Example: (evil-map visual \"<\" \"<gv\")"
         ("P" evil-paste-pop-next))
       (unless dotspacemacs-enable-paste-micro-state
         (ad-disable-advice 'evil-paste-before 'after
-                           'spacemacs/evil-paste-before-after-ad)
+                           'evil-paste-before-paste-micro-state-after)
         (ad-activate 'evil-paste-before)
         (ad-disable-advice 'evil-paste-after 'after
-                           'spacemacs/evil-paste-after-after-ad)
+                           'evil-paste-after-paste-micro-state-after)
         (ad-activate 'evil-paste-after)
         (ad-disable-advice 'evil-visual-paste 'after
-                           'spacemacs/evil-visual-paste)
+                           'evil-visual-paste-paste-micro-state-after)
         (ad-activate 'evil-visual-paste))
 
       ;; define text objects
