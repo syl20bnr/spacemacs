@@ -793,8 +793,7 @@ The body of the advice is in BODY."
   `(progn
      ,@(mapcar (lambda (command)
                  `(defadvice ,command
-                      (,class ,(intern (format "%S-%s-%S"
-                                               command advice-name class))
+                      (,class ,(intern (format "%S-%s" command advice-name))
                               activate)
                     ,@body))
                commands)))

@@ -747,13 +747,13 @@ Example: (evil-map visual \"<\" \"<gv\")"
         ("P" evil-paste-pop-next))
       (unless dotspacemacs-enable-paste-micro-state
         (ad-disable-advice 'evil-paste-before 'after
-                           'evil-paste-before-paste-micro-state-after)
+                           'evil-paste-before-paste-micro-state)
         (ad-activate 'evil-paste-before)
         (ad-disable-advice 'evil-paste-after 'after
-                           'evil-paste-after-paste-micro-state-after)
+                           'evil-paste-after-paste-micro-state)
         (ad-activate 'evil-paste-after)
         (ad-disable-advice 'evil-visual-paste 'after
-                           'evil-visual-paste-paste-micro-state-after)
+                           'evil-visual-paste-paste-micro-state)
         (ad-activate 'evil-visual-paste))
 
       ;; define text objects
