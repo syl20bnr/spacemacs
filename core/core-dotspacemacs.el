@@ -83,6 +83,10 @@ size to make separators look not too crappy.")
 By default the command key is `:' so ex-commands are executed like in Vim
 with `:' and Emacs commands are executed with `<leader> :'.")
 
+(defvar dotspacemacs-autosave-file-directly nil
+  "If non-nil, auto-save to the file directly. If nil, just save
+to auto-save file in `spacemacs-cache-directory'")
+
 (defvar dotspacemacs-enable-paste-micro-state t
   "If non nil the paste micro-state is enabled. While enabled pressing `p`
 several times cycle between the kill ring content.'")

@@ -872,3 +872,11 @@ If ASCII si not provided then UNICODE is used instead."
   (delete-region (point-min) (point-max))
   (clipboard-yank)
   (deactivate-mark))
+
+(defun save-buffer-if-visiting-file (&optional args)
+  "Save the current buffer only if it is visiting a file"
+  (interactive)
+  (if (and dotspacemacs-autosave-file-directly
+           (buffer-file-name)
+           (buffer-modified-p))
+      (save-buffer args)))
