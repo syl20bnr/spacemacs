@@ -2511,8 +2511,7 @@ It is a string holding:
                projectile-run-shell-command-in-root
                projectile-switch-project
                projectile-switch-to-buffer
-               projectile-vc
-               )
+               projectile-vc)
     :init
     (progn
       (setq-default projectile-enable-caching t)
@@ -2534,7 +2533,6 @@ It is a string holding:
           "ps" 'projectile-switch-project))
       (evil-leader/set-key
         "p!" 'projectile-run-shell-command-in-root
-        "p$" 'projectile-multi-term-in-root
         "p&" 'projectile-run-async-shell-command-in-root
         "pc" 'projectile-compile-project
         "pD" 'projectile-dired
@@ -2544,7 +2542,14 @@ It is a string holding:
         "pr" 'projectile-replace
         "pR" 'projectile-regenerate-tags
         "py" 'projectile-find-tag
-        "pT" 'projectile-find-test-file))
+        "pT" 'projectile-find-test-file)
+
+      (when (configuration-layer/package-usedp 'multi-term)
+        (defun projectile-multi-term-in-root ()
+          "Invoke `multi-term' in the project's root."
+          (interactive)
+          (projectile-with-default-dir (projectile-project-root) (multi-term)))
+        (evil-leader/set-key "p$t" 'projectile-multi-term-in-root)))
     :config
     (progn
       (projectile-global-mode)
