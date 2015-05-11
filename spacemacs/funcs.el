@@ -144,6 +144,7 @@ the current state and point position."
       (setq counter (1- counter)))))
 
 ;; from Prelude
+;; TODO: dispatch these in the layers
 (defvar spacemacs-indent-sensitive-modes
   '(coffee-mode
     python-mode
@@ -897,12 +898,13 @@ The body of the advice is in BODY."
   (if (<= (- end beg) spacemacs-yank-indent-threshold)
       (indent-region beg end nil)))
 
-(spacemacs|advise-commands "indent" (yank yank-pop evil-paste-after) after
-  "If current mode is not one of spacemacs-indent-sensitive-modes
-indent yanked text (with prefix arg don't indent)."
-  (if (and (not (ad-get-arg 0))
-           (not (member major-mode spacemacs-indent-sensitive-modes))
-           (or (derived-mode-p 'prog-mode)
-               (member major-mode spacemacs-indent-sensitive-modes)))
-      (let ((transient-mark-mode nil))
-        (yank-advised-indent-function (region-beginning) (region-end)))))
+(spacemacs|advise-commands
+ "indent" (yank yank-pop evil-paste-before evil-paste-after) after
+ "If current mode is not one of spacemacs-indent-sensitive-modes
+ indent yanked text (with universal arg don't indent)."
+ (if (and (not (equal '(4) (ad-get-arg 0)))
+          (not (member major-mode spacemacs-indent-sensitive-modes))
+          (or (derived-mode-p 'prog-mode)
+              (member major-mode spacemacs-indent-sensitive-modes)))
+     (let ((transient-mark-mode nil))
+       (yank-advised-indent-function (region-beginning) (region-end)))))
