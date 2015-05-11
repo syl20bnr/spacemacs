@@ -792,7 +792,10 @@ If ASCII si not provided then UNICODE is used instead."
 The body of the advice is in BODY."
   `(progn
      ,@(mapcar (lambda (command)
-                 `(defadvice ,command (,class ,(intern (concat (symbol-name command) "-" advice-name)) activate)
+                 `(defadvice ,command
+                      (,class ,(intern (format "%S-%s-%S"
+                                               command advice-name class))
+                              activate)
                     ,@body))
                commands)))
 
