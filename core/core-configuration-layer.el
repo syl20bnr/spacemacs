@@ -188,7 +188,13 @@ path."
     ;; add spacemacs layer
     (puthash 'spacemacs (expand-file-name user-emacs-directory) result)
     ;; add discovered
-    (mapc (lambda (l) (puthash (car l) (cdr l) result)) discovered)
+    (mapc (lambda (l)
+            (if (ht-contains? result (car l))
+                (spacemacs-buffer/warning
+                 (concat "Duplicated layer %s detected in directory \"%s\", "
+                         "keeping only the layer in directory \"%s\"")
+                 (car l) (cdr l) (ht-get result (car l)))
+              (puthash (car l) (cdr l) result))) discovered)
     result))
 
 (defun configuration-layer//discover-layers-in-dir (dir &optional exclude)

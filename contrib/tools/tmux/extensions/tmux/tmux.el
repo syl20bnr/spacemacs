@@ -69,6 +69,27 @@
               (interactive)
               (tmux-navigate "right")))
 
+(define-key evil-motion-state-map
+            (kbd "C-h")
+            (lambda ()
+              (interactive)
+              (tmux-navigate "left")))
+(define-key evil-motion-state-map
+            (kbd "C-j")
+            (lambda ()
+              (interactive)
+              (tmux-navigate "down")))
+(define-key evil-motion-state-map
+            (kbd "C-k")
+            (lambda ()
+              (interactive)
+              (tmux-navigate "up")))
+(define-key evil-motion-state-map
+            (kbd "C-l")
+            (lambda ()
+              (interactive)
+              (tmux-navigate "right")))
+
 (provide 'tmux)
 
 ;;; tmux.el ends here

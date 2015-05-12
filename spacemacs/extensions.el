@@ -28,7 +28,6 @@
     spray
     zoom-frm
     ;; hack to be able to wrap built-in emacs modes in an init function
-    emacs-builtin-emacs-lisp
     emacs-builtin-process-menu
     ))
 
@@ -116,22 +115,24 @@
     :commands spray-mode
     :init
     (progn
-      (evil-leader/set-key "asr"
-        (lambda ()
-          (interactive)
-          (evil-insert-state)
-          (spray-mode t)
-          (evil-insert-state-cursor-hide))))
+      (defun spacemacs/start-spray ()
+        "Start spray speed reading on current buffer at current point."
+        (interactive)
+        (evil-insert-state)
+        (spray-mode t)
+        (evil-insert-state-cursor-hide))
+      (evil-leader/set-key "asr" 'spacemacs/start-spray)
+
+      (defun spacemacs//quit-spray ()
+        "Correctly quit spray."
+        (set-default-evil-insert-state-cursor)
+        (evil-normal-state))
+      (advice-add 'spray-quit :after 'spacemacs//quit-spray))
     :config
     (progn
       (define-key spray-mode-map (kbd "h") 'spray-backward-word)
       (define-key spray-mode-map (kbd "l") 'spray-forward-word)
-      (define-key spray-mode-map (kbd "q")
-        (lambda ()
-          (interactive)
-          (spray-quit)
-          (set-default-evil-insert-state-cursor)
-          (evil-normal-state))))))
+      (define-key spray-mode-map (kbd "q") 'spray-quit))))
 
 (defun spacemacs/init-solarized-theme ()
   (use-package solarized
@@ -194,24 +195,6 @@
       ;; Font size, either with ctrl + mouse wheel
       (global-set-key (kbd "<C-wheel-up>") 'spacemacs/zoom-frm-in)
       (global-set-key (kbd "<C-wheel-down>") 'spacemacs/zoom-frm-out))))
-
-(defun spacemacs/init-emacs-builtin-emacs-lisp ()
-
-  (evil-leader/set-key-for-mode 'emacs-lisp-mode
-    "me$" 'lisp-state-eval-sexp-end-of-line
-    "meb" 'eval-buffer
-    "mec" 'spacemacs/eval-current-form
-    "mee" 'eval-last-sexp
-    "mer" 'spacemacs/eval-region
-    "mef" 'eval-defun
-    "mel" 'lisp-state-eval-sexp-end-of-line
-    "m,"  'lisp-state-toggle-lisp-state
-    "mtb" 'spacemacs/ert-run-tests-buffer
-    "mtq" 'ert)
-
-  ;; company support
-  (push 'company-capf company-backends-emacs-lisp-mode)
-  (spacemacs|add-company-hook emacs-lisp-mode))
 
 (defun spacemacs/init-emacs-builtin-process-menu ()
   (evilify process-menu-mode process-menu-mode-map))

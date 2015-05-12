@@ -19,6 +19,7 @@
     flycheck-haskell
     ghc
     haskell-mode
+    haskell-snippets
     hindent
     shm
     ))
@@ -48,7 +49,6 @@
       (set-face-attribute 'ghc-face-warn nil :underline nil))))
 
 (defun haskell/init-haskell-mode ()
-  (require 'haskell-yas)
   (use-package haskell-mode
     :defer t
     :config
@@ -57,19 +57,6 @@
       (defun spacemacs/init-haskell-mode ()
         ;; use only internal indentation system from haskell
         (electric-indent-local-mode -1))
-
-      ;;GHCi-ng
-      (when haskell-enable-ghci-ng-support
-        ;; haskell-process-type is set to auto, so setup ghci-ng for either case
-        ;; if haskell-process-type == cabal-repl
-        (setq haskell-process-args-cabal-repl '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
-        ;; if haskell-process-type == GHCi
-        (setq haskell-process-path-ghci "ghci-ng")
-
-        (evil-leader/set-key-for-mode 'haskell-mode
-          "mu"   'haskell-mode-find-uses
-          "mht"   'haskell-mode-show-type-at
-          "mgg"  'haskell-mode-goto-loc))
 
       ;; hooks
       (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
@@ -156,31 +143,58 @@
       (evil-define-key 'normal haskell-interactive-mode-map
         (kbd "RET") 'haskell-interactive-mode-return)
 
+      ;;GHCi-ng
+      (when haskell-enable-ghci-ng-support
+        ;; haskell-process-type is set to auto, so setup ghci-ng for either case
+        ;; if haskell-process-type == cabal-repl
+        (setq haskell-process-args-cabal-repl '("--ghc-option=-ferror-spans" "--with-ghc=ghci-ng"))
+        ;; if haskell-process-type == GHCi
+        (setq haskell-process-path-ghci "ghci-ng")
+
+        (evil-leader/set-key-for-mode 'haskell-mode
+          "mu"   'haskell-mode-find-uses
+          "mht"   'haskell-mode-show-type-at
+          "mgg"  'haskell-mode-goto-loc))
+
       ;; Useful to have these keybindings for .cabal files, too.
       (eval-after-load 'haskell-cabal-mode-map
         '(define-key haskell-cabal-mode-map
            [?\C-c ?\C-z] 'haskell-interactive-switch))))
 
+
   (eval-after-load 'haskell-indentation
-    (progn
-      ;; Show indentation guides in insert or emacs state only.
-      (defun spacemacs//haskell-indentation-show-guides ()
-        "Show visual indentation guides."
-        (when (derived-mode-p 'haskell-mode)
-          (haskell-indentation-enable-show-indentations)))
+    '(progn
+       ;; Show indentation guides in insert or emacs state only.
+       (defun spacemacs//haskell-indentation-show-guides ()
+         "Show visual indentation guides."
+         (when (and (boundp 'haskell-indentation-mode) haskell-indentation-mode)
+           (haskell-indentation-enable-show-indentations)))
 
-      (defun spacemacs//haskell-indentation-hide-guides ()
-        "Hide visual indentation guides."
-        (when (derived-mode-p 'haskell-mode)
-          (haskell-indentation-disable-show-indentations)))
+       (defun spacemacs//haskell-indentation-hide-guides ()
+         "Hide visual indentation guides."
+         (when (and (boundp 'haskell-indentation-mode) haskell-indentation-mode)
+           (haskell-indentation-disable-show-indentations)))
 
-      ;; first entry in normal state
-      (add-hook 'evil-normal-state-entry-hook 'spacemacs//haskell-indentation-hide-guides)
+       ;; first entry in normal state
+       (add-hook 'evil-normal-state-entry-hook 'spacemacs//haskell-indentation-hide-guides)
 
-      (add-hook 'evil-insert-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
-      (add-hook 'evil-emacs-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
-      (add-hook 'evil-insert-state-exit-hook 'spacemacs//haskell-indentation-hide-guides)
-      (add-hook 'evil-emacs-state-exit-hook 'spacemacs//haskell-indentation-hide-guides))))
+       (add-hook 'evil-insert-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
+       (add-hook 'evil-emacs-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
+       (add-hook 'evil-insert-state-exit-hook 'spacemacs//haskell-indentation-hide-guides)
+       (add-hook 'evil-emacs-state-exit-hook 'spacemacs//haskell-indentation-hide-guides))))
+
+(defun haskell/init-haskell-snippets ()
+  ;; manually load the package since the current implementation is not lazy
+  ;; loading friendly (funny coming from the haskell mode :-))
+  (setq haskell-snippets-dir (spacemacs//get-package-directory
+                              'haskell-snippets))
+
+  (defun haskell-snippets-initialize ()
+    (let ((snip-dir (expand-file-name "snippets" haskell-snippets-dir)))
+      (add-to-list 'yas-snippet-dirs snip-dir t)
+      (yas-load-directory snip-dir)))
+
+  (eval-after-load 'yasnippet '(haskell-snippets-initialize)))
 
 (defun haskell/init-hindent ()
   (use-package hindent

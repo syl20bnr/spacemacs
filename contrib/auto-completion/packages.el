@@ -11,14 +11,15 @@
 ;;; License: GPLv3
 
 (setq auto-completion-packages
-  '(
-    auto-complete
-    ac-ispell
-    company
-    helm-c-yasnippet
-    hippie-exp
-    yasnippet
-    ))
+      '(
+        auto-complete
+        ac-ispell
+        company
+        company-statistics
+        helm-c-yasnippet
+        hippie-exp
+        yasnippet
+        ))
 
 ;; company-quickhelp from MELPA is not compatible with 24.3 anymore
 (unless (version< emacs-version "24.4")
@@ -72,48 +73,34 @@
             company-require-match nil
             company-dabbrev-ignore-case nil
             company-dabbrev-downcase nil
-            company-tooltip-flip-when-above t
             company-frontends '(company-pseudo-tooltip-frontend)
             company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser))
+            (defvar-local company-fci-mode-on-p nil)
+
+        (defun company-turn-off-fci (&rest ignore)
+          (when (boundp 'fci-mode)
+            (setq company-fci-mode-on-p fci-mode)
+            (when fci-mode (fci-mode -1))))
+
+        (defun company-maybe-turn-on-fci (&rest ignore)
+          (when company-fci-mode-on-p (fci-mode 1)))
+
+        (add-hook 'company-completion-started-hook 'company-turn-off-fci)
+        (add-hook 'company-completion-finished-hook 'company-maybe-turn-on-fci)
+        (add-hook 'company-completion-cancelled-hook 'company-maybe-turn-on-fci)
     :config
     (progn
       (spacemacs|diminish company-mode " ⓐ" " a")
 
-      ;; allow to complete selection with `jk'
-      (defvar spacemacs--company-complete-time nil)
-      (defvar spacemacs--company-complete-last-candidate nil)
-      (defun spacemacs//company-complete-start ()
-        "Get time of last `j' when company is active."
-        (interactive)
-        (self-insert-command 1)
-        (setq spacemacs--company-complete-last-candidate
-              (nth company-selection company-candidates))
-        (setq spacemacs--company-complete-time (current-time)))
-      (defun spacemacs//company-complete-end ()
-        "Check time since last `j' inserted when company was active."
-        (interactive)
-        (if (or (null spacemacs--company-complete-time)
-                (< 0.1 (float-time (time-since spacemacs--company-complete-time))))
-            (self-insert-command 1)
-          ;; if company is still active then we don't need to delete the last
-          ;; inserted `j'
-          (unless company-candidates
-            (delete-char -1))
-          (let ((company-idle-delay))
-            (company-auto-begin)
-            (company-finish spacemacs--company-complete-last-candidate)))
-        (setq spacemacs--company-complete-time nil))
-
       ;; key bindings
-      (define-key evil-insert-state-map "k" 'spacemacs//company-complete-end)
+      (defun spacemacs//company-complete-common-or-cycle-backward ()
+        "Complete common prefix or cycle backward."
+        (interactive)
+        (company-complete-common-or-cycle -1))
+      (spacemacs//auto-completion-set-RET-key-behavior 'company)
+      (spacemacs//auto-completion-set-TAB-key-behavior 'company)
+      (spacemacs//auto-completion-setup-key-sequence 'company)
       (let ((map company-active-map))
-        ;; use TAB to auto-complete instead of RET
-        (define-key map (kbd "j") 'spacemacs//company-complete-start)
-        (define-key map [return] 'nil)
-        (define-key map (kbd "RET") 'nil)
-        (define-key map [tab] 'company-complete-common-or-cycle)
-        (define-key map (kbd "TAB") 'company-complete-common-or-cycle)
-        (define-key map (kbd "<tab>") 'company-complete-common-or-cycle)
         (define-key map (kbd "C-/") 'company-search-candidates)
         (define-key map (kbd "C-M-/") 'company-filter-candidates)
         (define-key map (kbd "C-d") 'company-show-doc-buffer)
@@ -135,10 +122,19 @@
       (setq company-transformers '(spacemacs//company-transformer-cancel
                                    company-sort-by-occurrence)))))
 
+(defun auto-completion/init-company-statistics ()
+  (use-package company-statistics
+    :if auto-completion-enable-sort-by-usage
+    :defer t
+    :init
+    (progn
+      (setq company-statistics-file (concat spacemacs-cache-directory
+                                            "company-statistics-cache.el"))
+      (add-hook 'company-mode-hook 'company-statistics-mode))))
+
 (defun auto-completion/init-company-quickhelp ()
   (use-package company-quickhelp
-    :if (and auto-completion-enable-company-help-tooltip
-             (display-graphic-p))
+    :if (and auto-completion-enable-help-tooltip (display-graphic-p))
     :defer t
     :init (add-hook 'company-mode-hook 'company-quickhelp-mode)))
 
@@ -157,7 +153,7 @@
       (setq helm-c-yas-space-match-any-greedy t))))
 
 (defun auto-completion/init-hippie-exp ()
- ;; replace dabbrev-expand
+  ;; replace dabbrev-expand
   (global-set-key (kbd "M-/") 'hippie-expand)
   (define-key evil-insert-state-map (kbd "C-p") 'hippie-expand)
   (setq hippie-expand-try-functions-list

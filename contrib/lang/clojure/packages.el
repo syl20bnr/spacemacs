@@ -138,6 +138,7 @@ the focus."
 
         "msb" 'cider-load-buffer
         "msB" 'spacemacs/cider-send-buffer-in-repl-and-focus
+        "msc" 'cider-connect
         "mse" 'spacemacs/cider-send-last-sexp-to-repl
         "msE" 'spacemacs/cider-send-last-sexp-to-repl-focus
         "msf" 'spacemacs/cider-send-function-to-repl
@@ -152,7 +153,11 @@ the focus."
 
         "mtt" 'cider-test-run-tests)
       (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'cider-repl-mode)))))
+        (clojure/fancify-symbols 'cider-repl-mode)))
+
+    (when (configuration-layer/package-usedp 'evil-jumper)
+      (defadvice cider-jump-to-var (before add-evil-jump activate)
+        (evil-set-jump)))))
 
 (defun clojure/init-cider-eval-sexp-fu ()
   (eval-after-load 'eval-sexp-fu

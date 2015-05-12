@@ -451,6 +451,11 @@ environment. You can have anti-aliasing if you use the `utf8` separator.
 Note that by default the `utf8` separator is used in a terminal.
 See the powerline section in the [documentation][powerline-doc].
 
+7. **Why is after-init-hook not executed ?**
+Don't launch Spacemacs with `emacs -q -l init.el` command. This command will
+run the hooked function in `after-init-hook` before the evaluation of the
+passed `-l init.el` file.
+
 ## Windows
 
 1. **Why do the fonts look crappy on Windows ?**

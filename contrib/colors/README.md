@@ -50,6 +50,17 @@ To enable the package `rainbow-identifiers` set the variable
   (colors :variables colors-enable-rainbow-identifiers t)))
 ```
 
+Saturation and lightness of identifiers can be set per theme by adding
+an entry in the variable `colors-theme-identifiers-sat&light`. This
+is an alist where the key is a theme symbol and the value is a pair
+`(saturation lightness)`.
+
+Example:
+
+```elisp
+(push '(mytheme . (50 50)) colors-theme-identifiers-sat&light)
+```
+
 ### Enable Nyan cat
 
 To enable the package `nyan-mode` set the variable

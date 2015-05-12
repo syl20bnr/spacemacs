@@ -64,7 +64,6 @@
   "bn"  'spacemacs/next-useful-buffer
   "bp"  'spacemacs/previous-useful-buffer
   "bR"  'spacemacs/safe-revert-buffer
-  "br"  'rename-current-buffer-file
   "bY"  'copy-whole-buffer-to-clipboard
   "bw"  'read-only-mode)
 ;; Cycling settings -----------------------------------------------------------
@@ -112,6 +111,7 @@ Ensure that helm is required before calling FUNC."
   "fg" 'rgrep
   "fj" 'dired-jump
   "fo" 'spacemacs/open-in-external-app
+  "fR"  'rename-current-buffer-file
   "fS" 'evil-write-all
   "fs" 'evil-write
   "fy" 'show-and-copy-buffer-filename)

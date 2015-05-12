@@ -13,6 +13,7 @@
 (setq html-packages
   '(
     company
+    company-web
     css-mode
     emmet-mode
     evil-matchit
@@ -44,11 +45,25 @@
 (defun html/init-web-mode ()
   (use-package web-mode
     :defer t
+    :init
+    (push 'company-web-html company-backends-web-mode)
     :config
     (progn
       ;; Only use smartparens in web-mode
-      (sp-local-pair 'web-mode "<%" "%>")
       (setq web-mode-enable-auto-pairing nil)
+
+      (sp-local-pair 'web-mode "<% " " %>")
+      (sp-local-pair 'web-mode "{ " " }")
+      (sp-local-pair 'web-mode "<%= "  "  %>")
+      (sp-local-pair 'web-mode "<%# "  " %>")
+      (sp-local-pair 'web-mode "<%$ "  " %>")
+      (sp-local-pair 'web-mode "<%@ "  " %>")
+      (sp-local-pair 'web-mode "<%: "  " %>")
+      (sp-local-pair 'web-mode "{{ "  " }}")
+      (sp-local-pair 'web-mode "{% "  " %}")
+      (sp-local-pair 'web-mode "{%- "  " %}")
+      (sp-local-pair 'web-mode "{# "  " #}")
+
 
       (evil-leader/set-key-for-mode 'web-mode
         "meh" 'web-mode-dom-errors-show
@@ -183,4 +198,8 @@
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun html/post-init-company ()
-    (spacemacs|add-company-hook css-mode)))
+    (spacemacs|add-company-hook css-mode)
+    (spacemacs|add-company-hook web-mode))
+
+  (defun html/init-company-web ()
+    (use-package company-web)))

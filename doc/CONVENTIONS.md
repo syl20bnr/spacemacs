@@ -11,7 +11,7 @@
         - [Reserved prefix](#reserved-prefix)
             - [User prefix](#user-prefix)
             - [Major mode prefix](#major-mode-prefix)
-            - [Micro-state key binding](#micro-state-key-binding)
+            - [Micro-state](#micro-state)
         - [Evilify buffers](#evilify-buffers)
         - [Navigation](#navigation)
             - [n and N](#n-and-n)
@@ -23,6 +23,13 @@
             - [In terminal](#in-terminal)
         - [Building and Compilation](#building-and-compilation)
         - [Debugging](#debugging)
+        - [Plain Text Markup Languages](#plain-text-markup-languages)
+            - [Headers](#headers)
+            - [Insertion of common elements](#insertion-of-common-elements)
+            - [Text manipulation](#text-manipulation)
+            - [Movement in normal mode](#movement-in-normal-mode)
+            - [Promotion, Demotion and element movement](#promotion-demotion-and-element-movement)
+            - [Table editing](#table-editing)
         - [Tests](#tests)
             - [All languages](#all-languages)
             - [Language specific](#language-specific)
@@ -221,6 +228,77 @@ Notes:
 - If there is no toggle breakpoint function, then it should be implemented at
 the spacemacs level and ideally the function should be proposed as a patch
 upstream (major mode repository).
+
+### Plain Text Markup Languages
+
+For layers supporting markup languages please follow the following keybindings
+whenever applicable.
+
+#### Headers
+
+All header functionality should be grouped under <kbd>SPC m h</kbd>
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>m h i</kbd>     | Insert a header 
+<kbd>m h I</kbd>     | Insert a header alternative method (if existing) 
+<kbd>m h 1..10</kbd> | Insert a header of level 1..10 (if possible)
+
+#### Insertion of common elements
+
+Insertion of common elements like links or footnotes should be grouped
+under <kbd>SPC m i</kbd>
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>m i f</kbd>     | Insert footnote
+<kbd>m i i</kbd>     | Insert image
+<kbd>m i l</kbd>     | Insert link
+<kbd>m i u</kbd>     | Insert url
+<kbd>m i w</kbd>     | Insert wiki-link
+
+#### Text manipulation
+
+Manipulation of text regions should be grouped under <kbd>SPC m r</kbd>
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>m x b</kbd>     | Make region bold
+<kbd>m x c</kbd>     | Make region code
+<kbd>m x i</kbd>     | Make region italic
+<kbd>m x q</kbd>     | Quote a region
+<kbd>m x r</kbd>     | Remove formatting from region
+<kbd>m x s</kbd>     | Make region strike-through
+<kbd>m x u</kbd>     | Make region underlined
+<kbd>m x v</kbd>     | Make region verbose
+
+#### Movement in normal mode
+
+In normal mode Vim style movement should be enabled with these keybindings:
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>g h</kbd>       | Move up one level in headings
+<kbd>g j</kbd>       | Move to next heading on same level
+<kbd>g k</kbd>       | Move to previous heading on same level
+<kbd>g l</kbd>       | Move down one level in headings
+
+#### Promotion, Demotion and element movement
+
+Promotion, demotion and movement of headings or list elements (whatever
+is possible) should be enabled with the following keys in any mode
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>M-h</kbd>       | Promote heading by one level
+<kbd>M-j</kbd>       | Move element down
+<kbd>M-k</kbd>       | Move element up
+<kbd>M-l</kbd>       | Demote heading by one level
+
+#### Table editing
+
+If table specific commands are available the they are grouped under the
+<kbd>SPC m t</kbd> group.
 
 ### Tests
 

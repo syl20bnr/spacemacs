@@ -71,13 +71,14 @@
   (if (and (not git-gutter-use-fringe)
            (or 'linum-mode global-linum-mode))
       (git-gutter:linum-setup))
-  (with-eval-after-load (or 'git-gutter 'git-gutter-fringe)
-    (evil-leader/set-key
-      "ghs" 'git-gutter:stage-hunk
-      "ghr" 'git-gutter:revert-hunk
-      "ghN" 'git-gutter:previous-hunk
-      "ghn" 'git-gutter:next-hunk
-      "ghp" 'git-gutter:popup-hunk)))
+  (eval-after-load (or 'git-gutter 'git-gutter-fringe)
+    (progn
+      (evil-leader/set-key
+        "ghs" 'git-gutter:stage-hunk
+        "ghr" 'git-gutter:revert-hunk
+        "ghN" 'git-gutter:previous-hunk
+        "ghn" 'git-gutter:next-hunk
+        "ghp" 'git-gutter:popup-hunk))))
 
 (defun git/init-git-gutter ()
   (use-package git-gutter
@@ -221,6 +222,9 @@
     (progn
       (setq magit-last-seen-setup-instructions "1.4.0"
             magit-completing-read-function 'magit-ido-completing-read)
+      (add-hook 'git-commit-mode-hook 'fci-mode)
+      ;; must enable auto-fill-mode again because somehow fci-mode disable it
+      (add-hook 'git-commit-mode-hook 'auto-fill-mode)
       ;; On Windows, we must use Git GUI to enter username and password
       ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
       (when (eq window-system 'w32)

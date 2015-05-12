@@ -31,11 +31,10 @@
 (defun c-c++/init-cc-mode ()
   (use-package cc-mode
     :defer t
+    :init
+    (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
     :config
     (progn
-      (add-to-list 'auto-mode-alist '("\\.cxx$" . c++-mode))
-      (add-to-list 'auto-mode-alist '("\\.hpp$" . c++-mode))
-      (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode))
       (require 'compile)
       (c-toggle-auto-newline 1)
       (evil-leader/set-key-for-mode 'c-mode

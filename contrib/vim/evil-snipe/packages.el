@@ -14,4 +14,5 @@
       (when evil-snipe-enable-alternate-f-and-t-behaviors
         (setq evil-snipe-repeat-scope 'whole-buffer
               evil-snipe-override-evil t))
-      (global-evil-snipe-mode))))
+      (add-hook 'prog-mode-hook 'evil-snipe-mode)
+      (add-hook 'text-mode-hook 'evil-snipe-mode))))

@@ -39,10 +39,10 @@ which require an initialization must be listed explicitly in the list.")
   (let ((hook (intern (concat (symbol-name mode) "-hook"))))
     (add-hook hook (lambda ()
                      (require 'semantic)
-                     (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-                     (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode)
-                     (when (eq major-mode 'emacs-lisp-mode)
-                       (semantic-default-elisp-setup))
+                     (add-to-list 'semantic-default-submodes
+                                  'global-semantic-stickyfunc-mode)
+                     (add-to-list 'semantic-default-submodes
+                                  'global-semantic-idle-summary-mode)
                      (semantic-mode 1)))))
 
 (defun semantic/init-semantic ()
@@ -50,9 +50,10 @@ which require an initialization must be listed explicitly in the list.")
     :defer t
     :init
     (progn
-      (setq srecode-map-save-file (concat spacemacs-cache-directory "srecode-map.el"))
-      (setq semanticdb-default-save-directory (concat spacemacs-cache-directory "semanticdb/"))
-      (semantic/enable-semantic-mode 'emacs-lisp-mode))))
+      (setq srecode-map-save-file (concat spacemacs-cache-directory
+                                          "srecode-map.el"))
+      (setq semanticdb-default-save-directory (concat spacemacs-cache-directory
+                                                      "semanticdb/")))))
 
 (defun semantic/init-srefactor ()
   (use-package srefactor
@@ -66,16 +67,7 @@ which require an initialization must be listed explicitly in the list.")
         ;; must expplicity enable evil-emacs-state. This is ok since
         ;; srefactor supports j,k,/ and ? commands when Evil is
         ;; available
-        (add-hook 'srefactor-ui-menu-mode-hook 'evil-emacs-state)
-        ;; enable specific major mode setup before it can be used
-        ;; properly. For now, only Emacs Lisp.
-        (when (eq major-mode 'emacs-lisp-mode)
-          (evil-leader/set-key-for-mode 'emacs-lisp-mode "mfb" 'srefactor-lisp-format-buffer)
-          (evil-leader/set-key-for-mode 'emacs-lisp-mode "mfd" 'srefactor-lisp-format-defun)
-          (evil-leader/set-key-for-mode 'emacs-lisp-mode "mfr" 'srefactor-lisp-format-sexp)
-          (evil-leader/set-key-for-mode 'emacs-lisp-mode "mfo" 'srefactor-lisp-one-line)))
-      ;; load srefactor for emac-lisp-mode
-      (add-hook 'emacs-lisp-mode-hook 'spacemacs/lazy-load-srefactor))))
+        (add-hook 'srefactor-ui-menu-mode-hook 'evil-emacs-state)))))
 
 (defun semantic/init-stickyfunc-enhance ()
   (use-package stickyfunc-enhance
