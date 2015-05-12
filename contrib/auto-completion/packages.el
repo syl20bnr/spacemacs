@@ -193,7 +193,9 @@
       (setq yas-minor-mode-map (make-sparse-keymap))
 
       (defun spacemacs/load-yasnippet ()
-        (if (not (boundp 'yas-minor-mode))
+        (if (or (not (boundp 'yas-minor-mode))
+                (and (boundp 'yas-minor-mode)
+                     (not yas-minor-mode)))
             (progn
               (let* ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir))
                      (private-yas-dir (concat configuration-layer-private-directory "snippets"))
