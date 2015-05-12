@@ -22,8 +22,28 @@ which require an initialization must be listed explicitly in the list.")
   (use-package rust-mode
     :defer t
     :config
-    (when (fboundp 'sp-local-pair) ;Don't pair lifetime specifiers
-      (sp-local-pair 'rust-mode "'" nil :actions nil)))
+    (progn
+      (when (fboundp 'sp-local-pair) ;Don't pair lifetime specifiers
+        (sp-local-pair 'rust-mode "'" nil :actions nil))
+
+      ;; http://doc.crates.io/guide.html
+      (defun spacemacs/rust-cargo-build ()
+        (interactive)
+        (shell-command "cargo build"))
+
+      (defun spacemacs/rust-cargo-run ()
+        (interactive)
+        (shell-command "cargo run"))
+
+      (defun spacemacs/rust-cargo-test ()
+        (interactive)
+        (shell-command "cargo test"))
+
+      ;; (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
+      (evil-leader/set-key-for-mode 'rust-mode
+        "mcb" 'spacemacs/rust-cargo-build
+        "mcr" 'spacemacs/rust-cargo-run
+        "mct" 'spacemacs/rust-cargo-test)))
   "Initialize rust-mode"
   )
 
