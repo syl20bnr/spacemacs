@@ -95,7 +95,7 @@
         (utop)
         (evil-insert-state))
 
-      (defun spacemas/utop-eval-buffer-and-go ()
+      (defun spacemacs/utop-eval-buffer-and-go ()
         "Send buffer to REPL and evaluate it and switch to the REPL in
 `insert state'"
         (interactive)
@@ -113,7 +113,7 @@
 
       (evil-leader/set-key-for-mode 'tuareg-mode
         "msb" 'utop-eval-buffer
-        "msB" 'spacemas/utop-eval-buffer-and-go
+        "msB" 'spacemacs/utop-eval-buffer-and-go
         "msi" 'utop
         "msp" 'utop-eval-phrase
         "msP" 'spacemacs/utop-eval-phrase-and-go
