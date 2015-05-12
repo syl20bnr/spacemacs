@@ -12,99 +12,17 @@
 
 (setq ocaml-packages
   '(
-    tuareg
-    merlin
-    utop
-    ocp-indent
     company
     flycheck
     flycheck-ocaml
-    ;; package ocamls go here
+    merlin
+    ocp-indent
+    tuareg
+    utop
     ))
 
-(defun ocaml/init-tuareg ()
-  (add-hook 'tuareg-mode-hook #'merlin-mode)
-  (evil-leader/set-key-for-mode 'tuareg-mode
-   "mcc" 'compile
-  )
-  ;; don't auto-close apostrophes (type 'a = foo)
-  (when (fboundp 'sp-local-pair)
-    (sp-local-pair 'tuareg-mode "'" nil :actions nil)
-  )
-  )
-
-(defun ocaml/opam ()
-  (setq opam-share (substring (shell-command-to-string "opam config var share 2> /dev/null") 0 -1))
-  (setq opam-load-path (concat opam-share "/emacs/site-lisp"))
-  (add-to-list 'load-path opam-load-path))
-
-(defun ocaml/init-utop ()
-  (use-package utop
-    :init
-    (autoload 'utop "utop" "Toplevel for OCaml" t)
-    (autoload 'utop-minor-mode "utop" "Minor mode for utop" t)
-    (add-hook 'tuareg-mode-hook 'utop-minor-mode)
-    :config
-    ;; Setup environment variables using opam
-    (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
-      (setenv (car var) (cadr var)))
-    ;; Update the emacs path
-    (setq exec-path (append (parse-colon-path (getenv "PATH"))
-                            (list exec-directory)))
-    (defun utop-eval-phrase-and-go ()
-      (interactive)
-      (utop-eval-phrase)
-      (utop))
-    (defun utop-eval-buffer-and-go ()
-      (interactive)
-      (utop-eval-buffer)
-      (utop))
-    (defun utop-eval-region-and-go (start end)
-      (interactive "r")
-      (utop-eval-region start end)
-      (utop))
-    (evil-leader/set-key-for-mode 'tuareg-mode
-      "msb" 'utop-eval-buffer
-      "msB" 'utop-eval-buffer-and-go
-      "msi" 'utop
-      "msp" 'utop-eval-phrase
-      "msP" 'utop-eval-phrase-and-go
-      "msr" 'utop-eval-region
-      "msR" 'utop-eval-region-and-go
-      )
-    )
-    (define-key utop-mode-map (kbd "C-j") 'utop-history-goto-next)
-    (define-key utop-mode-map (kbd "C-k") 'utop-history-goto-prev)
-  )
-
-(defun ocaml/init-ocp-indent ()
-  (use-package ocp-indent
-    :init
-    (ocaml/opam)
-    )
-  )
-
-(defun ocaml/init-merlin ()
-  (use-package merlin
-    :defer t
-    :init
-    (ocaml/opam)
-    (set-default 'merlin-use-auto-complete-mode 'easy)
-    (when (configuration-layer/package-usedp 'company)
-      (push 'merlin-company-backend company-backends-merlin-mode))
-    )
-    (evil-leader/set-key-for-mode 'tuareg-mode
-      "mgg" 'merlin-locate
-      "met" 'merlin-type-enclosing
-     ;;      "mhh" 'merlin-document
-      )
-  )
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  ;; Hook company to merlin-mode
-  (defun ocaml/post-init-company ()
-    (spacemacs|add-company-hook merlin-mode)
-    ))
+(defun ocaml/post-init-company ()
+  (spacemacs|add-company-hook merlin-mode))
 
 (when (configuration-layer/layer-usedp 'syntax-checking)
   (defun ocaml/init-flycheck-ocaml ()
@@ -112,20 +30,94 @@
       :if (configuration-layer/package-usedp 'flycheck)
       :defer t
       :init
-      (add-hook 'merlin-mode-hook 'flycheck-mode)
-      (with-eval-after-load 'merlin
-        ;; Disable Merlin's own error checking
-        (setq merlin-error-after-save nil)
-        ;; Enable Flycheck checker
-        (flycheck-ocaml-setup))
-      )))
+      (progn
+        (add-to-hook 'merlin-mode-hook '(flycheck-mode
+                                         flycheck-ocaml-setup))
+        (eval-after-load 'merlin
+          (setq merlin-use-auto-complete-mode nil))))))
 
-;; For each package, define a function ocaml/init-<package-ocaml>
-;;
-;; (defun ocaml/init-my-package ()
-;;   "Initialize my package"
-;;   )
-;;
-;; Often the body of an initialize function uses `use-package'
-;; For more info on `use-package', see readme:
-;; https://github.com/jwiegley/use-package
+(defun ocaml/init-merlin ()
+  (use-package merlin
+    :defer t
+    :init
+    (progn
+      (add-hook 'tuareg-mode-hook 'merlin-mode)
+      ;; disable integration with auto-complete, we use flycheck
+      (set-default 'merlin-use-auto-complete-mode nil)
+      (push 'merlin-company-backend company-backends-merlin-mode)
+      (evil-leader/set-key-for-mode 'tuareg-mode
+        "met" 'merlin-type-enclosing
+        "mgg" 'merlin-locate
+        ;;"mhh" 'merlin-document
+        ))))
+
+(defun ocaml/init-ocp-indent ()
+  (use-package ocp-indent
+    :defer t
+    :init
+    (add-hook 'tuareg-mode-hook 'ocp-indent-caml-mode-setup)))
+
+(defun ocaml/init-tuareg ()
+  (use-package tuareg
+    :defer t
+    :init
+    (progn
+      (spacemacs//init-ocaml-opam)
+      (evil-leader/set-key-for-mode 'tuareg-mode
+        "mcc" 'compile))
+    :config
+    (when (fboundp 'sp-local-pair)
+      ;; don't auto-close apostrophes (type 'a = foo)
+      (sp-local-pair 'tuareg-mode "'" nil :actions nil))))
+
+(defun ocaml/init-utop ()
+  (use-package utop
+    :defer t
+    :init (add-hook 'tuareg-mode-hook 'utop-minor-mode)
+    :config
+    (progn
+      ;; Setup environment variables using opam
+      (if (executable-find "opam")
+          (let ((vars (car (read-from-string
+                            (shell-command-to-string "opam config env --sexp")))))
+            (dolist (var vars)
+              (setenv (car var) (cadr var))))
+        (spacemacs-buffer/warning "Cannot find \"opam\" executable."))
+      ;; Update the emacs path
+      (setq exec-path (append (parse-colon-path (getenv "PATH"))
+                              (list exec-directory)))
+
+      (defun spacemacs/utop-eval-phrase-and-go ()
+        "Send phrase to REPL and evaluate it and switch to the REPL in
+`insert state'"
+        (interactive)
+        (utop-eval-phrase)
+        (utop)
+        (evil-insert-state))
+
+      (defun spacemas/utop-eval-buffer-and-go ()
+        "Send buffer to REPL and evaluate it and switch to the REPL in
+`insert state'"
+        (interactive)
+        (utop-eval-buffer)
+        (utop)
+        (evil-insert-state))
+
+      (defun spacemacs/utop-eval-region-and-go (start end)
+        "Send region to REPL and evaluate it and switch to the REPL in
+`insert state'"
+        (interactive "r")
+        (utop-eval-region start end)
+        (utop)
+        (evil-insert-state))
+
+      (evil-leader/set-key-for-mode 'tuareg-mode
+        "msb" 'utop-eval-buffer
+        "msB" 'spacemas/utop-eval-buffer-and-go
+        "msi" 'utop
+        "msp" 'utop-eval-phrase
+        "msP" 'spacemacs/utop-eval-phrase-and-go
+        "msr" 'utop-eval-region
+        "msR" 'spacemacs/utop-eval-region-and-go))
+    (define-key utop-mode-map (kbd "C-j") 'utop-history-goto-next)
+    (define-key utop-mode-map (kbd "C-k") 'utop-history-goto-prev)))
