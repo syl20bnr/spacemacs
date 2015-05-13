@@ -63,6 +63,19 @@
         "Make function for setting the emphasis in org mode"
         `(defun ,fname () (interactive)
                 (org-emphasize ,char)))
+
+      ;; Insert key for org-mode and markdown a la C-h k
+      ;; from SE endless http://emacs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
+      (defun spacemacs/insert-keybinding-org (key)
+        "Ask for a key then insert its description.
+Will work on both org-mode and any mode that accepts plain html."
+        (interactive "kType key sequence: ")
+        (let* ((tag "@@html:<kbd>@@ %s @@html:</kbd>@@"))
+          (if (null (equal key "\r"))
+              (insert
+               (format tag (help-key-description key nil)))
+            (insert (format tag ""))
+            (forward-char -8))))
       (evil-leader/set-key-for-mode 'org-mode
         "m'" 'org-edit-special
         "mc" 'org-capture
@@ -89,6 +102,7 @@
           ;; insertion of common elements
           "mil" 'org-insert-link
           "mif" 'org-footnote-new
+          "mik" 'spacemacs/insert-keybinding-org
 
           ;; images and other link types have no commands in org mode-line
           ;; could be inserted using yasnippet?
@@ -112,6 +126,11 @@
              (kbd "SPC") evil-leader--default-map))))
     :config
     (progn
+      (font-lock-add-keywords
+       'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
+                    (1 font-lock-comment-face prepend)
+                    (2 font-lock-function-name-face)
+                    (3 font-lock-comment-face prepend))))
       (require 'org-indent)
       (define-key global-map "\C-cl" 'org-store-link)
       (define-key global-map "\C-ca" 'org-agenda)
