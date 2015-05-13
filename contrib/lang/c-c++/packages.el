@@ -13,6 +13,7 @@
 (setq c-c++-packages
   '(
     cc-mode
+    clang-format
     cmake-mode
     company
     company-c-headers
@@ -43,6 +44,10 @@
       (evil-leader/set-key-for-mode 'c++-mode
         "mga" 'projectile-find-other-file
         "mgA" 'projectile-find-other-file-other-window))))
+
+(defun c-c++/init-clang-format ()
+  (use-package clang-format
+    :if c-c++-use-clang-format))
 
 (defun c-c++/init-cmake-mode ()
   (use-package cmake-mode
