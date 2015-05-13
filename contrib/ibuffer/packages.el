@@ -23,6 +23,8 @@
     (progn
       (evilify ibuffer-mode ibuffer-mode-map)
       (evil-leader/set-key "bB" 'ibuffer)
+      (global-set-key (kbd "C-x C-b") 'ibuffer)
+
       (defun spacemacs//ibuffer-group-by-modes ()
         "Group buffers by modes."
         (when (eq 'modes ibuffer-group-buffers-by)
