@@ -19,6 +19,7 @@
         helm-c-yasnippet
         hippie-exp
         yasnippet
+        auto-yasnippet
         ))
 
 ;; company-quickhelp from MELPA is not compatible with 24.3 anymore
@@ -222,3 +223,16 @@
     :config
     (progn
       (spacemacs|diminish yas-minor-mode " ⓨ" " y"))))
+
+(defun spacemacs/init-auto-yasnippet ()
+  (use-package auto-yasnippet
+    :defer t
+    :init
+    (setq aya-persist-snippets-dir (concat user-emacs-directory "private/snippets/"))
+    (evil-leader/set-key
+      ;; aya *y*ank
+      "iy" 'aya-create
+      ;; aya *e*xpand
+      "ie" 'aya-expand
+      ;; aya *w*rite
+      "iw" 'aya-persist-snippet)))
