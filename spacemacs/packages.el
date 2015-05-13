@@ -22,6 +22,7 @@
     bind-key
     bookmark
     buffer-move
+    clean-aindent-mode
     diminish
     doc-view
     ediff
@@ -414,6 +415,11 @@
       "bmj" 'buf-move-down
       "bmk" 'buf-move-up
       "bml" 'buf-move-right)))
+
+(defun spacemacs/init-clean-aindent-mode ()
+  (use-package clean-aindent-mode
+    :init
+    (add-hook 'prog-mode-hook 'clean-aindent-mode)))
 
 (defun spacemacs/init-diminish ()
   (require 'diminish)
