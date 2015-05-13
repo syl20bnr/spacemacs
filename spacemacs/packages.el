@@ -418,6 +418,7 @@
 
 (defun spacemacs/init-clean-aindent-mode ()
   (use-package clean-aindent-mode
+    :defer t
     :init
     (add-hook 'prog-mode-hook 'clean-aindent-mode)))
 
