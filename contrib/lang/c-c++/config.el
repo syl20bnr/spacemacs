@@ -14,3 +14,6 @@
 
 (spacemacs|defvar-company-backends c-mode-common)
 (spacemacs|defvar-company-backends cmake-mode)
+
+(defvar c-c++-use-clang-format nil
+  "If non nil clang-format is enabled.")
