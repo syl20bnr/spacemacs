@@ -1,4 +1,4 @@
-;;; config.el --- Auto-completion configuration File for Spacemacs
+;;; config.el --- ibuffer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Aleksandr Guljajev
 ;; Copyright (c) 2014-2015 Aleksandr Guljajev & Contributors
@@ -10,9 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar ibuffer-group-by-major-mode t
-  "If non nil ibuffer will start with buffers grouped by major mode.")
-
-(defvar ibuffer-group-by-projectile nil
-  "If non nil ibuffer will start with buffers grouped by projects.
-  Will be ignored if ibuffer-group-by-major-mode is non nil")
+(defvar ibuffer-group-buffers-by 'modes
+  "If non nil ibuffer will group the buffers according to the passed symbol.
+The supported values are `modes' to group by major-modes and `projects' to
+group by projectile projects.")
