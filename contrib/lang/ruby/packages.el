@@ -37,15 +37,7 @@
   "Initialize Ruby Mode"
   (use-package enh-ruby-mode
     :mode (("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
-           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
-    :config
-    (progn
-      ;; work arround for a bug with wrong number of argument
-      ;; https://github.com/zenspider/enhanced-ruby-mode/blob/master/test/enh-ruby-mode-test.el#L4
-      (defun erm-darken-color (name)
-        (let ((attr (face-attribute name :foreground)))
-          (unless (equal attr 'unspecified)
-            (color-darken-name attr 20) "#000000"))))))
+           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))))
 
 (defun ruby/post-init-flycheck ()
   (add-hook 'enh-ruby-mode-hook 'flycheck-mode))
