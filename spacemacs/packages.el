@@ -973,11 +973,12 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
       (define-key evil-search-highlight-persist-map (kbd "C-x SPC") 'rectangle-mark-mode)
       (evil-ex-define-cmd "nohlsearch"
-                          'evil-search-highlight-persist-remove-all))
-    :config
-    (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
-                          :inherit 'region
-                          :background nil)))
+                          'evil-search-highlight-persist-remove-all)
+      (defun spacemacs/adaptive-evil-highlight-persist-face ()
+        (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
+                            :inherit 'region
+                            :background nil))
+      (spacemacs/adaptive-evil-highlight-persist-face))))
 
 (defun spacemacs/init-evil-surround ()
   (use-package evil-surround

@@ -217,6 +217,8 @@ changed to THEME."
   (when (fboundp 'spacemacs//customize-powerline-faces)
     (spacemacs//customize-powerline-faces))
   (when (fboundp 'powerline-reset)
-    (powerline-reset)))
+    (powerline-reset))
+  (when (fboundp 'spacemacs/adaptive-evil-highlight-persist-face)
+    (spacemacs/adaptive-evil-highlight-persist-face)))
 
 (provide 'core-themes-support)
