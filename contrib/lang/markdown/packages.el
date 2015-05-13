@@ -27,6 +27,18 @@
       (sp-local-pair 'markdown-mode "`" nil :actions '(:rem autoskip))
       (sp-local-pair 'markdown-mode "'" nil :actions nil))
     (progn
+      ;; Insert key for org-mode and markdown a la C-h k
+      ;; from SE endless http://emacs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
+      (defun spacemacs/insert-keybinding-markdown (key)
+        "Ask for a key then insert its description.
+Will work on both org-mode and any mode that accepts plain html."
+        (interactive "kType key sequence: ")
+        (let* ((tag "<kbd>%s</kbd>"))
+          (if (null (equal key "\r"))
+              (insert
+               (format tag (help-key-description key nil)))
+            (insert (format tag ""))
+            (forward-char -6))))
       (evil-leader/set-key-for-mode 'markdown-mode
         ;; Movement
         "m{"   'markdown-backward-paragraph
@@ -62,6 +74,7 @@
         "m-"   'markdown-insert-hr
         "mif"  'markdown-insert-footnote
         "mii"  'markdown-insert-image
+        "mik"  'spacemacs/insert-keybinding-markdown
         "miI"  'markdown-insert-reference-image
         "mil"  'markdown-insert-link
         "miL"  'markdown-insert-reference-link-dwim
