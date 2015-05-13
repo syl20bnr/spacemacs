@@ -20,6 +20,7 @@ scripts.
 ## Features
 
 - Support syntax checking with Clang.
+- Support code reformatting with clang-format.
 - Display function or variable definition at the bottom. (when `semantic` layer is included)
 - Display current function cursor is in at the top. See [this page][stickyfunc-demos]
 for demos in some programming languages. (when `semantic` layer is included)
@@ -45,7 +46,35 @@ doesn't complain about missing header files.
 <kbd>SPC m g O</kbd>  | open matching file in another window (e.g. switch between .cpp and .h)
 <kbd>SPC m r</kbd>    | srefactor: refactor thing at point.
 
+## clang-format
 
+clang-format allows reformatting either a selected region of code
+(`clang-format-region`) or a whole buffer (`clang-format-buffer`) to make it
+conform to a style defined in a `.clang-format` file. This file is either
+located in the same directory as the file being edited, or in any of its parent
+directories (otherwise a default style will be used).
+
+To enable clang-format set the variable `c-c++-use-clang-format` to `t` when
+including the `c-c++` configuration layer:
+
+```elisp
+(c-c++ :variables
+       c-c++-use-clang-format t)
+```
+
+You can add snippets similar to the following to bind clang-format to either a
+particular mode or all modes in your `dotspacemacs/config` (within your
+`~/.spacemacs`):
+
+```elisp
+;; Bind clang-format-region to C-M-tab in all modes:
+(global-set-key [C-M-tab] 'clang-format-region)
+;; Bind clang-format-buffer to tab on the c++-mode only:
+(add-hook 'c++-mode-hook 'clang-format-bindings)
+  (defun clang-format-bindings ()
+    (define-key c++-mode-map [tab] 'clang-format-buffer))
+```
+ 		 
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
