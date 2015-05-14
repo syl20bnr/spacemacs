@@ -74,12 +74,13 @@
 BODY is a list of additional key bindings to apply for the given MAP in
 `evilified state'."
   (let ((defkey (when body `(evil-define-key 'evilified ,map ,@body))))
-    `(progn (unless (memq ',mode evil-evilified-state--modes)
-              (push ',mode evil-evilified-state--modes))
-            (unless (or (bound-and-true-p holy-mode)
-                        (memq ',mode evil-evilified-state-modes))
-              (delq ',mode evil-emacs-state-modes)
-              (push ',mode evil-evilified-state-modes))
+    `(progn (unless ,(null mode)
+              (unless (memq ',mode evil-evilified-state--modes)
+                (push ',mode evil-evilified-state--modes))
+              (unless (or (bound-and-true-p holy-mode)
+                          (memq ',mode evil-evilified-state-modes))
+                (delq ',mode evil-emacs-state-modes)
+                (push ',mode evil-evilified-state-modes)))
             (unless ,(null defkey) (,@defkey)))))
 
 (provide 'evil-evilified-state)
