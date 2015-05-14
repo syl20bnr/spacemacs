@@ -2579,7 +2579,6 @@ developers to elisp hackers!
 [hthemes]: https://github.com/syohex/emacs-helm-themes
 [projectile]: https://github.com/bbatsov/projectile
 [hdescbinds]: https://github.com/emacs-helm/helm-descbinds
-[hflyspell]: https://gist.github.com/cofi/3013327
 [iedit]: https://github.com/tsdh/iedit
 [evil-iedit-state]: https://github.com/syl20bnr/evil-iedit-state
 [evil-indent-textobject]: https://github.com/cofi/evil-indent-textobject

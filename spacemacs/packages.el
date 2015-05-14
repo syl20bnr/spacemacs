@@ -51,7 +51,6 @@
     fancy-battery
     fill-column-indicator
     flx-ido
-    flyspell
     fringe-helper
     gh-md
     golden-ratio
@@ -60,7 +59,6 @@
     helm
     helm-ag
     helm-descbinds
-    helm-flyspell
     helm-make
     helm-mode-manager
     ;; not working for now
@@ -1122,27 +1120,6 @@ Example: (evil-map visual \"<\" \"<gv\")"
   (use-package flx-ido
     :init (flx-ido-mode 1)))
 
-(defun spacemacs/init-flyspell ()
-  (use-package flyspell
-    :defer t
-    :init
-    (progn
-      (setq-default ispell-program-name "aspell")
-      (setq-default ispell-dictionary "english")
-      (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
-      (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1)))
-      (spacemacs|add-toggle spelling-checking
-                            :status flyspell-mode
-                            :on (flyspell-mode)
-                            :off (flyspell-mode -1)
-                            :documentation
-                            "Enable flyspell for automatic spelling checking."
-                            :evil-leader "tS"))
-    :config
-    (progn
-      (flyspell-prog-mode)
-      (spacemacs|diminish flyspell-mode " Ⓢ" " S"))))
-
 (defun spacemacs/init-fringe-helper ())
 
 (defun spacemacs/init-gh-md ())
@@ -1615,11 +1592,6 @@ ARG non nil means that the editing style is `vim'."
       (setq helm-descbinds-window-style 'split)
       (add-hook 'helm-mode-hook 'helm-descbinds-mode)
       (evil-leader/set-key "?" 'helm-descbinds))))
-
-(defun spacemacs/init-helm-flyspell ()
-  (use-package helm-flyspell
-    :commands helm-flyspell-correct
-    :init (evil-leader/set-key "Sc" 'helm-flyspell-correct)))
 
 (defun spacemacs/init-helm-make ()
   (use-package helm-make
