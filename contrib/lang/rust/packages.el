@@ -41,9 +41,9 @@ which require an initialization must be listed explicitly in the list.")
 
       ;; (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
       (evil-leader/set-key-for-mode 'rust-mode
-        "mcb" 'spacemacs/rust-cargo-build
-        "mcr" 'spacemacs/rust-cargo-run
-        "mct" 'spacemacs/rust-cargo-test)))
+        "mcc" 'spacemacs/rust-cargo-build
+        "mcC" 'spacemacs/rust-cargo-run
+        "mta" 'spacemacs/rust-cargo-test)))
   "Initialize rust-mode"
   )
 
