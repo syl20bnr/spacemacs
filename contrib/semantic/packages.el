@@ -53,7 +53,10 @@ which require an initialization must be listed explicitly in the list.")
       (setq srecode-map-save-file (concat spacemacs-cache-directory
                                           "srecode-map.el"))
       (setq semanticdb-default-save-directory (concat spacemacs-cache-directory
-                                                      "semanticdb/")))))
+                                                      "semanticdb/"))
+      (unless (file-exists-p semanticdb-default-save-directory)
+        (make-directory semanticdb-default-save-directory))
+      )))
 
 (defun semantic/init-srefactor ()
   (use-package srefactor
