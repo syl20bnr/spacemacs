@@ -1114,7 +1114,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
                             :documentation "Display the fill column indicator."
                             :evil-leader "tf"))
     :config
-    (spacemacs|diminish fci-mode)))
+    (spacemacs|hide-lighter fci-mode)))
 
 (defun spacemacs/init-flx-ido ()
   (use-package flx-ido
