@@ -12,7 +12,7 @@
 ;;; License: GPLv3
 (require 'lv)
 
-(defun spacemacs//defface-micro-state-faces ()
+(defun spacemacs/defface-micro-state-faces ()
   "Define faces for micro-states."
   (let* ((hname 'spacemacs-micro-state-header-face)
          (bname 'spacemacs-micro-state-binding-face)
@@ -35,7 +35,7 @@ Characters enclosed in `[]' will have this face applied to them."
     (set-face-attribute bname nil
                         :foreground err
                         :bold t)))
-(spacemacs//defface-micro-state-faces)
+(spacemacs/defface-micro-state-faces)
 
 (defmacro spacemacs|define-micro-state (name &rest props)
   "Define a micro-state called NAME.

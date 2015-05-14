@@ -2280,11 +2280,11 @@ displayed in the mode-line.")
           (setq-default powerline-default-separator 'wave)
         (setq-default powerline-default-separator 'utf-8))
 
-      (defun spacemacs//customize-powerline-faces ()
+      (defun spacemacs/customize-powerline-faces ()
         "Alter powerline face to make them work with more themes."
         (set-face-attribute 'powerline-inactive2 nil
                             :inherit 'font-lock-comment-face))
-      (spacemacs//customize-powerline-faces)
+      (spacemacs/customize-powerline-faces)
 
 
       (defun spacemacs/mode-line-prepare-left ()
