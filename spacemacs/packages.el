@@ -1114,9 +1114,9 @@ Example: (evil-map visual \"<\" \"<gv\")"
                             :on (turn-on-fci-mode)
                             :off (turn-off-fci-mode)
                             :documentation "Display the fill column indicator."
-                            :evil-leader "tF"))
+                            :evil-leader "tf"))
     :config
-    (diminish 'fci-mode)))
+    (spacemacs|diminish fci-mode)))
 
 (defun spacemacs/init-flx-ido ()
   (use-package flx-ido
@@ -1137,11 +1137,11 @@ Example: (evil-map visual \"<\" \"<gv\")"
                             :off (flyspell-mode -1)
                             :documentation
                             "Enable flyspell for automatic spelling checking."
-                            :evil-leader "ts"))
+                            :evil-leader "tS"))
     :config
     (progn
       (flyspell-prog-mode)
-      (spacemacs|diminish flyspell-mode " ⓢ" " s"))))
+      (spacemacs|diminish flyspell-mode " Ⓢ" " S"))))
 
 (defun spacemacs/init-fringe-helper ())
 
@@ -2718,10 +2718,13 @@ It is a string holding:
         (modify-category-entry (cons ?A ?Z) ?U)
         (modify-category-entry (cons ?a ?z) ?u)
         (make-variable-buffer-local 'evil-cjk-word-separating-categories)
-        (add-hook 'subword-mode-hook (lambda ()
-                                       (if subword-mode
-                                           (push '(?u . ?U) evil-cjk-word-separating-categories)
-                                         (setq evil-cjk-word-separating-categories (default-value 'evil-cjk-word-separating-categories)))))
+        (defun spacemacs//subword-enable-camel-case ()
+          "Add support for camel case to subword."
+          (if subword-mode
+              (push '(?u . ?U) evil-cjk-word-separating-categories)
+            (setq evil-cjk-word-separating-categories
+                  (default-value 'evil-cjk-word-separating-categories))))
+        (add-hook 'subword-mode-hook 'spacemacs//subword-enable-camel-case)
         (spacemacs|add-toggle camel-case-motion
                               :status subword-mode
                               :on (subword-mode +1)
