@@ -2425,8 +2425,9 @@ It is a string holding:
             (powerline-raw " " line-face))
            (list
             ;; global-mode
+            (when active
               (powerline-raw global-mode-string)
-              (powerline-raw " " line-face)
+              (powerline-raw " " line-face))
             ;; new version
             (if (and active
                      spacemacs-new-version
