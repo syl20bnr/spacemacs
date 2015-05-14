@@ -16,7 +16,8 @@
 
 ## Description
 
-This layer provides on the fly syntax checking using [Flycheck][] to Spacemacs.
+This layer provides on the fly syntax and spelling checking using
+[Flycheck][] and [Flyspell][].
 
 ## Install
 
@@ -46,6 +47,9 @@ to `nil`:
 ---------------------|------------------------------------------------------------
 <kbd>SPC e c</kbd>   | clear errors
 <kbd>SPC e l</kbd>   | display a list of all the errors
-<kbd>SPC t f</kbd>   | toggle flycheck
+<kbd>SPC S c</kbd>   | 
+<kbd>SPC t s</kbd>   | toggle flycheck
+<kbd>SPC t S</kbd>   | toggle flyspell
 
 [Flycheck]: http://www.flycheck.org/
+[Flyspell]: http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell.html

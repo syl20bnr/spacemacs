@@ -14,3 +14,7 @@
 
 (defvar syntax-checking-enable-tooltips t
   "If non nil some feedback are displayed in tooltips.")
+
+;; Command Prefixes
+
+(spacemacs/declare-prefix "S" "spelling")
