@@ -29,10 +29,10 @@
                             :on (flycheck-mode)
                             :off (flycheck-mode -1)
                             :documentation "Enable error and syntax checking."
-                            :evil-leader "tf"))
+                            :evil-leader "ts"))
     :config
     (progn
-      (spacemacs|diminish flycheck-mode " ⓕ" " f")
+      (spacemacs|diminish flycheck-mode " ⓢ" " s")
 
       (defun spacemacs/mode-line-flycheck-info-toggle ()
         "Toggle display of flycheck info."
