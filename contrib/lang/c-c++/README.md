@@ -8,7 +8,13 @@
 
 - [C/C++ contribution layer for Spacemacs](#cc-contribution-layer-for-spacemacs)
     - [Description](#description)
+    - [Features](#features)
     - [Install](#install)
+        - [Layer](#layer)
+        - [Enable Clang support](#enable-clang-support)
+        - [clang-format](#clang-format)
+            - [Company-clang and flycheck](#company-clang-and-flycheck)
+    - [Key Bindings](#key-bindings)
 
 <!-- markdown-toc end -->
 
@@ -19,15 +25,58 @@ scripts.
 
 ## Features
 
-- Support syntax checking with Clang.
-- Support code reformatting with clang-format.
+- Support syntax checking via flycheck with Clang.
+- Support code reformatting with [clang-format][].
 - Display function or variable definition at the bottom. (when `semantic` layer is included)
 - Display current function cursor is in at the top. See [this page][stickyfunc-demos]
 for demos in some programming languages. (when `semantic` layer is included)
 - Support common refactoring with [semantic-refactor][]. See [this page][srefactor-demos]
 for demonstration of refactoring features. (when `semantic` layer is included)
 
-### Clang Fanciness
+## Install
+
+### Layer
+
+To use this contribution add it to your `~/.spacemacs`
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(c-c++))
+```
+
+** Note: ** [semantic-refactor][] is only available for Emacs 24.4+
+
+### Enable Clang support
+
+To enable Clang support set the layer variable `c-c++-enable-clang-support`
+to `t` in the dotfile:
+
+```elisp
+(setq-default dotspacemacs-configuration-layers
+  '((c-c++ :variables c-c++-enable-clang-support t)))
+```
+
+### clang-format
+
+[clang-format][] allows reformatting either a selected region of code
+(`clang-format-region`) or a whole buffer (`clang-format-buffer`) to make it
+conform to a style defined in a `.clang-format` file. This file is either
+located in the same directory as the file being edited, or in any of its parent
+directories (otherwise a default style will be used).
+
+You can add snippets similar to the following to bind clang-format to either a
+particular mode or all modes in your `dotspacemacs/config` (within your
+`~/.spacemacs`):
+
+```elisp
+;; Bind clang-format-region to C-M-tab in all modes:
+(global-set-key [C-M-tab] 'clang-format-region)
+;; Bind clang-format-buffer to tab on the c++-mode only:
+(add-hook 'c++-mode-hook 'clang-format-bindings)
+  (defun clang-format-bindings ()
+    (define-key c++-mode-map [tab] 'clang-format-buffer))
+```
+
+#### Company-clang and flycheck
 
 This layer adds some fancy improvements to `company-clang`.
 It includes a hook to load a projects `.clang_complete` file, which is
@@ -46,46 +95,8 @@ doesn't complain about missing header files.
 <kbd>SPC m g O</kbd>  | open matching file in another window (e.g. switch between .cpp and .h)
 <kbd>SPC m r</kbd>    | srefactor: refactor thing at point.
 
-## clang-format
-
-clang-format allows reformatting either a selected region of code
-(`clang-format-region`) or a whole buffer (`clang-format-buffer`) to make it
-conform to a style defined in a `.clang-format` file. This file is either
-located in the same directory as the file being edited, or in any of its parent
-directories (otherwise a default style will be used).
-
-To enable clang-format set the variable `c-c++-use-clang-format` to `t` when
-including the `c-c++` configuration layer:
-
-```elisp
-(c-c++ :variables
-       c-c++-use-clang-format t)
-```
-
-You can add snippets similar to the following to bind clang-format to either a
-particular mode or all modes in your `dotspacemacs/config` (within your
-`~/.spacemacs`):
-
-```elisp
-;; Bind clang-format-region to C-M-tab in all modes:
-(global-set-key [C-M-tab] 'clang-format-region)
-;; Bind clang-format-buffer to tab on the c++-mode only:
-(add-hook 'c++-mode-hook 'clang-format-bindings)
-  (defun clang-format-bindings ()
-    (define-key c++-mode-map [tab] 'clang-format-buffer))
-```
- 		 
-## Install
-
-To use this contribution add it to your `~/.spacemacs`
-
-```elisp
-(setq-default dotspacemacs-configuration-layers '(c-c++))
-```
-
-** Note: ** [semantic-refactor][] is only available for Emacs 24.4+
-
 [CMake]: http://www.cmake.org/
 [semantic-refactor]: https://github.com/tuhdo/semantic-refactor
 [srefactor-demos]: https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org
 [stickyfunc-demos]: https://github.com/tuhdo/semantic-stickyfunc-enhance
+[clang-format]: http://clang.llvm.org/docs/ClangFormat.html
