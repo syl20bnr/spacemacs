@@ -2686,8 +2686,9 @@ It is a string holding:
       :defer t
       :init
       (progn
-        (define-category ?U "Uppercase")
-        (define-category ?u "Lowercase")
+        (unless (category-docstring ?U)
+          (define-category ?U "Uppercase")
+          (define-category ?u "Lowercase"))
         (modify-category-entry (cons ?A ?Z) ?U)
         (modify-category-entry (cons ?a ?z) ?u)
         (make-variable-buffer-local 'evil-cjk-word-separating-categories)
