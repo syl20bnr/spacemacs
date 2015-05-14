@@ -16,6 +16,7 @@
     org
     org-bullets
     org-pomodoro
+    org-present
     org-repo-todo
     ox-gfm
     htmlize
@@ -129,6 +130,33 @@
         (setq org-pomodoro-audio-player "/usr/bin/afplay"))
       (evil-leader/set-key-for-mode 'org-mode
         "mp" 'org-pomodoro))))
+
+(defun org/init-org-present ()
+  (use-package org-present
+    :defer t
+    :init
+    (progn
+      (evilify nil org-present-mode-keymap
+               "h" 'org-present-prev
+               "l" 'org-present-next
+               "q" 'org-present-quit)
+      (defun spacemacs//org-present-start ()
+        "Initiate `org-present' mode"
+        (org-present-big)
+        (org-display-inline-images)
+        (org-present-hide-cursor)
+        (org-present-read-only)
+        (evil-evilified-state))
+      (defun spacemacs//org-present-end ()
+        "Terminate `org-present' mode"
+        (org-present-small)
+        (org-remove-inline-images)
+        (org-present-show-cursor)
+        (org-present-read-write)
+        (evil-normal-state))
+      (add-hook 'org-present-mode-hook 'spacemacs//org-present-start)
+      (add-hook 'org-present-mode-quit-hook 'spacemacs//org-present-end))))
+
 
 (defun org/init-org-repo-todo ()
   (use-package org-repo-todo

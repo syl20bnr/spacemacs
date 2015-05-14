@@ -15,6 +15,7 @@
             - [Element insertion](#element-insertion)
             - [Org emphasize](#org-emphasize)
         - [Pomodoro](#pomodoro)
+        - [Presentation](#presentation)
         - [Org-repo-todo](#org-repo-todo)
 
 <!-- markdown-toc end -->
@@ -28,6 +29,7 @@ This layer enables [org mode][] for Spacemacs.
 - Nicer bullet via [org-bullets][]
 - A [pomodoro method][] integration via [org-pomodoro][]
 - TODO capture via [org-repo-todo][]
+- presentation mode via [org-present][]
 
 ## Install
 
@@ -133,6 +135,14 @@ You can tweak the bullets displayed in the org buffer in the function
 ----------------------|------------------------------------------------------------
 <kbd>SPC m p</kbd>    | starts a pomodoro
 
+### Presentation
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>h</kbd>          | next slide
+<kbd>k</kbd>          | previous slide
+<kbd>q</kbd>          | quit
+
 ### Org-repo-todo
 
     Key Binding       |                 Description
@@ -148,3 +158,4 @@ You can tweak the bullets displayed in the org buffer in the function
 [pomodoro method]: http://pomodorotechnique.com/
 [org-bullets]: https://github.com/sabof/org-bullets
 [org-repo-todo]: https://github.com/waymondo/org-repo-todo
+[org-present]: https://github.com/rlister/org-present
