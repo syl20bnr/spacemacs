@@ -648,6 +648,24 @@ For instance pass En as source for english."
   (switch-to-buffer "*spacemacs*")
   )
 
+(defun spacemacs/insert-line-above-no-indent (count)
+  (interactive "p")
+  (save-excursion
+    (evil-previous-line)
+    (evil-move-end-of-line)
+    (while (> count 0)
+      (insert "\n")
+      (setq count (1- count)))))
+
+(defun spacemacs/insert-line-below-no-indent (count)
+  "Insert a new line below with no identation."
+  (interactive "p")
+  (save-excursion
+    (evil-move-end-of-line)
+    (while (> count 0)
+      (insert "\n")
+      (setq count (1- count)))))
+
 ;; from https://github.com/gempesaw/dotemacs/blob/emacs/dg-defun.el
 (defun kill-matching-buffers-rudely (regexp &optional internal-too)
   "Kill buffers whose name matches the specified REGEXP. This
