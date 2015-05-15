@@ -137,6 +137,8 @@ You can tweak the bullets displayed in the org buffer in the function
 
 ### Presentation
 
+org-present must be activated explicitly by typing: <kbd>SPC : org-present</kbd>
+
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>h</kbd>          | next slide
