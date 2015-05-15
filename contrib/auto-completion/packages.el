@@ -198,9 +198,9 @@
               (yas-global-mode 1)
               (let ((private-yas-dir (concat configuration-layer-private-directory "snippets")))
                 (setq yas-snippet-dirs
-                      (append (when (boundp 'yas-snippet-dirs)
-                                yas-snippet-dirs)
-                              (list private-yas-dir)))
+                      (append (list private-yas-dir)
+                              (when (boundp 'yas-snippet-dirs)
+                                yas-snippet-dirs)))
                 (setq yas-wrap-around-region t)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                 markdown-mode-hook
