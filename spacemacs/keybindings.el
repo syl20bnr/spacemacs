@@ -117,15 +117,10 @@ Ensure that helm is required before calling FUNC."
   "fy" 'show-and-copy-buffer-filename)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
-  "ij"  (lambda (count)
-          "Insert a new line below with no identation."
-          (interactive "p")
-          (save-excursion
-            (evil-move-end-of-line)
-            (while (> count 0)
-              (insert "\n")
-              (setq count (1- count)))))
-  "ik" 'evil-insert-line-above)
+  "iJ" 'spacemacs/insert-line-below-no-indent 
+  "iK" 'spacemacs/insert-line-above-no-indent 
+  "ik" 'evil-insert-line-above
+  "ij" 'evil-insert-line-below)
 ;; format ---------------------------------------------------------------------
 ;; <SPC> j k key binding for a frequent action: go and indent line below the point
 ;; <SPC> J split the current line at point and indent it
