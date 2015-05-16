@@ -10,9 +10,9 @@
 ;;
 ;;; License: GPLv3
 
-(setq edit-server-packages '(edit-server))
+(setq chrome-packages '(edit-server))
 
-(defun edit-server/init-edit-server ()
+(defun chrome/init-edit-server ()
   (use-package edit-server
     :init
     (progn
