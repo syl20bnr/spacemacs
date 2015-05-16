@@ -63,6 +63,7 @@
   (helm :buffer "*helm: spacemacs*"
         :sources `(,(helm-spacemacs//layer-source)
                    ,(helm-spacemacs//package-source)
+                   ,(helm-spacemacs//dotspacemacs-source)
                    ,(helm-spacemacs//toggle-source))))
 
 (defun helm-spacemacs//layer-source ()
@@ -102,6 +103,22 @@
     (dolist (toggle spacemacs-toggles)
       (push (symbol-name (car toggle)) result))
     (sort result 'string<)))
+
+(defun helm-spacemacs//dotspacemacs-source ()
+  `((name . "Dotfile")
+    (candidates . ,(helm-spacemacs//dotspacemacs-candidates))
+    (candidate-number-limit)
+    (action . (("Go to variable" . helm-spacemacs//go-to-dotfile-variable)))))
+
+(defun helm-spacemacs//dotspacemacs-candidates ()
+  "Return the sorted candidates for all the dospacemacs variables."
+  (sort (all-completions "" obarray
+                         (lambda (x)
+                           (and (boundp x)
+                                (not (keywordp x))
+                                (string-prefix-p "dotspacemacs"
+                                                 (symbol-name x)))))
+        'string<))
 
 (defun helm-spacemacs//layer-action-open-file (file candidate)
   "Open FILE of the passed CANDIDATE."
@@ -154,6 +171,15 @@
   (let ((toggle (assq (intern candidate) spacemacs-toggles)))
     (when toggle
       (funcall (plist-get (cdr toggle) :function)))))
+
+(defun helm-spacemacs//go-to-dotfile-variable (candidate)
+  "Go to candidate in the dotfile."
+  (find-file dotspacemacs-filepath)
+  (goto-char (point-min))
+  ;; try to exclude comments
+  (re-search-forward (format "^[a-z\s\\(\\-]*%s" candidate))
+  (beginning-of-line))
+
 
 (provide 'helm-spacemacs)
 
