@@ -229,7 +229,8 @@ which require an initialization must be listed explicitly in the list.")
         "gb" 'magit-blame-mode
         "gl" 'magit-log
         "gs" 'magit-status
-        "gC" 'magit-commit)
+        "gC" 'magit-commit
+        "gp" 'magit-push)
       (evilify magit-commit-mode magit-commit-mode-map
                (kbd "C-j") 'magit-goto-next-section
                (kbd "C-k") 'magit-goto-previous-section
