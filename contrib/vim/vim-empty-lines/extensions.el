@@ -14,6 +14,11 @@
 
 (setq vim-empty-lines-post-extensions '(vim-empty-lines-mode))
 
+(setq vim-empty-lines-exclusion-hooks '(comint-mode-hook
+                                        eshell-mode-hook
+                                        eww-mode-hook
+                                        shell-mode-hook
+                                        term-mode-hook))
 
 (defun vim-empty-lines/init-vim-empty-lines-mode ()
   (use-package vim-empty-lines-mode
@@ -21,6 +26,7 @@
     :config
     (progn
       (global-vim-empty-lines-mode)
+      (add-to-hooks (lambda () (vim-empty-lines-mode -1)) vim-empty-lines-exclusion-hooks)
       (spacemacs|add-toggle vim-empty-lines-mode
                             :status vim-empty-lines-mode
                             :on (global-vim-empty-lines-mode)
