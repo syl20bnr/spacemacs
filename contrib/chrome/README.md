@@ -28,7 +28,7 @@ Feature:
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(edit-server))
+(setq-default dotspacemacs-configuration-layers '(chrome))
 ```
 
 ### Chrome extension
@@ -42,18 +42,20 @@ The edit server is configured to start automatically when Spacemacs starts.
 
 ## Configuration
 
-You can hook into `edit-server`'s provided hooks in `dotspacemacs/config` in
-your `.spacemacs` file.
+Use `edit-server-url-major-mode-alist` to choose a major mode initialization
+function based on `edit-server-url`, or fall back to
+`edit-server-default-major-mode` that has a current value of `markdown-mode`.
 
 ```elisp
 (defun dotspacemacs/config ()
-  ;; Open github text areas as markdown
-  (add-hook 'edit-server-start-hook
-            (lambda ()
-              (when (string-match "github.com" (buffer-name))
-                (markdown-mode))))
+;; Open github text areas as org buffers
+;; currently they are opened as markdown
+  (setq edit-server-url-major-mode-alist
+      '(("github\\.com" . org-mode)))
 )
 ```
+
+Or 
 
 [edit-server]: http://melpa.org/#/edit-server
 [Edit with Emacs]: https://chrome.google.com/webstore/detail/edit-with-emacs/ljobjlafonikaiipfkggjbhkghgicgoh
