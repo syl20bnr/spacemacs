@@ -202,6 +202,12 @@ Ensure that helm is required before calling FUNC."
                       :on (toggle-frame-maximized)
                       :documentation "Maximize the current frame."
                       :evil-leader "TM")
+(spacemacs|add-toggle mode-line
+                      :status hidden-mode-line-mode
+                      :on (hidden-mode-line-mode)
+                      :off (hidden-mode-line-mode -1)
+                      :documentation "Toggle the visibility of modeline."
+                      :evil-leader "tmt")
 (spacemacs|add-toggle transparent-frame
                       :status nil
                       :on (toggle-transparency)
