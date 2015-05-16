@@ -141,8 +141,8 @@ org-present must be activated explicitly by typing: <kbd>SPC : org-present</kbd>
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>h</kbd>          | next slide
-<kbd>k</kbd>          | previous slide
+<kbd>h</kbd>          | previous slide
+<kbd>l</kbd>          | next slide
 <kbd>q</kbd>          | quit
 
 ### Org-repo-todo
