@@ -16,4 +16,8 @@
   (use-package edit-server
     :init
     (progn
-      (edit-server-start))))
+      (edit-server-start))
+    :config
+    (progn
+      (setq edit-server-default-major-mode 'markdown-mode))
+    ))
