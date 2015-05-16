@@ -918,6 +918,31 @@ The body of the advice is in BODY."
   (if (<= (- end beg) spacemacs-yank-indent-threshold)
       (indent-region beg end nil)))
 
+;; hide mode line
+;; from http://bzg.fr/emacs-hide-mode-line.html
+(defvar-local hidden-mode-line-mode nil)
+(define-minor-mode hidden-mode-line-mode
+  "Minor mode to hide the mode-line in the current buffer."
+  :init-value nil
+  :global t
+  :variable hidden-mode-line-mode
+  :group 'editing-basics
+  (if hidden-mode-line-mode
+      (setq hide-mode-line mode-line-format
+            mode-line-format nil)
+    (setq mode-line-format hide-mode-line
+          hide-mode-line nil))
+  (force-mode-line-update)
+  ;; Apparently force-mode-line-update is not always enough to
+  ;; redisplay the mode-line
+  (redraw-display)
+  (when (and (called-interactively-p 'interactive)
+             hidden-mode-line-mode)
+    (run-with-idle-timer
+     0 nil 'message
+     (concat "Hidden Mode Line Mode enabled.  "
+             "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
+
 (spacemacs|advise-commands
  "indent" (yank yank-pop evil-paste-before evil-paste-after) after
  "If current mode is not one of spacemacs-indent-sensitive-modes

@@ -884,6 +884,7 @@ Some elements can be dynamically toggled:
 <kbd>SPC t m m</kbd>   | toggle the minor mode lighters
 <kbd>SPC t m n</kbd>   | toggle the cat! (if `colors` layer is declared in your dotfile)
 <kbd>SPC t m p</kbd>   | toggle the point character position
+<kbd>SPC t m t</kbd>   | toggle the mode line itself
 <kbd>SPC t m v</kbd>   | toggle the new version lighter
 
 #### Flycheck integration
