@@ -14,5 +14,6 @@
 
 (defun edit-server/init-edit-server ()
   (use-package edit-server
-    :init (eval-after-load 'edit-server
-            '(edit-server-start))))
+    :init
+    (progn
+      (edit-server-start))))
