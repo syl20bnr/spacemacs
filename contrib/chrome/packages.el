@@ -10,7 +10,10 @@
 ;;
 ;;; License: GPLv3
 
-(setq chrome-packages '(edit-server))
+(setq chrome-packages '(
+                        edit-server
+                        gmail-message-mode
+                        ))
 
 (defun chrome/init-edit-server ()
   (use-package edit-server
@@ -21,3 +24,6 @@
     (progn
       (setq edit-server-default-major-mode 'markdown-mode))
     ))
+
+(defun chrome/init-gmail-message-mode ( )
+  (use-package gmail-message-mode))
