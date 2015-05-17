@@ -16,6 +16,8 @@
     - [Key Bindings](#key-bindings)
         - [Company](#company)
         - [Auto-complete](#auto-complete)
+        - [Yasnippet](#yasnippet)
+        - [Auto-yasnippet](#auto-yasnippet)
 
 <!-- markdown-toc end -->
 
@@ -180,13 +182,18 @@ In `packages.el`:
 
 ### Yasnippet
 
-    Key Binding    |                 Description
--------------------|------------------------------------------------------------
-<kbd>M-/<kbd>      | Expand a snippet if text before point is a prefix of a snippet
-<kbd>SPC i s</kbd> | List all current yasnippets for inserting
-<kbd>SPC i y</kbd> | Yank and create a snippet from an active region
-<kbd>SPC i e</kbd> | Expand the snippet just created with <kbd>SPC i y</kbd>
-<kbd>SPC i w</kbd> | Write the snippet inside `private/snippets` directory for future sessions
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>M-/<kbd>        | Expand a snippet if text before point is a prefix of a snippet
+<kbd>SPC i s</kbd>   | List all current yasnippets for inserting
+
+### Auto-yasnippet
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC i S c</kbd> | create a snippet from an active region
+<kbd>SPC i S e</kbd> | Expand the snippet just created with <kbd>SPC i y</kbd>
+<kbd>SPC i S w</kbd> | Write the snippet inside `private/snippets` directory for future sessions
 
 [company]: http://company-mode.github.io/
 [auto-complete]: http://auto-complete.org/

@@ -197,7 +197,9 @@
         (if (not (boundp 'yas-minor-mode))
             (progn
               (yas-global-mode 1)
-              (let ((private-yas-dir (concat configuration-layer-private-directory "snippets")))
+              (let ((private-yas-dir (concat
+                                      configuration-layer-private-directory
+                                      "snippets/")))
                 (setq yas-snippet-dirs
                       (append (list private-yas-dir)
                               (when (boundp 'yas-snippet-dirs)
@@ -224,15 +226,20 @@
     (progn
       (spacemacs|diminish yas-minor-mode " ⓨ" " y"))))
 
-(defun spacemacs/init-auto-yasnippet ()
+(defun auto-completion/init-auto-yasnippet ()
   (use-package auto-yasnippet
     :defer t
     :init
-    (setq aya-persist-snippets-dir (concat user-emacs-directory "private/snippets/"))
-    (evil-leader/set-key
-      ;; aya *y*ank
-      "iy" 'aya-create
-      ;; aya *e*xpand
-      "ie" 'aya-expand
-      ;; aya *w*rite
-      "iw" 'aya-persist-snippet)))
+    (progn
+      (setq aya-persist-snippets-dir (concat
+                                      configuration-layer-private-directory
+                                      "snippets/"))
+      (defun spacemacs/auto-yasnippet-expand ()
+        "Call `yas-expand' and switch to `insert state'"
+        (interactive)
+        (call-interactively 'aya-expand)
+        (evil-insert-state))
+      (evil-leader/set-key
+        "iSc" 'aya-create
+        "iSe" 'spacemacs/auto-yasnippet-expand
+        "iSw" 'aya-persist-snippet))))
