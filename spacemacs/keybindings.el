@@ -312,14 +312,15 @@ Ensure that helm is required before calling FUNC."
 ;; Buffer micro state
 
 (spacemacs|define-micro-state buffer
-  :doc "[n] next [N] previous [K] kill"
+  :doc "[n]ext [p]revious [K]ill [q]uit"
   :disable-evil-leader t
-  :use-minibuffer t
   :evil-leader "b."
   :bindings
   ("K" kill-this-buffer)
   ("n" spacemacs/next-useful-buffer)
-  ("N" spacemacs/previous-useful-buffer))
+  ("N" spacemacs/previous-useful-buffer)
+  ("p" spacemacs/previous-useful-buffer)
+  ("q" nil :exit))
 
 ;; end of Buffer micro state
 
@@ -466,12 +467,12 @@ otherwise it is scaled down."
   (spacemacs/scale-up-or-down-font-size 0))
 
 (spacemacs|define-micro-state scale-font
-  :doc "[+] scale up [-] scale down [=] reset font"
+  :doc "[+] scale up [-] scale down [=] reset font [q]uit"
   :evil-leader "zx"
-  :use-minibuffer t
   :bindings
   ("+" spacemacs/scale-up-font)
   ("-" spacemacs/scale-down-font)
-  ("=" spacemacs/reset-font-size))
+  ("=" spacemacs/reset-font-size)
+  ("q" nil :exit))
 
 ;; end of Text Manipulation Micro State
