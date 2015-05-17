@@ -97,17 +97,17 @@ symbol and the value is an odered list of initialization functions to execute.")
 (defvar configuration-layer-all-post-extensions-sorted '()
   "Sorted list of all post extensions symbols.")
 
-(defvar configuration-layer-contrib-categories '("!config"
-                                                 "!email"
-                                                 "!fun"
-                                                 "!irc"
-                                                 "!lang"
-                                                 "!tools"
-                                                 "!usr"
-                                                 "!vim"
-                                                 "!window-management")
-  "List of strings corresponding to category names. A category is a
-sub-directory of the contribution directory.")
+;; (defvar configuration-layer-contrib-categories '("!config"
+;;                                                  "!email"
+;;                                                  "!fun"
+;;                                                  "!irc"
+;;                                                  "!lang"
+;;                                                  "!tools"
+;;                                                  "!usr"
+;;                                                  "!vim"
+;;                                                  "!window-management")
+;;   "List of strings corresponding to category names. A category is a
+;; sub-directory of the contribution directory.")
 
 (defvar configuration-layer-excluded-packages '())
 
@@ -180,60 +180,58 @@ LAYER_DIR is nil, the private directory is used."
           (replace-match name t))))
     (save-buffer)))
 
-(defun configuration-layer//get-contrib-category-dirs ()
-  "Return a list of all absolute paths to the contribution categories stored
-in `configuration-layer-contrib-categories'"
-  (mapcar
-   (lambda (d) (expand-file-name
-                (concat configuration-layer-contrib-directory (format "%s/" d))))
-   configuration-layer-contrib-categories))
+(defun configuration-layer//is-layer-p (path)
+  "Return non-nil if the path given is a valid configuration layer."
+  (when (file-directory-p path)
+    (let ((files (directory-files path)))
+      (or (member "packages.el" files)
+          (member "extensions.el" files)
+          (member "config.el" files)
+          (member "keybindings.el" files)
+          (member "funcs.el" files)))))
 
 (defun configuration-layer//discover-layers ()
   "Return a hash table where the key is the layer symbol and the value is its
 path."
-  (let ((contrib-cat-dirs (configuration-layer//get-contrib-category-dirs))
+  ;; load private layers at the end on purpose
+  ;; we asume that the user layers must have the final word
+  ;; on configuration choices.
+  (let ((search-paths (append (list configuration-layer-contrib-directory)
+                              dotspacemacs-configuration-layer-path
+                              (list configuration-layer-private-directory)))
         (discovered '())
         (result (make-hash-table :size 256)))
-    (setq discovered
-          (append discovered (configuration-layer//discover-layers-in-dir
-                              configuration-layer-contrib-directory
-                              configuration-layer-contrib-categories)))
-    (dolist (dir (append contrib-cat-dirs
-                         dotspacemacs-configuration-layer-path))
-      (setq discovered
-            (append discovered (configuration-layer//discover-layers-in-dir
-                                dir))))
-    ;; load private layers at the end on purpose
-    ;; we asume that the user layers must have the final word
-    ;; on configuration choices.
-    (setq discovered
-          (append discovered (configuration-layer//discover-layers-in-dir
-                              configuration-layer-private-directory
-                              '("snippets"))))
-    ;; add spacemacs layer
+    ;; depth-first search of subdirectories
+    (while search-paths
+      (let ((current-path (car search-paths)))
+        (setq search-paths (cdr search-paths))
+        (dolist (sub (directory-files current-path t nil 'nosort))
+          ;; ignore ".", ".." and non-directories
+          (unless (or (string-equal ".." (substring sub -2))
+                      (string-equal "." (substring sub -1))
+                      (not (file-directory-p sub)))
+            (if (configuration-layer//is-layer-p sub)
+                ;; layer found
+                (let ((layer-name (file-name-nondirectory sub))
+                      (layer-dir (file-name-directory sub)))
+                  (spacemacs-buffer/message "-> Discovered configuration layer: %s" layer-name)
+                  (push (cons (intern layer-name) layer-dir) discovered))
+              ;; layer not found, add it to search path
+              (setq search-paths (cons sub search-paths)))))))
+    ;; add the spacemacs layer
     (puthash 'spacemacs (expand-file-name user-emacs-directory) result)
-    ;; add discovered
+    ;; add discovered layers to hash table
     (mapc (lambda (l)
             (if (ht-contains? result (car l))
-                (spacemacs-buffer/warning
-                 (concat "Duplicated layer %s detected in directory \"%s\", "
-                         "keeping only the layer in directory \"%s\"")
-                 (car l) (cdr l) (ht-get result (car l)))
-              (puthash (car l) (cdr l) result))) discovered)
-    result))
-
-(defun configuration-layer//discover-layers-in-dir (dir &optional exclude)
-  "Return an alist of layer and absolute path in Dir."
-  (spacemacs-buffer/message "Looking for configuration layers in %s" dir)
-  (let* ((files (directory-files dir nil nil 'nosort))
-         (result '()))
-    (dolist (f files)
-      (let ((full (file-name-as-directory (concat dir f))))
-        (when (and (not (string-prefix-p "." f))
-                   (not (and exclude (member f exclude)))
-                   (file-directory-p full))
-          (spacemacs-buffer/message "-> Discovered configuration layer: %s" f)
-          (push (cons (intern f) dir) result))))
+                ;; the same layer may have been discovered twice,
+                ;; in which case we don't need a warning
+                (unless (string-equal (ht-get result (car l)) (cdr l))
+                  (spacemacs-buffer/warning
+                   (concat "Duplicated layer %s detected in directory \"%s\", "
+                           "keeping only the layer in directory \"%s\"")
+                   (car l) (cdr l) (ht-get result (car l))))
+              (puthash (car l) (cdr l) result)))
+          discovered)
     result))
 
 (defun configuration-layer/init-layers ()
