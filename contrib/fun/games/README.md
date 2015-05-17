@@ -1,5 +1,7 @@
 # Games contribution layer for Spacemacs
 
+![logo](img/games.png)
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
@@ -7,8 +9,8 @@
     - [Description](#description)
     - [Install](#install)
     - [Key bindings](#key-bindings)
-        - [Start 2048-game](#start-2048-game)
-            - [How to play](#how-to-play)
+        - [2048](#2048)
+        - [Tetris](#tetris)
 
 <!-- markdown-toc end -->
 
@@ -18,7 +20,8 @@
 This layer allows you to play evilified games in spacemacs.
 The games available now are:
 
-* 2048-game
+- 2048-game
+- Tetris
 
 ## Install
 
@@ -30,17 +33,35 @@ To use this contribution add it to your `~/.spacemacs`
 
 ## Key bindings
 
-### Start 2048-game
+To run a game:
+
+Key Binding         | Description
+--------------------|------------------------------------------------------
+<kbd>SPC a G</kbd>  | Open an `helm` buffer to select a game
+
+Possible helm actions:
+- run (default)
+- quit
+- reset
+
+### 2048
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`<SPC> a G 2` | Starts the 2048-game
+<kbd>h</kbd>  | Move the tiles left
+<kbd>j</kbd>  | Move the tiles down
+<kbd>k</kbd>  | Move the tiles up
+<kbd>l</kbd>  | Move the tiles right
 
-#### How to play
+### Tetris
 
 Key Binding   | Description
 --------------|------------------------------------------------------------
-`j`           | Move the tiles down
-`k`           | Move the tiles up
-`h`           | Move the tiles left
-`l`           | Move the tiles right
+<kbd>h</kbd>  | Move block to the left
+<kbd>i</kbd>  | Rotate block counter-clockwise
+<kbd>j</kbd>  | Move block to the bottom
+<kbd>k</kbd>  | Rotate block clockwise
+<kbd>l</kbd>  | Move block to the right
+<kbd>n</kbd>  | Start a new game
+<kbd>p</kbd>  | Pause the game
+<kbd>q</kbd>  | Quit the game

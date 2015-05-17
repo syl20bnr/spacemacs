@@ -17,6 +17,8 @@
     :defer t
     :init
     (progn
+      (push '("2048" . (2048-game :quit (kill-buffer-ask (get-buffer "2048"))
+                                  :reset 2048-init)) helm-games-list)
       (evil-leader/set-key
         "aG2" '2048-game)
       (evilify 2048-mode 2048-mode-map
