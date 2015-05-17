@@ -10,5 +10,18 @@
 ;;
 ;;; License: GPLv3
 
+;; Variable
+
+(defvar spacemacs-games-cache-directory
+  (concat spacemacs-cache-directory "games/")
+  "Directory where to store games data.")
+
+;; create the game cache directory
+(unless (file-exists-p spacemacs-games-cache-directory)
+  (make-directory spacemacs-games-cache-directory))
+
+(setq helm-games-list nil)
+
+;; Command prefixes
+
 (spacemacs/declare-prefix "aG" "games")
-(spacemacs/declare-prefix "aG2" "2048-game")
