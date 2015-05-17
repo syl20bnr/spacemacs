@@ -13,7 +13,6 @@
 (setq ess-packages
   '(
     company
-    company-ess
     ess
     ess-R-data-view
     ess-R-object-popup
@@ -81,7 +80,10 @@ not play nicely with autoloads"
                                         SAS-mode STA-mode Snw-mode XLS-mode ess-bugs-mode ess-jags-mode omegahat-mode)
         "This is the list of modes defined by ess")
 
-      (mapc (lambda (sym) (ess/auto-load-hack sym)) ess/r-modes-list)))
+      (mapc (lambda (sym) (ess/auto-load-hack sym)) ess/r-modes-list)
+
+      (push 'company-R-objects company-backends-ess-mode)
+      (push 'company-R-args company-backends-ess-mode)))
 
   ;; R --------------------------------------------------------------------------
   (eval-after-load "ess-site"
@@ -138,13 +140,5 @@ not play nicely with autoloads"
       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun ess/post-init-company ()
-    (spacemacs|add-company-hook ess-mode))
-
-  (defun ess/init-company-ess ()
-    (use-package company-ess
-      :if (configuration-layer/package-usedp 'company)
-      :defer t
-      :init
-      (push 'company-ess-backend company-backends-ess-mode))))
+(defun ess/post-init-company ()
+  (spacemacs|add-company-hook ess-mode))
