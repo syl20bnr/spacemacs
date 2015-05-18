@@ -119,11 +119,32 @@ sub-directory of the contribution directory.")
   (when dotspacemacs-delete-orphan-packages
     (configuration-layer/delete-orphan-packages)))
 
-(defun configuration-layer/create-layer (name)
-  "Ask the user for a configuration layer name and create a layer with this
-name in the private layers directory."
-  (interactive "sConfiguration layer name: ")
-  (let ((layer-dir (configuration-layer//get-private-layer-dir name)))
+(defun configuration-layer/create-layer ()
+  "Ask the user for a configuration layer name and the layer
+directory to use. Create a layer with this name in the selected
+layer directory."
+  (interactive)
+  (let* ((current-layer-paths (mapcar (lambda (dir) (expand-file-name dir))
+                                      (cl-pushnew
+                               configuration-layer-private-directory
+                               dotspacemacs-configuration-layer-path)))
+         (other-choice "Another directory...")
+         (helm-lp-source
+          `((name . "Configuration Layer Paths")
+            (candidates . ,(append current-layer-paths
+                                   (list other-choice)))
+            (action . (lambda (c) c))))
+         (layer-path-sel (helm :sources helm-lp-source
+                               :prompt "Configuration layer path: "))
+         (layer-path (cond
+                      ((string-equal layer-path-sel other-choice)
+                       (read-directory-name "Other configuration layer path: " "~/" ))
+                      ((member layer-path-sel current-layer-paths)
+                       layer-path-sel)
+                      (t
+                       (error "Please select an option from the list"))))
+         (name (read-from-minibuffer "Configuration layer name: " ))
+         (layer-dir (concat layer-path "/" name)))
     (cond
      ((string-equal "" name)
       (message "Cannot create a configuration layer without a name."))
@@ -131,23 +152,25 @@ name in the private layers directory."
       (message "Cannot create configuration layer \"%s\", this layer already exists."
                name))
      (t
-      (make-directory layer-dir)
-      (configuration-layer//copy-template "extensions")
-      (configuration-layer//copy-template "packages")
-      (message "Configuration layer \"%s\" successfully created." name))
-  )))
+      (make-directory layer-dir t)
+      (configuration-layer//copy-template "extensions" layer-dir)
+      (configuration-layer//copy-template "packages" layer-dir)
+      (message "Configuration layer \"%s\" successfully created." name)))))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path the the private configuration layer with name
 NAME."
   (concat configuration-layer-private-directory name "/"))
 
-(defun configuration-layer//copy-template (template)
-  "Copy and replace special values of TEMPLATE to LAYER_DIR."
+(defun configuration-layer//copy-template (template &optional layer-dir)
+  "Copy and replace special values of TEMPLATE to LAYER_DIR. If
+LAYER_DIR is nil, the private directory is used."
   (let ((src (concat configuration-layer-template-directory
                      (format "%s.template" template)))
-        (dest (concat (configuration-layer//get-private-layer-dir name)
-                      (format "%s.el" template))))
+        (dest (if layer-dir
+                  (concat layer-dir "/" (format "%s.el" template))
+                (concat (configuration-layer//get-private-layer-dir name)
+                        (format "%s.el" template)))))
     (copy-file src dest)
     (find-file dest)
     (save-excursion
