@@ -2,6 +2,7 @@
   '(
     bundler
     company
+    inf-ruby
     enh-ruby-mode
     flycheck
     robe
@@ -50,6 +51,16 @@
 
 (defun ruby/post-init-flycheck ()
   (add-hook 'enh-ruby-mode-hook 'flycheck-mode))
+
+(defun ruby/post-init-inf-ruby ()
+  (use-package inf-ruby
+    :defer t
+    :init
+    (progn
+      (add-hook 'after-init-hook 'inf-ruby-switch-setup)
+      (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mir" `inf-ruby))))
+
 
 (defun ruby/init-ruby-tools ()
   (use-package ruby-tools
