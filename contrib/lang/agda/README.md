@@ -1,5 +1,17 @@
 # Agda contribution layer for Spacemacs
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
+**Table of Contents**
+
+- [Agda contribution layer for Spacemacs](#agda-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+        - [Layer](#layer)
+        - [Agda](#agda)
+    - [Key bindings](#key-bindings)
+
+<!-- markdown-toc end -->
+
 ## Description
 
 This layer adds support for the [Agda][] programming language.
