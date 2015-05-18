@@ -123,11 +123,10 @@
         (evil-insert-state-cursor-hide))
       (evil-leader/set-key "asr" 'spacemacs/start-spray)
 
-      (defun spacemacs//quit-spray ()
+      (defadvice spray-quit (after spacemacs//quit-spray activate)
         "Correctly quit spray."
         (set-default-evil-insert-state-cursor)
-        (evil-normal-state))
-      (advice-add 'spray-quit :after 'spacemacs//quit-spray))
+        (evil-normal-state)))
     :config
     (progn
       (define-key spray-mode-map (kbd "h") 'spray-backward-word)

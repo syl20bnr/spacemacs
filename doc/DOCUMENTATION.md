@@ -822,7 +822,7 @@ Some graphical UI indicators can be toggled on and off
     Key Binding         |                 Description
 ------------------------|------------------------------------------------------------
 <kbd>SPC t ~</kbd>      | display `~` in the fringe on empty lines
-<kbd>SPC t c</kbd>      | display the fill column (by default the fill column is set to 80)
+<kbd>SPC t f</kbd>      | display the fill column (by default the fill column is set to 80)
 <kbd>SPC t h h</kbd>    | toggle highlight of the current line
 <kbd>SPC t h i</kbd>    | toggle highlight indentation levels
 <kbd>SPC t h c</kbd>    | toggle highlight indentation current column
@@ -884,6 +884,7 @@ Some elements can be dynamically toggled:
 <kbd>SPC t m m</kbd>   | toggle the minor mode lighters
 <kbd>SPC t m n</kbd>   | toggle the cat! (if `colors` layer is declared in your dotfile)
 <kbd>SPC t m p</kbd>   | toggle the point character position
+<kbd>SPC t m t</kbd>   | toggle the mode line itself
 <kbd>SPC t m v</kbd>   | toggle the new version lighter
 
 #### Flycheck integration
@@ -976,22 +977,23 @@ toggle can be reached using the `control` key.
 Key Binding          |   Unicode   |   ASCII    |                    Mode
 ---------------------|:-----------:|:----------:|----------------------------------------------------
 <kbd>SPC t -</kbd>   | `⊝`        | -          | [centered-cursor][] mode
-<kbd>SPC t C--</kbd> |            |            | global
+<kbd>SPC t C--</kbd> |            |            | global centered cursor
 <kbd>SPC t a</kbd>   | `ⓐ`        | a          | auto-completion
-<kbd>SPC t c</kbd>   | `ⓒ`        | c          | fill-column-indicator mode
+<kbd>SPC t c</kbd>   | `ⓒ`        | c          | camel case motion with subword mode
 `none`               | `ⓔ`        | e          | [evil-org][evil-org-mode] mode
-<kbd>SPC t f</kbd>   | `ⓕ`        | f          | flycheck mode
+<kbd>SPC t c</kbd>   |            |            | fill-column-indicator mode
 <kbd>SPC t F</kbd>   | `Ⓕ`        | F          | auto-fill mode
 <kbd>SPC t g</kbd>   | `ⓖ`        | g          | [golden-ratio][] mode
 <kbd>SPC t k</kbd>   | `Ⓖ`        | G          | guide-key mode
 <kbd>SPC t i</kbd>   | `ⓘ`        | i          | indentation guide
-<kbd>SPC t C-i</kbd> |             |            | global
+<kbd>SPC t C-i</kbd> |             |            | global indentation guide
 <kbd>SPC t I</kbd>   | `Ⓘ`        | I          | aggressive indent mode
 <kbd>SPC t p</kbd>   | `ⓟ`        | p          | [smartparens][sp] mode
-<kbd>SPC t C-p</kbd> |             |            | global
-<kbd>SPC t s</kbd>   | `ⓢ`        | s          | flyspell mode
+<kbd>SPC t C-p</kbd> |             |            | global smartparens
+<kbd>SPC t s</kbd>   | `ⓢ`        | s          | syntax checking (flycheck)
+<kbd>SPC t S</kbd>   | `Ⓢ`        | S          | spell checking (flyspell)
 <kbd>SPC t w</kbd>   | `ⓦ`        | w          | whitespace mode
-<kbd>SPC t C-w</kbd> |             |            | global
+<kbd>SPC t C-w</kbd> |             |            | global whitespace
 <kbd>SPC t y</kbd>   | `ⓨ`        | y          | [yasnippet][yasnippet] mode
 
 # Commands
@@ -2578,7 +2580,6 @@ developers to elisp hackers!
 [hthemes]: https://github.com/syohex/emacs-helm-themes
 [projectile]: https://github.com/bbatsov/projectile
 [hdescbinds]: https://github.com/emacs-helm/helm-descbinds
-[hflyspell]: https://gist.github.com/cofi/3013327
 [iedit]: https://github.com/tsdh/iedit
 [evil-iedit-state]: https://github.com/syl20bnr/evil-iedit-state
 [evil-indent-textobject]: https://github.com/cofi/evil-indent-textobject

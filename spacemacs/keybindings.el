@@ -117,15 +117,10 @@ Ensure that helm is required before calling FUNC."
   "fy" 'show-and-copy-buffer-filename)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
-  "ij"  (lambda (count)
-          "Insert a new line below with no identation."
-          (interactive "p")
-          (save-excursion
-            (evil-move-end-of-line)
-            (while (> count 0)
-              (insert "\n")
-              (setq count (1- count)))))
-  "ik" 'evil-insert-line-above)
+  "iJ" 'spacemacs/insert-line-below-no-indent 
+  "iK" 'spacemacs/insert-line-above-no-indent 
+  "ik" 'evil-insert-line-above
+  "ij" 'evil-insert-line-below)
 ;; format ---------------------------------------------------------------------
 ;; <SPC> j k key binding for a frequent action: go and indent line below the point
 ;; <SPC> J split the current line at point and indent it
@@ -207,6 +202,12 @@ Ensure that helm is required before calling FUNC."
                       :on (toggle-frame-maximized)
                       :documentation "Maximize the current frame."
                       :evil-leader "TM")
+(spacemacs|add-toggle mode-line
+                      :status hidden-mode-line-mode
+                      :on (hidden-mode-line-mode)
+                      :off (hidden-mode-line-mode -1)
+                      :documentation "Toggle the visibility of modeline."
+                      :evil-leader "tmt")
 (spacemacs|add-toggle transparent-frame
                       :status nil
                       :on (toggle-transparency)
@@ -317,14 +318,15 @@ Ensure that helm is required before calling FUNC."
 ;; Buffer micro state
 
 (spacemacs|define-micro-state buffer
-  :doc "[n] next [N] previous [K] kill"
+  :doc "[n]ext [p]revious [K]ill [q]uit"
   :disable-evil-leader t
-  :use-minibuffer t
   :evil-leader "b."
   :bindings
   ("K" kill-this-buffer)
   ("n" spacemacs/next-useful-buffer)
-  ("N" spacemacs/previous-useful-buffer))
+  ("N" spacemacs/previous-useful-buffer)
+  ("p" spacemacs/previous-useful-buffer)
+  ("q" nil :exit t))
 
 ;; end of Buffer micro state
 
@@ -471,12 +473,12 @@ otherwise it is scaled down."
   (spacemacs/scale-up-or-down-font-size 0))
 
 (spacemacs|define-micro-state scale-font
-  :doc "[+] scale up [-] scale down [=] reset font"
+  :doc "[+] scale up [-] scale down [=] reset font [q]uit"
   :evil-leader "zx"
-  :use-minibuffer t
   :bindings
   ("+" spacemacs/scale-up-font)
   ("-" spacemacs/scale-down-font)
-  ("=" spacemacs/reset-font-size))
+  ("=" spacemacs/reset-font-size)
+  ("q" nil :exit t))
 
 ;; end of Text Manipulation Micro State

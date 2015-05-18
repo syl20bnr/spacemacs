@@ -16,6 +16,8 @@
     - [Key Bindings](#key-bindings)
         - [Company](#company)
         - [Auto-complete](#auto-complete)
+        - [Yasnippet](#yasnippet)
+        - [Auto-yasnippet](#auto-yasnippet)
 
 <!-- markdown-toc end -->
 
@@ -27,7 +29,7 @@ The following completion engines are supported:
 - [company][]
 - [auto-complete][]
 
-Snippets are supported via [yasnippet][].
+Snippets are supported via [yasnippet][] and [auto-yasnippet][].
 
 This layer also configures `hippie-expand`.
 
@@ -178,7 +180,23 @@ In `packages.el`:
 <kbd>S-TAB</kbd>   | select previous candidate
 <kbd>return</kbd>  | complete word, if word is already completed insert a carriage return
 
+### Yasnippet
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>M-/<kbd>        | Expand a snippet if text before point is a prefix of a snippet
+<kbd>SPC i s</kbd>   | List all current yasnippets for inserting
+
+### Auto-yasnippet
+
+    Key Binding      |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC i S c</kbd> | create a snippet from an active region
+<kbd>SPC i S e</kbd> | Expand the snippet just created with <kbd>SPC i y</kbd>
+<kbd>SPC i S w</kbd> | Write the snippet inside `private/snippets` directory for future sessions
+
 [company]: http://company-mode.github.io/
 [auto-complete]: http://auto-complete.org/
 [yasnippet]: https://github.com/capitaomorte/yasnippet
+[auto-yasnippet]: https://github.com/abo-abo/auto-yasnippet
 [company-statistics]: https://github.com/company-mode/company-statistics

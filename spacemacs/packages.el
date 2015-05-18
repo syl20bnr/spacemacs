@@ -22,6 +22,7 @@
     bind-key
     bookmark
     buffer-move
+    clean-aindent-mode
     diminish
     doc-view
     ediff
@@ -50,7 +51,6 @@
     fancy-battery
     fill-column-indicator
     flx-ido
-    flyspell
     fringe-helper
     gh-md
     golden-ratio
@@ -59,7 +59,6 @@
     helm
     helm-ag
     helm-descbinds
-    helm-flyspell
     helm-make
     helm-mode-manager
     ;; not working for now
@@ -414,6 +413,12 @@
       "bmj" 'buf-move-down
       "bmk" 'buf-move-up
       "bml" 'buf-move-right)))
+
+(defun spacemacs/init-clean-aindent-mode ()
+  (use-package clean-aindent-mode
+    :defer t
+    :init
+    (add-hook 'prog-mode-hook 'clean-aindent-mode)))
 
 (defun spacemacs/init-diminish ()
   (require 'diminish)
@@ -966,11 +971,12 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
       (define-key evil-search-highlight-persist-map (kbd "C-x SPC") 'rectangle-mark-mode)
       (evil-ex-define-cmd "nohlsearch"
-                          'evil-search-highlight-persist-remove-all))
-    :config
-    (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
-                          :inherit 'region
-                          :background nil)))
+                          'evil-search-highlight-persist-remove-all)
+      (defun spacemacs/adaptive-evil-highlight-persist-face ()
+        (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
+                            :inherit 'region
+                            :background nil))
+      (spacemacs/adaptive-evil-highlight-persist-face))))
 
 (defun spacemacs/init-evil-surround ()
   (use-package evil-surround
@@ -1106,34 +1112,13 @@ Example: (evil-map visual \"<\" \"<gv\")"
                             :on (turn-on-fci-mode)
                             :off (turn-off-fci-mode)
                             :documentation "Display the fill column indicator."
-                            :evil-leader "tc"))
+                            :evil-leader "tf"))
     :config
-    (spacemacs|diminish fci-mode " ⓒ" " c")))
+    (spacemacs|hide-lighter fci-mode)))
 
 (defun spacemacs/init-flx-ido ()
   (use-package flx-ido
     :init (flx-ido-mode 1)))
-
-(defun spacemacs/init-flyspell ()
-  (use-package flyspell
-    :defer t
-    :init
-    (progn
-      (setq-default ispell-program-name "aspell")
-      (setq-default ispell-dictionary "english")
-      (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
-      (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1)))
-      (spacemacs|add-toggle spelling-checking
-                            :status flyspell-mode
-                            :on (flyspell-mode)
-                            :off (flyspell-mode -1)
-                            :documentation
-                            "Enable flyspell for automatic spelling checking."
-                            :evil-leader "ts"))
-    :config
-    (progn
-      (flyspell-prog-mode)
-      (spacemacs|diminish flyspell-mode " ⓢ" " s"))))
 
 (defun spacemacs/init-fringe-helper ())
 
@@ -1316,10 +1301,12 @@ Example: (evil-map visual \"<\" \"<gv\")"
             helm-semantic-fuzzy-match t)
 
       (defun spacemacs/helm-find-files-navigate-back (orig-fun &rest args)
+        )
+      (defadvice helm-ff-delete-char-backward
+          (around spacemacs/helm-find-files-navigate-back activate)
         (if (= (length helm-pattern) (length (helm-find-files-initial-input)))
             (helm-find-files-up-one-level 1)
-          (apply orig-fun args)))
-      (advice-add 'helm-ff-delete-char-backward :around #'spacemacs/helm-find-files-navigate-back)
+          ad-do-it))
 
       (defun spacemacs/helm-do-ack ()
         "Perform a search with ack using `helm-ag.'"
@@ -1429,13 +1416,6 @@ If ARG is non nil then `ag' and `pt' and ignored."
 
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
-
-      (defun spacemacs//helm-before-initialize ()
-        "Stuff to do before helm initializes."
-        ;; be sure that any previous micro-state face override are
-        ;; wiped out
-        (setq face-remapping-alist nil))
-      (add-hook 'helm-before-initialize-hook 'spacemacs//helm-before-initialize)
 
       (defun spacemacs//helm-cleanup ()
         "Cleanup some helm related states when quitting."
@@ -1605,11 +1585,6 @@ ARG non nil means that the editing style is `vim'."
       (setq helm-descbinds-window-style 'split)
       (add-hook 'helm-mode-hook 'helm-descbinds-mode)
       (evil-leader/set-key "?" 'helm-descbinds))))
-
-(defun spacemacs/init-helm-flyspell ()
-  (use-package helm-flyspell
-    :commands helm-flyspell-correct
-    :init (evil-leader/set-key "Sc" 'helm-flyspell-correct)))
 
 (defun spacemacs/init-helm-make ()
   (use-package helm-make
@@ -1817,8 +1792,9 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-minibuffer-setup)
 
       (defun spacemacs//ido-setup ()
-        (when face-remapping-alist
-          (setq face-remapping-alist nil))
+        (when spacemacs--ido-navigation-ms-face-cookie-minibuffer
+          (face-remap-remove-relative
+           spacemacs--ido-navigation-ms-face-cookie-minibuffer))
         ;; be sure to wipe any previous micro-state flag
         (setq spacemacs--ido-navigation-ms-enabled nil)
         ;; overwrite the key bindings for ido vertical mode only
@@ -1858,6 +1834,9 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (defvar spacemacs--ido-navigation-ms-enabled nil
         "Flag which is non nil when ido navigation micro-state is enabled.")
 
+      (defvar spacemacs--ido-navigation-ms-face-cookie-minibuffer nil
+        "Cookie pointing to the local face remapping.")
+
       (defface spacemacs-ido-navigation-ms-face
         `((t :background ,(face-attribute 'error :foreground)
              :foreground "black"
@@ -1867,17 +1846,20 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 
       (defun spacemacs//ido-navigation-ms-set-face ()
         "Set faces for ido navigation micro-state."
-        (push '(minibuffer-prompt . spacemacs-ido-navigation-ms-face)
-              face-remapping-alist))
+        (setq spacemacs--ido-navigation-ms-face-cookie-minibuffer
+              (face-remap-add-relative
+               'minibuffer-prompt
+               'spacemacs-ido-navigation-ms-face)))
 
       (defun spacemacs//ido-navigation-ms-on-enter ()
         "Initialization of ido micro-state."
         (setq spacemacs--ido-navigation-ms-enabled t)
-        (spacemacs//ido-navigation-ms-set-face)
-        )
+        (spacemacs//ido-navigation-ms-set-face))
+
       (defun spacemacs//ido-navigation-ms-on-exit ()
         "Action to perform when exiting ido micro-state."
-        (setq face-remapping-alist nil))
+        (face-remap-remove-relative
+         spacemacs--ido-navigation-ms-face-cookie-minibuffer))
 
       (defun spacemacs//ido-navigation-ms-full-doc ()
         "Full documentation for ido navigation micro-state."
@@ -2270,11 +2252,11 @@ displayed in the mode-line.")
           (setq-default powerline-default-separator 'wave)
         (setq-default powerline-default-separator 'utf-8))
 
-      (defun spacemacs//customize-powerline-faces ()
+      (defun spacemacs/customize-powerline-faces ()
         "Alter powerline face to make them work with more themes."
         (set-face-attribute 'powerline-inactive2 nil
                             :inherit 'font-lock-comment-face))
-      (spacemacs//customize-powerline-faces)
+      (spacemacs/customize-powerline-faces)
 
 
       (defun spacemacs/mode-line-prepare-left ()
@@ -2443,7 +2425,7 @@ It is a string holding:
             (powerline-raw " " line-face))
            (list
             ;; global-mode
-            (unless (equal '("") global-mode-string)
+            (when active
               (powerline-raw global-mode-string)
               (powerline-raw " " line-face))
             ;; new version
@@ -2461,7 +2443,8 @@ It is a string holding:
                 ;; display hud
                 ;; (powerline-chamfer-left line-face face1)
                 (if (string-match "\%" progress)
-                    (powerline-hud state-face face1))))))))
+                    (powerline-hud state-face face1)))))
+                      )))
 
       (defun spacemacs/mode-line-prepare ()
         (let* ((active (powerline-selected-window-active))
@@ -2702,7 +2685,34 @@ It is a string holding:
     (use-package subword
       :defer t
       :init
-      (add-hook 'prog-mode-hook 'subword-mode))))
+      (progn
+        (unless (category-docstring ?U)
+          (define-category ?U "Uppercase")
+          (define-category ?u "Lowercase"))
+        (modify-category-entry (cons ?A ?Z) ?U)
+        (modify-category-entry (cons ?a ?z) ?u)
+        (make-variable-buffer-local 'evil-cjk-word-separating-categories)
+        (defun spacemacs//subword-enable-camel-case ()
+          "Add support for camel case to subword."
+          (if subword-mode
+              (push '(?u . ?U) evil-cjk-word-separating-categories)
+            (setq evil-cjk-word-separating-categories
+                  (default-value 'evil-cjk-word-separating-categories))))
+        (add-hook 'subword-mode-hook 'spacemacs//subword-enable-camel-case)
+        (spacemacs|add-toggle camel-case-motion
+                              :status subword-mode
+                              :on (subword-mode +1)
+                              :off (subword-mode -1)
+                              :documentation "Toggle CamelCase motion."
+                              :evil-leader "tc")
+        (spacemacs|add-toggle camel-case-motion-globally
+                              :status subword-mode
+                              :on (global-subword-mode +1)
+                              :off (global-subword-mode -1)
+                              :documentation "Globally toggle CamelCase motion."
+                              :evil-leader "t C-c"))
+      :config
+      (spacemacs|diminish subword-mode " ⓒ" " c"))))
 
 (defun spacemacs/init-undo-tree ()
   (use-package undo-tree

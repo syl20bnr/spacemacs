@@ -19,6 +19,7 @@
         helm-c-yasnippet
         hippie-exp
         yasnippet
+        auto-yasnippet
         ))
 
 ;; company-quickhelp from MELPA is not compatible with 24.3 anymore
@@ -195,15 +196,15 @@
       (defun spacemacs/load-yasnippet ()
         (if (not (boundp 'yas-minor-mode))
             (progn
-              (let* ((dir (configuration-layer/get-layer-property 'spacemacs :ext-dir))
-                     (private-yas-dir (concat configuration-layer-private-directory "snippets"))
-                     (yas-dir (concat dir "yasnippet-snippets")))
+              (yas-global-mode 1)
+              (let ((private-yas-dir (concat
+                                      configuration-layer-private-directory
+                                      "snippets/")))
                 (setq yas-snippet-dirs
-                      (append (when (boundp 'yas-snippet-dirs)
-                                yas-snippet-dirs)
-                              (list  private-yas-dir yas-dir)))
-                (setq yas-wrap-around-region t)
-                (yas-global-mode 1)))))
+                      (append (list private-yas-dir)
+                              (when (boundp 'yas-snippet-dirs)
+                                yas-snippet-dirs)))
+                (setq yas-wrap-around-region t)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                 markdown-mode-hook
                                                 org-mode-hook))
@@ -224,3 +225,21 @@
     :config
     (progn
       (spacemacs|diminish yas-minor-mode " ⓨ" " y"))))
+
+(defun auto-completion/init-auto-yasnippet ()
+  (use-package auto-yasnippet
+    :defer t
+    :init
+    (progn
+      (setq aya-persist-snippets-dir (concat
+                                      configuration-layer-private-directory
+                                      "snippets/"))
+      (defun spacemacs/auto-yasnippet-expand ()
+        "Call `yas-expand' and switch to `insert state'"
+        (interactive)
+        (call-interactively 'aya-expand)
+        (evil-insert-state))
+      (evil-leader/set-key
+        "iSc" 'aya-create
+        "iSe" 'spacemacs/auto-yasnippet-expand
+        "iSw" 'aya-persist-snippet))))
