@@ -40,6 +40,7 @@ Features:
 - quick in buffer last commit message per line with [git-messenger][]
 - colorize buffer line by age of commit with [smeargle][]
 - git gutter in fringe with [git-gutter][]
+- gitignore generator with [helm-gitignore][]
 
 This layer also provides support for Github with:
 - [magit-gh-pulls][]: handy `magit` add-on to manage Github pull requests.
@@ -135,6 +136,7 @@ Git commands (start with `g`):
 <kbd>SPC g h c</kbd>       | clear highlights
 <kbd>SPC g h h</kbd>       | highlight regions by age of commits
 <kbd>SPC g h t</kbd>       | highlight regions by last updated time
+<kbd>SPC g i</kbd>         | open `helm-gitignore`
 <kbd>SPC g l</kbd>         | open a `magit` log
 <kbd>SPC g s</kbd>         | open a `magit` status window
 <kbd>SPC g m</kbd>         | display the last commit message of the current line
@@ -374,3 +376,4 @@ override this behavior by setting the variable `git-link-open-in-browser` to
 [gist.el]: https://github.com/defunkt/gist.el
 [git-link]: https://github.com/sshaw/git-link
 [github-browse-file]: https://github.com/osener/github-browse-file
+[helm-gitignore]: https://github.com/jupl/helm-gitignore
