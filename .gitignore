@@ -44,3 +44,6 @@ private/*
 !private/README.md
 !private/snippets/README.md
 /games/
+/pyim/
+org-clock-save.el
+srecode-map.el
