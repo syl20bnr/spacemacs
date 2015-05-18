@@ -1417,13 +1417,6 @@ If ARG is non nil then `ag' and `pt' and ignored."
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
 
-      (defun spacemacs//helm-before-initialize ()
-        "Stuff to do before helm initializes."
-        ;; be sure that any previous micro-state face override are
-        ;; wiped out
-        (setq face-remapping-alist nil))
-      (add-hook 'helm-before-initialize-hook 'spacemacs//helm-before-initialize)
-
       (defun spacemacs//helm-cleanup ()
         "Cleanup some helm related states when quitting."
         ;; deactivate any running transient map (micro-state)
@@ -1799,8 +1792,9 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (add-hook 'ido-minibuffer-setup-hook 'spacemacs//ido-minibuffer-setup)
 
       (defun spacemacs//ido-setup ()
-        (when face-remapping-alist
-          (setq face-remapping-alist nil))
+        (when spacemacs--ido-navigation-ms-face-cookie-minibuffer
+          (face-remap-remove-relative
+           spacemacs--ido-navigation-ms-face-cookie-minibuffer))
         ;; be sure to wipe any previous micro-state flag
         (setq spacemacs--ido-navigation-ms-enabled nil)
         ;; overwrite the key bindings for ido vertical mode only
@@ -1840,6 +1834,9 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (defvar spacemacs--ido-navigation-ms-enabled nil
         "Flag which is non nil when ido navigation micro-state is enabled.")
 
+      (defvar spacemacs--ido-navigation-ms-face-cookie-minibuffer nil
+        "Cookie pointing to the local face remapping.")
+
       (defface spacemacs-ido-navigation-ms-face
         `((t :background ,(face-attribute 'error :foreground)
              :foreground "black"
@@ -1849,17 +1846,20 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 
       (defun spacemacs//ido-navigation-ms-set-face ()
         "Set faces for ido navigation micro-state."
-        (push '(minibuffer-prompt . spacemacs-ido-navigation-ms-face)
-              face-remapping-alist))
+        (setq spacemacs--ido-navigation-ms-face-cookie-minibuffer
+              (face-remap-add-relative
+               'minibuffer-prompt
+               'spacemacs-ido-navigation-ms-face)))
 
       (defun spacemacs//ido-navigation-ms-on-enter ()
         "Initialization of ido micro-state."
         (setq spacemacs--ido-navigation-ms-enabled t)
-        (spacemacs//ido-navigation-ms-set-face)
-        )
+        (spacemacs//ido-navigation-ms-set-face))
+
       (defun spacemacs//ido-navigation-ms-on-exit ()
         "Action to perform when exiting ido micro-state."
-        (setq face-remapping-alist nil))
+        (face-remap-remove-relative
+         spacemacs--ido-navigation-ms-face-cookie-minibuffer))
 
       (defun spacemacs//ido-navigation-ms-full-doc ()
         "Full documentation for ido navigation micro-state."
