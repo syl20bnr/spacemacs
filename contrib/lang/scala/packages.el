@@ -100,6 +100,7 @@ which require an initialization must be listed explicitly in the list.")
         "mct"     'ensime-typecheck-current-file
         "mcT"     'ensime-typecheck-all
 
+        "mda"     'ensime-db-attach
         "mdb"     'ensime-db-set-break
         "mdB"     'ensime-db-clear-break
         "mdC"     'ensime-db-clear-all-breaks
