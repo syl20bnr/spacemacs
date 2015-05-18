@@ -475,6 +475,11 @@ Change the owner of the directory `~/.emacs.d/server`:
   - change the owner to your account name
   Source: [Stackoverflow][so-server-unsafe]
 
+3. **I followed installation instructions and It's not working, why?**
+
+Make sure your HOME directory is set. To do that go to Environment Variables and add a new user or system variable to called HOME and give it the value %USERPROFILE%, save this. To check this open a new comand line window and type `echo %HOME%` it should return a directory name, generally `c:\users\<your-username>`.
+
+
 ## OS X
 
 1. **Why are the powerline colors not correct on OS X ?**
