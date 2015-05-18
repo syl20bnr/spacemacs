@@ -127,7 +127,7 @@ Will work on both org-mode and any mode that accepts plain html."
     :config
     (progn
       (font-lock-add-keywords
-       'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
+       'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\n?.*\\) \\(@@html:</kbd>@@\\)"
                     (1 font-lock-comment-face prepend)
                     (2 font-lock-function-name-face)
                     (3 font-lock-comment-face prepend))))
