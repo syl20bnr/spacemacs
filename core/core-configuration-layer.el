@@ -120,10 +120,14 @@ sub-directory of the contribution directory.")
     (configuration-layer/delete-orphan-packages)))
 
 (defun configuration-layer/create-layer (name)
-  "Ask the user for a configuration layer name and create a layer with this
-name in the private layers directory."
+  "Ask the user for a configuration layer name and the layer
+directory to use. Create a layer with this name in the selected
+layer directory."
   (interactive "sConfiguration layer name: ")
-  (let ((layer-dir (configuration-layer//get-private-layer-dir name)))
+  (let* ((layer-paths (cl-pushnew configuration-layer-private-directory
+                                 dotspacemacs-configuration-layer-path))
+        (layer-path (completing-read "Layer Directory to Use: " layer-paths))
+        (layer-dir (concat layer-path name)))
     (cond
      ((string-equal "" name)
       (message "Cannot create a configuration layer without a name."))
@@ -132,8 +136,8 @@ name in the private layers directory."
                name))
      (t
       (make-directory layer-dir)
-      (configuration-layer//copy-template "extensions")
-      (configuration-layer//copy-template "packages")
+      (configuration-layer//copy-template "extensions" layer-dir)
+      (configuration-layer//copy-template "packages" layer-dir)
       (message "Configuration layer \"%s\" successfully created." name))
   )))
 
@@ -142,12 +146,15 @@ name in the private layers directory."
 NAME."
   (concat configuration-layer-private-directory name "/"))
 
-(defun configuration-layer//copy-template (template)
-  "Copy and replace special values of TEMPLATE to LAYER_DIR."
+(defun configuration-layer//copy-template (template &optional layer-dir)
+  "Copy and replace special values of TEMPLATE to LAYER_DIR. If
+LAYER_DIR is nil, the private directory is used."
   (let ((src (concat configuration-layer-template-directory
                      (format "%s.template" template)))
-        (dest (concat (configuration-layer//get-private-layer-dir name)
-                      (format "%s.el" template))))
+        (dest (if layer-dir
+                  (concat layer-dir "/" (format "%s.el" template))
+                (concat (configuration-layer//get-private-layer-dir name)
+                        (format "%s.el" template)))))
     (copy-file src dest)
     (find-file dest)
     (save-excursion
