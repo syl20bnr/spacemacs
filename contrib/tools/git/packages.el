@@ -56,7 +56,6 @@
 
 (defun git/init-helm-gitignore ()
   (use-package helm-gitignore
-    :defer t
     :config
     (evil-leader/set-key
       "gi" 'helm-gitignore)))
