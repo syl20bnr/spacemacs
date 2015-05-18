@@ -326,7 +326,7 @@ Ensure that helm is required before calling FUNC."
   ("n" spacemacs/next-useful-buffer)
   ("N" spacemacs/previous-useful-buffer)
   ("p" spacemacs/previous-useful-buffer)
-  ("q" nil :exit))
+  ("q" nil :exit t))
 
 ;; end of Buffer micro state
 
@@ -479,6 +479,6 @@ otherwise it is scaled down."
   ("+" spacemacs/scale-up-font)
   ("-" spacemacs/scale-down-font)
   ("=" spacemacs/reset-font-size)
-  ("q" nil :exit))
+  ("q" nil :exit t))
 
 ;; end of Text Manipulation Micro State
