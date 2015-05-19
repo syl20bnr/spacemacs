@@ -98,7 +98,7 @@
         "mct"     'ensime-typecheck-current-file
         "mcT"     'ensime-typecheck-all
 
-        "mda"     'ensime-db-attach
+        "mdA"     'ensime-db-attach
         "mdb"     'ensime-db-set-break
         "mdB"     'ensime-db-clear-break
         "mdC"     'ensime-db-clear-all-breaks

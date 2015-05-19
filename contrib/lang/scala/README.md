@@ -120,6 +120,7 @@ See the [flycheck documentation][] for up-to-date configuration instructions.
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
+<kbd>SPC m d A</kbd>  | Attach to a remote debugger
 <kbd>SPC m d b</kbd>  | set breakpoint
 <kbd>SPC m d B</kbd>  | clear breakpoint
 <kbd>SPC m d C</kbd>  | clear all breakpoints
