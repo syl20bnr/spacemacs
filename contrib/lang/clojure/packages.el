@@ -166,9 +166,9 @@ the focus."
         "msR" 'spacemacs/cider-send-region-to-repl-focus
         "mss" 'cider-switch-to-repl-buffer
 
-        "mtt" 'spacemacs/cider-test-run-all-tests
-        "mtT" 'spacemacs/cider-test-run-focused-test
-        "mtr" 'spacemacs/cider-test-rerun-tests)
+        "mta" 'spacemacs/cider-test-run-all-tests
+        "mtr" 'spacemacs/cider-test-rerun-tests
+        "mtt" 'spacemacs/cider-test-run-focused-test)
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))
 
