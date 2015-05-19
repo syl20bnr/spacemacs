@@ -228,6 +228,18 @@
                                                      eshell-mode-hook)))
     :config
     (progn
+      ;;  We need to know whether the smartparens was enabled, see
+      ;; `yas-before-expand-snippet-hook' below.
+      (defvar smartparens-enabled-initially t
+        "Stored whether smartparens is originally enabled or not.")
+
+      (add-hook 'yas-before-expand-snippet-hook (lambda ()
+                                                  ;; If enabled, smartparens will mess snippets expanded by `hippie-expand`
+                                                  (setq smartparens-enabled-initially smartparens-mode)
+                                                  (smartparens-mode -1)))
+      (add-hook 'yas-after-exit-snippet-hook (lambda ()
+                                               (when smartparens-enabled-initially
+                                                 (smartparens-mode 1))))
       (spacemacs|diminish yas-minor-mode " ⓨ" " y"))))
 
 (defun auto-completion/init-auto-yasnippet ()
