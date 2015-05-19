@@ -57,9 +57,7 @@
 (defun git/init-helm-gitignore ()
   (use-package helm-gitignore
     :defer t
-    :config
-    (evil-leader/set-key
-      "gi" 'helm-gitignore)))
+    :init (evil-leader/set-key "gI" 'helm-gitignore)))
 
 (defun git/init-git-commit-mode ()
   (use-package git-commit-mode
