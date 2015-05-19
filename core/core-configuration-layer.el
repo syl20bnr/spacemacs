@@ -127,7 +127,7 @@ layer directory."
   (let* ((layer-paths (cl-pushnew configuration-layer-private-directory
                                  dotspacemacs-configuration-layer-path))
         (layer-path (completing-read "Layer Directory to Use: " layer-paths))
-        (layer-dir (concat layer-path name)))
+        (layer-dir (concat layer-path "/" name)))
     (cond
      ((string-equal "" name)
       (message "Cannot create a configuration layer without a name."))
@@ -135,7 +135,7 @@ layer directory."
       (message "Cannot create configuration layer \"%s\", this layer already exists."
                name))
      (t
-      (make-directory layer-dir)
+      (make-directory layer-dir t)
       (configuration-layer//copy-template "extensions" layer-dir)
       (configuration-layer//copy-template "packages" layer-dir)
       (message "Configuration layer \"%s\" successfully created." name))
