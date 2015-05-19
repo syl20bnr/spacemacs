@@ -119,15 +119,28 @@ sub-directory of the contribution directory.")
   (when dotspacemacs-delete-orphan-packages
     (configuration-layer/delete-orphan-packages)))
 
-(defun configuration-layer/create-layer (name)
+(defun configuration-layer//create-layer-source ()
+  "return a source for helm selection of layer directory"
+  `((name . "Current Configuration Layer Paths")
+    (candidates . ,(append (mapcar (lambda (dir) (expand-file-name dir))
+                                   (cl-pushnew configuration-layer-private-directory
+                                               dotspacemacs-configuration-layer-path))
+                           (list "*Create new layer path*")))
+    (action . (lambda (candidate) candidate))))
+
+(defun configuration-layer/create-layer ()
   "Ask the user for a configuration layer name and the layer
 directory to use. Create a layer with this name in the selected
 layer directory."
-  (interactive "sConfiguration layer name: ")
-  (let* ((layer-paths (cl-pushnew configuration-layer-private-directory
-                                 dotspacemacs-configuration-layer-path))
-        (layer-path (completing-read "Layer Directory to Use: " layer-paths))
-        (layer-dir (concat layer-path "/" name)))
+  (interactive)
+  (let* ((layer-path-sel (helm
+                          :sources (list (configuration-layer//create-layer-source))
+                          :prompt "Configuration Layer Path: "))
+         (layer-path (if (not (file-exists-p layer-path-sel))
+                         (read-file-name "New layer path (new or existing directory): " "~/" )
+                       layer-path-sel))
+         (name (read-from-minibuffer "Configuration layer name: " ))
+         (layer-dir (concat layer-path "/" name)))
     (cond
      ((string-equal "" name)
       (message "Cannot create a configuration layer without a name."))
@@ -139,7 +152,7 @@ layer directory."
       (configuration-layer//copy-template "extensions" layer-dir)
       (configuration-layer//copy-template "packages" layer-dir)
       (message "Configuration layer \"%s\" successfully created." name))
-  )))
+     )))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path the the private configuration layer with name
