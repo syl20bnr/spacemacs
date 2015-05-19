@@ -1401,12 +1401,12 @@ If ARG is non nil then `ag' and `pt' and ignored."
                   (unless (configuration-layer/package-usedp 'smex)
                     (evil-leader/set-key dotspacemacs-command-key 'helm-M-x))))
 
-      (defvar spacemacs-helm-display-buffer-regexp `(,(rx bos "*helm" (* not-newline) "*" eos)
+      (defvar spacemacs-helm-display-help-buffer-regexp '("*.*Helm.*Help.**"))
+      (defvar spacemacs-helm-display-buffer-regexp `("*.*helm.**"
                                                      (display-buffer-in-side-window)
                                                      (inhibit-same-window . t)
                                                      (window-height . 0.4)))
       (defvar spacemacs-display-buffer-alist nil)
-
       (defun spacemacs//display-helm-at-bottom ()
         "Display the helm buffer at the bottom of the frame."
         ;; avoid Helm buffer being diplaye twice when user
@@ -1418,7 +1418,15 @@ If ARG is non nil then `ag' and `pt' and ignored."
           ;; the only buffer to display is Helm, nothing else we must set this
           ;; otherwise Helm cannot reuse its own windows for copyinng/deleting
           ;; etc... because of existing popwin buffers in the alist
-          (setq display-buffer-alist (list spacemacs-helm-display-buffer-regexp))
+          (setq display-buffer-alist nil)
+          (add-to-list 'display-buffer-alist spacemacs-helm-display-buffer-regexp)
+          ;; this or any specialized case of Helm buffer must be added AFTER
+          ;; `spacemacs-helm-display-buffer-regexp'. Otherwise,
+          ;; `spacemacs-helm-display-buffer-regexp' will be used before
+          ;; `spacemacs-helm-display-help-buffer-regexp' and display
+          ;; configuration for normal Helm buffer is applied for helm help
+          ;; buffer, making the help buffer unable to be displayed.
+          (add-to-list 'display-buffer-alist spacemacs-helm-display-help-buffer-regexp)
           (popwin-mode -1)))
 
       (defun spacemacs//restore-previous-display-config ()
