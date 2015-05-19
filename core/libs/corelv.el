@@ -1,4 +1,4 @@
-;;; lv.el --- Other echo area
+;;; corelv.el --- Other echo area
 
 ;; Copyright (C) 2015  Free Software Foundation, Inc.
 
@@ -21,7 +21,7 @@
 
 ;;; Commentary:
 ;;
-;; This package provides `lv-message' intended to be used in place of
+;; This package provides `corelv-message' intended to be used in place of
 ;; `message' when semi-permanent hints are needed, in order to not
 ;; interfere with Echo Area.
 ;;
@@ -33,16 +33,16 @@
 
 ;;; Code:
 
-(defvar lv-wnd nil
+(defvar corelv-wnd nil
   "Holds the current LV window.")
 
-(defun lv-window ()
+(defun corelv-window ()
   "Ensure that LV window is live and return it."
-  (if (window-live-p lv-wnd)
-      lv-wnd
+  (if (window-live-p corelv-wnd)
+      corelv-wnd
     (let ((ori (selected-window))
           buf)
-      (prog1 (setq lv-wnd
+      (prog1 (setq corelv-wnd
                    (select-window
                     (split-window
                      (frame-root-window) -1 'below)))
@@ -52,17 +52,17 @@
           (setq truncate-lines nil)
           (setq mode-line-format nil)
           (setq cursor-type nil)
-          (set-window-dedicated-p lv-wnd t))
+          (set-window-dedicated-p corelv-wnd t))
         (select-window ori)))))
 
-(defun lv-message (format-string &rest args)
+(defun corelv-message (format-string &rest args)
   "Set LV window contents to (`format' FORMAT-STRING ARGS)."
   (let ((ori (selected-window))
         (str (apply #'format format-string args))
         (golden-ratio (when (boundp 'golden-ratio-mode) golden-ratio-mode))
         deactivate-mark)
     (when (bound-and-true-p golden-ratio-mode) (golden-ratio-mode -1))
-    (select-window (lv-window))
+    (select-window (corelv-window))
     (when golden-ratio (golden-ratio-mode))
     (unless (string= (buffer-string) str)
       (delete-region (point-min) (point-max))
@@ -71,6 +71,6 @@
     (goto-char (point-min)) (end-of-line)
     (select-window ori)))
 
-(provide 'lv)
+(provide 'corelv)
 
-;;; lv.el ends here
+;;; corelv.el ends here
