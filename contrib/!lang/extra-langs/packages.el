@@ -1,7 +1,6 @@
 (setq extra-langs-packages
   '(
     arduino-mode
-    idris-mode
     julia-mode
     matlab-mode
     nim-mode
@@ -14,9 +13,6 @@
 
 (defun extra-langs/init-arduino-mode ()
   (use-package arduino-mode :defer t))
-
-(defun extra-langs/init-idris-mode ()
-  (use-package idris-mode :defer t))
 
 (defun extra-langs/init-scad-mode ()
   (use-package scad-mode :defer t))
