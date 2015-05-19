@@ -19,6 +19,7 @@
     js2-mode
     js2-refactor
     json-mode
+    json-snatcher
     tern
     js-doc
     web-beautify
@@ -141,6 +142,14 @@
 (defun javascript/init-json-mode ()
   (use-package json-mode
     :defer t))
+
+(defun javascript/init-json-snatcher ()
+  (use-package json-snatcher
+    :defer t
+    :config
+    (evil-leader/set-key-for-mode 'json-mode
+      "msp" 'jsons-print-path)
+    ))
 
 (defun javascript/init-tern ()
   (use-package tern
