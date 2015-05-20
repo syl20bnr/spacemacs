@@ -976,7 +976,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (defun spacemacs/adaptive-evil-highlight-persist-face ()
         (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
                             :inherit 'region
-                            :background nil))
+                            :background nil
+                            :foreground nil))
       (spacemacs/adaptive-evil-highlight-persist-face))))
 
 (defun spacemacs/init-evil-surround ()
