@@ -20,6 +20,7 @@
 (require 'core-spacemacs-buffer)
 (require 'core-toggle)
 (require 'core-micro-state)
+(require 'core-use-package-ext)
 
 (defconst spacemacs-repository "spacemacs"
   "Name of the Spacemacs remote repository.")
@@ -121,6 +122,9 @@ initialization."
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-package 'bind-key t)
   (spacemacs/load-or-install-package 'use-package t)
+  ;; inject use-package hooks for easy customization of
+  ;; stock package configuration
+  (setq use-package-inject-hooks t)
   ;; evil and evil-leader must be installed at the beginning of the
   ;; boot sequence.
   ;; Use C-u as scroll-up (must be set before actually loading evil)
