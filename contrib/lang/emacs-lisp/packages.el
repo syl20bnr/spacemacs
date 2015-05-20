@@ -45,7 +45,6 @@
         :doc "[e] expand [c] collapse [n/N] next/previous [q] quit"
         :disable-evil-leader t
         :persistent t
-        :use-minibuffer t
         :evil-leader-for-mode (emacs-lisp-mode . "mdm")
         :bindings
         ("e" macrostep-expand)
