@@ -2594,16 +2594,16 @@ It is a string holding:
       (sp-pair "[" nil :post-handlers
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET"))))))
 
-
 (defun spacemacs/init-smooth-scrolling ()
-  ;; this is not a conventional package
-  ;; no require are needed for this package everything is auto-loaded
   (if dotspacemacs-smooth-scrolling
-      ;; enable smooth scrolling
-      (setq scroll-step 1
-            scroll-conservatively 10000
-            auto-window-vscroll nil
-            smooth-scroll-margin 5)
+      (use-package smooth-scrolling
+        :init
+        (setq smooth-scroll-margin 5
+              scroll-conservatively 101
+              scroll-preserve-screen-position t
+              auto-window-vscroll nil)
+        :config
+        (setq scroll-margin 5))
 
     ;; deactivate the defadvice's
     (ad-disable-advice 'previous-line 'after 'smooth-scroll-down)
