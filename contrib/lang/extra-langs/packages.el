@@ -16,7 +16,19 @@
   (use-package arduino-mode :defer t))
 
 (defun extra-langs/init-idris-mode ()
-  (use-package idris-mode :defer t))
+  (use-package idris-mode
+    :defer t
+    :config
+    (evil-leader/set-key-for-mode 'idris-mode
+      "mr" 'idris-load-file
+      "mt" 'idris-type-at-point
+      "md" 'idris-add-clause
+      "ml" 'idris-make-lemma
+      "mc" 'idris-case-split
+      "mw" 'idris-make-with-block
+      "mm" 'idris-add-missing
+      "mp" 'idris-proof-search
+      "mh" 'idris-docs-at-point)))
 
 (defun extra-langs/init-scad-mode ()
   (use-package scad-mode :defer t))
