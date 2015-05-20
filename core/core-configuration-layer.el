@@ -724,10 +724,10 @@ to select one."
 (defun configuration-layer//get-packages-dependencies ()
   "Returns a hash map where key is a dependency package symbol and value is
 a list of all packages which depend on it."
-  (let ((result (make-hash-table :size 256)))
+  (let ((result (make-hash-table :size 512)))
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
-             (deps (configuration-layer//get-package-dependencies pkg-sym)))
+             (deps (configuration-layer//get-package-dependencies-from-archive pkg-sym)))
         (dolist (dep deps)
           (let* ((dep-sym (car dep))
                  (value (ht-get result dep-sym)))
