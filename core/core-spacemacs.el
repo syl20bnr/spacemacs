@@ -124,7 +124,8 @@ initialization."
   (spacemacs/load-or-install-package 'use-package t)
   ;; inject use-package hooks for easy customization of
   ;; stock package configuration
-  (setq use-package-inject-hooks t)
+  ;; waiting for the fix to be merged upstream
+  ;; (setq use-package-inject-hooks t)
   ;; evil and evil-leader must be installed at the beginning of the
   ;; boot sequence.
   ;; Use C-u as scroll-up (must be set before actually loading evil)
