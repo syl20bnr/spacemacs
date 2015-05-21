@@ -71,6 +71,7 @@
     (progn
       (spacemacs//init-ocaml-opam)
       (evil-leader/set-key-for-mode 'tuareg-mode
+        "mga" 'tuareg-find-alternate-file
         "mcc" 'compile))
     :config
     (when (fboundp 'sp-local-pair)
