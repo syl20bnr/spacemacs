@@ -127,6 +127,7 @@ The prefix for going to something is `<SPC> m g`.
 ------------------|------------------------------------------------------------
 <kbd>m g a</kbd>  | go to alternate file (i.e. `.h <--> .cpp`)
 <kbd>m g g</kbd>  | go to things under point
+<kbd>m g G</kbd>  | go to things under point in other window
 <kbd>m g t</kbd>  | go to corresponding test file if any
 
 #### `insert state` buffers
