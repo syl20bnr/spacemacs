@@ -1,0 +1,15 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# contributor: Diego Berrocal (cestdiego 4t gm4il d0t com)
+# name: new-package
+# key: newp
+# binding: direct-keybinding
+# --
+(defun `(spacemacs/get-parent-dir)`/init-${2:package-name} ()
+  ${3:(use-package $2
+  ${4::defer t
+  }${5::init
+  ${;; This block executes before the package has been loaded}
+  }${:config
+  ${;; This block executes after the package has been loaded}
+  })})
+$0
