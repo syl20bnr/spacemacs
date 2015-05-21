@@ -288,7 +288,15 @@
       (push 'company-anaconda company-backends-python-mode))))
 
 (defun python/post-init-semantic ()
-  (semantic/enable-semantic-mode 'python-mode))
+  (semantic/enable-semantic-mode 'python-mode)
+  (defadvice semantic-python-get-system-include-path (around semantic-python-skip-error-advice activate)
+    "Don't cause error when Semantic cannot retrieve include
+paths for Python then prevent the buffer to be switched. This
+issue might be fixed in Emacs 25. Until then, we need it here to
+fix this issue."
+    (condition-case nil
+        ad-do-it
+      (error nil))))
 
 (defun python/post-init-stickyfunc-enhance ()
   (add-hook 'python-mode-hook 'spacemacs/lazy-load-stickyfunc-enhance))
