@@ -99,9 +99,6 @@
             - [Opening files with NeoTree](#opening-files-with-neotree)
             - [Other NeoTree key bindings](#other-neotree-key-bindings)
             - [NeoTree mode-line](#neotree-mode-line)
-        - [Shells](#shells)
-            - [Key bindings](#key-bindings)
-            - [Staying in insert state](#staying-in-insert-state)
         - [Bookmarks](#bookmarks)
         - [DocView mode](#docview-mode)
     - [Searching](#searching)
@@ -1628,24 +1625,6 @@ The mode-line has the following format `[x/y] d (D:a, F:b)` where:
 - `d` the name of the current directory
 - `a` the number of directories in the current directory
 - `b` the number of files in the current directory
-
-### Shells
-
-#### Key bindings
-
-Key Binding         |                 Description
---------------------|----------------------------------------------------------------
-<kbd>C-j</kbd>      | next item in history
-<kbd>C-k</kbd>      | previous item in history
-<kbd>SPC m h</kbd>  | browse history with `helm` (works in `eshell` and `shell`)
-
-#### Staying in insert state
-
-Navigating in shell buffers can be tricky because it is not possible to use the
-leader in `insert state`. Switching back and forth between normal and insert
-states can be tedious. The solution to this is to use <kbd>C-o</kbd> then use
-the leader key. <kbd>C-o</kbd> set the next key to be evaluated in
-`normal state`.
 
 ### Bookmarks
 
