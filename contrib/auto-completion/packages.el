@@ -193,8 +193,18 @@
       ;; use hippie-expand instead
       (setq yas-minor-mode-map (make-sparse-keymap))
 
+      ;; allow nested expansions
+      (setq yas-triggers-in-field t)
+
+      ;; this makes it easy to get out of a nested expansion
+      (define-key yas-minor-mode-map
+        (kbd "M-s-/") 'yas-next-field)
+
       ;; add key into candidate list
       (setq helm-yas-display-key-on-candidate t)
+      (setq spacemacs--snippets-dir
+            (concat (ht-get configuration-layer-paths 'auto-completion)
+                    "auto-completion"))
 
       (defun spacemacs/load-yasnippet ()
         (unless yas-global-mode
@@ -202,13 +212,19 @@
             (yas-global-mode 1)
             (let ((private-yas-dir (concat
                                     configuration-layer-private-directory
-                                    "snippets/")))
+                                    "snippets/"))
+                  (spacemacs-snippets-dir (expand-file-name
+                                           "snippets"
+                                           spacemacs--snippets-dir)))
               (setq yas-snippet-dirs
                     (append (list private-yas-dir)
                             (when (boundp 'yas-snippet-dirs)
-                              yas-snippet-dirs)))
+                              yas-snippet-dirs)
+                            spacemacs-snippets-dir
+                            ))
               (setq yas-wrap-around-region t))))
         (yas-minor-mode 1))
+
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                 markdown-mode-hook
                                                 org-mode-hook))
