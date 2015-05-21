@@ -257,6 +257,7 @@ a batch of packages.
 - Fix error when toggling auto-completion in some buffers
 *** Haskell
 - Add new `haskell-snippets` package (fixes error with required `haskell-yas`)
+- Fix missing quote in `haskell-indentation`
 *** Org
 - Org layer: exclude ox-gfm since it seems problematic for some users.
   package is used
