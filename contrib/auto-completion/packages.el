@@ -194,21 +194,20 @@
       (setq yas-minor-mode-map (make-sparse-keymap))
 
       (defun spacemacs/load-yasnippet ()
-        (if (not (boundp 'yas-minor-mode))
-            (progn
-              (yas-global-mode 1)
-              (let ((private-yas-dir (concat
-                                      configuration-layer-private-directory
-                                      "snippets/")))
-                (setq yas-snippet-dirs
-                      (append (list private-yas-dir)
-                              (when (boundp 'yas-snippet-dirs)
-                                yas-snippet-dirs)))
-                (setq yas-wrap-around-region t)))))
+        (unless yas-global-mode
+          (progn
+            (yas-global-mode 1)
+            (let ((private-yas-dir (concat
+                                    configuration-layer-private-directory
+                                    "snippets/")))
+              (setq yas-snippet-dirs
+                    (append (list private-yas-dir)
+                            (when (boundp 'yas-snippet-dirs)
+                              yas-snippet-dirs)))
+              (setq yas-wrap-around-region t)))))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                 markdown-mode-hook
                                                 org-mode-hook))
-
       (spacemacs|add-toggle yasnippet
                             :status yas-minor-mode
                             :on (yas-minor-mode)
@@ -221,7 +220,8 @@
         (setq yas-dont-activate t))
 
       (add-to-hooks 'spacemacs/force-yasnippet-off '(term-mode-hook
-                                                     shell-mode-hook)))
+                                                     shell-mode-hook
+                                                     eshell-mode-hook)))
     :config
     (progn
       (spacemacs|diminish yas-minor-mode " ⓨ" " y"))))
