@@ -24,6 +24,7 @@
      ;;      git-gutter-use-fringe t)
      ;; markdown
      ;; org
+     ;; shell
      ;; syntax-checking
      )
    ;; List of additional packages that will be installed wihout being
