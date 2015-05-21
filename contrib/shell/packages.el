@@ -100,6 +100,19 @@
       (make-shell-pop-command term shell-pop-term-shell)
       (make-shell-pop-command ansi-term shell-pop-term-shell)
 
+      (defun ansi-term-handle-close ()
+        "Close current term buffer when `exit' from term buffer."
+        (when (ignore-errors (get-buffer-process (current-buffer)))
+          (set-process-sentinel (get-buffer-process (current-buffer))
+                                (lambda (proc change)
+                                  (when (string-match "\\(finished\\|exited\\)" change)
+                                    (kill-buffer (process-buffer proc))
+                                    (delete-window))))))
+      (add-hook 'term-mode-hook 'ansi-term-handle-close)
+      (defun term-switch-dir-hook ()
+        (term-send-raw-string (concat "cd " default-directory "\n")))
+      (add-hook 'shell-pop-in-hook #'term-switch-dir-hook)
+
       (defun spacemacs/default-pop-shell ()
         "Open the default shell in a popup."
         (interactive)
@@ -108,8 +121,8 @@
         ";"   'spacemacs/default-pop-shell
         "ase" 'shell-pop-eshell
         "asi" 'shell-pop-shell
-        "ast" 'shell-pop-term
-        "asT" 'shell-pop-ansi-term))))
+        "ast" 'shell-pop-ansi-term
+        "asT" 'shell-pop-term))))
 
 (defun shell/init-term ()
   (defun term-send-tab ()
