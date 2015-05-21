@@ -14,6 +14,7 @@
 
 (when ruby-enable-ruby-on-rails-support
   (add-to-list 'ruby-packages 'haml-mode)
+  (add-to-list `ruby-packages `slim-mode)
   (add-to-list 'ruby-packages 'feature-mode)
   (add-to-list 'ruby-packages 'projectile-rails))
 
@@ -160,6 +161,9 @@
 (defun ruby/init-haml-mode ()
   (use-package haml-mode
     :defer t))
+
+ (defun ruby/init-slim-mode ()
+   (use-package slim-mode :defer t))
 
 (defun ruby/init-ruby-test-mode ()
   "Define keybindings for ruby test mode"
