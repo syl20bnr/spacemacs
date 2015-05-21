@@ -55,7 +55,7 @@
       (evil-leader/set-key-for-mode 'tuareg-mode
         "met" 'merlin-type-enclosing
         "mgg" 'merlin-locate
-        ;;"mhh" 'merlin-document
+        "mhh" 'merlin-document
         ))))
 
 (defun ocaml/init-ocp-indent ()

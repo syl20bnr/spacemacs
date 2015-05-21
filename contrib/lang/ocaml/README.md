@@ -55,6 +55,7 @@ opam install merlin utop ocp-indent
 ----------------------|--------------------------------------------------------
 <kbd>SPC m c c</kbd>  | Compile
 <kbd>SPC m e t</kbd>  | Highlight identifier under cursor and print its type
+<kbd>SPC m h h</kbd>  | Document the identifier under point
 
 ### REPL (utop)
 
