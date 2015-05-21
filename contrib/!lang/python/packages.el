@@ -257,7 +257,12 @@
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun python/post-init-company ()
-    (spacemacs|add-company-hook python-mode))
+    (spacemacs|add-company-hook python-mode)
+    (spacemacs|add-company-hook inferior-python-mode)
+    (push 'company-capf company-backends-inferior-python-mode)
+    (add-hook 'inferior-python-mode-hook (lambda ()
+                                           (setq-local company-minimum-prefix-length 0)
+                                           (setq-local company-idle-delay 0.5))))
 
   (defun python/init-company-anaconda ()
     (use-package company-anaconda
