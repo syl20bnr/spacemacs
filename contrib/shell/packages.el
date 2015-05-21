@@ -82,7 +82,8 @@
     (progn
       (setq shell-pop-window-position shell-default-position
             shell-pop-window-height   shell-default-height
-            shell-pop-term-shell      shell-default-term-shell)
+            shell-pop-term-shell      shell-default-term-shell
+            shell-pop-full-span t)
       (defmacro make-shell-pop-command (type &optional shell)
         (let* ((name (symbol-name type)))
           `(defun ,(intern (concat "shell-pop-" name)) (index)
