@@ -1162,10 +1162,26 @@ Example: (evil-map visual \"<\" \"<gv\")"
                       windmove-right
                       windmove-up
                       windmove-down
+                      evil-window-delete
+                      evil-window-split
+                      evil-window-vsplit
                       evil-window-left
                       evil-window-right
                       evil-window-up
                       evil-window-down
+                      evil-window-bottom-right
+                      evil-window-top-left
+                      evil-window-mru
+                      evil-window-next
+                      evil-window-prev
+                      evil-window-new
+                      evil-window-vnew
+                      evil-window-rotate-upwards
+                      evil-window-rotate-downwards
+                      evil-window-move-very-top
+                      evil-window-move-far-left
+                      evil-window-move-far-right
+                      evil-window-move-very-bottom
                       select-window-0
                       select-window-1
                       select-window-2
