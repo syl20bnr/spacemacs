@@ -12,7 +12,9 @@
 
 ;; Variables
 
-(defvar shell-default-shell 'eshell
+(defvar shell-default-shell (if (eq window-system 'w32)
+                                'eshell
+                              'ansi-term)
   "Default shell to use in Spacemacs. Possible values are `eshell', `shell',
 `term' and `ansi-term'.")
 
