@@ -2600,10 +2600,10 @@ It is a string holding:
   ;; no require are needed for this package everything is auto-loaded
   (if dotspacemacs-smooth-scrolling
       ;; enable smooth scrolling
-      (setq scroll-step 1
-            scroll-conservatively 10000
-            auto-window-vscroll nil
-            smooth-scroll-margin 5)
+      (setq scroll-margin 5
+            smooth-scroll-margin 5
+            scroll-conservatively 101
+            scroll-preserve-screen-position)
 
     ;; deactivate the defadvice's
     (ad-disable-advice 'previous-line 'after 'smooth-scroll-down)
