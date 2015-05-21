@@ -109,6 +109,7 @@ Since these modes have better Eldoc integration already.
 <kbd>SPC m g c</kbd>  | create a tag database
 <kbd>SPC m g f</kbd>  | jump to a file in tag database
 <kbd>SPC m g g</kbd>  | jump to a location based on context
+<kbd>SPC m g G</kbd>  | jump to a location based on context (open another window)
 <kbd>SPC m g d</kbd>  | find definitions
 <kbd>SPC m g i</kbd>  | present tags in current function only
 <kbd>SPC m g l</kbd>  | jump to definitions in file
