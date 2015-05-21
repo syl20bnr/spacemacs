@@ -73,14 +73,14 @@ To enable it, set the =ruby-enable-ruby-on-rails-support= var in your
 =~/.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/init ()
+(defun dotspacemacs/init ()
     (setq-default ruby-enable-ruby-on-rails-support t)
-  )
+    (setq-default ruby-enable-slim-mode t) ;; if non-nil then slim-mode will be included
+    (setq-default ruby-enable-haml-mode t) ;; if you want haml-mode just set to something non-nil (defaults is enabled)
+)
 #+END_SRC
 
-This will also add [[https://github.com/nex3/haml-mode][haml-mode]] (for templates written in [[http://haml.info][haml language]] and
-[[https://github.com/michaelklishin/cucumber.el][feature-mode]] for [[http://cukes.info][Cucumber]] support.
-
+Optionally, you may include support for [[https://github.com/nex3/haml-mode][haml-mode]] (for templates written in [[http://haml.info][haml language]] and/or optionally support for [[https://github.com/slim-template/emacs-slim][slim-mode]], which adds support for files written using the [[http://slim-lang.com][slim language]], as well as [[https://github.com/michaelklishin/cucumber.el][feature-mode]] for [[http://cukes.info][Cucumber]] support.
 * Key bindings
 
 ** Ruby (enh-ruby-mode, robe, inf-ruby)
