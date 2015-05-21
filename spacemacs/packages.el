@@ -2603,7 +2603,8 @@ It is a string holding:
       (setq scroll-margin 5
             smooth-scroll-margin 5
             scroll-conservatively 101
-            scroll-preserve-screen-position)
+            scroll-preserve-screen-position t
+            auto-window-vscroll nil)
 
     ;; deactivate the defadvice's
     (ad-disable-advice 'previous-line 'after 'smooth-scroll-down)
