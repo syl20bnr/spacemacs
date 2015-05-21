@@ -89,6 +89,9 @@ Key Binding          | Description
 <kbd>SPC a s e</kbd> | Open, close or go to an `eshell`
 <kbd>SPC a s i</kbd> | Open, close or go to a `shell`
 <kbd>SPC a s t</kbd> | Open, close or go to a `term`
+<kbd>SPC m h</kbd>   | browse history with `helm` (works in `eshell` and `shell`)
+<kbd>C-j</kbd>       | next item in history
+<kbd>C-k</kbd>       | previous item in history
 
 **Note** You can open multiple shells using a numerical prefix argument,
 for instance pressing <kbd>2 SPC ;</kbd> will a second default shell, the
