@@ -1,0 +1,12 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: micro-state
+# key: micro
+# binding: direct-keybinding
+# --
+(spacemacs|define-micro-state ${1:micro-state-name}
+    ${2::doc (spacemacs//$1-ms-documentation)}
+    ${3::use-minibuffer t}
+    ${4::evil-leader "${5:Leader-key}"}
+    :bindings
+    ${}
+    )
