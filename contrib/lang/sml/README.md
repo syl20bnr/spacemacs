@@ -34,7 +34,7 @@ To use this contribution add it to your `~/.spacemacs`
     Key Binding  |           Description
 -----------------|------------------------------------------------------------------------------------------
 <kbd>M-SPC</kbd> | Inserts a space and completes the form before the cursor.
-<kbd>|</kbd>     | Inserts a | and adds a double arrow or copies the function name. Generally just works.
+<kbd>\|</kbd>     | Inserts a \| and adds a double arrow or copies the function name. Generally just works.
 
 ### REPL
 
