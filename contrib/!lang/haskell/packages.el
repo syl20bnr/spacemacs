@@ -82,7 +82,9 @@
       ;; key bindings
       (defun spacemacs/haskell-process-do-type-on-prev-line ()
         (interactive)
-        (haskell-process-do-type 1))
+        (if haskell-enable-ghci-ng-support
+            (haskell-mode-show-type-at 1)
+          (haskell-process-do-type 1)))
 
       (evil-leader/set-key-for-mode 'haskell-mode
         "mgg"  'haskell-mode-jump-to-def-or-tag
@@ -153,7 +155,7 @@
 
         (evil-leader/set-key-for-mode 'haskell-mode
           "mu"   'haskell-mode-find-uses
-          "mht"   'haskell-mode-show-type-at
+          "mht"  'haskell-mode-show-type-at
           "mgg"  'haskell-mode-goto-loc))
 
       ;; Useful to have these keybindings for .cabal files, too.
