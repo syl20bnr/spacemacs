@@ -1,6 +1,7 @@
-;;; packages.el --- adoc layer packages file for Spacemacs
+;;; packages.el --- asciidoc layer packages File for Spacemacs
 ;;
-;; Copyright (c) 2015 Torben Hoffmann
+;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2015 Torben Hoffmann & Contributors
 ;;
 ;; Author: Torben Hoffmann <torben.lehoff@gmail.com>
 ;;
@@ -22,15 +23,15 @@ which require an initialization must be listed explicitly in the list.")
     (progn
       (evil-leader/set-key-for-mode 'adoc-mode
         ;; Element insertion
-        "mt1"    'tempo-template-adoc-title-1
-        "mt2"    'tempo-template-adoc-title-2
-        "mt3"    'tempo-template-adoc-title-3
-        "mt4"    'tempo-template-adoc-title-4
-        "mt5"    'tempo-template-adoc-title-5
+        "mh1"    'tempo-template-adoc-title-1
+        "mh2"    'tempo-template-adoc-title-2
+        "mh3"    'tempo-template-adoc-title-3
+        "mh4"    'tempo-template-adoc-title-4
+        "mh5"    'tempo-template-adoc-title-5
         "mtp"    'adoc-promote
         "mtd"    'adoc-denote
-        "mss"    'tempo-template-adoc-strong
-        "mse"    'tempo-template-adoc-emphasis
+        "mxb"    'tempo-template-adoc-strong
+        "mxi"    'tempo-template-adoc-emphasis
         ))
     )
   )

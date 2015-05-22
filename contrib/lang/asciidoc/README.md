@@ -33,14 +33,13 @@ To use this contribution add it to your `~/.spacemacs`
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
-<kbd>SPC m t 1<kbd>   | Insert title level 1
-<kbd>SPC m t 2<kbd>   | Insert title level 2
-<kbd>SPC m t 3<kbd>   | Insert title level 3
-<kbd>SPC m t 4<kbd>   | Insert title level 4
-<kbd>SPC m t 5<kbd>   | Insert title level 5
-<kbd>SPC m t 5<kbd>   | Insert title level 5
-<kbd>SPC m s s<kbd>   | Insert bold
-<kbd>SPC m s e<kbd>   | Insert italic
+<kbd>SPC m h 1<kbd>   | Insert title level 1
+<kbd>SPC m h 2<kbd>   | Insert title level 2
+<kbd>SPC m h 3<kbd>   | Insert title level 3
+<kbd>SPC m h 4<kbd>   | Insert title level 4
+<kbd>SPC m h 5<kbd>   | Insert title level 5
+<kbd>SPC m x b<kbd>   | Insert bold
+<kbd>SPC m x i<kbd>   | Insert italic
 
 
 
