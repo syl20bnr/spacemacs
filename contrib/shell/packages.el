@@ -100,6 +100,13 @@
       (make-shell-pop-command term shell-pop-term-shell)
       (make-shell-pop-command ansi-term shell-pop-term-shell)
 
+      (defun spacemacs//term-kill-buffer-hook ()
+        "Function that hook `kill-buffer-hook'."
+        (when (eq major-mode 'term-mode)
+          (when (term-check-proc (current-buffer))
+            (term-quit-subjob))))
+      (add-hook 'kill-buffer-hook 'spacemacs//term-kill-buffer-hook)
+
       (defun ansi-term-handle-close ()
         "Close current term buffer when `exit' from term buffer."
         (when (ignore-errors (get-buffer-process (current-buffer)))
@@ -109,6 +116,7 @@
                                     (kill-buffer (process-buffer proc))
                                     (delete-window))))))
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
+
       (defun term-switch-dir-hook ()
         (term-send-raw-string (concat "cd " default-directory "\n")))
       (add-hook 'shell-pop-in-hook #'term-switch-dir-hook)
