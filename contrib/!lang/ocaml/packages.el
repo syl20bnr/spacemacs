@@ -12,6 +12,7 @@
 
 (setq ocaml-packages
   '(
+   ;; auto-complete
     company
     flycheck
     flycheck-ocaml
@@ -20,6 +21,9 @@
     tuareg
     utop
     ))
+
+(defun ocaml/post-init-auto-complete ()
+  (spacemacs|enable-auto-complete merlin-mode))
 
 (defun ocaml/post-init-company ()
   (spacemacs|add-company-hook merlin-mode))
@@ -42,8 +46,7 @@
     :init
     (progn
       (add-hook 'tuareg-mode-hook 'merlin-mode)
-      ;; disable integration with auto-complete, we use flycheck
-      (set-default 'merlin-use-auto-complete-mode nil)
+      (set-default 'merlin-use-auto-complete-mode t)
       (push 'merlin-company-backend company-backends-merlin-mode)
       (evil-leader/set-key-for-mode 'tuareg-mode
         "met" 'merlin-type-enclosing
