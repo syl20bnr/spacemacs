@@ -244,7 +244,9 @@
   (use-package helm-pydoc
     :defer t
     :init
-    (evil-leader/set-key-for-mode 'python-mode "mhd" 'helm-pydoc)))
+    (evil-leader/set-key-for-mode 'python-mode "mhd" 'helm-pydoc)
+    (add-to-list 'helm-sources-using-default-as-input 'helm-pydoc--imported-source)
+    (add-to-list 'helm-sources-using-default-as-input 'helm-pydoc--installed-source)))
 
 (defun python/init-smartparens ()
   (defadvice python-indent-dedent-line-backspace
