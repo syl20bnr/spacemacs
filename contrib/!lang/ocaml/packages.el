@@ -50,11 +50,31 @@
     (progn
       (add-hook 'tuareg-mode-hook 'merlin-mode)
       (set-default 'merlin-use-auto-complete-mode t)
+      (setq merlin-completion-with-doc t)
       (push 'merlin-company-backend company-backends-merlin-mode)
       (evil-leader/set-key-for-mode 'tuareg-mode
-        "met" 'merlin-type-enclosing
-        "mgg" 'merlin-locate
-        ;;"mhh" 'merlin-document
+        "mcp" 'merlin-project-check
+        "mcr" 'merlin-refresh
+        "mcv" 'merlin-goto-project-file
+        "meC" 'merlin-error-check
+        "men" 'merlin-error-next
+        "meN" 'merlin-error-prev
+        "mgb" 'merlin-pop-stack
+        "mgg" #'(lambda ()
+                (interactive)
+                (let ((merlin-locate-in-new-window 'never))
+                  (merlin-locate)))
+        "mgG" #'(lambda ()
+                (interactive)
+                (let ((merlin-locate-in-new-window 'always))
+                  (merlin-locate)))
+        "mgl" 'merlin-locate-ident
+        "mgi" 'merlin-switch-to-ml
+        "mgI" 'merlin-switch-to-mli
+        "mhh" 'merlin-document
+        "mht" 'merlin-type-enclosing
+        "mhT" 'merlin-type-expr
+        "mrd" 'merlin-destruct
         ))))
 
 (defun ocaml/init-ocp-indent ()
@@ -70,6 +90,7 @@
     (progn
       (spacemacs//init-ocaml-opam)
       (evil-leader/set-key-for-mode 'tuareg-mode
+        "mga" 'tuareg-find-alternate-file
         "mcc" 'compile))
     :config
     (when (fboundp 'sp-local-pair)
