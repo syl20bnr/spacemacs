@@ -17,6 +17,9 @@
         shell
         shell-pop
         term
+        eshell
+        eshell-prompt-extras
+        esh-help
         ))
 
 (defun shell/post-init-helm ()
@@ -168,3 +171,75 @@
   (evil-define-key 'normal term-raw-map "p" 'term-paste)
   (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
   (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab))
+
+(defun shell/init-eshell ()
+  (use-package eshell
+    :config
+    (progn
+      (defalias 'e 'find-file-other-window)
+      (defalias 's 'eshell/magit)
+      (defalias 'd 'dired)
+      (setenv "PAGER" "cat")
+
+      (require 'em-smart)
+      (setq eshell-where-to-jump 'begin
+            eshell-review-quick-commands nil
+            eshell-smart-space-goes-to-end t)
+      (add-hook 'eshell-mode-hook 'eshell-smart-initialize)
+
+      (use-package esh-opt
+        :config
+        (progn
+          (use-package em-term)
+
+          (setq eshell-cmpl-cycle-completions nil
+                ;; auto truncate after 20k lines
+                eshell-buffer-maximum-lines 20000
+                ;; history size
+                eshell-history-size 350
+                ;; buffer shorthand -> echo foo > #'buffer
+                eshell-buffer-shorthand t
+                ;; my prompt is easy enough to see
+                eshell-highlight-prompt nil
+                ;; treat 'echo' like shell echo
+                eshell-plain-echo-behavior t)
+
+          ;; Visual commands
+          (setq eshell-visual-commands
+                (append '("ssh" "less" "top" "htop" "el" "elinks" "tmux")
+                        eshell-visual-commands))
+
+          ;; automatically truncate buffer after output
+          (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)))
+
+      (add-hook 'eshell-mode-hook
+                (lambda ()
+                  ;; turn off semantic-mode in eshell buffers
+                  (semantic-mode -1)
+                  (define-key eshell-mode-map (kbd "M-l")
+                    'helm-eshell-history)))
+
+      (defun eshell/magit ()
+        "Function to open magit-status for the current directory"
+        (interactive)
+        (magit-status default-directory)
+        nil))))
+
+(defun shell/init-eshell-prompt-extras ()
+  (use-package eshell
+    :config
+    (use-package esh-opt
+      :config
+      (use-package eshell-prompt-extras
+        :init
+        (setq eshell-highlight-prompt nil
+              eshell-prompt-function 'epe-theme-lambda)))))
+
+(defun shell/init-esh-help ()
+  (use-package eshell
+    :config
+    (use-package esh-help
+      :init
+      (progn
+        (setup-esh-help-eldoc)
+        (add-hook 'eshell-mode-hook 'eldoc-mode)))))
