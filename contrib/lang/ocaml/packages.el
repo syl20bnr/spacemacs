@@ -50,6 +50,7 @@
     (progn
       (add-hook 'tuareg-mode-hook 'merlin-mode)
       (set-default 'merlin-use-auto-complete-mode t)
+      (setq merlin-completion-with-doc t)
       (push 'merlin-company-backend company-backends-merlin-mode)
       (evil-leader/set-key-for-mode 'tuareg-mode
         "met" 'merlin-type-enclosing
