@@ -14,8 +14,8 @@
   '(
    ;; auto-complete
     company
-    flycheck
-    flycheck-ocaml
+   ;; flycheck
+   ;; flycheck-ocaml
     merlin
     ocp-indent
     tuareg
@@ -29,16 +29,19 @@
   (spacemacs|add-company-hook merlin-mode))
 
 (when (configuration-layer/layer-usedp 'syntax-checking)
+  (defun ocaml/post-init-flycheck ()
+    (add-hook 'merlin-mode-hook 'flycheck-mode))
   (defun ocaml/init-flycheck-ocaml ()
     (use-package flycheck-ocaml
       :if (configuration-layer/package-usedp 'flycheck)
       :defer t
       :init
       (progn
-        (add-to-hook 'merlin-mode-hook '(flycheck-mode
-                                         flycheck-ocaml-setup))
-        (eval-after-load 'merlin
-          (setq merlin-use-auto-complete-mode nil))))))
+        (with-eval-after-load 'merlin
+          (progn
+            (setq merlin-error-after-save nil)
+            (flycheck-ocaml-setup))
+          )))))
 
 (defun ocaml/init-merlin ()
   (use-package merlin
