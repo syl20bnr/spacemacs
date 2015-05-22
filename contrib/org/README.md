@@ -10,7 +10,6 @@
     - [Install](#install)
         - [Layer](#layer)
         - [Different bullets](#different-bullets)
-        - [Support Chinese](#support-chinese)
     - [Key bindings](#key-bindings)
         - [Org with evil-org-mode](#org-with-evil-org-mode)
         - [Pomodoro](#pomodoro)
@@ -47,13 +46,6 @@ You can tweak the bullets displayed in the org buffer in the function
 ```elisp
 (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
 ```
-
-### Support Chinese
-
-For supporting chinese, you need install some chinese fonts.
-For example, in debian or ubuntu, you can run `sudo apt-get install fonts-wqy-microhei fonts-wqy-zenhei` .
-
-To use it, you just need insert `#+LATEX_CLASS: article` in to the front of your article. 
 
 ## Key bindings
 
