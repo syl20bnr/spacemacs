@@ -98,6 +98,7 @@
     whitespace
     window-numbering
     winner
+    zygospore
     ))
 
 (setq spacemacs-excluded-packages '())
@@ -2826,3 +2827,13 @@ It is a string holding:
       (setq winner-boring-buffers
             (append winner-boring-buffers spacemacs/winner-boring-buffers))
       (winner-mode t))))
+
+(defun spacemacs/init-zygospore (args)
+  (use-package zygospore
+    :defer t
+    :init
+    (progn
+      ;; reservable delete-other-windows
+      (define-key global-map (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
+      (define-key evil-window-map (kbd "o") 'zygospore-toggle-delete-other-windows)
+      (define-key evil-window-map (kbd "C-o") 'zygospore-toggle-delete-other-windows))))
