@@ -966,10 +966,12 @@ Example: (evil-map visual \"<\" \"<gv\")"
     (progn
       (global-evil-search-highlight-persist)
       ;; (set-face-attribute )
-      (evil-leader/set-key "sc" 'evil-search-highlight-persist-remove-all)
+      (let ((highlight-remove-command (if (eq evil-search-module 'isearch)
+                                          'evil-search-highlight-persist-remove-all
+                                        'evil-ex-nohighlight)))
+        (evil-leader/set-key "sc" highlight-remove-command)
+        (evil-ex-define-cmd "nohlsearch" highlight-remove-command))
       (define-key evil-search-highlight-persist-map (kbd "C-x SPC") 'rectangle-mark-mode)
-      (evil-ex-define-cmd "nohlsearch"
-                          'evil-search-highlight-persist-remove-all)
       (defun spacemacs/adaptive-evil-highlight-persist-face ()
         (set-face-attribute 'evil-search-highlight-persist-highlight-face nil
                             :inherit 'region
