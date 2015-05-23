@@ -51,9 +51,9 @@ and ask your questions there. It will be a pleasure to help you to contribute!
 
 ## Submitting a configuration layer
 
-Contributed configuration layers are stored in the `contrib` folder. If the
-layer is about a programming language or script then it must be added to
-`contrib/lang` folder.
+Contributed configuration layers are stored in the `contrib` folder.
+The `contrib` folder also contains categories prefixed with `!` to put your
+layers in. For example a layer for a language would go in the `contrib/!lang` folder.
 
 It is recommended to join a `README.md` file with your layer:
 - ideally this file should document the packages of your layer as well as
