@@ -41,7 +41,7 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
         (buffer-read-only nil))
     (when banner
       (spacemacs-buffer/message (format "Banner: %s" banner))
-      (if (string-match "\\.png\\'" banner)
+      (if (string-match "\\.\\(png\\|svg\\)\\'" banner)
           (spacemacs-buffer//insert-image-banner banner)
         (insert-file-contents banner))
       (spacemacs-buffer//inject-version)
@@ -80,8 +80,12 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
    ((integerp dotspacemacs-startup-banner)
     (spacemacs-buffer//get-banner-path dotspacemacs-startup-banner))
    ((and dotspacemacs-startup-banner
-         (string-match "\\.png\\'" dotspacemacs-startup-banner))
-    (if (and (display-graphic-p) (image-type-available-p 'png))
+         (string-match "\\.\\(png\\|svg\\)\\'" dotspacemacs-startup-banner))
+    (if (and (display-graphic-p)
+             (or (and (string-match "\\.png\\'" dotspacemacs-startup-banner)
+                      (image-type-available-p 'png))
+                 (and (string-match "\\.svg\\'" dotspacemacs-startup-banner)
+                      (image-type-available-p 'svg))))
         (if (file-exists-p dotspacemacs-startup-banner)
             dotspacemacs-startup-banner
           (spacemacs-buffer/warning (format "could not find banner %s"
