@@ -41,7 +41,7 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
         (buffer-read-only nil))
     (when banner
       (spacemacs-buffer/message (format "Banner: %s" banner))
-      (if (string-match "\\.png\\'" banner)
+      (if (image-type-available-p (intern (file-name-extension banner)))
           (spacemacs-buffer//insert-image-banner banner)
         (insert-file-contents banner))
       (spacemacs-buffer//inject-version)
@@ -80,14 +80,14 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
    ((integerp dotspacemacs-startup-banner)
     (spacemacs-buffer//get-banner-path dotspacemacs-startup-banner))
    ((and dotspacemacs-startup-banner
-         (string-match "\\.png\\'" dotspacemacs-startup-banner))
-    (if (and (display-graphic-p) (image-type-available-p 'png))
-        (if (file-exists-p dotspacemacs-startup-banner)
-            dotspacemacs-startup-banner
-          (spacemacs-buffer/warning (format "could not find banner %s"
-                                            dotspacemacs-startup-banner))
-          (spacemacs-buffer//get-banner-path 1))
-      (spacemacs-buffer//get-banner-path 1)))))
+         (image-type-available-p (intern (file-name-extension
+                                          dotspacemacs-startup-banner))))
+    (if (file-exists-p dotspacemacs-startup-banner)
+        dotspacemacs-startup-banner
+      (spacemacs-buffer/warning (format "could not find banner %s"
+                                        dotspacemacs-startup-banner))
+      (spacemacs-buffer//get-banner-path 1)))
+   (t (spacemacs-buffer//get-banner-path 1))))
 
 (defun spacemacs-buffer//choose-random-text-banner (&optional all)
   "Return the full path of a banner chosen randomly.
