@@ -118,7 +118,7 @@
         (interactive)
         (call-interactively (intern (format "shell-pop-%S" shell-default-shell))))
       (evil-leader/set-key
-        ";"   'spacemacs/default-pop-shell
+        "'"   'spacemacs/default-pop-shell
         "ase" 'shell-pop-eshell
         "asi" 'shell-pop-shell
         "ast" 'shell-pop-ansi-term

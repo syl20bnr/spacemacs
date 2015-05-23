@@ -53,7 +53,7 @@ to the following variables:
 ```
 
 The default shell is quickly accessible via a the default shortcut key
-<kbd>SPC ;</kbd>.
+<kbd>SPC '</kbd>.
 
 ### Default shell position and height
 
@@ -85,7 +85,7 @@ Default value is `/bin/bash`.
 
 Key Binding          | Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC ;</kbd>     | Open, close or go to the default shell
+<kbd>SPC '</kbd>     | Open, close or go to the default shell
 <kbd>SPC a s e</kbd> | Open, close or go to an `eshell`
 <kbd>SPC a s i</kbd> | Open, close or go to a `shell`
 <kbd>SPC a s t</kbd> | Open, close or go to a `term`
