@@ -228,10 +228,23 @@
         "msR" 'python-shell-send-region-switch
         "msr" 'python-shell-send-region)
 
-      (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
-      (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input)
-      (define-key inferior-python-mode-map (kbd "C-l") 'comint-clear-buffer)
-      (define-key inferior-python-mode-map (kbd "C-r") 'comint-history-isearch-backward))))
+      ;; Emacs users won't need these key bindings
+      (when (eq dotspacemacs-editing-style 'vim)
+        ;; the default in Emacs is M-n
+        (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
+        ;; the default in Emacs is M-p and this key binding overrides default C-k
+        ;; which prevents Emacs users to kill line
+        (define-key inferior-python-mode-map (kbd "C-k") 'comint-previous-input)
+        ;; the default in Emacs is M-r; C-r to search backward old output
+        ;; and should not be changed
+        (define-key inferior-python-mode-map (kbd "C-r") 'comint-history-isearch-backward)
+        ;; this key binding is for recentering buffer in Emacs
+        ;; it would be troublesome if Emacs user
+        ;; Vim users can use this key since they have other key
+        (define-key inferior-python-mode-map (kbd "C-l") 'comint-clear-buffer))
+
+      ;; add this optional key binding for Emacs user, since it is unbound
+      (define-key inferior-python-mode-map (kbd "C-c M-l") 'comint-clear-buffer))))
 
 (defun python/post-init-flycheck ()
   (add-hook 'python-mode-hook 'flycheck-mode))
