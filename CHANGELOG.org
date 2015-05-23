@@ -253,6 +253,11 @@ a batch of packages.
   after a fresh install
 - Startup buffer: fix widget activation in `holy-mode` (thanks to tuhdo)
 - Startup buffer: Don't fontify the startup buffer when `rainbow-identifiers`
+*** Auto-completion
+- Fix error when toggling auto-completion in some buffers
+*** Haskell
+- Add new `haskell-snippets` package (fixes error with required `haskell-yas`)
+- Fix missing quote in `haskell-indentation`
 *** Org
 - Org layer: exclude ox-gfm since it seems problematic for some users.
   package is used
@@ -261,6 +266,7 @@ a batch of packages.
 *** Themes
 - Fix conflict between official Spacemacs solarized theme and
   `color-theme-solarized` declared in `themes-megapack` layer.
+- Add rules for all base16 themes (thanks to mkaito)
 *** Various Fixes
 - revert back `ag` as the default search tool instead of `pt`, `pt` can
   conflict with `pt` command line tool from TCL parser tools.
