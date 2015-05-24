@@ -22,7 +22,6 @@
 (setq spacemacs-post-extensions
   '(
     centered-cursor
-    emoji-cheat-sheet
     helm-spacemacs
     solarized-theme
     spray
@@ -74,10 +73,6 @@
                                       scroll-bar-toolkit-scroll
                                       evil-mouse-drag-region))))
       (spacemacs|diminish centered-cursor-mode " ⊝" " -"))))
-
-(defun spacemacs/init-emoji-cheat-sheet ()
-  (use-package emoji-cheat-sheet
-    :commands emoji-cheat-sheet))
 
 (defun spacemacs/init-holy-mode ()
   (use-package holy-mode
