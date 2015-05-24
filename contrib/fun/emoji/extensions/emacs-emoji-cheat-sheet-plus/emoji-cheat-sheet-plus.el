@@ -281,11 +281,9 @@
              (match-beginning 0) (1+ (match-beginning 0))
              `(invisible t emoji-cheat-sheet-plus-display t))
             (add-text-properties
-             (1+ (match-beginning 0)) (1- (match-end 0))
+             (1+ (match-beginning 0)) (match-end 0)
              `(display ,image emoji-cheat-sheet-plus-display t))
-            (add-text-properties
-             (1- (match-end 0)) (match-end 0)
-             `(invisible t emoji-cheat-sheet-plus-display t)))))
+            )))
       (set-buffer-modified-p modified))))
 
 (defun emoji-cheat-sheet-plus--undisplay-region (start end)
@@ -301,6 +299,7 @@
         (when (get-text-property point 'emoji-cheat-sheet-plus-display)
           (remove-list-of-text-properties
            point (point) '(emoji-cheat-sheet-plus-display display)))
+        (add-text-properties point (point) `(invisible nil))
         (setq point (point)))
       (set-buffer-modified-p modified))))
 
