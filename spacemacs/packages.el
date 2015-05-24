@@ -1592,8 +1592,7 @@ ARG non nil means that the editing style is `vim'."
                helm-projectile-find-file
                helm-projectile-grep
                helm-projectile
-               helm-projectile-switch-project
-               helm-projectile-vc)
+               helm-projectile-switch-project)
     :init
     (progn
       (setq projectile-switch-project-action 'helm-projectile)
@@ -1650,7 +1649,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "psg" 'helm-projectile-grep
         "psk" 'helm-projectile-ack
         "psp" 'helm-projectile-pt
-        "pv"  'helm-projectile-vc))))
+        "pv"  'projectile-vc))))
 
 (defun spacemacs/init-helm-swoop ()
   (use-package helm-swoop
