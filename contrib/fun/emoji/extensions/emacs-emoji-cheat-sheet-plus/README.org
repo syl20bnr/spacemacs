@@ -1,0 +1,21 @@
+** Introduction
+
+You can choose emojis (listed on http://www.emoji-cheat-sheet.com/) from emacs :open_mouth:
+
+Emoji image files are from [[https://github.com/arvida/emoji-cheat-sheet.com][arvida/emoji-cheat-sheet.com]] :honeybee:
+
+[[file:screenshot.png]]
+
+** Setup
+
+   Place emacs-emoji-cheat-sheet folder to arbitrary path :file_folder:
+
+#+BEGIN_SRC elisp
+(add-to-list 'load-path "/path/to/emacs-emoji-cheat-sheet")
+(require 'emoji-cheat-sheet)
+#+END_SRC
+
+** Usage
+
+M-x emoji-cheat-sheet :tired_face:
+Press `RET' on any emoji to copy its code to clipboard.
