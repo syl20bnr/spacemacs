@@ -22,8 +22,8 @@
     utop
     ))
 
-(defun ocaml/post-init-auto-complete ()
-  (spacemacs|enable-auto-complete merlin-mode))
+;;(defun ocaml/post-init-auto-complete ()
+;;  (spacemacs|enable-auto-complete merlin-mode))
 
 (defun ocaml/post-init-company ()
   (spacemacs|add-company-hook merlin-mode))
@@ -49,7 +49,8 @@
     :init
     (progn
       (add-hook 'tuareg-mode-hook 'merlin-mode)
-      (set-default 'merlin-use-auto-complete-mode t)
+;;      (set-default 'merlin-use-auto-complete-mode t)
+      (set-default 'merlin-use-auto-complete-mode nil)
       (setq merlin-completion-with-doc t)
       (push 'merlin-company-backend company-backends-merlin-mode)
       (evil-leader/set-key-for-mode 'tuareg-mode
