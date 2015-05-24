@@ -5,7 +5,7 @@
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
-- [Colors contribution layer for Spacemacs](#colors-contribution-layer-for-spacemacs)
+- [Emoji contribution layer for Spacemacs](#emoji-contribution-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
     - [Key bindings](#key-bindings)
