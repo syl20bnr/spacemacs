@@ -226,7 +226,8 @@
   "Insert selected emojis from helm source."
   (interactive)
   (emoji-cheat-sheet-plus--create-cache)
-  (helm :sources (emoji-cheat-sheet-plus--helm-source)))
+  (helm :sources (emoji-cheat-sheet-plus--helm-source)
+        :candidate-number-limit 1000))
 
 
 ;; Replace emoji codes in buffer with images
