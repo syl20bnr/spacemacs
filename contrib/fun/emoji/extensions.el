@@ -24,6 +24,13 @@
       (evilify emoji-cheat-sheet-plus-buffer-mode
                emoji-cheat-sheet-plus-buffer-mode-map
                "<RET>" 'emoji-cheat-sheet-plus-echo-and-copy)
-      (add-to-hooks 'emoji-cheat-sheet-plus-display-mode '(text-mode-hook
-                                                           markdown-mode
-                                                           org-mode-hook)))))
+      (defun spacemacs//delay-emoji-cheat-sheet-hook ()
+        "Work-around for org buffers."
+        ;; we need to wait for org buffer to be fully loaded before
+        ;; calling the emoji mode.
+        ;; If we directly call the emoji mode at hook runtime then some
+        ;; text properties are not applied correctly.
+        (run-at-time 0.1 nil 'emoji-cheat-sheet-plus-display-mode))
+      ;; note that text-mode-hook enable the emoji mode for org-mode as well
+      (add-hook 'text-mode-hook 'spacemacs//delay-emoji-cheat-sheet-hook)
+      (add-to-hooks 'emoji-cheat-sheet-plus-display-mode '(markdown-mode)))))

@@ -277,13 +277,13 @@
             ;; the `:' are made invisible
             ;; this allows to correctly render several contiguous
             ;; occurrences of the same emoji
-            (add-text-properties
-             (match-beginning 0) (1+ (match-beginning 0))
-             '(invisible t emoji-cheat-sheet-plus-display t))
-            (add-text-properties
-             (1+ (match-beginning 0)) (match-end 0)
-             `(display ,image emoji-cheat-sheet-plus-display t))
-            )))
+            (let ((inhibit-modification-hooks t))
+              (add-text-properties
+               (match-beginning 0) (1+ (match-beginning 0))
+               '(invisible t emoji-cheat-sheet-plus-display t))
+              (add-text-properties
+               (1+ (match-beginning 0)) (match-end 0)
+               `(display ,image emoji-cheat-sheet-plus-display t))))))
       (set-buffer-modified-p modified))))
 
 (defun emoji-cheat-sheet-plus--undisplay-region (start end)
