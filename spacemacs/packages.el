@@ -23,6 +23,7 @@
         bookmark
         buffer-move
         clean-aindent-mode
+        define-word
         desktop
         diminish
         doc-view
@@ -431,6 +432,13 @@
     (progn
       (setq desktop-dirname spacemacs-cache-directory)
       (push spacemacs-cache-directory desktop-path))))
+
+(defun spacemacs/init-define-word ()
+  (use-package define-word
+    :defer t
+    :init
+    (evil-leader/set-key
+      "xwd" 'define-word-at-point)))
 
 (defun spacemacs/init-diminish ()
   (require 'diminish)
