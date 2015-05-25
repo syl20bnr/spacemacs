@@ -54,7 +54,22 @@ opam install merlin utop ocp-indent
     Key Binding       |                 Description
 ----------------------|--------------------------------------------------------
 <kbd>SPC m c c</kbd>  | Compile
-<kbd>SPC m e t</kbd>  | Highlight identifier under cursor and print its type
+<kbd>SPC m c p</kbd>  | Check .merlin for errors
+<kbd>SPC m c r</kbd>  | Refresh changed .cmis in merlin
+<kbd>SPC m e C</kbd>  | Check for errors in current buffer
+<kbd>SPC m e n</kbd>  | Jump to next error
+<kbd>SPC m e N</kbd>  | Jump back to previous error
+<kbd>SPC m g a</kbd>  | Switch ML <-> MLI
+<kbd>SPC m g b</kbd>  | Go back to the last position where the user did a locate
+<kbd>SPC m g g</kbd>  | Locate the identifier under point (same window)
+<kbd>SPC m g G</kbd>  | Locate the identifier under point (different window)
+<kbd>SPC m g l</kbd>  | Prompt for identifier and locate
+<kbd>SPC m g i</kbd>  | Prompt for module name and switch to ML file
+<kbd>SPC m g I</kbd>  | Prompt for module name and switch to MLI file
+<kbd>SPC m h h</kbd>  | Document the identifier under point
+<kbd>SPC m h t</kbd>  | Highlight identifier under cursor and print its type
+<kbd>SPC m h T</kbd>  | Prompt for expression and show its type
+<kbd>SPC m r d</kbd>  | Case analyze the current enclosing
 
 ### REPL (utop)
 
