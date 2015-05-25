@@ -2286,6 +2286,7 @@ To search in a project see [project searching](#searching-in-a-project).
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
+<kbd>SPC /</kbd>     | search in project with the best search tool available
 <kbd>SPC p !</kbd>   | run shell command in root
 <kbd>SPC p &</kbd>   | run async shell command in root
 <kbd>SPC p $ t</kbd> | run multi-term shell in root
