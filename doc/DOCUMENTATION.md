@@ -2286,18 +2286,17 @@ To search in a project see [project searching](#searching-in-a-project).
 
     Key Binding      |                 Description
 ---------------------|------------------------------------------------------------
-<kbd>SPC p /</kbd>   | run `ag`
 <kbd>SPC p !</kbd>   | run shell command in root
 <kbd>SPC p &</kbd>   | run async shell command in root
 <kbd>SPC p $ t</kbd> | run multi-term shell in root
-<kbd>SPC p a</kbd>   | run `ag`
-<kbd>SPC p A</kbd>   | run `ack`
+<kbd>SPC p s a</kbd> | run `ag`
+<kbd>SPC p s k</kbd> | run `ack`
 <kbd>SPC p b</kbd>   | switch to project buffer
 <kbd>SPC p c</kbd>   | compile project using `projectile`
 <kbd>SPC p d</kbd>   | find directory
 <kbd>SPC p D</kbd>   | open project root in `dired`
 <kbd>SPC p f</kbd>   | find file
-<kbd>SPC p g</kbd>   | run `grep`
+<kbd>SPC p s g</kbd> | run `grep`
 <kbd>SPC p h</kbd>   | find file using `helm`
 <kbd>SPC p I</kbd>   | invalidate the projectile cache
 <kbd>SPC p k</kbd>   | kill all project buffers
