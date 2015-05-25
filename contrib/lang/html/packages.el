@@ -20,6 +20,7 @@
     flycheck
     helm-css-scss
     less-css-mode
+    rainbow-delimiters
     scss-mode
     sass-mode
     tagedit
@@ -203,3 +204,9 @@
 
   (defun html/init-company-web ()
     (use-package company-web)))
+
+(defun html/init-rainbow-delimiters ()
+  (when (configuration-layer/package-usedp 'less-css-mode)
+    (add-hook 'less-css-mode-hook 'rainbow-delimiters-mode))
+  (when (configuration-layer/package-usedp 'scss-mode)
+    (add-hook 'scss-mode-hook 'rainbow-delimiters-mode)))
