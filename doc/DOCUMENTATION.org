@@ -1853,6 +1853,7 @@ Text related commands (start with ~x~):
     | ~SPC x t l~ | swap (transpose) the current line with the previous one       |
     | ~SPC x w c~ | count the number of words in the selection region             |
     | ~SPC x w C~ | count the number of occurrences per word in the select region |
+    | ~SPC x w d~ | show dictionary entry of word from wordnik.com                |
 
 *** Smartparens Strict mode
 [[https://github.com/Fuco1/smartparens][Smartparens]] comes with a strict mode which prevents deletion of parenthesis if
