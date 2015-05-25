@@ -1302,6 +1302,24 @@ Example: (evil-map visual \"<\" \"<gv\")"
 (defun spacemacs/init-helm ()
   (use-package helm
     :defer t
+    :commands spacemacs/helm-find-files
+    :config
+    (progn
+      (defun spacemacs/helm-find-files (arg)
+        "Custom spacemacs implementation for calling helm-find-files-1.
+
+Removes the automatic guessing of the initial value based on thing at point. "
+        (interactive "P")
+        (let* ((hist          (and arg helm-ff-history (helm-find-files-history)))
+                (default-input hist )
+                (input         (cond ((and (eq major-mode 'dired-mode) default-input)
+                                    (file-name-directory default-input))
+                                    ((and (not (string= default-input ""))
+                                            default-input))
+                                    (t (expand-file-name (helm-current-directory))))))
+            (set-text-properties 0 (length input) nil input)
+            (helm-find-files-1 input )))
+      )
     :init
     (progn
       (setq helm-prevent-escaping-from-minibuffer t
@@ -1381,7 +1399,8 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "<f1>" 'helm-apropos
         "bb"  'helm-mini
         "Cl"  'helm-colors
-        "ff"  'helm-find-files
+        "ff"  'spacemacs/helm-find-files
+        "fF"  'helm-find-files
         "fr"  'helm-recentf
         "hb"  'helm-pp-bookmarks
         "hi"  'helm-info-at-point
