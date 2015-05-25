@@ -137,10 +137,6 @@
                                     (delete-window))))))
       (add-hook 'term-mode-hook 'ansi-term-handle-close)
 
-      (defun term-switch-dir-hook ()
-        (term-send-raw-string (concat "cd " default-directory "\n")))
-      (add-hook 'shell-pop-in-hook #'term-switch-dir-hook)
-
       (defun spacemacs/default-pop-shell ()
         "Open the default shell in a popup."
         (interactive)
