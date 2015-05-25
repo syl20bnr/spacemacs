@@ -200,6 +200,8 @@ guide and consult the [FAQ](#faq).
 If you are using Ubuntu and Unity then you can add the Spacemacs logo by
 following the instructions [here][cpaulik-unity-icon].
 
+There is a Windows icon file located in `~/.emacs.d/assets/`.
+
 # Update
 
 Spacemacs currently requires manual updates using the following procedure:
