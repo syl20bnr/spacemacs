@@ -1297,7 +1297,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
             helm-lisp-fuzzy-completion t
             helm-locate-fuzzy-match t
             helm-recentf-fuzzy-match t
-            helm-semantic-fuzzy-match t)
+            helm-semantic-fuzzy-match t
+            helm-buffers-fuzzy-matching t)
 
       (defun spacemacs/helm-find-files-navigate-back (orig-fun &rest args)
         )
