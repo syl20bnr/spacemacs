@@ -269,7 +269,7 @@
     (goto-char start)
     (let ((inhibit-read-only t)
           (modified (buffer-modified-p)))
-      (while (re-search-forward "\:.+?\:" end t)
+      (while (re-search-forward "\:[a-z0-9\\+_-]+?\:" end t)
         (let* ((code (intern (match-string 0)))
                (image (cdr (assq code emoji-cheat-sheet-plus-image--cache))))
           (when image
@@ -279,7 +279,7 @@
             ;; occurrences of the same emoji
             (add-text-properties
              (match-beginning 0) (1+ (match-beginning 0))
-             `(invisible t emoji-cheat-sheet-plus-display t))
+             '(invisible t emoji-cheat-sheet-plus-display t))
             (add-text-properties
              (1+ (match-beginning 0)) (match-end 0)
              `(display ,image emoji-cheat-sheet-plus-display t))
