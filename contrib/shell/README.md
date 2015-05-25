@@ -46,6 +46,7 @@ to the following variables:
 - `shell`
 - `term`
 - `ansi-term`
+- `multi-term`
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers
@@ -88,7 +89,9 @@ Key Binding          | Description
 <kbd>SPC '</kbd>     | Open, close or go to the default shell
 <kbd>SPC a s e</kbd> | Open, close or go to an `eshell`
 <kbd>SPC a s i</kbd> | Open, close or go to a `shell`
-<kbd>SPC a s t</kbd> | Open, close or go to a `term`
+<kbd>SPC a s m</kbd> | Open, close or go to a `multi-term`
+<kbd>SPC a s t</kbd> | Open, close or go to a `ansi-term`
+<kbd>SPC a s T</kbd> | Open, close or go to a `term`
 <kbd>SPC m h</kbd>   | browse history with `helm` (works in `eshell` and `shell`)
 <kbd>C-j</kbd>       | next item in history
 <kbd>C-k</kbd>       | previous item in history
