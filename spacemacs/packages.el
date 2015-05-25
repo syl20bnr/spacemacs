@@ -2567,9 +2567,6 @@ It is a string holding:
                             :documentation "Enable smartparens globally."
                             :evil-leader "t C-p")
 
-      ;; don't create a pair with single quote in minibuffer
-      (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
-
       (setq sp-show-pair-delay 0
             sp-show-pair-from-inside t ; fix paren highlighting in normal mode
             sp-cancel-autoskip-on-backward-movement nil))
@@ -2588,6 +2585,9 @@ It is a string holding:
       (defun spacemacs/smartparens-pair-newline-and-indent (id action context)
         (spacemacs/smartparens-pair-newline id action context)
         (indent-according-to-mode))
+
+      ;; don't create a pair with single quote in minibuffer
+      (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
 
       (sp-pair "{" nil :post-handlers
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET")))
