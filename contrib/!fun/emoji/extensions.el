@@ -15,7 +15,7 @@
 (defun emoji/init-emacs-emoji-cheat-sheet-plus ()
   (use-package emoji-cheat-sheet-plus
     :commands (emoji-cheat-sheet-plus-insert
-               emoji-cheat-sheet-plus-buffer-mode
+               emoji-cheat-sheet-plus-buffer
                emoji-cheat-sheet-plus-display-mode)
     :init
     (progn
