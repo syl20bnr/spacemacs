@@ -156,6 +156,9 @@
           "mht"   'haskell-mode-show-type-at
           "mgg"  'haskell-mode-goto-loc))
 
+      (when haskell-enable-haskell-process-log
+            (setq haskell-process-log t))
+
       ;; Useful to have these keybindings for .cabal files, too.
       (eval-after-load 'haskell-cabal-mode-map
         '(define-key haskell-cabal-mode-map
