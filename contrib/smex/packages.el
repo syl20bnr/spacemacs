@@ -24,13 +24,13 @@
       (defun spacemacs/smex ()
         "Execute smex with a better prompt."
         (interactive)
-        (let ((smex-prompt-string "Emacs commands:"))
+        (let ((smex-prompt-string "Emacs commands: "))
           (smex)))
 
       (defun spacemacs/smex-major-mode-commands ()
         "Reexecute smex with major mode commands only."
         (interactive)
-        (let ((smex-prompt-string (format "%s commands:" major-mode)))
+        (let ((smex-prompt-string (format "%s commands: " major-mode)))
           (smex-major-mode-commands)))
 
       ;; define the key binding at the very end in order to allow the user
