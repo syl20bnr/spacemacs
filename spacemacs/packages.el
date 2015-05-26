@@ -2123,15 +2123,15 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (setq popwin:special-display-config nil)
 
       ;; buffers that we manage
-      (push '("*Help*"                 :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
-      (push '("*compilation*"          :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
-      (push '("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
-      (push '("*Async Shell Command*"  :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
-      (push '(" *undo-tree*"           :dedicated t :position bottom :stick t :noselect t :height 0.4) popwin:special-display-config)
-      (push '("*ert*"                  :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
-      (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
-      (push '("*nosetests*"            :dedicated t :position bottom :stick t :noselect t            ) popwin:special-display-config)
-      (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                 ) popwin:special-display-config)
+      (push '("*Help*"                 :dedicated t :position bottom :stick t :noselect nil :height 0.4) popwin:special-display-config)
+      (push '("*compilation*"          :dedicated t :position bottom :stick t :noselect nil :height 0.4) popwin:special-display-config)
+      (push '("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("*Async Shell Command*"  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '(" *undo-tree*"           :dedicated t :position bottom :stick t :noselect nil :height 0.4) popwin:special-display-config)
+      (push '("*ert*"                  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("*nosetests*"            :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
+      (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                   ) popwin:special-display-config)
 
       (defun spacemacs/remove-popwin-display-config (str)
         "Removes the popwin display configurations that matches the passed STR"
