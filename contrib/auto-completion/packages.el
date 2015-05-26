@@ -204,7 +204,8 @@
                     (append (list private-yas-dir)
                             (when (boundp 'yas-snippet-dirs)
                               yas-snippet-dirs)))
-              (setq yas-wrap-around-region t)))))
+              (setq yas-wrap-around-region t))))
+        (yas-minor-mode 1))
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                 markdown-mode-hook
                                                 org-mode-hook))
