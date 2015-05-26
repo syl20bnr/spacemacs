@@ -902,9 +902,11 @@ Example: (evil-map visual \"<\" \"<gv\")"
                   'spacemacs/activate-major-mode-leader)))))
 
 (defun spacemacs/init-evil-lisp-state ()
-  (setq evil-lisp-state-global t)
-  (setq evil-lisp-state-leader-prefix "k")
-  (require 'evil-lisp-state))
+  (use-package evil-lisp-state
+    :init
+    (progn
+      (setq evil-lisp-state-global t)
+      (setq evil-lisp-state-leader-prefix "k"))))
 
 (defun spacemacs/init-evil-nerd-commenter ()
   (use-package evil-nerd-commenter
