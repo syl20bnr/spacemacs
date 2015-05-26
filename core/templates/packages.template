@@ -12,13 +12,13 @@
 
 ;; List of all packages to install and/or initialize. Built-in packages
 ;; which require an initialization must be listed explicitly in the list.
-(defvar NAME-packages
-  '(
-    ;; package names go here
-    ))
+(setq NAME-packages
+    '(
+      ;; package names go here
+      ))
 
 ;; List of packages to exclude.
-(defvar NAME-excluded-packages '())
+(setq NAME-excluded-packages '())
 
 ;; For each package, define a function NAME/init-<package-name>
 ;;

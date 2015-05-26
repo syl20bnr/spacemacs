@@ -11,14 +11,14 @@
 ;;; License: GPLv3
 
 (setq NAME-pre-extensions
-  '(
-    ;; pre extension names go here
-    ))
+      '(
+        ;; pre extension names go here
+        ))
 
 (setq NAME-post-extensions
-  '(
-    ;; post extension names go here
-    ))
+      '(
+        ;; post extension names go here
+        ))
 
 ;; For each extension, define a function NAME/init-<extension-name>
 ;;
