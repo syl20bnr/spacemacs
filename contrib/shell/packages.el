@@ -145,7 +145,7 @@
                        shell-default-shell)))
           (call-interactively (intern (format "shell-pop-%S" shell)))))
       (evil-leader/set-key
-        "'"   'spacemacs/default-pop-shell
+        "`"   'spacemacs/default-pop-shell
         "ase" 'shell-pop-eshell
         "asi" 'shell-pop-shell
         "asm" 'shell-pop-multiterm
