@@ -66,7 +66,7 @@
 
       (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab)))))
 
-(defun spacemacs/init-shell ()
+(defun shell/init-shell ()
   (defun shell-comint-input-sender-hook ()
     "Check certain shell commands.
  Executes the appropriate behavior for certain commands."
@@ -90,11 +90,16 @@
     (interactive)
     (let ((inhibit-read-only t))
       (erase-buffer)))
-  (defun setup-comint-keybindings ()
+  (defun setup-keys-for-comint-mode ()
     (progn
-      (define-key comint-mode-map (kbd "C-k") 'comint-previous-input)
-      (define-key comint-mode-map (kbd "C-j") 'comint-next-input)))
-  (add-hook 'comint-mode-hook 'setup-comint-keybindings)
+      (evil-define-key 'insert comint-mode-map
+        (kbd "C-k") 'comint-previous-input
+        (kbd "C-j") 'comint-next-input)
+      (evil-define-key 'normal comint-mode-map
+        (kbd "C-k") 'comint-previous-input
+        (kbd "C-j") 'comint-next-input)
+      ))
+  (add-hook 'comint-mode-hook 'setup-keys-for-comint-mode)
   (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
   (add-hook 'eshell-mode-hook (lambda ()
                                 (setq pcomplete-cycle-completions nil))))
