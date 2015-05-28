@@ -1291,23 +1291,13 @@ Removes the automatic guessing of the initial value based on thing at point. "
         (interactive "P")
         (let* ((hist          (and arg helm-ff-history (helm-find-files-history)))
                 (default-input hist )
-                (input         (cond ((and (eq major-mode 'org-agenda-mode)
-                                            org-directory
-                                            (not default-input))
-                                    (expand-file-name org-directory))
-                                    ((and (eq major-mode 'dired-mode) default-input)
+                (input         (cond ((and (eq major-mode 'dired-mode) default-input)
                                     (file-name-directory default-input))
                                     ((and (not (string= default-input ""))
                                             default-input))
-                                    (t (expand-file-name (helm-current-directory)))))
-                (presel        (helm-aif (or hist
-                                            (buffer-file-name (current-buffer))
-                                            (and (eq major-mode 'dired-mode)
-                                                default-input))
-                                    (if helm-ff-transformer-show-only-basename
-                                        (helm-basename it) it))))
+                                    (t (expand-file-name (helm-current-directory))))))
             (set-text-properties 0 (length input) nil input)
-            (helm-find-files-1 input (and presel (concat "^" (regexp-quote presel))))))
+            (helm-find-files-1 input )))
       )
     :init
     (progn
@@ -1389,6 +1379,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "bb"  'helm-mini
         "Cl"  'helm-colors
         "ff"  'spacemacs/helm-find-files
+        "fF"  'helm-find-files
         "fr"  'helm-recentf
         "hb"  'helm-pp-bookmarks
         "hi"  'helm-info-at-point
