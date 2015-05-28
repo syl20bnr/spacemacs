@@ -16,6 +16,7 @@
     company
     elixir-mode
     flycheck
+    popwin
     ruby-end
     ))
 
@@ -91,6 +92,11 @@
 
 (defun elixir/post-init-flycheck ()
   (add-hook 'elixir-mode-hook 'flycheck-mode))
+
+(defun elixir/post-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("*mix*" :tail t :noselect t) popwin:special-display-config)))
 
 (defun elixir/init-ruby-end ()
   (use-package ruby-end
