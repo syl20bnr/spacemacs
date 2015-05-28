@@ -55,6 +55,7 @@ which require an initialization must be listed explicitly in the list.")
       (eval-after-load 'org-indent
         '(spacemacs|hide-lighter org-indent-mode))
       (add-hook 'org-mode-hook 'org-indent-mode)
+      (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
 
       (evil-leader/set-key-for-mode 'org-mode
         "mc" 'org-capture
@@ -73,12 +74,7 @@ which require an initialization must be listed explicitly in the list.")
            (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
            (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)
            (define-key org-agenda-mode-map
-             (kbd "SPC") evil-leader--default-map))))
-    :config
-    (progn
-      (require 'org-indent)
-      (define-key global-map "\C-cl" 'org-store-link)
-      (define-key global-map "\C-ca" 'org-agenda))))
+             (kbd "SPC") evil-leader--default-map))))))
 
 (defun org/init-org-bullets ()
   (use-package org-bullets
