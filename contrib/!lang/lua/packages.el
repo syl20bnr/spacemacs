@@ -1,5 +1,6 @@
 (setq lua-packages
   '(
+    company
     flycheck
     lua-mode
     ))
@@ -21,3 +22,6 @@
       (evil-leader/set-key-for-mode 'lua-mode "msf" 'lua-send-defun)
       (evil-leader/set-key-for-mode 'lua-mode "msl" 'lua-send-current-line)
       (evil-leader/set-key-for-mode 'lua-mode "msr" 'lua-send-region))))
+
+(defun lua/post-init-company ()
+  (add-hook 'lua-mode-hook 'company-mode))
