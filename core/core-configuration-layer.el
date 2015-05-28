@@ -119,26 +119,30 @@ sub-directory of the contribution directory.")
   (when dotspacemacs-delete-orphan-packages
     (configuration-layer/delete-orphan-packages)))
 
-(defun configuration-layer//create-layer-source ()
-  "return a source for helm selection of layer directory"
-  `((name . "Current Configuration Layer Paths")
-    (candidates . ,(append (mapcar (lambda (dir) (expand-file-name dir))
-                                   (cl-pushnew configuration-layer-private-directory
-                                               dotspacemacs-configuration-layer-path))
-                           (list "*Create new layer path*")))
-    (action . (lambda (candidate) candidate))))
-
 (defun configuration-layer/create-layer ()
   "Ask the user for a configuration layer name and the layer
 directory to use. Create a layer with this name in the selected
 layer directory."
   (interactive)
-  (let* ((layer-path-sel (helm
-                          :sources (list (configuration-layer//create-layer-source))
-                          :prompt "Configuration Layer Path: "))
-         (layer-path (if (not (file-exists-p layer-path-sel))
-                         (read-file-name "New layer path (new or existing directory): " "~/" )
-                       layer-path-sel))
+  (let* ((current-layer-paths (mapcar (lambda (dir) (expand-file-name dir))
+                                      (cl-pushnew
+                               configuration-layer-private-directory
+                               dotspacemacs-configuration-layer-path)))
+         (other-choice "Another directory...")
+         (helm-lp-source
+          `((name . "Configuration Layer Paths")
+            (candidates . ,(append current-layer-paths
+                                   (list other-choice)))
+            (action . (lambda (c) c))))
+         (layer-path-sel (helm :sources helm-lp-source
+                               :prompt "Configuration layer path: "))
+         (layer-path (cond
+                      ((string-equal layer-path-sel other-choice)
+                       (read-directory-name "Other configuration layer path: " "~/" ))
+                      ((member layer-path-sel current-layer-paths)
+                       layer-path-sel)
+                      (t
+                       (error "Please select an option from the list"))))
          (name (read-from-minibuffer "Configuration layer name: " ))
          (layer-dir (concat layer-path "/" name)))
     (cond
@@ -151,8 +155,7 @@ layer directory."
       (make-directory layer-dir t)
       (configuration-layer//copy-template "extensions" layer-dir)
       (configuration-layer//copy-template "packages" layer-dir)
-      (message "Configuration layer \"%s\" successfully created." name))
-     )))
+      (message "Configuration layer \"%s\" successfully created." name)))))
 
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path the the private configuration layer with name
