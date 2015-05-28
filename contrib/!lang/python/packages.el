@@ -229,6 +229,9 @@
         "msr" 'python-shell-send-region)
 
       ;; Emacs users won't need these key bindings
+      ;; TODO: make these key bindings dynamic given the current style
+      ;; Doing it only at init time won't update it if the user switches style
+      ;; Also find a way to generalize these bindings.
       (when (eq dotspacemacs-editing-style 'vim)
         ;; the default in Emacs is M-n
         (define-key inferior-python-mode-map (kbd "C-j") 'comint-next-input)
