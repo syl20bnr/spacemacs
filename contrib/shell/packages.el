@@ -90,6 +90,11 @@
     (interactive)
     (let ((inhibit-read-only t))
       (erase-buffer)))
+  (defun setup-comint-keybindings ()
+    (progn
+      (define-key comint-mode-map (kbd "C-k") 'comint-previous-input)
+      (define-key comint-mode-map (kbd "C-j") 'comint-next-input)))
+  (add-hook 'comint-mode-hook 'setup-comint-keybindings)
   (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
   (add-hook 'eshell-mode-hook (lambda ()
                                 (setq pcomplete-cycle-completions nil))))
