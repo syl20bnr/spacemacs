@@ -1,11 +1,13 @@
 (setq lua-packages
   '(
+    company
     flycheck
     lua-mode
     ))
 
 (defun lua/post-init-flycheck ()
-  (add-hook 'lua-mode-hook 'flycheck-mode))
+  (add-hook 'lua-mode-hook 'flycheck-mode)
+  (add-hook 'lua-mode-hook 'company-mode))
 
 (defun lua/init-lua-mode ()
   (use-package lua-mode
