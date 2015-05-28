@@ -258,10 +258,11 @@ the current state and point position."
 (defun toggle-maximize-buffer ()
   "Maximize buffer"
   (interactive)
-  (if (= 1 (length (window-list)))
+  (if (and (= 1 (length (window-list)))
+           (assoc'_ register-alist))
       (jump-to-register '_)
     (progn
-      (set-register '_ (list (current-window-configuration)))
+      (window-configuration-to-register '_)
       (delete-other-windows))))
 
 (defun toggle-maximize-centered-buffer ()
