@@ -17,8 +17,6 @@
 
 ;; improve delete-other-windows
 (define-key global-map (kbd "C-x 1") 'toggle-maximize-buffer)
-(define-key evil-window-map (kbd "o") 'toggle-maximize-buffer)
-(define-key evil-window-map (kbd "C-o") 'toggle-maximize-buffer)
 
 ;; alternate binding to search next occurrence with isearch without
 ;; exiting isearch
