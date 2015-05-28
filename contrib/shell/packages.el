@@ -90,16 +90,18 @@
     (interactive)
     (let ((inhibit-read-only t))
       (erase-buffer)))
-  (defun setup-keys-for-comint-mode ()
-    (progn
-      (evil-define-key 'insert comint-mode-map
-        (kbd "C-k") 'comint-previous-input
-        (kbd "C-j") 'comint-next-input)
-      (evil-define-key 'normal comint-mode-map
-        (kbd "C-k") 'comint-previous-input
-        (kbd "C-j") 'comint-next-input)
-      ))
-  (add-hook 'comint-mode-hook 'setup-keys-for-comint-mode)
+  (when (eq dotspacemacs-editing-style 'vim)
+        (defun setup-keys-for-comint-mode ()
+          (progn
+            (evil-define-key 'insert comint-mode-map
+              (kbd "C-k") 'comint-previous-input
+              (kbd "C-j") 'comint-next-input)
+            (evil-define-key 'normal comint-mode-map
+              (kbd "C-k") 'comint-previous-input
+              (kbd "C-j") 'comint-next-input)
+            ))
+        (add-hook 'comint-mode-hook 'setup-keys-for-comint-mode)
+      )
   (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
   (add-hook 'eshell-mode-hook (lambda ()
                                 (setq pcomplete-cycle-completions nil))))
