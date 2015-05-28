@@ -651,6 +651,9 @@
       (define-key evil-motion-state-map (kbd dotspacemacs-command-key) 'evil-ex)
       ;; Make the current definition and/or comment visible.
       (define-key evil-normal-state-map "zf" 'reposition-window)
+      ;; toggle maximize buffer
+      (define-key evil-window-map (kbd "o") 'toggle-maximize-buffer)
+      (define-key evil-window-map (kbd "C-o") 'toggle-maximize-buffer)
 
       (evil-leader/set-key "re" 'evil-show-registers)
 
