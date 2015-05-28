@@ -12,6 +12,7 @@
 ;; Variables
 
 (spacemacs|defvar-company-backends haskell-mode)
+(spacemacs|defvar-company-backends haskell-cabal-mode)
 
 (defvar haskell-enable-ghci-ng-support nil
   "If non-nil ghci-ng support is enabled")

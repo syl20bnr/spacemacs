@@ -15,6 +15,7 @@
     cmm-mode
     company
     company-ghc
+    company-cabal
     flycheck
     flycheck-haskell
     ghc
@@ -248,7 +249,8 @@
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun haskell/post-init-company ()
-    (spacemacs|add-company-hook haskell-mode))
+    (spacemacs|add-company-hook haskell-mode)
+    (spacemacs|add-company-hook haskell-cabal-mode))
 
   (defun haskell/init-company-ghc ()
     (use-package company-ghc
@@ -256,4 +258,12 @@
       :defer t
       :init
       (push '(company-ghc company-dabbrev-code company-yasnippet)
-            company-backends-haskell-mode))))
+            company-backends-haskell-mode)))
+
+  (defun haskell/init-company-cabal ()
+    (use-package company-cabal
+      :if (configuration-layer/package-usedp 'company)
+      :defer t
+      :init
+      (push '(company-cabal)
+            company-backends-haskell-cabal-mode))))
