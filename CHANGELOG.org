@@ -1,3 +1,30 @@
+* Release 0.103.x (next)
+** 0.103.0
+*** Layer changes
+**** Auto-completion
+- Yasnippet: Default =helm-yas-display-key-on-candidate= to =t= (thanks to
+  BrianHicks)
+**** Autohotkey
+- Fix =.ahk= file extension declaration (thanks to ralesi)
+**** C/C++
+- Add package =gdb-mi= (gdb-many-windows) which enables an IDE like debugger
+  frontend for Emacs (thanks to tuhdo)
+**** Org
+- Move =ox-gfm= to extensions directory to fix a bug when installed from MELPA
+**** Osx
+- Add  =⌘ += and =⌘ -= key bindings to scale text (thanks to JoshTGreenwood)
+**** Python
+- Set =indent-tabs-mode= to =t= in REPLs, should fix indent errors (thanks to
+  tuhdo)
+**** Rust
+- Add support for =flycheck= (thanks to swaroopch)
+**** Scala
+- Set classpath directory of =ensime= to =.cache/ensime= (thanks to cyrillk)
+*** Core
+- Enable =use-pacage-verbose= when =dotspacemacs-verbose-loading= is set to =t=
+- Better name for placeholders in layer templates (thanks to kini)
+*** Other fixes
+- Typos and documentation improvements (thanks to JoshTGreenwood)
 * Release 0.102.x
 ** 0.102.1 (2015/06/01)
 *** Layer changes
