@@ -45,7 +45,8 @@
     :defer t
     :init
     (progn
-      (setq org-log-done t)
+      (setq org-log-done t
+            org-src-fontify-natively t)
 
       (eval-after-load 'org-indent
         '(spacemacs|hide-lighter org-indent-mode))
