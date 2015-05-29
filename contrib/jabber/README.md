@@ -5,6 +5,7 @@
     - [Description](#description)
     - [Install](#install)
     - [Key bindings](#key-bindings)
+        - [-](#-)
 
 <!-- markdown-toc end -->
 # Jabber contribution layer for Spacemacs
