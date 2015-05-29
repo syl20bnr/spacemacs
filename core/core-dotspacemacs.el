@@ -13,9 +13,38 @@
   (expand-file-name (concat spacemacs-core-directory "templates/"))
   "Templates directory.")
 
+(defconst dotspacemacs-directory
+  (let* ((env (getenv "SPACEMACSDIR"))
+         (env-dir (if env (expand-file-name (concat env "/"))))
+         (no-env-dir-default (expand-file-name
+                              (concat user-home-directory
+                                      ".spacemacs.d/"))))
+    (cond
+     ((and env (file-exists-p env-dir))
+      env-dir)
+     ((file-exists-p no-env-dir-default)
+      no-env-dir-default)
+     (t
+      nil)))
+  "Optional spacemacs directory, which defaults to
+~/.spacemacs.d. This setting can be overridden using the
+SPACEMACSDIR environment variable. If neither of these
+directories exist, this variable will be nil.")
+
 (defconst dotspacemacs-filepath
-  (concat user-home-directory ".spacemacs")
-  "Filepath to the installed dotfile.")
+  (let* ((default (concat user-home-directory ".spacemacs"))
+         (spacemacs-dir-init (if dotspacemacs-directory
+                                 (concat dotspacemacs-directory
+                                         "init.el"))))
+    (if (and (not (file-exists-p default))
+             dotspacemacs-directory
+             (file-exists-p spacemacs-dir-init))
+        spacemacs-dir-init
+      default))
+  "Filepath to the installed dotfile. If ~/.spacemacs exists,
+then this is used. If ~/.spacemacs does not exist, then check
+for init.el in dotspacemacs-directory and use this if it
+exists. Otherwise, fallback to ~/.spacemacs")
 
 (defvar dotspacemacs-verbose-loading nil
   "If non nil output loading progess in `*Messages*' buffer.")

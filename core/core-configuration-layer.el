@@ -208,12 +208,13 @@ Returns nil if the directory is not a category."
 (defun configuration-layer//discover-layers ()
   "Return a hash table where the key is the layer symbol and the value is its
 path."
-  ;; load private layers at the end on purpose
-  ;; we asume that the user layers must have the final word
-  ;; on configuration choices.
+  ;; load private layers at the end on purpose we asume that the user layers
+  ;; must have the final word on configuration choices. Let
+  ;; `dotspacemacs-directory' override the private directory if it exists.
   (let ((search-paths (append (list configuration-layer-contrib-directory)
                               dotspacemacs-configuration-layer-path
-                              (list configuration-layer-private-directory)))
+                              (list configuration-layer-private-directory)
+                              (list dotspacemacs-directory)))
         (discovered '())
         (result (make-hash-table :size 256)))
     ;; depth-first search of subdirectories
