@@ -45,4 +45,4 @@ Key Binding             | Description
 <kbd>SPC J q</kbd>      | bury buffer
 <kbd>SPC J s</kbd>      | Jabber send subscription request
 <kbd>SPC J v</kbd>      | Jabber get version
-<kbd>SPC J <RET></kbd>  | Jabber roster ret action at point
+<kbd>SPC J RET</kbd>  | Jabber roster ret action at point
