@@ -1,8 +1,8 @@
 (setq puppet-packages
   '(
-    ;; package puppets go here
     puppet-mode
     company
+    puppetfile-mode
     ))
 
 ;; For each package, define a function puppet-mode/init-<package-puppet-mode>
@@ -36,3 +36,7 @@
 
 (defun puppet/post-init-company ()
   (spacemacs|add-company-hook puppet-mode))
+
+(defun puppet/init-puppetfile-mode ()
+  (use-package puppetfile-mode
+    :defer t))
