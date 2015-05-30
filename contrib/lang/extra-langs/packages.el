@@ -1,5 +1,6 @@
 (defvar extra-langs-packages
   '(
+    elm-mode
     arduino-mode
     idris-mode
     julia-mode
@@ -11,6 +12,9 @@
     wolfram-mode
     yaml-mode
     ))
+
+(defun extra-langs/init-elm-mode ()
+  (use-package elm-mode :defer t))
 
 (defun extra-langs/init-arduino-mode ()
   (use-package arduino-mode :defer t))
