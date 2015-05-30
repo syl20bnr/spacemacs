@@ -4,11 +4,20 @@
 - Key binding to reload the dotfile is now =SPC f e R= instead of
   =C-c C-c= or =SPC m c c=. Note that =SPC f e R= can be triggered
   anywhere (it is not restricted to the doftile anymore).
+- Key binding to switch buffer is now =SPC b b= instead of =SPC b s=.
+- =SPC f f= now uses =helm-find-files= instead of =ido=, use the new
+  layer =ido= to get the old =SPC f f= behavior back.
+- Helm =TAB= and =C-z= key bindings have been *swapped*.
 *** New Layers
 - Deft (thanks to trishume)
+- Gnus (thanks to cpaulik)
 - Gtags (thanks to tuhdo)
+- Pandoc (thanks to cpaulik)
 - Prodigy (thanks to CestDiego)
 - Purescript (thanks to kofno)
+- Semantic (thanks to tuhdo)
+- Shell
+- Sql (thanks to BrianHicks)
 *** Dotfile changes
 - New variable =dotspacemacs-search-tools= which is a list of search tool
   executable names. Spacemacs uses the first installed tool of the list
@@ -17,12 +26,25 @@
 - New variable =dotspacemacs-highlight-delimiters= which selects a scope
   to highlight delimiters. Possible value is =all=, =current= or =nil=.
   Default is =all=. (thanks to tuhdo)
+- New variable =dotspacemacs-additional-packages=. Adding packages to
+  this list will install them without needing them to be wrapped in a
+  layer. Ideal for quickly add a package. The package configuration
+  can be put in =dotspacemas/config=.
 *** Layer changes
-**** Autohotkey
-- Use MELPA package (thanks to ralesi)
 **** Spacemacs
+- Move =yasnippet= and =hippie-exp= to =auto-completion= layer.
+- Move =multi-term= and shell packages to new =shell= layer
 - Add =highlight-parentheses= package which can activated by setting
   =dotspacemacs-highlight-delimiters= to =current= (thanks to tuhdo)
+- Remove all themes from the layer (since now themes are not
+  automatically uninstalled).
+**** Auto-completion
+- Allow a snippet to wrap around a selected region when expanded,
+  press =C-x C-x= to go to the original mark and run =yas-expand=
+  to wrap the selected region in expanded snippet. (thanks to tuhdo)
+- Allow =hippie-expand= to expand snippets (thanks to tuhdo)
+**** Autohotkey
+- Use MELPA package (thanks to ralesi)
 **** Colors
 - Add =rainbow indentifiers= color profiles for =gotham= and
   =material= themes.
@@ -30,6 +52,8 @@
   =rainbow indentifiers=.
 **** Erc
 - Add ERC channels to mode-line (thanks to swaroopch)
+- Add =SPC a i i= key binding to switch to active ERC channels (thanks
+  to swaroopch)
 **** Git
 - Make =git-gutter= key bindings work with or without the fringe (thanks
   to person808)
@@ -44,15 +68,44 @@
 - =emmet= key bindings fixes (thanks to louy2 and mkcode)
 - Use only =smartparens= in =web-mode= (thanks to louy2 and mkcode)
 - Add =eco= to =web-mode= =auto-mode-alist= (thanks to louy2 and mkcode)
+**** Javascript
+- Add =js-doc= package (thanks to geksilla)
+- Apply key bindings conventions to some =tern= key bindings.
 **** Org
 - Use =org-startup-indented= instead of a hook so users can easily
 remove =org-indent-mode= (thanks to darkfeline)
 - Add support for =org-pomodoro-clock= to mode-line (thanks to swaroopch)
+- Add =SPC m j= for =helm-org-in-buffer-headings= (thanks to swaroopch)
+**** Python
+- Add YAPF extension for buffer formatting (thanks to kennethlove)
+- =nose.el= is now compatible with =virtualenv= (thanks to danielwuz)
+- Add a function to remove unused imports =python-remove-unused-imports=
+  on =SPC m c i= (thanks to danielwuz)
+**** Rcirc
+- Add =rcirc-track-minor-mode= to the =rcirc-mode-hooks= (thanks to
+  luxbock)
 **** Ruby
 - Fix =ruby-test-mode= initialization
-*** New key bindings
+- Fix auto-completion (thanks to trishume)
+**** Shell
+- Add binding for EOF (^D) in =term= (thanks to darkfeline)
+- Bind =term-send-tab= only in insert state (thanks to darkfeline)
+- =up= and =down= in shell to cycle through previous commands (thanks to
+  ralesi)
+**** Vim-empty-lines
+- Update with last patches (thanks to person808)
+*** Other key bindings
 - =SPC T s= to toggle semantic-stickyfunc (thanks to cpaulik)
+- =SPC b Y= and =SPC b P= to copy/paste whole buffer (thanks to swaroopch)
+- Switch commands for =Tab= and =C-z= in Helm (thanks to darkfeline)
+- Move =C-SPC= on =M-SPC= and =S-M-SPC= for =helm= and =ido= micro-states.
+- Add visual state mapping for =<= and =>= to =<gv= and =>gv= respectively
+  (allow to indent a region several times).
 *** Other improvements
+- Smarter buffer switching trying to avoid special buffers, you can
+  customize =spacemacs-useless-buffers-regexp= to define other buffers to
+  avoid (thanks to person808)
+- Enable fuzzy matching in Helm (thanks to ralesi)
 - Improvements to home buffer: Quick Help, Content toggles,
   link faces, better key bindings (thanks to tuhdo)
 - Render README.md file of layers with =Open README= action of
@@ -69,8 +122,8 @@ remove =org-indent-mode= (thanks to darkfeline)
 - Themes in =dotspacemacs-themes= are not considered orphans anymore
 - Fix "Unable to check for new version." if =.emacs.d= is a symlink
   (thanks to louy2)
-- Typos (thanks to atamis, Devagamster, kini, mosic, person808, skwuent,
-  zimbatm)
+- Typos (thanks to atamis, CarlQLange, Devagamster, kini, fzerorubigd, MadAnd,
+  mosic, person808, skwuent, swaroopch, zimbatm)
 * Release 0.101.x (2015/04/13)
 ** Hot new features
 *** Choose your own editing style
