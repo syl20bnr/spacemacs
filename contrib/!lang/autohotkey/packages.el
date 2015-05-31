@@ -16,7 +16,7 @@
 
 (defun autohotkey/init-ahk-mode ()
   (use-package ahk-mode
-    :mode ".ahk"
+    :mode "\\.ahk$"
     :defer t
     :init
     (evil-leader/set-key-for-mode 'ahk-mode
