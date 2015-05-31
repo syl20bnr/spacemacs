@@ -17,4 +17,21 @@
 
 (defun windows-scripts/init-powershell ()
   (use-package powershell
-    :defer t))
+    :mode ("\\.ps1$" . powershell-mode)
+    :defer t
+    :init
+    (progn
+      (defun powershell/define-text-objects ()
+        (spacemacs|define-text-object "$" "dollarparen" "$(" ")")
+        )
+      (add-hook 'powershell-mode-hook 'powershell/define-text-objects)
+      (evil-leader/set-key
+        "asp" 'powershell)
+      (evil-leader/set-key-for-mode 'powershell-mode
+        "mrr" 'powershell-regexp-to-regex)
+
+    ;; TODO
+    ;; - split out powershell
+    ;; - get help output with mgg (Get-Help) or Get-Help -online
+    ;; - 
+    )))
