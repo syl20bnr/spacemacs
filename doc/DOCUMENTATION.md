@@ -1856,9 +1856,11 @@ Key Binding            |                    Description
 
 #### Paste Micro-state
 
-Whenever you paste some text a `paste` micro-state is initiated. Pressing
-<kbd>p</kbd> again will replace the pasted text with the previous
-yanked (copied) text on the kill ring.
+The paste micro-state can be enabled by settings the variable
+`dotspacemacs-enable-paste-micro-state` to `t`. By default it is disabled.
+
+When the micro-state is enabled, pressing <kbd>p</kbd> again will replace the
+pasted text with the previous yanked (copied) text on the kill ring.
 
 For example if you copy `foo` and `bar` then press <kbd>p</kbd> the text `bar`
 will be pasted, pressing <kbd>p</kbd> again will replace `bar` with `foo`.
@@ -1870,9 +1872,6 @@ Key Binding                   |                    Description
 <kbd>P</kbd>                  | in micro-state: replace paste text with the next copied one
 <kbd>.</kbd>                  | paste the same text and leave the micro-state
 Any other key                 | leave the micro-state
-
-This micro-state can be disabled by setting
-`dotspacemacs-enable-paste-micro-state` to `nil` in `~/.spacemacs`.
 
 #### Auto-indent pasted text
 
