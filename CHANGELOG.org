@@ -1,6 +1,11 @@
-* Release 0.102.x (in progress)
+* Release 0.102.x
 ** 0.102.0 (2015/05/31)
-*** Breaking changes
+*** IMPORTANT: Breaking changes
+- All Emacs Lisp related configuration has been moved to its own layer
+  called =emacs-lisp=, be sure to add this layer to your dotfile.
+- All shell related configuration has been move to its own layer called
+  =shell=, be sure to add this layer to your dotfile if you use a shell
+  inside Emacs.
 - Key binding to reload the dotfile is now =SPC f e R= instead of
   =C-c C-c= or =SPC m c c=. Note that =SPC f e R= can be triggered
   anywhere (it is not restricted to the doftile anymore).
@@ -8,16 +13,24 @@
 - =SPC f f= now uses =helm-find-files= instead of =ido=, use the new
   layer =ido= to get the old =SPC f f= behavior back.
 - Helm =TAB= and =C-z= key bindings have been *swapped*.
+- By default *single space* sentence delimiter is defined.
 *** New Layers
 - Deft (thanks to trishume)
+- Emacs-lisp
+- Eyebrowse
 - Gnus (thanks to cpaulik)
 - Gtags (thanks to tuhdo)
+- iBuffer (thanks to alex-glv)
 - Pandoc (thanks to cpaulik)
 - Prodigy (thanks to CestDiego)
 - Purescript (thanks to kofno)
+- Rust (thanks to mkaito)
 - Semantic (thanks to tuhdo)
 - Shell
+- Spotify (thanks to BrianHicks)
 - Sql (thanks to BrianHicks)
+- TypeScript
+- Vim-powerline
 *** Dotfile changes
 - New variable =dotspacemacs-search-tools= which is a list of search tool
   executable names. Spacemacs uses the first installed tool of the list
@@ -30,101 +43,264 @@
   this list will install them without needing them to be wrapped in a
   layer. Ideal for quickly add a package. The package configuration
   can be put in =dotspacemas/config=.
+- New key binding =SPC f e D= to open an =ediff= buffer between user
+  dotfile and the current template.
+*** New conventions
+- Add conventions for markup languages like =markdown= or =org=
+  (thanks to cpaulik)
 *** Layer changes
 **** Spacemacs
-- Move =yasnippet= and =hippie-exp= to =auto-completion= layer.
-- Move =multi-term= and shell packages to new =shell= layer
+- Auto-indent when pasting use the universal argument to not auto-indent
+  (thanks to tuhdo)
+- Fix =global-mode-string= for mode-line (thanks to 3marcusw)
+- Display =guide-key= buffer at the bottom instead of the right so we get
+  more space. Also fix some issues with other popup interaction.
+- Use single space sentence delimiter (thanks to roryk)
+- Restore maximized frame state with =zoom-frm= (thanks to ralesi)
+- Improve =golden-ratio= excluded buffers coverage (thanks to tuhdo)
+- Add CamelCase motion toggle to =subword-mode= (thanks to mkcode)
+- Add =open-junk-file= package which allows to quickly create a junk file
+  in =.cache= directory. Bound to =SPC f J= (thanks to tuhdo)
+- Add =SPC T s= to toggle semantic-stickyfunc (thanks to cpaulik)
+- Add =SPC b Y= and =SPC b P= to copy/paste whole buffer (thanks to swaroopch)
+- Add =SPC h d b= to =describe-bindings= (thanks to mkcode)
+- Add =move-text= micro-state
 - Add =highlight-parentheses= package which can activated by setting
   =dotspacemacs-highlight-delimiters= to =current= (thanks to tuhdo)
+- Add =clean-aindent-mode= package to cleanly delete virtual indentation
+  (thanks to tuhdo)
+- Move =yasnippet= and =hippie-exp= to =auto-completion= layer.
+- Move =multi-term= and shell packages to new =shell= layer
+- Move =flyspell= and =helm-flyspell= to =syntax-checking= layer
+- Move =SPC b r= to =SPC f R= (rename file)
+- Move some toggles key bindings which are now:
+  - =SPC t s= for syntax checking
+  - =SPC t S= for spelling checking
+  - =SPC t f= for fill column
+  - =SPC t F= for auto-fill
+  - =SPC t c= for camelcase
+- Remove =SPC b 0= and =SPC b $= redundant key bindings (thanks to tuhdo)
 - Remove all themes from the layer (since now themes are not
   automatically uninstalled).
+- Don't use the minibuffer for =scroll= micro-state
+- Make =trailing-whitespace= face more subtle  (thanks to tuhdo)
+- Beautify whitespace highlighting (thanks to tuhdo)
+- Make inactive window face of mode-line compatible with more themes
+  (thanks to tuhdo)
+- Fix global toggle for whitespace.
+- Fix =spray= cursor issue when quitting.
+- Tweak =fci-mode= face color, should be better in most themes
+  (thanks to tuhdo)
+***** Helm
+- Switch commands for =Tab= and =C-z= in Helm (thanks to darkfeline)
+- Remove Helm header line to make it clearer (thanks to tuhdo)
+- Manually manage =popwin= to improve popup window interactions (thanks to
+  tuhdo)
+- Enable fuzzy matching in Helm (thanks to ralesi)
+- Turn on colors in =helm-swoop= (thanks to danielwuz)
+- Render README.md file of layers with =Open README= action of
+  =helm-spacemacs=, use the universal argument =C-u= to open
+  the file without rendering it (thanks to tuhdo)
+- Use =helm-pp-bookmarks= instead of =helm-bookmarks= (thanks to darkfeline)
+- Move =C-SPC= on =M-SPC= and =S-M-SPC= for =helm= and =ido= micro-states.
+- Make =helm-find-files= =backspace= key behave like =ido= (thanks to tuhdo)
+***** Evil
+- Use non-visual lines for j/k navigation (thanks to mlsteele)
+- Enable =evil-execute-in-normal-state= in =holy-mode=
+- Better default face for =evil-search-highlight-persist-highlight-face=
+  (thanks to tuhdo)
+- Add visual state mapping for =<= and =>= to =<gv= and =>gv= respectively
+  (allow to indent a region several times).
+- Add =spacemacs/smart-goto-definition= which attempts to call
+  =SPC m g g= and falls back to =evil-goto-definition= if that fails
+  (thanks to luxbock)
+- Replace =C-o= with =M-o= in =dired= buffer since =C-o= is replaced with
+  =evil-execute-in-normal-state= (thanks to tuhdo)
+- Make =evil-smart-*= functions respect the leader key (thanks to person808)
+- Advice =evil-jump-to-var= with =evil-set-jump= (thanks to luxbock)
+- Temporary hack to speed up =ace-jump-line= (=SPC l=) as an evil motion.
+**** Auctex
+- Add =RefTeX= package (thanks to rpglover64)
+- Add =flycheck= support
+- =build-view= always recompile TeX (thanks to kvelicka)
 **** Auto-completion
+- New variables:
+  - =auto-completion-return-key-behavior= set the action to perform when the
+    =RET= key is pressed, the possible values are =complete= and =nil=.
+  - =auto-completion-tab-key-behavior= set the action to perform when the
+    =TAB= key is pressed, the possible values are =complete=, =cycle= and =nil=
+  - =auto-completion-complete-with-key-sequence= is a string of two characters
+    denoting a key sequence that will perform a =complete= action if the
+    sequence has been entered quickly enough. If its value is =nil= then the
+    feature is disabled.
+  - Default values are =RET= -> =complete=, =TAB= -> =cycle= and sequence is
+    =nil=
+- Rename =auto-completion-enable-company-help-tooltip= to
+  =auto-completion-enable-help-tooltip=
+- Add support for =company-statistics=, to activate it set the layer variable
+  =auto-completion-enable-sort-by-usage= to =t= (thanks to person808)
+- Disable =company-tooltip-flip= (thanks to tuhdo)
 - Allow a snippet to wrap around a selected region when expanded,
   press =C-x C-x= to go to the original mark and run =yas-expand=
   to wrap the selected region in expanded snippet. (thanks to tuhdo)
 - Allow =hippie-expand= to expand snippets (thanks to tuhdo)
+- Remove =company-yasnippet= backends use =SPC i s= and =C-p=
+- Fix =company= and =fci-mode= incompatibility (thanks to tuhdo)
+- =SPC t a= now correctly toggle =company= by default.
+- Remove unneeded =yasnippet-snippets= submodule (thanks mkcode)
 **** Autohotkey
 - Use MELPA package (thanks to ralesi)
+**** C/C++
+- New layer variable =c-c++-enable-clang-support=
+- Remove unnecessary =auto-mode-alist= (thanks ceales)
+- Add =clang-format= support (thanks to gnzlbg)
+**** Clojure
+- Add binding to connect to REPL in Cider on =SPC m s c= (thanks to jcsims)
 **** Colors
 - Add =rainbow indentifiers= color profiles for =gotham= and
   =material= themes.
 - Add colorization of keywords and function names for
   =rainbow indentifiers=.
+- New variable =colors-theme-identifiers-sat&light= to set default
+  lightness and saturation for a given theme.
+**** Emacs-lisp
+- Move =SPC m f= bindings for code formatting to =SPC m ==
+- Add =macrostep= package with a micro-state on =SPC m d m=
+  (thanks to person808)
 **** Erc
 - Add ERC channels to mode-line (thanks to swaroopch)
 - Add =SPC a i i= key binding to switch to active ERC channels (thanks
   to swaroopch)
+- Highlight nicks using =erc-hl-nicks= (thanks to CestDiego)
+- Image inline support using =erc-image= (thanks to CestDiego)
+- Logging to ~/.emacs.d/.cache/erc-logs (thanks to CestDiego)
+- =ViewLogMode= for viewing logs (thanks to CestDiego)
+- YouTube videos Thumbnails inline using =erc-yt= (thanks to CestDiego)
+- Social Graph for ERC messages using =erc-social-graph=  (thanks to CestDiego)
+**** ESS
+- Fix lazy-loading of packages (thanks to jcpetkovich)
+**** Extra-langs
+-  Add =matlab= package (thanks to TheBB)
 **** Git
 - Make =git-gutter= key bindings work with or without the fringe (thanks
   to person808)
+- Fix =git-gutter= and =linum-mode= integration (thanks to person808)
+- Fix =s= key binding to stage item in visual state.
+- Replace =with-eval-after-load= by =eval-after-load= (compatible with 24.3)
+  (thanks to person808)
+- Disable =evil-snipe= in =magit-status-mode= (thanks to person808)
+- Enable =fci-mode= (fill column) in =git-commit-mode= (thanks to tuhdo)
 **** Haskell
 - ensure =haskell-indentation= is loaded before calling members (thanks
   to chrisbarrett)
 - fix misspelled references to keymaps (thanks to chrisbarrett)
 - fix function names =identation= instead of =indentation= (thanks
   to chrisbarrett)
+- Fix =haskell-indentation= =eval-after-load= (thanks to chrisbarrett)
+- Fix =ghci-ng= key bindings being overridden (thanks to bjarkevad)
+- Use new package =haskell-snippets=
 **** Html
 - Improve =web= micro-state key bindings (thanks to CestDiego)
 - =emmet= key bindings fixes (thanks to louy2 and mkcode)
 - Use only =smartparens= in =web-mode= (thanks to louy2 and mkcode)
 - Add =eco= to =web-mode= =auto-mode-alist= (thanks to louy2 and mkcode)
+- Fix buggy =T= key with =emmet=
+- Add =company-web= package (thanks to CestDiego)
+- Add a bunch of new pairs to =sp-local-pair= (thanks to CestDiego)
 **** Javascript
 - Add =js-doc= package (thanks to geksilla)
+- Add =web-beautify= package on =SPC m == (thanks to elliotec)
 - Apply key bindings conventions to some =tern= key bindings.
+**** Markdown
+- Add a bunch of new key bindings to improve consistency of key bindings
+  for markup languages, see [[https://github.com/syl20bnr/spacemacs/commit/7b6678efd6cece5bbb3419579590b843943f9e13][commit]] (thanks to cpaulik)
+- Add markdown render buffer command on =SPC m c r= (thanks to CarlQLange)
+**** Ocaml
+- Add REPL using =utop= (thanks to edwintorok)
+- Auto-indentation using =ocp-indent= (thanks to edwintorok)
+- Add support for =company= auto-completion (thanks to edwintorok)
+- Add support for =flycheck= syntax checking (thanks to edwintorok)
 **** Org
+- Add a bunch of new key bindings to improve consistency of key bindings
+  for markup languages, see [[https://github.com/syl20bnr/spacemacs/commit/7b6678efd6cece5bbb3419579590b843943f9e13][commit]] (thanks to cpaulik)
 - Use =org-startup-indented= instead of a hook so users can easily
 remove =org-indent-mode= (thanks to darkfeline)
 - Add support for =org-pomodoro-clock= to mode-line (thanks to swaroopch)
+- Add =org-present= package (thanks to swaroopch)
 - Add =SPC m j= for =helm-org-in-buffer-headings= (thanks to swaroopch)
+- Add =SPC m n= for =org-narrow-to-subtree= (thanks to mattly)
+- Add =SPC m N= for =widen= (thanks to mattly)
+- Add =htmlize= package to enable syntax highlight in export HTML
+  (thanks to tetsusoh)
+**** Osx
+- Make =Command-s= work with other modes (thanks to linktohack)
+- Make =dired= use =coreutils gls= if installed (thanks to usharf)
+**** Perforce
+- Add a bunch of key bindings see [[https://github.com/syl20bnr/spacemacs/commit/6793eda4a90ee3a6c19c433b8676d5d9d8c3de76][commit]] (thanks to snandan)
+**** Puppet
+- Add =auto-completion= support (thanks to PierreR)
 **** Python
 - Add YAPF extension for buffer formatting (thanks to kennethlove)
 - =nose.el= is now compatible with =virtualenv= (thanks to danielwuz)
 - Add a function to remove unused imports =python-remove-unused-imports=
   on =SPC m c i= (thanks to danielwuz)
+- Add =pip-requirement= package (thanks to CestDiego)
+- Fix wrong extra parenthesis when inserting a breakpoint
+  (thanks to CestDiego)
 **** Rcirc
 - Add =rcirc-track-minor-mode= to the =rcirc-mode-hooks= (thanks to
   luxbock)
 **** Ruby
 - Fix =ruby-test-mode= initialization
 - Fix auto-completion (thanks to trishume)
+- Fix Rails mappings showing up in non rails projects (thanks to horrorvacui)
+- Add =:A= ex-command which switches between implementation and test
+  (thanks to naliwajek)
+- Remove overloading of function =erm-darken-color=
+**** Rust
+- Add key bindings for cargo build, run, test (thanks to swaroopch)
+**** Slime
+- Disable =smartparens= in SLIME REPL (thanks to tuhdo)
 **** Shell
 - Add binding for EOF (^D) in =term= (thanks to darkfeline)
 - Bind =term-send-tab= only in insert state (thanks to darkfeline)
 - =up= and =down= in shell to cycle through previous commands (thanks to
   ralesi)
+- Fix for =paste= command in =multi-term=.
+- Add =SPC p $ t= to run =multi-term= at project root
+**** Syntax-checking
+- New variable =syntax-checking-flycheck-pos-tip= to enable or disable
+  documentation popup (thanks to beardedprojamz)
+**** Themes
+- Add =apropospriate-theme= to megapack
+- Add =jazz-theme= to megapack (thanks to matDobek)
+- Fix theme-to-package rules for =base16= (thanks to mkaito)
+**** Tmux
+- Add support for motion state (thanks to rphillips)
 **** Vim-empty-lines
 - Update with last patches (thanks to person808)
-*** Other key bindings
-- =SPC T s= to toggle semantic-stickyfunc (thanks to cpaulik)
-- =SPC b Y= and =SPC b P= to copy/paste whole buffer (thanks to swaroopch)
-- Switch commands for =Tab= and =C-z= in Helm (thanks to darkfeline)
-- Move =C-SPC= on =M-SPC= and =S-M-SPC= for =helm= and =ido= micro-states.
-- Add visual state mapping for =<= and =>= to =<gv= and =>gv= respectively
-  (allow to indent a region several times).
-*** Other improvements
-- Smarter buffer switching trying to avoid special buffers, you can
+**** Ycmd
+- Move C/C++ related configuration to =c-c++= layer.
+*** Core
+- Smarter buffer switching which tries to avoid special buffers, you can
   customize =spacemacs-useless-buffers-regexp= to define other buffers to
   avoid (thanks to person808)
-- Enable fuzzy matching in Helm (thanks to ralesi)
+- Warn about duplicated layers
 - Improvements to home buffer: Quick Help, Content toggles,
   link faces, better key bindings (thanks to tuhdo)
-- Render README.md file of layers with =Open README= action of
-  =helm-spacemacs=, use the universal argument =C-u= to open
-  the file without rendering it (thanks to tuhdo)
-- Turn on colors in =helm-swoop= (thanks to danielwuz)
-- Better default face for =evil-search-highlight-persist-highlight-face=
-  (thanks to tuhdo)
-- Restore maximized frame state with =zoom-frm= (thanks to ralesi)
-- Improve =golden-ratio= excluded buffers coverage (thanks to tuhdo)
+- =dotspacemacs/location= now respect =dotspacemacs-filepath= value
+  (thanks to coldnew)
+*** Other fixes
 - Replace =defvar= with =setq= for variable definition =<layer>-packages=,
   =<layer>-pre-extensions= and =<layer>-pre-extensions=.
-*** Other fixes
 - Themes in =dotspacemacs-themes= are not considered orphans anymore
 - Fix "Unable to check for new version." if =.emacs.d= is a symlink
   (thanks to louy2)
-- Typos (thanks to atamis, CarlQLange, Devagamster, kini, fzerorubigd, MadAnd,
-  mosic, person808, skwuent, swaroopch, zimbatm)
-* Release 0.101.x (2015/04/13)
+- Fix non unicode number spacing in mode-line
+- Typos (thanks to atamis, CarlQLange, charl, ctjhoa, Devagamster, dguilak,
+  edwintorok, fhzerorubigd, jackwilsonv, kini, latkins, MadAnd, mlsteel, mosic,
+  person808, skwuent, srid, swaroopch, zimbatm)
+* Release 0.101.x
 ** Hot new features
 *** Choose your own editing style
 Thanks to the new =holy-mode= Spacemacs can now  be used by Vim users
@@ -167,7 +343,7 @@ is on ⓐ and thus can be toggled with =SPC t a=.
 *** Better package update
 The package update should now prevent even more errors when upgrading
 a batch of packages.
-** Initial Release
+** Initial Release (2015/04/13)
 *** New layers
 - evil-commentary: Alternative to =evil-nerd-commenter=
   (thanks to person808)
