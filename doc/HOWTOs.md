@@ -8,6 +8,7 @@
     - [Disable a package only for a specific major-mode](#disable-a-package-only-for-a-specific-major-mode)
     - [Disable company for a specific major-mode](#disable-company-for-a-specific-major-mode)
     - [Change special buffer rules](#change-special-buffer-rules)
+    - [Enable navigation by visual lines](#enable-navigation-by-visual-lines)
 
 <!-- markdown-toc end -->
 
@@ -63,4 +64,15 @@ Examples:
 ;; Marking the *Messages* buffer as useful
 (push "\\*Messages\\*" spacemacs-useful-buffers-regexp)
 ```
+## Enable navigation by visual lines
 
+Add the following snippet to your `dostpacemacs/config` function:
+
+```elisp
+;; Make evil-mode up/down operate in screen lines instead of logical lines		
+(define-key evil-motion-state-map "j" 'evil-next-visual-line)		
+(define-key evil-motion-state-map "k" 'evil-previous-visual-line)		
+;; Also in visual mode		
+(define-key evil-visual-state-map "j" 'evil-next-visual-line)		
+(define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+```
