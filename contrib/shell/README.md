@@ -13,6 +13,7 @@
         - [Default shell position and height](#default-shell-position-and-height)
         - [Set shell for term and ansi-term](#set-shell-for-term-and-ansi-term)
     - [Key bindings](#key-bindings)
+        - [Multi-term](#multi-term)
 
 <!-- markdown-toc end -->
 
@@ -99,5 +100,11 @@ Key Binding          | Description
 **Note** You can open multiple shells using a numerical prefix argument,
 for instance pressing <kbd>2 SPC ;</kbd> will a second default shell, the
 number of shell is indicated on the mode-line.
+
+### Multi-term
+
+Key Binding          | Description
+---------------------|------------------------------------------------------------
+<kbd>SPC p $ t</kbd> | run multi-term shell in root
 
 [mastering-emacs]: https://www.masteringemacs.org/article/running-shells-in-emacs-overview

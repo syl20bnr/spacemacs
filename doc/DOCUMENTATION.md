@@ -2288,7 +2288,6 @@ To search in a project see [project searching](#searching-in-a-project).
 <kbd>SPC /</kbd>     | search in project with the best search tool available
 <kbd>SPC p !</kbd>   | run shell command in root
 <kbd>SPC p &</kbd>   | run async shell command in root
-<kbd>SPC p $ t</kbd> | run multi-term shell in root
 <kbd>SPC p s a</kbd> | run `ag`
 <kbd>SPC p s k</kbd> | run `ack`
 <kbd>SPC p b</kbd>   | switch to project buffer

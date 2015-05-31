@@ -63,8 +63,14 @@
         "Send tab in term mode."
         (interactive)
         (term-send-raw-string "\t"))
+      (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab))
 
-      (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab)))))
+      (when (configuration-layer/package-usedp 'projectile)
+        (defun projectile-multi-term-in-root ()
+          "Invoke `multi-term' in the project's root."
+          (interactive)
+          (projectile-with-default-dir (projectile-project-root) (multi-term)))
+        (evil-leader/set-key "p$t" 'projectile-multi-term-in-root)))))
 
 (defun spacemacs/init-shell ()
   (defun shell-comint-input-sender-hook ()
