@@ -2521,14 +2521,7 @@ It is a string holding:
         "pr" 'projectile-replace
         "pR" 'projectile-regenerate-tags
         "py" 'projectile-find-tag
-        "pT" 'projectile-find-test-file)
-
-      (when (configuration-layer/package-usedp 'multi-term)
-        (defun projectile-multi-term-in-root ()
-          "Invoke `multi-term' in the project's root."
-          (interactive)
-          (projectile-with-default-dir (projectile-project-root) (multi-term)))
-        (evil-leader/set-key "p$t" 'projectile-multi-term-in-root)))
+        "pT" 'projectile-find-test-file))
     :config
     (progn
       (projectile-global-mode)
