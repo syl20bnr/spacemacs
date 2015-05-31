@@ -49,7 +49,7 @@
   this list will install them without needing them to be wrapped in a
   layer. Ideal for quickly add a package. The package configuration
   can be put in =dotspacemas/config=.
-- New key binding =SPC f e D= to open an =ediff= buffer between user
+- New key binding =SPC f e D= to open an =ediff= buffer between the user
   dotfile and the current template.
 *** New conventions
 - Add conventions for markup languages like =markdown= or =org=
@@ -375,7 +375,7 @@ remove =org-indent-mode= (thanks to darkfeline)
 - Fix non unicode number spacing in mode-line
 - Typos (thanks to Andrea, atamis, CarlQLange, charl, ctjhoa, Devagamster,
   dguilak, edwintorok, fhzerorubigd, jackwilsonv, jupl, kini, latkins, MadAnd,
-  mlsteel, mosic, person808, skwuent, srid, swaroopch, zimbatm)
+  mlsteel, mosic, person808, skwuent, srid, swaroopch and zimbatm)
 * Release 0.101.x
 ** Hot new features
 *** Choose your own editing style
