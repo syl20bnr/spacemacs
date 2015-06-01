@@ -11,9 +11,11 @@
   anywhere (it is not restricted to the doftile anymore).
 - Key binding to switch buffer is now =SPC b b= instead of =SPC b s=.
 - =SPC f f= now uses =helm-find-files= instead of =ido=, use the new
-  layer =ido= to get the old =SPC f f= behavior back.
+  dotfile variable =dotspacemacs-use-ido= to get the old behavior back.
 - Helm =TAB= and =C-z= key bindings have been *swapped*.
 - By default *single space* sentence delimiter is defined.
+- Layer variable values set with =:variables= keyword need to be quoted
+  like in a regular =setq= expression.
 *** New Layers
 - Agda (thanks to ocharles)
 - Chrome (thanks to beardedprojamz)
@@ -31,6 +33,7 @@
 - Purescript (thanks to kofno)
 - Rust (thanks to mkaito)
 - Salt (thanks to beardedprojamz)
+- Search Engine (thanks to CestDiego)
 - Semantic (thanks to tuhdo)
 - Shell
 - Spotify (thanks to BrianHicks)
@@ -53,6 +56,8 @@
   for some commands. For now only =find-files= (SPC f f) is replaced.
 - New key binding =SPC f e D= to open an =ediff= buffer between the user
   dotfile and the current template.
+- Disable paste micro-state by default, i.e. set the variable
+  =dotspacemacs-enable-paste-micro-state= to =nil= in the dotfile template.
 *** New conventions
 - Add conventions for markup languages like =markdown= or =org=
   (thanks to cpaulik)
@@ -184,6 +189,7 @@
 - Use MELPA package (thanks to ralesi)
 **** C/C++
 - New layer variable =c-c++-enable-clang-support=
+- New layer variable =c-c++-default-mode-for-headers= (thanks to ceales)
 - Remove unnecessary =auto-mode-alist= (thanks ceales)
 - Add =clang-format= support (thanks to gnzlbg)
 **** Chrome
@@ -260,6 +266,8 @@
 - Add =js-doc= package (thanks to geksilla)
 - Add =web-beautify= package on =SPC m == (thanks to elliotec)
 - Apply key bindings conventions to some =tern= key bindings.
+**** Lua
+- Add support for auto-completion (thanks to mijoharas)
 **** Markdown
 - Add a bunch of new key bindings to improve consistency of key bindings
   for markup languages, see [[https://github.com/syl20bnr/spacemacs/commit/7b6678efd6cece5bbb3419579590b843943f9e13][commit]] (thanks to cpaulik)
@@ -270,6 +278,7 @@
 - Auto-indentation using =ocp-indent= (thanks to edwintorok)
 - Add support for =company= auto-completion (thanks to edwintorok)
 - Add support for =flycheck= syntax checking (thanks to edwintorok)
+- New =merlin= key bindings (thanks to edwintorok)
 **** Org
 - Add a bunch of new key bindings to improve consistency of key bindings
   for markup languages, see [[https://github.com/syl20bnr/spacemacs/commit/7b6678efd6cece5bbb3419579590b843943f9e13][commit]] (thanks to cpaulik)
@@ -351,6 +360,7 @@ remove =org-indent-mode= (thanks to darkfeline)
 - It is now possible to create a layer directly in a known configuration
   layer path. A helm buffer will ask for a known path or a new path
   (thanks to justbur)
+- The =:variables= keyword now behaves like regular =setq=.
 - Add org elpa repository
 - Use =archive= instead of =package-alist= to detect orphans
   (fix false orphan positives when the dependencies of a package change)
