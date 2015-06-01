@@ -1807,7 +1807,8 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :init
     (progn
       (ido-vertical-mode t)
-
+      (when dotspacemacs-use-ido
+        (evil-leader/set-key "ff" 'ido-find-file))
       (defun spacemacs//ido-minibuffer-setup ()
         "Setup the minibuffer."
         ;; Since ido is implemented in a while loop where each

@@ -109,7 +109,6 @@ Ensure that helm is required before calling FUNC."
   "feD" 'ediff-dotfile-and-template
   "feR" 'dotspacemacs/sync-configuration-layers
   "fev" 'spacemacs/display-and-copy-version
-  "fF" 'ido-find-file
   "fg" 'rgrep
   "fj" 'dired-jump
   "fo" 'spacemacs/open-in-external-app

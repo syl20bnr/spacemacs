@@ -1417,10 +1417,13 @@ The mode can be toggled on and off with:
 
 ### Buffers and Files
 
-`Spacemacs` uses `ido` for opening files since `ido` way to navigate
-the file system is better than `helm` in my opinion (especially because `ido` can
-remember the last selected directories and buffers, maybe helm can do this ?).
-`ido` is also used to kill buffers.
+Since `helm` is used everywhere, by default Spacemacs uses `helm` to open files.
+
+Some users prefer the `ido` way to navigate the file system because it can
+remember the last selected directories and buffers and <kbd>return</kbd> is
+used to open directories instead of <kbd>TAB</kbd> or <kbd>C-z</kbd> in `helm`.
+It is possible to use `ido` instead of `helm` by setting the variable
+`dotspacemacs-use-ido` to `t` in your dotfile.
 
 #### Buffers manipulation key bindings
 
@@ -1476,8 +1479,8 @@ Files manipulation commands (start with `f`):
 Key Binding                               |                 Description
 ------------------------------------------|----------------------------------------------------------------
 <kbd>SPC f D</kbd>                        | delete a file and the associated buffer (ask for confirmation)
-<kbd>SPC f f</kbd>                        | open a file under point using `helm`
-<kbd>SPC f F</kbd>                        | open a file using `ido`
+<kbd>SPC f f</kbd>                        | open file with `helm` (or `ido`)
+<kbd>SPC f F</kbd>                        | try to open the file under point `helm`
 <kbd>SPC f j</kbd>                        | jump to the current buffer file in dired
 <kbd>SPC f o</kbd>                        | open a file using the default external program
 <kbd>SPC f R</kbd>                        | rename the current file
