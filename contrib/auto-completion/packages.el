@@ -193,6 +193,9 @@
       ;; use hippie-expand instead
       (setq yas-minor-mode-map (make-sparse-keymap))
 
+      ;; add key into candidate list
+      (setq helm-yas-display-key-on-candidate t)
+
       (defun spacemacs/load-yasnippet ()
         (unless yas-global-mode
           (progn
