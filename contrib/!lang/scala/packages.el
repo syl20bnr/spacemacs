@@ -34,6 +34,8 @@
       (add-hook 'scala-mode-hook 'scala/maybe-start-ensime))
     :config
     (progn
+      (setq user-emacs-ensime-directory ".cache/ensime")
+
       (evil-define-key 'insert ensime-mode-map
         (kbd ".") 'scala/completing-dot
         (kbd "M-.") 'ensime-edit-definition
