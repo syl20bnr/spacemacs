@@ -90,6 +90,7 @@
     rfringe
     smartparens
     smooth-scrolling
+    sr-speedbar
     subword
     undo-tree
     use-package
@@ -2641,6 +2642,19 @@ It is a string holding:
     (ad-activate 'next-line)
     (ad-disable-advice 'isearch-repeat 'after 'isearch-smooth-scroll)
     (ad-activate 'isearch-repeat)))
+
+(defun spacemacs/init-sr-speedbar ()
+  (use-package sr-speedbar
+    :init
+    (setq sr-speedbar-width 30)
+    (setq sr-speedbar-right-side nil)
+    (define-key global-map (kbd "<f2>") 'sr-speedbar-show-or-hide)))
+
+(defun spacemacs/post-init-sr-speedbar ()
+  (defun sr-speedbar-show-or-hide ()
+    (interactive)
+    (cond ((sr-speedbar-exist-p) (kill-buffer speedbar-buffer))
+          (t (sr-speedbar-open) (speedbar-refresh)))))
 
 (defun spacemacs/init-subword ()
   (unless (version< emacs-version "24.4")
