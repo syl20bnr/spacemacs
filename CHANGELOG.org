@@ -49,6 +49,8 @@
   this list will install them without needing them to be wrapped in a
   layer. Ideal for quickly add a package. The package configuration
   can be put in =dotspacemas/config=.
+- New variable =dotspacemacs-use-ido=. If non nil then =ido= replaces =helm=
+  for some commands. For now only =find-files= (SPC f f) is replaced.
 - New key binding =SPC f e D= to open an =ediff= buffer between the user
   dotfile and the current template.
 *** New conventions

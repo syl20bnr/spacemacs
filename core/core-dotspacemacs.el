@@ -83,6 +83,10 @@ size to make separators look not too crappy.")
 By default the command key is `:' so ex-commands are executed like in Vim
 with `:' and Emacs commands are executed with `<leader> :'.")
 
+(defvar dotspacemacs-use-ido nil
+  "If non nil then `ido' replaces `helm' for some commands. For now only
+`find-files' (SPC f f) is replaced.")
+
 (defvar dotspacemacs-enable-paste-micro-state t
   "If non nil the paste micro-state is enabled. While enabled pressing `p`
 several times cycle between the kill ring content.'")
