@@ -13,3 +13,11 @@
 ;; variables
 
 (spacemacs|defvar-company-backends go-mode)
+
+(defvar spacemacs-go-run-current-buffer-other-window nil)
+(defvar spacemacs-go-godoc-port 6060)
+
+(when (fboundp 'eww)
+  (add-to-list 'browse-url-browser-function
+               `(,(format "http://localhost:%d/pkg" spacemacs-go-godoc-port) . ,#'(lambda (filename unknown)
+                                                                                    (eww filename)))))
