@@ -11,7 +11,6 @@
 	  (find-file filename))))
 
 (defun spacemacs/go-run-current-buffer-other-window ()
-  "关闭 开启"
   (interactive)
   (setq spacemacs-go-run-current-buffer-other-window (not spacemacs-go-run-current-buffer-other-window)))
 
