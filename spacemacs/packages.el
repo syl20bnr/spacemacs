@@ -2106,7 +2106,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :defer t
     :init
     (progn
-      (when (eq dotspacemacs-highlight-delimiters 'current)
+      (when (member dotspacemacs-highlight-delimiters '(all current))
         (add-hook 'prog-mode-hook #'highlight-parentheses-mode))
       (evil-leader/set-key "tCp" 'highlight-parentheses-mode)
       (setq hl-paren-colors '("Springgreen3"
