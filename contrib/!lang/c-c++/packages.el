@@ -33,8 +33,7 @@
   (use-package cc-mode
     :defer t
     :init
-    (when c-c++-use-c++-mode-for-dot-h
-      (add-to-list 'auto-mode-alist '("\\.h$" . c++-mode)))
+    (add-to-list 'auto-mode-alist `("\\.h$" . ,c-c++-default-mode-for-headers))
     :config
     (progn
       (require 'compile)

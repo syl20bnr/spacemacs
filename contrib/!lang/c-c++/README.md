@@ -49,11 +49,12 @@ To use this contribution add it to your `~/.spacemacs`
 ### Default mode for header files
 
 By default header files are open in `c-mode`, you can open them in `c++-mode`
-by setting the variable `c-c++-use-c++-mode-for-dot-h` to `t`.
+by setting the variable `c-c++-default-mode-for-headers` to `c++-mode`.
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers
-  '((c-c++ variables: c-c++-use-c++-mode-for-dot-h t)))
+  '((c-c++ variables:
+           c-c++-default-mode-for-headers 'c++-mode)))
 ```
 
 **Note** To set the variable for a given project, create a directory local
