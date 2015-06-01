@@ -6,6 +6,7 @@
 **Table of Contents**
 
 - [Gnus contribution layer for Spacemacs](#gnus-contribution-layer-for-spacemacs)
+    - [Install](#install)
     - [Basic Concepts](#basic-concepts)
     - [Adding news sources](#adding-news-sources)
     - [Configuring gmail](#configuring-gmail)
@@ -13,6 +14,14 @@
     - [Keybindings](#keybindings)
 
 <!-- markdown-toc end -->
+
+## Install
+
+To use this contribution add it to your `~/.spacemacs`
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(gnus))
+```
 
 ## Basic Concepts
 
