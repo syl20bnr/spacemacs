@@ -69,8 +69,8 @@ The default configuration of the layer is:
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(
   (auto-completion :variables
-                   auto-completion-return-key-behavior complete
-                   auto-completion-tab-key-behavior cycle
+                   auto-completion-return-key-behavior 'complete
+                   auto-completion-tab-key-behavior 'cycle
                    auto-completion-complete-with-key-sequence nil)
                    ))
 ```
