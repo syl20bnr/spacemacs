@@ -75,7 +75,7 @@
   (let ((input '((testlayer :dir "/a/path/"
                             :ext-dir "/a/path/extensions/"
                             :variables
-                            var1 bar))))
+                            var1 'bar))))
     (setq var1 'foo)
     (configuration-layer//set-layers-variables input)
     (should (eq var1 'bar))))
@@ -84,9 +84,9 @@
   (let ((input '((testlayer :dir "/a/path/"
                             :ext-dir "/a/path/extensions/"
                             :variables
-                            var1 bar1
-                            var2 bar2
-                            var3 bar3))))
+                            var1 'bar1
+                            var2 'bar2
+                            var3 'bar3))))
     (setq var1 'foo)
     (setq var2 'foo)
     (setq var3 'foo)
@@ -99,7 +99,7 @@
   (let ((input '((testlayer :dir "/a/path/"
                             :ext-dir "/a/path/extensions/"
                             :variables
-                            var1 bar
+                            var1 'bar
                             var2))))
     (mocker-let
      ((spacemacs-buffer/warning
