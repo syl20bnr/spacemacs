@@ -34,15 +34,15 @@ Key Binding         | Description
 
 Key Binding             | Description
 ------------------------|--------------------------------
-<kbd>SPC J a</kbd>      | Jabber send presence
-<kbd>SPC J b</kbd>      | Jabber get browse
-<kbd>SPC J d</kbd>      | Jabber disconnect
-<kbd>SPC J e</kbd>      | Jabber roster edit action at point
-<kbd>SPC J g</kbd>      | Jabber display roster
-<kbd>SPC J i</kbd>      | Jabber get disco items
-<kbd>SPC J j</kbd>      | Jabber muc join
-<kbd>SPC J o</kbd>      | Jabber roster toggle offline display
-<kbd>SPC J q</kbd>      | bury buffer
-<kbd>SPC J s</kbd>      | Jabber send subscription request
-<kbd>SPC J v</kbd>      | Jabber get version
-<kbd>SPC J RET</kbd>  | Jabber roster ret action at point
+<kbd>SPC m a</kbd>      | Jabber send presence
+<kbd>SPC m b</kbd>      | Jabber get browse
+<kbd>SPC m d</kbd>      | Jabber disconnect
+<kbd>SPC m e</kbd>      | Jabber roster edit action at point
+<kbd>SPC m g</kbd>      | Jabber display roster
+<kbd>SPC m i</kbd>      | Jabber get disco items
+<kbd>SPC m j</kbd>      | Jabber muc join
+<kbd>SPC m o</kbd>      | Jabber roster toggle offline display
+<kbd>SPC m q</kbd>      | bury buffer
+<kbd>SPC m s</kbd>      | Jabber send subscription request
+<kbd>SPC m v</kbd>      | Jabber get version
+<kbd>SPC m RET</kbd>    | Jabber roster ret action at point

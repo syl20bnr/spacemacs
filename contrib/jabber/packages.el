@@ -28,15 +28,15 @@
     :config
     (progn
       (evil-leader/set-key-for-mode 'jabber-roster-mode
-        "Ja" 'jabber-send-presence
-        "Jb" 'jabber-get-browse
-        "Jd" 'jabber-disconnect
-        "Je" 'jabber-roster-edit-action-at-point
-        "Jg" 'jabber-display-roster
-        "Ji" 'jabber-get-disco-items
-        "Jj" 'jabber-muc-join
-        "Jo" 'jabber-roster-toggle-offline-display
-        "Jq" 'bury-buffer
-        "Js" 'jabber-send-subscription-request
-        "Jv" 'jabber-get-version
-        "J RET" 'jabber-roster-ret-action-at-point))))
+        "ma" 'jabber-send-presence
+        "mb" 'jabber-get-browse
+        "md" 'jabber-disconnect
+        "me" 'jabber-roster-edit-action-at-point
+        "mg" 'jabber-display-roster
+        "mi" 'jabber-get-disco-items
+        "mj" 'jabber-muc-join
+        "mo" 'jabber-roster-toggle-offline-display
+        "mq" 'bury-buffer
+        "ms" 'jabber-send-subscription-request
+        "mv" 'jabber-get-version
+        "m RET" 'jabber-roster-ret-action-at-point))))
