@@ -203,8 +203,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
   "Return the last tagged version of BRANCH on REMOTE repository from
 OWNER REPO."
   (let ((url (format "https://github.com/%s/%s" owner repo)))
-    (unless (spacemacs/git-has-remote remote)
-      (spacemacs/git-declare-remote remote url)))
+    (spacemacs/git-declare-remote remote url))
   (spacemacs/git-fetch-tags remote branch)
   (let ((version (spacemacs/git-latest-tag remote branch)))
     (when version
@@ -255,9 +254,14 @@ found."
   "Declare a new REMOTE pointing to URL, return t if no error."
   (let((proc-buffer "git-declare-remote")
        (default-directory (file-truename user-emacs-directory)))
-    (prog1
+    (prog2
+        (progn
+          (eq 0 (process-file "git" nil proc-buffer nil
+                              "remote" "remove" remote))
+          (eq 0 (process-file "git" nil proc-buffer nil
+                              "remote" "add" remote url)))
         (eq 0 (process-file "git" nil proc-buffer nil
-                            "remote" "add" remote url))
+                            "fetch" remote))
       (kill-buffer proc-buffer))))
 
 (defun spacemacs/git-fetch-tags (remote branch)
