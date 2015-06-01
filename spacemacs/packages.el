@@ -1753,7 +1753,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
     :defer t
     :init
     (progn
-      (when (eq dotspacemacs-highlight-delimiters 'current)
+      (when (member dotspacemacs-highlight-delimiters '(all current))
         (add-hook 'prog-mode-hook #'highlight-parentheses-mode))
       (evil-leader/set-key "tCp" 'highlight-parentheses-mode)
       (setq hl-paren-colors '("Springgreen3"
