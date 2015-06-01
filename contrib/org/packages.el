@@ -13,18 +13,12 @@
 (setq org-packages
   '(
     evil-org
+    htmlize
     org
     org-bullets
     org-pomodoro
     org-present
     org-repo-todo
-    ox-gfm
-    htmlize
-    ))
-
-(setq org-excluded-packages
-  '(
-    ;; seems to be problematic, to investigate
     ox-gfm
     ))
 
@@ -194,8 +188,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "mgt" 'ort/goto-todos))))
 
 (defun org/init-ox-gfm ()
-  (use-package ox-gfm
-    :defer t))
+  (eval-after-load 'org '(require 'ox-gfm)))
 
 (defun org/init-htmlize ()
  (use-package htmlize
