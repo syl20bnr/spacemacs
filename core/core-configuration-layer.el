@@ -283,7 +283,9 @@ the following keys:
       (while variables
         (let ((var (pop variables)))
           (if (consp variables)
-              (set-default var (pop variables))
+              (progn
+                ;; (message "%s" `(set-default ,var ,(pop variables)))
+                (set-default var (eval (pop variables))))
             (spacemacs-buffer/warning "Missing value for variable %s !"
                                       var)))))))
 

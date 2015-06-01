@@ -51,7 +51,7 @@ to the following variables:
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers
-  '(shell :variables shell-default-shell eshell))
+  '(shell :variables shell-default-shell 'eshell))
 ```
 
 The default shell is quickly accessible via a the default shortcut key
@@ -69,7 +69,7 @@ It is also possible to set the default height in percents with the variable
 ```elisp
 (setq-default dotspacemacs-configuration-layers
   '(shell :variables
-          shell-default-position bottom
+          shell-default-position 'bottom
           shell-default-height 30))
 ```
 

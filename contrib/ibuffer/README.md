@@ -42,7 +42,7 @@ Example:
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(
-  (ibuffer :variables ibuffer-group-buffers-by projects)))
+  (ibuffer :variables ibuffer-group-buffers-by 'projects)))
 ```
 
 ## Key bindings
