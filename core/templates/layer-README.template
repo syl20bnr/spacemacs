@@ -1,6 +1,6 @@
-# LAYER contribution layer for Spacemacs
+# %LAYERNAME% contribution layer for Spacemacs
 
-![logo](img/LAYER.png)
+![logo](img/%LAYERNAME%.png)
 
 ;; Generate TOC here, use the commande `markdown-toc/generate-toc`
 
@@ -14,7 +14,7 @@ This layer does wondeful things:
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(LAYER))
+(setq-default dotspacemacs-configuration-layers '(%LAYERNAME%))
 ```
 
 ## Key bindings
