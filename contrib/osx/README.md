@@ -61,7 +61,10 @@ brew install coreutils
 <kbd>⌘ v</kbd>    | Paste
 <kbd>⌘ c</kbd>    | Copy
 <kbd>⌘ x</kbd>    | Cut
+<kbd>⌘ a</kbd>    | Select all
 <kbd>⌘ w</kbd>    | Close window
+<kbd>⌘ W</kbd>    | Close frame
+<kbd>⌘ n</kbd>    | New frame
 <kbd>⌘ z</kbd>    | Undo
 <kbd>⌘ Z</kbd>    | Redo
 <kbd>⌃ ⌘ f</kbd>  | Toggle fullscreen
