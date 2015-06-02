@@ -1,4 +1,4 @@
-;;; extensions.el --- NAME Layer extensions File for Spacemacs
+;;; extensions.el --- %LAYERNAME% Layer extensions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,19 +10,19 @@
 ;;
 ;;; License: GPLv3
 
-(setq NAME-pre-extensions
+(setq %LAYERNAME%-pre-extensions
       '(
         ;; pre extension names go here
         ))
 
-(setq NAME-post-extensions
+(setq %LAYERNAME%-post-extensions
       '(
         ;; post extension names go here
         ))
 
-;; For each extension, define a function NAME/init-<extension-name>
+;; For each extension, define a function %LAYERNAME%/init-<extension-name>
 ;;
-;; (defun NAME/init-my-extension ()
+;; (defun %LAYERNAME%/init-my-extension ()
 ;;   "Initialize my extension"
 ;;   )
 ;;
