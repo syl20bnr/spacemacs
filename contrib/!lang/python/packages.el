@@ -152,6 +152,10 @@
                   python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
           (setq python-shell-interpreter "python")))
 
+      (defun inferior-python-setup-hook ()
+        (setq indent-tabs-mode t))
+
+      (add-hook 'inferior-python-mode-hook #'inferior-python-setup-hook)
       (add-all-to-hook 'python-mode-hook
                        'python-default
                        'python-setup-shell))
