@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(defvar sml-packages
+(setq sml-packages
   '(
     sml-mode
     ob-sml
