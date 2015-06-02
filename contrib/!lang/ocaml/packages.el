@@ -95,8 +95,9 @@
         "mcc" 'compile))
     :config
     (when (fboundp 'sp-local-pair)
-      ;; don't auto-close apostrophes (type 'a = foo)
-      (sp-local-pair 'tuareg-mode "'" nil :actions nil))))
+      ;; don't auto-close apostrophes (type 'a = foo) and backticks (`Foo)
+      (sp-local-pair 'tuareg-mode "'" nil :actions nil)
+      (sp-local-pair 'tuareg-mode "`" nil :actions nil))))
 
 (defun ocaml/init-utop ()
   (use-package utop
