@@ -14,7 +14,7 @@
 
 ## Description
 
-This layer adds keybindings for jabber.el. jabber.el is a Jabber client for Emacs
+This layer adds keybindings for jabber.el. jabber.el is a Jabber (XMPP) client for Emacs
 
 ## Install
 
