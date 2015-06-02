@@ -30,6 +30,7 @@
     magit-gitflow
     magit-svn
     smeargle
+    github-clone
     ))
 
 (if git-gutter-use-fringe
@@ -391,3 +392,11 @@
       "ghc" 'smeargle-clear
       "ghh" 'smeargle-commits
       "ght" 'smeargle)))
+
+(defun git/init-github-clone ()
+  (use-package github-clone
+    :defer t
+    :if git-enable-github-support
+    :init
+    (evil-leader/set-key
+      "gHC" 'github-clone)))
