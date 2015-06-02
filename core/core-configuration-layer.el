@@ -175,7 +175,7 @@ LAYER_DIR is nil, the private directory is used."
     (find-file dest)
     (save-excursion
       (goto-char (point-min))
-      (while (re-search-forward "NAME" nil t)
+      (while (re-search-forward "%LAYERNAME%" nil t)
         (replace-match name t)))
     (save-buffer)))
 
