@@ -187,7 +187,7 @@ If you are looking for commands to operate on your buffer, they are right under
 `Spacemacs` comes with a dedicated major mode `spacemacs-mode`. Its goal is to
 give useful feedbacks and easily perform maintenance tasks.
 
-It also comes with dedicated [helm][] sources to quickly find layers, packages
+It also comes with dedicated [helm][helm-link] sources to quickly find layers, packages
 and more.
 
 [guide-key][] is enabled by default, it will display all the available key
