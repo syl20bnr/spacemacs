@@ -128,6 +128,13 @@ Will work on both org-mode and any mode that accepts plain html."
       (require 'org-indent)
       (define-key global-map "\C-cl" 'org-store-link)
       (define-key global-map "\C-ca" 'org-agenda)
+
+      ;; We add this key mapping because an Emacs user can change
+      ;; `dotspacemacs-major-mode-emacs-leader-key' to `C-c' and the key binding
+      ;; C-c ' is shadowed by `spacemacs/default-pop-shell', effectively making
+      ;; the Emacs user unable to exit src block editing.
+      (define-key org-src-mode-map (kbd (concat dotspacemacs-major-mode-emacs-leader-key " '")) 'org-edit-src-exit)
+
       (evil-leader/set-key
         "Cc" 'org-capture))))
 
