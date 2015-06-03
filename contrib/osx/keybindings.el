@@ -1,4 +1,4 @@
-(when (equal system-type 'darwin)
+(when (system-is-mac)
   ;; Treat option as meta and command as super
   (setq mac-option-key-is-meta t)
   (setq mac-command-key-is-meta nil)
@@ -20,4 +20,6 @@
 		  (interactive)
 		  (call-interactively (key-binding "\C-x\C-s"))))
   (global-set-key (kbd "s-Z") 'undo-tree-redo)
-  (global-set-key (kbd "C-s-f") 'spacemacs/toggle-frame-fullscreen))
+  (global-set-key (kbd "C-s-f") 'spacemacs/toggle-frame-fullscreen)
+
+  (evil-leader/set-key "bf" 'reveal-in-finder))
