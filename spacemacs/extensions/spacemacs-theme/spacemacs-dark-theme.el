@@ -28,7 +28,8 @@
 
 (deftheme spacemacs-dark)
 (let ((class '((class color) (min-colors 89)))
-      (base "#b2b2b2");;                     GUI       TER
+      ;;                                     GUI       TER
+      (base       (if (display-graphic-p) "#b2b2b2" "#b2b2b2"))
       (bg1        (if (display-graphic-p) "#292b2e" "#262626"))
       (bg2        (if (display-graphic-p) "#212026" "#1c1c1c"))
       (bg3        (if (display-graphic-p) "#100a14" "#121212"))
@@ -54,9 +55,9 @@
       (violet     (if (display-graphic-p) "#a31db1" "#af00df"))
       (red        (if (display-graphic-p) "#f2241f" "#d70000"))
       (active1    (if (display-graphic-p) "#222226" "#121212"))
-      (active2    (if (display-graphic-p) "#304060" "#444444"))
-      (inactive   (if (display-graphic-p) "#304060" "#111111"))
-      (highlight  (if (display-graphic-p) "#433f4d" "#444444")))
+      (active2    (if (display-graphic-p) "#5d4d7a" "#444444"))
+      (inactive   (if (display-graphic-p) "#5d4d7a" "#111111"))
+      (highlight  (if (display-graphic-p) "#333c45" "#444444")))
 
   (custom-theme-set-faces
    'spacemacs-dark
@@ -64,6 +65,8 @@
 ;;;;; basics
    `(default ((,class (:background ,bg1 :foreground ,base))))
    `(vertical-border ((,class (:foreground ,bg4))))
+   `(eval-sexp-fu-flash ((,class (:background ,suc :foreground ,bg1))))
+   `(eval-sexp-fu-flash-error ((,class (:background ,err :foreground ,bg1))))
    `(minibuffer-prompt ((,class (:bold t :foreground ,keyword))))
    `(match ((,class (:background ,bg1 :foreground ,inf :weight bold))))
    `(default-italic ((,class (:italic t))))
@@ -140,13 +143,18 @@
    `(anzu-mode-line ((,class (:foreground ,yellow :weight bold))))
 
 ;;;;; smartparens
-   `(sp-show-pair-match-face
-     ((,class (:foreground ,red :weight bold))))
+   `(sp-show-pair-match-face ((,class (:foreground ,suc :weight bold :underline t))))
+   `(sp-pair-overlay-face ((,class (:background ,highlight :foreground nil))))
 
 ;;;;; git-gutter-fr
    `(git-gutter-fr:added ((,class (:foreground ,green :weight bold))))
    `(git-gutter-fr:deleted ((,class (:foreground ,war :weight bold))))
    `(git-gutter-fr:modified ((,class (:foreground ,inf :weight bold))))
+
+;;;;; ido
+   `(ido-first-match ((,class (:foreground ,type :bold t))))
+   `(ido-only-match ((,class (:foreground ,green))))
+   `(ido-subdir ((,class (:foreground ,key1))))
 
 ;;;;; helm
    `(helm-bookmark-directory ((,class (:inherit helm-ff-directory))))
@@ -164,6 +172,7 @@
    `(helm-candidate-number ((,class (:background ,bg1 :foreground ,inf :bold t))))
    `(helm-header ((,class (:foreground ,base :background ,bg1 :underline nil :box nil))))
    `(helm-ff-directory ((,class (:foreground ,key1 :background ,bg1 :weight bold))))
+   `(helm-ff-dotted-directory ((,class (:foreground ,key1 :background ,bg1 :weight bold))))
    `(helm-ff-executable ((,class (:foreground ,suc :background ,bg1 :weight normal))))
    `(helm-ff-file ((,class (:foreground ,base :background ,bg1 :weight normal))))
    `(helm-ff-invalid-symlink ((,class (:foreground ,red :background ,bg1 :weight bold))))
@@ -241,6 +250,17 @@
    `(eshell-ls-product ((,class (:inherit font-lock-doc-face))))
    `(eshell-ls-special ((,class (:foreground ,yellow :weight bold))))
    `(eshell-ls-symlink ((,class (:foreground ,cyan :weight bold))))
+
+;;;;; term
+   `(term ((,class (:foreground ,base :background ,bg1))))
+   `(term-color-black ((,class (:foreground ,bg4))))
+   `(term-color-blue ((,class (:foreground ,inf))))
+   `(term-color-red ((,class (:foreground ,red))))
+   `(term-color-green ((,class (:foreground ,green))))
+   `(term-color-yellow ((,class (:foreground ,yellow))))
+   `(term-color-magenta ((,class (:foreground ,builtin))))
+   `(term-color-cyan ((,class (:foreground ,cyan))))
+   `(term-color-white ((,class (:foreground ,base))))
 
 ;;;;; neotree
    `(neo-root-dir-face ((,class (:foreground ,func :weight bold))))

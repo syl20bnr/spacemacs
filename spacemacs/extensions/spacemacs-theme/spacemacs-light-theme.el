@@ -28,7 +28,8 @@
 
 (deftheme spacemacs-light)
 (let ((class '((class color) (min-colors 89)))
-      (base "#655370");;                     GUI       TER
+      ;;                                     GUI       TER
+      (base       (if (display-graphic-p) "#655370" "#5f5f87"))
       (bg1        (if (display-graphic-p) "#fbf8ef" "#ffffff"))
       (bg2        (if (display-graphic-p) "#efeae9" "#e4e4e4"))
       (bg3        (if (display-graphic-p) "#e3dedd" "#d0d0d0"))
@@ -64,6 +65,8 @@
 ;;;;; basics
    `(default ((,class (:background ,bg1 :foreground ,base))))
    `(vertical-border ((,class (:foreground ,bg4))))
+   `(eval-sexp-fu-flash ((,class (:background ,suc :foreground ,bg1))))
+   `(eval-sexp-fu-flash-error ((,class (:background ,err :foreground ,bg1))))
    `(minibuffer-prompt ((,class (:bold t :foreground ,keyword))))
    `(match ((,class (:background ,bg1 :foreground ,inf :weight bold))))
    `(default-italic ((,class (:italic t))))
@@ -140,13 +143,18 @@
    `(anzu-mode-line ((,class (:foreground ,yellow :weight bold))))
 
 ;;;;; smartparens
-   `(sp-show-pair-match-face
-     ((,class (:foreground ,red :weight bold))))
+   `(sp-show-pair-match-face ((,class (:foreground ,red :weight bold :underline t))))
+   `(sp-pair-overlay-face ((,class (:background ,highlight :foreground nil))))
 
 ;;;;; git-gutter-fr
    `(git-gutter-fr:added ((,class (:foreground ,green :weight bold))))
    `(git-gutter-fr:deleted ((,class (:foreground ,war :weight bold))))
    `(git-gutter-fr:modified ((,class (:foreground ,inf :weight bold))))
+
+;;;;; ido
+   `(ido-first-match ((,class (:foreground ,type :bold t))))
+   `(ido-only-match ((,class (:foreground ,green))))
+   `(ido-subdir ((,class (:foreground ,key1))))
 
 ;;;;; helm
    `(helm-bookmark-directory ((,class (:inherit helm-ff-directory))))
@@ -164,6 +172,7 @@
    `(helm-candidate-number ((,class (:background ,bg1 :foreground ,inf :bold t))))
    `(helm-header ((,class (:foreground ,base :background ,bg1 :underline nil :box nil))))
    `(helm-ff-directory ((,class (:foreground ,key1 :background ,bg1 :weight bold))))
+   `(helm-ff-dotted-directory ((,class (:foreground ,key1 :background ,bg1 :weight bold))))
    `(helm-ff-executable ((,class (:foreground ,suc :background ,bg1 :weight normal))))
    `(helm-ff-file ((,class (:foreground ,base :background ,bg1 :weight normal))))
    `(helm-ff-invalid-symlink ((,class (:foreground ,red :background ,bg1 :weight bold))))
@@ -241,6 +250,17 @@
    `(eshell-ls-product ((,class (:inherit font-lock-doc-face))))
    `(eshell-ls-special ((,class (:foreground ,yellow :weight bold))))
    `(eshell-ls-symlink ((,class (:foreground ,cyan :weight bold))))
+
+;;;;; term
+   `(term ((,class (:foreground ,base :background ,bg1))))
+   `(term-color-black ((,class (:foreground ,bg4))))
+   `(term-color-blue ((,class (:foreground ,inf))))
+   `(term-color-red ((,class (:foreground ,red))))
+   `(term-color-green ((,class (:foreground ,green))))
+   `(term-color-yellow ((,class (:foreground ,yellow))))
+   `(term-color-magenta ((,class (:foreground ,builtin))))
+   `(term-color-cyan ((,class (:foreground ,cyan))))
+   `(term-color-white ((,class (:foreground ,base))))
 
 ;;;;; neotree
    `(neo-root-dir-face ((,class (:foreground ,func :weight bold))))
@@ -364,15 +384,6 @@
    `(undo-tree-visualizer-register-face ((,class :foreground ,type)))
    `(slime-repl-inputed-output-face ((,class (:foreground ,type))))
    `(trailing-whitespace ((,class :foreground nil :background ,err)))
-   `(term ((,class (:foreground ,base :background ,bg1))))
-   `(term-color-black ((,class (:foreground ,bg3))))
-   `(term-color-blue ((,class (:foreground ,inf))))
-   `(term-color-red ((,class (:foreground ,red))))
-   `(term-color-green ((,class (:foreground ,green))))
-   `(term-color-yellow ((,class (:foreground ,yellow))))
-   `(term-color-magenta ((,class (:foreground ,builtin))))
-   `(term-color-cyan ((,class (:foreground ,cyan))))
-   `(term-color-white ((,class (:foreground ,base))))
    `(web-mode-builtin-face ((,class (:inherit ,font-lock-builtin-face))))
    `(web-mode-comment-face ((,class (:inherit ,font-lock-comment-face))))
    `(web-mode-constant-face ((,class (:inherit ,font-lock-constant-face))))
