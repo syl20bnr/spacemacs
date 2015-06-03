@@ -50,7 +50,7 @@
     - [Dotfile (.spacemacs)](#dotfile-spacemacs)
 - [Learning Spacemacs](#learning-spacemacs)
     - [Editing Styles](#editing-styles)
-    - [The leader key](#the-leader-key)
+    - [The leader keys](#the-leader-keys)
     - [Evil-tutor](#evil-tutor)
     - [Universal argument](#universal-argument)
     - [Configuration layers and Package discovery](#configuration-layers-and-package-discovery)
@@ -356,7 +356,7 @@ Spacemacs can be used by Vim users or Emacs users by setting the
 `dotspacemacs-editing-style` variable to `'vim` or `'emacs` in the dotfile
 `~/.spacemacs`.
 
-## The leader key
+## The leader keys
 
 `Spacemacs` key bindings use a leader key which is by default bound to
 <kbd>SPC</kbd> (space bar) in `vim` editing style and <kbd>M-m</kbd> in
@@ -368,6 +368,10 @@ the `emacs` style (these variables must be set in the file `~/.spacemacs`).
 
 For simplicity the documentation always refers to the leader key as
 <kbd>SPC</kbd>.
+
+There is secondary leader key called the major-mode leader key which is
+set to <kbd>,</kbd> by default. This key is a shortcut for <kbd>SPC m</kbd>
+where all the major-mode specific commands are bound.
 
 ## Evil-tutor
 
