@@ -168,6 +168,10 @@ package name does not match theme name + `-theme' suffix.")
       (require 'solarized)
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))
+     ((or (eq 'spacemacs-light theme)
+          (eq 'spacemacs-dark theme))
+      (add-to-list 'custom-theme-load-path (concat spacemacs-directory
+                                                   "extensions/spacemacs-theme")))
      ;; themes with explicitly declared package names
      ((assq theme spacemacs-theme-name-to-package)
       (let* ((pkg (spacemacs//get-theme-package theme))
