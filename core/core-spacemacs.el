@@ -122,6 +122,7 @@ initialization."
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-package 'bind-key t)
   (spacemacs/load-or-install-package 'use-package t)
+  (setq use-package-verbose dotspacemacs-verbose-loading)
   ;; inject use-package hooks for easy customization of
   ;; stock package configuration
   (setq use-package-inject-hooks t)
