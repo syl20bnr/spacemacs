@@ -55,6 +55,8 @@ brew install coreutils
 
     Key Binding   |       Description
 ------------------|------------------------------------------------------------
+<kbd>⌘ +</kbd>    | Scale up text
+<kbd>⌘ -</kbd>    | Scale down text
 <kbd>⌘ q</kbd>    | Quit
 <kbd>⌘ v</kbd>    | Paste
 <kbd>⌘ c</kbd>    | Copy
