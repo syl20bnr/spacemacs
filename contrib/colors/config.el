@@ -26,6 +26,8 @@
     (monokai . (55 60))
     (solarized-dark . (65 55))
     (solarized-light . (60 55))
+    (spacemacs-light . (100 30))
+    (spacemacs-dark . (125 100))
     (zenburn . (40 65)))
   "alist of theme symbols and pair of saturation and lightness values.")
 

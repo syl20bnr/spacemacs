@@ -20,6 +20,8 @@
 - Add support for =flycheck= (thanks to swaroopch)
 **** Scala
 - Set classpath directory of =ensime= to =.cache/ensime= (thanks to cyrillk)
+**** Themes
+- Add spacemacs-theme
 *** Core
 - Enable =use-pacage-verbose= when =dotspacemacs-verbose-loading= is set to =t=
 - Better name for placeholders in layer templates (thanks to kini)
