@@ -13,7 +13,7 @@
 
 (defun osx/init-pbcopy ()
   (use-package pbcopy
-    :if (not (display-graphic-p))
+    :if (and (system-is-mac)(not (display-graphic-p))) 
     :init (turn-on-pbcopy)))
 
 (defun osx/init-reveal-in-finder ()
