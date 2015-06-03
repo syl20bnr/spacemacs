@@ -36,8 +36,10 @@
     - [Convenient and Mnemonic Key Bindings](#convenient-and-mnemonic-key-bindings)
         - [Great [Documentation][DOCUMENTATION.MD]](#great-documentationdocumentationmd)
 - [Prerequisites](#prerequisites)
-    - [Emacs version](#emacs-version)
-    - [OS X](#os-x)
+    - [Emacs](#emacs)
+        - [Linux distros](#linux-distros)
+        - [OS X](#os-x)
+        - [Windows](#windows)
 - [Install](#install)
     - [Spacemacs logo](#spacemacs-logo)
 - [Update](#update)
@@ -144,7 +146,7 @@ If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
 
 # Prerequisites
 
-## Emacs version
+## Emacs
 
 `Spacemacs` is tested with Emacs 24.3 and 24.4 and therefore should boot
 on all the major OSes where these versions are installable.
@@ -152,7 +154,11 @@ on all the major OSes where these versions are installable.
 Some modes require third-party tools that you'll have to install via your
 favorite package manager.
 
-## OS X
+### Linux distros
+
+Install Emacs from the package manager of your favorite Linux distribution.
+
+### OS X
 
 The recommended version for OS X is [emacs-mac-port][]. It can be installed
 via [homebrew][] with the following commands:
@@ -172,6 +178,32 @@ this you can add the [osx layer][] to your [dotfile][] layer list:
 Note that the `emacs-mac-port` server behaves differently than the regular
 Emacs server.
 Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
+
+### Windows
+
+Good quality builds can be found [on this page][emacs-for-windows]. It is
+recommended to install the most stable build.
+
+Be sure to declare a environment variable named `HOME` and pointing to
+your user directory `C:\Users\<username>`. Then you can clone Spacemacs
+in this directory.
+
+Sometimes you'll get the following error when you first start Emacs:
+
+```
+The directory ~/.emacs.d/server is unsafe
+```
+
+To fix it change the owner of the directory `~/.emacs.d/server`:
+  - from Properties select the Tab “Security”,
+  - select the button “Advanced”,
+  - select the Tab “Owner”
+  - change the owner to your account name
+
+Source: [Stackoverflow][so-server-unsafe]
+
+For efficient searches we recommend to install `pt` [the platinum searcher][].
+`pt` version 1.7.7 or higher is required.
 
 # Install
 
@@ -466,21 +498,7 @@ also recommended to disable smooth scrolling on Windows.
 A GUI build of emacs supporting image display is required.
 You can follow the instructions [here][Windows Image Support]. Alternatively you
 can download binaries of emacs with image support
-included such as this [one][Windows Gui Build].
-
-3. **How to fix the error: The directory ~/.emacs.d/server is unsafe ?**
-Change the owner of the directory `~/.emacs.d/server`:
-  - from Properties select the Tab “Security”,
-  - select the button “Advanced”,
-  - select the Tab “Owner”
-  - change the owner to your account name
-  Source: [Stackoverflow][so-server-unsafe]
-
-4. **I followed installation instructions and it's not working, why?**
-Make sure your `HOME` directory is set. Go to the Environment Variables
-panel, add a new user variable called `HOME` and give it the value
-`%USERPROFILE%`. You can check that the variable is set correctly by
-opening a new command line window and type `echo %HOME%`.
+included such as [this one][emacs-for-windows].
 
 ## OS X
 
@@ -523,16 +541,8 @@ details.
 [emacs-mac-port]: https://github.com/railwaycat/homebrew-emacsmacport
 [emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
 [homebrew]: https://github.com/Homebrew/homebrew
-[Elixir]: contrib/!lang/erlang-elixir
-[Haskell]: contrib/!lang/haskell
-[LaTeX]: contrib/auctex
-[JavaScript]: contrib/!lang/javascript
-[Python]: contrib/!lang/python
-[R]: contrib/!lang/ess
-[Ruby]: contrib/!lang/ruby
-[Scala]: contrib/!lang/scala
-[Clojure]: contrib/!lang/clojure
-[C-C++]: contrib/!lang/c-c++
+[emacs-for-windows]: http://emacsbinw64.sourceforge.net/
+[the platinum searcher]:
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
 [powerline-doc]: doc/DOCUMENTATION.md#powerline-separators
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
@@ -540,4 +550,3 @@ details.
 [Nasser Alshammari]: https://github.com/nashamri
 [cpaulik-unity-icon]: http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/
 [Windows Image Support]: http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files
-[Windows Gui Build]: http://emacsbinw64.sourceforge.net/
