@@ -9,6 +9,7 @@
     - [Description](#description)
     - [Install](#install)
         - [Layer](#layer)
+        - [Github support](#github-support)
         - [Different bullets](#different-bullets)
     - [Key bindings](#key-bindings)
         - [Org with evil-org-mode](#org-with-evil-org-mode)
@@ -39,6 +40,17 @@ To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
 (setq-default dotspacemacs-configuration-layers '(org))
+```
+
+### Github support
+
+To install Github related extensions like [ox-gfm][] to export to Github
+flavored markdown set the variable `org-enable-github-support` to `t`.
+
+```elisp
+(setq-default dotspacemacs-configuration-layers '(
+  (org :variables
+       org-enable-github-support t)))
 ```
 
 ### Different bullets
