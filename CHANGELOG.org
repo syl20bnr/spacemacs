@@ -9,8 +9,6 @@
 **** C/C++
 - Add package =gdb-mi= (gdb-many-windows) which enables an IDE like debugger
   frontend for Emacs (thanks to tuhdo)
-**** Org
-- Move =ox-gfm= to extensions directory to fix a bug when installed from MELPA
 **** Osx
 - Add  =⌘ += and =⌘ -= key bindings to scale text (thanks to JoshTGreenwood)
 **** Python
@@ -28,6 +26,12 @@
 *** Other fixes
 - Typos and documentation improvements (thanks to JoshTGreenwood)
 * Release 0.102.x
+** 0.102.2 (2015/06/03)
+*** Layer changes
+**** Org
+- Fix bug with =ox-gfm= by moving it to extensions
+*** Core
+- Fix detection of new versions by correctly fetch latest changes
 ** 0.102.1 (2015/06/01)
 *** Layer changes
 **** Org
