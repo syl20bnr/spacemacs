@@ -1,4 +1,10 @@
 * Release 0.102.x
+** 0.102.2 (2015/06/03)
+*** Layer changes
+**** Org
+- Fix bug with =ox-gfm= by moving it to extensions
+*** Core
+- Fix detection of new versions by correctly fetch latest changes
 ** 0.102.1 (2015/06/01)
 *** Layer changes
 **** Org
