@@ -100,7 +100,7 @@
 (defun latex/post-init-evil-matchit ()
   (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
 
-(defun python/post-init-flycheck ()
+(defun latex/post-init-flycheck ()
   (add-hook 'LaTeX-mode-hook 'flycheck-mode))
 
 (defun latex/post-init-flyspell ()
