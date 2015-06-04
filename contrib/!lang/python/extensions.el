@@ -16,12 +16,13 @@
 ;; Post extensions are loaded *after* the packages
 (setq python-post-extensions
   '(
-    nose
     pylookup
     python-compile
     py-yapf
     ))
 
+(unless python-use-pytest
+    (push 'nose python-post-extensions))
 ;; Initialize the extensions
 
 (defun python/init-nose ()

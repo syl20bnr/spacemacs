@@ -151,6 +151,34 @@ Test commands (start with <kbd>m t</kbd> or <kbd>m T</kbd>):
 <kbd>SPC m T s</kbd> | launch all tests of the current suite in debug mode
 <kbd>SPC m T t</kbd> | launch the current test (function) in debug mode
 
+#### Using pytest
+
+If you would rather use pytest then set `python-use-pytest` to `t` in your
+`dotspacemacs/init` function.
+
+
+```elisp
+(defun dotspacemacs/init ()
+  (setq-default python-use-pytest t)
+)
+```
+
+Test commands (start with <kbd>m t</kbd> or <kbd>m T</kbd>):
+
+    No Debug         |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC m t a</kbd> | launch all tests of the project
+<kbd>SPC m t b</kbd> | launch all tests of the current buffer (same as module)
+<kbd>SPC m t m</kbd> | launch all tests of the current module
+<kbd>SPC m t t</kbd> | launch the current test (function)
+
+     Debug           |                 Description
+---------------------|------------------------------------------------------------
+<kbd>SPC m T a</kbd> | launch all tests of the project in debug mode
+<kbd>SPC m T b</kbd> | launch all tests of the current buffer (module) in debug mode
+<kbd>SPC m T m</kbd> | launch all tests of the current module in debug mode
+<kbd>SPC m T t</kbd> | launch the current test (function) in debug mode
+
 ### Refactoring
 
     Key Binding       |                 Description
