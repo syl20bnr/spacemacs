@@ -12,6 +12,7 @@
 
 (setq emacs-lisp-packages
       '(
+        company
         eldoc
         elisp-slime-nav
         evil
@@ -20,6 +21,13 @@
         smartparens
         srefactor
         ))
+
+(defun emacs-lisp/post-init-company ()
+  (add-hook 'ielm-mode-hook #'(lambda ()
+                                (company-mode))))
+
+(defun emacs-lisp/init-company ()
+  (use-package company))
 
 (defun emacs-lisp/post-init-eldoc ()
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
