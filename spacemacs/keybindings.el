@@ -295,6 +295,18 @@ Ensure that helm is required before calling FUNC."
   "w="  'balance-windows)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
+  "xaa" 'align
+  "xar" 'align-repeat
+  "xam" 'align-repeat-math-oper
+  "xa." 'align-repeat-decimal
+  "xa," 'align-repeat-comma
+  "xa;" 'align-repeat-semicolon
+  "xa:" 'align-repeat-colon
+  "xa=" 'align-repeat-equal
+  "xa&" 'align-repeat-ampersand
+  "xa|" 'align-repeat-bar
+  "xa(" 'align-repeat-left-paren
+  "xa)" 'align-repeat-right-paren
   "xdw" 'delete-trailing-whitespace
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
