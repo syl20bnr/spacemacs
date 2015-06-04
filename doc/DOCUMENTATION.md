@@ -587,6 +587,10 @@ file.
 very complete emulation, maybe the most advanced. In fact, Evil is much more
 than just a Vim emulation. It has more states than Vim for instance.
 
+## Holy
+
+Thanks to the new holy-mode Spacemacs can now be used by Vim users or Emacs users by setting the dotspacemacs-editing-style variable to =’vim= or =’emacs= in the dotfile. In Emacs style the leader is available as `M-m`. It is possible to dynamically switch between evil and holy modes using `SPC P tab`.
+
 ### States
 
 `Spacemacs` has 9 states:
