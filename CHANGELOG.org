@@ -9,6 +9,8 @@
 **** C/C++
 - Add package =gdb-mi= (gdb-many-windows) which enables an IDE like debugger
   frontend for Emacs (thanks to tuhdo)
+**** Erlang-Elixir
+- List all Elixir key bindings in README
 **** Osx
 - Add  =⌘ += and =⌘ -= key bindings to scale text (thanks to JoshTGreenwood)
 **** Python
