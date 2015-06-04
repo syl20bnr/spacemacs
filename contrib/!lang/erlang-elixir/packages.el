@@ -24,16 +24,22 @@
   (add-hook 'elixir-mode-hook 'alchemist-mode)
   (setq alchemist-project-compile-when-needed t)
   (evil-leader/set-key-for-mode 'elixir-mode
-    "mcb" 'alchemist-compile-this-buffer
-
     "mel" 'alchemist-eval-current-line
     "meL" 'alchemist-eval-print-current-line
     "mer" 'alchemist-eval-region
     "meR" 'alchemist-eval-print-region
     "meb" 'alchemist-eval-buffer
     "meB" 'alchemist-eval-print-buffer
+    "mej" 'alchemist-eval-quoted-current-line
+    "meJ" 'alchemist-eval-print-quoted-current-line
+    "meu" 'alchemist-eval-quoted-region
+    "meU" 'alchemist-eval-print-quoted-region
+    "mev" 'alchemist-eval-quoted-buffer
+    "meV" 'alchemist-eval-print-quoted-buffer
 
-    "mgt" 'alchemist-project-open-tests-for-current-file
+    "mpt" 'alchemist-project-find-test
+    "mgt" 'alchemist-project-toggle-file-and-tests
+    "mgT" 'alchemist-project-toggle-file-and-tests-other-window
 
     "mh:" 'alchemist-help
     "mhH" 'alchemist-help-history
@@ -44,21 +50,32 @@
     "mmc" 'alchemist-mix-compile
     "mmx" 'alchemist-mix-run
     "mmh" 'alchemist-mix-help
-    "mmi" 'alchemist-iex-project-run
 
     "msi" 'alchemist-iex-run
+    "msI" 'alchemist-iex-project-run
     "msl" 'alchemist-iex-send-current-line
     "msL" 'alchemist-iex-send-current-line-and-go
     "msr" 'alchemist-iex-send-region
     "msR" 'alchemist-iex-send-region-and-go
+    "msc" 'alchemist-iex-compile-this-buffer
 
     "mta" 'alchemist-mix-test
     "mtb" 'alchemist-mix-test-this-buffer
     "mtt" 'alchemist-mix-test-at-point
+    "mtf" 'alchemist-test-file
+    "mtn" 'alchemist-test-jump-to-next-test
+    "mtp" 'alchemist-test-jump-to-previous-test
 
     "mxb" 'alchemist-execute-this-buffer
     "mxf" 'alchemist-execute-file
     "mx:" 'alchemist-execute
+
+    "mcb" 'alchemist-compile-this-buffer
+    "mcf" 'alchemist-compile-file
+    "mc:" 'alchemist-compile
+
+    "mgg" 'alchemist-goto-definition-at-point
+    "m," 'alchemist-goto-jump-back
     ))
 
 (defun erlang-elixir/init-edts ()
