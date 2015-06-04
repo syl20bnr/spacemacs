@@ -11,94 +11,95 @@
 ;;; License: GPLv3
 
 (setq spacemacs-packages
-  '(
-    ace-jump-mode
-    ace-link
-    ace-window
-    adaptive-wrap
-    aggressive-indent
-    auto-dictionary
-    auto-highlight-symbol
-    bind-key
-    bookmark
-    buffer-move
-    clean-aindent-mode
-    diminish
-    doc-view
-    ediff
-    eldoc
-    eval-sexp-fu
-    evil
-    evil-anzu
-    evil-args
-    evil-escape
-    evil-exchange
-    evil-iedit-state
-    evil-indent-textobject
-    evil-jumper
-    evil-leader
-    evil-lisp-state
-    evil-nerd-commenter
-    evil-matchit
-    evil-numbers
-    evil-search-highlight-persist
-    evil-surround
-    evil-terminal-cursor-changer
-    evil-tutor
-    evil-visualstar
-    exec-path-from-shell
-    expand-region
-    fancy-battery
-    fill-column-indicator
-    flx-ido
-    fringe-helper
-    gh-md
-    golden-ratio
-    google-translate
-    guide-key-tip
-    helm
-    helm-ag
-    helm-descbinds
-    helm-make
-    helm-mode-manager
-    ;; not working for now
-    ;; helm-proc
-    helm-projectile
-    helm-swoop
-    helm-themes
-    highlight-indentation
-    highlight-numbers
-    highlight-parentheses
-    hl-anything
-    hungry-delete
-    ido-vertical-mode
-    info+
-    iedit
-    indent-guide
-    open-junk-file
-    leuven-theme
-    linum-relative
-    move-text
-    neotree
-    page-break-lines
-    popup
-    popwin
-    powerline
-    projectile
-    rainbow-delimiters
-    recentf
-    rfringe
-    smartparens
-    smooth-scrolling
-    subword
-    undo-tree
-    use-package
-    vi-tilde-fringe
-    volatile-highlights
-    whitespace
-    window-numbering
-    winner
-    ))
+      '(
+        ace-jump-mode
+        ace-link
+        ace-window
+        adaptive-wrap
+        aggressive-indent
+        auto-dictionary
+        auto-highlight-symbol
+        bind-key
+        bookmark
+        buffer-move
+        clean-aindent-mode
+        desktop
+        diminish
+        doc-view
+        ediff
+        eldoc
+        eval-sexp-fu
+        evil
+        evil-anzu
+        evil-args
+        evil-escape
+        evil-exchange
+        evil-iedit-state
+        evil-indent-textobject
+        evil-jumper
+        evil-leader
+        evil-lisp-state
+        evil-nerd-commenter
+        evil-matchit
+        evil-numbers
+        evil-search-highlight-persist
+        evil-surround
+        evil-terminal-cursor-changer
+        evil-tutor
+        evil-visualstar
+        exec-path-from-shell
+        expand-region
+        fancy-battery
+        fill-column-indicator
+        flx-ido
+        fringe-helper
+        gh-md
+        golden-ratio
+        google-translate
+        guide-key-tip
+        helm
+        helm-ag
+        helm-descbinds
+        helm-make
+        helm-mode-manager
+        ;; not working for now
+        ;; helm-proc
+        helm-projectile
+        helm-swoop
+        helm-themes
+        highlight-indentation
+        highlight-numbers
+        highlight-parentheses
+        hl-anything
+        hungry-delete
+        ido-vertical-mode
+        info+
+        iedit
+        indent-guide
+        open-junk-file
+        leuven-theme
+        linum-relative
+        move-text
+        neotree
+        page-break-lines
+        popup
+        popwin
+        powerline
+        projectile
+        rainbow-delimiters
+        recentf
+        rfringe
+        smartparens
+        smooth-scrolling
+        subword
+        undo-tree
+        use-package
+        vi-tilde-fringe
+        volatile-highlights
+        whitespace
+        window-numbering
+        winner
+        ))
 
 (setq spacemacs-excluded-packages '())
 
@@ -417,6 +418,14 @@
     :defer t
     :init
     (add-hook 'prog-mode-hook 'clean-aindent-mode)))
+
+(defun spacemacs/init-desktop ()
+  (use-package desktop
+    :defer t
+    :init
+    (progn
+      (setq desktop-dirname spacemacs-cache-directory)
+      (push spacemacs-cache-directory desktop-path))))
 
 (defun spacemacs/init-diminish ()
   (require 'diminish)
