@@ -1902,6 +1902,15 @@ Text related commands (start with `x`):
 -----------------------|------------------------------------------------------------
 <kbd>SPC x u</kbd>     | set the selected text to lower case
 <kbd>SPC x U</kbd>     | set the selected text to upper case
+<kbd>SPC x a a</kbd>   | align region (or guessed section) using default rules
+<kbd>SPC x a r</kbd>   | align region using user-specified regexp 
+<kbd>SPC x a m</kbd>   | align region at arithmetic operators (+-*/) 
+<kbd>SPC x a .</kbd>   | align region at . (for numeric tables)
+<kbd>SPC x a ,</kbd>   | align region at ,
+<kbd>SPC x a ;</kbd>   | align region at ;
+<kbd>SPC x a =</kbd>   | align region at =
+<kbd>SPC x a &</kbd>   | align region at &
+<kbd>SPC x a |</kbd>   | align region at |
 <kbd>SPC x d w</kbd>   | delete trailing whitespaces
 <kbd>SPC x g l</kbd>   | set languages used by translate commands
 <kbd>SPC x g t</kbd>   | translate current word using Google Translate

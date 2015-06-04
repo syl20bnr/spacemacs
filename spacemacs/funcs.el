@@ -956,3 +956,47 @@ The body of the advice is in BODY."
               (member major-mode spacemacs-indent-sensitive-modes)))
      (let ((transient-mark-mode nil))
        (yank-advised-indent-function (region-beginning) (region-end)))))
+
+;; modified function from http://emacswiki.org/emacs/AlignCommands
+(defun align-repeat (start end regexp &optional justify-right after)
+  "Repeat alignment with respect to the given regular expression.
+If JUSTIFY-RIGHT is non nil justify to the right instead of the
+left. If AFTER is non-nil, add whitespace to the left instead of
+the right."
+  (interactive "r\nsAlign regexp: ")
+  (let ((complete-regexp (if after
+                             (concat regexp "\\([ \t]*\\)")
+                           (concat "\\([ \t]*\\)" regexp)))
+        (group (if justify-right -1 1)))
+    (align-regexp start end complete-regexp group 1 t)))
+
+;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
+(defun align-repeat-decimal (start end)
+  "Align a table of numbers on decimal points and dollar signs (both optional)"
+  (interactive "r")
+  (require 'align)
+  (align-region start end nil
+                '((nil (regexp . "\\([\t ]*\\)\\$?\\([\t ]+[0-9]+\\)\\.?")
+                       (repeat . t)
+                       (group 1 2)
+                       (spacing 1 1)
+                       (justify nil t)))
+                nil))
+
+(defmacro create-align-repeat-x (name regexp &optional justify-right default-after)
+  (let ((new-func (intern (concat "align-repeat-" name))))
+    `(defun ,new-func (start end switch)
+       (interactive "r\nP")
+       (let ((after (not (eq (if switch t nil) (if ,default-after t nil)))))
+         (align-repeat start end ,regexp ,justify-right after)))))
+
+(create-align-repeat-x "comma" "," nil t)
+(create-align-repeat-x "semicolon" ";" nil t)
+(create-align-repeat-x "colon" ":" nil t)
+(create-align-repeat-x "equal" "=")
+(create-align-repeat-x "math-oper" "[+\\-*/]")
+(create-align-repeat-x "ampersand" "&")
+(create-align-repeat-x "bar" "|")
+(create-align-repeat-x "left-paren" "(")
+(create-align-repeat-x "right-paren" ")" t)
+
