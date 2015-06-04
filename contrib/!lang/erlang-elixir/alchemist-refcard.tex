@@ -1,0 +1,126 @@
+\documentclass[a4paper,8pt]{extarticle}
+
+\usepackage{textcomp}
+\usepackage{fullpage}
+\usepackage{boxedminipage}
+\usepackage{multicol}
+\usepackage[a4paper,left=0.8cm,right=0.8cm,top=1.5cm,bottom=2cm]{geometry}
+\pagestyle{empty}
+
+\marginparwidth = 10pt
+
+\usepackage[T1]{fontenc}
+\newcommand{\changefont}[3]{
+\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
+
+\newcommand{\docheading}{\Huge\centering{Alchemist Quick Reference Card [Spacemacs Version]}\normalsize\bigskip}
+\newcommand{\helpgroup}[1]{\par\noindent\centering{\textbf{\large#1}\medskip}}
+\newcommand{\helpkey}[2]{\par~~\noindent\textbf{#1}\hfill{#2}~~}
+\newcommand{\group}[1]{\bigskip\par\noindent\textbf{\large#1}\bigskip}
+\newcommand{\subgroup}[1]{\medskip\par\noindent\textbf{#1}\medskip}
+\newcommand{\key}[2]{\par\noindent\textbf{#1}\hfill{#2}}
+\newcommand{\meta}[1]{\textlangle{#1}\textrangle}
+
+\begin{document}
+
+\changefont{pag}{m}{n}
+
+\renewcommand{\baselinestretch}{1.2}
+
+\docheading
+
+\bigskip
+
+\begin{boxedminipage}[t]{11cm}
+
+\medskip
+
+\helpgroup{Getting help in Emacs}
+
+\helpkey{SPC h d f}{describe a function}
+\helpkey{SPC h d v}{describe a variable}
+\helpkey{SPC h d k}{describe a key}
+\helpkey{SPC h d m}{describe current modes}
+\helpkey{SPC h d p}{describe a package}
+\helpkey{SPC h m}{search available man pages}
+
+\medskip
+
+\end{boxedminipage}
+
+\setlength{\bigskipamount}{1cm}
+
+\bigskip
+\bigskip
+
+\setlength{\columnsep}{1cm}
+
+\begin{multicols}{2}
+
+\group{Mix}
+
+\key{SPC m m :}{alchemist-mix}
+\key{SPC m t a}{alchemist-mix-test}
+\key{SPC m m c}{alchemist-mix-compile}
+\key{SPC m t f}{alchemist-mix-test-file}
+\key{SPC m t b}{alchemist-mix-test-this-buffer}
+\key{SPC m t t}{alchemist-mix-test-at-point}
+
+\group{Compilation}
+
+\key{SPC m c :}{alchemist-compile}
+\key{SPC m c f}{alchemist-compile-file}
+\key{SPC m c b}{alchemist-compile-this-buffer}
+
+\group{Execution}
+
+\key{SPC m x :}{alchemist-execute}
+\key{SPC m x f}{alchemist-execute-file}
+\key{SPC m x b}{alchemist-execute-this-buffer}
+
+\group{IEx}
+
+\key{SPC m s i}{alchemist-iex-run}
+\key{SPC m s I}{alchemist-iex-project-run}
+\key{SPC m s l}{alchemist-iex-send-current-line}
+\key{SPC m s L}{alchemist-iex-send-current-line-and-go}
+\key{SPC m s r}{alchemist-iex-send-region}
+\key{SPC m s R}{alchemist-iex-send-region-and-go}
+\key{SPC m s c}{alchemist-iex-compile-this-buffer}
+
+\group{Documentation Lookup}
+
+\key{SPC m h :}{alchemist-help}
+\key{SPC m h H}{alchemist-help-history}
+\key{SPC m h h}{alchemist-help-search-at-point}
+\key{SPC m h r}{alchemist-help-search-marked-region}
+
+\group{Project}
+
+\key{SPC m p t}{alchemist-project-find-test}
+\key{SPC m g t}{alchemist-project-toggle-file-and-tests}
+\key{SPC m g T}{alchemist-project-toggle-file-and-tests-other-window}
+
+\group{Eval}
+
+\key{SPC m e l}{alchemist-eval-current-line}
+\key{SPC m e L}{alchemist-eval-print-current-line}
+\key{SPC m e j}{alchemist-eval-quoted-current-line}
+\key{SPC m e J}{alchemist-eval-print-quoted-current-line}
+\key{SPC m e r}{alchemist-eval-region}
+\key{SPC m e R}{alchemist-eval-print-region}
+\key{SPC m e u}{alchemist-eval-quoted-region}
+\key{SPC m e U}{alchemist-eval-print-quoted-region}
+\key{SPC m e b}{alchemist-eval-buffer}
+\key{SPC m e B}{alchemist-eval-print-buffer}
+\key{SPC m e v}{alchemist-eval-quoted-buffer}
+\key{SPC m e V}{alchemist-eval-print-quoted-buffer}
+
+\group{Definition Lookup}
+
+\key{SPC m g g}{alchemist-goto-definition-at-point}
+\key{SPC m ,}{alchemist-goto-jump-back}
+
+\end{multicols}
+
+\end{document}

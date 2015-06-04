@@ -8,19 +8,22 @@
 **Table of Contents**
 
 - [Erlang/Elixir contribution layer for Spacemacs](#erlangelixir-contribution-layer-for-spacemacs)
-    - [Install](#install)
-    - [Erlang](#erlang)
-        - [Enable EDTS](#enable-edts)
-            - [EDTS Key bindings](#edts-key-bindings)
-    - [Elixir](#elixir)
-        - [Elixir Key bindings](#elixir-key-bindings)
-            - [Compilation](#compilation)
-            - [Elixir Help](#elixir-help)
-            - [Elixir Mix](#elixir-mix)
-            - [Elixir Evaluation in place](#elixir-evaluation-in-place)
-            - [Elixir REPL interactions](#elixir-repl-interactions)
-            - [Elixir Tests](#elixir-tests)
-            - [Elixir Execute](#elixir-execute)
+- [Install](#install)
+- [Erlang](#erlang)
+  - [Enable EDTS](#enable-edts)
+    - [EDTS Key bindings](#edts-key-bindings)
+  - [Elixir](#elixir)
+    - [Alchemist](#alchemist)
+      - [Refcard](#elixir-key-bindings)
+      - [Key bindings](#key-bindings)
+        - [Help](#help)
+        - [Mix](#mix)
+        - [Project](#project)
+        - [Evaluation in place](#evaluation-in-place)
+        - [REPL interactions](#repl-interactions)
+        - [Tests](#tests)
+        - [Compile](#compile)
+        - [Execute](#execute)
 
 <!-- markdown-toc end -->
 
@@ -60,15 +63,27 @@ Note that `EDTS` is disable on Windows.
 
 ## Elixir
 
-### Elixir Key bindings
+### Alchemist
 
-#### Compilation
+[Alchemist](https://github.com/tonini/alchemist.el) brings the Elixir toolings to Emacs and comes with a bunch of features like,
 
-    Key Binding       |                 Description
-----------------------|------------------------------------------------------------
-<kbd>SPC m c b</kbd>  | Compile current buffer
+* Powerful IEx integration
+* Mix integration
+* Compile & Execution of Elixir code
+* Inline code evaluation
+* Documentation lookup
+* Definition lookup
+* Smart code completion
+* Elixir project management
+* Integration with [company-mode](http://company-mode.github.io/)
 
-#### Elixir Help
+#### Refcard
+
+You find and overview of all the key-bindings on the [Alchemist-Refcard](alchemist-refcard.pdf?raw=true).
+
+#### Key bindings
+
+##### Help
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -77,17 +92,24 @@ Note that `EDTS` is disable on Windows.
 <kbd>SPC m h H</kbd>  | Toggle through search history
 <kbd>SPC m h r</kbd>  | Show help for current region
 
-#### Elixir Mix
+##### Mix
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC m m :</kbd>  | Prompt for a `mix` command
 <kbd>SPC m m c</kbd>  | Compile the whole application
 <kbd>SPC m m h</kbd>  | Show help for a specific `mix` command
-<kbd>SPC m m i</kbd>  | Start `iex` in the context of an Elixir project
 <kbd>SPC m m x</kbd>  | Run the given expression in the Elixir application context
 
-#### Elixir Evaluation in place
+##### Project
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC m p t</kbd>  | Open project test directory and list all test files.
+<kbd>SPC m g t</kbd>  | Toggle between a file and its tests in the current window.
+<kbd>SPC m g T</kbd>  | Toggle between a file and its tests in other window.
+
+##### Evaluation in place
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -98,18 +120,19 @@ Note that `EDTS` is disable on Windows.
 <kbd>SPC m e r</kbd>  | Evaluate region
 <kbd>SPC m e R</kbd>  | Evaluate region and insert result
 
-#### Elixir REPL interactions
+##### REPL interactions
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC m s i</kbd>  | Start an `iex` inferior process
+<kbd>SPC m s I</kbd>  | Start an IEx process with mix (`iex -S mix`)
 <kbd>SPC m s l</kbd>  | Send current line to REPL buffer
 <kbd>SPC m s L</kbd>  | Send current line to REPL buffer and focus it in `insert state`
 <kbd>SPC m s r</kbd>  | Send region to REPL buffer
 <kbd>SPC m s R</kbd>  | Send region to REPL buffer and focus it in `insert state`
+<kbd>SPC m s c</kbd>  | Compiles the current buffer in the IEx process.
 
-
-#### Elixir Tests
+##### Tests
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -118,13 +141,29 @@ Note that `EDTS` is disable on Windows.
 <kbd>SPC m t b</kbd>  | Run all the tests from current buffer
 <kbd>SPC m t t</kbd>  | Run test under point
 
-#### Elixir Execute
+##### Compile
+
+    Key Binding       |                 Description
+----------------------|------------------------------------------------------------
+<kbd>SPC m c :</kbd>  | Run a custom compile command with `elixirc`
+<kbd>SPC m c b</kbd>  | Compile the current buffer with elixirc. `elixirc`
+<kbd>SPC m c f</kbd>  | Compile the given filename with `elixirc`
+
+
+##### Execute
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
 <kbd>SPC m x :</kbd>  | Run a custom execute command with `elixir`
 <kbd>SPC m x b</kbd>  | Run the current buffer through `elixir`
 <kbd>SPC m x f</kbd>  | Run `elixir` with the given filename
+
+##### Code Definition Jump
+
+    Key Binding     |                 Description
+--------------------|------------------------------------------------------------
+<kbd>SPC m g g</kbd>  | Jump to the elixir expression definition at point.
+<kbd>SPC m ,</kbd>  | Pop back to where <kbd>SPC m g g</kbd> was last invoked.
 
 
 [EDTS]: https://github.com/tjarvstrand/edts
