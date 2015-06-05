@@ -2418,7 +2418,7 @@ Note that if you're on OS X, you may have to refer to the emacsclient that comes
 with your GUI Emacs, e.g. `export
 EDITOR="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c"`.
 
-Tip: Remember to use `:qw` or `C-x #` after you are done editing the file
+Tip: Remember to use `:wq` or `C-x #` after you are done editing the file
 in Emacs.
 
 See [Emacs as a Server][] in the official Emacs manual for more details.
