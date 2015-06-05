@@ -2594,7 +2594,7 @@ developers to elisp hackers!
 [issues]: https://github.com/syl20bnr/spacemacs/issues
 [vundle]: https://github.com/gmarik/Vundle.vim
 [anzu]: https://github.com/syohex/emacs-anzu
-[javascript-contrib]: ../contrib/lang/javascript
+[javascript-contrib]: ../contrib/!lang/javascript
 [themes-megapack]: ../contrib/themes-megapack
 [python-contrib]: ../contrib/lang/python
 [git layer]: ../contrib/git
