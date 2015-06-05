@@ -1,6 +1,9 @@
 * Release 0.103.x (next)
 ** 0.103.0
 *** Layer changes
+**** Spacemacs
+- Remove the kill ring from =savehist-additional-variables= to avoid an issue
+  with abnormal high size of =savehist= file (thanks to tuhdo)
 **** Auto-completion
 - Yasnippet: Default =helm-yas-display-key-on-candidate= to =t= (thanks to
   BrianHicks)
