@@ -43,6 +43,17 @@
   (expand-file-name (concat user-emacs-directory "private/"))
   "Spacemacs private layers base directory.")
 
+(defconst configuration-layer-private-layer-directory
+  (let ((dotspacemacs-layer-dir
+         (when dotspacemacs-directory
+           (expand-file-name
+            (concat dotspacemacs-directory "layers/")))))
+    (if (and dotspacemacs-directory
+             (file-exists-p dotspacemacs-layer-dir))
+        dotspacemacs-layer-dir
+      configuration-layer-private-directory))
+  "Spacemacs default directory for private layers.")
+
 (defconst configuration-layer-rollback-directory
   (expand-file-name (concat spacemacs-cache-directory ".rollback/"))
   "Spacemacs rollback directory.")
@@ -118,7 +129,7 @@ layer directory."
   (interactive)
   (let* ((current-layer-paths (mapcar (lambda (dir) (expand-file-name dir))
                                       (cl-pushnew
-                               configuration-layer-private-directory
+                               configuration-layer-private-layer-directory
                                dotspacemacs-configuration-layer-path)))
          (other-choice "Another directory...")
          (helm-lp-source
@@ -152,7 +163,7 @@ layer directory."
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path the the private configuration layer with name
 NAME."
-  (concat configuration-layer-private-directory name "/"))
+  (concat configuration-layer-private-layer-directory name "/"))
 
 (defun configuration-layer//copy-template (template &optional layer-dir)
   "Copy and replace special values of TEMPLATE to LAYER_DIR. If
@@ -213,7 +224,7 @@ path."
   ;; `dotspacemacs-directory' override the private directory if it exists.
   (let ((search-paths (append (list configuration-layer-contrib-directory)
                               dotspacemacs-configuration-layer-path
-                              (list configuration-layer-private-directory)
+                              (list configuration-layer-private-layer-directory)
                               (list dotspacemacs-directory)))
         (discovered '())
         (result (make-hash-table :size 256)))
