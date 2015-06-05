@@ -2596,7 +2596,7 @@ developers to elisp hackers!
 [anzu]: https://github.com/syohex/emacs-anzu
 [javascript-contrib]: ../contrib/lang/javascript
 [themes-megapack]: ../contrib/themes-megapack
-[python-contrib]: ../contrib/lang/python
+[python-contrib]: ../contrib/!lang/python
 [git layer]: ../contrib/git
 [html-contrib]: ../contrib/lang/html
 [guide-key]: https://github.com/kai2nenobu/guide-key
