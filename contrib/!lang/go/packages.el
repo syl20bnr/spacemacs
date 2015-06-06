@@ -29,6 +29,7 @@
         "mpb" 'go-play-buffer
         "mpr" 'go-play-region
         "mpd" 'go-download-play
+        "mga" 'ff-find-other-file
         "mgg" 'godef-jump
         "mtp" 'spacemacs/go-run-package-tests))))
 

@@ -59,7 +59,8 @@ To use this contribution add it to your `~/.spacemacs`
 <kbd>SPC m p r</kbd>       | go-play region
 <kbd>SPC m p d</kbd>       | download go-play snippet
 <kbd>SPC m t p</kbd>       | run "go test" for the current package
-<kbd>SPC m g</kbd>         | go jump to definition
+<kbd>SPC m g a</kbd>       | jump to matching test file or back from test to code file
+<kbd>SPC m g g</kbd>       | go jump to definition
 
 
 ### Go Oracle
