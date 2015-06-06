@@ -78,3 +78,14 @@ Once you are in the ipython notebook you can activate the micro-state with
 | =+=     | ein:notebook-worksheet-insert-next        |
 | =-=     | ein:notebook-worksheet-delete             |
 | =x=     | ein:notebook-close                        |
+
+** Screenshots
+*** Light
+[[img/light.png]]
+*** Dark
+[[img/dark.png]]
+
+** Bonus
+If you want to have a matplotlibrc that looks good with a dark background try
+using [[file:matplotlibrc][this]] =matplotlibrc=
+
