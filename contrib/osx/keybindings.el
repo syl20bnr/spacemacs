@@ -19,4 +19,7 @@
 		  (interactive)
 		  (call-interactively (key-binding "\C-x\C-s"))))
   (global-set-key (kbd "s-Z") 'undo-tree-redo)
-  (global-set-key (kbd "C-s-f") 'spacemacs/toggle-frame-fullscreen))
+  (global-set-key (kbd "C-s-f") 'spacemacs/toggle-frame-fullscreen)
+  (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
+  (global-set-key (kbd "s--") 'spacemacs/scale-down-font)
+  (global-set-key (kbd "s-0") 'spacemacs/reset-font-size))
