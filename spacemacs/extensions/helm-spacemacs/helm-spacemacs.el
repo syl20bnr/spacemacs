@@ -26,6 +26,7 @@
 
 ;;; Code:
 
+(require 'f)
 (require 'ht)
 (require 'helm)
 (require 'core-configuration-layer)
@@ -71,10 +72,37 @@
   (interactive)
   (helm-spacemacs-mode)
   (helm :buffer "*helm: spacemacs*"
-        :sources `(,(helm-spacemacs//layer-source)
+        :sources `(,(helm-spacemacs//documentation-source)
+                   ,(helm-spacemacs//layer-source)
                    ,(helm-spacemacs//package-source)
                    ,(helm-spacemacs//dotspacemacs-source)
                    ,(helm-spacemacs//toggle-source))))
+
+(defun helm-spacemacs//documentation-source ()
+  "Construct the helm source for the documentation section."
+  `((name . "Documentation")
+    (candidates . ,(helm-spacemacs//documentation-candidates))
+    (candidate-number-limit)
+    (action . (("Open documentation" . helm-spacemacs//documentation-action-open-file)))))
+
+(defun helm-spacemacs//documentation-candidates ()
+  (let (result)
+    (dolist (file-path (f-files spacemacs-docs-directory))
+      (push (f-relative file-path spacemacs-docs-directory) result))
+    (sort result 'string<)))
+
+(defun helm-spacemacs//documentation-action-open-file (candidate)
+  "Open documentation FILE."
+  (let ((file (concat spacemacs-docs-directory candidate)))
+    (if (and (equal (file-name-extension file) "md")
+             (not helm-current-prefix-arg))
+        (condition-case nil
+            (with-current-buffer (find-file-noselect file)
+              (gh-md-render-buffer)
+              (kill-this-buffer))
+          ;; if anything fails, fall back to simply open file
+          (find-file file))
+      (find-file file))))
 
 (defun helm-spacemacs//layer-source ()
   "Construct the helm source for the layer section."
