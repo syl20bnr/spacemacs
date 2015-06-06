@@ -11,7 +11,8 @@
         - [Layer](#layer)
         - [Auto-completion](#auto-completion)
         - [Previewing](#previewing)
-    - [Configuration](#configuration)
+        - [Build command](#build-command)
+        - [Auto-fill](#auto-fill)
     - [Keybindings](#keybindings)
         - [RefTeX](#reftex)
     - [Maintainer](#maintainer)
@@ -55,36 +56,41 @@ under `dotspacemacs/config`:
 Then when you open up a compiled PDF, the preview will update automatically
 when you recompile.
 
-## Configuration
+### Build command
 
-The AucTeX layer can be customized by setting some variables in your `.spacemacs` as follows:
+A build command can be specific via the layer variable `auctex-build-command`.
+
+The default value is `"LaTeX"`. If `"LatexMk"` is specified, the appropriate
+`LatexMk` configuration will be applied.
+
 ```elisp
 dotspacemacs-configuration-layers '(
-    ;; ...
-    (auctex :variables
-            auctex-build-command "LatexMk"
-            auctex-electric-escape t))
+  (auctex :variables auctex-build-command "LatexMk"))
 ```
-        
-The variables and associated default values are:
-- `auctex-build-command` -- `"LaTeX"`:  The default command to build when using <kbd>SPC m b</kbd>.  If `"LatexMk"` is specified, the appropriate `LatexMk` configuration will be applied.
-- `auctex-auto-fill` -- `t`:  Toggles the use of a smart auto-fill.
-- `auctex-nofill-env` -- `'(<see source>)`:  List of environment in which auto-fill-mode is disabled (default includes math environments, tabular and tikzpicture).
-- `auctex-electric-sub-and-supercript` -- `t`:  Toggle the AucTeX electric <kbd>_</kbd> and <kbd>^</kbd> in math mode
-- `auctex-electric-escape` -- `nil`:  Toggle the AucTeX electric <kbd>\\</kbd>
-- `auctex-reftex-plugin` -- `'(nil nil t t t)`:  Sets the `reftex-plug-into-AUCTeX` variable; by default it is set to provide existing labels but not create new ones.
+
+### Auto-fill
+
+To enable auto-fill set the variable `auctex-enable-auto-fill` to `t`.
+
+The variable `auctex-nofill-env` provide the list of environment names where
+`auto-fille-mode` will be inhibited.
+
+```elisp
+dotspacemacs-configuration-layers '(
+  (auctex :variables auctex-enable-auto-fill t))
+```
 
 ## Keybindings
 
 Key Binding         |                 Description
 --------------------|------------------------------------------------------------------
-<kbd>SPC m b  </kbd>| build
-<kbd>SPC m v  </kbd>| view
-<kbd>SPC m e  </kbd>| insert LaTeX environment
-<kbd>SPC m c  </kbd>| close LaTeX environment
-<kbd>SPC m i  </kbd>| insert `\item`
-<kbd>SPC m f  </kbd>| insert LaTeX font - full bindings here: [AUCTeX documentation][AUCTeX Font]
-<kbd>SPC m C  </kbd>| TeX command on master file
+<kbd>SPC m *</kbd>  | TeX documentation, can be very slow
+<kbd>SPC m b</kbd>  | build
+<kbd>SPC m c</kbd>  | close LaTeX environment
+<kbd>SPC m C</kbd>  | TeX command on master file
+<kbd>SPC m e</kbd>  | insert LaTeX environment
+<kbd>SPC m f</kbd>  | insert LaTeX font - full bindings here: [AUCTeX documentation][AUCTeX Font]
+<kbd>SPC m i</kbd>  | insert `\item`
 <kbd>SPC m p r<kbd> | preview region
 <kbd>SPC m p b</kbd>| preview buffer
 <kbd>SPC m p d</kbd>| preview document
@@ -93,7 +99,7 @@ Key Binding         |                 Description
 <kbd>SPC m p p</kbd>| preview at point
 <kbd>SPC m p f</kbd>| cache preamble for preview
 <kbd>SPC m p c</kbd>| clear previews
-<kbd>SPC m *</kbd>  | TeX documentation, can be very slow
+<kbd>SPC m v  </kbd>| view
 
 
 ### RefTeX
