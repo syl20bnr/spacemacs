@@ -200,6 +200,14 @@ If TYPE is nil, just remove widgets."
                                                    :help-echo "Teach you how to use Emacs basics."
                                                    :action (lambda (&rest ignore) (call-interactively #'help-with-tutorial))
                                                    :mouse-face 'highlight
+                                                   :follow-link "\C-m"))
+                       (widget-insert " ")
+                       (add-to-list 'spacemacs-buffer--note-widgets
+                                    (widget-create 'push-button
+                                                   :tag (propertize "Vim Migration Guide" 'face 'font-lock-keyword-face)
+                                                   :help-echo "Documentation for former vim users."
+                                                   :action (lambda (&rest ignore) (find-file (concat spacemacs-docs-directory "VIMUSERS.org")))
+                                                   :mouse-face 'highlight
                                                    :follow-link "\C-m")))))
     (spacemacs-buffer//insert-note file "Quick Help" widget-func))
   (setq spacemacs-buffer--previous-insert-type 'quickhelp))

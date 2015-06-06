@@ -33,6 +33,9 @@
 (defconst spacemacs-cache-directory
   (expand-file-name (concat user-emacs-directory ".cache/"))
   "Spacemacs storage area for persistent files")
+(defconst spacemacs-docs-directory
+  (expand-file-name (concat user-emacs-directory "doc/"))
+  "Spacemacs documentation directory.")
 
 (defconst user-home-directory
   (expand-file-name "~/")
