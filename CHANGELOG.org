@@ -26,8 +26,12 @@
 **** Themes
 - Add spacemacs-theme
 *** Core
-- Enable =use-pacage-verbose= when =dotspacemacs-verbose-loading= is set to =t=
+- Enable =use-package-verbose= when =dotspacemacs-verbose-loading=
+  is set to =t=
 - Better name for placeholders in layer templates (thanks to kini)
+- Layers are now auto-discovered recursively which allow arbitrary
+  directory hierarchy. Directory names starting with =!= are categories.
+  (thanks to TheBB)
 *** Other fixes
 - Typos and documentation improvements (thanks to JoshTGreenwood)
 * Release 0.102.x
