@@ -16,7 +16,7 @@
   "Initialize reftex"
 
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-  (setq reftex-plug-into-AUCTeX auctex-reftex-plugin)
+  (setq reftex-plug-into-AUCTeX '(nil nil t t t))
 
   (evil-leader/set-key-for-mode 'latex-mode
     "mrc"    'reftex-citation
