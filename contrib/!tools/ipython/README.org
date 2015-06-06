@@ -1,0 +1,91 @@
+
+* iPython contribution layer for Spacemacs (WIP)
+
+** Description 
+This layer adds support for the package =emacs-ipython-notebook=.
+
+Do not hesitate to check the original package README [[https://github.com/millejoh/emacs-ipython-notebook][here]]. Also the wiki has
+lots of informative stuff.
+
+** Features
+- Micro-State with "evilified" keybindings
+- Lazy-loading
+** TODO List
+- Maybe it'd be better if there was a state for this
+- Make more keybinding to =connect= to a python buffer.
+- Deleting visual regions don't work, find out why.
+- This is a WIP, feel free to collaborate.
+
+** Install
+*** Layer
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(ipython))
+#+end_src
+*** Dependencies
+Install iPython > 3
+#+begin_src sh
+  pip install ipython
+#+end_src
+*** What needs to be run
+Have an iPython notebook running
+#+begin_src sh
+  ipython notebook
+#+end_src
+
+** Key Bindings
+
+*** Open Notebook List
+This layer is lazy loaded so the micro-state will only work after you summon the
+command =ein:notebooklist-open= which is bound to =SPC a i n=
+*** Micro-state: =ipython-notebook= 
+Once you are in the ipython notebook you can activate the micro-state with
+=SPC a i n=
+
+| Key     | Function                                  |
+|---------+-------------------------------------------|
+| =h=     | ein:notebook-worksheet-open-prev-or-last  |
+| =j=     | ein:worksheet-goto-next-input             |
+| =k=     | ein:worksheet-goto-prev-input             |
+| =l=     | ein:notebook-worksheet-open-next-or-first |
+| =H=     | ein:notebook-worksheet-move-prev          |
+| =J=     | ein:worksheet-move-cell-down              |
+| =K=     | ein:worksheet-move-cell-up                |
+| =L=     | ein:notebook-worksheet-move-next          |
+| =t=     | ein:worksheet-toggle-output               |
+| =d=     | ein:worksheet-kill-cell                   |
+| =R=     | ein:worksheet-rename-sheet                |
+| =y=     | ein:worksheet-copy-cell                   |
+| =p=     | ein:worksheet-yank-cell                   |
+| =o=     | ein:worksheet-insert-cell-below           |
+| =O=     | ein:worksheet-insert-cell-above           |
+| =RET=   | ein:worksheet-execute-cell-and-goto-next  |
+| =C-l=   | ein:worksheet-clear-output                |
+| =C-S-l= | ein:worksheet-clear-all-output            |
+| =C-o=   | ein:console-open                          |
+| =C-k=   | ein:worksheet-merge-cell                  |
+| =C-j=   | spacemacs/ein:worksheet-merge-cell-next   |
+| =C-s=   | ein:notebook-save-notebook-command        |
+| =C-r=   | ein:notebook-rename-command               |
+| =1=     | ein:notebook-worksheet-open-1th           |
+| =2=     | ein:notebook-worksheet-open-2th           |
+| =3=     | ein:notebook-worksheet-open-3th           |
+| =4=     | ein:notebook-worksheet-open-4th           |
+| =5=     | ein:notebook-worksheet-open-5th           |
+| =6=     | ein:notebook-worksheet-open-6th           |
+| =7=     | ein:notebook-worksheet-open-7th           |
+| =8=     | ein:notebook-worksheet-open-8th           |
+| =9=     | ein:notebook-worksheet-open-last          |
+| =+=     | ein:notebook-worksheet-insert-next        |
+| =-=     | ein:notebook-worksheet-delete             |
+| =x=     | ein:notebook-close                        |
+
+** Screenshots
+*** Light
+[[img/light.png]]
+*** Dark
+[[img/dark.png]]
+
+** Bonus
+If you want to have a matplotlibrc that looks good with a dark background try
+using [[file:matplotlibrc][this]] =matplotlibrc=. Plot background is always transparent by default so
+it will look okay for most dark themes out there.

@@ -1,0 +1,27 @@
+# -*- conf-unix -*-
+
+text.color          : dcdccc
+
+patch.facecolor        : 8cd0d3 # blue
+patch.edgecolor        : eeeeee
+
+axes.facecolor      : 383838   # axes background color
+axes.edgecolor      : bcbcbc   # axes edge color
+axes.grid           : True     # display grid or not
+axes.labelcolor     : dcdccc
+axes.color_cycle    : 8cd0d3, 7f9f7f, cc9393, 93e0e3, dc8cc3, f0dfaf, dcdccc
+# (system default)    blue,   green,  red,    cyan,  magenta, yellow, black
+
+xtick.color          : dcdccc      # color of the tick labels
+xtick.direction      : in     # direction: in or out
+ytick.color          : dcdccc      # color of the tick labels
+ytick.direction      : in     # direction: in or out
+
+legend.fancybox      : True  # if True, use a rounded box for the
+
+figure.facecolor : 3f3f3f   # figure facecolor; 0.75 is scalar gray
+figure.edgecolor : 383838   # figure edgecolor
+
+# See also:
+# * Sane color scheme for Matplotlib
+#   http://www.huyng.com/posts/sane-color-scheme-for-matplotlib/
