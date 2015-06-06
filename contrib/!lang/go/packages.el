@@ -11,6 +11,9 @@
     (add-hook 'go-mode-hook 'flycheck-mode))
 
 (defun go/init-go-mode()
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-copy-env "GOPATH"))
+
   (use-package go-mode
     :defer t
     :config
