@@ -87,5 +87,5 @@ Once you are in the ipython notebook you can activate the micro-state with
 
 ** Bonus
 If you want to have a matplotlibrc that looks good with a dark background try
-using [[file:matplotlibrc][this]] =matplotlibrc=
-
+using [[file:matplotlibrc][this]] =matplotlibrc=. Plot background is always transparent by default so
+it will look okay for most dark themes out there.
