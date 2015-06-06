@@ -1,5 +1,8 @@
 * Release 0.103.x (next)
 ** 0.103.0
+*** IMPORTANT: Breaking changes
+- =auctex= layer has been renamed =latex=, be sure to update your
+  dotfile if you use this layer.
 *** Layer changes
 **** Spacemacs
 - Remove the kill ring from =savehist-additional-variables= to avoid an issue
@@ -14,6 +17,17 @@
   frontend for Emacs (thanks to tuhdo)
 **** Erlang-Elixir
 - List all Elixir key bindings in README
+**** Latex
+- Add support for =RefTeX= (thanks to JP-Ellis)
+- Add support for =LatexMk=, to enable it set the layer variable
+  =latex-build-command= to ="LatexMk"= (thanks to JP-Ellis)
+- Use =auto-fill-mode=, with an environment-aware auto-fill function, you
+  can enable =auto-fill= support by setting the layer variable
+  =latex-enable-auto-fill= to =t=. You can also inhibit it in some environments
+  with the variable =latex-nofill-env= (thanks to JP-Ellis)
+- Remove =build-view= in favour of just =build= as it seemed to be
+  broken and introduce =SPC m v= to view (thanks to JP-Ellis)
+- General settings should now be easier to override in =dotspacemacs/config=
 **** Osx
 - Add  =⌘ += and =⌘ -= key bindings to scale text (thanks to JoshTGreenwood)
 **** Python
