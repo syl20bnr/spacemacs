@@ -97,17 +97,9 @@ symbol and the value is an odered list of initialization functions to execute.")
 (defvar configuration-layer-all-post-extensions-sorted '()
   "Sorted list of all post extensions symbols.")
 
-;; (defvar configuration-layer-contrib-categories '("!config"
-;;                                                  "!email"
-;;                                                  "!fun"
-;;                                                  "!irc"
-;;                                                  "!lang"
-;;                                                  "!tools"
-;;                                                  "!usr"
-;;                                                  "!vim"
-;;                                                  "!window-management")
-;;   "List of strings corresponding to category names. A category is a
-;; sub-directory of the contribution directory.")
+(defvar configuration-layer-categories '()
+  "List of strings corresponding to category names. A category is a
+directory with a name starting with `!'.")
 
 (defvar configuration-layer-excluded-packages '())
 
@@ -180,15 +172,38 @@ LAYER_DIR is nil, the private directory is used."
           (replace-match name t))))
     (save-buffer)))
 
-(defun configuration-layer//is-layer-p (path)
-  "Return non-nil if the path given is a valid configuration layer."
+(defun configuration-layer//directory-type (path)
+  "Return the type of directory pointed by PATH.
+Possible return values:
+  layer    - the directory is a layer
+  category - the directory is a category
+  nil      - the directory is a regular directory."
   (when (file-directory-p path)
-    (let ((files (directory-files path)))
-      (or (member "packages.el" files)
-          (member "extensions.el" files)
-          (member "config.el" files)
-          (member "keybindings.el" files)
-          (member "funcs.el" files)))))
+    (if (string-match
+         "^!" (file-name-nondirectory
+               (directory-file-name
+                (concat configuration-layer-contrib-directory path))))
+        'category
+      (let ((files (directory-files path)))
+        ;; most frequent files encoutered in a layer are tested first
+        (when (or (member "packages.el" files)
+                  (member "extensions.el" files)
+                  (member "config.el" files)
+                  (member "keybindings.el" files)
+                  (member "funcs.el" files))
+          'layer)))))
+
+(defun configuration-layer//get-category-from-path (dirpath)
+  "Return a category symbol from the given DIRPATH.
+The directory name must start with `!'.
+Returns nil if the directory is not a category."
+  (when (file-directory-p dirpath)
+    (let ((dirname (file-name-nondirectory
+                    (directory-file-name
+                     (concat configuration-layer-contrib-directory
+                             dirpath)))))
+      (when (string-match "^!" dirname)
+        (intern (substring dirname 1))))))
 
 (defun configuration-layer//discover-layers ()
   "Return a hash table where the key is the layer symbol and the value is its
@@ -210,14 +225,24 @@ path."
           (unless (or (string-equal ".." (substring sub -2))
                       (string-equal "." (substring sub -1))
                       (not (file-directory-p sub)))
-            (if (configuration-layer//is-layer-p sub)
-                ;; layer found
+            (let ((type (configuration-layer//directory-type sub)))
+              (cond
+               ((eq 'category type)
+                (let ((category (configuration-layer//get-category-from-path
+                                 sub)))
+                  (spacemacs-buffer/message "-> Discovered category: %S"
+                                            category)
+                  (push category configuration-layer-categories)
+                  (setq search-paths (cons sub search-paths))))
+               ((eq 'layer type)
                 (let ((layer-name (file-name-nondirectory sub))
                       (layer-dir (file-name-directory sub)))
-                  (spacemacs-buffer/message "-> Discovered configuration layer: %s" layer-name)
-                  (push (cons (intern layer-name) layer-dir) discovered))
-              ;; layer not found, add it to search path
-              (setq search-paths (cons sub search-paths)))))))
+                  (spacemacs-buffer/message "-> Discovered configuration layer: %s"
+                                            layer-name)
+                  (push (cons (intern layer-name) layer-dir) discovered)))
+               (t
+                ;; layer not found, add it to search path
+                (setq search-paths (cons sub search-paths)))))))))
     ;; add the spacemacs layer
     (puthash 'spacemacs (expand-file-name user-emacs-directory) result)
     ;; add discovered layers to hash table
