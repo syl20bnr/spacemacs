@@ -39,41 +39,42 @@ This layer is lazy loaded so the micro-state will only work after you summon the
 command =ein:notebooklist-open= which is bound to =SPC a i n=
 *** Micro-state: =ipython-notebook= 
 Once you are in the ipython notebook you can activate the micro-state with
-@@html:<kbd>@@ SPC a i n @@html:</kbd>@@
+=SPC a i n=
 
-| Key                                  | Function                                  |
-| @@html:<kbd>@@ h @@html:</kbd>@@     | ein:notebook-worksheet-open-prev-or-last  |
-| @@html:<kbd>@@ j @@html:</kbd>@@     | ein:worksheet-goto-next-input             |
-| @@html:<kbd>@@ k @@html:</kbd>@@     | ein:worksheet-goto-prev-input             |
-| @@html:<kbd>@@ l @@html:</kbd>@@     | ein:notebook-worksheet-open-next-or-first |
-| @@html:<kbd>@@ H @@html:</kbd>@@     | ein:notebook-worksheet-move-prev          |
-| @@html:<kbd>@@ J @@html:</kbd>@@     | ein:worksheet-move-cell-down              |
-| @@html:<kbd>@@ K @@html:</kbd>@@     | ein:worksheet-move-cell-up                |
-| @@html:<kbd>@@ L @@html:</kbd>@@     | ein:notebook-worksheet-move-next          |
-| @@html:<kbd>@@ t @@html:</kbd>@@     | ein:worksheet-toggle-output               |
-| @@html:<kbd>@@ d @@html:</kbd>@@     | ein:worksheet-kill-cell                   |
-| @@html:<kbd>@@ R @@html:</kbd>@@     | ein:worksheet-rename-sheet                |
-| @@html:<kbd>@@ y @@html:</kbd>@@     | ein:worksheet-copy-cell                   |
-| @@html:<kbd>@@ p @@html:</kbd>@@     | ein:worksheet-yank-cell                   |
-| @@html:<kbd>@@ o @@html:</kbd>@@     | ein:worksheet-insert-cell-below           |
-| @@html:<kbd>@@ O @@html:</kbd>@@     | ein:worksheet-insert-cell-above           |
-| @@html:<kbd>@@ RET @@html:</kbd>@@   | ein:worksheet-execute-cell-and-goto-next  |
-| @@html:<kbd>@@ C-l @@html:</kbd>@@   | ein:worksheet-clear-output                |
-| @@html:<kbd>@@ C-S-l @@html:</kbd>@@ | ein:worksheet-clear-all-output            |
-| @@html:<kbd>@@ C-o @@html:</kbd>@@   | ein:console-open                          |
-| @@html:<kbd>@@ C-k @@html:</kbd>@@   | ein:worksheet-merge-cell                  |
-| @@html:<kbd>@@ C-j @@html:</kbd>@@   | spacemacs/ein:worksheet-merge-cell-next   |
-| @@html:<kbd>@@ C-s @@html:</kbd>@@   | ein:notebook-save-notebook-command        |
-| @@html:<kbd>@@ C-r @@html:</kbd>@@   | ein:notebook-rename-command               |
-| @@html:<kbd>@@ 1 @@html:</kbd>@@     | ein:notebook-worksheet-open-1th           |
-| @@html:<kbd>@@ 2 @@html:</kbd>@@     | ein:notebook-worksheet-open-2th           |
-| @@html:<kbd>@@ 3 @@html:</kbd>@@     | ein:notebook-worksheet-open-3th           |
-| @@html:<kbd>@@ 4 @@html:</kbd>@@     | ein:notebook-worksheet-open-4th           |
-| @@html:<kbd>@@ 5 @@html:</kbd>@@     | ein:notebook-worksheet-open-5th           |
-| @@html:<kbd>@@ 6 @@html:</kbd>@@     | ein:notebook-worksheet-open-6th           |
-| @@html:<kbd>@@ 7 @@html:</kbd>@@     | ein:notebook-worksheet-open-7th           |
-| @@html:<kbd>@@ 8 @@html:</kbd>@@     | ein:notebook-worksheet-open-8th           |
-| @@html:<kbd>@@ 9 @@html:</kbd>@@     | ein:notebook-worksheet-open-last          |
-| @@html:<kbd>@@ + @@html:</kbd>@@     | ein:notebook-worksheet-insert-next        |
-| @@html:<kbd>@@ - @@html:</kbd>@@     | ein:notebook-worksheet-delete             |
-| @@html:<kbd>@@ x @@html:</kbd>@@     | ein:notebook-close                        |
+| Key     | Function                                  |
+|---------+-------------------------------------------|
+| =h=     | ein:notebook-worksheet-open-prev-or-last  |
+| =j=     | ein:worksheet-goto-next-input             |
+| =k=     | ein:worksheet-goto-prev-input             |
+| =l=     | ein:notebook-worksheet-open-next-or-first |
+| =H=     | ein:notebook-worksheet-move-prev          |
+| =J=     | ein:worksheet-move-cell-down              |
+| =K=     | ein:worksheet-move-cell-up                |
+| =L=     | ein:notebook-worksheet-move-next          |
+| =t=     | ein:worksheet-toggle-output               |
+| =d=     | ein:worksheet-kill-cell                   |
+| =R=     | ein:worksheet-rename-sheet                |
+| =y=     | ein:worksheet-copy-cell                   |
+| =p=     | ein:worksheet-yank-cell                   |
+| =o=     | ein:worksheet-insert-cell-below           |
+| =O=     | ein:worksheet-insert-cell-above           |
+| =RET=   | ein:worksheet-execute-cell-and-goto-next  |
+| =C-l=   | ein:worksheet-clear-output                |
+| =C-S-l= | ein:worksheet-clear-all-output            |
+| =C-o=   | ein:console-open                          |
+| =C-k=   | ein:worksheet-merge-cell                  |
+| =C-j=   | spacemacs/ein:worksheet-merge-cell-next   |
+| =C-s=   | ein:notebook-save-notebook-command        |
+| =C-r=   | ein:notebook-rename-command               |
+| =1=     | ein:notebook-worksheet-open-1th           |
+| =2=     | ein:notebook-worksheet-open-2th           |
+| =3=     | ein:notebook-worksheet-open-3th           |
+| =4=     | ein:notebook-worksheet-open-4th           |
+| =5=     | ein:notebook-worksheet-open-5th           |
+| =6=     | ein:notebook-worksheet-open-6th           |
+| =7=     | ein:notebook-worksheet-open-7th           |
+| =8=     | ein:notebook-worksheet-open-8th           |
+| =9=     | ein:notebook-worksheet-open-last          |
+| =+=     | ein:notebook-worksheet-insert-next        |
+| =-=     | ein:notebook-worksheet-delete             |
+| =x=     | ein:notebook-close                        |
