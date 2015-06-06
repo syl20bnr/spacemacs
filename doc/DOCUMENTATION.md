@@ -262,7 +262,8 @@ project.*
 # Who can benefit from this ?
 
 `Spacemacs` is first intended to be used by **Vim users** who want to go to the
-next level by using Emacs.
+next level by using Emacs. There is a [guide][vim-migration] for these users to
+supplement the documentation.
 
 It is also a good fit for people wanting to **lower the [risk of RSI][RSI]**
 induced by the default Emacs key bindings (this is an assumption, there is no
@@ -2526,6 +2527,7 @@ developers to elisp hackers!
 [evil]: https://gitorious.org/evil/pages/Home
 [evil-leader]: https://github.com/cofi/evil-leader
 [RSI]: http://en.wikipedia.org/wiki/Repetitive_strain_injury
+[vim-migration]: ./VIMUSERS.org
 [sacha_guide]: http://sachachua.com/blog/2013/05/how-to-learn-emacs-a-hand-drawn-one-pager-for-beginners/
 [use-package]: https://github.com/jwiegley/use-package
 [keychords]: http://www.emacswiki.org/emacs/KeyChord
