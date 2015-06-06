@@ -33,8 +33,6 @@
             TeX-parse-self t
             TeX-syntactic-comment t
             TeX-PDF-mode t
-            TeX-electric-sub-and-superscript t
-            TeX-electric-escape t
             ;; Synctex support
             TeX-source-correlate-mode t
             TeX-source-correlate-start-server nil
@@ -43,14 +41,14 @@
             ;; Don't insert line-break at inline math
             LaTeX-fill-break-at-separators nil)
       (when latex-enable-auto-fill
-        (add-hook 'LaTeX-mode-hook 'auctex/auto-fill-mode))
+        (add-hook 'LaTeX-mode-hook 'latex/auto-fill-mode))
       (add-hook 'LaTeX-mode-hook 'latex-math-mode))
     :config
     (progn
       ;; Key bindings for plain TeX
       (evil-leader/set-key-for-mode 'tex-mode
         "m\\" 'TeX-insert-macro
-        "mb" 'auctex/build
+        "mb" 'latex/build
         "mC" 'TeX-command-master
         ;; Find a way to rebind tex-fonts
         "mf" 'TeX-font
@@ -59,7 +57,7 @@
       ;; Key bindings for LaTeX
       (evil-leader/set-key-for-mode 'latex-mode
         "m\\" 'TeX-insert-macro
-        "mb" 'auctex/build
+        "mb" 'latex/build
         "mc" 'LaTeX-close-environment
         "mC" 'TeX-command-master
         "me" 'LaTeX-environment
