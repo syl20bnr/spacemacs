@@ -1,4 +1,4 @@
-;;; funcs.el --- Auctex Layer packages File for Spacemacs
+;;; funcs.el --- Auctex Layer Functions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,27 +10,25 @@
 ;;
 ;;; License: GPLv3
 
-
-;; functions
-(defun auctex/build ()
+(defun latex/build ()
   (interactive)
   (progn
     (let ((TeX-save-query nil))
       (TeX-save-document (TeX-master-file)))
-    (TeX-command auctex-build-command 'TeX-master-file -1)))
-    ;; (setq build-proc (TeX-command auctex-build-command 'TeX-master-file -1))
+    (TeX-command latex-build-command 'TeX-master-file -1)))
+    ;; (setq build-proc (TeX-command latex-build-command 'TeX-master-file -1))
     ;; ;; Sometimes, TeX-command returns nil causing an error in set-process-sentinel
     ;; (when build-proc
-    ;;   (set-process-sentinel build-proc 'auctex//build-sentinel))))
+    ;;   (set-process-sentinel build-proc 'latex//build-sentinel))))
 
-(defun auctex//build-sentinel (process event)
+(defun latex//build-sentinel (process event)
   (if (string= event "finished\n")
       (TeX-view)
     (message "Errors! Check with C-`")))
 
-(defun auctex//autofill ()
+(defun latex//autofill ()
   "Check whether the pointer is ucrrently inside on the
-environments described in `auctex-nofill-env' and if so, inhibits
+environments described in `latex-nofill-env' and if so, inhibits
 the automatic filling of the current paragraph."
   (let ((do-auto-fill t)
         (current-environment "")
@@ -38,12 +36,12 @@ the automatic filling of the current paragraph."
     (while (and do-auto-fill (not (string= current-environment "document")))
       (setq level (1+ level)
             current-environment (LaTeX-current-environment level)
-            do-auto-fill (not (member current-environment auctex-nofill-env))))
+            do-auto-fill (not (member current-environment latex-nofill-env))))
     (when do-auto-fill
       (do-auto-fill))))
 
-(defun auctex/auto-fill-mode ()
+(defun latex/auto-fill-mode ()
   "Toggle uato-fill-mode using the custom auto-fill function."
   (interactive)
   (auto-fill-mode)
-  (setq auto-fill-function 'auctex//autofill))
+  (setq auto-fill-function 'latex//autofill))
