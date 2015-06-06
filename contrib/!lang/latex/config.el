@@ -1,4 +1,4 @@
-;;; packages.el --- Auctex Layer packages File for Spacemacs
+;;; packages.el --- Latex Layer Configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -15,18 +15,18 @@
 ;; Company-mode LaTeX-backend
 (spacemacs|defvar-company-backends LaTeX-mode)
 
-(defvar auctex-build-command "LaTeX"
+(defvar latex-build-command "LaTeX"
   "The default command to use with `SPC m b'")
 
-(defvar auctex-enable-auto-fill t
+(defvar latex-enable-auto-fill t
   "Whether to use auto-fill-mode or not in tex files.")
 
-(defvar auctex-nofill-env '("equation"
-                            "equation*"
-                            "align"
-                            "align*"
-                            "tabular"
-                            "tikzpicture")
+(defvar latex-nofill-env '("equation"
+                           "equation*"
+                           "align"
+                           "align*"
+                           "tabular"
+                           "tikzpicture")
   "List of environment names in which `auto-fill-mode' will be inhibited.")
 
 ;; Command prefixes

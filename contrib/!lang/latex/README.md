@@ -1,11 +1,11 @@
-# Auctex Layer for Spacemacs
+# LaTeX Layer for Spacemacs
 
 ![logo](img/latex.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
-- [Auctex Layer for Spacemacs](#auctex-layer-for-spacemacs)
+- [LaTeX Layer for Spacemacs](#latex-layer-for-spacemacs)
     - [Description](#description)
     - [Install](#install)
         - [Layer](#layer)
@@ -58,26 +58,26 @@ when you recompile.
 
 ### Build command
 
-A build command can be specific via the layer variable `auctex-build-command`.
+A build command can be specific via the layer variable `latex-build-command`.
 
 The default value is `"LaTeX"`. If `"LatexMk"` is specified, the appropriate
 `LatexMk` configuration will be applied.
 
 ```elisp
 dotspacemacs-configuration-layers '(
-  (auctex :variables auctex-build-command "LatexMk"))
+  (auctex :variables latex-build-command "LatexMk"))
 ```
 
 ### Auto-fill
 
-To enable auto-fill set the variable `auctex-enable-auto-fill` to `t`.
+To enable auto-fill set the variable `latex-enable-auto-fill` to `t`.
 
-The variable `auctex-nofill-env` provide the list of environment names where
+The variable `latex-nofill-env` provide the list of environment names where
 `auto-fille-mode` will be inhibited.
 
 ```elisp
 dotspacemacs-configuration-layers '(
-  (auctex :variables auctex-enable-auto-fill t))
+  (auctex :variables latex-enable-auto-fill t))
 ```
 
 ## Keybindings

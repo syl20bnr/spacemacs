@@ -1,4 +1,16 @@
-(setq auctex-packages
+;;; packages.el --- Latex Layer packages File for Spacemacs
+;;
+;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;;
+;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
+(setq latex-packages
   '(
     auctex
     auctex-latexmk
@@ -11,12 +23,12 @@
     yasnippet
     ))
 
-(defun auctex/init-auctex ()
+(defun latex/init-auctex ()
   (use-package tex
     :defer t
     :init
     (progn
-      (setq TeX-command-default auctex-build-command
+      (setq TeX-command-default latex-build-command
             TeX-auto-save t
             TeX-parse-self t
             TeX-syntactic-comment t
@@ -30,7 +42,7 @@
             reftex-use-fonts t
             ;; Don't insert line-break at inline math
             LaTeX-fill-break-at-separators nil)
-      (when auctex-enable-auto-fill
+      (when latex-enable-auto-fill
         (add-hook 'LaTeX-mode-hook 'auctex/auto-fill-mode))
       (add-hook 'LaTeX-mode-hook 'latex-math-mode))
     :config
@@ -66,17 +78,17 @@
         "mps" 'preview-section
         "mv" 'TeX-view))))
 
-(when (string= auctex-build-command "LatexMk")
-(defun auctex/init-auctex-latexmk ()
+(when (string= latex-build-command "LatexMk")
+(defun latex/init-auctex-latexmk ()
   (use-package auctex-latexmk
     :defer t
     :init (add-hook 'LaTeX-mode-hook 'auctex-latexmk-setup))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
-  (defun auctex/post-init-company ()
+  (defun latex/post-init-company ()
     (spacemacs|add-company-hook LaTeX-mode))
 
-  (defun auctex/init-company-auctex ()
+  (defun latex/init-company-auctex ()
     (use-package company-auctex
       :if (configuration-layer/package-usedp 'company)
       :defer t
@@ -87,17 +99,17 @@
         (push '(company-auctex-macros company-auctex-symbols company-auctex-environments)
               company-backends-LaTeX-mode)))))
 
-(defun auctex/post-init-evil-matchit ()
+(defun latex/post-init-evil-matchit ()
   (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
 
 (defun python/post-init-flycheck ()
   (add-hook 'LaTeX-mode-hook 'flycheck-mode))
 
-(defun auctex/post-init-flyspell ()
+(defun latex/post-init-flyspell ()
   (add-hook 'LaTeX-mode-hook 'flyspell-mode))
 
-(defun auctex/post-init-smartparens ()
+(defun latex/post-init-smartparens ()
   (add-hook 'LaTeX-mode-hook 'smartparens-mode))
 
-(defun auctex/post-init-yasnippet ()
+(defun latex/post-init-yasnippet ()
   (add-hook 'LaTeX-mode-hook 'spacemacs/load-yasnippet))
