@@ -1,5 +1,11 @@
 * Release 0.103.x (next)
 ** 0.103.0
+*** Hot new features
+- New interactive function =spacemacs/switch-to-version=, it will ask
+  for a version number and warn if the current branch is not =master=.
+  Users on =develop= branch cannot use this function.
+- Clicking on the up arrow will now update Spacemacs. A prompt asks
+  for confirmation before updating.
 *** IMPORTANT: Breaking changes
 - =auctex= layer has been renamed =latex=, be sure to update your
   dotfile if you use this layer.
@@ -40,6 +46,8 @@
 **** Themes
 - Add spacemacs-theme
 *** Core
+- New interactive function =spacemacs/switch-to-version=
+- Clicking on the up arrow will now update Spacemacs
 - Enable =use-package-verbose= when =dotspacemacs-verbose-loading=
   is set to =t=
 - Better name for placeholders in layer templates (thanks to kini)
