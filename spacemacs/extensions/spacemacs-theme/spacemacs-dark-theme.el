@@ -30,6 +30,7 @@
 (let ((class '((class color) (min-colors 89)))
       ;;                                     GUI       TER
       (base       (if (display-graphic-p) "#b2b2b2" "#b2b2b2"))
+      (cursor     (if (display-graphic-p) "#e3dedd" "#d0d0d0"))
       (bg1        (if (display-graphic-p) "#292b2e" "#262626"))
       (bg2        (if (display-graphic-p) "#212026" "#1c1c1c"))
       (bg3        (if (display-graphic-p) "#100a14" "#121212"))
@@ -89,7 +90,7 @@
    `(highlight ((,class (:foreground ,base :background ,bg3))))
    `(hl-line ((,class (:background ,bg2))))
    `(fringe ((,class (:background ,bg1 :foreground ,base))))
-   `(cursor ((,class (:background ,bg3))))
+   `(cursor ((,class (:background ,cursor))))
    `(show-paren-match-face ((,class (:background ,suc))))
    `(secondary-selection ((,class (:background ,bg3))))
    `(isearch ((,class (:bold t :foreground ,bg1 :background ,inf))))
