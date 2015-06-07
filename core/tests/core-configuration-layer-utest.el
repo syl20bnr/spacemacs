@@ -218,8 +218,8 @@
      (should (null (configuration-layer//get-category-from-path input))))))
 
 (ert-deftest test-get-category-from-path--return-category ()
-  (let ((input "/a/path/to/a/!toto/"))
+  (let ((input "/a/path/to/a/!cat/"))
     (mocker-let
      ((file-directory-p (f)
                         ((:record-cls 'mocker-stub-record :output t :occur 1))))
-     (should (eq 'toto (configuration-layer//get-category-from-path input))))))
+     (should (eq 'cat (configuration-layer//get-category-from-path input))))))
