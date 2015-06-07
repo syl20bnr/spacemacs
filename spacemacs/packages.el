@@ -2207,13 +2207,20 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (propertize
          spacemacs-version-check-lighter
          'mouse-face 'mode-line-highlight
-         'help-echo (format "New version %s | Click with mouse-1 to update (Not Yet Implemented)"
+         'help-echo (format "New version %s | Click with mouse-1 to update"
                             spacemacs-new-version)
          'local-map (let ((map (make-sparse-keymap)))
                       (define-key map
                         [mode-line down-mouse-1]
-                        (lambda (event) (interactive "@e") (message "TODO: update"))
-                        )
+                        (lambda (event)
+                          (interactive "@e")
+                          (if (yes-or-no-p
+                               (format (concat "Do you want to update to the newest "
+                                               "version %s ?") spacemacs-new-version))
+                              (progn
+                                (spacemacs/switch-to-version spacemacs-new-version)
+                                (setq spacemacs-mode-line-new-version-lighterp nil))
+                            (message "Update aborted."))))
                       map)))
 
       (defvar spacemacs-mode-line-minor-modesp t

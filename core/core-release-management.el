@@ -28,13 +28,35 @@
 (defvar spacemacs-version-check-lighter "[+]"
   "Text displayed in the mode-line when a new version is available.")
 
-(defun spacemacs/update-spacemacs (&optional version)
-  "Update spacemacs to VERSION (i.e. \"0.101.0\").
- If VERSION is nil then update to the last version."
-  ;; update is supported only on master branch
-  (when (string-equal "master" (spacemacs/git-get-current-branch))
-    (let ((tag (concat "v" (if version version (spacemacs/get-last-version)))))
-      (spacemacs/git-hard-reset-to-tag tag))))
+(defun spacemacs/switch-to-version (&optional version)
+  "Switch spacemacs to VERSION.
+
+VERSION is a string with the format `x.x.x'.
+IMPORTANT: The switch is performed by hard resetting the current branch.
+If VERSION is nil then a prompt will ask for a version number.
+If the current version is not `master' and not `develop' then
+a prompt will ask for confirmation before actually switching to the
+specified version.
+It is not possible to switch version when you are on `develop' branch,
+users on `develop' branch must manually pull last commits instead."
+  (interactive)
+  (let ((branch (spacemacs/git-get-current-branch)))
+    (if (string-equal "develop" branch)
+        (message (concat "Cannot switch version because you are on develop.\n"
+                         "You have to manually `pull --rebase' last commits."))
+      (unless version (setq version (read-string "version: "
+                                                 (spacemacs/get-last-version))))
+      (when (or (string-equal "master" branch)
+                (yes-or-no-p (format (concat "You are not on master, are you "
+                                             "sure that you want to switch to "
+                                             "version %s ? ") version)))
+        (let ((tag (concat "v" version)))
+          (if (spacemacs/git-hard-reset-to-tag tag)
+              (progn
+                (setq spacemacs-version version)
+                (message "Succesfully switched to version %s" version))
+            (message "An error occurred while switching to version %s"
+                     version)))))))
 
 (defun spacemacs/check-for-new-version (&optional interval)
   "Periodicly check for new for new Spacemacs version.
