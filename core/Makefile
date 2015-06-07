@@ -34,6 +34,7 @@ func_tests:
     -l $(EMACS_DIR)core/core-load-paths.el  \
     -l $(TEST_DIR)core-spacemacs-ftest.el  \
     -l $(TEST_DIR)core-spacemacs-buffer-ftest.el  \
+    -l $(TEST_DIR)core-release-management-ftest.el  \
     -f ert-run-tests-batch-and-exit
 
 
