@@ -1,4 +1,4 @@
-* iPython contribution layer for Spacemacs (WIP)
+* iPython Notebook contribution layer for Spacemacs (WIP)
 ** Description 
 This layer adds support for the package =emacs-ipython-notebook=.
 
@@ -76,7 +76,6 @@ Once you are in the ipython notebook you can activate the micro-state with
 | =+=     | ein:notebook-worksheet-insert-next        |
 | =-=     | ein:notebook-worksheet-delete             |
 | =x=     | ein:notebook-close                        |
-
 
 ** Screenshots
 *** Light

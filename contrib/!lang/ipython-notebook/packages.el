@@ -10,9 +10,9 @@
 ;;
 ;;; License: GPLv3
 
-(setq ipython-packages '(ein))
+(setq ipython-notebook-packages '(ein))
 
-(defun ipython/init-ein ()
+(defun ipython-notebook/init-ein ()
   (use-package ein
     :commands ein:notebooklist-open
     :init
