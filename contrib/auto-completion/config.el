@@ -40,3 +40,6 @@ selection.")
     "case")
   "Keywords on which to cancel completion so that you can use RET
 to complet without blocking common line endings.")
+
+(defvar auto-completion-private-snippets-directory nil
+  "Configurable private snippets directory.")
