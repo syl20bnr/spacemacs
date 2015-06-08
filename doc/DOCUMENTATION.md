@@ -1722,12 +1722,16 @@ Key Binding               |                 Description
 <kbd>SPC s g</kbd>        | `grep`
 <kbd>SPC s k</kbd>        | `ack`
 <kbd>SPC s p</kbd>        | `pt`
+<kbd>SPC s L</kbd>        | open stored search buffer (stored with <kbd>F3<kbd> in helm search buffer)
 
 **Note** Use the universal argument to change the search list of
 <kbd>SPC s /</kbd> to `ack` and `grep` (does not look for `ag` or `pt`).
 
 **Note** It is also possible to search in several directories at once by
 marking them in the helm buffer.
+
+**Pro Tip** Use <kbd>F3</kbd> in the helm search buffer to save the list of
+  results to a buffer.
 
 #### Searching in a project
 
@@ -1742,6 +1746,7 @@ Key Binding               |                 Description
 <kbd>SPC p s p</kbd>      | `pt`
 
 **Pro Tip** Use <kbd>SPC h l</kbd> to bring back the last helm session.
+
 
 #### Searching the web
 
