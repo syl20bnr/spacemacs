@@ -6,8 +6,9 @@
   (setq mac-option-modifier 'meta)
 
   ;; Keybindings
-  (global-set-key (kbd "s-=") 'text-scale-increase)
-  (global-set-key (kbd "s--") 'text-scale-decrease)
+  (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
+  (global-set-key (kbd "s--") 'spacemacs/scale-down-font)
+  (global-set-key (kbd "s-0") 'spacemacs/reset-font-size)
   (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
   (global-set-key (kbd "s-v") 'yank)
   (global-set-key (kbd "s-c") 'kill-ring-save)
@@ -19,7 +20,4 @@
 		  (interactive)
 		  (call-interactively (key-binding "\C-x\C-s"))))
   (global-set-key (kbd "s-Z") 'undo-tree-redo)
-  (global-set-key (kbd "C-s-f") 'spacemacs/toggle-frame-fullscreen)
-  (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
-  (global-set-key (kbd "s--") 'spacemacs/scale-down-font)
-  (global-set-key (kbd "s-0") 'spacemacs/reset-font-size))
+  (global-set-key (kbd "C-s-f") 'spacemacs/toggle-frame-fullscreen))
