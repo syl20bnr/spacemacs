@@ -19,6 +19,9 @@
 (defvar python-enable-yapf-format-on-save nil
   "If non-nil, automatically format code with YAPF on save.")
 
+(defvar python-test-runner 'nose
+  "Test runner to use. Possible values are `nose' or `pytest'.")
+
 ;; Command prefixes
 
 ;; not supported for now

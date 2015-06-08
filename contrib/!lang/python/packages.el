@@ -24,15 +24,13 @@
     pip-requirements
     pony-mode
     pyenv-mode
-    pyvenv
+    pytest
     python
+    pyvenv
     semantic
     smartparens
     stickyfunc-enhance
     ))
-
-(if python-use-pytest
-    (push 'pytest python-packages))
 
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
@@ -128,6 +126,7 @@
 
 (defun python/init-pytest ()
   (use-package pytest
+    :if (eq 'pytest python-test-runner)
     :defer t
     :commands (pytest-one
                pytest-pdb-one
@@ -135,20 +134,16 @@
                pytest-pdb-all
                pytest-module
                pytest-pdb-module)
-    :init
-    (evil-leader/set-key-for-mode 'python-mode
-      "mTa" 'pytest-pdb-all
-      "mta" 'pytest-all
-      "mTb" 'pytest-pdb-module
-      "mtb" 'pytest-module
-      "mTt" 'pytest-pdb-one
-      "mtt" 'pytest-one
-      "mTm" 'pytest-pdb-module
-      "mtm" 'pytest-module)
-    :config
-    (progn
-      (add-to-list 'pytest-project-root-files "setup.cfg")
-      )))
+    :init (evil-leader/set-key-for-mode 'python-mode
+            "mTa" 'pytest-pdb-all
+            "mta" 'pytest-all
+            "mTb" 'pytest-pdb-module
+            "mtb" 'pytest-module
+            "mTt" 'pytest-pdb-one
+            "mtt" 'pytest-one
+            "mTm" 'pytest-pdb-module
+            "mtm" 'pytest-module)
+    :config (add-to-list 'pytest-project-root-files "setup.cfg")))
 
 (defun python/init-python ()
   (use-package python
