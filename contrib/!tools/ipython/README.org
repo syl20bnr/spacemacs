@@ -1,6 +1,4 @@
-
 * iPython contribution layer for Spacemacs (WIP)
-
 ** Description 
 This layer adds support for the package =emacs-ipython-notebook=.
 
@@ -10,6 +8,7 @@ lots of informative stuff.
 ** Features
 - Micro-State with "evilified" keybindings
 - Lazy-loading
+
 ** TODO List
 - Maybe it'd be better if there was a state for this
 - Make more keybinding to =connect= to a python buffer.
@@ -33,7 +32,6 @@ Have an iPython notebook running
 #+end_src
 
 ** Key Bindings
-
 *** Open Notebook List
 This layer is lazy loaded so the micro-state will only work after you summon the
 command =ein:notebooklist-open= which is bound to =SPC a i n=
@@ -78,6 +76,7 @@ Once you are in the ipython notebook you can activate the micro-state with
 | =+=     | ein:notebook-worksheet-insert-next        |
 | =-=     | ein:notebook-worksheet-delete             |
 | =x=     | ein:notebook-close                        |
+
 
 ** Screenshots
 *** Light
