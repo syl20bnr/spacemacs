@@ -11,8 +11,8 @@
           evil-snipe-show-prompt nil
           evil-snipe-smart-case t)
     :config
-    (progn 
+    (progn
       (evil-snipe-mode 1)
       (when evil-snipe-enable-alternate-f-and-t-behaviors
         (setq evil-snipe-repeat-scope 'whole-buffer)
-        (evil-snipe-override-evil 1)))))
+        (evil-snipe-override-mode 1)))))
