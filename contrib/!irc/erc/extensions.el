@@ -9,4 +9,5 @@
 
 (defun erc/init-erc-yank ()
   (use-package erc-yank
+    :if git-enable-github-support
     :init (bind-key "C-y" 'erc-yank erc-mode-map)))
