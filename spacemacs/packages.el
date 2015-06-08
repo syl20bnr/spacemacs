@@ -2369,7 +2369,7 @@ displayed in the mode-line.")
                    (powerline-raw " " line-face)))
            ;; erc
            (when (and active
-                      (boundp 'erc-track-mode))
+                      (bound-and-true-p erc-track-mode))
              ;; Copied from erc-track.el -> erc-modified-channels-display
              (let* ((buffers (mapcar 'car erc-modified-channels-alist))
                     (long-names (mapcar #'(lambda (buf) (or (buffer-name buf) "")) buffers)))
