@@ -19,6 +19,7 @@
     org-pomodoro
     org-present
     org-repo-todo
+    toc-org
     ))
 
 (defun org/init-evil-org ()
@@ -193,6 +194,11 @@ Will work on both org-mode and any mode that accepts plain html."
         "CT"  'ort/capture-todo-check)
       (evil-leader/set-key-for-mode 'org-mode
         "mgt" 'ort/goto-todos))))
+
+(defun org/init-toc-org ()
+  (use-package toc-org
+    :init
+    (add-hook 'org-mode-hook 'toc-org-enable)))
 
 (defun org/init-htmlize ()
  (use-package htmlize
