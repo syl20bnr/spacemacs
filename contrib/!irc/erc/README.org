@@ -23,6 +23,7 @@ Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
 - Social Graph for ERC messages (using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]])
 - ERC yank, if pasting more than 5 lines, create a gist for it. (needs to have
   =github= layer enabled, or using =gist= package)
+- Optional SASL authentication via the variable =erc-use-sasl-auth= (using [[http://emacswiki.org/emacs/ErcSASL][erc-sasl]])
 
 * Install
 
