@@ -18,6 +18,7 @@
     erlang
     flycheck
     ruby-end
+    popwin
     ))
 
 (defun erlang-elixir/init-alchemist ()
@@ -154,3 +155,9 @@
       ;; hack to remove the autoloaded `add-hook' in `ruby-end'
       (remove-hook 'ruby-mode-hook 'ruby-end-mode)
       (remove-hook 'enh-ruby-mode-hook 'ruby-end-mode))))
+
+(defun erlang-elixir/init-popwin ()
+  (use-package popwin
+    :defer t
+    :config
+    (push '("*mix*" :tail t :noselect t) popwin:special-display-config )))
