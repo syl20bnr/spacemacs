@@ -9,4 +9,7 @@
 
 (defun erc/init-erc-yank ()
   (use-package erc-yank
-    :init (bind-key "C-y" 'erc-yank erc-mode-map)))
+    :if (configuration-layer/package-usedp 'gist)
+    :init
+    (evil-define-key 'normal erc-mode-map
+      "p" 'erc-yank)))
