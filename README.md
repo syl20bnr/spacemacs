@@ -165,8 +165,9 @@ via [homebrew][] with the following commands:
 
 ```sh
 $ brew tap railwaycat/emacsmacport
-$ brew install emacs-mac
+$ brew install emacs-mac --with-spacemacs-icon
 ```
+(The `with-spacemacs-icon` option uses the official spacemacs logo for the app bundle.)
 
 The default key handling is different from the official OS X port. To correct
 this you can add the [osx layer][] to your [dotfile][] layer list:
@@ -234,6 +235,13 @@ guide and consult the [FAQ](#faq).
 
 If you are using Ubuntu and Unity then you can add the Spacemacs logo by
 following the instructions [here][cpaulik-unity-icon].
+
+If you're on a mac and didn't install emacs with the spacemacs logo, you can apply
+it to the app bundle after installation. An .icns version of the logo by [Nasser
+Alshammari](http://www.nass3r.com) is [available from his github](https://github.com/nashamri/spacemacs-logo).
+You can paste this into the app bundle to get the spacemacs logo on your emacs.
+[More detailed instructions](http://www.idownloadblog.com/2014/07/16/how-to-change-app-icon-mac/)
+if you've not done this before.
 
 # Update
 
