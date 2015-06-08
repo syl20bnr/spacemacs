@@ -35,7 +35,7 @@ This layer adds support for LaTeX files with [AucTeX][].
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(auctex))
+(setq-default dotspacemacs-configuration-layers '(latex))
 ```
 
 ### Auto-completion
@@ -65,7 +65,7 @@ The default value is `"LaTeX"`. If `"LatexMk"` is specified, the appropriate
 
 ```elisp
 dotspacemacs-configuration-layers '(
-  (auctex :variables latex-build-command "LatexMk"))
+  (latex :variables latex-build-command "LatexMk"))
 ```
 
 ### Auto-fill
@@ -77,7 +77,7 @@ The variable `latex-nofill-env` provide the list of environment names where
 
 ```elisp
 dotspacemacs-configuration-layers '(
-  (auctex :variables latex-enable-auto-fill t))
+  (latex :variables latex-enable-auto-fill t))
 ```
 
 ## Keybindings
