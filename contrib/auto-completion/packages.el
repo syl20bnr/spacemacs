@@ -209,9 +209,11 @@
         (unless yas-global-mode
           (progn
             (yas-global-mode 1)
-            (let ((private-yas-dir (concat
-                                    configuration-layer-private-directory
-                                    "snippets/"))
+            (let ((private-yas-dir (if auto-completion-private-snippets-directory
+                                       auto-completion-private-snippets-directory
+                                     (concat
+                                        configuration-layer-private-directory
+                                        "snippets/")))
                   (spacemacs-snippets-dir (expand-file-name
                                            "snippets"
                                            spacemacs--auto-completion-dir)))
