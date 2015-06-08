@@ -203,6 +203,11 @@ guide and consult the [FAQ](#faq).
 If you are using Ubuntu and Unity then you can add the Spacemacs logo by
 following the instructions [here][cpaulik-unity-icon].
 
+If you're on a mac, a .icns version of the logo is in the assets folder. You can paste
+this into the app bundle to get the spacemacs logo on your emacs. [More detailed
+instructions](http://www.idownloadblog.com/2014/07/16/how-to-change-app-icon-mac/)
+if you've not done this before.
+
 # Update
 
 Spacemacs currently requires manual updates using the following procedure:
