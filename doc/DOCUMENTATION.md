@@ -2597,7 +2597,7 @@ developers to elisp hackers!
 [javascript-contrib]: ../contrib/lang/javascript
 [themes-megapack]: ../contrib/themes-megapack
 [python-contrib]: ../contrib/lang/python
-[git layer]: ../contrib/git
+[git layer]: ../contrib/!tools/git
 [html-contrib]: ../contrib/lang/html
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
