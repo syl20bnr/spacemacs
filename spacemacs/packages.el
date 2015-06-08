@@ -1391,6 +1391,20 @@ If ARG is non nil then `ag' and `pt' and ignored."
                  dotspacemacs-search-tools)))
           (call-interactively (spacemacs//helm-do-search-find-tool tools))))
 
+      ;; evilify the helm-grep buffer
+      (evilify helm-grep-mode helm-grep-mode-map
+               (kbd "RET") 'helm-grep-mode-jump-other-window
+               (kbd "q") 'quit-window)
+
+      (defun spacemacs/last-search-buffer ()
+        "open last helm-ag or hgrep buffer."
+        (interactive)
+        (if (get-buffer "*helm ag results*")
+            (switch-to-buffer-other-window "*helm ag results*")
+            (if (get-buffer "*hgrep*")
+                (switch-to-buffer-other-window "*hgrep*")
+                (message "No previous search buffer found"))))
+
       ;; use helm by default for M-x
       (unless (configuration-layer/package-usedp 'smex)
         (global-set-key (kbd "M-x") 'helm-M-x))
@@ -1414,6 +1428,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "sg"  'helm-do-grep
         "sk"  'spacemacs/helm-do-ack
         "sp"  'spacemacs/helm-do-pt
+        "sL"  'spacemacs/last-search-buffer
         "sl"  'helm-semantic-or-imenu)
 
       ;; define the key binding at the very end in order to allow the user
@@ -1603,7 +1618,10 @@ ARG non nil means that the editing style is `vim'."
   (use-package helm-ag
     :defer t
     :config
-    (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)))
+    (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)
+    (evilify helm-ag-mode helm-ag-mode-map
+             (kbd "RET") 'helm-ag-mode-jump-other-window
+             (kbd "q") 'quit-window)))
 
 (defun spacemacs/init-helm-descbinds ()
   (use-package helm-descbinds
