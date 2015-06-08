@@ -203,8 +203,7 @@
       ;; add key into candidate list
       (setq helm-yas-display-key-on-candidate t)
       (setq spacemacs--auto-completion-dir
-            (concat (ht-get configuration-layer-paths 'auto-completion)
-                    "auto-completion"))
+            (configuration-layer/get-layer-property 'auto-completion :dir))
 
       (defun spacemacs/load-yasnippet ()
         (unless yas-global-mode
