@@ -143,9 +143,9 @@ the focus."
 
         "meb" 'cider-eval-buffer
         "mee" 'cider-eval-last-sexp
-        "mew" 'cider-eval-last-sexp-and-replace
         "mef" 'cider-eval-defun-at-point
         "mer" 'cider-eval-region
+        "mew" 'cider-eval-last-sexp-and-replace
 
         "mgb" 'cider-jump-back
         "mge" 'cider-jump-to-compilation-error
