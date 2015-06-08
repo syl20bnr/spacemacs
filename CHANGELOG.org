@@ -55,6 +55,9 @@
 **** Emacs Lisp
 - Add new Spacemacs snippets =micro-state= and =new-package= (thanks to
   CestDiego)
+**** ERC
+- Use =erc-yank= on ~p~ in normal state if =gist= package is available
+  (thanks to CestDiego)
 **** Evil-snipe
 - Update configuration with last upstream changes (thanks to hlissner and
   MadAnd)
