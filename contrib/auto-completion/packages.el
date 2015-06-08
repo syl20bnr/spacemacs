@@ -202,7 +202,7 @@
 
       ;; add key into candidate list
       (setq helm-yas-display-key-on-candidate t)
-      (setq spacemacs--snippets-dir
+      (setq spacemacs--auto-completion-dir
             (concat (ht-get configuration-layer-paths 'auto-completion)
                     "auto-completion"))
 
@@ -215,13 +215,13 @@
                                     "snippets/"))
                   (spacemacs-snippets-dir (expand-file-name
                                            "snippets"
-                                           spacemacs--snippets-dir)))
+                                           spacemacs--auto-completion-dir)))
               (setq yas-snippet-dirs
                     (append (list private-yas-dir)
                             (when (boundp 'yas-snippet-dirs)
                               yas-snippet-dirs)
-                            spacemacs-snippets-dir
-                            ))
+                            spacemacs-snippets-dir))
+              (yas-load-directory spacemacs-snippets-dir t)
               (setq yas-wrap-around-region t))))
         (yas-minor-mode 1))
 
