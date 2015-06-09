@@ -112,13 +112,13 @@ Supported properties:
 (defun spacemacs/open-file (file anchor-text)
   "Open the change log for the current version."
   (interactive)
-  ;; For now hardcode it
   (find-file file)
   (org-indent-mode)
   (view-mode)
   (goto-char (point-min))
   (re-search-forward anchor-text)
   (beginning-of-line)
-  (show-subtree))
+  (show-subtree)
+  (setq-local org-hide-emphasis-markers t))
 
 (provide 'core-funcs)
