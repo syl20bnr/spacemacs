@@ -1,4 +1,4 @@
-;;; packages.el --- Erlang and Elixir Layer packages File for Spacemacs
+;;; packages.el --- Elixir Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,17 +10,15 @@
 ;;
 ;;; License: GPLv3
 
-(setq erlang-elixir-packages
+(setq elixir-packages
   '(
     alchemist
-    edts
     elixir-mode
-    erlang
     flycheck
     ruby-end
     ))
 
-(defun erlang-elixir/init-alchemist ()
+(defun elixir/init-alchemist ()
   (add-hook 'elixir-mode-hook 'alchemist-mode)
   (setq alchemist-project-compile-when-needed t)
   (evil-leader/set-key-for-mode 'elixir-mode
@@ -75,79 +73,27 @@
     "mc:" 'alchemist-compile
 
     "mgg" 'alchemist-goto-definition-at-point
-    "m," 'alchemist-goto-jump-back
-    ))
+    "m," 'alchemist-goto-jump-back))
 
-(defun erlang-elixir/init-edts ()
-
-  (defun erlang-elixir//load-edts ()
-    "Return non-nil if EDTS can be loaded."
-    (and spacemacs-erlang-elixir-use-edts
-         (not (eq window-system 'w32))))
-
-  (defun erlang-elixir//edts-start ()
-    "Starts EDTS."
-    (if (erlang-elixir//load-edts)
-        (require 'edts-start))))
-
-(defun erlang-elixir/init-elixir-mode ()
+(defun elixir/init-elixir-mode ()
   (use-package elixir-mode
+    :defer t))
+
+(defun elixir/post-init-flycheck ()
+  (add-hook 'elixir-mode-hook 'flycheck-mode))
+
+(defun elixir/init-ruby-end ()
+  (use-package ruby-end
     :defer t
-    :config
+    :init
     (progn
-      (defun auto-activate-ruby-end-mode-for-elixir-mode ()
+      (defun spacemacs//ruby-end ()
         (set (make-variable-buffer-local 'ruby-end-expand-keywords-before-re)
              "\\(?:^\\|\\s-+\\)\\(?:do\\)")
         (set (make-variable-buffer-local 'ruby-end-check-statement-modifiers)
              nil)
         (ruby-end-mode +1))
-      (add-to-list 'elixir-mode-hook
-                   'auto-activate-ruby-end-mode-for-elixir-mode))))
-
-(defun erlang-elixir/init-erlang ()
-  (use-package erlang
-    :mode (("\\.erl?$" . erlang-mode)
-           ("\\.hrl?$" . erlang-mode)
-           ("\\.spec?$" . erlang-mode))
-    :defer t
-    :init
-    (add-hook 'erlang-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
-    :config
-    (progn
-      (setq erlang-root-dir "/usr/lib/erlang/erts-5.10.3")
-      (add-to-list 'exec-path "/usr/lib/erlang/erts-5.10.3/bin")
-      (setq erlang-man-root-dir "/usr/lib/erlang/erts-5.10.3/man")
-      (setq erlang-compile-extra-opts '(debug_info))
-      (require 'erlang-start)
-      (add-hook 'erlang-mode-hook
-                (lambda ()
-                  (setq mode-name "Erlang")
-                  ;; when starting an Erlang shell in Emacs, with a custom node name
-                  (setq inferior-erlang-machine-options '("-sname" "syl20bnr"))
-                  ))
-      (if (and (fboundp 'erlang-elixir//load-edts)
-               (erlang-elixir//load-edts))
-          (erlang-elixir//edts-start))
-      ;; (setq edts-log-level 'debug)
-      ;; (setq edts-face-inhibit-mode-line-updates t)
-      (evil-leader/set-key-for-mode 'erlang-mode
-        "me"  'edts-code-next-issue
-        "mGg" 'edts-find-global-function
-        "mGh" 'edts-find-header-source
-        "mGl"  'edts-find-local-function
-        "mGr" 'edts-find-record-source
-        "mgg"  'edts-find-source-under-point
-        "mhd" 'edts-find-doc
-        "mm"  'edts-find-macro-source))))
-
-(defun erlang-elixir/post-init-flycheck ()
-  (add-hook 'elixir-mode-hook 'flycheck-mode)
-  (unless spacemacs-erlang-elixir-use-edts
-    (add-hook 'erlang-mode-hook 'flycheck-mode)))
-
-(defun erlang-elixir/init-ruby-end ()
-  (use-package ruby-end
-    :defer t
+      (add-hook 'elixir-mode-hook 'spacemacs//ruby-end))
     :config
     (progn
       (spacemacs|hide-lighter ruby-end-mode)

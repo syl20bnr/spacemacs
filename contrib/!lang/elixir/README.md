@@ -1,21 +1,15 @@
-# Erlang/Elixir contribution layer for Spacemacs
-
-![logo_erlang](img/erlang.png)
+# Elixir contribution layer for Spacemacs
 
 ![logo_elixir](img/elixir.png) with ![logo_alchemist](img/alchemist.png)
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
-- [Erlang/Elixir contribution layer for Spacemacs](#erlangelixir-contribution-layer-for-spacemacs)
-- [Install](#install)
-- [Erlang](#erlang)
-  - [Enable EDTS](#enable-edts)
-    - [EDTS Key bindings](#edts-key-bindings)
-  - [Elixir](#elixir)
-    - [Alchemist](#alchemist)
-      - [Refcard](#elixir-key-bindings)
-      - [Key bindings](#key-bindings)
+- [Elixir contribution layer for Spacemacs](#elixir-contribution-layer-for-spacemacs)
+    - [Description](#description)
+    - [Install](#install)
+    - [Key bindings](#key-bindings)
+        - [Refcard](#refcard)
         - [Help](#help)
         - [Mix](#mix)
         - [Project](#project)
@@ -24,66 +18,41 @@
         - [Tests](#tests)
         - [Compile](#compile)
         - [Execute](#execute)
+        - [Code Definition Jump](#code-definition-jump)
 
 <!-- markdown-toc end -->
+
+## Description
+
+This layer adds support for [Elixir][].
+
+[Alchemist][] brings the Elixir tooling to Emacs and comes with a bunch of
+features like:
+- Powerful IEx integration
+- Mix integration
+- Compile & Execution of Elixir code
+- Inline code evaluation
+- Documentation lookup
+- Definition lookup
+- Smart code completion
+- Elixir project management
+- Integration with [company-mode](http://company-mode.github.io/)
 
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
 
 ```elisp
-(setq-default dotspacemacs-configuration-layers '(erlang-elixir))
+(setq-default dotspacemacs-configuration-layers '(elixir))
 ```
 
-## Erlang
+## Key bindings
 
-### Enable EDTS
+### Refcard
 
-[EDTS][] is disabled by default, to enable it add the following snippet to
-the `dotspacemacs/init` function of your `~/.spacemacs` file.
+You find and overview of all the key-bindings on the [Alchemist-Refcard][].
 
-```elisp
-(setq spacemacs-erlang-elixir-use-edts t)
-```
-
-Note that `EDTS` is disable on Windows.
-
-#### EDTS Key bindings
-
-    Key Binding     |                 Description
---------------------|------------------------------------------------------------
-<kbd>SPC m d</kbd>  | show man page documentation
-<kbd>SPC m e</kbd>  | go to next issue
-<kbd>SPC m g</kbd>  | go to definition
-<kbd>SPC m G</kbd>  | find a module in the current project
-<kbd>SPC m h</kbd>  | open the header file under point
-<kbd>SPC m l</kbd>  | find a function in the current module
-<kbd>SPC m m</kbd>  | go to the macro definition under point
-<kbd>SPC m r</kbd>  | go to the record definition under point
-
-## Elixir
-
-### Alchemist
-
-[Alchemist](https://github.com/tonini/alchemist.el) brings the Elixir toolings to Emacs and comes with a bunch of features like,
-
-* Powerful IEx integration
-* Mix integration
-* Compile & Execution of Elixir code
-* Inline code evaluation
-* Documentation lookup
-* Definition lookup
-* Smart code completion
-* Elixir project management
-* Integration with [company-mode](http://company-mode.github.io/)
-
-#### Refcard
-
-You find and overview of all the key-bindings on the [Alchemist-Refcard](alchemist-refcard.pdf?raw=true).
-
-#### Key bindings
-
-##### Help
+### Help
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -92,7 +61,7 @@ You find and overview of all the key-bindings on the [Alchemist-Refcard](alchemi
 <kbd>SPC m h H</kbd>  | Toggle through search history
 <kbd>SPC m h r</kbd>  | Show help for current region
 
-##### Mix
+### Mix
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -101,7 +70,7 @@ You find and overview of all the key-bindings on the [Alchemist-Refcard](alchemi
 <kbd>SPC m m h</kbd>  | Show help for a specific `mix` command
 <kbd>SPC m m x</kbd>  | Run the given expression in the Elixir application context
 
-##### Project
+### Project
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -109,7 +78,7 @@ You find and overview of all the key-bindings on the [Alchemist-Refcard](alchemi
 <kbd>SPC m g t</kbd>  | Toggle between a file and its tests in the current window.
 <kbd>SPC m g T</kbd>  | Toggle between a file and its tests in other window.
 
-##### Evaluation in place
+### Evaluation in place
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -120,7 +89,7 @@ You find and overview of all the key-bindings on the [Alchemist-Refcard](alchemi
 <kbd>SPC m e r</kbd>  | Evaluate region
 <kbd>SPC m e R</kbd>  | Evaluate region and insert result
 
-##### REPL interactions
+### REPL interactions
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -132,7 +101,7 @@ You find and overview of all the key-bindings on the [Alchemist-Refcard](alchemi
 <kbd>SPC m s R</kbd>  | Send region to REPL buffer and focus it in `insert state`
 <kbd>SPC m s c</kbd>  | Compiles the current buffer in the IEx process.
 
-##### Tests
+### Tests
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -141,7 +110,7 @@ You find and overview of all the key-bindings on the [Alchemist-Refcard](alchemi
 <kbd>SPC m t b</kbd>  | Run all the tests from current buffer
 <kbd>SPC m t t</kbd>  | Run test under point
 
-##### Compile
+### Compile
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -150,7 +119,7 @@ You find and overview of all the key-bindings on the [Alchemist-Refcard](alchemi
 <kbd>SPC m c f</kbd>  | Compile the given filename with `elixirc`
 
 
-##### Execute
+### Execute
 
     Key Binding       |                 Description
 ----------------------|------------------------------------------------------------
@@ -158,12 +127,13 @@ You find and overview of all the key-bindings on the [Alchemist-Refcard](alchemi
 <kbd>SPC m x b</kbd>  | Run the current buffer through `elixir`
 <kbd>SPC m x f</kbd>  | Run `elixir` with the given filename
 
-##### Code Definition Jump
+### Code Definition Jump
 
     Key Binding     |                 Description
 --------------------|------------------------------------------------------------
 <kbd>SPC m g g</kbd>  | Jump to the elixir expression definition at point.
 <kbd>SPC m ,</kbd>  | Pop back to where <kbd>SPC m g g</kbd> was last invoked.
 
-
-[EDTS]: https://github.com/tjarvstrand/edts
+[Elixir]: http://elixir-lang.org/
+[Alchemist]: https://github.com/tonini/alchemist.el
+[Alchemist-Refcard]: alchemist-refcard.pdf?raw=true
