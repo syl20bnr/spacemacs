@@ -1,4 +1,4 @@
-* Migrating from vim
+* Migrating from vim                                                    :TOC@4:
  - [[#purpose-of-this-document][Purpose of this document]]
  - [[#philosophy][Philosophy]]
  - [[#basic-orientation][Basic orientation]]
