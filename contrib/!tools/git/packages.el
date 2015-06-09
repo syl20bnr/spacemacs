@@ -11,30 +11,51 @@
 ;;; License: GPLv3
 
 (setq git-packages
-  '(
-    gitattributes-mode
-    gitconfig-mode
-    gitignore-mode
-    git-commit-mode
-    git-messenger
-    git-rebase-mode
-    git-timemachine
-    gist
-    github-browse-file
-    git-link
-    ;; not up to date
-    ;; helm-gist
-    helm-gitignore
-    magit
-    magit-gh-pulls
-    magit-gitflow
-    magit-svn
-    smeargle
-    ))
+      '(
+        diff-mode
+        diff-hl
+        gitattributes-mode
+        gitconfig-mode
+        gitignore-mode
+        git-commit-mode
+        git-messenger
+        git-rebase-mode
+        git-timemachine
+        gist
+        github-browse-file
+        git-link
+        ;; not up to date
+        ;; helm-gist
+        helm-gitignore
+        magit
+        magit-gh-pulls
+        magit-gitflow
+        magit-svn
+        smeargle))
 
-(if git-gutter-use-fringe
-    (push 'git-gutter-fringe git-packages)
-  (push 'git-gutter git-packages))
+(defun git/init-diff-mode ()
+  (use-package diff-mode
+    :commands diff-mode
+    :defer t
+    :config
+    (evilify diff-mode diff-mode-map
+             "j" 'diff-hunk-next
+             "k" 'diff-hunk-prev)))
+
+(defun git/init-diff-hl ()
+  (use-package diff-hl
+    :commands diff-hl-mode
+    :defer t
+    :init
+    (setq diff-hl-side 'right)
+    (add-to-hooks 'diff-hl-mode '(markdown-mode-hook
+                                  org-mode-hook
+                                  prog-mode-hook))
+    (evil-leader/set-key
+      "ghr" 'diff-hl-revert-hunk
+      "ghN" 'diff-hl-previous-hunk
+      "ghn" 'diff-hl-next-hunk
+      "ghg" 'diff-hl-diff-goto-hunk)))
 
 (defun git/init-gist ()
   (use-package gist
@@ -66,77 +87,6 @@
     (evil-leader/set-key-for-mode 'git-commit-mode
       "mcc" 'git-commit-commit
       "mk" 'git-commit-abort)))
-
-(defun init-git-gutter ()
-  "Common initialization of git-gutter."
-  (git-gutter-mode)
-  (setq git-gutter:modified-sign " ")
-  (setq git-gutter:added-sign "+")
-  (setq git-gutter:deleted-sign "-")
-  (spacemacs|hide-lighter git-gutter-mode)
-  (if (and (not git-gutter-use-fringe)
-           (or 'linum-mode global-linum-mode))
-      (git-gutter:linum-setup))
-  (eval-after-load (or 'git-gutter 'git-gutter-fringe)
-    (progn
-      (evil-leader/set-key
-        "ghs" 'git-gutter:stage-hunk
-        "ghr" 'git-gutter:revert-hunk
-        "ghN" 'git-gutter:previous-hunk
-        "ghn" 'git-gutter:next-hunk
-        "ghp" 'git-gutter:popup-hunk))))
-
-(defun git/init-git-gutter ()
-  (use-package git-gutter
-    :commands git-gutter-mode
-    :init
-    (progn
-      (init-git-gutter)
-      (add-to-hooks 'git-gutter-mode '(markdown-mode-hook
-                                       org-mode-hook
-                                       prog-mode-hook)))))
-
-(defun git/init-git-gutter-fringe ()
-  (use-package git-gutter-fringe
-    :commands git-gutter-mode
-    :init
-    (progn
-      (defun git/load-git-gutter ()
-        "Lazy load git gutter and choose between fringe and no fringe."
-        (when (display-graphic-p) (require 'git-gutter-fringe))
-        (init-git-gutter))
-      (setq git-gutter-fr:side 'right-fringe)
-      (add-to-hooks 'git/load-git-gutter '(markdown-mode-hook
-                                           org-mode-hook
-                                           prog-mode-hook)))
-    :config
-    (progn
-      (setq git-gutter:hide-gutter t)
-      ;; Don't need log/message.
-      (setq git-gutter:verbosity 0)
-      ;; (setq git-gutter:update-hooks '(after-save-hook after-revert-hook))
-      ;; custom graphics that works nice with half-width fringes
-      (fringe-helper-define 'git-gutter-fr:added nil
-                            "..X...."
-                            "..X...."
-                            "XXXXX.."
-                            "..X...."
-                            "..X...."
-                            )
-      (fringe-helper-define 'git-gutter-fr:deleted nil
-                            "......."
-                            "......."
-                            "XXXXX.."
-                            "......."
-                            "......."
-                            )
-      (fringe-helper-define 'git-gutter-fr:modified nil
-                            "..X...."
-                            ".XXX..."
-                            "XXXXX.."
-                            ".XXX..."
-                            "..X...."
-                            ))))
 
 (defun git/init-git-messenger ()
   (use-package git-messenger
