@@ -1,14 +1,16 @@
 * Release 0.103.x (next)
 ** 0.103.0
+*** IMPORTANT: Breaking changes
+- =auctex= layer has been renamed =latex=, be sure to update your
+  dotfile if you use this layer.
+- =erlang/elixir= layer has been split into two layer =erlang= and
+  =elixir=, be sure to update your dotfile if you use these layers.
 *** Hot new features
 - New interactive function =spacemacs/switch-to-version=, it will ask
   for a version number and warn if the current branch is not =master=.
   Users on =develop= branch cannot use this function.
 - Clicking on the up arrow will now update Spacemacs. A prompt asks
   for confirmation before updating.
-*** IMPORTANT: Breaking changes
-- =auctex= layer has been renamed =latex=, be sure to update your
-  dotfile if you use this layer.
 *** Layer changes
 **** Spacemacs
 - Remove the kill ring from =savehist-additional-variables= to avoid an issue
