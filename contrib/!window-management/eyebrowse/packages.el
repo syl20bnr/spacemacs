@@ -77,4 +77,6 @@
         ("n" eyebrowse-next-window-config)
         ("N" eyebrowse-prev-window-config)
         ("p" eyebrowse-prev-window-config)
+        ("r" eyebrowse-rename-window-config)
+        ("s" eyebrowse-switch-to-window-config)
         ("c" eyebrowse-close-window-config)))))
