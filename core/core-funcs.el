@@ -119,6 +119,14 @@ Supported properties:
   (re-search-forward anchor-text)
   (beginning-of-line)
   (show-subtree)
+  (setq-local org-emphasis-alist '(("*" bold)
+                                   ("/" italic)
+                                   ("_" underline)
+                                   ("=" org-verbatim verbatim)
+                                   ("~" org-kbd)
+                                   ("+"
+                                    (:strike-through t))))
+
   (setq-local org-hide-emphasis-markers t))
 
 (provide 'core-funcs)
