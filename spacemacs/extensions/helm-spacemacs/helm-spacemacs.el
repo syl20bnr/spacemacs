@@ -94,15 +94,18 @@
 (defun helm-spacemacs//documentation-action-open-file (candidate)
   "Open documentation FILE."
   (let ((file (concat spacemacs-docs-directory candidate)))
-    (if (and (equal (file-name-extension file) "md")
-             (not helm-current-prefix-arg))
-        (condition-case nil
-            (with-current-buffer (find-file-noselect file)
-              (gh-md-render-buffer)
-              (kill-this-buffer))
-          ;; if anything fails, fall back to simply open file
-          (find-file file))
-      (find-file file))))
+    (cond ((and (equal (file-name-extension file) "md")
+                (not helm-current-prefix-arg))
+           (condition-case nil
+               (with-current-buffer (find-file-noselect file)
+                 (gh-md-render-buffer)
+                 (kill-this-buffer))
+             ;; if anything fails, fall back to simply open file
+             (find-file file)))
+          ((equal (file-name-extension file) "org")
+           (spacemacs/open-file file "^"))
+          (t
+           (find-file file)))))
 
 (defun helm-spacemacs//layer-source ()
   "Construct the helm source for the layer section."
