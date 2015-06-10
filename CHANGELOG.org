@@ -5,26 +5,74 @@
   dotfile if you use this layer.
 - =erlang/elixir= layer has been split into two layer =erlang= and
   =elixir=, be sure to update your dotfile if you use these layers.
+- =git= layer has been split into two layers: =git= and =github= so
+  the layer variable =git-enabled-github-support= is deprecated, you
+  have to add the layer =github= in your dotfile.
+- =git-gutter= has been replaced by =diff-hl=. This package is in
+  the new layer =version-control=, be sure to add this new layer to
+  your dotfile.
 *** Hot new features
 - New interactive function =spacemacs/switch-to-version=, it will ask
   for a version number and warn if the current branch is not =master=.
   Users on =develop= branch cannot use this function.
 - Clicking on the up arrow will now update Spacemacs. A prompt asks
   for confirmation before updating.
+*** New Layers
+- elixir (split from =erlang-elixir=)
+- erlang (split from =erlang-elixir=)
+- github (split from =git=)
+- ipython (ein) (thanks to CestDiego)
+- latex (was =auctex=)
+- version-control
 *** Layer changes
 **** Spacemacs
+- Add text alignment key bindings on ~SPC x a~ prefix (thanks to justbur and
+  TheBB)
 - Remove the kill ring from =savehist-additional-variables= to avoid an issue
   with abnormal high size of =savehist= file (thanks to tuhdo)
+- Add documentation files to =helm-spacemacs= (thanks to person808)
+- Add support for =.org= files in =helm-spacemacs= (thanks to tuhdo)
+- Revert ~C-o~ in =holy-mode= since it shadows to much packages key bindings
+  (thanks to tuhdo)
+- Evilify =helm-ag= and =helm-grep= buffers (obtained by pressing ~f3~ in
+  the helm buffer while searching) (thanks to cpaulik)
 **** Auto-completion
 - Yasnippet: Default =helm-yas-display-key-on-candidate= to =t= (thanks to
   BrianHicks)
+- Yasnippet: Disable =smartparens= while expanding to fix a bug with
+  =hippie-expand= (thanks to tuhdo)
 **** Autohotkey
 - Fix =.ahk= file extension declaration (thanks to ralesi)
 **** C/C++
 - Add package =gdb-mi= (gdb-many-windows) which enables an IDE like debugger
   frontend for Emacs (thanks to tuhdo)
-**** Erlang-Elixir
+**** Clojure
+- Add ~SPC e w~ to eval last sexp and replace it with the result (thanks to
+  DayoOliyide)
+**** Elixir
 - List all Elixir key bindings in README
+- Update configuration to support new =alchemist= feature (thanks to tonini)
+**** Emacs Lisp
+- Add new Spacemacs snippets =micro-state= and =new-package= (thanks to
+  CestDiego)
+**** Evil-snipe
+- Update configuration with last upstream changes (thanks to hlissner and
+  MadAnd)
+**** Eyebrowse
+- Add support for workspace labels (thanks to rphillips)
+**** Finance
+- Evilify =ledger-report-mode= (thanks to darkfeline)
+**** Git
+- Replace =git-gutter= by =diff-hl= (thanks to tuhdo)
+**** Go
+- Add ~SPC m g a~ to switch between tests and implementation (thanks to
+  jenanwise)
+**** Hakell
+- Add =company-cabal= support for auto-completion in =.cabal= files (thanks
+  to bjarkevad)
+**** iPython (ein)
+- New layer (thanks to CestDiego)
+- Add key bindings on major-specific leader (thanks to cpaulik)
 **** Latex
 - Add support for =RefTeX= (thanks to JP-Ellis)
 - Add support for =LatexMk=, to enable it set the layer variable
@@ -36,11 +84,31 @@
 - Remove =build-view= in favour of just =build= as it seemed to be
   broken and introduce ~SPC m v~ to view (thanks to JP-Ellis)
 - General settings should now be easier to override in =dotspacemacs/config=
+- Fix errors due to layer renaming (thanks to JP-Ellis and autosquid)
+**** Org
+- Fontify code blocks (thanks to tuhdo)
+- Add =toc-org= package (thanks to CestDiego)
 **** Osx
-- Add  ~⌘ +~ and ~⌘ -~ key bindings to scale text (thanks to JoshTGreenwood)
+- Add  ~⌘ +~ and ~⌘ -~ key bindings to scale text (thanks to JoshTGreenwood
+  and zimbatm)
+- Only update =dired-use-ls-dired= if =gls= was found on path (thanks to
+  usharf)
+- Add reveal in finder on ~C-⌘ f~ (thanks to usharf)
+- Add key bindings ~⌘ a~ (select all) ~⌘ W~ (close frame) and ~⌘ n~ (new frame)
+  (thanks to mveytsman)
+**** Powershell
+- Add ~SPC a s p~ to start a =powershell= buffer (thanks to ralesi)
+- Add ~SPC m r r~ for =powershell-regexp-to-regex= (thanks to ralesi)
+- Add =$(= text object (thanks to ralesi)
 **** Python
+- New supported test runner: =pytest= (thanks to cpaulik)
+- New layer variable =python-test-runner=  to choose between =nose= and
+  =pytest=
 - Set =indent-tabs-mode= to =t= in REPLs, should fix indent errors (thanks to
   tuhdo)
+- Fix a loading bug due to a typo in =latex= layer (thanks to cpaulik)
+**** Ruby
+- Fix some annoyance with deep indentations (thanks to trishume)
 **** Rust
 - Add support for =flycheck= (thanks to swaroopch)
 **** Scala
@@ -50,15 +118,21 @@
 *** Core
 - New interactive function =spacemacs/switch-to-version=
 - Clicking on the up arrow will now update Spacemacs
+- Add a link to Vimmers guide in quick help of startup buffer (thanks to
+  person808)
 - Enable =use-package-verbose= when =dotspacemacs-verbose-loading=
   is set to =t=
 - Better name for placeholders in layer templates (thanks to kini)
+- Beautify change log (thanks to tuhdo)
 - Layers are now auto-discovered recursively which allow arbitrary
   directory hierarchy. Directory names starting with =!= are categories.
   (thanks to TheBB)
+- Fix regression when =dotspacemacs-startup-banner= is set to =nil=
+  (thanks to ptb)
 *** Other fixes and improvements
 - Add a guide for Vimmers in =doc= directory (thanks to person808)
-- Typos and documentation improvements (thanks to JoshTGreenwood)
+- Typos and documentation improvements (thanks to cloudbring, dxnn,
+  dvberkel, fotoetienne, JoshTGreenwood, person808)
 * Release 0.102.x
 ** 0.102.2 (2015/06/03)
 *** Layer changes
