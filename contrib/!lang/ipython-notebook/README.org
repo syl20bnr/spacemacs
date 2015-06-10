@@ -39,7 +39,7 @@ This is a WIP, feel free to collaborate.
 * Install
 ** Layer
 #+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(ipython))
+  (setq-default dotspacemacs-configuration-layers '(ipython-notebook))
 #+end_src
 ** Dependencies
 Install IPython > 3
