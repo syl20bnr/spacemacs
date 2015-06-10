@@ -115,7 +115,7 @@ commands using ~SPC :~.
 *** Buffer and window management
 **** Buffers
 Buffers in Emacs and vim are essentially the same. The keybindings for buffers
-are located under the ~SPC b ~prefix.
+are located under the ~SPC b~ prefix.
 
 | Keybinding            | Function                                             |
 |-----------------------+------------------------------------------------------|
@@ -136,8 +136,7 @@ keybindings. More information can be found
 
 **** Windows
 Windows are like splits in vim. They are useful for editing multiple files at
-once. All window keybindings are under the ~SPC w ~
-prefix.
+once. All window keybindings are under the ~SPC w~ prefix.
 
 | Keybinding         | Function                             |
 |--------------------+--------------------------------------|
@@ -148,7 +147,7 @@ prefix.
 | ~SPC w .~            | Window micro-state.                  |
 
 *** Files
-All file commands in Spacemacs are available under the ~SPC f ~prefix.
+All file commands in Spacemacs are available under the ~SPC f~ prefix.
 
 | Keybinding    | Function                                                     |
 |---------------+--------------------------------------------------------------|
@@ -461,7 +460,7 @@ Spacemacs does not automatically restore your windows and buffers when you
 reopen it. If you use vim sessions regularly you may want to add
 =(desktop-save-mode t)= to you =dotspacemacs/config= in your =.spacemacs= to get
 this functionality. You will then be able to load the saved session using
-~SPC : desktop-read ~. The location of the desktop
+~SPC : desktop-read~. The location of the desktop
 file can be set with the variable =desktop-dirname=. To automatically load a
 session, add =(desktop-read)= to your =.spacemacs=.
 
