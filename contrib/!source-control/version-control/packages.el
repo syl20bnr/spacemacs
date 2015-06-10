@@ -25,7 +25,6 @@
 
 (defun version-control/init-diff-hl ()
   (use-package diff-hl
-    :defer t
     :init
     (progn
       (setq diff-hl-side 'right)

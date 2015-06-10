@@ -12,20 +12,8 @@
 
 ;; Variables
 
-(defvar git-enable-github-support nil
-  "If non nil the Github packages and extensions are enabled.")
-
 (defvar git-enable-magit-svn-plugin nil
   "If non nil `magit-svn' plugin is enabled.")
 
 (defvar git-magit-status-fullscreen nil
   "If non nil magit-status buffer is displayed in fullscreen.")
-
-;; Command prefixes
-
-(setq git/key-binding-prefixes '(("gh" . "gutter-hunks/highlight")))
-(when git-enable-github-support
-  (push (cons "gf" "file") git/key-binding-prefixes)
-  (push (cons "gg" "gist") git/key-binding-prefixes))
-(mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-      git/key-binding-prefixes)

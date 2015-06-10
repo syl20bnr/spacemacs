@@ -335,9 +335,7 @@ Variables can be directly set within `dotspacemacs-configuration-layers` like so
 ;; List of configuration layers to load.
 dotspacemacs-configuration-layers '(auto-completion
                                     (git :variables
-                                         git-magit-status-fullscreen t
-                                         git-enable-github-support t
-                                         git-gutter-use-fringe t)
+                                         git-magit-status-fullscreen t)
                                     smex)
 ```
 
