@@ -1,0 +1,47 @@
+#+TITLE: Syntax Checking configuration layer for Spacemacs
+
+[[file:img/flycheck.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+
+This layer provides on the fly syntax and spelling checking using
+[[http://www.flycheck.org/][Flycheck]] and [[http://www-sop.inria.fr/members/Manuel.Serrano/flyspell/flyspell.html][Flyspell]].
+
+* Install
+
+** Layer
+
+To use this configuration layer add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(syntax-checking))
+#+END_SRC
+
+** Enabling/Disabling tooltips
+
+By default tooltips are enabled and used whenever it is possible.
+You can disable them by setting the variable =syntax-checking-enable-tooltips=
+to =nil=:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((syntax-checking :variables syntax-checking-enable-tooltips nil)))
+#+END_SRC
+
+
+* Key Bindings
+
+| Key Binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC e c~   | clear errors                     |
+| ~SPC e l~   | display a list of all the errors |
+| ~SPC S c~   |                                  |
+| ~SPC t s~   | toggle flycheck                  |
+| ~SPC t S~   | toggle flyspell                  |
