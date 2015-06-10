@@ -4,6 +4,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
  - [[#key-bindings][Key bindings]]
      - [[#emoji-dedicated-buffer][Emoji dedicated buffer]]
@@ -12,14 +13,14 @@
 
 This layer adds support for Emoji emoticons from [[http://www.emoji-cheat-sheet.com/][emoji-cheat-sheet.com]].
 
-Features:
+** Features:
 - Browse Emoji in a dedicated buffer
 - Display Emoji images in buffer
 - Insert one or several Emoji with an helm front-end
   
 * Install
 
-To use this contribution add it to your `~/.spacemacs`
+To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(emoji))
