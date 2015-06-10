@@ -80,16 +80,37 @@
 
 (defun helm-spacemacs//documentation-source ()
   "Construct the helm source for the documentation section."
-  `((name . "Documentation")
-    (candidates . ,(helm-spacemacs//documentation-candidates))
-    (candidate-number-limit)
-    (action . (("Open documentation" . helm-spacemacs//documentation-action-open-file)))))
+  (helm-build-sync-source "Helm Spacemacs Documentation"
+    :candidates #'helm-spacemacs//documentation-candidates
+    :persistent-action #'helm-spacemacs//documentation-action-open-file
+    :keymap helm-map
+    :action (helm-make-actions
+             "Open Documentation" #'helm-spacemacs//documentation-action-open-file)))
 
 (defun helm-spacemacs//documentation-candidates ()
   (let (result)
     (dolist (file-path (f-files spacemacs-docs-directory))
       (push (f-relative file-path spacemacs-docs-directory) result))
-    (sort result 'string<)))
+    ;; delete DOCUMENTATION.md to make it the first guide
+    (delete "DOCUMENTATION.md" result)
+    (push "DOCUMENTATION.md" result)
+
+    ;; give each document an appropriate title
+    (mapcar (lambda (r)
+              (cond
+               ((string-equal r "CONTRIBUTE.md")
+                `("How to contribute to Spacemacs" . ,r))
+               ((string-equal r "CONVENTIONS.md")
+                `("Spacemacs conventions" . ,r))
+               ((string-equal r "DOCUMENTATION.md")
+                `("Spacemacs starter guide" . ,r))
+               ((string-equal r "HOWTOs.md")
+                `("Quick HOW-TOs for Spacemacs" . ,r))
+               ((string-equal r "VIMUSERS.org")
+                `("Vim users migration guide" . ,r))
+               (t
+                `(r . ,r))))
+            result)))
 
 (defun helm-spacemacs//documentation-action-open-file (candidate)
   "Open documentation FILE."
