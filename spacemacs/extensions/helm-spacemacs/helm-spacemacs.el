@@ -80,7 +80,7 @@
 
 (defun helm-spacemacs//documentation-source ()
   "Construct the helm source for the documentation section."
-  (helm-build-sync-source "Helm Spacemacs Documentation"
+  (helm-build-sync-source "Spacemacs Documentation"
     :candidates #'helm-spacemacs//documentation-candidates
     :persistent-action #'helm-spacemacs//documentation-action-open-file
     :keymap helm-map
