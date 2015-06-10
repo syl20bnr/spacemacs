@@ -23,6 +23,7 @@
     bookmark
     buffer-move
     clean-aindent-mode
+    define-word
     diminish
     doc-view
     ediff
@@ -417,6 +418,13 @@
     :defer t
     :init
     (add-hook 'prog-mode-hook 'clean-aindent-mode)))
+
+(defun spacemacs/init-define-word ()
+  (use-package define-word
+    :defer t
+    :init
+    (evil-leader/set-key
+      "xwd" 'define-word-at-point)))
 
 (defun spacemacs/init-diminish ()
   (require 'diminish)
