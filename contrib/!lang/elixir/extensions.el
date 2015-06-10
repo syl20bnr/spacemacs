@@ -1,4 +1,4 @@
-;;; config.el --- Elixir Layer configuration File for Spacemacs
+;;; extensions.el --- Colors Layer Extensions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,9 +10,8 @@
 ;;
 ;;; License: GPLv3
 
-;; Variables
+(setq elixir-post-extensions '(ob-elixir))
 
-(defvar elixir-enable-ob-elixir nil
-  "If non nil the package `ob-elixir' is enabled.")
-
-(spacemacs|defvar-company-backends elixir-mode)
+(defun elixir/init-ob-elixir()
+  (use-package ob-elixir
+    :if elixir-enable-ob-elixir))
