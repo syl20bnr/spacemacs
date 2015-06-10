@@ -21,9 +21,6 @@ This layer adds [i3wm][] like workspaces thanks to the [eyebrowse][] package.
 Once the layer is activated a new number is added to the right side of the
 mode-line. This number corresponds to the currently active workspace number.
 
-For now only numbers are supported for workspaces, it is not possible to set
-a label on them.
-
 At startup, the workspace number 1 is active. Switching to a workspace will
 create it if it does not exist. For instance at startup you can press
 <kbd>SPC W 2</kbd> to create the workspace 2.
@@ -34,6 +31,9 @@ currently active workspace has square brackets. Since this is a micro-state it
 is possible to just preview a workspace, for instance press `SPC W 2` to see
 what's on the workspace 2 then press `TAB` to go back to the previously
 activated workspace.
+
+It is also possible to give a label to a the current workspace by pressing
+<kbd>r</kbd> in the micro-state.
 
 ## Install
 
@@ -74,6 +74,7 @@ Key Binding                               | Description
 <kbd>SPC W c</kbd>                        | close current workspace
 <kbd>SPC W n</kbd>                        | switch to next workspace
 <kbd>SPC W N</kbd> or <kbd>SPC W p</kbd>  | create or switch to workspace 0
+<kbd>SPC W r</kbd>                        | set a label to the current workspace
 
 [i3wm]: https://i3wm.org/
 [eyebrowse]: https://github.com/wasamasa/eyebrowse
