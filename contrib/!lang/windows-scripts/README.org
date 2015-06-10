@@ -1,0 +1,45 @@
+#+TITLE: Windows Scripting contribution layer for Spacemacs
+
+[[file:img/ps.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#powershell][Powershell]]
+     - [[#batch-dosel][Batch (dos.el)]]
+
+* Description
+
+This simple layer adds support for the Powershell scripting language as well
+as support for batch files.
+
+Incuded packages for extensions:
+- =.ps1=: [[https://github.com/jschaf/powershell.el][powershell]]
+- =.bat=: [[http://www.emacswiki.org/emacs/dos.el][dos.el]]
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(windows-scripts))
+#+END_SRC
+
+* Key Bindings
+
+** Powershell
+
+No useful bindings.
+
+** Batch (dos.el)
+
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~SPC m D~   | ask for a command and display help   |
+| ~SPC m e b~ | evaluate buffer                      |
+| ~SPC m e B~ | evaluate buffer with args            |
+| ~SPC m s~   | insert separator =&=                 |
+| ~SPC m t~   | mini snippet to start a batch script |
+| ~SPC m T~   | big snippet to start a batch script  |
+| ~SPC m z~   | toggle outline                       |
