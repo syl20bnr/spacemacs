@@ -2283,6 +2283,13 @@ displayed in the mode-line.")
           (setq spacemacs-mode-line-org-clock-current-taskp t)))
       (evil-leader/set-key "tmc" 'spacemacs/mode-line-org-clock-current-task-toggle)
 
+      (defun spacemacs//mode-line-file-encoding ()
+        "Return the file encoding to be displayed in the mode-line."
+        (let ((buf-coding (format "%s" buffer-file-coding-system)))
+          (if (string-match "\\(dos\\|unix\\|mac\\)" buf-coding)
+              (match-string 1 buf-coding)
+            buf-coding)))
+
       (if (display-graphic-p)
           (setq-default powerline-default-separator 'wave)
         (setq-default powerline-default-separator 'utf-8))
@@ -2453,11 +2460,7 @@ It is a string holding:
             ;; row:column
             (powerline-raw " " face1)
             ;; buffer encoding
-            (powerline-raw (format "%s |" (let ((buf-coding (format "%s" buffer-file-coding-system)))
-                                              (if (string-match "\\(dos\\|unix\\|mac\\)" buf-coding)
-                                                  (match-string 1 buf-coding)
-                                                buf-coding
-                                              )))
+            (powerline-raw (format "%s |" (spacemacs//mode-line-file-encoding))
                            face1 'r)
             (powerline-raw (if spacemacs-mode-line-display-point-p
                                (concat (format "%d | " (point)) "%l:%2c" )
