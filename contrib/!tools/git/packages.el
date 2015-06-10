@@ -35,7 +35,6 @@
 
 (defun git/init-diff-mode ()
   (use-package diff-mode
-    :commands diff-mode
     :defer t
     :config
     (evilify diff-mode diff-mode-map
@@ -44,18 +43,19 @@
 
 (defun git/init-diff-hl ()
   (use-package diff-hl
-    :commands diff-hl-mode
     :defer t
     :init
-    (setq diff-hl-side 'right)
-    (add-to-hooks 'diff-hl-mode '(markdown-mode-hook
-                                  org-mode-hook
-                                  prog-mode-hook))
-    (evil-leader/set-key
-      "ghr" 'diff-hl-revert-hunk
-      "ghN" 'diff-hl-previous-hunk
-      "ghn" 'diff-hl-next-hunk
-      "ghg" 'diff-hl-diff-goto-hunk)))
+    (progn
+      (setq diff-hl-side 'right)
+      (global-diff-hl-mode)
+      (unless (display-graphic-p)
+        (setq diff-hl-side 'left)
+        (diff-hl-margin-mode))
+      (evil-leader/set-key
+        "ghr" 'diff-hl-revert-hunk
+        "ghN" 'diff-hl-previous-hunk
+        "ghn" 'diff-hl-next-hunk
+        "ghg" 'diff-hl-diff-goto-hunk))))
 
 (defun git/init-gist ()
   (use-package gist
