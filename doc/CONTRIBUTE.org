@@ -59,8 +59,7 @@ this file should document the packages of your layer as well as the key
 bindings associated with them, - a template is provided in
 =~/.emacs.d/core/templates/layer-README.template=, use it as much as
 possible, - another good practice is to start from the =README.md= of an
-existing layer, - add a TOC at the start of the file with the command
-=markdown-toc/generate-toc=, - if a logo exists for the layer you can
+existing layer, - if a logo exists for the layer you can
 add it at the top of the =README.md= before the TOC. The maximum
 recommended height is 200 pixels.
 
