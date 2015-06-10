@@ -24,10 +24,10 @@ scripts.
 - Support syntax checking via flycheck with Clang.
 - Support code reformatting with [[http://clang.llvm.org/docs/ClangFormat.html][clang-format]].
 - Display function or variable definition at the bottom. (when =semantic= layer is included)
-- Display current function cursor is in at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]]
-for demos in some programming languages. (when =semantic= layer is included)
-- Support common refactoring with  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] . See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]]
-for demonstration of refactoring features. (when =semantic= layer is included)
+- Display current function cursor is in at the top. See [[https://github.com/tuhdo/semantic-stickyfunc-enhance][stickyfunc-demos]] for
+  demos in some programming languages. (when =semantic= layer is included)
+- Support common refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] . See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]] for
+  demonstration of refactoring features. (when =semantic= layer is included)
 
 * Install
 
@@ -39,11 +39,11 @@ To use this contribution add it to your =~/.spacemacs=
   (setq-default dotspacemacs-configuration-layers '(c-c++))
 #+END_SRC
 
-**Note**  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+
+*Note:* [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] is only available for Emacs 24.4+
 
 ** Default mode for header files
 
-By default header files are open in =c-mode=, you can open them in =c++-mode=
+By default header files are opened in =c-mode=, you can open them in =c++-mode=
 by setting the variable =c-c++-default-mode-for-headers= to =c++-mode=.
 
 #+BEGIN_SRC emacs-lisp
@@ -52,7 +52,7 @@ by setting the variable =c-c++-default-mode-for-headers= to =c++-mode=.
              c-c++-default-mode-for-headers 'c++-mode)))
 #+END_SRC
 
-**Note** To set the variable for a given project, create a directory local
+*Note:* To set the variable for a given project, create a directory local
 variable at the root of your project. More info on directory local variables
 can be found in the [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Directory-Local-Variables.html][dir-locals]].
 
@@ -106,4 +106,4 @@ doesn't complain about missing header files.
 | ~SPC m g O~ | open matching file in another window (e.g. switch between .cpp and .h) |
 | ~SPC m r~   | srefactor: refactor thing at point.                                    |
 
-**Note**  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+
+*Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+

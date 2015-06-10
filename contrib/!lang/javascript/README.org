@@ -4,6 +4,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
      - [[#js2-mode][js2-mode]]
@@ -17,7 +18,7 @@
 
 This layer adds support for the JavaScript language using [[https://github.com/mooz/js2-mode][js2-mode]].
 
-Main features:
+** Features:
 - Smart code folding
 - Refactoring: done using [[https://github.com/magnars/js2-refactor.el][js2-refactor]].
 - Auto-completion and documentation: provided by [[http://ternjs.net/][tern]]
@@ -27,19 +28,17 @@ Main features:
 * Install
 
 To use this contribution add it to your =~/.spacemacs=
-
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(javascript))
 #+END_SRC
 
 You will also need to install =tern= to use the auto-completion and
 documentation features:
-
 #+BEGIN_SRC sh
   $ npm install -g tern
 #+END_SRC
-To use the formatting features, install =js-beautify=:
 
+To use the formatting features, install =js-beautify=:
 #+BEGIN_SRC sh
   $ npm install -g js-beautify
 #+END_SRC

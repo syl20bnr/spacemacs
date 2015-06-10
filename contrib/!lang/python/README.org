@@ -2,13 +2,34 @@
 
 [[file:img/python.png]] [[file:img/django.png]]
 
-* Table of Contents
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features:]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#test-runner][Test runner]]
+     - [[#anaconda-dependencies][Anaconda dependencies]]
+     - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
+     - [[#autoflake][autoflake]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#inferior-repl-process][Inferior REPL process]]
+     - [[#running-python-script-in-shell][Running Python Script in shell]]
+     - [[#testing][Testing]]
+     - [[#refactoring][Refactoring]]
+     - [[#other-python-commands][Other Python commands]]
+     - [[#django][Django]]
+         - [[#fabric][Fabric]]
+         - [[#files][Files]]
+         - [[#interactive][Interactive]]
+         - [[#server][Server]]
+         - [[#southsyncdb][South/Syncdb]]
+         - [[#test][Test]]
 
 * Description
 
 This layer adds support for the Python language.
 
-Features:
+** Features:
 - Auto-completion using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] 
 - Code Navigation using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] 
 - Documentation Lookup using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]  and [[https://github.com/tsgates/pylookup][pylookup]]
@@ -113,7 +134,7 @@ modules.
 | ~SPC m c c~ | Execute current file in a comint shell                                    |
 | ~SPC m c C~ | Execute current file in a comint shell and switch to it in =insert state= |
 
-**Note** With the universal argument ~SPC u~ you can enter a new
+*Note:* With the universal argument ~SPC u~ you can enter a new
 compilation command.
 
 ** Testing

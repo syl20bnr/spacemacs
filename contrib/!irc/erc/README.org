@@ -59,5 +59,6 @@ notifications via the OS X Notification Center.
 | ~<SPC> m p~   | Part from the channel                                 |
 | ~<SPC> m q~   | Quit server                                           |
 
-**Note** If you want to connect securely to an IRC server, you must run
-=erc-tls= command on ~SPC a i E~ instead of the =erc= command.
+*Note:* If you want to connect securely to an IRC server, you must run =erc-tls=
+     command on ~SPC a i E~ instead of the =erc= command.
+

@@ -4,6 +4,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
      - [[#web-mode][Web mode]]
@@ -13,7 +14,7 @@
 
 This layer adds support for editing HTML and CSS.
 
-Features:
+** Features:
 - Editing HTML and CSS file using [[http://web-mode.org/][web-mode]]
 - Support for Sass/Scss and Less files
 - Generate HTML and CSS coding using [[https://github.com/smihica/emmet-mode][emmet-mode]]

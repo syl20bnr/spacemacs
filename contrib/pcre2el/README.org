@@ -12,7 +12,6 @@ This contrib layer sets up pcre2el or rxt (RegeXp Translator or RegeXp Tools)
 which is a utility for working with regular expressions in Emacs, to parse,
 convert, and font-lock PCRE, Emacs and rx regexps.
 
-
 Using pcre2el you can convert an Emacs Regexp to pcre (and back) (oh and output
 as rx too.)
 
@@ -39,7 +38,7 @@ An example in Lisp code:
 ** RE-Builder support
 
 The Emacs RE-Builder is a useful visual tool which allows using several
-different built-in syntaxes via =reb-change-syntax= (=C-c TAB=). It supports
+different built-in syntaxes via =reb-change-syntax= (~C-c TAB~). It supports
 Elisp read and literal syntax and =rx=, but it can only convert from the
 symbolic forms to Elisp, not the other way. This package hacks the RE-Builder to
 also work with emulated PCRE syntax, and to convert transparently between Elisp,
@@ -58,6 +57,5 @@ Example of using the conversion functions:
 
 * Keybindings
 
-pcre2el defines keybindings under =C-c /= so we=ll define them under out
-perspective map =<SPC> R=
+=pcre2el= defines keybindings under ~C-c /~ so we'll define them under ~<SPC> R~.
 

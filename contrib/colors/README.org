@@ -15,18 +15,12 @@
 * Description
 
 This layer colors your life with:
-- [[https://github.com/Fanael/rainbow-identifiers][rainbow identifiers]]
-- [[https://julien.danjou.info/projects/emacs-packages][rainbow mode]]
-- [[https://github.com/syl20bnr/nyan-mode][nyan mode]]
-
-[[https://github.com/Fanael/rainbow-identifiers][rainbow identifiers]] mode will colorize each variables and functions with an
-almost unique color. The keywords and the declaration of function colors are
-disabled in order to make the colorized variables and functions stand out.
-
-[[https://julien.danjou.info/projects/emacs-packages][rainbow mode]] displays strings representing colors with the color they
-represent as background.
-
-[[https://github.com/syl20bnr/nyan-mode][nyan mode]] display a Nyan cat progress bar in the mode-line.
+- [[https://github.com/Fanael/rainbow-identifiers][rainbow identifiers]] mode will colorize each variables and functions with an
+  almost unique color. The keywords and the declaration of function colors are
+  disabled in order to make the colorized variables and functions stand out.
+- [[https://julien.danjou.info/projects/emacs-packages][rainbow mode]] displays strings representing colors with the color they
+  represent as background.
+- [[https://github.com/syl20bnr/nyan-mode][nyan mode]] display a Nyan cat progress bar in the mode-line.
 
 * Install
 

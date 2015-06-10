@@ -17,7 +17,7 @@ To use this contribution add it to your =~/.spacemacs=
 (setq-default dotspacemacs-configuration-layers '(ess))
 #+END_SRC
 
-**Important**:
+*Important:*
 In order to speed up the boot time of =Spacemacs=, =ESS= must be loaded
 manually via the key binding: ~SPC e s s~
 

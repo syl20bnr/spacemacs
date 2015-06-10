@@ -4,6 +4,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
      - [[#layer][Layer]]
      - [[#cabal-packages][Cabal packages]]
@@ -23,11 +24,11 @@
 
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 
-Some features:
+** Features:
 - auto-completion with [[https://github.com/iquiw/company-ghc][company-ghc]],
 - syntax highlighting for [[https://github.com/bgamari/cmm-mode][C-- source]].
 
-**This layer is in construction, it needs your contributions and bug reports.**
+*This layer is in construction, it needs your contributions and bug reports.*
 
 * Install
 
@@ -54,8 +55,8 @@ To install them, use the following command:
 #+END_SRC
 
 Then you have to add this path to your system =$PATH= (preferred):
-Note that on **Linux** distributions the installed binaries should be in
-=~/.cabal/bin= and on **OS X** the binaries are installed in
+Note that on *Linux* distributions the installed binaries should be in
+=~/.cabal/bin= and on *OS X* the binaries are installed in
 =/Users/<username>/Library/Haskell/bin=.
 
 #+BEGIN_SRC sh
@@ -69,7 +70,7 @@ your =.spacemacs= file:
   (add-to-list 'exec-path "~/.cabal/bin/")
 #+END_SRC
 
-**Note:** it is important to add the path in the =dotspacemacs/init= function,
+*Note:* it is important to add the path in the =dotspacemacs/init= function,
 so that the path is added before any layers is loaded.
 
 ** OS X
