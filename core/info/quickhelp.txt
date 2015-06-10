@@ -16,10 +16,10 @@ Press SPC f e d (Vim) or Alm-m f e d (Emacs) to access .spacemacs file.
 
 Press SPC f e h (Vim) or Alt-m f e h (Emacs) to access a list of documentation
 and supported layers. You can type anything to narrow to a specific feature i.e.
-"python" for Python layer. There are five lists and you can press C-o to switch
+"python" for Python layer. There are five lists and you can press Ctrl-o to switch
 between them:
 
 - Spacemacs documentation -> Layer documentation -> Package Source Code ->
   Dotfile variables -> Spacemacs toggles
 
-Please consult Spacemacs documentation for more details.
+Please consult Spacemacs documentation from SPC f e h for more details.
