@@ -77,8 +77,8 @@ OmniSharp should now automatically load and start a server when you open a
 * Caveats
 
 - It's currently not possible to create a C# solution outside of an IDE such as
-[[http://www.monodevelop.com/][MonoDevelop]], it's therefore recommended that you install it to create your
-solutions.
+  [[http://www.monodevelop.com/][MonoDevelop]], it's therefore recommended that you install it to create your
+  solutions.
 
 - Debugging is possible using [[https://github.com/mono/sdb][SDB]].
   

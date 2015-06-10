@@ -4,6 +4,7 @@
 
 * Table of Contents                                                  :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
      - [[#commands][Commands]]
@@ -12,7 +13,7 @@
 
 This layer adds support for editing Lua.
 
-Features:
+** Features:
 - Editing lua files using [[https://github.com/immerrr/lua-mode][lua-mode]]
 - Sending code to a lua REPL
 

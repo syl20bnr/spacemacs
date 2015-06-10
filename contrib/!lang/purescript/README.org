@@ -40,7 +40,7 @@ To use this contribution add it to your =~/.spacemacs=
 
 ** REPL
 
-[psci][] provides a very basic REPL for purescript. The following key
+[[https://github.com/ardumont/emacs-psci][psci]] provides a very basic REPL for purescript. The following key
 bindings are available:
 
 | Key Binding   | Description                                                                      |
