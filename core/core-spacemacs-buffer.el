@@ -221,9 +221,10 @@ If TYPE is nil, just remove widgets."
                                                    :tag (propertize "Click here for full change log" 'face 'font-lock-warning-face)
                                                    :help-echo "Open the full change log."
                                                    :action (lambda (&rest ignore)
-                                                             (funcall 'spacemacs/open-file
+                                                             (funcall 'spacemacs/view-org-file
                                                                       (concat user-emacs-directory "CHANGELOG.org")
-                                                                      "Release 0.103.x"))
+                                                                      "Release 0.103.x"
+                                                                      'subtree))
                                                    :mouse-face 'highlight
                                                    :follow-link "\C-m")))))
     (spacemacs-buffer//insert-note file

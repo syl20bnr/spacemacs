@@ -109,16 +109,25 @@ Supported properties:
         (dolist (val ',def-key)
           (define-key (eval (car val)) (kbd (cdr val)) ',func))))))
 
-(defun spacemacs/open-file (file anchor-text)
+(defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
   "Open the change log for the current version."
   (interactive)
   (find-file file)
   (org-indent-mode)
   (view-mode)
   (goto-char (point-min))
-  (re-search-forward anchor-text)
+
+  (when anchor-text
+    (re-search-forward anchor-text))
   (beginning-of-line)
-  (show-subtree)
+
+  (cond
+   ((eq expand-scope 'subtree)
+    (show-subtree))
+   ((eq expand-scope 'all)
+    (show-all))
+   (t nil))
+
   (setq-local org-emphasis-alist '(("*" bold)
                                    ("/" italic)
                                    ("_" underline)
