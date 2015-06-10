@@ -39,7 +39,7 @@ To use this contribution add it to your =~/.spacemacs=
   (setq-default dotspacemacs-configuration-layers '(c-c++))
 #+END_SRC
 
-**Note**  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+
+*Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+
 
 ** Default mode for header files
 
@@ -52,7 +52,7 @@ by setting the variable =c-c++-default-mode-for-headers= to =c++-mode=.
              c-c++-default-mode-for-headers 'c++-mode)))
 #+END_SRC
 
-**Note** To set the variable for a given project, create a directory local
+*Note:* To set the variable for a given project, create a directory local
 variable at the root of your project. More info on directory local variables
 can be found in the [[http://www.gnu.org/software/emacs/manual/html_node/elisp/Directory-Local-Variables.html][dir-locals]].
 
@@ -106,4 +106,4 @@ doesn't complain about missing header files.
 | ~SPC m g O~ | open matching file in another window (e.g. switch between .cpp and .h) |
 | ~SPC m r~   | srefactor: refactor thing at point.                                    |
 
-**Note**  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+
+*Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+

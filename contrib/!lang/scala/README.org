@@ -130,7 +130,7 @@ See the [[http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flyc
 | ~SPC m d s~ | step                        |
 | ~SPC m d t~ | backtrace                   |
 
-**Note** These key bindings need a micro-state, PR welcome :-)
+*Note:* These key bindings need a micro-state, PR welcome :-)
 
 *** Errors
 

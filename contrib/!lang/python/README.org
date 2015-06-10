@@ -113,7 +113,7 @@ modules.
 | ~SPC m c c~ | Execute current file in a comint shell                                    |
 | ~SPC m c C~ | Execute current file in a comint shell and switch to it in =insert state= |
 
-**Note** With the universal argument ~SPC u~ you can enter a new
+*Note:* With the universal argument ~SPC u~ you can enter a new
 compilation command.
 
 ** Testing

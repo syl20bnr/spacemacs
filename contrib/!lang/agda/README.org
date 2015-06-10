@@ -15,7 +15,7 @@ Some features:
 - Faces redefined to correctly play with themes.
 - Spacemacs bindings to Agda's interactive tools.
   
-**This layer is in construction, it needs your contributions and bug reports.**
+*This layer is in construction, it needs your contributions and bug reports.*
 
 * Install
 
