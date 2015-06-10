@@ -1,0 +1,51 @@
+#+TITLE: Emacs Lisp contribution layer for Spacemacs
+
+[[file:img/emacs-lisp.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+     - [[#srefactor][srefactor]]
+
+* Description
+
+This layer gathers all the configuration related to emacs-lisp. This should
+always be in your dotfile, it is not recommended to uninstall it.
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(emacs-lisp))
+#+END_SRC
+
+* Key bindings
+
+| Key Binding                | Description                                                |
+|----------------------------+------------------------------------------------------------|
+| ~SPC m g g~                | go to definition of symbol under point                     |
+| ~SPC m h h~                | describe symbol at point                                   |
+| ~SPC m e $~ or ~SPC m e l~ | go to end of current line and evaluate                     |
+| ~SPC m e b~                | evaluate current buffer                                    |
+| ~SPC m e c~                | evaluate current form (start with =defun=, =setq=, etc...) |
+| ~SPC m e e~                | evaluate sexp before point                                 |
+| ~SPC m e r~                | evaluate current region                                    |
+| ~SPC m e f~                | evaluation current function                                |
+| ~SPC m ,~                  | toggle =lisp state=                                        |
+| ~SPC m t b~                | run tests of current buffer                                |
+| ~SPC m t q~                | run =ert=                                                  |
+| ~SPC m d m~                | open [[https://github.com/joddie/macrostep][macrostep]] micro-state                                 |
+
+** srefactor
+
+The [[file:../../semantic/README.org][semantic-layer]] should be installed for these key bindings
+to become active.
+
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~SPC m = b~ | format current buffer   |
+| ~SPC m = f~ | format current function |
+| ~SPC m = o~ | format all on one line  |
+| ~SPC m = s~ | format current sexp     |

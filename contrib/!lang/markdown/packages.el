@@ -33,7 +33,7 @@
         "Ask for a key then insert its description.
 Will work on both org-mode and any mode that accepts plain html."
         (interactive "kType key sequence: ")
-        (let* ((tag "<kbd>%s</kbd>"))
+        (let* ((tag "~%s~"))
           (if (null (equal key "\r"))
               (insert
                (format tag (help-key-description key nil)))

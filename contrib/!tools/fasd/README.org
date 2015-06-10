@@ -1,0 +1,44 @@
+#+TITLE: fasd contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#fasd][fasd]]
+ - [[#keybindings][Keybindings]]
+
+* Description
+
+This layer adds integration of [[https://github.com/clvv/fasd][fasd]] which is a command line tool
+to quickly jump between locations in a POSIX shell.
+
+The integration is implemented in the package [[https://github.com/steckerhalter/emacs-fasd][emacs-fasd]].
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(fasd))
+#+END_SRC
+
+** fasd
+
+[[https://github.com/clvv/fasd][fasd]] must be installed on your system. The general installation
+instructions can be found in the repository [[https://github.com/clvv/fasd#install][README]]
+
+On OS X, it can be installed via [[https://github.com/Homebrew/homebrew][homebrew]]:
+
+#+BEGIN_SRC sh
+  $ brew install fasd
+#+END_SRC
+
+* Keybindings
+
+| Key Binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC f a s~ | find a file or directory with fasd |
+| ~SPC f a d~ | find a directory with fasd         |
+| ~SPC f a f~ | find a file with fasd              |
