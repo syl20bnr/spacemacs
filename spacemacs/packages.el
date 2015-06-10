@@ -369,6 +369,14 @@
            (define-key map (kbd "R") 'ahs-back-to-start)
            (define-key map (kbd "r") (lambda () (interactive)
                                        (eval '(ahs-change-range) nil)))
+           (define-key map (kbd "/") (lambda ()
+                                       (interactive)
+                                       (let ((helm-ag-insert-at-point 'symbol))
+                                         (spacemacs/helm-projectile-smart-do-search))))
+           (define-key map (kbd "?") (lambda ()
+                                       (interactive)
+                                       (let ((helm-ag-insert-at-point 'symbol))
+                                         (spacemacs/helm-smart-do-search))))
            map) nil)
         (let* ((i 0)
                (overlay-count (length ahs-overlay-list))
@@ -390,7 +398,7 @@
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset (d) to go to next definition (D) to go to previous definition"
+            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset (d) to go to next definition (D) to go to previous definition (/) to find in project (?) to find in other files"
                   propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bind-key ())
@@ -1356,6 +1364,12 @@ Removes the automatic guessing of the initial value based on thing at point. "
             (helm-find-files-up-one-level 1)
           ad-do-it))
 
+      (defun spacemacs/helm-do-ag-symbol ()
+        "Perform a search with ag using `helm-ag.' Defaults to symbol at point."
+        (interactive)
+        (let ((helm-ag-insert-at-point 'symbol))
+          (call-interactively 'helm-do-ag)))
+
       (defun spacemacs/helm-do-ack ()
         "Perform a search with ack using `helm-ag.'"
         (interactive)
@@ -1364,6 +1378,12 @@ Removes the automatic guessing of the initial value based on thing at point. "
               (call-interactively 'helm-do-ag))
           (message "error: helm-ag not found.")))
 
+      (defun spacemacs/helm-do-ack-symbol ()
+        "Perform a search with ack using `helm-ag.' Defaults to symbol at point."
+        (interactive)
+        (let ((helm-ag-insert-at-point 'symbol))
+          (spacemacs/helm-do-ack)))
+
       (defun spacemacs/helm-do-pt ()
         "Perform a search with the platinum searcher using `helm-ag.'"
         (interactive)
@@ -1371,6 +1391,12 @@ Removes the automatic guessing of the initial value based on thing at point. "
             (let ((helm-ag-base-command "pt --nocolor --nogroup"))
               (call-interactively 'helm-do-ag))
           (message "error: helm-ag not found.")))
+
+      (defun spacemacs/helm-do-pt-symbol ()
+        "Perform a search with the platinum searcher using `helm-ag.' Defaults to symbol at point."
+        (interactive)
+        (let ((helm-ag-insert-at-point 'symbol))
+          (spacemacs/helm-do-pt)))
 
       (defun spacemacs//helm-do-search-find-tool (tools)
         "Create a cond form given a TOOLS string list and evaluate it."
@@ -1434,9 +1460,12 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "rm"  'helm-all-mark-rings
         "s/"  'spacemacs/helm-smart-do-search
         "sa"  'helm-do-ag
+        "sA"  'spacemacs/helm-do-ag-symbol
         "sg"  'helm-do-grep
         "sk"  'spacemacs/helm-do-ack
+        "sK"  'spacemacs/helm-do-ack-symbol
         "sp"  'spacemacs/helm-do-pt
+        "sP"  'spacemacs/helm-do-pt-symbol
         "sL"  'spacemacs/last-search-buffer
         "sl"  'helm-semantic-or-imenu)
 
