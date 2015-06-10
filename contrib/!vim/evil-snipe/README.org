@@ -10,7 +10,7 @@
      - [[#two-character-search-with-s][Two-character search with s]]
      - [[#more-scopes][More scopes]]
      - [[#symbol-groups][Symbol groups]]
- - [[#key-bindings][Key bindings]]
+ - [[#todo-key-bindings][TODO Key bindings]]
 
 * Description
 The package [[https://github.com/hlissner/evil-snipe][evil-snipe]]
@@ -99,6 +99,5 @@ all function definitions in a buffer!
   (add-to-list 'evil-snipe-symbol-groups '(?\\: \"def .+:\"\))
 #+END_SRC
 
-* Key bindings
+* TODO Key bindings
 
-TODO

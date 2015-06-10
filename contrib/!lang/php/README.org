@@ -4,13 +4,15 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
  - [[#key-bindings][Key bindings]]
 
 * Description
 
 This layer adds PHP language support to Spacemacs.
-Features:
+
+** Features:
 - Edit PHP files using [[https://github.com/ejmr/php-mode][php-mode]]
 - Edit Drupal files
 - Run tests with PHPUnit

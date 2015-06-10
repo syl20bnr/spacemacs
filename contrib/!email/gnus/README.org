@@ -12,7 +12,7 @@
 
 * Install
 
-To use this contribution add it to your `~/.spacemacs`
+To use this contribution layer add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(gnus))
@@ -23,13 +23,13 @@ To use this contribution add it to your `~/.spacemacs`
 Gnus is a news reading application. The Gnus terminology can be confusing for
 new users so the basics are listed here:
 
-- Group: A Newsgroup but can also be a RSS Feed or a mail directory
-- Topic: Newsgroups can be assigned to topics which will be used to structure
-  the Group Buffer if Topic Mode is enabled(default).
+- Group :: A Newsgroup but can also be a RSS Feed or a mail directory
+- Topic :: Newsgroups can be assigned to topics which will be used to structure
+     the Group Buffer if Topic Mode is enabled(default).
   
 * Adding news sources
 
-Adding news sources can be done in your `.spacemacs` file by adding the
+Adding news sources can be done in your =.spacemacs= file by adding the
 following:
 
 #+BEGIN_SRC emacs-lisp
@@ -49,7 +49,7 @@ For adding RSS Feeds please see the [[#Keybindings][keybindings section]].
 * Configuring gmail
 
 To configure Gnus with gmail support you can add the following to your
-`.spacemacs` file. 
+=.spacemacs= file. 
 
 #+BEGIN_SRC emacs-lisp
 ;; Get email, and store in nnml
@@ -82,8 +82,8 @@ To configure Gnus with gmail support you can add the following to your
 (setq message-directory "~/gmail")
 #+END_SRC
 
-Authentication for your gmail account is best stored in an `authinfo` or
-`authinfo.pgp` file. It must be of the form:
+Authentication for your gmail account is best stored in an =authinfo= or
+=authinfo.pgp= file. It must be of the form:
 
 #+BEGIN_SRC
 machine smtp.gmail.com login name@gmail.com password SUPER_SECRET_PASS

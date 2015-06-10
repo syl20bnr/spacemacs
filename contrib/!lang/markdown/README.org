@@ -4,6 +4,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
  - [[#usage][Usage]]
  - [[#key-bindings][Key bindings]]
@@ -22,7 +23,7 @@
 
 This layer adds markdown support to Spacemacs.
 
-Features:
+** Features:
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
 

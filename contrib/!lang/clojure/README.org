@@ -2,7 +2,23 @@
 
 [[file:img/clojure.png]] [[file:img/cider.png]]
 
-* Table of Contents
+* Table of Contents                                                  :TOC@4:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#pretty-symbols][Pretty Symbols]]
+     - [[#cider-and-clj-refactor][Cider and clj-refactor]]
+         - [[#quick-start-with-lein][Quick Start with lein]]
+         - [[#more-details][More details]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#documentation][Documentation]]
+     - [[#evaluation][Evaluation]]
+     - [[#goto][Goto]]
+     - [[#repl][REPL]]
+     - [[#tests][Tests]]
+     - [[#refactoring][Refactoring]]
+     - [[#reformatting][Reformatting]]
 
 * Description
 
@@ -27,7 +43,8 @@ To use this contribution add it to your =~/.spacemacs=
 
 ** Pretty Symbols
 
-Pretty symbols for anonymous functions, set literals and partial, like =(λ [a] (+ a 5))=, =ƒ(+ % 5)=, =∈{2 4 6}= and =Ƥ=.
+Pretty symbols for anonymous functions, set literals and partial, like =(λ [a]
+(+ a 5))=, =ƒ(+ % 5)=, =∈{2 4 6}= and =Ƥ=.
 
 To enable this feature, add the following snippet to the dotspacemacs/config
 section of your =~/.spacemacs= file:
@@ -159,19 +176,19 @@ More info regarding installation of nREPL middleware can be found here:
 
 ** Reformatting
 
-Forms currently handled:
-- let
-- when-let
-- if-let
-- binding
-- loop
-- with-open
-- literal hashes {}
-- defroute
-- cond
-- condp (except :>> subforms)
+- Forms currently handled:
+  - let
+  - when-let
+  - if-let
+  - binding
+  - loop
+  - with-open
+  - literal hashes {}
+  - defroute
+  - cond
+  - condp (except :>> subforms)
   
-More info [here][align-cljlet].
+More info at [[https://github.com/gstamp/align-cljlet][align-cljlet]].
 
 | Key Binding | Description           |
 |-------------+-----------------------|

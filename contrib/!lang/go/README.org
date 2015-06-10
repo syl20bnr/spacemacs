@@ -4,6 +4,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
      - [[#pre-requisites][Pre-requisites]]
      - [[#layer][Layer]]
@@ -15,7 +16,7 @@
 
 This layer adds extensive support for go.
 
-Features:
+** Features:
 - gofmt on file save
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]]
 - Source analysis using [[http://golang.org/s/oracle-user-manual][go-oracle]]
@@ -24,7 +25,7 @@ Features:
 
 ** Pre-requisites
 
-You will need gocode:
+You will need =gocode=:
 
 #+BEGIN_SRC sh
   go get -u github.com/nsf/gocode

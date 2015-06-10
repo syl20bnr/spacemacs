@@ -80,8 +80,8 @@ custom-perspective like =SPC L o e= to go to the init.el in the spacemacs.
 
 *** Org-agenda custom perspective
 
-Here we define a custom perspective that adds items to your org-agenda if you do
-not know what that is check the [[https://www.gnu.org/software/emacs/manual/html_node/org/Agenda-commands.html][docs]].
+Here we define a custom perspective that adds items to your org-agenda. If you
+do not know what that is check the [[https://www.gnu.org/software/emacs/manual/html_node/org/Agenda-commands.html][docs]].
 
 The cool part is that you can have many org files with todos in the agenda and
 with one simple command you can gather all the todos from all the agenda files

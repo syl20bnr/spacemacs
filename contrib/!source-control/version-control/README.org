@@ -2,6 +2,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
      - [[#layer][Layer]]
  - [[#key-bindings][Key Bindings]]
@@ -11,7 +12,7 @@
 This layers adds general configuration for [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Version-Control.html][Emacs VC]].
 It should work with all VC backends such as Git, Mercurial, Bazaar, SVN, etc...
 
-Features:
+** Features:
 - highlights uncommitted changes in the fringe or margin with [[https://github.com/dgutov/diff-hl][diff-hl]]
 
 * Install

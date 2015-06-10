@@ -4,6 +4,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#feature][Feature:]]
  - [[#install][Install]]
      - [[#layer][Layer]]
      - [[#chrome-extension][Chrome extension]]
@@ -13,7 +14,7 @@
 
 This layer provides some integration with the Google Chrome browser.
 
-Feature:
+** Feature:
 - Edit text boxes with Emacs using [[http://melpa.org/#/edit-server][edit-server]]
 
 * Install
@@ -45,6 +46,5 @@ function based on =edit-server-url=, or fall back to
   ;; Open github text areas as org buffers
   ;; currently they are opened as markdown
     (setq edit-server-url-major-mode-alist
-        '(("github\\.com" . org-mode)))
-  )
+        '(("github\\.com" . org-mode))))
 #+END_SRC

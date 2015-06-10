@@ -11,7 +11,7 @@
 
 * Description
 
-This layer adds  [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] support.
+This layer adds [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] support.
 
 * Install
 

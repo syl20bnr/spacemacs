@@ -4,17 +4,22 @@
 
 * Table of Content                                                    :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
      - [[#layer][Layer]]
      - [[#opam-packages][OPAM packages]]
  - [[#key-bindings][Key Bindings]]
      - [[#repl-utop][REPL (utop)]]
- - [[#todo][TODO]]
+ - [[#todos][TODOS]]
+     - [[#todo-add-more-proper-spacemacs-key-bindings-for-basic-merlin-tasks][TODO Add more proper spacemacs key-bindings for basic merlin tasks]]
+     - [[#todo-add-proper-keybindings-for-ocamldebug][TODO Add proper keybindings for ocamldebug]]
+     - [[#todo-add-more-keybindings-for-tuareg-mode][TODO Add more keybindings for tuareg-mode]]
 
 * Description
 
 This is a very basic layer for editing ocaml files.
 
+** Features:
 - Syntax highlighting (major-mode) via [[https://github.com/ocaml/tuareg][tuareg-mode]]
 - Error reporting, completion and type display via [[https://github.com/the-lambda-church/merlin][merlin]]
 - auto-completion with company mode via [[https://github.com/the-lambda-church/merlin][merlin]]
@@ -80,8 +85,8 @@ To install them, use the following command:
 | ~C-j~       | (in REPL) next item in history                                   |
 | ~C-k~       | (in REPL) previous item in history                               |
 
-* TODO
+* TODOS
 
-- Add more proper spacemacs key-bindings for basic merlin tasks
-- Add proper keybindings for ocamldebug
-- Add more keybindings for tuareg-mode
+** TODO Add more proper spacemacs key-bindings for basic merlin tasks
+** TODO Add proper keybindings for ocamldebug
+** TODO Add more keybindings for tuareg-mode

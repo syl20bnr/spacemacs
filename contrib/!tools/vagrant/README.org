@@ -4,6 +4,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
      - [[#layer][Layer]]
      - [[#vagrant][Vagrant]]
@@ -15,7 +16,7 @@
 This layer adds support for working with Vagrant using [[https://github.com/ottbot/vagrant.el][vagrant.el]] and
 [[https://github.com/dougm/vagrant-tramp][vagrant-tramp]].
 
-Features:
+** Features:
  - Manage boxes (under the ~SPC V~ prefix)
  - Remote editing on Vagrant boxes via Tramp
 

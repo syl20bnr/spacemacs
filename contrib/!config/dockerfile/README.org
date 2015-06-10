@@ -9,7 +9,7 @@
 
 * Description
 
-This layer provides syntax highlighting and build functionality for Docker files
+This layer provides syntax highlighting and build functionality for Docker files.
 
 * Install
 

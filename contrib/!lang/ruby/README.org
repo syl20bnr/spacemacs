@@ -36,8 +36,8 @@ Some of the advanced features supported by this layer depend on external gems
 that need to be installed in the context of your project (see below for guidance
 based on your version manager):
 
-*=pry= and =pry-doc= are required for *jump to definition* and *code documentation* (=robe-mode=)
-*=ruby_parser= is required for *goto-step_definition* in =feature-mode=
+- =pry= and =pry-doc= are required for *jump to definition* and *code documentation* (=robe-mode=)
+- =ruby_parser= is required for *goto-step_definition* in =feature-mode=
 
 You can install the gems in the context of your current project by
 adding them to the =Gemfile=, e.g.:
@@ -50,7 +50,7 @@ or on the command line (please refer to your ruby version manager
 specific documentation for details and caveats):
 
 #+BEGIN_SRC sh
-  $ gem install pry
+  gem install pry
 #+END_SRC
 
 ** Ruby version management

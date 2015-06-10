@@ -1,9 +1,12 @@
-#+TITLE: iPython Notebook contribution layer for Spacemacs (WIP)
+#+TITLE: IPython Notebook contribution layer for Spacemacs (WIP)
 
 * Table of Contents                                                   :TOC@4:
  - [[#description-][Description ]]
  - [[#features][Features]]
- - [[#todo-list][TODO List]]
+ - [[#list-of-todos][List of TODOS]]
+     - [[#todo-maybe-itd-be-better-if-there-was-a-state-for-this][TODO Maybe it'd be better if there was a state for this]]
+     - [[#todo-make-more-keybinding-to-connect-to-a-python-buffer][TODO Make more keybinding to =connect= to a python buffer.]]
+     - [[#todo-deleting-visual-regions-dont-work-find-out-why][TODO Deleting visual regions don't work, find out why.]]
  - [[#install][Install]]
      - [[#layer][Layer]]
      - [[#dependencies][Dependencies]]
@@ -27,24 +30,24 @@ lots of informative stuff.
 - Keybindings available through micro-State or leader key
 - Lazy-loading
 
-* TODO List
-- Maybe it'd be better if there was a state for this
-- Make more keybinding to =connect= to a python buffer.
-- Deleting visual regions don't work, find out why.
-- This is a WIP, feel free to collaborate.
+* List of TODOS
+This is a WIP, feel free to collaborate.
+** TODO Maybe it'd be better if there was a state for this
+** TODO Make more keybinding to =connect= to a python buffer.
+** TODO Deleting visual regions don't work, find out why.
 
 * Install
 ** Layer
 #+begin_src emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(ipython))
+  (setq-default dotspacemacs-configuration-layers '(ipython-notebook))
 #+end_src
 ** Dependencies
-Install iPython > 3
+Install IPython > 3
 #+begin_src sh
   pip install ipython
 #+end_src
 ** What needs to be run
-Have an iPython notebook running
+Have an IPython notebook running
 #+begin_src sh
   ipython notebook
 #+end_src
