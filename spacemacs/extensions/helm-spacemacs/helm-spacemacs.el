@@ -88,9 +88,12 @@
              "Open Documentation" #'helm-spacemacs//documentation-action-open-file)))
 
 (defun helm-spacemacs//documentation-candidates ()
-  (let (result)
+  (let (result file-extension)
     (dolist (file-path (f-files spacemacs-docs-directory))
-      (push (f-relative file-path spacemacs-docs-directory) result))
+      (setq file-extension (file-name-extension file-path))
+      (when (or (equal file-extension "md")
+                (equal file-extension "org"))
+        (push (f-relative file-path spacemacs-docs-directory) result)))
     ;; delete DOCUMENTATION.md to make it the first guide
     (delete "DOCUMENTATION.md" result)
     (push "DOCUMENTATION.md" result)
@@ -124,7 +127,7 @@
              ;; if anything fails, fall back to simply open file
              (find-file file)))
           ((equal (file-name-extension file) "org")
-           (spacemacs/open-file file "^"))
+           (spacemacs/view-org-file file "^" 'all))
           (t
            (find-file file)))))
 
