@@ -27,8 +27,8 @@ To use this layer, add it to your =~/.spacemacs=
 
 ** Cargo
 
- [[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
-instructions can be found on the main page of [[http://doc.crates.io/index.html][Cargo]] .
+[[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
+instructions can be found on the main page of [[http://doc.crates.io/index.html][Cargo]].
 
 * Key bindings
 

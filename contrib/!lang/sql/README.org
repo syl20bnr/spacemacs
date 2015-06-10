@@ -8,6 +8,7 @@
  - [[#key-bindings][Key bindings]]
      - [[#highlighting][Highlighting]]
      - [[#inferior-process-interactions-sqli][Inferior Process Interactions (SQLi)]]
+         - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi:]]
      - [[#sqli-buffer][SQLi buffer]]
 
 * Description
@@ -40,7 +41,7 @@ To use this contribution layer add it to your =~/.spacemacs=
 | ~SPC m l a~ | List all objects            |
 | ~SPC m l t~ | list all objects in a table |
 
-Send SQL queries to SQLi:
+*** Send SQL queries to SQLi:
 
 | Key Binding | Description                                                                              |
 |-------------+------------------------------------------------------------------------------------------|

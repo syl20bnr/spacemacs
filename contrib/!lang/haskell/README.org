@@ -4,6 +4,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
      - [[#layer][Layer]]
      - [[#cabal-packages][Cabal packages]]
@@ -23,7 +24,7 @@
 
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 
-Some features:
+** Features:
 - auto-completion with [[https://github.com/iquiw/company-ghc][company-ghc]],
 - syntax highlighting for [[https://github.com/bgamari/cmm-mode][C-- source]].
 

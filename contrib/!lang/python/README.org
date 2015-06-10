@@ -8,7 +8,7 @@
 
 This layer adds support for the Python language.
 
-Features:
+** Features:
 - Auto-completion using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] 
 - Code Navigation using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] 
 - Documentation Lookup using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]  and [[https://github.com/tsgates/pylookup][pylookup]]
