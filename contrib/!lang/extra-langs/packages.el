@@ -8,6 +8,7 @@
     nix-mode
     qml-mode
     scad-mode
+    stan-mode
     wolfram-mode
     yaml-mode
     ))
@@ -35,6 +36,9 @@
 
 (defun extra-langs/init-matlab-mode ()
   (use-package matlab-mode :defer t))
+
+(defun extra-langs/init-stan-mode ()
+  (use-package stan-mode :defer t))
 
 (defun extra-langs/init-yaml-mode ()
   (use-package yaml-mode :defer t))
