@@ -12,8 +12,6 @@
 
 (setq git-packages
       '(
-        diff-mode
-        diff-hl
         gitattributes-mode
         gitconfig-mode
         gitignore-mode
@@ -32,30 +30,6 @@
         magit-gitflow
         magit-svn
         smeargle))
-
-(defun git/init-diff-mode ()
-  (use-package diff-mode
-    :defer t
-    :config
-    (evilify diff-mode diff-mode-map
-             "j" 'diff-hunk-next
-             "k" 'diff-hunk-prev)))
-
-(defun git/init-diff-hl ()
-  (use-package diff-hl
-    :defer t
-    :init
-    (progn
-      (setq diff-hl-side 'right)
-      (global-diff-hl-mode)
-      (unless (display-graphic-p)
-        (setq diff-hl-side 'left)
-        (diff-hl-margin-mode))
-      (evil-leader/set-key
-        "ghr" 'diff-hl-revert-hunk
-        "ghN" 'diff-hl-previous-hunk
-        "ghn" 'diff-hl-next-hunk
-        "ghg" 'diff-hl-diff-goto-hunk))))
 
 (defun git/init-gist ()
   (use-package gist
