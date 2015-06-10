@@ -7,5 +7,6 @@ These include:
 - Nix Expressions
 - Nim
 - QML
+- Stan
 - YAML
 - The Wolfram Language / Mathematica
