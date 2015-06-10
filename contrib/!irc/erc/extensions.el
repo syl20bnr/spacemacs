@@ -9,7 +9,7 @@
 
 (defun erc/init-erc-yank ()
   (use-package erc-yank
-    :if git-enable-github-support
+    :if (configuration-layer/package-usedp 'gist)
     :init
     (evil-define-key 'normal erc-mode-map
       "p" 'erc-yank)))

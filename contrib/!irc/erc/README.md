@@ -27,7 +27,7 @@ Layer for [ERC IRC chat][].
 - YouTube videos Thumbnails inline (using [erc-yt][])
 - Social Graph for ERC messages (using [erc-social-graph][])
 - ERC yank, if pasting more than 5 lines, create a gist for it. (needs to have
-  `git-enable-github-support` set to `t` in the git layer)
+  `github` layer enabled, or using `gist` package)
 
 ## Install
 
