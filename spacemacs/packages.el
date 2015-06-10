@@ -422,7 +422,7 @@
 (defun spacemacs/init-desktop ()
   (use-package desktop
     :defer t
-    :init
+    :config
     (progn
       (setq desktop-dirname spacemacs-cache-directory)
       (push spacemacs-cache-directory desktop-path))))
