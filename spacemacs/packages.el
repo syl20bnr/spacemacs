@@ -82,6 +82,7 @@
         move-text
         neotree
         page-break-lines
+        pcre2el
         popup
         popwin
         powerline
@@ -1049,6 +1050,22 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :init
     (evil-leader/set-key "v" 'er/expand-region)
     :config
+    ;; adds search capability to expand-region
+    (defadvice er/prepare-for-more-expansions-internal
+        (around helm-ag/prepare-for-more-expansions-internal activate)
+      ad-do-it
+      (let ((new-msg (concat (car ad-return-value)
+                             ", / to search project, ? to search other files"))
+            (new-bindings (cdr ad-return-value)))
+        (cl-pushnew
+         '("/" (lambda ()
+                 (call-interactively 'spacemacs/helm-projectile-ag-region-or-symbol)))
+         new-bindings)
+        (cl-pushnew
+         '("?" (lambda ()
+                 (call-interactively 'spacemacs/helm-do-ag-region-or-symbol)))
+         new-bindings)
+        (setq ad-return-value (cons new-msg new-bindings))))
     (custom-set-variables
      '(expand-region-contract-fast-key "V")
      '(expand-region-reset-fast-key "r"))))
@@ -1656,6 +1673,69 @@ ARG non nil means that the editing style is `vim'."
   (use-package helm-ag
     :defer t
     :config
+    (defun spacemacs/helm-do-ag-region-or-symbol (&optional basedir)
+      "Calls `helm-do-ag' with a default string of the escaped
+active region or the symbol at the point if there is no active
+region. Requires \"ag\" search tool."
+      (interactive)
+      (require 'helm-mode)
+      (require 'helm-grep)
+      (require 'helm-ag)
+      (require 'pcre2el)
+      (unless (executable-find "ag")
+        (error "ag not available"))
+      (setq helm-ag--original-window (selected-window))
+      (helm-ag--clear-variables)
+      (let* ((helm-ag--default-directory (or basedir default-directory))
+             (helm-do-ag--default-target (when (and (not basedir) (not helm-ag--buffer-search))
+                                           (helm-read-file-name
+                                            "Search in file(s): "
+                                            :default default-directory
+                                            :marked-candidates t :must-match t)))
+             (helm-do-ag--extensions (helm-ag--do-ag-searched-extensions))
+             (one-directory-p (helm-do-ag--is-target-one-directory-p
+                               helm-do-ag--default-target))
+             (search-string (if (region-active-p)
+                                (rxt-quote-pcre
+                                 (buffer-substring-no-properties (region-beginning) (region-end)))
+                              (thing-at-point 'symbol t))))
+        (helm-ag--set-do-ag-option)
+        (helm-ag--save-current-context)
+        (helm-attrset 'name (helm-ag--helm-header helm-ag--default-directory)
+                      helm-source-do-ag)
+        (if (or (helm-ag--windows-p) (not one-directory-p)) ;; Path argument must be specified on Windows
+            (helm :sources '(helm-source-do-ag) :buffer "*helm-ag*"
+                  :input search-string
+                  :keymap helm-do-ag-map)
+          (let* ((helm-ag--default-directory
+                  (file-name-as-directory (car helm-do-ag--default-target)))
+                 (helm-do-ag--default-target nil))
+            (helm :sources '(helm-source-do-ag) :buffer "*helm-ag*"
+                  :input search-string
+                  :keymap helm-do-ag-map)))))
+
+    (defun spacemacs/helm-projectile-ag-region-or-symbol (&optional options)
+      "Version of `spacemacs/helm-do-ag-region-or-symbol' that
+defaults to searching the current project. Requires \"ag\" search tool."
+      (interactive)
+      (unless (executable-find "ag")
+        (error "ag not available"))
+      (if (require 'helm-ag nil  'noerror)
+          (if (projectile-project-p)
+              (let* ((grep-find-ignored-files
+                      (-union (projectile-ignored-files-rel)  grep-find-ignored-files))
+                     (grep-find-ignored-directories
+                      (-union (projectile-ignored-directories-rel) grep-find-ignored-directories))
+                     (ignored
+                      (mapconcat (lambda (i)
+                                   (concat "--ignore " i))
+                                 (append grep-find-ignored-files grep-find-ignored-directories)
+                                 " "))
+                     (helm-ag-command-option options)
+                     (helm-ag-base-command (concat helm-ag-base-command " " ignored)))
+                (spacemacs/helm-do-ag-region-or-symbol (projectile-project-root)))
+            (error "You're not in a project"))
+        (error "helm-ag not available")))
     (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)
     (evilify helm-ag-mode helm-ag-mode-map
              (kbd "RET") 'helm-ag-mode-jump-other-window
@@ -2161,6 +2241,33 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :init
     (global-page-break-lines-mode t)
     (spacemacs|hide-lighter page-break-lines-mode)))
+
+(defun spacemacs/init-pcre2el ()
+  (use-package pcre2el
+    :defer t
+    :commands rxt-fontify-regexp-at-point
+    :init
+    (progn
+      (spacemacs/declare-prefix "R" "pcre2el")
+      (evil-leader/set-key
+        "R/"  'rxt-explain
+        "Rc"  'rxt-convert-syntax
+        "Rx"  'rxt-convert-to-rx
+        "R'"  'rxt-convert-to-strings
+        "Rpe" 'rxt-pcre-to-elisp
+        "R%"  'pcre-query-replace-regexp
+        "Rpx" 'rxt-pcre-to-rx
+        "Rps" 'rxt-pcre-to-sre
+        "Rp'" 'rxt-pcre-to-strings
+        "Rp/" 'rxt-explain-pcre
+        "Re/" 'rxt-explain-elisp
+        "Rep" 'rxt-elisp-to-pcre
+        "Rex" 'rxt-elisp-to-rx
+        "Res" 'rxt-elisp-to-sre
+        "Re'" 'rxt-elisp-to-strings
+        "Ret" 'rxt-toggle-elisp-rx
+        "Rt"  'rxt-toggle-elisp-rx
+        "Rh"  'rxt-fontify-regexp-at-point))))
 
 (defun spacemacs/init-paradox ()
   (use-package paradox
