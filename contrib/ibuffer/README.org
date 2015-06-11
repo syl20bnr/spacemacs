@@ -27,8 +27,7 @@ Buffers can be grouped by major-modes or projectile projects.
 By default buffers are grouped by major-modes.
 
 To change how buffers are grouped set the layer variable
-=ibuffer-group-buffers-by= to one of the following supported
-values:
+=ibuffer-group-buffers-by= to one of the following supported values:
 - =modes= to group buffers by major-modes (default)
 - =projects= to group buffers by projectile projects
 - =nil= to not group buffers
