@@ -41,7 +41,7 @@ You can install =helm-gtags= from the software repository of your OS. For exampl
   sudo apt-get install global
 #+END_SRC
 
-To use =helm-gtags=, you first have to install GNU Global: [Download link][gnu-global-download].
+To use =helm-gtags=, you first have to install [[https://www.gnu.org/software/global/download.html][GNU Global]].
 
 Download the latest tar.gz archive, then run these commands:
 
@@ -52,8 +52,6 @@ Download the latest tar.gz archive, then run these commands:
   make
   sudo make install
 #+END_SRC
-
-[gnu-global-download]: https://www.gnu.org/software/global/download.html
 
 To use this contribution add it to your =~/.spacemacs=
 

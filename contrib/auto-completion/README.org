@@ -10,6 +10,8 @@
      - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
      - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
      - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
+         - [[#in-configel][In =config.el=]]
+         - [[#in-packagesel][In =packages.el=]]
  - [[#key-bindings][Key Bindings]]
      - [[#company][Company]]
      - [[#auto-complete][Auto-complete]]
@@ -43,21 +45,21 @@ To use this configuration layer add it to your =~/.spacemacs=
 You can customize the user experience of auto-completion with the following
 layer variables:
 
-=auto-completion-return-key-behavior= set the action to perform when the
-~RET~ key is pressed, the possible values are:
-- =complete= completes with the current selection
-- =nil= does nothing
+1. =auto-completion-return-key-behavior= set the action to perform when the
+   ~RET~ key is pressed, the possible values are:
+   - =complete= completes with the current selection
+   - =nil= does nothing
 
-=auto-completion-tab-key-behavior= set the action to perform when the
-~TAB~ key is pressed, the possible values are:
-- =complete= completes with the current selection
-- =cycle= completes the common prefix and cycle between candidates
-- =nil= does nothing
+2. =auto-completion-tab-key-behavior= set the action to perform when the ~TAB~
+   key is pressed, the possible values are:
+   - =complete= completes with the current selection
+   - =cycle= completes the common prefix and cycle between candidates
+   - =nil= does nothing
 
-=auto-completion-complete-with-key-sequence= is a string of two characters
-denoting a key sequence that will perform a =complete= action if the sequence
-as been entered quickly enough. If its value is =nil= then the feature is
-disabled.
+3. =auto-completion-complete-with-key-sequence= is a string of two characters
+   denoting a key sequence that will perform a =complete= action if the sequence
+   as been entered quickly enough. If its value is =nil= then the feature is
+   disabled.
 
 The default configuration of the layer is:
 
@@ -121,14 +123,14 @@ variable, then you are free to enable =auto-complete= globally.
 
 Here is an example to add =company= auto-completion to python buffer:
 
-In =config.el=:
+*** In =config.el=
 
 #+BEGIN_SRC emacs-lisp
   ;; Define the buffer local company backend variable
   (spacemacs|defvar-company-backends python-mode)
 #+END_SRC
 
-In =packages.el=:
+*** In =packages.el=
 
 #+BEGIN_SRC emacs-lisp
   ;; Add the relevant packages to the layer
