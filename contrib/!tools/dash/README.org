@@ -8,8 +8,8 @@
      - [[#dash][Dash]]
  - [[#key-bindings][Key bindings]]
      - [[#helm-dash][helm-dash]]
- - [[#todo][TODO]]
-     - [[#check-zeal][Check zeal]]
+ - [[#todos][TODOs]]
+     - [[#todo-check-zeal][TODO Check zeal]]
 
 * Description
 *This layer works only on OS X for the moment*
@@ -49,8 +49,7 @@ dash-at-point is linked to the GUI app and is only available for OSX. On linux,
 [[https://github.com/areina/helm-dash][helm-dash]] is used instead. It requires no app.
 You can use =dash/helm-dash-docset-newpath= to set the location path of your docsets.
 
-* TODO
+* TODOs
 
-** Check zeal
-
+** TODO Check zeal
 [[http://zealdocs.org/][zeal]] is an open source alternative to dash with Emacs integration available.

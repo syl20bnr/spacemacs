@@ -1,6 +1,12 @@
 #+TITLE: Pandoc contribution layer for Spacemacs
 
-* Table of Contents
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#pandoc][Pandoc]]
+ - [[#usage][Usage]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 
@@ -26,7 +32,7 @@ To use the mode please [[http://pandoc.org/installing.html][install]] pandoc fir
 
 * Usage
 
-For a full list of possible conversions see the  [[http://johnmacfarlane.net/pandoc][Pandoc]].
+For a full list of possible conversions see the [[http://johnmacfarlane.net/pandoc][Pandoc documentation]].
 An explanation of all the options offered by =pandoc-mode= can be found at the
 [[http://joostkremers.github.io/pandoc-mode][Pandoc-mode website]].
 
