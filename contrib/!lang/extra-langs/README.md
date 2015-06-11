@@ -8,6 +8,7 @@ These include:
 - Nix Expressions
 - Nim
 - QML
+- Stan
 - YAML
 - Rust
 - The Wolfram Language / Mathematica
