@@ -16,6 +16,10 @@
 
 This layer aims at providing support for the Puppet DSL using [puppet-mode][].
 
+## Features
+
+- Puppetfile support via [puppetfile-mode][]
+
 ## Install
 
 To use this contribution add it to your `~/.spacemacs`
@@ -44,3 +48,4 @@ Key Binding         | Description
 Use `M-x customize-group RET puppet` to customize Puppet Mode.
 
 [puppet-mode]: https://github.com/lunaryorn/puppet-mode
+[puppetfile-mode]: http://melpa.org/#/puppetfile-mode
