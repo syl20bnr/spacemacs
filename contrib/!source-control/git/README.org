@@ -4,6 +4,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#features][Features:]]
  - [[#install][Install]]
      - [[#layer][Layer]]
      - [[#magit-status-fullscreen][Magit status fullscreen]]
@@ -21,7 +22,7 @@
 
 This layers adds extensive support for [[http://git-scm.com/][git]].
 
-Features:
+** Features:
 - git repository management the indispensable  [[http://magit.github.io/][magit]] package
 - [[https://github.com/jtatarik/magit-gitflow][git-flow]] add-on for magit.
 - quick in buffer history browsing with [[https://github.com/pidu/git-timemachine][git-timemachine]].
@@ -79,7 +80,7 @@ layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
 ** Git
 
 Of course if your OS does not ship with git (!) you'll have to install it
-on your machine, [[http://git-scm.com/downloads][download page]].
+on your machine. You can download it from the [[http://git-scm.com/downloads][download page]].
 
 * Working with Git
 
@@ -109,7 +110,7 @@ Git commands (start with =g=):
 
 To open a =status buffer=, type in a buffer of a Git repository:
 
-    ~<SPC> g S~
+    ~<SPC> g s~
 
 =hjkl= navigation is enabled in all Magit buffers. The default Magit keys
 on =hjkl= (if they exist) are remapped on =HJKL=.
@@ -204,11 +205,11 @@ message.
   - =C-c C-c= to continue to the =commit message buffer=
   - =C-c C-c= again when you have finished to edit the commit message
 - Force push a squashed commit:
-  - in the =status buffer= you should see the new commit unpushed and the
-  old commit unpulled
-  - =P -f P= for force a push (*beware* usually it is not recommended to
-  rewrite the history of a public repository, but if you are *sure* that you
-  are the only one to work on a repository it is ok - i.e. in your fork).
+  - in the =status buffer= you should see the new commit unpushed and the old
+    commit unpulled
+  - =P -f P= for force a push (*beware* usually it is not recommended to rewrite
+    the history of a public repository, but if you are *sure* that you are the
+    only one to work on a repository it is ok - i.e. in your fork).
 - Add upstream remote (the parent repository you have forked):
   - =b v= to open the =branch manager buffer=
   - =a= to add a remote, type the name (i.e. =upstream=) and the URL

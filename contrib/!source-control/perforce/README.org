@@ -19,7 +19,7 @@ To use this contribution add it to your =~/.spacemacs=
   (setq-default dotspacemacs-configuration-layers '(perforce))
 #+END_SRC
 
-You'll have to install the =p4== command line, [[http://www.perforce.com/downloads][download page]].
+You'll have to install the =p4== command line tool from the [[http://www.perforce.com/downloads][download page]].
 
 Don't forget to setup the environment variables:
 - =P4_PORT=
