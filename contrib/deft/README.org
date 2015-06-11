@@ -1,0 +1,48 @@
+#+TITLE: Deft configuration layer for Spacemacs
+
+* Table of Content                                                    :TOC@4:
+ - [[#description][Description]]
+     - [[#differences-from-default][Differences from default]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#configuration][Configuration]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+
+[[http://jblevins.org/projects/deft/][Deft]] is an Emacs mode inspired by =Notational Velocity= for quickly
+browsing and creating notes.
+
+** Differences from default
+
+This layer sets the default to use filenames for note titles as well as
+=org-mode= for editing. The default extension is still =.txt= though.
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(deft))
+#+END_SRC
+
+** Configuration
+
+By default deft tries to put notes in =~/.deft= but you can change
+this like so in your =dotspacemacs/config= function:
+
+#+BEGIN_SRC emacs-lisp
+(setq deft-directory "~/Dropbox/notes")
+#+END_SRC
+
+* Key Bindings
+
+| Key Binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC a n~   | Open Deft (works globally)       |
+| ~SPC m d~   | Delete selected note             |
+| ~SPC m r~   | Rename selected note             |
+| ~SPC m i~   | Toggle to regex search           |
+| ~SPC m n~   | Create new file with filter text |
