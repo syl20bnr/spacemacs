@@ -94,20 +94,20 @@
       (when (or (equal file-extension "md")
                 (equal file-extension "org"))
         (push (f-relative file-path spacemacs-docs-directory) result)))
-    ;; delete DOCUMENTATION.md to make it the first guide
-    (delete "DOCUMENTATION.md" result)
-    (push "DOCUMENTATION.md" result)
+    ;; delete DOCUMENTATION.org to make it the first guide
+    (delete "DOCUMENTATION.org" result)
+    (push "DOCUMENTATION.org" result)
 
     ;; give each document an appropriate title
     (mapcar (lambda (r)
               (cond
-               ((string-equal r "CONTRIBUTE.md")
+               ((string-equal r "CONTRIBUTE.org")
                 `("How to contribute to Spacemacs" . ,r))
-               ((string-equal r "CONVENTIONS.md")
+               ((string-equal r "CONVENTIONS.org")
                 `("Spacemacs conventions" . ,r))
-               ((string-equal r "DOCUMENTATION.md")
+               ((string-equal r "DOCUMENTATION.org")
                 `("Spacemacs starter guide" . ,r))
-               ((string-equal r "HOWTOs.md")
+               ((string-equal r "HOWTOs.org")
                 `("Quick HOW-TOs for Spacemacs" . ,r))
                ((string-equal r "VIMUSERS.org")
                 `("Vim users migration guide" . ,r))
