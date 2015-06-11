@@ -1,0 +1,22 @@
+#+TITLE: Restclient contribution layer
+
+* Table of Contents                                                   :TOC@4:
+ - [[#what-is-this][What is this?]]
+ - [[#keybindings][Keybindings]]
+
+* What is this?
+This is a package that lets you have a REPL-like interface
+for http requests. Full documentation and examples can be found in the
+package's [[https://github.com/pashky/restclient.el][GitHub Page]].
+
+Also there is an [[http://emacsrocks.com/e15.html][Emacs Rocks!]] episode of it.
+
+* Keybindings
+
+| Key Binding | Description                                                 |
+|-------------+-------------------------------------------------------------|
+| ~SPC m s~   | Send and stay in window (pretty-print response if possible) |
+| ~SPC m S~   | Send and switch window (pretty-print response if possible)  |
+| ~SPC m r~   | Send and stay in window (do not attempt to pretty-print)    |
+| ~SPC m R~   | Send and switch window (do not attempt to pretty-print)     |
+

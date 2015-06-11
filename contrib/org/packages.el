@@ -66,7 +66,7 @@
         "Ask for a key then insert its description.
 Will work on both org-mode and any mode that accepts plain html."
         (interactive "kType key sequence: ")
-        (let* ((tag "@@html:<kbd>@@ %s @@html:</kbd>@@"))
+        (let* ((tag "@@html:~@@ %s @@html:~@@"))
           (if (null (equal key "\r"))
               (insert
                (format tag (help-key-description key nil)))
@@ -123,7 +123,7 @@ Will work on both org-mode and any mode that accepts plain html."
     :config
     (progn
       (font-lock-add-keywords
-       'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
+       'org-mode '(("\\(@@html:~@@\\) \\(.*\\) \\(@@html:~@@\\)"
                     (1 font-lock-comment-face prepend)
                     (2 font-lock-function-name-face)
                     (3 font-lock-comment-face prepend))))
