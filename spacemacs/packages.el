@@ -120,6 +120,13 @@
                 (use-package ,package-string ,@ARGS))))))
 
 
+(defconst spacemacs-use-package-font-lock-keywords
+  '(("(\\(spacemacs/use-package\\)\\_>[ \t']*\\(\\(?:\\sw\\|\\s_\\)+\\)?"
+     (1 font-lock-keyword-face)
+     (2 font-lock-constant-face nil t))))
+(font-lock-add-keywords 'emacs-lisp-mode spacemacs-use-package-font-lock-keywords)
+
+
 (spacemacs/use-package ace-jump-mode
   :defer t
   :init
