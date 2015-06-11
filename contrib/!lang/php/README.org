@@ -1,0 +1,34 @@
+#+TITLE: PHP contribution layer for Spacemacs
+ 
+[[file:img/php.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features:]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+This layer adds PHP language support to Spacemacs.
+
+** Features:
+- Edit PHP files using [[https://github.com/ejmr/php-mode][php-mode]]
+- Edit Drupal files
+- Run tests with PHPUnit
+- Reformat code with PHP CBF
+
+The =gtags= layer is recommended to benefit from better =eldoc= and
+=helm-gtags=.
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(php))
+#+END_SRC
+
+* Key bindings
+
+TODO ! :-)

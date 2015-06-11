@@ -1,0 +1,74 @@
+#+TITLE: Agda contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#some-features][Some features:]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#agda][Agda]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+This layer adds support for the [[http://wiki.portal.chalmers.se/agda/pmwiki.php][Agda]] programming language.
+
+** Some features:
+- Faces redefined to correctly play with themes.
+- Spacemacs bindings to Agda's interactive tools.
+  
+*This layer is in construction, it needs your contributions and bug reports.*
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(agda))
+#+END_SRC
+
+** Agda
+
+Quick instructions to install Agda assuming you have cabal installed:
+
+#+BEGIN_SRC sh
+  cabal install alex happy "cpphs < 1.19" agda
+#+END_SRC
+
+Then check that =agda= is available on your =PATH= and seen by Emacs.
+
+* Key bindings
+
+The key bindings of this layer don't follow the Spacemacs conventions,
+we opted to a simple transcription of stock Agda mode key bindings to
+Spacemacs leader key.
+
+All Agda specific bindings are prefixed with the major-mode leader
+~SPC m~.
+
+| Key Binding | Description                                                                                                                               |
+|-------------+-------------------------------------------------------------------------------------------------------------------------------------------|
+| ~SPC m =~   | Show constraints.                                                                                                                         |
+| ~SPC m ?~   | Show all goals.                                                                                                                           |
+| ~SPC m ,~   | Shows the type of the goal at point and the currect context.                                                                              |
+| ~SPC m .~   | Shows the context, the goal and the given expression's inferred type.                                                                     |
+| ~SPC m a~   | Simple proof search.                                                                                                                      |
+| ~SPC m b~   | Go to the previous goal, if any and activate goal-navigation micro-state.                                                                 |
+| ~SPC m c~   | Refine the pattern variables given in the goal.                                                                                           |
+| ~SPC m d~   | Infers the type of the given expression.                                                                                                  |
+| ~SPC m e~   | Show the context of the goal at point.                                                                                                    |
+| ~SPC m f~   | Go to the next goal, if any and activate goal-navigation micro-state.                                                                     |
+| ~SPC m h~   | Compute the type of a hypothetical helper function.                                                                                       |
+| ~SPC m l~   | Load current buffer.                                                                                                                      |
+| ~SPC m n~   | Computes the normal form of the given expression, using the scope of the current goal or, if point is not in a goal, the top-level scope. |
+| ~SPC m o~   | Shows all the top-level names in the given module.                                                                                        |
+| ~SPC m r~   | Refine the goal at point.                                                                                                                 |
+| ~SPC m s~   | Solves all goals that are already instantiated internally.                                                                                |
+| ~SPC m t~   | Show the type of the goal at point.                                                                                                       |
+| ~SPC m x c~ | Compile current module.                                                                                                                   |
+| ~SPC m x d~ | Removes buffer annotations (overlays and text properties).                                                                                |
+| ~SPC m x h~ | Toggle display of implicit arguments.                                                                                                     |
+| ~SPC m x q~ | Quit and clean up after agda2.                                                                                                            |
+| ~SPC m x r~ | Kill and restart the *agda2* buffer and load =agda2-toplevel-module=.                                                                     |
+| ~SPC m w~   | Explains why a given name is in scope.                                                                                                    |

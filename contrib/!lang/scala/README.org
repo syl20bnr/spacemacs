@@ -1,0 +1,201 @@
+#+TITLE: Scala contribution layer for Spacemacs
+
+[[file:img/scala.png]] with [[file:img/ensime.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#layer-installation][Layer Installation]]
+ - [[#ensime][Ensime]]
+     - [[#installation][Installation]]
+     - [[#usage][Usage]]
+ - [[#scalastyle][Scalastyle]]
+ - [[#key-bindings][Key bindings]]
+     - [[#ensime-key-bindings][Ensime key bindings]]
+         - [[#search][Search]]
+         - [[#sbt][sbt]]
+         - [[#typecheck][Typecheck]]
+         - [[#debug][Debug]]
+         - [[#errors][Errors]]
+         - [[#goto][Goto]]
+         - [[#documentation-inspect][Documentation, Inspect]]
+         - [[#server][Server]]
+         - [[#refactoring][Refactoring]]
+         - [[#tests][Tests]]
+         - [[#repl][REPL]]
+
+* Description
+
+This layer adds support for the Scala language using the excellent [[https://github.com/ensime][ENSIME]]
+client/server.
+
+* Layer Installation
+
+Add this contribution to your =~/.spacemacs=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(scala))
+#+END_SRC
+
+* Ensime
+
+[[https://github.com/ensime][ENSIME]] provides IDE-like features, such as refactoring, incremental
+compilation and project-wide type-checking.
+
+ENSIME requires a configuration file at the root of each Scala project. It
+provides an SBT plugin to generate these files.
+
+** Installation
+
+1. Configure the ENSIME sbt plugin by adding the following to
+   =~/.sbt/0.13/plugins/plugins.sbt=:
+   
+   #+BEGIN_SRC scala
+   resolvers += Resolver.sonatypeRepo("snapshots")
+
+   addSbtPlugin("org.ensime" % "ensime-sbt" % "0.1.5-SNAPSHOT")
+   #+END_SRC
+   
+2. Run =sbt= at the shell to download and install the plugin.
+   
+See the [[https://github.com/ensime/ensime-server/wiki/Quick-Start-Guide#installing-the-ensime-sbt-plugin][ENSIME quickstart]] guide for further information.
+
+** Usage
+
+1. Create a =.ensime= file at the root of your Scala project using =sbt
+   gen-ensime= at the shell.
+   
+2. Run =M-x ensime= within Emacs to start an ENSIME session.
+   
+Each Scala project uses a dedicated ENSIME session, so you only need to run =M-x
+ensime= once per project. Any Scala files you create or visit within the project
+will automatically use ENSIME for the remainder of your editing session.
+
+* Scalastyle
+
+[[http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle][Scalastyle]] provides style-checking and linting. The Emacs functionality is
+provided by Flycheck.
+
+To use scalastyle,
+
+1. Download the [[https://oss.sonatype.org/content/repositories/releases/org/scalastyle/scalastyle_2.11/0.6.0/][scalastyle jar]] and put it somewhere sensible
+2. Customise the =flycheck-scalastyle-jar= variable and set it to the path of
+   the jar.
+   
+See the [[http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle][flycheck documentation]] for up-to-date configuration instructions.
+
+* Key bindings
+
+** Ensime key bindings
+
+*** Search
+
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC m /~   | incremental search using =ensime-scalex= major mode |
+| ~SPC m ?~   | incremental search in all live buffers              |
+
+*** sbt
+
+| Key Binding | Description         |
+|-------------+---------------------|
+| ~SPC m b c~ | compile command     |
+| ~SPC m b C~ | clean command       |
+| ~SPC m b i~ | switch to sbt shell |
+| ~SPC m b p~ | package command     |
+| ~SPC m b r~ | run command         |
+
+*** Typecheck
+
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC m c t~ | type check the current file     |
+| ~SPC m c T~ | type check all the open buffers |
+
+*** Debug
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m d A~ | Attach to a remote debugger |
+| ~SPC m d b~ | set breakpoint              |
+| ~SPC m d B~ | clear breakpoint            |
+| ~SPC m d C~ | clear all breakpoints       |
+| ~SPC m d c~ | continue                    |
+| ~SPC m d d~ | start a debug session       |
+| ~SPC m d i~ | inspect value at point      |
+| ~SPC m d l~ | list local variables        |
+| ~SPC m d n~ | next                        |
+| ~SPC m d o~ | step out                    |
+| ~SPC m d q~ | quit                        |
+| ~SPC m d r~ | run                         |
+| ~SPC m d s~ | step                        |
+| ~SPC m d t~ | backtrace                   |
+
+*Note:* These key bindings need a micro-state, PR welcome :-)
+
+*** Errors
+
+| Key Binding | Description                                        |
+|-------------+----------------------------------------------------|
+| ~SPC m e e~ | print error at point                               |
+| ~SPC m e l~ | show all errors and warnings                       |
+| ~SPC m e s~ | switch to buffer containing the stack trace parser |
+
+*** Goto
+
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~SPC m g g~ | go to definition     |
+| ~SPC m g i~ | go to implementation |
+| ~SPC m g t~ | go to test           |
+
+*** Documentation, Inspect
+
+| Key Binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC m h h~ | show documentation for symbol at point |
+| ~SPC m h u~ | show uses for symbol at point          |
+| ~SPC m h t~ | print type at point                    |
+| ~SPC m i i~ | inspect type at point                  |
+| ~SPC m i I~ | inspect type in other frame            |
+| ~SPC m i p~ | inspect project package                |
+
+*** Server
+
+| Key Binding | Description                                            |
+|-------------+--------------------------------------------------------|
+| ~SPC m n F~ | reload open files                                      |
+| ~SPC m n s~ | start ensime server                                    |
+| ~SPC m n S~ | regenerate the =.ensime= and restart the ensime server |
+
+*** Refactoring
+
+| Key Binding | Description                                                          |
+|-------------+----------------------------------------------------------------------|
+| ~SPC m r f~ | format source                                                        |
+| ~SPC m r d~ | get rid of an intermediate variable (=ensime-refactor-inline-local=) |
+| ~SPC m r D~ | get rid of an intermediate variable (=ensime-undo-peek=)             |
+| ~SPC m r i~ | organize imports                                                     |
+| ~SPC m r m~ | extract a range of code into a method                                |
+| ~SPC m r r~ | rename a symbol project wide                                         |
+| ~SPC m r t~ | import type at point                                                 |
+| ~SPC m r v~ | extract a range of code into a variable                              |
+| ~SPC m z~   | expand/contract region                                               |
+
+*** Tests
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC m t a~ | test command (sbt)       |
+| ~SPC m t r~ | test quick command (sbt) |
+| ~SPC m t t~ | test only (sbt)          |
+
+*** REPL
+
+| Key Binding | Description                                                         |
+|-------------+---------------------------------------------------------------------|
+| ~SPC m s a~ | ask for a file to be loaded in the REPL                             |
+| ~SPC m s b~ | send buffer to the REPL                                             |
+| ~SPC m s B~ | send buffer to the REPL and focus the REPL buffer in =insert state= |
+| ~SPC m s i~ | start or switch to the REPL inferior process                        |
+| ~SPC m s r~ | send region to the REPL                                             |
+| ~SPC m s R~ | send region to the REPL and focus the REPL buffer in =insert state= |

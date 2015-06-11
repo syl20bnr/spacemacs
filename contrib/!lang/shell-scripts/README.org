@@ -1,0 +1,29 @@
+#+TITLE: Shell Scripting contribution layer for Spacemacs
+
+[[file:img/fish.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+
+This simple layer adds support for shell scripting.
+
+Incuded packages for extensions:
+- =.fish=: [[https://github.com/fish-shell/fish-shell][fish shell]]
+
+*Note:* For Windows scripting see the layer =windows-scripts=
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(shell-scripts))
+#+END_SRC
+
+* Key Bindings
+
+None for now.

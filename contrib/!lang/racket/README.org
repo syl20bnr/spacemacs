@@ -1,0 +1,72 @@
+#+TITLE: Racket contribution layer for Spacemacs
+
+[[file:img/racket.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#navigation][Navigation]]
+     - [[#documentation][Documentation]]
+     - [[#tests][Tests]]
+     - [[#repl][REPL]]
+     - [[#other-key-bindings][Other key bindings]]
+
+* Description
+
+Adds support for the [[http://racket-lang.org/][Racket]] programming language.
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(racket))
+#+END_SRC
+
+* Key Bindings
+
+** Navigation
+
+| Key Binding | Description                         |
+|-------------+-------------------------------------|
+| ~SPC m g `~ | Return to previous location         |
+| ~SPC m g g~ | Go to definition of symbol at point |
+| ~SPC m g m~ | Go to module at point               |
+| ~SPC m g r~ | Open require path                   |
+
+** Documentation
+
+| Key Binding | Description                                                   |
+|-------------+---------------------------------------------------------------|
+| ~SPC m h d~ | Describes the function at point in a =Racket Describe= buffer |
+| ~SPC m h h~ | View documentation of the identifier or string at point.      |
+
+** Tests
+
+| Key Binding | Description                       |
+|-------------+-----------------------------------|
+| ~SPC m t b~ | Run tests of buffer               |
+| ~SPC m t B~ | Run tests of buffer with coverage |
+
+** REPL
+
+| Key Binding | Description                                                     |
+|-------------+-----------------------------------------------------------------|
+| ~SPC m s b~ | Send buffer to REPL                                             |
+| ~SPC m s B~ | Send buffer to REPL and switch to REPL buffer in =insert state= |
+| ~SPC m s e~ | Send last sexp to REPL                                          |
+| ~SPC m s E~ | Send last sexp to REPL and switch to REPL in =insert state=     |
+| ~SPC m s f~ | Send function at point to REPL                                  |
+| ~SPC m s F~ | Send function at point and switch to REPL in =insert state=     |
+| ~SPC m s i~ | Start a REPL or switch to REPL buffer                           |
+| ~SPC m s r~ | Send region to REPL                                             |
+| ~SPC m s R~ | Send region to REPL and switch to REPL in =insert state=        |
+| ~SPC m s s~ | Show and switch to REPL buffer                                  |
+
+** Other key bindings
+
+| Key Binding | Description                                                                     |
+|-------------+---------------------------------------------------------------------------------|
+| ~SPC m i l~ | Insert lambda character                                                         |
+| ~H-r~       | Run current file and open REPL (=H= is hyper, *may* be bound to command on OSX) |

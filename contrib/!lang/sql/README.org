@@ -1,0 +1,63 @@
+#+TITLE: SQL contribution layer for Spacemacs
+
+[[file:img/sql.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+     - [[#highlighting][Highlighting]]
+     - [[#inferior-process-interactions-sqli][Inferior Process Interactions (SQLi)]]
+         - [[#send-sql-queries-to-sqli][Send SQL queries to SQLi:]]
+     - [[#sqli-buffer][SQLi buffer]]
+
+* Description
+
+This layer adds key bindings and configuration for =sql-mode=, which manages
+interactive SQL buffers and highlights a wide range of SQL dialects.
+
+* Install
+
+To use this contribution layer add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (set-default dotspacemacs-configuration-layers '(sql))
+#+END_SRC
+
+* Key bindings
+
+** Highlighting
+
+| Key Binding | Description                       |
+|-------------+-----------------------------------|
+| ~SPC m h k~ | select a SQL dialect to highlight |
+
+** Inferior Process Interactions (SQLi)
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m b b~ | show the SQLi buffer name   |
+| ~SPC m b s~ | set the SQLi buffer         |
+| ~SPC m l a~ | List all objects            |
+| ~SPC m l t~ | list all objects in a table |
+
+*** Send SQL queries to SQLi:
+
+| Key Binding | Description                                                                              |
+|-------------+------------------------------------------------------------------------------------------|
+| ~SPC m s b~ | Send the whole buffer to the SQLi buffer                                                 |
+| ~SPC m s B~ | Send the whole buffer to the SQLi buffer and switch to it in =insert state=              |
+| ~SPC m s i~ | Start the SQLi process                                                                   |
+| ~SPC m s f~ | Send the paragraph under the point to the SQLi buffer                                    |
+| ~SPC m s F~ | Send the paragraph under the point to the SQLi buffer and switch to it in =insert state= |
+| ~SPC m s q~ | Prompt for a string to send to the SQLi buffer                                           |
+| ~SPC m s Q~ | Prompt for a string to send to the SQLi buffer and switch to it in =insert state=        |
+| ~SPC m s r~ | Send the selected region to the SQLi buffer                                              |
+| ~SPC m s R~ | Send the selected region to the SQLi buffer and switch to it in =insert state=           |
+
+** SQLi buffer
+
+| Key Binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC m b r~ | rename buffer (follow up in the SQL buffer with ~SPC m b s~) |
+| ~SPC m b S~ | save the current connection                                  |
