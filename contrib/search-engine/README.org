@@ -4,6 +4,7 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
+     - [[#supported-search-engines][Supported search engines]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
  - [[#customize-it][Customize it!]]
@@ -12,7 +13,7 @@
 
 This layer adds support for the [[https://github.com/hrs/engine-mode/engine-mode.el][Search Engine]] package.
 
-Supported search engines:
+** Supported search engines
 
 - Amazon
 - Duck Duck Go
@@ -56,17 +57,14 @@ your =dotspacemacs/config=:
 
 Also if you want more search engines, just push them (do this in =dotspacemacs/config=)
 
-
 #+BEGIN_SRC emacs-lisp
 (push '(custom1
          :name "Custom Search Engine 1"
          :url "http://www.domain.com/s/stuff_sutff_remember_to_replace_search_candidate_with_%s")
         extra-search-engines-alist)
-
 #+END_SRC
 
-
-If you'd rather not use helm but would want an specific search engine, remember
+If you'd rather not use helm but would want a specific search engine, remember
 the function generated is always =engine/search-(the name of the search engine
 lower-case and hyphen instead-of-spaces-for-separation)= so you can bind that to
-any key binding you want
+any key binding you want.

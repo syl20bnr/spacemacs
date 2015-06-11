@@ -2,10 +2,10 @@
 
 * Description
 
-CEDET is a **C**ollection of **E**macs **D**evelopment **E**nvironment **T**ools
-written with the end goal of creating an advanced development environment in
-Emacs. CEDET includes common features such as intelligent completion, source
-code navigation, project management, code generation with templates . CEDET also
+CEDET is a *C*ollection of *E*macs *D*evelopment *E*nvironment *T*ools written
+with the end goal of creating an advanced development environment in Emacs.
+CEDET includes common features such as intelligent completion, source code
+navigation, project management, code generation with templates. CEDET also
 provides a framework for working with programming languages; support for new
 programming languages can be added and use CEDET to provide IDE-like features.
 This framework is called Semantic.
