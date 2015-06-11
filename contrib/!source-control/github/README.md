@@ -100,8 +100,8 @@ In the gist list buffer:
 override this behavior by setting the variable `git-link-open-in-browser` to
 `nil`.
 
-[Github]: http://github.com
-[git]: http://git-scm.com/
+[Github]: https://github.com/
+[git]: https://git-scm.com/
 [magit-gh-pulls]: https://github.com/sigma/magit-gh-pulls
 [gist.el]: https://github.com/defunkt/gist.el
 [git-link]: https://github.com/sshaw/git-link

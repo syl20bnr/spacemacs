@@ -54,5 +54,5 @@ You can now move through the comics with these
 <kbd>r</kbd>                  | Random comic
 <kbd>t</kbd>                  | Show alternate text in the modeline
 
-[xkcd]: http://xkcd.com/
+[xkcd]: https://xkcd.com/
 [emacs-xkcd]: https://github.com/vibhavp/emacs-xkcd

@@ -64,6 +64,6 @@ Key Binding        | Description
 
 [vagrant.el]: https://github.com/ottbot/vagrant.el
 [vagrant-tramp]: https://github.com/dougm/vagrant-tramp
-[Installing Vagrant]: http://docs.vagrantup.com/v2/installation/index.html
-[Getting Started]: http://docs.vagrantup.com/v2/getting-started/index.html
+[Installing Vagrant]: https://docs.vagrantup.com/v2/installation/index.html
+[Getting Started]: https://docs.vagrantup.com/v2/getting-started/index.html
 [Vagrantfile]: Vagrantfile

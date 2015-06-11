@@ -49,5 +49,5 @@ An explanation of all the options offered by `pandoc-mode` can be found at the
 <kbd>SPC P /</kbd>  | Start pandoc-mode and open menu
 
 [Pandoc]: http://johnmacfarlane.net/pandoc
-[Pandoc-github]: http://joostkremers.github.io/pandoc-mode
+[Pandoc-github]: https://joostkremers.github.io/pandoc-mode/
 [install]: http://pandoc.org/installing.html

@@ -236,8 +236,8 @@ message.
 <kbd>q</kbd>        | leave micro-state and git timemachine
 <kbd>Y</kbd>        | copy current commit hash
 
-[git]: http://git-scm.com/
-[download page]: http://git-scm.com/downloads
+[git]: https://git-scm.com/
+[download page]: https://git-scm.com/downloads
 [magit]: http://magit.github.io/
 [official intro]: https://magit.github.io/master/magit.html#Introduction
 [Magit-User-Manual#Status]: https://magit.github.io/master/magit.html#Status

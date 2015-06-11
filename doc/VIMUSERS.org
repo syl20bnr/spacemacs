@@ -161,7 +161,7 @@ All file commands in Spacemacs are available under the ~SPC f ~prefix.
 *** The Help System
 Emacs has an extensive help system. All keybindings under the ~SPC h d~ prefix
 allow convenient access to the help system. The most important of these
-keybindings are ~SPC h d f~ , ~SPC h d k~ , and ~SPC h d v~. There is also the 
+keybindings are ~SPC h d f~ , ~SPC h d k~ , and ~SPC h d v~. There is also the
 ~SPC <f1>~ keybinding which allows you to search for documentation.
 
 | Keybinding | Function                                                                         |
@@ -278,7 +278,7 @@ Here is an example of a function that is useful in real life:
       (unless (listp backend)
         (setcar company-backends `(,backend :with company-yasnippet company-files)))))
 
-  ;; See http://www.gnu.org/software/emacs/manual/html_node/emacs/Hooks.html
+  ;; See https://www.gnu.org/software/emacs/manual/html_node/emacs/Hooks.html
   ;; for what this line means
   (add-hook 'after-change-major-mode-hook 'autocomplete-show-snippets)
 #+end_src

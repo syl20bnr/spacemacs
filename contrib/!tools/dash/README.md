@@ -38,7 +38,7 @@ To use this contribution add it to your `~/.spacemacs`
 You have to install [dash][] on your machine.
 
 It is recommended to set the `HUD mode` in your Dash application preferences
-when using this layer. 
+when using this layer.
 
 See the documentation [dash-at-point][dash-at-point-usage] for more information
 on customizing specific docsets for modes.
@@ -51,7 +51,7 @@ on customizing specific docsets for modes.
 <kbd>SPC d D</kbd>  | Lookup thing at point in Dash within a specified Docset
 
 ### helm-dash
-dash-at-point is linked to the GUI app and is only available for OSX. On linux, 
+dash-at-point is linked to the GUI app and is only available for OSX. On linux,
 [helm-dash](https://github.com/areina/helm-dash) is used instead. It requires no app.
 You can use `dash/helm-dash-docset-newpath` to set the location path of your docsets.
 
@@ -61,7 +61,7 @@ You can use `dash/helm-dash-docset-newpath` to set the location path of your doc
 
 [zeal][] is an open source alternative to dash with Emacs integration available.
 
-[dash]: http://kapeli.com/dash
+[dash]: https://kapeli.com/dash
 [dash-at-point]: https://github.com/stanaka/dash-at-point
 [dash-at-point-usage]: https://github.com/stanaka/dash-at-point#Usage
 [helm-dash]: https://github.com/areina/helm-dash
