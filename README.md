@@ -159,7 +159,7 @@ via [homebrew][] with the following commands:
 
 ```sh
 $ brew tap railwaycat/emacsmacport
-$ brew install emacs-mac with-spacemacs-icon
+$ brew install emacs-mac --with-spacemacs-icon
 ```
 (The `with-spacemacs-icon` option uses the official spacemacs logo for the app bundle.)
 
