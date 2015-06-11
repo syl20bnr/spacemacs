@@ -15,7 +15,7 @@ This layer adds support for the [[https://github.com/rejeep/prodigy.el][prodigy]
 within Emacs, check the package's documentation for more details
 
 It is recommended to put to put your prodigy services in the
-=dotspacemacs/config= part of your .spacemacs file.
+=dotspacemacs/config= part of your =~/.spacemacs= file.
 
 * Install
 
