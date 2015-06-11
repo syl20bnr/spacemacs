@@ -52,6 +52,7 @@
 **** Elixir
 - List all Elixir key bindings in README
 - Update configuration to support new =alchemist= feature (thanks to tonini)
+- Enable auto-completion support
 **** Emacs Lisp
 - Add new Spacemacs snippets =micro-state= and =new-package= (thanks to
   CestDiego)
