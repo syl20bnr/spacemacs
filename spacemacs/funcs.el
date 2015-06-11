@@ -234,7 +234,7 @@ the current state and point position."
   (eval-region (region-beginning) (region-end))
   (evil-normal-state))
 
-;; idea from http://www.reddit.com/r/emacs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
+;; idea from https://www.reddit.com/r/emacs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
 (defun spacemacs/eval-current-form ()
   "Looks for the current def* or set* command then evaluates, unlike `eval-defun', does not go to topmost function"
   (interactive)
@@ -970,7 +970,7 @@ the right."
         (group (if justify-right -1 1)))
     (align-regexp start end complete-regexp group 1 t)))
 
-;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
+;; Modified answer from https://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
 (defun align-repeat-decimal (start end)
   "Align a table of numbers on decimal points and dollar signs (both optional)"
   (interactive "r")
@@ -999,4 +999,3 @@ the right."
 (create-align-repeat-x "bar" "|")
 (create-align-repeat-x "left-paren" "(")
 (create-align-repeat-x "right-paren" ")" t)
-

@@ -195,7 +195,7 @@ In `packages.el`:
 <kbd>SPC i S e</kbd> | Expand the snippet just created with <kbd>SPC i y</kbd>
 <kbd>SPC i S w</kbd> | Write the snippet inside `private/snippets` directory for future sessions
 
-[company]: http://company-mode.github.io/
+[company]: https://company-mode.github.io/
 [auto-complete]: http://auto-complete.org/
 [yasnippet]: https://github.com/capitaomorte/yasnippet
 [auto-yasnippet]: https://github.com/abo-abo/auto-yasnippet

@@ -1906,8 +1906,8 @@ Text related commands (start with `x`):
 <kbd>SPC x u</kbd>     | set the selected text to lower case
 <kbd>SPC x U</kbd>     | set the selected text to upper case
 <kbd>SPC x a a</kbd>   | align region (or guessed section) using default rules
-<kbd>SPC x a r</kbd>   | align region using user-specified regexp 
-<kbd>SPC x a m</kbd>   | align region at arithmetic operators (+-*/) 
+<kbd>SPC x a r</kbd>   | align region using user-specified regexp
+<kbd>SPC x a m</kbd>   | align region at arithmetic operators (+-*/)
 <kbd>SPC x a .</kbd>   | align region at . (for numeric tables)
 <kbd>SPC x a ,</kbd>   | align region at ,
 <kbd>SPC x a ;</kbd>   | align region at ;
@@ -2546,7 +2546,7 @@ developers to elisp hackers!
 [CONVENTIONS.md]: ./CONVENTIONS.md
 [evil]: https://gitorious.org/evil/pages/Home
 [evil-leader]: https://github.com/cofi/evil-leader
-[RSI]: http://en.wikipedia.org/wiki/Repetitive_strain_injury
+[RSI]: https://en.wikipedia.org/wiki/Repetitive_strain_injury
 [vim-migration]: ./VIMUSERS.org
 [sacha_guide]: http://sachachua.com/blog/2013/05/how-to-learn-emacs-a-hand-drawn-one-pager-for-beginners/
 [use-package]: https://github.com/jwiegley/use-package
@@ -2562,7 +2562,7 @@ developers to elisp hackers!
 [golden-ratio]: https://github.com/roman/golden-ratio.el
 [solarized-theme]: https://github.com/bbatsov/solarized-emacs
 [powerline]: https://github.com/milkypostman/powerline
-[font-spec]: http://www.gnu.org/software/emacs/manual/html_node/elisp/Low_002dLevel-Font.html
+[font-spec]: https://www.gnu.org/software/emacs/manual/html_node/elisp/Low_002dLevel-Font.html
 [diminish]: http://www.emacswiki.org/emacs/DiminishedModes
 [auto-complete]: https://github.com/auto-complete
 [auto-highlight]: https://github.com/emacsmirror/auto-highlight-symbol
@@ -2657,7 +2657,7 @@ developers to elisp hackers!
 [bjarkevad]:https://github.com/bjarkevad
 [jcpetkovich]:https://github.com/jcpetkovich
 [tuhdo]:https://github.com/tuhdo
-[tuhdo-tuto]:http://tuhdo.github.io/helm-intro.html
+[tuhdo-tuto]:https://tuhdo.github.io/helm-intro.html
 [BrianHicks]:https://github.com/BrianHicks
 [cpaulik]: https://github.com/cpaulik
 [chrisbarrett]:https://github.com/chrisbarrett

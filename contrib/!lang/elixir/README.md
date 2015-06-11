@@ -36,7 +36,7 @@ features like:
 - Definition lookup
 - Smart code completion
 - Elixir project management
-- Integration with [company-mode](http://company-mode.github.io/)
+- Integration with [company-mode](https://company-mode.github.io/)
 
 ## Install
 

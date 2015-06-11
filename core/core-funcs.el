@@ -46,7 +46,7 @@ and its values are removed."
       (push (pop tail) result))
     (nreverse result)))
 
-;; From http://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
+;; From https://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
 (defun spacemacs/dump-vars-to-file (varlist filename)
   "simplistic dumping of variables in VARLIST to a file FILENAME"
   (save-excursion
@@ -58,7 +58,7 @@ and its values are removed."
       (save-buffer)
       (kill-buffer))))
 
-;; From http://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
+;; From https://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
 (defun spacemacs/dump (varlist buffer)
   "insert into buffer the setq statement to recreate the variables in VARLIST"
   (loop for var in varlist do

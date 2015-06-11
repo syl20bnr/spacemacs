@@ -1,5 +1,5 @@
 <a name="top"></a>
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Buy A Drink](https://img.shields.io/badge/Paypal-Buy%20a%20Drink-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESFVNPKP4Y742)[![Twitter][]](http://www.twitter.com/spacemacs)
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Buy A Drink](https://img.shields.io/badge/Paypal-Buy%20a%20Drink-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESFVNPKP4Y742)[![Twitter][]](https://twitter.com/spacemacs)
 ***
 <p align="center"><img src="./doc/img/title2.png" alt="Spacemacs"/></p>
 <p align="center">
@@ -510,7 +510,7 @@ This is a [known issue][powerline-srgb-issue] as of Emacs 24.4 due to
 the [emacs-mac-port][] build. See the [install OSX section][] for more
 details.
 
-[Twitter]: http://i.imgur.com/tXSoThF.png
+[Twitter]: https://i.imgur.com/tXSoThF.png
 [CONVENTIONS.md]: doc/CONVENTIONS.md
 [HOWTOs.md]: doc/HOWTOs.md
 [config]: doc/DOCUMENTATION.md#configuration-layers
@@ -547,8 +547,8 @@ details.
 [the platinum searcher]:
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
 [powerline-doc]: doc/DOCUMENTATION.md#powerline-separators
-[so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
+[so-server-unsafe]: https://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
 [Nasser Alshammari]: https://github.com/nashamri
 [cpaulik-unity-icon]: http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/
-[Windows Image Support]: http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files
+[Windows Image Support]: https://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files
