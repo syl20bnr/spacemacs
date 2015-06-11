@@ -15,7 +15,7 @@
 
 (defconst dotspacemacs-directory
   (let* ((env (getenv "SPACEMACSDIR"))
-         (env-dir (if env (expand-file-name (concat env "/"))))
+         (env-dir (when env (expand-file-name (concat env "/"))))
          (no-env-dir-default (expand-file-name
                               (concat user-home-directory
                                       ".spacemacs.d/"))))
@@ -33,7 +33,7 @@ directories exist, this variable will be nil.")
 
 (defconst dotspacemacs-filepath
   (let* ((default (concat user-home-directory ".spacemacs"))
-         (spacemacs-dir-init (if dotspacemacs-directory
+         (spacemacs-dir-init (when dotspacemacs-directory
                                  (concat dotspacemacs-directory
                                          "init.el"))))
     (if (and (not (file-exists-p default))

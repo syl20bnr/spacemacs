@@ -45,9 +45,9 @@
 
 (defconst configuration-layer-private-layer-directory
   (let ((dotspacemacs-layer-dir
-         (if dotspacemacs-directory
-             (expand-file-name
-              (concat dotspacemacs-directory "layers/")))))
+         (when dotspacemacs-directory
+           (expand-file-name
+            (concat dotspacemacs-directory "layers/")))))
     (if (and dotspacemacs-directory
              (file-exists-p dotspacemacs-layer-dir))
         dotspacemacs-layer-dir
