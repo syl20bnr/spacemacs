@@ -1,0 +1,55 @@
+#+TITLE: dash contribution layer for Spacemacs
+
+[[file:img/dash.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#dash][Dash]]
+ - [[#key-bindings][Key bindings]]
+     - [[#helm-dash][helm-dash]]
+ - [[#todos][TODOs]]
+     - [[#todo-check-zeal][TODO Check zeal]]
+
+* Description
+*This layer works only on OS X for the moment*
+
+[[http://kapeli.com/dash][dash]] is a great tool for quick access to various sets of documentation.
+
+[[https://github.com/stanaka/dash-at-point][dash-at-point]] is the package used to integrate =dash= in Emacs. It will try
+to intelligently guess specific docsets to use based off of your current mode.
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(dash))
+#+END_SRC
+
+** Dash
+
+You have to install [[http://kapeli.com/dash][dash]] on your machine.
+
+It is recommended to set the =HUD mode= in your Dash application preferences
+when using this layer. 
+
+See the documentation [[https://github.com/stanaka/dash-at-point#Usage][dash-at-point-usage]] for more information
+on customizing specific docsets for modes.
+
+* Key bindings
+
+| Key Binding | Description                                             |
+|-------------+---------------------------------------------------------|
+| ~SPC d d~   | Lookup thing at point in Dash                           |
+| ~SPC d D~   | Lookup thing at point in Dash within a specified Docset |
+
+** helm-dash
+dash-at-point is linked to the GUI app and is only available for OSX. On linux, 
+[[https://github.com/areina/helm-dash][helm-dash]] is used instead. It requires no app.
+You can use =dash/helm-dash-docset-newpath= to set the location path of your docsets.
+
+* TODOs
+
+** TODO Check zeal
+[[http://zealdocs.org/][zeal]] is an open source alternative to dash with Emacs integration available.

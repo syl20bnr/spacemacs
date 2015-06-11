@@ -1,0 +1,78 @@
+#+TITLE: Perforce contribution layer for Spacemacs
+
+[[file:img/p4.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+This layer adds support for [[http://www.perforce.com/][Perforce]] (p4).
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(perforce))
+#+END_SRC
+
+You'll have to install the =p4== command line tool from the [[http://www.perforce.com/downloads][download page]].
+
+Don't forget to setup the environment variables:
+- =P4_PORT=
+- =P4_CLIENT=
+- =P4_USER=
+- =P4_PASSWD=
+
+* Key bindings
+
+| Key Binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC p 4 a~ | add a file in depot                                          |
+| ~SPC p 4 d~ | delete a file in depot                                       |
+| ~SPC p 4 D~ | p4-describe                                                  |
+| ~SPC p 4 e~ | checkout a file                                              |
+| ~SPC p 4 r~ | revert a file                                                |
+| ~SPC p 4 R~ | refresh content of an file. 'sync -f'                        |
+| ~SPC p 4 S~ | submit CL                                                    |
+| ~SPC p 4 b~ | create, modify, or delete a branch view specification        |
+| ~SPC p 4 B~ | display list of branch specifications                        |
+| ~SPC p 4 c~ | create or edit a client workspace specification and its view |
+| ~SPC p 4 C~ | display list of pending and submitted CL                     |
+| ~SPC p 4 E~ | change the filetype of an open file or move it to another CL |
+| ~SPC p 4 @~ | p4-depot-find-file                                           |
+| ~SPC p 4 f~ | list revision history of files                               |
+| ~SPC p 4 F~ | list files in the depot                                      |
+| ~SPC p 4 G~ | display current perforce client name                         |
+| ~SPC p 4 g~ | synchronize client with depot                                |
+| ~SPC p 4 h~ | p4-help                                                      |
+| ~SPC p 4 H~ | list revisions most recently synced to the current workspace |
+| ~SPC p 4 i~ | display client/server information                            |
+| ~SPC p 4 I~ | integrate one set of files into another                      |
+| ~SPC p 4 j~ | create or edit a job (defect) specification                  |
+| ~SPC p 4 J~ | display list of all jobs                                     |
+| ~SPC p 4 l~ | create or edit a label specification                         |
+| ~SPC p 4 L~ | display list of defined labels                               |
+| ~SPC p 4 :~ | apply label to the contents of the client workspace          |
+| ~SPC p 4 m~ | move files from one location to another                      |
+| ~SPC p 4 o~ | list open files and display file status                      |
+| ~SPC p 4 p~ | write a depot file to a buffer                               |
+| ~SPC p 4 P~ | p4-set-p4-port                                               |
+| ~SPC p 4 q~ | quit window                                                  |
+| ~SPC p 4 y~ | resolve integrations and updates to workspace files          |
+| ~SPC p 4 s~ | identify differences between workspace and depot             |
+| ~SPC p 4 t~ | toggle perfore server check when opening files.              |
+| ~SPC p 4 u~ | create or edit user specification                            |
+| ~SPC p 4 U~ | list perforce users                                          |
+| ~SPC p 4 v~ | emacs perforce integration version                           |
+| ~SPC p 4 V~ | p4 blame                                                     |
+| ~SPC p 4 w~ | show how file names are mapped by client view                |
+| ~SPC p 4 x~ | delete a file from the depot                                 |
+| ~SPC p 4 X~ | mark jobs done by specific CL                                |
+| ~SPC p 4 z~ | p4-reconcile                                                 |
+| ~SPC p 4 =~ | p4 diff                                                      |
+| ~SPC p 4 +~ | p4 diff on all opened files                                  |
+| ~SPC p 4 -~ | p4 ediff                                                     |

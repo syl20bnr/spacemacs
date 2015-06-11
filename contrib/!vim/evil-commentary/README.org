@@ -1,0 +1,25 @@
+#+TITLE: Evil-commentary contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+
+This layer replaces [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] with [[https://github.com/linktohack/evil-commentary][evil-commentary]] for those
+who prefer the behaviour of [[https://github.com/tpope/vim-commentary][vim-commentary]].
+
+- Use ~gcc~ to comment out a line (takes a count),
+- ~gc~ to comment out the target of a motion (for example,
+- ~gcap~ to comment out a paragraph), ~gc~ in visual
+- mode to comment out the selection.
+
+For more details see the [[https://github.com/linktohack/evil-commentary][evil-commentary]] repository.
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(evil-commentary))
+#+END_SRC
