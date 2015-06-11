@@ -629,7 +629,7 @@ here are a few examples:
 
 - Save a buffer: <kbd>SPC f s</kbd>
 - Save all opened buffers: <kbd>SPC f S</kbd>
-- Open (switch) to a buffer with `helm`: <kbd>SPC b s</kbd>
+- Open (switch) to a buffer with `helm`: <kbd>SPC b b</kbd>
 
 ## Universal argument
 
@@ -1906,8 +1906,8 @@ Text related commands (start with `x`):
 <kbd>SPC x u</kbd>     | set the selected text to lower case
 <kbd>SPC x U</kbd>     | set the selected text to upper case
 <kbd>SPC x a a</kbd>   | align region (or guessed section) using default rules
-<kbd>SPC x a r</kbd>   | align region using user-specified regexp 
-<kbd>SPC x a m</kbd>   | align region at arithmetic operators (+-*/) 
+<kbd>SPC x a r</kbd>   | align region using user-specified regexp
+<kbd>SPC x a m</kbd>   | align region at arithmetic operators (+-*/)
 <kbd>SPC x a .</kbd>   | align region at . (for numeric tables)
 <kbd>SPC x a ,</kbd>   | align region at ,
 <kbd>SPC x a ;</kbd>   | align region at ;
