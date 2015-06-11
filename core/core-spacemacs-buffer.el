@@ -420,7 +420,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :help-echo "Open the Spacemacs documentation in your browser."
                  :mouse-face 'highlight
                  :follow-link "\C-m"
-                 "https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md")
+                 "https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org")
   (insert " ")
   (widget-create 'url-link
                  :tag (propertize "Gitter Chat" 'face 'font-lock-keyword-face)
