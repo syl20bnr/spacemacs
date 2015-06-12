@@ -29,4 +29,6 @@
     :init
     (unless (boundp 'ycmd-global-config)
       (let ((dir (configuration-layer/get-layer-property 'ycmd :dir)))
-        (setq-default ycmd-global-config (concat dir "global_conf.py"))))))
+        (setq-default ycmd-global-config (concat dir "global_conf.py"))))
+    :config
+    (spacemacs|hide-lighter ycmd-mode)))
