@@ -1739,9 +1739,12 @@ Key Binding               |                 Description
 --------------------------|---------------------------------------------
 <kbd>SPC /</kbd>          | execute the first found utility (by default `ag`, `pt`, `ack` and `grep`)
 <kbd>SPC p s a</kbd>      | `ag`
+<kbd>SPC p s A</kbd>      | `ag` with symbol at point as default text
 <kbd>SPC p s g</kbd>      | `grep`
 <kbd>SPC p s k</kbd>      | `ack`
+<kbd>SPC p s K</kbd>      | `ack` with symbol at point as default text
 <kbd>SPC p s p</kbd>      | `pt`
+<kbd>SPC p s P</kbd>      | `pt` with symbol at point as default text
 
 **Pro Tip** Use <kbd>SPC h l</kbd> to bring back the last helm session.
 

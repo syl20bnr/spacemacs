@@ -1771,6 +1771,14 @@ region. Requires \"ag\" search tool."
               (call-interactively 'helm-projectile-ag))
           (message "error: helm-ag not found.")))
 
+      (defun spacemacs/helm-projectile-ack ()
+        "Perform a search with ack using `helm-projectile.'"
+        (interactive)
+        (if (configuration-layer/package-usedp 'helm-ag)
+            (let ((helm-ag-base-command "ack --nocolor --nogroup"))
+              (call-interactively 'helm-projectile-ag))
+          (message "error: helm-ag not found.")))
+
       (when (configuration-layer/package-usedp 'helm-ag)
         (defun spacemacs/helm-projectile-ag-region-or-symbol (&optional options)
           "Version of `spacemacs/helm-do-ag-region-or-symbol' that
@@ -1829,6 +1837,27 @@ If ARG is non nil then `ag' and `pt' and ignored."
           (call-interactively (spacemacs//helm-projectile-do-search-find-tool
                                tools))))
 
+      (defun spacemacs/helm-projectile-ag-symbol ()
+        "Perform a search of project files with ag using
+`helm-ag.' Defaults to symbol at point."
+        (interactive)
+        (let ((helm-ag-insert-at-point 'symbol))
+          (call-interactively 'helm-projectile-ag)))
+
+      (defun spacemacs/helm-projectile-ack-symbol ()
+        "Perform a search of project files with ack using
+`helm-ag.' Defaults to symbol at point."
+        (interactive)
+        (let ((helm-ag-insert-at-point 'symbol))
+          (spacemacs/helm-projectile-ack)))
+
+      (defun spacemacs/helm-projectile-pt-symbol ()
+        "Perform a search of project files with the platinum
+searcher using `helm-ag.' Defaults to symbol at point."
+        (interactive)
+        (let ((helm-ag-insert-at-point 'symbol))
+          (spacemacs/helm-projectile-pt)))
+
       (evil-leader/set-key
         "/"   'spacemacs/helm-projectile-smart-do-search
         "pb"  'helm-projectile-switch-to-buffer
@@ -1838,9 +1867,12 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "ph"  'helm-projectile
         "pp"  'helm-projectile-switch-project
         "psa" 'helm-projectile-ag
+        "psA" 'spacemacs/helm-projectile-ag-symbol
         "psg" 'helm-projectile-grep
-        "psk" 'helm-projectile-ack
-        "psp" 'helm-projectile-pt
+        "psk" 'spacemacs/helm-projectile-ack
+        "psK" 'spacemacs/helm-projectile-ack-symbol
+        "psp" 'spacemacs/helm-projectile-pt
+        "psP" 'spacemacs/helm-projectile-pt-symbol
         "pv"  'projectile-vc))))
 
 (defun spacemacs/init-helm-swoop ()
