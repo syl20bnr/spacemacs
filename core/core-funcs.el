@@ -128,6 +128,11 @@ Supported properties:
     (show-all))
    (t nil))
 
+  ;; Make ~SPC ,~ work, reference:
+  ;; http://stackoverflow.com/questions/24169333/how-can-i-emphasize-or-verbatim-quote-a-comma-in-org-mode
+  (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n")
+  (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
+
   (setq-local org-emphasis-alist '(("*" bold)
                                    ("/" italic)
                                    ("_" underline)

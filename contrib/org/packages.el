@@ -126,11 +126,6 @@ Will work on both org-mode and any mode that accepts plain html."
                     (2 font-lock-function-name-face)
                     (3 font-lock-comment-face prepend))))
 
-      ;; Make ~SPC ,~ work, reference:
-      ;; http://stackoverflow.com/questions/24169333/how-can-i-emphasize-or-verbatim-quote-a-comma-in-org-mode
-      (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n")
-      (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
-
       (require 'org-indent)
       (define-key global-map "\C-cl" 'org-store-link)
       (define-key global-map "\C-ca" 'org-agenda)
