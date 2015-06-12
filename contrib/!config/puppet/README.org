@@ -11,6 +11,10 @@
 
 This layer aims at providing support for the Puppet DSL using [[https://github.com/lunaryorn/puppet-mode][puppet-mode]].
 
+* Features
+
+Puppetfile support via [[http://melpa.org/#/puppetfile-mode][puppetfile-mode]]
+
 * Install
 
 To use this contribution add it to your =~/.spacemacs=
