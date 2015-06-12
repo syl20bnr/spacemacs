@@ -374,7 +374,7 @@
                                        (interactive)
                                        (let ((helm-ag-insert-at-point 'symbol))
                                          (spacemacs/helm-projectile-smart-do-search))))
-           (define-key map (kbd "?") (lambda ()
+           (define-key map (kbd "s") (lambda ()
                                        (interactive)
                                        (let ((helm-ag-insert-at-point 'symbol))
                                          (spacemacs/helm-smart-do-search))))
@@ -399,7 +399,7 @@
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset (d) to go to next definition (D) to go to previous definition (/) to find in project (?) to find in other files"
+            (echo "%s %s%s (n/N) move, (e) edit, (r) range, (R) reset, (d/D) definition, (/) find in project, (s) find in files"
                   propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bind-key ())
