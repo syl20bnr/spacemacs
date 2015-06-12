@@ -3,11 +3,14 @@
 
   ;; this is only applicable to GUI mode
   (when (display-graphic-p)
-    ;; Treat option as meta and command as super
-    (setq mac-option-key-is-meta t)
+    ;; Treat command as super
     (setq mac-command-key-is-meta nil)
     (setq mac-command-modifier 'super)
-    (setq mac-option-modifier 'meta)
+
+    (when osx-use-option-as-meta
+      ;; Treat option as meta
+      (setq mac-option-key-is-meta t)
+      (setq mac-option-modifier 'meta))
 
     ;; Keybindings
     (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
