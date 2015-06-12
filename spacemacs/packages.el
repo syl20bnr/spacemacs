@@ -1349,14 +1349,14 @@ Example: (evil-map visual \"<\" \"<gv\")"
 Removes the automatic guessing of the initial value based on thing at point. "
         (interactive "P")
         (let* ((hist          (and arg helm-ff-history (helm-find-files-history)))
-                (default-input hist )
-                (input         (cond ((and (eq major-mode 'dired-mode) default-input)
-                                    (file-name-directory default-input))
+               (default-input hist )
+               (input         (cond ((and (eq major-mode 'dired-mode) default-input)
+                                     (file-name-directory default-input))
                                     ((and (not (string= default-input ""))
-                                            default-input))
+                                          default-input))
                                     (t (expand-file-name (helm-current-directory))))))
-            (set-text-properties 0 (length input) nil input)
-            (helm-find-files-1 input )))
+          (set-text-properties 0 (length input) nil input)
+          (helm-find-files-1 input )))
       )
     :init
     (progn
@@ -1457,9 +1457,9 @@ If ARG is non nil then `ag' and `pt' and ignored."
         (interactive)
         (if (get-buffer "*helm ag results*")
             (switch-to-buffer-other-window "*helm ag results*")
-            (if (get-buffer "*hgrep*")
-                (switch-to-buffer-other-window "*hgrep*")
-                (message "No previous search buffer found"))))
+          (if (get-buffer "*hgrep*")
+              (switch-to-buffer-other-window "*hgrep*")
+            (message "No previous search buffer found"))))
 
       ;; use helm by default for M-x
       (unless (configuration-layer/package-usedp 'smex)
@@ -1488,7 +1488,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "sp"  'spacemacs/helm-do-pt
         "sP"  'spacemacs/helm-do-pt-symbol
         "sL"  'spacemacs/last-search-buffer
-        "sl"  'helm-semantic-or-imenu)
+        "sl"  'spacemacs/jump-in-buffer)
 
       ;; define the key binding at the very end in order to allow the user
       ;; to overwrite any key binding
