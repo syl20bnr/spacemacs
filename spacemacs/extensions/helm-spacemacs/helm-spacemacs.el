@@ -136,7 +136,7 @@
   `((name . "Layers")
     (candidates . ,(sort (configuration-layer/get-layers-list) 'string<))
     (candidate-number-limit)
-    (action . (("Open README.md" . helm-spacemacs//layer-action-open-readme)
+    (action . (("Open README.org" . helm-spacemacs//layer-action-open-readme)
                ("Open packages.el" . helm-spacemacs//layer-action-open-packages)
                ("Open extensions.el" . helm-spacemacs//layer-action-open-extensions)))))
 
@@ -193,26 +193,21 @@
 
 (defun helm-spacemacs//layer-action-open-file (file candidate)
   "Open FILE of the passed CANDIDATE."
-  (let ((path (if (and (equalp file "README.md") (equalp candidate "spacemacs"))
+  (let ((path (if (and (equalp file "README.org") (equalp candidate "spacemacs"))
                   ;; Readme for spacemacs is in the project root
                   (ht-get configuration-layer-paths (intern candidate))
                 (file-name-as-directory
                  (concat (ht-get configuration-layer-paths
                                  (intern candidate))
                          candidate)))))
-    (if (and (equal (file-name-extension file) "md")
+    (if (and (equal (file-name-extension file) "org")
              (not helm-current-prefix-arg))
-        (condition-case nil
-            (with-current-buffer (find-file-noselect (concat path file))
-              (gh-md-render-buffer)
-              (kill-this-buffer))
-          ;; if anything fails, fall back to simply open file
-          (find-file (concat path file)))
+        (spacemacs/view-org-file (concat path file) "^" 'all)
       (find-file (concat path file)))))
 
 (defun helm-spacemacs//layer-action-open-readme (candidate)
   "Open the `README.md' file of the passed CANDIDATE."
-  (helm-spacemacs//layer-action-open-file "README.md" candidate))
+  (helm-spacemacs//layer-action-open-file "README.org" candidate))
 
 (defun helm-spacemacs//layer-action-open-packages (candidate)
   "Open the `packages.el' file of the passed CANDIDATE."
