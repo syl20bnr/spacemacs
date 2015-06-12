@@ -72,7 +72,7 @@ The default configuration of the layer is:
                    ))
 #+END_SRC
 
-=jk= is a good candidate for =auto-completion-complete-with-key-sequence= if
+~jk~ is a good candidate for =auto-completion-complete-with-key-sequence= if
 you don't use it already.
 
 ** Tooltips

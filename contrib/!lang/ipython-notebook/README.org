@@ -55,16 +55,16 @@ Have an IPython notebook running
 * Using the IPython notebook
 ** Open Notebook List
 This layer is lazy loaded so the micro-state will only work after you summon the
-command =ein:notebooklist-open= which is bound to =SPC a i n=
+command =ein:notebooklist-open= which is bound to ~SPC a i n~
 ** Key Bindings
 The key bindings can be used through a micro state or the usual evil-leader.
 
 *** Micro-state: =ipython-notebook= 
 Once you are in the ipython notebook you can activate the micro-state with
-=SPC e i n=
+~SPC e i n~
 
 The following table lists the keys. Use them as listed in the micro-state or
-prefix with =SPC m= to use with your evil-leader.
+prefix with ~SPC m~ to use with your evil-leader.
 
 | Key     | Function                                  |
 |---------+-------------------------------------------|

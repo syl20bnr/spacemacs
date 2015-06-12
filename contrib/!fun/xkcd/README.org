@@ -39,12 +39,12 @@ To use this contribution add it to your =~/.spacemacs=
 
 You can now move through the comics with these
 
-| Key Binding | Description                         |                |
-|-------------+-------------------------------------+----------------|
-| ~e~         | Open explanation in the browser     |                |
-| ~j~ or      | ~l~                                 | Next comic     |
-| ~k~ or      | ~h~                                 | Previous comic |
-| ~o~         | Open the browser                    |                |
-| ~q~         | Quit the buffer                     |                |
-| ~r~         | Random comic                        |                |
-| ~t~         | Show alternate text in the modeline |                |
+| Key Binding | Description                         |
+|-------------+-------------------------------------|
+| ~e~         | Open explanation in the browser     |
+| ~j~ or ~l~  | Next comic                          |
+| ~k~ or ~h~  | Previous comic                      |
+| ~o~         | Open the browser                    |
+| ~q~         | Quit the buffer                     |
+| ~r~         | Random comic                        |
+| ~t~         | Show alternate text in the modeline |

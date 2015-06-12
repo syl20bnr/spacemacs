@@ -178,8 +178,7 @@ Test commands (start with ~m t~ or ~m T~):
 
 ** Django
 
-Django related key bindings uses  [[https://github.com/davidmiller/pony-mode][pony-mode]] and are behind the prefix
-|~SPC m j~.
+Django related key bindings uses  [[https://github.com/davidmiller/pony-mode][pony-mode]] and are behind the prefix ~SPC m j~.
 
 Configuration options for pony-mode are documented at
 [[http://www.deadpansincerity.com/docs/pony/configuration.html][deadpansincerity.com]]
@@ -188,53 +187,53 @@ Manage Django with ~SPC m j m~.
 
 *** Fabric
 
-| Key Binding | Description                      |
-|-------------+----------------------------------|
-| ~mjaf~      | Run a fabric command             |
-| ~mjad~      | Deploy project with =fab deploy= |
+| Key Binding   | Description                      |
+|---------------+----------------------------------|
+| ~SPC m j a f~ | Run a fabric command             |
+| ~SPC m j a d~ | Deploy project with =fab deploy= |
 
 *** Files
 
-| Key Binding | Description                                                   |
-|-------------+---------------------------------------------------------------|
-| ~mjfs~      | Open the =settings.py= for this project                       |
-| ~mjfc~      | Interactively display a setting value in the minibuffer       |
-| ~mjft~      | Jump to template at point                                     |
-| ~mjfr~      | Jump to the view file that the URL resolves to (experimental) |
+| Key Binding   | Description                                                   |
+|---------------+---------------------------------------------------------------|
+| ~SPC m j f s~ | Open the =settings.py= for this project                       |
+| ~SPC m j f c~ | Interactively display a setting value in the minibuffer       |
+| ~SPC m j f t~ | Jump to template at point                                     |
+| ~SPC m j f r~ | Jump to the view file that the URL resolves to (experimental) |
 
 *** Interactive
 
-| Key Binding | Description                                                                                                                                                                                                        |
-|-------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ~mjid~      | Run interpreter for this project's default database as an inferior process                                                                                                                                         |
-| ~mjis~      | Open a Python shell with the current pony project's context loaded. If the project has the django_extras package installed, then use the excellent =shell_plus= command. Otherwise, fall back to =manage.py shell= |
+| Key Binding   | Description                                                                                                                                                                                                        |
+|---------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ~SPC m j i d~ | Run interpreter for this project's default database as an inferior process                                                                                                                                         |
+| ~SPC m j i s~ | Open a Python shell with the current pony project's context loaded. If the project has the django_extras package installed, then use the excellent =shell_plus= command. Otherwise, fall back to =manage.py shell= |
 
 *** Server
 
-| Key Binding | Description                                                       |
-|-------------+-------------------------------------------------------------------|
-| ~mjrd~      | Stop the dev server                                               |
-| ~mjro~      | Open a tab at the dev server                                      |
-| ~mjrr~      | Restart the dev server (works better with django_extras/werkzeug) |
-| ~mjru~      | Start or open the dev server                                      |
-| ~mjrt~      | Open a second server with a "throwaway" host/port                 |
+| Key Binding   | Description                                                       |
+|---------------+-------------------------------------------------------------------|
+| ~SPC m j r d~ | Stop the dev server                                               |
+| ~SPC m j r o~ | Open a tab at the dev server                                      |
+| ~SPC m j r r~ | Restart the dev server (works better with django_extras/werkzeug) |
+| ~SPC m j r u~ | Start or open the dev server                                      |
+| ~SPC m j r t~ | Open a second server with a "throwaway" host/port                 |
 
 *** South/Syncdb
 
-| Key Binding | Description                                |
-|-------------+--------------------------------------------|
-| ~mjsc~      | Convert an existing app to south           |
-| ~mjsh~      | Create migration for modification          |
-| ~mjsi~      | Run the initial south migration for an app |
-| ~mjsm~      | Migrate an app                             |
-| ~mjss~      | Run syncdb on the current project          |
+| Key Binding   | Description                                |
+|---------------+--------------------------------------------|
+| ~SPC m j s c~ | Convert an existing app to south           |
+| ~SPC m j s h~ | Create migration for modification          |
+| ~SPC m j s i~ | Run the initial south migration for an app |
+| ~SPC m j s m~ | Migrate an app                             |
+| ~SPC m j s s~ | Run syncdb on the current project          |
 
 *** Test
 
-| Key Binding | Description                                                      |
-|-------------+------------------------------------------------------------------|
-| ~mjtd~      | Move down the traceback one level                                |
-| ~mjte~      | Go to the file and line of the last stack trace in a test buffer |
-| ~mjto~      | Open the file in a traceback at the line specified               |
-| ~mjtt~      | Run the test(s) given by =command=                               |
-| ~mjtu~      | Move up the traceback one level                                  |
+| Key Binding   | Description                                                      |
+|---------------+------------------------------------------------------------------|
+| ~SPC m j t d~ | Move down the traceback one level                                |
+| ~SPC m j t e~ | Go to the file and line of the last stack trace in a test buffer |
+| ~SPC m j t o~ | Open the file in a traceback at the line specified               |
+| ~SPC m j t t~ | Run the test(s) given by =command=                               |
+| ~SPC m j t u~ | Move up the traceback one level                                  |

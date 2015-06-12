@@ -110,7 +110,7 @@ Basic and Spacemacs specific keybindings can be found in the following table.
 
 | Key Binding | Gnus mode - Description                                  |
 |-------------+----------------------------------------------------------|
-| ~<SPC> a g~ | Starts Gnus                                              |
+| ~SPC a g~   | Starts Gnus                                              |
 | ~m~         | New Message                                              |
 | ~G R~       | Group Buffer - Add RSS feed                              |
 | ~^~         | Open Server Buffer. Browse Newsgroups.                   |
@@ -118,7 +118,7 @@ Basic and Spacemacs specific keybindings can be found in the following table.
 | ~T m~       | Group Buffer - Move Group to Topic                       |
 | ~K~         | Article Buffer - Previous article                        |
 | ~J~         | Article Buffer - Next article                            |
-| ~<RET>~     | Summary Buffer(RSS) - Open article Link in browser       |
-| ~<TAB>~     | Summary Buffer(RSS) - Open article and switch to it      |
-| ~<SPC> m o~ | Message Buffer - Use org mode to convert into html email |
-| ~<SPC> m H~ | Org Mode - Send current buffer as HTML email message     |
+| ~RET~       | Summary Buffer(RSS) - Open article Link in browser       |
+| ~TAB~       | Summary Buffer(RSS) - Open article and switch to it      |
+| ~SPC m o~   | Message Buffer - Use org mode to convert into html email |
+| ~SPC m H~   | Org Mode - Send current buffer as HTML email message     |

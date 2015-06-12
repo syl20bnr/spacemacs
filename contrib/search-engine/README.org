@@ -39,8 +39,8 @@ To use this contribution add it to your =~/.spacemacs=
     
 * Key Bindings
 
-| Evil      | Holy     | Command                                   |
-|-----------+----------+-------------------------------------------|
+| Evil      | Holy    | Command                                   |
+|-----------+---------+-------------------------------------------|
 | ~SPC a /~ | ~C-c /~ | Summon a Helm buffer to select any engine |
 
 * Customize it!

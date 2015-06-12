@@ -44,7 +44,7 @@ compiler:
 
 * Key bindings
 
-| Key Binding   | Description                      |
-|---------------+----------------------------------|
-| ~<SPC> m g g~ | Jump to definition               |
-| ~<SPC> m h h~ | Show popup help (with type info) |
+| Key Binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC m g g~ | Jump to definition               |
+| ~SPC m h h~ | Show popup help (with type info) |

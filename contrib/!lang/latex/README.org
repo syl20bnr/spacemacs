@@ -78,24 +78,24 @@ The variable =latex-nofill-env= provide the list of environment names where
 
 * Keybindings
 
-| Key Binding | Description                                             |   |
-|-------------+---------------------------------------------------------+---|
-| ~SPC m *~   | TeX documentation, can be very slow                     |   |
-| ~SPC m b~   | build                                                   |   |
-| ~SPC m c~   | close LaTeX environment                                 |   |
-| ~SPC m C~   | TeX command on master file                              |   |
-| ~SPC m e~   | insert LaTeX environment                                |   |
-| ~SPC m f~   | insert LaTeX font - full bindings here: [[https://www.gnu.org/software/auctex/manual/auctex/Font-Specifiers.html][AUCTeX Font Doc]] |   |
-| ~SPC m i~   | insert =\item=                                          |   |
-| ~SPC m p r~ | preview region                                          |   |
-| ~SPC m p b~ | preview buffer                                          |   |
-| ~SPC m p d~ | preview document                                        |   |
-| ~SPC m p e~ | preview environment                                     |   |
-| ~SPC m p s~ | preview section                                         |   |
-| ~SPC m p p~ | preview at point                                        |   |
-| ~SPC m p f~ | cache preamble for preview                              |   |
-| ~SPC m p c~ | clear previews                                          |   |
-| ~SPC m v  ~ | view                                                    |   |
+| Key Binding | Description                                             |
+|-------------+---------------------------------------------------------+
+| ~SPC m *~   | TeX documentation, can be very slow                     |
+| ~SPC m b~   | build                                                   |
+| ~SPC m c~   | close LaTeX environment                                 |
+| ~SPC m C~   | TeX command on master file                              |
+| ~SPC m e~   | insert LaTeX environment                                |
+| ~SPC m f~   | insert LaTeX font - full bindings here: [[https://www.gnu.org/software/auctex/manual/auctex/Font-Specifiers.html][AUCTeX Font Doc]] |
+| ~SPC m i~   | insert =\item=                                          |
+| ~SPC m p r~ | preview region                                          |
+| ~SPC m p b~ | preview buffer                                          |
+| ~SPC m p d~ | preview document                                        |
+| ~SPC m p e~ | preview environment                                     |
+| ~SPC m p s~ | preview section                                         |
+| ~SPC m p p~ | preview at point                                        |
+| ~SPC m p f~ | cache preamble for preview                              |
+| ~SPC m p c~ | clear previews                                          |
+| ~SPC m v  ~ | view                                                    |
 
 
 ** RefTeX

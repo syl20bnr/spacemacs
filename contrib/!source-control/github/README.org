@@ -90,7 +90,7 @@ In the gist list buffer:
 | ~SPC g f L~ | only copy the generated link on the kill ring                      |
 
 *Notes:*
-- You can use the universal argument =SPC u= to select a remote repository.
+- You can use the universal argument ~SPC u~ to select a remote repository.
 - You can use =git-link= on a region.
 - When the link is opened, the URL is also copied in the kill ring, you can
   override this behavior by setting the variable =git-link-open-in-browser= to

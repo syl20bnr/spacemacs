@@ -89,67 +89,67 @@ OmniSharp should now automatically load and start a server when you open a
 
 | Key Binding | Description        |
 |-------------+--------------------|
-| ~mcc~       | Build the solution |
+| ~SPC m c c~ | Build the solution |
 
 ** File/Solution/Project manipulation
 
 | Key Binding | Description                                   |
 |-------------+-----------------------------------------------|
-| ~mfa~       | Add the current file to solution              |
-| ~mfA~       | Add files selected in dired to solution       |
-| ~mfr~       | Remove the current file from solution         |
-| ~mfR~       | Removed files selected in dired from solution |
-| ~mpl~       | Add reference to solution                     |
+| ~SPC m f a~ | Add the current file to solution              |
+| ~SPC m f A~ | Add files selected in dired to solution       |
+| ~SPC m f r~ | Remove the current file from solution         |
+| ~SPC m f R~ | Removed files selected in dired from solution |
+| ~SPC m p l~ | Add reference to solution                     |
 
 ** Navigation
 
 | Key Binding | Description                                   |
 |-------------+-----------------------------------------------|
-| ~mgf~       | Go to solution file                           |
-| ~mgF~       | Go to solution file then member               |
-| ~mgg~       | Go to definition                              |
-| ~mgG~       | Go to definition in other window              |
-| ~mgi~       | Find implementations                          |
-| ~mgm~       | Go to solution member                         |
-| ~mgM~       | Go to solution member in other window         |
-| ~mgr~       | Go to region                                  |
-| ~mgs~       | Find symbols using Helm                       |
-| ~mgu~       | Find usages of symbol under cursor using Helm |
+| ~SPC m g f~ | Go to solution file                           |
+| ~SPC m g F~ | Go to solution file then member               |
+| ~SPC m g g~ | Go to definition                              |
+| ~SPC m g G~ | Go to definition in other window              |
+| ~SPC m g i~ | Find implementations                          |
+| ~SPC m g m~ | Go to solution member                         |
+| ~SPC m g M~ | Go to solution member in other window         |
+| ~SPC m g r~ | Go to region                                  |
+| ~SPC m g s~ | Find symbols using Helm                       |
+| ~SPC m g u~ | Find usages of symbol under cursor using Helm |
 
 ** Helpers (documentation, info)
 
 | Key Binding | Description                                                            |
 |-------------+------------------------------------------------------------------------|
-| ~mht~       | Get type information for symbol under cursor                           |
-| ~mhT~       | Get type information for symbol under cursor and put it into kill-ring |
+| ~SPC m h t~ | Get type information for symbol under cursor                           |
+| ~SPC m h T~ | Get type information for symbol under cursor and put it into kill-ring |
 
 ** Refactoring
 
 | Key Binding | Description                  |
 |-------------+------------------------------|
-| ~mrm~       | Rename symbol under cursor   |
-| ~mrr~       | Refactor symbol under cursor |
+| ~SPC m r m~ | Rename symbol under cursor   |
+| ~SPC m r r~ | Refactor symbol under cursor |
 
 ** OmniSharp server interaction
 
 | Key Binding | Description                |
 |-------------+----------------------------|
-| ~msr~       | Reload the solution        |
-| ~mss~       | Start the OmniSharp server |
-| ~msS~       | Stop the OmniSharp server  |
+| ~SPC m s r~ | Reload the solution        |
+| ~SPC m s s~ | Start the OmniSharp server |
+| ~SPC m s S~ | Stop the OmniSharp server  |
 
 ** Tests
 
 | Key Binding | Description                           |
 |-------------+---------------------------------------|
-| ~mta~       | Run all tests in project              |
-| ~mtb~       | Run all tests in current file/fixture |
-| ~mtt~       | Run test under cursor                 |
+| ~SPC m t a~ | Run all tests in project              |
+| ~SPC m t b~ | Run all tests in current file/fixture |
+| ~SPC m t t~ | Run test under cursor                 |
 
 ** Code manipulation
 
 | Key Binding | Description               |
 |-------------+---------------------------|
-| ~mo~        | Auto complete overrides   |
-| ~mi~        | Fix usings/imports        |
-| ~m=~        | Format the current buffer |
+| ~SPC m o~   | Auto complete overrides   |
+| ~SPC m i~   | Fix usings/imports        |
+| ~SPC m =~   | Format the current buffer |

@@ -20,8 +20,8 @@ as rx too.)
 Occasionally you come across a regexp which is designed to match a finite set of
 strings, e.g. a set of keywords, and it would be useful to recover the original
 set. (In Emacs you can generate such regexps using =regexp-opt=). The commands
-=rxt-convert-to-strings= (=C-c /′=), =rxt-pcre-to-strings= (=C-c / p ′=) or
-=rxt-elisp-to-strings= (=C-c / e ′=) accomplish this by generating all the
+=rxt-convert-to-strings= (~C-c /′~), =rxt-pcre-to-strings= (~C-c / p ′~) or
+=rxt-elisp-to-strings= (~C-c / e ′~) accomplish this by generating all the
 matching strings ("productions") of a regexp. (The productions are copied to the
 kill ring as a Lisp list).
 

@@ -12,8 +12,8 @@
 * Description
 
 This layer allows you to play evilified games in spacemacs.
-The games available now are:
 
+The games available now are:
 - 2048-game
 - Tetris
   

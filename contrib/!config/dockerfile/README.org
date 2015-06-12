@@ -23,4 +23,4 @@ To use this contribution add it to your =~/.spacemacs=
 
 | Key Binding   | Description                                        |
 |---------------+----------------------------------------------------|
-| ~<SPC> m c b~ | build current buffer via =dockerfile-build-buffer= |
+| ~SPC m c b~   | build current buffer via =dockerfile-build-buffer= |
