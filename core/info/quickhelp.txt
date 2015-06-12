@@ -22,4 +22,8 @@ between them:
 - Spacemacs documentation -> Layer documentation -> Package Source Code ->
   Dotfile variables -> Spacemacs toggles
 
+When reading a document, you can use SPC s l (Vim) or M-m s l (Emacs) to jump to
+a heading. The table of content is just for overview and for using with Github
+when you read the doc with a web browser.
+
 Please consult Spacemacs documentation from SPC f e h for more details.
