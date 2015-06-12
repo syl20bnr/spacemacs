@@ -1047,28 +1047,32 @@ Example: (evil-map visual \"<\" \"<gv\")"
 (defun spacemacs/init-expand-region ()
   (use-package expand-region
     :defer t
-    :init
-    (evil-leader/set-key "v" 'er/expand-region)
+    :init (evil-leader/set-key "v" 'er/expand-region)
     :config
-    ;; adds search capability to expand-region
-    (defadvice er/prepare-for-more-expansions-internal
-        (around helm-ag/prepare-for-more-expansions-internal activate)
-      ad-do-it
-      (let ((new-msg (concat (car ad-return-value)
-                             ", / to search project, ? to search other files"))
-            (new-bindings (cdr ad-return-value)))
-        (cl-pushnew
-         '("/" (lambda ()
-                 (call-interactively 'spacemacs/helm-projectile-ag-region-or-symbol)))
-         new-bindings)
-        (cl-pushnew
-         '("?" (lambda ()
-                 (call-interactively 'spacemacs/helm-do-ag-region-or-symbol)))
-         new-bindings)
-        (setq ad-return-value (cons new-msg new-bindings))))
-    (custom-set-variables
-     '(expand-region-contract-fast-key "V")
-     '(expand-region-reset-fast-key "r"))))
+    (progn
+      ;; add search capability to expand-region
+      (when (configuration-layer/package-usedp 'helm-ag)
+        (defadvice er/prepare-for-more-expansions-internal
+            (around helm-ag/prepare-for-more-expansions-internal activate)
+          ad-do-it
+          (let ((new-msg (concat (car ad-return-value)
+                                 ", / to search in project, "
+                                 "s to search in other files"))
+                (new-bindings (cdr ad-return-value)))
+            (cl-pushnew
+             '("/" (lambda ()
+                     (call-interactively
+                      'spacemacs/helm-projectile-ag-region-or-symbol)))
+             new-bindings)
+            (cl-pushnew
+             '("s" (lambda ()
+                     (call-interactively
+                      'spacemacs/helm-do-ag-region-or-symbol)))
+             new-bindings)
+            (setq ad-return-value (cons new-msg new-bindings)))))
+      (custom-set-variables
+       '(expand-region-contract-fast-key "V")
+       '(expand-region-reset-fast-key "r")))))
 
 (defun spacemacs/init-fancy-battery ()
   (use-package fancy-battery
@@ -1672,16 +1676,12 @@ ARG non nil means that the editing style is `vim'."
 (defun spacemacs/init-helm-ag ()
   (use-package helm-ag
     :defer t
-    :config
+    :init
     (defun spacemacs/helm-do-ag-region-or-symbol (&optional basedir)
       "Calls `helm-do-ag' with a default string of the escaped
 active region or the symbol at the point if there is no active
 region. Requires \"ag\" search tool."
       (interactive)
-      (require 'helm-mode)
-      (require 'helm-grep)
-      (require 'helm-ag)
-      (require 'pcre2el)
       (unless (executable-find "ag")
         (error "ag not available"))
       (setq helm-ag--original-window (selected-window))
@@ -1713,33 +1713,12 @@ region. Requires \"ag\" search tool."
             (helm :sources '(helm-source-do-ag) :buffer "*helm-ag*"
                   :input search-string
                   :keymap helm-do-ag-map)))))
-
-    (defun spacemacs/helm-projectile-ag-region-or-symbol (&optional options)
-      "Version of `spacemacs/helm-do-ag-region-or-symbol' that
-defaults to searching the current project. Requires \"ag\" search tool."
-      (interactive)
-      (unless (executable-find "ag")
-        (error "ag not available"))
-      (if (require 'helm-ag nil  'noerror)
-          (if (projectile-project-p)
-              (let* ((grep-find-ignored-files
-                      (-union (projectile-ignored-files-rel)  grep-find-ignored-files))
-                     (grep-find-ignored-directories
-                      (-union (projectile-ignored-directories-rel) grep-find-ignored-directories))
-                     (ignored
-                      (mapconcat (lambda (i)
-                                   (concat "--ignore " i))
-                                 (append grep-find-ignored-files grep-find-ignored-directories)
-                                 " "))
-                     (helm-ag-command-option options)
-                     (helm-ag-base-command (concat helm-ag-base-command " " ignored)))
-                (spacemacs/helm-do-ag-region-or-symbol (projectile-project-root)))
-            (error "You're not in a project"))
-        (error "helm-ag not available")))
-    (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)
-    (evilify helm-ag-mode helm-ag-mode-map
-             (kbd "RET") 'helm-ag-mode-jump-other-window
-             (kbd "q") 'quit-window)))
+    :config
+    (progn
+      (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)
+      (evilify helm-ag-mode helm-ag-mode-map
+               (kbd "RET") 'helm-ag-mode-jump-other-window
+               (kbd "q") 'quit-window))))
 
 (defun spacemacs/init-helm-descbinds ()
   (use-package helm-descbinds
@@ -1791,6 +1770,35 @@ defaults to searching the current project. Requires \"ag\" search tool."
             (let ((helm-ag-base-command "pt -e --nocolor --nogroup"))
               (call-interactively 'helm-projectile-ag))
           (message "error: helm-ag not found.")))
+
+      (when (configuration-layer/package-usedp 'helm-ag)
+        (defun spacemacs/helm-projectile-ag-region-or-symbol (&optional options)
+          "Version of `spacemacs/helm-do-ag-region-or-symbol' that
+defaults to searching the current project. Requires \"ag\" search tool."
+          (interactive)
+          (unless (executable-find "ag")
+            (error "ag not available"))
+          (if (require 'helm-ag nil  'noerror)
+              (if (projectile-project-p)
+                  (let* ((grep-find-ignored-files
+                          (-union (projectile-ignored-files-rel)
+                                  grep-find-ignored-files))
+                         (grep-find-ignored-directories
+                          (-union (projectile-ignored-directories-rel)
+                                  grep-find-ignored-directories))
+                         (ignored
+                          (mapconcat (lambda (i)
+                                       (concat "--ignore " i))
+                                     (append grep-find-ignored-files
+                                             grep-find-ignored-directories)
+                                     " "))
+                         (helm-ag-command-option options)
+                         (helm-ag-base-command (concat helm-ag-base-command
+                                                       " " ignored)))
+                    (spacemacs/helm-do-ag-region-or-symbol
+                     (projectile-project-root)))
+                (error "You're not in a project"))
+            (error "helm-ag not available"))))
 
       (defun spacemacs//helm-projectile-do-search-find-tool (tools)
         "Create a cond form given a TOOLS string list and evaluate it."
