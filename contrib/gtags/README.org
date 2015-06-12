@@ -64,7 +64,7 @@ To use this contribution add it to your =~/.spacemacs=
 Before using the helm-gtags, remember to create a GTAGS database by the following methods:
 
 - From within Emacs, runs the command =helm-gtags-create-tags=, which is bound
-  to =SPC m g c=. If the language is not directly supported by GNU Global, you
+  to ~SPC m g c~. If the language is not directly supported by GNU Global, you
   can choose =ctags= or =pygment= as a backend to generate tag database.
 
 - From inside terminal, runs gtags at your project root in terminal:

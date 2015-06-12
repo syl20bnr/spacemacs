@@ -31,21 +31,21 @@ To use this contribution add it to your =~/.spacemacs=
 
 *** Imports
 
-| Key Binding   | Description                                                   |
-|---------------+---------------------------------------------------------------|
-| ~<SPC> m i =~ | Format imports                                                |
-| ~<SPC> m i \~ | Return to where you were editing before navigating to imports |
-| ~<SPC> m i a~ | Align imports                                                 |
-| ~<SPC> m i n~ | Navigate to the imports                                       |
+| Key Binding | Description                                                   |
+|-------------+---------------------------------------------------------------|
+| ~SPC m i =~ | Format imports                                                |
+| ~SPC m i \~ | Return to where you were editing before navigating to imports |
+| ~SPC m i a~ | Align imports                                                 |
+| ~SPC m i n~ | Navigate to the imports                                       |
 
 ** REPL
 
 [[https://github.com/ardumont/emacs-psci][psci]] provides a very basic REPL for purescript. The following key
 bindings are available:
 
-| Key Binding   | Description                                                                      |
-|---------------+----------------------------------------------------------------------------------|
-| ~<SPC> m s b~ | Equivalent of =:m /path/to/current/module/file.purs= - Load <file> for importing |
-| ~<SPC> m s i~ | Launch a psci console buffer                                                     |
-| ~<SPC> m s m~ | Equivalent of =:i your.current.module.name= - Import <module> for use in PSCI    |
-| ~<SPC> m s p~ | Load or reload files defined in the project file .psci                           |
+| Key Binding | Description                                                                      |
+|-------------+----------------------------------------------------------------------------------|
+| ~SPC m s b~ | Equivalent of =:m /path/to/current/module/file.purs= - Load <file> for importing |
+| ~SPC m s i~ | Launch a psci console buffer                                                     |
+| ~SPC m s m~ | Equivalent of =:i your.current.module.name= - Import <module> for use in PSCI    |
+| ~SPC m s p~ | Load or reload files defined in the project file .psci                           |

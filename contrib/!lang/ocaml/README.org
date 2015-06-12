@@ -29,7 +29,7 @@ This is a very basic layer for editing ocaml files.
 
 ** Layer
 
-To use this contribution add it to your =nn~/.spacemacs=
+To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(ocaml))
@@ -37,7 +37,7 @@ To use this contribution add it to your =nn~/.spacemacs=
 
 ** OPAM packages
 
-This layer requires some [opam](http://opam.ocaml.org) packages:
+This layer requires some [[http://opam.ocaml.org][opam]] packages:
 
 - =merlin= for auto-completion
 - =utop=

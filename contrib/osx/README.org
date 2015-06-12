@@ -15,7 +15,7 @@
 
 Spacemacs is not just emacs+vim. It can have OSX keybindings too! 
 This layer globally defines common OSX keybindings. ~⌘~ is set to
-=super= and ~⌥~ is set to =meta=. Aside from that, there's nothing
+~super~ and ~⌥~ is set to ~meta~. Aside from that, there's nothing
 much, really.
 
 While in =dired= this layer will try to use =gls= instead of =ls=.
@@ -64,6 +64,6 @@ To get =gls= install coreutils homebrew:
 
 * Future Work
 
-- Allow user to choose from either =hyper= or =super= as ⌘. This is an option
+- Allow user to choose from either ~hyper~ or ~super~ as ~⌘~. This is an option
   that is supported cross-platform.
 - Configurable option to keep the OSX and spacemacs clipboards separate

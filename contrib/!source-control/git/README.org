@@ -58,7 +58,7 @@ To display the =magit status= buffer in fullscreen set the variable
 Magit auto-complete feature is enabled. For this feature to work best you
 have to setup your Git repository directory in your =dotspacemacs/config=
 function, this is the folder where you keep all your git-controlled projects
-(the path should end up with a =/= to respect Emacs conventions):
+(the path should end up with a ~=/~= to respect Emacs conventions):
 
 #+BEGIN_SRC emacs-lisp
   (setq magit-repo-dirs '("~/repos/"))
@@ -84,7 +84,7 @@ on your machine. You can download it from the [[http://git-scm.com/downloads][do
 
 * Working with Git
 
-Git commands (start with =g=):
+Git commands (start with ~=g~=):
 
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
@@ -108,12 +108,10 @@ Git commands (start with =g=):
 
 =Spacemacs= uses [[http://magit.github.io/][magit]] to manage Git repositories.
 
-To open a =status buffer=, type in a buffer of a Git repository:
+To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~
 
-    ~<SPC> g s~
-
-=hjkl= navigation is enabled in all Magit buffers. The default Magit keys
-on =hjkl= (if they exist) are remapped on =HJKL=.
+~hjkl~ navigation is enabled in all Magit buffers. The default Magit keys
+on ~hjkl~ (if they exist) are remapped on ~HJKL~.
 
 Here are the often used bindings inside a =status buffer=:
 
@@ -194,28 +192,28 @@ message.
 ** Quick guide for recurring use cases in Magit
 
 - Amend a commit:
-  - =L l= to open =log buffer=
-  - =c a= on the commit you want to amend
-  - =C-c C-c= to submit the changes
+  - ~L l~ to open =log buffer=
+  - ~c a~ on the commit you want to amend
+  - ~C-c C-c~ to submit the changes
 - Squash last commit:
-  - =L l= to open =log buffer=
-  - =E= on the second to last commit, it opens the =rebase buffer=
-  - =j= to put point on last commit
-  - =s= to squash it
-  - =C-c C-c= to continue to the =commit message buffer=
-  - =C-c C-c= again when you have finished to edit the commit message
+  - ~L l~ to open =log buffer=
+  - ~E~ on the second to last commit, it opens the =rebase buffer=
+  - ~j~ to put point on last commit
+  - ~s~ to squash it
+  - ~C-c C-c~ to continue to the =commit message buffer=
+  - ~C-c C-c~ again when you have finished to edit the commit message
 - Force push a squashed commit:
   - in the =status buffer= you should see the new commit unpushed and the old
     commit unpulled
-  - =P -f P= for force a push (*beware* usually it is not recommended to rewrite
+  - ~P -f P~ for force a push (*beware* usually it is not recommended to rewrite
     the history of a public repository, but if you are *sure* that you are the
     only one to work on a repository it is ok - i.e. in your fork).
 - Add upstream remote (the parent repository you have forked):
-  - =b v= to open the =branch manager buffer=
-  - =a= to add a remote, type the name (i.e. =upstream=) and the URL
+  - ~b v~ to open the =branch manager buffer=
+  - ~a~ to add a remote, type the name (i.e. =upstream=) and the URL
 - Pull changes from upstream (the parent repository you have forked) and push:
-  - =F -r C-u F= and choose =upstream= or the name you gave to it
-  - =P P= to push the commit to =origin=
+  - ~F -r C-u F~ and choose =upstream= or the name you gave to it
+  - ~P P~ to push the commit to =origin=
 
 ** Git time machine
 
