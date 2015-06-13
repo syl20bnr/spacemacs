@@ -118,6 +118,7 @@
     (colorsarenice-light . colorsarenice-theme)
     (hemisu-dark  . hemisu-theme)
     (hemisu-light . hemisu-theme)
+    (material-light . material-theme)
     (minimal-light . minimal-theme)
     (moe-dark  . moe-theme)
     (moe-light . moe-theme)
