@@ -1385,129 +1385,25 @@ Removes the automatic guessing of the initial value based on thing at point. "
             (helm-find-files-up-one-level 1)
           ad-do-it))
 
-      (defun spacemacs/helm-do-ag-symbol ()
-        "Perform a search with ag using `helm-ag.' Defaults to symbol at point."
+      (defun spacemacs/helm-do-grep-region-or-symbol ()
+        "Version of `helm-do-grep' with a default input."
         (interactive)
-        (let ((helm-ag-insert-at-point 'symbol))
-          (call-interactively 'helm-do-ag)))
-
-      (defun spacemacs/helm-do-grep-symbol ()
-        "Version of `helm-do-grep' that uses default input of the
-symbol at point."
-        (interactive)
-        (when (and (helm-grep-use-ack-p)
-                   helm-ff-default-directory
-                   (file-remote-p helm-ff-default-directory))
-          (error "Error: Remote operation not supported with ack-grep."))
-        (let* (non-essential
-               (preselection (or (dired-get-filename nil t)
+        (require 'helm)
+        (let* ((preselection (or (dired-get-filename nil t)
                                  (buffer-file-name (current-buffer))))
-               (targets (helm-read-file-name
-                         "Search in file(s): "
-                         :marked-candidates t
-                         :preselect (and helm-do-grep-preselect-candidate
-                                         (if helm-ff-transformer-show-only-basename
-                                             (helm-basename preselection)
-                                           preselection))))
-               (recurse (or current-prefix-arg helm-current-prefix-arg))
-               (default-input (thing-at-point 'symbol t))
-               (exts (and recurse
-                          (not (helm-grep-use-ack-p :where 'recursive))
-                          (or exts (helm-grep-get-file-extensions targets))))
-               (include-files (and exts
-                                   (mapconcat #'(lambda (x)
-                                                  (concat "--include="
-                                                          (shell-quote-argument x)))
-                                              (if (> (length exts) 1)
-                                                  (remove "*" exts)
-                                                exts) " ")))
-               (types (and (not include-files)
-                           recurse
-                           (helm-grep-use-ack-p :where 'recursive)
-                           ;; When %e format spec is not specified
-                           ;; ignore types and do not prompt for choice.
-                           (string-match "%e" helm-grep-default-command)
-                           (helm-grep-read-ack-type)))
-               (follow (and helm-follow-mode-persistent
-                            (assoc-default 'follow helm-source-grep))))
-          ;; When called as action from an other source e.g *-find-files
-          ;; we have to kill action buffer.
-          (when (get-buffer helm-action-buffer)
-            (kill-buffer helm-action-buffer))
-          ;; If `helm-find-files' haven't already started,
-          ;; give a default value to `helm-ff-default-directory'.
-          (unless helm-ff-default-directory
-            (setq helm-ff-default-directory default-directory))
-          ;; We need to store these vars locally
-          ;; to pass infos later to `helm-resume'.
-          (helm-set-local-variable  'helm-grep-last-targets targets
-                                    'helm-grep-include-files (or include-files types)
-                                    'helm-grep-in-recurse recurse
-                                    'helm-grep-use-zgrep nil
-                                    'helm-grep-default-command
-                                    (cond (recurse helm-grep-default-recurse-command)
-                                          (t helm-grep-default-command)))
-          ;; Setup the source.
-          (setq helm-source-grep
-                (helm-build-async-source
-                    (capitalize (if recurse
-                                    (helm-grep-command t)
-                                  (helm-grep-command)))
-                  :header-name (lambda (name)
-                                 (concat name "(C-c ? Help)"))
-                  :candidates-process 'helm-grep-collect-candidates
-                  :filter-one-by-one 'helm-grep-filter-one-by-one
-                  :nohighlight t
-                  :candidate-number-limit 9999
-                  :mode-line helm-grep-mode-line-string
-                  :history 'helm-grep-history
-                  :action (helm-make-actions
-                           "Find File" 'helm-grep-action
-                           "Find file other frame" 'helm-grep-other-frame
-                           (lambda () (and (locate-library "elscreen")
-                                           "Find file in Elscreen"))
-                           'helm-grep-jump-elscreen
-                           "Save results in grep buffer" 'helm-grep-save-results
-                           "Find file other window" 'helm-grep-other-window)
-                  :persistent-action 'helm-grep-persistent-action
-                  :persistent-help "Jump to line (`C-u' Record in mark ring)"
-                  :requires-pattern 2
-                  :follow follow))
-          (helm
-           :sources 'helm-source-grep
-           :buffer (format "*helm %s*" (helm-grep-command recurse))
-           :input default-input
-           :keymap helm-grep-map
-           :history 'helm-grep-history
-           :truncate-lines t)))
-
-      (defun spacemacs/helm-do-ack ()
-        "Perform a search with ack using `helm-ag.'"
-        (interactive)
-        (if (configuration-layer/package-usedp 'helm-ag)
-            (let ((helm-ag-base-command "ack --nocolor --nogroup"))
-              (call-interactively 'helm-do-ag))
-          (message "error: helm-ag not found.")))
-
-      (defun spacemacs/helm-do-ack-symbol ()
-        "Perform a search with ack using `helm-ag.' Defaults to symbol at point."
-        (interactive)
-        (let ((helm-ag-insert-at-point 'symbol))
-          (spacemacs/helm-do-ack)))
-
-      (defun spacemacs/helm-do-pt ()
-        "Perform a search with the platinum searcher using `helm-ag.'"
-        (interactive)
-        (if (configuration-layer/package-usedp 'helm-ag)
-            (let ((helm-ag-base-command "pt --nocolor --nogroup"))
-              (call-interactively 'helm-do-ag))
-          (message "error: helm-ag not found.")))
-
-      (defun spacemacs/helm-do-pt-symbol ()
-        "Perform a search with the platinum searcher using `helm-ag.' Defaults to symbol at point."
-        (interactive)
-        (let ((helm-ag-insert-at-point 'symbol))
-          (spacemacs/helm-do-pt)))
+               (only (helm-read-file-name
+                      "Search in file(s): "
+                      :marked-candidates t
+                      :preselect (and helm-do-grep-preselect-candidate
+                                      (if helm-ff-transformer-show-only-basename
+                                          (helm-basename preselection)
+                                        preselection))))
+               (prefarg (or current-prefix-arg helm-current-prefix-arg))
+               (default-input (if (region-active-p)
+                                  (buffer-substring-no-properties
+                                   (region-beginning) (region-end))
+                                (thing-at-point 'symbol t))))
+          (helm-do-grep-1 only prefarg nil nil default-input)))
 
       (defun spacemacs//helm-do-search-find-tool (tools)
         "Create a cond form given a TOOLS string list and evaluate it."
@@ -1570,14 +1466,8 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "rr"  'helm-register
         "rm"  'helm-all-mark-rings
         "s/"  'spacemacs/helm-smart-do-search
-        "sa"  'helm-do-ag
-        "sA"  'spacemacs/helm-do-ag-symbol
         "sg"  'helm-do-grep
-        "sG"  'spacemacs/helm-do-grep-symbol
-        "sk"  'spacemacs/helm-do-ack
-        "sK"  'spacemacs/helm-do-ack-symbol
-        "sp"  'spacemacs/helm-do-pt
-        "sP"  'spacemacs/helm-do-pt-symbol
+        "sG"  'spacemacs/helm-do-grep-region-or-symbol
         "sL"  'spacemacs/last-search-buffer
         "sl"  'helm-semantic-or-imenu)
 
@@ -1768,42 +1658,59 @@ ARG non nil means that the editing style is `vim'."
   (use-package helm-ag
     :defer t
     :init
-    (defun spacemacs/helm-do-ag-region-or-symbol (&optional basedir)
-      "Calls `helm-do-ag' with a default string of the escaped
-active region or the symbol at the point if there is no active
-region. Requires \"ag\" search tool."
-      (interactive)
-      (unless (executable-find "ag")
-        (error "ag not available"))
-      (setq helm-ag--original-window (selected-window))
-      (helm-ag--clear-variables)
-      (let* ((helm-ag--default-directory (or basedir default-directory))
-             (helm-do-ag--default-target (when (and (not basedir) (not helm-ag--buffer-search))
-                                           (helm-read-file-name
-                                            "Search in file(s): "
-                                            :default default-directory
-                                            :marked-candidates t :must-match t)))
-             (helm-do-ag--extensions (helm-ag--do-ag-searched-extensions))
-             (one-directory-p (helm-do-ag--is-target-one-directory-p
-                               helm-do-ag--default-target))
-             (search-string (if (region-active-p)
-                                (rxt-quote-pcre
-                                 (buffer-substring-no-properties (region-beginning) (region-end)))
-                              (thing-at-point 'symbol t))))
-        (helm-ag--set-do-ag-option)
-        (helm-ag--save-current-context)
-        (helm-attrset 'name (helm-ag--helm-header helm-ag--default-directory)
-                      helm-source-do-ag)
-        (if (or (helm-ag--windows-p) (not one-directory-p)) ;; Path argument must be specified on Windows
-            (helm :sources '(helm-source-do-ag) :buffer "*helm-ag*"
-                  :input search-string
-                  :keymap helm-do-ag-map)
-          (let* ((helm-ag--default-directory
-                  (file-name-as-directory (car helm-do-ag--default-target)))
-                 (helm-do-ag--default-target nil))
-            (helm :sources '(helm-source-do-ag) :buffer "*helm-ag*"
-                  :input search-string
-                  :keymap helm-do-ag-map)))))
+    (progn
+      (defun spacemacs//helm-do-ag-region-or-symbol (func)
+        "Perform a search with `ag' with a default input."
+        (require 'helm-ag)
+        (cl-letf* (((symbol-value 'helm-ag-insert-at-point) 'symbol)
+                   ;; make thing-at-point choosing the active region first
+                   ((symbol-function 'this-fn) (symbol-function 'thing-at-point))
+                   ((symbol-function 'thing-at-point)
+                    (lambda (thing)
+                      (if (region-active-p)
+                          (buffer-substring-no-properties
+                           (region-beginning) (region-end))
+                        (this-fn thing)))))
+          (call-interactively func)))
+
+      (defun spacemacs/helm-do-ag-region-or-symbol ()
+        "Perform a search with `ag' with a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'helm-do-ag))
+
+      (defun spacemacs/helm-do-ack ()
+        "Perform a search with ack using `helm-ag.'"
+        (interactive)
+        (if (configuration-layer/package-usedp 'helm-ag)
+            (let ((helm-ag-base-command "ack --nocolor --nogroup"))
+              (call-interactively 'helm-do-ag))
+          (message "error: helm-ag not found.")))
+
+      (defun spacemacs/helm-do-ack-region-or-symbol ()
+        "Perform a search with ack using `helm-ag.' using a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-do-ack))
+
+      (defun spacemacs/helm-do-pt ()
+        "Perform a search with the platinum searcher using `helm-ag.'"
+        (interactive)
+        (if (configuration-layer/package-usedp 'helm-ag)
+            (let ((helm-ag-base-command "pt --nocolor --nogroup"))
+              (call-interactively 'helm-do-ag))
+          (message "error: helm-ag not found.")))
+
+      (defun spacemacs/helm-do-pt-region-or-symbol ()
+        "Perform a search with pt using `helm-ag.' using a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-do-pt))
+
+      (evil-leader/set-key
+        "sa" 'helm-do-ag
+        "sA" 'spacemacs/helm-do-ag-region-or-symbol
+        "sk" 'spacemacs/helm-do-ack
+        "sK" 'spacemacs/helm-do-ack-region-or-symbol
+        "sp" 'spacemacs/helm-do-pt
+        "sP" 'spacemacs/helm-do-pt-region-or-symbol))
     :config
     (progn
       (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)
