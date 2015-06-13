@@ -1718,6 +1718,7 @@ Key Binding               |                 Description
 <kbd>SPC s /</kbd>        | execute the first found utility (by default `ag`, `pt`, `ack` and `grep`)
 <kbd>SPC s a</kbd>        | `ag`
 <kbd>SPC s g</kbd>        | `grep`
+<kbd>SPC s G</kbd>        | `grep` defaults to symbol at point
 <kbd>SPC s k</kbd>        | `ack`
 <kbd>SPC s p</kbd>        | `pt`
 <kbd>SPC s L</kbd>        | open stored search buffer (stored with <kbd>F3<kbd> in helm search buffer)
@@ -1739,7 +1740,7 @@ Key Binding               |                 Description
 --------------------------|---------------------------------------------
 <kbd>SPC /</kbd>          | execute the first found utility (by default `ag`, `pt`, `ack` and `grep`)
 <kbd>SPC p s a</kbd>      | `ag`
-<kbd>SPC p s g</kbd>      | `grep`
+<kbd>SPC p s g</kbd>      | `grep` defaults to current region then symbol at point
 <kbd>SPC p s k</kbd>      | `ack`
 <kbd>SPC p s p</kbd>      | `pt`
 
