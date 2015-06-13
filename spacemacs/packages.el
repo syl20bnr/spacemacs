@@ -1391,6 +1391,96 @@ Removes the automatic guessing of the initial value based on thing at point. "
         (let ((helm-ag-insert-at-point 'symbol))
           (call-interactively 'helm-do-ag)))
 
+      (defun spacemacs/helm-do-grep-symbol ()
+        "Version of `helm-do-grep' that uses default input of the
+symbol at point."
+        (interactive)
+        (when (and (helm-grep-use-ack-p)
+                   helm-ff-default-directory
+                   (file-remote-p helm-ff-default-directory))
+          (error "Error: Remote operation not supported with ack-grep."))
+        (let* (non-essential
+               (preselection (or (dired-get-filename nil t)
+                                 (buffer-file-name (current-buffer))))
+               (targets (helm-read-file-name
+                         "Search in file(s): "
+                         :marked-candidates t
+                         :preselect (and helm-do-grep-preselect-candidate
+                                         (if helm-ff-transformer-show-only-basename
+                                             (helm-basename preselection)
+                                           preselection))))
+               (recurse (or current-prefix-arg helm-current-prefix-arg))
+               (default-input (thing-at-point 'symbol t))
+               (exts (and recurse
+                          (not (helm-grep-use-ack-p :where 'recursive))
+                          (or exts (helm-grep-get-file-extensions targets))))
+               (include-files (and exts
+                                   (mapconcat #'(lambda (x)
+                                                  (concat "--include="
+                                                          (shell-quote-argument x)))
+                                              (if (> (length exts) 1)
+                                                  (remove "*" exts)
+                                                exts) " ")))
+               (types (and (not include-files)
+                           recurse
+                           (helm-grep-use-ack-p :where 'recursive)
+                           ;; When %e format spec is not specified
+                           ;; ignore types and do not prompt for choice.
+                           (string-match "%e" helm-grep-default-command)
+                           (helm-grep-read-ack-type)))
+               (follow (and helm-follow-mode-persistent
+                            (assoc-default 'follow helm-source-grep))))
+          ;; When called as action from an other source e.g *-find-files
+          ;; we have to kill action buffer.
+          (when (get-buffer helm-action-buffer)
+            (kill-buffer helm-action-buffer))
+          ;; If `helm-find-files' haven't already started,
+          ;; give a default value to `helm-ff-default-directory'.
+          (unless helm-ff-default-directory
+            (setq helm-ff-default-directory default-directory))
+          ;; We need to store these vars locally
+          ;; to pass infos later to `helm-resume'.
+          (helm-set-local-variable  'helm-grep-last-targets targets
+                                    'helm-grep-include-files (or include-files types)
+                                    'helm-grep-in-recurse recurse
+                                    'helm-grep-use-zgrep nil
+                                    'helm-grep-default-command
+                                    (cond (recurse helm-grep-default-recurse-command)
+                                          (t helm-grep-default-command)))
+          ;; Setup the source.
+          (setq helm-source-grep
+                (helm-build-async-source
+                    (capitalize (if recurse
+                                    (helm-grep-command t)
+                                  (helm-grep-command)))
+                  :header-name (lambda (name)
+                                 (concat name "(C-c ? Help)"))
+                  :candidates-process 'helm-grep-collect-candidates
+                  :filter-one-by-one 'helm-grep-filter-one-by-one
+                  :nohighlight t
+                  :candidate-number-limit 9999
+                  :mode-line helm-grep-mode-line-string
+                  :history 'helm-grep-history
+                  :action (helm-make-actions
+                           "Find File" 'helm-grep-action
+                           "Find file other frame" 'helm-grep-other-frame
+                           (lambda () (and (locate-library "elscreen")
+                                           "Find file in Elscreen"))
+                           'helm-grep-jump-elscreen
+                           "Save results in grep buffer" 'helm-grep-save-results
+                           "Find file other window" 'helm-grep-other-window)
+                  :persistent-action 'helm-grep-persistent-action
+                  :persistent-help "Jump to line (`C-u' Record in mark ring)"
+                  :requires-pattern 2
+                  :follow follow))
+          (helm
+           :sources 'helm-source-grep
+           :buffer (format "*helm %s*" (helm-grep-command recurse))
+           :input default-input
+           :keymap helm-grep-map
+           :history 'helm-grep-history
+           :truncate-lines t)))
+
       (defun spacemacs/helm-do-ack ()
         "Perform a search with ack using `helm-ag.'"
         (interactive)
@@ -1483,6 +1573,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "sa"  'helm-do-ag
         "sA"  'spacemacs/helm-do-ag-symbol
         "sg"  'helm-do-grep
+        "sG"  'spacemacs/helm-do-grep-symbol
         "sk"  'spacemacs/helm-do-ack
         "sK"  'spacemacs/helm-do-ack-symbol
         "sp"  'spacemacs/helm-do-pt
