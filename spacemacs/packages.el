@@ -370,14 +370,9 @@
            (define-key map (kbd "R") 'ahs-back-to-start)
            (define-key map (kbd "r") (lambda () (interactive)
                                        (eval '(ahs-change-range) nil)))
-           (define-key map (kbd "/") (lambda ()
-                                       (interactive)
-                                       (let ((helm-ag-insert-at-point 'symbol))
-                                         (spacemacs/helm-projectile-smart-do-search))))
-           (define-key map (kbd "s") (lambda ()
-                                       (interactive)
-                                       (let ((helm-ag-insert-at-point 'symbol))
-                                         (spacemacs/helm-files-smart-do-search))))
+           (define-key map (kbd "/") 'spacemacs/helm-project-smart-do-search-region-or-symbol)
+           (define-key map (kbd "b") 'spacemacs/helm-buffers-smart-do-search-region-or-symbol)
+           (define-key map (kbd "f") 'spacemacs/helm-files-smart-do-search-region-or-symbol)
            map) nil)
         (let* ((i 0)
                (overlay-count (length ahs-overlay-list))
@@ -399,7 +394,7 @@
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo "%s %s%s (n/N) move, (e) edit, (r) range, (R) reset, (d/D) definition, (/) find in project, (s) find in files"
+            (echo "%s %s%s (n/N) move, (e) edit, (r) range, (R) reset, (d/D) definition, (/) find in project, (f) find in files, (b) find in opened buffers"
                   propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bind-key ())
