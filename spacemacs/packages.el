@@ -1389,21 +1389,16 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "Version of `helm-do-grep' with a default input."
         (interactive)
         (require 'helm)
-        (let* ((preselection (or (dired-get-filename nil t)
-                                 (buffer-file-name (current-buffer))))
-               (only (helm-read-file-name
-                      "Search in file(s): "
-                      :marked-candidates t
-                      :preselect (and helm-do-grep-preselect-candidate
-                                      (if helm-ff-transformer-show-only-basename
-                                          (helm-basename preselection)
-                                        preselection))))
-               (prefarg (or current-prefix-arg helm-current-prefix-arg))
-               (default-input (if (region-active-p)
-                                  (buffer-substring-no-properties
-                                   (region-beginning) (region-end))
-                                (thing-at-point 'symbol t))))
-          (helm-do-grep-1 only prefarg nil nil default-input)))
+        (cl-letf*
+            (((symbol-function 'this-fn) (symbol-function 'helm-do-grep-1))
+             ((symbol-function 'helm-do-grep-1)
+              (lambda (targets &optional recurse zgrep exts default-input input)
+                (let ((input (if (region-active-p)
+                                 (buffer-substring-no-properties
+                                  (region-beginning) (region-end))
+                               (thing-at-point 'symbol t))))
+                  (this-fn targets recurse zgrep exts default-input input)))))
+          (call-interactively 'helm-do-grep)))
 
       (defun spacemacs//helm-do-search-find-tool (tools)
         "Create a cond form given a TOOLS string list and evaluate it."
