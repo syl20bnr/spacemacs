@@ -1400,25 +1400,32 @@ Removes the automatic guessing of the initial value based on thing at point. "
                   (this-fn targets recurse zgrep exts default-input input)))))
           (call-interactively 'helm-do-grep)))
 
-      (defun spacemacs//helm-do-search-find-tool (tools)
+      (defun spacemacs//helm-do-search-find-tool (tools default-inputp)
         "Create a cond form given a TOOLS string list and evaluate it."
-        (eval `(cond
-                ,@(mapcar (lambda (x)
-                            `((executable-find ,x)
-                              ',(let ((func (intern
-                                             (format "spacemacs/helm-do-%s"
-                                                     x))))
-                                  (if (fboundp func)
-                                      func
-                                    (intern (format "helm-do-%s" x))))))
-                          tools)
-                (t 'helm-do-grep))))
+        (eval
+         `(cond
+           ,@(mapcar
+              (lambda (x)
+                `((executable-find ,x)
+                  ',(let ((func
+                           (intern
+                            (format (if default-inputp
+                                        "spacemacs/helm-do-%s-region-or-symbol"
+                                      "spacemacs/helm-do-%s")
+                                    x))))
+                      (if (fboundp func)
+                          func
+                        (intern (format "helm-do-%s" x))))))
+                     tools)
+           (t 'helm-do-grep))))
 
-      (defun spacemacs/helm-smart-do-search (&optional arg)
+      (defun spacemacs/helm-smart-do-search (&optional arg default-inputp)
         "Execute the first found search tool in `dotspacemacs-search-tools'.
 
 Search for a search tool in the order provided by `dotspacemacs-search-tools'
-If ARG is non nil then `ag' and `pt' and ignored."
+If ARG is non nil then `ag' and `pt' and ignored.
+If DEFAULT-INPUTP is non nil then the current region or symbol at point
+are used as default input."
         (interactive "P")
         (let ((tools
                (if arg
@@ -1426,7 +1433,17 @@ If ARG is non nil then `ag' and `pt' and ignored."
                                        (and (not (member x '("ag" "pt"))) x))
                                      dotspacemacs-search-tools))
                  dotspacemacs-search-tools)))
-          (call-interactively (spacemacs//helm-do-search-find-tool tools))))
+          (call-interactively (spacemacs//helm-do-search-find-tool
+                               tools default-inputp))))
+
+      (defun spacemacs/helm-smart-do-search-region-or-symbol (&optional arg)
+        "Execute the first found search tool in `dotspacemacs-search-tools'
+with default input.
+
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If ARG is non nil then `ag' and `pt' and ignored."
+        (interactive "P")
+        (spacemacs/helm-smart-do-search arg t))
 
       ;; evilify the helm-grep buffer
       (evilify helm-grep-mode helm-grep-mode-map
@@ -1461,6 +1478,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "rr"  'helm-register
         "rm"  'helm-all-mark-rings
         "s/"  'spacemacs/helm-smart-do-search
+        "s?"  'spacemacs/helm-smart-do-search-region-or-symbol
         "sg"  'helm-do-grep
         "sG"  'spacemacs/helm-do-grep-region-or-symbol
         "sL"  'spacemacs/last-search-buffer
