@@ -1634,26 +1634,14 @@ ARG non nil means that the editing style is `vim'."
                         (this-fn thing)))))
           (funcall func dir)))
 
-      (defun spacemacs/helm-project-do-ag ()
-        "Search with ag using `helm-ag' in project"
-        (interactive)
-        (let ((dir (projectile-project-root)))
-          (if dir
-              (helm-do-ag dir)
-            (message "error: Not in a project."))))
+      ;; Search in buffers ---------------------------------------------------
+
+      ;; Search in files -----------------------------------------------------
 
       (defun spacemacs/helm-do-ag-region-or-symbol ()
         "Search with `ag' with a default input."
         (interactive)
         (spacemacs//helm-do-ag-region-or-symbol 'helm-do-ag))
-
-      (defun spacemacs/helm-project-do-ag-region-or-symbol ()
-        "Search with `ag' with a default input in project."
-        (interactive)
-        (let ((dir (projectile-project-root)))
-          (if dir
-              (spacemacs//helm-do-ag-region-or-symbol 'helm-do-ag dir)
-            (message "error: Not in a project."))))
 
       (defun spacemacs/helm-do-ack (&optional dir)
         "Search with ack using `helm-ag'"
@@ -1663,6 +1651,41 @@ ARG non nil means that the editing style is `vim'."
               (helm-do-ag dir))
           (message "error: helm-ag not found.")))
 
+      (defun spacemacs/helm-do-ack-region-or-symbol ()
+        "Search with ack using `helm-ag' using a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-do-ack))
+      (defun spacemacs/helm-do-pt (&optional dir)
+        "Search with the platinum searcher using `helm-ag.'"
+        (interactive)
+        (if (configuration-layer/package-usedp 'helm-ag)
+            (let ((helm-ag-base-command "pt --nocolor --nogroup"))
+              (helm-do-ag dir))
+          (message "error: helm-ag not found.")))
+
+      (defun spacemacs/helm-do-pt-region-or-symbol ()
+        "Search with pt using `helm-ag' using a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-do-pt))
+
+      ;; Search in project ---------------------------------------------------
+
+      (defun spacemacs/helm-project-do-ag ()
+        "Search with ag using `helm-ag' in project"
+        (interactive)
+        (let ((dir (projectile-project-root)))
+          (if dir
+              (helm-do-ag dir)
+            (message "error: Not in a project."))))
+
+      (defun spacemacs/helm-project-do-ag-region-or-symbol ()
+        "Search with `ag' with a default input in project."
+        (interactive)
+        (let ((dir (projectile-project-root)))
+          (if dir
+              (spacemacs//helm-do-ag-region-or-symbol 'helm-do-ag dir)
+            (message "error: Not in a project."))))
+
       (defun spacemacs/helm-project-do-ack ()
         "Search with ack using `helm-ag' in project"
         (interactive)
@@ -1670,11 +1693,6 @@ ARG non nil means that the editing style is `vim'."
           (if dir
               (spacemacs/helm-do-ack dir)
             (message "error: Not in a project."))))
-
-      (defun spacemacs/helm-do-ack-region-or-symbol ()
-        "Search with ack using `helm-ag' using a default input."
-        (interactive)
-        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-do-ack))
 
       (defun spacemacs/helm-project-do-ack-region-or-symbol ()
         "Search with ack using `helm-ag' using a default input in project."
@@ -1684,14 +1702,6 @@ ARG non nil means that the editing style is `vim'."
               (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-do-ack dir)
             (message "error: Not in a project."))))
 
-      (defun spacemacs/helm-do-pt (&optional dir)
-        "Search with the platinum searcher using `helm-ag.'"
-        (interactive)
-        (if (configuration-layer/package-usedp 'helm-ag)
-            (let ((helm-ag-base-command "pt --nocolor --nogroup"))
-              (helm-do-ag dir))
-          (message "error: helm-ag not found.")))
-
       (defun spacemacs/helm-project-do-pt ()
         "Search with pt using `helm-ag' in project"
         (interactive)
@@ -1700,10 +1710,6 @@ ARG non nil means that the editing style is `vim'."
               (spacemacs/helm-do-pt dir)
             (message "error: Not in a project."))))
 
-      (defun spacemacs/helm-do-pt-region-or-symbol ()
-        "Search with pt using `helm-ag' using a default input."
-        (interactive)
-        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-do-pt))
 
       (defun spacemacs/helm-project-do-pt-region-or-symbol ()
         "Search with pt using `helm-ag' using a default input in project."
