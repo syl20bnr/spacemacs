@@ -15,11 +15,21 @@
         eldoc
         elisp-slime-nav
         evil
+        ielm
         macrostep
         semantic
         smartparens
         srefactor
         ))
+
+(use-package ielm
+  :config
+  (defun ielm-indent-line ()
+    (interactive)
+    (let ((current-point (point)))
+      (save-restriction
+        (narrow-to-region (search-backward-regexp "^ELISP>") (goto-char current-point))
+        (lisp-indent-line)))))
 
 (defun emacs-lisp/post-init-eldoc ()
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
