@@ -396,7 +396,7 @@ Example:
 ### Without a layer
 
 Sometimes a layer can be an unnecessary overhead, this is the case if you just
-want yo install a package without any configuration associated to it. A good
+want to install a package without any configuration associated to it. A good
 example is some niche language where you are only interested syntax
 highlighting.
 
