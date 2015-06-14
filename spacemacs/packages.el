@@ -1057,7 +1057,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
           ad-do-it
           (let ((new-msg (concat (car ad-return-value)
                                  ", / to search in project, "
-                                 "f to search in files"))
+                                 "f to search in files, "
+                                 "b to search in opened buffers"))
                 (new-bindings (cdr ad-return-value)))
             (cl-pushnew
              '("/" (lambda ()
@@ -1068,6 +1069,11 @@ Example: (evil-map visual \"<\" \"<gv\")"
              '("f" (lambda ()
                      (call-interactively
                       'spacemacs/helm-files-smart-do-search-region-or-symbol)))
+             new-bindings)
+            (cl-pushnew
+             '("b" (lambda ()
+                     (call-interactively
+                      'spacemacs/helm-buffers-smart-do-search-region-or-symbol)))
              new-bindings)
             (setq ad-return-value (cons new-msg new-bindings)))))
       (custom-set-variables
@@ -1663,6 +1669,13 @@ DEFAULTP is non-nil."
                               dotspacemacs-search-tools))
           dotspacemacs-search-tools))
 
+      ;; Search in current file ----------------------------------------------
+
+      (defun spacemacs/helm-file-do-ag-region-or-symbol ()
+        "Search in current file with `ag' using a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'helm-ag-this-file))
+
       ;; Search in files -----------------------------------------------------
 
       (defun spacemacs/helm-files-do-ag-region-or-symbol ()
@@ -1857,6 +1870,11 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "bsK" 'spacemacs/helm-buffers-do-ack
         "bsp" 'spacemacs/helm-buffers-do-pt-region-or-symbol
         "bsP" 'spacemacs/helm-buffers-do-pt
+        ;; current file scope
+        "s/"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
+        "s?"  'spacemacs/helm-buffers-smart-do-search
+        "sa"  'helm-ag-this-file
+        "sA"  'spacemacs/helm-file-do-ag-region-or-symbol
         ;; files scope
         "f/"  'spacemacs/helm-files-smart-do-search-region-or-symbol
         "f?"  'spacemacs/helm-files-smart-do-search
