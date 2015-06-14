@@ -1777,6 +1777,23 @@ If ARG is non nil then `ag' and `pt' and ignored."
 
       ;; Search in project ---------------------------------------------------
 
+      (defun spacemacs/helm-project-do-grep ()
+        "Search in current project with `grep'."
+        (interactive)
+        (let ((dir (projectile-project-root)))
+          (if dir
+              (helm-projectile-grep)
+            (message "error: Not in a project."))))
+
+      (defun spacemacs/helm-project-do-grep-region-or-symbol ()
+        "Search in current project with `grep' using default input."
+        (interactive)
+        (let ((dir (projectile-project-root)))
+          (if dir
+              ;; already defaults to current region or symbol.
+              (helm-projectile-grep)
+            (message "error: Not in a project."))))
+
       (defun spacemacs/helm-project-do-ag ()
         "Search in current project with `ag'."
         (interactive)
