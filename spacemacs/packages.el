@@ -1062,12 +1062,12 @@ Example: (evil-map visual \"<\" \"<gv\")"
             (cl-pushnew
              '("/" (lambda ()
                      (call-interactively
-                      'spacemacs/helm-project-smart-do-search)))
+                      'spacemacs/helm-project-smart-do-search-region-or-symbol)))
              new-bindings)
             (cl-pushnew
              '("f" (lambda ()
                      (call-interactively
-                      'spacemacs/helm-smart-do-search)))
+                      'spacemacs/helm-smart-do-search-region-or-symbol)))
              new-bindings)
             (setq ad-return-value (cons new-msg new-bindings)))))
       (custom-set-variables
@@ -1832,7 +1832,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
     (progn
       (setq helm-descbinds-window-style 'split)
       (add-hook 'helm-mode-hook 'helm-descbinds-mode)
-      (evil-leader/set-key "?" 'helm-descbinds))))
+      (evil-leader/set-key "hk" 'helm-descbinds))))
 
 (defun spacemacs/init-helm-make ()
   (use-package helm-make
