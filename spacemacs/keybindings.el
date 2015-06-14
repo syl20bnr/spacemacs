@@ -113,8 +113,8 @@ Ensure that helm is required before calling FUNC."
   "fj" 'dired-jump
   "fo" 'spacemacs/open-in-external-app
   "fR"  'rename-current-buffer-file
-  "fS" 'evil-write-all
-  "fs" 'evil-write
+  "fW" 'evil-write-all
+  "fw" 'evil-write
   "fy" 'show-and-copy-buffer-filename)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
