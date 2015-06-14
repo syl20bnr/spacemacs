@@ -1800,14 +1800,14 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "?"   'spacemacs/helm-project-smart-do-search
         ;; buffer scope
         ;; file scope
-        "s/"  'spacemacs/helm-smart-do-search-region-or-symbol
-        "s?"  'spacemacs/helm-smart-do-search
-        "sa" 'spacemacs/helm-do-ag-region-or-symbol
-        "sA" 'helm-do-ag
-        "sk" 'spacemacs/helm-do-ack-region-or-symbol
-        "sK" 'spacemacs/helm-do-ack
-        "sp" 'spacemacs/helm-do-pt-region-or-symbol
-        "sP" 'spacemacs/helm-do-pt
+        "f/"  'spacemacs/helm-smart-do-search-region-or-symbol
+        "f?"  'spacemacs/helm-smart-do-search
+        "fsa" 'spacemacs/helm-do-ag-region-or-symbol
+        "fsA" 'helm-do-ag
+        "fsk" 'spacemacs/helm-do-ack-region-or-symbol
+        "fsK" 'spacemacs/helm-do-ack
+        "fsp" 'spacemacs/helm-do-pt-region-or-symbol
+        "fsP" 'spacemacs/helm-do-pt
         ;; project scope
         "p/"  'spacemacs/helm-project-smart-do-search-region-or-symbol
         "p?"  'spacemacs/helm-project-smart-do-search
