@@ -18,6 +18,13 @@
 ;; improve delete-other-windows
 (define-key global-map (kbd "C-x 1") 'toggle-maximize-buffer)
 
+;; replace `dired-goto-file' with `helm-find-files', since `helm-find-files'
+;; can do the same thing and with fuzzy matching and other features.
+(eval-after-load 'dired
+  '(progn
+     (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
+     (define-key dired-mode-map "j" 'spacemacs/helm-find-files)))
+
 ;; alternate binding to search next occurrence with isearch without
 ;; exiting isearch
 (define-key isearch-mode-map (kbd "S-<return>") 'isearch-repeat-forward)
@@ -113,8 +120,8 @@ Ensure that helm is required before calling FUNC."
   "fj" 'dired-jump
   "fo" 'spacemacs/open-in-external-app
   "fR"  'rename-current-buffer-file
-  "fS" 'evil-write-all
-  "fs" 'evil-write
+  "fW" 'evil-write-all
+  "fw" 'evil-write
   "fy" 'show-and-copy-buffer-filename)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key

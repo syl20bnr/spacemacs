@@ -1,0 +1,130 @@
+#+TITLE: Elixir contribution layer for Spacemacs
+
+[[file:img/elixir.png]] with [[file:img/alchemist.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+     - [[#refcard][Refcard]]
+     - [[#help][Help]]
+     - [[#mix][Mix]]
+     - [[#project][Project]]
+     - [[#evaluation-in-place][Evaluation in place]]
+     - [[#repl-interactions][REPL interactions]]
+     - [[#tests][Tests]]
+     - [[#compile][Compile]]
+     - [[#execute][Execute]]
+     - [[#code-definition-jump][Code Definition Jump]]
+
+* Description
+
+This layer adds support for [[http://elixir-lang.org/][Elixir]] .
+
+[[https://github.com/tonini/alchemist.el][Alchemist]] brings the Elixir tooling to Emacs and comes with a bunch of
+features like:
+- Powerful IEx integration
+- Mix integration
+- Compile & Execution of Elixir code
+- Inline code evaluation
+- Documentation lookup
+- Definition lookup
+- Smart code completion
+- Elixir project management
+- Integration with [[http://company-mode.github.io/][company-mode]]
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(elixir))
+#+END_SRC
+
+* Key bindings
+
+** Refcard
+
+You find and overview of all the key-bindings on the [[file:alchemist-refcard.pdf][Alchemist-Refcard]].
+
+** Help
+
+| Key Binding | Description                         |
+|-------------+-------------------------------------|
+| ~SPC m h :~ | Run custom search for help          |
+| ~SPC m h h~ | Show help of the current expression |
+| ~SPC m h H~ | Toggle through search history       |
+| ~SPC m h r~ | Show help for current region        |
+
+** Mix
+
+| Key Binding | Description                                                |
+|-------------+------------------------------------------------------------|
+| ~SPC m m :~ | Prompt for a =mix= command                                 |
+| ~SPC m m c~ | Compile the whole application                              |
+| ~SPC m m h~ | Show help for a specific =mix= command                     |
+| ~SPC m m x~ | Run the given expression in the Elixir application context |
+
+** Project
+
+| Key Binding | Description                                                |
+|-------------+------------------------------------------------------------|
+| ~SPC m p t~ | Open project test directory and list all test files.       |
+| ~SPC m g t~ | Toggle between a file and its tests in the current window. |
+| ~SPC m g T~ | Toggle between a file and its tests in other window.       |
+
+** Evaluation in place
+
+| Key Binding | Description                             |
+|-------------+-----------------------------------------|
+| ~SPC m e b~ | Evaluate buffer                         |
+| ~SPC m e B~ | Evaluate buffer and insert result       |
+| ~SPC m e l~ | Evaluate current line                   |
+| ~SPC m e L~ | Evaluate current line and insert result |
+| ~SPC m e r~ | Evaluate region                         |
+| ~SPC m e R~ | Evaluate region and insert result       |
+
+** REPL interactions
+
+| Key Binding | Description                                                     |
+|-------------+-----------------------------------------------------------------|
+| ~SPC m s i~ | Start an =iex= inferior process                                 |
+| ~SPC m s I~ | Start an IEx process with mix (=iex -S mix=)                    |
+| ~SPC m s l~ | Send current line to REPL buffer                                |
+| ~SPC m s L~ | Send current line to REPL buffer and focus it in =insert state= |
+| ~SPC m s r~ | Send region to REPL buffer                                      |
+| ~SPC m s R~ | Send region to REPL buffer and focus it in =insert state=       |
+| ~SPC m s c~ | Compiles the current buffer in the IEx process.                 |
+
+** Tests
+
+| Key Binding | Description                           |
+|-------------+---------------------------------------|
+| ~SPC m g t~ | Open the test file for current buffer |
+| ~SPC m t a~ | Run all the tests                     |
+| ~SPC m t b~ | Run all the tests from current buffer |
+| ~SPC m t t~ | Run test under point                  |
+
+** Compile
+
+| Key Binding | Description                                        |
+|-------------+----------------------------------------------------|
+| ~SPC m c :~ | Run a custom compile command with =elixirc=        |
+| ~SPC m c b~ | Compile the current buffer with elixirc. =elixirc= |
+| ~SPC m c f~ | Compile the given filename with =elixirc=          |
+
+
+** Execute
+
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~SPC m x :~ | Run a custom execute command with =elixir= |
+| ~SPC m x b~ | Run the current buffer through =elixir=    |
+| ~SPC m x f~ | Run =elixir= with the given filename       |
+
+** Code Definition Jump
+
+| Key Binding | Description                                        |
+|-------------+----------------------------------------------------|
+| ~SPC m g g~ | Jump to the elixir expression definition at point. |
+| ~SPC m ,~   | Pop back to where ~SPC m g g~ was last invoked.    |

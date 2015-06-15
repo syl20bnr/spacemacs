@@ -1,0 +1,171 @@
+#+TITLE: Ruby contribution layer for Spacemacs
+
+[[file:img/ruby.gif]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#prerequisites][Prerequisites]]
+     - [[#ruby-version-management][Ruby version management]]
+     - [[#rails-support][Rails support]]
+ - [[#key-bindings][Key bindings]]
+     - [[#ruby-enh-ruby-mode-robe-inf-ruby][Ruby (enh-ruby-mode, robe, inf-ruby)]]
+     - [[#ruby-test-mode][ruby-test-mode]]
+     - [[#rails-projectile-rails][Rails (projectile-rails)]]
+         - [[#code-navigation][Code Navigation]]
+         - [[#refactoring][Refactoring]]
+         - [[#run-commands][RUN commands]]
+         - [[#ex-commands][Ex-commands]]
+
+* Description
+
+This layer aims at providing support for the Ruby language using
+[[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]] and [[https://github.com/dgutov/robe][robe-mode]].
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(ruby))
+#+END_SRC
+
+** Prerequisites
+
+Some of the advanced features supported by this layer depend on external gems
+that need to be installed in the context of your project (see below for guidance
+based on your version manager):
+
+- =pry= and =pry-doc= are required for *jump to definition* and *code documentation* (=robe-mode=)
+- =ruby_parser= is required for *goto-step_definition* in =feature-mode=
+
+You can install the gems in the context of your current project by
+adding them to the =Gemfile=, e.g.:
+
+#+BEGIN_SRC ruby
+  gem 'pry'
+#+END_SRC
+
+or on the command line (please refer to your ruby version manager
+specific documentation for details and caveats):
+
+#+BEGIN_SRC sh
+  gem install pry
+#+END_SRC
+
+** Ruby version management
+
+This layer supports the use of [[https://rvm.io/][RVM]] and [[https://github.com/sstephenson/rbenv][Rbenv]].
+To enable it, set the =ruby-version-manager= var in your =~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/init ()
+    (setq-default ruby-version-manager 'rbenv)
+  )
+#+END_SRC
+
+Possible values are =rbenv= and =rvm=.
+
+** Rails support
+
+Rails support is available through [[https://github.com/asok/projectile-rails][projectile-rails]].
+To enable it, set the =ruby-enable-ruby-on-rails-support= var in your
+=~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/init ()
+    (setq-default ruby-enable-ruby-on-rails-support t)
+  )
+#+END_SRC
+
+This will also add [[https://github.com/nex3/haml-mode][haml-mode]] (for templates written in [[http://haml.info][haml language]] and
+[[https://github.com/michaelklishin/cucumber.el][feature-mode]] for [[http://cukes.info][Cucumber]] support.
+
+* Key bindings
+
+** Ruby (enh-ruby-mode, robe, inf-ruby)
+
+| Key binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC m g g~ | go to definition (robe-jump)                |
+| ~SPC m h d~ | go to Documentation                         |
+| ~SPC m s f~ | send function definition                    |
+| ~SPC m s F~ | send function definition and switch to REPL |
+| ~SPC m s i~ | start REPL                                  |
+| ~SPC m s r~ | send region                                 |
+| ~SPC m s R~ | send region and switch to REPL              |
+| ~SPC m s s~ | switch to REPL                              |
+
+** ruby-test-mode
+
+ruby-test-mode comes bundled with spacemacs, but this contribution adds
+a couple of useful keybindings:
+
+| Key binding | Description         |
+|-------------+---------------------|
+| ~SPC m t b~ | run test file       |
+| ~SPC m t t~ | run test at pointer |
+
+** Rails (projectile-rails)
+
+*** Code Navigation
+
+| Key binding   | Description                                                     |
+|---------------+-----------------------------------------------------------------|
+| ~SPC m r f a~ | find localization file                                          |
+| ~SPC m r f c~ | find controller                                                 |
+| ~SPC m r f e~ | find environment file                                           |
+| ~SPC m r f f~ | find feature                                                    |
+| ~SPC m r f h~ | find helper                                                     |
+| ~SPC m r f i~ | find initializer                                                |
+| ~SPC m r f j~ | find javascript file                                            |
+| ~SPC m r f l~ | find library                                                    |
+| ~SPC m r f m~ | find model                                                      |
+| ~SPC m r f n~ | find migration                                                  |
+| ~SPC m r f o~ | find log                                                        |
+| ~SPC m r f p~ | find spec file                                                  |
+| ~SPC m r f r~ | find rake task                                                  |
+| ~SPC m r f s~ | find stylesheet file                                            |
+| ~SPC m r f t~ | find test                                                       |
+| ~SPC m r f u~ | find fixture                                                    |
+| ~SPC m r f v~ | find view                                                       |
+| ~SPC m r f y~ | find layout                                                     |
+| ~SPC m r f @~ | find mailer                                                     |
+| ~SPC m r g c~ | go to current controller                                        |
+| ~SPC m r g d~ | go to DB schema                                                 |
+| ~SPC m r g e~ | go to DB seeds                                                  |
+| ~SPC m r g h~ | go to current helper                                            |
+| ~SPC m r g j~ | go to current javascript                                        |
+| ~SPC m r g g~ | go to Gemfile                                                   |
+| ~SPC m r g m~ | go to current model                                             |
+| ~SPC m r g n~ | go to current migration                                         |
+| ~SPC m r g p~ | go to current spec                                              |
+| ~SPC m r g r~ | go to routes                                                    |
+| ~SPC m r g s~ | go to current stylesheet                                        |
+| ~SPC m r g t~ | go to current test                                              |
+| ~SPC m r g u~ | go to current fixture                                           |
+| ~SPC m r g v~ | go to current view                                              |
+| ~SPC m r g z~ | go to spec helper                                               |
+| ~SPC m r g .~ | go to file at point (faster but less powerful than ~SPC m g g~) |
+
+*** Refactoring
+
+| Key binding   | Description                 |
+|---------------+-----------------------------|
+| ~SPC m r R x~ | extract region into partial |
+
+*** RUN commands
+
+| Key binding   | Description          |
+|---------------+----------------------|
+| ~SPC m r c c~ | run rails generator  |
+| ~SPC m r i~   | start rails console  |
+| ~SPC m r s r~ | reload Rails project |
+| ~SPC m r r :~ | run rake task        |
+| ~SPC m r x s~ | start rails server   |
+
+*** Ex-commands
+
+| Key binding | Description                             |
+|-------------+-----------------------------------------|
+| ~:A~        | Switch between implementation and tests |

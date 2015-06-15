@@ -82,6 +82,7 @@
         move-text
         neotree
         page-break-lines
+        pcre2el
         popup
         popwin
         powerline
@@ -369,6 +370,9 @@
            (define-key map (kbd "R") 'ahs-back-to-start)
            (define-key map (kbd "r") (lambda () (interactive)
                                        (eval '(ahs-change-range) nil)))
+           (define-key map (kbd "/") 'spacemacs/helm-project-smart-do-search-region-or-symbol)
+           (define-key map (kbd "b") 'spacemacs/helm-buffers-smart-do-search-region-or-symbol)
+           (define-key map (kbd "f") 'spacemacs/helm-files-smart-do-search-region-or-symbol)
            map) nil)
         (let* ((i 0)
                (overlay-count (length ahs-overlay-list))
@@ -390,7 +394,7 @@
                  (propx/y (propertize x/y 'face ahs-plugin-whole-buffer-face))
                  (hidden (if (< 0 (- overlay-count (nth 4 st))) "*" ""))
                  (prophidden (propertize hidden 'face '(:weight bold))))
-            (echo "%s %s%s press (n/N) to navigate, (e) to edit, (r) to change range or (R) for reset (d) to go to next definition (D) to go to previous definition"
+            (echo "%s %s%s (n/N) move, (e) edit, (r) range, (R) reset, (d/D) definition, (/) find in project, (f) find in files, (b) find in opened buffers"
                   propplugin propx/y prophidden)))))))
 
 (defun spacemacs/init-bind-key ())
@@ -1038,12 +1042,38 @@ Example: (evil-map visual \"<\" \"<gv\")"
 (defun spacemacs/init-expand-region ()
   (use-package expand-region
     :defer t
-    :init
-    (evil-leader/set-key "v" 'er/expand-region)
+    :init (evil-leader/set-key "v" 'er/expand-region)
     :config
-    (custom-set-variables
-     '(expand-region-contract-fast-key "V")
-     '(expand-region-reset-fast-key "r"))))
+    (progn
+      ;; add search capability to expand-region
+      (when (configuration-layer/package-usedp 'helm-ag)
+        (defadvice er/prepare-for-more-expansions-internal
+            (around helm-ag/prepare-for-more-expansions-internal activate)
+          ad-do-it
+          (let ((new-msg (concat (car ad-return-value)
+                                 ", / to search in project, "
+                                 "f to search in files, "
+                                 "b to search in opened buffers"))
+                (new-bindings (cdr ad-return-value)))
+            (cl-pushnew
+             '("/" (lambda ()
+                     (call-interactively
+                      'spacemacs/helm-project-smart-do-search-region-or-symbol)))
+             new-bindings)
+            (cl-pushnew
+             '("f" (lambda ()
+                     (call-interactively
+                      'spacemacs/helm-files-smart-do-search-region-or-symbol)))
+             new-bindings)
+            (cl-pushnew
+             '("b" (lambda ()
+                     (call-interactively
+                      'spacemacs/helm-buffers-smart-do-search-region-or-symbol)))
+             new-bindings)
+            (setq ad-return-value (cons new-msg new-bindings)))))
+      (custom-set-variables
+       '(expand-region-contract-fast-key "V")
+       '(expand-region-reset-fast-key "r")))))
 
 (defun spacemacs/init-fancy-battery ()
   (use-package fancy-battery
@@ -1356,54 +1386,70 @@ Removes the automatic guessing of the initial value based on thing at point. "
             (helm-find-files-up-one-level 1)
           ad-do-it))
 
-      (defun spacemacs/helm-do-ack ()
-        "Perform a search with ack using `helm-ag.'"
+      (defun spacemacs//helm-do-grep-region-or-symbol (&optional targs use-region-or-symbol-p)
+        "Version of `helm-do-grep' with a default input."
         (interactive)
-        (if (configuration-layer/package-usedp 'helm-ag)
-            (let ((helm-ag-base-command "ack --nocolor --nogroup"))
-              (call-interactively 'helm-do-ag))
-          (message "error: helm-ag not found.")))
+        (require 'helm)
+        (cl-letf*
+            (((symbol-function 'this-fn) (symbol-function 'helm-do-grep-1))
+             ((symbol-function 'helm-do-grep-1)
+              (lambda (targets &optional recurse zgrep exts default-input region-or-symbol-p)
+                (let ((new-input (when region-or-symbol-p
+                                   (if (region-active-p)
+                                       (buffer-substring-no-properties
+                                        (region-beginning) (region-end))
+                                     (thing-at-point 'symbol t)))))
+                  (this-fn targets recurse zgrep exts default-input new-input))))
+             (preselection (or (dired-get-filename nil t)
+                               (buffer-file-name (current-buffer))))
+             (targets   (if targs
+                            targs
+                          (helm-read-file-name
+                          "Search in file(s): "
+                          :marked-candidates t
+                          :preselect (and helm-do-grep-preselect-candidate
+                                          (if helm-ff-transformer-show-only-basename
+                                              (helm-basename preselection)
+                                            preselection))))))
+          (helm-do-grep-1 targets nil nil nil nil use-region-or-symbol-p)))
 
-      (defun spacemacs/helm-do-pt ()
-        "Perform a search with the platinum searcher using `helm-ag.'"
+      (defun spacemacs/helm-file-do-grep ()
+        "Search in current file with `grep' using a default input."
         (interactive)
-        (if (configuration-layer/package-usedp 'helm-ag)
-            (let ((helm-ag-base-command "pt --nocolor --nogroup"))
-              (call-interactively 'helm-do-ag))
-          (message "error: helm-ag not found.")))
+        (spacemacs//helm-do-grep-region-or-symbol
+         (list (buffer-file-name (current-buffer))) nil))
 
-      (defun spacemacs//helm-do-search-find-tool (tools)
-        "Create a cond form given a TOOLS string list and evaluate it."
-        (eval `(cond
-                ,@(mapcar (lambda (x)
-                            `((executable-find ,x)
-                              ',(let ((func (intern
-                                             (format "spacemacs/helm-do-%s"
-                                                     x))))
-                                  (if (fboundp func)
-                                      func
-                                    (intern (format "helm-do-%s" x))))))
-                          tools)
-                (t 'helm-do-grep))))
+      (defun spacemacs/helm-file-do-grep-region-or-symbol ()
+        "Search in current file with `grep' using a default input."
+        (interactive)
+        (spacemacs//helm-do-grep-region-or-symbol
+         (list (buffer-file-name (current-buffer))) t))
 
-      (defun spacemacs/helm-smart-do-search (&optional arg)
-        "Execute the first found search tool in `dotspacemacs-search-tools'.
+      (defun spacemacs/helm-files-do-grep ()
+        "Search in files with `grep'."
+        (interactive)
+        (spacemacs//helm-do-grep-region-or-symbol nil nil))
 
-Search for a search tool in the order provided by `dotspacemacs-search-tools'
-If ARG is non nil then `ag' and `pt' and ignored."
-        (interactive "P")
-        (let ((tools
-               (if arg
-                   (delq nil (mapcar (lambda (x)
-                                       (and (not (member x '("ag" "pt"))) x))
-                                     dotspacemacs-search-tools))
-                 dotspacemacs-search-tools)))
-          (call-interactively (spacemacs//helm-do-search-find-tool tools))))
+      (defun spacemacs/helm-files-do-grep-region-or-symbol ()
+        "Search in files with `grep' using a default input."
+        (interactive)
+        (spacemacs//helm-do-grep-region-or-symbol nil t))
 
-      ;; evilify the helm-grep buffer
-      (evilify helm-grep-mode helm-grep-mode-map
-               (kbd "RET") 'helm-grep-mode-jump-other-window
-               (kbd "q") 'quit-window)
+      (defun spacemacs/helm-buffers-do-grep ()
+        "Search in opened buffers with `grep'."
+        (interactive)
+        (let ((buffers (cl-loop for buffer in (buffer-list)
+                                when (buffer-file-name buffer)
+                                collect (buffer-file-name buffer))))
+          (spacemacs//helm-do-grep-region-or-symbol buffers nil)))
+
+      (defun spacemacs/helm-buffers-do-grep-region-or-symbol ()
+        "Search in opened buffers with `grep' with a default input."
+        (interactive)
+        (let ((buffers (cl-loop for buffer in (buffer-list)
+                                when (buffer-file-name buffer)
+                                collect (buffer-file-name buffer))))
+          (spacemacs//helm-do-grep-region-or-symbol buffers t)))
 
       (defun spacemacs/last-search-buffer ()
         "open last helm-ag or hgrep buffer."
@@ -1420,25 +1466,29 @@ If ARG is non nil then `ag' and `pt' and ignored."
 
       (evil-leader/set-key
         "<f1>" 'helm-apropos
-        "bb"  'helm-mini
-        "Cl"  'helm-colors
-        "ff"  'spacemacs/helm-find-files
-        "fF"  'helm-find-files
-        "fr"  'helm-recentf
-        "hb"  'helm-pp-bookmarks
-        "hi"  'helm-info-at-point
-        "hl"  'helm-resume
-        "hm"  'helm-man-woman
-        "ry"  'helm-show-kill-ring
-        "rr"  'helm-register
-        "rm"  'helm-all-mark-rings
-        "s/"  'spacemacs/helm-smart-do-search
-        "sa"  'helm-do-ag
-        "sg"  'helm-do-grep
-        "sk"  'spacemacs/helm-do-ack
-        "sp"  'spacemacs/helm-do-pt
-        "sL"  'spacemacs/last-search-buffer
-        "sl"  'helm-semantic-or-imenu)
+        "bb"   'helm-mini
+        "Cl"   'helm-colors
+        "ff"   'spacemacs/helm-find-files
+        "fF"   'helm-find-files
+        "fr"   'helm-recentf
+        "hb"   'helm-pp-bookmarks
+        "hi"   'helm-info-at-point
+        "hl"   'helm-resume
+        "hm"   'helm-man-woman
+        "ry"   'helm-show-kill-ring
+        "rr"   'helm-register
+        "rm"   'helm-all-mark-rings
+        "sL"   'spacemacs/last-search-buffer
+        "sl"  'spacemacs/jump-in-buffer)
+
+      ;; search with grep
+      (evil-leader/set-key
+        "bsg"  'spacemacs/helm-buffers-do-grep
+        "bsG"  'spacemacs/helm-buffers-do-grep-region-or-symbol
+        "fsg"  'spacemacs/helm-files-do-grep
+        "fsG"  'spacemacs/helm-files-do-grep-region-or-symbol
+        "sg"   'spacemacs/helm-file-do-grep
+        "sG"   'spacemacs/helm-file-do-grep-region-or-symbol)
 
       ;; define the key binding at the very end in order to allow the user
       ;; to overwrite any key binding
@@ -1626,11 +1676,281 @@ ARG non nil means that the editing style is `vim'."
 (defun spacemacs/init-helm-ag ()
   (use-package helm-ag
     :defer t
+    :init
+    (progn
+      (defun spacemacs//helm-do-ag-region-or-symbol (func &optional dir)
+        "Search with `ag' with a default input."
+        (require 'helm-ag)
+        (cl-letf* (((symbol-value 'helm-ag-insert-at-point) 'symbol)
+                   ;; make thing-at-point choosing the active region first
+                   ((symbol-function 'this-fn) (symbol-function 'thing-at-point))
+                   ((symbol-function 'thing-at-point)
+                    (lambda (thing)
+                      (if (region-active-p)
+                          (buffer-substring-no-properties
+                           (region-beginning) (region-end))
+                        (this-fn thing)))))
+          (funcall func dir)))
+
+      (defun spacemacs//helm-do-search-find-tool (base tools default-inputp)
+        "Create a cond form given a TOOLS string list and evaluate it."
+        (eval
+         `(cond
+           ,@(mapcar
+              (lambda (x)
+                `((executable-find ,x)
+                  ',(let ((func
+                           (intern
+                            (format (if default-inputp
+                                        "spacemacs/%s-%s-region-or-symbol"
+                                      "spacemacs/%s-%s")
+                                    base x))))
+                      (if (fboundp func)
+                          func
+                        (intern (format "%s-%s"  base x))))))
+                     tools)
+           (t 'helm-do-grep))))
+
+      (defun spacemacs//get-search-tools (defaultp)
+        "Return a list of search tools.
+Return `dotspacemacs-search-tools' or just a list of default tools when
+DEFAULTP is non-nil."
+        (if defaultp
+            (delq nil (mapcar (lambda (x)
+                                (and (not (member x '("ag" "pt"))) x))
+                              dotspacemacs-search-tools))
+          dotspacemacs-search-tools))
+
+      ;; Search in current file ----------------------------------------------
+
+      (defun spacemacs/helm-file-do-ag-region-or-symbol ()
+        "Search in current file with `ag' using a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'helm-ag-this-file))
+
+      ;; Search in files -----------------------------------------------------
+
+      (defun spacemacs/helm-files-do-ag-region-or-symbol ()
+        "Search in files with `ag' using a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'helm-do-ag))
+
+      (defun spacemacs/helm-files-do-ack (&optional dir)
+        "Search in files with `ack'."
+        (interactive)
+        (let ((helm-ag-base-command "ack --nocolor --nogroup"))
+          (helm-do-ag dir)))
+
+      (defun spacemacs/helm-files-do-ack-region-or-symbol ()
+        "Search in files with `ack' using a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ack))
+
+      (defun spacemacs/helm-files-do-pt (&optional dir)
+        "Search in files with `pt'."
+        (interactive)
+        (let ((helm-ag-base-command "pt --nocolor --nogroup"))
+          (helm-do-ag dir)))
+
+      (defun spacemacs/helm-files-do-pt-region-or-symbol ()
+        "Search in files with `pt' using a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-pt))
+
+      (defun spacemacs/helm-files-smart-do-search (&optional arg default-inputp)
+        "Search in opened buffers using `dotspacemacs-search-tools'.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If ARG is non nil then `ag' and `pt' and ignored.
+If DEFAULT-INPUTP is non nil then the current region or symbol at point
+are used as default input."
+        (interactive "P")
+        (call-interactively
+         (spacemacs//helm-do-search-find-tool "helm-files-do"
+                                              (spacemacs//get-search-tools arg)
+                                              default-inputp)))
+
+      (defun spacemacs/helm-files-smart-do-search-region-or-symbol (&optional arg)
+        "Search in opened buffers using `dotspacemacs-search-tools'.
+with default input.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If ARG is non nil then `ag' and `pt' and ignored."
+        (interactive "P")
+        (spacemacs/helm-files-smart-do-search arg t))
+
+      ;; Search in buffers ---------------------------------------------------
+
+      (defun spacemacs//helm-do-ag-buffers (&optional _)
+        "Wrapper to execute `helm-ag-buffers.'"
+        (helm-do-ag-buffers))
+
+      (defun spacemacs/helm-buffers-do-ag-region-or-symbol ()
+        "Search in opened buffers with `ag' with a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs//helm-do-ag-buffers))
+
+      (defun spacemacs/helm-buffers-do-ack (&optional _)
+        "Search in opened buffers with `ack'."
+        (interactive)
+        (let ((helm-ag-base-command "ack --nocolor --nogroup"))
+          (helm-do-ag-buffers)))
+
+      (defun spacemacs/helm-buffers-do-ack-region-or-symbol ()
+        "Search in opened buffers with `ack' with a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-buffers-do-ack))
+
+      (defun spacemacs/helm-buffers-do-pt (&optional _)
+        "Search in opened buffers with `pt'."
+        (interactive)
+        (let ((helm-ag-base-command "pt --nocolor --nogroup"))
+          (helm-do-ag-buffers)))
+
+      (defun spacemacs/helm-buffers-do-pt-region-or-symbol ()
+        "Search in opened buffers with `pt' using a default input."
+        (interactive)
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-buffers-do-pt))
+
+      (defun spacemacs/helm-buffers-smart-do-search
+          (&optional arg default-inputp)
+        "Search in opened buffers using `dotspacemacs-search-tools'.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If ARG is non nil then `ag' and `pt' and ignored.
+If DEFAULT-INPUTP is non nil then the current region or symbol at point
+are used as default input."
+        (interactive "P")
+        (call-interactively
+         (spacemacs//helm-do-search-find-tool "helm-buffers-do"
+                                              (spacemacs//get-search-tools arg)
+                                              default-inputp)))
+
+      (defun spacemacs/helm-buffers-smart-do-search-region-or-symbol
+          (&optional arg)
+        "Search in opened buffers using `dotspacemacs-search-tools' with
+default input.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If ARG is non nil then `ag' and `pt' and ignored."
+        (interactive "P")
+        (spacemacs/helm-buffers-smart-do-search arg t))
+
+      ;; Search in project ---------------------------------------------------
+
+      (defun spacemacs/helm-project-do-ag ()
+        "Search in current project with `ag'."
+        (interactive)
+        (let ((dir (projectile-project-root)))
+          (if dir
+              (helm-do-ag dir)
+            (message "error: Not in a project."))))
+
+      (defun spacemacs/helm-project-do-ag-region-or-symbol ()
+        "Search in current project with `ag' using a default input."
+        (interactive)
+        (let ((dir (projectile-project-root)))
+          (if dir
+              (spacemacs//helm-do-ag-region-or-symbol 'helm-do-ag dir)
+            (message "error: Not in a project."))))
+
+      (defun spacemacs/helm-project-do-ack ()
+        "Search in current project with `ack'."
+        (interactive)
+        (let ((dir (projectile-project-root)))
+          (if dir
+              (spacemacs/helm-files-do-ack dir)
+            (message "error: Not in a project."))))
+
+      (defun spacemacs/helm-project-do-ack-region-or-symbol ()
+        "Search in current project with `ack' using a default input."
+        (interactive)
+        (let ((dir (projectile-project-root)))
+          (if dir
+              (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ack dir)
+            (message "error: Not in a project."))))
+
+      (defun spacemacs/helm-project-do-pt ()
+        "Search in current project with `pt'."
+        (interactive)
+        (let ((dir (projectile-project-root)))
+          (if dir
+              (spacemacs/helm-files-do-pt dir)
+            (message "error: Not in a project."))))
+
+      (defun spacemacs/helm-project-do-pt-region-or-symbol ()
+        "Search in current project with `pt' using a default input."
+        (interactive)
+        (let ((dir (projectile-project-root)))
+          (if dir
+              (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-pt dir)
+            (message "error: Not in a project."))))
+
+      (defun spacemacs/helm-project-smart-do-search
+          (&optional arg default-inputp)
+        "Search in current project using `dotspacemacs-search-tools'.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If ARG is non nil then `ag' and `pt' and ignored.
+If DEFAULT-INPUTP is non nil then the current region or symbol at point
+are used as default input."
+        (interactive "P")
+        (call-interactively
+         (spacemacs//helm-do-search-find-tool "helm-project-do"
+                                              (spacemacs//get-search-tools arg)
+                                              default-inputp)))
+
+      (defun spacemacs/helm-project-smart-do-search-region-or-symbol
+          (&optional arg)
+        "Search in current project using `dotspacemacs-search-tools' with
+ default input.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If ARG is non nil then `ag' and `pt' and ignored."
+        (interactive "P")
+        (spacemacs/helm-project-smart-do-search arg t))
+
+      ;; evilify the helm-grep buffer
+      (evilify helm-grep-mode helm-grep-mode-map
+               (kbd "RET") 'helm-grep-mode-jump-other-window
+               (kbd "q") 'quit-window)
+
+      (evil-leader/set-key
+        ;; quick search in project
+        "/"   'spacemacs/helm-project-smart-do-search
+        "?"   'spacemacs/helm-project-smart-do-search-region-or-symbol
+        ;; opened buffers scope
+        "b/"  'spacemacs/helm-buffers-smart-do-search
+        "b?"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
+        "bsa" 'helm-do-ag-buffers
+        "bsA" 'spacemacs/helm-buffers-do-ag-region-or-symbol
+        "bsk" 'spacemacs/helm-buffers-do-ack
+        "bsK" 'spacemacs/helm-buffers-do-ack-region-or-symbol
+        "bsp" 'spacemacs/helm-buffers-do-pt
+        "bsP" 'spacemacs/helm-buffers-do-pt-region-or-symbol
+        ;; current file scope
+        "s/"  'spacemacs/helm-buffers-smart-do-search
+        "s?"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
+        "sa"  'helm-ag-this-file
+        "sA"  'spacemacs/helm-file-do-ag-region-or-symbol
+        ;; files scope
+        "f/"  'spacemacs/helm-files-smart-do-search
+        "f?"  'spacemacs/helm-files-smart-do-search-region-or-symbol
+        "fsa" 'helm-do-ag
+        "fsA" 'spacemacs/helm-files-do-ag-region-or-symbol
+        "fsk" 'spacemacs/helm-files-do-ack
+        "fsK" 'spacemacs/helm-files-do-ack-region-or-symbol
+        "fsp" 'spacemacs/helm-files-do-pt
+        "fsP" 'spacemacs/helm-files-do-pt-region-or-symbol
+        ;; current project scope
+        "p/"  'spacemacs/helm-project-smart-do-search
+        "p?"  'spacemacs/helm-project-smart-do-search-region-or-symbol
+        "psa" 'spacemacs/helm-project-do-ag
+        "psA" 'spacemacs/helm-project-do-ag-region-or-symbol
+        "psk" 'spacemacs/helm-project-do-ack
+        "psK" 'spacemacs/helm-project-do-ack-region-or-symbol
+        "psp" 'spacemacs/helm-project-do-pt
+        "psP" 'spacemacs/helm-project-do-pt-region-or-symbol))
     :config
-    (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)
-    (evilify helm-ag-mode helm-ag-mode-map
-             (kbd "RET") 'helm-ag-mode-jump-other-window
-             (kbd "q") 'quit-window)))
+    (progn
+      (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)
+      (evilify helm-ag-mode helm-ag-mode-map
+               (kbd "RET") 'helm-ag-mode-jump-other-window
+               (kbd "q") 'quit-window))))
 
 (defun spacemacs/init-helm-descbinds ()
   (use-package helm-descbinds
@@ -1639,7 +1959,7 @@ ARG non nil means that the editing style is `vim'."
     (progn
       (setq helm-descbinds-window-style 'split)
       (add-hook 'helm-mode-hook 'helm-descbinds-mode)
-      (evil-leader/set-key "?" 'helm-descbinds))))
+      (evil-leader/set-key "hk" 'helm-descbinds))))
 
 (defun spacemacs/init-helm-make ()
   (use-package helm-make
@@ -1658,9 +1978,7 @@ ARG non nil means that the editing style is `vim'."
 
 (defun spacemacs/init-helm-projectile ()
   (use-package helm-projectile
-    :commands (helm-projectile-ack
-               helm-projectile-ag
-               helm-projectile-switch-to-buffer
+    :commands (helm-projectile-switch-to-buffer
                helm-projectile-find-dir
                helm-projectile-dired-find-dir
                helm-projectile-recentf
@@ -1675,55 +1993,18 @@ ARG non nil means that the editing style is `vim'."
       (defconst spacemacs-use-helm-projectile t
         "This variable is only defined if helm-projectile is used.")
 
-      (defun spacemacs/helm-projectile-pt ()
-        "Perform a search with the platinum searcher using `helm-projectile.'"
-        (interactive)
-        (if (configuration-layer/package-usedp 'helm-ag)
-            (let ((helm-ag-base-command "pt -e --nocolor --nogroup"))
-              (call-interactively 'helm-projectile-ag))
-          (message "error: helm-ag not found.")))
-
-      (defun spacemacs//helm-projectile-do-search-find-tool (tools)
-        "Create a cond form given a TOOLS string list and evaluate it."
-        (eval `(cond
-                ,@(mapcar (lambda (x)
-                            `((executable-find ,x)
-                              ',(let ((func (intern
-                                             (format "spacemacs/helm-projectile-%s"
-                                                     x))))
-                                  (if (fboundp func)
-                                      func
-                                    (intern (format "helm-projectile-%s" x))))))
-                          tools)
-                (t 'helm-do-grep))))
-
-      (defun spacemacs/helm-projectile-smart-do-search (&optional arg)
-        "Execute the first found search tool in `dotspacemacs-search-tools'.
-
-Search for a search tool in the order provided by `dotspacemacs-search-tools'
-If ARG is non nil then `ag' and `pt' and ignored."
-        (interactive "P")
-        (let ((tools
-               (if arg
-                   (delq nil (mapcar (lambda (x)
-                                       (and (not (member x '("ag" "pt"))) x))
-                                     dotspacemacs-search-tools))
-                 dotspacemacs-search-tools)))
-          (call-interactively (spacemacs//helm-projectile-do-search-find-tool
-                               tools))))
+      ;; needed for smart search if user's default tool is grep
+      (defalias 'spacemacs/helm-project-do-grep 'helm-projectile-grep)
+      (defalias 'spacemacs/helm-project-do-grep-region-or-symbol 'helm-projectile-grep)
 
       (evil-leader/set-key
-        "/"   'spacemacs/helm-projectile-smart-do-search
         "pb"  'helm-projectile-switch-to-buffer
         "pd"  'helm-projectile-find-dir
         "pe"  'helm-projectile-recentf
         "pf"  'helm-projectile-find-file
         "ph"  'helm-projectile
         "pp"  'helm-projectile-switch-project
-        "psa" 'helm-projectile-ag
         "psg" 'helm-projectile-grep
-        "psk" 'helm-projectile-ack
-        "psp" 'helm-projectile-pt
         "pv"  'projectile-vc))))
 
 (defun spacemacs/init-helm-swoop ()
@@ -2132,6 +2413,33 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :init
     (global-page-break-lines-mode t)
     (spacemacs|hide-lighter page-break-lines-mode)))
+
+(defun spacemacs/init-pcre2el ()
+  (use-package pcre2el
+    :defer t
+    :commands rxt-fontify-regexp-at-point
+    :init
+    (progn
+      (spacemacs/declare-prefix "R" "pcre2el")
+      (evil-leader/set-key
+        "R/"  'rxt-explain
+        "Rc"  'rxt-convert-syntax
+        "Rx"  'rxt-convert-to-rx
+        "R'"  'rxt-convert-to-strings
+        "Rpe" 'rxt-pcre-to-elisp
+        "R%"  'pcre-query-replace-regexp
+        "Rpx" 'rxt-pcre-to-rx
+        "Rps" 'rxt-pcre-to-sre
+        "Rp'" 'rxt-pcre-to-strings
+        "Rp/" 'rxt-explain-pcre
+        "Re/" 'rxt-explain-elisp
+        "Rep" 'rxt-elisp-to-pcre
+        "Rex" 'rxt-elisp-to-rx
+        "Res" 'rxt-elisp-to-sre
+        "Re'" 'rxt-elisp-to-strings
+        "Ret" 'rxt-toggle-elisp-rx
+        "Rt"  'rxt-toggle-elisp-rx
+        "Rh"  'rxt-fontify-regexp-at-point))))
 
 (defun spacemacs/init-paradox ()
   (use-package paradox
@@ -2565,8 +2873,6 @@ It is a string holding:
                                                    "projectile-bookmarks.eld"))
       (unless (boundp 'spacemacs-use-helm-projectile)
         (evil-leader/set-key
-          "pa" 'projectile-ack
-          "pA" 'projectile-ag
           "pb" 'projectile-switch-to-buffer
           "pd" 'projectile-find-dir
           "pe" 'projectile-recentf

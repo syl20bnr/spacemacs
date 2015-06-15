@@ -1,0 +1,123 @@
+#+TITLE: LaTeX Layer for Spacemacs
+
+[[file:img/latex.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#auto-completion][Auto-completion]]
+     - [[#previewing][Previewing]]
+     - [[#build-command][Build command]]
+     - [[#auto-fill][Auto-fill]]
+ - [[#keybindings][Keybindings]]
+     - [[#reftex][RefTeX]]
+ - [[#maintainer][Maintainer]]
+
+* Description
+
+This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
+
+** Features
+- Auto-completion with company-auctex
+- Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
+- Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(latex))
+#+END_SRC
+
+** Auto-completion
+
+Add the layer =auto-completion= to the variable
+=dotspacemacs-configuration-layers= of your dotfile =~/.spacemacs=.
+
+** Previewing
+
+To perform full-document previews (that is, aside from the inline previewing
+under ~SPC m p~), add the following to your =.spacemacs=
+under =dotspacemacs/config=:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+#+END_SRC
+
+Then when you open up a compiled PDF, the preview will update automatically
+when you recompile.
+
+** Build command
+
+A build command can be specific via the layer variable =latex-build-command=.
+
+The default value is =LaTeX=. If =LatexMk= is specified, the appropriate
+=LatexMk= configuration will be applied.
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (latex :variables latex-build-command "LatexMk"))
+#+END_SRC
+
+** Auto-fill
+
+To enable auto-fill set the variable =latex-enable-auto-fill= to =t=.
+
+The variable =latex-nofill-env= provide the list of environment names where
+=auto-fille-mode= will be inhibited.
+
+#+BEGIN_SRC emacs-lisp
+  dotspacemacs-configuration-layers '(
+    (latex :variables latex-enable-auto-fill t))
+#+END_SRC
+
+* Keybindings
+
+| Key Binding | Description                                             |
+|-------------+---------------------------------------------------------+
+| ~SPC m *~   | TeX documentation, can be very slow                     |
+| ~SPC m b~   | build                                                   |
+| ~SPC m c~   | close LaTeX environment                                 |
+| ~SPC m C~   | TeX command on master file                              |
+| ~SPC m e~   | insert LaTeX environment                                |
+| ~SPC m f~   | insert LaTeX font - full bindings here: [[https://www.gnu.org/software/auctex/manual/auctex/Font-Specifiers.html][AUCTeX Font Doc]] |
+| ~SPC m i~   | insert =\item=                                          |
+| ~SPC m p r~ | preview region                                          |
+| ~SPC m p b~ | preview buffer                                          |
+| ~SPC m p d~ | preview document                                        |
+| ~SPC m p e~ | preview environment                                     |
+| ~SPC m p s~ | preview section                                         |
+| ~SPC m p p~ | preview at point                                        |
+| ~SPC m p f~ | cache preamble for preview                              |
+| ~SPC m p c~ | clear previews                                          |
+| ~SPC m v  ~ | view                                                    |
+
+
+** RefTeX
+
+| Key Binding   | Description                           |
+|---------------+---------------------------------------|
+| ~SPC m r c~   | reftex-citation                       |
+| ~SPC m r g~   | reftex-grep-document                  |
+| ~SPC m r i~   | reftex-index-selection-or-word        |
+| ~SPC m r I~   | reftex-display-index                  |
+| ~SPC m r C-i~ | reftex-index                          |
+| ~SPC m r l~   | reftex-label                          |
+| ~SPC m r p~   | reftex-index-phrase-selection-or-word |
+| ~SPC m r P~   | reftex-index-visit-phrases-buffer     |
+| ~SPC m r r~   | reftex-reference                      |
+| ~SPC m r s~   | reftex-search-document                |
+| ~SPC m r t~   | reftex-toc                            |
+| ~SPC m r T~   | reftex-toc-recenter                   |
+| ~SPC m r v~   | reftex-view-crossref                  |
+
+* Maintainer
+
+This layer was created by and is maintained by @trishume, ping me in the Gitter
+chat if you have questions. Feel free to submit PRs for this layer though if
+you have improvements.

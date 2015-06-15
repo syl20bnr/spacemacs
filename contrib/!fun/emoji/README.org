@@ -1,0 +1,41 @@
+#+TITLE: Emoji contribution layer for Spacemacs
+
+#+HTML: :blue_heart::green_heart::heart::gift_heart::heartbeat::heartpulse::purple_heart::sparkling_heart::yellow_heart:
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features:]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+     - [[#emoji-dedicated-buffer][Emoji dedicated buffer]]
+
+* Description
+
+This layer adds support for Emoji emoticons from [[http://www.emoji-cheat-sheet.com/][emoji-cheat-sheet.com]].
+
+** Features:
+- Browse Emoji in a dedicated buffer
+- Display Emoji images in buffer
+- Insert one or several Emoji with an helm front-end
+  
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(emoji))
+#+END_SRC
+
+* Key bindings
+
+| Key Binding | Description                             |
+|-------------+-----------------------------------------|
+| ~SPC a E~   | open a dedicated buffer to browse Emoji |
+| ~SPC i e~   | insert Emoji via an helm buffer         |
+
+** Emoji dedicated buffer
+
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~RET~       | copy current Emoji code |
+| ~q~         | quit                    |

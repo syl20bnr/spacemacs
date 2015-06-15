@@ -1,0 +1,72 @@
+#+TITLE: Eyebrowse contribution layer for Spacemacs
+
+[[file:img/eyebrowse.gif]] [[file:img/i3wm.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#removing-additional-help][Removing additional help]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+This layer adds [[https://i3wm.org/][i3wm]] like workspaces thanks to the [[https://github.com/wasamasa/eyebrowse][eyebrowse]] package.
+
+Once the layer is activated a new number is added to the right side of the
+mode-line. This number corresponds to the currently active workspace number.
+
+At startup, the workspace number 1 is active. Switching to a workspace will
+create it if it does not exist. For instance at startup you can press
+~SPC W 2~ to create the workspace 2.
+
+The key bindings are registered in a micro-state displayed in the minibuffer.
+The docstring of the micro-state displays the existing workspaces and the
+currently active workspace has square brackets. Since this is a micro-state it
+is possible to just preview a workspace, for instance press ~SPC W 2~ to see
+what's on the workspace 2 then press ~TAB~ to go back to the previously
+activated workspace.
+
+It is also possible to give a label to a the current workspace by pressing
+~r~ in the micro-state.
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(eyebrowse))
+#+END_SRC
+
+** Removing additional help
+
+Once you know the key bindings to navigate between the workspaces you
+may want to disable the exhaustive help in the workspace micro-state.
+Set the variable =eyebrowse-display-help= to =nil=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((eyebrowse :variables eyebrowse-display-help nil)))
+#+END_SRC
+
+* Key bindings
+
+| Key Binding            | Description                          |
+|------------------------+--------------------------------------|
+| ~SPC W 1~              | create or switch to workspace 1      |
+| ~SPC W 2~              | create or switch to workspace 2      |
+| ~SPC W 3~              | create or switch to workspace 3      |
+| ~SPC W 4~              | create or switch to workspace 4      |
+| ~SPC W 5~              | create or switch to workspace 5      |
+| ~SPC W 6~              | create or switch to workspace 6      |
+| ~SPC W 7~              | create or switch to workspace 7      |
+| ~SPC W 8~              | create or switch to workspace 8      |
+| ~SPC W 9~              | create or switch to workspace 9      |
+| ~SPC W 0~              | create or switch to workspace 0      |
+| ~SPC W TAB~            | switch to last active workspace      |
+| ~SPC W c~              | close current workspace              |
+| ~SPC W n~              | switch to next workspace             |
+| ~SPC W N~ or ~SPC W p~ | create or switch to workspace 0      |
+| ~SPC W r~              | set a label to the current workspace |

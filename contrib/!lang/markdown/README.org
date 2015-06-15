@@ -1,0 +1,153 @@
+#+TITLE: Markdown contribution layer for Spacemacs
+
+[[file:img/markdown.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features:]]
+ - [[#install][Install]]
+ - [[#usage][Usage]]
+ - [[#key-bindings][Key bindings]]
+     - [[#element-insertion][Element insertion]]
+     - [[#element-removal][Element removal]]
+     - [[#completion-and-cycling][Completion, and Cycling]]
+     - [[#following-and-jumping][Following and Jumping]]
+     - [[#indentation][Indentation]]
+     - [[#header-navigation][Header navigation]]
+     - [[#buffer-wide-commands][Buffer-wide commands]]
+     - [[#list-editing][List editing]]
+     - [[#movement][Movement]]
+     - [[#promotion-demotion][Promotion, Demotion]]
+
+* Description
+
+This layer adds markdown support to Spacemacs.
+
+** Features:
+- markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
+- TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(markdown))
+#+END_SRC
+
+* Usage
+
+To generate a table of contents type on top of the buffer:
+~SPC : markdown-toc/generate-toc RET~
+
+* Key bindings
+
+** Element insertion
+
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC m -~   | insert horizontal line                      |
+| ~SPC m h i~ | insert header dwim                          |
+| ~SPC m h I~ | insert header setext dwim                   |
+| ~SPC m h 1~ | insert header atx 1                         |
+| ~SPC m h 2~ | insert header atx 2                         |
+| ~SPC m h 3~ | insert header atx 3                         |
+| ~SPC m h 4~ | insert header atx 4                         |
+| ~SPC m h 5~ | insert header atx 5                         |
+| ~SPC m h 6~ | insert header atx 6                         |
+| ~SPC m h !~ | insert header setext 1                      |
+| ~SPC m h @~ | insert header setext 2                      |
+| ~SPC m i l~ | insert link                                 |
+| ~SPC m i L~ | insert reference link dwim                  |
+| ~SPC m i u~ | insert uri                                  |
+| ~SPC m i f~ | insert footnote                             |
+| ~SPC m i w~ | insert wiki link                            |
+| ~SPC m i i~ | insert image                                |
+| ~SPC m i I~ | insert reference image                      |
+| ~SPC m x b~ | make region bold or insert bold             |
+| ~SPC m x i~ | make region italic or insert italic         |
+| ~SPC m x c~ | make region code or insert code             |
+| ~SPC m x q~ | make region blockquote or insert blockquote |
+| ~SPC m x Q~ | blockquote region                           |
+| ~SPC m x p~ | make region or insert pre                   |
+| ~SPC m x P~ | pre region                                  |
+
+** Element removal
+
+| Key Binding | Description         |
+|-------------+---------------------|
+| ~SPC m k~   | kill thing at point |
+
+** Completion, and Cycling
+
+| Key Binding | Description |
+|-------------+-------------|
+| ~SPC m =~   | promote     |
+| ~SPC m -~   | demote      |
+| ~SPC m ]~   | complete    |
+
+** Following and Jumping
+
+| Key Binding | Description           |
+|-------------+-----------------------|
+| ~SPC m o~   | follow thing at point |
+| ~SPC m j~   | jump                  |
+
+** Indentation
+
+| Key Binding | Description   |
+|-------------+---------------|
+| ~SPC m \>~  | indent region |
+| ~SPC m \<~  | exdent region |
+
+** Header navigation
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~gj~        | outline forward same level   |
+| ~gk~        | outline backward same level  |
+| ~gh~        | outline up one level         |
+| ~gl~        | outline next visible heading |
+
+** Buffer-wide commands
+
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~SPC m c ]~ | cleanup list numbers |
+| ~SPC m c c~ | kill ring save       |
+| ~SPC m c e~ | preview              |
+| ~SPC m c m~ | complete buffer      |
+| ~SPC m c n~ | check refs           |
+| ~SPC m c o~ | export and preview   |
+| ~SPC m c p~ | other window         |
+| ~SPC m c r~ | render buffer        |
+| ~SPC m c v~ | export               |
+| ~SPC m c w~ | open                 |
+
+** List editing
+
+| Key Binding | Description      |
+|-------------+------------------|
+| ~SPC m l h~ | promote          |
+| ~SPC m l i~ | insert list item |
+| ~SPC m l j~ | move down        |
+| ~SPC m l k~ | move up          |
+| ~SPC m l l~ | demote           |
+
+** Movement
+
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~SPC m {~   | backward paragraph |
+| ~SPC m }~   | forward paragraph  |
+| ~SPC m N~   | next link          |
+| ~SPC m P~   | previous link      |
+
+** Promotion, Demotion
+
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~M-k~       | markdown-move-up   |
+| ~M-j~       | markdown-move-down |
+| ~M-h~       | markdown-promote   |
+| ~M-l~       | markdown-demote    |

@@ -63,6 +63,14 @@
 (defvar spacemacs/prefix-command-string "group:"
   "Prefix string for prefix commands.")
 
+(defun spacemacs/jump-in-buffer ()
+  (interactive)
+  (cond
+   ((eq major-mode 'org-mode)
+    (call-interactively 'helm-org-in-buffer-headings))
+   (t
+    (call-interactively 'helm-semantic-or-imenu))))
+
 (defun spacemacs/declare-prefix (prefix name)
   "Declare a prefix PREFIX. PREFIX is a string describing
 a key sequence. NAME is a symbol name used as the prefix command."

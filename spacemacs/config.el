@@ -26,7 +26,6 @@
                                        ("f" .  "files")
                                        ("fe" . "files-emacs/spacemacs")
                                        ("g" .  "git/versions-control")
-                                       ("gc" . "smeargle")
                                        ("h" .  "helm/help/highlight")
                                        ("hd" . "help-describe")
                                        ("i" .  "insertion")

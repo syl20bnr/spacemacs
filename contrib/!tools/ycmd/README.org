@@ -1,0 +1,50 @@
+#+TITLE: YCMD contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#ycmd][YCMD]]
+     - [[#other-requirements][Other Requirements]]
+ - [[#configuration][Configuration]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+
+This layer adds [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] support.
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(ycmd))
+#+END_SRC
+
+** YCMD
+
+In order to use this layer you must have a local [[https://github.com/Valloric/ycmd#building][ycmd]] installation and must
+set the =ycmd-server-command= variable to reflect the path to that installation.
+See the [[https://github.com/abingham/emacs-ycmd][emacs-ycmd]] readme for more instructions on this.
+
+** Other Requirements
+
+This package requires the =auto-completion= layer in order to get actual
+completion. The =syntax-checking= layer is required for flycheck support.
+
+* Configuration
+
+By default this layer only activates ycmd for =c++-mode=.
+
+If you want ycmd suppoert in other modes you might just want to add it for
+specific languages like:
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'c++-mode-hook 'ycmd-mode)
+#+END_SRC
+
+* Key Bindings
+
+Adds ~SPC m g g~ go to definition binding to =c++-mode= as well as ~SPC m g G~
+for the more imprecise but faster version.

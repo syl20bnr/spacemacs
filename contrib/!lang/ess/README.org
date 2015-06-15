@@ -1,0 +1,69 @@
+#+TITLE: R (ESS) contribution layer for Spacemacs
+
+[[file:img/r.jpg]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#inferior-repl-process][Inferior REPL process]]
+     - [[#helpers][Helpers]]
+ - [[#options][Options]]
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(ess))
+#+END_SRC
+
+*Important:*
+In order to speed up the boot time of =Spacemacs=, =ESS= must be loaded
+manually via the key binding: ~SPC e s s~
+
+* Key Bindings
+
+** Inferior REPL process
+
+Start an =R= inferior REPL process with ~SPC m s i~.
+
+Send code to inferior process commands:
+
+| Key Binding | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| ~SPC m c c~ | send knitr/sweave chunk and keep buffer focused                  |
+| ~SPC m c C~ | send knitr/sweave chunk and switch to REPL in insert mode        |
+| ~SPC m c d~ | send knitr/sweave chunk and step to next chunk                   |
+| ~SPC m c m~ | mark knitr/sweave chunk around point                             |
+| ~SPC m c n~ | next knitr/sweave chunk                                          |
+| ~SPC m c N~ | previous knitr/sweave chunk                                      |
+| ~SPC m s b~ | send buffer and keep code buffer focused                         |
+| ~SPC m s B~ | send buffer and switch to REPL in insert mode                    |
+| ~SPC m s d~ | send region or line and step (debug)                             |
+| ~SPC m s D~ | send function or paragraph and step (debug)                      |
+| ~SPC m s i~ | start an inferior REPL process                                   |
+| ~SPC m s l~ | send line and keep code buffer focused                           |
+| ~SPC m s L~ | send line and switch to REPL in insert mode                      |
+| ~SPC m s r~ | send region and keep code buffer focused                         |
+| ~SPC m s R~ | send region and switch to REPL in insert mode                    |
+| ~SPC m s t~ | send thing at point (function) and keep code buffer focused      |
+| ~SPC m s T~ | send thing at point (function) and switch to REPL in insert mode |
+| ~CTRL+j~    | next item in REPL history                                        |
+| ~CTRL+k~    | previous item in REPL history                                    |
+
+** Helpers
+
+| Key Binding | Description                                                         |
+|-------------+---------------------------------------------------------------------|
+| ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view]      |
+| ~SPC m h i~ | object introspection popup [ess-R-object-popup][ess-R-object-popup] |
+| ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]                 |
+
+* Options
+
+=ess-smart-equals= is enabled by default. In order to disable it, set in your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '((ess :variables
+                                                         ess-enable-smart-equals nil)))
+#+END_SRC

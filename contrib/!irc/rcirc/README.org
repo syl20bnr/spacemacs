@@ -1,0 +1,197 @@
+#+TITLE: RCIRC contribution layer for Spacemacs
+
+[[file:img/irc.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#configuration][Configuration]]
+         - [[#storing-the-credentials-in-your-dotfile][Storing the credentials in your dotfile]]
+             - [[#example][Example:]]
+         - [[#storing-the-credentials-in-your-dropbox][Storing the credentials in your Dropbox]]
+             - [[#example][Example:]]
+         - [[#storing-the-credentials-in-authinfo][Storing the credentials in authinfo]]
+         - [[#connecting-behind-a-znc-bouncer-and-storing-the-credentials-in-authinfo][Connecting behind a ZNC bouncer and storing the credentials in authinfo]]
+             - [[#disclaimer][Disclaimer]]
+             - [[#note][Note]]
+ - [[#key-bindings][Key Bindings]]
+ - [[#rcirc-documentation][Rcirc documentation]]
+
+* Description
+
+This layer provide support for [[http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html][rcirc]] with optional support for authinfo
+and ZNC.
+
+* Features
+
+- Store channel logs into =~/.emacs.d/.cache/rcirc-logs/<channel>=
+- Support for credentials stored in =~/.authinfo.gpg= (need to have gnutls) 
+- Support ZNC support (with optional =~/.authinfo.gpg=)
+- Colored nicknames
+- WIP: Real time change when people use =/s/foo/bar= in the chats
+  
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(rcirc))
+#+END_SRC
+
+** Configuration
+
+There are several ways to configure rcirc supported by the layer:
+- By storing your credentials in =rcirc-server-alist= in your dotfile (not
+  secured)
+- By storing your credentials in =rcirc-server-alist= in your Dropbox (better
+  but still not secured)
+- By storing your credentials in authinfo (secured)
+- By using a ZNC bouncer _and_ storing your credentials (secured)
+  
+*** Storing the credentials in your dotfile
+
+You can store your servers configuration along with your credentials in the
+=dotspacemacs/config= of your dotfile.
+
+*Important:* This method is the less secured and it is not recommended since
+your dotfile is often stored in a public repository and is not crypted. This
+is convenient but not recommended.
+
+**** Example:
+
+#+BEGIN_SRC emacs-lisp
+(setq rcirc-server-alist
+  '(("irc.freenode.net"
+      :user "spacemacs_user"
+      :port "1337"
+      :password "le_passwd"
+      :channels ("#emacs"))))
+#+END_SRC
+
+*** Storing the credentials in your Dropbox
+
+You can store your servers configuration along with your credentials in
+your dropbox in the file =~/Dropbox/emacs/pinit-rcirc.el=.
+
+*Important:* This method is more secured since your file is stored in
+a private location but it is still not crypted on your drive. Moreover
+since Dropbox automatically sync your files you may have a lot of copies
+of the file containing your credentials. This is convenient but not
+recommended.
+
+**** Example:
+
+#+BEGIN_SRC emacs-lisp
+(setq rcirc-server-alist
+  '(("irc.freenode.net"
+      :user "spacemacs_user"
+      :port "1337"
+      :password "le_passwd"
+      :channels ("#emacs"))))
+#+END_SRC
+
+*** Storing the credentials in authinfo
+
+This method is considered secured and is the recommended way to configure
+rcirc.
+
+1) If you want to use =authinfo.gpg= you have to enable the support for it by
+   setting =rcirc-enable-authinfo-support= to =t= in your dotfile:
+ 
+   #+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (rcirc :variables rcirc-enable-authinfo-support t)))
+   #+END_SRC
+
+2) In your =~/.authinfo.gpg= file store your credentials like this:
+   #+BEGIN_SRC
+   machine irc.freenode.net port nickserv user <user> password <passwd>
+   #+END_SRC
+
+3) At last you need to provide your servers configuration in the
+   =dotspacemacs/config= function of your dotfile:
+
+   #+BEGIN_SRC emacs-lisp
+   (setq rcirc-server-alist
+   '(("irc.freenode.net"
+       :user "spacemacs_user"
+       :port "1337"
+       :channels ("#emacs"))))
+   #+END_SRC
+
+*** Connecting behind a ZNC bouncer and storing the credentials in authinfo
+
+This methods is also secured since it uses authinfo _but_ you must secure your
+ZNC server configuration as well!
+
+ZNC is a popular bouncer which is easy to setup. A bouncer is a proxy that
+connects to your IRC channels on your behalf, instead of connecting to the IRC
+server you connect to your ZNC server. The ZNC server can store the discussions
+in a buffer while you are not connected.
+
+**** Disclaimer
+This assumes that you are familiar with ZNC and you have a ZNC server properly
+setup. If it is not the case then it is recommended to read about ZNC
+[[http://wiki.znc.in/ZNC][here]]. There is also an installation guide for Ubuntu [[https://www.digitalocean.com/community/tutorials/how-to-install-znc-an-irc-bouncer-on-an-ubuntu-vps][here]].
+
+**** Note
+For now authinfo is mandatory to use the ZNC configuration.
+
+1) To enable ZNC support set the variable =rcirc-enable-znc-support= to =t= in
+   your dotfile:
+
+   #+BEGIN_SRC emacs-lisp
+     (setq-default dotspacemacs-configuration-layers '(
+       (rcirc :variables rcirc-enable-authinfo-support t)))
+   #+END_SRC
+
+2) In your =~/.authinfo.gpg= file store your credentials like this:
+   
+   #+BEGIN_SRC
+   machine freenode.spacemacsserver.me port irc user spacemacs_user/freenode password ZNC_PASSWORD
+   machine geekshed.spacemacsserver.me port irc user spacemacs_user/geekshed password ZNC_PASSWORD
+   #+END_SRC
+
+   *Important* =port= must be set to =irc=. This is a convention of the layer to
+   retrieve the credentials for the ZNC configuration.
+
+3) Then setup your servers configuration using subdomains in the
+   =dotspacemacs/config= function of your dotfile. The =:auth= keyword arguments
+   will be replaced by the credentials stored in your =~/.authinfo.gpg=.
+
+   #+BEGIN_SRC emacs-lisp
+     (setq rcirc-server-alist
+      ;; This will replace :auth with the correct thing, see the doc for that function
+      '(("freenode"
+          :host "freenode.spacemacsserver.me"
+          :port "1337"
+          :auth "spacemacs_user/freenode"
+          :channels ("#emacs"))
+      ("geekshed"
+          :host "geekshed.spacemacsserver.me"
+          :port "1337"
+          :auth "spacemacs_user/geekshed"
+          :channels ("#jupiterbroadcasting"))))
+   #+END_SRC
+
+* Key Bindings
+
+| Key Binding | Description                                                                   |
+|-------------+-------------------------------------------------------------------------------|
+| ~SPC a i r~ | Open rcirc                                                                    |
+| ~SPC L o i~ | Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled) |
+
+In normal state:
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~C-j~       | next item in history     |
+| ~C-k~       | previous item in history |
+
+* Rcirc documentation
+
+The rcirc documentation can be found [[http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html][here]]. 

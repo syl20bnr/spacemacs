@@ -1,0 +1,227 @@
+#+TITLE: Haskell contribution layer for Spacemacs
+
+[[file:img/haskell.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features:]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#cabal-packages][Cabal packages]]
+     - [[#os-x][OS X]]
+     - [[#optional-extras][Optional extras]]
+         - [[#ghci-ng-support][GHCi-ng support]]
+         - [[#structured-haskell-mode][structured-haskell-mode]]
+         - [[#hindent][hindent]]
+ - [[#key-bindings][Key bindings]]
+     - [[#documentation][Documentation]]
+     - [[#debug][Debug]]
+     - [[#repl][REPL]]
+     - [[#cabal-commands][Cabal commands]]
+     - [[#cabal-files][Cabal files]]
+
+* Description
+
+This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
+
+** Features:
+- auto-completion with [[https://github.com/iquiw/company-ghc][company-ghc]],
+- syntax highlighting for [[https://github.com/bgamari/cmm-mode][C-- source]].
+
+*This layer is in construction, it needs your contributions and bug reports.*
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(haskell))
+#+END_SRC
+
+** Cabal packages
+
+This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
+- =ghc-mod=
+- =hlint=
+- =stylish-haskell=
+- =hasktags=
+
+To install them, use the following command: 
+
+#+BEGIN_SRC sh
+  cabal install stylish-haskell hlint ghc-mod hasktags
+#+END_SRC
+
+Then you have to add this path to your system =$PATH= (preferred):
+Note that on *Linux* distributions the installed binaries should be in
+=~/.cabal/bin= and on *OS X* the binaries are installed in
+=/Users/<username>/Library/Haskell/bin=.
+
+#+BEGIN_SRC sh
+  export PATH=~/.cabal/bin/:$PATH
+#+END_SRC
+
+_or_ to the Emacs =exec-path= variable in the =dotspacemacs/init= function of
+your =.spacemacs= file:
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'exec-path "~/.cabal/bin/")
+#+END_SRC
+
+*Note:* it is important to add the path in the =dotspacemacs/init= function,
+so that the path is added before any layers is loaded.
+
+** OS X
+
+Note that =emacs.app= for OS X does not pick up =$PATH= from =~/.bashrc= or
+=~/.zshrc= when launched from outside a terminal.
+
+** Optional extras
+The Haskell layer supports some extra features that can be enabled through
+layer variables.
+
+*** GHCi-ng support
+[[https://github.com/chrisdone/ghci-ng][ghci-ng]] adds some nice features to =haskell-mode=, and is supported in
+Spacemacs by a layer variable:
+
+Follow the instructions to install [[https://github.com/chrisdone/ghci-ng][ghci-ng]] (remember to add =:set +c=
+in =~/.ghci=, next set the layer variable:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((haskell :variables haskell-enable-ghci-ng-support t)))
+#+END_SRC
+
+Once ghci-ng is enabled, two of the old keybindings are overriden with improved
+versions from ghci-ng, and a new keybinding available: 
+
+| Key Binding | Description                                                               |
+|-------------+---------------------------------------------------------------------------|
+| ~SPC m h t~ | gets the type of the identifier under the cursor or for the active region |
+| ~SPC m g g~ | go to definition                                                          |
+| ~SPC m u~   | finds uses of identifier                                                  |
+
+*** structured-haskell-mode
+[[https://github.com/chrisdone/structured-haskell-mode][structured-haskell-mode]], or shm, replaces default haskell-mode
+auto-indentation and adds some nice functionalities.
+To enable shm, run =cabal install structured-haskell-mode= and set the layer
+variable:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((haskell :variables haskell-enable-shm-support t)))
+#+END_SRC
+
+After shm has been enabled, some of the evil normal state bindings are overridden:
+
+| Key Binding | Description         |
+|-------------+---------------------|
+| ~D~         | =shm/kill-line=     |
+| ~R~         | =shm/raise=         |
+| ~P~         | =shm/yank=          |
+| ~(~         | =shm/forward-node=  |
+| ~)~         | =shm/backward-node= |
+
+For a nice visualization of these functions, please refer to the github page
+for [structured-haskell-mode][].
+
+*** hindent
+[[https://github.com/chrisdone/hindent][hindent]] is an extensible Haskell pretty printer, which let's you
+reformat your code. You need to install the executable with =cabal
+install hindent=.
+
+To enable it you have to set the variable =haskell-enable-hindent-style=
+to a supported style. The available styles are:
+- fundamental
+- johan-tibell
+- chris-done
+- andrew-gibiansky
+
+See examples [[https://github.com/chrisdone/hindent#example][here]]
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((haskell :variables haskell-enable-hindent-style "johan-tibell")))
+#+END_SRC
+
+* Key bindings
+
+All Haskell specific bindings are prefixed with the major-mode leader
+~SPC m~.
+
+Top-level commands are prefixed by ~SPC m~:
+
+| Key Binding | Description                                   |
+|-------------+-----------------------------------------------|
+| ~SPC m g g~ | go to definition or tag                       |
+| ~SPC m f~   | format buffer using haskell-stylish           |
+| ~SPC m F~   | format declaration using hindent (if enabled) |
+
+** Documentation
+
+Documentation commands are prefixed by ~SPC m h~
+
+| Key Binding | Description                                                                |
+|-------------+----------------------------------------------------------------------------|
+| ~SPC m h d~ | find or generate Haddock documentation for the identifier under the cursor |
+| ~SPC m h h~ | do a Hoogle lookup                                                         |
+| ~SPC m h i~ | gets information for the identifier under the cursor                       |
+| ~SPC m h t~ | gets the type of the identifier under the cursor                           |
+| ~SPC m h y~ | do a Hayoo lookup                                                          |
+
+** Debug
+
+Debug commands are prefixed by ~SPC m d~:
+
+| Key Binding  | Description                                |
+|--------------+--------------------------------------------|
+| ~SPC m d d~ | start debug process, needs to be run first |
+| ~SPC m d b~ | insert breakpoint at function              |
+| ~SPC m d n~ | next breakpoint                            |
+| ~SPC m d N~ | previous breakpoint                        |
+| ~SPC m d B~ | delete breakpoint                          |
+| ~SPC m d c~ | continue current process                   |
+| ~SPC m d a~ | abandon current process                    |
+| ~SPC m d r~ | refresh process buffer                     |
+
+** REPL
+
+REPL commands are prefixed by ~SPC m s~:
+
+| Key Binding | Description                                     |
+|-------------+-------------------------------------------------|
+| ~SPC m s b~ | load or reload the current buffer into the REPL |
+| ~SPC m s c~ | clear the REPL                                  |
+| ~SPC m s s~ | show the REPL                                   |
+| ~SPC m s S~ | show and switch to the REPL                     |
+
+** Cabal commands
+
+Cabal commands are prefixed by ~SPC m c~:
+
+| Key Binding | Description                                                |
+|-------------+------------------------------------------------------------|
+| ~SPC m c a~ | cabal actions                                              |
+| ~SPC m c b~ | build the current cabal project, i.e. invoke =cabal build= |
+| ~SPC m c c~ | compile the current project, i.e. invoke =ghc=             |
+| ~SPC m c v~ | visit the cabal file                                       |
+
+** Cabal files
+
+This commands are available in a cabal file.
+
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC m d~   | add a dependency to the project             |
+| ~SPC m b~   | go to benchmark section                     |
+| ~SPC m e~   | go to executable section                    |
+| ~SPC m t~   | go to test-suite section                    |
+| ~SPC m m~   | go to exposed modules                       |
+| ~SPC m l~   | go to libary section                        |
+| ~SPC m n~   | go to next subsection                       |
+| ~SPC m p~   | go to previous subsection                   |
+| ~SPC m N~   | go to next section                          |
+| ~SPC m P~   | go to previous section                      |
+| ~SPC m f~   | find or create source-file under the cursor |

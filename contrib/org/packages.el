@@ -54,7 +54,6 @@
       (setq org-startup-indented t)
       (let ((dir (configuration-layer/get-layer-property 'org :dir)))
         (setq org-export-async-init-file (concat dir "org-async-init.el")))
-
       (defmacro spacemacs|org-emphasize (fname char)
         "Make function for setting the emphasis in org mode"
         `(defun ,fname () (interactive)
@@ -84,7 +83,6 @@ Will work on both org-mode and any mode that accepts plain html."
         "mhI" 'org-insert-heading
 
         "mI" 'org-clock-in
-        "mj" 'helm-org-in-buffer-headings
         (if dotspacemacs-major-mode-leader-key
             (concat "m" dotspacemacs-major-mode-leader-key)
           "m,") 'org-ctrl-c-ctrl-c
@@ -127,6 +125,7 @@ Will work on both org-mode and any mode that accepts plain html."
                     (1 font-lock-comment-face prepend)
                     (2 font-lock-function-name-face)
                     (3 font-lock-comment-face prepend))))
+
       (require 'org-indent)
       (define-key global-map "\C-cl" 'org-store-link)
       (define-key global-map "\C-ca" 'org-agenda)

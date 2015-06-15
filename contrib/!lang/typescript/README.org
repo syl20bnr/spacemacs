@@ -1,0 +1,50 @@
+#+TITLE: TypeScript contribution layer for Spacemacs
+
+[[file:img/TypeScript.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#prerequisites][Prerequisites]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+This layer adds support for TypeScript editing via [[https://github.com/clausreinke/typescript-tools][typescript-tools]] and
+[[https://github.com/aki2o/emacs-tss][emacs-tss]].
+
+This layer provides:
+- syntax coloring
+- error highlighting
+- auto-completion via Flymake
+- jump-to-definition
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(typescript))
+#+END_SRC
+
+** Prerequisites
+
+You'll need [[https://github.com/clausreinke/typescript-tools][typescript-tools]] and fairly obviously also the TypeScript
+compiler:
+
+#+BEGIN_SRC sh
+  $ npm install typescript
+  $ git clone git://github.com/clausreinke/typescript-tools.git
+  $ cd typescript-tools/
+  $ npm install -g
+#+END_SRC
+
+* Key bindings
+
+| Key Binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC m g g~ | Jump to definition               |
+| ~SPC m h h~ | Show popup help (with type info) |

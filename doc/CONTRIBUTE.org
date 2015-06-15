@@ -1,0 +1,110 @@
+* Contribute to Spacemacs
+
+** Table of Contents                                                 :TOC@4:
+ - [[#contribute-to-spacemacs][Contribute to Spacemacs]]
+     - [[#pull-request-guidelines][Pull Request Guidelines]]
+         - [[#ideally-and-for-simple-prs][Ideally and for /simple/ PRs:]]
+         - [[#for-complex-pull-requests][For complex pull requests:]]
+         - [[#getting-help][Getting Help]]
+     - [[#submitting-a-configuration-layer][Submitting a configuration layer]]
+     - [[#submitting-a-banner][Submitting a banner]]
+     - [[#credits][Credits]]
+         - [[#license][License]]
+         - [[#file-header][File header]]
+         - [[#author-of-a-contribution-layer][Author of a contribution layer]]
+         - [[#contributor-of-a-contribution-layer][Contributor of a contribution layer]]
+
+** Pull Request Guidelines
+=Spacemacs= branch model is inspired from the [[http://nvie.com/posts/a-successful-git-branching-model/][git-flow]] model:
+You'll have to submit your contributions and fixes within a pull-request to
+apply against the =develop= branch.
+
+/PR = pull request/
+
+*** Ideally and for /simple/ PRs:
+-  branch from =develop=
+-  one topic per PR
+-  one commit per PR
+-  if you have several commits on different topics, close the PR and
+   create one PR per topic
+-  if you still have several commits, squash them into only one commit
+-  rebase your PR branch on top of upstream =develop= before submitting
+   the PR
+
+Those PRs are /fast-forwarded/ whenever it's possible and
+/cherry-picked/ otherwise (most likely they will be cherry-picked).
+
+*** For complex pull requests:
+-  squash only the commits with uninteresting changes like typos, syntax
+   fixes, etc... and keep the important and /isolated/ steps in
+   different commits.
+
+Those PRs are /merged/ and explicitly /not fast-forwarded/.
+
+*** Getting Help
+If you have any question on this process, join the [[https://gitter.im/syl20bnr/spacemacs][gitter
+chatroom]] and ask your questions there. It will be a pleasure to help you to
+contribute!
+
+** Submitting a configuration layer
+Contributed configuration layers are stored in the =contrib= folder. The
+=contrib= folder also contains categories prefixed with =!= to put your
+layers in. For example a layer for a language would go in the
+=contrib/!lang= folder.
+
+It is recommended to join a =README.md= file with your layer: - ideally
+this file should document the packages of your layer as well as the key
+bindings associated with them, - a template is provided in
+=~/.emacs.d/core/templates/layer-README.template=, use it as much as
+possible, - another good practice is to start from the =README.md= of an
+existing layer, - if a logo exists for the layer you can
+add it at the top of the =README.md= before the TOC. The maximum
+recommended height is 200 pixels.
+
+** Submitting a banner
+The startup banner is by default randomly chosen among a pool of banners
+each time =Spacemacs= starts. Banners are located in directory
+=~/.emacs.d/core/banners=.
+
+If you have some ASCII skills you can submit your artwork!
+
+You are free to choose a reasonable height size but the width size
+should be around 75 characters.
+
+** Credits
+*** License
+The license is GPLv3 for all parts specific to =Spacemacs=, this
+includes: - the initialization and core files - all the layer files.
+
+For files not belonging to =Spacemacs= like extensions and libraries,
+refer to the header file. Those files should not have an empty header,
+please report any file imported in =Spacemacs= without a proper header.
+
+*** File header
+Template:
+
+#+BEGIN_EXAMPLE
+    ;;; extensions.el --- NAME Layer extensions File for Spacemacs
+    ;;
+    ;; Copyright (c) 2012-2014 Sylvain Benner
+    ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+    ;;
+    ;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+    ;; URL: https://github.com/syl20bnr/spacemacs
+    ;;
+    ;; This file is not part of GNU Emacs.
+    ;;
+    ;;; License: GPLv3
+#+END_EXAMPLE
+
+*** Author of a contribution layer
+In the file header: - change =NAME= to the name of the layer, - change
+the default author name =Sylvain Benner= to your name, - do not remove
+the line: =;; Copyright (c) 2012-2014 Sylvain Benner= - modify the
+second copyright line by replacing the default name and dates, *keep*
+=& Contributors= in this line, - other lines should not be modified
+
+*** Contributor of a contribution layer
+You should not modify any header file. A very cool way to show your
+contributions will be available in Spacemacs at some point, /Stay
+Tuned/.

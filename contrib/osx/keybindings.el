@@ -3,18 +3,21 @@
 
   ;; this is only applicable to GUI mode
   (when (display-graphic-p)
-    ;; Treat option as meta and command as super
-    (setq mac-option-key-is-meta t)
+    ;; Treat command as super
     (setq mac-command-key-is-meta nil)
     (setq mac-command-modifier 'super)
-    (setq mac-option-modifier 'meta)
+
+    (when osx-use-option-as-meta
+      ;; Treat option as meta
+      (setq mac-option-key-is-meta t)
+      (setq mac-option-modifier 'meta))
 
     ;; Keybindings
     (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
     (global-set-key (kbd "s--") 'spacemacs/scale-down-font)
     (global-set-key (kbd "s-0") 'spacemacs/reset-font-size)
     (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
-    (global-set-key (kbd "s-v") 'evil-paste-after)
+    (global-set-key (kbd "s-v") 'yank)
     (global-set-key (kbd "s-c") 'evil-yank)
     (global-set-key (kbd "s-a") 'mark-whole-buffer)
     (global-set-key (kbd "s-x") 'kill-region)
