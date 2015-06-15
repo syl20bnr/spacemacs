@@ -1431,7 +1431,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "sg"  'helm-do-grep
         "sG"  'spacemacs/helm-do-grep-region-or-symbol
         "sL"  'spacemacs/last-search-buffer
-        "sl"  'helm-semantic-or-imenu)
+        "sl"  'spacemacs/jump-in-buffer)
 
       ;; define the key binding at the very end in order to allow the user
       ;; to overwrite any key binding
