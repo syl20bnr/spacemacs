@@ -15,6 +15,8 @@
      - [[#open-notebook-list][Open Notebook List]]
      - [[#key-bindings][Key Bindings]]
          - [[#micro-state-ipython-notebook-][Micro-state: =ipython-notebook= ]]
+         - [[#normal-mode][Normal mode]]
+         - [[#insert-mode][Insert mode]]
  - [[#screenshots][Screenshots]]
      - [[#light][Light]]
      - [[#dark][Dark]]
@@ -104,6 +106,27 @@ prefix with ~SPC m~ to use with your evil-leader.
 | ~+~     | ein:notebook-worksheet-insert-next        |
 | ~-~     | ein:notebook-worksheet-delete             |
 | ~x~     | ein:notebook-close                        |
+
+*** Normal mode
+In normal mode the following key bindings are defined:
+
+| Key     | Function                                 |
+|---------+------------------------------------------|
+| ~gj~    | ein:worksheet-goto-next-input            |
+| ~gk~    | ein:worksheet-goto-prev-input            |
+| ~C-RET~ | ein:worksheet-execute-cell               |
+| ~S-RET~ | ein:worksheet-execute-cell-and-goto-next |
+
+Also ~SPC f w~ saves the notebook like you would a regular buffer.
+
+*** Insert mode
+In normal mode the following key bindings are defined:
+
+| Key     | Function                                 |
+|---------+------------------------------------------|
+| ~C-RET~ | ein:worksheet-execute-cell               |
+| ~S-RET~ | ein:worksheet-execute-cell-and-goto-next |
+
 * Screenshots
 ** Light
 [[file:img/light.png]]
