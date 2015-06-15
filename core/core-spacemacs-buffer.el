@@ -206,7 +206,7 @@ If TYPE is nil, just remove widgets."
                                     (widget-create 'push-button
                                                    :tag (propertize "Vim Migration Guide" 'face 'font-lock-keyword-face)
                                                    :help-echo "Documentation for former vim users."
-                                                   :action (lambda (&rest ignore) (find-file (concat spacemacs-docs-directory "VIMUSERS.org")))
+                                                   :action (lambda (&rest ignore) (spacemacs/view-org-file (concat spacemacs-docs-directory "VIMUSERS.org") "^" 'all))
                                                    :mouse-face 'highlight
                                                    :follow-link "\C-m")))))
     (spacemacs-buffer//insert-note file "Quick Help" widget-func))
