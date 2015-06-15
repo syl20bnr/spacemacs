@@ -83,7 +83,6 @@ Will work on both org-mode and any mode that accepts plain html."
         "mhI" 'org-insert-heading
 
         "mI" 'org-clock-in
-        "mj" 'helm-org-in-buffer-headings
         (if dotspacemacs-major-mode-leader-key
             (concat "m" dotspacemacs-major-mode-leader-key)
           "m,") 'org-ctrl-c-ctrl-c
