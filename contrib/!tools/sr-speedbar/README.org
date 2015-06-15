@@ -4,7 +4,6 @@
  - [[#description][Description]]
  - [[#install][Install]]
      - [[#layer][Layer]]
-     - [[#sr-speedbar][sr-speedbar]]
  - [[#usage][Usage]]
 
 * Description
@@ -20,10 +19,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(sr-speedbar))
 #+END_SRC
-
-** sr-speedbar
-
-To use the mode please [[http://pandoc.org/installing.html][install]] pandoc first.
 
 * Usage
 
