@@ -3,6 +3,9 @@
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#install][Install]]
+     - [[#layer][Layer]]
+ - [[#configuration][Configuration]]
+     - [[#ledger][Ledger]]
  - [[#key-bindings][Key bindings]]
      - [[#ledger][Ledger]]
 
@@ -15,10 +18,25 @@ This layer adds finance related packages:
 
 * Install
 
+** Layer
+
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(finance))
+#+END_SRC
+
+* Configuration
+
+** Ledger
+
+You can set what column transaction posts are aligned to on
+the right by setting the variable =ledger-post-amount-alignment-column= in
+your =dotspacemacs/config=.  The default value, set in the layer, is =62=.
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/config ()
+    (setq ledger-post-amount-alignment-column 68))
 #+END_SRC
 
 * Key bindings
@@ -39,8 +57,3 @@ To use this contribution add it to your =~/.spacemacs=
 | ~SPC m t~   | append an effective date to a post            |
 | ~SPC m y~   | set the year for quicker entry                |
 | ~SPC m RET~ | set the month for quicker entry               |
-
-
-
-
-
