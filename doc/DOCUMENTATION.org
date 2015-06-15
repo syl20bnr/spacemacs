@@ -52,6 +52,7 @@
          - [[#graphical-ui-toggles][Graphical UI Toggles]]
          - [[#mouse-usage][Mouse usage]]
          - [[#mode-line][Mode-line]]
+             - [[#powerline-font-installation-for-terminal-mode-users][Powerline font installation for terminal-mode users]]
              - [[#flycheck-integration][Flycheck integration]]
              - [[#anzu-integration][Anzu integration]]
              - [[#battery-status-integration][Battery status integration]]
@@ -798,6 +799,11 @@ Some elements can be dynamically toggled:
 | ~SPC t m p~ | toggle the point character position                             |
 | ~SPC t m t~ | toggle the mode line itself                                     |
 | ~SPC t m v~ | toggle the new version lighter                                  |
+
+**** Powerline font installation for terminal-mode users
+Users who run Emacs in terminal mode may need to install the [[https://github.com/powerline/fonts][Powerline patched
+fonts]] and configure their terminal clients to use them to make the Powerline
+separators render correctly.
 
 **** Flycheck integration
 When [[https://github.com/flycheck/flycheck][Flycheck]] minor mode is enabled, a new element appears showing the number of
