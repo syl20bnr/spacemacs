@@ -20,8 +20,10 @@
 
 ;; replace `dired-goto-file' with `helm-find-files', since `helm-find-files'
 ;; can do the same thing and with fuzzy matching and other features.
-(evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
-(define-key dired-mode-map "j" 'spacemacs/helm-find-files)
+(eval-after-load 'dired
+  '(progn
+     (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
+     (define-key dired-mode-map "j" 'spacemacs/helm-find-files)))
 
 ;; alternate binding to search next occurrence with isearch without
 ;; exiting isearch
