@@ -1386,20 +1386,70 @@ Removes the automatic guessing of the initial value based on thing at point. "
             (helm-find-files-up-one-level 1)
           ad-do-it))
 
-      (defun spacemacs/helm-do-grep-region-or-symbol ()
+      (defun spacemacs//helm-do-grep-region-or-symbol (&optional targs use-region-or-symbol-p)
         "Version of `helm-do-grep' with a default input."
         (interactive)
         (require 'helm)
         (cl-letf*
             (((symbol-function 'this-fn) (symbol-function 'helm-do-grep-1))
              ((symbol-function 'helm-do-grep-1)
-              (lambda (targets &optional recurse zgrep exts default-input input)
-                (let ((input (if (region-active-p)
-                                 (buffer-substring-no-properties
-                                  (region-beginning) (region-end))
-                               (thing-at-point 'symbol t))))
-                  (this-fn targets recurse zgrep exts default-input input)))))
-          (call-interactively 'helm-do-grep)))
+              (lambda (targets &optional recurse zgrep exts default-input region-or-symbol-p)
+                (let ((new-input (when region-or-symbol-p
+                                   (if (region-active-p)
+                                       (buffer-substring-no-properties
+                                        (region-beginning) (region-end))
+                                     (thing-at-point 'symbol t)))))
+                  (this-fn targets recurse zgrep exts default-input new-input))))
+             (preselection (or (dired-get-filename nil t)
+                               (buffer-file-name (current-buffer))))
+             (targets   (if targs
+                            targs
+                          (helm-read-file-name
+                          "Search in file(s): "
+                          :marked-candidates t
+                          :preselect (and helm-do-grep-preselect-candidate
+                                          (if helm-ff-transformer-show-only-basename
+                                              (helm-basename preselection)
+                                            preselection))))))
+          (helm-do-grep-1 targets nil nil nil nil use-region-or-symbol-p)))
+
+      (defun spacemacs/helm-file-do-grep ()
+        "Search in current file with `grep' using a default input."
+        (interactive)
+        (spacemacs//helm-do-grep-region-or-symbol
+         (list (buffer-file-name (current-buffer))) nil))
+
+      (defun spacemacs/helm-file-do-grep-region-or-symbol ()
+        "Search in current file with `grep' using a default input."
+        (interactive)
+        (spacemacs//helm-do-grep-region-or-symbol
+         (list (buffer-file-name (current-buffer))) t))
+
+      (defun spacemacs/helm-files-do-grep ()
+        "Search in files with `grep'."
+        (interactive)
+        (spacemacs//helm-do-grep-region-or-symbol nil nil))
+
+      (defun spacemacs/helm-files-do-grep-region-or-symbol ()
+        "Search in files with `grep' using a default input."
+        (interactive)
+        (spacemacs//helm-do-grep-region-or-symbol nil t))
+
+      (defun spacemacs/helm-buffers-do-grep ()
+        "Search in opened buffers with `grep'."
+        (interactive)
+        (let ((buffers (cl-loop for buffer in (buffer-list)
+                                when (buffer-file-name buffer)
+                                collect (buffer-file-name buffer))))
+          (spacemacs//helm-do-grep-region-or-symbol buffers nil)))
+
+      (defun spacemacs/helm-buffers-do-grep-region-or-symbol ()
+        "Search in opened buffers with `grep' with a default input."
+        (interactive)
+        (let ((buffers (cl-loop for buffer in (buffer-list)
+                                when (buffer-file-name buffer)
+                                collect (buffer-file-name buffer))))
+          (spacemacs//helm-do-grep-region-or-symbol buffers t)))
 
       (defun spacemacs/last-search-buffer ()
         "open last helm-ag or hgrep buffer."
@@ -1416,22 +1466,29 @@ Removes the automatic guessing of the initial value based on thing at point. "
 
       (evil-leader/set-key
         "<f1>" 'helm-apropos
-        "bb"  'helm-mini
-        "Cl"  'helm-colors
-        "ff"  'spacemacs/helm-find-files
-        "fF"  'helm-find-files
-        "fr"  'helm-recentf
-        "hb"  'helm-pp-bookmarks
-        "hi"  'helm-info-at-point
-        "hl"  'helm-resume
-        "hm"  'helm-man-woman
-        "ry"  'helm-show-kill-ring
-        "rr"  'helm-register
-        "rm"  'helm-all-mark-rings
-        "sg"  'helm-do-grep
-        "sG"  'spacemacs/helm-do-grep-region-or-symbol
-        "sL"  'spacemacs/last-search-buffer
+        "bb"   'helm-mini
+        "Cl"   'helm-colors
+        "ff"   'spacemacs/helm-find-files
+        "fF"   'helm-find-files
+        "fr"   'helm-recentf
+        "hb"   'helm-pp-bookmarks
+        "hi"   'helm-info-at-point
+        "hl"   'helm-resume
+        "hm"   'helm-man-woman
+        "ry"   'helm-show-kill-ring
+        "rr"   'helm-register
+        "rm"   'helm-all-mark-rings
+        "sL"   'spacemacs/last-search-buffer
         "sl"  'spacemacs/jump-in-buffer)
+
+      ;; search with grep
+      (evil-leader/set-key
+        "bsg"  'spacemacs/helm-buffers-do-grep
+        "bsG"  'spacemacs/helm-buffers-do-grep-region-or-symbol
+        "fsg"  'spacemacs/helm-files-do-grep
+        "fsG"  'spacemacs/helm-files-do-grep-region-or-symbol
+        "sg"   'spacemacs/helm-file-do-grep
+        "sG"   'spacemacs/helm-file-do-grep-region-or-symbol)
 
       ;; define the key binding at the very end in order to allow the user
       ;; to overwrite any key binding
@@ -1936,6 +1993,10 @@ If ARG is non nil then `ag' and `pt' and ignored."
 
       (defconst spacemacs-use-helm-projectile t
         "This variable is only defined if helm-projectile is used.")
+
+      ;; needed for smart search if user's default tool is grep
+      (defalias 'spacemacs/helm-project-do-grep 'helm-projectile-grep)
+      (defalias 'spacemacs/helm-project-do-grep-region-or-symbol 'helm-projectile-grep)
 
       (evil-leader/set-key
         "pb"  'helm-projectile-switch-to-buffer
