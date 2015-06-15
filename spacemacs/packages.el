@@ -1911,41 +1911,40 @@ If ARG is non nil then `ag' and `pt' and ignored."
 
       (evil-leader/set-key
         ;; quick search in project
-        "/"   'spacemacs/helm-project-smart-do-search-region-or-symbol
-        "?"   'spacemacs/helm-project-smart-do-search
+        "/"   'spacemacs/helm-project-smart-do-search
+        "?"   'spacemacs/helm-project-smart-do-search-region-or-symbol
         ;; opened buffers scope
-        "b/"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
-        "b?"  'spacemacs/helm-buffers-smart-do-search
+        "b/"  'spacemacs/helm-buffers-smart-do-search
+        "b?"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
         "bsa" 'helm-do-ag-buffers
         "bsA" 'spacemacs/helm-buffers-do-ag-region-or-symbol
-        "bsk" 'spacemacs/helm-buffers-do-ack-region-or-symbol
-        "bsK" 'spacemacs/helm-buffers-do-ack
-        "bsp" 'spacemacs/helm-buffers-do-pt-region-or-symbol
-        "bsP" 'spacemacs/helm-buffers-do-pt
+        "bsk" 'spacemacs/helm-buffers-do-ack
+        "bsK" 'spacemacs/helm-buffers-do-ack-region-or-symbol
+        "bsp" 'spacemacs/helm-buffers-do-pt
+        "bsP" 'spacemacs/helm-buffers-do-pt-region-or-symbol
         ;; current file scope
-        "s/"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
-        "s?"  'spacemacs/helm-buffers-smart-do-search
+        "s/"  'spacemacs/helm-buffers-smart-do-search
+        "s?"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
         "sa"  'helm-ag-this-file
         "sA"  'spacemacs/helm-file-do-ag-region-or-symbol
         ;; files scope
-        "f/"  'spacemacs/helm-files-smart-do-search-region-or-symbol
-        "f?"  'spacemacs/helm-files-smart-do-search
-        "fsa" 'spacemacs/helm-files-do-ag-region-or-symbol
-        "fsA" 'helm-do-ag
-        "fsk" 'spacemacs/helm-files-do-ack-region-or-symbol
-        "fsK" 'spacemacs/helm-files-do-ack
-        "fsp" 'spacemacs/helm-files-do-pt-region-or-symbol
-        "fsP" 'spacemacs/helm-files-do-pt
+        "f/"  'spacemacs/helm-files-smart-do-search
+        "f?"  'spacemacs/helm-files-smart-do-search-region-or-symbol
+        "fsa" 'helm-do-ag
+        "fsA" 'spacemacs/helm-files-do-ag-region-or-symbol
+        "fsk" 'spacemacs/helm-files-do-ack
+        "fsK" 'spacemacs/helm-files-do-ack-region-or-symbol
+        "fsp" 'spacemacs/helm-files-do-pt
+        "fsP" 'spacemacs/helm-files-do-pt-region-or-symbol
         ;; current project scope
-        "p/"  'spacemacs/helm-project-smart-do-search-region-or-symbol
-        "p?"  'spacemacs/helm-project-smart-do-search
-        "psa" 'spacemacs/helm-project-do-ag-region-or-symbol
-        "psA" 'spacemacs/helm-project-do-ag
-        "psk" 'spacemacs/helm-project-do-ack-region-or-symbol
-        "psK" 'spacemacs/helm-project-do-ack
-        "psp" 'spacemacs/helm-project-do-pt-region-or-symbol
-        "psP" 'spacemacs/helm-project-do-pt
-        ))
+        "p/"  'spacemacs/helm-project-smart-do-search
+        "p?"  'spacemacs/helm-project-smart-do-search-region-or-symbol
+        "psa" 'spacemacs/helm-project-do-ag
+        "psA" 'spacemacs/helm-project-do-ag-region-or-symbol
+        "psk" 'spacemacs/helm-project-do-ack
+        "psK" 'spacemacs/helm-project-do-ack-region-or-symbol
+        "psp" 'spacemacs/helm-project-do-pt
+        "psP" 'spacemacs/helm-project-do-pt-region-or-symbol))
     :config
     (progn
       (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)
