@@ -14,7 +14,7 @@
   '(sr-speedbar))
 
 (defun sr-speedbar/post-init-sr-speedbar ()
-  (defun sr-speedbar-show-or-hide ()
+  (defun spacemacs/sr-speedbar-show-or-hide ()
     (interactive)
     (cond ((sr-speedbar-exist-p) (kill-buffer speedbar-buffer))
           (t (sr-speedbar-open) (linum-mode -1) (speedbar-refresh)))))
