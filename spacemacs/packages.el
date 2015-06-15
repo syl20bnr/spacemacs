@@ -1394,12 +1394,13 @@ Removes the automatic guessing of the initial value based on thing at point. "
             (((symbol-function 'this-fn) (symbol-function 'helm-do-grep-1))
              ((symbol-function 'helm-do-grep-1)
               (lambda (targets &optional recurse zgrep exts default-input region-or-symbol-p)
-                (let ((new-input (when region-or-symbol-p
+                (let* ((new-input (when region-or-symbol-p
                                    (if (region-active-p)
                                        (buffer-substring-no-properties
                                         (region-beginning) (region-end))
-                                     (thing-at-point 'symbol t)))))
-                  (this-fn targets recurse zgrep exts default-input new-input))))
+                                     (thing-at-point 'symbol t))))
+                      (quoted-input (when new-input (rxt-quote-pcre new-input))))
+                  (this-fn targets recurse zgrep exts default-input quoted-input))))
              (preselection (or (dired-get-filename nil t)
                                (buffer-file-name (current-buffer))))
              (targets   (if targs
@@ -1686,10 +1687,11 @@ ARG non nil means that the editing style is `vim'."
                    ((symbol-function 'this-fn) (symbol-function 'thing-at-point))
                    ((symbol-function 'thing-at-point)
                     (lambda (thing)
-                      (if (region-active-p)
+                      (let ((res (if (region-active-p)
                           (buffer-substring-no-properties
                            (region-beginning) (region-end))
-                        (this-fn thing)))))
+                          (this-fn thing))))
+                        (when res (rxt-quote-pcre res))))))
           (funcall func dir)))
 
       (defun spacemacs//helm-do-search-find-tool (base tools default-inputp)
@@ -1749,7 +1751,7 @@ DEFAULTP is non-nil."
       (defun spacemacs/helm-files-do-pt (&optional dir)
         "Search in files with `pt'."
         (interactive)
-        (let ((helm-ag-base-command "pt --nocolor --nogroup"))
+        (let ((helm-ag-base-command "pt -e --nocolor --nogroup"))
           (helm-do-ag dir)))
 
       (defun spacemacs/helm-files-do-pt-region-or-symbol ()
@@ -1802,7 +1804,7 @@ If ARG is non nil then `ag' and `pt' and ignored."
       (defun spacemacs/helm-buffers-do-pt (&optional _)
         "Search in opened buffers with `pt'."
         (interactive)
-        (let ((helm-ag-base-command "pt --nocolor --nogroup"))
+        (let ((helm-ag-base-command "pt -e --nocolor --nogroup"))
           (helm-do-ag-buffers)))
 
       (defun spacemacs/helm-buffers-do-pt-region-or-symbol ()
