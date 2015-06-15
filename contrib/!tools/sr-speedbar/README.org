@@ -6,7 +6,6 @@
      - [[#layer][Layer]]
      - [[#sr-speedbar][sr-speedbar]]
  - [[#usage][Usage]]
- - [[#key-bindings][Key Bindings]]
 
 * Description
 
