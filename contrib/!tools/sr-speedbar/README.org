@@ -1,0 +1,31 @@
+#+TITLE: sr-speedbar contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#sr-speedbar][sr-speedbar]]
+ - [[#usage][Usage]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+
+sr-speedbar is mode make SpeedBar show in Current Frame.
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(sr-speedbar))
+#+END_SRC
+
+** sr-speedbar
+
+To use the mode please [[http://pandoc.org/installing.html][install]] pandoc first.
+
+* Usage
+
+M-x sr-speedbar-show-or-hide
