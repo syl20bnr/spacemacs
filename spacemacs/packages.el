@@ -1267,18 +1267,17 @@ Example: (evil-map visual \"<\" \"<gv\")"
                google-translate-query-translate-reverse
                google-translate-at-point-reverse)
     :init
-    (evil-leader/set-key
-      "xgQ" 'google-translate-query-translate-reverse
-      "xgq" 'google-translate-query-translate
-      "xgT" 'google-translate-at-point-reverse
-      "xgt" 'google-translate-at-point)
-    :config
     (progn
       (require 'google-translate-default-ui)
       (setq google-translate-enable-ido-completion t)
       (setq google-translate-show-phonetic t)
-      (setq google-translate-default-source-language "En")
-      (setq google-translate-default-target-language "Fr"))))
+      (setq google-translate-default-source-language "auto")
+      (setq google-translate-default-target-language "en")
+      (evil-leader/set-key
+        "xgQ" 'google-translate-query-translate-reverse
+        "xgq" 'google-translate-query-translate
+        "xgT" 'google-translate-at-point-reverse
+        "xgt" 'google-translate-at-point))))
 
 (defun spacemacs/init-guide-key-tip ()
   (use-package guide-key-tip
@@ -2500,6 +2499,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (push '("*grep*"                 :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '("*nosetests*"            :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '("^\*WoMan.+\*$" :regexp t             :position bottom                                   ) popwin:special-display-config)
+      (push '("*Google Translate*"     :dedicated t :position bottom :stick t :noselect nil :height 0.4) popwin:special-display-config)
 
       (defun spacemacs/remove-popwin-display-config (str)
         "Removes the popwin display configurations that matches the passed STR"
