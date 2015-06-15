@@ -121,6 +121,7 @@
         "gb" 'magit-blame-mode
         "gl" 'magit-log
         "gs" 'magit-status
+        "gd" #'(lambda () (interactive) (magit-diff "HEAD"))
         "gC" 'magit-commit)
       (evilify magit-commit-mode magit-commit-mode-map
                (kbd "C-j") 'magit-goto-next-section
