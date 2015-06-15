@@ -47,6 +47,7 @@
     :init
     (progn
       (setq org-log-done t
+            org-startup-with-inline-images t
             org-src-fontify-natively t)
 
       (eval-after-load 'org-indent
