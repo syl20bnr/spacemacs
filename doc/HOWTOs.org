@@ -9,7 +9,6 @@
      - [[#enable-navigation-by-visual-lines][Enable navigation by visual lines]]
 
 ** Disable a package completely
-
 To completely disable a package and effectively uninstalling it even if
 it is part of your used layers, look for the variable
 =dotspacemacs-excluded-packages= in your dotfile and add the package
@@ -20,7 +19,6 @@ name to it:
 #+end_src
 
 ** Disable a package only for a specific major-mode
-
 This is done by removing the hook added by Spacemacs. For example to
 remove =flycheck= support in python buffers, look for the function
 =dotspacemacs/config= in your dotfile and add the following code:
@@ -33,7 +31,6 @@ remove =flycheck= support in python buffers, look for the function
 ~SPC h d v major-mode RET~
 
 ** Disable company for a specific major-mode
-
 It may be handy to disable =company= for a given mode if you plan on
 configuring =auto-complete= instead. On easy way to do it is to use the
 macro =spacemacs|disable-company= in the function =dotspacemacs/config=
@@ -45,7 +42,6 @@ of your dotfile. The following snippet disables company for
 #+end_src
 
 ** Change special buffer rules
-
 To change the way spacemacs marks buffers as useless, you can customize
 =spacemacs-useless-buffers-regexp= which marks buffers matching the
 regexp as useless. The variable =spacemacs-useful-buffers-regexp= marks
@@ -53,7 +49,6 @@ buffers matching the regexp as useful buffers. Both can be customized
 the same way.
 
 Examples:
-
 #+begin_src emacs-lisp
     ;; Only mark helm buffers as useless
     (setq spacemacs-useless-buffers-regexp '("\\*helm\.\+\\*"))
@@ -63,7 +58,6 @@ Examples:
 #+end_src
 
 ** Enable navigation by visual lines
-
 Add the following snippet to your =dostpacemacs/config= function:
 
 #+begin_src emacs-lisp
