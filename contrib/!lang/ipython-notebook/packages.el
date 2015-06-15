@@ -99,9 +99,18 @@
         "m+" 'ein:notebook-worksheet-insert-next
         "m-" 'ein:notebook-worksheet-delete
         "mx" 'ein:notebook-close
-        "mu" 'ein:worksheet-change-cell-type)
+        "mu" 'ein:worksheet-change-cell-type
+        "fw" 'ein:notebook-save-notebook-command)
+
+      ;; keybindings mirror ipython web interface behavior
+      (evil-define-key 'insert ein:notebook-multilang-mode-map
+        (kbd "<C-return>") 'ein:worksheet-execute-cell
+        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next)
 
       (evil-define-key 'normal ein:notebook-multilang-mode-map
+        ;; keybindings mirror ipython web interface behavior
+        (kbd "<C-return>") 'ein:worksheet-execute-cell
+        (kbd "<S-return>") 'ein:worksheet-execute-cell-and-goto-next
         "gj" 'ein:worksheet-goto-next-input
         "gk" 'ein:worksheet-goto-prev-input)
 
