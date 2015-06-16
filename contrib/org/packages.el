@@ -31,7 +31,7 @@
     (progn
       (evil-leader/set-key-for-mode 'org-mode
            "a" nil "ma" 'org-agenda
-           "b" nil "mb" 'org-tree-to-indirect-buffer 
+           "b" nil "mb" 'org-tree-to-indirect-buffer
            "c" nil "mA" 'org-archive-subtree
            "o" nil "mC" 'evil-org-recompute-clocks
            "l" nil "mo" 'evil-org-open-links
@@ -46,7 +46,9 @@
     :defer t
     :init
     (progn
-      (setq org-log-done t
+      (setq org-clock-persist-file
+            (concat spacemacs-cache-directory "org-clock-save.el")
+            org-log-done t
             org-startup-with-inline-images t
             org-src-fontify-natively t)
 
