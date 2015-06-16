@@ -90,6 +90,7 @@ Git commands (start with ~=g~=):
 |-------------+-----------------------------------------------------|
 | ~SPC g b~   | open a =magit= blame                                |
 | ~SPC g C~   | commit changes                                      |
+| ~SPC g d~   | show diff against current head                      |
 | ~SPC g h c~ | clear highlights                                    |
 | ~SPC g h h~ | highlight regions by age of commits                 |
 | ~SPC g h t~ | highlight regions by last updated time              |
