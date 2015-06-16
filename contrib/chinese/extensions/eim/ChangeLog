@@ -1,0 +1,181 @@
+2008-04-27  Ye Wenbin  <wenbinye@gmail.com>
+
+	* eim-table.el: 将 eim-wb 中的函数抽取到这个包中
+
+2008-04-26  Ye Wenbin  <wenbinye@gmail.com>
+
+	* eim-wb.el (eim-wb-add-completion): 对于增加的补全按输入码的长度排序。
+
+	* eim.el (eim-select-current): 如果是空码，输入空格确认后不产生空
+	格。
+
+2008-04-25  Ye Wenbin  <wenbinye@gmail.com>
+
+	* eim-cj.el: 增加对仓颉输入法的支持
+
+	* eim-wb.el (eim-wb-add-completion): 在输入足够长 (3 个字符) 时输
+	出所有补全
+
+	* eim.el (eim-format-page, eim-handle-string): 如果没有查找到对应
+	词条，依然要继续查找补全。
+
+2008-03-29  Ye Wenbin  <wenbinye@gmail.com>
+
+	* eim.el (eim-show-tooltip): 修正 tooltip frame 位置计算。
+
+Fri Nov  9 22:01:32 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 不绑定控制字符，这样很多全局按键绑定都可以用了
+
+Fri Nov  9 22:00:53 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 增加切换英文标点和中文标点的命令
+
+Fri Nov  9 21:59:21 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 关闭五笔输入法记录历史的说明
+
+Sat Sep 29 13:02:49 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修正 let 局部变量
+
+2007-09-29  Ye Wenbin  <wenbinye@gmail.com>
+
+	* eim.el: 增加版本号
+
+Sat Sep 29 12:58:02 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 为 package 增加选项，比如 eim-wb 可以用来设置是否记录位置
+
+Mon Sep 24 17:12:54 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修改 eim-insert-ascii 使可以自己定义任意的按键，不用修改 punctuation list
+
+Fri Sep 21 11:17:34 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * timestamp
+
+Fri Sep 21 11:16:56 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * remove pychr.txt from version control
+
+Fri Sep 21 11:15:42 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * Add mergepy.pl in source
+
+Fri Sep 21 11:14:58 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * Fix restore narraw info for eim-wb-save-history
+
+Fri Sep 21 11:14:21 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * Add missing char for eim-py
+
+Fri Sep 21 11:12:42 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * More intelligent command for eim-insert-ascii
+
+Fri Sep 21 11:10:26 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * Add description for mergepy.pl and change eim-insert-ascii key binding
+
+2007-09-21  Ye Wenbin  <wenbinye@gmail.com>
+
+	* eim-extra.el (eim-insert-ascii): 一个模拟一般五笔输入法插入英文功能的命令。这两个 patch 都来自 Levin，多谢！
+
+	* eim-wb.el (eim-wb-save-history): 修正直接调用 eim-wb-save-history 时没有恢复 eim-wb-user-buffer 的 narraw 信息。
+
+Thu Jul 12 19:34:28 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 一些小错误
+
+Thu Jul 12 19:34:04 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修正增加五笔词组当光标在缓冲区开末尾时出错的bug
+
+2007-07-12  Ye Wenbin  <wenbinye@163.com>
+
+	* Readme: mergepy.pl 使用说明
+
+	* mergewb.pl: 增加一个更新拼音词库的程序
+
+Thu Jul 12 19:33:29 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修正第一次启动 eim-wb 时没有启动输入法的错误
+
+Thu Jul 12 19:32:39 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修正翻页命令的错误
+
+Thu Jul 12 19:31:43 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 增加按键绑定说明
+
+Tue Jul 10 00:37:47 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 增加 makefile
+
+Thu Jul  5 17:31:04 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修改文件名错误
+
+Thu Jul  5 17:30:46 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修改说明
+
+Thu Jul  5 16:57:08 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修改破折号
+
+Thu Jul  5 16:52:07 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 使用makefile产生打包文件，py.txt老是变，删除之
+
+Thu Jul  5 16:50:14 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修正 eim-subseq 对于空列表的错误
+
+Thu Jul  5 16:49:33 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 改拼写错误
+
+Thu Jul  5 16:47:50 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 使词库文件和所在目录无关，使用load-path搜索所在路径
+
+Thu Jul  5 16:47:23 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修正错误
+
+Thu Jul  5 16:46:27 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 更新说明
+
+Thu Jun  7 00:46:44 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 当前一个字符和标点转换前字符相同，删除前一个字符
+
+Thu Jun  7 00:40:45 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 增加在数字后不转换标点的功能
+
+Sun Jun  3 23:20:40 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修正在 unibyte buffer 里导致 emacs crash 的问题
+
+Mon May 28 17:42:14 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 移动 eim-delete-region 位置，编译时不会有警告
+
+Mon May 28 17:41:29 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修改一些错误
+
+Mon May 28 17:40:20 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 移除 eim-extra 里的 eim-package-name
+
+Wed May 23 01:11:48 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修改说明
+
+Wed May 23 01:09:08 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修改版本号
+
+Wed May 23 01:02:31 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修改终端下退格键无效
+
+Wed May 23 00:53:41 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 无须路径指定文件名
+
+Wed May 23 00:53:09 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修改终端下退格键无效
+
+Wed May 23 00:51:47 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修改提示
+
+Wed May 23 00:30:03 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修改 feature 名字和文件名相同
+
+Sat Feb 10 10:25:06 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 增加显示五笔补全命令
+
+Sat Feb 10 10:21:57 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * 修正 eim-insert-ascii 在 overite 模式下的问题，加入新命令eim-describe-char 查找汉输码
+
+Sun Jan 14 19:54:27 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * add file coding header
+
+Sun Jan 14 13:02:53 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * add tooltip advice
+
+Sun Jan 14 13:02:21 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * add file ChangeLog.1
+
+Sun Jan 14 10:29:45 CST 2007  Ye Wenbin<wenbinye@163.com>
+  * Init eim

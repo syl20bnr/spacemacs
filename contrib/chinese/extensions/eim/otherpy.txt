@@ -1,0 +1,168 @@
+;; -*- coding: utf-8 -*-
+[Comment]
+要创建一个新的 eim 输入法文件，最简单的方法是只要在 Table 部分填入码表
+就行了。更多的设置如下：
+
+如果需要排序，或者合并相同编码的词条，使用 C-c C-c 或者 M-x eim-build-table。
+如果有需要，可能还要修改 first-char 和 total-char
+
+[Parameter]
+first-char=yxwrokjhgea
+total-char=mdpwrlbkfctqozyxsjgeiunh-a
+
+[Table]
+a-h-n 阿会喃
+a-hui-nan 阿会喃
+e-h 鄂焕
+e-huan 鄂焕
+g-h 郭淮 管亥
+g-j 郭嘉
+g-s 关索
+g-sh 郭石
+g-x 关兴
+g-y 郭奕 关彝 关羽
+g-y-zh 郭攸之
+guan-hai 管亥
+guan-suo 关索
+guan-xing 关兴
+guan-yi 关彝
+guan-yu 关羽
+guo-huai 郭淮
+guo-jia 郭嘉
+guo-shi 郭石
+guo-yi 郭奕
+guo-you-zhi 郭攸之
+h-h 华核 韩浩
+h-j 何进 霍峻
+h-q 贺齐
+h-s 韩嵩 韩遂
+h-t 华佗
+h-t-h 何太后
+h-x 韩暹 华雄 韩玄 华歆
+h-y 何仪 何晏 霍弋
+h-zh 郝昭
+han-hao 韩浩
+han-song 韩嵩
+han-sui 韩遂
+han-xian 韩暹
+han-xuan 韩玄
+hao-zhao 郝昭
+he-jin 何进
+he-qi 贺齐
+he-tai-hou 何太后
+he-yan 何晏
+he-yi 何仪
+hua-he 华核
+hua-tuo 华佗
+hua-xin 华歆
+hua-xiong 华雄
+huo-jun 霍峻
+huo-yi 霍弋
+j-ch 贾充
+j-f 贾范
+j-k 贾逵
+j-y 贾余
+jia-chong 贾充
+jia-fan 贾范
+jia-kui 贾逵
+jia-yu 贾余
+k-b-n 轲比能
+k-l 蒯良
+k-y 蒯越
+ke-bi-neng 轲比能
+kuai-liang 蒯良
+kuai-yue 蒯越
+o-x 区星
+ou-xing 区星
+rong 镕
+w-c 王粲
+w-ch 王昶
+w-f 王甫
+w-h 王浑
+w-j 王浚 王基
+w-k 王伉 王匡
+w-l 王朗 王累
+w-p 王平
+w-r 王戎
+w-sh 王双
+w-w 王威
+w-x 王欣 王修
+w-y 王允
+w-zh 王忠 韦昭
+wang-can 王粲
+wang-chang 王昶
+wang-fu 王甫
+wang-hun 王浑
+wang-ji 王基
+wang-jun 王浚
+wang-kang 王伉
+wang-kuang 王匡
+wang-lang 王朗
+wang-lei 王累
+wang-ping 王平
+wang-rong 王戎
+wang-shuang 王双
+wang-wei 王威
+wang-xin 王欣
+wang-xiu 王修
+wang-yun 王允
+wang-zhong 王忠
+wei-zhao 韦昭
+x-h-b 夏侯覇
+x-h-d 夏侯惇
+x-h-e 夏侯恩
+x-h-h 夏侯和
+x-h-m 夏侯楙
+x-h-sh 夏侯尚
+x-h-w 夏侯威
+x-h-x 夏侯玄
+x-h-y 夏侯渊
+xia-hou-ba 夏侯覇
+xia-hou-dun 夏侯惇
+xia-hou-en 夏侯恩
+xia-hou-he 夏侯和
+xia-hou-mao 夏侯楙
+xia-hou-shang 夏侯尚
+xia-hou-wei 夏侯威
+xia-hou-xuan 夏侯玄
+xia-hou-yuan 夏侯渊
+y-d 雅丹
+y-d-m 尹大目
+y-f-l 于夫罗
+y-j 乐进 伊籍 于禁 越吉 于吉
+y-l 云玲
+y-m 尹黙
+y-m-z 异民族
+y-p 阎圃
+y-q 于诠
+y-r 阎柔
+y-sh 尹赏 袁尚 袁术 袁绍
+y-t 袁谭
+y-x 袁煕 阎象
+y-y 袁遗 袁胤 阎宇 袁耀
+ya-dan 雅丹
+yan-pu 阎圃
+yan-rou 阎柔
+yan-xiang 阎象
+yan-yu 阎宇
+ye 葉
+yi-ji 伊籍
+yi-min-zu 异民族
+yi-mo 尹黙
+yin-da-mu 尹大目
+yin-shang 尹赏
+yu-fu-luo 于夫罗
+yu-ji 于吉
+yu-jin 于禁
+yu-quan 于诠
+yuan-shang 袁尚
+yuan-shao 袁绍
+yuan-shu 袁术
+yuan-tan 袁谭
+yuan-xi 袁煕
+yuan-yao 袁耀
+yuan-yi 袁遗
+yuan-yin 袁胤
+yue-ji 越吉
+yue-jin 乐进
+yun-ling 云玲

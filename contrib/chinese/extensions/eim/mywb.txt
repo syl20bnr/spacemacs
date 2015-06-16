@@ -1,0 +1,92 @@
+;; -*- coding:utf-8 -*-
+[Comment]
+要创建一个新的 eim 输入法文件，最简单的方法是只要在 Table 部分填入码表
+就行了。更多的设置如下：
+
+如果需要排序，或者合并相同编码的词条，使用 C-c C-c 或者 M-x e+-build-table。
+
+[Parameter]
+first-char=abcdefghijklmnopqrstuvwxyz
+
+[Punctuation]
+
+[Table]
+akxe 巨噬细胞
+alxe 基因组
+btqe 降解
+btqi 孟德尔
+bwtu 孙公科
+cstw 通配符
+ddad 碱基
+dhwn 夏侯
+dibu 耦联
+dihk 耙点
+dosg 磷酸
+dqbt 克隆
+drtt 大手笔
+egnr 肌球蛋白
+egpn 县官
+enrr 朊蛋白 膜蛋白
+epws 受体
+fgyo 博弈
+fqxe 元组
+fsxe 真核细胞
+ft 都
+ghru 下拉
+ghse 正极
+gmga 正则表达式
+gqud 残差
+hxqh 紫外
+ipgm 常瑞
+irsg 激酶
+itgx 泛素
+itwx 活化
+iuqi 波普尔
+jbli 量子力学
+khlf 跳转
+kkge 吕青
+kyss 叶文彬
+kyvk 叶文娟
+mfdd 周磊
+mggw 周惠珍
+mgid 同源
+nrsg 蛋白酶
+puh 被
+pwtf 空行
+rfou 质粒
+rgtw 制表符
+rhfa 卸载
+rnsg 氨酸
+rnwg 拟合
+rrtf 折行
+rtsm 手机
+rvqv 热键
+rwit 失活
+sctg 权重
+sgws 配体
+sipl 李治寰
+skip 可溶
+soss 核糖核酸
+sqqj 构象
+ssit 林浩
+tfkh 选中
+tuny 乘以
+uews 前体
+umd 端
+umyn 凋亡
+vklt 如图
+wbyy 仓廪
+wdyj 佐剂
+wffh 付超
+wf 值
+wffh 付超
+wg 使
+wuhk 位点
+wvwf 分值
+xaaq 张雅鸥
+xdyy 张郁文
+xjcn 费马
+xsfa 结构域
+ymyp 高亮
+yy 该
+yyud 方差

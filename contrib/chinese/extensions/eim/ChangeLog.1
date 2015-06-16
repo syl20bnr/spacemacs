@@ -1,0 +1,119 @@
+2007-01-14  Ye Wenbin  <wenbinye@163.com>
+
+	* eim-wb-gb2312.el : 把原来 eim-wb 中的一部分放到单独的文件中，如果
+	选择设置 eim-wb-use-gbk 则导入 eim-wb-gbk，否则导入 eim-wb-gb2312
+
+	* eim-wb-gbk.el : 结合 fcitx 五笔字库的 gbk 汉字
+
+	* eim-wb.el (eim-wb-add-user-char): 可以从 eim-wb-user-file 中读入
+	需要的汉字。如果不想导入 eim-wb-gbk，不妨只在 eim-wb-use-file 中加
+	入可能会用到的 gbk 汉字。其实一般的输入 gbk 汉字是没有问题，因为
+	wb.txt 中已经加入了 fcitx 中所有的 gbk 汉字，只是如果需要造词时，不
+	导入 gbk 汉字是无法自动造词的。
+
+2006-11-21  Ye Wenbin  <wenbinye@163.com>
+
+	* eim-extra.el (eim-save-history, eim-load-history):
+
+	* eim-wb.el (eim-wb-initialized):
+	读入 history 文件时，有时会出错，不知道为什么保存时会有的条目没有代码。
+
+2006-08-11  Ye Wenbin  <wenbinye@163.com>
+
+	* eim.el (eim-show-tooltip): 修正在 frame 左上角在屏幕外时无法显示
+	tooltip 的问题。
+
+2006-08-05  Ye Wenbin  <wenbinye@163.com>
+
+	* eim.el (eim-show): 去掉可能用不上的代码。如果出错了，再补上。
+
+2006-08-03  Ye Wenbin  <wenbinye@163.com>
+
+	* eim.el (eim-show): 修正分割符的写法。
+
+2006-07-31  Ye Wenbin  <wenbinye@163.com>
+
+	* eim-py.el (eim-py-handle-string):
+	修正一个错误写法导致不能使用 tooltip。
+
+2006-07-30  Ye Wenbin  <wenbinye@163.com>
+
+	* eim.el (eim-start-translation): 去掉 quail-error，直接用 error，
+	免得出现问题。
+	(eim-use-package, eim-help): 显示输入法的说明。
+	(eim-build-table, eim-create-word-file): 增加 Description 部分，作
+	为输入法的说明。
+	(eim-show, eim-show-tooltip, eim-terminate-translation)
+	(eim-use-tooltip, eim-tooltip-timeout): 光标跟随效果测试。如果不喜
+	欢可以去掉：
+	(setq eim-use-tooltip nil)
+
+2006-07-28  Ye Wenbin  <wenbinye@163.com>
+
+	* eim.el (number-sequence, delete-dups, eim-string-emptyp)
+	(eim-line-content): 兼容 emacs21
+	(eim-handle-string): 没有词条时，显示输入字母
+
+2006-07-27  Ye Wenbin  <wenbinye@163.com>
+
+	* eim-py.el (eim-py-handle-string, eim-py-format-page):
+	修改拼音的显示方式。如果没有可选词，直接显示输入的字母。多余的拼音
+	也显示出来。
+
+2006-07-19  Ye Wenbin  <wenbinye@163.com>
+
+	* eim (v2.0): 使用 Quail 的方法来处理。查找方式为在打开的 buffer
+	中使用半分查找。有这些改进：
+	1. auto-fill 和 isearch 的问题都已经解决
+	2. 可以自己加入多个词库
+	3. 更方便自定义按键
+	4. 内存占用应该是会减少。
+
+2006-06-06  Ye Wenbin  <wenbinye@163.com>
+
+	* chinese-pyx.el (eim-py-get): 使用 remove-if-not 代替 eim-filter
+
+	* eim.el (eim-insert-ascii): 修正在 minibuffer 输入过程中使用 C-g
+	退出导致 after-change-functions 的值变成 nil 的问题。其实以前的考虑
+	是多余的。
+	(eim-filter): 删除了。使用 remove-if-not 代替。
+
+	* chinese-pyx.el (eim-py-get): 修改的这个函数增加一个功能是检查代码
+	与编码是否相符。eim-py-check-word 开启这个选项。现在还没有找到为什
+	么会错误的加入新词的原因。如果找到原因，修正之后可以不用检查已经输
+	入过的词。不过由于，词组不多，所以影响不大。
+
+	* eim.el (eim-filter): filter
+
+2006-06-05  Ye Wenbin  <wenbinye@163.com>
+
+	* chinese-pyx.el (eim-py-no-clear-select): 增加这个命令方便在拼音
+	输入下输入英文。
+	(eim-py-handle-function): 修正输入 i 等字母开头的拼音无法识别的问题。
+	(eim-py-select): 对于没有可选字，按空格插入输入字母。
+
+2006-04-14  Ye Wenbin  <wenbinye@163.com>
+
+	* chinese-pyx.el (eim-py-save-database): 设置 print-length 为 nil。
+
+2006-04-11  Ye Wenbin  <wenbinye@163.com>
+
+	* chinese-pyx.el (eim-py-valid-yunmu): 修正不能输入 `ang' 的错误。
+
+2006-04-08  Ye Wenbin  <wenbinye@163.com>
+
+	* eim.el (eim-help): fix it up
+	(eim-insert-ascii): 修正输入一个字符时重新激活输入法的错误。
+
+	* pywords: 对几万个汉字的文本统计频率后重新排列。
+
+	* eim.el (eim-help): for describe-input-method
+	(eim-char-database, eim-database, eim-docstring, eim-params)
+	(eim-package-name):
+
+	* chinese-pyx.el (eim-py-select): 加入一个特性，可以选择词组的同时
+	调整汉字的位置。开启可以设置 eim-py-rearrange-with-word 为 t。
+
+	* eim.el (eim-uninstall-package): uninstall a package. this is not
+	use by user.
+	(eim-inactivate-hook, eim-after-load-hook, eim-activate-hook):

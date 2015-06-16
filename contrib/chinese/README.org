@@ -1,0 +1,57 @@
+#+TITLE: Chinese contribution layer for Spacemacs
+[[file:img/China.png]]  [[file:img/Chinese.png]]
+
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#configuration][Configuration]]
+         - [[#configure-the-default-input-method][Configure the Default Input Method]]
+         - [[#configure-the-chinese-pyim-input-method][Configure the =Chinese-pyim= Input Method]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#youdao-dictionrary][Youdao Dictionrary]]
+     - [[#find-by-pinyin-dired][Find-by-pinyin-dired]]
+
+* Description
+This Layer adds Chinese related packages:
+- [[https://github.com/tumashu/chinese-pyim][chinese-pyim]] : The best Chinese Pinyin(拼音) input method.
+- [[https://github.com/wenbinye/emacs-eim][emacs-eim]]: The best Chinese Wubi(五笔) input method.
+- [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]]: The Youdao(有道) Dictionary interface for Emacs.
+- [[https://github.com/redguardtoo/find-by-pinyin-dired][find-by-pinyin-dired]]: Find file by first Pinyin characters of Chinese Hanzi.
+- [[https://github.com/cute-jumper/ace-pinyin][ace-pinyin]]: Jump to Chinese character by pinyin with `ace-jump-mode'.
+  
+
+* Install
+** Layer
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(chinese))
+#+END_SRC
+** Configuration
+*** Configure the Default Input Method
+The default Chinese input method is =Chinese-pyim=, if you are a Wubi(五笔) user, 
+you could set the variable `chinese-enable-wubi` to t:
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (chinese :variables chinese-im-enable-wubi t)))
+#+end_src
+*** Configure the =Chinese-pyim= Input Method
+When the first time you use =Chinese-pyim=, you should install the lexicon(词库) file.
+You could call =pyim-dicts-manager= to open up the settings buffer and press =i e= to install the default lexicon.
+The lexicon is about 20M, so you should be patient when downloading starts.
+After the lexicon file is downloaded, just press =s= to save and =R= to restart configuration.
+
+
+* Key Bindings
+Currently, there are no built-in key bindings for this layer. You could define your own preference.
+
+Here are a few suggested key bindings:
+
+** Youdao Dictionrary
+Bind ~<SPC> o y~  to =youdao-dictionary-search-at-point+=.
+
+** Find-by-pinyin-dired
+Bind ~<SPC> o d~ to =find-by-pinyin-dired=
+
