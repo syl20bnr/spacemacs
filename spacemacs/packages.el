@@ -1714,16 +1714,6 @@ ARG non nil means that the editing style is `vim'."
                      tools)
            (t 'helm-do-grep))))
 
-      (defun spacemacs//get-search-tools (defaultp)
-        "Return a list of search tools.
-Return `dotspacemacs-search-tools' or just a list of default tools when
-DEFAULTP is non-nil."
-        (if defaultp
-            (delq nil (mapcar (lambda (x)
-                                (and (not (member x '("ag" "pt"))) x))
-                              dotspacemacs-search-tools))
-          dotspacemacs-search-tools))
-
       ;; Search in current file ----------------------------------------------
 
       (defun spacemacs/helm-file-do-ag-region-or-symbol ()
@@ -1760,25 +1750,23 @@ DEFAULTP is non-nil."
         (interactive)
         (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-pt))
 
-      (defun spacemacs/helm-files-smart-do-search (&optional arg default-inputp)
+      (defun spacemacs/helm-files-smart-do-search (&optional default-inputp)
         "Search in opened buffers using `dotspacemacs-search-tools'.
 Search for a search tool in the order provided by `dotspacemacs-search-tools'
-If ARG is non nil then `ag' and `pt' and ignored.
 If DEFAULT-INPUTP is non nil then the current region or symbol at point
 are used as default input."
-        (interactive "P")
+        (interactive)
         (call-interactively
          (spacemacs//helm-do-search-find-tool "helm-files-do"
-                                              (spacemacs//get-search-tools arg)
+                                              dotspacemacs-search-tools
                                               default-inputp)))
 
-      (defun spacemacs/helm-files-smart-do-search-region-or-symbol (&optional arg)
+      (defun spacemacs/helm-files-smart-do-search-region-or-symbol ()
         "Search in opened buffers using `dotspacemacs-search-tools'.
 with default input.
-Search for a search tool in the order provided by `dotspacemacs-search-tools'
-If ARG is non nil then `ag' and `pt' and ignored."
-        (interactive "P")
-        (spacemacs/helm-files-smart-do-search arg t))
+Search for a search tool in the order provided by `dotspacemacs-search-tools'."
+        (interactive)
+        (spacemacs/helm-files-smart-do-search t))
 
       ;; Search in buffers ---------------------------------------------------
 
@@ -1813,27 +1801,23 @@ If ARG is non nil then `ag' and `pt' and ignored."
         (interactive)
         (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-buffers-do-pt))
 
-      (defun spacemacs/helm-buffers-smart-do-search
-          (&optional arg default-inputp)
+      (defun spacemacs/helm-buffers-smart-do-search (&optional default-inputp)
         "Search in opened buffers using `dotspacemacs-search-tools'.
 Search for a search tool in the order provided by `dotspacemacs-search-tools'
-If ARG is non nil then `ag' and `pt' and ignored.
 If DEFAULT-INPUTP is non nil then the current region or symbol at point
 are used as default input."
-        (interactive "P")
+        (interactive)
         (call-interactively
          (spacemacs//helm-do-search-find-tool "helm-buffers-do"
-                                              (spacemacs//get-search-tools arg)
+                                              dotspacemacs-search-tools
                                               default-inputp)))
 
-      (defun spacemacs/helm-buffers-smart-do-search-region-or-symbol
-          (&optional arg)
+      (defun spacemacs/helm-buffers-smart-do-search-region-or-symbol ()
         "Search in opened buffers using `dotspacemacs-search-tools' with
 default input.
-Search for a search tool in the order provided by `dotspacemacs-search-tools'
-If ARG is non nil then `ag' and `pt' and ignored."
-        (interactive "P")
-        (spacemacs/helm-buffers-smart-do-search arg t))
+Search for a search tool in the order provided by `dotspacemacs-search-tools'."
+        (interactive)
+        (spacemacs/helm-buffers-smart-do-search t))
 
       ;; Search in project ---------------------------------------------------
 
@@ -1885,27 +1869,23 @@ If ARG is non nil then `ag' and `pt' and ignored."
               (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-pt dir)
             (message "error: Not in a project."))))
 
-      (defun spacemacs/helm-project-smart-do-search
-          (&optional arg default-inputp)
+      (defun spacemacs/helm-project-smart-do-search (&optional default-inputp)
         "Search in current project using `dotspacemacs-search-tools'.
 Search for a search tool in the order provided by `dotspacemacs-search-tools'
-If ARG is non nil then `ag' and `pt' and ignored.
 If DEFAULT-INPUTP is non nil then the current region or symbol at point
 are used as default input."
-        (interactive "P")
+        (interactive)
         (call-interactively
          (spacemacs//helm-do-search-find-tool "helm-project-do"
-                                              (spacemacs//get-search-tools arg)
+                                              dotspacemacs-search-tools
                                               default-inputp)))
 
-      (defun spacemacs/helm-project-smart-do-search-region-or-symbol
-          (&optional arg)
+      (defun spacemacs/helm-project-smart-do-search-region-or-symbol ()
         "Search in current project using `dotspacemacs-search-tools' with
  default input.
-Search for a search tool in the order provided by `dotspacemacs-search-tools'
-If ARG is non nil then `ag' and `pt' and ignored."
-        (interactive "P")
-        (spacemacs/helm-project-smart-do-search arg t))
+Search for a search tool in the order provided by `dotspacemacs-search-tools'."
+        (interactive)
+        (spacemacs/helm-project-smart-do-search t))
 
       ;; evilify the helm-grep buffer
       (evilify helm-grep-mode helm-grep-mode-map
@@ -1913,9 +1893,6 @@ If ARG is non nil then `ag' and `pt' and ignored."
                (kbd "q") 'quit-window)
 
       (evil-leader/set-key
-        ;; quick search in project
-        "/"   'spacemacs/helm-project-smart-do-search
-        "?"   'spacemacs/helm-project-smart-do-search-region-or-symbol
         ;; opened buffers scope
         "sb"  'spacemacs/helm-buffers-smart-do-search
         "sB"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
@@ -1940,6 +1917,8 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "stf" 'spacemacs/helm-files-do-pt
         "stF" 'spacemacs/helm-files-do-pt-region-or-symbol
         ;; current project scope
+        "/"   'spacemacs/helm-project-smart-do-search
+        "?"   'spacemacs/helm-project-smart-do-search-region-or-symbol
         "sp"  'spacemacs/helm-project-smart-do-search
         "sP"  'spacemacs/helm-project-smart-do-search-region-or-symbol
         "sap" 'spacemacs/helm-project-do-ag
