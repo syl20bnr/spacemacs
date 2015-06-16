@@ -65,8 +65,7 @@
         ;; not working for now
         ;; helm-proc
         helm-projectile
-        ;; testing if it can be replaced by `helm-ag'
-        ;; helm-swoop
+        helm-swoop
         helm-themes
         highlight-indentation
         highlight-numbers
@@ -2019,22 +2018,36 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "sgp" 'helm-projectile-grep))))
 
 
-;; Remove it for now, see if `helm-ag' can do the job
-;; (defun spacemacs/init-helm-swoop ()
-;;   (use-package helm-swoop
-;;     :defer t
-;;     :init
-;;     (setq helm-swoop-split-with-multiple-windows t
-;;           helm-swoop-split-direction 'split-window-vertically
-;;           helm-swoop-speed-or-color t
-;;           helm-swoop-split-window-function 'helm-default-display-buffer)
-;;     (evil-leader/set-key
-;;       "sS"    'helm-multi-swoop
-;;       "ss"    'helm-swoop
-;;       "s C-s" 'helm-multi-swoop-all)
-;;     (defadvice helm-swoop (before add-evil-jump activate)
-;;       (when (configuration-layer/package-usedp 'evil-jumper)
-;;         (evil-set-jump)))))
+(defun spacemacs/init-helm-swoop ()
+  (use-package helm-swoop
+    :defer t
+    :init
+    (progn
+      (setq helm-swoop-split-with-multiple-windows t
+            helm-swoop-split-direction 'split-window-vertically
+            helm-swoop-speed-or-color t
+            helm-swoop-split-window-function 'helm-default-display-buffer
+            helm-swoop-pre-input-function (lambda () ""))
+
+      (defun spacemacs/helm-swoop-region-or-symbol ()
+        "Call `helm-swoop' with default input."
+        (interactive)
+        (let ((helm-swoop-pre-input-function
+               (lambda ()
+                 (if (region-active-p)
+                     (buffer-substring-no-properties (region-beginning)
+                                                     (region-end))
+                   (let ((thing (thing-at-point 'symbol t)))
+                     (if thing thing ""))))))
+          (call-interactively 'helm-swoop)))
+
+      (evil-leader/set-key
+        "ss"    'helm-swoop
+        "sS"    'spacemacs/helm-swoop-region-or-symbol
+        "s C-s" 'helm-multi-swoop-all)
+      (defadvice helm-swoop (before add-evil-jump activate)
+        (when (configuration-layer/package-usedp 'evil-jumper)
+          (evil-set-jump))))))
 
 (defun spacemacs/init-helm-themes ()
   (use-package helm-themes
