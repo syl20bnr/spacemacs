@@ -84,7 +84,7 @@ on your machine. You can download it from the [[http://git-scm.com/downloads][do
 
 * Working with Git
 
-Git commands (start with ~=g~=):
+Git commands (start with ~g~):
 
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
