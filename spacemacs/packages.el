@@ -338,8 +338,8 @@
         (eval '(ahs-change-range ahs-default-range) nil))
 
       (evil-leader/set-key
-        "sb"  'spacemacs/goto-last-searched-ahs-symbol
         "sh"  'spacemacs/symbol-highlight
+        "sH"  'spacemacs/goto-last-searched-ahs-symbol
         "sR"  'spacemacs/symbol-highlight-reset-range)
 
       (spacemacs|hide-lighter auto-highlight-symbol-mode)
