@@ -1008,3 +1008,23 @@ the right."
 (create-align-repeat-x "left-paren" "(")
 (create-align-repeat-x "right-paren" ")" t)
 
+(defmacro spacemacs//add-external-tool-error-msg (tool &rest funcs)
+  "TOOL is the command used for the external tool (as a string). FUNCS is a list of functions to advise.
+The advice will throw an error message with a helpful message if
+the tool cannot be found on the system."
+  (let* ((links '(("ag" . "https://github.com/ggreer/the_silver_searcher")
+                  ("pt" . "https://github.com/monochromegane/the_platinum_searcher" )
+                  ("ack" . "http://beyondgrep.com")))
+         (link (cdr (assoc tool links))))
+    (dolist (func funcs)
+      (eval
+       `(defadvice ,func (before external-tool-error-msg activate)
+         (unless (executable-find ,tool)
+           (error "Error: Cannot find external tool \"%s\". See %s for information on %s."
+                  ,tool ,link ,tool)))))))
+
+(defmacro spacemacs//add-external-tool-error-msg-grep (func)
+  "Add helpful error message to FUNC, when grep cannot be found on the system."
+  `(defadvice ,func (before external-tool-error-msg-grep activate)
+     (unless (executable-find "grep")
+       (error "Error: Cannot find external tool \"grep\". If you are using MS Windows try https://msysgit.github.io."))))

@@ -1453,6 +1453,9 @@ Removes the automatic guessing of the initial value based on thing at point. "
                                 collect (buffer-file-name buffer))))
           (spacemacs//helm-do-grep-region-or-symbol buffers t)))
 
+      (spacemacs//add-external-tool-error-msg-grep
+       spacemacs//helm-do-grep-region-or-symbol)
+
       (defun spacemacs/last-search-buffer ()
         "open last helm-ag or hgrep buffer."
         (interactive)
@@ -1916,6 +1919,26 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         (interactive)
         (spacemacs/helm-project-smart-do-search t))
 
+      (spacemacs//add-external-tool-error-msg
+       "ag"
+       spacemacs/helm-buffers-do-ag
+       spacemacs/helm-file-do-ag
+       spacemacs/helm-files-do-ag
+       spacemacs/helm-project-do-ag
+       spacemacs/helm-project-do-ag-region-or-symbol)
+
+      (spacemacs//add-external-tool-error-msg
+       "pt"
+       spacemacs/helm-files-do-pt
+       spacemacs/helm-buffers-do-pt
+       spacemacs/helm-project-do-pt)
+
+      (spacemacs//add-external-tool-error-msg
+       "ack"
+       spacemacs/helm-files-do-ack
+       spacemacs/helm-buffers-do-ack
+       spacemacs/helm-project-do-ack)
+
       ;; evilify the helm-grep buffer
       (evilify helm-grep-mode helm-grep-mode-map
                (kbd "RET") 'helm-grep-mode-jump-other-window
@@ -1925,7 +1948,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         ;; opened buffers scope
         "sb"  'spacemacs/helm-buffers-smart-do-search
         "sB"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
-        "sab" 'helm-do-ag-buffers
+        "sab" 'spacemacs/helm-buffers-do-ag
         "saB" 'spacemacs/helm-buffers-do-ag-region-or-symbol
         "skb" 'spacemacs/helm-buffers-do-ack
         "skB" 'spacemacs/helm-buffers-do-ack-region-or-symbol
@@ -1934,12 +1957,12 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         ;; current file scope
         "ss"  'spacemacs/helm-file-smart-do-search
         "sS"  'spacemacs/helm-file-smart-do-search-region-or-symbol
-        "saa" 'helm-ag-this-file
+        "saa" 'spacemacs/helm-file-do-ag
         "saA" 'spacemacs/helm-file-do-ag-region-or-symbol
         ;; files scope
         "sf"  'spacemacs/helm-files-smart-do-search
         "sF"  'spacemacs/helm-files-smart-do-search-region-or-symbol
-        "saf" 'helm-do-ag
+        "saf" 'spacemacs/helm-files-do-ag
         "saF" 'spacemacs/helm-files-do-ag-region-or-symbol
         "skf" 'spacemacs/helm-files-do-ack
         "skF" 'spacemacs/helm-files-do-ack-region-or-symbol
@@ -2007,6 +2030,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       ;; needed for smart search if user's default tool is grep
       (defalias 'spacemacs/helm-project-do-grep 'helm-projectile-grep)
       (defalias 'spacemacs/helm-project-do-grep-region-or-symbol 'helm-projectile-grep)
+
+      (spacemacs//add-external-tool-error-msg-grep helm-projectile-grep)
 
       (evil-leader/set-key
         "pb"  'helm-projectile-switch-to-buffer
