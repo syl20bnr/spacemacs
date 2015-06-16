@@ -117,11 +117,17 @@
       ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
       (when (eq window-system 'w32)
         (setenv "GIT_ASKPASS" "git-gui--askpass"))
+
+      (defun spacemacs/magit-diff-head ()
+        "Execute `magit-diff' against current HEAD."
+        (interactive)
+        (magit-diff "HEAD"))
+
       (evil-leader/set-key
         "gb" 'magit-blame-mode
         "gl" 'magit-log
         "gs" 'magit-status
-        "gd" #'(lambda () (interactive) (magit-diff "HEAD"))
+        "gd" 'spacemacs/magit-diff-head
         "gC" 'magit-commit)
       (evilify magit-commit-mode magit-commit-mode-map
                (kbd "C-j") 'magit-goto-next-section
@@ -150,6 +156,15 @@
                (kbd "C-p") 'magit-goto-previous-section
                (kbd "C-v") 'magit-revert-item)
       (evilify magit-status-mode magit-status-mode-map
+               "K" 'magit-discard-item
+               "L" 'magit-key-mode-popup-logging
+               "H" 'magit-key-mode-popup-diff-options
+               (kbd "C-j") 'magit-goto-next-section
+               (kbd "C-k") 'magit-goto-previous-section
+               (kbd "C-n") 'magit-goto-next-section
+               (kbd "C-p") 'magit-goto-previous-section
+               (kbd "C-v") 'magit-revert-item)
+      (evilify magit-diff-mode magit-diff-mode-map
                "K" 'magit-discard-item
                "L" 'magit-key-mode-popup-logging
                "H" 'magit-key-mode-popup-diff-options
