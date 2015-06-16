@@ -886,7 +886,7 @@ appropriate font).
 The letters displayed in the mode-line correspond to the key bindings used to
 toggle them.
 
-Some toggle have two flavors: local and glocal. The global version of the toggle
+Some toggle have two flavors: local and global. The global version of the toggle
 can be reached using the =control= key.
 
 | Key Binding | Unicode | ASCII | Mode                                |
