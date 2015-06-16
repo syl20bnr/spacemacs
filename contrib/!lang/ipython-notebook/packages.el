@@ -100,7 +100,7 @@
         "m-" 'ein:notebook-worksheet-delete
         "mx" 'ein:notebook-close
         "mu" 'ein:worksheet-change-cell-type
-        "fw" 'ein:notebook-save-notebook-command)
+        "fs" 'ein:notebook-save-notebook-command)
 
       ;; keybindings mirror ipython web interface behavior
       (evil-define-key 'insert ein:notebook-multilang-mode-map

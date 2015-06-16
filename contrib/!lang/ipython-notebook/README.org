@@ -117,7 +117,7 @@ In normal mode the following key bindings are defined:
 | ~C-RET~ | ein:worksheet-execute-cell               |
 | ~S-RET~ | ein:worksheet-execute-cell-and-goto-next |
 
-Also ~SPC f w~ saves the notebook like you would a regular buffer.
+Also ~SPC f s~ saves the notebook like you would a regular buffer.
 
 *** Insert mode
 In normal mode the following key bindings are defined:
