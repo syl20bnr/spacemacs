@@ -1770,14 +1770,15 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
       ;; Search in buffers ---------------------------------------------------
 
-      (defun spacemacs//helm-do-ag-buffers (&optional _)
+      (defun spacemacs/helm-buffers-do-ag (&optional _)
         "Wrapper to execute `helm-ag-buffers.'"
+        (interactive)
         (helm-do-ag-buffers))
 
       (defun spacemacs/helm-buffers-do-ag-region-or-symbol ()
         "Search in opened buffers with `ag' with a default input."
         (interactive)
-        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs//helm-do-ag-buffers))
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-buffers-do-ag))
 
       (defun spacemacs/helm-buffers-do-ack (&optional _)
         "Search in opened buffers with `ack'."
