@@ -1716,17 +1716,45 @@ ARG non nil means that the editing style is `vim'."
 
       ;; Search in current file ----------------------------------------------
 
+      (defun spacemacs/helm-file-do-ag (&optional _)
+        "Wrapper to execute `helm-ag-this-file.'"
+        (interactive)
+        (helm-ag-this-file))
+
       (defun spacemacs/helm-file-do-ag-region-or-symbol ()
         "Search in current file with `ag' using a default input."
         (interactive)
-        (spacemacs//helm-do-ag-region-or-symbol 'helm-ag-this-file))
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-file-do-ag))
+
+      (defun spacemacs/helm-file-smart-do-search (&optional default-inputp)
+        "Search in current file using `dotspacemacs-search-tools'.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'
+If DEFAULT-INPUTP is non nil then the current region or symbol at point
+are used as default input."
+        (interactive)
+        (call-interactively
+         (spacemacs//helm-do-search-find-tool "helm-file-do"
+                                              dotspacemacs-search-tools
+                                              default-inputp)))
+
+      (defun spacemacs/helm-file-smart-do-search-region-or-symbol ()
+        "Search in current file using `dotspacemacs-search-tools' with
+ default input.
+Search for a search tool in the order provided by `dotspacemacs-search-tools'."
+        (interactive)
+        (spacemacs/helm-file-smart-do-search t))
 
       ;; Search in files -----------------------------------------------------
+
+      (defun spacemacs/helm-files-do-ag (&optional dir)
+        "Search in files with `ag' using a default input."
+        (interactive)
+        (helm-do-ag dir))
 
       (defun spacemacs/helm-files-do-ag-region-or-symbol ()
         "Search in files with `ag' using a default input."
         (interactive)
-        (spacemacs//helm-do-ag-region-or-symbol 'helm-do-ag))
+        (spacemacs//helm-do-ag-region-or-symbol 'spacemacs/helm-files-do-ag))
 
       (defun spacemacs/helm-files-do-ack (&optional dir)
         "Search in files with `ack'."
@@ -1904,8 +1932,8 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "stb" 'spacemacs/helm-buffers-do-pt
         "stB" 'spacemacs/helm-buffers-do-pt-region-or-symbol
         ;; current file scope
-        "ss"  'spacemacs/helm-buffers-smart-do-search
-        "sS"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
+        "ss"  'spacemacs/helm-file-smart-do-search
+        "sS"  'spacemacs/helm-file-smart-do-search-region-or-symbol
         "saa" 'helm-ag-this-file
         "saA" 'spacemacs/helm-file-do-ag-region-or-symbol
         ;; files scope
