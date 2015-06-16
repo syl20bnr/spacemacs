@@ -65,7 +65,8 @@
         ;; not working for now
         ;; helm-proc
         helm-projectile
-        helm-swoop
+        ;; testing if it can be replaced by `helm-ag'
+        ;; helm-swoop
         helm-themes
         highlight-indentation
         highlight-numbers
@@ -2010,21 +2011,22 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "sgp" 'helm-projectile-grep))))
 
 
-(defun spacemacs/init-helm-swoop ()
-  (use-package helm-swoop
-    :defer t
-    :init
-    (setq helm-swoop-split-with-multiple-windows t
-          helm-swoop-split-direction 'split-window-vertically
-          helm-swoop-speed-or-color t
-          helm-swoop-split-window-function 'helm-default-display-buffer)
-    (evil-leader/set-key
-      "sS"    'helm-multi-swoop
-      "ss"    'helm-swoop
-      "s C-s" 'helm-multi-swoop-all)
-    (defadvice helm-swoop (before add-evil-jump activate)
-      (when (configuration-layer/package-usedp 'evil-jumper)
-        (evil-set-jump)))))
+;; Remove it for now, see if `helm-ag' can do the job
+;; (defun spacemacs/init-helm-swoop ()
+;;   (use-package helm-swoop
+;;     :defer t
+;;     :init
+;;     (setq helm-swoop-split-with-multiple-windows t
+;;           helm-swoop-split-direction 'split-window-vertically
+;;           helm-swoop-speed-or-color t
+;;           helm-swoop-split-window-function 'helm-default-display-buffer)
+;;     (evil-leader/set-key
+;;       "sS"    'helm-multi-swoop
+;;       "ss"    'helm-swoop
+;;       "s C-s" 'helm-multi-swoop-all)
+;;     (defadvice helm-swoop (before add-evil-jump activate)
+;;       (when (configuration-layer/package-usedp 'evil-jumper)
+;;         (evil-set-jump)))))
 
 (defun spacemacs/init-helm-themes ()
   (use-package helm-themes
