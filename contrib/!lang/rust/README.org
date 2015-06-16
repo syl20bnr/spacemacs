@@ -11,9 +11,9 @@
 
 * Description
 
-This layer aims to support [[http://www.rust-lang.org/][Rust]] development in Spacemacs.
-
-For now only basic support for [[http://doc.crates.io/index.html][Cargo]] is provided.
+This layer aims to support [[http://www.rust-lang.org/][Rust]] development in Spacemacs.  It supports [[http://doc.crates.io/index.html][Cargo]],
+and has some basic auto-completion support through [[https://github.com/phildawes/racer][Racer]], though Racer needs
+some additional configurations as described on their page.
 
 * Install
 
@@ -32,8 +32,9 @@ instructions can be found on the main page of [[http://doc.crates.io/index.html]
 
 * Key bindings
 
-| Key Binding | Description                            |
-|-------------+----------------------------------------|
-| ~SPC m c c~ | compile project with Cargo             |
-| ~SPC m c x~ | compile and execute project with Cargo |
-| ~SPC m t a~ | execute all tests with Cargo           |
+| Key Binding | Description                       |
+|-------------+-----------------------------------|
+| ~SPC m c c~ | compile project with Cargo        |
+| ~SPC m c C~ | execute the project with Cargo    |
+| ~SPC m c t~ | run tests with Cargo              |
+| ~SPC m c d~ | generate documentation with Cargo |
