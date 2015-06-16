@@ -1484,12 +1484,12 @@ Removes the automatic guessing of the initial value based on thing at point. "
 
       ;; search with grep
       (evil-leader/set-key
-        "bsg"  'spacemacs/helm-buffers-do-grep
-        "bsG"  'spacemacs/helm-buffers-do-grep-region-or-symbol
-        "fsg"  'spacemacs/helm-files-do-grep
-        "fsG"  'spacemacs/helm-files-do-grep-region-or-symbol
-        "sg"   'spacemacs/helm-file-do-grep
-        "sG"   'spacemacs/helm-file-do-grep-region-or-symbol)
+        "sgb"  'spacemacs/helm-buffers-do-grep
+        "sgB"  'spacemacs/helm-buffers-do-grep-region-or-symbol
+        "sgf"  'spacemacs/helm-files-do-grep
+        "sgF"  'spacemacs/helm-files-do-grep-region-or-symbol
+        "sgg"  'spacemacs/helm-file-do-grep
+        "sgG"  'spacemacs/helm-file-do-grep-region-or-symbol)
 
       ;; define the key binding at the very end in order to allow the user
       ;; to overwrite any key binding
@@ -1916,37 +1916,37 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "/"   'spacemacs/helm-project-smart-do-search
         "?"   'spacemacs/helm-project-smart-do-search-region-or-symbol
         ;; opened buffers scope
-        "b/"  'spacemacs/helm-buffers-smart-do-search
-        "b?"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
-        "bsa" 'helm-do-ag-buffers
-        "bsA" 'spacemacs/helm-buffers-do-ag-region-or-symbol
-        "bsk" 'spacemacs/helm-buffers-do-ack
-        "bsK" 'spacemacs/helm-buffers-do-ack-region-or-symbol
-        "bsp" 'spacemacs/helm-buffers-do-pt
-        "bsP" 'spacemacs/helm-buffers-do-pt-region-or-symbol
+        "sb"  'spacemacs/helm-buffers-smart-do-search
+        "sB"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
+        "sab" 'helm-do-ag-buffers
+        "saB" 'spacemacs/helm-buffers-do-ag-region-or-symbol
+        "skb" 'spacemacs/helm-buffers-do-ack
+        "skB" 'spacemacs/helm-buffers-do-ack-region-or-symbol
+        "stb" 'spacemacs/helm-buffers-do-pt
+        "stB" 'spacemacs/helm-buffers-do-pt-region-or-symbol
         ;; current file scope
-        "s/"  'spacemacs/helm-buffers-smart-do-search
-        "s?"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
-        "sa"  'helm-ag-this-file
-        "sA"  'spacemacs/helm-file-do-ag-region-or-symbol
+        "ss"  'spacemacs/helm-buffers-smart-do-search
+        "sS"  'spacemacs/helm-buffers-smart-do-search-region-or-symbol
+        "saa" 'helm-ag-this-file
+        "saA" 'spacemacs/helm-file-do-ag-region-or-symbol
         ;; files scope
-        "f/"  'spacemacs/helm-files-smart-do-search
-        "f?"  'spacemacs/helm-files-smart-do-search-region-or-symbol
-        "fsa" 'helm-do-ag
-        "fsA" 'spacemacs/helm-files-do-ag-region-or-symbol
-        "fsk" 'spacemacs/helm-files-do-ack
-        "fsK" 'spacemacs/helm-files-do-ack-region-or-symbol
-        "fsp" 'spacemacs/helm-files-do-pt
-        "fsP" 'spacemacs/helm-files-do-pt-region-or-symbol
+        "sf"  'spacemacs/helm-files-smart-do-search
+        "sF"  'spacemacs/helm-files-smart-do-search-region-or-symbol
+        "saf" 'helm-do-ag
+        "saF" 'spacemacs/helm-files-do-ag-region-or-symbol
+        "skf" 'spacemacs/helm-files-do-ack
+        "skF" 'spacemacs/helm-files-do-ack-region-or-symbol
+        "stf" 'spacemacs/helm-files-do-pt
+        "stF" 'spacemacs/helm-files-do-pt-region-or-symbol
         ;; current project scope
-        "p/"  'spacemacs/helm-project-smart-do-search
-        "p?"  'spacemacs/helm-project-smart-do-search-region-or-symbol
-        "psa" 'spacemacs/helm-project-do-ag
-        "psA" 'spacemacs/helm-project-do-ag-region-or-symbol
-        "psk" 'spacemacs/helm-project-do-ack
-        "psK" 'spacemacs/helm-project-do-ack-region-or-symbol
-        "psp" 'spacemacs/helm-project-do-pt
-        "psP" 'spacemacs/helm-project-do-pt-region-or-symbol))
+        "sp"  'spacemacs/helm-project-smart-do-search
+        "sP"  'spacemacs/helm-project-smart-do-search-region-or-symbol
+        "sap" 'spacemacs/helm-project-do-ag
+        "saP" 'spacemacs/helm-project-do-ag-region-or-symbol
+        "skp" 'spacemacs/helm-project-do-ack
+        "skP" 'spacemacs/helm-project-do-ack-region-or-symbol
+        "stp" 'spacemacs/helm-project-do-pt
+        "stP" 'spacemacs/helm-project-do-pt-region-or-symbol))
     :config
     (progn
       (evil-define-key 'normal helm-ag-map "SPC" evil-leader--default-map)
@@ -2006,8 +2006,9 @@ If ARG is non nil then `ag' and `pt' and ignored."
         "pf"  'helm-projectile-find-file
         "ph"  'helm-projectile
         "pp"  'helm-projectile-switch-project
-        "psg" 'helm-projectile-grep
-        "pv"  'projectile-vc))))
+        "pv"  'projectile-vc
+        "sgp" 'helm-projectile-grep))))
+
 
 (defun spacemacs/init-helm-swoop ()
   (use-package helm-swoop

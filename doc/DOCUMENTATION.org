@@ -102,10 +102,11 @@
          - [[#docview-mode][DocView mode]]
      - [[#searching][Searching]]
          - [[#with-an-external-tool][With an external tool]]
+             - [[#useful-key-bindings][Useful key bindings]]
              - [[#searching-in-current-file-][Searching in current file ]]
              - [[#searching-in-all-open-buffers-visiting-files][Searching in all open buffers visiting files]]
+             - [[#searching-for-files-in-an-arbitrary-directory][Searching for files in an arbitrary directory]]
              - [[#searching-in-a-project][Searching in a project]]
-             - [[#searching-in-an-arbitrary-directory][Searching in an arbitrary directory]]
              - [[#searching-the-web][Searching the web]]
          - [[#persistent-highlighting][Persistent highlighting]]
          - [[#stacking-highlights][Stacking highlights]]
@@ -1539,97 +1540,112 @@ OpenDocument, and Microsoft Office documents.
 
 ** Searching
 *** With an external tool
-=Spacemacs= can be interfaced with different search utilities:
+=Spacemacs= can be interfaced with different search utilities like:
   - ack
   - grep
   - [[https://github.com/ggreer/the_silver_searcher][ag]]
   - [[https://github.com/monochromegane/the_platinum_searcher][pt]]
 
-*Note* =ag= and =pt= are optimized to be used in a source control repository but
-they can be used in an arbitrary directory as well.
+The search commands in Spacemacs are organized under the ~SPC s~ prefix with
+the next key is the tool to use and the last key is the scope. For instance
+~SPC s a b~ will search in all opened buffers using =ag=.
+If the last key (determining the scope) is uppercase then the current region
+or symbol under point is used as default input for the search. For instance
+~SPC s a B~ will search with symbol under point (if there is no active region).
+If the tool key is omitted then a default tool will be automatically
+selected for the search. This tool corresponds to the first tool found on the
+system of the list =dotspacemacs-search-tools=, the default order is =ag=,
+=pt=, =ack= then =grep=. For instance ~SPC b b~ will search in the opened
+buffers using =pt= if =ag= has not been found on the system.
+
+The tool keys are:
+
+| Tool | Key |
+|------+-----|
+| ag   | a   |
+| grep | g   |
+| ack  | k   |
+| pt   | t   |
+
+The available scopes and corresponding keys are:
+
+| Scope                      | Key    |
+|----------------------------+--------|
+| opened buffers             | b      |
+| files in a given directory | f      |
+| current project            | p      |
+
+It is possible to search in the current file by double tapping the second key
+of the sequence, for instance ~SPC s a a~ will search in the current
+file with =ag=.
+
+*Notes*
+- =ag= and =pt= are optimized to be used in a source control repository but
+  they can be used in an arbitrary directory as well.
+- It is also possible to search in several directories at once by marking
+  them in the helm buffer.
 
 *Beware* if you use =pt=, [[https://core.tcl.tk/tcllib/doc/trunk/embedded/www/tcllib/files/apps/pt.html][TCL parser tools]] also install a command line tool
 called =pt=.
 
-The search commands in Spacemacs are organized using the prefix of the command
-according to the scope in which they operate. You can search in the current file
-(prefix ~SPC s~), in all current buffers corresponding to files (prefix ~SPC b
-s~), in all files in a project (prefix ~SPC p s~), or in arbitrary directories
-(prefix ~SPC f s~). In each category, you can choose a tool explicitly or use
-the smart version, which will look for the first installed tool in the list
-=("ag", "pt", "ack", "grep")=. This list can be changed in the dotfile with the
-variable =dotspacemacs-search-tools=.
-
-All of the key bindings are listed in the following sub-sections. Generally,
-within each scope there are two key bindings corresponding to each external
-tool. One inserts default text for the search pattern, while the other does not
-insert the default text. The default text is the region selected when you call
-the command. If no region is selected, the symbol underneath the point is used.
+**** Useful key bindings
+| Key Binding     | Description                                                              |
+|-----------------+--------------------------------------------------------------------------|
+| ~SPC h l~       | resume the last =helm= buffer                                            |
+| ~F3~            | in a =helm= buffer, convert a =helm= search buffer into a regular buffer |
+| ~SPC s L~       | focus the last converted search buffer                                   |
+| Prefix argument | will ask for file extensions                                             |
 
 **** Searching in current file 
-The key bindings available for searching the current file are
-| Key Binding | Description                                                               |
-|-------------+---------------------------------------------------------------------------|
-| ~SPC s /~   | execute the first found utility (by default =ag=, =pt=, =ack= and =grep=) |
-| ~SPC s ?~   | same as above but use default text                                        |
-| ~SPC s a~   | =ag=                                                                      |
-| ~SPC s A~   | =ag= with default text                                                    |
-| ~SPC s g~   | =grep=                                                                    |
-| ~SPC s G~   | =grep= with default text                                                  |
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC s s~   | search with the first found tool                    |
+| ~SPC s S~   | search with the first found tool with default input |
+| ~SPC s a a~ | =ag=                                                |
+| ~SPC s a A~ | =ag= with default input                             |
+| ~SPC s g g~ | =grep=                                              |
+| ~SPC s g G~ | =grep= with default input                           |
 
 **** Searching in all open buffers visiting files
-The key bindings available for searching all open buffers are
-| Key Binding | Description              |
-|-------------+--------------------------|
-| ~SPC b s a~ | =ag=                     |
-| ~SPC b s A~ | =ag= with default text   |
-| ~SPC b s g~ | =grep=                   |
-| ~SPC b s G~ | =grep= with default text |
-| ~SPC b s k~ | =ack=                    |
-| ~SPC b s K~ | =ack= with default text  |
-| ~SPC b s p~ | =pt=                     |
-| ~SPC b s P~ | =pt= with default text   |
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC s b~   | search with the first found tool                    |
+| ~SPC s B~   | search with the first found tool with default input |
+| ~SPC s a b~ | =ag=                                                |
+| ~SPC s a B~ | =ag= with default text                              |
+| ~SPC s g b~ | =grep=                                              |
+| ~SPC s g B~ | =grep= with default text                            |
+| ~SPC s k b~ | =ack=                                               |
+| ~SPC s k B~ | =ack= with default text                             |
+| ~SPC s t b~ | =pt=                                                |
+| ~SPC s t B~ | =pt= with default text                              |
+
+**** Searching for files in an arbitrary directory
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~SPC s f~   | search with the first found tool                    |
+| ~SPC s F~   | search with the first found tool with default input |
+| ~SPC s a f~ | =ag=                                                |
+| ~SPC s a F~ | =ag= with default text                              |
+| ~SPC s g f~ | =grep=                                              |
+| ~SPC s g F~ | =grep= with default text                            |
+| ~SPC s k f~ | =ack=                                               |
+| ~SPC s k F~ | =ack= with default text                             |
+| ~SPC s t f~ | =pt=                                                |
+| ~SPC s t F~ | =pt= with default text                              |
 
 **** Searching in a project
-To use these utilities in a project using =projectile=:
-
-| Key Binding | Description                                                               |
-|-------------+---------------------------------------------------------------------------|
-| ~SPC /~     | execute the first found utility (by default =ag=, =pt=, =ack= and =grep=) |
-| ~SPC p s a~ | =ag=                                                                      |
-| ~SPC p s A~ | =ag= with default text                                                    |
-| ~SPC p s g~ | =grep= with default text                                                  |
-| ~SPC p s k~ | =ack=                                                                     |
-| ~SPC p s K~ | =ack= with default text                                                   |
-| ~SPC p s p~ | =pt=                                                                      |
-| ~SPC p s P~ | =pt= with default text                                                    |
-
-*Pro Tip* Use ~SPC h l~ to bring back the last helm session.
-
-**** Searching in an arbitrary directory
-To use these utilities in one or several arbitrary directories:
-
-| Key Binding | Description                                                               |
-|-------------+---------------------------------------------------------------------------|
-| ~SPC f s /~ | execute the first found utility (by default =ag=, =pt=, =ack= and =grep=) |
-| ~SPC f s a~ | =ag=                                                                      |
-| ~SPC f s A~ | =ag= with default text                                                    |
-| ~SPC f s g~ | =grep=                                                                    |
-| ~SPC f s G~ | =grep= with default text                                                  |
-| ~SPC f s k~ | =ack=                                                                     |
-| ~SPC f s K~ | =ack= with default text                                                   |
-| ~SPC f s p~ | =pt=                                                                      |
-| ~SPC f s P~ | =pt= with default text                                                    |
-| ~SPC f s L~ | open stored search buffer (stored with ~F3~ in helm search buffer)        |
-
-*Note* Use the universal argument to change the search list of ~SPC s /~ to
-=ack= and =grep= (does not look for =ag= or =pt=).
-
-*Note* It is also possible to search in several directories at once by marking
-them in the helm buffer.
-
-*Pro Tip* Use ~F3~ in the helm search buffer to save the list of results to a
-buffer.
+| Key Binding           | Description                                         |
+|-----------------------+-----------------------------------------------------|
+| ~SPC /~  or ~SPC s p~ | search with the first found tool                    |
+| ~SPC ?~  or ~SPC s P~ | search with the first found tool with default input |
+| ~SPC s a p~           | =ag=                                                |
+| ~SPC s a P~           | =ag= with default text                              |
+| ~SPC s g p~           | =grep= with default text                            |
+| ~SPC s k p~           | =ack=                                               |
+| ~SPC s k P~           | =ack= with default text                             |
+| ~SPC s t p~           | =pt=                                                |
+| ~SPC s t P~           | =pt= with default text                              |
 
 **** Searching the web
 | Key Binding | Description                                                          |
