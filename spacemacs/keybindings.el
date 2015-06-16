@@ -84,7 +84,8 @@ Ensure that helm is required before calling FUNC."
   (let ((func-name (intern (format "spacemacs/%s" (symbol-name func)))))
     `(progn
        (defun ,func-name ()
-         ,(format "Wrapper for %s" (symbol-name func))
+         ,(format "Wrapper to ensure that `helm' is loaded before calling %s."
+                  (symbol-name func))
          (interactive)
          (require 'helm)
          (call-interactively ',func))
