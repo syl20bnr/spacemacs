@@ -1693,9 +1693,9 @@ Navigation between the highlighted symbols can be done with the commands:
 |-------------+------------------------------------------------------------------------------|
 | ~/~         | initiate navigation micro-state on current symbol and jump forwards          |
 | ~#~         | initiate navigation micro-state on current symbol and jump backwards         |
-| ~SPC s b~   | go to the last searched occurrence of the last highlighted symbol            |
 | ~SPC s e~   | edit all occurrences of the current symbol(/)                                |
 | ~SPC s h~   | highlight the current symbol and all its occurrence within the current range |
+| ~SPC s H~   | go to the last searched occurrence of the last highlighted symbol            |
 | ~SPC s R~   | change range to default (=whole buffer=)                                     |
 
 In 'Spacemacs' highlight symbol micro-state:
