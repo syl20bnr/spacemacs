@@ -108,6 +108,19 @@ Ensure that helm is required before calling FUNC."
   "ep" 'spacemacs/previous-error
   "eN" 'spacemacs/previous-error)
 ;; file -----------------------------------------------------------------------
+(defun spacemacs/write-file ()
+  "Write the file if visiting a file.
+   Otherwise ask for new filename."
+  (interactive)
+  (if (buffer-file-name)
+      (call-interactively 'evil-write)
+      (call-interactively 'write-file))
+  )
+(defun spacemacs/copy-file ()
+  "Write the file under new name."
+  (interactive)
+  (call-interactively 'write-file)
+  )
 (evil-leader/set-key
   "fD"  'delete-current-buffer-file
   "fei" 'find-user-init-file
@@ -122,7 +135,8 @@ Ensure that helm is required before calling FUNC."
   "fo" 'spacemacs/open-in-external-app
   "fR"  'rename-current-buffer-file
   "fS" 'evil-write-all
-  "fs" 'evil-write
+  "fs" 'spacemacs/write-file
+  "fC" 'spacemacs/copy-file
   "fy" 'show-and-copy-buffer-filename)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
