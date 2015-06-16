@@ -80,6 +80,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "md" 'org-deadline
         "me" 'org-export-dispatch
         "mf" 'org-set-effort
+        "m:" 'org-set-tags
 
         ;; headings
         "mhi" 'org-insert-heading-after-current
