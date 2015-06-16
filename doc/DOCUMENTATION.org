@@ -939,7 +939,7 @@ The choice of ~fd~ was made to be able to use the same sequence to escape from
 
 If you find yourself in a buffer where the =Spacemacs= (~SPC~) or Vim
 keybindings don't work you can use this to get back to =normal state= (for
-example in ~SPC : customize~ press ~fd~ to make ~SPC b s~ work again).
+example in ~SPC : customize~ press ~fd~ to make ~SPC b b~ work again).
 
 This sequence can be customized in your =~/.spacemacs=. Example to set it to
 ~jj~ (it is important set the variable in =dotspacemacs/init=):
