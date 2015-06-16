@@ -16,6 +16,8 @@
     flycheck-rust
     rust-mode
     toml-mode
+    company
+    company-racer
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -39,24 +41,12 @@ which require an initialization must be listed explicitly in the list.")
       (when (fboundp 'sp-local-pair) ;Don't pair lifetime specifiers
         (sp-local-pair 'rust-mode "'" nil :actions nil))
 
-      ;; http://doc.crates.io/guide.html
-      (defun spacemacs/rust-cargo-build ()
-        (interactive)
-        (shell-command "cargo build"))
-
-      (defun spacemacs/rust-cargo-run ()
-        (interactive)
-        (shell-command "cargo run"))
-
-      (defun spacemacs/rust-cargo-test ()
-        (interactive)
-        (shell-command "cargo test"))
-
       ;; (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
       (evil-leader/set-key-for-mode 'rust-mode
         "mcc" 'spacemacs/rust-cargo-build
         "mcC" 'spacemacs/rust-cargo-run
-        "mta" 'spacemacs/rust-cargo-test)))
+        "mct" 'spacemacs/rust-cargo-test
+        "mcd" 'spacemacs/rust-cargo-doc)))
   "Initialize rust-mode"
   )
 
@@ -64,3 +54,13 @@ which require an initialization must be listed explicitly in the list.")
   (use-package toml-mode
     :defer t)
   "Initialize toml-mode")
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun rust/post-init-company ()
+    (spacemacs|add-company-hook rust-mode))
+
+  (defun rust/init-company-racer ()
+    (use-package company-racer
+      :if (configuration-layer/package-usedp 'company)
+      :defer t
+      :init (push 'company-racer company-backends-rust-mode))))
