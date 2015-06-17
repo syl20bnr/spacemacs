@@ -15,6 +15,9 @@
 (defvar syntax-checking-enable-tooltips t
   "If non nil some feedback are displayed in tooltips.")
 
+(defvar syntax-checking-check-on-buffer-change nil
+  "If non nil check syntax on idle and upon entering a newline, in addition to upon enabling flycheck-mode and upon saving the buffer.")
+
 ;; Command Prefixes
 
 (spacemacs/declare-prefix "S" "spelling")
