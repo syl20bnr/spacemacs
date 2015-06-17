@@ -7,6 +7,7 @@
      - [[#key-bindings][Key bindings]]
      - [[#tooltips][Tooltips]]
      - [[#sort-results-by-usage][Sort results by usage]]
+     - [[#show-snippets-in-auto-completion-popup][Show snippets in auto-completion popup]]
      - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
      - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
      - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
@@ -97,6 +98,17 @@ The variable has no effect when =auto-complete= is used.
 (setq-default dotspacemacs-configuration-layers
   '(auto-completion :variables
                     auto-completion-enable-sort-by-usage t))
+#+END_SRC
+
+** Show snippets in auto-completion popup
+
+By default, snippets are not shown in the auto-completion popup. To show them in
+the popup, set the variable =auto-completion-show-snippets-in-popup= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((auto-completion :variables
+                                   auto-completion-show-snippets-in-popup t))
 #+END_SRC
 
 ** Enable company or auto-complete globally
