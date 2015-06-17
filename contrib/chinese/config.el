@@ -18,7 +18,7 @@
 (defvar chinese-im-enable-wubi nil
   "Use Wubi input method.")
 
-;; 设置中文等宽字体
+;; Set the monospaced font size when mixed Chinese and English words
 (defun spacemacs//set-monospaced-font (english chinese english-size chinese-size)
   (set-face-attribute 'default nil :font
                       (format   "%s:pixelsize=%d"  english english-size))
@@ -26,4 +26,6 @@
     (set-fontset-font (frame-parameter nil 'font) charset
                       (font-spec :family chinese :size chinese-size))))
 
+;; If the Hiragino Sans GB font is not found in your system, you could call this
+;; method in dotspacemacs/config function with a different Chinese font name.
 (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)

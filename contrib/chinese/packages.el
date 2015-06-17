@@ -31,7 +31,7 @@
       ;; Set file path for saving search history
       (setq youdao-dictionary-search-history-file (concat spacemacs-cache-directory ".youdao"))
 
-      ;; Enable Chinese word segmentation support (支持中文分词)
+      ;; Enable Chinese word segmentation support 
       (setq youdao-dictionary-use-chinese-word-segmentation t)
       )))
 

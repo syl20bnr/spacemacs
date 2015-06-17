@@ -23,7 +23,7 @@
     :init
     (progn
       (autoload 'eim-use-package "eim" "Another emacs input method")
-      ;; Tooptip is not good enough
+      ;; Tooptip is not good enough, so disable it here.
       (setq eim-use-tooltip nil)
 
       (register-input-method
@@ -32,9 +32,8 @@
       (register-input-method
        "eim-py" "euc-cn" 'eim-use-package
        "拼音" "汉字拼音输入法" "py.txt")
-      ;; 用 ; 暂时输入英文
       (require 'eim-extra)
       (global-set-key ";" 'eim-insert-ascii)
-      ;; 设置默认输入法为 五笔
+      ;; Set the default input method be eim-wb
       (setq default-input-method 'eim-wb)
       )))
