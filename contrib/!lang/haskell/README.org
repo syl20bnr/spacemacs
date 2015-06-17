@@ -10,6 +10,7 @@
      - [[#cabal-packages][Cabal packages]]
      - [[#os-x][OS X]]
      - [[#optional-extras][Optional extras]]
+         - [[#ghc-mod-support][ghc-mod support]]
          - [[#ghci-ng-support][GHCi-ng support]]
          - [[#structured-haskell-mode][structured-haskell-mode]]
          - [[#hindent][hindent]]
@@ -43,7 +44,6 @@ To use this contribution add it to your =~/.spacemacs=
 ** Cabal packages
 
 This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
-- =ghc-mod=
 - =hlint=
 - =stylish-haskell=
 - =hasktags=
@@ -51,7 +51,7 @@ This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 To install them, use the following command: 
 
 #+BEGIN_SRC sh
-  cabal install stylish-haskell hlint ghc-mod hasktags
+  cabal install stylish-haskell hlint hasktags
 #+END_SRC
 
 Then you have to add this path to your system =$PATH= (preferred):
@@ -82,6 +82,20 @@ Note that =emacs.app= for OS X does not pick up =$PATH= from =~/.bashrc= or
 ** Optional extras
 The Haskell layer supports some extra features that can be enabled through
 layer variables.
+*** ghc-mod support
+[[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example templates, case-splitting and
+much more. In order to use it you need to install the executable with
+
+#+BEGIN_SRC sh
+cabal install ghc-mod
+#+END_SRC
+
+and set the layer variable:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((haskell :variables haskell-enable-ghc-mod-support t)))
+#+END_SRC
 
 *** GHCi-ng support
 [[https://github.com/chrisdone/ghci-ng][ghci-ng]] adds some nice features to =haskell-mode=, and is supported in

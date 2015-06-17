@@ -42,6 +42,7 @@
 (defun haskell/init-ghc ()
   (use-package ghc
     :defer t
+    :if haskell-enable-ghc-mod-support
     :init (add-hook 'haskell-mode-hook 'ghc-init)
     :config
     (when (configuration-layer/package-usedp 'flycheck)
