@@ -515,14 +515,4 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
       (beginning-of-line)
       (widget-forward 1))))
 
-;;this feels like the wrong place to put these
-(add-hook 'spacemacs-mode-hook (lambda ()
-                                 (local-set-key [tab] 'widget-forward)
-                                 (local-set-key [S-tab] 'widget-backward)
-                                 ;; S-tab is backtab in terminal
-                                 (local-set-key [backtab] 'widget-backward)
-                                 (local-set-key [return] 'widget-button-press)
-                                 (local-set-key [down-mouse-1] 'widget-button-click)
-                                 ))
-
 (provide 'core-spacemacs-buffer)
