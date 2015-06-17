@@ -2736,7 +2736,7 @@ displayed in the mode-line.")
            (when (and active
                       (fboundp 'org-pomodoro-active-p)
                       (org-pomodoro-active-p))
-             org-pomodoro-mode-line)
+             (list " ["(nth 1 org-pomodoro-mode-line) "] "))
            ;; org clocked task
            (when (and active
                       spacemacs-mode-line-org-clock-current-taskp
