@@ -24,6 +24,9 @@ Possible values are `complete', `cycle' or `nil'.")
   "Provide a key sequence (string) to complete the current
 selection.")
 
+(defvar auto-completion-enable-snippets-in-popup nil
+  "If non nil show snippets in the auto-completion popup.")
+
 (defvar auto-completion-enable-sort-by-usage nil
   "If non nil suggestions are sorted by how often they are used.")
 
