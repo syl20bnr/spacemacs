@@ -1,4 +1,4 @@
-;;; extensions.el --- emoji Layer Extensions File for Spacemacs
+;;; packages.el --- emoji Layer Packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,9 +10,9 @@
 ;;
 ;;; License: GPLv3
 
-(setq emoji-post-extensions '(emacs-emoji-cheat-sheet-plus))
+(setq emoji-packages '(emoji-cheat-sheet-plus))
 
-(defun emoji/init-emacs-emoji-cheat-sheet-plus ()
+(defun emoji/init-emoji-cheat-sheet-plus ()
   (use-package emoji-cheat-sheet-plus
     :commands (emoji-cheat-sheet-plus-insert
                emoji-cheat-sheet-plus-buffer
