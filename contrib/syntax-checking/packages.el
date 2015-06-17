@@ -24,8 +24,12 @@
     :defer t
     :init
     (progn
-      (setq flycheck-check-syntax-automatically '(save mode-enabled)
-            flycheck-standard-error-navigation nil)
+      (if syntax-checking-check-on-buffer-change
+          (setq flycheck-check-syntax-automatically
+              '(save idle-change new-line mode-enabled))
+        (setq flycheck-check-syntax-automatically
+                '(save mode-enabled)))
+      (setq flycheck-standard-error-navigation nil)
       (spacemacs|add-toggle syntax-checking
                             :status flycheck-mode
                             :on (flycheck-mode)
