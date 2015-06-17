@@ -94,6 +94,11 @@ only activated for programming modes that are not one of these languages:
 - Python
 - Ruby-mode
 
+In addition, if output from =compile= (bound to ~SPC c C~), =shell-command=
+(bound to ~SPC !~ and ~M-!~) or =async-shell-command= (bound to ~M-&~) commands
+contains symbol in your project, you move cursor on such symbol and use any of
+the gtags commands.
+
 Since these modes have better Eldoc integration already.
 
 * Key bindings
