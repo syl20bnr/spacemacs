@@ -26,7 +26,6 @@
 
 ;;; Code:
 
-(require 'f)
 (require 'ht)
 (require 'helm)
 (require 'core-configuration-layer)
@@ -89,11 +88,11 @@
 
 (defun helm-spacemacs//documentation-candidates ()
   (let (result file-extension)
-    (dolist (file-path (f-files spacemacs-docs-directory))
-      (setq file-extension (file-name-extension file-path))
+    (dolist (filename (directory-files spacemacs-docs-directory))
+      (setq file-extension (file-name-extension filename))
       (when (or (equal file-extension "md")
                 (equal file-extension "org"))
-        (push (f-relative file-path spacemacs-docs-directory) result)))
+        (push filename result)))
     ;; delete DOCUMENTATION.org to make it the first guide
     (delete "DOCUMENTATION.org" result)
     (push "DOCUMENTATION.org" result)
