@@ -31,7 +31,7 @@
     (progn
       (evil-leader/set-key-for-mode 'org-mode
            "a" nil "ma" 'org-agenda
-           "b" nil "mb" 'org-tree-to-indirect-buffer 
+           "b" nil "mb" 'org-tree-to-indirect-buffer
            "c" nil "mA" 'org-archive-subtree
            "o" nil "mC" 'evil-org-recompute-clocks
            "l" nil "mo" 'evil-org-open-links
@@ -98,6 +98,15 @@ Will work on both org-mode and any mode that accepts plain html."
           "mil" 'org-insert-link
           "mif" 'org-footnote-new
           "mik" 'spacemacs/insert-keybinding-org
+
+          ;; table commands
+          "mttf"  'org-table-recalculate
+          "mttb"  'org-table-recalculate-buffer-tables
+          "mtir" 'org-table-insert-row
+          "mtic" 'org-table-insert-column
+          "mtih" 'org-table-insert-hline
+          "mtkr" 'org-table-kill-row
+          "mtkc" 'org-table-delete-column
 
           ;; images and other link types have no commands in org mode-line
           ;; could be inserted using yasnippet?

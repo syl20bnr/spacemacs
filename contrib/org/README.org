@@ -13,6 +13,7 @@
      - [[#org-with-evil-org-mode][Org with evil-org-mode]]
          - [[#element-insertion][Element insertion]]
          - [[#org-emphasize][Org emphasize]]
+         - [[#tables][Tables]]
      - [[#pomodoro][Pomodoro]]
      - [[#presentation][Presentation]]
      - [[#org-repo-todo][Org-repo-todo]]
@@ -137,6 +138,19 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m x s~ | make region strike-through |
 | ~SPC m x u~ | make region underline      |
 | ~SPC m x v~ | make region verbose        |
+
+*** Tables
+
+| Key Binding   | Description       |
+|---------------+-------------------|
+| ~SPC m t t f~ | recalculate field |
+| ~SPC m t t b~ | recalculate table |
+| ~SPC m t i r~ | insert row        |
+| ~SPC m t i c~ | insert column     |
+| ~SPC m t i h~ | insert hline      |
+| ~SPC m t k r~ | kill row          |
+| ~SPC m t k c~ | kill column       |
+|               |                   |
 
 ** Pomodoro
 
