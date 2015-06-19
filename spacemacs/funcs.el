@@ -1007,11 +1007,3 @@ the right."
 (create-align-repeat-x "bar" "|")
 (create-align-repeat-x "left-paren" "(")
 (create-align-repeat-x "right-paren" ")" t)
-
-(defun save-buffer-if-visiting-file (&optional args)
-  "Save the current buffer only if it is visiting a file"
-  (interactive)
-  (if (and dotspacemacs-autosave-file-directly
-           (buffer-file-name)
-           (buffer-modified-p))
-      (save-buffer args)))

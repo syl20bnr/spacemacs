@@ -219,8 +219,27 @@ Can be installed with `brew install trash'."
       make-backup-files nil
       create-lockfiles nil)
 
-(setq auto-save-file-name-transforms `((".*" ,spacemacs-cache-directory t)))
-(add-hook 'auto-save-hook 'save-buffer-if-visiting-file)
+;; Auto-save file
+(setq auto-save-default (not (null dotspacemacs-auto-save-file-location)))
+(setq auto-save-list-file-prefix (concat spacemacs-auto-save-directory))
+;; always save TRAMP URLs to cache directory no matter what is the value
+;; of `dotspacemacs-auto-save-file-location'
+(let ((autosave-dir (concat spacemacs-auto-save-directory "dist/")))
+  (setq auto-save-file-name-transforms
+        `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" ,autosave-dir  t)))
+  (unless (or (file-exists-p autosave-dir)
+              (null dotspacemacs-auto-save-file-location))
+    (make-directory autosave-dir t)))
+;; Choose auto-save location
+(case dotspacemacs-auto-save-file-location
+  (cache (let ((autosave-dir (concat spacemacs-auto-save-directory "site/")))
+           (add-to-list 'auto-save-file-name-transforms
+                        `(".*" ,autosave-dir t) 'append)
+           (unless (file-exists-p autosave-dir)
+             (make-directory autosave-dir t))))
+  (original (setq auto-save-visited-file-name t))
+  (_ (setq auto-save-default nil
+           auto-save-list-file-prefix nil)))
 
 (require 'uniquify)
 ;; When having windows with repeated filenames, uniquify them
@@ -244,14 +263,6 @@ Can be installed with `brew install trash'."
       savehist-additional-variables '(mark-ring global-mark-ring search-ring regexp-search-ring extended-command-history)
       savehist-autosave-interval 60)
 (savehist-mode +1)
-
-;; auto-save
-(let
-    ((autosave-dir (expand-file-name (concat spacemacs-cache-directory "autosave"))))
-  (unless (file-exists-p autosave-dir)
-    (make-directory autosave-dir))
-  (setq auto-save-list-file-prefix (concat autosave-dir "/")
-        auto-save-file-name-transforms `((".*" ,autosave-dir t))))
 
 ;; cache files
 ;; bookmarks

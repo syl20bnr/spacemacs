@@ -21,9 +21,15 @@
 - elixir (split from =erlang-elixir=)
 - erlang (split from =erlang-elixir=)
 - github (split from =git=)
-- ipython (ein) (thanks to CestDiego)
+- ipython-notebook (ein) (thanks to CestDiego)
 - latex (was =auctex=)
 - version-control
+*** Dotfile changes
+- New variable =dotspacemacs-auto-save-file-location= which enable or
+  disable auto-saving of modified files. Possible values are =original= to
+  auto-save the file in-place, =cache= to auto-save the file to another
+  file stored in the cache directory and =nil= to disable auto-saving.
+  Default value is =cache=.
 *** Layer changes
 **** Spacemacs
 - Add text alignment key bindings on ~SPC x a~ prefix (thanks to justbur and
@@ -117,7 +123,7 @@
 - Add support for =flycheck= (thanks to swaroopch)
 **** Scala
 - Set classpath directory of =ensime= to =.cache/ensime= (thanks to cyrillk)
-**** Themes
+**** Theme
 - Add spacemacs-theme
 *** Core
 - New interactive function =spacemacs/switch-to-version=
