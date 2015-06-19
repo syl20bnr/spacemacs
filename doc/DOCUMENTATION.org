@@ -1558,8 +1558,8 @@ To modify the location set the variable =dotspacemacs-auto-save-file-location=
 to =original= or =cache=.
 
 Local files are auto-saved in a sub-directory called =site= in the =cache=
-directory whereas remote files editing via TRAMP are auto-saved in a
-sub-directory called =dist=.
+directory whereas remote files (i.e. files edited over TRAMP) are auto-saved
+in a sub-directory called =dist=.
 
 *** Disable auto-save
 To disable auto-saving set the variable =dotspacemacs-auto-save-file-location=
