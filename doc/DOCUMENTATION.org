@@ -100,6 +100,10 @@
              - [[#neotree-mode-line][NeoTree mode-line]]
          - [[#bookmarks][Bookmarks]]
          - [[#docview-mode][DocView mode]]
+     - [[#auto-saving][Auto-saving]]
+         - [[#frequency-of-auto-saving][Frequency of auto-saving]]
+         - [[#location-of-auto-saved-files][Location of auto-saved files]]
+         - [[#disable-auto-save][Disable auto-save]]
      - [[#searching][Searching]]
          - [[#with-an-external-tool][With an external tool]]
              - [[#useful-key-bindings][Useful key bindings]]
@@ -1297,7 +1301,7 @@ The mode can be toggled on and off with ~SPC t g~.
 Since =helm= is used everywhere, by default Spacemacs uses =helm= to open files.
 
 Some users prefer the =ido= way to navigate the file system because it can
-remember the last selected directories and buffers and return is used to open
+remember the last selected directories and buffers and ~RET~ is used to open
 directories instead of ~TAB~ or ~C-z~ in =helm=. It is possible to use =ido=
 instead of =helm= by setting the variable =dotspacemacs-use-ido= to =t= in your
 dotfile.
@@ -1537,6 +1541,31 @@ OpenDocument, and Microsoft Office documents.
 | ~C-u~       | scroll up                                |
 | ~C-c C-c~   | toggle display text and image display    |
 | ~C-c C-t~   | open new buffer with doc's text contents |
+
+** Auto-saving
+*** Frequency of auto-saving
+By default auto-saving of files is performed every 300 characters and
+every 30 seconds of idle time which can be changed by setting to a
+new value the variables =auto-save-inteval= and =auto-save-timeout=
+respectively.
+
+*** Location of auto-saved files
+Auto-save of modified files can be performed in-place on the original file
+itself /or/ in the cache directory (in this case the original file will remain
+unsaved). By default Spacemacs auto-save the file in the cache directory.
+
+To modify the location set the variable =dotspacemacs-auto-save-file-location=
+to =original= or =cache=.
+
+Local files are auto-saved in a sub-directory called =site= in the =cache=
+directory whereas remote files editing via TRAMP are auto-saved in a
+sub-directory called =dist=.
+
+*** Disable auto-save
+To disable auto-saving set the variable =dotspacemacs-auto-save-file-location=
+to =nil=.
+
+You can toggle auto-save in a buffer by calling the command =auto-save-mode=.
 
 ** Searching
 *** With an external tool
