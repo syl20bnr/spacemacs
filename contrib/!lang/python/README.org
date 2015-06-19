@@ -30,8 +30,8 @@
 This layer adds support for the Python language.
 
 ** Features:
-- Auto-completion using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] 
-- Code Navigation using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]] 
+- Auto-completion using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
+- Code Navigation using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
 - Documentation Lookup using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]  and [[https://github.com/tsgates/pylookup][pylookup]]
 - Test Runners using [[https://github.com/syl20bnr/nose.el][nose.el]] or [[https://github.com/ionrock/pytest-el][pytest]]
 - Virtual Environment using  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
@@ -68,7 +68,7 @@ The root of the project is detected with a =.git= directory or a =setup.cfg= fil
 =anaconda-mode= tries to install the dependencies itself but sometimes
 it does not work and you may encounter the following message when
 opening a python buffer:
-#+begin_src 
+#+begin_src
     Blocking call to accept-process-output with quit inhibited!!
 #+end_src
 
@@ -80,6 +80,9 @@ To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anacond
 
 Source: https://github.com/proofit404/anaconda-mode#issues
 
+If you are facing errors such as "Unable to run anaconda-mode server", try
+setting your ~PYTHONPATH~ as explained at
+https://github.com/proofit404/anaconda-mode#pythonpath
 ** Automatic buffer formatting on save
 
 To enable automatic buffer formatting on save with  [[https://github.com/google/yapf][YAPF]] set the variable
