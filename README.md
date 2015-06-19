@@ -499,8 +499,8 @@ details.
 [using_package_buf]: doc/DOCUMENTATION.md#using-the-package-list-buffer
 [troubleshoot]: doc/DOCUMENTATION.md#troubleshoot
 [contrib layers]: doc/DOCUMENTATION.md#using-configuration-layers
-[Git support]: contrib/git/README.md
-[git layer]: contrib/git
+[Git support]: contrib/!tools/git/README.md
+[git layer]: contrib/!tools/git
 [ace-jump]: doc/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
 [project management]: doc/DOCUMENTATION.md#project-management
 [Evil Mode]: doc/DOCUMENTATION.md#evil
