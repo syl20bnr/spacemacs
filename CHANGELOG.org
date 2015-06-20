@@ -3,7 +3,7 @@
 *** IMPORTANT: Breaking changes
 - =auctex= layer has been renamed =latex=, be sure to update your
   dotfile if you use this layer.
-- =erlang/elixir= layer has been split into two layer =erlang= and
+- =erlang/elixir= layer has been split into two layers =erlang= and
   =elixir=, be sure to update your dotfile if you use these layers.
 - =git= layer has been split into two layers: =git= and =github= so
   the layer variable =git-enabled-github-support= is deprecated, you
@@ -17,12 +17,15 @@
   Users on =develop= branch cannot use this function.
 - Clicking on the up arrow will now update Spacemacs. A prompt asks
   for confirmation before updating.
+- New "tool assisted" search and replace interface supporting =ag=, =pt=,
+  and =ack= with a new key binding scheme. Check the documentation for
+  =searching with an external tool=.
 *** New Layers
 - elixir (split from =erlang-elixir=)
 - erlang (split from =erlang-elixir=)
 - github (split from =git=)
 - ipython-notebook (ein) (thanks to CestDiego)
-- latex (was =auctex=)
+- latex (renamed from =auctex=)
 - version-control
 *** Dotfile changes
 - New variable =dotspacemacs-auto-save-file-location= which enable or
@@ -38,10 +41,23 @@
   with abnormal high size of =savehist= file (thanks to tuhdo)
 - Add documentation files to =helm-spacemacs= (thanks to person808)
 - Add support for =.org= files in =helm-spacemacs= (thanks to tuhdo)
-- Revert ~C-o~ in =holy-mode= since it shadows to much packages key bindings
+- Add explicit titles for documentation files in =helm-spacemacs=
+  (thanks to tuhdo)
+- Revert ~C-o~ in =holy-mode= since it shadows too many packages key bindings
   (thanks to tuhdo)
 - Evilify =helm-ag= and =helm-grep= buffers (obtained by pressing ~f3~ in
   the helm buffer while searching) (thanks to cpaulik)
+- Search with =ag=, =pt= and =ack= are done with the same interface based on
+  =helm-ag=
+- Add search integration in =expand-region= and =auto-highlight-symbol=
+  (thanks to justbur)
+- Update search with =grep= to match the new search interface
+  (thanks to justbur)
+- Quote input when default text is used in search (thanks to justbur)
+- Replace =dired-goto-file= with =helm-find-files= in Dired (thanks to tuhdo)
+- Add support for .org files to ~SPC s l~ key binding, it allows to quickly
+  jump to file headers using Helm (thansk to tuhdo)
+- Re-enable =auto-save= mode (thanks to tuhdo)
 **** Auto-completion
 - Yasnippet: Default =helm-yas-display-key-on-candidate= to =t= (thanks to
   BrianHicks)
@@ -57,16 +73,19 @@
   DayoOliyide)
 **** Elixir
 - List all Elixir key bindings in README
-- Update configuration to support new =alchemist= feature (thanks to tonini)
+- Update configuration to support new =alchemist= 1.0 feature (thanks to tonini)
 - Enable auto-completion support
 **** Emacs Lisp
 - Add new Spacemacs snippets =micro-state= and =new-package= (thanks to
   CestDiego)
+- Add (f)ielm-indent-line for =ielm= mode (thanks to BlinkD)
+**** Emoji
+- Remove the extension and use the MELPA package
 **** ERC
 - Use =erc-yank= on ~p~ in normal state if =gist= package is available
   (thanks to CestDiego)
 **** Evil-snipe
-- Update configuration with last upstream changes (thanks to hlissner and
+- Update configuration to support last upstream changes (thanks to hlissner and
   MadAnd)
 **** Eyebrowse
 - Add support for workspace labels (thanks to rphillips)
@@ -74,15 +93,20 @@
 - Evilify =ledger-report-mode= (thanks to darkfeline)
 **** Git
 - Replace =git-gutter= by =diff-hl= (thanks to tuhdo)
+- Remove =gc= prefix command as unused from guide-key (thanks to tko)
+- Add =magit-diff= key binding on ~SPC g d~ (thanks to kevinushey)
+- Evilify =magit-diff= buffer
 **** Go
 - Add ~SPC m g a~ to switch between tests and implementation (thanks to
   jenanwise)
 **** Hakell
 - Add =company-cabal= support for auto-completion in =.cabal= files (thanks
   to bjarkevad)
-**** iPython (ein)
-- New layer (thanks to CestDiego)
+**** iPython-notebook (ein)
 - Add key bindings on major-specific leader (thanks to cpaulik)
+- Add ~C-RET~ and ~S-RET~ key bindings to behave like the =ein= web interface
+  (thanks to cpaulik)
+- Bind ~SPC f s~ to save the notebook (thanks to cpaulik)
 **** Latex
 - Add support for =RefTeX= (thanks to JP-Ellis)
 - Add support for =LatexMk=, to enable it set the layer variable
@@ -95,10 +119,19 @@
   broken and introduce ~SPC m v~ to view (thanks to JP-Ellis)
 - General settings should now be easier to override in =dotspacemacs/config=
 - Fix errors due to layer renaming (thanks to JP-Ellis and autosquid)
+**** Markdown
+- Add font-locking for code blocks (thanks to kennethlove)
+- Add support for a bunch of languages for code blocks (thanks to dexafree)
+**** Ocaml
+- Don't auto-close backticks (thanks to edwintorok) 
 **** Org
 - Fontify code blocks (thanks to tuhdo)
 - Add =toc-org= package (thanks to CestDiego)
+- Tweak org-pomodoro mode-line integration (Add missing leading space)
 **** Osx
+- New variable =osx-use-option-as-meta= allowing to enable or disable the
+  mapping of =option= key to =meta= key. This is especially useful for some
+  European keyboard layouts like Finish or Swedish (thanks to tko)
 - Add  ~⌘ +~ and ~⌘ -~ key bindings to scale text (thanks to JoshTGreenwood
   and zimbatm)
 - Only update =dired-use-ls-dired= if =gls= was found on path (thanks to
@@ -106,10 +139,13 @@
 - Add reveal in finder on ~C-⌘ f~ (thanks to usharf)
 - Add key bindings ~⌘ a~ (select all) ~⌘ W~ (close frame) and ~⌘ n~ (new frame)
   (thanks to mveytsman)
+- Fix ~⌘ v~ paste behavior (thanks sooheon)
 **** Powershell
 - Add ~SPC a s p~ to start a =powershell= buffer (thanks to ralesi)
 - Add ~SPC m r r~ for =powershell-regexp-to-regex= (thanks to ralesi)
 - Add =$(= text object (thanks to ralesi)
+**** Puppet
+- Add Puppetfile support (thanks to nwolfe)
 **** Python
 - New supported test runner: =pytest= (thanks to cpaulik)
 - New layer variable =python-test-runner=  to choose between =nose= and
@@ -139,10 +175,16 @@
   (thanks to TheBB)
 - Fix regression when =dotspacemacs-startup-banner= is set to =nil=
   (thanks to ptb)
+- Fix bookmark list in home buffer (thanks to fandag)
+- Add support for =material-light= theme (thanks to cpaulik)
 *** Other fixes and improvements
+- Conversion of all layer README.md files to .org (thanks to CestDiego
+  and cpaulik)
+- Conversion of documentation files to .org (thanks to person808)
 - Add a guide for Vimmers in =doc= directory (thanks to person808)
 - Typos and documentation improvements (thanks to cloudbring, dxnn,
-  dvberkel, fotoetienne, JoshTGreenwood, person808)
+  dvberkel, fotoetienne, JoshTGreenwood, OliverM, person808, royseto,
+  travisbhartwell, xfq)
 * Release 0.102.x
 ** 0.102.2 (2015/06/03)
 *** Layer changes
