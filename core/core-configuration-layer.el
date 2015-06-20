@@ -17,7 +17,7 @@
 
 (unless package--initialized
   (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-                           ("gnu" . "http://elpa.gnu.org/packages/")
+                           ("gnu" . "https://elpa.gnu.org/packages/")
                            ("melpa" . "http://melpa.org/packages/")
                            ("org" . "http://orgmode.org/elpa/")))
   ;; optimization, no need to activate all the packages so early
@@ -28,7 +28,7 @@
   ;; This hack adds marmalade repository for this case only.
   (unless (or (package-installed-p 'python) (version< emacs-version "24.3"))
     (add-to-list 'package-archives
-                 '("marmalade" . "http://marmalade-repo.org/packages/")))
+                 '("marmalade" . "https://marmalade-repo.org/packages/")))
   (setq warning-minimum-level :error))
 
 (defconst configuration-layer-template-directory
