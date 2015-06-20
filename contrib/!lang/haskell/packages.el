@@ -57,7 +57,8 @@
       ;; Haskell main editing mode key bindings.
       (defun spacemacs/init-haskell-mode ()
         ;; use only internal indentation system from haskell
-        (electric-indent-local-mode -1))
+        (if (fboundp 'electric-indent-local-mode)
+            (electric-indent-local-mode -1)))
 
       ;; hooks
       (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
