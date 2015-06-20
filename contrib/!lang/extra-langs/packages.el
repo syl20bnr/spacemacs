@@ -28,7 +28,7 @@
   (use-package nim-mode :defer t))
 
 (defun extra-langs/init-qml-mode ()
-  (use-package qml-mode :defer t))
+  (use-package qml-mode :defer t :mode "\\.qml\\'"))
 
 (defun extra-langs/init-julia-mode ()
   (use-package julia-mode :defer t))
