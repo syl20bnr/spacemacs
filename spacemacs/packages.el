@@ -1945,8 +1945,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "stf" 'spacemacs/helm-files-do-pt
         "stF" 'spacemacs/helm-files-do-pt-region-or-symbol
         ;; current project scope
-        "/"   'spacemacs/helm-project-smart-do-search
-        "?"   'spacemacs/helm-project-smart-do-search-region-or-symbol
+        "/"   'spacemacs/helm-project-smart-do-search-region-or-symbol
         "sp"  'spacemacs/helm-project-smart-do-search
         "sP"  'spacemacs/helm-project-smart-do-search-region-or-symbol
         "sap" 'spacemacs/helm-project-do-ag
@@ -1969,7 +1968,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     (progn
       (setq helm-descbinds-window-style 'split)
       (add-hook 'helm-mode-hook 'helm-descbinds-mode)
-      (evil-leader/set-key "hk" 'helm-descbinds))))
+      (evil-leader/set-key "?" 'helm-descbinds))))
 
 (defun spacemacs/init-helm-make ()
   (use-package helm-make
