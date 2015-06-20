@@ -63,28 +63,28 @@ You can tweak the bullets displayed in the org buffer in the function
 
 ** Org with evil-org-mode
 
-| Key Binding                                  | Description                 |
-|----------------------------------------------+-----------------------------|
-| ~SPC m '~                                    | org-edit-special            |
-| ~SPC m a~                                    | org-agenda                  |
-| ~SPC m b~                                    | org-tree-to-indirect-buffer |
-| ~SPC m A~                                    | org-archive-subtree         |
-| ~SPC m c~                                    | org-capture                 |
-| ~SPC m C~                                    | evil-org-recompute-clocks   |
-| ~SPC m d~                                    | org-deadline                |
-| ~SPC m e~                                    | org-export-dispatch         |
-| ~SPC m f~                                    | org-set-effort              |
-| ~SPC m I~                                    | org-clock-in                |
-| ~SPC m j~                                    | helm-org-in-buffer-headings |
-| ~SPC m n~                                    | org-narrow-to-subtree       |
-| ~SPC m N~                                    | widen                       |
-| ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c           |
-| ~SPC m o~                                    | evil-org-open-links         |
-| ~SPC m O~                                    | org-clock-out               |
-| ~SPC m q~                                    | org-clock-cancel            |
-| ~SPC m R~                                    | org-refile                  |
-| ~SPC m s~                                    | org-schedule                |
-| ~SPC m T~                                    | org-show-todo-tree          |
+| Key Binding                                  | Description                                  |
+|----------------------------------------------+----------------------------------------------|
+| ~SPC m '~                                    | org-edit-special                             |
+| ~SPC m a~                                    | org-agenda                                   |
+| ~SPC m b~                                    | org-tree-to-indirect-buffer                  |
+| ~SPC m A~                                    | org-archive-subtree                          |
+| ~SPC m c~                                    | org-capture                                  |
+| ~SPC m C~                                    | evil-org-recompute-clocks                    |
+| ~SPC m d~                                    | org-deadline                                 |
+| ~SPC m e~                                    | org-export-dispatch                          |
+| ~SPC m f~                                    | org-set-effort                               |
+| ~SPC m I~                                    | org-clock-in                                 |
+| ~SPC m n~                                    | org-narrow-to-subtree                        |
+| ~SPC m N~                                    | widen                                        |
+| ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                            |
+| ~SPC m o~                                    | evil-org-open-links                          |
+| ~SPC m O~                                    | org-clock-out                                |
+| ~SPC m q~                                    | org-clock-cancel                             |
+| ~SPC m R~                                    | org-refile                                   |
+| ~SPC m s~                                    | org-schedule                                 |
+| ~SPC m T~                                    | org-show-todo-tree                           |
+| ~SPC s l~                                    | spacemacs/jump-in-buffer (jump to a heading) |
 
 | Key Binding | Description                     |
 |-------------+---------------------------------|
