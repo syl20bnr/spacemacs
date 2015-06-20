@@ -400,14 +400,14 @@ function of a package.
 
 ## Key bindings discovery
 
-Thanks to [guide-key][], whenever a prefix command is pressed (like `<SPC>`)
+Thanks to [guide-key][], whenever a prefix command is pressed (like `SPC`)
 a buffer appears after one second listing the possible keys for this prefix.
 
 It is also possible to search for specific key bindings by pressing:
 
-    <SPC> ?
+    SPC ?
 
-To narrow the bindings list to those prefixed with `<SPC>`,
+To narrow the bindings list to those prefixed with `SPC`,
 type a pattern like this regular expression:
 
     SPC\ b

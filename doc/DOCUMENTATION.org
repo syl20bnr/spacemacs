@@ -1666,8 +1666,8 @@ called =pt=.
 **** Searching in a project
 | Key Binding           | Description                                         |
 |-----------------------+-----------------------------------------------------|
-| ~SPC /~  or ~SPC s p~ | search with the first found tool                    |
-| ~SPC ?~  or ~SPC s P~ | search with the first found tool with default input |
+| ~SPC s p~             | search with the first found tool                    |
+| ~SPC /~  or ~SPC s P~ | search with the first found tool with default input |
 | ~SPC s a p~           | =ag=                                                |
 | ~SPC s a P~           | =ag= with default text                              |
 | ~SPC s g p~           | =grep= with default text                            |
