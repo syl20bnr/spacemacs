@@ -135,6 +135,8 @@ the focus."
       (setq cider-prompt-for-symbol nil)
       (evilify cider-docview-mode cider-docview-mode-map
                (kbd "q") 'cider-popup-buffer-quit)
+      (evilify cider-inspector-mode cider-inspector-mode-map
+               (kbd "L") 'cider-inspector-pop)
 
       (evil-leader/set-key-for-mode 'clojure-mode
         "mhh" 'cider-doc
@@ -169,7 +171,10 @@ the focus."
 
         "mta" 'spacemacs/cider-test-run-all-tests
         "mtr" 'spacemacs/cider-test-rerun-tests
-        "mtt" 'spacemacs/cider-test-run-focused-test)
+        "mtt" 'spacemacs/cider-test-run-focused-test
+
+        "mdi" 'cider-inspect
+        "mdb" 'cider-debug-defun-at-point)
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))
 

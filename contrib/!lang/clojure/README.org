@@ -17,6 +17,7 @@
      - [[#goto][Goto]]
      - [[#repl][REPL]]
      - [[#tests][Tests]]
+     - [[#debugging][Debugging]]
      - [[#refactoring][Refactoring]]
      - [[#reformatting][Reformatting]]
 
@@ -134,6 +135,13 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m t a~ | run all tests in namespace         |
 | ~SPC m t r~ | re-run test failures for namespace |
 | ~SPC m t t~ | run test at point                  |
+
+** Debugging
+
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC m d b~ | instrument expression at point |
+| ~SPC m d i~ | inspect expression at point    |
 
 ** Refactoring
 
