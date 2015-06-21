@@ -96,6 +96,7 @@ Git commands (start with ~g~):
 | ~SPC g h t~ | highlight regions by last updated time              |
 | ~SPC g I~   | open =helm-gitignore=                               |
 | ~SPC g l~   | open a =magit= log                                  |
+| ~SPC g L~   | display the log for a file                          |
 | ~SPC g s~   | open a =magit= status window                        |
 | ~SPC g m~   | display the last commit message of the current line |
 | ~SPC g t~   | launch the git time machine                         |
