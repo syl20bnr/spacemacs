@@ -1,21 +1,21 @@
 <a name="top"></a>
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Buy A Drink](https://img.shields.io/badge/Paypal-Buy%20a%20Drink-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESFVNPKP4Y742)[![Twitter][]](http://www.twitter.com/spacemacs)
 ***
-<p align="center"><img src="./doc/img/title2.png" alt="Spacemacs"/></p>
+<p align="center"><img src="/doc/img/title2.png" alt="Spacemacs"/></p>
 <p align="center">
-<b><a href="doc/DOCUMENTATION.md#philosophy">philosophy</a></b>
+<b><a href="doc/DOCUMENTATION.org#core-pillars">philosophy</a></b>
 |
-<b><a href="doc/DOCUMENTATION.md#goals">goals</a></b>
+<b><a href="doc/DOCUMENTATION.org#goals">goals</a></b>
 |
-<b><a href="doc/DOCUMENTATION.md#who-can-benefit-from-this-">for whom?</a></b>
+<b><a href="doc/DOCUMENTATION.org#who-can-benefit-from-this-">for whom?</a></b>
 |
-<b><a href="doc/DOCUMENTATION.md#screenshots">screenshots</a></b>
+<b><a href="doc/DOCUMENTATION.org#screenshots">screenshots</a></b>
 |
-<b><a href="doc/DOCUMENTATION.md">documentation</a></b>
+<b><a href="doc/DOCUMENTATION.org">documentation</a></b>
 |
-<b><a href="doc/CONTRIBUTE.md">contribute</a></b>
+<b><a href="doc/CONTRIBUTE.org">contribute</a></b>
 |
-<b><a href="doc/DOCUMENTATION.md#achievements">achievements</a></b>
+<b><a href="doc/DOCUMENTATION.org#achievements">achievements</a></b>
 |
 <b><a href="#faq">FAQ</a></b>
 </p>
@@ -34,7 +34,7 @@
     - [Nice UI](#nice-ui)
     - [Excellent ergonomics](#excellent-ergonomics)
     - [Convenient and Mnemonic Key Bindings](#convenient-and-mnemonic-key-bindings)
-        - [Great [Documentation][DOCUMENTATION.MD]](#great-documentationdocumentationmd)
+        - [Great](#great-documentation) [Documentation][DOCUMENTATION.org]
 - [Prerequisites](#prerequisites)
     - [Emacs](#emacs)
         - [Linux distros](#linux-distros)
@@ -108,9 +108,9 @@ Spacemacs integrates hundreds of ready-to-use packages thanks to a
 community-driven approach.
 
 Those packages are grouped in [layers][] and their configuration follow a set
-of rules gathered in [CONVENTIONS.md][].
+of rules gathered in [CONVENTIONS.org][].
 
-**[Visit the Documentation][DOCUMENTATION.MD]**
+**[Visit the Documentation][DOCUMENTATION.org]**
 
 ## Nice UI
 
@@ -133,7 +133,7 @@ reduce the number of keyboard bindings to learn.
 to operate on the buffer are prefixed by `<SPC> b`, and commands to operate on
 the project are under `<SPC> p`.
 
-### Great [Documentation][DOCUMENTATION.MD]
+### Great [Documentation][DOCUMENTATION.org]
 
 Most of Spacemacs' features, key bindings, and configuration options
 are extensively documented.
@@ -395,7 +395,7 @@ instead of `C-u` because the latter is used to scroll up as in Vim.
 By using `helm-spacemacs` with <kbd>SPC f e h</kbd> you can quickly search
 for a package and get the name of the layers using it.
 
-You can also easily go to the `README.md` of a layer or go to the initialization
+You can also easily go to the `README.org` of a layer or go to the initialization
 function of a package.
 
 ## Key bindings discovery
@@ -428,7 +428,7 @@ Key Binding   |                 Description
 
 # How-To's
 
-Some quick `how-to's` are compiled in the [HOWTOs.md][] file.
+Some quick `how-to's` are compiled in the [HOWTOs.org][] file.
 
 # Contributions
 
@@ -438,7 +438,7 @@ We especially need to create more configuration layers that, for instance, bring
 support for new languages.
 
 If you are ready to contribute please begin by consulting the
-[contribution guidelines][CONTRIBUTE.md] and [conventions][CONVENTIONS.md],
+[contribution guidelines][CONTRIBUTE.org] and [conventions][CONVENTIONS.md],
 thanks!
 
 # License
@@ -519,29 +519,29 @@ the [emacs-mac-port][] build. See the [install OSX section][] for more
 details.
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
-[CONVENTIONS.md]: doc/CONVENTIONS.md
-[HOWTOs.md]: doc/HOWTOs.md
-[config]: doc/DOCUMENTATION.md#configuration-layers
-[dotfile]: doc/DOCUMENTATION.md#dotfile-configuration
-[manage_config]: doc/DOCUMENTATION.md#managing-private-configuration-layers
-[using_package_buf]: doc/DOCUMENTATION.md#using-the-package-list-buffer
-[troubleshoot]: doc/DOCUMENTATION.md#troubleshoot
-[contrib layers]: doc/DOCUMENTATION.md#using-configuration-layers
-[Git support]: contrib/git/README.md
+[CONVENTIONS.org]: doc/CONVENTIONS.org
+[HOWTOs.org]: doc/HOWTOs.org
+[config]: doc/DOCUMENTATION.org#configuration-layers
+[dotfile]: doc/DOCUMENTATION.org#dotfile-configuration
+[manage_config]: doc/DOCUMENTATION.org#managing-private-configuration-layers
+[using_package_buf]: doc/DOCUMENTATION.org#using-the-package-list-buffer
+[troubleshoot]: doc/DOCUMENTATION.org#troubleshoot
+[contrib layers]: doc/DOCUMENTATION.org#using-configuration-layers
+[Git support]: contrib/git/README.org
 [git layer]: contrib/git
-[ace-jump]: doc/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
-[project management]: doc/DOCUMENTATION.md#project-management
-[Evil Mode]: doc/DOCUMENTATION.md#evil
+[ace-jump]: doc/DOCUMENTATION.org#vim-motions-with-ace-jump-mode
+[project management]: doc/DOCUMENTATION.org#project-management
+[Evil Mode]: doc/DOCUMENTATION.org#evil
 [private]: ./private
 [layers]: ./contrib
-[DOCUMENTATION.md]: doc/DOCUMENTATION.md
-[font section]: doc/DOCUMENTATION.md#font
-[CONTRIBUTE.md]: doc/CONTRIBUTE.md
-[powerline-seps]: doc/DOCUMENTATION.md#powerline-separators
+[DOCUMENTATION.org]: doc/DOCUMENTATION.org
+[font section]: doc/DOCUMENTATION.org#font
+[CONTRIBUTE.org]: doc/CONTRIBUTE.org
+[powerline-seps]: doc/DOCUMENTATION.org#powerline-separators
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
 [dotfile template]: ./core/templates/.spacemacs.template
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
-[osx layer]: contrib/osx/README.md
+[osx layer]: contrib/osx/README.org
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
@@ -554,7 +554,7 @@ details.
 [emacs-for-windows]: http://emacsbinw64.sourceforge.net/
 [the platinum searcher]:
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
-[powerline-doc]: doc/DOCUMENTATION.md#powerline-separators
+[powerline-doc]: doc/DOCUMENTATION.org#powerline-separators
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
 [Nasser Alshammari]: https://github.com/nashamri
