@@ -49,6 +49,10 @@ then this is used. If ~/.spacemacs does not exist, then check
 for init.el in dotspacemacs-directory and use this if it
 exists. Otherwise, fallback to ~/.spacemacs")
 
+(defvar dotspacemacs-version nil
+  "Set in .spacemacs and used to check user's .spacemacs file
+format version against the .spacemacs template.")
+
 (defvar dotspacemacs-verbose-loading nil
   "If non nil output loading progess in `*Messages*' buffer.")
 
@@ -294,6 +298,56 @@ before copying the file if the destination already exists."
       (copy-file (concat dotspacemacs-template-directory
                          ".spacemacs.template") dotspacemacs-filepath t)
       (message "%s has been installed." dotspacemacs-filepath))))
+
+(defun dotspacemacs//file-hash (file)
+  "Get SHA1 hash of FILE."
+  (with-temp-buffer
+    (insert-file-contents-literally file)
+    (secure-hash 'sha1 (buffer-string))))
+
+(defun dotspacemacs/template-changed-p ()
+  "Compare hash of current template against cached template and
+return t if the template has changed. If there is a change (or no
+template has been chached yet) save new template value to cache
+file, meaning this function should only be called once on
+startup."
+  (let* ((cached-file
+          (expand-file-name (concat spacemacs-cache-directory
+                                    ".spacemacs.template")))
+         (old-hash
+          (when (file-exists-p cached-file)
+            (dotspacemacs//file-hash cached-file)))
+         (current-file
+          (expand-file-name (concat dotspacemacs-template-directory
+                                    ".spacemacs.template")))
+         (current-hash
+          (dotspacemacs//file-hash current-file))
+         (no-change? (and old-hash
+                          (string= old-hash current-hash))))
+    (unless no-change?
+      (copy-file current-file cached-file t))
+    (not no-change?)))
+
+(defun dotspacemacs//get-template-version ()
+  "Read the template version from .spacemacs.template"
+  (let (success)
+    (with-temp-buffer
+      (insert-file-contents
+       (concat dotspacemacs-template-directory ".spacemacs.template"))
+      (setq success
+            (re-search-forward
+             "^\\s-*?(setq\\s-+?dotspacemacs-version\\s-+?\"\\([0-9.]+\\)\"\\s-*?)"
+                     nil t))
+      (if success
+          (match-string 1)
+        (error "error: Cannot read .spacemacs.template version")))))
+
+(defun dotspacemacs/new-template-version-p ()
+  "Compare version of current template against user's .spacemacs
+version and return t if the template has changed."
+  (let ((dotspacemacs-template-version (dotspacemacs//get-template-version)))
+    (when dotspacemacs-version
+      (version< dotspacemacs-version dotspacemacs-template-version))))
 
 (defun dotspacemacs//ido-completing-read (prompt candidates)
   "Call `ido-completing-read' with a CANDIDATES alist where the key is

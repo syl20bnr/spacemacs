@@ -2,6 +2,11 @@
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
+;; Version of the .spacemacs file format. When the .spacemacs template is
+;; updated this version number will increase. If you comment out this line,
+;; the version check will be disabled.
+(setq dotspacemacs-version "0.0")
+
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable

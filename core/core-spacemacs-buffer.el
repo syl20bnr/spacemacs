@@ -27,6 +27,9 @@ version the release note it displayed")
 (defvar spacemacs-buffer--note-widgets nil
   "List of widgets used to display the release note.")
 
+(defvar spacemacs-buffer--dotfile-version-widget nil
+  "Widget displaying note about old dotfile version")
+
 (defvar spacemacs-buffer--previous-insert-type nil
   "Previous type of note inserted.")
 
@@ -63,6 +66,15 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
                                spacemacs-version)))
         (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.104.txt")
                                       'release-note))
+      ;; If the dotfile is installed first check for a change in the template
+      ;; version, then check for a change from the cached version
+      (when (file-exists-p dotspacemacs-filepath)
+        (if (dotspacemacs/new-template-version-p)
+            (spacemacs-buffer//insert-dotfile-template-note t)
+          ;; note the template changed function will always be nil if called a
+          ;; second time
+          (when (dotspacemacs/template-changed-p)
+            (spacemacs-buffer//insert-dotfile-template-note nil))))
       (spacemacs//redisplay))))
 
 (defun spacemacs-buffer//choose-banner ()
@@ -247,6 +259,28 @@ If TYPE is nil, just remove widgets."
   (setq spacemacs-buffer--release-note-version spacemacs-version)
   (spacemacs/dump-vars-to-file
    '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file))
+
+(defun spacemacs-buffer//insert-dotfile-template-note (version-change?)
+  (let ((note (if version-change?
+                  "Your dotfile version is older than the version of the template "
+                "Detected change in dotfile template ")))
+    (widget-insert (concat "\n" note))
+    (setq spacemacs-buffer--dotfile-version-widget
+          (widget-create 'push-button
+                         :tag (propertize "Show diff with your dotfile" 'face 'font-lock-warning-face)
+                         :help-echo "Open ediff between your .spacemacs and template."
+                         :action (lambda (&rest ignore)
+                                   (spacemacs/ediff-dotfile-and-template)
+                                   (widget-delete spacemacs-buffer--dotfile-version-widget)
+                                   (with-current-buffer "*spacemacs*"
+                                     (let ((inhibit-read-only t))
+                                       (save-excursion
+                                         (goto-char (point-min))
+                                         (search-forward note nil t)
+                                         (replace-match "")))))
+                         :mouse-face 'highlight
+                         :follow-link "\C-m"))
+    (widget-insert "\n")))
 
 (defun spacemacs-buffer/set-mode-line (format)
   "Set mode-line format for spacemacs buffer."
