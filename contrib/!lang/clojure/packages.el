@@ -135,6 +135,8 @@ the focus."
       (setq cider-prompt-for-symbol nil)
       (evilify cider-docview-mode cider-docview-mode-map
                (kbd "q") 'cider-popup-buffer-quit)
+      (evilify cider-inspector-mode cider-inspector-mode-map
+               (kbd "L") 'cider-inspector-pop)
 
       (evil-leader/set-key-for-mode 'clojure-mode
         "mhh" 'cider-doc
