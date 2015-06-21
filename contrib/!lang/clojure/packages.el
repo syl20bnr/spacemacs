@@ -173,7 +173,7 @@ the focus."
         "mtr" 'spacemacs/cider-test-rerun-tests
         "mtt" 'spacemacs/cider-test-run-focused-test
 
-        "mi" 'cider-inspect)
+        "mdi" 'cider-inspect)
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))
 

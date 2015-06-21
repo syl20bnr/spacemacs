@@ -14,10 +14,10 @@
  - [[#key-bindings][Key Bindings]]
      - [[#documentation][Documentation]]
      - [[#evaluation][Evaluation]]
-     - [[#inspection][Inspection]]
      - [[#goto][Goto]]
      - [[#repl][REPL]]
      - [[#tests][Tests]]
+     - [[#debugging][Debugging]]
      - [[#refactoring][Refactoring]]
      - [[#reformatting][Reformatting]]
 
@@ -100,12 +100,6 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m e r~ | eval region                            |
 | ~SPC m e w~ | eval last sexp and replace with result |
 
-** Inspection
-
-| Key Binding | Description                        |
-|-------------+------------------------------------|
-| ~SPC m i~   | inspect the result of a expression |
-
 ** Goto
 
 | Key Binding | Description   |
@@ -141,6 +135,12 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m t a~ | run all tests in namespace         |
 | ~SPC m t r~ | re-run test failures for namespace |
 | ~SPC m t t~ | run test at point                  |
+
+** Debugging
+
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC m d i~ | inspect expression at point    |
 
 ** Refactoring
 
