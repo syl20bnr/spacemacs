@@ -745,7 +745,9 @@ Example: (evil-map visual \"<\" \"<gv\")"
        "paste-micro-state"
        (evil-paste-before evil-paste-after evil-visual-paste) after
        "Initate the paste micro-state."
-       (unless (evil-ex-p) (spacemacs/paste-micro-state)))
+       (unless (or (evil-ex-p)
+                   (eq 'evil-paste-from-register this-command))
+         (spacemacs/paste-micro-state)))
       (defun spacemacs//paste-ms-doc ()
         "The documentation for the paste micro-state."
         (format (concat "[%s/%s] Type [p] or [P] to paste the previous or "
