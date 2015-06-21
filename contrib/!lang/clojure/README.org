@@ -14,6 +14,7 @@
  - [[#key-bindings][Key Bindings]]
      - [[#documentation][Documentation]]
      - [[#evaluation][Evaluation]]
+     - [[#inspection][Inspection]]
      - [[#goto][Goto]]
      - [[#repl][REPL]]
      - [[#tests][Tests]]
@@ -98,6 +99,12 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m e f~ | eval function at point                 |
 | ~SPC m e r~ | eval region                            |
 | ~SPC m e w~ | eval last sexp and replace with result |
+
+** Inspection
+
+| Key Binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC m i~   | inspect the result of a expression |
 
 ** Goto
 
