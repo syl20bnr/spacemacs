@@ -140,6 +140,7 @@ More info regarding installation of nREPL middleware can be found here:
 
 | Key Binding | Description                    |
 |-------------+--------------------------------|
+| ~SPC m d b~ | instrument expression at point |
 | ~SPC m d i~ | inspect expression at point    |
 
 ** Refactoring
