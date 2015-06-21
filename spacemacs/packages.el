@@ -1340,7 +1340,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
 (defun spacemacs/init-helm ()
   (use-package helm
-    :defer t
+    :defer 1
     :commands spacemacs/helm-find-files
     :config
     (progn
