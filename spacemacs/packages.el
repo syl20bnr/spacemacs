@@ -1872,10 +1872,11 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'
 If DEFAULT-INPUTP is non nil then the current region or symbol at point
 are used as default input."
         (interactive)
-        (call-interactively
-         (spacemacs//helm-do-search-find-tool "helm-project-do"
-                                              dotspacemacs-search-tools
-                                              default-inputp)))
+        (let ((projectile-require-project-root nil))
+         (call-interactively
+          (spacemacs//helm-do-search-find-tool "helm-project-do"
+                                               dotspacemacs-search-tools
+                                               default-inputp))))
 
       (defun spacemacs/helm-project-smart-do-search-region-or-symbol ()
         "Search in current project using `dotspacemacs-search-tools' with
