@@ -2195,29 +2195,31 @@ To search in a project see [[#searching-in-a-project][project searching]].
 
     | Key Binding | Description                                           |
     |-------------+-------------------------------------------------------|
-    | ~SPC /~     | search in project with the best search tool available |
     | ~SPC p !~   | run shell command in root                             |
     | ~SPC p &~   | run async shell command in root                       |
-    | ~SPC p s a~ | run =ag=                                              |
-    | ~SPC p s k~ | run =ack=                                             |
     | ~SPC p b~   | switch to project buffer                              |
     | ~SPC p c~   | compile project using =projectile=                    |
     | ~SPC p d~   | find directory                                        |
     | ~SPC p D~   | open project root in =dired=                          |
     | ~SPC p f~   | find file                                             |
-    | ~SPC p s g~ | run =grep=                                            |
+    | ~SPC p G~   | regenerate the project's =etags=/=gtags=              |
     | ~SPC p h~   | find file using =helm=                                |
     | ~SPC p I~   | invalidate the projectile cache                       |
     | ~SPC p k~   | kill all project buffers                              |
     | ~SPC p o~   | run =multi-occur=                                     |
     | ~SPC p p~   | switch project                                        |
-    | ~SPC p R~   | regenerate the project's =etags=/=gtags=              |
-    | ~SPC p r~   | replace a string                                      |
+    | ~SPC p r~   | open a recent file                                    |
+    | ~SPC p R~   | replace a string                                      |
     | ~SPC p s~   | see [[#searching-in-a-project][search in project]]                                 |
     | ~SPC p t~   | open =NeoTree= in =projectile= root                   |
     | ~SPC p T~   | find test files                                       |
     | ~SPC p v~   | open project root in =vc-dir= or =magit=              |
     | ~SPC p y~   | find tags                                             |
+    | ~SPC /~     | search in project with the best search tool available |
+    | ~SPC s a p~ | run =ag=                                              |
+    | ~SPC s g p~ | run =grep=                                            |
+    | ~SPC s k p~ | run =ack=                                             |
+    | ~SPC s p p~ | run =pt=                                              |
 
 ** Registers
 Access commands to the various registers start with =r=:
