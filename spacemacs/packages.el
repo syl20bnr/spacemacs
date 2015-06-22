@@ -1499,38 +1499,12 @@ Removes the automatic guessing of the initial value based on thing at point. "
                                                      (inhibit-same-window . t)
                                                      (window-height . 0.4)))
       (defvar spacemacs-display-buffer-alist nil)
-      (defun spacemacs//display-helm-at-bottom ()
-        "Display the helm buffer at the bottom of the frame."
-        ;; avoid Helm buffer being diplaye twice when user
-        ;; sets this variable to some function that pop buffer to
-        ;; a window. See https://github.com/syl20bnr/spacemacs/issues/1396
-        (let ((display-buffer-base-action '(nil)))
-          ;; backup old display-buffer-base-action
-          (setq spacemacs-display-buffer-alist display-buffer-alist)
-          ;; the only buffer to display is Helm, nothing else we must set this
-          ;; otherwise Helm cannot reuse its own windows for copyinng/deleting
-          ;; etc... because of existing popwin buffers in the alist
-          (setq display-buffer-alist nil)
-          (add-to-list 'display-buffer-alist spacemacs-helm-display-buffer-regexp)
-          ;; this or any specialized case of Helm buffer must be added AFTER
-          ;; `spacemacs-helm-display-buffer-regexp'. Otherwise,
-          ;; `spacemacs-helm-display-buffer-regexp' will be used before
-          ;; `spacemacs-helm-display-help-buffer-regexp' and display
-          ;; configuration for normal Helm buffer is applied for helm help
-          ;; buffer, making the help buffer unable to be displayed.
-          (add-to-list 'display-buffer-alist spacemacs-helm-display-help-buffer-regexp)
-          (popwin-mode -1)))
+      (defun spacemacs//display-helm-at-bottom (buffer)
+        (let ((display-buffer-alist (list spacemacs-helm-display-help-buffer-regexp
+                                          spacemacs-helm-display-buffer-regexp)))
+          (helm-default-display-buffer buffer)))
 
-      (defun spacemacs//restore-previous-display-config ()
-        (popwin-mode 1)
-        ;; we must enable popwin-mode first then restore `display-buffer-alist'
-        ;; Otherwise, popwin keeps adding up its own buffers to `display-buffer-alist'
-        ;; and could slow down Emacs as the list grows
-        (setq display-buffer-alist spacemacs-display-buffer-alist))
-
-      (add-hook 'helm-after-initialize-hook 'spacemacs//display-helm-at-bottom)
-      ;;  Restore popwin-mode after a Helm session finishes.
-      (add-hook 'helm-cleanup-hook 'spacemacs//restore-previous-display-config)
+      (setq helm-display-function 'spacemacs//display-helm-at-bottom)
 
       ;; Add minibuffer history with `helm-minibuffer-history'
       (define-key minibuffer-local-map (kbd "C-c C-l") 'helm-minibuffer-history)
