@@ -6,8 +6,11 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
- - [[#future-work][Future Work]]
-     - [[#todo-add-proper-spacemacs-keybindings][TODO Add proper Spacemacs keybindings]]
+     - [[#help][Help]]
+     - [[#evaluation][Evaluation]]
+     - [[#repl][REPL]]
+     - [[#compile][Compile]]
+     - [[#navigation][Navigation]]
 
 * Description
 
@@ -31,21 +34,45 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 
 * Key Bindings
 
-This layer doesn't yet include Spacemacsy keybindings.
-The following is a list of some of SLIME's default keybindings.
+** Help
 
-| Key Binding   | Description                                          |
-|---------------+------------------------------------------------------|
-| ~C-c~         | Prefix Command                                       |
-| ~C-c C-k~     | Compile and load the current buffer's file.          |
-| ~C-c C-c~     | Compile the top-level form at point.                 |
-| ~C-c C-d C-d~ | Describe symbol.                                     |
-| ~C-c C-d C-a~ | Apropos search.                                      |
-| ~M-n~         | slime-repl-next-input                                |
-| ~M-p~         | slime-repl-previous-input                            |
-| ~C-M-x~       | lisp-eval-defun                                      |
-| ~C-h m~       | check emacs mode help for all of SLIME's keybindings |
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~SPC m h a~ | SLIME apropos      |
+| ~SPC m h d~ | Disassemble symbol |
+| ~SPC m h h~ | Describe function  |
+| ~SPC m h H~ | Hyperspec lookup   |
 
-* Future Work
+** Evaluation
 
-** TODO Add proper Spacemacs keybindings
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC m e b~ | Evaluate buffer                 |
+| ~SPC m e f~ | Evaluate top level s-expression |
+| ~SPC m e e~ | Evaluate last expression        |
+| ~SPC m e r~ | Evaluate region                 |
+
+** REPL
+
+| Key Binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC m s i~ | Start an inferior process        |
+| ~SPC m s e~ | Evaluate last expression in REPL |
+| ~SPC m s q~ | Quit                             |
+
+** Compile
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC m c c~ | Compile file             |
+| ~SPC m c C~ | Compile file and load it |
+| ~SPC m c f~ | Compile function         |
+| ~SPC m c r~ | Compile region           |
+
+** Navigation
+
+| Key Binding               | Description        |
+|---------------------------+--------------------|
+| ~SPC m g g~               | Inspect definition |
+| ~SPC m g n~               | Next note          |
+| ~SPC m g N~ or ~SPC m g p | Previous note      |
