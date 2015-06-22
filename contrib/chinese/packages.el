@@ -59,4 +59,5 @@
     :init
     (progn
       (ace-pinyin-global-mode t)
+      (setq ace-pinyin-use-avy t)
       (spacemacs|hide-lighter ace-pinyin-mode))))
