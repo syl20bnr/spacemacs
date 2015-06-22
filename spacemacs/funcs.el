@@ -527,11 +527,60 @@ argument takes the kindows rotate backwards."
   (interactive)
   (find-file-existing (dotspacemacs/location)))
 
+(defun ediff-hide-regex-and-ignores (n)
+  "Tweaked version of `ediff-hide-regexp-matches'. This version
+  automatically matches regions that have the string
+  \"EDIFF-IGNORE\" in them. It also searches the line just above
+  the region."
+  (if (ediff-valid-difference-p n)
+      (let* ((ctl-buf ediff-control-buffer)
+             (ignore-regexp "EDIFF-IGNORE")
+             (regex-A ediff-regexp-hide-A)
+             (regex-B ediff-regexp-hide-B)
+             (regex-C ediff-regexp-hide-C)
+             (reg-A-match (ediff-with-current-buffer ediff-buffer-A
+                            (save-restriction
+                              (goto-char (ediff-get-diff-posn 'A 'beg n ctl-buf))
+                              (narrow-to-region
+                               (line-beginning-position 0)
+                               (ediff-get-diff-posn 'A 'end n ctl-buf))
+                              (goto-char (point-min))
+                              (or (re-search-forward ignore-regexp nil t)
+                                  (and (not (string-empty-p regex-A))
+                                       (re-search-forward regex-A nil t))))))
+             (reg-B-match (ediff-with-current-buffer ediff-buffer-B
+                            (save-restriction
+                              (goto-char (ediff-get-diff-posn 'B 'beg n ctl-buf))
+                              (narrow-to-region
+                               (line-beginning-position 0)
+                               (ediff-get-diff-posn 'B 'end n ctl-buf))
+                              (goto-char (point-min))
+                              (or (re-search-forward ignore-regexp nil t)
+                                  (and (not (string-empty-p regex-B))
+                                       (re-search-forward regex-B nil t))))))
+             (reg-C-match (when ediff-3way-comparison-job
+                            (ediff-with-current-buffer ediff-buffer-C
+                              (save-restriction
+                                (goto-char (ediff-get-diff-posn 'C 'beg n ctl-buf))
+                                (narrow-to-region
+                                 (line-beginning-position 0)
+                                 (ediff-get-diff-posn 'C 'end n ctl-buf))
+                                (goto-char (point-min))
+                                (or (re-search-forward ignore-regexp nil t)
+                                    (and (not (string-empty-p regex-C))
+                                         (re-search-forward regex-C nil t))))))))
+        (eval (if ediff-3way-comparison-job
+                  (list ediff-hide-regexp-connective
+                        reg-A-match reg-B-match reg-C-match)
+                (list ediff-hide-regexp-connective reg-A-match reg-B-match)))
+        )))
+
 (defun ediff-dotfile-and-template ()
   "ediff the current `dotfile' with the template"
   (interactive)
-  (ediff-files (dotspacemacs/location)
-               (concat dotspacemacs-template-directory ".spacemacs.template")))
+  (let ((ediff-start-with-ignores t))
+    (ediff-files (dotspacemacs/location)
+                (concat dotspacemacs-template-directory ".spacemacs.template"))))
 
 (defun find-spacemacs-file ()
   (interactive)

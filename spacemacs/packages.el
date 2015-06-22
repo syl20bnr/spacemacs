@@ -524,7 +524,18 @@
        ediff-window-setup-function 'ediff-setup-windows-plain
        ;; emacs is evil and decrees that vertical shall henceforth be horizontal
        ediff-split-window-function 'split-window-horizontally
-       ediff-merge-split-window-function 'split-window-horizontally))))
+       ediff-merge-split-window-function 'split-window-horizontally)
+      (defvar ediff-start-with-ignores nil
+	"If non-nil start ediff using ediff-hide-regex-and-ignores to select diff
+	regions to compare.")
+      (add-hook 'ediff-startup-hook
+                (lambda ()
+                  (when ediff-start-with-ignores
+                    (setq-local
+                     ediff-hide-regexp-matches-function 'ediff-hide-regex-and-ignores)
+                    (setq-local
+                     ediff-skip-diff-region-function 'ediff-hide-regex-and-ignores)
+                    (ediff-update-diffs)))))))
 
 (defun spacemacs/init-eldoc ()
   (use-package eldoc
