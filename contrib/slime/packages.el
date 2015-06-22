@@ -41,4 +41,33 @@
     (message "loading slime...")
     (slime-setup)
     (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
-      (define-key m [(tab)] 'slime-fuzzy-complete-symbol))))
+      (define-key m [(tab)] 'slime-fuzzy-complete-symbol))
+
+    (dolist (m '(lisp-mode
+                 scheme-mode))
+      (evil-leader/set-key-for-mode m
+        "mdH" 'slime-hyperspec-lookup
+        "mdd" 'slime-describe-function
+        "mdD" 'slime-disassemble-symbol
+        "mda" 'slime-apropos
+
+        "meb" 'slime-eval-buffer
+        "mee" 'slime-eval-last-sexp
+        "med" 'slime-eval-defun
+        "mer" 'slime-eval-region
+
+        "mcf" 'slime-compile-and-load-file
+        "mcF" 'slime-compile-file
+        "mcd" 'slime-compile-defun
+        "mcr" 'slime-compile-region
+
+        "mgn" 'slime-next-note
+        "mgN" 'slime-previous-note
+        "mgp" 'slime-previous-note
+        "mgg" 'slime-inspect-definition
+
+        "msi" 'slime
+        "mse" 'slime-eval-last-expression-in-repl
+        "msq" 'slime-quit-lisp
+
+        "mtf" 'slime-toggle-fancy-trace))))
