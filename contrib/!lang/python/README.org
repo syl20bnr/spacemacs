@@ -43,7 +43,6 @@ This layer adds support for the Python language.
 * Install
 
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -64,7 +63,6 @@ The root of the project is detected with a =.git= directory or a =setup.cfg= fil
 #+END_SRC
 
 ** Anaconda dependencies
-
 =anaconda-mode= tries to install the dependencies itself but sometimes
 it does not work and you may encounter the following message when
 opening a python buffer:
@@ -83,6 +81,7 @@ Source: https://github.com/proofit404/anaconda-mode#issues
 If you are facing errors such as "Unable to run anaconda-mode server", try
 setting your ~PYTHONPATH~ as explained at
 https://github.com/proofit404/anaconda-mode#pythonpath
+
 ** Automatic buffer formatting on save
 
 To enable automatic buffer formatting on save with  [[https://github.com/google/yapf][YAPF]] set the variable
@@ -94,7 +93,6 @@ To enable automatic buffer formatting on save with  [[https://github.com/google/
 #+END_SRC
 
 ** autoflake
-
 To be able to suppress unused imports easily, install [[https://github.com/myint/autoflake][autoflake]]:
 
 #+BEGIN_SRC sh
@@ -104,7 +102,6 @@ To be able to suppress unused imports easily, install [[https://github.com/myint
 * Key Bindings
 
 ** Inferior REPL process
-
 Start a Python or iPython inferior REPL process with ~SPC m s i~.
 If =ipython= is available in system executable search paths, =ipython=
 will be used to launch python shell; otherwise, default =python=
@@ -126,7 +123,6 @@ Send code to inferior process commands:
 | ~CTRL+k~    | previous item in REPL history                   |
 
 ** Running Python Script in shell
-
 To run a Python script like you would in the shell press ~SPC m c c~
 to start the Python script in comint mode. This is useful when working with
 multiple Python files since the REPL does not reload changes made in other
@@ -141,7 +137,6 @@ modules.
 compilation command.
 
 ** Testing
-
 Test commands (start with ~m t~ or ~m T~):
 
 | No Debug    | Description                                              |
@@ -180,7 +175,6 @@ Test commands (start with ~m t~ or ~m T~):
 | ~SPC m V~   | activate a virtual environment with  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]]                      |
 
 ** Django
-
 Django related key bindings uses  [[https://github.com/davidmiller/pony-mode][pony-mode]] and are behind the prefix ~SPC m j~.
 
 Configuration options for pony-mode are documented at
