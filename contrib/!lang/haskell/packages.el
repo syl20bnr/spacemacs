@@ -90,6 +90,7 @@
 
       (evil-leader/set-key-for-mode 'haskell-mode
         "mgg"  'haskell-mode-jump-to-def-or-tag
+        "mgi"  'haskell-navigate-imports
         "mf"   'haskell-mode-stylish-buffer
 
         "msb"  'haskell-process-load-or-reload
