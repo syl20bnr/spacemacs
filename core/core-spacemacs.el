@@ -40,12 +40,27 @@
   (/ spacemacs-loading-dots-count spacemacs-loading-dots-chunk-count))
 (defvar spacemacs-loading-dots-chunk-threshold 0)
 
+(defvar spacemacs-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [tab] 'widget-forward)
+    (define-key map (kbd "C-i") 'widget-forward)
+    (define-key map [backtab] 'widget-backward)
+    (define-key map [return] 'widget-button-press)
+    (define-key map [down-mouse-1] 'widget-button-click)
+    map)
+  "Keymap for spacemacs mode.")
+
 (define-derived-mode spacemacs-mode special-mode "Spacemacs"
-  "Spacemacs major mode for startup screen."
+  "Spacemacs major mode for startup screen.
+
+\\<spacemacs-mode-map>
+"
   :group 'spacemacs
   :syntax-table nil
   :abbrev-table nil
   (setq truncate-lines t)
+  ;; needed to make tab work correctly in terminal
+  (evil-define-key 'motion spacemacs-mode-map (kbd "C-i") 'widget-forward)
   ;; motion state since this is a special mode
   (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
 
