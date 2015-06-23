@@ -1360,7 +1360,18 @@ Removes the automatic guessing of the initial value based on thing at point. "
             helm-bookmark-show-location t
             helm-display-header-line nil
             helm-split-window-in-side-p t
-            helm-always-two-windows t)
+            helm-always-two-windows t
+            helm-echo-input-in-header-line t)
+
+      ;; hide minibuffer in Helm session, since we use the header line already
+      (defun helm-hide-minibuffer-maybe ()
+        (when (with-helm-buffer helm-echo-input-in-header-line)
+          (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+            (overlay-put ov 'window (selected-window))
+            (overlay-put ov 'face (let ((bg-color (face-background 'default nil)))
+                                    `(:background ,bg-color :foreground ,bg-color)))
+            (setq-local cursor-type nil))))
+      (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
 
       ;; fuzzy matching setting
       (setq helm-M-x-fuzzy-match t
