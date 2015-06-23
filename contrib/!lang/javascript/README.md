@@ -46,7 +46,7 @@ $ npm install -g tern
 To use the formatting features, install `js-beautify`:
 
 ```shell
-$ npm install -g tern
+$ npm install -g js-beautify
 ```
 
 ## Key Bindings
