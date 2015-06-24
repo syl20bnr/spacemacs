@@ -20,7 +20,10 @@
         ))
 
 (unless git-use-magit-next
-  (push 'magit-gh-pulls git-packages))
+  ;; this is evaluated before the git layer
+  (if (boundp 'git-packages)
+      (push 'magit-gh-pulls git-packages)
+    (setq git-packages '(magit-gh-pulls))))
 
 (defun github/init-gist ()
   (use-package gist
