@@ -28,4 +28,5 @@
 
 ;; If the Hiragino Sans GB font is not found in your system, you could call this
 ;; method in dotspacemacs/config function with a different Chinese font name.
-(spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)
+(if (system-is-mac)
+    (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
