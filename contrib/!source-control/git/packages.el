@@ -108,7 +108,7 @@
 
 (defun git/init-magit ()
   (use-package magit
-    :if (not git-use-magit-next)
+    :if (null git-use-magit-next)
     :defer t
     :init
     (progn
