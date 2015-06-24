@@ -27,15 +27,15 @@
     :if chinese-im-enable-wubi
     :init
     (progn
-      (autoload 'eim-use-package "chinese-wubi" "Another emacs input method")
+      (autoload 'chinese-wbim-use-package "chinese-wubi" "Another emacs input method")
       ;; Tooptip is not good enough, so disable it here.
-      (setq eim-use-tooltip nil)
+      (setq chinese-wbim-use-tooltip nil)
 
       (register-input-method
-       "chinese-wubi" "euc-cn" 'eim-use-package
+       "chinese-wubi" "euc-cn" 'chinese-wbim-use-package
        "五笔" "汉字五笔输入法" "wb.txt")
       (require 'chinese-wbim-extra)
-      (global-set-key ";" 'eim-insert-ascii)
+      (global-set-key ";" 'chinese-wbim-insert-ascii)
       (setq default-input-method 'chinese-wubi)
       )))
 
