@@ -763,14 +763,14 @@ and ~T~):
 | ~SPC t L~   | toggle visual lines                                               |
 | ~SPC t n~   | show the absolute line numbers                                    |
 
-    | Key Binding | Description                  |
-    |-------------+------------------------------|
-    | ~SPC T F~   | toggle frame fullscreen      |
-    | ~SPC T f~   | toggle display of the fringe |
-    | ~SPC T m~   | toggle menu bar              |
-    | ~SPC T M~   | toggle frame maximize        |
-    | ~SPC T t~   | toggle tool bar              |
-    | ~SPC T T~   | toggle frame transparency    |
+    | Key Binding | Description                                                  |
+    |-------------+--------------------------------------------------------------|
+    | ~SPC T F~   | toggle frame fullscreen                                      |
+    | ~SPC T f~   | toggle display of the fringe                                 |
+    | ~SPC T m~   | toggle menu bar                                              |
+    | ~SPC T M~   | toggle frame maximize                                        |
+    | ~SPC T t~   | toggle tool bar                                              |
+    | ~SPC T T~   | toggle frame transparency and enter transparency micro-state |
 
 *Note* These toggles are all available via the =helm-spacemacs= interface (press
 ~SPC f e h~ to display the =helm-spacemacs= buffer).

@@ -220,7 +220,7 @@ Ensure that helm is required before calling FUNC."
                       :evil-leader "tmt")
 (spacemacs|add-toggle transparent-frame
                       :status nil
-                      :on (toggle-transparency)
+                      :on (spacemacs/toggle-transparency)
                       :documentation "Make the current frame non-opaque."
                       :evil-leader "TT")
 (spacemacs|add-toggle tool-bar
@@ -504,3 +504,47 @@ otherwise it is scaled down."
   ("q" nil :exit t))
 
 ;; end of Text Manipulation Micro State
+
+;; Transparency micro-state
+
+(defun spacemacs/toggle-transparency ()
+  "Toggle between transparent or opaque display."
+  (interactive)
+  ;; Define alpha if it's nil
+  (if (eq (frame-parameter (selected-frame) 'alpha) nil)
+      (set-frame-parameter (selected-frame) 'alpha '(100 100)))
+  ;; Do the actual toggle
+  (if (/= (cadr (frame-parameter (selected-frame) 'alpha)) 100)
+      (set-frame-parameter (selected-frame) 'alpha '(100 100))
+    (set-frame-parameter (selected-frame) 'alpha
+                         (list dotspacemacs-active-transparency
+                               dotspacemacs-inactive-transparency)))
+  ;; Immediately enter the micro-state, but also keep toggle
+  ;; accessible from helm-spacemacs
+  (spacemacs/scale-transparency-micro-state))
+
+(defun spacemacs/increase-transparency ()
+  "Increase transparency of current frame."
+  (interactive)
+  (let* ((current-alpha (car (frame-parameter (selected-frame) 'alpha)))
+         (increased-alpha (- current-alpha 5)))
+    (when (>= increased-alpha frame-alpha-lower-limit)
+      (set-frame-parameter (selected-frame) 'alpha (list increased-alpha increased-alpha)))))
+
+(defun spacemacs/decrease-transparency ()
+  "Decrease transparency of current frame."
+  (interactive)
+  (let* ((current-alpha (car (frame-parameter (selected-frame) 'alpha)))
+         (decreased-alpha (+ current-alpha 5)))
+    (when (<= decreased-alpha 100)
+      (set-frame-parameter (selected-frame) 'alpha (list decreased-alpha decreased-alpha)))))
+
+(spacemacs|define-micro-state scale-transparency
+  :doc "[+] increase [-] decrease [T] toggle transparency [q] quit"
+  :bindings
+  ("+" spacemacs/increase-transparency)
+  ("-" spacemacs/decrease-transparency)
+  ("T" spacemacs/toggle-transparency)
+  ("q" nil :exit t))
+
+;; end of Transparency Micro State
