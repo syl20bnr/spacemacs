@@ -53,6 +53,13 @@ Download the latest tar.gz archive, then run these commands:
   sudo make install
 #+END_SRC
 
+To be able to use =ctags= and other backends, you need to copy the sample
+=gtags.conf= either to =/etc/gtags.conf= or =$HOME/.globalrc=. For example:
+
+#+begin_src sh
+  cp gtags.conf ~/.globalrc
+#+end_src
+
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
