@@ -582,7 +582,7 @@ Additional information may as well be displayed in the minibuffer.
 [[#auto-highlight-and-edition-of-symbols][Auto-highlight-symbol micro-state]]:
 [[file:img/spacemacs-ahs-micro-state.png]]
 
-[[#change-font-size][Text scale micro-state]]:
+[[#text][Text scale micro-state]]:
 [[file:img/spacemacs-scale-micro-state.png]]
 
 * Differences between Vim, Evil and Spacemacs
@@ -1625,7 +1625,7 @@ called =pt=.
 | ~SPC s L~       | focus the last converted search buffer                                   |
 | Prefix argument | will ask for file extensions                                             |
 
-**** Searching in current file 
+**** Searching in current file
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC s s~   | search with the first found tool                    |
