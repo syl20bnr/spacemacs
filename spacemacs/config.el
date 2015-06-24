@@ -168,6 +168,12 @@ Can be installed with `brew install trash'."
 ;; Single space between sentences is more widespread than double
 (setq-default sentence-end-double-space nil)
 
+;; The C-d rebinding that most shell-like buffers inherit from
+;; comint-mode assumes non-evil configuration with its
+;; `comint-delchar-or-maybe-eof' function, so we disable it
+(eval-after-load 'comint
+  '(define-key comint-mode-map (kbd "C-d") nil))
+
 ;; ---------------------------------------------------------------------------
 ;; UI
 ;; ---------------------------------------------------------------------------
