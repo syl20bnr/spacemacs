@@ -44,5 +44,6 @@
   (add-hook (intern (concat (symbol-name mode) "-hook"))
             (lambda ()
               (ggtags-mode 1)
+              (eldoc-mode 1)
               (setq-local eldoc-documentation-function
                           #'ggtags-eldoc-function))))
