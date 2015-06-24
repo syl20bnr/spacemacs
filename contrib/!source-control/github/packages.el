@@ -17,8 +17,10 @@
         github-browse-file
         ;; not up to date
         ;; helm-gist
-        magit-gh-pulls
         ))
+
+(unless git-use-magit-next
+  (push 'magit-gh-pulls git-packages))
 
 (defun github/init-gist ()
   (use-package gist
