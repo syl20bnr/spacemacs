@@ -240,6 +240,12 @@ Ensure that helm is required before calling FUNC."
                       :off (global-semantic-stickyfunc-mode -1)
                       :documentation "Enable semantic-stickyfunc globally."
                       :evil-leader "T C-s")
+(spacemacs|add-toggle mouse-clicking
+                      :status spacemacs/mouse-binding
+                      :on (spacemacs/mouse-binding t)
+                      :off (spacemacs/mouse-binding nil)
+                      :documentation "Enable mouse click events in buffers"
+                      :evil-leader "tc")
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "qs" 'spacemacs/save-buffers-kill-emacs

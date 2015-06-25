@@ -330,6 +330,21 @@ Example: (1 42 3) = 1 042 003"
     (reduce '+ (mapcar (lambda (n) (setq i (1+ i)) (* n (expt 10 (* i 3))))
                        (reverse version)))))
 
+(defun spacemacs/silence ()
+  "Does nothing, just used to silence '<key> is unbound' messages"
+  (interactive))
+
+(defun spacemacs/mouse-binding (enable)
+  "Switches mouse clicking in window on or off"
+  (interactive)
+  (if enable
+      (progn
+        (define-key evil-motion-state-map [down-mouse-1] 'evil-mouse-drag-region)
+        (define-key evil-motion-state-map [mouse-1] 'nil))
+    (progn
+      (define-key evil-motion-state-map [down-mouse-1] 'spacemacs/silence)
+      (define-key evil-motion-state-map [mouse-1] 'spacemacs/silence))))
+
 (defun spacemacs/get-new-version-lighter-face (current new)
   "Return the new version lighter face given the difference between the CURRENT
 version and the NEW version."
