@@ -1,4 +1,4 @@
-;;; evil-lisp-state.el --- An evil state to edit Lisp code
+;;; evil-evilified-state.el --- An evil state to edit Lisp code
 
 ;; Copyright (C) 2014, 2015 syl20bnr
 ;;
