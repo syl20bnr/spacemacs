@@ -82,8 +82,7 @@ not play nicely with autoloads"
 
       (mapc (lambda (sym) (ess/auto-load-hack sym)) ess/r-modes-list)
 
-      (push 'company-R-objects company-backends-ess-mode)
-      (push 'company-R-args company-backends-ess-mode)))
+      (push '(company-R-args company-R-objects) company-backends-ess-mode)))
 
   ;; R --------------------------------------------------------------------------
   (eval-after-load "ess-site"
