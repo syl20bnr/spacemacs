@@ -46,7 +46,8 @@
         (sp-local-pair "{" "}"
                        :pre-handlers '(sp-ruby-pre-handler)
                        :post-handlers '(sp-ruby-post-handler (spacemacs/smartparens-pair-newline-and-indent "RET"))
-                       :suffix "")))))
+                       :suffix ""))
+      (add-hook 'enh-ruby-mode-hook '(lambda () (setq evil-shift-width enh-ruby-indent-level))))))
 
 (defun ruby/post-init-flycheck ()
   (add-hook 'enh-ruby-mode-hook 'flycheck-mode))
