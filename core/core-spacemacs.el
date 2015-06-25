@@ -232,4 +232,20 @@ FILE-TO-LOAD is an explicit file to load after the installation."
        (force-mode-line-update))
      (spacemacs/check-for-new-version spacemacs-version-check-interval))))
 
+(defun spacemacs/system-info ()
+  "Gathers info about your Spacemacs setup and copies to clipboard."
+  (interactive)
+  (kill-new
+   (format
+    (concat "OS: %s"
+            " Emacs: %s"
+            " Spacemacs: %s"
+            " Spacemacs branch: %s"
+            " Layers: %s")
+    system-type
+    emacs-version
+    spacemacs-version
+    (spacemacs/git-get-current-branch)
+    dotspacemacs-configuration-layers)))
+
 (provide 'core-spacemacs)
