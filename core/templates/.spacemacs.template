@@ -159,8 +159,10 @@ before layers configuration."
    ;; specified with an installed package.
    ;; Not used for now.
    dotspacemacs-default-package-repository nil
-   )
-  ;; User initialization goes here
+   ))
+
+(defun dotspacemacs/user-init ()
+  "Initialization function for user. Called immediately following `dotspacemacs/init'."
   )
 
 (defun dotspacemacs/config ()
