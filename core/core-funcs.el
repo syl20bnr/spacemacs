@@ -143,4 +143,32 @@ Supported properties:
 
   (setq-local org-hide-emphasis-markers t))
 
+(defun spacemacs//test-var (pred var test-desc)
+  "Test PRED against VAR and print test result, incrementing
+passed-tests and total-tests."
+  (let ((var-name (symbol-name var))
+        (var-val (symbol-value var)))
+    (when (boundp 'total-tests) (setq total-tests (1+ total-tests)))
+    (if (funcall pred var-val)
+        (progn
+          (when (boundp 'passed-tests) (setq passed-tests (1+ passed-tests)))
+          (princ (format "  TEST: %s %s\n    PASS: %s\n" var-name test-desc var-val)))
+      (princ (format "  TEST: %s %s\n    FAIL: %s\n" var-name test-desc var-val)))))
+
+(defun spacemacs//test-list (pred varlist test-desc &optional element-desc)
+  "Test PRED against each element of VARLIST and print test
+result, incrementing passed-tests and total-tests."
+  (let ((varlist-name (symbol-name varlist))
+        (varlist-val (symbol-value varlist)))
+    (if element-desc
+        (princ (format "  TEST: Each %s in %s %s\n" element-desc varlist-name test-desc))
+      (princ (format "  TEST: Each element of %s %s\n" varlist-name test-desc)))
+    (dolist (var varlist-val)
+      (when (boundp 'total-tests) (setq total-tests (1+ total-tests)))
+      (if (funcall pred var)
+          (progn
+            (when (boundp 'passed-tests) (setq passed-tests (1+ passed-tests)))
+            (princ (format "    PASS: %s\n" var)))
+        (princ (format "    FAIL: %s\n" var))))))
+
 (provide 'core-funcs)

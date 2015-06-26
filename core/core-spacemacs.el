@@ -74,6 +74,7 @@ initialization."
   ;; dotfile init
   (dotspacemacs/load-file)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
+  (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
   ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
   (spacemacs-buffer/set-mode-line "")
