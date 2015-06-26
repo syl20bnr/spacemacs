@@ -18,7 +18,7 @@ This layers adds support for [[http://github.com][Github]].
 
 ** Features:
 - [[https://github.com/sigma/magit-gh-pulls][magit-gh-pulls]]: handy =magit= add-on to manage Github pull requests.
-- [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post Githug gists.
+- [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post Github gists.
 - [[https://github.com/osener/github-browse-file][github-browse-file]] and [[https://github.com/sshaw/git-link][git-link]]: quickly browse github URL in your
   browser.
 
