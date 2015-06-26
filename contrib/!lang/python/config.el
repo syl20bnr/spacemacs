@@ -19,6 +19,9 @@
 (defvar python-enable-yapf-format-on-save nil
   "If non-nil, automatically format code with YAPF on save.")
 
+(defvar spacemacs/python-indent-level 4
+  "Indentation offset for Python.")
+
 ;; Command prefixes
 
 ;; not supported for now
