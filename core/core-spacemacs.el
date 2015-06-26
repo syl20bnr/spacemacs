@@ -21,6 +21,7 @@
 (require 'core-spacemacs-buffer)
 (require 'core-toggle)
 (require 'core-micro-state)
+(require 'core-evilify-keymap)
 (require 'core-use-package-ext)
 
 (defgroup spacemacs nil
