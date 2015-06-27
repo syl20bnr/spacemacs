@@ -33,12 +33,37 @@
                   (when (member event evilified-keys)
                     (spacemacs//evilify-remap-binding map event value)))
                 (symbol-value map)))
+  ;; (let* ((ekeys (mapcar 'car (cdr evil-evilified-state-map))))
+  ;;   (mapc (lambda (entry)
+  ;;           (apply (spacemacs//evilify-entry-func entry ekeys) '(entry map)))
+  ;;         (cdr (symbol-value map))))
   ;; keep a list of all evilified modes
   (when mode
     (add-to-list 'evil-evilified-state--modes mode)
     (unless (bound-and-true-p holy-mode)
       (delq mode evil-emacs-state-modes)
       (add-to-list 'evil-evilified-state-modes mode))))
+
+(defun spacemacs//evilify-entry-func (entry evilified-events)
+  "Return a function symbol responsible to process the keymap ENTRY."
+  (let ((func (cond
+          ((char-table-p entry)
+           'spacemacs//evilify-char-table)
+          ((and (listp entry) (numberp (car entry)))
+           (when (member (car entry) evilified-events)
+             (cond
+              ((characterp (car entry))
+               (cond
+                ((keymapp (cdr entry))
+                 'spacemacs//evilify-ascii-event-keymap-binding)
+                ((symbolp (cdr entry))
+                 'spacemacs//evilify-ascii-event-command-binding)))
+              ((characterp (- (car entry) (expt 2 25)))
+               'spacemacs//evilify-shift-ascii-event)))))))
+    (if func func 'ignore)))
+
+(defun spacemacs//evilify-ascii-event-command-binding (entry map)
+  "Evilify an ascii event with a command binding.")
 
 (defun spacemacs//evilify-remap-binding (map event value)
   "Remap VALUE binding in MAP."
