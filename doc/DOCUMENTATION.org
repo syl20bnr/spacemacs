@@ -1496,7 +1496,7 @@ The mode-line has the following format =[x/y] d (D:a, F:b)= where:
 
 *** Bookmarks
 Bookmarks can be set anywhere in a file. Bookmarks are persistent. They are very
-useful to jump to/open a known project. =Spacemacs= used =helm-bookmarks= to
+useful to jump to/open a known project. =Spacemacs= uses =helm-bookmarks= to
 manage them.
 
 Open an =helm= window with the current bookmarks by pressing: ~SPC h b~
