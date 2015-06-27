@@ -138,6 +138,8 @@
     (wilson   . sublime-themes)
     (zonokai-blue . zonokai-theme)
     (zonokai-red  . zonokai-theme)
+    (tao-yin . tao-theme)
+    (tao-yang . tao-theme)
     )
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")
