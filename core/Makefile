@@ -22,9 +22,9 @@ unit_tests:
 	@echo "-----------------------------------------------------------------"
 	@emacs -batch -l ert  \
     -l $(EMACS_DIR)core/core-load-paths.el  \
+    -l $(TEST_DIR)core-evilify-keymap-utest.el  \
     -l $(TEST_DIR)core-configuration-layer-utest.el \
     -l $(TEST_DIR)core-funcs-utest.el  \
-    -l $(TEST_DIR)core-evilify-keymap-utest.el  \
     -f ert-run-tests-batch-and-exit
 
 func_tests:

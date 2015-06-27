@@ -13,8 +13,145 @@
 (require 'core-evilify-keymap)
 
 ;; ---------------------------------------------------------------------------
-;; spacemacs//evilify-next-event
+;; spacemacs//evilify-entry-func
 ;; ---------------------------------------------------------------------------
+
+;; full keymap
+
+(ert-deftest test-evilify-keymap-entry-func--full-keymap ()
+  (let ((map (make-keymap)))
+    (should (eq 'spacemacs//evilify-char-table
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) nil)))))
+
+;; command
+
+(ert-deftest test-evilify-keymap-entry-func--command-s ()
+  (let ((map (make-sparse-keymap)))
+    (define-key map "s" 'func)
+    (should (eq 'spacemacs//evilify-ascii-event-command-binding
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) '(?s))))))
+
+(ert-deftest test-evilify-keymap-entry-func--command-S ()
+  (let ((map (make-sparse-keymap)))
+    (define-key map "S" 'func)
+    (should (eq 'spacemacs//evilify-ascii-event-command-binding
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) '(?S))))))
+
+(ert-deftest test-evilify-keymap-entry-func--command-C-s ()
+  (let ((map (make-sparse-keymap))
+        (ekeys (list (string-to-char "\C-s"))))
+    (define-key map (kbd "C-s") 'func)
+    (should (eq 'spacemacs//evilify-ascii-event-command-binding
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) ekeys)))))
+
+(ert-deftest test-evilify-keymap-entry-func--command-C-S-s ()
+  (let ((map (make-sparse-keymap))
+        (ekeys (list (+ (expt 2 25) (string-to-char "\C-s")))))
+    (define-key map (kbd "C-S-s") 'func)
+    (should (eq 'spacemacs//evilify-shift-ascii-event
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) ekeys)))))
+
+;; keymap
+
+(ert-deftest test-evilify-keymap-entry-func--keymap-s ()
+  (let ((map (make-sparse-keymap))
+        (submap (make-sparse-keymap)))
+    (define-key map "s" submap)
+    (should (eq 'spacemacs//evilify-ascii-event-keymap-binding
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) '(?s))))))
+
+(ert-deftest test-evilify-keymap-entry-func--keymap-S ()
+  (let ((map (make-sparse-keymap))
+        (submap (make-sparse-keymap)))
+    (define-key map "S" submap)
+    (should (eq 'spacemacs//evilify-ascii-event-keymap-binding
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) '(?S))))))
+
+(ert-deftest test-evilify-keymap-entry-func--keymap-C-s ()
+  (let ((map (make-sparse-keymap))
+        (submap (make-sparse-keymap))
+        (ekeys (list (string-to-char "\C-s"))))
+    (define-key map (kbd "C-s") submap)
+    (should (eq 'spacemacs//evilify-ascii-event-keymap-binding
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) ekeys)))))
+
+(ert-deftest test-evilify-keymap-entry-func--keymap-C-S-s ()
+  (let ((map (make-sparse-keymap))
+        (submap (make-sparse-keymap))
+        (ekeys (list (+ (expt 2 25) (string-to-char "\C-s")))))
+    (define-key map (kbd "C-S-s") submap)
+    (should (eq 'spacemacs//evilify-shift-ascii-event
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) ekeys)))))
+
+(ert-deftest test-evilify-keymap-entry-func--ignore-lambda-s ()
+  (let ((map (make-sparse-keymap))
+        (submap (make-sparse-keymap)))
+    (define-key map "s" (lambda () (interactive) 'dummy))
+    (should (eq 'ignore
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) '(?s))))))
+
+;; ignore lambdas
+
+(ert-deftest test-evilify-keymap-entry-func--ignore-lambda-S ()
+  (let ((map (make-sparse-keymap))
+        (submap (make-sparse-keymap)))
+    (define-key map "S" (lambda () (interactive) 'dummy))
+    (should (eq 'ignore
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) '(?S))))))
+
+(ert-deftest test-evilify-keymap-entry-func--ignore-lambda-C-s ()
+  (let ((map (make-sparse-keymap))
+        (submap (make-sparse-keymap))
+        (ekeys (list (string-to-char "\C-s"))))
+    (define-key map (kbd "C-s") (lambda () (interactive) 'dummy))
+    (should (eq 'ignore
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) ekeys)))))
+
+(ert-deftest test-evilify-keymap-entry-func--ignore-lambda-C-S-s ()
+  (let ((map (make-sparse-keymap))
+        (submap (make-sparse-keymap))
+        (ekeys (list (+ (expt 2 25) (string-to-char "\C-s")))))
+    (define-key map (kbd "C-S-s") (lambda () (interactive) 'dummy))
+    (should (eq 'spacemacs//evilify-shift-ascii-event
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) ekeys)))))
+
+;; remap
+
+(ert-deftest test-evilify-keymap-entry-func--ignore-remap ()
+  (let ((map (make-sparse-keymap)))
+    (define-key map "s" 'func)
+    (define-key map [remap func] 'func2)
+    (should (eq 'ignore
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) '(?s))))))
+
+;; not evilified
+
+(ert-deftest test-evilify-keymap-entry-func--ignore-command-s-not-evilified ()
+  (let ((map (make-sparse-keymap)))
+    (define-key map "s" 'func)
+    (should (eq 'ignore
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) nil)))))
+
+(ert-deftest test-evilify-keymap-entry-func--ignore-keymap-s-not-evilified ()
+  (let ((map (make-sparse-keymap))
+        (submap (make-sparse-keymap)))
+    (define-key map "s" submap)
+    (should (eq 'ignore
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) nil)))))
+
+(ert-deftest test-evilify-keymap-entry-func--ignore-lambda-s-not-evilified ()
+  (let ((map (make-sparse-keymap))
+        (submap (make-sparse-keymap)))
+    (define-key map "s" (lambda () (interactive) 'dummy))
+    (should (eq 'ignore
+                (spacemacs//evilify-entry-func (nth 0 (cdr map)) nil)))))
+
+
+;; ---------------------------------------------------------------------------
+;; spacemacs//evilify-ascii-event-command-binding
+;; ---------------------------------------------------------------------------
+
+
 
 ;; TO UPDATE
 
