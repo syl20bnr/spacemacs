@@ -95,17 +95,27 @@
 
       (defun magit-toggle-whitespace ()
         (interactive)
-        (if (member "-w" magit-diff-options)
+        (if (member "-w" (if (derived-mode-p 'magit-diff-mode)
+			     magit-refresh-args
+			   magit-diff-section-arguments))
             (magit-dont-ignore-whitespace)
           (magit-ignore-whitespace)))
 
       (defun magit-ignore-whitespace ()
         (interactive)
-        (add-to-list 'magit-diff-options "-w")
+        (add-to-list (if (derived-mode-p 'magit-diff-mode)
+			 'magit-refresh-args
+		       'magit-diff-section-arguments)
+		     "-w")
         (magit-refresh))
 
       (defun magit-dont-ignore-whitespace ()
         (interactive)
-        (setq magit-diff-options (remove "-w" magit-diff-options))
-        (magit-refresh)))
-    (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)))
+        (setq magit-diff-options
+	      (remove "-w"
+		      (if (derived-mode-p 'magit-diff-mode)
+			  magit-refresh-args
+			magit-diff-section-arguments)))
+        (magit-refresh))
+
+      (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
