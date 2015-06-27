@@ -165,7 +165,7 @@ Can be installed with `brew install trash'."
 ;; Save clipboard contents into kill-ring before replace them
 (setq save-interprogram-paste-before-kill t)
 
-;; Single space between sentencs is more widespread than double
+;; Single space between sentences is more widespread than double
 (setq-default sentence-end-double-space nil)
 
 ;; ---------------------------------------------------------------------------
