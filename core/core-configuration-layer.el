@@ -589,9 +589,9 @@ This function also processed recursively the package dependencies."
            (version<= (configuration-layer//get-latest-package-version-string x)
                       installed-ver))))))
 
-(defun configuration-layer/update-packages ()
-  "Upgrade elpa packages"
-  (interactive)
+(defun configuration-layer/update-packages (&optional always-update)
+  "Upgrade elpa packages.  If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
+  (interactive "P")
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append
    "\nUpdating Spacemacs... (for now only ELPA packages are updated)\n")
@@ -609,9 +609,10 @@ This function also processed recursively the package dependencies."
          (upgraded-count 0)
          (update-packages-alist))
     (if (> upgrade-count 0)
-        (if (not (yes-or-no-p (format (concat "%s package(s) to update, "
-                                              "do you want to continue ? ")
-                                      upgrade-count)))
+        (if (and (not always-update)
+                 (not (yes-or-no-p (format (concat "%s package(s) to update, "
+                                                   "do you want to continue ? ")
+                                           upgrade-count))))
             (spacemacs-buffer/append
              "Packages update has been cancelled.\n")
           ;; backup the package directory and construct an alist
