@@ -35,8 +35,8 @@
                 (symbol-value map)))
   ;; (let* ((ekeys (mapcar 'car (cdr evil-evilified-state-map))))
   ;;   (mapc (lambda (entry)
-  ;;           (apply (spacemacs//evilify-entry-func entry ekeys) '(entry map)))
-  ;;         (cdr (symbol-value map))))
+  ;;           (apply (spacemacs//evilify-entry-func entry ekeys) (list entry map)))
+  ;;         (cdr map)))
   ;; keep a list of all evilified modes
   (when mode
     (add-to-list 'evil-evilified-state--modes mode)
@@ -44,13 +44,14 @@
       (delq mode evil-emacs-state-modes)
       (add-to-list 'evil-evilified-state-modes mode))))
 
-(defun spacemacs//evilify-entry-func (entry evilified-events)
+(defun spacemacs//evilify-entry-func (entry &optional evilified-events)
   "Return a function symbol responsible to process the keymap ENTRY."
   (let ((func (cond
           ((char-table-p entry)
            'spacemacs//evilify-char-table)
           ((and (listp entry) (numberp (car entry)))
-           (when (member (car entry) evilified-events)
+           (when (or (null evilified-events)
+                     (member (car entry) evilified-events))
              (cond
               ((characterp (car entry))
                (cond
@@ -62,8 +63,66 @@
                'spacemacs//evilify-shift-ascii-event)))))))
     (if func func 'ignore)))
 
+(defmacro spacemacs||evilify-event (event value map &rest body)
+  "Evilify an event according to passed BODY."
+  (declare (indent defun))
+  `(let* ((new-event (spacemacs//evilify-next-event ,map ,event))
+          (new-entry (assoc new-event (cdr ,map))))
+     (if (null new-event)
+         (message "Warning: Could not rebind event \"%s\" (map %S)"
+                  (char-to-string ,event) ,map)
+       (when new-entry
+         ;; new-event is already bound in MAP so we process it before
+         ;; for instance if MAP has already 'k' and 'K', then we move 'K'
+         ;; first to 'C-k' and then we are able to move 'k' to 'K'.
+         (apply (spacemacs//evilify-entry-func entry) (list new-entry map)))
+       ,@body)))
+
 (defun spacemacs//evilify-ascii-event-command-binding (entry map)
-  "Evilify an ascii event with a command binding.")
+  "Evilify an ascii event with a command binding."
+  (let* ((event (car entry))
+         (value (cdr entry)))
+    ;; (message "event: %s" event)
+    (spacemacs||evilify-event event value map
+      ;; remap
+      (define-key map `[remap ,value] (spacemacs//evilify-make-wrapper map event value))
+      ;; move original event to new-event
+      (define-key map (char-to-string new-event)
+        `(lambda ()
+           (interactive)
+           (call-interactively ',value)))
+      ;; delete old event
+      (setf (cdr map) (delq (assoc event (cdr map)) (cdr map)))
+      ;; (message "body-remap-map: %s" map)
+      )))
+
+  ;; (let ((new-event (spacemacs//evilify-next-event (symbol-value map) event))
+  ;;       (wrapper (spacemacs//evilify-make-wrapper map event value)))
+  ;;   (if (null new-event)
+  ;;       (message "Warning: Could not rebind event \"%s\" (map %S)"
+  ;;                (char-to-string event) map)
+  ;;     (when (assoc new-event (cdr (symbol-value map)))
+  ;;       ;; new-event is already bound in MAP so we process it before
+  ;;       ;; for instance if MAP has 'k' and 'K', then we move 'K' first
+  ;;       ;; to 'C-k' and we will be able to move 'k' on 'K'.
+  ;;       (message "new event: %s" new-event)
+  ;;       (spacemacs//evilify-remap-binding
+  ;;        map new-event (lookup-key (symbol-value map)
+  ;;                                  (kbd (char-to-string new-event)))))
+  ;;     ;; remap event
+  ;;     (if (keymapp value)
+  ;;         (progn
+  ;;           (eval `(define-key ,map ,(char-to-string event) ',wrapper)))
+  ;;       (eval `(define-key ,map [remap ,value] ',wrapper)))
+  ;;     ;; move original command or keymap on a new event
+  ;;     (if new-event
+  ;;         (if (keymapp value)
+  ;;             (eval `(define-key ,map ,(char-to-string new-event) ',value))
+  ;;           (eval `(define-key ,map ,(char-to-string new-event)
+  ;;                    (lambda ()
+  ;;                      (interactive)
+  ;;                      (call-interactively ',value))))))))
+  ;; )
 
 (defun spacemacs//evilify-remap-binding (map event value)
   "Remap VALUE binding in MAP."
