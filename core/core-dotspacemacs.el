@@ -308,7 +308,9 @@ If MSG is not nil then display a message in `*Messages'."
 
 (defun dotspacemacs//test-dotspacemacs/layers ()
   "Tests for `dotspacemacs/layers'"
-  (princ "\nTesting settings in dotspacemacs/layers\n")
+  (insert
+   (format "\n* Testing settings in dotspacemacs/layers [[file:%s::dotspacemacs/layers][Show in File]]\n"
+           dotspacemacs-filepath))
   ;; protect global values of these variables
   (let (dotspacemacs-configuration-layer-path dotspacemacs-configuration-layers
         dotspacemacs-additional-packages dotspacemacs-excluded-packages
@@ -323,13 +325,17 @@ If MSG is not nil then display a message in `*Messages'."
     (setq dotspacemacs-configuration-layers
           (mapcar (lambda (l) (if (listp l) (car l) l)) dotspacemacs-configuration-layers))
     (spacemacs//test-list
-     'configuration-layer/get-layer-path 'dotspacemacs-configuration-layers  "can be found" "layer")
-    (princ (format
-            "RESULTS: dotspacemacs/layers passed %s out of %s tests\n" passed-tests total-tests))))
+     'configuration-layer/get-layer-path
+     'dotspacemacs-configuration-layers  "can be found" "layer")
+    (insert (format
+             "** RESULTS: [[file:%s::dotspacemacs/layers][dotspacemacs/layers]] passed %s out of %s tests\n"
+             dotspacemacs-filepath passed-tests total-tests))))
 
 (defun dotspacemacs//test-dotspacemacs/init ()
   "Tests for `dotspacemacs/init'"
-  (princ "\nTesting settings in dotspacemacs/init\n")
+  (insert
+   (format "\n* Testing settings in dotspacemacs/init [[file:%s::dotspacemacs/init][Show in File]]\n"
+           dotspacemacs-filepath))
   ;; protect global values of these variables
   (let (dotspacemacs-editing-style dotspacemacs-verbose-loading
         dotspacemacs-startup-banner dotspacemacs-startup-lists
@@ -364,8 +370,9 @@ If MSG is not nil then display a message in `*Messages'."
     (spacemacs//test-var 'stringp 'dotspacemacs-emacs-leader-key "is a string")
     (spacemacs//test-var 'stringp 'dotspacemacs-major-mode-leader-key "is a string")
     (spacemacs//test-var 'stringp 'dotspacemacs-command-key "is a string")
-    (princ (format
-            "RESULTS: dotspacemacs/init passed %s out of %s tests\n" passed-tests total-tests))))
+    (insert (format
+             "** RESULTS: [[file:%s::dotspacemacs/init][dotspacemacs/init]] passed %s out of %s tests\n"
+             dotspacemacs-filepath passed-tests total-tests))))
 
 (defun dotspacemacs/test-dotfile ()
   "Test settings in dotfile for correctness."
@@ -376,12 +383,15 @@ If MSG is not nil then display a message in `*Messages'."
     (if nil
         (error (format "error: dotspacemacs/test-dotfile requires dotspacemacs-version %s" min-version))
       (save-excursion
-        (let ((buf (get-buffer-create "*dotfile-test-results*")))
-          (with-output-to-temp-buffer buf
-            (princ (format "Running tests on %s (v%s)\n" dotspacemacs-filepath "0.0"))
-            ;; dotspacemacs-version not implemented yet
-            ;; (princ (format "Running tests on %s (v%s)\n" dotspacemacs-filepath dotspacemacs-version))
-            (dotspacemacs//test-dotspacemacs/layers)
-            (dotspacemacs//test-dotspacemacs/init)))))))
+        (switch-to-buffer-other-window "*dotfile-test-results*")
+        (erase-buffer)
+        (org-mode)
+        (insert (format "* Running tests on [[file:%s][%s]] (v%s)\n"
+                        dotspacemacs-filepath dotspacemacs-filepath "0.0"))
+        ;; dotspacemacs-version not implemented yet
+        ;; (insert (format "* Running tests on %s (v%s)\n" dotspacemacs-filepath dotspacemacs-version))
+        (dotspacemacs//test-dotspacemacs/layers)
+        (dotspacemacs//test-dotspacemacs/init)
+        (goto-char (point-min))))))
 
 (provide 'core-dotspacemacs)
