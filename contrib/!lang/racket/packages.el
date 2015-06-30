@@ -85,4 +85,7 @@
         ;; Tests
         "mtb" 'racket-test
         "mtB" 'spacemacs/racket-test-with-coverage)
-      (define-key racket-mode-map (kbd "H-r") 'racket-run))))
+      (define-key racket-mode-map (kbd "H-r") 'racket-run)
+      (define-key racket-mode-map ")" 'self-insert-command)
+      (define-key racket-mode-map "]" 'self-insert-command)
+      (define-key racket-mode-map "}" 'self-insert-command))))
