@@ -10,203 +10,160 @@
 ;;
 ;;; License: GPLv3
 
-;; (defvar spacemacs--evilified-state-map
-;;   (let ((map (make-sparse-keymap)))
-;;     (define-key map "/" 'evil-search-forward)
-;;     (define-key map ":" 'evil-ex)
-;;     (define-key map "h" 'evil-backward-char)
-;;     (define-key map "j" 'evil-next-visual-line)
-;;     (define-key map "k" 'evil-previous-visual-line)
-;;     (define-key map "l" 'evil-forward-char)
-;;     (define-key map "n" 'evil-search-next)
-;;     (define-key map "N" 'evil-search-previous)
-;;     (define-key map "v" 'evil-visual-char)
-;;     (define-key map "V" 'evil-visual-line)
-;;     (define-key map "y" 'evil-yank)
-;;     map)
-;;   "Evilifed state keymap.")
+(defun spacemacs/evilify-map (map-symbol &optional mode evilified-map)
+  "Evilify map bound to MAP-SYMBOL."
+  (let ((sorted-map (spacemacs//evilify-sort-keymap
+                     (or evilified-map evil-evilified-state-map)))
+        processed)
+    (mapc (lambda (map-entry)
+            (unless (member (car map-entry) processed)
+              (setq processed (spacemacs//evilify-event
+                               (eval map-symbol) map-symbol
+                               (car map-entry) (cdr map-entry)))))
+          sorted-map))
+  (when mode (spacemacs/evilify-configure-default-state mode)))
 
-(defun spacemacs/evilify-map (map &optional mode)
-  "Evilify the keymap MAP."
-  (let* ((evilified-keys (mapcar 'car (cdr evil-evilified-state-map))))
-    (map-keymap (lambda (event value)
-                  (when (member event evilified-keys)
-                    (spacemacs//evilify-remap-binding map event value)))
-                (symbol-value map)))
-  ;; (let* ((ekeys (mapcar 'car (cdr evil-evilified-state-map))))
-  ;;   (mapc (lambda (entry)
-  ;;           (apply (spacemacs//evilify-entry-func entry ekeys) (list entry map)))
-  ;;         (cdr map)))
-  ;; keep a list of all evilified modes
-  (when mode
-    (add-to-list 'evil-evilified-state--modes mode)
-    (unless (bound-and-true-p holy-mode)
-      (delq mode evil-emacs-state-modes)
-      (add-to-list 'evil-evilified-state-modes mode))))
+(defun spacemacs/evilify-configure-default-state (mode)
+  "Configure default state for the passed mode."
+  (add-to-list 'evil-evilified-state--modes mode)
+  (unless (bound-and-true-p holy-mode)
+    (delq mode evil-emacs-state-modes)
+    (add-to-list 'evil-evilified-state-modes mode)))
 
-(defun spacemacs//evilify-entry-func (entry &optional evilified-events)
-  "Return a function symbol responsible to process the keymap ENTRY."
-  (let ((func (cond
-          ((char-table-p entry)
-           'spacemacs//evilify-char-table)
-          ((and (listp entry) (numberp (car entry)))
-           (when (or (null evilified-events)
-                     (member (car entry) evilified-events))
-             (cond
-              ((characterp (car entry))
-               (cond
-                ((keymapp (cdr entry))
-                 'spacemacs//evilify-ascii-event-keymap-binding)
-                ((symbolp (cdr entry))
-                 'spacemacs//evilify-ascii-event-command-binding)))
-              ((characterp (- (car entry) (expt 2 25)))
-               'spacemacs//evilify-shift-ascii-event)))))))
-    (if func func 'ignore)))
+(defun spacemacs//evilify-event (map map-symbol event evil-value
+                                     &optional processed pending-funcs)
+  "Evilify EVENT in MAP and return a list of PROCESSED events."
+  (if (and event (or evil-value pending-funcs))
+      (let* ((kbd-event (kbd (single-key-description event)))
+             (map-value (lookup-key map kbd-event)))
+        (unless (and (symbolp map-value)
+                     (string-match-p "--evilified" (symbol-name map-value)))
+          (unless evil-value
+            (setq evil-value (lookup-key evil-evilified-state-map kbd-event)))
+          (when (or map-value pending-funcs)
+            (let* ((pending-func (unless evil-value (pop pending-funcs)))
+                   (evil-event (unless evil-value (cdr pending-func)))
+                   (evil-value (or evil-value (car pending-func)))
+                   (wrapper (spacemacs//evilify-wrapper map map-symbol
+                                                        map-value event
+                                                        evil-value evil-event)))
+              (define-key map kbd-event wrapper)))
+          (when map-value
+            (add-to-list 'pending-funcs (cons map-value event) 'append))
+          (push event processed)
+          (setq processed (spacemacs//evilify-event
+                           map map-symbol
+                           (spacemacs//evilify-find-new-event event) nil
+                           processed pending-funcs))))
+    (when pending-funcs
+      (spacemacs-buffer/warning
+       (concat (format (concat "Auto-evilication could not remap these "
+                               "functions in map `%s':\n")
+                       map-symbol)
+               (mapconcat (lambda (x)
+                            (format "   - `%s' originally mapped on `%s''"
+                                    (car x) (single-key-description (cdr x))))
+                          pending-funcs "\n")))))
+  processed)
 
-(defmacro spacemacs||evilify-event (event value map &rest body)
-  "Evilify an event according to passed BODY."
-  (declare (indent defun))
-  `(let* ((new-event (spacemacs//evilify-next-event ,map ,event))
-          (new-entry (assoc new-event (cdr ,map))))
-     (if (null new-event)
-         (message "Warning: Could not rebind event \"%s\" (map %S)"
-                  (char-to-string ,event) ,map)
-       (when new-entry
-         ;; new-event is already bound in MAP so we process it before
-         ;; for instance if MAP has already 'k' and 'K', then we move 'K'
-         ;; first to 'C-k' and then we are able to move 'k' to 'K'.
-         (apply (spacemacs//evilify-entry-func entry) (list new-entry map)))
-       ,@body)))
+(defun spacemacs//evilify-wrapper-name (map-symbol map-value event
+                                                   evil-value evil-event)
+  "Return a name for the wrapper function."
+  (intern (if map-value
+              (format "%s-or-%s--evilified-%s-%s"
+                      (spacemacs//evilify-wrapper-value-symbol map-value event)
+                      (spacemacs//evilify-wrapper-value-symbol evil-value
+                                                               evil-event)
+                      map-symbol (single-key-description event))
+            (format "%s--evilified-%s-%s"
+                    (spacemacs//evilify-wrapper-value-symbol evil-value
+                                                             evil-event)
+                    map-symbol (single-key-description event)))))
 
-(defun spacemacs//evilify-ascii-event-command-binding (entry map)
-  "Evilify an ascii event with a command binding."
-  (let* ((event (car entry))
-         (value (cdr entry)))
-    ;; (message "event: %s" event)
-    (spacemacs||evilify-event event value map
-      ;; remap
-      (define-key map `[remap ,value] (spacemacs//evilify-make-wrapper map event value))
-      ;; move original event to new-event
-      (define-key map (char-to-string new-event)
-        `(lambda ()
+(defun spacemacs//evilify-wrapper-documentation (map-value
+                                                 event evil-value evil-event)
+  "Return a docstring for the wrapper function."
+  (let ((map-string (spacemacs//evilify-wrapper-value-string map-value event))
+        (evil-string (spacemacs//evilify-wrapper-value-string evil-value
+                                                              evil-event)))
+    (if map-value
+        (format (concat "Wrap %s and %s.\n"
+                        "In evilified state %s is executed. Whereas "
+                        "in other states (i.e. emacs state) the stock "
+                        "%s is executed.")
+                map-string evil-string
+                evil-string map-string)
+      (format (concat "Wrap %s.\n"
+                      "This function is a dummy wrapper which only "
+                      "executes the %s.")
+              evil-string evil-string))))
+
+(defun spacemacs//evilify-wrapper-value-symbol (value event)
+  "Return a symbol string given VALUE type and EVENT."
+  (if (keymapp value)
+      (format "keymap-%s" (single-key-description event))
+    value))
+
+(defun spacemacs//evilify-wrapper-value-string (value event)
+  "Return a string given VALUE type and EVENT."
+  (if (keymapp value)
+      (format "keymap on key `%s'" (single-key-description event))
+    (format "function `%s'" value)))
+
+(defun spacemacs//evilify-call (value event)
+  "Call VALUE depending on its type (symbol or keymap)."
+  `(if ,(keymapp value)
+       (progn
+         (message "%s-" ,(single-key-description event))
+         (,(if (version< emacs-version "24.4")
+               'set-temporary-overlay-map
+             'set-transient-map)
+          ',value))
+     (unless ,(null value)
+       (call-interactively ',value))))
+
+(defun spacemacs//evilify-wrapper (map map-symbol map-value event
+                                       evil-value evil-event)
+  "Define a wrapper for the passed event."
+  (eval `(defun ,(spacemacs//evilify-wrapper-name
+                  map-symbol map-value event evil-value evil-event) ()
+           ,(spacemacs//evilify-wrapper-documentation
+             map-value event evil-value evil-event)
            (interactive)
-           (call-interactively ',value)))
-      ;; delete old event
-      (setf (cdr map) (delq (assoc event (cdr map)) (cdr map)))
-      ;; (message "body-remap-map: %s" map)
-      )))
+           (if (eq 'evilified evil-state)
+               ;; evilified state
+               ,(if evil-value
+                   (spacemacs//evilify-call evil-value event)
+                  (spacemacs//evilify-call map-value event))
+             ;; other states (i.e. emacs)
+             ,(spacemacs//evilify-call map-value event)))))
 
-  ;; (let ((new-event (spacemacs//evilify-next-event (symbol-value map) event))
-  ;;       (wrapper (spacemacs//evilify-make-wrapper map event value)))
-  ;;   (if (null new-event)
-  ;;       (message "Warning: Could not rebind event \"%s\" (map %S)"
-  ;;                (char-to-string event) map)
-  ;;     (when (assoc new-event (cdr (symbol-value map)))
-  ;;       ;; new-event is already bound in MAP so we process it before
-  ;;       ;; for instance if MAP has 'k' and 'K', then we move 'K' first
-  ;;       ;; to 'C-k' and we will be able to move 'k' on 'K'.
-  ;;       (message "new event: %s" new-event)
-  ;;       (spacemacs//evilify-remap-binding
-  ;;        map new-event (lookup-key (symbol-value map)
-  ;;                                  (kbd (char-to-string new-event)))))
-  ;;     ;; remap event
-  ;;     (if (keymapp value)
-  ;;         (progn
-  ;;           (eval `(define-key ,map ,(char-to-string event) ',wrapper)))
-  ;;       (eval `(define-key ,map [remap ,value] ',wrapper)))
-  ;;     ;; move original command or keymap on a new event
-  ;;     (if new-event
-  ;;         (if (keymapp value)
-  ;;             (eval `(define-key ,map ,(char-to-string new-event) ',value))
-  ;;           (eval `(define-key ,map ,(char-to-string new-event)
-  ;;                    (lambda ()
-  ;;                      (interactive)
-  ;;                      (call-interactively ',value))))))))
-  ;; )
-
-(defun spacemacs//evilify-remap-binding (map event value)
-  "Remap VALUE binding in MAP."
-  (when (and (characterp event)
-             ;; do not remap lambda wrapper
-             (not (eq 'lambda (when (listp value) (car value))))
-             ;; do not remap already remapped bindings
-             (not (string-match "spacemacs" (if (keymapp value)
-                                                ""
-                                              (symbol-name value)))))
-    (let ((new-event (spacemacs//evilify-next-event (symbol-value map) event))
-          (wrapper (spacemacs//evilify-make-wrapper map event value)))
-      (if (null new-event)
-          (message "Warning: Could not rebind event \"%s\" (map %S)"
-                   (char-to-string event) map)
-        (when (assoc new-event (cdr (symbol-value map)))
-          ;; new-event is already bound in MAP so we process it before
-          ;; for instance if MAP has 'k' and 'K', then we move 'K' first
-          ;; to 'C-k' and we will be able to move 'k' on 'K'.
-          (message "new event: %s" new-event)
-          (spacemacs//evilify-remap-binding
-           map new-event (lookup-key (symbol-value map)
-                                     (kbd (char-to-string new-event)))))
-        ;; remap event
-        (if (keymapp value)
-            (progn
-              (eval `(define-key ,map ,(char-to-string event) ',wrapper)))
-          (eval `(define-key ,map [remap ,value] ',wrapper)))
-        ;; move original command or keymap on a new event
-        (if new-event
-            (if (keymapp value)
-                (eval `(define-key ,map ,(char-to-string new-event) ',value))
-              (eval `(define-key ,map ,(char-to-string new-event)
-                       (lambda ()
-                         (interactive)
-                         (call-interactively ',value))))))))))
-
-(defun spacemacs//evilify-wrapper-name (map event value)
-  "Return the name of the wrapper function."
-  (intern (format "spacemacs/evilified-%s"
-                  (if (keymapp value)
-                      (format "%s-keymap-%s"
-                              (symbol-name map)
-                              (char-to-string event))
-                    value))))
-
-(defun spacemacs//evilify-make-wrapper (map event value)
-  "Wrap VALUE in a function which takes care of the evilified state."
-  (let ((wrapper-func (spacemacs//evilify-wrapper-name map event value)))
-    (eval `(defun ,wrapper-func ()
-             ,(format "Wrap %s to support evilified state."
-                      (if (keymapp value)
-                          "keymap"
-                        (format "command %s" value)))
-             (interactive)
-             (if (eq 'evilified evil-state)
-                 (call-interactively ',(lookup-key evil-evilified-state-map
-                                                   (char-to-string event)))
-               (if ,(keymapp value)
-                   (progn
-                     (message "%s-" ,(char-to-string event))
-                     (,(if (version< emacs-version "24.4")
-                           'set-temporary-overlay-map
-                         'set-transient-map)
-                      ',value))
-                 (call-interactively ',value)))))
-    wrapper-func))
-
-(defun spacemacs//evilify-next-event (map event)
-  "Return a new event for the evilified EVENT in MAP."
-  (cond
-   ;; space
-   ((char-equal event 32)
-    (message "unsupported for now") nil)
-   ((char-equal event ?/)
-    (message "unsupported for now") nil)
-   ((char-equal event ?:)
-    (message "unsupported for now") nil)
-   ((member event (mapcar (lambda (x)
-                            (when (listp x) (car x))) (cdr map)))
+(defun spacemacs//evilify-find-new-event (event)
+  "Return a new event for the evilified EVENT."
+  (when event
     (cond
+     ;; space
+     ((equal event 32) nil)
+     ((equal event ?/) nil)
+     ((equal event ?:) nil)
      ((and (<= ?a event) (<= event ?z)) (- event 32))
      ((and (<= ?A event) (<= event ?Z)) (- event 64))
-     ((and (<= 1 event) (<= event 26)) (+ (expt 2 25) event))
-     (t (message "No next event left.") nil)))))
+     ((and (<= 1 event) (<= event 26)) (+ (expt 2 25) event)))))
+
+(defun spacemacs//evilify-sort-keymap (map)
+  "Sort MAP following the order: `s' > `S' > `C-s' > `C-S-s'"
+  (let (list)
+    (map-keymap (lambda (a b) (push (cons a b) list)) map)
+    (sort list
+          (lambda (a b)
+            (setq a (car a) b (car b))
+            (if (integerp a)
+                (if (integerp b)
+                    (if (and (< a 256) (< b 256))
+                        (> a b)
+                      (< a b))
+                  t)
+              (if (integerp b) nil
+                (string< a b)))))))
 
 (provide 'core-evilify-keymap)

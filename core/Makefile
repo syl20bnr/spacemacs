@@ -33,6 +33,7 @@ func_tests:
 	@echo "-----------------------------------------------------------------"
 	@emacs -batch -l ert  \
     -l $(EMACS_DIR)core/core-load-paths.el  \
+    -l $(TEST_DIR)core-evilify-keymap-ftest.el  \
     -l $(TEST_DIR)core-spacemacs-ftest.el  \
     -l $(TEST_DIR)core-spacemacs-buffer-ftest.el  \
     -l $(TEST_DIR)core-release-management-ftest.el  \
