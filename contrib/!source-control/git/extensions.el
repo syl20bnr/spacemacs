@@ -52,7 +52,6 @@
     (progn
       ;; (spacemacs|hide-lighter magit-auto-revert-mode)
 
-
       ;; mode maps
       (spacemacs/evilify-map 'magit-mode-map)
       (spacemacs/evilify-map 'magit-status-mode-map 'magit-status-mode)
@@ -68,7 +67,7 @@
       ;; default state for additional modes
       (dolist (mode '(magit-popup-mode
                       magit-popup-sequence-mode))
-        (add-to-list 'evil-insert-state-modes mode))
+        (add-to-list 'evil-emacs-state-modes mode))
       (spacemacs/evilify-configure-default-state 'magit-revision-mode)
       ;; section maps
       (spacemacs/evilify-map 'magit-tag-section-map)
