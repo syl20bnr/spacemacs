@@ -27,8 +27,7 @@
       (add-to-list 'load-path (format "%smagit-next/lisp/"
                                       (configuration-layer/get-layer-property
                                        'git :ext-dir)))
-      (setq magit-last-seen-setup-instructions "1.4.0"
-            magit-completing-read-function 'magit-ido-completing-read)
+      (setq magit-completing-read-function 'magit-ido-completing-read)
       (add-hook 'git-commit-mode-hook 'fci-mode)
       ;; must enable auto-fill-mode again because somehow fci-mode disable it
       (add-hook 'git-commit-mode-hook 'auto-fill-mode)
@@ -87,31 +86,35 @@
 
       ;; full screen magit-status
       (when git-magit-status-fullscreen
-        (defadvice magit-status (around magit-fullscreen activate)
-          (window-configuration-to-register :magit-fullscreen)
-          ad-do-it
-          (delete-other-windows))
-
-        (defun magit-quit-session ()
-          "Restores the previous window configuration and kills the magit buffer"
-          (interactive)
-          (kill-buffer)
-          (jump-to-register :magit-fullscreen))
-        (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
+	(setq magit-restore-window-configuration t)
+	(setq magit-status-buffer-switch-function
+	      (lambda (buffer)
+		(pop-to-buffer buffer)
+		(delete-other-windows))))
 
       (defun magit-toggle-whitespace ()
         (interactive)
-        (if (member "-w" magit-diff-options)
+        (if (member "-w" (if (derived-mode-p 'magit-diff-mode)
+			     magit-refresh-args
+			   magit-diff-section-arguments))
             (magit-dont-ignore-whitespace)
           (magit-ignore-whitespace)))
 
       (defun magit-ignore-whitespace ()
         (interactive)
-        (add-to-list 'magit-diff-options "-w")
+        (add-to-list (if (derived-mode-p 'magit-diff-mode)
+			 'magit-refresh-args
+		       'magit-diff-section-arguments)
+		     "-w")
         (magit-refresh))
 
       (defun magit-dont-ignore-whitespace ()
         (interactive)
-        (setq magit-diff-options (remove "-w" magit-diff-options))
-        (magit-refresh)))
-    (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)))
+        (setq magit-diff-options
+	      (remove "-w"
+		      (if (derived-mode-p 'magit-diff-mode)
+			  magit-refresh-args
+			magit-diff-section-arguments)))
+        (magit-refresh))
+
+      (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
