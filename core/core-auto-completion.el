@@ -34,8 +34,9 @@ The initialization function is hooked to `MODE-hook'."
               'company)
          (set (make-variable-buffer-local 'company-backends)
               ,backend-list))
-       (when auto-completion-show-snippets-in-popup
-         (setq ,backend-list (mapcar 'spacemacs//show-snippets-in-company ,backend-list)))
+       (when auto-completion-enable-snippets-in-popup
+         (setq ,backend-list (mapcar 'spacemacs//show-snippets-in-company
+                                     ,backend-list)))
        (add-hook ',mode-hook ',func t)
        (add-hook ',mode-hook 'company-mode t))))
 
@@ -50,7 +51,7 @@ MODE parameter must match the parameter used in the call to
        (remove-hook ',mode-hook 'company-mode))))
 
 (defun spacemacs//show-snippets-in-company (backend)
-  (if (or (not auto-completion-show-snippets-in-popup)
+  (if (or (not auto-completion-enable-snippets-in-popup)
           (and (listp backend) (member 'company-yasnippet backend)))
       backend
     (append (if (consp backend) backend (list backend))
