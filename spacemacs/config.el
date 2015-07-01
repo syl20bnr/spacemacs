@@ -171,8 +171,8 @@ Can be installed with `brew install trash'."
 ;; The C-d rebinding that most shell-like buffers inherit from
 ;; comint-mode assumes non-evil configuration with its
 ;; `comint-delchar-or-maybe-eof' function, so we disable it
-(with-eval-after-load 'comint
-  (define-key comint-mode-map (kbd "C-d") nil))
+(eval-after-load 'comint
+  '(define-key comint-mode-map (kbd "C-d") nil))
 
 ;; ---------------------------------------------------------------------------
 ;; UI
