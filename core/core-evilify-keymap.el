@@ -9,19 +9,27 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-
-(defun spacemacs/evilify-map (map-symbol &optional mode evilified-map)
-  "Evilify map bound to MAP-SYMBOL."
-  (let ((sorted-map (spacemacs//evilify-sort-keymap
-                     (or evilified-map evil-evilified-state-map)))
-        processed)
-    (mapc (lambda (map-entry)
-            (unless (member (car map-entry) processed)
-              (setq processed (spacemacs//evilify-event
-                               (eval map-symbol) map-symbol
-                               (car map-entry) (cdr map-entry)))))
-          sorted-map))
-  (when mode (spacemacs/evilify-configure-default-state mode)))
+(defmacro spacemacs|evilify-map (map &rest props)
+  "Evilify MAP."
+  (declare (indent 1))
+  (let* ((mode (plist-get props :mode))
+         (evilified-map (plist-get props :evilified-map))
+         (bindings (spacemacs/mplist-get props :bindings))
+         (defkey (when bindings `(evil-define-key 'evilified ,map ,@bindings))))
+    `(progn
+       (let ((sorted-map (spacemacs//evilify-sort-keymap
+                          (or ,evilified-map evil-evilified-state-map)))
+             processed)
+         (mapc (lambda (map-entry)
+                 (unless (member (car map-entry) processed)
+                   (setq processed (spacemacs//evilify-event
+                                    ,map ',map
+                                    (car map-entry) (cdr map-entry)))))
+               sorted-map))
+       (unless ,(null defkey)
+         (,@defkey))
+       (unless ,(null mode)
+         (spacemacs/evilify-configure-default-state ',mode)))))
 
 (defun spacemacs/evilify-configure-default-state (mode)
   "Configure default state for the passed mode."
