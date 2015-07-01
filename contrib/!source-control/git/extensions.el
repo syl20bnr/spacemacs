@@ -44,6 +44,7 @@
       (evil-leader/set-key
         "gb" 'magit-blame-mode
         "gl" 'magit-log
+        "gL" 'magit-log-buffer-file
         "gs" 'magit-status
         "gd" 'spacemacs/magit-diff-head
         "gC" 'magit-commit))
