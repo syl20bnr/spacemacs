@@ -111,6 +111,10 @@
       (evil-leader/set-key-for-mode 'git-rebase-mode
         "mcc" 'git-rebase-server-edit
         "mk" 'git-rebase-abort)
+      ;; commit mode
+      (evil-leader/set-key-for-mode 'git-commit-mode
+        "mcc" 'git-commit-commit
+        "mk" 'git-commit-abort)
 
       ;; whitespace
       (defun magit-toggle-whitespace ()
