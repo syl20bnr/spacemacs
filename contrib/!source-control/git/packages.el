@@ -18,28 +18,18 @@
         git-messenger
         git-timemachine
         helm-gitignore
-        smeargle))
-
-(unless git-use-magit-next
-  (push 'magit git-packages)
-  ;; not compatible with magit-next
-  (push 'magit-svn git-packages)
-  (push 'git-commit-mode git-packages)
-  (push 'git-rebase-mode git-packages)
-  (push 'magit-gitflow git-packages))
+        magit
+        ;; not compatible with magit 2.1 at the time of release
+        ;; magit-gitflow
+        ;; not compatible with magit 2.1 at the time of release
+        ;; magit-svn
+        smeargle
+        ))
 
 (defun git/init-helm-gitignore ()
   (use-package helm-gitignore
     :defer t
     :init (evil-leader/set-key "gI" 'helm-gitignore)))
-
-(defun git/init-git-commit-mode ()
-  (use-package git-commit-mode
-    :defer t
-    :config
-    (evil-leader/set-key-for-mode 'git-commit-mode
-      "mcc" 'git-commit-commit
-      "mk" 'git-commit-abort)))
 
 (defun git/init-git-messenger ()
   (use-package git-messenger
@@ -47,20 +37,6 @@
     :init
     (evil-leader/set-key
       "gm" 'git-messenger:popup-message)))
-
-(defun git/init-git-rebase-mode ()
-  (use-package git-rebase-mode
-    :defer t
-    :config
-    (progn
-      (evilify git-rebase-mode git-rebase-mode-map
-               "J" 'git-rebase-move-line-down
-               "K" 'git-rebase-move-line-up
-               "u" 'git-rebase-undo
-               "y" 'git-rebase-insert)
-      (evil-leader/set-key-for-mode 'git-rebase-mode
-        "mcc" 'git-rebase-server-edit
-        "mk" 'git-rebase-abort))))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
@@ -108,15 +84,17 @@
 
 (defun git/init-magit ()
   (use-package magit
-    :if (null git-use-magit-next)
-    :defer t
+    :commands (magit-status
+               magit-blame-mode
+               magit-log
+               magit-commit)
     :init
     (progn
-      (setq magit-last-seen-setup-instructions "1.4.0"
-            magit-completing-read-function 'magit-ido-completing-read)
+      (add-to-list 'load-path (format "%smagit-next/lisp/"
+                                      (configuration-layer/get-layer-property
+                                       'git :ext-dir)))
+      (setq magit-completing-read-function 'magit-builtin-completing-read)
       (add-hook 'git-commit-mode-hook 'fci-mode)
-      ;; must enable auto-fill-mode again because somehow fci-mode disable it
-      (add-hook 'git-commit-mode-hook 'auto-fill-mode)
       ;; On Windows, we must use Git GUI to enter username and password
       ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
       (when (eq window-system 'w32)
@@ -128,89 +106,159 @@
         (magit-diff "HEAD"))
 
       (evil-leader/set-key
-        "gb" 'magit-blame-mode
-        "gl" 'magit-log
-        "gL" 'magit-file-log
+        "gb" 'magit-blame
+        "gl" 'magit-log-all
+        "gL" 'magit-log-buffer-file
         "gs" 'magit-status
         "gd" 'spacemacs/magit-diff-head
-        "gC" 'magit-commit)
-      (evilify magit-commit-mode magit-commit-mode-map
-               (kbd "C-j") 'magit-goto-next-section
-               (kbd "C-k") 'magit-goto-previous-section
-               (kbd "C-n") 'magit-goto-next-section
-               (kbd "C-p") 'magit-goto-previous-section
-               (kbd "C-v") 'magit-revert-item)
-      (evilify magit-log-mode magit-log-mode-map
-               (kbd "C-j") 'magit-goto-next-section
-               (kbd "C-k") 'magit-goto-previous-section
-               (kbd "C-n") 'magit-goto-next-section
-               (kbd "C-p") 'magit-goto-previous-section
-               (kbd "C-v") 'magit-revert-item)
-      (evilify magit-process-mode magit-process-mode-map
-               (kbd "C-j") 'magit-goto-next-section
-               (kbd "C-k") 'magit-goto-previous-section
-               (kbd "C-n") 'magit-goto-next-section
-               (kbd "C-p") 'magit-goto-previous-section
-               (kbd "C-v") 'magit-revert-item)
-      (evilify magit-branch-manager-mode magit-branch-manager-mode-map
-               "K" 'magit-discard-item
-               "L" 'magit-key-mode-popup-logging
-               (kbd "C-j") 'magit-goto-next-section
-               (kbd "C-k") 'magit-goto-previous-section
-               (kbd "C-n") 'magit-goto-next-section
-               (kbd "C-p") 'magit-goto-previous-section
-               (kbd "C-v") 'magit-revert-item)
-      (evilify magit-status-mode magit-status-mode-map
-               "K" 'magit-discard-item
-               "L" 'magit-key-mode-popup-logging
-               "H" 'magit-key-mode-popup-diff-options
-               (kbd "C-j") 'magit-goto-next-section
-               (kbd "C-k") 'magit-goto-previous-section
-               (kbd "C-n") 'magit-goto-next-section
-               (kbd "C-p") 'magit-goto-previous-section
-               (kbd "C-v") 'magit-revert-item)
-      (evilify magit-diff-mode magit-diff-mode-map
-               "K" 'magit-discard-item
-               "L" 'magit-key-mode-popup-logging
-               "H" 'magit-key-mode-popup-diff-options
-               (kbd "C-j") 'magit-goto-next-section
-               (kbd "C-k") 'magit-goto-previous-section
-               (kbd "C-n") 'magit-goto-next-section
-               (kbd "C-p") 'magit-goto-previous-section
-               (kbd "C-v") 'magit-revert-item))
+        "gC" 'magit-commit))
     :config
     (progn
-      (spacemacs|hide-lighter magit-auto-revert-mode)
+      ;; seems to be necessary at the time of release
+      (require 'git-rebase)
+      ;; mode maps
+      (spacemacs|evilify-map magit-mode-map)
+      (spacemacs|evilify-map magit-status-mode-map
+        :mode magit-status-mode
+        :bindings
+        (kbd "C-S-j") 'magit-section-forward
+        (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-n") 'magit-section-forward
+        (kbd "C-p") 'magit-section-backward)
+      (spacemacs|evilify-map magit-refs-mode-map
+        :mode magit-refs-mode
+        :bindings
+        (kbd "C-S-j") 'magit-section-forward
+        (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-n") 'magit-section-forward
+        (kbd "C-p") 'magit-section-backward)
+      (spacemacs|evilify-map magit-blame-mode-map
+        :mode magit-blame-mode
+        :bindings
+        (kbd "C-S-j") 'magit-section-forward
+        (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-n") 'magit-section-forward
+        (kbd "C-p") 'magit-section-backward)
+      (spacemacs|evilify-map magit-diff-mode-map
+        :mode magit-diff-mode
+        :bindings
+        (kbd "C-S-j") 'magit-section-forward
+        (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-n") 'magit-section-forward
+        (kbd "C-p") 'magit-section-backward)
+      (spacemacs|evilify-map magit-log-read-revs-map
+        :mode magit-log-read-revs
+        :bindings
+        (kbd "C-S-j") 'magit-section-forward
+        (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-n") 'magit-section-forward
+        (kbd "C-p") 'magit-section-backward)
+      (spacemacs|evilify-map magit-log-mode-map
+        :mode magit-log-mode
+        :bindings
+        (kbd "C-S-j") 'magit-section-forward
+        (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-n") 'magit-section-forward
+        (kbd "C-p") 'magit-section-backward)
+      (spacemacs|evilify-map magit-log-select-mode-map
+        :mode magit-log-select-mode
+        :bindings
+        (kbd "C-S-j") 'magit-section-forward
+        (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-n") 'magit-section-forward
+        (kbd "C-p") 'magit-section-backward)
+      (spacemacs|evilify-map magit-cherry-mode-map
+        :mode magit-cherry-mode
+        :bindings
+        (kbd "C-S-j") 'magit-section-forward
+        (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-n") 'magit-section-forward
+        (kbd "C-p") 'magit-section-backward)
+      (spacemacs|evilify-map magit-reflog-mode-map
+        :mode magit-reflog-mode
+        :bindings
+        (kbd "C-S-j") 'magit-section-forward
+        (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-n") 'magit-section-forward
+        (kbd "C-p") 'magit-section-backward)
+      (spacemacs|evilify-map magit-process-mode-map
+        :mode magit-process-mode
+        :bindings
+        (kbd "C-S-j") 'magit-section-forward
+        (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-n") 'magit-section-forward
+        (kbd "C-p") 'magit-section-backward)
+      (spacemacs|evilify-map git-rebase-mode-map
+        :mode git-rebase-mode
+        :bindings
+        (kbd "C-S-j") 'magit-section-forward
+        (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-n") 'magit-section-forward
+        (kbd "C-p") 'magit-section-backward
+        "J" 'git-rebase-move-line-down
+        "K" 'git-rebase-move-line-up
+        "u" 'git-rebase-undo
+        "y" 'git-rebase-insert)
+      ;; default state for additional modes
+      (dolist (mode '(magit-popup-mode
+                      magit-popup-sequence-mode))
+        (add-to-list 'evil-emacs-state-modes mode))
+      (spacemacs/evilify-configure-default-state 'magit-revision-mode)
+      ;; section maps
+      (spacemacs|evilify-map magit-tag-section-map)
+      (spacemacs|evilify-map magit-untracked-section-map)
+      (spacemacs|evilify-map magit-branch-section-map)
+      (spacemacs|evilify-map magit-remote-section-map)
+      (spacemacs|evilify-map magit-file-section-map)
+      (spacemacs|evilify-map magit-hunk-section-map)
+      (spacemacs|evilify-map magit-unstaged-section-map)
+      (spacemacs|evilify-map magit-staged-section-map)
+      (spacemacs|evilify-map magit-commit-section-map)
+      (spacemacs|evilify-map magit-module-commit-section-map)
+      (spacemacs|evilify-map magit-unpulled-section-map)
+      (spacemacs|evilify-map magit-unpushed-section-map)
+      (spacemacs|evilify-map magit-stashes-section-map)
+      (spacemacs|evilify-map magit-stash-section-map)
+
       ;; full screen magit-status
       (when git-magit-status-fullscreen
-        (defadvice magit-status (around magit-fullscreen activate)
-          (window-configuration-to-register :magit-fullscreen)
-          ad-do-it
-          (delete-other-windows))
+        (setq magit-restore-window-configuration t)
+        (setq magit-status-buffer-switch-function
+              (lambda (buffer)
+                (pop-to-buffer buffer)
+                (delete-other-windows))))
 
-        (defun magit-quit-session ()
-          "Restores the previous window configuration and kills the magit buffer"
-          (interactive)
-          (kill-buffer)
-          (jump-to-register :magit-fullscreen))
-        (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
+      ;; rebase mode
+      (evil-leader/set-key-for-mode 'git-rebase-mode
+        "mcc" 'git-rebase-server-edit
+        "mk" 'git-rebase-abort)
+      ;; commit mode
+      (evil-leader/set-key-for-mode 'git-commit-mode
+        "mcc" 'git-commit-commit
+        "mk" 'git-commit-abort)
 
+      ;; whitespace
       (defun magit-toggle-whitespace ()
         (interactive)
-        (if (member "-w" magit-diff-options)
+        (if (member "-w" (if (derived-mode-p 'magit-diff-mode)
+			     magit-refresh-args
+			   magit-diff-section-arguments))
             (magit-dont-ignore-whitespace)
           (magit-ignore-whitespace)))
-
       (defun magit-ignore-whitespace ()
         (interactive)
-        (add-to-list 'magit-diff-options "-w")
+        (add-to-list (if (derived-mode-p 'magit-diff-mode)
+			 'magit-refresh-args 'magit-diff-section-arguments) "-w")
         (magit-refresh))
-
       (defun magit-dont-ignore-whitespace ()
         (interactive)
-        (setq magit-diff-options (remove "-w" magit-diff-options))
-        (magit-refresh))
-      (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
+        (setq magit-diff-options
+              (remove "-w"
+                      (if (derived-mode-p 'magit-diff-mode)
+                          magit-refresh-args
+                        magit-diff-section-arguments))) (magit-refresh))
+      (define-key magit-status-mode-map (kbd "C-S-w")
+        'magit-toggle-whitespace))))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow

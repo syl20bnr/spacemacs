@@ -17,6 +17,3 @@
 
 (defvar git-magit-status-fullscreen nil
   "If non nil magit-status buffer is displayed in fullscreen.")
-
-(defvar git-use-magit-next nil
-  "If non nil magit next branch will be used.")

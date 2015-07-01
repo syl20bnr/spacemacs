@@ -61,7 +61,7 @@ function, this is the folder where you keep all your git-controlled projects
 (the path should end up with a ~=/~= to respect Emacs conventions):
 
 #+BEGIN_SRC emacs-lisp
-  (setq magit-repo-dirs '("~/repos/"))
+  (setq magit-repository-directories '("~/repos/"))
 #+END_SRC
 
 For more information, see [[https://magit.github.io/master/magit.html#Status][Magit-User-Manual#Status]]
@@ -106,6 +106,7 @@ Git commands (start with ~g~):
 - Git time machine is provided by [[https://github.com/pidu/git-timemachine][git-timemachine]].
 - Git last commit message per line is provided by [[https://github.com/syohex/emacs-git-messenger][git-messenger]].
 
+
 ** Magit
 
 =Spacemacs= uses [[http://magit.github.io/][magit]] to manage Git repositories.
@@ -115,43 +116,42 @@ To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~
 ~hjkl~ navigation is enabled in all Magit buffers. The default Magit keys
 on ~hjkl~ (if they exist) are remapped on ~HJKL~.
 
-Here are the often used bindings inside a =status buffer=:
+Here are the often used bindings inside a =status buffer=, please note that
+the following key bindings are valid in Vim editing style, in Emacs editing
+style you can refer directly to the magit manual:
 
-| Key Binding | Description                                         |
-|-------------+-----------------------------------------------------|
-| ~/~         | evil-search                                         |
-| ~$~         | open =command output buffer=                        |
-| ~c c~       | open a =commit message buffer=                      |
-| ~b b~       | checkout a branch                                   |
-| ~b c~       | create a branch                                     |
-| ~b v~       | open the =branch manager buffer=                    |
-| ~f f~       | fetch changes                                       |
-| ~F -r F~    | pull and rebase                                     |
-| ~h~         | go left                                             |
-| ~j~         | go down                                             |
-| ~C-j~       | goto next magit section                             |
-| ~k~         | go up                                               |
-| ~K~         | discard changes                                     |
-| ~C-k~       | goto previous magit section                         |
-| ~l~         | go right                                            |
-| ~L l~       | open =log buffer=                                   |
-| ~n~         | next search occurrence                              |
-| ~C-n~       | goto next magit section                             |
-| ~N~         | previous search occurrence _or_ SVN sub-menu        |
-| ~P P~       | push                                                |
-| ~C-p~       | goto previous magit section                         |
-| ~q~         | quit                                                |
-| ~s~         | on a file or hunk in a diff: stage the file or hunk |
-| ~+~         | on a hunk: increase hunk size                       |
-| ~-~         | on a hunk: decrease hunk size                       |
-| ~S~         | stage all                                           |
-| ~TAB~       | on a file: expand/collapse diff                     |
-| ~u~         | on a staged file: unstage                           |
-| ~U~         | unstage all staged files                            |
-| ~v~         | go to =visual state=                                |
-| ~V~         | go to =visual-line state=                           |
-| ~C-v~       | revert item at point                                |
-| ~z z~       | stash changes                                       |
+| Key Binding      | Description                                         |
+|------------------+-----------------------------------------------------|
+| ~/~              | evil-search                                         |
+| ~$~              | open =command output buffer=                        |
+| ~c c~            | open a =commit message buffer=                      |
+| ~b b~            | checkout a branch                                   |
+| ~b c~            | create a branch                                     |
+| ~f f~            | fetch changes                                       |
+| ~F -r F~         | pull and rebase                                     |
+| ~h~              | go left                                             |
+| ~j~              | go down                                             |
+| ~C-S-j~ or ~C-n~ | goto next magit section                             |
+| ~k~              | go up                                               |
+| ~K~              | discard changes                                     |
+| ~C-S-k~ or ~C-p~ | goto previous magit section                         |
+| ~l~              | go right                                            |
+| ~L l~            | open =log buffer=                                   |
+| ~n~              | next search occurrence                              |
+| ~N~              | previous search occurrence _or_ SVN sub-menu        |
+| ~P P~            | push                                                |
+| ~q~              | quit                                                |
+| ~s~              | on a file or hunk in a diff: stage the file or hunk |
+| ~+~              | on a hunk: increase hunk size                       |
+| ~-~              | on a hunk: decrease hunk size                       |
+| ~S~              | stage all                                           |
+| ~TAB~            | on a file: expand/collapse diff                     |
+| ~u~              | on a staged file: unstage                           |
+| ~U~              | unstage all staged files                            |
+| ~v~              | go to =visual state=                                |
+| ~V~              | go to =visual-line state=                           |
+| ~C-v~            | revert item at point                                |
+| ~z z~            | stash changes                                       |
 
 ** Commit message edition buffer
 
@@ -199,7 +199,7 @@ message.
   - ~C-c C-c~ to submit the changes
 - Squash last commit:
   - ~L l~ to open =log buffer=
-  - ~E~ on the second to last commit, it opens the =rebase buffer=
+  - ~r e~ on the second to last commit, it opens the =rebase buffer=
   - ~j~ to put point on last commit
   - ~s~ to squash it
   - ~C-c C-c~ to continue to the =commit message buffer=
@@ -211,7 +211,7 @@ message.
     the history of a public repository, but if you are *sure* that you are the
     only one to work on a repository it is ok - i.e. in your fork).
 - Add upstream remote (the parent repository you have forked):
-  - ~b v~ to open the =branch manager buffer=
+  - ~M~ to open the =remote popup=
   - ~a~ to add a remote, type the name (i.e. =upstream=) and the URL
 - Pull changes from upstream (the parent repository you have forked) and push:
   - ~F -r C-u F~ and choose =upstream= or the name you gave to it
@@ -230,3 +230,5 @@ message.
 | ~p~         | show previous commit                           |
 | ~q~         | leave micro-state and git timemachine          |
 | ~Y~         | copy current commit hash                       |
+
+#  LocalWords:  unpulled

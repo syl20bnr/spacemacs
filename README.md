@@ -7,7 +7,7 @@
 |
 <b><a href="doc/DOCUMENTATION.org#goals">goals</a></b>
 |
-<b><a href="doc/DOCUMENTATION.org#who-can-benefit-from-this-">for whom?</a></b>
+<b><a href="doc/DOCUMENTATION.org#user-content-who-can-benefit-from-this">for whom?</a></b>
 |
 <b><a href="doc/DOCUMENTATION.org#screenshots">screenshots</a></b>
 |
@@ -203,7 +203,7 @@ To fix it change the owner of the directory `~/.emacs.d/server`:
 
 Source: [Stackoverflow][so-server-unsafe]
 
-For efficient searches we recommend to install `pt` [the platinum searcher][].
+For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 `pt` version 1.7.7 or higher is required.
 
 # Install
@@ -438,7 +438,7 @@ We especially need to create more configuration layers that, for instance, bring
 support for new languages.
 
 If you are ready to contribute please begin by consulting the
-[contribution guidelines][CONTRIBUTE.org] and [conventions][CONVENTIONS.md],
+[contribution guidelines][CONTRIBUTE.org] and [conventions][CONVENTIONS.org],
 thanks!
 
 # License
@@ -519,8 +519,11 @@ the [emacs-mac-port][] build. See the [install OSX section][] for more
 details.
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
+[CONTRIBUTE.org]: doc/CONTRIBUTE.org
 [CONVENTIONS.org]: doc/CONVENTIONS.org
+[DOCUMENTATION.org]: doc/DOCUMENTATION.org
 [HOWTOs.org]: doc/HOWTOs.org
+[VIMUSERS.org]: doc/VIMUSERS.org
 [config]: doc/DOCUMENTATION.org#configuration-layers
 [dotfile]: doc/DOCUMENTATION.org#dotfile-configuration
 [manage_config]: doc/DOCUMENTATION.org#managing-private-configuration-layers
@@ -534,9 +537,7 @@ details.
 [Evil Mode]: doc/DOCUMENTATION.org#evil
 [private]: ./private
 [layers]: ./contrib
-[DOCUMENTATION.org]: doc/DOCUMENTATION.org
 [font section]: doc/DOCUMENTATION.org#font
-[CONTRIBUTE.org]: doc/CONTRIBUTE.org
 [powerline-seps]: doc/DOCUMENTATION.org#powerline-separators
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
 [dotfile template]: ./core/templates/.spacemacs.template
@@ -552,7 +553,7 @@ details.
 [emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
 [homebrew]: https://github.com/Homebrew/homebrew
 [emacs-for-windows]: http://emacsbinw64.sourceforge.net/
-[the platinum searcher]:
+[the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
 [powerline-doc]: doc/DOCUMENTATION.org#powerline-separators
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start

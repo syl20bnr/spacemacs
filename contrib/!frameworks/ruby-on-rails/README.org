@@ -1,0 +1,88 @@
+#+TITLE: Ruby on Rails contribution layer for Spacemacs
+
+[[file:img/ror.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+     - [[#code-navigation][Code Navigation]]
+     - [[#refactoring][Refactoring]]
+     - [[#run-commands][RUN commands]]
+     - [[#ex-commands][Ex-commands]]
+
+* Description
+
+This layer aims at providing support for the Ruby on Rails framework.
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(ruby-on-rails))
+#+END_SRC
+
+* Key bindings
+
+** Code Navigation
+
+| Key binding   | Description                                                     |
+|---------------+-----------------------------------------------------------------|
+| ~SPC m r f a~ | find localization file                                          |
+| ~SPC m r f c~ | find controller                                                 |
+| ~SPC m r f e~ | find environment file                                           |
+| ~SPC m r f f~ | find feature                                                    |
+| ~SPC m r f h~ | find helper                                                     |
+| ~SPC m r f i~ | find initializer                                                |
+| ~SPC m r f j~ | find javascript file                                            |
+| ~SPC m r f l~ | find library                                                    |
+| ~SPC m r f m~ | find model                                                      |
+| ~SPC m r f n~ | find migration                                                  |
+| ~SPC m r f o~ | find log                                                        |
+| ~SPC m r f p~ | find spec file                                                  |
+| ~SPC m r f r~ | find rake task                                                  |
+| ~SPC m r f s~ | find stylesheet file                                            |
+| ~SPC m r f t~ | find test                                                       |
+| ~SPC m r f u~ | find fixture                                                    |
+| ~SPC m r f v~ | find view                                                       |
+| ~SPC m r f y~ | find layout                                                     |
+| ~SPC m r f @~ | find mailer                                                     |
+| ~SPC m r g c~ | go to current controller                                        |
+| ~SPC m r g d~ | go to DB schema                                                 |
+| ~SPC m r g e~ | go to DB seeds                                                  |
+| ~SPC m r g h~ | go to current helper                                            |
+| ~SPC m r g j~ | go to current javascript                                        |
+| ~SPC m r g g~ | go to Gemfile                                                   |
+| ~SPC m r g m~ | go to current model                                             |
+| ~SPC m r g n~ | go to current migration                                         |
+| ~SPC m r g p~ | go to current spec                                              |
+| ~SPC m r g r~ | go to routes                                                    |
+| ~SPC m r g s~ | go to current stylesheet                                        |
+| ~SPC m r g t~ | go to current test                                              |
+| ~SPC m r g u~ | go to current fixture                                           |
+| ~SPC m r g v~ | go to current view                                              |
+| ~SPC m r g z~ | go to spec helper                                               |
+| ~SPC m r g .~ | go to file at point (faster but less powerful than ~SPC m g g~) |
+
+** Refactoring
+
+| Key binding   | Description                 |
+|---------------+-----------------------------|
+| ~SPC m r R x~ | extract region into partial |
+
+** RUN commands
+
+| Key binding   | Description          |
+|---------------+----------------------|
+| ~SPC m r c c~ | run rails generator  |
+| ~SPC m r i~   | start rails console  |
+| ~SPC m r s r~ | reload Rails project |
+| ~SPC m r r :~ | run rake task        |
+| ~SPC m r x s~ | start rails server   |
+
+** Ex-commands
+
+| Key binding | Description                             |
+|-------------+-----------------------------------------|
+| ~:A~        | Switch between implementation and tests |
