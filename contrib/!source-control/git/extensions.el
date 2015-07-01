@@ -49,8 +49,6 @@
         "gC" 'magit-commit))
     :config
     (progn
-      ;; (spacemacs|hide-lighter magit-auto-revert-mode)
-
       ;; mode maps
       (spacemacs/evilify-map 'magit-mode-map)
       (spacemacs/evilify-map 'magit-status-mode-map 'magit-status-mode)
@@ -117,4 +115,5 @@
 			magit-diff-section-arguments)))
         (magit-refresh))
 
-      (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace))))
+      (define-key magit-status-mode-map (kbd "C-S-w")
+        'magit-toggle-whitespace))))
