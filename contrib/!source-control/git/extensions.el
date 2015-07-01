@@ -29,8 +29,6 @@
                                        'git :ext-dir)))
       (setq magit-completing-read-function 'magit-builtin-completing-read)
       (add-hook 'git-commit-mode-hook 'fci-mode)
-      ;; must enable auto-fill-mode again because somehow fci-mode disable it
-      (add-hook 'git-commit-mode-hook 'auto-fill-mode)
       ;; On Windows, we must use Git GUI to enter username and password
       ;; See: https://github.com/magit/magit/wiki/FAQ#windows-cannot-push-via-https
       (when (eq window-system 'w32)
