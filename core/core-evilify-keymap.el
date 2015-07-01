@@ -138,7 +138,8 @@
            ,(spacemacs//evilify-wrapper-documentation
              map-value event evil-value evil-event)
            (interactive)
-           (if (eq 'evilified evil-state)
+           (if (and (eq 'evilified evil-state)
+                    (null evil-escape-inhibit))
                ;; evilified state
                ,(if evil-value
                    (spacemacs//evilify-call evil-value event)
