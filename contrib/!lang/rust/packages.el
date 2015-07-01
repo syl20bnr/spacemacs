@@ -10,17 +10,15 @@
 ;;
 ;;; License: GPLv3
 
-(defvar rust-packages
+(setq rust-packages
   '(
+    company
+    company-racer
     flycheck
     flycheck-rust
     rust-mode
     toml-mode
-    company
-    company-racer
-    )
-  "List of all packages to install and/or initialize. Built-in packages
-which require an initialization must be listed explicitly in the list.")
+    ))
 
 (defun rust/post-init-flycheck ()
   (add-hook 'rust-mode-hook 'flycheck-mode))
@@ -30,30 +28,26 @@ which require an initialization must be listed explicitly in the list.")
     (use-package flycheck-rust
       :if (configuration-layer/package-usedp 'flycheck)
       :defer t
-      :init
-      (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))))
+      :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))))
 
 (defun rust/init-rust-mode ()
   (use-package rust-mode
     :defer t
     :config
     (progn
-      (when (fboundp 'sp-local-pair) ;Don't pair lifetime specifiers
+      (when (fboundp 'sp-local-pair)
+        ;; Don't pair lifetime specifiers
         (sp-local-pair 'rust-mode "'" nil :actions nil))
 
-      ;; (spacemacs/declare-prefix-for-mode 'rust-mode "mc" "cargo")
       (evil-leader/set-key-for-mode 'rust-mode
         "mcc" 'spacemacs/rust-cargo-build
-        "mcC" 'spacemacs/rust-cargo-run
         "mct" 'spacemacs/rust-cargo-test
-        "mcd" 'spacemacs/rust-cargo-doc)))
-  "Initialize rust-mode"
-  )
+        "mcd" 'spacemacs/rust-cargo-doc
+        "mcx" 'spacemacs/rust-cargo-run))))
 
 (defun rust/init-toml-mode ()
   (use-package toml-mode
-    :defer t)
-  "Initialize toml-mode")
+    :defer t))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun rust/post-init-company ()
