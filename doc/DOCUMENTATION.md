@@ -622,7 +622,7 @@ here are a few examples:
 
 - Save a buffer: <kbd>SPC f s</kbd>
 - Save all opened buffers: <kbd>SPC f S</kbd>
-- Open (switch) to a buffer with `helm`: <kbd>SPC b s</kbd>
+- Open (switch) to a buffer with `helm`: <kbd>SPC b b</kbd>
 
 ## Universal argument
 
@@ -1025,7 +1025,7 @@ The choice of `fd` was made to be able to use the same sequence to escape from
 If you find yourself in a buffer where the `Spacemacs` (<kbd>SPC</kbd>) or Vim
 keybindings don't work you can use this to get back to `normal state` (for
 example in <kbd>SPC : customize</kbd> press <kbd>fd</kbd> to make
-<kbd>SPC b s</kbd> work again).
+<kbd>SPC b b</kbd> work again).
 
 This sequence can be customized in your `~/.spacemacs`. Example to set it
 to `jj` (it is important set the variable in `dotspacemacs/init`):
