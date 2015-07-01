@@ -2302,7 +2302,9 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 
 (defun spacemacs/init-iedit ()
   (use-package iedit
-    :defer t))
+    :defer t
+    :init
+    (setq iedit-toggle-key-default nil)))
 
 (defun spacemacs/init-indent-guide ()
   (use-package indent-guide
