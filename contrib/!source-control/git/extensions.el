@@ -27,7 +27,7 @@
       (add-to-list 'load-path (format "%smagit-next/lisp/"
                                       (configuration-layer/get-layer-property
                                        'git :ext-dir)))
-      (setq magit-completing-read-function 'magit-ido-completing-read)
+      (setq magit-completing-read-function 'magit-builtin-completing-read)
       (add-hook 'git-commit-mode-hook 'fci-mode)
       ;; must enable auto-fill-mode again because somehow fci-mode disable it
       (add-hook 'git-commit-mode-hook 'auto-fill-mode)
