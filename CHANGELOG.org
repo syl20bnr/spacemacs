@@ -1,6 +1,8 @@
-* Release 0.103.x (next)
+* Release 0.103.x (2015/07/01)
 ** 0.103.0
 *** IMPORTANT: Breaking changes
+- Spacemacs is now compatible only with =Magit 2.1= and later, be
+  sure to update your packages.
 - =auctex= layer has been renamed =latex=, be sure to update your
   dotfile if you use this layer.
 - =erlang/elixir= layer has been split into two layers =erlang= and
@@ -11,12 +13,20 @@
 - =git-gutter= has been replaced by =diff-hl=. This package is in
   the new layer =version-control=, be sure to add this new layer to
   your dotfile.
+- Projectile key bindings changes:
+  ~SPC p e~ is now ~SPC p r~ (recent files)
+  ~SPC p R~ is now ~SPC p G~ (regenerate tags)
+  ~SPC p r~ is now ~SPC p R~ (replace)
 *** Hot new features
+- Add support for Magit 2.1!
+- Helm now uses its header to display the input pattern.
+- Use Flycheck default configuration to check the current buffer in
+  "real time" (yes this is a hot new features :-)) 
 - New interactive function =spacemacs/switch-to-version=, it will ask
   for a version number and warn if the current branch is not =master=.
-  Users on =develop= branch cannot use this function.
-- Clicking on the up arrow will now update Spacemacs. A prompt asks
-  for confirmation before updating.
+  Users on =develop= branch cannot use this function (it has no effect).
+- Clicking on the up arrow in the mode-line will now update Spacemacs.
+  A prompt asks for confirmation before updating.
 - New "tool assisted" search and replace interface supporting =ag=, =pt=,
   and =ack= with a new key binding scheme. Check the documentation for
   =searching with an external tool=.
@@ -43,6 +53,8 @@
 - Add support for =.org= files in =helm-spacemacs= (thanks to tuhdo)
 - Add explicit titles for documentation files in =helm-spacemacs=
   (thanks to tuhdo)
+- Remove the dependency on =f= library in =helm-spacemacs=
+  (thanks to person808)
 - Revert ~C-o~ in =holy-mode= since it shadows too many packages key bindings
   (thanks to tuhdo)
 - Evilify =helm-ag= and =helm-grep= buffers (obtained by pressing ~f3~ in
@@ -54,15 +66,33 @@
 - Update search with =grep= to match the new search interface
   (thanks to justbur)
 - Quote input when default text is used in search (thanks to justbur)
+- =smart-search-project= on ~SPC /~ now fallback to searching files in current
+  directory when there is no project (thanks to justbur)
 - Replace =dired-goto-file= with =helm-find-files= in Dired (thanks to tuhdo)
 - Add support for .org files to ~SPC s l~ key binding, it allows to quickly
-  jump to file headers using Helm (thansk to tuhdo)
+  jump to file headers using Helm (thanks to tuhdo)
 - Re-enable =auto-save= mode (thanks to tuhdo)
+- Set =:defer 1= in =helm= initialization (which means that helm will be
+  auto-loaded automatically after 1 second of idle time)
+- Fix =helm-resume= opening window in half of split screen (thanks to sooheon)
+- Use =helm= header to display the input pattern (thanks to tuhdo)
+- Fix =open-in-external-app= when the buffer is not visiting a file
+  (thanks to travisbhartwell)
+- Prevent paste micro-state to be triggered by ~C-r~ in =insert state=
+- Projectile key bindings changes:
+  ~SPC p e~ is now ~SPC p r~ (recent files)
+  ~SPC p R~ is now ~SPC p G~ (regenerate tags)
+  ~SPC p r~ is now ~SPC p R~ (replace)
+- Remove =comint-delchar-or-maybe-eof= on ~C-d~, it fixes ~C-d~ scroll down
+  behavior in =normal state=, user has to press the stock binding ~C-c C-d~
+  to send an =EOF= (thanks to kini)
 **** Auto-completion
 - Yasnippet: Default =helm-yas-display-key-on-candidate= to =t= (thanks to
   BrianHicks)
 - Yasnippet: Disable =smartparens= while expanding to fix a bug with
   =hippie-expand= (thanks to tuhdo)
+- New layer variable =auto-completion-enable-snippets-in-popup= to add
+  snippets directly to auto-completion popup (thanks to person808)
 **** Autohotkey
 - Fix =.ahk= file extension declaration (thanks to ralesi)
 **** C/C++
@@ -71,6 +101,7 @@
 **** Clojure
 - Add ~SPC e w~ to eval last sexp and replace it with the result (thanks to
   DayoOliyide)
+- Evilify Cider inspector (thanks to ppold)
 **** Elixir
 - List all Elixir key bindings in README
 - Update configuration to support new =alchemist= 1.0 feature (thanks to tonini)
@@ -87,6 +118,8 @@
 **** Evil-snipe
 - Update configuration to support last upstream changes (thanks to hlissner and
   MadAnd)
+**** Extra-langs
+- Enable =QML= mode for =.qml= files (thanks to bennofs)
 **** Eyebrowse
 - Add support for workspace labels (thanks to rphillips)
 **** Finance
@@ -96,12 +129,21 @@
 - Remove =gc= prefix command as unused from guide-key (thanks to tko)
 - Add =magit-diff= key binding on ~SPC g d~ (thanks to kevinushey)
 - Evilify =magit-diff= buffer
+- Implement fullscreen for =Magit= without advices (thanks to tarsius)
+- Fix whitespace toggles for =Magit= (thanks to tarsius)
+- Remove deprecated =magit-last-seen-setup-instructions= (thanks to tarsius)
+- Move whitespace toggle in =Magit= to ~C-S-w~
+- Add ~SPC g L~ to display the log for the current file (thanks to tko)
 **** Go
 - Add ~SPC m g a~ to switch between tests and implementation (thanks to
   jenanwise)
+**** Gtags
+- Enable =helm-gtags= for =compilation-mode= and =shell-mode= (thanks to tuhdo)
 **** Hakell
 - Add =company-cabal= support for auto-completion in =.cabal= files (thanks
   to bjarkevad)
+- Fix error with =electric-indent-local-mode= in some versions of Emacs
+  (thanks to jeremyjh)
 **** iPython-notebook (ein)
 - Add key bindings on major-specific leader (thanks to cpaulik)
 - Add ~C-RET~ and ~S-RET~ key bindings to behave like the =ein= web interface
@@ -128,6 +170,8 @@
 - Fontify code blocks (thanks to tuhdo)
 - Add =toc-org= package (thanks to CestDiego)
 - Tweak org-pomodoro mode-line integration (Add missing leading space)
+- Move =org-clock-save.el= to cache folder (thanks to BlinkD)
+- Add key binding ~SPC m :~ for =org-set-tags= (thanks to cpaulik)
 **** Osx
 - New variable =osx-use-option-as-meta= allowing to enable or disable the
   mapping of =option= key to =meta= key. This is especially useful for some
@@ -153,14 +197,25 @@
 - Set =indent-tabs-mode= to =t= in REPLs, should fix indent errors (thanks to
   tuhdo)
 - Fix a loading bug due to a typo in =latex= layer (thanks to cpaulik)
+**** Racket
+- Fix not working =electric-pair-skip= (thanks x-ji)
 **** Ruby
 - Fix some annoyance with deep indentations (thanks to trishume)
 **** Rust
 - Add support for =flycheck= (thanks to swaroopch)
+- Add support for auto-completion via =racer= (thanks to JP-Ellis)
+- Use =compile= instead of the shell for =cargo=. This allow Emacs to parse the
+  output, including all the errors (thanks to JP-Ellis)
 **** Scala
 - Set classpath directory of =ensime= to =.cache/ensime= (thanks to cyrillk)
+**** Slime
+- Add a bunch of key bindings (thanks to spigo900)
+**** Syntax-checking
+- Now use the =flycheck= default configuration to trigger checks. Checks
+  are now performed live (thanks to tuhdo and thrnio)
 **** Theme
-- Add spacemacs-theme
+- Add spacemacs-theme! (WIP) (thanks to nashamri)
+- Add tao theme (thanks to elais)
 *** Core
 - New interactive function =spacemacs/switch-to-version=
 - Clicking on the up arrow will now update Spacemacs
@@ -175,16 +230,22 @@
   (thanks to TheBB)
 - Fix regression when =dotspacemacs-startup-banner= is set to =nil=
   (thanks to ptb)
+- Fix home buffer keys in terminal (thanks to tuhdo)
 - Fix bookmark list in home buffer (thanks to fandag)
 - Add support for =material-light= theme (thanks to cpaulik)
+- Use SSL to contact elpa repositories when possible (thanks to zimbatm)
+- Emacs 25 required the line =(package-initialize)= in the =init.el=
+  file (thanks to justbur)
+- Add the possibility to call =configuration-layer/update-packages= in
+  batch mode (thanks to travisbhartwell)
 *** Other fixes and improvements
 - Conversion of all layer README.md files to .org (thanks to CestDiego
   and cpaulik)
 - Conversion of documentation files to .org (thanks to person808)
 - Add a guide for Vimmers in =doc= directory (thanks to person808)
-- Typos and documentation improvements (thanks to cloudbring, dxnn,
-  dvberkel, fotoetienne, JoshTGreenwood, OliverM, person808, royseto,
-  travisbhartwell, xfq)
+- Typos and documentation improvements (thanks to cloudbring, duerrp, dxnn,
+  dvberkel, fotoetienne, JoshTGreenwood, kccai, OliverM, MadAnd, person808,
+  robbyoconnor, royseto, swaroopch, travisbhartwell, tuhdo, xfq)
 * Release 0.102.x
 ** 0.102.2 (2015/06/03)
 *** Layer changes
