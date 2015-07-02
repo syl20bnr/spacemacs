@@ -7,7 +7,7 @@
 |
 <b><a href="doc/DOCUMENTATION.org#goals">goals</a></b>
 |
-<b><a href="doc/DOCUMENTATION.org#who-can-benefit-from-this-">for whom?</a></b>
+<b><a href="doc/DOCUMENTATION.org#user-content-who-can-benefit-from-this">for whom?</a></b>
 |
 <b><a href="doc/DOCUMENTATION.org#screenshots">screenshots</a></b>
 |
