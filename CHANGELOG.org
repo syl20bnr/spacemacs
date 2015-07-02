@@ -1,3 +1,5 @@
+* Release 0.104.x (next)
+** 0.104.0
 * Release 0.103.x (2015/07/01)
 ** 0.103.0
 *** IMPORTANT: Breaking changes
