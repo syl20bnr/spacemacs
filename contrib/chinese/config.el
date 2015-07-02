@@ -12,11 +12,8 @@
 
 ;; Variables
 
-(defvar chinese-im-enable-pinyin nil
-  "Use Pinyin input method.")
-
-(defvar chinese-im-enable-wubi nil
-  "Use Wubi input method.")
+(defvar chinese-default-input-method 'pinyin
+  "The default chiense input method. Can be `wubi` or `pinyin`.")
 
 ;; Set the monospaced font size when mixed Chinese and English words
 (defun spacemacs//set-monospaced-font (english chinese english-size chinese-size)

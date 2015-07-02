@@ -24,7 +24,7 @@
 (defun chinese/init-chinese-wbim ()
   "Initialize chinese-wubi"
   (use-package chinese-wbim
-    :if chinese-im-enable-wubi
+    :if (eq 'wubi chinese-default-input-method)
     :init
     (progn
       (autoload 'chinese-wbim-use-package "chinese-wubi" "Another emacs input method")
@@ -55,7 +55,7 @@
 
 (defun chinese/init-chinese-pyim ()
   (use-package chinese-pyim
-    :if chinese-im-enable-pinyin
+    :if (eq 'pinyin chinese-default-input-method)
     :init
     (progn
       (setq pyim-use-tooltip t)

@@ -33,10 +33,10 @@ To use this contribution add it to your =~/.spacemacs=
 ** Configuration
 *** Configure the Default Input Method(配置默认中文输入法)
 The default Chinese input method is =Chinese-pyim=, if you are a Wubi(五笔) user, 
-you could set the variable `chinese-enable-wubi` to t:
+you could set the variable `chinese-default-input-method` to 'wubi:
 #+begin_src emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
-    (chinese :variables chinese-im-enable-wubi t)))
+    (chinese :variables chinese-default-input-method 'wubi)))
 #+end_src
 *** Configure the =Chinese-pyim= Input Method(配置中文拼音输入法)
 When the first time you use =Chinese-pyim=, you should install the lexicon(词库) file.
