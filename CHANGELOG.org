@@ -147,7 +147,7 @@
   jenanwise)
 **** Gtags
 - Enable =helm-gtags= for =compilation-mode= and =shell-mode= (thanks to tuhdo)
-**** Hakell
+**** Haskell
 - Add =company-cabal= support for auto-completion in =.cabal= files (thanks
   to bjarkevad)
 - Fix error with =electric-indent-local-mode= in some versions of Emacs
@@ -157,7 +157,7 @@
 - Add ~C-RET~ and ~S-RET~ key bindings to behave like the =ein= web interface
   (thanks to cpaulik)
 - Bind ~SPC f s~ to save the notebook (thanks to cpaulik)
-**** Latex
+**** LaTeX
 - Add support for =RefTeX= (thanks to JP-Ellis)
 - Add support for =LatexMk=, to enable it set the layer variable
   =latex-build-command= to ="LatexMk"= (thanks to JP-Ellis)
