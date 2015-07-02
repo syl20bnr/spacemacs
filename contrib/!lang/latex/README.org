@@ -95,7 +95,7 @@ The variable =latex-nofill-env= provide the list of environment names where
 | ~SPC m p p~ | preview at point                                        |
 | ~SPC m p f~ | cache preamble for preview                              |
 | ~SPC m p c~ | clear previews                                          |
-| ~SPC m v  ~ | view                                                    |
+| ~SPC m v~   | view                                                    |
 
 
 ** RefTeX
