@@ -164,7 +164,7 @@
           (projectile-with-default-dir (projectile-project-root) (multi-term)))
         (evil-leader/set-key "p$t" 'projectile-multi-term-in-root)))))
 
-(defun spacemacs/init-shell ()
+(defun shell/init-shell ()
   (defun shell-comint-input-sender-hook ()
     "Check certain shell commands.
  Executes the appropriate behavior for certain commands."
