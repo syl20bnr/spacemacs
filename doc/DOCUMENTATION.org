@@ -1586,7 +1586,7 @@ or symbol under point is used as default input for the search. For instance
 If the tool key is omitted then a default tool will be automatically
 selected for the search. This tool corresponds to the first tool found on the
 system of the list =dotspacemacs-search-tools=, the default order is =ag=,
-=pt=, =ack= then =grep=. For instance ~SPC b b~ will search in the opened
+=pt=, =ack= then =grep=. For instance ~SPC s b~ will search in the opened
 buffers using =pt= if =ag= has not been found on the system.
 
 The tool keys are:
