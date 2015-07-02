@@ -3,6 +3,7 @@
     puppet-mode
     puppetfile-mode
     company
+    flycheck
     ))
 
 ;; For each package, define a function puppet-mode/init-<package-puppet-mode>
@@ -36,6 +37,9 @@
 
 (defun puppet/post-init-company ()
   (spacemacs|add-company-hook puppet-mode))
+
+(defun puppet/post-init-flycheck ()
+  (add-hook 'puppet-mode-hook 'flycheck-mode))
 
 (defun puppet/init-puppetfile-mode ()
   (use-package puppetfile-mode
