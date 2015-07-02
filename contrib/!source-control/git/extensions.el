@@ -21,6 +21,7 @@
     :commands (magit-status
                magit-blame-mode
                magit-log
+               magit-log-all
                magit-commit)
     :init
     (progn
@@ -41,7 +42,7 @@
 
       (evil-leader/set-key
         "gb" 'magit-blame-mode
-        "gl" 'magit-log
+        "gl" 'magit-log-all
         "gL" 'magit-log-buffer-file
         "gs" 'magit-status
         "gd" 'spacemacs/magit-diff-head
