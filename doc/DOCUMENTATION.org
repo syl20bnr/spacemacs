@@ -107,7 +107,7 @@
      - [[#searching][Searching]]
          - [[#with-an-external-tool][With an external tool]]
              - [[#useful-key-bindings][Useful key bindings]]
-             - [[#searching-in-current-file-][Searching in current file ]]
+             - [[#searching-in-current-file][Searching in current file]]
              - [[#searching-in-all-open-buffers-visiting-files][Searching in all open buffers visiting files]]
              - [[#searching-for-files-in-an-arbitrary-directory][Searching for files in an arbitrary directory]]
              - [[#searching-in-a-project][Searching in a project]]
@@ -159,6 +159,8 @@
      - [[#issues][Issues]]
      - [[#merged-pull-requests][Merged Pull Requests]]
      - [[#stars-forks-and-watchers][Stars, forks and watchers]]
+     - [[#gitter-chat][Gitter chat]]
+     - [[#first-times][First times]]
      - [[#specials][Specials]]
  - [[#thank-you][Thank you]]
 
@@ -2351,16 +2353,18 @@ file to =~/.spacemacs=
 | [[https://github.com/syl20bnr/spacemacs/pull/800][800th issue (PR)]]          | [[https://github.com/laat][ryansroberts]] |
 | [[https://github.com/syl20bnr/spacemacs/pull/900][900th issue (PR)]]          | [[https://github.com/jcpetkovich][jcpetkovich]]  |
 | [[https://github.com/syl20bnr/spacemacs/pull/1000][1000th issue (PR)]]         | [[https://github.com/tuhdo][tuhdo]]        |
+| [[https://github.com/syl20bnr/spacemacs/pull/2000][2000th issue (PR)]]         | [[https://github.com/IvanMalison][IvanMalison]]  |
 
 ** Merged Pull Requests
-| Achievements       | Account    |
-|--------------------+------------|
-| [[https://github.com/syl20bnr/spacemacs/pull/228][100th pull request]] | [[https://github.com/bru][bru]]        |
-| [[https://github.com/syl20bnr/spacemacs/pull/418][200th pull request]] | [[https://github.com/smt][smt]]        |
-| [[https://github.com/syl20bnr/spacemacs/pull/617][300th pull request]] | [[https://github.com/BrianHicks][BrianHicks]] |
-| [[https://github.com/syl20bnr/spacemacs/pull/806][400th pull request]] | [[https://github.com/cpaulik][cpaulik]]    |
-| [[https://github.com/syl20bnr/spacemacs/pull/993][500th pull request]] | [[https://github.com/tuhdo][tuhdo]]      |
-| [[https://github.com/syl20bnr/spacemacs/pull/1205][600th pull request]] | [[https://github.com/trishume][trishume]]   |
+| Achievements        | Account    |
+|---------------------+------------|
+| [[https://github.com/syl20bnr/spacemacs/pull/228][100th pull request]]  | [[https://github.com/bru][bru]]        |
+| [[https://github.com/syl20bnr/spacemacs/pull/418][200th pull request]]  | [[https://github.com/smt][smt]]        |
+| [[https://github.com/syl20bnr/spacemacs/pull/617][300th pull request]]  | [[https://github.com/BrianHicks][BrianHicks]] |
+| [[https://github.com/syl20bnr/spacemacs/pull/806][400th pull request]]  | [[https://github.com/cpaulik][cpaulik]]    |
+| [[https://github.com/syl20bnr/spacemacs/pull/993][500th pull request]]  | [[https://github.com/tuhdo][tuhdo]]      |
+| [[https://github.com/syl20bnr/spacemacs/pull/1205][600th pull request]]  | [[https://github.com/trishume][trishume]]   |
+| [[https://github.com/syl20bnr/spacemacs/pull/1995][1000th pull request]] | [[https://github.com/justbur][justbur]]    |
 
 ** Stars, forks and watchers
 | Achievements  | Account         |
@@ -2377,14 +2381,25 @@ file to =~/.spacemacs=
 | 800th star    | [[https://github.com/urso][urso]]            |
 | 900th star    | [[https://github.com/luisgerhorst][luisgerhorst]]    |
 | 1000th star!  | [[https://github.com/rashly][rashly]]          |
+| 2000th star!! | [[https://github.com/stshine][stshine]]         |
 
-** Specials
+** Gitter chat
+| Achievements  | Account     |
+|---------------+-------------|
+| 1000th joiner | [[https://github.com/gabrielpoca][gabrielpoca]] |
+
+** First times
 | Achievements                           | Account      |
 |----------------------------------------+--------------|
 | [[https://github.com/syl20bnr/spacemacs/pull/19][First contribution]]                     | [[https://github.com/trishume][trishume]]     |
 | [[https://github.com/syl20bnr/spacemacs/commit/e802027d75d0c0aed55539b0da2dfa0df94dfd39][First contribution layer]]               | [[https://github.com/trishume][trishume]]     |
 | [[http://oli.me.uk/2014/11/06/spacemacs-emacs-vim/][First blog article on Spacemacs]]        | [[https://github.com/Wolfy87][Wolfy87]]      |
 | [[https://github.com/syl20bnr/spacemacs/commit/7b44a56263049482ed540ed6815a295633ffe9d1][First contributed banner]]               | [[https://github.com/chrisbarrett][chrisbarrett]] |
+| First joiner on the Gitter Chat        | [[https://github.com/trishume][trishume]]     |
+
+** Specials
+| Achievements                           | Account      |
+|----------------------------------------+--------------|
 | The Gunner (made 18 PRs in a row)      | [[https://github.com/ralesi][ralesi]]       |
 | The Saint (unlocked the holy-mode)     | [[https://github.com/trishume][trishume]]     |
 | The Artist (made the spacemacs logo)   | [[https://github.com/nashamri][nashamri]]     |
