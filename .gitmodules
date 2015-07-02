@@ -16,7 +16,3 @@
 [submodule "spacemacs/extensions/spray"]
 	path = spacemacs/extensions/spray
 	url = https://github.com/syl20bnr/spray
-[submodule "contrib/!source-control/git/extensions/magit-next"]
-	path = contrib/!source-control/git/extensions/magit-next
-	url = https://github.com/magit/magit
-	branch = next
