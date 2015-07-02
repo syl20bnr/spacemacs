@@ -199,7 +199,7 @@ message.
   - ~C-c C-c~ to submit the changes
 - Squash last commit:
   - ~L l~ to open =log buffer=
-  - ~E~ on the second to last commit, it opens the =rebase buffer=
+  - ~r e~ on the second to last commit, it opens the =rebase buffer=
   - ~j~ to put point on last commit
   - ~s~ to squash it
   - ~C-c C-c~ to continue to the =commit message buffer=
