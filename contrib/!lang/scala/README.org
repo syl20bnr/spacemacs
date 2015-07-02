@@ -52,7 +52,7 @@ provides an SBT plugin to generate these files.
    #+BEGIN_SRC scala
    resolvers += Resolver.sonatypeRepo("snapshots")
 
-   addSbtPlugin("org.ensime" % "ensime-sbt" % "0.1.5-SNAPSHOT")
+   addSbtPlugin("org.ensime" % "ensime-sbt" % "0.1.7-SNAPSHOT")
    #+END_SRC
    
 2. Run =sbt= at the shell to download and install the plugin.
