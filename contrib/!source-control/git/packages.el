@@ -107,7 +107,7 @@
 
       (evil-leader/set-key
         "gb" 'magit-blame
-        "gl" 'magit-log
+        "gl" 'magit-log-all
         "gL" 'magit-log-buffer-file
         "gs" 'magit-status
         "gd" 'spacemacs/magit-diff-head
