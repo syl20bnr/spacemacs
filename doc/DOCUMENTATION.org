@@ -266,7 +266,7 @@ For now it is still needed to update the =Spacemacs= repository manually.
 Close Emacs and update the git repository:
 
 #+begin_src sh
-  $ git pull --rebase git submodule sync; git submodule update
+  $ git pull --rebase; git submodule sync; git submodule update
 #+end_src
 
 *Note* It is recommended to update the packages first, see next session.
