@@ -61,7 +61,7 @@ function, this is the folder where you keep all your git-controlled projects
 (the path should end up with a ~=/~= to respect Emacs conventions):
 
 #+BEGIN_SRC emacs-lisp
-  (setq magit-repo-dirs '("~/repos/"))
+  (setq magit-repository-directories '("~/repos/"))
 #+END_SRC
 
 For more information, see [[https://magit.github.io/master/magit.html#Status][Magit-User-Manual#Status]]
