@@ -139,7 +139,7 @@
              map-value event evil-value evil-event)
            (interactive)
            (if (and (eq 'evilified evil-state)
-                    (null evil-escape-inhibit))
+                    (not (boundp 'evil-escape-inhibit)))
                ;; evilified state
                ,(if evil-value
                    (spacemacs//evilify-call evil-value event)
