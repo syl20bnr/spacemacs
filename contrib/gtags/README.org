@@ -113,10 +113,10 @@ Since these modes have better Eldoc integration already.
 | Key Binding | Description                                               |
 |-------------+-----------------------------------------------------------|
 | ~SPC m g c~ | create a tag database                                     |
-| ~SPC m g f~ | jump to a file in tag database                            |
-| ~SPC m g g~ | jump to a location based on context                       |
-| ~SPC m g G~ | jump to a location based on context (open another window) |
-| ~SPC m g d~ | find definitions                                          |
+| ~SPC m g P~ | jump to a file in tag database                            |
+| ~SPC m g d~ | jump to a location based on context                       |
+| ~SPC m g D~ | jump to a location based on context (open another window) |
+| ~SPC m g f~ | find definitions                                          |
 | ~SPC m g i~ | present tags in current function only                     |
 | ~SPC m g l~ | jump to definitions in file                               |
 | ~SPC m g n~ | jump to next location in context stack                    |
