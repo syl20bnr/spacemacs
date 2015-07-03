@@ -1,0 +1,38 @@
+#+TITLE: Lua contribution layer for Spacemacs
+
+[[file:img/lua.gif]]
+
+* Table of Contents                                                  :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features:]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#commands][Commands]]
+
+* Description
+
+This layer adds support for editing Lua.
+
+** Features:
+- Editing lua files using [[https://github.com/immerrr/lua-mode][lua-mode]]
+- Sending code to a lua REPL
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(lua))
+#+END_SRC
+
+* Key Bindings
+
+** Commands
+
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~SPC m d~   | lookup thing at point in lua documentation |
+| ~SPC m s b~ | send buffer contents to REPL               |
+| ~SPC m s f~ | send current function to REPL              |
+| ~SPC m s l~ | send current line to REPL                  |
+| ~SPC m s r~ | send current region to REPL                |

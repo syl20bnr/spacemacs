@@ -87,6 +87,12 @@ with `:' and Emacs commands are executed with `<leader> :'.")
   "If non nil then `ido' replaces `helm' for some commands. For now only
 `find-files' (SPC f f) is replaced.")
 
+(defvar dotspacemacs-auto-save-file-location 'cache
+  "Location where to auto-save files. Possible values are `original' to
+auto-save the file in-place, `cache' to auto-save the file to another
+file stored in the cache directory and `nil' to disable auto-saving.
+Default value is `cache'.")
+
 (defvar dotspacemacs-enable-paste-micro-state t
   "If non nil the paste micro-state is enabled. While enabled pressing `p`
 several times cycle between the kill ring content.'")

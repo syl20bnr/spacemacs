@@ -85,4 +85,9 @@
         ;; Tests
         "mtb" 'racket-test
         "mtB" 'spacemacs/racket-test-with-coverage)
-      (define-key racket-mode-map (kbd "H-r") 'racket-run))))
+      (define-key racket-mode-map (kbd "H-r") 'racket-run)
+      ;; remove racket auto-insert of closing delimiter
+      ;; see https://github.com/greghendershott/racket-mode/issues/140
+      (define-key racket-mode-map ")" 'self-insert-command)
+      (define-key racket-mode-map "]" 'self-insert-command)
+      (define-key racket-mode-map "}" 'self-insert-command))))

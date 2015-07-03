@@ -26,6 +26,7 @@
 
 (defun python/init-nose ()
   (use-package nose
+    :if (eq 'nose python-test-runner)
     :commands (nosetests-one
                nosetests-pdb-one
                nosetests-all

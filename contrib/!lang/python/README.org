@@ -1,0 +1,236 @@
+#+TITLE: Python contribution layer for Spacemacs
+
+[[file:img/python.png]] [[file:img/django.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features:]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#test-runner][Test runner]]
+     - [[#anaconda-dependencies][Anaconda dependencies]]
+     - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
+     - [[#autoflake][autoflake]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#inferior-repl-process][Inferior REPL process]]
+     - [[#running-python-script-in-shell][Running Python Script in shell]]
+     - [[#testing][Testing]]
+     - [[#refactoring][Refactoring]]
+     - [[#other-python-commands][Other Python commands]]
+     - [[#django][Django]]
+         - [[#fabric][Fabric]]
+         - [[#files][Files]]
+         - [[#interactive][Interactive]]
+         - [[#server][Server]]
+         - [[#southsyncdb][South/Syncdb]]
+         - [[#test][Test]]
+
+* Description
+
+This layer adds support for the Python language.
+
+** Features:
+- Auto-completion using [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
+- Code Navigation using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]
+- Documentation Lookup using  [[https://github.com/proofit404/anaconda-mode][anaconda-mode]]  and [[https://github.com/tsgates/pylookup][pylookup]]
+- Test Runners using [[https://github.com/syl20bnr/nose.el][nose.el]] or [[https://github.com/ionrock/pytest-el][pytest]]
+- Virtual Environment using  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]] and [[https://github.com/yyuu/pyenv][pyenv]]
+- semantic mode is enabled
+- Django support via [[https://github.com/davidmiller/pony-mode][pony-mode]]
+- PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]]
+- Suppression of unused import with [[https://github.com/myint/autoflake][autoflake]]
+
+* Install
+
+** Layer
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(python))
+#+END_SRC
+
+** Test runner
+
+Both =nose= and =pytest= are supported. By default =nose= is used.
+To choose your test runner set the layer variable =python-test-runner= to
+either =nose= or =pytest=.
+
+The root of the project is detected with a =.git= directory or a =setup.cfg= file.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((python :variables python-test-runner 'pytest)))
+#+END_SRC
+
+** Anaconda dependencies
+=anaconda-mode= tries to install the dependencies itself but sometimes
+it does not work and you may encounter the following message when
+opening a python buffer:
+#+begin_src
+    Blocking call to accept-process-output with quit inhibited!!
+#+end_src
+
+To fix this, install the =anaconda-mode= [[https://github.com/proofit404/anaconda-mode/blob/master/requirements.txt][anaconda-deps]] by hand:
+
+#+begin_src sh
+    pip install  jedi==0.8.1 json-rpc==1.8.1 service_factory==0.1.2
+#+end_src
+
+Source: https://github.com/proofit404/anaconda-mode#issues
+
+If you are facing errors such as "Unable to run anaconda-mode server", try
+setting your ~PYTHONPATH~ as explained at
+https://github.com/proofit404/anaconda-mode#pythonpath
+
+** Automatic buffer formatting on save
+
+To enable automatic buffer formatting on save with  [[https://github.com/google/yapf][YAPF]] set the variable
+=python-enable-yapf-format-on-save= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (python :variables python-enable-yapf-format-on-save t)))
+#+END_SRC
+
+** autoflake
+To be able to suppress unused imports easily, install [[https://github.com/myint/autoflake][autoflake]]:
+
+#+BEGIN_SRC sh
+  pip install autoflake
+#+END_SRC
+
+* Key Bindings
+
+** Inferior REPL process
+Start a Python or iPython inferior REPL process with ~SPC m s i~.
+If =ipython= is available in system executable search paths, =ipython=
+will be used to launch python shell; otherwise, default =python=
+interpreter will be used.  You may change your system executable
+search path by activating a virtual environment.
+
+Send code to inferior process commands:
+
+| Key Binding | Description                                     |
+|-------------+-------------------------------------------------|
+| ~SPC m s b~ | send buffer and keep code buffer focused        |
+| ~SPC m s B~ | send buffer and switch to REPL in insert mode   |
+| ~SPC m s f~ | send function and keep code buffer focused      |
+| ~SPC m s F~ | send function and switch to REPL in insert mode |
+| ~SPC m s i~ | start inferior REPL process                     |
+| ~SPC m s r~ | send region and keep code buffer focused        |
+| ~SPC m s R~ | send region and switch to REPL in insert mode   |
+| ~CTRL+j~    | next item in REPL history                       |
+| ~CTRL+k~    | previous item in REPL history                   |
+
+** Running Python Script in shell
+To run a Python script like you would in the shell press ~SPC m c c~
+to start the Python script in comint mode. This is useful when working with
+multiple Python files since the REPL does not reload changes made in other
+modules.
+
+| Key Binding | Description                                                               |
+|-------------+---------------------------------------------------------------------------|
+| ~SPC m c c~ | Execute current file in a comint shell                                    |
+| ~SPC m c C~ | Execute current file in a comint shell and switch to it in =insert state= |
+
+*Note:* With the universal argument ~SPC u~ you can enter a new
+compilation command.
+
+** Testing
+Test commands (start with ~m t~ or ~m T~):
+
+| No Debug    | Description                                              |
+|-------------+----------------------------------------------------------|
+| ~SPC m t a~ | launch all tests of the project                          |
+| ~SPC m t b~ | launch all tests of the current buffer (same as module)  |
+| ~SPC m t m~ | launch all tests of the current module                   |
+| ~SPC m t s~ | launch all tests of the current suite (only with =nose=) |
+| ~SPC m t t~ | launch the current test (function)                       |
+
+| Debug       | Description                                                            |
+|-------------+------------------------------------------------------------------------|
+| ~SPC m T a~ | launch all tests of the project in debug mode                          |
+| ~SPC m T b~ | launch all tests of the current buffer (module) in debug mode          |
+| ~SPC m T m~ | launch all tests of the current module in debug mode                   |
+| ~SPC m T s~ | launch all tests of the current suite in debug mode (only with =nose=) |
+| ~SPC m T t~ | launch the current test (function) in debug mode                       |
+
+** Refactoring
+
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~SPC m r i~ | remove unused imports with [[https://github.com/myint/autoflake][autoflake]] |
+
+** Other Python commands
+
+| Key Binding | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| ~SPC m =~   | Reformat the buffer according to PEP8 using  [[https://github.com/google/yapf][YAPF]]                |
+| ~SPC m d b~ | toggle a breakpoint                                              |
+| ~SPC m g g~ | go to definition using =anaconda-mode-goto= (~C-o~ to jump back) |
+| ~SPC m h d~ | look for documentation using =helm-pydoc=                        |
+| ~SPC m h h~ | quick documentation using anaconda                               |
+| ~SPC m h H~ | open documentation in =firefox= using [pylookup][pylookup]       |
+| ~SPC m v~   | activate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                        |
+| ~SPC m V~   | activate a virtual environment with  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]]                      |
+
+** Django
+Django related key bindings uses  [[https://github.com/davidmiller/pony-mode][pony-mode]] and are behind the prefix ~SPC m j~.
+
+Configuration options for pony-mode are documented at
+[[http://www.deadpansincerity.com/docs/pony/configuration.html][deadpansincerity.com]]
+
+Manage Django with ~SPC m j m~.
+
+*** Fabric
+
+| Key Binding   | Description                      |
+|---------------+----------------------------------|
+| ~SPC m j a f~ | Run a fabric command             |
+| ~SPC m j a d~ | Deploy project with =fab deploy= |
+
+*** Files
+
+| Key Binding   | Description                                                   |
+|---------------+---------------------------------------------------------------|
+| ~SPC m j f s~ | Open the =settings.py= for this project                       |
+| ~SPC m j f c~ | Interactively display a setting value in the minibuffer       |
+| ~SPC m j f t~ | Jump to template at point                                     |
+| ~SPC m j f r~ | Jump to the view file that the URL resolves to (experimental) |
+
+*** Interactive
+
+| Key Binding   | Description                                                                                                                                                                                                        |
+|---------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ~SPC m j i d~ | Run interpreter for this project's default database as an inferior process                                                                                                                                         |
+| ~SPC m j i s~ | Open a Python shell with the current pony project's context loaded. If the project has the django_extras package installed, then use the excellent =shell_plus= command. Otherwise, fall back to =manage.py shell= |
+
+*** Server
+
+| Key Binding   | Description                                                       |
+|---------------+-------------------------------------------------------------------|
+| ~SPC m j r d~ | Stop the dev server                                               |
+| ~SPC m j r o~ | Open a tab at the dev server                                      |
+| ~SPC m j r r~ | Restart the dev server (works better with django_extras/werkzeug) |
+| ~SPC m j r u~ | Start or open the dev server                                      |
+| ~SPC m j r t~ | Open a second server with a "throwaway" host/port                 |
+
+*** South/Syncdb
+
+| Key Binding   | Description                                |
+|---------------+--------------------------------------------|
+| ~SPC m j s c~ | Convert an existing app to south           |
+| ~SPC m j s h~ | Create migration for modification          |
+| ~SPC m j s i~ | Run the initial south migration for an app |
+| ~SPC m j s m~ | Migrate an app                             |
+| ~SPC m j s s~ | Run syncdb on the current project          |
+
+*** Test
+
+| Key Binding   | Description                                                      |
+|---------------+------------------------------------------------------------------|
+| ~SPC m j t d~ | Move down the traceback one level                                |
+| ~SPC m j t e~ | Go to the file and line of the last stack trace in a test buffer |
+| ~SPC m j t o~ | Open the file in a traceback at the line specified               |
+| ~SPC m j t t~ | Run the test(s) given by =command=                               |
+| ~SPC m j t u~ | Move up the traceback one level                                  |

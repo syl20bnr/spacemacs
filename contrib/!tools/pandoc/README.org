@@ -1,0 +1,43 @@
+#+TITLE: Pandoc contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#pandoc][Pandoc]]
+ - [[#usage][Usage]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+
+This layer adds support for [[http://johnmacfarlane.net/pandoc][Pandoc]].
+
+Pandoc is a universal document converter. It makes it easy to e.g. convert a
+Markdown file to org mode or vice versa. It can also export your text to PDF or
+DOCX.
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(pandoc))
+#+END_SRC
+
+** Pandoc
+
+To use the mode please [[http://pandoc.org/installing.html][install]] pandoc first.
+
+* Usage
+
+For a full list of possible conversions see the [[http://johnmacfarlane.net/pandoc][Pandoc documentation]].
+An explanation of all the options offered by =pandoc-mode= can be found at the
+[[http://joostkremers.github.io/pandoc-mode][Pandoc-mode website]].
+
+* Key Bindings
+
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC P /~   | Start pandoc-mode and open menu |

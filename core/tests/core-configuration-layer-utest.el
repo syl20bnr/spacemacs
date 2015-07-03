@@ -110,3 +110,116 @@
      (configuration-layer//set-layers-variables input)
      (should (eq var1 'bar))
      (should (eq var2 'foo)))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//directory-type
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-directory-type--input-is-a-file ()
+  (let ((input "/a/path/to/a/layer/file"))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+     (should (null (configuration-layer//directory-type input))))))
+
+(ert-deftest test-directory-type--category ()
+  (let ((input (concat configuration-layer-contrib-directory "!vim/")))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output t :occur 1))))
+     (should (eq 'category (configuration-layer//directory-type input))))))
+
+(ert-deftest test-directory-type--input-is-an-empty-directory ()
+  (let ((input "/a/path/to/a/layer/"))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
+      (directory-files
+       (directory &optional full match nosort)
+       ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+     (should (null (configuration-layer//directory-type input))))))
+
+(ert-deftest test-directory-type--input-is-directory-and-not-a-layer ()
+  (let ((input "/a/path/to/a/layer/"))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
+      (directory-files
+       (directory &optional full match nosort)
+       ((:record-cls 'mocker-stub-record :output '("toto.el" "tata.el") :occur 1))))
+     (should (null (configuration-layer//directory-type input))))))
+
+(ert-deftest test-directory-type--layer-with-packages.el ()
+  (let ((input "/a/path/to/a/layer/"))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
+      (directory-files
+       (directory &optional full match nosort)
+       ((:record-cls 'mocker-stub-record :output '("packages.el") :occur 1))))
+     (should (eq 'layer (configuration-layer//directory-type input))))))
+
+(ert-deftest test-directory-type--layer-with-extensions.el ()
+  (let ((input "/a/path/to/a/layer/"))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
+      (directory-files
+       (directory &optional full match nosort)
+       ((:record-cls 'mocker-stub-record :output '("extensions.el") :occur 1))))
+     (should (eq 'layer (configuration-layer//directory-type input))))))
+
+(ert-deftest test-directory-type--layer-with-config.el ()
+  (let ((input "/a/path/to/a/layer/"))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
+      (directory-files
+       (directory &optional full match nosort)
+       ((:record-cls 'mocker-stub-record :output '("config.el") :occur 1))))
+     (should (eq 'layer (configuration-layer//directory-type input))))))
+
+(ert-deftest test-directory-type--layer-with-keybindings.el ()
+  (let ((input "/a/path/to/a/layer/"))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
+      (directory-files
+       (directory &optional full match nosort)
+       ((:record-cls 'mocker-stub-record :output '("keybindings.el") :occur 1))))
+     (should (eq 'layer (configuration-layer//directory-type input))))))
+
+(ert-deftest test-directory-type--layer-with-funcs.el ()
+  (let ((input "/a/path/to/a/layer/"))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output t :occur 1)))
+      (directory-files
+       (directory &optional full match nosort)
+       ((:record-cls 'mocker-stub-record :output '("funcs.el") :occur 1))))
+     (should (eq 'layer (configuration-layer//directory-type input))))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//get-category-from-path
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-get-category-from-path--input-is-a-file ()
+  (let ((input "/a/path/to/a/file"))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+     (should (null (configuration-layer//get-category-from-path input))))))
+
+(ert-deftest test-get-category-from-path--input-is-a-regular-directory ()
+  (let ((input "/a/path/to/a/layer/"))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output t :occur 1))))
+     (should (null (configuration-layer//get-category-from-path input))))))
+
+(ert-deftest test-get-category-from-path--return-category ()
+  (let ((input "/a/path/to/a/!cat/"))
+    (mocker-let
+     ((file-directory-p (f)
+                        ((:record-cls 'mocker-stub-record :output t :occur 1))))
+     (should (eq 'cat (configuration-layer//get-category-from-path input))))))

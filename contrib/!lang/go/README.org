@@ -1,0 +1,76 @@
+#+TITLE: GO contribution layer for Spacemacs
+
+[[file:img/go.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features:]]
+ - [[#install][Install]]
+     - [[#pre-requisites][Pre-requisites]]
+     - [[#layer][Layer]]
+ - [[#working-with-go][Working with Go]]
+     - [[#go-commands-start-with-m][Go commands (start with =m=):]]
+     - [[#go-oracle][Go Oracle]]
+
+* Description
+
+This layer adds extensive support for go.
+
+** Features:
+- gofmt on file save
+- Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]]
+- Source analysis using [[http://golang.org/s/oracle-user-manual][go-oracle]]
+
+* Install
+
+** Pre-requisites
+
+You will need =gocode=:
+
+#+BEGIN_SRC sh
+  go get -u github.com/nsf/gocode
+#+END_SRC
+
+Make sure that =gocode= executable is in your PATH.
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(go))
+#+END_SRC
+
+* Working with Go
+
+** Go commands (start with =m=):
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m d p~ | godoc at point                                            |
+| ~SPC m i g~ | goto imports                                              |
+| ~SPC m i a~ | add import                                                |
+| ~SPC m i r~ | remove unused import                                      |
+| ~SPC m p b~ | go-play buffer                                            |
+| ~SPC m p r~ | go-play region                                            |
+| ~SPC m p d~ | download go-play snippet                                  |
+| ~SPC m t p~ | run "go test" for the current package                     |
+| ~SPC m g a~ | jump to matching test file or back from test to code file |
+| ~SPC m g g~ | go jump to definition                                     |
+
+
+** Go Oracle
+
+| Key Binding | Description                                                |
+|-------------+------------------------------------------------------------|
+| ~SPC m o o~ | go-oracle set analysis scope                               |
+| ~SPC m o <~ | go-oracle show possible callers                            |
+| ~SPC m o >~ | go-oracle show call targets                                |
+| ~SPC m o c~ | go-oracle show channel sends/receives                      |
+| ~SPC m o d~ | go-oracle show definition                                  |
+| ~SPC m o f~ | go-oracle show free variables                              |
+| ~SPC m o g~ | go-oracle show callgraph                                   |
+| ~SPC m o i~ | go-oracle show implements relation                         |
+| ~SPC m o p~ | go-oracle show what the select expression points to        |
+| ~SPC m o r~ | go-oracle show all references to object                    |
+| ~SPC m o s~ | go-oracle show callstack                                   |
+| ~SPC m o t~ | go-oracle describe selected syntax, kind, type and methods |

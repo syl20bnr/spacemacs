@@ -1,0 +1,48 @@
+#+TITLE: F# contribution layer for Spacemacs
+
+[[file:img/fsharp.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#packages-included][Packages Included]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#repl][REPL]]
+
+* Description
+
+This layer adds support for F# language using [[https://github.com/fsharp/fsharpbinding][fsharpbinding]].
+
+* Packages Included
+
+- [[https://github.com/fsharp/fsharpbinding][fsharp-mode]]
+  
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(fsharp))
+#+END_SRC
+
+* Key Bindings
+
+
+| Key Binding | Description                |
+|-------------+----------------------------|
+| ~SPC m c c~ | Build the project          |
+| ~SPC m g g~ | Go to definition at point  |
+| ~SPC m h t~ | Show tooltip help at point |
+
+** REPL
+
+| Key Binding | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| ~SPC m s b~ | Send buffer to the REPL                                          |
+| ~SPC m s B~ | Send buffer to the REPL and switch to the REPL in =insert state= |
+| ~SPC m s i~ | Start a REPL                                                     |
+| ~SPC m s p~ | Send phrase to the REPL                                          |
+| ~SPC m s P~ | Send phrase to the REPL and switch to the REPL in =insert state= |
+| ~SPC m s r~ | Send region to the REPL                                          |
+| ~SPC m s R~ | Send region to the REPL and switch to the REPL in =insert state= |
+| ~SPC m s s~ | Show the REPL                                                    |

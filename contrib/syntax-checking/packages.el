@@ -24,8 +24,7 @@
     :defer t
     :init
     (progn
-      (setq flycheck-check-syntax-automatically '(save mode-enabled)
-            flycheck-standard-error-navigation nil)
+      (setq flycheck-standard-error-navigation nil)
       (spacemacs|add-toggle syntax-checking
                             :status flycheck-mode
                             :on (flycheck-mode)

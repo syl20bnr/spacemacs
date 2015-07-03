@@ -1,0 +1,155 @@
+#+TITLE: C# contribution layer for Spacemacs
+
+[[file:img/csharp.png]] [[file:img/dotnet.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#packages-included][Packages Included]]
+ - [[#install][Install]]
+     - [[#prerequisites][Prerequisites]]
+         - [[#aspnet-5][ASP.NET 5]]
+         - [[#curl][curl]]
+         - [[#omnisharp-server][Omnisharp server]]
+ - [[#caveats][Caveats]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#compilation][Compilation]]
+     - [[#filesolutionproject-manipulation][File/Solution/Project manipulation]]
+     - [[#navigation][Navigation]]
+     - [[#helpers-documentation-info][Helpers (documentation, info)]]
+     - [[#refactoring][Refactoring]]
+     - [[#omnisharp-server-interaction][OmniSharp server interaction]]
+     - [[#tests][Tests]]
+     - [[#code-manipulation][Code manipulation]]
+
+* Description
+
+This layer adds experimental support for C# language using [[https://github.com/OmniSharp/omnisharp-emacs][OmniSharp]].
+
+* Packages Included
+
+- [[https://github.com/OmniSharp/omnisharp-emacs][OmniSharp-emacs]]
+- [[https://github.com/OmniSharp/omnisharp-server][OmniSharp-server]]
+  
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(csharp))
+#+END_SRC
+
+** Prerequisites
+
+*** ASP.NET 5
+
+Follow the instructions for your platform [[https://github.com/aspnet/home#getting-started][here]].
+
+*** curl
+
+You'll need [[http://curl.haxx.se/][curl]] to be able to use the Omnisharp package. Use your favorite
+package manager to install it (on Windows you can use [[https://chocolatey.org/][chocolatey]]).
+
+Be sure to make the =curl= binary available to your PATH environment variable,
+or set the variable =omnisharp--curl-executable-path= in your dotfile function
+=dotspacemacs-config=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default omnisharp--curl-executable-path "/PATH/TO/CURL/curl")
+#+END_SRC
+
+*** Omnisharp server
+
+You have to compile the OmniSharp server following the instructions which can
+be found [[https://github.com/OmniSharp/omnisharp-server][here]].
+
+Don't forget to add the server binary directory to your system PATH environment
+variable. The full path the binary can also be directly referenced in the
+variable =omnisharp-server-executable-path= (put this in your
+=dotspacemacs-config= function):
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default omnisharp-server-executable-path "/PATH/TO/OMNISHARP/OmniSharpServer")
+#+END_SRC
+
+OmniSharp should now automatically load and start a server when you open a
+=.cs= file.
+
+* Caveats
+
+- It's currently not possible to create a C# solution outside of an IDE such as
+  [[http://www.monodevelop.com/][MonoDevelop]], it's therefore recommended that you install it to create your
+  solutions.
+
+- Debugging is possible using [[https://github.com/mono/sdb][SDB]].
+  
+* Key Bindings
+
+
+** Compilation
+
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~SPC m c c~ | Build the solution |
+
+** File/Solution/Project manipulation
+
+| Key Binding | Description                                   |
+|-------------+-----------------------------------------------|
+| ~SPC m f a~ | Add the current file to solution              |
+| ~SPC m f A~ | Add files selected in dired to solution       |
+| ~SPC m f r~ | Remove the current file from solution         |
+| ~SPC m f R~ | Removed files selected in dired from solution |
+| ~SPC m p l~ | Add reference to solution                     |
+
+** Navigation
+
+| Key Binding | Description                                   |
+|-------------+-----------------------------------------------|
+| ~SPC m g f~ | Go to solution file                           |
+| ~SPC m g F~ | Go to solution file then member               |
+| ~SPC m g g~ | Go to definition                              |
+| ~SPC m g G~ | Go to definition in other window              |
+| ~SPC m g i~ | Find implementations                          |
+| ~SPC m g m~ | Go to solution member                         |
+| ~SPC m g M~ | Go to solution member in other window         |
+| ~SPC m g r~ | Go to region                                  |
+| ~SPC m g s~ | Find symbols using Helm                       |
+| ~SPC m g u~ | Find usages of symbol under cursor using Helm |
+
+** Helpers (documentation, info)
+
+| Key Binding | Description                                                            |
+|-------------+------------------------------------------------------------------------|
+| ~SPC m h t~ | Get type information for symbol under cursor                           |
+| ~SPC m h T~ | Get type information for symbol under cursor and put it into kill-ring |
+
+** Refactoring
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~SPC m r m~ | Rename symbol under cursor   |
+| ~SPC m r r~ | Refactor symbol under cursor |
+
+** OmniSharp server interaction
+
+| Key Binding | Description                |
+|-------------+----------------------------|
+| ~SPC m s r~ | Reload the solution        |
+| ~SPC m s s~ | Start the OmniSharp server |
+| ~SPC m s S~ | Stop the OmniSharp server  |
+
+** Tests
+
+| Key Binding | Description                           |
+|-------------+---------------------------------------|
+| ~SPC m t a~ | Run all tests in project              |
+| ~SPC m t b~ | Run all tests in current file/fixture |
+| ~SPC m t t~ | Run test under cursor                 |
+
+** Code manipulation
+
+| Key Binding | Description               |
+|-------------+---------------------------|
+| ~SPC m o~   | Auto complete overrides   |
+| ~SPC m i~   | Fix usings/imports        |
+| ~SPC m =~   | Format the current buffer |

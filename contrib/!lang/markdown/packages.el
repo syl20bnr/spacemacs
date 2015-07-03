@@ -14,6 +14,7 @@
   '(
     markdown-mode
     markdown-toc
+    mmm-mode
     ))
 
 (defun markdown/init-markdown-mode ()
@@ -33,7 +34,7 @@
         "Ask for a key then insert its description.
 Will work on both org-mode and any mode that accepts plain html."
         (interactive "kType key sequence: ")
-        (let* ((tag "<kbd>%s</kbd>"))
+        (let* ((tag "~%s~"))
           (if (null (equal key "\r"))
               (insert
                (format tag (help-key-description key nil)))
@@ -115,3 +116,56 @@ Will work on both org-mode and any mode that accepts plain html."
 (defun markdown/init-markdown-toc ()
   (use-package markdown-toc
     :defer t))
+
+(defun markdown/init-mmm-mode ()
+  (use-package mmm-mode
+    :commands mmm-parse-buffer
+    :init
+    (evil-leader/set-key-for-mode 'markdown-mode
+      ;; Highlight code blocks
+      "mcs"   'mmm-parse-buffer)
+    :config
+    (progn
+      (mmm-add-classes '((markdown-python
+                          :submode python-mode
+                          :face mmm-declaration-submode-face
+                          :front "^```python[\n\r]+"
+                          :back "^```$")))
+      (mmm-add-classes '((markdown-html
+                          :submode web-mode
+                          :face mmm-declaration-submode-face
+                          :front "^```html[\n\r]+"
+                          :back "^```$")))
+      (mmm-add-classes '((markdown-java
+                          :submode java-mode
+                          :face mmm-declaration-submode-face
+                          :front "^```java[\n\r]+"
+                          :back "^```$")))
+      (mmm-add-classes '((markdown-ruby
+                          :submode ruby-mode
+                          :face mmm-declaration-submode-face
+                          :front "^```ruby[\n\r]+"
+                          :back "^```$")))
+      (mmm-add-classes '((markdown-c
+                          :submode c-mode
+                          :face mmm-declaration-submode-face
+                          :front "^```c[\n\r]+"
+                          :back "^```$")))
+      (mmm-add-classes '((markdown-c++
+                          :submode c++-mode
+                          :face mmm-declaration-submode-face
+                          :front "^```c\+\+[\n\r]+"
+                          :back "^```$")))
+      (mmm-add-classes '((markdown-elisp
+                          :submode emacs-lisp-mode
+                          :face mmm-declaration-submode-face
+                          :front "^```elisp[\n\r]+"
+                          :back "^```$")))
+      (setq mmm-global-mode t)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-python)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-java)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-ruby)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c++)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-elisp)
+      (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-html))))

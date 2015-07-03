@@ -60,7 +60,7 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
                  (or (not spacemacs-buffer--release-note-version)
                      (version< spacemacs-buffer--release-note-version
                                spacemacs-version)))
-        (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.102.txt")
+        (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.103.txt")
                                       'release-note))
       (spacemacs//redisplay))))
 
@@ -86,8 +86,8 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
         dotspacemacs-startup-banner
       (spacemacs-buffer/warning (format "could not find banner %s"
                                         dotspacemacs-startup-banner))
-      (spacemacs-buffer//get-banner-path 1)))
-   (t (spacemacs-buffer//get-banner-path 1))))
+      (spacemacs-buffer//get-banner-path 1))
+   (spacemacs-buffer//get-banner-path 1))))
 
 (defun spacemacs-buffer//choose-random-text-banner (&optional all)
   "Return the full path of a banner chosen randomly.
@@ -200,6 +200,14 @@ If TYPE is nil, just remove widgets."
                                                    :help-echo "Teach you how to use Emacs basics."
                                                    :action (lambda (&rest ignore) (call-interactively #'help-with-tutorial))
                                                    :mouse-face 'highlight
+                                                   :follow-link "\C-m"))
+                       (widget-insert " ")
+                       (add-to-list 'spacemacs-buffer--note-widgets
+                                    (widget-create 'push-button
+                                                   :tag (propertize "Vim Migration Guide" 'face 'font-lock-keyword-face)
+                                                   :help-echo "Documentation for former vim users."
+                                                   :action (lambda (&rest ignore) (spacemacs/view-org-file (concat spacemacs-docs-directory "VIMUSERS.org") "^" 'all))
+                                                   :mouse-face 'highlight
                                                    :follow-link "\C-m")))))
     (spacemacs-buffer//insert-note file "Quick Help" widget-func))
   (setq spacemacs-buffer--previous-insert-type 'quickhelp))
@@ -213,13 +221,14 @@ If TYPE is nil, just remove widgets."
                                                    :tag (propertize "Click here for full change log" 'face 'font-lock-warning-face)
                                                    :help-echo "Open the full change log."
                                                    :action (lambda (&rest ignore)
-                                                             (funcall 'spacemacs/open-file
+                                                             (funcall 'spacemacs/view-org-file
                                                                       (concat user-emacs-directory "CHANGELOG.org")
-                                                                      "Release 0.102.x"))
+                                                                      "Release 0.103.x"
+                                                                      'subtree))
                                                    :mouse-face 'highlight
                                                    :follow-link "\C-m")))))
     (spacemacs-buffer//insert-note file
-                                   " Important Notes (Release 0.102.x) "
+                                   " Important Notes (Release 0.103.x) "
                                    widget-func))
 
   (setq spacemacs-buffer--release-note-version nil)
@@ -411,7 +420,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :help-echo "Open the Spacemacs documentation in your browser."
                  :mouse-face 'highlight
                  :follow-link "\C-m"
-                 "https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.md")
+                 "https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org")
   (insert " ")
   (widget-create 'url-link
                  :tag (propertize "Gitter Chat" 'face 'font-lock-keyword-face)
@@ -439,7 +448,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :tag (propertize "Release Notes" 'face 'font-lock-preprocessor-face)
                  :help-echo "Hide or show the Changelog"
                  :action (lambda (&rest ignore)
-                           (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.102.txt")
+                           (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.103.txt")
                                                          ;; if nil is returned, just delete the current note widgets
                                                          (spacemacs-buffer//insert-note-p 'release-note)))
                  :mouse-face 'highlight
@@ -454,10 +463,8 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :follow-link "\C-m")
   (insert "\n\n"))
 
-(defun spacemacs-buffer//insert-file-list (list-display-name list shortcut-char)
+(defun spacemacs-buffer//insert-file-list (list-display-name list)
   (when (car list)
-    (spacemacs//insert--shortcut "r" "Recent Files:")
-    (spacemacs//insert--shortcut "p" "Projects:")
     (insert list-display-name)
     (mapc (lambda (el)
             (insert "\n    ")
@@ -483,15 +490,18 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
               (cond
                ((eq el 'recents)
                 (recentf-mode)
-                (when (spacemacs-buffer//insert-file-list "Recent Files:" (recentf-elements 5) "r")
+                (when (spacemacs-buffer//insert-file-list "Recent Files:" (recentf-elements 5))
+                  (spacemacs//insert--shortcut "r" "Recent Files:")
                   (insert list-separator)))
                ((eq el 'bookmarks)
                 (helm-mode)
-                (when (spacemacs-buffer//insert-file-list "Bookmarks:" (bookmark-all-names) "b")
+                (when (spacemacs-buffer//insert-file-list "Bookmarks:" (mapcar 'bookmark-get-filename (bookmark-all-names)))
+                  (spacemacs//insert--shortcut "m" "Bookmarks:")
                   (insert list-separator)))
                ((eq el 'projects)
                 (projectile-mode)
-                (when (spacemacs-buffer//insert-file-list "Projects:" (projectile-relevant-known-projects) "p")
+                (when (spacemacs-buffer//insert-file-list "Projects:" (projectile-relevant-known-projects))
+                  (spacemacs//insert--shortcut "p" "Projects:")
                   (insert list-separator))))) dotspacemacs-startup-lists))))
 
 (defun spacemacs-buffer/goto-link-line ()
@@ -504,15 +514,5 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
       (re-search-forward "Homepage")
       (beginning-of-line)
       (widget-forward 1))))
-
-;;this feels like the wrong place to put these
-(add-hook 'spacemacs-mode-hook (lambda ()
-                                 (local-set-key [tab] 'widget-forward)
-                                 (local-set-key [S-tab] 'widget-backward)
-                                 ;; S-tab is backtab in terminal
-                                 (local-set-key [backtab] 'widget-backward)
-                                 (local-set-key [return] 'widget-button-press)
-                                 (local-set-key [down-mouse-1] 'widget-button-click)
-                                 ))
 
 (provide 'core-spacemacs-buffer)

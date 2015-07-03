@@ -19,8 +19,8 @@
 (defvar python-enable-yapf-format-on-save nil
   "If non-nil, automatically format code with YAPF on save.")
 
-(defvar spacemacs/python-indent-level 4
-  "Indentation offset for Python.")
+(defvar python-test-runner 'nose
+  "Test runner to use. Possible values are `nose' or `pytest'.")
 
 ;; Command prefixes
 

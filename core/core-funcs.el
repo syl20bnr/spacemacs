@@ -109,16 +109,38 @@ Supported properties:
         (dolist (val ',def-key)
           (define-key (eval (car val)) (kbd (cdr val)) ',func))))))
 
-(defun spacemacs/open-file (file anchor-text)
+(defun spacemacs/view-org-file (file &optional anchor-text expand-scope)
   "Open the change log for the current version."
   (interactive)
-  ;; For now hardcode it
   (find-file file)
   (org-indent-mode)
   (view-mode)
   (goto-char (point-min))
-  (re-search-forward anchor-text)
+
+  (when anchor-text
+    (re-search-forward anchor-text))
   (beginning-of-line)
-  (show-subtree))
+
+  (cond
+   ((eq expand-scope 'subtree)
+    (show-subtree))
+   ((eq expand-scope 'all)
+    (show-all))
+   (t nil))
+
+  ;; Make ~SPC ,~ work, reference:
+  ;; http://stackoverflow.com/questions/24169333/how-can-i-emphasize-or-verbatim-quote-a-comma-in-org-mode
+  (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\n")
+  (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
+
+  (setq-local org-emphasis-alist '(("*" bold)
+                                   ("/" italic)
+                                   ("_" underline)
+                                   ("=" org-verbatim verbatim)
+                                   ("~" org-kbd)
+                                   ("+"
+                                    (:strike-through t))))
+
+  (setq-local org-hide-emphasis-markers t))
 
 (provide 'core-funcs)

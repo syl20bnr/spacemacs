@@ -38,24 +38,37 @@
            ((equal str "9") "➒")
            ((equal str "0") "➓"))))
 
+      (defun spacemacs/workspaces-ms-rename ()
+        "Rename a workspace and get back to micro-state."
+        (interactive)
+        (eyebrowse-rename-window-config (eyebrowse--get 'current-slot))
+        (spacemacs/workspaces-micro-state))
+
+      (defun spacemacs//workspaces-ms-get-slot-name (window-config)
+        "Return the name for the given window-config"
+        (let ((slot (car window-config))
+              (caption (eyebrowse-format-slot window-config)))
+          (if (= slot current-slot)
+              (format "[%s]" caption)
+            caption)))
+
       (defun spacemacs//workspaces-ms-documentation ()
         "Return the docstring for the workspaces micro-state."
-        (let* ((current-slot (number-to-string (eyebrowse--get 'current-slot)))
+        (let* ((current-slot (eyebrowse--get 'current-slot))
                (window-configs (eyebrowse--get 'window-configs))
                (window-config-slots (mapcar (lambda (x)
                                               (number-to-string (car x)))
                                             window-configs)))
           (concat
-           (if window-configs
-               (mapconcat 'identity
-                          (-replace current-slot
-                                    (format "[%s]" current-slot)
-                                    window-config-slots) " ")
-             (format "[%s]" current-slot))
-           (when eyebrowse-display-help
-             (concat
-              "\n[0-9] to create/switch to a workspace, "
-              "[n] next, [p/N] previous, [TAB] back and forth, [c] close")))))
+           "<" (if window-configs
+                   (concat
+                    (mapconcat 'spacemacs//workspaces-ms-get-slot-name
+                               window-configs "> <") ">")
+                 (when eyebrowse-display-help
+                   (concat
+                    "\n[0-9] to create/switch to a workspace, "
+                    "[n] next, [p/N] previous, [TAB] back and forth, [c] close, "
+                    "[r] rename"))))))
 
       (spacemacs|define-micro-state workspaces
         :doc (spacemacs//workspaces-ms-documentation)
@@ -77,4 +90,5 @@
         ("n" eyebrowse-next-window-config)
         ("N" eyebrowse-prev-window-config)
         ("p" eyebrowse-prev-window-config)
+        ("r" spacemacs/workspaces-ms-rename)
         ("c" eyebrowse-close-window-config)))))

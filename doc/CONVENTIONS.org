@@ -1,0 +1,304 @@
+* Spacemacs conventions
+
+** Table of Contents                                                 :TOC@4:
+ - [[#spacemacs-conventions][Spacemacs conventions]]
+     - [[#code-guidelines][Code guidelines]]
+         - [[#spacemacs-core-and-layer][Spacemacs core and layer]]
+         - [[#all-layers][All layers]]
+     - [[#key-bindings-conventions][Key bindings conventions]]
+         - [[#reserved-prefix][Reserved prefix]]
+             - [[#user-prefix][User prefix]]
+             - [[#major-mode-prefix][Major mode prefix]]
+             - [[#micro-state][Micro-state]]
+         - [[#evilify-buffers][Evilify buffers]]
+         - [[#navigation][Navigation]]
+             - [[#n-and-n][n and N]]
+             - [[#code-navigation][Code Navigation]]
+             - [[#insert-state-buffers][=insert state= buffers]]
+         - [[#evaluation][Evaluation]]
+         - [[#repls][REPLs]]
+             - [[#send-code][Send code]]
+             - [[#in-terminal][In terminal]]
+         - [[#building-and-compilation][Building and Compilation]]
+         - [[#debugging][Debugging]]
+         - [[#plain-text-markup-languages][Plain Text Markup Languages]]
+             - [[#headers][Headers]]
+             - [[#insertion-of-common-elements][Insertion of common elements]]
+             - [[#text-manipulation][Text manipulation]]
+             - [[#movement-in-normal-mode][Movement in normal mode]]
+             - [[#promotion-demotion-and-element-movement][Promotion, Demotion and element movement]]
+             - [[#table-editing][Table editing]]
+         - [[#tests][Tests]]
+             - [[#all-languages][All languages]]
+             - [[#language-specific][Language specific]]
+         - [[#refactoring][Refactoring]]
+         - [[#help-or-documentation][Help or Documentation]]
+
+** Code guidelines
+*** Spacemacs core and layer
+Function names follow these conventions:
+  - =spacemacs/xxx= is an interactive function called =xxx=
+  - =spacemacs//xxx= is a private function called =xxx= (implementation details)
+  - =spacemacs|xxx= is a /macro/ called =xxx=
+
+Variables follow these conventions:
+  - =spacemacs-xxx= is a variable
+  - =spacemacs--xxx= is a private variable (implementation details)
+
+*** All layers
+A package is initialized in a function with name =<layer>/init-xxx= where:
+  - =<layer>= is the layer name
+  - =xxx= is the package name
+
+** Key bindings conventions
+
+*** Reserved prefix
+**** User prefix
+~SPC o~ must not be used by any layer. It is reserved for the user.
+
+**** Major mode prefix
+~SPC m~ is reserved for the current major mode. Three keys bindings are not an
+issue (ie. ~SPC m h d~) since ~SPC m~ can be accessed via ~,~.
+
+**** Micro-state
+Whenever possible a micro-state should be enabled with ~M-SPC~ and ~s-M-SPC~. We
+need the latter bindings on OS X since ~M-SPC~ is used by the OS for spotlight.
+
+For instance micro-states dedicated to special buffers like =helm= or =ido=
+buffers are good candidates to be put on ~M-SPC~ and ~s-M-SPC~.
+
+It is recommended to add ~q~ to leave the micro-state.
+
+*** Evilify buffers
+=Spacemacs= offers convenient functions to /evilify/ a buffer.
+/Evilifying/ a buffer is to set the =evilified state= as the default
+state for the major mode of the buffer.
+
+The =evilified state= is derived from the =emacs state= and modify the
+map to: - add ~hjkl~ navigation - add incremental search with ~/~, ~n~
+and ~N~ - add =visual state= and =visual line state= - add yank (copy)
+with ~y~ - activate evil-leader key
+
+Setting the =evilified state= to a mode is done by calling the macro
+=evilify= which takes optional parameters to fix the key bindings
+shadowed by the above modifications.
+
+To fix the shadowed bindings we capitalize them, for instance: shadowed
+~h~ is transposed to ~H~, if ~H~ is taken then it is transposed to ~C-h~
+and so on...
+
+Example of /evilified/ buffers are =magit status=, =paradox buffer=.
+
+*** Navigation
+**** n and N
+To be consistent with the Vim way, ~n~ and ~N~ are favored over Emacs ~n~ and
+~p~.
+
+Ideally a micro-state should be provided to smooth the navigation
+experience. A micro-state allows to repeat key bindings without entering
+each time the prefix commands. More info on micro-states in the
+[[DOCUMENTATION.org#micro-states][documentation]].
+
+**** Code Navigation
+The prefix for going to something is ~SPC m g~.
+
+| Key     | Description                                |
+|---------+--------------------------------------------|
+| ~m g a~ | go to alternate file (i.e. =.h <--> .cpp=) |
+| ~m g g~ | go to things under point                   |
+| ~m g G~ | go to things under point in other window   |
+| ~m g t~ | go to corresponding test file if any       |
+
+**** =insert state= buffers
+Navigation in buffers like =Helm= and =ido= which are in =insert state=
+should be performed with ~C-j~ and ~C-k~ bindings for vertical movements.
+
+| Key   | Description |
+|-------+-------------|
+| ~C-j~ | go down     |
+| ~C-k~ | go up       |
+
+*** Evaluation
+Live evaluation of code is under the prefix ~SPC m e~.
+
+| Key     | Description                                       |
+|---------+---------------------------------------------------|
+| ~m e $~ | put the point at the end of the line and evaluate |
+| ~m e b~ | evaluate buffer                                   |
+| ~m e e~ | evaluate last expression                          |
+| ~m e f~ | evaluate function                                 |
+| ~m e l~ | evaluate line                                     |
+| ~m e r~ | evaluate region                                   |
+
+*** REPLs
+**** Send code
+A lot of languages can interact with a REPL. To help keeping a
+consistent behavior between those languages the following conventions
+should be followed:
+  - ~SPC m s~ is the prefix for sending code. This allows fast interaction with
+    the REPL whenever it is possible
+  - lower case key bindings keep the focus on the current buffer
+  - upper case key bindings move the focus to the REPL buffer
+
+| Key     | Description                                                  |
+|---------+--------------------------------------------------------------|
+| ~m s b~ | send buffer                                                  |
+| ~m s B~ | send buffer and switch to REPL                               |
+| ~m s d~ | first key to send buffer and switch to REPL to debug (step)  |
+| ~m s D~ | second key to send buffer and switch to REPL to debug (step) |
+| ~m s f~ | send function                                                |
+| ~m s F~ | send function and switch to REPL                             |
+| ~m s i~ | start/switch to REPL inferior process                        |
+| ~m s l~ | send line                                                    |
+| ~m s L~ | send line and switch to REPL                                 |
+| ~m s r~ | send region                                                  |
+| ~m s R~ | send region and switch to REPL                               |
+
+Note: we don't distinguish between the file and the buffer.
+
+**** In terminal
+History navigation in shells or REPLs buffers should be bound as well to
+~C-j~ and ~C-k~.
+
+    | Key   | Description                |
+    |-------+----------------------------|
+    | ~C-j~ | next item in history       |
+    | ~C-k~ | previous item in  history  |
+    | ~C-l~ | clear screen               |
+    | ~C-r~ | search backward in history |
+
+*** Building and Compilation
+The base prefix for major mode specific compilation is ~SPC m c~.
+
+    | Key Binding | Description       |
+    |-------------+-------------------|
+    | ~m c b~     | compile buffer    |
+    | ~m c c~     | compile           |
+    | ~m c r~     | clean and compile |
+
+Note: we don't distinguish between the file and the buffer. We can
+implement an auto-save of the buffer before compiling the buffer.
+
+*** Debugging
+The base prefix for debugging commands is ~SPC d~.
+
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~m d a~     | abandon current process |
+| ~m d b~     | toggle a breakpoint     |
+| ~m d B~     | clear all breakpoints   |
+| ~m d c~     | continue                |
+| ~m d d~     | start debug session     |
+| ~m d i~     | inspect value at point  |
+| ~m d l~     | local variables         |
+| ~m d n~     | next                    |
+| ~m d r~     | run                     |
+| ~m d s~     | step                    |
+
+Notes:
+  - Ideally a micro-state for breakpoint navigation should be provided.
+  - If there is no toggle breakpoint function, then it should be implemented at
+    the spacemacs level and ideally the function should be proposed as a patch
+    upstream (major mode repository).
+
+*** Plain Text Markup Languages
+For layers supporting markup languages please follow the following
+keybindings whenever applicable.
+
+**** Headers
+All header functionality should be grouped under ~SPC m h~
+
+| Key Binding | Description                                      |
+|-------------+--------------------------------------------------|
+| ~m h i~     | Insert a header                                  |
+| ~m h I~     | Insert a header alternative method (if existing) |
+| ~m h 1..10~ | Insert a header of level 1..10 (if possible)     |
+
+**** Insertion of common elements
+Insertion of common elements like links or footnotes should be grouped
+under ~SPC m i~
+
+| Key Binding | Description      |
+|-------------+------------------|
+| ~m i f~     | Insert footnote  |
+| ~m i i~     | Insert image     |
+| ~m i l~     | Insert link      |
+| ~m i u~     | Insert url       |
+| ~m i w~     | Insert wiki-link |
+
+**** Text manipulation
+Manipulation of text regions should be grouped under ~SPC m r~
+
+| Key Binding | Description                   |
+|-------------+-------------------------------|
+| ~m x b~     | Make region bold              |
+| ~m x c~     | Make region code              |
+| ~m x i~     | Make region italic            |
+| ~m x q~     | Quote a region                |
+| ~m x r~     | Remove formatting from region |
+| ~m x s~     | Make region strike-through    |
+| ~m x u~     | Make region underlined        |
+| ~m x v~     | Make region verbose           |
+
+**** Movement in normal mode
+In normal mode Vim style movement should be enabled with these keybindings:
+
+| Key Binding | Description                            |
+|-------------+----------------------------------------|
+| ~g h~       | Move up one level in headings          |
+| ~g j~       | Move to next heading on same level     |
+| ~g k~       | Move to previous heading on same level |
+| ~g l~       | Move down one level in headings        |
+
+**** Promotion, Demotion and element movement
+Promotion, demotion and movement of headings or list elements (whatever is
+possible) should be enabled with the following keys in any mode
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~M-h~       | Promote heading by one level |
+| ~M-j~       | Move element down            |
+| ~M-k~       | Move element up              |
+| ~M-l~       | Demote heading by one level  |
+
+**** Table editing
+If table specific commands are available the they are grouped under the
+~SPC m t~ group.
+
+*** Tests
+A lot of languages have their own test frameworks. These frameworks
+share common actions that we can unite under the same key bindings: -
+~SPC m t~ is the prefix for test execution. - ~SPC m T~ is the
+prefix for test execution in debug mode (if supported).
+
+**** All languages
+| Key     | Description                                         |
+|---------+-----------------------------------------------------|
+| ~m t a~ | execute all the tests of the current project        |
+| ~m t b~ | execute all the tests of the current buffer         |
+| ~m t t~ | execute the current test (thing at point, function) |
+
+Note: we don't distinguish between the file and the buffer. We can
+implement an auto-save of the buffer before executing the tests of
+buffer.
+
+**** Language specific
+| Key     | Description                             |
+|---------+-----------------------------------------|
+| ~m t m~ | execute the tests of the current module |
+| ~m t s~ | execute the tests of the current suite  |
+
+Note that there are overlaps, depending on the language we will choose
+one or more bindings for the same thing
+
+*** Refactoring
+Refactoring prefix is ~SPC m r~.
+
+*** Help or Documentation
+The base prefix for help commands is ~SPC h~. Documentation is considered
+as an help command.
+
+| Key     | Description                        |
+|---------+------------------------------------|
+| ~m h h~ | documentation of thing under point |
+| ~m h r~ | documentation of selected region   |

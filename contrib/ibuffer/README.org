@@ -1,0 +1,48 @@
+#+TITLE: ibuffer contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#grouping-buffers][Grouping buffers]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+This layer configures Emacs ibuffer for Spacemacs.
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(ibuffer))
+#+END_SRC
+
+** Grouping buffers
+
+Buffers can be grouped by major-modes or projectile projects.
+By default buffers are grouped by major-modes.
+
+To change how buffers are grouped set the layer variable
+=ibuffer-group-buffers-by= to one of the following supported values:
+- =modes= to group buffers by major-modes (default)
+- =projects= to group buffers by projectile projects
+- =nil= to not group buffers
+
+Example:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+    (ibuffer :variables ibuffer-group-buffers-by 'projects)))
+#+END_SRC
+
+* Key bindings
+
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~SPC b B~   | open ibuffer menu |
+
+*Note:* The layer will also replace regular ~C-x C-b~ by ibuffer.

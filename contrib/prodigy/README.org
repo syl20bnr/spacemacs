@@ -1,0 +1,58 @@
+#+TITLE: Prodigy contribution layer for Spacemacs
+
+[[file:img/prodigy.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#spawn-prodigy][Spawn prodigy]]
+     - [[#navigate-through-it][Navigate through it]]
+
+* Description
+
+This layer adds support for the [[https://github.com/rejeep/prodigy.el][prodigy]] package to manage external services from
+within Emacs, check the package's documentation for more details
+
+It is recommended to put to put your prodigy services in the
+=dotspacemacs/config= part of your =~/.spacemacs= file.
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(prodigy))
+#+END_SRC
+
+* Key Bindings
+
+** Spawn prodigy
+
+You start prodigy with this:
+
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~SPC a S~   | Open the prodigy buffer |
+
+** Navigate through it
+
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~h~         | First service                   |
+| ~j~         | Next service                    |
+| ~k~         | Previous service                |
+| ~l~         | Last service                    |
+| ~H~         | Display current process         |
+| ~J~         | Next service with status        |
+| ~K~         | Previous service with status    |
+| ~L~         | Start prodigy                   |
+| ~S~         | Stop prodigy                    |
+| ~r~         | restart prodigy                 |
+| ~d~         | Jump to the dired of service    |
+| ~g~         | Jump to magit-status of service |
+| ~Y~         | Copy prodigy command            |
+| ~o~         | Browse the service              |
+| ~f t~       | Add tag filter                  |
+| ~f n~       | Add name filter                 |
+| ~F~         | Clear filters                   |

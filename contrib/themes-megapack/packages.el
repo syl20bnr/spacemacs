@@ -87,6 +87,7 @@
     tango-2-theme
     tango-plus-theme
     tangotango-theme
+    tao-theme
     ;; contains error
     ; tommyh-theme
     toxi-theme

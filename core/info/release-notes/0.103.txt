@@ -1,0 +1,36 @@
+1. Magit 2.1
+
+Spacemacs is now compatible only with Magit 2.1 and later, be
+sure to *update your packages* (at least Magit).
+
+2. Helm
+
+Helm input pattern is now displayed in its header instead of the
+minibuffer.
+
+3. Git layer
+
+The `git` layer has been split into two layers: `git` and `github` so
+the layer variable `git-enabled-github-support` is deprecated, you
+have to *add the layer `github` in your dotfile*.
+
+The `git-gutter` has been replaced by `diff-hl`. This package is in
+the new layer `version-control`, be sure to *add this new layer to
+your dotfile*.
+
+4. Auctex layer
+
+The `auctex` layer has been renamed `latex`, be sure to *update your
+dotfile* if you use this layer.
+
+5. Erlang/Elixir layer
+
+The erlang/elixir layer has been split into two layers `erlang` and
+`elixir`, be sure to *update your dotfile* if you use these layers.
+
+6. Key bindings changes
+
+Projectile key bindings changes:
+~SPC p e~ is now ~SPC p r~ (recent files),
+~SPC p R~ is now ~SPC p G~ (regenerate tags),
+~SPC p r~ is now ~SPC p R~ (replace).

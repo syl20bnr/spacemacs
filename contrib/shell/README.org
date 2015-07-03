@@ -1,0 +1,101 @@
+#+TITLE: Shell contribution layer for Spacemacs
+
+[[file:img/shell.png]]
+
+* Table of Contents                                                 :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#default-shell][Default shell]]
+     - [[#default-shell-position-and-height][Default shell position and height]]
+     - [[#set-shell-for-term-and-ansi-term][Set shell for term and ansi-term]]
+ - [[#key-bindings][Key bindings]]
+     - [[#multi-term][Multi-term]]
+
+* Description
+
+This layer configures the various shells available in Emacs.
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(shell))
+#+END_SRC
+
+** Default shell
+
+Emacs supports three types of shell:
+- the Emacs shell
+- the inferior shell
+- the terminal emulator
+- the ANSI terminal emulator
+
+You can find a quick introductions to them [[https://www.masteringemacs.org/article/running-shells-in-emacs-overview][here]].
+
+To define the default shell you can set the layer variable =shell-default-shell=
+to the following variables:
+- =eshell=
+- =shell=
+- =term=
+- =ansi-term=
+- =multi-term=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '(shell :variables shell-default-shell 'eshell))
+#+END_SRC
+
+The default shell is quickly accessible via a the default shortcut key ~SPC '~.
+
+** Default shell position and height
+
+It is possible to choose where the shell should pop up by setting the variable
+=shell-default-position= to either =top=, =bottom= or =full=. It is not possible
+to show it on the side for now. Default value is =bottom=. It is also possible
+to set the default height in percents with the variable =shell-default-height=.
+Default value is =30=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '(shell :variables
+            shell-default-position 'bottom
+            shell-default-height 30))
+#+END_SRC
+
+** Set shell for term and ansi-term
+
+The default shell can be set by setting the variable =shell-default-term-shell=.
+Default value is =/bin/bash=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '(shell :variables shell-default-term-shell "/bin/bash"))
+#+END_SRC
+
+* Key bindings
+
+| Key Binding | Description                                                |
+|-------------+------------------------------------------------------------|
+| ~SPC '~     | Open, close or go to the default shell                     |
+| ~SPC a s e~ | Open, close or go to an =eshell=                           |
+| ~SPC a s i~ | Open, close or go to a =shell=                             |
+| ~SPC a s m~ | Open, close or go to a =multi-term=                        |
+| ~SPC a s t~ | Open, close or go to a =ansi-term=                         |
+| ~SPC a s T~ | Open, close or go to a =term=                              |
+| ~SPC m h~   | browse history with =helm= (works in =eshell= and =shell=) |
+| ~C-j~       | next item in history                                       |
+| ~C-k~       | previous item in history                                   |
+
+*Note:* You can open multiple shells using a numerical prefix argument,
+for instance pressing ~2 SPC ;~ will a second default shell, the
+number of shell is indicated on the mode-line.
+
+** Multi-term
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~SPC p $ t~ | run multi-term shell in root |

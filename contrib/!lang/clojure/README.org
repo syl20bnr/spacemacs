@@ -1,0 +1,203 @@
+#+TITLE: Clojure contribution layer for Spacemacs
+
+[[file:img/clojure.png]] [[file:img/cider.png]]
+
+* Table of Contents                                                  :TOC@4:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#pretty-symbols][Pretty Symbols]]
+     - [[#cider-and-clj-refactor][Cider and clj-refactor]]
+         - [[#quick-start-with-lein][Quick Start with lein]]
+         - [[#more-details][More details]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#documentation][Documentation]]
+     - [[#evaluation][Evaluation]]
+     - [[#goto][Goto]]
+     - [[#repl][REPL]]
+     - [[#tests][Tests]]
+     - [[#debugging][Debugging]]
+     - [[#refactoring][Refactoring]]
+     - [[#reformatting][Reformatting]]
+
+* Description
+
+This layer adds support for [[http://clojure.org][Clojure]] language using [[https://github.com/clojure-emacs/cider][Cider]].
+
+* Features
+
+- REPL via [[https://github.com/clojure-emacs/cider][Cider]]
+- Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
+- Auto completion via [[https://github.com/clojure-emacs/ac-cider][ac-cider]]
+- Automatic formatting via [[https://github.com/gstamp/align-cljlet][align-cljlet]]
+  
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(clojure))
+#+END_SRC
+
+** Pretty Symbols
+
+Pretty symbols for anonymous functions, set literals and partial, like =(λ [a]
+(+ a 5))=, =ƒ(+ % 5)=, =∈{2 4 6}= and =Ƥ=.
+
+To enable this feature, add the following snippet to the dotspacemacs/config
+section of your =~/.spacemacs= file:
+
+#+BEGIN_SRC emacs-lisp
+  (setq clojure-enable-fancify-symbols t)
+#+END_SRC
+
+Or set this variable when loading the configuration layer:
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+  '((clojure :variables clojure-enable-fancify-symbols t)))
+#+END_SRC
+
+** Cider and clj-refactor
+
+*** Quick Start with lein
+
+- Install =lein= via your OS package manager.
+- Create a file =~/.lein/profiles.clj= with the following content:
+  
+#+BEGIN_SRC clojure
+  {:user {:plugins [[cider/cider-nrepl "0.9.0-SNAPSHOT"]
+                    [refactor-nrepl "0.3.0-SNAPSHOT"]]
+          :dependencies [[alembic "0.3.2"]
+                         [org.clojure/tools.nrepl "0.2.7"]]}}
+#+END_SRC
+
+*** More details
+
+More info regarding installation of nREPL middleware can be found here:
+- cider: [[https://github.com/clojure-emacs/cider#installation][cider_install]]
+- clj-refactor: [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
+  
+* Key Bindings
+
+** Documentation
+
+| Key Binding | Description    |
+|-------------+----------------|
+| ~SPC m h h~ | cider doc      |
+| ~SPC m h g~ | cider grimoire |
+| ~SPC m h j~ | cider javadoc  |
+
+** Evaluation
+
+| Key Binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC m e b~ | eval buffer                            |
+| ~SPC m e e~ | eval last sexp                         |
+| ~SPC m e f~ | eval function at point                 |
+| ~SPC m e r~ | eval region                            |
+| ~SPC m e w~ | eval last sexp and replace with result |
+
+** Goto
+
+| Key Binding | Description   |
+|-------------+---------------|
+| ~SPC m g g~ | goto var      |
+| ~SPC m g e~ | goto error    |
+| ~SPC m g r~ | goto resource |
+| ~SPC m g b~ | go back       |
+
+** REPL
+
+| Key Binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC m s b~ | send and eval buffer in REPL                                 |
+| ~SPC m s B~ | send and eval buffer and switch to REPL in =insert state=    |
+| ~SPC m s c~ | connect to REPL (cider-connect)                              |
+| ~SPC m s e~ | send and eval last sexp in REPL                              |
+| ~SPC m s E~ | send and eval last sexp and switch to REPL in =insert state= |
+| ~SPC m s f~ | send and eval function in REPL                               |
+| ~SPC m s F~ | send and eval function and switch to REPL in =insert state=  |
+| ~SPC m s i~ | start REPL (cider-jack-in)                                   |
+| ~SPC m s n~ | send and eval ns form in REPL                                |
+| ~SPC m s N~ | send and eval ns form and switch to REPL in =insert state=   |
+| ~SPC m s q~ | kill REPL (cider-quit)                                       |
+| ~SPC m s r~ | send and eval region in REPL                                 |
+| ~SPC m s R~ | send and eval region and switch to REPL in =insert state=    |
+| ~SPC m s s~ | switch to REPL                                               |
+
+** Tests
+
+| Key Binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC m t a~ | run all tests in namespace         |
+| ~SPC m t r~ | re-run test failures for namespace |
+| ~SPC m t t~ | run test at point                  |
+
+** Debugging
+
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC m d b~ | instrument expression at point |
+| ~SPC m d i~ | inspect expression at point    |
+
+** Refactoring
+
+| Key Binding   | Description               |
+|---------------+---------------------------|
+| ~SPC m r a d~ | add declaration           |
+| ~SPC m r a i~ | add import to ns          |
+| ~SPC m r a m~ | add missing libspec       |
+| ~SPC m r a p~ | add project dependency    |
+| ~SPC m r a r~ | add require to ns         |
+| ~SPC m r a u~ | add use to ns             |
+| ~SPC m r c c~ | cycle coll                |
+| ~SPC m r c i~ | cycle if                  |
+| ~SPC m r c n~ | clean ns                  |
+| ~SPC m r c p~ | cycle privacy             |
+| ~SPC m r d k~ | destructure keys          |
+| ~SPC m r e f~ | extract function          |
+| ~SPC m r e l~ | expand let                |
+| ~SPC m r f u~ | find usages               |
+| ~SPC m r h d~ | hotload dependency        |
+| ~SPC m r i l~ | introduce let             |
+| ~SPC m r m f~ | move form                 |
+| ~SPC m r m l~ | move to let               |
+| ~SPC m r p c~ | project clean             |
+| ~SPC m r p f~ | promote function          |
+| ~SPC m r r d~ | remove debug fns          |
+| ~SPC m r r f~ | rename file               |
+| ~SPC m r r l~ | remove let                |
+| ~SPC m r r r~ | remove unused requires    |
+| ~SPC m r r s~ | rename symbol             |
+| ~SPC m r r u~ | replace use               |
+| ~SPC m r s n~ | sort ns                   |
+| ~SPC m r s p~ | sort project dependencies |
+| ~SPC m r s r~ | stop referring            |
+| ~SPC m r t f~ | thread first all          |
+| ~SPC m r t h~ | thread                    |
+| ~SPC m r t l~ | thread last all           |
+| ~SPC m r u a~ | unwind all                |
+| ~SPC m r u w~ | unwind                    |
+
+** Reformatting
+
+- Forms currently handled:
+  - let
+  - when-let
+  - if-let
+  - binding
+  - loop
+  - with-open
+  - literal hashes {}
+  - defroute
+  - cond
+  - condp (except :>> subforms)
+  
+More info at [[https://github.com/gstamp/align-cljlet][align-cljlet]].
+
+| Key Binding | Description           |
+|-------------+-----------------------|
+| ~SPC m f l~ | reformat current form |

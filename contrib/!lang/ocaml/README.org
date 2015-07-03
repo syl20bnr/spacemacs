@@ -1,0 +1,92 @@
+#+TITLE: Ocaml contribution layer for Spacemacs
+
+[[file:img/ocaml.png]]
+
+* Table of Content                                                    :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features:]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#opam-packages][OPAM packages]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#repl-utop][REPL (utop)]]
+ - [[#todos][TODOS]]
+     - [[#todo-add-more-proper-spacemacs-key-bindings-for-basic-merlin-tasks][TODO Add more proper spacemacs key-bindings for basic merlin tasks]]
+     - [[#todo-add-proper-keybindings-for-ocamldebug][TODO Add proper keybindings for ocamldebug]]
+     - [[#todo-add-more-keybindings-for-tuareg-mode][TODO Add more keybindings for tuareg-mode]]
+
+* Description
+
+This is a very basic layer for editing ocaml files.
+
+** Features:
+- Syntax highlighting (major-mode) via [[https://github.com/ocaml/tuareg][tuareg-mode]]
+- Error reporting, completion and type display via [[https://github.com/the-lambda-church/merlin][merlin]]
+- auto-completion with company mode via [[https://github.com/the-lambda-church/merlin][merlin]]
+- syntax-checking via [[https://github.com/diml/utop][flycheck-ocaml]]
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(ocaml))
+#+END_SRC
+
+** OPAM packages
+
+This layer requires some [[http://opam.ocaml.org][opam]] packages:
+
+- =merlin= for auto-completion
+- =utop=
+- =ocp-indent=
+
+To install them, use the following command: 
+
+#+BEGIN_SRC sh
+  opam install merlin utop ocp-indent
+#+END_SRC
+
+* Key Bindings
+
+| Key Binding | Description                                              |
+|-------------+----------------------------------------------------------|
+| ~SPC m c c~ | Compile                                                  |
+| ~SPC m c p~ | Check .merlin for errors                                 |
+| ~SPC m c r~ | Refresh changed .cmis in merlin                          |
+| ~SPC m e C~ | Check for errors in current buffer                       |
+| ~SPC m e n~ | Jump to next error                                       |
+| ~SPC m e N~ | Jump back to previous error                              |
+| ~SPC m g a~ | Switch ML <-> MLI                                        |
+| ~SPC m g b~ | Go back to the last position where the user did a locate |
+| ~SPC m g g~ | Locate the identifier under point (same window)          |
+| ~SPC m g G~ | Locate the identifier under point (different window)     |
+| ~SPC m g l~ | Prompt for identifier and locate                         |
+| ~SPC m g i~ | Prompt for module name and switch to ML file             |
+| ~SPC m g I~ | Prompt for module name and switch to MLI file            |
+| ~SPC m h h~ | Document the identifier under point                      |
+| ~SPC m h t~ | Highlight identifier under cursor and print its type     |
+| ~SPC m h T~ | Prompt for expression and show its type                  |
+| ~SPC m r d~ | Case analyze the current enclosing                       |
+
+** REPL (utop)
+
+| Key Binding | Description                                                      |
+|-------------+------------------------------------------------------------------|
+| ~SPC m s b~ | Send buffer to the REPL                                          |
+| ~SPC m s B~ | Send buffer to the REPL and switch to the REPL in =insert state= |
+| ~SPC m s i~ | Start a REPL                                                     |
+| ~SPC m s p~ | Send phrase to the REPL                                          |
+| ~SPC m s P~ | Send phrase to the REPL and switch to the REPL in =insert state= |
+| ~SPC m s r~ | Send region to the REPL                                          |
+| ~SPC m s R~ | Send region to the REPL and switch to the REPL in =insert state= |
+| ~C-j~       | (in REPL) next item in history                                   |
+| ~C-k~       | (in REPL) previous item in history                               |
+
+* TODOS
+
+** TODO Add more proper spacemacs key-bindings for basic merlin tasks
+** TODO Add proper keybindings for ocamldebug
+** TODO Add more keybindings for tuareg-mode

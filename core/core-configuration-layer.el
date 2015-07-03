@@ -16,10 +16,10 @@
 (require 'core-spacemacs-buffer)
 
 (unless package--initialized
-  (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-                           ("gnu" . "http://elpa.gnu.org/packages/")
-                           ("melpa" . "http://melpa.org/packages/")
-                           ("org" . "http://orgmode.org/elpa/")))
+  (setq package-archives '(("melpa" . "http://melpa.org/packages/")
+                           ("org" . "http://orgmode.org/elpa/")
+                           ("ELPA" . "http://tromey.com/elpa/")
+                           ("gnu" . "https://elpa.gnu.org/packages/")))
   ;; optimization, no need to activate all the packages so early
   (setq package-enable-at-startup nil)
   (package-initialize 'noactivate)
@@ -28,7 +28,7 @@
   ;; This hack adds marmalade repository for this case only.
   (unless (or (package-installed-p 'python) (version< emacs-version "24.3"))
     (add-to-list 'package-archives
-                 '("marmalade" . "http://marmalade-repo.org/packages/")))
+                 '("marmalade" . "https://marmalade-repo.org/packages/")))
   (setq warning-minimum-level :error))
 
 (defconst configuration-layer-template-directory
@@ -97,17 +97,9 @@ symbol and the value is an odered list of initialization functions to execute.")
 (defvar configuration-layer-all-post-extensions-sorted '()
   "Sorted list of all post extensions symbols.")
 
-(defvar configuration-layer-contrib-categories '("!config"
-                                                 "!email"
-                                                 "!fun"
-                                                 "!irc"
-                                                 "!lang"
-                                                 "!tools"
-                                                 "!usr"
-                                                 "!vim"
-                                                 "!window-management")
+(defvar configuration-layer-categories '()
   "List of strings corresponding to category names. A category is a
-sub-directory of the contribution directory.")
+directory with a name starting with `!'.")
 
 (defvar configuration-layer-excluded-packages '())
 
@@ -175,64 +167,96 @@ LAYER_DIR is nil, the private directory is used."
     (find-file dest)
     (save-excursion
       (goto-char (point-min))
-      (while (re-search-forward "NAME" nil t)
-        (replace-match name t)))
+      (let ((case-fold-search nil))
+        (while (re-search-forward "%LAYERNAME%" nil t)
+          (replace-match name t))))
     (save-buffer)))
 
-(defun configuration-layer//get-contrib-category-dirs ()
-  "Return a list of all absolute paths to the contribution categories stored
-in `configuration-layer-contrib-categories'"
-  (mapcar
-   (lambda (d) (expand-file-name
-                (concat configuration-layer-contrib-directory (format "%s/" d))))
-   configuration-layer-contrib-categories))
+(defun configuration-layer//directory-type (path)
+  "Return the type of directory pointed by PATH.
+Possible return values:
+  layer    - the directory is a layer
+  category - the directory is a category
+  nil      - the directory is a regular directory."
+  (when (file-directory-p path)
+    (if (string-match
+         "^!" (file-name-nondirectory
+               (directory-file-name
+                (concat configuration-layer-contrib-directory path))))
+        'category
+      (let ((files (directory-files path)))
+        ;; most frequent files encoutered in a layer are tested first
+        (when (or (member "packages.el" files)
+                  (member "extensions.el" files)
+                  (member "config.el" files)
+                  (member "keybindings.el" files)
+                  (member "funcs.el" files))
+          'layer)))))
+
+(defun configuration-layer//get-category-from-path (dirpath)
+  "Return a category symbol from the given DIRPATH.
+The directory name must start with `!'.
+Returns nil if the directory is not a category."
+  (when (file-directory-p dirpath)
+    (let ((dirname (file-name-nondirectory
+                    (directory-file-name
+                     (concat configuration-layer-contrib-directory
+                             dirpath)))))
+      (when (string-match "^!" dirname)
+        (intern (substring dirname 1))))))
 
 (defun configuration-layer//discover-layers ()
   "Return a hash table where the key is the layer symbol and the value is its
 path."
-  (let ((contrib-cat-dirs (configuration-layer//get-contrib-category-dirs))
+  ;; load private layers at the end on purpose
+  ;; we asume that the user layers must have the final word
+  ;; on configuration choices.
+  (let ((search-paths (append (list configuration-layer-contrib-directory)
+                              dotspacemacs-configuration-layer-path
+                              (list configuration-layer-private-directory)))
         (discovered '())
         (result (make-hash-table :size 256)))
-    (setq discovered
-          (append discovered (configuration-layer//discover-layers-in-dir
-                              configuration-layer-contrib-directory
-                              configuration-layer-contrib-categories)))
-    (dolist (dir (append contrib-cat-dirs
-                         dotspacemacs-configuration-layer-path))
-      (setq discovered
-            (append discovered (configuration-layer//discover-layers-in-dir
-                                dir))))
-    ;; load private layers at the end on purpose
-    ;; we asume that the user layers must have the final word
-    ;; on configuration choices.
-    (setq discovered
-          (append discovered (configuration-layer//discover-layers-in-dir
-                              configuration-layer-private-directory
-                              '("snippets"))))
-    ;; add spacemacs layer
+    ;; depth-first search of subdirectories
+    (while search-paths
+      (let ((current-path (car search-paths)))
+        (setq search-paths (cdr search-paths))
+        (dolist (sub (directory-files current-path t nil 'nosort))
+          ;; ignore ".", ".." and non-directories
+          (unless (or (string-equal ".." (substring sub -2))
+                      (string-equal "." (substring sub -1))
+                      (not (file-directory-p sub)))
+            (let ((type (configuration-layer//directory-type sub)))
+              (cond
+               ((eq 'category type)
+                (let ((category (configuration-layer//get-category-from-path
+                                 sub)))
+                  (spacemacs-buffer/message "-> Discovered category: %S"
+                                            category)
+                  (push category configuration-layer-categories)
+                  (setq search-paths (cons sub search-paths))))
+               ((eq 'layer type)
+                (let ((layer-name (file-name-nondirectory sub))
+                      (layer-dir (file-name-directory sub)))
+                  (spacemacs-buffer/message "-> Discovered configuration layer: %s"
+                                            layer-name)
+                  (push (cons (intern layer-name) layer-dir) discovered)))
+               (t
+                ;; layer not found, add it to search path
+                (setq search-paths (cons sub search-paths)))))))))
+    ;; add the spacemacs layer
     (puthash 'spacemacs (expand-file-name user-emacs-directory) result)
-    ;; add discovered
+    ;; add discovered layers to hash table
     (mapc (lambda (l)
             (if (ht-contains? result (car l))
-                (spacemacs-buffer/warning
-                 (concat "Duplicated layer %s detected in directory \"%s\", "
-                         "keeping only the layer in directory \"%s\"")
-                 (car l) (cdr l) (ht-get result (car l)))
-              (puthash (car l) (cdr l) result))) discovered)
-    result))
-
-(defun configuration-layer//discover-layers-in-dir (dir &optional exclude)
-  "Return an alist of layer and absolute path in Dir."
-  (spacemacs-buffer/message "Looking for configuration layers in %s" dir)
-  (let* ((files (directory-files dir nil nil 'nosort))
-         (result '()))
-    (dolist (f files)
-      (let ((full (file-name-as-directory (concat dir f))))
-        (when (and (not (string-prefix-p "." f))
-                   (not (and exclude (member f exclude)))
-                   (file-directory-p full))
-          (spacemacs-buffer/message "-> Discovered configuration layer: %s" f)
-          (push (cons (intern f) dir) result))))
+                ;; the same layer may have been discovered twice,
+                ;; in which case we don't need a warning
+                (unless (string-equal (ht-get result (car l)) (cdr l))
+                  (spacemacs-buffer/warning
+                   (concat "Duplicated layer %s detected in directory \"%s\", "
+                           "keeping only the layer in directory \"%s\"")
+                   (car l) (cdr l) (ht-get result (car l))))
+              (puthash (car l) (cdr l) result)))
+          discovered)
     result))
 
 (defun configuration-layer/init-layers ()
@@ -565,9 +589,9 @@ This function also processed recursively the package dependencies."
            (version<= (configuration-layer//get-latest-package-version-string x)
                       installed-ver))))))
 
-(defun configuration-layer/update-packages ()
-  "Upgrade elpa packages"
-  (interactive)
+(defun configuration-layer/update-packages (&optional always-update)
+  "Upgrade elpa packages.  If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
+  (interactive "P")
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append
    "\nUpdating Spacemacs... (for now only ELPA packages are updated)\n")
@@ -585,9 +609,10 @@ This function also processed recursively the package dependencies."
          (upgraded-count 0)
          (update-packages-alist))
     (if (> upgrade-count 0)
-        (if (not (yes-or-no-p (format (concat "%s package(s) to update, "
-                                              "do you want to continue ? ")
-                                      upgrade-count)))
+        (if (and (not always-update)
+                 (not (yes-or-no-p (format (concat "%s package(s) to update, "
+                                                   "do you want to continue ? ")
+                                           upgrade-count))))
             (spacemacs-buffer/append
              "Packages update has been cancelled.\n")
           ;; backup the package directory and construct an alist

@@ -9,7 +9,11 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(defconst spacemacs-version          "0.102.2" "Spacemacs version.")
+
+;; Without this comment emacs25 adds (package-initialize) here
+;; (package-initialize)
+
+(defconst spacemacs-version          "0.103.1" "Spacemacs version.")
 (defconst spacemacs-emacs-min-version   "24.3" "Minimal version of Emacs.")
 
 (defun spacemacs/emacs-version-ok ()

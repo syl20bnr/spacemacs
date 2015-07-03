@@ -13,6 +13,12 @@
 (defconst emacs-built-in-themes (custom-available-themes)
   "List of emacs built-in themes")
 
+(defface org-kbd
+  '((t (:background "LemonChiffon1" :foreground "black" :box
+                    (:line-width 2 :color nil :style released-button))))
+  "Face for displaying key bindings in Spacemacs documents."
+  :group 'org-faces)
+
 (defconst spacemacs-theme-name-to-package
   '(
     (alect-black-alt . alect-themes)
@@ -112,6 +118,7 @@
     (colorsarenice-light . colorsarenice-theme)
     (hemisu-dark  . hemisu-theme)
     (hemisu-light . hemisu-theme)
+    (material-light . material-theme)
     (minimal-light . minimal-theme)
     (moe-dark  . moe-theme)
     (moe-light . moe-theme)
@@ -131,6 +138,8 @@
     (wilson   . sublime-themes)
     (zonokai-blue . zonokai-theme)
     (zonokai-red  . zonokai-theme)
+    (tao-yin . tao-theme)
+    (tao-yang . tao-theme)
     )
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")
@@ -168,6 +177,10 @@ package name does not match theme name + `-theme' suffix.")
       (require 'solarized)
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))
+     ((or (eq 'spacemacs-light theme)
+          (eq 'spacemacs-dark theme))
+      (add-to-list 'custom-theme-load-path (concat spacemacs-directory
+                                                   "extensions/spacemacs-theme")))
      ;; themes with explicitly declared package names
      ((assq theme spacemacs-theme-name-to-package)
       (let* ((pkg (spacemacs//get-theme-package theme))

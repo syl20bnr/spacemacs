@@ -1,21 +1,21 @@
 <a name="top"></a>
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Buy A Drink](https://img.shields.io/badge/Paypal-Buy%20a%20Drink-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESFVNPKP4Y742)[![Twitter][]](http://www.twitter.com/spacemacs)
 ***
-<p align="center"><img src="./doc/img/title2.png" alt="Spacemacs"/></p>
+<p align="center"><img src="/doc/img/title2.png" alt="Spacemacs"/></p>
 <p align="center">
-<b><a href="doc/DOCUMENTATION.md#philosophy">philosophy</a></b>
+<b><a href="doc/DOCUMENTATION.org#core-pillars">philosophy</a></b>
 |
-<b><a href="doc/DOCUMENTATION.md#goals">goals</a></b>
+<b><a href="doc/DOCUMENTATION.org#goals">goals</a></b>
 |
-<b><a href="doc/DOCUMENTATION.md#who-can-benefit-from-this-">for whom?</a></b>
+<b><a href="doc/DOCUMENTATION.org#who-can-benefit-from-this-">for whom?</a></b>
 |
-<b><a href="doc/DOCUMENTATION.md#screenshots">screenshots</a></b>
+<b><a href="doc/DOCUMENTATION.org#screenshots">screenshots</a></b>
 |
-<b><a href="doc/DOCUMENTATION.md">documentation</a></b>
+<b><a href="doc/DOCUMENTATION.org">documentation</a></b>
 |
-<b><a href="doc/CONTRIBUTE.md">contribute</a></b>
+<b><a href="doc/CONTRIBUTE.org">contribute</a></b>
 |
-<b><a href="doc/DOCUMENTATION.md#achievements">achievements</a></b>
+<b><a href="doc/DOCUMENTATION.org#achievements">achievements</a></b>
 |
 <b><a href="#faq">FAQ</a></b>
 </p>
@@ -34,10 +34,12 @@
     - [Nice UI](#nice-ui)
     - [Excellent ergonomics](#excellent-ergonomics)
     - [Convenient and Mnemonic Key Bindings](#convenient-and-mnemonic-key-bindings)
-        - [Great [Documentation][DOCUMENTATION.MD]](#great-documentationdocumentationmd)
+        - [Great](#great-documentation) [Documentation][DOCUMENTATION.org]
 - [Prerequisites](#prerequisites)
-    - [Emacs version](#emacs-version)
-    - [OS X](#os-x)
+    - [Emacs](#emacs)
+        - [Linux distros](#linux-distros)
+        - [OS X](#os-x)
+        - [Windows](#windows)
 - [Install](#install)
     - [Spacemacs logo](#spacemacs-logo)
 - [Update](#update)
@@ -48,7 +50,7 @@
     - [Dotfile (.spacemacs)](#dotfile-spacemacs)
 - [Learning Spacemacs](#learning-spacemacs)
     - [Editing Styles](#editing-styles)
-    - [The leader key](#the-leader-key)
+    - [The leader keys](#the-leader-keys)
     - [Evil-tutor](#evil-tutor)
     - [Universal argument](#universal-argument)
     - [Configuration layers and Package discovery](#configuration-layers-and-package-discovery)
@@ -106,9 +108,9 @@ Spacemacs integrates hundreds of ready-to-use packages thanks to a
 community-driven approach.
 
 Those packages are grouped in [layers][] and their configuration follow a set
-of rules gathered in [CONVENTIONS.md][].
+of rules gathered in [CONVENTIONS.org][].
 
-**[Visit the Documentation][DOCUMENTATION.MD]**
+**[Visit the Documentation][DOCUMENTATION.org]**
 
 ## Nice UI
 
@@ -131,7 +133,7 @@ reduce the number of keyboard bindings to learn.
 to operate on the buffer are prefixed by `<SPC> b`, and commands to operate on
 the project are under `<SPC> p`.
 
-### Great [Documentation][DOCUMENTATION.MD]
+### Great [Documentation][DOCUMENTATION.org]
 
 Most of Spacemacs' features, key bindings, and configuration options
 are extensively documented.
@@ -144,7 +146,7 @@ If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
 
 # Prerequisites
 
-## Emacs version
+## Emacs
 
 `Spacemacs` is tested with Emacs 24.3 and 24.4 and therefore should boot
 on all the major OSes where these versions are installable.
@@ -152,15 +154,20 @@ on all the major OSes where these versions are installable.
 Some modes require third-party tools that you'll have to install via your
 favorite package manager.
 
-## OS X
+### Linux distros
+
+Install Emacs from the package manager of your favorite Linux distribution.
+
+### OS X
 
 The recommended version for OS X is [emacs-mac-port][]. It can be installed
 via [homebrew][] with the following commands:
 
 ```sh
 $ brew tap railwaycat/emacsmacport
-$ brew install emacs-mac
+$ brew install emacs-mac --with-spacemacs-icon
 ```
+(The `with-spacemacs-icon` option uses the official spacemacs logo for the app bundle.)
 
 The default key handling is different from the official OS X port. To correct
 this you can add the [osx layer][] to your [dotfile][] layer list:
@@ -172,6 +179,32 @@ this you can add the [osx layer][] to your [dotfile][] layer list:
 Note that the `emacs-mac-port` server behaves differently than the regular
 Emacs server.
 Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
+
+### Windows
+
+Good quality builds can be found [on this page][emacs-for-windows]. It is
+recommended to install the most stable build.
+
+Be sure to declare a environment variable named `HOME` and pointing to
+your user directory `C:\Users\<username>`. Then you can clone Spacemacs
+in this directory.
+
+Sometimes you'll get the following error when you first start Emacs:
+
+```
+The directory ~/.emacs.d/server is unsafe
+```
+
+To fix it change the owner of the directory `~/.emacs.d/server`:
+  - from Properties select the Tab “Security”,
+  - select the button “Advanced”,
+  - select the Tab “Owner”
+  - change the owner to your account name
+
+Source: [Stackoverflow][so-server-unsafe]
+
+For efficient searches we recommend to install `pt` [the platinum searcher][].
+`pt` version 1.7.7 or higher is required.
 
 # Install
 
@@ -202,6 +235,13 @@ guide and consult the [FAQ](#faq).
 
 If you are using Ubuntu and Unity then you can add the Spacemacs logo by
 following the instructions [here][cpaulik-unity-icon].
+
+If you're on a mac and didn't install emacs with the spacemacs logo, you can apply
+it to the app bundle after installation. An .icns version of the logo by [Nasser
+Alshammari](http://www.nass3r.com) is [available from his github](https://github.com/nashamri/spacemacs-logo).
+You can paste this into the app bundle to get the spacemacs logo on your emacs.
+[More detailed instructions](http://www.idownloadblog.com/2014/07/16/how-to-change-app-icon-mac/)
+if you've not done this before.
 
 # Update
 
@@ -303,9 +343,7 @@ Variables can be directly set within `dotspacemacs-configuration-layers` like so
 ;; List of configuration layers to load.
 dotspacemacs-configuration-layers '(auto-completion
                                     (git :variables
-                                         git-magit-status-fullscreen t
-                                         git-enable-github-support t
-                                         git-gutter-use-fringe t)
+                                         git-magit-status-fullscreen t)
                                     smex)
 ```
 
@@ -324,7 +362,7 @@ Spacemacs can be used by Vim users or Emacs users by setting the
 `dotspacemacs-editing-style` variable to `'vim` or `'emacs` in the dotfile
 `~/.spacemacs`.
 
-## The leader key
+## The leader keys
 
 `Spacemacs` key bindings use a leader key which is by default bound to
 <kbd>SPC</kbd> (space bar) in `vim` editing style and <kbd>M-m</kbd> in
@@ -336,6 +374,10 @@ the `emacs` style (these variables must be set in the file `~/.spacemacs`).
 
 For simplicity the documentation always refers to the leader key as
 <kbd>SPC</kbd>.
+
+There is secondary leader key called the major-mode leader key which is
+set to <kbd>,</kbd> by default. This key is a shortcut for <kbd>SPC m</kbd>
+where all the major-mode specific commands are bound.
 
 ## Evil-tutor
 
@@ -353,19 +395,19 @@ instead of `C-u` because the latter is used to scroll up as in Vim.
 By using `helm-spacemacs` with <kbd>SPC f e h</kbd> you can quickly search
 for a package and get the name of the layers using it.
 
-You can also easily go to the `README.md` of a layer or go to the initialization
+You can also easily go to the `README.org` of a layer or go to the initialization
 function of a package.
 
 ## Key bindings discovery
 
-Thanks to [guide-key][], whenever a prefix command is pressed (like `<SPC>`)
+Thanks to [guide-key][], whenever a prefix command is pressed (like `SPC`)
 a buffer appears after one second listing the possible keys for this prefix.
 
 It is also possible to search for specific key bindings by pressing:
 
-    <SPC> ?
+    SPC ?
 
-To narrow the bindings list to those prefixed with `<SPC>`,
+To narrow the bindings list to those prefixed with `SPC`,
 type a pattern like this regular expression:
 
     SPC\ b
@@ -386,7 +428,7 @@ Key Binding   |                 Description
 
 # How-To's
 
-Some quick `how-to's` are compiled in the [HOWTOs.md][] file.
+Some quick `how-to's` are compiled in the [HOWTOs.org][] file.
 
 # Contributions
 
@@ -396,7 +438,7 @@ We especially need to create more configuration layers that, for instance, bring
 support for new languages.
 
 If you are ready to contribute please begin by consulting the
-[contribution guidelines][CONTRIBUTE.md] and [conventions][CONVENTIONS.md],
+[contribution guidelines][CONTRIBUTE.org] and [conventions][CONVENTIONS.md],
 thanks!
 
 # License
@@ -466,21 +508,7 @@ also recommended to disable smooth scrolling on Windows.
 A GUI build of emacs supporting image display is required.
 You can follow the instructions [here][Windows Image Support]. Alternatively you
 can download binaries of emacs with image support
-included such as this [one][Windows Gui Build].
-
-3. **How to fix the error: The directory ~/.emacs.d/server is unsafe ?**
-Change the owner of the directory `~/.emacs.d/server`:
-  - from Properties select the Tab “Security”,
-  - select the button “Advanced”,
-  - select the Tab “Owner”
-  - change the owner to your account name
-  Source: [Stackoverflow][so-server-unsafe]
-
-4. **I followed installation instructions and it's not working, why?**
-Make sure your `HOME` directory is set. Go to the Environment Variables
-panel, add a new user variable called `HOME` and give it the value
-`%USERPROFILE%`. You can check that the variable is set correctly by
-opening a new command line window and type `echo %HOME%`.
+included such as [this one][emacs-for-windows].
 
 ## OS X
 
@@ -491,29 +519,29 @@ the [emacs-mac-port][] build. See the [install OSX section][] for more
 details.
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
-[CONVENTIONS.md]: doc/CONVENTIONS.md
-[HOWTOs.md]: doc/HOWTOs.md
-[config]: doc/DOCUMENTATION.md#configuration-layers
-[dotfile]: doc/DOCUMENTATION.md#dotfile-configuration
-[manage_config]: doc/DOCUMENTATION.md#managing-private-configuration-layers
-[using_package_buf]: doc/DOCUMENTATION.md#using-the-package-list-buffer
-[troubleshoot]: doc/DOCUMENTATION.md#troubleshoot
-[contrib layers]: doc/DOCUMENTATION.md#using-configuration-layers
-[Git support]: contrib/git/README.md
+[CONVENTIONS.org]: doc/CONVENTIONS.org
+[HOWTOs.org]: doc/HOWTOs.org
+[config]: doc/DOCUMENTATION.org#configuration-layers
+[dotfile]: doc/DOCUMENTATION.org#dotfile-configuration
+[manage_config]: doc/DOCUMENTATION.org#managing-private-configuration-layers
+[using_package_buf]: doc/DOCUMENTATION.org#using-the-package-list-buffer
+[troubleshoot]: doc/DOCUMENTATION.org#troubleshoot
+[contrib layers]: doc/DOCUMENTATION.org#using-configuration-layers
+[Git support]: contrib/git/README.org
 [git layer]: contrib/git
-[ace-jump]: doc/DOCUMENTATION.md#vim-motions-with-ace-jump-mode
-[project management]: doc/DOCUMENTATION.md#project-management
-[Evil Mode]: doc/DOCUMENTATION.md#evil
+[ace-jump]: doc/DOCUMENTATION.org#vim-motions-with-ace-jump-mode
+[project management]: doc/DOCUMENTATION.org#project-management
+[Evil Mode]: doc/DOCUMENTATION.org#evil
 [private]: ./private
 [layers]: ./contrib
-[DOCUMENTATION.md]: doc/DOCUMENTATION.md
-[font section]: doc/DOCUMENTATION.md#font
-[CONTRIBUTE.md]: doc/CONTRIBUTE.md
-[powerline-seps]: doc/DOCUMENTATION.md#powerline-separators
+[DOCUMENTATION.org]: doc/DOCUMENTATION.org
+[font section]: doc/DOCUMENTATION.org#font
+[CONTRIBUTE.org]: doc/CONTRIBUTE.org
+[powerline-seps]: doc/DOCUMENTATION.org#powerline-separators
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
 [dotfile template]: ./core/templates/.spacemacs.template
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
-[osx layer]: contrib/osx/README.md
+[osx layer]: contrib/osx/README.org
 [guide-key]: https://github.com/kai2nenobu/guide-key
 [guide-key-tip]: https://github.com/aki2o/guide-key-tip
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
@@ -523,21 +551,12 @@ details.
 [emacs-mac-port]: https://github.com/railwaycat/homebrew-emacsmacport
 [emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
 [homebrew]: https://github.com/Homebrew/homebrew
-[Elixir]: contrib/!lang/erlang-elixir
-[Haskell]: contrib/!lang/haskell
-[LaTeX]: contrib/auctex
-[JavaScript]: contrib/!lang/javascript
-[Python]: contrib/!lang/python
-[R]: contrib/!lang/ess
-[Ruby]: contrib/!lang/ruby
-[Scala]: contrib/!lang/scala
-[Clojure]: contrib/!lang/clojure
-[C-C++]: contrib/!lang/c-c++
+[emacs-for-windows]: http://emacsbinw64.sourceforge.net/
+[the platinum searcher]:
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
-[powerline-doc]: doc/DOCUMENTATION.md#powerline-separators
+[powerline-doc]: doc/DOCUMENTATION.org#powerline-separators
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
 [Spacemacs logo]: https://github.com/nashamri/spacemacs-logo
 [Nasser Alshammari]: https://github.com/nashamri
 [cpaulik-unity-icon]: http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/
 [Windows Image Support]: http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files
-[Windows Gui Build]: http://emacsbinw64.sourceforge.net/

@@ -1,0 +1,59 @@
+#+TITLE: Vagrant contribution layer for Spacemacs
+
+[[file:img/vagrant.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features:]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#vagrant][Vagrant]]
+     - [[#testing][Testing]]
+ - [[#keybindings][Keybindings]]
+
+* Description
+
+This layer adds support for working with Vagrant using [[https://github.com/ottbot/vagrant.el][vagrant.el]] and
+[[https://github.com/dougm/vagrant-tramp][vagrant-tramp]].
+
+** Features:
+ - Manage boxes (under the ~SPC V~ prefix)
+ - Remote editing on Vagrant boxes via Tramp
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(ruby vagrant))
+#+END_SRC
+
+*Note:* Since vagrant files are written in =ruby= it is recommended
+to install the =ruby= layer as well.
+
+** Vagrant
+
+Follow the [[http://docs.vagrantup.com/v2/installation/index.html][Installing Vagrant]] and [[http://docs.vagrantup.com/v2/getting-started/index.html][Getting Started]] guides in
+Vagrant's documentation.
+
+** Testing
+
+If you'd like to test this layer out in a simple way (for example to
+make sure you have Vagrant configured correctly) there is a [[file:Vagrantfile][Vagrantfile]]
+in this directory.
+
+* Keybindings
+
+| Key Binding | Description                                                                                    |
+|-------------+------------------------------------------------------------------------------------------------|
+| ~SPC V D~   | destroy a box                                                                                  |
+| ~SPC V e~   | edit the =Vagrantfile=                                                                         |
+| ~SPC V H~   | halt (shut down) a box                                                                         |
+| ~SPC V p~   | (re)provision a box that is already up                                                         |
+| ~SPC V r~   | resume a suspended box (you can also use =SPC V V= for this)                                   |
+| ~SPC V s~   | view the status of running boxes in the current project                                        |
+| ~SPC V S~   | suspend a box                                                                                  |
+| ~SPC V t~   | start a =vagrant-tramp-term= session - after start, edit files at =/vagrant:box_name:filename= |
+| ~SPC V V~   | bring up a Vagrant box                                                                         |

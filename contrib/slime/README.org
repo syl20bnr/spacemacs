@@ -1,0 +1,78 @@
+#+TITLE: SLIME contribution layer for Spacemacs
+
+[[file:img/slime.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#help][Help]]
+     - [[#evaluation][Evaluation]]
+     - [[#repl][REPL]]
+     - [[#compile][Compile]]
+     - [[#navigation][Navigation]]
+
+* Description
+
+A Spacemacs contribution layer for [[https://github.com/slime/slime][SLIME]].
+
+* Install
+
+To use this contribution, add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(slime))
+#+END_SRC
+
+This layer defaults to using [[http://www.sbcl.org/][sbcl]]. If you wan to use a different implementation
+of Common Lisp, you can specify it in your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/config ()
+    (setq inferior-lisp-program "/path/to/your/lisp"))
+#+END_SRC
+
+* Key Bindings
+
+** Help
+
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~SPC m h a~ | SLIME apropos      |
+| ~SPC m h d~ | Disassemble symbol |
+| ~SPC m h h~ | Describe function  |
+| ~SPC m h H~ | Hyperspec lookup   |
+
+** Evaluation
+
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~SPC m e b~ | Evaluate buffer                 |
+| ~SPC m e f~ | Evaluate top level s-expression |
+| ~SPC m e e~ | Evaluate last expression        |
+| ~SPC m e r~ | Evaluate region                 |
+
+** REPL
+
+| Key Binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC m s i~ | Start an inferior process        |
+| ~SPC m s e~ | Evaluate last expression in REPL |
+| ~SPC m s q~ | Quit                             |
+
+** Compile
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC m c c~ | Compile file             |
+| ~SPC m c C~ | Compile file and load it |
+| ~SPC m c f~ | Compile function         |
+| ~SPC m c r~ | Compile region           |
+
+** Navigation
+
+| Key Binding               | Description        |
+|---------------------------+--------------------|
+| ~SPC m g g~               | Inspect definition |
+| ~SPC m g n~               | Next note          |
+| ~SPC m g N~ or ~SPC m g p | Previous note      |

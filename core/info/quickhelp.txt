@@ -14,12 +14,16 @@ Press SPC (in Vim mode) or Alt-m (in Emacs mode) to access Spacemacs commands.
 
 Press SPC f e d (Vim) or Alm-m f e d (Emacs) to access .spacemacs file.
 
-Press SPC f e h (Vim) or Alt-m f e h (Emacs) to access a list of supported layers.
-You can type anything to narrow to a specific feature i.e. "python" for Python layer.
-There are two lists and you can press C-o to switch between the two:
+Press SPC f e h (Vim) or Alt-m f e h (Emacs) to access a list of documentation
+and supported layers. You can type anything to narrow to a specific feature i.e.
+"python" for Python layer. There are five lists and you can press Ctrl-o to switch
+between them:
 
-- the first list gives documentation of each layer.
+- Spacemacs documentation -> Layer documentation -> Package Source Code ->
+  Dotfile variables -> Spacemacs toggles
 
-- the second list gives access to the source code of each layer.
+When reading a document, you can use SPC s l (Vim) or M-m s l (Emacs) to jump to
+a heading. The table of content is just for overview and for using with Github
+when you read the doc with a web browser.
 
-Please consult Spacemacs documentation for more details.
+Please consult Spacemacs documentation from SPC f e h for more details.

@@ -63,6 +63,14 @@
 (defvar spacemacs/prefix-command-string "group:"
   "Prefix string for prefix commands.")
 
+(defun spacemacs/jump-in-buffer ()
+  (interactive)
+  (cond
+   ((eq major-mode 'org-mode)
+    (call-interactively 'helm-org-in-buffer-headings))
+   (t
+    (call-interactively 'helm-semantic-or-imenu))))
+
 (defun spacemacs/declare-prefix (prefix name)
   "Declare a prefix PREFIX. PREFIX is a string describing
 a key sequence. NAME is a symbol name used as the prefix command."
@@ -867,11 +875,13 @@ The body of the advice is in BODY."
   (let ((file-path (if (eq major-mode 'dired-mode)
                        (dired-get-file-for-visit)
                      (buffer-file-name))))
-    (cond
-     ((system-is-mswindows) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\\\" file-path)))
-     ((system-is-mac) (shell-command (format "open \"%s\"" file-path)))
-     ((system-is-linux) (let ((process-connection-type nil))
-                          (start-process "" nil "xdg-open" file-path))))))
+    (if file-path
+        (cond
+         ((system-is-mswindows) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\\\" file-path)))
+         ((system-is-mac) (shell-command (format "open \"%s\"" file-path)))
+         ((system-is-linux) (let ((process-connection-type nil))
+                              (start-process "" nil "xdg-open" file-path))))
+      (message "No file associated to this buffer."))))
 
 (defun spacemacs/next-error (&optional n reset)
   "Dispatch to flycheck or standard emacs error."
@@ -956,3 +966,46 @@ The body of the advice is in BODY."
               (member major-mode spacemacs-indent-sensitive-modes)))
      (let ((transient-mark-mode nil))
        (yank-advised-indent-function (region-beginning) (region-end)))))
+
+;; modified function from http://emacswiki.org/emacs/AlignCommands
+(defun align-repeat (start end regexp &optional justify-right after)
+  "Repeat alignment with respect to the given regular expression.
+If JUSTIFY-RIGHT is non nil justify to the right instead of the
+left. If AFTER is non-nil, add whitespace to the left instead of
+the right."
+  (interactive "r\nsAlign regexp: ")
+  (let ((complete-regexp (if after
+                             (concat regexp "\\([ \t]*\\)")
+                           (concat "\\([ \t]*\\)" regexp)))
+        (group (if justify-right -1 1)))
+    (align-regexp start end complete-regexp group 1 t)))
+
+;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
+(defun align-repeat-decimal (start end)
+  "Align a table of numbers on decimal points and dollar signs (both optional)"
+  (interactive "r")
+  (require 'align)
+  (align-region start end nil
+                '((nil (regexp . "\\([\t ]*\\)\\$?\\([\t ]+[0-9]+\\)\\.?")
+                       (repeat . t)
+                       (group 1 2)
+                       (spacing 1 1)
+                       (justify nil t)))
+                nil))
+
+(defmacro create-align-repeat-x (name regexp &optional justify-right default-after)
+  (let ((new-func (intern (concat "align-repeat-" name))))
+    `(defun ,new-func (start end switch)
+       (interactive "r\nP")
+       (let ((after (not (eq (if switch t nil) (if ,default-after t nil)))))
+         (align-repeat start end ,regexp ,justify-right after)))))
+
+(create-align-repeat-x "comma" "," nil t)
+(create-align-repeat-x "semicolon" ";" nil t)
+(create-align-repeat-x "colon" ":" nil t)
+(create-align-repeat-x "equal" "=")
+(create-align-repeat-x "math-oper" "[+\\-*/]")
+(create-align-repeat-x "ampersand" "&")
+(create-align-repeat-x "bar" "|")
+(create-align-repeat-x "left-paren" "(")
+(create-align-repeat-x "right-paren" ")" t)

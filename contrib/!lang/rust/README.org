@@ -1,0 +1,38 @@
+#+TITLE: Rust contribution layer for Spacemacs
+
+[[file:img/rust.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#cargo][Cargo]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer aims to support [[http://www.rust-lang.org/][Rust]] development in Spacemacs.
+
+It supports [[http://doc.crates.io/index.html][Cargo]], and has some basic auto-completion support through [[https://github.com/phildawes/racer][Racer]],
+though Racer needs some additional configurations as described on their page.
+
+* Install
+
+** Layer
+To use this layer, add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(rust))
+#+END_SRC
+
+** Cargo
+[[http://doc.crates.io/index.html][Cargo]] is a project management command line tool for Rust. Installation
+instructions can be found on the main page of [[http://doc.crates.io/index.html][Cargo]].
+
+* Key bindings
+
+| Key Binding | Description                       |
+|-------------+-----------------------------------|
+| ~SPC m c c~ | compile project with Cargo        |
+| ~SPC m c t~ | run tests with Cargo              |
+| ~SPC m c d~ | generate documentation with Cargo |
+| ~SPC m c x~ | execute the project with Cargo    |

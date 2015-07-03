@@ -24,8 +24,9 @@
     pip-requirements
     pony-mode
     pyenv-mode
-    pyvenv
+    pytest
     python
+    pyvenv
     semantic
     smartparens
     stickyfunc-enhance
@@ -123,6 +124,27 @@
     (evil-leader/set-key-for-mode 'python-mode
       "mV" 'pyvenv-workon)))
 
+(defun python/init-pytest ()
+  (use-package pytest
+    :if (eq 'pytest python-test-runner)
+    :defer t
+    :commands (pytest-one
+               pytest-pdb-one
+               pytest-all
+               pytest-pdb-all
+               pytest-module
+               pytest-pdb-module)
+    :init (evil-leader/set-key-for-mode 'python-mode
+            "mTa" 'pytest-pdb-all
+            "mta" 'pytest-all
+            "mTb" 'pytest-pdb-module
+            "mtb" 'pytest-module
+            "mTt" 'pytest-pdb-one
+            "mtt" 'pytest-one
+            "mTm" 'pytest-pdb-module
+            "mtm" 'pytest-module)
+    :config (add-to-list 'pytest-project-root-files "setup.cfg")))
+
 (defun python/init-python ()
   (use-package python
     :defer t
@@ -153,6 +175,10 @@
                   python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
           (setq python-shell-interpreter "python")))
 
+      (defun inferior-python-setup-hook ()
+        (setq indent-tabs-mode t))
+
+      (add-hook 'inferior-python-mode-hook #'inferior-python-setup-hook)
       (add-all-to-hook 'python-mode-hook
                        'python-default
                        'python-setup-shell))

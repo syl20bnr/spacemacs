@@ -1,0 +1,128 @@
+#+TITLE: Helm Gtags contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+     - [[#gnu-global][GNU Global]]
+ - [[#usage][Usage]]
+     - [[#eldoc-integration][Eldoc integration]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+=helm-gtags= and =ggtags= are clients for GNU Global. GNU Global is a source
+code tagging system that allows querying symbol locations in source code, such
+as definitions or references.
+
+* Features
+
+- Select any tag in a project retrieves by gtags
+- Resume previous helm-gtags session
+- Jump to a location based on context
+- Find definitions
+- Find references
+- Present tags in current function only
+- Create a tag database
+- Jump to definitions in file
+- Show stack of visited locations
+- Manually update tag database
+- Jump to next location in context stack
+- Jump to previous location in context stack
+- Jump to a file in tag database
+
+* Install
+
+** GNU Global
+
+You can install =helm-gtags= from the software repository of your OS. For example, in Ubuntu:
+
+#+BEGIN_SRC sh
+  sudo apt-get install global
+#+END_SRC
+
+To use =helm-gtags=, you first have to install [[https://www.gnu.org/software/global/download.html][GNU Global]].
+
+Download the latest tar.gz archive, then run these commands:
+
+#+BEGIN_SRC sh
+  tar xvf global-6.4.tar.gz
+  cd global-6.4
+  ./configure
+  make
+  sudo make install
+#+END_SRC
+
+To be able to use =ctags= and other backends, you need to copy the sample
+=gtags.conf= either to =/etc/gtags.conf= or =$HOME/.globalrc=. For example:
+
+#+begin_src sh
+  cp gtags.conf ~/.globalrc
+#+end_src
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(gtags))
+#+END_SRC
+
+* Usage
+
+Before using the helm-gtags, remember to create a GTAGS database by the following methods:
+
+- From within Emacs, runs the command =helm-gtags-create-tags=, which is bound
+  to ~SPC m g c~. If the language is not directly supported by GNU Global, you
+  can choose =ctags= or =pygment= as a backend to generate tag database.
+
+- From inside terminal, runs gtags at your project root in terminal:
+
+#+BEGIN_SRC sh
+  cd /path/to/project/root
+  gtags
+#+END_SRC
+
+If the language is not directly supported by =gtags= but =ctags=, use this command instead:
+
+#+BEGIN_SRC sh
+  gtags --gtagslabel=ctags
+#+END_SRC
+
+** Eldoc integration
+
+This layer also integrates =ggtags= for its Eldoc feature. That means, when
+writing code, you can look at the minibuffer (at the bottom) and see variable
+and function definition of the symbol the cursor is on. However, this feature is
+only activated for programming modes that are not one of these languages:
+
+- C mode
+- C++ mode
+- Common Lisp
+- Emacs Lisp
+- Python
+- Ruby-mode
+
+In addition, if output from =compile= (bound to ~SPC c C~), =shell-command=
+(bound to ~SPC !~ and ~M-!~) or =async-shell-command= (bound to ~M-&~) commands
+contains symbol in your project, you move cursor on such symbol and use any of
+the gtags commands.
+
+Since these modes have better Eldoc integration already.
+
+* Key bindings
+
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m g c~ | create a tag database                                     |
+| ~SPC m g f~ | jump to a file in tag database                            |
+| ~SPC m g g~ | jump to a location based on context                       |
+| ~SPC m g G~ | jump to a location based on context (open another window) |
+| ~SPC m g d~ | find definitions                                          |
+| ~SPC m g i~ | present tags in current function only                     |
+| ~SPC m g l~ | jump to definitions in file                               |
+| ~SPC m g n~ | jump to next location in context stack                    |
+| ~SPC m g p~ | jump to previous location in context stack                |
+| ~SPC m g r~ | find references                                           |
+| ~SPC m g R~ | resume previous helm-gtags session                        |
+| ~SPC m g s~ | select any tag in a project retrieved by gtags            |
+| ~SPC m g S~ | show stack of visited locations                           |
+| ~SPC m g u~ | manually update tag database                              |

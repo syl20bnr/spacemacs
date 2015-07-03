@@ -18,6 +18,13 @@
 ;; improve delete-other-windows
 (define-key global-map (kbd "C-x 1") 'toggle-maximize-buffer)
 
+;; replace `dired-goto-file' with `helm-find-files', since `helm-find-files'
+;; can do the same thing and with fuzzy matching and other features.
+(eval-after-load 'dired
+  '(progn
+     (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
+     (define-key dired-mode-map "j" 'spacemacs/helm-find-files)))
+
 ;; alternate binding to search next occurrence with isearch without
 ;; exiting isearch
 (define-key isearch-mode-map (kbd "S-<return>") 'isearch-repeat-forward)
@@ -77,7 +84,8 @@ Ensure that helm is required before calling FUNC."
   (let ((func-name (intern (format "spacemacs/%s" (symbol-name func)))))
     `(progn
        (defun ,func-name ()
-         ,(format "Wrapper for %s" (symbol-name func))
+         ,(format "Wrapper to ensure that `helm' is loaded before calling %s."
+                  (symbol-name func))
          (interactive)
          (require 'helm)
          (call-interactively ',func))
@@ -295,6 +303,18 @@ Ensure that helm is required before calling FUNC."
   "w="  'balance-windows)
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
+  "xaa" 'align
+  "xar" 'align-repeat
+  "xam" 'align-repeat-math-oper
+  "xa." 'align-repeat-decimal
+  "xa," 'align-repeat-comma
+  "xa;" 'align-repeat-semicolon
+  "xa:" 'align-repeat-colon
+  "xa=" 'align-repeat-equal
+  "xa&" 'align-repeat-ampersand
+  "xa|" 'align-repeat-bar
+  "xa(" 'align-repeat-left-paren
+  "xa)" 'align-repeat-right-paren
   "xdw" 'delete-trailing-whitespace
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines

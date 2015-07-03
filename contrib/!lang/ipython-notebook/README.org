@@ -1,0 +1,139 @@
+#+TITLE: IPython Notebook contribution layer for Spacemacs (WIP)
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description-][Description ]]
+ - [[#features][Features]]
+ - [[#list-of-todos][List of TODOS]]
+     - [[#todo-maybe-itd-be-better-if-there-was-a-state-for-this][TODO Maybe it'd be better if there was a state for this]]
+     - [[#todo-make-more-keybinding-to-connect-to-a-python-buffer][TODO Make more keybinding to =connect= to a python buffer.]]
+     - [[#todo-deleting-visual-regions-dont-work-find-out-why][TODO Deleting visual regions don't work, find out why.]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#dependencies][Dependencies]]
+     - [[#what-needs-to-be-run][What needs to be run]]
+ - [[#using-the-ipython-notebook][Using the IPython notebook]]
+     - [[#open-notebook-list][Open Notebook List]]
+     - [[#key-bindings][Key Bindings]]
+         - [[#micro-state-ipython-notebook-][Micro-state: =ipython-notebook= ]]
+         - [[#normal-mode][Normal mode]]
+         - [[#insert-mode][Insert mode]]
+ - [[#screenshots][Screenshots]]
+     - [[#light][Light]]
+     - [[#dark][Dark]]
+ - [[#bonus][Bonus]]
+
+* Description 
+This layer adds support for the package =emacs-ipython-notebook=.
+
+Do not hesitate to check the original package README [[https://github.com/millejoh/emacs-ipython-notebook][here]]. Also the wiki has
+lots of informative stuff.
+
+* Features
+- Keybindings available through micro-State or leader key
+- Lazy-loading
+
+* List of TODOS
+This is a WIP, feel free to collaborate.
+** TODO Maybe it'd be better if there was a state for this
+** TODO Make more keybinding to =connect= to a python buffer.
+** TODO Deleting visual regions don't work, find out why.
+
+* Install
+** Layer
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(ipython-notebook))
+#+end_src
+** Dependencies
+Install IPython > 3
+#+begin_src sh
+  pip install ipython
+#+end_src
+** What needs to be run
+Have an IPython notebook running
+#+begin_src sh
+  ipython notebook
+#+end_src
+
+* Using the IPython notebook
+** Open Notebook List
+This layer is lazy loaded so the micro-state will only work after you summon the
+command =ein:notebooklist-open= which is bound to ~SPC a i n~
+** Key Bindings
+The key bindings can be used through a micro state or the usual evil-leader.
+
+*** Micro-state: =ipython-notebook= 
+Once you are in the ipython notebook you can activate the micro-state with
+~SPC e i n~
+
+The following table lists the keys. Use them as listed in the micro-state or
+prefix with ~SPC m~ to use with your evil-leader.
+
+| Key     | Function                                  |
+|---------+-------------------------------------------|
+| ~h~     | ein:notebook-worksheet-open-prev-or-last  |
+| ~j~     | ein:worksheet-goto-next-input             |
+| ~k~     | ein:worksheet-goto-prev-input             |
+| ~l~     | ein:notebook-worksheet-open-next-or-first |
+| ~H~     | ein:notebook-worksheet-move-prev          |
+| ~J~     | ein:worksheet-move-cell-down              |
+| ~K~     | ein:worksheet-move-cell-up                |
+| ~L~     | ein:notebook-worksheet-move-next          |
+| ~t~     | ein:worksheet-toggle-output               |
+| ~d~     | ein:worksheet-kill-cell                   |
+| ~R~     | ein:worksheet-rename-sheet                |
+| ~y~     | ein:worksheet-copy-cell                   |
+| ~p~     | ein:worksheet-yank-cell                   |
+| ~o~     | ein:worksheet-insert-cell-below           |
+| ~O~     | ein:worksheet-insert-cell-above           |
+| ~u~     | ein:worksheet-change-cell-type            |
+| ~RET~   | ein:worksheet-execute-cell-and-goto-next  |
+| ~C-l~   | ein:worksheet-clear-output                |
+| ~C-S-l~ | ein:worksheet-clear-all-output            |
+| ~C-o~   | ein:console-open                          |
+| ~C-k~   | ein:worksheet-merge-cell                  |
+| ~C-j~   | spacemacs/ein:worksheet-merge-cell-next   |
+| ~C-s~   | ein:notebook-save-notebook-command        |
+| ~C-r~   | ein:notebook-rename-command               |
+| ~1~     | ein:notebook-worksheet-open-1th           |
+| ~2~     | ein:notebook-worksheet-open-2th           |
+| ~3~     | ein:notebook-worksheet-open-3th           |
+| ~4~     | ein:notebook-worksheet-open-4th           |
+| ~5~     | ein:notebook-worksheet-open-5th           |
+| ~6~     | ein:notebook-worksheet-open-6th           |
+| ~7~     | ein:notebook-worksheet-open-7th           |
+| ~8~     | ein:notebook-worksheet-open-8th           |
+| ~9~     | ein:notebook-worksheet-open-last          |
+| ~+~     | ein:notebook-worksheet-insert-next        |
+| ~-~     | ein:notebook-worksheet-delete             |
+| ~x~     | ein:notebook-close                        |
+
+*** Normal mode
+In normal mode the following key bindings are defined:
+
+| Key     | Function                                 |
+|---------+------------------------------------------|
+| ~gj~    | ein:worksheet-goto-next-input            |
+| ~gk~    | ein:worksheet-goto-prev-input            |
+| ~C-RET~ | ein:worksheet-execute-cell               |
+| ~S-RET~ | ein:worksheet-execute-cell-and-goto-next |
+
+Also ~SPC f s~ saves the notebook like you would a regular buffer.
+
+*** Insert mode
+In normal mode the following key bindings are defined:
+
+| Key     | Function                                 |
+|---------+------------------------------------------|
+| ~C-RET~ | ein:worksheet-execute-cell               |
+| ~S-RET~ | ein:worksheet-execute-cell-and-goto-next |
+
+* Screenshots
+** Light
+[[file:img/light.png]]
+** Dark
+[[file:img/dark.png]]
+
+* Bonus
+If you want to have a matplotlibrc that looks good with a dark background try
+using [[file:matplotlibrc][this]] =matplotlibrc=. Plot background is always transparent by default so
+it will look okay for most dark themes out there.

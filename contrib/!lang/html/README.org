@@ -1,0 +1,71 @@
+#+TITLE: HTML contribution layer for Spacemacs
+
+[[file:img/html.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#features][Features:]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#web-mode][Web mode]]
+     - [[#cssscss][CSS/Scss]]
+
+* Description
+
+This layer adds support for editing HTML and CSS.
+
+** Features:
+- Editing HTML and CSS file using [[http://web-mode.org/][web-mode]]
+- Support for Sass/Scss and Less files
+- Generate HTML and CSS coding using [[https://github.com/smihica/emmet-mode][emmet-mode]]
+- Tags navigation on key ~%~ using [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(html))
+#+END_SRC
+
+* Key Bindings
+
+** Web mode
+
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m g p~ | quickly navigate CSS rules using =helm=                   |
+| ~SPC m e h~ | highlight DOM errors                                      |
+| ~SPC m g b~ | go to the beginning of current element                    |
+| ~SPC m g c~ | go to the first child element                             |
+| ~SPC m g p~ | go to the parent element                                  |
+| ~SPC m g s~ | go to next sibling                                        |
+| ~SPC m h p~ | show xpath of the current element                         |
+| ~SPC m r c~ | clone the current element                                 |
+| ~SPC m r d~ | delete the current element (does not delete the children) |
+| ~SPC m r r~ | rename current element                                    |
+| ~SPC m r w~ | wrap current element                                      |
+| ~SPC m z~   | fold/unfold current element                               |
+
+A micro-state is also defined, start it with ~SPC m .~ or ~, .~
+
+| Key Binding | Description                                                    |
+|-------------+----------------------------------------------------------------|
+| ~?~         | Toggle full help                                               |
+| ~c~         | clone current element                                          |
+| ~d~         | delete (vanish) current element (does not delete the children) |
+| ~h~         | previous element                                               |
+| ~l~         | next element                                                   |
+| ~L~         | next sibling element                                           |
+| ~k~         | parent element                                                 |
+| ~j~         | first child element                                            |
+| ~p~         | show xpath of current element                                  |
+| ~r~         | rename current element                                         |
+| ~q~         | leave the micro-state                                          |
+| ~w~         | wrap current element                                           |
+
+** CSS/Scss
+
+| Key Binding | Description                             |
+|-------------+-----------------------------------------|
+| ~SPC m g h~ | quickly navigate CSS rules using =helm= |

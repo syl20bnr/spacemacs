@@ -1,0 +1,11 @@
+#+TITLE: Tmux contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#what-is-this][What is this]]
+
+* What is this
+
+This is an extension to support [[https://github.com/Keithbsmiley/evil-tmux-navigator][evil-tmux-navigator]]. It requires a little
+configuration for tmux, so check the upstream documentation.
+
+

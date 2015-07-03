@@ -1,0 +1,51 @@
+#+TITLE: Purescript contribution layer for Spacemacs
+
+[[file:img/purescript-logo.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+     - [[#purescript][Purescript]]
+         - [[#imports][Imports]]
+     - [[#repl][REPL]]
+
+* Description
+
+This layer provides basic Purescript editing support for spacemacs
+thanks to the following packages:
+- [[https://github.com/dysinger/purescript-mode][purescript-mode]]
+- [[https://github.com/ardumont/emacs-psci][psci]]
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(purescript))
+#+END_SRC
+
+* Key bindings
+
+** Purescript
+
+*** Imports
+
+| Key Binding | Description                                                   |
+|-------------+---------------------------------------------------------------|
+| ~SPC m i =~ | Format imports                                                |
+| ~SPC m i \~ | Return to where you were editing before navigating to imports |
+| ~SPC m i a~ | Align imports                                                 |
+| ~SPC m i n~ | Navigate to the imports                                       |
+
+** REPL
+
+[[https://github.com/ardumont/emacs-psci][psci]] provides a very basic REPL for purescript. The following key
+bindings are available:
+
+| Key Binding | Description                                                                      |
+|-------------+----------------------------------------------------------------------------------|
+| ~SPC m s b~ | Equivalent of =:m /path/to/current/module/file.purs= - Load <file> for importing |
+| ~SPC m s i~ | Launch a psci console buffer                                                     |
+| ~SPC m s m~ | Equivalent of =:i your.current.module.name= - Import <module> for use in PSCI    |
+| ~SPC m s p~ | Load or reload files defined in the project file .psci                           |

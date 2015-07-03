@@ -193,19 +193,38 @@
       ;; use hippie-expand instead
       (setq yas-minor-mode-map (make-sparse-keymap))
 
+      ;; allow nested expansions
+      (setq yas-triggers-in-field t)
+
+      ;; this makes it easy to get out of a nested expansion
+      (define-key yas-minor-mode-map
+        (kbd "M-s-/") 'yas-next-field)
+
+      ;; add key into candidate list
+      (setq helm-yas-display-key-on-candidate t)
+      (setq spacemacs--auto-completion-dir
+            (configuration-layer/get-layer-property 'auto-completion :dir))
+
       (defun spacemacs/load-yasnippet ()
         (unless yas-global-mode
           (progn
             (yas-global-mode 1)
             (let ((private-yas-dir (concat
                                     configuration-layer-private-directory
-                                    "snippets/")))
+                                    "snippets/"))
+                  (spacemacs-snippets-dir (expand-file-name
+                                           "snippets"
+                                           spacemacs--auto-completion-dir)))
               (setq yas-snippet-dirs
                     (append (list private-yas-dir)
                             (when (boundp 'yas-snippet-dirs)
-                              yas-snippet-dirs)))
+                              yas-snippet-dirs)
+                            spacemacs-snippets-dir))
+              (yas-load-directory spacemacs-snippets-dir t)
+              (yas-load-directory private-yas-dir t)
               (setq yas-wrap-around-region t))))
         (yas-minor-mode 1))
+
       (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
                                                 markdown-mode-hook
                                                 org-mode-hook))
@@ -225,6 +244,18 @@
                                                      eshell-mode-hook)))
     :config
     (progn
+      ;;  We need to know whether the smartparens was enabled, see
+      ;; `yas-before-expand-snippet-hook' below.
+      (defvar smartparens-enabled-initially t
+        "Stored whether smartparens is originally enabled or not.")
+
+      (add-hook 'yas-before-expand-snippet-hook (lambda ()
+                                                  ;; If enabled, smartparens will mess snippets expanded by `hippie-expand`
+                                                  (setq smartparens-enabled-initially smartparens-mode)
+                                                  (smartparens-mode -1)))
+      (add-hook 'yas-after-exit-snippet-hook (lambda ()
+                                               (when smartparens-enabled-initially
+                                                 (smartparens-mode 1))))
       (spacemacs|diminish yas-minor-mode " ⓨ" " y"))))
 
 (defun auto-completion/init-auto-yasnippet ()

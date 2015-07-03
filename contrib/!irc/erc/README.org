@@ -1,0 +1,64 @@
+#+TITLE: ERC contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#os-x][OS X]]
+     - [[#social-graph][Social graph]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
+
+* Features
+
+- Highlight nicks (using [[https://github.com/leathekd/erc-hl-nicks][erc-hl-nicks]])
+- Image inline support (using [[https://github.com/kidd/erc-image.el][erc-image]])
+- Logging to ~/.emacs.d/.cache/erc-logs and ViewLogMode for viewing logs
+  (using [[https://github.com/Niluge-KiWi/erc-view-log][erc-view-log]])
+- YouTube videos Thumbnails inline (using [[https://github.com/yhvh/erc-yt][erc-yt]])
+- Social Graph for ERC messages (using [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]])
+- ERC yank, if pasting more than 5 lines, create a gist for it. (needs to have
+  =github= layer enabled, or using =gist= package)
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(erc))
+#+END_SRC
+
+** OS X
+
+It's recommended to install the [[https://github.com/alloy/terminal-notifier][terminal-notifier gem]] so that you get
+notifications via the OS X Notification Center.
+
+** Social graph
+
+ [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]] needs graphviz to be installed on your system.
+
+* Key bindings
+
+| Key Binding   | Description                                           |
+|---------------+-------------------------------------------------------|
+| ~SPC a i e~   | Starts ERC                                            |
+| ~SPC a i E~   | Starts ERC via TLS/SSL                                |
+| ~SPC a i i~   | Switch to next active ERC buffer                      |
+| ~SPC m b~     | Switch between ERC buffers                            |
+| ~SPC m d~     | Interactively input a user action and send it to IRC. |
+| ~SPC m D~     | Draw Social Graph using  [[https://github.com/vibhavp/erc-social-graph][erc-social-graph]]             |
+| ~SPC m j~     | Join a channel, executes the /join command            |
+| ~SPC m n~     | Run "/names #channel" in the current channel.         |
+| ~SPC m l~     | Run the /list command                                 |
+| ~SPC m p~     | Part from the channel                                 |
+| ~SPC m q~     | Quit server                                           |
+
+*Note:* If you want to connect securely to an IRC server, you must run =erc-tls=
+     command on ~SPC a i E~ instead of the =erc= command.
+

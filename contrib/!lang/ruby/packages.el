@@ -37,7 +37,16 @@
   "Initialize Ruby Mode"
   (use-package enh-ruby-mode
     :mode (("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
-           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))))
+           ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
+    :config
+    (progn
+      (setq enh-ruby-deep-indent-paren nil
+            enh-ruby-hanging-paren-deep-indent-level 2)
+      (sp-with-modes '(ruby-mode enh-ruby-mode)
+        (sp-local-pair "{" "}"
+                       :pre-handlers '(sp-ruby-pre-handler)
+                       :post-handlers '(sp-ruby-post-handler (spacemacs/smartparens-pair-newline-and-indent "RET"))
+                       :suffix "")))))
 
 (defun ruby/post-init-flycheck ()
   (add-hook 'enh-ruby-mode-hook 'flycheck-mode))
@@ -174,4 +183,6 @@
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
-    (spacemacs|add-company-hook enh-ruby-mode)))
+    (spacemacs|add-company-hook enh-ruby-mode)
+    (eval-after-load 'company-dabbrev-code
+      '(push 'enh-ruby-mode company-dabbrev-code-modes))))

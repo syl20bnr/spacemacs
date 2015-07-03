@@ -1,0 +1,80 @@
+#+TITLE: OSX contribution layer for Spacemacs
+
+[[file:img/apple.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#philosophy][Philosophy]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#coreutils][Coreutils]]
+ - [[#key-bindings][Key Bindings]]
+ - [[#future-work][Future Work]]
+
+* Description
+
+Spacemacs is not just emacs+vim. It can have OSX keybindings too! 
+This layer globally defines common OSX keybindings. ~⌘~ is set to
+~super~ and ~⌥~ is set to ~meta~. Aside from that, there's nothing
+much, really.
+
+While in =dired= this layer will try to use =gls= instead of =ls=.
+
+* Philosophy
+
+While this layer enables common OSX bindings, it does not implement
+OSX navigation keybindings. Spacemacs is meant to be used with evil,
+and we encourage you to do so :)
+
+* Install
+
+** Layer
+
+To use this configuration layer, add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(osx))
+#+END_SRC
+
+*** Use with non-US keyboard layouts
+
+If you need the ~⌥~ key to type common characters such as `{[]}~` which is usual
+for e.g. Finnish and Swedish keyboard layouts, you'll probably want to leave the
+~⌥~ key unchanged by setting the =osx-use-option-as-meta= variable to =nil=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(
+     (osx :variables osx-use-option-as-meta nil)))
+#+END_SRC
+
+** Coreutils
+
+To get =gls= install coreutils homebrew:
+
+#+BEGIN_SRC sh
+  brew install coreutils
+#+END_SRC
+
+* Key Bindings
+
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~⌘ +~       | Scale up text     |
+| ~⌘ -~       | Scale down text   |
+| ~⌘ q~       | Quit              |
+| ~⌘ v~       | Paste             |
+| ~⌘ c~       | Copy              |
+| ~⌘ x~       | Cut               |
+| ~⌘ a~       | Select all        |
+| ~⌘ w~       | Close window      |
+| ~⌘ W~       | Close frame       |
+| ~⌘ n~       | New frame         |
+| ~⌘ z~       | Undo              |
+| ~⌘ Z~       | Redo              |
+| ~⌃ ⌘ f~     | Toggle fullscreen |
+
+* Future Work
+
+- Allow user to choose from either ~hyper~ or ~super~ as ~⌘~. This is an option
+  that is supported cross-platform.
+- Configurable option to keep the OSX and spacemacs clipboards separate
