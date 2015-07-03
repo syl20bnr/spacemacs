@@ -103,12 +103,12 @@ The variable has no effect when =auto-complete= is used.
 ** Show snippets in auto-completion popup
 
 By default, snippets are not shown in the auto-completion popup. To show them in
-the popup, set the variable =auto-completion-show-snippets-in-popup= to =t=.
+the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
                 '((auto-completion :variables
-                                   auto-completion-show-snippets-in-popup t))
+                                   auto-completion-enable-snippets-in-popup t))
 #+END_SRC
 
 ** Enable company or auto-complete globally
