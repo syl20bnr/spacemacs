@@ -1,4 +1,12 @@
 * Release 0.103.x (2015/07/01)
+** 0.103.1
+*** Layer changes
+- Fix ~F~ in Vim style in =Magit= status buffer, now ~F~ is correctly
+  bound to =pull= popup menu
+- Fix intermittent erroneous ~k~ key binding in =Magit= status buffer. 
+*** Core
+- Fix mandatory dependency on =evil-escape=
+- Fix evilification of =evil-escape= starter key
 ** 0.103.0
 *** IMPORTANT: Breaking changes
 - Spacemacs is now compatible only with =Magit 2.1= and later, be
