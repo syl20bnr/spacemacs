@@ -2517,7 +2517,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
 
 (defun spacemacs/init-popwin ()
   (use-package popwin
-    :init
+    :config
     (progn
       (popwin-mode 1)
       (evil-leader/set-key "wpm" 'popwin:messages)
