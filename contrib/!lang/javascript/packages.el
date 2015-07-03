@@ -148,7 +148,7 @@
     :defer t
     :config
     (evil-leader/set-key-for-mode 'json-mode
-      "msp" 'jsons-print-path)
+      "mhp" 'jsons-print-path)
     ))
 
 (defun javascript/init-tern ()
