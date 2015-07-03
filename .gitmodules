@@ -16,3 +16,6 @@
 [submodule "spacemacs/extensions/spray"]
 	path = spacemacs/extensions/spray
 	url = https://github.com/syl20bnr/spray
+[submodule "contrib/which-key/extensions/which-key"]
+	path = contrib/which-key/extensions/which-key
+	url = https://github.com/justbur/emacs-which-key

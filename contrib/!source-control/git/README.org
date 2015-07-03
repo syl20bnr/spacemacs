@@ -128,7 +128,7 @@ style you can refer directly to the magit manual:
 | ~b b~            | checkout a branch                                   |
 | ~b c~            | create a branch                                     |
 | ~f f~            | fetch changes                                       |
-| ~C-f -r F~       | pull and rebase                                     |
+| ~F -r F~         | pull and rebase                                     |
 | ~h~              | go left                                             |
 | ~j~              | go down                                             |
 | ~C-S-j~ or ~C-n~ | goto next magit section                             |
@@ -214,7 +214,7 @@ message.
   - ~M~ to open the =remote popup=
   - ~a~ to add a remote, type the name (i.e. =upstream=) and the URL
 - Pull changes from upstream (the parent repository you have forked) and push:
-  - ~C-f -r C-u F~ and choose =upstream= or the name you gave to it
+  - ~F -r C-u F~ and choose =upstream= or the name you gave to it
   - ~P P~ to push the commit to =origin=
 
 ** Git time machine
