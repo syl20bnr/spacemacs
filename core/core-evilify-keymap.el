@@ -21,7 +21,11 @@
                           (or ,evilified-map evil-evilified-state-map)))
              processed)
          (mapc (lambda (map-entry)
-                 (unless (member (car map-entry) processed)
+                 (unless (or (member (car map-entry) processed)
+                             ;; don't care about evil-escape starter key
+                             (and (boundp 'evil-escape-key-sequence)
+                                  (equal (car map-entry)
+                                         (elt evil-escape-key-sequence 0))))
                    (setq processed (spacemacs//evilify-event
                                     ,map ',map
                                     (car map-entry) (cdr map-entry)))))
@@ -138,8 +142,7 @@
            ,(spacemacs//evilify-wrapper-documentation
              map-value event evil-value evil-event)
            (interactive)
-           (if (and (eq 'evilified evil-state)
-                    (null evil-escape-inhibit))
+           (if (eq 'evilified evil-state)
                ;; evilified state
                ,(if evil-value
                    (spacemacs//evilify-call evil-value event)
