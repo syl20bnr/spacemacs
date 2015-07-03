@@ -1,0 +1,18 @@
+#+TITLE: Which-key contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+
+This layer is a work in progress to test [[https://github.com/justbur/emacs-which-key][which-key]] package in Spacemacs.
+=which-key= is aimed to replace =guide-key=, it is developed by [[https://github.com/justbur][justbur]].
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(which-key))
+#+END_SRC
