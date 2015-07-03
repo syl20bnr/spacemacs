@@ -45,6 +45,7 @@
   (use-package enh-ruby-mode
     :mode (("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
            ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
+    :interpreter "ruby"
     :config
     (progn
       (setq enh-ruby-deep-indent-paren nil
