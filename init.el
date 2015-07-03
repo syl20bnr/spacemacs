@@ -13,7 +13,7 @@
 ;; Without this comment emacs25 adds (package-initialize) here
 ;; (package-initialize)
 
-(defconst spacemacs-version          "0.103.0" "Spacemacs version.")
+(defconst spacemacs-version          "0.103.1" "Spacemacs version.")
 (defconst spacemacs-emacs-min-version   "24.3" "Minimal version of Emacs.")
 
 (defun spacemacs/emacs-version-ok ()
