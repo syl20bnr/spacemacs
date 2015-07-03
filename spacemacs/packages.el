@@ -154,10 +154,14 @@
       (defun spacemacs/ace-buffer-links ()
         "Ace jump to links in `spacemacs' buffer."
         (interactive)
-        (ali-generic
-         (spacemacs//collect-spacemacs-buffer-links)
-         (forward-char 1)
-         (widget-button-press (point)))))))
+        (let ((res (avy--with-avy-keys spacemacs/ace-buffer-links
+                    (avy--process
+                        (spacemacs//collect-spacemacs-buffer-links)
+                        #'avy--overlay-pre))))
+            (when res
+            (goto-char (1+ res))
+            (widget-button-press (point))))))))
+
 
 (defun spacemacs/init-ace-window ()
   (use-package ace-window
