@@ -480,7 +480,7 @@ done by setting the list =dotspacemacs-configuration-layer-path= in your
 
 *** Setting configuration layers variables
 Some configuration layers have configuration variables to enable specific
-support. For instance the [[../contrib/!tools/git][git layer]] has several configuration variables, they
+support. For instance the [[../contrib/!source-control/git][git layer]] has several configuration variables, they
 can be set directly in the =dotspacemacs-configuration-layers= like this:
 
 #+begin_src emacs-lisp
