@@ -16,16 +16,16 @@
 
 (defun java/init-emacs-eclim ()
   (use-package eclim
+    :defer t
+    :init (add-hook 'java-mode-hook 'eclim-mode)
     :config
     (progn
-      (message "starting eclim mode")
-      (global-eclim-mode)
-      (setq help-at-pt-display-when-idle t)
-      (setq help-at-pt-timer-delay 0.1)
+      (setq help-at-pt-display-when-idle t
+            help-at-pt-timer-delay 0.1)
       (help-at-pt-set-timer)
 
       (add-to-list 'minor-mode-alist
-             '(eclim-mode (:eval (eclim-modeline-string))))
+                   '(eclim-mode (:eval (eclim-modeline-string))))
 
       (evil-define-key 'insert java-mode-map
         (kbd ".") 'java/completing-dot
@@ -39,7 +39,6 @@
         (kbd "M-,") 'pop-tag-mark
         (kbd "M-<mouse-3>") 'eclim-java-find-declaration
         (kbd "<mouse-8>") 'pop-tag-mark)
-
 
       (evil-define-key 'normal eclim-problems-mode-map
         (kbd "a") 'eclim-problems-show-all
@@ -69,55 +68,53 @@
         (kbd "q") 'eclim-quit-window)
 
       (evil-leader/set-key-for-mode 'java-mode
-
-        "meo" 'eclim-problems-open
-        "meb" 'eclim-problems
         "mea" 'eclim-problems-show-all
+        "meb" 'eclim-problems
+        "mec" 'eclim-problems-correct
         "mee" 'eclim-problems-show-errors
-        "mew" 'eclim-problems-show-warnings
         "mef" 'eclim-problems-toggle-filefilter
         "men" 'eclim-problems-next-same-window
+        "meo" 'eclim-problems-open
         "mep" 'eclim-problems-previous-same-window
-        "mec" 'eclim-problems-correct
+        "mew" 'eclim-problems-show-warnings
 
         "mgg" 'eclim-java-find-declaration
+        "mgn" 'eclim-java-find-generic
         "mgt" 'eclim-java-find-type
-        "mff" 'eclim-java-find-generic
 
-        "mrf" 'eclim-java-format
-        "mrr" 'eclim-java-refactor-rename-symbol-at-point
-        "mri" 'eclim-java-import-organize
-        "mrg" 'eclim-java-generate-getter-and-setter
         "mrc" 'eclim-java-constructor
+        "mrg" 'eclim-java-generate-getter-and-setter
+        "mrf" 'eclim-java-format
+        "mri" 'eclim-java-import-organize
         "mrj" 'eclim-java-implement
+        "mrr" 'eclim-java-refactor-rename-symbol-at-point
 
-
-        "mhh" 'eclim-java-show-documentation-for-current-element
-        "mhu" 'eclim-java-find-references
         "mhc" 'eclim-java-call-hierarchy
+        "mhh" 'eclim-java-show-documentation-for-current-element
         "mhi" 'eclim-java-hierarchy
+        "mhu" 'eclim-java-find-references
 
-        "mmm" 'java/maven-clean-install
-        "mmp" 'eclim-maven-lifecycle-phases
-        "mmR" 'eclim-maven-lifecycle-phase-run
-        "mmr" 'eclim-maven-run
-        "mmt" 'java/maven-test
         "mmi" 'java/maven-clean-install
         "mmI" 'java/maven-install
+        "mmm" 'java/maven-clean-install
+        "mmp" 'eclim-maven-lifecycle-phases
+        "mmr" 'eclim-maven-run
+        "mmR" 'eclim-maven-lifecycle-phase-run
+        "mmt" 'java/maven-test
 
         "maa" 'eclim-ant-run
+        "mac" 'eclim-ant-clear-cache
         "mar" 'eclim-ant-run
         "mav" 'eclim-ant-validate
-        "mac" 'eclim-ant-clear-cache
 
-        "mpj" 'eclim-project-info-mode
-        "mpo" 'eclim-project-open
         "mpb" 'eclim-project-build
+        "mpc" 'eclim-project-create
         "mpd" 'eclim-project-delete
         "mpg" 'eclim-project-goto
         "mpi" 'eclim-project-import
-        "mpc" 'eclim-project-create
+        "mpj" 'eclim-project-info-mode
         "mpk" 'eclim-project-close
+        "mpo" 'eclim-project-open
         "mpp" 'eclim-project-mode
         "mpu" 'eclim-project-update
 
