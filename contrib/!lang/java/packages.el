@@ -10,14 +10,9 @@
 
 (defvar java-packages
   '(
-    projectile
     emacs-eclim
     company
     ))
-
-(defun java/init-projectile ()
-  (use-package projectile
-    :defer t))
 
 (defun java/init-emacs-eclim ()
   (use-package eclim
