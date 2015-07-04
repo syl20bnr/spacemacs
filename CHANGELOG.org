@@ -1,5 +1,20 @@
 * Release 0.104.x (next)
 ** 0.104.0
+*** IMPORTANT: Breaking changes
+- =Ruby on Rails= framework has now its own layer called =ruby-on-rails=,
+  be sure to add this layer to your dotfile if you use RoR.
+- =Django= framework has now its own layer called =django=,
+  be sure to add this layer to your dotfile if you use it.
+*** New Layers
+- django (split from python layer)
+- idris (thanks to zmthy)
+- java (thanks to kleewho)
+- sml (thanks to Devagamster)
+- ruby-on-rails (split from ruby layer)
+*** Layer changes
+**** Javascript
+- Add =json-snatcher= on ~SPC m h p~ (thanks to CestDiego)
+
 * Release 0.103.x (2015/07/01)
 ** 0.103.1
 *** Layer changes

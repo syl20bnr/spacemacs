@@ -1,1 +1,11 @@
-Nothing for now.
+1. Ruby on Rails
+
+Ruby on Rails framework has now its own layer called `ruby-on-rails`,
+be sure to add this layer to your dotfile if you use it.
+
+2. Django
+
+Django framework has now its own layer called `django`,
+be sure to add this layer to your dotfile if you use it.
+
+
