@@ -438,7 +438,7 @@ We especially need to create more configuration layers that, for instance, bring
 support for new languages.
 
 If you are ready to contribute please begin by consulting the
-[contribution guidelines][CONTRIBUTE.org] and [conventions][CONVENTIONS.md],
+[contribution guidelines][CONTRIBUTE.org] and [conventions][CONVENTIONS.org],
 thanks!
 
 # License
@@ -519,8 +519,11 @@ the [emacs-mac-port][] build. See the [install OSX section][] for more
 details.
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
+[CONTRIBUTE.org]: doc/CONTRIBUTE.org
 [CONVENTIONS.org]: doc/CONVENTIONS.org
+[DOCUMENTATION.org]: doc/DOCUMENTATION.org
 [HOWTOs.org]: doc/HOWTOs.org
+[VIMUSERS.org]: doc/VIMUSERS.org
 [config]: doc/DOCUMENTATION.org#configuration-layers
 [dotfile]: doc/DOCUMENTATION.org#dotfile-configuration
 [manage_config]: doc/DOCUMENTATION.org#managing-private-configuration-layers
@@ -534,9 +537,7 @@ details.
 [Evil Mode]: doc/DOCUMENTATION.org#evil
 [private]: ./private
 [layers]: ./contrib
-[DOCUMENTATION.org]: doc/DOCUMENTATION.org
 [font section]: doc/DOCUMENTATION.org#font
-[CONTRIBUTE.org]: doc/CONTRIBUTE.org
 [powerline-seps]: doc/DOCUMENTATION.org#powerline-separators
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
 [dotfile template]: ./core/templates/.spacemacs.template
