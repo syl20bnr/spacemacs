@@ -1,5 +1,7 @@
 #+TITLE: Java contribution layer for Spacemacs
 
+[[file:img/java.png]]
+
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#layer-installation][Layer Installation]]
