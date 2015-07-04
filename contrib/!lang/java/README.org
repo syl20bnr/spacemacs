@@ -1,0 +1,147 @@
+#+TITLE: Java contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#layer-installation][Layer Installation]]
+     - [[#layer][Layer]]
+     - [[#eclim][Eclim]]
+         - [[#installation][Installation]]
+         - [[#usage][Usage]]
+ - [[#key-bindings][Key bindings]]
+     - [[#java-mode][Java-mode]]
+         - [[#project-management][Project management]]
+         - [[#maven][Maven]]
+         - [[#goto][Goto]]
+         - [[#refactoring][Refactoring]]
+         - [[#documentation-find][Documentation, Find]]
+         - [[#problems][Problems]]
+         - [[#tests][Tests]]
+     - [[#problems-buffer][Problems buffer]]
+     - [[#projects-buffer][Projects buffer]]
+
+* Description
+This layer adds support for the Java language using the [[http://eclim.org][Eclim]] client/server.
+
+* Layer Installation
+** Layer
+Add this layer to your =~/.spacemacs=.
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers '(java))
+#+END_SRC
+
+** Eclim
+Eclim provides the ability to access Eclipse features such as code completion,
+searching, code validation, and many more.
+
+*** Installation
+For installation check the [[http://eclim.org/install.html#download][official page]].
+
+Then set the =Eclipse= and =Eclim= paths in =dotspacemacs/config=,
+for instance:
+
+#+BEGIN_SRC elisp
+(setq eclim-eclipse-dirs '("~/opt/eclipse")
+                         '(eclim-executable "~/opt/eclipse/eclim"))
+#+END_SRC
+
+*** Usage
+Currently you have to have =eclimd= already started.
+This layer doesn't try to control =eclimd= in no way although there's that
+option in =emacs-eclim= itself.
+
+* Key bindings
+** Java-mode
+*** Project management
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC m p b~ | Build project                  |
+| ~SPC m p c~ | Create project                 |
+| ~SPC m p d~ | Delete project                 |
+| ~SPC m p g~ | Open file in current project   |
+| ~SPC m p i~ | Import project                 |
+| ~SPC m p j~ | Information about project      |
+| ~SPC m p k~ | Close project                  |
+| ~SPC m p o~ | Open project                   |
+| ~SPC m p s~ | Open project management buffer |
+| ~SPC m p u~ | Update project                 |
+
+*** Maven
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC m m i~ | Run maven clean install        |
+| ~SPC m m I~ | Run maven install              |
+| ~SPC m m p~ | Run one already goal from list |
+| ~SPC m m r~ | Run maven goals                |
+| ~SPC m m R~ | Run one maven goal             |
+| ~SPC m m t~ | Run maven test                 |
+
+*** Goto
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~M-,~       | jump back from go to declaration/definition |
+| ~SPC m g g~ | go to declaration                           |
+| ~SPC m g t~ | go to type definition                       |
+
+*** Refactoring
+| Key Binding | Description      |
+|-------------+------------------|
+| ~SPC m r i~ | optimize imports |
+| ~SPC m r f~ | Format file      |
+| ~SPC m r r~ | Rename symbol    |
+
+*** Documentation, Find
+| Key Binding | Description                            |
+|-------------+----------------------------------------|
+| ~SPC m f f~ | general find in project                |
+| ~SPC m h h~ | show documentation for symbol at point |
+| ~SPC m h u~ | show usages for symbol at point        |
+
+*** Problems
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~SPC m e a~ | set all problems for next/prev action      |
+| ~SPC m e b~ | open buffer with problems                  |
+| ~SPC m e c~ | show options with problem corrections      |
+| ~SPC m e e~ | set only errors for next/prev action       |
+| ~SPC m e f~ | set only current file for next/prev action |
+| ~SPC m e n~ | go to next problem                         |
+| ~SPC m e o~ | open buffer with problems                  |
+| ~SPC m e p~ | go to previous problem                     |
+| ~SPC m e w~ | set warnings for next/prev action          |
+
+*** Tests
+| Key Binding | Description                                                   |
+|-------------+---------------------------------------------------------------|
+| ~SPC m t t~ | run JUnit tests for current method or current file or project |
+
+
+** Problems buffer
+| Key Binding | Description                         |
+|-------------+-------------------------------------|
+| ~RET~       | go to problem place                 |
+| ~a~         | show all problems                   |
+| ~e~         | show only errors                    |
+| ~f~         | show problems only for current file |
+| ~g~         | refresh problems                    |
+| ~q~         | quit                                |
+| ~w~         | show only warnings                  |
+
+** Projects buffer
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
+| ~RET~       | go to current project                      |
+| ~c~         | go to problem place                        |
+| ~D~         | delete project                             |
+| ~g~         | refresh buffer                             |
+| ~i~         | info about current project                 |
+| ~I~         | import existing project into the workspace |
+| ~m~         | mark current project                       |
+| ~M~         | mark all projects                          |
+| ~N~         | create new project                         |
+| ~o~         | open project                               |
+| ~p~         | update project                             |
+| ~q~         | quit                                       |
+| ~R~         | rename current project                     |
+| ~u~         | unmark current project                     |
+| ~U~         | unmark all projects                        |

@@ -78,8 +78,9 @@
         "mep" 'eclim-problems-previous-same-window
         "mew" 'eclim-problems-show-warnings
 
+        "mff" 'eclim-java-find-generic
+
         "mgg" 'eclim-java-find-declaration
-        "mgn" 'eclim-java-find-generic
         "mgt" 'eclim-java-find-type
 
         "mrc" 'eclim-java-constructor
