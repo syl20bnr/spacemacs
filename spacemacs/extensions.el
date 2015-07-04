@@ -136,9 +136,6 @@
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))))
 
-(defun spacemacs/init-spacemacs-theme()
-  (use-package spacemacs-theme))
-
 (defun spacemacs/init-zoom-frm ()
   (use-package zoom-frm
     :commands (zoom-frm-unzoom
