@@ -122,11 +122,10 @@
         "mtT" 'java/maven-test)))
 
   (use-package company-emacs-eclim
-    ;;:if (configuration-layer/layer-usedp 'company)
-    :config (progn
-              (message "company-emacs-eclim-setup")
-              (company-emacs-eclim-setup)
-              (global-company-mode t))))
+    :if (configuration-layer/package-usedp 'company)
+    :defer t
+    :init
+    (push 'company-emacs-eclim company-backend-java-mode)))
 
 (defun java/post-init-company ()
   (spacemacs|add-company-hook java-mode))
