@@ -106,7 +106,7 @@
         (magit-diff "HEAD"))
 
       (evil-leader/set-key
-        "gb" 'magit-blame-mode
+        "gb" 'magit-blame
         "gl" 'magit-log
         "gL" 'magit-log-buffer-file
         "gs" 'magit-status
