@@ -21,20 +21,3 @@
 
 (defvar python-test-runner 'nose
   "Test runner to use. Possible values are `nose' or `pytest'.")
-
-;; Command prefixes
-
-;; not supported for now
-;; (setq python/key-binding-prefixes
-;;       '(; django/pony-mode
-;;         ("mj" . "django")
-;;         ("mjr" . "django-runserver")
-;;         ("mji" . "django-shells")
-;;         ("mjs" . "django-south/syncdb")
-;;         ("mjt" . "django-test")
-;;         ("mjf" . "django-files")
-;;         ("mja" . "django-fabric")
-;;         ; pyenv/pyenv-mode
-;;         ("mp" . "pyenv")))
-;; (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-;;       python/key-binding-prefixes)
