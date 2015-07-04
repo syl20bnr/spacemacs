@@ -124,7 +124,7 @@
     :if (configuration-layer/package-usedp 'company)
     :defer t
     :init
-    (push 'company-emacs-eclim company-backend-java-mode)))
+    (push 'company-emacs-eclim company-backends-java-mode)))
 
 (defun java/post-init-company ()
   (spacemacs|add-company-hook java-mode))
