@@ -28,7 +28,7 @@
                    '(eclim-mode (:eval (eclim-modeline-string))))
 
       (evil-define-key 'insert java-mode-map
-        (kbd ".") 'java/completing-dot
+        (kbd ".") 'spacemacs/java-completing-dot
         (kbd "M-.") 'eclim-java-find-declaration
         (kbd "M-,") 'pop-tag-mark
         (kbd "M-<mouse-3>") 'eclim-java-find-declaration
@@ -94,13 +94,12 @@
         "mhi" 'eclim-java-hierarchy
         "mhu" 'eclim-java-find-references
 
-        "mmi" 'java/maven-clean-install
-        "mmI" 'java/maven-install
-        "mmm" 'java/maven-clean-install
+        "mmi" 'spacemacs/java-maven-clean-install
+        "mmI" 'spacemacs/java-maven-install
         "mmp" 'eclim-maven-lifecycle-phases
         "mmr" 'eclim-maven-run
         "mmR" 'eclim-maven-lifecycle-phase-run
-        "mmt" 'java/maven-test
+        "mmt" 'spacemacs/java-maven-test
 
         "maa" 'eclim-ant-run
         "mac" 'eclim-ant-clear-cache
@@ -118,8 +117,7 @@
         "mpp" 'eclim-project-mode
         "mpu" 'eclim-project-update
 
-        "mtt" 'eclim-run-junit
-        "mtT" 'java/maven-test)))
+        "mtt" 'eclim-run-junit)))
 
   (use-package company-emacs-eclim
     :if (configuration-layer/package-usedp 'company)
