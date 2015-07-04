@@ -92,6 +92,7 @@
         rfringe
         smartparens
         smooth-scrolling
+        spacemacs-theme
         subword
         undo-tree
         use-package
