@@ -1,4 +1,4 @@
-# Idris contribution layer for Spacemacs
+#+TITLE: Idris contribution layer for Spacemacs
 
 [[file:img/idris.png]]
 
@@ -23,7 +23,7 @@ This layer adds support for the [[http://www.idris-lang.org/][Idris]] language.
 ** Layer
 To use this layer, add it to your =~/.spacemacs=
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC elisp
 (setq-default dotspacemacs-configuration-layers '(idris))
 #+END_SRC
 
