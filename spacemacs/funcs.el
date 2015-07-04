@@ -661,12 +661,17 @@ For instance pass En as source for english."
 
 (defun spacemacs/insert-line-above-no-indent (count)
   (interactive "p")
-  (save-excursion
-    (evil-previous-line)
-    (evil-move-end-of-line)
-    (while (> count 0)
-      (insert "\n")
-      (setq count (1- count)))))
+  (let ((p (+ (point) count)))
+    (save-excursion
+       (if (eq (line-number-at-pos) 1)
+          (evil-move-beginning-of-line)
+        (progn
+          (evil-previous-line)
+          (evil-move-end-of-line)))
+      (while (> count 0)
+        (insert "\n")
+        (setq count (1- count))))
+    (goto-char p)))
 
 (defun spacemacs/insert-line-below-no-indent (count)
   "Insert a new line below with no identation."
