@@ -203,7 +203,7 @@ To fix it change the owner of the directory `~/.emacs.d/server`:
 
 Source: [Stackoverflow][so-server-unsafe]
 
-For efficient searches we recommend to install `pt` [the platinum searcher][].
+For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 `pt` version 1.7.7 or higher is required.
 
 # Install
@@ -553,7 +553,7 @@ details.
 [emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
 [homebrew]: https://github.com/Homebrew/homebrew
 [emacs-for-windows]: http://emacsbinw64.sourceforge.net/
-[the platinum searcher]:
+[the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
 [powerline-doc]: doc/DOCUMENTATION.org#powerline-separators
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start
