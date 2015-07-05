@@ -135,6 +135,7 @@
      ("\\.hbs\\'"        . web-mode)
      ("\\.eco\\'"        . web-mode)
      ("\\.jsx\\'"        . web-mode)
+     ("\\.ejs\\'"        . web-mode)
      ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/init-emmet-mode ()
