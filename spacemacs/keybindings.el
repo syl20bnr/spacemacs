@@ -109,6 +109,7 @@ Ensure that helm is required before calling FUNC."
   "eN" 'spacemacs/previous-error)
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key
+  "fc" 'spacemacs/copy-file
   "fD"  'delete-current-buffer-file
   "fei" 'find-user-init-file
   "fes" 'find-spacemacs-file
@@ -123,12 +124,11 @@ Ensure that helm is required before calling FUNC."
   "fR"  'rename-current-buffer-file
   "fS" 'evil-write-all
   "fs" 'spacemacs/write-file
-  "fC" 'spacemacs/copy-file
   "fy" 'show-and-copy-buffer-filename)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
-  "iJ" 'spacemacs/insert-line-below-no-indent 
-  "iK" 'spacemacs/insert-line-above-no-indent 
+  "iJ" 'spacemacs/insert-line-below-no-indent
+  "iK" 'spacemacs/insert-line-above-no-indent
   "ik" 'evil-insert-line-above
   "ij" 'evil-insert-line-below)
 ;; format ---------------------------------------------------------------------
