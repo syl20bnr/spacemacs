@@ -1009,3 +1009,12 @@ the right."
 (create-align-repeat-x "bar" "|")
 (create-align-repeat-x "left-paren" "(")
 (create-align-repeat-x "right-paren" ")" t)
+
+(defun replace-strings-from-alist (replacements)
+  "Find and replace text in buffer according to REPLACEMENTS,
+which is an alist where the car of each element is the text to
+replace and the cdr is the replacement text. "
+  (dolist (rep replacements)
+    (save-excursion
+      (while (search-forward (car rep) nil t)
+        (replace-match (cdr rep) nil t)))))

@@ -1330,6 +1330,30 @@ Example: (evil-map visual \"<\" \"<gv\")"
             guide-key-tip/enabled nil)
       (setq guide-key/highlight-command-regexp
                    (cons spacemacs/prefix-command-string font-lock-warning-face))
+
+      (defvar spacemacs-guide-key-replacement-alist
+            '(("spacemacs/helm-project-smart-do-search-region-or-symbol" . "\"Smart Search Project\"")
+              ("select-window-0" . "\"Window 0\"")
+              ("spacemacs/" . "")
+              ("evil-" . ""))
+            "List of text replacements for commands in guide-key popup")
+
+      (defadvice guide-key/popup-function (around filter-bindings 0 nil activate)
+        "Advice the guide-key/popup-function to use the text
+replacements in `spacemacs-guide-key-replacement-alist'."
+        (cl-letf* (((symbol-function 'orig-describe-buffer-bindings)
+                    (symbol-function 'describe-buffer-bindings))
+                   ((symbol-function 'describe-buffer-bindings)
+                    (lambda (buffer &optional prefix menus)
+                      (let (res)
+                        (with-temp-buffer
+                          (orig-describe-buffer-bindings buffer prefix menus)
+                          (goto-char (point-min))
+                          (replace-strings-from-alist spacemacs-guide-key-replacement-alist)
+                          (setq res (buffer-string)))
+                        (insert res)))))
+          ad-do-it))
+
       (guide-key-mode 1)
       (spacemacs|diminish guide-key-mode " Ⓖ" " G"))))
 
