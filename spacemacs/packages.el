@@ -92,6 +92,7 @@
         rfringe
         smartparens
         smooth-scrolling
+        spacemacs-theme
         subword
         undo-tree
         use-package
@@ -2326,6 +2327,14 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
   (use-package leuven-theme
     :defer t
     :init (setq org-fontify-whole-heading-line t)))
+
+(defun spacemacs/init-spacemacs-theme ()
+  (use-package spacemacs-theme
+    :defer t
+    :init
+    (progn
+      (setq spacemacs-theme-comment-bg t)
+      (setq spacemacs-theme-org-height t))))
 
 (defun spacemacs/init-linum-relative ()
   (use-package linum-relative
