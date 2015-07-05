@@ -1,13 +1,23 @@
-* Release 0.103.x (2015/07/01)
-** 0.103.1
+* Release 0.103.x
+** 0.103.2 (2015/07/04)
 *** Layer changes
+**** Git
+- Fix =magit-repository-directories= variable name (thanks to travisbhartwell)
+- Fix =magit-blame= key binding (thanks to jenanwise)
+- Use -magit-log-all= instead of =magit-log= on ~SPC g l~ (thanks to tuhdo)
+*** Other fixes and improvements
+- Typos and documentation improvements (thanks to cscorley, dstcruz, h3dkandi,
+  kccai, MadAnd, person808, Profpatsch, stnly, stormpat, xfq, zachlatta)
+** 0.103.1 (2015/07/02)
+*** Layer changes
+**** Git
 - Fix ~F~ in Vim style in =Magit= status buffer, now ~F~ is correctly
   bound to =pull= popup menu
 - Fix intermittent erroneous ~k~ key binding in =Magit= status buffer. 
 *** Core
 - Fix mandatory dependency on =evil-escape=
 - Fix evilification of =evil-escape= starter key
-** 0.103.0
+** 0.103.0 (2015/07/01)
 *** IMPORTANT: Breaking changes
 - Spacemacs is now compatible only with =Magit 2.1= and later, be
   sure to update your packages.
