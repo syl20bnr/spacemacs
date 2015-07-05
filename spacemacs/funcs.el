@@ -972,6 +972,8 @@ The body of the advice is in BODY."
      (let ((transient-mark-mode nil))
        (yank-advised-indent-function (region-beginning) (region-end)))))
 
+;; BEGIN align functions
+
 ;; modified function from http://emacswiki.org/emacs/AlignCommands
 (defun align-repeat (start end regexp &optional justify-right after)
   "Repeat alignment with respect to the given regular expression.
@@ -1014,3 +1016,18 @@ the right."
 (create-align-repeat-x "bar" "|")
 (create-align-repeat-x "left-paren" "(")
 (create-align-repeat-x "right-paren" ")" t)
+
+;; END align functions
+
+(defun spacemacs/write-file ()
+  "Write the file if visiting a file.
+   Otherwise ask for new filename."
+  (interactive)
+  (if (buffer-file-name)
+      (call-interactively 'evil-write)
+    (call-interactively 'write-file)))
+
+(defun spacemacs/copy-file ()
+  "Write the file under new name."
+  (interactive)
+  (call-interactively 'write-file))
