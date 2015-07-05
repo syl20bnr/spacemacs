@@ -2766,7 +2766,7 @@ It is a string holding:
 - the number of columns in the selection if it covers only one line,
 - the number of lines in the selection if if covers several full lines
 - or rowsxcols if it's a block selection."
-        (let* ((lines (count-lines (region-beginning) (1+ (region-end))))
+        (let* ((lines (count-lines (region-beginning) (min (1+ (region-end)) (point-max))))
                (chars (- (1+ (region-end)) (region-beginning)))
                (cols (1+ (abs (- (column-number-at-pos (region-end))
                                  (column-number-at-pos (region-beginning)))))))
