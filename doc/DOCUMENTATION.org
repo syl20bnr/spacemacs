@@ -300,13 +300,13 @@ Configuration is organized in layers. Each layer has the following structure:
 
 Where:
 
-      | File           | Usage                                                                |
-      |----------------+----------------------------------------------------------------------|
-      | config.el      | Emacs built-in configuration or mandatory configuration              |
-      | extensions.el  | The list of extensions to load and the functions to initialize them  |
-      | funcs.el       | Various functions and macros (often used in keybindings.el)          |
-      | keybindings.el | Emacs built-in key bindings or mandatory key bindings                |
-      | packages.el    | The list of packages to install and the functions to initialize them |
+| File           | Usage                                                                |
+|----------------+----------------------------------------------------------------------|
+| config.el      | Emacs built-in configuration or mandatory configuration              |
+| extensions.el  | The list of extensions to load and the functions to initialize them  |
+| funcs.el       | Various functions and macros (often used in keybindings.el)          |
+| keybindings.el | Emacs built-in key bindings or mandatory key bindings                |
+| packages.el    | The list of packages to install and the functions to initialize them |
 
 =Packages= are =ELPA= packages which can be installed from an =ELPA= compliant
 repository, and =Extensions= are generally elisp code from git submodules.
@@ -621,20 +621,21 @@ your =~/.spacemacs=):
 * Evil plugins
 =Spacemacs= ships with the following evil plugins:
 
-                 | Mode                          | Description                                              |
-                 |-------------------------------+----------------------------------------------------------|
-                 | [[https://github.com/cofi/evil-leader][evil-leader]]                   | vim leader that bring a new layer of keys in normal mode |
-                 | [[https://github.com/cofi/evil-indent-textobject][evil-indent-textobject]]        | add text object based on indentation level               |
-                 | [[https://github.com/bling/evil-visualstar][evil-visualstar]]               | search for current selection with ~*~                    |
-                 | [[https://github.com/Dewdrops/evil-exchange][evil-exchange]]                 | port of [[https://github.com/tommcdo/vim-exchange][vim-exchange]]                                     |
-                 | [[https://github.com/timcharper/evil-surround][evil-surround]]                 | port of [[https://github.com/tpope/vim-surround][vim-surround]]                                     |
-                 | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]                  | port of [[http://www.vim.org/scripts/script.php?script_id=39][matchit.vim]]                                      |
-                 | [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]]           | port of [[https://github.com/scrooloose/nerdcommenter][nerdcommenter]]                                    |
-                 | [[https://github.com/juanjux/evil-search-highlight-persist][evil-search-highlight-persist]] | emulation of hlsearch behavior                           |
-                 | [[https://github.com/cofi/evil-numbers][evil-numbers]]                  | like ~C-a~ and ~C-x~ in vim                              |
-                 | [[https://github.com/wcsmith/evil-args][evil-args]]                     | motions and text objects for arguments                   |
-                 | [[https://github.com/bling/evil-jumper][evil-jumper]]                   | jump list emulation                                      |
-                 | [[https://github.com/jaypei/emacs-neotree][NeoTree]]                       | mimic [[https://github.com/scrooloose/nerdtree][NERD Tree]]                                          |
+| Mode                          | Description                                              |
+|-------------------------------+----------------------------------------------------------|
+| [[https://github.com/cofi/evil-leader][evil-leader]]                   | vim leader that bring a new layer of keys in normal mode |
+| [[https://github.com/cofi/evil-indent-textobject][evil-indent-textobject]]        | add text object based on indentation level               |
+| [[https://github.com/bling/evil-visualstar][evil-visualstar]]               | search for current selection with ~*~                    |
+| [[https://github.com/Dewdrops/evil-exchange][evil-exchange]]                 | port of [[https://github.com/tommcdo/vim-exchange][vim-exchange]]                                     |
+| [[https://github.com/timcharper/evil-surround][evil-surround]]                 | port of [[https://github.com/tpope/vim-surround][vim-surround]]                                     |
+| [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]                  | port of [[http://www.vim.org/scripts/script.php?script_id=39][matchit.vim]]                                      |
+| [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]]           | port of [[https://github.com/scrooloose/nerdcommenter][nerdcommenter]]                                    |
+| [[https://github.com/juanjux/evil-search-highlight-persist][evil-search-highlight-persist]] | emulation of hlsearch behavior                           |
+| [[https://github.com/cofi/evil-numbers][evil-numbers]]                  | like ~C-a~ and ~C-x~ in vim                              |
+| [[https://github.com/wcsmith/evil-args][evil-args]]                     | motions and text objects for arguments                   |
+| [[https://github.com/bling/evil-jumper][evil-jumper]]                   | jump list emulation                                      |
+| [[https://github.com/jaypei/emacs-neotree][NeoTree]]                       | mimic [[https://github.com/scrooloose/nerdtree][NERD Tree]]                                          |
+
 * Spacemacs UI
 =Spacemacs= has unique UI elements to make the Emacs experience even more
 enjoyable:
