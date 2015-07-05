@@ -649,14 +649,20 @@ enjoyable:
   - [[#errors-handling][custom fringe bitmaps]] and error feedbacks for [[https://github.com/flycheck/flycheck][Flycheck]]
 
 *** Color themes
-By default, =Spacemacs= uses the theme [[https://github.com/bbatsov/solarized-emacs][solarized-light]].
+
+The official =Spacemacs= theme is [[https://github.com/nashamri/spacemacs-theme][spacemacs-dark]] and it is the default theme
+installed when you first started =Spacemacs=. There are two variants of the
+theme, a dark one and a light one. Some aspect of these themes can be customized
+in the function =dotspacemacs/init= of your =~/.spacemacs=:
+  - the comment background with the boolean =spacemacs-theme-comment-bg=
+  - the height of org section titles with =spacemacs-theme-org-height=
 
 It is possible to define your default themes in your =~/.spacemacs= with the
-variable =dotspacemacs-themes=. For instance, to specify =leuven= and =zenburn=
-(high contrast theme and low contrast theme):
+variable =dotspacemacs-themes=. For instance, to specify =solarized-light=,
+=leuven= and =zenburn=:
 
 #+begin_src emacs-lisp
-    (setq-default dotspacemacs-themes '(leuven zenburn))
+    (setq-default dotspacemacs-themes '(solarized-light leuven zenburn))
 #+end_src
 
 | Key Binding | Description                                           |
