@@ -5,13 +5,26 @@
   be sure to add this layer to your dotfile if you use RoR.
 - =Django= framework has now its own layer called =django=,
   be sure to add this layer to your dotfile if you use it.
+*** Hot new features:
+- The default theme of Spacemacs is now =spacemacs-dark=. The Spacemacs themes
+  (=spacemacs-dark= and =spacemacs-light=) becomes the official themes of
+  Spacemacs, official screenshots should be taken with one of these themes.
+  (thanks to nashamri)
 *** New Layers
+- chinese (thanks to andyque)
 - django (split from python layer)
 - idris (thanks to zmthy)
 - java (thanks to kleewho)
 - sml (thanks to Devagamster)
 - ruby-on-rails (split from ruby layer)
 *** Layer changes
+**** Spacemacs
+- Add =copy file= key binding on ~SPC f c~ (thanks to cpaulik)
+- In buffer not visiting a file ~SPC f s~ now asks for a filename (thanks to
+  cpaulik)
+- Fix ~SPC i K~ (insert empty line above point) which now works
+  as expected when used from the first line of a buffer (thanks to
+  travisbhartwell)
 **** Javascript
 - Add =json-snatcher= on ~SPC m h p~ (thanks to CestDiego)
 * Release 0.103.x
