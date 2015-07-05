@@ -69,9 +69,10 @@ Similarly, to change how js-mode indents JSON files, set the variable =js-indent
 
 ** js2-mode
 
-| Key Binding | Description                         |
-|-------------+-------------------------------------|
-| ~SPC m w~   | toggle js2-mode warnings and errors |
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~SPC m w~   | toggle js2-mode warnings and errors  |
+| ~%~         | jump between blockswith [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] |
 
 ** Folding (js2-mode)
 
