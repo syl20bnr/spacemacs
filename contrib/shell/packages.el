@@ -72,7 +72,7 @@
           (projectile-with-default-dir (projectile-project-root) (multi-term)))
         (evil-leader/set-key "p$t" 'projectile-multi-term-in-root)))))
 
-(defun spacemacs/init-shell ()
+(defun shell/init-shell ()
   (defun shell-comint-input-sender-hook ()
     "Check certain shell commands.
  Executes the appropriate behavior for certain commands."
@@ -96,6 +96,18 @@
     (interactive)
     (let ((inhibit-read-only t))
       (erase-buffer)))
+  (when (eq dotspacemacs-editing-style 'vim)
+        (defun setup-keys-for-comint-mode ()
+          (progn
+            (evil-define-key 'insert comint-mode-map
+              (kbd "C-k") 'comint-previous-input
+              (kbd "C-j") 'comint-next-input)
+            (evil-define-key 'normal comint-mode-map
+              (kbd "C-k") 'comint-previous-input
+              (kbd "C-j") 'comint-next-input)
+            ))
+        (add-hook 'comint-mode-hook 'setup-keys-for-comint-mode)
+      )
   (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
   (add-hook 'eshell-mode-hook (lambda ()
                                 (setq pcomplete-cycle-completions nil))))
