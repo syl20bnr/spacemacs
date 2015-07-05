@@ -77,6 +77,7 @@ Possible values are =rbenv= and =rvm=.
 | ~SPC m x '~ | Change symbol or " string to '              |
 | ~SPC m x "~ | Change symbol or ' string to "              |
 | ~SPC m x :~ | Change string to symbol                     |
+| ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks           |
 
 ** ruby-test-mode
 
