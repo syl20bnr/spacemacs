@@ -45,8 +45,10 @@ If the value is nil then no banner is displayed.")
   "List of configuration layers to load. If it is the symbol `all' instead
 of a list then all discovered layers will be installed.")
 
-(defvar dotspacemacs-themes '(solarized-light
+(defvar dotspacemacs-themes '(spacemacs-dark
+                              spacemacs-light
                               solarized-dark
+                              solarized-light
                               leuven
                               monokai
                               zenburn)
