@@ -15,6 +15,9 @@
 (defvar chinese-default-input-method 'pinyin
   "The default chiense input method. Can be `wubi` or `pinyin`.")
 
+(defvar chinese-enable-youdao-dict nil
+  "Enble YouDao Dict translation service.")
+
 ;; Set the monospaced font size when mixed Chinese and English words
 (defun spacemacs//set-monospaced-font (english chinese english-size chinese-size)
   (set-face-attribute 'default nil :font

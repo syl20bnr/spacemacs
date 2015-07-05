@@ -14,12 +14,16 @@
 ;; which require an initialization must be listed explicitly in the list.
 (setq chinese-packages
     '(
-      youdao-dictionary
-      chinese-pyim
       find-by-pinyin-dired
       ace-pinyin
-      chinese-wbim
       ))
+
+(if chinese-enable-youdao-dict
+  (add-to-list 'chinese-packages 'youdao-dictionary))
+
+(if (eq chinese-default-input-method 'wubi)
+    (add-to-list 'chinese-packages 'chinese-wbim)
+  (add-to-list 'chinese-packages 'chinese-pyim))
 
 (defun chinese/init-chinese-wbim ()
   "Initialize chinese-wubi"
@@ -40,6 +44,8 @@
 
 (defun chinese/init-youdao-dictionary ()
   (use-package youdao-dictionary
+    :if chinese-enable-youdao-dict
+    :defer
     :config
     (progn
       ;; Enable Cache
