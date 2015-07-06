@@ -143,17 +143,8 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 
 ;; Use system trash for file deletion
 ;; should work on Windows and Linux distros
-;; on OS X, install `trash' from `homebrew'
+;; on OS X, see contrib/osx layer
 (setq delete-by-moving-to-trash t)
-(when (system-is-mac)
-  ;; use trash if installed
-  (if (executable-find "trash")
-      (defun system-move-file-to-trash (file)
-        "Use `trash' to move FILE to the system trash.
-Can be installed with `brew install trash'."
-        (call-process (executable-find "trash") nil 0 nil file))
-    ;; regular move to trash directory
-    (setq trash-directory "~/.Trash/emacs")))
 
 ;; auto fill breaks line beyond current-fill-column
 (setq-default default-fill-column 80)
