@@ -809,8 +809,9 @@ Some elements can be dynamically toggled:
 |-------------+-----------------------------------------------------------------|
 | ~SPC t m b~ | toggle the battery status                                       |
 | ~SPC t m c~ | toggle the =org= task clock (available in =org= layer)          |
-| ~SPC t m f~ | toggle the flycheck info (available in =syntax-checking= layer) |
 | ~SPC t m m~ | toggle the minor mode lighters                                  |
+| ~SPC t m j~ | toggle the major mode                                           |
+| ~SPC t m g~ | toggle the version control info                                 |
 | ~SPC t m n~ | toggle the cat! (if =colors= layer is declared in your dotfile) |
 | ~SPC t m p~ | toggle the point character position                             |
 | ~SPC t m t~ | toggle the mode line itself                                     |

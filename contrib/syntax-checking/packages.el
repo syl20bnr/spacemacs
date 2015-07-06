@@ -35,14 +35,6 @@
     (progn
       (spacemacs|diminish flycheck-mode " ⓢ" " s")
 
-      (defun spacemacs/mode-line-flycheck-info-toggle ()
-        "Toggle display of flycheck info."
-        (interactive)
-        (if flycheck-mode
-            (flycheck-mode -1)
-          (flycheck-mode)))
-      (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
-
       ;; color mode line faces
       (defun spacemacs/defface-flycheck-mode-line-color (state)
         "Define a face for the given Flycheck STATE."
