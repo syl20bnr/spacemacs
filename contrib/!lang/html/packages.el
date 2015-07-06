@@ -128,6 +128,7 @@
      ("\\.htm\\'"        . web-mode)
      ("\\.[gj]sp\\'"     . web-mode)
      ("\\.as[cp]x\\'"    . web-mode)
+     ("\\.eex\\'"        . web-mode)
      ("\\.erb\\'"        . web-mode)
      ("\\.mustache\\'"   . web-mode)
      ("\\.handlebars\\'" . web-mode)
