@@ -24,5 +24,3 @@
 
 (mapc (lambda(x) (spacemacs/declare-prefix-for-mode 'java-mode (car x) (cdr x)))
       java/key-binding-prefixes)
-
-
