@@ -18,6 +18,11 @@ A Spacemacs contribution layer for [[https://github.com/slime/slime][SLIME]].
 
 * Install
 
+If you have previously installed slime in any other way, it is recommended that
+you uninstall it before proceeding. You should clean up any config files tied to
+slime that are left behind as well. Linux users can just purge the slime package
+if it was a distribution install.
+
 To use this contribution, add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp

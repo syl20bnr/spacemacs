@@ -661,12 +661,17 @@ For instance pass En as source for english."
 
 (defun spacemacs/insert-line-above-no-indent (count)
   (interactive "p")
-  (save-excursion
-    (evil-previous-line)
-    (evil-move-end-of-line)
-    (while (> count 0)
-      (insert "\n")
-      (setq count (1- count)))))
+  (let ((p (+ (point) count)))
+    (save-excursion
+       (if (eq (line-number-at-pos) 1)
+          (evil-move-beginning-of-line)
+        (progn
+          (evil-previous-line)
+          (evil-move-end-of-line)))
+      (while (> count 0)
+        (insert "\n")
+        (setq count (1- count))))
+    (goto-char p)))
 
 (defun spacemacs/insert-line-below-no-indent (count)
   "Insert a new line below with no identation."
@@ -967,6 +972,8 @@ The body of the advice is in BODY."
      (let ((transient-mark-mode nil))
        (yank-advised-indent-function (region-beginning) (region-end)))))
 
+;; BEGIN align functions
+
 ;; modified function from http://emacswiki.org/emacs/AlignCommands
 (defun align-repeat (start end regexp &optional justify-right after)
   "Repeat alignment with respect to the given regular expression.
@@ -1009,3 +1016,18 @@ the right."
 (create-align-repeat-x "bar" "|")
 (create-align-repeat-x "left-paren" "(")
 (create-align-repeat-x "right-paren" ")" t)
+
+;; END align functions
+
+(defun spacemacs/write-file ()
+  "Write the file if visiting a file.
+   Otherwise ask for new filename."
+  (interactive)
+  (if (buffer-file-name)
+      (call-interactively 'evil-write)
+    (call-interactively 'write-file)))
+
+(defun spacemacs/copy-file ()
+  "Write the file under new name."
+  (interactive)
+  (call-interactively 'write-file))

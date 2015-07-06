@@ -61,7 +61,7 @@ function, this is the folder where you keep all your git-controlled projects
 (the path should end up with a ~=/~= to respect Emacs conventions):
 
 #+BEGIN_SRC emacs-lisp
-  (setq magit-repo-dirs '("~/repos/"))
+  (setq magit-repository-directories '("~/repos/"))
 #+END_SRC
 
 For more information, see [[https://magit.github.io/master/magit.html#Status][Magit-User-Manual#Status]]
@@ -199,7 +199,7 @@ message.
   - ~C-c C-c~ to submit the changes
 - Squash last commit:
   - ~L l~ to open =log buffer=
-  - ~E~ on the second to last commit, it opens the =rebase buffer=
+  - ~r e~ on the second to last commit, it opens the =rebase buffer=
   - ~j~ to put point on last commit
   - ~s~ to squash it
   - ~C-c C-c~ to continue to the =commit message buffer=
