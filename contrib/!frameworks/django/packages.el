@@ -10,12 +10,12 @@
 ;;
 ;;; License: GPLv3
 
-(setq python-packages
+(setq django-packages
   '(
     pony-mode
     ))
 
-(defun python/init-pony-mode ()
+(defun django/init-pony-mode ()
   (use-package pony-mode
     :defer t
     :init (progn
