@@ -182,6 +182,10 @@ is achieved by adding the relevant text properties."
         (interactive)
         (term-send-raw-string "\t"))
       (add-to-list 'term-bind-key-alist '("<tab>" . term-send-tab))
+      ;; multi-term commands to create terminals and move through them.
+      (evil-leader/set-key-for-mode 'term-mode "mc" 'multi-term)
+      (evil-leader/set-key-for-mode 'term-mode "mp" 'multi-term-prev)
+      (evil-leader/set-key-for-mode 'term-mode "mn" 'multi-term-next)
 
       (when (configuration-layer/package-usedp 'projectile)
         (defun projectile-multi-term-in-root ()
