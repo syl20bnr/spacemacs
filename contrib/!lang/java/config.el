@@ -10,3 +10,12 @@
 
 ;; Define the buffer local company backend variable
 (spacemacs|defvar-company-backends java-mode)
+(spacemacs/declare-prefix "me" "errors")
+(spacemacs/declare-prefix "mf" "find")
+(spacemacs/declare-prefix "mg" "goto")
+(spacemacs/declare-prefix "mr" "refactor")
+(spacemacs/declare-prefix "mh" "documentation")
+(spacemacs/declare-prefix "mm" "maven")
+(spacemacs/declare-prefix "ma" "ant")
+(spacemacs/declare-prefix "mp" "project")
+(spacemacs/declare-prefix "mt" "test")
