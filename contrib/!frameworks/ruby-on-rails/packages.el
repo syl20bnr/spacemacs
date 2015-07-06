@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq ruby-packages
+(setq ruby-on-rails-packages
   '(
     feature-mode
     haml-mode
@@ -18,7 +18,7 @@
     slim-mode
     ))
 
-(defun ruby/init-projectile-rails ()
+(defun ruby-on-rails/init-projectile-rails ()
   (use-package projectile-rails
     :defer t
     :init
@@ -76,15 +76,15 @@
       ;; Ex-commands
       (evil-ex-define-cmd "A" 'projectile-toggle-between-implementation-and-test))))
 
-(defun ruby/init-feature-mode ()
+(defun ruby-on-rails/init-feature-mode ()
   "Initialize Cucumber feature mode"
   (use-package feature-mode
     :mode (("\\.feature\\'" . feature-mode))))
 
-(defun ruby/init-haml-mode ()
+(defun ruby-on-rails/init-haml-mode ()
   (use-package haml-mode
     :defer t))
 
-(defun ruby/init-slim-mode ()
+(defun ruby-on-rails/init-slim-mode ()
   (use-package slim-mode
     :defer t))
