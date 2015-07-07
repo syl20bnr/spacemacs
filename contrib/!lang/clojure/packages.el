@@ -236,6 +236,10 @@ the focus."
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
     :defer t
+    :init
+    (progn
+      (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
+      (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode)))
     :config
     (progn
       (when clojure-enable-fancify-symbols
