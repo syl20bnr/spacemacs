@@ -42,6 +42,10 @@
       ;; add support for evil
       (push 'cider-stacktrace-mode evil-motion-state-modes)
       (push 'cider-popup-buffer-mode evil-motion-state-modes)
+      ;; add cider-doc to popwin
+      (push '("*cider-doc*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+            popwin:special-display-config)
+
       (defun spacemacs//cider-eval-in-repl-no-focus (form)
         "Insert FORM in the REPL buffer and eval it."
         (let ((start-pos (point)))
