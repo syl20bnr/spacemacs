@@ -36,6 +36,77 @@
       (push 'company-capf company-backends-eshell-mode)
       (spacemacs|add-company-hook eshell-mode))))
 
+(defun shell/init-eshell ()
+  (use-package eshell
+    :defer t
+    :init
+    (progn
+      (setq eshell-cmpl-cycle-completions nil
+            ;; auto truncate after 20k lines
+            eshell-buffer-maximum-lines 20000
+            ;; history size
+            eshell-history-size 350
+            ;; buffer shorthand -> echo foo > #'buffer
+            eshell-buffer-shorthand t
+            ;; my prompt is easy enough to see
+            eshell-highlight-prompt nil
+            ;; treat 'echo' like shell echo
+            eshell-plain-echo-behavior t)
+
+      (defun spacemacs//eshell-auto-end ()
+        "Move point to end of current prompt when switching to insert state."
+        (when (and (eq major-mode 'eshell-mode)
+                   ;; Not on last line, we might want to edit within it.
+                   (not (eq (line-end-position) (point-max))))
+          (end-of-buffer)))
+
+      (defun spacemacs//init-eshell ()
+        "Stuff to do when enabling eshell."
+        (setq pcomplete-cycle-completions nil)
+        (add-hook 'evil-insert-state-entry-hook
+                  'spacemacs//eshell-auto-end nil t)
+        (when (configuration-layer/package-usedp 'semantic)
+          (semantic-mode -1)))
+      (add-hook 'eshell-mode-hook 'spacemacs//init-eshell))
+    :config
+    (progn
+      (require 'esh-opt)
+
+      ;; quick commands
+      (defalias 'e 'find-file-other-window)
+      (defalias 'd 'dired)
+      (setenv "PAGER" "cat")
+
+      ;; support `em-smart'
+      (when shell-enable-smart-eshell
+        (require 'em-smart)
+        (setq eshell-where-to-jump 'begin
+              eshell-review-quick-commands nil
+              eshell-smart-space-goes-to-end t)
+        (add-hook 'eshell-mode-hook 'eshell-smart-initialize))
+
+      ;; Visual commands
+      (require 'em-term)
+      (mapc (lambda (x) (push x eshell-visual-commands))
+            '("el" "elinks" "htop" "less" "ssh" "tmux" "top"))
+
+      ;; automatically truncate buffer after output
+      (when (boundp 'eshell-output-filter-functions)
+        (push 'eshell-truncate-buffer eshell-output-filter-functions)))))
+
+(defun shell/init-esh-help ()
+  (use-package esh-help
+    :defer t
+    :init (add-hook 'eshell-mode-hook 'eldoc-mode)
+    :config (setup-esh-help-eldoc)))
+
+(defun shell/init-eshell-prompt-extras ()
+  (use-package eshell-prompt-extras
+    :commands epe-theme-lambda
+    :init
+    (setq eshell-highlight-prompt nil
+          eshell-prompt-function 'epe-theme-lambda)))
+
 (defun shell/pre-init-helm ()
   (spacemacs|use-package-add-hook helm
     :post-init
@@ -178,77 +249,6 @@
   (evil-define-key 'normal term-raw-map "p" 'term-paste)
   (evil-define-key 'insert term-raw-map (kbd "C-c C-d") 'term-send-eof)
   (evil-define-key 'insert term-raw-map (kbd "<tab>") 'term-send-tab))
-
-(defun shell/init-eshell ()
-  (use-package eshell
-    :defer t
-    :init
-    (progn
-      (setq eshell-cmpl-cycle-completions nil
-            ;; auto truncate after 20k lines
-            eshell-buffer-maximum-lines 20000
-            ;; history size
-            eshell-history-size 350
-            ;; buffer shorthand -> echo foo > #'buffer
-            eshell-buffer-shorthand t
-            ;; my prompt is easy enough to see
-            eshell-highlight-prompt nil
-            ;; treat 'echo' like shell echo
-            eshell-plain-echo-behavior t)
-
-      (defun spacemacs//eshell-auto-end ()
-        "Move point to end of current prompt when switching to insert state."
-        (when (and (eq major-mode 'eshell-mode)
-                   ;; Not on last line, we might want to edit within it.
-                   (not (eq (line-end-position) (point-max))))
-          (end-of-buffer)))
-
-      (defun spacemacs//init-eshell ()
-        "Stuff to do when enabling eshell."
-        (setq pcomplete-cycle-completions nil)
-        (add-hook 'evil-insert-state-entry-hook
-                  'spacemacs//eshell-auto-end nil t)
-        (when (configuration-layer/package-usedp 'semantic)
-          (semantic-mode -1)))
-      (add-hook 'eshell-mode-hook 'spacemacs//init-eshell))
-    :config
-    (progn
-      (require 'esh-opt)
-
-      ;; quick commands
-      (defalias 'e 'find-file-other-window)
-      (defalias 'd 'dired)
-      (setenv "PAGER" "cat")
-
-      ;; support `em-smart'
-      (when shell-enable-smart-eshell
-        (require 'em-smart)
-        (setq eshell-where-to-jump 'begin
-              eshell-review-quick-commands nil
-              eshell-smart-space-goes-to-end t)
-        (add-hook 'eshell-mode-hook 'eshell-smart-initialize))
-
-      ;; Visual commands
-      (require 'em-term)
-      (mapc (lambda (x) (push x eshell-visual-commands))
-            '("el" "elinks" "htop" "less" "ssh" "tmux" "top"))
-
-      ;; automatically truncate buffer after output
-      (when (boundp 'eshell-output-filter-functions)
-        (push 'eshell-truncate-buffer eshell-output-filter-functions)))))
-
-(defun shell/init-eshell-prompt-extras ()
-  (use-package eshell-prompt-extras
-    :commands epe-theme-lambda
-    :init
-    (setq eshell-highlight-prompt nil
-          eshell-prompt-function 'epe-theme-lambda)))
-
-(defun shell/init-esh-help ()
-  (use-package esh-help
-    :defer t
-    :init (add-hook 'eshell-mode-hook 'eldoc-mode)
-    :config (setup-esh-help-eldoc)))
 
 (defun shell/pre-init-magit ()
   (spacemacs|use-package-add-hook magit
