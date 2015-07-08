@@ -12,6 +12,8 @@
 
 ;; Variables
 
+(spacemacs|defvar-company-backends eshell-mode)
+
 (defvar shell-default-shell (if (eq window-system 'w32)
                                 'eshell
                               'ansi-term)
@@ -26,3 +28,7 @@
 
 (defvar shell-default-term-shell "/bin/bash"
   "Default shell to use in `term' and `ansi-term' shells.")
+
+(defvar shell-enable-smart-eshell nil
+  "If non-nil then `em-smart' is enabled. `em-smart' allows to quickly review
+commands, modify old commands or enter a new one.")

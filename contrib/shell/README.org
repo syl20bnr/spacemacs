@@ -76,6 +76,48 @@ Default value is =/bin/bash=.
     '(shell :variables shell-default-term-shell "/bin/bash"))
 #+END_SRC
 
+** Enable em-smart in Eshell
+
+From the =em-smart= documentation:
+
+#+BEGIN_QUOTE
+The best way to get a sense of what this code is trying to do is by
+using it.  Basically, the philosophy represents a blend between the
+ease of use of modern day shells, and the review-before-you-proceed
+mentality of Plan 9's 9term.
+#+END_QUOTE
+
+In a nutshell, when =em-smart= is enabled the point won't jump at the
+end of the buffer when a command is executed, it will stay at the
+same command prompt used to executed the command. This allows to quickly
+edit the last command in the case of a mistake. If there is no mistake
+and you directly type a new command then the prompt will jump to the
+next prompt at the end of the buffer.
+
+To enable =em-smart= put the following layer variable to non-nil:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '(shell :variables shell-enable-smart-eshell t))
+#+END_SRC
+
+* Eshell
+
+Some advanced configuration is setup for =eshell= in this layer:
+- some elisp functions aliases for quick access
+  - =s= for =magit-status= in the current directory (when the =git= layer is
+    installed)
+  - =d= for =dired=
+  - =e= to find a file via a new buffer
+- optional configuration for =em-smart= (see =Install= section for more info)
+- support for visual commands via =em-term=
+- working directory sensitive prompt via [[https://github.com/hiddenlotus/eshell-prompt-extras][eshell-prompt-extras]]
+- advanced help support via =esh-help= (enable =el-doc= support in eshell)
+- add support for auto-completion via =company= (when the =auto-completion=
+  layer is installed)
+- pressing ~i~ in normal state will automatically jump to the prompt
+
+
 * Key bindings
 
 | Key Binding | Description                                                |
@@ -99,3 +141,9 @@ number of shell is indicated on the mode-line.
 | Key Binding | Description                  |
 |-------------+------------------------------|
 | ~SPC p $ t~ | run multi-term shell in root |
+
+** Eshell
+
+| Key Binding        | Description                                |
+|--------------------+--------------------------------------------|
+| ~SPC m H~ or ~M-l~ | shell commands history using a helm buffer |

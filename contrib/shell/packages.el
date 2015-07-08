@@ -12,6 +12,7 @@
 
 (setq shell-packages
       '(
+        company
         helm
         multi-term
         shell
@@ -20,35 +21,48 @@
         eshell
         eshell-prompt-extras
         esh-help
+        magit
         ))
 
-(defun shell/post-init-helm ()
-  (spacemacs|use-package-add-hook helm
+(defun shell/post-init-company ()
+  ;; support in eshell
+  (spacemacs|use-package-add-hook eshell
     :post-config
     (progn
-      (defun spacemacs//shell-helm-post-:config ()
-        "Configuration to append to helm package `:config' block."
-        ;; eshell
-        (defun spacemacs/helm-eshell-history ()
-          "Correctly revert to insert state after selection."
-          (interactive)
-          (helm-eshell-history)
-          (evil-insert-state))
-        (defun spacemacs/helm-shell-history ()
-          "Correctly revert to insert state after selection."
-          (interactive)
-          (helm-comint-input-ring)
-          (evil-insert-state))
-        (defun spacemacs/init-helm-eshell ()
-          "Initialize helm-eshell."
-          ;; this is buggy for now
-          ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
-          (evil-leader/set-key-for-mode 'eshell-mode
-            "mH" 'spacemacs/helm-eshell-history))
-        (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
-        ;;shell
-        (evil-leader/set-key-for-mode 'shell-mode
-          "mH" 'spacemacs/helm-shell-history)))))
+      (setq-local company-idle-delay 0.2)
+      ;; The default frontend screws everything up in short windows like
+      ;; terminal often are
+      (setq-local company-frontends '(company-preview-frontend))
+      (push 'company-capf company-backends-eshell-mode)
+      (spacemacs|add-company-hook eshell-mode))))
+
+(defun shell/pre-init-helm ()
+  (spacemacs|use-package-add-hook helm
+    :post-init
+    (progn
+      ;; eshell
+      (defun spacemacs/helm-eshell-history ()
+        "Correctly revert to insert state after selection."
+        (interactive)
+        (helm-eshell-history)
+        (evil-insert-state))
+      (defun spacemacs/helm-shell-history ()
+        "Correctly revert to insert state after selection."
+        (interactive)
+        (helm-comint-input-ring)
+        (evil-insert-state))
+      (defun spacemacs/init-helm-eshell ()
+        "Initialize helm-eshell."
+        ;; this is buggy for now
+        ;; (define-key eshell-mode-map (kbd "<tab>") 'helm-esh-pcomplete)
+        (evil-leader/set-key-for-mode 'eshell-mode
+          "mH" 'spacemacs/helm-eshell-history)
+        (define-key eshell-mode-map
+          (kbd "M-l") 'spacemacs/helm-eshell-history))
+      (add-hook 'eshell-mode-hook 'spacemacs/init-helm-eshell)
+      ;;shell
+      (evil-leader/set-key-for-mode 'shell-mode
+        "mH" 'spacemacs/helm-shell-history))))
 
 (defun shell/init-multi-term ()
   (use-package multi-term
@@ -94,14 +108,7 @@
               (funcall 'man command))
              ;; Send other commands to the default handler.
              (t (comint-simple-send proc command))))))
-  (defun eshell/clear ()
-    "Clear contents in eshell."
-    (interactive)
-    (let ((inhibit-read-only t))
-      (erase-buffer)))
-  (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook)
-  (add-hook 'eshell-mode-hook (lambda ()
-                                (setq pcomplete-cycle-completions nil))))
+  (add-hook 'shell-mode-hook 'shell-comint-input-sender-hook))
 
 (defun shell/init-shell-pop ()
   (use-package shell-pop
@@ -174,72 +181,82 @@
 
 (defun shell/init-eshell ()
   (use-package eshell
+    :defer t
+    :init
+    (progn
+      (setq eshell-cmpl-cycle-completions nil
+            ;; auto truncate after 20k lines
+            eshell-buffer-maximum-lines 20000
+            ;; history size
+            eshell-history-size 350
+            ;; buffer shorthand -> echo foo > #'buffer
+            eshell-buffer-shorthand t
+            ;; my prompt is easy enough to see
+            eshell-highlight-prompt nil
+            ;; treat 'echo' like shell echo
+            eshell-plain-echo-behavior t)
+
+      (defun spacemacs//eshell-auto-end ()
+        "Move point to end of current prompt when switching to insert state."
+        (when (and (eq major-mode 'eshell-mode)
+                   ;; Not on last line, we might want to edit within it.
+                   (not (eq (line-end-position) (point-max))))
+          (end-of-buffer)))
+
+      (defun spacemacs//init-eshell ()
+        "Stuff to do when enabling eshell."
+        (setq pcomplete-cycle-completions nil)
+        (add-hook 'evil-insert-state-entry-hook
+                  'spacemacs//eshell-auto-end nil t)
+        (when (configuration-layer/package-usedp 'semantic)
+          (semantic-mode -1)))
+      (add-hook 'eshell-mode-hook 'spacemacs//init-eshell))
     :config
     (progn
+      (require 'esh-opt)
+
+      ;; quick commands
       (defalias 'e 'find-file-other-window)
-      (defalias 's 'eshell/magit)
       (defalias 'd 'dired)
       (setenv "PAGER" "cat")
 
-      (require 'em-smart)
-      (setq eshell-where-to-jump 'begin
-            eshell-review-quick-commands nil
-            eshell-smart-space-goes-to-end t)
-      (add-hook 'eshell-mode-hook 'eshell-smart-initialize)
+      ;; support `em-smart'
+      (when shell-enable-smart-eshell
+        (require 'em-smart)
+        (setq eshell-where-to-jump 'begin
+              eshell-review-quick-commands nil
+              eshell-smart-space-goes-to-end t)
+        (add-hook 'eshell-mode-hook 'eshell-smart-initialize))
 
-      (use-package esh-opt
-        :config
-        (progn
-          (use-package em-term)
+      ;; Visual commands
+      (require 'em-term)
+      (mapc (lambda (x) (push x eshell-visual-commands))
+            '("el" "elinks" "htop" "less" "ssh" "tmux" "top"))
 
-          (setq eshell-cmpl-cycle-completions nil
-                ;; auto truncate after 20k lines
-                eshell-buffer-maximum-lines 20000
-                ;; history size
-                eshell-history-size 350
-                ;; buffer shorthand -> echo foo > #'buffer
-                eshell-buffer-shorthand t
-                ;; my prompt is easy enough to see
-                eshell-highlight-prompt nil
-                ;; treat 'echo' like shell echo
-                eshell-plain-echo-behavior t)
-
-          ;; Visual commands
-          (setq eshell-visual-commands
-                (append '("ssh" "less" "top" "htop" "el" "elinks" "tmux")
-                        eshell-visual-commands))
-
-          ;; automatically truncate buffer after output
-          (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)))
-
-      (add-hook 'eshell-mode-hook
-                (lambda ()
-                  ;; turn off semantic-mode in eshell buffers
-                  (semantic-mode -1)
-                  (define-key eshell-mode-map (kbd "M-l")
-                    'helm-eshell-history)))
-
-      (defun eshell/magit ()
-        "Function to open magit-status for the current directory"
-        (interactive)
-        (magit-status default-directory)
-        nil))))
+      ;; automatically truncate buffer after output
+      (when (boundp 'eshell-output-filter-functions)
+        (push 'eshell-truncate-buffer eshell-output-filter-functions)))))
 
 (defun shell/init-eshell-prompt-extras ()
-  (use-package eshell
-    :config
-    (use-package esh-opt
-      :config
-      (use-package eshell-prompt-extras
-        :init
-        (setq eshell-highlight-prompt nil
-              eshell-prompt-function 'epe-theme-lambda)))))
+  (use-package eshell-prompt-extras
+    :commands epe-theme-lambda
+    :init
+    (setq eshell-highlight-prompt nil
+          eshell-prompt-function 'epe-theme-lambda)))
 
 (defun shell/init-esh-help ()
-  (use-package eshell
-    :config
-    (use-package esh-help
-      :init
-      (progn
-        (setup-esh-help-eldoc)
-        (add-hook 'eshell-mode-hook 'eldoc-mode)))))
+  (use-package esh-help
+    :defer t
+    :init (add-hook 'eshell-mode-hook 'eldoc-mode)
+    :config (setup-esh-help-eldoc)))
+
+(defun shell/pre-init-magit ()
+  (spacemacs|use-package-add-hook magit
+    :post-init
+    (progn
+      ;; add a quick alias to open magit-status in current directory
+      (defun spacemacs/eshell-magit-status ()
+        "Function to open magit-status for the current directory"
+        (interactive)
+        (magit-status default-directory))
+      (defalias 's 'spacemacs/eshell-magit-status))))
