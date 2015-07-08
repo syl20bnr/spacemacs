@@ -63,8 +63,12 @@
       (defun spacemacs//init-eshell ()
         "Stuff to do when enabling eshell."
         (setq pcomplete-cycle-completions nil)
-        (add-hook 'evil-insert-state-entry-hook
-                  'spacemacs//eshell-auto-end nil t)
+        (unless shell-enable-smart-eshell
+          ;; we don't want auto-jump to prompt when smart eshell is enabled.
+          ;; Idea: maybe we could make auto-jump smarter and jump only if the
+          ;; point is not on a prompt line
+          (add-hook 'evil-insert-state-entry-hook
+                    'spacemacs//eshell-auto-end nil t))
         (when (configuration-layer/package-usedp 'semantic)
           (semantic-mode -1)))
       (add-hook 'eshell-mode-hook 'spacemacs//init-eshell))
