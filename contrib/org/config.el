@@ -15,4 +15,7 @@
 (defvar org-enable-github-support nil
   "If non-nil Github related packages are configured.")
 
+(defvar org-enable-pandoc-support nil
+  "If non-nil Pandoc related packages are configured.")
+
 (spacemacs|defvar-company-backends org-mode)

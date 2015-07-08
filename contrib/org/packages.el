@@ -19,6 +19,7 @@
     htmlize
     org
     org-bullets
+    ox-pandoc
     org-pomodoro
     org-present
     org-repo-todo
@@ -229,3 +230,10 @@ Will work on both org-mode and any mode that accepts plain html."
 (defun org/init-htmlize ()
  (use-package htmlize
     :defer t))
+
+(defun org/init-ox-pandoc ()
+  (use-package ox-pandoc
+    :if org-enable-pandoc-support
+    :defer t
+    :init
+    (eval-after-load 'org '(require 'ox-pandoc))))
