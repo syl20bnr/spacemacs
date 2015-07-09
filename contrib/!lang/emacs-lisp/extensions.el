@@ -20,7 +20,7 @@
     "meb" 'eval-buffer
     "mec" 'spacemacs/eval-current-form
     "mee" 'eval-last-sexp
-    "mer" 'spacemacs/eval-region
+    "mer" 'eval-region
     "mef" 'eval-defun
     "mel" 'lisp-state-eval-sexp-end-of-line
     "m,"  'lisp-state-toggle-lisp-state
