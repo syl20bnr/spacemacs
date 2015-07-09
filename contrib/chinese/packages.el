@@ -19,11 +19,11 @@
       ))
 
 (if chinese-enable-youdao-dict
-  (add-to-list 'chinese-packages 'youdao-dictionary))
+  (push 'youdao-dictionary chinese-packages))
 
 (if (eq chinese-default-input-method 'wubi)
-    (add-to-list 'chinese-packages 'chinese-wbim)
-  (add-to-list 'chinese-packages 'chinese-pyim))
+    (push 'chinese-wbim chinese-packages)
+  (push 'chinese-pyim chinese-packages))
 
 (defun chinese/init-chinese-wbim ()
   "Initialize chinese-wubi"
