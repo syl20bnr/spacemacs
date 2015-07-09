@@ -237,10 +237,6 @@ the current state and point position."
     (set-mark p1)))
 
 ;; eval lisp helpers
-(defun spacemacs/eval-region ()
-  (interactive)
-  (eval-region (region-beginning) (region-end))
-  (evil-normal-state))
 
 ;; idea from http://www.reddit.com/r/emacs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
 (defun spacemacs/eval-current-form ()
