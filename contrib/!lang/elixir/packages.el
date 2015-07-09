@@ -15,7 +15,6 @@
     alchemist
     company
     elixir-mode
-    flycheck
     ruby-end
     ))
 
@@ -88,9 +87,6 @@
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
     :defer t))
-
-(defun elixir/post-init-flycheck ()
-  (add-hook 'elixir-mode-hook 'flycheck-mode))
 
 (defun elixir/init-ruby-end ()
   (use-package ruby-end
