@@ -1,4 +1,4 @@
-;;; packages.el --- slime Layer packages File for Spacemacs
+;;; packages.el --- Common Lisp Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -10,10 +10,10 @@
 ;;
 ;;; License: GPLv3
 
-(setq slime-packages
-  '(slime))
+(setq common-lisp-packages
+      '(slime))
 
-(defun slime/init-slime ()
+(defun common-lisp/init-slime ()
   (use-package slime
     :commands slime-mode
     :init
@@ -32,14 +32,13 @@
         (smartparens-strict-mode -1)
         (turn-off-smartparens-mode))
       (add-hook 'slime-repl-mode-hook #'slime/disable-smartparens)
-      (add-to-hooks 'slime-mode '(lisp-mode-hook scheme-mode-hook)))
+      (add-to-hooks 'slime-mode '(lisp-mode-hook)))
     :config
     (progn
       (slime-setup)
       (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
         (define-key m [(tab)] 'slime-fuzzy-complete-symbol))
-      (dolist (m '(lisp-mode
-                   scheme-mode))
+      (dolist (m '(lisp-mode))
         (evil-leader/set-key-for-mode m
           "mcc" 'slime-compile-file
           "mcC" 'slime-compile-and-load-file
