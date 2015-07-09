@@ -33,7 +33,7 @@
 **** Git
 - Fix =magit-repository-directories= variable name (thanks to travisbhartwell)
 - Fix =magit-blame= key binding (thanks to jenanwise)
-- Use -magit-log-all= instead of =magit-log= on ~SPC g l~ (thanks to tuhdo)
+- Use =magit-log-all= instead of =magit-log= on ~SPC g l~ (thanks to tuhdo)
 *** Other fixes and improvements
 - Typos and documentation improvements (thanks to cscorley, dstcruz, h3dkandi,
   kccai, MadAnd, person808, Profpatsch, stnly, stormpat, xfq, zachlatta)
