@@ -1460,15 +1460,15 @@ experience like in [[http://ranger.nongnu.org/][ranger]]:
 
 | Key Binding   | Description                                                              |
 |---------------+--------------------------------------------------------------------------|
-| h             | collapse expanded directory or go to parent node                         |
-| H             | previous sibling                                                         |
-| j             | next file or directory                                                   |
-| J             | next expanded directory on level down                                    |
-| k             | previous file or directory                                               |
-| K             | parent directory, when reaching the root change it to parent directory   |
-| l or RET      | expand directory                                                         |
-| L             | next sibling                                                             |
-| R             | make a directory the root directory                                      |
+| ~h~           | collapse expanded directory or go to parent node                         |
+| ~H~           | previous sibling                                                         |
+| ~j~           | next file or directory                                                   |
+| ~J~           | next expanded directory on level down                                    |
+| ~k~           | previous file or directory                                               |
+| ~K~           | parent directory, when reaching the root change it to parent directory   |
+| ~l~ or ~RET~  | expand directory                                                         |
+| ~L~           | next sibling                                                             |
+| ~R~           | make a directory the root directory                                      |
 
 *Note:* The point is automatically set to the first letter of a node for a
 smoother experience.
