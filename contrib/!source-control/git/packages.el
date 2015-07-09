@@ -95,9 +95,6 @@
                magit-commit)
     :init
     (progn
-      (add-to-list 'load-path (format "%smagit-next/lisp/"
-                                      (configuration-layer/get-layer-property
-                                       'git :ext-dir)))
       (setq magit-completing-read-function 'magit-builtin-completing-read)
       (add-hook 'git-commit-mode-hook 'fci-mode)
       ;; On Windows, we must use Git GUI to enter username and password
