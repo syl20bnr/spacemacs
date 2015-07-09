@@ -15,6 +15,7 @@
         gitattributes-mode
         gitconfig-mode
         gitignore-mode
+        git-commit
         git-messenger
         git-timemachine
         helm-gitignore
@@ -30,6 +31,9 @@
   (use-package helm-gitignore
     :defer t
     :init (evil-leader/set-key "gI" 'helm-gitignore)))
+
+(defun git/init-git-commit ()
+  (use-package git-commit))
 
 (defun git/init-git-messenger ()
   (use-package git-messenger
