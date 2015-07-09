@@ -1,4 +1,4 @@
-#+TITLE: SLIME contribution layer for Spacemacs
+#+TITLE: Common Lisp contribution layer for Spacemacs
 
 [[file:img/slime.png]]
 
@@ -14,7 +14,7 @@
 
 * Description
 
-A Spacemacs contribution layer for [[https://github.com/slime/slime][SLIME]].
+A Spacemacs contribution layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
 
 * Install
 
@@ -26,10 +26,10 @@ if it was a distribution install.
 To use this contribution, add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(slime))
+  (setq-default dotspacemacs-configuration-layers '(common-lisp))
 #+END_SRC
 
-This layer defaults to using [[http://www.sbcl.org/][sbcl]]. If you wan to use a different implementation
+This layer defaults to using [[http://www.sbcl.org/][sbcl]]. If you want to use a different implementation
 of Common Lisp, you can specify it in your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
