@@ -106,6 +106,9 @@ the final step of executing code in `emacs-startup-hook'.")
   (configuration-layer/initialize)
   ;; theme
   (spacemacs/load-default-theme spacemacs--fallback-theme)
+  ;; frame title init
+  (when (and (display-graphic-p) dotspacemacs-frame-title-format)
+    (setq frame-title-format '((:eval (spacemacs/frame-title-prepare)))))
   ;; font
   (spacemacs|do-after-display-system-init
    ;; If you are thinking to remove this call to `message', think twice. You'll
