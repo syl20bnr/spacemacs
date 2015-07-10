@@ -29,7 +29,16 @@
   (spacemacs|use-package-add-hook eshell
     :post-config
     (progn
-      (setq-local company-idle-delay 0.2)
+      (defun spacemacs//toggle-shell-auto-completion-based-on-path ()
+        "Deactivates automatic completion on remote paths.
+Retrieving completions for Eshell blocks Emacs. Over remote
+connections the delay is often annoying, so it's better to let
+the user activate the completion manually."
+        (if (file-remote-p default-directory)
+            (setq-local company-idle-delay nil)
+          (setq-local company-idle-delay 0.2)))
+      (add-hook 'eshell-directory-change-hook
+                'spacemacs//toggle-shell-auto-completion-based-on-path)
       ;; The default frontend screws everything up in short windows like
       ;; terminal often are
       (setq-local company-frontends '(company-preview-frontend))
