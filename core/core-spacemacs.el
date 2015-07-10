@@ -77,6 +77,9 @@ initialization."
   ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
   (spacemacs-buffer/set-mode-line "")
+  ;; frame title init
+  (when (and (display-graphic-p) dotspacemacs-frame-title-format)
+    (setq frame-title-format '((:eval (spacemacs/frame-title-prepare)))))
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
   ;; default theme

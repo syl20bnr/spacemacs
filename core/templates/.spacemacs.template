@@ -152,6 +152,8 @@ before layers configuration."
    ;; specified with an installed package.
    ;; Not used for now.
    dotspacemacs-default-package-repository nil
+   ;; Format specification for setting the frame title.
+   dotspacemacs-frame-title-format "%I@%S"
    )
   ;; User initialization goes here
   )
