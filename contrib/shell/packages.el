@@ -266,10 +266,4 @@ the user activate the completion manually."
 (defun shell/pre-init-magit ()
   (spacemacs|use-package-add-hook magit
     :post-init
-    (progn
-      ;; add a quick alias to open magit-status in current directory
-      (defun spacemacs/eshell-magit-status ()
-        "Function to open magit-status for the current directory"
-        (interactive)
-        (magit-status default-directory))
-      (defalias 's 'spacemacs/eshell-magit-status))))
+    (defalias 's 'magit-status)))
