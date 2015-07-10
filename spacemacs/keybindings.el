@@ -154,6 +154,15 @@ Ensure that helm is required before calling FUNC."
 (evil-leader/set-key "cc" 'helm-make-projectile)
 (evil-leader/set-key "cC" 'compile)
 (evil-leader/set-key "cr" 'recompile)
+;; Commenting -----------------------------------------------------------------
+(evil-leader/set-key "cl" 'comment-or-uncomment-lines)
+(evil-leader/set-key "cL" 'comment-or-uncomment-lines-inverse)
+(evil-leader/set-key "cp" 'comment-or-uncomment-paragraphs)
+(evil-leader/set-key "cP" 'comment-or-uncomment-paragraphs-inverse)
+(evil-leader/set-key "ct" 'quick-comment-or-uncomment-to-the-line)
+(evil-leader/set-key "cT" 'quick-comment-or-uncomment-to-the-line-inverse)
+(evil-leader/set-key "cy" 'copy-and-comment-lines)
+(evil-leader/set-key "cY" 'copy-and-comment-lines-inverse)
 ;; narrow & widen -------------------------------------------------------------
 (evil-leader/set-key
   "nr" 'narrow-to-region
