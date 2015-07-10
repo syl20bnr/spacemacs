@@ -10,6 +10,7 @@
      - [[#default-shell-position-and-height][Default shell position and height]]
      - [[#set-shell-for-term-and-ansi-term][Set shell for term and ansi-term]]
      - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
+     - [[#protect-your-eshell-prompt][Protect your Eshell prompt]]
  - [[#eshell][Eshell]]
  - [[#key-bindings][Key bindings]]
      - [[#multi-term][Multi-term]]
@@ -102,6 +103,22 @@ To enable =em-smart= put the following layer variable to non-nil:
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
     '(shell :variables shell-enable-smart-eshell t))
+#+END_SRC
+
+** Protect your Eshell prompt
+
+Comint mode (Shell mode) has good support for Evil mode as it inhibits movement
+commands over the prompt. This has the added benefit that Evil mode functions
+work sensibly. E.g. you can press ~cc~ in normal state i.e.
+=evil-change-whole-line= to kill the current input and start typing a new
+command. In Eshell you also kill the prompt, which is often unintended.
+
+To enable a the same behavior as in Comint mode you can enable the following
+variable:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '(shell :variables shell-protect-eshell-prompt t))
 #+END_SRC
 
 * Eshell
