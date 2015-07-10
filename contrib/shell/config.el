@@ -32,3 +32,8 @@
 (defvar shell-enable-smart-eshell nil
   "If non-nil then `em-smart' is enabled. `em-smart' allows to quickly review
 commands, modify old commands or enter a new one.")
+
+(defvar shell-protect-eshell-prompt nil
+  "If non-nil then eshell's prompt is protected. This means that
+  that movement to the prompt is inhibited like for `comint-mode'
+  prompts and the prompt is made read-only")
