@@ -1025,23 +1025,15 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (setq evil-lisp-state-global t)
       (setq evil-lisp-state-leader-prefix "k"))))
 
+;; other commenting functions in funcs.el with keybinds in keybindings.el
 (defun spacemacs/init-evil-nerd-commenter ()
   (use-package evil-nerd-commenter
-    :commands (evilnc-comment-operator
-               evilnc-comment-or-uncomment-lines
-               evilnc-toggle-invert-comment-line-by-line
-               evilnc-comment-or-uncomment-paragraphs
-               evilnc-quick-comment-or-uncomment-to-the-line
-               evilnc-copy-and-comment-lines)
+    :commands (evilnc-comment-operator)
     :init
     (progn
       (evil-leader/set-key
-        ";"  'evilnc-comment-operator
-        "cl" 'evilnc-comment-or-uncomment-lines
-        "ci" 'evilnc-toggle-invert-comment-line-by-line
-        "cp" 'evilnc-comment-or-uncomment-paragraphs
-        "ct" 'evilnc-quick-comment-or-uncomment-to-the-line
-        "cy" 'evilnc-copy-and-comment-lines))))
+        ";"  'evilnc-comment-operator))))
+
 
 (defun spacemacs/init-evil-matchit ()
   (use-package evil-matchit

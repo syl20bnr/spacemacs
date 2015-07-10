@@ -557,6 +557,48 @@ argument takes the kindows rotate backwards."
 
 (add-hook 'after-save-hook 'byte-compile-current-buffer)
 
+;; doubled all the commenting functions so that the inverse operations
+;; can be called without setting a flag
+(defun comment-or-uncomment-lines-inverse (&optional NUM)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line t))
+    (evilnc-comment-or-uncomment-lines NUM)))
+
+(defun comment-or-uncomment-lines (&optional NUM)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line nil))
+    (evilnc-comment-or-uncomment-lines NUM)))
+
+(defun copy-and-comment-lines-inverse (&optional NUM)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line t))
+    (evilnc-copy-and-comment-lines NUM)))
+
+(defun copy-and-comment-lines (&optional NUM)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line nil))
+    (evilnc-copy-and-comment-lines NUM)))
+
+(defun quick-comment-or-uncomment-to-the-line-inverse (&optional NUM)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line t))
+    (evilnc-comment-or-uncomment-to-the-line NUM)))
+
+(defun quick-comment-or-uncomment-to-the-line (&optional NUM)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line nil))
+    (evilnc-comment-or-uncomment-to-the-line NUM)))
+
+(defun comment-or-uncomment-paragraphs-inverse (&optional NUM)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line t))
+    (evilnc-comment-or-uncomment-paragraphs NUM)))
+
+(defun comment-or-uncomment-paragraphs (&optional NUM)
+  (interactive "p")
+  (let ((evilnc-invert-comment-line-by-line nil))
+    (evilnc-comment-or-uncomment-paragraphs NUM)))
+
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function
       (lambda (buf str)
