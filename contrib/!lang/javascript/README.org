@@ -6,6 +6,7 @@
  - [[#description][Description]]
      - [[#features][Features:]]
  - [[#install][Install]]
+ - [[#configuration][Configuration]]
  - [[#key-bindings][Key Bindings]]
      - [[#js2-mode][js2-mode]]
      - [[#folding-js2-mode][Folding (js2-mode)]]
@@ -43,6 +44,20 @@ documentation features:
 To use the formatting features, install =js-beautify=:
 #+BEGIN_SRC sh
   $ npm install -g js-beautify
+#+END_SRC
+
+* Configuration
+
+To change how js2-mode indents code, set the variable =js2-basic-offset=, as such:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default js2-basic-offset 2)
+#+END_SRC
+
+Similarly, to change how js-mode indents JSON files, set the variable =js-indent-level=, as such:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default js-indent-level 2)
 #+END_SRC
 
 * Key Bindings
