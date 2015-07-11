@@ -1,0 +1,120 @@
+#+TITLE: Scheme contribution layer for Spacemacs
+
+* Table of Contents
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+* Description
+
+A spacemacs contribution layer providing Scheme support via [[http://www.nongnu.org/geiser/][Geiser]].
+
+* Install
+
+The scheme layer currently supports: Chicken and Guile. Combined usage of racket-mode
+and geiser has not been tested.
+
+To use this layer, simply add it to =~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(scheme))
+#+END_SRC
+
+For full Chicken support, the following commands should be run:
+
+#+BEGIN_SRC shell
+  $ chicken-install -s apropos chicken-doc
+  $ cd `csi -p '(chicken-home)'`
+  $ curl http://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
+#+END_SRC
+
+* Key Bindings
+
+** In Scheme buffers:
+
+    |-------------+-------------------------------------------------|
+    | C-c C-z     | Switch to REPL                                  |
+    | C-c C-a     | Switch to REPL and current module               |
+    | C-c C-s     | Specify Scheme implementation for buffer        |
+    |-------------+-------------------------------------------------|
+    | M-.         | Go to definition of identifier at point         |
+    | M-,         | Go back to where M-. was last invoked           |
+    | C-c C-e m   | Ask for a module and open its file              |
+    | C-c C-e C-l | Add a given directory to Scheme's load path     |
+    | C-c C-e [   | Toggle between () and [] for current form       |
+    |-------------+-------------------------------------------------|
+    | C-M-x       | Eval definition around point                    |
+    | C-c M-e     | Eval definition around point and switch to REPL |
+    | C-x C-e     | Eval sexp before point                          |
+    | C-c C-r     | Eval region                                     |
+    | C-c M-r     | Eval region and switch to REPL                  |
+    | C-c C-b     | Eval buffer                                     |
+    | C-c M-b     | Eval buffer and switch to REPL                  |
+    |-------------+-------------------------------------------------|
+    | C-c C-m x   | Macro-expand definition around point            |
+    | C-c C-m e   | Macro-expand sexp before point                  |
+    | C-c C-m r   | Marcro-expand region                            |
+    |-------------+-------------------------------------------------|
+    | C-c C-k     | Compile and load current file                   |
+    |-------------+-------------------------------------------------|
+    | C-c C-d d   | See documentation for identifier at point       |
+    | C-c C-d s   | See short documentation for identifier at point |
+    | C-c C-d i   | Look up manual for identifier at point          |
+    | C-c C-d m   | See a list of a module's exported identifiers   |
+    | C-c C-d a   | Toggle autodoc mode                             |
+    |-------------+-------------------------------------------------|
+    | C-c <       | Show callers of procedure at point              |
+    | C-c >       | Show callees of procedure at point              |
+    |-------------+-------------------------------------------------|
+    | M-TAB       | Complete identifier at point                    |
+    | M-`, C-.    | Complete module name at point                   |
+    | TAB         | Complete identifier at point or indent          |
+    |             | (If `geiser-mode-smart-tab-p' is t)             |
+    |-------------+-------------------------------------------------|
+
+** In the REPL
+
+    |-------------+----------------------------------------------------|
+    | C-c C-z     | Start Scheme REPL, or jump to previous buffer      |
+    | C-c M-o     | Clear scheme output                                |
+    | C-c C-q     | Kill Scheme process                                |
+    | C-c C-k     | Nuke REPL: use it if the REPL becomes unresponsive |
+    |-------------+----------------------------------------------------|
+    | M-.         | Edit identifier at point                           |
+    | TAB, M-TAB  | Complete identifier at point                       |
+    | M-`, C-.    | Complete module name at point                      |
+    | M-p, M-n    | Prompt history, matching current prefix            |
+    |-------------+----------------------------------------------------|
+    | C-c C-m     | Set current module                                 |
+    | C-c C-i     | Import module into current namespace               |
+    | C-c C-r     | Add a given directory to scheme's load path        |
+    |-------------+----------------------------------------------------|
+    | C-c C-d C-d | See documentation for symbol at point              |
+    | C-c C-d C-m | See documentation for module                       |
+    | C-c C-d C-a | Toggle autodoc mode                                |
+    |-------------+----------------------------------------------------|
+
+** In the documentation browser:
+
+    |----------+----------------------------------------------|
+    | f        | Next page                                    |
+    | b        | Previous page                                |
+    |----------+----------------------------------------------|
+    | TAB, n   | Next link                                    |
+    | S-TAB, p | Previous link                                |
+    | N        | Next section                                 |
+    | P        | Previous section                             |
+    |----------+----------------------------------------------|
+    | k        | Kill current page and go to previous or next |
+    | g, r     | Refresh page                                 |
+    | c        | Clear browsing history                       |
+    |----------+----------------------------------------------|
+    | ., M-.   | Edit identifier at point                     |
+    | z        | Switch to REPL                               |
+    |----------+----------------------------------------------|
+    | q        | Bury buffer                                  |
+    |----------+----------------------------------------------|
+
+** In backtrace (evaluation/compile result) buffers:
+
+    - M-g n, M-g p, C-x ` for error navigation.
+    - q to bury buffer.
