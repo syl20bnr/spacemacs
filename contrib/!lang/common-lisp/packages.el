@@ -38,30 +38,46 @@
       (slime-setup)
       (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
         (define-key m [(tab)] 'slime-fuzzy-complete-symbol))
-      (dolist (m '(lisp-mode))
-        (evil-leader/set-key-for-mode m
-          "mcc" 'slime-compile-file
-          "mcC" 'slime-compile-and-load-file
-          "mcf" 'slime-compile-defun
-          "mcr" 'slime-compile-region
+      ;; TODO: Add bindings for the SLIME debugger?
+      (evil-leader/set-key-for-mode 'lisp-mode
+        "mcc" 'slime-compile-file
+        "mcC" 'slime-compile-and-load-file
+        "mcl" 'slime-load-file
+        "mcf" 'slime-compile-defun
+        "mcr" 'slime-compile-region
+        "mcn" 'slime-remove-notes
 
-          "meb" 'slime-eval-buffer
-          "mef" 'slime-eval-defun
-          "mee" 'slime-eval-last-sexp
-          "mer" 'slime-eval-region
+        "meb" 'slime-eval-buffer
+        "mef" 'slime-eval-defun
+        "meF" 'slime-undefine-function
+        "mee" 'slime-eval-last-sexp
+        "mer" 'slime-eval-region
 
-          "mgg" 'slime-inspect-definition
-          "mgn" 'slime-next-note
-          "mgN" 'slime-previous-note
-          "mgp" 'slime-previous-note
+        "mgg" 'slime-inspect-definition
+        "mgb" 'slime-pop-find-definition-stack
+        "mgn" 'slime-next-note
+        "mgN" 'slime-previous-note
 
-          "mha" 'slime-apropos
-          "mhd" 'slime-disassemble-symbol
-          "mhh" 'slime-describe-function
-          "mhH" 'slime-hyperspec-lookup
+        "mha" 'slime-apropos
+        "mhA" 'slime-apropos-all
+        "mhd" 'slime-disassemble-symbol
+        "mhh" 'slime-describe-symbol
+        "mhH" 'slime-hyperspec-lookup
+        "mhp" 'slime-apropos-package
+        "mht" 'slime-toggle-trace-fdefinition
+        "mhT" 'slime-untrace-all
+        "mh<" 'slime-who-calls
+        "mh>" 'slime-calls-who
+        ;; TODO: Add key bindings for who binds/sets globals?
+        "mhr" 'slime-who-references
+        "mhm" 'slime-who-macroexpands
+        "mhs" 'slime-who-specializes
 
-          "mse" 'slime-eval-last-expression-in-repl
-          "msi" 'slime
-          "msq" 'slime-quit-lisp
+        "mma" 'slime-macroexpand-all
+        "mmo" 'slime-macroexpand-1
 
-          "mtf" 'slime-toggle-fancy-trace)))))
+        "mse" 'slime-eval-last-expression-in-repl
+        "msi" 'slime
+        "msq" 'slime-quit-lisp
+
+        "mtf" 'slime-toggle-fancy-trace))))

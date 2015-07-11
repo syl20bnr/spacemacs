@@ -1,0 +1,84 @@
+#+TITLE: Scheme contribution layer for Spacemacs
+
+* Table of Contents
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key Bindings]]
+* Description
+
+A spacemacs contribution layer providing Scheme support via [[http://www.nongnu.org/geiser/][Geiser]].
+
+* Install
+
+The scheme layer currently supports: Chicken and Guile. Combined usage of racket-mode
+and geiser has not been tested.
+
+To use this layer, simply add it to =~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(scheme))
+#+END_SRC
+
+For full Chicken support, the following commands should be run:
+
+#+BEGIN_SRC shell
+  $ chicken-install -s apropos chicken-doc
+  $ cd `csi -p '(chicken-home)'`
+  $ curl http://3e8.org/pub/chicken-doc/chicken-doc-repo.tgz | sudo tar zx
+#+END_SRC
+
+* Key Bindings
+
+** Compiling 
+
+| Key Binding | Description                |
+|-------------+----------------------------|
+| ~SPC m c c~ | Compile current buffer     |
+| ~SPC m c p~ | Add directory to load path |
+
+** Navigation
+
+| Key Binding | Description         |
+|-------------+---------------------|
+| ~SPC m g g~ | Goto Definition     |
+| ~SPC m g b~ | Go Back             |
+| ~SPC m g m~ | Goto Module         |
+| ~SPC m g n~ | Goto next error     |
+| ~SPC m g N~ | Goto previous error |
+
+** Documentation
+
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m h h~ | Docs for symbol at point                 |
+| ~SPC m h d~ | Look up manual entry for symbol at point |
+| ~SPC m h m~ | Display exports for module               |
+| ~SPC m h <~ | Display callers                          |
+| ~SPC m h >~ | Display callees                          |
+
+** Insertion
+
+| Key Binding | Description   |
+|-------------+---------------|
+| ~SPC m i l~ | Insert Lambda |
+
+** Macroexpansion
+
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~SPC m m e~ | Macroexpand last sexp        |
+| ~SPC m m f~ | Macroexpand surrounding sexp |
+| ~SPC m m r~ | Macroexpand region           |
+
+** REPL
+
+| Key Binding | Description                              |
+|-------------+------------------------------------------|
+| ~SPC m s i~ | Start or switch to the REPL              |
+| ~SPC m s b~ | Send buffer to the REPL                  |
+| ~SPC m s B~ | Send buffer to the REPL and focus it     |
+| ~SPC m s f~ | Send definition to the REPL              |
+| ~SPC m s F~ | Send definition to the REPL and focus it |
+| ~SPC m s e~ | Send last sexp to the REPL               |
+| ~SPC m s r~ | Send region to the REPL                  |
+| ~SPC m s R~ | Send region to the REPL and focus it     |

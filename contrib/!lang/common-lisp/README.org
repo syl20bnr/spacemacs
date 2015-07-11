@@ -11,6 +11,7 @@
      - [[#repl][REPL]]
      - [[#compile][Compile]]
      - [[#navigation][Navigation]]
+     - [[#macroexpansion][Macroexpansion]]
 
 * Description
 
@@ -41,20 +42,29 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 
 ** Help
 
-| Key Binding | Description        |
-|-------------+--------------------|
-| ~SPC m h a~ | SLIME apropos      |
-| ~SPC m h d~ | Disassemble symbol |
-| ~SPC m h h~ | Describe function  |
-| ~SPC m h H~ | Hyperspec lookup   |
+| Key Binding | Description                                             |
+|-------------+---------------------------------------------------------|
+| ~SPC m h a~ | SLIME apropos                                           |
+| ~SPC m h d~ | Disassemble symbol at point                             |
+| ~SPC m h h~ | Describe symbol at point                                |
+| ~SPC m h H~ | Hyperspec lookup symbol at point                        |
+| ~SPC m h p~ | Browse apropos results for a package's exported symbols |
+| ~SPC m h t~ | Toggle tracing of the function at point                 |
+| ~SPC m h T~ | Untrace all functions                                   |
+| ~SPC m h <~ | Show all known callers                                  |
+| ~SPC m h >~ | Show all known callees                                  |
+| ~SPC m h m~ | Show all usages of a macro                              |
+| ~SPC m h r~ | Show references to global variable                      |
+| ~SPC m h s~ | Show all methods specialized on a class                 |
 
 ** Evaluation
 
 | Key Binding | Description                     |
 |-------------+---------------------------------|
 | ~SPC m e b~ | Evaluate buffer                 |
-| ~SPC m e f~ | Evaluate top level s-expression |
 | ~SPC m e e~ | Evaluate last expression        |
+| ~SPC m e f~ | Evaluate top level s-expression |
+| ~SPC m e F~ | Undefine the function at point  |
 | ~SPC m e r~ | Evaluate region                 |
 
 ** REPL
@@ -71,13 +81,23 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 |-------------+--------------------------|
 | ~SPC m c c~ | Compile file             |
 | ~SPC m c C~ | Compile file and load it |
+| ~SPC m c l~ | Load file                |
+| ~SPC m c n~ | Remove compilation notes |
 | ~SPC m c f~ | Compile function         |
 | ~SPC m c r~ | Compile region           |
 
 ** Navigation
 
+
 | Key Binding               | Description        |
 |---------------------------+--------------------|
 | ~SPC m g g~               | Inspect definition |
+| ~SPC m g b~               | Go back            |
 | ~SPC m g n~               | Next note          |
 | ~SPC m g N~ or ~SPC m g p | Previous note      |
+** Macroexpansion
+
+| Key Binding | Description                                   |
+|-------------+-----------------------------------------------|
+| ~SPC m m a~ | Macroexpand the expression at point completly |
+| ~SPC m m o~ | Macroexpand the expression at point once      |
