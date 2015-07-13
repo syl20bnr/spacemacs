@@ -154,6 +154,7 @@ the focus."
         "mgg" 'cider-jump-to-var
         "mgr" 'cider-jump-to-resource
 
+        "msa" 'cider-refresh
         "msb" 'cider-load-buffer
         "msB" 'spacemacs/cider-send-buffer-in-repl-and-focus
         "msc" 'cider-connect
