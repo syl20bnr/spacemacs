@@ -30,6 +30,14 @@
 (when ruby-version-manager
   (add-to-list 'ruby-packages ruby-version-manager))
 
+(defun ruby/init-chruby ()
+  "Initialize chruby mode"
+  (use-package chruby
+    :defer t
+    :init (chruby)
+    :config (add-hook 'enh-ruby-mode-hook
+                      (lambda () (chruby-use-corresponding)))))
+
 (defun ruby/init-rbenv ()
   "Initialize RBENV mode"
   (use-package rbenv

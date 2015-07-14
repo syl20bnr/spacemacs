@@ -60,7 +60,7 @@ specific documentation for details and caveats):
 #+END_SRC
 
 ** Ruby version management
-This layer supports the use of [[https://rvm.io/][RVM]] and [[https://github.com/sstephenson/rbenv][Rbenv]].
+This layer supports the use of [[https://rvm.io/][RVM]], [[https://github.com/sstephenson/rbenv][Rbenv]], and [[https://github.com/postmodern/chruby][Chruby]].
 To enable it, set the =ruby-version-manager= var in your =~/.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
@@ -68,7 +68,7 @@ To enable it, set the =ruby-version-manager= var in your =~/.spacemacs=:
      '((ruby :variables ruby-version-manager 'rbenv)))
 #+END_SRC
 
-Possible values are =rbenv= and =rvm=.
+Possible values are =rbenv=, =rvm= and =chruby=.
 
 ** Test runner
 This layer supports both =RSpec= and =ruby-test= test runners (frameworks).
