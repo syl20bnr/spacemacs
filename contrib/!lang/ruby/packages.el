@@ -32,6 +32,14 @@
     :config (add-hook 'enh-ruby-mode-hook
                       (lambda () (rbenv-use-corresponding)))))
 
+(defun ruby/init-chruby ()
+  "Initialize chruby mode"
+  (use-package chruby
+    :defer t
+    :init (chruby)
+    :config (add-hook 'enh-ruby-mode-hook
+                      (lambda () (chruby-use-corresponding)))))
+
 (defun ruby/init-rvm ()
   "Initialize RVM mode"
   (use-package rvm
