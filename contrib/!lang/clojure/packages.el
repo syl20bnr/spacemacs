@@ -165,6 +165,7 @@ the focus."
         "msn" 'spacemacs/cider-send-ns-form-to-repl
         "msN" 'spacemacs/cider-send-ns-form-to-repl-focus
         "msq" 'cider-quit
+        "msQ" 'cider-restart
         "msr" 'spacemacs/cider-send-region-to-repl
         "msR" 'spacemacs/cider-send-region-to-repl-focus
         "mss" 'cider-switch-to-repl-buffer
