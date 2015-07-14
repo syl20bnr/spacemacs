@@ -108,6 +108,7 @@
                      'cider-switch-to-last-clojure-buffer
                    'cider-switch-to-repl-buffer)
             "sx" 'cider-refresh
+            "sX" 'cider-restart
 
             "Te" 'cider-enlighten-mode
             "Tf" 'spacemacs/cider-toggle-repl-font-locking

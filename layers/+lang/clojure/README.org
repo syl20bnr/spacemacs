@@ -183,6 +183,8 @@ As this state works the same for all files, the documentation is in global
 | ~SPC m s r~ | send and eval region in REPL                                                   |
 | ~SPC m s R~ | send and eval region and switch to REPL in =insert state=                      |
 | ~SPC m s s~ | switch to REPL or jump to last file or last clj buffer from repl (cider-repl)  |
+| ~SPC m s x~ | refresh REPL                                                                   |
+| ~SPC m s X~ | restart REPL                                                                   |
 
 *** Tests
 
