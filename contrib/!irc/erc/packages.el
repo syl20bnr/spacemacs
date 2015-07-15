@@ -64,16 +64,19 @@
             erc-server-coding-system '(utf-8 . utf-8))
       (setq erc-prompt (lambda () (concat "[" (buffer-name) "]")))
 
-      (require 'notifications)
-      (defun erc-global-notify (match-type nick message)
-        "Notify when a message is recieved."
-        (notifications-notify
-         :title nick
-         :body message
-         :app-icon "/home/io/.emacs.d/assets/spacemacs.svg"
-         :urgency 'low))
+      (unless (system-is-mac)
+        ;; OS X notifications will be handled by erc-terminal-notifier
+        (require 'notifications)
+        (defun erc-global-notify (match-type nick message)
+          "Notify when a message is recieved."
+          (notifications-notify
+           :title nick
+           :body message
+           :app-icon "/home/io/.emacs.d/assets/spacemacs.svg"
+           :urgency 'low))
 
-      (add-hook 'erc-text-matched-hook 'erc-global-notify)
+        (add-hook 'erc-text-matched-hook 'erc-global-notify))
+
       ;; keybindings
       (evil-leader/set-key-for-mode 'erc-mode
         "md" 'erc-input-action
@@ -148,4 +151,5 @@
   (use-package erc-image
     :init (eval-after-load 'erc '(add-to-list 'erc-modules 'image))))
 
-(defun erc/init-erc-terminal-notifier ())
+(defun erc/init-erc-terminal-notifier ()
+  (use-package erc-terminal-notifier))
