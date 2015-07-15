@@ -1,0 +1,136 @@
+#+TITLE: Ranger contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#features][Features]]
+ - [[#configuration][Configuration]]
+     - [[#customizing][Customizing]]
+     - [[#parent-options][Parent options]]
+     - [[#preview-options][Preview options]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+
+This layer brings Ranger features to spacemacs from the =ranger= package.
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(ranger))
+#+END_SRC
+
+To default with preview enabled when entering ranger:
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers 
+              '(ranger :variables
+                       ranger-show-preview t))
+#+END_SRC
+
+* Features
+- use ranger to display dired with ranger like preview and stacked parent windows.
+
+* Configuration
+
+Most parameters can be toggled on and off and stay within the current emacs
+session. Any settings that are desired on startup should be set below. 
+
+** Customizing
+
+When disabling the mode you can choose to kill the buffers that were opened
+while browsing the directories.
+#+BEGIN_SRC elisp
+(setq ranger-cleanup-on-disable t)
+#+END_SRC
+
+Or you can choose to kill the buffer just after you move to another entry in the
+dired buffer.
+#+BEGIN_SRC elisp
+(setq ranger-cleanup-eagerly t)
+#+END_SRC
+
+You can choose to show dotfiles at ranger startup, toggled by `zh`
+#+BEGIN_SRC elisp
+(setq ranger-show-dotfiles t)
+#+END_SRC
+
+Define custom function used to output header of primary ranger window. Must
+return a string that is placed in the header-line.
+#+BEGIN_SRC elisp
+(setq ranger-header-func 'ranger-header-line)
+#+END_SRC
+
+Define custom function used to output header of parent and preview windows. Must
+return a string that is placed in the header-line.
+#+BEGIN_SRC elisp
+(setq ranger-parent-header-func 'ranger-parent-header-line)
+#+END_SRC
+
+** Parent options
+
+You can set the number of folders to nest to the left, adjusted by `z-` and `z+`
+#+BEGIN_SRC elisp
+(setq ranger-parent-depth 2)
+#+END_SRC
+
+You can set the size of the parent windows as a fraction of the frame size
+#+BEGIN_SRC elisp
+(setq ranger-width-parents 0.12)
+#+END_SRC
+
+When increasing number of nested parent folders, set max width as fraction of
+frame size to prevent filling up entire frame with parents.
+#+BEGIN_SRC elisp
+(setq ranger-max-parent-width 0.12)
+#+END_SRC
+
+** Preview options
+
+You can choose to show previews literally, or through find-file, toggled by `zi`
+#+BEGIN_SRC elisp
+(setq ranger-show-dotfiles t)
+#+END_SRC
+
+You can set the size of the preview windows as a fraction of the frame size
+#+BEGIN_SRC elisp
+(setq ranger-width-preview 0.55)
+#+END_SRC
+
+You probably don't want to open certain files like videos when using preview. To
+ignore certain files when moving over them you can customize the following to
+your liking:
+#+BEGIN_SRC elisp
+(setq ranger-ignored-extensions '("mkv" "iso" "mp4"))
+#+END_SRC
+
+To set the max files size (in MB), set the following parameter:
+#+BEGIN_SRC elisp
+(setq ranger-max-preview-size 10)
+#+END_SRC
+
+* Key Bindings
+
+| Key Binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC a r~     | launch ranger                                        |
+| ~C-p~         | (ranger) toggle ranger in dired buffer               |
+| ~j~           | (ranger) navigate down                               |
+| ~k~           | (ranger) navigate up                                 |
+| ~C-j~         | (ranger) scroll preview window down                  |
+| ~C-k~         | (ranger) scroll preview window up                    |
+| ~f~           | (ranger) search for file names                       |
+| ~i~           | (ranger) show preview of current file                |
+| ~zi~          | (ranger) toggle showing literal / full-text previews |
+| ~zh~          | (ranger) toggle showing dotfiles                     |
+| ~o~           | (ranger) sort options                                |
+| ~H~           | (ranger) search through history                      |
+| ~h~           | (ranger) go up directory                             |
+| ~l~           | (ranger) find file / enter directory                 |
+| ~RET~         | (ranger) find file / enter directory                 |
+| ~q~           | (ranger) quit                                        |
+| ~r~           | (ranger) revert buffer                               |
+| ~z-~          | (ranger) reduce number of parents                    |
+| ~z+~          | (ranger) increment number of parents                 |
+| ~v~           | (ranger) toggle all marks                            |
+| ~V~           | (ranger) visually select lines                       |
+| ~S~           | (ranger) enter shell                                 |
+| ~C-SPC~       | (ranger) mark current file                           |
