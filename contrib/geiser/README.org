@@ -1,0 +1,66 @@
+#+TITLE: Geiser contribution layer for Spacemacs
+
+* Table of Contents                                                  :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+     - [[#help][Help]]
+     - [[#evaluation][Evaluation]]
+     - [[#repl][REPL]]
+     - [[#compile][Compile]]
+
+* Description
+
+A Spacemacs contribution layer for [[http://www.nongnu.org/geiser/][Geiser]].
+
+* Install
+
+To use this contribution, add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(geiser))
+#+END_SRC
+
+By default, Geiser prompts you to pick an implementation whenever you open a
+Scheme file. If you want to use only one, you can specify it in your
+=~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/config ()
+    (setq geiser-active-implementations '(guile chicken)))
+#+END_SRC
+
+* Key bindings
+
+** Help
+
+| Key Binding | Description                       |
+|-------------+-----------------------------------|
+| ~SPC m h a~ | Documentation on symbol at point  |
+| ~SPC m h A~ | Show Autodoc in echo area         |
+| ~SPC m h h~ | Lookup manual for symbol at point |
+
+** Evaluation
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC m e b~ | Evaluate buffer          |
+| ~SPC m e f~ | Evaluate definition      |
+| ~SPC m e e~ | Evaluate last expression |
+| ~SPC m e r~ | Evaluate region          |
+
+** REPL
+
+| Key Binding | Description               |
+|-------------+---------------------------|
+| ~SPC m s i~ | Start an inferior process |
+| ~SPC m s s~ | Switch to REPL            |
+| ~SPC m s q~ | Quit                      |
+
+** Compile
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC m c c~ | Compile file             |
+| ~SPC m c f~ | Compile function         |
+| ~SPC m c r~ | Compile region           |
