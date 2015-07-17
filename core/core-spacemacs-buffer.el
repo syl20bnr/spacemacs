@@ -522,7 +522,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
               (cond
                ((eq el 'recents)
                 (recentf-mode)
-                (when (spacemacs-buffer//insert-file-list "Recent Files:" (recentf-elements 5))
+                (when (spacemacs-buffer//insert-file-list "Recent Files:" (recentf-elements dotspacemacs-startup-recent-list-size))
                   (spacemacs//insert--shortcut "r" "Recent Files:")
                   (insert list-separator)))
                ((eq el 'bookmarks)
