@@ -43,6 +43,13 @@
         "mhh" 'anaconda-mode-view-doc
         "mgg" 'anaconda-mode-goto
         "mgu" 'anaconda-mode-usages)
+      (evilify anaconda-nav-mode anaconda-nav-mode-map
+               "RET" #'anaconda-nav-goto-item
+               "j" #'next-error
+               "k" #'previous-error
+               "J" #'anaconda-nav-next-module
+               "K" #'anaconda-nav-previous-module
+               "q" #'anaconda-nav-quit)
       (spacemacs|hide-lighter anaconda-mode))))
 
 (defun python/init-cython-mode ()
