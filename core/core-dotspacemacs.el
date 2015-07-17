@@ -241,6 +241,10 @@ NOT USED FOR NOW :-)")
   "List of items to show in the startup buffer. If nil it is disabled.
 Possible values are: `recents' `bookmarks' `projects'.")
 
+(defvar dotspacemacs-startup-recent-list-size 5
+  "Number of recent files to show in the startup buffer. Ignored if
+`dotspacemacs-startup-lists' doesn't include `recents'.")
+
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")
 
