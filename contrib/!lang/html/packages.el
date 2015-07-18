@@ -28,6 +28,7 @@
     yasnippet
     haml-mode
     slim-mode
+    jade-mode
     ))
 
 (defun html/init-css-mode ()
@@ -172,8 +173,13 @@
 
 (defun html/post-init-flycheck ()
   (add-hook 'web-mode-hook 'flycheck-mode)
+  (add-hook `less-mode 'flycheck-mode)
   (add-hook 'scss-mode-hook 'flycheck-mode)
-  (add-hook 'sass-mode-hook 'flycheck-mode))
+  (add-hook 'sass-mode-hook 'flycheck-mode)
+  (add-hook 'slim-mode 'flycheck-mode)
+  (add-hook 'haml-mode 'flycheck-mode)
+  (add-hook 'jade-mode 'flycheck-mode))
+
 
 (defun html/init-tagedit ()
   (use-package tagedit
@@ -188,7 +194,9 @@
   (use-package yasnippet
     :defer t
     :init
-    (add-hook 'css-mode-hook 'spacemacs/load-yasnippet)))
+    (add-hook 'css-mode-hook 'spacemacs/load-yasnippet)
+    (add-hook 'jade-mode 'spacemacs/load-yasnippet)
+    (add-hook 'slim-mode 'spacemacs/load-yasnippet)))
 
 (defun html/init-haml-mode ()
   (use-package haml-mode
@@ -198,10 +206,19 @@
   (use-package slim-mode
     :defer t))
 
+
+(defun html/init-jade-mode ()
+  (use-package jade-mode
+    :defer t))
+
+
 (when (configuration-layer/layer-usedp 'auto-completion)
+  ;;TODO: whenever company-web makes a backend for haml-mode it should be added here. -- @robbyoconnor
   (defun html/post-init-company ()
     (spacemacs|add-company-hook css-mode)
-    (spacemacs|add-company-hook web-mode))
+    (spacemacs|add-company-hook web-mode)
+    (spacemacs|add-company-hook jade)
+    (spacemacs|add-company-hook slim))
 
   (defun html/init-company-web ()
     (use-package company-web)))
@@ -210,4 +227,10 @@
   (when (configuration-layer/package-usedp 'less-css-mode)
     (add-hook 'less-css-mode-hook 'rainbow-delimiters-mode))
   (when (configuration-layer/package-usedp 'scss-mode)
-    (add-hook 'scss-mode-hook 'rainbow-delimiters-mode)))
+    (add-hook 'scss-mode-hook 'rainbow-delimiters-mode))
+  (when (configuration-layer/package-usedp 'jade-mode)
+    (add-hook 'jade-mode-hook 'rainbow-delimiters-mode))
+  (when (configuration-layer/package-usedp 'haml-mode)
+    (add-hook 'haml-mode 'rainbow-delimiters-mode))
+  (when (configuration-layer/package-usedp 'slim-mode)
+    (add-hook 'slim-mode 'rainbow-delimiters-mode)))
