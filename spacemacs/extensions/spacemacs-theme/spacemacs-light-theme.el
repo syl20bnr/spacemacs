@@ -102,11 +102,12 @@
    `(page-break-lines ((,class (:foreground ,active2))))
    `(mode-line
      ((,class (:foreground ,base
-                           :background ,active1))))
+                           :background ,active1
+                           :box (:color "#B3B9BE" :line-width 1)))))
    `(mode-line-inactive
      ((,class (:foreground ,base
                            :background ,bg1
-                           :box (:color ,inactive :line-width 1)))))
+                           :box (:color "#B3B9BE" :line-width 1)))))
    `(mode-line-buffer-id ((,class (:bold t :foreground ,func))))
 
 ;;;;; powerline
