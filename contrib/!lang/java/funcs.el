@@ -11,11 +11,23 @@
 (defun spacemacs/java-completing-dot ()
   "Insert a period and show company completions."
   (interactive "*")
-  (when (s-matches? (rx (+ (not space)))
-                    (buffer-substring (line-beginning-position) (point)))
-    (delete-horizontal-space t))
+  (spacemacs//java-delete-horizontal-space)
   (insert ".")
   (company-emacs-eclim 'interactive))
+
+(defun spacemacs/java-completing-double-colon ()
+  "Insert double colon and show company completions."
+  (interactive "*")
+  (spacemacs//java-delete-horizontal-space)
+  (insert ":")
+  (let ((curr (point)))
+    (when (s-matches? (buffer-substring (- curr 2) (- curr 1)) ":")
+      (company-emacs-eclim 'interactive))))
+
+(defun spacemacs//java-delete-horizontal-space ()
+  (when (s-matches? (rx (+ (not space)))
+                    (buffer-substring (line-beginning-position) (point)))
+    (delete-horizontal-space t)))
 
 (defun spacemacs/java-maven-test ()
   (interactive)
