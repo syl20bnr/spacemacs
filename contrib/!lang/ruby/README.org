@@ -10,6 +10,7 @@
  - [[#key-bindings][Key bindings]]
      - [[#ruby-enh-ruby-mode-robe-inf-ruby][Ruby (enh-ruby-mode, robe, inf-ruby)]]
      - [[#ruby-test-mode][ruby-test-mode]]
+     - [[#rubocop][Rubocop]]
 
 * Description
 
@@ -84,3 +85,11 @@ a couple of useful keybindings:
 |-------------+---------------------|
 | ~SPC m t b~ | run test file       |
 | ~SPC m t t~ | run test at pointer |
+
+** Rubocop
+
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m r p~ | rubocop check project       |
+| ~SPC m r d~ | rubocop check directory     |
+| ~SPC m r f~ | rubocop check current file) |

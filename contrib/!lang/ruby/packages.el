@@ -19,10 +19,22 @@
     robe
     ruby-test-mode
     ruby-tools
-    yaml-mode))
+    yaml-mode
+    rubocop))
 
 (when ruby-version-manager
   (add-to-list 'ruby-packages ruby-version-manager))
+
+(defun ruby/init-rubocop ()
+  "Initialize Rubocop"
+  (use-package rubocop
+    :config (mapc (lambda (mode)
+                    (evil-leader/set-key-for-mode mode
+                      "mrp" 'rubocop-check-project
+                      "mrd" 'rubocop-check-directory
+                      "mrf" 'rubocop-check-current-file))
+                  '(ruby-mode
+                    enh-ruby-mode))))
 
 (defun ruby/init-rbenv ()
   "Initialize RBENV mode"
