@@ -24,6 +24,20 @@ To use this contribution add it to your =~/.spacemacs=
   (setq-default dotspacemacs-configuration-layers '(ruby))
 #+END_SRC
 
+There is a configuration setting to add [[https://github.com/antonj/Highlight-Indentation-for-Emacs][highlight-indentation-mode]], which is handy.
+
+It is *enabled* by default, unless explicitly set to =nil= in your =~/.spacemacs=.
+
+- To *disable* it, set the =enable-highlight-indentation-mode= variable to =nil=
+
+- To *enable* it, set the =enable-highlight-identation-mode= to =t=
+
+To *disable* when add the layer in your =~/.spacemacs= do:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(ruby :variables enable-highlight-indentation-mode nil))
+#+END_SRC
+
 ** Prerequisites
 
 Some of the advanced features supported by this layer depend on external gems

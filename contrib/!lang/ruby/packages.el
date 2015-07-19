@@ -47,6 +47,9 @@
            ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
     :config
     (progn
+      (when enable-highlight-indentation-mode
+        (spacemacs|diminish highlight-indentation-mode " ⓗ" "h")
+        (add-hook 'enh-ruby-mode-hook 'highlight-indentation-mode))
       (setq enh-ruby-deep-indent-paren nil
             enh-ruby-hanging-paren-deep-indent-level 2)
       (sp-with-modes '(ruby-mode enh-ruby-mode)

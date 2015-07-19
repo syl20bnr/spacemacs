@@ -142,6 +142,9 @@
                        'python-setup-shell))
     :config
     (progn
+      (when enable-highlight-indentation-mode
+        (spacemacs|diminish highlight-indentation-mode " ⓗ" "h")
+        (add-hook 'python-mode-hook 'highlight-indentation-mode))
       (add-hook 'inferior-python-mode-hook 'smartparens-mode)
       ;; add support for `ahs-range-beginning-of-defun' for python-mode
       (eval-after-load 'auto-highlight-symbol
