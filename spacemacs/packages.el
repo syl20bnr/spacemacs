@@ -2100,7 +2100,10 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         :on (highlight-indentation-current-column-mode)
         :off (highlight-indentation-current-column-mode -1)
         :documentation "Highlight indentation level at point."
-        :evil-leader "thc"))))
+        :evil-leader "thc"))
+    :config
+    (spacemacs|diminish highlight-indentation-mode " ⓗ" " h")
+    (spacemacs|diminish highlight-indentation-current-column-mode " ⓗⒸ" " hC")))
 
 (defun spacemacs/init-highlight-numbers ()
   (use-package highlight-numbers
