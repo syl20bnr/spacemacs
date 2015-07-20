@@ -16,3 +16,6 @@
 
 (defvar ruby-version-manager nil
   "If non nil defines the Ruby version manager (i.e. rbenv, rvm)")
+
+(defvar enable-highlight-indentation-mode t
+  "If non-nil will enable highlight-indentation-mode")
