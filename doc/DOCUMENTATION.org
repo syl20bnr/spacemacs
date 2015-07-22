@@ -123,6 +123,7 @@
              - [[#paste-micro-state][Paste Micro-state]]
              - [[#auto-indent-pasted-text][Auto-indent pasted text]]
          - [[#text-manipulation-commands][Text manipulation commands]]
+         - [[#searching-and-inserting-unicode-characters][Searching and inserting unicode characters]]
          - [[#smartparens-strict-mode][Smartparens Strict mode]]
          - [[#zooming][Zooming]]
              - [[#text][Text]]
@@ -1866,6 +1867,12 @@ Text related commands (start with ~x~):
     | ~SPC x w c~ | count the number of words in the selection region             |
     | ~SPC x w C~ | count the number of occurrences per word in the select region |
     | ~SPC x w d~ | show dictionary entry of word from wordnik.com                |
+
+*** Searching and inserting unicode characters
+     You can very easily search for and insert unicode characters into the current buffer.
+     | Key Binding | Description                                                                              |
+     |-------------+------------------------------------------------------------------------------------------|
+     | ~SPC i u~   | Search for unicode characters using [[https://github.com/shosti/helm-unicode][helm-unicode]] and insert them into the active buffer. |
 
 *** Smartparens Strict mode
 [[https://github.com/Fuco1/smartparens][Smartparens]] comes with a strict mode which prevents deletion of parenthesis if
