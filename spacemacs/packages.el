@@ -68,6 +68,7 @@
         helm-projectile
         helm-swoop
         helm-themes
+        helm-unicode
         highlight-indentation
         highlight-numbers
         highlight-parentheses
@@ -2083,6 +2084,12 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :init
     (evil-leader/set-key
       "Th" 'helm-themes)))
+
+(defun spacemacs/init-helm-unicode ()
+  (use-package helm-unicode
+    :defer t
+    :init
+      (evil-leader/set-key "iu" 'helm-unicode)))
 
 (defun spacemacs/init-highlight-indentation ()
   (use-package highlight-indentation
