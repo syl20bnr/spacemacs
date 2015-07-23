@@ -29,6 +29,8 @@
     haml-mode
     slim-mode
     jade-mode
+    tern
+    company-tern
     ))
 
 (defun html/init-css-mode ()
@@ -48,7 +50,8 @@
   (use-package web-mode
     :defer t
     :init
-    (push 'company-web-html company-backends-web-mode)
+    (when (configuration-layer/layer-usedp 'auto-completion)
+      (push '(company-tern company-web-html) company-backends-web-mode))
     :config
     (progn
       ;; Only use smartparens in web-mode
@@ -215,7 +218,9 @@
     (spacemacs|add-company-hook web-mode))
 
   (defun html/init-company-web ()
-    (use-package company-web)))
+    (use-package company-web :defer t))
+  (defun html/init-company-tern ()
+    (use-package company-tern :defer t)))
 
 (defun html/post-init-rainbow-delimiters ()
   (add-to-hooks 'rainbow-delimiters-mode '(haml-mode-hook
@@ -223,3 +228,25 @@
                                            less-css-mode-hook
                                            scss-mode-hook
                                            slim-mode-hook)))
+
+(defun html/init-tern ()
+  (use-package tern
+    :defer t
+    :init
+    ;; if find tern executable, set to command
+    ;; add hook, enable Tern only for jsx
+    (when (setq tern-command (cons (executable-find "tern") nil))
+      (add-hook 'web-mode-hook
+                (lambda ()
+                  (when (equal web-mode-content-type "jsx")
+                    (tern-mode 1)))))
+    :config
+    ;; copied from javascript layer
+    (progn
+      (evil-leader/set-key-for-mode 'web-mode "mrv" 'tern-rename-variable)
+        ;; changed to mrv to avoid conflict with mrr web-mode-element-rename
+      (evil-leader/set-key-for-mode 'web-mode "mhd" 'tern-get-docs)
+      (evil-leader/set-key-for-mode 'web-mode "mgg" 'tern-find-definition)
+      (evil-leader/set-key-for-mode 'web-mode "mgG" 'tern-find-definition-by-name)
+      (evil-leader/set-key-for-mode 'web-mode (kbd "m C-g") 'tern-pop-find-definition)
+      (evil-leader/set-key-for-mode 'web-mode "mht" 'tern-get-type))))
