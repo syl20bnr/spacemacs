@@ -10,13 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-;; List of all packages to install and/or initialize. Built-in packages
-;; which require an initialization must be listed explicitly in the list.
-(defvar terraform-packages
-  '(terraform-mode))
-
-;; List of packages to exclude.
-(defvar terraform-excluded-packages '())
+(setq terraform-packages '(terraform-mode))
 
 (defun terraform/init-terraform-mode ()
   (use-package terraform-mode
