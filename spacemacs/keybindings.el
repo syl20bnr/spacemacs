@@ -110,7 +110,7 @@ Ensure that helm is required before calling FUNC."
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key
   "fc" 'spacemacs/copy-file
-  "fD"  'delete-current-buffer-file
+  "fD" 'delete-current-buffer-file
   "fei" 'find-user-init-file
   "fes" 'find-spacemacs-file
   "fec" 'find-contrib-file
@@ -120,8 +120,9 @@ Ensure that helm is required before calling FUNC."
   "fev" 'spacemacs/display-and-copy-version
   "fg" 'rgrep
   "fj" 'dired-jump
+  "fl" 'find-file-literally
   "fo" 'spacemacs/open-in-external-app
-  "fR"  'rename-current-buffer-file
+  "fR" 'rename-current-buffer-file
   "fS" 'evil-write-all
   "fs" 'spacemacs/write-file
   "fy" 'show-and-copy-buffer-filename)
