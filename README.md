@@ -25,6 +25,49 @@
 
     git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
+**Table of Contents**
+
+- [Introduction](#introduction)
+- [Features](#features)
+    - [Batteries Included](#batteries-included)
+    - [Nice UI](#nice-ui)
+    - [Excellent ergonomics](#excellent-ergonomics)
+    - [Convenient and Mnemonic Key Bindings](#convenient-and-mnemonic-key-bindings)
+        - [Great [Documentation][DOCUMENTATION.org]](#great-documentationdocumentationorg)
+- [Prerequisites](#prerequisites)
+    - [Emacs](#emacs)
+        - [Linux distros](#linux-distros)
+        - [OS X](#os-x)
+        - [Windows](#windows)
+- [Install](#install)
+    - [Spacemacs logo](#spacemacs-logo)
+- [Update](#update)
+    - [Update notification](#update-notification)
+    - [Rollback](#rollback)
+- [Configuration](#configuration)
+    - [Configuration layers](#configuration-layers)
+    - [Dotfile (.spacemacs)](#dotfile-spacemacs)
+    - [Dotdirectory (~/.spacemacs.d)](#dotdirectory-spacemacsd)
+- [Learning Spacemacs](#learning-spacemacs)
+    - [Editing Styles](#editing-styles)
+    - [The leader keys](#the-leader-keys)
+    - [Evil-tutor](#evil-tutor)
+    - [Universal argument](#universal-argument)
+    - [Configuration layers and Package discovery](#configuration-layers-and-package-discovery)
+    - [Key bindings discovery](#key-bindings-discovery)
+    - [Describe functions](#describe-functions)
+- [How-To's](#how-tos)
+- [Contributions](#contributions)
+- [License](#license)
+- [Special Credits](#special-credits)
+- [Supporting Spacemacs](#supporting-spacemacs)
+- [FAQ](#faq)
+    - [Common](#common)
+    - [Windows](#windows)
+    - [OS X](#os-x)
+
+<!-- markdown-toc end -->
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
@@ -289,8 +332,8 @@ listed first.
 [configuration layers][config]. These layers are stacked on top of each other
 to achieve a custom configuration.
 
-`Spacemacs` uses the dotfile `~/.spacemacs` to control which layers to
-load. Within this file you may also generally configure certain features.
+By default `Spacemacs` uses the dotfile `~/.spacemacs` to control which layers
+to load. Within this file you may also generally configure certain features.
 
 ## Configuration layers
 
@@ -353,6 +396,12 @@ _without restarting_ `Spacemacs` by pressing <kbd>SPC f e R</kbd>.
 The [comments in this file][dotfile template] contain further information about
 how to customize `Spacemacs`. See the [dotfile configuration][dotfile] section of
 the documentation for more details.
+
+## Dotdirectory (~/.spacemacs.d)
+
+Like =Emacs=, Spacemacs initialization can also be contained in an =init.el= file
+in a special directory =~/.spacemacs.d=. The contents of the dotfile should be
+then copied in the =init.el= file.
 
 # Learning Spacemacs
 
