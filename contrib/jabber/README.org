@@ -1,0 +1,44 @@
+#+TITLE: Jabber contribution layer for Spacemacs
+
+[[file:img/jabber-logo.gif]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+     - [[#jabber-roster][Jabber Roster]]
+
+* Description
+
+This layer adds keybindings for jabber.el. jabber.el is a Jabber (XMPP) client for Emacs
+
+* Install
+
+To use this contribution layer add it to your `~/.spacemacs`
+
+```elisp
+(set-default dotspacemacs-configuration-layers '(jabber))
+```
+
+* Key bindings
+
+Key Binding         | Description
+--------------------|-------------------------------
+<kbd>SPC a j </kbd> | Connect all accounts
+
+** Jabber Roster
+
+Key Binding             | Description
+------------------------|--------------------------------
+<kbd>SPC m a</kbd>      | Jabber send presence
+<kbd>SPC m b</kbd>      | Jabber get browse
+<kbd>SPC m d</kbd>      | Jabber disconnect
+<kbd>SPC m e</kbd>      | Jabber roster edit action at point
+<kbd>SPC m g</kbd>      | Jabber display roster
+<kbd>SPC m i</kbd>      | Jabber get disco items
+<kbd>SPC m j</kbd>      | Jabber muc join
+<kbd>SPC m o</kbd>      | Jabber roster toggle offline display
+<kbd>SPC m q</kbd>      | bury buffer
+<kbd>SPC m s</kbd>      | Jabber send subscription request
+<kbd>SPC m v</kbd>      | Jabber get version
+<kbd>SPC m RET</kbd>    | Jabber roster ret action at point
