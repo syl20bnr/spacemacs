@@ -93,7 +93,7 @@
 (defun elixir/post-init-flycheck ()
   (add-hook 'elixir-mode-hook 'flycheck-mode))
 
-(defun elixir/post-init-popwin ()
+(defun elixir/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin
     :post-config
     (push '("*mix*" :tail t :noselect t) popwin:special-display-config)))
