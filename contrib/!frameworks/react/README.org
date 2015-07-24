@@ -1,0 +1,75 @@
+* React contribution layer for Spacemacs
+
+#+CAPTION: logo
+
+[[img/react.png]]
+
+** Table of Contents                                                  :TOC@4:
+ - [[#react-contribution-layer-for-spacemacs][React contribution layer for Spacemacs]]
+     - [[#description][Description]]
+         - [[#features][Features]]
+     - [[#todo-install][TODO Install]]
+     - [[#optional-configuration][Optional Configuration]]
+
+** Description
+
+ES6 and JSX ready configuration layer for React
+It will automatically recognize =.jsx= and =.react.js= files
+
+*** Features
+- on-the-fly syntax checking
+- proper syntax highlight and indentation with jsx
+- ternjs turbocharged autocompletion as in js2-mode
+
+** TODO Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(react))
+#+end_src
+
+You will also need to install =tern= to use the auto-completion and
+documentation features:
+#+BEGIN_SRC sh
+  $ npm install -g tern
+#+END_SRC
+
+To use the on-the-fly syntax checking, install =eslint= with babel and react support:
+#+BEGIN_SRC sh
+  $ npm install -g eslint babel-eslint eslint-plugin-react
+#+END_SRC
+
+If your project do not use a custom =.eslintrc= file I strongly advice you to try out this one by Airbnb:
+[[https://github.com/airbnb/javascript/blob/master/linters/.eslintrc][.eslintrc]]
+
+** Optional Configuration
+
+You may refer to the =web-mode= configuration for fine tuning the indenting behaviour.
+
+For example to have a consistent 2 spaces indenting both on =js= and =jsx= you may use these settings:
+
+#+begin_src emacs-lisp
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
+#+end_src
+
+And if you want to have 2 space indent also for element's attributes, concatenations and contiguous function calls:
+#+begin_src emacs-lisp
+  (with-eval-after-load 'web-mode
+    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+#+end_src
+
+
+
+
+
