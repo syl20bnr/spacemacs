@@ -3041,16 +3041,20 @@ It is a string holding:
       (sp-pair "[" nil :post-handlers
                '(:add (spacemacs/smartparens-pair-newline-and-indent "RET"))))))
 
+(defvar spacemacs-smooth-scroll-margin 5
+  "Default number of lines above/below the cursor to keep visible
+while scrolling.")
+
 (defun spacemacs/init-smooth-scrolling ()
   (if dotspacemacs-smooth-scrolling
       (use-package smooth-scrolling
         :init
-        (setq smooth-scroll-margin 5
+        (setq smooth-scroll-margin spacemacs-smooth-scroll-margin
               scroll-conservatively 101
               scroll-preserve-screen-position t
               auto-window-vscroll nil)
         :config
-        (setq scroll-margin 5))
+        (setq scroll-margin spacemacs-smooth-scroll-margin))
 
     ;; deactivate the defadvice's
     (ad-disable-advice 'previous-line 'after 'smooth-scroll-down)
