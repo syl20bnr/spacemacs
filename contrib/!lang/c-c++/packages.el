@@ -20,11 +20,13 @@
     company-ycmd
     flycheck
     gdb-mi
+    helm-cscope
     helm-gtags
     semantic
     srefactor
     stickyfunc-enhance
     ycmd
+    xscope
     ))
 
 (unless (version< emacs-version "24.4")
@@ -148,3 +150,13 @@
 
 (defun c-c++/post-init-company-ycmd ()
   (push 'company-ycmd company-backends-c-mode-common))
+
+(defun c-c++/pre-init-xcscope ()
+  (spacemacs|use-package-add-hook xcscope
+    :post-init
+    (evil-leader/set-key-for-mode 'c-mode-common "mgi" 'cscope-index-files)))
+
+(defun c-c++/pre-init-helm-cscope ()
+  (spacemacs|use-package-add-hook xcscope
+    :post-init
+    (spacemacs/setup-helm-cscope 'c-mode-common)))
