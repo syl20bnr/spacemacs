@@ -1,0 +1,31 @@
+#+TITLE: Nim contribution layer for Spacemacs
+
+[[file:img/logo.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+ - [[#working-with-nim][Working with Nim]]
+     - [[#nim-commands-start-with-m][Nim commands (start with =m=):]]
+
+* Description
+
+This layer adds support for nim (nimrod).
+
+* Install
+
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(nim))
+#+END_SRC
+
+* Working with Nim
+
+** Nim commands (start with =m=):
+| Key Binding | Description                                               |
+|-------------+-----------------------------------------------------------|
+| ~SPC m c r~ | nim compile --run main.nim
