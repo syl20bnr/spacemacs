@@ -19,6 +19,7 @@
     eldoc
     evil-jumper
     flycheck
+    helm-cscope
     helm-pydoc
     hy-mode
     pip-requirements
@@ -29,6 +30,7 @@
     semantic
     smartparens
     stickyfunc-enhance
+    xcscope
     ))
 
 (defun python/init-anaconda-mode ()
@@ -285,3 +287,13 @@ fix this issue."
 
 (defun python/post-init-stickyfunc-enhance ()
   (add-hook 'python-mode-hook 'spacemacs/lazy-load-stickyfunc-enhance))
+
+(defun python/pre-init-xcscope ()
+  (spacemacs|use-package-add-hook xcscope
+    :post-init
+    (evil-leader/set-key-for-mode 'python-mode "mgi" 'cscope/run-pycscope)))
+
+(defun python/pre-init-helm-cscope ()
+  (spacemacs|use-package-add-hook xcscope
+    :post-init
+    (spacemacs/setup-helm-cscope 'python-mode)))
