@@ -1261,6 +1261,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
                    'spacemacs/no-golden-ratio-guide-key)
       (add-to-list 'golden-ratio-exclude-buffer-names " *NeoTree*")
       (add-to-list 'golden-ratio-exclude-buffer-names "*LV*")
+      (add-to-list 'golden-ratio-exclude-buffer-names " *which-key*")
 
       (spacemacs|diminish golden-ratio-mode " ⓖ" " g"))))
 
