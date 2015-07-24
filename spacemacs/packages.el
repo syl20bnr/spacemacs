@@ -2955,7 +2955,7 @@ It is a string holding:
     :init
     (progn
       (evil-leader/set-key "tCd" 'rainbow-delimiters-mode)
-      (when (eq dotspacemacs-highlight-delimiters 'all)
+      (when (member dotspacemacs-highlight-delimiters '(any all))
         (add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook))))))
 
 (defun spacemacs/init-recentf ()
