@@ -3,7 +3,6 @@
     arduino-mode
     julia-mode
     matlab-mode
-    nim-mode
     nix-mode
     qml-mode
     scad-mode
@@ -20,9 +19,6 @@
 
 (defun extra-langs/init-nix-mode ()
   (use-package nix-mode :defer t))
-
-(defun extra-langs/init-nim-mode ()
-  (use-package nim-mode :defer t))
 
 (defun extra-langs/init-qml-mode ()
   (use-package qml-mode :defer t :mode "\\.qml\\'"))
