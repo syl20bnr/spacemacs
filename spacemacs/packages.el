@@ -3426,21 +3426,31 @@ one of `l' or `r'."
                 bzg-big-fringe-mode)
             (let ((which-key-inhibit t)) ad-do-it)
           ad-do-it))
-      (add-to-list 'which-key-description-replacement-alist '("select-window-\\([0-9]\\)" . "Window \\1"))
+      (let ((new-descriptions
+             ;; being higher in this list means the replacement is applied later
+             '(("spacemacs/\\(.+\\)" . "\\1")
+               ("select-window-\\([0-9]\\)" . "window \\1")
+               ("spacemacs/alternate-buffer" . "last buffer")
+               ("evil-ace-jump-word-mode" . "ace word")
+               ("shell-command" . "shell cmd")
+               ("spacemacs/default-pop-shell" . "open shell")
+               ("spacemacs/helm-project-smart-do-search-region-or-symbol" . "smart search")
+               ("helm-descbinds" . "show keybindings")
+               ("sp-split-sexp" . "split sexp")
+               ("evil-ace-jump-line-mode" . "ace line")
+               ("universal-argument" . "universal arg")
+               ("er/expand-region" . "expand region")
+               ("helm-apropos" . "apropos"))))
+        (dolist (nd new-descriptions)
+          ;; ensure the target matches the whole string
+          (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
+                which-key-description-replacement-alist)))
       (which-key-add-key-based-replacements
-       "SPC TAB"  "last buffer"
-       "SPC SPC"  "ace word"
-       "SPC !"    "shell cmd"
-       "SPC '"    "open shell"
-       "SPC /"    "smart search"
-       "SPC ?"    "show keybindings"
-       "SPC J"    "split sexp"
-       "SPC l"    "ace line"
-       "SPC u"    "universal arg"
-       "SPC v"    "expand region"
-       "SPC <f1>" "apropos"
        "SPC m"    "maj mode cmds"
        (concat "SPC " dotspacemacs-command-key) "M-x")
+      ;; disable special key handling for spacemacs, since it can be
+      ;; disorienting if you don't understand it
+      (setq which-key-special-keys nil)
       (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
 
 (defun spacemacs/init-window-numbering ()
