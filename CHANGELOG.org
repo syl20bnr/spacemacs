@@ -5,28 +5,78 @@
   be sure to add this layer to your dotfile if you use RoR.
 - =Django= framework has now its own layer called =django=,
   be sure to add this layer to your dotfile if you use it.
+- =guide-key= has been replaced by =which-key=, you may encounter issues
+  if you have =guide-key= custom configurations, remove any =guide-key=
+  configuration and check the options offered by =which-key=.
 *** Hot new features:
 - The default theme of Spacemacs is now =spacemacs-dark=. The Spacemacs themes
   (=spacemacs-dark= and =spacemacs-light=) becomes the official themes of
   Spacemacs, official screenshots should be taken with one of these themes.
   (thanks to nashamri)
+- Add support for dotdirectory =~/.spacemacs.d= which behaves like the Emacs
+  dotdirectory (i.e. =~/.spacemacs.d/init.el= is evaluated instead of
+  =~/.spacemacs= (thanks to justbur)
+- Guide-key is replaced by =which-key= which is now the preferred live help
+  package for key bindings (thanks to justbur)
 *** New Layers
 - chinese (thanks to andyque)
+- cscope (thanks to bmag)
 - django (split from python layer)
 - idris (thanks to zmthy)
+- jabber (thanks to toshism)
 - java (thanks to kleewho)
+- ranger (thanks to ralesi)
 - sml (thanks to Devagamster)
+- terraform (thanks to BrianHicks)
 - ruby-on-rails (split from ruby layer)
+- vinegar (thanks to ralesi)
+- unimpaired (thanks to ralesi)
+- wakatime (thanks to CestDiego)
+*** Dotfile changes
+- Add a new value =any= for =dotspacemacs-highlight-delimiters=, when set to
+  =any=, all the delimiters are highlighted via =rainbow-mode=.
 *** Layer changes
 **** Spacemacs
 - Add =copy file= key binding on ~SPC f c~ (thanks to cpaulik)
+- Add package =define-word= on ~SPC x w d~ (thanks to swaroopch)
+- Add transparency micro-state (thanks to person808)
 - In buffer not visiting a file ~SPC f s~ now asks for a filename (thanks to
   cpaulik)
+- Add ~SPC f l~ to visit a file literally which means that the file will be
+  opened in =fundamental mode= (thanks to sooheon)
+- Enable =highlight-parentheses= when =dotspacemacs-highlight-delimiters= is
+  set to =all= (thanks to tuhdo)
 - Fix ~SPC i K~ (insert empty line above point) which now works
   as expected when used from the first line of a buffer (thanks to
   travisbhartwell)
+- Hide lighter for =highlight-parentheses=
+**** Dash
+- Add support for =zeal= on Linux and Windows (thanks to CestDiego)
+**** Elixir
+- Remove flycheck due to a security issue in the Elixir compiler
+  (thanks to gilbertkennen)
+- Add support for popwin for =mix= buffers (thanks to rhalukongor)
+**** Extra-lang
+- Add =Stan= modeling language (thanks to alexanderrich)
+**** Go
+- Use exec-path-from-shell-copy-env to set =GOPATH= (thanks to jenanwise)
+**** Html
+- Add =.jsx= extension to =web-mode= (thanks to Tritlo)
+- Add support for =jade= files (thanks to robbyoconnor)
+- Add flycheck for =slim= and =haml= modes (thanks to robbyoconnor)
+- Add rainbow delimiters for =haml=, =jade= and =slim= modes
+  (thanks to robbyoconnor)
 **** Javascript
 - Add =json-snatcher= on ~SPC m h p~ (thanks to CestDiego)
+**** Shell
+- Add =eldoc= support in eshell (thanks to ppold)
+- Add a better prompt via =eshell-prompt-extras= for eshell (thanks to ppold)
+- Add visual commands to eshell (thanks to ppold)
+- Add support for =smart eshell= in eshell via the layer variable
+  =shell-enable-smart-eshell= (thanks to ppold)
+- Add auto-completion support for eshell (thanks to trishume)
+- Automatically jump to prompt in insert state in eshell buffers (thanks to
+  trishume)
 * Release 0.103.x
 ** 0.103.2 (2015/07/04)
 *** Layer changes
