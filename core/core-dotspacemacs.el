@@ -141,8 +141,9 @@ it reaches the top or bottom of the screen.")
   "If non-nil smartparens-strict-mode will be enabled in programming modes.")
 
 (defvar dotspacemacs-highlight-delimiters 'all
-  "Select a scope to highlight delimiters. Possible value is `all', `current'
-or `nil'. Default is `all'")
+  "Select a scope to highlight delimiters. Possible values are `any',
+  `current', `all' or `nil'. Default is `all' (highlight any scope and
+  emphasis the current one.")
 
 (defvar dotspacemacs-delete-orphan-packages t
   "If non-nil spacemacs will delete any orphan packages, i.e. packages that are
