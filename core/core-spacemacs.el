@@ -115,8 +115,10 @@ initialization."
   (setq-default evil-want-C-u-scroll t)
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init "Executing user init...")
+  ;; mandatory dependencies
   ;; dash is required to prevent a package.el bug with f on 24.3.1
   (spacemacs/load-or-install-package 'dash t)
+  (spacemacs/load-or-install-package 's t)
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-package 'bind-key t)
   (spacemacs/load-or-install-package 'use-package t)
@@ -124,6 +126,8 @@ initialization."
   ;; inject use-package hooks for easy customization of
   ;; stock package configuration
   (setq use-package-inject-hooks t)
+  ;; which-key
+  (spacemacs/load-or-install-package 'which-key t)
   ;; evil and evil-leader must be installed at the beginning of the
   ;; boot sequence.
   ;; Use C-u as scroll-up (must be set before actually loading evil)

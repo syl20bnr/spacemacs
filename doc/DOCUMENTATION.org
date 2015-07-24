@@ -913,7 +913,7 @@ can be reached using the =control= key.
 | ~SPC t c~   | =none=  |       | fill-column-indicator mode          |
 | ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                      |
 | ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                   |
-| ~SPC t k~   | =Ⓖ=     | G     | guide-key mode                      |
+| ~SPC t G~   | =Ⓖ=     | G     | guide-key mode                      |
 | ~SPC t i~   | =ⓘ=     | i     | indentation guide                   |
 | ~SPC t C-i~ | =ⓘ=     | i     | global indentation guide            |
 | ~SPC t I~   | =Ⓘ=     | I     | aggressive indent mode              |
