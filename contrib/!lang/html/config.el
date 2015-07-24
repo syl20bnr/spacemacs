@@ -13,9 +13,9 @@
 ;; Variables
 
 (spacemacs|defvar-company-backends css-mode)
-(spacemacs|defvar-company-backends web-mode)
 (spacemacs|defvar-company-backends jade-mode)
 (spacemacs|defvar-company-backends slim-mode)
+(spacemacs|defvar-company-backends web-mode)
 ;;TODO: when this becomes available -- uncomment. -@robbyoconnor
 ;; (spacemacs|defvar-company-backends haml-mode)
 
