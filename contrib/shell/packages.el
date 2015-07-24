@@ -24,7 +24,7 @@
         magit
         ))
 
-(defun shell/post-init-company ()
+(defun shell/pre-init-company ()
   ;; support in eshell
   (spacemacs|use-package-add-hook eshell
     :post-config
