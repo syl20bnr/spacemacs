@@ -48,26 +48,4 @@ override lazy-loaded settings."
             (push `(add-hook ',hook (lambda nil ,@body)) expanded-forms)))))
     `(progn ,@expanded-forms)))
 
-;; Temporary fix until #213 is merged upstream
-(eval-after-load 'use-package
-  '(defun use-package-hook-injector (name-string keyword body)
-  "Wrap pre/post hook injections around a given keyword form.
-ARGS is a list of forms, so `((foo))' if only `foo' is being called."
-  (if (not use-package-inject-hooks)
-      (use-package-expand name-string (format "%s" keyword) body)
-    (let ((keyword-name (substring (format "%s" keyword) 1)))
-      (when body
-        `((when ,(macroexp-progn
-                  (use-package-expand name-string (format "pre-%s hook" keyword)
-                    `((run-hook-with-args-until-failure
-                       ',(intern (concat "use-package--" name-string
-                                         "--pre-" keyword-name "-hook"))))))
-            ,(macroexp-progn
-              (use-package-expand name-string (format "%s" keyword) body))
-            ,(macroexp-progn
-              (use-package-expand name-string (format "post-%s hook" keyword)
-                `((run-hooks
-                  ',(intern (concat "use-package--" name-string
-                                    "--post-" keyword-name "-hook")))))))))))))
-
 (provide 'core-use-package-ext)
