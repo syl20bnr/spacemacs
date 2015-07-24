@@ -1,0 +1,64 @@
+#+TITLE: Wakatime contribution layer for Spacemacs
+
+[[file:img/wakatime.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#wakatime-program][Wakatime Program]]
+     - [[#layer][Layer]]
+     - [[#api-keys][API Keys]]
+         - [[#note-to-venv-workon-users][Note to =venv-workon= users:]]
+
+* Description
+This layer adds support for Wakatime.
+
+WakaTime was built to solve time tracking for programmers.
+Since we work inside a text editor, why should we have to start and stop a
+timer? WakaTime uses open-source text editor plugins to automatically track the
+time you spend programming so you never have to manually track it again!
+
+P.S. wakati means time in Swahili
+
+* Install
+
+** Wakatime Program
+You can follow wakatime installation instructions here
+https://github.com/wakatime/wakatime-mode.
+
+In short it's just:
+#+BEGIN_SRC sh
+pip install wakatime
+#+END_SRC
+
+And for some linux users
+#+BEGIN_SRC sh
+sudo pip install wakatime
+#+END_SRC
+
+** Layer
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(wakatime))
+#+END_SRC
+
+** API Keys
+After this go to your wakatime account and have your API key handy
+https://wakatime.com/settings/account?apikey=true .
+
+Restart emacs and it will prompt you for the location of the wakatime installer
+(just put in whatever =which wakatime= gives you in the terminal e.g.
+=/usr/bin/wakatime= for example) and that's it.
+
+*** Note to =venv-workon= users:
+
+Right now wakatime uses =python= as python bin executable, so if you use
+=venv-workon= because you have python projects which need to have a virtual
+env., then wakatime, which is installed system-wide will have trouble locating
+wakatime files, so it's best to define by yourself the python path where
+wakatime can always find it's stuff, via this variable:
+
+#+BEGIN_SRC emacs-lisp
+(setq wakatime-python-bin "/path/to/python")
+#+END_SRC
