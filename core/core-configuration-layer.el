@@ -225,7 +225,8 @@ path."
   (let ((search-paths (append (list configuration-layer-contrib-directory)
                               dotspacemacs-configuration-layer-path
                               (list configuration-layer-private-layer-directory)
-                              (list dotspacemacs-directory)))
+                              (when dotspacemacs-directory
+                                (list dotspacemacs-directory))))
         (discovered '())
         (result (make-hash-table :size 256)))
     ;; depth-first search of subdirectories
