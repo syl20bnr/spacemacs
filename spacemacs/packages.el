@@ -2114,6 +2114,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
                               "IndianRed3"
                               "IndianRed4")))
     :config
+    (spacemacs|hide-lighter highlight-parentheses-mode)
     (set-face-attribute 'hl-paren-face nil :weight 'ultra-bold)))
 
 (defun spacemacs/init-hl-anything ()
