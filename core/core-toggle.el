@@ -38,6 +38,7 @@ Avaiblabe PROPS:
 
 All properties supported by `spacemacs//create-key-binding-form' can be
 used."
+  (declare (indent 1))
   (let* ((wrapper-func (intern (format "spacemacs/toggle-%s"
                                        (symbol-name name))))
          (status (plist-get props :status))

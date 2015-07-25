@@ -11,29 +11,29 @@
 ;;; License: GPLv3
 
 (spacemacs|add-toggle auto-completion
-                      :status
-                      (if (boundp 'auto-completion-front-end)
-                          (if (eq 'company auto-completion-front-end)
-                              company-mode
-                            auto-complete-mode)
-                        ;; default completion hardcoded to be company for now
-                        (setq auto-completion-front-end 'company)
-                        nil)
-                      :on
-                      (progn
-                        (if (eq 'company auto-completion-front-end)
-                            (company-mode)
-                          (auto-complete-mode))
-                        (message "Enabled auto-completion (using %S)."
-                                 auto-completion-front-end))
-                      :off
-                      (progn
-                        (if (eq 'company auto-completion-front-end)
-                            (company-mode -1)
-                          (auto-complete-mode -1))
-                        (message "Disabled auto-completion."))
-                      :documentation "Activate auto-completion."
-                      :evil-leader "ta")
+  :status
+  (if (boundp 'auto-completion-front-end)
+      (if (eq 'company auto-completion-front-end)
+          company-mode
+        auto-complete-mode)
+    ;; default completion hardcoded to be company for now
+    (setq auto-completion-front-end 'company)
+    nil)
+  :on
+  (progn
+    (if (eq 'company auto-completion-front-end)
+        (company-mode)
+      (auto-complete-mode))
+    (message "Enabled auto-completion (using %S)."
+             auto-completion-front-end))
+  :off
+  (progn
+    (if (eq 'company auto-completion-front-end)
+        (company-mode -1)
+      (auto-complete-mode -1))
+    (message "Disabled auto-completion."))
+  :documentation "Activate auto-completion."
+  :evil-leader "ta")
 
 ;; auto-completion key bindings functions
 

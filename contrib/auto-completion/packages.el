@@ -231,11 +231,11 @@
                                                 markdown-mode-hook
                                                 org-mode-hook))
       (spacemacs|add-toggle yasnippet
-                            :status yas-minor-mode
-                            :on (yas-minor-mode)
-                            :off (yas-minor-mode -1)
-                            :documentation "Enable yasnippet."
-                            :evil-leader "ty")
+        :status yas-minor-mode
+        :on (yas-minor-mode)
+        :off (yas-minor-mode -1)
+        :documentation "Enable yasnippet."
+        :evil-leader "ty")
 
       (defun spacemacs/force-yasnippet-off ()
         (yas-minor-mode -1)
