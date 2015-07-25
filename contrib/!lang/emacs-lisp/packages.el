@@ -121,4 +121,3 @@
 !      "mdr" 'edebug-go-mode
 !      "mds" 'edebug-step-mode
 !      "mdt" 'edebug-backtrace))
-(defun emacs-lisp/)
