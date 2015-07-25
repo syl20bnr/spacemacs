@@ -3451,6 +3451,7 @@ one of `l' or `r'."
       ;; disable special key handling for spacemacs, since it can be
       ;; disorienting if you don't understand it
       (setq which-key-special-keys nil)
+      (setq which-key-use-C-h-for-paging t)
       (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
 
 (defun spacemacs/init-window-numbering ()
