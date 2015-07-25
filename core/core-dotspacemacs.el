@@ -135,6 +135,14 @@ several times cycle between the kill ring content.'")
 (defvar dotspacemacs-guide-key-delay 0.4
   "Guide-key delay in seconds.")
 
+(defvar dotspacemacs-which-key-delay 0.4
+  "Which-key delay in seconds.")
+
+;; TODO: Implement me
+;; Possible options should be: right bottom right-then-bottom
+(defvar dotspacemacs-which-key-position 'right-then-bottom
+  "Which-key position in seconds.")
+
 (defvar dotspacemacs-loading-progress-bar t
   "If non nil a progress bar is displayed when spacemacs is loading. This
 may increase the boot time on some systems and emacs builds, set it to nil
