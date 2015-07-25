@@ -112,6 +112,10 @@ size to make separators look not too crappy.")
 By default the command key is `:' so ex-commands are executed like in Vim
 with `:' and Emacs commands are executed with `<leader> :'.")
 
+(defvar dotspacemacs-use-C-g-to-escape nil
+  "If non nil, then C-g will be bound to `evil-normal-state' in
+insert mode and lisp mode. It works in visual mode by default.")
+
 (defvar dotspacemacs-use-ido nil
   "If non nil then `ido' replaces `helm' for some commands. For now only
 `find-files' (SPC f f) is replaced.")

@@ -40,6 +40,11 @@
 (define-key minibuffer-local-must-match-map (kbd "<escape>") 'keyboard-escape-quit)
 (define-key minibuffer-local-isearch-map (kbd "<escape>") 'keyboard-escape-quit)
 
+;; Use C-g like escape in evil
+(when dotspacemacs-use-C-g-to-escape
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  (define-key evil-lisp-state-map (kbd "C-g") 'evil-normal-state))
+
 ;; linum margin bindings-------------------------------------------------------
 (global-set-key (kbd "<left-margin> <down-mouse-1>") 'spacemacs/md-select-linum)
 (global-set-key (kbd "<left-margin> <mouse-1>") 'spacemacs/mu-select-linum)
