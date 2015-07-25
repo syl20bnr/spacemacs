@@ -11,11 +11,10 @@
      - [[#key-bindings][Key bindings]]
 
 ** Description
-
-This layer does wondeful things: - thing01
+This layer does wonderful things:
+  - thing01
 
 ** Install
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+begin_src emacs-lisp

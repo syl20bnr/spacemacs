@@ -33,6 +33,8 @@
              - [[#language-specific][Language specific]]
          - [[#refactoring][Refactoring]]
          - [[#help-or-documentation][Help or Documentation]]
+     - [[#writing-documentation][Writing documentation]]
+         - [[#spacing-in-documentation][Spacing in documentation]]
 
 ** Code guidelines
 *** Spacemacs core and layer
@@ -302,3 +304,17 @@ as an help command.
 |---------+------------------------------------|
 | ~m h h~ | documentation of thing under point |
 | ~m h r~ | documentation of selected region   |
+
+** Writing documentation
+Spacemacs provides an example layer =README.org= file in
+=~/.emacs.d/core/templates/layer-README.template=.
+
+*** Spacing in documentation
+Spacemacs tries to keep the documentation consistent between all layers by
+providing some rules for spacing:
+  - After each header, you should not add an empty line
+    - *Exception*: If the first item under the header is a table, add an empty
+      line after it
+  - At the end of each header node, there should be an empty line
+  - Note: Many layer =READMEs= do not follow this convention yet. Please fix
+    them if you can.
