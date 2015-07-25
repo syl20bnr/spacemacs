@@ -18,7 +18,7 @@
 (define-key evil-normal-state-map (kbd "] l") 'spacemacs/next-error)
 (define-key evil-normal-state-map (kbd "[ l") 'spacemacs/previous-error)
 
-(define-key evil-normal-state-map (kbd "[ h") 'diff-hl-prev-hunk)
+(define-key evil-normal-state-map (kbd "[ h") 'diff-hl-previous-hunk)
 (define-key evil-normal-state-map (kbd "] h") 'diff-hl-next-hunk)
 
 (define-key evil-normal-state-map (kbd "[ t") (lambda () (interactive)(raise-frame (previous-frame))))
