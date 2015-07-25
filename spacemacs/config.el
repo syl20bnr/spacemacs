@@ -47,7 +47,6 @@
                                        ("T" .  "toggles/themes")
                                        ("w" .  "windows")
                                        ("wp" . "windows-popup")
-                                       ("wS" . "windows-size")
                                        ("x" .  "text")
                                        ("xa" . "text-align")
                                        ("xd" . "text-delete")
