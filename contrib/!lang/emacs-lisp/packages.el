@@ -92,6 +92,20 @@
       )))
 
 (defun emacs-lisp/post-init-edebug ()
+  (use-package emacs-lisp-mode
+	:commands (edebug-defun
+				edebug-set-breakpoint
+				edebug-unset-breakpoint
+				edebug-continue-mode
+				edebug
+				edebug-var-status
+				edebug--mode-saved-vars
+				edebug-next-mode
+				edebug-step-out
+				edebug-stop
+				edebug-go-mode
+				edebug-step-mode
+				edebug-backtrace)
 	:init
     (evil-leader/set-key-for-mode 'emacs-lisp-mode
       "mdf" 'edebug-defun
