@@ -3254,7 +3254,20 @@ It is a string holding:
       ;; disable special key handling for spacemacs, since it can be
       ;; disorienting if you don't understand it
       (setq which-key-special-keys nil)
-      (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
+      (spacemacs|diminish which-key-mode " Ⓚ" " K"))
+    :config
+    (progn
+      (setq which-key-paging-key "<f5>")
+      (let ((pg-key " <f5>"))
+        (dolist (prfx '("C-x" "C-c"))
+          (define-key which-key-mode-map (kbd (concat prfx pg-key))
+            #'which-key-show-next-page))
+        (mapcar
+         (lambda (cns)
+           (evil-leader/set-key (concat (car cns) pg-key)
+             #'which-key-show-next-page))
+         spacemacs/key-binding-prefixes)
+        (evil-leader/set-key pg-key #'which-key-show-next-page)))))
 
 (defun spacemacs/init-window-numbering ()
   (use-package window-numbering
