@@ -17,7 +17,9 @@
       web-mode
       js2-mode
       flycheck
-      tern-mode
+      tern
+      company
+      company-tern
       ))
 
 ;; List of packages to exclude.
@@ -26,41 +28,62 @@
 ;; For each package, define a function react/init-<package-name>
 ;;
 (defun react/post-init-flycheck ()
-  (with-eval-after-load 'flycheck
-    ;; use eslint with web-mode for jsx files
-    (flycheck-add-mode 'javascript-eslint 'web-mode)
-    (flycheck-add-mode 'javascript-eslint 'js2-mode)
-    ;; (setq flycheck-check-syntax-automatically '(save new-line mode-enabled))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (equal web-mode-content-type "jsx")
+                (with-eval-after-load 'flycheck
+                  ;; use eslint with web-mode for jsx files
+                  (flycheck-add-mode 'javascript-eslint 'web-mode)
 
-    ;; disable jshint since we prefer eslint checking
-    (setq-default flycheck-disabled-checkers
-                  (append flycheck-disabled-checkers
-                          '(javascript-jshint)))
+                  ;; disable jshint since we prefer eslint checking
+                  (setq-default flycheck-disabled-checkers
+                                (append flycheck-disabled-checkers
+                                        '(javascript-jshint)))
 
-    ;; disable json-jsonlist checking for json files
-    (setq-default flycheck-disabled-checkers
-                  (append flycheck-disabled-checkers
-                          '(json-jsonlist)))))
+                  ;; disable json-jsonlist checking for json files
+                  (setq-default flycheck-disabled-checkers
+                                (append flycheck-disabled-checkers
+                                        '(json-jsonlist))))))))
 
 (defun react/post-init-web-mode ()
   (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.react.js\\'" . web-mode))
 
   (add-hook 'web-mode-hook
             (lambda ()
-              (when (or (equal web-mode-content-type "jsx")
-                        (equal web-mode-content-type "javascript"))
-                (web-mode-set-content-type "jsx")
-                (add-to-list 'company-backends 'company-tern)
-                (js2-minor-mode)
-                (tern-mode))))
+              (defadvice web-mode-highlight-part (around tweak-jsx activate)
+                (if (equal web-mode-content-type "jsx")
+                    (let ((web-mode-enable-part-face nil))
+                      ad-do-it)
+                  ad-do-it)))))
 
-  (with-eval-after-load 'web-mode
-    (defadvice web-mode-highlight-part (around tweak-jsx activate)
-      (if (equal web-mode-content-type "jsx")
-          (let ((web-mode-enable-part-face nil))
-            ad-do-it)
-        ad-do-it))))
+(defun react/post-init-js2-mode ()
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (equal web-mode-content-type "jsx")
+                (js2-minor-mode)))))
+
+(defun react/pre-init-tern ()
+  (spacemacs|use-package-add-hook tern
+    :post-config
+    (progn
+      ;;(evil-leader/set-key-for-mode 'web-mode "mrrV" 'tern-rename-variable)
+      (evil-leader/set-key-for-mode 'web-mode "mhd" 'tern-get-docs)
+      (evil-leader/set-key-for-mode 'web-mode "mgg" 'tern-find-definition)
+      (evil-leader/set-key-for-mode 'web-mode "mgG" 'tern-find-definition-by-name)
+      (evil-leader/set-key-for-mode 'web-mode (kbd "m C-g") 'tern-pop-find-definition)
+      (evil-leader/set-key-for-mode 'web-mode "mht" 'tern-get-type))))
+
+(defun react/post-init-tern ()
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (equal web-mode-content-type "jsx")
+                (tern-mode)))))
+
+(defun react/post-init-company-tern ()
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (equal web-mode-content-type "jsx")
+                (push 'company-tern company-backends-web-mode)))))
 
 ;;
 ;; Often the body of an initialize function uses `use-package'
