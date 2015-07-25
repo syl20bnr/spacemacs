@@ -20,8 +20,7 @@
         git-timemachine
         helm-gitignore
         magit
-        ;; not compatible with magit 2.1 at the time of release
-        ;; magit-gitflow
+        magit-gitflow
         ;; not compatible with magit 2.1 at the time of release
         ;; magit-svn
         smeargle
