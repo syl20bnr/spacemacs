@@ -39,8 +39,11 @@
   (use-package git-messenger
     :defer t
     :init
-    (evil-leader/set-key
-      "gm" 'git-messenger:popup-message)))
+     (evil-leader/set-key
+      "gm" 'git-messenger:popup-message)
+    :config
+    (define-key git-messenger-map [escape] 'git-messenger:popup-close)
+    ))
 
 (defun git/init-git-timemachine ()
   (use-package git-timemachine
