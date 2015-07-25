@@ -69,7 +69,7 @@
          - [[#helm-micro-state][Helm micro-state]]
      - [[#discovering][Discovering]]
          - [[#key-bindings][Key bindings]]
-             - [[#guide-key][Guide-key]]
+             - [[#which-key][Which-key]]
              - [[#helm-describe-key-bindings][Helm describe key bindings]]
          - [[#getting-help][Getting help]]
          - [[#available-layers][Available layers]]
@@ -165,7 +165,7 @@
  - [[#thank-you][Thank you]]
 
 * Core Pillars
-Four core pillars: Mnemonic, Discoverability, Consistency, "Crowd-Configured".
+Four core pillars: Mnemonic, Discoverability, Consistency, "Crowd-Confi".
 
 If any of these core pillars is violated open an issue and we'll fix it.
 
@@ -181,7 +181,7 @@ useful feedbacks and easily perform maintenance tasks.
 It also comes with dedicated [[https://github.com/emacs-helm/helm][helm]] sources to quickly find layers, packages and
 more.
 
-[[https://github.com/kai2nenobu/guide-key][guide-key]] is enabled by default, it will display all the available key bindings
+[[https://github.com/kai2nenobu/guide-key][which-key]] is enabled by default, it will display all the available key bindings
 in a dedicated popup buffer.
 
 ** Consistency
@@ -641,7 +641,7 @@ your =~/.spacemacs=):
 enjoyable:
   - dedicated startup page with a mode aimed at easily managing =Spacemacs=
   - dedicated helm source via =helm-spacemacs=
-  - a [[https://github.com/kai2nenobu/guide-key][guide-key]] buffer
+  - a [[https://github.com/kai2nenobu/guide-key][which-key]] buffer
 
 ** Graphical UI
 =Spacemacs= has a minimalistic and distraction free graphical UI:
@@ -913,7 +913,7 @@ can be reached using the =control= key.
 | ~SPC t c~   | =none=  |       | fill-column-indicator mode          |
 | ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                      |
 | ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                   |
-| ~SPC t G~   | =Ⓖ=     | G     | guide-key mode                      |
+| ~SPC t K~   | =Ⓚ=     | K     | which-key mode             |
 | ~SPC t i~   | =ⓘ=     | i     | indentation guide                   |
 | ~SPC t C-i~ | =ⓘ=     | i     | global indentation guide            |
 | ~SPC t I~   | =Ⓘ=     | I     | aggressive indent mode              |
@@ -1043,13 +1043,13 @@ Initiate the micro-state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
 
 ** Discovering
 *** Key bindings
-**** Guide-key
+**** Which-key
 An help buffer is displayed each time the ~SPC~ key is pressed in normal mode.
 It lists the available key bindings and their associated commands.
 
-By default the [[https://github.com/kai2nenobu/guide-key][guide-key]] buffer will be displayed quickly after the key has been
+By default the [[https://github.com/kai2nenobu/guide-key][which-key]] buffer will be displayed quickly after the key has been
 pressed. You can change the delay by setting the variable
-=dotspacemacs-guide-key-delay= to your liking (the value is in second).
+=dotspacemacs-which-key-delay= to your liking (the value is in second).
 
 **** Helm describe key bindings
 It is possible to search for specific key bindings by pressing ~SPC ?~.
