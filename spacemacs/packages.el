@@ -203,17 +203,17 @@
           (global-aggressive-indent-mode)))
 
       (spacemacs|add-toggle aggressive-indent
-                            :status aggressive-indent-mode
-                            :on (aggressive-indent-mode)
-                            :off (aggressive-indent-mode -1)
-                            :documentation "Keep code always indented."
-                            :evil-leader "tI")
+        :status aggressive-indent-mode
+        :on (aggressive-indent-mode)
+        :off (aggressive-indent-mode -1)
+        :documentation "Keep code always indented."
+        :evil-leader "tI")
       (spacemacs|add-toggle aggressive-indent-globally
-                            :status aggressive-indent-mode
-                            :on (global-aggressive-indent-mode)
-                            :off (global-aggressive-indent-mode -1)
-                            :documentation "Globally keep code always indented."
-                            :evil-leader "t C-I"))
+        :status aggressive-indent-mode
+        :on (global-aggressive-indent-mode)
+        :off (global-aggressive-indent-mode -1)
+        :documentation "Globally keep code always indented."
+        :evil-leader "t C-I"))
     :config
     (progn
       (defun spacemacs/disable-aggressive-indent ()
@@ -1156,11 +1156,11 @@ Example: (evil-map visual \"<\" \"<gv\")"
       ;; lighter
       (push '(fci-mode "") minor-mode-alist)
       (spacemacs|add-toggle fill-column-indicator
-                            :status fci-mode
-                            :on (turn-on-fci-mode)
-                            :off (turn-off-fci-mode)
-                            :documentation "Display the fill column indicator."
-                            :evil-leader "tf"))
+        :status fci-mode
+        :on (turn-on-fci-mode)
+        :off (turn-off-fci-mode)
+        :documentation "Display the fill column indicator."
+        :evil-leader "tf"))
     :config
     (spacemacs|hide-lighter fci-mode)))
 
@@ -1177,13 +1177,13 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :defer t
     :init
     (spacemacs|add-toggle golden-ratio
-                          :status golden-ratio-mode
-                          :on (golden-ratio-mode) (golden-ratio)
-                          :off (golden-ratio-mode -1) (balance-windows)
-                          :documentation
-                          (concat "Dynamically resize the focused window using "
-                                  "the golden ratio.")
-                          :evil-leader "tg")
+      :status golden-ratio-mode
+      :on (golden-ratio-mode) (golden-ratio)
+      :off (golden-ratio-mode -1) (balance-windows)
+      :documentation
+      (concat "Dynamically resize the focused window using "
+              "the golden ratio.")
+      :evil-leader "tg")
     :config
     (progn
       (setq golden-ratio-exclude-modes '("bs-mode"
@@ -2083,17 +2083,17 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :init
     (progn
       (spacemacs|add-toggle highlight-indentation
-                            :status highlight-indentation-mode
-                            :on (highlight-indentation-mode)
-                            :off (highlight-indentation-mode -1)
-                            :documentation "Highlight indentation levels."
-                            :evil-leader "thi")
+        :status highlight-indentation-mode
+        :on (highlight-indentation-mode)
+        :off (highlight-indentation-mode -1)
+        :documentation "Highlight indentation levels."
+        :evil-leader "thi")
       (spacemacs|add-toggle highlight-indentation-current-column
-                            :status highlight-indentation-current-column-mode
-                            :on (highlight-indentation-current-column-mode)
-                            :off (highlight-indentation-current-column-mode -1)
-                            :documentation "Highlight indentation level at point."
-                            :evil-leader "thc"))))
+        :status highlight-indentation-current-column-mode
+        :on (highlight-indentation-current-column-mode)
+        :off (highlight-indentation-current-column-mode -1)
+        :documentation "Highlight indentation level at point."
+        :evil-leader "thc"))))
 
 (defun spacemacs/init-highlight-numbers ()
   (use-package highlight-numbers
@@ -2146,12 +2146,12 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :defer t
     :init
     (spacemacs|add-toggle hungry-delete
-                          :status hungry-delete-mode
-                          :on (hungry-delete-mode)
-                          :off (hungry-delete-mode -1)
-                          :documentation "Delete consecutive horizontal whitespace with a single key.
+      :status hungry-delete-mode
+      :on (hungry-delete-mode)
+      :off (hungry-delete-mode -1)
+      :documentation "Delete consecutive horizontal whitespace with a single key.
 Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
-                          :evil-leader "td")
+      :evil-leader "td")
     :config
     (progn
       (setq-default hungry-delete-chars-to-skip " \t\f\v") ; only horizontal whitespace
@@ -2296,25 +2296,25 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     (progn
       (setq indent-guide-delay 0.3)
       (spacemacs|add-toggle indent-guide
-                            :status indent-guide-mode
-                            :on (indent-guide-mode)
-                            :off (indent-guide-mode -1)
-                            :documentation
-                            (concat "Enbale a guide to highlight "
-                                    "the current indentation (alternative "
-                                    "to the toggle"
-                                    "highlight-indentation-current-column).")
-                            :evil-leader "ti")
+        :status indent-guide-mode
+        :on (indent-guide-mode)
+        :off (indent-guide-mode -1)
+        :documentation
+        (concat "Enbale a guide to highlight "
+                "the current indentation (alternative "
+                "to the toggle"
+                "highlight-indentation-current-column).")
+        :evil-leader "ti")
       (spacemacs|add-toggle indent-guide-globally
-                            :status indent-guide-mode
-                            :on (indent-guide-global-mode)
-                            :off (indent-guide-global-mode -1)
-                            :documentation
-                            (concat "Enbale globally a guide to highlight "
-                                    "the current indentation (alternative "
-                                    "to the toggle"
-                                    "highlight-indentation-current-column).")
-                            :evil-leader "t C-i"))
+        :status indent-guide-mode
+        :on (indent-guide-global-mode)
+        :off (indent-guide-global-mode -1)
+        :documentation
+        (concat "Enbale globally a guide to highlight "
+                "the current indentation (alternative "
+                "to the toggle"
+                "highlight-indentation-current-column).")
+        :evil-leader "t C-i"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
 
@@ -2617,47 +2617,47 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (defvar spacemacs-mode-line-minor-modesp t
         "If not nil, minor modes lighter are displayed in the mode-line.")
       (spacemacs|add-toggle mode-line-minor-modes
-                            :status spacemacs-mode-line-minor-modesp
-                            :on (setq spacemacs-mode-line-minor-modesp t)
-                            :off (setq spacemacs-mode-line-minor-modesp nil)
-                            :documentation "Show minor modes in mode-line."
-                            :evil-leader "tmm")
+        :status spacemacs-mode-line-minor-modesp
+        :on (setq spacemacs-mode-line-minor-modesp t)
+        :off (setq spacemacs-mode-line-minor-modesp nil)
+        :documentation "Show minor modes in mode-line."
+        :evil-leader "tmm")
 
       (defvar spacemacs-mode-line-major-modep t
         "If not nil, major mode is displayed in the mode-line.")
       (spacemacs|add-toggle mode-line-major-mode
-                            :status spacemacs-mode-line-major-modep
-                            :on (setq spacemacs-mode-line-major-modep t)
-                            :off (setq spacemacs-mode-line-major-modep nil)
-                            :documentation "Show major mode in mode-line."
-                            :evil-leader "tmM")
+        :status spacemacs-mode-line-major-modep
+        :on (setq spacemacs-mode-line-major-modep t)
+        :off (setq spacemacs-mode-line-major-modep nil)
+        :documentation "Show major mode in mode-line."
+        :evil-leader "tmM")
 
       (defvar spacemacs-mode-line-version-controlp t
         "If not nil, version control info is displayed in the mode-line.")
       (spacemacs|add-toggle mode-line-version-control
-                            :status spacemacs-mode-line-version-controlp
-                            :on (setq spacemacs-mode-line-version-controlp t)
-                            :off (setq spacemacs-mode-line-version-controlp nil)
-                            :documentation "Show version control info in mode-line."
-                            :evil-leader "tmv")
+        :status spacemacs-mode-line-version-controlp
+        :on (setq spacemacs-mode-line-version-controlp t)
+        :off (setq spacemacs-mode-line-version-controlp nil)
+        :documentation "Show version control info in mode-line."
+        :evil-leader "tmv")
 
       (defvar spacemacs-mode-line-new-version-lighterp t
         "If not nil, new version lighter is displayed in the mode-line.")
       (spacemacs|add-toggle mode-line-new-version
-                            :status spacemacs-mode-line-new-version-lighterp
-                            :on (setq spacemacs-mode-line-new-version-lighterp t)
-                            :off (setq spacemacs-mode-line-new-version-lighterp nil)
-                            :documentation "Show new version in the mode-line."
-                            :evil-leader "tmV")
+        :status spacemacs-mode-line-new-version-lighterp
+        :on (setq spacemacs-mode-line-new-version-lighterp t)
+        :off (setq spacemacs-mode-line-new-version-lighterp nil)
+        :documentation "Show new version in the mode-line."
+        :evil-leader "tmV")
 
       (defvar spacemacs-mode-line-display-point-p nil
         "If not nil, display point alongside row/column in the mode-line.")
       (spacemacs|add-toggle mode-line-display-point
-                            :status spacemacs-mode-line-display-point-p
-                            :on (setq spacemacs-mode-line-display-point-p t)
-                            :off (setq spacemacs-mode-line-display-point-p nil)
-                            :documentation "Show point in the mode-line."
-                            :evil-leader "tmp")
+        :status spacemacs-mode-line-display-point-p
+        :on (setq spacemacs-mode-line-display-point-p t)
+        :off (setq spacemacs-mode-line-display-point-p nil)
+        :documentation "Show point in the mode-line."
+        :evil-leader "tmp")
 
       (defvar spacemacs-mode-line-org-clock-current-taskp nil
         "If not nil, the currently clocked org-mode task will be
@@ -2666,11 +2666,11 @@ displayed in the mode-line.")
         'org-clock-get-clock-string
         "Function used to render the currently clocked org-mode task.")
       (spacemacs|add-toggle mode-line-org-clock-current-task
-                            :status spacemacs-mode-line-org-clock-current-taskp
-                            :on (setq spacemacs-mode-line-org-clock-current-taskp t)
-                            :off (setq spacemacs-mode-line-org-clock-current-taskp nil)
-                            :documentation "Show org clock in mode-line."
-                            :evil-leader "tmc")
+        :status spacemacs-mode-line-org-clock-current-taskp
+        :on (setq spacemacs-mode-line-org-clock-current-taskp t)
+        :off (setq spacemacs-mode-line-org-clock-current-taskp nil)
+        :documentation "Show org clock in mode-line."
+        :evil-leader "tmc")
 
       (defvar spacemacs-mode-line-left
         '(((workspace-number window-number)
@@ -3200,18 +3200,18 @@ one of `l' or `r'."
       (add-hook 'minibuffer-setup-hook 'conditionally-enable-smartparens-mode)
 
       (spacemacs|add-toggle smartparens
-                            :status smartparens-mode
-                            :on (smartparens-mode)
-                            :off (smartparens-mode -1)
-                            :documentation "Enable smartparens."
-                            :evil-leader "tp")
+        :status smartparens-mode
+        :on (smartparens-mode)
+        :off (smartparens-mode -1)
+        :documentation "Enable smartparens."
+        :evil-leader "tp")
 
       (spacemacs|add-toggle smartparens-globally
-                            :status smartparens-mode
-                            :on (smartparens-global-mode)
-                            :off (smartparens-global-mode -1)
-                            :documentation "Enable smartparens globally."
-                            :evil-leader "t C-p")
+        :status smartparens-mode
+        :on (smartparens-global-mode)
+        :off (smartparens-global-mode -1)
+        :documentation "Enable smartparens globally."
+        :evil-leader "t C-p")
 
       (setq sp-show-pair-delay 0
             sp-show-pair-from-inside t ; fix paren highlighting in normal mode
@@ -3279,17 +3279,17 @@ one of `l' or `r'."
                   (default-value 'evil-cjk-word-separating-categories))))
         (add-hook 'subword-mode-hook 'spacemacs//subword-enable-camel-case)
         (spacemacs|add-toggle camel-case-motion
-                              :status subword-mode
-                              :on (subword-mode +1)
-                              :off (subword-mode -1)
-                              :documentation "Toggle CamelCase motion."
-                              :evil-leader "tc")
+          :status subword-mode
+          :on (subword-mode +1)
+          :off (subword-mode -1)
+          :documentation "Toggle CamelCase motion."
+          :evil-leader "tc")
         (spacemacs|add-toggle camel-case-motion-globally
-                              :status subword-mode
-                              :on (global-subword-mode +1)
-                              :off (global-subword-mode -1)
-                              :documentation "Globally toggle CamelCase motion."
-                              :evil-leader "t C-c"))
+          :status subword-mode
+          :on (global-subword-mode +1)
+          :off (global-subword-mode -1)
+          :documentation "Globally toggle CamelCase motion."
+          :evil-leader "t C-c"))
       :config
       (spacemacs|diminish subword-mode " ⓒ" " c"))))
 
@@ -3316,13 +3316,13 @@ one of `l' or `r'."
     (progn
       (global-vi-tilde-fringe-mode)
       (spacemacs|add-toggle vi-tilde-fringe
-                            :status vi-tilde-fringe-mode
-                            :on (global-vi-tilde-fringe-mode)
-                            :off (global-vi-tilde-fringe-mode -1)
-                            :documentation
-                            (concat "Globally display a ~ on "
-                                    "empty lines in the fringe.")
-                            :evil-leader "t~")
+        :status vi-tilde-fringe-mode
+        :on (global-vi-tilde-fringe-mode)
+        :off (global-vi-tilde-fringe-mode -1)
+        :documentation
+        (concat "Globally display a ~ on "
+                "empty lines in the fringe.")
+        :evil-leader "t~")
       ;; don't enable it on spacemacs home buffer
       (with-current-buffer  "*spacemacs*"
         (vi-tilde-fringe-mode -1))
@@ -3368,17 +3368,17 @@ one of `l' or `r'."
     :init
     (progn
       (spacemacs|add-toggle whitespace
-                            :status whitespace-mode
-                            :on (whitespace-mode)
-                            :off (whitespace-mode -1)
-                            :documentation "Display whitespace."
-                            :evil-leader "tw")
+        :status whitespace-mode
+        :on (whitespace-mode)
+        :off (whitespace-mode -1)
+        :documentation "Display whitespace."
+        :evil-leader "tw")
       (spacemacs|add-toggle whitespace-globally
-                            :status global-whitespace-mode
-                            :on (global-whitespace-mode)
-                            :off (global-whitespace-mode -1)
-                            :documentation "Globally display whitespace."
-                            :evil-leader "t C-w")
+        :status global-whitespace-mode
+        :on (global-whitespace-mode)
+        :off (global-whitespace-mode -1)
+        :documentation "Globally display whitespace."
+        :evil-leader "t C-w")
       (defun spacemacs//set-whitespace-style-for-diff ()
         "Whitespace configuration for `diff-mode'"
         (setq-local whitespace-style '(face
@@ -3412,12 +3412,12 @@ one of `l' or `r'."
       (setq which-key-max-description-length 32)
       (which-key-mode)
       (spacemacs|add-toggle which-key
-                            :status which-key-mode
-                            :on (which-key-mode)
-                            :off (which-key-mode -1)
-                            :documentation
-                            "Display a buffer with available key bindings."
-                            :evil-leader "tK")
+        :status which-key-mode
+        :on (which-key-mode)
+        :off (which-key-mode -1)
+        :documentation
+        "Display a buffer with available key bindings."
+        :evil-leader "tK")
       ;; (defadvice which-key--update
       ;;     (around spacemacs/inhibit-which-key-buffer activate)
       ;;   "Prevent the popup of the which-key buffer in some case."
