@@ -3657,6 +3657,14 @@ one of `l' or `r'."
   (use-package which-key
     :init
     (progn
+      (setq which-key-max-description-length 32
+            which-key-idle-delay dotspacemacs-which-key-delay)
+      (which-key-mode)
+      (cond
+       ((eq dotspacemacs-which-key-position 'right) (which-key-setup-side-window-right))
+       ((eq dotspacemacs-which-key-position 'bottom) (which-key-setup-side-window-bottom))
+       ((eq dotspacemacs-which-key-position 'right-then-bottom) (which-key-setup-side-window-right-bottom))
+       nil)
       (spacemacs|add-toggle which-key
         :status which-key-mode
         :on (which-key-mode)
