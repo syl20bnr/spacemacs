@@ -51,19 +51,19 @@
     :init
     (progn
       (spacemacs|add-toggle centered-point
-                            :status centered-cursor-mode
-                            :on (centered-cursor-mode)
-                            :off (centered-cursor-mode -1)
-                            :documentation
-                            "Keep point always at the center of the window."
-                            :evil-leader "t-")
+        :status centered-cursor-mode
+        :on (centered-cursor-mode)
+        :off (centered-cursor-mode -1)
+        :documentation
+        "Keep point always at the center of the window."
+        :evil-leader "t-")
       (spacemacs|add-toggle centered-point-globally
-                            :status centered-cursor-mode
-                            :on (global-centered-cursor-mode)
-                            :off (global-centered-cursor-mode -1)
-                            :documentation
-                            "Globally keep point always at the center of the window."
-                            :evil-leader "t C--"))
+        :status centered-cursor-mode
+        :on (global-centered-cursor-mode)
+        :off (global-centered-cursor-mode -1)
+        :documentation
+        "Globally keep point always at the center of the window."
+        :evil-leader "t C--"))
     :config
     (progn
       (custom-set-variables
@@ -83,11 +83,11 @@
       (when (eq 'emacs dotspacemacs-editing-style)
         (holy-mode))
       (spacemacs|add-toggle holy-mode
-                            :status holy-mode
-                            :on (holy-mode)
-                            :off (holy-mode -1)
-                            :documentation "Globally toggle the holy mode."
-                            :evil-leader "P <tab>" "P C-i"))))
+        :status holy-mode
+        :on (holy-mode)
+        :off (holy-mode -1)
+        :documentation "Globally toggle the holy mode."
+        :evil-leader "P <tab>" "P C-i"))))
 
 (defun spacemacs/init-helm-spacemacs ()
   (use-package helm-spacemacs

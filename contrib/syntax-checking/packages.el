@@ -26,11 +26,11 @@
     (progn
       (setq flycheck-standard-error-navigation nil)
       (spacemacs|add-toggle syntax-checking
-                            :status flycheck-mode
-                            :on (flycheck-mode)
-                            :off (flycheck-mode -1)
-                            :documentation "Enable error and syntax checking."
-                            :evil-leader "ts"))
+        :status flycheck-mode
+        :on (flycheck-mode)
+        :off (flycheck-mode -1)
+        :documentation "Enable error and syntax checking."
+        :evil-leader "ts"))
     :config
     (progn
       (spacemacs|diminish flycheck-mode " ⓢ" " s")
@@ -123,12 +123,12 @@
       (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
       (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1)))
       (spacemacs|add-toggle spelling-checking
-                            :status flyspell-mode
-                            :on (flyspell-mode)
-                            :off (flyspell-mode -1)
-                            :documentation
-                            "Enable flyspell for automatic spelling checking."
-                            :evil-leader "tS"))
+        :status flyspell-mode
+        :on (flyspell-mode)
+        :off (flyspell-mode -1)
+        :documentation
+        "Enable flyspell for automatic spelling checking."
+        :evil-leader "tS"))
     :config
     (progn
       (flyspell-prog-mode)

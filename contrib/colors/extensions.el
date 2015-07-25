@@ -22,11 +22,11 @@
       (nyan-mode)
 
       (spacemacs|add-toggle nyan-cat-progress-bar
-                            :status nyan-mode
-                            :on (nyan-mode)
-                            :off (nyan-mode -1)
-                            :documentation "Show a nyan cat progress bar in the mode-line."
-                            :evil-leader "tmn")
+        :status nyan-mode
+        :on (nyan-mode)
+        :off (nyan-mode -1)
+        :documentation "Show a nyan cat progress bar in the mode-line."
+        :evil-leader "tmn")
 
       (defun spacemacs/powerline-nyan-cat ()
         "Construct a powerline segment for nyan cat."

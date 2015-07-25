@@ -25,13 +25,13 @@
     (progn
       (global-vim-empty-lines-mode)
       (spacemacs|add-toggle vim-empty-lines-mode
-                            :status vim-empty-lines-mode
-                            :on (global-vim-empty-lines-mode)
-                            :off (global-vim-empty-lines-mode -1)
-                            :documentation
-                            (concat "Display an overlay of ~ on "
-                                    "empty lines.")
-                            :evil-leader "t~")
+        :status vim-empty-lines-mode
+        :on (global-vim-empty-lines-mode)
+        :off (global-vim-empty-lines-mode -1)
+        :documentation
+        (concat "Display an overlay of ~ on "
+                "empty lines.")
+        :evil-leader "t~")
       ;; don't enable it on spacemacs home buffer
       (with-current-buffer  "*spacemacs*"
         (vim-empty-lines-mode -1))

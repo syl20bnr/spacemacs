@@ -39,11 +39,11 @@
                                                     font-lock-variable-name-face))
 
       (spacemacs|add-toggle rainbow-identifier-globally
-                            :status rainbow-identifiers-mode
-                            :on (rainbow-identifiers-mode)
-                            :off (rainbow-identifiers-mode -1)
-                            :documentation "Colorize identifiers globally."
-                            :evil-leader "tCi")
+        :status rainbow-identifiers-mode
+        :on (rainbow-identifiers-mode)
+        :off (rainbow-identifiers-mode -1)
+        :documentation "Colorize identifiers globally."
+        :evil-leader "tCi")
 
       (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 
