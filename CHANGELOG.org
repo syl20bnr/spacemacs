@@ -25,6 +25,7 @@
 - idris (thanks to zmthy)
 - jabber (thanks to toshism)
 - java (thanks to kleewho)
+- nixos (thanks to CestDiego)
 - ranger (thanks to ralesi)
 - sml (thanks to Devagamster)
 - terraform (thanks to BrianHicks)
@@ -50,6 +51,12 @@
   as expected when used from the first line of a buffer (thanks to
   travisbhartwell)
 - Hide lighter for =highlight-parentheses=
+**** Auto-completion
+- Add new layer variable =auto-completion-private-snippets-directory= which
+  allows to specify a custom private snippet directory (thanks to justbur)
+**** Clojure
+- Add cider error buffer to popwin (thanks to cmccloud)
+- Add cider-doc buffer to popwin (thanks to cmccloud)
 **** Dash
 - Add support for =zeal= on Linux and Windows (thanks to CestDiego)
 **** Elixir
@@ -58,6 +65,10 @@
 - Add support for popwin for =mix= buffers (thanks to rhalukongor)
 **** Extra-lang
 - Add =Stan= modeling language (thanks to alexanderrich)
+**** Git
+- Make sure that git-commit is initialized so that Emacs can be used as
+  $GITEDITOR (thanks to thrnio)
+- Remove some deprecated code (thanks to tko)
 **** Go
 - Use exec-path-from-shell-copy-env to set =GOPATH= (thanks to jenanwise)
 **** Html
@@ -77,6 +88,16 @@
 - Add auto-completion support for eshell (thanks to trishume)
 - Automatically jump to prompt in insert state in eshell buffers (thanks to
   trishume)
+- Deactivate eshell automatic auto-completion popup for remote path since it
+  can be slow, the popup must be called manually in remote paths
+  (thanks to myrjola)
+- Fix =magit-status= alias for =eshell= (thanks to myrjola)
+- Protect the =eshell= prompt from deletion with evil commands. A new
+  layer variable =shell-protect-eshell-prompt= allows to opt-out this behavior
+  (thanks to myrjola).
+*** Other fixes and improvements
+- Delete deprecated =!user= contrib directory.
+- Typos and documentation improvements (thanks to mbertheau)
 * Release 0.103.x
 ** 0.103.2 (2015/07/04)
 *** Layer changes
