@@ -113,12 +113,13 @@ work sensibly. E.g. you can press ~cc~ in normal state i.e.
 =evil-change-whole-line= to kill the current input and start typing a new
 command. In Eshell you also kill the prompt, which is often unintended.
 
-To enable a the same behavior as in Comint mode you can enable the following
-variable:
+By default this layer also protects the =ehsell= prompt. If you want to
+disable this protection you can set the variable =shell-protect-eshell-prompt=
+to nil.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
-    '(shell :variables shell-protect-eshell-prompt t))
+    '(shell :variables shell-protect-eshell-prompt nil))
 #+END_SRC
 
 * Eshell

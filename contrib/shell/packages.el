@@ -70,7 +70,7 @@ the user activate the completion manually."
           (end-of-buffer)))
 
       (when shell-protect-eshell-prompt
-        (defun protect-eshell-prompt ()
+        (defun spacemacs//protect-eshell-prompt ()
           "Protect Eshell's prompt like Comint's prompts.
 
 E.g. `evil-change-whole-line' won't wipe the prompt. This
@@ -84,7 +84,7 @@ is achieved by adding the relevant text properties."
                field output
                read-only t
                front-sticky (field inhibit-line-move-field-capture)))))
-        (add-hook 'eshell-after-prompt-hook 'protect-eshell-prompt))
+        (add-hook 'eshell-after-prompt-hook 'spacemacs//protect-eshell-prompt))
 
       (defun spacemacs//init-eshell ()
         "Stuff to do when enabling eshell."
