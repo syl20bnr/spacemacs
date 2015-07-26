@@ -17,7 +17,7 @@
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-declare-used-layers--result-order-is-not-reversed ()
-  (mocker-let ((configuration-layer//declare-used-layer
+  (mocker-let ((configuration-layer//make-used-layer
                 (x)
                 ((:input '(layer3) :output 'layer3)
                  (:input '(layer2) :output 'layer2)
@@ -27,37 +27,32 @@
       (should (equal result input)))))
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//declare-used-layer
+;; configuration-layer//make-used-layer
 ;; ---------------------------------------------------------------------------
 
-(ert-deftest test-declare-used-layers--input-is-a-symbol ()
-  (let ((input 'testlayer))
+(ert-deftest test-make-used-layer--input-is-a-symbol ()
+  (let ((input 'testlayer)
+        (expected (cfgl-layer "testlayer"
+                              :name 'testlayer
+                              :dir "/a/dummy/path/testlayer/"
+                              :ext-dir "/a/dummy/path/testlayer/extensions/")))
     (mocker-let ((configuration-layer/get-layer-path
                   (x)
                   ((:input `(,input) :output "/a/dummy/path/"))))
-      (let ((result (configuration-layer//declare-used-layer input))
-            (expected '(testlayer :dir "/a/dummy/path/testlayer/"
-                                  :ext-dir "/a/dummy/path/testlayer/extensions/")))
+      (let ((result (configuration-layer//make-used-layer input)))
         (should (equal result expected))))))
 
-(ert-deftest test-declare-used-layers--input-is-a-list ()
-  (let ((input '(testlayer :variables
-                           var1 t
-                           var2 nil
-                           :excluded-packages
-                           excludedlayer)))
+(ert-deftest test-make-used-layer--input-is-a-list ()
+  (let ((input '(testlayer :variables var1 t var2 nil))
+        (expected (cfgl-layer "testlayer"
+                              :name 'testlayer
+                              :dir "/a/dummy/path/testlayer/"
+                              :ext-dir "/a/dummy/path/testlayer/extensions/"
+                              :variables '(var1 t var2 nil))))
     (mocker-let ((configuration-layer/get-layer-path
                   (x)
                   ((:input `(,(car input)) :output "/a/dummy/path/"))))
-      (let ((result (configuration-layer//declare-used-layer input))
-            (expected '(testlayer :dir "/a/dummy/path/testlayer/"
-                                  :ext-dir "/a/dummy/path/testlayer/extensions/"
-                                  :variables
-                                  var1 t
-                                  var2 nil
-                                  :excluded-packages
-                                  excludedlayer
-                                  )))
+      (let ((result (configuration-layer//make-used-layer input)))
         (should (equal result expected))))))
 
 ;; ---------------------------------------------------------------------------
@@ -65,28 +60,30 @@
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-set-layers-variables--none ()
-  (let ((input '((testlayer :dir "/a/path/"
-                            :ext-dir "/a/path/extensions/")))
+  (let ((input `(,(cfgl-layer "testlayer"
+                              :name 'testlayer
+                              :dir "/a/path/"
+                              :ext-dir "/a/path/extensions/")))
         (var 'foo))
     (configuration-layer//set-layers-variables input)
     (should (eq var 'foo))))
 
 (ert-deftest test-set-layers-variables--one-value ()
-  (let ((input '((testlayer :dir "/a/path/"
-                            :ext-dir "/a/path/extensions/"
-                            :variables
-                            var1 'bar))))
+  (let ((input `(,(cfgl-layer "testlayer"
+                              :name 'testlayer
+                              :dir "/a/path/"
+                              :ext-dir "/a/path/extensions/"
+                              :variables '(var1 'bar)))))
     (setq var1 'foo)
     (configuration-layer//set-layers-variables input)
     (should (eq var1 'bar))))
 
 (ert-deftest test-set-layers-variables--multiple-values ()
-  (let ((input '((testlayer :dir "/a/path/"
-                            :ext-dir "/a/path/extensions/"
-                            :variables
-                            var1 'bar1
-                            var2 'bar2
-                            var3 'bar3))))
+  (let ((input `(,(cfgl-layer "testlayer"
+                              :name 'testlayer
+                              :dir "/a/path/"
+                              :ext-dir "/a/path/extensions/"
+                              :variables '(var1 'bar1 var2 'bar2 var3 'bar3)))))
     (setq var1 'foo)
     (setq var2 'foo)
     (setq var3 'foo)
@@ -96,11 +93,11 @@
     (should (eq var3 'bar3))))
 
 (ert-deftest test-set-layers-variables--odd-number-of-values ()
-  (let ((input '((testlayer :dir "/a/path/"
-                            :ext-dir "/a/path/extensions/"
-                            :variables
-                            var1 'bar
-                            var2))))
+  (let ((input `(,(cfgl-layer "testlayer"
+                              :name 'testlayer
+                              :dir "/a/path/"
+                              :ext-dir "/a/path/extensions/"
+                              :variables '(var1 'bar var2)))))
     (mocker-let
      ((spacemacs-buffer/warning
        (msg &rest args)
