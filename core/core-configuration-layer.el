@@ -281,26 +281,24 @@ path."
             ;; spacemacs is contained in configuration-layer-paths
             (ht-keys configuration-layer-paths))
     (setq configuration-layer-layers
-          (list (configuration-layer//declare-layer 'spacemacs))))
+          (list (configuration-layer//declare-used-layer 'spacemacs))))
   (setq configuration-layer-layers
-        (append (configuration-layer//declare-layers
+        (append (configuration-layer//declare-used-layers
                  dotspacemacs-configuration-layers) configuration-layer-layers)))
 
-(defun configuration-layer//declare-layers (layers)
+(defun configuration-layer//declare-used-layers (layers)
   "Declare the passed configuration LAYERS.
 LAYERS is a list of layer symbols."
   (reduce (lambda (acc elt) (push elt acc))
-          (mapcar 'configuration-layer//declare-layer (reverse layers))
+          (mapcar 'configuration-layer//declare-used-layer (reverse layers))
           :initial-value nil))
 
-(defun configuration-layer//declare-layer (layer)
+(defun configuration-layer//declare-used-layer (layer)
   "Declare a layer with NAME symbol. Return a cons cell (symbol . plist)
 where `symbol' is the name of the layer and `plist' is a property list with
 the following keys:
 - `:dir'       the absolute path to the base directory of the layer.
-- `:ext-dir'   the absolute path to the directory containing the extensions.
-- `:variables' list of layer configuration variables to set
-- `:excluded'  list of packages to exlcude."
+- `:ext-dir'   the absolute path to the directory containing the extensions."
   (let* ((name-sym (if (listp layer) (car layer) layer))
          (name-str (symbol-name name-sym))
          (base-dir (configuration-layer/get-layer-path name-sym)))
@@ -317,20 +315,20 @@ the following keys:
   "Set the configuration variables for the passed LAYERS."
   (dolist (layer layers)
     (let ((variables (spacemacs/mplist-get layer :variables)))
-          (while variables
-            (let ((var (pop variables)))
-              (if (consp variables)
-                  (condition-case err
-                      (set-default var (eval (pop variables)))
-                    ('error
-                     (configuration-layer//set-error)
-                     (spacemacs-buffer/append
-                      (format (concat "An error occurred while setting layer "
-                                      "variable %s "
-                                      "(error: %s). Be sure to quote the value "
-                                      "if needed.\n") var err))))
-                (spacemacs-buffer/warning "Missing value for variable %s !"
-                                          var)))))))
+      (while variables
+        (let ((var (pop variables)))
+          (if (consp variables)
+              (condition-case err
+                  (set-default var (eval (pop variables)))
+                ('error
+                 (configuration-layer//set-error)
+                 (spacemacs-buffer/append
+                  (format (concat "An error occurred while setting layer "
+                                  "variable %s "
+                                  "(error: %s). Be sure to quote the value "
+                                  "if needed.\n") var err))))
+            (spacemacs-buffer/warning "Missing value for variable %s !"
+                                      var)))))))
 
 
 (defun configuration-layer/package-usedp (pkg)
