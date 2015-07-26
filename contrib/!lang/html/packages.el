@@ -12,6 +12,7 @@
 
 (setq html-packages
   '(
+    ac-html-bootstrap
     company
     company-web
     css-mode
@@ -40,7 +41,11 @@
     (spacemacs|add-company-hook web-mode))
 
   (defun html/init-company-web ()
-    (use-package company-web)))
+    (use-package company-web))
+
+  (defun html/init-ac-html-bootstrap ()
+    (use-package company-web-bootstrap+)
+    (use-package company-web-fa+)))
 
 (defun html/init-css-mode ()
   (use-package css-mode
