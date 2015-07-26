@@ -13,21 +13,21 @@
 (require 'core-configuration-layer)
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//declare-layers
+;; configuration-layer//declare-used-layers
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-declare-layers--result-order-is-not-reversed ()
-  (mocker-let ((configuration-layer//declare-layer
+  (mocker-let ((configuration-layer//declare-used-layer
                 (x)
                 ((:input '(layer3) :output 'layer3)
                  (:input '(layer2) :output 'layer2)
                  (:input '(layer1) :output 'layer1))))
     (let* ((input '(layer1 layer2 layer3))
-           (result (configuration-layer//declare-layers input)))
+           (result (configuration-layer//declare-used-layers input)))
       (should (equal result input)))))
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//declare-layer
+;; configuration-layer//declare-used-layer
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-declare-layers--input-is-a-symbol ()
@@ -35,7 +35,7 @@
     (mocker-let ((configuration-layer/get-layer-path
                   (x)
                   ((:input `(,input) :output "/a/dummy/path/"))))
-      (let ((result (configuration-layer//declare-layer input))
+      (let ((result (configuration-layer//declare-used-layer input))
             (expected '(testlayer :dir "/a/dummy/path/testlayer/"
                                   :ext-dir "/a/dummy/path/testlayer/extensions/")))
         (should (equal result expected))))))
@@ -49,7 +49,7 @@
     (mocker-let ((configuration-layer/get-layer-path
                   (x)
                   ((:input `(,(car input)) :output "/a/dummy/path/"))))
-      (let ((result (configuration-layer//declare-layer input))
+      (let ((result (configuration-layer//declare-used-layer input))
             (expected '(testlayer :dir "/a/dummy/path/testlayer/"
                                   :ext-dir "/a/dummy/path/testlayer/extensions/"
                                   :variables
