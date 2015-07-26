@@ -238,7 +238,33 @@ the focus."
     :config
     (progn
       (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'clojure-mode)))))
+        (clojure/fancify-symbols 'clojure-mode))
+
+      (define-clojure-indent
+        ;; Compojure
+        (ANY 2)
+        (DELETE 2)
+        (GET 2)
+        (HEAD 2)
+        (POST 2)
+        (PUT 2)
+        (context 2)
+        (defroutes 'defun)
+
+        ;; Cucumber
+        (After 1)
+        (Before 1)
+        (Given 2)
+        (Then 2)
+        (When 2)
+
+        ;; Schema
+        (s/defrecord 2)
+
+        ;; test.check
+        (for-all 'defun)
+        ))))
+
 (defun clojure/init-rainbow-delimiters ()
   (if (configuration-layer/package-usedp 'cider)
       (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
