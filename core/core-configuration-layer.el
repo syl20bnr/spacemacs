@@ -9,6 +9,7 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
+(require 'eieio)
 (require 'ht)
 (require 'package)
 (require 'core-dotspacemacs)
@@ -30,6 +31,22 @@
     (add-to-list 'package-archives
                  '("marmalade" . "https://marmalade-repo.org/packages/")))
   (setq warning-minimum-level :error))
+
+(defclass cfgl-layer ()
+  ((name :initarg :name
+         :type symbol
+         :documentation "Name of the layer.")
+   (dir :initarg :dir
+        :type string
+        :documentation "Absolute path to the layer directory.")
+   (ext-dir :initarg :ext-dir
+            :type string
+            :documentation "Absolute path to the exentensions directory.")
+   (variables :initarg :variables
+              :initform nil
+              :type list
+              :documentation "A list of variable-value pairs."))
+  "A configuration layer.")
 
 (defconst configuration-layer-template-directory
   (expand-file-name (concat spacemacs-core-directory "templates/"))
@@ -65,8 +82,8 @@
   "Non nil indicates the number of errors occurred during the
 installation of initialization.")
 
-(defvar configuration-layer-layers '()
-  "Alist of declared configuration layers.")
+(defvar configuration-layer-used-layers '()
+  "A list of `cfgl-layer' objects.")
 
 (defvar configuration-layer-paths (make-hash-table :size 256)
   "Hash table of layers locations. The key is a layer symbol and the value is
@@ -274,47 +291,47 @@ path."
 
 (defun configuration-layer/init-layers ()
   "Declare default layers and user layers from the dotfile by filling the
-`configuration-layer-layers' variable."
+`configuration-layer-used-layers' variable."
   (setq configuration-layer-paths (configuration-layer//discover-layers))
   (if (eq 'all dotspacemacs-configuration-layers)
       (setq dotspacemacs-configuration-layers
             ;; spacemacs is contained in configuration-layer-paths
             (ht-keys configuration-layer-paths))
-    (setq configuration-layer-layers
-          (list (configuration-layer//declare-used-layer 'spacemacs))))
-  (setq configuration-layer-layers
+    (setq configuration-layer-used-layers
+          (list (configuration-layer//make-used-layer 'spacemacs))))
+  (setq configuration-layer-used-layers
         (append (configuration-layer//declare-used-layers
-                 dotspacemacs-configuration-layers) configuration-layer-layers)))
+                 dotspacemacs-configuration-layers) configuration-layer-used-layers)))
 
 (defun configuration-layer//declare-used-layers (layers)
   "Declare the passed configuration LAYERS.
 LAYERS is a list of layer symbols."
   (reduce (lambda (acc elt) (push elt acc))
-          (mapcar 'configuration-layer//declare-used-layer (reverse layers))
+          (mapcar 'configuration-layer//make-used-layer (reverse layers))
           :initial-value nil))
 
-(defun configuration-layer//declare-used-layer (layer)
-  "Declare a layer with NAME symbol. Return a cons cell (symbol . plist)
-where `symbol' is the name of the layer and `plist' is a property list with
-the following keys:
-- `:dir'       the absolute path to the base directory of the layer.
-- `:ext-dir'   the absolute path to the directory containing the extensions."
+(defun configuration-layer//make-used-layer (layer)
+  "Return an cfgl-layer object based on LAYER."
   (let* ((name-sym (if (listp layer) (car layer) layer))
          (name-str (symbol-name name-sym))
-         (base-dir (configuration-layer/get-layer-path name-sym)))
+         (base-dir (configuration-layer/get-layer-path name-sym))
+         (variables (when (listp layer)
+                      (spacemacs/mplist-get layer :variables))))
     (if base-dir
         (let* ((dir (format "%s%s/" base-dir name-str))
-               (ext-dir (format "%sextensions/" dir))
-               (plist (append (list :dir dir :ext-dir ext-dir)
-                              (when (listp layer) (cdr layer)))))
-          (cons name-sym plist))
+               (ext-dir (format "%sextensions/" dir)))
+          (cfgl-layer name-str
+                      :name name-sym
+                      :dir dir
+                      :ext-dir ext-dir
+                      :variables variables))
       (spacemacs-buffer/warning "Cannot find layer %S !" name-sym)
       nil)))
 
 (defun configuration-layer//set-layers-variables (layers)
   "Set the configuration variables for the passed LAYERS."
   (dolist (layer layers)
-    (let ((variables (spacemacs/mplist-get layer :variables)))
+    (let ((variables (oref layer :variables)))
       (while variables
         (let ((var (pop variables)))
           (if (consp variables)
@@ -335,21 +352,13 @@ the following keys:
   "Return non-nil if PKG symbol corresponds to a used package."
   (ht-contains? configuration-layer-all-packages pkg))
 
-(defun configuration-layer/layer-usedp (layer)
-  "Return non-nil if LAYER symbol corresponds to a used layer."
-  (not (null (assq layer configuration-layer-layers))))
-
-(defun configuration-layer/get-layers-list ()
-  "Return a list of all discovered layer symbols."
-  (ht-keys configuration-layer-paths))
-
-(defun configuration-layer/get-layer-path (layer)
-  "Return the path for LAYER symbol."
-  (ht-get configuration-layer-paths layer))
+(defun configuration-layer/layer-usedp (name)
+  "Return non-nil if NAME is the name of a used layer."
+  (not (null (object-assoc name :name configuration-layer-used-layers))))
 
 (defun configuration-layer/load-layers ()
   "Load all declared layers."
-  (let ((layers (reverse configuration-layer-layers)))
+  (let ((layers (reverse configuration-layer-used-layers)))
     (configuration-layer//set-layers-variables layers)
     ;; first load the config files then the package files
     (configuration-layer//load-layers-files layers '("funcs.el" "config.el"))
@@ -405,11 +414,9 @@ the following keys:
 
 (defun configuration-layer//load-layer-files (layer files)
   "Load the files of list FILES for the given LAYER."
-  (let* ((sym (car layer))
-         (dir (plist-get (cdr layer) :dir)))
-    (dolist (file files)
-      (let ((file (concat dir file)))
-        (if (file-exists-p file) (load file))))))
+  (dolist (file files)
+    (let ((file (concat (oref layer :dir) file)))
+      (if (file-exists-p file) (load file)))))
 
 (defsubst configuration-layer//add-layer-to-hash (pkg layer hash)
   "Add LAYER to the list value stored in HASH with key PKG."
@@ -473,9 +480,8 @@ functions to execute."
 of all excluded packages."
   (let (result)
     (dolist (layer layers)
-      (let* ((layer-sym (car layer))
-             (excl-var (intern (format "%s-excluded-packages"
-                                       (symbol-name layer-sym)))))
+      (let ((excl-var (intern (format "%S-excluded-packages"
+                                      (oref layer :name)))))
         (when (boundp excl-var)
           (mapc (lambda (x) (push x result)) (eval excl-var)))))
     result))
@@ -488,18 +494,21 @@ FILE is a string with value `packages' or `extensions'.
 VAR is a string with value `packages', `pre-extensions' or `post-extensions'."
   (let ((result (make-hash-table :size 512)))
     (dolist (layer layers)
-      (let* ((layer-sym (car layer))
-             (dir (plist-get (cdr layer) :dir))
-             (pkg-file (concat dir (format "%s.el" file))))
+      (let ((name (oref layer :name))
+            (pkg-file (concat (oref layer :dir)
+                              (format "%s.el" file))))
         (when (file-exists-p pkg-file)
-          (unless (configuration-layer/layer-usedp layer-sym)
+          (unless (configuration-layer/layer-usedp name)
             (load pkg-file))
-          (let* ((layer-name (symbol-name layer-sym))
-                 (packages-var (intern (format "%s-%s" layer-name var))))
+          (let ((packages-var (intern (format "%S-%s" name var))))
             (when (boundp packages-var)
               (dolist (pkg (eval packages-var))
-                (puthash pkg (cons layer-sym (ht-get result pkg)) result)))))))
+                (puthash pkg (cons name (ht-get result pkg)) result)))))))
     result))
+
+(defun configuration-layer//declare-used-package (pkg)
+  ""
+  )
 
 (defun configuration-layer/get-packages (layers)
   "Read `layer-packages' lists for all passed LAYERS and return a hash table
@@ -784,10 +793,17 @@ to select one."
      (ht-size configuration-layer-all-pre-extensions)
      (ht-size configuration-layer-all-post-extensions)))
 
-(defun configuration-layer/get-layer-property (symlayer prop)
-  "Return the value of the PROPerty for the given SYMLAYER symbol."
-  (let* ((layer (assq symlayer configuration-layer-layers)))
-         (plist-get (cdr layer) prop)))
+(defun configuration-layer/get-layers-list ()
+  "Return a list of all discovered layer symbols."
+  (ht-keys configuration-layer-paths))
+
+(defun configuration-layer/get-layer-property (layer slot)
+  "Return the value of SLOT for the given LAYER."
+  (slot-value (object-assoc layer :name configuration-layer-used-layers) slot))
+
+(defun configuration-layer/get-layer-path (layer)
+  "Return the path for LAYER symbol."
+  (ht-get configuration-layer-paths layer))
 
 (defun configuration-layer//get-packages-dependencies ()
   "Returns a hash map where key is a dependency package symbol and value is
