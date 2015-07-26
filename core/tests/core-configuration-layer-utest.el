@@ -16,7 +16,7 @@
 ;; configuration-layer//declare-used-layers
 ;; ---------------------------------------------------------------------------
 
-(ert-deftest test-declare-layers--result-order-is-not-reversed ()
+(ert-deftest test-declare-used-layers--result-order-is-not-reversed ()
   (mocker-let ((configuration-layer//declare-used-layer
                 (x)
                 ((:input '(layer3) :output 'layer3)
@@ -30,7 +30,7 @@
 ;; configuration-layer//declare-used-layer
 ;; ---------------------------------------------------------------------------
 
-(ert-deftest test-declare-layers--input-is-a-symbol ()
+(ert-deftest test-declare-used-layers--input-is-a-symbol ()
   (let ((input 'testlayer))
     (mocker-let ((configuration-layer/get-layer-path
                   (x)
@@ -40,7 +40,7 @@
                                   :ext-dir "/a/dummy/path/testlayer/extensions/")))
         (should (equal result expected))))))
 
-(ert-deftest test-declare-layers--input-is-a-list ()
+(ert-deftest test-declare-used-layers--input-is-a-list ()
   (let ((input '(testlayer :variables
                            var1 t
                            var2 nil
