@@ -235,10 +235,15 @@ the focus."
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
     :defer t
+    :init
+    (progn
+      (add-to-list 'auto-mode-alist '("\\.boot\\'" . clojure-mode))
+      (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode)))
     :config
     (progn
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'clojure-mode)))))
+
 (defun clojure/init-rainbow-delimiters ()
   (if (configuration-layer/package-usedp 'cider)
       (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
