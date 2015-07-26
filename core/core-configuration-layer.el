@@ -351,7 +351,10 @@ the following keys:
 
 (defun configuration-layer/load-layers ()
   "Load all declared layers."
-  (let ((layers (reverse configuration-layer-layers)))
+  (let ((layers (reverse (remove-if
+                          #'(lambda (layer)
+                              (cl-member (car layer) dotspacemacs-excluded-layers))
+                          configuration-layer-layers))))
     (configuration-layer//set-layers-variables layers)
     ;; first load the config files then the package files
     (configuration-layer//load-layers-files layers '("funcs.el" "config.el"))

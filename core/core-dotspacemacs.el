@@ -195,6 +195,9 @@ Possible values are: `recents' `bookmarks' `projects'.")
 (defvar dotspacemacs-excluded-packages '()
   "A list of packages and/or extensions that will not be install and loaded.")
 
+(defvar dotspacemacs-excluded-layers '()
+  "A list of layers that will not be loaded.")
+
 ;; only for backward compatibility
 (defalias 'dotspacemacs-mode 'emacs-lisp-mode)
 
