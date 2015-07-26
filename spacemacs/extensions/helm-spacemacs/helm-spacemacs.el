@@ -51,11 +51,11 @@
         helm-spacemacs-all-packages nil)
   (if helm-spacemacs-mode
       (progn
-        (mapc (lambda (layer) (push (configuration-layer//declare-layer layer)
+        (mapc (lambda (layer) (push (configuration-layer//make-used-layer layer)
                                     helm-spacemacs-all-layers))
               (configuration-layer/get-layers-list))
         (dolist (layer helm-spacemacs-all-layers)
-          (unless (configuration-layer/layer-usedp (car layer))
+          (unless (configuration-layer/layer-usedp (oref layer :name))
             (configuration-layer//load-layer-files layer '("funcs.el"
                                                            "config.el"))))
         (setq helm-spacemacs-all-packages (configuration-layer/get-packages
