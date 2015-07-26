@@ -6,6 +6,7 @@
     clj-refactor
     clojure-mode
     company
+    popwin
     rainbow-delimiters
     subword
    ))
@@ -41,9 +42,6 @@
       ;; add support for evil
       (push 'cider-stacktrace-mode evil-motion-state-modes)
       (push 'cider-popup-buffer-mode evil-motion-state-modes)
-      ;; add cider error to popwin special buffers
-      (push '("*cider-error*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
-            popwin:special-display-config)
       (defun spacemacs//cider-eval-in-repl-no-focus (form)
         "Insert FORM in the REPL buffer and eval it."
         (let ((start-pos (point)))
@@ -241,6 +239,14 @@ the focus."
     (progn
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'clojure-mode)))))
+
+(defun clojure/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    ;; add cider error to popwin special buffers
+    (push '("*cider-error*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+          popwin:special-display-config)))
+
 (defun clojure/init-rainbow-delimiters ()
   (if (configuration-layer/package-usedp 'cider)
       (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
