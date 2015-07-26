@@ -33,7 +33,8 @@
     :init (evil-leader/set-key "gI" 'helm-gitignore)))
 
 (defun git/init-git-commit ()
-  (use-package git-commit))
+  (use-package git-commit
+    :defer t))
 
 (defun git/init-git-messenger ()
   (use-package git-messenger
