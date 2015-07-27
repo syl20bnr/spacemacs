@@ -96,7 +96,6 @@ initialization."
   ;; tooltips in echo-aera
   (when (and (fboundp 'tooltip-mode) (not (eq tooltip-mode -1)))
     (tooltip-mode -1))
-  (setq tooltip-use-echo-area t)
   (unless (eq window-system 'mac)
     (when (and (fboundp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
       (menu-bar-mode -1)))
