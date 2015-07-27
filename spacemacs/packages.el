@@ -2700,8 +2700,8 @@ must be a valid segment specification, see documentation for
             point-position
             line-column)
            :separator " | ")
-          ;; ((global-mode new-version)
-          ;;  :when active)
+          ((global-mode new-version)
+           :when active)
           buffer-position
           hud)
         "List of modeline segments to render on the right. Each element
@@ -2851,9 +2851,11 @@ It is a string holding:
         :when (bound-and-true-p nyan-mode))
 
       (spacemacs|define-mode-line-segment global-mode
-        (powerline-raw global-mode-string)
-        :when (and global-mode-string
-                   (< 0 (length (apply 'concat global-mode-string)))))
+        global-mode-string
+        :when (let ((val (format-mode-line global-mode-string)))
+                (cond ((listp val) val)
+                      ((stringp val) (< 0 (length val)))
+                      (t))))
 
       (spacemacs|define-mode-line-segment battery
         (powerline-raw (s-trim (fancy-battery-default-mode-line))
