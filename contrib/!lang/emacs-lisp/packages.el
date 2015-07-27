@@ -90,3 +90,20 @@
       "m=o" 'srefactor-lisp-one-line
       "m=s" 'srefactor-lisp-format-sexp
       )))
+
+
+    (evil-leader/set-key-for-mode 'emacs-lisp-mode
+      "mdf" 'edebug-defun
+     "mdb" 'edebug-set-breakpoint
+      "mbB" 'edebug-unset-breakpoint
+      "mdc" 'edebug-continue-mode
+      "mdd" 'edebug
+      "mdi" 'edebug-var-status
+      "mdl" 'edebug--mode-saved-vars
+      "mdn" 'edebug-next-mode
+      "mdo" 'edebug-step-out
+      "mdq" 'edebug-stop
+     "mdr" 'edebug-go-mode
+      "mds" 'edebug-step-mode
+      "mdt" 'edebug-backtrace
+      )
