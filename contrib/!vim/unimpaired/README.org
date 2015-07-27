@@ -6,8 +6,7 @@
 
 * Description
 
-This layer ports some of the functionality of tpope's vim-unimpaired
-[unimpaired][https://github.com/tpope/vim-unimpaired]
+This layer ports some of the functionality of [[https://github.com/tpope/vim-unimpaired][tpope's vim-unimpaired]].
 
 This plugin provides several pairs of bracket maps using ~[~ to denote
 previous, and ~]~ as next.
