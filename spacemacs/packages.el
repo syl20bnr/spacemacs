@@ -3416,16 +3416,16 @@ one of `l' or `r'."
                             :documentation
                             "Display a buffer with available key bindings."
                             :evil-leader "tK")
-      (defadvice which-key--update
-          (around spacemacs/inhibit-which-key-buffer activate)
-        "Prevent the popup of the which-key buffer in some case."
-        ;; a micro-state is running
-        ;; or
-        ;; bzg-big-fringe-mode is on
-        (if (or overriding-terminal-local-map
-                bzg-big-fringe-mode)
-            (let ((which-key-inhibit t)) ad-do-it)
-          ad-do-it))
+      ;; (defadvice which-key--update
+      ;;     (around spacemacs/inhibit-which-key-buffer activate)
+      ;;   "Prevent the popup of the which-key buffer in some case."
+      ;;   ;; a micro-state is running
+      ;;   ;; or
+      ;;   ;; bzg-big-fringe-mode is on
+      ;;   (if (or overriding-terminal-local-map
+      ;;           bzg-big-fringe-mode)
+      ;;       (let ((which-key-inhibit t)) ad-do-it)
+      ;;     ad-do-it))
       (let ((new-descriptions
              ;; being higher in this list means the replacement is applied later
              '(("spacemacs/\\(.+\\)" . "\\1")
