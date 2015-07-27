@@ -1030,3 +1030,11 @@ of the list `SEQ'."
    ((not (cdr seq)) seq)
    (t (append (list (car seq) separator)
               (spacemacs//intersperse (cdr seq) separator)))))
+
+(defun spacemacs//mode-line-nonempty (seg)
+  "Checks whether a modeline segment (classical Emacs style)
+is nonempty."
+  (let ((val (format-mode-line seg)))
+    (cond ((listp val) val)
+          ((stringp val) (< 0 (length val)))
+          (t))))
