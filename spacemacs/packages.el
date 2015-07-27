@@ -3428,7 +3428,9 @@ one of `l' or `r'."
       ;;     ad-do-it))
       (let ((new-descriptions
              ;; being higher in this list means the replacement is applied later
-             '(("spacemacs/\\(.+\\)" . "\\1")
+             '(
+               ("spacemacs/\\(.+\\)" . "\\1")
+               ("spacemacs/toggle-\\(.+\\)" . "\\1")
                ("select-window-\\([0-9]\\)" . "window \\1")
                ("spacemacs/alternate-buffer" . "last buffer")
                ("evil-ace-jump-word-mode" . "ace word")
