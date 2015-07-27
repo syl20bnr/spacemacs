@@ -15,20 +15,20 @@ previous, and ~]~ as next.
 
 | KeyBindings | Description                 |
 |-------------+-----------------------------|
-| ~[b~          | Go to previous buffer       |
-| ~]b~          | Go to next buffer           |
-| ~[l~          | Go to the previous error    |
-| ~]l~          | Go to the next error        |
-| ~[h~          | Go to the previous vcs hunk |
-| ~]h~          | Go to the next vcs hunk     |
-| ~[t~          | Go to the previous frame    |
-| ~]t~          | Go to the next frame        |
-| ~[w~          | Go to the previous window   |
-| ~]w~          | Go to the next window       |
-| ~[e~          | Move line up                |
-| ~]e~          | Move line down              |
-| ~[SPACE~      | Insert space above          |
-| ~]SPACE~      | Insert space below          |
-| ~[p~          | Paste above current line    |
-| ~]p~          | Paste below current line    |
-| ~gp~          | Select pasted text          |
+| ~[b~        | Go to previous buffer       |
+| ~]b~        | Go to next buffer           |
+| ~[l~        | Go to the previous error    |
+| ~]l~        | Go to the next error        |
+| ~[h~        | Go to the previous vcs hunk |
+| ~]h~        | Go to the next vcs hunk     |
+| ~[t~        | Go to the previous frame    |
+| ~]t~        | Go to the next frame        |
+| ~[w~        | Go to the previous window   |
+| ~]w~        | Go to the next window       |
+| ~[e~        | Move line up                |
+| ~]e~        | Move line down              |
+| ~[SPACE~    | Insert space above          |
+| ~]SPACE~    | Insert space below          |
+| ~[p~        | Paste above current line    |
+| ~]p~        | Paste below current line    |
+| ~gp~        | Select pasted text          |
