@@ -306,7 +306,7 @@ path."
 (defun configuration-layer//declare-used-layers (layers)
   "Declare the passed configuration LAYERS.
 LAYERS is a list of layer symbols."
-  (reduce (lambda (acc elt) (push elt acc))
+  (reduce (lambda (acc elt) (if elt (push elt acc) acc))
           (mapcar 'configuration-layer//make-used-layer (reverse layers))
           :initial-value nil))
 

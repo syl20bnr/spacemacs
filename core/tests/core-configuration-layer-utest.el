@@ -26,6 +26,17 @@
            (result (configuration-layer//declare-used-layers input)))
       (should (equal result input)))))
 
+(ert-deftest test-declare-used-layers--ignore-not-found-layer ()
+  (mocker-let ((configuration-layer//make-used-layer
+                (x)
+                ((:input '(layer3) :output 'layer3)
+                 (:input '(layer2-not-found) :output nil)
+                 (:input '(layer1) :output 'layer1))))
+              (let* ((input '(layer1 layer2-not-found layer3))
+                     (expected '(layer1 layer3))
+                     (result (configuration-layer//declare-used-layers input)))
+                (should (equal result expected)))))
+
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//make-used-layer
 ;; ---------------------------------------------------------------------------
