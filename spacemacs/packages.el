@@ -3449,9 +3449,10 @@ one of `l' or `r'."
           ;; ensure the target matches the whole string
           (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
                 which-key-description-replacement-alist)))
-      (which-key-add-key-based-replacements
-       "SPC m"    "maj mode cmds"
-       (concat "SPC " dotspacemacs-command-key) "M-x")
+      (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
+        (which-key-add-key-based-replacements
+         (concat leader-key " m")    "maj mode cmds"
+         (concat leader-key " " dotspacemacs-command-key) "M-x"))
       ;; disable special key handling for spacemacs, since it can be
       ;; disorienting if you don't understand it
       (setq which-key-special-keys nil)
