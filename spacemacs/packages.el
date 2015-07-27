@@ -2700,8 +2700,8 @@ must be a valid segment specification, see documentation for
             point-position
             line-column)
            :separator " | ")
-          ((global-mode new-version)
-           :when active)
+          ;; ((global-mode new-version)
+          ;;  :when active)
           buffer-position
           hud)
         "List of modeline segments to render on the right. Each element
