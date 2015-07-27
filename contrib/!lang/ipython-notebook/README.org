@@ -1,7 +1,7 @@
 #+TITLE: IPython Notebook contribution layer for Spacemacs (WIP)
 
 * Table of Contents                                                   :TOC@4:
- - [[#description-][Description ]]
+ - [[#description][Description]]
  - [[#features][Features]]
  - [[#list-of-todos][List of TODOS]]
      - [[#todo-maybe-itd-be-better-if-there-was-a-state-for-this][TODO Maybe it'd be better if there was a state for this]]
@@ -14,15 +14,16 @@
  - [[#using-the-ipython-notebook][Using the IPython notebook]]
      - [[#open-notebook-list][Open Notebook List]]
      - [[#key-bindings][Key Bindings]]
-         - [[#micro-state-ipython-notebook-][Micro-state: =ipython-notebook= ]]
+         - [[#micro-state-ipython-notebook][Micro-state: =ipython-notebook=]]
          - [[#normal-mode][Normal mode]]
          - [[#insert-mode][Insert mode]]
+         - [[#traceback-mode][Traceback mode]]
  - [[#screenshots][Screenshots]]
      - [[#light][Light]]
      - [[#dark][Dark]]
  - [[#bonus][Bonus]]
 
-* Description 
+* Description
 This layer adds support for the package =emacs-ipython-notebook=.
 
 Do not hesitate to check the original package README [[https://github.com/millejoh/emacs-ipython-notebook][here]]. Also the wiki has
@@ -61,7 +62,7 @@ command =ein:notebooklist-open= which is bound to ~SPC a i n~
 ** Key Bindings
 The key bindings can be used through a micro state or the usual evil-leader.
 
-*** Micro-state: =ipython-notebook= 
+*** Micro-state: =ipython-notebook=
 Once you are in the ipython notebook you can activate the micro-state with
 ~SPC e i n~
 
@@ -126,6 +127,16 @@ In normal mode the following key bindings are defined:
 |---------+------------------------------------------|
 | ~C-RET~ | ein:worksheet-execute-cell               |
 | ~S-RET~ | ein:worksheet-execute-cell-and-goto-next |
+
+*** Traceback mode
+In traceback mode the following key bindings are defined:
+
+| key   | Function                               |
+|-------+----------------------------------------|
+| ~RET~ | ein:tb-jump-to-source-at-point-command |
+| ~n~   | ein:tb-next-item                       |
+| ~p~   | ein:tb-prev-item                       |
+| ~q~   | bury-buffer                            |
 
 * Screenshots
 ** Light

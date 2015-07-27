@@ -102,6 +102,13 @@
         "mu" 'ein:worksheet-change-cell-type
         "fs" 'ein:notebook-save-notebook-command)
 
+      ;; keybindings for ipython notebook traceback mode
+      (evil-leader/set-key-for-mode 'ein:traceback-mode
+        "m RET" 'ein:tb-jump-to-source-at-point-command
+        "mn" 'ein:tb-next-item
+        "mp" 'ein:tb-prev-item
+        "mq" 'bury-buffer)
+
       ;; keybindings mirror ipython web interface behavior
       (evil-define-key 'insert ein:notebook-multilang-mode-map
         (kbd "<C-return>") 'ein:worksheet-execute-cell
