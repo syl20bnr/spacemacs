@@ -581,7 +581,7 @@
                  :group 'spacemacs))
         (set-face-attribute (spacemacs/state-color-face state) nil
                             :background color
-                            :foreground (face-background 'mode-line)
+                            :foreground "gray22"
                             :box (face-attribute 'mode-line :box)
                             :inherit 'mode-line))
 
@@ -2676,7 +2676,7 @@ displayed in the mode-line.")
 
       (defun spacemacs/mode-line-prepare-left ()
         (let* ((active (powerline-selected-window-active))
-               (line-face (if active 'mode-line 'mode-line-inactive))
+               (line-face (if active (spacemacs/current-state-face) 'mode-line-inactive))
                (face1 (if active 'powerline-active1 'powerline-inactive1))
                (face2 (if active 'powerline-active2 'powerline-inactive2))
                (state-face (if active (spacemacs/current-state-face) face2))
@@ -2798,7 +2798,7 @@ It is a string holding:
 
       (defun spacemacs/mode-line-prepare-right ()
         (let* ((active (powerline-selected-window-active))
-               (line-face (if active 'mode-line 'mode-line-inactive))
+               (line-face (if active (spacemacs/current-state-face) 'mode-line-inactive))
                (face1 (if active 'powerline-active1 'powerline-inactive1))
                (face2 (if active 'powerline-active2 'powerline-inactive2))
                (state-face (if active (spacemacs/current-state-face) face2))
