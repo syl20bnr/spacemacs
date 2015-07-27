@@ -91,7 +91,6 @@
       "m=s" 'srefactor-lisp-format-sexp
       )))
 
-
     (evil-leader/set-key-for-mode 'emacs-lisp-mode
       "mdf" 'edebug-defun
      "mdb" 'edebug-set-breakpoint

@@ -1,0 +1,26 @@
+#+TITLE: Fortran contribution layer for Spacemacs
+
+* Table of Contents
+  - Description
+    - Features:
+  - Install
+    - Layer
+  - Key bindings
+    - Documentation
+
+* Description
+
+This layer adds support for the Fortran language.
+
+* Features:
+- auto-completion with company-semantic.
+
+* Install
+ 
+ * Layer
+ To use this contriubtion add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(fortran))
+#+END_SRC
+
