@@ -2694,7 +2694,7 @@ must be a valid segment specification, see documentation for
 `spacemacs//eval-mode-line-segment'.")
 
       (defvar spacemacs-mode-line-right
-        '(battery
+        '((battery :when active)
           selection-info
           ((buffer-encoding-abbrev
             point-position
