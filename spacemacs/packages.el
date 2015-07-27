@@ -2745,10 +2745,13 @@ inspected at evaluation time by `spacemacs//eval-mode-line-segment'."
              (defun ,wrapper-func ()
                (when ,condition
                  (let ((value ,value))
-                   (if (or (spacemacs//imagep value)
-                           (not (listp value)))
-                       (list value)
-                     value))))
+                   (cond ((spacemacs//imagep value)
+                          (list value))
+                         ((listp value) value)
+                         ((and (stringp value)
+                               (= 0 (length value)))
+                          nil)
+                         (t (list value))))))
              (setplist ',wrapper-func ',props))))
 
       ;; An intermediate representation of the value of a modeline segment.
@@ -2810,8 +2813,8 @@ It is a string holding:
         (spacemacs-powerline-minor-modes)
         :when spacemacs-mode-line-minor-modesp)
       (spacemacs|define-mode-line-segment process
-        mode-line-process
-        :when mode-line-process)
+        (powerline-raw mode-line-process)
+        :when (spacemacs//mode-line-nonempty mode-line-process))
 
       (spacemacs|define-mode-line-segment erc-track
         (let* ((buffers (mapcar 'car erc-modified-channels-alist))
@@ -2851,11 +2854,8 @@ It is a string holding:
         :when (bound-and-true-p nyan-mode))
 
       (spacemacs|define-mode-line-segment global-mode
-        global-mode-string
-        :when (let ((val (format-mode-line global-mode-string)))
-                (cond ((listp val) val)
-                      ((stringp val) (< 0 (length val)))
-                      (t))))
+        (powerline-raw global-mode-string)
+        :when (spacemacs//mode-line-nonempty global-mode-string))
 
       (spacemacs|define-mode-line-segment battery
         (powerline-raw (s-trim (fancy-battery-default-mode-line))
