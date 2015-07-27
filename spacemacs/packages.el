@@ -2630,7 +2630,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                             :on (setq spacemacs-mode-line-major-modep t)
                             :off (setq spacemacs-mode-line-major-modep nil)
                             :documentation "Show major mode in mode-line."
-                            :evil-leader "tmj")
+                            :evil-leader "tmM")
 
       (defvar spacemacs-mode-line-version-controlp t
         "If not nil, version control info is displayed in the mode-line.")
@@ -2639,7 +2639,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                             :on (setq spacemacs-mode-line-version-controlp t)
                             :off (setq spacemacs-mode-line-version-controlp nil)
                             :documentation "Show version control info in mode-line."
-                            :evil-leader "tmg")
+                            :evil-leader "tmv")
 
       (defvar spacemacs-mode-line-new-version-lighterp t
         "If not nil, new version lighter is displayed in the mode-line.")
@@ -2648,7 +2648,7 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
                             :on (setq spacemacs-mode-line-new-version-lighterp t)
                             :off (setq spacemacs-mode-line-new-version-lighterp nil)
                             :documentation "Show new version in the mode-line."
-                            :evil-leader "tmv")
+                            :evil-leader "tmV")
 
       (defvar spacemacs-mode-line-display-point-p nil
         "If not nil, display point alongside row/column in the mode-line.")
