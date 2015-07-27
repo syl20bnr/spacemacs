@@ -13,6 +13,7 @@
 (setq c-c++-packages
   '(
     cc-mode
+    disaster
     clang-format
     cmake-mode
     company
@@ -47,6 +48,17 @@
       (evil-leader/set-key-for-mode 'c++-mode
         "mga" 'projectile-find-other-file
         "mgA" 'projectile-find-other-file-other-window))))
+
+(defun c-c++/init-disaster ()
+  (use-package disaster
+    :defer t
+    :commands (disaster)
+    :init
+    (progn
+      (evil-leader/set-key-for-mode 'c-mode
+        "md" 'disaster)
+      (evil-leader/set-key-for-mode 'c++-mode
+        "md" 'disaster))))
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
