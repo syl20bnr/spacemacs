@@ -13,17 +13,20 @@
 ;; List of all packages to install and/or initialize. Built-in packages
 ;; which require an initialization must be listed explicitly in the list.
 (setq react-packages
-    '(
-      web-mode
-      js2-mode
-      js2-refactor
-      js-doc
-      flycheck
-      tern
-      jsfmt
-      company
-      company-tern
-      ))
+      '(
+        web-mode
+        js2-mode
+        js2-refactor
+        js-doc
+        json-mode
+        json-snatcher
+        flycheck
+        tern
+        jsfmt
+        company
+        company-tern
+        web-beautify
+        ))
 
 ;; List of packages to exclude.
 (setq react-excluded-packages '())
@@ -31,149 +34,196 @@
 ;; For each package, define a function react/init-<package-name>
 ;;
 (defun react/post-init-flycheck ()
-  (add-hook 'web-mode-hook
+  (add-hook 'react-mode-hook
             (lambda ()
-              (when (equal web-mode-content-type "jsx")
-                (with-eval-after-load 'flycheck
-                  ;; use eslint with web-mode for jsx files
-                  (flycheck-add-mode 'javascript-eslint 'web-mode)
+              (with-eval-after-load 'flycheck
+                ;; use eslint with web-mode for jsx files
+                (flycheck-add-mode 'javascript-eslint 'react-mode)
 
-                  ;; disable jshint since we prefer eslint checking
-                  (setq-default flycheck-disabled-checkers
-                                (append flycheck-disabled-checkers
-                                        '(javascript-jshint)))
+                ;; disable jshint since we prefer eslint checking
+                (setq-default flycheck-disabled-checkers
+                              (append flycheck-disabled-checkers
+                                      '(javascript-jshint)))
 
-                  ;; disable json-jsonlist checking for json files
-                  (setq-default flycheck-disabled-checkers
-                                (append flycheck-disabled-checkers
-                                        '(json-jsonlist))))))))
+                ;; disable json-jsonlist checking for json files
+                (setq-default flycheck-disabled-checkers
+                              (append flycheck-disabled-checkers
+                                      '(json-jsonlist)))))))
 
 (defun react/post-init-web-mode ()
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+  (define-derived-mode react-mode web-mode "react")
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
+  (add-to-list 'auto-mode-alist '("\\.react.js\\'" . react-mode))
+  (add-to-list 'magic-mode-alist '("/** @jsx React.DOM */" . react-mode))
 
-  (add-hook 'web-mode-hook
+  (add-hook 'react-mode-hook
             (lambda ()
               (defadvice web-mode-highlight-part (around tweak-jsx activate)
-                (if (equal web-mode-content-type "jsx")
-                    (let ((web-mode-enable-part-face nil))
-                      ad-do-it)
+                (let ((web-mode-enable-part-face nil))
                   ad-do-it)))))
 
-(defun react/post-init-js2-mode ()
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (equal web-mode-content-type "jsx")
-                (js2-minor-mode)))))
-
-(defun react/post-init-js2-refactor ()
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (equal web-mode-content-type "jsx")
-                (require 'js2-refactor)))))
-
-(defun react/post-init-js2-refactor ()
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (equal web-mode-content-type "jsx")
-                (require 'js-doc)))))
-
-(defun react/post-init-tern ()
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (equal web-mode-content-type "jsx")
-                (tern-mode)))))
-
-(defun react/post-init-company-tern ()
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (equal web-mode-content-type "jsx")
-                (push 'company-tern company-backends-web-mode)))))
-
-(defun react/pre-init-js2-mode ()
-  (spacemacs|use-package-add-hook js2-mode
-    :post-config
-    (progn
-      (evil-leader/set-key-for-mode 'web-mode "mw" 'js2-mode-toggle-warnings-and-errors))))
-
-(defun react/pre-init-tern ()
-  (spacemacs|use-package-add-hook tern
-    :post-config
-    (progn
-        (evil-leader/set-key-for-mode 'web-mode "mrv" 'tern-rename-variable) ;; was mrrV
-        (evil-leader/set-key-for-mode 'web-mode "mhd" 'tern-get-docs)
-        (evil-leader/set-key-for-mode 'web-mode "mgg" 'tern-find-definition)
-        (evil-leader/set-key-for-mode 'web-mode "mgG" 'tern-find-definition-by-name)
-        (evil-leader/set-key-for-mode 'web-mode (kbd "m C-g") 'tern-pop-find-definition)
-        (evil-leader/set-key-for-mode 'web-mode "mht" 'tern-get-type))))
-
-(defun react/pre-init-js2-refactor ()
-  (spacemacs|use-package-add-hook js2-refactor
-    :post-config
-    (progn
-      (evil-leader/set-key-for-mode 'web-mode "mr3i" 'js2r-ternary-to-if)
-
-      (evil-leader/set-key-for-mode 'web-mode "mrag" 'js2r-add-to-globals-annotation)
-      (evil-leader/set-key-for-mode 'web-mode "mrao" 'js2r-arguments-to-object)
-
-      (evil-leader/set-key-for-mode 'web-mode "mrba" 'js2r-forward-barf)
-
-      ;; (evil-leader/set-key-for-mode 'web-mode "mrca" 'js2r-contract-array)
-      ;; (evil-leader/set-key-for-mode 'web-mode "mrco" 'js2r-contract-object)
-      ;; (evil-leader/set-key-for-mode 'web-mode "mrcu" 'js2r-contract-function)
-
-      (evil-leader/set-key-for-mode 'web-mode "mrea" 'js2r-expand-array)
-      (evil-leader/set-key-for-mode 'web-mode "mref" 'js2r-extract-function)
-      (evil-leader/set-key-for-mode 'web-mode "mrem" 'js2r-extract-method)
-      (evil-leader/set-key-for-mode 'web-mode "mreo" 'js2r-expand-object)
-      (evil-leader/set-key-for-mode 'web-mode "mreu" 'js2r-expand-function)
-      (evil-leader/set-key-for-mode 'web-mode "mrev" 'js2r-extract-var)
-
-      (evil-leader/set-key-for-mode 'web-mode "mrig" 'js2r-inject-global-in-iife)
-      (evil-leader/set-key-for-mode 'web-mode "mrip" 'js2r-introduce-parameter)
-      (evil-leader/set-key-for-mode 'web-mode "mriv" 'js2r-inline-var)
-
-      (evil-leader/set-key-for-mode 'web-mode "mrlp" 'js2r-localize-parameter)
-      (evil-leader/set-key-for-mode 'web-mode "mrlt" 'js2r-log-this)
-
-      ;; (evil-leader/set-key-for-mode 'web-mode "mrrv" 'js2r-rename-var)
-
-      (evil-leader/set-key-for-mode 'web-mode "mrsl" 'js2r-forward-slurp)
-      (evil-leader/set-key-for-mode 'web-mode "mrss" 'js2r-split-string)
-      (evil-leader/set-key-for-mode 'web-mode "mrsv" 'js2r-split-var-declaration)
-
-      (evil-leader/set-key-for-mode 'web-mode "mrtf" 'js2r-toggle-function-expression-and-declaration)
-
-      (evil-leader/set-key-for-mode 'web-mode "mruw" 'js2r-unwrap)
-
-      ;; (evil-leader/set-key-for-mode 'web-mode "mrvt" 'js2r-var-to-this)
-
-      ;; (evil-leader/set-key-for-mode 'web-mode "mrwi" 'js2r-wrap-buffer-in-iife)
-      ;; (evil-leader/set-key-for-mode 'web-mode "mrwl" 'js2r-wrap-in-for-loop)
-
-      (evil-leader/set-key-for-mode 'web-mode "mk" 'js2r-kill)
-      (evil-leader/set-key-for-mode 'web-mode "xmj" 'js2r-move-line-down)
-      (evil-leader/set-key-for-mode 'web-mode "xmk" 'js2r-move-line-up))))
-
-(defun react/pre-init-js-doc ()
-  (spacemacs|use-package-add-hook js-doc
-    :post-config
-    (progn
-      (evil-leader/set-key-for-mode 'web-mode "midb" 'js-doc-insert-file-doc) ;; was mrdb
-      (evil-leader/set-key-for-mode 'web-mode "midf" 'js-doc-insert-function-doc) ;; was mrdf
-      (evil-leader/set-key-for-mode 'web-mode "midt" 'js-doc-insert-tag) ;; was mrdt
-      (evil-leader/set-key-for-mode 'web-mode "midh" 'js-doc-describe-tag)))) ;; was mrdh
-
-(defun react/init-jsfmt ()
-  (use-package jsfmt
-    :commands (jsfmt)
+(defun react/init-tern ()
+  (use-package tern
+    :defer t
     :config
-    (evil-leader/set-key-for-mode 'web-mode "mf" 'jsfmt)))
+    (progn
+      (evil-leader/set-key-for-mode 'react-mode "mrrV" 'tern-rename-variable)
+      (evil-leader/set-key-for-mode 'react-mode "mhd" 'tern-get-docs)
+      (evil-leader/set-key-for-mode 'react-mode "mgg" 'tern-find-definition)
+      (evil-leader/set-key-for-mode 'react-mode "mgG" 'tern-find-definition-by-name)
+      (evil-leader/set-key-for-mode 'react-mode (kbd "m C-g") 'tern-pop-find-definition)
+      (evil-leader/set-key-for-mode 'react-mode "mht" 'tern-get-type))))
 
-(defun react/post-init-jsfmt ()
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (equal web-mode-content-type "jsx")
-                (require 'jsfmt)))))
+(defun react/init-js2-mode ()
+  (use-package js2-mode
+    :defer t
+    :init
+    ;; required to make `<SPC> s l' to work correctly
+    (add-hook 'react-mode-hook 'js2-imenu-extras-mode)
+    (add-hook 'react-mode-hook 'js2-minor-mode))
+  :config
+  (progn
+    ;;(spacemacs/declare-prefix-for-mode 'js2-mode "m" "major mode")
+
+    (evil-leader/set-key-for-mode 'js2-mode "mw" 'js2-mode-toggle-warnings-and-errors)
+
+    ;;(spacemacs/declare-prefix-for-mode 'js2-mode "mz" "folding")
+    (evil-leader/set-key-for-mode 'js2-mode "mzc" 'js2-mode-hide-element)
+    (evil-leader/set-key-for-mode 'js2-mode "mzo" 'js2-mode-show-element)
+    (evil-leader/set-key-for-mode 'js2-mode "mzr" 'js2-mode-show-all)
+    (evil-leader/set-key-for-mode 'js2-mode "mze" 'js2-mode-toggle-element)
+    (evil-leader/set-key-for-mode 'js2-mode "mzF" 'js2-mode-toggle-hide-functions)
+    (evil-leader/set-key-for-mode 'js2-mode "mzC" 'js2-mode-toggle-hide-comments)))
+
+(defun react/init-js2-refactor ()
+  (use-package js2-refactor
+    :defer t
+    :init
+    (progn
+      (defun react/load-js2-refactor ()
+        "Lazy load js2-refactor"
+        (require 'js2-refactor))
+      (add-hook 'react-mode-hook 'react/load-js2-refactor))
+    :config
+    (progn
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mr" "refactor")
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mr3" "ternary")
+      (evil-leader/set-key-for-mode 'react-mode "mr3i" 'js2r-ternary-to-if)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mra" "add/args")
+      (evil-leader/set-key-for-mode 'react-mode "mrag" 'js2r-add-to-globals-annotation)
+      (evil-leader/set-key-for-mode 'react-mode "mrao" 'js2r-arguments-to-object)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mrb" "barf")
+      (evil-leader/set-key-for-mode 'react-mode "mrba" 'js2r-forward-barf)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mrc" "contract")
+      (evil-leader/set-key-for-mode 'react-mode "mrca" 'js2r-contract-array)
+      (evil-leader/set-key-for-mode 'react-mode "mrco" 'js2r-contract-object)
+      (evil-leader/set-key-for-mode 'react-mode "mrcu" 'js2r-contract-function)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mre" "expand/extract")
+      (evil-leader/set-key-for-mode 'react-mode "mrea" 'js2r-expand-array)
+      (evil-leader/set-key-for-mode 'react-mode "mref" 'js2r-extract-function)
+      (evil-leader/set-key-for-mode 'react-mode "mrem" 'js2r-extract-method)
+      (evil-leader/set-key-for-mode 'react-mode "mreo" 'js2r-expand-object)
+      (evil-leader/set-key-for-mode 'react-mode "mreu" 'js2r-expand-function)
+      (evil-leader/set-key-for-mode 'react-mode "mrev" 'js2r-extract-var)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mri" "inline/inject/introduct")
+      (evil-leader/set-key-for-mode 'react-mode "mrig" 'js2r-inject-global-in-iife)
+      (evil-leader/set-key-for-mode 'react-mode "mrip" 'js2r-introduce-parameter)
+      (evil-leader/set-key-for-mode 'react-mode "mriv" 'js2r-inline-var)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mrl" "localize/log")
+      (evil-leader/set-key-for-mode 'react-mode "mrlp" 'js2r-localize-parameter)
+      (evil-leader/set-key-for-mode 'react-mode "mrlt" 'js2r-log-this)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mrr" "rename")
+      (evil-leader/set-key-for-mode 'react-mode "mrrv" 'js2r-rename-var)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mrs" "split/slurp")
+      (evil-leader/set-key-for-mode 'react-mode "mrsl" 'js2r-forward-slurp)
+      (evil-leader/set-key-for-mode 'react-mode "mrss" 'js2r-split-string)
+      (evil-leader/set-key-for-mode 'react-mode "mrsv" 'js2r-split-var-declaration)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mrt" "toggle")
+      (evil-leader/set-key-for-mode 'react-mode "mrtf" 'js2r-toggle-function-expression-and-declaration)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mru" "unwrap")
+      (evil-leader/set-key-for-mode 'react-mode "mruw" 'js2r-unwrap)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mrv" "var")
+      (evil-leader/set-key-for-mode 'react-mode "mrvt" 'js2r-var-to-this)
+
+      ;;(spacemacs/declare-prefix-for-mode 'react-mode "mrw" "wrap")
+      (evil-leader/set-key-for-mode 'react-mode "mrwi" 'js2r-wrap-buffer-in-iife)
+      (evil-leader/set-key-for-mode 'react-mode "mrwl" 'js2r-wrap-in-for-loop)
+
+      (evil-leader/set-key-for-mode 'react-mode "mk" 'js2r-kill)
+      (evil-leader/set-key-for-mode 'react-mode "xmj" 'js2r-move-line-down)
+      (evil-leader/set-key-for-mode 'react-mode "xmk" 'js2r-move-line-up))))
+
+(defun react/init-json-mode ()
+  (use-package json-mode
+    :defer t))
+
+(defun react/init-json-snatcher ()
+  (use-package json-snatcher
+    :defer t
+    :config
+    (evil-leader/set-key-for-mode 'json-mode
+      "mhp" 'jsons-print-path)
+    ))
+
+(defun react/init-tern ()
+  (use-package tern
+    :defer t
+    :init (add-hook 'react-mode-hook 'tern-mode)
+    :config
+    (progn
+      (evil-leader/set-key-for-mode 'react-mode "mrrV" 'tern-rename-variable)
+      (evil-leader/set-key-for-mode 'react-mode "mhd" 'tern-get-docs)
+      (evil-leader/set-key-for-mode 'react-mode "mgg" 'tern-find-definition)
+      (evil-leader/set-key-for-mode 'react-mode "mgG" 'tern-find-definition-by-name)
+      (evil-leader/set-key-for-mode 'react-mode (kbd "m C-g") 'tern-pop-find-definition)
+      (evil-leader/set-key-for-mode 'react-mode "mht" 'tern-get-type))))
+
+(defun react/init-js-doc ()
+  (use-package js-doc
+    :defer t
+    :init
+    (progn
+      (defun react/load-js-doc ()
+          "Lazy load js-doc"
+        (require 'js-doc))
+      (add-hook 'react-mode-hook 'javascript/load-js-doc))
+    :config
+    (progn
+      (evil-leader/set-key-for-mode 'react-mode "mrdb" 'js-doc-insert-file-doc)
+      (evil-leader/set-key-for-mode 'react-mode "mrdf" 'js-doc-insert-function-doc)
+      (evil-leader/set-key-for-mode 'react-mode "mrdt" 'js-doc-insert-tag)
+      (evil-leader/set-key-for-mode 'react-mode "mrdh" 'js-doc-describe-tag))))
+
+(defun react/init-web-beautify ()
+  (use-package web-beautify
+    :defer t
+    :init
+    (progn
+      (evil-leader/set-key-for-mode 'react-mode  "m=" 'web-beautify-js))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun react/post-init-company ()
+    (spacemacs|add-company-hook react-mode))
+
+  (defun react/init-company-tern ()
+    (use-package company-tern
+      :if (and (configuration-layer/package-usedp 'company)
+               (configuration-layer/package-usedp 'tern))
+      :defer t
+      :init
+      (push 'company-tern company-backends-react-mode))))
 
 ;;
 ;; Often the body of an initialize function uses `use-package'
