@@ -26,7 +26,7 @@
     srefactor
     stickyfunc-enhance
     ycmd
-    xscope
+    xcscope
     ))
 
 (unless (version< emacs-version "24.4")
@@ -154,9 +154,11 @@
 (defun c-c++/pre-init-xcscope ()
   (spacemacs|use-package-add-hook xcscope
     :post-init
-    (evil-leader/set-key-for-mode 'c-mode-common "mgi" 'cscope-index-files)))
+    (dolist (mode '(c-mode c++-mode))
+      (evil-leader/set-key-for-mode mode "mgi" 'cscope-index-files))))
 
 (defun c-c++/pre-init-helm-cscope ()
   (spacemacs|use-package-add-hook xcscope
     :post-init
-    (spacemacs/setup-helm-cscope 'c-mode-common)))
+    (dolist (mode '(c-mode c++-mode))
+      (spacemacs/setup-helm-cscope mode))))
