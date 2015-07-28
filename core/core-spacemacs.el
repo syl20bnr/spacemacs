@@ -156,7 +156,7 @@ initialization."
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
   (spacemacs/set-new-version-lighter-mode-line-faces)
-  (add-hook 'after-init-hook 'spacemacs-buffer/goto-link-line)
+  (add-hook 'emacs-startup-hook 'spacemacs-buffer/goto-link-line)
   (spacemacs-mode))
 
 (defun spacemacs//get-package-directory (pkg)
@@ -221,10 +221,10 @@ FILE-TO-LOAD is an explicit file to load after the installation."
   "Change the default welcome message of minibuffer to another one."
   (message "Spacemacs is ready."))
 
-(defun spacemacs/setup-after-init-hook ()
+(defun spacemacs/setup-startup-hook ()
   "Add post init processing."
   (add-hook
-   'after-init-hook
+   'emacs-startup-hook
    (lambda ()
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file

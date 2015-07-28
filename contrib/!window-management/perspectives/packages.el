@@ -60,7 +60,7 @@
            (when initialize ,@body)
            (setq persp-last current-perspective)))
 
-      (add-hook 'after-init-hook '(lambda ()
+      (add-hook 'emacs-startup-hook '(lambda ()
                                     (persp-rename "@spacemacs")))
       ;; Jump to last perspective
       ;; taken from Magnar Sveen
