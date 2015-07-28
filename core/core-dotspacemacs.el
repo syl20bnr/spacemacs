@@ -116,11 +116,6 @@ with `:' and Emacs commands are executed with `<leader> :'.")
   "If non nil then `ido' replaces `helm' for some commands. For now only
 `find-files' (SPC f f) is replaced.")
 
-(defvar dotspacemacs-load-helm t
-  "If non nil then spacemacs will load `helm' at startup. Otherwhise will
-be skipped")
-
-
 (defvar dotspacemacs-auto-save-file-location 'cache
   "Location where to auto-save files. Possible values are `original' to
 auto-save the file in-place, `cache' to auto-save the file to another

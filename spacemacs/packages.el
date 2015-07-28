@@ -1346,8 +1346,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
 (defun spacemacs/init-helm ()
   (use-package helm
-    :if dotspacemacs-load-helm
-    :defer 1
+    :defer (if (system-is-mswindows) t 1)
     :commands spacemacs/helm-find-files
     :config
     (progn
