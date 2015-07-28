@@ -85,6 +85,7 @@
         ("7" eyebrowse-switch-to-window-config-7)
         ("8" eyebrowse-switch-to-window-config-8)
         ("9" eyebrowse-switch-to-window-config-9)
+        ("s" eyebrowse-switch-to-window-config)
         ("<tab>" eyebrowse-last-window-config)
         ("C-i" eyebrowse-last-window-config)
         ("n" eyebrowse-next-window-config)

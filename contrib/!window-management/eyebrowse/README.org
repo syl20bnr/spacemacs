@@ -70,3 +70,4 @@ Set the variable =eyebrowse-display-help= to =nil=
 | ~SPC W n~              | switch to next workspace             |
 | ~SPC W N~ or ~SPC W p~ | create or switch to workspace 0      |
 | ~SPC W r~              | set a label to the current workspace |
+| ~SPC W s~              | switched to tagged workspace         | 
