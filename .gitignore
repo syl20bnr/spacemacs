@@ -38,7 +38,7 @@ server/
 /*.zip
 *.db
 python-*-docs-html
-
+srecode-map.el
 # Private directory
 private/*
 !private/README.md
