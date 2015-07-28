@@ -11,8 +11,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq ranger-packages
-  '(ranger))
+(setq ranger-packages '(ranger))
 
 (setq ranger-excluded-packages '())
 
@@ -20,4 +19,7 @@
   (use-package ranger
     :defer t
     :init
-    (evil-leader/set-key "ar" 'ranger)))
+    (progn
+      (setq ranger-parent-depth 1
+            ranger-preview-file t)
+      (evil-leader/set-key "ar" 'ranger))))
