@@ -1510,7 +1510,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
 
       ;; define the key binding at the very end in order to allow the user
       ;; to overwrite any key binding
-      (add-hook 'after-init-hook
+      (add-hook 'emacs-startup-hook
                 (lambda ()
                   (unless (configuration-layer/package-usedp 'smex)
                     (evil-leader/set-key dotspacemacs-command-key 'helm-M-x))))
@@ -2893,7 +2893,7 @@ It is a string holding:
           (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
             (when (get-buffer buffer)
               (spacemacs//restore-powerline buffer)))))
-      (add-hook 'after-init-hook
+      (add-hook 'emacs-startup-hook
                 'spacemacs//set-powerline-for-startup-buffers))))
 
 (defun spacemacs/init-projectile ()
