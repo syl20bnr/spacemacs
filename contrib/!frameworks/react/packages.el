@@ -22,7 +22,6 @@
         json-snatcher
         flycheck
         tern
-        jsfmt
         company
         company-tern
         web-beautify
