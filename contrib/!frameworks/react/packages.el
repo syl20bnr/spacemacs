@@ -57,6 +57,7 @@
 
   (add-hook 'react-mode-hook
             (lambda ()
+              (emmet-mode 0)
               (defadvice web-mode-highlight-part (around tweak-jsx activate)
                 (let ((web-mode-enable-part-face nil))
                   ad-do-it)))))
