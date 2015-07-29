@@ -65,7 +65,11 @@
     :init
     (add-hook 'enh-ruby-mode-hook 'ruby-tools-mode)
     :config
-    (spacemacs|hide-lighter ruby-tools-mode)))
+    (progn
+      (spacemacs|hide-lighter ruby-tools-mode)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mx\'" 'ruby-tools-to-single-quote-string)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mx\"" 'ruby-tools-to-double-quote-string)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mx:" 'ruby-tools-to-symbol))))
 
 (defun ruby/init-bundler ()
   (use-package bundler
