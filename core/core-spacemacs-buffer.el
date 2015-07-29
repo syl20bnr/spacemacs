@@ -31,20 +31,21 @@ version the release note it displayed")
   "Previous type of note inserted.")
 
 (defun spacemacs-buffer/insert-banner-and-buttons ()
-  "Choose a banner accordingly to `dotspacemacs-startup-banner'and insert it
-in spacemacs buffer along whith quick buttons underneath.
+  "Choose a banner according to `dotspacemacs-startup-banner'and insert it
+in spacemacs buffer along with quick buttons underneath.
 
 Easter egg:
 Doge special text banner can be reachable via `999', `doge' or `random*'.
 `random' ignore special banners whereas `random*' does not."
   (let ((banner (spacemacs-buffer//choose-banner))
         (buffer-read-only nil))
-    (when banner
-      (spacemacs-buffer/message (format "Banner: %s" banner))
-      (if (image-type-available-p (intern (file-name-extension banner)))
-          (spacemacs-buffer//insert-image-banner banner)
-        (insert-file-contents banner))
-      (spacemacs-buffer//inject-version)
+    (progn
+      (when banner
+        (spacemacs-buffer/message (format "Banner: %s" banner))
+        (if (image-type-available-p (intern (file-name-extension banner)))
+            (spacemacs-buffer//insert-image-banner banner)
+          (insert-file-contents banner))
+        (spacemacs-buffer//inject-version))
       (spacemacs-buffer//insert-buttons)
       (if (file-exists-p spacemacs-buffer--cache-file)
           (load spacemacs-buffer--cache-file)
@@ -87,7 +88,7 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
       (spacemacs-buffer/warning (format "could not find banner %s"
                                         dotspacemacs-startup-banner))
       (spacemacs-buffer//get-banner-path 1))
-   (spacemacs-buffer//get-banner-path 1))))
+    (spacemacs-buffer//get-banner-path 1))))
 
 (defun spacemacs-buffer//choose-random-text-banner (&optional all)
   "Return the full path of a banner chosen randomly.
