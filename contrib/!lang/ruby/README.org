@@ -8,7 +8,7 @@
      - [[#prerequisites][Prerequisites]]
      - [[#ruby-version-management][Ruby version management]]
  - [[#key-bindings][Key bindings]]
-     - [[#ruby-enh-ruby-mode-robe-inf-ruby][Ruby (enh-ruby-mode, robe, inf-ruby)]]
+     - [[#ruby-enh-ruby-mode-robe-inf-ruby-ruby-tools][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
      - [[#ruby-test-mode][ruby-test-mode]]
 
 * Description
@@ -62,7 +62,7 @@ Possible values are =rbenv= and =rvm=.
 
 * Key bindings
 
-** Ruby (enh-ruby-mode, robe, inf-ruby)
+** Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)
 
 | Key binding | Description                                 |
 |-------------+---------------------------------------------|
@@ -74,6 +74,9 @@ Possible values are =rbenv= and =rvm=.
 | ~SPC m s r~ | send region                                 |
 | ~SPC m s R~ | send region and switch to REPL              |
 | ~SPC m s s~ | switch to REPL                              |
+| ~SPC m x '~ | Change symbol or " string to '              |
+| ~SPC m x "~ | Change symbol or ' string to "              |
+| ~SPC m x :~ | Change string to symbol                     |
 
 ** ruby-test-mode
 
