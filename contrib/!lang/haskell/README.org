@@ -57,14 +57,15 @@ To install them, use the following command:
 Then you have to add this path to your system =$PATH= (preferred):
 Note that on *Linux* distributions the installed binaries should be in
 =~/.cabal/bin= and on *OS X* the binaries are installed in
-=/Users/<username>/Library/Haskell/bin=.
+=/Users/<username>/Library/Haskell/bin=. Spacemacs will automatically 
+pick up shell PATH.
 
 #+BEGIN_SRC sh
   export PATH=~/.cabal/bin/:$PATH
 #+END_SRC
 
-_or_ to the Emacs =exec-path= variable in the =dotspacemacs/init= function of
-your =.spacemacs= file:
+_Alternatively_, you can add it to the Emacs =exec-path= variable in the 
+=dotspacemacs/init= function of your =.spacemacs= file:
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'exec-path "~/.cabal/bin/")
