@@ -61,9 +61,9 @@ Send code to inferior process commands:
 
 * Options
 
-=ess-smart-equals= is enabled by default. In order to disable it, set in your =~/.spacemacs=
+=ess-smart-equals= is disabled by default. In order to enable it, set in your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((ess :variables
-                                                         ess-enable-smart-equals nil)))
+                                                         ess-enable-smart-equals t)))
 #+END_SRC
