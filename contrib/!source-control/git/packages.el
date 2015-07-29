@@ -242,14 +242,14 @@
       (defun magit-toggle-whitespace ()
         (interactive)
         (if (member "-w" (if (derived-mode-p 'magit-diff-mode)
-			     magit-refresh-args
-			   magit-diff-section-arguments))
+                             magit-refresh-args
+                           magit-diff-section-arguments))
             (magit-dont-ignore-whitespace)
           (magit-ignore-whitespace)))
       (defun magit-ignore-whitespace ()
         (interactive)
         (add-to-list (if (derived-mode-p 'magit-diff-mode)
-			 'magit-refresh-args 'magit-diff-section-arguments) "-w")
+                         'magit-refresh-args 'magit-diff-section-arguments) "-w")
         (magit-refresh))
       (defun magit-dont-ignore-whitespace ()
         (interactive)
@@ -259,7 +259,10 @@
                           magit-refresh-args
                         magit-diff-section-arguments))) (magit-refresh))
       (define-key magit-status-mode-map (kbd "C-S-w")
-        'magit-toggle-whitespace))))
+        'magit-toggle-whitespace)
+
+      ;; Recommended setting for magit-push-always-verify to respect commands
+      (setq magit-push-always-verify nil))))
 
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
