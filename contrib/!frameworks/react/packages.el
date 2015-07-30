@@ -33,21 +33,7 @@
 ;; For each package, define a function react/init-<package-name>
 ;;
 (defun react/post-init-flycheck ()
-  (add-hook 'react-mode-hook
-            (lambda ()
-              (with-eval-after-load 'flycheck
-                ;; use eslint with web-mode for jsx files
-                (flycheck-add-mode 'javascript-eslint 'react-mode)
-
-                ;; disable jshint since we prefer eslint checking
-                (setq-default flycheck-disabled-checkers
-                              (append flycheck-disabled-checkers
-                                      '(javascript-jshint)))
-
-                ;; disable json-jsonlist checking for json files
-                (setq-default flycheck-disabled-checkers
-                              (append flycheck-disabled-checkers
-                                      '(json-jsonlist)))))))
+  (add-hook 'react-mode-hook 'spacemacs//react-config-flycheck))
 
 (defun react/post-init-web-mode ()
   (define-derived-mode react-mode web-mode "react")
@@ -55,12 +41,7 @@
   (add-to-list 'auto-mode-alist '("\\.react.js\\'" . react-mode))
   (add-to-list 'magic-mode-alist '("/** @jsx React.DOM */" . react-mode))
 
-  (add-hook 'react-mode-hook
-            (lambda ()
-              (emmet-mode 0)
-              (defadvice web-mode-highlight-part (around tweak-jsx activate)
-                (let ((web-mode-enable-part-face nil))
-                  ad-do-it)))))
+  (add-hook 'react-mode-hook 'spacemacs//react-config-web-mode))
 
 (defun react/init-tern ()
   (use-package tern
@@ -98,12 +79,7 @@
 (defun react/init-js2-refactor ()
   (use-package js2-refactor
     :defer t
-    :init
-    (progn
-      (defun react/load-js2-refactor ()
-        "Lazy load js2-refactor"
-        (require 'js2-refactor))
-      (add-hook 'react-mode-hook 'react/load-js2-refactor))
+    :init (add-hook 'react-mode-hook 'spacemacs//react-load-js2-refactor)
     :config
     (progn
       ;;(spacemacs/declare-prefix-for-mode 'react-mode "mr" "refactor")
@@ -193,12 +169,7 @@
 (defun react/init-js-doc ()
   (use-package js-doc
     :defer t
-    :init
-    (progn
-      (defun react/load-js-doc ()
-          "Lazy load js-doc"
-        (require 'js-doc))
-      (add-hook 'react-mode-hook 'javascript/load-js-doc))
+    :init (add-hook 'react-mode-hook 'spacemacs//react-load-js-doc)
     :config
     (progn
       (evil-leader/set-key-for-mode 'react-mode "mrdb" 'js-doc-insert-file-doc)
