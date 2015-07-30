@@ -482,6 +482,22 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                            (abbreviate-file-name el)))
           list)))
 
+(defun spacemacs-buffer//insert-bookmark-list (list-display-name list)
+  (when (car list)
+    (insert list-display-name)
+    (mapc (lambda (el)
+            (insert "\n    ")
+            (widget-create 'push-button
+                           :action `(lambda (&rest ignore) (bookmark-jump ,el))
+                           :mouse-face 'highlight
+                           :follow-link "\C-m"
+                           :button-prefix ""
+                           :button-suffix ""
+                           :format "%[%t%]"
+                           (format "%s - %s" el (abbreviate-file-name
+                                                 (bookmark-get-filename el)))))
+          list)))
+
 (defun spacemacs-buffer/insert-startupify-lists ()
   (interactive)
   (with-current-buffer (get-buffer-create "*spacemacs*")
@@ -499,7 +515,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                   (insert list-separator)))
                ((eq el 'bookmarks)
                 (helm-mode)
-                (when (spacemacs-buffer//insert-file-list "Bookmarks:" (mapcar 'bookmark-get-filename (bookmark-all-names)))
+                (when (spacemacs-buffer//insert-bookmark-list "Bookmarks:" (bookmark-all-names))
                   (spacemacs//insert--shortcut "m" "Bookmarks:")
                   (insert list-separator)))
                ((eq el 'projects)
