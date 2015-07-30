@@ -20,7 +20,7 @@
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
 
 ** Features
-- Auto-completion with company-auctex
+- Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]] and [[https://github.com/vspinu/company-math][company-math]]
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
 
