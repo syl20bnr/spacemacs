@@ -125,70 +125,110 @@
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
         (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
+        (kbd "C-p") 'magit-section-backward
+        (kbd "C-f") 'evil-scroll-page-down
+        (kbd "C-b") 'evil-scroll-page-up
+        (kbd "C-d") 'evil-scroll-down
+        (kbd "C-u") 'evil-scroll-up)
       (spacemacs|evilify-map magit-refs-mode-map
         :mode magit-refs-mode
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
         (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
+        (kbd "C-p") 'magit-section-backward
+        (kbd "C-f") 'evil-scroll-page-down
+        (kbd "C-b") 'evil-scroll-page-up
+        (kbd "C-d") 'evil-scroll-down
+        (kbd "C-u") 'evil-scroll-up)
       (spacemacs|evilify-map magit-blame-mode-map
         :mode magit-blame-mode
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
         (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
+        (kbd "C-p") 'magit-section-backward
+        (kbd "C-f") 'evil-scroll-page-down
+        (kbd "C-b") 'evil-scroll-page-up
+        (kbd "C-d") 'evil-scroll-down
+        (kbd "C-u") 'evil-scroll-up)
       (spacemacs|evilify-map magit-diff-mode-map
         :mode magit-diff-mode
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
         (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
+        (kbd "C-p") 'magit-section-backward
+        (kbd "C-f") 'evil-scroll-page-down
+        (kbd "C-b") 'evil-scroll-page-up
+        (kbd "C-d") 'evil-scroll-down
+        (kbd "C-u") 'evil-scroll-up)
       (spacemacs|evilify-map magit-log-read-revs-map
         :mode magit-log-read-revs
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
         (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
+        (kbd "C-p") 'magit-section-backward
+        (kbd "C-f") 'evil-scroll-page-down
+        (kbd "C-b") 'evil-scroll-page-up
+        (kbd "C-d") 'evil-scroll-down
+        (kbd "C-u") 'evil-scroll-up)
       (spacemacs|evilify-map magit-log-mode-map
         :mode magit-log-mode
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
         (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
+        (kbd "C-p") 'magit-section-backward
+        (kbd "C-f") 'evil-scroll-page-down
+        (kbd "C-b") 'evil-scroll-page-up
+        (kbd "C-d") 'evil-scroll-down
+        (kbd "C-u") 'evil-scroll-up)
       (spacemacs|evilify-map magit-log-select-mode-map
         :mode magit-log-select-mode
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
         (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
+        (kbd "C-p") 'magit-section-backward
+        (kbd "C-f") 'evil-scroll-page-down
+        (kbd "C-b") 'evil-scroll-page-up
+        (kbd "C-d") 'evil-scroll-down
+        (kbd "C-u") 'evil-scroll-up)
       (spacemacs|evilify-map magit-cherry-mode-map
         :mode magit-cherry-mode
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
         (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
+        (kbd "C-p") 'magit-section-backward
+        (kbd "C-f") 'evil-scroll-page-down
+        (kbd "C-b") 'evil-scroll-page-up
+        (kbd "C-d") 'evil-scroll-down
+        (kbd "C-u") 'evil-scroll-up)
       (spacemacs|evilify-map magit-reflog-mode-map
         :mode magit-reflog-mode
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
         (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
+        (kbd "C-p") 'magit-section-backward
+        (kbd "C-f") 'evil-scroll-page-down
+        (kbd "C-b") 'evil-scroll-page-up
+        (kbd "C-d") 'evil-scroll-down
+        (kbd "C-u") 'evil-scroll-up)
       (spacemacs|evilify-map magit-process-mode-map
         :mode magit-process-mode
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
         (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
+        (kbd "C-p") 'magit-section-backward
+        (kbd "C-f") 'evil-scroll-page-down
+        (kbd "C-b") 'evil-scroll-page-up
+        (kbd "C-d") 'evil-scroll-down
+        (kbd "C-u") 'evil-scroll-up)
       (spacemacs|evilify-map git-rebase-mode-map
         :mode git-rebase-mode
         :bindings
@@ -196,6 +236,10 @@
         (kbd "C-S-k") 'magit-section-backward
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward
+        (kbd "C-f") 'evil-scroll-page-down
+        (kbd "C-b") 'evil-scroll-page-up
+        (kbd "C-d") 'evil-scroll-down
+        (kbd "C-u") 'evil-scroll-up
         "J" 'git-rebase-move-line-down
         "K" 'git-rebase-move-line-up
         "u" 'git-rebase-undo
