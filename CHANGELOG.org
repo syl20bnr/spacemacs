@@ -18,6 +18,8 @@
   =~/.spacemacs= (thanks to justbur)
 - Guide-key is replaced by =which-key= which is now the preferred live help
   package for key bindings (thanks to justbur)
+- Whole new API to manage the powerline mode-line. It is now possible to
+  easily define segments and arrange them (thanks to TheBB)
 *** New Layers
 - chinese (thanks to andyque)
 - cscope (thanks to bmag)
@@ -38,6 +40,7 @@
   =any=, all the delimiters are highlighted via =rainbow-mode=.
 *** Layer changes
 **** Spacemacs
+- New API for the powerline (thanks to TheBB)
 - Add =copy file= key binding on ~SPC f c~ (thanks to cpaulik)
 - Add package =define-word= on ~SPC x w d~ (thanks to swaroopch)
 - Add transparency micro-state (thanks to person808)
@@ -54,6 +57,8 @@
 **** Auto-completion
 - Add new layer variable =auto-completion-private-snippets-directory= which
   allows to specify a custom private snippet directory (thanks to justbur)
+**** C/C++
+- Fix key bindings for cscope (thanks to bmag)
 **** Clojure
 - Add cider error buffer to popwin (thanks to cmccloud)
 - Add cider-doc buffer to popwin (thanks to cmccloud)
@@ -63,12 +68,19 @@
 - Remove flycheck due to a security issue in the Elixir compiler
   (thanks to gilbertkennen)
 - Add support for popwin for =mix= buffers (thanks to rhalukongor)
+- Re-enable =magit-gitflow= since it is now compatible with Magit 2.1
+  (thanks to gilbertkennen)
+**** ESS
+- Change default value of =ess-enable-smart-equals= to nil (thanks to
+  izahn)
 **** Extra-lang
 - Add =Stan= modeling language (thanks to alexanderrich)
 **** Git
 - Make sure that git-commit is initialized so that Emacs can be used as
   $GITEDITOR (thanks to thrnio)
 - Remove some deprecated code (thanks to tko)
+- Add documentation about =magit-push-always-verify= variable (thanks to
+  sooheon)
 **** Go
 - Use exec-path-from-shell-copy-env to set =GOPATH= (thanks to jenanwise)
 **** Html
@@ -79,6 +91,11 @@
   (thanks to robbyoconnor)
 **** Javascript
 - Add =json-snatcher= on ~SPC m h p~ (thanks to CestDiego)
+**** Latex
+- Add =company-math= package (thanks to robbyoconnor)
+**** Ruby-on-rails
+- Activate =projectile-rails= mode for any type of files in a rails
+  project (thanks to liuxiang)
 **** Shell
 - Add =eldoc= support in eshell (thanks to ppold)
 - Add a better prompt via =eshell-prompt-extras= for eshell (thanks to ppold)
@@ -95,9 +112,20 @@
 - Protect the =eshell= prompt from deletion with evil commands. A new
   layer variable =shell-protect-eshell-prompt= allows to opt-out this behavior
   (thanks to myrjola).
+*** Core
+- Add new key bindings to evilified buffers: ~g~, ~GG~, ~C-b~, ~C-f~, ~C-d~
+  and ~C-u~ (thanks to sooheon)
+- Prevent auto-evilification of buffers from overwriting ~C-g~
+- Better indentation for =spacemacs|add-toggle= macro (thanks to TheBB)
+- Add spacing conventions for org files (thanks to person808)
+- Remove some dead code for =use-package= (thanks to TheBB)
+- Display home buffer links even when no banner are displayed
+  (thanks to sooheon)
+- Better centering of text in the home buffer
 *** Other fixes and improvements
 - Delete deprecated =!user= contrib directory.
-- Typos and documentation improvements (thanks to mbertheau)
+- Typos and documentation improvements (thanks to andyque, gleber,
+  JoshTGreenwood, mbertheau, sotte, srid, travisbhartwell)
 * Release 0.103.x
 ** 0.103.2 (2015/07/04)
 *** Layer changes
