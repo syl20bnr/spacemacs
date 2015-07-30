@@ -39,30 +39,30 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
 `random' ignore special banners whereas `random*' does not."
   (let ((banner (spacemacs-buffer//choose-banner))
         (buffer-read-only nil))
-    (when banner
-      (spacemacs-buffer/message (format "Banner: %s" banner))
-      (if (image-type-available-p (intern (file-name-extension banner)))
-          (spacemacs-buffer//insert-image-banner banner)
-        (insert-file-contents banner))
-      (spacemacs-buffer//inject-version)
-      (spacemacs-buffer//insert-buttons)
-      (if (file-exists-p spacemacs-buffer--cache-file)
-          (load spacemacs-buffer--cache-file)
-        (unless (file-exists-p dotspacemacs-filepath)
-          ;; fresh install of spacemacs, the release notes are not displayed
-          (setq spacemacs-buffer--release-note-version spacemacs-version)
-          (spacemacs/dump-vars-to-file
-           '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)))
-      ;; if there is an installed dotfile we check the variable
-      ;; spacemacs-buffer--release-note-version to decide whether
-      ;; we show the release note
-      (when (and (file-exists-p dotspacemacs-filepath)
-                 (or (not spacemacs-buffer--release-note-version)
-                     (version< spacemacs-buffer--release-note-version
-                               spacemacs-version)))
-        (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.104.txt")
-                                      'release-note))
-      (spacemacs//redisplay))))
+    (progn (when banner
+             (spacemacs-buffer/message (format "Banner: %s" banner))
+             (if (image-type-available-p (intern (file-name-extension banner)))
+                 (spacemacs-buffer//insert-image-banner banner)
+               (insert-file-contents banner))
+             (spacemacs-buffer//inject-version))
+           (spacemacs-buffer//insert-buttons)
+           (if (file-exists-p spacemacs-buffer--cache-file)
+               (load spacemacs-buffer--cache-file)
+             (unless (file-exists-p dotspacemacs-filepath)
+               ;; fresh install of spacemacs, the release notes are not displayed
+               (setq spacemacs-buffer--release-note-version spacemacs-version)
+               (spacemacs/dump-vars-to-file
+                '(spacemacs-buffer--release-note-version) spacemacs-buffer--cache-file)))
+           ;; if there is an installed dotfile we check the variable
+           ;; spacemacs-buffer--release-note-version to decide whether
+           ;; we show the release note
+           (when (and (file-exists-p dotspacemacs-filepath)
+                      (or (not spacemacs-buffer--release-note-version)
+                          (version< spacemacs-buffer--release-note-version
+                                    spacemacs-version)))
+             (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.104.txt")
+                                           'release-note))
+           (spacemacs//redisplay))))
 
 (defun spacemacs-buffer//choose-banner ()
   "Return the full path of a banner based on the dotfile value."
