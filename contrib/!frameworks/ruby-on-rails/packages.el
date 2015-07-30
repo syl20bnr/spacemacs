@@ -23,7 +23,9 @@
     :defer t
     :init
     (progn
-      (add-hook 'enh-ruby-mode-hook 'projectile-rails-on))
+      (add-hook 'enh-ruby-mode-hook 'projectile-rails-on)
+      (add-hook 'haml-mode-hook 'projectile-rails-on)
+      (add-hook 'slim-mode-hook 'projectile-rails-on))
     :config
     (progn
       (spacemacs|diminish projectile-rails-mode " ⇋" " RoR")
