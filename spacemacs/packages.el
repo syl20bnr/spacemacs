@@ -1372,7 +1372,8 @@ Removes the automatic guessing of the initial value based on thing at point. "
             helm-display-header-line nil
             helm-split-window-in-side-p t
             helm-always-two-windows t
-            helm-echo-input-in-header-line t)
+            helm-echo-input-in-header-line t
+            helm-imenu-execute-action-at-once-if-one nil)
 
       ;; hide minibuffer in Helm session, since we use the header line already
       (defun helm-hide-minibuffer-maybe ()
