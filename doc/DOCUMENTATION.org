@@ -671,6 +671,8 @@ variable =dotspacemacs-themes=. For instance, to specify =solarized-light=,
 | ~SPC T n~   | switch to next theme listed in =dotspacemacs-themes=. |
 | ~SPC T h~   | select a theme using a =helm= buffer.                 |
 
+You can see samples of all included themes in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
+
 *Note:*
   - You don't need to explicitly list in a layer the theme packages you are
     defining in =dotspacemacs-themes=, Spacemacs is smart enough to remove those
