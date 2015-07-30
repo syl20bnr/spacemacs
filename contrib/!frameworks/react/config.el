@@ -1,4 +1,4 @@
-;;; packages.el --- react Layer packages File for Spacemacs
+;;; config.el --- react Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2015 Sylvain Benner
 ;; Copyright (c) 2014-2015 Andrea Moretti & Contributors
