@@ -95,8 +95,15 @@
       (progn
         (push 'company-auctex-labels company-backends-LaTeX-mode)
         (push 'company-auctex-bibs company-backends-LaTeX-mode)
-        (push '(company-auctex-macros company-auctex-symbols company-auctex-environments) company-backends-LaTeX-mode)
-        (push 'company-math company-backends-LaTeX-mode)))))
+        (push '(company-auctex-macros
+                company-auctex-symbols
+                company-auctex-environments) company-backends-LaTeX-mode))))
+
+  (defun latex/init-company-math ()
+    (use-package company-math
+      :if (configuration-layer/package-usedp 'company)
+      :defer t
+      :init (push 'company-math company-backends-LaTeX-mode))))
 
 (defun latex/post-init-evil-matchit ()
   (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
