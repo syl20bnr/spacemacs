@@ -16,8 +16,7 @@
   (use-package fsharp-mode
     :defer t
     :init
-    (setq fsharp-doc-idle-delay .2
-          fsharp-build-command "/usr/local/bin/xbuild")
+    (setq fsharp-doc-idle-delay .2)
     :config
     (progn
 
