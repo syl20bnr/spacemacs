@@ -67,6 +67,12 @@
 (define-key evil-evilified-state-map "v" 'evil-visual-char)
 (define-key evil-evilified-state-map "V" 'evil-visual-line)
 (define-key evil-evilified-state-map "y" 'evil-yank)
+(define-key evil-evilified-state-map "gg" 'evil-goto-first-line)
+(define-key evil-evilified-state-map "G" 'evil-goto-line)
+(define-key evil-evilified-state-map (kbd "C-f") 'evil-scroll-page-down)
+(define-key evil-evilified-state-map (kbd "C-b") 'evil-scroll-page-up)
+(define-key evil-evilified-state-map (kbd "C-d") 'evil-scroll-down)
+(define-key evil-evilified-state-map (kbd "C-u") 'evil-scroll-up)
 
 (defmacro evilify (mode map &rest body)
   "Set `evilified state' as default for MODE.
