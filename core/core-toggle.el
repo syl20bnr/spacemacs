@@ -41,12 +41,19 @@ used."
   (declare (indent 1))
   (let* ((wrapper-func (intern (format "spacemacs/toggle-%s"
                                        (symbol-name name))))
+         (wrapper-func-on (intern (format "%s-on" wrapper-func)))
+         (wrapper-func-off (intern (format "%s-off" wrapper-func)))
          (status (plist-get props :status))
          (condition (plist-get props :if))
          (doc (plist-get props :documentation))
          (on-body (spacemacs/mplist-get props :on))
          (off-body (spacemacs/mplist-get props :off))
-         (bindkeys (spacemacs//create-key-binding-form props wrapper-func)))
+         (bindkeys (spacemacs//create-key-binding-form props wrapper-func))
+         ;; we evaluate condition and status only if they are a list or
+         ;; a bound symbol
+         (status-eval `(and (or (and (symbolp ',status) (boundp ',status))
+                                (listp ',status))
+                            ,status)))
     `(progn
        (push (append '(,name) '(:function ,wrapper-func) ',props)
              spacemacs-toggles)
@@ -54,16 +61,22 @@ used."
        (defun ,wrapper-func ()
          ,(format "Toggle %s on and off." (symbol-name name))
          (interactive)
-         ;; we evaluate condition and status only if they are a list or
-         ;; a bound symbol
          (if (or (null ',condition)
-                   (and (or (and (symbolp ',condition) (boundp ',condition))
-                            (listp ',condition))
-                        ,condition))
-             (if (and (or (and (symbolp ',status) (boundp ',status))
-                          (listp ',status))
-                      ,status) (progn ,@off-body) ,@on-body)
+                 (and (or (and (symbolp ',condition) (boundp ',condition))
+                          (listp ',condition))
+                      ,condition))
+             (if ,status-eval (progn ,@off-body) ,@on-body)
            (message "This toggle is not supported.")))
+       ;; on-function
+       (defun ,wrapper-func-on ()
+         ,(format "Toggle %s on." (symbol-name name))
+         (interactive)
+         (unless ,status-eval (,wrapper-func)))
+       ;; off-function
+       (defun ,wrapper-func-off ()
+         ,(format "Toggle %s off." (symbol-name name))
+         (interactive)
+         (when ,status-eval (,wrapper-func)))
        ,@bindkeys)))
 
 (provide 'core-toggle)
