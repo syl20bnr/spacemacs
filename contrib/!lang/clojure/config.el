@@ -22,11 +22,11 @@
 (defvar clojure-enable-fancify-symbols nil
   "If non nil the `fancify-symbols' function is enabled.")
 
-;; not supported for now
-;; (setq clojure/key-binding-prefixes '(("md" . "documentation")
-;;                                      ("me" . "evaluation")
-;;                                      ("mg" . "goto")
-;;                                      ("mr" . "refactor")
-;;                                      ("mt" . "test")))
-;; (mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-;;             clojure/key-binding-prefixes)
+(setq clojure/key-binding-prefixes '(("md" . "documentation")
+                                     ("me" . "evaluation")
+                                     ("mg" . "goto")
+                                     ("mr" . "refactor")
+                                     ("mt" . "test")))
+(mapc (lambda (x) (spacemacs/declare-prefix-for-mode
+                   'clojure-mode (car x) (cdr x)))
+            clojure/key-binding-prefixes)
