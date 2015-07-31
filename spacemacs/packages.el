@@ -2905,7 +2905,9 @@ inspected at evaluation time by `spacemacs//eval-mode-line-segment'."
         (declare (indent 1))
         (let* ((wrapper-func (intern (format "spacemacs//mode-line-%S" name)))
                (wrapper-func-available (intern (format "%S-available" wrapper-func)))
-               (condition (or (plist-get props :when) t)))
+               (condition (if (plist-member props :when)
+                              (plist-get props :when)
+                             t)))
           `(progn
              (defun ,wrapper-func ()
                (when ,condition
@@ -3120,10 +3122,10 @@ The return vaule is a `segment' struct. Its `OBJECTS' list may be nil."
                             t))
                (face (eval (or (plist-get props :face) 'default-face)))
                (separator (powerline-raw (or (plist-get props :separator) " ") face))
-               (tight-left (or (plist-member props :tight)
-                               (plist-member props :tight-left)))
-               (tight-right (or (plist-member props :tight)
-                                (plist-member props :tight-right)))
+               (tight-left (or (plist-get props :tight)
+                               (plist-get props :tight-left)))
+               (tight-right (or (plist-get props :tight)
+                                (plist-get props :tight-right)))
 
                ;; Final output
                (result (make-segment :objects nil
