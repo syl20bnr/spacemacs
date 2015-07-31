@@ -13,3 +13,11 @@
 ;; Variables
 
 (spacemacs|defvar-company-backends js2-mode)
+
+
+(setq javascript/key-binding-prefixes '(("mh" . "documentation")
+                                        ("mg" . "goto")
+                                        ("mr" . "refactor")))
+(mapc (lambda (x) (spacemacs/declare-prefix-for-mode
+                   'js2-mode (car x) (cdr x)))
+      javascript/key-binding-prefixes)

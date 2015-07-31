@@ -3452,7 +3452,7 @@ one of `l' or `r'."
                 which-key-description-replacement-alist)))
       (dolist (leader-key `(,dotspacemacs-leader-key ,dotspacemacs-emacs-leader-key))
         (which-key-add-key-based-replacements
-         (concat leader-key " m")    "maj mode cmds"
+         (concat leader-key " m")    "major mode commands"
          (concat leader-key " " dotspacemacs-command-key) "M-x"))
       ;; disable special key handling for spacemacs, since it can be
       ;; disorienting if you don't understand it

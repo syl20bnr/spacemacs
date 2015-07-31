@@ -22,9 +22,9 @@
 (defvar clojure-enable-fancify-symbols nil
   "If non nil the `fancify-symbols' function is enabled.")
 
-(setq clojure/key-binding-prefixes '(("md" . "documentation")
-                                     ("me" . "evaluation")
+(setq clojure/key-binding-prefixes '(("me" . "evaluation")
                                      ("mg" . "goto")
+                                     ("mh" . "documentation")
                                      ("mr" . "refactor")
                                      ("mt" . "test")))
 (mapc (lambda (x) (spacemacs/declare-prefix-for-mode
