@@ -36,6 +36,13 @@
         (interactive)
         (racket-test t))
 
+      (defun spacemacs/racket-run-and-switch-to-repl ()
+        "Call `racket-run-and-switch-to-repl' and enable
+`insert state'."
+        (interactive)
+        (racket-run-and-switch-to-repl)
+        (evil-insert-state))
+
       (defun spacemacs/racket-send-last-sexp-focus ()
         "Call `racket-send-last-sexp' and switch to REPL buffer in
 `insert state'."
@@ -73,7 +80,7 @@
         "mil" 'racket-insert-lambda
         ;; REPL
         "msb" 'racket-run
-        "msB" 'racket-run-and-switch-to-repl
+        "msB" 'spacemacs/racket-run-and-switch-to-repl
         "mse" 'racket-send-last-sexp
         "msE" 'spacemacs/racket-send-last-sexp-focus
         "msf" 'racket-send-definition
