@@ -50,7 +50,7 @@
     (setq-local evil-visual-state-map (cons 'keymap nil))
     (add-hook 'evil-visual-state-entry-hook
               (lambda () (interactive)
-                (local-set-key evil-visual-state-map "y" 'evil-yank))
+                (local-set-key "y" 'evil-yank))
               nil 'local)))
 
 ;; default key bindings for all evilified buffers
