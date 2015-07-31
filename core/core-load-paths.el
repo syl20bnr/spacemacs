@@ -39,6 +39,9 @@
 (defconst spacemacs-docs-directory
   (expand-file-name (concat user-emacs-directory "doc/"))
   "Spacemacs documentation directory.")
+(defconst spacemacs-test-directory
+  (expand-file-name (concat user-emacs-directory "tests/"))
+  "Spacemacs tests directory.")
 
 (defconst user-home-directory
   (expand-file-name "~/")
