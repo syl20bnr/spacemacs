@@ -22,3 +22,6 @@
 
 (defvar haskell-enable-hindent-style nil
   "If non-nil structured-haskell-mode support is enabled")
+
+(defvar haskell-enable-haskell-process-log nil
+  "If non-nil haskell-enable-haskell-process-log support is enabled")
