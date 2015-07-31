@@ -1,0 +1,48 @@
+#+TITLE: Asciidoc contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+     - [[#feature][Feature]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+     - [[#element-insertion][Element insertion]]
+     - [[#promotion-demotion][Promotion, Demotion]]
+
+* Description
+This layer adds [[https://asciidoctor.org][AsciiDoc]] markup language support to Spacemacs.
+
+** Feature
+- asciidoc format support via [[https://github.com/sensorflo/adoc-mode][adoc-mode]]
+- `.adoc` files are associated with `adoc-mode` by default
+
+* Install
+To use this contribution add it to your `~/.spacemacs`
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(asciidoc))
+#+END_SRC
+
+* Key bindings
+
+** Element insertion
+
+| Key Binding | Description                                   |
+|-------------+-----------------------------------------------|
+| ~SPC m h 1~ | Insert title level 1                          |
+| ~SPC m h I~ | Insert title level 1 (the most important one) |
+| ~SPC m h 2~ | Insert title level 2                          |
+| ~SPC m h i~ | Insert title level 2 (the most usual one)     |
+| ~SPC m h 3~ | Insert title level 3                          |
+| ~SPC m h 4~ | Insert title level 4                          |
+| ~SPC m h 5~ | Insert title level 5                          |
+| ~SPC m h 5~ | Insert title level 5                          |
+| ~SPC m x b~ | Boldface selected                             |
+| ~SPC m x i~ | Italicize selected                            |
+
+** Promotion, Demotion
+
+| Key Binding | Description         |
+|-------------+---------------------|
+| ~M-h~       | Promote title level |
+| ~M-l~       | Denote title level  |
+
