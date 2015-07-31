@@ -78,6 +78,20 @@ Note that =emacs.app= for OS X does not pick up =$PATH= from =~/.bashrc= or
 ** Optional extras
 The Haskell layer supports some extra features that can be enabled through
 layer variables.
+*** ghc-mod support
+[[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example templates, case-splitting and
+much more. In order to use it you need to install the executable with
+
+#+BEGIN_SRC sh
+cabal install ghc-mod
+#+END_SRC
+
+and set the layer variable:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((haskell :variables haskell-enable-ghc-mod-support t)))
+#+END_SRC
 
 *** ghc-mod support
 [[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example templates, case-splitting and
