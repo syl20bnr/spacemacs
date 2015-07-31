@@ -22,7 +22,6 @@
      - [[#cabal-files][Cabal files]]
 
 * Description
-
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 
 ** Features:
@@ -34,7 +33,6 @@ This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 * Install
 
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -42,7 +40,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 ** Cabal packages
-
 This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 - =hlint=
 - =stylish-haskell=
@@ -75,13 +72,13 @@ _Alternatively_, you can add it to the Emacs =exec-path= variable in the
 so that the path is added before any layers is loaded.
 
 ** OS X
-
 Note that =emacs.app= for OS X does not pick up =$PATH= from =~/.bashrc= or
 =~/.zshrc= when launched from outside a terminal.
 
 ** Optional extras
 The Haskell layer supports some extra features that can be enabled through
 layer variables.
+
 *** ghc-mod support
 [[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example templates, case-splitting and
 much more. In order to use it you need to install the executable with
@@ -162,7 +159,6 @@ See examples [[https://github.com/chrisdone/hindent#example][here]]
 #+END_SRC
 
 * Key bindings
-
 All Haskell specific bindings are prefixed with the major-mode leader
 ~SPC m~.
 
@@ -175,7 +171,6 @@ Top-level commands are prefixed by ~SPC m~:
 | ~SPC m F~   | format declaration using hindent (if enabled) |
 
 ** Documentation
-
 Documentation commands are prefixed by ~SPC m h~
 
 | Key Binding | Description                                                                |
@@ -187,7 +182,6 @@ Documentation commands are prefixed by ~SPC m h~
 | ~SPC m h y~ | do a Hayoo lookup                                                          |
 
 ** Debug
-
 Debug commands are prefixed by ~SPC m d~:
 
 | Key Binding  | Description                                |
@@ -202,7 +196,6 @@ Debug commands are prefixed by ~SPC m d~:
 | ~SPC m d r~ | refresh process buffer                     |
 
 ** REPL
-
 REPL commands are prefixed by ~SPC m s~:
 
 | Key Binding | Description                                     |
@@ -213,7 +206,6 @@ REPL commands are prefixed by ~SPC m s~:
 | ~SPC m s S~ | show and switch to the REPL                     |
 
 ** Cabal commands
-
 Cabal commands are prefixed by ~SPC m c~:
 
 | Key Binding | Description                                                |
@@ -224,7 +216,6 @@ Cabal commands are prefixed by ~SPC m c~:
 | ~SPC m c v~ | visit the cabal file                                       |
 
 ** Cabal files
-
 This commands are available in a cabal file.
 
 | Key Binding | Description                                 |
