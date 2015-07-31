@@ -549,7 +549,9 @@
       (spacemacs|hide-lighter eldoc-mode))))
 
 (defun spacemacs/init-eval-sexp-fu ()
-  (require 'eval-sexp-fu))
+  ;; ignore obsolete function warning generated on startup
+  (let ((byte-compile-not-obsolete-funcs (append byte-compile-not-obsolete-funcs '(preceding-sexp))))
+    (require 'eval-sexp-fu)))
 
 (defun spacemacs/init-evil ()
   (use-package evil
@@ -823,6 +825,9 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (if (ht-contains? configuration-layer-all-packages 'smartparens)
           (defadvice evil-delete-backward-char-and-join
               (around spacemacs/evil-delete-backward-char-and-join activate)
+            (defvar smartparens-strict-mode)
+            ;; defadvice compiles this sexp generating a compiler warning for a
+            ;; free variable reference. The line above fixes this
             (if smartparens-strict-mode
                 (call-interactively 'sp-backward-delete-char)
               ad-do-it))))))
