@@ -7,6 +7,7 @@
          - [[#for-complex-pull-requests][For complex pull requests:]]
          - [[#getting-help][Getting Help]]
      - [[#submitting-a-configuration-layer][Submitting a configuration layer]]
+     - [[#testing][Testing]]
      - [[#submitting-a-banner][Submitting a banner]]
      - [[#credits][Credits]]
          - [[#license][License]]
@@ -60,6 +61,46 @@ It is recommended to join a =README.org= file with your layer:
   - another good practice is to start from the =README.org= of an existing layer
   - if a logo exists for the layer you can add it at the top of the =README.org=
     before the TOC. The maximum recommended height is 200 pixels.
+
+** Testing
+Tests live in the =tests= folder, with a folder structure corresponding to the
+rest of the repository.
+
+To run tests locally, navigate to the relevant subfolder and run =make=. The
+tests will be run with your own personal dotfile, so you should not expect tests
+to succeed if you have personal configuration that will make them fail (such as
+not having enabled a layer).
+
+Spacemacs uses Travis CI to perform more comprehensive testing, where each
+testable layer is enabled in turn.
+
+To add tests for a layer, do the following:
+
+1. Create a subfolder of =tests= corresponding to the layer you want to test.
+2. Write a file called =dotspacemacs.el= in that folder. It should be a minimal
+   dotfile that enables the layer in question (and other layers it may depend
+   on).
+3. Write a number of files with tests. Please try to separate unit and
+   functional tests. Look at existing tests for clues.
+4. Write a =Makefile= in that folder. It should define three variables.
+   - =LOAD_FILES= :: a list of additional files to load before testing (relative
+                     to the root Spacemacs folder). This should typically be
+                     =init.el=.
+   - =UNIT_TEST_FILES= :: a list of unit test files in the current folder.
+   - =FUNC_TEST_FILES= :: a list of functional test files in the current folder.
+   See existing tests for examples.
+   #+begin_src makefile
+   TEST_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
+
+   LOAD_FILES = ...
+   UNIT_TEST_FILES = ...
+   FUNC_TEST_FILES = ...
+
+   include ../../spacemacs.mk
+   #+end_src
+5. Add the new test to list of tests in =travis/run_build.sh=.
+
+Spacemacs is lacking tests, so contributions are welcome.
 
 ** Submitting a banner
 The startup banner is by default randomly chosen among a pool of banners
