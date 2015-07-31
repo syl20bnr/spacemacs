@@ -28,6 +28,9 @@
           '((amazon
              :name "Amazon"
              :url "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%%3Daps&field-keywords=%s")
+            (bing
+             :name "Bing"
+             :url "http://www.bing.com/search?q=%s")
             (duck-duck-go
              :name "Duck Duck Go"
              :url "https://duckduckgo.com/?q=%s")
