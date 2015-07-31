@@ -104,7 +104,7 @@
 
 (ert-deftest test-render-framed-text--file-caption-and-padding ()
   (should (equal (spacemacs//render-framed-text
-                  (concat spacemacs-core-directory "tests/data/framed-text.txt")
+                  (concat spacemacs-test-directory "core/data/framed-text.txt")
                   62 "Caption" 4)
                  "╭─Caption────────────────────────────────────────────────────╮
 │                                                            │
