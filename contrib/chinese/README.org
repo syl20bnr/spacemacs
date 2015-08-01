@@ -22,7 +22,8 @@ This Layer adds Chinese related packages:
 - [[https://github.com/xuchunyang/youdao-dictionary.el][youdao-dictionary]]: The Youdao(有道) Dictionary interface for Emacs.
 - [[https://github.com/redguardtoo/find-by-pinyin-dired][find-by-pinyin-dired]]: Find file by first Pinyin characters of Chinese Hanzi.
 - [[https://github.com/cute-jumper/ace-pinyin][ace-pinyin]]: Jump to Chinese character by pinyin with `ace-jump-mode'.
-  
+- [[https://github.com/coldnew/pangu-spacing][coldnew/pangu-spacing]] : emacs minor-mode to add space between Chinese and English characters.
+- Join consecutive Chinese lines into a single long line without unwanted space when exporting org-mode to html.
 
 * Install
 ** Layer
