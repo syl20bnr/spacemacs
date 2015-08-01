@@ -212,6 +212,10 @@ Can be installed with `brew install trash'."
     (if dotspacemacs-maximized-at-startup
         (add-hook 'window-setup-hook 'toggle-frame-maximized))))
 
+(defvar spacemacs--global-mode-line-excludes nil
+  "List of elements to exclude from the global modeline string.
+These should have their own segments in the modeline.")
+
 ;; ---------------------------------------------------------------------------
 ;; Session
 ;; ---------------------------------------------------------------------------
