@@ -23,10 +23,6 @@
     :defer t
     :init (add-hook 'markdown-mode-hook 'smartparens-mode)
     :config
-    ;; Don't do terrible things with Github code blocks (```)
-    (when (fboundp 'sp-local-pair)
-      (sp-local-pair 'markdown-mode "`" nil :actions '(:rem autoskip))
-      (sp-local-pair 'markdown-mode "'" nil :actions nil))
     (progn
       ;; Insert key for org-mode and markdown a la C-h k
       ;; from SE endless http://emacs.stackexchange.com/questions/2206/i-want-to-have-the-kbd-tags-for-my-blog-written-in-org-mode/2208#2208
