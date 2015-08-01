@@ -570,6 +570,11 @@
       ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
       (add-hook 'post-command-hook 'evil-refresh-cursor)
 
+      ;; allow the point to go past the end of line so we can
+      ;; consisently evaluate expression with eval-last-sexp in
+      ;; all modes
+      (setq evil-move-beyond-eol t)
+
       (defun spacemacs/state-color-face (state)
         "Return the symbol of the face for the given STATE."
         (intern (format "spacemacs-%s-face" (symbol-name state))))
