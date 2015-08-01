@@ -203,6 +203,10 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
     (if dotspacemacs-maximized-at-startup
         (add-hook 'window-setup-hook 'toggle-frame-maximized))))
 
+(defvar spacemacs--global-mode-line-excludes nil
+  "List of elements to exclude from the global modeline string.
+These should have their own segments in the modeline.")
+
 ;; ---------------------------------------------------------------------------
 ;; Session
 ;; ---------------------------------------------------------------------------
