@@ -248,7 +248,9 @@ FILE-TO-LOAD is an explicit file to load after the installation."
                   (spacemacs/git-get-current-branch)
                   (pp dotspacemacs-configuration-layers))))
     (kill-new sysinfo)
-    (message (concat "%s\nInformation has been copied to clipboard.\n"
-                     "You can past it in gitter chat.") sysinfo)))
+    (message sysinfo)
+    (message (concat "Information has been copied to clipboard.\n"
+                     "You can paste it in the gitter chat.\n"
+                     "Check the *Messages* buffer if you need to review it"))))
 
 (provide 'core-spacemacs)
