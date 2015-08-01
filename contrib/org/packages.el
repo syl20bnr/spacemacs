@@ -201,7 +201,9 @@ Will work on both org-mode and any mode that accepts plain html."
 (defun org/init-toc-org ()
   (use-package toc-org
     :init
-    (add-hook 'org-mode-hook 'toc-org-enable)))
+    (progn
+      (setq toc-org-max-depth 10)
+      (add-hook 'org-mode-hook 'toc-org-enable))))
 
 (defun org/init-htmlize ()
  (use-package htmlize
