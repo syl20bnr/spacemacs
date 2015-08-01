@@ -200,6 +200,7 @@ Will work on both org-mode and any mode that accepts plain html."
 
 (defun org/init-toc-org ()
   (use-package toc-org
+    :defer t
     :init
     (progn
       (setq toc-org-max-depth 10)
