@@ -18,6 +18,11 @@ property list (name :func FUNCTION :doc STRING :key STRING).")
 (defmacro spacemacs|add-toggle (name &rest props)
   "Add a toggle with NAME symbol.
 
+This macro creates the following functions:
+- spacemacs/toggle-NAME switches on or off depending on the current state
+- spacemacs/toggle-NAME-on only switches on if currently disabled
+- spacemacs/toggle-NAME-off only switches off if currently enabled
+
 Avaiblabe PROPS:
 
 `:status EXPRESSION'
@@ -65,7 +70,11 @@ used."
                  (and (or (and (symbolp ',condition) (boundp ',condition))
                           (listp ',condition))
                       ,condition))
-             (if ,status-eval (progn ,@off-body) ,@on-body)
+             (if ,status-eval
+                 (progn ,@off-body
+                        (message ,(format "%s disabled." name)))
+               ,@on-body
+               (message ,(format "%s enabled." name)))
            (message "This toggle is not supported.")))
        ;; on-function
        (defun ,wrapper-func-on ()
