@@ -22,6 +22,7 @@
     org-pomodoro
     org-present
     org-repo-todo
+    ox-ioslide
     toc-org
     ))
 
@@ -225,6 +226,11 @@ Will work on both org-mode and any mode that accepts plain html."
     (progn
       (setq toc-org-max-depth 10)
       (add-hook 'org-mode-hook 'toc-org-enable))))
+
+(defun org/init-ox-ioslide ()
+  (use-package ox-ioslide
+    :config
+    (require 'ox-ioslide-helper)))
 
 (defun org/init-htmlize ()
  (use-package htmlize
