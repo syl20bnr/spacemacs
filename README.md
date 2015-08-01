@@ -184,10 +184,10 @@ are extensively documented.
 If you need help, ask your question in the [Gitter Chat][] and a member of the
 community will help you out.
 
-Tip: Run `SPC : spacemacs/system-info` (it gathers info about your
-Spacemacs setup and copies to your clipboard) and then paste into the
-Gitter chat so that others know the basic info about your setup
-necessary to help diagnose any issues you may be facing.
+Tip: Run `SPC h d s` (it gathers info about your Spacemacs setup and copies to
+your clipboard) and then paste into the Gitter chat so that others know the
+basic info about your setup necessary to help diagnose any issues you may be
+facing.
 
 If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
 `#syl20bnr/spacemacs` channel.
