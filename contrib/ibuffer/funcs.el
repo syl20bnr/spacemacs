@@ -1,4 +1,4 @@
-;;; funcs.el --- Ansible Layer extensions File for Spacemacs
+;;; funcs.el --- ibuffer Layer extensions File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2015 Aleksandr Guljajev & Contributors
@@ -45,4 +45,3 @@
                         ignore-modes) '())))))
     (setq ibuffer-saved-filter-groups cur-bufs)
     (ibuffer-switch-to-saved-filter-groups "Home")))
-
