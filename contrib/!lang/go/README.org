@@ -25,10 +25,11 @@ This layer adds extensive support for go.
 
 ** Pre-requisites
 
-You will need =gocode=:
+You will need =gocode= and =godef=:
 
 #+BEGIN_SRC sh
-  go get -u github.com/nsf/gocode
+  go get -u -v github.com/nsf/gocode
+  go get -u -v github.com/rogpeppe/godef
 #+END_SRC
 
 Make sure that =gocode= executable is in your PATH.
