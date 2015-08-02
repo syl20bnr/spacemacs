@@ -1,0 +1,172 @@
+#+TITLE: Elm contribution layer for Spacemacs
+
+[[file:img/elm.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#elm-platform][Elm Platform]]
+         - [[#os-x-and-windows-installers][OS X and Windows installers]]
+         - [[#universal-installer-using-npm][Universal installer using npm]]
+         - [[#source-code][Source code]]
+     - [[#elm-mode][elm-mode]]
+     - [[#elm-oracle][elm-oracle]]
+ - [[#basic-usage-tips][Basic usage tips]]
+     - [[#compilation][Compilation]]
+     - [[#reactor][Reactor]]
+ - [[#key-bindings][Key bindings]]
+     - [[#elm-make][elm-make]]
+     - [[#elm-repl][elm-repl]]
+     - [[#elm-reactor][elm-reactor]]
+     - [[#elm-package][elm-package]]
+         - [[#package-list-buffer][package list buffer]]
+     - [[#elm-oracle][elm-oracle]]
+
+* Description
+
+This layer adds support for [[http://elm-lang.org][Elm]].
+
+It relies on [[https://github.com/jcollard/elm-mode][elm-mode]] and [[https://github.com/bsermons/flycheck-elm][flycheck-elm]] to provide the following features:
+
+- Syntax highlighting.
+- Intelligent indentation
+- Auto-completion integration for company (default) or auto-complete modes,
+  with using elm-oracle
+- Syntax checking support using flycheck
+- Integration with elm-make
+- Integration with elm-repl
+- Integration with elm-reactor
+- Integration with elm-package
+
+* Install
+** Elm Platform
+The ~elm-platform~ is a bundle of tools, including the ~elm-compiler~, ~elm-make~,
+~elm-reactor~, ~elm-repl~ and ~elm-package~. 
+
+Depending on the method of installation, the ~elm-mode~ package would need to be
+able to access commands such as ~elm-reactor~ or ~elm-make~.
+
+*** OS X and Windows installers
+Official installers for these operating systems are available from:
+[[http://elm-lang.org/install][http://elm-lang.org/install]]
+*** Universal installer using npm
+A npm based installer is available to, and provides pre-compiled binaries for
+certain operating system and architectures.
+#+BEGIN_SRC sh
+  npm install --global elm
+#+END_SRC
+Also, note that you might need to set the ~ELM_HOME~ environment variables to
+the corresponding directory created by the installer.
+
+OS X Users facing problems with ~elm-reactor~ failing to properly install or
+run, see this issue [[https://github.com/kevva/elm-bin/issues/28][https://github.com/kevva/elm-bin/issues/28]]. 
+*** Source code
+
+To build from source, see instrcutins here:
+[[https://github.com/elm-lang/elm-platform][https://github.com/elm-lang/elm-platform]]
+
+** elm-mode
+
+To use this contribution, add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(elm))
+#+END_SRC
+
+** elm-oracle
+~elm-oracle~ can be used to show type signatures and docs for tokens under the
+cursor and provide support for auto-completion, but it is not part of the standard
+elm-platform.
+
+Both the "company" and "auto-complete" backends are supported, but this layer
+is configured with company. 
+
+To install ~elm-oracle~, install ~node.js~ and ~npm~, then
+run this command:
+
+#+BEGIN_SRC sh
+  npm install -g elm-oracle
+#+END_SRC
+
+* Basic usage tips
+** Compilation
+To control the name of the compiled JavaScript file, use ~SPC m c B~ instead of
+~SPC m c b~. This will overwrite the ~--output~ parameter of ~elm-make~ to
+~[buffer-name].js~ instead of the default.
+
+** Reactor
+~elm-reactor~ is an interactive development tool, used to develop and debug Elm
+programs. It will automatically compile an Elm program, and run it in the
+browser, with editor agnostic support for hot-swapping and time-travel
+debugging.
+
+To preview ~Main.elm~, press ~C-c C-m~ (or ~SPC m R m~).
+Alternatively, to preview from buffer, press ~C-u C-c C-n~ (or ~SPC m R
+n~). To preview in debug mode, prefix with ~C-u~ (or ~SPC u~).
+
+By default, ~elm-reactor~ with launch with its own generated index.html. To use
+a custom html, you'd need to load the debuger excplictly and use an http daemon
+to serve your custom file.
+
+If needed, default values for host and port used by for the elm-reactor server
+can be controlled by passing in these variables in your =~/.spacemacs=:
+
+#+BEGIN_SRC emacs-lisp
+  (elm :variables
+       elm-reactor-port "3000"          ; default 8000
+       elm-reactor-address "0.0.0.0") ; default 127.0.0.1
+#+END_SRC
+
+* Key bindings
+
+** elm-make
+
+| Key Binding | Description                                  |
+|-------------+----------------------------------------------|
+| ~SPC m c b~ | elm-compile-buffer                           |
+| ~SPC m c B~ | spacemacs/elm-compile-buffer-override-output |
+| ~SPC m c m~ | elm-compile-main                             |
+
+** elm-repl
+
+
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~SPC m r l~ | load-elm-repl      |
+| ~SPC m r p~ | push-elm-repl      |
+| ~SPC m r P~ | push-decl-elm-repl |
+
+** elm-reactor
+
+| Key Binding | Description        |
+|-------------+--------------------|
+| ~SPC m R n~ | elm-preview-buffer |
+| ~SPC m R m~ | elm-preview-main   |
+
+** elm-package
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC m p i~ | elm-import               |
+| ~SPC m p c~ | elm-package-catalog      |
+| ~SPC m p d~ | elm-documentation-lookup |
+
+*** package list buffer
+
+| Key Binding | Description          |
+|-------------+----------------------|
+| ~g~         | elm-package-refresh  |
+| ~n~         | elm-package-next     |
+| ~p~         | elm-package-previous |
+| ~v~         | elm-package-view     |
+| ~m~         | elm-package-mark     |
+| ~u~         | elm-package-unmark   |
+| ~x~         | elm-package-install  |
+| ~q~         | quit-window          |
+
+** elm-oracle
+
+| Key Binding | Description              |
+|-------------+--------------------------|
+| ~SPC m l t~ | elm-oracle-type-at-point |
+
