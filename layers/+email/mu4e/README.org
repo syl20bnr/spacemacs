@@ -1,0 +1,89 @@
+* mu4e layer for Spacemacs
+
+This layer provides mu4e support for Spacemacs.
+
+** Installation
+
+You need to install mu and mu4e separately in order to use this layer.  On Arch
+Linux, simply installing the mu package will do.  I assume the same will work
+for most other Linux distros.
+
+** Commands
+
+| Keybinding | Command    |
+|------------+------------|
+| SPC a M    | Start mu4e |
+
+** Configuration
+
+Configuration varies too much to give precise instructions.  What follows is one
+example configuration.  Refer to mu4e's manual for more detailed configuration
+instructions.
+
+*** Important note
+
+This layer includes support for multiple sending accounts.  Configure the
+`mu4e-account-alist` variable:
+
+#+BEGIN_SRC emacs-lisp
+  (setq mu4e-account-alist
+        '(("gmail"
+           ;; Under each account, set the account-specific variables you want.
+           (mu4e-sent-messages-behavior delete)
+           (mu4e-sent-folder "/gmail/[Gmail]/.Sent Mail")
+           (mu4e-drafts-folder "/gmail/[Gmail]/.Drafts")
+           (user-mail-address "billy@gmail.com")
+           (user-full-name "Billy"))
+          ("college"
+           (mu4e-sent-messages-behavior sent)
+           (mu4e-sent-folder "/college/Sent Items")
+           (mu4e-drafts-folder "/college/Drafts")
+           (user-mail-address "bb15@college.edu")
+           (user-full-name "Billy Bob 15"))))
+  (mu4e/mail-account-reset)
+#+END_SRC
+
+The first account listed will be the default account, so variables like
+`user-full-name`, which is used by other parts of Emacs, will have their value
+reset for the default account after sending each email.
+
+Make sure you call `mu4e/mail-account-reset` afterward, which will initialize
+the given account variables.
+
+*** Example configuration
+
+#+BEGIN_SRC emacs-lisp
+  ;;; Set up some common mu4e variables
+  (setq mu4e-maildir "~/.mail"
+        mu4e-trash-folder "/Trash"
+        mu4e-refile-folder "/Archive"
+        mu4e-get-mail-command "mbsync -a"
+        mu4e-update-interval nil
+        mu4e-compose-signature-auto-include nil
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t)
+
+  ;;; Mail directory shortcuts
+  (setq mu4e-maildir-shortcuts
+        '(("/gmail/INBOX" . ?g)
+          ("/college/INBOX" . ?c)))
+
+  ;;; Bookmarks
+  (setq mu4e-bookmarks
+        `(("flag:unread AND NOT flag:trashed" "Unread messages" ?u)
+          ("date:today..now" "Today's messages" ?t)
+          ("date:7d..now" "Last 7 days" ?w)
+          ("mime:image/*" "Messages with images" ?p)
+          (,(mapconcat 'identity
+                       (mapcar
+                        (lambda (maildir)
+                          (concat "maildir:" (car maildir)))
+                        mu4e-maildir-shortcuts) " OR ")
+           "All inboxes" ?i)))
+#+END_SRC
+
+** See also
+
+Refer to the official mu and mu4e documentation for additional info.
+
+- [[http://www.djcbsoftware.nl/code/mu/mu4e/index.html][mu4e Manual]]
