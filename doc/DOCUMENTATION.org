@@ -1718,9 +1718,9 @@ stacked.
 | Key Binding | Description                                                                 |
 |-------------+-----------------------------------------------------------------------------|
 | ~SPC h c~   | clear the highlightings                                                     |
-| ~SPC h g c~ | clear the highlightings globally (all opened buffers)                       |
+| ~SPC h C~   | clear the highlightings globally (all opened buffers)                       |
 | ~SPC h h~   | highlight all occurrence of the word at point                               |
-| ~SPC h g h~ | highlight all occurrence of the word at point globally (all opened buffers) |
+| ~SPC h H~   | highlight all occurrence of the word at point globally (all opened buffers) |
 | ~SPC h n~   | next highlighted occurrence                                                 |
 | ~SPC h N~   | previous highlighted occurrence                                             |
 | ~SPC h p~   | toggle auto-highlight of the enclosing parenthesis                          |
