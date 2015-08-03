@@ -2102,8 +2102,9 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         :documentation "Highlight indentation level at point."
         :evil-leader "thc"))
     :config
-    (spacemacs|diminish highlight-indentation-mode " ⓗ" " h")
-    (spacemacs|diminish highlight-indentation-current-column-mode " ⓗⒸ" " hC")))
+    (progn
+      (spacemacs|diminish highlight-indentation-mode " ⓗi" " hi")
+      (spacemacs|diminish highlight-indentation-current-column-mode " ⓗc" " hc"))))
 
 (defun spacemacs/init-highlight-numbers ()
   (use-package highlight-numbers

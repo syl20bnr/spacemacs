@@ -911,29 +911,29 @@ toggle them.
 Some toggle have two flavors: local and global. The global version of the toggle
 can be reached using the =control= key.
 
-| Key Binding | Unicode | ASCII | Mode                                |
-|-------------+---------+-------+-------------------------------------|
-| ~SPC t -~   | =⊝=     | -     | [[http://emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]]  mode               |
-| ~SPC t C--~ |         |       | global centered cursor              |
-| ~SPC t a~   | =ⓐ=     | a     | auto-completion                     |
-| ~SPC t c~   | =ⓒ=     | c     | camel case motion with subword mode |
-| =none=      | =ⓔ=     | e     | [[https://github.com/edwtjo/evil-org-mode][evil-org]] mode                       |
-| ~SPC t f~   | =none=  |       | fill-column-indicator mode          |
-| ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                      |
-| ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                   |
-| ~SPC t G~   | =Ⓖ=     | G     | guide-key mode                      |
-| ~SPC t h i~ | =ⓗ=     | h     | toggle highlight indentation levels         |
-| ~SPC t h c~ | =ⓗⒸ=    | hC    | toggle highlight indentation current column |
-| ~SPC t i~   | =ⓘ=     | i     | indentation guide                   |
-| ~SPC t C-i~ | =ⓘ=     | i     | global indentation guide            |
-| ~SPC t I~   | =Ⓘ=     | I     | aggressive indent mode              |
-| ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                    |
-| ~SPC t C-p~ |         |       | global smartparens                  |
-| ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)          |
-| ~SPC t S~   | =Ⓢ=     | S     | spell checking (flyspell)           |
-| ~SPC t w~   | =ⓦ=     | w     | whitespace mode                     |
-| ~SPC t C-w~ | =Ⓦ=     | W     | global whitespace                   |
-| ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                      |
+| Key Binding | Unicode | ASCII | Mode                                        |
+|-------------+---------+-------+---------------------------------------------|
+| ~SPC t -~   | =⊝=     | -     | [[http://emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]]  mode                       |
+| ~SPC t C--~ | =⊝=     |       | global centered cursor                      |
+| ~SPC t a~   | =ⓐ=     | a     | auto-completion                             |
+| ~SPC t c~   | =ⓒ=     | c     | camel case motion with subword mode         |
+| =none=      | =ⓔ=     | e     | [[https://github.com/edwtjo/evil-org-mode][evil-org]] mode                               |
+| ~SPC t f~   |          |       | fill-column-indicator mode                  |
+| ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                              |
+| ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                           |
+| ~SPC t G~   | =Ⓖ=     | G     | guide-key mode                              |
+| ~SPC t h i~ | =ⓗi=    | h     | toggle highlight indentation levels         |
+| ~SPC t h c~ | =ⓗc=    | hc    | toggle highlight indentation current column |
+| ~SPC t i~   | =ⓘ=     | i     | indentation guide                           |
+| ~SPC t C-i~ | =ⓘ=     | i     | global indentation guide                    |
+| ~SPC t I~   | =Ⓘ=     | I     | aggressive indent mode                      |
+| ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                            |
+| ~SPC t C-p~ | =ⓟ=     |       | global smartparens                          |
+| ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)                  |
+| ~SPC t S~   | =Ⓢ=     | S     | spell checking (flyspell)                   |
+| ~SPC t w~   | =ⓦ=     | w     | whitespace mode                             |
+| ~SPC t C-w~ | =Ⓦ=     | W     | global whitespace                           |
+| ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                              |
 
 * Commands
 ** Vim key bindings
