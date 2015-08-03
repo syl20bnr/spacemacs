@@ -2117,6 +2117,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     (progn
       (when (member dotspacemacs-highlight-delimiters '(all current))
         (add-hook 'prog-mode-hook #'highlight-parentheses-mode))
+      (setq hl-paren-delay 0.2)
       (evil-leader/set-key "tCp" 'highlight-parentheses-mode)
       (setq hl-paren-colors '("Springgreen3"
                               "IndianRed1"
