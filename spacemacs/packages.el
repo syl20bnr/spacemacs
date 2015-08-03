@@ -1106,7 +1106,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
         :documentation "Display battery info in mode-line."
         :evil-leader "tmb")
 
-      (push 'fancy-battery spacemacs--global-mode-excludes)
+      (push 'fancy-battery-mode-line spacemacs--global-mode-line-excludes)
 
       (defun spacemacs/mode-line-battery-percentage ()
         "Return the load percentage or an empty string."
