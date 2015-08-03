@@ -2139,25 +2139,21 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 
 (defun spacemacs/init-hl-anything ()
   (use-package hl-anything
-    :defer t
     :init
     (progn
-      (setq-default hl-highlight-save-file (concat spacemacs-cache-directory
-                                                   ".hl-save"))
+      (hl-highlight-mode)
+      (setq-default hl-highlight-save-file
+                    (concat spacemacs-cache-directory ".hl-save"))
       (evil-leader/set-key
         "hc"  'hl-unhighlight-all-local
-        "hgc" 'hl-unhighlight-all-global
-        "hgh" 'hl-highlight-thingatpt-global
+        "hC"  'hl-unhighlight-all-global
         "hh"  'hl-highlight-thingatpt-local
+        "hH"  'hl-highlight-thingatpt-global
         "hn"  'hl-find-next-thing
         "hN"  'hl-find-prev-thing
-        "hp"  'hl-paren-mode
         "hr"  'hl-restore-highlights
         "hs"  'hl-save-highlights))
-    :config
-    (progn
-      (spacemacs|diminish hl-paren-mode " (Ⓗ)" " (H)")
-      (spacemacs|hide-lighter hl-highlight-mode))))
+    :config (spacemacs|hide-lighter hl-highlight-mode)))
 
 (defun spacemacs/init-hungry-delete ()
   (use-package hungry-delete
