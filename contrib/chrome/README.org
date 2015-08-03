@@ -48,3 +48,18 @@ function based on =edit-server-url=, or fall back to
     (setq edit-server-url-major-mode-alist
         '(("github\\.com" . org-mode))))
 #+END_SRC
+
+To change frame defaults (width, height, etc. use =edit-server-new-frame-alist=)
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'edit-server-new-frame-alist '(width  . 140))
+  (add-to-list 'edit-server-new-frame-alist '(height . 60))
+#+END_SRC
+
+If you want Emacs to switch focus to Chrome after done editing, you can utilize =edit-server-done-hook=.
+Emacs cannot control focus of windows for external apps, so you need to use some sort of command line window manager like =wmctrl=.
+The following example works on OS X:  
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'edit-server-done-hook (lambda () (shell-command "open -a \"Google Chrome\""))) 
+#+END_SRC
