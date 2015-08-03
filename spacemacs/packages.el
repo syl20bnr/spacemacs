@@ -2088,8 +2088,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
 (defun spacemacs/init-helm-unicode ()
   (use-package helm-unicode
     :defer t
-    :init
-      (evil-leader/set-key "iu" 'helm-unicode)))
+    :init (evil-leader/set-key "iu" 'helm-unicode)))
 
 (defun spacemacs/init-highlight-indentation ()
   (use-package highlight-indentation
