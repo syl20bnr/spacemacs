@@ -310,3 +310,28 @@
                      (3 . (keymap (24 . func3))))
                    (spacemacs//evilify-sort-keymap input-map)))))
 
+;; eval-after-load
+
+(ert-deftest test-evilify-map--eval-after-load-already-loaded ()
+  (let ((evil-evilified-state-map (let ((evil-map (make-sparse-keymap)))
+                                    (define-key evil-map "s" 'evil-func)
+                                    evil-map))
+        (input-map (make-sparse-keymap)))
+    (define-key input-map "s" 'func)
+    ;; pass a feature already loaded at the time of calling
+    (spacemacs|evilify-map input-map :eval-after-load core-funcs)
+    (should (equal '((115 . func-or-evil-func--evilified-input-map-s)
+                     (83 . func--evilified-input-map-S))
+                   (spacemacs//evilify-sort-keymap input-map)))))
+
+
+(ert-deftest test-evilify-map--eval-after-load-not-loaded ()
+  (let ((evil-evilified-state-map (let ((evil-map (make-sparse-keymap)))
+                                    (define-key evil-map "s" 'evil-func)
+                                    evil-map))
+        (input-map (make-sparse-keymap)))
+    (define-key input-map "s" 'func)
+    (spacemacs|evilify-map input-map :eval-after-load dummy-feature)
+    ;; unmodified keymap since `dummy-feature' is not loaded
+    (should (equal '((115 . func))
+                   (spacemacs//evilify-sort-keymap input-map)))))

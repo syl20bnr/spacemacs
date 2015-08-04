@@ -14,26 +14,32 @@
   (declare (indent 1))
   (let* ((mode (plist-get props :mode))
          (evilified-map (plist-get props :evilified-map))
+         (eval-after-load (plist-get props :eval-after-load))
          (bindings (spacemacs/mplist-get props :bindings))
-         (defkey (when bindings `(evil-define-key 'evilified ,map ,@bindings))))
-    `(progn
-       (let ((sorted-map (spacemacs//evilify-sort-keymap
-                          (or ,evilified-map evil-evilified-state-map)))
-             processed)
-         (mapc (lambda (map-entry)
-                 (unless (or (member (car map-entry) processed)
-                             ;; don't care about evil-escape starter key
-                             (and (boundp 'evil-escape-key-sequence)
-                                  (equal (car map-entry)
+         (defkey (when bindings `(evil-define-key 'evilified ,map ,@bindings)))
+         (body 
+          `(progn
+             (let ((sorted-map (spacemacs//evilify-sort-keymap
+                                (or ,evilified-map evil-evilified-state-map)))
+                   processed)
+               (mapc (lambda (map-entry)
+                       (unless (or (member (car map-entry) processed)
+                                   ;; don't care about evil-escape starter key
+                                   (and (boundp 'evil-escape-key-sequence)
+                                        (equal
+                                         (car map-entry)
                                          (elt evil-escape-key-sequence 0))))
-                   (setq processed (spacemacs//evilify-event
-                                    ,map ',map
-                                    (car map-entry) (cdr map-entry)))))
-               sorted-map))
-       (unless ,(null defkey)
-         (,@defkey))
-       (unless ,(null mode)
-         (spacemacs/evilify-configure-default-state ',mode)))))
+                         (setq processed (spacemacs//evilify-event
+                                          ,map ',map
+                                          (car map-entry) (cdr map-entry)))))
+                     sorted-map))
+             (unless ,(null defkey)
+               (,@defkey))
+             (unless ,(null mode)
+               (spacemacs/evilify-configure-default-state ',mode)))))
+    (if (null eval-after-load)
+        `(,@body)
+      `(eval-after-load ',eval-after-load '(,@body)))))
 
 (defun spacemacs/evilify-configure-default-state (mode)
   "Configure default state for the passed mode."
