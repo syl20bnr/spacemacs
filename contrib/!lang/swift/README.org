@@ -1,0 +1,43 @@
+#+TITLE: Swift contribution layer for Spacemacs
+
+#+CAPTION: logo
+
+[[file:img/swift.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#prerequisites][Prerequisites]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+This layer aims at providing support for the Swift language.
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(swift))
+#+END_SRC
+
+** Prerequisites
+
+This layer is OS X only for now because you need to have [[https://developer.apple.com/xcode][Xcode]] installed.
+
+If you have many versions of Xcode installed you can choose the active one with
+something like this:
+
+#+begin_src sh
+sudo xcode-select -s /Applications/Xcode-beta.app/Contents/Developer
+#+end_src
+
+* Key bindings
+
+| Key binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m s i~   | start REPL / switch to REPL |
+| ~SPC m s r~   | send region                 |
+| ~SPC m s b~   | send buffer                 |
+
