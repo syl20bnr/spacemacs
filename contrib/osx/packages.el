@@ -2,7 +2,7 @@
   '(
     pbcopy
     launchctl
-    reveal-in-finder
+    reveal-in-osx-finder
     ))
 
 (when (system-is-mac)
@@ -17,7 +17,7 @@
   (if (executable-find "trash")
       (defun system-move-file-to-trash (file)
         "Use `trash' to move FILE to the system/volume trash can.
-Can be installed with `brew install trash'." 
+Can be installed with `brew install trash'."
         (call-process (executable-find "trash") nil 0 nil file))
     (setq mac-system-move-file-to-trash-use-finder t))
 
@@ -34,7 +34,7 @@ Can be installed with `brew install trash'."
 
 (defun osx/init-pbcopy ()
   (use-package pbcopy
-    :if (and (system-is-mac)(not (display-graphic-p))) 
+    :if (and (system-is-mac)(not (display-graphic-p)))
     :init (turn-on-pbcopy)))
 
 (defun osx/init-launchctl ()
@@ -69,7 +69,7 @@ Can be installed with `brew install trash'."
                (kbd "#") 'launchctl-unsetenv
                (kbd "h") 'launchctl-help))))
 
-(defun osx/init-reveal-in-finder ()
-  (use-package reveal-in-finder
+(defun osx/init-reveal-in-osx-finder ()
+  (use-package reveal-in-osx-finder
     :if (system-is-mac)
-    :commands reveal-in-finder))
+    :commands reveal-in-osx-finder))
