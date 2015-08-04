@@ -10,7 +10,28 @@
 ;;
 ;;; License: GPLv3
 (defmacro spacemacs|evilify-map (map &rest props)
-  "Evilify MAP."
+  "Evilify MAP.
+
+Avaiblabe PROPS:
+
+`:mode SYMBOL'
+A mode SYMBOL associated with MAP. Used to add SYMBOL to the list of modes
+defaulting to `evilified-state'.
+
+`:evilified-map SYMBOL'
+A map SYMBOL of an alternate evilified map, if nil then
+`evil-evilified-state-map' is used.
+
+`:eval-after-load SYMBOL'
+If specified the evilification of MAP is deferred to the loading of the feature
+bound to SYMBOL. May be required for some lazy-loaded maps.
+
+`:bindings EXPRESSIONS'
+One or several EXPRESSIONS with the form `KEY FUNCTION':
+   KEY1 FUNCTION1
+   KEY2 FUNCTION2
+   ...
+Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
   (declare (indent 1))
   (let* ((mode (plist-get props :mode))
          (evilified-map (plist-get props :evilified-map))
