@@ -104,7 +104,7 @@
     (progn
       ;; save and restore layout
       (add-hook 'kill-emacs-hook 'emacs-save-layout)
-      (add-hook 'after-init-hook 'emacs-load-layout t))))
+      (add-hook 'emacs-startup-hook 'emacs-load-layout t))))
 
 (defun spacemacs/init-spray ()
   (use-package spray

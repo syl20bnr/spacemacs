@@ -28,5 +28,5 @@
             (setq-local mode-line-format (default-value 'mode-line-format))
             (powerline-set-selected-window)
             (powerline-reset))))))
-  (add-hook 'after-init-hook
+  (add-hook 'emacs-startup-hook
             'spacemacs//set-vimish-powerline-for-startup-buffers))
