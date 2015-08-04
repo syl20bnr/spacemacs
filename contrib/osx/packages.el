@@ -2,7 +2,7 @@
   '(
     pbcopy
     launchctl
-    reveal-in-finder
+    reveal-in-osx-finder
     ))
 
 (when (system-is-mac)
@@ -70,6 +70,6 @@ Can be installed with `brew install trash'."
                (kbd "h") 'launchctl-help))))
 
 (defun osx/init-reveal-in-finder ()
-  (use-package reveal-in-finder
+  (use-package reveal-in-osx-finder
     :if (system-is-mac)
-    :commands reveal-in-finder))
+    :commands reveal-in-osx-finder))

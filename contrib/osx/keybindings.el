@@ -1,5 +1,5 @@
 (when (system-is-mac)
-  (evil-leader/set-key "bf" 'reveal-in-finder)
+  (evil-leader/set-key "bf" 'reveal-in-osx-finder)
 
   ;; this is only applicable to GUI mode
   (when (display-graphic-p)
