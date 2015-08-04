@@ -267,7 +267,11 @@
 (defun git/init-magit-gitflow ()
   (use-package magit-gitflow
     :commands turn-on-magit-gitflow
-    :init (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+    :init (progn
+            (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+            (eval-after-load 'magit
+              '(progn
+                 (define-key magit-mode-map "#f" 'magit-gitflow-popup))))
     :config (spacemacs|diminish magit-gitflow-mode "Flow")))
 
 (defun git/init-magit-svn ()
