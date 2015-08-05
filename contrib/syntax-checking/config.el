@@ -15,6 +15,12 @@
 (defvar syntax-checking-enable-tooltips t
   "If non nil some feedback are displayed in tooltips.")
 
+(defvar syntax-checking-ispell-program "aspell"
+  "External program to use for ispell. Defaults to \"aspell\".")
+
+(defvar syntax-checking-ispell-dictionary "english"
+  "Dictionary to use for ispell. Defaults to \"english\".")
+
 ;; Command Prefixes
 
 (spacemacs/declare-prefix "S" "spelling")

@@ -6,7 +6,7 @@
  - [[#description][Description]]
  - [[#install][Install]]
      - [[#layer][Layer]]
-     - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
+     - [[#configuration-options][Configuration options]]
  - [[#key-bindings][Key Bindings]]
 
 * Description
@@ -24,15 +24,20 @@ To use this configuration layer add it to your =~/.spacemacs=
 (setq-default dotspacemacs-configuration-layers '(syntax-checking))
 #+END_SRC
 
-** Enabling/Disabling tooltips
+** Configuration options
 
-By default tooltips are enabled and used whenever it is possible.
-You can disable them by setting the variable =syntax-checking-enable-tooltips=
-to =nil=:
+By default tooltips are enabled and used whenever it is possible. You can
+disable them by setting the variable =syntax-checking-enable-tooltips= to =nil=.
+The variables =syntax-checking-ispell-program= and
+=syntax-checking-ispell-dictionary= get passed to =ispell-program-name= and
+=ispell-dictionary= respectively. The defaults are shown below.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
-  '((syntax-checking :variables syntax-checking-enable-tooltips nil)))
+  '((syntax-checking 
+     :variables syntax-checking-enable-tooltips nil
+                syntax-checking-ispell-program "aspell"
+                syntax-checking-ispell-dictionary "english")))
 #+END_SRC
 
 
