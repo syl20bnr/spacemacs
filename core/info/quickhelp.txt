@@ -12,7 +12,7 @@ Press o to jump to any link or button.
 
 Press SPC (in Vim mode) or Alt-m (in Emacs mode) to access Spacemacs commands.
 
-Press SPC f e d (Vim) or Alm-m f e d (Emacs) to access .spacemacs file.
+Press SPC f e d (Vim) or Alt-m f e d (Emacs) to access .spacemacs file.
 
 Press SPC f e h (Vim) or Alt-m f e h (Emacs) to access a list of documentation
 and supported layers. You can type anything to narrow to a specific feature i.e.
