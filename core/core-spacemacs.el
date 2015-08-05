@@ -124,12 +124,12 @@ initialization."
   (setq use-package-verbose dotspacemacs-verbose-loading)
   ;; package-build is required by quelpa
   (spacemacs/load-or-install-package 'package-build t)
-  (spacemacs/load-or-install-package 'quelpa t)
   (setq quelpa-verbose dotspacemacs-verbose-loading
         quelpa-dir (concat spacemacs-cache-directory "quelpa/")
         quelpa-build-dir (expand-file-name "build" quelpa-dir)
         quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
         quelpa-update-melpa-p nil)
+  (spacemacs/load-or-install-package 'quelpa t)
   ;; be sure that quelpa-use-package is in load-path
   ;; if this package make it to MELPA we will be able
   ;; to just use load-or-install-package
