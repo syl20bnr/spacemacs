@@ -1,9 +1,6 @@
 [submodule "spacemacs/extensions/projmake-mode"]
 	path = extensions/projmake-mode
 	url = https://github.com/ericbmerritt/projmake-mode
-[submodule "spacemacs/extensions/revive"]
-	path = spacemacs/extensions/revive
-	url = https://github.com/vedang/revive-mode.git
 [submodule "spacemacs/extensions/helm-c-moccur"]
 	path = extensions/helm-c-moccur
 	url = https://github.com/syl20bnr/helm-c-moccur
