@@ -130,18 +130,6 @@ initialization."
         quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
         quelpa-update-melpa-p nil)
   (spacemacs/load-or-install-package 'quelpa t)
-  ;; be sure that quelpa-use-package is in load-path
-  ;; if this package make it to MELPA we will be able
-  ;; to just use load-or-install-package
-  (let ((dir (spacemacs//get-package-directory 'quelpa-use-package)))
-    (if dir
-        (add-to-list 'load-path dir)
-      (spacemacs-buffer/append
-       "(Bootstrap) Installing quelpa-use-package...\n")
-      (quelpa '(quelpa-use-package
-                :fetcher github
-                :repo "quelpa/quelpa-use-package"))))
-  (require 'quelpa-use-package)
   ;; inject use-package hooks for easy customization of
   ;; stock package configuration
   (setq use-package-inject-hooks t)
