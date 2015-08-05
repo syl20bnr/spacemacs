@@ -1,4 +1,8 @@
 * Release 0.103.x
+** 0.103.3 (2015/08/04)
+*** Layer changes
+**** Osx
+- Rename =reveal-in-finder= to its new name =reveal-in-osx-finder=
 ** 0.103.2 (2015/07/04)
 *** Layer changes
 **** Git
