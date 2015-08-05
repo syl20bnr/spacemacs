@@ -40,6 +40,7 @@ In a =magit status= buffer (~SPC g s~):
 
 | Key Binding | Description                                     |
 |-------------+-------------------------------------------------|
+| ~# g c~     | create a pull request                           |
 | ~# g g~     | get a list of all PRs in the current repository |
 | ~# g f~     | fetch the commits associated to the current PR  |
 | ~# g b~     | create a branch for the current PR              |
