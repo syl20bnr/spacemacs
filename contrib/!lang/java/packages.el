@@ -118,6 +118,16 @@
         "mpo" 'eclim-project-open
         "mpp" 'eclim-project-mode
         "mpu" 'eclim-project-update
+        "mpr" 'eclim-project-refresh
+
+        "mdb" 'gud-break
+        "mdc" 'gud-cont
+        "mdn" 'gud-next
+        "mdr" 'gud-run
+        "mds" 'gud-step
+        "mdi" 'gud-print
+        "mdl" 'spacemacs/gud-locals
+        "mdd" 'eclim-debug-test
 
         "mtt" 'eclim-run-junit)))
 
