@@ -26,6 +26,7 @@
      - [[#using-the-private-directory][Using the private directory]]
      - [[#using-an-external-git-repository][Using an external Git repository]]
      - [[#using-a-personal-branch][Using a personal branch]]
+   - [[#tips-for-writing-layers][Tips for writing layers]]
  - [[#dotfile-configuration][Dotfile Configuration]]
    - [[#installation][Installation]]
      - [[#alternative-setup][Alternative setup]]
@@ -283,6 +284,8 @@ If anything goes wrong you should be able to rollback the update by pressing
 choose a rollback slot (sorted by date).
 
 * Configuration layers
+A more extensive introduction to writing configuration layers can be found [[LAYERS.org][here]].
+
 ** Structure
 Configuration is organized in layers. Each layer has the following structure:
 
@@ -312,12 +315,13 @@ Where:
 | packages.el    | The list of packages to install and the functions to initialize them |
 
 =Packages= are =ELPA= packages which can be installed from an =ELPA= compliant
-repository, and =Extensions= are generally elisp code from git submodules.
+repository, and =Extensions= are generally elisp code from git submodules, or
+other code one might want to use but which isn't available on an =ELPA=
+compliant repository, for whatever reason.
 
 ** Extensions and Packages
 *** Within a layer
 **** Declaration
-
 =Extensions= and =Packages= are declared in variables =<layer>-pre-extensions=,
 =<layer>-post-extensions= and =<layer>-packages= where =<layer>= is the layer
 name. =Pre-Extensions= are loaded before =Packages= and =Post-Extensions= are
@@ -343,7 +347,7 @@ format in =extensions.el= or =packages.el=:
 It is common to define the body with the [[https://github.com/jwiegley/use-package][use-package]] macro.
 
 **** Exclusion
-It is possible to exclude some packages from =Spacemacs= in a per layer basis.
+It is possible to exclude some packages from =Spacemacs= on a per layer basis.
 This is useful when a configuration layer aims to replace a stock package
 declared in the =Spacemacs= layer.
 
@@ -431,6 +435,10 @@ and then directly clone this repository in =~/.emacs.d/private=.
 *** Using a personal branch
 The final main way to manage your private layers is to push them in a personal
 branch that you keep up to date with upstream =master= or =develop=.
+
+** Tips for writing layers
+Please refer to [[LAYERS.org][this]] introduction for some tips on writing layers, and how to
+best make them fit with the Spacemacs philosophy and loading strategy.
 
 * Dotfile Configuration
 
