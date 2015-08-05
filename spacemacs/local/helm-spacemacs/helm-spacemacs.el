@@ -98,6 +98,8 @@
                 `("Spacemacs starter guide" . ,r))
                ((string-equal r "HOWTOs.org")
                 `("Quick HOW-TOs for Spacemacs" . ,r))
+               ((string-equal r "LAYERS.org")
+                `("Tips on writing layers for Spacemacs" . ,r))
                ((string-equal r "VIMUSERS.org")
                 `("Vim users migration guide" . ,r))
                (t
