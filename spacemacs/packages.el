@@ -109,7 +109,11 @@
         winner
         ))
 
-(setq spacemacs-excluded-packages '())
+(setq spacemacs-excluded-packages
+      '(;; waiting for an overlay bug to be fixed
+        ;; see https://github.com/syl20bnr/spacemacs/issues/2529
+        hl-anything
+        ))
 
 ;; Paradox from MELPA is not compatible with 24.3 anymore
 (unless  (version< emacs-version "24.4")
