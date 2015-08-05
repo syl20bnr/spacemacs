@@ -3288,9 +3288,6 @@ one of `l' or `r'."
 
 (defun spacemacs/init-spray ()
   (use-package spray
-    :quelpa (spray
-             :fetcher github
-             :repo "ian-kelling/spray")
     :commands spray-mode
     :init
     (progn
