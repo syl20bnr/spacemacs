@@ -25,7 +25,6 @@
     helm-spacemacs
     solarized-theme
     spacemacs-theme
-    spray
     zoom-frm
     ;; hack to be able to wrap built-in emacs modes in an init function
     emacs-builtin-process-menu
@@ -105,29 +104,6 @@
       ;; save and restore layout
       (add-hook 'kill-emacs-hook 'emacs-save-layout)
       (add-hook 'after-init-hook 'emacs-load-layout t))))
-
-(defun spacemacs/init-spray ()
-  (use-package spray
-    :commands spray-mode
-    :init
-    (progn
-      (defun spacemacs/start-spray ()
-        "Start spray speed reading on current buffer at current point."
-        (interactive)
-        (evil-insert-state)
-        (spray-mode t)
-        (evil-insert-state-cursor-hide))
-      (evil-leader/set-key "asr" 'spacemacs/start-spray)
-
-      (defadvice spray-quit (after spacemacs//quit-spray activate)
-        "Correctly quit spray."
-        (set-default-evil-insert-state-cursor)
-        (evil-normal-state)))
-    :config
-    (progn
-      (define-key spray-mode-map (kbd "h") 'spray-backward-word)
-      (define-key spray-mode-map (kbd "l") 'spray-forward-word)
-      (define-key spray-mode-map (kbd "q") 'spray-quit))))
 
 (defun spacemacs/init-solarized-theme ()
   (use-package solarized

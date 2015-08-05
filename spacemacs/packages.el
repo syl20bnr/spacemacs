@@ -97,6 +97,7 @@
         smartparens
         smooth-scrolling
         spacemacs-theme
+        spray
         subword
         undo-tree
         use-package
@@ -3284,6 +3285,32 @@ one of `l' or `r'."
     (ad-activate 'next-line)
     (ad-disable-advice 'isearch-repeat 'after 'isearch-smooth-scroll)
     (ad-activate 'isearch-repeat)))
+
+(defun spacemacs/init-spray ()
+  (use-package spray
+    :quelpa (spray
+             :fetcher github
+             :repo "ian-kelling/spray")
+    :commands spray-mode
+    :init
+    (progn
+      (defun spacemacs/start-spray ()
+        "Start spray speed reading on current buffer at current point."
+        (interactive)
+        (evil-insert-state)
+        (spray-mode t)
+        (evil-insert-state-cursor-hide))
+      (evil-leader/set-key "asr" 'spacemacs/start-spray)
+
+      (defadvice spray-quit (after spacemacs//quit-spray activate)
+        "Correctly quit spray."
+        (set-default-evil-insert-state-cursor)
+        (evil-normal-state)))
+    :config
+    (progn
+      (define-key spray-mode-map (kbd "h") 'spray-backward-word)
+      (define-key spray-mode-map (kbd "l") 'spray-forward-word)
+      (define-key spray-mode-map (kbd "q") 'spray-quit))))
 
 (defun spacemacs/init-subword ()
   (unless (version< emacs-version "24.4")
