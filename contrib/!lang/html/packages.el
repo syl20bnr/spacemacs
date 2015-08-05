@@ -56,7 +56,7 @@
 
       (sp-local-pair 'web-mode "<% " " %>")
       (sp-local-pair 'web-mode "{ " " }")
-      (sp-local-pair 'web-mode "<%= "  "  %>")
+      (sp-local-pair 'web-mode "<%= "  " %>")
       (sp-local-pair 'web-mode "<%# "  " %>")
       (sp-local-pair 'web-mode "<%$ "  " %>")
       (sp-local-pair 'web-mode "<%@ "  " %>")
