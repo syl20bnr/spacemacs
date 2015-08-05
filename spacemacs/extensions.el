@@ -94,17 +94,6 @@
     :init
     (evil-leader/set-key "feh" 'helm-spacemacs)))
 
-(defun spacemacs/init-revive ()
-  (use-package revive
-    :disabled t
-    :init
-    (require 'revive-mode-config)
-    :config
-    (progn
-      ;; save and restore layout
-      (add-hook 'kill-emacs-hook 'emacs-save-layout)
-      (add-hook 'after-init-hook 'emacs-load-layout t))))
-
 (defun spacemacs/init-solarized-theme ()
   (use-package solarized
     :init
