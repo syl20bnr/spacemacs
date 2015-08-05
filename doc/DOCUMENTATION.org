@@ -1325,28 +1325,28 @@ dotfile.
 **** Buffers manipulation key bindings
 Buffer manipulation commands (start with ~b~):
 
-| Key Binding | Description                                                             |
-|-------------+-------------------------------------------------------------------------|
-| ~SPC TAB~   | switch to alternate buffer (switch back and forth)                      |
-| ~SPC b b~   | switch to a buffer using =helm=                                         |
-| ~SPC b d~   | kill the current buffer (does not delete the visited file)              |
-| ~SPC b e~   | erase the content of the buffer (ask for confirmation)                  |
-| ~SPC b h~   | open =*spacemacs*= home buffer                                          |
-| ~SPC b k~   | kill a buffer                                                           |
-| ~SPC b K~   | kill all buffers except the current one                                 |
-| ~SPC b C-K~ | kill all buffers matching the regexp                                    |
-| ~SPC b m h~ | move a buffer to the left                                               |
-| ~SPC b m j~ | move a buffer to the bottom                                             |
-| ~SPC b m k~ | move a buffer to the top                                                |
-| ~SPC b m l~ | move a buffer to the right                                              |
-| ~SPC b M~   | swap windows using [[https://github.com/abo-abo/ace-window][ace-swap-window]]                                      |
-| ~SPC b n~   | switch to next buffer avoiding special buffers                          |
-| ~SPC b p~   | switch to previous buffer avoiding special buffers                      |
-| ~SPC b P~   | copy clipboard and replace buffer (useful when pasting from a browser)  |
-| ~SPC b R~   | revert the current buffer (reload from disk)                            |
-| ~SPC b w~   | toggle read-only (writable state)                                       |
-| ~SPC b Y~   | copy whole buffer to clipboard (useful when copying to a browser)       |
-| ~z f~       | Make current function or comments visible in buffer as much as possible |
+| Key Binding | Description                                                              |
+|-------------+--------------------------------------------------------------------------|
+| ~SPC TAB~   | switch to alternate buffer in the current window (switch back and forth) |
+| ~SPC b b~   | switch to a buffer using =helm=                                          |
+| ~SPC b d~   | kill the current buffer (does not delete the visited file)               |
+| ~SPC b e~   | erase the content of the buffer (ask for confirmation)                   |
+| ~SPC b h~   | open =*spacemacs*= home buffer                                           |
+| ~SPC b k~   | kill a buffer                                                            |
+| ~SPC b K~   | kill all buffers except the current one                                  |
+| ~SPC b C-K~ | kill all buffers matching the regexp                                     |
+| ~SPC b m h~ | move a buffer to the left                                                |
+| ~SPC b m j~ | move a buffer to the bottom                                              |
+| ~SPC b m k~ | move a buffer to the top                                                 |
+| ~SPC b m l~ | move a buffer to the right                                               |
+| ~SPC b M~   | swap windows using [[https://github.com/abo-abo/ace-window][ace-swap-window]]                                       |
+| ~SPC b n~   | switch to next buffer avoiding special buffers                           |
+| ~SPC b p~   | switch to previous buffer avoiding special buffers                       |
+| ~SPC b P~   | copy clipboard and replace buffer (useful when pasting from a browser)   |
+| ~SPC b R~   | revert the current buffer (reload from disk)                             |
+| ~SPC b w~   | toggle read-only (writable state)                                        |
+| ~SPC b Y~   | copy whole buffer to clipboard (useful when copying to a browser)        |
+| ~z f~       | Make current function or comments visible in buffer as much as possible  |
 
 **** Buffers manipulation manipulation micro-state
 A convenient buffer manipulation micro-state allows to quickly cycles through

@@ -840,9 +840,12 @@ The body of the advice is in BODY."
   (ert t))
 
 (defun spacemacs/alternate-buffer ()
-  "Switch back and forth between current and last buffer."
+  "Switch back and forth between current and last buffer in the
+current window."
   (interactive)
-  (switch-to-buffer (other-buffer (current-buffer) t)))
+  (if (evil-alternate-buffer)
+      (switch-to-buffer (car (evil-alternate-buffer)))
+    (switch-to-buffer (other-buffer (current-buffer) t))))
 
 (defun spacemacs/highlight-TODO-words ()
   "Highlight keywords for  "
