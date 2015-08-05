@@ -122,6 +122,26 @@ initialization."
   (spacemacs/load-or-install-package 'bind-key t)
   (spacemacs/load-or-install-package 'use-package t)
   (setq use-package-verbose dotspacemacs-verbose-loading)
+  ;; package-build is required by quelpa
+  (spacemacs/load-or-install-package 'package-build t)
+  (spacemacs/load-or-install-package 'quelpa t)
+  (setq quelpa-verbose dotspacemacs-verbose-loading
+        quelpa-dir (concat spacemacs-cache-directory "quelpa/")
+        quelpa-build-dir (expand-file-name "build" quelpa-dir)
+        quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
+        quelpa-update-melpa-p nil)
+  ;; be sure that quelpa-use-package is in load-path
+  ;; if this package make it to MELPA we will be able
+  ;; to just use load-or-install-package
+  (let ((dir (spacemacs//get-package-directory 'quelpa-use-package)))
+    (if dir
+        (add-to-list 'load-path dir)
+      (spacemacs-buffer/append
+       "(Bootstrap) Installing quelpa-use-package...\n")
+      (quelpa '(quelpa-use-package
+                :fetcher github
+                :repo "quelpa/quelpa-use-package"))))
+  (require 'quelpa-use-package)
   ;; inject use-package hooks for easy customization of
   ;; stock package configuration
   (setq use-package-inject-hooks t)
@@ -145,13 +165,13 @@ initialization."
     (when (file-exists-p elpa-dir)
       (let ((dir (reduce (lambda (x y) (if x x y))
                          (mapcar (lambda (x)
-                                   (if (string-match
-                                        (concat "/"
-                                                (symbol-name pkg)
-                                                "-[0-9]+") x) x))
+                                   (when (string-match
+                                          (concat "/"
+                                                  (symbol-name pkg)
+                                                  "-[0-9]+") x) x))
                                  (directory-files elpa-dir 'full))
                          :initial-value nil)))
-        (if dir (file-name-as-directory dir))))))
+        (when dir (file-name-as-directory dir))))))
 
 (defun spacemacs/load-or-install-package (pkg &optional log file-to-load)
   "Load PKG package. PKG will be installed if it is not already installed.

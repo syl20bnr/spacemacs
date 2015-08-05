@@ -89,6 +89,8 @@
         popwin
         powerline
         projectile
+        quelpa
+        quelpa-use-package
         rainbow-delimiters
         recentf
         rfringe
@@ -3169,6 +3171,10 @@ one of `l' or `r'."
     (progn
       (projectile-global-mode)
       (spacemacs|hide-lighter projectile-mode))))
+
+(defun spacemacs/init-quelpa ())
+
+(defun spacemacs/init-quelpa-use-package ())
 
 (defun spacemacs/init-rainbow-delimiters ()
   (use-package rainbow-delimiters
