@@ -2182,7 +2182,7 @@ These commands automatically switch to =lisp state=.
 | ~SPC k p~   | paste after                                                         |
 | ~SPC k P~   | paste before                                                        |
 | ~SPC k r~   | raise expression (replace parent expression by current one)         |
-| ~SPC k s~   | forwared slurp expression                                           |
+| ~SPC k s~   | forward slurp expression                                            |
 | ~SPC k S~   | backward slurp expression                                           |
 | ~SPC k t~   | transpose expression                                                |
 | ~SPC k u~   | undo                                                                |
