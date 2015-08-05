@@ -216,7 +216,7 @@ The syntax is simple:
 
 #+begin_src emacs-lisp
   (setq variable value) ; Syntax
-  ;; Setting varibles example
+  ;; Setting variables example
   (setq variable1 t ; True
         variable2 nil ; False
         variable3 '("A" "list" "of" "things"))
@@ -268,7 +268,7 @@ Here is an example of a function that is useful in real life:
 #+begin_src emacs-lisp
   ;; This snippet allows you to run clang-format before saving
   ;; given the current file as the correct filetype.
-  ;; This relies on the c-c++ layer being enableds.
+  ;; This relies on the c-c++ layer being enabled.
   (defun clang-format-for-filetype ()
     "Run clang-format if the current file has a file extensions
   in the filetypes list."
