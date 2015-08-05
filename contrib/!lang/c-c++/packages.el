@@ -56,9 +56,9 @@
     :init
     (progn
       (evil-leader/set-key-for-mode 'c-mode
-        "md" 'disaster)
+        "mD" 'disaster)
       (evil-leader/set-key-for-mode 'c++-mode
-        "md" 'disaster))))
+        "mD" 'disaster))))
 
 (defun c-c++/init-clang-format ()
   (use-package clang-format
