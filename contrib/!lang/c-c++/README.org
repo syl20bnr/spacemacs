@@ -105,7 +105,7 @@ doesn't complain about missing header files.
 |-------------+------------------------------------------------------------------------|
 | ~SPC m g o~ | open matching file (e.g. switch between .cpp and .h)                   |
 | ~SPC m g O~ | open matching file in another window (e.g. switch between .cpp and .h) |
-| ~SPC m d~   | disaster: disassemble c/c++ code                                       |
+| ~SPC m D~   | disaster: disassemble c/c++ code                                       |
 | ~SPC m r~   | srefactor: refactor thing at point.                                    |
 
 *Note:*  [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]]  is only available for Emacs 24.4+
