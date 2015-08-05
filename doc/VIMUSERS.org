@@ -76,8 +76,8 @@ several packages that integrate well with each other. For example, the =python=
 layer includes support for auto-completion, documentation look-up, tests, and
 much more by using several different packages. This keeps you from thinking
 about what packages to install, and instead worry about what features you want.
-More information on layers in the [[./VIMUSERS.org#customization][customization]] section and in the
-[[./DOCUMENTATION.org#configuration-layers][documentation]].
+More information on layers can be found in the [[./VIMUSERS.org#customization][customization]] section and in the
+[[./DOCUMENTATION.org#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[LAYERS.org][here]].
 
 **** Micro-states
 Spacemacs provides a special functionality called micro-states. Micro-states
@@ -363,6 +363,8 @@ pattern as packages.
 
 Make sure you [[*Activating%20a%20Layer][add]] your layer to your =.dotspacemacs= file and restart to
 activate it.
+
+For more information on layers, please see [[LAYERS.org][tips on writing layers]].
 
 ** Installing a single package
 Sometimes creating a layer is a bit overkill. Maybe you just want one package

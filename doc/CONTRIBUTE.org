@@ -2,18 +2,18 @@
 
 ** Table of Contents                                                 :TOC@4:
  - [[#contribute-to-spacemacs][Contribute to Spacemacs]]
-     - [[#pull-request-guidelines][Pull Request Guidelines]]
-         - [[#ideally-and-for-simple-prs][Ideally and for /simple/ PRs:]]
-         - [[#for-complex-pull-requests][For complex pull requests:]]
-         - [[#getting-help][Getting Help]]
-     - [[#submitting-a-configuration-layer][Submitting a configuration layer]]
-     - [[#testing][Testing]]
-     - [[#submitting-a-banner][Submitting a banner]]
-     - [[#credits][Credits]]
-         - [[#license][License]]
-         - [[#file-header][File header]]
-         - [[#author-of-a-contribution-layer][Author of a contribution layer]]
-         - [[#contributor-of-a-contribution-layer][Contributor of a contribution layer]]
+   - [[#pull-request-guidelines][Pull Request Guidelines]]
+     - [[#ideally-and-for-simple-prs][Ideally and for /simple/ PRs:]]
+     - [[#for-complex-pull-requests][For complex pull requests:]]
+     - [[#getting-help][Getting Help]]
+   - [[#submitting-a-configuration-layer][Submitting a configuration layer]]
+   - [[#testing][Testing]]
+   - [[#submitting-a-banner][Submitting a banner]]
+   - [[#credits][Credits]]
+     - [[#license][License]]
+     - [[#file-header][File header]]
+     - [[#author-of-a-contribution-layer][Author of a contribution layer]]
+     - [[#contributor-of-a-contribution-layer][Contributor of a contribution layer]]
 
 ** Pull Request Guidelines
 =Spacemacs= branch model is inspired from the [[http://nvie.com/posts/a-successful-git-branching-model/][git-flow]] model:
@@ -61,6 +61,8 @@ It is recommended to join a =README.org= file with your layer:
   - another good practice is to start from the =README.org= of an existing layer
   - if a logo exists for the layer you can add it at the top of the =README.org=
     before the TOC. The maximum recommended height is 200 pixels.
+
+Please read the [[LAYERS.org][tips for writing layers]] first.
 
 ** Testing
 Tests live in the =tests= folder, with a folder structure corresponding to the
