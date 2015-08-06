@@ -2717,6 +2717,7 @@ must be a valid segment specification, see documentation for
         '((battery :when active)
           selection-info
           ((buffer-encoding-abbrev
+            tab-size
             point-position
             line-column)
            :separator " | ")
@@ -2863,6 +2864,7 @@ It is a string holding:
         :when spacemacs-mode-line-display-point-p)
       (spacemacs|define-mode-line-segment line-column "%l:%2c")
       (spacemacs|define-mode-line-segment buffer-position "%p")
+      (spacemacs|define-mode-line-segment tab-size (format "Spaces: %d" tab-width))
 
       (spacemacs|define-mode-line-segment hud
         (powerline-hud state-face default-face)
