@@ -3242,7 +3242,7 @@ one of `l' or `r'."
 
       (setq sp-show-pair-delay 0.2
             ;; fix paren highlighting in normal mode
-            sp-show-pair-from-inside t
+            sp-show-pair-from-inside (not evil-move-beyond-eol)
             sp-cancel-autoskip-on-backward-movement nil))
     :config
     (progn
