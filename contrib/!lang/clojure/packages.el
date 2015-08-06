@@ -138,43 +138,44 @@ the focus."
       (evilify cider-inspector-mode cider-inspector-mode-map
                (kbd "L") 'cider-inspector-pop)
 
-      (evil-leader/set-key-for-mode 'clojure-mode
-        "mhh" 'cider-doc
-        "mhg" 'cider-grimoire
-        "mhj" 'cider-javadoc
+      (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
+        (evil-leader/set-key-for-mode m
+          "mhh" 'cider-doc
+          "mhg" 'cider-grimoire
+          "mhj" 'cider-javadoc
 
-        "meb" 'cider-eval-buffer
-        "mee" 'cider-eval-last-sexp
-        "mef" 'cider-eval-defun-at-point
-        "mer" 'cider-eval-region
-        "mew" 'cider-eval-last-sexp-and-replace
+          "meb" 'cider-eval-buffer
+          "mee" 'cider-eval-last-sexp
+          "mef" 'cider-eval-defun-at-point
+          "mer" 'cider-eval-region
+          "mew" 'cider-eval-last-sexp-and-replace
 
-        "mgb" 'cider-jump-back
-        "mge" 'cider-jump-to-compilation-error
-        "mgg" 'cider-jump-to-var
-        "mgr" 'cider-jump-to-resource
+          "mgb" 'cider-jump-back
+          "mge" 'cider-jump-to-compilation-error
+          "mgg" 'cider-jump-to-var
+          "mgr" 'cider-jump-to-resource
 
-        "msb" 'cider-load-buffer
-        "msB" 'spacemacs/cider-send-buffer-in-repl-and-focus
-        "msc" 'cider-connect
-        "mse" 'spacemacs/cider-send-last-sexp-to-repl
-        "msE" 'spacemacs/cider-send-last-sexp-to-repl-focus
-        "msf" 'spacemacs/cider-send-function-to-repl
-        "msF" 'spacemacs/cider-send-function-to-repl-focus
-        "msi" 'cider-jack-in
-        "msn" 'spacemacs/cider-send-ns-form-to-repl
-        "msN" 'spacemacs/cider-send-ns-form-to-repl-focus
-        "msq" 'cider-quit
-        "msr" 'spacemacs/cider-send-region-to-repl
-        "msR" 'spacemacs/cider-send-region-to-repl-focus
-        "mss" 'cider-switch-to-repl-buffer
+          "msb" 'cider-load-buffer
+          "msB" 'spacemacs/cider-send-buffer-in-repl-and-focus
+          "msc" 'cider-connect
+          "mse" 'spacemacs/cider-send-last-sexp-to-repl
+          "msE" 'spacemacs/cider-send-last-sexp-to-repl-focus
+          "msf" 'spacemacs/cider-send-function-to-repl
+          "msF" 'spacemacs/cider-send-function-to-repl-focus
+          "msi" 'cider-jack-in
+          "msn" 'spacemacs/cider-send-ns-form-to-repl
+          "msN" 'spacemacs/cider-send-ns-form-to-repl-focus
+          "msq" 'cider-quit
+          "msr" 'spacemacs/cider-send-region-to-repl
+          "msR" 'spacemacs/cider-send-region-to-repl-focus
+          "mss" 'cider-switch-to-repl-buffer
 
-        "mta" 'spacemacs/cider-test-run-all-tests
-        "mtr" 'spacemacs/cider-test-rerun-tests
-        "mtt" 'spacemacs/cider-test-run-focused-test
+          "mta" 'spacemacs/cider-test-run-all-tests
+          "mtr" 'spacemacs/cider-test-rerun-tests
+          "mtt" 'spacemacs/cider-test-run-focused-test
 
-        "mdi" 'cider-inspect
-        "mdb" 'cider-debug-defun-at-point)
+          "mdi" 'cider-inspect
+          "mdb" 'cider-debug-defun-at-point))
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))
 
@@ -196,41 +197,43 @@ the focus."
         (cljr-add-keybindings-with-prefix "C-c C-f")
         ;; not supported for now
         ;; (spacemacs/declare-prefix "mr" "clj-refactor")
-        (evil-leader/set-key-for-mode 'clojure-mode
-          "mrad" 'cljr-add-declaration
-          "mrai" 'cljr-add-import-to-ns
-          "mram" 'cljr-add-missing-libspec
-          "mrap" 'cljr-add-project-dependency
-          "mrar" 'cljr-add-require-to-ns
-          "mrau" 'cljr-add-use-to-ns
-          "mrcc" 'cljr-cycle-coll
-          "mrci" 'cljr-cycle-if
-          "mrcn" 'cljr-clean-ns
-          "mrcp" 'cljr-cycle-privacy
-          "mrdk" 'cljr-destructure-keys
-          "mref" 'cljr-extract-function
-          "mrel" 'cljr-expand-let
-          "mrfu" 'cljr-find-usages
-          "mrhd" 'cljr-hotload-dependency
-          "mril" 'cljr-introduce-let
-          "mrmf" 'cljr-move-form
-          "mrml" 'cljr-move-to-let
-          "mrpc" 'cljr-project-clean
-          "mrpf" 'cljr-promote-function
-          "mrrd" 'cljr-remove-debug-fns
-          "mrrf" 'cljr-rename-file
-          "mrrl" 'cljr-remove-let
-          "mrrr" 'cljr-remove-unused-requires
-          "mrrs" 'cljr-rename-symbol
-          "mrru" 'cljr-replace-use
-          "mrsn" 'cljr-sort-ns
-          "mrsp" 'cljr-sort-project-dependencies
-          "mrsr" 'cljr-stop-referring
-          "mrtf" 'cljr-thread-first-all
-          "mrth" 'cljr-thread
-          "mrtl" 'cljr-thread-last-all
-          "mrua" 'cljr-unwind-all
-          "mruw" 'cljr-unwind))))
+
+        (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
+          (evil-leader/set-key-for-mode m
+            "mrad" 'cljr-add-declaration
+            "mrai" 'cljr-add-import-to-ns
+            "mram" 'cljr-add-missing-libspec
+            "mrap" 'cljr-add-project-dependency
+            "mrar" 'cljr-add-require-to-ns
+            "mrau" 'cljr-add-use-to-ns
+            "mrcc" 'cljr-cycle-coll
+            "mrci" 'cljr-cycle-if
+            "mrcn" 'cljr-clean-ns
+            "mrcp" 'cljr-cycle-privacy
+            "mrdk" 'cljr-destructure-keys
+            "mref" 'cljr-extract-function
+            "mrel" 'cljr-expand-let
+            "mrfu" 'cljr-find-usages
+            "mrhd" 'cljr-hotload-dependency
+            "mril" 'cljr-introduce-let
+            "mrmf" 'cljr-move-form
+            "mrml" 'cljr-move-to-let
+            "mrpc" 'cljr-project-clean
+            "mrpf" 'cljr-promote-function
+            "mrrd" 'cljr-remove-debug-fns
+            "mrrf" 'cljr-rename-file
+            "mrrl" 'cljr-remove-let
+            "mrrr" 'cljr-remove-unused-requires
+            "mrrs" 'cljr-rename-symbol
+            "mrru" 'cljr-replace-use
+            "mrsn" 'cljr-sort-ns
+            "mrsp" 'cljr-sort-project-dependencies
+            "mrsr" 'cljr-stop-referring
+            "mrtf" 'cljr-thread-first-all
+            "mrth" 'cljr-thread
+            "mrtl" 'cljr-thread-last-all
+            "mrua" 'cljr-unwind-all
+            "mruw" 'cljr-unwind)))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
