@@ -12,3 +12,4 @@
 
 ;; Variables
 (spacemacs|defvar-company-backends emacs-lisp-mode)
+(spacemacs|defvar-company-backends ielm-mode)
