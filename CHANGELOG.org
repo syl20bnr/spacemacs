@@ -125,10 +125,16 @@
 - Typos and documentation improvements (thanks to andyque, gleber,
   JoshTGreenwood, mbertheau, sotte, srid, travisbhartwell)
 * Release 0.103.x
+** 0.103.4 (2015/08/07)
+*** Layer changes
+**** Clojure
+- Fix key bindings for new Clojure major modes: =clojurec-mode=,
+  =clojurescript-mode= and =clojurex-mode= (thanks to benalbrecht)
 ** 0.103.3 (2015/08/04)
 *** Layer changes
 **** Osx
 - Rename =reveal-in-finder= to its new name =reveal-in-osx-finder=
+  (thanks to syohex)
 ** 0.103.2 (2015/07/04)
 *** Layer changes
 **** Git
