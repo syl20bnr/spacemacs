@@ -16,13 +16,13 @@
         (evil-evilified-state :location local :step pre)
         (holy-mode :location local :step pre)
         ;; default
-        ace-jump-mode
         ace-link
         ace-window
         adaptive-wrap
         aggressive-indent
         auto-dictionary
         auto-highlight-symbol
+        avy
         bind-key
         bookmark
         buffer-move
@@ -130,19 +130,6 @@
         ))
 
 ;; Initialization of packages
-
-(defun spacemacs/init-ace-jump-mode ()
-  (use-package ace-jump-mode
-    :defer t
-    :init
-    (progn
-      (add-hook 'ace-jump-mode-end-hook 'golden-ratio)
-      (evil-leader/set-key "SPC" 'evil-ace-jump-word-mode)
-      (evil-leader/set-key "l" 'evil-ace-jump-line-mode))
-    :config
-    (progn
-      (setq ace-jump-mode-scope 'global)
-      (evil-leader/set-key "`" 'ace-jump-mode-pop-mark))))
 
 (defun spacemacs/init-ace-link ()
   (use-package ace-link
@@ -421,6 +408,20 @@
                  (prophidden (propertize hidden 'face '(:weight bold))))
             (echo "%s %s%s (n/N) move, (e) edit, (r) range, (R) reset, (d/D) definition, (/) find in project, (f) find in files, (b) find in opened buffers"
                   propplugin propx/y prophidden)))))))
+
+(defun spacemacs/init-avy ()
+  (use-package avy
+    :defer t
+    :init
+    (progn
+      (setq avy-keys (number-sequence ?a ?z))
+      (setq avy-all-windows 'all-frames)
+      (setq avy-background t)
+      (evil-leader/set-key
+        "SPC" 'avy-goto-word-or-subword-1
+        "l" 'avy-goto-line))
+    :config
+    (evil-leader/set-key "`" 'avy-pop-mark)))
 
 (defun spacemacs/init-bind-key ())
 
@@ -1308,7 +1309,6 @@ Example: (evil-map visual \"<\" \"<gv\")"
                       select-window-7
                       select-window-8
                       select-window-9
-                      ace-jump-mode-pop-mark
                       buf-move-left
                       buf-move-right
                       buf-move-up
@@ -3566,13 +3566,13 @@ one of `l' or `r'."
                ("spacemacs/toggle-\\(.+\\)" . "\\1")
                ("select-window-\\([0-9]\\)" . "window \\1")
                ("spacemacs/alternate-buffer" . "last buffer")
-               ("evil-ace-jump-word-mode" . "ace word")
+               ("avy-goto-word-or-subword-1" . "avy word")
                ("shell-command" . "shell cmd")
                ("spacemacs/default-pop-shell" . "open shell")
                ("spacemacs/helm-project-smart-do-search-region-or-symbol" . "smart search")
                ("helm-descbinds" . "show keybindings")
                ("sp-split-sexp" . "split sexp")
-               ("evil-ace-jump-line-mode" . "ace line")
+               ("avy-goto-line" . "avy line")
                ("universal-argument" . "universal arg")
                ("er/expand-region" . "expand region")
                ("helm-apropos" . "apropos"))))
