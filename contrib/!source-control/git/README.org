@@ -12,11 +12,13 @@
      - [[#magit-auto-complete][Magit auto-complete]]
      - [[#magit-svn-plugin][Magit SVN plugin]]
      - [[#git][Git]]
+     - [[#git-flow][Git-Flow]]
  - [[#working-with-git][Working with Git]]
      - [[#magit][Magit]]
      - [[#commit-message-edition-buffer][Commit message edition buffer]]
      - [[#interactive-rebase-buffer][Interactive rebase buffer]]
      - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
+     - [[#git-flow][Git-Flow]]
      - [[#git-time-machine][Git time machine]]
 
 * Description
@@ -93,6 +95,15 @@ layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
 Of course if your OS does not ship with git (!) you'll have to install it
 on your machine. You can download it from the [[http://git-scm.com/downloads][download page]].
 
+** Git-Flow
+
+Git-flow is a standardized branching pattern for git repositories with the aim
+of making things more manageable. While there are tools to assist with making
+this easier, these do nothing you couldn't do manually.
+
+Support requires installation of the git-flow extensions. Please reference their
+[[https://github.com/petervanderdoes/gitflow/wiki][installation page]] for assistance.
+ 
 * Working with Git
 
 Git commands (start with ~g~):
@@ -227,6 +238,14 @@ message.
 - Pull changes from upstream (the parent repository you have forked) and push:
   - ~F -r C-u F~ and choose =upstream= or the name you gave to it
   - ~P P~ to push the commit to =origin=
+
+** Git-Flow
+
+[[https://github.com/jtatarik/magit-gitflow][magit-gitflow]] provides git-flow commands in its own magit menu.
+
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~# f~       | open magit-gitflow menu |
 
 ** Git time machine
 
