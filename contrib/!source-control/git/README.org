@@ -26,7 +26,7 @@
 This layers adds extensive support for [[http://git-scm.com/][git]].
 
 ** Features:
-- git repository management the indispensable  [[http://magit.github.io/][magit]] package
+- git repository management the indispensable  [[http://magit.vc/][magit]] package
 - [[https://github.com/jtatarik/magit-gitflow][git-flow]] add-on for magit.
 - quick in buffer history browsing with [[https://github.com/pidu/git-timemachine][git-timemachine]].
 - quick in buffer last commit message per line with [[https://github.com/syohex/emacs-git-messenger][git-messenger]]
@@ -77,7 +77,7 @@ function, this is the folder where you keep all your git-controlled projects
   (setq magit-repository-directories '("~/repos/"))
 #+END_SRC
 
-For more information, see [[https://magit.github.io/master/magit.html#Status][Magit-User-Manual#Status]]
+For more information, see [[http://magit.vc/manual/magit.html#Status-buffer][Magit-User-Manual#Status-buffer]]
 
 ** Magit SVN plugin
 
@@ -131,7 +131,7 @@ Git commands (start with ~g~):
 
 ** Magit
 
-=Spacemacs= uses [[http://magit.github.io/][magit]] to manage Git repositories.
+=Spacemacs= uses [[http://magit.vc/][magit]] to manage Git repositories.
 
 To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~
 
