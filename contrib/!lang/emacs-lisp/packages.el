@@ -12,6 +12,7 @@
 
 (setq emacs-lisp-packages
       '(
+        company
         eldoc
         elisp-slime-nav
         evil
@@ -24,12 +25,19 @@
 
 (use-package ielm
   :config
-  (defun ielm-indent-line ()
-    (interactive)
-    (let ((current-point (point)))
-      (save-restriction
-        (narrow-to-region (search-backward-regexp "^ELISP>") (goto-char current-point))
-        (lisp-indent-line)))))
+  (progn
+    (defun ielm-indent-line ()
+      (interactive)
+      (let ((current-point (point)))
+        (save-restriction
+          (narrow-to-region (search-backward-regexp "^ELISP>") (goto-char current-point))
+          (lisp-indent-line))))
+    (evil-leader/set-key-for-mode 'emacs-lisp-mode
+      "msi" 'ielm)))
+
+(defun emacs-lisp/post-init-company ()
+  (spacemacs|add-company-hook ielm-mode)
+  (push '(company-files company-capf) company-backends-ielm-mode))
 
 (defun emacs-lisp/post-init-eldoc ()
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
