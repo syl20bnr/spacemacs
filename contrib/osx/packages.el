@@ -69,7 +69,7 @@ Can be installed with `brew install trash'."
                (kbd "#") 'launchctl-unsetenv
                (kbd "h") 'launchctl-help))))
 
-(defun osx/init-reveal-in-finder ()
+(defun osx/init-reveal-in-osx-finder ()
   (use-package reveal-in-osx-finder
     :if (system-is-mac)
     :commands reveal-in-osx-finder))
