@@ -288,7 +288,9 @@
   (use-package smeargle
     :defer t
     :init
-    (evil-leader/set-key
-      "ghc" 'smeargle-clear
-      "ghh" 'smeargle-commits
-      "ght" 'smeargle)))
+    (progn
+      (spacemacs/declare-prefix "gh" "smeargle")
+      (evil-leader/set-key
+        "ghc" 'smeargle-clear
+        "ghh" 'smeargle-commits
+        "ght" 'smeargle))))

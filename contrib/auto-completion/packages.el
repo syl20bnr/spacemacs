@@ -273,6 +273,7 @@
         (interactive)
         (call-interactively 'aya-expand)
         (evil-insert-state))
+      (spacemacs/declare-prefix "iS" "auto-yasnippet")
       (evil-leader/set-key
         "iSc" 'aya-create
         "iSe" 'spacemacs/auto-yasnippet-expand
