@@ -456,7 +456,7 @@ LAYERS is a list of layer symbols."
         (let ((var (pop variables)))
           (if (consp variables)
               (condition-case err
-                  (set-default var (symbol-value (pop variables)))
+                  (set-default var (eval (pop variables)))
                 ('error
                  (configuration-layer//set-error)
                  (spacemacs-buffer/append
