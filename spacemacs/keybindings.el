@@ -96,6 +96,7 @@ Ensure that helm is required before calling FUNC."
 (spacemacs||set-helm-key "hdk" describe-key)
 (spacemacs||set-helm-key "hdm" describe-mode)
 (spacemacs||set-helm-key "hdp" describe-package)
+(evil-leader/set-key "hds" 'spacemacs/describe-system-info)
 (spacemacs||set-helm-key "hdt" describe-theme)
 (spacemacs||set-helm-key "hdv" describe-variable)
 (spacemacs||set-helm-key "hL" helm-locate-library)
@@ -109,7 +110,8 @@ Ensure that helm is required before calling FUNC."
   "eN" 'spacemacs/previous-error)
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key
-  "fD"  'delete-current-buffer-file
+  "fc" 'spacemacs/copy-file
+  "fD" 'delete-current-buffer-file
   "fei" 'find-user-init-file
   "fes" 'find-spacemacs-file
   "fec" 'find-contrib-file
@@ -119,15 +121,16 @@ Ensure that helm is required before calling FUNC."
   "fev" 'spacemacs/display-and-copy-version
   "fg" 'rgrep
   "fj" 'dired-jump
+  "fl" 'find-file-literally
   "fo" 'spacemacs/open-in-external-app
-  "fR"  'rename-current-buffer-file
+  "fR" 'rename-current-buffer-file
   "fS" 'evil-write-all
-  "fs" 'evil-write
+  "fs" 'spacemacs/write-file
   "fy" 'show-and-copy-buffer-filename)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
-  "iJ" 'spacemacs/insert-line-below-no-indent 
-  "iK" 'spacemacs/insert-line-above-no-indent 
+  "iJ" 'spacemacs/insert-line-below-no-indent
+  "iK" 'spacemacs/insert-line-above-no-indent
   "ik" 'evil-insert-line-above
   "ij" 'evil-insert-line-below)
 ;; format ---------------------------------------------------------------------
@@ -161,93 +164,93 @@ Ensure that helm is required before calling FUNC."
   "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (spacemacs|add-toggle highlight-current-line-globally
-                      :status global-hl-line-mode
-                      :on (global-hl-line-mode)
-                      :off (global-hl-line-mode -1)
-                      :documentation "Globally Highlight the current line."
-                      :evil-leader "thh")
+  :status global-hl-line-mode
+  :on (global-hl-line-mode)
+  :off (global-hl-line-mode -1)
+  :documentation "Globally Highlight the current line."
+  :evil-leader "thh")
 (spacemacs|add-toggle truncate-lines
-                      :status nil
-                      :on (toggle-truncate-lines)
-                      :documentation "Truncate the long lines (no wrap)."
-                      :evil-leader "tl")
+  :status nil
+  :on (toggle-truncate-lines)
+  :documentation "Truncate the long lines (no wrap)."
+  :evil-leader "tl")
 (spacemacs|add-toggle visual-line-navigation
-                      :status visual-line-mode
-                      :on (visual-line-mode)
-                      :off (visual-line-mode -1)
-                      :documentation "Move point according to visual lines."
-                      :evil-leader "tL")
+  :status visual-line-mode
+  :on (visual-line-mode)
+  :off (visual-line-mode -1)
+  :documentation "Move point according to visual lines."
+  :evil-leader "tL")
 (spacemacs|add-toggle line-numbers
-                      :status linum-mode
-                      :on (global-linum-mode)
-                      :off (global-linum-mode -1)
-                      :documentation "Show the line numbers."
-                      :evil-leader "tn")
+  :status linum-mode
+  :on (global-linum-mode)
+  :off (global-linum-mode -1)
+  :documentation "Show the line numbers."
+  :evil-leader "tn")
 (spacemacs|add-toggle auto-fill-mode
-                      :status auto-fill-function
-                      :on (auto-fill-mode)
-                      :off (auto-fill-mode -1)
-                      :documentation "Break line beyond `current-fill-column` while editing."
-                      :evil-leader "tF")
+  :status auto-fill-function
+  :on (auto-fill-mode)
+  :off (auto-fill-mode -1)
+  :documentation "Break line beyond `current-fill-column` while editing."
+  :evil-leader "tF")
 (spacemacs|add-toggle debug-on-error
-                      :status nil
-                      :on (toggle-debug-on-error)
-                      :documentation "Toggle display of backtrace when an error happens."
-                      :evil-leader "tD")
+  :status nil
+  :on (toggle-debug-on-error)
+  :documentation "Toggle display of backtrace when an error happens."
+  :evil-leader "tD")
 (spacemacs|add-toggle fringe
-                      :status (not (equal fringe-mode 0))
-                      :on (call-interactively 'fringe-mode)
-                      :off (fringe-mode 0)
-                      :documentation "Display the fringe in GUI mode."
-                      :evil-leader "Tf")
+  :status (not (equal fringe-mode 0))
+  :on (call-interactively 'fringe-mode)
+  :off (fringe-mode 0)
+  :documentation "Display the fringe in GUI mode."
+  :evil-leader "Tf")
 (spacemacs|add-toggle fullscreen-frame
-                      :status nil
-                      :on (spacemacs/toggle-frame-fullscreen)
-                      :documentation "Display the current frame in full screen."
-                      :evil-leader "TF")
+  :status nil
+  :on (spacemacs/toggle-frame-fullscreen)
+  :documentation "Display the current frame in full screen."
+  :evil-leader "TF")
 (spacemacs|add-toggle maximize-frame
-                      :if (version< "24.3.50" emacs-version)
-                      :status nil
-                      :on (toggle-frame-maximized)
-                      :documentation "Maximize the current frame."
-                      :evil-leader "TM")
+  :if (version< "24.3.50" emacs-version)
+  :status nil
+  :on (toggle-frame-maximized)
+  :documentation "Maximize the current frame."
+  :evil-leader "TM")
 (spacemacs|add-toggle mode-line
-                      :status hidden-mode-line-mode
-                      :on (hidden-mode-line-mode)
-                      :off (hidden-mode-line-mode -1)
-                      :documentation "Toggle the visibility of modeline."
-                      :evil-leader "tmt")
+  :status hidden-mode-line-mode
+  :on (hidden-mode-line-mode)
+  :off (hidden-mode-line-mode -1)
+  :documentation "Toggle the visibility of modeline."
+  :evil-leader "tmt")
 (spacemacs|add-toggle transparent-frame
-                      :status nil
-                      :on (toggle-transparency)
-                      :documentation "Make the current frame non-opaque."
-                      :evil-leader "TT")
+  :status nil
+  :on (spacemacs/toggle-transparency)
+  :documentation "Make the current frame non-opaque."
+  :evil-leader "TT")
 (spacemacs|add-toggle tool-bar
-                      :if window-system
-                      :status tool-bar-mode
-                      :on (tool-bar-mode)
-                      :off (tool-bar-mode -1)
-                      :documentation "Display the tool bar in GUI mode."
-                      :evil-leader "Tt")
+  :if window-system
+  :status tool-bar-mode
+  :on (tool-bar-mode)
+  :off (tool-bar-mode -1)
+  :documentation "Display the tool bar in GUI mode."
+  :evil-leader "Tt")
 (spacemacs|add-toggle menu-bar
-                      :if (or window-system (version<= "24.3.1" emacs-version))
-                      :status menu-bar-mode
-                      :on (menu-bar-mode)
-                      :off (menu-bar-mode -1)
-                      :documentation "Display the menu bar."
-                      :evil-leader "Tm")
+  :if (or window-system (version<= "24.3.1" emacs-version))
+  :status menu-bar-mode
+  :on (menu-bar-mode)
+  :off (menu-bar-mode -1)
+  :documentation "Display the menu bar."
+  :evil-leader "Tm")
 (spacemacs|add-toggle semantic-stickyfunc
-                      :status semantic-stickyfunc-mode
-                      :on (semantic-stickyfunc-mode)
-                      :off (semantic-stickyfunc-mode -1)
-                      :documentation "Enable semantic-stickyfunc."
-                      :evil-leader "Ts")
+  :status semantic-stickyfunc-mode
+  :on (semantic-stickyfunc-mode)
+  :off (semantic-stickyfunc-mode -1)
+  :documentation "Enable semantic-stickyfunc."
+  :evil-leader "Ts")
 (spacemacs|add-toggle semantic-stickfunc-globally
-                      :status global-semantic-stickyfunc-mode
-                      :on (global-semantic-stickyfunc-mode)
-                      :off (global-semantic-stickyfunc-mode -1)
-                      :documentation "Enable semantic-stickyfunc globally."
-                      :evil-leader "T C-s")
+  :status global-semantic-stickyfunc-mode
+  :on (global-semantic-stickyfunc-mode)
+  :off (global-semantic-stickyfunc-mode -1)
+  :documentation "Enable semantic-stickyfunc globally."
+  :evil-leader "T C-s")
 ;; quit -----------------------------------------------------------------------
 (evil-leader/set-key
   "qs" 'spacemacs/save-buffers-kill-emacs
@@ -503,3 +506,47 @@ otherwise it is scaled down."
   ("q" nil :exit t))
 
 ;; end of Text Manipulation Micro State
+
+;; Transparency micro-state
+
+(defun spacemacs/toggle-transparency ()
+  "Toggle between transparent or opaque display."
+  (interactive)
+  ;; Define alpha if it's nil
+  (if (eq (frame-parameter (selected-frame) 'alpha) nil)
+      (set-frame-parameter (selected-frame) 'alpha '(100 100)))
+  ;; Do the actual toggle
+  (if (/= (cadr (frame-parameter (selected-frame) 'alpha)) 100)
+      (set-frame-parameter (selected-frame) 'alpha '(100 100))
+    (set-frame-parameter (selected-frame) 'alpha
+                         (list dotspacemacs-active-transparency
+                               dotspacemacs-inactive-transparency)))
+  ;; Immediately enter the micro-state, but also keep toggle
+  ;; accessible from helm-spacemacs
+  (spacemacs/scale-transparency-micro-state))
+
+(defun spacemacs/increase-transparency ()
+  "Increase transparency of current frame."
+  (interactive)
+  (let* ((current-alpha (car (frame-parameter (selected-frame) 'alpha)))
+         (increased-alpha (- current-alpha 5)))
+    (when (>= increased-alpha frame-alpha-lower-limit)
+      (set-frame-parameter (selected-frame) 'alpha (list increased-alpha increased-alpha)))))
+
+(defun spacemacs/decrease-transparency ()
+  "Decrease transparency of current frame."
+  (interactive)
+  (let* ((current-alpha (car (frame-parameter (selected-frame) 'alpha)))
+         (decreased-alpha (+ current-alpha 5)))
+    (when (<= decreased-alpha 100)
+      (set-frame-parameter (selected-frame) 'alpha (list decreased-alpha decreased-alpha)))))
+
+(spacemacs|define-micro-state scale-transparency
+  :doc "[+] increase [-] decrease [T] toggle transparency [q] quit"
+  :bindings
+  ("+" spacemacs/increase-transparency)
+  ("-" spacemacs/decrease-transparency)
+  ("T" spacemacs/toggle-transparency)
+  ("q" nil :exit t))
+
+;; end of Transparency Micro State

@@ -13,9 +13,38 @@
   (expand-file-name (concat spacemacs-core-directory "templates/"))
   "Templates directory.")
 
+(defconst dotspacemacs-directory
+  (let* ((env (getenv "SPACEMACSDIR"))
+         (env-dir (when env (expand-file-name (concat env "/"))))
+         (no-env-dir-default (expand-file-name
+                              (concat user-home-directory
+                                      ".spacemacs.d/"))))
+    (cond
+     ((and env (file-exists-p env-dir))
+      env-dir)
+     ((file-exists-p no-env-dir-default)
+      no-env-dir-default)
+     (t
+      nil)))
+  "Optional spacemacs directory, which defaults to
+~/.spacemacs.d. This setting can be overridden using the
+SPACEMACSDIR environment variable. If neither of these
+directories exist, this variable will be nil.")
+
 (defconst dotspacemacs-filepath
-  (concat user-home-directory ".spacemacs")
-  "Filepath to the installed dotfile.")
+  (let* ((default (concat user-home-directory ".spacemacs"))
+         (spacemacs-dir-init (when dotspacemacs-directory
+                                 (concat dotspacemacs-directory
+                                         "init.el"))))
+    (if (and (not (file-exists-p default))
+             dotspacemacs-directory
+             (file-exists-p spacemacs-dir-init))
+        spacemacs-dir-init
+      default))
+  "Filepath to the installed dotfile. If ~/.spacemacs exists,
+then this is used. If ~/.spacemacs does not exist, then check
+for init.el in dotspacemacs-directory and use this if it
+exists. Otherwise, fallback to ~/.spacemacs")
 
 (defvar dotspacemacs-verbose-loading nil
   "If non nil output loading progess in `*Messages*' buffer.")
@@ -45,11 +74,11 @@ If the value is nil then no banner is displayed.")
   "List of configuration layers to load. If it is the symbol `all' instead
 of a list then all discovered layers will be installed.")
 
-(defvar dotspacemacs-themes '(solarized-light
+(defvar dotspacemacs-themes '(spacemacs-dark
+                              spacemacs-light
                               solarized-dark
-                              leuven
-                              monokai
-                              zenburn)
+                              solarized-light
+                              leuven)
   "List of themes, the first of the list is loaded when spacemacs starts.
 Press <SPC> T n to cycle to the next theme in the list (works great
 with 2 themes variants, one dark and one light")
@@ -141,8 +170,9 @@ it reaches the top or bottom of the screen.")
   "If non-nil smartparens-strict-mode will be enabled in programming modes.")
 
 (defvar dotspacemacs-highlight-delimiters 'all
-  "Select a scope to highlight delimiters. Possible value is `all', `current'
-or `nil'. Default is `all'")
+  "Select a scope to highlight delimiters. Possible values are `any',
+  `current', `all' or `nil'. Default is `all' (highlight any scope and
+  emphasis the current one.")
 
 (defvar dotspacemacs-delete-orphan-packages t
   "If non-nil spacemacs will delete any orphan packages, i.e. packages that are

@@ -15,7 +15,7 @@
     alchemist
     company
     elixir-mode
-    flycheck
+    popwin
     ruby-end
     ))
 
@@ -89,8 +89,10 @@
   (use-package elixir-mode
     :defer t))
 
-(defun elixir/post-init-flycheck ()
-  (add-hook 'elixir-mode-hook 'flycheck-mode))
+(defun elixir/pre-init-popwin ()
+  (spacemacs|use-package-add-hook popwin
+    :post-config
+    (push '("*mix*" :tail t :noselect t) popwin:special-display-config)))
 
 (defun elixir/init-ruby-end ()
   (use-package ruby-end

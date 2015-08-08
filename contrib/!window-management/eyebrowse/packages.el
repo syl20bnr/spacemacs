@@ -1,4 +1,4 @@
-;;; packages.el --- Colors Layer packages File for Spacemacs
+;;; packages.el --- Eyebrowse Layer packages File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -87,8 +87,9 @@
         ("9" eyebrowse-switch-to-window-config-9)
         ("<tab>" eyebrowse-last-window-config)
         ("C-i" eyebrowse-last-window-config)
+        ("c" eyebrowse-close-window-config)
         ("n" eyebrowse-next-window-config)
         ("N" eyebrowse-prev-window-config)
         ("p" eyebrowse-prev-window-config)
-        ("r" spacemacs/workspaces-ms-rename)
-        ("c" eyebrowse-close-window-config)))))
+        ("r" spacemacs/workspaces-ms-rename :exit t)
+        ("s" eyebrowse-switch-to-window-config :exit t)))))

@@ -7,7 +7,7 @@
 |
 <b><a href="doc/DOCUMENTATION.org#goals">goals</a></b>
 |
-<b><a href="doc/DOCUMENTATION.org#who-can-benefit-from-this-">for whom?</a></b>
+<b><a href="doc/DOCUMENTATION.org#user-content-who-can-benefit-from-this">for whom?</a></b>
 |
 <b><a href="doc/DOCUMENTATION.org#screenshots">screenshots</a></b>
 |
@@ -23,8 +23,51 @@
 
 **Quick Install:**
 
-    git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
+    git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-generate-toc again -->
+**Table of Contents**
+
+- [Introduction](#introduction)
+- [Features](#features)
+    - [Batteries Included](#batteries-included)
+    - [Nice UI](#nice-ui)
+    - [Excellent ergonomics](#excellent-ergonomics)
+    - [Convenient and Mnemonic Key Bindings](#convenient-and-mnemonic-key-bindings)
+        - [Great [Documentation][DOCUMENTATION.org]](#great-documentationdocumentationorg)
+- [Prerequisites](#prerequisites)
+    - [Emacs](#emacs)
+        - [Linux distros](#linux-distros)
+        - [OS X](#os-x)
+        - [Windows](#windows)
+- [Install](#install)
+    - [Spacemacs logo](#spacemacs-logo)
+- [Update](#update)
+    - [Update notification](#update-notification)
+    - [Rollback](#rollback)
+- [Configuration](#configuration)
+    - [Configuration layers](#configuration-layers)
+    - [Dotfile (.spacemacs)](#dotfile-spacemacs)
+    - [Dotdirectory (~/.spacemacs.d)](#dotdirectory-spacemacsd)
+- [Learning Spacemacs](#learning-spacemacs)
+    - [Editing Styles](#editing-styles)
+    - [The leader keys](#the-leader-keys)
+    - [Evil-tutor](#evil-tutor)
+    - [Universal argument](#universal-argument)
+    - [Configuration layers and Package discovery](#configuration-layers-and-package-discovery)
+    - [Key bindings discovery](#key-bindings-discovery)
+    - [Describe functions](#describe-functions)
+- [How-To's](#how-tos)
+- [Contributions](#contributions)
+- [License](#license)
+- [Special Credits](#special-credits)
+- [Supporting Spacemacs](#supporting-spacemacs)
+- [FAQ](#faq)
+    - [Common](#common)
+    - [Windows](#windows)
+    - [OS X](#os-x)
+
+<!-- markdown-toc end -->
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
 **Table of Contents**
 
@@ -141,8 +184,14 @@ are extensively documented.
 If you need help, ask your question in the [Gitter Chat][] and a member of the
 community will help you out.
 
+Tip: Run `SPC h d s` (it gathers info about your Spacemacs setup and copies to
+your clipboard) and then paste into the Gitter chat so that others know the
+basic info about your setup necessary to help diagnose any issues you may be
+facing.
+
 If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
 `#syl20bnr/spacemacs` channel.
+
 
 # Prerequisites
 
@@ -165,7 +214,7 @@ via [homebrew][] with the following commands:
 
 ```sh
 $ brew tap railwaycat/emacsmacport
-$ brew install emacs-mac --with-spacemacs-icon
+$ brew install emacs-mac --with-spacemacs-icon  # OR, brew cask install emacs-mac
 ```
 (The `with-spacemacs-icon` option uses the official spacemacs logo for the app bundle.)
 
@@ -203,7 +252,7 @@ To fix it change the owner of the directory `~/.emacs.d/server`:
 
 Source: [Stackoverflow][so-server-unsafe]
 
-For efficient searches we recommend to install `pt` [the platinum searcher][].
+For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 `pt` version 1.7.7 or higher is required.
 
 # Install
@@ -289,8 +338,8 @@ listed first.
 [configuration layers][config]. These layers are stacked on top of each other
 to achieve a custom configuration.
 
-`Spacemacs` uses the dotfile `~/.spacemacs` to control which layers to
-load. Within this file you may also generally configure certain features.
+By default `Spacemacs` uses the dotfile `~/.spacemacs` to control which layers
+to load. Within this file you may also generally configure certain features.
 
 ## Configuration layers
 
@@ -353,6 +402,12 @@ _without restarting_ `Spacemacs` by pressing <kbd>SPC f e R</kbd>.
 The [comments in this file][dotfile template] contain further information about
 how to customize `Spacemacs`. See the [dotfile configuration][dotfile] section of
 the documentation for more details.
+
+## Dotdirectory (~/.spacemacs.d)
+
+Like =Emacs=, Spacemacs initialization can also be contained in an =init.el= file
+in a special directory =~/.spacemacs.d=. The contents of the dotfile should be
+then copied in the =init.el= file.
 
 # Learning Spacemacs
 
@@ -438,7 +493,7 @@ We especially need to create more configuration layers that, for instance, bring
 support for new languages.
 
 If you are ready to contribute please begin by consulting the
-[contribution guidelines][CONTRIBUTE.org] and [conventions][CONVENTIONS.md],
+[contribution guidelines][CONTRIBUTE.org] and [conventions][CONVENTIONS.org],
 thanks!
 
 # License
@@ -519,8 +574,11 @@ the [emacs-mac-port][] build. See the [install OSX section][] for more
 details.
 
 [Twitter]: http://i.imgur.com/tXSoThF.png
+[CONTRIBUTE.org]: doc/CONTRIBUTE.org
 [CONVENTIONS.org]: doc/CONVENTIONS.org
+[DOCUMENTATION.org]: doc/DOCUMENTATION.org
 [HOWTOs.org]: doc/HOWTOs.org
+[VIMUSERS.org]: doc/VIMUSERS.org
 [config]: doc/DOCUMENTATION.org#configuration-layers
 [dotfile]: doc/DOCUMENTATION.org#dotfile-configuration
 [manage_config]: doc/DOCUMENTATION.org#managing-private-configuration-layers
@@ -534,9 +592,7 @@ details.
 [Evil Mode]: doc/DOCUMENTATION.org#evil
 [private]: ./private
 [layers]: ./contrib
-[DOCUMENTATION.org]: doc/DOCUMENTATION.org
 [font section]: doc/DOCUMENTATION.org#font
-[CONTRIBUTE.org]: doc/CONTRIBUTE.org
 [powerline-seps]: doc/DOCUMENTATION.org#powerline-separators
 [FAQ]: https://github.com/syl20bnr/spacemacs#faq
 [dotfile template]: ./core/templates/.spacemacs.template
@@ -552,7 +608,7 @@ details.
 [emacs-mac-port-server]: https://github.com/railwaycat/emacs-mac-port/blob/master/README-mac#L210-L213
 [homebrew]: https://github.com/Homebrew/homebrew
 [emacs-for-windows]: http://emacsbinw64.sourceforge.net/
-[the platinum searcher]:
+[the platinum searcher]: https://github.com/monochromegane/the_platinum_searcher
 [powerline-srgb-issue]: https://github.com/milkypostman/powerline/issues/54
 [powerline-doc]: doc/DOCUMENTATION.org#powerline-separators
 [so-server-unsafe]: http://stackoverflow.com/questions/885793/emacs-error-when-calling-server-start

@@ -80,15 +80,13 @@ a key sequence. NAME is a symbol name used as the prefix command."
       (define-prefix-command command)
       (evil-leader/set-key prefix command))))
 
-;; Waiting to fix the issue with guide-key before reactivating/updating this
-;; function
-;; (defun spacemacs/declare-prefix-for-mode (mode prefix name)
-;;   "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
-;; be added. PREFIX is a string describing a key sequence. NAME is a symbol name
-;; used as the prefix command."
-;;   (let ((command (intern (concat spacemacs/prefix-command-string name))))
-;;     (define-prefix-command command)
-;;     (evil-leader/set-key-for-mode mode prefix command)))
+(defun spacemacs/declare-prefix-for-mode (mode prefix name)
+  ;;   "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
+  ;; be added. PREFIX is a string describing a key sequence. NAME is a symbol name
+  ;; used as the prefix command."
+  (let ((command (intern (concat spacemacs/prefix-command-string name))))
+    (define-prefix-command command)
+    (evil-leader/set-key-for-mode mode prefix command)))
 
 (defun spacemacs/activate-major-mode-leader ()
   "Bind major mode key map to `dotspacemacs-major-mode-leader-key'."
@@ -237,10 +235,6 @@ the current state and point position."
     (set-mark p1)))
 
 ;; eval lisp helpers
-(defun spacemacs/eval-region ()
-  (interactive)
-  (eval-region (region-beginning) (region-end))
-  (evil-normal-state))
 
 ;; idea from http://www.reddit.com/r/emacs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
 (defun spacemacs/eval-current-form ()
@@ -283,19 +277,6 @@ the current state and point position."
       (set-register '_ (list (current-window-configuration)))
       (delete-other-windows)
       (bzg-big-fringe-mode 1))))
-
-(defun toggle-transparency ()
-  "Toggle between transparent or opaque display."
-  (interactive)
-  ;; Define alpha if it's nil
-  (if (eq (frame-parameter (selected-frame) 'alpha) nil)
-      (set-frame-parameter (selected-frame) 'alpha '(100 100)))
-  ;; Do the actual toggle
-  (if (/= (cadr (frame-parameter (selected-frame) 'alpha)) 100)
-      (set-frame-parameter (selected-frame) 'alpha '(100 100))
-    (set-frame-parameter (selected-frame) 'alpha
-                         (list dotspacemacs-active-transparency
-                               dotspacemacs-inactive-transparency))))
 
 (defun toggle-triple-double-column-mode ()
   " Toggle between triple columns and double columns mode quickly. "
@@ -661,12 +642,17 @@ For instance pass En as source for english."
 
 (defun spacemacs/insert-line-above-no-indent (count)
   (interactive "p")
-  (save-excursion
-    (evil-previous-line)
-    (evil-move-end-of-line)
-    (while (> count 0)
-      (insert "\n")
-      (setq count (1- count)))))
+  (let ((p (+ (point) count)))
+    (save-excursion
+       (if (eq (line-number-at-pos) 1)
+          (evil-move-beginning-of-line)
+        (progn
+          (evil-previous-line)
+          (evil-move-end-of-line)))
+      (while (> count 0)
+        (insert "\n")
+        (setq count (1- count))))
+    (goto-char p)))
 
 (defun spacemacs/insert-line-below-no-indent (count)
   "Insert a new line below with no identation."
@@ -967,6 +953,8 @@ The body of the advice is in BODY."
      (let ((transient-mark-mode nil))
        (yank-advised-indent-function (region-beginning) (region-end)))))
 
+;; BEGIN align functions
+
 ;; modified function from http://emacswiki.org/emacs/AlignCommands
 (defun align-repeat (start end regexp &optional justify-right after)
   "Repeat alignment with respect to the given regular expression.
@@ -1009,3 +997,42 @@ the right."
 (create-align-repeat-x "bar" "|")
 (create-align-repeat-x "left-paren" "(")
 (create-align-repeat-x "right-paren" ")" t)
+
+;; END align functions
+
+(defun spacemacs/write-file ()
+  "Write the file if visiting a file.
+   Otherwise ask for new filename."
+  (interactive)
+  (if (buffer-file-name)
+      (call-interactively 'evil-write)
+    (call-interactively 'write-file)))
+
+(defun spacemacs/copy-file ()
+  "Write the file under new name."
+  (interactive)
+  (call-interactively 'write-file))
+
+(defun spacemacs//imagep (object)
+  "Tests whether the given object is an image (a list whose
+first element is the symbol `image')."
+  (and (listp object)
+       object
+       (eq 'image (car object))))
+
+(defun spacemacs//intersperse (seq separator)
+  "Returns a list with `SEPARATOR' added between each element
+of the list `SEQ'."
+  (cond
+   ((not seq) nil)
+   ((not (cdr seq)) seq)
+   (t (append (list (car seq) separator)
+              (spacemacs//intersperse (cdr seq) separator)))))
+
+(defun spacemacs//mode-line-nonempty (seg)
+  "Checks whether a modeline segment (classical Emacs style)
+is nonempty."
+  (let ((val (format-mode-line seg)))
+    (cond ((listp val) val)
+          ((stringp val) (< 0 (length val)))
+          (t))))

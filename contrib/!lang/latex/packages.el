@@ -94,8 +94,9 @@
       (progn
         (push 'company-auctex-labels company-backends-LaTeX-mode)
         (push 'company-auctex-bibs company-backends-LaTeX-mode)
-        (push '(company-auctex-macros company-auctex-symbols company-auctex-environments)
-              company-backends-LaTeX-mode)))))
+        (push '(company-auctex-macros
+                company-auctex-symbols
+                company-auctex-environments) company-backends-LaTeX-mode)))))
 
 (defun latex/post-init-evil-matchit ()
   (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))

@@ -36,6 +36,13 @@
         (interactive)
         (racket-test t))
 
+      (defun spacemacs/racket-run-and-switch-to-repl ()
+        "Call `racket-run-and-switch-to-repl' and enable
+`insert state'."
+        (interactive)
+        (racket-run-and-switch-to-repl)
+        (evil-insert-state))
+
       (defun spacemacs/racket-send-last-sexp-focus ()
         "Call `racket-send-last-sexp' and switch to REPL buffer in
 `insert state'."
@@ -73,7 +80,7 @@
         "mil" 'racket-insert-lambda
         ;; REPL
         "msb" 'racket-run
-        "msB" 'racket-run-and-switch-to-repl
+        "msB" 'spacemacs/racket-run-and-switch-to-repl
         "mse" 'racket-send-last-sexp
         "msE" 'spacemacs/racket-send-last-sexp-focus
         "msf" 'racket-send-definition
@@ -85,4 +92,9 @@
         ;; Tests
         "mtb" 'racket-test
         "mtB" 'spacemacs/racket-test-with-coverage)
-      (define-key racket-mode-map (kbd "H-r") 'racket-run))))
+      (define-key racket-mode-map (kbd "H-r") 'racket-run)
+      ;; remove racket auto-insert of closing delimiter
+      ;; see https://github.com/greghendershott/racket-mode/issues/140
+      (define-key racket-mode-map ")" 'self-insert-command)
+      (define-key racket-mode-map "]" 'self-insert-command)
+      (define-key racket-mode-map "}" 'self-insert-command))))

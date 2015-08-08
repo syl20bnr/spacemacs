@@ -25,14 +25,18 @@ The variable name format is company-backends-MODE."
 MODE must match the symbol passed in `spacemacs|defvar-company-backends'.
 The initialization function is hooked to `MODE-hook'."
   (let ((mode-hook (intern (format "%S-hook" mode)))
-        (func (intern (format "spacemacs//init-company-%S" mode))))
+        (func (intern (format "spacemacs//init-company-%S" mode)))
+        (backend-list (intern (format "company-backends-%S" mode))))
     `(when (configuration-layer/package-usedp 'company)
        (defun ,func ()
          ,(format "Initialize company for %S" mode)
          (set (make-variable-buffer-local 'auto-completion-front-end)
               'company)
          (set (make-variable-buffer-local 'company-backends)
-              ,(intern (format "company-backends-%S" mode))))
+              ,backend-list))
+       (when auto-completion-enable-snippets-in-popup
+         (setq ,backend-list (mapcar 'spacemacs//show-snippets-in-company
+                                     ,backend-list)))
        (add-hook ',mode-hook ',func t)
        (add-hook ',mode-hook 'company-mode t))))
 
@@ -45,6 +49,13 @@ MODE parameter must match the parameter used in the call to
     `(progn
        (remove-hook ',mode-hook ',func)
        (remove-hook ',mode-hook 'company-mode))))
+
+(defun spacemacs//show-snippets-in-company (backend)
+  (if (or (not auto-completion-enable-snippets-in-popup)
+          (and (listp backend) (member 'company-yasnippet backend)))
+      backend
+    (append (if (consp backend) backend (list backend))
+            '(:with company-yasnippet))))
 
 ;; Auto-complete -------------------------------------------------------------
 

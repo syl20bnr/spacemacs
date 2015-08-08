@@ -13,6 +13,7 @@
      - [[#org-with-evil-org-mode][Org with evil-org-mode]]
          - [[#element-insertion][Element insertion]]
          - [[#org-emphasize][Org emphasize]]
+         - [[#tagging][Tagging]]
      - [[#pomodoro][Pomodoro]]
      - [[#presentation][Presentation]]
      - [[#org-repo-todo][Org-repo-todo]]
@@ -138,6 +139,11 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m x u~ | make region underline      |
 | ~SPC m x v~ | make region verbose        |
 
+*** Tagging
+
+| Key Binding | Description  |
+|-------------+--------------|
+| ~SPC m :~   | org-set-tags |
 ** Pomodoro
 
 | Key Binding | Description       |

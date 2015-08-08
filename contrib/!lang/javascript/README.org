@@ -6,6 +6,7 @@
  - [[#description][Description]]
      - [[#features][Features:]]
  - [[#install][Install]]
+ - [[#configuration][Configuration]]
  - [[#key-bindings][Key Bindings]]
      - [[#js2-mode][js2-mode]]
      - [[#folding-js2-mode][Folding (js2-mode)]]
@@ -13,6 +14,7 @@
      - [[#formatting-web-beautify][Formatting (web-beautify)]]
          - [[#documentation-js-doc][Documentation (js-doc)]]
      - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
+     - [[#json][JSON]]
 
 * Description
 
@@ -24,6 +26,7 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - Auto-completion and documentation: provided by [[http://ternjs.net/][tern]]
 - CoffeeScript support
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
+- Get the path to a JSON value with [[https://github.com/Sterlingg/json-snatcher][json-snatcher]]
   
 * Install
 
@@ -41,6 +44,20 @@ documentation features:
 To use the formatting features, install =js-beautify=:
 #+BEGIN_SRC sh
   $ npm install -g js-beautify
+#+END_SRC
+
+* Configuration
+
+To change how js2-mode indents code, set the variable =js2-basic-offset=, as such:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default js2-basic-offset 2)
+#+END_SRC
+
+Similarly, to change how js-mode indents JSON files, set the variable =js-indent-level=, as such:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default js-indent-level 2)
 #+END_SRC
 
 * Key Bindings
@@ -126,3 +143,9 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | ~SPC m h d~   | find docs of the thing under the cursor. Press again to open the associated URL (if any) |
 | ~SPC m h t~   | find the type of the thing under the cursor                                              |
 | ~SPC m r r V~ | rename variable under the cursor using tern                                              |
+
+** JSON
+
+| Key Binding | Description                        |
+|-------------+------------------------------------|
+| ~SPC m h p~ | Get the path of the value at point |

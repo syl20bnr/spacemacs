@@ -13,11 +13,24 @@
 ;; Without this comment emacs25 adds (package-initialize) here
 ;; (package-initialize)
 
-(defconst spacemacs-version          "0.103.0" "Spacemacs version.")
+(defconst spacemacs-version          "0.104.0" "Spacemacs version.")
 (defconst spacemacs-emacs-min-version   "24.3" "Minimal version of Emacs.")
 
 (defun spacemacs/emacs-version-ok ()
   (version<= spacemacs-emacs-min-version emacs-version))
+
+(defun spacemacs/this-file ()
+  "Return true path to this file."
+  (cond
+   (load-in-progress load-file-name)
+   ((and (boundp 'byte-compile-current-file) byte-compile-current-file)
+    byte-compile-current-file)
+   (:else (buffer-file-name))))
+
+;; Always use emacs.d/ of the init.el supplied
+(setq user-emacs-directory (file-name-directory
+                            (file-truename
+                             (spacemacs/this-file))))
 
 (when (spacemacs/emacs-version-ok)
   (load-file (concat user-emacs-directory "core/core-load-paths.el"))
@@ -25,7 +38,7 @@
   (require 'core-configuration-layer)
   (spacemacs/init)
   (configuration-layer/sync)
-  (spacemacs/setup-after-init-hook)
+  (spacemacs/setup-startup-hook)
   (spacemacs/maybe-install-dotfile)
   (require 'server)
   (unless (server-running-p) (server-start)))

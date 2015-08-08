@@ -1,0 +1,21 @@
+#+TITLE: Terraform contribution layer for Spacemacs
+
+[[file:img/terraform.png]]
+
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+
+This layer provides syntax support for Terraform `.tf` files using
+[terraform-mode](https://github.com/syohex/emacs-terraform-mode).
+
+* Install
+
+To use this layer add it to your `~/.spacemacs`
+
+#+BEGIN_SRC emacs-lisp
+ (setq-default dotspacemacs-configuration-layers '(terraform)')
+#+END_SRC

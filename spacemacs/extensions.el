@@ -25,7 +25,6 @@
     helm-spacemacs
     solarized-theme
     spacemacs-theme
-    spray
     zoom-frm
     ;; hack to be able to wrap built-in emacs modes in an init function
     emacs-builtin-process-menu
@@ -51,19 +50,19 @@
     :init
     (progn
       (spacemacs|add-toggle centered-point
-                            :status centered-cursor-mode
-                            :on (centered-cursor-mode)
-                            :off (centered-cursor-mode -1)
-                            :documentation
-                            "Keep point always at the center of the window."
-                            :evil-leader "t-")
+        :status centered-cursor-mode
+        :on (centered-cursor-mode)
+        :off (centered-cursor-mode -1)
+        :documentation
+        "Keep point always at the center of the window."
+        :evil-leader "t-")
       (spacemacs|add-toggle centered-point-globally
-                            :status centered-cursor-mode
-                            :on (global-centered-cursor-mode)
-                            :off (global-centered-cursor-mode -1)
-                            :documentation
-                            "Globally keep point always at the center of the window."
-                            :evil-leader "t C--"))
+        :status centered-cursor-mode
+        :on (global-centered-cursor-mode)
+        :off (global-centered-cursor-mode -1)
+        :documentation
+        "Globally keep point always at the center of the window."
+        :evil-leader "t C--"))
     :config
     (progn
       (custom-set-variables
@@ -83,11 +82,11 @@
       (when (eq 'emacs dotspacemacs-editing-style)
         (holy-mode))
       (spacemacs|add-toggle holy-mode
-                            :status holy-mode
-                            :on (holy-mode)
-                            :off (holy-mode -1)
-                            :documentation "Globally toggle the holy mode."
-                            :evil-leader "P <tab>" "P C-i"))))
+        :status holy-mode
+        :on (holy-mode)
+        :off (holy-mode -1)
+        :documentation "Globally toggle the holy mode."
+        :evil-leader "P <tab>" "P C-i"))))
 
 (defun spacemacs/init-helm-spacemacs ()
   (use-package helm-spacemacs
@@ -95,50 +94,12 @@
     :init
     (evil-leader/set-key "feh" 'helm-spacemacs)))
 
-(defun spacemacs/init-revive ()
-  (use-package revive
-    :disabled t
-    :init
-    (require 'revive-mode-config)
-    :config
-    (progn
-      ;; save and restore layout
-      (add-hook 'kill-emacs-hook 'emacs-save-layout)
-      (add-hook 'after-init-hook 'emacs-load-layout t))))
-
-(defun spacemacs/init-spray ()
-  (use-package spray
-    :commands spray-mode
-    :init
-    (progn
-      (defun spacemacs/start-spray ()
-        "Start spray speed reading on current buffer at current point."
-        (interactive)
-        (evil-insert-state)
-        (spray-mode t)
-        (evil-insert-state-cursor-hide))
-      (evil-leader/set-key "asr" 'spacemacs/start-spray)
-
-      (defadvice spray-quit (after spacemacs//quit-spray activate)
-        "Correctly quit spray."
-        (set-default-evil-insert-state-cursor)
-        (evil-normal-state)))
-    :config
-    (progn
-      (define-key spray-mode-map (kbd "h") 'spray-backward-word)
-      (define-key spray-mode-map (kbd "l") 'spray-forward-word)
-      (define-key spray-mode-map (kbd "q") 'spray-quit))))
-
 (defun spacemacs/init-solarized-theme ()
   (use-package solarized
     :init
     (progn
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))))
-
-(defun spacemacs/init-spacemacs-theme ()
-  (let ((path (configuration-layer/get-layer-property 'spacemacs :ext-dir)))
-    (add-to-list 'custom-theme-load-path (concat path "spacemacs-theme"))))
 
 (defun spacemacs/init-zoom-frm ()
   (use-package zoom-frm

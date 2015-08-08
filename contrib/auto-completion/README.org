@@ -7,6 +7,7 @@
      - [[#key-bindings][Key bindings]]
      - [[#tooltips][Tooltips]]
      - [[#sort-results-by-usage][Sort results by usage]]
+     - [[#show-snippets-in-auto-completion-popup][Show snippets in auto-completion popup]]
      - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
      - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
      - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
@@ -61,6 +62,9 @@ layer variables:
    as been entered quickly enough. If its value is =nil= then the feature is
    disabled.
 
+4. =auto-completion-private-snippets-directory= is a path to your private
+   snippets directory. If its value is =nil= then the spacemacs default is used.
+
 The default configuration of the layer is:
 
 #+BEGIN_SRC emacs-lisp
@@ -68,7 +72,8 @@ The default configuration of the layer is:
   (auto-completion :variables
                    auto-completion-return-key-behavior 'complete
                    auto-completion-tab-key-behavior 'cycle
-                   auto-completion-complete-with-key-sequence nil)
+                   auto-completion-complete-with-key-sequence nil
+                   auto-completion-private-snippets-directory nil)
                    ))
 #+END_SRC
 
@@ -97,6 +102,17 @@ The variable has no effect when =auto-complete= is used.
 (setq-default dotspacemacs-configuration-layers
   '(auto-completion :variables
                     auto-completion-enable-sort-by-usage t))
+#+END_SRC
+
+** Show snippets in auto-completion popup
+
+By default, snippets are not shown in the auto-completion popup. To show them in
+the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+                '((auto-completion :variables
+                                   auto-completion-enable-snippets-in-popup t))
 #+END_SRC
 
 ** Enable company or auto-complete globally

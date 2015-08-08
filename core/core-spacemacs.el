@@ -96,7 +96,6 @@ initialization."
   ;; tooltips in echo-aera
   (when (and (fboundp 'tooltip-mode) (not (eq tooltip-mode -1)))
     (tooltip-mode -1))
-  (setq tooltip-use-echo-area t)
   (unless (eq window-system 'mac)
     (when (and (fboundp 'menu-bar-mode) (not (eq menu-bar-mode -1)))
       (menu-bar-mode -1)))
@@ -115,15 +114,27 @@ initialization."
   (setq-default evil-want-C-u-scroll t)
   ;; Initializing configuration from ~/.spacemacs
   (dotspacemacs|call-func dotspacemacs/init "Executing user init...")
+  ;; mandatory dependencies
   ;; dash is required to prevent a package.el bug with f on 24.3.1
   (spacemacs/load-or-install-package 'dash t)
+  (spacemacs/load-or-install-package 's t)
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-package 'bind-key t)
   (spacemacs/load-or-install-package 'use-package t)
   (setq use-package-verbose dotspacemacs-verbose-loading)
+  ;; package-build is required by quelpa
+  (spacemacs/load-or-install-package 'package-build t)
+  (setq quelpa-verbose dotspacemacs-verbose-loading
+        quelpa-dir (concat spacemacs-cache-directory "quelpa/")
+        quelpa-build-dir (expand-file-name "build" quelpa-dir)
+        quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
+        quelpa-update-melpa-p nil)
+  (spacemacs/load-or-install-package 'quelpa t)
   ;; inject use-package hooks for easy customization of
   ;; stock package configuration
   (setq use-package-inject-hooks t)
+  ;; which-key
+  (spacemacs/load-or-install-package 'which-key t)
   ;; evil and evil-leader must be installed at the beginning of the
   ;; boot sequence.
   ;; Use C-u as scroll-up (must be set before actually loading evil)
@@ -133,7 +144,7 @@ initialization."
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
   (spacemacs/set-new-version-lighter-mode-line-faces)
-  (add-hook 'after-init-hook 'spacemacs-buffer/goto-link-line)
+  (add-hook 'emacs-startup-hook 'spacemacs-buffer/goto-link-line)
   (spacemacs-mode))
 
 (defun spacemacs//get-package-directory (pkg)
@@ -142,13 +153,13 @@ initialization."
     (when (file-exists-p elpa-dir)
       (let ((dir (reduce (lambda (x y) (if x x y))
                          (mapcar (lambda (x)
-                                   (if (string-match
-                                        (concat "/"
-                                                (symbol-name pkg)
-                                                "-[0-9]+") x) x))
+                                   (when (string-match
+                                          (concat "/"
+                                                  (symbol-name pkg)
+                                                  "-[0-9]+") x) x))
                                  (directory-files elpa-dir 'full))
                          :initial-value nil)))
-        (if dir (file-name-as-directory dir))))))
+        (when dir (file-name-as-directory dir))))))
 
 (defun spacemacs/load-or-install-package (pkg &optional log file-to-load)
   "Load PKG package. PKG will be installed if it is not already installed.
@@ -198,10 +209,10 @@ FILE-TO-LOAD is an explicit file to load after the installation."
   "Change the default welcome message of minibuffer to another one."
   (message "Spacemacs is ready."))
 
-(defun spacemacs/setup-after-init-hook ()
+(defun spacemacs/setup-startup-hook ()
   "Add post init processing."
   (add-hook
-   'after-init-hook
+   'emacs-startup-hook
    (lambda ()
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file
@@ -227,5 +238,26 @@ FILE-TO-LOAD is an explicit file to load after the installation."
                 configuration-layer-error-count))
        (force-mode-line-update))
      (spacemacs/check-for-new-version spacemacs-version-check-interval))))
+
+(defun spacemacs/describe-system-info ()
+  "Gathers info about your Spacemacs setup and copies to clipboard."
+  (interactive)
+  (let ((sysinfo (format
+                  (concat "#### System Info\n"
+                          "- OS: %s\n"
+                          "- Emacs: %s\n"
+                          "- Spacemacs: %s\n"
+                          "- Spacemacs branch: %s\n"
+                          "- Layers:\n```elisp\n%s```\n")
+                  system-type
+                  emacs-version
+                  spacemacs-version
+                  (spacemacs/git-get-current-branch)
+                  (pp dotspacemacs-configuration-layers))))
+    (kill-new sysinfo)
+    (message sysinfo)
+    (message (concat "Information has been copied to clipboard.\n"
+                     "You can paste it in the gitter chat.\n"
+                     "Check the *Messages* buffer if you need to review it"))))
 
 (provide 'core-spacemacs)

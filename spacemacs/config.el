@@ -47,7 +47,6 @@
                                        ("T" .  "toggles/themes")
                                        ("w" .  "windows")
                                        ("wp" . "windows-popup")
-                                       ("wS" . "windows-size")
                                        ("x" .  "text")
                                        ("xa" . "text-align")
                                        ("xd" . "text-delete")
@@ -143,17 +142,8 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 
 ;; Use system trash for file deletion
 ;; should work on Windows and Linux distros
-;; on OS X, install `trash' from `homebrew'
+;; on OS X, see contrib/osx layer
 (setq delete-by-moving-to-trash t)
-(when (system-is-mac)
-  ;; use trash if installed
-  (if (executable-find "trash")
-      (defun system-move-file-to-trash (file)
-        "Use `trash' to move FILE to the system trash.
-Can be installed with `brew install trash'."
-        (call-process (executable-find "trash") nil 0 nil file))
-    ;; regular move to trash directory
-    (setq trash-directory "~/.Trash/emacs")))
 
 ;; auto fill breaks line beyond current-fill-column
 (setq-default default-fill-column 80)
@@ -165,8 +155,14 @@ Can be installed with `brew install trash'."
 ;; Save clipboard contents into kill-ring before replace them
 (setq save-interprogram-paste-before-kill t)
 
-;; Single space between sentencs is more widespread than double
+;; Single space between sentences is more widespread than double
 (setq-default sentence-end-double-space nil)
+
+;; The C-d rebinding that most shell-like buffers inherit from
+;; comint-mode assumes non-evil configuration with its
+;; `comint-delchar-or-maybe-eof' function, so we disable it
+(eval-after-load 'comint
+  '(define-key comint-mode-map (kbd "C-d") nil))
 
 ;; ---------------------------------------------------------------------------
 ;; UI
@@ -205,6 +201,10 @@ Can be installed with `brew install trash'."
       (spacemacs/toggle-frame-fullscreen)
     (if dotspacemacs-maximized-at-startup
         (add-hook 'window-setup-hook 'toggle-frame-maximized))))
+
+(defvar spacemacs--global-mode-line-excludes nil
+  "List of elements to exclude from the global modeline string.
+These should have their own segments in the modeline.")
 
 ;; ---------------------------------------------------------------------------
 ;; Session

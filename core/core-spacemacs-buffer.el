@@ -31,20 +31,21 @@ version the release note it displayed")
   "Previous type of note inserted.")
 
 (defun spacemacs-buffer/insert-banner-and-buttons ()
-  "Choose a banner accordingly to `dotspacemacs-startup-banner'and insert it
-in spacemacs buffer along whith quick buttons underneath.
+  "Choose a banner according to `dotspacemacs-startup-banner'and insert it
+in spacemacs buffer along with quick buttons underneath.
 
 Easter egg:
 Doge special text banner can be reachable via `999', `doge' or `random*'.
 `random' ignore special banners whereas `random*' does not."
   (let ((banner (spacemacs-buffer//choose-banner))
         (buffer-read-only nil))
-    (when banner
-      (spacemacs-buffer/message (format "Banner: %s" banner))
-      (if (image-type-available-p (intern (file-name-extension banner)))
-          (spacemacs-buffer//insert-image-banner banner)
-        (insert-file-contents banner))
-      (spacemacs-buffer//inject-version)
+    (progn
+      (when banner
+        (spacemacs-buffer/message (format "Banner: %s" banner))
+        (if (image-type-available-p (intern (file-name-extension banner)))
+            (spacemacs-buffer//insert-image-banner banner)
+          (insert-file-contents banner))
+        (spacemacs-buffer//inject-version))
       (spacemacs-buffer//insert-buttons)
       (if (file-exists-p spacemacs-buffer--cache-file)
           (load spacemacs-buffer--cache-file)
@@ -60,7 +61,7 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
                  (or (not spacemacs-buffer--release-note-version)
                      (version< spacemacs-buffer--release-note-version
                                spacemacs-version)))
-        (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.103.txt")
+        (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.104.txt")
                                       'release-note))
       (spacemacs//redisplay))))
 
@@ -87,7 +88,7 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
       (spacemacs-buffer/warning (format "could not find banner %s"
                                         dotspacemacs-startup-banner))
       (spacemacs-buffer//get-banner-path 1))
-   (spacemacs-buffer//get-banner-path 1))))
+    (spacemacs-buffer//get-banner-path 1))))
 
 (defun spacemacs-buffer//choose-random-text-banner (&optional all)
   "Return the full path of a banner chosen randomly.
@@ -106,7 +107,8 @@ If ALL is non-nil then truly all banners can be selected."
 (defun spacemacs-buffer//insert-image-banner (banner)
   "Display an image banner."
   (when (file-exists-p banner)
-    (let* ((spec (create-image banner))
+    (let* ((title "[S P A C E M A C S]")
+           (spec (create-image banner))
            (size (image-size spec))
            (width (car size))
            (left-margin (floor (- spacemacs-buffer--banner-length width) 2)))
@@ -115,7 +117,9 @@ If ALL is non-nil then truly all banners can be selected."
       (insert (make-string (- left-margin 1) ?\ ))
       (insert-image spec)
       (insert "\n\n")
-      (insert "                           [S P A C E M A C S]\n\n"))))
+      (insert (make-string (+ left-margin
+                              (floor (/ (- width (length title)) 2))) ?\ ))
+      (insert (format "%s\n\n" title)))))
 
 (defun spacemacs-buffer//inject-version ()
   "Inject the current version of spacemacs in the first line of the
@@ -223,12 +227,12 @@ If TYPE is nil, just remove widgets."
                                                    :action (lambda (&rest ignore)
                                                              (funcall 'spacemacs/view-org-file
                                                                       (concat user-emacs-directory "CHANGELOG.org")
-                                                                      "Release 0.103.x"
+                                                                      "Release 0.104.x"
                                                                       'subtree))
                                                    :mouse-face 'highlight
                                                    :follow-link "\C-m")))))
     (spacemacs-buffer//insert-note file
-                                   " Important Notes (Release 0.103.x) "
+                                   " Important Notes (Release 0.104.x) "
                                    widget-func))
 
   (setq spacemacs-buffer--release-note-version nil)
@@ -332,7 +336,7 @@ The vertical spacing is always one line."
       (delete-char -1))
     (let* ((hpadding (or hpadding 1))
            (fill-column (if width
-                            (- width hpadding)
+                            (- width (+ 2 (* 2 hpadding)))
                           fill-column))
            (sentence-end-double-space nil)
            (caption-len (length caption)))
@@ -395,7 +399,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
 
 (defun spacemacs-buffer//insert-buttons ()
   (goto-char (point-max))
-  (insert "    ")
+  (insert "     ")
   (spacemacs//insert--shortcut "m" "[?]" t)
   (widget-create 'url-link
                  :tag (propertize "?" 'face 'font-lock-doc-face)
@@ -443,12 +447,12 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :follow-link "\C-m"
                  (propertize "Rollback" 'face 'font-lock-keyword-face))
   (insert "\n")
-  (insert "                 ")
+  (insert "                  ")
   (widget-create 'push-button
                  :tag (propertize "Release Notes" 'face 'font-lock-preprocessor-face)
                  :help-echo "Hide or show the Changelog"
                  :action (lambda (&rest ignore)
-                           (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.103.txt")
+                           (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.104.txt")
                                                          ;; if nil is returned, just delete the current note widgets
                                                          (spacemacs-buffer//insert-note-p 'release-note)))
                  :mouse-face 'highlight
@@ -478,6 +482,22 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                            (abbreviate-file-name el)))
           list)))
 
+(defun spacemacs-buffer//insert-bookmark-list (list-display-name list)
+  (when (car list)
+    (insert list-display-name)
+    (mapc (lambda (el)
+            (insert "\n    ")
+            (widget-create 'push-button
+                           :action `(lambda (&rest ignore) (bookmark-jump ,el))
+                           :mouse-face 'highlight
+                           :follow-link "\C-m"
+                           :button-prefix ""
+                           :button-suffix ""
+                           :format "%[%t%]"
+                           (format "%s - %s" el (abbreviate-file-name
+                                                 (bookmark-get-filename el)))))
+          list)))
+
 (defun spacemacs-buffer/insert-startupify-lists ()
   (interactive)
   (with-current-buffer (get-buffer-create "*spacemacs*")
@@ -495,7 +515,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                   (insert list-separator)))
                ((eq el 'bookmarks)
                 (helm-mode)
-                (when (spacemacs-buffer//insert-file-list "Bookmarks:" (mapcar 'bookmark-get-filename (bookmark-all-names)))
+                (when (spacemacs-buffer//insert-bookmark-list "Bookmarks:" (bookmark-all-names))
                   (spacemacs//insert--shortcut "m" "Bookmarks:")
                   (insert list-separator)))
                ((eq el 'projects)
@@ -507,12 +527,10 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
 (defun spacemacs-buffer/goto-link-line ()
   "Move the point to the beginning of the link line."
   (interactive)
-  (when (and dotspacemacs-startup-banner
-             (not configuration-layer-error-count))
-    (with-current-buffer spacemacs-buffer-name
-      (goto-char (point-min))
-      (re-search-forward "Homepage")
-      (beginning-of-line)
-      (widget-forward 1))))
+  (with-current-buffer spacemacs-buffer-name
+    (goto-char (point-min))
+    (re-search-forward "Homepage")
+    (beginning-of-line)
+    (widget-forward 1)))
 
 (provide 'core-spacemacs-buffer)

@@ -20,7 +20,7 @@
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
 
 ** Features
-- Auto-completion with company-auctex
+- Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]]
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
 
@@ -95,7 +95,7 @@ The variable =latex-nofill-env= provide the list of environment names where
 | ~SPC m p p~ | preview at point                                        |
 | ~SPC m p f~ | cache preamble for preview                              |
 | ~SPC m p c~ | clear previews                                          |
-| ~SPC m v  ~ | view                                                    |
+| ~SPC m v~   | view                                                    |
 
 
 ** RefTeX

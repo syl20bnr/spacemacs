@@ -31,7 +31,7 @@
     (progn
       (evil-leader/set-key-for-mode 'org-mode
            "a" nil "ma" 'org-agenda
-           "b" nil "mb" 'org-tree-to-indirect-buffer 
+           "b" nil "mb" 'org-tree-to-indirect-buffer
            "c" nil "mA" 'org-archive-subtree
            "o" nil "mC" 'evil-org-recompute-clocks
            "l" nil "mo" 'evil-org-open-links
@@ -46,7 +46,9 @@
     :defer t
     :init
     (progn
-      (setq org-log-done t
+      (setq org-clock-persist-file
+            (concat spacemacs-cache-directory "org-clock-save.el")
+            org-log-done t
             org-startup-with-inline-images t
             org-src-fontify-natively t)
 
@@ -78,6 +80,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "md" 'org-deadline
         "me" 'org-export-dispatch
         "mf" 'org-set-effort
+        "m:" 'org-set-tags
 
         ;; headings
         "mhi" 'org-insert-heading-after-current
@@ -197,8 +200,11 @@ Will work on both org-mode and any mode that accepts plain html."
 
 (defun org/init-toc-org ()
   (use-package toc-org
+    :defer t
     :init
-    (add-hook 'org-mode-hook 'toc-org-enable)))
+    (progn
+      (setq toc-org-max-depth 10)
+      (add-hook 'org-mode-hook 'toc-org-enable))))
 
 (defun org/init-htmlize ()
  (use-package htmlize

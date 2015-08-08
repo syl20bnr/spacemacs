@@ -1,0 +1,74 @@
+#+TITLE: Cscope contribution layer for Spacemacs
+
+[[file:img/cscope.png]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+     - [[#layer][Layer]]
+     - [[#cscope][Cscope]]
+     - [[#pycscope][PyCscope]]
+ - [[#usage][Usage]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+This layer provides bindings for using [[http://cscope.sourceforge.net][Cscope]] and [[https://github.com/portante/pycscope][PyCscope]] in Spacemacs.
+
+=Cscope= provides indexing and searching capabilities for C and C++ code.
+=PyCscope= extends these capabilities for Python code as well. See
+[[https://github.com/OpenGrok/OpenGrok/wiki/Comparison-with-Similar-Tools][here]] for a comparison between =Cscope= and other similar tools (such as gtags).
+
+* Install
+** Layer
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(cscope))
+#+END_SRC
+
+** Cscope
+Install =Cscope= through your package manager, or download it from the
+[[http://cscope.sourceforge.net/#downloads][website]] and build it from source.
+
+From package manager (for example, Ubuntu):
+
+#+BEGIN_SRC sh
+sudo apt-get install cscope
+#+END_SRC
+
+From source:
+
+#+BEGIN_SRC sh
+tar xvf cscope-15.8b
+cd cscope-15.8b
+./configure
+make
+sudo make install
+#+END_SRC
+
+** PyCscope
+Install PyCscope through pip:
+
+#+BEGIN_SRC sh
+pip install pycscope
+#+END_SRC
+
+* Usage
+
+Before using any helm-cscope commands, remember to create a Cscope index file.
+Do it by running the command =cscope-index-files= for C and C++ projects, or the
+command =cscope/run-pycscope= for Python projects, bound to ~SPC m g i~.
+
+* Key bindings
+
+| Key Binding | Description                                   |
+|-------------+-----------------------------------------------|
+| ~SPC m g c~ | find which functions are called by a function |
+| ~SPC m g C~ | find where a function is called               |
+| ~SPC m g d~ | find global definition of a symbol            |
+| ~SPC m g e~ | search regular expression                     |
+| ~SPC m g f~ | find a file                                   |
+| ~SPC m g F~ | find which files include a file               |
+| ~SPC m g i~ | create Cscope index                           |
+| ~SPC m g r~ | find references of a symbol                   |
+| ~SPC m g x~ | search text                                   |

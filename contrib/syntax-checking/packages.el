@@ -24,25 +24,16 @@
     :defer t
     :init
     (progn
-      (setq flycheck-check-syntax-automatically '(save mode-enabled)
-            flycheck-standard-error-navigation nil)
+      (setq flycheck-standard-error-navigation nil)
       (spacemacs|add-toggle syntax-checking
-                            :status flycheck-mode
-                            :on (flycheck-mode)
-                            :off (flycheck-mode -1)
-                            :documentation "Enable error and syntax checking."
-                            :evil-leader "ts"))
+        :status flycheck-mode
+        :on (flycheck-mode)
+        :off (flycheck-mode -1)
+        :documentation "Enable error and syntax checking."
+        :evil-leader "ts"))
     :config
     (progn
       (spacemacs|diminish flycheck-mode " ⓢ" " s")
-
-      (defun spacemacs/mode-line-flycheck-info-toggle ()
-        "Toggle display of flycheck info."
-        (interactive)
-        (if flycheck-mode
-            (flycheck-mode -1)
-          (flycheck-mode)))
-      (evil-leader/set-key "tmf" 'spacemacs/mode-line-flycheck-info-toggle)
 
       ;; color mode line faces
       (defun spacemacs/defface-flycheck-mode-line-color (state)
@@ -132,12 +123,12 @@
       (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
       (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1)))
       (spacemacs|add-toggle spelling-checking
-                            :status flyspell-mode
-                            :on (flyspell-mode)
-                            :off (flyspell-mode -1)
-                            :documentation
-                            "Enable flyspell for automatic spelling checking."
-                            :evil-leader "tS"))
+        :status flyspell-mode
+        :on (flyspell-mode)
+        :off (flyspell-mode -1)
+        :documentation
+        "Enable flyspell for automatic spelling checking."
+        :evil-leader "tS"))
     :config
     (progn
       (flyspell-prog-mode)

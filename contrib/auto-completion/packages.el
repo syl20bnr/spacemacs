@@ -209,9 +209,11 @@
         (unless yas-global-mode
           (progn
             (yas-global-mode 1)
-            (let ((private-yas-dir (concat
-                                    configuration-layer-private-directory
-                                    "snippets/"))
+            (let ((private-yas-dir (if auto-completion-private-snippets-directory
+                                       auto-completion-private-snippets-directory
+                                     (concat
+                                        configuration-layer-private-directory
+                                        "snippets/")))
                   (spacemacs-snippets-dir (expand-file-name
                                            "snippets"
                                            spacemacs--auto-completion-dir)))
@@ -229,11 +231,11 @@
                                                 markdown-mode-hook
                                                 org-mode-hook))
       (spacemacs|add-toggle yasnippet
-                            :status yas-minor-mode
-                            :on (yas-minor-mode)
-                            :off (yas-minor-mode -1)
-                            :documentation "Enable yasnippet."
-                            :evil-leader "ty")
+        :status yas-minor-mode
+        :on (yas-minor-mode)
+        :off (yas-minor-mode -1)
+        :documentation "Enable yasnippet."
+        :evil-leader "ty")
 
       (defun spacemacs/force-yasnippet-off ()
         (yas-minor-mode -1)

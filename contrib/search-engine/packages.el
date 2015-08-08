@@ -28,6 +28,9 @@
           '((amazon
              :name "Amazon"
              :url "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%%3Daps&field-keywords=%s")
+            (bing
+             :name "Bing"
+             :url "http://www.bing.com/search?q=%s")
             (duck-duck-go
              :name "Duck Duck Go"
              :url "https://duckduckgo.com/?q=%s")
@@ -59,6 +62,9 @@
             (spacemacs-issues
              :name "Spacemacs Issues"
              :url "https://github.com/syl20bnr/spacemacs/issues?utf8=%%E2%%9C%%93&q=is%%3Aissue+is%%3Aopen+%s")
+            (spacemacs-pullrequests
+             :name "Spacemacs Pull Requests"
+             :url "https://github.com/syl20bnr/spacemacs/pulls?utf8=%%E2%%9C%%93&q=is%%3Aissue+is%%3Aopen+%s")
             (wikipedia
              :name "Wikipedia"
              :url "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s")
