@@ -176,14 +176,13 @@
       (evil-define-key 'normal scala-mode-map "J" 'spacemacs/scala-join-line)
 
       ;; Compatibility with `aggressive-indent'
-      (custom-set-variables
-       '(scala-indent:align-forms t)
-       '(scala-indent:align-parameters t)
-       '(scala-indent:default-run-on-strategy scala-indent:operator-strategy))
+      (setq scala-indent:align-forms t
+            scala-indent:align-parameters t
+            scala-indent:default-run-on-strategy scala-indent:operator-strategy)
 
       (require 'noflet)
 
       (defadvice scala-indent:indent-code-line (around retain-trailing-ws activate)
         "Keep trailing-whitespace when indenting."
         (noflet ((scala-lib:delete-trailing-whitespace ()))
-          ad-do-it)))))
+                ad-do-it)))))

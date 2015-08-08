@@ -250,14 +250,13 @@
                                                 markdown-mode-hook))
     :config
     (progn
-      (custom-set-variables
-       '(ahs-case-fold-search nil)
-       '(ahs-default-range (quote ahs-range-whole-buffer))
-       ;; disable auto-highlight of symbol
-       ;; current symbol should be highlight on demand with <SPC> s h
-       '(ahs-idle-timer 0)
-       '(ahs-idle-interval 0.25)
-       '(ahs-inhibit-face-list nil))
+      (setq ahs-case-fold-search nil
+            ahs-default-range 'ahs-range-whole-buffer
+            ;; disable auto-highlight of symbol
+            ;; current symbol should be highlight on demand with <SPC> s h
+            ahs-idle-timer 0
+            ahs-idle-interval 0.25
+            ahs-inhibit-face-list nil)
 
       (defvar spacemacs-last-ahs-highlight-p nil
         "Info on the last searched highlighted symbol.")
@@ -465,13 +464,12 @@
         :evil-leader "t C--"))
     :config
     (progn
-      (custom-set-variables
-       '(ccm-recenter-at-end-of-file t)
-       '(ccm-ignored-commands (quote (mouse-drag-region
-                                      mouse-set-point
-                                      widget-button-click
-                                      scroll-bar-toolkit-scroll
-                                      evil-mouse-drag-region))))
+      (setq ccm-recenter-at-end-of-file t
+            ccm-ignored-commands '(mouse-drag-region
+                                   mouse-set-point
+                                   widget-button-click
+                                   scroll-bar-toolkit-scroll
+                                   evil-mouse-drag-region))
       (spacemacs|diminish centered-cursor-mode " ⊝" " -"))))
 
 (defun spacemacs/init-clean-aindent-mode ()
@@ -1152,9 +1150,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
                       'spacemacs/helm-buffers-smart-do-search-region-or-symbol)))
              new-bindings)
             (setq ad-return-value (cons new-msg new-bindings)))))
-      (custom-set-variables
-       '(expand-region-contract-fast-key "V")
-       '(expand-region-reset-fast-key "r")))))
+      (setq expand-region-contract-fast-key "V"
+            expand-region-reset-fast-key "r"))))
 
 (defun spacemacs/init-fancy-battery ()
   (use-package fancy-battery

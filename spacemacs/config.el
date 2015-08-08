@@ -87,8 +87,8 @@
 ;; activate winner mode use to undo and redo windows layout
 (winner-mode t)
 ;; no beep pleeeeeease ! (and no visual blinking too please)
-(custom-set-variables '(ring-bell-function 'ignore))
-(setq visible-bell nil)
+(setq ring-bell-function 'ignore
+      visible-bell nil)
 ;; required for evil folding
 (defun spacemacs//enable-hs-minor-mode ()
   "Enable hs-minor-mode for code folding."
