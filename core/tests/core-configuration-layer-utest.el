@@ -410,6 +410,23 @@
                                (configuration-layer/get-packages layers))))))
 
 ;; ---------------------------------------------------------------------------
+;; configuration-layer//sort-packages
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-sort-packages--example ()
+  (let ((pkgs `(,(configuration-layer/make-package 'pkg4)
+                ,(configuration-layer/make-package 'pkg3)
+                ,(configuration-layer/make-package 'pkg6)
+                ,(configuration-layer/make-package 'pkg2)
+                ,(configuration-layer/make-package 'pkg1))))
+    (should (equal '([object cfgl-package "pkg1" pkg1 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg3" pkg3 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg6" pkg6 nil nil nil elpa nil nil])
+                   (configuration-layer//sort-packages pkgs)))))
+
+;; ---------------------------------------------------------------------------
 ;; configuration-layer//directory-type
 ;; ---------------------------------------------------------------------------
 

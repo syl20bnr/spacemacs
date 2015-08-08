@@ -112,10 +112,10 @@
              :documentation "If non-nil this package is ignored.")))
 
 (defvar configuration-layer-layers '()
-  "A list of `cfgl-layer' objects.")
+  "A non-sorted list of `cfgl-layer' objects.")
 
 (defvar configuration-layer-packages '()
-  "A list of `cfgl-package' objects.")
+  "An alphabetically sorted list of `cfgl-package' objects.")
 
 (defvar configuration-layer-error-count nil
   "Non nil indicates the number of errors occurred during the
@@ -314,6 +314,11 @@ layer directory."
           (oset obj :excluded t))))
     result))
 
+(defun configuration-layer//sort-packages (packages)
+  "Return a sorted list of PACKAGES objects."
+  (sort packages (lambda (x y) (string< (symbol-name (oref x :name))
+                                        (symbol-name (oref y :name))))))
+
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path the the private configuration layer with name
 NAME."
@@ -483,21 +488,21 @@ LAYERS is a list of layer symbols."
         (warning-minimum-level :error))
     (configuration-layer//set-layers-variables layers)
     ;; first load all the config files ...
-    (configuration-layer//load-layers-files layers '("funcs.el"
-                                                     "config.el"))
+    (configuration-layer//load-layers-files
+     layers '("funcs.el" "config.el"))
     ;; ... then the package files
     ;; TODO remove extensions in 0.105.0
-    (configuration-layer//load-layers-files layers '("packages.el"
-                                                     "extensions.el"))
-    ;; fill the hash tables
+    (configuration-layer//load-layers-files
+     layers '("packages.el" "extensions.el"))
+    ;; read layers
     (setq configuration-layer-packages
-          (configuration-layer/get-packages layers t))
+          (configuration-layer//sort-packages
+           (configuration-layer/get-packages layers t)))
     ;; number of chuncks for the loading screen
     (setq spacemacs-loading-dots-chunk-threshold
           (/ (length configuration-layer-packages)
              spacemacs-loading-dots-chunk-count))
-    ;; sort packages before installing and configuring them
-    (configuration-layer//sort-packages)
+    ;; install and configuration
     (configuration-layer//install-packages)
     (configuration-layer//configure-packages)
     ;; finally load the remaining files of a layer
@@ -519,10 +524,6 @@ LAYERS is a list of layer symbols."
   (let ((list (ht-get hash pkg)))
     (symbol-value `(push ',layer list))
     (puthash pkg list hash)))
-
-(defun configuration-layer/sort-hash-table-keys (h)
-  "Return a sorted list of the keys in the given hash table H."
-  (mapcar 'intern (sort (mapcar 'symbol-name (ht-keys h)) 'string<)))
 
 (defun configuration-layer//install-packages ()
   "Install the packages all the packages if there are not currently installed."
