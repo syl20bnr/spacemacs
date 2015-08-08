@@ -616,6 +616,7 @@
       (defvar spacemacs-evil-cursor-colors '((normal . "DarkGoldenrod2")
                                              (insert . "chartreuse3")
                                              (emacs  . "SkyBlue2")
+                                             (replace . "chocolate")
                                              (evilified . "LightGoldenrod3")
                                              (visual . "gray")
                                              (motion . "plum3")
