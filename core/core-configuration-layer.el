@@ -319,6 +319,13 @@ layer directory."
   (sort packages (lambda (x y) (string< (symbol-name (oref x :name))
                                         (symbol-name (oref y :name))))))
 
+(defun configuration-layer//filter-packages (packages ffunc)
+  "Return a filtered PACKAGES list where each element satisfies FFUNC."
+  (reverse (reduce (lambda (acc x)
+                     (if (funcall ffunc x) (push x acc) acc))
+                   packages
+                   :initial-value nil)))
+
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path the the private configuration layer with name
 NAME."
@@ -519,17 +526,16 @@ LAYERS is a list of layer symbols."
     (let ((file (concat (oref layer :dir) file)))
       (if (file-exists-p file) (load file)))))
 
-(defsubst configuration-layer//add-layer-to-hash (pkg layer hash)
-  "Add LAYER to the list value stored in HASH with key PKG."
-  (let ((list (ht-get hash pkg)))
-    (symbol-value `(push ',layer list))
-    (puthash pkg list hash)))
-
 (defun configuration-layer//install-packages ()
   "Install the packages all the packages if there are not currently installed."
   (interactive)
-  (let* ((not-installed (configuration-layer//get-packages-to-install
-                         configuration-layer-all-packages-sorted))
+  (let* ((candidates (configuration-layer//filter-packages
+                      configuration-layer-packages
+                      (lambda (x) (and (not (null (oref x :owner)))
+                                       (not (eq 'local (oref x :location)))
+                                       (not (oref x :excluded))))))
+         (not-installed (configuration-layer//get-packages-to-install
+                         (mapcar 'car (object-assoc-list :name candidates))))
          (not-installed-count (length not-installed)))
     ;; installation
     (if not-installed
@@ -568,11 +574,7 @@ LAYERS is a list of layer symbols."
           (spacemacs-buffer/append "\n")))))
 
 (defun configuration-layer//filter-packages-with-deps (packages filter)
-  "Filter a PACKAGES list according to a FILTER predicate.
-
-FILTER is a function applied to each element of PACKAGES, if FILTER returns
-non nil then element is removed from the list otherwise element is kept in
-the list.
+  "Return a filtered PACKAGES list where each elements satisfies FILTER.
 
 This function also processed recursively the package dependencies."
 (when packages
@@ -586,17 +588,14 @@ This function also processed recursively the package dependencies."
                             (mapcar 'car deps) filter))))
           (when install-deps
             (setq result (append install-deps result))))
-        (unless (apply filter `(,pkg))
+        (when (funcall filter pkg)
           (add-to-list 'result pkg t)))
       (delete-dups result))))
 
 (defun configuration-layer//get-packages-to-install (packages)
-  "Return a list of packages to install given a list of PACKAGES."
+  "Return a list of packages to install given a list of PACKAGES symbols."
   (configuration-layer//filter-packages-with-deps
-   packages
-   (lambda (x)
-     ;; the package is already installed
-     (package-installed-p x))))
+   packages (lambda (x) (not (package-installed-p x)))))
 
 (defun configuration-layer//get-packages-to-update (packages)
   "Return a list of packages to update given a list of PACKAGES."
@@ -827,8 +826,8 @@ in `configuration-layer-packages'"
   (let ((imp-pkgs))
     (dolist (pkg package-alist)
       (let ((pkg-sym (car pkg)))
-        (if (not (ht-contains? configuration-layer-packages pkg-sym))
-            (add-to-list 'imp-pkgs pkg-sym))))
+        (unless (object-assoc pkg-sym :name configuration-layer-packages)
+          (add-to-list 'imp-pkgs pkg-sym))))
     imp-pkgs))
 
 (defun configuration-layer//get-orphan-packages (implicit-pkgs dependencies)
@@ -842,7 +841,7 @@ deleted safely."
 
 (defun configuration-layer//is-package-orphan (pkg dependencies)
   "Returns not nil if PKG is an orphan package."
-  (if (ht-contains? configuration-layer-packages pkg)
+  (if (object-assoc pkg :name configuration-layer-packages)
       nil
     (if (ht-contains? dependencies pkg)
         (let ((parents (ht-get dependencies pkg)))

@@ -427,6 +427,108 @@
                    (configuration-layer//sort-packages pkgs)))))
 
 ;; ---------------------------------------------------------------------------
+;; configuration-layer//filter-packages
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-filter-packages--filter-excluded-packages ()
+  (let* ((pkg1 (configuration-layer/make-package 'pkg1))
+         (pkg2 (configuration-layer/make-package 'pkg2))
+         (pkg3 (configuration-layer/make-package 'pkg3))
+         (pkg4 (configuration-layer/make-package 'pkg4))
+         (pkg5 (configuration-layer/make-package 'pkg5))
+         (pkg6 (configuration-layer/make-package 'pkg6))
+         (pkg7 (configuration-layer/make-package 'pkg7))
+         (pkg8 (configuration-layer/make-package 'pkg8))
+         (pkgs (list pkg1 pkg2 pkg3 pkg4 pkg5 pkg6 pkg7 pkg8)))
+    (oset pkg1 :excluded t)
+    (oset pkg3 :excluded t)
+    (oset pkg5 :excluded t)
+    (oset pkg6 :excluded t)
+    (should (equal '([object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg7" pkg7 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
+                   (configuration-layer//filter-packages
+                    pkgs (lambda (x)
+                           (not (oref x :excluded))))))))
+
+(ert-deftest test-filter-packages--filter-local-packages ()
+  (let* ((pkg1 (configuration-layer/make-package 'pkg1))
+         (pkg2 (configuration-layer/make-package 'pkg2))
+         (pkg3 (configuration-layer/make-package 'pkg3))
+         (pkg4 (configuration-layer/make-package 'pkg4))
+         (pkg5 (configuration-layer/make-package 'pkg5))
+         (pkg6 (configuration-layer/make-package 'pkg6))
+         (pkg7 (configuration-layer/make-package 'pkg7))
+         (pkg8 (configuration-layer/make-package 'pkg8))
+         (pkgs (list pkg1 pkg2 pkg3 pkg4 pkg5 pkg6 pkg7 pkg8)))
+    (oset pkg1 :location 'local)
+    (oset pkg3 :location 'local)
+    (oset pkg5 :location 'local)
+    (oset pkg6 :location 'local)
+    (should (equal '([object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg7" pkg7 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
+                   (configuration-layer//filter-packages
+                    pkgs (lambda (x)
+                           (not (eq 'local (oref x :location)))))))))
+
+
+(ert-deftest test-filter-packages--filter-local-or-excluded-packages ()
+  (let* ((pkg1 (configuration-layer/make-package 'pkg1))
+         (pkg2 (configuration-layer/make-package 'pkg2))
+         (pkg3 (configuration-layer/make-package 'pkg3))
+         (pkg4 (configuration-layer/make-package 'pkg4))
+         (pkg5 (configuration-layer/make-package 'pkg5))
+         (pkg6 (configuration-layer/make-package 'pkg6))
+         (pkg7 (configuration-layer/make-package 'pkg7))
+         (pkg8 (configuration-layer/make-package 'pkg8))
+         (pkgs (list pkg1 pkg2 pkg3 pkg4 pkg5 pkg6 pkg7 pkg8)))
+    (oset pkg1 :location 'local)
+    (oset pkg1 :excluded t)
+    (oset pkg3 :location 'local)
+    (oset pkg5 :location 'local)
+    (oset pkg6 :location 'local)
+    (oset pkg6 :excluded t)
+    (oset pkg7 :excluded t)
+    (should (equal '([object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
+                   (configuration-layer//filter-packages
+                    pkgs (lambda (x)
+                           (and (not (eq 'local (oref x :location)))
+                                (not (oref x :excluded)))))))))
+
+(ert-deftest test-filter-packages--filter-local-and-excluded-packages ()
+  (let* ((pkg1 (configuration-layer/make-package 'pkg1))
+         (pkg2 (configuration-layer/make-package 'pkg2))
+         (pkg3 (configuration-layer/make-package 'pkg3))
+         (pkg4 (configuration-layer/make-package 'pkg4))
+         (pkg5 (configuration-layer/make-package 'pkg5))
+         (pkg6 (configuration-layer/make-package 'pkg6))
+         (pkg7 (configuration-layer/make-package 'pkg7))
+         (pkg8 (configuration-layer/make-package 'pkg8))
+         (pkgs (list pkg1 pkg2 pkg3 pkg4 pkg5 pkg6 pkg7 pkg8)))
+    (oset pkg1 :location 'local)
+    (oset pkg1 :excluded t)
+    (oset pkg3 :location 'local)
+    (oset pkg5 :excluded t)
+    (oset pkg6 :location 'local)
+    (oset pkg6 :excluded t)
+    (should (equal '(
+                     [object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg3" pkg3 nil nil nil local nil nil]
+                     [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg5" pkg5 nil nil nil elpa nil t]
+                     [object cfgl-package "pkg7" pkg7 nil nil nil elpa nil nil]
+                     [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
+                   (configuration-layer//filter-packages
+                    pkgs (lambda (x)
+                           (or (not (eq 'local (oref x :location)))
+                               (not (oref x :excluded)))))))))
+
+;; ---------------------------------------------------------------------------
 ;; configuration-layer//directory-type
 ;; ---------------------------------------------------------------------------
 
