@@ -65,13 +65,12 @@
         :evil-leader "t C--"))
     :config
     (progn
-      (custom-set-variables
-       '(ccm-recenter-at-end-of-file t)
-       '(ccm-ignored-commands (quote (mouse-drag-region
-                                      mouse-set-point
-                                      widget-button-click
-                                      scroll-bar-toolkit-scroll
-                                      evil-mouse-drag-region))))
+      (setq ccm-recenter-at-end-of-file t
+            ccm-ignored-commands '(mouse-drag-region
+                                   mouse-set-point
+                                   widget-button-click
+                                   scroll-bar-toolkit-scroll
+                                   evil-mouse-drag-region))
       (spacemacs|diminish centered-cursor-mode " ⊝" " -"))))
 
 (defun spacemacs/init-holy-mode ()
