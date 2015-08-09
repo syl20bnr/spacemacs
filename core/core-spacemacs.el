@@ -167,27 +167,28 @@ Whenever the initial require fails the absolute path to the package
 directory is returned.
 If LOG is non-nil a message is displayed in spacemacs-mode buffer.
 FILE-TO-LOAD is an explicit file to load after the installation."
-  (condition-case nil
-      (require pkg)
-    (error
-     ;; not installed, we try to initialize package.el only if required to
-     ;; precious seconds during boot time
-     (require 'cl)
-     (let ((pkg-elpa-dir (spacemacs//get-package-directory pkg)))
-       (if pkg-elpa-dir
-           (add-to-list 'load-path pkg-elpa-dir)
-         ;; install the package
-         (when log
-           (spacemacs-buffer/append
-            (format "(Bootstrap) Installing %s...\n" pkg))
-           (spacemacs//redisplay))
-         (package-refresh-contents)
-         (package-install pkg)
-         (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))
-       (require pkg nil 'noerror)
-       (when file-to-load
-         (load-file (concat pkg-elpa-dir file-to-load)))
-       pkg-elpa-dir))))
+  (let (warning-minimum-level :error)
+    (condition-case nil
+        (require pkg)
+      (error
+       ;; not installed, we try to initialize package.el only if required to
+       ;; precious seconds during boot time
+       (require 'cl)
+       (let ((pkg-elpa-dir (spacemacs//get-package-directory pkg)))
+         (if pkg-elpa-dir
+             (add-to-list 'load-path pkg-elpa-dir)
+           ;; install the package
+           (when log
+             (spacemacs-buffer/append
+              (format "(Bootstrap) Installing %s...\n" pkg))
+             (spacemacs//redisplay))
+           (package-refresh-contents)
+           (package-install pkg)
+           (setq pkg-elpa-dir (spacemacs//get-package-directory pkg)))
+         (require pkg nil 'noerror)
+         (when file-to-load
+           (load-file (concat pkg-elpa-dir file-to-load)))
+         pkg-elpa-dir)))))
 
 (defun spacemacs/maybe-install-dotfile ()
   "Install the dotfile if it does not exist."
