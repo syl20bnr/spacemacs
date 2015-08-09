@@ -54,10 +54,10 @@
         "mgg"  'anaconda-mode-goto)
       )))
 
-(defun python/init-eldoc ()
+(defun python/post-init-eldoc ()
   (add-hook 'python-mode-hook 'eldoc-mode))
 
-(defun python/init-evil-jumper ()
+(defun python/post-init-evil-jumper ()
   (defadvice anaconda-mode-goto (before python/anaconda-mode-goto activate)
     (evil-jumper--push)))
 
@@ -249,7 +249,7 @@
     :init
     (evil-leader/set-key-for-mode 'python-mode "mhd" 'helm-pydoc)))
 
-(defun python/init-smartparens ()
+(defun python/post-init-smartparens ()
   (defadvice python-indent-dedent-line-backspace
       (around python/sp-backward-delete-char activate)
     (let ((pythonp (or (not smartparens-strict-mode)
