@@ -637,6 +637,7 @@ LAYERS is a list of layer symbols."
         (spacemacs-buffer/message
          (format "%S ignored since it has no owner layer." pkg-name)))
        ((eq 'dotfile (oref pkg :owner))
+        (configuration-layer//activate-package pkg-name)
         (spacemacs-buffer/message
          (format "%S is configured in the dotfile." pkg-name)))
        ((eq 'local (oref pkg :location))
