@@ -167,7 +167,7 @@ Whenever the initial require fails the absolute path to the package
 directory is returned.
 If LOG is non-nil a message is displayed in spacemacs-mode buffer.
 FILE-TO-LOAD is an explicit file to load after the installation."
-  (let (warning-minimum-level :error)
+  (let ((warning-minimum-level :error))
     (condition-case nil
         (require pkg)
       (error
