@@ -45,8 +45,7 @@
   (let ((input 'layer)
         (expected (cfgl-layer "layer"
                               :name 'layer
-                              :dir "/a/dummy/path/layer/"
-                              :ext-dir "/a/dummy/path/layer/extensions/")))
+                              :dir "/a/dummy/path/layer/")))
     (mocker-let ((configuration-layer/get-layer-path
                   (x)
                   ((:input `(,input) :output "/a/dummy/path/"))))
@@ -58,7 +57,6 @@
         (expected (cfgl-layer "layer"
                               :name 'layer
                               :dir "/a/dummy/path/layer/"
-                              :ext-dir "/a/dummy/path/layer/extensions/"
                               :variables '(var1 t var2 nil))))
     (mocker-let ((configuration-layer/get-layer-path
                   (x)
@@ -73,8 +71,7 @@
 (ert-deftest test-set-layers-variables--none ()
   (let ((input `(,(cfgl-layer "layer"
                               :name 'layer
-                              :dir "/a/path/"
-                              :ext-dir "/a/path/extensions/")))
+                              :dir "/a/path/")))
         (var 'foo))
     (configuration-layer//set-layers-variables input)
     (should (eq var 'foo))))
@@ -83,7 +80,6 @@
   (let ((input `(,(cfgl-layer "layer"
                               :name 'layer
                               :dir "/a/path/"
-                              :ext-dir "/a/path/extensions/"
                               :variables '(var1 'bar)))))
     (setq var1 'foo)
     (configuration-layer//set-layers-variables input)
@@ -93,7 +89,6 @@
   (let ((input `(,(cfgl-layer "layer"
                               :name 'layer
                               :dir "/a/path/"
-                              :ext-dir "/a/path/extensions/"
                               :variables '(var1 'bar1 var2 'bar2 var3 'bar3)))))
     (setq var1 'foo)
     (setq var2 'foo)
@@ -107,7 +102,6 @@
   (let ((input `(,(cfgl-layer "layer"
                               :name 'layer
                               :dir "/a/path/"
-                              :ext-dir "/a/path/extensions/"
                               :variables '(var1 'bar var2)))))
     (mocker-let
      ((spacemacs-buffer/warning
@@ -427,7 +421,7 @@
                    (configuration-layer//sort-packages pkgs)))))
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//filter-packages
+;; configuration-layer/filter-packages
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-filter-packages--filter-excluded-packages ()
@@ -448,7 +442,7 @@
                      [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
                      [object cfgl-package "pkg7" pkg7 nil nil nil elpa nil nil]
                      [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
-                   (configuration-layer//filter-packages
+                   (configuration-layer/filter-packages
                     pkgs (lambda (x)
                            (not (oref x :excluded))))))))
 
@@ -470,7 +464,7 @@
                      [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
                      [object cfgl-package "pkg7" pkg7 nil nil nil elpa nil nil]
                      [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
-                   (configuration-layer//filter-packages
+                   (configuration-layer/filter-packages
                     pkgs (lambda (x)
                            (not (eq 'local (oref x :location)))))))))
 
@@ -495,7 +489,7 @@
     (should (equal '([object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
                      [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
                      [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
-                   (configuration-layer//filter-packages
+                   (configuration-layer/filter-packages
                     pkgs (lambda (x)
                            (and (not (eq 'local (oref x :location)))
                                 (not (oref x :excluded)))))))))
@@ -523,7 +517,7 @@
                      [object cfgl-package "pkg5" pkg5 nil nil nil elpa nil t]
                      [object cfgl-package "pkg7" pkg7 nil nil nil elpa nil nil]
                      [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
-                   (configuration-layer//filter-packages
+                   (configuration-layer/filter-packages
                     pkgs (lambda (x)
                            (or (not (eq 'local (oref x :location)))
                                (not (oref x :excluded)))))))))
