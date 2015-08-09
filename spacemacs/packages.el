@@ -12,6 +12,10 @@
 
 (setq spacemacs-packages
       '(
+        ;; pre
+        (evil-evilified-state :location local :step pre)
+        (holy-mode :location local :step pre)
+        ;; default
         ace-jump-mode
         ace-link
         ace-window
@@ -22,6 +26,7 @@
         bind-key
         bookmark
         buffer-move
+        (centered-cursor :location local)
         clean-aindent-mode
         define-word
         desktop
@@ -29,6 +34,8 @@
         doc-view
         ediff
         eldoc
+        ;; hack to be able to wrap built-in emacs modes in an init function
+        (emacs-builtin-process-menu :location local)
         eval-sexp-fu
         evil
         evil-anzu
@@ -66,6 +73,7 @@
         ;; not working for now
         ;; helm-proc
         helm-projectile
+        (helm-spacemacs :location local)
         helm-swoop
         helm-themes
         helm-unicode
@@ -95,6 +103,7 @@
         rfringe
         smartparens
         smooth-scrolling
+        (solarized-theme :location local)
         spacemacs-theme
         spray
         subword
@@ -106,17 +115,19 @@
         which-key
         window-numbering
         winner
+        (zoom-frm :location local)
         ))
+;; Paradox from MELPA is not compatible with 24.3, so we use
+;; a local paradox with 24.3
+(if  (version< emacs-version "24.4")
+    (push '(paradox :location local) spacemacs-packages)
+  (push 'paradox spacemacs-packages))
 
 (setq spacemacs-excluded-packages
       '(;; waiting for an overlay bug to be fixed
         ;; see https://github.com/syl20bnr/spacemacs/issues/2529
         hl-anything
         ))
-
-;; Paradox from MELPA is not compatible with 24.3 anymore
-(unless  (version< emacs-version "24.4")
-  (push 'paradox spacemacs-packages))
 
 ;; Initialization of packages
 
@@ -431,6 +442,37 @@
       "bmk" 'buf-move-up
       "bml" 'buf-move-right)))
 
+(defun spacemacs/init-centered-cursor ()
+  (use-package centered-cursor-mode
+    :commands (centered-cursor-mode
+               global-centered-cursor-mode)
+    :init
+    (progn
+      (spacemacs|add-toggle centered-point
+        :status centered-cursor-mode
+        :on (centered-cursor-mode)
+        :off (centered-cursor-mode -1)
+        :documentation
+        "Keep point always at the center of the window."
+        :evil-leader "t-")
+      (spacemacs|add-toggle centered-point-globally
+        :status centered-cursor-mode
+        :on (global-centered-cursor-mode)
+        :off (global-centered-cursor-mode -1)
+        :documentation
+        "Globally keep point always at the center of the window."
+        :evil-leader "t C--"))
+    :config
+    (progn
+      (custom-set-variables
+       '(ccm-recenter-at-end-of-file t)
+       '(ccm-ignored-commands (quote (mouse-drag-region
+                                      mouse-set-point
+                                      widget-button-click
+                                      scroll-bar-toolkit-scroll
+                                      evil-mouse-drag-region))))
+      (spacemacs|diminish centered-cursor-mode " ⊝" " -"))))
+
 (defun spacemacs/init-clean-aindent-mode ()
   (use-package clean-aindent-mode
     :defer t
@@ -558,6 +600,9 @@
       (add-hook 'ielm-mode-hook #'eldoc-mode)
       ;; don't display eldoc on modeline
       (spacemacs|hide-lighter eldoc-mode))))
+
+(defun spacemacs/init-emacs-builtin-process-menu ()
+  (evilify process-menu-mode process-menu-mode-map))
 
 (defun spacemacs/init-eval-sexp-fu ()
   ;; ignore obsolete function warning generated on startup
@@ -880,6 +925,9 @@ Example: (evil-map visual \"<\" \"<gv\")"
     (evil-escape-mode)
     :config
     (spacemacs|hide-lighter evil-escape-mode)))
+
+(defun spacemacs/init-evil-evilified-state ()
+  (require 'evil-evilified-state))
 
 (defun spacemacs/init-evil-exchange ()
   (use-package evil-exchange
@@ -2052,6 +2100,11 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "pv"  'projectile-vc
         "sgp" 'helm-projectile-grep))))
 
+(defun spacemacs/init-helm-spacemacs ()
+  (use-package helm-spacemacs
+    :commands helm-spacemacs
+    :init
+    (evil-leader/set-key "feh" 'helm-spacemacs)))
 
 (defun spacemacs/init-helm-swoop ()
   (use-package helm-swoop
@@ -2160,6 +2213,20 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         "hr"  'hl-restore-highlights
         "hs"  'hl-save-highlights))
     :config (spacemacs|hide-lighter hl-highlight-mode)))
+
+(defun spacemacs/init-holy-mode ()
+  (use-package holy-mode
+    :commands holy-mode
+    :init
+    (progn
+      (when (eq 'emacs dotspacemacs-editing-style)
+        (holy-mode))
+      (spacemacs|add-toggle holy-mode
+        :status holy-mode
+        :on (holy-mode)
+        :off (holy-mode -1)
+        :documentation "Globally toggle the holy mode."
+        :evil-leader "P <tab>" "P C-i"))))
 
 (defun spacemacs/init-hungry-delete ()
   (use-package hungry-delete
@@ -3287,6 +3354,13 @@ one of `l' or `r'."
     (ad-disable-advice 'isearch-repeat 'after 'isearch-smooth-scroll)
     (ad-activate 'isearch-repeat)))
 
+(defun spacemacs/init-solarized-theme ()
+  (use-package solarized
+    :init
+    (progn
+      (deftheme solarized-dark "The dark variant of the Solarized colour theme")
+      (deftheme solarized-light "The light variant of the Solarized colour theme"))))
+
 (defun spacemacs/init-spray ()
   (use-package spray
     :commands spray-mode
@@ -3577,3 +3651,58 @@ one of `l' or `r'."
       (setq winner-boring-buffers
             (append winner-boring-buffers spacemacs/winner-boring-buffers))
       (winner-mode t))))
+
+(defun spacemacs/init-zoom-frm ()
+  (use-package zoom-frm
+    :commands (zoom-frm-unzoom
+               zoom-frm-out
+               zoom-frm-in)
+    :init
+    (progn
+      (spacemacs|define-micro-state zoom-frm
+        :doc "[+] zoom frame in [-] zoom frame out [=] reset zoom"
+        :evil-leader "zf"
+        :use-minibuffer t
+        :bindings
+        ("+" spacemacs/zoom-frm-in :post (spacemacs//zoom-frm-powerline-reset))
+        ("-" spacemacs/zoom-frm-out :post (spacemacs//zoom-frm-powerline-reset))
+        ("=" spacemacs/zoom-frm-unzoom :post (spacemacs//zoom-frm-powerline-reset)))
+
+      (defun spacemacs//zoom-frm-powerline-reset ()
+        (when (fboundp 'powerline-reset)
+          (setq-default powerline-height (spacemacs/compute-powerline-height))
+          (powerline-reset)))
+
+      (defun spacemacs//zoom-frm-do (arg)
+        "Perform a zoom action depending on ARG value."
+        (let ((zoom-action (cond ((eq arg 0) 'zoom-frm-unzoom)
+                                 ((< arg 0) 'zoom-frm-out)
+                                 ((> arg 0) 'zoom-frm-in)))
+              (fm (cdr (assoc 'fullscreen (frame-parameters))))
+              (fwp (* (frame-char-width) (frame-width)))
+              (fhp (* (frame-char-height) (frame-height))))
+          (when (equal fm 'maximized)
+            (toggle-frame-maximized))
+          (funcall zoom-action)
+          (set-frame-size nil fwp fhp t)
+          (when (equal fm 'maximized)
+            (toggle-frame-maximized))))
+
+      (defun spacemacs/zoom-frm-in ()
+        "zoom in frame, but keep the same pixel size"
+        (interactive)
+        (spacemacs//zoom-frm-do 1))
+
+      (defun spacemacs/zoom-frm-out ()
+        "zoom out frame, but keep the same pixel size"
+        (interactive)
+        (spacemacs//zoom-frm-do -1))
+
+      (defun spacemacs/zoom-frm-unzoom ()
+        "Unzoom current frame, keeping the same pixel size"
+        (interactive)
+        (spacemacs//zoom-frm-do 0))
+
+      ;; Font size, either with ctrl + mouse wheel
+      (global-set-key (kbd "<C-wheel-up>") 'spacemacs/zoom-frm-in)
+      (global-set-key (kbd "<C-wheel-down>") 'spacemacs/zoom-frm-out))))
