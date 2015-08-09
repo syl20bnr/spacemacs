@@ -36,12 +36,6 @@
 (defvar helm-spacemacs-all-packages '()
   "Hash table of all packages in all layers.")
 
-(defvar helm-spacemacs-all-pre-extensions '()
-  "Hash table of all pre-extensions in all layers.")
-
-(defvar helm-spacemacs-all-post-extensions '()
-  "Hash table of all post-extensions in all layers.")
-
 ;;;###autoload
 (define-minor-mode helm-spacemacs-mode
   "Layers discovery with helm interface."
@@ -51,7 +45,7 @@
         helm-spacemacs-all-packages nil)
   (if helm-spacemacs-mode
       (progn
-        (mapc (lambda (layer) (push (configuration-layer//make-used-layer layer)
+        (mapc (lambda (layer) (push (configuration-layer/make-layer layer)
                                     helm-spacemacs-all-layers))
               (configuration-layer/get-layers-list))
         (dolist (layer helm-spacemacs-all-layers)
@@ -59,11 +53,7 @@
             (configuration-layer//load-layer-files layer '("funcs.el"
                                                            "config.el"))))
         (setq helm-spacemacs-all-packages (configuration-layer/get-packages
-                                           helm-spacemacs-all-layers))
-        (setq helm-spacemacs-all-pre-extensions
-              (configuration-layer/get-extensions helm-spacemacs-all-layers t))
-        (setq helm-spacemacs-all-post-extensions
-              (configuration-layer/get-extensions helm-spacemacs-all-layers)))))
+                                           helm-spacemacs-all-layers)))))
 
 ;;;###autoload
 (defun helm-spacemacs ()
@@ -135,29 +125,28 @@
   `((name . "Layers")
     (candidates . ,(sort (configuration-layer/get-layers-list) 'string<))
     (candidate-number-limit)
-    (action . (("Open README.org" . helm-spacemacs//layer-action-open-readme)
-               ("Open packages.el" . helm-spacemacs//layer-action-open-packages)
-               ("Open extensions.el" . helm-spacemacs//layer-action-open-extensions)))))
+    (action . (("Open README.org"
+                . helm-spacemacs//layer-action-open-readme)
+               ("Open packages.el"
+                . helm-spacemacs//layer-action-open-packages)
+               ;; TODO remove extensions in 0.105.0
+               ("Open extensions.el"
+                . helm-spacemacs//layer-action-open-extensions)))))
 
 (defun helm-spacemacs//package-source ()
   "Construct the helm source for the packages."
   `((name . "Packages")
     (candidates . ,(helm-spacemacs//package-candidates))
     (candidate-number-limit)
-    (action . (("Go to init function" . helm-spacemacs//package-action-goto-init-func)))))
+    (action . (("Go to init function"
+                . helm-spacemacs//package-action-goto-init-func)))))
 
 (defun helm-spacemacs//package-candidates ()
   "Return the sorted candidates for package source."
   (let (result)
-    (ht-aeach (dolist (layer value)
-                (push (format "(%s) package: %s" layer key) result))
-              helm-spacemacs-all-packages)
-    (ht-aeach (dolist (layer value)
-                (push (format "(%s) pre-extension: %s" layer key) result))
-              helm-spacemacs-all-pre-extensions)
-    (ht-aeach (dolist (layer value)
-                (push (format "(%s) post-extension: %s" layer key) result))
-              helm-spacemacs-all-post-extensions)
+    (dolist (pkg helm-spacemacs-all-packages)
+      (push (format "(%S) package: %S" (oref pkg :owner) (oref pkg :name))
+            result))
     (sort result 'string<)))
 
 (defun helm-spacemacs//toggle-source ()
@@ -212,6 +201,7 @@
   "Open the `packages.el' file of the passed CANDIDATE."
   (helm-spacemacs//layer-action-open-file "packages.el" candidate))
 
+;; TODO remove extensions in 0.105.0
 (defun helm-spacemacs//layer-action-open-extensions (candidate)
   "Open the `extensions.el' file of the passed CANDIDATE."
   (helm-spacemacs//layer-action-open-file "extensions.el" candidate))
@@ -228,6 +218,7 @@
                           layer)))
            (filename (cond ((string-equal "package" type)
                             (concat path "packages.el"))
+                           ;; TODO remove extensions in 0.105.0
                            (t (concat path "extensions.el")))))
       (find-file filename)
       (goto-char (point-min))
