@@ -534,7 +534,7 @@ LAYERS is a list of layer symbols."
                       (lambda (x) (and (not (null (oref x :owner)))
                                        (not (eq 'local (oref x :location)))
                                        (not (oref x :excluded))))))
-         (not-installed (configuration-layer//get-packages-to-install
+         (not-installed (configuration-layer//get-uninstalled-packages
                          (mapcar 'car (object-assoc-list :name candidates))))
          (not-installed-count (length not-installed)))
     ;; installation
@@ -548,54 +548,57 @@ LAYERS is a list of layer symbols."
           (spacemacs//redisplay)
           (package-refresh-contents)
           (setq installed-count 0)
-          (dolist (pkg not-installed)
+          (dolist (pkg-name not-installed)
             (setq installed-count (1+ installed-count))
-            (let ((layer (oref configuration-layer-packages :owner)))
+            (let* ((pkg (object-assoc pkg-name :name
+                                      configuration-layer-packages))
+                   (layer (when pkg (oref pkg :owner))))
               (spacemacs-buffer/replace-last-line
                (format "--> installing %s%s... [%s/%s]"
-                       (when layer (format "%S:" layer) "")
-                       pkg installed-count not-installed-count) t))
-            (unless (package-installed-p pkg)
+                       (if layer (format "%S:" layer) "")
+                       pkg-name installed-count not-installed-count) t))
+            (unless (package-installed-p pkg-name)
               (condition-case err
-                  (if (not (assq pkg package-archive-contents))
+                  (if (not (assq pkg-name package-archive-contents))
                       (spacemacs-buffer/append
-                       (format "\nPackage %s is unavailable. Is the package name misspelled?\n"
-                               pkg))
-                    (dolist (dep (configuration-layer//get-package-dependencies-from-archive
-                                  pkg))
+                       (format (concat "\nPackage %s is unavailable. "
+                                       "Is the package name misspelled?\n")
+                               pkg-name))
+                    (dolist
+                        (dep (configuration-layer//get-package-deps-from-archive
+                              pkg-name))
                       (configuration-layer//activate-package (car dep)))
-                    (package-install pkg))
+                    (package-install pkg-name))
                 ('error
                  (configuration-layer//set-error)
                  (spacemacs-buffer/append
                   (format (concat "An error occurred while installing %s "
-                                  "(error: %s)\n") pkg err)))))
+                                  "(error: %s)\n") pkg-name err)))))
             (spacemacs//redisplay))
           (spacemacs-buffer/append "\n")))))
 
-(defun configuration-layer//filter-packages-with-deps (packages filter)
-  "Return a filtered PACKAGES list where each elements satisfies FILTER.
-
-This function also processed recursively the package dependencies."
-  (when packages
+(defun configuration-layer//filter-packages-with-deps (pkg-names filter)
+  "Return a filtered PACKAGES list where each elements satisfies FILTER."
+  (when pkg-names
     (let (result)
-      (dolist (pkg packages)
+      (dolist (pkg-name pkg-names)
         ;; recursively check dependencies
         (let* ((deps
-                (configuration-layer//get-package-dependencies-from-archive pkg))
+                (configuration-layer//get-package-deps-from-archive
+                 pkg-name))
                (install-deps
                 (when deps (configuration-layer//filter-packages-with-deps
                             (mapcar 'car deps) filter))))
           (when install-deps
             (setq result (append install-deps result))))
-        (when (funcall filter pkg)
-          (add-to-list 'result pkg t)))
+        (when (funcall filter pkg-name)
+          (add-to-list 'result pkg-name t)))
       (delete-dups result))))
 
-(defun configuration-layer//get-packages-to-install (packages)
-  "Return a list of packages to install given a list of PACKAGES symbols."
+(defun configuration-layer//get-uninstalled-packages (pkg-names)
+  "Return a filtered list of PKG-NAMES to install."
   (configuration-layer//filter-packages-with-deps
-   packages (lambda (x) (not (package-installed-p x)))))
+   pkg-names (lambda (x) (not (package-installed-p x)))))
 
 (defun configuration-layer//get-packages-to-update (packages)
   "Return a list of packages to update given a list of PACKAGES."
@@ -837,7 +840,7 @@ a list of all packages which depend on it."
   (let ((result (make-hash-table :size 512)))
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
-             (deps (configuration-layer//get-package-dependencies-from-archive pkg-sym)))
+             (deps (configuration-layer//get-package-deps-from-archive pkg-sym)))
         (dolist (dep deps)
           (let* ((dep-sym (car dep))
                  (value (ht-get result dep-sym)))
@@ -899,16 +902,17 @@ deleted safely."
      ((version< emacs-version "24.3.50") (aref (cdr pkg-desc) 1))
      (t (package-desc-reqs (cadr pkg-desc))))))
 
-(defun configuration-layer//get-package-dependencies-from-archive (pkg)
-  "Return the dependencies alist for a PKG from the archive data."
-  (let* ((pkg-arch (assq pkg package-archive-contents))
+(defun configuration-layer//get-package-deps-from-archive (pkg-name)
+  "Return the dependencies alist for a PKG-NAME from the archive data."
+  (let* ((pkg-arch (assq pkg-name package-archive-contents))
          (reqs (when pkg-arch (if (version< emacs-version "24.3.50")
                               (aref (cdr pkg-arch) 1)
                             (package-desc-reqs (cadr pkg-arch))))))
     ;; recursively get the requirements of reqs
     (dolist (req reqs)
-      (let* ((pkg2 (car req))
-             (reqs2 (configuration-layer//get-package-dependencies-from-archive pkg2)))
+      (let* ((pkg-name2 (car req))
+             (reqs2 (configuration-layer//get-package-deps-from-archive
+                     pkg-name2)))
         (when reqs2 (setq reqs (append reqs2 reqs)))))
     reqs))
 
