@@ -123,9 +123,6 @@ installation of initialization.")
   "Hash table of layers locations. The key is a layer symbol and the value is
 the path for this layer.")
 
-(defvar configuration-layer-all-packages-sorted '()
-  "Sorted list of all package symbols.")
-
 (defvar configuration-layer-categories '()
   "List of strings corresponding to category names. A category is a
 directory with a name starting with `!'.")
@@ -600,17 +597,18 @@ LAYERS is a list of layer symbols."
   (configuration-layer//filter-packages-with-deps
    pkg-names (lambda (x) (not (package-installed-p x)))))
 
-(defun configuration-layer//get-packages-to-update (packages)
-  "Return a list of packages to update given a list of PACKAGES."
+(defun configuration-layer//get-packages-to-update (pkg-names)
+  "Return a filtered list of PKG-NAMES to update."
   (configuration-layer//filter-packages-with-deps
-   packages
+   pkg-names
    (lambda (x)
      ;; the package is a built-in package
      ;; or a newest version is available
      (let ((installed-ver (configuration-layer//get-package-version-string x)))
-       (or (null installed-ver)
-           (version<= (configuration-layer//get-latest-package-version-string x)
-                      installed-ver))))))
+       (and (not (null installed-ver))
+            (version< installed-ver
+                      (configuration-layer//get-latest-package-version-string
+                       x)))))))
 
 (defun configuration-layer//configure-packages (packages)
   "Configure all passed PACKAGES honoring the steps order."
@@ -684,7 +682,9 @@ LAYERS is a list of layer symbols."
           (oref pkg :post-layers))))
 
 (defun configuration-layer/update-packages (&optional always-update)
-  "Upgrade elpa packages.  If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
+  "Update packages.
+
+If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
   (interactive "P")
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append
@@ -693,8 +693,13 @@ LAYERS is a list of layer symbols."
    "--> fetching new package repository indexes...\n")
   (spacemacs//redisplay)
   (package-refresh-contents)
-  (let* ((update-packages (configuration-layer//get-packages-to-update
-                           configuration-layer-all-packages-sorted))
+  (let* ((candidates (configuration-layer/filter-packages
+                      configuration-layer-packages
+                      (lambda (x) (and (not (null (oref x :owner)))
+                                       (not (eq 'local (oref x :location)))
+                                       (not (oref x :excluded))))))
+         (update-packages (configuration-layer//get-packages-to-update
+                           (mapcar 'car (object-assoc-list :name candidates))))
          (date (format-time-string "%y-%m-%d_%H.%M.%S"))
          (rollback-dir (expand-file-name
                         (concat configuration-layer-rollback-directory
@@ -702,6 +707,7 @@ LAYERS is a list of layer symbols."
          (upgrade-count (length update-packages))
          (upgraded-count 0)
          (update-packages-alist))
+    ;; (message "packages to udpate: %s" update-packages)
     (if (> upgrade-count 0)
         (if (and (not always-update)
                  (not (yes-or-no-p (format (concat "%s package(s) to update, "
