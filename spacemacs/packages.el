@@ -428,7 +428,7 @@
   (use-package bookmark
     :defer t
     :init
-    (setq bookmark-default-file (concat user-emacs-directory "bookmarks")
+    (setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks")
           ;; autosave each change
           bookmark-save-flag 1)))
 
