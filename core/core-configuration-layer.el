@@ -196,9 +196,11 @@ layer directory."
          (name-str (symbol-name name-sym))
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
+         (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
          (obj (cfgl-package name-str :name name-sym)))
     (when location (oset obj :location location))
     (when step (oset obj :step step))
+    (oset obj :excluded excluded)
     obj))
 
 (defun configuration-layer/get-packages (layers &optional dotfile)
