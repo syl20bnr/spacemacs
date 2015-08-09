@@ -38,7 +38,7 @@
  - [[#main-principles][Main principles]]
      - [[#evil][Evil]]
      - [[#holy][Holy]]
-         - [[#states][States]]
+     - [[#states][States]]
      - [[#evil-leader][Evil leader]]
      - [[#universal-argument][Universal argument]]
      - [[#micro-states][Micro-states]]
@@ -137,17 +137,12 @@
          - [[#line-formatting][Line formatting]]
          - [[#replacing-text-with-iedit][Replacing text with iedit]]
              - [[#iedit-states-key-bindings][iedit states key bindings]]
-                 - [[#state-transitions][State transitions]]
-                 - [[#in-iedit-state][In iedit state]]
-                 - [[#in-iedit-insert-state][In iedit-insert state]]
              - [[#examples][Examples]]
          - [[#replacing-text-in-several-files][Replacing text in several files]]
          - [[#commenting][Commenting]]
          - [[#deleting-files][Deleting files]]
          - [[#editing-lisp-code][Editing Lisp code]]
              - [[#lisp-key-bindings][Lisp Key Bindings]]
-                 - [[#lisp-state-key-bindings][Lisp state key bindings]]
-                 - [[#emacs-lisp-specific-key-bindings][Emacs lisp specific key bindings]]
      - [[#managing-projects][Managing projects]]
      - [[#registers][Registers]]
      - [[#errors-handling][Errors handling]]
@@ -537,7 +532,7 @@ users by setting the =dotspacemacs-editing-style= variable to ='vim= or ='emacs=
 in the dotfile. In Emacs style the leader is available as ~M-m~. It is possible
 to dynamically switch between evil and holy modes using ~SPC P tab~.
 
-*** States
+** States
 =Spacemacs= has 9 states:
 
 | State        | Color       | Description                                                                                                |
@@ -547,13 +542,13 @@ to dynamically switch between evil and holy modes using ~SPC P tab~.
 | visual       | gray        | like the =visual mode of Vim=, used to make text selection                                                 |
 | motion       | purple      | exclusive to =Evil=, used to navigate read only buffers                                                    |
 | emacs        | blue        | exclusive to =Evil=, using this state is like using a regular Emacs without Vim                            |
+| replace      | chocolate   | exclusive to =Evil=, overwrites the character under point instead of inserting a new one                   |
 | evilified    | light brown | exclusive to =Spacemacs=, this is an =emacs state= modified to bring Vim navigation, selection and search. |
 | lisp         | pink        | exclusive to =Spacemacs=, used to navigate Lisp code and modify it (more [[#editing-lisp-code][info]])                             |
 | iedit        | red         | exclusive to =Spacemacs=, used to navigate between multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])      |
 | iedit-insert | red         | exclusive to =Spacemacs=, used to replace multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])               |
 
-Note: Technically speaking there are also the =operator= and =replace= evil
-states.
+Note: Technically speaking there is also the =operator= evil state.
 
 ** Evil leader
 =Spacemacs= heavily uses the [[https://github.com/cofi/evil-leader][evil-leader]] mode which brings the Vim leader key to
