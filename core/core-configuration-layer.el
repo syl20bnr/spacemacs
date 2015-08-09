@@ -29,6 +29,7 @@
   ;; optimization, no need to activate all the packages so early
   (setq package-enable-at-startup nil)
   (package-initialize 'noactivate)
+  ;; (package-initialize)
   ;; Emacs 24.3 and above ships with python.el but in some Emacs 24.3.1 packages
   ;; for Ubuntu, python.el seems to be missing.
   ;; This hack adds marmalade repository for this case only.
@@ -73,9 +74,6 @@
    (dir :initarg :dir
         :type string
         :documentation "Absolute path to the layer directory.")
-   (ext-dir :initarg :ext-dir
-            :type string
-            :documentation "Absolute path to the exentensions directory.")
    (variables :initarg :variables
               :initform nil
               :type list
@@ -187,12 +185,10 @@ layer directory."
          (variables (when (listp layer)
                       (spacemacs/mplist-get layer :variables))))
     (if base-dir
-        (let* ((dir (format "%s%s/" base-dir name-str))
-               (ext-dir (format "%sextensions/" dir)))
+        (let* ((dir (format "%s%s/" base-dir name-str)))
           (cfgl-layer name-str
                       :name name-sym
                       :dir dir
-                      :ext-dir ext-dir
                       :variables variables))
       (spacemacs-buffer/warning "Cannot find layer %S !" name-sym)
       nil)))
@@ -507,11 +503,11 @@ LAYERS is a list of layer symbols."
            (configuration-layer/get-packages layers t)))
     ;; number of chuncks for the loading screen
     (setq spacemacs-loading-dots-chunk-threshold
-          (/ (length configuration-layer-packages)
+          (/ (configuration-layer/configured-packages-count)
              spacemacs-loading-dots-chunk-count))
     ;; install and configuration
-    (configuration-layer//install-packages)
-    (configuration-layer//configure-packages)
+    (configuration-layer//install-packages configuration-layer-packages)
+    (configuration-layer//configure-packages configuration-layer-packages)
     ;; finally load the remaining files of a layer
     (configuration-layer//load-layers-files layers '("keybindings.el"))))
 
@@ -526,11 +522,15 @@ LAYERS is a list of layer symbols."
     (let ((file (concat (oref layer :dir) file)))
       (if (file-exists-p file) (load file)))))
 
-(defun configuration-layer//install-packages ()
-  "Install the packages all the packages if there are not currently installed."
+(defun configuration-layer/configured-packages-count ()
+  "Return the number of configured packages."
+  (length configuration-layer-packages))
+
+(defun configuration-layer//install-packages (packages)
+  "Install PACKAGES."
   (interactive)
   (let* ((candidates (configuration-layer//filter-packages
-                      configuration-layer-packages
+                      packages
                       (lambda (x) (and (not (null (oref x :owner)))
                                        (not (eq 'local (oref x :location)))
                                        (not (oref x :excluded))))))
@@ -550,10 +550,10 @@ LAYERS is a list of layer symbols."
           (setq installed-count 0)
           (dolist (pkg not-installed)
             (setq installed-count (1+ installed-count))
-            (let ((layer (ht-get configuration-layer-packages pkg)))
+            (let ((layer (oref configuration-layer-packages :owner)))
               (spacemacs-buffer/replace-last-line
                (format "--> installing %s%s... [%s/%s]"
-                       (if layer (format "%s:" layer) "")
+                       (when layer (format "%S:" layer) "")
                        pkg installed-count not-installed-count) t))
             (unless (package-installed-p pkg)
               (condition-case err
@@ -577,7 +577,7 @@ LAYERS is a list of layer symbols."
   "Return a filtered PACKAGES list where each elements satisfies FILTER.
 
 This function also processed recursively the package dependencies."
-(when packages
+  (when packages
     (let (result)
       (dolist (pkg packages)
         ;; recursively check dependencies
@@ -608,6 +608,77 @@ This function also processed recursively the package dependencies."
        (or (null installed-ver)
            (version<= (configuration-layer//get-latest-package-version-string x)
                       installed-ver))))))
+
+(defun configuration-layer//configure-packages (packages)
+  "Configure all passed PACKAGES honoring the steps order."
+  (configuration-layer//configure-packages-2
+   (configuration-layer//filter-packages
+    packages (lambda (x) (eq 'pre (oref x :step)))))
+  (configuration-layer//configure-packages-2
+   (configuration-layer//filter-packages
+    packages (lambda (x) (null (oref x :step)))))
+  (configuration-layer//configure-packages-2
+   (configuration-layer//filter-packages
+    packages (lambda (x) (eq 'post (oref x :step))))))
+
+(defun configuration-layer//configure-packages-2 (packages)
+  "Configure all passed PACKAGES."
+  (dolist (pkg packages)
+    (spacemacs-buffer/loading-animation)
+    (let ((pkg-name (oref pkg :name)))
+      (cond
+       ((oref pkg :excluded)
+        (spacemacs-buffer/message
+         (format "%S ignored since it has been excluded." pkg-name)))
+       ((null (oref pkg :owner))
+        (spacemacs-buffer/message
+         (format "%S ignored since it has no owner layer." pkg-name)))
+       ((eq 'local (oref pkg :location))
+        (let* ((owner (object-assoc (oref pkg :owner)
+                                    :name configuration-layer-layers))
+               (dir (oref owner :dir)))
+          (push (format "%sextensions/%S/" dir pkg-name) load-path))
+        (configuration-layer//configure-package pkg))
+       (t
+        (configuration-layer//activate-package pkg-name)
+        (configuration-layer//configure-package pkg))))))
+
+(defun configuration-layer//configure-package (pkg)
+  "Configure PKG."
+  (let ((pkg-name (oref pkg :name)))
+    (spacemacs-buffer/message (format "Configuring %S..." pkg-name))
+    ;; pre-init
+    (mapc (lambda (layer)
+            (spacemacs-buffer/message
+             (format "  -> pre-init (%S)..." layer))
+            (condition-case err
+                (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
+              ('error
+               (configuration-layer//set-error)
+               (spacemacs-buffer/append
+                (format
+                 (concat "An error occurred while pre-configuring %S "
+                         "in layer %S (error: %s)\n")
+                 pkg-name layer err)))))
+          (oref pkg :pre-layers))
+    ;; init
+    (let ((owner (oref pkg :owner)))
+      (spacemacs-buffer/message (format "  -> init (%S)..." owner))
+      (funcall (intern (format "%S/init-%S" owner pkg-name))))
+    ;; post-init
+    (mapc (lambda (layer)
+            (spacemacs-buffer/message
+             (format "  -> post-init (%S)..." layer))
+            (condition-case err
+                (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
+              ('error
+               (configuration-layer//set-error)
+               (spacemacs-buffer/append
+                (format
+                 (concat "An error occurred while post-configuring %S "
+                         "in layer %S (error: %s)\n")
+                 pkg-name layer err)))))
+          (oref pkg :post-layers))))
 
 (defun configuration-layer/update-packages (&optional always-update)
   "Upgrade elpa packages.  If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
@@ -741,57 +812,12 @@ to select one."
         (spacemacs-buffer/append
          "\nEmacs has to be restarted for the changes to take effect.\n")))))
 
-(defun configuration-layer//configure-packages ()
-  "Initialize all the declared packages."
-  (mapc (lambda (x)
-          (spacemacs-buffer/message (format "Package: Initializing %S..." x))
-          (configuration-layer//eval-init-functions
-           x (ht-get configuration-layer-packages-init-funcs x)))
-        configuration-layer-all-packages-sorted))
-
-(defun configuration-layer//initialize-pre-extensions ()
-  "Initialize all the declared pre-extensions."
-  (mapc (lambda (x)
-          (spacemacs-buffer/message (format "Pre-extension: Initializing %S..." x))
-          (configuration-layer//eval-init-functions
-           x (ht-get configuration-layer-pre-extensions-init-funcs x) t))
-        configuration-layer-all-pre-extensions-sorted))
-
-(defun configuration-layer//initialize-post-extensions ()
-  "Initialize all the declared post-extensions."
-  (mapc (lambda (x)
-          (spacemacs-buffer/message (format "Post-extension: Initializing %S..." x))
-          (configuration-layer//eval-init-functions
-           x (ht-get configuration-layer-post-extensions-init-funcs x) t))
-        configuration-layer-all-post-extensions-sorted))
-
-(defun configuration-layer//eval-init-functions (pkg funcs &optional extension-p)
-  "Initialize the package PKG by evaluating the functions of FUNCS."
-  (when (or extension-p (package-installed-p pkg))
-    (configuration-layer//activate-package pkg)
-    (dolist (f funcs)
-      (spacemacs-buffer/message (format "-> %S..." f))
-      (condition-case err
-          (funcall f)
-        ('error
-         (configuration-layer//set-error)
-         (spacemacs-buffer/append
-          (format (concat "An error occurred while initializing %s "
-                          "(error: %s)\n") pkg err)))))
-    (spacemacs-buffer/loading-animation)))
-
 (defun configuration-layer//activate-package (pkg)
   "Activate PKG."
   (if (version< emacs-version "24.3.50")
       ;; fake version list to always activate the package
       (package-activate pkg '(0 0 0 0))
     (package-activate pkg)))
-
-(defun configuration-layer//initialized-packages-count ()
-  "Return the number of initialized packages and extensions."
-  (+ (ht-size configuration-layer-packages)
-     (ht-size configuration-layer-all-pre-extensions)
-     (ht-size configuration-layer-all-post-extensions)))
 
 (defun configuration-layer/get-layers-list ()
   "Return a list of all discovered layer symbols."

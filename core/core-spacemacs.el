@@ -223,7 +223,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
                      (time-subtract (current-time) emacs-start-time))))
        (spacemacs-buffer/append
         (format "\n[%s packages loaded in %.3fs]\n"
-                (configuration-layer//initialized-packages-count)
+                (configuration-layer/configured-packages-count)
                 elapsed)))
      ;; Display useful lists of items
      (when dotspacemacs-startup-lists

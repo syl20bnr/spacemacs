@@ -833,7 +833,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (add-to-hook 'prog-mode-hook '(spacemacs//standard-text-objects))
 
       ;; support smart 1parens-strict-mode
-      (if (ht-contains? configuration-layer-all-packages 'smartparens)
+      (when (configuration-layer/package-usedp 'smartparens)
           (defadvice evil-delete-backward-char-and-join
               (around spacemacs/evil-delete-backward-char-and-join activate)
             (defvar smartparens-strict-mode)
