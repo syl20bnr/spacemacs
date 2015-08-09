@@ -271,11 +271,7 @@ These should have their own segments in the modeline.")
 (savehist-mode +1)
 
 ;; cache files
-;; bookmarks
-(setq bookmark-default-file (concat spacemacs-cache-directory "bookmarks")
-      ;; save after every change
-      bookmark-save-flag 1
-      url-configuration-directory (concat spacemacs-cache-directory "url")
+(setq url-configuration-directory (concat spacemacs-cache-directory "url")
       eshell-directory-name (concat spacemacs-cache-directory "eshell" )
       tramp-persistency-file-name (concat spacemacs-cache-directory "tramp"))
 
