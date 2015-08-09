@@ -277,11 +277,11 @@ the focus."
     (push '("*cider-doc*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
           popwin:special-display-config)))
 
-(defun clojure/init-rainbow-delimiters ()
+(defun clojure/post-init-rainbow-delimiters ()
   (if (configuration-layer/package-usedp 'cider)
       (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
 
-(defun clojure/init-subword ()
+(defun clojure/post-init-subword ()
   (unless (version< emacs-version "24.4")
     (add-hook 'cider-mode-hook 'subword-mode)))
 

@@ -24,7 +24,6 @@
     centered-cursor
     helm-spacemacs
     solarized-theme
-    spacemacs-theme
     zoom-frm
     ;; hack to be able to wrap built-in emacs modes in an init function
     emacs-builtin-process-menu
