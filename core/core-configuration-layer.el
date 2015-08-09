@@ -315,7 +315,7 @@ layer directory."
   (sort packages (lambda (x y) (string< (symbol-name (oref x :name))
                                         (symbol-name (oref y :name))))))
 
-(defun configuration-layer//filter-packages (packages ffunc)
+(defun configuration-layer/filter-packages (packages ffunc)
   "Return a filtered PACKAGES list where each element satisfies FFUNC."
   (reverse (reduce (lambda (acc x)
                      (if (funcall ffunc x) (push x acc) acc))
@@ -529,7 +529,7 @@ LAYERS is a list of layer symbols."
 (defun configuration-layer//install-packages (packages)
   "Install PACKAGES."
   (interactive)
-  (let* ((candidates (configuration-layer//filter-packages
+  (let* ((candidates (configuration-layer/filter-packages
                       packages
                       (lambda (x) (and (not (null (oref x :owner)))
                                        (not (eq 'local (oref x :location)))
@@ -615,13 +615,13 @@ LAYERS is a list of layer symbols."
 (defun configuration-layer//configure-packages (packages)
   "Configure all passed PACKAGES honoring the steps order."
   (configuration-layer//configure-packages-2
-   (configuration-layer//filter-packages
+   (configuration-layer/filter-packages
     packages (lambda (x) (eq 'pre (oref x :step)))))
   (configuration-layer//configure-packages-2
-   (configuration-layer//filter-packages
+   (configuration-layer/filter-packages
     packages (lambda (x) (null (oref x :step)))))
   (configuration-layer//configure-packages-2
-   (configuration-layer//filter-packages
+   (configuration-layer/filter-packages
     packages (lambda (x) (eq 'post (oref x :step))))))
 
 (defun configuration-layer//configure-packages-2 (packages)
