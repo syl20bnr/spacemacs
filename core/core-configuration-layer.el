@@ -136,7 +136,7 @@ directory with a name starting with `!'.")
   (configuration-layer/init-layers)
   (configuration-layer/load-layers)
   (when dotspacemacs-delete-orphan-packages
-    (configuration-layer/delete-orphan-packages)))
+    (configuration-layer/delete-orphan-packages configuration-layer-packages)))
 
 (defun configuration-layer/create-layer ()
   "Ask the user for a configuration layer name and the layer
@@ -834,9 +834,8 @@ to select one."
   "Return the path for LAYER symbol."
   (ht-get configuration-layer-paths layer))
 
-(defun configuration-layer//get-packages-dependencies ()
-  "Returns a hash map where key is a dependency package symbol and value is
-a list of all packages which depend on it."
+(defun configuration-layer//get-all-packages-dependencies ()
+  "Returns dependencies hash map for all packages in `package-alist'."
   (let ((result (make-hash-table :size 512)))
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
@@ -849,37 +848,34 @@ a list of all packages which depend on it."
                      result)))))
     result))
 
-(defun configuration-layer//get-implicit-packages ()
-  "Returns a list of all packages in `packages-alist' which are not found
-in `configuration-layer-packages'"
-  (let ((imp-pkgs))
+(defun configuration-layer//get-implicit-packages (packages)
+  "Returns packages in `packages-alist' which are not found in PACKAGES."
+  (let (imp-pkgs)
     (dolist (pkg package-alist)
       (let ((pkg-sym (car pkg)))
-        (unless (object-assoc pkg-sym :name configuration-layer-packages)
+        (unless (object-assoc pkg-sym :name packages)
           (add-to-list 'imp-pkgs pkg-sym))))
     imp-pkgs))
 
 (defun configuration-layer//get-orphan-packages (implicit-pkgs dependencies)
-  "Return a list of all orphan packages which are basically meant to be
-deleted safely."
-  (let ((result '()))
+  "Return orphan packages."
+  (let (result)
     (dolist (imp-pkg implicit-pkgs)
-      (if (configuration-layer//is-package-orphan imp-pkg dependencies)
-          (add-to-list 'result imp-pkg)))
+      (when (configuration-layer//is-package-orphan imp-pkg dependencies)
+        (add-to-list 'result imp-pkg)))
     result))
 
-(defun configuration-layer//is-package-orphan (pkg dependencies)
-  "Returns not nil if PKG is an orphan package."
-  (if (object-assoc pkg :name configuration-layer-packages)
-      nil
-    (if (ht-contains? dependencies pkg)
-        (let ((parents (ht-get dependencies pkg)))
+(defun configuration-layer//is-package-orphan (pkg-name dependencies)
+  "Returns not nil if PKG-NAME is the name of an orphan package."
+  (unless (object-assoc pkg-name :name configuration-layer-packages)
+    (if (ht-contains? dependencies pkg-name)
+        (let ((parents (ht-get dependencies pkg-name)))
           (reduce (lambda (x y) (and x y))
                   (mapcar (lambda (p) (configuration-layer//is-package-orphan
                                        p dependencies))
                           parents)
                   :initial-value t))
-      (not (ht-contains? configuration-layer-packages pkg)))))
+      (not (object-assoc pkg-name :name configuration-layer-packages)))))
 
 (defun configuration-layer//get-package-directory (pkg)
   "Return the directory path for PKG."
@@ -947,13 +943,13 @@ deleted safely."
     (unless (string-empty-p version-string)
       (version-to-list version-string))))
 
-(defun configuration-layer//package-delete (pkg)
-  "Delete the passed PKG."
+(defun configuration-layer//package-delete (pkg-name)
+  "Delete package with name PKG-NAME."
   (cond
    ((version< emacs-version "24.3.50")
-    (let ((v (configuration-layer//get-package-version-string pkg)))
-      (when v (package-delete (symbol-name pkg) v))))
-   (t (let ((p (cadr (assq pkg package-alist))))
+    (let ((v (configuration-layer//get-package-version-string pkg-name)))
+      (when v (package-delete (symbol-name pkg-name) v))))
+   (t (let ((p (cadr (assq pkg-name package-alist))))
         (when p (package-delete p))))))
 
 (defun configuration-layer//filter-used-themes (orphans)
@@ -963,11 +959,12 @@ Returns the filtered list."
                       (and (not (memq x spacemacs-used-theme-packages))
                            x)) orphans)))
 
-(defun configuration-layer/delete-orphan-packages ()
-  "Delete all the orphan packages."
+(defun configuration-layer/delete-orphan-packages (packages)
+  "Delete PACKAGES if they are orphan."
   (interactive)
-  (let* ((dependencies (configuration-layer//get-packages-dependencies))
-         (implicit-packages (configuration-layer//get-implicit-packages))
+  (let* ((dependencies (configuration-layer//get-all-packages-dependencies))
+         (implicit-packages (configuration-layer//get-implicit-packages
+                             packages))
          (orphans (configuration-layer//filter-used-themes
                    (configuration-layer//get-orphan-packages implicit-packages
                                                              dependencies)))
