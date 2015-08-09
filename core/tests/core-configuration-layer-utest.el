@@ -158,17 +158,17 @@
     (mocker-let ((file-exists-p (f) ((:output t :occur 1)
                                      (:output nil :occur 1)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 1))))
-                (should (equal '([object cfgl-package "pkg3" pkg3 layer1 nil nil elpa nil nil]
-                                 [object cfgl-package "pkg2" pkg2 layer1 nil nil elpa nil nil]
-                                 [object cfgl-package "pkg1" pkg1 layer1 nil nil elpa nil nil])
+                (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owner 'layer1)
+                                     (cfgl-package "pkg2" :name 'pkg2 :owner 'layer1)
+                                     (cfgl-package "pkg1" :name 'pkg1 :owner 'layer1))
                                (configuration-layer/get-packages layers))))))
 
 (ert-deftest test-get-packages--lists-only ()
   (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path"))
          (layers (list layer1))
-         (layer1-packages '((pkg1 :location elpa)
-                                (pkg2 :location recipe)
-                                (pkg3 :location local :step pre)))
+         (layer1-packages '((pkg1 :location elpa :excluded t)
+                            (pkg2 :location recipe)
+                            (pkg3 :location local :step pre)))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer1/init-pkg1 nil)
     (defun layer1/init-pkg2 nil)
@@ -176,18 +176,18 @@
     (mocker-let ((file-exists-p (f) ((:output t :occur 1)
                                      (:output nil :occur 1)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 1))))
-                (should (equal '([object cfgl-package "pkg3" pkg3 layer1 nil nil local pre nil]
-                                 [object cfgl-package "pkg2" pkg2 layer1 nil nil recipe nil nil]
-                                 [object cfgl-package "pkg1" pkg1 layer1 nil nil elpa nil nil])
+                (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owner 'layer1 :location 'local :step 'pre)
+                                     (cfgl-package "pkg2" :name 'pkg2 :owner 'layer1 :location 'recipe)
+                                     (cfgl-package "pkg1" :name 'pkg1 :owner 'layer1 :excluded t))
                                (configuration-layer/get-packages layers))))))
 
 (ert-deftest test-get-packages--symbols-and-lists ()
   (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path"))
          (layers (list layer1))
          (layer1-packages '(pkg1
-                                (pkg2 :location recipe)
-                                (pkg3 :location local :step pre)
-                                pkg4))
+                            (pkg2 :location recipe)
+                            (pkg3 :location local :step pre)
+                            pkg4))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer1/init-pkg1 nil)
     (defun layer1/init-pkg2 nil)
@@ -196,10 +196,10 @@
     (mocker-let ((file-exists-p (f) ((:output t :occur 1)
                                      (:output nil :occur 1)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 1))))
-                (should (equal '([object cfgl-package "pkg4" pkg4 layer1 nil nil elpa nil nil]
-                                 [object cfgl-package "pkg3" pkg3 layer1 nil nil local pre nil]
-                                 [object cfgl-package "pkg2" pkg2 layer1 nil nil recipe nil nil]
-                                 [object cfgl-package "pkg1" pkg1 layer1 nil nil elpa nil nil])
+                (should (equal (list (cfgl-package "pkg4" :name 'pkg4 :owner 'layer1)
+                                     (cfgl-package "pkg3" :name 'pkg3 :owner 'layer1 :location 'local :step 'pre)
+                                     (cfgl-package "pkg2" :name 'pkg2 :owner 'layer1 :location 'recipe)
+                                     (cfgl-package "pkg1" :name 'pkg1 :owner 'layer1))
                                (configuration-layer/get-packages layers))))))
 
 (ert-deftest test-get-packages--pkg2-has-no-owner-because-no-init-function ()
@@ -212,9 +212,9 @@
     (mocker-let ((file-exists-p (f) ((:output t :occur 1)
                                      (:output nil :occur 1)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 1))))
-                (should (equal '([object cfgl-package "pkg3" pkg3 layer2 nil nil elpa nil nil]
-                                 [object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
-                                 [object cfgl-package "pkg1" pkg1 layer2 nil nil elpa nil nil])
+                (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owner 'layer2)
+                                     (cfgl-package "pkg2" :name 'pkg2)
+                                     (cfgl-package "pkg1" :name 'pkg1 :owner 'layer2))
                                (configuration-layer/get-packages layers))))))
 
 (ert-deftest test-get-packages--pre-init-function ()
@@ -231,7 +231,7 @@
                                      (:output t :occur 1)
                                      (:output nil :occur 1)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 2))))
-                (should (equal '([object cfgl-package "pkg1" pkg1 layer3 (layer4) nil elpa nil nil])
+                (should (equal (list (cfgl-package "pkg1" :name 'pkg1 :owner 'layer3 :pre-layers '(layer4)))
                                (configuration-layer/get-packages layers))))))
 
 (ert-deftest test-get-packages--post-init-function ()
@@ -248,7 +248,7 @@
                                      (:output t :occur 1)
                                      (:output nil :occur 1)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 2))))
-                (should (equal '([object cfgl-package "pkg1" pkg1 layer3 nil (layer5) elpa nil nil])
+                (should (equal (list (cfgl-package "pkg1" :name 'pkg1 :owner 'layer3 :post-layers '(layer5)))
                                (configuration-layer/get-packages layers))))))
 
 (ert-deftest test-get-packages--pre-and-post-init-functions ()
@@ -266,7 +266,7 @@
                                      (:output t :occur 1)
                                      (:output nil :occur 1)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 2))))
-                (should (equal '([object cfgl-package "pkg1" pkg1 layer3 (layer6) (layer6) elpa nil nil])
+                (should (equal (list (cfgl-package "pkg1" :name 'pkg1 :owner 'layer3 :pre-layers '(layer6) :post-layers '(layer6)))
                                (configuration-layer/get-packages layers))))))
 
 (ert-deftest test-get-packages--several-init-functions-last-one-is-the-owner ()
@@ -283,7 +283,7 @@
                                      (:output t :occur 1)
                                      (:output nil :occur 1)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 2))))
-                (should (equal '([object cfgl-package "pkg1" pkg1 layer8 nil nil elpa nil nil])
+                (should (equal (list (cfgl-package "pkg1" :name 'pkg1 :owner 'layer8))
                                (configuration-layer/get-packages layers))))))
 
 (ert-deftest test-get-packages--layer-10-excludes-pkg2-in-layer-9 ()
@@ -302,9 +302,9 @@
                                      (:output t :occur 1)
                                      (:output nil :occur 1)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 2))))
-                (should (equal '([object cfgl-package "pkg3" pkg3 layer10 nil nil elpa nil nil]
-                                 [object cfgl-package "pkg2" pkg2 layer9 nil nil elpa nil t]
-                                 [object cfgl-package "pkg1" pkg1 layer9 nil nil elpa nil nil])
+                (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owner 'layer10)
+                                     (cfgl-package "pkg2" :name 'pkg2 :owner 'layer9 :excluded t)
+                                     (cfgl-package "pkg1" :name 'pkg1 :owner 'layer9))
                                (configuration-layer/get-packages layers))))))
 
 (ert-deftest test-get-packages--dotfile-excludes-pkg2-in-layer-11 ()
@@ -319,9 +319,9 @@
     (mocker-let ((file-exists-p (f) ((:output t :occur 1)
                                      (:output nil :occur 1)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 1))))
-                (should (equal '([object cfgl-package "pkg3" pkg3 layer11 nil nil elpa nil nil]
-                                 [object cfgl-package "pkg2" pkg2 layer11 nil nil elpa nil t]
-                                 [object cfgl-package "pkg1" pkg1 layer11 nil nil elpa nil nil])
+                (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owner 'layer11)
+                                     (cfgl-package "pkg2" :name 'pkg2 :owner 'layer11 :excluded t)
+                                     (cfgl-package "pkg1" :name 'pkg1 :owner 'layer11))
                                (configuration-layer/get-packages layers t))))))
 
 (ert-deftest test-get-packages--dotfile-declares-and-owns-one-additional-package ()
@@ -335,9 +335,9 @@
     (mocker-let ((file-exists-p (f) ((:output t :occur 1)
                                      (:output nil :occur 1)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 1))))
-                (should (equal '([object cfgl-package "pkg3" pkg3 dotfile nil nil elpa nil nil]
-                                 [object cfgl-package "pkg2" pkg2 layer12 nil nil elpa nil nil]
-                                 [object cfgl-package "pkg1" pkg1 layer12 nil nil elpa nil nil])
+                (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owner 'dotfile)
+                                     (cfgl-package "pkg2" :name 'pkg2 :owner 'layer12)
+                                     (cfgl-package "pkg1" :name 'pkg1 :owner 'layer12))
                                (configuration-layer/get-packages layers t))))))
 
 ;; TODO remove extensions tests in 0.105.0
@@ -354,10 +354,10 @@
     (defun layer1/init-ext3 nil)
     (mocker-let ((file-exists-p (f) ((:output t :occur 2)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 2))))
-                (should (equal '([object cfgl-package "ext3" ext3 layer1 nil nil local pre nil]
-                                 [object cfgl-package "ext2" ext2 layer1 nil nil local pre nil]
-                                 [object cfgl-package "ext1" ext1 layer1 nil nil local pre nil]
-                                 [object cfgl-package "pkg1" pkg1 layer1 nil nil elpa nil nil])
+                (should (equal (list (cfgl-package "ext3" :name 'ext3 :owner 'layer1 :location 'local :step 'pre)
+                                     (cfgl-package "ext2" :name 'ext2 :owner 'layer1 :location 'local :step 'pre)
+                                     (cfgl-package "ext1" :name 'ext1 :owner 'layer1 :location 'local :step 'pre)
+                                     (cfgl-package "pkg1" :name 'pkg1 :owner 'layer1))
                                (configuration-layer/get-packages layers))))))
 
 (ert-deftest test-get-packages--post-extensions-backward-compatibility ()
@@ -372,10 +372,10 @@
     (defun layer1/init-ext3 nil)
     (mocker-let ((file-exists-p (f) ((:output t :occur 2)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 2))))
-                (should (equal '([object cfgl-package "ext3" ext3 layer1 nil nil local post nil]
-                                 [object cfgl-package "ext2" ext2 layer1 nil nil local post nil]
-                                 [object cfgl-package "ext1" ext1 layer1 nil nil local post nil]
-                                 [object cfgl-package "pkg1" pkg1 layer1 nil nil elpa nil nil])
+                (should (equal (list (cfgl-package "ext3" :name 'ext3 :owner 'layer1 :location 'local :step 'post)
+                                     (cfgl-package "ext2" :name 'ext2 :owner 'layer1 :location 'local :step 'post)
+                                     (cfgl-package "ext1" :name 'ext1 :owner 'layer1 :location 'local :step 'post)
+                                     (cfgl-package "pkg1" :name 'pkg1 :owner 'layer1))
                                (configuration-layer/get-packages layers))))))
 
 (ert-deftest test-get-packages--extensions-backward-compatibility ()
@@ -394,13 +394,13 @@
     (defun layer1/init-ext6 nil)
     (mocker-let ((file-exists-p (f) ((:output t :occur 2)))
                  (configuration-layer/layer-usedp (l) ((:output t :occur 2))))
-                (should (equal '([object cfgl-package "ext6" ext6 layer1 nil nil local post nil]
-                                 [object cfgl-package "ext5" ext5 layer1 nil nil local post nil]
-                                 [object cfgl-package "ext4" ext4 layer1 nil nil local post nil]
-                                 [object cfgl-package "ext3" ext3 layer1 nil nil local pre nil]
-                                 [object cfgl-package "ext2" ext2 layer1 nil nil local pre nil]
-                                 [object cfgl-package "ext1" ext1 layer1 nil nil local pre nil]
-                                 [object cfgl-package "pkg1" pkg1 layer1 nil nil elpa nil nil])
+                (should (equal (list (cfgl-package "ext6" :name 'ext6 :owner 'layer1 :location 'local :step 'post)
+                                     (cfgl-package "ext5" :name 'ext5 :owner 'layer1 :location 'local :step 'post)
+                                     (cfgl-package "ext4" :name 'ext4 :owner 'layer1 :location 'local :step 'post)
+                                     (cfgl-package "ext3" :name 'ext3 :owner 'layer1 :location 'local :step 'pre)
+                                     (cfgl-package "ext2" :name 'ext2 :owner 'layer1 :location 'local :step 'pre)
+                                     (cfgl-package "ext1" :name 'ext1 :owner 'layer1 :location 'local :step 'pre)
+                                     (cfgl-package "pkg1" :name 'pkg1 :owner 'layer1))
                                (configuration-layer/get-packages layers))))))
 
 ;; ---------------------------------------------------------------------------
@@ -413,18 +413,18 @@
                 ,(configuration-layer/make-package 'pkg6)
                 ,(configuration-layer/make-package 'pkg2)
                 ,(configuration-layer/make-package 'pkg1))))
-    (should (equal '([object cfgl-package "pkg1" pkg1 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg3" pkg3 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg6" pkg6 nil nil nil elpa nil nil])
+    (should (equal (list (cfgl-package "pkg1" :name 'pkg1)
+                         (cfgl-package "pkg2" :name 'pkg2)
+                         (cfgl-package "pkg3" :name 'pkg3)
+                         (cfgl-package "pkg4" :name 'pkg4)
+                         (cfgl-package "pkg6" :name 'pkg6))
                    (configuration-layer//sort-packages pkgs)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer/filter-packages
 ;; ---------------------------------------------------------------------------
 
-(ert-deftest test-filter-packages--filter-excluded-packages ()
+(ert-deftest test-filter-packages--example-filter-excluded-packages ()
   (let* ((pkg1 (configuration-layer/make-package 'pkg1))
          (pkg2 (configuration-layer/make-package 'pkg2))
          (pkg3 (configuration-layer/make-package 'pkg3))
@@ -438,15 +438,15 @@
     (oset pkg3 :excluded t)
     (oset pkg5 :excluded t)
     (oset pkg6 :excluded t)
-    (should (equal '([object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg7" pkg7 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
+    (should (equal (list (cfgl-package "pkg2" :name 'pkg2)
+                         (cfgl-package "pkg4" :name 'pkg4)
+                         (cfgl-package "pkg7" :name 'pkg7)
+                         (cfgl-package "pkg8" :name 'pkg8))
                    (configuration-layer/filter-packages
                     pkgs (lambda (x)
                            (not (oref x :excluded))))))))
 
-(ert-deftest test-filter-packages--filter-local-packages ()
+(ert-deftest test-filter-packages--expample-filter-local-packages ()
   (let* ((pkg1 (configuration-layer/make-package 'pkg1))
          (pkg2 (configuration-layer/make-package 'pkg2))
          (pkg3 (configuration-layer/make-package 'pkg3))
@@ -460,16 +460,16 @@
     (oset pkg3 :location 'local)
     (oset pkg5 :location 'local)
     (oset pkg6 :location 'local)
-    (should (equal '([object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg7" pkg7 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
+    (should (equal (list (cfgl-package "pkg2" :name 'pkg2)
+                         (cfgl-package "pkg4" :name 'pkg4)
+                         (cfgl-package "pkg7" :name 'pkg7)
+                         (cfgl-package "pkg8" :name 'pkg8))
                    (configuration-layer/filter-packages
                     pkgs (lambda (x)
                            (not (eq 'local (oref x :location)))))))))
 
 
-(ert-deftest test-filter-packages--filter-local-or-excluded-packages ()
+(ert-deftest test-filter-packages--example-filter-packages-local-or-excluded ()
   (let* ((pkg1 (configuration-layer/make-package 'pkg1))
          (pkg2 (configuration-layer/make-package 'pkg2))
          (pkg3 (configuration-layer/make-package 'pkg3))
@@ -486,15 +486,15 @@
     (oset pkg6 :location 'local)
     (oset pkg6 :excluded t)
     (oset pkg7 :excluded t)
-    (should (equal '([object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
+    (should (equal (list (cfgl-package "pkg2" :name 'pkg2)
+                         (cfgl-package "pkg4" :name 'pkg4)
+                         (cfgl-package "pkg8" :name 'pkg8))
                    (configuration-layer/filter-packages
                     pkgs (lambda (x)
                            (and (not (eq 'local (oref x :location)))
                                 (not (oref x :excluded)))))))))
 
-(ert-deftest test-filter-packages--filter-local-and-excluded-packages ()
+(ert-deftest test-filter-packages--example-filter-packages-both-local-and-excluded ()
   (let* ((pkg1 (configuration-layer/make-package 'pkg1))
          (pkg2 (configuration-layer/make-package 'pkg2))
          (pkg3 (configuration-layer/make-package 'pkg3))
@@ -510,13 +510,12 @@
     (oset pkg5 :excluded t)
     (oset pkg6 :location 'local)
     (oset pkg6 :excluded t)
-    (should (equal '(
-                     [object cfgl-package "pkg2" pkg2 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg3" pkg3 nil nil nil local nil nil]
-                     [object cfgl-package "pkg4" pkg4 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg5" pkg5 nil nil nil elpa nil t]
-                     [object cfgl-package "pkg7" pkg7 nil nil nil elpa nil nil]
-                     [object cfgl-package "pkg8" pkg8 nil nil nil elpa nil nil])
+    (should (equal (list (cfgl-package "pkg2" :name 'pkg2)
+                         (cfgl-package "pkg3" :name 'pkg3 :location 'local)
+                         (cfgl-package "pkg4" :name 'pkg4)
+                         (cfgl-package "pkg5" :name 'pkg5 :excluded t)
+                         (cfgl-package "pkg7" :name 'pkg7)
+                         (cfgl-package "pkg8" :name 'pkg8))
                    (configuration-layer/filter-packages
                     pkgs (lambda (x)
                            (or (not (eq 'local (oref x :location)))
