@@ -13,9 +13,7 @@
 (setq ruby-on-rails-packages
   '(
     feature-mode
-    haml-mode
     projectile-rails
-    slim-mode
     ))
 
 (defun ruby-on-rails/init-projectile-rails ()
@@ -80,11 +78,3 @@
   "Initialize Cucumber feature mode"
   (use-package feature-mode
     :mode (("\\.feature\\'" . feature-mode))))
-
-(defun ruby-on-rails/init-haml-mode ()
-  (use-package haml-mode
-    :defer t))
-
-(defun ruby-on-rails/init-slim-mode ()
-  (use-package slim-mode
-    :defer t))
