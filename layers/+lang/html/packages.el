@@ -94,7 +94,7 @@
       (spacemacs|hide-lighter emmet-mode))))
 
 (defun html/post-init-evil-matchit ()
-  (add-hook 'web-mode-hook 'evil-matchit-mode))
+  (add-hook 'web-mode-hook 'turn-on-evil-matchit-mode))
 
 (defun html/post-init-flycheck ()
   (dolist (mode '(haml-mode jade-mode less-mode sass-mode scss-mode slim-mode web-mode))
