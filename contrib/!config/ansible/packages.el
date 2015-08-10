@@ -9,13 +9,8 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(setq ansible-packages '(yaml-mode
-                           ansible
-                           ansible-doc))
-
-(defun ansible/init-yaml-mode ()
-  (use-package yaml-mode
-    :defer t))
+(setq ansible-packages '(ansible
+                         ansible-doc))
 
 (defun ansible/init-ansible ()
   (use-package ansible

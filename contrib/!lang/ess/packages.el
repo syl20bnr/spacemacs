@@ -127,7 +127,7 @@ not play nicely with autoloads"
 
 (defun ess/init-ess-R-object-popup ())
 
-(defun ess/init-rainbow-delimiters ()
+(defun ess/post-init-rainbow-delimiters ()
   (add-hook 'ess-mode-hook #'rainbow-delimiters-mode))
 
 (defun ess/init-ess-smart-equals ()

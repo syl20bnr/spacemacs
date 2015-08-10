@@ -18,18 +18,29 @@
     emmet-mode
     evil-matchit
     flycheck
+    haml-mode
     helm-css-scss
+    jade-mode
     less-css-mode
     rainbow-delimiters
-    scss-mode
     sass-mode
+    scss-mode
+    slim-mode
     tagedit
     web-mode
     yasnippet
-    haml-mode
-    slim-mode
-    jade-mode
     ))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  ;;TODO: whenever company-web makes a backend for haml-mode it should be added here. -- @robbyoconnor
+  (defun html/post-init-company ()
+    (spacemacs|add-company-hook css-mode)
+    (spacemacs|add-company-hook jade-mode)
+    (spacemacs|add-company-hook slim-mode)
+    (spacemacs|add-company-hook web-mode))
+
+  (defun html/init-company-web ()
+    (use-package company-web)))
 
 (defun html/init-css-mode ()
   (use-package css-mode
@@ -37,12 +48,81 @@
     :init
     (push 'company-css company-backends-css-mode)))
 
+(defun html/init-emmet-mode ()
+  (use-package emmet-mode
+    :defer t
+    :init (add-to-hooks 'emmet-mode '(css-mode-hook
+                                      html-mode-hook
+                                      web-mode-hook))
+    :config
+    (progn
+      (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'emmet-expand-yas)
+      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
+      (evil-define-key 'emacs emmet-mode-keymap (kbd "TAB") 'emmet-expand-yas)
+      (evil-define-key 'emacs emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
+      (spacemacs|hide-lighter emmet-mode))))
+
+(defun html/post-init-evil-matchit ()
+  (add-hook 'web-mode-hook 'evil-matchit-mode))
+
+(defun html/post-init-flycheck ()
+  (add-to-hooks 'flycheck-mode '(haml-mode-hook
+                                 jade-mode-hook
+                                 less-mode-hook
+                                 sass-mode-hook
+                                 scss-mode-hook
+                                 slim-mode-hook
+                                 web-mode-hook)))
+
+(defun html/init-haml-mode ()
+  (use-package haml-mode
+    :defer t))
+
 (defun html/init-helm-css-scss ()
   (use-package helm-css-scss
     :defer t
     :init
     (eval-after-load 'scss-mode
       '(evil-leader/set-key-for-mode 'scss-mode "mgh" 'helm-css-scss))))
+
+(defun html/init-jade-mode ()
+  (use-package jade-mode
+    :defer t))
+
+(defun html/init-less-css-mode ()
+  (use-package less-css-mode
+    :defer t
+    :mode ("\\.less\\'" . less-css-mode)))
+
+(defun html/init-sass-mode ()
+  (use-package sass-mode
+    :defer t
+    :mode ("\\.sass\\'" . sass-mode)))
+
+(defun html/init-scss-mode ()
+  (use-package scss-mode
+    :defer t
+    :mode ("\\.scss\\'" . scss-mode)))
+
+(defun html/init-slim-mode ()
+  (use-package slim-mode
+    :defer t))
+
+(defun html/init-tagedit ()
+  (use-package tagedit
+    :defer t
+    :config
+    (progn
+      (tagedit-add-experimental-features)
+      (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
+      (spacemacs|diminish tagedit-mode " Ⓣ" " T"))))
+
+(defun html/post-init-rainbow-delimiters ()
+  (add-to-hooks 'rainbow-delimiters-mode '(haml-mode-hook
+                                           jade-mode-hook
+                                           less-css-mode-hook
+                                           scss-mode-hook
+                                           slim-mode-hook)))
 
 (defun html/init-web-mode ()
   (use-package web-mode
@@ -138,90 +218,7 @@
      ("\\.ejs\\'"        . web-mode)
      ("\\.djhtml\\'"     . web-mode))))
 
-(defun html/init-emmet-mode ()
-  (use-package emmet-mode
-    :defer t
-    :init (add-to-hooks 'emmet-mode '(css-mode-hook
-                                      html-mode-hook
-                                      web-mode-hook))
-    :config
-    (progn
-      (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'emmet-expand-yas)
-      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
-      (evil-define-key 'emacs emmet-mode-keymap (kbd "TAB") 'emmet-expand-yas)
-      (evil-define-key 'emacs emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
-      (spacemacs|hide-lighter emmet-mode))))
-
-(defun html/post-init-evil-matchit ()
-  (add-hook 'web-mode-hook 'evil-matchit-mode))
-
-(defun html/init-scss-mode ()
-  (use-package scss-mode
-    :defer t
-    :mode ("\\.scss\\'" . scss-mode)))
-
-(defun html/init-sass-mode ()
-  (use-package sass-mode
-    :defer t
-    :mode ("\\.sass\\'" . sass-mode)))
-
-(defun html/init-less-css-mode ()
-  (use-package less-css-mode
-    :defer t
-    :mode ("\\.less\\'" . less-css-mode)))
-
-(defun html/post-init-flycheck ()
-  (add-to-hooks 'flycheck-mode '(haml-mode-hook
-                                 jade-mode-hook
-                                 less-mode-hook
-                                 sass-mode-hook
-                                 scss-mode-hook
-                                 slim-mode-hook
-                                 web-mode-hook)))
-
-(defun html/init-tagedit ()
-  (use-package tagedit
-    :defer t
-    :config
-    (progn
-      (tagedit-add-experimental-features)
-      (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))
-      (spacemacs|diminish tagedit-mode " Ⓣ" " T"))))
-
-(defun html/init-yasnippet ()
-  (use-package yasnippet
-    :defer t
-    :init
-    (add-to-hooks 'spacemacs/load-yasnippet '(css-mode-hook
-                                              jade-mode
-                                              slim-mode))))
-
-(defun html/init-haml-mode ()
-  (use-package haml-mode
-    :defer t))
-
-(defun html/init-slim-mode ()
-  (use-package slim-mode
-    :defer t))
-
-(defun html/init-jade-mode ()
-  (use-package jade-mode
-    :defer t))
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  ;;TODO: whenever company-web makes a backend for haml-mode it should be added here. -- @robbyoconnor
-  (defun html/post-init-company ()
-    (spacemacs|add-company-hook css-mode)
-    (spacemacs|add-company-hook jade-mode)
-    (spacemacs|add-company-hook slim-mode)
-    (spacemacs|add-company-hook web-mode))
-
-  (defun html/init-company-web ()
-    (use-package company-web)))
-
-(defun html/post-init-rainbow-delimiters ()
-  (add-to-hooks 'rainbow-delimiters-mode '(haml-mode-hook
-                                           jade-mode-hook
-                                           less-css-mode-hook
-                                           scss-mode-hook
-                                           slim-mode-hook)))
+(defun html/post-init-yasnippet ()
+  (add-to-hooks 'spacemacs/load-yasnippet '(css-mode-hook
+                                            jade-mode
+                                            slim-mode)))
