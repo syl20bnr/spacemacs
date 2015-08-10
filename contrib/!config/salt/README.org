@@ -14,5 +14,7 @@ This layer provides syntax highlighting for Saltstack files.
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(salt))
+  (setq-default dotspacemacs-configuration-layers '(salt yaml))
 #+END_SRC
+
+Note that this layer requires the yaml layer.
