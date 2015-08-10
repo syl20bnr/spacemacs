@@ -12,12 +12,13 @@
 ;;; License: GPLv3
 (setq salt-packages '(yaml-mode))
 
-(defun salt/init-yaml-mode ()
-  (use-package yaml-mode
-    :defer t
-    :init (progn
-            (define-derived-mode saltstack-mode yaml-mode "Saltstack"
-              "Minimal Saltstack mode, based on `yaml-mode'."
-              (setq tab-width 2
-                    indent-tabs-mode nil))
-            (add-to-list 'auto-mode-alist '("\\.sls\\'" . saltstack-mode)))))
+(defun salt/pre-init-yaml-mode ()
+  (spacemacs|use-package-add-hook yaml-mode
+    :post-init
+    (progn
+      (define-derived-mode saltstack-mode yaml-mode "Saltstack"
+        "Minimal Saltstack mode, based on `yaml-mode'."
+        (setq tab-width 2
+              indent-tabs-mode nil))
+      (add-to-list 'auto-mode-alist '("\\.sls\\'" . saltstack-mode)))
+    ))
