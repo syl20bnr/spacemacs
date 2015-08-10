@@ -387,7 +387,7 @@
          (let ((map (make-sparse-keymap)))
            (define-key map (kbd "d") 'ahs-forward-definition)
            (define-key map (kbd "D") 'ahs-backward-definition)
-           (if (ht-contains? configuration-layer-all-packages 'evil-iedit-state)
+           (if (configuration-layer/package-usedp 'evil-iedit-state)
                (define-key map (kbd "e") 'evil-iedit-state/iedit-mode)
              (define-key map (kbd "e") 'ahs-edit-mode))
            (define-key map (kbd "n") 'ahs-forward)
