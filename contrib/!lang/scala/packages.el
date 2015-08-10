@@ -12,16 +12,11 @@
 
 (setq scala-packages
   '(
-    projectile
     ensime
     noflet
     sbt-mode
     scala-mode2
     ))
-
-(defun scala/init-projectile ()
-  (use-package projectile
-    :defer t))
 
 (defun scala/init-ensime ()
   (use-package ensime
