@@ -8,4 +8,7 @@ be sure to add this layer to your dotfile if you use it.
 Django framework has now its own layer called `django`,
 be sure to add this layer to your dotfile if you use it.
 
+3. Salt
 
+Salt layer requires the YAML layer, be sure to add the `yaml` layer
+to your dotfile if you use `salt` layer.
