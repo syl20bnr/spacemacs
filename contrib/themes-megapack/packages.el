@@ -49,7 +49,6 @@
     inkpot-theme
     ir-black-theme
     jazz-theme
-    leuven-theme
     light-soap-theme
     lush-theme
     material-theme
