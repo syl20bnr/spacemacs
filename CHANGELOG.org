@@ -125,6 +125,13 @@
 - Typos and documentation improvements (thanks to andyque, gleber,
   JoshTGreenwood, mbertheau, sotte, srid, travisbhartwell)
 * Release 0.103.x
+** 0.103.5 (2015/08/09)
+*** Layer changes
+**** Osx
+- Fix initialization of =reveal-in-osx-finder= (thanks to fintelkai)
+*** Core
+- Temporarily switch to HTTP instead of HTTPS to communicate with
+  elpa.gnu.org (thanks to robbyoconnor)
 ** 0.103.4 (2015/08/07)
 *** Layer changes
 **** Clojure
