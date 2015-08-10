@@ -8,6 +8,8 @@
 - =guide-key= has been replaced by =which-key=, you may encounter issues
   if you have =guide-key= custom configurations, remove any =guide-key=
   configuration and check the options offered by =which-key=.
+- =salt= layer requires the new =yaml= layer, be sure to add the =yaml=
+  layer to your dotfile if you use =salt=.
 *** Hot new features:
 - Whole new package list used in the file =packages.el= of a layer. Packages
   can now be a list with keyword properties, the currently supported
@@ -44,6 +46,7 @@
 - vinegar (thanks to ralesi)
 - unimpaired (thanks to ralesi)
 - wakatime (thanks to CestDiego)
+- yaml (split from ruby)
 *** Dotfile changes
 - Add a new value =any= for =dotspacemacs-highlight-delimiters=, when set to
   =any=, all the delimiters are highlighted via =rainbow-mode=.
