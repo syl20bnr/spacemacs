@@ -160,9 +160,9 @@ Test commands (start with ~m t~ or ~m T~):
 | ~SPC m =~   | Reformat the buffer according to PEP8 using  [[https://github.com/google/yapf][YAPF]]                |
 | ~SPC m d b~ | toggle a breakpoint                                              |
 | ~SPC m g g~ | go to definition using =anaconda-mode-goto= (~C-o~ to jump back) |
+| ~SPC m g u~ | navigate between usages with =anaconda-mode-usages=              |
 | ~SPC m h d~ | look for documentation using =helm-pydoc=                        |
 | ~SPC m h h~ | quick documentation using anaconda                               |
 | ~SPC m h H~ | open documentation in =firefox= using [pylookup][pylookup]       |
-| ~SPC m h u~ | navigate between usages with =anaconda-mode-usages=              |
 | ~SPC m v~   | activate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                        |
 | ~SPC m V~   | activate a virtual environment with  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]]                      |

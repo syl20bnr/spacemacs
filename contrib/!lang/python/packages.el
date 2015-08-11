@@ -41,8 +41,8 @@
     (progn
       (evil-leader/set-key-for-mode 'python-mode
         "mhh" 'anaconda-mode-view-doc
-        "mhu" 'anaconda-mode-usages
-        "mgg" 'anaconda-mode-goto)
+        "mgg" 'anaconda-mode-goto
+        "mgu" 'anaconda-mode-usages)
       (spacemacs|hide-lighter anaconda-mode))))
 
 (defun python/init-cython-mode ()
@@ -52,9 +52,8 @@
     (progn
       (evil-leader/set-key-for-mode 'cython-mode
         "mhh" 'anaconda-mode-view-doc
-        "mhu" 'anaconda-mode-usages
-        "mgg" 'anaconda-mode-goto)
-      )))
+        "mgg" 'anaconda-mode-goto
+        "mgu" 'anaconda-mode-usages))))
 
 (defun python/post-init-eldoc ()
   (add-hook 'python-mode-hook 'eldoc-mode))
