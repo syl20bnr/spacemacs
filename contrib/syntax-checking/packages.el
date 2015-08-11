@@ -118,8 +118,8 @@
     :defer t
     :init
     (progn
-      (setq-default ispell-program-name "aspell")
-      (setq-default ispell-dictionary "english")
+      (setq-default ispell-program-name syntax-checking-ispell-program)
+      (setq-default ispell-dictionary syntax-checking-ispell-dictionary)
       (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
       (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1)))
       (spacemacs|add-toggle spelling-checking
