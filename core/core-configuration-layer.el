@@ -646,6 +646,8 @@ LAYERS is a list of layer symbols."
         (let* ((owner (object-assoc (oref pkg :owner)
                                     :name configuration-layer-layers))
                (dir (oref owner :dir)))
+          (push (format "%slocal/%S/" dir pkg-name) load-path)
+          ;; TODO remove extensions in 0.105.0
           (push (format "%sextensions/%S/" dir pkg-name) load-path))
         (configuration-layer//configure-package pkg))
        (t
