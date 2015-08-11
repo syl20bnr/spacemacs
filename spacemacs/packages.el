@@ -314,6 +314,7 @@
                       (spacemacs/ahs-highlight-now-wrapper)
                       (when (configuration-layer/package-usedp 'evil-jumper)
                         (evil-set-jump))
+                      (spacemacs/highlight-symbol-micro-state)
                       (ahs-forward)) nil))
 
       (defun spacemacs/quick-ahs-backward ()
@@ -324,6 +325,7 @@
                       (spacemacs/ahs-highlight-now-wrapper)
                       (when (configuration-layer/package-usedp 'evil-jumper)
                         (evil-set-jump))
+                      (spacemacs/highlight-symbol-micro-state)
                       (ahs-backward)) nil))
 
       (eval-after-load 'evil
@@ -360,7 +362,9 @@
                      ahs-back-to-start
                      ahs-change-range))
         (let* ((advice (intern (format "spacemacs/%s" (symbol-name sym)))))
-          (eval `(defadvice ,sym (after ,advice activate)
+          (eval `(defadvice ,sym (around ,advice activate)
+                   (spacemacs/ahs-highlight-now-wrapper)
+                   ad-do-it
                    (spacemacs/ahs-highlight-now-wrapper)
                    (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))))))
 
@@ -387,7 +391,6 @@
                       (prophidden (propertize hidden 'face '(:weight bold))))
                  (format "%s %s%s [n/N] move [e] edit [r] range [R] reset [d/D] definition [/] find in project [f] find in files [b] find in opened buffers [q] exit"
                          propplugin propx/y prophidden)))
-        :use-minibuffer t
         :bindings
         ("d" ahs-forward-definition)
         ("D" ahs-backward-definition)
@@ -400,9 +403,9 @@
         ("N" spacemacs/quick-ahs-backward)
         ("R" ahs-back-to-start)
         ("r" ahs-change-range)
-        ("/" spacemacs/helm-project-smart-do-search-region-or-symbol)
-        ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol)
-        ("f" spacemacs/helm-files-smart-do-search-region-or-symbol)
+        ("/" spacemacs/helm-project-smart-do-search-region-or-symbol :exit t)
+        ("b" spacemacs/helm-buffers-smart-do-search-region-or-symbol :exit t)
+        ("f" spacemacs/helm-files-smart-do-search-region-or-symbol :exit t)
         ("q" nil :exit t)))))
 
 (defun spacemacs/init-avy ()
