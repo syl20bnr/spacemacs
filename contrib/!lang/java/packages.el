@@ -17,6 +17,7 @@
 (defun java/init-emacs-eclim ()
   (use-package eclim
     :defer t
+    :diminish eclim-mode
     :init (add-hook 'java-mode-hook 'eclim-mode)
     :config
     (progn
