@@ -20,6 +20,9 @@
       ("(\\(partial\\)[\[[:space:]]"
        (0 (progn (compose-region (match-beginning 1)
                                  (match-end 1) "Ƥ"))))
+      ("(\\(comp\\)[\[[:space:]]"
+       (0 (progn (compose-region (match-beginning 1)
+                                 (match-end 1) "∘"))))
       ("\\(#\\)("
        (0 (progn (compose-region (match-beginning 1)
                                  (match-end 1) "ƒ"))))
