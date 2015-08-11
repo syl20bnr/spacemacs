@@ -1,14 +1,20 @@
-1. Ruby on Rails
+1. Bookmarks
+
+The `bookmark` save file has been moved to the `.cache` directory, if
+you have a bookmark file `~/.emacs.d/bookmarks` then you'll have to move
+it to file `~/.emacs.d/.cache/bookmarks`
+
+2. Ruby on Rails
 
 Ruby on Rails framework has now its own layer called `ruby-on-rails`,
 be sure to add this layer to your dotfile if you use it.
 
-2. Django
+3. Django
 
 Django framework has now its own layer called `django`,
 be sure to add this layer to your dotfile if you use it.
 
-3. Salt
+4. Salt
 
 Salt layer requires the YAML layer, be sure to add the `yaml` layer
 to your dotfile if you use `salt` layer.
