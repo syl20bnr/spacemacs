@@ -315,56 +315,55 @@ builtin command to generate the layer boilerplate:
 
 #+BEGIN_EXAMPLE
     [layer-name]
-      |__ [extensions]*
+      |__ [local]*
       | |__ [example-mode-1]
       | |     ...
       | |__ [example-mode-n]
       |__ config.el*
-      |__ extensions.el
       |__ funcs.el*
       |__ keybindings.el*
       |__ packages.el
 
-    [] = directory *not created by the command
+    [] = directory
+    * = not created by the command
 #+END_EXAMPLE
 
 The =packages.el= file contains a list of packages that you can install in the
 variable =<layer-name>-packages=. Any package that is available on the [[http:melpa.org][MELPA]]
-repository can be added to the list. You can also exclude packages by adding
-them to =<layer-name>-excluded-packages=. Each package requires a function to
-initialize it. The function /must/ be named with this pattern:
-=<layer-name>/init-<package-name>=. This function contains configuration for the
-package. It would look like this:
+repository can be added to the list. A list can also exclude packages using the
+=:excluded t= property.
+Each package requires a function to initialize it. The function /must/ be named
+with this pattern: =<layer-name>/init-<package-name>=. This function contains
+configuration for the package. There are also =pre/post-init= functions to
+execute code before or after a package loads. It would look like this:
 
 #+begin_src emacs-lisp
-  (setq layer-name-packages '(example-package))
+  (setq layer-name-packages '(example-package
+                              ;; This layer uninstalls example-package-2
+                              ;; by setting the :excluded property to true (t)
+                              (example-package-2 :excluded t)))
+
+  (defun layer-name/post-init-package ()
+    ;; Add configuration to a package in another layer here
+    )
+
   (defun layer-name/init-example-package ()
     ;; Configuration for example-package goes here
     )
 #+end_src
 
-If something is not available on MELPA, you must use an extension. Extension
-configuration is done in the =extensions.el= file. Each extension must be placed
-in its own folder inside the =extensions= folder. Extensions can be declared
-using the =<layer-name>-<pre/post>-extensions= variables. =pre= extensions are
-loaded before the packages and =post= extensions are loaded after. The name of
-the extension is the name of the folder it is in. Using the above example
-structure, the extensions would be activated like so:
+**Note**: Only one layer can have a =init= function for a package. If you want
+to override the configuration of a package in another layer, use a
+=<layer-name>/pre-init= function in addition to [[file:LAYERS.org#use-package-hooks][use-package hooks]].
 
-#+begin_src emacs-lisp
-  (setq layer-name-pre-extensions '())
-  (setq layer-name-post-extensions '(example-mode-1 example-mode-n))
-#+end_src
+If a package is not available on MELPA, you must use a local package or a
+package recipe. For more details see [[file:LAYERS.org#anatomy-of-a-layer][anatomy of a layer]].
 
-Notice the matching folder and extension names.
-
-Extensions also require an =init= function to be used. They use the same naming
-pattern as packages.
-
-Make sure you [[*Activating%20a%20Layer][add]] your layer to your =.dotspacemacs= file and restart to
+Make sure you [[#activating-a-layer][add]] your layer to your =.spacemacs= file and restart to
 activate it.
 
-For more information on layers, please see [[LAYERS.org][tips on writing layers]].
+A detailed description of the loading process and how layers work can be found in
+[[file:LAYERS.org][LAYERS.org]].
 
 ** Installing a single package
 Sometimes creating a layer is a bit overkill. Maybe you just want one package
