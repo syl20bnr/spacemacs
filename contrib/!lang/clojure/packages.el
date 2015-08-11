@@ -246,7 +246,8 @@ the focus."
     :config
     (progn
       (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'clojure-mode))
+        (dolist (m '(clojure-mode clojurescript-mode clojurec-mode clojurex-mode))
+          (clojure/fancify-symbols m)))
 
       (define-clojure-indent
         ;; Compojure
