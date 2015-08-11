@@ -41,7 +41,11 @@ the user activate the completion manually."
                 'spacemacs//toggle-shell-auto-completion-based-on-path)
       ;; The default frontend screws everything up in short windows like
       ;; terminal often are
-      (setq-local company-frontends '(company-preview-frontend))
+      (defun spacemacs//eshell-switch-company-frontend ()
+        "Sets the company frontend to `company-preview-frontend' in e-shell mode."
+        (setq-local company-frontends '(company-preview-frontend)))
+      (add-hook 'eshell-mode-hook
+                'spacemacs//eshell-switch-company-frontend)
       (push 'company-capf company-backends-eshell-mode)
       (spacemacs|add-company-hook eshell-mode))))
 
