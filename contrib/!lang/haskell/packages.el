@@ -234,12 +234,12 @@
         )
 
       (evil-define-key 'operator shm-map
-        (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node)
+        (kbd ")") 'shm/close-paren
+        (kbd "(") 'shm/open-paren)
 
       (evil-define-key 'motion shm-map
-        (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node))))
+        (kbd ")") 'shm/close-paren
+        (kbd "(") 'shm/open-paren))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun haskell/post-init-company ()
