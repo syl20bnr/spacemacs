@@ -215,6 +215,7 @@ layer directory."
         (when (file-exists-p packages-file)
           ;; required for lazy-loading of unused layers
           ;; for instance for helm-spacemacs
+          (eval `(defvar ,(intern (format "%S-packages" name)) nil))
           (unless (configuration-layer/layer-usedp name)
             (load packages-file))
           (dolist (pkg (symbol-value (intern (format "%S-packages" name))))
@@ -259,6 +260,7 @@ layer directory."
           (unless (configuration-layer/layer-usedp name)
             (load extensions-file))
           (dolist (step '(pre post))
+            (eval `(defvar ,(intern (format "%S-%S-extensions" name step)) nil))
             (let ((var (intern (format "%S-%S-extensions" name step))))
               (when (boundp var)
                 (dolist (pkg (symbol-value var))
