@@ -21,6 +21,7 @@
 This layer adds support for LaTeX files with [[https://savannah.gnu.org/projects/auctex/][AucTeX]].
 
 ** Features
+- Auto-build with [[https://github.com/tom-tan/auctex-latexmk/][auctex-latexmk]]
 - Auto-completion with [[https://github.com/alexeyr/company-auctex][company-auctex]]
 - Tags navigation on ~%~ with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 - Labels, references, citations and index entries management with [[http://www.gnu.org/software/emacs/manual/html_node/reftex/index.html][RefTeX]]
@@ -55,14 +56,18 @@ when you recompile.
 
 ** Build command
 
-A build command can be specific via the layer variable =latex-build-command=.
+A build command can be specified via the layer variable =latex-build-command=.
 
-The default value is =LaTeX=. If =LatexMk= is specified, the appropriate
-=LatexMk= configuration will be applied.
+If =LatexMk= is specified, the appropriate =LatexMk= configuration
+will be applied. (the default on systems with =latexmk= in the path)
+This variable can be set to any of the entities in =TeX-command-list=,
+including any custom entries you may have added there. To use the
+regular =AucTeX= command set =latex-build-command= to =LaTeX= as shown
+below.
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
-    (latex :variables latex-build-command "LatexMk"))
+    (latex :variables latex-build-command "LaTeX"))
 #+END_SRC
 
 ** Auto-fill
