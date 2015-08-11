@@ -61,7 +61,7 @@
             (electric-indent-local-mode -1))
         (when haskell-enable-shm-support
           ;; in structured-haskell-mode line highlighting creates noise
-          (setq global-hl-line-mode nil))
+          (setq global-hl-line-mode nil)))
 
       ;; hooks
       (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
