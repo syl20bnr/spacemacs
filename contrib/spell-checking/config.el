@@ -1,4 +1,4 @@
-;;; config.el --- Syntax Checking Layer configuration File for Spacemacs
+;;; config.el --- Spell Checking Layer configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -12,8 +12,6 @@
 
 ;; Variables
 
-(defvar syntax-checking-enable-tooltips t
-  "If non nil some feedback are displayed in tooltips.")
-
 ;; Command Prefixes
 
+(spacemacs/declare-prefix "S" "spelling")
