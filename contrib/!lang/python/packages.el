@@ -41,7 +41,8 @@
     (progn
       (evil-leader/set-key-for-mode 'python-mode
         "mhh" 'anaconda-mode-view-doc
-        "mgg"  'anaconda-mode-goto)
+        "mhu" 'anaconda-mode-usages
+        "mgg" 'anaconda-mode-goto)
       (spacemacs|hide-lighter anaconda-mode))))
 
 (defun python/init-cython-mode ()
@@ -51,7 +52,8 @@
     (progn
       (evil-leader/set-key-for-mode 'cython-mode
         "mhh" 'anaconda-mode-view-doc
-        "mgg"  'anaconda-mode-goto)
+        "mhu" 'anaconda-mode-usages
+        "mgg" 'anaconda-mode-goto)
       )))
 
 (defun python/post-init-eldoc ()
@@ -123,16 +125,15 @@
 
       (defun python-setup-shell ()
         (if (executable-find "ipython")
-            (setq python-shell-interpreter "ipython"
-                  ;; python-shell-interpreter-args (if (system-is-mac)
-                  ;;                                   "--gui=osx --matplotlib=osx --colors=Linux"
-                  ;;                                 (if (system-is-linux)
-                  ;;                                     "--gui=wx --matplotlib=wx --colors=Linux"))
-                  python-shell-prompt-regexp "In \\[[0-9]+\\]: "
-                  python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
-                  python-shell-completion-setup-code "from IPython.core.completerlib import module_completion"
-                  python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))\n"
-                  python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+            (progn
+              (setq python-shell-interpreter "ipython")
+              (when (version< emacs-version "24.4")
+                ;; these settings are unnecessary and even counter-productive on emacs 24.4 and newer
+                (setq python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+                      python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+                      python-shell-completion-setup-code "from IPython.core.completerlib import module_completion"
+                      python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))\n"
+                      python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")))
           (setq python-shell-interpreter "python")))
 
       (defun inferior-python-setup-hook ()
@@ -262,7 +263,7 @@
   (defun python/post-init-company ()
     (spacemacs|add-company-hook python-mode)
     (spacemacs|add-company-hook inferior-python-mode)
-    (push 'company-capf company-backends-inferior-python-mode)
+    (push '(company-files company-capf) company-backends-inferior-python-mode)
     (add-hook 'inferior-python-mode-hook (lambda ()
                                            (setq-local company-minimum-prefix-length 0)
                                            (setq-local company-idle-delay 0.5))))
