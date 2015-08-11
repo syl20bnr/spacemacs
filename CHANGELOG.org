@@ -1,6 +1,9 @@
 * Release 0.104.x (next)
 ** 0.104.0
 *** IMPORTANT: Breaking changes
+- The =bookmark= save file has been moved to the =.cache= directory, if
+  you have a bookmark file =~/.emacs.d/bookmarks= then you'll have to move it
+  to file =~/.emacs.d/.cache/bookmarks=
 - =Ruby on Rails= framework has now its own layer called =ruby-on-rails=,
   be sure to add this layer to your dotfile if you use RoR.
 - =Django= framework has now its own layer called =django=,
@@ -53,15 +56,21 @@
 *** Layer changes
 **** Spacemacs
 - New API for the powerline (thanks to TheBB)
+- Replace =ace-jump= with =avy= and integrate =avy= in =evil= (thanks to bmag)
 - Add =copy file= key binding on ~SPC f c~ (thanks to cpaulik)
 - Add package =define-word= on ~SPC x w d~ (thanks to swaroopch)
 - Add transparency micro-state (thanks to person808)
-- Add ~SPC i u~ key binding to insert unicode symbols with helm (thanks to
+- Add ~SPC i u~ binding to insert unicode symbols with helm (thanks to
   robbyoconnor)
+- Add ~SPC p a~ binding for =projectile-toggle-between-implementation-and-test=
+  (thanks to voxdolo)
 - In buffer not visiting a file ~SPC f s~ now asks for a filename (thanks to
   cpaulik)
 - Add ~SPC f l~ to visit a file literally which means that the file will be
   opened in =fundamental mode= (thanks to sooheon)
+- Migrate =auto-highlight-symbol= to a micro-state (thanks to person808)
+- Fix =bookmark= file location to be in the cache directory (thanks to
+  travisbhartwell)
 - Fix called function name for ~SPC h b~ binding. Helm removed
   =helm-pp-bookmarks= in the latest update and replaced it with
   =helm-filtered-bookmarks= (thanks to sgepigon)
@@ -75,6 +84,8 @@
 - Fix ~SPC i K~ (insert empty line above point) which now works
   as expected when used from the first line of a buffer (thanks to
   travisbhartwell)
+- ~SPC TAB~ to switch to last buffer is now scoped to the current window
+  (thanks to TheBB)
 - Don't jump if only one match in =helm-imenu= (thanks to tuhdo)
 - Prevent iedit from adding global key binding (thanks to justbur)
 - Remove =wS= from prefix list in =config.el= (thanks to justbur)
@@ -105,6 +116,9 @@
 - Add support for popwin for =mix= buffers (thanks to rhalukongor)
 - Re-enable =magit-gitflow= since it is now compatible with Magit 2.1
   (thanks to gilbertkennen)
+**** Emacs lisp
+- Add support for =company= in =ielm= REPL (thanks to bmag)
+- Bind ~SPC m s i~ to start an =ielm= REPL session (thanks to bmag)
 **** ERC
 - Add =ERC-SASL= for SASL authentication (thanks to CestDiego)
 **** ESS
@@ -130,6 +144,8 @@
 - Use exec-path-from-shell-copy-env to set =GOPATH= (thanks to jenanwise)
 **** Haskell
 - Make =ghc-mod= optional (thanks to michelk)
+- Remove configuration about =haskell-process-type= which make it easier to
+  configure in the dotfile (thanks to d12frosted)
 **** Html
 - Add =.jsx= extension to =web-mode= (thanks to Tritlo)
 - Add support for =jade= files (thanks to robbyoconnor)
@@ -153,6 +169,11 @@
   of left command key for this command (thanks to sooheon)
 **** Puppet
 - Enable =flcheck= support (thanks to tko)
+**** Python
+- Bind =anaconda-mode-usages= on ~SPC m g u~, this command find the
+  usage of the symbol at point (thanks to bmag)
+- Add file completion company backend in python REPL (thanks to bmag)
+- Fix =imenu= bug with =semantic= (thanks to bmag)
 **** Racket
 - Enable insert state after ~SPC m s B~ accordingly to the conventions
   (thanks to jmiven)
@@ -187,6 +208,7 @@
 - Protect the =eshell= prompt from deletion with evil commands. A new
   layer variable =shell-protect-eshell-prompt= allows to opt-out this behavior
   (thanks to myrjola).
+- Fix the =company-frontend= in =eshell= buffers (thanks to cmccloud)
 *** Core
 - Add new key bindings to evilified buffers: ~g~, ~GG~, ~C-b~, ~C-f~, ~C-d~
   and ~C-u~ (thanks to sooheon)
@@ -213,11 +235,17 @@
 - Suppress byte compiler warnings on startup (thanks to justbur)
 - Reactivate prefix command names since they are working correctly with
   =which-key= (were also working with =guide-key=) (thanks to martinmr)
+- Add a bunch of missing prefix command names (thanks to justbur)
+- Replace all usage of =custom-set-variables= by regular =setq=. The
+  installed dotfile should not contain custom variable anymore (thanks
+  to person808)
 - Delete deprecated =!user= contrib directory.
 - Removed lasts git submodules, Spacemacs is now submodule free!
+- Remove =projectile= init function from =scala= layer (thanks to liuxiang)
 - Typos and documentation improvements (thanks to agzam, alexanderkjeldaas,
-  andyque, Devagamster, gleber, JoshTGreenwood, mbertheau, sotte, robbyoconnor,
-  robmerrell, sooheon, srid, swaroopch, syohex, travisbhartwell, x-ji)
+  andyque, Devagamster, gilbertkennen, gleber, hunner, JoshTGreenwood,
+  mbertheau, sotte, robbyoconnor, robmerrell, sooheon, srid, swaroopch, syohex,
+  TheBB, travisbhartwell, x-ji)
 * Release 0.103.x
 ** 0.103.5 (2015/08/09)
 *** Layer changes
