@@ -482,7 +482,8 @@ LAYERS is a list of layer symbols."
 
 (defun configuration-layer/package-usedp (name)
   "Return non-nil if NAME is the name of a used package."
-  (not (null (object-assoc name :name configuration-layer-packages))))
+  (let ((obj (object-assoc name :name configuration-layer-packages)))
+    (when obj (oref obj :owner))))
 
 (defun configuration-layer/load-layers ()
   "Load all declared layers."

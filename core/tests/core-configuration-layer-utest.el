@@ -522,6 +522,34 @@
                                (not (oref x :excluded)))))))))
 
 ;; ---------------------------------------------------------------------------
+;; configuration-layer/package-usedp
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-package-usedp--package-with-owner-can-be-used ()
+  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path"))
+         (layers (list layer1))
+         (layer1-packages '(pkg1 pkg2 pkg3))
+         (mocker-mock-default-record-cls 'mocker-stub-record)
+         (configuration-layer-packages
+          (list (cfgl-package "pkg3" :name 'pkg3 :owner 'layer1)
+                (cfgl-package "pkg2" :name 'pkg2 :owner 'layer1)
+                (cfgl-package "pkg1" :name 'pkg1 :owner 'layer1))))
+    (should (configuration-layer/package-usedp (nth (random 3)
+                                                    layer1-packages)))))
+
+(ert-deftest test-package-usedp--package-with-no-owner-cannot-be-used ()
+  (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path"))
+         (layers (list layer1))
+         (layer1-packages '(pkg1 pkg2 pkg3))
+         (mocker-mock-default-record-cls 'mocker-stub-record)
+         (configuration-layer-packages
+          (list (cfgl-package "pkg3" :name 'pkg3)
+                (cfgl-package "pkg2" :name 'pkg2)
+                (cfgl-package "pkg1" :name 'pkg1))))
+    (should (null (configuration-layer/package-usedp (nth (random 3)
+                                                          layer1-packages))))))
+
+;; ---------------------------------------------------------------------------
 ;; configuration-layer//directory-type
 ;; ---------------------------------------------------------------------------
 
@@ -529,7 +557,9 @@
   (let ((input "/a/path/to/a/layer/file"))
     (mocker-let
      ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+                        ((:record-cls 'mocker-stub-record
+                                      :output nil
+                                      :occur 1))))
      (should (null (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--category ()
@@ -556,7 +586,9 @@
                         ((:record-cls 'mocker-stub-record :output t :occur 1)))
       (directory-files
        (directory &optional full match nosort)
-       ((:record-cls 'mocker-stub-record :output '("toto.el" "tata.el") :occur 1))))
+       ((:record-cls 'mocker-stub-record
+                     :output '("toto.el" "tata.el")
+                     :occur 1))))
      (should (null (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--layer-with-packages.el ()
@@ -596,7 +628,9 @@
                         ((:record-cls 'mocker-stub-record :output t :occur 1)))
       (directory-files
        (directory &optional full match nosort)
-       ((:record-cls 'mocker-stub-record :output '("keybindings.el") :occur 1))))
+       ((:record-cls 'mocker-stub-record
+                     :output '("keybindings.el")
+                     :occur 1))))
      (should (eq 'layer (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--layer-with-funcs.el ()
@@ -617,14 +651,18 @@
   (let ((input "/a/path/to/a/file"))
     (mocker-let
      ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record :output nil :occur 1))))
+                        ((:record-cls 'mocker-stub-record
+                                      :output nil
+                                      :occur 1))))
      (should (null (configuration-layer//get-category-from-path input))))))
 
 (ert-deftest test-get-category-from-path--input-is-a-regular-directory ()
   (let ((input "/a/path/to/a/layer/"))
     (mocker-let
      ((file-directory-p (f)
-                        ((:record-cls 'mocker-stub-record :output t :occur 1))))
+                        ((:record-cls 'mocker-stub-record
+                                      :output t
+                                      :occur 1))))
      (should (null (configuration-layer//get-category-from-path input))))))
 
 (ert-deftest test-get-category-from-path--return-category ()
