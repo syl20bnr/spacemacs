@@ -3211,11 +3211,18 @@ one of `l' or `r'."
                projectile-vc)
     :init
     (progn
-      (setq-default projectile-enable-caching t)
-      (setq projectile-sort-order 'recentf)
-      (setq projectile-cache-file (concat spacemacs-cache-directory
-                                          "projectile.cache"))
-      (setq projectile-known-projects-file (concat spacemacs-cache-directory
+      (setq projectile-enable-caching t
+            projectile-indexing-method 'alien
+            ;; note for Windows: GNU find or Cygwin find must be in path
+            ;; default parameters are not supported on Windows, we default
+            ;; to simplest call to find.
+            projectile-generic-command (if (system-is-mswindows)
+                                           "find . -type f"
+                                         projectile-generic-command)
+            projectile-sort-order 'recentf
+            projectile-cache-file (concat spacemacs-cache-directory
+                                          "projectile.cache")
+            projectile-known-projects-file (concat spacemacs-cache-directory
                                                    "projectile-bookmarks.eld"))
       (unless (configuration-layer/package-usedp 'helm-projectile)
         (evil-leader/set-key
