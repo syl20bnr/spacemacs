@@ -22,7 +22,11 @@
 
 (defun chrome/init-gmail-message-mode ()
   (use-package gmail-message-mode
-    :defer t))
+    :defer t
+    :config
+    (when (configuration-layer/layer-usedp 'markdown)
+      (spacemacs/set-markdown-keybindings
+       'gmail-message-client-mode gmail-message-client-mode-map))))
 
 (defun chrome/init-flymd ()
   (use-package flymd
