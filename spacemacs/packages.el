@@ -83,6 +83,7 @@
         ;; see https://github.com/syl20bnr/spacemacs/issues/2529
         (hl-anything :excluded t)
         hungry-delete
+        (hybrid-mode :location local)
         ido-vertical-mode
         info+
         iedit
@@ -1665,7 +1666,7 @@ ARG non nil means that the editing style is `vim'."
           (define-key helm-map (kbd "C-k") 'helm-delete-minibuffer-contents)
           (define-key helm-map (kbd "C-h") nil)
           (define-key helm-map (kbd "C-l") 'helm-recenter-top-bottom-other-window))))
-      (spacemacs//helm-hjkl-navigation (eq 'vim dotspacemacs-editing-style))
+      (spacemacs//helm-hjkl-navigation (member dotspacemacs-editing-style '(vim hybrid)))
 
       (defun spacemacs/helm-edit ()
         "Switch in edit mode depending on the current helm buffer."
@@ -2221,7 +2222,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         :on (holy-mode)
         :off (holy-mode -1)
         :documentation "Globally toggle the holy mode."
-        :evil-leader "P <tab>" "P C-i"))))
+        :evil-leader "E H"))))
 
 (defun spacemacs/init-hungry-delete ()
   (use-package hungry-delete
@@ -2239,6 +2240,20 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
       (setq-default hungry-delete-chars-to-skip " \t\f\v") ; only horizontal whitespace
       (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward)
       (define-key hungry-delete-mode-map (kbd "S-DEL") 'delete-backward-char))))
+
+(defun spacemacs/init-hybrid-mode ()
+  (use-package hybrid-mode
+    :commands hybrid-mode
+    :init
+    (progn
+      (when (eq 'hybrid dotspacemacs-editing-style)
+        (hybrid-mode))
+      (spacemacs|add-toggle hybrid-mode
+        :status hybrid-mode
+        :on (hybrid-mode)
+        :off (hybrid-mode -1)
+        :documentation "Globally toggle hybrid mode."
+        :evil-leader "E Y"))))
 
 (defun spacemacs/init-ido-vertical-mode ()
   (use-package ido-vertical-mode
