@@ -183,7 +183,7 @@ package name does not match theme name + `-theme' suffix.")
      ((or (eq 'solarized-light theme)
           (eq 'solarized-dark theme))
       (add-to-list 'load-path (concat spacemacs-directory
-                                      "extensions/solarized-theme/"))
+                                      "local/solarized-theme/"))
       (require 'solarized)
       (deftheme solarized-dark "The dark variant of the Solarized colour theme")
       (deftheme solarized-light "The light variant of the Solarized colour theme"))
