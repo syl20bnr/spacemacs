@@ -30,36 +30,36 @@
 (require 'helm)
 (require 'core-configuration-layer)
 
-(defvar helm-spacemacs-all-layers '()
+(defvar helm-spacemacs-all-layers nil
   "Alist of all configuration layers.")
 
-(defvar helm-spacemacs-all-packages '()
+(defvar helm-spacemacs-all-packages nil
   "Hash table of all packages in all layers.")
 
 ;;;###autoload
 (define-minor-mode helm-spacemacs-mode
   "Layers discovery with helm interface."
   :group 'spacemacs
-  :global t
-  (setq helm-spacemacs-all-layers nil
-        helm-spacemacs-all-packages nil)
-  (if helm-spacemacs-mode
-      (progn
-        (mapc (lambda (layer) (push (configuration-layer/make-layer layer)
-                                    helm-spacemacs-all-layers))
-              (configuration-layer/get-layers-list))
-        (dolist (layer helm-spacemacs-all-layers)
-          (unless (configuration-layer/layer-usedp (oref layer :name))
-            (configuration-layer//load-layer-files layer '("funcs.el"
-                                                           "config.el"))))
-        (setq helm-spacemacs-all-packages (configuration-layer/get-packages
-                                           helm-spacemacs-all-layers)))))
+  :global t)
+
+(defun helm-spacemacs//init (&optional arg)
+  (when (or arg (null helm-spacemacs-all-packages))
+    (mapc (lambda (layer) (push (configuration-layer/make-layer layer)
+                                helm-spacemacs-all-layers))
+          (configuration-layer/get-layers-list))
+    (dolist (layer helm-spacemacs-all-layers)
+      (unless (configuration-layer/layer-usedp (oref layer :name))
+        (configuration-layer//load-layer-files layer '("funcs.el"
+                                                       "config.el"))))
+    (setq helm-spacemacs-all-packages (configuration-layer/get-packages
+                                       helm-spacemacs-all-layers))))
 
 ;;;###autoload
-(defun helm-spacemacs ()
+(defun helm-spacemacs (arg)
   "Layers discovery with helm interface."
-  (interactive)
+  (interactive "P")
   (helm-spacemacs-mode)
+  (helm-spacemacs//init arg)
   (helm :buffer "*helm: spacemacs*"
         :sources `(,(helm-spacemacs//documentation-source)
                    ,(helm-spacemacs//layer-source)
