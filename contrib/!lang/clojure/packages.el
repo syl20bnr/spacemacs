@@ -241,7 +241,9 @@ the focus."
     :config
     (progn
       (when clojure-enable-fancify-symbols
-        (clojure/fancify-symbols 'clojure-mode)))))
+        (dolist (m '(clojure-mode clojurescript-mode clojurec-mode clojurex-mode))
+          (clojure/fancify-symbols m))))))
+
 (defun clojure/init-rainbow-delimiters ()
   (if (configuration-layer/package-usedp 'cider)
       (add-hook 'cider-mode-hook 'rainbow-delimiters-mode)))
