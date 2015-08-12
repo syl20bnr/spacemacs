@@ -3211,14 +3211,13 @@ one of `l' or `r'."
                projectile-vc)
     :init
     (progn
+      ;; note for Windows: GNU find or Cygwin find must be in path
+      ;; default parameters are not supported on Windows, we default
+      ;; to simplest call to find.
+      (when (system-is-mswindows)
+        (setq projectile-generic-command "find . -type f"))
       (setq projectile-enable-caching t
             projectile-indexing-method 'alien
-            ;; note for Windows: GNU find or Cygwin find must be in path
-            ;; default parameters are not supported on Windows, we default
-            ;; to simplest call to find.
-            projectile-generic-command (if (system-is-mswindows)
-                                           "find . -type f"
-                                         projectile-generic-command)
             projectile-sort-order 'recentf
             projectile-cache-file (concat spacemacs-cache-directory
                                           "projectile.cache")
