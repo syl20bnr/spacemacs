@@ -35,6 +35,13 @@
 (defvar evil-evilified-state--modes nil
   "List of all evilified modes.")
 
+(defvar evil-evilified-state--visual-state-map evil-visual-state-map
+  "Evil visual state map backup.")
+
+(defvar evil-evilified-state--evil-surround nil
+  "Evil surround mode variable backup.")
+(make-variable-buffer-local 'evil-evilified-state--evil-surround)
+
 (evil-define-state evilified
   "Evilified state.
  Hybrid `emacs state' with carrefully selected Vim key bindings.
@@ -42,16 +49,32 @@
   :tag " <Ev> "
   :enable (emacs)
   :message "-- EVILIFIED BUFFER --"
-  :cursor box
-  (when (evil-evilified-state-p)
-    (when (bound-and-true-p evil-surround-mode)
-      (evil-surround-mode -1))
-    (setq-local evil-normal-state-map (cons 'keymap nil))
-    (setq-local evil-visual-state-map (cons 'keymap nil))
-    (add-hook 'evil-visual-state-entry-hook
-              (lambda () (interactive)
-                (local-set-key "y" 'evil-yank))
-              nil 'local)))
+  :cursor box)
+
+(add-hook 'evil-evilified-state-entry-hook 'evilified-state-on-entry)
+(add-hook 'evil-evilified-state-exit-hook 'evilified-state-on-exit)
+
+(defun evilified-state-on-entry ()
+  "Setup evilified state."
+  (setq-local evil-evilified-state--evil-surround
+              (bound-and-true-p evil-surround-mode))
+  (when evil-evilified-state--evil-surround
+    (evil-surround-mode -1))
+  (setq-local evil-visual-state-map (cons 'keymap nil))
+  (add-hook 'evil-visual-state-entry-hook
+            'evilified-state--visual-state-set-key nil 'local))
+
+(defun evilified-state-on-exit ()
+  "Cleanup evilified state."
+  (when evil-evilified-state--evil-surround
+    (evil-surround-mode))
+  (setq-local evil-visual-state-map evil-evilified-state--visual-state-map)
+  (remove-hook 'evil-visual-state-entry-hook
+               'evilified-state--visual-state-set-key 'local))
+
+(defun evilified-state--visual-state-set-key ()
+  "Define key for visual state."
+  (local-set-key "y" 'evil-yank))
 
 ;; default key bindings for all evilified buffers
 (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
