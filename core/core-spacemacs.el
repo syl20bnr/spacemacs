@@ -21,7 +21,6 @@
 (require 'core-spacemacs-buffer)
 (require 'core-toggle)
 (require 'core-micro-state)
-(require 'core-evilify-keymap)
 (require 'core-use-package-ext)
 
 (defgroup spacemacs nil
@@ -140,6 +139,7 @@ initialization."
   ;; Use C-u as scroll-up (must be set before actually loading evil)
   (spacemacs/load-or-install-package 'evil t)
   (spacemacs/load-or-install-package 'evil-leader t)
+  (require 'core-evilified-state)
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
       (setq-default spacemacs-version-check-lighter "[⇪]"))
