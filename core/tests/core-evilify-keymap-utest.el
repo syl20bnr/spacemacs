@@ -9,7 +9,7 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(require 'core-evilified-state)
+(require 'core-evilify-keymap)
 
 ;; ---------------------------------------------------------------------------
 ;; spacemacs//evilify-find-new-event
