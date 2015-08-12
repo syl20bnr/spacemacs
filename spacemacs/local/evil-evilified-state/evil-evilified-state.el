@@ -89,7 +89,6 @@
 (define-key evil-evilified-state-map "N" 'evil-search-previous)
 (define-key evil-evilified-state-map "v" 'evil-visual-char)
 (define-key evil-evilified-state-map "V" 'evil-visual-line)
-(define-key evil-evilified-state-map "y" 'evil-yank)
 (define-key evil-evilified-state-map "gg" 'evil-goto-first-line)
 (define-key evil-evilified-state-map "G" 'evil-goto-line)
 (define-key evil-evilified-state-map (kbd "C-f") 'evil-scroll-page-down)
