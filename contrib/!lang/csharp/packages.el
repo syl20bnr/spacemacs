@@ -21,7 +21,14 @@
   (add-hook 'csharp-mode-hook 'omnisharp-mode)
   (use-package omnisharp
     :defer t
-    :init (push 'company-omnisharp company-backends-csharp-mode)
+    :init
+    (progn
+      (when (configuration-layer/package-usedp 'company)
+        ;; needed to avoid an error when fetching doc using company
+        ;; Note: if you are using a roslyn based omnisharp server you can
+        ;; set back this variable to t.
+        (setq omnisharp-auto-complete-want-documentation nil))
+      (push 'company-omnisharp company-backends-csharp-mode))
     :config (evil-leader/set-key-for-mode 'csharp-mode
               ;; Compile
               "mcc" 'omnisharp-build-in-emacs ;; Only one compile command so use top-level
