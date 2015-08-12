@@ -13,7 +13,6 @@
 (setq spacemacs-packages
       '(
         ;; pre
-        (evil-evilified-state :location local :step pre)
         (holy-mode :location local :step pre)
         ;; default
         ace-link
@@ -930,9 +929,6 @@ Example: (evil-map visual \"<\" \"<gv\")"
     (evil-escape-mode)
     :config
     (spacemacs|hide-lighter evil-escape-mode)))
-
-(defun spacemacs/init-evil-evilified-state ()
-  (require 'evil-evilified-state))
 
 (defun spacemacs/init-evil-exchange ()
   (use-package evil-exchange

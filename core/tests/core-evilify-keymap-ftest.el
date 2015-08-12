@@ -11,7 +11,7 @@
 ;;; License: GPLv3
 (require 'mocker)
 (require 'core-funcs)
-(require 'core-evilify-keymap)
+(require 'core-evilified-state)
 (require 'core-spacemacs-buffer)
 
 ;; ---------------------------------------------------------------------------
