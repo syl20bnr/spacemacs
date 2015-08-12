@@ -22,6 +22,7 @@
 (require 'core-toggle)
 (require 'core-micro-state)
 (require 'core-use-package-ext)
+(require 'core-evilify-keymap)
 
 (defgroup spacemacs nil
   "Spacemacs customizations."
