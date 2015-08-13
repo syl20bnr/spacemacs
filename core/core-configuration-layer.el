@@ -189,14 +189,17 @@ layer directory."
       (spacemacs-buffer/warning "Cannot find layer %S !" name-sym)
       nil)))
 
-(defun configuration-layer/make-package (pkg)
-  "Return a `cfgl-package' object based on PKG."
+(defun configuration-layer/make-package (pkg &optional obj)
+  "Return a `cfgl-package' object based on PKG.
+If OBJ is non nil then copy PKG properties into OBJ, otherwise create
+a new object.
+Properties that can be copied are `:location', `:step' and `:excluded'."
   (let* ((name-sym (if (listp pkg) (car pkg) pkg))
          (name-str (symbol-name name-sym))
          (location (when (listp pkg) (plist-get (cdr pkg) :location)))
          (step (when (listp pkg) (plist-get (cdr pkg) :step)))
          (excluded (when (listp pkg) (plist-get (cdr pkg) :excluded)))
-         (obj (cfgl-package name-str :name name-sym)))
+         (obj (if obj obj (cfgl-package name-str :name name-sym))))
     (when location (oset obj :location location))
     (when step (oset obj :step step))
     (oset obj :excluded excluded)
@@ -218,15 +221,16 @@ layer directory."
           (unless (configuration-layer/layer-usedp name)
             (load packages-file))
           (dolist (pkg (symbol-value (intern (format "%S-packages" name))))
-            (let* ((pkgname (if (listp pkg) (car pkg) pkg))
+            (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
                    (init-func (intern (format "%S/init-%S"
-                                              name pkgname)))
+                                              name pkg-name)))
                    (pre-init-func (intern (format "%S/pre-init-%S"
-                                                  name pkgname)))
+                                                  name pkg-name)))
                    (post-init-func (intern (format "%S/post-init-%S"
-                                                   name pkgname)))
-                   (obj (object-assoc pkg :name result)))
-              (unless obj
+                                                   name pkg-name)))
+                   (obj (object-assoc pkg-name :name result)))
+              (if obj
+                  (setq obj (configuration-layer/make-package pkg obj))
                 (setq obj (configuration-layer/make-package pkg))
                 (push obj result))
               (when (fboundp init-func)
@@ -264,16 +268,16 @@ layer directory."
             (let ((var (intern (format "%S-%S-extensions" name step))))
               (when (boundp var)
                 (dolist (pkg (symbol-value var))
-                  (let ((pkgname (if (listp pkg) (car pkg) pkg)))
+                  (let ((pkg-name (if (listp pkg) (car pkg) pkg)))
                     (when (fboundp (intern (format "%S/init-%S"
-                                                   name pkgname)))
+                                                   name pkg-name)))
                       (let ((obj (configuration-layer/make-package pkg))
                             (init-func (intern (format "%S/init-%S"
-                                                       name pkgname)))
+                                                       name pkg-name)))
                             (pre-init-func (intern (format "%S/pre-init-%S"
-                                                           name pkgname)))
+                                                           name pkg-name)))
                             (post-init-func (intern (format "%S/post-init-%S"
-                                                            name pkgname)))
+                                                            name pkg-name)))
                             (obj (object-assoc pkg :name result)))
                         (unless obj
                           (setq obj (configuration-layer/make-package pkg))
