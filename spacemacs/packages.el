@@ -2246,6 +2246,21 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
     :commands hybrid-mode
     :init
     (progn
+      (add-to-list 'spacemacs-evil-cursor-colors
+                   `(hybrid . ,(spacemacs/state-color 'emacs)))
+      (spacemacs/set-state-faces)
+      (setq hybrid-mode-insert-state-cursor
+            (if (and (display-graphic-p)
+                     dotspacemacs-colorize-cursor-according-to-state)
+                `(,(spacemacs/state-color 'hybrid) (bar . 2))
+              'bar))
+      (copy-face 'spacemacs-insert-face 'spacemacs-insert-face-backup)
+      (add-hook 'hybrid-mode-hook
+                (lambda ()
+                  (copy-face (if hybrid-mode
+                                 'spacemacs-emacs-face
+                               'spacemacs-insert-face-backup)
+                             'spacemacs-insert-face)))
       (when (eq 'hybrid dotspacemacs-editing-style)
         (hybrid-mode))
       (spacemacs|add-toggle hybrid-mode
