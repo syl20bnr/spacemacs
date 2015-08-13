@@ -10,18 +10,23 @@
 ;;
 ;;; License: GPLv3
 
-(setq php-packages '(
-                     company
-                     drupal-mode
-                     eldoc
-                     ggtags
-                     helm-gtags
-                     php-auto-yasnippets
-                     php-mode
-                     phpcbf
-                     phpunit
-                     flycheck
-                     ))
+(setq php-packages
+      '(
+        company
+        drupal-mode
+        eldoc
+        ggtags
+        helm-gtags
+        php-auto-yasnippets
+        (php-extras :location recipe)
+        php-mode
+        phpcbf
+        phpunit
+        flycheck
+        ))
+
+(setq php-package-recipes
+      '((php-extras :fetcher github :repo "arnested/php-extras")))
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
@@ -40,6 +45,10 @@
 
 (defun php/init-php-auto-yasnippets ()
   (use-package php-auto-yasnippets
+    :defer t))
+
+(defun php/init-php-extras ()
+  (use-package php-extras
     :defer t))
 
 (defun php/init-php-mode ()
