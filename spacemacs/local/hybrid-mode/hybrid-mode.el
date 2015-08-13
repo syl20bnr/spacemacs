@@ -60,8 +60,9 @@
   "Enter the church of Emacs in insert mode only."
   (setq hybrid-mode-insert-state-map-backup evil-insert-state-map
         hybrid-mode-insert-state-cursor-backup evil-insert-state-cursor)
-  (setq evil-insert-state-cursor (list (car evil-emacs-state-cursor)
-                                       (cadr evil-insert-state-cursor)))
+  (when (display-graphic-p)
+    (setq evil-insert-state-cursor (list (car evil-emacs-state-cursor)
+					 (cadr evil-insert-state-cursor))))
   (copy-face 'spacemacs-insert-face 'hybrid-mode-insert-face-backup)
   (copy-face 'spacemacs-emacs-face 'spacemacs-insert-face)
   ;; (setcdr evil-insert-state-map nil)
