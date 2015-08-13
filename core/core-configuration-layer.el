@@ -874,6 +874,11 @@ to select one."
   "Return the value of SLOT for the given LAYER."
   (slot-value (object-assoc layer :name configuration-layer-layers) slot))
 
+(defun configuration-layer/get-layer-local-dir (layer)
+  "Return the value of SLOT for the given LAYER."
+  (concat (slot-value (object-assoc layer :name configuration-layer-layers)
+                      :dir) "local/"))
+
 (defun configuration-layer/get-layer-path (layer)
   "Return the path for LAYER symbol."
   (ht-get configuration-layer-paths layer))
