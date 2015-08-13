@@ -63,7 +63,7 @@
         "mhH"  'pylookup-lookup))
     :config
     (progn
-      (let ((dir (configuration-layer/get-layer-property 'python :ext-dir)))
+      (let ((dir (configuration-layer/get-layer-property 'python)))
         (setq pylookup-dir (concat dir "/pylookup")
               pylookup-program (concat pylookup-dir "/pylookup.py")
               pylookup-db-file (concat pylookup-dir "/pylookup.db"))))))

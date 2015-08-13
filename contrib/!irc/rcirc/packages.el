@@ -60,7 +60,7 @@
       (add-to-list 'yank-excluded-properties 'rcirc-text)
 
       ;; rcirc-reconnect
-      (let ((dir (configuration-layer/get-layer-property 'rcirc :ext-dir)))
+      (let ((dir (configuration-layer/get-layer-local-dir 'rcirc)))
         (require 'rcirc-reconnect
                  (concat dir "rcirc-reconnect/rcirc-reconnect.el")))
 
