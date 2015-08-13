@@ -79,7 +79,9 @@
         highlight-indentation
         highlight-numbers
         highlight-parentheses
-        hl-anything
+        ;; waiting for an overlay bug to be fixed
+        ;; see https://github.com/syl20bnr/spacemacs/issues/2529
+        (hl-anything :excluded t)
         hungry-delete
         ido-vertical-mode
         info+
@@ -121,12 +123,6 @@
 (if  (version< emacs-version "24.4")
     (push '(paradox :location local) spacemacs-packages)
   (push 'paradox spacemacs-packages))
-
-(setq spacemacs-excluded-packages
-      '(;; waiting for an overlay bug to be fixed
-        ;; see https://github.com/syl20bnr/spacemacs/issues/2529
-        hl-anything
-        ))
 
 ;; Initialization of packages
 
