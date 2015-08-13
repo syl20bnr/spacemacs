@@ -60,6 +60,8 @@
   (copy-face 'spacemacs-emacs-face 'spacemacs-insert-face)
   (setcdr evil-insert-state-map nil)
   (define-key evil-insert-state-map [escape] 'evil-normal-state)
+  (when (bound-and-true-p evil-escape-mode)
+    (define-key evil-insert-state-map "f" 'evil-escape-insert-state))
   ;; allow C-w to be set for those who want it
   (when evil-want-C-w-delete
       (define-key evil-insert-state-map "\C-w" 'evil-delete-backward-word)))
