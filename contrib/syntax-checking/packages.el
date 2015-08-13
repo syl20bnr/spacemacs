@@ -33,6 +33,10 @@
         :evil-leader "ts"))
     :config
     (progn
+      ;; Make flycheck recognize packages in loadpath
+      ;; i.e (require 'company) will not give an error now
+      (setq flycheck-emacs-lisp-load-path 'inherit)
+
       (spacemacs|diminish flycheck-mode " ⓢ" " s")
 
       ;; color mode line faces
