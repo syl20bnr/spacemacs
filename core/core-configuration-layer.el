@@ -535,13 +535,13 @@ LAYERS is a list of layer symbols."
 (defun configuration-layer//install-packages (packages)
   "Install PACKAGES."
   (interactive)
-  (let* ((candidates (configuration-layer/filter-packages
-                      packages
-                      (lambda (x) (and (not (null (oref x :owner)))
-                                       (not (eq 'local (oref x :location)))
-                                       (not (oref x :excluded))))))
-         (not-installed (configuration-layer//get-uninstalled-packages
-                         (mapcar 'car (object-assoc-list :name candidates))))
+  (let* ((not-installed
+          (configuration-layer/filter-packages
+           packages
+           (lambda (x) (and (not (null (oref x :owner)))
+                            (not (eq 'local (oref x :location)))
+                            (not (oref x :excluded))
+                            (not (package-installed-p (oref x :name)))))))
          (not-installed-count (length not-installed)))
     ;; installation
     (when not-installed
@@ -553,10 +553,9 @@ LAYERS is a list of layer symbols."
       (spacemacs//redisplay)
       (package-refresh-contents)
       (setq installed-count 0)
-      (dolist (pkg-name not-installed)
+      (dolist (pkg not-installed)
         (setq installed-count (1+ installed-count))
-        (let* ((pkg (object-assoc pkg-name :name
-                                  configuration-layer-packages))
+        (let* ((pkg-name (oref pkg :name))
                (layer (oref pkg :owner))
                (location (oref pkg :location)))
           (spacemacs-buffer/replace-last-line
