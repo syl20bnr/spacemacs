@@ -82,7 +82,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
 
 (defun spacemacs/evilify-configure-default-state (mode)
   "Configure default state for the passed mode."
-  (add-to-list 'evil-evilified-state--modes mode)
+  (add-to-list 'spacemacs-core-evilified-state--modes mode)
   (unless (bound-and-true-p holy-mode)
     (delq mode evil-emacs-state-modes)
     (add-to-list 'evil-evilified-state-modes mode)))
