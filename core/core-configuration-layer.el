@@ -29,7 +29,6 @@
   ;; optimization, no need to activate all the packages so early
   (setq package-enable-at-startup nil)
   (package-initialize 'noactivate)
-  ;; (package-initialize)
   ;; Emacs 24.3 and above ships with python.el but in some Emacs 24.3.1 packages
   ;; for Ubuntu, python.el seems to be missing.
   ;; This hack adds marmalade repository for this case only.
@@ -244,6 +243,7 @@ layer directory."
                 (push name (oref obj :pre-layers)))
               (when (fboundp post-init-func)
                 (push name (oref obj :post-layers)))))
+          ;; TODO remove support for <layer>-excluded-packages in 0.105.0
           (let ((xvar (intern (format "%S-excluded-packages" name))))
             (when (boundp xvar)
               (dolist (xpkg (symbol-value xvar))
@@ -540,44 +540,68 @@ LAYERS is a list of layer symbols."
                          (mapcar 'car (object-assoc-list :name candidates))))
          (not-installed-count (length not-installed)))
     ;; installation
-    (if not-installed
-        (progn
-          (spacemacs-buffer/append
-           (format "Found %s new package(s) to install...\n"
-                   not-installed-count))
-          (spacemacs-buffer/append
-           "--> fetching new package repository indexes...\n")
-          (spacemacs//redisplay)
-          (package-refresh-contents)
-          (setq installed-count 0)
-          (dolist (pkg-name not-installed)
-            (setq installed-count (1+ installed-count))
-            (let* ((pkg (object-assoc pkg-name :name
-                                      configuration-layer-packages))
-                   (layer (when pkg (oref pkg :owner))))
-              (spacemacs-buffer/replace-last-line
-               (format "--> installing %s%s... [%s/%s]"
-                       (if layer (format "%S:" layer) "")
-                       pkg-name installed-count not-installed-count) t))
-            (unless (package-installed-p pkg-name)
-              (condition-case err
-                  (if (not (assq pkg-name package-archive-contents))
-                      (spacemacs-buffer/append
-                       (format (concat "\nPackage %s is unavailable. "
-                                       "Is the package name misspelled?\n")
-                               pkg-name))
-                    (dolist
-                        (dep (configuration-layer//get-package-deps-from-archive
-                              pkg-name))
-                      (configuration-layer//activate-package (car dep)))
-                    (package-install pkg-name))
-                ('error
-                 (configuration-layer//set-error)
-                 (spacemacs-buffer/append
-                  (format (concat "An error occurred while installing %s "
-                                  "(error: %s)\n") pkg-name err)))))
-            (spacemacs//redisplay))
-          (spacemacs-buffer/append "\n")))))
+    (when not-installed
+      (spacemacs-buffer/append
+       (format "Found %s new package(s) to install...\n"
+               not-installed-count))
+      (spacemacs-buffer/append
+       "--> fetching new package repository indexes...\n")
+      (spacemacs//redisplay)
+      (package-refresh-contents)
+      (setq installed-count 0)
+      (dolist (pkg-name not-installed)
+        (setq installed-count (1+ installed-count))
+        (let* ((pkg (object-assoc pkg-name :name
+                                  configuration-layer-packages))
+               (layer (oref pkg :owner))
+               (location (oref pkg :location)))
+          (spacemacs-buffer/replace-last-line
+           (format "--> installing %s%s... [%s/%s]"
+                   (if layer (format "%S:" layer) "")
+                   pkg-name installed-count not-installed-count) t)
+          (unless (package-installed-p pkg-name)
+            (condition-case err
+                (cond
+                 ((eq 'elpa location)
+                  (configuration-layer//install-from-elpa pkg))
+                 ((eq 'recipe location)
+                  (configuration-layer//install-from-recipe pkg))
+                 (t (spacemacs-buffer/warning
+                     "Unknown location %S for package %S." location pkg-name)))
+              ('error
+               (configuration-layer//set-error)
+               (spacemacs-buffer/append
+                (format (concat "An error occurred while installing %s "
+                                "(error: %s)\n") pkg-name err))))))
+        (spacemacs//redisplay))
+      (spacemacs-buffer/append "\n"))))
+
+(defun configuration-layer//install-from-elpa (pkg)
+  "Install PKG from ELPA."
+  (if (not (assq pkg-name package-archive-contents))
+      (spacemacs-buffer/append
+       (format (concat "\nPackage %s is unavailable. "
+                       "Is the package name misspelled?\n")
+               pkg-name))
+    (dolist
+        (dep (configuration-layer//get-package-deps-from-archive
+              pkg-name))
+      (configuration-layer//activate-package (car dep)))
+    (package-install pkg-name)))
+
+(defun configuration-layer//install-from-recipe (pkg)
+  "Install PKG from a recipe."
+  (let* ((pgk-name (oref pkg :name))
+         (layer (oref pkg :owner))
+         (recipes-var (intern (format "%S-package-recipes" layer)))
+         (recipe (when (boundp recipes-var)
+                   (assq pkg-name (symbol-value recipes-var)))))
+    (if recipe
+        (quelpa recipe)
+      (spacemacs-buffer/warning
+       (concat "Cannot find any recipe for package %S! Be sure "
+               "to add a recipe for it in alist %S.")
+       pkg-name recipes-var))))
 
 (defun configuration-layer//filter-packages-with-deps (pkg-names filter)
   "Return a filtered PACKAGES list where each elements satisfies FILTER."
