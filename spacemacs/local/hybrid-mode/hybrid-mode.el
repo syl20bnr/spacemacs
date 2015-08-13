@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2014-2015 syl20bnr
 ;;
-;; Author: Sylvain Benner <sylvain.benner@gmail.com>
+;; Author: Justin Burkett <justin@burkett.cc>
 ;; Keywords: convenience editing
 ;; Created: 12 Aug 2015
 ;; Version: 1.00
@@ -27,6 +27,12 @@
 ;;; Commentary:
 
 ;;; Code:
+
+(defvar hybrid-mode-evil-insert-state-keys
+  '("\C-v" "\C-k" "\C-o" "\C-r" "\C-y" "\C-e" "\C-n" "\C-p" "\C-x\C-n"
+    "\C-x\C-p" "\C-t" "\C-d" "\C-a" "\C-w" [remap delete-backward-char]
+    [delete])
+  "Taken from evil-maps.el")
 
 (defvar hybrid-mode-insert-state-map-backup nil
   "Backup of `evil-insert-state-map'.")
@@ -58,17 +64,19 @@
                                        (cadr evil-insert-state-cursor)))
   (copy-face 'spacemacs-insert-face 'hybrid-mode-insert-face-backup)
   (copy-face 'spacemacs-emacs-face 'spacemacs-insert-face)
-  (setcdr evil-insert-state-map nil)
-  (define-key evil-insert-state-map [escape] 'evil-normal-state)
-  (when (bound-and-true-p evil-escape-mode)
-    (define-key evil-insert-state-map "f" 'evil-escape-insert-state))
-  ;; allow C-w to be set for those who want it
-  (when evil-want-C-w-delete
-      (define-key evil-insert-state-map "\C-w" 'evil-delete-backward-word)))
+  ;; (setcdr evil-insert-state-map nil)
+  ;; (define-key evil-insert-state-map [escape] 'evil-normal-state)
+  (dolist (key hybrid-mode-evil-insert-state-keys)
+    (define-key evil-insert-state-map key nil))
+  (define-key evil-insert-state-map
+    (read-kbd-macro evil-toggle-key) nil)
+  ;; see if the above works withou this
+  ;; (when (bound-and-true-p evil-escape-mode)
+  ;;   (define-key evil-insert-state-map "f" 'evil-escape-insert-state))
+  )
 
 (defun hybrid-mode-restore-keymaps ()
   "Go home."
   (setq evil-insert-state-map hybrid-mode-insert-state-map-backup
         evil-insert-state-cursor hybrid-mode-insert-state-cursor-backup)
   (copy-face 'hybrid-mode-insert-face-backup 'spacemacs-insert-face))
-
