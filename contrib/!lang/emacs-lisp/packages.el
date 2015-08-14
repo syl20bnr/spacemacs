@@ -16,6 +16,7 @@
         eldoc
         elisp-slime-nav
         evil
+        flycheck
         ielm
         macrostep
         semantic
@@ -78,6 +79,11 @@
                                                 "elisp-comment"
                                                 ";; "
                                                 ""))))
+
+(defun emacs-lisp/post-init-flycheck ()
+  ;; Make flycheck recognize packages in loadpath
+  ;; i.e (require 'company) will not give an error now
+  (setq flycheck-emacs-lisp-load-path 'inherit))
 
 (defun emacs-lisp/post-init-semantic ()
   (semantic/enable-semantic-mode 'emacs-lisp-mode)
