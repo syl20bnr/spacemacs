@@ -16,6 +16,7 @@
 (require 'core-emacs-backports)
 (require 'core-release-management)
 (require 'core-auto-completion)
+(require 'core-display-init)
 (require 'core-themes-support)
 (require 'core-fonts-support)
 (require 'core-spacemacs-buffer)
@@ -117,10 +118,11 @@ initialization."
                                       "able to launch a graphical instance of Emacs"
                                       "with this build.")))
   ;; font
-  (if (find-font (font-spec :name (car dotspacemacs-default-font)))
-      (spacemacs/set-default-font dotspacemacs-default-font)
-    (spacemacs-buffer/warning "Cannot find font \"%s\"!"
-                              (car dotspacemacs-default-font)))
+  (spacemacs|do-after-display-system-init
+   (if (find-font (font-spec :name (car dotspacemacs-default-font)) (selected-frame))
+         (spacemacs/set-default-font dotspacemacs-default-font)
+       (spacemacs-buffer/warning "Cannot find font \"%s\"!"
+                                 (car dotspacemacs-default-font))))
   ;; banner
   (spacemacs-buffer/insert-banner-and-buttons)
   ;; mandatory dependencies
