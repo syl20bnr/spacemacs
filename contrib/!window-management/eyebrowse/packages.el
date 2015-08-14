@@ -22,8 +22,8 @@
       (eyebrowse-mode)
 
       ;; vim-style tab switching
-      (define-key evil-normal-state-map "gt" 'eyebrowse-next-window-config)
-      (define-key evil-normal-state-map "gT" 'eyebrowse-prev-window-config)
+      (define-key evil-motion-state-map "gt" 'eyebrowse-next-window-config)
+      (define-key evil-motion-state-map "gT" 'eyebrowse-prev-window-config)
 
       (defun spacemacs/workspace-number ()
         "Return the number of the current workspace."
