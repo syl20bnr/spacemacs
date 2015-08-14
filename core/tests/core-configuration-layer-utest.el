@@ -185,7 +185,7 @@
   (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path"))
          (layers (list layer1))
          (layer1-packages '((pkg1 :location elpa :excluded t)
-                            (pkg2 :location recipe)
+                            (pkg2 :location (recipe blahblah))
                             (pkg3 :location local :step pre)))
          (mocker-mock-default-record-cls 'mocker-stub-record))
     (defun layer1/init-pkg1 nil)
@@ -196,7 +196,7 @@
                           (:output nil :occur 1)))
       (configuration-layer/layer-usedp (l) ((:output t :occur 1))))
      (should (equal (list (cfgl-package "pkg3" :name 'pkg3 :owner 'layer1 :location 'local :step 'pre)
-                          (cfgl-package "pkg2" :name 'pkg2 :owner 'layer1 :location 'recipe)
+                          (cfgl-package "pkg2" :name 'pkg2 :owner 'layer1 :location '(recipe blahblah))
                           (cfgl-package "pkg1" :name 'pkg1 :owner 'layer1 :excluded t))
                     (configuration-layer/get-packages layers))))))
 
@@ -204,7 +204,7 @@
   (let* ((layer1 (cfgl-layer "layer1" :name 'layer1 :dir "/path"))
          (layers (list layer1))
          (layer1-packages '(pkg1
-                            (pkg2 :location recipe)
+                            (pkg2 :location (recipe blahblah))
                             (pkg3 :location local :step pre)
                             pkg4))
          (mocker-mock-default-record-cls 'mocker-stub-record))
@@ -218,7 +218,7 @@
       (configuration-layer/layer-usedp (l) ((:output t :occur 1))))
      (should (equal (list (cfgl-package "pkg4" :name 'pkg4 :owner 'layer1)
                           (cfgl-package "pkg3" :name 'pkg3 :owner 'layer1 :location 'local :step 'pre)
-                          (cfgl-package "pkg2" :name 'pkg2 :owner 'layer1 :location 'recipe)
+                          (cfgl-package "pkg2" :name 'pkg2 :owner 'layer1 :location '(recipe blahblah))
                           (cfgl-package "pkg1" :name 'pkg1 :owner 'layer1))
                     (configuration-layer/get-packages layers))))))
 
