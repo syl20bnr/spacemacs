@@ -138,6 +138,13 @@ the focus."
         (message "Cider REPL pretty printing: %s"
                  (if cider-repl-use-pretty-printing "ON" "OFF")))
 
+      (defun spacemacs/cider-toggle-repl-font-locking ()
+        (interactive)
+        (setq cider-repl-use-clojure-font-lock
+              (if cider-repl-use-pretty-printing nil t))
+        (message "Cider REPL clojure-mode font-lock: %s"
+                 (if cider-repl-use-clojure-font-lock "ON" "OFF")))
+
       (evilify cider-stacktrace-mode cider-stacktrace-mode-map
                (kbd "C-j") 'cider-stacktrace-next-cause
                (kbd "C-k") 'cider-stacktrace-previous-cause
