@@ -208,6 +208,33 @@ the focus."
 
           "mdi" 'cider-inspect
           "mdb" 'cider-debug-defun-at-point))
+
+      (evil-leader/set-key-for-mode 'cider-repl-mode
+        "mhh" 'cider-doc
+        "mhg" 'cider-grimoire
+        "mhj" 'cider-javadoc
+
+        "mee" 'cider-eval-last-sexp
+        "mef" 'cider-eval-defun-at-point
+        "mer" 'cider-eval-region
+        "mew" 'cider-eval-last-sexp-and-replace
+
+        "mgb" 'cider-jump-back
+        "mge" 'cider-jump-to-compilation-error
+        "mgg" 'cider-jump-to-var
+        "mgr" 'cider-jump-to-resource
+
+        "msn" 'cider-repl-set-ns
+        "msq" 'cider-quit
+        "mss" 'cider-switch-to-last-clojure-buffer
+        "msc" 'cider-repl-clear-buffer
+
+        "mtp" 'spacemacs/cider-toggle-repl-pretty-printing
+        "mtf" 'spacemacs/cider-toggle-repl-font-locking
+
+        "mdi" 'cider-inspect
+        "mdb" 'cider-debug-defun-at-point)
+
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))
 
