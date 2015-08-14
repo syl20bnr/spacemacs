@@ -26,6 +26,8 @@
 (unless (version< emacs-version "24.4")
   (push 'company-quickhelp auto-completion-packages))
 
+;; TODO replace by company-ispell which comes with company
+;; to be moved to spell-checking layer as well
 (defun auto-completion/init-ac-ispell ()
   (use-package ac-ispell
     :defer t
