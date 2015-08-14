@@ -30,7 +30,8 @@
         (let* ((num (eyebrowse--get 'current-slot))
                (str (if num (int-to-string num))))
           (cond
-           ((not dotspacemacs-mode-line-unicode-symbols) str)
+           ((not (dotspacemacs|symbol-value
+                  dotspacemacs-mode-line-unicode-symbols)) str)
            ((equal str "1") "➊")
            ((equal str "2") "➋")
            ((equal str "3") "➌")
