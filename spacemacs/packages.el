@@ -3208,7 +3208,8 @@ one of `l' or `r'."
         "Set the powerline for buffers created when Emacs starts."
         (unless configuration-layer-error-count
           (dolist (buffer '("*Messages*" "*spacemacs*" "*Compile-Log*"))
-            (when (get-buffer buffer)
+            (when (and (get-buffer buffer)
+                       (configuration-layer/package-usedp 'powerline))
               (spacemacs//restore-powerline buffer)))))
       (add-hook 'emacs-startup-hook
                 'spacemacs//set-powerline-for-startup-buffers))))
