@@ -97,7 +97,9 @@
                :documentation "Layers with a post-init function.")
    (location :initarg :location
              :initform elpa
-             :type (satisfies (lambda (x) (member x '(local elpa recipe))))
+             :type (satisfies (lambda (x)
+                                (or (member x '(local elpa))
+                                    (and (listp x) (eq 'recipe (car x))))))
              :documentation "Location of the package.")
    (step :initarg :step
          :initform nil
@@ -567,7 +569,7 @@ LAYERS is a list of layer symbols."
                 (cond
                  ((eq 'elpa location)
                   (configuration-layer//install-from-elpa pkg))
-                 ((eq 'recipe location)
+                 ((and (listp location) (eq 'recipe (car location)))
                   (configuration-layer//install-from-recipe pkg))
                  (t (spacemacs-buffer/warning
                      "Unknown location %S for package %S." location pkg-name)))
@@ -596,9 +598,7 @@ LAYERS is a list of layer symbols."
   "Install PKG from a recipe."
   (let* ((pgk-name (oref pkg :name))
          (layer (oref pkg :owner))
-         (recipes-var (intern (format "%S-package-recipes" layer)))
-         (recipe (when (boundp recipes-var)
-                   (assq pkg-name (symbol-value recipes-var)))))
+         (recipe (cons pkg-name (cdr (oref pkg :location)))))
     (if recipe
         (quelpa recipe)
       (spacemacs-buffer/warning

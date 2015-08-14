@@ -18,15 +18,12 @@
         ggtags
         helm-gtags
         php-auto-yasnippets
-        (php-extras :location recipe)
+        (php-extras :location (recipe :fetcher github :repo "arnested/php-extras"))
         php-mode
         phpcbf
         phpunit
         flycheck
         ))
-
-(setq php-package-recipes
-      '((php-extras :fetcher github :repo "arnested/php-extras")))
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
