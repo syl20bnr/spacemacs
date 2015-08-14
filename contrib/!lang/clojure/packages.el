@@ -247,18 +247,18 @@ the focus."
     '(require 'cider-eval-sexp-fu)))
 
 (defun clojure/init-clj-refactor ()
- (use-package clj-refactor
-      :defer t
-      :init
-      (add-hook 'clojure-mode-hook 'clj-refactor-mode)
-      :config
-      (progn
-        (cljr-add-keybindings-with-prefix "C-c C-f")
-        ;; not supported for now
-        ;; (spacemacs/declare-prefix "mr" "clj-refactor")
+  (use-package clj-refactor
+    :defer t
+    :init
+    (add-hook 'clojure-mode-hook 'clj-refactor-mode)
+    :config
+    (progn
+      (cljr-add-keybindings-with-prefix "C-c C-f")
+      ;; not supported for now
+      ;; (spacemacs/declare-prefix "mr" "clj-refactor")
 
-        (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
-          (evil-leader/set-key-for-mode m
+      (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
+        (evil-leader/set-key-for-mode m
           "mrad" 'cljr-add-declaration
           "mrai" 'cljr-add-import-to-ns
           "mram" 'cljr-add-missing-libspec
@@ -299,7 +299,31 @@ the focus."
           "mrua" 'cljr-unwind-all
           "mrup" 'cljr-update-project-dependencies
           "mruw" 'cljr-unwind
-          "mr?"  'cljr-describe-refactoring)))))
+          "mr?"  'cljr-describe-refactoring))
+
+      (evil-leader/set-key-for-mode 'cider-repl-mode
+        "mrap" 'cljr-add-project-dependency
+        "mras" 'cljr-add-stubs
+        "mrcc" 'cljr-cycle-coll
+        "mrci" 'cljr-cycle-if
+        "mrcp" 'cljr-cycle-privacy
+        "mrdk" 'cljr-destructure-keys
+        "mrel" 'cljr-expand-let
+        "mrfu" 'cljr-find-usages
+        "mrhd" 'cljr-hotload-dependency
+        "mril" 'cljr-introduce-let
+        "mrml" 'cljr-move-to-let
+        "mrpc" 'cljr-project-clean
+        "mrrl" 'cljr-remove-let
+        "mrsp" 'cljr-sort-project-dependencies
+        "mrsc" 'cljr-show-changelog
+        "mrtf" 'cljr-thread-first-all
+        "mrth" 'cljr-thread
+        "mrtl" 'cljr-thread-last-all
+        "mrua" 'cljr-unwind-all
+        "mrup" 'cljr-update-project-dependencies
+        "mruw" 'cljr-unwind
+        "mr?"  'cljr-describe-refactoring))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
