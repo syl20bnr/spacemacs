@@ -42,7 +42,7 @@
         evil-escape
         evil-exchange
         evil-iedit-state
-        evil-indent-textobject
+        (evil-indent-textobject :location recipe)
         evil-jumper
         evil-leader
         evil-lisp-state
@@ -124,6 +124,9 @@
 (if  (version< emacs-version "24.4")
     (push '(paradox :location local) spacemacs-packages)
   (push 'paradox spacemacs-packages))
+
+(setq spacemacs-package-recipes
+      '((evil-indent-textobject :fetcher github :repo "TheBB/evil-indent-textobject")))
 
 ;; Initialization of packages
 
