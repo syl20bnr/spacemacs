@@ -131,7 +131,22 @@ the focus."
         (cider-load-buffer)
         (spacemacs//cider-eval-in-repl-no-focus (cider-test-rerun-tests)))
 
-      (evilify cider-stacktrace-mode cider-stacktrace-mode-map)
+      (evilify cider-stacktrace-mode cider-stacktrace-mode-map
+               (kbd "C-j") 'cider-stacktrace-next-cause
+               (kbd "C-k") 'cider-stacktrace-previous-cause
+               (kbd "TAB") 'cider-stacktrace-cycle-current-cause
+               (kbd "0")   'cider-stacktrace-cycle-all-causes
+               (kbd "1")   'cider-stacktrace-cycle-cause-1
+               (kbd "2")   'cider-stacktrace-cycle-cause-2
+               (kbd "3")   'cider-stacktrace-cycle-cause-3
+               (kbd "4")   'cider-stacktrace-cycle-cause-4
+               (kbd "5")   'cider-stacktrace-cycle-cause-5
+               (kbd "c")   'cider-stacktrace-toggle-clj
+               (kbd "J")   'cider-stacktrace-toggle-java
+               (kbd "r")   'cider-stacktrace-toggle-repl
+               (kbd "T")   'cider-stacktrace-toggle-tooling
+               (kbd "d")   'cider-stacktrace-toggle-duplicates
+               (kbd "a")   'cider-stacktrace-toggle-all)
 
       ;; open cider-doc directly and close it with q
       (setq cider-prompt-for-symbol nil)
