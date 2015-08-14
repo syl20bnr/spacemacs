@@ -998,6 +998,10 @@ to select one."
    ((version< emacs-version "24.3.50")
     (let ((v (configuration-layer//get-package-version-string pkg-name)))
       (when v (package-delete (symbol-name pkg-name) v))))
+   ((version<= "25.0.50" emacs-version)
+    (let ((p (cadr (assq pkg-name package-alist))))
+      ;; add force flag to ignore dependency checks in Emacs25
+      (when p (package-delete p t))))
    (t (let ((p (cadr (assq pkg-name package-alist))))
         (when p (package-delete p))))))
 
