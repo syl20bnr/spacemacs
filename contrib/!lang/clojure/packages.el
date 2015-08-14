@@ -235,6 +235,10 @@ the focus."
         "mdi" 'cider-inspect
         "mdb" 'cider-debug-defun-at-point)
 
+      (evil-define-key 'normal cider-repl-mode-map
+        "C-j" 'cider-repl-next-input
+        "C-k" 'cider-repl-previous-input)
+
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))
 
