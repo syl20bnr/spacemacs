@@ -55,6 +55,8 @@ Set the variable =eyebrowse-display-help= to =nil=
 
 | Key Binding            | Description                        |
 |------------------------+------------------------------------|
+| ~gt~                   | go to next workspace               |
+| ~gT~                   | got to previous workspace          |
 | ~SPC W 1~              | create or switch to workspace 1    |
 | ~SPC W 2~              | create or switch to workspace 2    |
 | ~SPC W 3~              | create or switch to workspace 3    |
