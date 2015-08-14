@@ -131,6 +131,13 @@ the focus."
         (cider-load-buffer)
         (spacemacs//cider-eval-in-repl-no-focus (cider-test-rerun-tests)))
 
+      (defun spacemacs/cider-toggle-repl-pretty-printing ()
+        (interactive)
+        (setq cider-repl-use-pretty-printing
+              (if cider-repl-use-pretty-printing nil t))
+        (message "Cider REPL pretty printing: %s"
+                 (if cider-repl-use-pretty-printing "ON" "OFF")))
+
       (evilify cider-stacktrace-mode cider-stacktrace-mode-map
                (kbd "C-j") 'cider-stacktrace-next-cause
                (kbd "C-k") 'cider-stacktrace-previous-cause
@@ -190,6 +197,7 @@ the focus."
           "mta" 'spacemacs/cider-test-run-all-tests
           "mtr" 'spacemacs/cider-test-rerun-tests
           "mtt" 'spacemacs/cider-test-run-focused-test
+          "mtp" 'spacemacs/cider-toggle-repl-pretty-printing
 
           "mdi" 'cider-inspect
           "mdb" 'cider-debug-defun-at-point))
