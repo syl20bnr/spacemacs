@@ -164,10 +164,26 @@ the focus."
 
       ;; open cider-doc directly and close it with q
       (setq cider-prompt-for-symbol nil)
+
       (evilify cider-docview-mode cider-docview-mode-map
                (kbd "q") 'cider-popup-buffer-quit)
+
       (evilify cider-inspector-mode cider-inspector-mode-map
                (kbd "L") 'cider-inspector-pop)
+
+      (evilify cider-test-report-mode cider-test-report-mode-map
+               (kbd "C-j") 'cider-test-next-result
+               (kbd "C-k") 'cider-test-previous-result
+               (kbd "RET") 'cider-test-jump
+               (kbd "q")   'cider-popup-buffer-quit
+               (kbd "d")   'cider-test-ediff
+               (kbd "e")   'cider-test-stacktrace
+               (kbd "r")   'cider-test-rerun-tests
+               (kbd "t")   'cider-test-run-test
+               (kbd "T")   'cider-test-run-tests)
+
+      ;; TODO: having this work for cider-macroexpansion-mode would be nice,
+      ;;       but the problem is that it uses clojure-mode as its major-mode
 
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
         (evil-leader/set-key-for-mode m
