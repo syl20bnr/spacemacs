@@ -117,6 +117,21 @@ option in =emacs-eclim= itself.
 |-------------+---------------------------------------------------------------|
 | ~SPC m t t~ | run JUnit tests for current method or current file or project |
 
+*** Debug
+Please note that most of the keybindings will work after starting the debugger.
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m d d~ | Debug current test file     |
+| ~SPC m d b~ | Create breakpoint           |
+| ~SPC m d r~ | Run debuged program         |
+| ~SPC m d c~ | Continue after break        |
+| ~SPC m d s~ | Step into the method        |
+| ~SPC m d f~ | Finish current method       |
+| ~SPC m d n~ | Next line (step over)       |
+| ~SPC m d l~ | Print local variables state |
+| ~SPC m d i~ | Inspect current variable    |
+| ~SPC m d .~ | Enter debug micro-state     |
+
 
 ** Problems buffer
 | Key Binding | Description                         |
