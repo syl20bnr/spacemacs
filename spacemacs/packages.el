@@ -3676,6 +3676,16 @@ one of `l' or `r'."
       ;; disorienting if you don't understand it
       (setq which-key-special-keys nil)
       (setq which-key-use-C-h-for-paging t)
+      (setq which-key-prefix-title-alist
+            `((,(listify-key-sequence
+                 (kbd (concat dotspacemacs-leader-key " m"))) . "Major mode commands")
+              (,(listify-key-sequence
+                 (kbd (concat dotspacemacs-emacs-leader-key " m"))) . "Major mode commands")
+              (,(listify-key-sequence
+                 (kbd dotspacemacs-leader-key)) . "Spacemacs root")
+              (,(listify-key-sequence
+                 (kbd dotspacemacs-emacs-leader-key)) . "Spacemacs root")))
+      (nconc which-key-prefix-title-alist spacemacs/prefix-titles)
       (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
 
 (defun spacemacs/init-window-numbering ()
