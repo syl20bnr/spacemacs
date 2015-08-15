@@ -629,18 +629,40 @@ LAYERS is a list of layer symbols."
   (configuration-layer//filter-packages-with-deps
    pkg-names (lambda (x) (not (package-installed-p x)))))
 
+(defun configuration-layer//package-has-recipe-p (pkg-name)
+  "Return non nil if PKG-NAME is the name of a package declared with a recipe."
+  (when (object-assoc pkg-name :name configuration-layer-packages)
+    (let* ((pkg (object-assoc pkg-name :name configuration-layer-packages))
+           (location (oref pkg :location)))
+      (and (listp location) (eq 'recipe (car location))))))
+
+(defun configuration-layer//get-package-recipe (pkg-name)
+  "Return the recipe for PGK-NAME if it has one."
+  (let ((pkg (object-assoc pkg-name :name configuration-layer-packages)))
+    (when pkg
+      (let ((location (oref pkg :location)))
+        (when (and (listp location) (eq 'recipe (car location)))
+          location)))))
+
+(defun configuration-layer//new-version-available-p (pkg-name)
+  "Return non nil if there is a new version available for PKG-NAME."
+  (let ((recipe (configuration-layer//get-package-recipe pkg-name))
+        (cur-version (configuration-layer//get-package-version-string pkg-name))
+        new-version)
+    (when cur-version
+      (setq new-version
+            (if recipe
+                (quelpa-checkout recipe (expand-file-name (symbol-name pkg-name)
+                                                          quelpa-build-dir))
+              (configuration-layer//get-latest-package-version-string
+               pkg-name)))
+      ;; (message "%s: %s > %s ?" pkg-name cur-version new-version)
+      (version< cur-version new-version))))
+
 (defun configuration-layer//get-packages-to-update (pkg-names)
   "Return a filtered list of PKG-NAMES to update."
   (configuration-layer//filter-packages-with-deps
-   pkg-names
-   (lambda (x)
-     ;; the package is a built-in package
-     ;; or a newest version is available
-     (let ((installed-ver (configuration-layer//get-package-version-string x)))
-       (and (not (null installed-ver))
-            (version< installed-ver
-                      (configuration-layer//get-latest-package-version-string
-                       x)))))))
+   pkg-names 'configuration-layer//new-version-available-p))
 
 (defun configuration-layer//configure-packages (packages)
   "Configure all passed PACKAGES honoring the steps order."
