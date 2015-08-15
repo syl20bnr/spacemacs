@@ -537,42 +537,43 @@ LAYERS is a list of layer symbols."
 (defun configuration-layer//install-packages (packages)
   "Install PACKAGES."
   (interactive)
-  (let* ((not-installed
+  (let* ((candidates
           (configuration-layer/filter-packages
            packages
            (lambda (x) (and (not (null (oref x :owner)))
                             (not (eq 'local (oref x :location)))
-                            (not (oref x :excluded))
-                            (not (package-installed-p (oref x :name)))))))
-         (not-installed-count (length not-installed)))
+                            (not (oref x :excluded))))))
+         (noinst-pkg-names (configuration-layer//get-uninstalled-packages
+                            (mapcar 'car (object-assoc-list :name candidates))))
+         (noinst-count (length noinst-pkg-names)))
     ;; installation
-    (when not-installed
+    (when noinst-pkg-names
       (spacemacs-buffer/append
        (format "Found %s new package(s) to install...\n"
-               not-installed-count))
+               noinst-count))
       (spacemacs-buffer/append
        "--> fetching new package repository indexes...\n")
       (spacemacs//redisplay)
       (package-refresh-contents)
       (setq installed-count 0)
-      (dolist (pkg not-installed)
+      (dolist (pkg-name noinst-pkg-names)
         (setq installed-count (1+ installed-count))
-        (let* ((pkg-name (oref pkg :name))
-               (layer (oref pkg :owner))
-               (location (oref pkg :location)))
+        (let* ((pkg (object-assoc pkg-name :name configuration-layer-packages))
+               (layer (when pkg (oref pkg :owner)))
+               (location (when pkg (oref pkg :location))))
           (spacemacs-buffer/replace-last-line
            (format "--> installing %s%s... [%s/%s]"
-                   (if layer (format "%S:" layer) "")
-                   pkg-name installed-count not-installed-count) t)
+                   (if layer (format "%S:" layer) "dependency ")
+                   pkg-name installed-count noinst-count) t)
           (unless (package-installed-p pkg-name)
             (condition-case err
                 (cond
-                 ((eq 'elpa location)
-                  (configuration-layer//install-from-elpa pkg))
+                 ((or (null pkg) (eq 'elpa location))
+                  (configuration-layer//install-from-elpa pkg-name))
                  ((and (listp location) (eq 'recipe (car location)))
                   (configuration-layer//install-from-recipe pkg))
-                 (t (spacemacs-buffer/warning
-                     "Unknown location %S for package %S." location pkg-name)))
+                 (t (spacemacs-buffer/warning "Cannot install package %S."
+                                              pkg-name)))
               ('error
                (configuration-layer//set-error)
                (spacemacs-buffer/append
@@ -581,7 +582,7 @@ LAYERS is a list of layer symbols."
         (spacemacs//redisplay))
       (spacemacs-buffer/append "\n"))))
 
-(defun configuration-layer//install-from-elpa (pkg)
+(defun configuration-layer//install-from-elpa (pkg-name)
   "Install PKG from ELPA."
   (if (not (assq pkg-name package-archive-contents))
       (spacemacs-buffer/append
