@@ -38,31 +38,29 @@
       (slime-setup)
       (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
         (define-key m [(tab)] 'slime-fuzzy-complete-symbol))
-      (dolist (m '(lisp-mode
-                   scheme-mode))
-        (evil-leader/set-key-for-mode m
-          "mcc" 'slime-compile-file
-          "mcC" 'slime-compile-and-load-file
-          "mcf" 'slime-compile-defun
-          "mcr" 'slime-compile-region
+      (evil-leader/set-key-for-mode 'lisp-mode
+        "mcc" 'slime-compile-file
+        "mcC" 'slime-compile-and-load-file
+        "mcf" 'slime-compile-defun
+        "mcr" 'slime-compile-region
 
-          "meb" 'slime-eval-buffer
-          "mef" 'slime-eval-defun
-          "mee" 'slime-eval-last-sexp
-          "mer" 'slime-eval-region
+        "meb" 'slime-eval-buffer
+        "mef" 'slime-eval-defun
+        "mee" 'slime-eval-last-sexp
+        "mer" 'slime-eval-region
 
-          "mgg" 'slime-inspect-definition
-          "mgn" 'slime-next-note
-          "mgN" 'slime-previous-note
-          "mgp" 'slime-previous-note
+        "mgg" 'slime-inspect-definition
+        "mgn" 'slime-next-note
+        "mgN" 'slime-previous-note
+        "mgp" 'slime-previous-note
 
-          "mha" 'slime-apropos
-          "mhd" 'slime-disassemble-symbol
-          "mhh" 'slime-describe-function
-          "mhH" 'slime-hyperspec-lookup
+        "mha" 'slime-apropos
+        "mhd" 'slime-disassemble-symbol
+        "mhh" 'slime-describe-function
+        "mhH" 'slime-hyperspec-lookup
 
-          "mse" 'slime-eval-last-expression-in-repl
-          "msi" 'slime
-          "msq" 'slime-quit-lisp
+        "mse" 'slime-eval-last-expression-in-repl
+        "msi" 'slime
+        "msq" 'slime-quit-lisp
 
-          "mtf" 'slime-toggle-fancy-trace)))))
+        "mtf" 'slime-toggle-fancy-trace))))
