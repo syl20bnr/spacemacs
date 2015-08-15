@@ -1,9 +1,16 @@
 #+TITLE: Scheme contribution layer for Spacemacs
 
-* Table of Contents
-- [[#description][Description]]
-- [[#install][Install]]
-- [[#key-bindings][Key Bindings]]
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key Bindings]]
+     - [[#compiling-][Compiling ]]
+     - [[#navigation][Navigation]]
+     - [[#documentation][Documentation]]
+     - [[#insertion][Insertion]]
+     - [[#macroexpansion][Macroexpansion]]
+     - [[#repl][REPL]]
+
 * Description
 
 A spacemacs contribution layer providing Scheme support via [[http://www.nongnu.org/geiser/][Geiser]].
