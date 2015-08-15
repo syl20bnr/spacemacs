@@ -68,7 +68,7 @@ Then you just need to add a keybinding to your custom persp, we use
 *** Per project custom perpsective
 
 As the name suggests, this persp-projectile mode creates a new perspective
-once you switch to a new project with ~SPC p s~. It must be said that in the
+once you switch to a new project with ~SPC p p~. It must be said that in the
 current implementation in order for this to work you must first open a
 custom-perspective like ~SPC L o e~ to go to the init.el in the spacemacs.
 
