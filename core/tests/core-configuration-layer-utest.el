@@ -510,6 +510,39 @@
                    (configuration-layer//sort-packages pkgs)))))
 
 ;; ---------------------------------------------------------------------------
+;; configuration-layer//package-has-recipe-p
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-package-has-a-recipe-p--true ()
+  (let ((configuration-layer-packages
+         `(,(configuration-layer/make-package '(pkg1 :location (recipe blah)))
+           ,(configuration-layer/make-package '(pkg2 :location elpa)))))
+    (should (configuration-layer//package-has-recipe-p 'pkg1))))
+
+(ert-deftest test-package-has-a-recipe-p--false ()
+  (let ((configuration-layer-packages
+         `(,(configuration-layer/make-package '(pkg1 :location (recipe blah)))
+           ,(configuration-layer/make-package '(pkg2 :location elpa)))))
+    (should (not (configuration-layer//package-has-recipe-p 'pkg2)))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//get-package-recipe
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-get-package-recipe--return-recipe-if-package-has-one ()
+  (let ((configuration-layer-packages
+         `(,(configuration-layer/make-package '(pkg1 :location (recipe blah)))
+           ,(configuration-layer/make-package '(pkg2 :location elpa)))))
+    (should (eq 'recipe
+                (car (configuration-layer//get-package-recipe 'pkg1))))))
+
+(ert-deftest test-get-package-recipe--return-nil-if-package-has-no-recipe ()
+  (let ((configuration-layer-packages
+         `(,(configuration-layer/make-package '(pkg1 :location (recipe blah)))
+           ,(configuration-layer/make-package '(pkg2 :location elpa)))))
+    (should (not (configuration-layer//get-package-recipe 'pkg2)))))
+
+;; ---------------------------------------------------------------------------
 ;; configuration-layer/filter-packages
 ;; ---------------------------------------------------------------------------
 
