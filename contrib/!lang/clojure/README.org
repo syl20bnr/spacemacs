@@ -8,26 +8,30 @@
  - [[#install][Install]]
      - [[#layer][Layer]]
      - [[#pretty-symbols][Pretty Symbols]]
-     - [[#cider-and-clj-refactor][Cider and clj-refactor]]
+     - [[#cider-and-clj-refactor][CIDER and clj-refactor]]
          - [[#quick-start-with-lein][Quick Start with lein]]
          - [[#more-details][More details]]
  - [[#key-bindings][Key Bindings]]
-     - [[#documentation][Documentation]]
-     - [[#evaluation][Evaluation]]
-     - [[#goto][Goto]]
-     - [[#repl][REPL]]
-     - [[#tests][Tests]]
-     - [[#debugging][Debugging]]
-     - [[#refactoring][Refactoring]]
-     - [[#reformatting][Reformatting]]
+     - [[#leader][Leader]]
+         - [[#documentation][Documentation]]
+         - [[#evaluation][Evaluation]]
+         - [[#goto][Goto]]
+         - [[#repl][REPL]]
+         - [[#tests][Tests]]
+         - [[#debugging][Debugging]]
+         - [[#refactoring][Refactoring]]
+         - [[#reformatting][Reformatting]]
+     - [[#cider-buffers][CIDER Buffers]]
+         - [[#stacktrace-mode][stacktrace-mode]]
+         - [[#stacktrace-mode][test-report-mode]]
 
 * Description
 
-This layer adds support for [[http://clojure.org][Clojure]] language using [[https://github.com/clojure-emacs/cider][Cider]].
+This layer adds support for [[http://clojure.org][Clojure]] language using [[https://github.com/clojure-emacs/cider][CIDER]].
 
 * Features
 
-- REPL via [[https://github.com/clojure-emacs/cider][Cider]]
+- REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
 - Automatic formatting via [[https://github.com/gstamp/align-cljlet][align-cljlet]]
   
@@ -59,7 +63,7 @@ Or set this variable when loading the configuration layer:
   '((clojure :variables clojure-enable-fancify-symbols t)))
 #+END_SRC
 
-** Cider and clj-refactor
+** CIDER and clj-refactor
 
 *** Quick Start with lein
 
@@ -76,12 +80,14 @@ Or set this variable when loading the configuration layer:
 *** More details
 
 More info regarding installation of nREPL middleware can be found here:
-- cider: [[https://github.com/clojure-emacs/cider#installation][cider_install]]
+- CIDER: [[https://github.com/clojure-emacs/cider#installation][cider_install]]
 - clj-refactor: [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
   
 * Key Bindings
 
-** Documentation
+** Leader
+
+*** Documentation
 
 | Key Binding | Description    |
 |-------------+----------------|
@@ -89,7 +95,7 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m h g~ | cider grimoire |
 | ~SPC m h j~ | cider javadoc  |
 
-** Evaluation
+*** Evaluation
 
 | Key Binding | Description                            |
 |-------------+----------------------------------------|
@@ -99,7 +105,7 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m e r~ | eval region                            |
 | ~SPC m e w~ | eval last sexp and replace with result |
 
-** Goto
+*** Goto
 
 | Key Binding | Description   |
 |-------------+---------------|
@@ -108,26 +114,28 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m g r~ | goto resource |
 | ~SPC m g b~ | go back       |
 
-** REPL
+*** REPL
 
-| Key Binding | Description                                                  |
-|-------------+--------------------------------------------------------------|
-| ~SPC m s b~ | send and eval buffer in REPL                                 |
-| ~SPC m s B~ | send and eval buffer and switch to REPL in =insert state=    |
-| ~SPC m s c~ | connect to REPL (cider-connect)                              |
-| ~SPC m s e~ | send and eval last sexp in REPL                              |
-| ~SPC m s E~ | send and eval last sexp and switch to REPL in =insert state= |
-| ~SPC m s f~ | send and eval function in REPL                               |
-| ~SPC m s F~ | send and eval function and switch to REPL in =insert state=  |
-| ~SPC m s i~ | start REPL (cider-jack-in)                                   |
-| ~SPC m s n~ | send and eval ns form in REPL                                |
-| ~SPC m s N~ | send and eval ns form and switch to REPL in =insert state=   |
-| ~SPC m s q~ | kill REPL (cider-quit)                                       |
-| ~SPC m s r~ | send and eval region in REPL                                 |
-| ~SPC m s R~ | send and eval region and switch to REPL in =insert state=    |
-| ~SPC m s s~ | switch to REPL                                               |
+| Key Binding | Description                                                |
+|-------------+------------------------------------------------------------|
+| ~SPC m s b~   | send and eval buffer in REPL                               |
+| ~SPC m s B~   | send and eval buffer and switch to REPL in =insert state=    |
+| ~SPC m s c~   | connect to REPL (cider-connect)                            |
+| ~SPC m s e~   | send and eval last sexp in REPL                            |
+| ~SPC m s E~   | send and eval last sexp and switch to REPL in =insert state= |
+| ~SPC m s f~   | send and eval function in REPL                             |
+| ~SPC m s F~   | send and eval function and switch to REPL in =insert state=  |
+| ~SPC m s i~   | start REPL (cider-jack-in)                                 |
+| ~SPC m s n~   | send and eval ns form in REPL                              |
+| ~SPC m s N~   | send and eval ns form and switch to REPL in =insert state=   |
+| ~SPC m s q~   | kill REPL (cider-quit)                                     |
+| ~SPC m s r~   | send and eval region in REPL                               |
+| ~SPC m s R~   | send and eval region and switch to REPL in =insert state=    |
+| ~SPC m s s~   | switch to REPL                                             |
+| ~SPC m s t p~ | toggle pretty-printing at REPL                             |
+| ~SPC m s t f~ | toggle font-locking at REPL                               |
 
-** Tests
+*** Tests
 
 | Key Binding | Description                        |
 |-------------+------------------------------------|
@@ -135,53 +143,59 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m t r~ | re-run test failures for namespace |
 | ~SPC m t t~ | run test at point                  |
 
-** Debugging
+*** Debugging
 
 | Key Binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC m d b~ | instrument expression at point |
 | ~SPC m d i~ | inspect expression at point    |
 
-** Refactoring
+*** Refactoring
 
-| Key Binding   | Description               |
-|---------------+---------------------------|
-| ~SPC m r a d~ | add declaration           |
-| ~SPC m r a i~ | add import to ns          |
-| ~SPC m r a m~ | add missing libspec       |
-| ~SPC m r a p~ | add project dependency    |
-| ~SPC m r a r~ | add require to ns         |
-| ~SPC m r a u~ | add use to ns             |
-| ~SPC m r c c~ | cycle coll                |
-| ~SPC m r c i~ | cycle if                  |
-| ~SPC m r c n~ | clean ns                  |
-| ~SPC m r c p~ | cycle privacy             |
-| ~SPC m r d k~ | destructure keys          |
-| ~SPC m r e f~ | extract function          |
-| ~SPC m r e l~ | expand let                |
-| ~SPC m r f u~ | find usages               |
-| ~SPC m r h d~ | hotload dependency        |
-| ~SPC m r i l~ | introduce let             |
-| ~SPC m r m f~ | move form                 |
-| ~SPC m r m l~ | move to let               |
-| ~SPC m r p c~ | project clean             |
-| ~SPC m r p f~ | promote function          |
-| ~SPC m r r d~ | remove debug fns          |
-| ~SPC m r r f~ | rename file               |
-| ~SPC m r r l~ | remove let                |
-| ~SPC m r r r~ | remove unused requires    |
-| ~SPC m r r s~ | rename symbol             |
-| ~SPC m r r u~ | replace use               |
-| ~SPC m r s n~ | sort ns                   |
-| ~SPC m r s p~ | sort project dependencies |
-| ~SPC m r s r~ | stop referring            |
-| ~SPC m r t f~ | thread first all          |
-| ~SPC m r t h~ | thread                    |
-| ~SPC m r t l~ | thread last all           |
-| ~SPC m r u a~ | unwind all                |
-| ~SPC m r u w~ | unwind                    |
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m r a d~ | add declaration             |
+| ~SPC m r a i~ | add import to ns            |
+| ~SPC m r a m~ | add missing libspec         |
+| ~SPC m r a p~ | add project dependency      |
+| ~SPC m r a r~ | add require to ns           |
+| ~SPC m r a u~ | add use to ns               |
+| ~SPC m r c c~ | cycle coll                  |
+| ~SPC m r c i~ | cycle if                    |
+| ~SPC m r c n~ | clean ns                    |
+| ~SPC m r c p~ | cycle privacy               |
+| ~SPC m r d k~ | destructure keys            |
+| ~SPC m r e f~ | extract function            |
+| ~SPC m r e c~ | extract constant            |
+| ~SPC m r e l~ | expand let                  |
+| ~SPC m r f u~ | find usages                 |
+| ~SPC m r f e~ | create fn from example      |
+| ~SPC m r h d~ | hotload dependency          |
+| ~SPC m r i l~ | introduce let               |
+| ~SPC m r i s~ | inline symbol               |
+| ~SPC m r m f~ | move form                   |
+| ~SPC m r m l~ | move to let                 |
+| ~SPC m r p c~ | project clean               |
+| ~SPC m r p f~ | promote function            |
+| ~SPC m r r d~ | remove debug fns            |
+| ~SPC m r r f~ | rename file                 |
+| ~SPC m r r l~ | remove let                  |
+| ~SPC m r r r~ | remove unused requires      |
+| ~SPC m r r s~ | rename symbol               |
+| ~SPC m r r u~ | replace use                 |
+| ~SPC m r s n~ | sort ns                     |
+| ~SPC m r s p~ | sort project dependencies   |
+| ~SPC m r s r~ | stop referring              |
+| ~SPC m r s c~ | show changelog              |
+| ~SPC m r t f~ | thread first all            |
+| ~SPC m r t h~ | thread                      |
+| ~SPC m r t l~ | thread last all             |
+| ~SPC m r u a~ | unwind all                  |
+| ~SPC m r u p~ | update project dependencies |
+| ~SPC m r u w~ | unwind                      |
+| ~SPC m r ?~   | describe refactoring        |
 
-** Reformatting
+*** Reformatting
 
 - Forms currently handled:
   - let
@@ -200,3 +214,54 @@ More info at [[https://github.com/gstamp/align-cljlet][align-cljlet]].
 | Key Binding | Description           |
 |-------------+-----------------------|
 | ~SPC m f l~ | reformat current form |
+
+** CIDER Buffers
+
+In general, ~q~ should always quit the popped up buffer.
+
+*** stacktrace-mode
+
+| Key Binding | Description         |
+|-------------+---------------------|
+| ~C-j~         | next cause          |
+| ~C-k~         | previous cause      |
+| ~TAB~         | cycle current cause |
+| ~0~           | cycle all causes    |
+| ~1~           | cycle cause 1       |
+| ~2~           | cycle cause 2       |
+| ~3~           | cycle cause 3       |
+| ~4~           | cycle cause 4       |
+| ~5~           | cycle cause 5       |
+| ~c~           | toggle clj          |
+| ~J~           | toggle java         |
+| ~r~           | toggle repl         |
+| ~T~           | toggle tooling      |
+| ~d~           | toggle duplicates   |
+| ~a~           | toggle all          |
+
+*** inspector-mode
+
+| Key Binding | Description                     |
+|-------------+---------------------------------|
+| ~TAB~         | next inspectable object         |
+| ~Shift-TAB~   | previous inspectable object     |
+| ~RET~         | inspect object                  |
+| ~L~           | pop to the parent object        |
+| ~r~           | refresh                         |
+| ~n~           | next page in paginated view     |
+| ~N~           | previous page in paginated view |
+| ~s~           | set a new page size             |
+
+*** test-report-mode
+
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~C-j~         | next result       |
+| ~C-k~         | previous result   |
+| ~RET~         | jump to test      |
+| ~d~           | ediff test result |
+| ~e~           | show stacktrace   |
+| ~r~           | rerun tests       |
+| ~t~           | run test          |
+| ~T~           | run tests         |
+
