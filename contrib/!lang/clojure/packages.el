@@ -169,7 +169,10 @@ the focus."
                (kbd "q") 'cider-popup-buffer-quit)
 
       (evilify cider-inspector-mode cider-inspector-mode-map
-               (kbd "L") 'cider-inspector-pop)
+               (kbd "L") 'cider-inspector-pop
+               (kbd "r") 'cider-inspector-refresh
+               (kbd "n") 'cider-inspector-next-page
+               (kbd "N") 'cider-inspector-previous-page)
 
       (evilify cider-test-report-mode cider-test-report-mode-map
                (kbd "C-j") 'cider-test-next-result
