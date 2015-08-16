@@ -99,7 +99,7 @@ Ensure that helm is required before calling FUNC."
 (evil-leader/set-key "hds" 'spacemacs/describe-system-info)
 (spacemacs||set-helm-key "hdt" describe-theme)
 (spacemacs||set-helm-key "hdv" describe-variable)
-(spacemacs||set-helm-key "hL" helm-locate-library)
+(spacemacs||set-helm-key "hL"  helm-locate-library)
 ;; search functions -----------------------------------------------------------
 (spacemacs||set-helm-key "sww" helm-wikipedia-suggest)
 (spacemacs||set-helm-key "swg" helm-google-suggest)
