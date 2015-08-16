@@ -216,11 +216,12 @@ the focus."
           "msr" 'spacemacs/cider-send-region-to-repl
           "msR" 'spacemacs/cider-send-region-to-repl-focus
           "mss" 'cider-switch-to-repl-buffer
+          "mstp" 'spacemacs/cider-toggle-repl-pretty-printing
+          "mstf" 'spacemacs/cider-toggle-repl-font-locking
 
           "mta" 'spacemacs/cider-test-run-all-tests
           "mtr" 'spacemacs/cider-test-rerun-tests
           "mtt" 'spacemacs/cider-test-run-focused-test
-          "mtp" 'spacemacs/cider-toggle-repl-pretty-printing
 
           "mdi" 'cider-inspect
           "mdb" 'cider-debug-defun-at-point))
@@ -244,9 +245,8 @@ the focus."
         "msq" 'cider-quit
         "mss" 'cider-switch-to-last-clojure-buffer
         "msc" 'cider-repl-clear-buffer
-
-        "mtp" 'spacemacs/cider-toggle-repl-pretty-printing
-        "mtf" 'spacemacs/cider-toggle-repl-font-locking
+        "mstp" 'spacemacs/cider-toggle-repl-pretty-printing
+        "mstf" 'spacemacs/cider-toggle-repl-font-locking
 
         "mdi" 'cider-inspect
         "mdb" 'cider-debug-defun-at-point)
