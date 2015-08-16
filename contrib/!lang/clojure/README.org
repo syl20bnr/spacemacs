@@ -29,7 +29,6 @@ This layer adds support for [[http://clojure.org][Clojure]] language using [[htt
 
 - REPL via [[https://github.com/clojure-emacs/cider][Cider]]
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Auto completion via [[https://github.com/clojure-emacs/ac-cider][ac-cider]]
 - Automatic formatting via [[https://github.com/gstamp/align-cljlet][align-cljlet]]
   
 * Install
