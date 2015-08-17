@@ -8,5 +8,4 @@ These include:
 - Nim
 - QML
 - Stan
-- YAML
 - The Wolfram Language / Mathematica
