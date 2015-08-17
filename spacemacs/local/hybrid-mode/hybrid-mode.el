@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2014-2015 syl20bnr
 ;;
-;; Author: Justin Burkett <justin@burkett.cc>
+;; Author: Justin Burkett <justin@burkett.cc>, Chris Ewald <chrisewald@gmail.com>
 ;; Keywords: convenience editing
 ;; Created: 12 Aug 2015
 ;; Version: 1.00
@@ -47,6 +47,11 @@
 activated. Inherits bindings from `evil-emacs-state-map', which
 may be overridden here.")
 
+(defvar hybrid-mode-insert-state-local-map (make-sparse-keymap)
+  "Local keymap for hybrid-mode. May be customized. Sets
+  `evil-insert-state-local-map' as its parent. Takes precedence
+  over `hybrid-mode-insert-state-map'.")
+
 ;;;###autoload
 (define-minor-mode hybrid-mode
   "Global minor mode to repulse the evil from spacemacs (in insert mode).
@@ -75,11 +80,18 @@ with `hybrid-mode-insert-state-map'."
   (define-key hybrid-mode-parent-map [escape] 'evil-normal-state)
   (set-keymap-parent hybrid-mode-insert-state-map hybrid-mode-parent-map)
 
+  ;; Set evil-insert-state-local-map to be the parent map of
+  ;; hybrid-mode-insert-state-local-map. Makes for a more clear category
+  ;; `helm-descbinds'.
+  (set-keymap-parent hybrid-mode-insert-state-local-map evil-insert-state-local-map)
+
   ;; Override the mode and keymap of evil-insert-state to use the hybrid-mode
   ;; variants.
   (evil-put-property 'evil-state-properties 'insert
                      :mode 'hybrid-mode-insert-state
-                     :keymap 'hybrid-mode-insert-state-map))
+                     :keymap 'hybrid-mode-insert-state-map
+                     :local 'hybrid-mode-local-insert-state
+                     :local-keymap 'hybrid-mode-insert-state-local-map))
 
 (defun hybrid-mode-restore-keymaps ()
   "Restore `evil-insert-state' to it's original form."
@@ -88,4 +100,6 @@ with `hybrid-mode-insert-state-map'."
   (setq evil-insert-state-cursor hybrid-mode-insert-state-cursor-backup)
   (evil-put-property 'evil-state-properties 'insert
                      :mode 'evil-insert-state-minor-mode
-                     :keymap 'evil-insert-state-map))
+                     :keymap 'evil-insert-state-map
+                     :local 'evil-insert-state-local-minor-mode
+                     :local-keymap 'evil-insert-state-local-map))
