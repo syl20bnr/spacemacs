@@ -64,6 +64,8 @@
         "mp" 'ein:worksheet-yank-cell
         "md" 'ein:worksheet-kill-cell
         "mh" 'ein:notebook-worksheet-open-prev-or-last
+        "mi" 'ein:worksheet-insert-cell-below
+        "mI" 'ein:worksheet-insert-cell-above
         "mj" 'ein:worksheet-goto-next-input
         "mk" 'ein:worksheet-goto-prev-input
         "ml" 'ein:notebook-worksheet-open-next-or-first
@@ -73,8 +75,6 @@
         "mL" 'ein:notebook-worksheet-move-next
         "mt" 'ein:worksheet-toggle-output
         "mR" 'ein:worksheet-rename-sheet
-        "mo" 'ein:worksheet-insert-cell-below
-        "mO" 'ein:worksheet-insert-cell-above
         "m RET" 'ein:worksheet-execute-cell-and-goto-next
         ;; Output
         "m C-l" 'ein:worksheet-clear-output

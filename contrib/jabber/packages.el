@@ -24,8 +24,8 @@
               "mg" 'jabber-display-roster
               "mi" 'jabber-get-disco-items
               "mj" 'jabber-muc-join
-              "mo" 'jabber-roster-toggle-offline-display
               "mq" 'bury-buffer
+              "mr" 'jabber-roster-toggle-offline-display
               "ms" 'jabber-send-subscription-request
               "mv" 'jabber-get-version
               "m RET" 'jabber-roster-ret-action-at-point)))

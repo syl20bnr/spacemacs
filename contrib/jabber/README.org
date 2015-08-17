@@ -37,8 +37,8 @@ Key Binding             | Description
 <kbd>SPC m g</kbd>      | Jabber display roster
 <kbd>SPC m i</kbd>      | Jabber get disco items
 <kbd>SPC m j</kbd>      | Jabber muc join
-<kbd>SPC m o</kbd>      | Jabber roster toggle offline display
 <kbd>SPC m q</kbd>      | bury buffer
+<kbd>SPC m r</kbd>      | Jabber roster toggle offline display
 <kbd>SPC m s</kbd>      | Jabber send subscription request
 <kbd>SPC m v</kbd>      | Jabber get version
 <kbd>SPC m RET</kbd>    | Jabber roster ret action at point
