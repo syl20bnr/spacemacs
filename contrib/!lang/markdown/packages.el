@@ -91,7 +91,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "mxP"  'markdown-pre-region
         ;; Following and Jumping
         "mN"   'markdown-next-link
-        "mo"   'markdown-follow-thing-at-point
+        "mf"   'markdown-follow-thing-at-point
         "mP"   'markdown-previous-link
         "m <RET>" 'markdown-jump)
 

@@ -120,5 +120,5 @@ Basic and Spacemacs specific keybindings can be found in the following table.
 | ~J~         | Article Buffer - Next article                            |
 | ~RET~       | Summary Buffer(RSS) - Open article Link in browser       |
 | ~TAB~       | Summary Buffer(RSS) - Open article and switch to it      |
-| ~SPC m o~   | Message Buffer - Use org mode to convert into html email |
+| ~SPC m h~   | Message Buffer - Use org mode to convert into html email |
 | ~SPC m H~   | Org Mode - Send current buffer as HTML email message     |

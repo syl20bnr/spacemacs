@@ -9,24 +9,20 @@
      - [[#jabber-roster][Jabber Roster]]
 
 * Description
-
 This layer adds keybindings for jabber.el. jabber.el is a Jabber (XMPP) client for Emacs
 
 * Install
-
 To use this contribution layer add it to your `~/.spacemacs`
  #+begin_src emacs-lisp
     (set-default dotspacemacs-configuration-layers '(jabber))
  #+end_src
 
 * Key bindings
-
 | Key Binding | Description          |
 | ~SPC a j~   | Connect all accounts |
 
 
 ** Jabber Roster
-
 | Key Binding | Description                          |
 | ~SPC m a~   | Jabber send presence                 |
 | ~SPC m b~   | Jabber get browse                    |
@@ -35,8 +31,8 @@ To use this contribution layer add it to your `~/.spacemacs`
 | ~SPC m g~   | Jabber display roster                |
 | ~SPC m i~   | Jabber get disco items               |
 | ~SPC m j~   | Jabber muc join                      |
-| ~SPC m o~   | Jabber roster toggle offline display |
 | ~SPC m q~   | bury buffer                          |
+| ~SPC m r~   | Jabber roster toggle offline display |
 | ~SPC m s~   | Jabber send subscription request     |
 | ~SPC m v~   | Jabber get version                   |
 | ~SPC m RET~ | Jabber roster ret action at point    |
