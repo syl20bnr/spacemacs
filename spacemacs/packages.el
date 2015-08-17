@@ -2407,24 +2407,46 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
             iedit-only-at-symbol-boundaries t
             iedit-toggle-key-default nil))
     :config
-    (defun iedit-toggle-selection ()
-      "Override default iedit function to be able to add arbitrary overlays.
+    (progn
+      (eval-after-load 'evil-iedit-state
+        '(progn
+           (define-key evil-iedit-state-map (kbd "gj")
+             'ex-iedit-toggle-point-overlay-next-line)))
+
+      (defun ex-iedit-toggle-point-overlay-next-line (count)
+        (interactive "p")
+        (unless (iedit-find-current-occurrence-overlay)
+          (iedit-toggle-selection))
+        (let ((i (when count count 1)))
+          (save-excursion
+            (evil-next-line)
+            (while (and (> i 0)
+                        (iedit-find-current-occurrence-overlay))
+              (1- i)
+              (evil-next-line))
+            (when (not (iedit-find-current-occurrence-overlay))
+              (dotimes (j (1+(- count i)))
+                (iedit-toggle-selection)
+                (evil-next-line))))))
+
+      (defun iedit-toggle-selection ()
+        "Override default iedit function to be able to add arbitrary overlays.
 
 It will toggle the overlay under point or create an overlay of one character."
-       (interactive)
-       (iedit-barf-if-buffering)
-       (let ((ov (iedit-find-current-occurrence-overlay)))
-         (if ov
-             (iedit-restrict-region (overlay-start ov) (overlay-end ov) t)
-           (save-excursion
-             (push (iedit-make-occurrence-overlay (point) (1+ (point)))
-                   iedit-occurrences-overlays))
-           (setq iedit-mode
-                 (propertize
-                  (concat " Iedit:" (number-to-string
-                                     (length iedit-occurrences-overlays)))
-                  'face 'font-lock-warning-face))
-           (force-mode-line-update))))))
+        (interactive)
+        (iedit-barf-if-buffering)
+        (let ((ov (iedit-find-current-occurrence-overlay)))
+          (if ov
+              (iedit-restrict-region (overlay-start ov) (overlay-end ov) t)
+            (save-excursion
+              (push (iedit-make-occurrence-overlay (point) (1+ (point)))
+                    iedit-occurrences-overlays))
+            (setq iedit-mode
+                  (propertize
+                   (concat " Iedit:" (number-to-string
+                                      (length iedit-occurrences-overlays)))
+                   'face 'font-lock-warning-face))
+            (force-mode-line-update)))))))
 
 (defun spacemacs/init-indent-guide ()
   (use-package indent-guide
