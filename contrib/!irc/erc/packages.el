@@ -73,7 +73,10 @@
          :app-icon "/home/io/.emacs.d/assets/spacemacs.svg"
          :urgency 'low))
 
-      (add-hook 'erc-text-matched-hook 'erc-global-notify)
+      ;; osx doesn't have dbus support
+      (when (boundp 'dbus-compiled-version)
+        (add-hook 'erc-text-matched-hook 'erc-global-notify))
+
       ;; keybindings
       (evil-leader/set-key-for-mode 'erc-mode
         "md" 'erc-input-action
