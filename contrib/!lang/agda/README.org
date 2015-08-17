@@ -62,7 +62,7 @@ All Agda specific bindings are prefixed with the major-mode leader
 | ~SPC m h~   | Compute the type of a hypothetical helper function.                                                                                       |
 | ~SPC m l~   | Load current buffer.                                                                                                                      |
 | ~SPC m n~   | Computes the normal form of the given expression, using the scope of the current goal or, if point is not in a goal, the top-level scope. |
-| ~SPC m o~   | Shows all the top-level names in the given module.                                                                                        |
+| ~SPC m p~   | Shows all the top-level names in the given module.                                                                                        |
 | ~SPC m r~   | Refine the goal at point.                                                                                                                 |
 | ~SPC m s~   | Solves all goals that are already instantiated internally.                                                                                |
 | ~SPC m t~   | Show the type of the goal at point.                                                                                                       |

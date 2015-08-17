@@ -40,18 +40,18 @@
       (when (load-gopath-file
              go-path "/src/golang.org/x/tools/cmd/oracle/oracle.el")
         (evil-leader/set-key-for-mode 'go-mode
-          "moo" 'go-oracle-set-scope
-          "mo<" 'go-oracle-callers
-          "mo>" 'go-oracle-callees
-          "moc" 'go-oracle-peers
-          "mod" 'go-oracle-definition
-          "mof" 'go-oracle-freevars
-          "mog" 'go-oracle-callgraph
-          "moi" 'go-oracle-implements
-          "mop" 'go-oracle-pointsto
-          "mor" 'go-oracle-referrers
-          "mos" 'go-oracle-callstack
-          "mot" 'go-oracle-describe)))))
+          "mro" 'go-oracle-set-scope
+          "mr<" 'go-oracle-callers
+          "mr>" 'go-oracle-callees
+          "mrc" 'go-oracle-peers
+          "mrd" 'go-oracle-definition
+          "mrf" 'go-oracle-freevars
+          "mrg" 'go-oracle-callgraph
+          "mri" 'go-oracle-implements
+          "mrp" 'go-oracle-pointsto
+          "mrr" 'go-oracle-referrers
+          "mrs" 'go-oracle-callstack
+          "mrt" 'go-oracle-describe)))))
 
 (defun go/init-go-rename()
   (use-package go-rename

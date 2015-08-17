@@ -63,15 +63,15 @@ To use this contribution add it to your =~/.spacemacs=
 
 | Key Binding | Description                                                |
 |-------------+------------------------------------------------------------|
-| ~SPC m o o~ | go-oracle set analysis scope                               |
-| ~SPC m o <~ | go-oracle show possible callers                            |
-| ~SPC m o >~ | go-oracle show call targets                                |
-| ~SPC m o c~ | go-oracle show channel sends/receives                      |
-| ~SPC m o d~ | go-oracle show definition                                  |
-| ~SPC m o f~ | go-oracle show free variables                              |
-| ~SPC m o g~ | go-oracle show callgraph                                   |
-| ~SPC m o i~ | go-oracle show implements relation                         |
-| ~SPC m o p~ | go-oracle show what the select expression points to        |
-| ~SPC m o r~ | go-oracle show all references to object                    |
-| ~SPC m o s~ | go-oracle show callstack                                   |
-| ~SPC m o t~ | go-oracle describe selected syntax, kind, type and methods |
+| ~SPC m r o~ | go-oracle set analysis scope                               |
+| ~SPC m r <~ | go-oracle show possible callers                            |
+| ~SPC m r >~ | go-oracle show call targets                                |
+| ~SPC m r c~ | go-oracle show channel sends/receives                      |
+| ~SPC m r d~ | go-oracle show definition                                  |
+| ~SPC m r f~ | go-oracle show free variables                              |
+| ~SPC m r g~ | go-oracle show callgraph                                   |
+| ~SPC m r i~ | go-oracle show implements relation                         |
+| ~SPC m r p~ | go-oracle show what the select expression points to        |
+| ~SPC m r r~ | go-oracle show all references to object                    |
+| ~SPC m r s~ | go-oracle show callstack                                   |
+| ~SPC m r t~ | go-oracle describe selected syntax, kind, type and methods |

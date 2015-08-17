@@ -55,7 +55,8 @@ A package is initialized in a function with name =<layer>/init-xxx= where:
 ** Key bindings conventions
 *** Reserved prefix
 **** User prefix
-~SPC o~ must not be used by any layer. It is reserved for the user.
+~SPC o~ and ~SPC m o~ must not be used by any layer. They are reserved for the
+user.
 
 **** Major mode prefix
 ~SPC m~ is reserved for the current major mode. Three keys bindings are not an

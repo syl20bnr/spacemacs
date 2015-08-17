@@ -63,7 +63,7 @@
         "mh" 'agda2-helper-function-type
         "ml" 'agda2-load
         "mn" 'agda2-compute-normalised-maybe-toplevel
-        "mo" 'agda2-module-contents-maybe-toplevel
+        "mp" 'agda2-module-contents-maybe-toplevel
         "mr" 'agda2-refine
         "ms" 'agda2-solveAll
         "mt" 'agda2-goal-type

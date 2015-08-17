@@ -76,10 +76,10 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m e~                                    | org-export-dispatch                          |
 | ~SPC m f~                                    | org-set-effort                               |
 | ~SPC m I~                                    | org-clock-in                                 |
+| ~SPC m l~                                    | evil-org-open-links                          |
 | ~SPC m n~                                    | org-narrow-to-subtree                        |
 | ~SPC m N~                                    | widen                                        |
 | ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                            |
-| ~SPC m o~                                    | evil-org-open-links                          |
 | ~SPC m O~                                    | org-clock-out                                |
 | ~SPC m q~                                    | org-clock-cancel                             |
 | ~SPC m R~                                    | org-refile                                   |
