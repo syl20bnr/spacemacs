@@ -18,6 +18,8 @@
         erc-social-graph
         erc-view-log
         erc-yt
+        company
+        company-emoji
         ))
 
 (when (system-is-mac)
@@ -152,3 +154,11 @@
     :init (eval-after-load 'erc '(add-to-list 'erc-modules 'image))))
 
 (defun erc/init-erc-terminal-notifier ())
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun erc/post-init-company ()
+    (spacemacs|add-company-hook erc-mode)
+    (push 'company-capf company-backends-erc-mode))
+
+  (defun erc/post-init-company-emoji ()
+    (push 'company-emoji company-backends-erc-mode)))

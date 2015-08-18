@@ -31,6 +31,8 @@ and ZNC.
 - Support ZNC support (with optional =~/.authinfo.gpg=)
 - Colored nicknames
 - WIP: Real time change when people use =/s/foo/bar= in the chats
+- Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
+  using the =emoji= layer or having a proper font) :clap:
   
 * Install
 

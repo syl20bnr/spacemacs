@@ -10,7 +10,9 @@
 ;;
 ;;; License: GPLv3
 
-(setq emoji-packages '(emoji-cheat-sheet-plus))
+(setq emoji-packages
+      '(emoji-cheat-sheet-plus
+        company-emoji))
 
 (defun emoji/init-emoji-cheat-sheet-plus ()
   (use-package emoji-cheat-sheet-plus
@@ -32,4 +34,13 @@
         ;; text properties are not applied correctly.
         (run-at-time 0.1 nil 'emoji-cheat-sheet-plus-display-mode))
       (add-hook 'org-mode-hook 'spacemacs//delay-emoji-cheat-sheet-hook)
-      (add-to-hooks 'emoji-cheat-sheet-plus-display-mode '(markdown-mode)))))
+      (add-to-hooks 'emoji-cheat-sheet-plus-display-mode '(markdown-mode-hook
+                                                           rcirc-mode-hook
+                                                           erc-mode-hook)))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun emoji/init-company-emoji ()
+    (use-package company-emoji
+      :if (configuration-layer/package-usedp 'company)
+      :init
+      (setq company-emoji-insert-unicode nil))))

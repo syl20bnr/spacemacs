@@ -17,3 +17,5 @@
 
 (defvar rcirc-enable-znc-support nil
   "if non nil then znc is enabled.")
+
+(spacemacs|defvar-company-backends rcirc-mode)
