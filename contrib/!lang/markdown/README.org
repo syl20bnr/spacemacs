@@ -26,6 +26,8 @@ This layer adds markdown support to Spacemacs.
 ** Features:
 - markdown files support via [[http://jblevins.org/git/markdown-mode.git/][markdown-mode]]
 - TOC generation via [[https://github.com/ardumont/markdown-toc][markdown-toc]]
+- Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
+  using the =emoji= layer or having a proper font) :clap:
 
 * Install
 
