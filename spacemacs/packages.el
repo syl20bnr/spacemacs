@@ -1490,6 +1490,18 @@ Removes the automatic guessing of the initial value based on thing at point. "
                                             preselection))))))
           (helm-do-grep-1 targets nil nil nil nil use-region-or-symbol-p)))
 
+      (defun helm-find-contrib-file ()
+        "Runs helm find files on spacemacs contrib folder"
+        (interactive)
+        (helm-find-files-1
+         (expand-file-name (concat user-emacs-directory "contrib/"))))
+
+      (defun helm-find-spacemacs-file ()
+        "Runs helm find files on spacemacs directory"
+        (interactive)
+        (helm-find-files-1
+         (expand-file-name (concat user-emacs-directory "spacemacs/"))))
+
       (defun spacemacs/helm-file-do-grep ()
         "Search in current file with `grep' using a default input."
         (interactive)
@@ -1536,6 +1548,13 @@ Removes the automatic guessing of the initial value based on thing at point. "
             (if (get-buffer "*hgrep*")
                 (switch-to-buffer-other-window "*hgrep*")
                 (message "No previous search buffer found"))))
+
+      ;; use helm by default for contrib and spacemacs layers
+      (unless dotspacemacs-use-ido
+        (define-key global-map [remap find-spacemacs-file]
+          'helm-find-spacemacs-file)
+        (define-key global-map [remap find-contrib-file]
+          'helm-find-contrib-file))
 
       ;; use helm by default for M-x
       (unless (configuration-layer/package-usedp 'smex)
