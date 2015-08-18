@@ -42,7 +42,7 @@
 (defvar hybrid-mode-insert-state-cursor-backup evil-insert-state-cursor
   "Backup of `evil-insert-state-cursor'")
 
-(defvar hybrid-mode-insert-state-map (make-sparse-keymap)
+(defvar hybrid-mode-emacs-state-map (make-sparse-keymap)
   "Keymap that only applies in insert mode with hybrid mode
 activated. Inherits bindings from `evil-emacs-state-map', which
 may be overridden here.")
@@ -50,13 +50,13 @@ may be overridden here.")
 (defvar hybrid-mode-insert-state-local-map (make-sparse-keymap)
   "Local keymap for hybrid-mode. May be customized. Sets
   `evil-insert-state-local-map' as its parent. Takes precedence
-  over `hybrid-mode-insert-state-map'.")
+  over `hybrid-mode-emacs-state-map'.")
 
 ;;;###autoload
 (define-minor-mode hybrid-mode
   "Global minor mode to repulse the evil from spacemacs (in insert mode).
 Emacs in insert mode. Replaces the `evil-insert-state' keymap
-with `hybrid-mode-insert-state-map'."
+with `hybrid-mode-emacs-state-map'."
   :global t
   :lighter " hybrid"
   :group 'spacemacs
@@ -73,12 +73,12 @@ with `hybrid-mode-insert-state-map'."
 
   ;; Create the hybrid mode parent keymap by overriding the essential changes
   ;; from `evil-emacs-state-map'. Set this as the parent keymap of
-  ;; `hybrid-mode-insert-state-map' so that all key bindings may be overridden.
+  ;; `hybrid-mode-emacs-state-map' so that all key bindings may be overridden.
   (setq hybrid-mode-parent-map (make-sparse-keymap))
   (set-keymap-parent hybrid-mode-parent-map evil-emacs-state-map)
   (define-key hybrid-mode-parent-map (read-kbd-macro evil-toggle-key) nil)
   (define-key hybrid-mode-parent-map [escape] 'evil-normal-state)
-  (set-keymap-parent hybrid-mode-insert-state-map hybrid-mode-parent-map)
+  (set-keymap-parent hybrid-mode-emacs-state-map hybrid-mode-parent-map)
 
   ;; Set evil-insert-state-local-map to be the parent map of
   ;; hybrid-mode-insert-state-local-map. Makes for a more clear category
@@ -88,8 +88,8 @@ with `hybrid-mode-insert-state-map'."
   ;; Override the mode and keymap of evil-insert-state to use the hybrid-mode
   ;; variants.
   (evil-put-property 'evil-state-properties 'insert
-                     :mode 'hybrid-mode-insert-state
-                     :keymap 'hybrid-mode-insert-state-map
+                     :mode 'hybrid-mode-emacs-state
+                     :keymap 'hybrid-mode-emacs-state-map
                      :local 'hybrid-mode-local-insert-state
                      :local-keymap 'hybrid-mode-insert-state-local-map))
 
