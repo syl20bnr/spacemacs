@@ -15,6 +15,8 @@
     markdown-mode
     markdown-toc
     mmm-mode
+    company
+    company-emoji
     ))
 
 (defun markdown/init-markdown-mode ()
@@ -165,3 +167,10 @@ Will work on both org-mode and any mode that accepts plain html."
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-c++)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-elisp)
       (mmm-add-mode-ext-class 'markdown-mode nil 'markdown-html))))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun markdown/post-init-company ()
+    (spacemacs|add-company-hook markdown-mode)
+    (push 'company-capf company-backends-markdown-mode))
+  (defun markdown/post-init-company-emoji ()
+    (push 'company-emoji company-backends-markdown-mode)))

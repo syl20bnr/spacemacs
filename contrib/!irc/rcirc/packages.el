@@ -3,6 +3,8 @@
     rcirc
     rcirc-notify
     rcirc-color
+    company
+    company-emoji
     ))
 
 (defun rcirc/init-rcirc ()
@@ -127,3 +129,11 @@
 
 (defun rcirc/init-rcirc-color ()
   (use-package rcirc-color :defer t))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun rcirc/post-init-company ()
+    (spacemacs|add-company-hook rcirc-mode)
+    (push 'company-capf company-backends-rcirc-mode))
+
+  (defun rcirc/post-init-company-emoji ()
+    (push 'company-emoji company-backends-rcirc-mode)))

@@ -12,3 +12,5 @@
 
 (defvar erc-enable-sasl-auth nil
   "If non nil then use SASL authenthication with ERC.")
+
+(spacemacs|defvar-company-backends erc-mode)

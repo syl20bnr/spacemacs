@@ -25,6 +25,8 @@ Layer for [[http://www.emacswiki.org/emacs/ERC][ERC IRC chat]].
   =github= layer enabled, or using =gist= package)
 - Optional SASL authentication via the variable =erc-enable-sasl-auth=
   (using [[http://emacswiki.org/emacs/ErcSASL][erc-sasl]])
+- Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]] (still needs a way of showing, either
+  using the =emoji= layer or having a proper font) :clap:
 
 * Install
 
