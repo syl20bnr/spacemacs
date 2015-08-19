@@ -143,7 +143,7 @@ Some advanced configuration is setup for =eshell= in this layer:
 
 | Key Binding | Description                                                |
 |-------------+------------------------------------------------------------|
-| ~SPC '~     | Open, close or go to the default shell                     |
+| ~SPC '​~    | Open, close or go to the default shell                     |
 | ~SPC a s e~ | Open, close or go to an =eshell=                           |
 | ~SPC a s i~ | Open, close or go to a =shell=                             |
 | ~SPC a s m~ | Open, close or go to a =multi-term=                        |
