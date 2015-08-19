@@ -1,0 +1,37 @@
+#+TITLE: Doc-view Compatibility layer for Spacemacs
+* Table of Contents
+- Description
+  - Features
+- Installation
+
+* Description
+This layer introduces compatibility fixes aimed at improving the PDF viewing
+experience using doc-view.
+
+Doc-view relies on properties which are stored on an emacs window. Several 
+packages, particularly those which introduce window manipulation features, 
+e.g. dopwin, eyebrowse, perspectives, etc, delete and restore windows as a 
+part of their core functionality. Unfortunately, this causes the unintended 
+side effect that, upon restoration, a doc-view window will display the first
+page rather than the page it was on before being deleted. 
+
+The core of the work-around for this behavior is to save the current page to
+a buffer local variable prior to destruction of a doc-view window, and to 
+restore this saved page on the recreation of that window.
+
+** Features:
+- Eyebrowse: Saves doc-view pages when moving between work-spaces.
+- Perspectives: Saves doc-view pages when switching perspectives.
+- Popwin: Saves doc-view pages when creating popwin window.
+- Ace Jump Mpde: Automatically filters doc-view windows from valid ace
+windows.
+
+* Installation
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(doc-view-compatibility))
+#+END_SRC
+
