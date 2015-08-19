@@ -149,7 +149,7 @@ to a supported style. The available styles are:
 - fundamental
 - johan-tibell
 - chris-done
-- andrew-gibiansky
+- gibiansky
 
 See examples [[https://github.com/chrisdone/hindent#example][here]]
 
