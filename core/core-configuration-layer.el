@@ -628,7 +628,7 @@ path."
 
 (defun configuration-layer//install-from-recipe (pkg)
   "Install PKG from a recipe."
-  (let* ((pgk-name (oref pkg :name))
+  (let* ((pkg-name (oref pkg :name))
          (layer (oref pkg :owner))
          (recipe (cons pkg-name (cdr (oref pkg :location)))))
     (if recipe
