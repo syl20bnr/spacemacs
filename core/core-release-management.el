@@ -208,11 +208,28 @@ version and the NEW version."
       (kill-buffer proc-buffer))))
 
 (defun spacemacs/git-get-current-branch ()
-  "Return the current branch. Return nil if an error occurred."
-  (let((proc-buffer "git-get-current-branch")
+   "Return the current branch. Return nil if an error occurred."
+   (let((proc-buffer "git-get-current-branch")
+        (default-directory (file-truename user-emacs-directory)))
+     (when (eq 0 (process-file "git" nil proc-buffer nil
+                               "symbolic-ref" "--short" "-q" "HEAD"))
+       (with-current-buffer proc-buffer
+         (prog1
+             (when (buffer-string)
+               (goto-char (point-min))
+               (replace-regexp-in-string
+                "\n$" ""
+                (buffer-substring (line-beginning-position)
+                                  (line-end-position))))
+           (kill-buffer proc-buffer))))))
+
+(defun spacemacs/git-get-current-branch-rev ()
+  "Returns the hash of the head commit on the current branch.
+Returns nil if an error occurred."
+  (let((proc-buffer "git-get-current-branch-head-hash")
        (default-directory (file-truename user-emacs-directory)))
     (when (eq 0 (process-file "git" nil proc-buffer nil
-                              "symbolic-ref" "--short" "-q" "HEAD"))
+                              "rev-parse" "--short" "HEAD"))
       (with-current-buffer proc-buffer
         (prog1
             (when (buffer-string)
