@@ -64,7 +64,7 @@ function, this is the folder where you keep all your git-controlled projects
   (setq magit-repository-directories '("~/repos/"))
 #+END_SRC
 
-For more information, see [[https://magit.github.io/master/magit.html#Status][Magit-User-Manual#Status]]
+For more information, see [[http://magit.vc/manual/magit/Status-buffer.html#Status-buffer][Magit-User-Manual#Status]]
 
 ** Magit SVN plugin
 
