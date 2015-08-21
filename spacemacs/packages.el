@@ -103,6 +103,8 @@
         rainbow-delimiters
         recentf
         rfringe
+        savehist
+        saveplace
         smartparens
         smooth-scrolling
         (solarized-theme :location local)
@@ -199,14 +201,6 @@
     :defer t
     :init
     (progn
-      (defun spacemacs/toggle-aggressive-indent ()
-        "Toggle the aggressive indent mode for the current buffer."
-        (interactive)
-        (require 'aggressive-indent)
-        (if (symbol-value aggressive-indent-mode)
-            (global-aggressive-indent-mode -1)
-          (global-aggressive-indent-mode)))
-
       (spacemacs|add-toggle aggressive-indent
         :status aggressive-indent-mode
         :on (aggressive-indent-mode)
@@ -221,11 +215,7 @@
         :evil-leader "t C-I"))
     :config
     (progn
-      (defun spacemacs/disable-aggressive-indent ()
-        (aggressive-indent-mode -1))
-
-      (add-hook 'diff-auto-refine-mode-hook 'spacemacs/disable-aggressive-indent)
-
+      (add-hook 'diff-auto-refine-mode-hook 'spacemacs/toggle-aggressive-indent-off)
       (spacemacs|diminish aggressive-indent-mode " Ⓘ" " I"))))
 
 (defun spacemacs/init-auto-dictionary ()
@@ -490,23 +480,26 @@
       "xwd" 'define-word-at-point)))
 
 (defun spacemacs/init-diminish ()
-  (require 'diminish)
-  ;; Minor modes abbrev --------------------------------------------------------
-  (when (display-graphic-p)
-    (eval-after-load "eproject"
-      '(diminish 'eproject-mode " eⓅ"))
-    (eval-after-load "flymake"
-      '(diminish 'flymake-mode " Ⓕ2")))
-  ;; Minor Mode (hidden) ------------------------------------------------------
-  (eval-after-load 'elisp-slime-nav
-    '(diminish 'elisp-slime-nav-mode))
-  (eval-after-load "hi-lock"
-    '(diminish 'hi-lock-mode))
-  (eval-after-load "abbrev"
-    '(diminish 'abbrev-mode))
-  (eval-after-load "subword"
-    '(when (eval-when-compile (version< "24.3.1" emacs-version))
-       (diminish 'subword-mode))))
+  (use-package diminish
+    :defer t
+    :init
+    (progn
+      ;; Minor modes abbrev --------------------------------------------------------
+      (when (display-graphic-p)
+        (eval-after-load "eproject"
+          '(diminish 'eproject-mode " eⓅ"))
+        (eval-after-load "flymake"
+          '(diminish 'flymake-mode " Ⓕ2")))
+      ;; Minor Mode (hidden) ------------------------------------------------------
+      (eval-after-load 'elisp-slime-nav
+        '(diminish 'elisp-slime-nav-mode))
+      (eval-after-load "hi-lock"
+        '(diminish 'hi-lock-mode))
+      (eval-after-load "abbrev"
+        '(diminish 'abbrev-mode))
+      (eval-after-load "subword"
+        '(when (eval-when-compile (version< "24.3.1" emacs-version))
+           (diminish 'subword-mode))))))
 
 (defun spacemacs/init-dired+ ()
   (use-package dired+
@@ -932,16 +925,17 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :init (evil-exchange-install)))
 
 (defun spacemacs/init-evil-iedit-state ()
-
-  (defun spacemacs/evil-state-lazy-loading ()
-    (require 'evil-iedit-state)
-    ;; activate leader in iedit and iedit-insert states
-    (define-key evil-iedit-state-map
-      (kbd evil-leader/leader) evil-leader--default-map))
-
-  (evil-leader/set-key "se" 'evil-iedit-state)
-  (evil-leader/set-key "sE" 'evil-iedit-state/iedit-mode)
-  (add-to-hooks 'spacemacs/evil-state-lazy-loading '(find-file-hook)))
+  (use-package evil-iedit-state
+    :defer t
+    :init
+    (progn
+      (evil-leader/set-key "se" 'evil-iedit-state)
+      (evil-leader/set-key "sE" 'evil-iedit-state/iedit-mode))
+    :config
+    (progn
+      ;; activate leader in iedit and iedit-insert states
+      (define-key evil-iedit-state-map
+        (kbd evil-leader/leader) evil-leader--default-map))))
 
 (defun spacemacs/init-evil-indent-textobject ()
   (use-package evil-indent-textobject))
@@ -1079,12 +1073,14 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute))))
 
 (defun spacemacs/init-evil-terminal-cursor-changer ()
-  (unless (display-graphic-p)
-    (require 'evil-terminal-cursor-changer)
-     (setq evil-visual-state-cursor 'box) ; █
-     (setq evil-insert-state-cursor 'bar) ; ⎸
-     (setq evil-emacs-state-cursor 'hbar) ; _
-    ))
+  (use-package evil-terminal-cursor-changer
+    :if (not (display-graphic-p))
+    :init
+    (progn
+      (setq evil-visual-state-cursor 'box ; █
+            evil-insert-state-cursor 'bar ; ⎸
+            evil-emacs-state-cursor 'hbar) ; _
+      )))
 
 (defun spacemacs/init-evil-tutor ()
   (use-package evil-tutor
@@ -2508,9 +2504,10 @@ It will toggle the overlay under point or create an overlay of one character."
   (use-package info+
     :defer t
     :init
-    (add-hook 'Info-mode-hook (lambda () (require 'info+)))
-    :config
-    (setq Info-fontify-angle-bracketed-flag nil)))
+    (progn
+      (eval-after-load 'info
+        '(require 'info+))
+      (setq Info-fontify-angle-bracketed-flag nil))))
 
 (defun spacemacs/init-leuven-theme ()
   (use-package leuven-theme
@@ -3388,6 +3385,28 @@ one of `l' or `r'."
   (use-package rfringe
     :defer t))
 
+(defun spacemacs/init-savehist ()
+  (use-package savehist
+    :defer t
+    :init
+    (progn
+      ;; Minibuffer history
+      (setq savehist-file (concat spacemacs-cache-directory "savehist")
+            enable-recursive-minibuffers t ; Allow commands in minibuffers
+            history-length 1000
+            savehist-additional-variables '(mark-ring global-mark-ring search-ring regexp-search-ring extended-command-history)
+            savehist-autosave-interval 60)
+      (savehist-mode t))))
+
+(defun spacemacs/init-saveplace ()
+  (use-package saveplace
+    :demand t
+    :init
+    (progn
+      ;; Save point position between sessions
+      (setq save-place t
+            save-place-file (concat spacemacs-cache-directory "places")))))
+
 (defun spacemacs/init-smartparens ()
   (use-package smartparens
     :defer t
@@ -3711,7 +3730,7 @@ one of `l' or `r'."
 (defun spacemacs/init-window-numbering ()
   (use-package window-numbering
     ;; not deferred on puprose
-    :init (require 'window-numbering)
+    :demand t
     :config
     (progn
       (when (configuration-layer/package-usedp 'powerline)

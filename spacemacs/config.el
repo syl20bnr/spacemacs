@@ -256,19 +256,6 @@ These should have their own segments in the modeline.")
 ;; remove annoying ellipsis when printing sexp in message buffer
 (setq eval-expression-print-length nil
       eval-expression-print-level nil)
-;; Save point position between sessions
-(require 'saveplace)
-(setq-default save-place t
-              save-place-file (concat spacemacs-cache-directory "places"))
-
-;; minibuffer history
-(require 'savehist)
-(setq savehist-file (concat spacemacs-cache-directory "savehist")
-      enable-recursive-minibuffers t ; Allow commands in minibuffers
-      history-length 1000
-      savehist-additional-variables '(mark-ring global-mark-ring search-ring regexp-search-ring extended-command-history)
-      savehist-autosave-interval 60)
-(savehist-mode +1)
 
 ;; cache files
 (setq url-configuration-directory (concat spacemacs-cache-directory "url")
