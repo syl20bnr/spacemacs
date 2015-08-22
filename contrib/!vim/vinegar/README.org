@@ -1,12 +1,12 @@
 #+TITLE: Vinegar contribution layer for Spacemacs
 
 * Table of Contents                                                   :TOC@4:
- - [[#desciption][Desciption]]
-     - [[#features][Features]]
-     - [[#mouse-bindings][Mouse bindings]]
-     - [[#key-bindings][Key bindings]]
+ - [[#description][Description]]
+   - [[#features][Features]]
+   - [[#mouse-bindings][Mouse bindings]]
+   - [[#key-bindings][Key bindings]]
 
-* Desciption
+* Description
 
 This layer is a port contribution layer for vim-vinegar for emacs.
 
@@ -45,10 +45,10 @@ buffers to enter dired.
 | ~I~         | (Dired) Toggle showing dotfiles                    |
 | ~~~         | (Dired) Navigate to home directory                 |
 | ~f~         | (Dired) Helm find file                             |
+| ~J~         | (Dired) Goto file                                  |
 | ~C-f~       | (Dired) dired-find                                 |
 | ~H~         | (Dired) Show dired history                         |
 | ~T~         | (Dired) Move down in dired tree                    |
 | ~K~         | (Dired) Kill marked lines (hide, do not delete)    |
 | ~r~         | (Dired) Redisplay buffer                           |
-| ~C-r~       | (Dired) Revert buffer                              |
 
