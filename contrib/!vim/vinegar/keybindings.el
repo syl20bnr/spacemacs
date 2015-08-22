@@ -14,14 +14,16 @@
            (kbd "C-k") 'dired-prev-subdir
            "I"         'vinegar/dotfiles-toggle
            (kbd "~")   '(lambda ()(interactive) (find-alternate-file "~/"))
-           (kbd "RET") 'dired-find-alternate-file
+           (kbd "RET") (if vinegar-reuse-dired-buffer
+                           'dired-find-alternate-file
+                         'dired-find-file)
            "f"         'helm-find-files
+           "J"         'dired-goto-file
            (kbd "C-f") 'find-name-dired
            "H"         'diredp-dired-recent-dirs
            "T"         'dired-tree-down
            "K"         'dired-do-kill-lines
-           "r"         'dired-do-redisplay
-           (kbd "C-r") 'revert-buffer
+           "r"         'revert-buffer
+           "C-r"       'dired-do-redisplay
            "gg"        'vinegar/back-to-top
-           "G"         'vinegar/jump-to-bottom
-           ))
+           "G"         'vinegar/jump-to-bottom))
