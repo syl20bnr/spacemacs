@@ -20,7 +20,7 @@
         erc-yt
         ))
 
-(when (system-is-mac)
+(when (spacemacs/system-is-mac)
   (push 'erc-terminal-notifier erc-packages))
 
 (defun erc/init-erc ()
@@ -39,9 +39,9 @@
     (defun no-linum (&rest ignore)
       (when (or 'linum-mode global-linum-mode)
         (linum-mode 0)))
-    (add-to-hooks 'no-linum '(erc-hook
-                              erc-mode-hook
-                              erc-insert-pre-hook))
+    (spacemacs/add-to-hooks 'no-linum '(erc-hook
+                                        erc-mode-hook
+                                        erc-insert-pre-hook))
     :config
     (progn
       (use-package erc-autoaway

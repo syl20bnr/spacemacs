@@ -16,11 +16,11 @@
   (use-package vim-empty-lines-mode
     :diminish vim-empty-lines-mode
     :init
-    (add-to-hooks (lambda () (vim-empty-lines-mode -1)) '(comint-mode-hook
-                                                          eshell-mode-hook
-                                                          eww-mode-hook
-                                                          shell-mode-hook
-                                                          term-mode-hook))
+    (spacemacs/add-to-hooks (lambda () (vim-empty-lines-mode -1)) '(comint-mode-hook
+                                                                    eshell-mode-hook
+                                                                    eww-mode-hook
+                                                                    shell-mode-hook
+                                                                    term-mode-hook))
     :config
     (progn
       (global-vim-empty-lines-mode)
