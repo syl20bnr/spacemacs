@@ -32,7 +32,7 @@
         (smartparens-strict-mode -1)
         (turn-off-smartparens-mode))
       (add-hook 'slime-repl-mode-hook #'slime/disable-smartparens)
-      (add-to-hooks 'slime-mode '(lisp-mode-hook)))
+      (spacemacs/add-to-hooks 'slime-mode '(lisp-mode-hook)))
     :config
     (progn
       (slime-setup)
