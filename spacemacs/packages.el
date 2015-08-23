@@ -295,23 +295,23 @@
         "Go to the next occurrence of symbol under point with
 `auto-highlight-symbol'"
         (interactive)
-        (eval '(progn (spacemacs/integrate-evil-search t)
-                      (spacemacs/ahs-highlight-now-wrapper)
-                      (when (configuration-layer/package-usedp 'evil-jumper)
-                        (evil-set-jump))
-                      (spacemacs/highlight-symbol-micro-state)
-                      (ahs-forward)) nil))
+        (spacemacs/integrate-evil-search t)
+        (spacemacs/ahs-highlight-now-wrapper)
+        (when (configuration-layer/package-usedp 'evil-jumper)
+          (evil-set-jump))
+        (spacemacs/highlight-symbol-micro-state)
+        (ahs-forward))
 
       (defun spacemacs/quick-ahs-backward ()
         "Go to the previous occurrence of symbol under point with
 `auto-highlight-symbol'"
         (interactive)
-        (eval '(progn (spacemacs/integrate-evil-search nil)
-                      (spacemacs/ahs-highlight-now-wrapper)
-                      (when (configuration-layer/package-usedp 'evil-jumper)
-                        (evil-set-jump))
-                      (spacemacs/highlight-symbol-micro-state)
-                      (ahs-backward)) nil))
+        (spacemacs/integrate-evil-search nil)
+        (spacemacs/ahs-highlight-now-wrapper)
+        (when (configuration-layer/package-usedp 'evil-jumper)
+          (evil-set-jump))
+        (spacemacs/highlight-symbol-micro-state)
+        (ahs-backward))
 
       (eval-after-load 'evil
         '(progn
@@ -321,16 +321,15 @@
       (defun spacemacs/symbol-highlight ()
         "Highlight the symbol under point with `auto-highlight-symbol'."
         (interactive)
-        (eval '(progn
-                 (spacemacs/ahs-highlight-now-wrapper)
-                 (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
-                 (spacemacs/highlight-symbol-micro-state)
-                 (spacemacs/integrate-evil-search nil)) nil))
+        (spacemacs/ahs-highlight-now-wrapper)
+        (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
+        (spacemacs/highlight-symbol-micro-state)
+        (spacemacs/integrate-evil-search nil))
 
       (defun spacemacs/symbol-highlight-reset-range ()
         "Reset the range for `auto-highlight-symbol'."
         (interactive)
-        (eval '(ahs-change-range ahs-default-range) nil))
+        (ahs-change-range ahs-default-range))
 
       (evil-leader/set-key
         "sh" 'spacemacs/symbol-highlight
