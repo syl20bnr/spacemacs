@@ -75,7 +75,6 @@
         (helm-spacemacs :location local)
         helm-swoop
         helm-themes
-        helm-unicode
         highlight-indentation
         highlight-numbers
         highlight-parentheses
@@ -1552,11 +1551,12 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "hi"   'helm-info-at-point
         "hl"   'helm-resume
         "hm"   'helm-man-woman
+        "iu"   'helm-ucs
         "ry"   'helm-show-kill-ring
         "rr"   'helm-register
         "rm"   'helm-all-mark-rings
         "sL"   'spacemacs/last-search-buffer
-        "sl"  'spacemacs/jump-in-buffer)
+        "sl"   'spacemacs/jump-in-buffer)
 
       ;; search with grep
       (evil-leader/set-key
@@ -2140,11 +2140,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
     :init
     (evil-leader/set-key
       "Th" 'helm-themes)))
-
-(defun spacemacs/init-helm-unicode ()
-  (use-package helm-unicode
-    :defer t
-    :init (evil-leader/set-key "iu" 'helm-unicode)))
 
 (defun spacemacs/init-highlight-indentation ()
   (use-package highlight-indentation
