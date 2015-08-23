@@ -126,7 +126,7 @@
       :init (push 'company-c-headers company-backends-c-mode-common))))
 
 (defun c-c++/post-init-flycheck ()
-  (add-to-hooks 'flycheck-mode '(c-mode-hook c++-mode-hook)))
+  (spacemacs/add-to-hooks 'flycheck-mode '(c-mode-hook c++-mode-hook)))
 
 (defun c-c++/init-gdb-mi ()
   (use-package gdb-mi
@@ -149,10 +149,10 @@
 (defun c-c++/post-init-srefactor ()
   (evil-leader/set-key-for-mode 'c-mode "mr" 'srefactor-refactor-at-point)
   (evil-leader/set-key-for-mode 'c++-mode "mr" 'srefactor-refactor-at-point)
-  (add-to-hooks 'spacemacs/lazy-load-srefactor '(c-mode-hook c++-mode-hook)))
+  (spacemacs/add-to-hooks 'spacemacs/lazy-load-srefactor '(c-mode-hook c++-mode-hook)))
 
 (defun c-c++/post-init-stickyfunc-enhance ()
-  (add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance '(c-mode-hook c++-mode-hook)))
+  (spacemacs/add-to-hooks 'spacemacs/lazy-load-stickyfunc-enhance '(c-mode-hook c++-mode-hook)))
 
 (defun c-c++/post-init-ycmd ()
   (add-hook 'c++-mode-hook 'ycmd-mode)

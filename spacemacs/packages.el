@@ -231,8 +231,8 @@
   (use-package auto-highlight-symbol
     :defer t
     :init
-    (add-to-hooks 'auto-highlight-symbol-mode '(prog-mode-hook
-                                                markdown-mode-hook))
+    (spacemacs/add-to-hooks 'auto-highlight-symbol-mode '(prog-mode-hook
+                                                          markdown-mode-hook))
     :config
     (progn
       (setq ahs-case-fold-search nil
@@ -723,8 +723,8 @@
       ;; Make the current definition and/or comment visible.
       (define-key evil-normal-state-map "zf" 'reposition-window)
       ;; toggle maximize buffer
-      (define-key evil-window-map (kbd "o") 'toggle-maximize-buffer)
-      (define-key evil-window-map (kbd "C-o") 'toggle-maximize-buffer)
+      (define-key evil-window-map (kbd "o") 'spacemacs/toggle-maximize-buffer)
+      (define-key evil-window-map (kbd "C-o") 'spacemacs/toggle-maximize-buffer)
 
       (evil-leader/set-key "re" 'evil-show-registers)
 
@@ -867,7 +867,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
         ;; between percent signs:
         (spacemacs|define-text-object "%" "percent" "%" "%"))
 
-      (add-to-hook 'prog-mode-hook '(spacemacs//standard-text-objects))
+      (spacemacs/add-to-hook 'prog-mode-hook '(spacemacs//standard-text-objects))
 
       ;; support smart 1parens-strict-mode
       (when (configuration-layer/package-usedp 'smartparens)
@@ -1017,7 +1017,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     (progn
       (defun spacemacs/evil-numbers-micro-state-doc ()
         "Display a short documentation in the mini buffer."
-        (echo "+/= to increase the value or - to decrease it"))
+        (spacemacs/echo "+/= to increase the value or - to decrease it"))
 
       (defun spacemacs/evil-numbers-micro-state-overlay-map ()
         "Set a temporary overlay map to easily increase or decrease a number"
@@ -2317,10 +2317,10 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         (define-key ido-completion-map (kbd "C-S-n") 'next-history-element)
         (define-key ido-completion-map (kbd "C-S-p") 'previous-history-element)
         ;; ido-other window maps
-        (define-key ido-completion-map (kbd "C-o") 'ido-invoke-in-other-window)
-        (define-key ido-completion-map (kbd "C-s") 'ido-invoke-in-vertical-split)
-        (define-key ido-completion-map (kbd "C-t") 'ido-invoke-in-new-frame)
-        (define-key ido-completion-map (kbd "C-v") 'ido-invoke-in-horizontal-split)
+        (define-key ido-completion-map (kbd "C-o") 'spacemacs/ido-invoke-in-other-window)
+        (define-key ido-completion-map (kbd "C-s") 'spacemacs/ido-invoke-in-vertical-split)
+        (define-key ido-completion-map (kbd "C-t") 'spacemacs/ido-invoke-in-new-frame)
+        (define-key ido-completion-map (kbd "C-v") 'spacemacs/ido-invoke-in-horizontal-split)
         ;; more natural navigation keys: up, down to change current item
         ;; left to go up dir
         ;; right to open the selected item
@@ -2397,12 +2397,12 @@ Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
         ("K" ido-prev-match-dir)
         ("l" ido-exit-minibuffer :exit t)
         ("n" ido-next-match-dir)
-        ("o" ido-invoke-in-other-window :exit t)
+        ("o" spacemacs/ido-invoke-in-other-window :exit t)
         ("p" ido-prev-match-dir)
         ("q" nil :exit t)
-        ("s" ido-invoke-in-vertical-split :exit t)
-        ("t" ido-invoke-in-new-frame :exit t)
-        ("v" ido-invoke-in-horizontal-split :exit t)))))
+        ("s" spacemacs/ido-invoke-in-vertical-split :exit t)
+        ("t" spacemacs/ido-invoke-in-new-frame :exit t)
+        ("v" spacemacs/ido-invoke-in-horizontal-split :exit t)))))
 
 (defun spacemacs/init-iedit ()
   (use-package iedit
@@ -2627,8 +2627,8 @@ It will toggle the overlay under point or create an overlay of one character."
         "pt" 'neotree-find-project-root))
 
     :config
-    (add-to-hook 'neotree-mode-hook '(spacemacs//init-neotree
-                                      spacemacs//neotree-key-bindings))))
+    (spacemacs/add-to-hook 'neotree-mode-hook '(spacemacs//init-neotree
+                                                spacemacs//neotree-key-bindings))))
 
 (defun spacemacs/init-page-break-lines ()
   (use-package page-break-lines
@@ -3309,7 +3309,7 @@ one of `l' or `r'."
       ;; note for Windows: GNU find or Cygwin find must be in path
       ;; default parameters are not supported on Windows, we default
       ;; to simplest call to find.
-      (when (system-is-mswindows)
+      (when (spacemacs/system-is-mswindows)
         (setq projectile-generic-command "find . -type f"))
       (setq projectile-enable-caching t
             projectile-indexing-method 'alien
@@ -3353,7 +3353,7 @@ one of `l' or `r'."
     (progn
       (evil-leader/set-key "tCd" 'rainbow-delimiters-mode)
       (when (member dotspacemacs-highlight-delimiters '(any all))
-        (add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook))))))
+        (spacemacs/add-to-hooks 'rainbow-delimiters-mode '(prog-mode-hook))))))
 
 (defun spacemacs/init-recentf ()
   (use-package recentf
@@ -3405,10 +3405,10 @@ one of `l' or `r'."
     :defer t
     :init
     (progn
-      (add-to-hooks (if dotspacemacs-smartparens-strict-mode
-                        'smartparens-strict-mode
-                      'smartparens-mode)
-                    '(prog-mode-hook))
+      (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
+                                  'smartparens-strict-mode
+                                'smartparens-mode)
+                              '(prog-mode-hook))
 
       ;; enable smartparens-mode in `eval-expression'
       (defun conditionally-enable-smartparens-mode ()

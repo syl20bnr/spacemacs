@@ -364,6 +364,6 @@ These should have their own segments in the modeline.")
 ;;             ;; ;; If the *scratch* buffer is the current one, then create a new
 ;;             ;; ;; empty untitled buffer to hide *scratch*
 ;;             ;; (if (string= (buffer-name) "*scratch*")
-;;             ;;     (new-empty-buffer))
+;;             ;;     (spacemacs/new-empty-buffer))
 ;;             )
 ;;           t) ;; append this hook to the tail

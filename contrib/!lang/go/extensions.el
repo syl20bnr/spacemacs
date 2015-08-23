@@ -22,7 +22,7 @@
 
 (defun load-gopath-file(gopath name)
   "Search for NAME file in all paths referenced in GOPATH."
-  (let* ((sep (if (system-is-mswindows) ";" ":"))
+  (let* ((sep (if (spacemacs/system-is-mswindows) ";" ":"))
          (paths (split-string gopath sep))
          found)
     (loop for p in paths

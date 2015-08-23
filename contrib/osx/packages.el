@@ -5,7 +5,7 @@
     reveal-in-osx-finder
     ))
 
-(when (system-is-mac)
+(when (spacemacs/system-is-mac)
   ;; Note: `delete-by-moving-to-trash' is set to true globaly in
   ;; `spacemacs/config.el'
   ;; (setq trash-directory "~/.Trash/emacs") ; bare minimum
@@ -17,7 +17,7 @@
   (if (executable-find "trash")
       (defun system-move-file-to-trash (file)
         "Use `trash' to move FILE to the system/volume trash can.
-Can be installed with `brew install trash'." 
+Can be installed with `brew install trash'."
         (call-process (executable-find "trash") nil 0 nil file))
     (setq mac-system-move-file-to-trash-use-finder t))
 
@@ -34,12 +34,12 @@ Can be installed with `brew install trash'."
 
 (defun osx/init-pbcopy ()
   (use-package pbcopy
-    :if (and (system-is-mac)(not (display-graphic-p))) 
+    :if (and (spacemacs/system-is-mac) (not (display-graphic-p)))
     :init (turn-on-pbcopy)))
 
 (defun osx/init-launchctl ()
   (use-package launchctl
-    :if (system-is-mac)
+    :if (spacemacs/system-is-mac)
     :defer t
     :init
     (progn
@@ -71,5 +71,5 @@ Can be installed with `brew install trash'."
 
 (defun osx/init-reveal-in-osx-finder ()
   (use-package reveal-in-osx-finder
-    :if (system-is-mac)
+    :if (spacemacs/system-is-mac)
     :commands reveal-in-osx-finder))

@@ -1,4 +1,4 @@
-(when (system-is-mac)
+(when (spacemacs/system-is-mac)
   (evil-leader/set-key "bf" 'reveal-in-osx-finder)
 
   ;; this is only applicable to GUI mode

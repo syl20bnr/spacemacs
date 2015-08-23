@@ -51,9 +51,9 @@
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
     :defer t
-    :init (add-to-hooks 'emmet-mode '(css-mode-hook
-                                      html-mode-hook
-                                      web-mode-hook))
+    :init (spacemacs/add-to-hooks 'emmet-mode '(css-mode-hook
+                                                html-mode-hook
+                                                web-mode-hook))
     :config
     (progn
       (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'emmet-expand-yas)
@@ -66,13 +66,13 @@
   (add-hook 'web-mode-hook 'evil-matchit-mode))
 
 (defun html/post-init-flycheck ()
-  (add-to-hooks 'flycheck-mode '(haml-mode-hook
-                                 jade-mode-hook
-                                 less-mode-hook
-                                 sass-mode-hook
-                                 scss-mode-hook
-                                 slim-mode-hook
-                                 web-mode-hook)))
+  (spacemacs/add-to-hooks 'flycheck-mode '(haml-mode-hook
+                                           jade-mode-hook
+                                           less-mode-hook
+                                           sass-mode-hook
+                                           scss-mode-hook
+                                           slim-mode-hook
+                                           web-mode-hook)))
 
 (defun html/init-haml-mode ()
   (use-package haml-mode
@@ -118,11 +118,11 @@
       (spacemacs|diminish tagedit-mode " Ⓣ" " T"))))
 
 (defun html/post-init-rainbow-delimiters ()
-  (add-to-hooks 'rainbow-delimiters-mode '(haml-mode-hook
-                                           jade-mode-hook
-                                           less-css-mode-hook
-                                           scss-mode-hook
-                                           slim-mode-hook)))
+  (spacemacs/add-to-hooks 'rainbow-delimiters-mode '(haml-mode-hook
+                                                     jade-mode-hook
+                                                     less-css-mode-hook
+                                                     scss-mode-hook
+                                                     slim-mode-hook)))
 
 (defun html/init-web-mode ()
   (use-package web-mode
@@ -220,6 +220,6 @@
      ("\\.djhtml\\'"     . web-mode))))
 
 (defun html/post-init-yasnippet ()
-  (add-to-hooks 'spacemacs/load-yasnippet '(css-mode-hook
-                                            jade-mode
-                                            slim-mode)))
+  (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(css-mode-hook
+                                                      jade-mode
+                                                      slim-mode)))

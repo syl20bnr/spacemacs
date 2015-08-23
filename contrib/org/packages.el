@@ -166,7 +166,7 @@ Will work on both org-mode and any mode that accepts plain html."
     :defer t
     :init
     (progn
-      (when (system-is-mac)
+      (when (spacemacs/system-is-mac)
         (setq org-pomodoro-audio-player "/usr/bin/afplay"))
       (evil-leader/set-key-for-mode 'org-mode
         "mp" 'org-pomodoro))))

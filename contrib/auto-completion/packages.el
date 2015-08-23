@@ -214,8 +214,8 @@
             (let ((private-yas-dir (if auto-completion-private-snippets-directory
                                        auto-completion-private-snippets-directory
                                      (concat
-                                        configuration-layer-private-directory
-                                        "snippets/")))
+                                      configuration-layer-private-directory
+                                      "snippets/")))
                   (spacemacs-snippets-dir (expand-file-name
                                            "snippets"
                                            spacemacs--auto-completion-dir)))
@@ -229,9 +229,9 @@
               (setq yas-wrap-around-region t))))
         (yas-minor-mode 1))
 
-      (add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
-                                                markdown-mode-hook
-                                                org-mode-hook))
+      (spacemacs/add-to-hooks 'spacemacs/load-yasnippet '(prog-mode-hook
+                                                          markdown-mode-hook
+                                                          org-mode-hook))
       (spacemacs|add-toggle yasnippet
         :status yas-minor-mode
         :on (yas-minor-mode)
@@ -243,9 +243,9 @@
         (yas-minor-mode -1)
         (setq yas-dont-activate t))
 
-      (add-to-hooks 'spacemacs/force-yasnippet-off '(term-mode-hook
-                                                     shell-mode-hook
-                                                     eshell-mode-hook)))
+      (spacemacs/add-to-hooks 'spacemacs/force-yasnippet-off '(term-mode-hook
+                                                               shell-mode-hook
+                                                               eshell-mode-hook)))
     :config
     (progn
       ;;  We need to know whether the smartparens was enabled, see

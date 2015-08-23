@@ -73,12 +73,12 @@
         ("q" macrostep-collapse-all :exit t)))))
 
 (defun emacs-lisp/post-init-evil ()
-  (add-to-hook 'emacs-lisp-mode
-               '(lambda ()
-                  (spacemacs|define-text-object ";"
-                                                "elisp-comment"
-                                                ";; "
-                                                ""))))
+  (spacemacs/add-to-hook 'emacs-lisp-mode
+                         '(lambda ()
+                            (spacemacs|define-text-object ";"
+                                                          "elisp-comment"
+                                                          ";; "
+                                                          ""))))
 
 (defun emacs-lisp/post-init-flycheck ()
   ;; Make flycheck recognize packages in loadpath

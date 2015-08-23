@@ -16,7 +16,7 @@
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
 ;; improve delete-other-windows
-(define-key global-map (kbd "C-x 1") 'toggle-maximize-buffer)
+(define-key global-map (kbd "C-x 1") 'spacemacs/toggle-maximize-buffer)
 
 ;; replace `dired-goto-file' with `helm-find-files', since `helm-find-files'
 ;; can do the same thing and with fuzzy matching and other features.
@@ -66,14 +66,14 @@
   "TAB" 'spacemacs/alternate-buffer
   "bh"  'spacemacs/home
   "be"  'spacemacs/safe-erase-buffer
-  "bK"  'kill-other-buffers
+  "bK"  'spacemacs/kill-other-buffers
   "bk"  'ido-kill-buffer
-  "b C-k" 'kill-matching-buffers-rudely
-  "bP"  'copy-clipboard-to-whole-buffer
+  "b C-k" 'spacemacs/kill-matching-buffers-rudely
+  "bP"  'spacemacs/copy-clipboard-to-whole-buffer
   "bn"  'spacemacs/next-useful-buffer
   "bp"  'spacemacs/previous-useful-buffer
   "bR"  'spacemacs/safe-revert-buffer
-  "bY"  'copy-whole-buffer-to-clipboard
+  "bY"  'spacemacs/copy-whole-buffer-to-clipboard
   "bw"  'read-only-mode)
 ;; Cycling settings -----------------------------------------------------------
 (evil-leader/set-key "Tn" 'spacemacs/cycle-spacemacs-theme)
@@ -111,28 +111,28 @@ Ensure that helm is required before calling FUNC."
 ;; file -----------------------------------------------------------------------
 (evil-leader/set-key
   "fc" 'spacemacs/copy-file
-  "fD" 'delete-current-buffer-file
-  "fei" 'find-user-init-file
-  "fes" 'find-spacemacs-file
-  "fec" 'find-contrib-file
-  "fed" 'find-dotfile
-  "feD" 'ediff-dotfile-and-template
+  "fD" 'spacemacs/delete-current-buffer-file
+  "fei" 'spacemacs/find-user-init-file
+  "fes" 'spacemacs/find-spacemacs-file
+  "fec" 'spacemacs/find-contrib-file
+  "fed" 'spacemacs/find-dotfile
+  "feD" 'spacemacs/ediff-dotfile-and-template
   "feR" 'dotspacemacs/sync-configuration-layers
   "fev" 'spacemacs/display-and-copy-version
   "fg" 'rgrep
   "fj" 'dired-jump
   "fl" 'find-file-literally
   "fo" 'spacemacs/open-in-external-app
-  "fR" 'rename-current-buffer-file
+  "fR" 'spacemacs/rename-current-buffer-file
   "fS" 'evil-write-all
   "fs" 'spacemacs/write-file
-  "fy" 'show-and-copy-buffer-filename)
+  "fy" 'spacemacs/show-and-copy-buffer-filename)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
   "iJ" 'spacemacs/insert-line-below-no-indent
   "iK" 'spacemacs/insert-line-above-no-indent
-  "ik" 'evil-insert-line-above
-  "ij" 'evil-insert-line-below)
+  "ik" 'spacemacs/evil-insert-line-above
+  "ij" 'spacemacs/evil-insert-line-below)
 ;; format ---------------------------------------------------------------------
 ;; <SPC> j k key binding for a frequent action: go and indent line below the point
 ;; <SPC> J split the current line at point and indent it
@@ -142,7 +142,7 @@ Ensure that helm is required before calling FUNC."
   "jo" 'open-line
   "j=" 'spacemacs/indent-region-or-buffer
   "jJ" 'spacemacs/split-and-new-line
-  "jk" 'evil-goto-next-line-and-indent)
+  "jk" 'spacemacs/evil-goto-next-line-and-indent)
 
 ;; navigation -----------------------------------------------------------------
 (evil-leader/set-key
@@ -295,11 +295,11 @@ Ensure that helm is required before calling FUNC."
     (golden-ratio)))
 
 (evil-leader/set-key
-  "w2"  'layout-double-columns
-  "w3"  'layout-triple-columns
-  "wb"  'switch-to-minibuffer-window
+  "w2"  'spacemacs/layout-double-columns
+  "w3"  'spacemacs/layout-triple-columns
+  "wb"  'spacemacs/switch-to-minibuffer-window
   "wc"  'delete-window
-  "wd"  'toggle-current-window-dedication
+  "wd"  'spacemacs/toggle-current-window-dedication
   "wH"  'evil-window-move-far-left
   "wh"  'evil-window-left
   "wJ"  'evil-window-move-very-bottom
@@ -308,10 +308,10 @@ Ensure that helm is required before calling FUNC."
   "wk"  'evil-window-up
   "wL"  'evil-window-move-far-right
   "wl"  'evil-window-right
-  "wm"  'toggle-maximize-buffer
-  "wM"  'toggle-maximize-centered-buffer
+  "wm"  'spacemacs/toggle-maximize-buffer
+  "wM"  'spacemacs/toggle-maximize-centered-buffer
   "wo"  'other-frame
-  "wR"  'rotate-windows
+  "wR"  'spacemacs/rotate-windows
   "ws"  'split-window-below
   "wS"  'split-window-below-and-focus
   "w-"  'split-window-below
@@ -325,28 +325,28 @@ Ensure that helm is required before calling FUNC."
 ;; text -----------------------------------------------------------------------
 (evil-leader/set-key
   "xaa" 'align
-  "xar" 'align-repeat
-  "xam" 'align-repeat-math-oper
-  "xa." 'align-repeat-decimal
-  "xa," 'align-repeat-comma
-  "xa;" 'align-repeat-semicolon
-  "xa:" 'align-repeat-colon
-  "xa=" 'align-repeat-equal
-  "xa&" 'align-repeat-ampersand
-  "xa|" 'align-repeat-bar
-  "xa(" 'align-repeat-left-paren
-  "xa)" 'align-repeat-right-paren
+  "xar" 'spacemacs/align-repeat
+  "xam" 'spacemacs/align-repeat-math-oper
+  "xa." 'spacemacs/align-repeat-decimal
+  "xa," 'spacemacs/align-repeat-comma
+  "xa;" 'spacemacs/align-repeat-semicolon
+  "xa:" 'spacemacs/align-repeat-colon
+  "xa=" 'spacemacs/align-repeat-equal
+  "xa&" 'spacemacs/align-repeat-ampersand
+  "xa|" 'spacemacs/align-repeat-bar
+  "xa(" 'spacemacs/align-repeat-left-paren
+  "xa)" 'spacemacs/align-repeat-right-paren
   "xdw" 'delete-trailing-whitespace
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
   "xtw" 'transpose-words
   "xU"  'upcase-region
   "xu"  'downcase-region
-  "xwC" 'count-words-analysis
+  "xwC" 'spacemacs/count-words-analysis
   "xwc" 'count-words-region)
 ;; google translate -----------------------------------------------------------
 (evil-leader/set-key
-  "xgl" 'set-google-translate-languages)
+  "xgl" 'spacemacs/set-google-translate-languages)
 ;; shell ----------------------------------------------------------------------
 (eval-after-load "shell"
   '(progn
@@ -475,7 +475,7 @@ Ensure that helm is required before calling FUNC."
   ("K" evil-window-move-very-top             :doc (spacemacs//window-manipulation-move-doc))
   ("L" evil-window-move-far-right            :doc (spacemacs//window-manipulation-move-doc))
   ("o" other-frame                           :doc (spacemacs//window-manipulation-move-doc))
-  ("R" rotate-windows                        :doc (spacemacs//window-manipulation-move-doc))
+  ("R" spacemacs/rotate-windows                        :doc (spacemacs//window-manipulation-move-doc))
   ("s" split-window-below                    :doc (spacemacs//window-manipulation-split-doc))
   ("S" split-window-below-and-focus          :doc (spacemacs//window-manipulation-split-doc))
   ("u" winner-undo                           :doc (spacemacs//window-manipulation-layout-doc))
