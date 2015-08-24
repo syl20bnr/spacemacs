@@ -76,16 +76,18 @@ used."
                ,@on-body
                (message ,(format "%s enabled." name)))
            (message "This toggle is not supported.")))
-       ;; on-function
-       (defun ,wrapper-func-on ()
-         ,(format "Toggle %s on." (symbol-name name))
-         (interactive)
-         (unless ,status-eval (,wrapper-func)))
-       ;; off-function
-       (defun ,wrapper-func-off ()
-         ,(format "Toggle %s off." (symbol-name name))
-         (interactive)
-         (when ,status-eval (,wrapper-func)))
+       ;; Only define on- or off-functions when status is available
+       ,@(when status
+           ;; on-function
+           `((defun ,wrapper-func-on ()
+               ,(format "Toggle %s on." (symbol-name name))
+               (interactive)
+               (unless ,status-eval (,wrapper-func)))
+             ;; off-function
+             (defun ,wrapper-func-off ()
+               ,(format "Toggle %s off." (symbol-name name))
+               (interactive)
+               (when ,status-eval (,wrapper-func)))))
        ,@bindkeys)))
 
 (provide 'core-toggle)
