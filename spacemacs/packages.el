@@ -400,6 +400,11 @@
       (setq avy-keys (number-sequence ?a ?z))
       (setq avy-all-windows 'all-frames)
       (setq avy-background t)
+      ; make golden ratio work after switching windows with avy-goto-word-or-subword-1
+      (eval-after-load 'golden-ratio
+        '(setq golden-ratio-extra-commands
+               (append golden-ratio-extra-commands
+                       '(evil-avy-goto-word-or-subword-1))))
       (evil-leader/set-key
         "SPC" 'avy-goto-word-or-subword-1
         "l" 'avy-goto-line))
