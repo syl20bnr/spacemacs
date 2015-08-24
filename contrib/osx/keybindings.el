@@ -15,6 +15,10 @@
     ;; Keybindings
     (global-set-key (kbd "s-=") 'spacemacs/scale-up-font)
     (global-set-key (kbd "s--") 'spacemacs/scale-down-font)
+    (global-set-key (kbd "s-<left>") 'move-beginning-of-line)
+    (global-set-key (kbd "s-<right>") 'move-end-of-line)
+    (global-set-key (kbd "s-<up>") 'beginning-of-buffer)
+    (global-set-key (kbd "s-<down>") 'end-of-buffer)
     (global-set-key (kbd "s-0") 'spacemacs/reset-font-size)
     (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
     (global-set-key (kbd "s-v") 'yank)
