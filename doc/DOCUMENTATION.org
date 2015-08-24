@@ -1171,8 +1171,8 @@ Navigation is performed using the Vi key bindings ~hjkl~.
 | ~j~         | move cursor down                                                                  |
 | ~k~         | move cursor up                                                                    |
 | ~l~         | move cursor right                                                                 |
-| ~H~         | move quickly up (10 lines at a time)                                              |
-| ~L~         | move quickly down (10 lines at a time)                                            |
+| ~H~         | move cursor to the top of the screen                                              |
+| ~L~         | move cursor to the bottom of the screen                                           |
 | ~SPC j h~   | go to the beginning of line (and set a mark at the previous location in the line) |
 | ~SPC j l~   | go to the end of line (and set a mark at the previous location in the line)       |
 | ~SPC t -~   | lock the cursor at the center of the screen                                       |
