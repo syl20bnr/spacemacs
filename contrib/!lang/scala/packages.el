@@ -89,7 +89,6 @@
 
       (evil-leader/set-key-for-mode 'scala-mode
         "m/"     'ensime-search
-        "m?"     'ensime-scalex
 
         "mbc"     'ensime-sbt-do-compile
         "mbC"     'ensime-sbt-do-clean
