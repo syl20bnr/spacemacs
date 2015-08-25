@@ -37,21 +37,20 @@
                nosetests-pdb-suite)
     :init
     (evil-leader/set-key-for-mode 'python-mode
-      "mTa" 'nosetests-pdb-all
+      "mtA" 'nosetests-pdb-all
       "mta" 'nosetests-all
-      "mTb" 'nosetests-pdb-module
+      "mtB" 'nosetests-pdb-module
       "mtb" 'nosetests-module
-      "mTt" 'nosetests-pdb-one
+      "mtT" 'nosetests-pdb-one
       "mtt" 'nosetests-one
-      "mTm" 'nosetests-pdb-module
+      "mtM" 'nosetests-pdb-module
       "mtm" 'nosetests-module
-      "mTs" 'nosetests-pdb-suite
+      "mtS" 'nosetests-pdb-suite
       "mts" 'nosetests-suite)
     :config
     (progn
       (add-to-list 'nose-project-root-files "setup.cfg")
-      (setq nose-use-verbose nil)
-      )))
+      (setq nose-use-verbose nil))))
 
 (defun python/init-pylookup ()
   (use-package pylookup
