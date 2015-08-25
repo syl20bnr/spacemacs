@@ -45,12 +45,13 @@
 
       (defun spacemacs//cider-eval-in-repl-no-focus (form)
         "Insert FORM in the REPL buffer and eval it."
-        (let ((start-pos (point)))
-          (while (string-match "\\`[ \t\n\r]+\\|[ \t\n\r]+\\'" form)
-            (setq form (replace-match "" t t form)))
-          (with-current-buffer (cider-current-repl-buffer)
+        (while (string-match "\\`[ \t\n\r]+\\|[ \t\n\r]+\\'" form)
+          (setq form (replace-match "" t t form)))
+        (with-current-buffer (cider-current-repl-buffer)
+          (let ((pt-max (point-max)))
+            (goto-char pt-max)
             (insert form)
-            (indent-region start-pos (point))
+            (indent-region pt-max (point))
             (cider-repl-return))))
 
       (defun spacemacs/cider-send-last-sexp-to-repl ()
@@ -130,14 +131,69 @@ the focus."
         (cider-load-buffer)
         (spacemacs//cider-eval-in-repl-no-focus (cider-test-rerun-tests)))
 
-      (evilify cider-stacktrace-mode cider-stacktrace-mode-map)
+      (defun spacemacs/cider-toggle-repl-pretty-printing ()
+        (interactive)
+        (setq cider-repl-use-pretty-printing
+              (if cider-repl-use-pretty-printing nil t))
+        (message "Cider REPL pretty printing: %s"
+                 (if cider-repl-use-pretty-printing "ON" "OFF")))
+
+      (defun spacemacs/cider-toggle-repl-font-locking ()
+        (interactive)
+        (setq cider-repl-use-clojure-font-lock
+              (if cider-repl-use-pretty-printing nil t))
+        (message "Cider REPL clojure-mode font-lock: %s"
+                 (if cider-repl-use-clojure-font-lock "ON" "OFF")))
+
+      (defun spacemacs/cider-debug-setup ()
+        (when (eq dotspacemacs-editing-style 'vim)
+          (evil-make-overriding-map cider--debug-mode-map 'normal)
+          (evil-normalize-keymaps)))
+
+      (add-hook 'cider--debug-mode-hook 'spacemacs/cider-debug-setup)
+
+      (evilify cider-stacktrace-mode cider-stacktrace-mode-map
+               (kbd "C-j") 'cider-stacktrace-next-cause
+               (kbd "C-k") 'cider-stacktrace-previous-cause
+               (kbd "TAB") 'cider-stacktrace-cycle-current-cause
+               (kbd "0")   'cider-stacktrace-cycle-all-causes
+               (kbd "1")   'cider-stacktrace-cycle-cause-1
+               (kbd "2")   'cider-stacktrace-cycle-cause-2
+               (kbd "3")   'cider-stacktrace-cycle-cause-3
+               (kbd "4")   'cider-stacktrace-cycle-cause-4
+               (kbd "5")   'cider-stacktrace-cycle-cause-5
+               (kbd "c")   'cider-stacktrace-toggle-clj
+               (kbd "J")   'cider-stacktrace-toggle-java
+               (kbd "r")   'cider-stacktrace-toggle-repl
+               (kbd "T")   'cider-stacktrace-toggle-tooling
+               (kbd "d")   'cider-stacktrace-toggle-duplicates
+               (kbd "a")   'cider-stacktrace-toggle-all)
 
       ;; open cider-doc directly and close it with q
       (setq cider-prompt-for-symbol nil)
+
       (evilify cider-docview-mode cider-docview-mode-map
                (kbd "q") 'cider-popup-buffer-quit)
+
       (evilify cider-inspector-mode cider-inspector-mode-map
-               (kbd "L") 'cider-inspector-pop)
+               (kbd "L") 'cider-inspector-pop
+               (kbd "r") 'cider-inspector-refresh
+               (kbd "n") 'cider-inspector-next-page
+               (kbd "N") 'cider-inspector-previous-page)
+
+      (evilify cider-test-report-mode cider-test-report-mode-map
+               (kbd "C-j") 'cider-test-next-result
+               (kbd "C-k") 'cider-test-previous-result
+               (kbd "RET") 'cider-test-jump
+               (kbd "q")   'cider-popup-buffer-quit
+               (kbd "d")   'cider-test-ediff
+               (kbd "e")   'cider-test-stacktrace
+               (kbd "r")   'cider-test-rerun-tests
+               (kbd "t")   'cider-test-run-test
+               (kbd "T")   'cider-test-run-tests)
+
+      ;; TODO: having this work for cider-macroexpansion-mode would be nice,
+      ;;       but the problem is that it uses clojure-mode as its major-mode
 
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
         (evil-leader/set-key-for-mode m
@@ -170,6 +226,8 @@ the focus."
           "msr" 'spacemacs/cider-send-region-to-repl
           "msR" 'spacemacs/cider-send-region-to-repl-focus
           "mss" 'cider-switch-to-repl-buffer
+          "mstp" 'spacemacs/cider-toggle-repl-pretty-printing
+          "mstf" 'spacemacs/cider-toggle-repl-font-locking
 
           "mta" 'spacemacs/cider-test-run-all-tests
           "mtr" 'spacemacs/cider-test-rerun-tests
@@ -177,6 +235,36 @@ the focus."
 
           "mdi" 'cider-inspect
           "mdb" 'cider-debug-defun-at-point))
+
+      (evil-leader/set-key-for-mode 'cider-repl-mode
+        "mhh" 'cider-doc
+        "mhg" 'cider-grimoire
+        "mhj" 'cider-javadoc
+
+        "mee" 'cider-eval-last-sexp
+        "mef" 'cider-eval-defun-at-point
+        "mer" 'cider-eval-region
+        "mew" 'cider-eval-last-sexp-and-replace
+
+        "mgb" 'cider-jump-back
+        "mge" 'cider-jump-to-compilation-error
+        "mgg" 'cider-jump-to-var
+        "mgr" 'cider-jump-to-resource
+
+        "msn" 'cider-repl-set-ns
+        "msq" 'cider-quit
+        "mss" 'cider-switch-to-last-clojure-buffer
+        "msc" 'cider-repl-clear-buffer
+        "mstp" 'spacemacs/cider-toggle-repl-pretty-printing
+        "mstf" 'spacemacs/cider-toggle-repl-font-locking
+
+        "mdi" 'cider-inspect
+        "mdb" 'cider-debug-defun-at-point)
+
+      (evil-define-key 'normal cider-repl-mode-map
+        "C-j" 'cider-repl-next-input
+        "C-k" 'cider-repl-previous-input)
+
       (when clojure-enable-fancify-symbols
         (clojure/fancify-symbols 'cider-repl-mode)))
 
@@ -189,52 +277,83 @@ the focus."
     '(require 'cider-eval-sexp-fu)))
 
 (defun clojure/init-clj-refactor ()
- (use-package clj-refactor
-      :defer t
-      :init
-      (add-hook 'clojure-mode-hook 'clj-refactor-mode)
-      :config
-      (progn
-        (cljr-add-keybindings-with-prefix "C-c C-f")
-        ;; not supported for now
-        ;; (spacemacs/declare-prefix "mr" "clj-refactor")
+  (use-package clj-refactor
+    :defer t
+    :init
+    (add-hook 'clojure-mode-hook 'clj-refactor-mode)
+    :config
+    (progn
+      (cljr-add-keybindings-with-prefix "C-c C-f")
+      ;; not supported for now
+      ;; (spacemacs/declare-prefix "mr" "clj-refactor")
 
-        (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
-          (evil-leader/set-key-for-mode m
-            "mrad" 'cljr-add-declaration
-            "mrai" 'cljr-add-import-to-ns
-            "mram" 'cljr-add-missing-libspec
-            "mrap" 'cljr-add-project-dependency
-            "mrar" 'cljr-add-require-to-ns
-            "mrau" 'cljr-add-use-to-ns
-            "mrcc" 'cljr-cycle-coll
-            "mrci" 'cljr-cycle-if
-            "mrcn" 'cljr-clean-ns
-            "mrcp" 'cljr-cycle-privacy
-            "mrdk" 'cljr-destructure-keys
-            "mref" 'cljr-extract-function
-            "mrel" 'cljr-expand-let
-            "mrfu" 'cljr-find-usages
-            "mrhd" 'cljr-hotload-dependency
-            "mril" 'cljr-introduce-let
-            "mrmf" 'cljr-move-form
-            "mrml" 'cljr-move-to-let
-            "mrpc" 'cljr-project-clean
-            "mrpf" 'cljr-promote-function
-            "mrrd" 'cljr-remove-debug-fns
-            "mrrf" 'cljr-rename-file
-            "mrrl" 'cljr-remove-let
-            "mrrr" 'cljr-remove-unused-requires
-            "mrrs" 'cljr-rename-symbol
-            "mrru" 'cljr-replace-use
-            "mrsn" 'cljr-sort-ns
-            "mrsp" 'cljr-sort-project-dependencies
-            "mrsr" 'cljr-stop-referring
-            "mrtf" 'cljr-thread-first-all
-            "mrth" 'cljr-thread
-            "mrtl" 'cljr-thread-last-all
-            "mrua" 'cljr-unwind-all
-            "mruw" 'cljr-unwind)))))
+      (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
+        (evil-leader/set-key-for-mode m
+          "mrad" 'cljr-add-declaration
+          "mrai" 'cljr-add-import-to-ns
+          "mram" 'cljr-add-missing-libspec
+          "mrap" 'cljr-add-project-dependency
+          "mrar" 'cljr-add-require-to-ns
+          "mras" 'cljr-add-stubs
+          "mrau" 'cljr-add-use-to-ns
+          "mrcc" 'cljr-cycle-coll
+          "mrci" 'cljr-cycle-if
+          "mrcn" 'cljr-clean-ns
+          "mrcp" 'cljr-cycle-privacy
+          "mrdk" 'cljr-destructure-keys
+          "mref" 'cljr-extract-function
+          "mrec" 'cljr-extract-constant
+          "mrel" 'cljr-expand-let
+          "mrfu" 'cljr-find-usages
+          "mrfe" 'cljr-create-fn-from-example
+          "mrhd" 'cljr-hotload-dependency
+          "mril" 'cljr-introduce-let
+          "mris" 'cljr-inline-symbol
+          "mrmf" 'cljr-move-form
+          "mrml" 'cljr-move-to-let
+          "mrpc" 'cljr-project-clean
+          "mrpf" 'cljr-promote-function
+          "mrrd" 'cljr-remove-debug-fns
+          "mrrf" 'cljr-rename-file-or-dir
+          "mrrl" 'cljr-remove-let
+          "mrrr" 'cljr-remove-unused-requires
+          "mrrs" 'cljr-rename-symbol
+          "mrru" 'cljr-replace-use
+          "mrsn" 'cljr-sort-ns
+          "mrsp" 'cljr-sort-project-dependencies
+          "mrsr" 'cljr-stop-referring
+          "mrsc" 'cljr-show-changelog
+          "mrtf" 'cljr-thread-first-all
+          "mrth" 'cljr-thread
+          "mrtl" 'cljr-thread-last-all
+          "mrua" 'cljr-unwind-all
+          "mrup" 'cljr-update-project-dependencies
+          "mruw" 'cljr-unwind
+          "mr?"  'cljr-describe-refactoring))
+
+      (evil-leader/set-key-for-mode 'cider-repl-mode
+        "mrap" 'cljr-add-project-dependency
+        "mras" 'cljr-add-stubs
+        "mrcc" 'cljr-cycle-coll
+        "mrci" 'cljr-cycle-if
+        "mrcp" 'cljr-cycle-privacy
+        "mrdk" 'cljr-destructure-keys
+        "mrel" 'cljr-expand-let
+        "mrfu" 'cljr-find-usages
+        "mrhd" 'cljr-hotload-dependency
+        "mril" 'cljr-introduce-let
+        "mrml" 'cljr-move-to-let
+        "mrpc" 'cljr-project-clean
+        "mrrl" 'cljr-remove-let
+        "mrsp" 'cljr-sort-project-dependencies
+        "mrsc" 'cljr-show-changelog
+        "mrtf" 'cljr-thread-first-all
+        "mrth" 'cljr-thread
+        "mrtl" 'cljr-thread-last-all
+        "mrua" 'cljr-unwind-all
+        "mrup" 'cljr-update-project-dependencies
+        "mruw" 'cljr-unwind
+        "mr?"  'cljr-describe-refactoring))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
