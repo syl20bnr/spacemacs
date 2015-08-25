@@ -17,6 +17,7 @@
         github-browse-file
         ;; not up to date
         ;; helm-gist
+        magit-gh-pulls
         ))
 
 (defun github/init-gist ()
@@ -86,3 +87,33 @@
         "gfC" 'spacemacs/git-link-commit-copy-url-only)
       ;; default is to open the generated link
       (setq git-link-open-in-browser t))))
+
+;; magit-gh-pulls has to be loaded via a pre-config hook because the source code
+;; makes assumptions about the status of the magit-mode keymaps that are
+;; incompatible with the spacemacs' evilification feature.
+;; To avoid errors, magit-gh-pulls must be loaded after magit, but before magit
+;; is configured by spacemacs.
+
+(defun github/init-magit-gh-pulls ()
+  (spacemacs|use-package-add-hook magit
+    :pre-config
+    (progn
+      (use-package magit-gh-pulls
+        :init
+        (progn
+          (defun spacemacs/load-gh-pulls-mode ()
+            "Start `magit-gh-pulls-mode' only after a manual request."
+            (interactive)
+            (magit-gh-pulls-mode)
+            (magit-gh-pulls-reload))
+
+          (defun spacemacs/fetch-gh-pulls-mode ()
+            "Start `magit-gh-pulls-mode' only after a manual request."
+            (interactive)
+            (magit-gh-pulls-mode)
+            (magit-gh-pulls-fetch-commits))
+
+          (define-key magit-mode-map "#gf" 'spacemacs/fetch-gh-pulls-mode)
+          (define-key magit-mode-map "#gg" 'spacemacs/load-gh-pulls-mode))
+        :config
+        (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
