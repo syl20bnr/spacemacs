@@ -269,26 +269,32 @@ If table specific commands are available the they are grouped under the
 
 *** Tests
 A lot of languages have their own test frameworks. These frameworks
-share common actions that we can unite under the same key bindings: -
-~SPC m t~ is the prefix for test execution. - ~SPC m T~ is the
-prefix for test execution in debug mode (if supported).
+share common actions that we can unite under the same key bindings:
+ - ~SPC m t~ is the prefix for test execution.
+ - ~SPC m t X~ is used to execute ~SPC m t x~ but in debug mode (if supported).
 
 **** All languages
-| Key     | Description                                         |
-|---------+-----------------------------------------------------|
-| ~m t a~ | execute all the tests of the current project        |
-| ~m t b~ | execute all the tests of the current buffer         |
-| ~m t t~ | execute the current test (thing at point, function) |
+
+| Key     | Description                                                  |
+|---------+--------------------------------------------------------------|
+| ~m t a~ | execute all the tests of the current project                 |
+| ~m t A~ | execute all the tests of the current project in debug        |
+| ~m t b~ | execute all the tests of the current buffer                  |
+| ~m t B~ | execute all the tests of the current buffer in debug         |
+| ~m t t~ | execute the current test (thing at point, function)          |
+| ~m t T~ | execute the current test in debug (thing at point, function) |
 
 Note: we don't distinguish between the file and the buffer. We can
 implement an auto-save of the buffer before executing the tests of
 buffer.
 
 **** Language specific
-| Key     | Description                             |
-|---------+-----------------------------------------|
-| ~m t m~ | execute the tests of the current module |
-| ~m t s~ | execute the tests of the current suite  |
+| Key     | Description                                      |
+|---------+--------------------------------------------------|
+| ~m t m~ | execute the tests of the current module          |
+| ~m t M~ | execute the tests of the current module in debug |
+| ~m t s~ | execute the tests of the current suite           |
+| ~m t S~ | execute the tests of the current suite in debug  |
 
 Note that there are overlaps, depending on the language we will choose
 one or more bindings for the same thing
