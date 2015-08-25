@@ -141,11 +141,11 @@ Test commands (start with ~m t~ or ~m T~):
 
 | Debug       | Description                                                            |
 |-------------+------------------------------------------------------------------------|
-| ~SPC m T a~ | launch all tests of the project in debug mode                          |
-| ~SPC m T b~ | launch all tests of the current buffer (module) in debug mode          |
-| ~SPC m T m~ | launch all tests of the current module in debug mode                   |
-| ~SPC m T s~ | launch all tests of the current suite in debug mode (only with =nose=) |
-| ~SPC m T t~ | launch the current test (function) in debug mode                       |
+| ~SPC m t A~ | launch all tests of the project in debug mode                          |
+| ~SPC m t B~ | launch all tests of the current buffer (module) in debug mode          |
+| ~SPC m t M~ | launch all tests of the current module in debug mode                   |
+| ~SPC m t S~ | launch all tests of the current suite in debug mode (only with =nose=) |
+| ~SPC m t T~ | launch the current test (function) in debug mode                       |
 
 ** Refactoring
 

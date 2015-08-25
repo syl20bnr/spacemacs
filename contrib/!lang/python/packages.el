@@ -97,13 +97,13 @@
                pytest-module
                pytest-pdb-module)
     :init (evil-leader/set-key-for-mode 'python-mode
-            "mTa" 'pytest-pdb-all
+            "mtA" 'pytest-pdb-all
             "mta" 'pytest-all
-            "mTb" 'pytest-pdb-module
+            "mtB" 'pytest-pdb-module
             "mtb" 'pytest-module
-            "mTt" 'pytest-pdb-one
+            "mtT" 'pytest-pdb-one
             "mtt" 'pytest-one
-            "mTm" 'pytest-pdb-module
+            "mtM" 'pytest-pdb-module
             "mtm" 'pytest-module)
     :config (add-to-list 'pytest-project-root-files "setup.cfg")))
 
