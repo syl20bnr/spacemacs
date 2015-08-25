@@ -103,12 +103,13 @@ each time the prefix commands. More info on micro-states in the
 **** Code Navigation
 The prefix for going to something is ~SPC m g~.
 
-| Key     | Description                                |
-|---------+--------------------------------------------|
-| ~m g a~ | go to alternate file (i.e. =.h <--> .cpp=) |
-| ~m g g~ | go to things under point                   |
-| ~m g G~ | go to things under point in other window   |
-| ~m g t~ | go to corresponding test file if any       |
+| Key     | Description                                     |
+|---------+-------------------------------------------------|
+| ~m g a~ | go to alternate file (i.e. =.h <--> .cpp=)      |
+| ~m g b~ | go back to previous location (before last jump) |
+| ~m g g~ | go to things under point                        |
+| ~m g G~ | go to things under point in other window        |
+| ~m g t~ | go to corresponding test file if any            |
 
 **** =insert state= buffers
 Navigation in buffers like =Helm= and =ido= which are in =insert state=
