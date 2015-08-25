@@ -23,7 +23,8 @@
          - [[#reformatting][Reformatting]]
      - [[#cider-buffers][CIDER Buffers]]
          - [[#stacktrace-mode][stacktrace-mode]]
-         - [[#stacktrace-mode][test-report-mode]]
+         - [[#inspector-mode][inspector-mode]]
+         - [[#test-report-mode][test-report-mode]]
 
 * Description
 
@@ -132,8 +133,8 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m s r~   | send and eval region in REPL                               |
 | ~SPC m s R~   | send and eval region and switch to REPL in =insert state=    |
 | ~SPC m s s~   | switch to REPL                                             |
-| ~SPC m s t p~ | toggle pretty-printing at REPL                             |
-| ~SPC m s t f~ | toggle font-locking at REPL                               |
+| ~SPC m T p~ | toggle pretty-printing at REPL                             |
+| ~SPC m T f~ | toggle font-locking at REPL                               |
 
 *** Tests
 
