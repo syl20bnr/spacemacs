@@ -162,12 +162,12 @@ the focus."
                (kbd "3")   'cider-stacktrace-cycle-cause-3
                (kbd "4")   'cider-stacktrace-cycle-cause-4
                (kbd "5")   'cider-stacktrace-cycle-cause-5
+               (kbd "a")   'cider-stacktrace-toggle-all
                (kbd "c")   'cider-stacktrace-toggle-clj
+               (kbd "d")   'cider-stacktrace-toggle-duplicates
                (kbd "J")   'cider-stacktrace-toggle-java
                (kbd "r")   'cider-stacktrace-toggle-repl
-               (kbd "T")   'cider-stacktrace-toggle-tooling
-               (kbd "d")   'cider-stacktrace-toggle-duplicates
-               (kbd "a")   'cider-stacktrace-toggle-all)
+               (kbd "T")   'cider-stacktrace-toggle-tooling)
 
       ;; open cider-doc directly and close it with q
       (setq cider-prompt-for-symbol nil)
@@ -177,17 +177,17 @@ the focus."
 
       (evilify cider-inspector-mode cider-inspector-mode-map
                (kbd "L") 'cider-inspector-pop
-               (kbd "r") 'cider-inspector-refresh
                (kbd "n") 'cider-inspector-next-page
-               (kbd "N") 'cider-inspector-previous-page)
+               (kbd "N") 'cider-inspector-previous-page
+               (kbd "r") 'cider-inspector-refresh)
 
       (evilify cider-test-report-mode cider-test-report-mode-map
                (kbd "C-j") 'cider-test-next-result
                (kbd "C-k") 'cider-test-previous-result
                (kbd "RET") 'cider-test-jump
-               (kbd "q")   'cider-popup-buffer-quit
                (kbd "d")   'cider-test-ediff
                (kbd "e")   'cider-test-stacktrace
+               (kbd "q")   'cider-popup-buffer-quit
                (kbd "r")   'cider-test-rerun-tests
                (kbd "t")   'cider-test-run-test
                (kbd "T")   'cider-test-run-tests)
@@ -227,15 +227,15 @@ the focus."
           "msR" 'spacemacs/cider-send-region-to-repl-focus
           "mss" 'cider-switch-to-repl-buffer
 
-          "mTp" 'spacemacs/cider-toggle-repl-pretty-printing
           "mTf" 'spacemacs/cider-toggle-repl-font-locking
+          "mTp" 'spacemacs/cider-toggle-repl-pretty-printing
 
           "mta" 'spacemacs/cider-test-run-all-tests
           "mtr" 'spacemacs/cider-test-rerun-tests
           "mtt" 'spacemacs/cider-test-run-focused-test
 
-          "mdi" 'cider-inspect
-          "mdb" 'cider-debug-defun-at-point))
+          "mdb" 'cider-debug-defun-at-point
+          "mdi" 'cider-inspect))
 
       (evil-leader/set-key-for-mode 'cider-repl-mode
         "mhh" 'cider-doc
@@ -252,16 +252,16 @@ the focus."
         "mgg" 'cider-jump-to-var
         "mgr" 'cider-jump-to-resource
 
+        "msc" 'cider-repl-clear-buffer
         "msn" 'cider-repl-set-ns
         "msq" 'cider-quit
         "mss" 'cider-switch-to-last-clojure-buffer
-        "msc" 'cider-repl-clear-buffer
 
-        "mTp" 'spacemacs/cider-toggle-repl-pretty-printing
         "mTf" 'spacemacs/cider-toggle-repl-font-locking
+        "mTp" 'spacemacs/cider-toggle-repl-pretty-printing
 
-        "mdi" 'cider-inspect
-        "mdb" 'cider-debug-defun-at-point)
+        "mdb" 'cider-debug-defun-at-point
+        "mdi" 'cider-inspect)
 
       (evil-define-key 'normal cider-repl-mode-map
         "C-j" 'cider-repl-next-input
@@ -291,6 +291,7 @@ the focus."
 
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
         (evil-leader/set-key-for-mode m
+          "mr?"  'cljr-describe-refactoring
           "mrad" 'cljr-add-declaration
           "mrai" 'cljr-add-import-to-ns
           "mram" 'cljr-add-missing-libspec
@@ -330,10 +331,10 @@ the focus."
           "mrtl" 'cljr-thread-last-all
           "mrua" 'cljr-unwind-all
           "mrup" 'cljr-update-project-dependencies
-          "mruw" 'cljr-unwind
-          "mr?"  'cljr-describe-refactoring))
+          "mruw" 'cljr-unwind))
 
       (evil-leader/set-key-for-mode 'cider-repl-mode
+        "mr?"  'cljr-describe-refactoring
         "mrap" 'cljr-add-project-dependency
         "mras" 'cljr-add-stubs
         "mrcc" 'cljr-cycle-coll
@@ -354,8 +355,7 @@ the focus."
         "mrtl" 'cljr-thread-last-all
         "mrua" 'cljr-unwind-all
         "mrup" 'cljr-update-project-dependencies
-        "mruw" 'cljr-unwind
-        "mr?"  'cljr-describe-refactoring))))
+        "mruw" 'cljr-unwind))))
 
 (defun clojure/init-clojure-mode ()
   (use-package clojure-mode
