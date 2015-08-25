@@ -10,50 +10,46 @@
 ;;
 ;;; License: GPLv3
 
-;; List of all packages to install and/or initialize. Built-in packages
-;; which require an initialization must be listed explicitly in the list.
 (setq react-packages
       '(
-        web-mode
-        js2-mode
-        js2-refactor
-        js-doc
-        json-mode
-        json-snatcher
-        flycheck
-        tern
         company
         company-tern
+        flycheck
+        js-doc
+        js2-mode
+        js2-refactor
+        json-mode
+        json-snatcher
+        tern
         web-beautify
+        web-mode
         ))
 
-;; List of packages to exclude.
-(setq react-excluded-packages '())
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun react/post-init-company ()
+    (spacemacs|add-company-hook react-mode))
 
-;; For each package, define a function react/init-<package-name>
-;;
+  (defun react/init-company-tern ()
+    (use-package company-tern
+      :if (and (configuration-layer/package-usedp 'company)
+               (configuration-layer/package-usedp 'tern))
+      :defer t
+      :init
+      (push 'company-tern company-backends-react-mode))))
+
 (defun react/post-init-flycheck ()
   (add-hook 'react-mode-hook 'spacemacs//react-config-flycheck))
 
-(defun react/post-init-web-mode ()
-  (define-derived-mode react-mode web-mode "react")
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
-  (add-to-list 'auto-mode-alist '("\\.react.js\\'" . react-mode))
-  (add-to-list 'magic-mode-alist '("/** @jsx React.DOM */" . react-mode))
-
-  (add-hook 'react-mode-hook 'spacemacs//react-config-web-mode))
-
-(defun react/init-tern ()
-  (use-package tern
+(defun react/init-js-doc ()
+  (use-package js-doc
     :defer t
+    :init (add-hook 'react-mode-hook 'spacemacs//react-load-js-doc)
     :config
     (progn
-      (evil-leader/set-key-for-mode 'react-mode "mrrV" 'tern-rename-variable)
-      (evil-leader/set-key-for-mode 'react-mode "mhd" 'tern-get-docs)
-      (evil-leader/set-key-for-mode 'react-mode "mgg" 'tern-find-definition)
-      (evil-leader/set-key-for-mode 'react-mode "mgG" 'tern-find-definition-by-name)
-      (evil-leader/set-key-for-mode 'react-mode (kbd "m C-g") 'tern-pop-find-definition)
-      (evil-leader/set-key-for-mode 'react-mode "mht" 'tern-get-type))))
+      (evil-leader/set-key-for-mode 'react-mode "mrdb" 'js-doc-insert-file-doc)
+      (evil-leader/set-key-for-mode 'react-mode "mrdf" 'js-doc-insert-function-doc)
+      (evil-leader/set-key-for-mode 'react-mode "mrdt" 'js-doc-insert-tag)
+      (evil-leader/set-key-for-mode 'react-mode "mrdh" 'js-doc-describe-tag))))
 
 (defun react/init-js2-mode ()
   (use-package js2-mode
@@ -150,13 +146,11 @@
     :defer t
     :config
     (evil-leader/set-key-for-mode 'json-mode
-      "mhp" 'jsons-print-path)
-    ))
+      "mhp" 'jsons-print-path)))
 
 (defun react/init-tern ()
   (use-package tern
     :defer t
-    :init (add-hook 'react-mode-hook 'tern-mode)
     :config
     (progn
       (evil-leader/set-key-for-mode 'react-mode "mrrV" 'tern-rename-variable)
@@ -166,17 +160,6 @@
       (evil-leader/set-key-for-mode 'react-mode (kbd "m C-g") 'tern-pop-find-definition)
       (evil-leader/set-key-for-mode 'react-mode "mht" 'tern-get-type))))
 
-(defun react/init-js-doc ()
-  (use-package js-doc
-    :defer t
-    :init (add-hook 'react-mode-hook 'spacemacs//react-load-js-doc)
-    :config
-    (progn
-      (evil-leader/set-key-for-mode 'react-mode "mrdb" 'js-doc-insert-file-doc)
-      (evil-leader/set-key-for-mode 'react-mode "mrdf" 'js-doc-insert-function-doc)
-      (evil-leader/set-key-for-mode 'react-mode "mrdt" 'js-doc-insert-tag)
-      (evil-leader/set-key-for-mode 'react-mode "mrdh" 'js-doc-describe-tag))))
-
 (defun react/init-web-beautify ()
   (use-package web-beautify
     :defer t
@@ -184,19 +167,9 @@
     (progn
       (evil-leader/set-key-for-mode 'react-mode  "m=" 'web-beautify-js))))
 
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun react/post-init-company ()
-    (spacemacs|add-company-hook react-mode))
-
-  (defun react/init-company-tern ()
-    (use-package company-tern
-      :if (and (configuration-layer/package-usedp 'company)
-               (configuration-layer/package-usedp 'tern))
-      :defer t
-      :init
-      (push 'company-tern company-backends-react-mode))))
-
-;;
-;; Often the body of an initialize function uses `use-package'
-;; For more info on `use-package', see readme:
-;; https://github.com/jwiegley/use-package
+(defun react/post-init-web-mode ()
+  (define-derived-mode react-mode web-mode "react")
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . react-mode))
+  (add-to-list 'auto-mode-alist '("\\.react.js\\'" . react-mode))
+  (add-to-list 'magic-mode-alist '("/** @jsx React.DOM */" . react-mode))
+  (add-hook 'react-mode-hook 'spacemacs//react-config-web-mode))
