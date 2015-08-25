@@ -317,7 +317,7 @@ the focus."
           "mrpc" 'cljr-project-clean
           "mrpf" 'cljr-promote-function
           "mrrd" 'cljr-remove-debug-fns
-          "mrrf" 'cljr-rename-file
+          "mrrf" 'cljr-rename-file-or-dir
           "mrrl" 'cljr-remove-let
           "mrrr" 'cljr-remove-unused-requires
           "mrrs" 'cljr-rename-symbol
