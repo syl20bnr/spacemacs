@@ -1,5 +1,4 @@
 * Spacemacs conventions
-
 ** Table of Contents                                                 :TOC@4:
  - [[#spacemacs-conventions][Spacemacs conventions]]
      - [[#code-guidelines][Code guidelines]]
@@ -31,6 +30,7 @@
          - [[#tests][Tests]]
              - [[#all-languages][All languages]]
              - [[#language-specific][Language specific]]
+         - [[#toggles][Toggles]]
          - [[#refactoring][Refactoring]]
          - [[#help-or-documentation][Help or Documentation]]
      - [[#writing-documentation][Writing documentation]]
@@ -53,7 +53,6 @@ A package is initialized in a function with name =<layer>/init-xxx= where:
   - =xxx= is the package name
 
 ** Key bindings conventions
-
 *** Reserved prefix
 **** User prefix
 ~SPC o~ must not be used by any layer. It is reserved for the user.
@@ -298,6 +297,10 @@ buffer.
 
 Note that there are overlaps, depending on the language we will choose
 one or more bindings for the same thing
+
+*** Toggles
+- Global toggles are under ~SPC t~, ~SPC T~ and ~SPC C-t~
+- Major mode toggles are only under ~SPC m T~
 
 *** Refactoring
 Refactoring prefix is ~SPC m r~.
