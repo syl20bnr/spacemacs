@@ -21,6 +21,7 @@
         shell-pop
         term
         eshell
+        eshell-z
         eshell-prompt-extras
         esh-help
         magit
@@ -153,6 +154,9 @@ is achieved by adding the relevant text properties."
       (evil-define-key 'insert eshell-mode-map
         (kbd "C-k") 'eshell-previous-matching-input-from-input
         (kbd "C-j") 'eshell-next-matching-input-from-input))))
+
+(defun shell/init-eshell-z ()
+  (use-package eshell-z))
 
 (defun shell/init-esh-help ()
   (use-package esh-help
