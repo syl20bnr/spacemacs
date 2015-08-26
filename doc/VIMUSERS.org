@@ -2,35 +2,35 @@
  - [[#purpose-of-this-document][Purpose of this document]]
  - [[#philosophy][Philosophy]]
  - [[#basic-orientation][Basic orientation]]
-         - [[#terms][Terms]]
-             - [[#modes-vs-states][Modes vs. States]]
-             - [[#layers][Layers]]
-             - [[#micro-states][Micro-states]]
-         - [[#keybinding-conventions][Keybinding conventions]]
-         - [[#running-commands][Running commands]]
-         - [[#buffer-and-window-management][Buffer and window management]]
-             - [[#buffers][Buffers]]
-             - [[#windows][Windows]]
-         - [[#files][Files]]
-         - [[#the-help-system][The Help System]]
-         - [[#exploring][Exploring]]
+     - [[#terms][Terms]]
+       - [[#modes-vs-states][Modes vs. States]]
+       - [[#layers][Layers]]
+       - [[#micro-states][Micro-states]]
+     - [[#keybinding-conventions][Keybinding conventions]]
+     - [[#running-commands][Running commands]]
+     - [[#buffer-and-window-management][Buffer and window management]]
+       - [[#buffers][Buffers]]
+       - [[#windows][Windows]]
+     - [[#files][Files]]
+     - [[#the-help-system][The Help System]]
+     - [[#exploring][Exploring]]
  - [[#customization][Customization]]
-     - [[#the-spacemacs-file][The .spacemacs file]]
-     - [[#emacs-lisp][Emacs Lisp]]
-         - [[#variables][Variables]]
-         - [[#keybindings][Keybindings]]
-         - [[#functions][Functions]]
-     - [[#activating-a-layer][Activating a Layer]]
-     - [[#creating-a-layer][Creating a Layer]]
-     - [[#installing-a-single-package][Installing a single package]]
-     - [[#loading-packages][Loading packages]]
-     - [[#uninstalling-a-package][Uninstalling a package]]
-     - [[#common-tweaks][Common tweaks]]
-         - [[#changing-the-escape-key][Changing the escape key]]
-         - [[#changing-the-colorscheme][Changing the colorscheme]]
-         - [[#nohlsearch][Nohlsearch]]
-         - [[#sessions][Sessions]]
-         - [[#navigating-using-visual-lines][Navigating using visual lines]]
+   - [[#the-spacemacs-file][The .spacemacs file]]
+   - [[#emacs-lisp][Emacs Lisp]]
+     - [[#variables][Variables]]
+     - [[#keybindings][Keybindings]]
+     - [[#functions][Functions]]
+   - [[#activating-a-layer][Activating a Layer]]
+   - [[#creating-a-layer][Creating a Layer]]
+   - [[#installing-a-single-package][Installing a single package]]
+   - [[#loading-packages][Loading packages]]
+   - [[#uninstalling-a-package][Uninstalling a package]]
+   - [[#common-tweaks][Common tweaks]]
+     - [[#changing-the-escape-key][Changing the escape key]]
+     - [[#changing-the-colorscheme][Changing the colorscheme]]
+     - [[#nohlsearch][Nohlsearch]]
+     - [[#sessions][Sessions]]
+     - [[#navigating-using-visual-lines][Navigating using visual lines]]
  - [[#other-useful-links][Other useful links]]
 
 * Purpose of this document
@@ -98,11 +98,11 @@ the ~<Leader>~ key. All keybindings are mnemonic and are organized under the
 always under the ~SPC m~ prefix. A full list of conventions used in Spacemacs is
 [[./CONVENTIONS.org][here]]. Note that all keybindings can be changed.
 
-Spacemacs uses [[https://github.com/kai2nenobu/guide-key][guide-key]] to show available keybindings after a delay:
+Spacemacs uses [[https://github.com/justbur/emacs-which-key][which-key]] to show available keybindings after a delay:
 
-#+CAPTION: Guide-key window
+#+CAPTION: Which-key window
 
-[[file:img/guide-key.png]]
+[[file:img/which-key.png]]
 
 *** Running commands
 Emacs commands can be run using ~SPC :~. This will pop up a buffer using [[https://github.com/emacs-helm/helm][Helm]]
