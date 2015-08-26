@@ -27,6 +27,7 @@
     (spacemacs|add-company-hook react-mode))
 
   (defun react/post-init-company-tern ()
+    (add-hook 'react-mode-hook 'tern-mode)
     (push 'company-tern company-backends-react-mode)))
 
 (defun react/pre-init-flycheck ()
