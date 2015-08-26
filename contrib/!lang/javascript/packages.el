@@ -16,12 +16,12 @@
     company
     company-tern
     flycheck
+    js-doc
     js2-mode
     js2-refactor
     json-mode
     json-snatcher
     tern
-    js-doc
     web-beautify
     ))
 
@@ -42,10 +42,40 @@
                                      (setq indent-line-function 'javascript/coffee-indent
                                            evil-shift-width coffee-tab-width))))))
 
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun javascript/post-init-company ()
+    (spacemacs|add-company-hook js2-mode))
+
+  (defun javascript/init-company-tern ()
+    (use-package company-tern
+      :if (and (configuration-layer/package-usedp 'company)
+               (configuration-layer/package-usedp 'tern))
+      :defer t
+      :init
+      (push 'company-tern company-backends-js2-mode))))
+
 (defun javascript/post-init-flycheck ()
   (add-hook 'coffee-mode-hook 'flycheck-mode)
   (add-hook 'js2-mode-hook    'flycheck-mode)
   (add-hook 'json-mode-hook   'flycheck-mode))
+
+(defun javascript/init-js-doc ()
+  (use-package js-doc
+    :defer t
+    :init
+    (progn
+      (defun spacemacs/js-doc-require ()
+        "Lazy load js-doc"
+        (require 'js-doc))
+      (add-hook 'js2-mode-hook 'spacemacs/js-doc-require)
+
+      (defun spacemacs/js-doc-set-key-bindings (mode)
+        "Setup the key bindings for `js2-doc' for the given MODE."
+        (evil-leader/set-key-for-mode mode "mrdb" 'js-doc-insert-file-doc)
+        (evil-leader/set-key-for-mode mode "mrdf" 'js-doc-insert-function-doc)
+        (evil-leader/set-key-for-mode mode "mrdt" 'js-doc-insert-tag)
+        (evil-leader/set-key-for-mode mode "mrdh" 'js-doc-describe-tag))
+      (spacemacs/js-doc-set-key-bindings 'js2-mode))))
 
 (defun javascript/init-js2-mode ()
   (use-package js2-mode
@@ -162,24 +192,6 @@
       (evil-leader/set-key-for-mode 'js2-mode (kbd "m C-g") 'tern-pop-find-definition)
       (evil-leader/set-key-for-mode 'js2-mode "mht" 'tern-get-type))))
 
-(defun javascript/init-js-doc ()
-  (use-package js-doc
-    :defer t
-    :init
-    (progn
-      (defun spacemacs/js-doc-require ()
-          "Lazy load js-doc"
-        (require 'js-doc))
-      (add-hook 'js2-mode-hook 'spacemacs/js-doc-require)
-
-      (defun spacemacs/js-doc-set-key-bindings (mode)
-        "Setup the key bindings for `js2-doc' for the given MODE."
-        (evil-leader/set-key-for-mode mode "mrdb" 'js-doc-insert-file-doc)
-        (evil-leader/set-key-for-mode mode "mrdf" 'js-doc-insert-function-doc)
-        (evil-leader/set-key-for-mode mode "mrdt" 'js-doc-insert-tag)
-        (evil-leader/set-key-for-mode mode "mrdh" 'js-doc-describe-tag))
-      (spacemacs/js-doc-set-key-bindings 'js2-mode))))
-
 (defun javascript/init-web-beautify ()
   (use-package web-beautify
     :defer t
@@ -189,16 +201,3 @@
       (evil-leader/set-key-for-mode 'json-mode "m=" 'web-beautify-js)
       (evil-leader/set-key-for-mode 'web-mode  "m=" 'web-beautify-html)
       (evil-leader/set-key-for-mode 'css-mode  "m=" 'web-beautify-css))))
-
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun javascript/post-init-company ()
-    (spacemacs|add-company-hook js2-mode))
-
-  (defun javascript/init-company-tern ()
-    (use-package company-tern
-      :if (and (configuration-layer/package-usedp 'company)
-               (configuration-layer/package-usedp 'tern))
-      :defer t
-      :init
-      (push 'company-tern company-backends-js2-mode))))
