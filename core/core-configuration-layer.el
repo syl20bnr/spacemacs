@@ -140,10 +140,10 @@ directory with a name starting with `!'.")
   ;; packages
   (setq configuration-layer--packages (configuration-layer//declare-packages
                                       configuration-layer--layers))
-  (configuration-layer//load-packages configuration-layer--packages)
   (setq configuration-layer--used-distant-packages
         (configuration-layer//get-distant-used-packages
          configuration-layer--packages))
+  (configuration-layer//load-packages configuration-layer--packages)
   (when dotspacemacs-delete-orphan-packages
     (configuration-layer/delete-orphan-packages configuration-layer--packages)))
 
@@ -477,24 +477,38 @@ path."
                  dotspacemacs-configuration-layers)
                 configuration-layer--layers)))
 
+(defun configuration-layer/declare-layers (layer-names)
+  "Add layer with LAYER-NAMES to used layers."
+  (mapc 'configuration-layer/declare-layer layer-names))
+
+(defun configuration-layer/declare-layer (layer-name)
+  "Declare a single layer"
+  (unless (object-assoc layer-name :name configuration-layer--layers)
+    (let ((new-layer (configuration-layer/make-layer layer-name)))
+      (push new-layer configuration-layer--layers)
+      (configuration-layer//configure-layer new-layer))))
+
 (defun configuration-layer//set-layers-variables (layers)
   "Set the configuration variables for the passed LAYERS."
-  (dolist (layer layers)
-    (let ((variables (oref layer :variables)))
-      (while variables
-        (let ((var (pop variables)))
-          (if (consp variables)
-              (condition-case err
-                  (set-default var (eval (pop variables)))
-                ('error
-                 (configuration-layer//set-error)
-                 (spacemacs-buffer/append
-                  (format (concat "An error occurred while setting layer "
-                                  "variable %s "
-                                  "(error: %s). Be sure to quote the value "
-                                  "if needed.\n") var err))))
-            (spacemacs-buffer/warning "Missing value for variable %s !"
-                                      var)))))))
+  (mapc 'configuration-layer//set-layer-variables layers))
+
+(defun configuration-layer//set-layer-variables (layer)
+  "Set the configuration variables for the passed LAYER."
+  (let ((variables (oref layer :variables)))
+    (while variables
+      (let ((var (pop variables)))
+        (if (consp variables)
+            (condition-case err
+                (set-default var (eval (pop variables)))
+              ('error
+               (configuration-layer//set-error)
+               (spacemacs-buffer/append
+                (format (concat "An error occurred while setting layer "
+                                "variable %s "
+                                "(error: %s). Be sure to quote the value "
+                                "if needed.\n") var err))))
+          (spacemacs-buffer/warning "Missing value for variable %s !"
+                                    var))))))
 
 (defun configuration-layer/layer-usedp (name)
   "Return non-nil if NAME is the name of a used layer."
@@ -509,23 +523,26 @@ path."
   "Configure LAYERS."
   ;; FIFO loading of layers, this allow the user to put her layers at the
   ;; end of the list to override previous layers.
-  (let ((l (reverse layers))
-        (warning-minimum-level :error))
-    (configuration-layer//set-layers-variables l)
-    ;; first load all the config files ...
-    (configuration-layer//load-layers-files l '("funcs.el"
-                                                "config.el"
-                                                "keybindings.el"))))
+  (let ((warning-minimum-level :error))
+    (dolist (l (reverse layers))
+      (configuration-layer//configure-layer l))))
+
+(defun configuration-layer//configure-layer (layer)
+  "Configure LAYER."
+  (configuration-layer//set-layer-variables layer)
+  (configuration-layer//load-layer-files layer '("funcs.el"
+                                                 "config.el"
+                                                 "keybindings.el")))
 
 (defun configuration-layer//declare-packages (layers)
   "Declare all packages contained in LAYERS."
-  (let ((l (reverse layers))
+  (let ((layers2 (reverse layers))
         (warning-minimum-level :error))
     ;; TODO remove extensions in 0.105.0
-    (configuration-layer//load-layers-files l '("packages.el" "extensions.el"))
+    (configuration-layer//load-layers-files layers2 '("packages.el" "extensions.el"))
     ;; gather all the packages of current layer
     (configuration-layer//sort-packages (configuration-layer/get-packages
-                                         l t))))
+                                         layers2 t))))
 
 (defun configuration-layer//load-packages (packages)
   "Load PACKAGES."
