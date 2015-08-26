@@ -59,6 +59,7 @@
        - [[#battery-status-integration][Battery status integration]]
        - [[#powerline-separators][Powerline separators]]
        - [[#minor-modes][Minor Modes]]
+       - [[#customizing-the-mode-line][Customizing the mode-line]]
  - [[#commands][Commands]]
    - [[#vim-key-bindings][Vim key bindings]]
      - [[#escaping][Escaping]]
@@ -813,15 +814,16 @@ The mode line is a heavily customized [[https://github.com/milkypostman/powerlin
 
 Reminder of the color codes for the states:
 
-| Evil State           | Color    |
-|----------------------+----------|
-| Normal               | Orange   |
-| Insert               | Green    |
-| Visual               | Grey     |
-| Emacs                | Blue     |
-| Motion               | Purple   |
-| Lisp                 | Pink     |
-| Iedit/Iedit-Insert   | Red      |
+| Evil State         | Color     |
+|--------------------+-----------|
+| Normal             | Orange    |
+| Insert             | Green     |
+| Visual             | Grey      |
+| Emacs              | Blue      |
+| Motion             | Purple    |
+| Replace            | Chocolate |
+| Lisp               | Pink      |
+| Iedit/Iedit-Insert | Red       |
 
 Some elements can be dynamically toggled:
 
@@ -947,6 +949,54 @@ can be reached using the =control= key.
 | ~SPC t w~   | =ⓦ=     | w     | whitespace mode                             |
 | ~SPC t C-w~ | =Ⓦ=     | W     | global whitespace                           |
 | ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                              |
+
+**** Customizing the mode-line
+The mode-line consists of a number of /segments/ arranged on the left and right
+sides. These are defined in the variables =spacemacs-mode-line-left= and
+=spacemacs-mode-line-right=.
+
+To collect several segments together, use a list. Powerline separators are
+inserted between each /top-level/ segment. This allows you to group segments
+together without graphical separators between.
+#+begin_src emacs-lisp
+  (segment-a segment-b segment-c)
+#+end_src
+
+Properties can be applied to segments as well, e.g.
+#+begin_src emacs-lisp
+  (segment :property value :other-property other-value)
+#+end_src
+or for a list,
+#+begin_src emacs-lisp
+  ((segment-a segment-b)
+   :property value
+   :other-property other-value)
+#+end_src
+
+The available properties are all optional.
+- =:fallback= :: defines another segment to fall back on if the original segment
+     should produce no output.
+- =:separator= :: override the default separator between segments (does not
+     apply to the graphical powerline separators).
+- =:face= :: the face to render the segment with. This is a form that can be
+     evaluated, so for a literal face make sure it is quoted.
+- =:when= :: A form whose value determines whether the segment is shown or not.
+- =:tight= :: Set to true if the segment must be rendered with no 'breathing
+     room' on the sides. Use =:tight-left= and =:tight-right= for finer control.
+
+Segments themselves can be defined using =spacemacs|define-mode-line-segment=.
+Properties can also be specified there. For example,
+#+begin_src emacs-lisp
+  (spacemacs|define-mode-line-segment name
+    value-of-segment
+    :face state-face)
+#+end_src
+
+During evaluation of segments, the following additional bindings are useful.
+- =default-face= :: The default face to use for this segment.
+- =other-face= :: The 'other' face (the default face for the neighboring segments).
+- =state-face= :: The face representing the current evil state.
+- =active= :: Whether the window is currently active or not.
 
 * Commands
 ** Vim key bindings
