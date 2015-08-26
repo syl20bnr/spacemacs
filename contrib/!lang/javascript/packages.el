@@ -72,68 +72,70 @@
     :defer t
     :init
     (progn
-      (defun javascript/load-js2-refactor ()
+      (defun spacemacs/js2-refactor-require ()
         "Lazy load js2-refactor"
         (require 'js2-refactor))
-      (add-hook 'js2-mode-hook 'javascript/load-js2-refactor))
-    :init
-    (progn
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mr3" "ternary")
-      (evil-leader/set-key-for-mode 'js2-mode "mr3i" 'js2r-ternary-to-if)
+      (add-hook 'js2-mode-hook 'spacemacs/js2-refactor-require)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mra" "add/args")
-      (evil-leader/set-key-for-mode 'js2-mode "mrag" 'js2r-add-to-globals-annotation)
-      (evil-leader/set-key-for-mode 'js2-mode "mrao" 'js2r-arguments-to-object)
+      (defun spacemacs/js2-refactor-set-key-bindings (mode)
+        (spacemacs/declare-prefix-for-mode mode "mr3" "ternary")
+        (evil-leader/set-key-for-mode mode "mr3i" 'js2r-ternary-to-if)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrb" "barf")
-      (evil-leader/set-key-for-mode 'js2-mode "mrba" 'js2r-forward-barf)
+        (spacemacs/declare-prefix-for-mode mode "mra" "add/args")
+        (evil-leader/set-key-for-mode mode "mrag" 'js2r-add-to-globals-annotation)
+        (evil-leader/set-key-for-mode mode "mrao" 'js2r-arguments-to-object)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrc" "contract")
-      (evil-leader/set-key-for-mode 'js2-mode "mrca" 'js2r-contract-array)
-      (evil-leader/set-key-for-mode 'js2-mode "mrco" 'js2r-contract-object)
-      (evil-leader/set-key-for-mode 'js2-mode "mrcu" 'js2r-contract-function)
+        (spacemacs/declare-prefix-for-mode mode "mrb" "barf")
+        (evil-leader/set-key-for-mode mode "mrba" 'js2r-forward-barf)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mre" "expand/extract")
-      (evil-leader/set-key-for-mode 'js2-mode "mrea" 'js2r-expand-array)
-      (evil-leader/set-key-for-mode 'js2-mode "mref" 'js2r-extract-function)
-      (evil-leader/set-key-for-mode 'js2-mode "mrem" 'js2r-extract-method)
-      (evil-leader/set-key-for-mode 'js2-mode "mreo" 'js2r-expand-object)
-      (evil-leader/set-key-for-mode 'js2-mode "mreu" 'js2r-expand-function)
-      (evil-leader/set-key-for-mode 'js2-mode "mrev" 'js2r-extract-var)
+        (spacemacs/declare-prefix-for-mode mode "mrc" "contract")
+        (evil-leader/set-key-for-mode mode "mrca" 'js2r-contract-array)
+        (evil-leader/set-key-for-mode mode "mrco" 'js2r-contract-object)
+        (evil-leader/set-key-for-mode mode "mrcu" 'js2r-contract-function)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mri" "inline/inject/introduct")
-      (evil-leader/set-key-for-mode 'js2-mode "mrig" 'js2r-inject-global-in-iife)
-      (evil-leader/set-key-for-mode 'js2-mode "mrip" 'js2r-introduce-parameter)
-      (evil-leader/set-key-for-mode 'js2-mode "mriv" 'js2r-inline-var)
+        (spacemacs/declare-prefix-for-mode mode "mre" "expand/extract")
+        (evil-leader/set-key-for-mode mode "mrea" 'js2r-expand-array)
+        (evil-leader/set-key-for-mode mode "mref" 'js2r-extract-function)
+        (evil-leader/set-key-for-mode mode "mrem" 'js2r-extract-method)
+        (evil-leader/set-key-for-mode mode "mreo" 'js2r-expand-object)
+        (evil-leader/set-key-for-mode mode "mreu" 'js2r-expand-function)
+        (evil-leader/set-key-for-mode mode "mrev" 'js2r-extract-var)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrl" "localize/log")
-      (evil-leader/set-key-for-mode 'js2-mode "mrlp" 'js2r-localize-parameter)
-      (evil-leader/set-key-for-mode 'js2-mode "mrlt" 'js2r-log-this)
+        (spacemacs/declare-prefix-for-mode mode "mri" "inline/inject/introduct")
+        (evil-leader/set-key-for-mode mode "mrig" 'js2r-inject-global-in-iife)
+        (evil-leader/set-key-for-mode mode "mrip" 'js2r-introduce-parameter)
+        (evil-leader/set-key-for-mode mode "mriv" 'js2r-inline-var)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrr" "rename")
-      (evil-leader/set-key-for-mode 'js2-mode "mrrv" 'js2r-rename-var)
+        (spacemacs/declare-prefix-for-mode mode "mrl" "localize/log")
+        (evil-leader/set-key-for-mode mode "mrlp" 'js2r-localize-parameter)
+        (evil-leader/set-key-for-mode mode "mrlt" 'js2r-log-this)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrs" "split/slurp")
-      (evil-leader/set-key-for-mode 'js2-mode "mrsl" 'js2r-forward-slurp)
-      (evil-leader/set-key-for-mode 'js2-mode "mrss" 'js2r-split-string)
-      (evil-leader/set-key-for-mode 'js2-mode "mrsv" 'js2r-split-var-declaration)
+        (spacemacs/declare-prefix-for-mode mode "mrr" "rename")
+        (evil-leader/set-key-for-mode mode "mrrv" 'js2r-rename-var)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrt" "toggle")
-      (evil-leader/set-key-for-mode 'js2-mode "mrtf" 'js2r-toggle-function-expression-and-declaration)
+        (spacemacs/declare-prefix-for-mode mode "mrs" "split/slurp")
+        (evil-leader/set-key-for-mode mode "mrsl" 'js2r-forward-slurp)
+        (evil-leader/set-key-for-mode mode "mrss" 'js2r-split-string)
+        (evil-leader/set-key-for-mode mode "mrsv" 'js2r-split-var-declaration)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mru" "unwrap")
-      (evil-leader/set-key-for-mode 'js2-mode "mruw" 'js2r-unwrap)
+        (spacemacs/declare-prefix-for-mode mode "mrt" "toggle")
+        (evil-leader/set-key-for-mode mode "mrtf" 'js2r-toggle-function-expression-and-declaration)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrv" "var")
-      (evil-leader/set-key-for-mode 'js2-mode "mrvt" 'js2r-var-to-this)
+        (spacemacs/declare-prefix-for-mode mode "mru" "unwrap")
+        (evil-leader/set-key-for-mode mode "mruw" 'js2r-unwrap)
 
-      (spacemacs/declare-prefix-for-mode 'js2-mode "mrw" "wrap")
-      (evil-leader/set-key-for-mode 'js2-mode "mrwi" 'js2r-wrap-buffer-in-iife)
-      (evil-leader/set-key-for-mode 'js2-mode "mrwl" 'js2r-wrap-in-for-loop)
+        (spacemacs/declare-prefix-for-mode mode "mrv" "var")
+        (evil-leader/set-key-for-mode mode "mrvt" 'js2r-var-to-this)
 
-      (evil-leader/set-key-for-mode 'js2-mode "mk" 'js2r-kill)
-      (evil-leader/set-key-for-mode 'js2-mode "xmj" 'js2r-move-line-down)
-      (evil-leader/set-key-for-mode 'js2-mode "xmk" 'js2r-move-line-up))))
+        (spacemacs/declare-prefix-for-mode mode "mrw" "wrap")
+        (evil-leader/set-key-for-mode mode "mrwi" 'js2r-wrap-buffer-in-iife)
+        (evil-leader/set-key-for-mode mode "mrwl" 'js2r-wrap-in-for-loop)
+
+        (evil-leader/set-key-for-mode mode "mk" 'js2r-kill)
+        (evil-leader/set-key-for-mode mode "xmj" 'js2r-move-line-down)
+        (evil-leader/set-key-for-mode mode "xmk" 'js2r-move-line-up))
+
+      (spacemacs/js2-refactor-set-key-bindings 'js2-mode))))
 
 (defun javascript/init-json-mode ()
   (use-package json-mode
@@ -165,16 +167,18 @@
     :defer t
     :init
     (progn
-      (defun javascript/load-js-doc ()
+      (defun spacemacs/js-doc-require ()
           "Lazy load js-doc"
         (require 'js-doc))
-      (add-hook 'js2-mode-hook 'javascript/load-js-doc))
-    :config
-    (progn
-      (evil-leader/set-key-for-mode 'js2-mode "mrdb" 'js-doc-insert-file-doc)
-      (evil-leader/set-key-for-mode 'js2-mode "mrdf" 'js-doc-insert-function-doc)
-      (evil-leader/set-key-for-mode 'js2-mode "mrdt" 'js-doc-insert-tag)
-      (evil-leader/set-key-for-mode 'js2-mode "mrdh" 'js-doc-describe-tag))))
+      (add-hook 'js2-mode-hook 'spacemacs/js-doc-require)
+
+      (defun spacemacs/js-doc-set-key-bindings (mode)
+        "Setup the key bindings for `js2-doc' for the given MODE."
+        (evil-leader/set-key-for-mode mode "mrdb" 'js-doc-insert-file-doc)
+        (evil-leader/set-key-for-mode mode "mrdf" 'js-doc-insert-function-doc)
+        (evil-leader/set-key-for-mode mode "mrdt" 'js-doc-insert-tag)
+        (evil-leader/set-key-for-mode mode "mrdh" 'js-doc-describe-tag))
+      (spacemacs/js-doc-set-key-bindings 'js2-mode))))
 
 (defun javascript/init-web-beautify ()
   (use-package web-beautify
