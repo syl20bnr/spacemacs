@@ -25,7 +25,8 @@
   (thanks to nashamri)
 - Add support for dotdirectory =~/.spacemacs.d= which behaves like the Emacs
   dotdirectory (i.e. =~/.spacemacs.d/init.el= is evaluated instead of
-  =~/.spacemacs= (thanks to justbur)
+  =~/.spacemacs= if the former exists and the latter does not) (thanks to
+  justbur)
 - Guide-key is replaced by =which-key= which is now the preferred live help
   package for key bindings (thanks to justbur)
 - Whole new API to manage the =powerline= mode-line. It is now possible to
