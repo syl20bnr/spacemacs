@@ -28,6 +28,7 @@
      - [[#using-a-personal-branch][Using a personal branch]]
  - [[#dotfile-configuration][Dotfile Configuration]]
    - [[#installation][Installation]]
+     - [[#alternative-setup][Alternative setup]]
    - [[#synchronization-of-dotfile-changes][Synchronization of dotfile changes]]
    - [[#content][Content]]
      - [[#using-configuration-layers][Using configuration layers]]
@@ -441,6 +442,20 @@ manually from the template file =~/.emacs.d/core/templates/.spacemacs.template=
 #+begin_src sh
     $ cp ~/.emacs.d/core/templates/.spacemacs.template ~/.spacemacs
 #+end_src
+
+*** Alternative setup
+Since v0.104 you have the option of using =~/.spacemacs.d/init.el= for your
+dotfile instead of =~/.spacemacs=. If you want to use this option, simply move
+=~/.spacemacs= to =~/.spacemacs.d/init.el=. =~/.spacemacs= will always take
+priority over =~/.spacemacs.d/init.el=, so =~/.spacemacs= must be missing for
+=~/.spacemacs.d/init.el= to be used by spacemacs.
+
+If you use this option, everything that applies to =~/.spacemacs= in this guide
+will now apply to =~/.spacemacs.d/init.el=.
+
+It is also possible to override the location of =~/.spacemacs.d/= using the
+environment variable =SPACEMACSDIR=. Of course you can also use symlinks to
+change the location of this directory.
 
 ** Synchronization of dotfile changes
 To apply the modifications made in =~/.spacemacs= press ~SPC f e R~. It will
