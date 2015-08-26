@@ -110,11 +110,14 @@
              :type boolean
              :documentation "If non-nil this package is ignored.")))
 
-(defvar configuration-layer-layers '()
+(defvar configuration-layer--layers '()
   "A non-sorted list of `cfgl-layer' objects.")
 
-(defvar configuration-layer-packages '()
+(defvar configuration-layer--packages '()
   "An alphabetically sorted list of `cfgl-package' objects.")
+
+(defvar configuration-layer--used-distant-packages '()
+  "A list of all distant packages that are effectively used.")
 
 (defvar configuration-layer-error-count nil
   "Non nil indicates the number of errors occurred during the
@@ -132,14 +135,17 @@ directory with a name starting with `!'.")
   "Synchronize declared layers in dotfile with spacemacs."
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
   ;; layers
-  (setq configuration-layer-layers (configuration-layer//declare-layers))
-  (configuration-layer//configure-layers configuration-layer-layers)
+  (setq configuration-layer--layers (configuration-layer//declare-layers))
+  (configuration-layer//configure-layers configuration-layer--layers)
   ;; packages
-  (setq configuration-layer-packages (configuration-layer//declare-packages
-                                      configuration-layer-layers))
-  (configuration-layer//load-packages configuration-layer-packages)
+  (setq configuration-layer--packages (configuration-layer//declare-packages
+                                      configuration-layer--layers))
+  (configuration-layer//load-packages configuration-layer--packages)
+  (setq configuration-layer--used-distant-packages
+        (configuration-layer//get-distant-used-packages
+         configuration-layer--packages))
   (when dotspacemacs-delete-orphan-packages
-    (configuration-layer/delete-orphan-packages configuration-layer-packages)))
+    (configuration-layer/delete-orphan-packages configuration-layer--packages)))
 
 (defun configuration-layer/create-layer ()
   "Ask the user for a configuration layer name and the layer
@@ -338,6 +344,13 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
                    packages
                    :initial-value nil)))
 
+(defun configuration-layer//get-distant-used-packages (packages)
+  "Return the distant packages (ie to be intalled) that are effectively used."
+  (configuration-layer/filter-packages
+   packages (lambda (x) (and (not (null (oref x :owner)))
+                             (not (eq 'local (oref x :location)))
+                             (not (oref x :excluded))))))
+
 (defun configuration-layer//get-private-layer-dir (name)
   "Return an absolute path the the private configuration layer with name
 NAME."
@@ -457,12 +470,12 @@ path."
       (setq dotspacemacs-configuration-layers
             ;; spacemacs is contained in configuration-layer-paths
             (ht-keys configuration-layer-paths))
-    (setq configuration-layer-layers
+    (setq configuration-layer--layers
           (list (configuration-layer/make-layer 'spacemacs))))
-  (setq configuration-layer-layers
+  (setq configuration-layer--layers
         (append (configuration-layer//make-layers
                  dotspacemacs-configuration-layers)
-                configuration-layer-layers)))
+                configuration-layer--layers)))
 
 (defun configuration-layer//set-layers-variables (layers)
   "Set the configuration variables for the passed LAYERS."
@@ -485,11 +498,11 @@ path."
 
 (defun configuration-layer/layer-usedp (name)
   "Return non-nil if NAME is the name of a used layer."
-  (not (null (object-assoc name :name configuration-layer-layers))))
+  (not (null (object-assoc name :name configuration-layer--layers))))
 
 (defun configuration-layer/package-usedp (name)
   "Return non-nil if NAME is the name of a used package."
-  (let ((obj (object-assoc name :name configuration-layer-packages)))
+  (let ((obj (object-assoc name :name configuration-layer--packages)))
     (when obj (oref obj :owner))))
 
 (defun configuration-layer//configure-layers (layers)
@@ -536,19 +549,16 @@ path."
 
 (defun configuration-layer/configured-packages-count ()
   "Return the number of configured packages."
-  (length configuration-layer-packages))
+  (length configuration-layer--packages))
 
 (defun configuration-layer//install-packages (packages)
   "Install PACKAGES."
   (interactive)
-  (let* ((candidates
-          (configuration-layer/filter-packages
-           packages
-           (lambda (x) (and (not (null (oref x :owner)))
-                            (not (eq 'local (oref x :location)))
-                            (not (oref x :excluded))))))
-         (noinst-pkg-names (configuration-layer//get-uninstalled-packages
-                            (mapcar 'car (object-assoc-list :name candidates))))
+  (let* ((noinst-pkg-names
+          (configuration-layer//get-uninstalled-packages
+           (mapcar 'car
+                   (object-assoc-list
+                    :name configuration-layer--used-distant-packages))))
          (noinst-count (length noinst-pkg-names)))
     ;; installation
     (when noinst-pkg-names
@@ -562,7 +572,7 @@ path."
       (setq installed-count 0)
       (dolist (pkg-name noinst-pkg-names)
         (setq installed-count (1+ installed-count))
-        (let* ((pkg (object-assoc pkg-name :name configuration-layer-packages))
+        (let* ((pkg (object-assoc pkg-name :name configuration-layer--packages))
                (layer (when pkg (oref pkg :owner)))
                (location (when pkg (oref pkg :location))))
           (spacemacs-buffer/replace-last-line
@@ -636,14 +646,14 @@ path."
 
 (defun configuration-layer//package-has-recipe-p (pkg-name)
   "Return non nil if PKG-NAME is the name of a package declared with a recipe."
-  (when (object-assoc pkg-name :name configuration-layer-packages)
-    (let* ((pkg (object-assoc pkg-name :name configuration-layer-packages))
+  (when (object-assoc pkg-name :name configuration-layer--packages)
+    (let* ((pkg (object-assoc pkg-name :name configuration-layer--packages))
            (location (oref pkg :location)))
       (and (listp location) (eq 'recipe (car location))))))
 
 (defun configuration-layer//get-package-recipe (pkg-name)
   "Return the recipe for PGK-NAME if it has one."
-  (let ((pkg (object-assoc pkg-name :name configuration-layer-packages)))
+  (let ((pkg (object-assoc pkg-name :name configuration-layer--packages)))
     (when pkg
       (let ((location (oref pkg :location)))
         (when (and (listp location) (eq 'recipe (car location)))
@@ -699,7 +709,7 @@ path."
          (format "%S is configured in the dotfile." pkg-name)))
        ((eq 'local (oref pkg :location))
         (let* ((owner (object-assoc (oref pkg :owner)
-                                    :name configuration-layer-layers))
+                                    :name configuration-layer--layers))
                (dir (oref owner :dir)))
           (push (format "%slocal/%S/" dir pkg-name) load-path)
           ;; TODO remove extensions in 0.105.0
@@ -758,13 +768,10 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
    "--> fetching new package repository indexes...\n")
   (spacemacs//redisplay)
   (package-refresh-contents)
-  (let* ((candidates (configuration-layer/filter-packages
-                      configuration-layer-packages
-                      (lambda (x) (and (not (null (oref x :owner)))
-                                       (not (eq 'local (oref x :location)))
-                                       (not (oref x :excluded))))))
-         (update-packages (configuration-layer//get-packages-to-update
-                           (mapcar 'car (object-assoc-list :name candidates))))
+  (let* ((update-packages
+          (configuration-layer//get-packages-to-update
+           (mapcar 'car (object-assoc-list
+                         :name configuration-layer--used-distant-packages))))
          (date (format-time-string "%y-%m-%d_%H.%M.%S"))
          (rollback-dir (expand-file-name
                         (concat configuration-layer-rollback-directory
@@ -899,11 +906,11 @@ to select one."
 
 (defun configuration-layer/get-layer-property (layer slot)
   "Return the value of SLOT for the given LAYER."
-  (slot-value (object-assoc layer :name configuration-layer-layers) slot))
+  (slot-value (object-assoc layer :name configuration-layer--layers) slot))
 
 (defun configuration-layer/get-layer-local-dir (layer)
   "Return the value of SLOT for the given LAYER."
-  (concat (slot-value (object-assoc layer :name configuration-layer-layers)
+  (concat (slot-value (object-assoc layer :name configuration-layer--layers)
                       :dir) "local/"))
 
 (defun configuration-layer/get-layer-path (layer)
@@ -933,25 +940,27 @@ to select one."
           (add-to-list 'imp-pkgs pkg-sym))))
     imp-pkgs))
 
-(defun configuration-layer//get-orphan-packages (implicit-pkgs dependencies)
+(defun configuration-layer//get-orphan-packages
+    (dist-pkgs implicit-pkgs dependencies)
   "Return orphan packages."
   (let (result)
     (dolist (imp-pkg implicit-pkgs)
-      (when (configuration-layer//is-package-orphan imp-pkg dependencies)
+      (when (configuration-layer//is-package-orphan
+             imp-pkg dist-pkgs dependencies)
         (add-to-list 'result imp-pkg)))
     result))
 
-(defun configuration-layer//is-package-orphan (pkg-name dependencies)
+(defun configuration-layer//is-package-orphan (pkg-name dist-pkgs dependencies)
   "Returns not nil if PKG-NAME is the name of an orphan package."
-  (unless (object-assoc pkg-name :name configuration-layer-packages)
+  (unless (object-assoc pkg-name :name dist-pkgs)
     (if (ht-contains? dependencies pkg-name)
         (let ((parents (ht-get dependencies pkg-name)))
           (reduce (lambda (x y) (and x y))
                   (mapcar (lambda (p) (configuration-layer//is-package-orphan
-                                       p dependencies))
+                                       p dist-pkgs dependencies))
                           parents)
                   :initial-value t))
-      (not (object-assoc pkg-name :name configuration-layer-packages)))))
+      (not (object-assoc pkg-name :name dist-pkgs)))))
 
 (defun configuration-layer//get-package-directory (pkg-name)
   "Return the directory path for package with name PKG-NAME."
@@ -1044,10 +1053,12 @@ Returns the filtered list."
   (interactive)
   (let* ((dependencies (configuration-layer//get-all-packages-dependencies))
          (implicit-packages (configuration-layer//get-implicit-packages
-                             packages))
+                             configuration-layer--used-distant-packages))
          (orphans (configuration-layer//filter-used-themes
-                   (configuration-layer//get-orphan-packages implicit-packages
-                                                             dependencies)))
+                   (configuration-layer//get-orphan-packages
+                    configuration-layer--used-distant-packages
+                    implicit-packages
+                    dependencies)))
          (orphans-count (length orphans)))
     ;; (message "dependencies: %s" dependencies)
     ;; (message "implicit: %s" implicit-packages)
