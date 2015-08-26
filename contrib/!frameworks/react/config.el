@@ -10,6 +10,10 @@
 ;;
 ;;; License: GPLv3
 
+;; Prerequisites
+
+(configuration-layer/declare-layers '(html javascript))
+
 ;; Variables
 
 (spacemacs|defvar-company-backends react-mode)
