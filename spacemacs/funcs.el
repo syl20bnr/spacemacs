@@ -62,6 +62,7 @@
 
 (defvar spacemacs/prefix-command-string "group:"
   "Prefix string for prefix commands.")
+(defvar spacemacs/prefix-titles (list))
 
 (defun spacemacs/jump-in-buffer ()
   (interactive)
@@ -71,14 +72,20 @@
    (t
     (call-interactively 'helm-semantic-or-imenu))))
 
-(defun spacemacs/declare-prefix (prefix name)
-  "Declare a prefix PREFIX. PREFIX is a string describing
-a key sequence. NAME is a symbol name used as the prefix command."
-  (let ((command (intern (concat spacemacs/prefix-command-string name))))
+(defun spacemacs/declare-prefix (prefix name &optional long-name)
+  "Declare a prefix PREFIX. PREFIX is a string describing a key
+sequence. NAME is a symbol name used as the prefix command.
+LONG-NAME if given is stored in `spacemacs/prefix-command-alist'."
+  (let ((command (intern (concat spacemacs/prefix-command-string name)))
+        (full-prefix-vim (listify-key-sequence (kbd (concat dotspacemacs-leader-key " " prefix))))
+        (full-prefix-emacs (listify-key-sequence (kbd (concat dotspacemacs-emacs-leader-key " " prefix)))))
     ;; define the prefix command only if it does not already exist
+    (unless long-name (setq long-name name))
     (unless (lookup-key evil-leader--default-map prefix)
       (define-prefix-command command)
-      (evil-leader/set-key prefix command))))
+      (evil-leader/set-key prefix command)
+      (push (cons full-prefix-vim long-name) spacemacs/prefix-titles)
+      (push (cons full-prefix-emacs long-name) spacemacs/prefix-titles))))
 
 (defun spacemacs/declare-prefix-for-mode (mode prefix name)
   ;;   "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
