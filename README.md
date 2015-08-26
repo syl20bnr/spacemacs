@@ -455,7 +455,7 @@ function of a package.
 
 ## Key bindings discovery
 
-Thanks to [guide-key][], whenever a prefix command is pressed (like `SPC`)
+Thanks to [which-key][], whenever a prefix command is pressed (like `SPC`)
 a buffer appears after one second listing the possible keys for this prefix.
 
 It is also possible to search for specific key bindings by pressing:
@@ -598,8 +598,7 @@ details.
 [dotfile template]: ./core/templates/.spacemacs.template
 [install OSX section]: https://github.com/syl20bnr/spacemacs#os-x
 [osx layer]: contrib/osx/README.org
-[guide-key]: https://github.com/kai2nenobu/guide-key
-[guide-key-tip]: https://github.com/aki2o/guide-key-tip
+[which-key]: https://github.com/justbur/emacs-which-key
 [evil-nerd-commenter]: https://github.com/redguardtoo/evil-nerd-commenter
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [Gitter Chat IRC server]: https://irc.gitter.im/
