@@ -4,9 +4,9 @@
  - [[#description][Description]]
  - [[#features][Features]]
  - [[#list-of-todos][List of TODOS]]
-     - [[#todo-maybe-itd-be-better-if-there-was-a-state-for-this][TODO Maybe it'd be better if there was a state for this]]
-     - [[#todo-make-more-keybinding-to-connect-to-a-python-buffer][TODO Make more keybinding to =connect= to a python buffer.]]
-     - [[#todo-deleting-visual-regions-dont-work-find-out-why][TODO Deleting visual regions don't work, find out why.]]
+     - [[#maybe-itd-be-better-if-there-was-a-state-for-this][Maybe it'd be better if there was a state for this]]
+     - [[#make-more-keybinding-to-connect-to-a-python-buffer][Make more keybinding to =connect= to a python buffer.]]
+     - [[#deleting-visual-regions-dont-work-find-out-why][Deleting visual regions don't work, find out why.]]
  - [[#install][Install]]
      - [[#layer][Layer]]
      - [[#dependencies][Dependencies]]
@@ -84,8 +84,8 @@ prefix with ~SPC m~ to use with your evil-leader.
 | ~R~     | ein:worksheet-rename-sheet                |
 | ~y~     | ein:worksheet-copy-cell                   |
 | ~p~     | ein:worksheet-yank-cell                   |
-| ~o~     | ein:worksheet-insert-cell-below           |
-| ~O~     | ein:worksheet-insert-cell-above           |
+| ~i~     | ein:worksheet-insert-cell-below           |
+| ~I~     | ein:worksheet-insert-cell-above           |
 | ~u~     | ein:worksheet-change-cell-type            |
 | ~RET~   | ein:worksheet-execute-cell-and-goto-next  |
 | ~C-l~   | ein:worksheet-clear-output                |

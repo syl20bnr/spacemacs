@@ -94,6 +94,6 @@
     (progn
       ;; setup org-mime
       (evil-leader/set-key-for-mode 'message-mode
-        "mo" 'org-mime-htmlize)
+        "mh" 'org-mime-htmlize)
       (evil-leader/set-key-for-mode 'org-mode
         "mH" 'org-mime-org-buffer-htmlize))))
