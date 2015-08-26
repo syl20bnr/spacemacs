@@ -13,28 +13,28 @@
 (require 'core-configuration-layer)
 
 ;; ---------------------------------------------------------------------------
-;; configuration-layer//declare-layers
+;; configuration-layer//make-layers
 ;; ---------------------------------------------------------------------------
 
-(ert-deftest test-declare-layers--result-order-is-not-reversed ()
+(ert-deftest test-make-layers--result-order-is-not-reversed ()
   (mocker-let ((configuration-layer/make-layer
                 (x)
-                ((:input '(layer3) :output 'layer3)
+                ((:input '(layer1) :output 'layer1)
                  (:input '(layer2) :output 'layer2)
-                 (:input '(layer1) :output 'layer1))))
+                 (:input '(layer3) :output 'layer3))))
     (let* ((input '(layer1 layer2 layer3))
-           (result (configuration-layer//declare-layers input)))
+           (result (configuration-layer//make-layers input)))
       (should (equal result input)))))
 
-(ert-deftest test-declare-layers--ignore-not-found-layer ()
+(ert-deftest test-make-layers--ignore-not-found-layer ()
   (mocker-let ((configuration-layer/make-layer
                 (x)
-                ((:input '(layer3) :output 'layer3)
+                ((:input '(layer1) :output 'layer1)
                  (:input '(layer2-not-found) :output nil)
-                 (:input '(layer1) :output 'layer1))))
+                 (:input '(layer3) :output 'layer3))))
               (let* ((input '(layer1 layer2-not-found layer3))
                      (expected '(layer1 layer3))
-                     (result (configuration-layer//declare-layers input)))
+                     (result (configuration-layer//make-layers input)))
                 (should (equal result expected)))))
 
 ;; ---------------------------------------------------------------------------

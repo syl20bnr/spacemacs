@@ -131,8 +131,13 @@ directory with a name starting with `!'.")
 (defun configuration-layer/sync ()
   "Synchronize declared layers in dotfile with spacemacs."
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-  (configuration-layer/init-layers)
-  (configuration-layer/load-layers)
+  ;; layers
+  (setq configuration-layer-layers (configuration-layer//declare-layers))
+  (configuration-layer//configure-layers configuration-layer-layers)
+  ;; packages
+  (setq configuration-layer-packages (configuration-layer//declare-packages
+                                      configuration-layer-layers))
+  (configuration-layer//load-packages configuration-layer-packages)
   (when dotspacemacs-delete-orphan-packages
     (configuration-layer/delete-orphan-packages configuration-layer-packages)))
 
@@ -190,6 +195,10 @@ layer directory."
                       :variables variables))
       (spacemacs-buffer/warning "Cannot find layer %S !" name-sym)
       nil)))
+
+(defun configuration-layer//make-layers (symbols)
+  "Make `cfgl-layer' objects from the passed layer SYMBOLS."
+  (delq nil (mapcar 'configuration-layer/make-layer symbols)))
 
 (defun configuration-layer/make-package (pkg &optional obj)
   "Return a `cfgl-package' object based on PKG.
@@ -441,9 +450,8 @@ path."
           discovered)
     result))
 
-(defun configuration-layer/init-layers ()
-  "Declare default layers and user layers from the dotfile by filling the
-`configuration-layer-layers' variable."
+(defun configuration-layer//declare-layers ()
+  "Add default layers and user layers declared in the dotfile."
   (setq configuration-layer-paths (configuration-layer//discover-layers))
   (if (eq 'all dotspacemacs-configuration-layers)
       (setq dotspacemacs-configuration-layers
@@ -452,16 +460,9 @@ path."
     (setq configuration-layer-layers
           (list (configuration-layer/make-layer 'spacemacs))))
   (setq configuration-layer-layers
-        (append (configuration-layer//declare-layers
+        (append (configuration-layer//make-layers
                  dotspacemacs-configuration-layers)
                 configuration-layer-layers)))
-
-(defun configuration-layer//declare-layers (layers)
-  "Declare the passed configuration LAYERS.
-LAYERS is a list of layer symbols."
-  (reduce (lambda (acc elt) (if elt (push elt acc) acc))
-          (mapcar 'configuration-layer/make-layer (reverse layers))
-          :initial-value nil))
 
 (defun configuration-layer//set-layers-variables (layers)
   "Set the configuration variables for the passed LAYERS."
@@ -491,33 +492,36 @@ LAYERS is a list of layer symbols."
   (let ((obj (object-assoc name :name configuration-layer-packages)))
     (when obj (oref obj :owner))))
 
-(defun configuration-layer/load-layers ()
-  "Load all declared layers."
-  ;; FIFO loading instead of LIFO, this allow the user to put her layers at the
+(defun configuration-layer//configure-layers (layers)
+  "Configure LAYERS."
+  ;; FIFO loading of layers, this allow the user to put her layers at the
   ;; end of the list to override previous layers.
-  (let ((layers (reverse configuration-layer-layers))
+  (let ((l (reverse layers))
         (warning-minimum-level :error))
-    (configuration-layer//set-layers-variables layers)
+    (configuration-layer//set-layers-variables l)
     ;; first load all the config files ...
-    (configuration-layer//load-layers-files
-     layers '("funcs.el" "config.el"))
-    ;; ... then the package files
+    (configuration-layer//load-layers-files l '("funcs.el"
+                                                "config.el"
+                                                "keybindings.el"))))
+
+(defun configuration-layer//declare-packages (layers)
+  "Declare all packages contained in LAYERS."
+  (let ((l (reverse layers))
+        (warning-minimum-level :error))
     ;; TODO remove extensions in 0.105.0
-    (configuration-layer//load-layers-files
-     layers '("packages.el" "extensions.el"))
-    ;; read layers
-    (setq configuration-layer-packages
-          (configuration-layer//sort-packages
-           (configuration-layer/get-packages layers t)))
-    ;; number of chuncks for the loading screen
-    (setq spacemacs-loading-dots-chunk-threshold
-          (/ (configuration-layer/configured-packages-count)
-             spacemacs-loading-dots-chunk-count))
-    ;; install and configuration
-    (configuration-layer//install-packages configuration-layer-packages)
-    (configuration-layer//configure-packages configuration-layer-packages)
-    ;; finally load the remaining files of a layer
-    (configuration-layer//load-layers-files layers '("keybindings.el"))))
+    (configuration-layer//load-layers-files l '("packages.el" "extensions.el"))
+    ;; gather all the packages of current layer
+    (configuration-layer//sort-packages (configuration-layer/get-packages
+                                         l t))))
+
+(defun configuration-layer//load-packages (packages)
+  "Load PACKAGES."
+  ;; number of chuncks for the loading screen
+  (setq spacemacs-loading-dots-chunk-threshold
+        (/ (configuration-layer/configured-packages-count)
+           spacemacs-loading-dots-chunk-count))
+  (configuration-layer//install-packages packages)
+  (configuration-layer//configure-packages packages))
 
 (defun configuration-layer//load-layers-files (layers files)
   "Load the files of list FILES for all passed LAYERS."
