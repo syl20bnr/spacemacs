@@ -139,9 +139,9 @@
         (setq indent-tabs-mode t))
 
       (add-hook 'inferior-python-mode-hook #'inferior-python-setup-hook)
-      (add-all-to-hook 'python-mode-hook
-                       'python-default
-                       'python-setup-shell))
+      (spacemacs/add-all-to-hook 'python-mode-hook
+                                 'python-default
+                                 'python-setup-shell))
     :config
     (progn
       (add-hook 'inferior-python-mode-hook 'smartparens-mode)
@@ -231,10 +231,10 @@
         ;; this key binding is for recentering buffer in Emacs
         ;; it would be troublesome if Emacs user
         ;; Vim users can use this key since they have other key
-        (define-key inferior-python-mode-map (kbd "C-l") 'comint-clear-buffer))
+        (define-key inferior-python-mode-map (kbd "C-l") 'spacemacs/comint-clear-buffer))
 
       ;; add this optional key binding for Emacs user, since it is unbound
-      (define-key inferior-python-mode-map (kbd "C-c M-l") 'comint-clear-buffer)
+      (define-key inferior-python-mode-map (kbd "C-c M-l") 'spacemacs/comint-clear-buffer)
 
       ;; fix for issue #2569 (https://github.com/syl20bnr/spacemacs/issues/2569)
       ;; use `semantic-create-imenu-index' only when `semantic-mode' is enabled,

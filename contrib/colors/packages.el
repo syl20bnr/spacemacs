@@ -70,7 +70,7 @@
         "Display a short documentation in the mini buffer."
         (let ((var (intern (format
                             "rainbow-identifiers-cie-l*a*b*-%s" component))))
-          (echo "Change color %s mini-mode (value: %s)
+          (spacemacs/echo "Change color %s mini-mode (value: %s)
   + to increase %s
   - to decrease %s
   = to reset

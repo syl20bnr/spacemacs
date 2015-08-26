@@ -32,4 +32,4 @@
         ;; text properties are not applied correctly.
         (run-at-time 0.1 nil 'emoji-cheat-sheet-plus-display-mode))
       (add-hook 'org-mode-hook 'spacemacs//delay-emoji-cheat-sheet-hook)
-      (add-to-hooks 'emoji-cheat-sheet-plus-display-mode '(markdown-mode)))))
+      (spacemacs/add-to-hooks 'emoji-cheat-sheet-plus-display-mode '(markdown-mode)))))
