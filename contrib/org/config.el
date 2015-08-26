@@ -14,3 +14,8 @@
 
 (defvar org-enable-github-support nil
   "If non-nil Github related packages are configured.")
+
+(defvar org-mapping-style nil
+  "Defines org editting style.
+Can be 'worf or 'evil-org but defaults to none.")
+

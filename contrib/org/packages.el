@@ -20,22 +20,29 @@
     org-present
     org-repo-todo
     toc-org
+    worf
     ))
+
+(when org-mapping-style
+  (push org-mapping-style org-packages))
+
+(defun org/init-worf ()
+  (use-package worf
+    :if (eq org-mapping-style 'worf)
+    :commands worf-mode
+    :init
+    (add-hook 'org-mode-hook 'worf-mode)
+    :config
+    (spacemacs|diminish worf-mode " ⓔ" " e")))
 
 (defun org/init-evil-org ()
   (use-package evil-org
+    :if (eq org-mapping-style 'evil-org)
     :commands evil-org-mode
     :init
     (add-hook 'org-mode-hook 'evil-org-mode)
     :config
     (progn
-      (evil-leader/set-key-for-mode 'org-mode
-           "a" nil "ma" 'org-agenda
-           "b" nil "mb" 'org-tree-to-indirect-buffer
-           "c" nil "mA" 'org-archive-subtree
-           "o" nil "mC" 'evil-org-recompute-clocks
-           "l" nil "mo" 'evil-org-open-links
-           "t" nil "mT" 'org-show-todo-tree)
       (evil-define-key 'normal evil-org-mode-map
         "O" 'evil-open-above)
       (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
@@ -124,6 +131,13 @@ Will work on both org-mode and any mode that accepts plain html."
              (kbd "SPC") evil-leader--default-map))))
     :config
     (progn
+      (evil-leader/set-key-for-mode 'org-mode
+        "ma" 'org-agenda
+        "mb" 'org-tree-to-indirect-buffer
+        "mA" 'org-archive-subtree
+        "mC" 'evil-org-recompute-clocks
+        "mo" 'org-open-at-point
+        "mT" 'org-show-todo-tree)
       (font-lock-add-keywords
        'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
                     (1 font-lock-comment-face prepend)
