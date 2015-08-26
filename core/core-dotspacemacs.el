@@ -358,7 +358,41 @@ value."
 (defun dotspacemacs/load-file ()
   "Load ~/.spacemacs if it exists."
   (let ((dotspacemacs (dotspacemacs/location)))
-    (if (file-exists-p dotspacemacs) (load dotspacemacs))))
+    (if (file-exists-p dotspacemacs)
+        (unless (ignore-errors (load dotspacemacs))
+          (dotspacemacs/safe-load)))))
+
+(defun dotspacemacs/safe-load ()
+  "Error recovery from malformed .spacemacs.
+Loads default .spacemacs template and suspends pruning of orphan packages.
+Informs users of error and prompts for default editing style for use during
+error recovery."
+  (load (concat dotspacemacs-template-directory
+                ".spacemacs.template"))
+  (defadvice dotspacemacs/layers
+      (after error-recover-preserve-packages activate)
+    (progn
+      (setq-default dotspacemacs-delete-orphan-packages nil)
+      (ad-disable-advice 'dotspacemacs/layers 'after
+                         'error-recover-preserve-packages)
+      (ad-activate 'dotspacemacs/layers)))
+  (defadvice dotspacemacs/init
+      (after error-recover-prompt-for-style activate)
+    (progn
+      (setq-default dotspacemacs-editing-style
+                    (intern
+                     (ido-completing-read
+                      (concat
+                       "Spacemacs encountered an error while "
+                       "loading the .dotspacemacs file. "
+                       "Pick your editing style for recovery: ")
+                      '(("vim" vim)
+                        ("emacs" emacs)
+                        ("hybrid" hybrid))
+                      nil t nil nil "vim")))
+      (ad-disable-advice 'dotspacemacs/init 'after
+                         'error-recover-prompt-for-style)
+      (ad-activate 'dotspacemacs/init))))
 
 (defmacro dotspacemacs|call-func (func &optional msg)
   "Call the function from the dotfile only if it is bound.
