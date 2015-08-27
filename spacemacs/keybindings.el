@@ -337,6 +337,8 @@ Ensure that helm is required before calling FUNC."
   "xa(" 'spacemacs/align-repeat-left-paren
   "xa)" 'spacemacs/align-repeat-right-paren
   "xdw" 'delete-trailing-whitespace
+  "xls" 'spacemacs/sort-lines
+  "xlu" 'spacemacs/uniquify-lines
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
   "xtw" 'transpose-words

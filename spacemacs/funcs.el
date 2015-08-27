@@ -1029,3 +1029,21 @@ is nonempty."
     (cond ((listp val) val)
           ((stringp val) (< 0 (length val)))
           (t))))
+
+(defun spacemacs/uniquify-lines ()
+  "Remove duplicate adjacent lines in region or current buffer"
+  (interactive)
+  (save-excursion
+    (save-restriction
+      (let ((beg (if (region-active-p) (region-beginning) (point-min)))
+            (end (if (region-active-p) (region-end) (point-max))))
+        (goto-char beg)
+        (while (re-search-forward "^\\(.*\n\\)\\1+" end t)
+          (replace-match "\\1"))))))
+
+(defun spacemacs/sort-lines ()
+  "Sort lines in region or current buffer"
+  (interactive)
+  (let ((beg (if (region-active-p) (region-beginning) (point-min)))
+        (end (if (region-active-p) (region-end) (point-max))))
+    (sort-lines nil beg end)))
