@@ -3628,8 +3628,6 @@ one of `l' or `r'."
   (use-package which-key
     :init
     (progn
-      (setq which-key-max-description-length 32)
-      (which-key-mode)
       (spacemacs|add-toggle which-key
         :status which-key-mode
         :on (which-key-mode)
@@ -3676,6 +3674,9 @@ one of `l' or `r'."
       ;; disorienting if you don't understand it
       (setq which-key-special-keys nil)
       (setq which-key-use-C-h-for-paging t)
+      (setq which-key-echo-keystrokes 0.02)
+      (setq which-key-max-description-length 32)
+      (which-key-mode)
       (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
 
 (defun spacemacs/init-window-numbering ()
