@@ -14,3 +14,13 @@
   (if (bound-and-true-p yas-minor-mode)
       (call-interactively 'emmet-expand-yas)
     (call-interactively 'emmet-expand-line)))
+
+(defun spacemacs/impatient-mode ()
+  (interactive)
+  (if (bound-and-true-p impatient-mode)
+      (impatient-mode -1)
+    (unless (process-status "httpd")
+        (httpd-start))
+    (impatient-mode)
+    (when (string-match-p "\\.html\\'" (buffer-name))
+      (imp-visit-buffer))))

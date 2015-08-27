@@ -6,6 +6,7 @@
 - [[#description][Description]]
   - [[#features][Features]]
 - [[#install][Install]]
+- [[#live-display-in-browser][Live display in browser]]
 - [[#key-bindings][Key Bindings]]
   - [[#web-mode][Web mode]]
   - [[#cssscss][CSS/SCSS]]
@@ -18,8 +19,8 @@ This layer adds support for editing HTML and CSS.
 - Support for Sass/Scss and Less files
 - Generate HTML and CSS coding using [[https://github.com/smihica/emmet-mode][emmet-mode]]
 - Tags navigation on key ~%~ using [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
-- Support for editing Slim and Pug templates using [[https://github.com/slim-template/emacs-slim][slim-mode]]
-  and [[https://github.com/hlissner/emacs-pug-mode][pug-mode]]
+- Support for editing Slim and Pug templates using [[https://github.com/slim-template/emacs-slim][slim-mode]] and [[https://github.com/hlissner/emacs-pug-mode][pug-mode]]
+- See the effects of typed HTML using [[https://github.com/skeeto/impatient-mode][impatient-mode]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -34,6 +35,18 @@ gem specific_install https://github.com/brigade/scss-lint.git
 gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle.git
 #+END_SRC
 
+* Live display in browser
+Use ~SPC m i~ to enable impatient mode, opening a live view of a HTML file in
+your browser. You may wish to enable impatient mode in referenced CSS or JS
+files, too.
+
+When the underlying file is an HTML file, ~SPC m i~ automatically opens the page
+in the browser. For other buffers, a list of available views can be found on
+http://localhost:8080/imp.
+
+For more information visit the [[https://github.com/skeeto/impatient-mode/blob/master/README.md][help page on GitHub.]]
+
+
 * Key Bindings
 ** Web mode
 
@@ -41,6 +54,7 @@ gem specific_install https://github.com/Sweetchuck/scss_lint_reporter_checkstyle
 |-------------+-----------------------------------------------------------|
 | ~SPC m g p~ | quickly navigate CSS rules using =helm=                   |
 | ~SPC m e h~ | highlight DOM errors                                      |
+| ~SPC m i~   | open live view in browser                                 |
 | ~SPC m g b~ | go to the beginning of current element                    |
 | ~SPC m g c~ | go to the first child element                             |
 | ~SPC m g p~ | go to the parent element                                  |
