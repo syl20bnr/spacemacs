@@ -64,7 +64,4 @@
   (use-package racer
     :if rust-enable-racer
     :defer t
-    :init (add-hook 'rust-mode-hook
-                    '(lambda ()
-                       (racer-mode)
-                       (eldoc-mode)))))
+    :init (spacemacs/add-to-hook 'rust-mode-hook '(racer-mode eldoc-mode))))
