@@ -175,19 +175,7 @@
         "wC"  'ace-delete-window
         "w <SPC>"  'ace-window)
       ;; set ace-window keys to home-row
-      (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
-    :config
-    (progn
-      ;; add support for golden-ratio
-      (eval-after-load 'golden-ratio
-        '(setq golden-ratio-extra-commands
-               (append golden-ratio-extra-commands
-                       '(ace-window
-                         ace-delete-window
-                         ace-select-window
-                         ace-swap-window
-                         ace-maximize-window
-                         )))))))
+      (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))))
 
 (defun spacemacs/init-adaptive-wrap ()
   (use-package adaptive-wrap
@@ -400,11 +388,6 @@
       (setq avy-keys (number-sequence ?a ?z))
       (setq avy-all-windows 'all-frames)
       (setq avy-background t)
-      ; make golden ratio work after switching windows with avy-goto-word-or-subword-1
-      (eval-after-load 'golden-ratio
-        '(setq golden-ratio-extra-commands
-               (append golden-ratio-extra-commands
-                       '(evil-avy-goto-word-or-subword-1))))
       (evil-leader/set-key
         "SPC" 'avy-goto-word-or-subword-1
         "l" 'avy-goto-line))
@@ -1261,7 +1244,15 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
       (setq golden-ratio-extra-commands
             (append golden-ratio-extra-commands
-                    '(windmove-left
+                    '(ace-window
+                      ace-delete-window
+                      ace-select-window
+                      ace-swap-window
+                      ace-maximize-window
+                      avy-pop-mark
+                      evil-avy-goto-word-or-subword-1
+                      evil-avy-goto-line
+                      windmove-left
                       windmove-right
                       windmove-up
                       windmove-down
