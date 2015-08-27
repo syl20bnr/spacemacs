@@ -28,7 +28,7 @@
         :on (flyspell-mode)
         :off (flyspell-mode -1)
         :documentation
-        "Enable flyspell for automatic spelling checking."
+        "Enable automatic spell checking."
         :evil-leader "tS"))
     :config
     (progn
@@ -39,4 +39,3 @@
   (use-package helm-flyspell
     :commands helm-flyspell-correct
     :init (evil-leader/set-key "Sc" 'helm-flyspell-correct)))
-

@@ -29,8 +29,7 @@
         :on (global-vim-empty-lines-mode)
         :off (global-vim-empty-lines-mode -1)
         :documentation
-        (concat "Display an overlay of ~ on "
-                "empty lines.")
+        "Display an overlay of ~ on empty lines."
         :evil-leader "t~")
       ;; don't enable it on spacemacs home buffer
       (with-current-buffer  "*spacemacs*"

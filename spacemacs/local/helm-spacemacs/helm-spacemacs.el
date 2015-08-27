@@ -26,6 +26,7 @@
 
 ;;; Code:
 
+(require 'cl)
 (require 'ht)
 (require 'helm)
 (require 'core-configuration-layer)
@@ -151,17 +152,24 @@
 
 (defun helm-spacemacs//toggle-source ()
   "Construct the helm source for the toggles."
-  `((name . "Toggles")
-    (candidates . ,(helm-spacemacs//toggle-candidates))
-    (candidate-number-limit)
-    (action . (("Toggle" . helm-spacemacs//toggle)))))
+  (helm-build-sync-source "Toggles"
+    :candidates #'helm-spacemacs//toggle-candidates
+    :persistent-action #'helm-spacemacs//toggle
+    :keymap helm-map
+    :action (helm-make-actions "Toggle" #'helm-spacemacs//toggle)))
 
 (defun helm-spacemacs//toggle-candidates ()
   "Return the sorted candidates for toggle source."
   (let (result)
     (dolist (toggle spacemacs-toggles)
-      (push (symbol-name (car toggle)) result))
-    (sort result 'string<)))
+      (let* ((toggle-symbol (symbol-name (car toggle)))
+             (toggle-name (capitalize (replace-regexp-in-string "-" " " toggle-symbol)))
+             (toggle-doc (format "%s: %s" toggle-name (plist-get (cdr toggle) :documentation))))
+        (if (plist-member (cdr toggle) :documentation)
+            (push `(,toggle-doc . ,toggle-symbol) result)
+          (push `(,toggle-name . ,toggle-symbol) result))))
+    (setq result (cl-sort result 'string< :key 'car))
+    result))
 
 (defun helm-spacemacs//dotspacemacs-source ()
   `((name . "Dotfile")

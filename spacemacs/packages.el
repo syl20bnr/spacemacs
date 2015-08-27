@@ -192,13 +192,13 @@
         :status aggressive-indent-mode
         :on (aggressive-indent-mode)
         :off (aggressive-indent-mode -1)
-        :documentation "Keep code always indented."
+        :documentation "Always keep code indented."
         :evil-leader "tI")
       (spacemacs|add-toggle aggressive-indent-globally
         :status aggressive-indent-mode
         :on (global-aggressive-indent-mode)
         :off (global-aggressive-indent-mode -1)
-        :documentation "Globally keep code always indented."
+        :documentation "Always keep code indented globally."
         :evil-leader "t C-I"))
     :config
     (progn
@@ -425,14 +425,14 @@
         :on (centered-cursor-mode)
         :off (centered-cursor-mode -1)
         :documentation
-        "Keep point always at the center of the window."
+        "Keep point at the center of the window."
         :evil-leader "t-")
       (spacemacs|add-toggle centered-point-globally
         :status centered-cursor-mode
         :on (global-centered-cursor-mode)
         :off (global-centered-cursor-mode -1)
         :documentation
-        "Globally keep point always at the center of the window."
+        "Keep point at the center of the window globally."
         :evil-leader "t C--"))
     :config
     (progn
@@ -1217,9 +1217,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
       :status golden-ratio-mode
       :on (golden-ratio-mode) (golden-ratio)
       :off (golden-ratio-mode -1) (balance-windows)
-      :documentation
-      (concat "Dynamically resize the focused window using "
-              "the golden ratio.")
+      :documentation "Resize the focused window using the golden ratio."
       :evil-leader "tg")
     :config
     (progn
@@ -2223,7 +2221,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         :status holy-mode
         :on (holy-mode)
         :off (holy-mode -1)
-        :documentation "Globally toggle the holy mode."
+        :documentation "Globally toggle holy mode."
         :evil-leader "E H"))))
 
 (defun spacemacs/init-hungry-delete ()
@@ -2234,8 +2232,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       :status hungry-delete-mode
       :on (hungry-delete-mode)
       :off (hungry-delete-mode -1)
-      :documentation "Delete consecutive horizontal whitespace with a single key.
-Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
+      :documentation "Delete consecutive horizontal whitespace with a single key."
       :evil-leader "td")
     :config
     (progn
@@ -2460,20 +2457,14 @@ It will toggle the overlay under point or create an overlay of one character."
         :on (indent-guide-mode)
         :off (indent-guide-mode -1)
         :documentation
-        (concat "Enbale a guide to highlight "
-                "the current indentation (alternative "
-                "to the toggle"
-                "highlight-indentation-current-column).")
+        "Highlight indentation level at point. (alternative to highlight-indentation)."
         :evil-leader "ti")
       (spacemacs|add-toggle indent-guide-globally
         :status indent-guide-mode
         :on (indent-guide-global-mode)
         :off (indent-guide-global-mode -1)
         :documentation
-        (concat "Enbale globally a guide to highlight "
-                "the current indentation (alternative "
-                "to the toggle"
-                "highlight-indentation-current-column).")
+        "Highlight indentation level at point globally. (alternative to highlight-indentation)."
         :evil-leader "t C-i"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
@@ -3527,13 +3518,13 @@ one of `l' or `r'."
           :status subword-mode
           :on (subword-mode +1)
           :off (subword-mode -1)
-          :documentation "Toggle CamelCase motion."
+          :documentation "Toggle CamelCase motions."
           :evil-leader "tc")
         (spacemacs|add-toggle camel-case-motion-globally
           :status subword-mode
           :on (global-subword-mode +1)
           :off (global-subword-mode -1)
-          :documentation "Globally toggle CamelCase motion."
+          :documentation "Globally toggle CamelCase motions."
           :evil-leader "t C-c"))
       :config
       (spacemacs|diminish subword-mode " ⓒ" " c"))))
@@ -3565,8 +3556,7 @@ one of `l' or `r'."
         :on (global-vi-tilde-fringe-mode)
         :off (global-vi-tilde-fringe-mode -1)
         :documentation
-        (concat "Globally display a ~ on "
-                "empty lines in the fringe.")
+        "Globally display a ~ on empty lines in the fringe."
         :evil-leader "t~")
       ;; don't enable it on spacemacs home buffer
       (with-current-buffer  "*spacemacs*"
@@ -3622,7 +3612,7 @@ one of `l' or `r'."
         :status global-whitespace-mode
         :on (global-whitespace-mode)
         :off (global-whitespace-mode -1)
-        :documentation "Globally display whitespace."
+        :documentation "Display whitespace globally."
         :evil-leader "t C-w")
       (defun spacemacs//set-whitespace-style-for-diff ()
         "Whitespace configuration for `diff-mode'"
