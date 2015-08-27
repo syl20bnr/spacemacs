@@ -32,7 +32,7 @@
         (company-mode -1)
       (auto-complete-mode -1))
     (message "Disabled auto-completion."))
-  :documentation "Activate auto-completion."
+  :documentation "Enable auto-completion."
   :evil-leader "ta")
 
 ;; auto-completion key bindings functions

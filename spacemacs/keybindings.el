@@ -167,12 +167,12 @@ Ensure that helm is required before calling FUNC."
   :status global-hl-line-mode
   :on (global-hl-line-mode)
   :off (global-hl-line-mode -1)
-  :documentation "Globally Highlight the current line."
+  :documentation "Globally highlight the current line."
   :evil-leader "thh")
 (spacemacs|add-toggle truncate-lines
   :status nil
   :on (toggle-truncate-lines)
-  :documentation "Truncate the long lines (no wrap)."
+  :documentation "Truncate long lines (no wrap)."
   :evil-leader "tl")
 (spacemacs|add-toggle visual-line-navigation
   :status visual-line-mode
@@ -263,7 +263,7 @@ Ensure that helm is required before calling FUNC."
   :off (semantic-stickyfunc-mode -1)
   :documentation "Enable semantic-stickyfunc."
   :evil-leader "Ts")
-(spacemacs|add-toggle semantic-stickfunc-globally
+(spacemacs|add-toggle semantic-stickyfunc-globally
   :status global-semantic-stickyfunc-mode
   :on (global-semantic-stickyfunc-mode)
   :off (global-semantic-stickyfunc-mode -1)
