@@ -1535,10 +1535,9 @@ Removes the automatic guessing of the initial value based on thing at point. "
 
       ;; use helm by default for contrib and spacemacs layers
       (unless dotspacemacs-use-ido
-        (define-key global-map [remap find-spacemacs-file]
-          'helm-find-spacemacs-file)
-        (define-key global-map [remap find-contrib-file]
-          'helm-find-contrib-file))
+        (evil-leader/set-key
+          "fes" 'helm-find-spacemacs-file
+          "fec" 'helm-find-contrib-file))
 
       ;; use helm by default for M-x
       (unless (configuration-layer/package-usedp 'smex)
