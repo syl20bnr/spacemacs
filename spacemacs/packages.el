@@ -481,7 +481,6 @@
 
 (defun spacemacs/init-diminish ()
   (use-package diminish
-    :defer t
     :init
     (progn
       ;; Minor modes abbrev --------------------------------------------------------
@@ -926,7 +925,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
 (defun spacemacs/init-evil-iedit-state ()
   (use-package evil-iedit-state
-    :defer t
+    :commands (evil-iedit-state evil-iedit-state/iedit-mode)
     :init
     (progn
       (evil-leader/set-key "se" 'evil-iedit-state)
@@ -1075,12 +1074,9 @@ Example: (evil-map visual \"<\" \"<gv\")"
 (defun spacemacs/init-evil-terminal-cursor-changer ()
   (use-package evil-terminal-cursor-changer
     :if (not (display-graphic-p))
-    :init
-    (progn
-      (setq evil-visual-state-cursor 'box ; █
-            evil-insert-state-cursor 'bar ; ⎸
-            evil-emacs-state-cursor 'hbar) ; _
-      )))
+    :init (setq evil-visual-state-cursor 'box
+                evil-insert-state-cursor 'bar
+                evil-emacs-state-cursor 'hbar)))
 
 (defun spacemacs/init-evil-tutor ()
   (use-package evil-tutor
@@ -3387,20 +3383,22 @@ one of `l' or `r'."
 
 (defun spacemacs/init-savehist ()
   (use-package savehist
-    :defer t
     :init
     (progn
       ;; Minibuffer history
       (setq savehist-file (concat spacemacs-cache-directory "savehist")
             enable-recursive-minibuffers t ; Allow commands in minibuffers
             history-length 1000
-            savehist-additional-variables '(mark-ring global-mark-ring search-ring regexp-search-ring extended-command-history)
+            savehist-additional-variables '(mark-ring
+                                            global-mark-ring
+                                            search-ring
+                                            regexp-search-ring
+                                            extended-command-history)
             savehist-autosave-interval 60)
       (savehist-mode t))))
 
 (defun spacemacs/init-saveplace ()
   (use-package saveplace
-    :demand t
     :init
     (progn
       ;; Save point position between sessions
@@ -3729,8 +3727,6 @@ one of `l' or `r'."
 
 (defun spacemacs/init-window-numbering ()
   (use-package window-numbering
-    ;; not deferred on puprose
-    :demand t
     :config
     (progn
       (when (configuration-layer/package-usedp 'powerline)
