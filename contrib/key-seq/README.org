@@ -1,0 +1,68 @@
+#+TITLE: key-seq contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#usage][Usage]]
+
+* Description
+
+Adds support for key-seq and key-chord shortcuts so you can add commands
+to modes such as insert or normal mode without overwriting current key
+bindings.
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers '(sml))
+#+END_SRC
+
+* Usage
+
+Key-seq does not add any key bindings out of the box, however I use it in
+my =~/.spacemacs= file to add more ergonomic window movement key bindings.
+
+For example, I bind window movement shortcuts in the normal map. The logic
+is that the standard vim navigation keys are used for window navigation
+and the row above the home row is used for window creation using the same
+direction keys.
+
+#+BEGIN_SRC elisp
+(defun dotspacemacs/config ()
+  (key-seq-define evil-normal-state-map "wh" 'evil-window-left)
+  (key-seq-define evil-normal-state-map "wj" 'evil-window-down)
+  (key-seq-define evil-normal-state-map "wk" 'evil-window-up)
+  (key-seq-define evil-normal-state-map "wl" 'evil-window-right)
+  (key-seq-define evil-normal-state-map "wy" 'split-window-right)
+  (key-seq-define evil-normal-state-map "wu" 'split-window-below-and-focus)
+  (key-seq-define evil-normal-state-map "wi" 'split-window-below)
+  (key-seq-define evil-normal-state-map "wo" 'split-window-right-and-focus)
+  (key-seq-define evil-normal-state-map "wm" 'toggle-maximize-buffer))
+#+END_SRC
+
+There are also a couple of useful key bindings that I use globally such
+as a chord to open helm-M-x in any mode including insert or "j" keys
+for navigating with avy. As a note, I find it much easier to press seq
+bindings if the two keys are split across hands. As such I bind ~j s~
+instead of ~j l~ for jump line.
+
+#+BEGIN_SRC elisp
+(defun dotspacemacs/config ()
+  (key-chord-define-global "fj" 'helm-M-x)
+  (key-seq-define-global "js" 'avy-goto-line) ;; Jump sentence.
+  (key-seq-define-global "jw" 'avy-goto-word-1) ;; Jump word
+  (key-seq-define-global "jc" 'avy-copy-region) ;; Avy copy
+  (key-seq-define-global "jb" 'ace-window)) ;; Jump window
+#+END_SRC
+
+I also bind some kill keys for removing frames buffers and windows.
+
+#+BEGIN_SRC elisp
+
+(defun dotspacemacs/config ()
+  (key-seq-define evil-normal-state-map "kf" 'delete-frame)
+  (key-seq-define evil-normal-state-map "kw" 'evil-quit)
+  (key-seq-define evil-normal-state-map "kb" 'kill-this-buffer))
+#+END_SRC
