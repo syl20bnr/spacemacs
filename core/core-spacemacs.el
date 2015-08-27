@@ -73,6 +73,9 @@ initialization."
   (prefer-coding-system 'utf-8)
   ;; dotfile init
   (dotspacemacs/load-file)
+  ;; TODO remove evil-want-C-u-scroll and document it, we should not
+  ;; shadow the universal argument
+  (setq-default evil-want-C-u-scroll t)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
   ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
@@ -111,7 +114,6 @@ initialization."
                               (car dotspacemacs-default-font)))
   ;; banner
   (spacemacs-buffer/insert-banner-and-buttons)
-  (setq-default evil-want-C-u-scroll t)
   ;; mandatory dependencies
   ;; dash is required to prevent a package.el bug with f on 24.3.1
   (spacemacs/load-or-install-package 'dash t)
