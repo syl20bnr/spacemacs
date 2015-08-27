@@ -102,8 +102,8 @@ initialization."
   ;; for convenience and user support
   (unless (fboundp 'tool-bar-mode)
     (spacemacs-buffer/message (concat "No graphical support detected, you won't be"
-                               "able to launch a graphical instance of Emacs"
-                               "with this build.")))
+                                      "able to launch a graphical instance of Emacs"
+                                      "with this build.")))
   ;; font
   (if (find-font (font-spec :name (car dotspacemacs-default-font)))
       (spacemacs/set-default-font dotspacemacs-default-font)
@@ -112,8 +112,6 @@ initialization."
   ;; banner
   (spacemacs-buffer/insert-banner-and-buttons)
   (setq-default evil-want-C-u-scroll t)
-  ;; Initializing configuration from ~/.spacemacs
-  (dotspacemacs|call-func dotspacemacs/init "Executing user init...")
   ;; mandatory dependencies
   ;; dash is required to prevent a package.el bug with f on 24.3.1
   (spacemacs/load-or-install-package 'dash t)
