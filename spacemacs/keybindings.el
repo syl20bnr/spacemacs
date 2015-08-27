@@ -127,6 +127,16 @@ Ensure that helm is required before calling FUNC."
   "fS" 'evil-write-all
   "fs" 'spacemacs/write-file
   "fy" 'spacemacs/show-and-copy-buffer-filename)
+;; frame ----------------------------------------------------------------------
+(evil-leader/set-key
+  "Ff" 'find-file-other-frame
+  "Fc" 'delete-frame
+  "FC" 'delete-other-frames
+  "Fb" 'switch-to-buffer-other-frame
+  "FB" 'display-buffer-other-frame
+  "Fd" 'dired-other-frame
+  "Fo" 'other-frame
+  "Fn" 'new-frame)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key
   "iJ" 'spacemacs/insert-line-below-no-indent
