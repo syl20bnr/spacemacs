@@ -405,9 +405,9 @@ the documentation for more details.
 
 ## Dotdirectory (~/.spacemacs.d)
 
-Like =Emacs=, Spacemacs initialization can also be contained in an =init.el= file
-in a special directory =~/.spacemacs.d=. The contents of the dotfile should be
-then copied in the =init.el= file.
+Like `Emacs`, Spacemacs initialization can also be contained in an `init.el` file
+in a special directory `~/.spacemacs.d`. The contents of the dotfile should be
+then copied in the `init.el` file.
 
 # Learning Spacemacs
 
