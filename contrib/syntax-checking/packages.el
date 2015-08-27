@@ -99,10 +99,21 @@
         :fringe-bitmap 'my-flycheck-fringe-indicator
         :fringe-face 'flycheck-fringe-info)
 
+      ;; toggle flycheck window
+      (defun spacemacs/toggle-flycheck-error-list ()
+        "Toggle flycheck's error list window.
+If the error list is visible, hide it.  Otherwise, show it."
+        (interactive)
+        (-if-let (window (flycheck-get-error-list-window))
+            (quit-window nil window)
+          (flycheck-list-errors)))
+
       ;; key bindings
       (evil-leader/set-key
         "ec" 'flycheck-clear
-        "el" 'flycheck-list-errors))))
+        "el" 'spacemacs/toggle-flycheck-error-list
+        "ev" 'flycheck-verify-setup
+        "e?" 'flycheck-describe-checker))))
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
