@@ -22,21 +22,21 @@ To use this contribution layer add it to your `~/.spacemacs`
 * Key bindings
 
 | Key Binding | Description          |
-| =SPC a j=   | Connect all accounts |
+| ~SPC a j~   | Connect all accounts |
 
 
 ** Jabber Roster
 
 | Key Binding | Description                          |
-| =SPC m a=   | Jabber send presence                 |
-| =SPC m b=   | Jabber get browse                    |
-| =SPC m d=   | Jabber disconnect                    |
-| =SPC m e=   | Jabber roster edit action at point   |
-| =SPC m g=   | Jabber display roster                |
-| =SPC m i=   | Jabber get disco items               |
-| =SPC m j=   | Jabber muc join                      |
-| =SPC m o=   | Jabber roster toggle offline display |
-| =SPC m q=   | bury buffer                          |
-| =SPC m s=   | Jabber send subscription request     |
-| =SPC m v=   | Jabber get version                   |
-| =SPC m RET= | Jabber roster ret action at point    |
+| ~SPC m a~   | Jabber send presence                 |
+| ~SPC m b~   | Jabber get browse                    |
+| ~SPC m d~   | Jabber disconnect                    |
+| ~SPC m e~   | Jabber roster edit action at point   |
+| ~SPC m g~   | Jabber display roster                |
+| ~SPC m i~   | Jabber get disco items               |
+| ~SPC m j~   | Jabber muc join                      |
+| ~SPC m o~   | Jabber roster toggle offline display |
+| ~SPC m q~   | bury buffer                          |
+| ~SPC m s~   | Jabber send subscription request     |
+| ~SPC m v~   | Jabber get version                   |
+| ~SPC m RET~ | Jabber roster ret action at point    |
