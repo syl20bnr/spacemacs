@@ -665,7 +665,7 @@ enjoyable:
 ** Graphical UI
 =Spacemacs= has a minimalistic and distraction free graphical UI:
   - custom [[https://github.com/milkypostman/powerline][powerline]] mode-line [[#flycheck-integration][with color feedback]] according to current [[https://github.com/flycheck/flycheck][Flycheck]] status
-  - unicode symbols for minor mode lighters which appear in the mode-line
+  - Unicode symbols for minor mode lighters which appear in the mode-line
   - [[#errors-handling][custom fringe bitmaps]] and error feedbacks for [[https://github.com/flycheck/flycheck][Flycheck]]
 
 *** Color themes
@@ -703,7 +703,7 @@ You can see samples of all included themes in this [[http://themegallery.robdor.
 *Hint* If you are an =Org= user, [[https://github.com/fniessen/emacs-leuven-theme][leuven-theme]] is amazing ;-)
 
 *** Font
-The default font used by =Spacemacs= is [[https://github.com/adobe-fonts/source-code-pro][source code pro]] by Adobe. It is
+The default font used by =Spacemacs= is [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] by Adobe. It is
 recommended to install it on your system.
 
 To change the default font set the variable =dotspacemacs-default-font= in your
@@ -774,7 +774,7 @@ and ~T~):
 
 | Key Binding | Description                                                       |
 |-------------+-------------------------------------------------------------------|
-| ~SPC t~~    | display =~= in the fringe on empty lines                          |
+| ~SPC t ~~   | display =~= in the fringe on empty lines                          |
 | ~SPC t f~   | display the fill column (by default the fill column is set to 80) |
 | ~SPC t h h~ | toggle highlight of the current line                              |
 | ~SPC t h i~ | toggle highlight indentation levels                               |
@@ -1931,13 +1931,13 @@ Text related commands (start with ~x~):
     | ~SPC x w C~ | count the number of occurrences per word in the select region |
     | ~SPC x w d~ | show dictionary entry of word from wordnik.com                |
 
-*** Searching and inserting unicode characters
-You can very easily search for and insert unicode characters into the
+*** Searching and inserting Unicode characters
+You can very easily search for and insert Unicode characters into the
 current buffer with [[https://github.com/shosti/helm-unicode][helm-unicode]].
 
     | Key Binding | Description                                                           |
     |-------------+-----------------------------------------------------------------------|
-    | ~SPC i u~   | Search for unicode characters and insert them into the active buffer. |
+    | ~SPC i u~   | Search for Unicode characters and insert them into the active buffer. |
 
 *** Smartparens Strict mode
 [[https://github.com/Fuco1/smartparens][Smartparens]] comes with a strict mode which prevents deletion of parenthesis if
