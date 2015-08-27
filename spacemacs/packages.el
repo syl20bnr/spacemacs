@@ -3628,8 +3628,6 @@ one of `l' or `r'."
   (use-package which-key
     :init
     (progn
-      (setq which-key-max-description-length 32)
-      (which-key-mode)
       (spacemacs|add-toggle which-key
         :status which-key-mode
         :on (which-key-mode)
@@ -3674,8 +3672,6 @@ one of `l' or `r'."
          (concat leader-key " " dotspacemacs-command-key) "M-x"))
       ;; disable special key handling for spacemacs, since it can be
       ;; disorienting if you don't understand it
-      (setq which-key-special-keys nil)
-      (setq which-key-use-C-h-for-paging t)
       (setq which-key-prefix-title-alist
             `((,(listify-key-sequence
                  (kbd (concat dotspacemacs-leader-key " m"))) . "Major mode commands")
@@ -3686,6 +3682,11 @@ one of `l' or `r'."
               (,(listify-key-sequence
                  (kbd dotspacemacs-emacs-leader-key)) . "Spacemacs root")))
       (nconc which-key-prefix-title-alist spacemacs/prefix-titles)
+      (setq which-key-special-keys nil
+            which-key-use-C-h-for-paging t
+            which-key-echo-keystrokes 0.02
+            which-key-max-description-length 32)
+      (which-key-mode)
       (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
 
 (defun spacemacs/init-window-numbering ()
