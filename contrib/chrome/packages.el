@@ -26,4 +26,8 @@
     ))
 
 (defun chrome/init-gmail-message-mode ( )
-  (use-package gmail-message-mode))
+  (use-package gmail-message-mode
+    :config
+    (when (configuration-layer/layer-usedp 'markdown)
+      (spacemacs/set-markdown-keybindings 'gmail-message-client-mode gmail-message-client-mode-map))
+))
