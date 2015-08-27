@@ -12,6 +12,9 @@
 
 (setq org-packages
   '(
+    company
+    company-emoji
+    emoji-cheat-sheet-plus
     evil-org
     htmlize
     org
@@ -20,9 +23,17 @@
     org-present
     org-repo-todo
     toc-org
-    company
-    company-emoji
     ))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun org/post-init-company ()
+    (spacemacs|add-company-hook org-mode)
+    (push 'company-capf company-backends-org-mode))
+  (defun org/post-init-company-emoji ()
+    (push 'company-emoji company-backends-org-mode)))
+
+(defun org/post-init-emoji-cheat-sheet-plus ()
+  (add-hook 'org-mode-hook 'spacemacs/delay-emoji-cheat-sheet-hook))
 
 (defun org/init-evil-org ()
   (use-package evil-org
@@ -211,11 +222,3 @@ Will work on both org-mode and any mode that accepts plain html."
 (defun org/init-htmlize ()
  (use-package htmlize
     :defer t))
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun org/post-init-company ()
-    (spacemacs|add-company-hook org-mode)
-    (push 'company-capf company-backends-org-mode))
-  (defun org/post-init-company-emoji ()
-    (push 'company-emoji company-backends-org-mode)))
-

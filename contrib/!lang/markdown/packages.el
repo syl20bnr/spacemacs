@@ -12,12 +12,16 @@
 
 (setq markdown-packages
   '(
+    emoji-cheat-sheet-plus
     markdown-mode
     markdown-toc
     mmm-mode
     company
     company-emoji
     ))
+
+(defun markdown/post-init-emoji-cheat-sheet-plus ()
+  (add-hook 'markdown-mode-hook 'emoji-cheat-sheet-plus-display-mode))
 
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode

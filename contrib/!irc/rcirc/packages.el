@@ -1,11 +1,23 @@
 (setq rcirc-packages
   '(
-    rcirc
-    rcirc-notify
-    rcirc-color
     company
     company-emoji
+    emoji-cheat-sheet-plus
+    rcirc
+    rcirc-color
+    rcirc-notify
     ))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun rcirc/post-init-company ()
+    (spacemacs|add-company-hook rcirc-mode)
+    (push 'company-capf company-backends-rcirc-mode))
+
+  (defun rcirc/post-init-company-emoji ()
+    (push 'company-emoji company-backends-rcirc-mode)))
+
+(defun rcirc/post-init-emoji-cheat-sheet-plus ()
+  (add-hook 'rcirc-mode-hook 'emoji-cheat-sheet-plus-display-mode))
 
 (defun rcirc/init-rcirc ()
   (use-package rcirc
@@ -113,6 +125,9 @@
       (rcirc-notify-add-hooks)
       (require 'rcirc-color))))
 
+(defun rcirc/init-rcirc-color ()
+  (use-package rcirc-color :defer t))
+
 (defun rcirc/init-rcirc-notify ()
   (use-package rcirc-notify
     :defer t
@@ -126,14 +141,3 @@
                      (file-exists-p sound)))
           (start-process "beep-process" nil player sound)))
       (add-hook 'rcirc-notify-page-me-hooks 'spacemacs/rcirc-notify-beep))))
-
-(defun rcirc/init-rcirc-color ()
-  (use-package rcirc-color :defer t))
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun rcirc/post-init-company ()
-    (spacemacs|add-company-hook rcirc-mode)
-    (push 'company-capf company-backends-rcirc-mode))
-
-  (defun rcirc/post-init-company-emoji ()
-    (push 'company-emoji company-backends-rcirc-mode)))
