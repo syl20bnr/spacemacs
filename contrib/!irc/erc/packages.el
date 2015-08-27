@@ -12,18 +12,30 @@
 
 (setq erc-packages
       '(
+        company
+        company-emoji
+        emoji-cheat-sheet-plus
         erc
         erc-hl-nicks
         erc-image
         erc-social-graph
         erc-view-log
         erc-yt
-        company
-        company-emoji
         ))
 
 (when (system-is-mac)
   (push 'erc-terminal-notifier erc-packages))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun erc/post-init-company ()
+    (spacemacs|add-company-hook erc-mode)
+    (push 'company-capf company-backends-erc-mode))
+
+  (defun erc/post-init-company-emoji ()
+    (push 'company-emoji company-backends-erc-mode)))
+
+(defun erc/post-init-emoji-cheat-sheet-plus ()
+  (add-hook 'erc-mode-hook 'emoji-cheat-sheet-plus-display-mode))
 
 (defun erc/init-erc ()
   "Initialize ERC"
@@ -154,11 +166,3 @@
     :init (eval-after-load 'erc '(add-to-list 'erc-modules 'image))))
 
 (defun erc/init-erc-terminal-notifier ())
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun erc/post-init-company ()
-    (spacemacs|add-company-hook erc-mode)
-    (push 'company-capf company-backends-erc-mode))
-
-  (defun erc/post-init-company-emoji ()
-    (push 'company-emoji company-backends-erc-mode)))
