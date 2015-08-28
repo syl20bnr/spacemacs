@@ -21,8 +21,8 @@
     :defer t
     :init
     (progn
-      (add-hook 'markdown-mode-hook 'flyspell-mode)
-      (add-hook 'text-mode-hook 'flyspell-mode)
+      (spacemacs/add-flyspell-hook 'markdown-mode)
+      (spacemacs/add-flyspell-hook 'text-mode)
       (spacemacs|add-toggle spelling-checking
         :status flyspell-mode
         :on (flyspell-mode)
@@ -35,7 +35,8 @@
         "Sn" 'flyspell-goto-next-error))
     :config
     (progn
-      (flyspell-prog-mode)
+      (when spell-checking-enable-by-default
+        (flyspell-prog-mode))
       (spacemacs|diminish flyspell-mode " Ⓢ" " S"))))
 
 (defun spell-checking/init-helm-flyspell ()

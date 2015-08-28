@@ -15,3 +15,6 @@
 ;; Command Prefixes
 
 (spacemacs/declare-prefix "S" "spelling")
+
+(defvar spell-checking-enable-by-default t
+  "Enable spell checking by default.")
