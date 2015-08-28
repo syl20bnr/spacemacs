@@ -119,6 +119,8 @@ Ensure that helm is required before calling FUNC."
   "feD" 'spacemacs/ediff-dotfile-and-template
   "feR" 'dotspacemacs/sync-configuration-layers
   "fev" 'spacemacs/display-and-copy-version
+  "fCd" 'spacemacs/unix2dos
+  "fCu" 'spacemacs/dos2unix
   "fg" 'rgrep
   "fj" 'dired-jump
   "fl" 'find-file-literally

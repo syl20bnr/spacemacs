@@ -1025,6 +1025,17 @@ the right."
       (call-interactively 'evil-write)
     (call-interactively 'write-file)))
 
+
+(defun spacemacs/dos2unix ()
+  "Converts the current buffer to UNIX file format."
+  (interactive)
+  (set-buffer-file-coding-system 'undecided-unix nil))
+
+(defun spacemacs/unix2dos ()
+  "Converts the current buffer to DOS file format."
+  (interactive)
+  (set-buffer-file-coding-system 'undecided-dos nil))
+
 (defun spacemacs/copy-file ()
   "Write the file under new name."
   (interactive)
