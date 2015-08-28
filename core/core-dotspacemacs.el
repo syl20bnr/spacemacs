@@ -116,6 +116,9 @@ with `:' and Emacs commands are executed with `<leader> :'.")
   "If non nil then `ido' replaces `helm' for some commands. For now only
 `find-files' (SPC f f) is replaced.")
 
+(defvar dotspacemacs-helm-resize nil
+  "If non nil, `helm' will try to miminimize the space it uses.")
+
 (defvar dotspacemacs-auto-save-file-location 'cache
   "Location where to auto-save files. Possible values are `original' to
 auto-save the file in-place, `cache' to auto-save the file to another
