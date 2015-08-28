@@ -1623,6 +1623,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (defvar spacemacs-helm-display-buffer-regexp `("*.*helm.**"
                                                      (display-buffer-in-side-window)
                                                      (inhibit-same-window . t)
+                                                     (side . ,dotspacemacs-helm-position)
                                                      (window-height . 0.4)))
       (defvar spacemacs-display-buffer-alist nil)
       (defun spacemacs//helm-prepare-display ()
@@ -1638,7 +1639,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
           (setq display-buffer-alist nil)
           (popwin-mode -1)))
 
-      (defun spacemacs//display-helm-at-bottom (buffer)
+      (defun spacemacs//display-helm-window (buffer)
         (let ((display-buffer-alist (list spacemacs-helm-display-help-buffer-regexp
                                           ;; this or any specialized case of Helm buffer must be added AFTER
                                           ;; `spacemacs-helm-display-buffer-regexp'. Otherwise,
@@ -1649,7 +1650,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
                                           spacemacs-helm-display-buffer-regexp)))
           (helm-default-display-buffer buffer)))
 
-      (setq helm-display-function 'spacemacs//display-helm-at-bottom)
+      (setq helm-display-function 'spacemacs//display-helm-window)
 
       (defun spacemacs//restore-previous-display-config ()
         (popwin-mode 1)
