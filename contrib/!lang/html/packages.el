@@ -197,7 +197,7 @@
         ("h" web-mode-element-parent)
         ("l" web-mode-element-child)
         ("p" web-mode-dom-xpath)
-        ("r" web-mode-element-rename)
+        ("r" web-mode-element-rename :exit t)
         ("q" nil :exit t)
         ("w" web-mode-element-wrap)))
 
