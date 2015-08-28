@@ -251,7 +251,7 @@
               #'spacemacs/python-imenu-create-index-python-or-semantic)))))
 
 (defun python/post-init-flycheck ()
-  (add-hook 'python-mode-hook 'flycheck-mode))
+  (spacemacs/add-flycheck-hook 'python-mode))
 
 (defun python/init-hy-mode ()
   (use-package hy-mode

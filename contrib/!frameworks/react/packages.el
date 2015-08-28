@@ -44,7 +44,7 @@
                                           '(json-jsonlist))))))
 
 (defun react/post-init-flycheck ()
-  (add-hook 'react-mode-hook 'flycheck-mode))
+  (spacemacs/add-flycheck-hook 'react-mode))
 
 (defun react/post-init-js-doc ()
   (add-hook 'react-mode-hook 'spacemacs/js-doc-require)

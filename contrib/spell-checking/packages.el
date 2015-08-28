@@ -21,8 +21,8 @@
     :defer t
     :init
     (progn
-      (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
-      (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1)))
+      (spacemacs/add-flyspell-hook 'markdown-mode)
+      (spacemacs/add-flyspell-hook 'text-mode)
       (spacemacs|add-toggle spelling-checking
         :status flyspell-mode
         :on (flyspell-mode)
@@ -32,7 +32,8 @@
         :evil-leader "tS"))
     :config
     (progn
-      (flyspell-prog-mode)
+      (when spell-checking-enable-by-default
+        (flyspell-prog-mode))
       (spacemacs|diminish flyspell-mode " Ⓢ" " S"))))
 
 (defun spell-checking/init-helm-flyspell ()

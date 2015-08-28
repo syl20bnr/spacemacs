@@ -24,8 +24,8 @@
     :defer t
     :init
     (progn
-      (spacemacs/add-to-hook 'rcirc-mode-hook '(flyspell-mode
-                                                rcirc-omit-mode
+      (spacemacs/add-flyspell-hook 'rcirc-mode)
+      (spacemacs/add-to-hook 'rcirc-mode-hook '(rcirc-omit-mode
                                                 rcirc-track-minor-mode))
 
       (defun spacemacs//rcirc-with-authinfo (arg)
