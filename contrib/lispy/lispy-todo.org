@@ -1,0 +1,12 @@
+* TODO Spacemacs/Lispy Integration
+ - [X] Add basic mode based dispatch system
+ - [X] Associate lispy with modes by state
+ - [ ] Add minor modes to dispatch system - waiting to hear abo-abo's thoughts
+ - [X] Prefer helm for occur
+ - [ ] Create option for dedicated evil state?
+ - [ ] Create spacemacs-lispy-keymap that conforms more closely to evil conventions
+* TODO Clojure Layer Integration
+ - [ ] Cider keybinds
+ - [ ] Cljr Refactor keybinds
+* Scheme Layer Integration
+* Common Lisp Layer Integration
