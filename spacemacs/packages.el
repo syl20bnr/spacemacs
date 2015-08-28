@@ -279,32 +279,58 @@
                  (spacemacs/ensure-ahs-enabled-locally)
                  (ahs-highlight-now)) nil))
 
+      (defun spacemacs/enter-ahs-forward ()
+        "Go to the next occurrence of symbol under point with
+`auto-highlight-symbol'"
+        (interactive)
+        (setq-local spacemacs--ahs-searching-forward t)
+        (spacemacs/quick-ahs-forward))
+
+      (defun spacemacs/enter-ahs-backward ()
+        "Go to the previous occurrence of symbol under point with
+`auto-highlight-symbol'"
+        (interactive)
+        (setq-local spacemacs--ahs-searching-forward nil)
+        (spacemacs/quick-ahs-forward))
+
       (defun spacemacs/quick-ahs-forward ()
         "Go to the next occurrence of symbol under point with
 `auto-highlight-symbol'"
         (interactive)
-        (spacemacs/integrate-evil-search t)
-        (spacemacs/ahs-highlight-now-wrapper)
-        (when (configuration-layer/package-usedp 'evil-jumper)
-          (evil-set-jump))
-        (spacemacs/highlight-symbol-micro-state)
-        (ahs-forward))
+        (spacemacs//quick-ahs-move t))
 
       (defun spacemacs/quick-ahs-backward ()
         "Go to the previous occurrence of symbol under point with
 `auto-highlight-symbol'"
         (interactive)
-        (spacemacs/integrate-evil-search nil)
-        (spacemacs/ahs-highlight-now-wrapper)
-        (when (configuration-layer/package-usedp 'evil-jumper)
-          (evil-set-jump))
-        (spacemacs/highlight-symbol-micro-state)
-        (ahs-backward))
+        (spacemacs//quick-ahs-move nil))
+
+      (defun spacemacs//quick-ahs-move (forward)
+        "Go to the next occurrence of symbol under point with
+`auto-highlight-symbol'"
+
+        (if (eq forward spacemacs--ahs-searching-forward)
+            (progn
+              (spacemacs/integrate-evil-search t)
+              (spacemacs/ahs-highlight-now-wrapper)
+              (when (configuration-layer/package-usedp 'evil-jumper)
+                (evil-set-jump))
+              (spacemacs/highlight-symbol-micro-state)
+              (ahs-forward)
+              )
+          (progn
+            (spacemacs/integrate-evil-search nil)
+            (spacemacs/ahs-highlight-now-wrapper)
+            (when (configuration-layer/package-usedp 'evil-jumper)
+              (evil-set-jump))
+            (spacemacs/highlight-symbol-micro-state)
+            (ahs-backward)
+            )))
 
       (eval-after-load 'evil
         '(progn
-           (define-key evil-motion-state-map (kbd "*") 'spacemacs/quick-ahs-forward)
-           (define-key evil-motion-state-map (kbd "#") 'spacemacs/quick-ahs-backward)))
+           (define-key evil-motion-state-map (kbd "*") 'spacemacs/enter-ahs-forward)
+           (define-key evil-motion-state-map (kbd "#") 'spacemacs/enter-ahs-backward)))
 
       (defun spacemacs/symbol-highlight ()
         "Highlight the symbol under point with `auto-highlight-symbol'."
@@ -313,6 +339,11 @@
         (setq spacemacs-last-ahs-highlight-p (ahs-highlight-p))
         (spacemacs/highlight-symbol-micro-state)
         (spacemacs/integrate-evil-search nil))
+
+      (defun spacemacs//ahs-ms-on-exit ()
+        ;; Restore user search direction state as ahs has exitted in a state
+        ;; good for <C-s>, but not for 'n' and 'N'"
+        (setq isearch-forward spacemacs--ahs-searching-forward))
 
       (defun spacemacs/symbol-highlight-reset-range ()
         "Reset the range for `auto-highlight-symbol'."
@@ -363,6 +394,7 @@
                       (prophidden (propertize hidden 'face '(:weight bold))))
                  (format "%s %s%s [n/N] move [e] edit [r] range [R] reset [d/D] definition [/] find in project [f] find in files [b] find in opened buffers [q] exit"
                          propplugin propx/y prophidden)))
+        :on-exit  (spacemacs//ahs-ms-on-exit)
         :bindings
         ("d" ahs-forward-definition)
         ("D" ahs-backward-definition)
