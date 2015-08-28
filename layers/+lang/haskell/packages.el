@@ -30,7 +30,7 @@
     :defer t))
 
 (defun haskell/post-init-flycheck ()
-  (add-hook 'haskell-mode-hook 'flycheck-mode))
+  (spacemacs/add-flycheck-hook 'haskell-mode))
 
 (when (configuration-layer/layer-usedp 'syntax-checking)
   (defun haskell/init-flycheck-haskell ()

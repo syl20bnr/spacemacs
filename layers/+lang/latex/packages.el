@@ -102,7 +102,7 @@
   (add-hook 'LaTeX-mode-hook 'evil-matchit-mode))
 
 (defun latex/post-init-flycheck ()
-  (add-hook 'LaTeX-mode-hook 'flycheck-mode))
+  (spacemacs/add-flycheck-hook 'LaTeX-mode))
 
 (defun latex/post-init-flyspell ()
   (add-hook 'LaTeX-mode-hook 'flyspell-mode))
