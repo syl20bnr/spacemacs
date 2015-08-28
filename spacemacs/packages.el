@@ -3657,14 +3657,6 @@ one of `l' or `r'."
   (use-package which-key
     :init
     (progn
-      (setq which-key-max-description-length 32
-            which-key-idle-delay dotspacemacs-which-key-delay)
-      (which-key-mode)
-      (cond
-       ((eq dotspacemacs-which-key-position 'right) (which-key-setup-side-window-right))
-       ((eq dotspacemacs-which-key-position 'bottom) (which-key-setup-side-window-bottom))
-       ((eq dotspacemacs-which-key-position 'right-then-bottom) (which-key-setup-side-window-right-bottom))
-       nil)
       (spacemacs|add-toggle which-key
         :status which-key-mode
         :on (which-key-mode)
@@ -3719,10 +3711,15 @@ one of `l' or `r'."
               (,(listify-key-sequence
                  (kbd dotspacemacs-emacs-leader-key)) . "Spacemacs root")))
       (nconc which-key-prefix-title-alist spacemacs/prefix-titles)
+      (pcase dotspacemacs-which-key-position
+        (`right (which-key-setup-side-window-right))
+        (`bottom (which-key-setup-side-window-bottom))
+        (`right-then-bottom (which-key-setup-side-window-right-bottom)))
       (setq which-key-special-keys nil
             which-key-use-C-h-for-paging t
             which-key-echo-keystrokes 0.02
-            which-key-max-description-length 32)
+            which-key-max-description-length 32
+            which-key-idle-delay dotspacemacs-which-key-delay)
       (which-key-mode)
       (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
 

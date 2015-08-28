@@ -132,16 +132,16 @@ Default value is `cache'.")
   "If non nil the paste micro-state is enabled. While enabled pressing `p`
 several times cycle between the kill ring content.'")
 
-(defvar dotspacemacs-guide-key-delay 0.4
-  "Guide-key delay in seconds.")
-
 (defvar dotspacemacs-which-key-delay 0.4
-  "Which-key delay in seconds.")
+  "Delay in seconds starting from the last keystroke after which
+the which-key buffer will be shown if you have not completed a
+key sequence. Setting this variable is equivalent to setting
+`which-key-idle-delay'.")
 
-;; TODO: Implement me
-;; Possible options should be: right bottom right-then-bottom
-(defvar dotspacemacs-which-key-position 'right-then-bottom
-  "Which-key position in seconds.")
+(defvar dotspacemacs-which-key-position 'bottom
+  "Location of the which-key popup buffer. Possible choices are bottom,
+right, and right-then-bottom. The last one will display on the
+right if possible and fallback to bottom if not.")
 
 (defvar dotspacemacs-loading-progress-bar t
   "If non nil a progress bar is displayed when spacemacs is loading. This
