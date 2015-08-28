@@ -3610,6 +3610,16 @@ one of `l' or `r'."
                                        :action message))
       (evil-leader/set-key "RET" 'wand:execute))))
 
+(defun spacemacs/init-wdired ()
+  (use-package wdired
+    :defer t
+    :init
+    (progn
+      (evil-leader/set-key-for-mode 'dired-mode
+        "mxd" 'wdired-change-to-dired-mode
+        "mxa" 'wdired-abort-changes
+        "mxw" 'wdired-change-to-wdired-mode))))
+
 (defun spacemacs/init-whitespace ()
   (use-package whitespace
     :defer t
