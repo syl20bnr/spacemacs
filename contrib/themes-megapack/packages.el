@@ -89,7 +89,8 @@
     tao-theme
     ;; contains error
     ; tommyh-theme
-    toxi-theme
+    ;; currently not available from melpa
+    ;; toxi-theme
     tronesque-theme
     twilight-anti-bright-theme
     twilight-bright-theme
