@@ -117,13 +117,13 @@ values."
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content.
    dotspacemacs-enable-paste-micro-state nil
-   ;; Which-key delay in seconds. The Which-key is the popup buffer listing
-   ;; the commands bound to the current keystrokes.
+   ;; Which-key delay in seconds. The which-key buffer is the popup listing
+   ;; the commands bound to the current keystroke sequence.
    dotspacemacs-which-key-delay 0.4
    ;; Which-key frame position. Possible values are right, bottom and
    ;; right-then-bottom. Right-then-bottom tries to display the frame to the
    ;; right. If there is insufficient space, it displays it at the bottom.
-   dotspacemacs-which-key-position 'right
+   dotspacemacs-which-key-position 'bottom
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil ;; to boost the loading time.
