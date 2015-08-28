@@ -1394,6 +1394,9 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :commands spacemacs/helm-find-files
     :config
     (progn
+      (when dotspacemacs-helm-resize
+        (setq helm-autoresize-min-height 1)
+        (helm-autoresize-mode 1))
       (defun spacemacs/helm-find-files (arg)
         "Custom spacemacs implementation for calling helm-find-files-1.
 
