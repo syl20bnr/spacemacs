@@ -1242,6 +1242,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
                                          "speedbar-mode"
                                          ))
 
+      (add-to-list 'golden-ratio-exclude-buffer-regexp "^\\*[hH]elm.*")
+
       (setq golden-ratio-extra-commands
             (append golden-ratio-extra-commands
                     '(ace-window
