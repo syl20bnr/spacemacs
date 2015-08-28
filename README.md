@@ -585,8 +585,8 @@ details.
 [using_package_buf]: doc/DOCUMENTATION.org#using-the-package-list-buffer
 [troubleshoot]: doc/DOCUMENTATION.org#troubleshoot
 [contrib layers]: doc/DOCUMENTATION.org#using-configuration-layers
-[Git support]: contrib/git/README.org
-[git layer]: contrib/git
+[Git support]: contrib/!source-control/git/README.org
+[git layer]: contrib/!source-control/git
 [ace-jump]: doc/DOCUMENTATION.org#vim-motions-with-ace-jump-mode
 [project management]: doc/DOCUMENTATION.org#project-management
 [Evil Mode]: doc/DOCUMENTATION.org#evil
