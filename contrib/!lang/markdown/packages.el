@@ -109,6 +109,22 @@ Will work on both org-mode and any mode that accepts plain html."
         ;; next visible heading is not exactly what we want but close enough
         "gl" 'outline-next-visible-heading)
 
+      ;; define imenu expressions
+      (setq markdown-imenu-generic-expression
+            '(("title"  "^\\(.*\\)[\n]=+$" 1)
+              ("h2-"    "^\\(.*\\)[\n]-+$" 1)
+              ("h1"   "^# \\(.*\\)$" 1)
+              ("h2"   "^## \\(.*\\)$" 1)
+              ("h3"   "^### \\(.*\\)$" 1)
+              ("h4"   "^#### \\(.*\\)$" 1)
+              ("h5"   "^##### \\(.*\\)$" 1)
+              ("h6"   "^###### \\(.*\\)$" 1)
+              ("fn"   "^\\[\\^\\(.*\\)\\]" 1)
+              ))
+      (add-hook 'markdown-mode-hook
+                (lambda ()
+                  (setq imenu-generic-expression markdown-imenu-generic-expression)))
+
       ;; Promotion, Demotion
       (define-key markdown-mode-map (kbd "M-h") 'markdown-promote)
       (define-key markdown-mode-map (kbd "M-j") 'markdown-move-down)
