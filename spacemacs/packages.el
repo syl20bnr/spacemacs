@@ -930,7 +930,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :init
     (progn
       (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps")
-            evil-jumper-auto-save-interval 3600)
+            evil-jumper-auto-save-interval 600)
       (evil-jumper-mode t)
       )))
 
