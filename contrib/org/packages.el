@@ -87,6 +87,9 @@ Will work on both org-mode and any mode that accepts plain html."
                (format tag (help-key-description key nil)))
             (insert (format tag ""))
             (forward-char -8))))
+      ;; setup org directory
+      (unless (file-exists-p org-directory)
+        (make-directory org-directory))
       (evil-leader/set-key-for-mode 'org-mode
         "m'" 'org-edit-special
         "mc" 'org-capture
