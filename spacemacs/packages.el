@@ -1435,10 +1435,12 @@ Removes the automatic guessing of the initial value based on thing at point. "
             helm-file-cache-fuzzy-match t
             helm-imenu-fuzzy-match t
             helm-lisp-fuzzy-completion t
-            helm-locate-fuzzy-match t
             helm-recentf-fuzzy-match t
             helm-semantic-fuzzy-match t
             helm-buffers-fuzzy-matching t)
+
+      ;; helm-locate uses es (from everything on windows, which doesnt like fuzzy)
+      (setq helm-locate-fuzzy-match (executable-find "locate"))
 
       (defun spacemacs/helm-find-files-navigate-back (orig-fun &rest args)
         )
@@ -1552,6 +1554,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "bb"   'helm-mini
         "Cl"   'helm-colors
         "ff"   'spacemacs/helm-find-files
+        "fa"   'helm-locate
         "fF"   'helm-find-files
         "fr"   'helm-recentf
         "hb"   'helm-filtered-bookmarks
