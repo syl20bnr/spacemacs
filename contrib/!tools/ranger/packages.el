@@ -13,13 +13,20 @@
 
 (setq ranger-packages '(ranger))
 
-(setq ranger-excluded-packages '())
+(setq ranger-excluded-packages '(vinegar))
 
 (defun ranger/init-ranger ()
   (use-package ranger
     :defer t
     :init
     (progn
-      (setq ranger-parent-depth 1
-            ranger-preview-file t)
-      (evil-leader/set-key "ar" 'ranger))))
+      (evil-leader/set-key
+        "ar" 'ranger
+        "ad" 'deer)
+      (evil-define-key 'normal 'dired-mode-map "-" 'ranger-up-directory)
+      (define-key evil-normal-state-map (kbd "-") 'deer)
+
+      ;; set up image-dired to allow picture resize
+      (setq image-dired-dir (concat spacemacs-cache-directory "image-dir"))
+      (unless (file-directory-p image-dired-dir)
+        (make-directory image-dired-dir)))))
