@@ -20,6 +20,7 @@
     flycheck
     haml-mode
     helm-css-scss
+    impatient-mode
     jade-mode
     less-css-mode
     rainbow-delimiters
@@ -84,6 +85,10 @@
     :init
     (eval-after-load 'scss-mode
       '(evil-leader/set-key-for-mode 'scss-mode "mgh" 'helm-css-scss))))
+
+(defun html/init-impatient-mode ()
+  (use-package impatient-mode
+    :defer t))
 
 (defun html/init-jade-mode ()
   (use-package jade-mode

@@ -4,11 +4,12 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
-     - [[#features][Features:]]
+   - [[#features][Features:]]
  - [[#install][Install]]
+ - [[#use-impatient-mode][Use Impatient Mode]]
  - [[#key-bindings][Key Bindings]]
-     - [[#web-mode][Web mode]]
-     - [[#cssscss][CSS/Scss]]
+   - [[#web-mode][Web mode]]
+   - [[#cssscss][CSS/Scss]]
 
 * Description
 
@@ -19,6 +20,8 @@ This layer adds support for editing HTML and CSS.
 - Support for Sass/Scss and Less files
 - Generate HTML and CSS coding using [[https://github.com/smihica/emmet-mode][emmet-mode]]
 - Tags navigation on key ~%~ using [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
+- See the effects of typed HTML using [[https://github.com/skeeto/impatient-mode][impatient-mode]]
+
 
 * Install
 
@@ -27,6 +30,26 @@ To use this contribution add it to your =~/.spacemacs=
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(html))
 #+END_SRC
+
+* Use Impatient Mode
+
+Enable the web server provided by simple-httpd:
+
+~M-x httpd-start~
+
+Publish buffers by enabling the minor mode impatient-mode.
+
+~M-x impatient-mode~
+
+And then point your browser to http://localhost:8080/imp/, select a buffer, and
+watch your changes appear as you type!
+
+If you are editing HTML that references resources in other files (like CSS) you
+can enable impatient-mode on those buffers as well. This will cause your browser
+to live refresh the page when you edit a referenced resources.
+
+For more information visit the [[https://github.com/skeeto/impatient-mode/blob/master/README.md][help page on GitHub.]]
+
 
 * Key Bindings
 
