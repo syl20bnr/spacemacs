@@ -717,6 +717,13 @@
       (define-key evil-window-map (kbd "<right>") 'evil-window-right)
       (define-key evil-window-map (kbd "<up>") 'evil-window-up)
       (define-key evil-window-map (kbd "<down>") 'evil-window-down)
+      ;; Make Y equivalent to y$
+      (defun spacemacs/evil-yank-to-end-of-line ()
+        "Yank from point to end of line."
+        (interactive)
+        (evil-yank (point) (point-at-eol)))
+      (define-key evil-normal-state-map (kbd "Y") 'spacemacs/evil-yank-to-end-of-line)
+      (define-key evil-motion-state-map (kbd "Y") 'spacemacs/evil-yank-to-end-of-line)
 
       (evil-leader/set-key "re" 'evil-show-registers)
 
@@ -868,14 +875,14 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
       ;; support smart 1parens-strict-mode
       (when (configuration-layer/package-usedp 'smartparens)
-          (defadvice evil-delete-backward-char-and-join
-              (around spacemacs/evil-delete-backward-char-and-join activate)
-            (defvar smartparens-strict-mode)
-            ;; defadvice compiles this sexp generating a compiler warning for a
-            ;; free variable reference. The line above fixes this
-            (if smartparens-strict-mode
-                (call-interactively 'sp-backward-delete-char)
-              ad-do-it))))))
+        (defadvice evil-delete-backward-char-and-join
+            (around spacemacs/evil-delete-backward-char-and-join activate)
+          (defvar smartparens-strict-mode)
+          ;; defadvice compiles this sexp generating a compiler warning for a
+          ;; free variable reference. The line above fixes this
+          (if smartparens-strict-mode
+              (call-interactively 'sp-backward-delete-char)
+            ad-do-it))))))
 
 (defun spacemacs/init-evil-anzu ()
   (use-package evil-anzu
