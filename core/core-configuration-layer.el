@@ -14,6 +14,7 @@
 ;;
 ;;; Code:
 
+(require 'cl-lib)
 (require 'eieio)
 (require 'package)
 (require 'ht)
@@ -123,6 +124,9 @@
 
 (defvar configuration-layer--used-distant-packages '()
   "A list of all distant packages that are effectively used.")
+
+(defvar configuration-layer--skipped-packages nil
+  "A list of all packages that were skipped during last update attempt.")
 
 (defvar configuration-layer-error-count nil
   "Non nil indicates the number of errors occurred during the
@@ -704,7 +708,10 @@ path."
               (configuration-layer//get-latest-package-version-string
                pkg-name)))
       ;; (message "%s: %s > %s ?" pkg-name cur-version new-version)
-      (version< cur-version new-version))))
+      (if new-version
+          (version< cur-version new-version)
+        (cl-pushnew pkg-name configuration-layer--skipped-packages :test #'eq)
+        nil))))
 
 (defun configuration-layer//get-packages-to-update (pkg-names)
   "Return a filtered list of PKG-NAMES to update."
@@ -808,10 +815,12 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
    "--> fetching new package repository indexes...\n")
   (spacemacs//redisplay)
   (package-refresh-contents)
+  (setq configuration-layer--skipped-packages nil)
   (let* ((update-packages
           (configuration-layer//get-packages-to-update
            (mapcar 'car (object-assoc-list
                          :name configuration-layer--used-distant-packages))))
+         (skipped-count (length configuration-layer--skipped-packages))
          (date (format-time-string "%y-%m-%d_%H.%M.%S"))
          (rollback-dir (expand-file-name
                         (concat configuration-layer-rollback-directory
@@ -819,10 +828,22 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
          (upgrade-count (length update-packages))
          (upgraded-count 0)
          (update-packages-alist))
+    (when configuration-layer--skipped-packages
+      (spacemacs-buffer/append
+       (format (concat "--> Warning: cannot update %s package(s), possibly due"
+                       " to a temporary network problem: %s\n")
+               skipped-count
+               (mapconcat #'symbol-name
+                          configuration-layer--skipped-packages
+                          " "))))
     ;; (message "packages to udpate: %s" update-packages)
     (if (> upgrade-count 0)
         (if (and (not always-update)
                  (not (yes-or-no-p (format (concat "%s package(s) to update, "
+                                                   (if (> skipped-count 0)
+                                                       (format "%s package(s) skipped, "
+                                                               skipped-count)
+                                                     "")
                                                    "do you want to continue ? ")
                                            upgrade-count))))
             (spacemacs-buffer/append
