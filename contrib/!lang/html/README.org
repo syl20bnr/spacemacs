@@ -4,24 +4,22 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
-     - [[#features][Features:]]
+   - [[#features][Features]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
-     - [[#web-mode][Web mode]]
-     - [[#cssscss][CSS/Scss]]
+   - [[#web-mode][Web mode]]
+   - [[#cssscss][CSS/SCSS]]
 
 * Description
-
 This layer adds support for editing HTML and CSS.
 
-** Features:
+** Features
 - Editing HTML and CSS file using [[http://web-mode.org/][web-mode]]
 - Support for Sass/Scss and Less files
 - Generate HTML and CSS coding using [[https://github.com/smihica/emmet-mode][emmet-mode]]
 - Tags navigation on key ~%~ using [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 
 * Install
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -54,17 +52,19 @@ A micro-state is also defined, start it with ~SPC m .~ or ~, .~
 | ~?~         | Toggle full help                                               |
 | ~c~         | clone current element                                          |
 | ~d~         | delete (vanish) current element (does not delete the children) |
-| ~h~         | previous element                                               |
-| ~l~         | next element                                                   |
-| ~L~         | next sibling element                                           |
-| ~k~         | parent element                                                 |
-| ~j~         | first child element                                            |
+| ~D~         | delete current element and children                            |
+| ~j~         | next element                                                   |
+| ~J~ / ~gj~  | next sibling element                                           |
+| ~h~         | parent element                                                 |
+| ~k~         | previous element                                               |
+| ~K~ / ~gk~  | previous sibling element                                       |
+| ~l~         | first child element                                            |
 | ~p~         | show xpath of current element                                  |
-| ~r~         | rename current element                                         |
 | ~q~         | leave the micro-state                                          |
+| ~r~         | rename current element                                         |
 | ~w~         | wrap current element                                           |
 
-** CSS/Scss
+** CSS/SCSS
 
 | Key Binding | Description                             |
 |-------------+-----------------------------------------|
