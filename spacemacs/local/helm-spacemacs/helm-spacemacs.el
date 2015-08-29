@@ -202,7 +202,7 @@
       (find-file (concat path file)))))
 
 (defun helm-spacemacs//layer-action-open-readme (candidate)
-  "Open the `README.md' file of the passed CANDIDATE."
+  "Open the `README.org' file of the passed CANDIDATE."
   (helm-spacemacs//layer-action-open-file "README.org" candidate))
 
 (defun helm-spacemacs//layer-action-open-packages (candidate)

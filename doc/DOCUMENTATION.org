@@ -89,7 +89,7 @@
        - [[#golden-ratio][Golden ratio]]
      - [[#buffers-and-files][Buffers and Files]]
        - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
-       - [[#buffers-manipulation-manipulation-micro-state][Buffers manipulation manipulation micro-state]]
+       - [[#buffers-manipulation-manipulation-micro-state][Buffers manipulation micro-state]]
        - [[#special-buffers][Special Buffers]]
        - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
        - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
@@ -1117,7 +1117,7 @@ Initiate the micro-state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
 ** Discovering
 *** Key bindings
 **** Which-key
-An help buffer is displayed each time the ~SPC~ key is pressed in normal mode.
+A help buffer is displayed each time the ~SPC~ key is pressed in normal mode.
 It lists the available key bindings and their associated commands.
 
 By default the [[https://github.com/justbur/emacs-which-key][which-key]] buffer will be displayed quickly after the key has been
@@ -1161,7 +1161,7 @@ All layers can be easily discovered via =helm-spacemacs= accessible with ~SPC f
 e h~.
 
 The following helm actions are available:
-  - default: open the layer =README.md=
+  - default: open the layer =README.org=
   - 2nd: open the layer =packages.el=
   - 3nd: open the layer =extensions.el=
 
@@ -1324,7 +1324,7 @@ Windows manipulation commands (start with ~w~):
 | ~SPC w v~ or ~SPC w -~ | vertical split                                                              |
 | ~SPC w V~              | vertical split and focus new window                                         |
 | ~SPC w w~              | cycle and focus between windows                                             |
-| ~SPC w W~              | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
+| ~SPC w SPC~           | select window using [[https://github.com/abo-abo/ace-window][ace-window]]                                              |
 
 **** Window manipulation micro-state
 A convenient window manipulation micro-state allows to perform most of the
@@ -1402,7 +1402,7 @@ Buffer manipulation commands (start with ~b~):
 | ~SPC b h~   | open =*spacemacs*= home buffer                                           |
 | ~SPC b k~   | kill a buffer                                                            |
 | ~SPC b K~   | kill all buffers except the current one                                  |
-| ~SPC b C-K~ | kill all buffers matching the regexp                                     |
+| ~SPC b C-k~ | kill all buffers matching the regexp                                     |
 | ~SPC b m h~ | move a buffer to the left                                                |
 | ~SPC b m j~ | move a buffer to the bottom                                              |
 | ~SPC b m k~ | move a buffer to the top                                                 |
@@ -1416,7 +1416,7 @@ Buffer manipulation commands (start with ~b~):
 | ~SPC b Y~   | copy whole buffer to clipboard (useful when copying to a browser)        |
 | ~z f~       | Make current function or comments visible in buffer as much as possible  |
 
-**** Buffers manipulation manipulation micro-state
+**** Buffers manipulation micro-state
 A convenient buffer manipulation micro-state allows to quickly cycles through
 the opened buffer and kill them.
 
