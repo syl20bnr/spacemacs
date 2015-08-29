@@ -694,6 +694,9 @@ Additional information may as well be displayed in the minibuffer.
   opposite direction in =Vim=, but in =Spacemacs= it is the major mode specific
   leader key by default (which can be set on another key binding in the
   dotfile).
+- The ~Y~ key does not yank the whole line. It yanks from the current point to
+  the end of the line. This is more consistent with the behavior of ~C~ and ~D~
+  and is also recommended by the vim documentation.
 
 Send a PR to add the differences you found in this section.
 
