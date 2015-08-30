@@ -445,6 +445,7 @@ Ensure that helm is required before calling FUNC."
 (spacemacs|define-micro-state window-manipulation
   :doc "[?] for help"
   :evil-leader "w."
+  :use-minibuffer t
   :bindings
   ("?" nil                                   :doc (spacemacs//window-manipulation-full-doc))
   ("0" select-window-0                       :doc (spacemacs//window-manipulation-number-doc))
@@ -475,7 +476,7 @@ Ensure that helm is required before calling FUNC."
   ("K" evil-window-move-very-top             :doc (spacemacs//window-manipulation-move-doc))
   ("L" evil-window-move-far-right            :doc (spacemacs//window-manipulation-move-doc))
   ("o" other-frame                           :doc (spacemacs//window-manipulation-move-doc))
-  ("R" spacemacs/rotate-windows                        :doc (spacemacs//window-manipulation-move-doc))
+  ("R" spacemacs/rotate-windows              :doc (spacemacs//window-manipulation-move-doc))
   ("s" split-window-below                    :doc (spacemacs//window-manipulation-split-doc))
   ("S" split-window-below-and-focus          :doc (spacemacs//window-manipulation-split-doc))
   ("u" winner-undo                           :doc (spacemacs//window-manipulation-layout-doc))
