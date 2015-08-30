@@ -301,13 +301,21 @@ Ensure that helm is required before calling FUNC."
   "wc"  'delete-window
   "wd"  'spacemacs/toggle-current-window-dedication
   "wH"  'evil-window-move-far-left
+  "w <S-left>"  'evil-window-move-far-left
   "wh"  'evil-window-left
+  "w <left>"  'evil-window-left
   "wJ"  'evil-window-move-very-bottom
+  "w <S-down>"  'evil-window-move-very-bottom
   "wj"  'evil-window-down
+  "w <down>"  'evil-window-down
   "wK"  'evil-window-move-very-top
+  "w <S-up>"  'evil-window-move-very-top
   "wk"  'evil-window-up
+  "w <up>"  'evil-window-up
   "wL"  'evil-window-move-far-right
+  "w <S-right>"  'evil-window-move-far-right
   "wl"  'evil-window-right
+  "w <right>"  'evil-window-right
   "wm"  'spacemacs/toggle-maximize-buffer
   "wM"  'spacemacs/toggle-maximize-centered-buffer
   "wo"  'other-frame
@@ -470,13 +478,21 @@ Ensure that helm is required before calling FUNC."
   ("C" delete-other-windows                  :doc (spacemacs//window-manipulation-layout-doc))
   ("g" spacemacs/toggle-golden-ratio         :doc (spacemacs//window-manipulation-gratio-doc))
   ("h" evil-window-left                      :doc (spacemacs//window-manipulation-move-doc))
+  ("<left>" evil-window-left                 :doc (spacemacs//window-manipulation-move-doc))
   ("j" evil-window-down                      :doc (spacemacs//window-manipulation-move-doc))
+  ("<down>" evil-window-down                 :doc (spacemacs//window-manipulation-move-doc))
   ("k" evil-window-up                        :doc (spacemacs//window-manipulation-move-doc))
+  ("<up>" evil-window-up                     :doc (spacemacs//window-manipulation-move-doc))
   ("l" evil-window-right                     :doc (spacemacs//window-manipulation-move-doc))
+  ("<right>" evil-window-right               :doc (spacemacs//window-manipulation-move-doc))
   ("H" evil-window-move-far-left             :doc (spacemacs//window-manipulation-move-doc))
+  ("<S-left>" evil-window-move-far-left      :doc (spacemacs//window-manipulation-move-doc))
   ("J" evil-window-move-very-bottom          :doc (spacemacs//window-manipulation-move-doc))
+  ("<S-down>" evil-window-move-very-bottom   :doc (spacemacs//window-manipulation-move-doc))
   ("K" evil-window-move-very-top             :doc (spacemacs//window-manipulation-move-doc))
+  ("<S-up>" evil-window-move-very-top        :doc (spacemacs//window-manipulation-move-doc))
   ("L" evil-window-move-far-right            :doc (spacemacs//window-manipulation-move-doc))
+  ("<S-right>" evil-window-move-far-right    :doc (spacemacs//window-manipulation-move-doc))
   ("o" other-frame                           :doc (spacemacs//window-manipulation-move-doc))
   ("R" spacemacs/rotate-windows              :doc (spacemacs//window-manipulation-move-doc))
   ("s" split-window-below                    :doc (spacemacs//window-manipulation-split-doc))
