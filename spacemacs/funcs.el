@@ -98,37 +98,48 @@ used as the prefix command."
     (define-prefix-command command)
     (evil-leader/set-key-for-mode mode prefix command)))
 
-(defun spacemacs/set-keys (key binding &rest bindings)
-  "Bind KEY to command BINDING in `evil-leader/default-map'.
+(defun spacemacs//add-prefix-keys (prefix bindings)
+  "PREFIX is a string added to the front of each key in BINDINGS."
+  (let ((i 0))
+    (mapcar (lambda (bndg)
+              (setq bndg (if (= (mod i 2) 0) (concat prefix bndg) bndg))
+              (incf i)
+              bndg)
+            bindings)))
 
-Key has to be readable by `read-kbd-macro'. BINDING is either a
-command, in which case this is equvalent to \(evil-leader/set-key
-key binding\), or a list. If it's a list, then the KEY is treated
-as a prefix key and the first element of the list is the name of
-the prefix. The remaining elements of the list are further KEY
-BINDING pairs. Accepts further KEY BINDING pairs."
-  (while key
-    (cond ((listp binding)
-           (spacemacs/declare-prefix key (pop binding))
-           (apply #'spacemacs/set-keys binding))
-          (t (evil-leader/set-key key binding)))
-    (setq key (pop bindings)
-          binding (pop bindings))))
-(put 'spacemacs/set-keys 'lisp-indent-function 'defun)
+(cl-defun spacemacs/set-keys (&rest bindings &key major-mode prefix-keys prefix-name
+                                    prefix-long-name &allow-other-keys)
+  "Bind keys using `evil-leader'.
 
-(defun spacemacs/set-keys-for-mode (mode key binding &rest bindings)
-  "Create key binding for major-mode MODE with KEY bound to BINDING.
+The key bindings are stored in BINDINGS which is a list of key
+sequence strings, readable by `read-kbd-macro', each followed by
+commands. Without using keyword arguments this function is
+equivalent to `evil-leader/set-key'.
 
-Except for targeting a major-mode, this macro functions the same
-as `spacemacs/set-keys'."
-  (while key
-    (cond ((listp binding)
-           (spacemacs/declare-prefix-for-mode mode key (pop binding))
-           (apply (apply-partially #'spacemacs/set-keys-for-mode mode) binding))
-          (t (evil-leader/set-key-for-mode mode key binding)))
-    (setq key (pop bindings)
-          binding (pop bindings))))
-(put 'spacemacs/set-keys-for-mode 'lisp-indent-function 'defun)
+Keyword arguments, which must precede the list of bindings, can
+be used with the following effects. Using :major-mode will bind
+the keys only when the corresponding major-mode is
+active. :prefix-keys allows you to specify one or more keys that
+will precede all of the keys in BINDINGS. :prefix-name will
+declare the name of the prefix specified in :prefix-keys for use
+in reporting keys. :prefix-long-name will specify a long-name for
+the prefix. See `spacemacs/declare-prefix' for more information
+on this last option."
+  (let* ((clean-bindings
+          (-take-while (lambda (arg) (not (keywordp arg))) bindings))
+         (prefixed-bindings
+          (if (stringp prefix-keys)
+              (spacemacs//add-prefix-keys prefix-keys clean-bindings)
+            clean-bindings))
+         (declare-prefix (and (stringp prefix-name) (stringp prefix-keys))))
+    (if (and major-mode (symbolp major-mode))
+        (progn (when declare-prefix
+                 (spacemacs/declare-prefix-for-mode major-mode prefix-keys prefix-name))
+               (apply (apply-partially #'evil-leader/set-key-for-mode major-mode)
+                      prefixed-bindings))
+      (when declare-prefix
+        (spacemacs/declare-prefix prefix-keys prefix-name prefix-long-name))
+      (apply #'evil-leader/set-key prefixed-bindings))))
 
 (defun spacemacs/activate-major-mode-leader ()
   "Bind major mode key map to `dotspacemacs-major-mode-leader-key'."
