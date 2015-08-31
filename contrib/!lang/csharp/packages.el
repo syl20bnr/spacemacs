@@ -31,13 +31,13 @@
       (push 'company-omnisharp company-backends-csharp-mode))
     :config
     (progn
-      (spacemacs/declare-prefix-for-mode 'csharp-mode "mc" "compile")
-      (spacemacs/declare-prefix-for-mode 'csharp-mode "mf" "file")
-      (spacemacs/declare-prefix-for-mode 'csharp-mode "mg" "navigation")
-      (spacemacs/declare-prefix-for-mode 'csharp-mode "mh" "documentation")
-      (spacemacs/declare-prefix-for-mode 'csharp-mode "mr" "refactoring")
-      (spacemacs/declare-prefix-for-mode 'csharp-mode "ms" "server")
-      (spacemacs/declare-prefix-for-mode 'csharp-mode "mt" "tests")
+      (spacemacs/declare-prefix-for-mode 'csharp-mode "mc" "csharp/compile")
+      (spacemacs/declare-prefix-for-mode 'csharp-mode "mf" "csharp/file")
+      (spacemacs/declare-prefix-for-mode 'csharp-mode "mg" "csharp/navigation")
+      (spacemacs/declare-prefix-for-mode 'csharp-mode "mh" "csharp/documentation")
+      (spacemacs/declare-prefix-for-mode 'csharp-mode "mr" "csharp/refactoring")
+      (spacemacs/declare-prefix-for-mode 'csharp-mode "ms" "csharp/server")
+      (spacemacs/declare-prefix-for-mode 'csharp-mode "mt" "csharp/tests")
       (evil-leader/set-key-for-mode 'csharp-mode
         ;; Compile
         "mcc" 'omnisharp-build-in-emacs ;; Only one compile command so use top-level
