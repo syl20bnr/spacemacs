@@ -1,4 +1,6 @@
 <a name="top"></a>
+[![Go to the ProjectTalk messageboard](http://www.projecttalk.io/images/gh_badge-3e578a9f437f841de7446bab9a49d103.svg?vsn=d)]
+(http://www.projecttalk.io/boards/syl20bnr%2Fspacemacs?utm_campaign=gh-badge&utm_medium=badge&utm_source=github)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/syl20bnr/spacemacs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Build Status](https://travis-ci.org/syl20bnr/spacemacs.svg)](https://travis-ci.org/syl20bnr/spacemacs) [![Buy A Drink](https://img.shields.io/badge/Paypal-Buy%20a%20Drink-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ESFVNPKP4Y742)[![Twitter][]](http://www.twitter.com/spacemacs)
 ***
 <p align="center"><img src="/doc/img/title2.png" alt="Spacemacs"/></p>
@@ -181,7 +183,7 @@ the project are under `<SPC> p`.
 Most of Spacemacs' features, key bindings, and configuration options
 are extensively documented.
 
-If you need help, ask your question in the [Gitter Chat][] and a member of the
+If you need help, ask your question at the [ProjectTalk messageboard][] or in the [Gitter Chat][] and a member of the
 community will help you out.
 
 Tip: Run `SPC h d s` (it gathers info about your Spacemacs setup and copies to
@@ -511,7 +513,7 @@ released under a Creative Commons license.
 # Supporting Spacemacs
 
 The best way to support Spacemacs is to contribute to it either by reporting
-bugs, helping the community on the [Gitter Chat][] or sending pull requests.
+bugs, helping the community at the [ProjectTalk messageboard][] or on the [Gitter Chat][] or by sending pull requests.
 
 If you want to show your support financially you can buy a drink to the
 maintainer by clicking on the [Paypal badge](#top).
@@ -615,3 +617,4 @@ details.
 [Nasser Alshammari]: https://github.com/nashamri
 [cpaulik-unity-icon]: http://splendidabacus.com/posts/2015/03/spacemacs-unity-icon/
 [Windows Image Support]: http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files
+[ProjectTalk messageboard]: http://www.projecttalk.io/boards/syl20bnr%2Fspacemacs
