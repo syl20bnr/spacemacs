@@ -14,7 +14,8 @@
 
 (defvar c-c++-enable-clang-support nil
   "If non nil Clang related packages and configuration are enabled.")
-
+(defvar c-c++-enable-rtags-support nil
+  "If non nil Rtags related packages and configuration are enabled.")
 (spacemacs|defvar-company-backends c-mode-common)
 (spacemacs|defvar-company-backends cmake-mode)
 
