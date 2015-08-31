@@ -13,8 +13,6 @@
 
 (setq ranger-packages '(ranger))
 
-(setq ranger-excluded-packages '(vinegar))
-
 (defun ranger/init-ranger ()
   (use-package ranger
     :defer t
