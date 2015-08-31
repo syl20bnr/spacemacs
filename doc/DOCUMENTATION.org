@@ -125,7 +125,7 @@
        - [[#paste-micro-state][Paste Micro-state]]
        - [[#auto-indent-pasted-text][Auto-indent pasted text]]
      - [[#text-manipulation-commands][Text manipulation commands]]
-     - [[#searching-and-inserting-unicode-characters][Searching and inserting unicode characters]]
+     - [[#searching-and-inserting-unicode-characters][Searching and inserting Unicode characters]]
      - [[#smartparens-strict-mode][Smartparens Strict mode]]
      - [[#zooming][Zooming]]
        - [[#text][Text]]
@@ -2333,13 +2333,15 @@ only performed at save time by default.
 
 Errors management commands (start with ~e~):
 
-    | Key Binding | Description                                    |
-    |-------------+------------------------------------------------|
-    | ~SPC e c~   | clear all errors                               |
-    | ~SPC e f~   | toggle flycheck                                |
-    | ~SPC e l~   | display the =flycheck= list of errors/warnings |
-    | ~SPC e n~   | go to the next error                           |
-    | ~SPC e p~   | go to the previous error                       |
+    | Key Binding | Description                                                           |
+    |-------------+-----------------------------------------------------------------------|
+    | ~SPC e c~   | clear all errors                                                      |
+    | ~SPC e f~   | toggle flycheck                                                       |
+    | ~SPC e h~   | describe a flycheck checker                                           |
+    | ~SPC e l~   | toggle the display of the =flycheck= list of errors/warnings          |
+    | ~SPC e n~   | go to the next error                                                  |
+    | ~SPC e p~   | go to the previous error                                              |
+    | ~SPC e v~   | verify flycheck setup (useful to debug 3rd party tools configuration) |
 
 Custom fringe bitmaps:
 
