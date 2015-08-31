@@ -102,7 +102,11 @@
       ;; key bindings
       (evil-leader/set-key
         "ec" 'flycheck-clear
-        "el" 'flycheck-list-errors))))
+        "el" 'flycheck-list-errors)
+      (evilify flycheck-error-list-mode flycheck-error-list-mode-map
+               "RET" #'flycheck-error-list-goto-error
+               "j" #'flycheck-error-list-next-error
+               "k" #'flycheck-error-list-previous-error))))
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
