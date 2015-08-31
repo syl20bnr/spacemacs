@@ -7,12 +7,11 @@
  - [[#description][Description]]
  - [[#features][Features]]
  - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#default-mode-for-header-files][Default mode for header files]]
-   - [[#enable-clang-support][Enable Clang support]]
-     - [[#clang-format][clang-format]]
-     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
-   - [[#enable-rtags-support][Enable Rtags support]]
+     - [[#layer][Layer]]
+     - [[#default-mode-for-header-files][Default mode for header files]]
+     - [[#enable-clang-support][Enable Clang support]]
+         - [[#clang-format][clang-format]]
+         - [[#company-clang-and-flycheck][Company-clang and flycheck]]
  - [[#key-bindings][Key Bindings]]
 
 * Description
@@ -30,7 +29,6 @@ scripts.
   demos in some programming languages. (when =semantic= layer is included)
 - Support common refactoring with [[https://github.com/tuhdo/semantic-refactor][semantic-refactor]] . See [[https://github.com/tuhdo/semantic-refactor/blob/master/srefactor-demos/demos.org][srefactor-demos]] for
   demonstration of refactoring features. (when =semantic= layer is included)
-- Support rtags, a ctags-like source code cross-referencer with a clang frontend [[https://github.com/Andersbakken/rtags][rtags]] 
 
 * Install
 
@@ -100,18 +98,6 @@ other text editor clang plugins.
 Not only does this allow proper autocomplete on projects with extra
 includes and flags, but there is also support for flycheck so that it
 doesn't complain about missing header files.
-
-** Enable Rtags support
-
-[[https://github.com/Andersbakken/rtags][rtags]]
-
-To enable Rtags support set the layer variable =c-c++-enable-rtags-support=
-to =t= in the dotfile:
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((c-c++ :variables c-c++-enable-rtags-support t)))
-#+END_SRC
 
 * Key Bindings
 
