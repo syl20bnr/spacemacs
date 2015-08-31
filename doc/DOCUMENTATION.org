@@ -1445,6 +1445,7 @@ Files manipulation commands (start with ~f~):
 | ~SPC f F~   | try to open the file under point =helm=                        |
 | ~SPC f j~   | jump to the current buffer file in dired                       |
 | ~SPC f l~   | open file literally in =fundamental mode=                      |
+| ~SPC f L~   | Locate a file (using =locate=)                                 |
 | ~SPC f o~   | open a file using the default external program                 |
 | ~SPC f R~   | rename the current file                                        |
 | ~SPC f s~   | save a file                                                    |

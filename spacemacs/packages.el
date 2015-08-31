@@ -1554,8 +1554,8 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "bb"   'helm-mini
         "Cl"   'helm-colors
         "ff"   'spacemacs/helm-find-files
-        "fa"   'helm-locate
         "fF"   'helm-find-files
+        "fL"   'helm-locate
         "fr"   'helm-recentf
         "hb"   'helm-filtered-bookmarks
         "hi"   'helm-info-at-point
