@@ -1,0 +1,43 @@
+#+TITLE: Twitter contribution layer for Spacemacs
+[[file:img/twitter.png]]
+* Table of Contents                                                     :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Features][Features]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+ - [[Key Bindings][Key Bindings]]
+
+* Description
+This layer adds Twitter support to Spacemacs via the package =twittering-mode=,
+do not hesitate to check the original package README [[https://github.com/hayamiz/twittering-mode][here]].
+
+* Features
+- Activities on Twitter
+  - Viewing various timelines
+    - Home timeline
+    - Replies
+    - User's timeline
+    - Public timeline
+    - Favorites timeline
+    - Retweets timeline
+    - Merged timeline
+    - Timeline without tweets satisfying a condition
+  - Posting tweets
+    - Direct message
+    - ReTweet
+    - Hash tag
+    - Signature
+  - Following and removing users
+  - Marking tweets as favorites
+- HTTP Proxy support
+- Secure connection via HTTPS (cURL, GNU Wget, OpenSSL or GnuTLS is required)
+
+* Install
+** Layer
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(twitter))
+#+end_src
+
+* Key Bindings
+
+Check out the original package doc [[https://github.com/hayamiz/twittering-mode/blob/master/README.markdown#usage][here]] as the key bindings =feel= evil enough :).
