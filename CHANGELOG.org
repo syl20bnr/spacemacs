@@ -1,4 +1,7 @@
 * Release 0.103.x
+** 0.103.6 (2015/08/30)
+*** Core
+- Fix error with ~SPC h b~ (bookmarks) (thanks to sgepigon)
 ** 0.103.5 (2015/08/09)
 *** Layer changes
 **** Osx
