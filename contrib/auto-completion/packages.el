@@ -188,9 +188,12 @@
 
 (defun auto-completion/init-yasnippet ()
   (use-package yasnippet
-    :commands yas-global-mode
+    :commands (yas-global-mode yas-minor-mode)
     :init
     (progn
+      ;; We don't want undefined variable errors
+      (defvar yas-global-mode nil)
+
       ;; disable yas minor mode map
       ;; use hippie-expand instead
       (setq yas-minor-mode-map (make-sparse-keymap))
