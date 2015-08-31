@@ -533,6 +533,16 @@ argument takes the kindows rotate backwards."
   "Edit the `file' in the spacemacs base directory, in the current window."
   (ido-find-file-in-dir configuration-layer-contrib-directory))
 
+;; byte compile elisp files
+(defun byte-compile-current-buffer ()
+  "`byte-compile' current buffer if it's emacs-lisp-mode and compiled file exists."
+  (interactive)
+  (when (and (eq major-mode 'emacs-lisp-mode)
+             (file-exists-p (byte-compile-dest-file buffer-file-name)))
+    (byte-compile-file buffer-file-name)))
+
+(add-hook 'after-save-hook 'byte-compile-current-buffer)
+
 ;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
 (setq compilation-finish-function
       (lambda (buf str)
@@ -1029,3 +1039,21 @@ is nonempty."
     (cond ((listp val) val)
           ((stringp val) (< 0 (length val)))
           (t))))
+
+(defun spacemacs/uniquify-lines ()
+  "Remove duplicate adjacent lines in region or current buffer"
+  (interactive)
+  (save-excursion
+    (save-restriction
+      (let ((beg (if (region-active-p) (region-beginning) (point-min)))
+            (end (if (region-active-p) (region-end) (point-max))))
+        (goto-char beg)
+        (while (re-search-forward "^\\(.*\n\\)\\1+" end t)
+          (replace-match "\\1"))))))
+
+(defun spacemacs/sort-lines ()
+  "Sort lines in region or current buffer"
+  (interactive)
+  (let ((beg (if (region-active-p) (region-beginning) (point-min)))
+        (end (if (region-active-p) (region-end) (point-max))))
+    (sort-lines nil beg end)))

@@ -137,6 +137,9 @@ Will work on both org-mode and any mode that accepts plain html."
              (kbd "SPC") evil-leader--default-map))))
     :config
     (progn
+      ;; setup org directory
+      (unless (file-exists-p org-directory)
+        (make-directory org-directory))
       (font-lock-add-keywords
        'org-mode '(("\\(@@html:<kbd>@@\\) \\(.*\\) \\(@@html:</kbd>@@\\)"
                     (1 font-lock-comment-face prepend)

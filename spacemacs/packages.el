@@ -192,13 +192,13 @@
         :status aggressive-indent-mode
         :on (aggressive-indent-mode)
         :off (aggressive-indent-mode -1)
-        :documentation "Keep code always indented."
+        :documentation "Always keep code indented."
         :evil-leader "tI")
       (spacemacs|add-toggle aggressive-indent-globally
         :status aggressive-indent-mode
         :on (global-aggressive-indent-mode)
         :off (global-aggressive-indent-mode -1)
-        :documentation "Globally keep code always indented."
+        :documentation "Always keep code indented globally."
         :evil-leader "t C-I"))
     :config
     (progn
@@ -425,14 +425,14 @@
         :on (centered-cursor-mode)
         :off (centered-cursor-mode -1)
         :documentation
-        "Keep point always at the center of the window."
+        "Keep point at the center of the window."
         :evil-leader "t-")
       (spacemacs|add-toggle centered-point-globally
         :status centered-cursor-mode
         :on (global-centered-cursor-mode)
         :off (global-centered-cursor-mode -1)
         :documentation
-        "Globally keep point always at the center of the window."
+        "Keep point at the center of the window globally."
         :evil-leader "t C--"))
     :config
     (progn
@@ -930,7 +930,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :init
     (progn
       (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps")
-            evil-jumper-auto-save-interval 3600)
+            evil-jumper-auto-save-interval 600)
       (evil-jumper-mode t)
       )))
 
@@ -1217,9 +1217,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
       :status golden-ratio-mode
       :on (golden-ratio-mode) (golden-ratio)
       :off (golden-ratio-mode -1) (balance-windows)
-      :documentation
-      (concat "Dynamically resize the focused window using "
-              "the golden ratio.")
+      :documentation "Resize the focused window using the golden ratio."
       :evil-leader "tg")
     :config
     (progn
@@ -1241,6 +1239,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
                                          "restclient-mode"
                                          "speedbar-mode"
                                          ))
+
+      (add-to-list 'golden-ratio-exclude-buffer-regexp "^\\*[hH]elm.*")
 
       (setq golden-ratio-extra-commands
             (append golden-ratio-extra-commands
@@ -1391,9 +1391,14 @@ Example: (evil-map visual \"<\" \"<gv\")"
 (defun spacemacs/init-helm ()
   (use-package helm
     :defer 1
-    :commands spacemacs/helm-find-files
+    :commands (spacemacs/helm-find-files
+               spacemacs/helm-find-spacemacs-file
+               spacemacs/helm-find-contrib-file)
     :config
     (progn
+      (when dotspacemacs-helm-resize
+        (setq helm-autoresize-min-height 1)
+        (helm-autoresize-mode 1))
       (defun spacemacs/helm-find-files (arg)
         "Custom spacemacs implementation for calling helm-find-files-1.
 
@@ -1435,10 +1440,12 @@ Removes the automatic guessing of the initial value based on thing at point. "
             helm-file-cache-fuzzy-match t
             helm-imenu-fuzzy-match t
             helm-lisp-fuzzy-completion t
-            helm-locate-fuzzy-match t
             helm-recentf-fuzzy-match t
             helm-semantic-fuzzy-match t
             helm-buffers-fuzzy-matching t)
+
+      ;; helm-locate uses es (from everything on windows, which doesnt like fuzzy)
+      (setq helm-locate-fuzzy-match (executable-find "locate"))
 
       (defun spacemacs/helm-find-files-navigate-back (orig-fun &rest args)
         )
@@ -1476,15 +1483,17 @@ Removes the automatic guessing of the initial value based on thing at point. "
                                             preselection))))))
           (helm-do-grep-1 targets nil nil nil nil use-region-or-symbol-p)))
 
-      (defun helm-find-contrib-file ()
+      (defun spacemacs/helm-find-contrib-file ()
         "Runs helm find files on spacemacs contrib folder"
         (interactive)
+        (require 'helm-files)
         (helm-find-files-1
          (expand-file-name (concat user-emacs-directory "contrib/"))))
 
-      (defun helm-find-spacemacs-file ()
+      (defun spacemacs/helm-find-spacemacs-file ()
         "Runs helm find files on spacemacs directory"
         (interactive)
+        (require 'helm-files)
         (helm-find-files-1
          (expand-file-name (concat user-emacs-directory "spacemacs/"))))
 
@@ -1537,10 +1546,9 @@ Removes the automatic guessing of the initial value based on thing at point. "
 
       ;; use helm by default for contrib and spacemacs layers
       (unless dotspacemacs-use-ido
-        (define-key global-map [remap find-spacemacs-file]
-          'helm-find-spacemacs-file)
-        (define-key global-map [remap find-contrib-file]
-          'helm-find-contrib-file))
+        (evil-leader/set-key
+          "fes" 'spacemacs/helm-find-spacemacs-file
+          "fec" 'spacemacs/helm-find-contrib-file))
 
       ;; use helm by default for M-x
       (unless (configuration-layer/package-usedp 'smex)
@@ -1552,6 +1560,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "Cl"   'helm-colors
         "ff"   'spacemacs/helm-find-files
         "fF"   'helm-find-files
+        "fL"   'helm-locate
         "fr"   'helm-recentf
         "hb"   'helm-filtered-bookmarks
         "hi"   'helm-info-at-point
@@ -2223,7 +2232,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
         :status holy-mode
         :on (holy-mode)
         :off (holy-mode -1)
-        :documentation "Globally toggle the holy mode."
+        :documentation "Globally toggle holy mode."
         :evil-leader "E H"))))
 
 (defun spacemacs/init-hungry-delete ()
@@ -2234,8 +2243,7 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
       :status hungry-delete-mode
       :on (hungry-delete-mode)
       :off (hungry-delete-mode -1)
-      :documentation "Delete consecutive horizontal whitespace with a single key.
-Put (global-hungry-delete-mode) in dotspacemacs/config to enable by default."
+      :documentation "Delete consecutive horizontal whitespace with a single key."
       :evil-leader "td")
     :config
     (progn
@@ -2460,20 +2468,14 @@ It will toggle the overlay under point or create an overlay of one character."
         :on (indent-guide-mode)
         :off (indent-guide-mode -1)
         :documentation
-        (concat "Enbale a guide to highlight "
-                "the current indentation (alternative "
-                "to the toggle"
-                "highlight-indentation-current-column).")
+        "Highlight indentation level at point. (alternative to highlight-indentation)."
         :evil-leader "ti")
       (spacemacs|add-toggle indent-guide-globally
         :status indent-guide-mode
         :on (indent-guide-global-mode)
         :off (indent-guide-global-mode -1)
         :documentation
-        (concat "Enbale globally a guide to highlight "
-                "the current indentation (alternative "
-                "to the toggle"
-                "highlight-indentation-current-column).")
+        "Highlight indentation level at point globally. (alternative to highlight-indentation)."
         :evil-leader "t C-i"))
     :config
     (spacemacs|diminish indent-guide-mode " ⓘ" " i")))
@@ -2709,7 +2711,7 @@ It will toggle the overlay under point or create an overlay of one character."
 
       ;; buffers that we manage
       (push '("*Help*"                 :dedicated t :position bottom :stick t :noselect nil :height 0.4) popwin:special-display-config)
-      (push '("*compilation*"          :dedicated t :position bottom :stick t :noselect nil :height 0.4) popwin:special-display-config)
+      (push '("*compilation*"          :dedicated t :position bottom :stick t :noselect t   :height 0.4) popwin:special-display-config)
       (push '("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '("*Async Shell Command*"  :dedicated t :position bottom :stick t :noselect nil            ) popwin:special-display-config)
       (push '(" *undo-tree*"           :dedicated t :position bottom :stick t :noselect nil :height 0.4) popwin:special-display-config)
@@ -3527,13 +3529,13 @@ one of `l' or `r'."
           :status subword-mode
           :on (subword-mode +1)
           :off (subword-mode -1)
-          :documentation "Toggle CamelCase motion."
+          :documentation "Toggle CamelCase motions."
           :evil-leader "tc")
         (spacemacs|add-toggle camel-case-motion-globally
           :status subword-mode
           :on (global-subword-mode +1)
           :off (global-subword-mode -1)
-          :documentation "Globally toggle CamelCase motion."
+          :documentation "Globally toggle CamelCase motions."
           :evil-leader "t C-c"))
       :config
       (spacemacs|diminish subword-mode " ⓒ" " c"))))
@@ -3565,8 +3567,7 @@ one of `l' or `r'."
         :on (global-vi-tilde-fringe-mode)
         :off (global-vi-tilde-fringe-mode -1)
         :documentation
-        (concat "Globally display a ~ on "
-                "empty lines in the fringe.")
+        "Globally display a ~ on empty lines in the fringe."
         :evil-leader "t~")
       ;; don't enable it on spacemacs home buffer
       (with-current-buffer  "*spacemacs*"
@@ -3622,7 +3623,7 @@ one of `l' or `r'."
         :status global-whitespace-mode
         :on (global-whitespace-mode)
         :off (global-whitespace-mode -1)
-        :documentation "Globally display whitespace."
+        :documentation "Display whitespace globally."
         :evil-leader "t C-w")
       (defun spacemacs//set-whitespace-style-for-diff ()
         "Whitespace configuration for `diff-mode'"

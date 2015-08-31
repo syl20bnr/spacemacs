@@ -167,12 +167,12 @@ Ensure that helm is required before calling FUNC."
   :status global-hl-line-mode
   :on (global-hl-line-mode)
   :off (global-hl-line-mode -1)
-  :documentation "Globally Highlight the current line."
+  :documentation "Globally highlight the current line."
   :evil-leader "thh")
 (spacemacs|add-toggle truncate-lines
   :status nil
   :on (toggle-truncate-lines)
-  :documentation "Truncate the long lines (no wrap)."
+  :documentation "Truncate long lines (no wrap)."
   :evil-leader "tl")
 (spacemacs|add-toggle visual-line-navigation
   :status visual-line-mode
@@ -263,7 +263,7 @@ Ensure that helm is required before calling FUNC."
   :off (semantic-stickyfunc-mode -1)
   :documentation "Enable semantic-stickyfunc."
   :evil-leader "Ts")
-(spacemacs|add-toggle semantic-stickfunc-globally
+(spacemacs|add-toggle semantic-stickyfunc-globally
   :status global-semantic-stickyfunc-mode
   :on (global-semantic-stickyfunc-mode)
   :off (global-semantic-stickyfunc-mode -1)
@@ -337,6 +337,8 @@ Ensure that helm is required before calling FUNC."
   "xa(" 'spacemacs/align-repeat-left-paren
   "xa)" 'spacemacs/align-repeat-right-paren
   "xdw" 'delete-trailing-whitespace
+  "xls" 'spacemacs/sort-lines
+  "xlu" 'spacemacs/uniquify-lines
   "xtc" 'transpose-chars
   "xtl" 'transpose-lines
   "xtw" 'transpose-words
@@ -445,6 +447,7 @@ Ensure that helm is required before calling FUNC."
 (spacemacs|define-micro-state window-manipulation
   :doc "[?] for help"
   :evil-leader "w."
+  :use-minibuffer t
   :bindings
   ("?" nil                                   :doc (spacemacs//window-manipulation-full-doc))
   ("0" select-window-0                       :doc (spacemacs//window-manipulation-number-doc))
@@ -475,7 +478,7 @@ Ensure that helm is required before calling FUNC."
   ("K" evil-window-move-very-top             :doc (spacemacs//window-manipulation-move-doc))
   ("L" evil-window-move-far-right            :doc (spacemacs//window-manipulation-move-doc))
   ("o" other-frame                           :doc (spacemacs//window-manipulation-move-doc))
-  ("R" spacemacs/rotate-windows                        :doc (spacemacs//window-manipulation-move-doc))
+  ("R" spacemacs/rotate-windows              :doc (spacemacs//window-manipulation-move-doc))
   ("s" split-window-below                    :doc (spacemacs//window-manipulation-split-doc))
   ("S" split-window-below-and-focus          :doc (spacemacs//window-manipulation-split-doc))
   ("u" winner-undo                           :doc (spacemacs//window-manipulation-layout-doc))

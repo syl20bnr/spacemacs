@@ -57,6 +57,7 @@
                                        ("xa"  "text-align")
                                        ("xd"  "text-delete")
                                        ("xg"  "text-google-translate")
+                                       ("xl"  "text-lines")
                                        ("xm"  "text-move")
                                        ("xt"  "text-transpose")
                                        ("xw"  "text-words")

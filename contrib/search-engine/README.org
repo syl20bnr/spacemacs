@@ -61,7 +61,7 @@ Also if you want more search engines, just push them (do this in =dotspacemacs/c
 (push '(custom1
          :name "Custom Search Engine 1"
          :url "http://www.domain.com/s/stuff_sutff_remember_to_replace_search_candidate_with_%s")
-        extra-search-engines-alist)
+        search-engine-alist)
 #+END_SRC
 
 If you'd rather not use helm but would want a specific search engine, remember
