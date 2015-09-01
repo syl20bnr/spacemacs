@@ -152,9 +152,10 @@
     (progn
       (defun python-default ()
         (setq mode-name "Python"
-              tab-width 4
               ;; auto-indent on colon doesn't work well with if statement
               electric-indent-chars (delq ?: electric-indent-chars))
+        (setq-local tab-width spacemacs/python-indent-level)
+        (setq-local python-indent-offset spacemacs/python-indent-level)
         (annotate-pdb)
         (spacemacs/highlight-TODO-words)
         ;; make C-j work the same way as RET
