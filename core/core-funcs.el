@@ -143,4 +143,40 @@ Supported properties:
 
   (setq-local org-hide-emphasis-markers t))
 
+(defun spacemacs//test-var (pred var test-desc)
+  "Test PRED against VAR and print test result, incrementing
+passed-tests and total-tests."
+  (let ((var-name (symbol-name var))
+        (var-val (symbol-value var)))
+    (when (boundp 'total-tests) (setq total-tests (1+ total-tests)))
+    (insert (format "** TEST: [[file:%s::%s][%s]] %s\n"
+                    dotspacemacs-filepath var-name var-name test-desc))
+    (if (funcall pred var-val)
+        (progn
+          (when (boundp 'passed-tests) (setq passed-tests (1+ passed-tests)))
+          (insert (format "*** PASS: %s\n" var-val)))
+      (insert (propertize (format "*** FAIL: %s\n" var-val)
+                                  'font-lock-face 'font-lock-warning-face)))))
+
+(defun spacemacs//test-list (pred varlist test-desc &optional element-desc)
+  "Test PRED against each element of VARLIST and print test
+result, incrementing passed-tests and total-tests."
+  (let ((varlist-name (symbol-name varlist))
+        (varlist-val (symbol-value varlist)))
+    (if element-desc
+        (insert (format "** TEST: Each %s in [[file:%s::%s][%s]] %s\n"
+                        element-desc dotspacemacs-filepath varlist-name
+                        varlist-name test-desc))
+      (insert (format "** TEST: Each element of [[file:%s::%s][%s]] %s\n"
+                      dotspacemacs-filepath varlist-name varlist-name
+                      test-desc)))
+    (dolist (var varlist-val)
+      (when (boundp 'total-tests) (setq total-tests (1+ total-tests)))
+      (if (funcall pred var)
+          (progn
+            (when (boundp 'passed-tests) (setq passed-tests (1+ passed-tests)))
+            (insert (format "*** PASS: %s\n" var)))
+        (insert (propertize (format "*** FAIL: %s\n" var) 'font-lock-face 'font-lock-warning-face))))))
+
 (provide 'core-funcs)
+
