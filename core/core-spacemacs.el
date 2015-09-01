@@ -219,7 +219,15 @@ FILE-TO-LOAD is an explicit file to load after the installation."
    (lambda ()
      ;; Ultimate configuration decisions are given to the user who can defined
      ;; them in his/her ~/.spacemacs file
-     (dotspacemacs|call-func dotspacemacs/config "Calling dotfile config...")
+     ;; TODO remove support for dotspacemacs/config in 0.105
+     (if (fboundp 'dotspacemacs/user-config)
+         (dotspacemacs|call-func dotspacemacs/user-config
+                                 "Calling dotfile user config...")
+       (spacemacs-buffer/warning (concat "`dotspacemacs/config' is deprecated, "
+                                         "please rename your function to "
+                                         "`dotspacemacs/user-config'"))
+       (dotspacemacs|call-func dotspacemacs/config
+                               "Calling dotfile user config..."))
      ;; from jwiegley
      ;; https://github.com/jwiegley/dot-emacs/blob/master/init.el
      (let ((elapsed (float-time
