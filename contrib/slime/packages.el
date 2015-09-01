@@ -56,6 +56,12 @@
           "mgN" 'slime-previous-note
           "mgp" 'slime-previous-note
 
+          "mdd" 'slime-edit-definition
+	  "mdD" 'slime-pop-find-definition-stack
+	  "mdu" 'slime-pop-find-definition-stack
+	  "mdf" 'slime-edit-definition-other-frame
+	  "mdw" 'slime-edit-definition-other-window
+
           "mha" 'slime-apropos
           "mhd" 'slime-disassemble-symbol
           "mhh" 'slime-describe-function

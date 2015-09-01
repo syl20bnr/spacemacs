@@ -74,6 +74,15 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 | ~SPC m c f~ | Compile function         |
 | ~SPC m c r~ | Compile region           |
 
+** Definition
+
+| Key Binding               | Description                     |
+|---------------------------+---------------------------------|
+| ~SPC m d d~               | Go to definition                |
+| ~SPC m d u~ or ~SPC m d D | Return from definition          |
+| ~SPC m d w~               | Open definition in other window |
+| ~SPC m d f~               | Open definition in other frame  |
+
 ** Navigation
 
 | Key Binding               | Description        |
