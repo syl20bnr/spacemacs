@@ -431,8 +431,12 @@ If MSG is not nil then display a message in `*Messages'."
           ;; dotspacemacs-version not implemented yet
           ;; (insert (format "* Running tests on %s (v%s)\n" dotspacemacs-filepath dotspacemacs-version))
           (prog1
-              (and (dotspacemacs//test-dotspacemacs/layers)
-                   (dotspacemacs//test-dotspacemacs/init))
+              ;; execute all tests no matter what
+              (reduce (lambda (x y)
+                        (and (funcall y) x))
+                      '(dotspacemacs//test-dotspacemacs/layers
+                        dotspacemacs//test-dotspacemacs/init)
+                      :initial-value t)
             (goto-char (point-min))))))))
 
 (provide 'core-dotspacemacs)
