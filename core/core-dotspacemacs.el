@@ -224,8 +224,15 @@ If ARG is non nil then `dotspacemacs/config' is skipped."
                 (if arg
                     (message (concat "Done (`dotspacemacs/config'function has "
                                      "been skipped)."))
-                  (dotspacemacs|call-func dotspacemacs/config
-                                          "Calling dotfile config...")
+                  ;; TODO remove support for dotspacemacs/config in 0.105
+                  (if (fboundp 'dotspacemacs/user-config)
+                      (dotspacemacs|call-func dotspacemacs/user-config
+                                              "Calling dotfile user config...")
+                    (spacemacs-buffer/warning (concat "`dotspacemacs/config' is deprecated, "
+                                                      "please rename your function to "
+                                                      "`dotspacemacs/user-config'"))
+                    (dotspacemacs|call-func dotspacemacs/config
+                                            "Calling dotfile user config..."))
                   (message "Done."))
                 (when (configuration-layer/package-usedp 'powerline)
                   (spacemacs//restore-powerline (current-buffer))))
