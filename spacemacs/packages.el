@@ -1396,8 +1396,10 @@ Example: (evil-map visual \"<\" \"<gv\")"
                spacemacs/helm-find-contrib-file)
     :config
     (progn
-      (when dotspacemacs-helm-resize
-        (setq helm-autoresize-min-height 1)
+      (when (and dotspacemacs-helm-minimize
+                  (or (eq dotspacemacs-helm-position 'bottom)
+                      (eq dotspacemacs-helm-position 'top)))
+        (setq helm-autoresize-min-height 10)
         (helm-autoresize-mode 1))
       (defun spacemacs/helm-find-files (arg)
         "Custom spacemacs implementation for calling helm-find-files-1.
@@ -1594,6 +1596,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
                                                      (display-buffer-in-side-window)
                                                      (inhibit-same-window . t)
                                                      (side . ,dotspacemacs-helm-position)
+                                                     (window-width . 0.6)
                                                      (window-height . 0.4)))
       (defvar spacemacs-display-buffer-alist nil)
       (defun spacemacs//helm-prepare-display ()
