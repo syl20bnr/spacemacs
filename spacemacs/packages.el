@@ -3711,10 +3711,11 @@ one of `l' or `r'."
               (,(listify-key-sequence
                  (kbd dotspacemacs-emacs-leader-key)) . "Spacemacs root")))
       (nconc which-key-prefix-title-alist spacemacs/prefix-titles)
-      (setq which-key-special-keys nil
-            which-key-use-C-h-for-paging t
-            which-key-echo-keystrokes 0.02
-            which-key-max-description-length 32)
+      (defvar which-key-special-keys nil)
+      (defvar which-key-use-C-h-for-paging t)
+      (defvar which-key-prevent-C-h-from-cycling t)
+      (defvar which-key-echo-keystrokes 0.02)
+      (defvar which-key-max-description-length 32)
       (which-key-mode)
       (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
 
