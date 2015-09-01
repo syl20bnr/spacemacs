@@ -381,8 +381,8 @@ If MSG is not nil then display a message in `*Messages'."
   (dotspacemacs||let-init-test
    (dotspacemacs/init)
    (spacemacs//test-var
-    (lambda (x) (member x '(vim emacs)))
-    'dotspacemacs-editing-style "is \'vim or \'emacs")
+    (lambda (x) (member x '(vim emacs hybrid)))
+    'dotspacemacs-editing-style "is \'vim, \'emacs or \'hybrid")
    (spacemacs//test-var
     (lambda (x) (member x '(original cache nil)))
     'dotspacemacs-auto-save-file-location (concat "is one of \'original, "
