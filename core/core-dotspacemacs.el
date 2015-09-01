@@ -413,15 +413,20 @@ If MSG is not nil then display a message in `*Messages'."
       (with-current-buffer (get-buffer-create dotspacemacs-test-results-buffer)
         (unless hide-buffer
           (switch-to-buffer-other-window dotspacemacs-test-results-buffer))
-        (erase-buffer)
         (org-mode)
-        (insert (format "* Running tests on [[file:%s][%s]] (v%s)\n"
-                        dotspacemacs-filepath dotspacemacs-filepath "0.0"))
-        ;; dotspacemacs-version not implemented yet
-        ;; (insert (format "* Running tests on %s (v%s)\n" dotspacemacs-filepath dotspacemacs-version))
-        (prog1
-            (and (dotspacemacs//test-dotspacemacs/layers)
-                 (dotspacemacs//test-dotspacemacs/init))
-          (goto-char (point-min)))))))
+        (org-indent-mode)
+        (view-mode)
+        (when (bound-and-true-p flyspell-mode)
+          (flyspell-mode -1))
+        (let (buffer-read-only)
+          (erase-buffer)
+          (insert (format "* Running tests on [[file:%s][%s]] (v%s)\n"
+                          dotspacemacs-filepath dotspacemacs-filepath "0.0"))
+          ;; dotspacemacs-version not implemented yet
+          ;; (insert (format "* Running tests on %s (v%s)\n" dotspacemacs-filepath dotspacemacs-version))
+          (prog1
+              (and (dotspacemacs//test-dotspacemacs/layers)
+                   (dotspacemacs//test-dotspacemacs/init))
+            (goto-char (point-min))))))))
 
 (provide 'core-dotspacemacs)
