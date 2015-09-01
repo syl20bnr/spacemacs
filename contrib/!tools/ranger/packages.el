@@ -21,10 +21,11 @@
       (evil-leader/set-key
         "ar" 'ranger
         "ad" 'deer)
-      (evil-define-key 'normal 'dired-mode-map "-" 'ranger-up-directory)
       (define-key evil-normal-state-map (kbd "-") 'deer)
 
       ;; set up image-dired to allow picture resize
       (setq image-dired-dir (concat spacemacs-cache-directory "image-dir"))
       (unless (file-directory-p image-dired-dir)
-        (make-directory image-dired-dir)))))
+        (make-directory image-dired-dir)))
+    :config
+    (ranger-map (kbd "-") 'ranger-up-directory)))
