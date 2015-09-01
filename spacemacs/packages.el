@@ -3718,6 +3718,7 @@ one of `l' or `r'."
         (`right-then-bottom (which-key-setup-side-window-right-bottom)))
       (setq which-key-special-keys nil
             which-key-use-C-h-for-paging t
+            which-key-prevent-C-h-from-cycling t
             which-key-echo-keystrokes 0.02
             which-key-max-description-length 32
             which-key-idle-delay dotspacemacs-which-key-delay)
