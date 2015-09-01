@@ -181,13 +181,7 @@
 
 (defun helm-spacemacs//dotspacemacs-candidates ()
   "Return the sorted candidates for all the dospacemacs variables."
-  (sort (all-completions "" obarray
-                         (lambda (x)
-                           (and (boundp x)
-                                (not (keywordp x))
-                                (string-prefix-p "dotspacemacs"
-                                                 (symbol-name x)))))
-        'string<))
+  (sort (dotspacemacs/get-variable-string-list) 'string<))
 
 (defun helm-spacemacs//layer-action-open-file (file candidate)
   "Open FILE of the passed CANDIDATE."
