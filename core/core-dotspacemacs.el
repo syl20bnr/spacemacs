@@ -210,27 +210,28 @@ Possible values are: `recents' `bookmarks' `projects'.")
 If ARG is non nil then `dotspacemacs/config' is skipped."
   (interactive "P")
   (when (file-exists-p dotspacemacs-filepath)
-    (let ((tests-ok (dotspacemacs/test-dotfile t)))
-      (if tests-ok
-          (with-current-buffer (find-file-noselect dotspacemacs-filepath)
-            (let ((dotspacemacs-loading-progress-bar nil))
-              (setq spacemacs-loading-string "")
-              (save-buffer)
-              (load-file buffer-file-name)
-              (dotspacemacs|call-func dotspacemacs/init
-                                      "Calling dotfile init...")
-              (configuration-layer/sync)
-              (if arg
-                  (message (concat "Done (`dotspacemacs/config'function has "
-                                   "been skipped)."))
-                (dotspacemacs|call-func dotspacemacs/config
-                                        "Calling dotfile config...")
-                (message "Done."))
-              (when (configuration-layer/package-usedp 'powerline)
-                (spacemacs//restore-powerline (current-buffer)))))
-        (switch-to-buffer-other-window dotspacemacs-test-results-buffer)
-        (spacemacs-buffer/warning "Some tests failed, check `%s' buffer"
-                                  dotspacemacs-test-results-buffer)))))
+    (with-current-buffer (find-file-noselect dotspacemacs-filepath)
+      (let ((dotspacemacs-loading-progress-bar nil))
+        (setq spacemacs-loading-string "")
+        (save-buffer)
+        (let ((tests-ok (dotspacemacs/test-dotfile t)))
+          (if tests-ok
+              (progn
+                (load-file buffer-file-name)
+                (dotspacemacs|call-func dotspacemacs/init
+                                        "Calling dotfile init...")
+                (configuration-layer/sync)
+                (if arg
+                    (message (concat "Done (`dotspacemacs/config'function has "
+                                     "been skipped)."))
+                  (dotspacemacs|call-func dotspacemacs/config
+                                          "Calling dotfile config...")
+                  (message "Done."))
+                (when (configuration-layer/package-usedp 'powerline)
+                  (spacemacs//restore-powerline (current-buffer))))
+            (switch-to-buffer-other-window dotspacemacs-test-results-buffer)
+            (spacemacs-buffer/warning "Some tests failed, check `%s' buffer"
+                                      dotspacemacs-test-results-buffer)))))))
 
 (defun dotspacemacs/get-variable-string-list ()
   "Return a list of all the dotspacemacs variables as strings."
