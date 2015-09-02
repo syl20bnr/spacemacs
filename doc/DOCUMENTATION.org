@@ -90,7 +90,7 @@
        - [[#golden-ratio][Golden ratio]]
      - [[#buffers-and-files][Buffers and Files]]
        - [[#buffers-manipulation-key-bindings][Buffers manipulation key bindings]]
-       - [[#buffers-manipulation-manipulation-micro-state][Buffers manipulation micro-state]]
+       - [[#buffers-manipulation-micro-state][Buffers manipulation micro-state]]
        - [[#special-buffers][Special Buffers]]
        - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
        - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
@@ -1018,8 +1018,9 @@ state= by quickly pressing the ~fd~ keys.
 
 The choice of ~fd~ was made to be able to use the same sequence to escape from
 "everything" in Emacs:
-  - escape from all evil states to normal state
+  - escape from all stock evil states to normal state
   - escape from evil-lisp-state to normal state
+  - escape from evil-iedit-state to normal state
   - abort evil ex command
   - quit minibuffer
   - abort isearch
@@ -1030,14 +1031,15 @@ The choice of ~fd~ was made to be able to use the same sequence to escape from
   - quit undo-tree buffer
   - quit paradox
   - quit gist-list menu
+  - quit helm-ag-edit
   - hide neotree buffer
 
 If you find yourself in a buffer where the =Spacemacs= (~SPC~) or Vim
 keybindings don't work you can use this to get back to =normal state= (for
 example in ~SPC : customize~ press ~fd~ to make ~SPC b b~ work again).
 
-This sequence can be customized in your =~/.spacemacs=. Example to set it to
-~jj~ (it is important set the variable in =dotspacemacs/init=):
+This sequence can be customized in your =~/.spacemacs=.
+Example to set it to ~jj~:
 
 #+begin_src emacs-lisp
   (defun dotspacemacs/init ()
@@ -1048,14 +1050,11 @@ This sequence can be customized in your =~/.spacemacs=. Example to set it to
 sequences are not optimal for =Spacemacs=. Indeed it is very easy in =visual
 state= to press quickly ~jj~ and inadvertently escape to =normal state=.
 
-*Important Note* One caveat of =evil-escape= is that you must not use it while
-recording macros. Use =escape= key instead.
-
 *** Executing Vim and Emacs ex/M-x commands
-    | Command          | Key Binding |
-    |------------------+-------------|
-    | Vim (ex-command) | ~:~         |
-    | Emacs (M-x)      | ~SPC :~     |
+| Command          | Key Binding |
+|------------------+-------------|
+| Vim (ex-command) | ~:~         |
+| Emacs (M-x)      | ~SPC :~     |
 
 The command key ~:~ can be easily changed with the variable
 =dotspacemacs-command-key= of your =~/.spacemacs=. Note that is will change both
