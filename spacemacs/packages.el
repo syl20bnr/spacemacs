@@ -856,6 +856,11 @@ Example: (evil-map visual \"<\" \"<gv\")"
 
       (spacemacs/add-to-hook 'prog-mode-hook '(spacemacs//standard-text-objects))
 
+      ;; define text-object for entire buffer
+      (evil-define-text-object evil-inner-buffer (count &optional beg end type)
+        (evil-select-paren "\\`" "\\'" beg end type count nil))
+      (define-key evil-inner-text-objects-map "g" 'evil-inner-buffer)
+
       ;; support smart 1parens-strict-mode
       (when (configuration-layer/package-usedp 'smartparens)
           (defadvice evil-delete-backward-char-and-join
