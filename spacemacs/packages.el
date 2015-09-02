@@ -1404,6 +1404,29 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (when dotspacemacs-helm-resize
         (setq helm-autoresize-min-height 1)
         (helm-autoresize-mode 1))
+
+      ;; from https://www.reddit.com/r/emacs/comments/2z7nbv/lean_helm_window/
+      (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
+      (defvar helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground))
+      (defvar helm-source-header-default-box (face-attribute 'helm-source-header :box))
+
+      (defun helm-toggle-header-line ()
+        (if (> (length helm-sources) 1)
+            (set-face-attribute 'helm-source-header
+                                nil
+                                :foreground helm-source-header-default-foreground
+                                :background helm-source-header-default-background
+                                :box helm-source-header-default-box
+                                :height 1.3)
+          (set-face-attribute 'helm-source-header
+                              nil
+                              :foreground (face-attribute 'helm-selection :background)
+                              :background (face-attribute 'helm-selection :background)
+                              :box nil
+                              :height 0.1)))
+
+      (add-hook 'helm-before-initialize-hook 'helm-toggle-header-line)
+
       (defun spacemacs/helm-find-files (arg)
         "Custom spacemacs implementation for calling helm-find-files-1.
 
