@@ -3690,7 +3690,8 @@ one of `l' or `r'."
                ("avy-goto-line" . "avy line")
                ("universal-argument" . "universal arg")
                ("er/expand-region" . "expand region")
-               ("helm-apropos" . "apropos"))))
+               ("helm-apropos" . "apropos")
+               ("evil-lisp-state-\\(.+\\)" . "\\1"))))
         (dolist (nd new-descriptions)
           ;; ensure the target matches the whole string
           (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
