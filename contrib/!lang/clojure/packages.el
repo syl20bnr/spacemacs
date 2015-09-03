@@ -226,6 +226,7 @@ the focus."
           "msr" 'spacemacs/cider-send-region-to-repl
           "msR" 'spacemacs/cider-send-region-to-repl-focus
           "mss" 'cider-switch-to-repl-buffer
+          "msx" 'cider-refresh
 
           "mTf" 'spacemacs/cider-toggle-repl-font-locking
           "mTp" 'spacemacs/cider-toggle-repl-pretty-printing
@@ -256,6 +257,7 @@ the focus."
         "msn" 'cider-repl-set-ns
         "msq" 'cider-quit
         "mss" 'cider-switch-to-last-clojure-buffer
+        "msx" 'cider-refresh
 
         "mTf" 'spacemacs/cider-toggle-repl-font-locking
         "mTp" 'spacemacs/cider-toggle-repl-pretty-printing
