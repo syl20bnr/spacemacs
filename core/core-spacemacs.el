@@ -46,7 +46,7 @@
     (define-key map [tab] 'widget-forward)
     (define-key map (kbd "C-i") 'widget-forward)
     (define-key map [backtab] 'widget-backward)
-    (define-key map [return] 'widget-button-press)
+    (define-key map (kbd "RET") 'widget-button-press)
     (define-key map [down-mouse-1] 'widget-button-click)
     map)
   "Keymap for spacemacs mode.")
