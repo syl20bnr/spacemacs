@@ -76,7 +76,11 @@
    (variables :initarg :variables
               :initform nil
               :type list
-              :documentation "A list of variable-value pairs."))
+              :documentation "A list of variable-value pairs.")
+   (disabled :initarg :disabled-for
+             :initform nil
+             :type list
+             :documentation "A list of layer where this layer is disabled."))
   "A configuration layer.")
 
 (defclass cfgl-package ()
@@ -108,7 +112,8 @@
    (excluded :initarg :excluded
              :initform nil
              :type boolean
-             :documentation "If non-nil this package is ignored.")))
+             :documentation
+             "If non-nil this package is excluded from all layers.")))
 
 (defvar configuration-layer--layers '()
   "A non-sorted list of `cfgl-layer' objects.")
@@ -738,39 +743,47 @@ path."
 
 (defun configuration-layer//configure-package (pkg)
   "Configure PKG."
-  (let ((pkg-name (oref pkg :name)))
+  (let* ((pkg-name (oref pkg :name))
+         (owner (oref pkg :owner))
+         (owner-layer (object-assoc owner :name configuration-layer--layers))
+         (disabled-for-layers (oref owner-layer :disabled-for)))
     (spacemacs-buffer/message (format "Configuring %S..." pkg-name))
     ;; pre-init
     (mapc (lambda (layer)
-            (spacemacs-buffer/message
-             (format "  -> pre-init (%S)..." layer))
-            (condition-case err
-                (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
-              ('error
-               (configuration-layer//set-error)
-               (spacemacs-buffer/append
-                (format
-                 (concat "An error occurred while pre-configuring %S "
-                         "in layer %S (error: %s)\n")
-                 pkg-name layer err)))))
+            (if (memq layer disabled-for-layers)
+                (spacemacs-buffer/message
+                 (format "  -> ignore pre-init (disabled for %S)..." layer))
+              (spacemacs-buffer/message
+               (format "  -> pre-init (%S)..." layer))
+              (condition-case err
+                  (funcall (intern (format "%S/pre-init-%S" layer pkg-name)))
+                ('error
+                 (configuration-layer//set-error)
+                 (spacemacs-buffer/append
+                  (format
+                   (concat "An error occurred while pre-configuring %S "
+                           "in layer %S (error: %s)\n")
+                   pkg-name layer err))))))
           (oref pkg :pre-layers))
     ;; init
-    (let ((owner (oref pkg :owner)))
-      (spacemacs-buffer/message (format "  -> init (%S)..." owner))
-      (funcall (intern (format "%S/init-%S" owner pkg-name))))
+    (spacemacs-buffer/message (format "  -> init (%S)..." owner))
+    (funcall (intern (format "%S/init-%S" owner pkg-name)))
     ;; post-init
     (mapc (lambda (layer)
-            (spacemacs-buffer/message
-             (format "  -> post-init (%S)..." layer))
-            (condition-case err
-                (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
-              ('error
-               (configuration-layer//set-error)
-               (spacemacs-buffer/append
-                (format
-                 (concat "An error occurred while post-configuring %S "
-                         "in layer %S (error: %s)\n")
-                 pkg-name layer err)))))
+            (if (memq layer disabled-for-layers)
+                (spacemacs-buffer/message
+                 (format "  -> ignore post-init (disabled for %S)..." layer))
+              (spacemacs-buffer/message
+               (format "  -> post-init (%S)..." layer))
+              (condition-case err
+                  (funcall (intern (format "%S/post-init-%S" layer pkg-name)))
+                ('error
+                 (configuration-layer//set-error)
+                 (spacemacs-buffer/append
+                  (format
+                   (concat "An error occurred while post-configuring %S "
+                           "in layer %S (error: %s)\n")
+                   pkg-name layer err))))))
           (oref pkg :post-layers))))
 
 (defun configuration-layer/update-packages (&optional always-update)
