@@ -98,6 +98,66 @@ used as the prefix command."
     (define-prefix-command command)
     (evil-leader/set-key-for-mode mode prefix command)))
 
+(defun spacemacs//add-prefix-keys (prefix bindings)
+  "PREFIX is a string added to the front of each key in BINDINGS."
+  (let (res)
+    (while bindings
+      (push (concat prefix (pop bindings)) res)
+      (push (pop bindings) res))
+    (reverse res)))
+
+(defun spacemacs/set-keys (&rest args)
+  "Bind keys using `evil-leader'.
+
+ARGS is a list of keyword-value or key-command pairs. Key-command
+pairs are a key sequence string, readable by `read-kbd-macro',
+followed by a command. Without using keyword-value arguments this
+function is equivalent to `evil-leader/set-key'.
+
+Keyword-value pairs can be used with the following effects.
+Using :major-mode will bind the keys only when the corresponding
+major-mode is active. :prefix-keys allows you to specify one or
+more keys that will precede all of the keys in the key-command
+pairs. :prefix-name will declare the name of the prefix specified
+in :prefix-keys for use in reporting keys. :prefix-long-name will
+specify a long-name for the prefix. See
+`spacemacs/declare-prefix' for more information on this last
+option. An example is the following which binds (in text-mode
+only) command-1 to the key sequence \"aa\" and command-2 to the
+sequence \"ab\". The \"a\" prefix is declared to have the name
+\"a-commands\".
+
+\(spacemacs/set-keys
+  :major-mode text-mode
+  :prefix-keys \"a\"
+  :prefix-name \"a-comands\"
+  \"a\" 'command-1
+  \"b\" 'command-2\)
+
+The keyword-value pairs can come before or after the list of bindings."
+  (let (major-mode prefix-keys prefix-name prefix-long-name bindings)
+    (while args
+      (pcase (pop args)
+        (:major-mode  (setq major-mode (pop args)))
+        (:prefix-keys (setq prefix-keys (pop args)))
+        (:prefix-name (setq prefix-name (pop args)))
+        (:prefix-long-name (setq prefix-name (pop args)))
+        (binding (push binding bindings))))
+    (let* ((bindings (reverse bindings))
+           (prefixed-bindings
+            (if (stringp prefix-keys)
+                (spacemacs//add-prefix-keys prefix-keys bindings)
+              bindings))
+           (declare-prefix (and (stringp prefix-name) (stringp prefix-keys))))
+      (if (and major-mode (symbolp major-mode))
+          (progn (when declare-prefix
+                   (spacemacs/declare-prefix-for-mode major-mode prefix-keys prefix-name))
+                 (apply (apply-partially #'evil-leader/set-key-for-mode major-mode)
+                        prefixed-bindings))
+        (when declare-prefix
+          (spacemacs/declare-prefix prefix-keys prefix-name prefix-long-name))
+        (apply #'evil-leader/set-key prefixed-bindings)))))
+
 (defun spacemacs/activate-major-mode-leader ()
   "Bind major mode key map to `dotspacemacs-major-mode-leader-key'."
   (setq mode-map (cdr (assoc major-mode evil-leader--mode-maps)))
