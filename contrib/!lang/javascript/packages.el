@@ -55,9 +55,8 @@
       (push 'company-tern company-backends-js2-mode))))
 
 (defun javascript/post-init-flycheck ()
-  (add-hook 'coffee-mode-hook 'flycheck-mode)
-  (add-hook 'js2-mode-hook    'flycheck-mode)
-  (add-hook 'json-mode-hook   'flycheck-mode))
+  (dolist (mode '(coffee-mode js2-mode json-mode))
+    (spacemacs/add-flycheck-hook mode)))
 
 (defun javascript/init-js-doc ()
   (use-package js-doc

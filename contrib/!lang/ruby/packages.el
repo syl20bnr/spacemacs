@@ -56,7 +56,7 @@
                        :suffix "")))))
 
 (defun ruby/post-init-flycheck ()
-  (add-hook 'enh-ruby-mode-hook 'flycheck-mode))
+  (spacemacs/add-flycheck-hook 'enh-ruby-mode))
 
 (defun ruby/init-ruby-tools ()
   (use-package ruby-tools

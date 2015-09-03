@@ -6,6 +6,6 @@
       '(flycheck-nim))
 
 (defun nim/init-flycheck-nim ()
-  (add-hook 'nim-mode-hook 'flycheck-mode)
+  (spacemacs/add-flycheck-hook 'nim-mode)
   (use-package flycheck-nim
     :if (configuration-layer/layer-usedp 'syntax-checking)))
