@@ -4,6 +4,7 @@
 ;; Copyright (c) 2014-2015 Chris Bowdon & Contributors
 ;;
 ;; Author: Chris Bowdon <c.bowdon@bath.edu>
+;; Author: Hamish Hutchings <hamhut1066@gmail.com>
 ;; URL: https://github.com/syl20bnr/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
