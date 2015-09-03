@@ -337,16 +337,16 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
   (sort packages (lambda (x y) (string< (symbol-name (oref x :name))
                                         (symbol-name (oref y :name))))))
 
-(defun configuration-layer/filter-packages (packages ffunc)
-  "Return a filtered PACKAGES list where each element satisfies FFUNC."
+(defun configuration-layer/filter-objects (objects ffunc)
+  "Return a filtered OBJECTS list where each element satisfies FFUNC."
   (reverse (reduce (lambda (acc x)
                      (if (funcall ffunc x) (push x acc) acc))
-                   packages
+                   objects
                    :initial-value nil)))
 
 (defun configuration-layer//get-distant-used-packages (packages)
   "Return the distant packages (ie to be intalled) that are effectively used."
-  (configuration-layer/filter-packages
+  (configuration-layer/filter-objects
    packages (lambda (x) (and (not (null (oref x :owner)))
                              (not (eq 'local (oref x :location)))
                              (not (oref x :excluded))))))
@@ -699,13 +699,13 @@ path."
 (defun configuration-layer//configure-packages (packages)
   "Configure all passed PACKAGES honoring the steps order."
   (configuration-layer//configure-packages-2
-   (configuration-layer/filter-packages
+   (configuration-layer/filter-objects
     packages (lambda (x) (eq 'pre (oref x :step)))))
   (configuration-layer//configure-packages-2
-   (configuration-layer/filter-packages
+   (configuration-layer/filter-objects
     packages (lambda (x) (null (oref x :step)))))
   (configuration-layer//configure-packages-2
-   (configuration-layer/filter-packages
+   (configuration-layer/filter-objects
     packages (lambda (x) (eq 'post (oref x :step))))))
 
 (defun configuration-layer//configure-packages-2 (packages)
