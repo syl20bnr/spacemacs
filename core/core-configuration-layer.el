@@ -196,6 +196,8 @@ layer directory."
   (let* ((name-sym (if (listp layer) (car layer) layer))
          (name-str (symbol-name name-sym))
          (base-dir (configuration-layer/get-layer-path name-sym))
+         (disabled (when (listp layer)
+                     (spacemacs/mplist-get layer :disabled-for)))
          (variables (when (listp layer)
                       (spacemacs/mplist-get layer :variables))))
     (if base-dir
@@ -203,6 +205,7 @@ layer directory."
           (cfgl-layer name-str
                       :name name-sym
                       :dir dir
+                      :disabled-for disabled
                       :variables variables))
       (spacemacs-buffer/warning "Cannot find layer %S !" name-sym)
       nil)))
@@ -752,7 +755,7 @@ path."
     (mapc (lambda (layer)
             (if (memq layer disabled-for-layers)
                 (spacemacs-buffer/message
-                 (format "  -> ignore pre-init (disabled for %S)..." layer))
+                 (format "  -> ignored pre-init (%S)..." layer))
               (spacemacs-buffer/message
                (format "  -> pre-init (%S)..." layer))
               (condition-case err
@@ -772,7 +775,7 @@ path."
     (mapc (lambda (layer)
             (if (memq layer disabled-for-layers)
                 (spacemacs-buffer/message
-                 (format "  -> ignore post-init (disabled for %S)..." layer))
+                 (format "  -> ignored post-init (%S)..." layer))
               (spacemacs-buffer/message
                (format "  -> post-init (%S)..." layer))
               (condition-case err

@@ -577,8 +577,7 @@
     (mocker-let
      ((spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-package pkg)
-     (should (equal '(init) witness))))
-  )
+     (should (equal '(init) witness)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//sort-packages
