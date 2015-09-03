@@ -82,13 +82,14 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
     (spacemacs-buffer//get-banner-path dotspacemacs-startup-banner))
    ((and dotspacemacs-startup-banner
          (image-type-available-p (intern (file-name-extension
-                                          dotspacemacs-startup-banner))))
+                                          dotspacemacs-startup-banner)))
+         (display-graphic-p))
     (if (file-exists-p dotspacemacs-startup-banner)
         dotspacemacs-startup-banner
       (spacemacs-buffer/warning (format "could not find banner %s"
                                         dotspacemacs-startup-banner))
-      (spacemacs-buffer//get-banner-path 1))
-    (spacemacs-buffer//get-banner-path 1))))
+      (spacemacs-buffer//get-banner-path 1)))
+   (t (spacemacs-buffer//get-banner-path 1))))
 
 (defun spacemacs-buffer//choose-random-text-banner (&optional all)
   "Return the full path of a banner chosen randomly.
