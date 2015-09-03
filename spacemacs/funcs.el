@@ -989,7 +989,7 @@ the right."
     `(defun ,new-func (start end switch)
        (interactive "r\nP")
        (let ((after (not (eq (if switch t nil) (if ,default-after t nil)))))
-         (align-repeat start end ,regexp ,justify-right after)))))
+         (spacemacs/align-repeat start end ,regexp ,justify-right after)))))
 
 (spacemacs|create-align-repeat-x "comma" "," nil t)
 (spacemacs|create-align-repeat-x "semicolon" ";" nil t)
