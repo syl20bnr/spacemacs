@@ -3690,7 +3690,8 @@ one of `l' or `r'."
                ("avy-goto-line" . "avy line")
                ("universal-argument" . "universal arg")
                ("er/expand-region" . "expand region")
-               ("helm-apropos" . "apropos"))))
+               ("helm-apropos" . "apropos")
+               ("evil-lisp-state-\\(.+\\)" . "\\1"))))
         (dolist (nd new-descriptions)
           ;; ensure the target matches the whole string
           (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
@@ -3711,10 +3712,15 @@ one of `l' or `r'."
               (,(listify-key-sequence
                  (kbd dotspacemacs-emacs-leader-key)) . "Spacemacs root")))
       (nconc which-key-prefix-title-alist spacemacs/prefix-titles)
+      (pcase dotspacemacs-which-key-position
+        (`right (which-key-setup-side-window-right))
+        (`bottom (which-key-setup-side-window-bottom))
+        (`right-then-bottom (which-key-setup-side-window-right-bottom)))
       (setq which-key-special-keys nil
             which-key-use-C-h-for-paging t
             which-key-echo-keystrokes 0.02
-            which-key-max-description-length 32)
+            which-key-max-description-length 32
+            which-key-idle-delay dotspacemacs-which-key-delay)
       (which-key-mode)
       (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
 
