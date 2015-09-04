@@ -36,6 +36,7 @@
      - [[#setting-configuration-layers-variables][Setting configuration layers variables]]
      - [[#excluding-packages][Excluding packages]]
      - [[#hooks][Hooks]]
+     - [[#binding-keys][Binding keys]]
      - [[#custom-variables][Custom variables]]
  - [[#main-principles][Main principles]]
    - [[#evil][Evil]]
@@ -541,6 +542,58 @@ configuration at the beginning and end of =Spacemacs= loading process.
   - =dotspacemacs/init= is triggered at the very beginning of =Spacemacs=
     loading.
   - =dotspacemacs/config= is triggered at the very end of =Spacemacs= loading.
+
+*** Binding keys
+Key sequences are bound to commands in Emacs in various keymaps. The most basic
+map is the global-map. Setting a key binding the global-map uses the function
+=global-set-key= as follows (to the command =forward-char= in this case).
+
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-]") 'forward-char)
+#+end_src
+
+The =kbd= macro accepts a string describing a key sequence. The global-map is
+often shadowed by other maps. For example, evil-mode defines keymaps that target
+states (or modes in vim terminology). Here is an example that creates the same
+binding as above but only in insert state (=define-key= is a built-in function.
+Evil-mode has its own functions for defining keys).
+
+#+begin_src emacs-lisp
+  (define-key evil-insert-state-map (kbd "C-]") 'forward-char)
+#+end_src
+
+Perhaps most importantly for spacemacs is the use of the evil-leader package,
+which binds keys to the evil-leader keymap. This is where most of the spacemacs
+bindings live. There are two related commands from this package which are used
+as follows.
+
+#+begin_src emacs-lisp
+  (evil-leader/set-key "C-]" 'forward-char)
+  (evil-leader/set-key-for-mode 'emacs-lisp-mode "C-]" 'forward-char)
+#+end_src
+
+These functions use a macro like =kbd= to translate the key sequences for you.
+The second function, =evil-leader/set-key-for-mode=, binds the key only in the
+specified mode. The second key binding would not be in effect in =org-mode= for
+example.
+
+Finally, one should be aware of prefix keys. Essentially, all keymaps can be
+nested. Nested keymaps are used extensively in spacemacs, and in vanilla Emacs
+for that matter. For example, ~SPC a~ points to key bindings for "applications",
+like ~SPC ac~ for =calc-dispatch=. Nesting bindings is easy.
+
+#+begin_src emacs-lisp
+  (spacemacs/declare-prefix "]" "bracket-prefix")
+  (evil-leader/set-key "]]" 'double-bracket-command)
+#+end_src
+
+The first line declares ~SPC ]~ to be a prefix and the second binds the key
+sequence ~SPC ]]~ to the corresponding command. The first line is actually
+unnecessary to create the prefix, but it will give your new prefix a name that
+key-discovery tools can use (e.g., which-key).
+
+There is much more to say about bindings keys, but these are the basics. Keys
+can be bound in your =~/.spacemacs= file or in individual layers. 
 
 *** Custom variables
 Custom variables configuration from =M-x customize-group= which are
