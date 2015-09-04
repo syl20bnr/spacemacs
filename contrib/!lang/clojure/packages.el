@@ -286,8 +286,6 @@ the focus."
     :config
     (progn
       (cljr-add-keybindings-with-prefix "C-c C-f")
-      ;; not supported for now
-      ;; (spacemacs/declare-prefix "mr" "clj-refactor")
 
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
         (evil-leader/set-key-for-mode m
