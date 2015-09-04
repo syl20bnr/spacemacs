@@ -392,7 +392,12 @@
         "SPC" 'avy-goto-word-or-subword-1
         "l" 'avy-goto-line))
     :config
-    (evil-leader/set-key "`" 'avy-pop-mark)))
+    (progn
+      (evil-leader/set-key "`" 'avy-pop-mark)
+      (defadvice avy-goto-word-or-subword-1 (before add-evil-jump activate)
+        (evil-set-jump))
+      (defadvice avy-goto-line (before add-evil-jump activate)
+        (evil-set-jump)))))
 
 (defun spacemacs/init-bind-key ())
 
