@@ -78,7 +78,8 @@
                             (spacemacs|define-text-object ";"
                                                           "elisp-comment"
                                                           ";; "
-                                                          ""))))
+                                                          "")))
+  (add-hook 'edebug-mode-hook 'evil-normalize-keymaps))
 
 (defun emacs-lisp/post-init-flycheck ()
   ;; Make flycheck recognize packages in loadpath
