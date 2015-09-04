@@ -131,6 +131,17 @@ the focus."
         (cider-load-buffer)
         (spacemacs//cider-eval-in-repl-no-focus (cider-test-rerun-tests)))
 
+      (defun spacemacs/cider-display-error-buffer (&optional arg)
+        "Displays the *cider-error* buffer in the current window.
+If called with a prefix argument, uses the other-window instead."
+        (interactive "P")
+        (let ((buffer (get-buffer cider-error-buffer)))
+          (when buffer
+            (funcall (if (equal arg '(4))
+                         'switch-to-buffer-other-window
+                       'switch-to-buffer)
+                     buffer))))
+
       (defun spacemacs/cider-toggle-repl-pretty-printing ()
         (interactive)
         (setq cider-repl-use-pretty-printing
@@ -209,7 +220,7 @@ the focus."
 
           "mgb" 'cider-jump-back
           "mge" 'cider-jump-to-compilation-error
-          "mgg" 'cider-jump-to-var
+          "mgg" 'cider-find-var
           "mgr" 'cider-jump-to-resource
 
           "msb" 'cider-load-buffer
@@ -236,6 +247,7 @@ the focus."
           "mtt" 'spacemacs/cider-test-run-focused-test
 
           "mdb" 'cider-debug-defun-at-point
+          "mde" 'spacemacs/cider-display-error-buffer
           "mdi" 'cider-inspect))
 
       (evil-leader/set-key-for-mode 'cider-repl-mode
@@ -250,7 +262,7 @@ the focus."
 
         "mgb" 'cider-jump-back
         "mge" 'cider-jump-to-compilation-error
-        "mgg" 'cider-jump-to-var
+        "mgg" 'cider-find-var
         "mgr" 'cider-jump-to-resource
 
         "msc" 'cider-repl-clear-buffer
@@ -262,7 +274,7 @@ the focus."
         "mTf" 'spacemacs/cider-toggle-repl-font-locking
         "mTp" 'spacemacs/cider-toggle-repl-pretty-printing
 
-        "mdb" 'cider-debug-defun-at-point
+        "mde" 'spacemacs/cider-display-error-buffer
         "mdi" 'cider-inspect)
 
       (evil-define-key 'normal cider-repl-mode-map
@@ -288,8 +300,6 @@ the focus."
     :config
     (progn
       (cljr-add-keybindings-with-prefix "C-c C-f")
-      ;; not supported for now
-      ;; (spacemacs/declare-prefix "mr" "clj-refactor")
 
       (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
         (evil-leader/set-key-for-mode m
@@ -368,6 +378,18 @@ the focus."
       (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode)))
     :config
     (progn
+
+      (defun spacemacs/clojure-mode-toggle-default-indent-style ()
+        (interactive)
+        (setq clojure-defun-style-default-indent
+              (if clojure-defun-style-default-indent nil t))
+        (message "Clojure-mode default indent style: %s"
+                 (if clojure-defun-style-default-indent "ON" "OFF")))
+
+      (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
+        (evil-leader/set-key-for-mode m
+          "mTi" 'spacemacs/clojure-mode-toggle-default-indent-style))
+
       (when clojure-enable-fancify-symbols
         (dolist (m '(clojure-mode clojurescript-mode clojurec-mode clojurex-mode))
           (clojure/fancify-symbols m)))
