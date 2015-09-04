@@ -16,6 +16,7 @@
 (defun emacs-lisp/init-emacs-builtin-emacs-lisp ()
 
   (evil-leader/set-key-for-mode 'emacs-lisp-mode
+    "mdb" 'edebug-defun
     "me$" 'lisp-state-eval-sexp-end-of-line
     "meb" 'eval-buffer
     "mec" 'spacemacs/eval-current-form
