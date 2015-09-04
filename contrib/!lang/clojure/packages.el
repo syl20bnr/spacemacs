@@ -209,7 +209,7 @@ the focus."
 
           "mgb" 'cider-jump-back
           "mge" 'cider-jump-to-compilation-error
-          "mgg" 'cider-jump-to-var
+          "mgg" 'cider-find-var
           "mgr" 'cider-jump-to-resource
 
           "msb" 'cider-load-buffer
@@ -249,7 +249,7 @@ the focus."
 
         "mgb" 'cider-jump-back
         "mge" 'cider-jump-to-compilation-error
-        "mgg" 'cider-jump-to-var
+        "mgg" 'cider-find-var
         "mgr" 'cider-jump-to-resource
 
         "msc" 'cider-repl-clear-buffer
