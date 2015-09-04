@@ -3780,7 +3780,8 @@ one of `l' or `r'."
                          (eq w neo-global--window))
                 (window-numbering-assign w 0)))
             windows))
-    (add-hook 'window-numbering-before-hook 'spacemacs//window-numbering-assign)))
+    (add-hook 'window-numbering-before-hook 'spacemacs//window-numbering-assign)
+    (add-hook 'neo-after-create-hook '(lambda (w) (window-numbering-update)))))
 
 (defun spacemacs/init-winner ()
   (use-package winner
