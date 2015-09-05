@@ -261,15 +261,25 @@ studies to prove this).
 Emacs users wanting to learn *a different way to edit files* or wanting to learn
 Vim key bindings.
 
+Emacs users who want a neatly organized configuration to go along with the
+default Emacs keybindings (Yes, Spacemacs can be used without Vim keybindings).
+
 As a side note, if you are a programmer and you don't know Vim key bindings yet,
 I deeply recommend you to learn the basics as recommended in [[http://sachachua.com/blog/2013/05/how-to-learn-emacs-a-hand-drawn-one-pager-for-beginners/][Sacha Chua's
 one-page guide]] about how to learn Emacs.
 
 * Update and Rollback
-For now it is still needed to update the =Spacemacs= repository manually.
-
 ** Update Spacemacs repository
-Close Emacs and update the git repository:
+Spacemacs will automatically check for a new version every startup. When it
+detects that a new version is available a arrow will appear in the modeline.
+Click it to update Spacemacs. You must restart Emacs after updating.
+
+Update Button:
+[[file:img/powerline-update.png]]
+
+*Note*: If you use the =develop= branch of Spacemacs, you must update manually.
+
+To update manually close Emacs and update the git repository:
 
 #+begin_src sh
   $ git pull --rebase
