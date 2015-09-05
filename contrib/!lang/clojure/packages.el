@@ -364,6 +364,18 @@ the focus."
       (add-to-list 'magic-mode-alist '(".* boot" . clojure-mode)))
     :config
     (progn
+
+      (defun spacemacs/clojure-mode-toggle-default-indent-style ()
+        (interactive)
+        (setq clojure-defun-style-default-indent
+              (if clojure-defun-style-default-indent nil t))
+        (message "Clojure-mode default indent style: %s"
+                 (if clojure-defun-style-default-indent "ON" "OFF")))
+
+      (dolist (m '(clojure-mode clojurec-mode clojurescript-mode clojurex-mode))
+        (evil-leader/set-key-for-mode m
+          "mTi" 'spacemacs/clojure-mode-toggle-default-indent-style))
+
       (when clojure-enable-fancify-symbols
         (dolist (m '(clojure-mode clojurescript-mode clojurec-mode clojurex-mode))
           (clojure/fancify-symbols m)))
