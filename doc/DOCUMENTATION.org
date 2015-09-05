@@ -177,13 +177,13 @@ Four core pillars: Mnemonic, Discoverability, Consistency, "Crowd-Configured".
 If any of these core pillars is violated open an issue and we'll fix it.
 
 ** Mnemonic
-=Spacemacs= organizes key bindings by mnemonic namespaces as much as possible. If
-you are looking for commands to operate on your buffer, they are right under ~SPC
-b~, if you want to operate on your project, then it is ~SPC p~, etc...
+=Spacemacs= organizes key bindings by mnemonic namespaces as much as possible.
+If you are looking for commands to operate on your buffer, they are right under
+~SPC b~, if you want to operate on your project, then it is ~SPC p~, etc...
 
 ** Discoverability
-=Spacemacs= comes with a dedicated major mode =spacemacs-mode=. Its goal is to give
-useful feedbacks and easily perform maintenance tasks.
+=Spacemacs= comes with a dedicated major mode =spacemacs-mode=. Its goal is to
+give useful feedbacks and easily perform maintenance tasks.
 
 It also comes with dedicated [[https://github.com/emacs-helm/helm][helm]] sources to quickly find layers, packages and
 more.
@@ -194,9 +194,9 @@ in a dedicated popup buffer.
 ** Consistency
 Similar functionalities should have the same key binding no matter which major
 is currently active. For instance if you are looking for the definition of a
-function, the binding is ~SPC m g g~, =m= for =major mode= and =g g= for =go to thing at
-point=. No matter what is the major mode it is the same binding to perform this
-action.
+function, the binding is ~SPC m g g~, =m= for =major mode= and =g g= for =go to
+thing at point=. No matter what is the major mode it is the same binding to
+perform this action.
 
 This is also true for the documentation, each configuration layer comes with an
 associated =README.org= file with the same base layout.
@@ -204,16 +204,16 @@ associated =README.org= file with the same base layout.
 The consistency core pillar is supported by a convention file: [[file:CONVENTIONS.org][CONVENTIONS.org]]
 
 ** Crowd-Configured
-By defining an very light structure called =configuration layer= which is easy to
-understand, =Spacemacs= makes it easy to contribute additional support.
+By defining an very light structure called =configuration layer= which is easy
+to understand, =Spacemacs= makes it easy to contribute additional support.
 
-The conventions in [[file:CONVENTIONS.org][CONVENTIONS.org]] make it easy to get the spacemacs way and
-keep consistency even if there are a lot of contributions.
+The conventions in [[file:CONVENTIONS.org][CONVENTIONS.org]] make it easy to get
+the spacemacs way and keep consistency even if there are a lot of contributions.
 
-=Crowd-configuration= is the most powerful pillar of =Spacemacs=. Anybody can submit
-upstream improvements to configuration layers or a whole new one. Any user can
-easily and directly use this layer by adding it to a list in a dotfile. It is
-even possible to exclude /any/ unwanted packages.
+=Crowd-configuration= is the most powerful pillar of =Spacemacs=. Anybody can
+submit upstream improvements to configuration layers or a whole new one. Any
+user can easily and directly use this layer by adding it to a list in a dotfile.
+It is even possible to exclude /any/ unwanted packages.
 
 * Goals
 -  *Bring the power of modal editing* to the powerful Emacs editing platform.
@@ -505,7 +505,7 @@ For instance to add the configuration layer of [[#thank-you][RMS]]:
     (setq-default dotspacemacs-configuration-layers '(rms))
 #+end_src
 
-If this layer does not exist you can still try another one in [[../contrib][the =contrib=
+If this layer does not exist you can still try another one in [[file:../contrib][the =contrib=
 directory]].
 
 Configuration layers are expected to be stored in =~/.emacs.d/private= or
@@ -535,7 +535,8 @@ can be set directly in the =dotspacemacs-configuration-layers= like this:
 *** Excluding packages
 You can exclude packages you don't want to install with the variable
 =dotspacemacs-excluded-packages=, this variable can exclude both packages and
-extensions (see [[#configuration-layers][Configuration layers]] for more info on packages and extensions).
+extensions (see [[#configuration-layers][Configuration layers]] for more info on
+packages and extensions).
 
 For instance to disable the =rainbow-delimiters= package:
 
@@ -1086,8 +1087,9 @@ you are not familiar with the =Vim= way of editing text you can try the
 [[https://github.com/syl20bnr/evil-tutor][evil-tutor]] lessons by pressing ~SPC h T~ at any time.
 
 *** Escaping
-=Spacemacs= uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to easily switch between =insert state= and =normal
-state= by quickly pressing the ~fd~ keys.
+=Spacemacs= uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to
+easily switch between =insert state= and =normal state= by quickly pressing the
+~fd~ keys.
 
 The choice of ~fd~ was made to be able to use the same sequence to escape from
 "everything" in Emacs:
@@ -1259,10 +1261,10 @@ the different Elpa repositories. It is possible to upgrade packages from there
 but it is not recommended, use the =[Update]= link on the =Spacemacs= startup
 page instead.
 
-=Spacemacs= proposes to use [[https://github.com/Bruce-Connor/paradox][Paradox]] instead of =package-list-packages= to list
-available ELPA packages. Paradox enhances the package list buffer with better
-feedbacks, new filters and Github information like the number of stars.
-Optionally you can also star packages directly in the buffer.
+=Spacemacs= uses [[https://github.com/Bruce-Connor/paradox][Paradox]] instead of =package-list-packages= to list available
+ELPA packages. Paradox enhances the package list buffer with better feedbacks,
+new filters and Github information like the number of stars. Optionally you can
+also star packages directly in the buffer.
 
 *Important Note 1*: Installing a new package from =Paradox= won't make it
 persistent. To install a package persistently you have to add it explicitly to a
@@ -1274,6 +1276,7 @@ Spacemacs.
 
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
+| ~SPC a P~   | launch =paradox=                                      |
 | ~/~         | evil-search                                           |
 | ~f k~       | filter by keywords                                    |
 | ~f r~       | filter by regexp                                      |
@@ -1857,9 +1860,8 @@ highlighted until the next search. It is also possible to clear the highlighting
 by pressing ~SPC s c~ or executing the ex command =:noh=.
 
 *** Stacking highlights
-With [[https://github.com/boyw165/hl-anything][hl-anything]] it is possible to
-highlight all occurrences of the word under point. The highlights can be
-stacked.
+With [[https://github.com/boyw165/hl-anything][hl-anything]] it is possible to highlight all occurrences of the word under
+point. The highlights can be stacked.
 
 | Key Binding | Description                                                                 |
 |-------------+-----------------------------------------------------------------------------|
@@ -1875,8 +1877,8 @@ stacked.
 
 *** Highlight current symbol
 =Spacemacs= supports highlighting of the current symbol on demand (provided by
-the [[https://github.com/emacsmirror/auto-highlight-symbol][auto-highlight-symbol]] mode) and adds a micro-state to easily navigate and
-rename this symbol.
+[[https://github.com/emacsmirror/auto-highlight-symbol][auto-highlight-symbol]] mode) and adds a micro-state to easily navigate and rename
+this symbol.
 
 It is also possible to change the range of the navigation on the fly to:
   - buffer
@@ -2042,15 +2044,15 @@ It is possible to enable it easily for /all programming modes/ with the variable
 **** Text
 The font size of the current buffer can be adjusted with the commands:
 
-| Key Binding     | Description                                                                  |
-|-----------------+------------------------------------------------------------------------------|
-| ~SPC z x +~       | scale up the font and initiate the font scaling micro-state                  |
-| ~SPC z x -~       | scale down the font and initiate the font scaling micro-state                |
-| ~SPC z x =~       | reset the font size (no scaling) and initiate the font scaling micro-state   |
-| ~+~               | increase the font size                                                       |
-| ~-~               | decrease the font size                                                       |
-| ~=~               | reset the font size                                                          |
-| Any other key   | leave the font scaling micro-state                                           |
+| Key Binding   | Description                                                                |
+|---------------+----------------------------------------------------------------------------|
+| ~SPC z x +~   | scale up the font and initiate the font scaling micro-state                |
+| ~SPC z x -~   | scale down the font and initiate the font scaling micro-state              |
+| ~SPC z x =~   | reset the font size (no scaling) and initiate the font scaling micro-state |
+| ~+~           | increase the font size                                                     |
+| ~-~           | decrease the font size                                                     |
+| ~=~           | reset the font size                                                        |
+| Any other key | leave the font scaling micro-state                                         |
 
 Note that /only/ the text of the current buffer is scaled, the other buffers,
 the mode-line and the minibuffer are not affected. To zoom the whole content of
@@ -2059,15 +2061,15 @@ a frame use the =zoom frame= bindings (see next section).
 **** Frame
 You can zoom in and out the whole content of the frame with the commands:
 
-| Key Binding     | Description                        |
-|-----------------+------------------------------------|
-| ~SPC z f +~       | zoom in the frame content          |
-| ~SPC z f -~       | zoom out the frame content         |
-| ~SPC z f =~       | reset the frame content size       |
-| ~+~               | zoom in                            |
-| ~-~               | zoom out                           |
-| ~=~               | reset zoom                         |
-| Any other key   | leave the zoom frame micro-state   |
+| Key Binding   | Description                      |
+|---------------+----------------------------------|
+| ~SPC z f +~   | zoom in the frame content        |
+| ~SPC z f -~   | zoom out the frame content       |
+| ~SPC z f =~   | reset the frame content size     |
+| ~+~           | zoom in                          |
+| ~-~           | zoom out                         |
+| ~=~           | reset zoom                       |
+| Any other key | leave the zoom frame micro-state |
 
 *** Increase/Decrease numbers
 =Spacemacs= uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or increase numbers.
@@ -2079,11 +2081,11 @@ You can zoom in and out the whole content of the frame with the commands:
 
 In micro-state:
 
-| Key Binding     | Description                              |
-|-----------------+------------------------------------------|
-| ~+~               | increase the number under point by one   |
-| ~-~               | decrease the number under point by one   |
-| Any other key   | leave the micro-state                    |
+| Key Binding   | Description                            |
+|---------------+----------------------------------------|
+| ~+~           | increase the number under point by one |
+| ~-~           | decrease the number under point by one |
+| Any other key | leave the micro-state                  |
 
 *Tips:* you can increase or decrease a value by more that once by using a prefix
 argument (ie. ~10 SPC n +~ will add 10 to the number under point).
@@ -2121,8 +2123,9 @@ state=:
 Example (=|= is the point):
 
 #+begin_src emacs-lisp
-    (while (not done) (messa|ge "All work and no play makes Jack a dull boy."))
-      (1+ 41)
+  (while (not done)
+    (messa|ge "All work and no play makes Jack a dull boy."))
+    (1+ 41)
 #+end_src
 
 -  ~vii~ will select the line with message
@@ -2391,7 +2394,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
     | ~SPC p p~   | switch project                                        |
     | ~SPC p r~   | open a recent file                                    |
     | ~SPC p R~   | replace a string                                      |
-    | ~SPC p s~   | see [[#searching-in-a-project][search in project]]    |
+    | ~SPC p s~   | see [[#searching-in-a-project][search in project]]                                 |
     | ~SPC p t~   | open =NeoTree= in =projectile= root                   |
     | ~SPC p T~   | find test files                                       |
     | ~SPC p v~   | open project root in =vc-dir= or =magit=              |
