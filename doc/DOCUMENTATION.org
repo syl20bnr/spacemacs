@@ -285,7 +285,7 @@ To update manually close Emacs and update the git repository:
   $ git pull --rebase
 #+end_src
 
-*Note* It is recommended to update the packages first, see next session.
+*Note*: It is recommended to update the packages first, see the next section.
 
 ** Update packages
 To update =Spacemacs= press RET (enter) or click on the link =[Update]= in the
@@ -767,7 +767,7 @@ variable =dotspacemacs-themes=. For instance, to specify =solarized-light=,
 
 You can see samples of all included themes in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
 
-*Note:*
+*Note*:
   - You don't need to explicitly list in a layer the theme packages you are
     defining in =dotspacemacs-themes=, Spacemacs is smart enough to remove those
     packages from the list of orphans.
@@ -868,7 +868,7 @@ and ~T~):
     | ~SPC T t~   | toggle tool bar                                              |
     | ~SPC T T~   | toggle frame transparency and enter transparency micro-state |
 
-*Note* These toggles are all available via the =helm-spacemacs= interface (press
+*Note*: These toggles are all available via the =helm-spacemacs= interface (press
 ~SPC f e h~ to display the =helm-spacemacs= buffer).
 
 *** Mouse usage
@@ -1113,7 +1113,7 @@ Example to set it to ~jj~:
     (setq-default evil-escape-key-sequence "jj"))
 #+end_src
 
-*Note:* Although ~jj~ or ~jk~ are popular choices of vim users, these key
+*Note*: Although ~jj~ or ~jk~ are popular choices of vim users, these key
 sequences are not optimal for =Spacemacs=. Indeed it is very easy in =visual
 state= to press quickly ~jj~ and inadvertently escape to =normal state=.
 
@@ -1258,11 +1258,11 @@ available ELPA packages. Paradox enhances the package list buffer with better
 feedbacks, new filters and Github information like the number of stars.
 Optionally you can also star packages directly in the buffer.
 
-*Important Note 1* Installing a new package from =Paradox= won't make it
+*Important Note 1*: Installing a new package from =Paradox= won't make it
 persistent. To install a package persistently you have to add it explicitly to a
 configuration layer.
 
-*Important Note 2* Don't /update/ your packages from =Paradox= or
+*Important Note 2*: Don't /update/ your packages from =Paradox= or
 =package-list-packages= because they don't support the rollback feature of
 Spacemacs.
 
@@ -1620,7 +1620,7 @@ experience like in [[http://ranger.nongnu.org/][ranger]]:
 | ~L~           | next sibling                                                             |
 | ~R~           | make a directory the root directory                                      |
 
-*Note:* The point is automatically set to the first letter of a node for a
+*Note*: The point is automatically set to the first letter of a node for a
 smoother experience.
 
 **** Opening files with NeoTree
@@ -1771,7 +1771,7 @@ It is possible to search in the current file by double tapping the second key
 of the sequence, for instance ~SPC s a a~ will search in the current
 file with =ag=.
 
-*Notes*
+*Notes*:
 - =ag= and =pt= are optimized to be used in a source control repository but
   they can be used in an arbitrary directory as well.
 - It is also possible to search in several directories at once by marking
@@ -2181,7 +2181,7 @@ To sum-up, in =iedit-insert state= you have to press ESC twice to go back to the
 =normal state=. You can also at any time press ~C-g~ or ~fd~ to return to =normal
 state=.
 
-*Note:* evil commands which switch to =insert state= will switch in
+*Note*: evil commands which switch to =insert state= will switch in
 =iedit-insert state=.
 
 ***** In iedit state
@@ -2212,7 +2212,7 @@ specific to =iedit state=.
 | ~U~         | Up-case the occurrences                                                                 |
 | ~C-U~       | down-case the occurrences                                                               |
 
-*Note:* ~0~, ~$~, ~A~ and ~I~ have the default Vim behavior when used outside of
+*Note*: ~0~, ~$~, ~A~ and ~I~ have the default Vim behavior when used outside of
 an ~occurrence~.
 
 ***** In iedit-insert state
@@ -2239,7 +2239,7 @@ project:
   - edit the occurrences then leave the =iedit state=
   - press ~C-c C-c~
 
-*Note* in Spacemacs, =helm-ag= despite its name works with =ack= and =pt= as
+*Note*: In Spacemacs, =helm-ag= despite its name works with =ack= and =pt= as
 well.
 
 *** Commenting
@@ -2282,7 +2282,7 @@ Examples:
   - to slurp three times while in normal state: ~SPC k 3 n~
   - to wrap a symbol in parenthesis then slurping two times: ~SPC k w 2 n~
 
-*Note* The =lisp state= commands are available in /any/ modes! Try it out.
+*Note*: The =lisp state= commands are available in /any/ modes! Try it out.
 
 **** Lisp Key Bindings
 ***** Lisp state key bindings
