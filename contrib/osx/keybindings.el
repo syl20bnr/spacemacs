@@ -23,7 +23,7 @@
     (global-set-key (kbd "s-x") 'kill-region)
     (global-set-key (kbd "s-w") 'delete-window)
     (global-set-key (kbd "s-W") 'delete-frame)
-    (global-set-key (kbd "s-n") 'new-frame)
+    (global-set-key (kbd "s-n") 'make-frame)
     (global-set-key (kbd "s-z") 'undo-tree-undo)
     (global-set-key (kbd "s-s")
                     (lambda ()
