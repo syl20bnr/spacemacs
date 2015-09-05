@@ -457,16 +457,12 @@ Please refer to [[LAYERS.org][this]] introduction for some tips on writing layer
 best make them fit with the Spacemacs philosophy and loading strategy.
 
 * Dotfile Configuration
-
 User configuration can be stored in your =~/.spacemacs= file.
 
 ** Installation
-=~/.spacemacs= is an optional file. If you want to use it you have to copy it
-manually from the template file =~/.emacs.d/core/templates/.spacemacs.template=
-
-#+begin_src sh
-    $ cp ~/.emacs.d/core/templates/.spacemacs.template ~/.spacemacs
-#+end_src
+The very first time Spacemacs starts up, it will prompt you to choose your
+editing style. Once you choose a style, the =.spacemacs= file will be created
+from a template.
 
 *** Alternative setup
 Since v0.104 you have the option of using =~/.spacemacs.d/init.el= for your
