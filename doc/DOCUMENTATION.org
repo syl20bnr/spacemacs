@@ -11,8 +11,9 @@
    - [[#update-spacemacs-repository][Update Spacemacs repository]]
    - [[#update-packages][Update packages]]
  - [[#configuration-layers][Configuration layers]]
+   - [[#purpose][Purpose]]
    - [[#structure][Structure]]
-   - [[#extensions-and-packages][Extensions and Packages]]
+   - [[#packages][Packages]]
      - [[#within-a-layer][Within a layer]]
        - [[#declaration][Declaration]]
        - [[#initialization][Initialization]]
@@ -38,8 +39,9 @@
      - [[#hooks][Hooks]]
      - [[#custom-variables][Custom variables]]
  - [[#main-principles][Main principles]]
-   - [[#evil][Evil]]
-   - [[#holy][Holy]]
+   - [[#evil-mode][Evil Mode]]
+   - [[#holy-mode][Holy Mode]]
+   - [[#hybrid-mode][Hybrid Mode]]
    - [[#states][States]]
    - [[#evil-leader][Evil leader]]
    - [[#universal-argument][Universal argument]]
@@ -174,13 +176,13 @@ Four core pillars: Mnemonic, Discoverability, Consistency, "Crowd-Configured".
 If any of these core pillars is violated open an issue and we'll fix it.
 
 ** Mnemonic
-=Spacemacs= organizes key bindings by mnemonic namespaces as much as possible. If
-you are looking for commands to operate on your buffer, they are right under ~SPC
-b~, if you want to operate on your project, then it is ~SPC p~, etc...
+=Spacemacs= organizes key bindings by mnemonic namespaces as much as possible.
+If you are looking for commands to operate on your buffer, they are right under
+~SPC b~, if you want to operate on your project, then it is ~SPC p~, etc...
 
 ** Discoverability
-=Spacemacs= comes with a dedicated major mode =spacemacs-mode=. Its goal is to give
-useful feedbacks and easily perform maintenance tasks.
+=Spacemacs= comes with a dedicated major mode =spacemacs-mode=. Its goal is to
+give useful feedbacks and easily perform maintenance tasks.
 
 It also comes with dedicated [[https://github.com/emacs-helm/helm][helm]] sources to quickly find layers, packages and
 more.
@@ -191,9 +193,9 @@ in a dedicated popup buffer.
 ** Consistency
 Similar functionalities should have the same key binding no matter which major
 is currently active. For instance if you are looking for the definition of a
-function, the binding is ~SPC m g g~, =m= for =major mode= and =g g= for =go to thing at
-point=. No matter what is the major mode it is the same binding to perform this
-action.
+function, the binding is ~SPC m g g~, =m= for =major mode= and =g g= for =go to
+thing at point=. No matter what is the major mode it is the same binding to
+perform this action.
 
 This is also true for the documentation, each configuration layer comes with an
 associated =README.org= file with the same base layout.
@@ -201,16 +203,16 @@ associated =README.org= file with the same base layout.
 The consistency core pillar is supported by a convention file: [[file:CONVENTIONS.org][CONVENTIONS.org]]
 
 ** Crowd-Configured
-By defining an very light structure called =configuration layer= which is easy to
-understand, =Spacemacs= makes it easy to contribute additional support.
+By defining an very light structure called =configuration layer= which is easy
+to understand, =Spacemacs= makes it easy to contribute additional support.
 
-The conventions in [[file:CONVENTIONS.org][CONVENTIONS.org]] make it easy to get the spacemacs way and
-keep consistency even if there are a lot of contributions.
+The conventions in [[file:CONVENTIONS.org][CONVENTIONS.org]] make it easy to get
+the spacemacs way and keep consistency even if there are a lot of contributions.
 
-=Crowd-configuration= is the most powerful pillar of =Spacemacs=. Anybody can submit
-upstream improvements to configuration layers or a whole new one. Any user can
-easily and directly use this layer by adding it to a list in a dotfile. It is
-even possible to exclude /any/ unwanted packages.
+=Crowd-configuration= is the most powerful pillar of =Spacemacs=. Anybody can
+submit upstream improvements to configuration layers or a whole new one. Any
+user can easily and directly use this layer by adding it to a list in a dotfile.
+It is even possible to exclude /any/ unwanted packages.
 
 * Goals
 -  *Bring the power of modal editing* to the powerful Emacs editing platform.
@@ -259,21 +261,31 @@ studies to prove this).
 Emacs users wanting to learn *a different way to edit files* or wanting to learn
 Vim key bindings.
 
+Emacs users who want a neatly organized configuration to go along with the
+default Emacs keybindings (Yes, Spacemacs can be used without Vim keybindings).
+
 As a side note, if you are a programmer and you don't know Vim key bindings yet,
 I deeply recommend you to learn the basics as recommended in [[http://sachachua.com/blog/2013/05/how-to-learn-emacs-a-hand-drawn-one-pager-for-beginners/][Sacha Chua's
 one-page guide]] about how to learn Emacs.
 
 * Update and Rollback
-For now it is still needed to update the =Spacemacs= repository manually.
-
 ** Update Spacemacs repository
-Close Emacs and update the git repository:
+Spacemacs will automatically check for a new version every startup. When it
+detects that a new version is available a arrow will appear in the modeline.
+Click it to update Spacemacs. You must restart Emacs after updating.
+
+Update Button:
+[[file:img/powerline-update.png]]
+
+*Note*: If you use the =develop= branch of Spacemacs, you must update manually.
+
+To update manually close Emacs and update the git repository:
 
 #+begin_src sh
   $ git pull --rebase
 #+end_src
 
-*Note* It is recommended to update the packages first, see next session.
+*Note*: It is recommended to update the packages first, see the next section.
 
 ** Update packages
 To update =Spacemacs= press RET (enter) or click on the link =[Update]= in the
@@ -284,19 +296,26 @@ If anything goes wrong you should be able to rollback the update by pressing
 choose a rollback slot (sorted by date).
 
 * Configuration layers
-A more extensive introduction to writing configuration layers can be found [[LAYERS.org][here]].
+*Note*: This is a very simple overview of how layers work. A more extensive
+introduction to writing configuration layers can be found [[LAYERS.org][here]].
+
+** Purpose
+Layers help collect related packages together to provide features. For example,
+the =python= layer provides auto-completion, syntax checking, and repl support
+for python files. This approach helps keep configuration organized and reduces
+overhead for the user by keeping them from having to think about what packages
+to install
 
 ** Structure
 Configuration is organized in layers. Each layer has the following structure:
 
 #+BEGIN_EXAMPLE
     [layer_name]
-      |__ [extensions]
-      | |__ [mode 1]
+      |__ [local]
+      | |__ [package 1]
       | |     ...
-      | |__ [mode n]
+      | |__ [package n]
       |__ config.el
-      |__ extensions.el
       |__ funcs.el
       |__ keybindings.el
       |__ packages.el
@@ -309,26 +328,20 @@ Where:
 | File           | Usage                                                                |
 |----------------+----------------------------------------------------------------------|
 | config.el      | Emacs built-in configuration or mandatory configuration              |
-| extensions.el  | The list of extensions to load and the functions to initialize them  |
 | funcs.el       | Various functions and macros (often used in keybindings.el)          |
 | keybindings.el | Emacs built-in key bindings or mandatory key bindings                |
 | packages.el    | The list of packages to install and the functions to initialize them |
 
 =Packages= are =ELPA= packages which can be installed from an =ELPA= compliant
-repository, and =Extensions= are generally elisp code from git submodules, or
-other code one might want to use but which isn't available on an =ELPA=
-compliant repository, for whatever reason.
+repository, local packages in a layer's =local= folder, or packages that can be
+installed from an online source using =[[https://github.com/quelpa/quelpa][quelpa]]=.
 
-** Extensions and Packages
+** Packages
 *** Within a layer
 **** Declaration
-=Extensions= and =Packages= are declared in variables =<layer>-pre-extensions=,
-=<layer>-post-extensions= and =<layer>-packages= where =<layer>= is the layer
-name. =Pre-Extensions= are loaded before =Packages= and =Post-Extensions= are
-loaded after =Packages=.
-
-They are processed in alphabetical order so sometimes you'll have to use some
-=eval-after-load= black magic.
+=Packages= are declared in variables and =<layer>-packages= where =<layer>= is
+the layer name. They are processed in alphabetical order so sometimes you'll
+have to use some =eval-after-load= black magic.
 
 Example:
 
@@ -336,9 +349,12 @@ Example:
     (setq <layer>-packages '(package1 package2 ...)
 #+end_src
 
+For details on installing local packages using quelpa or in the layer's =local=
+folder, see [[file:LAYERS.org#packagesel][LAYERS.org]].
+
 **** Initialization
 To initialize an extension or a package =xxx=, define a function with this
-format in =extensions.el= or =packages.el=:
+format in or =packages.el=:
 
 #+begin_src emacs-lisp
     (defun <layer>/init-xxx () ...body )
@@ -370,7 +386,7 @@ You can install such packages by adding them to the variable
 =dotspacemacs-additional-packages= in your dotfile.
 
 If you want to add some configuration for them then consider to create a layer,
-or just put the configuration in the =dotspacemacs/config= function.
+or just put the configuration in the =dotspacemacs/user-config= function.
 
 Example to install =llvm-mode= and =dts-mode=:
 
@@ -441,16 +457,12 @@ Please refer to [[LAYERS.org][this]] introduction for some tips on writing layer
 best make them fit with the Spacemacs philosophy and loading strategy.
 
 * Dotfile Configuration
-
 User configuration can be stored in your =~/.spacemacs= file.
 
 ** Installation
-=~/.spacemacs= is an optional file. If you want to use it you have to copy it
-manually from the template file =~/.emacs.d/core/templates/.spacemacs.template=
-
-#+begin_src sh
-    $ cp ~/.emacs.d/core/templates/.spacemacs.template ~/.spacemacs
-#+end_src
+The very first time Spacemacs starts up, it will prompt you to choose your
+editing style. Once you choose a style, the =.spacemacs= file will be created
+from a template.
 
 *** Alternative setup
 Since v0.104 you have the option of using =~/.spacemacs.d/init.el= for your
@@ -470,16 +482,16 @@ change the location of this directory.
 To apply the modifications made in =~/.spacemacs= press ~SPC f e R~. It will
 re-execute the =Spacemacs= initialization process.
 
-*Note:* A synchronization re-executes the functions =dotspacemacs/init= and
-=dotspacemacs/config=. Depending on the content of this functions you may
+*Note*: A synchronization re-executes the functions =dotspacemacs/init= and
+=dotspacemacs/user-config=. Depending on the content of this functions you may
 encounter some unwanted side effects. For instance if you use a toggle in
-=dotspacemac/config= to enable some behavior, this behavior will be turned off
-whenever the dotfile is re-synchronized. To avoid these side-effects it is
+=dotspacemac/user-config= to enable some behavior, this behavior will be turned
+off whenever the dotfile is re-synchronized. To avoid these side-effects it is
 recommended to either use =setq= expressions instead of toggle functions, or to
 use the =on= or =off= versions instead (i.e. instead of
 =spacemacs/toggle-<thing>=, use =spacemacs/toggle-<thing>-on= or
 =spacemacs/toggle-<thing>-off=). It is possible to /skip/ the execution of
-=dotspacemacs/config= with the universal argument (~SPC u SPC f e R~).
+=dotspacemacs/user-config= with the universal argument (~SPC u SPC f e R~).
 
 ** Content
 *** Using configuration layers
@@ -492,7 +504,7 @@ For instance to add the configuration layer of [[#thank-you][RMS]]:
     (setq-default dotspacemacs-configuration-layers '(rms))
 #+end_src
 
-If this layer does not exist you can still try another one in [[../contrib][the =contrib=
+If this layer does not exist you can still try another one in [[file:../contrib][the =contrib=
 directory]].
 
 Configuration layers are expected to be stored in =~/.emacs.d/private= or
@@ -522,7 +534,8 @@ can be set directly in the =dotspacemacs-configuration-layers= like this:
 *** Excluding packages
 You can exclude packages you don't want to install with the variable
 =dotspacemacs-excluded-packages=, this variable can exclude both packages and
-extensions (see [[#configuration-layers][Configuration layers]] for more info on packages and extensions).
+extensions (see [[#configuration-layers][Configuration layers]] for more info on
+packages and extensions).
 
 For instance to disable the =rainbow-delimiters= package:
 
@@ -535,28 +548,36 @@ next time you launch Emacs. All the orphan dependencies are as well delete
 automatically.
 
 *** Hooks
-Two special functions of the =~/.spacemacs= file can be used to perform
+Three special functions of the =~/.spacemacs= file can be used to perform
 configuration at the beginning and end of =Spacemacs= loading process.
 
   - =dotspacemacs/init= is triggered at the very beginning of =Spacemacs=
-    loading.
-  - =dotspacemacs/config= is triggered at the very end of =Spacemacs= loading.
+    loading. You can configure =Spacemacs= variables here.
+  - =dotspacemacs/user-init= is also triggered at the very beginning of =Spacemacs=
+    loading. User initialization occurs here.
+  - =dotspacemacs/user-config= is triggered at the very end of =Spacemacs=
+    loading. Most user configuration should go here.
 
 *** Custom variables
 Custom variables configuration from =M-x customize-group= which are
 automatically saved by Emacs are stored at the end of your =~/.spacemacs= file.
 
 * Main principles
-** Evil
+** Evil Mode
 =Spacemacs= uses the [[https://gitorious.org/evil/pages/Home][evil]] mode package to emulate Vim key bindings. It is a very
 complete emulation, maybe the most advanced. In fact, Evil is much more than
 just a Vim emulation. It has more states than Vim for instance.
 
-** Holy
-Thanks to the new holy-mode Spacemacs can now be used by Vim users or Emacs
-users by setting the =dotspacemacs-editing-style= variable to ='vim= or ='emacs=
-in the dotfile. In Emacs style the leader is available as ~M-m~. It is possible
-to dynamically switch between evil and holy modes using ~SPC P tab~.
+** Holy Mode
+Spacemacs can now be used by Emacs users by setting the
+=dotspacemacs-editing-style= variable to =emacs= in the dotfile. In Emacs style
+the leader is available as ~M-m~. It is possible to dynamically switch between
+evil and holy mode using ~SPC E H~ and ~M-m E H~.
+
+** Hybrid Mode
+Hybrid mode removes all Vim keybindings from =evil-insert-state=. This means
+that stock emacs keybindings can be used when inserting text. To switch between
+evil and hybrid mode use ~SPC E Y~.
 
 ** States
 =Spacemacs= has 9 states:
@@ -637,7 +658,7 @@ the case:
   - =surround= command is just a more powerful command than ~s~.
 
 If you are not convinced, then here is the snippet to revert back to the default
-=Vim + vim-surround= setup (add it to your =dotspacemacs/config= function or
+=Vim + vim-surround= setup (add it to your =dotspacemacs/user-config= function or
 your =~/.spacemacs=):
 
 #+begin_src emacs-lisp
@@ -681,7 +702,7 @@ enjoyable:
 The official =Spacemacs= theme is [[https://github.com/nashamri/spacemacs-theme][spacemacs-dark]] and it is the default theme
 installed when you first started =Spacemacs=. There are two variants of the
 theme, a dark one and a light one. Some aspect of these themes can be customized
-in the function =dotspacemacs/init= of your =~/.spacemacs=:
+in the function =dotspacemacs/user-init= of your =~/.spacemacs=:
   - the comment background with the boolean =spacemacs-theme-comment-bg=
   - the height of org section titles with =spacemacs-theme-org-height=
 
@@ -700,7 +721,7 @@ variable =dotspacemacs-themes=. For instance, to specify =solarized-light=,
 
 You can see samples of all included themes in this [[http://themegallery.robdor.com][theme gallery]] from [[http://www.twitter.com/robmerrell][Rob Merrell]].
 
-*Note:*
+*Note*:
   - You don't need to explicitly list in a layer the theme packages you are
     defining in =dotspacemacs-themes=, Spacemacs is smart enough to remove those
     packages from the list of orphans.
@@ -801,7 +822,7 @@ and ~T~):
     | ~SPC T t~   | toggle tool bar                                              |
     | ~SPC T T~   | toggle frame transparency and enter transparency micro-state |
 
-*Note* These toggles are all available via the =helm-spacemacs= interface (press
+*Note*: These toggles are all available via the =helm-spacemacs= interface (press
 ~SPC f e h~ to display the =helm-spacemacs= buffer).
 
 *** Mouse usage
@@ -890,7 +911,7 @@ you want to set back the separator to the well-known =arrow= separator add the
 following snippet to your configuration file:
 
 #+begin_src emacs-lisp
-  (defun dotspacemacs/config ()
+  (defun dotspacemacs/user-config ()
     "This is were you can ultimately override default Spacemacs configuration.
   This function is called at the very end of Spacemacs initialization."
     (setq powerline-default-separator 'arrow))
@@ -1013,8 +1034,9 @@ you are not familiar with the =Vim= way of editing text you can try the
 [[https://github.com/syl20bnr/evil-tutor][evil-tutor]] lessons by pressing ~SPC h T~ at any time.
 
 *** Escaping
-=Spacemacs= uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to easily switch between =insert state= and =normal
-state= by quickly pressing the ~fd~ keys.
+=Spacemacs= uses [[https://github.com/syl20bnr/evil-escape][evil-escape]] to
+easily switch between =insert state= and =normal state= by quickly pressing the
+~fd~ keys.
 
 The choice of ~fd~ was made to be able to use the same sequence to escape from
 "everything" in Emacs:
@@ -1046,7 +1068,7 @@ Example to set it to ~jj~:
     (setq-default evil-escape-key-sequence "jj"))
 #+end_src
 
-*Note:* Although ~jj~ or ~jk~ are popular choices of vim users, these key
+*Note*: Although ~jj~ or ~jk~ are popular choices of vim users, these key
 sequences are not optimal for =Spacemacs=. Indeed it is very easy in =visual
 state= to press quickly ~jj~ and inadvertently escape to =normal state=.
 
@@ -1072,8 +1094,8 @@ key with the variable =dotspacemacs-leader-key=.
 these is *guaranteed* to never conflict with =Spacemacs= default key bindings.
 
 *Example:* Put =(evil-leader/set-key "oc" 'org-capture)= inside
-=dotspacemacs/config= in your =~/.spacemacs= file, to be able to use ~SPC o c~
-to run org mode capture.
+=dotspacemacs/user-config= in your =~/.spacemacs= file, to be able to use ~SPC o
+c~ to run org mode capture.
 
 ** Helm
 =Spacemacs= is powered by [[https://github.com/emacs-helm/helm][Helm]] which is an incremental completion and selection
@@ -1186,21 +1208,22 @@ the different Elpa repositories. It is possible to upgrade packages from there
 but it is not recommended, use the =[Update]= link on the =Spacemacs= startup
 page instead.
 
-=Spacemacs= proposes to use [[https://github.com/Bruce-Connor/paradox][Paradox]] instead of =package-list-packages= to list
-available ELPA packages. Paradox enhances the package list buffer with better
-feedbacks, new filters and Github information like the number of stars.
-Optionally you can also star packages directly in the buffer.
+=Spacemacs= uses [[https://github.com/Bruce-Connor/paradox][Paradox]] instead of =package-list-packages= to list available
+ELPA packages. Paradox enhances the package list buffer with better feedbacks,
+new filters and Github information like the number of stars. Optionally you can
+also star packages directly in the buffer.
 
-*Important Note 1* Installing a new package from =Paradox= won't make it
+*Important Note 1*: Installing a new package from =Paradox= won't make it
 persistent. To install a package persistently you have to add it explicitly to a
 configuration layer.
 
-*Important Note 2* Don't /update/ your packages from =Paradox= or
+*Important Note 2*: Don't /update/ your packages from =Paradox= or
 =package-list-packages= because they don't support the rollback feature of
 Spacemacs.
 
 | Key Binding | Description                                           |
 |-------------+-------------------------------------------------------|
+| ~SPC a P~   | launch =paradox=                                      |
 | ~/~         | evil-search                                           |
 | ~f k~       | filter by keywords                                    |
 | ~f r~       | filter by regexp                                      |
@@ -1553,7 +1576,7 @@ experience like in [[http://ranger.nongnu.org/][ranger]]:
 | ~L~           | next sibling                                                             |
 | ~R~           | make a directory the root directory                                      |
 
-*Note:* The point is automatically set to the first letter of a node for a
+*Note*: The point is automatically set to the first letter of a node for a
 smoother experience.
 
 **** Opening files with NeoTree
@@ -1669,17 +1692,19 @@ You can toggle auto-save in a buffer by calling the command =auto-save-mode=.
   - [[https://github.com/ggreer/the_silver_searcher][ag]]
   - [[https://github.com/monochromegane/the_platinum_searcher][pt]]
 
-The search commands in Spacemacs are organized under the ~SPC s~ prefix with
-the next key is the tool to use and the last key is the scope. For instance
-~SPC s a b~ will search in all opened buffers using =ag=.
-If the last key (determining the scope) is uppercase then the current region
-or symbol under point is used as default input for the search. For instance
-~SPC s a B~ will search with symbol under point (if there is no active region).
-If the tool key is omitted then a default tool will be automatically
-selected for the search. This tool corresponds to the first tool found on the
-system of the list =dotspacemacs-search-tools=, the default order is =ag=,
-=pt=, =ack= then =grep=. For instance ~SPC s b~ will search in the opened
-buffers using =pt= if =ag= has not been found on the system.
+The search commands in Spacemacs are organized under the ~SPC s~ prefix with the
+next key is the tool to use and the last key is the scope. For instance ~SPC s a
+b~ will search in all opened buffers using =ag=.
+
+If the last key (determining the scope) is uppercase then the current region or
+symbol under point is used as default input for the search. For instance ~SPC s
+a B~ will search with symbol under point (if there is no active region).
+
+If the tool key is omitted then a default tool will be automatically selected
+for the search. This tool corresponds to the first tool found on the system of
+the list =dotspacemacs-search-tools=, the default order is =ag=, =pt=, =ack=
+then =grep=. For instance ~SPC s b~ will search in the opened buffers using =pt=
+if =ag= has not been found on the system.
 
 The tool keys are:
 
@@ -1702,7 +1727,7 @@ It is possible to search in the current file by double tapping the second key
 of the sequence, for instance ~SPC s a a~ will search in the current
 file with =ag=.
 
-*Notes*
+*Notes*:
 - =ag= and =pt= are optimized to be used in a source control repository but
   they can be used in an arbitrary directory as well.
 - It is also possible to search in several directories at once by marking
@@ -1782,9 +1807,8 @@ highlighted until the next search. It is also possible to clear the highlighting
 by pressing ~SPC s c~ or executing the ex command =:noh=.
 
 *** Stacking highlights
-With [[https://github.com/boyw165/hl-anything][hl-anything]] it is possible to
-highlight all occurrences of the word under point. The highlights can be
-stacked.
+With [[https://github.com/boyw165/hl-anything][hl-anything]] it is possible to highlight all occurrences of the word under
+point. The highlights can be stacked.
 
 | Key Binding | Description                                                                 |
 |-------------+-----------------------------------------------------------------------------|
@@ -1800,8 +1824,8 @@ stacked.
 
 *** Highlight current symbol
 =Spacemacs= supports highlighting of the current symbol on demand (provided by
-the [[https://github.com/emacsmirror/auto-highlight-symbol][auto-highlight-symbol]] mode) and adds a micro-state to easily navigate and
-rename this symbol.
+[[https://github.com/emacsmirror/auto-highlight-symbol][auto-highlight-symbol]] mode) and adds a micro-state to easily navigate and rename
+this symbol.
 
 It is also possible to change the range of the navigation on the fly to:
   - buffer
@@ -1908,7 +1932,7 @@ the universal argument.
 
 It is possible to disable the auto-indentation for specific major-modes by
 adding a major-mode to the variable =spacemacs-indent-sensitive-modes= in your
-=dotspacemacs/config= function.
+=dotspacemacs/user-config= function.
 
 *** Text manipulation commands
 Text related commands (start with ~x~):
@@ -1967,15 +1991,15 @@ It is possible to enable it easily for /all programming modes/ with the variable
 **** Text
 The font size of the current buffer can be adjusted with the commands:
 
-| Key Binding     | Description                                                                  |
-|-----------------+------------------------------------------------------------------------------|
-| ~SPC z x +~       | scale up the font and initiate the font scaling micro-state                  |
-| ~SPC z x -~       | scale down the font and initiate the font scaling micro-state                |
-| ~SPC z x =~       | reset the font size (no scaling) and initiate the font scaling micro-state   |
-| ~+~               | increase the font size                                                       |
-| ~-~               | decrease the font size                                                       |
-| ~=~               | reset the font size                                                          |
-| Any other key   | leave the font scaling micro-state                                           |
+| Key Binding   | Description                                                                |
+|---------------+----------------------------------------------------------------------------|
+| ~SPC z x +~   | scale up the font and initiate the font scaling micro-state                |
+| ~SPC z x -~   | scale down the font and initiate the font scaling micro-state              |
+| ~SPC z x =~   | reset the font size (no scaling) and initiate the font scaling micro-state |
+| ~+~           | increase the font size                                                     |
+| ~-~           | decrease the font size                                                     |
+| ~=~           | reset the font size                                                        |
+| Any other key | leave the font scaling micro-state                                         |
 
 Note that /only/ the text of the current buffer is scaled, the other buffers,
 the mode-line and the minibuffer are not affected. To zoom the whole content of
@@ -1984,15 +2008,15 @@ a frame use the =zoom frame= bindings (see next section).
 **** Frame
 You can zoom in and out the whole content of the frame with the commands:
 
-| Key Binding     | Description                        |
-|-----------------+------------------------------------|
-| ~SPC z f +~       | zoom in the frame content          |
-| ~SPC z f -~       | zoom out the frame content         |
-| ~SPC z f =~       | reset the frame content size       |
-| ~+~               | zoom in                            |
-| ~-~               | zoom out                           |
-| ~=~               | reset zoom                         |
-| Any other key   | leave the zoom frame micro-state   |
+| Key Binding   | Description                      |
+|---------------+----------------------------------|
+| ~SPC z f +~   | zoom in the frame content        |
+| ~SPC z f -~   | zoom out the frame content       |
+| ~SPC z f =~   | reset the frame content size     |
+| ~+~           | zoom in                          |
+| ~-~           | zoom out                         |
+| ~=~           | reset zoom                       |
+| Any other key | leave the zoom frame micro-state |
 
 *** Increase/Decrease numbers
 =Spacemacs= uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or increase numbers.
@@ -2004,11 +2028,11 @@ You can zoom in and out the whole content of the frame with the commands:
 
 In micro-state:
 
-| Key Binding     | Description                              |
-|-----------------+------------------------------------------|
-| ~+~               | increase the number under point by one   |
-| ~-~               | decrease the number under point by one   |
-| Any other key   | leave the micro-state                    |
+| Key Binding   | Description                            |
+|---------------+----------------------------------------|
+| ~+~           | increase the number under point by one |
+| ~-~           | decrease the number under point by one |
+| Any other key | leave the micro-state                  |
 
 *Tips:* you can increase or decrease a value by more that once by using a prefix
 argument (ie. ~10 SPC n +~ will add 10 to the number under point).
@@ -2046,8 +2070,9 @@ state=:
 Example (=|= is the point):
 
 #+begin_src emacs-lisp
-    (while (not done) (messa|ge "All work and no play makes Jack a dull boy."))
-      (1+ 41)
+  (while (not done)
+    (messa|ge "All work and no play makes Jack a dull boy."))
+    (1+ 41)
 #+end_src
 
 -  ~vii~ will select the line with message
@@ -2112,7 +2137,7 @@ To sum-up, in =iedit-insert state= you have to press ESC twice to go back to the
 =normal state=. You can also at any time press ~C-g~ or ~fd~ to return to =normal
 state=.
 
-*Note:* evil commands which switch to =insert state= will switch in
+*Note*: evil commands which switch to =insert state= will switch in
 =iedit-insert state=.
 
 ***** In iedit state
@@ -2143,7 +2168,7 @@ specific to =iedit state=.
 | ~U~         | Up-case the occurrences                                                                 |
 | ~C-U~       | down-case the occurrences                                                               |
 
-*Note:* ~0~, ~$~, ~A~ and ~I~ have the default Vim behavior when used outside of
+*Note*: ~0~, ~$~, ~A~ and ~I~ have the default Vim behavior when used outside of
 an ~occurrence~.
 
 ***** In iedit-insert state
@@ -2170,7 +2195,7 @@ project:
   - edit the occurrences then leave the =iedit state=
   - press ~C-c C-c~
 
-*Note* in Spacemacs, =helm-ag= despite its name works with =ack= and =pt= as
+*Note*: In Spacemacs, =helm-ag= despite its name works with =ack= and =pt= as
 well.
 
 *** Commenting
@@ -2213,7 +2238,7 @@ Examples:
   - to slurp three times while in normal state: ~SPC k 3 n~
   - to wrap a symbol in parenthesis then slurping two times: ~SPC k w 2 n~
 
-*Note* The =lisp state= commands are available in /any/ modes! Try it out.
+*Note*: The =lisp state= commands are available in /any/ modes! Try it out.
 
 **** Lisp Key Bindings
 ***** Lisp state key bindings
@@ -2316,7 +2341,7 @@ To search in a project see [[#searching-in-a-project][project searching]].
     | ~SPC p p~   | switch project                                        |
     | ~SPC p r~   | open a recent file                                    |
     | ~SPC p R~   | replace a string                                      |
-    | ~SPC p s~   | see [[#searching-in-a-project][search in project]]    |
+    | ~SPC p s~   | see [[#searching-in-a-project][search in project]]                                 |
     | ~SPC p t~   | open =NeoTree= in =projectile= root                   |
     | ~SPC p T~   | find test files                                       |
     | ~SPC p v~   | open project root in =vc-dir= or =magit=              |
