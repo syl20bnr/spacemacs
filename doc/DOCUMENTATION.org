@@ -386,7 +386,7 @@ You can install such packages by adding them to the variable
 =dotspacemacs-additional-packages= in your dotfile.
 
 If you want to add some configuration for them then consider to create a layer,
-or just put the configuration in the =dotspacemacs/config= function.
+or just put the configuration in the =dotspacemacs/user-config= function.
 
 Example to install =llvm-mode= and =dts-mode=:
 
@@ -482,16 +482,16 @@ change the location of this directory.
 To apply the modifications made in =~/.spacemacs= press ~SPC f e R~. It will
 re-execute the =Spacemacs= initialization process.
 
-*Note:* A synchronization re-executes the functions =dotspacemacs/init= and
-=dotspacemacs/config=. Depending on the content of this functions you may
+*Note*: A synchronization re-executes the functions =dotspacemacs/init= and
+=dotspacemacs/user-config=. Depending on the content of this functions you may
 encounter some unwanted side effects. For instance if you use a toggle in
-=dotspacemac/config= to enable some behavior, this behavior will be turned off
-whenever the dotfile is re-synchronized. To avoid these side-effects it is
+=dotspacemac/user-config= to enable some behavior, this behavior will be turned
+off whenever the dotfile is re-synchronized. To avoid these side-effects it is
 recommended to either use =setq= expressions instead of toggle functions, or to
 use the =on= or =off= versions instead (i.e. instead of
 =spacemacs/toggle-<thing>=, use =spacemacs/toggle-<thing>-on= or
 =spacemacs/toggle-<thing>-off=). It is possible to /skip/ the execution of
-=dotspacemacs/config= with the universal argument (~SPC u SPC f e R~).
+=dotspacemacs/user-config= with the universal argument (~SPC u SPC f e R~).
 
 ** Content
 *** Using configuration layers
@@ -547,12 +547,15 @@ next time you launch Emacs. All the orphan dependencies are as well delete
 automatically.
 
 *** Hooks
-Two special functions of the =~/.spacemacs= file can be used to perform
+Three special functions of the =~/.spacemacs= file can be used to perform
 configuration at the beginning and end of =Spacemacs= loading process.
 
   - =dotspacemacs/init= is triggered at the very beginning of =Spacemacs=
-    loading.
-  - =dotspacemacs/config= is triggered at the very end of =Spacemacs= loading.
+    loading. You can configure =Spacemacs= variables here.
+  - =dotspacemacs/user-init= is also triggered at the very beginning of =Spacemacs=
+    loading. User initialization occurs here.
+  - =dotspacemacs/user-config= is triggered at the very end of =Spacemacs=
+    loading. Most user configuration should go here.
 
 *** Binding keys
 Key sequences are bound to commands in Emacs in various keymaps. The most basic
@@ -701,7 +704,7 @@ the case:
   - =surround= command is just a more powerful command than ~s~.
 
 If you are not convinced, then here is the snippet to revert back to the default
-=Vim + vim-surround= setup (add it to your =dotspacemacs/config= function or
+=Vim + vim-surround= setup (add it to your =dotspacemacs/user-config= function or
 your =~/.spacemacs=):
 
 #+begin_src emacs-lisp
@@ -745,7 +748,7 @@ enjoyable:
 The official =Spacemacs= theme is [[https://github.com/nashamri/spacemacs-theme][spacemacs-dark]] and it is the default theme
 installed when you first started =Spacemacs=. There are two variants of the
 theme, a dark one and a light one. Some aspect of these themes can be customized
-in the function =dotspacemacs/init= of your =~/.spacemacs=:
+in the function =dotspacemacs/user-init= of your =~/.spacemacs=:
   - the comment background with the boolean =spacemacs-theme-comment-bg=
   - the height of org section titles with =spacemacs-theme-org-height=
 
@@ -954,7 +957,7 @@ you want to set back the separator to the well-known =arrow= separator add the
 following snippet to your configuration file:
 
 #+begin_src emacs-lisp
-  (defun dotspacemacs/config ()
+  (defun dotspacemacs/user-config ()
     "This is were you can ultimately override default Spacemacs configuration.
   This function is called at the very end of Spacemacs initialization."
     (setq powerline-default-separator 'arrow))
@@ -1136,8 +1139,8 @@ key with the variable =dotspacemacs-leader-key=.
 these is *guaranteed* to never conflict with =Spacemacs= default key bindings.
 
 *Example:* Put =(evil-leader/set-key "oc" 'org-capture)= inside
-=dotspacemacs/config= in your =~/.spacemacs= file, to be able to use ~SPC o c~
-to run org mode capture.
+=dotspacemacs/user-config= in your =~/.spacemacs= file, to be able to use ~SPC o
+c~ to run org mode capture.
 
 ** Helm
 =Spacemacs= is powered by [[https://github.com/emacs-helm/helm][Helm]] which is an incremental completion and selection
@@ -1733,17 +1736,19 @@ You can toggle auto-save in a buffer by calling the command =auto-save-mode=.
   - [[https://github.com/ggreer/the_silver_searcher][ag]]
   - [[https://github.com/monochromegane/the_platinum_searcher][pt]]
 
-The search commands in Spacemacs are organized under the ~SPC s~ prefix with
-the next key is the tool to use and the last key is the scope. For instance
-~SPC s a b~ will search in all opened buffers using =ag=.
-If the last key (determining the scope) is uppercase then the current region
-or symbol under point is used as default input for the search. For instance
-~SPC s a B~ will search with symbol under point (if there is no active region).
-If the tool key is omitted then a default tool will be automatically
-selected for the search. This tool corresponds to the first tool found on the
-system of the list =dotspacemacs-search-tools=, the default order is =ag=,
-=pt=, =ack= then =grep=. For instance ~SPC s b~ will search in the opened
-buffers using =pt= if =ag= has not been found on the system.
+The search commands in Spacemacs are organized under the ~SPC s~ prefix with the
+next key is the tool to use and the last key is the scope. For instance ~SPC s a
+b~ will search in all opened buffers using =ag=.
+
+If the last key (determining the scope) is uppercase then the current region or
+symbol under point is used as default input for the search. For instance ~SPC s
+a B~ will search with symbol under point (if there is no active region).
+
+If the tool key is omitted then a default tool will be automatically selected
+for the search. This tool corresponds to the first tool found on the system of
+the list =dotspacemacs-search-tools=, the default order is =ag=, =pt=, =ack=
+then =grep=. For instance ~SPC s b~ will search in the opened buffers using =pt=
+if =ag= has not been found on the system.
 
 The tool keys are:
 
@@ -1972,7 +1977,7 @@ the universal argument.
 
 It is possible to disable the auto-indentation for specific major-modes by
 adding a major-mode to the variable =spacemacs-indent-sensitive-modes= in your
-=dotspacemacs/config= function.
+=dotspacemacs/user-config= function.
 
 *** Text manipulation commands
 Text related commands (start with ~x~):
