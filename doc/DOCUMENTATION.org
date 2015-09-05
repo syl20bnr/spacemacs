@@ -40,8 +40,9 @@
      - [[#binding-keys][Binding keys]]
      - [[#custom-variables][Custom variables]]
  - [[#main-principles][Main principles]]
-   - [[#evil][Evil]]
-   - [[#holy][Holy]]
+   - [[#evil-mode][Evil Mode]]
+   - [[#holy-mode][Holy Mode]]
+   - [[#hybrid-mode][Hybrid Mode]]
    - [[#states][States]]
    - [[#evil-leader][Evil leader]]
    - [[#universal-argument][Universal argument]]
@@ -614,16 +615,21 @@ Custom variables configuration from =M-x customize-group= which are
 automatically saved by Emacs are stored at the end of your =~/.spacemacs= file.
 
 * Main principles
-** Evil
+** Evil Mode
 =Spacemacs= uses the [[https://gitorious.org/evil/pages/Home][evil]] mode package to emulate Vim key bindings. It is a very
 complete emulation, maybe the most advanced. In fact, Evil is much more than
 just a Vim emulation. It has more states than Vim for instance.
 
-** Holy
-Thanks to the new holy-mode Spacemacs can now be used by Vim users or Emacs
-users by setting the =dotspacemacs-editing-style= variable to ='vim= or ='emacs=
-in the dotfile. In Emacs style the leader is available as ~M-m~. It is possible
-to dynamically switch between evil and holy modes using ~SPC P tab~.
+** Holy Mode
+Spacemacs can now be used by Emacs users by setting the
+=dotspacemacs-editing-style= variable to =emacs= in the dotfile. In Emacs style
+the leader is available as ~M-m~. It is possible to dynamically switch between
+evil and holy mode using ~SPC E H~ and ~M-m E H~.
+
+** Hybrid Mode
+Hybrid mode removes all Vim keybindings from =evil-insert-state=. This means
+that stock emacs keybindings can be used when inserting text. To switch between
+evil and hybrid mode use ~SPC E Y~.
 
 ** States
 =Spacemacs= has 9 states:
