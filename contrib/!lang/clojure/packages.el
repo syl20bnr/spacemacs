@@ -260,7 +260,6 @@ the focus."
         "mTf" 'spacemacs/cider-toggle-repl-font-locking
         "mTp" 'spacemacs/cider-toggle-repl-pretty-printing
 
-        "mdb" 'cider-debug-defun-at-point
         "mdi" 'cider-inspect)
 
       (evil-define-key 'normal cider-repl-mode-map
