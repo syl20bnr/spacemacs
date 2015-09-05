@@ -131,6 +131,17 @@ the focus."
         (cider-load-buffer)
         (spacemacs//cider-eval-in-repl-no-focus (cider-test-rerun-tests)))
 
+      (defun spacemacs/cider-display-error-buffer (&optional arg)
+        "Displays the *cider-error* buffer in the current window.
+If called with a prefix argument, uses the other-window instead."
+        (interactive "P")
+        (let ((buffer (get-buffer cider-error-buffer)))
+          (when buffer
+            (funcall (if (equal arg '(4))
+                         'switch-to-buffer-other-window
+                       'switch-to-buffer)
+                     buffer))))
+
       (defun spacemacs/cider-toggle-repl-pretty-printing ()
         (interactive)
         (setq cider-repl-use-pretty-printing
@@ -235,6 +246,7 @@ the focus."
           "mtt" 'spacemacs/cider-test-run-focused-test
 
           "mdb" 'cider-debug-defun-at-point
+          "mde" 'spacemacs/cider-display-error-buffer
           "mdi" 'cider-inspect))
 
       (evil-leader/set-key-for-mode 'cider-repl-mode
@@ -260,6 +272,7 @@ the focus."
         "mTf" 'spacemacs/cider-toggle-repl-font-locking
         "mTp" 'spacemacs/cider-toggle-repl-pretty-printing
 
+        "mde" 'spacemacs/cider-display-error-buffer
         "mdi" 'cider-inspect)
 
       (evil-define-key 'normal cider-repl-mode-map
