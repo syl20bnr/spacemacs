@@ -11,8 +11,9 @@
    - [[#update-spacemacs-repository][Update Spacemacs repository]]
    - [[#update-packages][Update packages]]
  - [[#configuration-layers][Configuration layers]]
+   - [[#purpose][Purpose]]
    - [[#structure][Structure]]
-   - [[#extensions-and-packages][Extensions and Packages]]
+   - [[#packages][Packages]]
      - [[#within-a-layer][Within a layer]]
        - [[#declaration][Declaration]]
        - [[#initialization][Initialization]]
@@ -285,19 +286,26 @@ If anything goes wrong you should be able to rollback the update by pressing
 choose a rollback slot (sorted by date).
 
 * Configuration layers
-A more extensive introduction to writing configuration layers can be found [[LAYERS.org][here]].
+*Note*: This is a very simple overview of how layers work. A more extensive
+introduction to writing configuration layers can be found [[LAYERS.org][here]].
+
+** Purpose
+Layers help collect related packages together to provide features. For example,
+the =python= layer provides auto-completion, syntax checking, and repl support
+for python files. This approach helps keep configuration organized and reduces
+overhead for the user by keeping them from having to think about what packages
+to install
 
 ** Structure
 Configuration is organized in layers. Each layer has the following structure:
 
 #+BEGIN_EXAMPLE
     [layer_name]
-      |__ [extensions]
-      | |__ [mode 1]
+      |__ [local]
+      | |__ [package 1]
       | |     ...
-      | |__ [mode n]
+      | |__ [package n]
       |__ config.el
-      |__ extensions.el
       |__ funcs.el
       |__ keybindings.el
       |__ packages.el
@@ -310,26 +318,20 @@ Where:
 | File           | Usage                                                                |
 |----------------+----------------------------------------------------------------------|
 | config.el      | Emacs built-in configuration or mandatory configuration              |
-| extensions.el  | The list of extensions to load and the functions to initialize them  |
 | funcs.el       | Various functions and macros (often used in keybindings.el)          |
 | keybindings.el | Emacs built-in key bindings or mandatory key bindings                |
 | packages.el    | The list of packages to install and the functions to initialize them |
 
 =Packages= are =ELPA= packages which can be installed from an =ELPA= compliant
-repository, and =Extensions= are generally elisp code from git submodules, or
-other code one might want to use but which isn't available on an =ELPA=
-compliant repository, for whatever reason.
+repository, local packages in a layer's =local= folder, or packages that can be
+installed from an online source using =[[https://github.com/quelpa/quelpa][quelpa]]=.
 
-** Extensions and Packages
+** Packages
 *** Within a layer
 **** Declaration
-=Extensions= and =Packages= are declared in variables =<layer>-pre-extensions=,
-=<layer>-post-extensions= and =<layer>-packages= where =<layer>= is the layer
-name. =Pre-Extensions= are loaded before =Packages= and =Post-Extensions= are
-loaded after =Packages=.
-
-They are processed in alphabetical order so sometimes you'll have to use some
-=eval-after-load= black magic.
+=Packages= are declared in variables and =<layer>-packages= where =<layer>= is
+the layer name. They are processed in alphabetical order so sometimes you'll
+have to use some =eval-after-load= black magic.
 
 Example:
 
@@ -337,9 +339,12 @@ Example:
     (setq <layer>-packages '(package1 package2 ...)
 #+end_src
 
+For details on installing local packages using quelpa or in the layer's =local=
+folder, see [[file:LAYERS.org#packagesel][LAYERS.org]].
+
 **** Initialization
 To initialize an extension or a package =xxx=, define a function with this
-format in =extensions.el= or =packages.el=:
+format in or =packages.el=:
 
 #+begin_src emacs-lisp
     (defun <layer>/init-xxx () ...body )
