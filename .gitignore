@@ -16,6 +16,7 @@ my-org/
 org-files/
 semanticdb/
 edts/
+.sync
 .recentf
 .recentf~
 projectile.cache
