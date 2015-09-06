@@ -10,17 +10,19 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(setq salt-packages '(salt-mode))
+(setq salt-packages '(salt-mode
+                      smartparens))
 
 (defun salt/init-salt-mode ()
   (use-package salt-mode
     :defer t
-    :init (add-hook 'salt-mode-hook 'smartparens-mode)
-    :config
+    :config (evil-leader/set-key-for-mode 'salt-mode "mp" 'mmm-parse-buffer)))
+
+(defun salt/pre-init-smartparens ()
+  (add-hook 'salt-mode-hook 'smartparens-mode)
+  (spacemacs|use-package-add-hook smartparens
+    :post-config
     (progn
-      (evil-leader/set-key-for-mode 'salt-mode
-        "mp" 'mmm-parse-buffer
-        )
       (sp-local-pair 'salt-mode "{{" " }}")
       (sp-local-pair 'salt-mode "{%" " %}")
       (sp-local-pair 'salt-mode "{#" " #}"))))
