@@ -15,3 +15,9 @@ To use this contribution add it to your =~/.spacemacs=
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(salt))
 #+END_SRC
+
+* Key bindings
+
+| Key Binding   | Description                                  |
+|---------------+----------------------------------------------|
+| ~SPC m p b~   | mmm-mode parse buffer via =mmm-parse-buffer= |
