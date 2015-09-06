@@ -955,7 +955,7 @@ to select one."
   (let ((result (make-hash-table :size 512)))
     (dolist (pkg package-alist)
       (let* ((pkg-sym (car pkg))
-             (deps (configuration-layer//get-package-deps-from-archive pkg-sym)))
+             (deps (configuration-layer//get-package-dependencies pkg-sym)))
         (dolist (dep deps)
           (let* ((dep-sym (car dep))
                  (value (ht-get result dep-sym)))
