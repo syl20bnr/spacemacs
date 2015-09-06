@@ -1,0 +1,77 @@
+#+TITLE: Idris contribution layer for Spacemacs
+file:img/idris.png
+
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+   - [[#features][Features]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#idris][Idris]]
+   - [[#os-x][OS X]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+  This layer adds support for [[http://idris-lang.org/][Idris]] language.
+
+** Features
+- highlighting, completion, repl and compiler integration via [[https://github.com/idris-hackers/idris-mode][idris-mode]].
+- :apropos and documentation support via [[https://github.com/david-christiansen/helm-idris][helm-idris]].
+
+ *This layer is in construction, it needs your contribution and bug reports.*
+
+
+* Install
+
+** Layer
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-list
+(setq-default dotspacemacs-configuration-layers '(idris))
+#+END_SRC
+
+* Idris
+This layer basically requires you have idris installed and available in your path.
+
+Usually this means you have installed idris via cabal and have the binary available
+in your path.
+
+#+BEGIN_SRC sh
+export PATH=~/.cabal/bin/:$PATH
+#+END_SRC
+
+_or_ to the Emacs =exec-path= variable in the =dotspacemacs/init= function of
+your =.spacemacs= file:
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'exec-path "~/.cabal/bin/")
+#+END_SRC
+
+*Note:* it is important to add the path in the =dotspacemacs/init= function,
+so that the path is added before any layers is loaded.
+
+
+** OS X
+
+Note that =emacs.app= for OS X does not pick up =$PATH= from =~/.bashrc= or
+=~/.zshrc= when launched from outside a terminal.
+
+* Key bindings
+
+All Idris specific bindings are prefixed with the major-mode leader
+~SPC m~.
+
+Top-level commands are prefixed by ~SPC m~:
+
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~SPC m r~   | load file onto the repl |
+| ~SPC m t~   | describe type at point  |
+| ~SPC m d~   | add clause              |
+| ~SPC m l~   | make lemma              |
+| ~SPC m c~   | case split              |
+| ~SPC m w~   | make with block         |
+| ~SPC m m~   | add missing             |
+| ~SPC m p~   | 'idris-proof-search     |
+| ~SPC m h~   | 'idris-docs-at-point    |
