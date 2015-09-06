@@ -103,7 +103,7 @@ this easier, these do nothing you couldn't do manually.
 
 Support requires installation of the git-flow extensions. Please reference their
 [[https://github.com/petervanderdoes/gitflow/wiki][installation page]] for assistance.
- 
+
 * Working with Git
 
 Git commands (start with ~g~):
@@ -177,9 +177,9 @@ style you can refer directly to the magit manual:
 
 ** Commit message edition buffer
 
-In a commit message buffer press ~C-c C-c~ or ~SPC m c c~
+In a commit message buffer press ~C-c C-c~
 to commit the changes with the entered message.
-Pressing ~C-c C-k~ or ~SPC m k~ will discard the commit
+Pressing ~C-c C-k~ will discard the commit
 message.
 
 | Key Binding | Description |
@@ -188,8 +188,6 @@ message.
 | ~j~         | go down     |
 | ~k~         | go up       |
 | ~l~         | go right    |
-| ~SPC m c c~ | commit      |
-| ~SPC m k~   | abort       |
 
 ** Interactive rebase buffer
 
@@ -210,8 +208,6 @@ message.
 | ~u~         | undo           |
 | ~x~         | execute        |
 | ~y~         | insert         |
-| ~SPC m c c~ | rebase         |
-| ~SPC m k~   | abort          |
 
 ** Quick guide for recurring use cases in Magit
 
