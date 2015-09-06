@@ -2550,11 +2550,9 @@ It will toggle the overlay under point or create an overlay of one character."
             neo-dont-be-alone t
             neo-persist-show nil
             neo-show-hidden-files t
-            neo-auto-indent-point t)
-
-      (defun spacemacs//init-neotree ()
-        "Initialize the neotree mode."
-        )
+            neo-auto-indent-point t
+            neo-modern-sidebar t
+            neo-vc-integration '(face))
 
       (defun spacemacs/neotree-expand-or-open ()
         "Collapse a neotree node."
@@ -2624,8 +2622,7 @@ It will toggle the overlay under point or create an overlay of one character."
         "pt" 'neotree-find-project-root))
 
     :config
-    (spacemacs/add-to-hook 'neotree-mode-hook '(spacemacs//init-neotree
-                                                spacemacs//neotree-key-bindings))))
+    (spacemacs/add-to-hook 'neotree-mode-hook '(spacemacs//neotree-key-bindings))))
 
 (defun spacemacs/init-page-break-lines ()
   (use-package page-break-lines
