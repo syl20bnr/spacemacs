@@ -69,6 +69,7 @@
      - [[#escaping][Escaping]]
      - [[#executing-vim-and-emacs-exm-x-commands][Executing Vim and Emacs ex/M-x commands]]
      - [[#leader-key][Leader key]]
+     - [[#additional-text-objects][Additional text objects]]
    - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
    - [[#helm][Helm]]
      - [[#c-z-and-tab-switch][C-z and Tab switch]]
@@ -1142,6 +1143,19 @@ special key called the leader key which once pressed gives a whole new keyboard
 layer. The leader key is by default ~SPC~ (space). It is possible to change this
 key with the variable =dotspacemacs-leader-key=.
 
+*** Additional text objects
+Additional text objects are defined in Spacemacs:
+
+| Object  | Description                |
+|---------+----------------------------|
+| ~a~     | an argument                |
+| ~g~     | the entire buffer          |
+| ~$~     | text between =$=           |
+| ~*~     | text between =*=           |
+| ~8~     | text between =/*= and =*/= |
+| ~%~     | text between =%=           |
+| ~\vert~ | text between =\vert=       |
+
 ** Reserved prefix command for user
 ~SPC o~ and ~SPC m o~ are reserved for the user. Setting key bindings behind
 these is *guaranteed* to never conflict with =Spacemacs= default key bindings.
@@ -1612,6 +1626,11 @@ NeoTree with the root set to the projectile project root).
 
 The NeoTree window always has the number =0= so it does not shift the current
 number of the other windows. To select the NeoTree window you then use ~SPC 0~.
+
+VCS integration is supported, the file color will change depending on its
+current state. With default =spacemacs-dark= theme:
+- green: new file
+- purple: modified file
 
 **** NeoTree navigation
 Navigation is centered on the ~hjkl~ with the hope to provide a fast navigation
