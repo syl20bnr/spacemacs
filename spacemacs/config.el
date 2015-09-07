@@ -25,6 +25,7 @@
                                        ("e"   "errors")
                                        ("E"   "editing-modes")
                                        ("f"   "files")
+                                       ("fC"  "files/convert")
                                        ("fe"  "files-emacs/spacemacs")
                                        ("g"   "git/versions-control")
                                        ("h"   "helm/help/highlight")
