@@ -1540,6 +1540,9 @@ Files manipulation commands (start with ~f~):
 
 | Key Binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
+| ~SPC f c~   | copy current file to a different location                      |
+| ~SPC f C d~ | convert file from unix to dos encoding                         |
+| ~SPC f C u~ | convert file from dos to unix encoding                         |
 | ~SPC f D~   | delete a file and the associated buffer (ask for confirmation) |
 | ~SPC f f~   | open file with =helm= (or =ido=)                               |
 | ~SPC f F~   | try to open the file under point =helm=                        |
@@ -1551,7 +1554,6 @@ Files manipulation commands (start with ~f~):
 | ~SPC f s~   | save a file                                                    |
 | ~SPC f S~   | save all files                                                 |
 | ~SPC f r~   | open a recent file with =helm=                                 |
-| ~SPC f C~   | copy current file to a different location                      |
 | ~SPC f t~   | toggle file tree side bar using [[https://github.com/jaypei/emacs-neotree][NeoTree]]                        |
 | ~SPC f y~   | show current file absolute path in the minibuffer              |
 
