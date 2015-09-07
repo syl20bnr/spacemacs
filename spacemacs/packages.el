@@ -235,6 +235,9 @@
         "Info on the last searched highlighted symbol.")
       (make-variable-buffer-local 'spacemacs-last-ahs-highlight-p)
 
+      (defvar spacemacs--ahs-searching-forward nil)
+      (make-variable-buffer-local 'spacemacs--ahs-searching-forward)
+
       (defun spacemacs/goto-last-searched-ahs-symbol ()
         "Go to the last known occurrence of the last symbol searched with
 `auto-highlight-symbol'."
