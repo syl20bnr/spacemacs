@@ -28,4 +28,4 @@
       (unless (file-directory-p image-dired-dir)
         (make-directory image-dired-dir)))
     :config
-    (ranger-map (kbd "-") 'ranger-up-directory)))
+    (define-key ranger-mode-map (kbd "-") 'ranger-up-directory)))
