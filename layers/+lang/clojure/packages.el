@@ -218,6 +218,8 @@ If called with a prefix argument, uses the other-window instead."
           "mer" 'cider-eval-region
           "mew" 'cider-eval-last-sexp-and-replace
 
+          "mfb" 'cider-format-buffer
+
           "mgb" 'cider-jump-back
           "mge" 'cider-jump-to-compilation-error
           "mgg" 'cider-find-var
