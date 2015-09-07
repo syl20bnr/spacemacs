@@ -565,8 +565,10 @@ Example: (evil-map visual \"<\" \"<gv\")"
                spacemacs/helm-find-contrib-file)
     :config
     (progn
-      (when dotspacemacs-helm-resize
-        (setq helm-autoresize-min-height 1)
+      (when (and dotspacemacs-helm-resize
+                  (or (eq dotspacemacs-helm-position 'bottom)
+                      (eq dotspacemacs-helm-position 'top)))
+        (setq helm-autoresize-min-height 10)
         (helm-autoresize-mode 1))
 
       ;; from https://www.reddit.com/r/emacs/comments/2z7nbv/lean_helm_window/
@@ -606,8 +608,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
                                             default-input))
                                     (t (expand-file-name (helm-current-directory))))))
             (set-text-properties 0 (length input) nil input)
-            (helm-find-files-1 input )))
-      )
+            (helm-find-files-1 input ))))
     :init
     (progn
       (setq helm-prevent-escaping-from-minibuffer t
@@ -788,6 +789,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
                                                      (display-buffer-in-side-window)
                                                      (inhibit-same-window . t)
                                                      (side . ,dotspacemacs-helm-position)
+                                                     (window-width . 0.6)
                                                      (window-height . 0.4)))
       (defvar spacemacs-display-buffer-alist nil)
       (defun spacemacs//helm-prepare-display ()
