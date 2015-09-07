@@ -624,14 +624,16 @@ just a Vim emulation. It has more states than Vim for instance.
 
 ** Holy Mode
 Spacemacs can now be used by Emacs users by setting the
-=dotspacemacs-editing-style= variable to =emacs= in the dotfile. In Emacs style
-the leader is available as ~M-m~. It is possible to dynamically switch between
-evil and holy mode using ~SPC E H~ and ~M-m E H~.
+=dotspacemacs-editing-style= variable to =emacs= in the dotfile. In Emacs style the
+leader is available as ~M-m~. It is possible to dynamically switch between evil
+and holy mode using ~SPC E H~ and ~M-m E H~.
 
 ** Hybrid Mode
-Hybrid mode removes all Vim keybindings from =evil-insert-state=. This means
-that stock emacs keybindings can be used when inserting text. To switch between
-evil and hybrid mode use ~SPC E Y~.
+Hybrid mode replaces =evil-insert-state= with =hybrid-mode-insert-state=.
+=hybrid-mode-insert-state= inherits keybindings from =evil-emacs-state=. This means
+that stock emacs keybindings can be used when inserting text. Hybrid mode can be
+enabled by setting =dotspacemacs-editing-style= to =hybrid=. To switch between evil
+and hybrid mode use ~SPC E Y~.
 
 ** States
 =Spacemacs= has 9 states:
