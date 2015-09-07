@@ -231,9 +231,10 @@ Will work on both org-mode and any mode that accepts plain html."
  (use-package htmlize
     :defer t))
 
-(defun org/init-ox-pandoc ()
-  (use-package ox-pandoc
-    :if org-enable-pandoc-support
-    :defer t
-    :init
-    (eval-after-load 'org '(require 'ox-pandoc))))
+(when (configuration-layer/layer-usedp 'pandoc)
+  (defun org/init-ox-pandoc ()
+    (use-package ox-pandoc
+      :if (configuration-layer/package-usedp 'pandoc-mode)
+      :defer t
+      :init
+      (eval-after-load 'org '(require 'ox-pandoc)))))
