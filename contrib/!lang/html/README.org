@@ -69,5 +69,5 @@ A micro-state is also defined, start it with ~SPC m .~ or ~, .~
 | Key Binding | Description                             |
 |-------------+-----------------------------------------|
 | ~SPC m g h~ | quickly navigate CSS rules using =helm= |
-| ~SPC m x c~ | contract css statement to one line      |
-| ~SPC m x e~ | expand css statement to one line        |
+| ~SPC m z c~ | fold css statement to one line          |
+| ~SPC m z o~ | unfold css statement to one line        |

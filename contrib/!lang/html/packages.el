@@ -73,9 +73,8 @@
           (join-line -1)))
 
       (evil-leader/set-key-for-mode 'css-mode
-        "mxc" 'css-contract-statement
-        "mxe" 'css-expand-statement
-        ))))
+        "mzc" 'css-contract-statement
+        "mzo" 'css-expand-statement))))
 
 (defun html/init-emmet-mode ()
   (use-package emmet-mode
