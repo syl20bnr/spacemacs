@@ -40,9 +40,12 @@
     :config
     (progn
       (evil-leader/set-key-for-mode 'python-mode
-        "mhh" 'anaconda-mode-view-doc
-        "mgg" 'anaconda-mode-goto
-        "mgu" 'anaconda-mode-usages)
+        "mhh" 'anaconda-mode-show-doc
+        "mgg" 'anaconda-mode-find-definitions
+        "mga" 'anaconda-mode-find-assignments
+        "mgu" 'anaconda-mode-find-references)
+      (evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
+               (kbd "q") 'kill-buffer-and-window)
       (spacemacs|hide-lighter anaconda-mode))))
 
 (defun python/init-cython-mode ()
