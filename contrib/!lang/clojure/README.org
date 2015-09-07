@@ -137,8 +137,6 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m s r~ | send and eval region in REPL                                 |
 | ~SPC m s R~ | send and eval region and switch to REPL in =insert state=    |
 | ~SPC m s s~ | switch to REPL                                               |
-| ~SPC m T f~ | toggle font-locking at REPL                                  |
-| ~SPC m T p~ | toggle pretty-printing at REPL                               |
 
 *** Tests
 
@@ -148,12 +146,22 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m t r~ | re-run test failures for namespace |
 | ~SPC m t t~ | run test at point                  |
 
+*** Toggles
+
+| Key Binding | Description                 |
+|-------------+-----------------------------|
+| ~SPC m T f~   | toggle REPL font-locking    |
+| ~SPC m T p~   | toggle REPL pretty-printing |
+| ~SPC m T i~   | toggle indentation style    |
+
 *** Debugging
 
 | Key Binding | Description                    |
 |-------------+--------------------------------|
-| ~SPC m d b~ | instrument expression at point |
-| ~SPC m d i~ | inspect expression at point    |
+| ~SPC m d r~   | reload namepspaces             |
+| ~SPC m d b~   | instrument expression at point |
+| ~SPC m d e~   | display last stacktrace        |
+| ~SPC m d i~   | inspect expression at point    |
 
 *** Refactoring
 
