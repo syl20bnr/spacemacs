@@ -3,8 +3,8 @@
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#pandoc][Pandoc]]
+   - [[#layer][Layer]]
+   - [[#pandoc][Pandoc]]
  - [[#usage][Usage]]
  - [[#key-bindings][Key Bindings]]
 
@@ -15,6 +15,8 @@ This layer adds support for [[http://johnmacfarlane.net/pandoc][Pandoc]].
 Pandoc is a universal document converter. It makes it easy to e.g. convert a
 Markdown file to org mode or vice versa. It can also export your text to PDF or
 DOCX.
+
+This layer automatically install an org exporter using the [[https://github.com/kawabata/ox-pandoc][ox-pandoc]].
 
 * Install
 

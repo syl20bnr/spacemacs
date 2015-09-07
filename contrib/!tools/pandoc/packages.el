@@ -10,7 +10,10 @@
 ;;
 ;;; License: GPLv3
 
-(setq pandoc-packages '(pandoc-mode))
+(setq pandoc-packages
+      '(pandoc-mode
+        ox-pandoc
+        ))
 
 (defun pandoc/init-pandoc-mode ()
   "Initialize my package"
@@ -28,3 +31,9 @@
     :init
     (progn
       (evil-leader/set-key "P/" 'spacemacs/run-pandoc))))
+
+(defun pandoc/init-ox-pandoc ()
+  (use-package ox-pandoc
+    :defer t
+    :init
+    (eval-after-load 'org '(require 'ox-pandoc))))
