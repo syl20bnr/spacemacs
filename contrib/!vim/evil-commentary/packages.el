@@ -14,10 +14,12 @@
 
 (setq evil-commentary-excluded-packages '(evil-nerd-commenter))
 
+
 (defun evil-commentary/init-evil-commentary ()
-  "Initialize evil-commentary."
   (use-package evil-commentary
     :diminish evil-commentary-mode
-    :config
+    :init
     (progn
-      (evil-commentary-mode t))))
+      (evil-commentary-mode)
+      (evil-leader/set-key ";" 'evil-commentary))))
+
