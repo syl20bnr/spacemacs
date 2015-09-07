@@ -27,14 +27,36 @@
 (use-package ielm
   :config
   (progn
+    (defun ielm-start-or-set-buffer ()
+      (interactive)
+      (if (get-buffer "*ielm*")
+          (call-interactively 'ielm-change-working-buffer)
+        (ielm)
+        (call-interactively 'ielm-change-working-buffer)))
+
     (defun ielm-indent-line ()
       (interactive)
       (let ((current-point (point)))
         (save-restriction
           (narrow-to-region (search-backward-regexp "^ELISP>") (goto-char current-point))
           (lisp-indent-line))))
+
+    (defun spacemacs/ielm-mode-hooks ()
+      (smartparens-mode 1)
+      (when dotspacemacs-smartparens-strict-mode
+          (smartparens-strict-mode 1)))
+
+    (add-hook 'inferior-emacs-lisp-mode-hook
+              'spacemacs/ielm-mode-hooks)
+
     (evil-leader/set-key-for-mode 'emacs-lisp-mode
-      "msi" 'ielm)))
+      "msi" 'ielm
+      "msb" 'ielm-start-or-set-buffer)
+
+    (evil-leader/set-key-for-mode 'inferior-emacs-lisp-mode
+      "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point
+      "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
+      "msb" 'ielm-change-working-buffer)))
 
 (defun emacs-lisp/post-init-company ()
   (spacemacs|add-company-hook ielm-mode)
@@ -78,7 +100,8 @@
                             (spacemacs|define-text-object ";"
                                                           "elisp-comment"
                                                           ";; "
-                                                          ""))))
+                                                          "")))
+  (add-hook 'edebug-mode-hook 'evil-normalize-keymaps))
 
 (defun emacs-lisp/post-init-flycheck ()
   ;; Make flycheck recognize packages in loadpath
