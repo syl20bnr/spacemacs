@@ -5,29 +5,27 @@
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#install][Install]]
-     - [[#elm-platform][Elm Platform]]
-         - [[#os-x-and-windows-installers][OS X and Windows installers]]
-         - [[#universal-installer-using-npm][Universal installer using npm]]
-         - [[#source-code][Source code]]
-     - [[#elm-mode][elm-mode]]
-     - [[#elm-oracle][elm-oracle]]
+   - [[#elm-platform][Elm Platform]]
+     - [[#os-x-and-windows-installers][OS X and Windows installers]]
+     - [[#universal-installer-using-npm][Universal installer using npm]]
+     - [[#source-code][Source code]]
+   - [[#elm-mode][elm-mode]]
+   - [[#elm-oracle][elm-oracle]]
  - [[#basic-usage-tips][Basic usage tips]]
-     - [[#compilation][Compilation]]
-     - [[#reactor][Reactor]]
+   - [[#compilation][Compilation]]
+   - [[#reactor][Reactor]]
  - [[#key-bindings][Key bindings]]
-     - [[#elm-make][elm-make]]
-     - [[#elm-repl][elm-repl]]
-     - [[#elm-reactor][elm-reactor]]
-     - [[#elm-package][elm-package]]
-         - [[#package-list-buffer][package list buffer]]
-     - [[#elm-oracle][elm-oracle]]
+   - [[#elm-make][elm-make]]
+   - [[#elm-repl][elm-repl]]
+   - [[#elm-reactor][elm-reactor]]
+   - [[#elm-package][elm-package]]
+     - [[#package-list-buffer][package list buffer]]
+   - [[#elm-oracle][elm-oracle]]
 
 * Description
-
 This layer adds support for [[http://elm-lang.org][Elm]].
 
 It relies on [[https://github.com/jcollard/elm-mode][elm-mode]] and [[https://github.com/bsermons/flycheck-elm][flycheck-elm]] to provide the following features:
-
 - Syntax highlighting.
 - Intelligent indentation
 - Auto-completion integration for company (default) or auto-complete modes,
@@ -49,6 +47,7 @@ able to access commands such as ~elm-reactor~ or ~elm-make~.
 *** OS X and Windows installers
 Official installers for these operating systems are available from:
 [[http://elm-lang.org/install][http://elm-lang.org/install]]
+
 *** Universal installer using npm
 A npm based installer is available to, and provides pre-compiled binaries for
 certain operating system and architectures.
@@ -60,13 +59,12 @@ the corresponding directory created by the installer.
 
 OS X Users facing problems with ~elm-reactor~ failing to properly install or
 run, see this issue [[https://github.com/kevva/elm-bin/issues/28][https://github.com/kevva/elm-bin/issues/28]]. 
-*** Source code
 
-To build from source, see instrcutins here:
+*** Source code
+To build from source, see instructions here:
 [[https://github.com/elm-lang/elm-platform][https://github.com/elm-lang/elm-platform]]
 
 ** elm-mode
-
 To use this contribution, add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -129,12 +127,13 @@ can be controlled by passing in these variables in your =~/.spacemacs=:
 
 ** elm-repl
 
-
-| Key Binding | Description        |
-|-------------+--------------------|
-| ~SPC m r l~ | load-elm-repl      |
-| ~SPC m r p~ | push-elm-repl      |
-| ~SPC m r P~ | push-decl-elm-repl |
+| Key Binding | Description                                                |
+|-------------+------------------------------------------------------------|
+| ~SPC m s i~ | load-elm-repl                                              |
+| ~SPC m s f~ | send current function to REPL                              |
+| ~SPC m s F~ | send current function to REPL and focus it in insert state |
+| ~SPC m s r~ | send current region to REPL                                |
+| ~SPC m s R~ | send current region to REPL and focus it in insert state   |
 
 ** elm-reactor
 
@@ -168,5 +167,5 @@ can be controlled by passing in these variables in your =~/.spacemacs=:
 
 | Key Binding | Description              |
 |-------------+--------------------------|
-| ~SPC m l t~ | elm-oracle-type-at-point |
+| ~SPC m h t~ | elm-oracle-type-at-point |
 

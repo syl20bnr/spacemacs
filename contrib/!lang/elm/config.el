@@ -10,4 +10,4 @@
 ;;
 ;;; License: GPLv3
 
-(spacemacs|defvar-company-backends company-capf)
+(spacemacs|defvar-company-backends elm-mode)
