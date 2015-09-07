@@ -961,15 +961,11 @@ Example: (evil-map visual \"<\" \"<gv\")"
 (defun spacemacs/init-evil-iedit-state ()
   (use-package evil-iedit-state
     :commands (evil-iedit-state evil-iedit-state/iedit-mode)
-    :init
-    (progn
-      (evil-leader/set-key "se" 'evil-iedit-state)
-      (evil-leader/set-key "sE" 'evil-iedit-state/iedit-mode))
+    :init (evil-leader/set-key "se" 'evil-iedit-state/iedit-mode)
     :config
-    (progn
-      ;; activate leader in iedit and iedit-insert states
-      (define-key evil-iedit-state-map
-        (kbd evil-leader/leader) evil-leader--default-map))))
+    ;; activate leader in iedit and iedit-insert states
+    (define-key evil-iedit-state-map
+      (kbd evil-leader/leader) evil-leader--default-map)))
 
 (defun spacemacs/init-evil-indent-textobject ()
   (use-package evil-indent-textobject))
@@ -980,8 +976,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     (progn
       (setq evil-jumper-file (concat spacemacs-cache-directory "evil-jumps")
             evil-jumper-auto-save-interval 600)
-      (evil-jumper-mode t)
-      )))
+      (evil-jumper-mode t))))
 
 (defun spacemacs/init-evil-leader ()
   (use-package evil-leader
@@ -2537,27 +2532,6 @@ Search for a search tool in the order provided by `dotspacemacs-search-tools'."
             iedit-toggle-key-default nil))
     :config
     (progn
-      (eval-after-load 'evil-iedit-state
-        '(progn
-           (define-key evil-iedit-state-map (kbd "gj")
-             'ex-iedit-toggle-point-overlay-next-line)))
-
-      (defun ex-iedit-toggle-point-overlay-next-line (count)
-        (interactive "p")
-        (unless (iedit-find-current-occurrence-overlay)
-          (iedit-toggle-selection))
-        (let ((i (when count count 1)))
-          (save-excursion
-            (evil-next-line)
-            (while (and (> i 0)
-                        (iedit-find-current-occurrence-overlay))
-              (1- i)
-              (evil-next-line))
-            (when (not (iedit-find-current-occurrence-overlay))
-              (dotimes (j (1+(- count i)))
-                (iedit-toggle-selection)
-                (evil-next-line))))))
-
       (defun iedit-toggle-selection ()
         "Override default iedit function to be able to add arbitrary overlays.
 
