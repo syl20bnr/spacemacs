@@ -40,3 +40,7 @@
 (defun spacemacs/java-maven-install ()
   (interactive)
   (eclim-maven-run "install"))
+
+(defun spacemacs/gud-locals ()
+  (interactive)
+  (gud-basic-call "locals"))

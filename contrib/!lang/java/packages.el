@@ -28,6 +28,20 @@
       (add-to-list 'minor-mode-alist
                    '(eclim-mode (:eval (eclim-modeline-string))))
 
+      (spacemacs|define-micro-state eclim
+        :doc "[b] break [r] run [n] next [s] step [c] cont [i] inspect [q] quit"
+        :disable-evil-leader t
+        :persistent t
+        :evil-leader-for-mode (java-mode . "md.")
+        :bindings
+        ("b" gud-break)
+        ("r" gud-run)
+        ("n" gud-next)
+        ("s" gud-step)
+        ("i" gud-print)
+        ("c" gud-cont)
+        ("q" nil :exit t))
+
       (evil-define-key 'insert java-mode-map
         (kbd ".") 'spacemacs/java-completing-dot
         (kbd ":") 'spacemacs/java-completing-double-colon
@@ -119,6 +133,17 @@
         "mpo" 'eclim-project-open
         "mpp" 'eclim-project-mode
         "mpu" 'eclim-project-update
+        "mpr" 'eclim-project-refresh
+
+        "mdb" 'gud-break
+        "mdc" 'gud-cont
+        "mdn" 'gud-next
+        "mdr" 'gud-run
+        "mds" 'gud-step
+        "mdf" 'gud-finish
+        "mdi" 'gud-print
+        "mdl" 'spacemacs/gud-locals
+        "mdd" 'eclim-debug-test
 
         "mtt" 'eclim-run-junit)))
 
