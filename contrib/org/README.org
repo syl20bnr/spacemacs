@@ -4,20 +4,20 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
-     - [[#features][Features:]]
+   - [[#features][Features:]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#github-support][Github support]]
-     - [[#pandoc-support][Pandoc support]]
-     - [[#different-bullets][Different bullets]]
+   - [[#layer][Layer]]
+   - [[#github-support][Github support]]
+   - [[#pandoc-support][Pandoc support]]
+   - [[#different-bullets][Different bullets]]
  - [[#key-bindings][Key bindings]]
-     - [[#org-with-evil-org-mode][Org with evil-org-mode]]
-         - [[#element-insertion][Element insertion]]
-         - [[#org-emphasize][Org emphasize]]
-         - [[#tagging][Tagging]]
-     - [[#pomodoro][Pomodoro]]
-     - [[#presentation][Presentation]]
-     - [[#org-repo-todo][Org-repo-todo]]
+   - [[#org-with-evil-org-mode][Org with evil-org-mode]]
+     - [[#element-insertion][Element insertion]]
+     - [[#org-emphasize][Org emphasize]]
+     - [[#tagging][Tagging]]
+   - [[#pomodoro][Pomodoro]]
+   - [[#presentation][Presentation]]
+   - [[#org-repo-todo][Org-repo-todo]]
 
 * Description
 
@@ -53,14 +53,8 @@ flavored markdown set the variable =org-enable-github-support= to =t=.
 
 ** Pandoc support
 
-To enable exporting Org mode documents via [[http://pandoc.org/][Pandoc]] you can activate the [[https://github.com/kawabata/ox-pandoc][ox-pandoc]]
-exporter by setting =org-enable-pandoc-support= to =t=.
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (org :variables
-         org-enable-pandoc-support t)))
-#+END_SRC
+Exporting Org mode documents via [[http://pandoc.org/][Pandoc]] using the [[https://github.com/kawabata/ox-pandoc][ox-pandoc]] exporter will
+be automatically available when you use the =pandoc= layer.
 
 ** Different bullets
 
