@@ -230,27 +230,19 @@
         (define-key shm-map (kbd "C-c C-s") 'shm/do-case-split))
 
       (evil-define-key 'normal shm-map
-        (kbd "RET") nil
-        (kbd "C-k") nil
-        (kbd "C-j") nil
         (kbd "D") 'shm/kill-line
         (kbd "R") 'shm/raise
         (kbd "P") 'shm/yank
-        (kbd "RET") 'shm/newline-indent
-        (kbd "RET") 'shm/newline-indent
         (kbd "M-RET") 'evil-ret
         )
 
       (evil-define-key 'operator shm-map
-        (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node)
+        (kbd ")") 'shm/close-paren
+        (kbd "(") 'shm/open-paren)
 
       (evil-define-key 'motion shm-map
-        (kbd ")") 'shm/forward-node
-        (kbd "(") 'shm/backward-node)
-
-      (define-key shm-map (kbd "C-j") nil)
-      (define-key shm-map (kbd "C-k") nil))))
+        (kbd ")") 'shm/close-paren
+        (kbd "(") 'shm/open-paren))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun haskell/post-init-company ()
