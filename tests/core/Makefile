@@ -21,6 +21,7 @@ FUNC_TEST_FILES = \
   core-evilify-keymap-ftest.el \
   core-spacemacs-ftest.el \
   core-spacemacs-buffer-ftest.el \
+  core-configuration-layer-ftest.el \
   core-release-management-ftest.el
 
 include ../../spacemacs.mk

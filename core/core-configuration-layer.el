@@ -473,6 +473,7 @@ path."
 
 (defun configuration-layer//declare-layers ()
   "Add default layers and user layers declared in the dotfile."
+  (setq configuration-layer--layers nil)
   (setq configuration-layer-paths (configuration-layer//discover-layers))
   (if (eq 'all dotspacemacs-configuration-layers)
       (setq dotspacemacs-configuration-layers
@@ -481,9 +482,9 @@ path."
     (setq configuration-layer--layers
           (list (configuration-layer/make-layer 'spacemacs))))
   (setq configuration-layer--layers
-        (append (configuration-layer//make-layers
-                 dotspacemacs-configuration-layers)
-                configuration-layer--layers)))
+        (reverse (append (configuration-layer//make-layers
+                          dotspacemacs-configuration-layers)
+                         configuration-layer--layers))))
 
 (defun configuration-layer/declare-layers (layer-names)
   "Add layer with LAYER-NAMES to used layers."
@@ -532,7 +533,7 @@ path."
   ;; FIFO loading of layers, this allow the user to put her layers at the
   ;; end of the list to override previous layers.
   (let ((warning-minimum-level :error))
-    (dolist (l (reverse layers))
+    (dolist (l layers)
       (configuration-layer//configure-layer l))))
 
 (defun configuration-layer//configure-layer (layer)
@@ -544,7 +545,7 @@ path."
 
 (defun configuration-layer//declare-packages (layers)
   "Declare all packages contained in LAYERS."
-  (let ((layers2 (reverse layers))
+  (let ((layers2 layers)
         (warning-minimum-level :error))
     ;; TODO remove extensions in 0.105.0
     (configuration-layer//load-layers-files layers2 '("packages.el" "extensions.el"))
