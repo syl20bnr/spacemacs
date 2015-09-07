@@ -122,6 +122,9 @@ with `:' and Emacs commands are executed with `<leader> :'.")
 (defvar dotspacemacs-helm-resize nil
   "If non nil, `helm' will try to miminimize the space it uses.")
 
+(defvar dotspacemacs-helm-no-header nil
+  "if non nil, the helm header is hidden when there is only one source.")
+
 (defvar dotspacemacs-auto-save-file-location 'cache
   "Location where to auto-save files. Possible values are `original' to
 auto-save the file in-place, `cache' to auto-save the file to another

@@ -114,6 +114,8 @@ values."
    dotspacemacs-use-ido nil
    ;; If non nil, `helm' will try to miminimize the space it uses."
    dotspacemacs-helm-resize nil
+   ;; if non nil, the helm header is hidden when there is only one source.
+   dotspacemacs-helm-no-header nil
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content.
    dotspacemacs-enable-paste-micro-state nil
