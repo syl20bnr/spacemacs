@@ -4,19 +4,19 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
-     - [[#features][Features:]]
+   - [[#features][Features:]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#test-runner][Test runner]]
-     - [[#anaconda-dependencies][Anaconda dependencies]]
-     - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
-     - [[#autoflake][autoflake]]
+   - [[#layer][Layer]]
+   - [[#test-runner][Test runner]]
+   - [[#anaconda-dependencies][Anaconda dependencies]]
+   - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
+   - [[#autoflake][autoflake]]
  - [[#key-bindings][Key Bindings]]
-     - [[#inferior-repl-process][Inferior REPL process]]
-     - [[#running-python-script-in-shell][Running Python Script in shell]]
-     - [[#testing][Testing]]
-     - [[#refactoring][Refactoring]]
-     - [[#other-python-commands][Other Python commands]]
+   - [[#inferior-repl-process][Inferior REPL process]]
+   - [[#running-python-script-in-shell][Running Python Script in shell]]
+   - [[#testing][Testing]]
+   - [[#refactoring][Refactoring]]
+   - [[#other-python-commands][Other Python commands]]
 
 * Description
 
@@ -155,14 +155,15 @@ Test commands (start with ~m t~ or ~m T~):
 
 ** Other Python commands
 
-| Key Binding | Description                                                      |
-|-------------+------------------------------------------------------------------|
-| ~SPC m =~   | Reformat the buffer according to PEP8 using  [[https://github.com/google/yapf][YAPF]]                |
-| ~SPC m d b~ | toggle a breakpoint                                              |
-| ~SPC m g g~ | go to definition using =anaconda-mode-goto= (~C-o~ to jump back) |
-| ~SPC m g u~ | navigate between usages with =anaconda-mode-usages=              |
-| ~SPC m h d~ | look for documentation using =helm-pydoc=                        |
-| ~SPC m h h~ | quick documentation using anaconda                               |
-| ~SPC m h H~ | open documentation in =firefox= using [pylookup][pylookup]       |
-| ~SPC m v~   | activate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                        |
-| ~SPC m V~   | activate a virtual environment with  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]]                      |
+| Key Binding | Description                                                                  |
+|-------------+------------------------------------------------------------------------------|
+| ~SPC m =~   | Reformat the buffer according to PEP8 using  [[https://github.com/google/yapf][YAPF]]                            |
+| ~SPC m d b~ | toggle a breakpoint                                                          |
+| ~SPC m g g~ | go to definition using =anaconda-mode-find-definitions= (~C-o~ to jump back) |
+| ~SPC m g a~ | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back) |
+| ~SPC m g u~ | navigate between usages with =anaconda-mode-find-references=                 |
+| ~SPC m h d~ | look for documentation using =helm-pydoc=                                    |
+| ~SPC m h h~ | quick documentation using anaconda                                           |
+| ~SPC m h H~ | open documentation in =firefox= using [pylookup][pylookup]                   |
+| ~SPC m v~   | activate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                                    |
+| ~SPC m V~   | activate a virtual environment with  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]]                                  |
