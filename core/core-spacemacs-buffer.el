@@ -67,29 +67,29 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
 
 (defun spacemacs-buffer//choose-banner ()
   "Return the full path of a banner based on the dotfile value."
-  (cond
-   ((eq 'official dotspacemacs-startup-banner)
-    (if (and (display-graphic-p) (image-type-available-p 'png))
-        spacemacs-banner-official-png
-      (spacemacs-buffer//get-banner-path 1)))
-   ((eq 'random dotspacemacs-startup-banner)
-    (spacemacs-buffer//choose-random-text-banner))
-   ((eq 'random* dotspacemacs-startup-banner)
-    (spacemacs-buffer//choose-random-text-banner t))
-   ((eq 'doge dotspacemacs-startup-banner)
-    (spacemacs-buffer//get-banner-path 999))
-   ((integerp dotspacemacs-startup-banner)
-    (spacemacs-buffer//get-banner-path dotspacemacs-startup-banner))
-   ((and dotspacemacs-startup-banner
-         (image-type-available-p (intern (file-name-extension
-                                          dotspacemacs-startup-banner)))
-         (display-graphic-p))
-    (if (file-exists-p dotspacemacs-startup-banner)
-        dotspacemacs-startup-banner
-      (spacemacs-buffer/warning (format "could not find banner %s"
-                                        dotspacemacs-startup-banner))
-      (spacemacs-buffer//get-banner-path 1)))
-   (t (spacemacs-buffer//get-banner-path 1))))
+  (when dotspacemacs-startup-banner
+    (cond ((eq 'official dotspacemacs-startup-banner)
+           (if (and (display-graphic-p) (image-type-available-p 'png))
+               spacemacs-banner-official-png
+             (spacemacs-buffer//get-banner-path 1)))
+          ((eq 'random dotspacemacs-startup-banner)
+           (spacemacs-buffer//choose-random-text-banner))
+          ((eq 'random* dotspacemacs-startup-banner)
+           (spacemacs-buffer//choose-random-text-banner t))
+          ((eq 'doge dotspacemacs-startup-banner)
+           (spacemacs-buffer//get-banner-path 999))
+          ((integerp dotspacemacs-startup-banner)
+           (spacemacs-buffer//get-banner-path dotspacemacs-startup-banner))
+          ((and dotspacemacs-startup-banner
+                (image-type-available-p (intern (file-name-extension
+                                                 dotspacemacs-startup-banner)))
+                (display-graphic-p))
+           (if (file-exists-p dotspacemacs-startup-banner)
+               dotspacemacs-startup-banner
+             (spacemacs-buffer/warning (format "could not find banner %s"
+                                               dotspacemacs-startup-banner))
+             (spacemacs-buffer//get-banner-path 1)))
+          (t (spacemacs-buffer//get-banner-path 1)))))
 
 (defun spacemacs-buffer//choose-random-text-banner (&optional all)
   "Return the full path of a banner chosen randomly.
