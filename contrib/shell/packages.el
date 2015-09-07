@@ -19,6 +19,7 @@
         shell-pop
         term
         eshell
+        eshell-z
         eshell-prompt-extras
         esh-help
         magit
@@ -127,6 +128,9 @@ is achieved by adding the relevant text properties."
       ;; automatically truncate buffer after output
       (when (boundp 'eshell-output-filter-functions)
         (push 'eshell-truncate-buffer eshell-output-filter-functions)))))
+
+(defun shell/init-eshell-z ()
+  (use-package eshell-z))
 
 (defun shell/init-esh-help ()
   (use-package esh-help
