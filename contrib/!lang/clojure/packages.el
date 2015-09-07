@@ -207,6 +207,8 @@ the focus."
           "mer" 'cider-eval-region
           "mew" 'cider-eval-last-sexp-and-replace
 
+          "mfb" 'cider-format-buffer
+
           "mgb" 'cider-jump-back
           "mge" 'cider-jump-to-compilation-error
           "mgg" 'cider-jump-to-var
