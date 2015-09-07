@@ -192,12 +192,10 @@
             ahs-idle-interval 0.25
             ahs-inhibit-face-list nil)
 
-      (defvar spacemacs-last-ahs-highlight-p nil
+      (defvar-local spacemacs-last-ahs-highlight-p nil
         "Info on the last searched highlighted symbol.")
-      (make-variable-buffer-local 'spacemacs-last-ahs-highlight-p)
 
-      (defvar spacemacs--ahs-searching-forward nil)
-      (make-variable-buffer-local 'spacemacs--ahs-searching-forward)
+      (defvar-local spacemacs--ahs-searching-forward t)
 
       (defun spacemacs/goto-last-searched-ahs-symbol ()
         "Go to the last known occurrence of the last symbol searched with
@@ -247,14 +245,14 @@
         "Go to the next occurrence of symbol under point with
 `auto-highlight-symbol'"
         (interactive)
-        (setq-local spacemacs--ahs-searching-forward t)
+        (setq spacemacs--ahs-searching-forward t)
         (spacemacs/quick-ahs-forward))
 
       (defun spacemacs/enter-ahs-backward ()
         "Go to the previous occurrence of symbol under point with
 `auto-highlight-symbol'"
         (interactive)
-        (setq-local spacemacs--ahs-searching-forward nil)
+        (setq spacemacs--ahs-searching-forward nil)
         (spacemacs/quick-ahs-forward))
 
       (defun spacemacs/quick-ahs-forward ()
