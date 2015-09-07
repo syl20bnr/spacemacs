@@ -27,6 +27,7 @@
                                        ("f"   "files")
                                        ("fC"  "files/convert")
                                        ("fe"  "files-emacs/spacemacs")
+                                       ("F"   "frame")
                                        ("g"   "git/versions-control")
                                        ("h"   "helm/help/highlight")
                                        ("hd"  "help-describe")
