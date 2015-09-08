@@ -1,0 +1,18 @@
+#+TITLE: Vim language contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+
+This layer adds syntax highlighting support for vim filetypes, in addition to
+the pentadactyl firefox extension.
+
+* Install
+
+To use this contribution layer add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(set-default dotspacemacs-configuration-layers '(vim))
+#+END_SRC
