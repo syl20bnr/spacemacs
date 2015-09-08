@@ -1,4 +1,4 @@
-;;; keybindings.el --- Spacemacs Layer key-bindings File
+;;; keybindings.el --- Spacemacs Core Layer key-bindings File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -151,7 +151,6 @@ Ensure that helm is required before calling FUNC."
   "jh" 'spacemacs/push-mark-and-goto-beginning-of-line
   "jl" 'spacemacs/push-mark-and-goto-end-of-line)
 ;; Compilation ----------------------------------------------------------------
-(evil-leader/set-key "cc" 'helm-make-projectile)
 (evil-leader/set-key "cC" 'compile)
 (evil-leader/set-key "cr" 'recompile)
 ;; narrow & widen -------------------------------------------------------------
@@ -160,10 +159,6 @@ Ensure that helm is required before calling FUNC."
   "np" 'narrow-to-page
   "nf" 'narrow-to-defun
   "nw" 'widen)
-;; spell check  ---------------------------------------------------------------
-(evil-leader/set-key
-  "Sd" 'ispell-change-dictionary
-  "Sn" 'flyspell-goto-next-error)
 ;; toggle ---------------------------------------------------------------------
 (spacemacs|add-toggle highlight-current-line-globally
   :status global-hl-line-mode

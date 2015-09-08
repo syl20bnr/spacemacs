@@ -1,4 +1,4 @@
-;;; funcs.el --- Spacemacs Layer functions File
+;;; funcs.el --- Spacemacs Core Layer functions File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -192,7 +192,6 @@ the current state and point position."
   :type 'number
   :group 'spacemacs)
 
-
 (defun spacemacs/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)
@@ -206,58 +205,6 @@ the current state and point position."
           (evil-indent (point-min) (point-max))
           (message "Indented buffer.")))
       (whitespace-cleanup))))
-
-;; linum gutter helpers
-(defvar spacemacs-linum-mdown-line nil
-  "Define persistent variable for linum selection")
-
-(defun spacemacs/line-at-click ()
-  "Determine the visual line at click"
-  (save-excursion
-    (let ((click-y (cddr (mouse-position)))
-          (debug-on-error t)
-          (line-move-visual t))
-      (goto-char (window-start))
-      (next-line (1- click-y))
-      (1+ (line-number-at-pos))
-      )))
-
-(defun spacemacs/md-select-linum (event)
-  "Set point as spacemacs-linum-mdown-line"
-  (interactive "e")
-  (mouse-select-window event)
-  (goto-line (spacemacs/line-at-click))
-  (set-mark (point))
-  (setq spacemacs-linum-mdown-line
-        (line-number-at-pos)))
-
-(defun spacemacs/mu-select-linum ()
-  "Select code block between point and spacemacs-linum-mdown-line"
-  (interactive)
-  (when spacemacs-linum-mdown-line
-    (let (mu-line)
-      (setq mu-line (spacemacs/line-at-click))
-      (goto-line (max spacemacs-linum-mdown-line mu-line))
-      (set-mark (line-end-position))
-      (goto-line (min spacemacs-linum-mdown-line mu-line))
-      (setq spacemacs-linum-mdown-line nil))))
-
-(defun spacemacs/select-current-block ()
-  "Select the current block of text between blank lines."
-  (interactive)
-  (let (p1 p2)
-    (progn
-      (if (re-search-backward "\n[ \t]*\n" nil "move")
-          (progn (re-search-forward "\n[ \t]*\n")
-                 (setq p1 (point)))
-        (setq p1 (point)))
-      (if (re-search-forward "\n[ \t]*\n" nil "move")
-          (progn (re-search-backward "\n[ \t]*\n")
-                 (setq p2 (point)))
-        (setq p2 (point))))
-    (set-mark p1)))
-
-;; eval lisp helpers
 
 ;; idea from http://www.reddit.com/r/emacs/comments/312ge1/i_created_this_function_because_i_was_tired_of/
 (defun spacemacs/eval-current-form ()
@@ -290,6 +237,22 @@ the current state and point position."
       (window-configuration-to-register '_)
       (delete-other-windows))))
 
+;; A small minor mode to use a big fringe
+;; from http://bzg.fr/emacs-strip-tease.html
+(defvar bzg-big-fringe-mode nil)
+(define-minor-mode bzg-big-fringe-mode
+  "Minor mode to use big fringe in the current buffer."
+  :init-value nil
+  :global t
+  :variable bzg-big-fringe-mode
+  :group 'editing-basics
+  (if (not bzg-big-fringe-mode)
+      (set-fringe-style nil)
+    (set-fringe-mode
+     (/ (- (frame-pixel-width)
+           (* 100 (frame-char-width)))
+        2))))
+
 (defun spacemacs/toggle-maximize-centered-buffer ()
   "Maximize buffer and center it on the screen"
   (interactive)
@@ -301,35 +264,21 @@ the current state and point position."
       (delete-other-windows)
       (bzg-big-fringe-mode 1))))
 
-(defun spacemacs/toggle-triple-double-column-mode ()
-  "Toggle between triple columns and double columns mode quickly."
-  (interactive)
-  (if (= 3 (length (window-list)))
-      (progn (delete-window (window-next-sibling))
-             (golden-ratio-mode 1))
-    (let ((num-windows (length (window-list))))
-      (progn
-        (golden-ratio-mode 0)
-        (dotimes (i (max 0 (- num-windows 3)))
-          (delete-window (window-next-sibling)))
-        (dotimes (i (- 3 (length (window-list))))
-          (progn (split-window-right)
-                 (balance-windows)))))))
-
-(defun spacemacs/layout-triple-columns ()
-  "Set the layout to triple columns."
-  (interactive)
-  (golden-ratio-mode 0)
-  (delete-other-windows)
-  (dotimes (i 2) (split-window-right))
-  (balance-windows))
-
-(defun spacemacs/layout-double-columns ()
-  "Set the layout to double columns."
-  (interactive)
-  (golden-ratio-mode 1)
-  (delete-other-windows)
-  (split-window-right))
+(defun spacemacs/useless-buffer-p (buffer)
+  "Determines if a buffer is useful."
+  (let ((buf-paren-major-mode (get (with-current-buffer buffer
+                                     major-mode)
+                                   'derived-mode-parent))
+        (buf-name (buffer-name buffer)))
+    ;; first find if useful buffer exists, if so returns nil and don't check for
+    ;; useless buffers. If no useful buffer is found, check for useless buffers.
+    (unless (cl-loop for regexp in spacemacs-useful-buffers-regexp do
+                     (when (or (eq buf-paren-major-mode 'comint-mode)
+                               (string-match regexp buf-name))
+                       (return t)))
+      (cl-loop for regexp in spacemacs-useless-buffers-regexp do
+               (when (string-match regexp buf-name)
+                 (return t))))))
 
 ;; from magnars modified by ffevotte for dedicated windows support
 (defun spacemacs/rotate-windows (count)
@@ -365,22 +314,6 @@ argument takes the kindows rotate backwards."
   "Rotate your windows backward."
   (interactive "p")
   (spacemacs/rotate-windows (* -1 count)))
-
-(defun spacemacs/useless-buffer-p (buffer)
-  "Determines if a buffer is useful."
-  (let ((buf-paren-major-mode (get (with-current-buffer buffer
-                                     major-mode)
-                                   'derived-mode-parent))
-        (buf-name (buffer-name buffer)))
-    ;; first find if useful buffer exists, if so returns nil and don't check for
-    ;; useless buffers. If no useful buffer is found, check for useless buffers.
-    (unless (cl-loop for regexp in spacemacs-useful-buffers-regexp do
-                     (when (or (eq buf-paren-major-mode 'comint-mode)
-                               (string-match regexp buf-name))
-                       (return t)))
-      (cl-loop for regexp in spacemacs-useless-buffers-regexp do
-               (when (string-match regexp buf-name)
-                 (return t))))))
 
 (defun spacemacs/next-useful-buffer ()
   "Switch to the next buffer and avoid special buffers."
@@ -436,39 +369,6 @@ argument takes the kindows rotate backwards."
         (message "File '%s' successfully removed" filename)))))
 
 ;; from magnars
-(defun spacemacs/find-or-create-file-at-point ()
-  "Guesses what parts of the buffer under point is a file name and opens it."
-  (interactive)
-  (find-spacemacs/file (file-name-at-point)))
-
-;; from magnars
-(defun spacemacs/find-or-create-file-at-point-other-window ()
-  "Guesses what parts of the buffer under point is a file name and opens it."
-  (interactive)
-  (find-spacemacs/file-other-window (file-name-at-point)))
-
-;; from magnars
-(defun spacemacs/file-name-at-point ()
-  (save-excursion
-    (let* ((file-name-regexp "[./a-zA-Z0-9\-_~]")
-           (start (progn
-                    (while (looking-back file-name-regexp)
-                      (forward-char -1))
-                    (point)))
-           (end (progn
-                  (while (looking-at file-name-regexp)
-                    (forward-char 1))
-                  (point))))
-      (buffer-substring start end))))
-
-;; from magnars
-(defun spacemacs/touch-buffer-file ()
-  (interactive)
-  (insert " ")
-  (backward-delete-char 1)
-  (save-buffer))
-
-;; from magnars
 (defun spacemacs/sudo-edit (&optional arg)
   (interactive "p")
   (if (or arg (not buffer-file-name))
@@ -483,19 +383,6 @@ argument takes the kindows rotate backwards."
     (when (yes-or-no-p (format "Killing all buffers except \"%s\" ? " buffer-file-name))
       (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
       (message "Buffers deleted!"))))
-
-;; evenly split windows horizontally
-(defun spacemacs/evenly-split-window-right ()
-  "Evenly split frame horizontally."
-  (interactive)
-  (split-window-right)
-  (balance-windows))
-;; evenly split windows vertically
-(defun spacemacs/evenly-split-window-below ()
-  "Evenly split frame vertically."
-  (interactive)
-  (split-window-below)
-  (balance-windows))
 
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
 (defun spacemacs/toggle-current-window-dedication ()
@@ -545,127 +432,7 @@ argument takes the kindows rotate backwards."
 (defun spacemacs/find-contrib-file ()
   (interactive)
   "Edit the `file' in the spacemacs base directory, in the current window."
-  (ido-find-file-in-dir configuration-layer-contrib-directory))
-
-;; byte compile elisp files
-(defun byte-compile-current-buffer ()
-  "`byte-compile' current buffer if it's emacs-lisp-mode and compiled file exists."
-  (interactive)
-  (when (and (eq major-mode 'emacs-lisp-mode)
-             (file-exists-p (byte-compile-dest-file buffer-file-name)))
-    (byte-compile-file buffer-file-name)))
-
-(add-hook 'after-save-hook 'byte-compile-current-buffer)
-
-;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
-(setq compilation-finish-function
-      (lambda (buf str)
-
-        (if (or (string-match "exited abnormally" str)
-                (string-match "FAILED" (buffer-string)))
-
-            ;; there were errors
-            (message "There were errors. SPC-e-n to visit.")
-          (unless (or (string-match "Grep finished" (buffer-string))
-                      (string-match "Ag finished" (buffer-string))
-                      (string-match "nosetests" (buffer-name)))
-
-            ;; no errors
-            (message "compilation ok.")))))
-
-;; from https://gist.github.com/timcharper/493269
-(defun spacemacs/split-window-vertically-and-switch ()
-  (interactive)
-  (split-window-vertically)
-  (other-window 1))
-
-(defun spacemacs/split-window-horizontally-and-switch ()
-  (interactive)
-  (split-window-horizontally)
-  (other-window 1))
-
-(defun spacemacs/ido-invoke-in-other-window ()
-  "signals ido mode to switch to (or create) another window after exiting"
-  (interactive)
-  (setq ido-exit-minibuffer-target-window 'other)
-  (ido-exit-minibuffer))
-
-(defun spacemacs/ido-invoke-in-horizontal-split ()
-  "signals ido mode to split horizontally and switch after exiting"
-  (interactive)
-  (setq ido-exit-minibuffer-target-window 'horizontal)
-  (ido-exit-minibuffer))
-
-(defun spacemacs/ido-invoke-in-vertical-split ()
-  "signals ido mode to split vertically and switch after exiting"
-  (interactive)
-  (setq ido-exit-minibuffer-target-window 'vertical)
-  (ido-exit-minibuffer))
-
-(defun spacemacs/ido-invoke-in-new-frame ()
-  "signals ido mode to create a new frame after exiting"
-  (interactive)
-  (setq ido-exit-minibuffer-target-window 'frame)
-  (ido-exit-minibuffer))
-
-(defadvice ido-read-internal (around ido-read-internal-with-minibuffer-other-window activate)
-  (let* (ido-exit-minibuffer-target-window
-         (this-buffer (current-buffer))
-         (result ad-do-it))
-    (cond
-     ((equal ido-exit-minibuffer-target-window 'other)
-      (if (= 1 (count-windows))
-          (spacemacs/split-window-horizontally-and-switch)
-        (other-window 1)))
-     ((equal ido-exit-minibuffer-target-window 'horizontal)
-      (spacemacs/split-window-horizontally-and-switch))
-
-     ((equal ido-exit-minibuffer-target-window 'vertical)
-      (spacemacs/split-window-vertically-and-switch))
-     ((equal ido-exit-minibuffer-target-window 'frame)
-      (make-frame)))
-    (switch-to-buffer this-buffer) ;; why? Some ido commands, such as textmate.el's textmate-goto-symbol don't switch the current buffer
-    result))
-
-(defun spacemacs/set-google-translate-languages (source target)
-  "Set source language for google translate.
-For instance pass En as source for english."
-  (interactive "sEnter source language (ie. En): \nsEnter target language (ie. En): "
-               source target)
-  (message (format "Set google translate source language to %s and target to %s"
-                   source target))
-  (setq google-translate-default-source-language source)
-  (setq google-translate-default-target-language target))
-
-;; from http://www.emacswiki.org/emacs/WordCount
-(defun spacemacs/count-words-analysis (start end)
-  "Count how many times each word is used in the region.
- Punctuation is ignored."
-  (interactive "r")
-  (let (words)
-    (save-excursion
-      (goto-char start)
-      (while (re-search-forward "\\w+" end t)
-        (let* ((word (intern (match-string 0)))
-               (cell (assq word words)))
-          (if cell
-              (setcdr cell (1+ (cdr cell)))
-            (setq words (cons (cons word 1) words))))))
-    (when (interactive-p)
-      (message "%S" words))
-    words))
-
-(defun spacemacs/set-attributes-from-alist (face attr)
-  "Apply an alist of attributes in the form ((:PROP . VALUE)) to face."
-  (while (car attr)
-    (set-face-attribute face nil (caar attr) (cdar attr))
-    (setq attr (cdr attr))))
-
-(defun spacemacs/new-empty-buffer ()
-  "Create a new buffer called untitled(<n>)"
-  (interactive)
-  (let ((newbuf (generate-new-buffer-name "untitled")))
-    (switch-to-buffer newbuf)))
+  (ido-find-file-in-dir configuration-layer-directory))
 
 (defun spacemacs/home ()
   "Go to home Spacemacs buffer"
@@ -759,27 +526,6 @@ dotspacemacs-persistent-server to be t"
   (server-kill-buffer)
   (make-frame-invisible nil 1))
 
-;; A small minor mode to use a big fringe
-;; from http://bzg.fr/emacs-strip-tease.html
-(defvar bzg-big-fringe-mode nil)
-(define-minor-mode bzg-big-fringe-mode
-  "Minor mode to use big fringe in the current buffer."
-  :init-value nil
-  :global t
-  :variable bzg-big-fringe-mode
-  :group 'editing-basics
-  (if (not bzg-big-fringe-mode)
-      (set-fringe-style nil)
-    (set-fringe-mode
-     (/ (- (frame-pixel-width)
-           (* 100 (frame-char-width)))
-        2))))
-
-(defun spacemacs/fill-char-to-column (char column)
-  " Fill the line with CHAR up to the given COLUMN"
-  (interactive "cFill with char: \nnUp to column: "
-               char column))
-
 (defun spacemacs/toggle-frame-fullscreen ()
   "Respect the `dotspacemacs-fullscreen-use-non-native' variable when
 toggling fullscreen."
@@ -827,14 +573,6 @@ The body of the advice is in BODY."
                               activate)
                     ,@body))
                commands)))
-
-(defun spacemacs/disable-electric-indent-mode ()
-  (if (fboundp 'electric-indent-local-mode)
-      ;; for 24.4
-      (electric-indent-local-mode -1)
-    ;; for 24.3
-    (add-hook 'electric-indent-functions
-              (lambda () 'no-indent) nil 'local)))
 
 (defun spacemacs/safe-revert-buffer ()
   "Prompt before reverting the file."
@@ -927,13 +665,6 @@ current window."
   (clipboard-yank)
   (deactivate-mark))
 
-;; indent on paste
-;; from Prelude: https://github.com/bbatsov/prelude
-(defun spacemacs/yank-advised-indent-function (beg end)
-  "Do indentation, as long as the region isn't too large."
-  (if (<= (- end beg) spacemacs-yank-indent-threshold)
-      (indent-region beg end nil)))
-
 ;; hide mode line
 ;; from http://bzg.fr/emacs-hide-mode-line.html
 (defvar-local hidden-mode-line-mode nil)
@@ -958,17 +689,6 @@ current window."
      0 nil 'message
      (concat "Hidden Mode Line Mode enabled.  "
              "Use M-x hidden-mode-line-mode to make the mode-line appear."))))
-
-(spacemacs|advise-commands
- "indent" (yank yank-pop evil-paste-before evil-paste-after) after
- "If current mode is not one of spacemacs-indent-sensitive-modes
- indent yanked text (with universal arg don't indent)."
- (if (and (not (equal '(4) (ad-get-arg 0)))
-          (not (member major-mode spacemacs-indent-sensitive-modes))
-          (or (derived-mode-p 'prog-mode)
-              (member major-mode spacemacs-indent-sensitive-modes)))
-     (let ((transient-mark-mode nil))
-       (spacemacs/yank-advised-indent-function (region-beginning) (region-end)))))
 
 ;; BEGIN align functions
 
@@ -1048,23 +768,6 @@ first element is the symbol `image')."
        object
        (eq 'image (car object))))
 
-(defun spacemacs//intersperse (seq separator)
-  "Returns a list with `SEPARATOR' added between each element
-of the list `SEQ'."
-  (cond
-   ((not seq) nil)
-   ((not (cdr seq)) seq)
-   (t (append (list (car seq) separator)
-              (spacemacs//intersperse (cdr seq) separator)))))
-
-(defun spacemacs//mode-line-nonempty (seg)
-  "Checks whether a modeline segment (classical Emacs style)
-is nonempty."
-  (let ((val (format-mode-line seg)))
-    (cond ((listp val) val)
-          ((stringp val) (< 0 (length val)))
-          (t))))
-
 (defun spacemacs/uniquify-lines ()
   "Remove duplicate adjacent lines in region or current buffer"
   (interactive)
@@ -1082,3 +785,135 @@ is nonempty."
   (let ((beg (if (region-active-p) (region-beginning) (point-min)))
         (end (if (region-active-p) (region-end) (point-max))))
     (sort-lines nil beg end)))
+
+;; BEGIN linum mouse helpers
+
+(defvar spacemacs-linum-mdown-line nil
+  "Define persistent variable for linum selection")
+
+(defun spacemacs/line-at-click ()
+  "Determine the visual line at click"
+  (save-excursion
+    (let ((click-y (cddr (mouse-position)))
+          (debug-on-error t)
+          (line-move-visual t))
+      (goto-char (window-start))
+      (next-line (1- click-y))
+      (1+ (line-number-at-pos))
+      )))
+
+(defun spacemacs/md-select-linum (event)
+  "Set point as spacemacs-linum-mdown-line"
+  (interactive "e")
+  (mouse-select-window event)
+  (goto-line (spacemacs/line-at-click))
+  (set-mark (point))
+  (setq spacemacs-linum-mdown-line
+        (line-number-at-pos)))
+
+(defun spacemacs/mu-select-linum ()
+  "Select code block between point and spacemacs-linum-mdown-line"
+  (interactive)
+  (when spacemacs-linum-mdown-line
+    (let (mu-line)
+      (setq mu-line (spacemacs/line-at-click))
+      (goto-line (max spacemacs-linum-mdown-line mu-line))
+      (set-mark (line-end-position))
+      (goto-line (min spacemacs-linum-mdown-line mu-line))
+      (setq spacemacs-linum-mdown-line nil))))
+
+(defun spacemacs/select-current-block ()
+  "Select the current block of text between blank lines."
+  (interactive)
+  (let (p1 p2)
+    (progn
+      (if (re-search-backward "\n[ \t]*\n" nil "move")
+          (progn (re-search-forward "\n[ \t]*\n")
+                 (setq p1 (point)))
+        (setq p1 (point)))
+      (if (re-search-forward "\n[ \t]*\n" nil "move")
+          (progn (re-search-backward "\n[ \t]*\n")
+                 (setq p2 (point)))
+        (setq p2 (point))))
+    (set-mark p1)))
+
+;; END linum mouse helpers
+
+;; From http://xugx2007.blogspot.ca/2007/06/benjamin-rutts-emacs-c-development-tips.html
+(setq compilation-finish-function
+      (lambda (buf str)
+
+        (if (or (string-match "exited abnormally" str)
+                (string-match "FAILED" (buffer-string)))
+
+            ;; there were errors
+            (message "There were errors. SPC-e-n to visit.")
+          (unless (or (string-match "Grep finished" (buffer-string))
+                      (string-match "Ag finished" (buffer-string))
+                      (string-match "nosetests" (buffer-name)))
+
+            ;; no errors
+            (message "compilation ok.")))))
+
+;; from http://www.emacswiki.org/emacs/WordCount
+(defun spacemacs/count-words-analysis (start end)
+  "Count how many times each word is used in the region.
+ Punctuation is ignored."
+  (interactive "r")
+  (let (words)
+    (save-excursion
+      (goto-char start)
+      (while (re-search-forward "\\w+" end t)
+        (let* ((word (intern (match-string 0)))
+               (cell (assq word words)))
+          (if cell
+              (setcdr cell (1+ (cdr cell)))
+            (setq words (cons (cons word 1) words))))))
+    (when (interactive-p)
+      (message "%S" words))
+    words))
+
+;; byte compile elisp files
+(defun byte-compile-current-buffer ()
+  "`byte-compile' current buffer if it's emacs-lisp-mode and compiled file exists."
+  (interactive)
+  (when (and (eq major-mode 'emacs-lisp-mode)
+             (file-exists-p (byte-compile-dest-file buffer-file-name)))
+    (byte-compile-file buffer-file-name)))
+
+(add-hook 'after-save-hook 'byte-compile-current-buffer)
+
+;; indent on paste
+;; from Prelude: https://github.com/bbatsov/prelude
+(defun spacemacs/yank-advised-indent-function (beg end)
+  "Do indentation, as long as the region isn't too large."
+  (if (<= (- end beg) spacemacs-yank-indent-threshold)
+      (indent-region beg end nil)))
+
+(spacemacs|advise-commands
+ "indent" (yank yank-pop evil-paste-before evil-paste-after) after
+ "If current mode is not one of spacemacs-indent-sensitive-modes
+ indent yanked text (with universal arg don't indent)."
+ (if (and (not (equal '(4) (ad-get-arg 0)))
+          (not (member major-mode spacemacs-indent-sensitive-modes))
+          (or (derived-mode-p 'prog-mode)
+              (member major-mode spacemacs-indent-sensitive-modes)))
+     (let ((transient-mark-mode nil))
+       (spacemacs/yank-advised-indent-function (region-beginning) (region-end)))))
+
+(defun spacemacs//intersperse (seq separator)
+  "Returns a list with `SEPARATOR' added between each element
+of the list `SEQ'."
+  (cond
+   ((not seq) nil)
+   ((not (cdr seq)) seq)
+   (t (append (list (car seq) separator)
+              (spacemacs//intersperse (cdr seq) separator)))))
+
+(defun spacemacs//mode-line-nonempty (seg)
+  "Checks whether a modeline segment (classical Emacs style)
+is nonempty."
+  (let ((val (format-mode-line seg)))
+    (cond ((listp val) val)
+          ((stringp val) (< 0 (length val)))
+          (t))))

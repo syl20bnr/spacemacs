@@ -52,6 +52,11 @@ exists. Otherwise, fallback to ~/.spacemacs")
 (defvar dotspacemacs-verbose-loading nil
   "If non nil output loading progess in `*Messages*' buffer.")
 
+(defvar dotspacemacs-distribution 'spacemacs
+  "Base distribution to use. This is a layer contained in the directory
+`!distribution'. For now available distributions are `spacemacs-core'
+or `spacemacs'.")
+
 (defvar dotspacemacs-configuration-layer-path '()
   "List of additional paths where to look for configuration layers.
 Paths must have a trailing slash (ie. `~/.mycontribs/')")
