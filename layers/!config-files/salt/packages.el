@@ -16,7 +16,7 @@
 (defun salt/init-salt-mode ()
   (use-package salt-mode
     :defer t
-    :config (evil-leader/set-key-for-mode 'salt-mode "mp" 'mmm-parse-buffer)))
+    :config (evil-leader/set-key-for-mode 'salt-mode "mpb" 'mmm-parse-buffer)))
 
 (defun salt/pre-init-smartparens ()
   (add-hook 'salt-mode-hook 'smartparens-mode)
