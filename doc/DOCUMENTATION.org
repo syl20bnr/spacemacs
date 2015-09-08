@@ -1571,7 +1571,6 @@ navigate between =Emacs= and =Spacemacs= specific files.
 | ~SPC f e h~ | discover =Spacemacs= documentation, layers and packages using =helm= |
 | ~SPC f e i~ | open the all mighty =init.el=                                        |
 | ~SPC f e R~ | resync the dotfile with spacemacs                                    |
-| ~SPC f e s~ | open =ido= in the =spacemacs= layer folder                           |
 | ~SPC f e v~ | display and copy the spacemacs version                               |
 
 *** Ido

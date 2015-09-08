@@ -560,9 +560,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
 (defun spacemacs-core/init-helm ()
   (use-package helm
     :defer 1
-    :commands (spacemacs/helm-find-files
-               spacemacs/helm-find-spacemacs-file
-               spacemacs/helm-find-contrib-file)
+    :commands (spacemacs/helm-find-files)
     :config
     (progn
       (when (and dotspacemacs-helm-resize
@@ -678,20 +676,6 @@ Removes the automatic guessing of the initial value based on thing at point. "
                                             preselection))))))
           (helm-do-grep-1 targets nil nil nil nil use-region-or-symbol-p)))
 
-      (defun spacemacs/helm-find-contrib-file ()
-        "Runs helm find files on spacemacs contrib folder"
-        (interactive)
-        (require 'helm-files)
-        (helm-find-files-1
-         (expand-file-name (concat user-emacs-directory "contrib/"))))
-
-      (defun spacemacs/helm-find-spacemacs-file ()
-        "Runs helm find files on spacemacs directory"
-        (interactive)
-        (require 'helm-files)
-        (helm-find-files-1
-         (expand-file-name (concat user-emacs-directory "spacemacs/"))))
-
       (defun spacemacs/helm-file-do-grep ()
         "Search in current file with `grep' using a default input."
         (interactive)
@@ -738,12 +722,6 @@ Removes the automatic guessing of the initial value based on thing at point. "
             (if (get-buffer "*hgrep*")
                 (switch-to-buffer-other-window "*hgrep*")
                 (message "No previous search buffer found"))))
-
-      ;; use helm by default for contrib and spacemacs layers
-      (unless dotspacemacs-use-ido
-        (evil-leader/set-key
-          "fes" 'spacemacs/helm-find-spacemacs-file
-          "fec" 'spacemacs/helm-find-contrib-file))
 
       ;; use helm by default for M-x
       (unless (configuration-layer/package-usedp 'smex)

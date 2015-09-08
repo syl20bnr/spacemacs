@@ -424,16 +424,6 @@ argument takes the kindows rotate backwards."
   (ediff-files (dotspacemacs/location)
                (concat dotspacemacs-template-directory ".spacemacs.template")))
 
-(defun spacemacs/find-spacemacs-file ()
-  (interactive)
-  "Edit the `file' in the spacemacs base directory, in the current window."
-  (ido-find-file-in-dir spacemacs-directory))
-
-(defun spacemacs/find-contrib-file ()
-  (interactive)
-  "Edit the `file' in the spacemacs base directory, in the current window."
-  (ido-find-file-in-dir configuration-layer-directory))
-
 (defun spacemacs/home ()
   "Go to home Spacemacs buffer"
   (interactive)
