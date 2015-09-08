@@ -61,6 +61,9 @@
   (use-package phpunit
     :defer t))
 
+(defun php/post-init-flycheck ()
+  (add-hook 'php-mode-hook 'flycheck-mode))
+
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun php/post-init-company ()
     (spacemacs|add-company-hook php-mode)))
