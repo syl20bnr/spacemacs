@@ -68,48 +68,6 @@
     - [OS X](#os-x)
 
 <!-- markdown-toc end -->
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc/generate-toc again -->
-**Table of Contents**
-
-- [Introduction](#introduction)
-- [Features](#features)
-    - [Batteries Included](#batteries-included)
-    - [Nice UI](#nice-ui)
-    - [Excellent ergonomics](#excellent-ergonomics)
-    - [Convenient and Mnemonic Key Bindings](#convenient-and-mnemonic-key-bindings)
-        - [Great](#great-documentation) [Documentation][DOCUMENTATION.org]
-- [Prerequisites](#prerequisites)
-    - [Emacs](#emacs)
-        - [Linux distros](#linux-distros)
-        - [OS X](#os-x)
-        - [Windows](#windows)
-- [Install](#install)
-    - [Spacemacs logo](#spacemacs-logo)
-- [Update](#update)
-    - [Update notification](#update-notification)
-    - [Rollback](#rollback)
-- [Configuration](#configuration)
-    - [Configuration layers](#configuration-layers)
-    - [Dotfile (.spacemacs)](#dotfile-spacemacs)
-- [Learning Spacemacs](#learning-spacemacs)
-    - [Editing Styles](#editing-styles)
-    - [The leader keys](#the-leader-keys)
-    - [Evil-tutor](#evil-tutor)
-    - [Universal argument](#universal-argument)
-    - [Configuration layers and Package discovery](#configuration-layers-and-package-discovery)
-    - [Key bindings discovery](#key-bindings-discovery)
-    - [Describe functions](#describe-functions)
-- [How-To's](#how-tos)
-- [Contributions](#contributions)
-- [License](#license)
-- [Special Credits](#special-credits)
-- [Supporting Spacemacs](#supporting-spacemacs)
-- [FAQ](#faq)
-    - [Common](#common)
-    - [Windows](#windows)
-    - [OS X](#os-x)
-
-<!-- markdown-toc end -->
 
 # Introduction
 
