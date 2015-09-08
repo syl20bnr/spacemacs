@@ -14,6 +14,7 @@
     ;; not working well for now
     ;; rainbow-blocks
     (nyan-mode :location local)
+    color-identifiers-mode
     rainbow-identifiers
     rainbow-mode
     ))
@@ -40,6 +41,20 @@
         :mode nyan-mode
         :documentation "Show a nyan cat progress bar in the mode-line."
         :evil-leader "tmn"))))
+
+(defun colors/init-color-identifiers-mode ()
+  (use-package color-identifiers-mode
+    :commands color-identifiers-mode
+    :defer t
+    :init
+    (progn
+      (spacemacs|diminish color-identifiers-mode "© " "C ")
+      (spacemacs|add-toggle global-color-identifiers-mode
+        :status global-color-identifiers-mode
+        :on (global-color-identifiers-mode)
+        :off (global-color-identifiers-mode -1)
+        :documentation "Colorize identifiers globally."
+        :evil-leader "tCI"))))
 
 (defun colors/init-rainbow-identifiers ()
   (use-package rainbow-identifiers
