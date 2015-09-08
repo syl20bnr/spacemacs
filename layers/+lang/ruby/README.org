@@ -11,6 +11,7 @@
  - [[Key bindings][Key bindings]]
    - [[Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
    - [[ruby-test-mode][ruby-test-mode]]
+   - [[rubocop][rubocop]]
 
 * Description
 This layer provides support for the Ruby language with [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]] and [[https://github.com/dgutov/robe][robe-mode]].
@@ -39,6 +40,7 @@ based on your version manager):
 
 - =pry= and =pry-doc= are required for *jump to definition* and *code documentation* (=robe-mode=)
 - =ruby_parser= is required for *goto-step_definition* in =feature-mode=
+- =rubocop= is required for rubocop integration
 
 You can install the gems in the context of your current project by
 adding them to the =Gemfile=, e.g.:
@@ -94,3 +96,11 @@ a couple of useful keybindings:
 |-------------+---------------------|
 | ~SPC m t b~ | run test file       |
 | ~SPC m t t~ | run test at pointer |
+
+** rubocop
+
+| Key binding   | Description                   |
+|---------------+-------------------------------|
+| ~SPC m r a F~ | autocorrect current file      |
+| ~SPC m r a D~ | autocorrect current directory |
+| ~SPC m r a P~ | autocorrect current project   |
