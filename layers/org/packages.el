@@ -16,6 +16,7 @@
     company-emoji
     emoji-cheat-sheet-plus
     evil-org
+    gnuplot
     htmlize
     org
     org-bullets
@@ -50,6 +51,14 @@
       (evil-define-key 'normal evil-org-mode-map
         "O" 'evil-open-above)
       (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
+
+(defun org/init-gnuplot ()
+  (use-package gnuplot
+    :if (not org-disable-gnuplot-support)
+    :config
+    (progn
+      (evil-leader/set-key-for-mode 'org-mode
+        "mtp" 'org-plot/gnuplot))))
 
 (defun org/init-org ()
   (use-package org
