@@ -18,16 +18,19 @@
     mmm-mode
     company
     company-emoji
+    smartparens
     ))
 
 (defun markdown/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'markdown-mode-hook 'emoji-cheat-sheet-plus-display-mode))
 
+(defun markdown/post-init-smartparens ()
+  (add-hook 'markdown-mode-hook 'smartparens-mode))
+
 (defun markdown/init-markdown-mode ()
   (use-package markdown-mode
     :mode ("\\.m[k]d" . markdown-mode)
     :defer t
-    :init (add-hook 'markdown-mode-hook 'smartparens-mode)
     :config
     (progn
       ;; Insert key for org-mode and markdown a la C-h k
