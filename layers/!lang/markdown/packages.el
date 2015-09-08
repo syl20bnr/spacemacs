@@ -27,7 +27,9 @@
   (use-package markdown-mode
     :mode ("\\.m[k]d" . markdown-mode)
     :defer t
-    :init (add-hook 'markdown-mode-hook 'smartparens-mode)
+    :init
+    (when (configuration-layer/package-usedp 'smartparens)
+      (add-hook 'markdown-mode-hook 'smartparens-mode))
     :config
     (progn
       ;; Insert key for org-mode and markdown a la C-h k
