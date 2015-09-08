@@ -40,8 +40,8 @@
   (expand-file-name (concat spacemacs-core-directory "templates/"))
   "Configuration layer templates directory.")
 
-(defconst configuration-layer-contrib-directory
-  (expand-file-name (concat user-emacs-directory "contrib/"))
+(defconst configuration-layer-directory
+  (expand-file-name (concat user-emacs-directory "layers/"))
   "Spacemacs contribution layers base directory.")
 
 (defconst configuration-layer-private-directory
@@ -392,7 +392,7 @@ Possible return values:
     (if (string-match
          "^!" (file-name-nondirectory
                (directory-file-name
-                (concat configuration-layer-contrib-directory path))))
+                (concat configuration-layer-directory path))))
         'category
       (let ((files (directory-files path)))
         ;; most frequent files encoutered in a layer are tested first
@@ -410,7 +410,7 @@ Returns nil if the directory is not a category."
   (when (file-directory-p dirpath)
     (let ((dirname (file-name-nondirectory
                     (directory-file-name
-                     (concat configuration-layer-contrib-directory
+                     (concat configuration-layer-directory
                              dirpath)))))
       (when (string-match "^!" dirname)
         (intern (substring dirname 1))))))
@@ -421,7 +421,7 @@ path."
   ;; load private layers at the end on purpose we asume that the user layers
   ;; must have the final word on configuration choices. Let
   ;; `dotspacemacs-directory' override the private directory if it exists.
-  (let ((search-paths (append (list configuration-layer-contrib-directory)
+  (let ((search-paths (append (list configuration-layer-directory)
                               dotspacemacs-configuration-layer-path
                               (list configuration-layer-private-layer-directory)
                               (when dotspacemacs-directory
@@ -455,8 +455,6 @@ path."
                (t
                 ;; layer not found, add it to search path
                 (setq search-paths (cons sub search-paths)))))))))
-    ;; add the spacemacs layer
-    (puthash 'spacemacs (expand-file-name user-emacs-directory) result)
     ;; add discovered layers to hash table
     (mapc (lambda (l)
             (if (ht-contains? result (car l))
@@ -472,19 +470,22 @@ path."
     result))
 
 (defun configuration-layer//declare-layers ()
-  "Add default layers and user layers declared in the dotfile."
+  "Declare default layers and user layers declared in the dotfile."
   (setq configuration-layer--layers nil)
   (setq configuration-layer-paths (configuration-layer//discover-layers))
-  (if (eq 'all dotspacemacs-configuration-layers)
-      (setq dotspacemacs-configuration-layers
-            ;; spacemacs is contained in configuration-layer-paths
-            (ht-keys configuration-layer-paths))
-    (setq configuration-layer--layers
-          (list (configuration-layer/make-layer 'spacemacs))))
-  (setq configuration-layer--layers
-        (reverse (append (configuration-layer//make-layers
-                          dotspacemacs-configuration-layers)
-                         configuration-layer--layers))))
+  (when (eq 'all dotspacemacs-configuration-layers)
+    (setq dotspacemacs-configuration-layers
+          (ht-keys configuration-layer-paths)))
+  (dolist (layer dotspacemacs-configuration-layers)
+    (let ((layer-name (if (listp layer) (car layer) layer)))
+      (unless (string-match-p "!distribution"
+                              (ht-get configuration-layer-paths layer-name))
+        (push (configuration-layer/make-layer layer)
+              configuration-layer--layers))))
+  (setq configuration-layer--layers (reverse configuration-layer--layers))
+  ;; distribution layer is always first
+  (push (configuration-layer/make-layer dotspacemacs-distribution)
+        configuration-layer--layers))
 
 (defun configuration-layer/declare-layers (layer-names)
   "Add layer with LAYER-NAMES to used layers."

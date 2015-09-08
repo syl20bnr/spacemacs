@@ -16,7 +16,9 @@
 ;; ---------------------------------------------------------------------------
 
 (ert-deftest test-declare-layers--spacemacs-layer-always-first ()
-  (let ((dotspacemacs-configuration-layers '(emacs-lisp git)))
+  (let ((dotspacemacs-configuration-layers '(spacemacs
+                                             emacs-lisp
+                                             (git :variables foo 'bar))))
     (configuration-layer//declare-layers)
     (should (eq 'spacemacs (oref (first configuration-layer--layers) :name)))))
 

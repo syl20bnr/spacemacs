@@ -29,7 +29,10 @@
         :off (flyspell-mode -1)
         :documentation
         "Enable automatic spell checking."
-        :evil-leader "tS"))
+        :evil-leader "tS")
+      (evil-leader/set-key
+        "Sd" 'ispell-change-dictionary
+        "Sn" 'flyspell-goto-next-error))
     :config
     (progn
       (flyspell-prog-mode)
