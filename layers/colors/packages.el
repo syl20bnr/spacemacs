@@ -14,6 +14,7 @@
   '(
     ;; not working well for now
     ;; rainbow-blocks
+    color-identifiers-mode
     rainbow-identifiers
     rainbow-mode
     ))
@@ -22,6 +23,21 @@
 ;;   (use-package rainbow-blocks
 ;;     :disabled t
 ;;     :init (add-hook 'emacs-lisp-mode-hook 'rainbow-blocks-mode)))
+
+(defun colors/init-color-identifiers-mode ()
+  (use-package color-identifiers-mode
+    :commands color-identifiers-mode
+    :defer t
+    :init
+    (progn
+      (spacemacs|diminish color-identifiers-mode "© " "C ")
+      (spacemacs|add-toggle global-color-identifiers-mode
+        :status global-color-identifiers-mode
+        :on (global-color-identifiers-mode)
+        :off (global-color-identifiers-mode -1)
+        :documentation "Colorize identifiers globally."
+        :evil-leader "tCI"))))
+
 
 (defun colors/init-rainbow-identifiers ()
   (use-package rainbow-identifiers
