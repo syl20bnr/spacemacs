@@ -34,8 +34,9 @@ This layer adds support for [[http://clojure.org][Clojure]] language using [[htt
 * Features
 
 - REPL via [[https://github.com/clojure-emacs/cider][CIDER]]
+- Code formatting via [[https://github.com/clojure-emacs/cider][CIDER]] using [[https://github.com/weavejester/cljfmt][Cljfmt]] 
 - Refactoring via [[https://github.com/clojure-emacs/clj-refactor.el][clj-refactor]]
-- Automatic formatting via [[https://github.com/gstamp/align-cljlet][align-cljlet]]
+- Aligning of code forms via [[https://github.com/gstamp/align-cljlet][align-cljlet]]
   
 * Install
 
@@ -228,7 +229,8 @@ More info at [[https://github.com/gstamp/align-cljlet][align-cljlet]].
 
 | Key Binding | Description           |
 |-------------+-----------------------|
-| ~SPC m f l~ | reformat current form |
+| ~SPC m f l~ | realign current form |
+| ~SPC m f b~ | reformat current buffer |
 
 ** CIDER Buffers
 
