@@ -57,7 +57,7 @@
         ;; see https://github.com/syl20bnr/spacemacs/issues/2529
         (hl-anything :excluded t)
         hungry-delete
-        ido-vertical
+        ido-vertical-mode
         info+
         iedit
         indent-guide
