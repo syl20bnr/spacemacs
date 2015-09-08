@@ -1,0 +1,32 @@
+#+TITLE: Persistent scratch contribution layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+ - [[#key-bindings][Key bindings]]
+
+* Description
+
+This layer adds functionality to preserve the state of scratch buffers across
+Emacs sessions. The package recognizes buffers named like =*scratch*= as
+persistent buffers reloaded on startup.  Buffers titled as =untitled=, as
+created by default with Spacemacs =spacemacs/new-empty-buffer=, ~SPC b t~, will
+not persist across sessions.   
+
+Use binding ~SPC h s~ to show all open scratch buffers. 
+
+* Install
+
+To use this contribution layer add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(set-default dotspacemacs-configuration-layers '(persistent-scratch))
+#+END_SRC
+
+* Key bindings
+
+| Key Binding | Description                      |
+|-------------+----------------------------------|
+| ~SPC h s~   | Show recognized scratch bufffers |
+| ~SPC b s~   | Create persistent scratch buffer |
+| ~SPC b t~   | Create temporary scratch buffer  |
