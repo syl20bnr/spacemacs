@@ -514,7 +514,10 @@ dotspacemacs-persistent-server to be t"
   "Kill server buffer and hide the main Emacs window"
   (interactive)
   (server-kill-buffer)
-  (make-frame-invisible nil 1))
+  (condition-case nil
+      (delete-frame nil 1)
+      (error
+       (make-frame-invisible nil 1))))
 
 (defun spacemacs/toggle-frame-fullscreen ()
   "Respect the `dotspacemacs-fullscreen-use-non-native' variable when
