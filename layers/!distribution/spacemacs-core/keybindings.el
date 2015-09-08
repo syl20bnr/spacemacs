@@ -113,8 +113,6 @@ Ensure that helm is required before calling FUNC."
   "fc" 'spacemacs/copy-file
   "fD" 'spacemacs/delete-current-buffer-file
   "fei" 'spacemacs/find-user-init-file
-  "fes" 'spacemacs/find-spacemacs-file
-  "fec" 'spacemacs/find-contrib-file
   "fed" 'spacemacs/find-dotfile
   "feD" 'spacemacs/ediff-dotfile-and-template
   "feR" 'dotspacemacs/sync-configuration-layers
