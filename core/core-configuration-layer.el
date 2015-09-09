@@ -478,10 +478,14 @@ path."
           (ht-keys configuration-layer-paths)))
   (dolist (layer dotspacemacs-configuration-layers)
     (let ((layer-name (if (listp layer) (car layer) layer)))
-      (unless (string-match-p "!distribution"
-                              (ht-get configuration-layer-paths layer-name))
-        (push (configuration-layer/make-layer layer)
-              configuration-layer--layers))))
+      (if (ht-contains? configuration-layer-paths layer-name)
+          (unless (string-match-p "!distribution"
+                                  (ht-get configuration-layer-paths layer-name))
+            (push (configuration-layer/make-layer layer)
+                  configuration-layer--layers))
+        (spacemacs-buffer/warning
+         "Layer %s was declared in dotfile but not found in filesystem"
+         layer-name))))
   (setq configuration-layer--layers (reverse configuration-layer--layers))
   ;; distribution layer is always first
   (push (configuration-layer/make-layer dotspacemacs-distribution)
