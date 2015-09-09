@@ -31,6 +31,7 @@
     org-repo-todo
     (ox-gfm :location local)
     persp-mode
+    ox-reveal
     ))
 
 (defun org/post-init-company ()
@@ -558,6 +559,24 @@ a Markdown buffer and use this command to convert it.
     :binding "o"
     :body
     (find-file (first (org-agenda-files)))))
+
+(defun org/init-toc-org ()
+  (use-package toc-org
+    :defer t
+    :init
+    (progn
+      (setq toc-org-max-depth 10)
+      (add-hook 'org-mode-hook 'toc-org-enable))))
+
+(defun org/init-ox-reveal ()
+  (use-package ox-reveal
+    :if org-enable-reveal-js
+    :defer t
+    :init
+    (progn
+      ;; seems to be required otherwise the extension is not
+      ;; loaded properly by org
+      (with-eval-after-load 'org (require 'ox-reveal)))))
 
 (defun org/init-htmlize ()
  (use-package htmlize
