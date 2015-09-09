@@ -699,7 +699,7 @@ path."
               (configuration-layer//get-latest-package-version-string
                pkg-name)))
       ;; (message "%s: %s > %s ?" pkg-name cur-version new-version)
-      (version< cur-version new-version))))
+      (and new-version cur-version (version< cur-version new-version)))))
 
 (defun configuration-layer//get-packages-to-update (pkg-names)
   "Return a filtered list of PKG-NAMES to update."
