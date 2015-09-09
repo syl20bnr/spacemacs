@@ -172,17 +172,30 @@
   (use-package evil
     :init
     (progn
-      (defvar spacemacs-evil-cursor-colors '((normal . "DarkGoldenrod2")
-                                             (insert . "chartreuse3")
-                                             (emacs  . "SkyBlue2")
-                                             (replace . "chocolate")
-                                             (evilified . "LightGoldenrod3")
-                                             (visual . "gray")
-                                             (motion . "plum3")
-                                             (lisp   . "HotPink1")
-                                             (iedit  . "firebrick1")
-                                             (iedit-insert  . "firebrick1"))
-        "Colors assigned to evil states.")
+      (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
+                                       ("insert" "chartreuse3" (bar . 2))
+                                       ("emacs" "SkyBlue2" box)
+                                       ("replace" "chocolate" (hbar . 2))
+                                       ("evilified" "LightGoldenrod3" box)
+                                       ("visual" "gray" (hbar . 2))
+                                       ("motion" "plum3" box)
+                                       ("lisp" "HotPink1" box)
+                                       ("iedit" "firebrick1" box)
+                                       ("iedit-insert" "firebrick1" (bar . 2)))
+        "Colors assigned to evil states with cursor definitions.")
+
+      (loop for (state color cursor) in spacemacs-evil-cursors
+            do
+            (eval `(defface ,(intern (format "spacemacs-%s-face" state))
+                     `((t (:background ,color
+                                      :foreground ,(face-background 'mode-line)
+                                      :box ,(face-attribute 'mode-line :box)
+                                      :inherit 'mode-line)))
+                     (format "%s state face." state)
+                     :group 'spacemacs))
+            (eval `(setq ,(intern (format "evil-%s-state-cursor" state))
+                         (list (when dotspacemacs-colorize-cursor-according-to-state color)
+                               cursor))))
 
       ;; put back refresh of the cursor on post-command-hook see status of:
       ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
@@ -196,17 +209,6 @@
       (defun spacemacs/state-color-face (state)
         "Return the symbol of the face for the given STATE."
         (intern (format "spacemacs-%s-face" (symbol-name state))))
-
-      (defun spacemacs/defface-state-color (state color)
-        "Define a face for the given STATE and background COLOR."
-        (eval `(defface ,(spacemacs/state-color-face state) '((t ()))
-                 ,(format "%s state face." (symbol-name state))
-                 :group 'spacemacs))
-        (set-face-attribute (spacemacs/state-color-face state) nil
-                            :background color
-                            :foreground (face-background 'mode-line)
-                            :box (face-attribute 'mode-line :box)
-                            :inherit 'mode-line))
 
       (defun spacemacs/state-color (state)
         "Return the color string associated to STATE."
@@ -227,64 +229,8 @@
                        evil-state)))
           (spacemacs/state-color-face state)))
 
-      (defun spacemacs/set-state-faces ()
-        "Define or set the state faces."
-        (mapcar (lambda (x) (spacemacs/defface-state-color (car x) (cdr x)))
-                spacemacs-evil-cursor-colors))
-      (spacemacs/set-state-faces)
-
-      (defun set-default-evil-emacs-state-cursor ()
-        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
-                   (spacemacs/state-color 'emacs))))
-          (setq evil-emacs-state-cursor `(,c box))))
-      (defun set-default-evil-evilified-state-cursor ()
-        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
-                   (spacemacs/state-color 'evilified))))
-          (setq evil-evilified-state-cursor `(,c box))))
-      (defun set-default-evil-normal-state-cursor ()
-        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
-                   (spacemacs/state-color 'normal))))
-          (setq evil-normal-state-cursor `(,c box))))
-      (defun set-default-evil-insert-state-cursor ()
-        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
-                   (spacemacs/state-color 'insert))))
-          (setq evil-insert-state-cursor `(,c (bar . 2)))))
-      (defun set-default-evil-visual-state-cursor ()
-        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
-                   (spacemacs/state-color 'visual))))
-          (setq evil-visual-state-cursor `(,c (hbar . 2)))))
-      (defun set-default-evil-motion-state-cursor ()
-        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
-                   (spacemacs/state-color 'motion))))
-          (setq evil-motion-state-cursor `(,c box))))
-      (defun set-default-evil-lisp-state-cursor ()
-        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
-                   (spacemacs/state-color 'lisp))))
-          (setq evil-lisp-state-cursor `(,c box))))
-      (defun set-default-evil-iedit-state-cursor ()
-        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
-                   (spacemacs/state-color 'iedit))))
-          (setq evil-iedit-state-cursor `(,c box))))
-      (defun set-default-evil-iedit-insert-state-cursor ()
-        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
-                   (spacemacs/state-color 'iedit-insert))))
-          (setq evil-iedit-insert-state-cursor `(,c (bar . 2)))))
-      (defun set-default-evil-replace-state-cursor ()
-        (let ((c (when dotspacemacs-colorize-cursor-according-to-state
-                   (spacemacs/state-color 'replace))))
-          (setq evil-replace-state-cursor `(,c (hbar . 2)))))
       (defun evil-insert-state-cursor-hide ()
         (setq evil-insert-state-cursor '((hbar . 0))))
-      (set-default-evil-emacs-state-cursor)
-      (set-default-evil-evilified-state-cursor)
-      (set-default-evil-normal-state-cursor)
-      (set-default-evil-insert-state-cursor)
-      (set-default-evil-visual-state-cursor)
-      (set-default-evil-motion-state-cursor)
-      (set-default-evil-lisp-state-cursor)
-      (set-default-evil-iedit-state-cursor)
-      (set-default-evil-iedit-insert-state-cursor)
-      (set-default-evil-replace-state-cursor)
 
       (evil-mode 1))
     :config
@@ -1010,9 +956,15 @@ ARG non nil means that the editing style is `vim'."
     :commands hybrid-mode
     :init
     (progn
-      (add-to-list 'spacemacs-evil-cursor-colors
-                   `(hybrid . ,(spacemacs/state-color 'emacs)))
-      (spacemacs/set-state-faces)
+      ;; (add-to-list 'spacemacs-evil-cursors
+      ;;              `("hybrid"  ,(spacemacs/state-color 'emacs) (bar . 2)))
+      (defface spacemacs-hybrid-face
+        `((t (:background ,(spacemacs/state-color 'emacs)
+             :foreground ,(face-background 'mode-line)
+             :box ,(face-attribute 'mode-line :box)
+             :inherit 'mode-line)))
+        "Hybrid state face."
+        :group 'spacemacs)
       (setq hybrid-mode-insert-state-cursor
             (if (and (display-graphic-p)
                      dotspacemacs-colorize-cursor-according-to-state)
@@ -1025,8 +977,7 @@ ARG non nil means that the editing style is `vim'."
                                  'spacemacs-emacs-face
                                'spacemacs-insert-face-backup)
                              'spacemacs-insert-face)))
-      (when (eq 'hybrid dotspacemacs-editing-style)
-        (hybrid-mode))
+      (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
       (spacemacs|add-toggle hybrid-mode
         :status hybrid-mode
         :on (hybrid-mode)
