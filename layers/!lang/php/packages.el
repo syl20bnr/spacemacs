@@ -15,6 +15,7 @@
         company
         drupal-mode
         eldoc
+        flycheck
         ggtags
         helm-gtags
         php-auto-yasnippets
@@ -22,8 +23,11 @@
         php-mode
         phpcbf
         phpunit
-        flycheck
         ))
+
+(when (configuration-layer/layer-usedp 'auto-completion)
+  (defun php/post-init-company ()
+    (spacemacs|add-company-hook php-mode)))
 
 (defun php/init-drupal-mode ()
   (use-package drupal-mode
@@ -33,6 +37,9 @@
   (add-hook 'php-mode-hook 'eldoc-mode)
   (when (configuration-layer/package-usedp 'ggtags)
     (spacemacs/ggtags-enable-eldoc 'php-mode)))
+
+(defun php/post-init-flycheck ()
+  (add-hook 'php-mode-hook 'flycheck-mode))
 
 (defun php/post-init-ggtags ()
   (add-hook 'php-mode-hook 'ggtags-mode))
@@ -60,10 +67,3 @@
 (defun php/init-phpunit ()
   (use-package phpunit
     :defer t))
-
-(defun php/post-init-flycheck ()
-  (add-hook 'php-mode-hook 'flycheck-mode))
-
-(when (configuration-layer/layer-usedp 'auto-completion)
-  (defun php/post-init-company ()
-    (spacemacs|add-company-hook php-mode)))
