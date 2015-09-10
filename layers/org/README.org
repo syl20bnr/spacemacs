@@ -56,13 +56,8 @@ flavored markdown set the variable =org-enable-github-support= to =t=.
 Org-mode support the plotting of data within tables through [[http://www.gnuplot.info/][Gnuplot]] as
 demonstrated [[http://orgmode.org/worg/org-tutorials/org-plot.html][here]]; unfortunately, this is [[https://github.com/bruceravel/gnuplot-mode/issues/15][not terribly well supported]] on Windows
 at this stage.  It is possible to disable the configuration of gnuplot support
-through the variable =org-disable-gnuplot-support=.
-
-#+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-    (org :variables
-         org-disable-github-support t)))
-#+END_SRC
+as usual by adding the package =gnuplot= to your =dotspacemacs-excluded-packages=
+variable.
 
 ** Different bullets
 

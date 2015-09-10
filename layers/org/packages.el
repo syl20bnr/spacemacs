@@ -54,11 +54,9 @@
 
 (defun org/init-gnuplot ()
   (use-package gnuplot
-    :if (not org-disable-gnuplot-support)
-    :config
-    (progn
-      (evil-leader/set-key-for-mode 'org-mode
-        "mtp" 'org-plot/gnuplot))))
+    :defer t
+    :init (evil-leader/set-key-for-mode 'org-mode
+            "mtp" 'org-plot/gnuplot)))
 
 (defun org/init-org ()
   (use-package org
