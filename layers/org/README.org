@@ -89,35 +89,36 @@ You can tweak the bullets displayed in the org buffer in the function
 
 Table-related shortcuts:
 
-| Key Binding     | Description                          |
-|-----------------+--------------------------------------|
-| ~SPC m t n~     | org-table-create                     |
-| ~SPC m t N~     | org-table-create-with-table.el       |
-| ~SPC m t a~     | org-table-align                      |
-| ~SPC m t i r~   | org-table-insert-row                 |
-| ~SPC m t i c~   | org-table-insert-column              |
-| ~SPC m t i h~   | org-table-insert-hline               |
-| ~SPC m t i H~   | org-table-hline-and-move             |
-| ~SPC m t d c~   | org-table-delete-column              |
-| ~SPC m t b~     | org-table-blank-field                |
-| ~SPC m t r~     | org-table-recalculate                |
-| ~SPC m t e~     | org-table-eval-formula               |
-| ~SPC m t s~     | org-table-sort-lines                 |
-| ~SPC m t I~     | org-table-import                     |
-| ~SPC m t E~     | org-table-export                     |
-| ~SPC m t c~     | org-table-convert                    |
-| ~SPC m t g n r~ | org-table-next-row                   |
-| ~SPC m t g n f~ | org-table-next-field                 |
-| ~SPC m t g p f~ | org-table-previous-field             |
-| ~SPC m t m r~   | org-table-move-row-down              |
-| ~SPC m t m R~   | org-table-move-row-up                |
-| ~SPC m t m c~   | org-table-move-column-right          |
-| ~SPC m t m C~   | org-table-move-column-left           |
-| ~SPC m t k r~   | org-table-kill-row                   |
-| ~SPC m t w~     | org-table-wrap-region                |
-| ~SPC m t t o~   | org-table-toggle-coordinate-overlays |
-| ~SPC m t t f~   | org-table-toggle-formula-debugger    |
-| ~SPC m t p~     | org-plot/gnuplot                     | 
+| Key Binding   | Description                                                                |
+|---------------+----------------------------------------------------------------------------|
+| ~SPC m t a~   | Align the table at point by aligning all vertical bars                     |
+| ~SPC m t b~   | Blank the current table field or active region                             |
+| ~SPC m t c~   | Convert from `org-mode' table to table.el and back                         |
+| ~SPC m t d c~ | Delete a column from the table                                             |
+| ~SPC m t d r~ | Delete the current row or horizontal line from the table                   |
+| ~SPC m t e~   | Replace the table field value at the cursor by the result of a calculation |
+| ~SPC m t E~   | Export table to a file, with configurable format                           |
+| ~SPC m t h~   | Go to the previous field in the table                                      |
+| ~SPC m t H~   | Move column to the left                                                    |
+| ~SPC m t i c~ | Insert a new column into the table                                         |
+| ~SPC m t i h~ | Insert a horizontal-line below the current line into the table             |
+| ~SPC m t i H~ | Insert a hline and move to the row below that line                         |
+| ~SPC m t i r~ | Insert a new row above the current line into the table                     |
+| ~SPC m t I~   | Import a file as a table                                                   |
+| ~SPC m t j~   | Go to the next row (same column) in the current table                      |
+| ~SPC m t J~   | Move table row down                                                        |
+| ~SPC m t K~   | Move table row up                                                          |
+| ~SPC m t l~   | Go to the next field in the current table, creating new lines as needed    |
+| ~SPC m t L~   | Move column to the right                                                   |
+| ~SPC m t n~   | Query for a size and insert a table skeleton                               |
+| ~SPC m t N~   | Use the table.el package to insert a new table                             |
+| ~SPC m t p~   | Plot the table using org-plot/gnuplot                                      |
+| ~SPC m t r~   | Recalculate the current table line by applying all stored formulas         |
+| ~SPC m t s~   | Sort table lines according to the column at point                          |
+| ~SPC m t t f~ | Toggle the formula debugger in tables                                      |
+| ~SPC m t t o~ | Toggle the display of Row/Column numbers in tables                         |
+| ~SPC m t w~   | Wrap several fields in a column like a paragraph                           |
+|               |                                                                            |
 
 | Key Binding | Description                     |
 |-------------+---------------------------------|
