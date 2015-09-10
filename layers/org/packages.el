@@ -104,32 +104,32 @@ Will work on both org-mode and any mode that accepts plain html."
         "mhI" 'org-insert-heading
 
         ;; tables
-        "mtn" 'org-table-create
-        "mtN" 'org-table-create-with-table.el
         "mta" 'org-table-align
-        "mtir" 'org-table-insert-row
+        "mtb" 'org-table-blank-field
+        "mtc" 'org-table-convert
+        "mtdc" 'org-table-delete-column
+        "mtdr" 'org-table-kill-row
+        "mte" 'org-table-eval-formula
+        "mtE" 'org-table-export
+        "mth" 'org-table-previous-field
+        "mtH" 'org-table-move-column-left
         "mtic" 'org-table-insert-column
         "mtih" 'org-table-insert-hline
         "mtiH" 'org-table-hline-and-move
-        "mtdc" 'org-table-delete-column
-        "mtb" 'org-table-blank-field
-        "mtr" 'org-table-recalculate
-        "mte" 'org-table-eval-formula
-        "mts" 'org-table-sort-lines
+        "mtir" 'org-table-insert-row
         "mtI" 'org-table-import
-        "mtE" 'org-table-export
-        "mtc" 'org-table-convert
-        "mtgnr" 'org-table-next-row
-        "mtgnf" 'org-table-next-field
-        "mtgpf" 'org-table-previous-field
-        "mtmr" 'org-table-move-row-down
-        "mtmR" 'org-table-move-row-up
-        "mtmc" 'org-table-move-column-right
-        "mtmC" 'org-table-move-column-left
-        "mtkr" 'org-table-kill-row
-        "mtw" 'org-table-wrap-region
-        "mtto" 'org-table-toggle-coordinate-overlays
+        "mtj" 'org-table-next-row
+        "mtJ" 'org-table-move-row-down
+        "mtK" 'org-table-move-row-up
+        "mtl" 'org-table-next-field
+        "mtL" 'org-table-move-column-right
+        "mtn" 'org-table-create
+        "mtN" 'org-table-create-with-table.el
+        "mtr" 'org-table-recalculate
+        "mts" 'org-table-sort-lines
         "mttf" 'org-table-toggle-formula-debugger
+        "mtto" 'org-table-toggle-coordinate-overlays
+        "mtw" 'org-table-wrap-region
 
         "mI" 'org-clock-in
         (if dotspacemacs-major-mode-leader-key
