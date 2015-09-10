@@ -35,7 +35,7 @@
         helm-projectile
         (helm-spacemacs :location local)
         (holy-mode :location local :step pre)
-        (hybrid-mode :location local)
+        (hybrid-mode :location local :step pre)
         page-break-lines
         popup
         popwin
@@ -175,6 +175,7 @@
       (defvar spacemacs-evil-cursors '(("normal" "DarkGoldenrod2" box)
                                        ("insert" "chartreuse3" (bar . 2))
                                        ("emacs" "SkyBlue2" box)
+                                       ("hybrid" "SkyBlue2" (bar . 2))
                                        ("replace" "chocolate" (hbar . 2))
                                        ("evilified" "LightGoldenrod3" box)
                                        ("visual" "gray" (hbar . 2))
@@ -956,34 +957,18 @@ ARG non nil means that the editing style is `vim'."
     :commands hybrid-mode
     :init
     (progn
-      ;; (add-to-list 'spacemacs-evil-cursors
-      ;;              `("hybrid"  ,(spacemacs/state-color 'emacs) (bar . 2)))
-      (defface spacemacs-hybrid-face
-        `((t (:background ,(spacemacs/state-color 'emacs)
-             :foreground ,(face-background 'mode-line)
-             :box ,(face-attribute 'mode-line :box)
-             :inherit 'mode-line)))
-        "Hybrid state face."
-        :group 'spacemacs)
-      (setq hybrid-mode-insert-state-cursor
-            (if (and (display-graphic-p)
-                     dotspacemacs-colorize-cursor-according-to-state)
-                `(,(spacemacs/state-color 'hybrid) (bar . 2))
-              'bar))
-      (copy-face 'spacemacs-insert-face 'spacemacs-insert-face-backup)
-      (add-hook 'hybrid-mode-hook
-                (lambda ()
-                  (copy-face (if hybrid-mode
-                                 'spacemacs-emacs-face
-                               'spacemacs-insert-face-backup)
-                             'spacemacs-insert-face)))
       (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
       (spacemacs|add-toggle hybrid-mode
         :status hybrid-mode
         :on (hybrid-mode)
         :off (hybrid-mode -1)
         :documentation "Globally toggle hybrid mode."
-        :evil-leader "E Y"))))
+        :evil-leader "E Y"))
+    :config
+    (progn
+      (eval-after-load 'evil-leader
+        '(define-key evil-hybrid-state-map
+           (kbd dotspacemacs-emacs-leader-key) evil-leader--default-map)))))
 
 (defun spacemacs-core/init-page-break-lines ()
   (use-package page-break-lines

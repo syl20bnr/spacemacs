@@ -30,76 +30,49 @@
 
 (require 'evil)
 
-(defgroup hybrid-mode nil
-  "Customization options for hybrid-mode"
-  :group 'emulations
-  :prefix "hybrid-mode-")
+(evil-define-state hybrid
+  "Emacs/insert state for hybrid mode."
+  :tag " <H> "
+  :cursor (bar . 2)
+  :message "-- HYBRID --"
+  :entry-hook (evil-start-track-last-insertion)
+  :exit-hook (evil-cleanup-insert-state evil-stop-track-last-insertion)
+  :input-method t
+  (cond
+   ((evil-hybrid-state-p)
+    (add-hook 'pre-command-hook #'evil-insert-repeat-hook)
+    (unless (eq evil-want-fine-undo t)
+      (evil-start-undo-step t)))
+   (t
+    (remove-hook 'pre-command-hook #'evil-insert-repeat-hook)
+    (setq evil-insert-repeat-info evil-repeat-info)
+    (evil-set-marker ?^ nil t)
+    (unless (eq evil-want-fine-undo t)
+      (evil-end-undo-step t (eq evil-want-fine-undo 'fine)))
+    (when evil-move-cursor-back
+      (when (or (evil-normal-state-p evil-next-state)
+                (evil-motion-state-p evil-next-state))
+        (evil-move-cursor-back))))))
 
-(defcustom hybrid-mode-insert-state-cursor 'bar
-  "Cursor spec for hybrid mode in insert state."
-  :group 'hybrid-mode)
+(define-key evil-hybrid-state-map [escape] 'evil-normal-state)
 
-(defvar hybrid-mode-insert-state-cursor-backup evil-insert-state-cursor
-  "Backup of `evil-insert-state-cursor'")
-
-(defvar hybrid-mode-emacs-state-map (make-sparse-keymap)
-  "Keymap that only applies in insert mode with hybrid mode
-activated. Inherits bindings from `evil-emacs-state-map', which
-may be overridden here.")
-
-(defvar hybrid-mode-insert-state-local-map (make-sparse-keymap)
-  "Local keymap for hybrid-mode. May be customized. Sets
-  `evil-insert-state-local-map' as its parent. Takes precedence
-  over `hybrid-mode-emacs-state-map'.")
+(defadvice evil-insert-state (around hybrid-state-advice disable)
+  "In Hybrid style this advice is run to switch to hybrid
+state instead of insert state."
+  (evil-hybrid-state))
 
 ;;;###autoload
 (define-minor-mode hybrid-mode
-  "Global minor mode to repulse the evil from spacemacs (in insert mode).
-Emacs in insert mode. Replaces the `evil-insert-state' keymap
-with `hybrid-mode-emacs-state-map'."
+  "Global minor mode to replaces the `evil-insert-state' keymap
+with `evil-hybrid-state-map'."
   :global t
-  :lighter " hybrid"
+  :lighter " Hy"
   :group 'spacemacs
   (if hybrid-mode
-      (hybrid-mode-setup-keymaps)
-    (hybrid-mode-restore-keymaps)))
+      (progn
+        (ad-enable-advice 'evil-insert-state 'around 'hybrid-state-advice)
+        (ad-activate 'evil-insert-state))
+    (ad-disable-advice 'evil-insert-state 'around 'hybrid-state-advice)
+    (ad-activate 'evil-insert-state)))
 
-(defun hybrid-mode-setup-keymaps ()
-  "Enter the church of Emacs in insert mode only."
-
-  ;; Backup and set the insert-state-cursor to the hybrid variant.
-  (setq hybrid-mode-insert-state-cursor-backup evil-insert-state-cursor
-        evil-insert-state-cursor hybrid-mode-insert-state-cursor)
-
-  ;; Create the hybrid mode parent keymap by overriding the essential changes
-  ;; from `evil-emacs-state-map'. Set this as the parent keymap of
-  ;; `hybrid-mode-emacs-state-map' so that all key bindings may be overridden.
-  (setq hybrid-mode-parent-map (make-sparse-keymap))
-  (set-keymap-parent hybrid-mode-parent-map evil-emacs-state-map)
-  (define-key hybrid-mode-parent-map (read-kbd-macro evil-toggle-key) nil)
-  (define-key hybrid-mode-parent-map [escape] 'evil-normal-state)
-  (set-keymap-parent hybrid-mode-emacs-state-map hybrid-mode-parent-map)
-
-  ;; Set evil-insert-state-local-map to be the parent map of
-  ;; hybrid-mode-insert-state-local-map. Makes for a more clear category
-  ;; `helm-descbinds'.
-  (set-keymap-parent hybrid-mode-insert-state-local-map evil-insert-state-local-map)
-
-  ;; Override the mode and keymap of evil-insert-state to use the hybrid-mode
-  ;; variants.
-  (evil-put-property 'evil-state-properties 'insert
-                     :mode 'hybrid-mode-emacs-state
-                     :keymap 'hybrid-mode-emacs-state-map
-                     :local 'hybrid-mode-local-insert-state
-                     :local-keymap 'hybrid-mode-insert-state-local-map))
-
-(defun hybrid-mode-restore-keymaps ()
-  "Restore `evil-insert-state' to it's original form."
-  ;; Return evil-insert-state cursor and properties to how they are defined in
-  ;; evil-states.el
-  (setq evil-insert-state-cursor hybrid-mode-insert-state-cursor-backup)
-  (evil-put-property 'evil-state-properties 'insert
-                     :mode 'evil-insert-state-minor-mode
-                     :keymap 'evil-insert-state-map
-                     :local 'evil-insert-state-local-minor-mode
-                     :local-keymap 'evil-insert-state-local-map))
+(provide 'hybrid-mode)

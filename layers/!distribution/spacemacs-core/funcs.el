@@ -128,7 +128,11 @@ used as the prefix command."
                      ,(intern (format "evil-%S-state-local-map" s))
                      ,(kbd dotspacemacs-major-mode-emacs-leader-key)
                      major-mode-map)))
-          '(emacs insert normal motion visual))))
+          '(emacs insert normal motion visual))
+    (when hybrid-mode
+      (define-key evil-hybrid-state-map
+        (kbd dotspacemacs-major-mode-emacs-leader-key)
+        major-mode-map))))
 
 (defun spacemacs/split-and-new-line ()
   "Split a quoted string or s-expression and insert a new line with
