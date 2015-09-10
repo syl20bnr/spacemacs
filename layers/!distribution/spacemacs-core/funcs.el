@@ -428,6 +428,12 @@ argument takes the kindows rotate backwards."
   (ediff-files (dotspacemacs/location)
                (concat dotspacemacs-template-directory ".spacemacs.template")))
 
+(defun spacemacs/new-empty-buffer ()
+  "Create a new buffer called untitled(<n>)"
+  (interactive)
+  (let ((newbuf (generate-new-buffer-name "untitled")))
+    (switch-to-buffer newbuf)))
+
 (defun spacemacs/home ()
   "Go to home Spacemacs buffer"
   (interactive)
