@@ -483,9 +483,8 @@ path."
                                   (ht-get configuration-layer-paths layer-name))
             (push (configuration-layer/make-layer layer)
                   configuration-layer--layers))
-        (spacemacs-buffer/warning
-         "Layer %s was declared in dotfile but not found in filesystem"
-         layer-name))))
+        (spacemacs-buffer/warning "Unknown layer %s declared in dotfile."
+                                  layer-name))))
   (setq configuration-layer--layers (reverse configuration-layer--layers))
   ;; distribution layer is always first
   (push (configuration-layer/make-layer dotspacemacs-distribution)
