@@ -2427,12 +2427,12 @@ one of `l' or `r'."
         (interactive)
         (evil-insert-state)
         (spray-mode t)
-        (evil-insert-state-cursor-hide))
+        (internal-show-cursor (selected-window) nil))
       (evil-leader/set-key "asr" 'spacemacs/start-spray)
 
       (defadvice spray-quit (after spacemacs//quit-spray activate)
         "Correctly quit spray."
-        (set-default-evil-insert-state-cursor)
+        (internal-show-cursor (selected-window) t)
         (evil-normal-state)))
     :config
     (progn
