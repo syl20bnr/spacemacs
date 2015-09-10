@@ -45,7 +45,7 @@
         "mga" 'anaconda-mode-find-assignments
         "mgu" 'anaconda-mode-find-references)
       (evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
-               (kbd "q") 'kill-buffer-and-window)
+               (kbd "q") 'quit-window)
       (spacemacs|hide-lighter anaconda-mode))))
 
 (defun python/init-cython-mode ()
