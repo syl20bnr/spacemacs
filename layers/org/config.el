@@ -15,7 +15,4 @@
 (defvar org-enable-github-support nil
   "If non-nil Github related packages are configured.")
 
-(defvar org-disable-gnuplot-support nil
-  "If non-nil Gnuplot related packages are not configured.")
-
 (spacemacs|defvar-company-backends org-mode)
