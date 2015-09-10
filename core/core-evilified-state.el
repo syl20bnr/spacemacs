@@ -52,30 +52,14 @@
   :cursor box)
 
 (add-hook 'evil-evilified-state-entry-hook 'spacemacs//evilified-state-on-entry)
-(add-hook 'evil-evilified-state-exit-hook 'spacemacs//evilified-state-on-exit)
 
 (defun spacemacs//evilified-state-on-entry ()
   "Setup evilified state."
-  (setq-local spacemacs-core-evilified-state--evil-surround
-              (bound-and-true-p evil-surround-mode))
-  (when spacemacs-core-evilified-state--evil-surround
+  (when (bound-and-true-p evil-surround-mode)
+    (make-local-variable 'evil-surround-mode)
     (evil-surround-mode -1))
-  (setq-local evil-visual-state-map (cons 'keymap nil))
-  (add-hook 'evil-visual-state-entry-hook
-            'spacemacs//evilified-state-visual-state-set-key nil 'local))
-
-(defun spacemacs//evilified-state-on-exit ()
-  "Cleanup evilified state."
-  (when spacemacs-core-evilified-state--evil-surround
-    (evil-surround-mode))
-  (setq-local evil-visual-state-map
-              spacemacs-core-evilified-state--visual-state-map)
-  (remove-hook 'evil-visual-state-entry-hook
-               'spacemacs//evilified-state-visual-state-set-key 'local))
-
-(defun spacemacs//evilified-state-visual-state-set-key ()
-  "Define key for visual state."
-  (local-set-key "y" 'evil-yank))
+  (setq-local evil-normal-state-map (cons 'keymap nil))
+  (setq-local evil-visual-state-map (cons 'keymap (list (cons ?y 'evil-yank)))))
 
 ;; default key bindings for all evilified buffers
 (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
