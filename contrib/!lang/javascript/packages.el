@@ -22,6 +22,8 @@
     tern
     js-doc
     web-beautify
+    skewer-mode
+    livid-mode
     ))
 
 (defun javascript/init-coffee-mode ()
@@ -193,3 +195,28 @@
       :defer t
       :init
       (push 'company-tern company-backends-js2-mode))))
+
+(defun javascript/init-skewer-mode ()
+  (use-package skewer-mode
+    :defer t
+    :init
+    (progn
+      (add-hook 'js2-mode-hook 'skewer-mode)
+      (httpd-start)) ;; this starts the server process - otherwise we need to call httpd-start or run-skewer manually
+    :config
+    (progn
+      (evil-leader/set-key-for-mode 'js2-mode "msi" 'run-skewer)
+      (evil-leader/set-key-for-mode 'js2-mode "msr" 'skewer-repl)
+      (evil-leader/set-key-for-mode 'js2-mode "msb" 'skewer-load-buffer)
+      (evil-leader/set-key-for-mode 'js2-mode "mse" 'skewer-eval-last-expression)
+      (evil-leader/set-key-for-mode 'js2-mode "msp" 'skewer-eval-print-last-expression)
+      (evil-leader/set-key-for-mode 'js2-mode "msd" 'skewer-eval-defun)
+      )))
+
+(defun javascript/init-livid-mode ()
+  (use-package livid-mode
+    :defer t
+    :init
+    (progn
+      (defalias 'js-live-eval 'livid-mode "Minor mode for automatic evaluation of a JavaScript buffer on every change")
+      (evil-leader/set-key-for-mode 'js2-mode "mst" 'js-live-eval))))
