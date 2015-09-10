@@ -38,7 +38,9 @@
         evil-matchit
         evil-numbers
         evil-search-highlight-persist
-        evil-terminal-cursor-changer
+        ;; Temporarily disabled, pending the resolution of
+        ;; https://github.com/7696122/evil-terminal-cursor-changer/issues/8
+        (evil-terminal-cursor-changer :excluded t)
         evil-tutor
         expand-region
         fancy-battery
