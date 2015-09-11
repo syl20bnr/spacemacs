@@ -320,7 +320,16 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
                  '(("Among the stars aboard the Evil flagship (vim)"
                     vim)
                    ("On the planet Emacs in the Holy control tower (emacs)"
-                    emacs)))))))))
+                    emacs)))))
+             ("dotspacemacs-distribution 'spacemacs"
+              ,(format
+                "dotspacemacs-distribution '%S"
+                (dotspacemacs//ido-completing-read
+                 "What distribution of spacemacs would you like to start with? "
+                 '(("The standard distribution with many goodies built-in (spacemacs)"
+                    spacemacs)
+                   ("A distribution with the spacemacs essentials that you can build on (spacemacs-core)"
+                    spacemacs-core)))))))))
     (with-current-buffer (find-file-noselect
                        (concat dotspacemacs-template-directory
                                ".spacemacs.template"))
