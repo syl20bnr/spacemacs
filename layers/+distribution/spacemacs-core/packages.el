@@ -955,8 +955,7 @@ ARG non nil means that the editing style is `vim'."
 
 (defun spacemacs-core/init-hybrid-mode ()
   (use-package hybrid-mode
-    :commands hybrid-mode
-    :init
+    :config
     (progn
       (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
       (spacemacs|add-toggle hybrid-mode
@@ -964,9 +963,7 @@ ARG non nil means that the editing style is `vim'."
         :on (hybrid-mode)
         :off (hybrid-mode -1)
         :documentation "Globally toggle hybrid mode."
-        :evil-leader "E Y"))
-    :config
-    (progn
+        :evil-leader "E Y")
       (eval-after-load 'evil-leader
         '(define-key evil-hybrid-state-map
            (kbd dotspacemacs-emacs-leader-key) evil-leader--default-map)))))
