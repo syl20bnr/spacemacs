@@ -54,7 +54,7 @@ exists. Otherwise, fallback to ~/.spacemacs")
 
 (defvar dotspacemacs-distribution 'spacemacs
   "Base distribution to use. This is a layer contained in the directory
-`!distribution'. For now available distributions are `spacemacs-core'
+`+distribution'. For now available distributions are `spacemacs-core'
 or `spacemacs'.")
 
 (defvar dotspacemacs-configuration-layer-path '()
