@@ -59,7 +59,7 @@
 (defadvice evil-insert-state (around hybrid-state-advice disable)
   "In Hybrid style this advice is run to switch to hybrid
 state instead of insert state."
-  (evil-hybrid-state))
+  (evil-hybrid-state 1))
 
 ;;;###autoload
 (define-minor-mode hybrid-mode
