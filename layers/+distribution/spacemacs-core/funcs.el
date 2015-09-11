@@ -129,7 +129,9 @@ used as the prefix command."
                      ,(kbd dotspacemacs-major-mode-emacs-leader-key)
                      major-mode-map)))
           '(emacs insert normal motion visual))
-    (when hybrid-mode
+    ;; using `bound-and-true-p', because hybrid-mode may not be loaded when
+    ;; using emacs or vim style
+    (when (bound-and-true-p hybrid-mode)
       (define-key evil-hybrid-state-map
         (kbd dotspacemacs-major-mode-emacs-leader-key)
         major-mode-map))))
