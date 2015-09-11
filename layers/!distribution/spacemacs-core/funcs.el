@@ -434,6 +434,21 @@ argument takes the kindows rotate backwards."
   (let ((newbuf (generate-new-buffer-name "untitled")))
     (switch-to-buffer newbuf)))
 
+(defun spacemacs/layout-triple-columns ()
+  " Set the layout to triple columns. "
+  (interactive)
+  (golden-ratio-mode 0)
+  (delete-other-windows)
+  (dotimes (i 2) (split-window-right))
+  (balance-windows))
+
+(defun spacemacs/layout-double-columns ()
+  " Set the layout to double columns. "
+  (interactive)
+  (golden-ratio-mode 1)
+  (delete-other-windows)
+  (split-window-right))
+
 (defun spacemacs/home ()
   "Go to home Spacemacs buffer"
   (interactive)
