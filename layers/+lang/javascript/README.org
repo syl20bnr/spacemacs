@@ -46,6 +46,11 @@ To use the formatting features, install =js-beautify=:
   $ npm install -g js-beautify
 #+END_SRC
 
+To activate error checking using flycheck install =JSHint=:
+#+BEGIN_SRC sh
+  $ npm install -g jshint
+#+END_SRC
+
 * Configuration
 
 To change how js2-mode indents code, set the variable =js2-basic-offset=, as such:
