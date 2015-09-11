@@ -772,7 +772,7 @@
      (should (null (configuration-layer//directory-type input))))))
 
 (ert-deftest test-directory-type--category ()
-  (let ((input (concat configuration-layer-directory "!vim/")))
+  (let ((input (concat configuration-layer-directory "+vim/")))
     (mocker-let
      ((file-directory-p (f)
                         ((:record-cls 'mocker-stub-record :output t :occur 1))))
@@ -875,7 +875,7 @@
      (should (null (configuration-layer//get-category-from-path input))))))
 
 (ert-deftest test-get-category-from-path--return-category ()
-  (let ((input "/a/path/to/a/!cat/"))
+  (let ((input "/a/path/to/a/+cat/"))
     (mocker-let
      ((file-directory-p (f)
                         ((:record-cls 'mocker-stub-record :output t :occur 1))))

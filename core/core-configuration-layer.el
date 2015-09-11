@@ -134,7 +134,7 @@ the path for this layer.")
 
 (defvar configuration-layer-categories '()
   "List of strings corresponding to category names. A category is a
-directory with a name starting with `!'.")
+directory with a name starting with `+'.")
 
 (defun configuration-layer/sync ()
   "Synchronize declared layers in dotfile with spacemacs."
@@ -390,7 +390,7 @@ Possible return values:
   nil      - the directory is a regular directory."
   (when (file-directory-p path)
     (if (string-match
-         "^!" (file-name-nondirectory
+         "^+" (file-name-nondirectory
                (directory-file-name
                 (concat configuration-layer-directory path))))
         'category
@@ -405,14 +405,14 @@ Possible return values:
 
 (defun configuration-layer//get-category-from-path (dirpath)
   "Return a category symbol from the given DIRPATH.
-The directory name must start with `!'.
+The directory name must start with `+'.
 Returns nil if the directory is not a category."
   (when (file-directory-p dirpath)
     (let ((dirname (file-name-nondirectory
                     (directory-file-name
                      (concat configuration-layer-directory
                              dirpath)))))
-      (when (string-match "^!" dirname)
+      (when (string-match "^+" dirname)
         (intern (substring dirname 1))))))
 
 (defun configuration-layer//discover-layers ()
@@ -479,7 +479,7 @@ path."
   (dolist (layer dotspacemacs-configuration-layers)
     (let ((layer-name (if (listp layer) (car layer) layer)))
       (if (ht-contains? configuration-layer-paths layer-name)
-          (unless (string-match-p "!distribution"
+          (unless (string-match-p "+distribution"
                                   (ht-get configuration-layer-paths layer-name))
             (push (configuration-layer/make-layer layer)
                   configuration-layer--layers))

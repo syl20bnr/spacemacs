@@ -185,7 +185,7 @@ package name does not match theme name + `-theme' suffix.")
           (eq 'solarized-dark theme))
       (add-to-list 'load-path
                    (concat configuration-layer-directory
-                           "!distribution/spacemacs/local/solarized-theme/"))
+                           "+distribution/spacemacs/local/solarized-theme/"))
       (require 'solarized)
       (deftheme solarized-dark
         "The dark variant of the Solarized colour theme")
