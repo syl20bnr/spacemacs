@@ -8,6 +8,9 @@
    - [[Features:][Features:]]
  - [[Install][Install]]
  - [[Configuration][Configuration]]
+   - [[Tern][Tern]]
+   - [[Indentation][Indentation]]
+   - [[REPL][REPL]]
  - [[Key Bindings][Key Bindings]]
    - [[js2-mode][js2-mode]]
    - [[Folding (js2-mode)][Folding (js2-mode)]]
@@ -16,6 +19,7 @@
      - [[Documentation (js-doc)][Documentation (js-doc)]]
    - [[Auto-complete and documentation (tern)][Auto-complete and documentation (tern)]]
    - [[JSON][JSON]]
+   - [[REPL (skewer-mode)][REPL (skewer-mode)]]
 
 * Description
 
@@ -28,6 +32,7 @@ This layer adds support for the JavaScript language using [[https://github.com/m
 - CoffeeScript support
 - Formatting with [[https://github.com/yasuyk/web-beautify][web-beautify]]
 - Get the path to a JSON value with [[https://github.com/Sterlingg/json-snatcher][json-snatcher]]
+- REPL available via [[https://github.com/skeeto/skewer-mode][skewer-mode]] and [[https://github.com/pandeiro/livid-mode][livid-mode]]
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
@@ -51,7 +56,7 @@ To activate error checking using flycheck install =JSHint=:
 #+END_SRC
 
 * Configuration
-
+** Tern
 To make tern re-use the server across multiple different editing sessions (thus
 creating multiple =.tern-port= files for each document you have open [[http://ternjs.net/doc/manual.html][see here
 for more details]]):
@@ -63,6 +68,7 @@ layer, as detailed in [[file:../../../doc/DOCUMENTATION.org::Setting%20configura
   (javascript :variables javascript-disable-tern-port-files nil)
 #+END_SRC
 
+** Indentation
 To change how js2-mode indents code, set the variable =js2-basic-offset=, as such:
 
 #+BEGIN_SRC emacs-lisp
@@ -75,6 +81,15 @@ Similarly, to change how js-mode indents JSON files, set the variable
 #+BEGIN_SRC emacs-lisp
   (setq-default js-indent-level 2)
 #+END_SRC
+
+** REPL
+To use the available JS repl, you need a running httpd server and a page
+loaded with skewer. If a blank page serves your needs, just use the
+run-skewer command in your javascript buffer. If you want to inject it
+in your own page, follow the instructions in
+https://github.com/skeeto/skewer-mode#skewering-with-cors (install the
+Greasemonkey script and then click the triangle in the top-right
+corner - if it turns green, you're good to go). 
 
 * Key Bindings
 
@@ -166,3 +181,14 @@ You can check more [[https://github.com/mooz/js-doc/][here]]
 | Key Binding | Description                        |
 |-------------+------------------------------------|
 | ~SPC m h p~ | Get the path of the value at point |
+
+** REPL (skewer-mode)
+
+| Key Binding | Description                                                             |
+|-------------+-------------------------------------------------------------------------|
+| ~SPC m s s~ | prepares the skewer environment - run this before running REPL commands |
+| ~SPC m s i~ | starts/goes to the skewer REPL                                          |
+| ~SPC m s b~ | loads the current file in the skewer REPL                               |
+| ~SPC m e e~ | evaluates the last expression                                           |
+| ~SPC m e p~ | evaluates and inserts the result of the last expression at point        |
+| ~SPC m s f~ | evaluates the current function at point                                 |

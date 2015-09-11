@@ -23,6 +23,8 @@
     json-snatcher
     tern
     web-beautify
+    skewer-mode
+    livid-mode
     ))
 
 (defun javascript/init-coffee-mode ()
@@ -208,3 +210,28 @@
       (spacemacs/set-leader-keys-for-major-mode 'json-mode "=" 'web-beautify-js)
       (spacemacs/set-leader-keys-for-major-mode 'web-mode  "=" 'web-beautify-html)
       (spacemacs/set-leader-keys-for-major-mode 'css-mode  "=" 'web-beautify-css))))
+
+(defun javascript/init-skewer-mode ()
+  (use-package skewer-mode
+    :defer t
+    :init
+    (progn
+      (add-hook 'js2-mode-hook 'skewer-mode)
+      (httpd-start)) ;; this starts the server process - otherwise we need to call httpd-start or run-skewer manually
+    :config
+    (progn
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "ss" 'run-skewer)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "si" 'skewer-repl)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "sb" 'skewer-load-buffer)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "ee" 'skewer-eval-last-expression)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "ep" 'skewer-eval-print-last-expression)
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "sf" 'skewer-eval-defun)
+      )))
+
+(defun javascript/init-livid-mode ()
+  (use-package livid-mode
+    :defer t
+    :init
+    (progn
+      (defalias 'js-live-eval 'livid-mode "Minor mode for automatic evaluation of a JavaScript buffer on every change")
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode "st" 'js-live-eval))))
