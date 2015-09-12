@@ -17,4 +17,4 @@ UNIT_TEST_FILES = \
   powerline-utest.el
 FUNC_TEST_FILES =
 
-include ../../spacemacs.mk
+include ../../../../spacemacs.mk
