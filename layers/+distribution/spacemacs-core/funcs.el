@@ -114,27 +114,27 @@ used as the prefix command."
 
 (defun spacemacs/activate-major-mode-leader ()
   "Bind major mode key map to `dotspacemacs-major-mode-leader-key'."
-  (setq mode-map (cdr (assoc major-mode evil-leader--mode-maps)))
-  (when mode-map
-    (setq major-mode-map (lookup-key mode-map (kbd "m")))
-    (mapc (lambda (s)
-            (eval `(define-key
-                     ,(intern (format "evil-%S-state-local-map" s))
-                     ,(kbd dotspacemacs-major-mode-leader-key)
-                     major-mode-map)))
-          '(normal motion))
-    (mapc (lambda (s)
-            (eval `(define-key
-                     ,(intern (format "evil-%S-state-local-map" s))
-                     ,(kbd dotspacemacs-major-mode-emacs-leader-key)
-                     major-mode-map)))
-          '(emacs insert normal motion visual))
-    ;; using `bound-and-true-p', because hybrid-mode may not be loaded when
-    ;; using emacs or vim style
-    (when (bound-and-true-p hybrid-mode)
-      (define-key evil-hybrid-state-map
-        (kbd dotspacemacs-major-mode-emacs-leader-key)
-        major-mode-map))))
+  (let* ((mode-map (cdr (assoc major-mode evil-leader--mode-maps)))
+         (major-mode-map (when mode-map (lookup-key mode-map (kbd "m")))))
+    (when major-mode-map
+      (mapc (lambda (s)
+              (eval `(define-key
+                       ,(intern (format "evil-%S-state-local-map" s))
+                       ,(kbd dotspacemacs-major-mode-leader-key)
+                       major-mode-map)))
+            '(normal motion))
+      (mapc (lambda (s)
+              (eval `(define-key
+                       ,(intern (format "evil-%S-state-local-map" s))
+                       ,(kbd dotspacemacs-major-mode-emacs-leader-key)
+                       major-mode-map)))
+            '(emacs insert normal motion visual))
+      ;; using `bound-and-true-p', because hybrid-mode may not be loaded when
+      ;; using emacs or vim style
+      (when (bound-and-true-p hybrid-mode)
+        (define-key evil-hybrid-state-map
+          (kbd dotspacemacs-major-mode-emacs-leader-key)
+          major-mode-map)))))
 
 (defun spacemacs/split-and-new-line ()
   "Split a quoted string or s-expression and insert a new line with
