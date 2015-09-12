@@ -139,7 +139,7 @@ directory with a name starting with `+'.")
 (defun configuration-layer/sync ()
   "Synchronize declared layers in dotfile with spacemacs."
   (dotspacemacs|call-func dotspacemacs/layers "Calling dotfile layers...")
-  (spacemacs-buffer//inject-version)
+  (spacemacs-buffer//inject-version t)
   ;; layers
   (setq configuration-layer--layers (configuration-layer//declare-layers))
   (configuration-layer//configure-layers configuration-layer--layers)

@@ -122,14 +122,17 @@ If ALL is non-nil then truly all banners can be selected."
                               (floor (/ (- width (length title)) 2))) ?\ ))
       (insert (format "%s\n\n" title)))))
 
-(defun spacemacs-buffer//inject-version ()
+(defun spacemacs-buffer//inject-version (&optional insert-distro)
   "Inject the current version of spacemacs in the first line of the
 buffer, right justified."
   (with-current-buffer (get-buffer-create "*spacemacs*")
     (save-excursion
       (let* ((maxcol spacemacs-buffer--banner-length)
-             (injected (format "(%s-%s)"
-                               dotspacemacs-distribution spacemacs-version))
+             (injected (if insert-distro
+                           (format "(%s-%s)"
+                                   dotspacemacs-distribution
+                                   spacemacs-version)
+                         (format "(%s)" spacemacs-version)))
              (pos (- maxcol (length injected)))
              (buffer-read-only nil))
         ;; reset first line
