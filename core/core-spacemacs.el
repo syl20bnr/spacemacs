@@ -258,12 +258,14 @@ FILE-TO-LOAD is an explicit file to load after the installation."
                           "- Emacs: %s\n"
                           "- Spacemacs: %s\n"
                           "- Spacemacs branch: %s (rev. %s)\n"
+                          "- Distribution: %s\n"
                           "- Layers:\n```elisp\n%s```\n")
                   system-type
                   emacs-version
                   spacemacs-version
                   (spacemacs/git-get-current-branch)
                   (spacemacs/git-get-current-branch-rev)
+                  dotspacemacs-distribution
                   (pp dotspacemacs-configuration-layers))))
     (kill-new sysinfo)
     (message sysinfo)
