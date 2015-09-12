@@ -226,21 +226,22 @@ Possible values are: `recents' `bookmarks' `projects'.")
 (defun dotspacemacs/sync-configuration-layers (&optional arg)
   "Synchronize declared layers in dotfile with spacemacs.
 
-If ARG is non nil then `dotspacemacs/config' is skipped."
+Called with `C-u' skips `dotspacemacs/user-config'.
+Called with `C-u C-u' skips `dotspacemacs/user-config' and preleminary tests."
   (interactive "P")
   (when (file-exists-p dotspacemacs-filepath)
     (with-current-buffer (find-file-noselect dotspacemacs-filepath)
       (let ((dotspacemacs-loading-progress-bar nil))
         (setq spacemacs-loading-string "")
         (save-buffer)
-        (let ((tests-ok (dotspacemacs/test-dotfile t)))
+        (let ((tests-ok (or (equal arg '(16)) (dotspacemacs/test-dotfile t))))
           (if tests-ok
               (progn
                 (load-file buffer-file-name)
                 (dotspacemacs|call-func dotspacemacs/init
                                         "Calling dotfile init...")
                 (configuration-layer/sync)
-                (if arg
+                (if (member arg '(4 16))
                     (message (concat "Done (`dotspacemacs/config'function has "
                                      "been skipped)."))
                   ;; TODO remove support for dotspacemacs/config in 0.105
@@ -321,7 +322,7 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
                     vim)
                    ("On the planet Emacs in the Holy control tower (emacs)"
                     emacs)))))
-             ("dotspacemacs-distribution 'spacemacs"
+             ("dotspacemacs-distribution 'spacemacs-core"
               ,(format
                 "dotspacemacs-distribution '%S"
                 (dotspacemacs//ido-completing-read
