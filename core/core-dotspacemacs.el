@@ -461,8 +461,8 @@ If MSG is not nil then display a message in `*Messages'."
     'dotspacemacs-auto-save-file-location (concat "is one of \'original, "
                                                   "\'cache or nil"))
    (spacemacs//test-var
-    (lambda (x) (member x '(all current nil)))
-    'dotspacemacs-highlight-delimiters "is one of \'all, \'current or nil")
+    (lambda (x) (member x '(all any current nil)))
+    'dotspacemacs-highlight-delimiters "is one of \'all, \'any, \'current or nil")
    (spacemacs//test-list
     (lambda (x) (member x '(recents bookmarks projects)))
     'dotspacemacs-startup-lists (concat "includes only \'recents, "
