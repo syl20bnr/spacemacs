@@ -201,9 +201,7 @@ FILE-TO-LOAD is an explicit file to load after the installation."
     (spacemacs-buffer/set-mode-line "Dotfile wizard installer")
     (spacemacs//redisplay)
     (when (dotspacemacs/install 'with-wizard)
-      (dotspacemacs/sync-configuration-layers)
-      (spacemacs-buffer/append
-       "The dotfile has been installed.\n"))))
+      (dotspacemacs/sync-configuration-layers '(16)))))
 
 (defun spacemacs/display-and-copy-version ()
   "Echo the current spacemacs version and copy it."
