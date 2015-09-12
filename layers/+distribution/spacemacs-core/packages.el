@@ -457,8 +457,8 @@ Example: (evil-map visual \"<\" \"<gv\")"
             '(emacs insert normal visual motion))
       ;; experimental: map SPC m to ,
       (when dotspacemacs-major-mode-leader-key
-        (add-hook 'after-change-major-mode-hook
-                  'spacemacs/activate-major-mode-leader)))))
+        (add-hook 'evil-local-mode-hook
+                  'spacemacs/activate-major-mode-leader t)))))
 
 (defun spacemacs-core/init-evil-surround ()
   (use-package evil-surround
