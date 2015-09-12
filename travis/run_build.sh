@@ -11,7 +11,8 @@
 ##
 ## License: GPLv3
 
-tests=("core" "spacemacs")
+tests=("core"
+       "layers/+distribution/spacemacs")
 
 if [ $USER != "travis" ]; then
     echo "This script is not designed to run locally."
