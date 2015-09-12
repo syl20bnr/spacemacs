@@ -63,7 +63,7 @@
   "Global minor mode to replaces the `evil-insert-state' keymap
 with `evil-hybrid-state-map'."
   :global t
-  :lighter " Hy"
+  :lighter " hybrid"
   :group 'spacemacs
   (if hybrid-mode
       (setf (symbol-function 'evil-insert-state)
