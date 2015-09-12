@@ -125,19 +125,26 @@ If ALL is non-nil then truly all banners can be selected."
 (defun spacemacs-buffer//inject-version ()
   "Inject the current version of spacemacs in the first line of the
 buffer, right justified."
-  (save-excursion
-    (beginning-of-buffer)
-    (let* ((maxcol spacemacs-buffer--banner-length)
-           (injected (format "(%s)" spacemacs-version))
-           (pos (- maxcol (length injected)))
-           (buffer-read-only nil))
-      ;; fill the first line with spaces if required
-      (when (< (line-end-position) maxcol)
-        (end-of-line)
-        (insert-char ?\s (- maxcol (line-end-position))))
-      (goto-char pos)
-      (delete-char (length injected))
-      (insert injected))))
+  (with-current-buffer (get-buffer-create "*spacemacs*")
+    (save-excursion
+      (let* ((maxcol spacemacs-buffer--banner-length)
+             (injected (format "(%s-%s)"
+                               dotspacemacs-distribution spacemacs-version))
+             (pos (- maxcol (length injected)))
+             (buffer-read-only nil))
+        ;; reset first line
+        (beginning-of-buffer)
+        (let ((buffer-read-only nil))
+          (end-of-line)
+          (kill-line (- maxcol)))
+        (beginning-of-buffer)
+        ;; fill the first line with spaces if required
+        (when (< (line-end-position) maxcol)
+          (end-of-line)
+          (insert-char ?\s (- maxcol (line-end-position))))
+        (goto-char pos)
+        (delete-char (length injected))
+        (insert injected)))))
 
 (defun spacemacs-buffer//insert-note (file caption &optional additional-widgets)
   "Insert the release note just under the banner.
