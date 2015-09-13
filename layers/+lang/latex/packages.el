@@ -42,7 +42,8 @@
             LaTeX-fill-break-at-separators nil)
       (when latex-enable-auto-fill
         (add-hook 'LaTeX-mode-hook 'latex/auto-fill-mode))
-      (add-hook 'LaTeX-mode-hook 'latex-math-mode))
+      (add-hook 'LaTeX-mode-hook 'latex-math-mode)
+      (add-hook 'LaTeX-mode-hook 'outline-minor-mode))
     :config
     (progn
       ;; Key bindings for plain TeX
@@ -77,10 +78,10 @@
         "mv" 'TeX-view))))
 
 (when (string= latex-build-command "LatexMk")
-(defun latex/init-auctex-latexmk ()
-  (use-package auctex-latexmk
-    :defer t
-    :init (add-hook 'LaTeX-mode-hook 'auctex-latexmk-setup))))
+  (defun latex/init-auctex-latexmk ()
+    (use-package auctex-latexmk
+      :defer t
+      :init (add-hook 'LaTeX-mode-hook 'auctex-latexmk-setup))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun latex/post-init-company ()
