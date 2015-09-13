@@ -76,8 +76,7 @@
             company-require-match nil
             company-dabbrev-ignore-case nil
             company-dabbrev-downcase nil
-            company-frontends '(company-pseudo-tooltip-frontend)
-            company-clang-prefix-guesser 'company-mode/more-than-prefix-guesser))
+            company-frontends '(company-pseudo-tooltip-frontend)))
             (defvar-local company-fci-mode-on-p nil)
 
         (defun company-turn-off-fci (&rest ignore)
