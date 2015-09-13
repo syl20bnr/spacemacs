@@ -26,6 +26,7 @@
     sass-mode
     scss-mode
     slim-mode
+    smartparens
     tagedit
     web-mode
     yasnippet
@@ -110,8 +111,8 @@
   (use-package helm-css-scss
     :defer t
     :init
-    (eval-after-load 'scss-mode
-      '(evil-leader/set-key-for-mode 'scss-mode "mgh" 'helm-css-scss))))
+    (dolist (mode '(css-mode scss-mode))
+      (evil-leader/set-key-for-mode mode "mgh" 'helm-css-scss))))
 
 (defun html/init-jade-mode ()
   (use-package jade-mode
@@ -135,6 +136,12 @@
 (defun html/init-slim-mode ()
   (use-package slim-mode
     :defer t))
+
+(defun html/post-init-smartparens ()
+  (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
+                              'smartparens-strict-mode
+                            'smartparens-mode)
+                          '(css-mode-hook scss-mode-hook sass-mode-hook less-css-mode-hook)))
 
 (defun html/init-tagedit ()
   (use-package tagedit
