@@ -225,9 +225,6 @@ These should have their own segments in the modeline.")
       eshell-directory-name (concat spacemacs-cache-directory "eshell" )
       tramp-persistency-file-name (concat spacemacs-cache-directory "tramp"))
 
-;; increase memory threshold for GC
-(setq gc-cons-threshold 20000000)
-
 ;; seems pointless to warn. There's always undo.
 (put 'narrow-to-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
