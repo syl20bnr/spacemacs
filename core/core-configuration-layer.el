@@ -102,7 +102,7 @@
    (location :initarg :location
              :initform elpa
              :type (satisfies (lambda (x)
-                                (or (member x '(local elpa))
+                                (or (member x '(local local-dotfile elpa))
                                     (and (listp x) (eq 'recipe (car x))))))
              :documentation "Location of the package.")
    (step :initarg :step
@@ -146,7 +146,7 @@ directory with a name starting with `+'.")
   (configuration-layer//configure-layers configuration-layer--layers)
   ;; packages
   (setq configuration-layer--packages (configuration-layer//declare-packages
-                                      configuration-layer--layers))
+                                       configuration-layer--layers))
   (setq configuration-layer--used-distant-packages
         (configuration-layer//get-distant-used-packages
          configuration-layer--packages))
@@ -329,11 +329,17 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
     ;; additional and excluded packages from dotfile
     (when dotfile
       (dolist (apkg dotspacemacs-additional-packages)
-        (let ((obj (object-assoc apkg :name result)))
-          (unless obj
+        (let* ((apkg-name (if (listp apkg) (car apkg) apkg))
+               (props (when (listp apkg) (cdr apkg)))
+               (obj (object-assoc apkg-name :name result)))
+          (if obj
+              (configuration-layer/make-package apkg obj)
             (setq obj (configuration-layer/make-package apkg))
-            (push obj result))
-          (oset obj :owner 'dotfile)))
+            (push obj result)
+            (oset obj :owner 'dotfile))
+          ;; If location is specified and equal to local, make it local-dotfile
+          (when (eq 'local (plist-get props :location))
+            (oset obj :location 'local-dotfile))))
       (dolist (xpkg dotspacemacs-excluded-packages)
         (let ((obj (object-assoc xpkg :name result)))
           (unless obj
@@ -358,7 +364,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
   "Return the distant packages (ie to be intalled) that are effectively used."
   (configuration-layer/filter-objects
    packages (lambda (x) (and (not (null (oref x :owner)))
-                             (not (eq 'local (oref x :location)))
+                             (not (memq (oref x :location) '(local local-dotfile)))
                              (not (oref x :excluded))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
@@ -746,6 +752,11 @@ path."
           (push (format "%slocal/%S/" dir pkg-name) load-path)
           ;; TODO remove extensions in 0.105.0
           (push (format "%sextensions/%S/" dir pkg-name) load-path))
+        (configuration-layer//configure-package pkg))
+       ((eq 'local-dotfile (oref pkg :location))
+        (push (format "%slocal/%S/" user-emacs-directory pkg-name) load-path)
+        ;; TODO remove extensions in 0.105.0
+        (push (format "%sextensions/%S/" user-emacs-directory pkg-name) load-path)
         (configuration-layer//configure-package pkg))
        (t
         (configuration-layer//activate-package pkg-name)
