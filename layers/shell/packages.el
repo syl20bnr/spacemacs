@@ -27,6 +27,10 @@
 (defun shell/pre-init-company ()
   ;; support in eshell
   (spacemacs|use-package-add-hook eshell
+    :post-init
+    (progn
+      (push 'company-capf company-backends-eshell-mode)
+      (spacemacs|add-company-hook eshell-mode))
     :post-config
     (progn
       (defun spacemacs//toggle-shell-auto-completion-based-on-path ()
@@ -45,9 +49,7 @@ the user activate the completion manually."
         "Sets the company frontend to `company-preview-frontend' in e-shell mode."
         (setq-local company-frontends '(company-preview-frontend)))
       (add-hook 'eshell-mode-hook
-                'spacemacs//eshell-switch-company-frontend)
-      (push 'company-capf company-backends-eshell-mode)
-      (spacemacs|add-company-hook eshell-mode))))
+                'spacemacs//eshell-switch-company-frontend))))
 
 (defun shell/init-eshell ()
   (use-package eshell
