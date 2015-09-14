@@ -15,6 +15,7 @@
     bundler
     company
     enh-ruby-mode
+    evil-matchit
     flycheck
     robe
     ruby-test-mode
@@ -54,6 +55,16 @@
                        :pre-handlers '(sp-ruby-pre-handler)
                        :post-handlers '(sp-ruby-post-handler (spacemacs/smartparens-pair-newline-and-indent "RET"))
                        :suffix "")))))
+
+(defun ruby/post-init-evil-matchit ()
+  (use-package evil-matchit-ruby
+    :defer t
+    :init (add-hook `enh-ruby-mode `turn-on-evil-matchit-mode)
+    :config
+    (progn
+      (plist-put evilmi-plugins 'enh-ruby-mode '((evilmi-simple-get-tag evilmi-simple-jump)
+                                                 (evilmi-ruby-get-tag evilmi-ruby-jump))))))
+
 
 (defun ruby/post-init-flycheck ()
   (add-hook 'enh-ruby-mode-hook 'flycheck-mode))
