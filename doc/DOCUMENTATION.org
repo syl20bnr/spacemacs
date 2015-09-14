@@ -1191,7 +1191,8 @@ Initiate the micro-state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
 
 | Key Binding          | Description                                      |
 |----------------------+--------------------------------------------------|
-| ~M-SPC~ or ~s-M-SPC~ | initiate or leave the micro-state                |
+| ~M-SPC~ or ~s-M-SPC~ | initiate the micro-state                         |
+| ~q~                  | quit micro-state                                 |
 | ~TAB~                | switch to actions page and leave the micro-state |
 | ~1~                  | execute action 0                                 |
 | ~2~                  | execute action 1                                 |
@@ -1210,7 +1211,6 @@ Initiate the micro-state with ~M-SPC~ or ~s-M-SPC~ while in a =Helm= buffer.
 | ~j~                  | select next candidate                            |
 | ~k~                  | select previous candidate                        |
 | ~l~                  | go to next source                                |
-| ~q~                  | quit micro-state                                 |
 | ~t~                  | mark current candidate                           |
 | ~T~                  | mark all candidates                              |
 | ~v~                  | execute persistent action                        |
