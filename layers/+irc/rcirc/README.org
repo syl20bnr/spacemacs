@@ -148,7 +148,7 @@ For now authinfo is mandatory to use the ZNC configuration.
 
    #+BEGIN_SRC emacs-lisp
      (setq-default dotspacemacs-configuration-layers '(
-       (rcirc :variables rcirc-enable-authinfo-support t)))
+       (rcirc :variables rcirc-enable-znc-support t)))
    #+END_SRC
 
 2) In your =~/.authinfo.gpg= file store your credentials like this:
