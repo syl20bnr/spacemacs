@@ -59,7 +59,7 @@
 (defun ruby/post-init-evil-matchit ()
   (use-package evil-matchit-ruby
     :defer t
-    :init (add-hook `enh-ruby-mode `turn-on-evil-matchit-mode)
+    :init (add-hook `enh-ruby-mode-hook `turn-on-evil-matchit-mode)
     :config
     (progn
       (plist-put evilmi-plugins 'enh-ruby-mode '((evilmi-simple-get-tag evilmi-simple-jump)
