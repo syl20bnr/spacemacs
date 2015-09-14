@@ -1098,7 +1098,7 @@ to select one."
    ((version<= "25.0.50" emacs-version)
     (let ((p (cadr (assq pkg-name package-alist))))
       ;; add force flag to ignore dependency checks in Emacs25
-      (when p (package-delete p t))))
+      (when p (package-delete p t t))))
    (t (let ((p (cadr (assq pkg-name package-alist))))
         (when p (package-delete p))))))
 
