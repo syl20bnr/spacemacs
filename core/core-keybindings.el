@@ -40,14 +40,23 @@ be added. PREFIX is a string describing a key sequence. NAME is a symbol name
 used as the prefix command."
   (let  ((command (intern (concat (symbol-name mode) name)))
          (full-prefix (concat dotspacemacs-leader-key " " prefix))
-         (full-prefix-emacs (concat dotspacemacs-emacs-leader-key " " prefix)))
+         (full-prefix-emacs (concat dotspacemacs-emacs-leader-key " " prefix))
+         (is-major-mode-prefix (string-prefix-p "m" prefix))
+         (major-mode-prefix (concat dotspacemacs-major-mode-leader-key " " (substring prefix 1)))
+         (major-mode-prefix-emacs (concat dotspacemacs-major-mode-emacs-leader-key " " (substring prefix 1))))
     (unless long-name (setq long-name name))
-    (if (fboundp 'which-key-declare-prefixes-for-mode)
-        (which-key-declare-prefixes-for-mode mode
-          full-prefix-emacs (cons name long-name)
-          full-prefix (cons name long-name))
-      (define-prefix-command command)
-      (evil-leader/set-key-for-mode mode prefix command))))
+    (let ((prefix-name (cons name long-name)))
+      (if (fboundp 'which-key-declare-prefixes-for-mode)
+          (progn
+            (which-key-declare-prefixes-for-mode mode
+              full-prefix-emacs prefix-name
+              full-prefix prefix-name)
+            (when is-major-mode-prefix
+              (which-key-declare-prefixes-for-mode mode
+                major-mode-prefix prefix-name
+                major-mode-prefix-emacs prefix-name)))
+        (define-prefix-command command)
+        (evil-leader/set-key-for-mode mode prefix command)))))
 
 (defun spacemacs/activate-major-mode-leader ()
   "Bind major mode key map to `dotspacemacs-major-mode-leader-key'."
