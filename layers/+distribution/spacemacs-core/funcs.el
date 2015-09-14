@@ -63,10 +63,6 @@
 (defun spacemacs/system-is-mswindows ()
   (string-equal system-type "windows-nt"))
 
-(defvar spacemacs/prefix-command-string "group:"
-  "Prefix string for prefix commands.")
-(defvar spacemacs/prefix-titles (list))
-
 (defun spacemacs/jump-in-buffer ()
   (interactive)
   (cond
@@ -75,11 +71,14 @@
    (t
     (call-interactively 'helm-semantic-or-imenu))))
 
+(defvar spacemacs/prefix-titles nil
+  "alist for mapping command prefixes to long names.")
+
 (defun spacemacs/declare-prefix (prefix name &optional long-name)
   "Declare a prefix PREFIX. PREFIX is a string describing a key
 sequence. NAME is a symbol name used as the prefix command.
-LONG-NAME if given is stored in `spacemacs/prefix-command-alist'."
-  (let* ((command (intern (concat spacemacs/prefix-command-string name)))
+LONG-NAME if given is stored in `spacemacs/prefix-titles'."
+  (let* ((command name)
          (full-prefix (concat dotspacemacs-leader-key " " prefix))
          (full-prefix-emacs (concat dotspacemacs-emacs-leader-key " " prefix))
          (full-prefix-lst (listify-key-sequence (kbd full-prefix)))
@@ -101,7 +100,7 @@ LONG-NAME if given is stored in `spacemacs/prefix-command-alist'."
   "Declare a prefix PREFIX. MODE is the mode in which this prefix command should
 be added. PREFIX is a string describing a key sequence. NAME is a symbol name
 used as the prefix command."
-  (let  ((command (intern (concat spacemacs/prefix-command-string name)))
+  (let  ((command (intern (concat (symbol-name mode) name)))
          (full-prefix (concat dotspacemacs-leader-key " " prefix))
          (full-prefix-emacs (concat dotspacemacs-emacs-leader-key " " prefix)))
     (unless long-name (setq long-name name))
