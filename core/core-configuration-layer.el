@@ -331,12 +331,14 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
                         (oset obj :step step)))))))))))
     ;; additional and excluded packages from dotfile
     (when dotfile
-      (dolist (apkg dotspacemacs-additional-packages)
-        (let ((obj (object-assoc apkg :name result)))
-          (unless obj
-            (setq obj (configuration-layer/make-package apkg))
-            (push obj result))
-          (oset obj :owner 'dotfile)))
+      (dolist (pkg dotspacemacs-additional-packages)
+        (let* ((pkg-name (if (listp pkg) (car pkg) pkg))
+               (obj (object-assoc pkg-name :name result)))
+          (if obj
+              (setq obj (configuration-layer/make-package pkg obj))
+            (setq obj (configuration-layer/make-package pkg))
+            (push obj result)
+            (oset obj :owner 'dotfile))))
       (dolist (xpkg dotspacemacs-excluded-packages)
         (let ((obj (object-assoc xpkg :name result)))
           (unless obj
