@@ -431,7 +431,11 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :init
     (progn
       (setq evil-leader/leader dotspacemacs-leader-key)
-      (global-evil-leader-mode))
+      (global-evil-leader-mode)
+      ;; This is the same hook used by evil-leader. We make sure that this
+      ;; function is called after `evil-leader-mode' using the last argument
+      (add-hook 'evil-local-mode-hook
+                #'spacemacs-additional-leader-mode t))
     :config
     (progn
       ;; Unset shortcuts which shadow evil leader
@@ -439,27 +443,14 @@ Example: (evil-map visual \"<\" \"<gv\")"
         '(progn
            ;; (define-key compilation-mode-map (kbd dotspacemacs-leader-key) nil)
            (define-key compilation-mode-map (kbd "h") nil)))
-      ;; (eval-after-load "dired"
-      ;;   '(define-key dired-mode-map (kbd dotspacemacs-leader-key) nil))
-      ;; make leader available in visual and motion states
-      (mapc (lambda (s)
-              (eval `(define-key
-                       ,(intern (format "evil-%S-state-map" s))
-                       ,(kbd dotspacemacs-leader-key)
-                       evil-leader--default-map)))
-            '(motion visual))
-      ;; emacs and insert states (make it also available in other states
-      ;; for consistency and POLA.)
-      (mapc (lambda (s)
-              (eval `(define-key
-                       ,(intern (format "evil-%S-state-map" s))
-                       ,(kbd dotspacemacs-emacs-leader-key)
-                       evil-leader--default-map)))
-            '(emacs insert normal visual motion))
-      ;; experimental: map SPC m to ,
-      (when dotspacemacs-major-mode-leader-key
-        (add-hook 'evil-local-mode-hook
-                  'spacemacs/activate-major-mode-leader t)))))
+      ;; (eval-after-load "dired" '(define-key dired-mode-map (kbd
+      ;;   dotspacemacs-leader-key) nil))
+      ;; evil-leader does not get activated in existing buffers, so we have to
+      ;; force it here
+      (dolist (buffer (buffer-list))
+        (with-current-buffer buffer
+          (evil-leader-mode 1)
+          (spacemacs-additional-leader-mode 1))))))
 
 (defun spacemacs-base/init-evil-surround ()
   (use-package evil-surround
@@ -964,10 +955,7 @@ ARG non nil means that the editing style is `vim'."
         :on (hybrid-mode)
         :off (hybrid-mode -1)
         :documentation "Globally toggle hybrid mode."
-        :evil-leader "E Y")
-      (eval-after-load 'evil-leader
-        '(define-key evil-hybrid-state-map
-           (kbd dotspacemacs-emacs-leader-key) evil-leader--default-map)))))
+        :evil-leader "E Y"))))
 
 (defun spacemacs-base/init-ido-vertical-mode ()
   (use-package ido-vertical-mode
