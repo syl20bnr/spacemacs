@@ -25,13 +25,13 @@
         (shell-command "go test"))
 
       (evil-leader/set-key-for-mode 'go-mode
-        "mdp" 'godoc-at-point
+        "mhp" 'godoc-at-point
         "mig" 'go-goto-imports
         "mia" 'go-import-add
         "mir" 'go-remove-unused-imports
-        "mpb" 'go-play-buffer
-        "mpr" 'go-play-region
-        "mpd" 'go-download-play
+        "meb" 'go-play-buffer
+        "mer" 'go-play-region
+        "med" 'go-download-play
         "mga" 'ff-find-other-file
         "mgg" 'godef-jump
         "mtp" 'spacemacs/go-run-package-tests))))

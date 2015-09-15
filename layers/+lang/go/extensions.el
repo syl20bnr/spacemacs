@@ -56,4 +56,4 @@
 (defun go/init-go-rename()
   (use-package go-rename
     :init
-    (evil-leader/set-key-for-mode 'go-mode "mr" 'go-rename)))
+    (evil-leader/set-key-for-mode 'go-mode "mrn" 'go-rename)))
