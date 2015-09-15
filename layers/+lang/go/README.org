@@ -48,16 +48,17 @@ To use this contribution add it to your =~/.spacemacs=
 ** Go commands (start with =m=):
 | Key Binding | Description                                               |
 |-------------+-----------------------------------------------------------|
-| ~SPC m d p~ | godoc at point                                            |
+| ~SPC m h p~ | godoc at point                                            |
 | ~SPC m i g~ | goto imports                                              |
 | ~SPC m i a~ | add import                                                |
 | ~SPC m i r~ | remove unused import                                      |
-| ~SPC m p b~ | go-play buffer                                            |
-| ~SPC m p r~ | go-play region                                            |
-| ~SPC m p d~ | download go-play snippet                                  |
+| ~SPC m e b~ | go-play buffer                                            |
+| ~SPC m e r~ | go-play region                                            |
+| ~SPC m e d~ | download go-play snippet                                  |
 | ~SPC m t p~ | run "go test" for the current package                     |
 | ~SPC m g a~ | jump to matching test file or back from test to code file |
 | ~SPC m g g~ | go jump to definition                                     |
+| ~SPC m r n~ | go rename                                                 |
 
 
 ** Go Oracle
