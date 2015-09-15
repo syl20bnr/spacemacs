@@ -26,3 +26,7 @@
 (defun spacemacs/rust-cargo-doc ()
   (interactive)
   (compile "cargo doc"))
+
+(defun spacemacs/rust-cargo-clean ()
+  (interactive)
+  (compile "cargo clean"))
