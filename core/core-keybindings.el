@@ -14,7 +14,7 @@
 
 (defun spacemacs/declare-prefix (prefix name &optional long-name)
   "Declare a prefix PREFIX. PREFIX is a string describing a key
-sequence. NAME is a symbol name used as the prefix command.
+sequence. NAME is a string used as the prefix command.
 LONG-NAME if given is stored in `spacemacs/prefix-titles'."
   (let* ((command name)
          (full-prefix (concat dotspacemacs-leader-key " " prefix))
@@ -29,7 +29,7 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
           full-prefix-emacs (cons name long-name)
           full-prefix (cons name long-name))
       (unless (lookup-key evil-leader--default-map prefix)
-        (define-prefix-command command)
+        (define-prefix-command (intern command))
         (evil-leader/set-key prefix command)
         (push (cons full-prefix-lst long-name) spacemacs/prefix-titles)
         (push (cons full-prefix-emacs-lst long-name) spacemacs/prefix-titles)))))
