@@ -61,6 +61,9 @@
       :init (push 'company-racer company-backends-rust-mode))))
 
 (defun rust/init-racer ()
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-copy-env "RUST_SRC_PATH"))
+
   (use-package racer
     :if rust-enable-racer
     :defer t
