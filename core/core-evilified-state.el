@@ -92,7 +92,8 @@ BODY is a list of additional key bindings to apply for the given MAP in
               (unless (memq ',mode spacemacs-core-evilified-state--modes)
                 (push ',mode spacemacs-core-evilified-state--modes))
               (unless (or (bound-and-true-p holy-mode)
-                          (memq ',mode evil-evilified-state-modes))
+                          (memq ',mode evil-evilified-state-modes)
+                          (memq ',mode dotspacemacs-evilify-blacklist))
                 (delq ',mode evil-emacs-state-modes)
                 (push ',mode evil-evilified-state-modes)))
             (unless ,(null defkey) (,@defkey)))))
@@ -127,7 +128,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
          (eval-after-load (plist-get props :eval-after-load))
          (bindings (spacemacs/mplist-get props :bindings))
          (defkey (when bindings `(evil-define-key 'evilified ,map ,@bindings)))
-         (body 
+         (body
           `(progn
              (let ((sorted-map (spacemacs//evilify-sort-keymap
                                 (or ,evilified-map evil-evilified-state-map)))
@@ -154,7 +155,8 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
 (defun spacemacs/evilify-configure-default-state (mode)
   "Configure default state for the passed mode."
   (add-to-list 'spacemacs-core-evilified-state--modes mode)
-  (unless (bound-and-true-p holy-mode)
+  (unless (or (memq mode dotspacemacs-evilify-blacklist)
+              (bound-and-true-p holy-mode))
     (delq mode evil-emacs-state-modes)
     (add-to-list 'evil-evilified-state-modes mode)))
 
