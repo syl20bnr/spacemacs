@@ -30,7 +30,7 @@ LONG-NAME if given is stored in `spacemacs/prefix-titles'."
           full-prefix (cons name long-name))
       (unless (lookup-key evil-leader--default-map prefix)
         (define-prefix-command (intern command))
-        (evil-leader/set-key prefix command)
+        (evil-leader/set-key prefix (intern command))
         (push (cons full-prefix-lst long-name) spacemacs/prefix-titles)
         (push (cons full-prefix-emacs-lst long-name) spacemacs/prefix-titles)))))
 
