@@ -68,6 +68,24 @@ Or set this variable when loading the configuration layer:
 
 ** CIDER and clj-refactor
 
+*** Quick Start with boot
+
+- Install =boot= (see https://github.com/boot-clj/boot#install)
+- Create a file =~/.boot/profile.boot= with the following content:
+
+#+BEGIN_SRC clojure
+(require 'boot.repl)
+
+(swap! boot.repl/*default-dependencies* conj
+       '[refactor-nrepl "1.2.0-SNAPSHOT"]
+       '[cider/cider-nrepl "0.10.0-SNAPSHOT"])
+
+(swap! boot.repl/*default-middleware* conj
+       'refactor-nrepl.middleware/wrap-refactor)
+#+END_SRC
+
+- Run ~SPC m s i~ in any of the clojure source files to connect to the CIDER REPL.
+
 *** Quick Start with lein
 
 - Install =lein= via your OS package manager.
@@ -82,7 +100,7 @@ Or set this variable when loading the configuration layer:
 
 - After creating your project with ~lein new app <projectname>~ or
   importing an existing project, run ~SPC m s i~ in any of the clojure
-  source files to connect to the Cider REPL.
+  source files to connect to the CIDER REPL.
 
 *** More details
 
