@@ -27,7 +27,7 @@
   and =<layer>-excluded-packages= variables are now optional and will be
   deprecated in the next version 0.105.0.
 - New =distribution= concept, you can now choose between two distribution
-  layers: =spacemacs= and =spacemacs-base=. =spacemacs-base= contains only
+  layers: =spacemacs= and =spacemacs-core=. =spacemacs-core= contains only
   a minimal set of packages. Use =spacemacs= distribution to get the full
   Spacemacs experience.
 - Add support for =Quelpa= which allows to use =Melpa= to install packages
