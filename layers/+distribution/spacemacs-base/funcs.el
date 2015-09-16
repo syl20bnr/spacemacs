@@ -475,7 +475,6 @@ dotspacemacs-persistent-server to be t"
 (defun spacemacs/frame-killer ()
   "Kill server buffer and hide the main Emacs window"
   (interactive)
-  (server-kill-buffer)
   (condition-case nil
       (delete-frame nil 1)
       (error
