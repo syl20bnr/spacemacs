@@ -10,7 +10,7 @@
 ;;
 ;;; License: GPLv3
 
-(setq spacemacs-core-packages
+(setq spacemacs-base-packages
       '(
         bind-key
         bookmark
@@ -55,9 +55,9 @@
 
 ;; Initialization of packages
 
-(defun spacemacs-core/init-bind-key ())
+(defun spacemacs-base/init-bind-key ())
 
-(defun spacemacs-core/init-bookmark ()
+(defun spacemacs-base/init-bookmark ()
   (use-package bookmark
     :defer t
     :init
@@ -65,7 +65,7 @@
           ;; autosave each change
           bookmark-save-flag 1)))
 
-(defun spacemacs-core/init-diminish ()
+(defun spacemacs-base/init-diminish ()
   (use-package diminish
     :init
     (progn
@@ -86,7 +86,7 @@
         '(when (eval-when-compile (version< "24.3.1" emacs-version))
            (diminish 'subword-mode))))))
 
-(defun spacemacs-core/init-eldoc ()
+(defun spacemacs-base/init-eldoc ()
   (use-package eldoc
     :defer t
     :config
@@ -98,17 +98,17 @@
       ;; don't display eldoc on modeline
       (spacemacs|hide-lighter eldoc-mode))))
 
-(defun spacemacs-core/init-builtin-process-menu ()
+(defun spacemacs-base/init-builtin-process-menu ()
   (evilify process-menu-mode process-menu-mode-map))
 
-(defun spacemacs-core/init-builtin-ido ()
+(defun spacemacs-base/init-builtin-ido ()
   (ido-mode t)
   (setq ido-save-directory-list-file (concat spacemacs-cache-directory
                                              "ido.last")
         ;; enable fuzzy matching
         ido-enable-flex-matching t))
 
-(defun spacemacs-core/init-builtin-hs-minor-mode ()
+(defun spacemacs-base/init-builtin-hs-minor-mode ()
   ;; required for evil folding
   (defun spacemacs//enable-hs-minor-mode ()
     "Enable hs-minor-mode for code folding."
@@ -117,10 +117,10 @@
       (spacemacs|hide-lighter hs-minor-mode)))
   (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode))
 
-(defun spacemacs-core/init-builtin-electric-indent-mode ()
+(defun spacemacs-base/init-builtin-electric-indent-mode ()
   (electric-indent-mode))
 
-(defun spacemacs-core/init-builtin-uniquify ()
+(defun spacemacs-base/init-builtin-uniquify ()
   (require 'uniquify)
   ;; When having windows with repeated filenames, uniquify them
   ;; by the folder they are in rather those annoying <2>,<3>,.. etc
@@ -145,7 +145,7 @@
 ;; ;; inside the use-package function
 ;; (add-hook 'ediff-keymap-setup-hook 'ediff/setup-ediff-keymaps)
 ;; ```
-(defun spacemacs-core/init-ediff ()
+(defun spacemacs-base/init-ediff ()
   (use-package ediff
     :defer t
     :init
@@ -157,7 +157,7 @@
        ediff-split-window-function 'split-window-horizontally
        ediff-merge-split-window-function 'split-window-horizontally))))
 
-(defun spacemacs-core/init-eldoc ()
+(defun spacemacs-base/init-eldoc ()
   (use-package eldoc
     :defer t
     :config
@@ -169,7 +169,7 @@
       ;; don't display eldoc on modeline
       (spacemacs|hide-lighter eldoc-mode))))
 
-(defun spacemacs-core/init-evil ()
+(defun spacemacs-base/init-evil ()
   (use-package evil
     :init
     (progn
@@ -418,14 +418,14 @@ Example: (evil-map visual \"<\" \"<gv\")"
               (call-interactively 'sp-backward-delete-char)
             ad-do-it))))))
 
-(defun spacemacs-core/init-evil-escape ()
+(defun spacemacs-base/init-evil-escape ()
   (use-package evil-escape
     :init
     (evil-escape-mode)
     :config
     (spacemacs|hide-lighter evil-escape-mode)))
 
-(defun spacemacs-core/init-evil-leader ()
+(defun spacemacs-base/init-evil-leader ()
   (use-package evil-leader
     :init
     (progn
@@ -460,7 +460,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
         (add-hook 'evil-local-mode-hook
                   'spacemacs/activate-major-mode-leader t)))))
 
-(defun spacemacs-core/init-evil-surround ()
+(defun spacemacs-base/init-evil-surround ()
   (use-package evil-surround
     :init
     (progn
@@ -470,7 +470,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (evil-define-key 'visual evil-surround-mode-map "s" 'evil-surround-region)
       (evil-define-key 'visual evil-surround-mode-map "S" 'evil-substitute))))
 
-(defun spacemacs-core/init-evil-visualstar ()
+(defun spacemacs-base/init-evil-visualstar ()
   (use-package evil-visualstar
     :commands (evil-visualstar/begin-search-forward
                evil-visualstar/begin-search-backward)
@@ -481,12 +481,12 @@ Example: (evil-map visual \"<\" \"<gv\")"
       (define-key evil-visual-state-map (kbd "#")
         'evil-visualstar/begin-search-backward))))
 
-(defun spacemacs-core/init-exec-path-from-shell ()
+(defun spacemacs-base/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
     :init (when (memq window-system '(mac ns x))
             (exec-path-from-shell-initialize))))
 
-(defun spacemacs-core/init-fill-column-indicator ()
+(defun spacemacs-base/init-fill-column-indicator ()
   (use-package fill-column-indicator
     :defer t
     :init
@@ -505,7 +505,7 @@ Example: (evil-map visual \"<\" \"<gv\")"
     :config
     (spacemacs|hide-lighter fci-mode)))
 
-(defun spacemacs-core/init-helm ()
+(defun spacemacs-base/init-helm ()
   (use-package helm
     :defer 1
     :commands (spacemacs/helm-find-files)
@@ -892,7 +892,7 @@ ARG non nil means that the editing style is `vim'."
       (eval-after-load "helm-mode" ; required
         '(spacemacs|hide-lighter helm-mode)))))
 
-(defun spacemacs-core/init-helm-descbinds ()
+(defun spacemacs-base/init-helm-descbinds ()
   (use-package helm-descbinds
     :defer t
     :init
@@ -901,7 +901,7 @@ ARG non nil means that the editing style is `vim'."
       (add-hook 'helm-mode-hook 'helm-descbinds-mode)
       (evil-leader/set-key "?" 'helm-descbinds))))
 
-(defun spacemacs-core/init-helm-projectile ()
+(defun spacemacs-base/init-helm-projectile ()
   (use-package helm-projectile
     :commands (helm-projectile-switch-to-buffer
                helm-projectile-find-dir
@@ -933,13 +933,13 @@ ARG non nil means that the editing style is `vim'."
         "pv"  'projectile-vc
         "sgp" 'helm-projectile-grep))))
 
-(defun spacemacs-core/init-helm-spacemacs ()
+(defun spacemacs-base/init-helm-spacemacs ()
   (use-package helm-spacemacs
     :commands helm-spacemacs
     :init
     (evil-leader/set-key "feh" 'helm-spacemacs)))
 
-(defun spacemacs-core/init-holy-mode ()
+(defun spacemacs-base/init-holy-mode ()
   (use-package holy-mode
     :commands holy-mode
     :init
@@ -953,7 +953,7 @@ ARG non nil means that the editing style is `vim'."
         :documentation "Globally toggle holy mode."
         :evil-leader "E H"))))
 
-(defun spacemacs-core/init-hybrid-mode ()
+(defun spacemacs-base/init-hybrid-mode ()
   (use-package hybrid-mode
     :config
     (progn
@@ -968,7 +968,7 @@ ARG non nil means that the editing style is `vim'."
         '(define-key evil-hybrid-state-map
            (kbd dotspacemacs-emacs-leader-key) evil-leader--default-map)))))
 
-(defun spacemacs-core/init-ido-vertical-mode ()
+(defun spacemacs-base/init-ido-vertical-mode ()
   (use-package ido-vertical-mode
     :init
     (progn
@@ -1141,17 +1141,17 @@ ARG non nil means that the editing style is `vim'."
         ("t" spacemacs/ido-invoke-in-new-frame :exit t)
         ("v" spacemacs/ido-invoke-in-horizontal-split :exit t)))))
 
-(defun spacemacs-core/init-page-break-lines ()
+(defun spacemacs-base/init-page-break-lines ()
   (use-package page-break-lines
     :init
     (global-page-break-lines-mode t)
     (spacemacs|hide-lighter page-break-lines-mode)))
 
-(defun spacemacs-core/init-popup ()
+(defun spacemacs-base/init-popup ()
   (use-package popup
     :defer t))
 
-(defun spacemacs-core/init-popwin ()
+(defun spacemacs-base/init-popwin ()
   (use-package popwin
     :config
     (progn
@@ -1180,7 +1180,7 @@ ARG non nil means that the editing style is `vim'."
                                        (string-match str (car x))))
                        popwin:special-display-config))))))
 
-(defun spacemacs-core/init-projectile ()
+(defun spacemacs-base/init-projectile ()
   (use-package projectile
     :commands (projectile-ack
                projectile-ag
@@ -1243,9 +1243,9 @@ ARG non nil means that the editing style is `vim'."
       (projectile-global-mode)
       (spacemacs|hide-lighter projectile-mode))))
 
-(defun spacemacs-core/init-quelpa ())
+(defun spacemacs-base/init-quelpa ())
 
-(defun spacemacs-core/init-recentf ()
+(defun spacemacs-base/init-recentf ()
   (use-package recentf
     :defer t
     :init
@@ -1262,7 +1262,7 @@ ARG non nil means that the editing style is `vim'."
     (setq recentf-auto-cleanup 'never)
     (setq recentf-auto-save-timer (run-with-idle-timer 600 t 'recentf-save-list))))
 
-(defun spacemacs-core/init-savehist ()
+(defun spacemacs-base/init-savehist ()
   (use-package savehist
     :init
     (progn
@@ -1278,7 +1278,7 @@ ARG non nil means that the editing style is `vim'."
             savehist-autosave-interval 60)
       (savehist-mode t))))
 
-(defun spacemacs-core/init-saveplace ()
+(defun spacemacs-base/init-saveplace ()
   (use-package saveplace
     :init
     (progn
@@ -1286,7 +1286,7 @@ ARG non nil means that the editing style is `vim'."
       (setq save-place t
             save-place-file (concat spacemacs-cache-directory "places")))))
 
-(defun spacemacs-core/init-spacemacs-theme ()
+(defun spacemacs-base/init-spacemacs-theme ()
   (use-package spacemacs-theme
     :defer t
     :init
@@ -1294,7 +1294,7 @@ ARG non nil means that the editing style is `vim'."
       (setq spacemacs-theme-comment-bg t)
       (setq spacemacs-theme-org-height t))))
 
-(defun spacemacs-core/init-subword ()
+(defun spacemacs-base/init-subword ()
   (unless (version< emacs-version "24.4")
     (use-package subword
       :defer t
@@ -1328,7 +1328,7 @@ ARG non nil means that the editing style is `vim'."
       :config
       (spacemacs|diminish subword-mode " ⓒ" " c"))))
 
-(defun spacemacs-core/init-undo-tree ()
+(defun spacemacs-base/init-undo-tree ()
   (use-package undo-tree
     :init
     (global-undo-tree-mode)
@@ -1337,9 +1337,9 @@ ARG non nil means that the editing style is `vim'."
     :config
     (spacemacs|hide-lighter undo-tree-mode)))
 
-(defun spacemacs-core/init-use-package ())
+(defun spacemacs-base/init-use-package ())
 
-(defun spacemacs-core/init-which-key ()
+(defun spacemacs-base/init-which-key ()
   (use-package which-key
     :init
     (progn
@@ -1410,7 +1410,7 @@ ARG non nil means that the editing style is `vim'."
       (which-key-mode)
       (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
 
-(defun spacemacs-core/init-whitespace ()
+(defun spacemacs-base/init-whitespace ()
   (use-package whitespace
     :defer t
     :init
@@ -1465,7 +1465,7 @@ ARG non nil means that the editing style is `vim'."
       (spacemacs|diminish whitespace-mode " ⓦ" " w")
       (spacemacs|diminish global-whitespace-mode " Ⓦ" " W"))))
 
-(defun spacemacs-core/init-winner ()
+(defun spacemacs-base/init-winner ()
   (use-package winner
     :init
     (progn
