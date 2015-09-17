@@ -18,6 +18,7 @@
    - [[#pomodoro][Pomodoro]]
    - [[#presentation][Presentation]]
    - [[#org-repo-todo][Org-repo-todo]]
+   - [[#org-mime][Org-MIME]]
 
 * Description
 
@@ -229,3 +230,10 @@ org-present must be activated explicitly by typing: ~SPC : org-present~
 | ~SPC C t~   | ort/capture-todo      |
 | ~SPC C T~   | ort/capture-checkitem |
 | ~SPC m g t~ | ort/goto-todos        |
+
+** Org-MIME
+
+| Key Binding | Description                                        |
+|-------------+----------------------------------------------------|
+| ~SPC m M~   | in =message-mode= buffersm convert into html email |
+| ~SPC m m~   | send current buffer as HTML email message          |

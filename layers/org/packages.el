@@ -243,9 +243,9 @@ Will work on both org-mode and any mode that accepts plain html."
     :init
     (progn
       (evil-leader/set-key-for-mode 'message-mode
-        "mh" 'org-mime-htmlize)
+        "mM" 'org-mime-htmlize)
       (evil-leader/set-key-for-mode 'org-mode
-        "mH" 'org-mime-org-buffer-htmlize))))
+        "mm" 'org-mime-org-buffer-htmlize))))
 
 (defun org/init-org-pomodoro ()
   (use-package org-pomodoro
