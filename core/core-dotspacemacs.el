@@ -322,7 +322,7 @@ If ARG is non nil then Ask questions to the user before installing the dotfile."
                     vim)
                    ("On the planet Emacs in the Holy control tower (emacs)"
                     emacs)))))
-             ("dotspacemacs-distribution 'spacemacs-base"
+             ("dotspacemacs-distribution 'spacemacs"
               ,(format
                 "dotspacemacs-distribution '%S"
                 (dotspacemacs//ido-completing-read
