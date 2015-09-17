@@ -25,7 +25,7 @@
         (shell-command "go test"))
 
       (evil-leader/set-key-for-mode 'go-mode
-        "mhp" 'godoc-at-point
+        "mhh" 'godoc-at-point
         "mig" 'go-goto-imports
         "mia" 'go-import-add
         "mir" 'go-remove-unused-imports
