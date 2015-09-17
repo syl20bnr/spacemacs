@@ -382,14 +382,17 @@ error recovery."
       (setq-default dotspacemacs-editing-style
                     (intern
                      (ido-completing-read
-                      (concat
-                       "Spacemacs encountered an error while "
-                       "loading the .dotspacemacs file. "
-                       "Pick your editing style for recovery: ")
+                      (format
+                       (concat
+                        "Spacemacs encountered an error while "
+                        "loading your `%s' file.\n"
+                        "Pick your editing style for recovery "
+                        "(use left and right arrows): ")
+                       dotspacemacs-filepath)
                       '(("vim" vim)
                         ("emacs" emacs)
                         ("hybrid" hybrid))
-                      nil t nil nil "vim")))
+                      nil t nil nil 'vim)))
       (ad-disable-advice 'dotspacemacs/init 'after
                          'error-recover-prompt-for-style)
       (ad-activate 'dotspacemacs/init))))
