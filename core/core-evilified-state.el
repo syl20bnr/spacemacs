@@ -91,9 +91,9 @@ BODY is a list of additional key bindings to apply for the given MAP in
     `(progn (unless ,(null mode)
               (unless (memq ',mode spacemacs-core-evilified-state--modes)
                 (push ',mode spacemacs-core-evilified-state--modes))
-              (unless (or (bound-and-true-p holy-mode)
-                          (memq ',mode evil-evilified-state-modes)
-                          (memq ',mode dotspacemacs-evilify-blacklist))
+              (unless (or dotspacemacs-dont-evilify
+                          (bound-and-true-p holy-mode)
+                          (memq ',mode evil-evilified-state-modes))
                 (delq ',mode evil-emacs-state-modes)
                 (push ',mode evil-evilified-state-modes)))
             (unless ,(null defkey) (,@defkey)))))
@@ -155,7 +155,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
 (defun spacemacs/evilify-configure-default-state (mode)
   "Configure default state for the passed mode."
   (add-to-list 'spacemacs-core-evilified-state--modes mode)
-  (unless (or (memq mode dotspacemacs-evilify-blacklist)
+  (unless (or dotspacemacs-dont-evilify
               (bound-and-true-p holy-mode))
     (delq mode evil-emacs-state-modes)
     (add-to-list 'evil-evilified-state-modes mode)))

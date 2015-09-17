@@ -71,8 +71,8 @@ configuration in `dotspacemacs/config'.")
   "Either `vim' or `emacs'. Evil is always enabled but if the variable
 is `emacs' then the `holy-mode' is enabled at startup.")
 
-(defvar dotspacemacs-evilify-blacklist '()
-  "A list of modes that will not be evilified by spacemacs.")
+(defvar dotspacemacs-dont-evilify nil
+  "Prevent spacemacs from starting in evilified state in any buffers.")
 
 (defvar dotspacemacs-startup-banner 'official
    "Specify the startup banner. Default value is `official', it displays
