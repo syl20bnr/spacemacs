@@ -82,5 +82,4 @@
     (evilify gnus-summary-mode gnus-summary-mode-map
       (kbd "J") 'gnus-summary-next-article
       (kbd "K") 'gnus-summary-prev-article
-      (kbd "<RET>") 'spacemacs/browse-nnrss-url)))
-  )
+      (kbd "<RET>") 'spacemacs/browse-nnrss-url))))

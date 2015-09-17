@@ -7,7 +7,7 @@
  - [[#basic-concepts][Basic Concepts]]
  - [[#adding-news-sources][Adding news sources]]
  - [[#configuring-gmail][Configuring gmail]]
- - [[#org-mime-integration][Org MIME integration]]
+ - [[#org-mime-in-org-layer][Org MIME in Org layer]]
  - [[#keybindings][Keybindings]]
 
 * Install
@@ -93,13 +93,13 @@ machine imap.gmail.com login name@gmail.com port 993 password SUPER_SECRET_PASS
 If you use two-step verification the password has to be an [[https://support.google.com/accounts/answer/185833?hl=en][application specific
 password]].
 
-* Org MIME integration
+* Org MIME in Org layer
 
 It is possible to send beautiful HTML emails using org mode.
 
-Pressing ~SPC m o~ in a message buffer will convert the current message
-from org mode to html.  A org mode buffer can be sent via html email by pressing
-~SPC m h~ in any org mode buffer.
+Pressing ~SPC m M~ in a message buffer will convert the current message
+from org mode to html.  An org mode buffer can be sent via html email by pressing
+~SPC m m~ in any org mode buffer.
 
 * Keybindings
 
@@ -120,5 +120,3 @@ Basic and Spacemacs specific keybindings can be found in the following table.
 | ~J~         | Article Buffer - Next article                            |
 | ~RET~       | Summary Buffer(RSS) - Open article Link in browser       |
 | ~TAB~       | Summary Buffer(RSS) - Open article and switch to it      |
-| ~SPC m h~   | Message Buffer - Use org mode to convert into html email |
-| ~SPC m H~   | Org Mode - Send current buffer as HTML email message     |
