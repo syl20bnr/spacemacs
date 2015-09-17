@@ -206,7 +206,8 @@
       ;; allow the point to go past the end of line so we can
       ;; consisently evaluate expression with eval-last-sexp in
       ;; all modes
-      (setq evil-move-beyond-eol t)
+      ;; Temporarily disabled pending resolution of other issues.
+      ;; (setq evil-move-beyond-eol t)
 
       (defun spacemacs/state-color-face (state)
         "Return the symbol of the face for the given STATE."
