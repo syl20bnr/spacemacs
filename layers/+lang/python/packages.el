@@ -42,9 +42,9 @@
     (progn
       (evil-leader/set-key-for-mode 'python-mode
         "mhh" 'anaconda-mode-show-doc
-        "mgg" 'anaconda-mode-find-definitions
-        "mga" 'anaconda-mode-find-assignments
-        "mgu" 'anaconda-mode-find-references)
+        "mgg" 'anaconda-mode-goto-definitions
+        "mga" 'anaconda-mode-goto-assignments
+        "mgu" 'anaconda-mode-goto-references)
       (evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
                (kbd "q") 'quit-window)
       (spacemacs|hide-lighter anaconda-mode))))
