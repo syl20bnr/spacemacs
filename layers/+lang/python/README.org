@@ -31,7 +31,6 @@ This layer adds support for the Python language.
 - semantic mode is enabled
 - PEP8 compliant formatting via [[https://github.com/google/yapf][YAPF]]
 - Suppression of unused import with [[https://github.com/myint/autoflake][autoflake]]
-- Use the ~%~ key to jump between blocks with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
 
 * Install
 

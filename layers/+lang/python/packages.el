@@ -17,7 +17,7 @@
     company-anaconda
     cython-mode
     eldoc
-    evil-matchit
+    ;; evil-matchit
     evil-jumper
     flycheck
     helm-cscope
@@ -254,14 +254,15 @@
         (setq imenu-create-index-function
               #'spacemacs/python-imenu-create-index-python-or-semantic)))))
 
-(defun python/post-init-evil-matchit ()
-  (use-package evil-matchit-python
-    :defer t
-    :init
-    (add-hook `python-mode-hook `turn-on-evil-matchit-mode)
-    :config
-    (plist-put evilmi-plugins 'python-mode '((evilmi-simple-get-tag evilmi-simple-jump)
-                                             (evilmi-python-get-tag evilmi-python-jump)))))
+;; Has bugs at the moment
+;; (defun python/post-init-evil-matchit ()
+;;   (use-package evil-matchit-python
+;;     :defer t
+;;     :init
+;;     (add-hook `python-mode-hook `turn-on-evil-matchit-mode)
+;;     :config
+;;     (plist-put evilmi-plugins 'python-mode '((evilmi-simple-get-tag evilmi-simple-jump)
+;;                                              (evilmi-python-get-tag evilmi-python-jump)))))
 
 (defun python/post-init-flycheck ()
   (add-hook 'python-mode-hook 'flycheck-mode))
