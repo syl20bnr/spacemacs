@@ -239,17 +239,14 @@ Will work on both org-mode and any mode that accepts plain html."
       (add-hook 'org-present-mode-hook 'spacemacs//org-present-start)
       (add-hook 'org-present-mode-quit-hook 'spacemacs//org-present-end))))
 
-
 (defun org/init-org-repo-todo ()
   (use-package org-repo-todo
-    :commands (ort/capture-todo
-               ort/capture-todo-check
-               ort/goto-todos)
+    :defer t
     :init
     (progn
       (evil-leader/set-key
         "Ct"  'ort/capture-todo
-        "CT"  'ort/capture-todo-check)
+        "CT"  'ort/capture-checkitem)
       (evil-leader/set-key-for-mode 'org-mode
         "mgt" 'ort/goto-todos))))
 

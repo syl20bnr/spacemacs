@@ -204,9 +204,9 @@ org-present must be activated explicitly by typing: ~SPC : org-present~
 
 ** Org-repo-todo
 
-| Key Binding | Description            |
-|-------------+------------------------|
-| ~SPC C c~   | org-capture            |
-| ~SPC C t~   | ort/capture-todo       |
-| ~SPC C T~   | ort/capture-todo-check |
-| ~SPC m g t~ | ort/goto-todos         |
+| Key Binding | Description           |
+|-------------+-----------------------|
+| ~SPC C c~   | org-capture           |
+| ~SPC C t~   | ort/capture-todo      |
+| ~SPC C T~   | ort/capture-checkitem |
+| ~SPC m g t~ | ort/goto-todos        |
