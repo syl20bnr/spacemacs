@@ -46,8 +46,14 @@
       (evil-leader/set-key-for-mode 'org-mode
         "mC" 'evil-org-recompute-clocks
 
-        ;; evil-org binds these keys, so we unbind them
-        "t" nil "a" nil "b" nil "c" nil "l" nil "o" nil)
+        ;; evil-org binds these keys, so we bind them back to their original
+        ;; value
+        "t" (lookup-key evil-leader--default-map "t")
+        "a" (lookup-key evil-leader--default-map "a")
+        "b" (lookup-key evil-leader--default-map "b")
+        "c" (lookup-key evil-leader--default-map "c")
+        "l" (lookup-key evil-leader--default-map "l")
+        "o" (lookup-key evil-leader--default-map "o"))
       (evil-define-key 'normal evil-org-mode-map
         "O" 'evil-open-above)
       (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
