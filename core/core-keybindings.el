@@ -58,39 +58,28 @@ used as the prefix command."
         (define-prefix-command command)
         (evil-leader/set-key-for-mode mode prefix command)))))
 
-(define-minor-mode spacemacs-additional-leader-mode ()
-  "This mode follows the design of `evil-leader-mode' and
-complements it by added additional leader keys."
-  :init-value nil
-  :keymap nil
+(defun spacemacs/activate-major-mode-leader ()
+  "Bind major mode key map to `dotspacemacs-major-mode-leader-key'."
   (let* ((mode-map (cdr (assoc major-mode evil-leader--mode-maps)))
-         (root-map (when spacemacs-additional-leader-mode
-                     (or mode-map evil-leader--default-map)))
-         (major-mode-map (when (and spacemacs-additional-leader-mode
-                                    mode-map)
-                           (lookup-key mode-map (kbd "m"))))
-         (state-maps '(evil-normal-state-local-map
-                       evil-motion-state-local-map
-                       evil-visual-state-local-map))
-         (emacs-state-maps '(evil-emacs-state-local-map
-                             evil-insert-state-local-map
-                             evil-normal-state-local-map
-                             evil-motion-state-local-map
-                             evil-visual-state-local-map
-                             evil-hybrid-state-local-map)))
-    (dolist (state-map state-maps)
-      (when state-map
-        (setq state-map (eval state-map))
-        (when dotspacemacs-major-mode-leader-key
-          (define-key state-map
-            (kbd dotspacemacs-major-mode-leader-key) major-mode-map))
-        (define-key state-map (kbd dotspacemacs-leader-key) root-map)))
-    (dolist (state-map emacs-state-maps)
-      (when state-map
-        (setq state-map (eval state-map))
-        (when dotspacemacs-major-mode-emacs-leader-key
-          (define-key state-map
-            (kbd dotspacemacs-major-mode-emacs-leader-key) major-mode-map))
-        (define-key state-map (kbd dotspacemacs-emacs-leader-key) root-map)))))
+         (major-mode-map (when mode-map (lookup-key mode-map (kbd "m")))))
+    (when major-mode-map
+      (mapc (lambda (s)
+              (eval `(define-key
+                       ,(intern (format "evil-%S-state-local-map" s))
+                       ,(kbd dotspacemacs-major-mode-leader-key)
+                       major-mode-map)))
+            '(normal motion))
+      (mapc (lambda (s)
+              (eval `(define-key
+                       ,(intern (format "evil-%S-state-local-map" s))
+                       ,(kbd dotspacemacs-major-mode-emacs-leader-key)
+                       major-mode-map)))
+            '(emacs insert normal motion visual))
+      ;; using `bound-and-true-p', because hybrid-mode may not be loaded when
+      ;; using emacs or vim style
+      (when (bound-and-true-p hybrid-mode)
+        (define-key evil-hybrid-state-map
+          (kbd dotspacemacs-major-mode-emacs-leader-key)
+          major-mode-map)))))
 
 (provide 'core-keybindings)
