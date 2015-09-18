@@ -102,7 +102,7 @@
    (location :initarg :location
              :initform elpa
              :type (satisfies (lambda (x)
-                                (or (member x '(local elpa))
+                                (or (member x '(local elpa private))
                                     (and (listp x) (eq 'recipe (car x))))))
              :documentation "Location of the package.")
    (step :initarg :step
@@ -363,7 +363,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
   "Return the distant packages (ie to be intalled) that are effectively used."
   (configuration-layer/filter-objects
    packages (lambda (x) (and (not (null (oref x :owner)))
-                             (not (eq 'local (oref x :location)))
+                             (not (memq (oref x :location) '(local private)))
                              (not (oref x :excluded))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
@@ -757,6 +757,9 @@ path."
           (push (format "%slocal/%S/" dir pkg-name) load-path)
           ;; TODO remove extensions in 0.105.0
           (push (format "%sextensions/%S/" dir pkg-name) load-path))
+        (configuration-layer//configure-package pkg))
+       ((eq 'private (oref pkg :location))
+        (push (configuration-layer//get-private-layer-dir (oref pkg :name)) load-path)
         (configuration-layer//configure-package pkg))
        (t
         (configuration-layer//activate-package pkg-name)
