@@ -25,7 +25,6 @@
         ruby-tools
         rvm
         ))
-
 (if ruby-enable-enh-ruby-mode
     (add-to-list 'ruby-packages 'enh-ruby-mode)
   (add-to-list 'ruby-packages 'ruby-mode))
@@ -74,7 +73,6 @@
                               '(ruby-mode-hook enh-ruby-mode-hook)))))
 
 (defun ruby/init-enh-ruby-mode ()
-  "Initialize Ruby Mode"
   (use-package enh-ruby-mode
     :mode (("\\(Rake\\|Thor\\|Guard\\|Gem\\|Cap\\|Vagrant\\|Berks\\|Pod\\|Puppet\\)file\\'" . enh-ruby-mode)
            ("\\.\\(rb\\|rabl\\|ru\\|builder\\|rake\\|thor\\|gemspec\\|jbuilder\\)\\'" . enh-ruby-mode))
@@ -121,7 +119,6 @@
                               '(ruby-mode-hook enh-ruby-mode-hook)))))
 
 (defun ruby/init-robe ()
-  "Initialize Robe mode"
   (use-package robe
     :defer t
     :init
@@ -153,7 +150,6 @@
           "ss" 'ruby-switch-to-inf)))))
 
 (defun ruby/init-rspec-mode ()
-  "Define keybindings for rspec mode"
   (use-package rspec-mode
     :defer t
     :init
@@ -171,8 +167,11 @@
       (dolist (mode '(ruby-mode enh-ruby-mode))
         (spacemacs/set-leader-keys-for-major-mode mode
           "ta" 'rspec-verify-all
-          "tc" 'rspec-verify-matching
+          "tc" 'rspec-verify-continue
+          "te" 'rspec-toggle-example-pendingness
+          "tf" 'rspec-verify-method
           "tl" 'rspec-run-last-failed
+          "tm" 'rspec-verify-matching
           "tr" 'rspec-rerun
           "tt" 'rspec-verify-single)))))
 
