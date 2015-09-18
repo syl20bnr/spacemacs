@@ -160,9 +160,9 @@ Test commands (start with ~m t~ or ~m T~):
 |-------------+------------------------------------------------------------------------------|
 | ~SPC m =~   | Reformat the buffer according to PEP8 using  [[https://github.com/google/yapf][YAPF]]                            |
 | ~SPC m d b~ | toggle a breakpoint                                                          |
-| ~SPC m g g~ | go to definition using =anaconda-mode-find-definitions= (~C-o~ to jump back) |
-| ~SPC m g a~ | go to assignment using =anaconda-mode-find-assignments= (~C-o~ to jump back) |
-| ~SPC m g u~ | navigate between usages with =anaconda-mode-find-references=                 |
+| ~SPC m g g~ | go to definition using =anaconda-mode-goto-definitions= (~C-o~ to jump back) |
+| ~SPC m g a~ | go to assignment using =anaconda-mode-goto-assignments= (~C-o~ to jump back) |
+| ~SPC m g u~ | navigate between usages with =anaconda-mode-goto-references=                 |
 | ~SPC m h d~ | look for documentation using =helm-pydoc=                                    |
 | ~SPC m h h~ | quick documentation using anaconda                                           |
 | ~SPC m h H~ | open documentation in =firefox= using [pylookup][pylookup]                   |
