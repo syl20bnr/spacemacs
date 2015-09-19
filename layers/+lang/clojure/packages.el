@@ -231,6 +231,7 @@ If called with a prefix argument, uses the other-window instead."
           "msf" 'spacemacs/cider-send-function-to-repl
           "msF" 'spacemacs/cider-send-function-to-repl-focus
           "msi" 'cider-jack-in
+          "msI" 'cider-jack-in-clojurescript
           "msn" 'spacemacs/cider-send-ns-form-to-repl
           "msN" 'spacemacs/cider-send-ns-form-to-repl-focus
           "msq" 'cider-quit
