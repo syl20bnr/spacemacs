@@ -192,8 +192,8 @@ layer directory."
                        "this layer already exists.") name))
      (t
       (make-directory layer-dir t)
-      (configuration-layer//copy-template "extensions" layer-dir)
-      (configuration-layer//copy-template "packages" layer-dir)
+      (configuration-layer//copy-template name "extensions" layer-dir)
+      (configuration-layer//copy-template name "packages" layer-dir)
       (message "Configuration layer \"%s\" successfully created." name)))))
 
 (defun configuration-layer/make-layer (layer)
@@ -367,13 +367,13 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
                              (not (oref x :excluded))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
-  "Return an absolute path the the private configuration layer with name
-NAME."
-  (concat configuration-layer-private-layer-directory name "/"))
+  "Return an absolute path to the private configuration layer string NAME."
+  (file-name-as-directory
+   (concat configuration-layer-private-layer-directory name)))
 
-(defun configuration-layer//copy-template (template &optional layer-dir)
-  "Copy and replace special values of TEMPLATE to LAYER_DIR. If
-LAYER_DIR is nil, the private directory is used."
+(defun configuration-layer//copy-template (name template &optional layer-dir)
+  "Copy and replace special values of TEMPLATE to layer string NAME.
+If LAYER_DIR is nil, the private directory is used."
   (let ((src (concat configuration-layer-template-directory
                      (format "%s.template" template)))
         (dest (if layer-dir
