@@ -201,13 +201,7 @@
 
       ;; put back refresh of the cursor on post-command-hook see status of:
       ;; https://bitbucket.org/lyro/evil/issue/502/cursor-is-not-refreshed-in-some-cases
-      (add-hook 'post-command-hook 'evil-refresh-cursor)
-
-      ;; allow the point to go past the end of line so we can
-      ;; consisently evaluate expression with eval-last-sexp in
-      ;; all modes
-      ;; Temporarily disabled pending resolution of other issues.
-      ;; (setq evil-move-beyond-eol t)
+      ;; (add-hook 'post-command-hook 'evil-refresh-cursor)
 
       (defun spacemacs/state-color-face (state)
         "Return the symbol of the face for the given STATE."
