@@ -739,6 +739,21 @@ path."
   (dolist (pkg packages)
     (spacemacs-buffer/loading-animation)
     (let ((pkg-name (oref pkg :name)))
+      ;; load-path
+      (pcase (oref pkg :location)
+        (`local
+         (let* ((owner (object-assoc (oref pkg :owner)
+                                     :name configuration-layer--layers))
+                (dir (oref owner :dir)))
+           (unless (eq owner 'dotfile)
+             (push (format "%slocal/%S/" dir pkg-name) load-path)
+             ;; TODO remove extensions in 0.105.0
+             (push (format "%sextensions/%S/" dir pkg-name) load-path))))
+        (`private
+         (push (configuration-layer//get-private-layer-dir
+                (symbol-name (oref pkg :name)))
+               load-path)))
+      ;; configuration
       (cond
        ((oref pkg :excluded)
         (spacemacs-buffer/message
@@ -750,17 +765,6 @@ path."
         (configuration-layer//activate-package pkg-name)
         (spacemacs-buffer/message
          (format "%S is configured in the dotfile." pkg-name)))
-       ((eq 'local (oref pkg :location))
-        (let* ((owner (object-assoc (oref pkg :owner)
-                                    :name configuration-layer--layers))
-               (dir (oref owner :dir)))
-          (push (format "%slocal/%S/" dir pkg-name) load-path)
-          ;; TODO remove extensions in 0.105.0
-          (push (format "%sextensions/%S/" dir pkg-name) load-path))
-        (configuration-layer//configure-package pkg))
-       ((eq 'private (oref pkg :location))
-        (push (configuration-layer//get-private-layer-dir (oref pkg :name)) load-path)
-        (configuration-layer//configure-package pkg))
        (t
         (configuration-layer//activate-package pkg-name)
         (configuration-layer//configure-package pkg))))))
