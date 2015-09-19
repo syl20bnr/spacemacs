@@ -742,13 +742,14 @@ path."
       ;; load-path
       (pcase (oref pkg :location)
         (`local
-         (let* ((owner (object-assoc (oref pkg :owner)
-                                     :name configuration-layer--layers))
-                (dir (oref owner :dir)))
-           (unless (eq owner 'dotfile)
-             (push (format "%slocal/%S/" dir pkg-name) load-path)
-             ;; TODO remove extensions in 0.105.0
-             (push (format "%sextensions/%S/" dir pkg-name) load-path))))
+         (when (oref pkg :owner)
+           (let* ((owner (object-assoc (oref pkg :owner)
+                                       :name configuration-layer--layers))
+                  (dir (oref owner :dir)))
+             (unless (eq owner 'dotfile)
+               (push (format "%slocal/%S/" dir pkg-name) load-path)
+               ;; TODO remove extensions in 0.105.0
+               (push (format "%sextensions/%S/" dir pkg-name) load-path)))))
         (`private
          (push (configuration-layer//get-private-layer-dir
                 (symbol-name (oref pkg :name)))
