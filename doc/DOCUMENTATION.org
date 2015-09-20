@@ -629,11 +629,16 @@ leader is available as ~M-m~. It is possible to dynamically switch between evil
 and holy mode using ~SPC E H~ and ~M-m E H~.
 
 ** Hybrid Mode
-Hybrid mode replaces =evil-insert-state= with =hybrid-mode-insert-state=.
-=hybrid-mode-insert-state= inherits keybindings from =evil-emacs-state=. This means
-that stock emacs keybindings can be used when inserting text. Hybrid mode can be
-enabled by setting =dotspacemacs-editing-style= to =hybrid=. To switch between evil
-and hybrid mode use ~SPC E Y~.
+The hybrid style of editing is just like vim except for one important
+difference. Hybrid mode replaces vim's insert state with a new state called
+hybrid state. In hybrid state, all stock Emacs bindings are available to edit
+text (~C-n~, ~C-p~, ~C-a~, etc.), as well as the =Spacemacs= leader-key
+bindings. You enter and exit hybrid state the same way that you enter and exit
+vim's insert state. The difference between hybrid and holy mode is that the
+default state for new buffers in hybrid mode is the normal vim state.
+
+Hybrid mode can be enabled by setting =dotspacemacs-editing-style= to =hybrid=.
+To switch between evil and hybrid mode use ~SPC E Y~.
 
 ** States
 =Spacemacs= has 9 states:
