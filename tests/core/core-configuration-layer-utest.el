@@ -496,7 +496,6 @@
 ;; configuration-layer//configure-package
 ;; ---------------------------------------------------------------------------
 
-
 (ert-deftest test-configure-package--init-is-evaluated ()
   (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'layer1))
         (configuration-layer--layers `(,(cfgl-layer "layer1" :name 'layer1)))
@@ -578,6 +577,86 @@
      ((spacemacs-buffer/message (m) ((:output nil))))
      (configuration-layer//configure-package pkg)
      (should (equal '(init) witness)))))
+
+;; ---------------------------------------------------------------------------
+;; configuration-layer//configure-packages-2
+;; ---------------------------------------------------------------------------
+
+(ert-deftest test-configure-packages-2--package-w/-layer-owner-is-configured()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'layer1))
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (mocker-let
+     ((configuration-layer//configure-package (p) ((:occur 1)))
+      (spacemacs-buffer/loading-animation nil ((:output nil))))
+     (configuration-layer//configure-packages-2 `(,pkg)))))
+
+(ert-deftest test-configure-packages-2--excluded-package-is-not-configured()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'layer1 :excluded t))
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (mocker-let
+     ((configuration-layer//configure-package (p) nil)
+      (spacemacs-buffer/loading-animation nil ((:output nil)))
+      (spacemacs-buffer/message (m) ((:output nil))))
+     (configuration-layer//configure-packages-2 `(,pkg)))))
+
+(ert-deftest test-configure-packages-2--package-w/o-owner-is-not-configured()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owner nil))
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (mocker-let
+     ((configuration-layer//configure-package (p) nil)
+      (spacemacs-buffer/loading-animation nil ((:output nil)))
+      (spacemacs-buffer/message (m) ((:output nil))))
+     (configuration-layer//configure-packages-2 `(,pkg)))))
+
+(ert-deftest
+    test-configure-packages-2--package-owned-by-dotfile-is-not-configured()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'dotfile))
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (mocker-let
+     ((configuration-layer//configure-package (p) nil)
+      (spacemacs-buffer/loading-animation nil ((:output nil)))
+      (spacemacs-buffer/message (m) ((:output nil))))
+     (configuration-layer//configure-packages-2 `(,pkg)))))
+
+(ert-deftest
+    test-configure-packages-2--local-package-w/-layer-owner-update-load-path()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'layer1 :location 'local))
+        (configuration-layer--layers `(,(cfgl-layer "layer1"
+                                                    :name 'layer1
+                                                    :dir "/a/path/")))
+        (expected-load-path load-path)
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (mocker-let
+     ((spacemacs-buffer/loading-animation nil ((:output nil)))
+      (configuration-layer//configure-package (p) ((:occur 1))))
+     (configuration-layer//configure-packages-2 `(,pkg))
+     (push "/a/path/local/pkg/" expected-load-path)
+     (push "/a/path/extensions/pkg/" expected-load-path)
+     (should (equal expected-load-path load-path)))))
+
+(ert-deftest
+    test-configure-packages-2--local-package-w/-dotfile-owner-update-load-path()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owner 'dotfile :location 'local))
+        (expected-load-path load-path)
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (mocker-let
+     ((spacemacs-buffer/loading-animation nil ((:output nil))))
+     (configuration-layer//configure-packages-2 `(,pkg))
+     (push (file-name-as-directory
+            (concat configuration-layer-private-directory "local/pkg"))
+           expected-load-path)
+     (should (equal expected-load-path load-path)))))
+
+(ert-deftest
+    test-configure-packages-2--local-package-w/o-owner-doesnt-update-load-path()
+  (let ((pkg (cfgl-package "pkg" :name 'pkg :owner nil :location 'local))
+        (old-load-path load-path)
+        (mocker-mock-default-record-cls 'mocker-stub-record))
+    (mocker-let
+     ((spacemacs-buffer/loading-animation nil ((:output nil)))
+      (spacemacs-buffer/message (m) ((:output nil))))
+     (configuration-layer//configure-packages-2 `(,pkg))
+     (should (equal load-path old-load-path)))))
 
 ;; ---------------------------------------------------------------------------
 ;; configuration-layer//sort-packages
