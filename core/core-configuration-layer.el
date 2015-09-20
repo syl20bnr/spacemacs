@@ -102,7 +102,7 @@
    (location :initarg :location
              :initform elpa
              :type (satisfies (lambda (x)
-                                (or (member x '(local elpa private))
+                                (or (member x '(local elpa))
                                     (and (listp x) (eq 'recipe (car x))))))
              :documentation "Location of the package.")
    (step :initarg :step
@@ -363,7 +363,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
   "Return the distant packages (ie to be intalled) that are effectively used."
   (configuration-layer/filter-objects
    packages (lambda (x) (and (not (null (oref x :owner)))
-                             (not (memq (oref x :location) '(local private)))
+                             (not (eq (oref x :location) 'local))
                              (not (oref x :excluded))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
@@ -739,22 +739,6 @@ path."
   (dolist (pkg packages)
     (spacemacs-buffer/loading-animation)
     (let ((pkg-name (oref pkg :name)))
-      ;; load-path
-      (pcase (oref pkg :location)
-        (`local
-         (when (oref pkg :owner)
-           (let* ((owner (object-assoc (oref pkg :owner)
-                                       :name configuration-layer--layers))
-                  (dir (oref owner :dir)))
-             (unless (eq owner 'dotfile)
-               (push (format "%slocal/%S/" dir pkg-name) load-path)
-               ;; TODO remove extensions in 0.105.0
-               (push (format "%sextensions/%S/" dir pkg-name) load-path)))))
-        (`private
-         (push (configuration-layer//get-private-layer-dir
-                (symbol-name (oref pkg :name)))
-               load-path)))
-      ;; configuration
       (cond
        ((oref pkg :excluded)
         (spacemacs-buffer/message
@@ -762,13 +746,31 @@ path."
        ((null (oref pkg :owner))
         (spacemacs-buffer/message
          (format "%S ignored since it has no owner layer." pkg-name)))
-       ((eq 'dotfile (oref pkg :owner))
-        (configuration-layer//activate-package pkg-name)
-        (spacemacs-buffer/message
-         (format "%S is configured in the dotfile." pkg-name)))
        (t
-        (configuration-layer//activate-package pkg-name)
-        (configuration-layer//configure-package pkg))))))
+        ;; load-path
+        (when (eq 'local (oref pkg :location))
+          (if (eq 'dotfile (oref pkg :owner))
+              ;; local packages owned by dotfile are stored in private/local
+              (push (file-name-as-directory
+                     (concat configuration-layer-private-directory
+                             "local/"
+                             (symbol-name (oref pkg :name))))
+                    load-path)
+            (let* ((owner (object-assoc (oref pkg :owner)
+                                        :name configuration-layer--layers))
+                   (dir (when owner (oref owner :dir))))
+              (push (format "%slocal/%S/" dir pkg-name) load-path)
+              ;; TODO remove extensions in 0.105.0
+              (push (format "%sextensions/%S/" dir pkg-name) load-path))))
+        ;; configuration
+        (cond
+         ((eq 'dotfile (oref pkg :owner))
+          (configuration-layer//activate-package pkg-name)
+          (spacemacs-buffer/message
+           (format "%S is configured in the dotfile." pkg-name)))
+         (t
+          (configuration-layer//activate-package pkg-name)
+          (configuration-layer//configure-package pkg))))))))
 
 (defun configuration-layer//configure-package (pkg)
   "Configure PKG."
