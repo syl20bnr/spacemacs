@@ -94,19 +94,34 @@ Note that `--in-place' is used by default."
     (with-current-buffer patchbuf
       (erase-buffer))
     (write-region nil nil tmpfile)
-    (if (zerop (apply 'call-process "yapf" nil errbuf nil
-                      (append py-yapf-options `("--in-place" ,tmpfile))))
-        (if (zerop (call-process-region (point-min) (point-max) "diff" nil patchbuf nil "-n" "-" tmpfile))
-            (progn
-              (kill-buffer errbuf)
-              (message "Buffer is already yapfed"))
-          (py-yapf-apply-rcs-patch patchbuf)
-          (kill-buffer errbuf)
-          (message "Applied yapf"))
-      (error "Could not apply yapf. Check *yapf Errors* for details"))
+    (let ((yapf-ret-code (apply 'call-process "yapf" nil errbuf nil
+                                       (append py-yapf-options `("--in-place" ,tmpfile)))))
+      (cond
+       ((eq yapf-ret-code 2)
+        (py-yapf-apply-rcs-patch-if-needed patchbuf tmpfile errbuf)
+        )
+       ((eq yapf-ret-code 0)
+        (py-yapf-apply-rcs-patch-if-needed patchbuf tmpfile errbuf)
+        )
+       (error "Could not apply yapf. Check *yapf Errors* for details"))
+      )
     (kill-buffer patchbuf)
-    (delete-file tmpfile)))
+    (delete-file tmpfile)
+    ))
 
+(defun py-yapf-apply-rcs-patch-if-needed (patchbuf tmpfile errbuf)
+  "Create and apply patch to current buffer from yapfed tmpfile"
+  (if (zerop (call-process-region (point-min) (point-max) "diff" nil patchbuf nil "-n" "-" tmpfile))
+      (progn
+        (kill-buffer errbuf)
+        (message "Buffer is already yapfed"))
+    (progn
+      (py-yapf-apply-rcs-patch patchbuf)
+      (kill-buffer errbuf)
+      (message "Applied yapf")
+      )
+    )
+  )
 
 ;;;###autoload
 (defun py-yapf-buffer ()
