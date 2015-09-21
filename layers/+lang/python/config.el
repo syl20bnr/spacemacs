@@ -21,3 +21,6 @@
 
 (defvar python-test-runner 'nose
   "Test runner to use. Possible values are `nose' or `pytest'.")
+
+(defvar python-fill-column 79
+  "Fill column value for python buffers")

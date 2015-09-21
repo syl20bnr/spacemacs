@@ -18,6 +18,8 @@
    - [[#testing][Testing]]
    - [[#refactoring][Refactoring]]
    - [[#other-python-commands][Other Python commands]]
+ - [[#configuration][Configuration]]
+   - [[#fill-column][Fill column]]
 
 * Description
 This layer adds support for the Python language.
@@ -169,3 +171,10 @@ Test commands (start with ~m t~ or ~m T~):
 | ~SPC m h H~ | open documentation in =firefox= using [pylookup][pylookup]                   |
 | ~SPC m v~   | activate a virtual environment with [[https://github.com/yyuu/pyenv][pyenv]]                                    |
 | ~SPC m V~   | activate a virtual environment with  [[https://github.com/jorgenschaefer/pyvenv][pyvenv]]                                  |
+* Configuration
+** Fill column
+If you want to customize the fill column value, use something like this inside the ~user-init~ function in your ~.spacemacs~:
+
+#+BEGIN_SRC elisp
+(setq python-fill-column 99)
+#+END_SRC

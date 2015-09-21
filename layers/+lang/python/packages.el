@@ -123,7 +123,7 @@
       (defun python-default ()
         (setq mode-name "Python"
               tab-width 4
-              fill-column 79
+              fill-column python-fill-column
               ;; auto-indent on colon doesn't work well with if statement
               electric-indent-chars (delq ?: electric-indent-chars))
         (annotate-pdb)
