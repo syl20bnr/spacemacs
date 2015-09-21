@@ -57,13 +57,7 @@
                        :suffix "")))))
 
 (defun ruby/post-init-evil-matchit ()
-  (use-package evil-matchit-ruby
-    :defer t
-    :init (add-hook `enh-ruby-mode-hook `turn-on-evil-matchit-mode)
-    :config
-    (progn
-      (plist-put evilmi-plugins 'enh-ruby-mode '((evilmi-simple-get-tag evilmi-simple-jump)
-                                                 (evilmi-ruby-get-tag evilmi-ruby-jump))))))
+  (add-hook `enh-ruby-mode-hook `turn-on-evil-matchit-mode))
 
 
 (defun ruby/post-init-flycheck ()
