@@ -949,7 +949,8 @@ ARG non nil means that the editing style is `vim'."
         :on (hybrid-mode)
         :off (hybrid-mode -1)
         :documentation "Globally toggle hybrid mode."
-        :evil-leader "E Y"))))
+        :evil-leader "E Y")
+      (spacemacs|diminish hybrid-mode " ⓗy" " hy"))))
 
 (defun spacemacs-base/init-ido-vertical-mode ()
   (use-package ido-vertical-mode
