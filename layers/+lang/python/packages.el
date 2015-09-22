@@ -37,7 +37,26 @@
 (defun python/init-anaconda-mode ()
   (use-package anaconda-mode
     :defer t
-    :init (add-hook 'python-mode-hook 'anaconda-mode)
+    :init
+    (progn
+      (defun spacemacs//set-anaconda-mode-directory ()
+        ;; hack to redefine the variable `anaconda-mode-server-directory'
+        ;; we need to do this to retrieve the server version and
+        ;; then redefine the variable
+        (unless (string-match-p spacemacs-cache-directory
+                                anaconda-mode-server-directory)
+          (makunbound 'anaconda-mode-ensure-directory-command)
+          (makunbound 'anaconda-mode-check-installation-command)
+          (makunbound 'anaconda-mode-install-server-command)
+          (setq features (delq 'anaconda-mode features))
+          (setq anaconda-mode-server-directory
+                (concat spacemacs-cache-directory
+                        "anaconda-mode/"
+                        anaconda-mode-server-version))
+          (require 'anaconda-mode)))
+      (spacemacs/add-to-hook 'python-mode-hook
+                             '(spacemacs//set-anaconda-mode-directory
+                               anaconda-mode)))
     :config
     (progn
       (evil-leader/set-key-for-mode 'python-mode
