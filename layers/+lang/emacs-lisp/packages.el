@@ -34,8 +34,10 @@
         (save-restriction
           (narrow-to-region (search-backward-regexp "^ELISP>") (goto-char current-point))
           (lisp-indent-line))))
-    (evil-leader/set-key-for-mode 'emacs-lisp-mode
-      "msi" 'ielm)))
+    (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+      (spacemacs/declare-prefix-for-mode mode "ms" "ielm")
+      (evil-leader/set-key-for-mode mode
+        "msi" 'ielm))))
 
 (defun emacs-lisp/post-init-company ()
   (spacemacs|add-company-hook ielm-mode)
@@ -51,22 +53,27 @@
     :init
     (progn
       (add-hook 'emacs-lisp-mode-hook 'elisp-slime-nav-mode)
-      (evil-leader/set-key-for-mode 'emacs-lisp-mode
-        "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
-        "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point))))
+      (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+        (spacemacs/declare-prefix-for-mode mode "mg" "find-symbol")
+        (spacemacs/declare-prefix-for-mode mode "mh" "help")
+        (evil-leader/set-key-for-mode mode
+          "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
+          "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point)))))
 
 (defun emacs-lisp/init-emacs-lisp ()
-  (evil-leader/set-key-for-mode 'emacs-lisp-mode
-    "me$" 'lisp-state-eval-sexp-end-of-line
-    "meb" 'eval-buffer
-    "mec" 'spacemacs/eval-current-form
-    "mee" 'eval-last-sexp
-    "mer" 'eval-region
-    "mef" 'eval-defun
-    "mel" 'lisp-state-eval-sexp-end-of-line
-    "m,"  'lisp-state-toggle-lisp-state
-    "mtb" 'spacemacs/ert-run-tests-buffer
-    "mtq" 'ert)
+  (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+    (spacemacs/declare-prefix-for-mode mode "me" "eval")
+    (spacemacs/declare-prefix-for-mode mode "mt" "tests")
+    (evil-leader/set-key-for-mode mode
+      "me$" 'lisp-state-eval-sexp-end-of-line
+      "meb" 'eval-buffer
+      "mee" 'eval-last-sexp
+      "mer" 'eval-region
+      "mef" 'eval-defun
+      "mel" 'lisp-state-eval-sexp-end-of-line
+      "m,"  'lisp-state-toggle-lisp-state
+      "mtb" 'spacemacs/ert-run-tests-buffer
+      "mtq" 'ert))
   ;; company support
   (push 'company-capf company-backends-emacs-lisp-mode)
   (spacemacs|add-company-hook emacs-lisp-mode))
@@ -115,9 +122,47 @@
                srefactor-lisp-format-sexp
                srefactor-lisp-one-line)
     :init
-    (evil-leader/set-key-for-mode 'emacs-lisp-mode
-      "m=b" 'srefactor-lisp-format-buffer
-      "m=d" 'srefactor-lisp-format-defun
-      "m=o" 'srefactor-lisp-one-line
-      "m=s" 'srefactor-lisp-format-sexp
-      )))
+    (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+      (spacemacs/declare-prefix-for-mode mode "m=" "srefactor")
+      (evil-leader/set-key-for-mode mode
+        "m=b" 'srefactor-lisp-format-buffer
+        "m=d" 'srefactor-lisp-format-defun
+        "m=o" 'srefactor-lisp-one-line
+        "m=s" 'srefactor-lisp-format-sexp))))
+
+(defun emacs-lisp/post-init-smartparens ()
+  (if (version< emacs-version "24.4")
+      (ad-disable-advice 'preceding-sexp 'around 'evil)
+    (advice-remove 'elisp--preceding-sexp 'evil--preceding-sexp))
+
+  (defun spacemacs/eval-current-form-sp (&optional arg)
+    "Call `eval-last-sexp' after moving out of one level of
+parentheses. Will exit any strings and/or comments first.
+Requires smartparens because all movement is done using
+`sp-up-sexp'. An optional ARG can be used which is passed to
+`sp-up-sexp' to move out of more than one sexp."
+    (interactive "p")
+    (require 'smartparens)
+    (save-excursion
+      (let ((max 10))
+        (while (and (> max 0)
+                    (sp-point-in-string-or-comment))
+          (decf max)
+          (sp-up-sexp)))
+      (sp-up-sexp arg)
+      (call-interactively 'eval-last-sexp)))
+
+  (defun spacemacs/eval-current-symbol-sp ()
+    "Call `eval-last-sexp' on the symbol underneath the
+point. Requires smartparens because all movement is done using
+`sp-forward-symbol'."
+    (interactive)
+    (require 'smartparens)
+    (save-excursion
+      (sp-forward-symbol)
+      (call-interactively 'eval-last-sexp)))
+
+  (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+    (evil-leader/set-key-for-mode mode
+      "mec" 'spacemacs/eval-current-form-sp
+      "mes" 'spacemacs/eval-current-symbol-sp)))
