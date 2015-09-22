@@ -10,14 +10,12 @@
 ;;
 ;;; License: GPLv3
 
-;; We name this layer idris-lang instead of idris because
-;; the variable `idris-packages' is already used by `idris-mode'
-(setq idris-lang-packages '(idris-mode))
+(setq idris-packages '(idris-mode))
 
-(defun idris-lang/init-idris-mode ()
+(defun idris/init-idris-mode ()
   (use-package idris-mode
     :defer t
-    :init
+    :config
     (progn
       (defun spacemacs/idris-load-file-and-focus (&optional set-line)
         "Pass the current buffer's file to the REPL and switch to it in
