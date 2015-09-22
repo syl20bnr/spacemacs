@@ -16,6 +16,9 @@
         company-emoji
         emoji-cheat-sheet-plus
         erc
+        (erc-gitter :location (recipe
+                               :fetcher github
+                               :repo "jleechpe/erc-gitter"))
         erc-hl-nicks
         erc-image
         erc-social-graph
@@ -99,6 +102,11 @@
         "ml" 'erc-list-command
         "mp" 'erc-part-from-channel
         "mq" 'erc-quit-server))))
+
+(defun erc/init-erc-gitter ()
+  (use-package erc-gitter
+    :config
+    (add-to-list 'erc-modules 'gitter)))
 
 
 (defun erc/init-erc-hl-nicks ()
