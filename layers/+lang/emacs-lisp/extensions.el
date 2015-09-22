@@ -15,17 +15,24 @@
 
 (defun emacs-lisp/init-emacs-builtin-emacs-lisp ()
 
-  (evil-leader/set-key-for-mode 'emacs-lisp-mode
-    "me$" 'lisp-state-eval-sexp-end-of-line
-    "meb" 'eval-buffer
-    "mec" 'spacemacs/eval-current-form
-    "mee" 'eval-last-sexp
-    "mer" 'eval-region
-    "mef" 'eval-defun
-    "mel" 'lisp-state-eval-sexp-end-of-line
-    "m,"  'lisp-state-toggle-lisp-state
-    "mtb" 'spacemacs/ert-run-tests-buffer
-    "mtq" 'ert)
+  (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+    (spacemacs/declare-prefix-for-mode mode "me" "eval")
+    (spacemacs/declare-prefix-for-mode mode "mt" "tests")
+    (evil-leader/set-key-for-mode mode
+      "me$" 'lisp-state-eval-sexp-end-of-line
+      "meb" 'eval-buffer
+      "mee" 'eval-last-sexp
+      "mer" 'eval-region
+      "mef" 'eval-defun
+      "mel" 'lisp-state-eval-sexp-end-of-line
+      "m,"  'lisp-state-toggle-lisp-state
+      "mtb" 'spacemacs/ert-run-tests-buffer
+      "mtq" 'ert))
+
+  (unless (configuration-layer/package-usedp 'smartparens)
+    (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+      (evil-leader/set-key-for-mode mode
+        "mec" 'spacemacs/eval-current-form)))
 
   ;; company support
   (push 'company-capf company-backends-emacs-lisp-mode)
