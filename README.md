@@ -192,13 +192,13 @@ in [his repository][icon-repository].
 
 # Update
 
-Spacemacs has a built-in notification of new version when you are on the
+Spacemacs has a built-in notification of a new version when you are on the
 `master` branch. If you are on the `develop` branch then you'll have to
 update Spacemacs manually by updating your repository.
 
 ## Automatic update
 
-When a new version is available an little arrow appears in the mode-line.
+When a new version is available a little arrow appears in the mode-line.
 
 Its color depends on the number of versions available since your last update.
 Green means that your current version is recent, orange and red that your
