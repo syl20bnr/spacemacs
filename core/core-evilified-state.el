@@ -80,6 +80,7 @@
 (define-key evil-evilified-state-map (kbd "C-b") 'evil-scroll-page-up)
 (define-key evil-evilified-state-map (kbd "C-d") 'evil-scroll-down)
 (define-key evil-evilified-state-map (kbd "C-u") 'evil-scroll-up)
+(define-key evil-evilified-state-map (kbd "C-z") 'evil-emacs-state)
 
 ;; old macro
 (defmacro evilify (mode map &rest body)
