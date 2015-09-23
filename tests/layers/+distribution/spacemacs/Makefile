@@ -13,8 +13,7 @@
 TEST_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 LOAD_FILES = init.el
-UNIT_TEST_FILES = \
-  powerline-utest.el
+UNIT_TEST_FILES =
 FUNC_TEST_FILES =
 
 include ../../../../spacemacs.mk

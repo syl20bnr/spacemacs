@@ -25,24 +25,6 @@
       (define-key evil-motion-state-map "gt" 'eyebrowse-next-window-config)
       (define-key evil-motion-state-map "gT" 'eyebrowse-prev-window-config)
 
-      (defun spacemacs/workspace-number ()
-        "Return the number of the current workspace."
-        (let* ((num (eyebrowse--get 'current-slot))
-               (str (if num (int-to-string num))))
-          (cond
-           ((not (dotspacemacs|symbol-value
-                  dotspacemacs-mode-line-unicode-symbols)) str)
-           ((equal str "1") "➊")
-           ((equal str "2") "➋")
-           ((equal str "3") "➌")
-           ((equal str "4") "➍")
-           ((equal str "5") "➎")
-           ((equal str "6") "❻")
-           ((equal str "7") "➐")
-           ((equal str "8") "➑")
-           ((equal str "9") "➒")
-           ((equal str "0") "➓"))))
-
       (defun spacemacs/workspaces-ms-rename ()
         "Rename a workspace and get back to micro-state."
         (interactive)
