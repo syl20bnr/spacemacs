@@ -98,8 +98,8 @@ password]].
 It is possible to send beautiful HTML emails using org mode.
 
 Pressing ~SPC m o~ in a message buffer will convert the current message
-from org mode to html.  A org mode buffer can be sent via html email by pressing
-~SPC m h~ in any org mode buffer.
+from org mode to html.  An org mode buffer can be sent via html email by pressing
+~SPC m m~ in any org mode buffer.
 
 * Keybindings
 
@@ -121,4 +121,4 @@ Basic and Spacemacs specific keybindings can be found in the following table.
 | ~RET~       | Summary Buffer(RSS) - Open article Link in browser       |
 | ~TAB~       | Summary Buffer(RSS) - Open article and switch to it      |
 | ~SPC m h~   | Message Buffer - Use org mode to convert into html email |
-| ~SPC m H~   | Org Mode - Send current buffer as HTML email message     |
+| ~SPC m m~   | Org Mode - Send current buffer as HTML email message     |
