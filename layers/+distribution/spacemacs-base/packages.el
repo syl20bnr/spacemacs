@@ -631,6 +631,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "Cl"   'helm-colors
         "ff"   'spacemacs/helm-find-files
         "fF"   'helm-find-files
+        "fl"   'helm-find
         "fL"   'helm-locate
         "fr"   'helm-recentf
         "hb"   'helm-filtered-bookmarks

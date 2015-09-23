@@ -1552,22 +1552,36 @@ Files manipulation commands (start with ~f~):
 
 | Key Binding | Description                                                    |
 |-------------+----------------------------------------------------------------|
-| ~SPC f c~   | copy current file to a different location                      |
-| ~SPC f C d~ | convert file from unix to dos encoding                         |
-| ~SPC f C u~ | convert file from dos to unix encoding                         |
-| ~SPC f D~   | delete a file and the associated buffer (ask for confirmation) |
-| ~SPC f f~   | open file with =helm= (or =ido=)                               |
-| ~SPC f F~   | try to open the file under point =helm=                        |
-| ~SPC f j~   | jump to the current buffer file in dired                       |
-| ~SPC f l~   | open file literally in =fundamental mode=                      |
-| ~SPC f L~   | Locate a file (using =locate=)                                 |
-| ~SPC f o~   | open a file using the default external program                 |
-| ~SPC f R~   | rename the current file                                        |
-| ~SPC f s~   | save a file                                                    |
-| ~SPC f S~   | save all files                                                 |
-| ~SPC f r~   | open a recent file with =helm=                                 |
-| ~SPC f t~   | toggle file tree side bar using [[https://github.com/jaypei/emacs-neotree][NeoTree]]                        |
-| ~SPC f y~   | show current file absolute path in the minibuffer              |
+| ~SPC f c~     | copy current file to a different location                      |
+| ~SPC f C d~   | convert file from unix to dos encoding                         |
+| ~SPC f C u~   | convert file from dos to unix encoding                         |
+| ~SPC f D~     | delete a file and the associated buffer (ask for confirmation) |
+| ~SPC f f~     | open file with =helm= (or =ido=)                                   |
+| ~SPC f F~     | try to open the file under point =helm=                          |
+| ~SPC f j~     | jump to the current buffer file in dired                       |
+| ~SPC f l~     | Locate a file starting from current directory (using =find=)     |
+| ~SPC f L~     | Locate a file (using =locate=)                                   |
+| ~SPC f o~     | open a file using the default external program                 |
+| ~SPC f R~     | rename the current file                                        |
+| ~SPC f s~     | save a file                                                    |
+| ~SPC f S~     | save all files                                                 |
+| ~SPC f r~     | open a recent file with =helm=                                   |
+| ~SPC f t~     | toggle file tree side bar using [[https://github.com/jaypei/emacs-neotree][NeoTree]]                        |
+| ~SPC f y~     | show current file absolute path in the minibuffer              |
+
+
+***** Note to Windows users
+To use ~SPC f l~ and ~SPC f L~ you will probably need a couple of external
+programs. For ~SPC f l~ you will need a version of =find.exe= that supports unix
+syntax. You should be able to use the one distributed with msysgit with this
+setting in =dotspacemacs/user-init=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq find-program "path/to/find.exe")
+#+END_SRC
+
+~SPC f L~ uses the command-line version of the Everything search tool for
+windows. You can find both [[http://www.voidtools.com/downloads/][here]]. You need to make sure =es.exe= is in your path.
 
 **** Emacs and Spacemacs files
 Convenient key bindings are located under the prefix ~SPC f e~ to quickly

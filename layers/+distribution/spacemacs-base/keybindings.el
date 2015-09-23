@@ -125,7 +125,6 @@ Ensure that helm is required before calling FUNC."
   "fCu" 'spacemacs/dos2unix
   "fg" 'rgrep
   "fj" 'dired-jump
-  "fl" 'find-file-literally
   "fo" 'spacemacs/open-in-external-app
   "fR" 'spacemacs/rename-current-buffer-file
   "fS" 'evil-write-all
