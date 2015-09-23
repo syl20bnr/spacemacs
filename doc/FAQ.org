@@ -1,0 +1,61 @@
+* FAQ                                                                 :TOC@4:
+   - [[#common][Common]]
+     - [[#which-version-of-spacemacs-am-i-running-][Which version of Spacemacs am I running ?]]
+     - [[#what-is-the-official-pronunciation-of-spacemacs-][What is the official pronunciation of Spacemacs ?]]
+     - [[#why-are-packages-installed-with-package-install-automatically-deleted-by-spacemacs-when-it-boots-][Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots ?]]
+     - [[#the-spacemacs-banner-is-ugly-what-should-i-do-][The Spacemacs banner is ugly, what should I do ?]]
+     - [[#the-powerline-separators-are-ugly-how-can-i-fix-them-][The powerline separators are ugly, how can I fix them ?]]
+     - [[#the-powerline-separators-have-no-anti-aliasing-what-can-i-do-][The powerline separators have no anti-aliasing, what can I do ?]]
+     - [[#why-is-after-init-hook-not-executed-][Why is after-init-hook not executed ?]]
+   - [[#windows][Windows]]
+     - [[#why-do-the-fonts-look-crappy-on-windows-][Why do the fonts look crappy on Windows ?]]
+     - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer-][Why is there no Spacemacs logo in the startup buffer ?]]
+   - [[#os-x][OS X]]
+     - [[#why-are-the-powerline-colors-not-correct-on-os-x-][Why are the powerline colors not correct on OS X ?]]
+
+** Common
+*** Which version of Spacemacs am I running ?
+The version is displayed on the upper right corner of the loading screen.
+You may also just type ~SPC f e v~.
+
+*** What is the official pronunciation of Spacemacs ?
+As it is written, that is _space_ then _macs_.
+
+*** Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots ?
+To declare new packages you have to create a new configuration layer, see
+the [[file:QUICK_START.org][quick start guide]].
+
+*** The Spacemacs banner is ugly, what should I do ?
+Install the default font supported by Spacemacs or choose a fixed width font.
+More information in the font section of the [[file:DOCUMENTATION.org][documentation]].
+
+*** The powerline separators are ugly, how can I fix them ?
+Use the property =:powerline-scale= of the variable
+=dotspacemacs-default-font=. See font section of the [[file:DOCUMENTATION.org][documentation]] for more details.
+
+*** The powerline separators have no anti-aliasing, what can I do ?
+Emacs powerline uses XMP images to draw the separators in a graphical
+environment. You can have anti-aliasing if you use the =utf8= separator.
+Note that by default the =utf8= separator is used in a terminal.
+See the powerline section in the font section of the [[file:DOCUMENTATION.org][documentation]].
+
+*** Why is after-init-hook not executed ?
+Don't launch Spacemacs with =emacs -q -l init.el= command. This command will
+run the hooked function in =after-init-hook= before the evaluation of the
+passed =-l init.el= file.
+
+** Windows
+*** Why do the fonts look crappy on Windows ?
+You can install [[https://code.google.com/p/mactype/][MacType]] on Windows to get very nice looking fonts. It is
+also recommended to disable smooth scrolling on Windows.
+
+*** Why is there no Spacemacs logo in the startup buffer ?
+A GUI build of emacs supporting image display is required.
+You can follow the instructions [[http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files][here]]. Alternatively you can download binaries
+of emacs with image support included such as [[http://emacsbinw64.sourceforge.net/][this one]].
+
+** OS X
+*** Why are the powerline colors not correct on OS X ?
+This is a [[https://github.com/milkypostman/powerline/issues/54][known issue]] as of Emacs 24.4 due to =ns-use-srgb-colorspace=
+defaulting to true. It is recommended to use the [[github.com/railwaycat/homebrew-emacsmacport][emacs-mac-port]] build.
+See the install section in the [[file:../README.md][README]] for more details.

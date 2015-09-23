@@ -1,0 +1,159 @@
+* Configuration                                                       :TOC@4:
+   - [[#configuration-layers][Configuration layers]]
+   - [[#dotfile-spacemacs][Dotfile (.spacemacs)]]
+   - [[#dotdirectory-spacemacsd][Dotdirectory (~/.spacemacs.d)]]
+   - [[#learning-spacemacs][Learning Spacemacs]]
+     - [[#editing-styles][Editing Styles]]
+     - [[#the-leader-keys][The leader keys]]
+     - [[#evil-tutor][Evil-tutor]]
+     - [[#universal-argument][Universal argument]]
+     - [[#configuration-layers-and-package-discovery][Configuration layers and Package discovery]]
+     - [[#key-bindings-discovery][Key bindings discovery]]
+     - [[#describe-functions][Describe functions]]
+   - [[#how-tos][How-To's]]
+
+** Configuration layers
+Spacemacs divides its configuration into self-contained units called
+=configuration layers=. These layers are stacked on top of each other
+to achieve a custom configuration.
+
+By default Spacemacs uses a dotfile called =~/.spacemacs= to control which
+layers to load. Within this file you can also configure certain features.
+
+A configuration layer is a directory containing at least a =packages.el=
+file which defines and configures packages to be downloaded from Emacs
+package repositories using the =package.el= built-in feature of Emacs.
+
+If you already have your own =Emacs= configuration you can move it to your
+own layer.
+
+The following command creates a layer in the =private= directory:
+
+#+BEGIN_SRC
+    <SPC> : configuration-layer/create-layer RET
+#+END_SRC
+
+Any configuration layers you create must be explicitly loaded in =~/.spacemacs=.
+
+Note: For your privacy, the contents of the =private= directory are not
+under source control. See the section on private configuration management in
+the [[file:DOCUMENTATION.org][documentation]].
+
+** Dotfile (.spacemacs)
+As mentioned =.spacemacs= controls which configuration layers to load and
+is also a means to customizing Spacemacs.
+
+The following command will create a =.spacemacs= file in your home directory:
+
+#+BEGIN_EXAMPLE
+    <SPC> : dotspacemacs/install RET
+#+END_EXAMPLE
+
+To open the installed dotfile:
+
+#+BEGIN_EXAMPLE
+    <SPC> f e d
+#+END_EXAMPLE
+
+To load some configuration layers using the variable
+=dotspacemacs-configuration-layers=:
+
+#+BEGIN_SRC elisp
+;; List of configuration layers to load.
+dotspacemacs-configuration-layers '(auto-completion smex)
+#+END_SRC
+
+Some configuration layers support configuration variables to expose granular
+control over layer-specific features, [[file:../layers/+source-control/git/README.org][git layer]] being one such example.
+Variables can be directly set within =dotspacemacs-configuration-layers= like so:
+
+#+BEGIN_SRC elisp
+;; List of configuration layers to load.
+dotspacemacs-configuration-layers '(auto-completion
+                                    (git :variables
+                                         git-magit-status-fullscreen t)
+                                    smex)
+#+END_SRC
+
+At anytime you can apply the changes made to the dotfile or layers
+_without restarting_ Spacemacs by pressing ~SPC f e R~.
+
+The [[file:../core/templates/.spacemacs.template][dotfile template]] contain further information about how to customize
+Spacemacs. See the dotfile configuration section of the [[file:DOCUMENTATION.org][documentation]] for
+more details.
+
+** Dotdirectory (~/.spacemacs.d)
+Like =Emacs=, Spacemacs initialization can also be contained in an =init.el= file
+in a special directory =~/.spacemacs.d=. The contents of the dotfile should be
+then copied in the =init.el= file.
+
+** Learning Spacemacs
+*** Editing Styles
+Spacemacs can be used by Vim users or Emacs users by setting the
+=dotspacemacs-editing-style= variable to =vim=, =emacs= or even =hybrid=
+in the dotfile =~/.spacemacs=.
+
+*** The leader keys
+=Spacemacs= key bindings use a leader key which is by default bound to
+~SPC~ (space bar) in =vim= or =hybrid= editing styles and ~M-m~ in =emacs=
+style.
+
+You can change it by setting the variable =dotspacemacs-leader-key= if
+you use the =vim= style or =dotspacemacs-emacs-leader-key= if you use
+the =emacs= style (these variables must be set in the file =~/.spacemacs=).
+
+For simplicity the documentation always refers to the leader key as
+~SPC~.
+
+There is secondary leader key called the major-mode leader key which is
+set to ~,~ by default. This key is a shortcut for ~SPC m~
+where all the major-mode specific commands are bound.
+
+*** Evil-tutor
+If you are willing to learn the Vim key bindings (highly recommended since
+you can benefit from them even in =emacs= style), press ~SPC h T~
+to begin an Evil-adapted Vimtutor.
+
+*** Universal argument
+In =vim= editing style the universal argument defaults to ~SPC u~
+instead of ~C-u~ because the latter is used to scroll up as in Vim.
+
+*** Configuration layers and Package discovery
+By using =helm-spacemacs= with ~SPC f e h~ you can quickly search
+for a package and get the name of the layers using it.
+
+You can also easily go to the =README.org= of a layer or go to the initialization
+function of a package.
+
+*** Key bindings discovery
+Thanks to [[https://github.com/justbur/emacs-which-key][which-key]], whenever a prefix command is pressed (like ~SPC~)
+a buffer appears after one second listing the possible keys for this prefix.
+
+It is also possible to search for specific key bindings by pressing:
+
+#+BEGIN_EXAMPLE
+    SPC ?
+#+END_EXAMPLE
+
+To narrow the bindings list to those prefixed with =SPC=,
+type a pattern like this regular expression:
+
+#+BEGIN_EXAMPLE
+    SPC\ b
+#+END_EXAMPLE
+
+which would list all =buffer= related bindings.
+
+*** Describe functions
+=Describe functions= are powerful Emacs introspection commands to get information
+about functions, variables, modes etc. These commands are bound thusly:
+
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~SPC h d f~ | describe-function |
+| ~SPC h d k~ | describe-key      |
+| ~SPC h d m~ | describe-mode     |
+| ~SPC h d v~ | describe-variable |
+
+** How-To's
+Some quick =how-to's= are compiled in the [[file:HOWTOs.org][HOWTOs.org]] file.
