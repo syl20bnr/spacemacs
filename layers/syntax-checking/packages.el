@@ -33,36 +33,6 @@
     (progn
       (spacemacs|diminish flycheck-mode " ⓢ" " s")
 
-      ;; color mode line faces
-      (defun spacemacs/defface-flycheck-mode-line-color (state)
-        "Define a face for the given Flycheck STATE."
-        (let* ((fname (intern (format "spacemacs-mode-line-flycheck-%s-face"
-                                      (symbol-name state))))
-              (foreground (face-foreground
-                           (intern (format "flycheck-fringe-%s" state)))))
-          (eval `(defface ,fname '((t ()))
-                   ,(format "Color for Flycheck %s feedback in mode line."
-                            (symbol-name state))
-                   :group 'spacemacs))
-          (set-face-attribute fname nil
-                              :foreground foreground
-                              :box (face-attribute 'mode-line :box))))
-
-      (defun spacemacs/set-flycheck-mode-line-faces ()
-        "Define or set the flycheck info mode-line faces."
-        (mapcar 'spacemacs/defface-flycheck-mode-line-color
-                '(error warning info)))
-      (spacemacs/set-flycheck-mode-line-faces)
-
-      (defmacro spacemacs|custom-flycheck-lighter (error)
-        "Return a formatted string for the given ERROR (error, warning, info)."
-        `(let* ((error-counts (flycheck-count-errors
-                               flycheck-current-errors))
-                (errorp (flycheck-has-current-errors-p ',error))
-                (err (or (cdr (assq ',error error-counts)) "?"))
-                (running (eq 'running flycheck-last-status-change)))
-           (if (or errorp running) (format "•%s " err))))
-
       ;; Custom fringe indicator
       (when (fboundp 'define-fringe-bitmap)
         (define-fringe-bitmap 'my-flycheck-fringe-indicator
