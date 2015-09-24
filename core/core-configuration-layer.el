@@ -107,7 +107,7 @@
              :documentation "Location of the package.")
    (step :initarg :step
          :initform nil
-         :type (satisfies (lambda (x) (member x '(nil pre post))))
+         :type (satisfies (lambda (x) (member x '(nil pre))))
          :documentation "Initialization step.")
    (excluded :initarg :excluded
              :initform nil
@@ -328,7 +328,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
                         (when (fboundp post-init-func)
                           (push name (oref obj :post-layers)))
                         (oset obj :location 'local)
-                        (oset obj :step step)))))))))))
+                        (oset obj :step (when (eq 'pre step) step))))))))))))
     ;; additional and excluded packages from dotfile
     (when dotfile
       (dolist (pkg dotspacemacs-additional-packages)
@@ -729,10 +729,7 @@ path."
     packages (lambda (x) (eq 'pre (oref x :step)))))
   (configuration-layer//configure-packages-2
    (configuration-layer/filter-objects
-    packages (lambda (x) (null (oref x :step)))))
-  (configuration-layer//configure-packages-2
-   (configuration-layer/filter-objects
-    packages (lambda (x) (eq 'post (oref x :step))))))
+    packages (lambda (x) (null (oref x :step))))))
 
 (defun configuration-layer//configure-packages-2 (packages)
   "Configure all passed PACKAGES."
