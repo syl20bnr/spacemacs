@@ -630,7 +630,7 @@ make the emacs state the default state everywhere.
 Set the =dotspacemacs-editing-style= variable to =emacs= in the dotfile.
 
 In Emacs style the leader is available on ~M-m~. It is possible to dynamically
-switch between evil and holy mode using ~SPC E H~ and ~M-m E H~.
+switch between evil and holy mode using ~SPC t E h~ and ~M-m t E h~.
 
 *** Hybrid
 The hybrid editing style is like the Vim style except that insert state
@@ -639,7 +639,7 @@ in hybrid mode is called the hybrid state and you have to map your key bindings
 in =evil-hybrid-state-map= keymap instead of =evil-insert-state-map=.
 
 Hybrid mode can be enabled by setting =dotspacemacs-editing-style= to =hybrid=.
-To switch between evil and hybrid mode use ~SPC E Y~.
+To switch between evil and hybrid mode use ~SPC t E y~ and ~M-m t E y~.
 
 ** States
 =Spacemacs= has 10 states:
@@ -879,14 +879,14 @@ and ~T~):
 | ~SPC t L~   | toggle visual lines                                               |
 | ~SPC t n~   | show the absolute line numbers                                    |
 
-    | Key Binding | Description                                                  |
-    |-------------+--------------------------------------------------------------|
-    | ~SPC T F~   | toggle frame fullscreen                                      |
-    | ~SPC T f~   | toggle display of the fringe                                 |
-    | ~SPC T m~   | toggle menu bar                                              |
-    | ~SPC T M~   | toggle frame maximize                                        |
-    | ~SPC T t~   | toggle tool bar                                              |
-    | ~SPC T T~   | toggle frame transparency and enter transparency micro-state |
+| Key Binding | Description                                                  |
+|-------------+--------------------------------------------------------------|
+| ~SPC T F~   | toggle frame fullscreen                                      |
+| ~SPC T f~   | toggle display of the fringe                                 |
+| ~SPC T m~   | toggle menu bar                                              |
+| ~SPC T M~   | toggle frame maximize                                        |
+| ~SPC T t~   | toggle tool bar                                              |
+| ~SPC T T~   | toggle frame transparency and enter transparency micro-state |
 
 *Note*: These toggles are all available via the =helm-spacemacs= interface (press
 ~SPC f e h~ to display the =helm-spacemacs= buffer).
@@ -1028,6 +1028,8 @@ can be reached using the =control= key.
 | ~SPC t a~   | =ⓐ=     | a     | auto-completion                             |
 | ~SPC t c~   | =ⓒ=     | c     | camel case motion with subword mode         |
 | =none=      | =ⓔ=     | e     | [[https://github.com/edwtjo/evil-org-mode][evil-org]] mode                               |
+| ~SPC t E h~ | =Ⓔh=    | Eh    | holy mode                                   |
+| ~SPC t E y~ | =Ⓔy=    | Ey    | hybrid mode                                 |
 | ~SPC t f~   |          |       | fill-column-indicator mode                  |
 | ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                              |
 | ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                           |

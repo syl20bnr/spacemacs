@@ -934,10 +934,13 @@ ARG non nil means that the editing style is `vim'."
         (holy-mode))
       (spacemacs|add-toggle holy-mode
         :status holy-mode
-        :on (holy-mode)
+        :on (progn (when (bound-and-true-p hybrid-mode)
+                     (hybrid-mode -1))
+                   (holy-mode))
         :off (holy-mode -1)
         :documentation "Globally toggle holy mode."
-        :evil-leader "E H"))))
+        :evil-leader "tEh")
+      (spacemacs|diminish holy-mode " Ⓔh" " Eh"))))
 
 (defun spacemacs-base/init-hybrid-mode ()
   (use-package hybrid-mode
@@ -946,11 +949,13 @@ ARG non nil means that the editing style is `vim'."
       (when (eq 'hybrid dotspacemacs-editing-style) (hybrid-mode))
       (spacemacs|add-toggle hybrid-mode
         :status hybrid-mode
-        :on (hybrid-mode)
+        :on (progn (when (bound-and-true-p holy-mode)
+                     (holy-mode -1))
+                   (hybrid-mode))
         :off (hybrid-mode -1)
         :documentation "Globally toggle hybrid mode."
-        :evil-leader "E Y")
-      (spacemacs|diminish hybrid-mode " ⓗy" " hy"))))
+        :evil-leader "tEy")
+      (spacemacs|diminish hybrid-mode " Ⓔy" " Ey"))))
 
 (defun spacemacs-base/init-ido-vertical-mode ()
   (use-package ido-vertical-mode
