@@ -1506,7 +1506,9 @@ It will toggle the overlay under point or create an overlay of one character."
         (interactive)
         (if (neo-global--window-exists-p)
             (neotree-hide)
-          (neotree-find (projectile-project-root))))
+          (let ((origin-buffer-file-name (buffer-file-name)))
+            (neotree-find (projectile-project-root))
+            (neotree-find origin-buffer-file-name))))
 
       (defun spacemacs//neotree-key-bindings ()
         "Set the key bindings for a neotree buffer."
