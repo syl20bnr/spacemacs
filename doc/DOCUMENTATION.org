@@ -40,9 +40,10 @@
      - [[#binding-keys][Binding keys]]
      - [[#custom-variables][Custom variables]]
  - [[#main-principles][Main principles]]
-   - [[#evil-mode][Evil Mode]]
-   - [[#holy-mode][Holy Mode]]
-   - [[#hybrid-mode][Hybrid Mode]]
+   - [[#editing-styles][Editing Styles]]
+     - [[#vim][Vim]]
+     - [[#emacs][Emacs]]
+     - [[#hybrid][Hybrid]]
    - [[#states][States]]
    - [[#evil-leader][Evil leader]]
    - [[#universal-argument][Universal argument]]
@@ -617,44 +618,45 @@ Custom variables configuration from =M-x customize-group= which are
 automatically saved by Emacs are stored at the end of your =~/.spacemacs= file.
 
 * Main principles
-** Evil Mode
-=Spacemacs= uses the [[https://gitorious.org/evil/pages/Home][evil]] mode package to emulate Vim key bindings. It is a very
-complete emulation, maybe the most advanced. In fact, Evil is much more than
-just a Vim emulation. It has more states than Vim for instance.
+** Editing Styles
+*** Vim
+Spacemacs behaves like in Vim using [[https://gitorious.org/evil/pages/Home][Evil]] mode package to emulate Vim key bindings.
+This is the default style of Spacemacs, it can be set explicitly by setting
+the =dotspacemacs-editing-style= variable to =vim= in the dotfile.
 
-** Holy Mode
-Spacemacs can now be used by Emacs users by setting the
-=dotspacemacs-editing-style= variable to =emacs= in the dotfile. In Emacs style the
-leader is available as ~M-m~. It is possible to dynamically switch between evil
-and holy mode using ~SPC E H~ and ~M-m E H~.
+*** Emacs
+Spacemacs behaves like in raw Emacs using the Holy mode which configures Evil to
+make the emacs state the default state everywhere.
+Set the =dotspacemacs-editing-style= variable to =emacs= in the dotfile.
 
-** Hybrid Mode
-The hybrid style of editing is just like vim except for one important
-difference. Hybrid mode replaces vim's insert state with a new state called
-hybrid state. In hybrid state, all stock Emacs bindings are available to edit
-text (~C-n~, ~C-p~, ~C-a~, etc.), as well as the =Spacemacs= leader-key
-bindings. You enter and exit hybrid state the same way that you enter and exit
-vim's insert state. The difference between hybrid and holy mode is that the
-default state for new buffers in hybrid mode is the normal vim state.
+In Emacs style the leader is available on ~M-m~. It is possible to dynamically
+switch between evil and holy mode using ~SPC E H~ and ~M-m E H~.
+
+*** Hybrid
+The hybrid editing style is like the Vim style except that insert state
+has all the Emacs key bindings available like in emacs state. The insert state
+in hybrid mode is called the hybrid state and you have to map your key bindings
+in =evil-hybrid-state-map= keymap instead of =evil-insert-state-map=.
 
 Hybrid mode can be enabled by setting =dotspacemacs-editing-style= to =hybrid=.
 To switch between evil and hybrid mode use ~SPC E Y~.
 
 ** States
-=Spacemacs= has 9 states:
+=Spacemacs= has 10 states:
 
-| State        | Color       | Description                                                                                                |
-|--------------+-------------+------------------------------------------------------------------------------------------------------------|
-| normal       | orange      | like the =normal mode of Vim=, used to execute and combine commands                                        |
-| insert       | green       | like the =insert mode of Vim=, used to actually insert text                                                |
-| visual       | gray        | like the =visual mode of Vim=, used to make text selection                                                 |
-| motion       | purple      | exclusive to =Evil=, used to navigate read only buffers                                                    |
-| emacs        | blue        | exclusive to =Evil=, using this state is like using a regular Emacs without Vim                            |
-| replace      | chocolate   | exclusive to =Evil=, overwrites the character under point instead of inserting a new one                   |
-| evilified    | light brown | exclusive to =Spacemacs=, this is an =emacs state= modified to bring Vim navigation, selection and search. |
-| lisp         | pink        | exclusive to =Spacemacs=, used to navigate Lisp code and modify it (more [[#editing-lisp-code][info]])                             |
-| iedit        | red         | exclusive to =Spacemacs=, used to navigate between multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])      |
-| iedit-insert | red         | exclusive to =Spacemacs=, used to replace multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])               |
+| State        | Color       | Description                                                                                                  |
+|--------------+-------------+--------------------------------------------------------------------------------------------------------------|
+| normal       | orange      | like the =normal mode of Vim=, used to execute and combine commands                                          |
+| insert       | green       | like the =insert mode of Vim=, used to actually insert text                                                  |
+| visual       | gray        | like the =visual mode of Vim=, used to make text selection                                                   |
+| motion       | purple      | exclusive to =Evil=, used to navigate read only buffers                                                      |
+| emacs        | blue        | exclusive to =Evil=, using this state is like using a regular Emacs without Vim                              |
+| replace      | chocolate   | exclusive to =Evil=, overwrites the character under point instead of inserting a new one                     |
+| hybrid       | blue        | exclusive to =Spacemacs=, this is like the insert state except that all the emacs key bindings are available |
+| evilified    | light brown | exclusive to =Spacemacs=, this is an =emacs state= modified to bring Vim navigation, selection and search.   |
+| lisp         | pink        | exclusive to =Spacemacs=, used to navigate Lisp code and modify it (more [[#editing-lisp-code][info]])                               |
+| iedit        | red         | exclusive to =Spacemacs=, used to navigate between multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])        |
+| iedit-insert | red         | exclusive to =Spacemacs=, used to replace multiple regions of text using =iedit= (more [[#replacing-text-with-iedit][info]])                 |
 
 Note: Technically speaking there is also the =operator= evil state.
 
