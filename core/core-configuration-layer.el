@@ -102,7 +102,7 @@
    (location :initarg :location
              :initform elpa
              :type (satisfies (lambda (x)
-                                (or (member x '(local elpa))
+                                (or (member x '(built-in local elpa))
                                     (and (listp x) (eq 'recipe (car x))))))
              :documentation "Location of the package.")
    (step :initarg :step
@@ -363,7 +363,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
   "Return the distant packages (ie to be intalled) that are effectively used."
   (configuration-layer/filter-objects
    packages (lambda (x) (and (not (null (oref x :owner)))
-                             (not (eq (oref x :location) 'local))
+                             (not (memq (oref x :location) '(built-in local)))
                              (not (oref x :excluded))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
