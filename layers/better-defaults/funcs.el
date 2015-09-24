@@ -28,3 +28,12 @@ point reaches the beginning or end of the buffer, stop there."
     (back-to-indentation)
     (when (= orig-point (point))
       (move-beginning-of-line 1))))
+
+(defun spacemacs/backward-kill-word-or-region (&optional arg)
+  "Calls `kill-region' when a region is active and
+`backward-kill-word' otherwise. ARG is passed to
+`backward-kill-word' if no region is active."
+  (interactive "p")
+  (if (region-active-p)
+      (kill-region (region-beginning) (region-end))
+    (backward-kill-word arg)))
