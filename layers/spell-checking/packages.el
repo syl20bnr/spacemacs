@@ -21,8 +21,8 @@
     :defer t
     :init
     (progn
-      (add-hook 'markdown-mode-hook '(lambda () (flyspell-mode 1)))
-      (add-hook 'text-mode-hook '(lambda () (flyspell-mode 1)))
+      (add-hook 'markdown-mode-hook 'flyspell-mode)
+      (add-hook 'text-mode-hook 'flyspell-mode)
       (spacemacs|add-toggle spelling-checking
         :status flyspell-mode
         :on (flyspell-mode)
