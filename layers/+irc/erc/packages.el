@@ -18,7 +18,8 @@
         erc
         (erc-gitter :location (recipe
                                :fetcher github
-                               :repo "jleechpe/erc-gitter"))
+                               :repo "jleechpe/erc-gitter")
+                    :excluded t)
         erc-hl-nicks
         erc-image
         erc-social-graph

@@ -1,7 +1,7 @@
 (setq erc-post-extensions
   '(
     erc-tex
-    erc-yank
+    (erc-yank :excluded t)
     erc-sasl
     ))
 
