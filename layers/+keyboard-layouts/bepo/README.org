@@ -1,0 +1,356 @@
+* bepo contribution layer for Spacemacs
+
+#+CAPTION: logo
+
+[[file:img/bepo.png]]
+
+** Table of Contents                                                  :TOC@4:
+ - [[#bepo-contribution-layer-for-spacemacs][bepo contribution layer for Spacemacs]]
+   - [[#description][Description]]
+   - [[#mapping][Mapping]]
+   - [[#supported-modespackageslayer][Supported modes/packages/layer]]
+   - [[#install][Install]]
+   - [[#key-bindings][Key bindings]]
+     - [[#company][company]]
+     - [[#evil][evil]]
+     - [[#evil-escape][evil-escape]]
+     - [[#evil-surround][evil-surround]]
+     - [[#evil-window][evil-window]]
+     - [[#helm][helm]]
+     - [[#magit][magit]]
+     - [[#neotree][neotree]]
+     - [[#org][org]]
+     - [[#ranger][ranger]]
+     - [[#spacemacs-specific][spacemacs-specific]]
+   - [[#contributors][Contributors]]
+   - [[#sources][Sources]]
+
+** Description
+This layer change the key bindings in spacemacs to be compatible with the [[http://bepo.fr/][bepo]]
+keyboard layout. =bepo= is a keyboard layout optimized for the French language.
+This package first switch traditional ~hjkl~ movement keys with ~ctsr~, and then
+try to correct the bugs induced by these changes in other modes/packages.
+
+[[file:img/keymap.png]]
+
+** Mapping
+The mapping correction is the one proposed for vim on the bepo's official [[http://bepo.fr/wiki/Vim#Principe][wiki]].
+This layer tries to do the following changes when the following characters are
+used for *doing a movement*:
+
+- Map the movements keys under the right hand's fingers:
+  - ~c → h~
+  - ~t → j~
+  - ~s → k~
+  - ~r → l~
+
+- Map lost functionnalites back to some keys:
+  - ~h → r~
+  - ~j → t~
+  - ~k → s~
+  - ~l → c~
+
+The equivalent remapping is also valid for uppercase characters when they are
+used te represent a movement, or to keep the mnemonic between the
+lower/upper-case consistent.
+
+Some bepo keys are not used in traditional mapping, mainly because they are not
+present on the =en-us= keyboard layout. They can be used as an alias for other
+shortcuts:
+  
+- Map unused ~é~ key as an alias of ~w~, more usefull in vim mode:
+  - ~é → w~
+  - ~É → W~
+
+- Map indentation on direct-access keys:
+  - ~» → >~
+  - ~« → <~
+
+Some default configurations are also not optimal for vim, so the following
+defaults are changed:
+
+- Change =evil-escape= escape combination to something faster to type, while
+  being nearly nonexistant in french or english words:
+  - ~fd → gq~
+
+- In =avy=, the key used to select words/lines are remapped to the 8 characters
+  under the fingers:
+  - ~a u i e t s r n~
+
+- Add ~«~ and ~»~ as operators for =evil-surround=, surrounding text with the
+  specified symbols.
+
+There will be some cases when the keys remapping will not follow these
+conventions, mainly because there is better alternatives, or because some moves
+don't make sense.
+
+#+begin_verse
+Example: In =magit= status, the ~c~ is used for =commit= by default, but if we
+want to follow the conventions, it should be remapped to "move left". As it is
+not usefull to move left on =magit=, because operations are done on lines, the
+~c~ is not be remapped.
+#+end_verse
+
+Note: One difference exists with the wiki version: the ~w~ is *not* remapped to
+~C-w~ to avoid having to change its meaning in other modes. Spacemacs provides
+already a ~SPC w~ key binding for working with windows.
+
+** Supported modes/packages/layer
+- avy
+- company
+- evil
+- evil-escape
+- evil-surround
+- evil-window
+- helm
+- magit
+- neotree
+- org
+- ranger
+- spacemacs
+
+** Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+begin_src emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(bepo))
+#+end_src
+
+** Key bindings
+Thanks to `wich-keys`, you shouldn't probably have to go through this list, the
+keys being shown after a small delay following a keypress.
+
+*** company
+|-------------+----------------------------+--------------------|
+| Key Binding | Description                | Replace/equivalent |
+|-------------+----------------------------+--------------------|
+| ~C-t~       | Company next line          | ~C-j~              |
+| ~C-s~       | Company previous line      | ~C-k~              |
+| ~C-r~       | Company complete selection | ~C-l~              |
+|-------------+----------------------------+--------------------|
+
+*** evil
+|-------------+----------------------------+--------------------|
+| Key Binding | Description                | Replace/equivalent |
+|-------------+----------------------------+--------------------|
+| ~c~         | Move the cursor left       | ~h~                |
+| ~t~         | Move the cursor down       | ~j~                |
+| ~s~         | Move the cursor up         | ~k~                |
+| ~r~         | Move the cursor right      | ~l~                |
+|-------------+----------------------------+--------------------|
+| ~C~         | Top of the windows         | ~L~                |
+| ~T~         | Join lines                 | ~J~                |
+| ~S~         | Smart doc lookup           | ~K~                |
+| ~R~         | Bottom of the windows      | ~H~                |
+|-------------+----------------------------+--------------------|
+| ~h~         | Replace                    | ~r~                |
+| ~j~         | Until                      | ~t~                |
+| ~k~         | Substitute                 | ~s~                |
+| ~l~         | Change                     | ~c~                |
+|-------------+----------------------------+--------------------|
+| ~H~         | Replace mode               | ~R~                |
+| ~J~         | Backward Until             | ~T~                |
+| ~K~         | Substitute line            | ~S~                |
+| ~L~         | Change line                | ~C~                |
+|-------------+----------------------------+--------------------|
+| ~é~         | Word (without punctuation) | ~w~                |
+| ~É~         | WORD (with punctuation)    | ~W~                |
+|-------------+----------------------------+--------------------|
+| ~»~         | Indent                     | ~>~                |
+| ~«~         | Unindent                   | ~<~                |
+|-------------+----------------------------+--------------------|
+
+*** evil-escape
+|-------------+-------------+--------------------|
+| Key Binding | Description | Replace/equivalent |
+|-------------+-------------+--------------------|
+| ~gq~        | Escape      | ~fd~               |
+|-------------+-------------+--------------------|
+
+*** evil-surround
+|-------------+-------------------------------+--------------------|
+| Key Binding | Description                   | Replace/equivalent |
+|-------------+-------------------------------+--------------------|
+| ~k~         | Evil-surround functionnalites | ~s~                |
+|-------------+-------------------------------+--------------------|
+
+*** evil-window
+|-------------+------------------------------+--------------------|
+| Key Binding | Description                  | Replace/equivalent |
+|-------------+------------------------------+--------------------|
+| ~SPC w c~   | Window left                  | ~SPC w h~          |
+| ~SPC w t~   | Window down                  | ~SPC w j~          |
+| ~SPC w s~   | Window up                    | ~SPC w k~          |
+| ~SPC w r~   | Window right                 | ~SPC w l~          |
+|-------------+------------------------------+--------------------|
+| ~SPC w C~   | Window move far left         | ~SPC w H~          |
+| ~SPC w T~   | Window move very bottom      | ~SPC w J~          |
+| ~SPC w S~   | Window move very top         | ~SPC w K~          |
+| ~SPC w R~   | Window move far right        | ~SPC w L~          |
+|-------------+------------------------------+--------------------|
+| ~SPC w k~   | Split window below           | ~SPC w s~          |
+| ~SPC w l~   | Delete window                | ~SPC w c~          |
+|-------------+------------------------------+--------------------|
+| ~SPC w H~   | Rotate windows               | ~SPC w R~          |
+| ~SPC w K~   | Split window below and focus | ~SPC w S~          |
+| ~SPC w L~   | Ace delete window            | ~SPC w C~          |
+|-------------+------------------------------+--------------------|
+| ~SPC w é~   | Other window                 | ~SPC w w~          |
+| ~SPC w q~   | Delete window                | ~SPC w c~          |
+| ~SPC é~     | Alias for ~SPC w~            | ~SPC w~            |
+|-------------+------------------------------+--------------------|
+
+*** helm
+|-------------+---------------------------------------+--------------------|
+| Key Binding | Description                           | Replace/equivalent |
+|-------------+---------------------------------------+--------------------|
+| ~C-t~       | Helm next line                        | ~C-j~              |
+| ~C-s~       | Helm previous line                    | ~C-k~              |
+|-------------+---------------------------------------+--------------------|
+| ~C-j~       | Helm toggle resplit and spawn windows | ~C-t~              |
+| ~C-k~       | Helm find files run grep              | ~C-s~              |
+|-------------+---------------------------------------+--------------------|
+
+*** magit
+|-------------+----------------+--------------------|
+| Key Binding | Description    | Replace/equivalent |
+|-------------+----------------+--------------------|
+| ~t~         | Next line      | ~j~                |
+| ~s~         | Previous line  | ~k~                |
+|-------------+----------------+--------------------|
+| ~k~         | Stage change   | ~s~                |
+| ~j~         | Tag popup      | ~t~                |
+| ~h~         | Discard change | ~k~                |
+|-------------+----------------+--------------------|
+
+*** neotree
+|-------------+--------------------------------------+--------------------|
+| Key Binding | Description                          | Replace/equivalent |
+|-------------+--------------------------------------+--------------------|
+| ~c~         | Spacemacs/neotree collapse or up     | ~h~                |
+| ~t~         | Evil next visual line                | ~j~                |
+| ~s~         | Evil previous visual line            | ~k~                |
+| ~r~         | Spacemacs/neotree expand or open     | ~l~                |
+|-------------+--------------------------------------+--------------------|
+| ~C~         | Neotree select previous sibling node | ~H~                |
+| ~T~         | Neotree select down node             | ~J~                |
+| ~S~         | Neotree select up node               | ~K~                |
+| ~R~         | Neotree select next sibling node     | ~L~                |
+|-------------+--------------------------------------+--------------------|
+| ~h~         | Neotree hidden file toggle           | ~l~                |
+| ~k~         | Neotree rename node                  | ~r~                |
+| ~l~         | Neotree create node                  | ~c~                |
+|-------------+--------------------------------------+--------------------|
+| ~H~         | Neotree change root                  | ~R~                |
+|-------------+--------------------------------------+--------------------|
+*** org
+|---------------+--------------------------------------|
+| Key Binding   | Description                          |
+|---------------+--------------------------------------|
+| ~t~           | Evil next visual line                |
+|---------------+--------------------------------------|
+| ~M c~         | Org metaleft                         |
+| ~M t~         | Org metadown                         |
+| ~M s~         | Org metaup                           |
+| ~M r~         | Org metaright                        |
+|---------------+--------------------------------------|
+| ~M C~         | Org shiftmetaleft                    |
+| ~M T~         | Org shiftmetadown                    |
+| ~M S~         | Org shiftmetaup                      |
+| ~M R~         | Org shiftmetaright                   |
+|---------------+--------------------------------------|
+| ~SPC m C~     | Org shiftleft                        |
+| ~SPC m T~     | Org shiftdown                        |
+| ~SPC m S~     | Org shiftup                          |
+| ~SPC m R~     | Org shiftright                       |
+|---------------+--------------------------------------|
+| ~SPC m s~     | Org schedule                         |
+| ~SPC j~       | Org todo                             |
+|---------------+--------------------------------------|
+| ~C S c~       | Org shiftcontrolleft                 |
+| ~C S t~       | Org shiftcontroldown                 |
+| ~C S s~       | Org shiftcontrolup                   |
+| ~C S r~       | Org shiftcontrolright                |
+|---------------+--------------------------------------|
+| ~SPC m t C~   | Org table move column left           |
+| ~SPC m t T~   | Org table move row down              |
+| ~SPC m t S~   | Org table move row up                |
+| ~SPC m t R~   | Org table move column right          |
+|---------------+--------------------------------------|
+| ~SPC m t c~   | Org table previous field             |
+| ~SPC m t t~   | Org table next row                   |
+| ~SPC m t r~   | Org table next field                 |
+|---------------+--------------------------------------|
+| ~SPC g t~     | Org forward heading same level       |
+| ~SPC g s~     | Org backward heading same level      |
+|---------------+--------------------------------------|
+| ~M h~         | Capitalize word                      |
+| ~M j~         | Transpose chars                      |
+| ~M l~         | Move to window line top bottom       |
+|---------------+--------------------------------------|
+| ~M H~         | Capitalize word                      |
+| ~M J~         | Transpose chars                      |
+| ~M L~         | Move to window line top bottom       |
+|---------------+--------------------------------------|
+| ~SPC m H~     | Org refile                           |
+| ~SPC m J~     | Org show todo tree                   |
+| ~SPC m K r~   | Org demote subtree                   |
+| ~SPC m K c~   | Org promote subtree                  |
+| ~SPC m K t~   | Org move subtree down                |
+| ~SPC m K s~   | Org move subtree up                  |
+| ~SPC m L~     | Evil org recompute clocks            |
+|---------------+--------------------------------------|
+| ~SPC m t h~   | Org table recalculate                |
+| ~SPC m t k~   | Org table sort lines                 |
+| ~SPC m t l~   | Org table convert                    |
+| ~SPC m t j f~ | Org table toggle formula debugger    |
+| ~SPC m t j o~ | Org table toggle coordinate overlays |
+|---------------+--------------------------------------|
+| ~SPC «~       | Org metaleft                         |
+| ~SPC »~       | Org metaright                        |
+|---------------+--------------------------------------|
+
+*** ranger
+|-------------+---------------------+--------------------|
+| Key Binding | Description         | Replace/equivalent |
+|-------------+---------------------+--------------------|
+| ~c~         | Ranger up directory | ~h~                |
+| ~t~         | Ranger next file    | ~j~                |
+| ~s~         | Ranger prev file    | ~k~                |
+| ~r~         | Ranger find file    | ~l~                |
+|-------------+---------------------+--------------------|
+| ~C~         | Ranger prev history | ~H~                |
+| ~T~         | Ranger next subdir  | ~J~                |
+| ~S~         | Ranger prev subdir  | ~K~                |
+| ~R~         | Ranger next history | ~L~                |
+|-------------+---------------------+--------------------|
+| ~H~         | Dired do rename     | ~R~                |
+| ~K~         | Eshell              | ~S~                |
+|-------------+---------------------+--------------------|
+
+*** spacemacs-specific
+|-------------+--------------------------------------+--------------------|
+| Key Binding | Description                          | Replace/equivalent |
+|-------------+--------------------------------------+--------------------|
+| ~SPC j c~   | Push mark and goto beginning of line | ~SPC j h~          |
+| ~SPC j t~   | Sp newline                           | ~SPC j j~          |
+| ~SPC j s~   | Evil goto next line and indent       | ~SPC j k~          |
+| ~SPC j r~   | Push mark and goto end of line       | ~SPC j l~          |
+|-------------+--------------------------------------+--------------------|
+| ~SPC j T~   | Split and new line                   | ~SPC j J~          |
+|-------------+--------------------------------------+--------------------|
+| ~SPC i T~   | Insert line below no indent          | ~SPC i J~          |
+| ~SPC i t~   | Evil insert line below               | ~SPC i j~          |
+|-------------+--------------------------------------+--------------------|
+| ~SPC i y~   | Helm yas                             | ~SPC i S~          |
+| ~SPC i Yc~  | Auto yasnippet create                | ~SPC i Sc~         |
+| ~SPC i Ye~  | Auto yasnippet expand                | ~SPC i Se~         |
+| ~SPC i Yw~  | Auto yasnippet persist snippet       | ~SPC i Sw~         |
+|-------------+--------------------------------------+--------------------|
+
+** Contributors
+- Fabien Dubosson
+
+** Sources
+The bepo logo and the keymap image come from the [[http://bepo.fr/][bepo]] official website. They are
+licensed under the [[http://creativecommons.org/licenses/by-sa/3.0/deed.en][CC-BY-SA]].
