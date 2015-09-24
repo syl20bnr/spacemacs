@@ -83,17 +83,4 @@
       (kbd "J") 'gnus-summary-next-article
       (kbd "K") 'gnus-summary-prev-article
       (kbd "<RET>") 'spacemacs/browse-nnrss-url)))
-
-  ;; org-mime is initialized here because otherwise spacemacs
-  ;; complains that the org-mime package does not exist
-  (use-package org-mime
-    :defer t
-    :commands (org-mime-htmlize
-               org-mime-org-buffer-htmlize)
-    :init
-    (progn
-      ;; setup org-mime
-      (evil-leader/set-key-for-mode 'message-mode
-        "mh" 'org-mime-htmlize)
-      (evil-leader/set-key-for-mode 'org-mode
-        "mH" 'org-mime-org-buffer-htmlize))))
+  )
