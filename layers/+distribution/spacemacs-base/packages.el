@@ -16,11 +16,11 @@
         bookmark
         diminish
         ;; hack to be able to wrap built-in emacs modes in an init function
-        (builtin-process-menu :location local)
-        (builtin-ido :location local)
-        (builtin-hs-minor-mode :location local)
-        (builtin-electric-indent-mode :location local)
-        (builtin-uniquify :location local)
+        (process-menu :location built-in)
+        (ido :location built-in)
+        (hs-minor-mode :location built-in)
+        (electric-indent-mode :location built-in)
+        (uniquify :location built-in)
         ediff
         eldoc
         evil
@@ -98,17 +98,17 @@
       ;; don't display eldoc on modeline
       (spacemacs|hide-lighter eldoc-mode))))
 
-(defun spacemacs-base/init-builtin-process-menu ()
+(defun spacemacs-base/init-process-menu ()
   (evilify process-menu-mode process-menu-mode-map))
 
-(defun spacemacs-base/init-builtin-ido ()
+(defun spacemacs-base/init-ido ()
   (ido-mode t)
   (setq ido-save-directory-list-file (concat spacemacs-cache-directory
                                              "ido.last")
         ;; enable fuzzy matching
         ido-enable-flex-matching t))
 
-(defun spacemacs-base/init-builtin-hs-minor-mode ()
+(defun spacemacs-base/init-hs-minor-mode ()
   ;; required for evil folding
   (defun spacemacs//enable-hs-minor-mode ()
     "Enable hs-minor-mode for code folding."
@@ -117,10 +117,10 @@
       (spacemacs|hide-lighter hs-minor-mode)))
   (add-hook 'prog-mode-hook 'spacemacs//enable-hs-minor-mode))
 
-(defun spacemacs-base/init-builtin-electric-indent-mode ()
+(defun spacemacs-base/init-electric-indent-mode ()
   (electric-indent-mode))
 
-(defun spacemacs-base/init-builtin-uniquify ()
+(defun spacemacs-base/init-uniquify ()
   (require 'uniquify)
   ;; When having windows with repeated filenames, uniquify them
   ;; by the folder they are in rather those annoying <2>,<3>,.. etc

@@ -15,6 +15,7 @@
         company
         eldoc
         elisp-slime-nav
+        (emacs-lisp :location built-in)
         evil
         flycheck
         ielm
@@ -53,6 +54,22 @@
       (evil-leader/set-key-for-mode 'emacs-lisp-mode
         "mgg" 'elisp-slime-nav-find-elisp-thing-at-point
         "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point))))
+
+(defun emacs-lisp/init-emacs-lisp ()
+  (evil-leader/set-key-for-mode 'emacs-lisp-mode
+    "me$" 'lisp-state-eval-sexp-end-of-line
+    "meb" 'eval-buffer
+    "mec" 'spacemacs/eval-current-form
+    "mee" 'eval-last-sexp
+    "mer" 'eval-region
+    "mef" 'eval-defun
+    "mel" 'lisp-state-eval-sexp-end-of-line
+    "m,"  'lisp-state-toggle-lisp-state
+    "mtb" 'spacemacs/ert-run-tests-buffer
+    "mtq" 'ert)
+  ;; company support
+  (push 'company-capf company-backends-emacs-lisp-mode)
+  (spacemacs|add-company-hook emacs-lisp-mode))
 
 (defun emacs-lisp/init-macrostep ()
   (use-package macrostep
