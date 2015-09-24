@@ -18,7 +18,9 @@
     evil-org
     gnuplot
     htmlize
-    org
+    ;; org is installed by `org-plus-contrib'
+    (org :location built-in)
+    org-plus-contrib
     org-bullets
     org-pomodoro
     org-present
@@ -63,6 +65,9 @@
     :defer t
     :init (evil-leader/set-key-for-mode 'org-mode
             "mtp" 'org-plot/gnuplot)))
+
+;; dummy init function to force installation of `org-plus-contrib'
+(defun org/init-org-plus-contrib ())
 
 (defun org/init-org ()
   (use-package org
