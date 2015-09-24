@@ -6,7 +6,8 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#functions][Functions]]
-     - [[#smart-move-beginning-of-line][smart-move-beginning-of-line]]
+   - [[#spacemacssmart-move-beginning-of-line][spacemacs/smart-move-beginning-of-line]]
+   - [[#spacemacsbackward-kill-word-or-region][spacemacs/backward-kill-word-or-region]]
  - [[#key-bindings][Key bindings]]
 
 * Description
@@ -31,15 +32,22 @@ To use this contribution add it to your =~/.spacemacs=
 
 * Functions
 
-** smart-move-beginning-of-line
+** spacemacs/smart-move-beginning-of-line
 
 Pressed one time, go to the first non-whitespace character of the line, pressed
 again, go to the beginning of the line.
+
+** spacemacs/backward-kill-word-or-region
+
+A combination of =kill-region= and =backward-kill-word=, depending on whether
+there is an active region. If there's an active region kill that. If not kill
+the preceding word.
 
 * Key bindings
 
 | Key Binding | Description                                                                      |
 |-------------+----------------------------------------------------------------------------------|
 | ~C-a~       | smart beginning of line                                                          |
+| ~C-w~       | backward kill word or region                                                     |
 | ~C-y~       | Automatically indenting after pasting. With prefix argument, paste text as it is |
 
