@@ -22,6 +22,8 @@
     (org :location built-in)
     org-plus-contrib
     org-bullets
+    ;; org-mime is installed by `org-plus-contrib'
+    (org-mime :location built-in)
     org-pomodoro
     org-present
     org-repo-todo
@@ -213,6 +215,17 @@ Will work on both org-mode and any mode that accepts plain html."
   (use-package org-bullets
     :defer t
     :init (add-hook 'org-mode-hook 'org-bullets-mode)))
+
+(defun org/init-org-mime ()
+  (use-package org-mime
+    :defer t
+    :commands (org-mime-htmlize org-mime-org-buffer-htmlize)
+    :init
+    (progn
+      (evil-leader/set-key-for-mode 'message-mode
+        "mh" 'org-mime-htmlize)
+      (evil-leader/set-key-for-mode 'org-mode
+        "mH" 'org-mime-org-buffer-htmlize))))
 
 (defun org/init-org-pomodoro ()
   (use-package org-pomodoro
