@@ -110,6 +110,10 @@ favorite package manager.
 
 Install Emacs from the package manager of your Linux distribution.
 
+You should install the "emacs" package, not the "xemacs" package.
+XEmacs is an old fork of Emacs. The X in its name is unrelated to X11.
+Both Emacs and XEmacs have graphical support.
+
 ### OS X
 
 We recommend the homebrew [emacs-mac-port][] formula:
