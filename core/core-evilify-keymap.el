@@ -182,12 +182,13 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
 (defun spacemacs//evilify-wrapper (map map-symbol map-value event
                                        evil-value evil-event)
   "Define a wrapper for the passed event."
-  (eval `(defun ,(spacemacs//evilify-wrapper-name
+  (eval `(evil-define-command ,(spacemacs//evilify-wrapper-name
                   map-symbol map-value event evil-value evil-event) ()
            ,(spacemacs//evilify-wrapper-documentation
              map-value event evil-value evil-event)
+           :keep-visual t
            (interactive)
-           (if (eq 'evilified evil-state)
+           (if (memq evil-state '(evilified visual))
                ;; evilified state
                ,(if evil-value
                    (spacemacs//evilify-call evil-value event)
