@@ -158,6 +158,11 @@ favorite package manager.
 
 Install Emacs from the package manager of your favorite Linux distribution.
 
+If your distro has both `emacs` and `xemacs`, you want `emacs`. The X has 
+nothing to do with graphical support, the reason is historical and both 
+versions have graphical support. Spacemacs only works with Emacs and not 
+XEmacs.
+
 ### OS X
 
 The recommended version for OS X is [emacs-mac-port][]. It can be installed
