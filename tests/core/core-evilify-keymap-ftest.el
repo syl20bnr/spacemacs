@@ -14,6 +14,10 @@
 (require 'core-evilify-keymap)
 (require 'core-spacemacs-buffer)
 
+(require 'core-spacemacs)
+(require 'core-configuration-layer)
+(spacemacs/load-or-install-package 'evil)
+
 ;; ---------------------------------------------------------------------------
 ;; spacemacs|evilify-map
 ;; ---------------------------------------------------------------------------
