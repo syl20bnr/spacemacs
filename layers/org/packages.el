@@ -20,7 +20,7 @@
     htmlize
     ;; org is installed by `org-plus-contrib'
     (org :location built-in)
-    org-plus-contrib
+    (org-plus-contrib :step pre)
     org-bullets
     ;; org-mime is installed by `org-plus-contrib'
     (org-mime :location built-in)
