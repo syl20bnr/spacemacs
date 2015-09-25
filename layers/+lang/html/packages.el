@@ -138,10 +138,28 @@
     :defer t))
 
 (defun html/post-init-smartparens ()
-  (spacemacs/add-to-hooks (if dotspacemacs-smartparens-strict-mode
-                              'smartparens-strict-mode
-                            'smartparens-mode)
-                          '(css-mode-hook scss-mode-hook sass-mode-hook less-css-mode-hook)))
+  (spacemacs/add-to-hooks
+   (if dotspacemacs-smartparens-strict-mode
+       'smartparens-strict-mode
+     'smartparens-mode)
+   '(css-mode-hook scss-mode-hook sass-mode-hook less-css-mode-hook))
+
+  ;; Only use smartparens in web-mode
+  (spacemacs|use-package-add-hook web-mode
+    :post-config
+    (progn
+      (setq web-mode-enable-auto-pairing nil)
+      (sp-local-pair 'web-mode "<% " " %>")
+      (sp-local-pair 'web-mode "{ " " }")
+      (sp-local-pair 'web-mode "<%= "  " %>")
+      (sp-local-pair 'web-mode "<%# "  " %>")
+      (sp-local-pair 'web-mode "<%$ "  " %>")
+      (sp-local-pair 'web-mode "<%@ "  " %>")
+      (sp-local-pair 'web-mode "<%: "  " %>")
+      (sp-local-pair 'web-mode "{{ "  " }}")
+      (sp-local-pair 'web-mode "{% "  " %}")
+      (sp-local-pair 'web-mode "{%- "  " %}")
+      (sp-local-pair 'web-mode "{# "  " #}"))))
 
 (defun html/init-tagedit ()
   (use-package tagedit
@@ -166,21 +184,6 @@
     (push 'company-web-html company-backends-web-mode)
     :config
     (progn
-      ;; Only use smartparens in web-mode
-      (setq web-mode-enable-auto-pairing nil)
-
-      (sp-local-pair 'web-mode "<% " " %>")
-      (sp-local-pair 'web-mode "{ " " }")
-      (sp-local-pair 'web-mode "<%= "  " %>")
-      (sp-local-pair 'web-mode "<%# "  " %>")
-      (sp-local-pair 'web-mode "<%$ "  " %>")
-      (sp-local-pair 'web-mode "<%@ "  " %>")
-      (sp-local-pair 'web-mode "<%: "  " %>")
-      (sp-local-pair 'web-mode "{{ "  " }}")
-      (sp-local-pair 'web-mode "{% "  " %}")
-      (sp-local-pair 'web-mode "{%- "  " %}")
-      (sp-local-pair 'web-mode "{# "  " #}")
-
       (evil-leader/set-key-for-mode 'web-mode
         "meh" 'web-mode-dom-errors-show
         "mgb" 'web-mode-element-beginning
