@@ -99,7 +99,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
                    (wrapper (spacemacs//evilify-wrapper map map-symbol
                                                         map-value event
                                                         evil-value evil-event)))
-              (define-key map kbd-event wrapper)))
+              (evil-define-key 'evilified map kbd-event wrapper)))
           (when map-value
             (add-to-list 'pending-funcs (cons map-value event) 'append))
           (push event processed)
