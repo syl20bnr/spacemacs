@@ -1,4 +1,4 @@
-;;; core-evilify-keymap-utest.el --- Spacemacs Unit Test File
+;;; core-evilified-state-utest.el --- Spacemacs Unit Test File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -9,7 +9,11 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(require 'core-evilify-keymap)
+(require 'core-funcs)
+(spacemacs/load-or-install-package 'evil)
+(spacemacs/load-or-install-package 'evil-leader)
+
+(require 'core-evilified-state)
 
 ;; ---------------------------------------------------------------------------
 ;; spacemacs//evilify-find-new-event

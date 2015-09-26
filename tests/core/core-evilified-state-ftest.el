@@ -1,4 +1,4 @@
-;;; core-evilify-keymap-ftest.el --- Spacemacs Functional Test File
+;;; core-evilified-state-ftest.el --- Spacemacs Functional Test File
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -9,14 +9,13 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(require 'mocker)
 (require 'core-funcs)
-(require 'core-evilify-keymap)
-(require 'core-spacemacs-buffer)
-
-(require 'core-spacemacs)
-(require 'core-configuration-layer)
 (spacemacs/load-or-install-package 'evil)
+(spacemacs/load-or-install-package 'evil-leader)
+
+(require 'mocker)
+(require 'core-evilified-state)
+(require 'core-spacemacs-buffer)
 
 ;; ---------------------------------------------------------------------------
 ;; spacemacs|evilify-map
@@ -33,7 +32,7 @@
     (spacemacs|evilify-map input-map)
     (should (equal '((115 . func)
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (83 . func)
                       (115 . evil-func)))
                    (spacemacs//evilify-sort-keymap input-map)))))
@@ -48,7 +47,7 @@
     (spacemacs|evilify-map input-map)
     (should (equal '((115 . func)
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (19 . func)
                       (83 . evil-func2)
                       (115 . evil-func)))
@@ -65,7 +64,7 @@
     (should (equal '((115 . func1)
                      (83 . func2)
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (19 . func2)
                       (83 . func1)
                       (115 . evil-func)))
@@ -82,7 +81,7 @@
     (should (equal '((115 . func1)
                      (83 . func2)
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (19 . func2)
                       (83 . func1)
                       (115 . evil-func)))
@@ -100,7 +99,7 @@
     (should (equal '((115 . func1)
                      (83 . func2)
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (33554451 . func2)
                       (19 . func1)
                       (83 . evil-func2)
@@ -119,7 +118,7 @@
     (should (equal '((115 . func1)
                      (83 . func2)
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (33554451 . func2)
                       (19 . func1)
                       (83 . evil-func2)
@@ -139,7 +138,7 @@
                      (83 . func2)
                      (19 . func3)
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (33554451 . func3)
                       (19 . func2)
                       (83 . func1)
@@ -159,7 +158,7 @@
                      (83 . func2)
                      (19 . func3)
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (33554451 . func3)
                       (19 . func2)
                       (83 . func1)
@@ -184,7 +183,7 @@
                       (83 . func2)
                       (19 . func3)
                       (evilified-state
-                       keymap "Auxiliary keymap for evilified state"
+                       keymap "Auxiliary keymap for Evilified state"
                        (33554451 . func2)
                        (19 . func1)
                        (83 . evil-func2)
@@ -209,7 +208,7 @@
                       (83 . func2)
                       (19 . func3)
                       (evilified-state
-                       keymap "Auxiliary keymap for evilified state"
+                       keymap "Auxiliary keymap for Evilified state"
                        (33554451 . func2)
                        (19 . func1)
                        (83 . evil-func2)
@@ -229,7 +228,7 @@
     (spacemacs|evilify-map input-map)
     (should (equal '((115 keymap (116 . func))
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (83 keymap (116 . func))
                       (115 . evil-func)))
                    (spacemacs//evilify-sort-keymap input-map)))))
@@ -246,7 +245,7 @@
     (spacemacs|evilify-map input-map)
     (should (equal '((115 keymap (116 . func))
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (19 keymap (116 . func))
                       (83 . evil-func2)
                       (115 . evil-func1)))
@@ -265,7 +264,7 @@
     (should (equal '((115 keymap (116 . func))
                      (83 keymap (116 . func))
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (19 keymap (116 . func))
                       (83 keymap (116 . func))
                       (115 . evil-func)))
@@ -285,7 +284,7 @@
     (should (equal '((115 keymap (116 . func))
                      (83 keymap (116 . func))
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (33554451 keymap (116 . func))
                       (19 keymap (116 . func))
                       (83 . evil-func2)
@@ -307,7 +306,7 @@
                      (83 keymap (116 . func))
                      (19 keymap (116 . func))
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (33554451 keymap (116 . func))
                       (19 keymap (116 . func))
                       (83 keymap (116 . func))
@@ -334,7 +333,7 @@
                       (83 keymap (116 . func))
                       (19 keymap (116 . func))
                       (evilified-state
-                       keymap "Auxiliary keymap for evilified state"
+                       keymap "Auxiliary keymap for Evilified state"
                        (33554451 keymap (116 . func))
                        (19 keymap (116 . func))
                        (83 . evil-func2)
@@ -356,7 +355,7 @@
     (should (equal '((115 . func)
                      (83 keymap (116 . func))
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (19 keymap (116 . func))
                       (83 . func)
                       (115 . evil-func)))
@@ -382,7 +381,7 @@
                      (83 keymap (116 . func))
                      (3 keymap (24 . func3))
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (19 keymap (116 . func))
                       (83 . func2)
                       (115 . evil-func)))
@@ -400,7 +399,7 @@
     (spacemacs|evilify-map input-map :eval-after-load core-funcs)
     (should (equal '((115 . func)
                      (evilified-state
-                      keymap "Auxiliary keymap for evilified state"
+                      keymap "Auxiliary keymap for Evilified state"
                       (83 . func)
                       (115 . evil-func)))
                    (spacemacs//evilify-sort-keymap input-map)))))
