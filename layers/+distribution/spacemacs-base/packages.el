@@ -920,8 +920,8 @@ ARG non nil means that the editing style is `vim'."
                    (holy-mode))
         :off (holy-mode -1)
         :documentation "Globally toggle holy mode."
-        :evil-leader "tEh")
-      (spacemacs|diminish holy-mode " Ⓔh" " Eh"))))
+        :evil-leader "tEe")
+      (spacemacs|diminish holy-mode " Ⓔe" " Ee"))))
 
 (defun spacemacs-base/init-hybrid-mode ()
   (use-package hybrid-mode
@@ -935,8 +935,8 @@ ARG non nil means that the editing style is `vim'."
                    (hybrid-mode))
         :off (hybrid-mode -1)
         :documentation "Globally toggle hybrid mode."
-        :evil-leader "tEy")
-      (spacemacs|diminish hybrid-mode " Ⓔy" " Ey"))))
+        :evil-leader "tEh")
+      (spacemacs|diminish hybrid-mode " Ⓔh" " Eh"))))
 
 (defun spacemacs-base/init-ido ()
   (ido-mode t)
@@ -1356,6 +1356,8 @@ ARG non nil means that the editing style is `vim'."
                ("universal-argument" . "universal arg")
                ("er/expand-region" . "expand region")
                ("helm-apropos" . "apropos")
+               ("spacemacs/toggle-hybrid-mode" . "hybrid (hybrid-mode)")
+               ("spacemacs/toggle-holy-mode" . "emacs (holy-mode)")
                ("evil-lisp-state-\\(.+\\)" . "\\1"))))
         (dolist (nd new-descriptions)
           ;; ensure the target matches the whole string
