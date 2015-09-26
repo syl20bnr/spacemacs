@@ -98,7 +98,7 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m T~                                    | org-show-todo-tree                           |
 | ~SPC m L~                                    | org-shiftright                               |
 | ~SPC m H~                                    | org-shiftleft                                |
-| ~SPV m K~                                    | org-shiftup                                  |
+| ~SPC m K~                                    | org-shiftup                                  |
 | ~SPC m J~                                    | org-shiftdown                                |
 | ~SPC m C-S-l~                                | org-shiftcontrolright                        |
 | ~SPC m C-S-h~                                | org-shiftcontrolleft                         |
