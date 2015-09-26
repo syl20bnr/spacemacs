@@ -1345,6 +1345,7 @@ ARG non nil means that the editing style is `vim'."
                ("spacemacs/toggle-\\(.+\\)" . "\\1")
                ("select-window-\\([0-9]\\)" . "window \\1")
                ("spacemacs/alternate-buffer" . "last buffer")
+               ("spacemacs/toggle-mode-line-\\(.+\\)" . "\\1")
                ("avy-goto-word-or-subword-1" . "avy word")
                ("shell-command" . "shell cmd")
                ("spacemacs/default-pop-shell" . "open shell")
