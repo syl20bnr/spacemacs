@@ -10,6 +10,7 @@
 ;;
 ;;; License: GPLv3
 (require 'core-funcs)
+(require 'core-configuration-layer)
 (spacemacs/load-or-install-package 'evil)
 (spacemacs/load-or-install-package 'evil-leader)
 
