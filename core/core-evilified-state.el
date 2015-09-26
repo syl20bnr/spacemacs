@@ -54,8 +54,8 @@
 (add-hook 'evil-evilified-state-entry-hook 'spacemacs//evilified-state-on-entry)
 (add-hook 'evil-evilified-state-exit-hook 'spacemacs//evilified-state-on-exit)
 
-(add-hook 'evil-visual-state-entry-hook 'spacemacs//evilified-state-on-entry)
-(add-hook 'evil-visual-state-exit-hook 'spacemacs//evilified-state-on-exit)
+(add-hook 'evil-visual-state-entry-hook 'spacemacs//visual-state-on-entry)
+(add-hook 'evil-visual-state-exit-hook 'spacemacs//visual-state-on-exit)
 
 (defun spacemacs//evilify-pre-command-hook ()
   (let ((map (get-char-property (point) 'keymap)))
@@ -76,7 +76,15 @@
   (setq-local evil-visual-state-map (cons 'keymap (list (cons ?y 'evil-yank)))))
 
 (defun spacemacs//evilified-state-on-exit ()
-  "Clean evilified-state"
+  "Clean evilified state"
+  (remove-hook 'pre-command-hook 'spacemacs//evilify-pre-command-hook 'local))
+
+(defun spacemacs//visual-state-on-entry ()
+  "Setup visual state."
+  (add-hook 'pre-command-hook 'spacemacs//evilify-pre-command-hook nil 'local))
+
+(defun spacemacs//visual-state-on-exit ()
+  "Clean visual state"
   (remove-hook 'pre-command-hook 'spacemacs//evilify-pre-command-hook 'local))
 
 ;; default key bindings for all evilified buffers
