@@ -23,7 +23,6 @@
 (require 'core-micro-state)
 (require 'core-use-package-ext)
 (require 'core-keybindings)
-(require 'core-evilified-state)
 
 (defgroup spacemacs nil
   "Spacemacs customizations."
