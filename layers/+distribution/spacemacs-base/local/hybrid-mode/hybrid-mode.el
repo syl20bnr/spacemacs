@@ -58,6 +58,25 @@
 (setf (symbol-function 'hybrid-mode--evil-insert-state-backup)
       (symbol-function 'evil-insert-state))
 
+(eval-after-load 'evil
+  '(progn
+     (defun evil-visual-activate-hook (&optional command)
+       "Enable Visual state if the region is activated."
+       (unless (evil-visual-state-p)
+         (evil-delay nil
+             ;; the activation may only be momentary, so re-check
+             ;; in `post-command-hook' before entering Visual state
+             '(unless (or (evil-visual-state-p)
+                          (evil-insert-state-p)
+                          (evil-hybrid-state-p)
+                          (evil-emacs-state-p))
+                (when (and (region-active-p)
+                           (not deactivate-mark))
+                  (evil-visual-state)))
+           'post-command-hook nil t
+           "evil-activate-visual-state")))
+     (put 'evil-visual-activate-hook 'permanent-local-hook t)))
+
 ;;;###autoload
 (define-minor-mode hybrid-mode
   "Global minor mode to replaces the `evil-insert-state' keymap
