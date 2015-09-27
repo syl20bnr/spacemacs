@@ -15,3 +15,6 @@
 ;; Command Prefixes
 
 (spacemacs/declare-prefix "S" "spelling")
+
+(defvar enable-flyspell-auto-popup nil
+  "If not nil, show speeling suggestions in popups.")
