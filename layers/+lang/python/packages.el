@@ -48,7 +48,8 @@
         "mhh" 'anaconda-mode-show-doc
         "mgg" 'anaconda-mode-find-definitions
         "mga" 'anaconda-mode-find-assignments
-        "mgu" 'anaconda-mode-find-references)
+        "mgu" 'anaconda-mode-find-references
+        "mgb" 'anaconda-mode-go-back)
       (evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
                (kbd "q") 'quit-window)
       (spacemacs|hide-lighter anaconda-mode))))
