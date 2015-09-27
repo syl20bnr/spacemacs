@@ -89,6 +89,8 @@
       (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
       (evil-define-key 'emacs emmet-mode-keymap (kbd "TAB") 'emmet-expand-yas)
       (evil-define-key 'emacs emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
+      (evil-define-key 'hybrid emmet-mode-keymap (kbd "TAB") 'emmet-expand-yas)
+      (evil-define-key 'hybrid emmet-mode-keymap (kbd "<tab>") 'emmet-expand-yas)
       (spacemacs|hide-lighter emmet-mode))))
 
 (defun html/post-init-evil-matchit ()
