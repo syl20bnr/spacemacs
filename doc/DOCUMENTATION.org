@@ -1597,7 +1597,7 @@ to keep finger on the home row.
 
 
 *** Ido
-=Spacemacs= displays the =ido= minibuffer vertically thanks to the
+Spacemacs displays the =ido= minibuffer vertically thanks to the
 [[https://github.com/gempesaw/ido-vertical-mode.el][ido-vertical-mode]].
 
 Basic =ido= operations can be done with ~Ctrl~ key:
@@ -1623,7 +1623,7 @@ Basic =ido= operations can be done with ~Ctrl~ key:
 | ~C-S-l~            | go to next directory                              |
 
 *** Ido micro-state
-=Spacemacs= defines a [[#micro-states][micro-state]] for =ido=.
+Spacemacs defines a [[#micro-states][micro-state]] for =ido=.
 
 Initiate the micro-state with ~M-SPC~ or ~s-M-SPC~ while in an =ido= buffer.
 
@@ -1647,7 +1647,7 @@ Initiate the micro-state with ~M-SPC~ or ~s-M-SPC~ while in an =ido= buffer.
 | ~v~                  | open in a new vertical split        |
 
 *** NeoTree file tree
-=Spacemacs= provides a quick and simple way to navigate in an unknown project
+Spacemacs provides a quick and simple way to navigate in an unknown project
 file tree with [[https://github.com/jaypei/emacs-neotree][NeoTree]].
 
 To toggle the =NeoTree= buffer press ~SPC f t~ or ~SPC p t~ (the latter open
@@ -1714,7 +1714,7 @@ The mode-line has the following format =[x/y] d (D:a, F:b)= where:
 
 *** Bookmarks
 Bookmarks can be set anywhere in a file. Bookmarks are persistent. They are very
-useful to jump to/open a known project. =Spacemacs= uses =helm-bookmarks= to
+useful to jump to/open a known project. Spacemacs uses =helm-bookmarks= to
 manage them.
 
 Open an =helm= window with the current bookmarks by pressing: ~SPC h b~
@@ -1787,7 +1787,7 @@ You can toggle auto-save in a buffer by calling the command =auto-save-mode=.
 
 ** Searching
 *** With an external tool
-=Spacemacs= can be interfaced with different search utilities like:
+Spacemacs can be interfaced with different search utilities like:
   - ack
   - grep
   - [[https://github.com/ggreer/the_silver_searcher][ag]]
@@ -1903,7 +1903,7 @@ called =pt=.
 | ~SPC s w w~ | Get Wikipedia suggestions in emacs. Opens Wikipedia page in Browser. |
 
 *** Persistent highlighting
-=Spacemacs= uses =evil-search-highlight-persist= to keep the searched expression
+Spacemacs uses =evil-search-highlight-persist= to keep the searched expression
 highlighted until the next search. It is also possible to clear the highlighting
 by pressing ~SPC s c~ or executing the ex command =:noh=.
 
@@ -1924,7 +1924,7 @@ point. The highlights can be stacked.
 | ~SPC h s~   | save current highlights                                                     |
 
 *** Highlight current symbol
-=Spacemacs= supports highlighting of the current symbol on demand (provided by
+Spacemacs supports highlighting of the current symbol on demand (provided by
 [[https://github.com/emacsmirror/auto-highlight-symbol][auto-highlight-symbol]] mode) and adds a micro-state to easily navigate and rename
 this symbol.
 
@@ -2120,7 +2120,7 @@ You can zoom in and out the whole content of the frame with the commands:
 | Any other key | leave the zoom frame micro-state |
 
 *** Increase/Decrease numbers
-=Spacemacs= uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or increase numbers.
+Spacemacs uses [[https://github.com/cofi/evil-numbers][evil-numbers]] to easily increase or increase numbers.
 
 | Key Binding | Description                                                     |
 |-------------+-----------------------------------------------------------------|
@@ -2151,7 +2151,7 @@ Spell checking commands start with =S=:
 Vi =Visual= modes are all supported by =evil=.
 
 **** Expand-region
-=Spacemacs= adds another =Visual= mode via the [[https://github.com/magnars/expand-region.el][expand-region]] mode.
+Spacemacs adds another =Visual= mode via the [[https://github.com/magnars/expand-region.el][expand-region]] mode.
 
 | Key Binding | Description                              |
 |-------------+------------------------------------------|
@@ -2192,7 +2192,7 @@ The displayed text of a buffer can be narrowed with the commands (start with
 | ~SPC n w~   | widen, i.e show the whole buffer again    |
 
 *** Line formatting
-=Spacemacs= performs =go to the line below point and indent it= with ~SPC j k~.
+Spacemacs performs =go to the line below point and indent it= with ~SPC j k~.
 You may repeat this operation with =evil-repeat= if you need to indent many
 lines.
 
@@ -2209,7 +2209,7 @@ Line formatting commands start with ~j~:
 Used together these key bindings are very powerful to quickly reformat code.
 
 *** Replacing text with iedit
-=Spacemacs= uses the powerful [[https://github.com/tsdh/iedit][iedit]] mode through [[https://github.com/syl20bnr/evil-iedit-state][evil-iedit-state]] to quickly
+Spacemacs uses the powerful [[https://github.com/tsdh/iedit][iedit]] mode through [[https://github.com/syl20bnr/evil-iedit-state][evil-iedit-state]] to quickly
 edit multiple occurrences of a symbol or selection.
 
 =evil-iedit-state= defines two new evil states:
@@ -2416,7 +2416,7 @@ These commands automatically switch to =lisp state=.
 | ~SPC m t q~ | ask for test function to execute                   |
 
 ** Managing projects
-Projects in =Spacemacs= are managed with [[https://github.com/bbatsov/projectile][projectile]]. In =projectile= projects
+Projects in Spacemacs are managed with [[https://github.com/bbatsov/projectile][projectile]]. In =projectile= projects
 are defined implicitly, for instance the root of a project is found when a
 =.git= repository or =.projectile= file is encountered in the file tree.
 
@@ -2466,7 +2466,7 @@ Access commands to the various registers start with =r=:
 | ~SPC r y~   | show kill ring                     |
 
 ** Errors handling
-=Spacemacs= uses [[https://github.com/flycheck/flycheck][Flycheck]] to gives error feedback on the fly. The checks are
+Spacemacs uses [[https://github.com/flycheck/flycheck][Flycheck]] to gives error feedback on the fly. The checks are
 only performed at save time by default.
 
 Errors management commands (start with ~e~):
@@ -2490,7 +2490,7 @@ Custom fringe bitmaps:
 | [[file:img/dot-info.png]]    | Info        |
 
 ** Compiling
-=Spacemacs= binds a few commands to support compiling a project.
+Spacemacs binds a few commands to support compiling a project.
 
    | Key Binding | Description                    |
    |-------------+--------------------------------|
@@ -2513,7 +2513,7 @@ setup the key on tabulation:
 #+end_src
 
 *** Helm
-=Spacemacs= add =hjkl= navigation to =helm= buffers:
+Spacemacs add =hjkl= navigation to =helm= buffers:
 
     | Key Binding | Description                  |
     |-------------+------------------------------|
@@ -2524,7 +2524,7 @@ setup the key on tabulation:
     | ~C-l~       | same as ~return~             |
 
 ** Emacs Server
-=Spacemacs= starts a server at launch. This server is killed whenever you close
+Spacemacs starts a server at launch. This server is killed whenever you close
 your Emacs windows.
 
 *** Connecting to the Emacs server
