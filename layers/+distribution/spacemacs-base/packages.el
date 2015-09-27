@@ -546,14 +546,6 @@ Removes the automatic guessing of the initial value based on thing at point. "
       ;; helm-locate uses es (from everything on windows, which doesnt like fuzzy)
       (setq helm-locate-fuzzy-match (executable-find "locate"))
 
-      (defun spacemacs/helm-find-files-navigate-back (orig-fun &rest args)
-        )
-      (defadvice helm-ff-delete-char-backward
-          (around spacemacs/helm-find-files-navigate-back activate)
-        (if (= (length helm-pattern) (length (helm-find-files-initial-input)))
-            (helm-find-files-up-one-level 1)
-          ad-do-it))
-
       (defun spacemacs//helm-do-grep-region-or-symbol (&optional targs use-region-or-symbol-p)
         "Version of `helm-do-grep' with a default input."
         (interactive)
@@ -754,10 +746,17 @@ Removes the automatic guessing of the initial value based on thing at point. "
 ARG non nil means that the editing style is `vim'."
         (cond
          (arg
+          ;; better navigation on homerow
+          ;; rebind `describe-key' for convenience
           (define-key helm-map (kbd "C-j") 'helm-next-line)
           (define-key helm-map (kbd "C-k") 'helm-previous-line)
           (define-key helm-map (kbd "C-h") 'helm-next-source)
-          (define-key helm-map (kbd "C-l") 'helm-previous-source))
+          (define-key helm-map (kbd "C-S-h") 'describe-key)
+          (define-key helm-map (kbd "C-l") (kbd "RET"))
+          (dolist (keymap (list helm-find-files-map helm-read-file-map))
+            (define-key keymap (kbd "C-l") 'helm-execute-persistent-action)
+            (define-key keymap (kbd "C-h") 'helm-find-files-up-one-level)
+            (define-key keymap (kbd "C-S-h") 'describe-key)))
          (t
           (define-key helm-map (kbd "C-j") 'helm-execute-persistent-action)
           (define-key helm-map (kbd "C-k") 'helm-delete-minibuffer-contents)

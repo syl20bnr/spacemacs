@@ -99,6 +99,7 @@
        - [[#special-buffers][Special Buffers]]
        - [[#files-manipulations-key-bindings][Files manipulations key bindings]]
        - [[#emacs-and-spacemacs-files][Emacs and Spacemacs files]]
+       - [[#browsing-files-with-helm][Browsing files with Helm]]
      - [[#ido][Ido]]
      - [[#ido-micro-state][Ido micro-state]]
      - [[#neotree-file-tree][NeoTree file tree]]
@@ -1582,6 +1583,19 @@ navigate between =Emacs= and =Spacemacs= specific files.
 | ~SPC f e R~ | resync the dotfile with spacemacs                                    |
 | ~SPC f e v~ | display and copy the spacemacs version                               |
 
+**** Browsing files with Helm
+In =vim= and  =hybrid= styles, Spacemacs remap the navigation in Helm find-files
+to keep finger on the home row.
+
+| Key Binding | Description                       |
+|-------------+-----------------------------------|
+| ~C-h~       | go up one level (parent directory |
+| ~C-H~       | describe key (replace ~C-h~)      |
+| ~C-j~       | go to previous candidate          |
+| ~C-k~       | go to next candidate              |
+| ~C-l~       | enter current directory           |
+
+
 *** Ido
 =Spacemacs= displays the =ido= minibuffer vertically thanks to the
 [[https://github.com/gempesaw/ido-vertical-mode.el][ido-vertical-mode]].
@@ -2501,12 +2515,13 @@ setup the key on tabulation:
 *** Helm
 =Spacemacs= add =hjkl= navigation to =helm= buffers:
 
-    | Key Binding | Description         |
-    |-------------+---------------------|
-    | ~C-h~       | go to previous page |
-    | ~C-j~       | go to previous item |
-    | ~C-k~       | go to next item     |
-    | ~C-l~       | go to next page     |
+    | Key Binding | Description                  |
+    |-------------+------------------------------|
+    | ~C-h~       | go to next source            |
+    | ~C-H~       | describe key (replace ~C-h~) |
+    | ~C-j~       | go to previous candidate     |
+    | ~C-k~       | go to next candidate         |
+    | ~C-l~       | same as ~return~             |
 
 ** Emacs Server
 =Spacemacs= starts a server at launch. This server is killed whenever you close
