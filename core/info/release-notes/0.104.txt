@@ -8,7 +8,7 @@ directory in the `elpa` directory and restart Emacs.
 
 `Helm` key bindings have been slightly adjusted:
 
-- in `helm-find-files` (`SPC f f`): now `C-h~ move up a directory
+- in `helm-find-files` (`SPC f f`): now `C-h` move up a directory
   and `C-l` enter the selected directory. `describe-key` command is
   available on `C-S-h`
 

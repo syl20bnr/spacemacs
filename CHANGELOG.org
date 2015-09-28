@@ -117,7 +117,7 @@
 - Add transparency micro-state (thanks to person808)
 - Add ~SPC i u~ key binding to insert unicode symbols with helm (thanks to
   robbyoconnor)
-- Add ~SPC x l s~ and ~SPC x l u~ ti sort and uniquify lines in a buffer
+- Add ~SPC x l s~ and ~SPC x l u~ to sort and uniquify lines in a buffer
   (thanks to oppenlander)
 - In buffer not visiting a file ~SPC f s~ now asks for a filename (thanks to
   cpaulik)
@@ -316,7 +316,7 @@
 **** Html
 - Add for CSS files ~SPC m z c~ and ~SPC m z o~ to contract and expand CSS
   blocks (thanks to ralesi)
-- Add ~SPC m g h~ (helm-cess-scss) to =css-mode= (thanks to TheBB)
+- Add ~SPC m g h~ (helm-css-scss) to =css-mode= (thanks to TheBB)
 - Add support for =jade= files (thanks to robbyoconnor)
 - Add flycheck for =slim= and =haml= modes (thanks to robbyoconnor)
 - Add rainbow delimiters for =haml=, =jade= and =slim= modes
@@ -458,7 +458,7 @@
 - Add new functions =configuration-layer/declare-layer= and
   =configuration-layer/declare-layers= which can be used in =config.el= files
   of a layer to add required layers.
-- Add =:eval-after-load= keyword to =spacemmacs|evilify-map= macro
+- Add =:eval-after-load= keyword to =spacemacs|evilify-map= macro
 - Add macro =dotspacemacs|symbol-value= with new special variable value
   =display-graphic-p=. This variable will evaluate =(display-graphic-p)=
   when called with =dotspacemacs|symbol-value=. Use this special value
