@@ -230,7 +230,7 @@ under ~SPC m i~
 | ~m i w~     | Insert wiki-link |
 
 **** Text manipulation
-Manipulation of text regions should be grouped under ~SPC m r~
+Manipulation of text regions should be grouped under ~SPC m x~
 
 | Key Binding | Description                   |
 |-------------+-------------------------------|
