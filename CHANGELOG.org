@@ -1,6 +1,14 @@
-* Release 0.104.x (next)
-** 0.104.0
+* Release 0.104.x
+** 0.104.0 (2015/09/28)
 *** IMPORTANT: Breaking changes
+- =org-plus-contrib= is now installed from org ELPA repository, you may
+  encounter strange behaviours from Org. In this case delete the =org= directory
+  in the =elpa= directory and restart Emacs.
+- =Helm= key bindings have been slightly adjusted:
+  - in =helm-find-files= (~SPC f f~): now ~C-h~ move up a directory and ~C-l~
+    enter the selected directory. =describe-key= command is available on ~C-S-h~
+  - in other =helm= buffers ~C-h~ is used to go to the next source and ~C-l~
+     is the same as ~RET~. =describe-key= command is also available on ~C-S-h~.
 - The =bookmark= saved file has been moved to the =.cache= directory, if
   you have a bookmark file =~/.emacs.d/bookmarks= then you'll have to move it
   to =~/.emacs.d/.cache/bookmarks=
@@ -18,6 +26,7 @@
   category =+distribution=
 - All =extensions= directories have been renamed to =local=. =extensions=
   directories will be deprecated in 0.105.0.
+- =tromey= ELPA repository has been removed (thanks to robbyoconnor)
 *** Hot new features:
 - Enhanced layer package lists which merge old extension lists and package
   lists. Keywords can be associated with packages. The supported keywords
@@ -37,6 +46,9 @@
 - The default theme of Spacemacs is now =spacemacs-dark=. The Spacemacs themes
   (=spacemacs-dark= and =spacemacs-light=) become the official themes of
   Spacemacs (thanks to nashamri)
+- Recovery mode when there is an error in the user dotfile. Now even when your
+  dotfile cannot be loaded, Spacemacs will be operational with a minimal set
+  of packages available (thanks to cmccloud)
 - Add support for dotdirectory =~/.spacemacs.d= which behaves like the Emacs
   dotdirectory (i.e. =~/.spacemacs.d/init.el= is evaluated instead of
   =~/.spacemacs= if the former exists and the latter does not) (thanks to
@@ -96,6 +108,11 @@
   old function =dotspacemacs/config= will be deprecated in 0.105.0.
 *** Distribution layer changes
 **** Spacemacs-base
+- New navigation key bindings for =helm-find-files= (~SPC f f~), now
+  ~C-h~ move up a directory and ~C-l~ enter the selected directory.
+  =describe-key= command is available on ~C-S-h~.
+- In =helm= buffers ~C-h~ is used to go to the next source and ~C-l~
+  is the same as ~RET~. =describe-key= command is available on ~C-S-h~.
 - Add =copy file= key binding on ~SPC f c~ (thanks to cpaulik)
 - Add transparency micro-state (thanks to person808)
 - Add ~SPC i u~ key binding to insert unicode symbols with helm (thanks to
@@ -110,6 +127,8 @@
   ralesi)
 - Add ~SPC f C d~ and ~SPC f C u~ to quickly convert Unix encoding to DOS
   encoding and vice versa (thanks to ralesi)
+- New key bindings to toggle editing styles: ~SPC t E e~ to toggle =emacs=
+  syle and ~SPC t E h~ to toggle =hybrid= style
 - Add support for arrow keys in windows micro-state (thanks to mbertheau)
 - Fix paste micro-state undo
 - Fix ~SPC i K~ (insert empty line above point) which now works
@@ -120,9 +139,6 @@
 - Don't jump if only one match in =helm-imenu= (thanks to tuhdo)
 - Remove =wS= from prefix list in =config.el= (thanks to justbur)
 - Properly close frame when running a client from terminal (thanks to drewkett)
-- Set =evil-move-beyond-eol= to =t=. This variable allows to put the point
-  behind the last character of a line in normal state. So now =eval-last-sexp=
-  behaves as expected in elisp and all other languages.
 - Add chocolate color for the =replace= state (thanks to TheBB)
 - Make ~Y~ equivalent to ~y$~ (thanks to person808)
 - Sync =visual-line-mode= and =evil-visual-xxx= functions. Now ~SPC t L~
@@ -149,6 +165,8 @@
 - Fix search direction consistency for =auto-highlight-symbol= micro-state
   (thanks to herbertjones)
 - Add VCS integration to =neotree=
+- Focus current file when opening Neotree in project's root with ~SPC p t~
+  (thanks to StreakyCobra)
 - Set =sp-show-pair-delay= to 0.2 instead of 0. Should fix some slowness in
 - Set =highlight-parentheses= delay to 0.2
 - Enable =highlight-parentheses= when =dotspacemacs-highlight-delimiters= is
@@ -177,11 +195,17 @@
 - Add new layer variable =auto-completion-private-snippets-directory= which
   allows to specify a custom private snippet directory (thanks to justbur)
 - Improve yasnippet loading robustness (thanks to myrjola)
+- Fix showing snippets in company popup (thanks to person808)
+**** Better-defaults
+- Add =backward-kill-word-or-region= on ~C-w~ (thanks to justbur)
 **** C/C++
 - Fix key bindings for cscope (thanks to bmag)
 - Add =disaster= package to disassemble c/c++ code on key binding ~SPC m D~
   (thanks to jb55)
 - Fix error with =company-mode/more-than-prefix-guesser= (thanks to TheBB)
+**** Chinese
+- Remove "symbol" from list of changed charsets, this prevents minor mode
+  lighters from being displayed in the Chinese font (thanks to louy2)
 **** Clojure
 - Add cider error buffer to popwin (thanks to cmccloud)
 - Add cider-doc buffer to popwin (thanks to cmccloud)
@@ -224,6 +248,9 @@
 - Add prefix command documentation (thanks to d12frosted)
 **** Dash
 - Add support for =zeal= on Linux and Windows (thanks to CestDiego)
+**** Deft
+- Replace deprecated =deft-extension= by new =deft-extensions=
+  (thanks to mclearc)
 **** Elixir
 - Remove flycheck due to a security issue in the Elixir compiler
   (thanks to gilbertkennen)
@@ -232,6 +259,10 @@
   (thanks to gilbertkennen)
 **** Emacs lisp
 - Make =flychek= aware of =loadpath= (thanks to CestDiego)
+- Define =emacs-lisp-mode= key bindings for =lisp-interaction-mode=
+  (thanks to justbur)
+- Fix ~SPC m e c~ to evaluate current form (thanks to justbur)
+- Add ~SPC m e s~ to evaluate symbol under point (thanks to justbur)
 **** ERC
 - Add =ERC-SASL= for SASL authentication (thanks to CestDiego)
 - Fix check for =dbus= availability on OS X (thanks to cmccloud)
@@ -261,16 +292,22 @@
 - Use =MELPA= version of =magit-gh-pulls= and fix its configuration (thanks to
   cmccloud)
 - Evilify =magit-hunk-section-map= (thanks to ralesi)
+- Evilify =magit-stash-mode= (thanks to nixmaniack)
 **** Github
 - Properly evilify =gist-lists= buffer (thanks to cmccloud)
 **** Gnus
-- Move ~SPC m o~ to ~SPC m h~ since ~SPC m o~ is now reserved for users
+- Move ~SPC m o~ to ~SPC m M~ since ~SPC m o~ is now reserved for users
   (thanks to TheBB)
+- Movw ~SPC m H~ to ~SPC m m~ (thanks to robbyoconnor)
 **** Go
 - Use exec-path-from-shell-copy-env to set =GOPATH= (thanks to jenanwise)
 - Fix multiple paths support in =GOPATH= on Windows (thanks to galaxian)
 - Move all oracle key bindings under ~SPC m o~ to ~SPC m r~ since ~SPC m o~
   is now reserved for users (thanks to TheBB)
+- Adapt key bindings to conventions, ~SPC m b~ is now ~SPC m e~ and ~SPC m d~
+  is now ~SPC m h~ (thanks to bogdanteleaga)
+- Move ~SPC m r~ to ~SPC m r n~ which conflicted with oracle key bindings
+  (thanks to bogdanteleaga)
 **** Gtags
 - Fix eldoc configuration (thanks to thudo)
 **** Haskell
@@ -293,6 +330,7 @@
 - Enable =smartparens= in CSS like modes (thanks to TheBB)
 - Fix extra space in declared pair <%= %> (thanks to dsdshcym)
 - Fix ~r~ key bindings in web micro-state (thanks to CestDiego)
+- Fix smartparens configuration (thanks to TheBB)
 **** Ipython-notebook
 - Move ~SPC m o~ and ~SPC m O~ to ~SPC m i~ and ~SPC m I~ since
   ~SPC m o~ is now reserved for users (thanks to TheBB)
@@ -306,15 +344,25 @@
 - Move ~SPC m o~ to ~SPC m f~ since ~SPC m o~ is now reserved for users
   (thanks to TheBB)
 **** Org
-- Add table related key bindins on `SPC m t` (thanks to JP-Ellis)
-- Add defer loading for =toc-org=.
-- Add =gnuplot= package to plot data from tables (thanks to JP-Ellis)
-- Set =toc-org-max-depth= to 10.
-- Move ~SPC m o~ to ~SPC m l~ since ~SPC m o~ is now reserved for users
++ Install =org-plus-contrib= from org ELPA repository
++ Add table related key bindins on `SPC m t` (thanks to JP-Ellis)
++ Add defer loading for =toc-org=.
++ Add =gnuplot= package to plot data from tables (thanks to JP-Ellis)
++ Add =org-mime= (moved from =gnus= layers)
++ Add new key bindings to move whole subtrees up/down/right/left with ~SPC m S~
+  prefix (thanks to katshinka)
++ Add new key bindings to move between complex TODO sets with ~SPC m C-S~
+  prefix (thanks to katshinka)
++ Add more cycling options for time-stamps, headlines, items, properties with
+  ~SPC m L~, ~SPC m K~, etc... (thanks to katshinka)
++ Add key bindings ~SPC m .~ to insert time-stamps (thanks to katshinka) 
++ Set =toc-org-max-depth= to 10.
++ Move ~SPC m o~ to ~SPC m l~ since ~SPC m o~ is now reserved for users
   (thanks to TheBB)
-- Ensure that =org-directory= exists on load (thanks to ralesi)
-- Fix ~SPC m l~ by calling =org-open-at-point= instead of =evil-org-open-links=
++ Ensure that =org-directory= exists on load (thanks to ralesi)
++ Fix ~SPC m l~ by calling =org-open-at-point= instead of =evil-org-open-links=
   (thanks to TheBB)
++ Fix org-repo-todo loading (thanks to TheBB)
 **** Osx
 - Re-factor and expand support for trash can (thanks to usharf)
 - Add support for =launchctld= (thanks to usharf)
@@ -332,8 +380,11 @@
 - Apply new conventions for test key bindings
 - Fix =anaconda-mode= key bindings for latest version of =anaconda-mode=
   package (thanks cpaulik)
+- Fix =py-yapf= for =yapf= >= 0.3.0 (=yapf= now returns 2 if source code was
+  changed) (thanks to a-sk)
 - Use =quit-window= to close documentation popup (thanks to cpaulik)
 - Enable =evil-matchit= (thanks to robbyoconnor)
+- Move anaconda server cache files to =.cache= directory (thanks to person808)
 **** Racket
 - Enable insert state after ~SPC m s B~ accordingly to the conventions
   (thanks to jmiven)
@@ -384,6 +435,9 @@
 - Add ~SPC e h~ to describe the flycheck checkers (thanks to bmag)
 **** Vinegar
 - Show symlink paths (thanks to ralesi)
+**** Wakatime
+- Add ~SPC a W~ to open the Wakatime dashboard in the browser
+  (thanks to CestDiego)
 *** New conventions
 - Add spacing conventions for org files (thanks to person808)
 - Move ~SPC m T x~ conventions for executing tests in debug to ~SPC m t X~
@@ -392,8 +446,11 @@
 - Add ~SPC m g b~ to go back to previous location after a ~SPC m g g~.
 - Reserve ~SPC m o~ for users (thanks to TheBB)
 *** Core
+- Add =with-eval-after-load= backport (thanks to justbur)
 - Add new key bindings to evilified buffers: ~g~, ~GG~, ~C-b~, ~C-f~, ~C-d~
   and ~C-u~ (thanks to sooheon)
+- Add ~C-z~ in =evilified-state= to switch to =emacs-state= for the next
+  command (thanks to justbur)
 - Add on and off functions to toggles (thanks to TheBB)
 - Add new function =spacemacs/describe-system-info= which put useful
   information in the clipboard, ready to be pasted in an IRC channel for
@@ -411,8 +468,13 @@
 - Add choice of distribution on install (thanks to justbur)
 - Add distribution name in home buffer
 - Add distribution to =spacemacs/describe-system= (thanks to TheBB)
+- Rewrite evil-leader keys handling to make ~M-m~ work correctly
+  (thanks to justbur)
+- Rewrite on =evilify-map= macro which is now simpler and more robust
 - Replace =after-init-hook= with better hook =emacs-startup-hook=
   (thanks to vkz)
+- Fix some crashes when a package cannot be updated and warn about such
+  packages when updating (thanks to bmag)
 - Fix ~SPC u~ not repeating universal-argument (thanks to luxbock)
 - Fix Spacemacs Home Buffer to jump to bookmarks (thanks to travisbhartwell)
 - Fix visual-state evil-yank-binding in evilified modes (thanks to myrjola)
@@ -422,6 +484,7 @@
 - Fix ~return~ binding in terminal in home buffer(thanks to d12frosted)
 - Fix custom banner path (thanks to d12frosted)
 - Fix visual state key bindings in evilified buffers
+- Fix inconsistent detection of orphaned packages to delete
 - Set =gc-cons-threshold= to 100MB and define it in =init.el=
 - Use =package-alist= to resolve orphans
 - Prevent auto-evilification of buffers from overwriting ~C-g~
@@ -435,6 +498,7 @@
   (thanks to sooheon)
 - Better centering of text in the home buffer
 *** Other fixes and improvements
+- Add contribution guidelines =CONTRIBUTE.md= (thanks to robbyoconnor)
 - New documentation on layers (thanks to TheBB)
 - Suppress byte compiler warnings on startup (thanks to justbur)
 - Reactivate prefix command names since they are working correctly with
@@ -442,11 +506,11 @@
 - Delete deprecated =!user= contrib directory.
 - Removed lasts git submodules, Spacemacs is now submodule free!
 - Typos and documentation improvements (thanks to agzam, alexanderkjeldaas,
-  andyque, benwooth, d12frosted, Devagamster, gleber, Immortalin, jgertm,
-  JinweiClarkChao, jmiven, JoshTGreenwood, justbur, luxbock, mbertheau,
-  mortonfox, nwolfe, oneeman, person808, rakyi, sotte, robbyoconnor,
-  robmerrell, screamish, sooheon, srid, swaroopch, syohex, travisbhartwell,
-  x-ji, xfq)
+  andyque, benwooth, BrianHicks, catern, cgrinds, d12frosted, Devagamster,
+  gleber, Immortalin, jgertm, JinweiClarkChao, jmiven, JorisE, JoshTGreenwood,
+  justbur, luxbock, mbertheau, mortonfox, nwolfe, oneeman, person808, rakyi,
+  sotte, robbyoconnor, robmerrell, screamish, sooheon, srid, swaroopch, syohex,
+  travisbhartwell, x-ji, xfq, zmthy)
 * Release 0.103.x
 ** 0.103.6 (2015/08/30)
 *** Core
