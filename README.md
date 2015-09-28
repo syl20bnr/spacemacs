@@ -42,6 +42,7 @@
 - [Update](#update)
     - [Automatic update](#automatic-update)
     - [On develop branch](#on-develop-branch)
+    - [Revert to a specific version](#revert-to-a-specific-version)
 - [Contributions](#contributions)
 - [License](#license)
 - [Supporting Spacemacs](#supporting-spacemacs)
@@ -224,6 +225,15 @@ the starting page.
    ```
 
 3. Restart Emacs to complete the upgrade.
+
+## Revert to a specific version
+
+To revert to a specific version you just have to checkout the corresponding
+branch, for instance to revert to the last `0.103`:
+
+   ```sh
+   git checkout origin/release-0.103
+   ```
 
 # Contributions
 
