@@ -37,6 +37,7 @@
       (string= string "")))
 
 (unless (fboundp 'with-eval-after-load)
+  ;; `with-eval-after-load' function for Emacs 24.3 and below
   (defmacro with-eval-after-load (file &rest body)
     "Execute BODY after FILE is loaded.
 FILE is normally a feature name, but it can also be a file name,
