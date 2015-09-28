@@ -80,6 +80,8 @@ initialization."
   ;; shadow the universal argument
   (setq-default evil-want-C-u-scroll t)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
+  (when init-file-debug
+    (setq-default dotspacemacs-verbose-loading t))
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
   ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
