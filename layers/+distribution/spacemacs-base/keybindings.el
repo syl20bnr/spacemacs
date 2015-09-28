@@ -329,6 +329,8 @@ Ensure that helm is required before calling FUNC."
   "w/"  'split-window-right
   "w="  'balance-windows)
 ;; text -----------------------------------------------------------------------
+(defalias 'count-region 'count-words-region)
+
 (evil-leader/set-key
   "xaa" 'align
   "xar" 'spacemacs/align-repeat
@@ -342,6 +344,7 @@ Ensure that helm is required before calling FUNC."
   "xa|" 'spacemacs/align-repeat-bar
   "xa(" 'spacemacs/align-repeat-left-paren
   "xa)" 'spacemacs/align-repeat-right-paren
+  "xc"  'count-region
   "xdw" 'delete-trailing-whitespace
   "xls" 'spacemacs/sort-lines
   "xlu" 'spacemacs/uniquify-lines
@@ -350,8 +353,7 @@ Ensure that helm is required before calling FUNC."
   "xtw" 'transpose-words
   "xU"  'upcase-region
   "xu"  'downcase-region
-  "xwC" 'spacemacs/count-words-analysis
-  "xwc" 'count-words-region)
+  "xwc" 'spacemacs/count-words-analysis)
 ;; google translate -----------------------------------------------------------
 (evil-leader/set-key
   "xgl" 'spacemacs/set-google-translate-languages)
