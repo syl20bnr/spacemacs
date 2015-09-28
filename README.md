@@ -13,7 +13,7 @@
 |
 <b><a href="doc/DOCUMENTATION.org">documentation</a></b>
 |
-<b><a href="doc/CONTRIBUTE.org">cont                                                       (spacemacs-0.104.0)ribute</a></b>
+<b><a href="doc/CONTRIBUTE.org">contribute</a></b>
 |
 <b><a href="doc/DOCUMENTATION.org#achievements">achievements</a></b>
 |
