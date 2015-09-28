@@ -512,7 +512,13 @@ Removes the automatic guessing of the initial value based on thing at point. "
                                             default-input))
                                     (t (expand-file-name (helm-current-directory))))))
             (set-text-properties 0 (length input) nil input)
-            (helm-find-files-1 input ))))
+            (helm-find-files-1 input )))
+      (with-eval-after-load 'helm-files
+        (unless helm-source-find-files
+          (setq helm-source-find-files (helm-make-source
+                                           "Find Files" 'helm-source-ffiles)))
+        (helm-add-action-to-source "Find File Literally" 'find-file-literally
+                                   helm-source-find-files 2)))
     :init
     (progn
       (setq helm-prevent-escaping-from-minibuffer t
