@@ -137,7 +137,7 @@ After shm has been enabled, some of the evil normal state bindings are overridde
 | ~)~         | =shm/backward-node= |
 
 For a nice visualization of these functions, please refer to the github page
-for [structured-haskell-mode][].
+for [[https://github.com/chrisdone/structured-haskell-mode#features][structured-haskell-mode]].
 
 *** hindent
 [[https://github.com/chrisdone/hindent][hindent]] is an extensible Haskell pretty printer, which let's you
