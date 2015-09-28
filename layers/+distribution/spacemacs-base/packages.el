@@ -540,6 +540,10 @@ Removes the automatic guessing of the initial value based on thing at point. "
       ;; helm-locate uses es (from everything on windows, which doesnt like fuzzy)
       (setq helm-locate-fuzzy-match (executable-find "locate"))
 
+      ;; Use helm to provide :ls, unless ibuffer is used
+      (unless (configuration-layer/package-usedp 'ibuffer)
+        (evil-ex-define-cmd "buffers" 'helm-buffers-list))
+
       (defun spacemacs//helm-do-grep-region-or-symbol (&optional targs use-region-or-symbol-p)
         "Version of `helm-do-grep' with a default input."
         (interactive)

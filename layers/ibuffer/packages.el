@@ -27,7 +27,10 @@
         "Group buffers by modes."
         (when (eq 'modes ibuffer-group-buffers-by)
           (spacemacs//ibuffer-create-buffs-group)))
-      (add-hook 'ibuffer-hook 'spacemacs//ibuffer-group-by-modes))
+      (add-hook 'ibuffer-hook 'spacemacs//ibuffer-group-by-modes)
+
+      ;; Use ibuffer to provide :ls
+      (evil-ex-define-cmd "buffers" 'ibuffer))
     :config
     (spacemacs|evilify-map ibuffer-mode-map
       :mode ibuffer-mode)))
