@@ -1,20 +1,39 @@
-1. Bookmarks
+1. Org
+
+`org-plus-contrib` is now installed from org ELPA repository, you may
+encounter strange behaviours from Org. In this case delete the `org`
+directory in the `elpa` directory and restart Emacs.
+
+2. Helm
+
+`Helm` key bindings have been slightly adjusted:
+
+- in `helm-find-files` (`SPC f f`): now `C-h~ move up a directory
+  and `C-l` enter the selected directory. `describe-key` command is
+  available on `C-S-h`
+
+- in other `helm` buffers ~C-h~ is used to go to the next source
+  and `C-l` is the same as `RET`. `describe-key` command is also
+  available on `C-S-h`.
+
+3. Guide-key
+
+`guide-key` has been replaced by `which-key`, you may encounter issues
+if you have some `guide-key` custom configuration, remove any `guide-key`
+configuration and check the options offered by `which-key`.
+
+4. Bookmarks
 
 The `bookmark` save file has been moved to the `.cache` directory, if
 you have a bookmark file `~/.emacs.d/bookmarks` then you'll have to move
 it to file `~/.emacs.d/.cache/bookmarks`
 
-2. Ruby on Rails
+5. Ruby on Rails
 
 Ruby on Rails framework has now its own layer called `ruby-on-rails`,
 be sure to add this layer to your dotfile if you use it.
 
-3. Django
+6. Django
 
 Django framework has now its own layer called `django`,
 be sure to add this layer to your dotfile if you use it.
-
-4. Salt
-
-Salt layer requires the YAML layer, be sure to add the `yaml` layer
-to your dotfile if you use `salt` layer.
