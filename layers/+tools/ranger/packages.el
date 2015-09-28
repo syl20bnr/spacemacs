@@ -16,6 +16,7 @@
 (defun ranger/init-ranger ()
   (use-package ranger
     :defer t
+    :commands (ranger deer)
     :init
     (progn
       (evil-leader/set-key
@@ -26,6 +27,8 @@
       ;; set up image-dired to allow picture resize
       (setq image-dired-dir (concat spacemacs-cache-directory "image-dir"))
       (unless (file-directory-p image-dired-dir)
-        (make-directory image-dired-dir)))
+        (make-directory image-dired-dir))
+      (when ranger-replace-dired
+        (add-hook 'dired-mode-hook 'deer)))
     :config
     (define-key ranger-mode-map (kbd "-") 'ranger-up-directory)))
