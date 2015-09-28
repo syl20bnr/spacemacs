@@ -64,6 +64,8 @@ make it a very good tool for pair-programming.
 
 Spacemacs is currently in beta, and contributions are very welcome.
 
+![spacemacs_python](doc/img/spacemacs-python.png)
+
 # Features
 
 - **Great documentation:** Access documentation in Emacs with
