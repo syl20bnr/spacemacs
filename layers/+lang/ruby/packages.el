@@ -19,7 +19,8 @@
     flycheck
     robe
     ruby-test-mode
-    ruby-tools))
+    ruby-tools
+    rubocop))
 
 (when ruby-version-manager
   (add-to-list 'ruby-packages ruby-version-manager))
@@ -120,6 +121,17 @@
       (spacemacs|hide-lighter ruby-test-mode)
       (evil-leader/set-key-for-mode 'enh-ruby-mode "mtb" 'ruby-test-run)
       (evil-leader/set-key-for-mode 'enh-ruby-mode "mtt" 'ruby-test-run-at-point))))
+
+(defun ruby/init-rubocop ()
+  (use-package rubocop
+    :defer t
+    :init (add-hook 'enh-ruby-mode-hook 'rubocop-mode)
+    :config
+    (progn
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mraD" 'rubocop-autocorrect-directory)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mraP" 'rubocop-autocorrect-project)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "mraF" 'rubocop-autocorrect-current-file)
+      )))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
