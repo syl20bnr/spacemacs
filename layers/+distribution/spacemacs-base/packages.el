@@ -840,8 +840,10 @@ ARG non nil means that the editing style is `vim'."
       ;; Swap default TAB and C-z commands.
       ;; For GUI.
       (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+      (define-key helm-find-files-map (kbd "S-<tab>") 'helm-find-files-up-one-level)
       ;; For terminal.
       (define-key helm-map (kbd "TAB") 'helm-execute-persistent-action)
+      (define-key helm-find-files-map (kbd "S-TAB") 'helm-find-files-up-one-level)
       (define-key helm-map (kbd "C-z") 'helm-select-action)
 
       (with-eval-after-load 'helm-mode ; required
