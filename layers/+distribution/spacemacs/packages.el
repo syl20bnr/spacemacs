@@ -180,18 +180,27 @@
   (use-package auto-highlight-symbol
     :defer t
     :init
-    (spacemacs/add-to-hooks 'auto-highlight-symbol-mode '(prog-mode-hook
-                                                          markdown-mode-hook))
-    :config
     (progn
       (setq ahs-case-fold-search nil
             ahs-default-range 'ahs-range-whole-buffer
-            ;; disable auto-highlight of symbol
-            ;; current symbol should be highlight on demand with <SPC> s h
-            ahs-idle-timer 0
-            ahs-idle-interval 0.25
+            ;; by default disable auto-highlight of symbol
+            ;; current symbol can always be highlighted with <SPC> s h
+            ahs-start-timer nil
+            ahs-idle-interval 1
             ahs-inhibit-face-list nil)
-
+      (spacemacs|add-toggle automatic-symbol-highlight-globally
+        :status (timerp ahs-idle-timer)
+        :on (setq ahs-idle-timer (run-with-idle-timer ahs-idle-interval t
+                                                      'ahs-idle-function))
+        :off (when (timerp ahs-idle-timer)
+               (cancel-timer ahs-idle-timer)
+               (setq ahs-idle-timer nil))
+        :documentation "Automatic highlight of current symbol."
+        :evil-leader "tha")
+      (spacemacs/add-to-hooks 'auto-highlight-symbol-mode '(prog-mode-hook
+                                                            markdown-mode-hook)))
+    :config
+    (progn
       (defvar-local spacemacs-last-ahs-highlight-p nil
         "Info on the last searched highlighted symbol.")
 
