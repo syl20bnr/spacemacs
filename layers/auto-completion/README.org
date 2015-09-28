@@ -4,20 +4,20 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#configuration][Configuration]]
-     - [[#key-bindings][Key bindings]]
-     - [[#tooltips][Tooltips]]
-     - [[#sort-results-by-usage][Sort results by usage]]
-     - [[#show-snippets-in-auto-completion-popup][Show snippets in auto-completion popup]]
-     - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
-     - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
-     - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
-         - [[#in-configel][In =config.el=]]
-         - [[#in-packagesel][In =packages.el=]]
+   - [[#key-bindings][Key bindings]]
+   - [[#tooltips][Tooltips]]
+   - [[#sort-results-by-usage][Sort results by usage]]
+   - [[#show-snippets-in-auto-completion-popup][Show snippets in auto-completion popup]]
+   - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
+   - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
+   - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
+     - [[#in-configel][In =config.el=]]
+     - [[#in-packagesel][In =packages.el=]]
  - [[#key-bindings][Key Bindings]]
-     - [[#company][Company]]
-     - [[#auto-complete][Auto-complete]]
-     - [[#yasnippet][Yasnippet]]
-     - [[#auto-yasnippet][Auto-yasnippet]]
+   - [[#company][Company]]
+   - [[#auto-complete][Auto-complete]]
+   - [[#yasnippet][Yasnippet]]
+   - [[#auto-yasnippet][Auto-yasnippet]]
 
 * Description
 
@@ -125,7 +125,7 @@ for a given mode.
 You may want to enable company globally to get auto-completion
 everywhere even in the modes which are not configured by Spacemacs. To do
 so, you just have to add =(global-company-mode)= in the
-=dotspacemacs/config= function of your dotfile.
+=dotspacemacs/user -config= function of your dotfile.
 
 Note that if you want to enable =auto-complete= globally you will have to
 disable =company= first, see the next section to do so.

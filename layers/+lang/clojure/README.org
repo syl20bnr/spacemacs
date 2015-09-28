@@ -18,6 +18,7 @@
      - [[#goto][Goto]]
      - [[#repl][REPL]]
      - [[#tests][Tests]]
+     - [[#toggles][Toggles]]
      - [[#debugging][Debugging]]
      - [[#refactoring][Refactoring]]
      - [[#reformatting][Reformatting]]
@@ -51,8 +52,8 @@ To use this contribution add it to your =~/.spacemacs=
 Pretty symbols for anonymous functions, set literals and partial, like =(λ [a]
 (+ a 5))=, =ƒ(+ % 5)=, =∈{2 4 6}= and =Ƥ=.
 
-To enable this feature, add the following snippet to the dotspacemacs/config
-section of your =~/.spacemacs= file:
+To enable this feature, add the following snippet to the
+=dotspacemacs/user-config= section of your =~/.spacemacs= file:
 
 #+BEGIN_SRC emacs-lisp
   (setq clojure-enable-fancify-symbols t)

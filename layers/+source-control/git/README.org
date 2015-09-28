@@ -4,22 +4,22 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
-     - [[#features][Features:]]
+   - [[#features][Features:]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-         - [[#recommended-settings][Recommended Settings]]
-     - [[#magit-status-fullscreen][Magit status fullscreen]]
-     - [[#magit-auto-complete][Magit auto-complete]]
-     - [[#magit-svn-plugin][Magit SVN plugin]]
-     - [[#git][Git]]
-     - [[#git-flow][Git-Flow]]
+   - [[#layer][Layer]]
+     - [[#recommended-settings][Recommended Settings]]
+   - [[#magit-status-fullscreen][Magit status fullscreen]]
+   - [[#magit-auto-complete][Magit auto-complete]]
+   - [[#magit-svn-plugin][Magit SVN plugin]]
+   - [[#git][Git]]
+   - [[#git-flow][Git-Flow]]
  - [[#working-with-git][Working with Git]]
-     - [[#magit][Magit]]
-     - [[#commit-message-edition-buffer][Commit message edition buffer]]
-     - [[#interactive-rebase-buffer][Interactive rebase buffer]]
-     - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
-     - [[#git-flow][Git-Flow]]
-     - [[#git-time-machine][Git time machine]]
+   - [[#magit][Magit]]
+   - [[#commit-message-edition-buffer][Commit message edition buffer]]
+   - [[#interactive-rebase-buffer][Interactive rebase buffer]]
+   - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
+   - [[#git-flow][Git-Flow]]
+   - [[#git-time-machine][Git time machine]]
 
 * Description
 
@@ -46,22 +46,25 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 *** Recommended Settings
-Read the documentation for the =magit-push-always-verify= variable, then you may wish to set it to =nil= in your =dotspacemacs/config= function.
+Read the documentation for the =magit-push-always-verify= variable, then you may
+wish to set it to =nil= in your =dotspacemacs/user-config= function.
 
 #+BEGIN_SRC emacs-lisp
-(defun dotspacemacs/config ()
+(defun dotspacemacs/user-config ()
   (setq magit-push-always-verify nil))
 #+END_SRC
 
-The =nag= default is to prevent surprising behavior for newcomers, but causes the ~PP~, ~Po~, ~Pe~ (and more) push commands to nag you in the same way. Once you understand what they do, it is better simply to give the command you intend.
+The =nag= default is to prevent surprising behavior for newcomers, but causes
+the ~PP~, ~Po~, ~Pe~ (and more) push commands to nag you in the same way. Once
+you understand what they do, it is better simply to give the command you intend.
 
 ** Magit status fullscreen
 
 To display the =magit status= buffer in fullscreen set the variable
-=git-magit-status-fullscreen= to =t= in your =dotspacemacs/init= function.
+=git-magit-status-fullscreen= to =t= in your =dotspacemacs/user-init= function.
 
 #+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/init ()
+  (defun dotspacemacs/user-init ()
     (setq-default git-magit-status-fullscreen t)
   )
 #+END_SRC
@@ -69,7 +72,7 @@ To display the =magit status= buffer in fullscreen set the variable
 ** Magit auto-complete
 
 Magit auto-complete feature is enabled. For this feature to work best you
-have to setup your Git repository directory in your =dotspacemacs/config=
+have to setup your Git repository directory in your =dotspacemacs/user-config=
 function, this is the folder where you keep all your git-controlled projects
 (the path should end up with a ~=/~= to respect Emacs conventions):
 
@@ -85,7 +88,7 @@ For convenience the magit SVN plugin can be activated directly in the Git
 layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
 
 #+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/init ()
+  (defun dotspacemacs/user-init ()
     (setq-default git-enable-magit-svn-plugin t)
   )
 #+END_SRC

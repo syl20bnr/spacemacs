@@ -3,11 +3,11 @@
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
+   - [[#layer][Layer]]
  - [[#configuration][Configuration]]
-     - [[#ledger][Ledger]]
+   - [[#ledger][Ledger]]
  - [[#key-bindings][Key bindings]]
-     - [[#ledger][Ledger]]
+   - [[#ledger][Ledger]]
 
 * Description
 
@@ -32,10 +32,10 @@ To use this contribution add it to your =~/.spacemacs=
 
 You can set what column transaction posts are aligned to on
 the right by setting the variable =ledger-post-amount-alignment-column= in
-your =dotspacemacs/config=.  The default value, set in the layer, is =62=.
+your =dotspacemacs/user-config=.  The default value, set in the layer, is =62=.
 
 #+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/config ()
+  (defun dotspacemacs/user-config ()
     (setq ledger-post-amount-alignment-column 68))
 #+END_SRC
 

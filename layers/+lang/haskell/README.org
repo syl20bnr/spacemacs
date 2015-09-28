@@ -4,22 +4,22 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
-     - [[#features][Features:]]
+   - [[#features][Features:]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#cabal-packages][Cabal packages]]
-     - [[#os-x][OS X]]
-     - [[#optional-extras][Optional extras]]
-         - [[#ghc-mod-support][ghc-mod support]]
-         - [[#ghci-ng-support][GHCi-ng support]]
-         - [[#structured-haskell-mode][structured-haskell-mode]]
-         - [[#hindent][hindent]]
+   - [[#layer][Layer]]
+   - [[#cabal-packages][Cabal packages]]
+   - [[#os-x][OS X]]
+   - [[#optional-extras][Optional extras]]
+     - [[#ghc-mod-support][ghc-mod support]]
+     - [[#ghci-ng-support][GHCi-ng support]]
+     - [[#structured-haskell-mode][structured-haskell-mode]]
+     - [[#hindent][hindent]]
  - [[#key-bindings][Key bindings]]
-     - [[#documentation][Documentation]]
-     - [[#debug][Debug]]
-     - [[#repl][REPL]]
-     - [[#cabal-commands][Cabal commands]]
-     - [[#cabal-files][Cabal files]]
+   - [[#documentation][Documentation]]
+   - [[#debug][Debug]]
+   - [[#repl][REPL]]
+   - [[#cabal-commands][Cabal commands]]
+   - [[#cabal-files][Cabal files]]
 
 * Description
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
@@ -62,13 +62,13 @@ pick up shell PATH.
 #+END_SRC
 
 _Alternatively_, you can add it to the Emacs =exec-path= variable in the 
-=dotspacemacs/init= function of your =.spacemacs= file:
+=dotspacemacs/user-init= function of your =.spacemacs= file:
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'exec-path "~/.cabal/bin/")
 #+END_SRC
 
-*Note:* it is important to add the path in the =dotspacemacs/init= function,
+*Note:* it is important to add the path in the =dotspacemacs/user-init= function,
 so that the path is added before any layers is loaded.
 
 ** OS X

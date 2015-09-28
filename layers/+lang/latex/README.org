@@ -4,15 +4,15 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
-     - [[#features][Features]]
+   - [[#features][Features]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#auto-completion][Auto-completion]]
-     - [[#previewing][Previewing]]
-     - [[#build-command][Build command]]
-     - [[#auto-fill][Auto-fill]]
+   - [[#layer][Layer]]
+   - [[#auto-completion][Auto-completion]]
+   - [[#previewing][Previewing]]
+   - [[#build-command][Build command]]
+   - [[#auto-fill][Auto-fill]]
  - [[#keybindings][Keybindings]]
-     - [[#reftex][RefTeX]]
+   - [[#reftex][RefTeX]]
  - [[#maintainer][Maintainer]]
 
 * Description
@@ -43,7 +43,7 @@ Add the layer =auto-completion= to the variable
 
 To perform full-document previews (that is, aside from the inline previewing
 under ~SPC m p~), add the following to your =.spacemacs=
-under =dotspacemacs/config=:
+under =dotspacemacs/user-config=:
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)

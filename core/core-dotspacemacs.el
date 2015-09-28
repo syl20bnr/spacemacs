@@ -65,7 +65,7 @@ Paths must have a trailing slash (ie. `~/.mycontribs/')")
   "List of additional packages that will be installed wihout being
 wrapped in a layer. If you need some configuration for these
 packages then consider to create a layer, you can also put the
-configuration in `dotspacemacs/config'.")
+configuration in `dotspacemacs/user-config'.")
 
 (defvar dotspacemacs-editing-style 'vim
   "Either `vim' or `emacs'. Evil is always enabled but if the variable
@@ -227,7 +227,7 @@ Possible values are: `recents' `bookmarks' `projects'.")
   "Synchronize declared layers in dotfile with spacemacs.
 
 Called with `C-u' skips `dotspacemacs/user-config'.
-Called with `C-u C-u' skips `dotspacemacs/user-config' and preleminary tests."
+Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
   (interactive "P")
   (when (file-exists-p dotspacemacs-filepath)
     (with-current-buffer (find-file-noselect dotspacemacs-filepath)
@@ -242,7 +242,7 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' and preleminary tests."
                                         "Calling dotfile init...")
                 (configuration-layer/sync)
                 (if (member arg '(4 16))
-                    (message (concat "Done (`dotspacemacs/config'function has "
+                    (message (concat "Done (`dotspacemacs/user-config' function has "
                                      "been skipped)."))
                   ;; TODO remove support for dotspacemacs/config in 0.105
                   (if (fboundp 'dotspacemacs/user-config)

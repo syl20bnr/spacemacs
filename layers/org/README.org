@@ -63,7 +63,7 @@ variable.
 ** Different bullets
 
 You can tweak the bullets displayed in the org buffer in the function
-=dotspacemacs/config= of your dotfile by setting the variable
+=dotspacemacs/user-config= of your dotfile by setting the variable
 =org-bullets-bullet-list=. By default the list is set to =("◉" "○" "✸" "✿")=.
 
 #+BEGIN_SRC emacs-lisp

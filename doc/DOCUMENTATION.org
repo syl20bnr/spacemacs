@@ -1133,7 +1133,7 @@ This sequence can be customized in your =~/.spacemacs=.
 Example to set it to ~jj~:
 
 #+begin_src emacs-lisp
-  (defun dotspacemacs/init ()
+  (defun dotspacemacs/user-config ()
     (setq-default evil-escape-key-sequence "jj"))
 #+end_src
 

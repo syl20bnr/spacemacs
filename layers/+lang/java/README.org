@@ -5,21 +5,21 @@
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#layer-installation][Layer Installation]]
-     - [[#layer][Layer]]
-     - [[#eclim][Eclim]]
-         - [[#installation][Installation]]
-         - [[#usage][Usage]]
+   - [[#layer][Layer]]
+   - [[#eclim][Eclim]]
+     - [[#installation][Installation]]
+     - [[#usage][Usage]]
  - [[#key-bindings][Key bindings]]
-     - [[#java-mode][Java-mode]]
-         - [[#project-management][Project management]]
-         - [[#maven][Maven]]
-         - [[#goto][Goto]]
-         - [[#refactoring][Refactoring]]
-         - [[#documentation-find][Documentation, Find]]
-         - [[#problems][Problems]]
-         - [[#tests][Tests]]
-     - [[#problems-buffer][Problems buffer]]
-     - [[#projects-buffer][Projects buffer]]
+   - [[#java-mode][Java-mode]]
+     - [[#project-management][Project management]]
+     - [[#maven][Maven]]
+     - [[#goto][Goto]]
+     - [[#refactoring][Refactoring]]
+     - [[#documentation-find][Documentation, Find]]
+     - [[#problems][Problems]]
+     - [[#tests][Tests]]
+   - [[#problems-buffer][Problems buffer]]
+   - [[#projects-buffer][Projects buffer]]
 
 * Description
 This layer adds support for the Java language using the [[http://eclim.org][Eclim]] client/server.
@@ -39,7 +39,7 @@ searching, code validation, and many more.
 *** Installation
 For installation check the [[http://eclim.org/install.html#download][official page]].
 
-Then set the =Eclipse= and =Eclim= paths in =dotspacemacs/config=,
+Then set the =Eclipse= and =Eclim= paths in =dotspacemacs/user-config=,
 for instance:
 
 #+BEGIN_SRC elisp
