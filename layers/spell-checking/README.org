@@ -3,8 +3,8 @@
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#spell-checker-configuration][Spell Checker Configuration]]
+   - [[#layer][Layer]]
+   - [[#spell-checker-configuration][Spell Checker Configuration]]
  - [[#key-bindings][Key Bindings]]
 
 * Description
@@ -24,12 +24,12 @@ To use this configuration layer add it to your =~/.spacemacs=
 ** Spell Checker Configuration
 
 The built-in Emacs variable that controls which external spell-checking program
-is used is =ispell-program-name=, which can be set in your =dotspacemacs/init=
-function if you do not like the default. It will give priority to =aspell= if it
-is installed on your system. Another important variable to be aware of is
-=ispell-dictionary= which will control the default dictionary used by
-=ispell-program-name= (instead of using this variable you can also use the key
-binding ~SPC S d~).
+is used is =ispell-program-name=, which can be set in your
+=dotspacemacs/user-init= function if you do not like the default. It will give
+priority to =aspell= if it is installed on your system. Another important
+variable to be aware of is =ispell-dictionary= which will control the default
+dictionary used by =ispell-program-name= (instead of using this variable you can
+also use the key binding ~SPC S d~).
 
 
 * Key Bindings

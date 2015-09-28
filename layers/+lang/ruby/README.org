@@ -5,11 +5,11 @@
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#install][Install]]
-     - [[#prerequisites][Prerequisites]]
-     - [[#ruby-version-management][Ruby version management]]
+   - [[#prerequisites][Prerequisites]]
+   - [[#ruby-version-management][Ruby version management]]
  - [[#key-bindings][Key bindings]]
-     - [[#ruby-enh-ruby-mode-robe-inf-ruby-ruby-tools][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
-     - [[#ruby-test-mode][ruby-test-mode]]
+   - [[#ruby-enh-ruby-mode-robe-inf-ruby-ruby-tools][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
+   - [[#ruby-test-mode][ruby-test-mode]]
 
 * Description
 
@@ -53,7 +53,7 @@ This layer supports the use of [[https://rvm.io/][RVM]] and [[https://github.com
 To enable it, set the =ruby-version-manager= var in your =~/.spacemacs=:
 
 #+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/init ()
+  (defun dotspacemacs/user-init ()
     (setq-default ruby-version-manager 'rbenv)
   )
 #+END_SRC

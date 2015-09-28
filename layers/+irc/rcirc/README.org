@@ -6,16 +6,16 @@
  - [[#description][Description]]
  - [[#features][Features]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#configuration][Configuration]]
-         - [[#storing-the-credentials-in-your-dotfile][Storing the credentials in your dotfile]]
-             - [[#example][Example:]]
-         - [[#storing-the-credentials-in-your-dropbox][Storing the credentials in your Dropbox]]
-             - [[#example][Example:]]
-         - [[#storing-the-credentials-in-authinfo][Storing the credentials in authinfo]]
-         - [[#connecting-behind-a-znc-bouncer-and-storing-the-credentials-in-authinfo][Connecting behind a ZNC bouncer and storing the credentials in authinfo]]
-             - [[#disclaimer][Disclaimer]]
-             - [[#note][Note]]
+   - [[#layer][Layer]]
+   - [[#configuration][Configuration]]
+     - [[#storing-the-credentials-in-your-dotfile][Storing the credentials in your dotfile]]
+       - [[#example][Example:]]
+     - [[#storing-the-credentials-in-your-dropbox][Storing the credentials in your Dropbox]]
+       - [[#example][Example:]]
+     - [[#storing-the-credentials-in-authinfo][Storing the credentials in authinfo]]
+     - [[#connecting-behind-a-znc-bouncer-and-storing-the-credentials-in-authinfo][Connecting behind a ZNC bouncer and storing the credentials in authinfo]]
+       - [[#disclaimer][Disclaimer]]
+       - [[#note][Note]]
  - [[#key-bindings][Key Bindings]]
  - [[#rcirc-documentation][Rcirc documentation]]
 
@@ -57,7 +57,7 @@ There are several ways to configure rcirc supported by the layer:
 *** Storing the credentials in your dotfile
 
 You can store your servers configuration along with your credentials in the
-=dotspacemacs/config= of your dotfile.
+=dotspacemacs/user-config= of your dotfile.
 
 *Important:* This method is the less secured and it is not recommended since
 your dotfile is often stored in a public repository and is not crypted. This
@@ -115,7 +115,7 @@ rcirc.
    #+END_SRC
 
 3) At last you need to provide your servers configuration in the
-   =dotspacemacs/config= function of your dotfile:
+   =dotspacemacs/user-config= function of your dotfile:
 
    #+BEGIN_SRC emacs-lisp
    (setq rcirc-server-alist
@@ -162,7 +162,7 @@ For now authinfo is mandatory to use the ZNC configuration.
    retrieve the credentials for the ZNC configuration.
 
 3) Then setup your servers configuration using subdomains in the
-   =dotspacemacs/config= function of your dotfile. The =:auth= keyword arguments
+   =dotspacemacs/user-config= function of your dotfile. The =:auth= keyword arguments
    will be replaced by the credentials stored in your =~/.authinfo.gpg=.
 
    #+BEGIN_SRC emacs-lisp

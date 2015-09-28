@@ -2,11 +2,11 @@
 
 ** Table of Contents                                                 :TOC@4:
  - [[#compilation-of-quick-how-tos-for-spacemacs][Compilation of quick HOW-TOs for Spacemacs]]
-     - [[#disable-a-package-completely][Disable a package completely]]
-     - [[#disable-a-package-only-for-a-specific-major-mode][Disable a package only for a specific major-mode]]
-     - [[#disable-company-for-a-specific-major-mode][Disable company for a specific major-mode]]
-     - [[#change-special-buffer-rules][Change special buffer rules]]
-     - [[#enable-navigation-by-visual-lines][Enable navigation by visual lines]]
+   - [[#disable-a-package-completely][Disable a package completely]]
+   - [[#disable-a-package-only-for-a-specific-major-mode][Disable a package only for a specific major-mode]]
+   - [[#disable-company-for-a-specific-major-mode][Disable company for a specific major-mode]]
+   - [[#change-special-buffer-rules][Change special buffer rules]]
+   - [[#enable-navigation-by-visual-lines][Enable navigation by visual lines]]
 
 ** Disable a package completely
 To completely disable a package and effectively uninstalling it even if
@@ -21,7 +21,7 @@ name to it:
 ** Disable a package only for a specific major-mode
 This is done by removing the hook added by Spacemacs. For example to
 remove =flycheck= support in python buffers, look for the function
-=dotspacemacs/config= in your dotfile and add the following code:
+=dotspacemacs/user-config= in your dotfile and add the following code:
 
 #+begin_src emacs-lisp
     (remove-hook 'python-mode-hook 'flycheck-mode)
@@ -33,7 +33,7 @@ remove =flycheck= support in python buffers, look for the function
 ** Disable company for a specific major-mode
 It may be handy to disable =company= for a given mode if you plan on
 configuring =auto-complete= instead. On easy way to do it is to use the
-macro =spacemacs|disable-company= in the function =dotspacemacs/config=
+macro =spacemacs|disable-company= in the function =dotspacemacs/user-config=
 of your dotfile. The following snippet disables company for
 =python-mode=:
 

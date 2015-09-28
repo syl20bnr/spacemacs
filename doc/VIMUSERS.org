@@ -190,14 +190,15 @@ If you are reading this, you likely want to choose the vim style. A =.spacemacs=
 file will be created with the appropriate style selected. Most trivial
 configuration will go in this file.
 
-There are three top-level function in the file: =dotspacemacs/layers=,
-=dotspacemacs/init=, and =dotspacemacs/config=. The =dotspacemacs/layers=
-function exist only to enable and disable layers and packages. The
-=dotspacemacs/init= function is run before anything else during startup and
-contains many Spacemacs settings. You will almost never need to touch this
-function except to change default Spacemacs settings. The =dotspacemacs/config=
-function is the one you will use the most. This is where you define any user
-configuration.
+There are four top-level function in the file: =dotspacemacs/layers=,
+=dotspacemacs/init=, =dotspacemacs/user-init= and =dotspacemacs/user-config=.
+The =dotspacemacs/layers= function exist only to enable and disable layers and
+packages. The =dotspacemacs/init= function is run before anything else during
+startup and contains Spacemacs settings. You will never need to touch this
+function except to change default Spacemacs settings.
+The =dotspacemacs/user-init= function is also run before anything else and
+contains user specific configuration. The =dotspacemacs/user-config= function
+is the one you will use the most. This is where you define any user configuration.
 
 | Keybinding  | Function                                                                 |
 |-------------+--------------------------------------------------------------------------|
@@ -412,22 +413,21 @@ the list and it will be uninstalled when you restart.
 
 ** Common tweaks
 This section is for things many will want to change. All of these settings go in
-the =dotspacemacs/config= function in your =.spacemacs= unless otherwise noted.
+the =dotspacemacs/user-config= function in your =.spacemacs= unless otherwise noted.
 
 *** Changing the escape key
 Spacemacs uses =[[https://github.com/syl20bnr/evil-escape][evil-escape]]= to
 allow escaping from many =major-modes= with one keybinding. You can customize
-the variable in your =dotspacemacs/init= like this:
+the variable in your =dotspacemacs/user-config= like this:
 
 #+begin_src emacs-lisp
-  (defun dotspacemacs/init ()
+  (defun dotspacemacs/user-config ()
     ;; ...
     ;; Set escape keybinding to "jk"
     (setq-default evil-escape-key-sequence "jk"))
 #+end_src
 
-This is one of the few variables that must be set in =dotspacemacs/init=. More
-documentation is found in the =evil-escape= [[https://github.com/syl20bnr/evil-escape/blob/master/README.md][README]].
+More documentation is found in the =evil-escape= [[https://github.com/syl20bnr/evil-escape/blob/master/README.md][README]].
 
 *** Changing the colorscheme
 The =.spacemacs= file contains the =dotspacemacs-themes= variable in the
@@ -460,11 +460,11 @@ you can [[#uninstalling-a-package][uninstall]] the =evil-search-highlight-persis
 *** Sessions
 Spacemacs does not automatically restore your windows and buffers when you
 reopen it. If you use vim sessions regularly you may want to add
-=(desktop-save-mode t)= to you =dotspacemacs/config= in your =.spacemacs= to get
-this functionality. You will then be able to load the saved session using ~SPC :
-desktop-read~. The location of the desktop file can be set with the variable
-=desktop-dirname=. To automatically load a session, add =(desktop-read)= to your
-=.spacemacs=.
+=(desktop-save-mode t)= to your =dotspacemacs/user-config= in your =.spacemacs=
+to get this functionality. You will then be able to load the saved session
+using ~SPC : desktop-read~. The location of the desktop file can be set with
+the variable =desktop-dirname=. To automatically load a session,
+add =(desktop-read)= to your =.spacemacs=.
 
 *** Navigating using visual lines
 Spacemacs uses the vim default of navigating by actual lines, even if they are

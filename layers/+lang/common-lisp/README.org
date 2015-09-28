@@ -6,12 +6,12 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
-     - [[#help][Help]]
-     - [[#evaluation][Evaluation]]
-     - [[#repl][REPL]]
-     - [[#compile][Compile]]
-     - [[#navigation][Navigation]]
-     - [[#macroexpansion][Macroexpansion]]
+   - [[#help][Help]]
+   - [[#evaluation][Evaluation]]
+   - [[#repl][REPL]]
+   - [[#compile][Compile]]
+   - [[#navigation][Navigation]]
+   - [[#macroexpansion][Macroexpansion]]
 
 * Description
 
@@ -34,7 +34,7 @@ This layer defaults to using [[http://www.sbcl.org/][sbcl]]. If you want to use 
 of Common Lisp, you can specify it in your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/config ()
+  (defun dotspacemacs/user-config ()
     (setq inferior-lisp-program "/path/to/your/lisp"))
 #+END_SRC
 

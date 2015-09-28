@@ -40,7 +40,7 @@ To use this contribution add it to your =~/.spacemacs=
 ** Configuration
 
 By default deft tries to put notes in =~/.deft= but you can change
-this like so in your =dotspacemacs/config= function:
+this like so in your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
 (setq deft-directory "~/Dropbox/notes")

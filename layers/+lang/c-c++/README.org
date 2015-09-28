@@ -7,11 +7,11 @@
  - [[#description][Description]]
  - [[#features][Features]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#default-mode-for-header-files][Default mode for header files]]
-     - [[#enable-clang-support][Enable Clang support]]
-         - [[#clang-format][clang-format]]
-         - [[#company-clang-and-flycheck][Company-clang and flycheck]]
+   - [[#layer][Layer]]
+   - [[#default-mode-for-header-files][Default mode for header files]]
+   - [[#enable-clang-support][Enable Clang support]]
+     - [[#clang-format][clang-format]]
+     - [[#company-clang-and-flycheck][Company-clang and flycheck]]
  - [[#key-bindings][Key Bindings]]
 
 * Description
@@ -76,7 +76,7 @@ located in the same directory as the file being edited, or in any of its parent
 directories (otherwise a default style will be used).
 
 You can add snippets similar to the following to bind clang-format to either a
-particular mode or all modes in your =dotspacemacs/config= (within your
+particular mode or all modes in your =dotspacemacs/user-config= (within your
 =~/.spacemacs=):
 
 #+BEGIN_SRC emacs-lisp
