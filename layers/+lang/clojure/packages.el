@@ -37,8 +37,8 @@
     :config
     (progn
       ;; add support for golden-ratio
-      (eval-after-load 'golden-ratio
-        '(push 'cider-popup-buffer-quit-function golden-ratio-extra-commands))
+      (with-eval-after-load 'golden-ratio
+        (push 'cider-popup-buffer-quit-function golden-ratio-extra-commands))
       ;; add support for evil
       (push 'cider-stacktrace-mode evil-motion-state-modes)
       (push 'cider-popup-buffer-mode evil-motion-state-modes)
@@ -289,8 +289,8 @@ If called with a prefix argument, uses the other-window instead."
         (evil-set-jump)))))
 
 (defun clojure/init-cider-eval-sexp-fu ()
-  (eval-after-load 'eval-sexp-fu
-    '(require 'cider-eval-sexp-fu)))
+  (with-eval-after-load 'eval-sexp-fu
+    (require 'cider-eval-sexp-fu)))
 
 (defun clojure/init-clj-refactor ()
   (use-package clj-refactor

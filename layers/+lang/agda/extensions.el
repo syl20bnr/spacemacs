@@ -74,6 +74,6 @@
         "mxq" 'agda2-quit
         "mxr" 'agda2-restart)
 
-      (eval-after-load 'golden-ratio
-        '(add-to-list 'golden-ratio-exclude-buffer-names
-                      "*Agda information*")))))
+      (with-eval-after-load 'golden-ratio
+        (add-to-list 'golden-ratio-exclude-buffer-names
+                     "*Agda information*")))))

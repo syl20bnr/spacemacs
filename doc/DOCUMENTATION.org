@@ -612,7 +612,7 @@ unnecessary to create the prefix, but it will give your new prefix a name that
 key-discovery tools can use (e.g., which-key).
 
 There is much more to say about bindings keys, but these are the basics. Keys
-can be bound in your =~/.spacemacs= file or in individual layers. 
+can be bound in your =~/.spacemacs= file or in individual layers.
 
 *** Custom variables
 Custom variables configuration from =M-x customize-group= which are
