@@ -277,7 +277,7 @@ Thank you !
 [VIMUSERS.org]: doc/VIMUSERS.org
 [dotfile]: doc/DOCUMENTATION.org#dotfile-configuration
 [troubleshoot]: doc/DOCUMENTATION.org#troubleshoot
-[osx layer]: contrib/osx/README.org
+[osx layer]: layers/osx/README.org
 [Gitter Chat]: https://gitter.im/syl20bnr/spacemacs
 [Gitter Chat IRC server]: https://irc.gitter.im/
 [emacs-mac-port]: https://github.com/railwaycat/homebrew-emacsmacport
