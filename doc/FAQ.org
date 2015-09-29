@@ -7,6 +7,7 @@
      - [[#the-powerline-separators-are-ugly-how-can-i-fix-them-][The powerline separators are ugly, how can I fix them ?]]
      - [[#the-powerline-separators-have-no-anti-aliasing-what-can-i-do-][The powerline separators have no anti-aliasing, what can I do ?]]
      - [[#why-is-after-init-hook-not-executed-][Why is after-init-hook not executed ?]]
+     - [[#what-is-the-difference-between-spacemacs-base-and-spacemacs-distributions-][What is the difference between =spacemacs-base= and =spacemacs= distributions ?]]
    - [[#windows][Windows]]
      - [[#why-do-the-fonts-look-crappy-on-windows-][Why do the fonts look crappy on Windows ?]]
      - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer-][Why is there no Spacemacs logo in the startup buffer ?]]
@@ -43,6 +44,16 @@ See the powerline section in the font section of the [[file:DOCUMENTATION.org][d
 Don't launch Spacemacs with =emacs -q -l init.el= command. This command will
 run the hooked function in =after-init-hook= before the evaluation of the
 passed =-l init.el= file.
+
+*** What is the difference between =spacemacs-base= and =spacemacs= distributions ?
+ The =distribution= concept was introduced in 0.104.x. You can now choose
+ between two distributions =spacemacs= or =spacemacs-base=.
+ =spacemacs-base= contains only a minimal set of packages; whereas =spacemacs=
+ is the full Spacemacs experience.
+ Set the distribution with =dotspacemacs-distribution= variable. The default is
+ =spacemacs=. For more information as to what is included,
+ check out the =packages.el= file in the respective folders in the
+ =+distribution= folder of the =layers/= directory.
 
 ** Windows
 *** Why do the fonts look crappy on Windows ?
