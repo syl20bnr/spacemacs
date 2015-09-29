@@ -1,4 +1,16 @@
 * Release 0.104.x
+** 0.104.1 (2015/09/28)
+*** Dotfile changes
+- New variable =dotspacemacs-remap-Y-to-y$=, when non nil ~Y~ is remapped to
+  ~y$~. Default value is =t=.
+*** Distribution layer changes
+**** Spacemacs
+- Add ~SPC t h a~ to toggle automatic highlighting of symbol under point.
+*** Layer changes
+**** React
+- Force -jsx= content type (thanks to dvcrn)
+*** Other fixes and improvements
+- Typos and documentation improvements (thanks to k4rtik, robbyoconnor, tko, xfq)
 ** 0.104.0 (2015/09/28)
 *** IMPORTANT: Breaking changes
 - =org-plus-contrib= is now installed from org ELPA repository, you may
@@ -451,6 +463,11 @@
   and ~C-u~ (thanks to sooheon)
 - Add ~C-z~ in =evilified-state= to switch to =emacs-state= for the next
   command (thanks to justbur)
+- Add =:eval-after-load= keyword to =spacemacs|evilify-map= macro
+- Remove ~y~ from evilified state keymap, use a visual selection instead.
+- Fix visual state key bindings in evilified buffers
+- Prevent auto-evilification of buffers from overwriting ~C-g~
+- Rewrite on =evilify-map= macro which is now simpler and more robust
 - Add on and off functions to toggles (thanks to TheBB)
 - Add new function =spacemacs/describe-system-info= which put useful
   information in the clipboard, ready to be pasted in an IRC channel for
@@ -458,7 +475,6 @@
 - Add new functions =configuration-layer/declare-layer= and
   =configuration-layer/declare-layers= which can be used in =config.el= files
   of a layer to add required layers.
-- Add =:eval-after-load= keyword to =spacemacs|evilify-map= macro
 - Add macro =dotspacemacs|symbol-value= with new special variable value
   =display-graphic-p=. This variable will evaluate =(display-graphic-p)=
   when called with =dotspacemacs|symbol-value=. Use this special value
@@ -470,30 +486,25 @@
 - Add distribution to =spacemacs/describe-system= (thanks to TheBB)
 - Rewrite evil-leader keys handling to make ~M-m~ work correctly
   (thanks to justbur)
-- Rewrite on =evilify-map= macro which is now simpler and more robust
 - Replace =after-init-hook= with better hook =emacs-startup-hook=
   (thanks to vkz)
 - Fix some crashes when a package cannot be updated and warn about such
   packages when updating (thanks to bmag)
 - Fix ~SPC u~ not repeating universal-argument (thanks to luxbock)
 - Fix Spacemacs Home Buffer to jump to bookmarks (thanks to travisbhartwell)
-- Fix visual-state evil-yank-binding in evilified modes (thanks to myrjola)
 - Fix =ace-link= in spacemacs buffer (thanks to avoine)
 - Fix an issue with Emacs 25 in =init.el= (not yet officially supported)
   (thanks to justbur)
 - Fix ~return~ binding in terminal in home buffer(thanks to d12frosted)
 - Fix custom banner path (thanks to d12frosted)
-- Fix visual state key bindings in evilified buffers
 - Fix inconsistent detection of orphaned packages to delete
 - Set =gc-cons-threshold= to 100MB and define it in =init.el=
 - Use =package-alist= to resolve orphans
-- Prevent auto-evilification of buffers from overwriting ~C-g~
 - Better indentation for =spacemacs|add-toggle= macro (thanks to TheBB)
 - Remove some dead code for =use-package= (thanks to TheBB)
 - Remove =tooltip-use-echo-area= usage which is obsolete since Emacs 24.1
   (thanks to xfq)
 - Remove duplicate call to =dotspacemacs/init= (thanks to sooheon)
-- Remove ~y~ from evilified state keymap, use a visual selection instead.
 - Display home buffer links even when no banner are displayed
   (thanks to sooheon)
 - Better centering of text in the home buffer
