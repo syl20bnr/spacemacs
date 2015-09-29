@@ -61,7 +61,7 @@ Doge special text banner can be reachable via `999', `doge' or `random*'.
                  (or (not spacemacs-buffer--release-note-version)
                      (version< spacemacs-buffer--release-note-version
                                spacemacs-version)))
-        (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.104.txt")
+        (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.105.txt")
                                       'release-note))
       (spacemacs//redisplay))))
 
@@ -238,12 +238,12 @@ If TYPE is nil, just remove widgets."
                                                    :action (lambda (&rest ignore)
                                                              (funcall 'spacemacs/view-org-file
                                                                       (concat user-emacs-directory "CHANGELOG.org")
-                                                                      "Release 0.104.x"
+                                                                      "Release 0.105.x"
                                                                       'subtree))
                                                    :mouse-face 'highlight
                                                    :follow-link "\C-m")))))
     (spacemacs-buffer//insert-note file
-                                   " Important Notes (Release 0.104.x) "
+                                   " Important Notes (Release 0.105.x) "
                                    widget-func))
 
   (setq spacemacs-buffer--release-note-version nil)
@@ -463,7 +463,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  :tag (propertize "Release Notes" 'face 'font-lock-preprocessor-face)
                  :help-echo "Hide or show the Changelog"
                  :action (lambda (&rest ignore)
-                           (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.104.txt")
+                           (spacemacs-buffer/toggle-note (concat spacemacs-release-notes-directory "0.105.txt")
                                                          ;; if nil is returned, just delete the current note widgets
                                                          (spacemacs-buffer//insert-note-p 'release-note)))
                  :mouse-face 'highlight
