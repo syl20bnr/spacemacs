@@ -392,6 +392,7 @@
 (defun spacemacs/init-avy ()
   (use-package avy
     :defer t
+    :commands (spacemacs/avy-open-url)
     :init
     (progn
       (setq avy-keys (number-sequence ?a ?z))
@@ -399,9 +400,22 @@
       (setq avy-background t)
       (evil-leader/set-key
         "SPC" 'avy-goto-word-or-subword-1
-        "l" 'avy-goto-line))
+        "l" 'avy-goto-line
+        "xo" 'spacemacs/avy-open-url))
     :config
-    (evil-leader/set-key "`" 'avy-pop-mark)))
+    (progn
+      (defun spacemacs/avy-goto-url()
+        "Use avy to go to an URL in the buffer."
+        (interactive)
+        (avy--generic-jump "https?://" nil 'pre))
+      (defun spacemacs/avy-open-url ()
+        "Use avy to select an URL in the buffer and open it."
+        (interactive)
+        (save-excursion
+          (spacemacs/avy-goto-url)
+          (browse-url-at-point)))
+      (evil-leader/set-key "`" 'avy-pop-mark))
+      ))
 
 (defun spacemacs/init-buffer-move ()
   (use-package buffer-move

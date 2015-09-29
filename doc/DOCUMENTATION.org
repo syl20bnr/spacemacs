@@ -2074,6 +2074,7 @@ Text related commands (start with ~x~):
 
     | Key Binding | Description                                                   |
     |-------------+---------------------------------------------------------------|
+    | ~SPC x o~   | use avy to select a link in the buffer and open it            |
     | ~SPC x u~   | set the selected text to lower case                           |
     | ~SPC x U~   | set the selected text to upper case                           |
     | ~SPC x a a~ | align region (or guessed section) using default rules         |
