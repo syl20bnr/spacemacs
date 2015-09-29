@@ -120,6 +120,9 @@ size to make separators look not too crappy.")
 By default the command key is `:' so ex-commands are executed like in Vim
 with `:' and Emacs commands are executed with `<leader> :'.")
 
+(defvar dotspacemacs-remap-Y-to-y$ t
+  "If non nil `Y' is remapped to `y$'.")
+
 (defvar dotspacemacs-use-ido nil
   "If non nil then `ido' replaces `helm' for some commands. For now only
 `find-files' (SPC f f) is replaced.")

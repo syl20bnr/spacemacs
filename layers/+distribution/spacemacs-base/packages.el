@@ -223,8 +223,11 @@
         "Yank from point to end of line."
         (interactive)
         (evil-yank (point) (point-at-eol)))
-      (define-key evil-normal-state-map (kbd "Y") 'spacemacs/evil-yank-to-end-of-line)
-      (define-key evil-motion-state-map (kbd "Y") 'spacemacs/evil-yank-to-end-of-line)
+      (when dotspacemacs-remap-Y-to-y$
+        (define-key evil-normal-state-map (kbd "Y")
+          'spacemacs/evil-yank-to-end-of-line)
+        (define-key evil-motion-state-map (kbd "Y")
+          'spacemacs/evil-yank-to-end-of-line))
 
       (evil-leader/set-key "re" 'evil-show-registers)
 
