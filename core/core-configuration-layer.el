@@ -17,6 +17,7 @@
 (require 'cl-lib)
 (require 'eieio)
 (require 'package)
+(require 'warnings)
 (require 'ht)
 (require 'core-dotspacemacs)
 (require 'core-funcs)
