@@ -13,6 +13,7 @@
 (setq markdown-packages
   '(
     emoji-cheat-sheet-plus
+    gh-md
     markdown-mode
     markdown-toc
     mmm-mode
@@ -23,6 +24,10 @@
 
 (defun markdown/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'markdown-mode-hook 'emoji-cheat-sheet-plus-display-mode))
+
+(defun markdown/init-gh-md ()
+  (use-package gh-md
+    :defer t))
 
 (defun markdown/post-init-smartparens ()
   (add-hook 'markdown-mode-hook 'smartparens-mode))
