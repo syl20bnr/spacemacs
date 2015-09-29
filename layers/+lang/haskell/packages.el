@@ -96,6 +96,9 @@
         "mgg"  'haskell-mode-jump-to-def-or-tag
         "mf"   'haskell-mode-stylish-buffer
 
+        "mt"   'ghc-show-type
+        "mi"   'ghc-show-info
+
         "msb"  'haskell-process-load-or-reload
         "msc"  'haskell-interactive-mode-clear
         "mss"  'haskell-interactive-bring
