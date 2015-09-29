@@ -21,6 +21,7 @@
     enter the selected directory. =describe-key= command is available on ~C-S-h~
   - in other =helm= buffers ~C-h~ is used to go to the next source and ~C-l~
      is the same as ~RET~. =describe-key= command is also available on ~C-S-h~.
+- ~Y~ has been remapped to ~y$~
 - The =bookmark= saved file has been moved to the =.cache= directory, if
   you have a bookmark file =~/.emacs.d/bookmarks= then you'll have to move it
   to =~/.emacs.d/.cache/bookmarks=

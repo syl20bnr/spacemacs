@@ -16,24 +16,29 @@ directory in the `elpa` directory and restart Emacs.
   and `C-l` is the same as `RET`. `describe-key` command is also
   available on `C-S-h`.
 
-3. Guide-key
+3. Vim keys
+
+`Y` has been remapped to `y$`, if you don't like this behavior you can
+set the variable `dotspacemacs-remap-Y-to-y$` to nil in your dotfile.
+
+4. Guide-key
 
 `guide-key` has been replaced by `which-key`, you may encounter issues
 if you have some `guide-key` custom configuration, remove any `guide-key`
 configuration and check the options offered by `which-key`.
 
-4. Bookmarks
+5. Bookmarks
 
 The `bookmark` save file has been moved to the `.cache` directory, if
 you have a bookmark file `~/.emacs.d/bookmarks` then you'll have to move
 it to file `~/.emacs.d/.cache/bookmarks`
 
-5. Ruby on Rails
+6. Ruby on Rails
 
 Ruby on Rails framework has now its own layer called `ruby-on-rails`,
 be sure to add this layer to your dotfile if you use it.
 
-6. Django
+7. Django
 
 Django framework has now its own layer called `django`,
 be sure to add this layer to your dotfile if you use it.
