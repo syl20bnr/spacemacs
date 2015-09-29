@@ -22,7 +22,7 @@
     (progn
       ;; seems to be required otherwise the extension is not
       ;; loaded properly by org
-      (eval-after-load 'org '(require 'ox-gfm))
+      (with-eval-after-load 'org (require 'ox-gfm))
       (autoload 'org-gfm-export-as-markdown "ox-gfm" "\
  Export current buffer to a Github Flavored Markdown buffer.
 

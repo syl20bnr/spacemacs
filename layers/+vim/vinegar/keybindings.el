@@ -3,7 +3,7 @@
 
 (add-hook 'dired-mode-hook 'vinegar/dired-setup)
 
-(eval-after-load "dired-mode"
+(with-eval-after-load 'dired-mode
   (evilify dired-mode dired-mode-map
            "j"         'vinegar/move-down
            "k"         'vinegar/move-up

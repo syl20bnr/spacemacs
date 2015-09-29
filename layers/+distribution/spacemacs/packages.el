@@ -94,14 +94,13 @@
     :init
     (progn
       (define-key spacemacs-mode-map "o" 'spacemacs/ace-buffer-links)
-      (eval-after-load "info"
-        '(define-key Info-mode-map "o" 'ace-link-info))
-      (eval-after-load "help-mode"
-        '(define-key help-mode-map "o" 'ace-link-help))
-      (eval-after-load "eww"
-        '(progn
-           (define-key eww-link-keymap "o" 'ace-link-eww)
-           (define-key eww-mode-map "o" 'ace-link-eww))))
+      (with-eval-after-load 'info
+        (define-key Info-mode-map "o" 'ace-link-info))
+      (with-eval-after-load 'help-mode
+        (define-key help-mode-map "o" 'ace-link-help))
+      (with-eval-after-load 'eww
+        (define-key eww-link-keymap "o" 'ace-link-eww)
+        (define-key eww-mode-map "o" 'ace-link-eww)))
     :config
     (progn
       (defvar spacemacs--link-pattern "~?/.+\\|\s\\[")
@@ -117,10 +116,10 @@
         "Ace jump to links in `spacemacs' buffer."
         (interactive)
         (let ((res (avy--with-avy-keys spacemacs/ace-buffer-links
-                    (avy--process
-                        (spacemacs//collect-spacemacs-buffer-links)
-                        #'avy--overlay-pre))))
-            (when res
+                                       (avy--process
+                                        (spacemacs//collect-spacemacs-buffer-links)
+                                        #'avy--overlay-pre))))
+          (when res
             (goto-char (1+ res))
             (widget-button-press (point))))))))
 
@@ -305,12 +304,11 @@
             (ahs-backward)
             )))
 
-      (eval-after-load 'evil
-        '(progn
-           (define-key evil-motion-state-map (kbd "*")
-             'spacemacs/enter-ahs-forward)
-           (define-key evil-motion-state-map (kbd "#")
-             'spacemacs/enter-ahs-backward)))
+      (with-eval-after-load 'evil
+        (define-key evil-motion-state-map (kbd "*")
+          'spacemacs/enter-ahs-forward)
+        (define-key evil-motion-state-map (kbd "#")
+          'spacemacs/enter-ahs-backward))
 
       (defun spacemacs/symbol-highlight ()
         "Highlight the symbol under point with `auto-highlight-symbol'."
@@ -965,9 +963,9 @@ For instance pass En as source for english."
                    ((symbol-function 'thing-at-point)
                     (lambda (thing)
                       (let ((res (if (region-active-p)
-                          (buffer-substring-no-properties
-                           (region-beginning) (region-end))
-                          (this-fn thing))))
+                                     (buffer-substring-no-properties
+                                      (region-beginning) (region-end))
+                                   (this-fn thing))))
                         (when res (rxt-quote-pcre res))))))
           (funcall func dir)))
 
@@ -987,7 +985,7 @@ For instance pass En as source for english."
                       (if (fboundp func)
                           func
                         (intern (format "%s-%s"  base x))))))
-                     tools)
+              tools)
            (t 'helm-do-grep))))
 
       ;; Search in current file ----------------------------------------------
@@ -1181,10 +1179,10 @@ If DEFAULT-INPUTP is non nil then the current region or symbol at point
 are used as default input."
         (interactive)
         (let ((projectile-require-project-root nil))
-         (call-interactively
-          (spacemacs//helm-do-search-find-tool "helm-project-do"
-                                               dotspacemacs-search-tools
-                                               default-inputp))))
+          (call-interactively
+           (spacemacs//helm-do-search-find-tool "helm-project-do"
+                                                dotspacemacs-search-tools
+                                                default-inputp))))
 
       (defun spacemacs/helm-project-smart-do-search-region-or-symbol ()
         "Search in current project using `dotspacemacs-search-tools' with
@@ -1440,8 +1438,8 @@ It will toggle the overlay under point or create an overlay of one character."
     :defer t
     :init
     (progn
-      (eval-after-load 'info
-        '(require 'info+))
+      (with-eval-after-load 'info
+        (require 'info+))
       (setq Info-fontify-angle-bracketed-flag nil))))
 
 (defun spacemacs/init-leuven-theme ()

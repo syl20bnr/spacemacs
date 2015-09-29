@@ -38,10 +38,9 @@
       :init
       (progn
         (with-eval-after-load 'merlin
-          (progn
-            (setq merlin-error-after-save nil)
-            (flycheck-ocaml-setup))
-          )))))
+          (setq merlin-error-after-save nil)
+          (flycheck-ocaml-setup))
+        ))))
 
 (defun ocaml/init-merlin ()
   (use-package merlin

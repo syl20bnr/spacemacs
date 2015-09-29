@@ -20,8 +20,8 @@
 
 (when (configuration-layer/layer-usedp 'syntax-checking)
   (defun finance/init-flycheck-ledger ()
-    (eval-after-load 'flycheck
-      '(require 'flycheck-ledger))))
+    (with-eval-after-load 'flycheck
+      (require 'flycheck-ledger))))
 
 (defun finance/init-ledger-mode ()
   (use-package ledger-mode
