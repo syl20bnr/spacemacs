@@ -16,8 +16,8 @@
   (use-package ansible
     :defer t
     :init (progn
-            (eval-after-load 'yaml-mode
-              '(add-hook 'yaml-mode-hook 'ansible/ansible-maybe-enable))
+            (with-eval-after-load 'yaml-mode
+              (add-hook 'yaml-mode-hook 'ansible/ansible-maybe-enable))
 
             ;; ansible-mode requires ac-user-dictionary-files. If the
             ;; config is using company-mode this variable will not be
@@ -31,5 +31,5 @@
 (defun ansible/init-ansible-doc ()
   (use-package ansible-doc
     :defer t
-    :init (eval-after-load 'yaml-mode
-            '(add-hook 'yaml-mode-hook 'ansible/ansible-doc-maybe-enable))))
+    :init (with-eval-after-load 'yaml-mode
+            (add-hook 'yaml-mode-hook 'ansible/ansible-doc-maybe-enable))))

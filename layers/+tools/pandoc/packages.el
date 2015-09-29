@@ -36,4 +36,4 @@
   (use-package ox-pandoc
     :defer t
     :init
-    (eval-after-load 'org '(require 'ox-pandoc))))
+    (with-eval-after-load 'org (require 'ox-pandoc))))

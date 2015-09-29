@@ -34,8 +34,8 @@
     :init
     (progn
       (setq ac-ispell-requires 4)
-      (eval-after-load 'auto-complete
-        '(ac-ispell-setup))
+      (with-eval-after-load 'auto-complete
+        (ac-ispell-setup))
       ;; (add-hook 'markdown-mode-hook 'ac-ispell-ac-setup)
       )))
 

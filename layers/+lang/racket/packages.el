@@ -25,11 +25,11 @@
     :config
     (progn
       ;; smartparens configuration
-      (eval-after-load 'smartparens
-        '(progn (add-to-list 'sp--lisp-modes 'racket-mode)
-                (when (fboundp 'sp-local-pair)
-                  (sp-local-pair 'racket-mode "'" nil :actions nil)
-                  (sp-local-pair 'racket-mode "`" nil :actions nil))))
+      (with-eval-after-load 'smartparens
+        (add-to-list 'sp--lisp-modes 'racket-mode)
+        (when (fboundp 'sp-local-pair)
+          (sp-local-pair 'racket-mode "'" nil :actions nil)
+          (sp-local-pair 'racket-mode "`" nil :actions nil)))
 
       (defun spacemacs/racket-test-with-coverage ()
         "Call `racket-test' with universal argument."

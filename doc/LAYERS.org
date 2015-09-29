@@ -193,31 +193,22 @@ some variables or call some functions. This is trivial with =require=, because
 it loads immediately, but it can be tricky with autoloading, because the
 configuration code must also be deferred.
 
-Emacs offers =eval-after-load= for this purpose. It can be used like this:
+Emacs offers =with-eval-after-load= for this purpose. It can be used like this:
 
 #+begin_src emacs-lisp
-  (eval-after-load 'helm
-    '(progn
+  (with-eval-after-load 'helm
        ;; Code
-       ))
+       )
 #+end_src
 
 This arranges for the relevant code to be executed after Helm is loaded (using
 either =require= or an autoload), or if Helm is already loaded, the code is
 executed immediately.
 
-Since =eval-after-load= is a function and not a macro, its argument must be
-quoted. Also, it only accepts one argument, so it's not unusual to have to use
-=progn= as a code block.
+Since =with-eval-after-load= is a macro and not a function, its argument does
+not have to be quoted.
 
-The new macro =with-eval-after-load= in Emacs 24.4 fixes these drawbacks.
-However, note that Spacemacs still supports Emacs 24.3.
-
-#+begin_src emacs-lisp
-  (with-eval-after-load 'helm
-    ;; Code
-    )
-#+end_src
+**Note**: =with-eval-after-load= is backported for those still on Emacs 24.3
 
 ** Use-package
 For /end users/ who are trying to put together an efficient Emacs configuration,
@@ -256,7 +247,7 @@ This form includes code to execute before and after Helm is loaded. The =:init=
 section can be executed immediately, but since Helm is deferred, the =:config=
 section is not executed until after loading, if ever. It is essentially
 equivalent to simply running the =:init= block, and then adding the =:config=
-block in an =eval-after-load=.
+block in an =with-eval-after-load=.
 
 #+begin_src emacs-lisp
   (use-package helm

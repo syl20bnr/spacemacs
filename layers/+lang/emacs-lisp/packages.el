@@ -111,8 +111,8 @@
 
 (defun emacs-lisp/post-init-semantic ()
   (semantic/enable-semantic-mode 'emacs-lisp-mode)
-  (eval-after-load 'semantic
-    '(semantic-default-elisp-setup)))
+  (with-eval-after-load 'semantic
+    (semantic-default-elisp-setup)))
 
 (defun emacs-lisp/post-init-srefactor ()
   (add-hook 'emacs-lisp-mode-hook 'spacemacs/lazy-load-srefactor)

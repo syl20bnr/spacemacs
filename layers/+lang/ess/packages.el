@@ -85,43 +85,42 @@ not play nicely with autoloads"
       (push '(company-R-args company-R-objects) company-backends-ess-mode)))
 
   ;; R --------------------------------------------------------------------------
-  (eval-after-load "ess-site"
-    '(progn
-       (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
-       ;; Follow Hadley Wickham's R style guide
-       (setq ess-first-continued-statement-offset 2
-             ess-continued-statement-offset 0
-             ess-expression-offset 2
-             ess-nuke-trailing-whitespace-p t
-             ess-default-style 'DEFAULT)
-       (evil-leader/set-key-for-mode 'ess-mode
-         "msi" 'R
-         ;; noweb
-         "mcC" 'ess-eval-chunk-and-go
-         "mcc" 'ess-eval-chunk
-         "mcd" 'ess-eval-chunk-and-step
-         "mcm" 'ess-noweb-mark-chunk
-         "mcN" 'ess-noweb-previous-chunk
-         "mcn" 'ess-noweb-next-chunk
-         ;; helpers
-         "mhd" 'ess-R-dv-pprint
-         "mhi" 'ess-R-object-popup
-         "mht" 'ess-R-dv-ctable
-         ;; REPL
-         "msB" 'ess-eval-buffer-and-go
-         "msb" 'ess-eval-buffer
-         "msD" 'ess-eval-function-or-paragraph-and-step
-         "msd" 'ess-eval-region-or-line-and-step
-         "msL" 'ess-eval-line-and-go
-         "msl" 'ess-eval-line
-         "msR" 'ess-eval-region-and-go
-         "msr" 'ess-eval-region
-         "msT" 'ess-eval-function-and-go
-         "mst" 'ess-eval-function
-         )
-       (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
-       (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
-       (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input))))
+  (with-eval-after-load 'ess-site
+    (add-to-list 'auto-mode-alist '("\\.R$" . R-mode))
+    ;; Follow Hadley Wickham's R style guide
+    (setq ess-first-continued-statement-offset 2
+          ess-continued-statement-offset 0
+          ess-expression-offset 2
+          ess-nuke-trailing-whitespace-p t
+          ess-default-style 'DEFAULT)
+    (evil-leader/set-key-for-mode 'ess-mode
+      "msi" 'R
+      ;; noweb
+      "mcC" 'ess-eval-chunk-and-go
+      "mcc" 'ess-eval-chunk
+      "mcd" 'ess-eval-chunk-and-step
+      "mcm" 'ess-noweb-mark-chunk
+      "mcN" 'ess-noweb-previous-chunk
+      "mcn" 'ess-noweb-next-chunk
+      ;; helpers
+      "mhd" 'ess-R-dv-pprint
+      "mhi" 'ess-R-object-popup
+      "mht" 'ess-R-dv-ctable
+      ;; REPL
+      "msB" 'ess-eval-buffer-and-go
+      "msb" 'ess-eval-buffer
+      "msD" 'ess-eval-function-or-paragraph-and-step
+      "msd" 'ess-eval-region-or-line-and-step
+      "msL" 'ess-eval-line-and-go
+      "msl" 'ess-eval-line
+      "msR" 'ess-eval-region-and-go
+      "msr" 'ess-eval-region
+      "msT" 'ess-eval-function-and-go
+      "mst" 'ess-eval-function
+      )
+    (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
+    (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)
+    (define-key inferior-ess-mode-map (kbd "C-k") 'comint-previous-input)))
 
 (defun ess/init-ess-R-data-view ())
 

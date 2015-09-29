@@ -83,8 +83,8 @@
             org-startup-with-inline-images t
             org-src-fontify-natively t)
 
-      (eval-after-load 'org-indent
-        '(spacemacs|hide-lighter org-indent-mode))
+      (with-eval-after-load 'org-indent
+        (spacemacs|hide-lighter org-indent-mode))
       (setq org-startup-indented t)
       (let ((dir (configuration-layer/get-layer-property 'org :dir)))
         (setq org-export-async-init-file (concat dir "org-async-init.el")))
@@ -198,15 +198,14 @@ Will work on both org-mode and any mode that accepts plain html."
           "mxu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
           "mxv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
 
-      (eval-after-load "org-agenda"
-        '(progn
-           (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
-           (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)
-           ;; Since we override SPC, let's make RET do that functionality
-           (define-key org-agenda-mode-map
-             (kbd "RET") 'org-agenda-show-and-scroll-up)
-           (define-key org-agenda-mode-map
-             (kbd "SPC") evil-leader--default-map))))
+      (with-eval-after-load 'org-agenda
+        (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
+        (define-key org-agenda-mode-map "k" 'org-agenda-previous-line)
+        ;; Since we override SPC, let's make RET do that functionality
+        (define-key org-agenda-mode-map
+          (kbd "RET") 'org-agenda-show-and-scroll-up)
+        (define-key org-agenda-mode-map
+          (kbd "SPC") evil-leader--default-map)))
     :config
     (progn
       ;; setup org directory

@@ -20,10 +20,9 @@
 
 ;; replace `dired-goto-file' with `helm-find-files', since `helm-find-files'
 ;; can do the same thing and with fuzzy matching and other features.
-(eval-after-load 'dired
-  '(progn
-     (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
-     (define-key dired-mode-map "j" 'spacemacs/helm-find-files)))
+(with-eval-after-load 'dired
+  (evil-define-key 'normal dired-mode-map "J" 'spacemacs/helm-find-files)
+  (define-key dired-mode-map "j" 'spacemacs/helm-find-files))
 
 ;; alternate binding to search next occurrence with isearch without
 ;; exiting isearch
@@ -357,10 +356,9 @@ Ensure that helm is required before calling FUNC."
 (evil-leader/set-key
   "xgl" 'spacemacs/set-google-translate-languages)
 ;; shell ----------------------------------------------------------------------
-(eval-after-load "shell"
-  '(progn
-    (evil-define-key 'insert comint-mode-map [up] 'comint-previous-input)
-    (evil-define-key 'insert comint-mode-map [down] 'comint-next-input)))
+(with-eval-after-load 'shell
+  (evil-define-key 'insert comint-mode-map [up] 'comint-previous-input)
+  (evil-define-key 'insert comint-mode-map [down] 'comint-next-input))
 
 ;; ---------------------------------------------------------------------------
 ;; Micro-states
