@@ -72,6 +72,8 @@
   (defun spacemacs//setup-react-mode ()
     "Adjust web-mode to accommodate react-mode"
     (emmet-mode 0)
+    ;; Force jsx content type
+    (web-mode-set-content-type "jsx")
     ;; Why do we do this ?
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (let ((web-mode-enable-part-face nil))
