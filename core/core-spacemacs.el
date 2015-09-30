@@ -86,6 +86,8 @@ initialization."
   (spacemacs-buffer/set-mode-line "")
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
+  ;; silence ad-handle-definition about advised functions getting redefined
+  (setq ad-redefinition-action 'accept)
   ;; default theme
   (let ((default-theme (car dotspacemacs-themes)))
     (spacemacs/load-theme default-theme)
