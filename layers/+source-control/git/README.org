@@ -131,15 +131,15 @@ Git commands (start with ~g~):
 - Git time machine is provided by [[https://github.com/pidu/git-timemachine][git-timemachine]].
 - Git last commit message per line is provided by [[https://github.com/syohex/emacs-git-messenger][git-messenger]].
 
-
 ** Magit
 
 =Spacemacs= uses [[http://magit.vc/][magit]] to manage Git repositories.
 
 To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~
 
-~hjkl~ navigation is enabled in all Magit buffers. The default Magit keys
-on ~hjkl~ (if they exist) are remapped on ~HJKL~.
+~hjkl~ navigation is enabled in all Magit buffers according to the rules of
+evilification. The default Magit keys on ~hjkl~ (if they exist) are remapped on
+~HJKL~.
 
 Here are the often used bindings inside a =status buffer=, please note that
 the following key bindings are valid in Vim editing style, in Emacs editing
@@ -154,6 +154,7 @@ style you can refer directly to the magit manual:
 | ~b c~            | create a branch                                     |
 | ~f f~            | fetch changes                                       |
 | ~F -r F~         | pull and rebase                                     |
+| ~C-S-g~          | refresh                                             |
 | ~h~              | go left                                             |
 | ~j~              | go down                                             |
 | ~C-S-j~ or ~C-n~ | goto next magit section                             |
