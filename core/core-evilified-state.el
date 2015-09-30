@@ -219,10 +219,10 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
     (cond
      ;; space
      ((equal event 32) nil)
-     ((equal event ?/) nil)
      ((equal event ?:) nil)
      ;; C-g (cannot remap C-g)
      ((equal event ?\a) nil)
+     ((equal event ?/) ?\\)
      ((and (<= ?a event) (<= event ?z)) (- event 32))
      ;; don't shadow C-g, G is mapped directly to C-S-g
      ((equal event ?G) (+ (expt 2 25) ?\a))
