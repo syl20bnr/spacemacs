@@ -217,15 +217,12 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
   "Return a new event for the evilified EVENT."
   (when event
     (cond
-     ;; space
-     ((equal event 32) nil)
-     ;; C-g (cannot remap C-g)
-     ((equal event ?\a) nil)
+     ((equal event ?\a) nil) ; C-g (cannot remap C-g)
+     ((equal event 32) ?')   ; space
      ((equal event ?/) ?\\)
      ((equal event ?:) ?|)
      ((and (<= ?a event) (<= event ?z)) (- event 32))
-     ;; don't shadow C-g, G is mapped directly to C-S-g
-     ((equal event ?G) (+ (expt 2 25) ?\a))
+     ((equal event ?G) (+ (expt 2 25) ?\a)) ; G is mapped directly to C-S-g
      ((and (<= ?A event) (<= event ?Z)) (- event 64))
      ((and (<= 1 event) (<= event 26)) (+ (expt 2 25) event)))))
 
