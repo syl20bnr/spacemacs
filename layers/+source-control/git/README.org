@@ -15,6 +15,7 @@
    - [[#git-flow][Git-Flow]]
  - [[#working-with-git][Working with Git]]
    - [[#magit][Magit]]
+   - [[#staging-lines][Staging lines]]
    - [[#commit-message-edition-buffer][Commit message edition buffer]]
    - [[#interactive-rebase-buffer][Interactive rebase buffer]]
    - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
@@ -22,7 +23,6 @@
    - [[#git-time-machine][Git time machine]]
 
 * Description
-
 This layers adds extensive support for [[http://git-scm.com/][git]].
 
 ** Features:
@@ -36,9 +36,7 @@ This layers adds extensive support for [[http://git-scm.com/][git]].
 New to Magit? Checkout the [[http://magit.vc/about.html][official intro]].
 
 * Install
-
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -59,7 +57,6 @@ the ~PP~, ~Po~, ~Pe~ (and more) push commands to nag you in the same way. Once
 you understand what they do, it is better simply to give the command you intend.
 
 ** Magit status fullscreen
-
 To display the =magit status= buffer in fullscreen set the variable
 =git-magit-status-fullscreen= to =t= in your =dotspacemacs/user-init= function.
 
@@ -70,7 +67,6 @@ To display the =magit status= buffer in fullscreen set the variable
 #+END_SRC
 
 ** Magit auto-complete
-
 Magit auto-complete feature is enabled. For this feature to work best you
 have to setup your Git repository directory in your =dotspacemacs/user-config=
 function, this is the folder where you keep all your git-controlled projects
@@ -83,7 +79,6 @@ function, this is the folder where you keep all your git-controlled projects
 For more information, see [[http://magit.vc/manual/magit.html#Status-buffer][Magit-User-Manual#Status-buffer]]
 
 ** Magit SVN plugin
-
 For convenience the magit SVN plugin can be activated directly in the Git
 layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
 
@@ -94,12 +89,10 @@ layer by setting the variable =git-enable-magit-svn-plugin= to =t=.
 #+END_SRC
 
 ** Git
-
 Of course if your OS does not ship with git (!) you'll have to install it
 on your machine. You can download it from the [[http://git-scm.com/downloads][download page]].
 
 ** Git-Flow
-
 Git-flow is a standardized branching pattern for git repositories with the aim
 of making things more manageable. While there are tools to assist with making
 this easier, these do nothing you couldn't do manually.
@@ -108,7 +101,6 @@ Support requires installation of the git-flow extensions. Please reference their
 [[https://github.com/petervanderdoes/gitflow/wiki][installation page]] for assistance.
 
 * Working with Git
-
 Git commands (start with ~g~):
 
 | Key Binding | Description                                         |
@@ -132,7 +124,6 @@ Git commands (start with ~g~):
 - Git last commit message per line is provided by [[https://github.com/syohex/emacs-git-messenger][git-messenger]].
 
 ** Magit
-
 =Spacemacs= uses [[http://magit.vc/][magit]] to manage Git repositories.
 
 To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~
@@ -179,12 +170,16 @@ style you can refer directly to the magit manual:
 | ~C-v~            | revert item at point                                |
 | ~z z~            | stash changes                                       |
 
-** Commit message edition buffer
+** Staging lines
+Magit allows you to stage specific lines by selecting them in a diff and hitting
+=s= to stage. Due to inconsistencies between Vim and Emacs editing styles, if
+you enter visual line state with =V=, you will stage one more line than
+intended. To work around this, you can use =v= instead (since Magit only stages
+whole lines, in any case).
 
-In a commit message buffer press ~C-c C-c~
-to commit the changes with the entered message.
-Pressing ~C-c C-k~ will discard the commit
-message.
+** Commit message edition buffer
+In a commit message buffer press ~C-c C-c~ to commit the changes with the
+entered message. Pressing ~C-c C-k~ will discard the commit message.
 
 | Key Binding | Description |
 |-------------+-------------|
