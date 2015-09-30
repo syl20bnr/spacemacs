@@ -226,6 +226,10 @@ Possible values are: `recents' `bookmarks' `projects'.")
 ;; only for backward compatibility
 (defalias 'dotspacemacs-mode 'emacs-lisp-mode)
 
+(defvar spacemacs--user-syncing nil
+  "Is true during layer synchrionization if launched by the user, and not at
+startup.")
+
 (defun dotspacemacs/sync-configuration-layers (&optional arg)
   "Synchronize declared layers in dotfile with spacemacs.
 
@@ -234,7 +238,8 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
   (interactive "P")
   (when (file-exists-p dotspacemacs-filepath)
     (with-current-buffer (find-file-noselect dotspacemacs-filepath)
-      (let ((dotspacemacs-loading-progress-bar nil))
+      (let ((dotspacemacs-loading-progress-bar nil)
+            (spacemacs--user-syncing t))
         (setq spacemacs-loading-string "")
         (save-buffer)
         (let ((tests-ok (or (equal arg '(16)) (dotspacemacs/test-dotfile t))))
