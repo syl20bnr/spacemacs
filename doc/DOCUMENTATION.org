@@ -39,6 +39,7 @@
      - [[#hooks][Hooks]]
      - [[#binding-keys][Binding keys]]
      - [[#custom-variables][Custom variables]]
+   - [[#when-things-go-wrong-troubleshooting-dotfile-problems][When things go wrong: Troubleshooting Dotfile problems]]
  - [[#main-principles][Main principles]]
    - [[#editing-styles][Editing Styles]]
      - [[#vim][Vim]]
@@ -495,8 +496,7 @@ recommended to either use =setq= expressions instead of toggle functions, or to
 use the =on= or =off= versions instead (i.e. instead of
 =spacemacs/toggle-<thing>=, use =spacemacs/toggle-<thing>-on= or
 =spacemacs/toggle-<thing>-off=). It is possible to /skip/ the execution of
-=dotspacemacs/user-config= with the universal argument (~SPC u SPC f e R~).
-
+=dotspacemacs/user-config= with the universal argument (~SPC u SPC f e R~)
 ** Content
 *** Using configuration layers
 To use a configuration layer, add it to the =dotspacemacs-configuration-layers=
@@ -618,6 +618,7 @@ can be bound in your =~/.spacemacs= file or in individual layers.
 Custom variables configuration from =M-x customize-group= which are
 automatically saved by Emacs are stored at the end of your =~/.spacemacs= file.
 
+** When things go wrong: Troubleshooting Dotfile problems
 * Main principles
 ** Editing Styles
 *** Vim
