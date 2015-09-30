@@ -176,10 +176,10 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
    ```
 
-`master` is the stable branch and it is _immutable_, **DO NOT** make any
-modification to it or you will break the update mechanism. If you want to
-fork Spacemacs safely use the `develop` branch where you handle the update
-manually.
+   `master` is the stable branch and it is _immutable_, **DO NOT** make any
+   modification to it or you will break the update mechanism. If you want to
+   fork Spacemacs safely use the `develop` branch where you handle the update
+   manually.
 
 3. Launch Emacs. Spacemacs will automatically install the packages it requires.
 
