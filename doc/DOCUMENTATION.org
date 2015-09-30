@@ -76,6 +76,7 @@
    - [[#reserved-prefix-command-for-user][Reserved prefix command for user]]
    - [[#helm][Helm]]
      - [[#c-z-and-tab-switch][C-z and Tab switch]]
+     - [[#helm-focus][Helm focus]]
      - [[#helm-micro-state][Helm micro-state]]
    - [[#discovering][Discovering]]
      - [[#key-bindings][Key bindings]]
@@ -1218,6 +1219,10 @@ the [[https://github.com/emacs-helm/helm/wiki][Helm documentation wiki]].
 *** C-z and Tab switch
 The command bound to ~C-z~ is much more useful than the one bound to Tab, so it
 makes sense to swap them. It's also recommended [[http://tuhdo.github.io/helm-intro.html][here]].
+
+*** Helm focus
+If you find yourself unable to return focus to Helm (after a careless
+mouse-click for example), use ~SPC w b~ to return focus to the minibuffer.
 
 *** Helm micro-state
 =Spacemacs= defines a [[#micro-states][micro-state]] for =Helm= to make it work like [[https://github.com/Shougo/unite.vim][Vim's Unite]]
