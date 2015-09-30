@@ -1,40 +1,40 @@
 * Spacemacs conventions
 ** Table of Contents                                                 :TOC@4:
  - [[#spacemacs-conventions][Spacemacs conventions]]
-     - [[#code-guidelines][Code guidelines]]
-         - [[#spacemacs-core-and-layer][Spacemacs core and layer]]
-         - [[#all-layers][All layers]]
-     - [[#key-bindings-conventions][Key bindings conventions]]
-         - [[#reserved-prefix][Reserved prefix]]
-             - [[#user-prefix][User prefix]]
-             - [[#major-mode-prefix][Major mode prefix]]
-             - [[#micro-state][Micro-state]]
-         - [[#evilify-buffers][Evilify buffers]]
-         - [[#navigation][Navigation]]
-             - [[#n-and-n][n and N]]
-             - [[#code-navigation][Code Navigation]]
-             - [[#insert-state-buffers][=insert state= buffers]]
-         - [[#evaluation][Evaluation]]
-         - [[#repls][REPLs]]
-             - [[#send-code][Send code]]
-             - [[#in-terminal][In terminal]]
-         - [[#building-and-compilation][Building and Compilation]]
-         - [[#debugging][Debugging]]
-         - [[#plain-text-markup-languages][Plain Text Markup Languages]]
-             - [[#headers][Headers]]
-             - [[#insertion-of-common-elements][Insertion of common elements]]
-             - [[#text-manipulation][Text manipulation]]
-             - [[#movement-in-normal-mode][Movement in normal mode]]
-             - [[#promotion-demotion-and-element-movement][Promotion, Demotion and element movement]]
-             - [[#table-editing][Table editing]]
-         - [[#tests][Tests]]
-             - [[#all-languages][All languages]]
-             - [[#language-specific][Language specific]]
-         - [[#toggles][Toggles]]
-         - [[#refactoring][Refactoring]]
-         - [[#help-or-documentation][Help or Documentation]]
-     - [[#writing-documentation][Writing documentation]]
-         - [[#spacing-in-documentation][Spacing in documentation]]
+   - [[#code-guidelines][Code guidelines]]
+     - [[#spacemacs-core-and-layer][Spacemacs core and layer]]
+     - [[#all-layers][All layers]]
+   - [[#key-bindings-conventions][Key bindings conventions]]
+     - [[#reserved-prefix][Reserved prefix]]
+       - [[#user-prefix][User prefix]]
+       - [[#major-mode-prefix][Major mode prefix]]
+       - [[#micro-state][Micro-state]]
+     - [[#evilified-buffers][Evilified buffers]]
+     - [[#navigation][Navigation]]
+       - [[#n-and-n][n and N]]
+       - [[#code-navigation][Code Navigation]]
+       - [[#insert-state-buffers][=insert state= buffers]]
+     - [[#evaluation][Evaluation]]
+     - [[#repls][REPLs]]
+       - [[#send-code][Send code]]
+       - [[#in-terminal][In terminal]]
+     - [[#building-and-compilation][Building and Compilation]]
+     - [[#debugging][Debugging]]
+     - [[#plain-text-markup-languages][Plain Text Markup Languages]]
+       - [[#headers][Headers]]
+       - [[#insertion-of-common-elements][Insertion of common elements]]
+       - [[#text-manipulation][Text manipulation]]
+       - [[#movement-in-normal-mode][Movement in normal mode]]
+       - [[#promotion-demotion-and-element-movement][Promotion, Demotion and element movement]]
+       - [[#table-editing][Table editing]]
+     - [[#tests][Tests]]
+       - [[#all-languages][All languages]]
+       - [[#language-specific][Language specific]]
+     - [[#toggles][Toggles]]
+     - [[#refactoring][Refactoring]]
+     - [[#help-or-documentation][Help or Documentation]]
+   - [[#writing-documentation][Writing documentation]]
+     - [[#spacing-in-documentation][Spacing in documentation]]
 
 ** Code guidelines
 *** Spacemacs core and layer
@@ -71,25 +71,34 @@ buffers are good candidates to be put on ~M-SPC~ and ~s-M-SPC~.
 
 It is recommended to add ~q~ to leave the micro-state.
 
-*** Evilify buffers
-=Spacemacs= offers convenient functions to /evilify/ a buffer.
+*** Evilified buffers
 /Evilifying/ a buffer is to set the =evilified state= as the default
 state for the major mode of the buffer.
 
 The =evilified state= is derived from the =emacs state= and modify the
-map to: - add ~hjkl~ navigation - add incremental search with ~/~, ~n~
-and ~N~ - add =visual state= and =visual line state= - add yank (copy)
-with ~y~ - activate evil-leader key
+map to:
+- add ~hjkl~ navigation
+- add scrolling feature on ~C-f~, ~C-b~, ~C-d~ and ~C-u~ 
+- ~G~ and ~gg~ to go to the end and beginning of the buffer
+- add incremental search with ~/~, ~n~ and ~N~
+- enabling =evil-ex= on ~:~
+- add =visual state= and =visual line state= on ~v~ and ~V~
+- add yank on ~y~ _in visual state only_
+- activate evil-leader key on ~SPC~
 
 Setting the =evilified state= to a mode is done by calling the macro
-=evilify= which takes optional parameters to fix the key bindings
-shadowed by the above modifications.
+=spacemacs|evilify-map=.
 
-To fix the shadowed bindings we capitalize them, for instance: shadowed
-~h~ is transposed to ~H~, if ~H~ is taken then it is transposed to ~C-h~
-and so on...
+/Evilification/ rebinds shadowed key bindings according to the following
+rules:
+- alphabetic key bindings: ~x~ -> ~X~ -> ~C-x~ -> ~C-X~
+- ~SPC~ -> ~'~
+- ~/~ -> ~\~
+- ~:~ -> ~|~
+- ~C-g~ cannot be shadowed
 
-Example of /evilified/ buffers are =magit status=, =paradox buffer=.
+If a key binding cannot be remapped then it is ignored and a warning message
+is displayed in =*Messages*=.
 
 *** Navigation
 **** n and N
