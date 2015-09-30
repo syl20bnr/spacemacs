@@ -45,6 +45,7 @@
      - [[#vim][Vim]]
      - [[#emacs][Emacs]]
      - [[#hybrid][Hybrid]]
+   - [[#evilified-modes][Evilified modes]]
    - [[#states][States]]
    - [[#evil-leader][Evil leader]]
    - [[#universal-argument][Universal argument]]
@@ -648,6 +649,24 @@ in =evil-hybrid-state-map= keymap instead of =evil-insert-state-map=.
 
 Hybrid mode can be enabled by setting =dotspacemacs-editing-style= to =hybrid=.
 To switch between evil and hybrid mode use ~SPC t E y~ and ~M-m t E y~.
+
+** Evilified modes
+Some buffers (such as Magit, for using git from within Emacs), are not for
+editing text, and provide their own keybindings for certain operations. These
+often conflict with Vim bindings. To make such buffers behave Vim-like in a
+consistent manner, they use a special state called /evilified/ state. In
+evilified state, a handful of keys work as in Evil, namely =/=, =:=, =h=, =j=,
+=k=, =l=, =n=, =N=, =v=, =V=, =gg=, =G=, =C-f=, =C-b=, =C-d=, =C-u= and =C-z=.
+All other keys work as intended by the underlying mode.
+
+Shadowed keys are moved according to the pattern: =a= → =A= → =C-a= → =C-A=
+
+For example, if the mode binds a function to =n=, that is found under =C-n= in
+evilified state, while anything originally bound to =k= will be on =K=.
+
+In addition to this, =C-g=, being an important escape key in Emacs, is skipped.
+So anything bound to =g= originally will be found on =C-G=, since =g=, =G= and
+=C-g= are reserved.
 
 ** States
 =Spacemacs= has 10 states:
@@ -1601,7 +1620,6 @@ to keep finger on the home row.
 | ~C-j~       | go to previous candidate          |
 | ~C-k~       | go to next candidate              |
 | ~C-l~       | enter current directory           |
-
 
 *** Ido
 Spacemacs displays the =ido= minibuffer vertically thanks to the
