@@ -27,7 +27,10 @@
 
 (defun markdown/init-gh-md ()
   (use-package gh-md
-    :defer t))
+    :defer t
+    :init
+    (evil-leader/set-key-for-mode 'markdown-mode
+      "mcr"  'gh-md-render-buffer)))
 
 (defun markdown/post-init-smartparens ()
   (add-hook 'markdown-mode-hook 'smartparens-mode))
@@ -69,7 +72,6 @@ Will work on both org-mode and any mode that accepts plain html."
         "mcw"  'markdown-kill-ring-save
         "mcc"  'markdown-check-refs
         "mcn"  'markdown-cleanup-list-numbers
-        "mcr"  'gh-md-render-buffer
         ;; headings
         "mhi"  'markdown-insert-header-dwim
         "mhI"  'markdown-insert-header-setext-dwim
