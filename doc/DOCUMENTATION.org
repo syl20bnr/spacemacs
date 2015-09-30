@@ -32,6 +32,7 @@
    - [[#installation][Installation]]
      - [[#alternative-setup][Alternative setup]]
    - [[#synchronization-of-dotfile-changes][Synchronization of dotfile changes]]
+   - [[#testing][Testing]]
    - [[#content][Content]]
      - [[#using-configuration-layers][Using configuration layers]]
      - [[#setting-configuration-layers-variables][Setting configuration layers variables]]
@@ -496,6 +497,12 @@ use the =on= or =off= versions instead (i.e. instead of
 =spacemacs/toggle-<thing>=, use =spacemacs/toggle-<thing>-on= or
 =spacemacs/toggle-<thing>-off=). It is possible to /skip/ the execution of
 =dotspacemacs/user-config= with the universal argument (~SPC u SPC f e R~).
+
+** Testing
+You can use the command =SPC : dotspacemacs/test-dotfile= to check if your
+=~/.spacemacs= looks correct. This will check, among other things, whether the
+declared layers can be found and that the variables have sensible values. These
+tests are also run automatically when you synchronize with ~SPC f e R~.
 
 ** Content
 *** Using configuration layers
