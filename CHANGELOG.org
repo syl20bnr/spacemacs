@@ -1,4 +1,21 @@
 * Release 0.104.x
+** 0.104.2 (2015/09/29)
+*** Hotfixes
+- Fix error =void-variable warning-minimum-level= on Emacs 24.3
+  (thanks to syohex)
+*** Layer changes
+**** Markdown
+- Fix ~SPC m c r~ binding (thanks to tko)
+*** Core
+- Silence =ad-handle-definition= about advised functions getting redefined  
+- Improve evilification rules, now ~:~ is rebound to ~|~, ~/~ is rebound to ~\~
+  and ~SPC~ is rebound to ~'~
+*** Other fixes and improvements
+- Add FAQ entry on the difference between available distributions (thanks to
+  robbyoconnor)
+- Delete obsolete =.gitmodules= file (thanks to robbyoconnor)
+- Improve convention documentation for evilified buffers
+- Typos and documentation improvements (thanks to CarlQLange)
 ** 0.104.1 (2015/09/28)
 *** Dotfile changes
 - New variable =dotspacemacs-remap-Y-to-y$=, when non nil ~Y~ is remapped to
