@@ -19,7 +19,7 @@ This layer adds extensive support for go.
 
 ** Features:
 - gofmt on file save
-- Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]]
+- Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
 - Source analysis using [[http://golang.org/s/oracle-user-manual][go-oracle]]
 
 * Install
@@ -34,6 +34,9 @@ You will need =gocode= and =godef=:
 #+END_SRC
 
 Make sure that =gocode= executable is in your PATH.
+
+For best results, make sure that the =auto-completion= and =syntax-checking=
+layers are enabled as well.
 
 ** Layer
 To use this contribution add it to your =~/.spacemacs=
