@@ -37,17 +37,17 @@
   (let ((input (+ (expt 2 25) ?\C-s)))
     (should (equal nil (spacemacs//evilify-find-new-event input)))))
 
-(ert-deftest test-evilify-find-new-event--Space-error-return-nil ()
+(ert-deftest test-evilify-find-new-event--Space-remap ()
   (let ((input 32))
-    (should (equal nil (spacemacs//evilify-find-new-event input)))))
+    (should (equal ?' (spacemacs//evilify-find-new-event input)))))
 
-(ert-deftest test-evilify-find-new-event--/-error-not-covered-for-now ()
+(ert-deftest test-evilify-find-new-event--/-remap ()
   (let ((input ?/))
-    (should (equal nil (spacemacs//evilify-find-new-event input)))))
+    (should (equal ?\\ (spacemacs//evilify-find-new-event input)))))
 
-(ert-deftest test-evilify-find-new-event--/-error-return-nil ()
+(ert-deftest test-evilify-find-new-event--:-remap ()
   (let ((input ?:))
-    (should (equal nil (spacemacs//evilify-find-new-event input)))))
+    (should (equal ?| (spacemacs//evilify-find-new-event input)))))
 
 ;; ---------------------------------------------------------------------------
 ;; spacemacs//evilify-sort-keymap
