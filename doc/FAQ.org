@@ -11,6 +11,7 @@
    - [[#windows][Windows]]
      - [[#why-do-the-fonts-look-crappy-on-windows-][Why do the fonts look crappy on Windows ?]]
      - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer-][Why is there no Spacemacs logo in the startup buffer ?]]
+     - [[#why-are-all-packages-unavailable][Why are all packages unavailable?]]
    - [[#os-x][OS X]]
      - [[#why-are-the-powerline-colors-not-correct-on-os-x-][Why are the powerline colors not correct on OS X ?]]
 
@@ -64,6 +65,16 @@ also recommended to disable smooth scrolling on Windows.
 A GUI build of emacs supporting image display is required.
 You can follow the instructions [[http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files][here]]. Alternatively you can download binaries
 of emacs with image support included such as [[http://emacsbinw64.sourceforge.net/][this one]].
+
+*** Why are all packages unavailable?
+Check if your Emacs has HTTPS capabilities by doing =M-:= and then:
+
+#+begin_src emacs-lisp
+  (gnutls-available-p)
+#+end_src
+
+If this returns =nil=, you need to install the GnuTLS DDL file in the same
+directory as Emacs. See [[https://www.gnu.org/software/emacs/manual/html_mono/emacs-gnutls.html#Help-For-Users][here]] for instructions.
 
 ** OS X
 *** Why are the powerline colors not correct on OS X ?
