@@ -21,7 +21,6 @@
       (evil-leader/set-key
         "ar" 'ranger
         "ad" 'deer)
-      (define-key evil-normal-state-map (kbd "-") 'deer)
 
       ;; set up image-dired to allow picture resize
       (setq image-dired-dir (concat spacemacs-cache-directory "image-dir"))
