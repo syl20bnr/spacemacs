@@ -4,19 +4,18 @@
 
 * Table of Content                                                    :TOC@4:
  - [[#description][Description]]
-     - [[#features][Features:]]
+   - [[#features][Features:]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#opam-packages][OPAM packages]]
+   - [[#layer][Layer]]
+   - [[#opam-packages][OPAM packages]]
  - [[#key-bindings][Key Bindings]]
-     - [[#repl-utop][REPL (utop)]]
+   - [[#repl-utop][REPL (utop)]]
  - [[#todos][TODOS]]
-     - [[#todo-add-more-proper-spacemacs-key-bindings-for-basic-merlin-tasks][TODO Add more proper spacemacs key-bindings for basic merlin tasks]]
-     - [[#todo-add-proper-keybindings-for-ocamldebug][TODO Add proper keybindings for ocamldebug]]
-     - [[#todo-add-more-keybindings-for-tuareg-mode][TODO Add more keybindings for tuareg-mode]]
+   - [[#add-more-proper-spacemacs-key-bindings-for-basic-merlin-tasks][Add more proper spacemacs key-bindings for basic merlin tasks]]
+   - [[#add-proper-keybindings-for-ocamldebug][Add proper keybindings for ocamldebug]]
+   - [[#add-more-keybindings-for-tuareg-mode][Add more keybindings for tuareg-mode]]
 
 * Description
-
 This is a very basic layer for editing ocaml files.
 
 ** Features:
@@ -26,9 +25,7 @@ This is a very basic layer for editing ocaml files.
 - syntax-checking via [[https://github.com/diml/utop][flycheck-ocaml]]
 
 * Install
-
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -36,7 +33,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 ** OPAM packages
-
 This layer requires some [[http://opam.ocaml.org][opam]] packages:
 
 - =merlin= for auto-completion
@@ -48,6 +44,13 @@ To install them, use the following command:
 #+BEGIN_SRC sh
   opam install merlin utop ocp-indent
 #+END_SRC
+
+Make sure opam is initialized and configured.
+
+#+begin_src sh
+  opam init
+  opam config setup -a
+#+end_src
 
 * Key Bindings
 
