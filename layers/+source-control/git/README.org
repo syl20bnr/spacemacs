@@ -70,7 +70,7 @@ To display the =magit status= buffer in fullscreen set the variable
 Magit auto-complete feature is enabled. For this feature to work best you
 have to setup your Git repository directory in your =dotspacemacs/user-config=
 function, this is the folder where you keep all your git-controlled projects
-(the path should end up with a ~=/~= to respect Emacs conventions):
+(the path should end up with a ~/~ to respect Emacs conventions):
 
 #+BEGIN_SRC emacs-lisp
   (setq magit-repository-directories '("~/repos/"))
