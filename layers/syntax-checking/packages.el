@@ -90,6 +90,8 @@ If the error list is visible, hide it.  Otherwise, show it."
         "ec" 'flycheck-clear
         "eh" 'flycheck-describe-checker
         "el" 'spacemacs/toggle-flycheck-error-list
+        "es" 'flycheck-select-checker
+        "eS" 'flycheck-set-checker-executable
         "ev" 'flycheck-verify-setup))))
 
 (defun syntax-checking/init-flycheck-pos-tip ()
