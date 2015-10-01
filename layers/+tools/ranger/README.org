@@ -4,9 +4,9 @@
  - [[#description][Description]]
  - [[#features][Features]]
  - [[#configuration][Configuration]]
-     - [[#customizing][Customizing]]
-     - [[#parent-options][Parent options]]
-     - [[#preview-options][Preview options]]
+   - [[#customizing][Customizing]]
+   - [[#parent-options][Parent options]]
+   - [[#preview-options][Preview options]]
  - [[#key-bindings][Key Bindings]]
 
 * Description
@@ -112,6 +112,7 @@ To set the max files size (in MB), set the following parameter:
 | Key Binding | Description                                          |
 |-------------+------------------------------------------------------|
 | ~SPC a r~     | launch ranger                                        |
+| SPC a d     | deer (minimal ranger window in current directory)    |
 | ~C-p~         | (ranger) toggle ranger in dired buffer               |
 | ~j~           | (ranger) navigate down                               |
 | ~k~           | (ranger) navigate up                                 |
