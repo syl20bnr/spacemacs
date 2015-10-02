@@ -17,7 +17,7 @@
 |
 <b><a href="doc/DOCUMENTATION.org#achievements">achievements</a></b>
 |
-<b><a href="#faq">FAQ</a></b>
+<b><a href="doc/FAQ.org">FAQ</a></b>
 </p>
 ***
 
@@ -186,7 +186,7 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 4. Restart Emacs to complete the installation.
 
 If the mode-line turns red then be sure to visit the
-[troubleshooting][troubleshoot] guide and consult the [FAQ](#faq).
+[troubleshooting][troubleshoot] guide and consult the [FAQ][FAQ.org].
 
 ## Spacemacs logo
 
