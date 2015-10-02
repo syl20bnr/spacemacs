@@ -5,6 +5,7 @@
     flycheck
     go-mode
     go-eldoc
+    gotest
     ))
 
 (defun go/post-init-flycheck ()
@@ -20,10 +21,6 @@
     (progn
       (add-hook 'before-save-hook 'gofmt-before-save)
 
-      (defun spacemacs/go-run-package-tests ()
-        (interactive)
-        (shell-command "go test"))
-
       (evil-leader/set-key-for-mode 'go-mode
         "mhh" 'godoc-at-point
         "mig" 'go-goto-imports
@@ -34,7 +31,9 @@
         "med" 'go-download-play
         "mga" 'ff-find-other-file
         "mgg" 'godef-jump
-        "mtp" 'spacemacs/go-run-package-tests))))
+        "mtp" 'go-test-current-project
+        "mtt" 'go-test-current-test
+        "mtf" 'go-test-current-file))))
 
 (defun go/init-go-eldoc()
     (add-hook 'go-mode-hook 'go-eldoc-setup))
