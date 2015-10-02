@@ -318,7 +318,7 @@ If called with a prefix argument, uses the other-window instead."
           "mrcp" 'cljr-cycle-privacy
           "mrdk" 'cljr-destructure-keys
           "mrec" 'cljr-extract-constant
-          "mref" 'cljr-extract-def
+          "mred" 'cljr-extract-def
           "mref" 'cljr-extract-function
           "mrel" 'cljr-expand-let
           "mrfe" 'cljr-create-fn-from-example
