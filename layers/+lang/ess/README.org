@@ -5,12 +5,11 @@
 * Table of Contents                                                   :TOC@4:
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
-     - [[#inferior-repl-process][Inferior REPL process]]
-     - [[#helpers][Helpers]]
+   - [[#inferior-repl-process][Inferior REPL process]]
+   - [[#helpers][Helpers]]
  - [[#options][Options]]
 
 * Install
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -24,7 +23,6 @@ manually via the key binding: ~SPC e s s~
 * Key Bindings
 
 ** Inferior REPL process
-
 Start an =R= inferior REPL process with ~SPC m s i~.
 
 Send code to inferior process commands:
@@ -60,10 +58,19 @@ Send code to inferior process commands:
 | ~SPC m h t~ | view table using [ess-R-data-view][ess-R-data-view]                 |
 
 * Options
-
-=ess-smart-equals= is disabled by default. In order to enable it, set in your =~/.spacemacs=
+=ess-smart-equals= is disabled by default. In order to enable it, set in your
+=~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((ess :variables
                                                          ess-enable-smart-equals t)))
 #+END_SRC
+
+To turn off the automatic replacement of underscores by =<-=, add the following
+hook:
+
+#+begin_src emacs-lisp
+  (add-hook 'ess-mode-hook
+            (lambda ()
+              (ess-toggle-underscore nil)))
+#+end_src
