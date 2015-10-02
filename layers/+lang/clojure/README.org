@@ -183,7 +183,7 @@ More info regarding installation of nREPL middleware can be found here:
 | ~SPC m r c p~ | cycle privacy               |
 | ~SPC m r d k~ | destructure keys            |
 | ~SPC m r e c~ | extract constant            |
-| ~SPC m r e c~ | extract definition          |
+| ~SPC m r e d~ | extract definition          |
 | ~SPC m r e f~ | extract function            |
 | ~SPC m r e l~ | expand let                  |
 | ~SPC m r f u~ | find usages                 |
