@@ -473,7 +473,11 @@ If MSG is not nil then display a message in `*Messages'."
    (spacemacs//test-var 'stringp 'dotspacemacs-leader-key "is a string")
    (spacemacs//test-var 'stringp 'dotspacemacs-emacs-leader-key "is a string")
    (spacemacs//test-var
-    'stringp 'dotspacemacs-major-mode-leader-key "is a string")
+    (lambda (x) (or (null x) (stringp x)))
+    'dotspacemacs-major-mode-leader-key "is a string or nil")
+   (spacemacs//test-var
+    (lambda (x) (or (null x) (stringp x)))
+    'dotspacemacs-major-mode-emacs-leader-key "is a string or nil")
    (spacemacs//test-var 'stringp 'dotspacemacs-command-key "is a string")
    (insert (format
             (concat "** RESULTS: "
