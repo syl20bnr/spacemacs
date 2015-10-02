@@ -51,10 +51,10 @@ used as the prefix command."
             (which-key-declare-prefixes-for-mode mode
               full-prefix-emacs prefix-name
               full-prefix prefix-name)
-            (when is-major-mode-prefix
-              (which-key-declare-prefixes-for-mode mode
-                major-mode-prefix prefix-name
-                major-mode-prefix-emacs prefix-name)))
+            (when (and is-major-mode-prefix dotspacemacs-major-mode-leader-key)
+              (which-key-declare-prefixes-for-mode mode major-mode-prefix prefix-name))
+            (when (and is-major-mode-prefix dotspacemacs-major-mode-emacs-leader-key)
+              (which-key-declare-prefixes-for-mode mode major-mode-prefix-emacs prefix-name)))
         (define-prefix-command command)
         (evil-leader/set-key-for-mode mode prefix command)))))
 
