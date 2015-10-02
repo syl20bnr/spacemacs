@@ -138,7 +138,9 @@
                 . helm-spacemacs//layer-action-open-packages)
                ;; TODO remove extensions in 0.105.0
                ("Open extensions.el"
-                . helm-spacemacs//layer-action-open-extensions)))))
+                . helm-spacemacs//layer-action-open-extensions)
+               ("Open README.org (for editing)"
+                . helm-spacemacs//layer-action-open-readme-edit)))))
 
 (defun helm-spacemacs//package-source ()
   "Construct the helm source for the packages."
@@ -187,8 +189,8 @@
   "Return the sorted candidates for all the dospacemacs variables."
   (sort (dotspacemacs/get-variable-string-list) 'string<))
 
-(defun helm-spacemacs//layer-action-open-file (file candidate)
-  "Open FILE of the passed CANDIDATE."
+(defun helm-spacemacs//layer-action-open-file (file candidate &optional edit)
+  "Open FILE of the passed CANDIDATE.  If EDIT is false, open in view mode."
   (let ((path (if (and (equalp file "README.org") (equalp candidate "spacemacs"))
                   ;; Readme for spacemacs is in the project root
                   (ht-get configuration-layer-paths (intern candidate))
@@ -198,12 +200,18 @@
                          candidate)))))
     (if (and (equal (file-name-extension file) "org")
              (not helm-current-prefix-arg))
-        (spacemacs/view-org-file (concat path file) "^" 'all)
+        (if edit
+            (find-file (concat path file))
+          (spacemacs/view-org-file (concat path file) "^" 'all))
       (find-file (concat path file)))))
 
 (defun helm-spacemacs//layer-action-open-readme (candidate)
-  "Open the `README.org' file of the passed CANDIDATE."
+  "Open the `README.org' file of the passed CANDIDATE for reading."
   (helm-spacemacs//layer-action-open-file "README.org" candidate))
+
+(defun helm-spacemacs//layer-action-open-readme-edit (candidate)
+  "Open the `README.org' file of the passed CANDIDATE for editing."
+  (helm-spacemacs//layer-action-open-file "README.org" candidate t))
 
 (defun helm-spacemacs//layer-action-open-packages (candidate)
   "Open the `packages.el' file of the passed CANDIDATE."
