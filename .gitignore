@@ -38,6 +38,9 @@ server/
 /*.zip
 *.db
 python-*-docs-html
+.mc-lists.el
+.org-id-locations
+org-clock-save.el
 
 # Private directory
 private/*
