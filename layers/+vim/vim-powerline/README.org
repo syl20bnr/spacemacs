@@ -1,11 +1,8 @@
-
 #+TITLE: vim-powerline contribution layer for Spacemacs
-
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
 
 * Description
 A powerline theme modeled after the vim powerline theme.
@@ -17,7 +14,3 @@ To use this contribution add it to your =~/.spacemacs=
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(vim-powerline))
 #+END_SRC
-
-* Key bindings
-
-None.
