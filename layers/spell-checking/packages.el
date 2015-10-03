@@ -22,6 +22,7 @@
     :init
     (progn
       (add-hook 'markdown-mode-hook 'flyspell-mode)
+      (add-hook 'org-mode-hook 'flyspell-mode)
       (add-hook 'text-mode-hook 'flyspell-mode)
       (spacemacs|add-toggle spelling-checking
         :status flyspell-mode
