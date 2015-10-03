@@ -517,11 +517,11 @@ For instance to add the configuration layer of [[#thank-you][RMS]]:
     (setq-default dotspacemacs-configuration-layers '(rms))
 #+end_src
 
-If this layer does not exist you can still try another one in [[file:../contrib][the =contrib=
+If this layer does not exist you can still try another one in [[file:../layers][the =layers=
 directory]].
-
+ 
 Configuration layers are expected to be stored in =~/.emacs.d/private= or
-=~/.emacs.d/contrib=. But you are free to keep them somewhere else by declaring
+=~/.emacs.d/layers=. But you are free to keep them somewhere else by declaring
 additional paths where =Spacemacs= can look for configuration layers. This is
 done by setting the list =dotspacemacs-configuration-layer-path= in your
 =~/.spacemacs=:
