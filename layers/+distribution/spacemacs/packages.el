@@ -72,7 +72,6 @@
         recentf
         smartparens
         smooth-scrolling
-        (solarized-theme :location local)
         spaceline
         spray
         vi-tilde-fringe
@@ -1700,13 +1699,6 @@ It will toggle the overlay under point or create an overlay of one character."
     (ad-activate 'next-line)
     (ad-disable-advice 'isearch-repeat 'after 'isearch-smooth-scroll)
     (ad-activate 'isearch-repeat)))
-
-(defun spacemacs/init-solarized-theme ()
-  (use-package solarized
-    :init
-    (progn
-      (deftheme solarized-dark "The dark variant of the Solarized colour theme")
-      (deftheme solarized-light "The light variant of the Solarized colour theme"))))
 
 (defun spacemacs/init-spaceline ()
   (use-package spaceline-config

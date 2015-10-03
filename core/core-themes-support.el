@@ -171,26 +171,6 @@ package name does not match theme name + `-theme' suffix.")
   ;; Unless Emacs stock themes
   (unless (memq theme (custom-available-themes))
     (cond
-     ;; official spacemacs theme
-     ((or (eq 'spacemacs-light theme)
-          (eq 'spacemacs-dark theme))
-      (spacemacs/load-or-install-package 'spacemacs-theme)
-      (add-to-list 'load-path (spacemacs//get-package-directory
-                               'spacemacs-theme))
-      (require 'spacemacs-common)
-      (deftheme spacemacs-dark "Spacemacs theme, the dark version")
-      (deftheme spacemacs-light "Spacemacs theme, the light version"))
-     ;; solarized theme
-     ((or (eq 'solarized-light theme)
-          (eq 'solarized-dark theme))
-      (add-to-list 'load-path
-                   (concat configuration-layer-directory
-                           "+distribution/spacemacs/local/solarized-theme/"))
-      (require 'solarized)
-      (deftheme solarized-dark
-        "The dark variant of the Solarized colour theme")
-      (deftheme solarized-light
-        "The light variant of the Solarized colour theme"))
      ;; themes with explicitly declared package names
      ((assq theme spacemacs-theme-name-to-package)
       (let* ((pkg (spacemacs//get-theme-package theme))
