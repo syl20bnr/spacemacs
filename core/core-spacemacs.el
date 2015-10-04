@@ -83,6 +83,7 @@ initialization."
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
   ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
+  (setq initial-buffer-choice (lambda () (get-buffer spacemacs-buffer-name)))
   (spacemacs-buffer/set-mode-line "")
   ;; no welcome buffer
   (setq inhibit-startup-screen t)
