@@ -72,7 +72,7 @@
 ;; expression MATH-STRING. Return the image descriptor if it was sucessful,
 ;; NIL otherwise.
 (defun erc-tex-make-image (math-expression fg bg)
-  (condition-case nil 
+  (condition-case nil
       (let* ((prefix   (concat temporary-file-directory (make-temp-name "erc-tex-")))
              (tex-file (concat prefix ".tex"))
              (dvi-file (concat prefix ".dvi"))
@@ -88,10 +88,10 @@
                   "\\end{document}\n"))
 
         (erc-tex-run-latex (concat "-output-directory=" temporary-file-directory) tex-file)
-    
-        (flet ((colorize (color)
+
+        (cl-flet ((colorize (color)
                  ;; Return a string which stand for COLOR in the format that
-                 ;; dvipng understands.               
+                 ;; dvipng understands.
                  (let ((max (car (color-values "#ffffff"))))
                    (destructuring-bind (r g b)
                        (color-values color)
