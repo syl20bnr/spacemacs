@@ -19,8 +19,8 @@ To use this contribution add it to your =~/.spacemacs=
 * Key Bindings
 | Key Binding | Description                      |
 |-------------+----------------------------------|
-| ~SPC a r o~ | Open sr-speedbar                 |
-| ~SPC a r c~ | Close sr-speedbar                |
-| ~SPC a r n~ | Turn on refresh for sr-speedbar  |
-| ~SPC a r f~ | Turn off refresh for sr-speedbar |
+| ~SPC a f o~ | Open sr-speedbar                 |
+| ~SPC a f c~ | Close sr-speedbar                |
+| ~SPC a f n~ | Turn on refresh for sr-speedbar  |
+| ~SPC a f f~ | Turn off refresh for sr-speedbar |
 |             |                                  |
