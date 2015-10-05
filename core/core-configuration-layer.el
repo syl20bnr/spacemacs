@@ -355,7 +355,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
 
 (defun configuration-layer/filter-objects (objects ffunc)
   "Return a filtered OBJECTS list where each element satisfies FFUNC."
-  (reverse (reduce (lambda (acc x)
+  (reverse (cl-reduce (lambda (acc x)
                      (if (funcall ffunc x) (push x acc) acc))
                    objects
                    :initial-value nil)))

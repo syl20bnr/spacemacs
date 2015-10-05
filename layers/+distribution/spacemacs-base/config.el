@@ -203,7 +203,7 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
               (null dotspacemacs-auto-save-file-location))
     (make-directory autosave-dir t)))
 ;; Choose auto-save location
-(case dotspacemacs-auto-save-file-location
+(cl-case dotspacemacs-auto-save-file-location
   (cache (let ((autosave-dir (concat spacemacs-auto-save-directory "site/")))
            (add-to-list 'auto-save-file-name-transforms
                         `(".*" ,autosave-dir t) 'append)
