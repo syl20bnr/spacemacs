@@ -206,7 +206,7 @@ These should have their own segments in the modeline.")
               (null dotspacemacs-auto-save-file-location))
     (make-directory autosave-dir t)))
 ;; Choose auto-save location
-(case dotspacemacs-auto-save-file-location
+(pcase dotspacemacs-auto-save-file-location
   (cache (let ((autosave-dir (concat spacemacs-auto-save-directory "site/")))
            (add-to-list 'auto-save-file-name-transforms
                         `(".*" ,autosave-dir t) 'append)
