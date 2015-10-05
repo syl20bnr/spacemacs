@@ -29,6 +29,7 @@
 (require 'cl)
 (require 'ht)
 (require 'helm)
+(require 'helm-org)
 (require 'core-configuration-layer)
 
 (defvar helm-spacemacs-all-layers nil
@@ -66,7 +67,16 @@
                    ,(helm-spacemacs//layer-source)
                    ,(helm-spacemacs//package-source)
                    ,(helm-spacemacs//dotspacemacs-source)
-                   ,(helm-spacemacs//toggle-source))))
+                   ,(helm-spacemacs//toggle-source)
+                   ,(helm-spacemacs//faq-source))))
+
+;;;###autoload
+(defun helm-spacemacs-faq (arg)
+  "Looking in the FAQ with helm."
+  (interactive "P")
+  (helm-spacemacs-mode)
+  (helm :buffer "*helm: spacemacs*"
+        :sources `(,(helm-spacemacs//faq-source))))
 
 (defun helm-spacemacs//documentation-source ()
   "Construct the helm source for the documentation section."
@@ -255,6 +265,22 @@
   (re-search-forward (format "^[a-z\s\\(\\-]*%s" candidate))
   (beginning-of-line))
 
+(defun helm-spacemacs//faq-source ()
+  "Construct the helm source for the FAQ."
+  `((name . "FAQ")
+    (candidates . ,(helm-spacemacs//faq-candidates))
+    (candidate-number-limit)
+    (action . (("Go to question" . helm-org-goto-marker)))))
+
+(defun helm-spacemacs//faq-candidates ()
+  (delq nil (mapcar (lambda (c)
+                      (let ((str (substring-no-properties (car c))))
+                        (when (string-match "\\`\\([^/]*\\)/\\(.*\\)\\'" str)
+                          (cons (concat (match-string 1 str) ": "
+                                        (match-string 2 str))
+                                (cdr c)))))
+                    (helm-get-org-candidates-in-file
+                     (concat spacemacs-docs-directory "FAQ.org") 2 8 nil t))))
 
 (provide 'helm-spacemacs)
 

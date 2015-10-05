@@ -1613,6 +1613,7 @@ navigate between =Emacs= and =Spacemacs= specific files.
 | ~SPC f e d~ | open the spacemacs dotfile (=~/.spacemacs=)                          |
 | ~SPC f e D~ | open =ediff= buffer of =~/.spacemacs= and =.spacemacs.template=      |
 | ~SPC f e h~ | discover =Spacemacs= documentation, layers and packages using =helm= |
+| ~SPC f e f~ | discover the =FAQ= using =helm=                                      |
 | ~SPC f e i~ | open the all mighty =init.el=                                        |
 | ~SPC f e R~ | resync the dotfile with spacemacs                                    |
 | ~SPC f e v~ | display and copy the spacemacs version                               |
