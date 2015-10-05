@@ -105,7 +105,7 @@ and its values are removed."
 ;; From http://stackoverflow.com/questions/2321904/elisp-how-to-save-data-in-a-file
 (defun spacemacs/dump (varlist buffer)
   "insert into buffer the setq statement to recreate the variables in VARLIST"
-  (loop for var in varlist do
+  (cl-loop for var in varlist do
         (print (list 'setq var (list 'quote (symbol-value var)))
                buffer)))
 
