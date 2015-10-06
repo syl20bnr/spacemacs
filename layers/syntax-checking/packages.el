@@ -78,12 +78,19 @@ If the error list is visible, hide it.  Otherwise, show it."
             (quit-window nil window)
           (flycheck-list-errors)))
 
+      (spacemacs|evilify-map flycheck-error-list-mode-map
+        :mode flycheck-error-list-mode
+        :bindings
+        "RET" 'flycheck-error-list-goto-error
+        "j" 'flycheck-error-list-next-error
+        "k" 'flycheck-error-list-previous-error)
+
       ;; key bindings
       (evil-leader/set-key
         "ec" 'flycheck-clear
         "eh" 'flycheck-describe-checker
         "el" 'spacemacs/toggle-flycheck-error-list
-        "ev"    'flycheck-verify-setup))))
+        "ev" 'flycheck-verify-setup))))
 
 (defun syntax-checking/init-flycheck-pos-tip ()
   (use-package flycheck-pos-tip
