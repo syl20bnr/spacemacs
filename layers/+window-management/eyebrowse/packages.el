@@ -75,6 +75,8 @@
         ("<tab>" eyebrowse-last-window-config)
         ("C-i" eyebrowse-last-window-config)
         ("c" eyebrowse-close-window-config)
+        ("h" eyebrowse-prev-window-config)
+        ("l" eyebrowse-next-window-config)
         ("n" eyebrowse-next-window-config)
         ("N" eyebrowse-prev-window-config)
         ("p" eyebrowse-prev-window-config)

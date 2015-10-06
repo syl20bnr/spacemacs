@@ -5,8 +5,8 @@
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#removing-additional-help][Removing additional help]]
+   - [[#layer][Layer]]
+   - [[#removing-additional-help][Removing additional help]]
  - [[#key-bindings][Key bindings]]
 
 * Description
@@ -53,23 +53,23 @@ Set the variable =eyebrowse-display-help= to =nil=
 
 * Key bindings
 
-| Key Binding            | Description                        |
-|------------------------+------------------------------------|
-| ~gt~                   | go to next workspace               |
-| ~gT~                   | got to previous workspace          |
-| ~SPC W 1~              | create or switch to workspace 1    |
-| ~SPC W 2~              | create or switch to workspace 2    |
-| ~SPC W 3~              | create or switch to workspace 3    |
-| ~SPC W 4~              | create or switch to workspace 4    |
-| ~SPC W 5~              | create or switch to workspace 5    |
-| ~SPC W 6~              | create or switch to workspace 6    |
-| ~SPC W 7~              | create or switch to workspace 7    |
-| ~SPC W 8~              | create or switch to workspace 8    |
-| ~SPC W 9~              | create or switch to workspace 9    |
-| ~SPC W 0~              | create or switch to workspace 0    |
-| ~SPC W TAB~            | switch to last active workspace    |
-| ~SPC W c~              | close current workspace            |
-| ~SPC W n~              | switch to next workspace           |
-| ~SPC W N~ or ~SPC W p~ | create or switch to workspace 0    |
-| ~SPC W r~              | set a tag to the current workspace |
-| ~SPC W s~              | switched to tagged workspace       |
+| Key Binding                         | Description                        |
+|-------------------------------------+------------------------------------|
+| ~gt~                                | go to next workspace               |
+| ~gT~                                | got to previous workspace          |
+| ~SPC W 1~                           | create or switch to workspace 1    |
+| ~SPC W 2~                           | create or switch to workspace 2    |
+| ~SPC W 3~                           | create or switch to workspace 3    |
+| ~SPC W 4~                           | create or switch to workspace 4    |
+| ~SPC W 5~                           | create or switch to workspace 5    |
+| ~SPC W 6~                           | create or switch to workspace 6    |
+| ~SPC W 7~                           | create or switch to workspace 7    |
+| ~SPC W 8~                           | create or switch to workspace 8    |
+| ~SPC W 9~                           | create or switch to workspace 9    |
+| ~SPC W 0~                           | create or switch to workspace 0    |
+| ~SPC W TAB~                         | switch to last active workspace    |
+| ~SPC W c~                           | close current workspace            |
+| ~SPC W n~ or ~SPC W l~              | switch to next workspace           |
+| ~SPC W N~ or ~SPC W p~ or ~SPC W h~ | switch to previous workspace       |
+| ~SPC W r~                           | set a tag to the current workspace |
+| ~SPC W s~                           | switched to tagged workspace       |
