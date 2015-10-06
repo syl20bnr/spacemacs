@@ -54,7 +54,7 @@
 
 (defun python/init-pylookup ()
   (use-package pylookup
-    :commands pylookup-lookup
+    :commands (pylookup-lookup pylookup-update pylookup-update-all)
     :init
     (progn
       (evilify pylookup-mode pylookup-mode-map)
@@ -62,10 +62,10 @@
         "mhH"  'pylookup-lookup))
     :config
     (progn
-      (let ((dir (configuration-layer/get-layer-property 'python)))
-        (setq pylookup-dir (concat dir "/pylookup")
-              pylookup-program (concat pylookup-dir "/pylookup.py")
-              pylookup-db-file (concat pylookup-dir "/pylookup.db"))))))
+      (let ((dir (configuration-layer/get-layer-local-dir 'python)))
+        (setq pylookup-dir (concat dir "pylookup/")
+              pylookup-program (concat pylookup-dir "pylookup.py")
+              pylookup-db-file (concat pylookup-dir "pylookup.db"))))))
 
 (defun python/init-py-yapf ()
   (use-package py-yapf
