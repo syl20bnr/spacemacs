@@ -11,6 +11,7 @@
    - [[#anaconda-dependencies][Anaconda dependencies]]
    - [[#automatic-buffer-formatting-on-save][Automatic buffer formatting on save]]
    - [[#autoflake][autoflake]]
+   - [[#pylookup][pylookup]]
  - [[#key-bindings][Key Bindings]]
    - [[#inferior-repl-process][Inferior REPL process]]
    - [[#running-python-script-in-shell][Running Python Script in shell]]
@@ -19,7 +20,6 @@
    - [[#other-python-commands][Other Python commands]]
 
 * Description
-
 This layer adds support for the Python language.
 
 ** Features:
@@ -42,7 +42,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 ** Test runner
-
 Both =nose= and =pytest= are supported. By default =nose= is used.
 To choose your test runner set the layer variable =python-test-runner= to
 either =nose= or =pytest=.
@@ -75,7 +74,6 @@ setting your ~PYTHONPATH~ as explained at
 https://github.com/proofit404/anaconda-mode#pythonpath
 
 ** Automatic buffer formatting on save
-
 To enable automatic buffer formatting on save with  [[https://github.com/google/yapf][YAPF]] set the variable
 =python-enable-yapf-format-on-save= to =t=.
 
@@ -90,6 +88,10 @@ To be able to suppress unused imports easily, install [[https://github.com/myint
 #+BEGIN_SRC sh
   pip install autoflake
 #+END_SRC
+
+** pylookup
+To use =pylookup= on ~SPC m h H~, make sure you update the database first, using
+~SPC : pylookup-update~.
 
 * Key Bindings
 
