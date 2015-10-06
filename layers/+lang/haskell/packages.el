@@ -124,7 +124,7 @@
 
       ;; Switch back to editor from REPL
       (evil-leader/set-key-for-mode 'haskell-interactive-mode
-        "msS"  'haskell-interactive-switch)
+        "msS"  'haskell-interactive-switch-back)
 
       ;; Compile
       (evil-leader/set-key-for-mode 'haskell-cabal
