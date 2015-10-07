@@ -121,7 +121,7 @@
        - [[#useful-key-bindings][Useful key bindings]]
        - [[#searching-in-current-file][Searching in current file]]
        - [[#searching-in-all-open-buffers-visiting-files][Searching in all open buffers visiting files]]
-       - [[#searching-for-files-in-an-arbitrary-directory][Searching for files in an arbitrary directory]]
+       - [[#searching-in-files-in-an-arbitrary-directory][Searching in files in an arbitrary directory]]
        - [[#searching-in-a-project][Searching in a project]]
        - [[#searching-the-web][Searching the web]]
      - [[#persistent-highlighting][Persistent highlighting]]
@@ -1902,7 +1902,7 @@ called =pt=.
 | ~SPC s t b~ | =pt=                                                |
 | ~SPC s t B~ | =pt= with default text                              |
 
-**** Searching for files in an arbitrary directory
+**** Searching in files in an arbitrary directory
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC s f~   | search with the first found tool                    |
