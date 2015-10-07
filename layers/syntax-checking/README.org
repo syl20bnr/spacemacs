@@ -5,8 +5,8 @@
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
+   - [[#layer][Layer]]
+   - [[#enablingdisabling-tooltips][Enabling/Disabling tooltips]]
  - [[#key-bindings][Key Bindings]]
 
 * Description
@@ -41,4 +41,6 @@ to =nil=:
 |-------------+----------------------------------|
 | ~SPC e c~   | clear errors                     |
 | ~SPC e l~   | display a list of all the errors |
+| ~SPC e s~   | set flycheck checker             |
+| ~SPC e S~   | set flycheck checker executable  |
 | ~SPC t s~   | toggle flycheck                  |
