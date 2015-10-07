@@ -45,10 +45,16 @@
     :if haskell-enable-ghc-mod-support
     :init (add-hook 'haskell-mode-hook 'ghc-init)
     :config
-    (when (configuration-layer/package-usedp 'flycheck)
-      ;; remove overlays from ghc-check.el if flycheck is enabled
-      (set-face-attribute 'ghc-face-error nil :underline nil)
-      (set-face-attribute 'ghc-face-warn nil :underline nil))))
+    (progn
+      (when (configuration-layer/package-usedp 'flycheck)
+        ;; remove overlays from ghc-check.el if flycheck is enabled
+        (set-face-attribute 'ghc-face-error nil :underline nil)
+        (set-face-attribute 'ghc-face-warn nil :underline nil))
+
+      (evil-leader/set-key-for-mode 'haskell-mode
+        "mhi"  'ghc-show-info
+        "mht"  'ghc-show-type)  ; conflict with ghci-ng below?
+      )))
 
 (defun haskell/init-haskell-mode ()
   (use-package haskell-mode
@@ -108,8 +114,6 @@
 
         "mhd"  'inferior-haskell-find-haddock
         "mhh"  'hoogle
-        "mhi"  'haskell-process-do-info
-        "mht"  'haskell-process-do-type
         "mhT"  'spacemacs/haskell-process-do-type-on-prev-line
         "mhy"  'hayoo
 
@@ -121,6 +125,13 @@
         "mdc"  'haskell-debug/continue
         "mda"  'haskell-debug/abandon
         "mdr"  'haskell-debug/refresh)
+
+      (unless haskell-enable-ghc-mod-support
+        (evil-leader/set-key-for-mode 'haskell-mode
+          "mhi"  'haskell-process-do-info
+          "mht"  'haskell-process-do-type  ; conflict with ghci-ng below?
+          )
+        )
 
       ;; Switch back to editor from REPL
       (evil-leader/set-key-for-mode 'haskell-interactive-mode
@@ -161,7 +172,7 @@
 
         (evil-leader/set-key-for-mode 'haskell-mode
           "mu"   'haskell-mode-find-uses
-          "mht"  'haskell-mode-show-type-at
+          "mht"  'haskell-mode-show-type-at  ; conflict with ghc-mod?
           "mgg"  'haskell-mode-goto-loc))
 
       ;; Useful to have these keybindings for .cabal files, too.
