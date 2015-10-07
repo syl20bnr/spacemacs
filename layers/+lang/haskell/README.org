@@ -7,7 +7,8 @@
    - [[#features][Features:]]
  - [[#install][Install]]
    - [[#layer][Layer]]
-   - [[#cabal-packages][Cabal packages]]
+   - [[#dependencies][Dependencies]]
+   - [[#setup-path][Setup PATH]]
    - [[#os-x][OS X]]
    - [[#optional-extras][Optional extras]]
      - [[#ghc-mod-support][ghc-mod support]]
@@ -39,37 +40,48 @@ To use this contribution add it to your =~/.spacemacs=
   (setq-default dotspacemacs-configuration-layers '(haskell))
 #+END_SRC
 
-** Cabal packages
+** Dependencies
 This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 - =hlint=
 - =stylish-haskell=
 - =hasktags=
 
-To install them, use the following command: 
+You can install them using =cabal= or =stack=. =Cabal= users should use
+following command:
 
 #+BEGIN_SRC sh
-  cabal install stylish-haskell hlint hasktags
+  $ cabal install stylish-haskell hlint hasktags
 #+END_SRC
 
-Then you have to add this path to your system =$PATH= (preferred):
-Note that on *Linux* distributions the installed binaries should be in
-=~/.cabal/bin= and on *OS X* the binaries are installed in
-=/Users/<username>/Library/Haskell/bin=. Spacemacs will automatically 
-pick up shell PATH.
+=Stack= users should use following command:
 
 #+BEGIN_SRC sh
-  export PATH=~/.cabal/bin/:$PATH
+  $ stack install stylish-haskell hlint hasktags
 #+END_SRC
 
-_Alternatively_, you can add it to the Emacs =exec-path= variable in the 
+** Setup PATH
+
+Make sure that your =$PATH= contains installation path for =cabal= packages. If
+you are using =cabal= it should be =~/.cabal/bin= or
+=/Users/<username>/Library/Haskell/bin= (for Haskell for Mac users). If you are
+using =stack= then it should be =~/.local/bin=. So if this path is not in
+=$PATH=, just add it and Spacemacs will automatically pick up shell =$PATH=.
+
+_Alternatively_, you can add it to the Emacs =exec-path= variable in the
 =dotspacemacs/user-init= function of your =.spacemacs= file:
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'exec-path "~/.cabal/bin/")
 #+END_SRC
 
-*Note:* it is important to add the path in the =dotspacemacs/user-init= function,
-so that the path is added before any layers is loaded.
+Or for =stack= users:
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'exec-path "~/.local/bin/")
+#+END_SRC
+
+*Note:* it is important to add the path in the =dotspacemacs/user-init=
+function, so that the path is added before any layers is loaded.
 
 ** OS X
 Note that =emacs.app= for OS X does not pick up =$PATH= from =~/.bashrc= or
@@ -84,7 +96,13 @@ layer variables.
 much more. In order to use it you need to install the executable with
 
 #+BEGIN_SRC sh
-cabal install ghc-mod
+  $ cabal install ghc-mod
+#+END_SRC
+
+=Stack= users should use following command:
+
+#+BEGIN_SRC sh
+  $ stack install ghc-mod --resolver nightly-2015-10-07
 #+END_SRC
 
 and set the layer variable:
@@ -93,6 +111,10 @@ and set the layer variable:
   (setq-default dotspacemacs-configuration-layers
     '((haskell :variables haskell-enable-ghc-mod-support t)))
 #+END_SRC
+
+=Stack= users also should make sure that =dist/setup-config= doesn't exist in
+the project root. As it will confuse =ghc-mod=. For more troubleshooting,
+checkout this [[https://github.com/kazu-yamamoto/ghc-mod/wiki#known-issues-related-to-stack][document]].
 
 *** GHCi-ng support
 [[https://github.com/chrisdone/ghci-ng][ghci-ng]] adds some nice features to =haskell-mode=, and is supported in
@@ -106,8 +128,8 @@ in =~/.ghci=, next set the layer variable:
     '((haskell :variables haskell-enable-ghci-ng-support t)))
 #+END_SRC
 
-Once ghci-ng is enabled, two of the old keybindings are overriden with improved
-versions from ghci-ng, and a new keybinding available: 
+Once ghci-ng is enabled, two of the old keybindings are overriden with
+improved versions from ghci-ng, and a new keybinding available:
 
 | Key Binding | Description                                                               |
 |-------------+---------------------------------------------------------------------------|
@@ -118,8 +140,20 @@ versions from ghci-ng, and a new keybinding available:
 *** structured-haskell-mode
 [[https://github.com/chrisdone/structured-haskell-mode][structured-haskell-mode]], or shm, replaces default haskell-mode
 auto-indentation and adds some nice functionalities.
-To enable shm, run =cabal install structured-haskell-mode= and set the layer
-variable:
+
+To Install =shm= with cabal run following command:
+
+#+BEGIN_SRC sh
+  $ cabal install structured-haskell-mode
+#+END_SRC
+
+=Stack= users should use following command:
+
+#+BEGIN_SRC sh
+  $ stack install structured-haskell-mode
+#+END_SRC
+
+To enable =shm= set the layer variable:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
@@ -142,7 +176,7 @@ for [[https://github.com/chrisdone/structured-haskell-mode#features][structured-
 *** hindent
 [[https://github.com/chrisdone/hindent][hindent]] is an extensible Haskell pretty printer, which let's you
 reformat your code. You need to install the executable with =cabal
-install hindent=.
+install hindent= or =stack install hindent=
 
 To enable it you have to set the variable =haskell-enable-hindent-style=
 to a supported style. The available styles are:
