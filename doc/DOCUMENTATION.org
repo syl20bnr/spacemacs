@@ -2506,8 +2506,8 @@ Errors management commands (start with ~e~):
 
     | Key Binding | Description                                                           |
     |-------------+-----------------------------------------------------------------------|
+    | ~SPC t s~   | toggle flycheck                                                       |
     | ~SPC e c~   | clear all errors                                                      |
-    | ~SPC e f~   | toggle flycheck                                                       |
     | ~SPC e h~   | describe a flycheck checker                                           |
     | ~SPC e l~   | toggle the display of the =flycheck= list of errors/warnings          |
     | ~SPC e n~   | go to the next error                                                  |
