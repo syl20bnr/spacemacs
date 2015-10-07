@@ -107,6 +107,9 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; goto-address-prog-mode only highlights links in strings and comments
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 
+;; Keep focus while navigating help buffers
+(setq help-window-select 't)
+
 ;; ---------------------------------------------------------------------------
 ;; Edit
 ;; ---------------------------------------------------------------------------
