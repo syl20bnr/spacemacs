@@ -95,13 +95,8 @@
   (add-hook 'web-mode-hook 'evil-matchit-mode))
 
 (defun html/post-init-flycheck ()
-  (spacemacs/add-to-hooks 'flycheck-mode '(haml-mode-hook
-                                           jade-mode-hook
-                                           less-mode-hook
-                                           sass-mode-hook
-                                           scss-mode-hook
-                                           slim-mode-hook
-                                           web-mode-hook)))
+  (dolist (mode '(haml-mode jade-mode less-mode sass-mode scss-mode slim-mode web-mode))
+    (spacemacs/add-flycheck-hook mode)))
 
 (defun html/init-haml-mode ()
   (use-package haml-mode

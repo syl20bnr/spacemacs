@@ -39,7 +39,7 @@
   (spacemacs|add-company-hook puppet-mode))
 
 (defun puppet/post-init-flycheck ()
-  (add-hook 'puppet-mode-hook 'flycheck-mode))
+  (spacemacs/add-flycheck-hook 'puppet-mode))
 
 (defun puppet/init-puppetfile-mode ()
   (use-package puppetfile-mode
