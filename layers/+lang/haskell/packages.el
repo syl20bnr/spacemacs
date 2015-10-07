@@ -69,6 +69,9 @@
       (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
       (unless haskell-enable-shm-support
         (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
+      (add-hook 'haskell-interactive-mode-hook
+                (lambda ()
+                  (setq-local evil-move-cursor-back nil)))
 
       ;; settings
       (setq
@@ -91,6 +94,10 @@
         (if haskell-enable-ghci-ng-support
             (haskell-mode-show-type-at 1)
           (haskell-process-do-type 1)))
+
+      (defadvice haskell-interactive-switch (after spacemacs/haskell-interactive-switch-advice activate)
+        (when (eq dotspacemacs-editing-style 'vim)
+          (call-interactively 'evil-insert)))
 
       (evil-leader/set-key-for-mode 'haskell-mode
         "mgg"  'haskell-mode-jump-to-def-or-tag
