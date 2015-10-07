@@ -34,6 +34,10 @@
         (evil-indent-textobject :location (recipe :fetcher github :repo "TheBB/evil-indent-textobject"))
         evil-jumper
         evil-lisp-state
+        ;; for testing purpose, contribute by reporting bugs and sending PRs
+        ;; to https://github.com/gabesoft/evil-mc
+        ;; To enable it add `(global-evil-mc-mode)' to user-config function
+        (evil-mc :location (recipe :fetcher github :repo "gabesoft/evil-mc"))
         evil-nerd-commenter
         evil-matchit
         evil-numbers
@@ -589,6 +593,10 @@
     (progn
       (setq evil-lisp-state-global t)
       (setq evil-lisp-state-leader-prefix "k"))))
+
+(defun spacemacs/init-evil-mc ()
+  (use-package evil-mc
+    :defer t))
 
 ;; other commenting functions in funcs.el with keybinds in keybindings.el
 (defun spacemacs/init-evil-nerd-commenter ()
