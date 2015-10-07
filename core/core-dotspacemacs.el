@@ -49,9 +49,6 @@ then this is used. If ~/.spacemacs does not exist, then check
 for init.el in dotspacemacs-directory and use this if it
 exists. Otherwise, fallback to ~/.spacemacs")
 
-(defvar dotspacemacs-verbose-loading nil
-  "If non nil output loading progess in `*Messages*' buffer.")
-
 (defvar dotspacemacs-distribution 'spacemacs
   "Base distribution to use. This is a layer contained in the directory
 `+distribution'. For now available distributions are `spacemacs-base'

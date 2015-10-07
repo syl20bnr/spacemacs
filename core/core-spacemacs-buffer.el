@@ -265,8 +265,8 @@ If TYPE is nil, just remove widgets."
 
 (defun spacemacs-buffer/message (msg &rest args)
   "Display MSG in message prepended with '(Spacemacs)'.
-The message is displayed only if `dotspacemacs-verbose-loading' is non nil."
-  (when dotspacemacs-verbose-loading
+The message is displayed only if `init-file-debug' is non nil."
+  (when init-file-debug
     (message "(Spacemacs) %s" (apply 'format msg args))))
 
 (defun spacemacs-buffer/warning (msg &rest args)
