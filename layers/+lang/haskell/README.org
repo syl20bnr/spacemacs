@@ -21,6 +21,10 @@
    - [[#repl][REPL]]
    - [[#cabal-commands][Cabal commands]]
    - [[#cabal-files][Cabal files]]
+ - [[#faq][FAQ]]
+   - [[#repl-doesnt-work][REPL doesn't work.]]
+   - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work.]]
+   - [[#repl-is-stuck][REPL is stuck.]]
 
 * Description
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
@@ -68,7 +72,7 @@ using =stack= then it should be =~/.local/bin=. So if this path is not in
 =$PATH=, just add it and Spacemacs will automatically pick up shell =$PATH=.
 
 _Alternatively_, you can add it to the Emacs =exec-path= variable in the
-=dotspacemacs/user-init= function of your =.spacemacs= file:
+=dotspacemacs/user-config= function of your =.spacemacs= file:
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'exec-path "~/.cabal/bin/")
@@ -79,9 +83,6 @@ Or for =stack= users:
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'exec-path "~/.local/bin/")
 #+END_SRC
-
-*Note:* it is important to add the path in the =dotspacemacs/user-init=
-function, so that the path is added before any layers is loaded.
 
 ** OS X
 Note that =emacs.app= for OS X does not pick up =$PATH= from =~/.bashrc= or
@@ -218,8 +219,8 @@ Documentation commands are prefixed by ~SPC m h~
 ** Debug
 Debug commands are prefixed by ~SPC m d~:
 
-| Key Binding  | Description                                |
-|--------------+--------------------------------------------|
+| Key Binding | Description                                |
+|-------------+--------------------------------------------|
 | ~SPC m d d~ | start debug process, needs to be run first |
 | ~SPC m d b~ | insert breakpoint at function              |
 | ~SPC m d n~ | next breakpoint                            |
@@ -265,3 +266,35 @@ This commands are available in a cabal file.
 | ~SPC m N~   | go to next section                          |
 | ~SPC m P~   | go to previous section                      |
 | ~SPC m f~   | find or create source-file under the cursor |
+
+* FAQ
+
+** REPL doesn't work.
+
+Usually =haskell-mode= is great at figuring out which interactive process to
+bring up. But if you are experiencing problems with it you can help
+=haskell-mode= by setting =haskell-process-type= as in following code:
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers
+    '((haskell :variables haskell-process-type 'stack-ghci)))
+#+END_SRC
+
+Available options are:
+
+- ghci
+- cabal-repl
+- cabal-dev
+- cabal-ghci
+- stack-ghci
+
+** I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work.
+
+Make sure that =dist= directory doesn't exist in your project root. So if it
+exists, just remove it and try again.
+
+** REPL is stuck.
+
+Make sure that when you are typing anything in REPL there is a space between
+what you type and =λ=. This problem usually happens when you switch from normal
+mode to edit mode.
