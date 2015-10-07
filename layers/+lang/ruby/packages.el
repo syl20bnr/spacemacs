@@ -124,5 +124,5 @@
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun ruby/post-init-company ()
     (spacemacs|add-company-hook enh-ruby-mode)
-    (eval-after-load 'company-dabbrev-code
-      '(push 'enh-ruby-mode company-dabbrev-code-modes))))
+    (with-eval-after-load 'company-dabbrev-code
+      (push 'enh-ruby-mode company-dabbrev-code-modes))))

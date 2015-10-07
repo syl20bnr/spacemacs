@@ -6,18 +6,18 @@
 
 ** Table of Contents                                                  :TOC@4:
  - [[#react-contribution-layer-for-spacemacs][React contribution layer for Spacemacs]]
-     - [[#description][Description]]
-         - [[#features][Features]]
-     - [[#todo-install][TODO Install]]
-     - [[#optional-configuration][Optional Configuration]]
+   - [[#description][Description]]
+     - [[#features][Features]]
+   - [[#install][Install]]
+   - [[#optional-configuration][Optional Configuration]]
  - [[#key-bindings][Key Bindings]]
-     - [[#js2-mode][js2-mode]]
-     - [[#folding-js2-mode][Folding (js2-mode)]]
-     - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
-     - [[#formatting-web-beautify][Formatting (web-beautify)]]
-         - [[#documentation-js-doc][Documentation (js-doc)]]
-     - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
-     - [[#json][JSON]]
+   - [[#js2-mode][js2-mode]]
+   - [[#folding-js2-mode][Folding (js2-mode)]]
+   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
+   - [[#formatting-web-beautify][Formatting (web-beautify)]]
+     - [[#documentation-js-doc][Documentation (js-doc)]]
+   - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
+   - [[#json][JSON]]
 
 ** Description
 
