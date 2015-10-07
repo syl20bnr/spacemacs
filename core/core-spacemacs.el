@@ -80,8 +80,6 @@ initialization."
   ;; shadow the universal argument
   (setq-default evil-want-C-u-scroll t)
   (dotspacemacs|call-func dotspacemacs/init "Calling dotfile init...")
-  (when init-file-debug
-    (setq-default dotspacemacs-verbose-loading t))
   (dotspacemacs|call-func dotspacemacs/user-init "Calling dotfile user init...")
   ;; spacemacs init
   (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
@@ -130,10 +128,10 @@ initialization."
   ;; bind-key is required by use-package
   (spacemacs/load-or-install-package 'bind-key t)
   (spacemacs/load-or-install-package 'use-package t)
-  (setq use-package-verbose dotspacemacs-verbose-loading)
+  (setq use-package-verbose init-file-debug)
   ;; package-build is required by quelpa
   (spacemacs/load-or-install-package 'package-build t)
-  (setq quelpa-verbose dotspacemacs-verbose-loading
+  (setq quelpa-verbose init-file-debug
         quelpa-dir (concat spacemacs-cache-directory "quelpa/")
         quelpa-build-dir (expand-file-name "build" quelpa-dir)
         quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
