@@ -15,7 +15,7 @@
     company
     company-emoji
     emoji-cheat-sheet-plus
-    evil-org
+    (evil-org :location local)
     gnuplot
     htmlize
     ;; org is installed by `org-plus-contrib'
@@ -48,16 +48,7 @@
     :config
     (progn
       (evil-leader/set-key-for-mode 'org-mode
-        "mC" 'evil-org-recompute-clocks
-
-        ;; evil-org binds these keys, so we bind them back to their original
-        ;; value
-        "t" (lookup-key evil-leader--default-map "t")
-        "a" (lookup-key evil-leader--default-map "a")
-        "b" (lookup-key evil-leader--default-map "b")
-        "c" (lookup-key evil-leader--default-map "c")
-        "l" (lookup-key evil-leader--default-map "l")
-        "o" (lookup-key evil-leader--default-map "o"))
+        "mC" 'evil-org-recompute-clocks)
       (evil-define-key 'normal evil-org-mode-map
         "O" 'evil-open-above)
       (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
