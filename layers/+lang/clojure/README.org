@@ -12,6 +12,7 @@
      - [[#quick-start-with-lein][Quick Start with lein]]
      - [[#more-details][More details]]
  - [[#key-bindings][Key Bindings]]
+   - [[#working-with-clojure-files-barfage-slurpage--more][Working with clojure files (barfage, slurpage & more)]]
    - [[#leader][Leader]]
      - [[#documentation][Documentation]]
      - [[#evaluation][Evaluation]]
@@ -109,10 +110,16 @@ More info regarding installation of nREPL middleware can be found here:
 - clj-refactor: [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
   
 * Key Bindings
+** Working with clojure files (barfage, slurpage & more)
+
+spacemacs comes with a special ~lisp-state~ for working with lisp code that supports slurpage, barfage and more tools you'll likely want when working with lisp. 
+
+As this state works for all files the same, the documentation for it has been added into the global [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
 
 ** Leader
 
 *** Documentation
+
 
 | Key Binding | Description    |
 |-------------+----------------|
