@@ -258,7 +258,9 @@ Called with `C-u C-u' skips `dotspacemacs/user-config' _and_ preleminary tests."
                   (spacemacs//restore-powerline (current-buffer))))
             (switch-to-buffer-other-window dotspacemacs-test-results-buffer)
             (spacemacs-buffer/warning "Some tests failed, check `%s' buffer"
-                                      dotspacemacs-test-results-buffer)))))))
+                                      dotspacemacs-test-results-buffer))))))
+  (when (configuration-layer/package-usedp 'spaceline)
+    (spacemacs//set-powerline-for-startup-buffers)))
 
 (defun dotspacemacs/get-variable-string-list ()
   "Return a list of all the dotspacemacs variables as strings."
