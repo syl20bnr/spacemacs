@@ -265,12 +265,16 @@
   (re-search-forward (format "^[a-z\s\\(\\-]*%s" candidate))
   (beginning-of-line))
 
+(defvar helm-spacemacs--faq-filename
+  (concat spacemacs-docs-directory "FAQ.org")
+  "Location of the FAQ file.")
+
 (defun helm-spacemacs//faq-source ()
   "Construct the helm source for the FAQ."
   `((name . "FAQ")
     (candidates . ,(helm-spacemacs//faq-candidates))
     (candidate-number-limit)
-    (action . (("Go to question" . helm-org-goto-marker)))))
+    (action . (("Go to question" . helm-spacemacs//faq-goto-marker)))))
 
 (defun helm-spacemacs//faq-candidates ()
   (delq nil (mapcar (lambda (c)
@@ -280,9 +284,18 @@
                                         (match-string 2 str))
                                 (cdr c)))))
                     (with-temp-buffer
-                      (insert-file-contents (concat spacemacs-docs-directory "FAQ.org"))
+                      (insert-file-contents helm-spacemacs--faq-filename)
                       (org-mode)
-                      (helm-get-org-candidates-in-file (current-buffer) 2 8 nil t)))))
+                      (mapcar '(lambda (candidate)
+                                 `(,(car candidate) . ,(marker-position (cdr candidate))))
+                              (helm-get-org-candidates-in-file (current-buffer) 2 8 nil t))
+                      ))))
+
+(defun helm-spacemacs//faq-goto-marker (marker)
+  (find-file helm-spacemacs--faq-filename)
+  (goto-char marker)
+  (org-show-context)
+  (org-show-entry))
 
 (provide 'helm-spacemacs)
 
