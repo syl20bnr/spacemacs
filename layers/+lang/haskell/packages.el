@@ -192,7 +192,26 @@
     (add-hook 'evil-insert-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
     (add-hook 'evil-emacs-state-entry-hook 'spacemacs//haskell-indentation-show-guides)
     (add-hook 'evil-insert-state-exit-hook 'spacemacs//haskell-indentation-hide-guides)
-    (add-hook 'evil-emacs-state-exit-hook 'spacemacs//haskell-indentation-hide-guides)))
+    (add-hook 'evil-emacs-state-exit-hook 'spacemacs//haskell-indentation-hide-guides))
+
+  ;; align rules for Haskell
+  (with-eval-after-load 'align
+    (add-to-list 'align-rules-list
+                 '(haskell-types
+                   (regexp . "\\(\\s-+\\)\\(::\\|∷\\)\\s-+")
+                   (modes . '(haskell-mode literate-haskell-mode))))
+    (add-to-list 'align-rules-list
+                 '(haskell-assignment
+                   (regexp . "\\(\\s-+\\)=\\s-+")
+                   (modes . '(haskell-mode literate-haskell-mode))))
+    (add-to-list 'align-rules-list
+                 '(haskell-arrows
+                   (regexp . "\\(\\s-+\\)\\(->\\|→\\)\\s-+")
+                   (modes . '(haskell-mode literate-haskell-mode))))
+    (add-to-list 'align-rules-list
+                 '(haskell-left-arrows
+                   (regexp . "\\(\\s-+\\)\\(<-\\|←\\)\\s-+")
+                   (modes . '(haskell-mode literate-haskell-mode))))))
 
 (defun haskell/init-haskell-snippets ()
   ;; manually load the package since the current implementation is not lazy
