@@ -1052,31 +1052,31 @@ toggle them.
 Some toggle have two flavors: local and global. The global version of the toggle
 can be reached using the =control= key.
 
-| Key Binding | Unicode | ASCII | Mode                                             |
-|-------------+---------+-------+--------------------------------------------------|
-| ~SPC t -~   | =⊝=     | -     | [[http://emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]]  mode                            |
-| ~SPC t C--~ | =⊝=     |       | global centered cursor                           |
-| ~SPC t a~   | =ⓐ=     | a     | auto-completion                                  |
-| ~SPC t c~   | =ⓒ=     | c     | camel case motion with subword mode              |
-| =none=      | =ⓔ=     | e     | [[https://github.com/edwtjo/evil-org-mode][evil-org]] mode                                    |
-| ~SPC t E e~ | =Ⓔe=    | Ee    | emacs editing style (holy mode)                  |
-| ~SPC t E h~ | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)               |
-| ~SPC t f~   |         |       | fill-column-indicator mode                       |
-| ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                                   |
-| ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode                                |
-| ~SPC t h i~ | =ⓗi=    | hi    | toggle highlight indentation levels              |
-| ~SPC t h c~ | =ⓗc=    | hc    | toggle highlight indentation current column      |
-| ~SPC t i~   | =ⓘ=     | i     | indentation guide                                |
-| ~SPC t C-i~ | =ⓘ=     | i     | global indentation guide                         |
-| ~SPC t I~   | =Ⓘ=     | I     | aggressive indent mode                           |
-| ~SPC t K~   | =Ⓚ=     | K     | which-key mode                                   |
-| ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                                 |
-| ~SPC t C-p~ | =ⓟ=     |       | global smartparens                               |
-| ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)                       |
-| ~SPC t S~   | =Ⓢ=     | S     | spell checking (flyspell)                        |
-| ~SPC t w~   | =ⓦ=     | w     | whitespace mode                                  |
-| ~SPC t C-w~ | =Ⓦ=     | W     | global whitespace                                |
-| ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                                   |
+| Key Binding | Unicode | ASCII | Mode                                                                          |
+|-------------+---------+-------+-------------------------------------------------------------------------------|
+| ~SPC t -~   | =⊝=     | -     | [[http://emacswiki.org/emacs/centered-cursor-mode.el][centered-cursor]]  mode |
+| ~SPC t C--~ | =⊝=     |       | global centered cursor                                                        |
+| ~SPC t a~   | =ⓐ=     | a     | auto-completion                                                               |
+| ~SPC t c~   | =ⓒ=     | c     | camel case motion with subword mode                                           |
+| =none=      | =ⓔ=     | e     | [[https://github.com/edwtjo/evil-org-mode][evil-org]] mode                    |
+| ~SPC t E e~ | =Ⓔe=    | Ee    | emacs editing style (holy mode)                                               |
+| ~SPC t E h~ | =Ⓔh=    | Eh    | hybrid editing style (hybrid mode)                                            |
+| ~SPC t f~   |         |       | fill-column-indicator mode                                                    |
+| ~SPC t F~   | =Ⓕ=     | F     | auto-fill mode                                                                |
+| ~SPC t g~   | =ⓖ=     | g     | [[https://github.com/roman/golden-ratio.el][golden-ratio]] mode               |
+| ~SPC t h i~ | =ⓗi=    | hi    | toggle highlight indentation levels                                           |
+| ~SPC t h c~ | =ⓗc=    | hc    | toggle highlight indentation current column                                   |
+| ~SPC t i~   | =ⓘ=     | i     | indentation guide                                                             |
+| ~SPC t C-i~ | =ⓘ=     | i     | global indentation guide                                                      |
+| ~SPC t I~   | =Ⓘ=     | I     | aggressive indent mode                                                        |
+| ~SPC t K~   | =Ⓚ=     | K     | which-key mode                                                                |
+| ~SPC t p~   | =ⓟ=     | p     | [[https://github.com/Fuco1/smartparens][smartparens]] mode                    |
+| ~SPC t C-p~ | =ⓟ=     |       | global smartparens                                                            |
+| ~SPC t s~   | =ⓢ=     | s     | syntax checking (flycheck)                                                    |
+| ~SPC t S~   | =Ⓢ=     | S     | enabled in [[../layers/spell-checking][spell checking layer]] (flyspell)      |
+| ~SPC t w~   | =ⓦ=     | w     | whitespace mode                                                               |
+| ~SPC t C-w~ | =Ⓦ=     | W     | global whitespace                                                             |
+| ~SPC t y~   | =ⓨ=     | y     | [[https://github.com/capitaomorte/yasnippet][yasnippet]] mode                 |
 
 **** Customizing the mode-line
 The mode-line consists of a number of /segments/ arranged on the left and right
@@ -2174,13 +2174,10 @@ In micro-state:
 argument (ie. ~10 SPC n +~ will add 10 to the number under point).
 
 *** Spell checking
-Spell checking commands start with =S=:
+Spell checking is enabled by including the [[../layers/spell-checking][spell
+checking]] layer in your dotfile.
 
-    | Key Binding | Description                            |
-    |-------------+----------------------------------------|
-    | ~SPC S c~   | list of corrections in a =helm= buffer |
-    | ~SPC S d~   | change dictionary language             |
-    | ~SPC S n~   | go to the next spell check error       |
+Keybindings are listed in the layer documentation.
 
 *** Region selection
 Vi =Visual= modes are all supported by =evil=.
