@@ -1,5 +1,6 @@
 (setq osx-packages
   '(
+    osx-trash
     pbcopy
     launchctl
     reveal-in-osx-finder
@@ -14,11 +15,9 @@
   ;; See brew info trash (or osx-tools)
   ;; otherwise, enable built-in support for trashing using Finder API
 
-  (if (executable-find "trash")
-      (defun system-move-file-to-trash (file)
-        "Use `trash' to move FILE to the system/volume trash can.
-Can be installed with `brew install trash'."
-        (call-process (executable-find "trash") nil 0 nil file))
+  ;; Enable built-in trash support via finder API if available (only on Emacs
+  ;; Mac Port)
+  (when (boundp 'mac-system-move-file-to-trash-use-finder)
     (setq mac-system-move-file-to-trash-use-finder t))
 
   ;; Use `gls' if `coreutils' was installed prefixed ('g') otherwise, leave
@@ -31,6 +30,12 @@ Can be installed with `brew install trash'."
     (setq insert-directory-program "gls"
           dired-listing-switches "-aBhl --group-directories-first")
     ))
+
+(defun osx/init-osx-trash ()
+  (use-package osx-trash
+    :if (and (spacemacs/system-is-mac)
+             (not (boundp 'mac-system-move-file-to-trash-use-finder)))
+    :init (osx-trash-setup)))
 
 (defun osx/init-pbcopy ()
   (use-package pbcopy
