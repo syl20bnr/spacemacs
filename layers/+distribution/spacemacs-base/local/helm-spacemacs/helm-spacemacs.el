@@ -279,8 +279,10 @@
                           (cons (concat (match-string 1 str) ": "
                                         (match-string 2 str))
                                 (cdr c)))))
-                    (helm-get-org-candidates-in-file
-                     (concat spacemacs-docs-directory "FAQ.org") 2 8 nil t))))
+                    (with-temp-buffer
+                      (insert-file-contents (concat spacemacs-docs-directory "FAQ.org"))
+                      (org-mode)
+                      (helm-get-org-candidates-in-file (current-buffer) 2 8 nil t)))))
 
 (provide 'helm-spacemacs)
 
