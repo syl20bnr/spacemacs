@@ -371,6 +371,17 @@ argument takes the kindows rotate backwards."
   (let ((newbuf (generate-new-buffer-name "untitled")))
     (switch-to-buffer newbuf)))
 
+;; from https://gist.github.com/timcharper/493269
+(defun spacemacs/split-window-vertically-and-switch ()
+  (interactive)
+  (split-window-vertically)
+  (other-window 1))
+
+(defun spacemacs/split-window-horizontally-and-switch ()
+  (interactive)
+  (split-window-horizontally)
+  (other-window 1))
+
 (defun spacemacs/layout-triple-columns ()
   " Set the layout to triple columns. "
   (interactive)
