@@ -6,7 +6,9 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#key-bindings][Key bindings]]
-     - [[#srefactor][srefactor]]
+   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
+   - [[#leader][Leader]]
+   - [[#srefactor][srefactor]]
 
 * Description
 
@@ -22,6 +24,13 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 * Key bindings
+** Working with lisp files (barfage, slurpage & more)
+
+spacemacs comes with a special ~lisp-state~ for working with lisp code that supports slurpage, barfage and more tools you'll likely want when working with lisp. 
+
+As this state works for all files the same, the documentation for it has been added into the global [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
+
+** Leader
 
 | Key Binding                | Description                                                |
 |----------------------------+------------------------------------------------------------|

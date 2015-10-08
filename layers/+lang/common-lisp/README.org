@@ -6,12 +6,14 @@
  - [[#description][Description]]
  - [[#install][Install]]
  - [[#key-bindings][Key Bindings]]
-   - [[#help][Help]]
-   - [[#evaluation][Evaluation]]
-   - [[#repl][REPL]]
-   - [[#compile][Compile]]
-   - [[#navigation][Navigation]]
-   - [[#macroexpansion][Macroexpansion]]
+   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
+   - [[#leader][Leader]]
+     - [[#help][Help]]
+     - [[#evaluation][Evaluation]]
+     - [[#repl][REPL]]
+     - [[#compile][Compile]]
+     - [[#navigation][Navigation]]
+     - [[#macroexpansion][Macroexpansion]]
 
 * Description
 
@@ -40,7 +42,14 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 
 * Key Bindings
 
-** Help
+** Working with lisp files (barfage, slurpage & more)
+
+spacemacs comes with a special ~lisp-state~ for working with lisp code that supports slurpage, barfage and more tools you'll likely want when working with lisp. 
+
+As this state works for all files the same, the documentation for it has been added into the global [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
+
+** Leader
+*** Help
 
 | Key Binding | Description                                             |
 |-------------+---------------------------------------------------------|
@@ -57,7 +66,7 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 | ~SPC m h r~ | Show references to global variable                      |
 | ~SPC m h s~ | Show all methods specialized on a class                 |
 
-** Evaluation
+*** Evaluation
 
 | Key Binding | Description                     |
 |-------------+---------------------------------|
@@ -67,7 +76,7 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 | ~SPC m e F~ | Undefine the function at point  |
 | ~SPC m e r~ | Evaluate region                 |
 
-** REPL
+*** REPL
 
 | Key Binding | Description                      |
 |-------------+----------------------------------|
@@ -75,7 +84,7 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 | ~SPC m s e~ | Evaluate last expression in REPL |
 | ~SPC m s q~ | Quit                             |
 
-** Compile
+*** Compile
 
 | Key Binding | Description              |
 |-------------+--------------------------|
@@ -86,7 +95,7 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 | ~SPC m c f~ | Compile function         |
 | ~SPC m c r~ | Compile region           |
 
-** Navigation
+*** Navigation
 
 
 | Key Binding               | Description        |
@@ -95,7 +104,7 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 | ~SPC m g b~               | Go back            |
 | ~SPC m g n~               | Next note          |
 | ~SPC m g N~ or ~SPC m g p | Previous note      |
-** Macroexpansion
+*** Macroexpansion
 
 | Key Binding | Description                                   |
 |-------------+-----------------------------------------------|
