@@ -35,5 +35,7 @@ point reaches the beginning or end of the buffer, stop there."
 `backward-kill-word' if no region is active."
   (interactive "p")
   (if (region-active-p)
-      (kill-region (region-beginning) (region-end))
+      ;; call interactively so kill-region handles rectangular selection
+      ;; correctly (see https://github.com/syl20bnr/spacemacs/issues/3278)
+      (call-interactively #'kill-region)
     (backward-kill-word arg)))
