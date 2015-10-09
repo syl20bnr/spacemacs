@@ -1264,9 +1264,12 @@ ARG non nil means that the editing style is `vim'."
   (use-package saveplace
     :init
     (progn
+      (if (fboundp 'save-place-mode)
+          ;; Emacs 25 has a proper mode for `save-place'
+          (save-place-mode)
+        (setq save-place t))
       ;; Save point position between sessions
-      (setq save-place t
-            save-place-file (concat spacemacs-cache-directory "places")))))
+      (setq save-place-file (concat spacemacs-cache-directory "places")))))
 
 (defun spacemacs-base/init-spacemacs-theme ()
   (use-package spacemacs-theme
