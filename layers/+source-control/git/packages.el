@@ -261,11 +261,31 @@
 
       ;; full screen magit-status
       (when git-magit-status-fullscreen
-        (setq magit-restore-window-configuration t)
-        (setq magit-status-buffer-switch-function
+        (setq magit-display-buffer-function
               (lambda (buffer)
-                (pop-to-buffer buffer)
-                (delete-other-windows))))
+                (if (or
+                     ;; the original should stay alive, so we can't go fullscreen
+                     magit-display-buffer-noselect
+                     ;; don't go fullscreen for certain magit buffers if current
+                     ;; buffer is a magit buffer (we're conforming to
+                     ;; `magit-display-buffer-traditional')
+                     (and (derived-mode-p 'magit-mode)
+                          (not (memq (with-current-buffer buffer major-mode)
+                                     '(magit-process-mode
+                                       magit-revision-mode
+                                       magit-diff-mode
+                                       magit-stash-mode
+                                       magit-status-mode)))))
+                    ;; open buffer according to original magit rules
+                    (magit-display-buffer-traditional buffer)
+                  ;; open buffer in fullscreen
+                  (delete-other-windows)
+                  ;; make sure the window isn't dedicated, otherwise
+                  ;; `set-window-buffer' throws an error
+                  (set-window-dedicated-p nil nil)
+                  (set-window-buffer nil buffer)
+                  ;; return buffer's window
+                  (get-buffer-window buffer)))))
 
       (when dotspacemacs-major-mode-leader-key
         (add-hook 'with-editor-mode-hook 'evil-normalize-keymaps)
