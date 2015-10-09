@@ -180,6 +180,7 @@ Here is an example to add =company= auto-completion to python buffer:
 | ~C-j~       | go down in company dropdown menu                                         |
 | ~C-k~       | go up in company dropdown menu                                           |
 | ~C-/~       | search in company dropdown                                               |
+| ~C-/~       | show candidates in Helm (for fuzzy searching)                            |
 | ~C-M-/~     | filter the company dropdown menu                                         |
 | ~C-d~       | open minibuffer with documentation of thing at point in company dropdown |
 
