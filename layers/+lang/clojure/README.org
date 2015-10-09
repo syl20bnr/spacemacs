@@ -9,6 +9,7 @@
    - [[#layer][Layer]]
    - [[#pretty-symbols][Pretty Symbols]]
    - [[#cider-and-clj-refactor][CIDER and clj-refactor]]
+     - [[#quick-start-with-boot][Quick Start with boot]]
      - [[#quick-start-with-lein][Quick Start with lein]]
      - [[#more-details][More details]]
  - [[#key-bindings][Key Bindings]]
@@ -42,7 +43,6 @@ This layer adds support for [[http://clojure.org][Clojure]] language using [[htt
 * Install
 
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -50,7 +50,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 ** Pretty Symbols
-
 Pretty symbols for anonymous functions, set literals and partial, like =(λ [a]
 (+ a 5))=, =ƒ(+ % 5)=, =∈{2 4 6}= and =Ƥ=.
 
@@ -70,7 +69,6 @@ Or set this variable when loading the configuration layer:
 ** CIDER and clj-refactor
 
 *** Quick Start with boot
-
 - Install =boot= (see https://github.com/boot-clj/boot#install)
 - Create a file =~/.boot/profile.boot= with the following content:
 
@@ -88,7 +86,6 @@ Or set this variable when loading the configuration layer:
 - Run ~SPC m s i~ in any of the clojure source files to connect to the CIDER REPL.
 
 *** Quick Start with lein
-
 - Install =lein= via your OS package manager.
 - Create a file =~/.lein/profiles.clj= with the following content:
   
@@ -104,22 +101,21 @@ Or set this variable when loading the configuration layer:
   source files to connect to the CIDER REPL.
 
 *** More details
-
 More info regarding installation of nREPL middleware can be found here:
 - CIDER: [[https://github.com/clojure-emacs/cider#installation][cider_install]]
 - clj-refactor: [[https://github.com/clojure-emacs/refactor-nrepl][refactor-nrepl]]
   
 * Key Bindings
 ** Working with clojure files (barfage, slurpage & more)
+Spacemacs comes with a special ~lisp-state~ for working with lisp code that
+supports slurpage, barfage and more tools you'll likely want when working with
+lisp.
 
-spacemacs comes with a special ~lisp-state~ for working with lisp code that supports slurpage, barfage and more tools you'll likely want when working with lisp. 
-
-As this state works for all files the same, the documentation for it has been added into the global [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
+As this state works the same for all files, the documentation is in global
+[[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
 
 ** Leader
-
 *** Documentation
-
 
 | Key Binding | Description    |
 |-------------+----------------|
@@ -178,18 +174,18 @@ As this state works for all files the same, the documentation for it has been ad
 
 | Key Binding | Description                 |
 |-------------+-----------------------------|
-| ~SPC m T f~   | toggle REPL font-locking    |
-| ~SPC m T p~   | toggle REPL pretty-printing |
-| ~SPC m T i~   | toggle indentation style    |
+| ~SPC m T f~ | toggle REPL font-locking    |
+| ~SPC m T p~ | toggle REPL pretty-printing |
+| ~SPC m T i~ | toggle indentation style    |
 
 *** Debugging
 
 | Key Binding | Description                    |
 |-------------+--------------------------------|
-| ~SPC m d r~   | reload namepspaces             |
-| ~SPC m d b~   | instrument expression at point |
-| ~SPC m d e~   | display last stacktrace        |
-| ~SPC m d i~   | inspect expression at point    |
+| ~SPC m d r~ | reload namepspaces             |
+| ~SPC m d b~ | instrument expression at point |
+| ~SPC m d e~ | display last stacktrace        |
+| ~SPC m d i~ | inspect expression at point    |
 
 *** Refactoring
 
@@ -238,8 +234,7 @@ As this state works for all files the same, the documentation for it has been ad
 | ~SPC m r u w~ | unwind                      |
 
 *** Reformatting
-
-- Forms currently handled:
+Forms currently handled:
   - let
   - when-let
   - if-let
@@ -259,7 +254,6 @@ More info at [[https://github.com/gstamp/align-cljlet][align-cljlet]].
 | ~SPC m f b~ | reformat current buffer |
 
 ** CIDER Buffers
-
 In general, ~q~ should always quit the popped up buffer.
 
 *** stacktrace-mode

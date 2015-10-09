@@ -16,11 +16,9 @@
      - [[#macroexpansion][Macroexpansion]]
 
 * Description
-
 A Spacemacs contribution layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
 
 * Install
-
 If you have previously installed slime in any other way, it is recommended that
 you uninstall it before proceeding. You should clean up any config files tied to
 slime that are left behind as well. Linux users can just purge the slime package
@@ -41,12 +39,13 @@ of Common Lisp, you can specify it in your =~/.spacemacs=
 #+END_SRC
 
 * Key Bindings
-
 ** Working with lisp files (barfage, slurpage & more)
+Spacemacs comes with a special ~lisp-state~ for working with lisp code that
+supports slurpage, barfage and more tools you'll likely want when working with
+lisp.
 
-spacemacs comes with a special ~lisp-state~ for working with lisp code that supports slurpage, barfage and more tools you'll likely want when working with lisp. 
-
-As this state works for all files the same, the documentation for it has been added into the global [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
+As this state works the same for all files, the documentation is in global
+[[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings][DOCUMENTATION.org]]. In general, use ~SPC k~ to interact with the lisp-state.
 
 ** Leader
 *** Help
@@ -104,6 +103,7 @@ As this state works for all files the same, the documentation for it has been ad
 | ~SPC m g b~               | Go back            |
 | ~SPC m g n~               | Next note          |
 | ~SPC m g N~ or ~SPC m g p | Previous note      |
+
 *** Macroexpansion
 
 | Key Binding | Description                                   |
