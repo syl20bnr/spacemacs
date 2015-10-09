@@ -16,6 +16,7 @@
         ac-ispell
         company
         company-statistics
+        helm-company
         helm-c-yasnippet
         hippie-exp
         yasnippet
@@ -153,6 +154,15 @@
         (call-interactively 'helm-yas-complete))
       (evil-leader/set-key "is" 'spacemacs/helm-yas)
       (setq helm-c-yas-space-match-any-greedy t))))
+
+(defun auto-completion/init-helm-company ()
+  (use-package helm-company
+    :if (configuration-layer/package-usedp 'company)
+    :defer t
+    :init
+    (with-eval-after-load 'company
+      (define-key company-active-map (kbd "C-/") 'helm-company)
+      (define-key company-mode-map (kbd "C-/") 'helm-company))))
 
 (defun auto-completion/init-hippie-exp ()
   ;; replace dabbrev-expand
