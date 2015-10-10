@@ -51,16 +51,17 @@
 
 # Introduction
 
-Spacemacs is a proposition of a complete new experience for Emacs focused
-on ergonomics, mnemonics and consistency. 
+Spacemacs is a new way to experience Emacs -- a sophisticated and
+polished set-up focused on ergonomics, mnemonics and consistency.
 
-Clone it, launch it then press the space bar and let you guided by the built-in
-interactive list of key-bindings. You can also press the `[?]` button on the
-home buffer for the first essential key bindings to know.
+Just clone it, launch it, then press the space bar to explore the
+interactive list of carefully-chosen key bindings. You can also press
+the home buffer's `[?]` button for some great first key bindings to
+try.
 
-Spacemacs can be used by Emacs or Vim users flawlessly, it is even possible
-to mix the two styles. You can switch between any style at any moment which
-make it a very good tool for pair-programming.
+Spacemacs can be used naturally by both Emacs and Vim users -- you can
+even mix the two editing styles. Switching easily between input styles
+makes Spacemacs a great tool for pair-programming.
 
 Spacemacs is currently in beta, and contributions are very welcome.
 
