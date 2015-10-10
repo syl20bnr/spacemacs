@@ -78,7 +78,7 @@
        ;; To enable tags generation on save.
        haskell-tags-on-save t
        ;; Remove annoying error popups
-       haskell-interactive-popup-error nil
+       haskell-interactive-popup-errors nil
        ;; Better import handling
        haskell-process-suggest-remove-import-lines t
        haskell-process-auto-import-loaded-modules t
