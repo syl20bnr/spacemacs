@@ -47,6 +47,7 @@
         subword
         undo-tree
         (uniquify :location built-in)
+        url
         use-package
         which-key
         whitespace
@@ -1329,6 +1330,14 @@ ARG non nil means that the editing style is `vim'."
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets
         ;; don't screw special buffers
         uniquify-ignore-buffers-re "^\\*"))
+
+;; gravatars from magit use this to store their cache
+(defun spacemacs-base/init-url ()
+  (use-package url
+    :defer t
+    :init
+    (setq url-configuration-directory
+          (concat spacemacs-cache-directory "url"))))
 
 (defun spacemacs-base/init-use-package ())
 
