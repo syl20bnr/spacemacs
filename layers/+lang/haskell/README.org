@@ -23,8 +23,8 @@
    - [[#cabal-files][Cabal files]]
  - [[#faq][FAQ]]
    - [[#repl-doesnt-work][REPL doesn't work]]
-   - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
    - [[#repl-is-stuck][REPL is stuck]]
+   - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
 
 * Description
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
@@ -308,11 +308,34 @@ Available options are:
 - cabal-ghci
 - stack-ghci
 
+** REPL is stuck
+Make sure that when you are typing anything in REPL there is a space between
+what you type and =λ>=. When there is no space - REPL will behave as it's stuck.
+Usually, when you enter normal state, cursor is moved back, so there is no
+required space when you switch to insert mode. There is possible workaround -
+just add following snippet to your =dotspacemacs/user-config= function:
+
+#+BEGIN_SRC emacs-lisp
+  (when (configuration-layer/layer-usedp 'haskell)
+    (add-hook 'haskell-interactive-mode-hook
+              (lambda ()
+                (setq-local evil-move-cursor-back nil))))
+#+END_SRC
+
+It will make cursor stay at the right place in the REPL buffer when you enter
+normal state. Which in most cases helps you to avoid the problem with 'stuck'
+REPL.
+
+Also, some users might want to start REPL in insert mode. For this to happen you
+could place following snippet in your =dotspacemacs/user-config= function:
+
+#+BEGIN_SRC emacs-lisp
+(when (configuration-layer/layer-usedp 'haskell)
+    (defadvice haskell-interactive-switch (after spacemacs/haskell-interactive-switch-advice activate)
+      (when (eq dotspacemacs-editing-style 'vim)
+        (call-interactively 'evil-insert))))
+#+END_SRC
+
 ** I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work
 Make sure that =dist= directory doesn't exist in your project root. So if it
 exists, just remove it and try again.
-
-** REPL is stuck
-Make sure that when you are typing anything in REPL there is a space between
-what you type and =λ>=. This problem usually happens when you switch from normal
-mode to insert mode.
