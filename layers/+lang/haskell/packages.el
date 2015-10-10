@@ -64,6 +64,19 @@
           ;; in structured-haskell-mode line highlighting creates noise
           (setq-local global-hl-line-mode nil)))
 
+      (defun spacemacs/haskell-mode-call-key (KEY)
+        "Call function that is bound to `KEY' in haskell-mode-map."
+        (interactive)
+        (call-interactively (lookup-key haskell-mode-map (kbd KEY))))
+
+      (defun spacemacs/haskell-mode-get-type ()
+        (interactive)
+        (spacemacs/haskell-mode-call-key "C-c C-t"))
+
+      (defun spacemacs/haskell-mode-get-info ()
+        (interactive)
+        (spacemacs/haskell-mode-call-key "C-c C-i"))
+
       ;; hooks
       (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
       (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
@@ -110,8 +123,8 @@
         "mhd"  'inferior-haskell-find-haddock
         "mhh"  'hoogle
         "mhH"  'hoogle-lookup-from-local
-        "mhi"  'haskell-process-do-info
-        "mht"  'haskell-process-do-type
+        "mhi"  'spacemacs/haskell-mode-get-info
+        "mht"  'spacemacs/haskell-mode-get-info
         "mhT"  'spacemacs/haskell-process-do-type-on-prev-line
         "mhy"  'hayoo
 
@@ -162,6 +175,8 @@
         (setq haskell-process-path-ghci "ghci-ng")
 
         (evil-leader/set-key-for-mode 'haskell-mode
+          ;; function suggested in
+          ;; https://github.com/chrisdone/ghci-ng#using-with-haskell-mode
           "mu"   'haskell-mode-find-uses
           "mht"  'haskell-mode-show-type-at
           "mgg"  'haskell-mode-goto-loc))
