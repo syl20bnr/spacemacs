@@ -218,14 +218,16 @@
   :documentation "Display the fringe in GUI mode."
   :evil-leader "Tf")
 (spacemacs|add-toggle fullscreen-frame
-  :status nil
+  :status (memq (frame-parameter nil 'fullscreen) '(fullscreen fullboth))
   :on (spacemacs/toggle-frame-fullscreen)
+  :off (spacemacs/toggle-frame-fullscreen)
   :documentation "Display the current frame in full screen."
   :evil-leader "TF")
 (spacemacs|add-toggle maximize-frame
   :if (version< "24.3.50" emacs-version)
-  :status nil
+  :status (eq (frame-parameter nil 'maximized) 'maximized)
   :on (toggle-frame-maximized)
+  :off (toggle-frame-maximized)
   :documentation "Maximize the current frame."
   :evil-leader "TM")
 (spacemacs|add-toggle mode-line
