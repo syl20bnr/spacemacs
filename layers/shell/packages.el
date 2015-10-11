@@ -247,13 +247,6 @@ is achieved by adding the relevant text properties."
       (make-shell-pop-command multiterm)
       (make-shell-pop-command ansi-term shell-pop-term-shell)
 
-      (defun spacemacs//term-kill-buffer-hook ()
-        "Function that hook `kill-buffer-hook'."
-        (when (eq major-mode 'term-mode)
-          (when (term-check-proc (current-buffer))
-            (term-quit-subjob))))
-      (add-hook 'kill-buffer-hook 'spacemacs//term-kill-buffer-hook)
-
       (defun ansi-term-handle-close ()
         "Close current term buffer when `exit' from term buffer."
         (when (ignore-errors (get-buffer-process (current-buffer)))
