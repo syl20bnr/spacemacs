@@ -13,6 +13,7 @@
 (setq spell-checking-packages
   '(
     flyspell
+    flyspell-popup
     helm-flyspell
     ))
 
@@ -39,7 +40,17 @@
       (flyspell-prog-mode)
       (spacemacs|diminish flyspell-mode " Ⓢ" " S"))))
 
+(defun spell-checking/init-flyspell-popup ()
+  (use-package flyspell-popup
+    :commands (flyspell-popup-correct)
+    :init
+    (progn
+      (add-hook 'flyspell-mode-hook #'flyspell-popup-auto-correct-mode)
+      (evil-leader/set-key
+        "SC" 'flyspell-popup-correct))))
+
 (defun spell-checking/init-helm-flyspell ()
   (use-package helm-flyspell
     :commands helm-flyspell-correct
     :init (evil-leader/set-key "Sc" 'helm-flyspell-correct)))
+
