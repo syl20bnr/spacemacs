@@ -179,7 +179,11 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; Emacs 24.4 new features
 (unless (version< emacs-version "24.4")
   (if dotspacemacs-fullscreen-at-startup
-      (spacemacs/toggle-frame-fullscreen)
+      ;; spacemacs/toggle-fullscreen-frame-on is NOT available during the startup,
+      ;; but IS available during the subsequent config reloads
+      (if (fboundp 'spacemacs/toggle-fullscreen-frame-on)
+          (spacemacs/toggle-fullscreen-frame-on)
+          (spacemacs/toggle-frame-fullscreen))
     (if dotspacemacs-maximized-at-startup
         (add-hook 'window-setup-hook 'toggle-frame-maximized))))
 
