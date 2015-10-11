@@ -7,19 +7,10 @@
     ))
 
 (when (spacemacs/system-is-mac)
-  ;; Note: `delete-by-moving-to-trash' is set to true globaly in
-  ;; `spacemacs/config.el'
-  ;; (setq trash-directory "~/.Trash/emacs") ; bare minimum
-
-  ;; Use `trash' cli tool, if installed.
-  ;; See brew info trash (or osx-tools)
-  ;; otherwise, enable built-in support for trashing using Finder API
-
   ;; Enable built-in trash support via finder API if available (only on Emacs
   ;; Mac Port)
   (when (boundp 'mac-system-move-file-to-trash-use-finder)
     (setq mac-system-move-file-to-trash-use-finder t))
-
   ;; Use `gls' if `coreutils' was installed prefixed ('g') otherwise, leave
   ;; alone. Manually add to config `(setq dired-use-ls-dired nil)' to surpesss
   ;; warnings, when not using `coreutils' version of 'ls' on OS X.
@@ -28,8 +19,7 @@
     ;; maybe absolute or relative name of the `ls' program used by
     ;; `insert-directory'.
     (setq insert-directory-program "gls"
-          dired-listing-switches "-aBhl --group-directories-first")
-    ))
+          dired-listing-switches "-aBhl --group-directories-first")))
 
 (defun osx/init-osx-trash ()
   (use-package osx-trash
