@@ -905,3 +905,8 @@ is nonempty."
     (cond ((listp val) val)
           ((stringp val) (< 0 (length val)))
           (t))))
+
+(defun spacemacs/switch-to-scratch-buffer ()
+  "Switch to the `*scratch*' buffer. Create it first if needed."
+  (interactive)
+  (switch-to-buffer (get-buffer-create "*scratch*")))
