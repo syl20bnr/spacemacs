@@ -13,6 +13,7 @@
  - [[#key-bindings][Key bindings]]
    - [[#org-with-evil-org-mode][Org with evil-org-mode]]
      - [[#element-insertion][Element insertion]]
+     - [[#links][Links]]
      - [[#org-emphasize][Org emphasize]]
      - [[#tagging][Tagging]]
    - [[#pomodoro][Pomodoro]]
@@ -189,6 +190,12 @@ Tree related shorcuts:
 | ~SPC m i f~ | org-insert-footnote              |
 | ~SPC m i l~ | org-insert-link                  |
 
+*** Links
+
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~RET~         | org-open-at-point |
+
 *** Org emphasize
 
 | Key Binding | Description                |
@@ -206,6 +213,7 @@ Tree related shorcuts:
 | Key Binding | Description  |
 |-------------+--------------|
 | ~SPC m :~   | org-set-tags |
+
 ** Pomodoro
 
 | Key Binding | Description       |
