@@ -43,13 +43,21 @@ users on `develop' branch must manually pull last commits instead."
   (let ((branch (spacemacs/git-get-current-branch)))
     (if (string-equal "develop" branch)
         (message (concat "Cannot switch version because you are on develop.\n"
-                         "You have to manually `pull --rebase' last commits."))
-      (unless version (setq version (read-string "version: "
-                                                 (spacemacs/get-last-version))))
-      (when (or (string-equal "master" branch)
-                (yes-or-no-p (format (concat "You are not on master, are you "
-                                             "sure that you want to switch to "
-                                             "version %s ? ") version)))
+                         "You have to manually `pull --rebase' the latest commits."))
+      (unless version
+        (let ((last-version (spacemacs/get-last-version)))
+          (setq version (read-string
+                         (format "Version (default %s [latest]): " last-version)
+                         nil nil last-version))))
+      (when (and
+             (or (string-equal "master" branch)
+                 (yes-or-no-p (format (concat "You are not on master, are you "
+                                              "sure that you want to switch to "
+                                              "version %s ? ") version)))
+             (or (not (string-equal version spacemacs-version))
+                 (yes-or-no-p (format (concat "You are currently on the latest "
+                                              "version. This operation will "
+                                              "perform a hard reset. Continue? ")))))
         (let ((tag (concat "v" version)))
           (if (spacemacs/git-hard-reset-to-tag tag)
               (progn
