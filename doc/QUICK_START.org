@@ -94,7 +94,7 @@ Spacemacs can be used by Vim users or Emacs users by setting the
 in the dotfile =~/.spacemacs=.
 
 *** The leader keys
-=Spacemacs= key bindings use a leader key which is by default bound to
+Spacemacs key bindings use a leader key which is by default bound to
 ~SPC~ (space bar) in =vim= or =hybrid= editing styles and ~M-m~ in =emacs=
 style.
 

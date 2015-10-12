@@ -104,7 +104,7 @@ If you prefer IRC, connect to the [Gitter Chat IRC server][] and join the
 
 ## Emacs
 
-`Spacemacs` is operational with Emacs 24.3 but Emacs 24.4 and above are
+Spacemacs is operational with Emacs 24.3 but Emacs 24.4 and above are
 recommended to enjoy the full experience.
 
 Some modes require third-party tools that you'll have to install via your
@@ -240,7 +240,7 @@ branch, for instance to revert to the last `0.103`:
 
 # Contributions
 
-`Spacemacs` is a community-driven project, it needs _you_ to keep it up to
+Spacemacs is a community-driven project, it needs _you_ to keep it up to
 date and propose useful and complete configuration!
 
 Before contributing be sure to consult the
@@ -248,7 +248,7 @@ Before contributing be sure to consult the
 
 # License
 
-The license is GPLv3 for all parts specific to `Spacemacs`, this includes:
+The license is GPLv3 for all parts specific to Spacemacs, this includes:
 - the initialization and core files
 - all the layer files.
 - the documentation

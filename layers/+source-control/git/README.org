@@ -124,7 +124,7 @@ Git commands (start with ~g~):
 - Git last commit message per line is provided by [[https://github.com/syohex/emacs-git-messenger][git-messenger]].
 
 ** Magit
-=Spacemacs= uses [[http://magit.vc/][magit]] to manage Git repositories.
+Spacemacs uses [[http://magit.vc/][magit]] to manage Git repositories.
 
 To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~
 
