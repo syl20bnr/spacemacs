@@ -400,7 +400,14 @@ argument takes the kindows rotate backwards."
 (defun spacemacs/home ()
   "Go to home Spacemacs buffer"
   (interactive)
-  (switch-to-buffer "*spacemacs*"))
+  (if (buffer-live-p (get-buffer spacemacs-buffer-name))
+      (switch-to-buffer spacemacs-buffer-name)
+    (switch-to-buffer (get-buffer-create spacemacs-buffer-name))
+    (spacemacs-mode)
+    (evil-motion-state)
+    (spacemacs-buffer/insert-banner-and-buttons)
+    (spacemacs-buffer/insert-startupify-lists)
+    (spacemacs//restore-powerline (current-buffer))))
 
 (defun spacemacs/insert-line-above-no-indent (count)
   (interactive "p")
