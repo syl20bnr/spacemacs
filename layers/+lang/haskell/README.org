@@ -219,11 +219,12 @@ All Haskell specific bindings are prefixed with the major-mode leader
 
 Top-level commands are prefixed by ~SPC m~:
 
-| Key Binding | Description                                   |
-|-------------+-----------------------------------------------|
-| ~SPC m g g~ | go to definition or tag                       |
-| ~SPC m f~   | format buffer using haskell-stylish           |
-| ~SPC m F~   | format declaration using hindent (if enabled) |
+| Key Binding | Description                                                         |
+|-------------+---------------------------------------------------------------------|
+| ~SPC m g g~ | go to definition or tag                                             |
+| ~SPC m g i~ | cycle the Haskell import lines or return to point (with prefix arg) |
+| ~SPC m f~   | format buffer using haskell-stylish                                 |
+| ~SPC m F~   | format declaration using hindent (if enabled)                       |
 
 ** Documentation
 Documentation commands are prefixed by ~SPC m h~
