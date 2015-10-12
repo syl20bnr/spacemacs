@@ -71,6 +71,8 @@
     (progn
       (setq org-clock-persist-file
             (concat spacemacs-cache-directory "org-clock-save.el")
+            org-id-locations-file
+            (concat spacemacs-cache-directory ".org-id-locations")
             org-log-done t
             org-startup-with-inline-images t
             org-src-fontify-natively t)
