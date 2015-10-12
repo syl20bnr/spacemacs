@@ -11,6 +11,7 @@
    - [[#gnuplot-support][Gnuplot support]]
    - [[#different-bullets][Different bullets]]
  - [[#key-bindings][Key bindings]]
+   - [[#global-keybindings][Global keybindings]]
    - [[#org-with-evil-org-mode][Org with evil-org-mode]]
      - [[#element-insertion][Element insertion]]
      - [[#links][Links]]
@@ -72,6 +73,26 @@ You can tweak the bullets displayed in the org buffer in the function
 #+END_SRC
 
 * Key bindings
+
+** Global keybindings
+
+| Key Binding | Description                    |
+|-------------+--------------------------------|
+| ~SPC a o #~ | org agenda list stuck projects |
+| ~SPC a o /~ | org occur in agenda files      |
+| ~SPC a o a~ | org agenda list                |
+| ~SPC a o e~ | org store agenda views         |
+| ~SPC a o m~ | org tags view                  |
+| ~SPC a o o~ | org agenda                     |
+| ~SPC a o s~ | org search view                |
+| ~SPC a o t~ | org todo list                  |
+| ~SPC a o O~ | org clock out                  |
+| ~SPC a o c~ | org capture                    |
+| ~SPC a o l~ | org store link                 |
+|-------------+--------------------------------|
+| ~SPC C c~   | org-capture                    |
+| ~SPC C t~   | ort/capture-todo               |
+| ~SPC C T~   | ort/capture-checkitem          |
 
 ** Org with evil-org-mode
 
@@ -232,12 +253,9 @@ org-present must be activated explicitly by typing: ~SPC : org-present~
 
 ** Org-repo-todo
 
-| Key Binding | Description           |
-|-------------+-----------------------|
-| ~SPC C c~   | org-capture           |
-| ~SPC C t~   | ort/capture-todo      |
-| ~SPC C T~   | ort/capture-checkitem |
-| ~SPC m g t~ | ort/goto-todos        |
+| Key Binding | Description    |
+|-------------+----------------|
+| ~SPC m g t~ | ort/goto-todos |
 
 ** Org-MIME
 
