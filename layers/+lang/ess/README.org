@@ -16,14 +16,16 @@ To use this contribution add it to your =~/.spacemacs=
 (setq-default dotspacemacs-configuration-layers '(ess))
 #+END_SRC
 
-*Important:*
-In order to speed up the boot time of =Spacemacs=, =ESS= must be loaded
-manually via the key binding: ~SPC e s s~
-
 * Key Bindings
 
 ** Inferior REPL process
-Start an =R= inferior REPL process with ~SPC m s i~.
+Start an inferior REPL process with these commands:
+| Keybinding | Description         |
+|------------+---------------------|
+| ~SCP msir~ | start R process     |
+| ~SPC msis~ | start Stata process |
+| ~SPC msiS~ | start SAS process   |
+| ~SPC msij~ | start Julia process |
 
 Send code to inferior process commands:
 
