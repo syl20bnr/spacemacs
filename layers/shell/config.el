@@ -10,6 +10,11 @@
 ;;
 ;;; License: GPLv3
 
+;; Emacs built-in variables
+
+;; move point to the end of buffer on new output
+(setq comint-move-point-for-output t)
+
 ;; Variables
 
 (spacemacs|defvar-company-backends eshell-mode)
