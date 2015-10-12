@@ -5,6 +5,7 @@
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
    - [[#features][Features:]]
+   - [[#note][Note]]
  - [[#install][Install]]
    - [[#layer][Layer]]
    - [[#github-support][Github support]]
@@ -34,11 +35,15 @@ This layer enables  [[http://orgmode.org/][org mode]] for Spacemacs.
 - A [[http://pomodorotechnique.com/][pomodoro method]] integration via [[https://github.com/lolownia/org-pomodoro][org-pomodoro]]
 - TODO capture via [[https://github.com/waymondo/org-repo-todo][org-repo-todo]]
 - presentation mode via [[https://github.com/rlister/org-present][org-present]]
+- 
+** Note
+Since version 0.104, spacemacs uses the `org` version from the org ELPA
+repository instead of the one shipped with emacs. Then, any `org` related code
+should not be loaded before `dotspacemacs/user-config`, otherwise both versions
+will be loaded and will conflict.
 
 * Install
-
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -46,7 +51,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 ** Github support
-
 To install Github related extensions like [[https://github.com/larstvei/ox-gfm][ox-gfm]] to export to Github
 flavored markdown set the variable =org-enable-github-support= to =t=.
 
@@ -57,7 +61,6 @@ flavored markdown set the variable =org-enable-github-support= to =t=.
 #+END_SRC
 
 ** Gnuplot support
-
 Org-mode support the plotting of data within tables through [[http://www.gnuplot.info/][Gnuplot]] as
 demonstrated [[http://orgmode.org/worg/org-tutorials/org-plot.html][here]]; unfortunately, this is [[https://github.com/bruceravel/gnuplot-mode/issues/15][not terribly well supported]] on Windows
 at this stage.  It is possible to disable the configuration of gnuplot support
@@ -65,7 +68,6 @@ as usual by adding the package =gnuplot= to your =dotspacemacs-excluded-packages
 variable.
 
 ** Different bullets
-
 You can tweak the bullets displayed in the org buffer in the function
 =dotspacemacs/user-config= of your dotfile by setting the variable
 =org-bullets-bullet-list=. By default the list is set to =("◉" "○" "✸" "✿")=.
