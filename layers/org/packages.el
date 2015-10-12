@@ -65,6 +65,7 @@
 (defun org/init-org ()
   (use-package org
     :mode ("\\.org$" . org-mode)
+    :commands (org-clock-out org-occur-in-agenda-files)
     :defer t
     :init
     (progn
@@ -196,7 +197,24 @@ Will work on both org-mode and any mode that accepts plain html."
         (define-key org-agenda-mode-map
           (kbd "RET") 'org-agenda-show-and-scroll-up)
         (define-key org-agenda-mode-map
-          (kbd "SPC") evil-leader--default-map)))
+          (kbd "SPC") evil-leader--default-map))
+
+      ;; Add global evil-leader mappings. Used to access org-agenda
+      ;; functionalities – and a few others commands – from any other mode.
+      (evil-leader/set-key
+        ;; org-agenda
+        "ao#" 'org-agenda-list-stuck-projects
+        "ao/" 'org-occur-in-agenda-files
+        "aoa" 'org-agenda-list
+        "aoe" 'org-store-agenda-views
+        "aom" 'org-tags-view
+        "aoo" 'org-agenda
+        "aos" 'org-search-view
+        "aot" 'org-todo-list
+        ;; other
+        "aoO" 'org-clock-out
+        "aoc" 'org-capture
+        "aol" 'org-store-link))
     :config
     (progn
       ;; setup org directory
