@@ -401,10 +401,18 @@ error recovery."
 
 (defmacro dotspacemacs|call-func (func &optional msg)
   "Call the function from the dotfile only if it is bound.
-If MSG is not nil then display a message in `*Messages'."
+If MSG is not nil then display a message in `*Messages'. Errors
+are caught and signalled to user in spacemacs buffer."
   `(progn
      (when ,msg (spacemacs-buffer/message ,msg))
-     (if (fboundp ',func) (,func))))
+     (when (fboundp ',func)
+         (condition-case-unless-debug err
+             (,func)
+           (error (spacemacs-buffer/append
+                   (format "Error in %s: %s\n"
+                           ',(symbol-name func)
+                           (error-message-string err))
+                   t))))))
 
 (defun dotspacemacs//test-dotspacemacs/layers ()
   "Tests for `dotspacemacs/layers'"
