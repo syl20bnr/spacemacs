@@ -408,11 +408,12 @@ are caught and signalled to user in spacemacs buffer."
      (when (fboundp ',func)
          (condition-case-unless-debug err
              (,func)
-           (error (spacemacs-buffer/append
-                   (format "Error in %s: %s\n"
-                           ',(symbol-name func)
-                           (error-message-string err))
-                   t))))))
+           (error
+            (configuration-layer//set-error)
+            (spacemacs-buffer/append (format "Error in %s: %s\n"
+                                             ',(symbol-name func)
+                                             (error-message-string err))
+                                     t))))))
 
 (defun dotspacemacs//test-dotspacemacs/layers ()
   "Tests for `dotspacemacs/layers'"
