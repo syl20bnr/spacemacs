@@ -88,7 +88,7 @@
         (notifications-notify
          :title nick
          :body message
-         :app-icon "/home/io/.emacs.d/assets/spacemacs.svg"
+         :app-icon (concat spacemacs-assets-directory "spacemacs.svg")
          :urgency 'low))
 
       ;; osx doesn't have dbus support
