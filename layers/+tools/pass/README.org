@@ -1,0 +1,13 @@
+#+TITLE: pass contribution layer for Spacemacs
+
+* Description
+
+This layer provides support for [[http://www.passwordstore.org/][pass]], the standard unix password manager.
+
+* Commands
+
+This layer provides the following commands:
+
+- =pass-get-pass= :: Use Helm to select a password, copy the first line (the
+     password) to the clipboard and display the remaining lines in a temporary
+     buffer.
