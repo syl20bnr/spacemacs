@@ -32,6 +32,11 @@ This layer enables  [[http://orgmode.org/][org mode]] for Spacemacs.
 - TODO capture via [[https://github.com/waymondo/org-repo-todo][org-repo-todo]]
 - presentation mode via [[https://github.com/rlister/org-present][org-present]]
 
+Note: Since version 0.105, spacemacs uses the `org` version from the org ELPA
+repository instead of the one shipped with emacs. Then, any `org` related code
+should not be loaded before `dotspacemacs/user-config`, otherwise both versions
+will be loaded and will conflict.
+
 * Install
 
 ** Layer
