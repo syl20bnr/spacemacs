@@ -125,7 +125,7 @@ with `:' and Emacs commands are executed with `<leader> :'.")
 `find-files' (SPC f f) is replaced.")
 
 (defvar dotspacemacs-helm-resize nil
-  "If non nil, `helm' will try to miminimize the space it uses.")
+  "If non nil, `helm' will try to minimize the space it uses.")
 
 (defvar dotspacemacs-helm-no-header nil
   "if non nil, the helm header is hidden when there is only one source.")
