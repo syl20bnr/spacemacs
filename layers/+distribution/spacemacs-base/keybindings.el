@@ -45,6 +45,10 @@
 (global-set-key (kbd "<left-margin> <double-mouse-1>") 'spacemacs/select-current-block)
 (global-set-key (kbd "<left-margin> <drag-mouse-1>") 'spacemacs/mu-select-linum)
 
+;; let TAB jump between links in help buffers
+(evil-define-key 'motion help-mode-map (kbd "TAB") 'forward-button)
+(evil-define-key 'motion help-mode-map (kbd "S-TAB") 'backward-button)
+
 ;; ---------------------------------------------------------------------------
 ;; evil-leader key bindings
 ;; ---------------------------------------------------------------------------
