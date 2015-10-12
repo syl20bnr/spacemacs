@@ -194,7 +194,7 @@ Tree related shorcuts:
 
 | Key Binding | Description       |
 |-------------+-------------------|
-| ~RET~         | org-open-at-point |
+| ~RET~       | org-open-at-point |
 
 *** Org emphasize
 
