@@ -64,19 +64,6 @@
           ;; in structured-haskell-mode line highlighting creates noise
           (setq-local global-hl-line-mode nil)))
 
-      (defun spacemacs/haskell-mode-call-key (KEY)
-        "Call function that is bound to `KEY' in haskell-mode-map."
-        (interactive)
-        (call-interactively (lookup-key haskell-mode-map (kbd KEY))))
-
-      (defun spacemacs/haskell-mode-get-type ()
-        (interactive)
-        (spacemacs/haskell-mode-call-key "C-c C-t"))
-
-      (defun spacemacs/haskell-mode-get-info ()
-        (interactive)
-        (spacemacs/haskell-mode-call-key "C-c C-i"))
-
       ;; hooks
       (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
       (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
@@ -123,8 +110,8 @@
         "mhd"  'inferior-haskell-find-haddock
         "mhh"  'hoogle
         "mhH"  'hoogle-lookup-from-local
-        "mhi"  'spacemacs/haskell-mode-get-info
-        "mht"  'spacemacs/haskell-mode-get-info
+        "mhi"  (lookup-key haskell-mode-map (kbd "C-c C-i"))
+        "mht"  (lookup-key haskell-mode-map (kbd "C-c C-t"))
         "mhT"  'spacemacs/haskell-process-do-type-on-prev-line
         "mhy"  'hayoo
 
