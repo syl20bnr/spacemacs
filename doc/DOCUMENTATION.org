@@ -9,6 +9,9 @@
  - [[#who-can-benefit-from-this][Who can benefit from this?]]
  - [[#update-and-rollback][Update and Rollback]]
    - [[#update-spacemacs-repository][Update Spacemacs repository]]
+      - [[#automatic-updates][Automatic Updates]]
+     - [[#updating-from-the-spacemacs-buffer][Updating from the Spacemacs Buffer]]
+     - [[#updating-manually-with-git][Updating Manually with git]]
    - [[#update-packages][Update packages]]
  - [[#configuration-layers][Configuration layers]]
    - [[#purpose][Purpose]]
@@ -277,6 +280,10 @@ one-page guide]] about how to learn Emacs.
 
 * Update and Rollback
 ** Update Spacemacs repository
+There are several methods of updating the core files and layer information for
+Spacemacs. It is recommended to update the packages first, see the next section.
+
+***  Automatic Updates
 Spacemacs will automatically check for a new version every startup. When it
 detects that a new version is available a arrow will appear in the modeline.
 Click it to update Spacemacs. You must restart Emacs after updating.
@@ -284,7 +291,15 @@ Click it to update Spacemacs. You must restart Emacs after updating.
 Update Button:
 [[file:img/powerline-update.png]]
 
-*Note*: If you use the =develop= branch of Spacemacs, you must update manually.
+*Note*: If you use the =develop= branch of Spacemacs, you must update using git.
+
+*** Updating from the Spacemacs Buffer
+Use the button labeled "Update Spacemacs" in the Spacemacs buffer. You will be
+prompted for the version you would like to use. 
+
+*Note*: If you use the =develop= branch of Spacemacs, you cannot use this method.
+
+*** Updating Manually with git
 
 To update manually close Emacs and update the git repository:
 
@@ -292,15 +307,14 @@ To update manually close Emacs and update the git repository:
   $ git pull --rebase
 #+end_src
 
-*Note*: It is recommended to update the packages first, see the next section.
 
 ** Update packages
-To update Spacemacs press RET (enter) or click on the link =[Update]= in the
-startup page under the banner then restart Emacs.
+To update the Emacs packages used by Spacemacs press RET (enter) or click on the
+link =[Update Packages]= in the startup page under the banner then restart Emacs.
 
-If anything goes wrong you should be able to rollback the update by pressing
-~RET~ or clicking on the =[Rollback]= link next to the =[Update]= link and
-choose a rollback slot (sorted by date).
+If anything goes wrong you should be able to rollback the update by pressing ~RET~
+or clicking on the =[Rollback Package Update]= link next to the =[Update Packages]=
+link and choose a rollback slot (sorted by date).
 
 * Configuration layers
 *Note*: This is a very simple overview of how layers work. A more extensive
@@ -1319,9 +1333,9 @@ The following helm actions are available on packages:
   - default: go the package init function
 
 **** New packages from ELPA repositories
-=package-list-packages= is where you can browse for all available packages in
-the different Elpa repositories. It is possible to upgrade packages from there
-but it is not recommended, use the =[Update]= link on the Spacemacs startup
+=package-list-packages= is where you can browse for all available packages in the
+different Elpa repositories. It is possible to upgrade packages from there but
+it is not recommended, use the =[Update Packages]= link on the Spacemacs startup
 page instead.
 
 Spacemacs uses [[https://github.com/Bruce-Connor/paradox][Paradox]] instead of =package-list-packages= to list available
