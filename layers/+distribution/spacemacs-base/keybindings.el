@@ -188,8 +188,9 @@ Ensure that helm is required before calling FUNC."
   :documentation "Globally highlight the current line."
   :evil-leader "thh")
 (spacemacs|add-toggle truncate-lines
-  :status nil
+  :status truncate-lines
   :on (toggle-truncate-lines)
+  :off (toggle-truncate-lines -1)
   :documentation "Truncate long lines (no wrap)."
   :evil-leader "tl")
 (spacemacs|add-toggle visual-line-navigation
