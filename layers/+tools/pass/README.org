@@ -1,0 +1,25 @@
+#+TITLE Pass contribution layer for Spacemacs
+
+* Table of Contents
+ - [[#description][Description]]
+ - [[#key-bindings][Key Bindings]]
+
+* Description
+
+This layer adds intregration with [[http://www.passwordstore.org/][pass]], the standard unix password manager.
+You must have ~pass~ installed for this layer to function properly.
+
+* Key Bindings
+| Key Bindings | Description                                                          |
+|--------------+----------------------------------------------------------------------|
+| ~SPC P s y~  | copy password (~password-store-copy~)                                |
+| ~SPC P s Y~  | copy and describe password (~pass/password-store-copy-and-describe~) |
+| ~SPC P s ?~  | describe password (~pass/password-store-describe~)                   |
+| ~SPC P s g~  | generate new password (~password-store-generate~)                    |
+| ~SPC P s i~  | insert new password (~password-store-insert~)                        |
+| ~SPC P s c~  | edit password (~password-store-edit~)                                |
+| ~SPC P s r~  | rename password (~password-store-rename~)                            |
+| ~SPC P s d~  | remove from password store (~password-store-remove~)                 |
+| ~SPC P s D~  | clear the password store (~password-store-clear~)                    |
+| ~SPC P s I~  | initialize the password store (~password-store-init~)                |
+| ~SPC P s w~  | open url (~password-store-url~)                                      |
