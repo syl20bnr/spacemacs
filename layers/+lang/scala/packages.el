@@ -161,7 +161,12 @@
 
 (defun scala/init-noflet ())
 
-(defun scala/init-sbt-mode ())
+(defun scala/init-sbt-mode ()
+  (use-package sbt-mode
+    :config
+    (progn
+      (evil-leader/set-key-for-mode 'scala-mode
+        "mbb" 'sbt-command))))
 
 (defun scala/init-scala-mode2 ()
   (use-package scala-mode2
