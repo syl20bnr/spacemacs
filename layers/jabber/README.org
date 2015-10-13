@@ -15,7 +15,7 @@
 This layer adds keybindings for jabber.el. jabber.el is a Jabber (XMPP) client for Emacs
 
 * Install
-To use this contribution layer add it to your `~/.spacemacs`
+To use this contribution layer add it to your =~/.spacemacs=
  #+begin_src emacs-lisp
     (set-default dotspacemacs-configuration-layers '(jabber))
  #+end_src
