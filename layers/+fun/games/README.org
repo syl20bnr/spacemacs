@@ -15,6 +15,7 @@ This layer allows you to play evilified games in spacemacs.
 
 The games available now are:
 - 2048-game
+- Pacmacs (Pacman for Emacs)
 - Tetris
   
 * Install
@@ -47,6 +48,15 @@ Possible helm actions:
 | ~k~         | Move the tiles up    |
 | ~l~         | Move the tiles right |
 
+** Pacmacs
+
+| Key Binding | Description       |
+|-------------+-------------------|
+| ~h~         | Move left  |
+| ~j~         | Move down  |
+| ~k~         | Move up    |
+| ~l~         | Move right |
+|             |                   |
 ** Tetris
 
 | Key Binding | Description                    |
