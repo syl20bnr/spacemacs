@@ -252,9 +252,9 @@ It is even possible to exclude /any/ unwanted packages.
 
 /Terminal (urxvt)/ [[file:img/spacemacs-urxvt.png]]
 
-/Note: Even though screenshots are updated frequently, =Spacemacs= is evolving
+*Note*: Even though screenshots are updated frequently, =Spacemacs= is evolving
 quickly and the screenshots may not reflect exactly the current state of the
-project./
+project.
 
 * Who can benefit from this?
 =Spacemacs= is first intended to be used by *Vim users* who want to go to the
@@ -2019,7 +2019,7 @@ selection.
 
 It is pretty useful combined with the [[#region-selection][expand-region]] bindings.
 
-/Note:/ If the current state is not the =visual state= then pressing ~*~ uses
+*Note*: If the current state is not the =visual state= then pressing ~*~ uses
 [[#auto-highlight-symbols][auto-highlight-symbol]] and its micro-state.
 
 *** Listing symbols by semantic
