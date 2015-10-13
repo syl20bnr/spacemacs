@@ -412,7 +412,7 @@ It effectively makes =Spacemacs= behave like [[https://github.com/gmarik/Vundle.
 There are three types of configuration layers:
   - core (this is the =Spacemacs= layer)
   - private (in the =private= directory, they are ignored by Git)
-  - contrib (in the =contrib= directory, those layers are contributions shared
+  - contrib (in the =layers= directory, those layers are contributions shared
     by the community and merged upstream).
 
 ** Submitting a configuration layer upstream
@@ -421,7 +421,7 @@ contribution guidelines in [[./CONTRIBUTE.org][CONTRIBUTE.org]].
 
 ** Example: Themes Megapack example
 This is a simple =contrib= configuration layer listing a bunch of themes, you
-can find it [[../contrib/themes-megapack][here]].
+can find it [[../layers/themes-megapack][here]].
 
 To install it, just add =themes-megapack= to your =~/.spacemacs= like so:
 
@@ -532,7 +532,7 @@ done by setting the list =dotspacemacs-configuration-layer-path= in your
 
 *** Setting configuration layers variables
 Some configuration layers have configuration variables to enable specific
-support. For instance the [[../contrib/!source-control/git][git layer]] has several configuration variables, they
+support. For instance the [[../layers/%2Bsource-control/git][git layer]] has several configuration variables, they
 can be set directly in the =dotspacemacs-configuration-layers= like this:
 
 #+begin_src emacs-lisp
