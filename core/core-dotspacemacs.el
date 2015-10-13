@@ -361,7 +361,7 @@ value."
   "Load ~/.spacemacs if it exists."
   (let ((dotspacemacs (dotspacemacs/location)))
     (if (file-exists-p dotspacemacs)
-        (unless (ignore-errors (load dotspacemacs))
+        (unless (with-demoted-errors "Error loading .spacemacs: %S" (load dotspacemacs))
           (dotspacemacs/safe-load)))))
 
 (defun dotspacemacs/safe-load ()
