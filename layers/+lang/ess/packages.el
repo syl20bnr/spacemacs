@@ -53,7 +53,8 @@
     :commands (R stata julia SAS)
     :init
     (progn
-      (push '(company-R-args company-R-objects) company-backends-ess-mode)))
+      (when (configuration-layer/package-usedp 'company)
+          (add-hook 'ess-mode-hook 'company-mode-on))))
 
   ;; R --------------------------------------------------------------------------
   (with-eval-after-load 'ess-site
@@ -110,6 +111,3 @@
     (progn
       (add-hook 'ess-mode-hook 'ess-smart-equals-mode)
       (add-hook 'inferior-ess-mode-hook 'ess-smart-equals-mode))))
-
-(defun ess/post-init-company ()
-  (spacemacs|add-company-hook ess-mode))
