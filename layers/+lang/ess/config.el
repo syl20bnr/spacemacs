@@ -12,7 +12,5 @@
 
 ;; Variables
 
-(spacemacs|defvar-company-backends ess-mode)
-
 (defvar ess-enable-smart-equals nil
   "If non-nil smart-equal support is enabled")
