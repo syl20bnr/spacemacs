@@ -40,7 +40,11 @@ sudo pip install wakatime
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
-(setq-default dotspacemacs-configuration-layers '(wakatime))
+  (setq-default dotspacemacs-configuration-layers
+                '((wakatime :variables
+                            wakatime-api-key    "your-api-key"
+                            ;; use the actual wakatime path
+                            wakatime-cli-path   "/usr/bin/wakatime")))
 #+END_SRC
 
 ** API Keys
