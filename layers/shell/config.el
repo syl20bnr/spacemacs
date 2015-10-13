@@ -31,7 +31,7 @@
 (defvar shell-default-height 30
   "Height in percents for the shell window.")
 
-(defvar shell-default-term-shell "/bin/bash"
+(defvar shell-default-term-shell shell-file-name
   "Default shell to use in `term' and `ansi-term' shells.")
 
 (defvar shell-enable-smart-eshell nil
