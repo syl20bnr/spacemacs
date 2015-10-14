@@ -50,6 +50,9 @@
     (progn
       (push 'company-css company-backends-css-mode)
 
+      ;; Mark `css-indent-offset' as safe-local variable
+      (put 'css-indent-offset 'safe-local-variable #'integerp)
+
       (defun css-expand-statement ()
         "Expand CSS block"
         (interactive)
