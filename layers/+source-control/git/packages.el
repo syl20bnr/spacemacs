@@ -111,6 +111,7 @@
 
       (evil-leader/set-key
         "gb" 'magit-blame
+        "gB" 'magit-blame-quit
         "gl" 'magit-log-all
         "gL" 'magit-log-buffer-file
         "gs" 'magit-status
