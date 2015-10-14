@@ -27,7 +27,7 @@ CoreLocation services.
 To enable this contribution layer, add it to your =~/.spacemacs=~ like this:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(location))
+  (setq-default dotspacemacs-configuration-layers '(geolocation))
 #+END_SRC
 
 All services are disable by default. To enable all, or some of them, add instead
