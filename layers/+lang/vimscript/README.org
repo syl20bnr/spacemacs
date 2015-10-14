@@ -1,4 +1,4 @@
-#+TITLE: Vim language contribution layer for Spacemacs
+#+TITLE: Vimscript language contribution layer for Spacemacs
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
@@ -14,5 +14,5 @@ the pentadactyl firefox extension.
 To use this contribution layer add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
-(set-default dotspacemacs-configuration-layers '(vim))
+(set-default dotspacemacs-configuration-layers '(vimscript))
 #+END_SRC
