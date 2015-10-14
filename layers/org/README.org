@@ -11,10 +11,12 @@
    - [[#gnuplot-support][Gnuplot support]]
    - [[#different-bullets][Different bullets]]
  - [[#key-bindings][Key bindings]]
-   - [[#org-with-evil-org-mode][Org with evil-org-mode]]
+   - [[#org][Org]]
+     - [[#tables][Tables]]
+     - [[#tree-][Tree ]]
      - [[#element-insertion][Element insertion]]
      - [[#links][Links]]
-     - [[#org-emphasize][Org emphasize]]
+     - [[#emphasis][Emphasis]]
      - [[#tagging][Tagging]]
    - [[#pomodoro][Pomodoro]]
    - [[#presentation][Presentation]]
@@ -72,9 +74,7 @@ You can tweak the bullets displayed in the org buffer in the function
 #+END_SRC
 
 * Key bindings
-
-** Org with evil-org-mode
-
+** Org
 | Key Binding                                  | Description                                  |
 |----------------------------------------------+----------------------------------------------|
 | ~SPC m '~                                    | org-edit-special                             |
@@ -107,9 +107,7 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m C-S-k~                                | org-shiftcontrolup                           |
 | ~SPC s l~                                    | spacemacs/jump-in-buffer (jump to a heading) |
 
-
-Table-related shortcuts:
-
+*** Tables
 | Key Binding   | Description                                                                |
 |---------------+----------------------------------------------------------------------------|
 | ~SPC m t a~   | Align the table at point by aligning all vertical bars                     |
@@ -140,15 +138,13 @@ Table-related shortcuts:
 | ~SPC m t t o~ | Toggle the display of Row/Column numbers in tables                         |
 | ~SPC m t w~   | Wrap several fields in a column like a paragraph                           |
 
-Tree related shorcuts: 
-
+*** Tree 
 | Key Binding | Description           |
 |-------------+-----------------------|
 | ~SPC m S l~ | org-demote-subtree    |
 | ~SPC m S h~ | org-promote-subtree   |
 | ~SPC m S k~ | org-move-subtree-up   |
 | ~SPC m S j~ | org-move-subtree-down |
-
 
 | Key Binding | Description                     |
 |-------------+---------------------------------|
@@ -182,7 +178,6 @@ Tree related shorcuts:
 | ~M-t~       | org-insert-todo-heading nil+ org-metaright |
 
 *** Element insertion
-
 | Key Binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC m h i~ | org-insert-heading-after-current |
@@ -191,13 +186,11 @@ Tree related shorcuts:
 | ~SPC m i l~ | org-insert-link                  |
 
 *** Links
-
 | Key Binding | Description       |
 |-------------+-------------------|
 | ~RET~       | org-open-at-point |
 
-*** Org emphasize
-
+*** Emphasis
 | Key Binding | Description                |
 |-------------+----------------------------|
 | ~SPC m x b~ | make region bold           |
@@ -209,19 +202,16 @@ Tree related shorcuts:
 | ~SPC m x v~ | make region verbose        |
 
 *** Tagging
-
 | Key Binding | Description  |
 |-------------+--------------|
 | ~SPC m :~   | org-set-tags |
 
 ** Pomodoro
-
 | Key Binding | Description       |
 |-------------+-------------------|
 | ~SPC m p~   | starts a pomodoro |
 
 ** Presentation
-
 org-present must be activated explicitly by typing: ~SPC : org-present~
 
 | Key Binding | Description    |
@@ -231,7 +221,6 @@ org-present must be activated explicitly by typing: ~SPC : org-present~
 | ~q~         | quit           |
 
 ** Org-repo-todo
-
 | Key Binding | Description           |
 |-------------+-----------------------|
 | ~SPC C c~   | org-capture           |
@@ -240,8 +229,7 @@ org-present must be activated explicitly by typing: ~SPC : org-present~
 | ~SPC m g t~ | ort/goto-todos        |
 
 ** Org-MIME
-
-| Key Binding | Description                                        |
-|-------------+----------------------------------------------------|
-| ~SPC m M~   | in =message-mode= buffersm convert into html email |
-| ~SPC m m~   | send current buffer as HTML email message          |
+| Key Binding | Description                                       |
+|-------------+---------------------------------------------------|
+| ~SPC m M~   | in =message-mode= buffers convert into html email |
+| ~SPC m m~   | send current buffer as HTML email message         |
