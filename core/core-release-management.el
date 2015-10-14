@@ -78,10 +78,11 @@ found."
       (message "Skipping check for new version because you are on develop.")
     (message "Start checking for new version...")
     (async-start
-     (lambda ()
-       (load-file (concat user-emacs-directory "core/core-load-paths.el"))
-       (require 'core-spacemacs)
-       (spacemacs/get-last-version))
+     `(lambda ()
+        ,(async-inject-variables "\\`user-emacs-directory\\'")
+        (load-file (concat user-emacs-directory "core/core-load-paths.el"))
+        (require 'core-spacemacs)
+        (spacemacs/get-last-version))
      (lambda (result)
        (if result
            (if (or (version< result spacemacs-version)
