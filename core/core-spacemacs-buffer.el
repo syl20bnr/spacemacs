@@ -445,18 +445,25 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
                  "https://gitter.im/syl20bnr/spacemacs")
   (insert " ")
   (widget-create 'push-button
+                 :help-echo "Update Spacemacs core and layers."
+                 :action (lambda (&rest ignore) (spacemacs/switch-to-version))
+                 :mouse-face 'highlight
+                 :follow-link "\C-m"
+                 (propertize "Update Spacemacs" 'face 'font-lock-keyword-face))
+  (insert "\n               ")
+  (widget-create 'push-button
                  :help-echo "Update all ELPA packages to the latest versions."
                  :action (lambda (&rest ignore) (configuration-layer/update-packages))
                  :mouse-face 'highlight
                  :follow-link "\C-m"
-                 (propertize "Update" 'face 'font-lock-keyword-face))
+                 (propertize "Update Packages" 'face 'font-lock-keyword-face))
   (insert " ")
   (widget-create 'push-button
-                 :help-echo "Rollback ELPA package upgrades if something got borked."
+                 :help-echo "Rollback ELPA package updates if something got borked."
                  :action (lambda (&rest ignore) (call-interactively 'configuration-layer/rollback))
                  :mouse-face 'highlight
                  :follow-link "\C-m"
-                 (propertize "Rollback" 'face 'font-lock-keyword-face))
+                 (propertize "Rollback Package Update" 'face 'font-lock-keyword-face))
   (insert "\n")
   (insert "                  ")
   (widget-create 'push-button
