@@ -64,11 +64,19 @@
           ess-expression-offset 2
           ess-nuke-trailing-whitespace-p t
           ess-default-style 'DEFAULT)
+
+    (defun spacemacs/ess-start-repl ()
+      "Start a REPL corresponding to the ess-language of the current buffer."
+      (interactive)
+      (cond
+       ((string= "S" ess-language) (call-interactively 'R))
+       ((string= "STA" ess-language) (call-interactively 'stata))
+       ((string= "SAS" ess-language) (call-interactively 'SAS))))
+
+    (evil-leader/set-key-for-mode 'ess-julia-mode
+      "msi" 'julia)
     (evil-leader/set-key-for-mode 'ess-mode
-      "msir" 'R
-      "msis" 'stata
-      "msiS" 'SAS
-      "msij" 'julia
+      "msi" 'spacemacs/ess-start-repl
       ;; noweb
       "mcC" 'ess-eval-chunk-and-go
       "mcc" 'ess-eval-chunk
@@ -76,10 +84,6 @@
       "mcm" 'ess-noweb-mark-chunk
       "mcN" 'ess-noweb-previous-chunk
       "mcn" 'ess-noweb-next-chunk
-      ;; helpers
-      "mhd" 'ess-R-dv-pprint
-      "mhi" 'ess-R-object-popup
-      "mht" 'ess-R-dv-ctable
       ;; REPL
       "msB" 'ess-eval-buffer-and-go
       "msb" 'ess-eval-buffer
@@ -91,6 +95,10 @@
       "msr" 'ess-eval-region
       "msT" 'ess-eval-function-and-go
       "mst" 'ess-eval-function
+      ;; R helpers
+      "mhd" 'ess-R-dv-pprint
+      "mhi" 'ess-R-object-popup
+      "mht" 'ess-R-dv-ctable
       )
     (define-key ess-mode-map (kbd "<s-return>") 'ess-eval-line)
     (define-key inferior-ess-mode-map (kbd "C-j") 'comint-next-input)

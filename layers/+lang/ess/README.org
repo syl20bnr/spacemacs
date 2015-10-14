@@ -19,15 +19,7 @@ To use this contribution add it to your =~/.spacemacs=
 * Key Bindings
 
 ** Inferior REPL process
-Start an inferior REPL process with these commands:
-| Keybinding | Description         |
-|------------+---------------------|
-| ~SCP msir~ | start R process     |
-| ~SPC msis~ | start Stata process |
-| ~SPC msiS~ | start SAS process   |
-| ~SPC msij~ | start Julia process |
-
-Send code to inferior process commands:
+Send code to inferior process with these commands:
 
 | Key Binding | Description                                                      |
 |-------------+------------------------------------------------------------------|
@@ -52,7 +44,7 @@ Send code to inferior process commands:
 | ~CTRL+k~    | previous item in REPL history                                    |
 
 ** Helpers
-
+Helpers for inspecting objects at point are available in R buffers only.
 | Key Binding | Description                                                         |
 |-------------+---------------------------------------------------------------------|
 | ~SPC m h d~ | view data under point using [ess-R-data-view][ess-R-data-view]      |
