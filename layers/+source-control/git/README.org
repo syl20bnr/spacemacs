@@ -106,6 +106,7 @@ Git commands (start with ~g~):
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
 | ~SPC g b~   | open a =magit= blame                                |
+| ~SPC g B~   | quit =magit= blame                                  |
 | ~SPC g C~   | commit changes                                      |
 | ~SPC g d~   | show diff against current head                      |
 | ~SPC g h c~ | clear highlights                                    |
