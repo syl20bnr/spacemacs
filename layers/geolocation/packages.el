@@ -27,7 +27,7 @@
                 (lambda ()
                   (setq calendar-latitude osx-location-latitude
                         calendar-longitude osx-location-longitude)
-                  (unless calendar-location-name
+                  (unless (bound-and-true-p calendar-location-name)
                     (setq calendar-location-name
                           (format "%s, %s"
                                   osx-location-latitude
