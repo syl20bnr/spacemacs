@@ -156,8 +156,10 @@
       ;; Don't use scala checker if ensime mode is active, since it provides
       ;; better error checking.
       (with-eval-after-load 'flycheck
-        (defun scala/disable-flycheck () (flycheck-mode -1))
-        (add-hook 'ensime-mode-hook 'scala/disable-flycheck)))))
+        (defun scala/disable-flycheck-scala ()
+          (push 'scala flycheck-disabled-checkers))
+
+        (add-hook 'ensime-mode-hook 'scala/disable-flycheck-scala)))))
 
 (defun scala/init-noflet ())
 
