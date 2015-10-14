@@ -1,6 +1,7 @@
 (setq osx-packages
       '(
         exec-path-from-shell
+        osx-location
         osx-trash
         pbcopy
         launchctl
@@ -23,6 +24,30 @@
       (when gls
         (setq insert-directory-program gls
               dired-listing-switches "-aBhl --group-directories-first")))))
+
+(defun osx/init-osx-location ()
+  "Initialize osx-location"
+  (use-package osx-location
+    :if osx-enable-location-services
+    :defer t
+    :init
+    (progn
+      (add-hook 'osx-location-changed-hook
+                (lambda ()
+                  (let ((location-changed-p nil)
+                        (_longitude (/ (truncate (* osx-location-longitude 10)) 10.0)) ; one decimal point, no rounding
+                        (_latitdue (/ (truncate (* osx-location-latitude 10)) 10.0)))
+                    (unless (equal calendar-longitude _longitude)
+                      (setq calendar-longitude _longitude
+                            location-changed-p t))
+                    (unless (equal calendar-latitude _latitdue)
+                      (setq calendar-latitude _latitdue
+                            location-changed-p t))
+                    (when (and (configuration-layer/layer-usedp 'geolocation) location-changed-p)
+                      (message "Location changed %s %s (restarting rase-timer)" calendar-latitude calendar-longitude)
+                      (rase-start t)
+                      ))))
+      (osx-location-watch))))
 
 (defun osx/init-osx-trash ()
   (use-package osx-trash

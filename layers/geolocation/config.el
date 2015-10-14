@@ -1,20 +1,17 @@
 ;;; config.el --- geolocation configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
-;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
+;; Copyright (c) 2014-2015 Uri Sharf & Contributors
 ;;
-;; Author: Sylvain Benner <sylvain.benner@gmail.com>
-;; URL: https://github.com/syl20bnr/spacemacs
+;; Author: Uri Sharf <uri.sharf@me.com>
+;; URL: https://github.com/usharf/spacemacs
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
 
-(defvar geolocation-enable-osx-location-service-support nil
-  "If non nil enable the OS X location service support.")
-
 (defvar geolocation-enable-weather-forecast nil
   "If non nil enable the weather forecast service.")
 
-(defvar geolocation-enable-automatic-theme-changer nil
-  "If non nil enable the automatic change of theme based on the current time.")
+(defvar geolocation-enable-theme-changer nil
+  "If non nil, enable the automatic change of theme based on sunset/sunrise in current location.")
