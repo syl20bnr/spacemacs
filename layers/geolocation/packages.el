@@ -15,6 +15,7 @@
       osx-location
       sunshine
       theme-changer
+      popwin
       ))
 
 (defun geolocation/init-osx-location ()
@@ -66,3 +67,8 @@
       (when (> (length dotspacemacs-themes) 1)
         (change-theme (nth 0 dotspacemacs-themes)
                       (nth 1 dotspacemacs-themes))))))
+
+(defun geolocation/post-init-popwin ()
+  ;; Pin the weather forecast to the bottom window
+  (push '("*Sunshine*" :dedicated t :position bottom)
+        popwin:special-display-config))
