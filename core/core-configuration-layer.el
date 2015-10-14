@@ -822,7 +822,7 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
   (interactive "P")
   (spacemacs-buffer/insert-page-break)
   (spacemacs-buffer/append
-   "\nUpdating Spacemacs... (for now only ELPA packages are updated)\n")
+   "\nUpdating Emacs packages from remote repositories (ELPA, MELPA, etc.)... \n")
   (spacemacs-buffer/append
    "--> fetching new package repository indexes...\n")
   (spacemacs//redisplay)
