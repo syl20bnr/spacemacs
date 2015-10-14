@@ -1,6 +1,1 @@
-1. Org
-
-Spacemacs now uses the `org` version from the org ELPA repository instead of the
-one shipped with emacs. Then, any `org` related code should not be loaded before
-`dotspacemacs/user-config`, otherwise both versions will be loaded and will
-conflict.
+Nothing for now.
