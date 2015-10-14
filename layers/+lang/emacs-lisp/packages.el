@@ -61,6 +61,27 @@
           "mhh" 'elisp-slime-nav-describe-elisp-thing-at-point)))))
 
 (defun emacs-lisp/init-emacs-lisp ()
+
+  (defun spacemacs//warn-on-old-byte-compiled-file ()
+    "Warn if it's emacs-lisp-mode and compiled file exists and is
+older than the current file."
+    (when (and (file-exists-p (byte-compile-dest-file buffer-file-name))
+               (file-newer-than-file-p
+                (buffer-file-name)
+                (byte-compile-dest-file buffer-file-name)))
+      (message "warning: There is an older byte-compiled version of this file")))
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (add-hook 'after-save-hook 'spacemacs//warn-on-old-byte-compiled-file nil t)))
+
+  (defun spacemacs/save-and-maybe-compile-elisp ()
+    "Save the file and byte-compile it if a byte-compiled version exists."
+    (interactive)
+    (call-interactively 'spacemacs/write-file)
+    (when (and (eq major-mode 'emacs-lisp-mode)
+               (file-exists-p (byte-compile-dest-file buffer-file-name)))
+      (byte-compile-file buffer-file-name)))
+
   (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
     (spacemacs/declare-prefix-for-mode mode "me" "eval")
     (spacemacs/declare-prefix-for-mode mode "mt" "tests")
@@ -71,6 +92,7 @@
       "mer" 'eval-region
       "mef" 'eval-defun
       "mel" 'lisp-state-eval-sexp-end-of-line
+      "mfs" 'spacemacs/save-and-maybe-compile-elisp
       "m,"  'lisp-state-toggle-lisp-state
       "mtb" 'spacemacs/ert-run-tests-buffer
       "mtq" 'ert))
