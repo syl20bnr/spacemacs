@@ -27,6 +27,7 @@
         fill-column-indicator
         helm
         helm-descbinds
+        helm-flx
         helm-projectile
         (helm-spacemacs :location local)
         (hs-minor-mode :location built-in)
@@ -850,6 +851,13 @@ ARG non nil means that the editing style is `vim'."
 
       (with-eval-after-load 'helm-mode ; required
         (spacemacs|hide-lighter helm-mode)))))
+
+(defun spacemacs-base/init-helm-flx ()
+  (use-package helm-flx
+    :defer t)
+  (spacemacs|use-package-add-hook helm
+    :pre-config
+    (helm-flx-mode)))
 
 (defun spacemacs-base/init-helm-descbinds ()
   (use-package helm-descbinds
