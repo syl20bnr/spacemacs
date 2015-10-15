@@ -21,7 +21,6 @@
     :defer t
     :init
     (progn
-      (spacemacs/add-flyspell-hook 'markdown-mode)
       (spacemacs/add-flyspell-hook 'org-mode)
       (spacemacs/add-flyspell-hook 'text-mode)
       (when spell-checking-enable-by-default
