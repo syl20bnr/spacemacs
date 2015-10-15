@@ -1462,9 +1462,7 @@ It will toggle the overlay under point or create an overlay of one character."
     (evil-leader/set-key "tr" 'linum-relative-toggle)
     :config
     (progn
-      (setq linum-format 'linum-relative)
-      (setq linum-relative-current-symbol "")
-      (linum-relative-toggle))))
+      (setq linum-relative-current-symbol ""))))
 
 (defun spacemacs/init-move-text ()
   (use-package move-text
