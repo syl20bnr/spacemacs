@@ -12,6 +12,7 @@
 
 (setq emacs-lisp-packages
       '(
+        auto-compile
         company
         eldoc
         elisp-slime-nav
@@ -46,6 +47,22 @@
 (defun emacs-lisp/post-init-eldoc ()
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode))
 
+(defun emacs-lisp/init-auto-compile ()
+  (use-package auto-compile
+    :defer t
+    :diminish (auto-compile-mode . "")
+    :init
+    (progn
+      (setq auto-compile-display-buffer nil
+            ;; lets spaceline manage the mode-line
+            auto-compile-use-mode-line nil
+            auto-compile-mode-line-counter t)
+      (add-hook 'emacs-lisp-mode-hook 'auto-compile-mode))
+    :config
+    (progn
+      (evil-leader/set-key-for-mode 'emacs-lisp-mode
+        "mcl" 'auto-compile-display-log))))
+
 (defun emacs-lisp/init-elisp-slime-nav ()
   ;; Elisp go-to-definition with M-. and back again with M-,
   (use-package elisp-slime-nav
@@ -62,9 +79,11 @@
 
 (defun emacs-lisp/init-emacs-lisp ()
   (dolist (mode '(emacs-lisp-mode lisp-interaction-mode))
+    (spacemacs/declare-prefix-for-mode mode "mc" "compile")
     (spacemacs/declare-prefix-for-mode mode "me" "eval")
     (spacemacs/declare-prefix-for-mode mode "mt" "tests")
     (evil-leader/set-key-for-mode mode
+      "mcc" 'emacs-lisp-byte-compile
       "me$" 'lisp-state-eval-sexp-end-of-line
       "meb" 'eval-buffer
       "mee" 'eval-last-sexp
