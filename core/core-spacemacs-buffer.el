@@ -158,7 +158,7 @@ TAG-STRING is the label of the button for additional action.
 HELP-STRING is the help message of the button for additional action."
   (save-excursion
     (beginning-of-buffer)
-    (search-forward "Spacemacs\]")
+    (search-forward "Search in Spacemacs\]")
     (next-line)
     (let* ((note (concat "\n" (spacemacs//render-framed-text file
                                                              spacemacs-buffer--banner-length
