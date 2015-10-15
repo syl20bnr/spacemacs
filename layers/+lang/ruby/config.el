@@ -13,6 +13,12 @@
 ;; Variables
 
 (spacemacs|defvar-company-backends enh-ruby-mode)
+(spacemacs|defvar-company-backends ruby-mode)
+
+(defvar ruby-use-built-in-ruby-mode nil
+  "If non-nil, use built-in Ruby Mode.
+
+Otherwise use Enh Ruby Mode, which is the default.")
 
 (defvar ruby-version-manager nil
   "If non nil defines the Ruby version manager (i.e. rbenv, rvm)")
