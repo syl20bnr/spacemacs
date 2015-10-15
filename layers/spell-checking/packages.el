@@ -24,6 +24,9 @@
       (spacemacs/add-flyspell-hook 'markdown-mode)
       (spacemacs/add-flyspell-hook 'org-mode)
       (spacemacs/add-flyspell-hook 'text-mode)
+      (when spell-checking-enable-by-default
+        (add-hook 'prog-mode-hook 'flyspell-prog-mode))
+
       (spacemacs|add-toggle spelling-checking
         :status flyspell-mode
         :on (flyspell-mode)
@@ -31,14 +34,12 @@
         :documentation
         "Enable automatic spell checking."
         :evil-leader "tS")
+
       (evil-leader/set-key
         "Sd" 'ispell-change-dictionary
         "Sn" 'flyspell-goto-next-error))
     :config
-    (progn
-      (when spell-checking-enable-by-default
-        (flyspell-prog-mode))
-      (spacemacs|diminish flyspell-mode " Ⓢ" " S"))))
+    (spacemacs|diminish flyspell-mode " Ⓢ" " S")))
 
 (defun spell-checking/init-helm-flyspell ()
   (use-package helm-flyspell
