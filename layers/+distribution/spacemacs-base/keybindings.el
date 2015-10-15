@@ -134,6 +134,9 @@ Ensure that helm is required before calling FUNC."
   "fR" 'spacemacs/rename-current-buffer-file
   "fS" 'evil-write-all
   "fs" 'spacemacs/write-file
+  "fvd" 'add-dir-local-variable
+  "fvf" 'add-file-local-variable
+  "fvp" 'add-file-local-variable-prop-line
   "fy" 'spacemacs/show-and-copy-buffer-filename)
 ;; insert stuff ---------------------------------------------------------------
 (evil-leader/set-key

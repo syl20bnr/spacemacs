@@ -1616,6 +1616,9 @@ Files manipulation commands (start with ~f~):
 | ~SPC f S~   | save all files                                                 |
 | ~SPC f r~   | open a recent file with =helm=                                 |
 | ~SPC f t~   | toggle file tree side bar using [[https://github.com/jaypei/emacs-neotree][NeoTree]]                        |
+| ~SPC f v d~ | add a directory variable                                       |
+| ~SPC f v f~ | add a local variable to the current file                       |
+| ~SPC f v p~ | add a local variable to the first line of the current file     |
 | ~SPC f y~   | show current file absolute path in the minibuffer              |
 
 **** Emacs and Spacemacs files
