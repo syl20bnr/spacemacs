@@ -405,10 +405,8 @@ argument takes the kindows rotate backwards."
   (delete-other-windows)
   (split-window-right))
 
-(defun spacemacs/home ()
-  "Go to home Spacemacs buffer"
-  (interactive)
-  (switch-to-buffer "*spacemacs*"))
+(defalias 'spacemacs/home 'spacemacs-buffer/goto-buffer
+  "Go to home Spacemacs buffer")
 
 (defun spacemacs/insert-line-above-no-indent (count)
   (interactive "p")
