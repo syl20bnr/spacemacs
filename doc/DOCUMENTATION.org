@@ -196,8 +196,8 @@ If you are looking for commands to operate on your buffer, they are right under
 ~SPC b~, if you want to operate on your project, then it is ~SPC p~, etc...
 
 ** Discoverable
-Spacemacs comes with a dedicated major mode =spacemacs-mode=. Its goal is to
-give useful feedbacks and easily perform maintenance tasks.
+Spacemacs comes with a dedicated major mode =spacemacs-buffer-mode=. Its goal is
+to give useful feedbacks and easily perform maintenance tasks.
 
 It also comes with dedicated [[https://github.com/emacs-helm/helm][helm]] sources to quickly find layers, packages and
 more.
