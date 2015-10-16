@@ -1,4 +1,4 @@
-#+TITLE: TypeScript contribution layer for Spacemacs
+#+TITLE: TypeScript Interactive Development Environment for Emacs
 
 [[file:img/TypeScript.png]]
 
@@ -6,41 +6,44 @@
  - [[#description][Description]]
  - [[#install][Install]]
      - [[#layer][Layer]]
-     - [[#prerequisites][Prerequisites]]
+     - [[#notes][Notes]]
  - [[#key-bindings][Key bindings]]
 
 * Description
 
-This layer adds support for TypeScript editing via [[https://github.com/clausreinke/typescript-tools][typescript-tools]] and
-[[https://github.com/aki2o/emacs-tss][emacs-tss]].
+This layer adds support for TypeScript editing via [[https://github.com/ananthakumaran/tide][tide]].
 
 This layer provides:
-- syntax coloring
-- error highlighting
-- auto-completion via Flymake
-- jump-to-definition
+- ElDoc
+- Auto complete
+- Flycheck
+- Jump to definition, Jump to type definition
+- Find occurrences
+- Rename symbol
+- Imenu
 
 * Install
 
 ** Layer
 
-To use this contribution add it to your =~/.spacemacs=
+You'll need typescript
+
+#+BEGIN_SRC sh
+  $ npm install -g typescript
+#+END_SRC
+
+then add this layer to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers '(typescript))
 #+END_SRC
 
-** Prerequisites
+** Notes
 
-You'll need [[https://github.com/clausreinke/typescript-tools][typescript-tools]] and fairly obviously also the TypeScript
-compiler:
+Make sure to add [[https://github.com/Microsoft/TypeScript/wiki/tsconfig.json][tsconfig.json]] in the project root folder.
 
-#+BEGIN_SRC sh
-  $ npm install typescript
-  $ git clone git://github.com/clausreinke/typescript-tools.git
-  $ cd typescript-tools/
-  $ npm install -g
-#+END_SRC
+tsserver mangles output sometimes [[https://github.com/Microsoft/TypeScript/issues/2758][issue - #2758]], which will result in json parse error. Try node version 0.12.x if you get this error
+
 
 * Key bindings
 
@@ -48,3 +51,4 @@ compiler:
 |-------------+----------------------------------|
 | ~SPC m g g~ | Jump to definition               |
 | ~SPC m h h~ | Show popup help (with type info) |
+| ~SPC m r r~ | Rename Symbol                    |
