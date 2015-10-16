@@ -30,6 +30,30 @@ version the release note it displayed")
 (defvar spacemacs-buffer--previous-insert-type nil
   "Previous type of note inserted.")
 
+(defvar spacemacs-buffer-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [tab] 'widget-forward)
+    (define-key map (kbd "C-i") 'widget-forward)
+    (define-key map [backtab] 'widget-backward)
+    (define-key map (kbd "RET") 'widget-button-press)
+    (define-key map [down-mouse-1] 'widget-button-click)
+    map)
+  "Keymap for spacemacs buffer mode.")
+
+(define-derived-mode spacemacs-buffer-mode special-mode "Spacemacs buffer"
+  "Spacemacs major mode for startup screen.
+
+\\<spacemacs-buffer-mode-map>
+"
+  :group 'spacemacs
+  :syntax-table nil
+  :abbrev-table nil
+  (setq truncate-lines t)
+  ;; needed to make tab work correctly in terminal
+  (evil-define-key 'motion spacemacs-buffer-mode-map (kbd "C-i") 'widget-forward)
+  ;; motion state since this is a special mode
+  (add-to-list 'evil-motion-state-modes 'spacemacs-buffer-mode))
+
 (defun spacemacs-buffer/insert-banner-and-buttons ()
   "Choose a banner according to `dotspacemacs-startup-banner'and insert it
 in spacemacs buffer along with quick buttons underneath.
@@ -398,13 +422,13 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
       (spacemacs//redisplay))))
 
 (defmacro spacemacs//insert--shortcut (shortcut-char search-label &optional no-next-line)
-  `(define-key spacemacs-mode-map ,shortcut-char (lambda ()
-                                                   (interactive)
-                                                   (unless (search-forward ,search-label (point-max) t)
-                                                     (search-backward ,search-label (point-min) t))
-                                                   ,@(unless no-next-line
-                                                       '((forward-line 1)))
-                                                   (back-to-indentation))))
+  `(define-key spacemacs-buffer-mode-map ,shortcut-char (lambda ()
+                                                          (interactive)
+                                                          (unless (search-forward ,search-label (point-max) t)
+                                                            (search-backward ,search-label (point-min) t))
+                                                          ,@(unless no-next-line
+                                                              '((forward-line 1)))
+                                                          (back-to-indentation))))
 
 (defun spacemacs-buffer//insert-buttons ()
   (goto-char (point-max))
@@ -550,7 +574,7 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
     (widget-forward 1)))
 
 (defun spacemacs-buffer/goto-buffer ()
-  "Create the special buffer for `spacemacs-mode' if it doesn't
+  "Create the special buffer for `spacemacs-buffer-mode' if it doesn't
 already exist, and switch to it."
   (interactive)
   (unless (buffer-live-p (get-buffer spacemacs-buffer-name))

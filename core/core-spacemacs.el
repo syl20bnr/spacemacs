@@ -42,29 +42,8 @@
   (/ spacemacs-loading-dots-count spacemacs-loading-dots-chunk-count))
 (defvar spacemacs-loading-dots-chunk-threshold 0)
 
-(defvar spacemacs-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "<tab>") 'widget-forward)
-    (define-key map (kbd "<return>") 'widget-button-press)
-    (define-key map [backtab] 'widget-backward)
-    (define-key map [down-mouse-1] 'widget-button-click)
-    map)
-  "Keymap for spacemacs mode.")
-
 (defvar spacemacs--default-mode-line mode-line-format
   "Backup of default mode line format.")
-
-(define-derived-mode spacemacs-mode special-mode "Spacemacs"
-  "Spacemacs major mode for startup screen.
-
-\\<spacemacs-mode-map>
-"
-  :group 'spacemacs
-  :syntax-table nil
-  :abbrev-table nil
-  (setq truncate-lines t)
-  ;; motion state since this is a special mode
-  (add-to-list 'evil-motion-state-modes 'spacemacs-mode))
 
 (defun spacemacs/init ()
   "Perform startup initialization."
