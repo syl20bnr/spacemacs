@@ -51,7 +51,8 @@
         use-package
         which-key
         whitespace
-        winner))
+        winner
+        ws-butler))
 
 ;; Initialization of packages
 
@@ -1466,6 +1467,14 @@ ARG non nil means that the editing style is `vim'."
                           :background nil)
       (spacemacs|diminish whitespace-mode " ⓦ" " w")
       (spacemacs|diminish global-whitespace-mode " Ⓦ" " W"))))
+
+(defun spacemacs-base/init-ws-butler ()
+  (use-package ws-butler
+    :if (eq 'changed dotspacemacs-whitespace-cleanup)
+    :config
+    (progn
+      (ws-butler-global-mode 1)
+      (spacemacs|hide-lighter ws-butler-mode))))
 
 (defun spacemacs-base/init-winner ()
   (use-package winner
