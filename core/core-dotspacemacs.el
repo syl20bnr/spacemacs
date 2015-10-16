@@ -202,6 +202,13 @@ it reaches the top or bottom of the screen.")
   `current', `all' or `nil'. Default is `all' (highlight any scope and
   emphasis the current one.")
 
+
+(defvar dotspacemacs-whitespace-cleanup 'changed
+  "Delete whitespace while saving buffer.
+
+Possible values are `all', `trailing', `changed' or `nil'.
+Default is `changed' (cleanup whitespace on changed lines)")
+
 (defvar dotspacemacs-delete-orphan-packages t
   "If non-nil spacemacs will delete any orphan packages, i.e. packages that are
 declared in a layer which is not a member of
