@@ -549,4 +549,40 @@ HPADDING is the horizontal spacing betwee the content line and the frame border.
     (beginning-of-line)
     (widget-forward 1)))
 
+(defun spacemacs-buffer/goto-buffer ()
+  "Create the special buffer for `spacemacs-mode' if it doesn't
+already exist, and switch to it."
+  (interactive)
+  (unless (buffer-live-p (get-buffer spacemacs-buffer-name))
+    (with-current-buffer (get-buffer-create spacemacs-buffer-name)
+      (save-excursion
+        (spacemacs-buffer/set-mode-line "")
+        ;; needed in case the buffer was deleted and we are recreating it
+        (setq spacemacs-buffer--note-widgets nil)
+        (spacemacs-buffer/insert-banner-and-buttons)
+        ;; non-nil if emacs is loaded
+        (if after-init-time
+            (progn
+              (when dotspacemacs-startup-lists
+                (spacemacs-buffer/insert-startupify-lists))
+              (spacemacs-buffer/set-mode-line spacemacs--default-mode-line)
+              (force-mode-line-update)
+              (spacemacs-buffer-mode))
+          (add-hook 'emacs-startup-hook
+                    (lambda ()
+                      (with-current-buffer (get-buffer-create spacemacs-buffer-name)
+                        (when dotspacemacs-startup-lists
+                          (spacemacs-buffer/insert-startupify-lists))
+                        (if configuration-layer-error-count
+                            (spacemacs-buffer/set-mode-line
+                             (format (concat "%s error(s) at startup! "
+                                             "Spacemacs may not be able to operate properly.")
+                                     configuration-layer-error-count))
+                          (spacemacs-buffer/set-mode-line spacemacs--default-mode-line))
+                        (force-mode-line-update)
+                        (spacemacs-buffer-mode)
+                        (spacemacs-buffer/goto-link-line))))))))
+  (spacemacs-buffer/goto-link-line)
+  (switch-to-buffer spacemacs-buffer-name))
+
 (provide 'core-spacemacs-buffer)
