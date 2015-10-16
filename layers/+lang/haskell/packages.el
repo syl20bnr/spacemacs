@@ -85,6 +85,13 @@
        ;; Disable haskell-stylish on save, it breaks flycheck highlighting
        haskell-stylish-on-save nil)
 
+      ;; prefixes
+      (spacemacs/declare-prefix-for-mode 'haskell-mode "mg" "haskell/navigation")
+      (spacemacs/declare-prefix-for-mode 'haskell-mode "ms" "haskell/repl")
+      (spacemacs/declare-prefix-for-mode 'haskell-mode "mc" "haskell/cabal")
+      (spacemacs/declare-prefix-for-mode 'haskell-mode "mh" "haskell/documentation")
+      (spacemacs/declare-prefix-for-mode 'haskell-mode "md" "haskell/debug")
+
       ;; key bindings
       (defun spacemacs/haskell-process-do-type-on-prev-line ()
         (interactive)
