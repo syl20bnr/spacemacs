@@ -2,26 +2,23 @@
 
 * Table of Contents  :TOC@4:
  - [[#description][Description]]
-   - [[#supported-packages-in-this-layer][Supported packages in this layer]]
+   - [[#supported-services-in-this-layer][Supported services in this layer]]
  - [[#install][Install]]
  - [[#configuration][Configuration]]
-   - [[#location][Location]]
-   - [[#theme-changer][theme-changer]]
-   - [[#sunshine-weather-forecast][sunshine (weather forecast)]]
-   - [[#osx-location][osx-location]]
+   - [[#setting-location-manually][Setting location manually]]
+   - [[#changing-theme-automatically-on-sunsetsunrise][Changing theme automatically on sunset/sunrise]]
+   - [[#weather-forecast-display-][Weather forecast display ]]
+   - [[#enable-automatic-location-resolution-os-x][Enable automatic location resolution (OS X)]]
  - [[#key-bindings][Key Bindings]]
    - [[#weather][Weather]]
 
 * Description
-This layer offers few location sensitive adjustment to Emacs, such as
-automatically switching between light (day) and dark (night) themes, weather
-forecast and on OS X, also automatic tracking of location, using OS X's
-CoreLocation services.
+This layer enables basic location aware services, while extended, or platform
+dependent support, may be enabled in other layer. See for example ~osx-location~
+support in the ~OS X~ support layer.
 
-** Supported packages in this layer
-- [[https://github.com/hadronzoo/theme-changer][theme-changer]]
+** Supported services in this layer
 - [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
-- [[https://github.com/purcell/osx-location][osx-location]]
 
 * Install
 To enable this contribution layer, add it to your =~/.spacemacs=~ like this:
@@ -30,57 +27,74 @@ To enable this contribution layer, add it to your =~/.spacemacs=~ like this:
   (setq-default dotspacemacs-configuration-layers '(location))
 #+END_SRC
 
-All services are disable by default. To enable all, or some of them, add instead
-something like this:
+All services are disable by default. See instructions for each feature in the
+configuration section.
+
+* Configuration
+** Setting location manually
+To set location manually, add something like with this layer's variables. 
 
 #+BEGIN_SRC emacs-lisp
   (geolocation :variables
-               geolocation-enable-osx-location-service-support t
+               calendar-latitude 46.2
+               calendar-longitude 6.1
+               calendar-location-name "Geneva, Switzerland") ; optional
+#+END_SRC
+
+User's on ~OS X~ can enable extended location support in the ~osx~ layer. In this case, there's no need to set these variables manually.
+
+** Changing theme automatically on sunset/sunrise
+To enable automatically switching between tow themes (preferably light/dark) on
+sunset/sunrise, add this feature, add this to the layer's variables list:
+
+#+BEGIN_SRC emacs-lisp
+  (geolocation :variables
+               ...
+               geolocation-enable-theme-changer t)
+#+END_SRC
+
+Only the first two themes specified in ~dotspacemacs-themes~ will be used, first one as the day themes, second as night.
+
+#+BEGIN_SRC emacs-lisp
+  ...
+  dotspacemacs-themes '(spacemacs-light
+                        spacemacs-dark)
+#+END_SRC
+
+** Weather forecast display 
+To use this package you must first obtain an (free) api key at
+[[http://openweathermap.org][openweathermap.org]], and add it to the layer's variables list.
+
+#+BEGIN_SRC emacs-lisp
+  (geolocation :variables
+               ...
                geolocation-enable-weather-forecast t
-               geolocation-enable-automatic-theme-changer t)
+               sunshine-appid "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+               sunshine-location "Geneva, Switzerland"
+               sunshine-units 'metric
+               sunshine-show-icons t)
 #+END_SRC
 
-* Configuration
-** Location
-To set location manually, add something like this inside the ~dotspacemacs/config
-defun~. 
-
-#+BEGIN_SRC emacs-lisp
-  (setq calendar-location-name "Barcelona, Spain"
-        calendar-latitude 41.23
-        calendar-longitude 1.80)
-#+END_SRC
-
-On OS X, all of these variables get setup automatically by the ~osx-location~
-service, when enabled. If ~calendar-location-name~ was omitted, it'll be
-stringed-up like so: "41.23, 1.80".
-
-** theme-changer
-Theme changer will switch between the first two themes the user has setup in
-~dotspacemacs-themes~, depending on time at geographical location.
-
-** sunshine (weather forecast)
-Sunshine uses the imperial unit system by default. To switch to metric, do this:
-
-#+BEGIN_SRC emacs-lisp
-  (setq sunshine-units 'metric)
-#+END_SRC
+Sunshine uses the imperial unit system by default. 
 
 Weather forecast icons are disabled by default, but can be toggled by pressing
-`i' within this mode's main buffer. To display weather forecast icons by default
-("pretty mode"), change the settings to this:
-
-#+BEGIN_SRC emacs-lisp
-  (setq sunshine-show-icons t)
-#+END_SRC
+`i' in this mode's buffer. Set ~sunshine-show-icons~ to ~t~ to enable
+"pretty mode" by default.
 
 [[file:img/emacs-sunshine.jpg]]
 
-** osx-location
-OS X users can take adavantage of automatic geogrphical discovery using the OS'
-CoreLocation system service, implemented as a long running background process. A
-helper script will need to be given proper access first time this layer is
-activated.
+** Enable automatic location resolution (OS X)
+To enable location support on OS X, add this to ~dotspacemacs~:
+
+#+BEGIN_SRC emacs-lisp
+  (osx :variables
+        geolocation-enable-location-services t)
+#+END_SRC
+
+Users can take adavantage of automatic location resolution using ~CoreLocation~.
+This support is possible thanks to a script bundled with ~osx-location~ and
+implemented as a long running background process. The script will need to
+be given proper access privileges first time it is run (and only once).
 
 [[file:img/emacs-location-helper.jpg]]
 
