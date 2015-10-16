@@ -30,10 +30,31 @@ and we encourage you to do so :)
 
 ** Layer
 
-To use this configuration layer, add it to your =~/.spacemacs=
+To use this configuration layer, modify your =~/.spacemacs=. Below is the default configuration with added osx layer:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(osx))
+     dotspacemacs-configuration-layers
+   '(
+     ;; ----------------------------------------------------------------
+     ;; Example of useful layers you may want to use right away.
+     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
+     ;; <M-m f e R> (Emacs style) to install them.
+     ;; ----------------------------------------------------------------
+     ;; auto-completion
+     ;; better-defaults
+     ;; (osx :variables osx-use-option-as-meta true)
+     emacs-lisp
+     ;; git
+     ;; markdown
+     ;; org
+     ;; (shell :variables
+     ;;        shell-default-height 30
+     ;;        shell-default-position 'bottom)
+     ;; spell-checking
+     ;; syntax-checking
+     ;; version-control
+     osx
+     )
 #+END_SRC
 
 *** Use with non-US keyboard layouts
@@ -42,9 +63,10 @@ If you need the ~⌥~ key to type common characters such as `{[]}~` which is usu
 for e.g. Finnish and Swedish keyboard layouts, you'll probably want to leave the
 ~⌥~ key unchanged by setting the =osx-use-option-as-meta= variable to =nil=:
 
+Instead of just osx, use this line
+
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(
-     (osx :variables osx-use-option-as-meta nil)))
+   (osx :variables osx-use-option-as-meta nil)
 #+END_SRC
 
 ** Coreutils
