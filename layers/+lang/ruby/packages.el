@@ -33,6 +33,7 @@
         ruby-test-mode
         ruby-tools
         rvm
+        seeing-is-believing
         smartparens
         rake
         ))
@@ -330,3 +331,18 @@
                 "kr"    'rake-rerun
                 "kR"    'rake-regenerate-cache
                 "kf"    'rake-find-task))))
+
+(defun ruby/init-seeing-is-believing ()
+  (use-package seeing-is-believing
+    :defer t
+    :commands (seeing-is-believing seeing-is-believing-run seeing-is-believing-clear)
+    :if (executable-find "seeing_is_believing")
+    :init
+    (progn
+      (spacemacs|diminish seeing-is-believing " 👁" " @")
+      (dolist (hook '(ruby-mode-hook enh-ruby-mode-hook))
+        (add-hook hook 'seeing-is-believing))
+      (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/set-leader-keys-for-major-mode mode
+          "@@" 'seeing-is-believing-run
+          "@c" 'seeing-is-believing-clear)))))
