@@ -1,0 +1,25 @@
+#+TITLE: visual-marks layer for Spacemacs
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+   - [[#layer][Layer]]
+ - [[#keybindings][Keybindings]]
+
+* Description
+The package [[https://github.com/roman/evil-visual-mark-mode][evil-visual-mark-mode]] allows you to see your marks visually in your file.
+
+* Install
+** Layer
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(visual-marks))
+#+END_SRC
+
+* Keybindings
+
+| Key Binding | Description             |
+|-------------+-------------------------|
+| ~SPC t M~   | Toggle visual mark mode |
