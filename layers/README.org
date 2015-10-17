@@ -1,0 +1,200 @@
+#+TITLE: Layers
+
+* Table of contents                                                   :TOC@2:
+ - [[#list-of-layers][List of layers]]
+   - [[#config-files][config-files]]
+   - [[#distribution][distribution]]
+   - [[#email][email]]
+   - [[#frameworks][frameworks]]
+   - [[#fun][fun]]
+   - [[#irc][irc]]
+   - [[#keyboard-layouts][keyboard-layouts]]
+   - [[#lang][lang]]
+   - [[#source-control][source-control]]
+   - [[#tools][tools]]
+   - [[#vim][vim]]
+   - [[#window-management][window-management]]
+
+* List of layers
+
+| Layer           | Description                                                                               |
+|-----------------+-------------------------------------------------------------------------------------------|
+| [[./auto-completion][auto-completion]] | Provide auto-completion to Spacemacs.                                                     |
+| [[./better-defaults][better-defaults]] | Enhance the default commands of Emacs (does not change anything in the Vim key bindings). |
+| [[./chinese][chinese]]         | Add some Chinese related packages.                                                        |
+| [[./chrome][chrome]]          | Provide some integration with the Google Chrome browser.                                  |
+| [[./colors][colors]]          | Color your life with some packages.                                                       |
+| [[./cscope][cscope]]          | Keybindings for using =Cscope= and =PyCscope= in Spacemacs.                               |
+| [[./deft][deft]]            | Quickly browsing and creating notes.                                                      |
+| [[./finance][finance]]         | Add finance related packages.                                                             |
+| [[./floobits][floobits]]        | Support for peer programming tool =floobits=.                                             |
+| [[./geolocation][geolocation]]     | Offer few location sensitive adjustment to Emacs.                                         |
+| [[./gtags][gtags]]           | Allow querying symbol locations in source code, such as definitions or references.        |
+| [[./ibuffer][ibuffer]]         | Configure Emacs =ibuffer= for Spacemacs.                                                  |
+| [[./jabber][jabber]]          | Add keybindings for =jabber.el=, an XMPP client.                                          |
+| [[./nixos][nixos]]           | Better integration of emacs in NixOS.                                                     |
+| [[./org][org]]             | Enable =org/mode= for Spacemacs.                                                          |
+| [[./osx][osx]]             | Define common OSX keybindings.                                                            |
+| [[./prodigy][prodigy]]         | Manage external services from within Emacs.                                               |
+| [[./restclient][restclient]]      | REPL-like interface for http requests.                                                    |
+| [[./search-engine][search-engine]]   | Add support for the =search-engine= package.                                              |
+| [[./semantic][semantic]]        | IDE-like features through semantic analysis.                                              |
+| [[./shell][shell]]           | Configure various shells.                                                                 |
+| [[./smex][smex]]            | Replace =helm-M-x= by =smex= which is built on top of =ido=.                              |
+| [[./spell-checking][spell-checking]]  | Spell checking using =Flyspell=.                                                          |
+| [[./spotify][spotify]]         | Keybindings for controlling =Spotify= from inside Emacs.                                  |
+| [[./syntax-checking][syntax-checking]] | On the fly syntax checking using =Flycheck=.                                              |
+| [[./themes-megapack][themes-megapack]] | Installs around 100 themes for Emacs.                                                     |
+
+** [[./+config-files][config-files]]
+Layers which provide support to edit configuration files.
+
+| Layer      | Description                                                   |
+|------------+---------------------------------------------------------------|
+| [[./+config-files/ansible][ansible]]    | Support for Ansible-flavored YAML buffers.                    |
+| [[./+config-files/dockerfile][dockerfile]] | Syntax highlighting and build functionality for Docker files. |
+| [[./+config-files/puppet][puppet]]     | Syntax highlighting and build functionality for Docker files. |
+| [[./+config-files/salt][salt]]       | Syntax highlighting for Saltstack files.                      |
+| [[./+config-files/terraform][terraform]]  | Syntax support for Terraform `.tf` file.                      |
+
+** [[./+distribution][distribution]]
+The different =spacemacs=' distributions.
+
+| Layer          | Description                                                                   |
+|----------------+-------------------------------------------------------------------------------|
+| [[./+distribution/spacemacs][spacemacs]]      | The default =spacemacs= distribution providing a full =spacemacs= experience. |
+| [[./+distribution/spacemacs-base][spacemacs-base]] | A =spacemacs= distribution with a minimal set of packages.                    |
+
+** [[./+email][email]]
+Layers which provide support for mails.
+
+| Layer | Description                                                                    |
+|-------+--------------------------------------------------------------------------------|
+| [[./+email/gnus][gnus]]  | A news reading application that support newsgroup, RSS feed or mail directory. |
+
+** [[./+frameworks][frameworks]]
+Layers which provide support for specific frameworks (but not the underlying
+languages).
+
+| Layer         | Description                                          |
+|---------------+------------------------------------------------------|
+| [[./+frameworks/django][django]]        | A =python= web application framework.                |
+| [[./+frameworks/react][react]]         | A =JavaScript= library for building user interfaces. |
+| [[./+frameworks/ruby-on-rails][ruby-on-rails]] | A =rubby= web application framework.                 |
+
+** [[./+fun][fun]]
+Layers which provide fun stuff :-)
+
+| Layer | Description                        |
+|-------+------------------------------------|
+| [[./+fun/emoji][emoji]] | Add support for emoticons.         |
+| [[./+fun/games][games]] | Play evilified games in spacemacs. |
+| [[./+fun/xkcd][xkcd]]  | Add a =xkcd= navigation mode.      |
+
+** [[./+irc][irc]]
+Layers which provide support for =IRC=.
+
+| Layer | Description     |
+|-------+-----------------|
+| [[./+irc/erc][erc]]   | =ERC= client.   |
+| [[./+irc/rcirc][rcirc]] | =rcirc= client. |
+
+** [[./+keyboard-layouts][keyboard-layouts]]
+Layers which provide support for different keyboard layouts.
+
+| Layer | Description                                |
+|-------+--------------------------------------------|
+| [[./+keyboard-layouts/bepo][bepo]]  | Support for french-oriented =bepo= layout. |
+
+** [[./+lang][lang]]
+Layers which provide support for programming languages.
+
+| Layer            |
+|------------------|
+| [[./+lang/agda][agda]]             |
+| [[./+lang/asciidoc][asciidoc]]         |
+| [[./+lang/autohotkey][autohotkey]]       |
+| [[./+lang/c-c+][c-c+]]             |
+| [[./+lang/clojure][clojure]]          |
+| [[./+lang/common-lisp][common-lisp]]      |
+| [[./+lang/csharp][csharp]]           |
+| [[./+lang/d][d]]                |
+| [[./+lang/elixir][elixir]]           |
+| [[./+lang/elm][elm]]              |
+| [[./+lang/emacs-lisp][emacs-lisp]]       |
+| [[./+lang/erlang][erlang]]           |
+| [[./+lang/ess][ess]]              |
+| [[./+lang/extra-langs][extra-langs]]      |
+| [[./+lang/fsharp][fsharp]]           |
+| [[./+lang/go][go]]               |
+| [[./+lang/haskell][haskell]]          |
+| [[./+lang/html][html]]             |
+| [[./+lang/idris][idris]]            |
+| [[./+lang/ipython-notebook][ipython-notebook]] |
+| [[./+lang/java][java]]             |
+| [[./+lang/javascript][javascript]]       |
+| [[./+lang/latex][latex]]            |
+| [[./+lang/lua][lua]]              |
+| [[./+lang/markdown][markdown]]         |
+| [[./+lang/nim][nim]]              |
+| [[./+lang/ocaml][ocaml]]            |
+| [[./+lang/php][php]]              |
+| [[./+lang/purescript][purescript]]       |
+| [[./+lang/python][python]]           |
+| [[./+lang/racket][racket]]           |
+| [[./+lang/ruby][ruby]]             |
+| [[./+lang/rust][rust]]             |
+| [[./+lang/scala][scala]]            |
+| [[./+lang/scheme][scheme]]           |
+| [[./+lang/shell-scripts][shell-scripts]]    |
+| [[./+lang/sml][sml]]              |
+| [[./+lang/sql][sql]]              |
+| [[./+lang/typescript][typescript]]       |
+| [[./+lang/vimscript][vimscript]]        |
+| [[./+lang/windows-scripts][windows-scripts]]  |
+| [[./+lang/yaml][yaml]]             |
+
+** [[./+source-control][source-control]]
+Layers which provide support for source-control software.
+
+| Layer           | Description                                                                  |
+|-----------------+------------------------------------------------------------------------------|
+| [[./+source-control/git][git]]             | Support for the =git= versionning tool.                                      |
+| [[./+source-control/github][github]]          | Support for =github= interaction.                                            |
+| [[./+source-control/perforce][perforce]]        | Support for =perforce= (P4).                                                 |
+| [[./+source-control/version-control][version-control]] | Adds general configuration for Emacs VC (Git, Mercurial, Bazaar, SVN, etc…). |
+
+** [[./+tools][tools]]
+Layers which provide support for different tools.
+
+| Layer    | Description                                                             |
+|----------+-------------------------------------------------------------------------|
+| [[./+tools/dash][dash]]     | An API documentation browser.                                           |
+| [[./+tools/evernote][evernote]] | A note-taking application.                                              |
+| [[./+tools/fasd][fasd]]     | A command line tool to quickly jump between locations in a POSIX shell. |
+| [[./+tools/pandoc][pandoc]]   | An universal document converter between multiple formats.               |
+| [[./+tools/ranger][ranger]]   | An alternative file explorer in emacs.                                  |
+| [[./+tools/tmux][tmux]]     | Add support for =evil-tmux-navigator=.                                  |
+| [[./+tools/vagrant][vagrant]]  | Manage =vagrant= box from emacs.                                        |
+| [[./+tools/wakatime][wakatime]] | Time tracking for programmers.                                          |
+| [[./+tools/ycmd][ycmd]]     | Adds =emacs-ycmd= support.                                              |
+
+** [[./+vim][vim]]
+Layers which replicate vim's behaviors.
+
+| Layer           | Description                                                                       |
+|-----------------+-----------------------------------------------------------------------------------|
+| [[./+vim/evil-commentary][evil-commentary]] | Replace =evil-nerd-commenter= by =evil-commentary= which mimics =vim-commentary=. |
+| [[./+vim/evil-snipe][evil-snipe]]      | Allow to search more quickly and precisely in the buffer.                         |
+| [[./+vim/unimpaired][unimpaired]]      | Ports some of the functionality of tpope’s =vim-unimpaired=.                      |
+| [[./+vim/vim-empty-lines][vim-empty-lines]] | Bring vim's =~= symbol for empty lines.                                           |
+| [[./+vim/vim-powerline][vim-powerline]]   | A powerline theme modeled after the vim powerline theme.                          |
+| [[./+vim/vinegar][vinegar]]         | A port of tpope’s =vinegar.vim=.                                                  |
+
+** [[./+window-management][window-management]]
+Layers which add support for different windows management.
+
+| Layer        | Description                            |
+|--------------+----------------------------------------|
+| [[./+window-management/eyebrowse][eyebrowse]]    | Add a notion of workspace like =i3wm=. |
+| [[./+window-management/perspectives][perspectives]] | Add support for custom perspectives.   |
