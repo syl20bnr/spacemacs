@@ -1,0 +1,29 @@
+* seeing-is-believing contribution layer for Spacemacs
+
+** Table of Contents                                                  :TOC@4:
+ - [[#seeing-is-believing-contribution-layer-for-spacemacs][seeing-is-believing contribution layer for Spacemacs]]
+   - [[#description][Description]]
+   - [[#install][Install]]
+   - [[#key-bindings][Key bindings]]
+
+** Description
+This layer adds keybindings for seeing is believing. Check out that awesome
+project at https://github.com/JoshCheek/seeing_is_believing.
+
+Usage:
+While in normal mode the keybindings affect your entire Ruby file. While in 
+visual mode, only the selected region is affected.
+
+** Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(seeing-is-believing))
+#+END_SRC
+
+** Key bindings
+
+| Key Binding     | Description                      |
+|-----------------+----------------------------------|
+| ~<SPC> m s b~   | Run seeing is believing          |
+| ~<SPC> m s c~   | Clear seeing is believing output |
