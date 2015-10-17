@@ -111,7 +111,7 @@ the current state and point position."
   (let ((counter (or count 1)))
     (while (> counter 0)
       (join-line 1)
-      (sp-newline)
+      (newline-and-indent)
       (setq counter (1- counter)))))
 
 ;; from Prelude
