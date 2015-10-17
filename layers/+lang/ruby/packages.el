@@ -19,7 +19,8 @@
     flycheck
     robe
     ruby-test-mode
-    ruby-tools))
+    ruby-tools
+    seeing-is-believing))
 
 (when ruby-version-manager
   (add-to-list 'ruby-packages ruby-version-manager))
@@ -126,3 +127,18 @@
     (spacemacs|add-company-hook enh-ruby-mode)
     (with-eval-after-load 'company-dabbrev-code
       (push 'enh-ruby-mode company-dabbrev-code-modes))))
+
+(defun seeing-is-believing/init-seeing-is-believing ()
+  (use-package seeing-is-believing
+    :defer t
+    :commands (seeing-is-believing seeing-is-believing-run seeing-is-believing-clear)
+    :if (executable-find "seeing_is_believing")
+    :init
+    (progn
+      (add-hook 'ruby-mode-hook 'seeing-is-believing)
+      (evil-leader/set-key-for-mode 'ruby-mode "msb" 'seeing-is-believing-run)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "msb" 'seeing-is-believing-run)
+      (evil-leader/set-key-for-mode 'ruby-mode "msc" 'seeing-is-believing-clear)
+      (evil-leader/set-key-for-mode 'enh-ruby-mode "msc" 'seeing-is-believing-clear)))
+  )
+
