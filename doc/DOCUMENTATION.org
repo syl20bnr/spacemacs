@@ -363,7 +363,7 @@ Where:
 
 =Packages= are =ELPA= packages which can be installed from an =ELPA= compliant
 repository, local packages in a layer's =local= folder, or packages that can be
-installed from an online source using =[[https://github.com/quelpa/quelpa][quelpa]]=.
+installed from an online source using [[https://github.com/quelpa/quelpa][quelpa]].
 
 ** Packages
 *** Within a layer
