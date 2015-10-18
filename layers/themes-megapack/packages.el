@@ -49,6 +49,7 @@
     inkpot-theme
     ir-black-theme
     jazz-theme
+    jbeans-theme
     light-soap-theme
     lush-theme
     material-theme
