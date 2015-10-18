@@ -13,8 +13,8 @@
 
 * Description
 
-This layer aims at providing support for the Ruby language using
-[[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]] and [[https://github.com/dgutov/robe][robe-mode]].
+This layer provides support for the Ruby language with [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]] and [[https://github.com/dgutov/robe][robe-mode]].
+Optionally Enh Ruby Mode can be replaced with the built-in Emacs Ruby Mode.
 
 * Install
 
@@ -22,6 +22,16 @@ To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(ruby))
+#+END_SRC
+
+This layer supports two different Ruby modes: Emacs' built-in Ruby Mode and
+[[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]].  By default this layer enables the latter.  To switch to the
+built-in Ruby Mode set =ruby-use-built-in-ruby-mode=:
+
+#+BEGIN_SRC emacs-lisp
+  (defun dotspacemacs/user-init ()
+    (setq-default ruby-use-built-in-ruby-mode t)
+  )
 #+END_SRC
 
 ** Prerequisites
@@ -64,20 +74,22 @@ Possible values are =rbenv= and =rvm=.
 
 ** Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)
 
-| Key binding | Description                                 |
-|-------------+---------------------------------------------|
-| ~SPC m g g~ | go to definition (robe-jump)                |
-| ~SPC m h d~ | go to Documentation                         |
-| ~SPC m s f~ | send function definition                    |
-| ~SPC m s F~ | send function definition and switch to REPL |
-| ~SPC m s i~ | start REPL                                  |
-| ~SPC m s r~ | send region                                 |
-| ~SPC m s R~ | send region and switch to REPL              |
-| ~SPC m s s~ | switch to REPL                              |
-| ~SPC m x '~ | Change symbol or " string to '              |
-| ~SPC m x "~ | Change symbol or ' string to "              |
-| ~SPC m x :~ | Change string to symbol                     |
-| ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks           |
+| Key binding | Description                                          |
+|-------------+------------------------------------------------------|
+| ~SPC m '~   | toggle quotes of current string (only built-in mode) |
+| ~SPC m {~   | toggle style of current block (only built-in mode)   |
+| ~SPC m g g~ | go to definition (robe-jump)                         |
+| ~SPC m h d~ | go to Documentation                                  |
+| ~SPC m s f~ | send function definition                             |
+| ~SPC m s F~ | send function definition and switch to REPL          |
+| ~SPC m s i~ | start REPL                                           |
+| ~SPC m s r~ | send region                                          |
+| ~SPC m s R~ | send region and switch to REPL                       |
+| ~SPC m s s~ | switch to REPL                                       |
+| ~SPC m x '~ | Change symbol or " string to '                       |
+| ~SPC m x "~ | Change symbol or ' string to "                       |
+| ~SPC m x :~ | Change string to symbol                              |
+| ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                    |
 
 ** ruby-test-mode
 
