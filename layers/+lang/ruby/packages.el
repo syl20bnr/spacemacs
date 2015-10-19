@@ -19,6 +19,7 @@
     flycheck
     robe
     ruby-test-mode
+    rspec-mode
     ruby-tools))
 
 (when ruby-version-manager
@@ -109,6 +110,23 @@
       (evil-leader/set-key-for-mode 'enh-ruby-mode "msr" 'ruby-send-region)
       (evil-leader/set-key-for-mode 'enh-ruby-mode "msR" 'ruby-send-region-and-go)
       (evil-leader/set-key-for-mode 'enh-ruby-mode "mss" 'ruby-switch-to-inf))))
+
+(defun rspec/init-rspec-mode ()
+  (use-package rspec-mode
+    :defer t
+    :config
+    (progn
+      (spacemacs|diminish rspec-mode " Ƨ" " RSp")
+
+      (evil-leader/set-key-for-mode 'enh-ruby-mode
+        "mps" 'rspec-verify-single
+        "mpa" 'rspec-verify-all
+        "mpr" 'rspec-rerun
+        "mpb" 'rspec-verify-matching
+        "mpc" 'rspec-verify-continue
+        "mpm" 'rspec-verify-method
+        "mpt" 'rspec-toggle-example-pendingness
+        ))))
 
 (defun ruby/init-ruby-test-mode ()
   "Define keybindings for ruby test mode"
