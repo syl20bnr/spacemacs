@@ -15,8 +15,8 @@
 (spacemacs|defvar-company-backends enh-ruby-mode)
 (spacemacs|defvar-company-backends ruby-mode)
 
-(defvar ruby-use-built-in-ruby-mode nil
-  "If non-nil, use built-in Ruby Mode.
+(defvar ruby-enable-enh-ruby-mode nil
+  "If non-nil, use `enh-ruby-mode' package insted of the built-in Ruby Mode.
 
 Otherwise use Enh Ruby Mode, which is the default.")
 

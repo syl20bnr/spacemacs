@@ -20,12 +20,12 @@
         ruby-test-mode
         ruby-tools))
 
+(if ruby-enable-enh-ruby-mode
+    (add-to-list 'ruby-packages 'enh-ruby-mode)
+  (add-to-list 'ruby-packages 'ruby-mode))
+
 (when ruby-version-manager
   (add-to-list 'ruby-packages ruby-version-manager))
-
-(if ruby-use-built-in-ruby-mode
-    (add-to-list 'ruby-packages 'ruby-mode)
-  (add-to-list 'ruby-packages 'enh-ruby-mode))
 
 (defun ruby/init-rbenv ()
   "Initialize RBENV mode"

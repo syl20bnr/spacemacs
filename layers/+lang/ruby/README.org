@@ -25,13 +25,12 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 This layer supports two different Ruby modes: Emacs' built-in Ruby Mode and
-[[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]].  By default this layer enables the latter.  To switch to the
-built-in Ruby Mode set =ruby-use-built-in-ruby-mode=:
+[[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]].  By default the built-in Ruby mode is enabled.  To switch to the
+=enh-ruby-mode= set =ruby-enable-enh-ruby-mode= to t:
 
 #+BEGIN_SRC emacs-lisp
-  (defun dotspacemacs/user-init ()
-    (setq-default ruby-use-built-in-ruby-mode t)
-  )
+  (defun dotspacemacs-configuration-layers ()
+     '((ruby :variables ruby-enable-enh-ruby-mode t)))
 #+END_SRC
 
 ** Prerequisites
