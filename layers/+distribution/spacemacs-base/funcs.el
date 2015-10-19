@@ -709,7 +709,7 @@ the right."
   (if (buffer-file-name)
       (call-interactively 'evil-write)
     (call-interactively 'write-file)))
-
+(evil-declare-not-repeat 'spacemacs/write-file)
 
 (defun spacemacs/dos2unix ()
   "Converts the current buffer to UNIX file format."
