@@ -188,7 +188,8 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 ;; ---------------------------------------------------------------------------
 
 ;; save custom variables in ~/.spacemacs
-(setq custom-file (dotspacemacs/location))
+(unless (bound-and-true-p custom-file)
+  (setq custom-file (dotspacemacs/location)))
 ;; scratch buffer empty
 (setq initial-scratch-message nil)
 ;; don't create backup~ files
