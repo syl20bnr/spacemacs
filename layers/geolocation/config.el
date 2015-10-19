@@ -9,11 +9,12 @@
 ;;
 ;;; License: GPLv3
 
-(defvar geolocation-enable-osx-location-service-support nil
+(defvar geolocation-enable-automatic-theme-changer nil
+  "If non nil enable the automatic change of theme based on the current time.")
+
+(defvar geolocation-enable-location-service nil
   "If non nil enable the OS X location service support.")
 
 (defvar geolocation-enable-weather-forecast nil
   "If non nil enable the weather forecast service.")
 
-(defvar geolocation-enable-automatic-theme-changer nil
-  "If non nil enable the automatic change of theme based on the current time.")
