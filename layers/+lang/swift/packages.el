@@ -1,0 +1,77 @@
+;;; packages.el --- swift Layer packages File for Spacemacs
+;;
+;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2014-2015 Uri Sharf & Contributors
+;;
+;; Author: Uri Sharf <uri.sharf@me.com>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+
+(setq swift-packages
+    '(
+      flycheck
+      swift-mode
+      ))
+
+(when (configuration-layer/layer-usedp 'syntax-checking)
+  (spacemacs|use-package-add-hook flycheck
+    :post-config
+    (progn
+      (add-to-list 'flycheck-checkers 'swift))))
+
+(defun swift/init-swift-mode ()
+  "Initialize swift-mode"
+  (use-package swift-mode
+    :mode ("\\.swift\\'" . swift-mode)
+    :defer t
+    :init
+    (progn
+      (spacemacs|advise-commands
+       "store-initial-buffer-name" (swift-mode-run-repl) around
+       "Store current buffer bane in bufffer local variable,
+before activiting or switching to REPL."
+       (let ((initial-buffer (current-buffer)))
+         ad-do-it
+         (with-current-buffer swift-repl-buffer
+           (setq swift-repl-mode-previous-buffer initial-buffer))))
+
+      ;; (defadvice swift-mode-run-repl (around store-initial-buffer activate)
+      ;;   "Store current buffer in a buffer-local variable."
+      ;;   (let ((initial-buffer (current-buffer)))
+      ;;     ad-do-it
+      ;;     (with-current-buffer swift-repl-buffer
+      ;;       (setq swift-repl-mode-previous-buffer initial-buffer))))
+
+      (defun spacemacs/swift-repl-mode-hook ()
+        "Hook to run when starting an interactive swift mode repl"
+        (make-variable-buffer-local 'swift-repl-mode-previous-buffer)
+        )
+      (spacemacs/add-to-hook 'swift-repl-mode-hook '(spacemacs/swift-repl-mode-hook))
+
+      (defun spacemacs/swift-repl-mode-switch-back ()
+        "Switch back to from REPL to editor."
+        (interactive)
+        (if swift-repl-mode-previous-buffer
+            (switch-to-buffer-other-window swift-repl-mode-previous-buffer)
+          (message "No previous buffer")))
+      )
+    :config
+    (progn
+      (evil-leader/set-key-for-mode 'swift-mode
+        "msS" 'swift-mode-run-repl      ; run or switch to an existing swift repl
+        "mss" 'swift-mode-run-repl
+        "msb" 'swift-mode-send-buffer
+        "msr" 'swift-mode-send-region
+        )
+
+      (with-eval-after-load 'swift-repl-mode-map
+        ;; Switch back to editor from REPL
+        (evil-leader/set-key-for-mode 'swift-repl-mode
+          "mss"  'spacemacs/swift-repl-mode-switch-back)
+        (define-key swift-repl-mode-map
+          (kbd "C-c C-z") 'spacemacs/swift-repl-mode-switch-back)
+        )
+      )))
