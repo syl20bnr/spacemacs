@@ -116,16 +116,16 @@ To generate a table of contents type on top of the buffer:
 
 | Key Binding | Description          |
 |-------------+----------------------|
-| ~SPC m c ]~ | cleanup list numbers |
-| ~SPC m c c~ | kill ring save       |
-| ~SPC m c e~ | preview              |
-| ~SPC m c m~ | complete buffer      |
-| ~SPC m c n~ | check refs           |
-| ~SPC m c o~ | export and preview   |
-| ~SPC m c p~ | other window         |
+| ~SPC m c ]~ | complete buffer      |
+| ~SPC m c m~ | other window         |
+| ~SPC m c p~ | preview              |
+| ~SPC m c e~ | export               |
+| ~SPC m c v~ | export and preview   |
+| ~SPC m c o~ | open                 |
+| ~SPC m c w~ | kill ring save       |
+| ~SPC m c c~ | check refs           |
+| ~SPC m c n~ | cleanup list numbers |
 | ~SPC m c r~ | render buffer        |
-| ~SPC m c v~ | export               |
-| ~SPC m c w~ | open                 |
 
 ** List editing
 
