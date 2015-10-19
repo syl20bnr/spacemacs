@@ -81,8 +81,11 @@ Available PROPS:
       to a string
     - :pre is an SEXP evaluated before the bound action
     - :post is an SEXP evaluated after the bound action
-    - :exit SYMBOL is either `:exit t' or `:exit nil', if non nil then
-      pressing this key will leave the micro-state (default is nil).
+    - :exit SYMBOL or SEXP, if non nil then pressing this key will
+      leave the micro-state (default is nil).
+      Important note: due to inner working of transient-maps in Emacs
+      the `:exit' keyword is evaluate *before* the actual execution
+      of the bound command.
 
 All properties supported by `spacemacs//create-key-binding-form' can be
 used."
@@ -199,6 +202,7 @@ micro-state."
                                   ',name ',wrappers))
                     (exitp (if cur-wrapper (plist-get cur-wrapper :exit)
                              ,(not persistent))))
+               (when (listp exitp) (setq exitp (eval exitp)))
                (when exitp ,@on-exit (spacemacs//micro-state-close-window))
                (not exitp))))))
 
