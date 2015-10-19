@@ -10,270 +10,283 @@
 ;;
 ;;; License: GPLv3
 
-
-(bepo|rebind "company"
+(bepo|config ace-window
   :description
-  "Remap company keybindings to navigate between lines in company completion."
+  "Remap `ace-window' bindings, and change the keys to the ones
+   on the central row."
+  :loader
+  (spacemacs|use-package-add-hook ace-window :post-init BODY)
+  :config
+  (progn
+    ;; HACK: Manual binding, otherwise conflicts with evil-window auto
+    ;; remapping.
+    (evil-leader/set-key
+      "wC" 'evil-window-move-far-left
+      "wL" 'ace-delete-window
+      "wQ" 'ace-delete-window)
+    (setq aw-keys '(?t ?e ?s ?i ?r ?u ?n ?a ?c ?,))))
+
+(bepo|config avy
+  :description
+  "Change `avy' keys to the ones on the central row."
+  :loader
+  (spacemacs|use-package-add-hook avy :post-init BODY)
+  :config
+  (setq-default avy-keys '(?t ?e ?s ?i ?r ?u ?n ?a ?c ?,)))
+
+(bepo|config buffer-move
+  :description
+  "Remap `buffer-move' bindings."
+  :loader
+  (with-eval-after-load 'buffer-move BODY)
+  :config
+  (bepo/evil-leader-correct-keys
+    "bmh"
+    "bmj"
+    "bmk"
+    "bml"
+    ))
+
+(bepo|config comint-mode
+  :description
+  "Remap `comint-mode' bindings."
+  :loader
+  (with-eval-after-load 'shell BODY)
+  :config
+  (dolist (m '(normal insert))
+    (eval `(bepo/evil-correct-keys `,m comint-mode-map
+             "C-j"
+             "C-k"))))
+
+(bepo|config company
+  :description
+  "Remap `company' bindings."
   :loader
   (spacemacs|use-package-add-hook company :post-config BODY)
-  :remap
-  (progn
-    (bepo/set-in-state company-active-map
-      (kbd "C-t") 'company-select-next
-      (kbd "C-s") 'company-select-previous
-      (kbd "C-r") 'company-complete-selection
-      ))
-  :switch
-  (progn
-    (bepo/set-in-state company-active-map
-      (kbd "C-j") nil
-      (kbd "C-k") nil
-      (kbd "C-l") nil
-    )))
+  :config
+  (bepo/correct-keys company-active-map
+    "C-h"
+    "C-j"
+    "C-k"
+    "C-l"))
 
-
-(bepo|rebind "evil"
+(bepo|config evil
   :description
-  "Remap evil navigation keys, and map unused `é', `«', `»' keys to something
-   useful:
-     - `é' as an alias for word since `w' is hard to reach on bepo layout.
-     - `«' and `»' as directs access to indent/unindent."
-  :remap
+  "Remap `evil' bindings, and map some unused ones as aliases."
+  :loader
+  (spacemacs|use-package-add-hook evil :post-config BODY)
+  :config
   (progn
-    (bepo/set-in-all-evil-states-but-insert
-      "c" 'evil-backward-char
-      "t" 'evil-next-line
-      "s" 'evil-previous-line
-      "r" 'evil-forward-char
-      ;;
-      "C" 'evil-window-top
-      "T" 'evil-join
-      "S" 'spacemacs/evil-smart-doc-lookup
-      "R" 'evil-window-bottom
-      ))
-  :switch
-  (progn
-    (bepo/set-in-all-evil-states-but-insert
-      "h" 'evil-replace
-      "j" 'evil-find-char-to
-      "k" 'evil-substitute
-      "l" 'evil-change
-      ;;
-      "H" 'evil-replace-state
-      "J" 'evil-find-char-to-backward
-      "K" 'evil-change-whole-line
-      "L" 'evil-change-line
-      ))
-  :additional
-  (progn
+    (dolist (map bepo--all-evil-states-but-insert)
+      (bepo/correct-keys map
+        "h"
+        "j"
+        "k"
+        "l"
+        ;;
+        "H"
+        "J"
+        "K"
+        "L"
+        ;;
+        "gj"
+        "gk"))
     (bepo/set-in-all-evil-states-but-insert
       "é" 'evil-forward-word-begin
-      "É" 'evil-forward-WORD-begin
-      )
+      "É" 'evil-forward-WORD-begin)
     (bepo/set-in-state evil-inner-text-objects-map
       "é" 'evil-inner-word
-      "É" 'evil-inner-WORD
-      )
+      "É" 'evil-inner-WORD)
     (bepo/set-in-state evil-outer-text-objects-map
       "é" 'evil-a-word
-      "É" 'evil-a-WORD
-      )
-    (bepo/set-in-state evil-normal-state-map
+      "É" 'evil-a-WORD)
+    (bepo/set-in-all-evil-states-but-insert
       "«" 'evil-shift-left
-      "»" 'evil-shift-right
-      )))
+      "»" 'evil-shift-right)))
 
-
-(bepo|rebind "evil-surround"
+(bepo|config evil-escape
   :description
-  "Remap `s' in visual mode to `k' in evil-surround."
+  "Change `evil-escape' default escape combination for a better
+   one than `fd'."
+  :loader
+  (spacemacs|use-package-add-hook evil-escape :post-init BODY)
+  :config
+  (setq-default evil-escape-key-sequence "gq"))
+
+(bepo|config evil-surround
+  :description
+  "Remap `evil-surround' bindings and add the `« »' pair."
   :loader
   (spacemacs|use-package-add-hook evil-surround :post-init BODY)
-  :remap
+  :config
   (progn
-    (evil-define-key 'visual evil-surround-mode-map
-      "s" 'evil-previous-visual-line
-      ))
-  :switch
-  (progn
-    (evil-define-key 'visual evil-surround-mode-map
-      "k" 'evil-surround-region
-      ))
-  :additional
-  (progn
-    (evil-define-key 'visual evil-surround-mode-map
-      "K" 'evil-Surround-region
-      )))
+    (bepo/evil-correct-keys 'visual evil-surround-mode-map "s")
+    (setq-default
+     evil-surround-pairs-alist (cons '(?« "« " . " »") evil-surround-pairs-alist)
+     evil-surround-pairs-alist (cons '(?» "«" . "»") evil-surround-pairs-alist))))
 
-
-(bepo|rebind "evil-window"
+(bepo|config evil-evilified-state
   :description
-  "Remap `SPC w' mapping for manipulating windows. Add `SPC é'as
-   an alias for it."
-  :remap
+  "Remap `evil-evilified-state' bindings."
+  :loader
+  (with-eval-after-load 'evil-evilified-state BODY)
+  :config
+  (bepo/correct-keys evil-evilified-state-map
+    "h"
+    "j"
+    "k"
+    "l"))
+
+(bepo|config evil-window
+  :description
+  "Remap `evil-window' bindings. Add `é' as an alias for `w' and
+   `q' for closing."
+  :config
   (progn
-    (spacemacs/set-leader-keys
-      "wc" 'evil-window-left
-      "wt" 'evil-window-down
-      "ws" 'evil-window-up
-      "wr" 'evil-window-right
-      ;;
-      "wC" nil ; see special
-      "wT" 'evil-window-move-very-bottom
-      "wS" 'evil-window-move-very-top
-      "wR" 'evil-window-move-far-right
-      ))
-  :switch
-  (progn
-    (spacemacs/set-leader-keys
-      "wh" nil
-      "wj" nil
-      "wk" 'split-window-below
-      "wl" 'delete-window
-      ;;
-      "wH" 'spacemacs/rotate-windows
-      "wJ" nil
-      "wK" 'split-window-below-and-focus
-      "wL" 'ace-delete-window
-      ))
-  :additional
-  (progn
+    (bepo/evil-leader-correct-keys
+     "wh"
+     "wj"
+     "wk"
+     "wl"
+     ;;
+     "wH"
+     "wJ"
+     "wK"
+     "wL")
     (spacemacs/set-leader-keys
       "wé" 'other-window
-      "wq" 'delete-window
-      "é" (lookup-key spacemacs-default-map "w")
-      ))
-  :special
-  (spacemacs|use-package-add-hook ace-window
-    :post-init
-    (spacemacs/set-leader-keys
-      "wC" 'evil-window-move-far-left
-      )))
+      "wq" 'delete-window)
+    (bepo/evil-leader-alias-of "é" "w")))
 
-
-(bepo|rebind "helm"
+(bepo|config eyebrowse
   :description
-  "Remap keybindings to navigate between lines in helm."
+  "Remap `eyebrowse' keybindings conflicting with evil."
   :loader
-  (spacemacs|use-package-add-hook helm :post-init (progn (helm-mode +1) BODY))
-  :remap
-  (progn
-    (bepo/set-in-states (list helm-map
-                              helm-find-files-map
-                              helm-read-file-map
-                              helm-generic-files-map)
-      (kbd "C-t") 'helm-next-line
-      (kbd "C-s") 'helm-previous-line
-      ))
-  :switch
-  (progn
-    (bepo/set-in-states (list helm-map
-                              helm-find-files-map
-                              helm-read-file-map
-                              helm-generic-files-map)
-      (kbd "C-j") 'helm-toggle-resplit-and-swap-windows
-      (kbd "C-k") 'helm-ff-run-grep
-      )))
+  (spacemacs|use-package-add-hook eyebrowse :post-init BODY)
+  :config
+  (bepo/correct-keys evil-motion-state-map
+    "gj"
+    "gJ"))
 
-
-(bepo|rebind "magit"
+(bepo|config flycheck-error-list
   :description
-  "Remap magit keybindings. Only magit-status and commit-popup
-   are remapped yet. Kind of WIP."
+  "Remap `flycheck-error-list' bindings."
+  :loader
+  (spacemacs|use-package-add-hook flycheck :post-config BODY)
+  :config
+  (bepo/evil-correct-keys 'evilified flycheck-error-list-mode-map
+    "j"
+    "k"))
+
+(bepo|config helm
+  :description
+  "Remap `helm' bindings."
+  :loader
+  (spacemacs|use-package-add-hook helm :post-config BODY)
+  :config
+  (bepo/correct-keys helm-map
+    "C-h"
+    "C-j"
+    "C-k"
+    "C-l"))
+
+(bepo|config helm-buffers
+  :description
+  "Remap `helm-buffers' bindings."
+  :loader
+  (with-eval-after-load 'helm-buffers BODY)
+  :config
+  ;; HACK: Forced to correct wrong behaviour
+  (bepo/set-in-state helm-buffer-map "C-s" 'helm-previous-line))
+
+(bepo|config helm-files
+  :description
+  "Remap `helm-files' bindings."
+  :loader
+  (with-eval-after-load 'helm-files BODY)
+  :config
+  (progn
+    ;; HACK: Forced to correct wrong behaviour
+    (bepo/set-in-state helm-find-files-map "C-s" 'helm-previous-line)
+    (bepo/set-in-state helm-find-files-map "C-k" 'helm-ff-run-grep)
+    (bepo/set-in-state helm-find-files-map "C-r" 'helm-maybe-exit-minibuffer)
+    (bepo/set-in-state helm-read-file-map "C-s" 'helm-previous-line)
+    (bepo/set-in-state helm-read-file-map "C-K" 'helm-previous-line)))
+
+(bepo|config helm-locate
+  :description
+  "Remap `helm-locate' bindings."
+  :loader
+  (with-eval-after-load 'helm-locate BODY)
+  :config
+  (progn
+    ;; HACK: Forced to correct wrong behaviour
+    (bepo/set-in-state helm-generic-files-map "C-s" 'helm-previous-line)
+    (bepo/set-in-state helm-generic-files-map "C-k" 'helm-ff-run-grep)))
+
+(bepo|config magit
+  :description
+  "Remap `magit' bindings."
   :loader
   (spacemacs|use-package-add-hook magit :post-config BODY)
-  :remap
+  :config
   (progn
-    (dolist (map (list magit-status-mode-map
-                       magit-branch-section-map
+    (bepo/evil-correct-keys 'motion magit-mode-map
+      "j"
+      "k"
+      "C-j"
+      "C-k")
+    (dolist (map (list magit-branch-section-map
                        magit-commit-section-map
                        magit-file-section-map
                        magit-hunk-section-map
-                       magit-module-commit-section-map
                        magit-remote-section-map
                        magit-staged-section-map
-                       magit-stash-section-map
-                       magit-stashes-section-map
-                       magit-tag-section-map
-                       magit-unpulled-section-map
-                       magit-unpushed-section-map
                        magit-unstaged-section-map
-                       magit-untracked-section-map))
-      (evilified-state-evilify-map map
-        :mode magit-status-mode
-        :bindings
-        ;; Remap CRTS
-        (kbd "c") 'magit-commit-popup
-        (kbd "r") 'magit-rebase-popup
-        (kbd "t") 'evil-next-line
-        (kbd "s") 'evil-previous-line
-        ;; Remap HJKL from default spacemacs
-        (kbd "h") 'magit-discard
-        (kbd "j") 'magit-tag-popup
-        (kbd "k") 'magit-stage
-        (kbd "l") 'magit-log-popup
-        ;; Correct others
-        (kbd "v") 'magit-revert-popup
-        (kbd "g") 'magit-refresh))
-    (dolist (map (list magit-popup-mode-map
-                       magit-popup-help-mode-map
-                       magit-popup-sequence-mode-map))
-      (evilified-state-evilify-map map
-        :mode magit-commit-mode
-        :bindings
-        (kbd "c") 'magit-commit
-        (kbd "s") 'magit-commit-squash
-        (kbd "S") 'magit-commit-instant-squash))))
+                       ))
+      (bepo/correct-keys map
+        "j"
+        "k"
+        "C-j"
+        "C-k"))
+    (magit-change-popup-key 'magit-dispatch-popup :actions ?t ?j)
+    (magit-change-popup-key 'magit-dispatch-popup :actions ?s ?k)
+    (magit-change-popup-key 'magit-dispatch-popup :actions ?S ?K)))
 
-
-(bepo|rebind "neotree"
+(bepo|config neotree
   :descripition
-  "Remap navigation keys to bepo layout in neotree.
-   Note: The normal mapping is not used here, in order to have
-   `h' for showing/hidding hidden files. It is better than having
-   it to rename a node."
+  "Remap `neotree' bindings."
   :loader
-  (with-eval-after-load 'neotree (add-hook 'neotree-mode-hook (lambda () BODY)))
-  :remap
+  (spacemacs|use-package-add-hook neotree :post-config BODY)
+  :config
   (progn
-    (bepo/set-in-state evil-motion-state-local-map
-      "c" 'spacemacs/neotree-collapse-or-up
-      "t" 'evil-next-visual-line
-      "s" 'evil-previous-visual-line
-      "r" 'spacemacs/neotree-expand-or-open
+    (bepo/evil-correct-keys 'evilified neotree-mode-map
+      "h"
+      "j"
+      "k"
+      "l"
       ;;
-      "C" 'neotree-select-previous-sibling-node
-      "T" 'neotree-select-down-node
-      "S" 'neotree-select-up-node
-      "R" 'neotree-select-next-sibling-node
-      ))
-  :switch
-  (progn
-    (bepo/set-in-state evil-motion-state-local-map
+      "H"
+      "J"
+      "K"
+      "L")
+    (bepo/set-in-state (evil-get-auxiliary-keymap neotree-mode-map 'evilified)
       "h" 'neotree-hidden-file-toggle
-      "j" nil
-      "k" 'neotree-rename-node
-      "l" 'neotree-create-node
-      ;;
-      "H" 'neotree-change-root
-      "J" nil
-      "K" nil
-      "L" nil
-      )))
+      "k" 'neotree-rename-node)))
 
-
-(bepo|rebind "org"
+(bepo|config org
   :description
-  "Remap keys in org-mode."
+  "Remap keys in `org-mode'."
   :loader
-  (defun org/post-init-org () BODY)
-  :remap
+  (with-eval-after-load 'org BODY)
+  :config
   (progn
     (evil-define-key 'normal evil-org-mode-map
-      "t" 'evil-next-visual-line
-      )
+      "t" 'evil-next-line
+      "j" 'org-todo)
     (dolist (m '(normal insert))
       (eval `(evil-define-key ',m evil-org-mode-map
+               ;; ctsr
                (kbd "M-c") 'org-metaleft
                (kbd "M-t") 'org-metadown
                (kbd "M-s") 'org-metaup
@@ -282,172 +295,66 @@
                (kbd "M-T") 'org-shiftmetadown
                (kbd "M-S") 'org-shiftmetaup
                (kbd "M-R") 'org-shiftmetaright
+               ;; hjkl
+               (kbd "M-h") 'capitalize-word
+               (kbd "M-j") 'transpose-chars
+               (kbd "M-k") 'kill-sentence
+               (kbd "M-l") 'move-to-window-line-top-bottom
+               (kbd "M-H") 'capitalize-word
+               (kbd "M-J") 'transpose-chars
+               (kbd "M-K") 'kill-sentence
+               (kbd "M-L") 'move-to-window-line-top-bottom
                )))
     (spacemacs/set-leader-keys-for-major-mode 'org-mode
-      "C" 'org-shiftleft
-      "T" 'org-shiftdown
-      "S" 'org-shiftup
-      "s" 'org-schedule
-      "R" 'org-shiftright
+      ;; ctsr
       "C-S-c" 'org-shiftcontrolleft
       "C-S-t" 'org-shiftcontroldown
       "C-S-s" 'org-shiftcontrolup
       "C-S-r" 'org-shiftcontrolright
-      "tC" 'org-table-move-column-left
-      "tc" 'org-table-previous-field
-      "tT" 'org-table-move-row-down
-      "tt" 'org-table-next-row
-      "tS" 'org-table-move-row-up
-      "tR" 'org-table-move-column-right
-      "tr" 'org-table-next-field
-      )
-    (evil-define-key 'normal evil-org-mode-map
-      "gt" 'org-forward-heading-same-level
-      "gs" 'org-backward-heading-same-level
-      ))
-  :switch
-  (progn
-    (evil-define-key 'normal evil-org-mode-map
-      "j" 'org-todo
-      )
-    (dolist (m '(normal insert))
-      (eval `(evil-define-key ',m evil-org-mode-map
-               (kbd "M-h") 'capitalize-word
-               (kbd "M-j") 'transpose-chars
-               (kbd "M-k") nil ; TODO find it!
-               (kbd "M-l") 'move-to-window-line-top-bottom
-               (kbd "M-H") 'capitalize-word
-               (kbd "M-J") 'transpose-chars
-               (kbd "M-K") nil ; TODO find it!
-               (kbd "M-L") 'move-to-window-line-top-bottom
-               )))
-    (spacemacs/set-leader-keys-for-major-mode 'org-mode
-      "H" 'org-refile
-      "J" 'org-show-todo-tree
-      "K" nil
-      "Kr" 'org-demote-gubtree
-      "Kc" 'org-promote-subtree
-      "Kt" 'org-move-subtree-down
-      "Ks" 'org-move-subtree-up
-      "L" 'evil-org-recompute-clocks
+      ;; hjkl
       "C-S-h" nil
       "C-S-j" nil
       "C-S-k" nil
       "C-S-l" nil
-      "tH" nil
-      "th" 'org-table-recalculate
-      "tJ" nil
-      "tj" nil
-      "tK" nil
-      "tk" 'org-table-sort-lines
-      "tL" nil
-      "tl" 'org-table-convert
-      "tjf" 'org-table-toggle-formula-debugger
-      "tjo" 'org-table-toggle-coordinate-overlays
-      "s" 'org-schedule
       )
     (evil-define-key 'normal evil-org-mode-map
+      ;; ctsr
+      "gt" 'org-forward-heading-same-level
+      "gs" 'org-backward-heading-same-level
+      ;; hjkl
       "gj" nil
       "gk" nil
-      ))
-  :additional
-  (evil-define-key 'normal evil-org-mode-map
-    (kbd "«") 'org-metaleft
-    (kbd "»") 'org-metaright
-    ))
-
-
-(bepo|rebind "ranger"
-  :description
-  "Remap navigation keys in ranger."
-  :loader
-  (spacemacs|use-package-add-hook ranger :post-init (with-eval-after-load 'evil BODY))
-  :remap
-  (progn
-    (evil-define-key 'normal ranger-mode-map
-      "c" 'ranger-up-directory
-      "t" 'ranger-next-file
-      "s" 'ranger-prev-file
-      "r" 'ranger-find-file
-      ;;
-      "C" 'ranger-prev-history
-      "T" 'ranger-next-subdir
-      "S" 'ranger-prev-subdir
-      "R" 'ranger-next-history
-      )) 
-  :switch
-  (progn
-    (evil-define-key 'normal ranger-mode-map
-      "h" nil
-      "j" nil
-      "k" nil
-      "l" nil
-      ;;
-      "H" 'dired-do-rename
-      "K" 'eshell
-      "J" nil
-      "L" nil
+      ;; additional
+      (kbd "«") 'org-metaleft
+      (kbd "»") 'org-metaright
       )))
 
-
-(bepo|rebind "spacemacs-specific"
+(bepo|config ranger
   :description
-  "Remap spacemacs defined key bindings.
-   Note: `SPC T' is not remaped because it correspond to an important group. Use
-     original `SPC J' instead.
-   Note: The character `s' for snippets have been move to `y' instead of `k'
-     because of the mnemonic with yasnippet."
-  :remap
-  (progn
-    (spacemacs/set-leader-keys
-      "jc" 'spacemacs/push-mark-and-goto-beginning-of-line
-      "jt" 'sp-newline
-      "js" 'spacemacs/evil-goto-next-line-and-indent
-      "jr" 'spacemacs/push-mark-and-goto-end-of-line
-      ;;
-      "jT" 'spacemacs/split-and-new-line
-      ;;
-      "it" 'spacemacs/evil-insert-line-below
-      "iT" 'spacemacs/insert-line-below-no-indent
-      ))
-  :switch
-  (progn
-    (spacemacs/set-leader-keys
-      "jh" nil
-      "jj" nil
-      "jk" nil
-      "jl" nil
-      ;;
-      "jJ" nil
-      ;;
-      "ij" nil
-      "ik" nil
-      ;; For the followings, they are set in additional and special
-      "iJ" nil
-      "iK" nil
-      ;;
-      "iSc" nil
-      "iSe" nil
-      "iSw" nil
-      ))
-  :additional
-  (progn
-    (spacemacs/set-leader-keys
-      "iy" 'spacemacs/helm-yas
-      "iYc" 'aya-create
-      "iYe" 'spacemacs/auto-yasnippet-expand
-      "iYw" 'aya-persist-snippet
-      ))
-  :special
-  (progn
-    (spacemacs|use-package-add-hook helm-c-yasnippet
-      :post-init
-      (spacemacs/set-leader-keys
-        "is" 'spacemacs/evil-insert-line-above
-        ))
-    (spacemacs|use-package-add-hook auto-yasnippet
-      :post-init
-      (spacemacs/set-leader-keys
-        "iS" 'spacemacs/insert-line-above-no-indent
-        ))
-    (spacemacs/declare-prefix "iY" "auto-yasnippet")))
+  "Remap navigation keys in `ranger'."
+  :loader
+  (with-eval-after-load 'ranger BODY)
+  :config
+  (bepo/correct-keys ranger-mode-map
+    "h"
+    "j"
+    "k"
+    "l"
+    ;;
+    "H"
+    "K"
+    "J"
+    "L"))
+
+(bepo|config spacemacs
+  :description
+  "Customize some `spacemacs' bindings."
+  :config
+  (bepo/evil-leader-correct-keys
+    "jh"
+    "jj"
+    "jk"
+    "jl"
+    ;;
+    "jJ"
+    ))
