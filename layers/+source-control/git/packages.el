@@ -110,13 +110,26 @@
         (magit-diff "HEAD"))
 
       (evil-leader/set-key
-        "gb" 'magit-blame
-        "gB" 'magit-blame-quit
+        "gb" 'spacemacs/git-blame-micro-state
         "gl" 'magit-log-all
         "gL" 'magit-log-buffer-file
         "gs" 'magit-status
         "gd" 'spacemacs/magit-diff-head
-        "gC" 'magit-commit))
+        "gC" 'magit-commit)
+
+      (spacemacs|define-micro-state git-blame
+        :doc (concat "Press [b] again to blame further in the history, "
+                     "[q] to go up or quit.")
+        :on-enter (let (golden-ratio-mode) (call-interactively 'magit-blame))
+        :persistent t
+        :bindings
+        ("b" magit-blame)
+        ;; here we use the :exit keyword because we should exit the
+        ;; micro-state only if the magit-blame-quit effectively disable
+        ;; the magit-blame mode.
+        ("q" nil :exit (progn
+                         (magit-blame-quit)
+                         (not (bound-and-true-p magit-blame-mode))))))
     :config
     (progn
       ;; seems to be necessary at the time of release
