@@ -217,8 +217,9 @@ Ensure that helm is required before calling FUNC."
   :documentation "Break line beyond `current-fill-column` while editing."
   :evil-leader "tF")
 (spacemacs|add-toggle debug-on-error
-  :status nil
-  :on (toggle-debug-on-error)
+  :status debug-on-error
+  :on (setq debug-on-error t)
+  :off (setq debug-on-error nil)
   :documentation "Toggle display of backtrace when an error happens."
   :evil-leader "tD")
 (spacemacs|add-toggle fringe
