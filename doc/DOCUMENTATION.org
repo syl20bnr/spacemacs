@@ -840,7 +840,7 @@ You can see samples of all included themes in this [[http://themegallery.robdor.
     session may have some weird side effects. Although these side effects should
     be pretty rare.
 
-*Hint* If you are an =Org= user, [[https://github.com/fniessen/emacs-leuven-theme][leuven-theme]] is amazing ;-)
+*Hint*: If you are an =Org= user, [[https://github.com/fniessen/emacs-leuven-theme][leuven-theme]] is amazing ;-)
 
 *** Font
 The default font used by Spacemacs is [[https://github.com/adobe-fonts/source-code-pro][Source Code Pro]] by Adobe. It is
@@ -1426,7 +1426,7 @@ a buffer containing some text: ~d SPC l~
 | ~SPC l~     | initiate ace jump line mode                        |
 | ~SPC `~     | go back to the previous location (before the jump) |
 
-Hint: you may change to char mode by ~C-c C-c~ in word mode.
+*Hint*: you may change to char mode by ~C-c C-c~ in word mode.
 
 **** ace-link mode
 Similar to =ace-jump-mode=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one to jump to any link in
@@ -1947,6 +1947,10 @@ called =pt=.
 | ~SPC s k P~           | =ack= with default text                             |
 | ~SPC s t p~           | =pt=                                                |
 | ~SPC s t P~           | =pt= with default text                              |
+
+*Hint*: It is also possible to search in a project without needing to open a
+file beforehand. To do so use ~SPC p p~ and then ~C-s~ on a given project to
+directly search into it like with ~SPC s p~.
 
 **** Searching the web
 | Key Binding | Description                                                          |
