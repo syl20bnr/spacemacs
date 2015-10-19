@@ -18,7 +18,7 @@
 This layer adds extensive support for go.
 
 ** Features:
-- gofmt on file save
+- gofmt/goimports on file save
 - Auto-completion using [[https://github.com/nsf/gocode/tree/master/emacs][go-autocomplete]] (with the =auto-completion= layer)
 - Source analysis using [[http://golang.org/s/oracle-user-manual][go-oracle]]
 
@@ -55,6 +55,8 @@ formatter, set the value of =gofmt-command=, e.g.
 
 #+begin_src emacs-lisp
   (setq gofmt-command "goimports")
+  or
+  (go :variables gofmt-command "goimports")
 #+end_src
 
 * Working with Go
