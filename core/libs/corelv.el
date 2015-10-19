@@ -33,6 +33,24 @@
 
 ;;; Code:
 
+(defgroup corelv nil
+  "The other echo area."
+  :group 'minibuffer
+  :group 'hydra)
+
+(defcustom corelv-use-separator nil
+  "Whether to draw a line between the LV window and the Echo Area."
+  :group 'corelv
+  :type 'boolean)
+
+(defface corelv-separator
+  '((((class color) (background light)) :background "grey80")
+    (((class color) (background  dark)) :background "grey30"))
+  "Face used to draw line between the corelv window and the echo area.
+This is only used if option `corelv-use-separator' is non-nil.
+Only the background color is significant."
+  :group 'corelv)
+
 (defvar corelv-wnd nil
   "Holds the current LV window.")
 
@@ -44,32 +62,55 @@
           buf)
       (prog1 (setq corelv-wnd
                    (select-window
-                    (split-window
-                     (frame-root-window) -1 'below)))
+                    (let ((ignore-window-parameters t))
+                      (split-window
+                       (frame-root-window) -1 'below))))
         (if (setq buf (get-buffer "*LV*"))
             (switch-to-buffer buf)
           (switch-to-buffer "*LV*")
-          (setq truncate-lines nil)
+          (set-window-hscroll corelv-wnd 0)
+          (setq window-size-fixed t)
           (setq mode-line-format nil)
           (setq cursor-type nil)
-          (set-window-dedicated-p corelv-wnd t))
+          (set-window-dedicated-p corelv-wnd t)
+          (set-window-parameter corelv-wnd 'no-other-window t))
         (select-window ori)))))
+
+(defvar golden-ratio-mode)
+
+(defvar corelv-force-update nil
+  "When non-nil, `corelv-message' will refresh even for the same string.")
 
 (defun corelv-message (format-string &rest args)
   "Set LV window contents to (`format' FORMAT-STRING ARGS)."
-  (let ((ori (selected-window))
-        (str (apply #'format format-string args))
-        (golden-ratio (when (boundp 'golden-ratio-mode) golden-ratio-mode))
-        deactivate-mark)
-    (when (bound-and-true-p golden-ratio-mode) (golden-ratio-mode -1))
-    (select-window (corelv-window))
-    (when golden-ratio (golden-ratio-mode))
-    (unless (string= (buffer-string) str)
-      (delete-region (point-min) (point-max))
-      (insert str)
-      (fit-window-to-buffer nil nil 1))
-    (goto-char (point-min)) (end-of-line)
-    (select-window ori)))
+  (let* ((str (apply #'format format-string args))
+         (n-lines (cl-count ?\n str))
+         deactivate-mark
+         golden-ratio-mode)
+    (with-selected-window (corelv-window)
+      (unless (and (string= (buffer-string) str)
+                   (null corelv-force-update))
+        (delete-region (point-min) (point-max))
+        (insert str)
+        (when (and (window-system) corelv-use-separator)
+          (unless (looking-back "\n" nil)
+            (insert "\n"))
+          (insert
+           (propertize "__" 'face 'corelv-separator 'display '(space :height (1)))
+           (propertize "\n" 'face 'corelv-separator 'line-height t)))
+        (setq-local window-min-height n-lines)
+        (setq truncate-lines (> n-lines 1))
+        (let ((window-resize-pixelwise t)
+              (window-size-fixed nil))
+          (fit-window-to-buffer nil nil 1)))
+      (goto-char (point-min)))))
+
+(defun corelv-delete-window ()
+  "Delete LV window and kill its buffer."
+  (when (window-live-p corelv-wnd)
+    (let ((buf (window-buffer corelv-wnd)))
+      (delete-window corelv-wnd)
+      (kill-buffer buf))))
 
 (provide 'corelv)
 
