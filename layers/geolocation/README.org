@@ -20,7 +20,6 @@ forecast and on OS X, also automatic tracking of location, using OS X's
 CoreLocation services.
 
 ** Supported packages in this layer
-- [[https://github.com/hadronzoo/theme-changer][theme-changer]]
 - [[https://github.com/aaronbieber/sunshine.el/blob/master/sunshine.el][sunshine]]
 - [[https://github.com/purcell/osx-location][osx-location]]
 
@@ -34,9 +33,9 @@ something like this:
 
 #+BEGIN_SRC emacs-lisp
   (geolocation :variables
-               geolocation-enable-osx-location-service-support t
-               geolocation-enable-weather-forecast t
-               geolocation-enable-automatic-theme-changer t)
+               geolocation-enable-automatic-theme-changer t
+               geolocation-enable-location-service t
+               geolocation-enable-weather-forecast t)
 #+END_SRC
 
 * Configuration
@@ -50,24 +49,53 @@ defun~.
         calendar-longitude 1.80)
 #+END_SRC
 
-On OS X, all of these variables get setup automatically by the ~osx-location~
-service, when enabled. If ~calendar-location-name~ was omitted, it'll be
-stringed-up like so: "41.23, 1.80".
+On OS X, all of these variables get setup automatically if the ~osx-location~
+service was enabled. In this case, if ~calendar-location-name~ was omitted,
+it'll be stringed-up ~calendar-latitude~ and ~calendar-longitude~ i.e. "41.23,
+1.80".
 
 ** theme-changer
-Theme changer will switch between the first two themes the user has setup in
-~dotspacemacs-themes~, depending on time at geographical location.
+This layer implement a simple "theme changer" which, when enabled, will switch
+between first two themes the user has setup in ~dotspacemacs-themes~. First
+theme listed will be used as light variant, while the second as the the dark.
+Other themes will be ignored by this layer, though they are still available for
+cycling, etc.
 
 ** sunshine (weather forecast)
-Sunshine uses the imperial unit system by default. To switch to metric, do this:
+Sunshine display local weather forecast.
+
+Setup [[http://home.openweathermap.org/][OpenWeatherMap]] API key.
+Set ~sunshine-appid~ to some hash string from the openweathermap
+website. You need to sign up to the website to get a API key.
+
+#+BEGIN_SRC emacs-lisp
+  (setq sunshine-appid "your-apikey")
+#+END_SRC
+
+Configure your location by setting the variable sunshine-location. You
+can provide a string, like "New York, NY" or a ZIP code, like "90210".
+This variable is available through the Customize facility.
+  When specifying a ZIP code, you may receive results from a foreign
+country. This is due to weird behavior from OpenWeatherMap. To resolve
+this, append a comma and the country code after the ZIP code. Note the
+lack of a space in the example below.
+
+#+BEGIN_SRC emacs-lisp
+(setq sunshine-location "90210,USA")
+#+END_SRC
+
+It will use the imperial unit system by default. To switch to metric, add
+~sunshine-units 'metric~ to the variables list for this layer, or add this.
 
 #+BEGIN_SRC emacs-lisp
   (setq sunshine-units 'metric)
 #+END_SRC
 
-Weather forecast icons are disabled by default, but can be toggled by pressing
-=i= within this mode's main buffer. To display weather forecast icons by default
-("pretty mode"), change the settings to this:
+Weather forecast icons are disabled by default, and can be toggled by pressing
+`i' within this mode's main buffer. 
+
+To display weather forecast icons by default ("pretty mode"), add
+~sunshine-show-icons t~ to the variables list for this layer, or add this:
 
 #+BEGIN_SRC emacs-lisp
   (setq sunshine-show-icons t)
