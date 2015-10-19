@@ -123,7 +123,7 @@ Both Emacs and XEmacs have graphical support.
 We recommend the homebrew [emacs-mac-port][] formula:
 
 ```sh
-$ brew tap railwaycat/homebrew-emacsmacport
+$ brew tap railwaycat/emacsmacport
 $ brew install emacs-mac --with-spacemacs-icon  # OR, brew cask install emacs-mac
 ```
 
