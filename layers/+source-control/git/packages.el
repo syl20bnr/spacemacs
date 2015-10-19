@@ -56,17 +56,9 @@
     :config
     (progn
 
-      (defun spacemacs//time-machine-ms-on-enter ()
-        "Initiate git-timemachine properly with goden-ratio support."
-        (let ((golden-ratio (when (boundp 'golden-ratio-mode)
-                              golden-ratio-mode)))
-          (when (bound-and-true-p golden-ratio-mode) (golden-ratio-mode -1))
-          (git-timemachine)
-          (when golden-ratio (golden-ratio-mode))))
-
       (spacemacs|define-micro-state time-machine
         :doc "[p] [N] previous [n] next [c] current [Y] copy hash [q] quit"
-        :on-enter (spacemacs//time-machine-ms-on-enter)
+        :on-enter (let (golden-ratio-mode) (call-interactively 'git-timemachine))
         :on-exit (git-timemachine-quit)
         :persistent t
         :bindings
