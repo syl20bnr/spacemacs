@@ -82,6 +82,19 @@
         (ensime-inf-eval-region start end)
         (evil-insert-state))
 
+      (dolist (prefix '(("mb" . "scala/build")
+                        ("mc" . "scala/check")
+                        ("md" . "scala/debug")
+                        ("me" . "scala/errors")
+                        ("mg" . "scala/goto")
+                        ("mh" . "scala/docs")
+                        ("mi" . "scala/inspect")
+                        ("mn" . "scala/ensime")
+                        ("mr" . "scala/refactor")
+                        ("mt" . "scala/test")
+                        ("ms" . "scala/repl")))
+        (spacemacs/declare-prefix-for-mode 'scala-mode (car prefix) (cdr prefix)))
+
       (evil-leader/set-key-for-mode 'scala-mode
         "m/"     'ensime-search
 
