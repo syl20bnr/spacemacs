@@ -12,17 +12,26 @@
 
 (setq spell-checking-packages
   '(
+    auto-dictionary
     flyspell
     helm-flyspell
     ))
 
+(defun spell-checking/init-auto-dictionary ()
+  (use-package auto-dictionary
+    :defer t
+    :if spell-checking-auto-dictionary
+    :init
+    (add-hook 'flyspell-mode-hook 'auto-dictionary-mode)))
+
 (defun spell-checking/init-flyspell ()
   (use-package flyspell
     :defer t
+    :commands (spell-checking/change-dictionary)
     :init
     (progn
-      (spacemacs/add-flyspell-hook 'org-mode)
-      (spacemacs/add-flyspell-hook 'text-mode)
+      (spell-checking/add-flyspell-hook 'org-mode)
+      (spell-checking/add-flyspell-hook 'text-mode)
       (when spell-checking-enable-by-default
         (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
@@ -35,7 +44,7 @@
         :evil-leader "tS")
 
       (evil-leader/set-key
-        "Sd" 'ispell-change-dictionary
+        "Sd" 'spell-checking/change-dictionary
         "Sn" 'flyspell-goto-next-error))
     :config
     (spacemacs|diminish flyspell-mode " Ⓢ" " S")))
