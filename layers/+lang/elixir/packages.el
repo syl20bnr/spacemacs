@@ -28,6 +28,15 @@
       (setq alchemist-project-compile-when-needed t)
       (push 'alchemist-company company-backends-elixir-mode))
     :config
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mc" "compile")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "me" "eval")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mp" "project")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mh" "help")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mt" "test")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "ms" "iex")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mm" "mix")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mx" "execute")
+    (spacemacs/declare-prefix-for-mode 'elixir-mode "mg" "goto")
     (evil-leader/set-key-for-mode 'elixir-mode
       "mel" 'alchemist-eval-current-line
       "meL" 'alchemist-eval-print-current-line
