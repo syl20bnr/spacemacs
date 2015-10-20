@@ -42,6 +42,7 @@
         projectile
         quelpa
         recentf
+        restart-emacs
         savehist
         saveplace
         spacemacs-theme
@@ -1252,6 +1253,12 @@ ARG non nil means that the editing style is `vim'."
     (setq recentf-max-saved-items 100)
     (setq recentf-auto-cleanup 'never)
     (setq recentf-auto-save-timer (run-with-idle-timer 600 t 'recentf-save-list))))
+
+(defun spacemacs-base/init-restart-emacs()
+  (use-package restart-emacs
+    :defer t
+    :init
+    (evil-leader/set-key "qr" 'restart-emacs)))
 
 (defun spacemacs-base/init-savehist ()
   (use-package savehist
