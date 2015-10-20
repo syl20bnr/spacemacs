@@ -92,6 +92,7 @@
     (progn
       (spacemacs|hide-lighter ruby-tools-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "mx" "ruby/text")
         (evil-leader/set-key-for-mode mode
           "mx\'" 'ruby-tools-to-single-quote-string
           "mx\"" 'ruby-tools-to-double-quote-string
@@ -102,6 +103,7 @@
     :defer t
     :init
     (dolist (mode '(ruby-mode enh-ruby-mode))
+      (spacemacs/declare-prefix-for-mode mode "mb" "ruby/bundle")
       (evil-leader/set-key-for-mode mode
         "mbc" 'bundle-check
         "mbi" 'bundle-install
@@ -125,6 +127,9 @@
       (spacemacs|hide-lighter robe-mode)
 
       (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "mg" "ruby/goto")
+        (spacemacs/declare-prefix-for-mode mode "mh" "ruby/docs")
+        (spacemacs/declare-prefix-for-mode mode "ms" "ruby/repl")
         (evil-leader/set-key-for-mode mode
           ;; robe mode specific
           "mgg" 'robe-jump
@@ -148,6 +153,7 @@
     (progn
       (spacemacs|hide-lighter ruby-test-mode)
       (dolist (mode '(ruby-mode enh-ruby-mode))
+        (spacemacs/declare-prefix-for-mode mode "mt" "ruby/test")
         (evil-leader/set-key-for-mode mode "mtb" 'ruby-test-run)
         (evil-leader/set-key-for-mode mode "mtt" 'ruby-test-run-at-point)))))
 
