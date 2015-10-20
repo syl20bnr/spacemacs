@@ -190,6 +190,8 @@
     :init (add-hook 'js2-mode-hook 'tern-mode)
     :config
     (progn
+      (when javascript-disable-tern-port-files
+        (add-to-list 'tern-command "--no-port-file" 'append))
       (spacemacs/set-leader-keys-for-major-mode 'js2-mode "rrV" 'tern-rename-variable)
       (spacemacs/set-leader-keys-for-major-mode 'js2-mode "hd" 'tern-get-docs)
       (spacemacs/set-leader-keys-for-major-mode 'js2-mode "gg" 'tern-find-definition)
