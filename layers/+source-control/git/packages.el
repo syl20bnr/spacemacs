@@ -58,8 +58,11 @@
 
       (spacemacs|define-micro-state time-machine
         :doc "[p] [N] previous [n] next [c] current [Y] copy hash [q] quit"
-        :on-enter (let (golden-ratio-mode) (call-interactively 'git-timemachine))
-        :on-exit (git-timemachine-quit)
+        :on-enter (let (golden-ratio-mode)
+                    (unless (bound-and-true-p git-timemachine-mode)
+                      (call-interactively 'git-timemachine)))
+        :on-exit (when (bound-and-true-p git-timemachine-mode)
+                   (git-timemachine-quit))
         :persistent t
         :bindings
         ("c" git-timemachine-show-current-revision)
