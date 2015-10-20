@@ -112,7 +112,9 @@
       (spacemacs|define-micro-state git-blame
         :doc (concat "Press [b] again to blame further in the history, "
                      "[q] to go up or quit.")
-        :on-enter (let (golden-ratio-mode) (call-interactively 'magit-blame))
+        :on-enter (let (golden-ratio-mode)
+                    (unless (bound-and-true-p magit-blame-mode)
+                      (call-interactively 'magit-blame)))
         :persistent t
         :bindings
         ("b" magit-blame)
