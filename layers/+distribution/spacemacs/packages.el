@@ -17,7 +17,6 @@
         ace-window
         adaptive-wrap
         aggressive-indent
-        auto-dictionary
         auto-highlight-symbol
         avy
         buffer-move
@@ -167,16 +166,6 @@
     (progn
       (add-hook 'diff-auto-refine-mode-hook 'spacemacs/toggle-aggressive-indent-off)
       (spacemacs|diminish aggressive-indent-mode " Ⓘ" " I"))))
-
-(defun spacemacs/init-auto-dictionary ()
-  (use-package auto-dictionary
-    :disabled t
-    :defer t
-    :init
-    (progn
-      (add-hook 'flyspell-mode-hook '(lambda () (auto-dictionary-mode 1)))
-      (evil-leader/set-key
-        "Sd" 'adict-change-dictionary))))
 
 (defun spacemacs/init-auto-highlight-symbol ()
   (use-package auto-highlight-symbol

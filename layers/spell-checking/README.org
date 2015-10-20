@@ -6,6 +6,7 @@
    - [[#layer][Layer]]
    - [[#spell-checker-configuration][Spell Checker Configuration]]
    - [[#disabling-by-default][Disabling by default]]
+   - [[#disabling-auto-dictionary][Disabling auto-dictionary]]
  - [[#key-bindings][Key Bindings]]
 
 * Description
@@ -29,13 +30,23 @@ dictionary used by =ispell-program-name= (instead of using this variable you can
 also use the key binding ~SPC S d~).
 
 ** Disabling by default
-By default, spell-checking is enabled in all available major modes and may be
+By default, =spell-checking= is enabled in all available major modes and may be
 toggled off with ~SPC t S~. You can default this to off by setting the variable
 =spell-checking-enable-by-default= to =nil=:
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-configuration-layers
   '((spell-checking :variables spell-checking-enable-by-default nil)))
+#+END_SRC
+
+** Disabling auto-dictionary
+By default, =spell-checking= tries to detect the current language from the
+buffer content, and activate the corresponding dictionary. You can default this
+to off by setting the variable =spell-checking-auto-dictionary= to =nil=:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((spell-checking :variables spell-checking-auto-dictionary nil)))
 #+END_SRC
 
 * Key Bindings
