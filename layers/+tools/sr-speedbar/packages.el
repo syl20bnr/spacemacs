@@ -25,5 +25,7 @@
     (setq sr-speedbar-width 30)
     (setq sr-speedbar-right-side nil)
     :config
+    (evil-leader/set-key
+      "ft" 'spacemacs/sr-speedbar-show-or-hide)
     (spacemacs|evilify-map speedbar-mode-map)))
 

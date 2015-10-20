@@ -3,16 +3,14 @@
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
  - [[#usage][Usage]]
+ - [[#key-bindings][Key Bindings]]
 
 * Description
 
 sr-speedbar is mode make SpeedBar show in Current Frame.
 
 * Install
-
-** Layer
 
 To use this contribution add it to your =~/.spacemacs=
 
@@ -21,5 +19,7 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 * Usage
-
-M-x spacemacs/sr-speedbar-show-or-hide
+* Key Bindings
+| Key Binding | Description                  |
+|-------------+------------------------------|
+| ~SPC f t~   | Toggle sr-speedbar           |
