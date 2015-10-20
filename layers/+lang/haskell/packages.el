@@ -72,6 +72,21 @@
         (require 'haskell-mode))
       (add-hook 'haskell-cabal-mode-hook
                 'spacemacs//force-haskell-mode-loading))
+
+    (setq
+     ;; Use notify.el (if you have it installed) at the end of running
+     ;; Cabal commands or generally things worth notifying.
+     haskell-notify-p t
+     ;; To enable tags generation on save.
+     haskell-tags-on-save t
+     ;; Remove annoying error popups
+     haskell-interactive-popup-errors nil
+     ;; Better import handling
+     haskell-process-suggest-remove-import-lines t
+     haskell-process-auto-import-loaded-modules t
+     ;; Disable haskell-stylish-on-save, as it breaks flycheck highlighting.
+     ;; NOTE: May not be true anymore - taksuyu 2015-10-06
+     haskell-stylish-on-save nil)
     :config
     (progn
       ;; Haskell main editing mode key bindings.
@@ -94,21 +109,6 @@
       ;; hooks
       (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
       (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
-
-      ;; settings
-      (setq
-       ;; Use notify.el (if you have it installed) at the end of running
-       ;; Cabal commands or generally things worth notifying.
-       haskell-notify-p t
-       ;; To enable tags generation on save.
-       haskell-tags-on-save t
-       ;; Remove annoying error popups
-       haskell-interactive-popup-errors nil
-       ;; Better import handling
-       haskell-process-suggest-remove-import-lines t
-       haskell-process-auto-import-loaded-modules t
-       ;; Disable haskell-stylish on save, it breaks flycheck highlighting
-       haskell-stylish-on-save nil)
 
       ;; prefixes
       (spacemacs/declare-prefix-for-mode 'haskell-mode "mg" "haskell/navigation")
