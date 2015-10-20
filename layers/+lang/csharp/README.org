@@ -28,7 +28,6 @@ This layer adds experimental support for C# language using [[https://github.com/
 * Packages Included
 
 - [[https://github.com/OmniSharp/omnisharp-emacs][OmniSharp-emacs]]
-- [[https://github.com/OmniSharp/omnisharp-server][OmniSharp-server]]
   
 * Install
 
