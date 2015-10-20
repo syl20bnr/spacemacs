@@ -121,9 +121,9 @@
         ;; here we use the :exit keyword because we should exit the
         ;; micro-state only if the magit-blame-quit effectively disable
         ;; the magit-blame mode.
-        ("q" nil :exit (progn
-                         (magit-blame-quit)
-                         (not (bound-and-true-p magit-blame-mode))))))
+        ("q" nil :exit (progn (when (bound-and-true-p magit-blame-mode)
+                                (magit-blame-quit))
+                              (not (bound-and-true-p magit-blame-mode))))))
     :config
     (progn
       ;; seems to be necessary at the time of release
