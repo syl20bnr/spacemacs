@@ -4,20 +4,20 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
-     - [[#features][Features:]]
+   - [[#features][Features:]]
  - [[#install][Install]]
  - [[#usage][Usage]]
  - [[#key-bindings][Key bindings]]
-     - [[#element-insertion][Element insertion]]
-     - [[#element-removal][Element removal]]
-     - [[#completion-and-cycling][Completion, and Cycling]]
-     - [[#following-and-jumping][Following and Jumping]]
-     - [[#indentation][Indentation]]
-     - [[#header-navigation][Header navigation]]
-     - [[#buffer-wide-commands][Buffer-wide commands]]
-     - [[#list-editing][List editing]]
-     - [[#movement][Movement]]
-     - [[#promotion-demotion][Promotion, Demotion]]
+   - [[#element-insertion][Element insertion]]
+   - [[#element-removal][Element removal]]
+   - [[#completion-and-cycling][Completion, and Cycling]]
+   - [[#following-and-jumping][Following and Jumping]]
+   - [[#indentation][Indentation]]
+   - [[#header-navigation][Header navigation]]
+   - [[#buffer-wide-commands][Buffer-wide commands]]
+   - [[#list-editing][List editing]]
+   - [[#movement][Movement]]
+   - [[#promotion-demotion][Promotion, Demotion]]
 
 * Description
 
@@ -46,33 +46,34 @@ To generate a table of contents type on top of the buffer:
 
 ** Element insertion
 
-| Key Binding | Description                                 |
-|-------------+---------------------------------------------|
-| ~SPC m -~   | insert horizontal line                      |
-| ~SPC m h i~ | insert header dwim                          |
-| ~SPC m h I~ | insert header setext dwim                   |
-| ~SPC m h 1~ | insert header atx 1                         |
-| ~SPC m h 2~ | insert header atx 2                         |
-| ~SPC m h 3~ | insert header atx 3                         |
-| ~SPC m h 4~ | insert header atx 4                         |
-| ~SPC m h 5~ | insert header atx 5                         |
-| ~SPC m h 6~ | insert header atx 6                         |
-| ~SPC m h !~ | insert header setext 1                      |
-| ~SPC m h @~ | insert header setext 2                      |
-| ~SPC m i l~ | insert link                                 |
-| ~SPC m i L~ | insert reference link dwim                  |
-| ~SPC m i u~ | insert uri                                  |
-| ~SPC m i f~ | insert footnote                             |
-| ~SPC m i w~ | insert wiki link                            |
-| ~SPC m i i~ | insert image                                |
-| ~SPC m i I~ | insert reference image                      |
-| ~SPC m x b~ | make region bold or insert bold             |
-| ~SPC m x i~ | make region italic or insert italic         |
-| ~SPC m x c~ | make region code or insert code             |
-| ~SPC m x q~ | make region blockquote or insert blockquote |
-| ~SPC m x Q~ | blockquote region                           |
-| ~SPC m x p~ | make region or insert pre                   |
-| ~SPC m x P~ | pre region                                  |
+| Key Binding | Description                                                       |
+|-------------+-------------------------------------------------------------------|
+| ~SPC m -~   | insert horizontal line                                            |
+| ~SPC m h i~ | insert header dwim                                                |
+| ~SPC m h I~ | insert header setext dwim                                         |
+| ~SPC m h 1~ | insert header atx 1                                               |
+| ~SPC m h 2~ | insert header atx 2                                               |
+| ~SPC m h 3~ | insert header atx 3                                               |
+| ~SPC m h 4~ | insert header atx 4                                               |
+| ~SPC m h 5~ | insert header atx 5                                               |
+| ~SPC m h 6~ | insert header atx 6                                               |
+| ~SPC m h !~ | insert header setext 1                                            |
+| ~SPC m h @~ | insert header setext 2                                            |
+| ~SPC m i l~ | insert link                                                       |
+| ~SPC m i L~ | insert reference link dwim                                        |
+| ~SPC m i u~ | insert uri                                                        |
+| ~SPC m i f~ | insert footnote                                                   |
+| ~SPC m i w~ | insert wiki link                                                  |
+| ~SPC m i i~ | insert image                                                      |
+| ~SPC m i I~ | insert reference image                                            |
+| ~SPC m x b~ | make region bold or insert bold                                   |
+| ~SPC m x i~ | make region italic or insert italic                               |
+| ~SPC m x c~ | make region code or insert code                                   |
+| ~SPC m x C~ | make region code or insert code (Github Flavored Markdown format) |
+| ~SPC m x q~ | make region blockquote or insert blockquote                       |
+| ~SPC m x Q~ | blockquote region                                                 |
+| ~SPC m x p~ | make region or insert pre                                         |
+| ~SPC m x P~ | pre region                                                        |
 
 ** Element removal
 
