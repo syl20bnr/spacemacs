@@ -53,6 +53,15 @@ Will work on both org-mode and any mode that accepts plain html."
                (format tag (help-key-description key nil)))
             (insert (format tag ""))
             (forward-char -6))))
+
+      ;; Declare prefixes and bind keys
+      (dolist (prefix '(("mc" . "markdown/command")
+                        ("mh" . "markdown/header")
+                        ("mi" . "markdown/insert")
+                        ("ml" . "markdown/lists")
+                        ("mx" . "markdown/text")))
+        (spacemacs/declare-prefix-for-mode
+         'markdown-mode (car prefix) (cdr prefix)))
       (evil-leader/set-key-for-mode 'markdown-mode
         ;; Movement
         "m{"   'markdown-backward-paragraph
@@ -101,6 +110,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "mxb"  'markdown-insert-bold
         "mxi"  'markdown-insert-italic
         "mxc"  'markdown-insert-code
+        "mxC"  'markdown-insert-gfm-code-block
         "mxq"  'markdown-insert-blockquote
         "mxQ"  'markdown-blockquote-region
         "mxp"  'markdown-insert-pre
