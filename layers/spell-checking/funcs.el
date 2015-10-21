@@ -21,6 +21,6 @@
   "Change the dictionary. Use the ispell version if
 auto-dictionary is not used, use the adict version otherwise."
   (interactive)
-  (if spell-checking-auto-dictionary
+  (if (fboundp 'adict-change-dictionary)
       (adict-change-dictionary)
     (call-interactively 'ispell-change-dictionary)))
