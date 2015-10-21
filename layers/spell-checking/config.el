@@ -18,6 +18,3 @@
 
 (defvar spell-checking-enable-by-default t
   "Enable spell checking by default.")
-
-(defvar spell-checking-auto-dictionary t
-  "Enable auto-dictionary by default.")
