@@ -2,7 +2,7 @@
       '(company
         company-nim
         flycheck
-        (flycheck-nim :location local)
+        flycheck-nim
         nim-mode))
 
 (defun nim/post-init-company ()
