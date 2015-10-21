@@ -397,7 +397,6 @@
     :commands (spacemacs/avy-open-url)
     :init
     (progn
-      (setq avy-keys (number-sequence ?a ?z))
       (setq avy-all-windows 'all-frames)
       (setq avy-background t)
       (evil-leader/set-key
