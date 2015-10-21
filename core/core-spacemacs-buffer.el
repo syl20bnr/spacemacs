@@ -135,15 +135,8 @@ buffer, right justified."
                          (format "(%s)" spacemacs-version)))
              (pos (- maxcol (length injected)))
              (buffer-read-only nil))
-        ;; reset first line
-        (beginning-of-buffer)
-        (let ((buffer-read-only nil)
-              x-select-enable-clipboard
-              select-enable-clipboard)
-          (end-of-line)
-          (kill-line (- maxcol)))
-        (beginning-of-buffer)
         ;; fill the first line with spaces if required
+        (beginning-of-buffer)
         (when (< (line-end-position) maxcol)
           (end-of-line)
           (insert-char ?\s (- maxcol (line-end-position))))
