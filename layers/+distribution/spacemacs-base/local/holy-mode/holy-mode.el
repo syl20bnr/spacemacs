@@ -28,6 +28,16 @@
 
 ;;; Code:
 
+(defcustom holy-mode-allow-esc-to-normal-state nil
+  "When non-nil bind ESC to `evil-normal-state' in emacs state
+when holy-mode is active. This will also make commands in normal
+state that usually enter insert state enter emacs state instead.
+This option is for those who want to be in emacs state most of
+the time but still want the option of easily going into evil's
+normal state."
+  :group 'spacemacs
+  :type 'boolean)
+
 (defadvice evil-insert-state (around benedictus-dominus disable)
   "Preparing the holy water flasks."
   (evil-emacs-state))
@@ -48,13 +58,14 @@ The `insert state' is replaced by the `emacs state'."
   "Enter the church of Emacs (wash your hands)."
   ;; make all buffers' initial state emacs
   (push '("." . emacs) evil-buffer-regexps)
-  ;; not really necessary given previous line
+  ;; this is correct, but not really necessary given previous line
   (setq evil-default-state 'emacs)
-  ;; allow to return to `normal state' with escape
-  (define-key evil-emacs-state-map [escape] 'evil-normal-state)
-  ;; replace `insert state' by `emacs state'
-  (ad-enable-advice 'evil-insert-state 'around 'benedictus-dominus)
-  (ad-activate 'evil-insert-state)
+  (when holy-mode-allow-esc-to-normal-state
+    ;; allow to return to `normal state' with escape
+    (define-key evil-emacs-state-map [escape] 'evil-normal-state)
+    ;; replace `insert state' by `emacs state'
+    (ad-enable-advice 'evil-insert-state 'around 'benedictus-dominus)
+    (ad-activate 'evil-insert-state))
   ;; helm navigation
   (when (fboundp 'spacemacs//helm-hjkl-navigation)
     (spacemacs//helm-hjkl-navigation nil))
@@ -66,9 +77,12 @@ The `insert state' is replaced by the `emacs state'."
   ;; restore defaults
   (setq evil-buffer-regexps (delete '("." . emacs) evil-buffer-regexps))
   (setq evil-default-state 'normal)
-  ;; restore `insert state'
-  (ad-disable-advice 'evil-insert-state 'around 'benedictus-dominus)
-  (ad-activate 'evil-insert-state)
+  (when holy-mode-allow-esc-to-normal-state
+    ;; restore key bindings
+    (define-key evil-emacs-state-map [escape] nil)
+    ;; restore `insert state'
+    (ad-disable-advice 'evil-insert-state 'around 'benedictus-dominus)
+    (ad-activate 'evil-insert-state))
   ;; restore helm navigation
   (when (fboundp 'spacemacs//helm-hjkl-navigation)
     (spacemacs//helm-hjkl-navigation t))
