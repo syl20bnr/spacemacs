@@ -20,7 +20,6 @@
 (defun spell-checking/init-auto-dictionary ()
   (use-package auto-dictionary
     :defer t
-    :if spell-checking-auto-dictionary
     :init
     (add-hook 'flyspell-mode-hook 'auto-dictionary-mode)))
 
