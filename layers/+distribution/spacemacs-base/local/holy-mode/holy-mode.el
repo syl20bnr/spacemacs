@@ -28,12 +28,6 @@
 
 ;;; Code:
 
-(defvar holy-mode-normal-state-modes-backup nil
-  "Backup of `evil-normal-state-modes'.")
-
-(defvar holy-mode-motion-state-modes-backup nil
-  "Backup of `evil-motion-state-modes'.")
-
 (defadvice evil-insert-state (around benedictus-dominus disable)
   "Preparing the holy water flasks."
   (evil-emacs-state))
@@ -52,22 +46,15 @@ The `insert state' is replaced by the `emacs state'."
 
 (defun in-nominus-patris-et-filii-et-sipritus-sancti ()
   "Enter the church of Emacs (wash your hands)."
-  ;; transfert all modes defaulting to `evilified state' to
-  ;; `emacs state'
-  (setq evil-evilified-state-modes nil)
-  (mapc (lambda (x) (push x evil-emacs-state-modes))
-        spacemacs-core-evilified-state--modes)
+  ;; make all buffers' initial state emacs
+  (push '("." . emacs) evil-buffer-regexps)
+  ;; not really necessary given previous line
+  (setq evil-default-state 'emacs)
   ;; allow to return to `normal state' with escape
   (define-key evil-emacs-state-map [escape] 'evil-normal-state)
   ;; replace `insert state' by `emacs state'
   (ad-enable-advice 'evil-insert-state 'around 'benedictus-dominus)
   (ad-activate 'evil-insert-state)
-  ;; start all buffers in `emacs state'
-  (setq evil-default-state 'emacs)
-  (setq holy-mode-normal-state-modes-backup evil-normal-state-modes)
-  (setq evil-normal-state-modes nil)
-  (setq holy-mode-motion-state-modes-backup evil-motion-state-modes)
-  (setq evil-motion-state-modes nil)
   ;; helm navigation
   (when (fboundp 'spacemacs//helm-hjkl-navigation)
     (spacemacs//helm-hjkl-navigation nil))
@@ -76,18 +63,12 @@ The `insert state' is replaced by the `emacs state'."
 
 (defun amen ()
   "May the force be with you my son (or not)."
-  ;; restore default `evilified state'
-  (mapc (lambda (x) (delq x evil-emacs-state-modes))
-        spacemacs-core-evilified-state--modes)
-  (setq evil-evilified-state-modes spacemacs-core-evilified-state--modes)
+  ;; restore defaults
+  (setq evil-buffer-regexps (delete '("." . emacs) evil-buffer-regexps))
+  (setq evil-default-state 'normal)
   ;; restore `insert state'
   (ad-disable-advice 'evil-insert-state 'around 'benedictus-dominus)
   (ad-activate 'evil-insert-state)
-  ;; restore `normal state'
-  (setq evil-default-state 'normal)
-  ;; restore per mode default states
-  (setq evil-normal-state-modes holy-mode-normal-state-modes-backup)
-  (setq evil-motion-state-modes holy-mode-motion-state-modes-backup)
   ;; restore helm navigation
   (when (fboundp 'spacemacs//helm-hjkl-navigation)
     (spacemacs//helm-hjkl-navigation t))
@@ -100,8 +81,7 @@ ARG non nil means that the editing style is `vim'."
   (dolist (buffer (buffer-list))
     (with-current-buffer buffer
       ;; switch to holy-mode
-      (when (and (not arg) (or (eq 'evilified evil-state)
-                         (eq 'normal evil-state)))
+      (when (not arg)
         (evil-emacs-state))
       ;; disable holy-mode
       (when (and arg (eq 'emacs evil-state))
