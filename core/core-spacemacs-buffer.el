@@ -137,7 +137,9 @@ buffer, right justified."
              (buffer-read-only nil))
         ;; reset first line
         (beginning-of-buffer)
-        (let ((buffer-read-only nil))
+        (let ((buffer-read-only nil)
+              x-select-enable-clipboard
+              select-enable-clipboard)
           (end-of-line)
           (kill-line (- maxcol)))
         (beginning-of-buffer)
