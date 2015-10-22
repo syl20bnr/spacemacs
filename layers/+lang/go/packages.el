@@ -38,7 +38,7 @@
         "meb" 'go-play-buffer
         "mer" 'go-play-region
         "med" 'go-download-play
-        "mee" 'spacemacs/go-run-main
+        "mxx" 'spacemacs/go-run-main
         "mga" 'ff-find-other-file
         "mgg" 'godef-jump
         "mtp" 'spacemacs/go-run-package-tests))))
