@@ -25,6 +25,12 @@
         (interactive)
         (shell-command "go test"))
 
+      (defun spacemacs/go-run-main ()
+        (interactive)
+        (shell-command
+          (format "go run %s"
+                  (shell-quote-argument (buffer-file-name)))))
+
       (evil-leader/set-key-for-mode 'go-mode
         "mhh" 'godoc-at-point
         "mig" 'go-goto-imports
@@ -33,6 +39,7 @@
         "meb" 'go-play-buffer
         "mer" 'go-play-region
         "med" 'go-download-play
+        "mxx" 'spacemacs/go-run-main
         "mga" 'ff-find-other-file
         "mgg" 'godef-jump
         "mtp" 'spacemacs/go-run-package-tests))))
