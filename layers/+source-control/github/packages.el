@@ -105,15 +105,8 @@
             "Start `magit-gh-pulls-mode' only after a manual request."
             (interactive)
             (magit-gh-pulls-mode)
-            (magit-gh-pulls-reload))
+            (magit-gh-pulls-popup))
 
-          (defun spacemacs/fetch-gh-pulls-mode ()
-            "Start `magit-gh-pulls-mode' only after a manual request."
-            (interactive)
-            (magit-gh-pulls-mode)
-            (magit-gh-pulls-fetch-commits))
-
-          (define-key magit-mode-map "#f" 'spacemacs/fetch-gh-pulls-mode)
-          (define-key magit-mode-map "#g" 'spacemacs/load-gh-pulls-mode))
+          (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode))
         :config
         (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))
