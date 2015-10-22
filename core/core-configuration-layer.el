@@ -103,7 +103,9 @@
    (location :initarg :location
              :initform elpa
              :type (satisfies (lambda (x)
-                                (or (member x '(built-in local elpa))
+                                (or (and (stringp x)
+                                         (file-directory-p x))
+                                    (member x '(built-in local elpa))
                                     (and (listp x) (eq 'recipe (car x))))))
              :documentation "Location of the package.")
    (step :initarg :step
@@ -365,6 +367,7 @@ Properties that can be copied are `:location', `:step' and `:excluded'."
   (configuration-layer/filter-objects
    packages (lambda (x) (and (not (null (oref x :owner)))
                              (not (memq (oref x :location) '(built-in local)))
+                             (not (stringp (oref x :location)))
                              (not (oref x :excluded))))))
 
 (defun configuration-layer//get-private-layer-dir (name)
@@ -746,20 +749,21 @@ path."
          (format "%S ignored since it has no owner layer." pkg-name)))
        (t
         ;; load-path
-        (when (eq 'local (oref pkg :location))
-          (if (eq 'dotfile (oref pkg :owner))
-              ;; local packages owned by dotfile are stored in private/local
-              (push (file-name-as-directory
-                     (concat configuration-layer-private-directory
-                             "local/"
-                             (symbol-name (oref pkg :name))))
-                    load-path)
-            (let* ((owner (object-assoc (oref pkg :owner)
-                                        :name configuration-layer--layers))
-                   (dir (when owner (oref owner :dir))))
-              (push (format "%slocal/%S/" dir pkg-name) load-path)
-              ;; TODO remove extensions in 0.105.0
-              (push (format "%sextensions/%S/" dir pkg-name) load-path))))
+        (cond
+         ((stringp (oref pkg :location))
+          (push (file-name-as-directory (oref pkg :location)) load-path))
+         ((and (eq 'local (oref pkg :location))
+               (eq 'dotfile (oref pkg :owner)))
+          (push (file-name-as-directory
+                 (concat configuration-layer-private-directory "local/"
+                         (symbol-name (oref pkg :name))))
+                load-path))
+         ((eq 'local (oref pkg :location))
+          (let* ((owner (object-assoc (oref pkg :owner) :name configuration-layer--layers))
+                 (dir (when owner (oref owner :dir))))
+            (push (format "%slocal/%S/" dir pkg-name) load-path)
+            ;; TODO remove extensions in 0.105.0
+            (push (format "%sextensions/%S/" dir pkg-name) load-path))))
         ;; configuration
         (cond
          ((eq 'dotfile (oref pkg :owner))
