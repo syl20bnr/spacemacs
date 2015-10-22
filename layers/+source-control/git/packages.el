@@ -106,6 +106,7 @@
 
       (evil-leader/set-key
         "gb" 'spacemacs/git-blame-micro-state
+        "gi" 'magit-init
         "gl" 'magit-log-all
         "gL" 'magit-log-buffer-file
         "gs" 'magit-status
