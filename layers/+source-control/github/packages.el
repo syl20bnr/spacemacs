@@ -107,6 +107,6 @@
             (magit-gh-pulls-mode)
             (magit-gh-pulls-popup))
 
-          (define-key magit-mode-map "#g" 'spacemacs/load-gh-pulls-mode))
+          (define-key magit-mode-map "#" 'spacemacs/load-gh-pulls-mode))
         :config
         (spacemacs|diminish magit-gh-pulls-mode "Github-PR")))))

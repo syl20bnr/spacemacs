@@ -295,7 +295,7 @@
     :init (progn
             (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
             (with-eval-after-load 'magit
-              (define-key magit-mode-map "#f" 'magit-gitflow-popup)))
+              (define-key magit-mode-map "%" 'magit-gitflow-popup)))
     :config (spacemacs|diminish magit-gitflow-mode "Flow")))
 
 (defun git/init-magit-svn ()
