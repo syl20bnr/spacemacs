@@ -356,7 +356,7 @@ More on this in the next section.
 * The Spacemacs loading process
 The Spacemacs loading process can be summarized as follows:
 
-1. A handful packages are installed and loaded as part of the bootstrap process.
+1. A handful of packages are installed and loaded as part of the bootstrap process.
    Among these packages, of particular interest to us, is =use-package=. All
    subsequent code in the loading process may make use of it.
 2. Spacemacs goes through all the enabled layers and evaluates their files. The
