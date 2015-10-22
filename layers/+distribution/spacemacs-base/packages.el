@@ -220,7 +220,8 @@
       (defun evil-insert-state-cursor-hide ()
         (setq evil-insert-state-cursor '((hbar . 0))))
 
-      (evil-mode 1))
+      (unless (eq dotspacemacs-editing-style 'emacs)
+        (evil-mode 1)))
     :config
     (progn
       ;; bind function keys
