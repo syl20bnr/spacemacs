@@ -1779,8 +1779,10 @@ Open junk file using helm, with `prefix-arg' search in junk files"
       (setq spaceline-org-clock-p nil)
 
       (defun spacemacs//evil-state-face ()
-        (let ((state (if (eq 'operator evil-state) evil-previous-state evil-state)))
-          (intern (format "spacemacs-%S-face" state))))
+        (if (bound-and-true-p evil-state)
+            (let ((state (if (eq 'operator evil-state) evil-previous-state evil-state)))
+              (intern (format "spacemacs-%S-face" state)))
+          'face-of-god))
       (setq spaceline-highlight-face-func 'spacemacs//evil-state-face)
 
       (let ((unicodep (dotspacemacs|symbol-value
