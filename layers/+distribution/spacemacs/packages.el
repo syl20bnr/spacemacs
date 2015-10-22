@@ -1815,7 +1815,7 @@ It will toggle the overlay under point or create an overlay of one character."
       (defun spacemacs//restore-powerline (buffer)
         "Restore the powerline in buffer"
         (with-current-buffer buffer
-          (setq-local mode-line-format '("%e" (:eval (spaceline--prepare))))
+          (setq-local mode-line-format (default-value 'mode-line-format))
           (powerline-set-selected-window)
           (powerline-reset)))
 
