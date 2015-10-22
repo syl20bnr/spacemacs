@@ -20,6 +20,7 @@ contributors to follow.
 Thanks! :heart: :heart: :heart:
 
 Spacemacs Team
+
 _Based off of the [Rails Contribution guidelines][]_.
 
 [Rails Contribution guidelines]: https://github.com/rails/rails/blob/master/CONTRIBUTING.md
