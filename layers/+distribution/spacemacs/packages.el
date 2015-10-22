@@ -1811,6 +1811,7 @@ It will toggle the overlay under point or create an overlay of one character."
                    spacemacs-mode-line-new-version-lighterp))
 
       (spaceline-spacemacs-theme '(new-version :when active))
+      (spaceline-helm-mode t)
 
       (defun spacemacs//restore-powerline (buffer)
         "Restore the powerline in buffer"
