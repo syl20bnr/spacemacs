@@ -174,7 +174,7 @@ binding in the mode's map, e.g. for =magit-status-mode=,
 
 #+begin_src emacs-lisp
   (define-key magit-status-mode-map
-    dotspacemacs-leader-key evil-leader--default-map)
+    (kbd dotspacemacs-leader-key) evil-leader--default-map)
 #+end_src
 
 ** Windows
