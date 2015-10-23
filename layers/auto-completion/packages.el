@@ -16,6 +16,7 @@
         ac-ispell
         company
         company-statistics
+        company-flx
         helm-company
         helm-c-yasnippet
         hippie-exp
@@ -124,6 +125,13 @@
           candidates))
       (setq company-transformers '(spacemacs//company-transformer-cancel
                                    company-sort-by-occurrence)))))
+
+(defun auto-completion/init-company-flx ()
+  (use-package company-flx
+    :defer t)
+  (spacemacs|use-package-add-hook company
+    :pre-config
+    (company-flx-mode)))
 
 (defun auto-completion/init-company-statistics ()
   (use-package company-statistics
