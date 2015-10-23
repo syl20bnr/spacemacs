@@ -91,6 +91,8 @@
       (spacemacs/declare-prefix-for-mode 'haskell-mode "mc" "haskell/cabal")
       (spacemacs/declare-prefix-for-mode 'haskell-mode "mh" "haskell/documentation")
       (spacemacs/declare-prefix-for-mode 'haskell-mode "md" "haskell/debug")
+      (spacemacs/declare-prefix-for-mode 'haskell-interactive-mode "ms" "haskell/repl")
+      (spacemacs/declare-prefix-for-mode 'haskell-cabal-mode "ms" "haskell/repl")
 
       ;; key bindings
       (defun spacemacs/haskell-process-do-type-on-prev-line ()
@@ -106,8 +108,8 @@
 
         "msb"  'haskell-process-load-or-reload
         "msc"  'haskell-interactive-mode-clear
-        "mss"  'haskell-interactive-bring
-        "msS"  'haskell-interactive-switch
+        "mss"  'haskell-interactive-switch
+        "msS"  'haskell-interactive-bring
 
         "mca"  'haskell-process-cabal
         "mcb"  'haskell-process-cabal-build
@@ -133,26 +135,24 @@
 
       ;; Switch back to editor from REPL
       (evil-leader/set-key-for-mode 'haskell-interactive-mode
-        "msS"  'haskell-interactive-switch-back)
-
-      ;; Compile
-      (evil-leader/set-key-for-mode 'haskell-cabal
-        "mC"  'haskell-compile)
+        "mss"  'haskell-interactive-switch-back)
 
       ;; Cabal-file bindings
       (evil-leader/set-key-for-mode 'haskell-cabal-mode
         ;; "m="  'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
-        "md" 'haskell-cabal-add-dependency
-        "mb" 'haskell-cabal-goto-benchmark-section
-        "me" 'haskell-cabal-goto-executable-section
-        "mt" 'haskell-cabal-goto-test-suite-section
-        "mm" 'haskell-cabal-goto-exposed-modules
-        "ml" 'haskell-cabal-goto-library-section
-        "mn" 'haskell-cabal-next-subsection
-        "mp" 'haskell-cabal-previous-subsection
-        "mN" 'haskell-cabal-next-section
-        "mP" 'haskell-cabal-previous-section
-        "mf" 'haskell-cabal-find-or-create-source-file)
+        "md"  'haskell-cabal-add-dependency
+        "mb"  'haskell-cabal-goto-benchmark-section
+        "mC"  'haskell-compile
+        "me"  'haskell-cabal-goto-executable-section
+        "mt"  'haskell-cabal-goto-test-suite-section
+        "mm"  'haskell-cabal-goto-exposed-modules
+        "ml"  'haskell-cabal-goto-library-section
+        "mn"  'haskell-cabal-next-subsection
+        "mp"  'haskell-cabal-previous-subsection
+        "mN"  'haskell-cabal-next-section
+        "mP"  'haskell-cabal-previous-section
+        "mf"  'haskell-cabal-find-or-create-source-file
+        "mss" 'haskell-interactive-switch)
 
       ;; Make "RET" behaviour in REPL saner
       (evil-define-key 'insert haskell-interactive-mode-map

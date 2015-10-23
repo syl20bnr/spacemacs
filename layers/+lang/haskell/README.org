@@ -259,8 +259,8 @@ REPL commands are prefixed by ~SPC m s~:
 |-------------+-------------------------------------------------|
 | ~SPC m s b~ | load or reload the current buffer into the REPL |
 | ~SPC m s c~ | clear the REPL                                  |
-| ~SPC m s s~ | show the REPL                                   |
-| ~SPC m s S~ | show and switch to the REPL                     |
+| ~SPC m s s~ | show and switch to the REPL or back from REPL   |
+| ~SPC m s S~ | show the REPL                                   |
 
 ** Cabal commands
 Cabal commands are prefixed by ~SPC m c~:
@@ -275,19 +275,20 @@ Cabal commands are prefixed by ~SPC m c~:
 ** Cabal files
 This commands are available in a cabal file.
 
-| Key Binding | Description                                 |
-|-------------+---------------------------------------------|
-| ~SPC m d~   | add a dependency to the project             |
-| ~SPC m b~   | go to benchmark section                     |
-| ~SPC m e~   | go to executable section                    |
-| ~SPC m t~   | go to test-suite section                    |
-| ~SPC m m~   | go to exposed modules                       |
-| ~SPC m l~   | go to libary section                        |
-| ~SPC m n~   | go to next subsection                       |
-| ~SPC m p~   | go to previous subsection                   |
-| ~SPC m N~   | go to next section                          |
-| ~SPC m P~   | go to previous section                      |
-| ~SPC m f~   | find or create source-file under the cursor |
+| Key Binding | Description                                   |
+|-------------+-----------------------------------------------|
+| ~SPC m d~   | add a dependency to the project               |
+| ~SPC m b~   | go to benchmark section                       |
+| ~SPC m e~   | go to executable section                      |
+| ~SPC m t~   | go to test-suite section                      |
+| ~SPC m m~   | go to exposed modules                         |
+| ~SPC m l~   | go to libary section                          |
+| ~SPC m n~   | go to next subsection                         |
+| ~SPC m p~   | go to previous subsection                     |
+| ~SPC m N~   | go to next section                            |
+| ~SPC m P~   | go to previous section                        |
+| ~SPC m f~   | find or create source-file under the cursor   |
+| ~SPC m s s~ | show and switch to the REPL or back from REPL |
 
 * FAQ
 
