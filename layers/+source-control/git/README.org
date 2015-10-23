@@ -112,6 +112,7 @@ Git commands (start with ~g~):
 | ~SPC g h c~ | clear highlights                                    |
 | ~SPC g h h~ | highlight regions by age of commits                 |
 | ~SPC g h t~ | highlight regions by last updated time              |
+| ~SPC g i~   | git init a given directory                          |
 | ~SPC g I~   | open =helm-gitignore=                               |
 | ~SPC g l~   | open a =magit= log                                  |
 | ~SPC g L~   | display the log for a file                          |
