@@ -820,6 +820,8 @@ first element is the symbol `image')."
             ;; no errors
             (message "compilation ok.")))))
 
+(setq compilation-scroll-output 'first-error)
+
 ;; from http://www.emacswiki.org/emacs/WordCount
 (defun spacemacs/count-words-analysis (start end)
   "Count how many times each word is used in the region.
