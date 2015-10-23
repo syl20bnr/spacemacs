@@ -173,8 +173,9 @@ question. To enable the leader key in this case, you may have to define a
 binding in the mode's map, e.g. for =magit-status-mode=,
 
 #+begin_src emacs-lisp
-  (define-key magit-status-mode-map
-    (kbd dotspacemacs-leader-key) evil-leader--default-map)
+  (with-eval-after-load 'magit
+    (define-key magit-status-mode-map
+      (kbd dotspacemacs-leader-key) evil-leader--default-map))
 #+end_src
 
 ** Windows
