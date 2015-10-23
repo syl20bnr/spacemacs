@@ -18,6 +18,7 @@
      - [[#change-special-buffer-rules][Change special buffer rules?]]
      - [[#enable-navigation-by-visual-lines][Enable navigation by visual lines?]]
      - [[#disable-evilification-of-a-mode][Disable evilification of a mode?]]
+     - [[#include-underscores-in-word-motions][Include underscores in word motions?]]
    - [[#windows][Windows]]
      - [[#why-do-the-fonts-look-crappy-on-windows][Why do the fonts look crappy on Windows?]]
      - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer][Why is there no Spacemacs logo in the startup buffer?]]
@@ -79,7 +80,6 @@ easier to reach, you can use:
 #+end_src
 
 *** Should I place my settings in =user-init= or =user-config=?
-
 Any variable that layer configuration code will *read* and *act on* must be set
 in =user-init=, and any variable that Spacemacs explicitly sets but you wish to
 *override* must be set in =user-config=.
@@ -176,6 +176,15 @@ binding in the mode's map, e.g. for =magit-status-mode=,
   (with-eval-after-load 'magit
     (define-key magit-status-mode-map
       (kbd dotspacemacs-leader-key) evil-leader--default-map))
+#+end_src
+
+*** Include underscores in word motions?
+You can modify the syntax table of the mode in question. For example, for Python
+mode:
+
+#+begin_src emacs-lisp
+  (with-eval-after-load 'python
+    (modify-syntax-entry ?_ "w" python-mode-syntax-table))
 #+end_src
 
 ** Windows
