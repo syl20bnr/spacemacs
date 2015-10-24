@@ -69,7 +69,7 @@ The default value is =LaTeX=. If =LatexMk= is specified, the appropriate
 To enable auto-fill set the variable =latex-enable-auto-fill= to =t=.
 
 The variable =latex-nofill-env= provide the list of environment names where
-=auto-fille-mode= will be inhibited.
+=auto-fill-mode= will be inhibited.
 
 #+BEGIN_SRC emacs-lisp
   dotspacemacs-configuration-layers '(
