@@ -130,6 +130,7 @@ Ensure that helm is required before calling FUNC."
   "fg" 'rgrep
   "fj" 'dired-jump
   "fl" 'find-file-literally
+  "fE" 'spacemacs/sudo-edit
   "fo" 'spacemacs/open-in-external-app
   "fR" 'spacemacs/rename-current-buffer-file
   "fS" 'evil-write-all
