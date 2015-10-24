@@ -242,7 +242,7 @@ entered message. Pressing ~C-c C-k~ will discard the commit message.
 
 | Key Binding | Description             |
 |-------------+-------------------------|
-| ~# f~       | open magit-gitflow menu |
+| ~%~         | open magit-gitflow menu |
 
 ** Git time machine
 
