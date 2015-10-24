@@ -97,6 +97,8 @@
       (spacemacs/declare-prefix-for-mode 'haskell-mode "mc" "haskell/cabal")
       (spacemacs/declare-prefix-for-mode 'haskell-mode "mh" "haskell/documentation")
       (spacemacs/declare-prefix-for-mode 'haskell-mode "md" "haskell/debug")
+      (spacemacs/declare-prefix-for-mode 'haskell-interactive-mode "ms" "haskell/repl")
+      (spacemacs/declare-prefix-for-mode 'haskell-cabal-mode "ms" "haskell/repl")
 
       ;; key bindings
       (defun spacemacs/haskell-process-do-type-on-prev-line ()
@@ -147,18 +149,21 @@
 
       ;; Cabal-file bindings
       (evil-leader/set-key-for-mode 'haskell-cabal-mode
-        ;; "m="  'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
-        "md" 'haskell-cabal-add-dependency
-        "mb" 'haskell-cabal-goto-benchmark-section
-        "me" 'haskell-cabal-goto-executable-section
-        "mt" 'haskell-cabal-goto-test-suite-section
-        "mm" 'haskell-cabal-goto-exposed-modules
-        "ml" 'haskell-cabal-goto-library-section
-        "mn" 'haskell-cabal-next-subsection
-        "mp" 'haskell-cabal-previous-subsection
-        "mN" 'haskell-cabal-next-section
-        "mP" 'haskell-cabal-previous-section
-        "mf" 'haskell-cabal-find-or-create-source-file)
+        ;; "m="   'haskell-cabal-subsection-arrange-lines ;; Does a bad job, 'gg=G' works better
+        "md"   'haskell-cabal-add-dependency
+        "mb"   'haskell-cabal-goto-benchmark-section
+        "me"   'haskell-cabal-goto-executable-section
+        "mt"   'haskell-cabal-goto-test-suite-section
+        "mm"   'haskell-cabal-goto-exposed-modules
+        "ml"   'haskell-cabal-goto-library-section
+        "mn"   'haskell-cabal-next-subsection
+        "mp"   'haskell-cabal-previous-subsection
+        "msc"  'haskell-interactive-mode-clear
+        "mss"  'spacemacs/haskell-interactive-bring
+        "msS"  'haskell-interactive-switch
+        "mN"   'haskell-cabal-next-section
+        "mP"   'haskell-cabal-previous-section
+        "mf"   'haskell-cabal-find-or-create-source-file)
 
       ;; Make "RET" behaviour in REPL saner
       (evil-define-key 'insert haskell-interactive-mode-map

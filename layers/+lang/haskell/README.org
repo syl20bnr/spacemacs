@@ -303,6 +303,9 @@ This commands are available in a cabal file.
 | ~SPC m l~   | go to libary section                        |
 | ~SPC m n~   | go to next subsection                       |
 | ~SPC m p~   | go to previous subsection                   |
+| ~SPC m s c~ | clear the REPL                              |
+| ~SPC m s s~ | show the REPL without switching to it       |
+| ~SPC m s S~ | show and switch to the REPL                 |
 | ~SPC m N~   | go to next section                          |
 | ~SPC m P~   | go to previous section                      |
 | ~SPC m f~   | find or create source-file under the cursor |
