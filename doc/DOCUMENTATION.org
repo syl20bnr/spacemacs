@@ -2273,7 +2273,7 @@ edit multiple occurrences of a symbol or selection.
 The color code for these states is =red=.
 
 =evil-iedit-state= has also a nice integration with [[https://github.com/magnars/expand-region.el][expand-region]] for quick
-edition of the current selected text by pressing ~e~.
+editing of the currently selected text by pressing ~e~.
 
 **** iedit states key bindings
 ***** State transitions
@@ -2312,8 +2312,8 @@ specific to =iedit state=.
 | ~gg~        | go to first occurrence                                                                  |
 | ~G~         | go to last occurrence                                                                   |
 | ~I~         | go to the beginning of the current occurrence and switch to =iedit-insert state=        |
-| ~J~         | increase the edition scope by one line below                                            |
-| ~K~         | increase the edition scope by one line above                                            |
+| ~J~         | increase the editing scope by one line below                                            |
+| ~K~         | increase the editing scope by one line above                                            |
 | ~L~         | restrict the scope to the current line                                                  |
 | ~n~         | go to next occurrence                                                                   |
 | ~N~         | go to previous occurrence                                                               |
@@ -2384,7 +2384,7 @@ To disable the trash you can set the variable =delete-by-moving-to-trash= to
 =nil= in your =~/.spacemacs=.
 
 *** Editing Lisp code
-Edition of lisp code is provided by [[https://github.com/syl20bnr/evil-lisp-state][evil-lisp-state]].
+Editing of lisp code is provided by [[https://github.com/syl20bnr/evil-lisp-state][evil-lisp-state]].
 
 Commands will set the current state to =lisp state= where different commands
 combo can be repeated without pressing on ~SPC m~.
@@ -2392,8 +2392,8 @@ combo can be repeated without pressing on ~SPC m~.
 When in =lisp state= the color of the mode-line changes to pink.
 
 Examples:
-  - to slurp three times while in normal state: ~SPC k 3 n~
-  - to wrap a symbol in parenthesis then slurping two times: ~SPC k w 2 n~
+  - to slurp three times while in normal state: ~SPC k 3 s~
+  - to wrap a symbol in parenthesis then slurping two times: ~SPC k w 2 s~
 
 *Note*: The =lisp state= commands are available in /any/ modes! Try it out.
 
