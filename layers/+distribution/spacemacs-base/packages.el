@@ -858,7 +858,11 @@ ARG non nil means that the editing style is `vim'."
     :defer t)
   (spacemacs|use-package-add-hook helm
     :pre-config
-    (helm-flx-mode)))
+    (progn
+      ;; Disable for helm-find-files until performance issues are sorted
+      ;; https://github.com/PythonNut/helm-flx/issues/9
+      (setq helm-flx-for-helm-find-files nil)
+      (helm-flx-mode))))
 
 (defun spacemacs-base/init-helm-descbinds ()
   (use-package helm-descbinds
