@@ -64,6 +64,14 @@
           ;; in structured-haskell-mode line highlighting creates noise
           (setq-local global-hl-line-mode nil)))
 
+      (defun spacemacs/haskell-interactive-bring ()
+        "Bring up the interactive mode for this session without
+         switching to it."
+        (interactive)
+        (let* ((session (haskell-session))
+               (buffer (haskell-session-interactive-buffer session)))
+          (display-buffer buffer)))
+
       ;; hooks
       (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
       (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
@@ -104,7 +112,7 @@
 
         "msb"  'haskell-process-load-or-reload
         "msc"  'haskell-interactive-mode-clear
-        "mss"  'haskell-interactive-bring
+        "mss"  'spacemacs/haskell-interactive-bring
         "msS"  'haskell-interactive-switch
 
         "mca"  'haskell-process-cabal
