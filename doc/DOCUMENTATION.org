@@ -1588,6 +1588,7 @@ Files manipulation commands (start with ~f~):
 | ~SPC f C d~ | convert file from unix to dos encoding                         |
 | ~SPC f C u~ | convert file from dos to unix encoding                         |
 | ~SPC f D~   | delete a file and the associated buffer (ask for confirmation) |
+| ~SPC f E~   | open a file with elevated privileges (sudo edit)               |
 | ~SPC f f~   | open file with =helm= (or =ido=)                               |
 | ~SPC f F~   | try to open the file under point =helm=                        |
 | ~SPC f j~   | jump to the current buffer file in dired                       |
