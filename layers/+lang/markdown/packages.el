@@ -73,14 +73,14 @@ Will work on both org-mode and any mode that accepts plain html."
         "m<"   'markdown-exdent-region
         ;; Buffer-wide commands
         "mc]"  'markdown-complete-buffer
-        "mcm"  'markdown-other-window
-        "mcp"  'markdown-preview
-        "mce"  'markdown-export
-        "mcv"  'markdown-export-and-preview
-        "mco"  'markdown-open
-        "mcw"  'markdown-kill-ring-save
         "mcc"  'markdown-check-refs
+        "mce"  'markdown-export
+        "mcm"  'markdown-other-window
         "mcn"  'markdown-cleanup-list-numbers
+        "mco"  'markdown-open
+        "mcp"  'markdown-preview
+        "mcv"  'markdown-export-and-preview
+        "mcw"  'markdown-kill-ring-save
         ;; headings
         "mhi"  'markdown-insert-header-dwim
         "mhI"  'markdown-insert-header-setext-dwim
