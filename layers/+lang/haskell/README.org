@@ -9,10 +9,12 @@
    - [[#layer][Layer]]
    - [[#dependencies][Dependencies]]
    - [[#setup-path][Setup PATH]]
-   - [[#os-x][OS X]]
+   - [[#ghc-mod-support][ghc-mod support]]
+     - [[#stack-users][Stack users]]
    - [[#optional-extras][Optional extras]]
-     - [[#ghc-mod-support][ghc-mod support]]
      - [[#ghci-ng-support][GHCi-ng support]]
+       - [[#stack-users][Stack users]]
+       - [[#ghc-mod-users][ghc-mod users]]
      - [[#structured-haskell-mode][structured-haskell-mode]]
      - [[#hindent][hindent]]
  - [[#key-bindings][Key bindings]]
@@ -30,8 +32,8 @@
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 
 ** Features:
-- auto-completion with [[https://github.com/iquiw/company-ghc][company-ghc]],
-- syntax highlighting for [[https://github.com/bgamari/cmm-mode][C-- source]].
+- syntax highlighting for [[https://github.com/haskell/haskell-mode][haskell source]], [[https://github.com/haskell/haskell-mode][cabal files]], [[https://github.com/bgamari/cmm-mode][C-- source]],
+- auto-completion with [[https://github.com/iquiw/company-ghc][company-ghc]].
 
 *This layer is in construction, it needs your contributions and bug reports.*
 
@@ -40,7 +42,7 @@ This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers '(haskell))
+(setq-default dotspacemacs-configuration-layers '(haskell))
 #+END_SRC
 
 ** Dependencies
@@ -48,18 +50,12 @@ This layer requires some [[https://www.haskell.org/cabal/][cabal]] packages:
 - =hlint=
 - =stylish-haskell=
 - =hasktags=
+- =ghc-mod=
 
-You can install them using =cabal= or =stack=. =Cabal= users should use
-following command:
-
-#+BEGIN_SRC sh
-  $ cabal install stylish-haskell hlint hasktags
-#+END_SRC
-
-=Stack= users should use following command:
+To install them, use following command (or the =stack= equivalent):
 
 #+BEGIN_SRC sh
-  $ stack install stylish-haskell hlint hasktags
+$ cabal install stylish-haskell hlint hasktags ghc-mod
 #+END_SRC
 
 ** Setup PATH
@@ -71,51 +67,73 @@ it's =~/.local/bin=.
 
 Then make sure that your =$PATH= contains the installation path for =cabal=
 packages. If you are using =cabal= it should be =~/.cabal/bin= or
-=/Users/<username>/Library/Haskell/bin= (for 'Haskell for Mac' users). If you
+=~/Library/Haskell/bin= (for 'Haskell for Mac' users). If you
 are using =stack= then it should be =~/.local/bin=.
 
 For information about setting up =$PATH=, check out the corresponding section in
 the FAQ (~SPC f e h $PATH RET~).
 
-** OS X
-Note that =emacs.app= for OS X does not pick up =$PATH= from =~/.bashrc= or
-=~/.zshrc= when launched from outside a terminal.
-
-** Optional extras
-The Haskell layer supports some extra features that can be enabled through
-layer variables.
-
-*** ghc-mod support
-[[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example templates, case-splitting and
-much more. In order to use it you need to install the executable with
-
-#+BEGIN_SRC sh
-  $ cabal install ghc-mod
-#+END_SRC
-
-=Stack= users should use following command:
-
-#+BEGIN_SRC sh
-  $ stack install ghc-mod --resolver nightly-2015-10-07
-#+END_SRC
-
-and set the layer variable:
+** ghc-mod support
+[[http://www.mew.org/~kazu/proj/ghc-mod/][ghc-mod]] enhances =haskell-mode= with for example code completion, templates,
+case-splitting and much more. In order to use it you need to install the
+executable with =cabal install ghc-mod= (or =stack= equivalent). Note that
+=ghc-mod= support is enabled by default, so if you want to disable it, you must
+do it explicitly in your =.spacemacs= file.
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((haskell :variables haskell-enable-ghc-mod-support t)))
+(setq-default dotspacemacs-configuration-layers
+  '((haskell :variables haskell-enable-ghc-mod-support nil)))
 #+END_SRC
 
 =Stack= users also should make sure that =dist/setup-config= doesn't exist in
 the project root. As it will confuse =ghc-mod=. For more troubleshooting,
 checkout this [[https://github.com/kazu-yamamoto/ghc-mod/wiki#known-issues-related-to-stack][document]].
 
+*** Stack users
+
+Time to time =ghc-mod= is not available via latest Stackage LTS version. So if
+you have problems with calling =stack install ghc-mod=, try to use =stack
+install ghc-mod --resolver lts-3.1= (the last known LTS version that had
+=ghc-mod=). But even if it doesn't work, don't panic, it's easy to install it
+from sources.
+
+#+BEGIN_SRC sh
+# clone cabal-helper
+$ git clone https://github.com/DanielG/cabal-helper.git
+# cd into cloned repository
+$ cd cabal-helper
+# init stack, so cabal-helper can be installed using stack
+$ stack init
+# now install it
+$ stack install
+# go back where you was
+$ cd ..
+# and remove cabal-helper repository since you don't need it
+$ rm -rf cabal-helper
+# now clone ghc-mod
+$ git clone https://github.com/kazu-yamamoto/ghc-mod.git
+# and cd into it
+$ cd ghc-mod
+# again, let's init stack
+$ stack init
+# now install it
+$ stack install
+# go back
+$ cd ...
+# and remove ghc-mod since you don't need it
+$ rm -rf ghc-mod
+#+END_SRC
+
+** Optional extras
+The Haskell layer supports some extra features that can be enabled through
+layer variables.
+
 *** GHCi-ng support
 [[https://github.com/chrisdone/ghci-ng][ghci-ng]] adds some nice features to =haskell-mode=, and is supported in
 Spacemacs by a layer variable:
 
 Follow the instructions to install [[https://github.com/chrisdone/ghci-ng][ghci-ng]] (remember to add =:set +c=
-in =~/.ghci=, next set the layer variable:
+in =~/.ghci=), next set the layer variable:
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers
@@ -131,21 +149,43 @@ improved versions from ghci-ng, and a new keybinding available:
 | ~SPC m g g~ | go to definition                                                          |
 | ~SPC m u~   | finds uses of identifier                                                  |
 
+**** Stack users
+
+=Stack= and =ghci-ng= doesn't play well with each other, so the general advice
+is to avoid mixing them. But, if you want mix them anyway, you'll need to set
+=haskell-process-type= explicitly:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers
+  '((haskell :variables haskell-process-type 'ghci)))
+;; or
+(setq-default dotspacemacs-configuration-layers
+  '((haskell :variables haskell-process-type cabal-repl)))
+#+END_SRC
+
+This is needed, because by default =haskell-process-type= is set to =auto= and
+if you have =stack.yaml= file in the root of your project, =stack-ghci= will be
+used as process type.
+
+**** ghc-mod users
+
+If you want to use ~SPC m h t~ from =ghc-mod= instead of =ghci-ng= - then you
+need to add following line in your =dotspacemacs/user-config=:
+
+#+BEGIN_SRC emacs-lisp
+(evil-leader/set-key-for-mode 'haskell-mode
+        "mht"  'ghc-show-type)
+#+END_SRC
+
+This might be useful, because =ghc-mod= doesn't require active REPL in order to
+get type of symbol.
+
 *** structured-haskell-mode
 [[https://github.com/chrisdone/structured-haskell-mode][structured-haskell-mode]], or shm, replaces default haskell-mode
 auto-indentation and adds some nice functionalities.
 
-To Install =shm= with cabal run following command:
-
-#+BEGIN_SRC sh
-  $ cabal install structured-haskell-mode
-#+END_SRC
-
-=Stack= users should use following command:
-
-#+BEGIN_SRC sh
-  $ stack install structured-haskell-mode
-#+END_SRC
+To install =shm= run =cabal install structured-haskell-mode= (or =stack=
+equivalent).
 
 To enable =shm= set the layer variable:
 
@@ -167,6 +207,10 @@ After shm has been enabled, some of the evil normal state bindings are overridde
 For a nice visualization of these functions, please refer to the github page
 for [[https://github.com/chrisdone/structured-haskell-mode#features][structured-haskell-mode]].
 
+*Warning* structured-haskell-mode doesn't play very well with =evil=
+([[https://github.com/chrisdone/structured-haskell-mode/issues/81][structured-haskell-mode/#81]]). So it's better to be used with =emacs= edit
+style.
+
 *** hindent
 [[https://github.com/chrisdone/hindent][hindent]] is an extensible Haskell pretty printer, which let's you
 reformat your code. You need to install the executable with =cabal
@@ -182,8 +226,8 @@ to a supported style. The available styles are:
 See examples [[https://github.com/chrisdone/hindent#example][here]]
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((haskell :variables haskell-enable-hindent-style "johan-tibell")))
+(setq-default dotspacemacs-configuration-layers
+  '((haskell :variables haskell-enable-hindent-style "johan-tibell")))
 #+END_SRC
 
 * Key bindings
@@ -269,8 +313,8 @@ bring up. But if you are experiencing problems with it you can help
 =haskell-mode= by setting =haskell-process-type= as in following code:
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default dotspacemacs-configuration-layers
-    '((haskell :variables haskell-process-type 'stack-ghci)))
+(setq-default dotspacemacs-configuration-layers
+  '((haskell :variables haskell-process-type 'stack-ghci)))
 #+END_SRC
 
 Available options are:
@@ -289,10 +333,10 @@ required space when you switch to insert mode. There is possible workaround -
 just add following snippet to your =dotspacemacs/user-config= function:
 
 #+BEGIN_SRC emacs-lisp
-  (when (configuration-layer/layer-usedp 'haskell)
-    (add-hook 'haskell-interactive-mode-hook
-              (lambda ()
-                (setq-local evil-move-cursor-back nil))))
+(when (configuration-layer/layer-usedp 'haskell)
+  (add-hook 'haskell-interactive-mode-hook
+            (lambda ()
+              (setq-local evil-move-cursor-back nil))))
 #+END_SRC
 
 It will make cursor stay at the right place in the REPL buffer when you enter
