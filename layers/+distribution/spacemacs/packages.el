@@ -1734,7 +1734,18 @@ It will toggle the overlay under point or create an overlay of one character."
               scroll-preserve-screen-position t
               auto-window-vscroll nil)
         :config
-        (setq scroll-margin 5))
+        (setq scroll-margin 5)
+        (defun spacemacs//unset-scroll-margin ()
+          "Set scroll-margin to zero."
+          (setq-local scroll-margin 0))
+        (spacemacs/add-to-hooks
+         'spacemacs//unset-scroll-margin
+         '(
+           messages-buffer-mode-hook
+           comint-mode-hook
+           term-mode-hook
+           erc-mode-hook
+           )))
 
     ;; deactivate the defadvice's
     (ad-disable-advice 'previous-line 'after 'smooth-scroll-down)
