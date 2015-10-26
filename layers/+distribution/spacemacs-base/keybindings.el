@@ -206,8 +206,8 @@ Ensure that helm is required before calling FUNC."
   :evil-leader "tL")
 (spacemacs|add-toggle line-numbers
   :status linum-mode
-  :on (global-linum-mode)
-  :off (global-linum-mode -1)
+  :on (linum-mode)
+  :off (linum-mode -1)
   :documentation "Show the line numbers."
   :evil-leader "tn")
 (spacemacs|add-toggle auto-fill-mode

@@ -61,6 +61,7 @@
      - [[#color-themes][Color themes]]
      - [[#font][Font]]
      - [[#graphical-ui-toggles][Graphical UI Toggles]]
+       - [[#global-line-numbers][Global line numbers]]
      - [[#mouse-usage][Mouse usage]]
      - [[#mode-line][Mode-line]]
        - [[#powerline-font-installation-for-terminal-mode-users][Powerline font installation for terminal-mode users]]
@@ -922,7 +923,7 @@ and ~T~):
 | ~SPC t i~   | toggle indentation guide at point                                 |
 | ~SPC t l~   | toggle truncate lines                                             |
 | ~SPC t L~   | toggle visual lines                                               |
-| ~SPC t n~   | show the absolute line numbers                                    |
+| ~SPC t n~   | toggle line numbers                                               |
 
 | Key Binding | Description                                                  |
 |-------------+--------------------------------------------------------------|
@@ -935,6 +936,15 @@ and ~T~):
 
 *Note*: These toggles are all available via the =helm-spacemacs= interface (press
 ~SPC f e h~ to display the =helm-spacemacs= buffer).
+
+**** Global line numbers
+Line numbers can be toggled on in all =prog-mode= and =text-mode= buffers by
+setting the =dotspacemacs-global-line-numbers= variable in your =~/.spacemacs=
+to something different than =nil=:
+
+#+begin_src emacs-lisp
+    (setq-default dotspacemacs-global-line-numbers t)
+#+end_src
 
 *** Mouse usage
 There are some added mouse features set for the line number margin (if shown):
