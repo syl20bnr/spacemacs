@@ -33,7 +33,7 @@
         (unless arg
           (if (file-exists-p "~/.authinfo.gpg")
               (spacemacs//rcirc-authinfo-config)
-            (spacemacs/warning "Cannot find file ~/.authinfo.gpg")))
+            (message "Cannot find file ~/.authinfo.gpg")))
         (rcirc arg))
 
       (defun spacemacs//rcirc-with-znc (arg)
