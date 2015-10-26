@@ -165,6 +165,11 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
               '((truncation . nil) (continuation . nil)))
 ;; Show column number in mode line
 (setq column-number-mode t)
+;; Activate linum-mode in all prog-mode and text-mode buffers if the setting is
+;; enabled.
+(when dotspacemacs-global-line-numbers
+  (add-hook 'prog-mode-hook 'linum-mode)
+  (add-hook 'text-mode-hook 'linum-mode))
 ;; line number
 (setq linum-format "%4d")
 ;; highlight current line
