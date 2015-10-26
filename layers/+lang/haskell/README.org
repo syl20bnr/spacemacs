@@ -27,6 +27,7 @@
    - [[#repl-doesnt-work][REPL doesn't work]]
    - [[#repl-is-stuck][REPL is stuck]]
    - [[#i-am-using-stack-and-ghc-mod-but-ghc-mod-doesnt-work][I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work]]
+   - [[#indentation-doesnt-reset-when-pressing-return-after-empty-line][Indentation doesn't reset when pressing return after empty line]]
 
 * Description
 This layer adds support for the [[https://www.haskell.org/][Haskell]] language.
@@ -356,3 +357,19 @@ could place following snippet in your =dotspacemacs/user-config= function:
 ** I am using =stack= and =ghc-mod=, but =ghc-mod= doesn't work
 Make sure that =dist= directory doesn't exist in your project root. So if it
 exists, just remove it and try again.
+
+** Indentation doesn't reset when pressing return after empty line
+
+This is intended behavior in =haskell-indentation-mode=. If you want to reset indentation when pressing return after empty line, add following snippet into your =dotspacemacs/user-config= function.
+
+#+BEGIN_SRC emacs-lisp
+(defun haskell-indentation-advice ()
+  (when (and (< 1 (line-number-at-pos))
+             (save-excursion
+               (forward-line -1)
+               (string= "" (s-trim (buffer-substring (line-beginning-position) (line-end-position))))))
+    (delete-region (line-beginning-position) (point))))
+
+(advice-add 'haskell-indentation-newline-and-indent
+            :after 'haskell-indentation-advice)
+#+END_SRC
