@@ -49,9 +49,6 @@
     :config
     (progn
       (slime-setup)
-      (dolist (m `(,slime-mode-map ,slime-repl-mode-map))
-        (define-key m [(tab)] 'slime-fuzzy-complete-symbol))
-
       ;; TODO: Add bindings for the SLIME debugger?
       (spacemacs/set-leader-keys-for-major-mode 'lisp-mode
         "'" 'slime
