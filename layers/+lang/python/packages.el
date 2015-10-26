@@ -211,6 +211,14 @@
         (end-of-buffer)
         (evil-insert-state))
 
+      (spacemacs/declare-prefix-for-mode 'python-mode "mc" "execute")
+      (spacemacs/declare-prefix-for-mode 'python-mode "md" "debug")
+      (spacemacs/declare-prefix-for-mode 'python-mode "mh" "help")
+      (spacemacs/declare-prefix-for-mode 'python-mode "mg" "goto")
+      (spacemacs/declare-prefix-for-mode 'python-mode "mt" "test")
+      (spacemacs/declare-prefix-for-mode 'python-mode "ms" "send to REPL")
+      (spacemacs/declare-prefix-for-mode 'python-mode "mr" "refactor")
+      (spacemacs/declare-prefix-for-mode 'python-mode "mv" "venv")
       (evil-leader/set-key-for-mode 'python-mode
         "mcc" 'spacemacs/python-execute-file
         "mcC" 'spacemacs/python-execute-file-focus
