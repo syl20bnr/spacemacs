@@ -296,7 +296,7 @@ Update Button:
 
 *** Updating from the Spacemacs Buffer
 Use the button labeled "Update Spacemacs" in the Spacemacs buffer. You will be
-prompted for the version you would like to use. 
+prompted for the version you would like to use.
 
 *Note*: If you use the =develop= branch of Spacemacs, you cannot use this method.
 
@@ -534,7 +534,7 @@ For instance to add the configuration layer of [[#thank-you][RMS]]:
 
 If this layer does not exist you can still try another one in [[file:../layers][the =layers=
 directory]].
- 
+
 Configuration layers are expected to be stored in =~/.emacs.d/private= or
 =~/.emacs.d/layers=. But you are free to keep them somewhere else by declaring
 additional paths where Spacemacs can look for configuration layers. This is
@@ -1761,7 +1761,7 @@ open the file in a split window with ~|~ and ~-~:
 | ~TAB~       | toggle stretching of the buffer |
 | ~c~         | create a node                   |
 | ~d~         | delete a node                   |
-| ~g~         | refresh                         |
+| ~gr~        | refresh                         |
 | ~s~         | toggle showing of hidden files  |
 | ~q~ or ~fd~ | hide =NeoTree= buffer           |
 | ~r~         | rename a node                   |
