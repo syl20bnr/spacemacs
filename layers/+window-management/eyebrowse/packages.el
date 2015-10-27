@@ -39,13 +39,18 @@
               (format "[%s]" caption)
             caption)))
 
+      (defun spacemacs//workspaces-ms-get-window-configs ()
+        "Return the list of window configs. Depends on value of
+`eyebrowse-place-zero-at-the-end'."
+        (--sort (if (eq (car other) 0)
+                    t
+                  (< (car it) (car other)))
+                (eyebrowse--get 'window-configs)))
+
       (defun spacemacs//workspaces-ms-documentation ()
         "Return the docstring for the workspaces micro-state."
         (let* ((current-slot (eyebrowse--get 'current-slot))
-               (window-configs (eyebrowse--get 'window-configs))
-               (window-config-slots (mapcar (lambda (x)
-                                              (number-to-string (car x)))
-                                            window-configs)))
+               (window-configs (spacemacs//workspaces-ms-get-window-configs)))
           (concat
            "<" (if window-configs
                    (concat
