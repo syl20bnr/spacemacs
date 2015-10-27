@@ -1824,7 +1824,8 @@ It will toggle the overlay under point or create an overlay of one character."
         (when spaceline-minor-modes-p
           (let ((unicodep (dotspacemacs|symbol-value
                            dotspacemacs-mode-line-unicode-symbols)))
-            (setq spaceline-minor-modes-separator (if unicodep "" "|"))
+            (setq spaceline-minor-modes-separator
+                  (if unicodep (if (display-graphic-p) "" " ") "|"))
             (dolist (mm spacemacs--diminished-minor-modes)
               (let ((mode (car mm)))
                 (when (and (boundp mode) (symbol-value mode))
