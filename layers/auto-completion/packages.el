@@ -234,7 +234,7 @@
                     (append (list private-yas-dir)
                             (when (boundp 'yas-snippet-dirs)
                               yas-snippet-dirs)
-                            spacemacs-snippets-dir))
+                            (list spacemacs-snippets-dir)))
               (yas-load-directory spacemacs-snippets-dir t)
               (yas-load-directory private-yas-dir t)
               (setq yas-wrap-around-region t))))
