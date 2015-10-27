@@ -278,9 +278,11 @@
     :defer t
     :init
     (progn
-      (setq aya-persist-snippets-dir (concat
-                                      configuration-layer-private-directory
-                                      "snippets/"))
+      (setq aya-persist-snippets-dir (if auto-completion-private-snippets-directory
+                                         auto-completion-private-snippets-directory
+                                         (concat
+                                           configuration-layer-private-directory
+                                           "snippets/")))
       (defun spacemacs/auto-yasnippet-expand ()
         "Call `yas-expand' and switch to `insert state'"
         (interactive)
