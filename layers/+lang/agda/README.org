@@ -2,10 +2,10 @@
 
 * Table of Contents                                                   :TOC@4:
  - [[#description][Description]]
-     - [[#some-features][Some features:]]
+   - [[#some-features][Some features:]]
  - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#agda][Agda]]
+   - [[#layer][Layer]]
+   - [[#agda][Agda]]
  - [[#key-bindings][Key bindings]]
 
 * Description
@@ -15,7 +15,7 @@ This layer adds support for the [[http://wiki.portal.chalmers.se/agda/pmwiki.php
 ** Some features:
 - Faces redefined to correctly play with themes.
 - Spacemacs bindings to Agda's interactive tools.
-  
+
 *This layer is in construction, it needs your contributions and bug reports.*
 
 * Install
@@ -36,7 +36,9 @@ Quick instructions to install Agda assuming you have cabal installed:
   cabal install alex happy "cpphs < 1.19" agda
 #+END_SRC
 
-Then check that =agda= is available on your =PATH= and seen by Emacs.
+Then check that =agda= is available on your =$PATH= and seen by Emacs. For
+information about setting up =$PATH=, checkout corresponding section in FAQ
+(~SPC f e h $PATH RET~).
 
 * Key bindings
 

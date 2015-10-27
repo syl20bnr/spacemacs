@@ -63,6 +63,7 @@ following command:
 #+END_SRC
 
 ** Setup PATH
+
 First of all make sure that your =$PATH= contains installation path for Haskell
 tools like =ghc=, =ghci= etc. It depends on how you have installed =ghc=. But
 you can always check it by calling =$ which ghc= in your terminal. =Stack= users
@@ -74,35 +75,8 @@ packages. If you are using =cabal= it should be =~/.cabal/bin= or
 =/Users/<username>/Library/Haskell/bin= (for 'Haskell for Mac' users). If you
 are using =stack= then it should be =~/.local/bin=.
 
-If you are using =bash=, =sh= or =zsh=, you could update your =$PATH= by using
-following command:
-
-#+BEGIN_SRC sh
-  $ export PATH=~/.local/bin:$PATH
-#+END_SRC
-
-If you are using =fish=, you could update your =$PATH= by using following
-command:
-
-#+BEGIN_SRC fish
-  $ set -x PATH ~/.local/bin $PATH
-#+END_SRC
-
-After you setup your =$PATH=, emacs should automatically pick it's value (after
-restart).
-
-_Alternatively_, you can add path to the Emacs =exec-path= variable in the
-=dotspacemacs/user-config= function of your =.spacemacs= file:
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'exec-path "~/.cabal/bin/")
-#+END_SRC
-
-Or for =stack= users:
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'exec-path "~/.local/bin/")
-#+END_SRC
+For information about setting up =$PATH=, checkout corresponding section in FAQ
+(~SPC f e h $PATH RET~).
 
 ** OS X
 Note that =emacs.app= for OS X does not pick up =$PATH= from =~/.bashrc= or

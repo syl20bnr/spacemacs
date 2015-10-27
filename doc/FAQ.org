@@ -19,6 +19,7 @@
      - [[#enable-navigation-by-visual-lines][Enable navigation by visual lines?]]
      - [[#disable-evilification-of-a-mode][Disable evilification of a mode?]]
      - [[#include-underscores-in-word-motions][Include underscores in word motions?]]
+     - [[#setup-path][Setup =$PATH=?]]
    - [[#windows][Windows]]
      - [[#why-do-the-fonts-look-crappy-on-windows][Why do the fonts look crappy on Windows?]]
      - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer][Why is there no Spacemacs logo in the startup buffer?]]
@@ -186,6 +187,54 @@ mode:
   (with-eval-after-load 'python
     (modify-syntax-entry ?_ "w" python-mode-syntax-table))
 #+end_src
+
+*** Setup =$PATH=?
+Some layers require certain tools to be available on your =$PATH=. This means
+that your =$PATH= must contain installation path for those tools. For example,
+you have installed some tools into =~/.local/bin= and want them to be available
+in Spacemacs. So you need to add =~/.local/bin= to your =$PATH=.
+
+Users of =bash=, =zsh=, =sh= and other similar shells should add following line
+to their =.bashrc= (=.zshrc=, =.profile= or your shell's equivalent). Note that
+the =export= part is very important.
+
+#+BEGIN_SRC sh
+export PATH=~/.local/bin:$PATH
+#+END_SRC
+
+Users of =fish= should add following line to their =config.fish= file (should be
+in =$XDG_CONFIG_HOME= or it's default value - =~/.config/fish=). Note that =-x=
+part is very important.
+
+#+BEGIN_SRC
+set -x PATH ~/.local/bin $PATH
+#+END_SRC
+
+Users of other shells should consult it's documentation on how to setup =$PATH=
+variable (with export to environment).
+
+So now, =~/.local/bin= should be available in your =$PATH=. You can verify that
+by calling =$ echo $PATH=. But you also should verify that =$PATH= is set
+properly in your environment. To do so call following command in your terminal.
+
+#+BEGIN_SRC sh
+$ env | grep "PATH"
+#+END_SRC
+
+This is the value that will be used by Emacs. So it must contain =~/.local/bin=.
+
+After that you can run Spacemacs and check that it properly gets the value of
+=$PATH= by running =M-: (getenv "PATH")=.
+
+Note that having =~/.local.bin= in your =$PATH= means also that it's possible to
+run terminal and call tools from =~/.local/bin= without specifying their full
+path. Under certain conditions you might want to avoid modifying your =$PATH=.
+In that case you have an option to update value of =exec-path= in
+=dotspacemacs/user-config= function of your =.spacemacs= file.
+
+#+BEGIN_SRC
+(add-to-list 'exec-path "~/.local/bin/")
+#+END_SRC
 
 ** Windows
 *** Why do the fonts look crappy on Windows?
