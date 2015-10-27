@@ -133,7 +133,7 @@ modules.
 compilation command.
 
 ** Testing
-Test commands (start with ~m t~ or ~m T~):
+Test commands start with ~m t~:
 
 | No Debug    | Description                                              |
 |-------------+----------------------------------------------------------|
