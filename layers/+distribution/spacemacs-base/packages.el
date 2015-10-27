@@ -472,6 +472,12 @@ Example: (evil-map visual \"<\" \"<gv\")"
         (setq helm-autoresize-min-height 10)
         (helm-autoresize-mode 1))
 
+      ;; Disable line numbers in helm buffers
+      (when linum-mode
+        (add-hook 'helm-after-initialize-hook (lambda ()
+                                         (with-helm-buffer
+                                           (linum-mode 0)))))
+
       ;; from https://www.reddit.com/r/emacs/comments/2z7nbv/lean_helm_window/
       (defvar helm-source-header-default-background (face-attribute 'helm-source-header :background))
       (defvar helm-source-header-default-foreground (face-attribute 'helm-source-header :foreground))
