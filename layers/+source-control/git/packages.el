@@ -139,6 +139,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map magit-refs-mode-map
@@ -146,6 +147,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map magit-blame-mode-map
@@ -153,6 +155,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map magit-hunk-section-map
@@ -160,6 +163,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map magit-diff-mode-map
@@ -167,6 +171,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map magit-log-read-revs-map
@@ -174,6 +179,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map magit-log-mode-map
@@ -181,6 +187,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map magit-log-select-mode-map
@@ -188,6 +195,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map magit-cherry-mode-map
@@ -195,6 +203,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map magit-reflog-mode-map
@@ -202,6 +211,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map magit-process-mode-map
@@ -209,6 +219,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map magit-stash-mode-map
@@ -216,6 +227,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward)
       (spacemacs|evilify-map git-rebase-mode-map
@@ -223,6 +235,7 @@
         :bindings
         (kbd "C-S-j") 'magit-section-forward
         (kbd "C-S-k") 'magit-section-backward
+        (kbd "C-k") 'magit-discard
         (kbd "C-n") 'magit-section-forward
         (kbd "C-p") 'magit-section-backward
         "J" 'git-rebase-move-line-down
