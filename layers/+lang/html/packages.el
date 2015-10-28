@@ -181,7 +181,7 @@
   (use-package web-mode
     :defer t
     :init
-    (push 'company-web-html company-backends-web-mode)
+    (push '(company-web-html company-css) company-backends-web-mode)
     :config
     (progn
       (evil-leader/set-key-for-mode 'web-mode
