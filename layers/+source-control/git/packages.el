@@ -12,6 +12,7 @@
 
 (setq git-packages
       '(
+        (evil-magit :location (recipe :fetcher github :repo "justbur/evil-magit"))
         gitattributes-mode
         gitconfig-mode
         gitignore-mode
@@ -25,6 +26,11 @@
         ;; magit-svn
         smeargle
         ))
+
+(defun git/init-evil-magit ()
+  (with-eval-after-load 'magit
+    (setq evil-magit-state 'motion)
+    (require 'evil-magit)))
 
 (defun git/init-helm-gitignore ()
   (use-package helm-gitignore
@@ -132,123 +138,125 @@
     (progn
       ;; seems to be necessary at the time of release
       (require 'git-rebase)
-      ;; mode maps
-      (spacemacs|evilify-map magit-mode-map)
-      (spacemacs|evilify-map magit-status-mode-map
-        :mode magit-status-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map magit-refs-mode-map
-        :mode magit-refs-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map magit-blame-mode-map
-        :mode magit-blame-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map magit-hunk-section-map
-        :mode magit-status-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map magit-diff-mode-map
-        :mode magit-diff-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map magit-log-read-revs-map
-        :mode magit-log-read-revs
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map magit-log-mode-map
-        :mode magit-log-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map magit-log-select-mode-map
-        :mode magit-log-select-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map magit-cherry-mode-map
-        :mode magit-cherry-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map magit-reflog-mode-map
-        :mode magit-reflog-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map magit-process-mode-map
-        :mode magit-process-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map magit-stash-mode-map
-        :mode magit-stash-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward)
-      (spacemacs|evilify-map git-rebase-mode-map
-        :mode git-rebase-mode
-        :bindings
-        (kbd "C-S-j") 'magit-section-forward
-        (kbd "C-S-k") 'magit-section-backward
-        (kbd "C-n") 'magit-section-forward
-        (kbd "C-p") 'magit-section-backward
-        "J" 'git-rebase-move-line-down
-        "K" 'git-rebase-move-line-up
-        "u" 'git-rebase-undo
-        "y" 'git-rebase-insert)
-      ;; default state for additional modes
-      (dolist (mode '(magit-popup-mode
-                      magit-popup-sequence-mode))
-        (add-to-list 'evil-emacs-state-modes mode))
-      (spacemacs/evilify-configure-default-state 'magit-revision-mode)
-      ;; section maps
-      (spacemacs|evilify-map magit-tag-section-map)
-      (spacemacs|evilify-map magit-untracked-section-map)
-      (spacemacs|evilify-map magit-branch-section-map)
-      (spacemacs|evilify-map magit-remote-section-map)
-      (spacemacs|evilify-map magit-file-section-map)
-      (spacemacs|evilify-map magit-hunk-section-map)
-      (spacemacs|evilify-map magit-unstaged-section-map)
-      (spacemacs|evilify-map magit-staged-section-map)
-      (spacemacs|evilify-map magit-commit-section-map)
-      (spacemacs|evilify-map magit-module-commit-section-map)
-      (spacemacs|evilify-map magit-unpulled-section-map)
-      (spacemacs|evilify-map magit-unpushed-section-map)
-      (spacemacs|evilify-map magit-stashes-section-map)
-      (spacemacs|evilify-map magit-stash-section-map)
+
+      (unless (configuration-layer/package-usedp 'evil-magit)
+        ;; mode maps
+        (spacemacs|evilify-map magit-mode-map)
+        (spacemacs|evilify-map magit-status-mode-map
+          :mode magit-status-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map magit-refs-mode-map
+          :mode magit-refs-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map magit-blame-mode-map
+          :mode magit-blame-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map magit-hunk-section-map
+          :mode magit-status-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map magit-diff-mode-map
+          :mode magit-diff-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map magit-log-read-revs-map
+          :mode magit-log-read-revs
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map magit-log-mode-map
+          :mode magit-log-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map magit-log-select-mode-map
+          :mode magit-log-select-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map magit-cherry-mode-map
+          :mode magit-cherry-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map magit-reflog-mode-map
+          :mode magit-reflog-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map magit-process-mode-map
+          :mode magit-process-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map magit-stash-mode-map
+          :mode magit-stash-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward)
+        (spacemacs|evilify-map git-rebase-mode-map
+          :mode git-rebase-mode
+          :bindings
+          (kbd "C-S-j") 'magit-section-forward
+          (kbd "C-S-k") 'magit-section-backward
+          (kbd "C-n") 'magit-section-forward
+          (kbd "C-p") 'magit-section-backward
+          "J" 'git-rebase-move-line-down
+          "K" 'git-rebase-move-line-up
+          "u" 'git-rebase-undo
+          "y" 'git-rebase-insert)
+        ;; default state for additional modes
+        (dolist (mode '(magit-popup-mode
+                        magit-popup-sequence-mode))
+          (add-to-list 'evil-emacs-state-modes mode))
+        (spacemacs/evilify-configure-default-state 'magit-revision-mode)
+        ;; section maps
+        (spacemacs|evilify-map magit-tag-section-map)
+        (spacemacs|evilify-map magit-untracked-section-map)
+        (spacemacs|evilify-map magit-branch-section-map)
+        (spacemacs|evilify-map magit-remote-section-map)
+        (spacemacs|evilify-map magit-file-section-map)
+        (spacemacs|evilify-map magit-hunk-section-map)
+        (spacemacs|evilify-map magit-unstaged-section-map)
+        (spacemacs|evilify-map magit-staged-section-map)
+        (spacemacs|evilify-map magit-commit-section-map)
+        (spacemacs|evilify-map magit-module-commit-section-map)
+        (spacemacs|evilify-map magit-unpulled-section-map)
+        (spacemacs|evilify-map magit-unpushed-section-map)
+        (spacemacs|evilify-map magit-stashes-section-map)
+        (spacemacs|evilify-map magit-stash-section-map))
 
       ;; full screen magit-status
       (when git-magit-status-fullscreen
@@ -258,14 +266,14 @@
                 (pop-to-buffer buffer)
                 (delete-other-windows))))
 
-      ;; rebase mode
-      (evil-leader/set-key-for-mode 'git-rebase-mode
-        "mcc" 'git-rebase-server-edit
-        "mk" 'git-rebase-abort)
-      ;; commit mode
-      (evil-leader/set-key-for-mode 'git-commit-mode
-        "mcc" 'git-commit-commit
-        "mk" 'git-commit-abort)
+      (when dotspacemacs-major-mode-leader-key
+        (add-hook 'with-editor-mode-hook 'evil-normalize-keymaps)
+        (evil-define-key 'normal with-editor-mode-map
+          (concat dotspacemacs-major-mode-leader-key "c") 'with-editor-finish
+          (concat dotspacemacs-major-mode-leader-key "a") 'with-editor-cancel)
+        (evil-define-key 'motion with-editor-mode-map
+          (concat dotspacemacs-major-mode-leader-key "c") 'with-editor-finish
+          (concat dotspacemacs-major-mode-leader-key "a") 'with-editor-cancel))
 
       ;; whitespace
       (defun magit-toggle-whitespace ()
