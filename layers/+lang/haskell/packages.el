@@ -270,8 +270,10 @@
       :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
-      (push '(company-ghc company-dabbrev-code company-yasnippet)
-            company-backends-haskell-mode)))
+      (push (if company-enable-ghc-mod-support
+                '(company-ghc company-dabbrev-code company-yasnippet)
+              '(company-dabbrev-code company-yasnippet)
+              company-backends-haskell-mode)))
 
   (defun haskell/init-company-cabal ()
     (use-package company-cabal
