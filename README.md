@@ -185,7 +185,7 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 
 4. Restart Emacs to complete the installation.
 
-If the mode-line turns red then be sure to visit the
+   If the mode-line turns red then be sure to visit the
 [troubleshooting][troubleshoot] guide and consult the [FAQ](#faq).
 
 5. Start customizing Spacemacs by reading the [Quick Start Guide](https://github.com/syl20bnr/spacemacs/blob/develop/doc/QUICK_START.org).
