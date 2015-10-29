@@ -23,6 +23,7 @@
     helm-pydoc
     hy-mode
     (nose :location local)
+    live-py-mode
     pip-requirements
     pyenv-mode
     (pylookup :location local)
@@ -111,6 +112,15 @@
 (defun python/init-hy-mode ()
   (use-package hy-mode
     :defer t))
+
+(defun python/init-live-py-mode ()
+  (use-package live-py-mode
+    :defer t
+    :commands live-py-mode
+    :init
+    (spacemacs/set-leader-keys-for-major-mode 'python-mode
+      "l" 'live-py-mode))
+  )
 
 (defun python/init-nose ()
   (use-package nose

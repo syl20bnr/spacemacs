@@ -22,6 +22,7 @@
    - [[Running Python Script in shell][Running Python Script in shell]]
    - [[Testing][Testing]]
    - [[Refactoring][Refactoring]]
+   - [[Live coding][Live coding]]
    - [[Other Python commands][Other Python commands]]
  - [[Configuration][Configuration]]
    - [[Fill column][Fill column]]
@@ -203,6 +204,13 @@ Test commands start with ~m t~:
 | Key Binding | Description                          |
 |-------------+--------------------------------------|
 | ~SPC m r i~ | remove unused imports with [[https://github.com/myint/autoflake][autoflake]] |
+
+** Live coding
+Live coding is provided by the [[https://github.com/donkirkby/live-py-plugin][live-py-plugin.]]
+
+| Key Binding | Description         |
+|-------------+---------------------|
+| ~SPC m l~   | Toggle live-py-mode |
 
 ** Other Python commands
 
