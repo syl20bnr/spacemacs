@@ -67,8 +67,6 @@
       ;; hooks
       (add-hook 'haskell-mode-hook 'spacemacs/init-haskell-mode)
       (add-hook 'haskell-cabal-mode-hook 'haskell-cabal-hook)
-      (unless haskell-enable-shm-support
-        (add-hook 'haskell-mode-hook 'haskell-indentation-mode))
 
       ;; settings
       (setq
