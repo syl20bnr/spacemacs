@@ -130,9 +130,10 @@ Spacemacs uses [[http://magit.vc/][magit]] to manage Git repositories.
 
 To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~
 
-Spacemacs uses [[https://github.com/justbur/evil-magit][evil-magit]] for key bindings in magit buffers, which are the
-standard magit key bindings with some minimal changes to make them comfortable
-for evil users.
+Spacemacs uses [[https://github.com/justbur/evil-magit][evil-magit]] for key bindings in magit buffers (unless your editing
+style is set to emacs, in which case you get the default magit bindings), which
+are the standard magit key bindings with some minimal changes to make them
+comfortable for evil users.
 
 Here are the often used bindings inside a =status buffer=:
 
