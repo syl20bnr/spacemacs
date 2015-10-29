@@ -181,11 +181,7 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    fork Spacemacs safely use the `develop` branch where you handle the update
    manually.
 
-3. Launch Emacs. Spacemacs will automatically install the packages it requires.
-
-   ```sh
-   emacs
-   ```
+3. Launch Emacs as you would normally do. Spacemacs will automatically install the packages it requires.
 
 4. Restart Emacs to complete the installation.
 
