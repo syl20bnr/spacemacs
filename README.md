@@ -181,19 +181,14 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    fork Spacemacs safely use the `develop` branch where you handle the update
    manually.
 
-3. Spacemacs can be used with Emacs working in a terminal, or full GUI mode. In
-order to do this, launch Emacs as you normally would. The first time you start
-emacs after following the installation instructions mentioned hereby, emacs will
-use the new configuration, automatically downloading and installing additional
-support, not built into Emacs. You'll be able to further customize and refine
-the default configuration by editing the .spacemacs file. Follow [this
-guide](http://thume.ca/howto/2015/03/07/configuring-spacemacs-a-tutorial/) to
-see how to do it. 
+3. Launch Emacs. It will automatically install the packages it requires.
 
 4. Restart Emacs to complete the installation.
 
 If the mode-line turns red then be sure to visit the
 [troubleshooting][troubleshoot] guide and consult the [FAQ](#faq).
+
+5. Start customizing Spacemacs by reading the [Quick Start Guide](https://github.com/syl20bnr/spacemacs/blob/develop/doc/QUICK_START.org).
 
 ## Spacemacs logo
 
