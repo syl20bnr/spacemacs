@@ -52,7 +52,7 @@
 # Introduction
 
 Spacemacs is a proposition of a complete new experience for Emacs focused
-on ergonomics, mnemonics and consistency. 
+on ergonomics, mnemonics and consistency.
 
 Clone it, launch it then press the space bar and let you guided by the built-in
 interactive list of key-bindings. You can also press the `[?]` button on the
@@ -84,7 +84,7 @@ organised in configuration layers following a set of
 # Documentation
 
 A comprehensive documentation is available for each layer by pressing
-<kbd>SPC f e h</kbd>. 
+<kbd>SPC f e h</kbd>.
 
 To go to the general documentation [click here][DOCUMENTATION.org].
 
@@ -182,6 +182,10 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
    manually.
 
 3. Launch Emacs. Spacemacs will automatically install the packages it requires.
+
+   ```sh
+   emacs
+   ```
 
 4. Restart Emacs to complete the installation.
 
