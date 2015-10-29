@@ -191,14 +191,13 @@ package name does not match theme name + `-theme' suffix.")
 (defun spacemacs/cycle-spacemacs-theme ()
   "Cycle through themes defined in `dotspacemacs-themes.'"
   (interactive)
-  (when  spacemacs--cur-theme
+  (when spacemacs--cur-theme
     (disable-theme spacemacs--cur-theme)
     ;; if current theme isn't in cycleable themes, start over
-    (if (not (member spacemacs--cur-theme dotspacemacs-themes))
-        (setq spacemacs--cycle-themes dotspacemacs-themes)
-      (setq spacemacs--cycle-themes
-            (append spacemacs--cycle-themes (list spacemacs--cur-theme)))))
-  (setq  spacemacs--cur-theme (pop spacemacs--cycle-themes))
+    (setq spacemacs--cycle-themes
+          (or (cdr (memq spacemacs--cur-theme dotspacemacs-themes))
+              dotspacemacs-themes)))
+  (setq spacemacs--cur-theme (pop spacemacs--cycle-themes))
   (message "Loading theme %s..." spacemacs--cur-theme)
   (spacemacs/load-theme spacemacs--cur-theme))
 
