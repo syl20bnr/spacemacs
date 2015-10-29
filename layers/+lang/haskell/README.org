@@ -63,20 +63,19 @@ following command:
 #+END_SRC
 
 ** Setup PATH
+First of all make sure that your =$PATH= contains the installation path for
+Haskell tools like =ghc=, =ghci= etc. It depends on how you have installed
+=ghc=, but you can always check it by running =which ghc= in your terminal.
+=Stack= users should add only the installation path of =stack= itself. Usually
+it's =~/.local/bin=.
 
-First of all make sure that your =$PATH= contains installation path for Haskell
-tools like =ghc=, =ghci= etc. It depends on how you have installed =ghc=. But
-you can always check it by calling =$ which ghc= in your terminal. =Stack= users
-should add only installation path of =stack= itself, usually it's
-=~/.local/bin=.
-
-Then make sure that your =$PATH= contains installation path for =cabal=
+Then make sure that your =$PATH= contains the installation path for =cabal=
 packages. If you are using =cabal= it should be =~/.cabal/bin= or
 =/Users/<username>/Library/Haskell/bin= (for 'Haskell for Mac' users). If you
 are using =stack= then it should be =~/.local/bin=.
 
-For information about setting up =$PATH=, checkout corresponding section in FAQ
-(~SPC f e h $PATH RET~).
+For information about setting up =$PATH=, check out the corresponding section in
+the FAQ (~SPC f e h $PATH RET~).
 
 ** OS X
 Note that =emacs.app= for OS X does not pick up =$PATH= from =~/.bashrc= or
@@ -264,7 +263,6 @@ This commands are available in a cabal file.
 | ~SPC m f~   | find or create source-file under the cursor |
 
 * FAQ
-
 ** REPL doesn't work
 Usually =haskell-mode= is great at figuring out which interactive process to
 bring up. But if you are experiencing problems with it you can help
