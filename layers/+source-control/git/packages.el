@@ -113,6 +113,7 @@
 
       (evil-leader/set-key
         "gb" 'spacemacs/git-blame-micro-state
+        "gc" 'magit-checkout
         "gi" 'magit-init
         "gl" 'magit-log-all
         "gL" 'magit-log-buffer-file
