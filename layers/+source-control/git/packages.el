@@ -28,9 +28,10 @@
         ))
 
 (defun git/init-evil-magit ()
-  (with-eval-after-load 'magit
-    (setq evil-magit-state 'motion)
-    (require 'evil-magit)))
+  (unless (eq dotspacemacs-editing-style 'emacs)
+    (with-eval-after-load 'magit
+      (setq evil-magit-state 'motion)
+      (require 'evil-magit))))
 
 (defun git/init-helm-gitignore ()
   (use-package helm-gitignore
