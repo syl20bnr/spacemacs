@@ -270,7 +270,7 @@
       :if (configuration-layer/package-usedp 'company)
       :defer t
       :init
-      (push (if company-enable-ghc-mod-support
+      (push (if haskell-enable-ghc-mod-support
                 '(company-ghc company-dabbrev-code company-yasnippet)
               '(company-dabbrev-code company-yasnippet)
               company-backends-haskell-mode)))
