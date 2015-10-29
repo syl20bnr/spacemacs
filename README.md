@@ -186,10 +186,9 @@ order to do this, launch Emacs as you normally would. The first time you start
 emacs after following the installation instructions mentioned hereby, emacs will
 use the new configuration, automatically downloading and installing additional
 support, not built into Emacs. You'll be able to further customize and refine
-the default configuration by editing the .spacemacs file. Follow this guide to
-see how to do it. The following tutorial will deliver a much more in depth way
-of configuring your Spacemacs environment:
-http://thume.ca/howto/2015/03/07/configuring-spacemacs-a-tutorial/
+the default configuration by editing the .spacemacs file. Follow [this
+guide](http://thume.ca/howto/2015/03/07/configuring-spacemacs-a-tutorial/) to
+see how to do it. 
 
 4. Restart Emacs to complete the installation.
 
