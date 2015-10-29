@@ -9,7 +9,6 @@
  - [[#key-bindings][Key bindings]]
 
 * Description
-
 This layer adds support for the [[http://wiki.portal.chalmers.se/agda/pmwiki.php][Agda]] programming language.
 
 ** Some features:
@@ -19,9 +18,7 @@ This layer adds support for the [[http://wiki.portal.chalmers.se/agda/pmwiki.php
 *This layer is in construction, it needs your contributions and bug reports.*
 
 * Install
-
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -29,7 +26,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 ** Agda
-
 Quick instructions to install Agda assuming you have cabal installed:
 
 #+BEGIN_SRC sh
@@ -37,11 +33,10 @@ Quick instructions to install Agda assuming you have cabal installed:
 #+END_SRC
 
 Then check that =agda= is available on your =$PATH= and seen by Emacs. For
-information about setting up =$PATH=, checkout corresponding section in FAQ
-(~SPC f e h $PATH RET~).
+information about setting up =$PATH=, check out the corresponding section in the
+FAQ (~SPC f e h $PATH RET~).
 
 * Key bindings
-
 The key bindings of this layer don't follow the Spacemacs conventions,
 we opted to a simple transcription of stock Agda mode key bindings to
 Spacemacs leader key.

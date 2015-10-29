@@ -190,9 +190,9 @@ mode:
 
 *** Setup =$PATH=?
 Some layers require certain tools to be available on your =$PATH=. This means
-that your =$PATH= must contain installation path for those tools. For example,
-you have installed some tools into =~/.local/bin= and want them to be available
-in Spacemacs. So you need to add =~/.local/bin= to your =$PATH=.
+that your =$PATH= must contain the installation paths for those tools. For
+example, if you have installed some tools to =~/.local/bin= and want them to be
+available in Spacemacs, you need to add =~/.local/bin= to your =$PATH=.
 
 Users of =bash=, =zsh=, =sh= and other similar shells should add following line
 to their =.bashrc= (=.zshrc=, =.profile= or your shell's equivalent). Note that
@@ -203,19 +203,19 @@ export PATH=~/.local/bin:$PATH
 #+END_SRC
 
 Users of =fish= should add following line to their =config.fish= file (should be
-in =$XDG_CONFIG_HOME= or it's default value - =~/.config/fish=). Note that =-x=
+in =$XDG_CONFIG_HOME= or its default value - =~/.config/fish=). Note that =-x=
 part is very important.
 
 #+BEGIN_SRC
 set -x PATH ~/.local/bin $PATH
 #+END_SRC
 
-Users of other shells should consult it's documentation on how to setup =$PATH=
+Users of other shells should consult its documentation on how to setup =$PATH=
 variable (with export to environment).
 
-So now, =~/.local/bin= should be available in your =$PATH=. You can verify that
-by calling =$ echo $PATH=. But you also should verify that =$PATH= is set
-properly in your environment. To do so call following command in your terminal.
+So now, =~/.local/bin= should be available in your =$PATH=. You can verify this
+by calling =echo $PATH=. But you also should verify that =$PATH= is set properly
+in your environment. To do so call following command in your terminal.
 
 #+BEGIN_SRC sh
 $ env | grep "PATH"
@@ -226,13 +226,13 @@ This is the value that will be used by Emacs. So it must contain =~/.local/bin=.
 After that you can run Spacemacs and check that it properly gets the value of
 =$PATH= by running =M-: (getenv "PATH")=.
 
-Note that having =~/.local.bin= in your =$PATH= means also that it's possible to
+Note that having =~/.local.bin= in your =$PATH= also means that it's possible to
 run terminal and call tools from =~/.local/bin= without specifying their full
 path. Under certain conditions you might want to avoid modifying your =$PATH=.
-In that case you have an option to update value of =exec-path= in
+In that case you have the option of updating the value of =exec-path= in the
 =dotspacemacs/user-config= function of your =.spacemacs= file.
 
-#+BEGIN_SRC
+#+BEGIN_SRC emacs-lisp
 (add-to-list 'exec-path "~/.local/bin/")
 #+END_SRC
 
