@@ -168,7 +168,8 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 
    ```sh
    cd ~
-   mv .emacs.d .emacs.bak
+   mv .emacs.d .emacs.d.bak
+   mv .emacs .emacs.bak
    ```
 
 2. Clone the repository:
