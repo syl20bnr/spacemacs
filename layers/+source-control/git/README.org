@@ -16,7 +16,7 @@
  - [[#working-with-git][Working with Git]]
    - [[#magit][Magit]]
    - [[#staging-lines][Staging lines]]
-   - [[#commit-message-edition-buffer][Commit message edition buffer]]
+   - [[#commit-message-editing-buffer][Commit message editing buffer]]
    - [[#interactive-rebase-buffer][Interactive rebase buffer]]
    - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
    - [[#git-flow][Git-Flow]]
@@ -130,47 +130,42 @@ Spacemacs uses [[http://magit.vc/][magit]] to manage Git repositories.
 
 To open a =status buffer=, type in a buffer of a Git repository: ~SPC g s~
 
-~hjkl~ navigation is enabled in all Magit buffers according to the rules of
-evilification. The default Magit keys on ~hjkl~ (if they exist) are remapped on
-~HJKL~.
+Spacemacs uses [[https://github.com/justbur/evil-magit][evil-magit]] for key bindings in magit buffers, which are the
+standard magit key bindings with some minimal changes to make them comfortable
+for evil users.
 
-Here are the often used bindings inside a =status buffer=, please note that
-the following key bindings are valid in Vim editing style, in Emacs editing
-style you can refer directly to the magit manual:
+Here are the often used bindings inside a =status buffer=:
 
-| Key Binding      | Description                                         |
-|------------------+-----------------------------------------------------|
-| ~/~              | evil-search                                         |
-| ~$~              | open =command output buffer=                        |
-| ~c c~            | open a =commit message buffer=                      |
-| ~b b~            | checkout a branch                                   |
-| ~b c~            | create a branch                                     |
-| ~f f~            | fetch changes                                       |
-| ~F -r F~         | pull and rebase                                     |
-| ~C-S-g~          | refresh                                             |
-| ~h~              | go left                                             |
-| ~j~              | go down                                             |
-| ~C-S-j~ or ~C-n~ | goto next magit section                             |
-| ~k~              | go up                                               |
-| ~K~              | discard changes                                     |
-| ~C-S-k~ or ~C-p~ | goto previous magit section                         |
-| ~l~              | go right                                            |
-| ~L l~            | open =log buffer=                                   |
-| ~n~              | next search occurrence                              |
-| ~N~              | previous search occurrence _or_ SVN sub-menu        |
-| ~P P~            | push                                                |
-| ~q~              | quit                                                |
-| ~s~              | on a file or hunk in a diff: stage the file or hunk |
-| ~+~              | on a hunk: increase hunk size                       |
-| ~-~              | on a hunk: decrease hunk size                       |
-| ~S~              | stage all                                           |
-| ~TAB~            | on a file: expand/collapse diff                     |
-| ~u~              | on a staged file: unstage                           |
-| ~U~              | unstage all staged files                            |
-| ~v~              | go to =visual state=                                |
-| ~V~              | go to =visual-line state=                           |
-| ~C-v~            | revert item at point                                |
-| ~z z~            | stash changes                                       |
+| Key Binding | Description                                         |
+|-------------+-----------------------------------------------------|
+| ~/~           | evil-search                                         |
+| ~$~           | open =command output buffer=                          |
+| ~c c~         | open a =commit message buffer=                        |
+| ~b b~         | checkout a branch                                   |
+| ~b c~         | create a branch                                     |
+| ~f f~         | fetch changes                                       |
+| ~F -r F~      | pull and rebase                                     |
+| ~gr~          | refresh                                             |
+| ~j~           | goto next magit section                             |
+| ~C-j~         | next visual line                                    |
+| ~k~           | goto previous magit section                         |
+| ~C-k~         | previous visual line                                |
+| ~l l~         | open =log buffer=                                     |
+| ~n~           | next search occurrence                              |
+| ~N~           | previous search occurrence                          |
+| ~o~           | revert item at point                                |
+| ~P P~         | push                                                |
+| ~q~           | quit                                                |
+| ~s~           | on a file or hunk in a diff: stage the file or hunk |
+| ~x~           | discard changes                                     |
+| ~+~           | on a hunk: increase hunk size                       |
+| ~-~           | on a hunk: decrease hunk size                       |
+| ~S~           | stage all                                           |
+| ~TAB~         | on a file: expand/collapse diff                     |
+| ~u~           | on a staged file: unstage                           |
+| ~U~           | unstage all staged files                            |
+| ~v or V~      | select multiple lines                               |
+| ~z z~         | stash changes                                       |
 
 ** Staging lines
 Magit allows you to stage specific lines by selecting them in a diff and hitting
@@ -179,9 +174,10 @@ you enter visual line state with =V=, you will stage one more line than
 intended. To work around this, you can use =v= instead (since Magit only stages
 whole lines, in any case).
 
-** Commit message edition buffer
-In a commit message buffer press ~C-c C-c~ to commit the changes with the
-entered message. Pressing ~C-c C-k~ will discard the commit message.
+** Commit message editing buffer
+In a commit message buffer press ~,c~ (if =dotspacemacs-major-mode-leader-key= is ~,~)
+or ~C-c C-c~ to commit the changes with the entered message. Pressing ~,a~ or ~C-c C-k~
+will discard the commit message.
 
 | Key Binding | Description |
 |-------------+-------------|
@@ -194,35 +190,33 @@ entered message. Pressing ~C-c C-k~ will discard the commit message.
 
 | Key Binding | Description    |
 |-------------+----------------|
-| ~c~         | pick           |
-| ~e~         | edit           |
-| ~f~         | fixup          |
-| ~h~         | go left        |
-| ~j~         | go down        |
-| ~J~         | move line down |
-| ~k~         | go up          |
-| ~K~         | move line up   |
-| ~C-k~       | kill line      |
-| ~l~         | go right       |
-| ~r~         | reword         |
-| ~s~         | squash         |
-| ~u~         | undo           |
-| ~x~         | execute        |
-| ~y~         | insert         |
+| ~c~ or ~p~      | pick           |
+| ~e~           | edit           |
+| ~f~           | fixup          |
+| ~j~           | go down        |
+| ~gj~          | move line down |
+| ~k~           | go up          |
+| ~gk~          | move line up   |
+| ~d~ or ~x~      | kill line      |
+| ~r~           | reword         |
+| ~s~           | squash         |
+| ~u~           | undo           |
+| ~y~           | insert         |
+| ~!~           | execute        |
 
 ** Quick guide for recurring use cases in Magit
 
 - Amend a commit:
-  - ~L l~ to open =log buffer=
+  - ~l l~ to open =log buffer=
   - ~c a~ on the commit you want to amend
-  - ~C-c C-c~ to submit the changes
+  - ~,c~ or ~C-c C-c~ to submit the changes
 - Squash last commit:
-  - ~L l~ to open =log buffer=
+  - ~l l~ to open =log buffer=
   - ~r e~ on the second to last commit, it opens the =rebase buffer=
   - ~j~ to put point on last commit
   - ~s~ to squash it
-  - ~C-c C-c~ to continue to the =commit message buffer=
-  - ~C-c C-c~ again when you have finished to edit the commit message
+  - ~,c~ or ~C-c C-c~ to continue to the =commit message buffer=
+  - ~,c~ or ~C-c C-c~ again when you have finished to edit the commit message
 - Force push a squashed commit:
   - in the =status buffer= you should see the new commit unpushed and the old
     commit unpulled
