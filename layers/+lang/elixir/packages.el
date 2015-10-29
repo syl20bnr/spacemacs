@@ -26,7 +26,8 @@
     (progn
       (add-hook 'elixir-mode-hook 'alchemist-mode)
       (setq alchemist-project-compile-when-needed t)
-      (push 'alchemist-company company-backends-elixir-mode))
+      (push 'alchemist-company company-backends-elixir-mode)
+      (push 'alchemist-company company-backends-alchemist-iex-mode))
     :config
     (spacemacs/declare-prefix-for-mode 'elixir-mode "mc" "compile")
     (spacemacs/declare-prefix-for-mode 'elixir-mode "me" "eval")
@@ -92,7 +93,8 @@
       "m," 'alchemist-goto-jump-back)))
 
 (defun elixir/post-init-company ()
-  (spacemacs|add-company-hook elixir-mode))
+  (spacemacs|add-company-hook elixir-mode)
+  (spacemacs|add-company-hook alchemist-iex-mode))
 
 (defun elixir/init-elixir-mode ()
   (use-package elixir-mode
