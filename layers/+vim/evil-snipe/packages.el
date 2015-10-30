@@ -13,6 +13,10 @@
     :config
     (progn
       (evil-snipe-mode 1)
+      (if (configuration-layer/layer-usedp 'git)
+          (progn
+            (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+            (add-hook 'git-rebase-mode-hook 'turn-off-evil-snipe-override-mode)))
       (when evil-snipe-enable-alternate-f-and-t-behaviors
         (setq evil-snipe-repeat-scope 'whole-buffer)
         (evil-snipe-override-mode 1)))))
