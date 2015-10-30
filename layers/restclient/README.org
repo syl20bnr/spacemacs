@@ -1,8 +1,8 @@
 #+TITLE: Restclient contribution layer
 
-* Table of Contents                                                   :TOC@4:
- - [[#what-is-this][What is this?]]
- - [[#keybindings][Keybindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[What is this?][What is this?]]
+ - [[Keybindings][Keybindings]]
 
 * What is this?
 This is a package that lets you have a REPL-like interface

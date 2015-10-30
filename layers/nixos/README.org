@@ -2,13 +2,13 @@
 
 [[file:img/nixos.jpg]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-     - [[#features][Features:]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
- - [[#key-bindings][Key Bindings]]
-     - [[#nixos-options][NixOS Options]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features:][Features:]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+ - [[Key Bindings][Key Bindings]]
+   - [[NixOS Options][NixOS Options]]
 
 * Description
 

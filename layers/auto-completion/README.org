@@ -1,26 +1,25 @@
-#+TITLE: Auto-Completion configuration layer for Spacemacs
+#+TITLE: Auto-completion layer
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#key-bindings][Key bindings]]
-   - [[#tooltips][Tooltips]]
-   - [[#sort-results-by-usage][Sort results by usage]]
-   - [[#show-snippets-in-auto-completion-popup][Show snippets in auto-completion popup]]
-   - [[#enable-company-or-auto-complete-globally][Enable company or auto-complete globally]]
-   - [[#replacing-company-by-auto-complete][Replacing company by auto-complete]]
-   - [[#add-auto-completion-in-a-layer][Add auto-completion in a layer]]
-     - [[#in-configel][In =config.el=]]
-     - [[#in-packagesel][In =packages.el=]]
- - [[#key-bindings][Key Bindings]]
-   - [[#company][Company]]
-   - [[#auto-complete][Auto-complete]]
-   - [[#yasnippet][Yasnippet]]
-   - [[#auto-yasnippet][Auto-yasnippet]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Configuration][Configuration]]
+   - [[Key bindings][Key bindings]]
+   - [[Tooltips][Tooltips]]
+   - [[Sort results by usage][Sort results by usage]]
+   - [[Show snippets in auto-completion popup][Show snippets in auto-completion popup]]
+   - [[Enable company or auto-complete globally][Enable company or auto-complete globally]]
+   - [[Replacing company by auto-complete][Replacing company by auto-complete]]
+   - [[Add auto-completion in a layer][Add auto-completion in a layer]]
+     - [[In =config.el=][In =config.el=]]
+     - [[In =packages.el=][In =packages.el=]]
+ - [[Key Bindings][Key Bindings]]
+   - [[Company][Company]]
+   - [[Auto-complete][Auto-complete]]
+   - [[Yasnippet][Yasnippet]]
+   - [[Auto-yasnippet][Auto-yasnippet]]
 
 * Description
-
 This layer provides auto-completion to Spacemacs.
 
 The following completion engines are supported:
@@ -32,7 +31,6 @@ Snippets are supported via [[https://github.com/capitaomorte/yasnippet][yasnippe
 This layer also configures =hippie-expand=.
 
 * Install
-
 To use this configuration layer add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -40,9 +38,7 @@ To use this configuration layer add it to your =~/.spacemacs=
 #+END_SRC
 
 * Configuration
-
 ** Key bindings
-
 You can customize the user experience of auto-completion with the following
 layer variables:
 
@@ -81,7 +77,6 @@ The default configuration of the layer is:
 you don't use it already.
 
 ** Tooltips
-
 To enable docstring tooltips set =auto-completion-enable-help-tooltip= to =t=
 
 #+BEGIN_SRC emacs-lisp
@@ -91,7 +86,6 @@ To enable docstring tooltips set =auto-completion-enable-help-tooltip= to =t=
 #+END_SRC
 
 ** Sort results by usage
-
 To enable sorting auto-completion results by their usage frequency set
 =auto-completion-enable-sort-by-usage= to =t=.
 This feature is provided by the [[https://github.com/company-mode/company-statistics][company-statistics]] package when =company=
@@ -105,7 +99,6 @@ The variable has no effect when =auto-complete= is used.
 #+END_SRC
 
 ** Show snippets in auto-completion popup
-
 By default, snippets are not shown in the auto-completion popup. To show them in
 the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
 
@@ -116,7 +109,6 @@ the popup, set the variable =auto-completion-enable-snippets-in-popup= to =t=.
 #+END_SRC
 
 ** Enable company or auto-complete globally
-
 By default Spacemacs enables auto-completion explicitly for each supported
 major-mode, it means that =company= and =auto-complete= are not enabled
 globally, it allows more flexibility to choose an auto-completion engine
@@ -131,23 +123,19 @@ Note that if you want to enable =auto-complete= globally you will have to
 disable =company= first, see the next section to do so.
 
 ** Replacing company by auto-complete
-
 You can disable =company= by adding it to the =dotspacemacs-excluded-packages=
 variable, then you are free to enable =auto-complete= globally.
 
 ** Add auto-completion in a layer
-
 Here is an example to add =company= auto-completion to python buffer:
 
 *** In =config.el=
-
 #+BEGIN_SRC emacs-lisp
   ;; Define the buffer local company backend variable
   (spacemacs|defvar-company-backends python-mode)
 #+END_SRC
 
 *** In =packages.el=
-
 #+BEGIN_SRC emacs-lisp
   ;; Add the relevant packages to the layer
   (setq python-packages
@@ -172,7 +160,6 @@ Here is an example to add =company= auto-completion to python buffer:
 #+END_SRC
 
 * Key Bindings
-
 ** Company
 
 | Key Binding | Description                                                              |

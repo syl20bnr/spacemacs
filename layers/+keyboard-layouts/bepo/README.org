@@ -1,31 +1,30 @@
-* bepo contribution layer for Spacemacs
+#+TITLE: bepo contribution layer for Spacemacs
 
 #+CAPTION: logo
 
 [[file:img/bepo.png]]
 
-** Table of Contents                                                  :TOC@4:
- - [[#bepo-contribution-layer-for-spacemacs][bepo contribution layer for Spacemacs]]
-   - [[#description][Description]]
-   - [[#mapping][Mapping]]
-   - [[#supported-modespackageslayer][Supported modes/packages/layer]]
-   - [[#install][Install]]
-   - [[#key-bindings][Key bindings]]
-     - [[#company][company]]
-     - [[#evil][evil]]
-     - [[#evil-escape][evil-escape]]
-     - [[#evil-surround][evil-surround]]
-     - [[#evil-window][evil-window]]
-     - [[#helm][helm]]
-     - [[#magit][magit]]
-     - [[#neotree][neotree]]
-     - [[#org][org]]
-     - [[#ranger][ranger]]
-     - [[#spacemacs-specific][spacemacs-specific]]
-   - [[#contributors][Contributors]]
-   - [[#sources][Sources]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Mapping][Mapping]]
+ - [[Supported modes/packages/layer][Supported modes/packages/layer]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+   - [[company][company]]
+   - [[evil][evil]]
+   - [[evil-escape][evil-escape]]
+   - [[evil-surround][evil-surround]]
+   - [[evil-window][evil-window]]
+   - [[helm][helm]]
+   - [[magit][magit]]
+   - [[neotree][neotree]]
+   - [[org][org]]
+   - [[ranger][ranger]]
+   - [[spacemacs-specific][spacemacs-specific]]
+ - [[Contributors][Contributors]]
+ - [[Sources][Sources]]
 
-** Description
+* Description
 This layer change the key bindings in spacemacs to be compatible with the [[http://bepo.fr/][bepo]]
 keyboard layout. =bepo= is a keyboard layout optimized for the French language.
 This package first switch traditional ~hjkl~ movement keys with ~ctsr~, and then
@@ -33,7 +32,7 @@ try to correct the bugs induced by these changes in other modes/packages.
 
 [[file:img/keymap.png]]
 
-** Mapping
+* Mapping
 The mapping correction is the one proposed for vim on the bepo's official [[http://bepo.fr/wiki/Vim#Principe][wiki]].
 This layer tries to do the following changes when the following characters are
 used for *doing a movement*:
@@ -95,7 +94,7 @@ Note: One difference exists with the wiki version: the ~w~ is *not* remapped to
 ~C-w~ to avoid having to change its meaning in other modes. Spacemacs provides
 already a ~SPC w~ key binding for working with windows.
 
-** Supported modes/packages/layer
+* Supported modes/packages/layer
 - avy
 - company
 - evil
@@ -109,18 +108,18 @@ already a ~SPC w~ key binding for working with windows.
 - ranger
 - spacemacs
 
-** Install
+* Install
 To use this contribution add it to your =~/.spacemacs=
 
 #+begin_src emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(bepo))
 #+end_src
 
-** Key bindings
+* Key bindings
 Thanks to `wich-keys`, you shouldn't probably have to go through this list, the
 keys being shown after a small delay following a keypress.
 
-*** company
+** company
 |-------------+----------------------------+--------------------|
 | Key Binding | Description                | Replace/equivalent |
 |-------------+----------------------------+--------------------|
@@ -129,7 +128,7 @@ keys being shown after a small delay following a keypress.
 | ~C-r~       | Company complete selection | ~C-l~              |
 |-------------+----------------------------+--------------------|
 
-*** evil
+** evil
 |-------------+----------------------------+--------------------|
 | Key Binding | Description                | Replace/equivalent |
 |-------------+----------------------------+--------------------|
@@ -160,21 +159,21 @@ keys being shown after a small delay following a keypress.
 | ~«~         | Unindent                   | ~<~                |
 |-------------+----------------------------+--------------------|
 
-*** evil-escape
+** evil-escape
 |-------------+-------------+--------------------|
 | Key Binding | Description | Replace/equivalent |
 |-------------+-------------+--------------------|
 | ~gq~        | Escape      | ~fd~               |
 |-------------+-------------+--------------------|
 
-*** evil-surround
+** evil-surround
 |-------------+-------------------------------+--------------------|
 | Key Binding | Description                   | Replace/equivalent |
 |-------------+-------------------------------+--------------------|
 | ~k~         | Evil-surround functionnalites | ~s~                |
 |-------------+-------------------------------+--------------------|
 
-*** evil-window
+** evil-window
 |-------------+------------------------------+--------------------|
 | Key Binding | Description                  | Replace/equivalent |
 |-------------+------------------------------+--------------------|
@@ -200,7 +199,7 @@ keys being shown after a small delay following a keypress.
 | ~SPC é~     | Alias for ~SPC w~            | ~SPC w~            |
 |-------------+------------------------------+--------------------|
 
-*** helm
+** helm
 |-------------+---------------------------------------+--------------------|
 | Key Binding | Description                           | Replace/equivalent |
 |-------------+---------------------------------------+--------------------|
@@ -211,7 +210,7 @@ keys being shown after a small delay following a keypress.
 | ~C-k~       | Helm find files run grep              | ~C-s~              |
 |-------------+---------------------------------------+--------------------|
 
-*** magit
+** magit
 |-------------+----------------+--------------------|
 | Key Binding | Description    | Replace/equivalent |
 |-------------+----------------+--------------------|
@@ -223,7 +222,7 @@ keys being shown after a small delay following a keypress.
 | ~h~         | Discard change | ~k~                |
 |-------------+----------------+--------------------|
 
-*** neotree
+** neotree
 |-------------+--------------------------------------+--------------------|
 | Key Binding | Description                          | Replace/equivalent |
 |-------------+--------------------------------------+--------------------|
@@ -243,7 +242,7 @@ keys being shown after a small delay following a keypress.
 |-------------+--------------------------------------+--------------------|
 | ~H~         | Neotree change root                  | ~R~                |
 |-------------+--------------------------------------+--------------------|
-*** org
+** org
 |---------------+--------------------------------------|
 | Key Binding   | Description                          |
 |---------------+--------------------------------------|
@@ -310,7 +309,7 @@ keys being shown after a small delay following a keypress.
 | ~SPC »~       | Org metaright                        |
 |---------------+--------------------------------------|
 
-*** ranger
+** ranger
 |-------------+---------------------+--------------------|
 | Key Binding | Description         | Replace/equivalent |
 |-------------+---------------------+--------------------|
@@ -328,7 +327,7 @@ keys being shown after a small delay following a keypress.
 | ~K~         | Eshell              | ~S~                |
 |-------------+---------------------+--------------------|
 
-*** spacemacs-specific
+** spacemacs-specific
 |-------------+--------------------------------------+--------------------|
 | Key Binding | Description                          | Replace/equivalent |
 |-------------+--------------------------------------+--------------------|
@@ -348,9 +347,9 @@ keys being shown after a small delay following a keypress.
 | ~SPC i Yw~  | Auto yasnippet persist snippet       | ~SPC i Sw~         |
 |-------------+--------------------------------------+--------------------|
 
-** Contributors
+* Contributors
 - Fabien Dubosson
 
-** Sources
+* Sources
 The bepo logo and the keymap image come from the [[http://bepo.fr/][bepo]] official website. They are
 licensed under the [[http://creativecommons.org/licenses/by-sa/3.0/deed.en][CC-BY-SA]].

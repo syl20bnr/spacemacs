@@ -2,15 +2,14 @@
 
 [[file:img/eyebrowse.gif]] [[file:img/i3wm.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#removing-additional-help][Removing additional help]]
- - [[#key-bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Removing additional help][Removing additional help]]
+ - [[Key bindings][Key bindings]]
 
 * Description
-
 This layer adds [[https://i3wm.org/][i3wm]] like workspaces thanks to the [[https://github.com/wasamasa/eyebrowse][eyebrowse]] package.
 
 Once the layer is activated a new number is added to the right side of the
@@ -31,9 +30,7 @@ It is also possible to give a label to a the current workspace by pressing
 ~r~ in the micro-state.
 
 * Install
-
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -41,7 +38,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 ** Removing additional help
-
 Once you know the key bindings to navigate between the workspaces you
 may want to disable the exhaustive help in the workspace micro-state.
 Set the variable =eyebrowse-display-help= to =nil=

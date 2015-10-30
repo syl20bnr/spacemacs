@@ -1,43 +1,43 @@
-* Spacemacs conventions
-** Table of Contents                                                 :TOC@4:
- - [[#spacemacs-conventions][Spacemacs conventions]]
-   - [[#code-guidelines][Code guidelines]]
-     - [[#spacemacs-core-and-layer][Spacemacs core and layer]]
-     - [[#all-layers][All layers]]
-   - [[#key-bindings-conventions][Key bindings conventions]]
-     - [[#reserved-prefix][Reserved prefix]]
-       - [[#user-prefix][User prefix]]
-       - [[#major-mode-prefix][Major mode prefix]]
-       - [[#micro-state][Micro-state]]
-     - [[#evilified-buffers][Evilified buffers]]
-     - [[#navigation][Navigation]]
-       - [[#n-and-n][n and N]]
-       - [[#code-navigation][Code Navigation]]
-       - [[#insert-state-buffers][=insert state= buffers]]
-     - [[#evaluation][Evaluation]]
-     - [[#repls][REPLs]]
-       - [[#send-code][Send code]]
-       - [[#in-terminal][In terminal]]
-     - [[#building-and-compilation][Building and Compilation]]
-     - [[#debugging][Debugging]]
-     - [[#plain-text-markup-languages][Plain Text Markup Languages]]
-       - [[#headers][Headers]]
-       - [[#insertion-of-common-elements][Insertion of common elements]]
-       - [[#text-manipulation][Text manipulation]]
-       - [[#movement-in-normal-mode][Movement in normal mode]]
-       - [[#promotion-demotion-and-element-movement][Promotion, Demotion and element movement]]
-       - [[#table-editing][Table editing]]
-     - [[#tests][Tests]]
-       - [[#all-languages][All languages]]
-       - [[#language-specific][Language specific]]
-     - [[#toggles][Toggles]]
-     - [[#refactoring][Refactoring]]
-     - [[#help-or-documentation][Help or Documentation]]
-   - [[#writing-documentation][Writing documentation]]
-     - [[#spacing-in-documentation][Spacing in documentation]]
+#+SETUPFILE: theme-readtheorg.setup
 
-** Code guidelines
-*** Spacemacs core and layer
+* Spacemacs conventions                                     :TOC_4_org:noexport:
+ - [[Code guidelines][Code guidelines]]
+   - [[Spacemacs core and layer][Spacemacs core and layer]]
+   - [[All layers][All layers]]
+ - [[Key bindings conventions][Key bindings conventions]]
+   - [[Reserved prefix][Reserved prefix]]
+     - [[User prefix][User prefix]]
+     - [[Major mode prefix][Major mode prefix]]
+     - [[Micro-state][Micro-state]]
+   - [[Evilified buffers][Evilified buffers]]
+   - [[Navigation][Navigation]]
+     - [[n and N][n and N]]
+     - [[Code Navigation][Code Navigation]]
+     - [[=insert state= buffers][=insert state= buffers]]
+   - [[Evaluation][Evaluation]]
+   - [[REPLs][REPLs]]
+     - [[Send code][Send code]]
+     - [[In terminal][In terminal]]
+   - [[Building and Compilation][Building and Compilation]]
+   - [[Debugging][Debugging]]
+   - [[Plain Text Markup Languages][Plain Text Markup Languages]]
+     - [[Headers][Headers]]
+     - [[Insertion of common elements][Insertion of common elements]]
+     - [[Text manipulation][Text manipulation]]
+     - [[Movement in normal mode][Movement in normal mode]]
+     - [[Promotion, Demotion and element movement][Promotion, Demotion and element movement]]
+     - [[Table editing][Table editing]]
+   - [[Tests][Tests]]
+     - [[All languages][All languages]]
+     - [[Language specific][Language specific]]
+   - [[Toggles][Toggles]]
+   - [[Refactoring][Refactoring]]
+   - [[Help or Documentation][Help or Documentation]]
+ - [[Writing documentation][Writing documentation]]
+   - [[Spacing in documentation][Spacing in documentation]]
+
+* Code guidelines
+** Spacemacs core and layer
 Function names follow these conventions:
   - =spacemacs/xxx= is an interactive function called =xxx=
   - =spacemacs//xxx= is a private function called =xxx= (implementation details)
@@ -47,22 +47,22 @@ Variables follow these conventions:
   - =spacemacs-xxx= is a variable
   - =spacemacs--xxx= is a private variable (implementation details)
 
-*** All layers
+** All layers
 A package is initialized in a function with name =<layer>/init-xxx= where:
   - =<layer>= is the layer name
   - =xxx= is the package name
 
-** Key bindings conventions
-*** Reserved prefix
-**** User prefix
+* Key bindings conventions
+** Reserved prefix
+*** User prefix
 ~SPC o~ and ~SPC m o~ must not be used by any layer. They are reserved for the
 user.
 
-**** Major mode prefix
+*** Major mode prefix
 ~SPC m~ is reserved for the current major mode. Three keys bindings are not an
 issue (ie. ~SPC m h d~) since ~SPC m~ can be accessed via ~,~.
 
-**** Micro-state
+*** Micro-state
 Whenever possible a micro-state should be enabled with ~M-SPC~ and ~s-M-SPC~. We
 need the latter bindings on OS X since ~M-SPC~ is used by the OS for spotlight.
 
@@ -71,7 +71,7 @@ buffers are good candidates to be put on ~M-SPC~ and ~s-M-SPC~.
 
 It is recommended to add ~q~ to leave the micro-state.
 
-*** Evilified buffers
+** Evilified buffers
 /Evilifying/ a buffer is to set the =evilified state= as the default
 state for the major mode of the buffer.
 
@@ -100,17 +100,17 @@ rules:
 If a key binding cannot be remapped then it is ignored and a warning message
 is displayed in =*Messages*=.
 
-*** Navigation
-**** n and N
+** Navigation
+*** n and N
 To be consistent with the Vim way, ~n~ and ~N~ are favored over Emacs ~n~ and
 ~p~.
 
 Ideally a micro-state should be provided to smooth the navigation
 experience. A micro-state allows to repeat key bindings without entering
 each time the prefix commands. More info on micro-states in the
-[[DOCUMENTATION.org#micro-states][documentation]].
+[[file:DOCUMENTATION.org::Micro-states][documentation]].
 
-**** Code Navigation
+*** Code Navigation
 The prefix for going to something is ~SPC m g~.
 
 | Key     | Description                                     |
@@ -121,7 +121,7 @@ The prefix for going to something is ~SPC m g~.
 | ~m g G~ | go to things under point in other window        |
 | ~m g t~ | go to corresponding test file if any            |
 
-**** =insert state= buffers
+*** =insert state= buffers
 Navigation in buffers like =Helm= and =ido= which are in =insert state=
 should be performed with ~C-j~ and ~C-k~ bindings for vertical movements.
 
@@ -130,7 +130,7 @@ should be performed with ~C-j~ and ~C-k~ bindings for vertical movements.
 | ~C-j~ | go down     |
 | ~C-k~ | go up       |
 
-*** Evaluation
+** Evaluation
 Live evaluation of code is under the prefix ~SPC m e~.
 
 | Key     | Description                                       |
@@ -142,8 +142,8 @@ Live evaluation of code is under the prefix ~SPC m e~.
 | ~m e l~ | evaluate line                                     |
 | ~m e r~ | evaluate region                                   |
 
-*** REPLs
-**** Send code
+** REPLs
+*** Send code
 A lot of languages can interact with a REPL. To help keeping a
 consistent behavior between those languages the following conventions
 should be followed:
@@ -168,7 +168,7 @@ should be followed:
 
 Note: we don't distinguish between the file and the buffer.
 
-**** In terminal
+*** In terminal
 History navigation in shells or REPLs buffers should be bound as well to
 ~C-j~ and ~C-k~.
 
@@ -179,7 +179,7 @@ History navigation in shells or REPLs buffers should be bound as well to
     | ~C-l~ | clear screen               |
     | ~C-r~ | search backward in history |
 
-*** Building and Compilation
+** Building and Compilation
 The base prefix for major mode specific compilation is ~SPC m c~.
 
     | Key Binding | Description       |
@@ -191,7 +191,7 @@ The base prefix for major mode specific compilation is ~SPC m c~.
 Note: we don't distinguish between the file and the buffer. We can
 implement an auto-save of the buffer before compiling the buffer.
 
-*** Debugging
+** Debugging
 The base prefix for debugging commands is ~SPC d~.
 
 | Key Binding | Description             |
@@ -213,11 +213,11 @@ Notes:
     the spacemacs level and ideally the function should be proposed as a patch
     upstream (major mode repository).
 
-*** Plain Text Markup Languages
+** Plain Text Markup Languages
 For layers supporting markup languages please follow the following
 keybindings whenever applicable.
 
-**** Headers
+*** Headers
 All header functionality should be grouped under ~SPC m h~
 
 | Key Binding | Description                                      |
@@ -226,7 +226,7 @@ All header functionality should be grouped under ~SPC m h~
 | ~m h I~     | Insert a header alternative method (if existing) |
 | ~m h 1..10~ | Insert a header of level 1..10 (if possible)     |
 
-**** Insertion of common elements
+*** Insertion of common elements
 Insertion of common elements like links or footnotes should be grouped
 under ~SPC m i~
 
@@ -238,7 +238,7 @@ under ~SPC m i~
 | ~m i u~     | Insert url       |
 | ~m i w~     | Insert wiki-link |
 
-**** Text manipulation
+*** Text manipulation
 Manipulation of text regions should be grouped under ~SPC m x~
 
 | Key Binding | Description                   |
@@ -252,7 +252,7 @@ Manipulation of text regions should be grouped under ~SPC m x~
 | ~m x u~     | Make region underlined        |
 | ~m x v~     | Make region verbose           |
 
-**** Movement in normal mode
+*** Movement in normal mode
 In normal mode Vim style movement should be enabled with these keybindings:
 
 | Key Binding | Description                            |
@@ -262,7 +262,7 @@ In normal mode Vim style movement should be enabled with these keybindings:
 | ~g k~       | Move to previous heading on same level |
 | ~g l~       | Move down one level in headings        |
 
-**** Promotion, Demotion and element movement
+*** Promotion, Demotion and element movement
 Promotion, demotion and movement of headings or list elements (whatever is
 possible) should be enabled with the following keys in any mode
 
@@ -273,17 +273,17 @@ possible) should be enabled with the following keys in any mode
 | ~M-k~       | Move element up              |
 | ~M-l~       | Demote heading by one level  |
 
-**** Table editing
+*** Table editing
 If table specific commands are available the they are grouped under the
 ~SPC m t~ group.
 
-*** Tests
+** Tests
 A lot of languages have their own test frameworks. These frameworks
 share common actions that we can unite under the same key bindings:
  - ~SPC m t~ is the prefix for test execution.
  - ~SPC m t X~ is used to execute ~SPC m t x~ but in debug mode (if supported).
 
-**** All languages
+*** All languages
 
 | Key     | Description                                                  |
 |---------+--------------------------------------------------------------|
@@ -298,7 +298,7 @@ Note: we don't distinguish between the file and the buffer. We can
 implement an auto-save of the buffer before executing the tests of
 buffer.
 
-**** Language specific
+*** Language specific
 | Key     | Description                                      |
 |---------+--------------------------------------------------|
 | ~m t m~ | execute the tests of the current module          |
@@ -309,14 +309,14 @@ buffer.
 Note that there are overlaps, depending on the language we will choose
 one or more bindings for the same thing
 
-*** Toggles
+** Toggles
 - Global toggles are under ~SPC t~, ~SPC T~ and ~SPC C-t~
 - Major mode toggles are only under ~SPC m T~
 
-*** Refactoring
+** Refactoring
 Refactoring prefix is ~SPC m r~.
 
-*** Help or Documentation
+** Help or Documentation
 The base prefix for help commands is ~SPC h~. Documentation is considered
 as an help command.
 
@@ -325,11 +325,11 @@ as an help command.
 | ~m h h~ | documentation of thing under point |
 | ~m h r~ | documentation of selected region   |
 
-** Writing documentation
+* Writing documentation
 Spacemacs provides an example layer =README.org= file in
 =~/.emacs.d/core/templates/layer-README.template=.
 
-*** Spacing in documentation
+** Spacing in documentation
 Spacemacs tries to keep the documentation consistent between all layers by
 providing some rules for spacing:
   - After each header, you should not add an empty line

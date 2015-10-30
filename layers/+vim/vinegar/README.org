@@ -1,10 +1,10 @@
 #+TITLE: Vinegar contribution layer for Spacemacs
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-   - [[#features][Features]]
-   - [[#mouse-bindings][Mouse bindings]]
-   - [[#key-bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features][Features]]
+   - [[Mouse bindings][Mouse bindings]]
+   - [[Key bindings][Key bindings]]
 
 * Description
 

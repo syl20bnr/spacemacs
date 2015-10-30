@@ -1,13 +1,13 @@
 #+TITLE: YCMD contribution layer for Spacemacs
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#ycmd][YCMD]]
-     - [[#other-requirements][Other Requirements]]
- - [[#configuration][Configuration]]
- - [[#key-bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[YCMD][YCMD]]
+   - [[Other Requirements][Other Requirements]]
+ - [[Configuration][Configuration]]
+ - [[Key Bindings][Key Bindings]]
 
 * Description
 

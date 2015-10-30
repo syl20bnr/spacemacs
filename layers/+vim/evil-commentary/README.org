@@ -1,9 +1,9 @@
 #+TITLE: Evil-commentary contribution layer for Spacemacs
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
 
 * Description
 This layer replaces [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] with [[https://github.com/linktohack/evil-commentary][evil-commentary]] for those

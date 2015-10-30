@@ -2,15 +2,14 @@
 
 #+HTML: :blue_heart::green_heart::heart::gift_heart::heartbeat::heartpulse::purple_heart::sparkling_heart::yellow_heart:
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-     - [[#features][Features:]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-     - [[#emoji-dedicated-buffer][Emoji dedicated buffer]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features:][Features:]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+   - [[Emoji dedicated buffer][Emoji dedicated buffer]]
 
 * Description
-
 This layer adds support for Emoji emoticons from [[http://www.emoji-cheat-sheet.com/][emoji-cheat-sheet.com]].
 
 ** Features:
@@ -20,7 +19,6 @@ This layer adds support for Emoji emoticons from [[http://www.emoji-cheat-sheet.
 - Completion of Emojis using [[https://github.com/dunn/company-emoji][company-emoji]]
   
 * Install
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp

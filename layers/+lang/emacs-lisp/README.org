@@ -2,14 +2,14 @@
 
 [[file:img/emacs-lisp.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#auto-compile][Auto-compile]]
- - [[#key-bindings][Key bindings]]
-   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
-   - [[#leader][Leader]]
-   - [[#srefactor][srefactor]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Auto-compile][Auto-compile]]
+ - [[Key bindings][Key bindings]]
+   - [[Working with lisp files (barfage, slurpage & more)][Working with lisp files (barfage, slurpage & more)]]
+   - [[Leader][Leader]]
+   - [[srefactor][srefactor]]
 
 * Description
 This layer gathers all the configuration related to emacs-lisp. This should

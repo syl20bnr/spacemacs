@@ -1,64 +1,66 @@
-* FAQ                                                                 :TOC@4:
-   - [[#common][Common]]
-     - [[#which-version-of-spacemacs-am-i-running][Which version of Spacemacs am I running?]]
-     - [[#what-is-the-official-pronunciation-of-spacemacs][What is the official pronunciation of Spacemacs?]]
-     - [[#why-are-packages-installed-with-package-install-automatically-deleted-by-spacemacs-when-it-boots][Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?]]
-     - [[#the-spacemacs-banner-is-ugly-what-should-i-do][The Spacemacs banner is ugly, what should I do?]]
-     - [[#the-powerline-separators-are-ugly-how-can-i-fix-them][The powerline separators are ugly, how can I fix them?]]
-     - [[#the-powerline-separators-have-no-anti-aliasing-what-can-i-do][The powerline separators have no anti-aliasing, what can I do?]]
-     - [[#why-is-after-init-hook-not-executed][Why is after-init-hook not executed?]]
-     - [[#what-is-the-difference-between-spacemacs-base-and-spacemacs-distributions][What is the difference between =spacemacs-base= and =spacemacs= distributions?]]
-     - [[#how-can-i-change-or-define-an-alias-for-an-evil-leader-prefix][How can I change or define an alias for an =evil-leader= prefix?]]
-     - [[#should-i-place-my-settings-in-user-init-or-user-config][Should I place my settings in =user-init= or =user-config=?]]
-     - [[#why-do-some-of-my-org-related-settings-cause-problems][Why do some of my =org=-related settings cause problems?]]
-   - [[#how-do-i][How do I]]
-     - [[#disable-a-package-completely][Disable a package completely?]]
-     - [[#disable-a-package-only-for-a-specific-major-mode][Disable a package only for a specific major-mode?]]
-     - [[#disable-company-for-a-specific-major-mode][Disable company for a specific major-mode?]]
-     - [[#change-special-buffer-rules][Change special buffer rules?]]
-     - [[#enable-navigation-by-visual-lines][Enable navigation by visual lines?]]
-     - [[#disable-evilification-of-a-mode][Disable evilification of a mode?]]
-     - [[#include-underscores-in-word-motions][Include underscores in word motions?]]
-     - [[#setup-path][Setup =$PATH=?]]
-   - [[#windows][Windows]]
-     - [[#why-do-the-fonts-look-crappy-on-windows][Why do the fonts look crappy on Windows?]]
-     - [[#why-is-there-no-spacemacs-logo-in-the-startup-buffer][Why is there no Spacemacs logo in the startup buffer?]]
-     - [[#why-are-all-packages-unavailable][Why are all packages unavailable?]]
-   - [[#os-x][OS X]]
-     - [[#why-are-the-powerline-colors-not-correct-on-os-x][Why are the powerline colors not correct on OS X?]]
+#+SETUPFILE: theme-readtheorg.setup 
 
-** Common
-*** Which version of Spacemacs am I running?
+* FAQ                                                       :TOC_4_org:noexport:
+ - [[Common][Common]]
+   - [[Which version of Spacemacs am I running?][Which version of Spacemacs am I running?]]
+   - [[What is the official pronunciation of Spacemacs?][What is the official pronunciation of Spacemacs?]]
+   - [[Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?][Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?]]
+   - [[The Spacemacs banner is ugly, what should I do?][The Spacemacs banner is ugly, what should I do?]]
+   - [[The powerline separators are ugly, how can I fix them?][The powerline separators are ugly, how can I fix them?]]
+   - [[The powerline separators have no anti-aliasing, what can I do?][The powerline separators have no anti-aliasing, what can I do?]]
+   - [[Why is after-init-hook not executed?][Why is after-init-hook not executed?]]
+   - [[What is the difference between =spacemacs-base= and =spacemacs= distributions?][What is the difference between =spacemacs-base= and =spacemacs= distributions?]]
+   - [[How can I change or define an alias for an =evil-leader= prefix?][How can I change or define an alias for an =evil-leader= prefix?]]
+   - [[Should I place my settings in =user-init= or =user-config=?][Should I place my settings in =user-init= or =user-config=?]]
+   - [[Why do some of my =org=-related settings cause problems?][Why do some of my =org=-related settings cause problems?]]
+ - [[How do I...][How do I...]]
+   - [[Disable a package completely?][Disable a package completely?]]
+   - [[Disable a package only for a specific major-mode?][Disable a package only for a specific major-mode?]]
+   - [[Disable company for a specific major-mode?][Disable company for a specific major-mode?]]
+   - [[Change special buffer rules?][Change special buffer rules?]]
+   - [[Enable navigation by visual lines?][Enable navigation by visual lines?]]
+   - [[Disable evilification of a mode?][Disable evilification of a mode?]]
+   - [[Include underscores in word motions?][Include underscores in word motions?]]
+   - [[Setup =$PATH=?][Setup =$PATH=?]]
+ - [[Windows][Windows]]
+   - [[Why do the fonts look crappy on Windows?][Why do the fonts look crappy on Windows?]]
+   - [[Why is there no Spacemacs logo in the startup buffer?][Why is there no Spacemacs logo in the startup buffer?]]
+   - [[Why are all packages unavailable?][Why are all packages unavailable?]]
+ - [[OS X][OS X]]
+   - [[Why are the powerline colors not correct on OS X?][Why are the powerline colors not correct on OS X?]]
+
+* Common
+** Which version of Spacemacs am I running?
 The version is displayed on the upper right corner of the loading screen. You
 may also just type ~SPC f e v~.
 
-*** What is the official pronunciation of Spacemacs?
+** What is the official pronunciation of Spacemacs?
 As it is written, that is _space_ then _macs_.
 
-*** Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?
+** Why are packages installed with =package-install= automatically deleted by Spacemacs when it boots?
 To declare new packages you have to create a new configuration layer, see the
 [[file:QUICK_START.org][quick start guide]].
 
-*** The Spacemacs banner is ugly, what should I do?
+** The Spacemacs banner is ugly, what should I do?
 Install the default font supported by Spacemacs or choose a fixed width font.
 More information in the font section of the [[file:DOCUMENTATION.org][documentation]].
 
-*** The powerline separators are ugly, how can I fix them?
+** The powerline separators are ugly, how can I fix them?
 Use the property =:powerline-scale= of the variable =dotspacemacs-default-font=.
 See font section of the [[file:DOCUMENTATION.org][documentation]] for more details.
 
-*** The powerline separators have no anti-aliasing, what can I do?
+** The powerline separators have no anti-aliasing, what can I do?
 Emacs powerline uses XMP images to draw the separators in a graphical
 environment. You can have anti-aliasing if you use the =utf8= separator. Note
 that by default the =utf8= separator is used in a terminal. See the powerline
 section in the font section of the [[file:DOCUMENTATION.org][documentation]].
 
-*** Why is after-init-hook not executed?
+** Why is after-init-hook not executed?
 Don't launch Spacemacs with =emacs -q -l init.el= command. This command will run
 the hooked function in =after-init-hook= before the evaluation of the passed =-l
 init.el= file.
 
-*** What is the difference between =spacemacs-base= and =spacemacs= distributions?
+** What is the difference between =spacemacs-base= and =spacemacs= distributions?
 The =distribution= concept was introduced in 0.104.x. You can now choose
 between two distributions =spacemacs= or =spacemacs-base=.
 =spacemacs-base= contains only a minimal set of packages; whereas =spacemacs=
@@ -68,7 +70,7 @@ Set the distribution with =dotspacemacs-distribution= variable. The default is
 check out the =packages.el= file in the respective folders in the
 =+distribution= folder of the =layers/= directory.
 
-*** How can I change or define an alias for an =evil-leader= prefix?
+** How can I change or define an alias for an =evil-leader= prefix?
 It is possible to change an =evil-leader= prefix by binding its keymap to
 another sequence. For instance, if you want to switch ~SPC l~
 (=evil-avy-goto-line=) with ~SPC L~ (=perspectives= layer) to make the later
@@ -80,21 +82,21 @@ easier to reach, you can use:
   "L" 'evil-avy-goto-line)
 #+end_src
 
-*** Should I place my settings in =user-init= or =user-config=?
+** Should I place my settings in =user-init= or =user-config=?
 Any variable that layer configuration code will *read* and *act on* must be set
 in =user-init=, and any variable that Spacemacs explicitly sets but you wish to
 *override* must be set in =user-config=.
 
 Anything that isn't just setting a variable should 99% be in =user-config=.
 
-*** Why do some of my =org=-related settings cause problems?
+** Why do some of my =org=-related settings cause problems?
 Since version 0.104, spacemacs uses the `org` version from the org ELPA
 repository instead of the one shipped with emacs. Then, any `org` related code
 should not be loaded before `dotspacemacs/user-config`, otherwise both versions
 will be loaded and will conflict.
 
-** How do I
-*** Disable a package completely?
+* How do I...
+** Disable a package completely?
 To completely disable a package and effectively uninstalling it even if
 it is part of your used layers, look for the variable
 =dotspacemacs-excluded-packages= in your dotfile and add the package
@@ -104,7 +106,7 @@ name to it:
   (setq-default dotspacemacs-excluded-packages '(package1 package2 ...))
 #+end_src
 
-*** Disable a package only for a specific major-mode?
+** Disable a package only for a specific major-mode?
 This is done by removing the hook added by Spacemacs. For example to
 remove =flycheck= support in python buffers, look for the function
 =dotspacemacs/user-config= in your dotfile and add the following code:
@@ -116,7 +118,7 @@ remove =flycheck= support in python buffers, look for the function
 *Hint* to know the name of the major-mode of the current buffer press:
 ~SPC h d v major-mode RET~
 
-*** Disable company for a specific major-mode?
+** Disable company for a specific major-mode?
 It may be handy to disable =company= for a given mode if you plan on
 configuring =auto-complete= instead. On easy way to do it is to use the
 macro =spacemacs|disable-company= in the function =dotspacemacs/user-config=
@@ -127,7 +129,7 @@ of your dotfile. The following snippet disables company for
     (spacemacs|disable-company python-mode)
 #+end_src
 
-*** Change special buffer rules?
+** Change special buffer rules?
 To change the way spacemacs marks buffers as useless, you can customize
 =spacemacs-useless-buffers-regexp= which marks buffers matching the
 regexp as useless. The variable =spacemacs-useful-buffers-regexp= marks
@@ -143,7 +145,7 @@ Examples:
     (push "\\*Messages\\*" spacemacs-useful-buffers-regexp)
 #+end_src
 
-*** Enable navigation by visual lines?
+** Enable navigation by visual lines?
 Add the following snippet to your =dostpacemacs/config= function:
 
 #+begin_src emacs-lisp
@@ -155,7 +157,7 @@ Add the following snippet to your =dostpacemacs/config= function:
     (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
 #+end_src
 
-*** Disable evilification of a mode?
+** Disable evilification of a mode?
 You can ensure a mode opens in emacs state by using =evil-set-initial-state=.
 
 #+begin_src emacs-lisp
@@ -179,7 +181,7 @@ binding in the mode's map, e.g. for =magit-status-mode=,
       (kbd dotspacemacs-leader-key) evil-leader--default-map))
 #+end_src
 
-*** Include underscores in word motions?
+** Include underscores in word motions?
 You can modify the syntax table of the mode in question. For example, for Python
 mode:
 
@@ -188,7 +190,7 @@ mode:
     (modify-syntax-entry ?_ "w" python-mode-syntax-table))
 #+end_src
 
-*** Setup =$PATH=?
+** Setup =$PATH=?
 Some layers require certain tools to be available on your =$PATH=. This means
 that your =$PATH= must contain the installation paths for those tools. For
 example, if you have installed some tools to =~/.local/bin= and want them to be
@@ -206,7 +208,7 @@ Users of =fish= should add following line to their =config.fish= file (should be
 in =$XDG_CONFIG_HOME= or its default value - =~/.config/fish=). Note that =-x=
 part is very important.
 
-#+BEGIN_SRC
+#+BEGIN_SRC fish
 set -x PATH ~/.local/bin $PATH
 #+END_SRC
 
@@ -236,17 +238,17 @@ In that case you have the option of updating the value of =exec-path= in the
 (add-to-list 'exec-path "~/.local/bin/")
 #+END_SRC
 
-** Windows
-*** Why do the fonts look crappy on Windows?
+* Windows
+** Why do the fonts look crappy on Windows?
 You can install [[https://code.google.com/p/mactype/][MacType]] on Windows to get very nice looking fonts. It is
 also recommended to disable smooth scrolling on Windows.
 
-*** Why is there no Spacemacs logo in the startup buffer?
+** Why is there no Spacemacs logo in the startup buffer?
 A GUI build of emacs supporting image display is required.
 You can follow the instructions [[http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files][here]]. Alternatively you can download binaries
 of emacs with image support included such as [[http://emacsbinw64.sourceforge.net/][this one]].
 
-*** Why are all packages unavailable?
+** Why are all packages unavailable?
 Check if your Emacs has HTTPS capabilities by doing =M-:= and then:
 
 #+begin_src emacs-lisp
@@ -256,8 +258,8 @@ Check if your Emacs has HTTPS capabilities by doing =M-:= and then:
 If this returns =nil=, you need to install the GnuTLS DDL file in the same
 directory as Emacs. See [[https://www.gnu.org/software/emacs/manual/html_mono/emacs-gnutls.html#Help-For-Users][here]] for instructions.
 
-** OS X
-*** Why are the powerline colors not correct on OS X?
+* OS X
+** Why are the powerline colors not correct on OS X?
 This is a [[https://github.com/milkypostman/powerline/issues/54][known issue]] as of Emacs 24.4 due to =ns-use-srgb-colorspace=
-defaulting to true. It is recommended to use the [[github.com/railwaycat/homebrew-emacsmacport][emacs-mac-port]] build. See the
+defaulting to true. It is recommended to use the [[http://github.com/railwaycat/homebrew-emacsmacport][emacs-mac-port]] build. See the
 install section in the [[file:../README.md][README]] for more details.
