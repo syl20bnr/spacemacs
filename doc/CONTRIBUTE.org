@@ -1,4 +1,4 @@
-#+SETUPFILE: theme-readtheorg.setup
+#+TITLE: Contribute to Spacemacs
 
 * Contribute to Spacemacs                                   :TOC_4_org:noexport:
  - [[Pull Request Guidelines][Pull Request Guidelines]]
