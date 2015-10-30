@@ -128,21 +128,20 @@ buffer, right justified."
   (with-current-buffer (get-buffer-create "*spacemacs*")
     (save-excursion
       (let* ((maxcol spacemacs-buffer--banner-length)
-             (injected (if insert-distro
+             (lhs (format "(emacs-%s)" emacs-version))
+             (rhs (if insert-distro
                            (format "(%s-%s)"
                                    dotspacemacs-distribution
                                    spacemacs-version)
                          (format "(%s)" spacemacs-version)))
-             (pos (- maxcol (length injected)))
+             (len (- maxcol (length lhs)))
              (buffer-read-only nil))
-        ;; fill the first line with spaces if required
-        (beginning-of-buffer)
-        (when (< (line-end-position) maxcol)
-          (end-of-line)
-          (insert-char ?\s (- maxcol (line-end-position))))
-        (goto-char pos)
-        (delete-char (length injected))
-        (insert injected)))))
+        (message "injecting")
+        (goto-char (point-min))
+        (delete-region (point) (progn (end-of-line) (point)))
+        (insert (format
+                 (format "%%s %%%ds" len)
+                 lhs rhs))))))
 
 (defun spacemacs-buffer//insert-note (file caption &optional additional-widgets)
   "Insert the release note just under the banner.
