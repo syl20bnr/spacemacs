@@ -1,4 +1,3 @@
-#+SETUPFILE: theme-readtheorg.setup 
 #+TITLE: Spacemacs documentation
 
 * Spacemacs documentation                                   :TOC_4_org:noexport:

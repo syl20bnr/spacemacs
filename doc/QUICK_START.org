@@ -1,3 +1,5 @@
+#+TITLE: Quick start
+
 * Configuration                                             :TOC_4_org:noexport:
  - [[Configuration layers][Configuration layers]]
  - [[Dotfile (.spacemacs)][Dotfile (.spacemacs)]]

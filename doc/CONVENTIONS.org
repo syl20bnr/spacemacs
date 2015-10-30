@@ -1,4 +1,4 @@
-#+SETUPFILE: theme-readtheorg.setup
+#+TITLE: Spacemacs Conventions
 
 * Spacemacs conventions                                     :TOC_4_org:noexport:
  - [[Code guidelines][Code guidelines]]

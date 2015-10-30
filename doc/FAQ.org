@@ -1,4 +1,4 @@
-#+SETUPFILE: theme-readtheorg.setup 
+#+TITLE: Frequently Asked Questions
 
 * FAQ                                                       :TOC_4_org:noexport:
  - [[Common][Common]]

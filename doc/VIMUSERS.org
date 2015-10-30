@@ -1,4 +1,4 @@
-#+SETUPFILE: theme-readtheorg.setup
+#+TITLE: Migrating from Vim
 
 * Migrating from vim                                        :TOC_4_org:noexport:
  - [[Purpose of this document][Purpose of this document]]
