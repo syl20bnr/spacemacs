@@ -1428,7 +1428,8 @@ ARG non nil means that the editing style is `vim'."
             which-key-echo-keystrokes 0.02
             which-key-max-description-length 32
             which-key-sort-order 'which-key-key-order-alpha
-            which-key-idle-delay dotspacemacs-which-key-delay)
+            which-key-idle-delay dotspacemacs-which-key-delay
+            which-key-allow-evil-operators t)
       (which-key-mode)
       (spacemacs|diminish which-key-mode " Ⓚ" " K"))))
 
