@@ -2,24 +2,17 @@
 
 [[file:img/dlogo.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
 
 * Description
-
 This simple layer adds support for the [[http://dlang.org/][D language]].
 It adds =d-mode= as well as integrating it with =auto-completion= and =syntax-checking=.
 
 * Install
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(d))
 #+END_SRC
-
-* Key Bindings
-
-None for now.

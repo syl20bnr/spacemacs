@@ -1,15 +1,15 @@
 #+TITLE: Scheme contribution layer for Spacemacs
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-     - [[#compiling-][Compiling ]]
-     - [[#navigation][Navigation]]
-     - [[#documentation][Documentation]]
-     - [[#insertion][Insertion]]
-     - [[#macroexpansion][Macroexpansion]]
-     - [[#repl][REPL]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key Bindings][Key Bindings]]
+   - [[Compiling ][Compiling ]]
+   - [[Navigation][Navigation]]
+   - [[Documentation][Documentation]]
+   - [[Insertion][Insertion]]
+   - [[Macroexpansion][Macroexpansion]]
+   - [[REPL][REPL]]
 
 * Description
 

@@ -1,16 +1,16 @@
 #+TITLE: Geolocation contribution layer for Spacemacs
 
-* Table of Contents  :TOC@4:
- - [[#description][Description]]
-   - [[#supported-packages-in-this-layer][Supported packages in this layer]]
- - [[#install][Install]]
- - [[#configuration][Configuration]]
-   - [[#location][Location]]
-   - [[#theme-changer][theme-changer]]
-   - [[#sunshine-weather-forecast][sunshine (weather forecast)]]
-   - [[#osx-location][osx-location]]
- - [[#key-bindings][Key Bindings]]
-   - [[#weather][Weather]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Supported packages in this layer][Supported packages in this layer]]
+ - [[Install][Install]]
+ - [[Configuration][Configuration]]
+   - [[Location][Location]]
+   - [[theme-changer][theme-changer]]
+   - [[sunshine (weather forecast)][sunshine (weather forecast)]]
+   - [[osx-location][osx-location]]
+ - [[Key Bindings][Key Bindings]]
+   - [[Weather][Weather]]
 
 * Description
 This layer offers few location sensitive adjustment to Emacs, such as

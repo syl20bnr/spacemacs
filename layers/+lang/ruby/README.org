@@ -2,22 +2,20 @@
 
 [[file:img/ruby.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#prerequisites][Prerequisites]]
-   - [[#ruby-version-management][Ruby version management]]
- - [[#key-bindings][Key bindings]]
-   - [[#ruby-enh-ruby-mode-robe-inf-ruby-ruby-tools][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
-   - [[#ruby-test-mode][ruby-test-mode]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Prerequisites][Prerequisites]]
+   - [[Ruby version management][Ruby version management]]
+ - [[Key bindings][Key bindings]]
+   - [[Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)][Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)]]
+   - [[ruby-test-mode][ruby-test-mode]]
 
 * Description
-
 This layer provides support for the Ruby language with [[https://github.com/zenspider/enhanced-ruby-mode][enh-ruby-mode]] and [[https://github.com/dgutov/robe][robe-mode]].
 Optionally Enh Ruby Mode can be replaced with the built-in Emacs Ruby Mode.
 
 * Install
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -34,7 +32,6 @@ This layer supports two different Ruby modes: Emacs' built-in Ruby Mode and
 #+END_SRC
 
 ** Prerequisites
-
 Some of the advanced features supported by this layer depend on external gems
 that need to be installed in the context of your project (see below for guidance
 based on your version manager):
@@ -57,7 +54,6 @@ specific documentation for details and caveats):
 #+END_SRC
 
 ** Ruby version management
-
 This layer supports the use of [[https://rvm.io/][RVM]] and [[https://github.com/sstephenson/rbenv][Rbenv]].
 To enable it, set the =ruby-version-manager= var in your =~/.spacemacs=:
 
@@ -70,7 +66,6 @@ To enable it, set the =ruby-version-manager= var in your =~/.spacemacs=:
 Possible values are =rbenv= and =rvm=.
 
 * Key bindings
-
 ** Ruby (enh-ruby-mode, robe, inf-ruby, ruby-tools)
 
 | Key binding | Description                                          |
@@ -91,7 +86,6 @@ Possible values are =rbenv= and =rvm=.
 | ~%~         | [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] jumps between blocks                    |
 
 ** ruby-test-mode
-
 ruby-test-mode comes bundled with spacemacs, but this contribution adds
 a couple of useful keybindings:
 

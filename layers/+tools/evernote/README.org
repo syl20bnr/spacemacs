@@ -2,13 +2,13 @@
 
 [[file:img/evernote.png]] with [[file:img/geeknote.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#geeknote][geeknote]]
-   - [[#geeknoteel][geeknote.el]]
- - [[#key-bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[geeknote][geeknote]]
+   - [[geeknote.el][geeknote.el]]
+ - [[Key Bindings][Key Bindings]]
 
 * Description
 This layer groups together packages to work with [[https://evernote.com/][Evernote]].

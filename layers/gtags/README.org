@@ -1,13 +1,13 @@
 #+TITLE: Helm Gtags contribution layer for Spacemacs
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#install][Install]]
-     - [[#gnu-global][GNU Global]]
- - [[#usage][Usage]]
-     - [[#eldoc-integration][Eldoc integration]]
- - [[#key-bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Features][Features]]
+ - [[Install][Install]]
+   - [[GNU Global][GNU Global]]
+ - [[Usage][Usage]]
+   - [[Eldoc integration][Eldoc integration]]
+ - [[Key bindings][Key bindings]]
 
 * Description
 

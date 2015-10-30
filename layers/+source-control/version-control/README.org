@@ -1,11 +1,11 @@
 #+TITLE: Version-Control contribution layer for Spacemacs
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-     - [[#features][Features:]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
- - [[#key-bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features:][Features:]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+ - [[Key Bindings][Key Bindings]]
 
 * Description
 
@@ -29,7 +29,7 @@ To use this contribution add it to your =~/.spacemacs=
 
 | Key Binding | Description   |
 |-------------+---------------|
-| ~SPC g h g~     | Go to hunk    |
-| ~SPC g h N~     | Previous hunk |
-| ~SPC g h n~     | Next hunk     |
-| ~SPC g h r~     | Revert hunk   |
+| ~SPC g h g~ | Go to hunk    |
+| ~SPC g h N~ | Previous hunk |
+| ~SPC g h n~ | Next hunk     |
+| ~SPC g h r~ | Revert hunk   |

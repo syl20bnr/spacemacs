@@ -2,18 +2,18 @@
 
 [[file:img/slime.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#working-with-lisp-files-barfage-slurpage--more][Working with lisp files (barfage, slurpage & more)]]
-   - [[#leader][Leader]]
-     - [[#help][Help]]
-     - [[#evaluation][Evaluation]]
-     - [[#repl][REPL]]
-     - [[#compile][Compile]]
-     - [[#navigation][Navigation]]
-     - [[#macroexpansion][Macroexpansion]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key Bindings][Key Bindings]]
+   - [[Working with lisp files (barfage, slurpage & more)][Working with lisp files (barfage, slurpage & more)]]
+   - [[Leader][Leader]]
+     - [[Help][Help]]
+     - [[Evaluation][Evaluation]]
+     - [[REPL][REPL]]
+     - [[Compile][Compile]]
+     - [[Navigation][Navigation]]
+     - [[Macroexpansion][Macroexpansion]]
 
 * Description
 A Spacemacs contribution layer providing Common Lisp support via [[https://github.com/slime/slime][SLIME]].
