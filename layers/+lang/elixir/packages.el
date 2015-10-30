@@ -90,7 +90,19 @@
       "mc:" 'alchemist-compile
 
       "mgg" 'alchemist-goto-definition-at-point
-      "m," 'alchemist-goto-jump-back)))
+      "m," 'alchemist-goto-jump-back)
+
+    (dolist (mode (list alchemist-compile-mode-map
+                        alchemist-eval-mode-map
+                        alchemist-execute-mode-map
+                        alchemist-message-mode-map
+                        alchemist-help-minor-mode-map
+                        alchemist-mix-mode-map
+                        alchemist-macroexpand-mode-map
+                        alchemist-refcard-mode-map
+                        alchemist-test-report-mode-map))
+      (evil-define-key 'normal mode
+        (kbd "q") 'quit-window))))
 
 (defun elixir/post-init-company ()
   (spacemacs|add-company-hook elixir-mode)
