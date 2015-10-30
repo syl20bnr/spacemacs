@@ -161,6 +161,9 @@ It runs `tabulated-list-revert-hook', then calls `tabulated-list-print'."
 (with-eval-after-load 'comint
   (define-key comint-mode-map (kbd "C-d") nil))
 
+;; Prompt to open file literally if large file.
+(add-hook 'find-file-hook 'spacemacs/check-large-file)
+
 ;; whitespace-cleanup configuration
 (pcase dotspacemacs-whitespace-cleanup
   (`all (add-hook 'before-save-hook 'whitespace-cleanup))
