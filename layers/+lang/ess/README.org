@@ -2,12 +2,12 @@
 
 [[file:img/r.jpg]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#inferior-repl-process][Inferior REPL process]]
-   - [[#helpers][Helpers]]
- - [[#options][Options]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Install][Install]]
+ - [[Key Bindings][Key Bindings]]
+   - [[Inferior REPL process][Inferior REPL process]]
+   - [[Helpers][Helpers]]
+ - [[Options][Options]]
 
 * Install
 To use this contribution add it to your =~/.spacemacs=

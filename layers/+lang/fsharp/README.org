@@ -2,12 +2,12 @@
 
 [[file:img/fsharp.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#packages-included][Packages Included]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-     - [[#repl][REPL]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Packages Included][Packages Included]]
+ - [[Install][Install]]
+ - [[Key Bindings][Key Bindings]]
+   - [[REPL][REPL]]
 
 * Description
 

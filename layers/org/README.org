@@ -2,31 +2,30 @@
 
 [[file:img/org.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-   - [[#features][Features:]]
-   - [[#note][Note]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#github-support][Github support]]
-   - [[#gnuplot-support][Gnuplot support]]
-   - [[#different-bullets][Different bullets]]
- - [[#key-bindings][Key bindings]]
-   - [[#org][Org]]
-   - [[#org-with-evil-org-mode][Org with evil-org-mode]]
-     - [[#tables][Tables]]
-     - [[#tree-][Tree ]]
-     - [[#element-insertion][Element insertion]]
-     - [[#links][Links]]
-     - [[#emphasis][Emphasis]]
-     - [[#tagging][Tagging]]
-   - [[#pomodoro][Pomodoro]]
-   - [[#presentation][Presentation]]
-   - [[#org-repo-todo][Org-repo-todo]]
-   - [[#org-mime][Org-MIME]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features:][Features:]]
+   - [[Note][Note]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Github support][Github support]]
+   - [[Gnuplot support][Gnuplot support]]
+   - [[Different bullets][Different bullets]]
+ - [[Key bindings][Key bindings]]
+   - [[Org][Org]]
+   - [[Org with evil-org-mode][Org with evil-org-mode]]
+     - [[Tables][Tables]]
+     - [[Tree ][Tree ]]
+     - [[Element insertion][Element insertion]]
+     - [[Links][Links]]
+     - [[Emphasis][Emphasis]]
+     - [[Tagging][Tagging]]
+   - [[Pomodoro][Pomodoro]]
+   - [[Presentation][Presentation]]
+   - [[Org-repo-todo][Org-repo-todo]]
+   - [[Org-MIME][Org-MIME]]
 
 * Description
-
 This layer enables  [[http://orgmode.org/][org mode]] for Spacemacs.
 
 ** Features:
@@ -78,6 +77,7 @@ You can tweak the bullets displayed in the org buffer in the function
 
 * Key bindings
 ** Org
+
 | Key Binding | Description                    |
 |-------------+--------------------------------|
 | ~SPC a o #~ | org agenda list stuck projects |
@@ -96,6 +96,7 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC C T~   | ort/capture-checkitem          |
 
 ** Org with evil-org-mode
+
 | Key Binding                                  | Description                                  |
 |----------------------------------------------+----------------------------------------------|
 | ~SPC m '~                                    | org-edit-special                             |
@@ -129,6 +130,7 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC s l~                                    | spacemacs/jump-in-buffer (jump to a heading) |
 
 *** Tables
+
 | Key Binding   | Description                                                                |
 |---------------+----------------------------------------------------------------------------|
 | ~SPC m t a~   | Align the table at point by aligning all vertical bars                     |
@@ -160,6 +162,7 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m t w~   | Wrap several fields in a column like a paragraph                           |
 
 *** Tree 
+
 | Key Binding | Description           |
 |-------------+-----------------------|
 | ~SPC m S l~ | org-demote-subtree    |
@@ -199,6 +202,7 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~M-t~       | org-insert-todo-heading nil+ org-metaright |
 
 *** Element insertion
+
 | Key Binding | Description                      |
 |-------------+----------------------------------|
 | ~SPC m h i~ | org-insert-heading-after-current |
@@ -207,11 +211,13 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m i l~ | org-insert-link                  |
 
 *** Links
+
 | Key Binding | Description       |
 |-------------+-------------------|
 | ~RET~       | org-open-at-point |
 
 *** Emphasis
+
 | Key Binding | Description                |
 |-------------+----------------------------|
 | ~SPC m x b~ | make region bold           |
@@ -223,11 +229,13 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m x v~ | make region verbose        |
 
 *** Tagging
+
 | Key Binding | Description  |
 |-------------+--------------|
 | ~SPC m :~   | org-set-tags |
 
 ** Pomodoro
+
 | Key Binding | Description       |
 |-------------+-------------------|
 | ~SPC m p~   | starts a pomodoro |
@@ -242,11 +250,13 @@ org-present must be activated explicitly by typing: ~SPC : org-present~
 | ~q~         | quit           |
 
 ** Org-repo-todo
+
 | Key Binding | Description    |
 |-------------+----------------|
 | ~SPC m g t~ | ort/goto-todos |
 
 ** Org-MIME
+
 | Key Binding | Description                                       |
 |-------------+---------------------------------------------------|
 | ~SPC m M~   | in =message-mode= buffers convert into html email |

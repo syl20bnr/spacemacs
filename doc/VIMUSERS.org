@@ -1,37 +1,40 @@
-* Migrating from vim                                                    :TOC@4:
- - [[#purpose-of-this-document][Purpose of this document]]
- - [[#philosophy][Philosophy]]
- - [[#basic-orientation][Basic orientation]]
-     - [[#terms][Terms]]
-       - [[#modes-vs-states][Modes vs. States]]
-       - [[#layers][Layers]]
-       - [[#micro-states][Micro-states]]
-     - [[#keybinding-conventions][Keybinding conventions]]
-     - [[#running-commands][Running commands]]
-     - [[#buffer-and-window-management][Buffer and window management]]
-       - [[#buffers][Buffers]]
-       - [[#windows][Windows]]
-     - [[#files][Files]]
-     - [[#the-help-system][The Help System]]
-     - [[#exploring][Exploring]]
- - [[#customization][Customization]]
-   - [[#the-spacemacs-file][The .spacemacs file]]
-   - [[#emacs-lisp][Emacs Lisp]]
-     - [[#variables][Variables]]
-     - [[#keybindings][Keybindings]]
-     - [[#functions][Functions]]
-   - [[#activating-a-layer][Activating a Layer]]
-   - [[#creating-a-layer][Creating a Layer]]
-   - [[#installing-a-single-package][Installing a single package]]
-   - [[#loading-packages][Loading packages]]
-   - [[#uninstalling-a-package][Uninstalling a package]]
-   - [[#common-tweaks][Common tweaks]]
-     - [[#changing-the-escape-key][Changing the escape key]]
-     - [[#changing-the-colorscheme][Changing the colorscheme]]
-     - [[#nohlsearch][Nohlsearch]]
-     - [[#sessions][Sessions]]
-     - [[#navigating-using-visual-lines][Navigating using visual lines]]
- - [[#other-useful-links][Other useful links]]
+#+SETUPFILE: theme-readtheorg.setup
+
+* Migrating from vim                                        :TOC_4_org:noexport:
+ - [[Purpose of this document][Purpose of this document]]
+ - [[Philosophy][Philosophy]]
+ - [[Basic orientation][Basic orientation]]
+   - [[Terms][Terms]]
+     - [[Modes vs. States][Modes vs. States]]
+     - [[Layers][Layers]]
+     - [[Micro-states][Micro-states]]
+   - [[Keybinding conventions][Keybinding conventions]]
+   - [[Running commands][Running commands]]
+   - [[Buffer and window management][Buffer and window management]]
+     - [[Buffers][Buffers]]
+       - [[Special buffers][Special buffers]]
+     - [[Windows][Windows]]
+   - [[Files][Files]]
+   - [[The Help System][The Help System]]
+   - [[Exploring][Exploring]]
+ - [[Customization][Customization]]
+   - [[The .spacemacs file][The .spacemacs file]]
+   - [[Emacs Lisp][Emacs Lisp]]
+     - [[Variables][Variables]]
+     - [[Keybindings][Keybindings]]
+     - [[Functions][Functions]]
+   - [[Activating a Layer][Activating a Layer]]
+   - [[Creating a Layer][Creating a Layer]]
+   - [[Installing a single package][Installing a single package]]
+   - [[Loading packages][Loading packages]]
+   - [[Uninstalling a package][Uninstalling a package]]
+   - [[Common tweaks][Common tweaks]]
+     - [[Changing the escape key][Changing the escape key]]
+     - [[Changing the colorscheme][Changing the colorscheme]]
+     - [[Nohlsearch][Nohlsearch]]
+     - [[Sessions][Sessions]]
+     - [[Navigating using visual lines][Navigating using visual lines]]
+ - [[Other useful links][Other useful links]]
 
 * Purpose of this document
 This document is intended to supplement the Spacemacs documentation by bridging
@@ -51,11 +54,11 @@ read both files to fully understand Spacemacs.
  vim and the nicer configuration language of Emacs.
 
 * Basic orientation
-*** Terms
+** Terms
 Spacemacs uses some different terminology than vim, which can cause confusion
 for new users. This section attempts to clear up any confusion.
 
-**** Modes vs. States
+*** Modes vs. States
 In vim you have various editing modes like =insert mode= and =visual mode= to
 manipulate text. In Emacs, we have [[./DOCUMENTATION.org#states][states]]. These are equivalent to vim modes.
 For example, =evil-insert-state= is the same as =insert-mode= in vim.
@@ -69,7 +72,7 @@ generally a corresponding =major-mode= per filetype. An example of a =major-mode
 =python-mode=, which provides python specific settings in python files. There is
 only one =major-mode= per buffer.
 
-**** Layers
+*** Layers
 Spacemacs has the concept of layers. Layers are similar to vim plugins. They
 provide new features to use in Spacemacs. However, layers are often comprised of
 several packages that integrate well with each other. For example, the =python=
@@ -77,9 +80,9 @@ layer includes support for auto-completion, documentation look-up, tests, and
 much more by using several different packages. This keeps you from thinking
 about what packages to install, and instead worry about what features you want.
 More information on layers can be found in the [[./VIMUSERS.org#customization][customization]] section and in the
-[[./DOCUMENTATION.org#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[LAYERS.org][here]].
+[[./DOCUMENTATION.org#configuration-layers][documentation]]. There is also a more in-depth guide on writing layers [[file:LAYERS.org][here]].
 
-**** Micro-states
+*** Micro-states
 Spacemacs provides a special functionality called micro-states. Micro-states
 allow similar commands to be run in succession without repeatedly pressing the
 ~<Leader>~ key. Micro-states are usually triggered by using a keybinding with the
@@ -91,7 +94,7 @@ bottom of your window. To exit a micro-state press ~q~.
 
 [[file:img/spacemacs-scale-micro-state.png]]
 
-*** Keybinding conventions
+** Keybinding conventions
 Spacemacs uses ~SPC~ as its ~<Leader>~ key. This document will use ~SPC~ to refer to
 the ~<Leader>~ key. All keybindings are mnemonic and are organized under the
 ~<Leader>~ key. For example, the keybindings for language-specific commands are
@@ -104,7 +107,7 @@ Spacemacs uses [[https://github.com/justbur/emacs-which-key][which-key]] to show
 
 [[file:img/which-key.png]]
 
-*** Running commands
+** Running commands
 Emacs commands can be run using ~SPC :~. This will pop up a buffer using [[https://github.com/emacs-helm/helm][Helm]]
 which can be used to run any Emacs command. You can also run many ex commands
 using ~:~, just like in vim.
@@ -112,8 +115,8 @@ using ~:~, just like in vim.
 Note: You can run Emacs interactive commands using ~:~, but you cannot run ex
 commands using ~SPC :~.
 
-*** Buffer and window management
-**** Buffers
+** Buffer and window management
+*** Buffers
 Buffers in Emacs and vim are essentially the same. The keybindings for buffers
 are located under the ~SPC b~ prefix.
 
@@ -128,12 +131,12 @@ are located under the ~SPC b~ prefix.
 | ~SPC b K~                 | Kill all buffers except the current buffer.          |
 | ~SPC b .~                 | Buffer micro-state.                                  |
 
-***** Special buffers
+**** Special buffers
 By default Emacs creates a lot of buffers that most people will never need, like
 =*Messages*=. Spacemacs automatically ignores these when using these
 key bindings. More information can be found [[./DOCUMENTATION.org#special-buffers][here]].
 
-**** Windows
+*** Windows
 Windows are like splits in vim. They are useful for editing multiple files at
 once. All window keybindings are under the ~SPC w~ prefix.
 
@@ -145,7 +148,7 @@ once. All window keybindings are under the ~SPC w~ prefix.
 | ~SPC w H/J/K/L~        | Move the current window.             |
 | ~SPC w .~              | Window micro-state.                  |
 
-*** Files
+** Files
 All file commands in Spacemacs are available under the ~SPC f~ prefix.
 
 | Keybinding        | Function                                                     |
@@ -156,7 +159,7 @@ All file commands in Spacemacs are available under the ~SPC f~ prefix.
 | ~:x~              | Save the current file and quit.                              |
 | ~:e <file>~       | Open =<file>=                                                |
 
-*** The Help System
+** The Help System
 Emacs has an extensive help system. All keybindings under the ~SPC h d~ prefix
 allow convenient access to the help system. The most important of these
 keybindings are ~SPC h d f~ , ~SPC h d k~ , and ~SPC h d v~. There is also the
@@ -172,7 +175,7 @@ keybindings are ~SPC h d f~ , ~SPC h d k~ , and ~SPC h d v~. There is also the
 Whenever, you see weird behavior or want to know what something does, these
 functions are the first thing you should refer to.
 
-*** Exploring
+** Exploring
 There are a few ways to explore the functionality of Spacemacs. One is to read
 the [[https://github.com/syl20bnr/spacemacs][source code]] on Github. You can begin to feel your way around Emacs Lisp and
 how Spacemacs works this way. You can also use the following keybindings to
@@ -360,7 +363,7 @@ to override the configuration of a package in another layer, use a
 If a package is not available on MELPA, you must use a local package or a
 package recipe. For more details see [[file:LAYERS.org#anatomy-of-a-layer][anatomy of a layer]].
 
-Make sure you [[#activating-a-layer][add]] your layer to your =.spacemacs= file and restart to
+Make sure you [[Activating a Layer][add]] your layer to your =.spacemacs= file and restart to
 activate it.
 
 A detailed description of the loading process and how layers work can be found in
@@ -372,7 +375,7 @@ and don't want to maintain a whole layer. Spacemacs provides a variable in the
 =dotspacemacs/layers= function in =.spacemacs= called
 =dotspacemacs-additional-packages=. Just add a package name to the list and it
 will be installed when you restart. Loading the package is covered in the next
-[[#loading-packages][section]].
+[[Loading packages][section]].
 
 ** Loading packages
 Ever wonder how Spacemacs can load over a 100 packages in just a few seconds?
@@ -455,7 +458,7 @@ when you are not navigating between them. You can use ~SPC s c~ or ~:nohlsearch~
 to disable search result highlighting.
 
 To disable the result highlighting when it is not needed anymore automatically,
-you can [[#uninstalling-a-package][uninstall]] the =evil-search-highlight-persist= package.
+you can [[Uninstalling a package][uninstall]] the =evil-search-highlight-persist= package.
 
 *** Sessions
 Spacemacs does not automatically restore your windows and buffers when you

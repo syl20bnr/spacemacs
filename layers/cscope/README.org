@@ -2,14 +2,14 @@
 
 [[file:img/cscope.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#cscope][Cscope]]
-     - [[#pycscope][PyCscope]]
- - [[#usage][Usage]]
- - [[#key-bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Cscope][Cscope]]
+   - [[PyCscope][PyCscope]]
+ - [[Usage][Usage]]
+ - [[Key bindings][Key bindings]]
 
 * Description
 This layer provides bindings for using [[http://cscope.sourceforge.net][Cscope]] and [[https://github.com/portante/pycscope][PyCscope]] in Spacemacs.
@@ -54,7 +54,6 @@ pip install pycscope
 #+END_SRC
 
 * Usage
-
 Before using any helm-cscope commands, remember to create a Cscope index file.
 Do it by running the command =cscope-index-files= for C and C++ projects, or the
 command =cscope/run-pycscope= for Python projects, bound to ~SPC m g i~.

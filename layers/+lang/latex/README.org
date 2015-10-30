@@ -2,18 +2,18 @@
 
 [[file:img/latex.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#auto-completion][Auto-completion]]
-   - [[#previewing][Previewing]]
-   - [[#build-command][Build command]]
-   - [[#auto-fill][Auto-fill]]
- - [[#keybindings][Keybindings]]
-   - [[#reftex][RefTeX]]
- - [[#maintainer][Maintainer]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features][Features]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Auto-completion][Auto-completion]]
+   - [[Previewing][Previewing]]
+   - [[Build command][Build command]]
+   - [[Auto-fill][Auto-fill]]
+ - [[Keybindings][Keybindings]]
+   - [[RefTeX][RefTeX]]
+ - [[Maintainer][Maintainer]]
 
 * Description
 
@@ -79,7 +79,7 @@ The variable =latex-nofill-env= provide the list of environment names where
 * Keybindings
 
 | Key Binding | Description                                             |
-|-------------+---------------------------------------------------------+
+|-------------+---------------------------------------------------------|
 | ~SPC m *~   | TeX documentation, can be very slow                     |
 | ~SPC m b~   | build                                                   |
 | ~SPC m c~   | close LaTeX environment                                 |

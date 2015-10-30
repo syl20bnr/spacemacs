@@ -1,12 +1,12 @@
 #+TITLE: Asciidoc contribution layer for Spacemacs
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-     - [[#feature][Feature]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-     - [[#element-insertion][Element insertion]]
-     - [[#promotion-demotion][Promotion, Demotion]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Feature][Feature]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+   - [[Element insertion][Element insertion]]
+   - [[Promotion, Demotion][Promotion, Demotion]]
 
 * Description
 This layer adds [[https://asciidoctor.org][AsciiDoc]] markup language support to Spacemacs.
@@ -23,7 +23,6 @@ To use this contribution add it to your `~/.spacemacs`
 #+END_SRC
 
 * Key bindings
-
 ** Element insertion
 
 | Key Binding | Description                                   |

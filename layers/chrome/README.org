@@ -2,13 +2,13 @@
 
 [[file:img/chrome.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-   - [[#feature][Feature:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#chrome-extension][Chrome extension]]
- - [[#configuration][Configuration]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Feature:][Feature:]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Chrome extension][Chrome extension]]
+ - [[Configuration][Configuration]]
 
 * Description
 

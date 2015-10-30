@@ -2,9 +2,10 @@
 
 [[file:img/saltstack.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
 
 * Description
 This layer provides syntax highlighting for Saltstack files.
@@ -18,6 +19,6 @@ To use this contribution add it to your =~/.spacemacs=
 
 * Key bindings
 
-| Key Binding   | Description                                  |
-|---------------+----------------------------------------------|
-| ~SPC m p b~   | mmm-mode parse buffer via =mmm-parse-buffer= |
+| Key Binding | Description                                  |
+|-------------+----------------------------------------------|
+| ~SPC m p b~ | mmm-mode parse buffer via =mmm-parse-buffer= |

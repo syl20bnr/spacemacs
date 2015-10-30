@@ -2,21 +2,19 @@
 
 [[file:img/ror.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key bindings]]
-     - [[#code-navigation][Code Navigation]]
-     - [[#refactoring][Refactoring]]
-     - [[#run-commands][RUN commands]]
-     - [[#ex-commands][Ex-commands]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+   - [[Code Navigation][Code Navigation]]
+   - [[Refactoring][Refactoring]]
+   - [[RUN commands][RUN commands]]
+   - [[Ex-commands][Ex-commands]]
 
 * Description
-
 This layer aims at providing support for the Ruby on Rails framework.
 
 * Install
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -24,7 +22,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 * Key bindings
-
 ** Code Navigation
 
 | Key binding   | Description                                                     |

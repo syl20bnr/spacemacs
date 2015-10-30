@@ -1,12 +1,12 @@
 #+TITLE: Deft configuration layer for Spacemacs
 
-* Table of Content                                                    :TOC@4:
- - [[#description][Description]]
-   - [[#differences-from-default][Differences from default]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#configuration][Configuration]]
- - [[#key-bindings][Key Bindings]]
+* Table of Content                                          :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Differences from default][Differences from default]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Configuration][Configuration]]
+ - [[Key Bindings][Key Bindings]]
 
 * Description
 

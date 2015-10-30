@@ -2,20 +2,17 @@
 
 [[file:img/floobits.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
- - [[#key-bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+ - [[Key Bindings][Key Bindings]]
 
 * Description
-
 This layer adds support for peer programming tool [[https://github.com/Floobits/floobits-emacs][floobits]].
 
 * Install
-
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp

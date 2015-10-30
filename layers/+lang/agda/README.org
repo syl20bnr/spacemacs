@@ -1,12 +1,12 @@
 #+TITLE: Agda contribution layer for Spacemacs
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-   - [[#some-features][Some features:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-   - [[#agda][Agda]]
- - [[#key-bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Some features:][Some features:]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Agda][Agda]]
+ - [[Key bindings][Key bindings]]
 
 * Description
 This layer adds support for the [[http://wiki.portal.chalmers.se/agda/pmwiki.php][Agda]] programming language.

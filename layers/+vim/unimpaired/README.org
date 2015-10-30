@@ -1,8 +1,8 @@
 #+TITLE: Unimpaired port contribution layer for Spacemacs
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#key-bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Key bindings][Key bindings]]
 
 * Description
 

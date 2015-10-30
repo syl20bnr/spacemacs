@@ -2,15 +2,15 @@
 
 [[file:img/racket.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-     - [[#navigation][Navigation]]
-     - [[#documentation][Documentation]]
-     - [[#tests][Tests]]
-     - [[#repl][REPL]]
-     - [[#other-key-bindings][Other key bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key Bindings][Key Bindings]]
+   - [[Navigation][Navigation]]
+   - [[Documentation][Documentation]]
+   - [[Tests][Tests]]
+   - [[REPL][REPL]]
+   - [[Other key bindings][Other key bindings]]
 
 * Description
 

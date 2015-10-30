@@ -2,14 +2,14 @@
 
 [[file:img/vagrant.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-     - [[#features][Features:]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#vagrant][Vagrant]]
-     - [[#testing][Testing]]
- - [[#keybindings][Keybindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features:][Features:]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Vagrant][Vagrant]]
+   - [[Testing][Testing]]
+ - [[Keybindings][Keybindings]]
 
 * Description
 

@@ -2,15 +2,15 @@
 
 [[file:img/rainbow_dash.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
-     - [[#enable-rainbow-identifiers][Enable rainbow-identifiers]]
-     - [[#enable-nyan-cat][Enable Nyan cat]]
- - [[#key-bindings][Key bindings]]
-     - [[#rainbow-identifiers][Rainbow Identifiers]]
-     - [[#rainbow-mode][Rainbow Mode]]
-     - [[#nyan-mode][Nyan Mode]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Enable rainbow-identifiers][Enable rainbow-identifiers]]
+   - [[Enable Nyan cat][Enable Nyan cat]]
+ - [[Key bindings][Key bindings]]
+   - [[Rainbow Identifiers][Rainbow Identifiers]]
+   - [[Rainbow Mode][Rainbow Mode]]
+   - [[Nyan Mode][Nyan Mode]]
 
 * Description
 

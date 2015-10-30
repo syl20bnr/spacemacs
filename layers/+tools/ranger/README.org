@@ -1,13 +1,13 @@
 #+TITLE: Ranger contribution layer for Spacemacs
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#features][Features]]
- - [[#configuration][Configuration]]
-   - [[#customizing][Customizing]]
-   - [[#parent-options][Parent options]]
-   - [[#preview-options][Preview options]]
- - [[#key-bindings][Key Bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Features][Features]]
+ - [[Configuration][Configuration]]
+   - [[Customizing][Customizing]]
+   - [[Parent options][Parent options]]
+   - [[Preview options][Preview options]]
+ - [[Key Bindings][Key Bindings]]
 
 * Description
 
@@ -111,27 +111,27 @@ To set the max files size (in MB), set the following parameter:
 
 | Key Binding | Description                                          |
 |-------------+------------------------------------------------------|
-| ~SPC a r~     | launch ranger                                        |
+| ~SPC a r~   | launch ranger                                        |
 | SPC a d     | deer (minimal ranger window in current directory)    |
-| ~C-p~         | (ranger) toggle ranger in dired buffer               |
-| ~j~           | (ranger) navigate down                               |
-| ~k~           | (ranger) navigate up                                 |
-| ~C-j~         | (ranger) scroll preview window down                  |
-| ~C-k~         | (ranger) scroll preview window up                    |
-| ~f~           | (ranger) search for file names                       |
-| ~i~           | (ranger) show preview of current file                |
-| ~zi~          | (ranger) toggle showing literal / full-text previews |
-| ~zh~          | (ranger) toggle showing dotfiles                     |
-| ~o~           | (ranger) sort options                                |
-| ~H~           | (ranger) search through history                      |
-| ~h~           | (ranger) go up directory                             |
-| ~l~           | (ranger) find file / enter directory                 |
-| ~RET~         | (ranger) find file / enter directory                 |
-| ~q~           | (ranger) quit                                        |
-| ~r~           | (ranger) revert buffer                               |
-| ~z-~          | (ranger) reduce number of parents                    |
-| ~z+~          | (ranger) increment number of parents                 |
-| ~v~           | (ranger) toggle all marks                            |
-| ~V~           | (ranger) visually select lines                       |
-| ~S~           | (ranger) enter shell                                 |
-| ~C-SPC~       | (ranger) mark current file                           |
+| ~C-p~       | (ranger) toggle ranger in dired buffer               |
+| ~j~         | (ranger) navigate down                               |
+| ~k~         | (ranger) navigate up                                 |
+| ~C-j~       | (ranger) scroll preview window down                  |
+| ~C-k~       | (ranger) scroll preview window up                    |
+| ~f~         | (ranger) search for file names                       |
+| ~i~         | (ranger) show preview of current file                |
+| ~zi~        | (ranger) toggle showing literal / full-text previews |
+| ~zh~        | (ranger) toggle showing dotfiles                     |
+| ~o~         | (ranger) sort options                                |
+| ~H~         | (ranger) search through history                      |
+| ~h~         | (ranger) go up directory                             |
+| ~l~         | (ranger) find file / enter directory                 |
+| ~RET~       | (ranger) find file / enter directory                 |
+| ~q~         | (ranger) quit                                        |
+| ~r~         | (ranger) revert buffer                               |
+| ~z-~        | (ranger) reduce number of parents                    |
+| ~z+~        | (ranger) increment number of parents                 |
+| ~v~         | (ranger) toggle all marks                            |
+| ~V~         | (ranger) visually select lines                       |
+| ~S~         | (ranger) enter shell                                 |
+| ~C-SPC~     | (ranger) mark current file                           |

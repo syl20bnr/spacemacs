@@ -2,12 +2,12 @@
 
 [[file:img/prodigy.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#spawn-prodigy][Spawn prodigy]]
-   - [[#navigate-through-it][Navigate through it]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key Bindings][Key Bindings]]
+   - [[Spawn prodigy][Spawn prodigy]]
+   - [[Navigate through it][Navigate through it]]
 
 * Description
 

@@ -2,28 +2,25 @@
 
 [[file:img/shell.png]]
 
-* Table of Contents                                                 :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#default-shell][Default shell]]
-     - [[#default-shell-position-and-height][Default shell position and height]]
-     - [[#set-shell-for-term-and-ansi-term][Set shell for term and ansi-term]]
-     - [[#enable-em-smart-in-eshell][Enable em-smart in Eshell]]
-     - [[#protect-your-eshell-prompt][Protect your Eshell prompt]]
- - [[#eshell][Eshell]]
- - [[#key-bindings][Key bindings]]
-     - [[#multi-term][Multi-term]]
-     - [[#eshell][Eshell]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Default shell][Default shell]]
+   - [[Default shell position and height][Default shell position and height]]
+   - [[Set shell for term and ansi-term][Set shell for term and ansi-term]]
+   - [[Enable em-smart in Eshell][Enable em-smart in Eshell]]
+   - [[Protect your Eshell prompt][Protect your Eshell prompt]]
+ - [[Eshell][Eshell]]
+ - [[Key bindings][Key bindings]]
+   - [[Multi-term][Multi-term]]
+   - [[Eshell][Eshell]]
 
 * Description
-
 This layer configures the various shells available in Emacs.
 
 * Install
-
 ** Layer
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -31,7 +28,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 ** Default shell
-
 Emacs supports three types of shell:
 - the Emacs shell
 - the inferior shell
@@ -56,7 +52,6 @@ to the following variables:
 The default shell is quickly accessible via a the default shortcut key ~SPC '~.
 
 ** Default shell position and height
-
 It is possible to choose where the shell should pop up by setting the variable
 =shell-default-position= to either =top=, =bottom= or =full=. It is not possible
 to show it on the side for now. Default value is =bottom=. It is also possible
@@ -71,7 +66,6 @@ Default value is =30=.
 #+END_SRC
 
 ** Set shell for term and ansi-term
-
 The default shell can be set by setting the variable =shell-default-term-shell=.
 Default value is =/bin/bash=.
 
@@ -81,7 +75,6 @@ Default value is =/bin/bash=.
 #+END_SRC
 
 ** Enable em-smart in Eshell
-
 From the =em-smart= documentation:
 
 #+BEGIN_QUOTE
@@ -106,7 +99,6 @@ To enable =em-smart= put the following layer variable to non-nil:
 #+END_SRC
 
 ** Protect your Eshell prompt
-
 Comint mode (Shell mode) has good support for Evil mode as it inhibits movement
 commands over the prompt. This has the added benefit that Evil mode functions
 work sensibly. E.g. you can press ~cc~ in normal state i.e.
@@ -123,7 +115,6 @@ to nil.
 #+END_SRC
 
 * Eshell
-
 Some advanced configuration is setup for =eshell= in this layer:
 - some elisp functions aliases for quick access
   - =s= for =magit-status= in the current directory (when the =git= layer is

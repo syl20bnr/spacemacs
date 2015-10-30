@@ -2,12 +2,12 @@
 
 [[file:img/logo.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
- - [[#working-with-nim][Working with Nim]]
-     - [[#nim-commands-start-with-m][Nim commands (start with =m=):]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+ - [[Working with Nim][Working with Nim]]
+   - [[Nim commands (start with =m=):][Nim commands (start with =m=):]]
 
 * Description
 
@@ -26,6 +26,6 @@ To use this contribution add it to your =~/.spacemacs=
 * Working with Nim
 
 ** Nim commands (start with =m=):
-| Key Binding | Description                                               |
-|-------------+-----------------------------------------------------------|
-| ~SPC m c r~ | nim compile --run main.nim
+| Key Binding | Description                |
+|-------------+----------------------------|
+| ~SPC m c r~ | nim compile --run main.nim |

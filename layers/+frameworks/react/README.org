@@ -1,30 +1,27 @@
-* React contribution layer for Spacemacs
+#+TITLE: React contribution layer for Spacemacs
 
-#+CAPTION: logo
+[[file:img/react.png]]
 
-[[img/react.png]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features][Features]]
+ - [[Install][Install]]
+ - [[Optional Configuration][Optional Configuration]]
+ - [[Key Bindings][Key Bindings]]
+   - [[js2-mode][js2-mode]]
+   - [[Folding (js2-mode)][Folding (js2-mode)]]
+   - [[Refactoring (js2-refactor)][Refactoring (js2-refactor)]]
+   - [[Formatting (web-beautify)][Formatting (web-beautify)]]
+     - [[Documentation (js-doc)][Documentation (js-doc)]]
+   - [[Auto-complete and documentation (tern)][Auto-complete and documentation (tern)]]
+   - [[JSON][JSON]]
 
-** Table of Contents                                                  :TOC@4:
- - [[#react-contribution-layer-for-spacemacs][React contribution layer for Spacemacs]]
-   - [[#description][Description]]
-     - [[#features][Features]]
-   - [[#install][Install]]
-   - [[#optional-configuration][Optional Configuration]]
- - [[#key-bindings][Key Bindings]]
-   - [[#js2-mode][js2-mode]]
-   - [[#folding-js2-mode][Folding (js2-mode)]]
-   - [[#refactoring-js2-refactor][Refactoring (js2-refactor)]]
-   - [[#formatting-web-beautify][Formatting (web-beautify)]]
-     - [[#documentation-js-doc][Documentation (js-doc)]]
-   - [[#auto-complete-and-documentation-tern][Auto-complete and documentation (tern)]]
-   - [[#json][JSON]]
-
-** Description
+* Description
 
 ES6 and JSX ready configuration layer for React
 It will automatically recognize =.jsx= and =.react.js= files
 
-*** Features
+** Features
 - on-the-fly syntax checking
 - proper syntax highlight and indentation with jsx
 - ternjs turbocharged autocompletion as in js2-mode
@@ -32,7 +29,7 @@ It will automatically recognize =.jsx= and =.react.js= files
 - js2-refactor
 - js-doc
 
-** TODO Install
+* Install
 
 To use this contribution add it to your =~/.spacemacs=
 
@@ -86,7 +83,7 @@ Be sure to have the ~e4x~ option set to ~true~ on your ~.jsbeautifyrc~ here it i
   }
 #+END_SRC
 
-** Optional Configuration
+* Optional Configuration
 
 You may refer to the =web-mode= configuration for fine tuning the indenting behaviour.
 
