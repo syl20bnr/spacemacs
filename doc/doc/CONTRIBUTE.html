@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:47 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contribute to Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Contribute to Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline4">1. Pull Request Guidelines</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Ideally and for <i>simple</i> PRs:</a></li>
+<li><a href="#orgheadline2">1.2. For complex pull requests:</a></li>
+<li><a href="#orgheadline3">1.3. Getting Help</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline5">2. Submitting a configuration layer</a></li>
+<li><a href="#orgheadline6">3. Testing</a></li>
+<li><a href="#orgheadline7">4. Submitting a banner</a></li>
+<li><a href="#orgheadline12">5. Credits</a>
+<ul>
+<li><a href="#orgheadline8">5.1. License</a></li>
+<li><a href="#orgheadline9">5.2. File header</a></li>
+<li><a href="#orgheadline10">5.3. Author of a contribution layer</a></li>
+<li><a href="#orgheadline11">5.4. Contributor of a contribution layer</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">1</span> Pull Request Guidelines</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Spacemacs branch model is inspired from the <a href="http://nvie.com/posts/a-successful-git-branching-model/">git-flow</a> model:
+You'll have to submit your contributions and fixes within a pull-request to
+apply against the <code>develop</code> branch.
+</p>
+
+<p>
+<i>PR = pull request</i>
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Ideally and for <i>simple</i> PRs:</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>branch from <code>develop</code></li>
+<li>one topic per PR</li>
+<li>one commit per PR</li>
+<li>if you have several commits on different topics, close the PR and
+create one PR per topic</li>
+<li>if you still have several commits, squash them into only one commit</li>
+<li>rebase your PR branch on top of upstream <code>develop</code> before submitting
+the PR</li>
+</ul>
+
+<p>
+Those PRs are <i>fast-forwarded</i> whenever it's possible and
+<i>cherry-picked</i> otherwise (most likely they will be cherry-picked).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> For complex pull requests:</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>squash only the commits with uninteresting changes like typos, syntax
+fixes, etc&#x2026; and keep the important and <i>isolated</i> steps in
+different commits.</li>
+</ul>
+
+<p>
+Those PRs are <i>merged</i> and explicitly <i>not fast-forwarded</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> Getting Help</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+If you have any question on this process, join the <a href="https://gitter.im/syl20bnr/spacemacs">gitter
+chatroom</a> and ask your questions there. It will be a pleasure to help you to
+contribute!
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">2</span> Submitting a configuration layer</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Contributed configuration layers are stored in the <code>layers</code> folder. The
+<code>layers</code> folder also contains categories prefixed with <code>+</code> to put your
+layers in. For example a layer for a language would go in the
+<code>layers/+lang</code> folder.
+</p>
+
+<p>
+It is recommended to join a <code>README.org</code> file with your layer:
+</p>
+<ul class="org-ul">
+<li>ideally this file should document the packages of your layer as well as the
+key bindings associated with them</li>
+<li>a template is provided in <code>~/.emacs.d/core/templates/layer-README.template</code>,
+use it as much as possible</li>
+<li>another good practice is to start from the <code>README.org</code> of an existing layer</li>
+<li>if a logo exists for the layer you can add it at the top of the <code>README.org</code>
+    before the TOC. The maximum recommended height is 200 pixels.</li>
+</ul>
+
+<p>
+Please read the <a href="LAYERS.html">tips for writing layers</a> first.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">3</span> Testing</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Tests live in the <code>tests</code> folder, with a folder structure corresponding to the
+rest of the repository.
+</p>
+
+<p>
+To run tests locally, navigate to the relevant subfolder and run <code>make</code>. The
+tests will be run with your own personal dotfile, so you should not expect tests
+to succeed if you have personal configuration that will make them fail (such as
+not having enabled a layer).
+</p>
+
+<p>
+Spacemacs uses Travis CI to perform more comprehensive testing, where each
+testable layer is enabled in turn.
+</p>
+
+<p>
+To add tests for a layer, do the following:
+</p>
+
+<ol class="org-ol">
+<li>Create a subfolder of <code>tests</code> corresponding to the layer you want to test.</li>
+<li>Write a file called <code>dotspacemacs.el</code> in that folder. It should be a minimal
+dotfile that enables the layer in question (and other layers it may depend
+on).</li>
+<li>Write a number of files with tests. Please try to separate unit and
+functional tests. Look at existing tests for clues.</li>
+<li><p>
+Write a <code>Makefile</code> in that folder. It should define three variables.
+</p>
+<dl class="org-dl">
+<dt><code>LOAD_FILES</code></dt><dd>a list of additional files to load before testing (relative
+to the root Spacemacs folder). This should typically be
+<code>init.el</code>.</dd>
+<dt><code>UNIT_TEST_FILES</code></dt><dd>a list of unit test files in the current folder.</dd>
+<dt><code>FUNC_TEST_FILES</code></dt><dd>a list of functional test files in the current folder.</dd>
+</dl>
+<p>
+See existing tests for examples.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-makefile"><span style="color: #FD971F;">TEST_DIR</span> := $<span style="color: #AE81FF;">(</span><span style="color: #FD971F;">shell</span> dirname $<span style="color: #66D9EF;">(</span><span style="color: #FD971F;">realpath</span> $<span style="color: #A6E22E;">(</span><span style="color: #FD971F;">lastword</span> $<span style="color: #E6DB74;">(</span><span style="color: #FD971F;">MAKEFILE_LIST</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #FD971F;">LOAD_FILES</span> = ...
+<span style="color: #FD971F;">UNIT_TEST_FILES</span> = ...
+<span style="color: #FD971F;">FUNC_TEST_FILES</span> = ...
+
+<span style="color: #F92672; font-weight: bold;">include</span> <span style="color: #FD971F;">../../spacemacs.mk</span>
+</pre>
+</div></li>
+<li>Add the new test to list of tests in <code>travis/run_build.sh</code>.</li>
+</ol>
+
+<p>
+Spacemacs is lacking tests, so contributions are welcome.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">4</span> Submitting a banner</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+The startup banner is by default randomly chosen among a pool of banners
+each time Spacemacs starts. Banners are located in directory
+<code>~/.emacs.d/core/banners</code>.
+</p>
+
+<p>
+If you have some ASCII skills you can submit your artwork!
+</p>
+
+<p>
+You are free to choose a reasonable height size but the width size
+should be around 75 characters.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">5</span> Credits</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">5.1</span> License</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+The license is GPLv3 for all parts specific to Spacemacs, this
+includes: - the initialization and core files - all the layer files.
+</p>
+
+<p>
+For files not belonging to Spacemacs like extensions and libraries,
+refer to the header file. Those files should not have an empty header,
+please report any file imported in Spacemacs without a proper header.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">5.2</span> File header</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+Template:
+</p>
+
+<pre class="example">
+;;; extensions.el --- NAME Layer extensions File for Spacemacs
+;;
+;; Copyright (c) 2012-2014 Sylvain Benner
+;; Copyright (c) 2014-2015 Sylvain Benner &amp; Contributors
+;;
+;; Author: Sylvain Benner &lt;sylvain.benner@gmail.com&gt;
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">5.3</span> Author of a contribution layer</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+In the file header: - change <code>NAME</code> to the name of the layer, - change
+the default author name <code>Sylvain Benner</code> to your name, - do not remove
+the line: <code>;; Copyright (c) 2012-2014 Sylvain Benner</code> - modify the
+second copyright line by replacing the default name and dates, <b>keep</b>
+<code>&amp; Contributors</code> in this line, - other lines should not be modified
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">5.4</span> Contributor of a contribution layer</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+You should not modify any header file. A very cool way to show your
+contributions will be available in Spacemacs at some point, <i>Stay
+Tuned</i>.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:47</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

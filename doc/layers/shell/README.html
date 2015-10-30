@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:47 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shell contribution layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Shell contribution layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Description</a></li>
+<li><a href="#orgheadline8">2. Install</a>
+<ul>
+<li><a href="#orgheadline2">2.1. Layer</a></li>
+<li><a href="#orgheadline3">2.2. Default shell</a></li>
+<li><a href="#orgheadline4">2.3. Default shell position and height</a></li>
+<li><a href="#orgheadline5">2.4. Set shell for term and ansi-term</a></li>
+<li><a href="#orgheadline6">2.5. Enable em-smart in Eshell</a></li>
+<li><a href="#orgheadline7">2.6. Protect your Eshell prompt</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline9">3. Eshell</a></li>
+<li><a href="#orgheadline12">4. Key bindings</a>
+<ul>
+<li><a href="#orgheadline10">4.1. Multi-term</a></li>
+<li><a href="#orgheadline11">4.2. Eshell</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div class="figure">
+<p><img src="img/shell.png" alt="shell.png" />
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This layer configures the various shells available in Emacs.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">2</span> Install</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">2.1</span> Layer</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+To use this contribution add it to your <code>~/.spacemacs</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>shell<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">2.2</span> Default shell</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+Emacs supports three types of shell:
+</p>
+<ul class="org-ul">
+<li>the Emacs shell</li>
+<li>the inferior shell</li>
+<li>the terminal emulator</li>
+<li>the ANSI terminal emulator</li>
+</ul>
+
+<p>
+You can find a quick introductions to them <a href="https://www.masteringemacs.org/article/running-shells-in-emacs-overview">here</a>.
+</p>
+
+<p>
+To define the default shell you can set the layer variable <code>shell-default-shell</code>
+to the following variables:
+</p>
+<ul class="org-ul">
+<li><code>eshell</code></li>
+<li><code>shell</code></li>
+<li><code>term</code></li>
+<li><code>ansi-term</code></li>
+<li><code>multi-term</code></li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span>shell <span style="color: #ff9eb8;">:variables</span> shell-default-shell 'eshell<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+The default shell is quickly accessible via a the default shortcut key <code>SPC '</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.3</span> Default shell position and height</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+It is possible to choose where the shell should pop up by setting the variable
+<code>shell-default-position</code> to either <code>top</code>, <code>bottom</code> or <code>full</code>. It is not possible
+to show it on the side for now. Default value is <code>bottom</code>. It is also possible
+to set the default height in percents with the variable <code>shell-default-height</code>.
+Default value is <code>30</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span>shell <span style="color: #ff9eb8;">:variables</span>
+          shell-default-position 'bottom
+          shell-default-height <span style="color: #AE81FF;">30</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">2.4</span> Set shell for term and ansi-term</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+The default shell can be set by setting the variable <code>shell-default-term-shell</code>.
+Default value is <code>/bin/bash</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span>shell <span style="color: #ff9eb8;">:variables</span> shell-default-term-shell <span style="color: #E6DB74; font-style: italic;">"/bin/bash"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">2.5</span> Enable em-smart in Eshell</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+From the <code>em-smart</code> documentation:
+</p>
+
+<blockquote>
+<p>
+The best way to get a sense of what this code is trying to do is by
+using it.  Basically, the philosophy represents a blend between the
+ease of use of modern day shells, and the review-before-you-proceed
+mentality of Plan 9's 9term.
+</p>
+</blockquote>
+
+<p>
+In a nutshell, when <code>em-smart</code> is enabled the point won't jump at the
+end of the buffer when a command is executed, it will stay at the
+same command prompt used to execute the command. This allows to quickly
+edit the last command in the case of a mistake. If there is no mistake
+and you directly type a new command then the prompt will jump to the
+next prompt at the end of the buffer.
+</p>
+
+<p>
+To enable <code>em-smart</code> put the following layer variable to non-nil:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span>shell <span style="color: #ff9eb8;">:variables</span> shell-enable-smart-eshell t<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">2.6</span> Protect your Eshell prompt</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+Comint mode (Shell mode) has good support for Evil mode as it inhibits movement
+commands over the prompt. This has the added benefit that Evil mode functions
+work sensibly. E.g. you can press <code>cc</code> in normal state i.e.
+<code>evil-change-whole-line</code> to kill the current input and start typing a new
+command. In Eshell you also kill the prompt, which is often unintended.
+</p>
+
+<p>
+By default this layer also protects the <code>ehsell</code> prompt. If you want to
+disable this protection you can set the variable <code>shell-protect-eshell-prompt</code>
+to nil.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span>shell <span style="color: #ff9eb8;">:variables</span> shell-protect-eshell-prompt nil<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9"><span class="section-number-2">3</span> Eshell</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Some advanced configuration is setup for <code>eshell</code> in this layer:
+</p>
+<ul class="org-ul">
+<li>some elisp functions aliases for quick access
+<ul class="org-ul">
+<li><code>s</code> for <code>magit-status</code> in the current directory (when the <code>git</code> layer is
+installed)</li>
+<li><code>d</code> for <code>dired</code></li>
+<li><code>e</code> to find a file via a new buffer</li>
+</ul></li>
+<li>optional configuration for <code>em-smart</code> (see <code>Install</code> section for more info)</li>
+<li>support for visual commands via <code>em-term</code></li>
+<li>working directory sensitive prompt via <a href="https://github.com/hiddenlotus/eshell-prompt-extras">eshell-prompt-extras</a></li>
+<li>advanced help support via <code>esh-help</code> (enable <code>el-doc</code> support in eshell)</li>
+<li>add support for auto-completion via <code>company</code> (when the <code>auto-completion</code>
+  layer is installed)</li>
+<li>pressing <code>i</code> in normal state will automatically jump to the prompt</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">4</span> Key bindings</h2>
+<div class="outline-text-2" id="text-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC '</code></td>
+<td class="org-left">Open, close or go to the default shell</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC a s e</code></td>
+<td class="org-left">Open, close or go to an <code>eshell</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC a s i</code></td>
+<td class="org-left">Open, close or go to a <code>shell</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC a s m</code></td>
+<td class="org-left">Open, close or go to a <code>multi-term</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC a s t</code></td>
+<td class="org-left">Open, close or go to a <code>ansi-term</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC a s T</code></td>
+<td class="org-left">Open, close or go to a <code>term</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m H</code></td>
+<td class="org-left">browse history with <code>helm</code> (works in <code>eshell</code> and <code>shell</code>)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-j</code></td>
+<td class="org-left">next item in history</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-k</code></td>
+<td class="org-left">previous item in history</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<b>Note:</b> You can open multiple shells using a numerical prefix argument,
+for instance pressing <code>2 SPC ;</code> will a second default shell, the
+number of shell is indicated on the mode-line.
+</p>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">4.1</span> Multi-term</h3>
+<div class="outline-text-3" id="text-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m c</code></td>
+<td class="org-left">create a new multi-term</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m n</code></td>
+<td class="org-left">go to next multi-term</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m p</code></td>
+<td class="org-left">go to previous multi-term</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC p $ t</code></td>
+<td class="org-left">run multi-term shell in root</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">4.2</span> Eshell</h3>
+<div class="outline-text-3" id="text-4-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m H</code> or <code>M-l</code></td>
+<td class="org-left">shell commands history using a helm buffer</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:47</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

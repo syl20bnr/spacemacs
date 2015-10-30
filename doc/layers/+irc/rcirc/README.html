@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>RCIRC contribution layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">RCIRC contribution layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Description</a></li>
+<li><a href="#orgheadline2">2. Features</a></li>
+<li><a href="#orgheadline13">3. Install</a>
+<ul>
+<li><a href="#orgheadline3">3.1. Layer</a></li>
+<li><a href="#orgheadline12">3.2. Configuration</a>
+<ul>
+<li><a href="#orgheadline5">3.2.1. Storing the credentials in your dotfile</a></li>
+<li><a href="#orgheadline7">3.2.2. Storing the credentials in your Dropbox</a></li>
+<li><a href="#orgheadline8">3.2.3. Storing the credentials in authinfo</a></li>
+<li><a href="#orgheadline11">3.2.4. Connecting behind a ZNC bouncer and storing the credentials in authinfo</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline14">4. Key Bindings</a></li>
+<li><a href="#orgheadline15">5. Rcirc documentation</a></li>
+</ul>
+</div>
+</div>
+
+<div class="figure">
+<p><img src="img/irc.png" alt="irc.png" />
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This layer provide support for <a href="http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html">rcirc</a> with optional support for authinfo
+and ZNC.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Features</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>Store channel logs into <code>~/.emacs.d/.cache/rcirc-logs/&lt;channel&gt;</code></li>
+<li>Support for credentials stored in <code>~/.authinfo.gpg</code> (need to have gnutls)</li>
+<li>Support ZNC support (with optional <code>~/.authinfo.gpg</code>)</li>
+<li>Colored nicknames</li>
+<li>WIP: Real time change when people use <code>/s/foo/bar</code> in the chats</li>
+<li>Completion of Emojis using <a href="https://github.com/dunn/company-emoji">company-emoji</a> (still needs a way of showing, either
+using the <code>emoji</code> layer or having a proper font) :clap:</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">3</span> Install</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">3.1</span> Layer</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+To use this contribution add it to your <code>~/.spacemacs</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>rcirc<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">3.2</span> Configuration</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+There are several ways to configure rcirc supported by the layer:
+</p>
+<ul class="org-ul">
+<li>By storing your credentials in <code>rcirc-server-alist</code> in your dotfile (not
+secured)</li>
+<li>By storing your credentials in <code>rcirc-server-alist</code> in your Dropbox (better
+but still not secured)</li>
+<li>By storing your credentials in authinfo (secured)</li>
+<li>By using a ZNC bouncer <span class="underline">and</span> storing your credentials (secured)</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">3.2.1</span> Storing the credentials in your dotfile</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+You can store your servers configuration along with your credentials in the
+<code>dotspacemacs/user-config</code> of your dotfile.
+</p>
+
+<p>
+<b>Important:</b> This method is the less secured and it is not recommended since
+your dotfile is often stored in a public repository and is not crypted. This
+is convenient but not recommended.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline4"></a>Example:<br  /><div class="outline-text-5" id="text-3-2-1-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq rcirc-server-alist
+  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"irc.freenode.net"</span>
+      <span style="color: #ff9eb8;">:user</span> <span style="color: #E6DB74; font-style: italic;">"spacemacs_user"</span>
+      <span style="color: #ff9eb8;">:port</span> <span style="color: #E6DB74; font-style: italic;">"1337"</span>
+      <span style="color: #ff9eb8;">:password</span> <span style="color: #E6DB74; font-style: italic;">"le_passwd"</span>
+      <span style="color: #ff9eb8;">:channels</span> <span style="color: #E6DB74;">(</span><span style="color: #E6DB74; font-style: italic;">"#emacs"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7"><span class="section-number-4">3.2.2</span> Storing the credentials in your Dropbox</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<p>
+You can store your servers configuration along with your credentials in
+your dropbox in the file <code>~/Dropbox/emacs/pinit-rcirc.el</code>.
+</p>
+
+<p>
+<b>Important:</b> This method is more secured since your file is stored in
+a private location but it is still not crypted on your drive. Moreover
+since Dropbox automatically sync your files you may have a lot of copies
+of the file containing your credentials. This is convenient but not
+recommended.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline6"></a>Example:<br  /><div class="outline-text-5" id="text-3-2-2-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq rcirc-server-alist
+  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"irc.freenode.net"</span>
+      <span style="color: #ff9eb8;">:user</span> <span style="color: #E6DB74; font-style: italic;">"spacemacs_user"</span>
+      <span style="color: #ff9eb8;">:port</span> <span style="color: #E6DB74; font-style: italic;">"1337"</span>
+      <span style="color: #ff9eb8;">:password</span> <span style="color: #E6DB74; font-style: italic;">"le_passwd"</span>
+      <span style="color: #ff9eb8;">:channels</span> <span style="color: #E6DB74;">(</span><span style="color: #E6DB74; font-style: italic;">"#emacs"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8"><span class="section-number-4">3.2.3</span> Storing the credentials in authinfo</h4>
+<div class="outline-text-4" id="text-3-2-3">
+<p>
+This method is considered secured and is the recommended way to configure
+rcirc.
+</p>
+
+<ol class="org-ol">
+<li><p>
+If you want to use <code>authinfo.gpg</code> you have to enable the support for it by
+setting <code>rcirc-enable-authinfo-support</code> to <code>t</code> in your dotfile:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>
+  <span style="color: #A6E22E;">(</span>rcirc <span style="color: #ff9eb8;">:variables</span> rcirc-enable-authinfo-support t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div></li>
+
+<li><p>
+In your <code>~/.authinfo.gpg</code> file store your credentials like this:
+</p>
+
+<pre class="example">
+machine irc.freenode.net port nickserv user &lt;user&gt; password &lt;passwd&gt;
+</pre></li>
+
+<li><p>
+At last you need to provide your servers configuration in the
+<code>dotspacemacs/user-config</code> function of your dotfile:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq rcirc-server-alist
+'<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"irc.freenode.net"</span>
+    <span style="color: #ff9eb8;">:user</span> <span style="color: #E6DB74; font-style: italic;">"spacemacs_user"</span>
+    <span style="color: #ff9eb8;">:port</span> <span style="color: #E6DB74; font-style: italic;">"1337"</span>
+    <span style="color: #ff9eb8;">:channels</span> <span style="color: #E6DB74;">(</span><span style="color: #E6DB74; font-style: italic;">"#emacs"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11"><span class="section-number-4">3.2.4</span> Connecting behind a ZNC bouncer and storing the credentials in authinfo</h4>
+<div class="outline-text-4" id="text-3-2-4">
+<p>
+This methods is also secured since it uses authinfo <span class="underline">but</span> you must secure your
+ZNC server configuration as well!
+</p>
+
+<p>
+ZNC is a popular bouncer which is easy to setup. A bouncer is a proxy that
+connects to your IRC channels on your behalf, instead of connecting to the IRC
+server you connect to your ZNC server. The ZNC server can store the discussions
+in a buffer while you are not connected.
+</p>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline9"></a>Disclaimer<br  /><div class="outline-text-5" id="text-3-2-4-1">
+<p>
+This assumes that you are familiar with ZNC and you have a ZNC server properly
+setup. If it is not the case then it is recommended to read about ZNC
+<a href="http://wiki.znc.in/ZNC">here</a>. There is also an installation guide for Ubuntu <a href="https://www.digitalocean.com/community/tutorials/how-to-install-znc-an-irc-bouncer-on-an-ubuntu-vps">here</a>.
+</p>
+</div></li>
+
+<li><a id="orgheadline10"></a>Note<br  /><div class="outline-text-5" id="text-3-2-4-2">
+<p>
+For now authinfo is mandatory to use the ZNC configuration.
+</p>
+
+<ol class="org-ol">
+<li><p>
+To enable ZNC support set the variable <code>rcirc-enable-znc-support</code> to <code>t</code> in
+your dotfile:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>
+  <span style="color: #A6E22E;">(</span>rcirc <span style="color: #ff9eb8;">:variables</span> rcirc-enable-znc-support t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div></li>
+
+<li><p>
+In your <code>~/.authinfo.gpg</code> file store your credentials like this:
+</p>
+
+<pre class="example">
+machine freenode.spacemacsserver.me port irc user spacemacs_user/freenode password ZNC_PASSWORD
+machine geekshed.spacemacsserver.me port irc user spacemacs_user/geekshed password ZNC_PASSWORD
+</pre>
+
+<p>
+<b>Important</b> <code>port</code> must be set to <code>irc</code>. This is a convention of the layer to
+retrieve the credentials for the ZNC configuration.
+</p></li>
+
+<li><p>
+Then setup your servers configuration using subdomains in the
+<code>dotspacemacs/user-config</code> function of your dotfile. The <code>:auth</code> keyword arguments
+will be replaced by the credentials stored in your <code>~/.authinfo.gpg</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq rcirc-server-alist
+ <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">This will replace :auth with the correct thing, see the doc for that function</span>
+ '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"freenode"</span>
+     <span style="color: #ff9eb8;">:host</span> <span style="color: #E6DB74; font-style: italic;">"freenode.spacemacsserver.me"</span>
+     <span style="color: #ff9eb8;">:port</span> <span style="color: #E6DB74; font-style: italic;">"1337"</span>
+     <span style="color: #ff9eb8;">:auth</span> <span style="color: #E6DB74; font-style: italic;">"spacemacs_user/freenode"</span>
+     <span style="color: #ff9eb8;">:channels</span> <span style="color: #E6DB74;">(</span><span style="color: #E6DB74; font-style: italic;">"#emacs"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+ <span style="color: #A6E22E;">(</span><span style="color: #E6DB74; font-style: italic;">"geekshed"</span>
+     <span style="color: #ff9eb8;">:host</span> <span style="color: #E6DB74; font-style: italic;">"geekshed.spacemacsserver.me"</span>
+     <span style="color: #ff9eb8;">:port</span> <span style="color: #E6DB74; font-style: italic;">"1337"</span>
+     <span style="color: #ff9eb8;">:auth</span> <span style="color: #E6DB74; font-style: italic;">"spacemacs_user/geekshed"</span>
+     <span style="color: #ff9eb8;">:channels</span> <span style="color: #E6DB74;">(</span><span style="color: #E6DB74; font-style: italic;">"#jupiterbroadcasting"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div></li>
+</ol>
+</div></li></ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">4</span> Key Bindings</h2>
+<div class="outline-text-2" id="text-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC a i r</code></td>
+<td class="org-left">Open rcirc</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC L o i</code></td>
+<td class="org-left">Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+In normal state:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-j</code></td>
+<td class="org-left">next item in history</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-k</code></td>
+<td class="org-left">previous item in history</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-2">
+<h2 id="orgheadline15"><span class="section-number-2">5</span> Rcirc documentation</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+The rcirc documentation can be found <a href="http://www.gnu.org/software/emacs/manual/html_mono/rcirc.html">here</a>. 
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

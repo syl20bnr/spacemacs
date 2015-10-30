@@ -1,0 +1,1058 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Haskell contribution layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Haskell contribution layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline2">1. Description</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Features:</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline14">2. Install</a>
+<ul>
+<li><a href="#orgheadline3">2.1. Layer</a></li>
+<li><a href="#orgheadline4">2.2. Dependencies</a></li>
+<li><a href="#orgheadline5">2.3. Setup PATH</a></li>
+<li><a href="#orgheadline7">2.4. ghc-mod support</a>
+<ul>
+<li><a href="#orgheadline6">2.4.1. Stack users</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline13">2.5. Optional extras</a>
+<ul>
+<li><a href="#orgheadline10">2.5.1. GHCi-ng support</a></li>
+<li><a href="#orgheadline11">2.5.2. structured-haskell-mode</a></li>
+<li><a href="#orgheadline12">2.5.3. hindent</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline20">3. Key bindings</a>
+<ul>
+<li><a href="#orgheadline15">3.1. Documentation</a></li>
+<li><a href="#orgheadline16">3.2. Debug</a></li>
+<li><a href="#orgheadline17">3.3. REPL</a></li>
+<li><a href="#orgheadline18">3.4. Cabal commands</a></li>
+<li><a href="#orgheadline19">3.5. Cabal files</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline25">4. FAQ</a>
+<ul>
+<li><a href="#orgheadline21">4.1. REPL doesn't work</a></li>
+<li><a href="#orgheadline22">4.2. REPL is stuck</a></li>
+<li><a href="#orgheadline23">4.3. I am using <code>stack</code> and <code>ghc-mod</code>, but <code>ghc-mod</code> doesn't work</a></li>
+<li><a href="#orgheadline24">4.4. Indentation doesn't reset when pressing return after empty line</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div class="figure">
+<p><img src="img/haskell.png" alt="haskell.png" />
+</p>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This layer adds support for the <a href="https://www.haskell.org/">Haskell</a> language.
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Features:</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>syntax highlighting for <a href="https://github.com/haskell/haskell-mode">haskell source</a>, <a href="https://github.com/haskell/haskell-mode">cabal files</a>, <a href="https://github.com/bgamari/cmm-mode">C&#x2013; source</a>,</li>
+<li>auto-completion with <a href="https://github.com/iquiw/company-ghc">company-ghc</a>.</li>
+</ul>
+
+<p>
+<b>This layer is in construction, it needs your contributions and bug reports.</b>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">2</span> Install</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">2.1</span> Layer</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+To use this contribution add it to your <code>~/.spacemacs</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>haskell<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.2</span> Dependencies</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+This layer requires some <a href="https://www.haskell.org/cabal/">cabal</a> packages:
+</p>
+<ul class="org-ul">
+<li><code>hlint</code></li>
+<li><code>stylish-haskell</code></li>
+<li><code>hasktags</code></li>
+<li><code>ghc-mod</code></li>
+</ul>
+
+<p>
+To install them, use following command (or the <code>stack</code> equivalent):
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">$ cabal install stylish-haskell hlint hasktags ghc-mod
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">2.3</span> Setup PATH</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+First of all make sure that your <code>$PATH</code> contains the installation path for
+Haskell tools like <code>ghc</code>, <code>ghci</code> etc. It depends on how you have installed
+<code>ghc</code>, but you can always check it by running <code>which ghc</code> in your terminal.
+<code>Stack</code> users should add only the installation path of <code>stack</code> itself. Usually
+it's <code>~/.local/bin</code>.
+</p>
+
+<p>
+Then make sure that your <code>$PATH</code> contains the installation path for <code>cabal</code>
+packages. If you are using <code>cabal</code> it should be <code>~/.cabal/bin</code> or
+<code>~/Library/Haskell/bin</code> (for 'Haskell for Mac' users). If you
+are using <code>stack</code> then it should be <code>~/.local/bin</code>.
+</p>
+
+<p>
+For information about setting up <code>$PATH</code>, check out the corresponding section in
+the FAQ (<code>SPC f e h $PATH RET</code>).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">2.4</span> ghc-mod support</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+<a href="http://www.mew.org/~kazu/proj/ghc-mod/">ghc-mod</a> enhances <code>haskell-mode</code> with for example code completion, templates,
+case-splitting and much more. In order to use it you need to install the
+executable with <code>cabal install ghc-mod</code> (or <code>stack</code> equivalent). Note that
+<code>ghc-mod</code> support is enabled by default, so if you want to disable it, you must
+do it explicitly in your <code>.spacemacs</code> file.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-enable-ghc-mod-support nil<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+<code>Stack</code> users also should make sure that <code>dist/setup-config</code> doesn't exist in
+the project root. As it will confuse <code>ghc-mod</code>. For more troubleshooting,
+checkout this <a href="https://github.com/kazu-yamamoto/ghc-mod/wiki#known-issues-related-to-stack">document</a>.
+</p>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6"><span class="section-number-4">2.4.1</span> Stack users</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<p>
+Time to time <code>ghc-mod</code> is not available via latest Stackage LTS version. So if
+you have problems with calling <code>stack install ghc-mod</code>, try to use <code>stack
+install ghc-mod --resolver lts-3.1</code> (the last known LTS version that had
+<code>ghc-mod</code>). But even if it doesn't work, don't panic, it's easy to install it
+from sources.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">clone cabal-helper</span>
+$ git clone https://github.com/DanielG/cabal-helper.git
+<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">cd into cloned repository</span>
+$ cd cabal-helper
+<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">init stack, so cabal-helper can be installed using stack</span>
+$ stack init
+<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">now install it</span>
+$ stack install
+<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">go back where you was</span>
+$ cd ..
+<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">and remove cabal-helper repository since you don't need it</span>
+$ rm -rf cabal-helper
+<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">now clone ghc-mod</span>
+$ git clone https://github.com/kazu-yamamoto/ghc-mod.git
+<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">and cd into it</span>
+$ cd ghc-mod
+<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">again, let's init stack</span>
+$ stack init
+<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">now install it</span>
+$ stack install
+<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">go back</span>
+$ cd ...
+<span style="color: #75715E;"># </span><span style="color: #75715E; font-style: italic;">and remove ghc-mod since you don't need it</span>
+$ rm -rf ghc-mod
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">2.5</span> Optional extras</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+The Haskell layer supports some extra features that can be enabled through
+layer variables.
+</p>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10"><span class="section-number-4">2.5.1</span> GHCi-ng support</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<p>
+<a href="https://github.com/chrisdone/ghci-ng">ghci-ng</a> adds some nice features to <code>haskell-mode</code>, and is supported in
+Spacemacs by a layer variable:
+</p>
+
+<p>
+Follow the instructions to install <a href="https://github.com/chrisdone/ghci-ng">ghci-ng</a> (remember to add <code>:set +c</code>
+in <code>~/.ghci</code>), next set the layer variable:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-enable-ghci-ng-support t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+Once ghci-ng is enabled, two of the old keybindings are overriden with
+improved versions from ghci-ng, and a new keybinding available:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m h t</code></td>
+<td class="org-left">gets the type of the identifier under the cursor or for the active region</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g g</code></td>
+<td class="org-left">go to definition</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m u</code></td>
+<td class="org-left">finds uses of identifier</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<ol class="org-ol"><li><a id="orgheadline8"></a>Stack users<br  /><div class="outline-text-5" id="text-2-5-1-1">
+<p>
+<code>Stack</code> and <code>ghci-ng</code> doesn't play well with each other, so the general advice
+is to avoid mixing them. But, if you want mix them anyway, you'll need to set
+<code>haskell-process-type</code> explicitly:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-process-type 'ghci<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">or</span>
+<span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-process-type cabal-repl<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This is needed, because by default <code>haskell-process-type</code> is set to <code>auto</code> and
+if you have <code>stack.yaml</code> file in the root of your project, <code>stack-ghci</code> will be
+used as process type.
+</p>
+</div></li>
+
+<li><a id="orgheadline9"></a>ghc-mod users<br  /><div class="outline-text-5" id="text-2-5-1-2">
+<p>
+If you want to use <code>SPC m h t</code> from <code>ghc-mod</code> instead of <code>ghci-ng</code> - then you
+need to add following line in your <code>dotspacemacs/user-config</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>evil-leader/set-key-for-mode 'haskell-mode
+        <span style="color: #E6DB74; font-style: italic;">"mht"</span>  'ghc-show-type<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This might be useful, because <code>ghc-mod</code> doesn't require active REPL in order to
+get type of symbol.
+</p>
+</div></li></ol>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11"><span class="section-number-4">2.5.2</span> structured-haskell-mode</h4>
+<div class="outline-text-4" id="text-2-5-2">
+<p>
+<a href="https://github.com/chrisdone/structured-haskell-mode">structured-haskell-mode</a>, or shm, replaces default haskell-mode
+auto-indentation and adds some nice functionalities.
+</p>
+
+<p>
+To install <code>shm</code> run <code>cabal install structured-haskell-mode</code> (or <code>stack</code>
+equivalent).
+</p>
+
+<p>
+To enable <code>shm</code> set the layer variable:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-enable-shm-support t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+After shm has been enabled, some of the evil normal state bindings are overridden:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>D</code></td>
+<td class="org-left"><code>shm/kill-line</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>R</code></td>
+<td class="org-left"><code>shm/raise</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>P</code></td>
+<td class="org-left"><code>shm/yank</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>(</code></td>
+<td class="org-left"><code>shm/forward-node</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>)</code></td>
+<td class="org-left"><code>shm/backward-node</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+For a nice visualization of these functions, please refer to the github page
+for <a href="https://github.com/chrisdone/structured-haskell-mode#features">structured-haskell-mode</a>.
+</p>
+
+<p>
+<b>Warning</b> structured-haskell-mode doesn't play very well with <code>evil</code>
+(<a href="https://github.com/chrisdone/structured-haskell-mode/issues/81">structured-haskell-mode/#81</a>). So it's better to be used with <code>emacs</code> edit
+style.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-4">
+<h4 id="orgheadline12"><span class="section-number-4">2.5.3</span> hindent</h4>
+<div class="outline-text-4" id="text-2-5-3">
+<p>
+<a href="https://github.com/chrisdone/hindent">hindent</a> is an extensible Haskell pretty printer, which let's you
+reformat your code. You need to install the executable with <code>cabal
+install hindent</code> or <code>stack install hindent</code>
+</p>
+
+<p>
+To enable it you have to set the variable <code>haskell-enable-hindent-style</code>
+to a supported style. The available styles are:
+</p>
+<ul class="org-ul">
+<li>fundamental</li>
+<li>johan-tibell</li>
+<li>chris-done</li>
+<li>gibiansky</li>
+</ul>
+
+<p>
+See examples <a href="https://github.com/chrisdone/hindent#example">here</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-enable-hindent-style <span style="color: #E6DB74; font-style: italic;">"johan-tibell"</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-2">
+<h2 id="orgheadline20"><span class="section-number-2">3</span> Key bindings</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+All Haskell specific bindings are prefixed with the major-mode leader
+<code>SPC m</code>.
+</p>
+
+<p>
+Top-level commands are prefixed by <code>SPC m</code>:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m g g</code></td>
+<td class="org-left">go to definition or tag</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g i</code></td>
+<td class="org-left">cycle the Haskell import lines or return to point (with prefix arg)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m f</code></td>
+<td class="org-left">format buffer using haskell-stylish</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m F</code></td>
+<td class="org-left">format declaration using hindent (if enabled)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">3.1</span> Documentation</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Documentation commands are prefixed by <code>SPC m h</code>
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m h d</code></td>
+<td class="org-left">find or generate Haddock documentation for the identifier under the cursor</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h h</code></td>
+<td class="org-left">do a Hoogle lookup</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h H</code></td>
+<td class="org-left">do a local Hoogle lookup</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h i</code></td>
+<td class="org-left">gets information for the identifier under the cursor</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h t</code></td>
+<td class="org-left">gets the type of the identifier under the cursor</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h y</code></td>
+<td class="org-left">do a Hayoo lookup</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">3.2</span> Debug</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Debug commands are prefixed by <code>SPC m d</code>:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m d d</code></td>
+<td class="org-left">start debug process, needs to be run first</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d b</code></td>
+<td class="org-left">insert breakpoint at function</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d n</code></td>
+<td class="org-left">next breakpoint</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d N</code></td>
+<td class="org-left">previous breakpoint</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d B</code></td>
+<td class="org-left">delete breakpoint</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d c</code></td>
+<td class="org-left">continue current process</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d a</code></td>
+<td class="org-left">abandon current process</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d r</code></td>
+<td class="org-left">refresh process buffer</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">3.3</span> REPL</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+REPL commands are prefixed by <code>SPC m s</code>:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m s b</code></td>
+<td class="org-left">load or reload the current buffer into the REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s c</code></td>
+<td class="org-left">clear the REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s s</code></td>
+<td class="org-left">show the REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s S</code></td>
+<td class="org-left">show and switch to the REPL</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">3.4</span> Cabal commands</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Cabal commands are prefixed by <code>SPC m c</code>:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m c a</code></td>
+<td class="org-left">cabal actions</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c b</code></td>
+<td class="org-left">build the current cabal project, i.e. invoke <code>cabal build</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c c</code></td>
+<td class="org-left">compile the current project, i.e. invoke <code>ghc</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c v</code></td>
+<td class="org-left">visit the cabal file</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">3.5</span> Cabal files</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+This commands are available in a cabal file.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m d</code></td>
+<td class="org-left">add a dependency to the project</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m b</code></td>
+<td class="org-left">go to benchmark section</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m e</code></td>
+<td class="org-left">go to executable section</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t</code></td>
+<td class="org-left">go to test-suite section</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m m</code></td>
+<td class="org-left">go to exposed modules</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m l</code></td>
+<td class="org-left">go to libary section</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m n</code></td>
+<td class="org-left">go to next subsection</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m p</code></td>
+<td class="org-left">go to previous subsection</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m N</code></td>
+<td class="org-left">go to next section</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m P</code></td>
+<td class="org-left">go to previous section</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m f</code></td>
+<td class="org-left">find or create source-file under the cursor</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">4</span> FAQ</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline21" class="outline-3">
+<h3 id="orgheadline21"><span class="section-number-3">4.1</span> REPL doesn't work</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Usually <code>haskell-mode</code> is great at figuring out which interactive process to
+bring up. But if you are experiencing problems with it you can help
+<code>haskell-mode</code> by setting <code>haskell-process-type</code> as in following code:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>haskell <span style="color: #ff9eb8;">:variables</span> haskell-process-type 'stack-ghci<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+Available options are:
+</p>
+
+<ul class="org-ul">
+<li>ghci</li>
+<li>cabal-repl</li>
+<li>cabal-dev</li>
+<li>cabal-ghci</li>
+<li>stack-ghci</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">4.2</span> REPL is stuck</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Make sure that when you are typing anything in REPL there is a space between
+what you type and <code>λ&gt;</code>. When there is no space - REPL will behave as it's stuck.
+Usually, when you enter normal state, cursor is moved back, so there is no
+required space when you switch to insert mode. There is possible workaround -
+just add following snippet to your <code>dotspacemacs/user-config</code> function:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #66D9EF;">(</span>configuration-layer/layer-usedp 'haskell<span style="color: #66D9EF;">)</span>
+  <span style="color: #66D9EF;">(</span>add-hook 'haskell-interactive-mode-hook
+            <span style="color: #A6E22E;">(</span><span style="color: #F92672; font-weight: bold;">lambda</span> <span style="color: #E6DB74;">()</span>
+              <span style="color: #E6DB74;">(</span>setq-local evil-move-cursor-back nil<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+It will make cursor stay at the right place in the REPL buffer when you enter
+normal state. Which in most cases helps you to avoid the problem with 'stuck'
+REPL.
+</p>
+
+<p>
+Also, some users might want to start REPL in insert mode. For this to happen you
+could place following snippet in your <code>dotspacemacs/user-config</code> function:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #66D9EF;">(</span>configuration-layer/layer-usedp 'haskell<span style="color: #66D9EF;">)</span>
+    <span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">defadvice</span> <span style="color: #A6E22E;">haskell-interactive-switch</span> <span style="color: #A6E22E;">(</span>after spacemacs/haskell-interactive-switch-advice activate<span style="color: #A6E22E;">)</span>
+      <span style="color: #A6E22E;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #E6DB74;">(</span>eq dotspacemacs-editing-style 'vim<span style="color: #E6DB74;">)</span>
+        <span style="color: #E6DB74;">(</span>call-interactively 'evil-insert<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">4.3</span> I am using <code>stack</code> and <code>ghc-mod</code>, but <code>ghc-mod</code> doesn't work</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Make sure that <code>dist</code> directory doesn't exist in your project root. So if it
+exists, just remove it and try again.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">4.4</span> Indentation doesn't reset when pressing return after empty line</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+This is intended behavior in <code>haskell-indentation-mode</code>. If you want to reset indentation when pressing return after empty line, add following snippet into your <code>dotspacemacs/user-config</code> function.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">haskell-indentation-advice</span> <span style="color: #66D9EF;">()</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #A6E22E;">(</span>and <span style="color: #E6DB74;">(</span>&lt; <span style="color: #AE81FF;">1</span> <span style="color: #FD971F;">(</span>line-number-at-pos<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span>
+             <span style="color: #E6DB74;">(</span><span style="color: #F92672; font-weight: bold;">save-excursion</span>
+               <span style="color: #FD971F;">(</span>forward-line <span style="color: #AE81FF;">-1</span><span style="color: #FD971F;">)</span>
+               <span style="color: #FD971F;">(</span>string= <span style="color: #E6DB74; font-style: italic;">""</span> <span style="color: #F92672;">(</span>s-trim <span style="color: #AE81FF;">(</span>buffer-substring <span style="color: #66D9EF;">(</span>line-beginning-position<span style="color: #66D9EF;">)</span> <span style="color: #66D9EF;">(</span>line-end-position<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span><span style="color: #F92672;">)</span><span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+    <span style="color: #A6E22E;">(</span>delete-region <span style="color: #E6DB74;">(</span>line-beginning-position<span style="color: #E6DB74;">)</span> <span style="color: #E6DB74;">(</span>point<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span>advice-add 'haskell-indentation-newline-and-indent
+            <span style="color: #ff9eb8;">:after</span> 'haskell-indentation-advice<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

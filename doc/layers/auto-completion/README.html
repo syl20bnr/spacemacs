@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:47 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Auto-completion layer</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Auto-completion layer</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Description</a></li>
+<li><a href="#orgheadline2">2. Install</a></li>
+<li><a href="#orgheadline12">3. Configuration</a>
+<ul>
+<li><a href="#orgheadline3">3.1. Key bindings</a></li>
+<li><a href="#orgheadline4">3.2. Tooltips</a></li>
+<li><a href="#orgheadline5">3.3. Sort results by usage</a></li>
+<li><a href="#orgheadline6">3.4. Show snippets in auto-completion popup</a></li>
+<li><a href="#orgheadline7">3.5. Enable company or auto-complete globally</a></li>
+<li><a href="#orgheadline8">3.6. Replacing company by auto-complete</a></li>
+<li><a href="#orgheadline11">3.7. Add auto-completion in a layer</a>
+<ul>
+<li><a href="#orgheadline9">3.7.1. In <code>config.el</code></a></li>
+<li><a href="#orgheadline10">3.7.2. In <code>packages.el</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline17">4. Key Bindings</a>
+<ul>
+<li><a href="#orgheadline13">4.1. Company</a></li>
+<li><a href="#orgheadline14">4.2. Auto-complete</a></li>
+<li><a href="#orgheadline15">4.3. Yasnippet</a></li>
+<li><a href="#orgheadline16">4.4. Auto-yasnippet</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This layer provides auto-completion to Spacemacs.
+</p>
+
+<p>
+The following completion engines are supported:
+</p>
+<ul class="org-ul">
+<li><a href="http://company-mode.github.io/">company</a></li>
+<li><a href="http://auto-complete.org/">auto-complete</a></li>
+</ul>
+
+<p>
+Snippets are supported via <a href="https://github.com/capitaomorte/yasnippet">yasnippet</a> and <a href="https://github.com/abo-abo/auto-yasnippet">auto-yasnippet</a>.
+</p>
+
+<p>
+This layer also configures <code>hippie-expand</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Install</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+To use this configuration layer add it to your <code>~/.spacemacs</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>auto-completion<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">3</span> Configuration</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">3.1</span> Key bindings</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+You can customize the user experience of auto-completion with the following
+layer variables:
+</p>
+
+<ol class="org-ol">
+<li><code>auto-completion-return-key-behavior</code> set the action to perform when the
+<code>RET</code> key is pressed, the possible values are:
+<ul class="org-ul">
+<li><code>complete</code> completes with the current selection</li>
+<li><code>nil</code> does nothing</li>
+</ul></li>
+
+<li><code>auto-completion-tab-key-behavior</code> set the action to perform when the <code>TAB</code>
+   key is pressed, the possible values are:
+<ul class="org-ul">
+<li><code>complete</code> completes with the current selection</li>
+<li><code>cycle</code> completes the common prefix and cycle between candidates</li>
+<li><code>nil</code> does nothing</li>
+</ul></li>
+
+<li><code>auto-completion-complete-with-key-sequence</code> is a string of two characters
+denoting a key sequence that will perform a <code>complete</code> action if the sequence
+as been entered quickly enough. If its value is <code>nil</code> then the feature is
+disabled.</li>
+
+<li><code>auto-completion-private-snippets-directory</code> is a path to your private
+snippets directory. If its value is <code>nil</code> then the spacemacs default is used.</li>
+</ol>
+
+<p>
+The default configuration of the layer is:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>
+  <span style="color: #A6E22E;">(</span>auto-completion <span style="color: #ff9eb8;">:variables</span>
+                   auto-completion-return-key-behavior 'complete
+                   auto-completion-tab-key-behavior 'cycle
+                   auto-completion-complete-with-key-sequence nil
+                   auto-completion-private-snippets-directory nil<span style="color: #A6E22E;">)</span>
+                   <span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+<code>jk</code> is a good candidate for <code>auto-completion-complete-with-key-sequence</code> if
+you don't use it already.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">3.2</span> Tooltips</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+To enable docstring tooltips set <code>auto-completion-enable-help-tooltip</code> to <code>t</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span>auto-completion <span style="color: #ff9eb8;">:variables</span>
+                    auto-completion-enable-help-tooltip t<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">3.3</span> Sort results by usage</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+To enable sorting auto-completion results by their usage frequency set
+<code>auto-completion-enable-sort-by-usage</code> to <code>t</code>.
+This feature is provided by the <a href="https://github.com/company-mode/company-statistics">company-statistics</a> package when <code>company</code>
+is used.
+The variable has no effect when <code>auto-complete</code> is used.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+  '<span style="color: #66D9EF;">(</span>auto-completion <span style="color: #ff9eb8;">:variables</span>
+                    auto-completion-enable-sort-by-usage t<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">3.4</span> Show snippets in auto-completion popup</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+By default, snippets are not shown in the auto-completion popup. To show them in
+the popup, set the variable <code>auto-completion-enable-snippets-in-popup</code> to <code>t</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+              '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>auto-completion <span style="color: #ff9eb8;">:variables</span>
+                                 auto-completion-enable-snippets-in-popup t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">3.5</span> Enable company or auto-complete globally</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+By default Spacemacs enables auto-completion explicitly for each supported
+major-mode, it means that <code>company</code> and <code>auto-complete</code> are not enabled
+globally, it allows more flexibility to choose an auto-completion engine
+for a given mode.
+</p>
+
+<p>
+You may want to enable company globally to get auto-completion
+everywhere even in the modes which are not configured by Spacemacs. To do
+so, you just have to add <code>(global-company-mode)</code> in the
+<code>dotspacemacs/user -config</code> function of your dotfile.
+</p>
+
+<p>
+Note that if you want to enable <code>auto-complete</code> globally you will have to
+disable <code>company</code> first, see the next section to do so.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.6</span> Replacing company by auto-complete</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+You can disable <code>company</code> by adding it to the <code>dotspacemacs-excluded-packages</code>
+variable, then you are free to enable <code>auto-complete</code> globally.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">3.7</span> Add auto-completion in a layer</h3>
+<div class="outline-text-3" id="text-3-7">
+<p>
+Here is an example to add <code>company</code> auto-completion to python buffer:
+</p>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9"><span class="section-number-4">3.7.1</span> In <code>config.el</code></h4>
+<div class="outline-text-4" id="text-3-7-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Define the buffer local company backend variable</span>
+<span style="color: #AE81FF;">(</span>spacemacs|defvar-company-backends python-mode<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10"><span class="section-number-4">3.7.2</span> In <code>packages.el</code></h4>
+<div class="outline-text-4" id="text-3-7-2">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Add the relevant packages to the layer</span>
+<span style="color: #AE81FF;">(</span>setq python-packages
+  '<span style="color: #66D9EF;">(</span>...
+    company
+    company-anaconda
+    ...<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Configure the packages</span>
+<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #66D9EF;">(</span>configuration-layer/layer-usedp 'auto-completion<span style="color: #66D9EF;">)</span>
+
+  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Hook company to python-mode</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">python/post-init-company</span> <span style="color: #A6E22E;">()</span>
+    <span style="color: #A6E22E;">(</span>spacemacs|add-company-hook python-mode<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+
+  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Add the backend to the major-mode specific backend list</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">python/init-company-anaconda</span> <span style="color: #A6E22E;">()</span>
+    <span style="color: #A6E22E;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">company-anaconda</span>
+      <span style="color: #ff9eb8;">:if</span> <span style="color: #E6DB74;">(</span>configuration-layer/package-usedp 'company<span style="color: #E6DB74;">)</span>
+      <span style="color: #ff9eb8;">:defer</span> t
+      <span style="color: #ff9eb8;">:init</span> <span style="color: #E6DB74;">(</span>push 'company-anaconda company-backends-python-mode<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-2">
+<h2 id="orgheadline17"><span class="section-number-2">4</span> Key Bindings</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">4.1</span> Company</h3>
+<div class="outline-text-3" id="text-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-j</code></td>
+<td class="org-left">go down in company dropdown menu</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-k</code></td>
+<td class="org-left">go up in company dropdown menu</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-/</code></td>
+<td class="org-left">show candidates in Helm (for fuzzy searching)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-M-/</code></td>
+<td class="org-left">filter the company dropdown menu</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-d</code></td>
+<td class="org-left">open minibuffer with documentation of thing at point in company dropdown</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">4.2</span> Auto-complete</h3>
+<div class="outline-text-3" id="text-4-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-j</code></td>
+<td class="org-left">select next candidate</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-k</code></td>
+<td class="org-left">select previous candidate</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>TAB</code></td>
+<td class="org-left">expand selection or select next candidate</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>S-TAB</code></td>
+<td class="org-left">select previous candidate</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>return</code></td>
+<td class="org-left">complete word, if word is already completed insert a carriage return</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">4.3</span> Yasnippet</h3>
+<div class="outline-text-3" id="text-4-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>M-/</code></td>
+<td class="org-left">Expand a snippet if text before point is a prefix of a snippet</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC i s</code></td>
+<td class="org-left">List all current yasnippets for inserting</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">4.4</span> Auto-yasnippet</h3>
+<div class="outline-text-3" id="text-4-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC i S c</code></td>
+<td class="org-left">create a snippet from an active region</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC i S e</code></td>
+<td class="org-left">Expand the snippet just created with <code>SPC i y</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC i S w</code></td>
+<td class="org-left">Write the snippet inside <code>private/snippets</code> directory for future sessions</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:47</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

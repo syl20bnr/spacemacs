@@ -1,0 +1,1098 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:47 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Configuration layers</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Configuration layers</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Introduction</a></li>
+<li><a href="#orgheadline2">2. Nomenclature</a></li>
+<li><a href="#orgheadline10">3. The Emacs loading process</a>
+<ul>
+<li><a href="#orgheadline4">3.1. Emacs Lisp files</a>
+<ul>
+<li><a href="#orgheadline3">3.1.1. Loading a file</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline6">3.2. Features</a>
+<ul>
+<li><a href="#orgheadline5">3.2.1. The load path</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline7">3.3. Auto-loading</a></li>
+<li><a href="#orgheadline8">3.4. Eval after load</a></li>
+<li><a href="#orgheadline9">3.5. Use-package</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline13">4. Anatomy of a layer</a>
+<ul>
+<li><a href="#orgheadline11">4.1. packages.el</a></li>
+<li><a href="#orgheadline12">4.2. config.el, funcs.el and keybindings.el</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline14">5. The Spacemacs loading process</a></li>
+<li><a href="#orgheadline15">6. Case study: auto-completion</a></li>
+<li><a href="#orgheadline25">7. Layer tips and tricks</a>
+<ul>
+<li><a href="#orgheadline16">7.1. Cross-dependencies</a></li>
+<li><a href="#orgheadline17">7.2. Use-package</a></li>
+<li><a href="#orgheadline18">7.3. Use-package hooks</a></li>
+<li><a href="#orgheadline24">7.4. Best practices</a>
+<ul>
+<li><a href="#orgheadline19">7.4.1. Package ownership</a></li>
+<li><a href="#orgheadline20">7.4.2. Localize your configuration</a></li>
+<li><a href="#orgheadline21">7.4.3. Load ordering</a></li>
+<li><a href="#orgheadline22">7.4.4. No require</a></li>
+<li><a href="#orgheadline23">7.4.5. Auto-load everything</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline27">8. How do I &#x2026; idiomatically?</a>
+<ul>
+<li><a href="#orgheadline26">8.1. Setup auto-completion for a major mode</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This document is intended as a tutorial for users who are interested in writing
+their first configuration layer, whether for private use or for contributing
+upstream. It should help clear up some confusion regarding how layers work and
+how Spacemacs (and Emacs) loads packages.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Nomenclature</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Layers and packages. What gives?
+</p>
+
+<dl class="org-dl">
+<dt>Package</dt><dd>A set of Emacs Lisp files that, taken together, provide some
+feature. Packages may be available on a package repository, such as ELPA or
+MELPA or on a third-party service provider (such as github) or even
+locally on the disk.</dd>
+<dt>Layer</dt><dd>A collected unit of configuration that can be enabled (or disabled)
+in Spacemacs. A layer typically brings together one or more packages, as
+well as the glue configuration code required to make them play well with
+each other and Spacemacs in general.</dd>
+</dl>
+
+<p>
+Before writing a layer, it is helpful to consider what you are trying to
+achieve. Is there a package that provides the functionality you are after, and
+you want to integrate it in Spacemacs? If yes, you should write a layer. Are you
+trying to implement a new feature that would be useful for the Emacs community
+at large? In that case, consider whether it wouldn't be more appropriate to
+write a package first, and then a layer that uses your package.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">3</span> The Emacs loading process</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+To understand how to best implement a layer, we have to investigate how Emacs
+loads code.
+</p>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">3.1</span> Emacs Lisp files</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Emacs Lisp files contains code that can be evaluated. When evaluated, the
+functions, macros and modes defined in that file become available to the current
+Emacs session. Henceforth, this will be termed as <i>loading</i> a file.
+</p>
+
+<p>
+One major problem is to ensure that all the correct files are loaded, and in the
+proper order. Another issue is to ensure that not too many files are loaded
+immediately. This causes startup to take too long. Instead, we want to make sure
+that files are loaded only as needed, and not all at once.
+</p>
+
+<p>
+How is this done in Emacs, and how is it done in Spacemacs?
+</p>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3"><span class="section-number-4">3.1.1</span> Loading a file</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+The simplest way to load a file is to call <code>load-file</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>load-file <span style="color: #E6DB74; font-style: italic;">"~/elisp/foo.el"</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This is as primitive as it comes. The path must be exact, and it does not have
+to be in the Emacs load path (we'll get to that later). It will not look for a
+byte-compiled <code>.elc</code> file. It will simply load exactly what you tell it to.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">3.2</span> Features</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+A better way to load what you need is to use <i>features</i>. A feature is a symbol
+that typically has the same name as the file it resides in. Let us say you have
+the following contents in a file called <code>my-feature.el</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Your code goes here ...</span>
+
+<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">provide</span> '<span style="color: #AE81FF;">my-feature</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+To have Emacs load this file, call <code>require</code>, as such:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">require</span> '<span style="color: #AE81FF;">my-feature</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This checks whether the feature <code>my-feature</code> has already been loaded. If not, it
+looks for a file called <code>my-feature.el</code>, <code>my-feature.elc</code> or some such. If it
+finds such a file, it will load it. When the call to <code>provide</code> is evaluated, the
+feature is added to the list of loaded features, so that subsequent calls to
+<code>require</code> will do nothing.
+</p>
+
+<p>
+This will cause an error if no such file can be found.
+</p>
+
+<p>
+The file <code>my-feature.el</code> may very well contain other calls to <code>require</code>, and in
+fact this is quite a common way to ensure that dependencies are loaded before
+your code runs.
+</p>
+
+<p>
+Package authors should use this technique to make sure that dependencies are
+loaded before their code runs.
+</p>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">3.2.1</span> The load path</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<p>
+When loaded using <code>require</code>, Emacs looks for files in its <i>load path</i>. This is
+nothing more than a list of paths where elisp files can be found, and you can
+inspect it through <code>SPC h d v load-path</code> in Spacemacs. To add to the load path,
+simply push to this list, e.g.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>push <span style="color: #E6DB74; font-style: italic;">"/some/path/"</span> load-path<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">3.3</span> Auto-loading</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Calling <code>require</code> is nothing more than a glorified way of calling <code>load-file</code>.
+It solves the problem of ensuring that files are loaded in the correct order,
+and to some degree it solved the problem of where to find the files on disk but
+a long list of calls to <code>require</code> at startup would still cause Emacs to take for
+ever to load.
+</p>
+
+<p>
+Emacs uses auto-loading to solve this problem. When a function is registered as
+auto-loading, an "empty" definition is provided. When that function is called,
+the file that provides the function is immediately loaded (along with all its
+required features). Finally, the "empty" function is substituted with the real
+one and called normally. The end user will see only a slight delay when first
+calling the function, while subsequent calls to that function (or any other
+function loaded as part of the same procedure) will be as quick as normal.
+</p>
+
+<p>
+To register a function as auto-loadable, we call <code>autoload</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>autoload 'some-function <span style="color: #E6DB74; font-style: italic;">"some-file"</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This instructs Emacs that whenever <code>some-function</code> is called, load
+<code>some-file.el</code> first, and then proceed.
+</p>
+
+<p>
+After evaluating the above code, you can try to inspect <code>some-function</code> by doing
+<code>SPC h d f some-function</code>. It will say it's an auto-loaded function, and that
+nothing else is known about it until it is loaded. The call to <code>autoload</code> can
+optionally include more information, such as a doc-string, whether the function
+can be called interactively, and so on. This provides more information to the
+end-user without her having to actually load the file first.
+</p>
+
+<p>
+Open your <code>elpa</code> directory, go to <code>helm</code> and look at the file
+<code>helm-autoloads.el</code>. This provides all the auto-loads for all the files in Helm.
+However, this file is not written by hand. Instead, it is automatically
+generated from "magic" comments in the source code of Helm. They look like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;;;</span><span style="color: #75715E; font-style: italic;">###</span><span style="color: #FD971F; font-weight: bold; font-style: italic;">autoload</span>
+<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">my-function</span> <span style="color: #66D9EF;">()</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Source code...</span>
+  <span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+The magic comment <code>;;;###autoload</code> instructs Emacs that the following definition
+should be auto-loaded. This automatically generates an appropriate call to
+<code>autoload</code>.
+</p>
+
+<p>
+Things that can be auto-loaded generally involve anything "definable", such as
+functions, macros, major or minor modes, groups, classes, and so on.
+</p>
+
+<p>
+Magic comments also work on other things, such as variable definitions
+(<code>defvar</code>), but in that case, the definition is just copied verbatim into the
+auto-loading file. For example, this code will load Helm on startup, long before
+your file is actually evaluated, probably not what was intended:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;;;</span><span style="color: #75715E; font-style: italic;">###</span><span style="color: #FD971F; font-weight: bold; font-style: italic;">autoload</span>
+<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">require</span> '<span style="color: #AE81FF;">helm</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+It is the responsibility of the package authors to ensure that their package can
+be appropriately auto-loaded, and most packages do this quite well.
+</p>
+
+<p>
+Spacemacs makes thorough use of auto-loading. Almost everything in Spacemacs is
+loaded when needed instead of right away.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.4</span> Eval after load</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+Often, we will want to configure packages after loading them. We may want to set
+some variables or call some functions. This is trivial with <code>require</code>, because
+it loads immediately, but it can be tricky with autoloading, because the
+configuration code must also be deferred.
+</p>
+
+<p>
+Emacs offers <code>with-eval-after-load</code> for this purpose. It can be used like this:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">with-eval-after-load</span> 'helm
+     <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code</span>
+     <span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This arranges for the relevant code to be executed after Helm is loaded (using
+either <code>require</code> or an autoload), or if Helm is already loaded, the code is
+executed immediately.
+</p>
+
+<p>
+Since <code>with-eval-after-load</code> is a macro and not a function, its argument does
+not have to be quoted.
+</p>
+
+<p>
+<b><b>Note</b></b>: <code>with-eval-after-load</code> is backported for those still on Emacs 24.3
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">3.5</span> Use-package</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+For <i>end users</i> who are trying to put together an efficient Emacs configuration,
+there is a very useful <i>package</i> called <code>use-package</code> that provides a macro
+which is <i>also</i> called <code>use-package</code> which does a very good job of streamlining
+the whole process of loading packages.
+</p>
+
+<p>
+The aspiring layer author is recommended to have a look at the <code>use-package</code>
+<a href="https://github.com/jwiegley/use-package">documentation</a>. Some examples follow.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">helm</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This simply loads Helm. It is essentially equivalent to <code>(require 'helm)</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">helm</span>
+  <span style="color: #ff9eb8;">:defer</span> t<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This defers the loading of Helm using the auto-load facility and the auto-load
+commands provided by the Helm source code. It is, in fact, a no-op.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">helm</span>
+  <span style="color: #ff9eb8;">:defer</span> t
+  <span style="color: #ff9eb8;">:init</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code to execute before Helm is loaded</span>
+  <span style="color: #ff9eb8;">:config</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code to execute after Helm is loaded</span>
+  <span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This form includes code to execute before and after Helm is loaded. The <code>:init</code>
+section can be executed immediately, but since Helm is deferred, the <code>:config</code>
+section is not executed until after loading, if ever. It is essentially
+equivalent to simply running the <code>:init</code> block, and then adding the <code>:config</code>
+block in an <code>with-eval-after-load</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">helm</span>
+  <span style="color: #ff9eb8;">:commands</span> <span style="color: #66D9EF;">(</span>helm-find-files helm-M-x<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This creates auto-load references for additional commands, if you find that the
+package author has been slacking.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">ruby-mode</span>
+  <span style="color: #ff9eb8;">:mode</span> <span style="color: #E6DB74; font-style: italic;">"\\.rb\\'"</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+For packages that provide major modes, you can associate file extensions to that
+mode by using the <code>:mode</code> keyword. This adds an entry to <code>auto-mode-alist</code> and
+an auto-load for <code>ruby-mode</code>. Typically this is not required, as <code>ruby-mode</code>
+should already be auto-loadable, and the package should associate Ruby files
+with itself already.
+</p>
+
+<p>
+Use-package supports heaps of useful keywords. Look at the <a href="https://github.com/jwiegley/use-package">documentation</a> for
+more.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-2">
+<h2 id="orgheadline13"><span class="section-number-2">4</span> Anatomy of a layer</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+A layer is simply a folder somewhere in Spacemacs' layer search path that
+contains <i>at least one</i> of these files, ordered vaguely by importance.
+</p>
+
+<dl class="org-dl">
+<dt><code>packages.el</code></dt><dd>for specifying which packages the layer uses</dd>
+<dt><code>config.el</code></dt><dd>for miscellaneous configuration</dd>
+<dt><code>funcs.el</code></dt><dd>for defining general utility functions</dd>
+<dt><code>keybindings.el</code></dt><dd>for defining general keybindings</dd>
+</dl>
+
+<p>
+Additionally, for each local package (see the next section), there should be a
+folder <code>&lt;layer&gt;/local/&lt;package&gt;/</code> containing the source code for that package.
+Before initializing that package, Spacemacs will add this folder to the load
+path for you.
+</p>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">4.1</span> packages.el</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+This file should define a variable called <code>&lt;layer&gt;-packages</code>, which should be a
+list of all the packages that this layer needs. Some valid package
+specifications are as follows.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq mylayer-packages
+      '<span style="color: #66D9EF;">(</span>
+        <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Get the package from MELPA, ELPA, etc.</span>
+        some-package
+        <span style="color: #A6E22E;">(</span>some-package <span style="color: #ff9eb8;">:location</span> elpa<span style="color: #A6E22E;">)</span>
+
+        <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">A local package</span>
+        <span style="color: #A6E22E;">(</span>some-package <span style="color: #ff9eb8;">:location</span> local<span style="color: #A6E22E;">)</span>
+
+        <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">A package recipe</span>
+        <span style="color: #A6E22E;">(</span>some-package <span style="color: #ff9eb8;">:location</span> <span style="color: #E6DB74;">(</span>recipe
+                                 <span style="color: #ff9eb8;">:fetcher</span> github
+                                 <span style="color: #ff9eb8;">:repo</span> <span style="color: #E6DB74; font-style: italic;">"some/repo"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+
+        <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">An excluded package</span>
+        <span style="color: #A6E22E;">(</span>some-package <span style="color: #ff9eb8;">:excluded</span> t<span style="color: #A6E22E;">)</span>
+        <span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+The <code>:location</code> attribute specifies where the package may be found. Spacemacs
+currently supports packages on ELPA compliant repositories, local packages and
+MELPA recipes (through the Quelpa package). See the <a href="https://github.com/milkypostman/melpa#recipe-format">MELPA documentation</a> for more
+information about recipes.
+</p>
+
+<p>
+Packages may be <i>excluded</i> by setting the <code>:excluded</code> property to true. This
+will prevent the package from being installed even if it is used by another
+layer.
+</p>
+
+<p>
+For each included package, you may define one or more of the following
+functions, which are called in order by Spacemacs to initialize the package.
+</p>
+
+<ol class="org-ol">
+<li><code>&lt;layer&gt;/pre-init-&lt;package&gt;</code></li>
+<li><code>&lt;layer&gt;/init-&lt;package&gt;</code></li>
+<li><code>&lt;layer&gt;/post-init-&lt;package&gt;</code></li>
+</ol>
+
+<p>
+It is the responsibility of these functions to load and configure the package in
+question. Spacemacs will do nothing other than download the package and place it
+in the load path for you.
+</p>
+
+<p>
+<b>Note:</b> A package will not be installed unless at least one layer defines an
+<code>init</code> function for it. That is to say, in a certain sense, the <code>init</code> function
+does mandatory setup while the <code>pre-init</code> and <code>post-init</code> functions do optional
+setup. This can be used for managing cross-layer dependencies, which we will
+discuss later.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">4.2</span> config.el, funcs.el and keybindings.el</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+These files contain no magic variables or functions, merely code that is
+executed. The intended use cases are
+</p>
+
+<dl class="org-dl">
+<dt>config.el</dt><dd>configuration code that is independent of packages, declaration
+layer variables, and so on</dd>
+<dt>funcs.el</dt><dd>definition of general utility functions</dd>
+<dt>keybindings.el</dt><dd>general keybindings</dd>
+</dl>
+
+<p>
+The word <i>general</i> here means <i>independent of any package</i>. Since the end user
+can exclude an arbitrary set of packages, you cannot be sure that, just because
+your layer includes a package, that package will necessarily be loaded. For this
+reason, code in these files must be generally safe, regardless of which packages
+are installed.
+</p>
+
+<p>
+More on this in the next section.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">5</span> The Spacemacs loading process</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+The Spacemacs loading process can be summarized as follows:
+</p>
+
+<ol class="org-ol">
+<li>A handful of packages are installed and loaded as part of the bootstrap process.
+Among these packages, of particular interest to us, is <code>use-package</code>. All
+subsequent code in the loading process may make use of it.</li>
+<li>Spacemacs goes through all the enabled layers and evaluates their files. The
+changes introduced by <code>config.el</code> are thus applied, but nothing happens from
+<code>packages.el</code>, since these files only define functions and variables.</li>
+<li><p>
+Spacemacs checks which packages should be downloaded and installed. To be
+installed, a package must be
+</p>
+<ul class="org-ul">
+<li>included by a layer that the user has enabled,</li>
+<li>not be excluded by any other layer that the user has enabled,</li>
+<li>not be excluded by the user herself, and</li>
+<li>there must be at least one <code>&lt;layer&gt;/init-&lt;package&gt;</code> function defined for
+it.</li>
+</ul>
+<p>
+Alternatively, if a package is part of the end user's
+<code>dotspacemacs-additional-packages</code>, it will also be installed.
+</p></li>
+<li>All packages which should be installed are installed, and all packages which
+are installed but which shouldn't be are removed. (This last behavior is
+optional but default.)</li>
+<li>The <code>pre-init</code>, <code>init</code> and <code>post-init</code> functions for each installed package
+are executed in turn.</li>
+</ol>
+
+<p>
+It is step five that interests us. It is very important that a package is not
+installed if no <code>init</code> function is defined for it.
+</p>
+
+<p>
+We say that a layer <b>owns</b> a package if it defines an <code>init</code> function for it. A
+layer does <b>not</b> own a package if it only defines <code>pre-init</code> or <code>post-init</code>
+functions.
+</p>
+
+<p>
+Only one layer may own a package. Since layers are processed in order of
+specification in the user's dotfile, it is possible for layers to "seize"
+ownership of a package that was owned by a previously enabled layer.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-2">
+<h2 id="orgheadline15"><span class="section-number-2">6</span> Case study: auto-completion</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Spacemacs provides a layer called <code>auto-completion</code> which provides
+auto-completion features in many modes. It does this using the package
+<code>company</code>. This layer owns the <code>company</code> package, so it defines a function
+called <code>auto-completion/init-company</code>.
+</p>
+
+<p>
+When a user enables the <code>auto-completion</code> layer, Spacemacs locates it and finds
+<code>company</code> in the list of packages. Provided that <code>company</code> is not excluded,
+either by the user or another layer, Spacemacs then locates and runs the <code>init</code>
+function for <code>company</code>. This function includes a call to <code>use-package</code> that sets
+up the basic configuration.
+</p>
+
+<p>
+However, auto-completion is a two-horse game. By its very nature, it is specific
+to the major mode in question. It is pointless to expect the <code>auto-completion</code>
+layer to include configuration for each conceivable major mode, and equally
+futile to expect each programming language layer (python, ruby, etc.) to fully
+configure <code>company</code> on their own.
+</p>
+
+<p>
+This is solved using the <code>post-init</code> functions. The Python layer, for example,
+includes the <code>company</code> package and defines a function called
+<code>python/post-init-company</code>. This function is called after
+<code>auto-completion/init-company</code>, but it is not called if
+</p>
+
+<ul class="org-ul">
+<li>the <code>auto-completion</code> layer is not enabled, in which case no <code>init</code> function
+for <code>company</code> will be found, or</li>
+<li>the <code>company</code> package is excluded either by the user or another layer</li>
+</ul>
+
+<p>
+As such, <code>python/post-init-company</code> is the <i>only</i> safe place to put
+configuration related to <code>company</code> in Python mode.
+</p>
+
+<p>
+If the Python layer had defined an <code>init</code> function for <code>company</code>, that package
+would have been installed even if the <code>auto-completion</code> layer had been disabled,
+which is not what we want.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">7</span> Layer tips and tricks</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">7.1</span> Cross-dependencies</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+Spacemacs provides a couple of additional useful functions you can use to check
+whether other layers or packages are included.
+</p>
+
+<dl class="org-dl">
+<dt><code>configuration-layer/layer-usedp</code></dt><dd>check if a layer is enabled</dd>
+<dt><code>configuration-layer/package-usedp</code></dt><dd>check if a package is or will be installed</dd>
+</dl>
+
+<p>
+These are useful in some cases, but usually you can get the desired result just
+by using <code>post-init</code> functions.
+</p>
+
+<p>
+For layers that require another layers to be enabled, use the functions
+<code>configuration-layer/declare-layer</code> and <code>configuration-layer/declare-layers</code> to
+ensure that layers are enabled even if the user has not enabled them explicitly.
+Calls to these functions must go in the <code>config.el</code> file.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">7.2</span> Use-package</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+In the vast majority of cases, a package <code>init</code> function should do nothing but
+call to <code>use-package</code>. Again, in the vast majority of cases, all the
+configuration you need to do should be doable within the <code>:init</code> or <code>:config</code>
+blocks of such a call.
+</p>
+
+<p>
+What goes where? Since <code>:init</code> is executed before load and <code>:config</code> after,
+these rules of thumb apply.
+</p>
+
+<p>
+In <code>:config</code> should be
+</p>
+<ul class="org-ul">
+<li>Anything that requires the package to be already loaded.</li>
+<li>Anything that takes a long time to run, which would ruin startup performance.</li>
+</ul>
+
+<p>
+The <code>:init</code> block should contain setup for the entry points to the package. This
+includes keybindings, if the package should be loaded manually by the user, or
+hooks, if the package should be loaded upon some event. It is not unusual to
+have both!
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">7.3</span> Use-package hooks</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+Spacemacs includes a macro for adding more code to the <code>:init</code> or <code>:config</code>
+blocks of a call to <code>use-package</code>, after the fact. This is useful for <code>pre-init</code>
+or <code>post-init</code> functions to "inject" code into the <code>use-package</code> call of the
+<code>init</code> function.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>spacemacs|use-package-add-hook helm
+  <span style="color: #ff9eb8;">:pre-init</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code</span>
+  <span style="color: #ff9eb8;">:post-init</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code</span>
+  <span style="color: #ff9eb8;">:pre-config</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code</span>
+  <span style="color: #ff9eb8;">:post-config</span>
+  <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Code</span>
+  <span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+Since a call to <code>use-package</code> may evaluate the <code>:init</code> block immediately, any
+function that wants to inject code into this block must run <code>before</code> the call to
+<code>use-package</code>. Further, since this call to <code>use-package</code> typically takes place
+in the <code>init-&lt;package&gt;</code> function, calls to <code>spacemacs|use-package-add-hook</code>
+typically happen in the <code>pre-init-&lt;package&gt;</code> functions, and not in
+<code>post-init-&lt;package&gt;</code>. It is quite safe to do this in <code>pre-init</code>, so that should
+be the default choice.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">7.4</span> Best practices</h3>
+<div class="outline-text-3" id="text-7-4">
+<p>
+If you break any of these rules, you should know what you are doing and have a
+good reason for doing it.
+</p>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-4">
+<h4 id="orgheadline19"><span class="section-number-4">7.4.1</span> Package ownership</h4>
+<div class="outline-text-4" id="text-7-4-1">
+<p>
+Each package should be owned by one layer only. The layer that owns the
+package should define its <code>init</code> function. Other layers should rely on
+<code>pre-init</code> or <code>post-init</code> functions.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-4">
+<h4 id="orgheadline20"><span class="section-number-4">7.4.2</span> Localize your configuration</h4>
+<div class="outline-text-4" id="text-7-4-2">
+<p>
+<b>Each function can only assume the existence of one package.</b> With some
+exceptions, the <code>pre-init</code>, <code>init</code> and <code>post-init</code> functions can <i>only</i>
+configure exactly the package they are defined for. Since the user can exclude
+an arbitrary set of packages, there is no <i>a priori</i> safe way to assume that
+another package is included. Use <code>configuration-layer/package-usedp</code> if you
+must.
+</p>
+
+<p>
+This can be very challenging, so please take this as a guideline and not
+something that is absolute. It is quite possible for the user to break her
+Spacemacs installation by excluding the wrong packages, and it is not our
+intention to prevent this at all costs.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">7.4.3</span> Load ordering</h4>
+<div class="outline-text-4" id="text-7-4-3">
+<p>
+In Spacemacs, layers are loaded in order of inclusion in the dotfile, and
+packages are loaded in alphabetical order. In the rare cases where you make use
+of this property, you should make sure to document it well. Many will assume
+that layers can be included in arbitrary order (which is true in most cases),
+and that packages can be renamed without problems (which is also in most cases).
+</p>
+
+<p>
+Preferably, write your layer so that it is independent of load ordering. The
+<code>pre</code>- and <code>post-init</code> functions are helpful, together with
+<code>configuration-layer/package-usedp</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-4">
+<h4 id="orgheadline22"><span class="section-number-4">7.4.4</span> No require</h4>
+<div class="outline-text-4" id="text-7-4-4">
+<p>
+Do not use require. If you find yourself using <code>require</code>, you are almost
+certainly doing something wrong. Packages in Spacemacs should be loaded through
+auto-loading, and not explicitly by you. Calls to <code>require</code> in package init
+functions will cause a package to be loaded upon startup. Code in an <code>:init</code>
+block of <code>use-package</code> should not cause anything to be loaded, either. If you
+need a <code>require</code> in a <code>:config</code> block, that is a sign that some other package is
+missing appropriate auto-loads.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-4">
+<h4 id="orgheadline23"><span class="section-number-4">7.4.5</span> Auto-load everything</h4>
+<div class="outline-text-4" id="text-7-4-5">
+<p>
+Defer everything. You should have a very good reason not to defer the loading
+of a package.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-2">
+<h2 id="orgheadline27"><span class="section-number-2">8</span> How do I &#x2026; idiomatically?</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">8.1</span> Setup auto-completion for a major mode</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+In your layer's <code>config.el</code>, call <code>spacemacs|defvar-company-backends</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>spacemacs|defvar-company-backends yoyo-mode<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This creates a variable called <code>company-backends-yoyo-mode</code>. In the package
+<code>init</code> functions, you should push backends to this variable. But of course, only
+if the <code>auto-completion</code> layer is enabled.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq yoyo-packages '<span style="color: #66D9EF;">(</span>
+                      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">...</span>
+                      some-weird-package
+                      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">...</span>
+                      <span style="color: #66D9EF;">)</span>
+
+<span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #A6E22E;">(</span>configuration-layer/layer-usedp 'auto-completion<span style="color: #A6E22E;">)</span>
+  <span style="color: #A6E22E;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">yoyo/init-some-weird-package</span> <span style="color: #E6DB74;">()</span>
+    <span style="color: #E6DB74;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">some-weird-package</span>
+      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Only if company is installed</span>
+      <span style="color: #ff9eb8;">:if</span> <span style="color: #FD971F;">(</span>configuration-layer/package-usedp 'company<span style="color: #FD971F;">)</span>
+      <span style="color: #ff9eb8;">:defer</span> t
+      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">This has to be in init because it's a package entry point</span>
+      <span style="color: #ff9eb8;">:init</span>
+      <span style="color: #FD971F;">(</span>push 'some-weird-backend company-backends-yoyo-mode<span style="color: #FD971F;">)</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span>
+</pre>
+</div>
+
+<p>
+Finally, we must make sure company is started when we enter <code>yoyo-mode</code>, but
+again only if the <code>auto-completion</code> layer is enabled.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq yoyo-packages '<span style="color: #66D9EF;">(</span>
+                      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">...</span>
+                      yoyo-mode
+                      <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">...</span>
+                      <span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">yoyo/init-yoyo-mode</span> <span style="color: #66D9EF;">()</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">use-package</span> <span style="color: #AE81FF;">yoyo-mode</span>
+    <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Some configuration goes here, however nothing relating to company</span>
+    <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">since this function may be called even if company is not installed!</span>
+    <span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">when</span> <span style="color: #66D9EF;">(</span>configuration-layer/package-usedp 'company<span style="color: #66D9EF;">)</span>
+  <span style="color: #66D9EF;">(</span><span style="color: #F92672; font-weight: bold;">defun</span> <span style="color: #A6E22E;">yoyo/post-init-yoyo-mode</span> <span style="color: #A6E22E;">()</span>
+    <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">This makes no reference to `</span><span style="color: #AE81FF; font-style: italic;">some-weird-package</span><span style="color: #75715E; font-style: italic;">', which may have</span>
+    <span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">been excluded by the user</span>
+    <span style="color: #A6E22E;">(</span>spacemacs|add-company-hook yoyo-mode<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:47</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

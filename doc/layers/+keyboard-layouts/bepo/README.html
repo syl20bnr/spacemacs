@@ -1,0 +1,1414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>bepo contribution layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">bepo contribution layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Description</a></li>
+<li><a href="#orgheadline2">2. Mapping</a></li>
+<li><a href="#orgheadline3">3. Supported modes/packages/layer</a></li>
+<li><a href="#orgheadline4">4. Install</a></li>
+<li><a href="#orgheadline16">5. Key bindings</a>
+<ul>
+<li><a href="#orgheadline5">5.1. company</a></li>
+<li><a href="#orgheadline6">5.2. evil</a></li>
+<li><a href="#orgheadline7">5.3. evil-escape</a></li>
+<li><a href="#orgheadline8">5.4. evil-surround</a></li>
+<li><a href="#orgheadline9">5.5. evil-window</a></li>
+<li><a href="#orgheadline10">5.6. helm</a></li>
+<li><a href="#orgheadline11">5.7. magit</a></li>
+<li><a href="#orgheadline12">5.8. neotree</a></li>
+<li><a href="#orgheadline13">5.9. org</a></li>
+<li><a href="#orgheadline14">5.10. ranger</a></li>
+<li><a href="#orgheadline15">5.11. spacemacs-specific</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline17">6. Contributors</a></li>
+<li><a href="#orgheadline18">7. Sources</a></li>
+</ul>
+</div>
+</div>
+
+<div class="figure">
+<p><img src="img/bepo.png" alt="bepo.png" />
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This layer change the key bindings in spacemacs to be compatible with the <a href="http://bepo.fr/">bepo</a>
+keyboard layout. <code>bepo</code> is a keyboard layout optimized for the French language.
+This package first switch traditional <code>hjkl</code> movement keys with <code>ctsr</code>, and then
+try to correct the bugs induced by these changes in other modes/packages.
+</p>
+
+
+<div class="figure">
+<p><img src="img/keymap.png" alt="keymap.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Mapping</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The mapping correction is the one proposed for vim on the bepo's official <a href="http://bepo.fr/wiki/Vim#Principe">wiki</a>.
+This layer tries to do the following changes when the following characters are
+used for <b>doing a movement</b>:
+</p>
+
+<ul class="org-ul">
+<li>Map the movements keys under the right hand's fingers:
+<ul class="org-ul">
+<li><code>c → h</code></li>
+<li><code>t → j</code></li>
+<li><code>s → k</code></li>
+<li><code>r → l</code></li>
+</ul></li>
+
+<li>Map lost functionnalites back to some keys:
+<ul class="org-ul">
+<li><code>h → r</code></li>
+<li><code>j → t</code></li>
+<li><code>k → s</code></li>
+<li><code>l → c</code></li>
+</ul></li>
+</ul>
+
+<p>
+The equivalent remapping is also valid for uppercase characters when they are
+used te represent a movement, or to keep the mnemonic between the
+lower/upper-case consistent.
+</p>
+
+<p>
+Some bepo keys are not used in traditional mapping, mainly because they are not
+present on the <code>en-us</code> keyboard layout. They can be used as an alias for other
+shortcuts:
+</p>
+
+<ul class="org-ul">
+<li>Map unused <code>é</code> key as an alias of <code>w</code>, more usefull in vim mode:
+<ul class="org-ul">
+<li><code>é → w</code></li>
+<li><code>É → W</code></li>
+</ul></li>
+
+<li>Map indentation on direct-access keys:
+<ul class="org-ul">
+<li><code>» → &gt;</code></li>
+<li><code>« → &lt;</code></li>
+</ul></li>
+</ul>
+
+<p>
+Some default configurations are also not optimal for vim, so the following
+defaults are changed:
+</p>
+
+<ul class="org-ul">
+<li>Change <code>evil-escape</code> escape combination to something faster to type, while
+being nearly nonexistant in french or english words:
+<ul class="org-ul">
+<li><code>fd → gq</code></li>
+</ul></li>
+
+<li>In <code>avy</code>, the key used to select words/lines are remapped to the 8 characters
+under the fingers:
+<ul class="org-ul">
+<li><code>a u i e t s r n</code></li>
+</ul></li>
+
+<li>Add <code>«</code> and <code>»</code> as operators for <code>evil-surround</code>, surrounding text with the
+specified symbols.</li>
+</ul>
+
+<p>
+There will be some cases when the keys remapping will not follow these
+conventions, mainly because there is better alternatives, or because some moves
+don't make sense.
+</p>
+
+<p class="verse">
+Example: In <code>magit</code> status, the <code>c</code> is used for <code>commit</code> by default, but if we<br  />
+want to follow the conventions, it should be remapped to "move left". As it is<br  />
+not usefull to move left on <code>magit</code>, because operations are done on lines, the<br  />
+<code>c</code> is not be remapped.<br  />
+</p>
+
+<p>
+Note: One difference exists with the wiki version: the <code>w</code> is <b>not</b> remapped to
+<code>C-w</code> to avoid having to change its meaning in other modes. Spacemacs provides
+already a <code>SPC w</code> key binding for working with windows.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">3</span> Supported modes/packages/layer</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>avy</li>
+<li>company</li>
+<li>evil</li>
+<li>evil-escape</li>
+<li>evil-surround</li>
+<li>evil-window</li>
+<li>helm</li>
+<li>magit</li>
+<li>neotree</li>
+<li>org</li>
+<li>ranger</li>
+<li>spacemacs</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">4</span> Install</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+To use this contribution add it to your <code>~/.spacemacs</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>bepo<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-2">
+<h2 id="orgheadline16"><span class="section-number-2">5</span> Key bindings</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Thanks to `wich-keys`, you shouldn't probably have to go through this list, the
+keys being shown after a small delay following a keypress.
+</p>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">5.1</span> company</h3>
+<div class="outline-text-3" id="text-5-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+<th scope="col" class="org-left">Replace/equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-t</code></td>
+<td class="org-left">Company next line</td>
+<td class="org-left"><code>C-j</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-s</code></td>
+<td class="org-left">Company previous line</td>
+<td class="org-left"><code>C-k</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-r</code></td>
+<td class="org-left">Company complete selection</td>
+<td class="org-left"><code>C-l</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">5.2</span> evil</h3>
+<div class="outline-text-3" id="text-5-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+<th scope="col" class="org-left">Replace/equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>c</code></td>
+<td class="org-left">Move the cursor left</td>
+<td class="org-left"><code>h</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>t</code></td>
+<td class="org-left">Move the cursor down</td>
+<td class="org-left"><code>j</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>s</code></td>
+<td class="org-left">Move the cursor up</td>
+<td class="org-left"><code>k</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>r</code></td>
+<td class="org-left">Move the cursor right</td>
+<td class="org-left"><code>l</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>C</code></td>
+<td class="org-left">Top of the windows</td>
+<td class="org-left"><code>L</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>T</code></td>
+<td class="org-left">Join lines</td>
+<td class="org-left"><code>J</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>S</code></td>
+<td class="org-left">Smart doc lookup</td>
+<td class="org-left"><code>K</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>R</code></td>
+<td class="org-left">Bottom of the windows</td>
+<td class="org-left"><code>H</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>h</code></td>
+<td class="org-left">Replace</td>
+<td class="org-left"><code>r</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>j</code></td>
+<td class="org-left">Until</td>
+<td class="org-left"><code>t</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>k</code></td>
+<td class="org-left">Substitute</td>
+<td class="org-left"><code>s</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>l</code></td>
+<td class="org-left">Change</td>
+<td class="org-left"><code>c</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>H</code></td>
+<td class="org-left">Replace mode</td>
+<td class="org-left"><code>R</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>J</code></td>
+<td class="org-left">Backward Until</td>
+<td class="org-left"><code>T</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>K</code></td>
+<td class="org-left">Substitute line</td>
+<td class="org-left"><code>S</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>L</code></td>
+<td class="org-left">Change line</td>
+<td class="org-left"><code>C</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>é</code></td>
+<td class="org-left">Word (without punctuation)</td>
+<td class="org-left"><code>w</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>É</code></td>
+<td class="org-left">WORD (with punctuation)</td>
+<td class="org-left"><code>W</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>»</code></td>
+<td class="org-left">Indent</td>
+<td class="org-left"><code>&gt;</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>«</code></td>
+<td class="org-left">Unindent</td>
+<td class="org-left"><code>&lt;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">5.3</span> evil-escape</h3>
+<div class="outline-text-3" id="text-5-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+<th scope="col" class="org-left">Replace/equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>gq</code></td>
+<td class="org-left">Escape</td>
+<td class="org-left"><code>fd</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">5.4</span> evil-surround</h3>
+<div class="outline-text-3" id="text-5-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+<th scope="col" class="org-left">Replace/equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>k</code></td>
+<td class="org-left">Evil-surround functionnalites</td>
+<td class="org-left"><code>s</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">5.5</span> evil-window</h3>
+<div class="outline-text-3" id="text-5-5">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+<th scope="col" class="org-left">Replace/equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC w c</code></td>
+<td class="org-left">Window left</td>
+<td class="org-left"><code>SPC w h</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC w t</code></td>
+<td class="org-left">Window down</td>
+<td class="org-left"><code>SPC w j</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC w s</code></td>
+<td class="org-left">Window up</td>
+<td class="org-left"><code>SPC w k</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC w r</code></td>
+<td class="org-left">Window right</td>
+<td class="org-left"><code>SPC w l</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC w C</code></td>
+<td class="org-left">Window move far left</td>
+<td class="org-left"><code>SPC w H</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC w T</code></td>
+<td class="org-left">Window move very bottom</td>
+<td class="org-left"><code>SPC w J</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC w S</code></td>
+<td class="org-left">Window move very top</td>
+<td class="org-left"><code>SPC w K</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC w R</code></td>
+<td class="org-left">Window move far right</td>
+<td class="org-left"><code>SPC w L</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC w k</code></td>
+<td class="org-left">Split window below</td>
+<td class="org-left"><code>SPC w s</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC w l</code></td>
+<td class="org-left">Delete window</td>
+<td class="org-left"><code>SPC w c</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC w H</code></td>
+<td class="org-left">Rotate windows</td>
+<td class="org-left"><code>SPC w R</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC w K</code></td>
+<td class="org-left">Split window below and focus</td>
+<td class="org-left"><code>SPC w S</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC w L</code></td>
+<td class="org-left">Ace delete window</td>
+<td class="org-left"><code>SPC w C</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC w é</code></td>
+<td class="org-left">Other window</td>
+<td class="org-left"><code>SPC w w</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC w q</code></td>
+<td class="org-left">Delete window</td>
+<td class="org-left"><code>SPC w c</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC é</code></td>
+<td class="org-left">Alias for <code>SPC w</code></td>
+<td class="org-left"><code>SPC w</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">5.6</span> helm</h3>
+<div class="outline-text-3" id="text-5-6">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+<th scope="col" class="org-left">Replace/equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-t</code></td>
+<td class="org-left">Helm next line</td>
+<td class="org-left"><code>C-j</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-s</code></td>
+<td class="org-left">Helm previous line</td>
+<td class="org-left"><code>C-k</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>C-j</code></td>
+<td class="org-left">Helm toggle resplit and spawn windows</td>
+<td class="org-left"><code>C-t</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-k</code></td>
+<td class="org-left">Helm find files run grep</td>
+<td class="org-left"><code>C-s</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">5.7</span> magit</h3>
+<div class="outline-text-3" id="text-5-7">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+<th scope="col" class="org-left">Replace/equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>t</code></td>
+<td class="org-left">Next line</td>
+<td class="org-left"><code>j</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>s</code></td>
+<td class="org-left">Previous line</td>
+<td class="org-left"><code>k</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>k</code></td>
+<td class="org-left">Stage change</td>
+<td class="org-left"><code>s</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>j</code></td>
+<td class="org-left">Tag popup</td>
+<td class="org-left"><code>t</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>h</code></td>
+<td class="org-left">Discard change</td>
+<td class="org-left"><code>k</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">5.8</span> neotree</h3>
+<div class="outline-text-3" id="text-5-8">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+<th scope="col" class="org-left">Replace/equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>c</code></td>
+<td class="org-left">Spacemacs/neotree collapse or up</td>
+<td class="org-left"><code>h</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>t</code></td>
+<td class="org-left">Evil next visual line</td>
+<td class="org-left"><code>j</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>s</code></td>
+<td class="org-left">Evil previous visual line</td>
+<td class="org-left"><code>k</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>r</code></td>
+<td class="org-left">Spacemacs/neotree expand or open</td>
+<td class="org-left"><code>l</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>C</code></td>
+<td class="org-left">Neotree select previous sibling node</td>
+<td class="org-left"><code>H</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>T</code></td>
+<td class="org-left">Neotree select down node</td>
+<td class="org-left"><code>J</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>S</code></td>
+<td class="org-left">Neotree select up node</td>
+<td class="org-left"><code>K</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>R</code></td>
+<td class="org-left">Neotree select next sibling node</td>
+<td class="org-left"><code>L</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>h</code></td>
+<td class="org-left">Neotree hidden file toggle</td>
+<td class="org-left"><code>l</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>k</code></td>
+<td class="org-left">Neotree rename node</td>
+<td class="org-left"><code>r</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>l</code></td>
+<td class="org-left">Neotree create node</td>
+<td class="org-left"><code>c</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>H</code></td>
+<td class="org-left">Neotree change root</td>
+<td class="org-left"><code>R</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">5.9</span> org</h3>
+<div class="outline-text-3" id="text-5-9">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>t</code></td>
+<td class="org-left">Evil next visual line</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>M c</code></td>
+<td class="org-left">Org metaleft</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M t</code></td>
+<td class="org-left">Org metadown</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M s</code></td>
+<td class="org-left">Org metaup</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M r</code></td>
+<td class="org-left">Org metaright</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>M C</code></td>
+<td class="org-left">Org shiftmetaleft</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M T</code></td>
+<td class="org-left">Org shiftmetadown</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M S</code></td>
+<td class="org-left">Org shiftmetaup</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M R</code></td>
+<td class="org-left">Org shiftmetaright</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m C</code></td>
+<td class="org-left">Org shiftleft</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m T</code></td>
+<td class="org-left">Org shiftdown</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m S</code></td>
+<td class="org-left">Org shiftup</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m R</code></td>
+<td class="org-left">Org shiftright</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m s</code></td>
+<td class="org-left">Org schedule</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC j</code></td>
+<td class="org-left">Org todo</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>C S c</code></td>
+<td class="org-left">Org shiftcontrolleft</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C S t</code></td>
+<td class="org-left">Org shiftcontroldown</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C S s</code></td>
+<td class="org-left">Org shiftcontrolup</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C S r</code></td>
+<td class="org-left">Org shiftcontrolright</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m t C</code></td>
+<td class="org-left">Org table move column left</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t T</code></td>
+<td class="org-left">Org table move row down</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t S</code></td>
+<td class="org-left">Org table move row up</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t R</code></td>
+<td class="org-left">Org table move column right</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m t c</code></td>
+<td class="org-left">Org table previous field</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t t</code></td>
+<td class="org-left">Org table next row</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t r</code></td>
+<td class="org-left">Org table next field</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC g t</code></td>
+<td class="org-left">Org forward heading same level</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g s</code></td>
+<td class="org-left">Org backward heading same level</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>M h</code></td>
+<td class="org-left">Capitalize word</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M j</code></td>
+<td class="org-left">Transpose chars</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M l</code></td>
+<td class="org-left">Move to window line top bottom</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>M H</code></td>
+<td class="org-left">Capitalize word</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M J</code></td>
+<td class="org-left">Transpose chars</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M L</code></td>
+<td class="org-left">Move to window line top bottom</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m H</code></td>
+<td class="org-left">Org refile</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m J</code></td>
+<td class="org-left">Org show todo tree</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m K r</code></td>
+<td class="org-left">Org demote subtree</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m K c</code></td>
+<td class="org-left">Org promote subtree</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m K t</code></td>
+<td class="org-left">Org move subtree down</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m K s</code></td>
+<td class="org-left">Org move subtree up</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m L</code></td>
+<td class="org-left">Evil org recompute clocks</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m t h</code></td>
+<td class="org-left">Org table recalculate</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t k</code></td>
+<td class="org-left">Org table sort lines</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t l</code></td>
+<td class="org-left">Org table convert</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t j f</code></td>
+<td class="org-left">Org table toggle formula debugger</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t j o</code></td>
+<td class="org-left">Org table toggle coordinate overlays</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC «</code></td>
+<td class="org-left">Org metaleft</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC »</code></td>
+<td class="org-left">Org metaright</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">5.10</span> ranger</h3>
+<div class="outline-text-3" id="text-5-10">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+<th scope="col" class="org-left">Replace/equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>c</code></td>
+<td class="org-left">Ranger up directory</td>
+<td class="org-left"><code>h</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>t</code></td>
+<td class="org-left">Ranger next file</td>
+<td class="org-left"><code>j</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>s</code></td>
+<td class="org-left">Ranger prev file</td>
+<td class="org-left"><code>k</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>r</code></td>
+<td class="org-left">Ranger find file</td>
+<td class="org-left"><code>l</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>C</code></td>
+<td class="org-left">Ranger prev history</td>
+<td class="org-left"><code>H</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>T</code></td>
+<td class="org-left">Ranger next subdir</td>
+<td class="org-left"><code>J</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>S</code></td>
+<td class="org-left">Ranger prev subdir</td>
+<td class="org-left"><code>K</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>R</code></td>
+<td class="org-left">Ranger next history</td>
+<td class="org-left"><code>L</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>H</code></td>
+<td class="org-left">Dired do rename</td>
+<td class="org-left"><code>R</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>K</code></td>
+<td class="org-left">Eshell</td>
+<td class="org-left"><code>S</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">5.11</span> spacemacs-specific</h3>
+<div class="outline-text-3" id="text-5-11">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+<th scope="col" class="org-left">Replace/equivalent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC j c</code></td>
+<td class="org-left">Push mark and goto beginning of line</td>
+<td class="org-left"><code>SPC j h</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC j t</code></td>
+<td class="org-left">Sp newline</td>
+<td class="org-left"><code>SPC j j</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC j s</code></td>
+<td class="org-left">Evil goto next line and indent</td>
+<td class="org-left"><code>SPC j k</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC j r</code></td>
+<td class="org-left">Push mark and goto end of line</td>
+<td class="org-left"><code>SPC j l</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC j T</code></td>
+<td class="org-left">Split and new line</td>
+<td class="org-left"><code>SPC j J</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC i T</code></td>
+<td class="org-left">Insert line below no indent</td>
+<td class="org-left"><code>SPC i J</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC i t</code></td>
+<td class="org-left">Evil insert line below</td>
+<td class="org-left"><code>SPC i j</code></td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC i y</code></td>
+<td class="org-left">Helm yas</td>
+<td class="org-left"><code>SPC i S</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC i Yc</code></td>
+<td class="org-left">Auto yasnippet create</td>
+<td class="org-left"><code>SPC i Sc</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC i Ye</code></td>
+<td class="org-left">Auto yasnippet expand</td>
+<td class="org-left"><code>SPC i Se</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC i Yw</code></td>
+<td class="org-left">Auto yasnippet persist snippet</td>
+<td class="org-left"><code>SPC i Sw</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-2">
+<h2 id="orgheadline17"><span class="section-number-2">6</span> Contributors</h2>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
+<li>Fabien Dubosson</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-2">
+<h2 id="orgheadline18"><span class="section-number-2">7</span> Sources</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+The bepo logo and the keymap image come from the <a href="http://bepo.fr/">bepo</a> official website. They are
+licensed under the <a href="http://creativecommons.org/licenses/by-sa/3.0/deed.en">CC-BY-SA</a>.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

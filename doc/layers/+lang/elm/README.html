@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Elm contribution layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Elm contribution layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Description</a></li>
+<li><a href="#orgheadline8">2. Install</a>
+<ul>
+<li><a href="#orgheadline5">2.1. Elm Platform</a>
+<ul>
+<li><a href="#orgheadline2">2.1.1. OS X and Windows installers</a></li>
+<li><a href="#orgheadline3">2.1.2. Universal installer using npm</a></li>
+<li><a href="#orgheadline4">2.1.3. Source code</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline6">2.2. elm-mode</a></li>
+<li><a href="#orgheadline7">2.3. elm-oracle</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline11">3. Basic usage tips</a>
+<ul>
+<li><a href="#orgheadline9">3.1. Compilation</a></li>
+<li><a href="#orgheadline10">3.2. Reactor</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline18">4. Key bindings</a>
+<ul>
+<li><a href="#orgheadline12">4.1. elm-make</a></li>
+<li><a href="#orgheadline13">4.2. elm-repl</a></li>
+<li><a href="#orgheadline14">4.3. elm-reactor</a></li>
+<li><a href="#orgheadline16">4.4. elm-package</a>
+<ul>
+<li><a href="#orgheadline15">4.4.1. package list buffer</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline17">4.5. elm-oracle</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div class="figure">
+<p><img src="img/elm.png" alt="elm.png" />
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This layer adds support for <a href="http://elm-lang.org/">Elm</a>.
+</p>
+
+<p>
+It relies on <a href="https://github.com/jcollard/elm-mode">elm-mode</a> and <a href="https://github.com/bsermons/flycheck-elm">flycheck-elm</a> to provide the following features:
+</p>
+<ul class="org-ul">
+<li>Syntax highlighting.</li>
+<li>Intelligent indentation</li>
+<li>Auto-completion integration for company (default) or auto-complete modes,
+with using elm-oracle</li>
+<li>Syntax checking support using flycheck</li>
+<li>Integration with elm-make</li>
+<li>Integration with elm-repl</li>
+<li>Integration with elm-reactor</li>
+<li>Integration with elm-package</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-2">
+<h2 id="orgheadline8"><span class="section-number-2">2</span> Install</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">2.1</span> Elm Platform</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+The <code>elm-platform</code> is a bundle of tools, including the <code>elm-compiler</code>, <code>elm-make</code>,
+<code>elm-reactor</code>, <code>elm-repl</code> and <code>elm-package</code>. 
+</p>
+
+<p>
+Depending on the method of installation, the <code>elm-mode</code> package would need to be
+able to access commands such as <code>elm-reactor</code> or <code>elm-make</code>.
+</p>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-4">
+<h4 id="orgheadline2"><span class="section-number-4">2.1.1</span> OS X and Windows installers</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+Official installers for these operating systems are available from:
+<a href="http://elm-lang.org/install"><a href="http://elm-lang.org/install">http://elm-lang.org/install</a></a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-4">
+<h4 id="orgheadline3"><span class="section-number-4">2.1.2</span> Universal installer using npm</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+A npm based installer is available to, and provides pre-compiled binaries for
+certain operating system and architectures.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">npm install --global elm
+</pre>
+</div>
+<p>
+Also, note that you might need to set the <code>ELM_HOME</code> environment variables to
+the corresponding directory created by the installer.
+</p>
+
+<p>
+OS X Users facing problems with <code>elm-reactor</code> failing to properly install or
+run, see this issue <a href="https://github.com/kevva/elm-bin/issues/28"><a href="https://github.com/kevva/elm-bin/issues/28">https://github.com/kevva/elm-bin/issues/28</a></a>. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4"><span class="section-number-4">2.1.3</span> Source code</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<p>
+To build from source, see instructions here:
+<a href="https://github.com/elm-lang/elm-platform"><a href="https://github.com/elm-lang/elm-platform">https://github.com/elm-lang/elm-platform</a></a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">2.2</span> elm-mode</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+To use this contribution, add it to your <code>~/.spacemacs</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>elm<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">2.3</span> elm-oracle</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+<code>elm-oracle</code> can be used to show type signatures and docs for tokens under the
+cursor and provide support for auto-completion, but it is not part of the standard
+elm-platform.
+</p>
+
+<p>
+Both the "company" and "auto-complete" backends are supported, but this layer
+is configured with company. 
+</p>
+
+<p>
+To install <code>elm-oracle</code>, install <code>node.js</code> and <code>npm</code>, then
+run this command:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">npm install -g elm-oracle
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-2">
+<h2 id="orgheadline11"><span class="section-number-2">3</span> Basic usage tips</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">3.1</span> Compilation</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+To control the name of the compiled JavaScript file, use <code>SPC m c B</code> instead of
+<code>SPC m c b</code>. This will overwrite the <code>--output</code> parameter of <code>elm-make</code> to
+<code>[buffer-name].js</code> instead of the default.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">3.2</span> Reactor</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+<code>elm-reactor</code> is an interactive development tool, used to develop and debug Elm
+programs. It will automatically compile an Elm program, and run it in the
+browser, with editor agnostic support for hot-swapping and time-travel
+debugging.
+</p>
+
+<p>
+To preview <code>Main.elm</code>, press <code>C-c C-m</code> (or <code>SPC m R m</code>).
+Alternatively, to preview from buffer, press <code>C-u C-c C-n</code> (or <code>SPC m R
+n</code>). To preview in debug mode, prefix with <code>C-u</code> (or <code>SPC u</code>).
+</p>
+
+<p>
+By default, <code>elm-reactor</code> with launch with its own generated index.html. To use
+a custom html, you'd need to load the debuger excplictly and use an http daemon
+to serve your custom file.
+</p>
+
+<p>
+If needed, default values for host and port used by for the elm-reactor server
+can be controlled by passing in these variables in your <code>~/.spacemacs</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>elm <span style="color: #ff9eb8;">:variables</span>
+     elm-reactor-port <span style="color: #E6DB74; font-style: italic;">"3000"</span>          <span style="color: #75715E;">; </span><span style="color: #75715E; font-style: italic;">default 8000</span>
+     elm-reactor-address <span style="color: #E6DB74; font-style: italic;">"0.0.0.0"</span><span style="color: #AE81FF;">)</span> <span style="color: #75715E;">; </span><span style="color: #75715E; font-style: italic;">default 127.0.0.1</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-2">
+<h2 id="orgheadline18"><span class="section-number-2">4</span> Key bindings</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">4.1</span> elm-make</h3>
+<div class="outline-text-3" id="text-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m c b</code></td>
+<td class="org-left">elm-compile-buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c B</code></td>
+<td class="org-left">spacemacs/elm-compile-buffer-override-output</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c m</code></td>
+<td class="org-left">elm-compile-main</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">4.2</span> elm-repl</h3>
+<div class="outline-text-3" id="text-4-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m s i</code></td>
+<td class="org-left">load-elm-repl</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s f</code></td>
+<td class="org-left">send current function to REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s F</code></td>
+<td class="org-left">send current function to REPL and focus it in insert state</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s r</code></td>
+<td class="org-left">send current region to REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s R</code></td>
+<td class="org-left">send current region to REPL and focus it in insert state</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">4.3</span> elm-reactor</h3>
+<div class="outline-text-3" id="text-4-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m R n</code></td>
+<td class="org-left">elm-preview-buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m R m</code></td>
+<td class="org-left">elm-preview-main</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">4.4</span> elm-package</h3>
+<div class="outline-text-3" id="text-4-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m p i</code></td>
+<td class="org-left">elm-import</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m p c</code></td>
+<td class="org-left">elm-package-catalog</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m p d</code></td>
+<td class="org-left">elm-documentation-lookup</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">4.4.1</span> package list buffer</h4>
+<div class="outline-text-4" id="text-4-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>g</code></td>
+<td class="org-left">elm-package-refresh</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>n</code></td>
+<td class="org-left">elm-package-next</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>p</code></td>
+<td class="org-left">elm-package-previous</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>v</code></td>
+<td class="org-left">elm-package-view</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m</code></td>
+<td class="org-left">elm-package-mark</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>u</code></td>
+<td class="org-left">elm-package-unmark</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>x</code></td>
+<td class="org-left">elm-package-install</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>q</code></td>
+<td class="org-left">quit-window</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">4.5</span> elm-oracle</h3>
+<div class="outline-text-3" id="text-4-5">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m h t</code></td>
+<td class="org-left">elm-oracle-type-at-point</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

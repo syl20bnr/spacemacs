@@ -1,0 +1,1278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:47 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spacemacs Conventions</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Spacemacs Conventions</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline3">1. Code guidelines</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Spacemacs core and layer</a></li>
+<li><a href="#orgheadline2">1.2. All layers</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline32">2. Key bindings conventions</a>
+<ul>
+<li><a href="#orgheadline7">2.1. Reserved prefix</a>
+<ul>
+<li><a href="#orgheadline4">2.1.1. User prefix</a></li>
+<li><a href="#orgheadline5">2.1.2. Major mode prefix</a></li>
+<li><a href="#orgheadline6">2.1.3. Micro-state</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline8">2.2. Evilified buffers</a></li>
+<li><a href="#orgheadline12">2.3. Navigation</a>
+<ul>
+<li><a href="#orgheadline9">2.3.1. n and N</a></li>
+<li><a href="#orgheadline10">2.3.2. Code Navigation</a></li>
+<li><a href="#orgheadline11">2.3.3. <code>insert state</code> buffers</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline13">2.4. Evaluation</a></li>
+<li><a href="#orgheadline16">2.5. REPLs</a>
+<ul>
+<li><a href="#orgheadline14">2.5.1. Send code</a></li>
+<li><a href="#orgheadline15">2.5.2. In terminal</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline17">2.6. Building and Compilation</a></li>
+<li><a href="#orgheadline18">2.7. Debugging</a></li>
+<li><a href="#orgheadline25">2.8. Plain Text Markup Languages</a>
+<ul>
+<li><a href="#orgheadline19">2.8.1. Headers</a></li>
+<li><a href="#orgheadline20">2.8.2. Insertion of common elements</a></li>
+<li><a href="#orgheadline21">2.8.3. Text manipulation</a></li>
+<li><a href="#orgheadline22">2.8.4. Movement in normal mode</a></li>
+<li><a href="#orgheadline23">2.8.5. Promotion, Demotion and element movement</a></li>
+<li><a href="#orgheadline24">2.8.6. Table editing</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline28">2.9. Tests</a>
+<ul>
+<li><a href="#orgheadline26">2.9.1. All languages</a></li>
+<li><a href="#orgheadline27">2.9.2. Language specific</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline29">2.10. Toggles</a></li>
+<li><a href="#orgheadline30">2.11. Refactoring</a></li>
+<li><a href="#orgheadline31">2.12. Help or Documentation</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline34">3. Writing documentation</a>
+<ul>
+<li><a href="#orgheadline33">3.1. Spacing in documentation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> Code guidelines</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Spacemacs core and layer</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Function names follow these conventions:
+</p>
+<ul class="org-ul">
+<li><code>spacemacs/xxx</code> is an interactive function called <code>xxx</code></li>
+<li><code>spacemacs//xxx</code> is a private function called <code>xxx</code> (implementation details)</li>
+<li><code>spacemacs|xxx</code> is a <i>macro</i> called <code>xxx</code></li>
+</ul>
+
+<p>
+Variables follow these conventions:
+</p>
+<ul class="org-ul">
+<li><code>spacemacs-xxx</code> is a variable</li>
+<li><code>spacemacs--xxx</code> is a private variable (implementation details)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> All layers</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+A package is initialized in a function with name <code>&lt;layer&gt;/init-xxx</code> where:
+</p>
+<ul class="org-ul">
+<li><code>&lt;layer&gt;</code> is the layer name</li>
+<li><code>xxx</code> is the package name</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline32" class="outline-2">
+<h2 id="orgheadline32"><span class="section-number-2">2</span> Key bindings conventions</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">2.1</span> Reserved prefix</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-orgheadline4" class="outline-4">
+<h4 id="orgheadline4"><span class="section-number-4">2.1.1</span> User prefix</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<p>
+<code>SPC o</code> and <code>SPC m o</code> must not be used by any layer. They are reserved for the
+user.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">2.1.2</span> Major mode prefix</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<p>
+<code>SPC m</code> is reserved for the current major mode. Three keys bindings are not an
+issue (ie. <code>SPC m h d</code>) since <code>SPC m</code> can be accessed via ~,~.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6"><span class="section-number-4">2.1.3</span> Micro-state</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<p>
+Whenever possible a micro-state should be enabled with <code>M-SPC</code> and <code>s-M-SPC</code>. We
+need the latter bindings on OS X since <code>M-SPC</code> is used by the OS for spotlight.
+</p>
+
+<p>
+For instance micro-states dedicated to special buffers like <code>helm</code> or <code>ido</code>
+buffers are good candidates to be put on <code>M-SPC</code> and <code>s-M-SPC</code>.
+</p>
+
+<p>
+It is recommended to add <code>q</code> to leave the micro-state.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">2.2</span> Evilified buffers</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+<i>Evilifying</i> a buffer is to set the <code>evilified state</code> as the default
+state for the major mode of the buffer.
+</p>
+
+<p>
+The <code>evilified state</code> is derived from the <code>emacs state</code> and modify the
+map to:
+</p>
+<ul class="org-ul">
+<li>add <code>hjkl</code> navigation</li>
+<li>add scrolling feature on <code>C-f</code>, <code>C-b</code>, <code>C-d</code> and <code>C-u</code></li>
+<li><code>G</code> and <code>gg</code> to go to the end and beginning of the buffer</li>
+<li>add incremental search with <code>/</code>, <code>n</code> and <code>N</code></li>
+<li>enabling <code>evil-ex</code> on <code>:</code></li>
+<li>add <code>visual state</code> and <code>visual line state</code> on <code>v</code> and <code>V</code></li>
+<li>add yank on <code>y</code> <span class="underline">in visual state only</span></li>
+<li>activate evil-leader key on <code>SPC</code></li>
+</ul>
+
+<p>
+Setting the <code>evilified state</code> to a mode is done by calling the macro
+<code>spacemacs|evilify-map</code>.
+</p>
+
+<p>
+<i>Evilification</i> rebinds shadowed key bindings according to the following
+rules:
+</p>
+<ul class="org-ul">
+<li>alphabetic key bindings: <code>x</code> -&gt; <code>X</code> -&gt; <code>C-x</code> -&gt; <code>C-X</code></li>
+<li><code>SPC</code> -&gt; ~'~</li>
+<li><code>/</code> -&gt; <code>\</code></li>
+<li><code>:</code> -&gt; <code>|</code></li>
+<li><code>C-g</code> cannot be shadowed</li>
+</ul>
+
+<p>
+If a key binding cannot be remapped then it is ignored and a warning message
+is displayed in <code>*Messages*</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">2.3</span> Navigation</h3>
+<div class="outline-text-3" id="text-2-3">
+</div><div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9"><span class="section-number-4">2.3.1</span> n and N</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<p>
+To be consistent with the Vim way, <code>n</code> and <code>N</code> are favored over Emacs <code>n</code> and
+<code>p</code>.
+</p>
+
+<p>
+Ideally a micro-state should be provided to smooth the navigation
+experience. A micro-state allows to repeat key bindings without entering
+each time the prefix commands. More info on micro-states in the
+<a href="DOCUMENTATION.html#orgheadline57">documentation</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10"><span class="section-number-4">2.3.2</span> Code Navigation</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+The prefix for going to something is <code>SPC m g</code>.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>m g a</code></td>
+<td class="org-left">go to alternate file (i.e. <code>.h &lt;--&gt; .cpp</code>)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m g b</code></td>
+<td class="org-left">go back to previous location (before last jump)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m g g</code></td>
+<td class="org-left">go to things under point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m g G</code></td>
+<td class="org-left">go to things under point in other window</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m g t</code></td>
+<td class="org-left">go to corresponding test file if any</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11"><span class="section-number-4">2.3.3</span> <code>insert state</code> buffers</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<p>
+Navigation in buffers like <code>Helm</code> and <code>ido</code> which are in <code>insert state</code>
+should be performed with <code>C-j</code> and <code>C-k</code> bindings for vertical movements.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-j</code></td>
+<td class="org-left">go down</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-k</code></td>
+<td class="org-left">go up</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">2.4</span> Evaluation</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+Live evaluation of code is under the prefix <code>SPC m e</code>.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>m e $</code></td>
+<td class="org-left">put the point at the end of the line and evaluate</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m e b</code></td>
+<td class="org-left">evaluate buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m e e</code></td>
+<td class="org-left">evaluate last expression</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m e f</code></td>
+<td class="org-left">evaluate function</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m e l</code></td>
+<td class="org-left">evaluate line</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m e r</code></td>
+<td class="org-left">evaluate region</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">2.5</span> REPLs</h3>
+<div class="outline-text-3" id="text-2-5">
+</div><div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14"><span class="section-number-4">2.5.1</span> Send code</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<p>
+A lot of languages can interact with a REPL. To help keeping a
+consistent behavior between those languages the following conventions
+should be followed:
+</p>
+<ul class="org-ul">
+<li><code>SPC m s</code> is the prefix for sending code. This allows fast interaction with
+the REPL whenever it is possible</li>
+<li>lower case key bindings keep the focus on the current buffer</li>
+<li>upper case key bindings move the focus to the REPL buffer</li>
+</ul>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>m s b</code></td>
+<td class="org-left">send buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m s B</code></td>
+<td class="org-left">send buffer and switch to REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m s d</code></td>
+<td class="org-left">first key to send buffer and switch to REPL to debug (step)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m s D</code></td>
+<td class="org-left">second key to send buffer and switch to REPL to debug (step)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m s f</code></td>
+<td class="org-left">send function</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m s F</code></td>
+<td class="org-left">send function and switch to REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m s i</code></td>
+<td class="org-left">start/switch to REPL inferior process</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m s l</code></td>
+<td class="org-left">send line</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m s L</code></td>
+<td class="org-left">send line and switch to REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m s r</code></td>
+<td class="org-left">send region</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m s R</code></td>
+<td class="org-left">send region and switch to REPL</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Note: we don't distinguish between the file and the buffer.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">2.5.2</span> In terminal</h4>
+<div class="outline-text-4" id="text-2-5-2">
+<p>
+History navigation in shells or REPLs buffers should be bound as well to
+<code>C-j</code> and <code>C-k</code>.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-j</code></td>
+<td class="org-left">next item in history</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-k</code></td>
+<td class="org-left">previous item in  history</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-l</code></td>
+<td class="org-left">clear screen</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-r</code></td>
+<td class="org-left">search backward in history</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">2.6</span> Building and Compilation</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+The base prefix for major mode specific compilation is <code>SPC m c</code>.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>m c b</code></td>
+<td class="org-left">compile buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m c c</code></td>
+<td class="org-left">compile</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m c r</code></td>
+<td class="org-left">clean and compile</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Note: we don't distinguish between the file and the buffer. We can
+implement an auto-save of the buffer before compiling the buffer.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">2.7</span> Debugging</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+The base prefix for debugging commands is <code>SPC d</code>.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>m d a</code></td>
+<td class="org-left">abandon current process</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m d b</code></td>
+<td class="org-left">toggle a breakpoint</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m d B</code></td>
+<td class="org-left">clear all breakpoints</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m d c</code></td>
+<td class="org-left">continue</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m d d</code></td>
+<td class="org-left">start debug session</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m d i</code></td>
+<td class="org-left">inspect value at point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m d l</code></td>
+<td class="org-left">local variables</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m d n</code></td>
+<td class="org-left">next</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m d r</code></td>
+<td class="org-left">run</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m d s</code></td>
+<td class="org-left">step</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Notes:
+</p>
+<ul class="org-ul">
+<li>Ideally a micro-state for breakpoint navigation should be provided.</li>
+<li>If there is no toggle breakpoint function, then it should be implemented at
+the spacemacs level and ideally the function should be proposed as a patch
+upstream (major mode repository).</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25"><span class="section-number-3">2.8</span> Plain Text Markup Languages</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+For layers supporting markup languages please follow the following
+keybindings whenever applicable.
+</p>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-4">
+<h4 id="orgheadline19"><span class="section-number-4">2.8.1</span> Headers</h4>
+<div class="outline-text-4" id="text-2-8-1">
+<p>
+All header functionality should be grouped under <code>SPC m h</code>
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>m h i</code></td>
+<td class="org-left">Insert a header</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m h I</code></td>
+<td class="org-left">Insert a header alternative method (if existing)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m h 1..10</code></td>
+<td class="org-left">Insert a header of level 1..10 (if possible)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-4">
+<h4 id="orgheadline20"><span class="section-number-4">2.8.2</span> Insertion of common elements</h4>
+<div class="outline-text-4" id="text-2-8-2">
+<p>
+Insertion of common elements like links or footnotes should be grouped
+under <code>SPC m i</code>
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>m i f</code></td>
+<td class="org-left">Insert footnote</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m i i</code></td>
+<td class="org-left">Insert image</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m i l</code></td>
+<td class="org-left">Insert link</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m i u</code></td>
+<td class="org-left">Insert url</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m i w</code></td>
+<td class="org-left">Insert wiki-link</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">2.8.3</span> Text manipulation</h4>
+<div class="outline-text-4" id="text-2-8-3">
+<p>
+Manipulation of text regions should be grouped under <code>SPC m x</code>
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>m x b</code></td>
+<td class="org-left">Make region bold</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m x c</code></td>
+<td class="org-left">Make region code</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m x i</code></td>
+<td class="org-left">Make region italic</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m x q</code></td>
+<td class="org-left">Quote a region</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m x r</code></td>
+<td class="org-left">Remove formatting from region</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m x s</code></td>
+<td class="org-left">Make region strike-through</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m x u</code></td>
+<td class="org-left">Make region underlined</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m x v</code></td>
+<td class="org-left">Make region verbose</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-4">
+<h4 id="orgheadline22"><span class="section-number-4">2.8.4</span> Movement in normal mode</h4>
+<div class="outline-text-4" id="text-2-8-4">
+<p>
+In normal mode Vim style movement should be enabled with these keybindings:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>g h</code></td>
+<td class="org-left">Move up one level in headings</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>g j</code></td>
+<td class="org-left">Move to next heading on same level</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>g k</code></td>
+<td class="org-left">Move to previous heading on same level</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>g l</code></td>
+<td class="org-left">Move down one level in headings</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-4">
+<h4 id="orgheadline23"><span class="section-number-4">2.8.5</span> Promotion, Demotion and element movement</h4>
+<div class="outline-text-4" id="text-2-8-5">
+<p>
+Promotion, demotion and movement of headings or list elements (whatever is
+possible) should be enabled with the following keys in any mode
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>M-h</code></td>
+<td class="org-left">Promote heading by one level</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M-j</code></td>
+<td class="org-left">Move element down</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M-k</code></td>
+<td class="org-left">Move element up</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M-l</code></td>
+<td class="org-left">Demote heading by one level</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-4">
+<h4 id="orgheadline24"><span class="section-number-4">2.8.6</span> Table editing</h4>
+<div class="outline-text-4" id="text-2-8-6">
+<p>
+If table specific commands are available the they are grouped under the
+<code>SPC m t</code> group.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline28" class="outline-3">
+<h3 id="orgheadline28"><span class="section-number-3">2.9</span> Tests</h3>
+<div class="outline-text-3" id="text-2-9">
+<p>
+A lot of languages have their own test frameworks. These frameworks
+share common actions that we can unite under the same key bindings:
+</p>
+<ul class="org-ul">
+<li><code>SPC m t</code> is the prefix for test execution.</li>
+<li><code>SPC m t X</code> is used to execute <code>SPC m t x</code> but in debug mode (if supported).</li>
+</ul>
+</div>
+
+<div id="outline-container-orgheadline26" class="outline-4">
+<h4 id="orgheadline26"><span class="section-number-4">2.9.1</span> All languages</h4>
+<div class="outline-text-4" id="text-2-9-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>m t a</code></td>
+<td class="org-left">execute all the tests of the current project</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m t A</code></td>
+<td class="org-left">execute all the tests of the current project in debug</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m t b</code></td>
+<td class="org-left">execute all the tests of the current buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m t B</code></td>
+<td class="org-left">execute all the tests of the current buffer in debug</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m t t</code></td>
+<td class="org-left">execute the current test (thing at point, function)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m t T</code></td>
+<td class="org-left">execute the current test in debug (thing at point, function)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Note: we don't distinguish between the file and the buffer. We can
+implement an auto-save of the buffer before executing the tests of
+buffer.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-4">
+<h4 id="orgheadline27"><span class="section-number-4">2.9.2</span> Language specific</h4>
+<div class="outline-text-4" id="text-2-9-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>m t m</code></td>
+<td class="org-left">execute the tests of the current module</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m t M</code></td>
+<td class="org-left">execute the tests of the current module in debug</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m t s</code></td>
+<td class="org-left">execute the tests of the current suite</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m t S</code></td>
+<td class="org-left">execute the tests of the current suite in debug</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Note that there are overlaps, depending on the language we will choose
+one or more bindings for the same thing
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline29" class="outline-3">
+<h3 id="orgheadline29"><span class="section-number-3">2.10</span> Toggles</h3>
+<div class="outline-text-3" id="text-2-10">
+<ul class="org-ul">
+<li>Global toggles are under <code>SPC t</code>, <code>SPC T</code> and <code>SPC C-t</code></li>
+<li>Major mode toggles are only under <code>SPC m T</code></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline30" class="outline-3">
+<h3 id="orgheadline30"><span class="section-number-3">2.11</span> Refactoring</h3>
+<div class="outline-text-3" id="text-2-11">
+<p>
+Refactoring prefix is <code>SPC m r</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline31" class="outline-3">
+<h3 id="orgheadline31"><span class="section-number-3">2.12</span> Help or Documentation</h3>
+<div class="outline-text-3" id="text-2-12">
+<p>
+The base prefix for help commands is <code>SPC h</code>. Documentation is considered
+as an help command.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>m h h</code></td>
+<td class="org-left">documentation of thing under point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m h r</code></td>
+<td class="org-left">documentation of selected region</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline34" class="outline-2">
+<h2 id="orgheadline34"><span class="section-number-2">3</span> Writing documentation</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Spacemacs provides an example layer <code>README.org</code> file in
+<code>~/.emacs.d/core/templates/layer-README.template</code>.
+</p>
+</div>
+
+<div id="outline-container-orgheadline33" class="outline-3">
+<h3 id="orgheadline33"><span class="section-number-3">3.1</span> Spacing in documentation</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Spacemacs tries to keep the documentation consistent between all layers by
+providing some rules for spacing:
+</p>
+<ul class="org-ul">
+<li>After each header, you should not add an empty line
+<ul class="org-ul">
+<li><b>Exception</b>: If the first item under the header is a table, add an empty
+line after it</li>
+</ul></li>
+<li>At the end of each header node, there should be an empty line</li>
+<li>Note: Many layer <code>READMEs</code> do not follow this convention yet. Please fix
+them if you can.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:47</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

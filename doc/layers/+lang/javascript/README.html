@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>JavaScript contribution layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">JavaScript contribution layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline2">1. Description</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Features:</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline3">2. Install</a></li>
+<li><a href="#orgheadline4">3. Configuration</a></li>
+<li><a href="#orgheadline12">4. Key Bindings</a>
+<ul>
+<li><a href="#orgheadline5">4.1. js2-mode</a></li>
+<li><a href="#orgheadline6">4.2. Folding (js2-mode)</a></li>
+<li><a href="#orgheadline7">4.3. Refactoring (js2-refactor)</a></li>
+<li><a href="#orgheadline9">4.4. Formatting (web-beautify)</a>
+<ul>
+<li><a href="#orgheadline8">4.4.1. Documentation (js-doc)</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline10">4.5. Auto-complete and documentation (tern)</a></li>
+<li><a href="#orgheadline11">4.6. JSON</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<img src="img/javascript.png" alt="javascript.png" /> <img src="img/coffee.png" alt="coffee.png" />
+</p>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This layer adds support for the JavaScript language using <a href="https://github.com/mooz/js2-mode">js2-mode</a>.
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Features:</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Smart code folding</li>
+<li>Refactoring: done using <a href="https://github.com/magnars/js2-refactor.el">js2-refactor</a>.</li>
+<li>Auto-completion and documentation: provided by <a href="http://ternjs.net/">tern</a></li>
+<li>CoffeeScript support</li>
+<li>Formatting with <a href="https://github.com/yasuyk/web-beautify">web-beautify</a></li>
+<li>Get the path to a JSON value with <a href="https://github.com/Sterlingg/json-snatcher">json-snatcher</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">2</span> Install</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+To use this contribution add it to your <code>~/.spacemacs</code>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>javascript<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+You will also need to install <code>tern</code> to use the auto-completion and
+documentation features:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ npm install -g tern
+</pre>
+</div>
+
+<p>
+To use the formatting features, install <code>js-beautify</code>:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ npm install -g js-beautify
+</pre>
+</div>
+
+<p>
+To activate error checking using flycheck install <code>JSHint</code>:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ npm install -g jshint
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">3</span> Configuration</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+To change how js2-mode indents code, set the variable <code>js2-basic-offset</code>, as such:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default js2-basic-offset <span style="color: #AE81FF;">2</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+Similarly, to change how js-mode indents JSON files, set the variable <code>js-indent-level</code>, as such:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default js-indent-level <span style="color: #AE81FF;">2</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">4</span> Key Bindings</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">4.1</span> js2-mode</h3>
+<div class="outline-text-3" id="text-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m w</code></td>
+<td class="org-left">toggle js2-mode warnings and errors</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>%</code></td>
+<td class="org-left">jump between blockswith <a href="https://github.com/redguardtoo/evil-matchit">evil-matchit</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">4.2</span> Folding (js2-mode)</h3>
+<div class="outline-text-3" id="text-4-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m z c</code></td>
+<td class="org-left">hide element</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m z o</code></td>
+<td class="org-left">show element</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m z r</code></td>
+<td class="org-left">show all element</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m z e</code></td>
+<td class="org-left">toggle hide/show element</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m z F</code></td>
+<td class="org-left">toggle hide functions</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m z C</code></td>
+<td class="org-left">toggle hide comments</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">4.3</span> Refactoring (js2-refactor)</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Bindings should match the plain emacs assignments.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC x m j</code></td>
+<td class="org-left">move line down, while keeping commas correctly placed</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC x m k</code></td>
+<td class="org-left">move line up, while keeping commas correctly placed</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m k</code></td>
+<td class="org-left">deletes to the end of the line, but does not cross semantic boundaries</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r 3 i</code></td>
+<td class="org-left">converts ternary operator to if-statement</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r a g</code></td>
+<td class="org-left">creates a <code>/* global */</code> annotation if it is missing, and adds var to point to it</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r a o</code></td>
+<td class="org-left">replaces arguments to a function call with an object literal of named arguments</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r b a</code></td>
+<td class="org-left">moves the last child out of current function, if-statement, for-loop or while-loop</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r c a</code></td>
+<td class="org-left">converts a multiline array to one line</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r c o</code></td>
+<td class="org-left">converts a multiline object literal to one line</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r c u</code></td>
+<td class="org-left">converts a multiline function to one line (expecting semicolons as statement delimiters)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r e a</code></td>
+<td class="org-left">converts a one line array to multiline</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r e f</code></td>
+<td class="org-left">extracts the marked expressions into a new named function</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r e m</code></td>
+<td class="org-left">extracts the marked expressions out into a new method in an object literal</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r e o</code></td>
+<td class="org-left">converts a one line object literal to multiline</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r e u</code></td>
+<td class="org-left">converts a one line function to multiline (expecting semicolons as statement delimiters)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r e v</code></td>
+<td class="org-left">takes a marked expression and replaces it with a var</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r i g</code></td>
+<td class="org-left">creates a shortcut for a marked global by injecting it in the wrapping immediately invoked function expression</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r i p</code></td>
+<td class="org-left">changes the marked expression to a parameter in a local function</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r i v</code></td>
+<td class="org-left">replaces all instances of a variable with its initial value</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r l p</code></td>
+<td class="org-left">changes a parameter to a local var in a local function</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r l t</code></td>
+<td class="org-left">adds a console.log statement for what is at point (or region)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r v</code></td>
+<td class="org-left">renames the variable on point and all occurrences in its lexical scope</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r s l</code></td>
+<td class="org-left">moves the next statement into current function, if-statement, for-loop, while-loop</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r s s</code></td>
+<td class="org-left">splits a <code>String</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r s v</code></td>
+<td class="org-left">splits a <code>var</code> with multiple vars declared into several <code>var</code> statements</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r t f</code></td>
+<td class="org-left">toggle between function declaration and function expression</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r u w</code></td>
+<td class="org-left">replaces the parent statement with the selected region</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r v t</code></td>
+<td class="org-left">changes local <code>var a</code> to be <code>this.a</code> instead</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r w i</code></td>
+<td class="org-left">wraps the entire buffer in an immediately invoked function expression</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r w l</code></td>
+<td class="org-left">wraps the region in a for-loop</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">4.4</span> Formatting (web-beautify)</h3>
+<div class="outline-text-3" id="text-4-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m =</code></td>
+<td class="org-left">beautify code in js2-mode, json-mode, web-mode, and css-mode</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8"><span class="section-number-4">4.4.1</span> Documentation (js-doc)</h4>
+<div class="outline-text-4" id="text-4-4-1">
+<p>
+You can check more <a href="https://github.com/mooz/js-doc/">here</a>
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m r d b</code></td>
+<td class="org-left">insert JSDoc comment for current file</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r d f</code></td>
+<td class="org-left">insert JSDoc comment for function</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r d t</code></td>
+<td class="org-left">insert tag to comment</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r d h</code></td>
+<td class="org-left">show list of available jsdoc tags</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">4.5</span> Auto-complete and documentation (tern)</h3>
+<div class="outline-text-3" id="text-4-5">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m C-g</code></td>
+<td class="org-left">brings you back to last place you were when you pressed M-..</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g g</code></td>
+<td class="org-left">jump to the definition of the thing under the cursor</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g G</code></td>
+<td class="org-left">jump to definition for the given name</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h d</code></td>
+<td class="org-left">find docs of the thing under the cursor. Press again to open the associated URL (if any)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h t</code></td>
+<td class="org-left">find the type of the thing under the cursor</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r V</code></td>
+<td class="org-left">rename variable under the cursor using tern</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">4.6</span> JSON</h3>
+<div class="outline-text-3" id="text-4-6">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m h p</code></td>
+<td class="org-left">Get the path of the value at point</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

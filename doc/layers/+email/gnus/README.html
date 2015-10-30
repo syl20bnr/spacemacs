@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gnus contribution layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Gnus contribution layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Install</a></li>
+<li><a href="#orgheadline2">2. Basic Concepts</a></li>
+<li><a href="#orgheadline4">3. Adding news sources</a></li>
+<li><a href="#orgheadline5">4. Configuring gmail</a></li>
+<li><a href="#orgheadline6">5. Org MIME in Org layer</a></li>
+<li><a href="#orgheadline3">6. Keybindings</a></li>
+</ul>
+</div>
+</div>
+
+<div class="figure">
+<p><img src="img/gnus.gif" alt="gnus.gif" />
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Install</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+To use this contribution layer add it to your <code>~/.spacemacs</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>gnus<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Basic Concepts</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Gnus is a news reading application. The Gnus terminology can be confusing for
+new users so the basics are listed here:
+</p>
+
+<dl class="org-dl">
+<dt>Group</dt><dd>A Newsgroup but can also be a RSS Feed or a mail directory</dd>
+<dt>Topic</dt><dd>Newsgroups can be assigned to topics which will be used to structure
+the Group Buffer if Topic Mode is enabled(default).</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">3</span> Adding news sources</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Adding news sources can be done in your <code>.spacemacs</code> file by adding the
+following:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Get email, and store in nnml</span>
+<span style="color: #AE81FF;">(</span>setq gnus-secondary-select-methods
+  '<span style="color: #66D9EF;">(</span>
+    <span style="color: #A6E22E;">(</span>nntp <span style="color: #E6DB74; font-style: italic;">"gmane"</span>
+           <span style="color: #E6DB74;">(</span>nntp-address <span style="color: #E6DB74; font-style: italic;">"news.gmane.org"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+    <span style="color: #A6E22E;">(</span>nntp <span style="color: #E6DB74; font-style: italic;">"news.eternal-september.org"</span><span style="color: #A6E22E;">)</span>
+    <span style="color: #A6E22E;">(</span>nntp <span style="color: #E6DB74; font-style: italic;">"nntp.aioe.org"</span><span style="color: #A6E22E;">)</span>
+    <span style="color: #A6E22E;">(</span>nntp <span style="color: #E6DB74; font-style: italic;">"news.gwene.org"</span><span style="color: #A6E22E;">)</span>
+    <span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+For adding RSS Feeds please see the <a href="#orgheadline3">keybindings section</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">4</span> Configuring gmail</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+To configure Gnus with gmail support you can add the following to your
+<code>.spacemacs</code> file. 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Get email, and store in nnml</span>
+<span style="color: #AE81FF;">(</span>setq gnus-secondary-select-methods
+'<span style="color: #66D9EF;">(</span>
+  <span style="color: #A6E22E;">(</span>nnimap <span style="color: #E6DB74; font-style: italic;">"gmail"</span>
+           <span style="color: #E6DB74;">(</span>nnimap-address
+            <span style="color: #E6DB74; font-style: italic;">"imap.gmail.com"</span><span style="color: #E6DB74;">)</span>
+           <span style="color: #E6DB74;">(</span>nnimap-server-port <span style="color: #AE81FF;">993</span><span style="color: #E6DB74;">)</span>
+           <span style="color: #E6DB74;">(</span>nnimap-stream ssl<span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+  <span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Send email via Gmail:</span>
+<span style="color: #AE81FF;">(</span>setq message-send-mail-function 'smtpmail-send-it
+  smtpmail-default-smtp-server <span style="color: #E6DB74; font-style: italic;">"smtp.gmail.com"</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Archive outgoing email in Sent folder on imap.gmail.com:</span>
+<span style="color: #AE81FF;">(</span>setq gnus-message-archive-method '<span style="color: #66D9EF;">(</span>nnimap <span style="color: #E6DB74; font-style: italic;">"imap.gmail.com"</span><span style="color: #66D9EF;">)</span>
+    gnus-message-archive-group <span style="color: #E6DB74; font-style: italic;">"[Gmail]/Sent Mail"</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">set return email address based on incoming email address</span>
+<span style="color: #AE81FF;">(</span>setq gnus-posting-styles
+    '<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">(</span>header <span style="color: #E6DB74; font-style: italic;">"to"</span> <span style="color: #E6DB74; font-style: italic;">"address@outlook.com"</span><span style="color: #E6DB74;">)</span>
+       <span style="color: #E6DB74;">(</span>address <span style="color: #E6DB74; font-style: italic;">"address@outlook.com"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span>
+  <span style="color: #A6E22E;">(</span><span style="color: #E6DB74;">(</span>header <span style="color: #E6DB74; font-style: italic;">"to"</span> <span style="color: #E6DB74; font-style: italic;">"address@gmail.com"</span><span style="color: #E6DB74;">)</span>
+     <span style="color: #E6DB74;">(</span>address <span style="color: #E6DB74; font-style: italic;">"address@gmail.com"</span><span style="color: #E6DB74;">)</span><span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">store email in ~/gmail directory</span>
+<span style="color: #AE81FF;">(</span>setq nnml-directory <span style="color: #E6DB74; font-style: italic;">"~/gmail"</span><span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>setq message-directory <span style="color: #E6DB74; font-style: italic;">"~/gmail"</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+Authentication for your gmail account is best stored in an <code>authinfo</code> or
+<code>authinfo.pgp</code> file. It must be of the form:
+</p>
+
+<pre class="example">
+machine smtp.gmail.com login name@gmail.com password SUPER_SECRET_PASS
+machine imap.gmail.com login name@gmail.com port 993 password SUPER_SECRET_PASS
+</pre>
+
+<p>
+If you use two-step verification the password has to be an <a href="https://support.google.com/accounts/answer/185833?hl=en">application specific
+password</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">5</span> Org MIME in Org layer</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+It is possible to send beautiful HTML emails using org mode.
+</p>
+
+<p>
+Pressing <code>SPC m M</code> in a message buffer will convert the current message
+from org mode to html.  An org mode buffer can be sent via html email by pressing
+<code>SPC m m</code> in any org mode buffer.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">6</span> Keybindings</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Gnus has very modal default keybindings.
+Please see the <a href="http://www.gnus.org/manual.html">manual</a> for a complete list.
+</p>
+
+<p>
+Basic and Spacemacs specific keybindings can be found in the following table.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Gnus mode - Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC a g</code></td>
+<td class="org-left">Starts Gnus</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>m</code></td>
+<td class="org-left">New Message</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>G R</code></td>
+<td class="org-left">Group Buffer - Add RSS feed</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>^</code></td>
+<td class="org-left">Open Server Buffer. Browse Newsgroups.</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>T n</code></td>
+<td class="org-left">Group Buffer - new Topic</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>T m</code></td>
+<td class="org-left">Group Buffer - Move Group to Topic</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>K</code></td>
+<td class="org-left">Article Buffer - Previous article</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>J</code></td>
+<td class="org-left">Article Buffer - Next article</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>RET</code></td>
+<td class="org-left">Summary Buffer(RSS) - Open article Link in browser</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>TAB</code></td>
+<td class="org-left">Summary Buffer(RSS) - Open article and switch to it</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

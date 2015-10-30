@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:47 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Frequently Asked Questions</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Frequently Asked Questions</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline12">1. Common</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Which version of Spacemacs am I running?</a></li>
+<li><a href="#orgheadline2">1.2. What is the official pronunciation of Spacemacs?</a></li>
+<li><a href="#orgheadline3">1.3. Why are packages installed with <code>package-install</code> automatically deleted by Spacemacs when it boots?</a></li>
+<li><a href="#orgheadline4">1.4. The Spacemacs banner is ugly, what should I do?</a></li>
+<li><a href="#orgheadline5">1.5. The powerline separators are ugly, how can I fix them?</a></li>
+<li><a href="#orgheadline6">1.6. The powerline separators have no anti-aliasing, what can I do?</a></li>
+<li><a href="#orgheadline7">1.7. Why is after-init-hook not executed?</a></li>
+<li><a href="#orgheadline8">1.8. What is the difference between <code>spacemacs-base</code> and <code>spacemacs</code> distributions?</a></li>
+<li><a href="#orgheadline9">1.9. How can I change or define an alias for an <code>evil-leader</code> prefix?</a></li>
+<li><a href="#orgheadline10">1.10. Should I place my settings in <code>user-init</code> or <code>user-config</code>?</a></li>
+<li><a href="#orgheadline11">1.11. Why do some of my <code>org</code>-related settings cause problems?</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline21">2. How do I&#x2026;</a>
+<ul>
+<li><a href="#orgheadline13">2.1. Disable a package completely?</a></li>
+<li><a href="#orgheadline14">2.2. Disable a package only for a specific major-mode?</a></li>
+<li><a href="#orgheadline15">2.3. Disable company for a specific major-mode?</a></li>
+<li><a href="#orgheadline16">2.4. Change special buffer rules?</a></li>
+<li><a href="#orgheadline17">2.5. Enable navigation by visual lines?</a></li>
+<li><a href="#orgheadline18">2.6. Disable evilification of a mode?</a></li>
+<li><a href="#orgheadline19">2.7. Include underscores in word motions?</a></li>
+<li><a href="#orgheadline20">2.8. Setup <code>$PATH</code>?</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline25">3. Windows</a>
+<ul>
+<li><a href="#orgheadline22">3.1. Why do the fonts look crappy on Windows?</a></li>
+<li><a href="#orgheadline23">3.2. Why is there no Spacemacs logo in the startup buffer?</a></li>
+<li><a href="#orgheadline24">3.3. Why are all packages unavailable?</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline27">4. OS X</a>
+<ul>
+<li><a href="#orgheadline26">4.1. Why are the powerline colors not correct on OS X?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-2">
+<h2 id="orgheadline12"><span class="section-number-2">1</span> Common</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Which version of Spacemacs am I running?</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+The version is displayed on the upper right corner of the loading screen. You
+may also just type <code>SPC f e v</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> What is the official pronunciation of Spacemacs?</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+As it is written, that is <span class="underline">space</span> then <span class="underline">macs</span>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">1.3</span> Why are packages installed with <code>package-install</code> automatically deleted by Spacemacs when it boots?</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+To declare new packages you have to create a new configuration layer, see the
+<a href="QUICK_START.html">quick start guide</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">1.4</span> The Spacemacs banner is ugly, what should I do?</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Install the default font supported by Spacemacs or choose a fixed width font.
+More information in the font section of the <a href="DOCUMENTATION.html">documentation</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">1.5</span> The powerline separators are ugly, how can I fix them?</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Use the property <code>:powerline-scale</code> of the variable <code>dotspacemacs-default-font</code>.
+See font section of the <a href="DOCUMENTATION.html">documentation</a> for more details.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">1.6</span> The powerline separators have no anti-aliasing, what can I do?</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+Emacs powerline uses XMP images to draw the separators in a graphical
+environment. You can have anti-aliasing if you use the <code>utf8</code> separator. Note
+that by default the <code>utf8</code> separator is used in a terminal. See the powerline
+section in the font section of the <a href="DOCUMENTATION.html">documentation</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">1.7</span> Why is after-init-hook not executed?</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+Don't launch Spacemacs with <code>emacs -q -l init.el</code> command. This command will run
+the hooked function in <code>after-init-hook</code> before the evaluation of the passed <code>-l
+init.el</code> file.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">1.8</span> What is the difference between <code>spacemacs-base</code> and <code>spacemacs</code> distributions?</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+The <code>distribution</code> concept was introduced in 0.104.x. You can now choose
+between two distributions <code>spacemacs</code> or <code>spacemacs-base</code>.
+<code>spacemacs-base</code> contains only a minimal set of packages; whereas <code>spacemacs</code>
+is the full Spacemacs experience.
+Set the distribution with <code>dotspacemacs-distribution</code> variable. The default is
+<code>spacemacs</code>. For more information as to what is included,
+check out the <code>packages.el</code> file in the respective folders in the
+<code>+distribution</code> folder of the <code>layers/</code> directory.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">1.9</span> How can I change or define an alias for an <code>evil-leader</code> prefix?</h3>
+<div class="outline-text-3" id="text-1-9">
+<p>
+It is possible to change an <code>evil-leader</code> prefix by binding its keymap to
+another sequence. For instance, if you want to switch <code>SPC l</code>
+(<code>evil-avy-goto-line</code>) with <code>SPC L</code> (<code>perspectives</code> layer) to make the later
+easier to reach, you can use:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>evil-leader/set-key
+  <span style="color: #E6DB74; font-style: italic;">"l"</span> <span style="color: #66D9EF;">(</span>lookup-key evil-leader--default-map <span style="color: #E6DB74; font-style: italic;">"L"</span><span style="color: #66D9EF;">)</span>
+  <span style="color: #E6DB74; font-style: italic;">"L"</span> 'evil-avy-goto-line<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">1.10</span> Should I place my settings in <code>user-init</code> or <code>user-config</code>?</h3>
+<div class="outline-text-3" id="text-1-10">
+<p>
+Any variable that layer configuration code will <b>read</b> and <b>act on</b> must be set
+in <code>user-init</code>, and any variable that Spacemacs explicitly sets but you wish to
+<b>override</b> must be set in <code>user-config</code>.
+</p>
+
+<p>
+Anything that isn't just setting a variable should 99% be in <code>user-config</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">1.11</span> Why do some of my <code>org</code>-related settings cause problems?</h3>
+<div class="outline-text-3" id="text-1-11">
+<p>
+Since version 0.104, spacemacs uses the `org` version from the org ELPA
+repository instead of the one shipped with emacs. Then, any `org` related code
+should not be loaded before `dotspacemacs/user-config`, otherwise both versions
+will be loaded and will conflict.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-2">
+<h2 id="orgheadline21"><span class="section-number-2">2</span> How do I&#x2026;</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">2.1</span> Disable a package completely?</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+To completely disable a package and effectively uninstalling it even if
+it is part of your used layers, look for the variable
+<code>dotspacemacs-excluded-packages</code> in your dotfile and add the package
+name to it:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-excluded-packages '<span style="color: #66D9EF;">(</span>package1 package2 ...<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">2.2</span> Disable a package only for a specific major-mode?</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+This is done by removing the hook added by Spacemacs. For example to
+remove <code>flycheck</code> support in python buffers, look for the function
+<code>dotspacemacs/user-config</code> in your dotfile and add the following code:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>remove-hook 'python-mode-hook 'flycheck-mode<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+<b>Hint</b> to know the name of the major-mode of the current buffer press:
+<code>SPC h d v major-mode RET</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">2.3</span> Disable company for a specific major-mode?</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+It may be handy to disable <code>company</code> for a given mode if you plan on
+configuring <code>auto-complete</code> instead. On easy way to do it is to use the
+macro <code>spacemacs|disable-company</code> in the function <code>dotspacemacs/user-config</code>
+of your dotfile. The following snippet disables company for
+<code>python-mode</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>spacemacs|disable-company python-mode<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">2.4</span> Change special buffer rules?</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+To change the way spacemacs marks buffers as useless, you can customize
+<code>spacemacs-useless-buffers-regexp</code> which marks buffers matching the
+regexp as useless. The variable <code>spacemacs-useful-buffers-regexp</code> marks
+buffers matching the regexp as useful buffers. Both can be customized
+the same way.
+</p>
+
+<p>
+Examples:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Only mark helm buffers as useless</span>
+<span style="color: #AE81FF;">(</span>setq spacemacs-useless-buffers-regexp '<span style="color: #66D9EF;">(</span><span style="color: #E6DB74; font-style: italic;">"\\*helm\.\+\\*"</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Marking the *Messages* buffer as useful</span>
+<span style="color: #AE81FF;">(</span>push <span style="color: #E6DB74; font-style: italic;">"\\*Messages\\*"</span> spacemacs-useful-buffers-regexp<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">2.5</span> Enable navigation by visual lines?</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+Add the following snippet to your <code>dostpacemacs/config</code> function:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Make evil-mode up/down operate in screen lines instead of logical lines</span>
+<span style="color: #AE81FF;">(</span>define-key evil-motion-state-map <span style="color: #E6DB74; font-style: italic;">"j"</span> 'evil-next-visual-line<span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>define-key evil-motion-state-map <span style="color: #E6DB74; font-style: italic;">"k"</span> 'evil-previous-visual-line<span style="color: #AE81FF;">)</span>
+<span style="color: #75715E;">;; </span><span style="color: #75715E; font-style: italic;">Also in visual mode</span>
+<span style="color: #AE81FF;">(</span>define-key evil-visual-state-map <span style="color: #E6DB74; font-style: italic;">"j"</span> 'evil-next-visual-line<span style="color: #AE81FF;">)</span>
+<span style="color: #AE81FF;">(</span>define-key evil-visual-state-map <span style="color: #E6DB74; font-style: italic;">"k"</span> 'evil-previous-visual-line<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">2.6</span> Disable evilification of a mode?</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+You can ensure a mode opens in emacs state by using <code>evil-set-initial-state</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>evil-set-initial-state 'magit-status-mode 'emacs<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+You can also do this using buffer name regular expressions. E.g. for magit,
+which has a number of different major modes, you can catch them all with
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>push '<span style="color: #66D9EF;">(</span><span style="color: #E6DB74; font-style: italic;">"*magit"</span> . emacs<span style="color: #66D9EF;">)</span> evil-buffer-regexps<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+This should make all original magit bindings work in the major modes in
+question. To enable the leader key in this case, you may have to define a
+binding in the mode's map, e.g. for <code>magit-status-mode</code>,
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">with-eval-after-load</span> 'magit
+  <span style="color: #66D9EF;">(</span>define-key magit-status-mode-map
+    <span style="color: #A6E22E;">(</span>kbd dotspacemacs-leader-key<span style="color: #A6E22E;">)</span> evil-leader--default-map<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">2.7</span> Include underscores in word motions?</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+You can modify the syntax table of the mode in question. For example, for Python
+mode:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span><span style="color: #F92672; font-weight: bold;">with-eval-after-load</span> 'python
+  <span style="color: #66D9EF;">(</span>modify-syntax-entry ?_ <span style="color: #E6DB74; font-style: italic;">"w"</span> python-mode-syntax-table<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">2.8</span> Setup <code>$PATH</code>?</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+Some layers require certain tools to be available on your <code>$PATH</code>. This means
+that your <code>$PATH</code> must contain the installation paths for those tools. For
+example, if you have installed some tools to <code>~/.local/bin</code> and want them to be
+available in Spacemacs, you need to add <code>~/.local/bin</code> to your <code>$PATH</code>.
+</p>
+
+<p>
+Users of <code>bash</code>, <code>zsh</code>, <code>sh</code> and other similar shells should add following line
+to their <code>.bashrc</code> (<code>.zshrc</code>, <code>.profile</code> or your shell's equivalent). Note that
+the <code>export</code> part is very important.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #ff9eb8;">export</span> <span style="color: #FD971F;">PATH</span>=~/.local/bin:$<span style="color: #FD971F;">PATH</span>
+</pre>
+</div>
+
+<p>
+Users of <code>fish</code> should add following line to their <code>config.fish</code> file (should be
+in <code>$XDG_CONFIG_HOME</code> or its default value - <code>~/.config/fish</code>). Note that <code>-x</code>
+part is very important.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-fish"><span style="color: #F92672; font-weight: bold;">set</span> <span style="color: #E6DB74; font-weight: bold;">-x</span> <span style="color: #FD971F;">PATH</span> ~/.local/bin <span style="color: #E6DB74; font-style: italic;">$</span><span style="color: #FD971F;">PATH</span>
+</pre>
+</div>
+
+<p>
+Users of other shells should consult its documentation on how to setup <code>$PATH</code>
+variable (with export to environment).
+</p>
+
+<p>
+So now, <code>~/.local/bin</code> should be available in your <code>$PATH</code>. You can verify this
+by calling <code>echo $PATH</code>. But you also should verify that <code>$PATH</code> is set properly
+in your environment. To do so call following command in your terminal.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">$ env | grep <span style="color: #E6DB74; font-style: italic;">"PATH"</span>
+</pre>
+</div>
+
+<p>
+This is the value that will be used by Emacs. So it must contain <code>~/.local/bin</code>.
+</p>
+
+<p>
+After that you can run Spacemacs and check that it properly gets the value of
+<code>$PATH</code> by running <code>M-: (getenv "PATH")</code>.
+</p>
+
+<p>
+Note that having <code>~/.local.bin</code> in your <code>$PATH</code> also means that it's possible to
+run terminal and call tools from <code>~/.local/bin</code> without specifying their full
+path. Under certain conditions you might want to avoid modifying your <code>$PATH</code>.
+In that case you have the option of updating the value of <code>exec-path</code> in the
+<code>dotspacemacs/user-config</code> function of your <code>.spacemacs</code> file.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>add-to-list 'exec-path <span style="color: #E6DB74; font-style: italic;">"~/.local/bin/"</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">3</span> Windows</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">3.1</span> Why do the fonts look crappy on Windows?</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+You can install <a href="https://code.google.com/p/mactype/">MacType</a> on Windows to get very nice looking fonts. It is
+also recommended to disable smooth scrolling on Windows.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">3.2</span> Why is there no Spacemacs logo in the startup buffer?</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+A GUI build of emacs supporting image display is required.
+You can follow the instructions <a href="http://stackoverflow.com/questions/2650041/emacs-under-windows-and-png-files">here</a>. Alternatively you can download binaries
+of emacs with image support included such as <a href="http://emacsbinw64.sourceforge.net/">this one</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">3.3</span> Why are all packages unavailable?</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Check if your Emacs has HTTPS capabilities by doing <code>M-:</code> and then:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>gnutls-available-p<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+If this returns <code>nil</code>, you need to install the GnuTLS DDL file in the same
+directory as Emacs. See <a href="https://www.gnu.org/software/emacs/manual/html_mono/emacs-gnutls.html#Help-For-Users">here</a> for instructions.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-2">
+<h2 id="orgheadline27"><span class="section-number-2">4</span> OS X</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">4.1</span> Why are the powerline colors not correct on OS X?</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+This is a <a href="https://github.com/milkypostman/powerline/issues/54">known issue</a> as of Emacs 24.4 due to <code>ns-use-srgb-colorspace</code>
+defaulting to true. It is recommended to use the <a href="http://github.com/railwaycat/homebrew-emacsmacport">emacs-mac-port</a> build. See the
+install section in the <a href="../README.md">README</a> for more details.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:47</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

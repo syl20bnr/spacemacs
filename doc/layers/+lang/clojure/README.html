@@ -1,0 +1,1224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clojure contribution layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Clojure contribution layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Description</a></li>
+<li><a href="#orgheadline2">2. Features</a></li>
+<li><a href="#orgheadline9">3. Install</a>
+<ul>
+<li><a href="#orgheadline3">3.1. Layer</a></li>
+<li><a href="#orgheadline4">3.2. Pretty Symbols</a></li>
+<li><a href="#orgheadline8">3.3. CIDER and clj-refactor</a>
+<ul>
+<li><a href="#orgheadline5">3.3.1. Quick Start with boot</a></li>
+<li><a href="#orgheadline6">3.3.2. Quick Start with lein</a></li>
+<li><a href="#orgheadline7">3.3.3. More details</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline25">4. Key Bindings</a>
+<ul>
+<li><a href="#orgheadline10">4.1. Working with clojure files (barfage, slurpage &amp; more)</a></li>
+<li><a href="#orgheadline20">4.2. Leader</a>
+<ul>
+<li><a href="#orgheadline11">4.2.1. Documentation</a></li>
+<li><a href="#orgheadline12">4.2.2. Evaluation</a></li>
+<li><a href="#orgheadline13">4.2.3. Goto</a></li>
+<li><a href="#orgheadline14">4.2.4. REPL</a></li>
+<li><a href="#orgheadline15">4.2.5. Tests</a></li>
+<li><a href="#orgheadline16">4.2.6. Toggles</a></li>
+<li><a href="#orgheadline17">4.2.7. Debugging</a></li>
+<li><a href="#orgheadline18">4.2.8. Refactoring</a></li>
+<li><a href="#orgheadline19">4.2.9. Reformatting</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline24">4.3. CIDER Buffers</a>
+<ul>
+<li><a href="#orgheadline21">4.3.1. stacktrace-mode</a></li>
+<li><a href="#orgheadline22">4.3.2. inspector-mode</a></li>
+<li><a href="#orgheadline23">4.3.3. test-report-mode</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<img src="img/clojure.png" alt="clojure.png" /> <img src="img/cider.png" alt="cider.png" />
+</p>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This layer adds support for <a href="http://clojure.org/">Clojure</a> language using <a href="https://github.com/clojure-emacs/cider">CIDER</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Features</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>REPL via <a href="https://github.com/clojure-emacs/cider">CIDER</a></li>
+<li>Code formatting via <a href="https://github.com/clojure-emacs/cider">CIDER</a> using <a href="https://github.com/weavejester/cljfmt">Cljfmt</a></li>
+<li>Refactoring via <a href="https://github.com/clojure-emacs/clj-refactor.el">clj-refactor</a></li>
+<li>Aligning of code forms via <a href="https://github.com/gstamp/align-cljlet">align-cljlet</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9"><span class="section-number-2">3</span> Install</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">3.1</span> Layer</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+To use this contribution add it to your <code>~/.spacemacs</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>clojure<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">3.2</span> Pretty Symbols</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Pretty symbols for anonymous functions, set literals and partial, like <code>(λ [a]
+(+ a 5))</code>, <code>ƒ(+ % 5)</code>, <code>∈{2 4 6}</code> and <code>Ƥ</code>.
+</p>
+
+<p>
+To enable this feature, add the following snippet to the
+<code>dotspacemacs/user-config</code> section of your <code>~/.spacemacs</code> file:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq clojure-enable-fancify-symbols t<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<p>
+Or set this variable when loading the configuration layer:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers
+'<span style="color: #66D9EF;">(</span><span style="color: #A6E22E;">(</span>clojure <span style="color: #ff9eb8;">:variables</span> clojure-enable-fancify-symbols t<span style="color: #A6E22E;">)</span><span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.3</span> CIDER and clj-refactor</h3>
+<div class="outline-text-3" id="text-3-3">
+</div><div id="outline-container-orgheadline5" class="outline-4">
+<h4 id="orgheadline5"><span class="section-number-4">3.3.1</span> Quick Start with boot</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<ul class="org-ul">
+<li>Install <code>boot</code> (see <a href="https://github.com/boot-clj/boot#install">https://github.com/boot-clj/boot#install</a>)</li>
+<li>Create a file <code>~/.boot/profile.boot</code> with the following content:</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #AE81FF;">(</span>require '<span style="color: #66D9EF;">boot.repl</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span>swap! <span style="color: #66D9EF;">boot.repl</span><span style="color: #F8F8F2; background-color: #272822;">/</span><span style="color: #FD971F;">*default-dependencies*</span> conj
+       '<span style="color: #66D9EF;">[</span>refactor-nrepl <span style="color: #E6DB74; font-style: italic;">"1.2.0-SNAPSHOT"</span><span style="color: #66D9EF;">]</span>
+       '<span style="color: #66D9EF;">[</span><span style="color: #66D9EF;">cider</span><span style="color: #F8F8F2; background-color: #272822;">/</span>cider-nrepl <span style="color: #E6DB74; font-style: italic;">"0.10.0-SNAPSHOT"</span><span style="color: #66D9EF;">]</span><span style="color: #AE81FF;">)</span>
+
+<span style="color: #AE81FF;">(</span>swap! <span style="color: #66D9EF;">boot.repl</span><span style="color: #F8F8F2; background-color: #272822;">/</span><span style="color: #FD971F;">*default-middleware*</span> conj
+       '<span style="color: #66D9EF;">refactor-nrepl.middleware</span><span style="color: #F8F8F2; background-color: #272822;">/</span>wrap-refactor<span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Run <code>SPC m s i</code> in any of the clojure source files to connect to the CIDER REPL.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-4">
+<h4 id="orgheadline6"><span class="section-number-4">3.3.2</span> Quick Start with lein</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<ul class="org-ul">
+<li>Install <code>lein</code> via your OS package manager.</li>
+<li>Create a file <code>~/.lein/profiles.clj</code> with the following content:</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #AE81FF;">{</span><span style="color: #AE81FF;">:user</span> <span style="color: #66D9EF;">{</span><span style="color: #AE81FF;">:plugins</span> <span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">[</span><span style="color: #66D9EF;">cider</span><span style="color: #F8F8F2; background-color: #272822;">/</span>cider-nrepl <span style="color: #E6DB74; font-style: italic;">"0.10.0-SNAPSHOT"</span><span style="color: #E6DB74;">]</span>
+                  <span style="color: #E6DB74;">[</span>refactor-nrepl <span style="color: #E6DB74; font-style: italic;">"1.2.0-SNAPSHOT"</span><span style="color: #E6DB74;">]</span><span style="color: #A6E22E;">]</span>
+        <span style="color: #AE81FF;">:dependencies</span> <span style="color: #A6E22E;">[</span><span style="color: #E6DB74;">[</span>alembic <span style="color: #E6DB74; font-style: italic;">"0.3.2"</span><span style="color: #E6DB74;">]</span>
+                       <span style="color: #E6DB74;">[</span><span style="color: #66D9EF;">org.clojure</span><span style="color: #F8F8F2; background-color: #272822;">/</span>tools.nrepl <span style="color: #E6DB74; font-style: italic;">"0.2.10"</span><span style="color: #E6DB74;">]</span><span style="color: #A6E22E;">]</span><span style="color: #66D9EF;">}</span><span style="color: #AE81FF;">}</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>After creating your project with <code>lein new app &lt;projectname&gt;</code> or
+importing an existing project, run <code>SPC m s i</code> in any of the clojure
+source files to connect to the CIDER REPL.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7"><span class="section-number-4">3.3.3</span> More details</h4>
+<div class="outline-text-4" id="text-3-3-3">
+<p>
+More info regarding installation of nREPL middleware can be found here:
+</p>
+<ul class="org-ul">
+<li>CIDER: <a href="https://github.com/clojure-emacs/cider#installation">cider<sub>install</sub></a></li>
+<li>clj-refactor: <a href="https://github.com/clojure-emacs/refactor-nrepl">refactor-nrepl</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline25" class="outline-2">
+<h2 id="orgheadline25"><span class="section-number-2">4</span> Key Bindings</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">4.1</span> Working with clojure files (barfage, slurpage &amp; more)</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Spacemacs comes with a special <code>lisp-state</code> for working with lisp code that
+supports slurpage, barfage and more tools you'll likely want when working with
+lisp.
+</p>
+
+<p>
+As this state works the same for all files, the documentation is in global
+<a href="https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#lisp-key-bindings">DOCUMENTATION.org</a>. In general, use <code>SPC k</code> to interact with the lisp-state.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">4.2</span> Leader</h3>
+<div class="outline-text-3" id="text-4-2">
+</div><div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11"><span class="section-number-4">4.2.1</span> Documentation</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m h g</code></td>
+<td class="org-left">cider grimoire</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h h</code></td>
+<td class="org-left">cider doc</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h j</code></td>
+<td class="org-left">cider javadoc</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-4">
+<h4 id="orgheadline12"><span class="section-number-4">4.2.2</span> Evaluation</h4>
+<div class="outline-text-4" id="text-4-2-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m e b</code></td>
+<td class="org-left">eval buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m e e</code></td>
+<td class="org-left">eval last sexp</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m e f</code></td>
+<td class="org-left">eval function at point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m e r</code></td>
+<td class="org-left">eval region</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m e w</code></td>
+<td class="org-left">eval last sexp and replace with result</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13"><span class="section-number-4">4.2.3</span> Goto</h4>
+<div class="outline-text-4" id="text-4-2-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m g b</code></td>
+<td class="org-left">go back</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g g</code></td>
+<td class="org-left">goto var</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g e</code></td>
+<td class="org-left">goto error</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g r</code></td>
+<td class="org-left">goto resource</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14"><span class="section-number-4">4.2.4</span> REPL</h4>
+<div class="outline-text-4" id="text-4-2-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m s b</code></td>
+<td class="org-left">send and eval buffer in REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s B</code></td>
+<td class="org-left">send and eval buffer and switch to REPL in <code>insert state</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s c</code></td>
+<td class="org-left">connect to REPL (cider-connect)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s e</code></td>
+<td class="org-left">send and eval last sexp in REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s E</code></td>
+<td class="org-left">send and eval last sexp and switch to REPL in <code>insert state</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s f</code></td>
+<td class="org-left">send and eval function in REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s F</code></td>
+<td class="org-left">send and eval function and switch to REPL in <code>insert state</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s i</code></td>
+<td class="org-left">start REPL (cider-jack-in)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s I</code></td>
+<td class="org-left">start clojurescript REPL (cider-jack-in-clojurescript)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s n</code></td>
+<td class="org-left">send and eval ns form in REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s N</code></td>
+<td class="org-left">send and eval ns form and switch to REPL in <code>insert state</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s q</code></td>
+<td class="org-left">kill REPL (cider-quit)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s r</code></td>
+<td class="org-left">send and eval region in REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s R</code></td>
+<td class="org-left">send and eval region and switch to REPL in <code>insert state</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s s</code></td>
+<td class="org-left">switch to REPL</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">4.2.5</span> Tests</h4>
+<div class="outline-text-4" id="text-4-2-5">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m t a</code></td>
+<td class="org-left">run all tests in namespace</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t r</code></td>
+<td class="org-left">re-run test failures for namespace</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t t</code></td>
+<td class="org-left">run test at point</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16"><span class="section-number-4">4.2.6</span> Toggles</h4>
+<div class="outline-text-4" id="text-4-2-6">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m T f</code></td>
+<td class="org-left">toggle REPL font-locking</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m T p</code></td>
+<td class="org-left">toggle REPL pretty-printing</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m T i</code></td>
+<td class="org-left">toggle indentation style</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17"><span class="section-number-4">4.2.7</span> Debugging</h4>
+<div class="outline-text-4" id="text-4-2-7">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m d r</code></td>
+<td class="org-left">reload namepspaces</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d b</code></td>
+<td class="org-left">instrument expression at point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d e</code></td>
+<td class="org-left">display last stacktrace</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d i</code></td>
+<td class="org-left">inspect expression at point</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-4">
+<h4 id="orgheadline18"><span class="section-number-4">4.2.8</span> Refactoring</h4>
+<div class="outline-text-4" id="text-4-2-8">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m r ?</code></td>
+<td class="org-left">describe refactoring</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r a d</code></td>
+<td class="org-left">add declaration</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r a i</code></td>
+<td class="org-left">add import to ns</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r a m</code></td>
+<td class="org-left">add missing libspec</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r a p</code></td>
+<td class="org-left">add project dependency</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r a r</code></td>
+<td class="org-left">add require to ns</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r a u</code></td>
+<td class="org-left">add use to ns</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r c c</code></td>
+<td class="org-left">cycle coll</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r c i</code></td>
+<td class="org-left">cycle if</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r c n</code></td>
+<td class="org-left">clean ns</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r c p</code></td>
+<td class="org-left">cycle privacy</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r d k</code></td>
+<td class="org-left">destructure keys</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r e c</code></td>
+<td class="org-left">extract constant</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r e d</code></td>
+<td class="org-left">extract definition</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r e f</code></td>
+<td class="org-left">extract function</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r e l</code></td>
+<td class="org-left">expand let</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r f u</code></td>
+<td class="org-left">find usages</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r f e</code></td>
+<td class="org-left">create fn from example</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r h d</code></td>
+<td class="org-left">hotload dependency</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r i l</code></td>
+<td class="org-left">introduce let</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r i s</code></td>
+<td class="org-left">inline symbol</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r m f</code></td>
+<td class="org-left">move form</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r m l</code></td>
+<td class="org-left">move to let</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r p c</code></td>
+<td class="org-left">project clean</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r p f</code></td>
+<td class="org-left">promote function</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r d</code></td>
+<td class="org-left">remove debug fns</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r f</code></td>
+<td class="org-left">rename file</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r l</code></td>
+<td class="org-left">remove let</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r r</code></td>
+<td class="org-left">remove unused requires</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r s</code></td>
+<td class="org-left">rename symbol</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r u</code></td>
+<td class="org-left">replace use</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r s n</code></td>
+<td class="org-left">sort ns</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r s p</code></td>
+<td class="org-left">sort project dependencies</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r s r</code></td>
+<td class="org-left">stop referring</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r s c</code></td>
+<td class="org-left">show changelog</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r t f</code></td>
+<td class="org-left">thread first all</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r t h</code></td>
+<td class="org-left">thread</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r t l</code></td>
+<td class="org-left">thread last all</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r u a</code></td>
+<td class="org-left">unwind all</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r u p</code></td>
+<td class="org-left">update project dependencies</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r u w</code></td>
+<td class="org-left">unwind</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-4">
+<h4 id="orgheadline19"><span class="section-number-4">4.2.9</span> Reformatting</h4>
+<div class="outline-text-4" id="text-4-2-9">
+<p>
+Forms currently handled:
+</p>
+<ul class="org-ul">
+<li>let</li>
+<li>when-let</li>
+<li>if-let</li>
+<li>binding</li>
+<li>loop</li>
+<li>with-open</li>
+<li>literal hashes {}</li>
+<li>defroute</li>
+<li>cond</li>
+<li>condp (except :&gt;&gt; subforms)</li>
+</ul>
+
+<p>
+More info at <a href="https://github.com/gstamp/align-cljlet">align-cljlet</a>.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m f l</code></td>
+<td class="org-left">realign current form</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m f b</code></td>
+<td class="org-left">reformat current buffer</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-3">
+<h3 id="orgheadline24"><span class="section-number-3">4.3</span> CIDER Buffers</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+In general, <code>q</code> should always quit the popped up buffer.
+</p>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-4">
+<h4 id="orgheadline21"><span class="section-number-4">4.3.1</span> stacktrace-mode</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-j</code></td>
+<td class="org-left">next cause</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-k</code></td>
+<td class="org-left">previous cause</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>TAB</code></td>
+<td class="org-left">cycle current cause</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>0</code></td>
+<td class="org-left">cycle all causes</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>1</code></td>
+<td class="org-left">cycle cause 1</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>2</code></td>
+<td class="org-left">cycle cause 2</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>3</code></td>
+<td class="org-left">cycle cause 3</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>4</code></td>
+<td class="org-left">cycle cause 4</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>5</code></td>
+<td class="org-left">cycle cause 5</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>a</code></td>
+<td class="org-left">toggle all</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>c</code></td>
+<td class="org-left">toggle clj</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>d</code></td>
+<td class="org-left">toggle duplicates</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>J</code></td>
+<td class="org-left">toggle java</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>r</code></td>
+<td class="org-left">toggle repl</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>T</code></td>
+<td class="org-left">toggle tooling</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline22" class="outline-4">
+<h4 id="orgheadline22"><span class="section-number-4">4.3.2</span> inspector-mode</h4>
+<div class="outline-text-4" id="text-4-3-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>TAB</code></td>
+<td class="org-left">next inspectable object</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>Shift-TAB</code></td>
+<td class="org-left">previous inspectable object</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>RET</code></td>
+<td class="org-left">inspect object</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>L</code></td>
+<td class="org-left">pop to the parent object</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>n</code></td>
+<td class="org-left">next page in paginated view</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>N</code></td>
+<td class="org-left">previous page in paginated view</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>r</code></td>
+<td class="org-left">refresh</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>s</code></td>
+<td class="org-left">set a new page size</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-4">
+<h4 id="orgheadline23"><span class="section-number-4">4.3.3</span> test-report-mode</h4>
+<div class="outline-text-4" id="text-4-3-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-j</code></td>
+<td class="org-left">next result</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-k</code></td>
+<td class="org-left">previous result</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>RET</code></td>
+<td class="org-left">jump to test</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>d</code></td>
+<td class="org-left">ediff test result</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>e</code></td>
+<td class="org-left">show stacktrace</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>r</code></td>
+<td class="org-left">rerun tests</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>t</code></td>
+<td class="org-left">run test</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>T</code></td>
+<td class="org-left">run tests</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

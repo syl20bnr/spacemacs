@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:47 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Helm Gtags contribution layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Helm Gtags contribution layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Description</a></li>
+<li><a href="#orgheadline2">2. Features</a></li>
+<li><a href="#orgheadline4">3. Install</a>
+<ul>
+<li><a href="#orgheadline3">3.1. GNU Global</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline6">4. Usage</a>
+<ul>
+<li><a href="#orgheadline5">4.1. Eldoc integration</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline7">5. Key bindings</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+<code>helm-gtags</code> and <code>ggtags</code> are clients for GNU Global. GNU Global is a source
+code tagging system that allows querying symbol locations in source code, such
+as definitions or references.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Features</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>Select any tag in a project retrieves by gtags</li>
+<li>Resume previous helm-gtags session</li>
+<li>Jump to a location based on context</li>
+<li>Find definitions</li>
+<li>Find references</li>
+<li>Present tags in current function only</li>
+<li>Create a tag database</li>
+<li>Jump to definitions in file</li>
+<li>Show stack of visited locations</li>
+<li>Manually update tag database</li>
+<li>Jump to next location in context stack</li>
+<li>Jump to previous location in context stack</li>
+<li>Jump to a file in tag database</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">3</span> Install</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">3.1</span> GNU Global</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+You can install <code>helm-gtags</code> from the software repository of your OS. For example, in Ubuntu:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo apt-get install global
+</pre>
+</div>
+
+<p>
+To use <code>helm-gtags</code>, you first have to install <a href="https://www.gnu.org/software/global/download.html">GNU Global</a>.
+</p>
+
+<p>
+Download the latest tar.gz archive, then run these commands:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">tar xvf global-6.4.tar.gz
+<span style="color: #ff9eb8;">cd</span> global-6.4
+./configure
+make
+sudo make install
+</pre>
+</div>
+
+<p>
+To be able to use <code>ctags</code> and other backends, you need to copy the sample
+<code>gtags.conf</code> either to <code>/etc/gtags.conf</code> or <code>$HOME/.globalrc</code>. For example:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">cp gtags.conf ~/.globalrc
+</pre>
+</div>
+
+<p>
+To use this contribution add it to your <code>~/.spacemacs</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>gtags<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">4</span> Usage</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Before using the helm-gtags, remember to create a GTAGS database by the following methods:
+</p>
+
+<ul class="org-ul">
+<li>From within Emacs, runs the command <code>helm-gtags-create-tags</code>, which is bound
+to <code>SPC m g c</code>. If the language is not directly supported by GNU Global, you
+can choose <code>ctags</code> or <code>pygment</code> as a backend to generate tag database.</li>
+
+<li>From inside terminal, runs gtags at your project root in terminal:</li>
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #ff9eb8;">cd</span> /path/to/project/root
+gtags
+</pre>
+</div>
+
+<p>
+If the language is not directly supported by <code>gtags</code> but <code>ctags</code>, use this command instead:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">gtags --gtagslabel=ctags
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">4.1</span> Eldoc integration</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+This layer also integrates <code>ggtags</code> for its Eldoc feature. That means, when
+writing code, you can look at the minibuffer (at the bottom) and see variable
+and function definition of the symbol the cursor is on. However, this feature is
+only activated for programming modes that are not one of these languages:
+</p>
+
+<ul class="org-ul">
+<li>C mode</li>
+<li>C++ mode</li>
+<li>Common Lisp</li>
+<li>Emacs Lisp</li>
+<li>Python</li>
+<li>Ruby-mode</li>
+</ul>
+
+<p>
+In addition, if output from <code>compile</code> (bound to <code>SPC c C</code>), <code>shell-command</code>
+(bound to <code>SPC !</code> and <code>M-!</code>) or <code>async-shell-command</code> (bound to <code>M-&amp;</code>) commands
+contains symbol in your project, you move cursor on such symbol and use any of
+the gtags commands.
+</p>
+
+<p>
+Since these modes have better Eldoc integration already.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">5</span> Key bindings</h2>
+<div class="outline-text-2" id="text-5">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m g c</code></td>
+<td class="org-left">create a tag database</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g f</code></td>
+<td class="org-left">jump to a file in tag database</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g g</code></td>
+<td class="org-left">jump to a location based on context</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g G</code></td>
+<td class="org-left">jump to a location based on context (open another window)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g d</code></td>
+<td class="org-left">find definitions</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g i</code></td>
+<td class="org-left">present tags in current function only</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g l</code></td>
+<td class="org-left">jump to definitions in file</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g n</code></td>
+<td class="org-left">jump to next location in context stack</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g p</code></td>
+<td class="org-left">jump to previous location in context stack</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g r</code></td>
+<td class="org-left">find references</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g R</code></td>
+<td class="org-left">resume previous helm-gtags session</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g s</code></td>
+<td class="org-left">select any tag in a project retrieved by gtags</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g S</code></td>
+<td class="org-left">show stack of visited locations</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g u</code></td>
+<td class="org-left">manually update tag database</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:47</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

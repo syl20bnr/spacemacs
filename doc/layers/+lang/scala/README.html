@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scala contribution layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Scala contribution layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Description</a></li>
+<li><a href="#orgheadline2">2. Layer Installation</a></li>
+<li><a href="#orgheadline5">3. Ensime</a>
+<ul>
+<li><a href="#orgheadline3">3.1. Installation</a></li>
+<li><a href="#orgheadline4">3.2. Usage</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline6">4. Scalastyle</a></li>
+<li><a href="#orgheadline19">5. Key bindings</a>
+<ul>
+<li><a href="#orgheadline18">5.1. Ensime key bindings</a>
+<ul>
+<li><a href="#orgheadline7">5.1.1. Search</a></li>
+<li><a href="#orgheadline8">5.1.2. sbt</a></li>
+<li><a href="#orgheadline9">5.1.3. Typecheck</a></li>
+<li><a href="#orgheadline10">5.1.4. Debug</a></li>
+<li><a href="#orgheadline11">5.1.5. Errors</a></li>
+<li><a href="#orgheadline12">5.1.6. Goto</a></li>
+<li><a href="#orgheadline13">5.1.7. Documentation, Inspect</a></li>
+<li><a href="#orgheadline14">5.1.8. Server</a></li>
+<li><a href="#orgheadline15">5.1.9. Refactoring</a></li>
+<li><a href="#orgheadline16">5.1.10. Tests</a></li>
+<li><a href="#orgheadline17">5.1.11. REPL</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+<img src="img/scala.png" alt="scala.png" /> with <img src="img/ensime.png" alt="ensime.png" />
+</p>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This layer adds support for the Scala language using the excellent <a href="https://github.com/ensime">ENSIME</a>
+client/server.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Layer Installation</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Add this contribution to your <code>~/.spacemacs</code>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>scala<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-2">
+<h2 id="orgheadline5"><span class="section-number-2">3</span> Ensime</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+<a href="https://github.com/ensime">ENSIME</a> provides IDE-like features, such as refactoring, incremental
+compilation and project-wide type-checking.
+</p>
+
+<p>
+ENSIME requires a configuration file at the root of each Scala project. It
+provides an SBT plugin to generate these files.
+</p>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">3.1</span> Installation</h3>
+<div class="outline-text-3" id="text-3-1">
+<ol class="org-ol">
+<li><p>
+Configure the ENSIME sbt plugin by adding the following to
+<code>~/.sbt/0.13/plugins/plugins.sbt</code>:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-scala">resolvers += Resolver.sonatypeRepo("snapshots")
+
+addSbtPlugin("org.ensime" % "ensime-sbt" % "0.1.7-SNAPSHOT")
+</pre>
+</div></li>
+
+<li>Run <code>sbt</code> at the shell to download and install the plugin.</li>
+</ol>
+
+<p>
+See the <a href="https://github.com/ensime/ensime-server/wiki/Quick-Start-Guide#installing-the-ensime-sbt-plugin">ENSIME quickstart</a> guide for further information.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">3.2</span> Usage</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>Create a <code>.ensime</code> file at the root of your Scala project using <code>sbt
+   gen-ensime</code> at the shell.</li>
+
+<li>Run <code>M-x ensime</code> within Emacs to start an ENSIME session.</li>
+</ol>
+
+<p>
+Each Scala project uses a dedicated ENSIME session, so you only need to run <code>M-x
+ensime</code> once per project. Any Scala files you create or visit within the project
+will automatically use ENSIME for the remainder of your editing session.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">4</span> Scalastyle</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+<a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle">Scalastyle</a> provides style-checking and linting. The Emacs functionality is
+provided by Flycheck.
+</p>
+
+<p>
+To use scalastyle,
+</p>
+
+<ol class="org-ol">
+<li>Download the <a href="https://oss.sonatype.org/content/repositories/releases/org/scalastyle/scalastyle_2.11/0.6.0/">scalastyle jar</a> and put it somewhere sensible</li>
+<li>Customise the <code>flycheck-scalastyle-jar</code> variable and set it to the path of
+the jar.</li>
+</ol>
+
+<p>
+See the <a href="http://flycheck.readthedocs.org/en/latest/guide/languages.html#el.flycheck-checker.scala-scalastyle">flycheck documentation</a> for up-to-date configuration instructions.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline19" class="outline-2">
+<h2 id="orgheadline19"><span class="section-number-2">5</span> Key bindings</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">5.1</span> Ensime key bindings</h3>
+<div class="outline-text-3" id="text-5-1">
+</div><div id="outline-container-orgheadline7" class="outline-4">
+<h4 id="orgheadline7"><span class="section-number-4">5.1.1</span> Search</h4>
+<div class="outline-text-4" id="text-5-1-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m /</code></td>
+<td class="org-left">incremental search using <code>ensime-scalex</code> major mode</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m ?</code></td>
+<td class="org-left">incremental search in all live buffers</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-4">
+<h4 id="orgheadline8"><span class="section-number-4">5.1.2</span> sbt</h4>
+<div class="outline-text-4" id="text-5-1-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m b c</code></td>
+<td class="org-left">compile command</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m b C</code></td>
+<td class="org-left">clean command</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m b i</code></td>
+<td class="org-left">switch to sbt shell</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m b p</code></td>
+<td class="org-left">package command</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m b r</code></td>
+<td class="org-left">run command</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-4">
+<h4 id="orgheadline9"><span class="section-number-4">5.1.3</span> Typecheck</h4>
+<div class="outline-text-4" id="text-5-1-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m c t</code></td>
+<td class="org-left">type check the current file</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c T</code></td>
+<td class="org-left">type check all the open buffers</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-4">
+<h4 id="orgheadline10"><span class="section-number-4">5.1.4</span> Debug</h4>
+<div class="outline-text-4" id="text-5-1-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m d A</code></td>
+<td class="org-left">Attach to a remote debugger</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d b</code></td>
+<td class="org-left">set breakpoint</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d B</code></td>
+<td class="org-left">clear breakpoint</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d C</code></td>
+<td class="org-left">clear all breakpoints</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d c</code></td>
+<td class="org-left">continue</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d d</code></td>
+<td class="org-left">start a debug session</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d i</code></td>
+<td class="org-left">inspect value at point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d l</code></td>
+<td class="org-left">list local variables</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d n</code></td>
+<td class="org-left">next</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d o</code></td>
+<td class="org-left">step out</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d q</code></td>
+<td class="org-left">quit</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d r</code></td>
+<td class="org-left">run</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d s</code></td>
+<td class="org-left">step</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m d t</code></td>
+<td class="org-left">backtrace</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<b>Note:</b> These key bindings need a micro-state, PR welcome :-)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-4">
+<h4 id="orgheadline11"><span class="section-number-4">5.1.5</span> Errors</h4>
+<div class="outline-text-4" id="text-5-1-5">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m e e</code></td>
+<td class="org-left">print error at point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m e l</code></td>
+<td class="org-left">show all errors and warnings</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m e s</code></td>
+<td class="org-left">switch to buffer containing the stack trace parser</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-4">
+<h4 id="orgheadline12"><span class="section-number-4">5.1.6</span> Goto</h4>
+<div class="outline-text-4" id="text-5-1-6">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m g g</code></td>
+<td class="org-left">go to definition</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g i</code></td>
+<td class="org-left">go to implementation</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m g t</code></td>
+<td class="org-left">go to test</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13"><span class="section-number-4">5.1.7</span> Documentation, Inspect</h4>
+<div class="outline-text-4" id="text-5-1-7">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m h h</code></td>
+<td class="org-left">show documentation for symbol at point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h u</code></td>
+<td class="org-left">show uses for symbol at point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h t</code></td>
+<td class="org-left">print type at point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m i i</code></td>
+<td class="org-left">inspect type at point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m i I</code></td>
+<td class="org-left">inspect type in other frame</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m i p</code></td>
+<td class="org-left">inspect project package</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14"><span class="section-number-4">5.1.8</span> Server</h4>
+<div class="outline-text-4" id="text-5-1-8">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m n F</code></td>
+<td class="org-left">reload open files</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m n s</code></td>
+<td class="org-left">start ensime server</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m n S</code></td>
+<td class="org-left">regenerate the <code>.ensime</code> and restart the ensime server</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">5.1.9</span> Refactoring</h4>
+<div class="outline-text-4" id="text-5-1-9">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m r f</code></td>
+<td class="org-left">format source</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r d</code></td>
+<td class="org-left">get rid of an intermediate variable (<code>ensime-refactor-inline-local</code>)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r D</code></td>
+<td class="org-left">get rid of an intermediate variable (<code>ensime-undo-peek</code>)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r i</code></td>
+<td class="org-left">organize imports</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r m</code></td>
+<td class="org-left">extract a range of code into a method</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r r</code></td>
+<td class="org-left">rename a symbol project wide</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r t</code></td>
+<td class="org-left">import type at point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m r v</code></td>
+<td class="org-left">extract a range of code into a variable</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m z</code></td>
+<td class="org-left">expand/contract region</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-4">
+<h4 id="orgheadline16"><span class="section-number-4">5.1.10</span> Tests</h4>
+<div class="outline-text-4" id="text-5-1-10">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m t a</code></td>
+<td class="org-left">test command (sbt)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t r</code></td>
+<td class="org-left">test quick command (sbt)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m t t</code></td>
+<td class="org-left">test only (sbt)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-4">
+<h4 id="orgheadline17"><span class="section-number-4">5.1.11</span> REPL</h4>
+<div class="outline-text-4" id="text-5-1-11">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m s a</code></td>
+<td class="org-left">ask for a file to be loaded in the REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s b</code></td>
+<td class="org-left">send buffer to the REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s B</code></td>
+<td class="org-left">send buffer to the REPL and focus the REPL buffer in <code>insert state</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s i</code></td>
+<td class="org-left">start or switch to the REPL inferior process</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s r</code></td>
+<td class="org-left">send region to the REPL</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m s R</code></td>
+<td class="org-left">send region to the REPL and focus the REPL buffer in <code>insert state</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

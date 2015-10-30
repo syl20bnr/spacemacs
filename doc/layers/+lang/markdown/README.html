@@ -1,0 +1,770 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>Markdown contribution layer for Spacemacs</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Markdown contribution layer for Spacemacs</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline2">1. Description</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Features:</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline3">2. Install</a></li>
+<li><a href="#orgheadline4">3. Usage</a></li>
+<li><a href="#orgheadline15">4. Key bindings</a>
+<ul>
+<li><a href="#orgheadline5">4.1. Element insertion</a></li>
+<li><a href="#orgheadline6">4.2. Element removal</a></li>
+<li><a href="#orgheadline7">4.3. Completion, and Cycling</a></li>
+<li><a href="#orgheadline8">4.4. Following and Jumping</a></li>
+<li><a href="#orgheadline9">4.5. Indentation</a></li>
+<li><a href="#orgheadline10">4.6. Header navigation</a></li>
+<li><a href="#orgheadline11">4.7. Buffer-wide commands</a></li>
+<li><a href="#orgheadline12">4.8. List editing</a></li>
+<li><a href="#orgheadline13">4.9. Movement</a></li>
+<li><a href="#orgheadline14">4.10. Promotion, Demotion</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div class="figure">
+<p><img src="img/markdown.png" alt="markdown.png" />
+</p>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This layer adds markdown support to Spacemacs.
+</p>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Features:</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>markdown files support via <a href="http://jblevins.org/git/markdown-mode.git/">markdown-mode</a></li>
+<li>TOC generation via <a href="https://github.com/ardumont/markdown-toc">markdown-toc</a></li>
+<li>Completion of Emojis using <a href="https://github.com/dunn/company-emoji">company-emoji</a> (still needs a way of showing, either
+using the <code>emoji</code> layer or having a proper font) :clap:</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">2</span> Install</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+To use this contribution add it to your <code>~/.spacemacs</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>markdown<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline4" class="outline-2">
+<h2 id="orgheadline4"><span class="section-number-2">3</span> Usage</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+To generate a table of contents type on top of the buffer:
+<code>SPC : markdown-toc/generate-toc RET</code>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-2">
+<h2 id="orgheadline15"><span class="section-number-2">4</span> Key bindings</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">4.1</span> Element insertion</h3>
+<div class="outline-text-3" id="text-4-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m -</code></td>
+<td class="org-left">insert horizontal line</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h i</code></td>
+<td class="org-left">insert header dwim</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h I</code></td>
+<td class="org-left">insert header setext dwim</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h 1</code></td>
+<td class="org-left">insert header atx 1</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h 2</code></td>
+<td class="org-left">insert header atx 2</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h 3</code></td>
+<td class="org-left">insert header atx 3</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h 4</code></td>
+<td class="org-left">insert header atx 4</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h 5</code></td>
+<td class="org-left">insert header atx 5</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h 6</code></td>
+<td class="org-left">insert header atx 6</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h !</code></td>
+<td class="org-left">insert header setext 1</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m h @</code></td>
+<td class="org-left">insert header setext 2</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m i l</code></td>
+<td class="org-left">insert link</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m i L</code></td>
+<td class="org-left">insert reference link dwim</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m i u</code></td>
+<td class="org-left">insert uri</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m i f</code></td>
+<td class="org-left">insert footnote</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m i w</code></td>
+<td class="org-left">insert wiki link</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m i i</code></td>
+<td class="org-left">insert image</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m i I</code></td>
+<td class="org-left">insert reference image</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x b</code></td>
+<td class="org-left">make region bold or insert bold</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x i</code></td>
+<td class="org-left">make region italic or insert italic</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x c</code></td>
+<td class="org-left">make region code or insert code</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x C</code></td>
+<td class="org-left">make region code or insert code (Github Flavored Markdown format)</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x q</code></td>
+<td class="org-left">make region blockquote or insert blockquote</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x Q</code></td>
+<td class="org-left">blockquote region</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x p</code></td>
+<td class="org-left">make region or insert pre</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m x P</code></td>
+<td class="org-left">pre region</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">4.2</span> Element removal</h3>
+<div class="outline-text-3" id="text-4-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m k</code></td>
+<td class="org-left">kill thing at point</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">4.3</span> Completion, and Cycling</h3>
+<div class="outline-text-3" id="text-4-3">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m =</code></td>
+<td class="org-left">promote</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m -</code></td>
+<td class="org-left">demote</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m ]</code></td>
+<td class="org-left">complete</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">4.4</span> Following and Jumping</h3>
+<div class="outline-text-3" id="text-4-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m o</code></td>
+<td class="org-left">follow thing at point</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m j</code></td>
+<td class="org-left">jump</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">4.5</span> Indentation</h3>
+<div class="outline-text-3" id="text-4-5">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m \&gt;</code></td>
+<td class="org-left">indent region</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m \&lt;</code></td>
+<td class="org-left">exdent region</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-3">
+<h3 id="orgheadline10"><span class="section-number-3">4.6</span> Header navigation</h3>
+<div class="outline-text-3" id="text-4-6">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>gj</code></td>
+<td class="org-left">outline forward same level</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>gk</code></td>
+<td class="org-left">outline backward same level</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>gh</code></td>
+<td class="org-left">outline up one level</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>gl</code></td>
+<td class="org-left">outline next visible heading</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">4.7</span> Buffer-wide commands</h3>
+<div class="outline-text-3" id="text-4-7">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m c ]</code></td>
+<td class="org-left">complete buffer</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c m</code></td>
+<td class="org-left">other window</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c p</code></td>
+<td class="org-left">preview</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c e</code></td>
+<td class="org-left">export</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c v</code></td>
+<td class="org-left">export and preview</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c o</code></td>
+<td class="org-left">open</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c w</code></td>
+<td class="org-left">kill ring save</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c c</code></td>
+<td class="org-left">check refs</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c n</code></td>
+<td class="org-left">cleanup list numbers</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m c r</code></td>
+<td class="org-left">render buffer</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">4.8</span> List editing</h3>
+<div class="outline-text-3" id="text-4-8">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m l h</code></td>
+<td class="org-left">promote</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m l i</code></td>
+<td class="org-left">insert list item</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m l j</code></td>
+<td class="org-left">move down</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m l k</code></td>
+<td class="org-left">move up</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m l l</code></td>
+<td class="org-left">demote</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">4.9</span> Movement</h3>
+<div class="outline-text-3" id="text-4-9">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC m {</code></td>
+<td class="org-left">backward paragraph</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m }</code></td>
+<td class="org-left">forward paragraph</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m N</code></td>
+<td class="org-left">next link</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC m P</code></td>
+<td class="org-left">previous link</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-3">
+<h3 id="orgheadline14"><span class="section-number-3">4.10</span> Promotion, Demotion</h3>
+<div class="outline-text-3" id="text-4-10">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>M-k</code></td>
+<td class="org-left">markdown-move-up</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M-j</code></td>
+<td class="org-left">markdown-move-down</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M-h</code></td>
+<td class="org-left">markdown-promote</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>M-l</code></td>
+<td class="org-left">markdown-demote</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

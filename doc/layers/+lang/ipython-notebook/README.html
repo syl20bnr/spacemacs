@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2015-10-30 Fri 21:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="viewport" content="width=device-width, initial-scale=1" />
+<title>IPython Notebook contribution layer for Spacemacs (WIP)</title>
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+         <link rel="stylesheet" type="text/css"
+              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+         <script type="text/javascript"
+                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">IPython Notebook contribution layer for Spacemacs (WIP)</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline1">1. Description</a></li>
+<li><a href="#orgheadline2">2. Features</a></li>
+<li><a href="#orgheadline6">3. List of TODOS</a>
+<ul>
+<li><a href="#orgheadline3">3.1. <span class="todo nilTODO">TODO</span> Maybe it'd be better if there was a state for this</a></li>
+<li><a href="#orgheadline4">3.2. <span class="todo nilTODO">TODO</span> Make more keybinding to <code>connect</code> to a python buffer.</a></li>
+<li><a href="#orgheadline5">3.3. <span class="todo nilTODO">TODO</span> Deleting visual regions don't work, find out why.</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline10">4. Install</a>
+<ul>
+<li><a href="#orgheadline7">4.1. Layer</a></li>
+<li><a href="#orgheadline8">4.2. Dependencies</a></li>
+<li><a href="#orgheadline9">4.3. What needs to be run</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline17">5. Using the IPython notebook</a>
+<ul>
+<li><a href="#orgheadline11">5.1. Open Notebook List</a></li>
+<li><a href="#orgheadline16">5.2. Key Bindings</a>
+<ul>
+<li><a href="#orgheadline12">5.2.1. Micro-state: <code>ipython-notebook</code></a></li>
+<li><a href="#orgheadline13">5.2.2. Normal mode</a></li>
+<li><a href="#orgheadline14">5.2.3. Insert mode</a></li>
+<li><a href="#orgheadline15">5.2.4. Traceback mode</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgheadline20">6. Screenshots</a>
+<ul>
+<li><a href="#orgheadline18">6.1. Light</a></li>
+<li><a href="#orgheadline19">6.2. Dark</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline21">7. Bonus</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline1" class="outline-2">
+<h2 id="orgheadline1"><span class="section-number-2">1</span> Description</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This layer adds support for the package <code>emacs-ipython-notebook</code>.
+</p>
+
+<p>
+Do not hesitate to check the original package README <a href="https://github.com/millejoh/emacs-ipython-notebook">here</a>. Also the wiki has
+lots of informative stuff.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-2">
+<h2 id="orgheadline2"><span class="section-number-2">2</span> Features</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>Keybindings available through micro-State or leader key</li>
+<li>Lazy-loading</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-2">
+<h2 id="orgheadline6"><span class="section-number-2">3</span> List of TODOS</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+This is a WIP, feel free to collaborate.
+</p>
+</div>
+<div id="outline-container-orgheadline3" class="outline-3">
+<h3 id="orgheadline3"><span class="section-number-3">3.1</span> <span class="todo TODO">TODO</span> Maybe it'd be better if there was a state for this</h3>
+</div>
+<div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">3.2</span> <span class="todo TODO">TODO</span> Make more keybinding to <code>connect</code> to a python buffer.</h3>
+</div>
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">3.3</span> <span class="todo TODO">TODO</span> Deleting visual regions don't work, find out why.</h3>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">4</span> Install</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline7" class="outline-3">
+<h3 id="orgheadline7"><span class="section-number-3">4.1</span> Layer</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-configuration-layers '<span style="color: #66D9EF;">(</span>ipython-notebook<span style="color: #66D9EF;">)</span><span style="color: #AE81FF;">)</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">4.2</span> Dependencies</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Install IPython &gt; 3
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">pip install ipython
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">4.3</span> What needs to be run</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+Have an IPython notebook running
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">ipython notebook
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-2">
+<h2 id="orgheadline17"><span class="section-number-2">5</span> Using the IPython notebook</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">5.1</span> Open Notebook List</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+This layer is lazy loaded so the micro-state will only work after you summon the
+command <code>ein:notebooklist-open</code> which is bound to <code>SPC a i n</code>
+</p>
+</div>
+</div>
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">5.2</span> Key Bindings</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+The key bindings can be used through a micro state or the usual evil-leader.
+</p>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-4">
+<h4 id="orgheadline12"><span class="section-number-4">5.2.1</span> Micro-state: <code>ipython-notebook</code></h4>
+<div class="outline-text-4" id="text-5-2-1">
+<p>
+Once you are in the ipython notebook you can activate the micro-state with
+<code>SPC e i n</code>
+</p>
+
+<p>
+The following table lists the keys. Use them as listed in the micro-state or
+prefix with <code>SPC m</code> to use with your evil-leader.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>h</code></td>
+<td class="org-left">ein:notebook-worksheet-open-prev-or-last</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>j</code></td>
+<td class="org-left">ein:worksheet-goto-next-input</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>k</code></td>
+<td class="org-left">ein:worksheet-goto-prev-input</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>l</code></td>
+<td class="org-left">ein:notebook-worksheet-open-next-or-first</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>H</code></td>
+<td class="org-left">ein:notebook-worksheet-move-prev</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>J</code></td>
+<td class="org-left">ein:worksheet-move-cell-down</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>K</code></td>
+<td class="org-left">ein:worksheet-move-cell-up</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>L</code></td>
+<td class="org-left">ein:notebook-worksheet-move-next</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>t</code></td>
+<td class="org-left">ein:worksheet-toggle-output</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>d</code></td>
+<td class="org-left">ein:worksheet-kill-cell</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>R</code></td>
+<td class="org-left">ein:worksheet-rename-sheet</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>y</code></td>
+<td class="org-left">ein:worksheet-copy-cell</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>p</code></td>
+<td class="org-left">ein:worksheet-yank-cell</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>i</code></td>
+<td class="org-left">ein:worksheet-insert-cell-below</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>I</code></td>
+<td class="org-left">ein:worksheet-insert-cell-above</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>u</code></td>
+<td class="org-left">ein:worksheet-change-cell-type</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>RET</code></td>
+<td class="org-left">ein:worksheet-execute-cell-and-goto-next</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-l</code></td>
+<td class="org-left">ein:worksheet-clear-output</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-S-l</code></td>
+<td class="org-left">ein:worksheet-clear-all-output</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-o</code></td>
+<td class="org-left">ein:console-open</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-k</code></td>
+<td class="org-left">ein:worksheet-merge-cell</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-j</code></td>
+<td class="org-left">spacemacs/ein:worksheet-merge-cell-next</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-s</code></td>
+<td class="org-left">ein:notebook-save-notebook-command</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-r</code></td>
+<td class="org-left">ein:notebook-rename-command</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>1</code></td>
+<td class="org-left">ein:notebook-worksheet-open-1th</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>2</code></td>
+<td class="org-left">ein:notebook-worksheet-open-2th</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>3</code></td>
+<td class="org-left">ein:notebook-worksheet-open-3th</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>4</code></td>
+<td class="org-left">ein:notebook-worksheet-open-4th</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>5</code></td>
+<td class="org-left">ein:notebook-worksheet-open-5th</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>6</code></td>
+<td class="org-left">ein:notebook-worksheet-open-6th</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>7</code></td>
+<td class="org-left">ein:notebook-worksheet-open-7th</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>8</code></td>
+<td class="org-left">ein:notebook-worksheet-open-8th</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>9</code></td>
+<td class="org-left">ein:notebook-worksheet-open-last</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>+</code></td>
+<td class="org-left">ein:notebook-worksheet-insert-next</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-</code></td>
+<td class="org-left">ein:notebook-worksheet-delete</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>x</code></td>
+<td class="org-left">ein:notebook-close</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-4">
+<h4 id="orgheadline13"><span class="section-number-4">5.2.2</span> Normal mode</h4>
+<div class="outline-text-4" id="text-5-2-2">
+<p>
+In normal mode the following key bindings are defined:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>gj</code></td>
+<td class="org-left">ein:worksheet-goto-next-input</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>gk</code></td>
+<td class="org-left">ein:worksheet-goto-prev-input</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-RET</code></td>
+<td class="org-left">ein:worksheet-execute-cell</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>S-RET</code></td>
+<td class="org-left">ein:worksheet-execute-cell-and-goto-next</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Also <code>SPC f s</code> saves the notebook like you would a regular buffer.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-4">
+<h4 id="orgheadline14"><span class="section-number-4">5.2.3</span> Insert mode</h4>
+<div class="outline-text-4" id="text-5-2-3">
+<p>
+In normal mode the following key bindings are defined:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Key</th>
+<th scope="col" class="org-left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-RET</code></td>
+<td class="org-left">ein:worksheet-execute-cell</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>S-RET</code></td>
+<td class="org-left">ein:worksheet-execute-cell-and-goto-next</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgheadline15" class="outline-4">
+<h4 id="orgheadline15"><span class="section-number-4">5.2.4</span> Traceback mode</h4>
+<div class="outline-text-4" id="text-5-2-4">
+<p>
+In traceback mode the following key bindings are defined:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">key</th>
+<th scope="col" class="org-left">Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>RET</code></td>
+<td class="org-left">ein:tb-jump-to-source-at-point-command</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>n</code></td>
+<td class="org-left">ein:tb-next-item</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>p</code></td>
+<td class="org-left">ein:tb-prev-item</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>q</code></td>
+<td class="org-left">bury-buffer</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-2">
+<h2 id="orgheadline20"><span class="section-number-2">6</span> Screenshots</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline18" class="outline-3">
+<h3 id="orgheadline18"><span class="section-number-3">6.1</span> Light</h3>
+<div class="outline-text-3" id="text-6-1">
+
+<div class="figure">
+<p><img src="img/light.png" alt="light.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">6.2</span> Dark</h3>
+<div class="outline-text-3" id="text-6-2">
+
+<div class="figure">
+<p><img src="img/dark.png" alt="dark.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-2">
+<h2 id="orgheadline21"><span class="section-number-2">7</span> Bonus</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+If you want to have a matplotlibrc that looks good with a dark background try
+using <a href="matplotlibrc">this</a> <code>matplotlibrc</code>. Plot background is always transparent by default so
+it will look okay for most dark themes out there.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2015-10-30 Fri 21:48</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
