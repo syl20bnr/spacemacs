@@ -10,6 +10,7 @@
  - [[Key Bindings][Key Bindings]]
    - [[magit-gh-pulls][magit-gh-pulls]]
    - [[gist.el][gist.el]]
+   - [[Clone repositories][Clone repositories]]
    - [[Browse files][Browse files]]
 
 * Description
@@ -21,6 +22,7 @@ This layers adds support for [[http://github.com][Github]].
 - [[https://github.com/defunkt/gist.el][gist.el]]: full-featured mode to browse and post Github gists.
 - [[https://github.com/osener/github-browse-file][github-browse-file]] and [[https://github.com/sshaw/git-link][git-link]]: quickly browse github URL in your
   browser.
+- [[https://github.com/dgtized/github-clone.el][Github clone]] allows for easy cloning and forking of repositories.
 
 * Install
 
@@ -79,6 +81,12 @@ In the gist list buffer:
 | ~v~         | =visual state=               |
 | ~V~         | =visual-line state=          |
 | ~y~         | print URL and copy it        |
+
+** Clone repositories
+
+| Key Binding | Description                          |
+|-------------+--------------------------------------|
+| ~SPC g c~   | clone and optionally fork repository |
 
 ** Browse files
 
