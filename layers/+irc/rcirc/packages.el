@@ -3,6 +3,7 @@
     company
     company-emoji
     emoji-cheat-sheet-plus
+    flyspell
     rcirc
     rcirc-color
     rcirc-notify
@@ -19,12 +20,14 @@
 (defun rcirc/post-init-emoji-cheat-sheet-plus ()
   (add-hook 'rcirc-mode-hook 'emoji-cheat-sheet-plus-display-mode))
 
+(defun rcirc/post-init-flyspell ()
+  (spell-checking/add-flyspell-hook 'rcirc-mode))
+
 (defun rcirc/init-rcirc ()
   (use-package rcirc
     :defer t
     :init
     (progn
-      (spacemacs/add-flyspell-hook 'rcirc-mode)
       (spacemacs/add-to-hook 'rcirc-mode-hook '(rcirc-omit-mode
                                                 rcirc-track-minor-mode))
 
