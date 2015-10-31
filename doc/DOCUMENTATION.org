@@ -2673,22 +2673,23 @@ file to =~/.spacemacs=
 | [[https://github.com/syl20bnr/spacemacs/pull/1995][1000th pull request]] | [[https://github.com/justbur][justbur]]    |
 
 ** Stars, forks and watchers
-| Achievements   | Account         |
-|----------------+-----------------|
-| 100th watcher  | [[https://github.com/adouzzy][adouzzy]]         |
-| 100th fork     | [[https://github.com/balajisivaraman][balajisivaraman]] |
-| 200th fork     | [[https://github.com/alcol80][alcol80]]         |
-| 300th fork     | [[https://github.com/mlopes][mlopes]]          |
-| 100th star     | [[https://github.com/Jackneill][Jackneill]]       |
-| 200th star     | [[https://github.com/jb55][jb55]]            |
-| 400th star     | [[https://github.com/dbohdan][dbohdan]]         |
-| 600th star     | [[https://github.com/laat][laat]]            |
-| 700th star     | [[https://github.com/kendall][kendall]]         |
-| 800th star     | [[https://github.com/urso][urso]]            |
-| 900th star     | [[https://github.com/luisgerhorst][luisgerhorst]]    |
-| 1000th star!   | [[https://github.com/rashly][rashly]]          |
-| 2000th star!!  | [[https://github.com/stshine][stshine]]         |
-| 3000th star!!! | [[https://github.com/TheBB][TheBB]]           |
+| Achievements    | Account         |
+|-----------------+-----------------|
+| 100th watcher   | [[https://github.com/adouzzy][adouzzy]]         |
+| 100th fork      | [[https://github.com/balajisivaraman][balajisivaraman]] |
+| 200th fork      | [[https://github.com/alcol80][alcol80]]         |
+| 300th fork      | [[https://github.com/mlopes][mlopes]]          |
+| 100th star      | [[https://github.com/Jackneill][Jackneill]]       |
+| 200th star      | [[https://github.com/jb55][jb55]]            |
+| 400th star      | [[https://github.com/dbohdan][dbohdan]]         |
+| 600th star      | [[https://github.com/laat][laat]]            |
+| 700th star      | [[https://github.com/kendall][kendall]]         |
+| 800th star      | [[https://github.com/urso][urso]]            |
+| 900th star      | [[https://github.com/luisgerhorst][luisgerhorst]]    |
+| 1000th star!    | [[https://github.com/rashly][rashly]]          |
+| 2000th star!!   | [[https://github.com/stshine][stshine]]         |
+| 3000th star!!!  | [[https://github.com/TheBB][TheBB]]           |
+| 4000th star!!!! | [[https://github.com/nixmaniack][nixmaniack]]      |
 
 ** Gitter chat
 | Achievements                    | Account     |
