@@ -1,0 +1,19 @@
+#+TITLE: Shen contribution layer for Spacemacs
+
+[[file:img/shen.gif]]
+
+* Table of Contents                                                   :TOC@4:
+ - [[#description][Description]]
+ - [[#install][Install]]
+
+* Description
+
+Adds support for the [[http://www.shenlanguage.org/][Shen]] programming language via [[https://github.com/eschulte/shen-mode][shen-mode and inf-shen]].
+
+* Install
+
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(shen))
+#+END_SRC
