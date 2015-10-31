@@ -97,37 +97,39 @@
             (haskell-mode-show-type-at 1)
           (haskell-process-do-type 1)))
 
-      (evil-leader/set-key-for-mode 'haskell-mode
-        "mgg"  'haskell-mode-jump-to-def-or-tag
-        "mgi"  'haskell-navigate-imports
-        "mf"   'haskell-mode-stylish-buffer
+      (dolist (m '(haskell-mode literate-haskell-mode))
+        (evil-leader/set-key-for-mode m
+          "mgg"  'haskell-mode-jump-to-def-or-tag
+          "mgi"  'haskell-navigate-imports
+          "mf"   'haskell-mode-stylish-buffer
 
-        "msb"  'haskell-process-load-or-reload
-        "msc"  'haskell-interactive-mode-clear
-        "mss"  'haskell-interactive-bring
-        "msS"  'haskell-interactive-switch
+          "msb"  'haskell-process-load-or-reload
+          "msc"  'haskell-interactive-mode-clear
+          "mss"  'haskell-interactive-bring
+          "msS"  'haskell-interactive-switch
 
-        "mca"  'haskell-process-cabal
-        "mcb"  'haskell-process-cabal-build
-        "mcc"  'haskell-compile
-        "mcv"  'haskell-cabal-visit-file
+          "mca"  'haskell-process-cabal
+          "mcb"  'haskell-process-cabal-build
+          "mcc"  'haskell-compile
+          "mcv"  'haskell-cabal-visit-file
 
-        "mhd"  'inferior-haskell-find-haddock
-        "mhh"  'hoogle
-        "mhH"  'hoogle-lookup-from-local
-        "mhi"  (lookup-key haskell-mode-map (kbd "C-c C-i"))
-        "mht"  (lookup-key haskell-mode-map (kbd "C-c C-t"))
-        "mhT"  'spacemacs/haskell-process-do-type-on-prev-line
-        "mhy"  'hayoo
+          "mhd"  'inferior-haskell-find-haddock
+          "mhh"  'hoogle
+          "mhH"  'hoogle-lookup-from-local
+          "mhi"  (lookup-key haskell-mode-map (kbd "C-c C-i"))
+          "mht"  (lookup-key haskell-mode-map (kbd "C-c C-t"))
+          "mhT"  'spacemacs/haskell-process-do-type-on-prev-line
+          "mhy"  'hayoo
 
-        "mdd"  'haskell-debug
-        "mdb"  'haskell-debug/break-on-function
-        "mdn"  'haskell-debug/next
-        "mdN"  'haskell-debug/previous
-        "mdB"  'haskell-debug/delete
-        "mdc"  'haskell-debug/continue
-        "mda"  'haskell-debug/abandon
-        "mdr"  'haskell-debug/refresh)
+          "mdd"  'haskell-debug
+          "mdb"  'haskell-debug/break-on-function
+          "mdn"  'haskell-debug/next
+          "mdN"  'haskell-debug/previous
+          "mdB"  'haskell-debug/delete
+          "mdc"  'haskell-debug/continue
+          "mda"  'haskell-debug/abandon
+          "mdr"  'haskell-debug/refresh
+          ))
 
       ;; Switch back to editor from REPL
       (evil-leader/set-key-for-mode 'haskell-interactive-mode
@@ -166,17 +168,18 @@
         ;; if haskell-process-type == GHCi
         (setq haskell-process-path-ghci "ghci-ng")
 
-        (evil-leader/set-key-for-mode 'haskell-mode
-          ;; function suggested in
-          ;; https://github.com/chrisdone/ghci-ng#using-with-haskell-mode
-          "mu"   'haskell-mode-find-uses
-          "mht"  'haskell-mode-show-type-at
-          "mgg"  'haskell-mode-goto-loc))
+        (dolist (m '(haskell-mode literate-haskell-mode))
+          (evil-leader/set-key-for-mode m
+            ;; function suggested in
+            ;; https://github.com/chrisdone/ghci-ng#using-with-haskell-mode
+            "mu"   'haskell-mode-find-uses
+            "mht"  'haskell-mode-show-type-at
+            "mgg"  'haskell-mode-goto-loc))
 
       ;; Useful to have these keybindings for .cabal files, too.
       (with-eval-after-load 'haskell-cabal-mode-map
         (define-key haskell-cabal-mode-map
-          [?\C-c ?\C-z] 'haskell-interactive-switch))))
+          [?\C-c ?\C-z] 'haskell-interactive-switch)))))
 
   ;; align rules for Haskell
   (with-eval-after-load 'align
