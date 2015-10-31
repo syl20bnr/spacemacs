@@ -61,6 +61,15 @@
     font-weight: bold;
   }
 
+  .logo-font {
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 3rem;
+  }
+
+  .logo-subtitle {
+    font-weight: normal;
+  }
+
 
 .icon-volume-mute:before {
   content: "\e615"; }
@@ -4602,6 +4611,8 @@ body {
   background:         linear-gradient(90deg, #5C258D 10%, #4389A2 90%); /* W3C */
 
   /*background: #663fb5 url(../img/bg-header.jpg) no-repeat center bottom;*/
+  background-image: url("../img/background.png");
+
   background-size: cover;
   border-radius: 0; }
   @media (max-width: 47.9em) {
