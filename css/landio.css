@@ -55,6 +55,12 @@
     border-radius: 4px;
   }
 
+  .jumbotron-links {
+    font-size: 80%;
+    text-transform: lowercase;
+    font-weight: bold;
+  }
+
 
 .icon-volume-mute:before {
   content: "\e615"; }
