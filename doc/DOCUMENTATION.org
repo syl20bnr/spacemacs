@@ -2398,7 +2398,7 @@ To disable the trash you can set the variable =delete-by-moving-to-trash= to
 Editing of lisp code is provided by [[https://github.com/syl20bnr/evil-lisp-state][evil-lisp-state]].
 
 Commands will set the current state to =lisp state= where different commands
-combo can be repeated without pressing on ~SPC m~.
+combo can be repeated without pressing on ~SPC k~.
 
 When in =lisp state= the color of the mode-line changes to pink.
 
