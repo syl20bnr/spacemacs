@@ -2,7 +2,7 @@
 
 (defun evil-snipe/init-evil-snipe ()
   (use-package evil-snipe
-    :diminish evil-snipe-mode
+    :diminish evil-snipe-local-mode
     :init
     (setq evil-snipe-scope 'whole-buffer
           evil-snipe-enable-highlight t
