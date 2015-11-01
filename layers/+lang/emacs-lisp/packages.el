@@ -103,6 +103,7 @@
     :mode ("\\*.el\\'" . emacs-lisp-mode)
     :init
     (progn
+      (evil-define-key 'normal macrostep-keymap "q" 'macrostep-collapse-all)
       (spacemacs|define-micro-state macrostep
         :doc "[e] expand [c] collapse [n/N] next/previous [q] quit"
         :disable-evil-leader t
