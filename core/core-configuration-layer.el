@@ -540,7 +540,7 @@ path."
 (defun configuration-layer/package-usedp (name)
   "Return non-nil if NAME is the name of a used package."
   (let ((obj (object-assoc name :name configuration-layer--packages)))
-    (when obj (oref obj :owner))))
+    (when (and obj (not (oref obj :excluded))) (oref obj :owner))))
 
 (defun configuration-layer//configure-layers (layers)
   "Configure LAYERS."
