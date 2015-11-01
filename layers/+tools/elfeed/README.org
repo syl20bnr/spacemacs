@@ -1,0 +1,100 @@
+* Elfeed contribution layer for Spacemacs
+
+#+CAPTION: logo
+
+[[file:img/elfeed.png]]
+
+* Table of Contents                                        :TOC_4_org:noexport:
+ - [[Elfeed contribution layer for Spacemacs][Elfeed contribution layer for Spacemacs]]
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Setup feeds][Setup feeds]]
+   - [[Server][Server]]
+   - [[Importing Feeds][Importing Feeds]]
+ - [[Key Bindings][Key Bindings]]
+ - [[Troubleshooting][Troubleshooting]]
+   - [[Queue timeout exceeded][Queue timeout exceeded]]
+
+* Description
+This layer enables [[https://github.com/skeeto/elfeed][Elfeed]], a web feeds client which supports both Atom and RSS
+feeds. It'll optionally enable supporting packages, such as =elfeed-web= and
+=elfeed-org=.
+
+* Install
+** Layer
+To use this layer, add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-configuration-layers '(elfeed))
+#+END_SRC
+
+By default, =elfeed= stores its database under =~/.elfeed=.
+
+** Setup feeds
+To explicitly setup the list of feeds, set the value of =elfeed-feeds= variable
+in your =.spacemacs= file.
+
+#+BEGIN_SRC emacs-list
+(elfeed :variables
+   elfeed-feeds '(("http://nullprogram.com/feed/" blog emacs)
+                  "http://www.50ply.com/atom.xml"  ; no autotagging
+                  ("http://nedroid.com/feed/" webcomic))))
+#+END_SRC
+
+Check documentation for =elfeed-feeds= for more information about this variable
+(~SPC h d v elfeed-feeds RET~).
+
+But you might prefer to use [[https://github.com/remyhonig/elfeed-org][elfeed-org]] package and store all your feeds in
+separate =org= file. Then you have to specify it's path.
+
+#+BEGIN_SRC emacs-list
+(elfeed :variables
+   rmh-elfeed-org-files '("~/.emacs.d/private/elfeed.org"))
+#+END_SRC
+
+Checkout [[https://github.com/remyhonig/elfeed-org][elfeed-org]] documentation to see the format of that file.
+
+** Server
+Elfeed comes with simple [[https://github.com/skeeto/elfeed#web-interface][web interface]]. You can manually start it by calling
+=elfeed-web-start= or by setting =elfeed-web-enabled-on-emacs-startup= to =t=,
+so it starts automatically on Emacs startup.
+
+#+BEGIN_SRC emacs-lisp
+(elfeed :variables
+   elfeed-web-enabled-on-emacs-startup t)
+#+END_SRC
+
+By default web interface is available on [[http://localhost:8080/elfeed/][localhost:8080/elfeed]]. You can change
+the default port by changing value of =httpd-port=.
+
+** Importing Feeds
+Feeds can be specified in configuration variable, or interactively imported from
+OPML, running =SPC-: elfeed-load-opml=, or =afo=.
+
+When imported interactively, feedlist will be saved in your customization file.
+
+* Key Bindings
+| Key Binding | Description  |
+|-------------+--------------|
+| ~SPC a f~   | start elfeed |
+
+Use =SPC ?= to discover major-mode key bindings.
+
+| Key Binding | Description                            |
+|-------------+----------------------------------------|
+| ~q~         | quit main window, or item view buffer. |
+| ~c~         | compact feed db                        |
+| ~o~         | looad OPML                             |
+| ~w~         | start web server                       |
+| ~W~         | stop web server                        |
+
+* Troubleshooting
+** Queue timeout exceeded
+If you are getting "Queue timeout exceeded" errors, just increase
+=url-queue-timeout= value.
+
+#+BEGIN_SRC emacs-lisp
+(elfeed :variables
+   url-queue-timeout 30)
+#+END_SRC
