@@ -20,6 +20,7 @@
 (defun spell-checking/init-auto-dictionary ()
   (use-package auto-dictionary
     :defer t
+    :if spell-checking-enable-auto-dictionary
     :init
     (add-hook 'flyspell-mode-hook 'auto-dictionary-mode)))
 
@@ -36,8 +37,21 @@
 
       (spacemacs|add-toggle spelling-checking
         :status flyspell-mode
-        :on (flyspell-mode)
-        :off (flyspell-mode -1)
+        :on
+        (progn
+          (flyspell-mode)
+          ;; Redefine the buffer local dictionary if it was set, otherwise
+          ;; auto-dictionary will replace it with guessed one.
+          (when (and (fboundp 'adict-change-dictionary) ispell-local-dictionary)
+            (adict-change-dictionary ispell-local-dictionary))
+          ;; Reanalyze the whole buffer to show mistakes. It's probably the
+          ;; wanted behaviour when activating spell-checking.
+          (flyspell-buffer))
+        :off
+        (progn
+          (flyspell-mode -1)
+          ;; Also disable auto-dictionary when disabling spell-checking.
+          (when (fboundp 'auto-dictionary-mode) (auto-dictionary-mode -1)))
         :documentation
         "Enable automatic spell checking."
         :evil-leader "tS")
