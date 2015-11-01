@@ -13,6 +13,7 @@
 (setq spacemacs-packages
       '(
         ;; default
+        ace-jump-helm-line
         ace-link
         ace-window
         adaptive-wrap
@@ -91,6 +92,12 @@
   (push 'paradox spacemacs-packages))
 
 ;; Initialization of packages
+
+(defun spacemacs/init-ace-jump-helm-line ()
+  (use-package ace-jump-helm-line
+    :init
+    (with-eval-after-load "helm"
+      (define-key helm-map (kbd "C-'") 'ace-jump-helm-line))))
 
 (defun spacemacs/init-ace-link ()
   (use-package ace-link
