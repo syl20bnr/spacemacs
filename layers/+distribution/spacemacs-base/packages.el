@@ -541,9 +541,6 @@ Removes the automatic guessing of the initial value based on thing at point. "
             helm-semantic-fuzzy-match t
             helm-buffers-fuzzy-matching t)
 
-      ;; helm-locate uses es (from everything on windows, which doesnt like fuzzy)
-      (setq helm-locate-fuzzy-match (executable-find "locate"))
-
       ;; Use helm to provide :ls, unless ibuffer is used
       (unless (configuration-layer/package-usedp 'ibuffer)
         (evil-ex-define-cmd "buffers" 'helm-buffers-list))
@@ -734,6 +731,11 @@ Removes the automatic guessing of the initial value based on thing at point. "
     :config
     (progn
       (helm-mode +1)
+
+      ;; helm-locate uses es (from everything on windows, which doesnt like fuzzy)
+      (helm-locate-set-command)
+      (setq helm-locate-fuzzy-match (string-match "locate" helm-locate-command))
+
       (defun spacemacs//set-dotted-directory ()
         "Set the face of diretories for `.' and `..'"
         (set-face-attribute 'helm-ff-dotted-directory
