@@ -113,13 +113,13 @@
 
       (evil-leader/set-key
         "gb" 'spacemacs/git-blame-micro-state
-        "gc" 'magit-checkout
+        "gc" 'magit-commit
+        "gC" 'magit-checkout
+        "gdh" 'spacemacs/magit-diff-head
         "gi" 'magit-init
         "gl" 'magit-log-all
         "gL" 'magit-log-buffer-file
-        "gs" 'magit-status
-        "gd" 'spacemacs/magit-diff-head
-        "gC" 'magit-commit)
+        "gs" 'magit-status)
 
       (spacemacs|define-micro-state git-blame
         :doc (concat "Press [b] again to blame further in the history, "
@@ -344,8 +344,18 @@
     :defer t
     :init
     (progn
-      (spacemacs/declare-prefix "gh" "smeargle")
+      (spacemacs/declare-prefix "gH" "highlight")
+      (when (configuration-layer/package-usedp 'which-key)
+        ;; TODO abstract this to a function
+        (let ((descr
+               '(("smeargle" . "highlight by last update time")
+                 ("smeargle-commits" . "highlight by age of changes")
+                 ("smeargle-clear" . "clear"))))
+          (dolist (nd descr)
+            ;; ensure the target matches the whole string
+            (push (cons (concat "\\`" (car nd) "\\'") (cdr nd))
+                  which-key-description-replacement-alist))))
       (evil-leader/set-key
-        "ghc" 'smeargle-clear
-        "ghh" 'smeargle-commits
-        "ght" 'smeargle))))
+        "gHc" 'smeargle-clear
+        "gHh" 'smeargle-commits
+        "gHt" 'smeargle))))

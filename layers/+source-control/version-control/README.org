@@ -29,7 +29,7 @@ To use this contribution add it to your =~/.spacemacs=
 
 | Key Binding | Description   |
 |-------------+---------------|
-| ~SPC g h g~ | Go to hunk    |
-| ~SPC g h N~ | Previous hunk |
-| ~SPC g h n~ | Next hunk     |
-| ~SPC g h r~ | Revert hunk   |
+| ~SPC g d g~ | Go to hunk    |
+| ~SPC g d N~ | Previous hunk |
+| ~SPC g d n~ | Next hunk     |
+| ~SPC g d r~ | Revert hunk   |

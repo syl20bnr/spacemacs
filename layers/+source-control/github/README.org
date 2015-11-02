@@ -42,11 +42,11 @@ In a =magit status= buffer (~SPC g s~):
 
 | Key Binding | Description                                     |
 |-------------+-------------------------------------------------|
-| ~# g c~     | create a pull request                           |
-| ~# g g~     | get a list of all PRs in the current repository |
-| ~# g f~     | fetch the commits associated to the current PR  |
-| ~# g b~     | create a branch for the current PR              |
-| ~# g m~     | merge the PR with current branch                |
+| ~# c~       | create a pull request                           |
+| ~# g~       | get a list of all PRs in the current repository |
+| ~# f~       | fetch the commits associated to the current PR  |
+| ~# b~       | create a branch for the current PR              |
+| ~# m~       | merge the PR with current branch                |
 
 Note that =magit-gh-pulls= will try to fast-forward the PRs whenever it is
 possible.
@@ -84,19 +84,19 @@ In the gist list buffer:
 
 ** Clone repositories
 
-| Key Binding | Description                          |
-|-------------+--------------------------------------|
-| ~SPC g c~   | clone and optionally fork repository |
+| Key Binding   | Description                          |
+|---------------+--------------------------------------|
+| ~SPC g h C-c~ | clone and optionally fork repository |
 
 ** Browse files
 
 | Key Binding | Description                                                        |
 |-------------+--------------------------------------------------------------------|
-| ~SPC g f b~ | browse to file on github                                           |
-| ~SPC g f c~ | browse to file on github/bitbucket/etc (on current line at commit) |
-| ~SPC g f C~ | only copy the generated link on the kill ring                      |
-| ~SPC g f l~ | browse to file on github/bitbucket/etc (on current line position)  |
-| ~SPC g f L~ | only copy the generated link on the kill ring                      |
+| ~SPC g h c~ | browse to file on github/bitbucket/etc (on current line at commit) |
+| ~SPC g h C~ | only copy the generated link on the kill ring                      |
+| ~SPC g h l~ | browse to file on github/bitbucket/etc (on current line position)  |
+| ~SPC g h L~ | only copy the generated link on the kill ring                      |
+| ~SPC g h o~ | browse to file on github                                           |
 
 *Notes:*
 - You can use the universal argument ~SPC u~ to select a remote repository.

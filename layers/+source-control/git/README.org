@@ -107,12 +107,12 @@ Git commands (start with ~g~):
 |-------------+-----------------------------------------------------|
 | ~SPC g b~   | open a =magit= blame                                |
 | ~SPC g B~   | quit =magit= blame                                  |
-| ~SPC g c~   | checkout branches                                   |
-| ~SPC g C~   | commit changes                                      |
-| ~SPC g d~   | show diff against current head                      |
-| ~SPC g h c~ | clear highlights                                    |
-| ~SPC g h h~ | highlight regions by age of commits                 |
-| ~SPC g h t~ | highlight regions by last updated time              |
+| ~SPC g c~   | commit changes                                      |
+| ~SPC g C~   | checkout branches                                   |
+| ~SPC g d h~ | show diff against current head                      |
+| ~SPC g H c~ | clear highlights                                    |
+| ~SPC g H h~ | highlight regions by age of commits                 |
+| ~SPC g H t~ | highlight regions by last updated time              |
 | ~SPC g i~   | git init a given directory                          |
 | ~SPC g I~   | open =helm-gitignore=                               |
 | ~SPC g l~   | open a =magit= log                                  |
