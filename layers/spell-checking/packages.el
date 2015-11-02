@@ -35,18 +35,19 @@
       (when spell-checking-enable-by-default
         (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
+      (add-hook 'flyspell-mode-hook 'flyspell-buffer)
+
       (spacemacs|add-toggle spelling-checking
         :status flyspell-mode
         :on
         (progn
-          (flyspell-mode)
+          (if (derived-mode-p 'prog-mode)
+              (flyspell-prog-mode)
+            (flyspell-mode))
           ;; Redefine the buffer local dictionary if it was set, otherwise
           ;; auto-dictionary will replace it with guessed one.
           (when (and (fboundp 'adict-change-dictionary) ispell-local-dictionary)
-            (adict-change-dictionary ispell-local-dictionary))
-          ;; Reanalyze the whole buffer to show mistakes. It's probably the
-          ;; wanted behaviour when activating spell-checking.
-          (flyspell-buffer))
+            (adict-change-dictionary ispell-local-dictionary)))
         :off
         (progn
           (flyspell-mode -1)
