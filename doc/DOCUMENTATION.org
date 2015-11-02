@@ -942,10 +942,16 @@ and ~T~):
 **** Global line numbers
 Line numbers can be toggled on in all =prog-mode= and =text-mode= buffers by
 setting the =dotspacemacs-global-line-numbers= variable in your =~/.spacemacs=
-to something different than =nil=:
+to something different than =nil=.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default dotspacemacs-global-line-numbers t)
+#+END_SRC
+
+If it is set to =relative=, line numbers are show in a relative way:
+
+#+BEGIN_SRC emacs-lisp
+(setq-default dotspacemacs-global-line-numbers 'relative)
 #+END_SRC
 
 *** Mouse usage
