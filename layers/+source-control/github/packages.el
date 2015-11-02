@@ -15,6 +15,7 @@
         gist
         git-link
         github-browse-file
+        github-clone
         ;; not up to date
         ;; helm-gist
         magit-gh-pulls
@@ -61,6 +62,13 @@
     :init
     (evil-leader/set-key
       "gfb" 'github-browse-file)))
+
+(defun github/init-github-clone ()
+  (use-package github-clone
+    :defer t
+    :init
+    (evil-leader/set-key
+      "gc" 'github-clone)))
 
 (defun github/init-git-link ()
   (use-package git-link
