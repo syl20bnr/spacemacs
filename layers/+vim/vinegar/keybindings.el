@@ -3,7 +3,7 @@
 
 (add-hook 'dired-mode-hook 'vinegar/dired-setup)
 
-(with-eval-after-load 'dired-mode
+(with-eval-after-load 'dired
   (evilify dired-mode dired-mode-map
            "j"         'vinegar/move-down
            "k"         'vinegar/move-up
@@ -24,6 +24,6 @@
            "T"         'dired-tree-down
            "K"         'dired-do-kill-lines
            "r"         'revert-buffer
-           "C-r"       'dired-do-redisplay
+           (kbd "C-r") 'dired-do-redisplay
            "gg"        'vinegar/back-to-top
            "G"         'vinegar/jump-to-bottom))
