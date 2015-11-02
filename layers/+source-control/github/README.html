@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-10-30 Fri 21:48 -->
+<!-- 2015-11-02 Mon 22:21 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Github contribution layer for Spacemacs</title>
@@ -94,15 +94,15 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-         <link rel="stylesheet" type="text/css"
-              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-         <script type="text/javascript"
-                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
-         <script type="text/javascript"
-                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+          <link rel="stylesheet" type="text/css"
+                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+          <script type="text/javascript"
+                  src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+          <script type="text/javascript"
+                  src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -167,11 +167,12 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline3">2.1. Layer</a></li>
 </ul>
 </li>
-<li><a href="#orgheadline8">3. Key Bindings</a>
+<li><a href="#orgheadline9">3. Key Bindings</a>
 <ul>
 <li><a href="#orgheadline5">3.1. magit-gh-pulls</a></li>
 <li><a href="#orgheadline6">3.2. gist.el</a></li>
-<li><a href="#orgheadline7">3.3. Browse files</a></li>
+<li><a href="#orgheadline7">3.3. Clone repositories</a></li>
+<li><a href="#orgheadline8">3.4. Browse files</a></li>
 </ul>
 </li>
 </ul>
@@ -199,6 +200,7 @@ This layers adds support for <a href="http://github.com/">Github</a>.
 <li><a href="https://github.com/defunkt/gist.el">gist.el</a>: full-featured mode to browse and post Github gists.</li>
 <li><a href="https://github.com/osener/github-browse-file">github-browse-file</a> and <a href="https://github.com/sshaw/git-link">git-link</a>: quickly browse github URL in your
 browser.</li>
+<li><a href="https://github.com/dgtized/github-clone.el">Github clone</a> allows for easy cloning and forking of repositories.</li>
 </ul>
 </div>
 </div>
@@ -223,8 +225,8 @@ To use this contribution add it to your <code>~/.spacemacs</code>
 </div>
 </div>
 
-<div id="outline-container-orgheadline8" class="outline-2">
-<h2 id="orgheadline8"><span class="section-number-2">3</span> Key Bindings</h2>
+<div id="outline-container-orgheadline9" class="outline-2">
+<h2 id="orgheadline9"><span class="section-number-2">3</span> Key Bindings</h2>
 <div class="outline-text-2" id="text-3">
 </div><div id="outline-container-orgheadline5" class="outline-3">
 <h3 id="orgheadline5"><span class="section-number-3">3.1</span> magit-gh-pulls</h3>
@@ -249,27 +251,27 @@ In a <code>magit status</code> buffer (<code>SPC g s</code>):
 </thead>
 <tbody>
 <tr>
-<td class="org-left"><code># g c</code></td>
+<td class="org-left"><code># c</code></td>
 <td class="org-left">create a pull request</td>
 </tr>
 
 <tr>
-<td class="org-left"><code># g g</code></td>
+<td class="org-left"><code># g</code></td>
 <td class="org-left">get a list of all PRs in the current repository</td>
 </tr>
 
 <tr>
-<td class="org-left"><code># g f</code></td>
+<td class="org-left"><code># f</code></td>
 <td class="org-left">fetch the commits associated to the current PR</td>
 </tr>
 
 <tr>
-<td class="org-left"><code># g b</code></td>
+<td class="org-left"><code># b</code></td>
 <td class="org-left">create a branch for the current PR</td>
 </tr>
 
 <tr>
-<td class="org-left"><code># g m</code></td>
+<td class="org-left"><code># m</code></td>
 <td class="org-left">merge the PR with current branch</td>
 </tr>
 </tbody>
@@ -431,7 +433,7 @@ In the gist list buffer:
 </div>
 
 <div id="outline-container-orgheadline7" class="outline-3">
-<h3 id="orgheadline7"><span class="section-number-3">3.3</span> Browse files</h3>
+<h3 id="orgheadline7"><span class="section-number-3">3.3</span> Clone repositories</h3>
 <div class="outline-text-3" id="text-3-3">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -449,28 +451,55 @@ In the gist list buffer:
 </thead>
 <tbody>
 <tr>
-<td class="org-left"><code>SPC g f b</code></td>
-<td class="org-left">browse to file on github</td>
+<td class="org-left"><code>SPC g h C-c</code></td>
+<td class="org-left">clone and optionally fork repository</td>
 </tr>
+</tbody>
+</table>
+</div>
+</div>
 
+<div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.4</span> Browse files</h3>
+<div class="outline-text-3" id="text-3-4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
 <tr>
-<td class="org-left"><code>SPC g f c</code></td>
+<th scope="col" class="org-left">Key Binding</th>
+<th scope="col" class="org-left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SPC g h c</code></td>
 <td class="org-left">browse to file on github/bitbucket/etc (on current line at commit)</td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC g f C</code></td>
+<td class="org-left"><code>SPC g h C</code></td>
 <td class="org-left">only copy the generated link on the kill ring</td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC g f l</code></td>
+<td class="org-left"><code>SPC g h l</code></td>
 <td class="org-left">browse to file on github/bitbucket/etc (on current line position)</td>
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC g f L</code></td>
+<td class="org-left"><code>SPC g h L</code></td>
 <td class="org-left">only copy the generated link on the kill ring</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SPC g h o</code></td>
+<td class="org-left">browse to file on github</td>
 </tr>
 </tbody>
 </table>
@@ -490,7 +519,7 @@ override this behavior by setting the variable <code>git-link-open-in-browser</c
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-10-30 Fri 21:48</p>
+<p class="date">Created: 2015-11-02 Mon 22:21</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

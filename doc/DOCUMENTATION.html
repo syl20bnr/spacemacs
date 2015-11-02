@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2015-10-30 Fri 21:47 -->
+<!-- 2015-11-02 Mon 22:21 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="viewport" content="width=device-width, initial-scale=1" />
 <title>Spacemacs documentation</title>
@@ -94,15 +94,15 @@
   /*]]>*/-->
 </style>
 <link rel="stylesheet" type="text/css"
-              href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-         <link rel="stylesheet" type="text/css"
-              href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-         <script type="text/javascript"
-                src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
-         <script type="text/javascript"
-                src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+                href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+          <link rel="stylesheet" type="text/css"
+                href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+          <script type="text/javascript"
+                  src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js"></script>
+          <script type="text/javascript"
+                  src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -186,7 +186,13 @@ for the JavaScript code in this tag.
 <li><a href="#orgheadline16">6.2. Structure</a></li>
 <li><a href="#orgheadline22">6.3. Packages</a>
 <ul>
-<li><a href="#orgheadline20">6.3.1. Within a layer</a></li>
+<li><a href="#orgheadline20">6.3.1. Within a layer</a>
+<ul>
+<li><a href="#orgheadline17">6.3.1.1. Declaration</a></li>
+<li><a href="#orgheadline18">6.3.1.2. Initialization</a></li>
+<li><a href="#orgheadline19">6.3.1.3. Exclusion</a></li>
+</ul>
+</li>
 <li><a href="#orgheadline21">6.3.2. Without a layer</a></li>
 </ul>
 </li>
@@ -253,9 +259,23 @@ for the JavaScript code in this tag.
 <ul>
 <li><a href="#orgheadline64">11.1.1. Color themes</a></li>
 <li><a href="#orgheadline65">11.1.2. Font</a></li>
-<li><a href="#orgheadline67">11.1.3. Graphical UI Toggles</a></li>
+<li><a href="#orgheadline67">11.1.3. Graphical UI Toggles</a>
+<ul>
+<li><a href="#orgheadline66">11.1.3.1. Global line numbers</a></li>
+</ul>
+</li>
 <li><a href="#orgheadline68">11.1.4. Mouse usage</a></li>
-<li><a href="#orgheadline75">11.1.5. Mode-line</a></li>
+<li><a href="#orgheadline75">11.1.5. Mode-line</a>
+<ul>
+<li><a href="#orgheadline69">11.1.5.1. Powerline font installation for terminal-mode users</a></li>
+<li><a href="#orgheadline62">11.1.5.2. Flycheck integration</a></li>
+<li><a href="#orgheadline70">11.1.5.3. Anzu integration</a></li>
+<li><a href="#orgheadline71">11.1.5.4. Battery status integration</a></li>
+<li><a href="#orgheadline72">11.1.5.5. Powerline separators</a></li>
+<li><a href="#orgheadline73">11.1.5.6. Minor Modes</a></li>
+<li><a href="#orgheadline74">11.1.5.7. Customizing the mode-line</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -280,21 +300,61 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#orgheadline96">12.4. Discovering</a>
 <ul>
-<li><a href="#orgheadline90">12.4.1. Key bindings</a></li>
+<li><a href="#orgheadline90">12.4.1. Key bindings</a>
+<ul>
+<li><a href="#orgheadline88">12.4.1.1. Which-key</a></li>
+<li><a href="#orgheadline89">12.4.1.2. Helm describe key bindings</a></li>
+</ul>
+</li>
 <li><a href="#orgheadline91">12.4.2. Getting help</a></li>
-<li><a href="#orgheadline94">12.4.3. Available layers</a></li>
+<li><a href="#orgheadline94">12.4.3. Available layers</a>
+<ul>
+<li><a href="#orgheadline92">12.4.3.1. Available packages in Spacemacs</a></li>
+<li><a href="#orgheadline93">12.4.3.2. New packages from ELPA repositories</a></li>
+</ul>
+</li>
 <li><a href="#orgheadline95">12.4.4. Toggles</a></li>
 </ul>
 </li>
 <li><a href="#orgheadline121">12.5. Navigating</a>
 <ul>
-<li><a href="#orgheadline98">12.5.1. Point/Cursor</a></li>
-<li><a href="#orgheadline100">12.5.2. Vim motions with ace-jump mode</a></li>
-<li><a href="#orgheadline104">12.5.3. Window manipulation</a></li>
-<li><a href="#orgheadline111">12.5.4. Buffers and Files</a></li>
+<li><a href="#orgheadline98">12.5.1. Point/Cursor</a>
+<ul>
+<li><a href="#orgheadline97">12.5.1.1. Smooth scrolling</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline100">12.5.2. Vim motions with ace-jump mode</a>
+<ul>
+<li><a href="#orgheadline99">12.5.2.1. ace-link mode</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline104">12.5.3. Window manipulation</a>
+<ul>
+<li><a href="#orgheadline101">12.5.3.1. Window manipulation key bindings</a></li>
+<li><a href="#orgheadline102">12.5.3.2. Window manipulation micro-state</a></li>
+<li><a href="#orgheadline103">12.5.3.3. Golden ratio</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline111">12.5.4. Buffers and Files</a>
+<ul>
+<li><a href="#orgheadline105">12.5.4.1. Buffers manipulation key bindings</a></li>
+<li><a href="#orgheadline106">12.5.4.2. Buffers manipulation micro-state</a></li>
+<li><a href="#orgheadline107">12.5.4.3. Special Buffers</a></li>
+<li><a href="#orgheadline108">12.5.4.4. Files manipulations key bindings</a></li>
+<li><a href="#orgheadline109">12.5.4.5. Emacs and Spacemacs files</a></li>
+<li><a href="#orgheadline110">12.5.4.6. Browsing files with Helm</a></li>
+</ul>
+</li>
 <li><a href="#orgheadline112">12.5.5. Ido</a></li>
 <li><a href="#orgheadline113">12.5.6. Ido micro-state</a></li>
-<li><a href="#orgheadline118">12.5.7. NeoTree file tree</a></li>
+<li><a href="#orgheadline118">12.5.7. NeoTree file tree</a>
+<ul>
+<li><a href="#orgheadline114">12.5.7.1. NeoTree navigation</a></li>
+<li><a href="#orgheadline115">12.5.7.2. Opening files with NeoTree</a></li>
+<li><a href="#orgheadline116">12.5.7.3. Other NeoTree key bindings</a></li>
+<li><a href="#orgheadline117">12.5.7.4. NeoTree mode-line</a></li>
+</ul>
+</li>
 <li><a href="#orgheadline119">12.5.8. Bookmarks</a></li>
 <li><a href="#orgheadline120">12.5.9. DocView mode</a></li>
 </ul>
@@ -308,7 +368,16 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#orgheadline140">12.7. Searching</a>
 <ul>
-<li><a href="#orgheadline132">12.7.1. With an external tool</a></li>
+<li><a href="#orgheadline132">12.7.1. With an external tool</a>
+<ul>
+<li><a href="#orgheadline126">12.7.1.1. Useful key bindings</a></li>
+<li><a href="#orgheadline127">12.7.1.2. Searching in current file</a></li>
+<li><a href="#orgheadline128">12.7.1.3. Searching in all open buffers visiting files</a></li>
+<li><a href="#orgheadline129">12.7.1.4. Searching in files in an arbitrary directory</a></li>
+<li><a href="#orgheadline130">12.7.1.5. Searching in a project</a></li>
+<li><a href="#orgheadline131">12.7.1.6. Searching the web</a></li>
+</ul>
+</li>
 <li><a href="#orgheadline133">12.7.2. Persistent highlighting</a></li>
 <li><a href="#orgheadline134">12.7.3. Stacking highlights</a></li>
 <li><a href="#orgheadline135">12.7.4. Highlight current symbol</a></li>
@@ -319,21 +388,45 @@ for the JavaScript code in this tag.
 </li>
 <li><a href="#orgheadline166">12.8. Editing</a>
 <ul>
-<li><a href="#orgheadline143">12.8.1. Paste text</a></li>
+<li><a href="#orgheadline143">12.8.1. Paste text</a>
+<ul>
+<li><a href="#orgheadline141">12.8.1.1. Paste Micro-state</a></li>
+<li><a href="#orgheadline142">12.8.1.2. Auto-indent pasted text</a></li>
+</ul>
+</li>
 <li><a href="#orgheadline144">12.8.2. Text manipulation commands</a></li>
 <li><a href="#orgheadline145">12.8.3. Searching and inserting Unicode characters</a></li>
 <li><a href="#orgheadline146">12.8.4. Smartparens Strict mode</a></li>
-<li><a href="#orgheadline148">12.8.5. Zooming</a></li>
+<li><a href="#orgheadline148">12.8.5. Zooming</a>
+<ul>
+<li><a href="#orgheadline56">12.8.5.1. Text</a></li>
+<li><a href="#orgheadline147">12.8.5.2. Frame</a></li>
+</ul>
+</li>
 <li><a href="#orgheadline149">12.8.6. Increase/Decrease numbers</a></li>
 <li><a href="#orgheadline150">12.8.7. Spell checking</a></li>
-<li><a href="#orgheadline136">12.8.8. Region selection</a></li>
+<li><a href="#orgheadline136">12.8.8. Region selection</a>
+<ul>
+<li><a href="#orgheadline151">12.8.8.1. Expand-region</a></li>
+<li><a href="#orgheadline152">12.8.8.2. Indent text object</a></li>
+</ul>
+</li>
 <li><a href="#orgheadline153">12.8.9. Region narrowing</a></li>
 <li><a href="#orgheadline154">12.8.10. Line formatting</a></li>
-<li><a href="#orgheadline52">12.8.11. Replacing text with iedit</a></li>
+<li><a href="#orgheadline52">12.8.11. Replacing text with iedit</a>
+<ul>
+<li><a href="#orgheadline158">12.8.11.1. iedit states key bindings</a></li>
+<li><a href="#orgheadline159">12.8.11.2. Examples</a></li>
+</ul>
+</li>
 <li><a href="#orgheadline160">12.8.12. Replacing text in several files</a></li>
 <li><a href="#orgheadline161">12.8.13. Commenting</a></li>
 <li><a href="#orgheadline162">12.8.14. Deleting files</a></li>
-<li><a href="#orgheadline51">12.8.15. Editing Lisp code</a></li>
+<li><a href="#orgheadline51">12.8.15. Editing Lisp code</a>
+<ul>
+<li><a href="#orgheadline165">12.8.15.1. Lisp Key Bindings</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#orgheadline167">12.9. Managing projects</a></li>
@@ -590,7 +683,7 @@ Update Button:
 <div class="outline-text-4" id="text-5-1-2">
 <p>
 Use the button labeled "Update Spacemacs" in the Spacemacs buffer. You will be
-prompted for the version you would like to use. 
+prompted for the version you would like to use.
 </p>
 
 <p>
@@ -731,7 +824,9 @@ installed from an online source using <code>[[https://github.com/quelpa/quelpa][
 </div><div id="outline-container-orgheadline20" class="outline-4">
 <h4 id="orgheadline20"><span class="section-number-4">6.3.1</span> Within a layer</h4>
 <div class="outline-text-4" id="text-6-3-1">
-</div><ol class="org-ol"><li><a id="orgheadline17"></a>Declaration<br  /><div class="outline-text-5" id="text-6-3-1-1">
+</div><div id="outline-container-orgheadline17" class="outline-5">
+<h5 id="orgheadline17"><span class="section-number-5">6.3.1.1</span> Declaration</h5>
+<div class="outline-text-5" id="text-6-3-1-1">
 <p>
 <code>Packages</code> are declared in variables and <code>&lt;layer&gt;-packages</code> where <code>&lt;layer&gt;</code> is
 the layer name. They are processed in alphabetical order so sometimes you'll
@@ -752,9 +847,12 @@ Example:
 For details on installing local packages using quelpa or in the layer's <code>local</code>
 folder, see <a href="LAYERS.html#orgheadline11">LAYERS</a>.
 </p>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline18"></a>Initialization<br  /><div class="outline-text-5" id="text-6-3-1-2">
+<div id="outline-container-orgheadline18" class="outline-5">
+<h5 id="orgheadline18"><span class="section-number-5">6.3.1.2</span> Initialization</h5>
+<div class="outline-text-5" id="text-6-3-1-2">
 <p>
 To initialize an extension or a package <code>xxx</code>, define a function with this
 format in or <code>packages.el</code>:
@@ -769,9 +867,12 @@ format in or <code>packages.el</code>:
 <p>
 It is common to define the body with the <a href="https://github.com/jwiegley/use-package">use-package</a> macro.
 </p>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline19"></a>Exclusion<br  /><div class="outline-text-5" id="text-6-3-1-3">
+<div id="outline-container-orgheadline19" class="outline-5">
+<h5 id="orgheadline19"><span class="section-number-5">6.3.1.3</span> Exclusion</h5>
+<div class="outline-text-5" id="text-6-3-1-3">
 <p>
 It is possible to exclude some packages from Spacemacs on a per layer basis.
 This is useful when a configuration layer aims to replace a stock package
@@ -792,7 +893,8 @@ Example:
 <pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq &lt;layer&gt;-excluded-packages '<span style="color: #66D9EF;">(</span>package1 package2 ...<span style="color: #66D9EF;">)</span>
 </pre>
 </div>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline21" class="outline-4">
@@ -1957,7 +2059,9 @@ and <code>T</code>):
 </p>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline66"></a>Global line numbers<br  /><div class="outline-text-5" id="text-11-1-3-1">
+<div id="outline-container-orgheadline66" class="outline-5">
+<h5 id="orgheadline66"><span class="section-number-5">11.1.3.1</span> Global line numbers</h5>
+<div class="outline-text-5" id="text-11-1-3-1">
 <p>
 Line numbers can be toggled on in all <code>prog-mode</code> and <code>text-mode</code> buffers by
 setting the <code>dotspacemacs-global-line-numbers</code> variable in your <code>~/.spacemacs</code>
@@ -1969,7 +2073,8 @@ to something different than <code>nil</code>:
 <pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-global-line-numbers t<span style="color: #AE81FF;">)</span>
 </pre>
 </div>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline68" class="outline-4">
@@ -2130,15 +2235,20 @@ Some elements can be dynamically toggled:
 </table>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline69"></a>Powerline font installation for terminal-mode users<br  /><div class="outline-text-5" id="text-11-1-5-1">
+<div id="outline-container-orgheadline69" class="outline-5">
+<h5 id="orgheadline69"><span class="section-number-5">11.1.5.1</span> Powerline font installation for terminal-mode users</h5>
+<div class="outline-text-5" id="text-11-1-5-1">
 <p>
 Users who run Emacs in terminal mode may need to install the <a href="https://github.com/powerline/fonts">Powerline patched
 fonts</a> and configure their terminal clients to use them to make the Powerline
 separators render correctly.
 </p>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline62"></a>Flycheck integration<br  /><div class="outline-text-5" id="text-11-1-5-2">
+<div id="outline-container-orgheadline62" class="outline-5">
+<h5 id="orgheadline62"><span class="section-number-5">11.1.5.2</span> Flycheck integration</h5>
+<div class="outline-text-5" id="text-11-1-5-2">
 <p>
 When <a href="https://github.com/flycheck/flycheck">Flycheck</a> minor mode is enabled, a new element appears showing the number of
 errors, warnings and info.
@@ -2149,9 +2259,12 @@ errors, warnings and info.
 <p><img src="img/powerline-wave.png" alt="powerline-wave.png" />
 </p>
 </div>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline70"></a>Anzu integration<br  /><div class="outline-text-5" id="text-11-1-5-3">
+<div id="outline-container-orgheadline70" class="outline-5">
+<h5 id="orgheadline70"><span class="section-number-5">11.1.5.3</span> Anzu integration</h5>
+<div class="outline-text-5" id="text-11-1-5-3">
 <p>
 <a href="https://github.com/syohex/emacs-anzu">Anzu</a> shows the number of occurrence when performing a search. Spacemacs
 integrates nicely the Anzu status by displaying it temporarily when <code>n</code> or <code>N</code>
@@ -2163,9 +2276,12 @@ are being pressed. See the <code>5/6</code> segment on the screenshot below.
 <p><img src="img/powerline-anzu.png" alt="powerline-anzu.png" />
 </p>
 </div>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline71"></a>Battery status integration<br  /><div class="outline-text-5" id="text-11-1-5-4">
+<div id="outline-container-orgheadline71" class="outline-5">
+<h5 id="orgheadline71"><span class="section-number-5">11.1.5.4</span> Battery status integration</h5>
+<div class="outline-text-5" id="text-11-1-5-4">
 <p>
 <a href="https://github.com/lunaryorn/fancy-battery.el">fancy-battery</a> displays the percentage of total charge of the battery as well as
 the time remaining to charge or discharge completely the battery.
@@ -2210,9 +2326,12 @@ A color code is used for the battery status:
 <p>
 Note the these colors may vary depending on your theme.
 </p>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline72"></a>Powerline separators<br  /><div class="outline-text-5" id="text-11-1-5-5">
+<div id="outline-container-orgheadline72" class="outline-5">
+<h5 id="orgheadline72"><span class="section-number-5">11.1.5.5</span> Powerline separators</h5>
+<div class="outline-text-5" id="text-11-1-5-5">
 <p>
 It is possible to easily customize the <code>powerline separator</code> by setting the
 <code>powerline-default-separator</code> variable in your <code>~./spacemacs</code>. For instance if
@@ -2330,9 +2449,12 @@ powerline, here is an exhaustive set of screenshots:
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline73"></a>Minor Modes<br  /><div class="outline-text-5" id="text-11-1-5-6">
+<div id="outline-container-orgheadline73" class="outline-5">
+<h5 id="orgheadline73"><span class="section-number-5">11.1.5.6</span> Minor Modes</h5>
+<div class="outline-text-5" id="text-11-1-5-6">
 <p>
 Spacemacs uses <a href="http://www.emacswiki.org/emacs/DiminishedModes">diminish</a> mode to reduce the size of minor mode indicators:
 </p>
@@ -2541,9 +2663,12 @@ can be reached using the <code>control</code> key.
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline74"></a>Customizing the mode-line<br  /><div class="outline-text-5" id="text-11-1-5-7">
+<div id="outline-container-orgheadline74" class="outline-5">
+<h5 id="orgheadline74"><span class="section-number-5">11.1.5.7</span> Customizing the mode-line</h5>
+<div class="outline-text-5" id="text-11-1-5-7">
 <p>
 The mode-line consists of a number of <i>segments</i> arranged on the left and right
 sides. These are defined in the variables <code>spacemacs-mode-line-left</code> and
@@ -2616,7 +2741,8 @@ During evaluation of segments, the following additional bindings are useful.
 <dt><code>state-face</code></dt><dd>The face representing the current evil state.</dd>
 <dt><code>active</code></dt><dd>Whether the window is currently active or not.</dd>
 </dl>
-</div></li></ol>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -3012,7 +3138,9 @@ Initiate the micro-state with <code>M-SPC</code> or <code>s-M-SPC</code> while i
 </div><div id="outline-container-orgheadline90" class="outline-4">
 <h4 id="orgheadline90"><span class="section-number-4">12.4.1</span> Key bindings</h4>
 <div class="outline-text-4" id="text-12-4-1">
-</div><ol class="org-ol"><li><a id="orgheadline88"></a>Which-key<br  /><div class="outline-text-5" id="text-12-4-1-1">
+</div><div id="outline-container-orgheadline88" class="outline-5">
+<h5 id="orgheadline88"><span class="section-number-5">12.4.1.1</span> Which-key</h5>
+<div class="outline-text-5" id="text-12-4-1-1">
 <p>
 A help buffer is displayed each time the <code>SPC</code> key is pressed in normal mode.
 It lists the available key bindings and their associated commands.
@@ -3023,9 +3151,12 @@ By default the <a href="https://github.com/justbur/emacs-which-key">which-key</a
 pressed. You can change the delay by setting the variable
 <code>dotspacemacs-which-key-delay</code> to your liking (the value is in second).
 </p>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline89"></a>Helm describe key bindings<br  /><div class="outline-text-5" id="text-12-4-1-2">
+<div id="outline-container-orgheadline89" class="outline-5">
+<h5 id="orgheadline89"><span class="section-number-5">12.4.1.2</span> Helm describe key bindings</h5>
+<div class="outline-text-5" id="text-12-4-1-2">
 <p>
 It is possible to search for specific key bindings by pressing <code>SPC ?</code>.
 </p>
@@ -3035,7 +3166,8 @@ To narrow the list to some key bindings using the leader key type a pattern like
 this regular expression: <code>SPC\ b</code> which would list all <code>buffer</code> related
 bindings.
 </p>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline91" class="outline-4">
@@ -3165,7 +3297,9 @@ The following helm actions are available:
 </ul>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline92"></a>Available packages in Spacemacs<br  /><div class="outline-text-5" id="text-12-4-3-1">
+<div id="outline-container-orgheadline92" class="outline-5">
+<h5 id="orgheadline92"><span class="section-number-5">12.4.3.1</span> Available packages in Spacemacs</h5>
+<div class="outline-text-5" id="text-12-4-3-1">
 <p>
 <code>helm-spacemacs</code> also lists all the packages available in Spacemacs. The entry
 format is <code>(layer) packages</code>. If you type <code>flycheck</code> you'll be able to see all
@@ -3178,9 +3312,12 @@ The following helm actions are available on packages:
 <ul class="org-ul">
 <li>default: go the package init function</li>
 </ul>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline93"></a>New packages from ELPA repositories<br  /><div class="outline-text-5" id="text-12-4-3-2">
+<div id="outline-container-orgheadline93" class="outline-5">
+<h5 id="orgheadline93"><span class="section-number-5">12.4.3.2</span> New packages from ELPA repositories</h5>
+<div class="outline-text-5" id="text-12-4-3-2">
 <p>
 <code>package-list-packages</code> is where you can browse for all available packages in the
 different Elpa repositories. It is possible to upgrade packages from there but
@@ -3328,7 +3465,8 @@ Spacemacs.
 </tr>
 </tbody>
 </table>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline95" class="outline-4">
@@ -3428,7 +3566,9 @@ Navigation is performed using the Vi key bindings <code>hjkl</code>.
 </table>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline97"></a>Smooth scrolling<br  /><div class="outline-text-5" id="text-12-5-1-1">
+<div id="outline-container-orgheadline97" class="outline-5">
+<h5 id="orgheadline97"><span class="section-number-5">12.5.1.1</span> Smooth scrolling</h5>
+<div class="outline-text-5" id="text-12-5-1-1">
 <p>
 <a href="https://github.com/aspiers/smooth-scrolling">smooth-scrolling</a> prevent the point to jump when it reaches the top or
 bottom of the screen. It is enabled by default.
@@ -3444,7 +3584,8 @@ On Windows, you may want to disable it. To disable the smooth scrolling set the
 <pre class="src src-emacs-lisp"><span style="color: #AE81FF;">(</span>setq-default dotspacemacs-smooth-scrolling t<span style="color: #AE81FF;">)</span>
 </pre>
 </div>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline100" class="outline-4">
@@ -3497,7 +3638,9 @@ a buffer containing some text: <code>d SPC l</code>
 </p>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline99"></a>ace-link mode<br  /><div class="outline-text-5" id="text-12-5-2-1">
+<div id="outline-container-orgheadline99" class="outline-5">
+<h5 id="orgheadline99"><span class="section-number-5">12.5.2.1</span> ace-link mode</h5>
+<div class="outline-text-5" id="text-12-5-2-1">
 <p>
 Similar to <code>ace-jump-mode</code>, <a href="https://github.com/abo-abo/ace-link">ace-link</a> allows one to jump to any link in
 <code>help-mode</code> and <code>info-mode</code> with two key strokes.
@@ -3524,13 +3667,16 @@ Similar to <code>ace-jump-mode</code>, <a href="https://github.com/abo-abo/ace-l
 </tr>
 </tbody>
 </table>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline104" class="outline-4">
 <h4 id="orgheadline104"><span class="section-number-4">12.5.3</span> Window manipulation</h4>
 <div class="outline-text-4" id="text-12-5-3">
-</div><ol class="org-ol"><li><a id="orgheadline101"></a>Window manipulation key bindings<br  /><div class="outline-text-5" id="text-12-5-3-1">
+</div><div id="outline-container-orgheadline101" class="outline-5">
+<h5 id="orgheadline101"><span class="section-number-5">12.5.3.1</span> Window manipulation key bindings</h5>
+<div class="outline-text-5" id="text-12-5-3-1">
 <p>
 Every window has a number displayed at the start of the mode-line and
 can be quickly accessed using <code>SPC number</code>.
@@ -3758,9 +3904,12 @@ Windows manipulation commands (start with <code>w</code>):
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline102"></a>Window manipulation micro-state<br  /><div class="outline-text-5" id="text-12-5-3-2">
+<div id="outline-container-orgheadline102" class="outline-5">
+<h5 id="orgheadline102"><span class="section-number-5">12.5.3.2</span> Window manipulation micro-state</h5>
+<div class="outline-text-5" id="text-12-5-3-2">
 <p>
 A convenient window manipulation micro-state allows to perform most of the
 actions listed above. The micro-state allows additional actions as well like
@@ -3978,9 +4127,12 @@ window resizing.
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline103"></a>Golden ratio<br  /><div class="outline-text-5" id="text-12-5-3-3">
+<div id="outline-container-orgheadline103" class="outline-5">
+<h5 id="orgheadline103"><span class="section-number-5">12.5.3.3</span> Golden ratio</h5>
+<div class="outline-text-5" id="text-12-5-3-3">
 <p>
 If you resize windows like crazy you may want to give a try to <a href="https://github.com/roman/golden-ratio.el">golden-ratio</a>.
 </p>
@@ -3993,7 +4145,8 @@ selected or not. By default <code>golden-ratio</code> is off.
 <p>
 The mode can be toggled on and off with <code>SPC t g</code>.
 </p>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline111" class="outline-4">
@@ -4012,7 +4165,9 @@ dotfile.
 </p>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline105"></a>Buffers manipulation key bindings<br  /><div class="outline-text-5" id="text-12-5-4-1">
+<div id="outline-container-orgheadline105" class="outline-5">
+<h5 id="orgheadline105"><span class="section-number-5">12.5.4.1</span> Buffers manipulation key bindings</h5>
+<div class="outline-text-5" id="text-12-5-4-1">
 <p>
 Buffer manipulation commands (start with <code>b</code>):
 </p>
@@ -4138,9 +4293,12 @@ Buffer manipulation commands (start with <code>b</code>):
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline106"></a>Buffers manipulation micro-state<br  /><div class="outline-text-5" id="text-12-5-4-2">
+<div id="outline-container-orgheadline106" class="outline-5">
+<h5 id="orgheadline106"><span class="section-number-5">12.5.4.2</span> Buffers manipulation micro-state</h5>
+<div class="outline-text-5" id="text-12-5-4-2">
 <p>
 A convenient buffer manipulation micro-state allows to quickly cycles through
 the opened buffer and kill them.
@@ -4187,18 +4345,24 @@ the opened buffer and kill them.
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline107"></a>Special Buffers<br  /><div class="outline-text-5" id="text-12-5-4-3">
+<div id="outline-container-orgheadline107" class="outline-5">
+<h5 id="orgheadline107"><span class="section-number-5">12.5.4.3</span> Special Buffers</h5>
+<div class="outline-text-5" id="text-12-5-4-3">
 <p>
 Unlike vim, emacs creates many buffers that most people do not need to see. Some
 examples are <code>*Messages*</code> and <code>*Compile-Log*</code>. Spacemacs tries to automatically
 ignore buffers that are not useful. However, you may want to change the way
 Spacemacs marks buffers as useful. For instructions, see the <a href="FAQ.html#MissingReference">special buffer howto</a>.
 </p>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline108"></a>Files manipulations key bindings<br  /><div class="outline-text-5" id="text-12-5-4-4">
+<div id="outline-container-orgheadline108" class="outline-5">
+<h5 id="orgheadline108"><span class="section-number-5">12.5.4.4</span> Files manipulations key bindings</h5>
+<div class="outline-text-5" id="text-12-5-4-4">
 <p>
 Files manipulation commands (start with <code>f</code>):
 </p>
@@ -4314,9 +4478,12 @@ Files manipulation commands (start with <code>f</code>):
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline109"></a>Emacs and Spacemacs files<br  /><div class="outline-text-5" id="text-12-5-4-5">
+<div id="outline-container-orgheadline109" class="outline-5">
+<h5 id="orgheadline109"><span class="section-number-5">12.5.4.5</span> Emacs and Spacemacs files</h5>
+<div class="outline-text-5" id="text-12-5-4-5">
 <p>
 Convenient key bindings are located under the prefix <code>SPC f e</code> to quickly
 navigate between <code>Emacs</code> and Spacemacs specific files.
@@ -4378,9 +4545,12 @@ navigate between <code>Emacs</code> and Spacemacs specific files.
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline110"></a>Browsing files with Helm<br  /><div class="outline-text-5" id="text-12-5-4-6">
+<div id="outline-container-orgheadline110" class="outline-5">
+<h5 id="orgheadline110"><span class="section-number-5">12.5.4.6</span> Browsing files with Helm</h5>
+<div class="outline-text-5" id="text-12-5-4-6">
 <p>
 In <code>vim</code> and  <code>hybrid</code> styles, Spacemacs remap the navigation in Helm find-files
 to keep finger on the home row.
@@ -4427,7 +4597,8 @@ to keep finger on the home row.
 </tr>
 </tbody>
 </table>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline112" class="outline-4">
@@ -4684,7 +4855,9 @@ current state. With default <code>spacemacs-dark</code> theme:
 </ul>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline114"></a>NeoTree navigation<br  /><div class="outline-text-5" id="text-12-5-7-1">
+<div id="outline-container-orgheadline114" class="outline-5">
+<h5 id="orgheadline114"><span class="section-number-5">12.5.7.1</span> NeoTree navigation</h5>
+<div class="outline-text-5" id="text-12-5-7-1">
 <p>
 Navigation is centered on the <code>hjkl</code> with the hope to provide a fast navigation
 experience like in <a href="http://ranger.nongnu.org/">ranger</a>:
@@ -4756,9 +4929,12 @@ experience like in <a href="http://ranger.nongnu.org/">ranger</a>:
 <b>Note</b>: The point is automatically set to the first letter of a node for a
 smoother experience.
 </p>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline115"></a>Opening files with NeoTree<br  /><div class="outline-text-5" id="text-12-5-7-2">
+<div id="outline-container-orgheadline115" class="outline-5">
+<h5 id="orgheadline115"><span class="section-number-5">12.5.7.2</span> Opening files with NeoTree</h5>
+<div class="outline-text-5" id="text-12-5-7-2">
 <p>
 By default a file is opened in the last active window. It is possible to choose
 window number where to open a file by using a numeric argument, for instance <code>2
@@ -4802,9 +4978,12 @@ open the file in a split window with <code>|</code> and <code>-</code>:
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline116"></a>Other NeoTree key bindings<br  /><div class="outline-text-5" id="text-12-5-7-3">
+<div id="outline-container-orgheadline116" class="outline-5">
+<h5 id="orgheadline116"><span class="section-number-5">12.5.7.3</span> Other NeoTree key bindings</h5>
+<div class="outline-text-5" id="text-12-5-7-3">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -4836,7 +5015,7 @@ open the file in a split window with <code>|</code> and <code>-</code>:
 </tr>
 
 <tr>
-<td class="org-left"><code>g</code></td>
+<td class="org-left"><code>gr</code></td>
 <td class="org-left">refresh</td>
 </tr>
 
@@ -4856,9 +5035,12 @@ open the file in a split window with <code>|</code> and <code>-</code>:
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline117"></a>NeoTree mode-line<br  /><div class="outline-text-5" id="text-12-5-7-4">
+<div id="outline-container-orgheadline117" class="outline-5">
+<h5 id="orgheadline117"><span class="section-number-5">12.5.7.4</span> NeoTree mode-line</h5>
+<div class="outline-text-5" id="text-12-5-7-4">
 <p>
 The mode-line has the following format <code>[x/y] d (D:a, F:b)</code> where:
 </p>
@@ -4869,7 +5051,8 @@ The mode-line has the following format <code>[x/y] d (D:a, F:b)</code> where:
 <li><code>a</code> the number of directories in the current directory</li>
 <li><code>b</code> the number of files in the current directory</li>
 </ul>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline119" class="outline-4">
@@ -5262,7 +5445,9 @@ called <code>pt</code>.
 </p>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline126"></a>Useful key bindings<br  /><div class="outline-text-5" id="text-12-7-1-1">
+<div id="outline-container-orgheadline126" class="outline-5">
+<h5 id="orgheadline126"><span class="section-number-5">12.7.1.1</span> Useful key bindings</h5>
+<div class="outline-text-5" id="text-12-7-1-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -5299,9 +5484,12 @@ called <code>pt</code>.
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline127"></a>Searching in current file<br  /><div class="outline-text-5" id="text-12-7-1-2">
+<div id="outline-container-orgheadline127" class="outline-5">
+<h5 id="orgheadline127"><span class="section-number-5">12.7.1.2</span> Searching in current file</h5>
+<div class="outline-text-5" id="text-12-7-1-2">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -5348,9 +5536,12 @@ called <code>pt</code>.
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline128"></a>Searching in all open buffers visiting files<br  /><div class="outline-text-5" id="text-12-7-1-3">
+<div id="outline-container-orgheadline128" class="outline-5">
+<h5 id="orgheadline128"><span class="section-number-5">12.7.1.3</span> Searching in all open buffers visiting files</h5>
+<div class="outline-text-5" id="text-12-7-1-3">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -5417,9 +5608,12 @@ called <code>pt</code>.
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline129"></a>Searching in files in an arbitrary directory<br  /><div class="outline-text-5" id="text-12-7-1-4">
+<div id="outline-container-orgheadline129" class="outline-5">
+<h5 id="orgheadline129"><span class="section-number-5">12.7.1.4</span> Searching in files in an arbitrary directory</h5>
+<div class="outline-text-5" id="text-12-7-1-4">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -5486,9 +5680,12 @@ called <code>pt</code>.
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline130"></a>Searching in a project<br  /><div class="outline-text-5" id="text-12-7-1-5">
+<div id="outline-container-orgheadline130" class="outline-5">
+<h5 id="orgheadline130"><span class="section-number-5">12.7.1.5</span> Searching in a project</h5>
+<div class="outline-text-5" id="text-12-7-1-5">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -5556,9 +5753,12 @@ called <code>pt</code>.
 file beforehand. To do so use <code>SPC p p</code> and then <code>C-s</code> on a given project to
 directly search into it like with <code>SPC s p</code>.
 </p>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline131"></a>Searching the web<br  /><div class="outline-text-5" id="text-12-7-1-6">
+<div id="outline-container-orgheadline131" class="outline-5">
+<h5 id="orgheadline131"><span class="section-number-5">12.7.1.6</span> Searching the web</h5>
+<div class="outline-text-5" id="text-12-7-1-6">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -5585,7 +5785,8 @@ directly search into it like with <code>SPC s p</code>.
 </tr>
 </tbody>
 </table>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline133" class="outline-4">
@@ -5922,7 +6123,9 @@ modifications to the buffer.
 </div><div id="outline-container-orgheadline143" class="outline-4">
 <h4 id="orgheadline143"><span class="section-number-4">12.8.1</span> Paste text</h4>
 <div class="outline-text-4" id="text-12-8-1">
-</div><ol class="org-ol"><li><a id="orgheadline141"></a>Paste Micro-state<br  /><div class="outline-text-5" id="text-12-8-1-1">
+</div><div id="outline-container-orgheadline141" class="outline-5">
+<h5 id="orgheadline141"><span class="section-number-5">12.8.1.1</span> Paste Micro-state</h5>
+<div class="outline-text-5" id="text-12-8-1-1">
 <p>
 The paste micro-state can be enabled by settings the variable
 <code>dotspacemacs-enable-paste-micro-state</code> to <code>t</code>. By default it is disabled.
@@ -5979,9 +6182,12 @@ be pasted, pressing <code>p</code> again will replace <code>bar</code> with <cod
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline142"></a>Auto-indent pasted text<br  /><div class="outline-text-5" id="text-12-8-1-2">
+<div id="outline-container-orgheadline142" class="outline-5">
+<h5 id="orgheadline142"><span class="section-number-5">12.8.1.2</span> Auto-indent pasted text</h5>
+<div class="outline-text-5" id="text-12-8-1-2">
 <p>
 By default any pasted text will be auto-indented. To paste text un-indented use
 the universal argument.
@@ -5992,7 +6198,8 @@ It is possible to disable the auto-indentation for specific major-modes by
 adding a major-mode to the variable <code>spacemacs-indent-sensitive-modes</code> in your
 <code>dotspacemacs/user-config</code> function.
 </p>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline144" class="outline-4">
@@ -6053,7 +6260,7 @@ Text related commands (start with <code>x</code>):
 </tr>
 
 <tr>
-<td class="org-left"><code>SPC x a ,</code></td>
+<td class="org-left">~SPC x a ,~</td>
 <td class="org-left">align region at ,</td>
 </tr>
 
@@ -6212,7 +6419,9 @@ It is possible to enable it easily for <i>all programming modes</i> with the var
 <div id="outline-container-orgheadline148" class="outline-4">
 <h4 id="orgheadline148"><span class="section-number-4">12.8.5</span> Zooming</h4>
 <div class="outline-text-4" id="text-12-8-5">
-</div><ol class="org-ol"><li><a id="orgheadline56"></a>Text<br  /><div class="outline-text-5" id="text-12-8-5-1">
+</div><div id="outline-container-orgheadline56" class="outline-5">
+<h5 id="orgheadline56"><span class="section-number-5">12.8.5.1</span> Text</h5>
+<div class="outline-text-5" id="text-12-8-5-1">
 <p>
 The font size of the current buffer can be adjusted with the commands:
 </p>
@@ -6274,9 +6483,12 @@ Note that <i>only</i> the text of the current buffer is scaled, the other buffer
 the mode-line and the minibuffer are not affected. To zoom the whole content of
 a frame use the <code>zoom frame</code> bindings (see next section).
 </p>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline147"></a>Frame<br  /><div class="outline-text-5" id="text-12-8-5-2">
+<div id="outline-container-orgheadline147" class="outline-5">
+<h5 id="orgheadline147"><span class="section-number-5">12.8.5.2</span> Frame</h5>
+<div class="outline-text-5" id="text-12-8-5-2">
 <p>
 You can zoom in and out the whole content of the frame with the commands:
 </p>
@@ -6332,7 +6544,8 @@ You can zoom in and out the whole content of the frame with the commands:
 </tr>
 </tbody>
 </table>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline149" class="outline-4">
@@ -6434,7 +6647,9 @@ Vi <code>Visual</code> modes are all supported by <code>evil</code>.
 </p>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline151"></a>Expand-region<br  /><div class="outline-text-5" id="text-12-8-8-1">
+<div id="outline-container-orgheadline151" class="outline-5">
+<h5 id="orgheadline151"><span class="section-number-5">12.8.8.1</span> Expand-region</h5>
+<div class="outline-text-5" id="text-12-8-8-1">
 <p>
 Spacemacs adds another <code>Visual</code> mode via the <a href="https://github.com/magnars/expand-region.el">expand-region</a> mode.
 </p>
@@ -6480,9 +6695,12 @@ Spacemacs adds another <code>Visual</code> mode via the <a href="https://github.
 </tr>
 </tbody>
 </table>
-</div></li>
+</div>
+</div>
 
-<li><a id="orgheadline152"></a>Indent text object<br  /><div class="outline-text-5" id="text-12-8-8-2">
+<div id="outline-container-orgheadline152" class="outline-5">
+<h5 id="orgheadline152"><span class="section-number-5">12.8.8.2</span> Indent text object</h5>
+<div class="outline-text-5" id="text-12-8-8-2">
 <p>
 With <a href="https://github.com/cofi/evil-indent-textobject">evil-indent-textobject</a> the following action can be performed in <code>normal
 state</code>:
@@ -6510,7 +6728,8 @@ Example (<code>|</code> is the point):
 <li><code>vai</code> will select the whole while loop</li>
 <li><code>vaI</code> will select the whole fragment</li>
 </ul>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline153" class="outline-4">
@@ -6647,7 +6866,10 @@ editing of the currently selected text by pressing <code>e</code>.
 </p>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline158"></a>iedit states key bindings<br  /><ol class="org-ol"><li><a id="orgheadline155"></a>State transitions<br  /><div class="outline-text-6" id="text-12-8-11-1-1">
+<div id="outline-container-orgheadline158" class="outline-5">
+<h5 id="orgheadline158"><span class="section-number-5">12.8.11.1</span> iedit states key bindings</h5>
+<div class="outline-text-5" id="text-12-8-11-1">
+</div><ol class="org-ol"><li><a id="orgheadline155"></a>State transitions<br  /><div class="outline-text-6" id="text-12-8-11-1-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -6889,9 +7111,12 @@ an <code>occurrence</code>.
 </tr>
 </tbody>
 </table>
-</div></li></ol></li>
+</div></li></ol>
+</div>
 
-<li><a id="orgheadline159"></a>Examples<br  /><div class="outline-text-5" id="text-12-8-11-2">
+<div id="outline-container-orgheadline159" class="outline-5">
+<h5 id="orgheadline159"><span class="section-number-5">12.8.11.2</span> Examples</h5>
+<div class="outline-text-5" id="text-12-8-11-2">
 <ul class="org-ul">
 <li>manual selection of several words then replace: <code>v w w SPC s e S "toto" ESC ESC</code></li>
 <li>append text to a word on two lines: <code>v i w SPC s e J i "toto" ESC ESC</code></li>
@@ -6899,7 +7124,8 @@ an <code>occurrence</code>.
 <li>replace symbol with yanked (copied) text <i>with expand region</i>: <code>SPC v
    e p ESC ESC</code></li>
 </ul>
-</div></li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-orgheadline160" class="outline-4">
@@ -7037,7 +7263,7 @@ Editing of lisp code is provided by <a href="https://github.com/syl20bnr/evil-li
 
 <p>
 Commands will set the current state to <code>lisp state</code> where different commands
-combo can be repeated without pressing on <code>SPC m</code>.
+combo can be repeated without pressing on <code>SPC k</code>.
 </p>
 
 <p>
@@ -7057,7 +7283,10 @@ Examples:
 </p>
 </div>
 
-<ol class="org-ol"><li><a id="orgheadline165"></a>Lisp Key Bindings<br  /><ol class="org-ol"><li><a id="orgheadline163"></a>Lisp state key bindings<br  /><div class="outline-text-6" id="text-12-8-15-1-1">
+<div id="outline-container-orgheadline165" class="outline-5">
+<h5 id="orgheadline165"><span class="section-number-5">12.8.15.1</span> Lisp Key Bindings</h5>
+<div class="outline-text-5" id="text-12-8-15-1">
+</div><ol class="org-ol"><li><a id="orgheadline163"></a>Lisp state key bindings<br  /><div class="outline-text-6" id="text-12-8-15-1-1">
 <p>
 These commands automatically switch to <code>lisp state</code>.
 </p>
@@ -7400,7 +7629,8 @@ These commands automatically switch to <code>lisp state</code>.
 </tr>
 </tbody>
 </table>
-</div></li></ol></li></ol>
+</div></li></ol>
+</div>
 </div>
 </div>
 
@@ -8202,6 +8432,11 @@ file to <code>~/.spacemacs</code>
 <td class="org-left">3000th star!!!</td>
 <td class="org-left"><a href="https://github.com/TheBB">TheBB</a></td>
 </tr>
+
+<tr>
+<td class="org-left">4000th star!!!!</td>
+<td class="org-left"><a href="https://github.com/nixmaniack">nixmaniack</a></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -8354,7 +8589,7 @@ developers to elisp hackers!
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2015-10-30 Fri 21:47</p>
+<p class="date">Created: 2015-11-02 Mon 22:21</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
