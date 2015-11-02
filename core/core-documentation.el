@@ -35,7 +35,7 @@
     (dolist (l layers)
       (let ((layer-name (file-name-nondirectory l))
             (target-path (concat (file-relative-name
-                                  l (concat user-emcas-directory "layers"))
+                                  l (concat user-emacs-directory "layers"))
                                  "/README.org")))
         (insert (format "- [[file:%s][%s]]\n" target-path layer-name))))
     (dolist (c categories)
@@ -46,7 +46,7 @@
         (message "%S" category-name)
         (unless (string= "distribution" category-name)
           (insert (format "\n%s %s\n" level pretty-name))
-          (spacemacs/generate-layers-from-path c (concat level "*"))
+          (spacemacs//generate-layers-from-path c (concat level "*"))
           )))))
 
 (defun spacemacs//generate-layers-file ()
@@ -75,7 +75,7 @@
                   src=\"http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.js\"></script>
           <script type=\"text/javascript\"
                   src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>")
-         (publish-target (concat spacemacs-docs-directory "export/"))
+         (publish-target (concat user-emacs-directory "export/"))
          (org-publish-project-alist
           `(("spacemacs"
              :components ("spacemacs-doc"
@@ -95,7 +95,7 @@
              :recursive t
              :publishing-directory ,(concat publish-target "layers/")
              :publishing-function org-html-publish-to-html
-             :preparation-function spacemacs/generate-layers-file
+             :preparation-function spacemacs//generate-layers-file
              :exclude "extensions"
              :html-head ,header)
             ("spacemacs-doc-static"
@@ -106,7 +106,7 @@
              :publishing-function org-publish-attachment)
             ("layers-doc-static"
              :base-directory ,(concat user-emacs-directory "layers/")
-             :base-extension "png"
+             :base-extension "jpg\\|png"
              :recursive t
              :publishing-directory ,(concat publish-target "layers/")
              :publishing-function org-publish-attachment))))
