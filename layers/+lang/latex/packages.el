@@ -105,7 +105,7 @@
   (spacemacs/add-flycheck-hook 'LaTeX-mode))
 
 (defun latex/post-init-flyspell ()
-  (add-hook 'LaTeX-mode-hook 'flyspell-mode))
+  (spell-checking/add-flyspell-hook 'LaTeX-mode))
 
 (defun latex/post-init-smartparens ()
   (add-hook 'LaTeX-mode-hook 'smartparens-mode))
