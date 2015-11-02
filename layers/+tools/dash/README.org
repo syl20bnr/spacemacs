@@ -3,17 +3,17 @@
 
 [[file:img/zeal.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
-     - [[#dash-os-x][Dash (OS X)]]
-     - [[#zeal-linux--windows][Zeal (Linux & Windows)]]
-     - [[#check-documentation-for-x-at-point][Check Documentation for x-at-point]]
- - [[#key-bindings][Key bindings]]
-     - [[#helm-dash][helm-dash]]
- - [[#todos][TODOs]]
-     - [[#done-check-zeal][DONE Check zeal]]
-     - [[#todo-make-helm-dash-use-zeal-or-dash-docsets-by-default][TODO Make helm-dash use zeal or dash docsets by default.]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Dash (OS X)][Dash (OS X)]]
+   - [[Zeal (Linux & Windows)][Zeal (Linux & Windows)]]
+   - [[Check Documentation for x-at-point][Check Documentation for x-at-point]]
+ - [[Key bindings][Key bindings]]
+   - [[helm-dash][helm-dash]]
+ - [[TODOs][TODOs]]
+   - [[Check zeal][Check zeal]]
+   - [[Make helm-dash use zeal or dash docsets by default.][Make helm-dash use zeal or dash docsets by default.]]
 
 * Description
 +*This layer works only on OS X for the moment*+

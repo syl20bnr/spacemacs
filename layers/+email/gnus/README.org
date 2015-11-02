@@ -2,13 +2,13 @@
 
 [[file:img/gnus.gif]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#install][Install]]
- - [[#basic-concepts][Basic Concepts]]
- - [[#adding-news-sources][Adding news sources]]
- - [[#configuring-gmail][Configuring gmail]]
- - [[#org-mime-in-org-layer][Org MIME in Org layer]]
- - [[#keybindings][Keybindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Install][Install]]
+ - [[Basic Concepts][Basic Concepts]]
+ - [[Adding news sources][Adding news sources]]
+ - [[Configuring gmail][Configuring gmail]]
+ - [[Org MIME in Org layer][Org MIME in Org layer]]
+ - [[Keybindings][Keybindings]]
 
 * Install
 
@@ -44,7 +44,7 @@ following:
       ))
 #+END_SRC
 
-For adding RSS Feeds please see the [[#Keybindings][keybindings section]].
+For adding RSS Feeds please see the [[Keybindings][keybindings section]].
 
 * Configuring gmail
 
@@ -85,10 +85,10 @@ To configure Gnus with gmail support you can add the following to your
 Authentication for your gmail account is best stored in an =authinfo= or
 =authinfo.pgp= file. It must be of the form:
 
-#+BEGIN_SRC
+#+BEGIN_EXAMPLE
 machine smtp.gmail.com login name@gmail.com password SUPER_SECRET_PASS
 machine imap.gmail.com login name@gmail.com port 993 password SUPER_SECRET_PASS
-#+END_SRC
+#+END_EXAMPLE
 
 If you use two-step verification the password has to be an [[https://support.google.com/accounts/answer/185833?hl=en][application specific
 password]].
@@ -108,15 +108,15 @@ Please see the [[http://www.gnus.org/manual.html][manual]] for a complete list.
 
 Basic and Spacemacs specific keybindings can be found in the following table.
 
-| Key Binding | Gnus mode - Description                                  |
-|-------------+----------------------------------------------------------|
-| ~SPC a g~   | Starts Gnus                                              |
-| ~m~         | New Message                                              |
-| ~G R~       | Group Buffer - Add RSS feed                              |
-| ~^~         | Open Server Buffer. Browse Newsgroups.                   |
-| ~T n~       | Group Buffer - new Topic                                 |
-| ~T m~       | Group Buffer - Move Group to Topic                       |
-| ~K~         | Article Buffer - Previous article                        |
-| ~J~         | Article Buffer - Next article                            |
-| ~RET~       | Summary Buffer(RSS) - Open article Link in browser       |
-| ~TAB~       | Summary Buffer(RSS) - Open article and switch to it      |
+| Key Binding | Gnus mode - Description                             |
+|-------------+-----------------------------------------------------|
+| ~SPC a g~   | Starts Gnus                                         |
+| ~m~         | New Message                                         |
+| ~G R~       | Group Buffer - Add RSS feed                         |
+| ~^~         | Open Server Buffer. Browse Newsgroups.              |
+| ~T n~       | Group Buffer - new Topic                            |
+| ~T m~       | Group Buffer - Move Group to Topic                  |
+| ~K~         | Article Buffer - Previous article                   |
+| ~J~         | Article Buffer - Next article                       |
+| ~RET~       | Summary Buffer(RSS) - Open article Link in browser  |
+| ~TAB~       | Summary Buffer(RSS) - Open article and switch to it |

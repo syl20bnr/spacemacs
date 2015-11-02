@@ -2,14 +2,15 @@
 
 [[file:img/apple.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#philosophy][Philosophy]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#coreutils][Coreutils]]
- - [[#key-bindings][Key Bindings]]
- - [[#future-work][Future Work]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Philosophy][Philosophy]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+     - [[Use with non-US keyboard layouts][Use with non-US keyboard layouts]]
+   - [[Coreutils][Coreutils]]
+ - [[Key Bindings][Key Bindings]]
+ - [[Future Work][Future Work]]
 
 * Description
 

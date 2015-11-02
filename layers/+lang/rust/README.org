@@ -2,12 +2,12 @@
 
 [[file:img/rust.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
-     - [[#cargo][Cargo]]
- - [[#key-bindings][Key bindings]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+   - [[Cargo][Cargo]]
+ - [[Key bindings][Key bindings]]
 
 * Description
 This layer aims to support [[http://www.rust-lang.org/][Rust]] development in Spacemacs.
@@ -16,7 +16,6 @@ It supports [[http://doc.crates.io/index.html][Cargo]], and has some basic auto-
 though Racer needs some additional configurations as described on their page.
 
 * Install
-
 ** Layer
 To use this layer, add it to your =~/.spacemacs=
 

@@ -2,15 +2,15 @@
 
 [[file:img/github.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-     - [[#features][Features:]]
- - [[#install][Install]]
-     - [[#layer][Layer]]
- - [[#key-bindings][Key Bindings]]
-     - [[#magit-gh-pulls][magit-gh-pulls]]
-     - [[#gistel][gist.el]]
-     - [[#browse-files][Browse files]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features:][Features:]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+ - [[Key Bindings][Key Bindings]]
+   - [[magit-gh-pulls][magit-gh-pulls]]
+   - [[gist.el][gist.el]]
+   - [[Browse files][Browse files]]
 
 * Description
 

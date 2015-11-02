@@ -2,13 +2,13 @@
 
 [[file:img/html.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-   - [[#features][Features]]
- - [[#install][Install]]
- - [[#key-bindings][Key Bindings]]
-   - [[#web-mode][Web mode]]
-   - [[#cssscss][CSS/SCSS]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features][Features]]
+ - [[Install][Install]]
+ - [[Key Bindings][Key Bindings]]
+   - [[Web mode][Web mode]]
+   - [[CSS/SCSS][CSS/SCSS]]
 
 * Description
 This layer adds support for editing HTML and CSS.
@@ -27,7 +27,6 @@ To use this contribution add it to your =~/.spacemacs=
 #+END_SRC
 
 * Key Bindings
-
 ** Web mode
 
 | Key Binding | Description                                               |

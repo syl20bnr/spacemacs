@@ -2,25 +2,25 @@
 
 [[file:img/git.png]]
 
-* Table of Contents                                                   :TOC@4:
- - [[#description][Description]]
-   - [[#features][Features:]]
- - [[#install][Install]]
-   - [[#layer][Layer]]
-     - [[#recommended-settings][Recommended Settings]]
-   - [[#magit-status-fullscreen][Magit status fullscreen]]
-   - [[#magit-auto-complete][Magit auto-complete]]
-   - [[#magit-svn-plugin][Magit SVN plugin]]
-   - [[#git][Git]]
-   - [[#git-flow][Git-Flow]]
- - [[#working-with-git][Working with Git]]
-   - [[#magit][Magit]]
-   - [[#staging-lines][Staging lines]]
-   - [[#commit-message-editing-buffer][Commit message editing buffer]]
-   - [[#interactive-rebase-buffer][Interactive rebase buffer]]
-   - [[#quick-guide-for-recurring-use-cases-in-magit][Quick guide for recurring use cases in Magit]]
-   - [[#git-flow][Git-Flow]]
-   - [[#git-time-machine][Git time machine]]
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+   - [[Features:][Features:]]
+ - [[Install][Install]]
+   - [[Layer][Layer]]
+     - [[Recommended Settings][Recommended Settings]]
+   - [[Magit status fullscreen][Magit status fullscreen]]
+   - [[Magit auto-complete][Magit auto-complete]]
+   - [[Magit SVN plugin][Magit SVN plugin]]
+   - [[Git][Git]]
+   - [[Git-Flow][Git-Flow]]
+ - [[Working with Git][Working with Git]]
+   - [[Magit][Magit]]
+   - [[Staging lines][Staging lines]]
+   - [[Commit message editing buffer][Commit message editing buffer]]
+   - [[Interactive rebase buffer][Interactive rebase buffer]]
+   - [[Quick guide for recurring use cases in Magit][Quick guide for recurring use cases in Magit]]
+   - [[Git-Flow][Git-Flow]]
+   - [[Git time machine][Git time machine]]
 
 * Description
 This layers adds extensive support for [[http://git-scm.com/][git]].
@@ -140,34 +140,34 @@ Here are the often used bindings inside a =status buffer=:
 
 | Key Binding | Description                                         |
 |-------------+-----------------------------------------------------|
-| ~/~           | evil-search                                         |
-| ~$~           | open =command output buffer=                          |
-| ~c c~         | open a =commit message buffer=                        |
-| ~b b~         | checkout a branch                                   |
-| ~b c~         | create a branch                                     |
-| ~f f~         | fetch changes                                       |
-| ~F -r F~      | pull and rebase                                     |
-| ~gr~          | refresh                                             |
-| ~j~           | goto next magit section                             |
-| ~C-j~         | next visual line                                    |
-| ~k~           | goto previous magit section                         |
-| ~C-k~         | previous visual line                                |
-| ~l l~         | open =log buffer=                                     |
-| ~n~           | next search occurrence                              |
-| ~N~           | previous search occurrence                          |
-| ~o~           | revert item at point                                |
-| ~P P~         | push                                                |
-| ~q~           | quit                                                |
-| ~s~           | on a file or hunk in a diff: stage the file or hunk |
-| ~x~           | discard changes                                     |
-| ~+~           | on a hunk: increase hunk size                       |
-| ~-~           | on a hunk: decrease hunk size                       |
-| ~S~           | stage all                                           |
-| ~TAB~         | on a file: expand/collapse diff                     |
-| ~u~           | on a staged file: unstage                           |
-| ~U~           | unstage all staged files                            |
-| ~v or V~      | select multiple lines                               |
-| ~z z~         | stash changes                                       |
+| ~/~         | evil-search                                         |
+| ~$~         | open =command output buffer=                        |
+| ~c c~       | open a =commit message buffer=                      |
+| ~b b~       | checkout a branch                                   |
+| ~b c~       | create a branch                                     |
+| ~f f~       | fetch changes                                       |
+| ~F -r F~    | pull and rebase                                     |
+| ~gr~        | refresh                                             |
+| ~j~         | goto next magit section                             |
+| ~C-j~       | next visual line                                    |
+| ~k~         | goto previous magit section                         |
+| ~C-k~       | previous visual line                                |
+| ~l l~       | open =log buffer=                                   |
+| ~n~         | next search occurrence                              |
+| ~N~         | previous search occurrence                          |
+| ~o~         | revert item at point                                |
+| ~P P~       | push                                                |
+| ~q~         | quit                                                |
+| ~s~         | on a file or hunk in a diff: stage the file or hunk |
+| ~x~         | discard changes                                     |
+| ~+~         | on a hunk: increase hunk size                       |
+| ~-~         | on a hunk: decrease hunk size                       |
+| ~S~         | stage all                                           |
+| ~TAB~       | on a file: expand/collapse diff                     |
+| ~u~         | on a staged file: unstage                           |
+| ~U~         | unstage all staged files                            |
+| ~v or V~    | select multiple lines                               |
+| ~z z~       | stash changes                                       |
 
 ** Staging lines
 Magit allows you to stage specific lines by selecting them in a diff and hitting
@@ -192,19 +192,19 @@ will discard the commit message.
 
 | Key Binding | Description    |
 |-------------+----------------|
-| ~c~ or ~p~      | pick           |
-| ~e~           | edit           |
-| ~f~           | fixup          |
-| ~j~           | go down        |
-| ~gj~          | move line down |
-| ~k~           | go up          |
-| ~gk~          | move line up   |
-| ~d~ or ~x~      | kill line      |
-| ~r~           | reword         |
-| ~s~           | squash         |
-| ~u~           | undo           |
-| ~y~           | insert         |
-| ~!~           | execute        |
+| ~c~ or ~p~  | pick           |
+| ~e~         | edit           |
+| ~f~         | fixup          |
+| ~j~         | go down        |
+| ~gj~        | move line down |
+| ~k~         | go up          |
+| ~gk~        | move line up   |
+| ~d~ or ~x~  | kill line      |
+| ~r~         | reword         |
+| ~s~         | squash         |
+| ~u~         | undo           |
+| ~y~         | insert         |
+| ~!~         | execute        |
 
 ** Quick guide for recurring use cases in Magit
 
