@@ -84,6 +84,7 @@ currently supported language:
 
 | Key Binding | Description              |
 |-------------+--------------------------|
+| ~SPC S b~   | flyspell whole buffer    |
 | ~SPC S c~   | flyspell correct         |
 | ~SPC S d~   | change dictionary        |
 | ~SPC S n~   | flyspell goto next error |
