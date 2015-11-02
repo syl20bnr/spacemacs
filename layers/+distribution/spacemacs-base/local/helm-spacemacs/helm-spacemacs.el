@@ -288,7 +288,7 @@
                       (org-mode)
                       (mapcar '(lambda (candidate)
                                  `(,(car candidate) . ,(marker-position (cdr candidate))))
-                              (helm-get-org-candidates-in-file (current-buffer) 2 8 nil t))
+                              (helm-get-org-candidates-in-file (current-buffer) 1 8 nil t))
                       ))))
 
 (defun helm-spacemacs//faq-goto-marker (marker)
