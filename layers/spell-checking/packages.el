@@ -35,8 +35,6 @@
       (when spell-checking-enable-by-default
         (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
-      (add-hook 'flyspell-mode-hook 'flyspell-buffer)
-
       (spacemacs|add-toggle spelling-checking
         :status flyspell-mode
         :on
@@ -58,6 +56,7 @@
         :evil-leader "tS")
 
       (evil-leader/set-key
+        "Sb" 'flyspell-buffer
         "Sd" 'spell-checking/change-dictionary
         "Sn" 'flyspell-goto-next-error))
     :config

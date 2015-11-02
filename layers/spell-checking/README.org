@@ -54,6 +54,7 @@ the variable =spell-checking-enable-auto-dictionary= to something other than
 
 | Key Binding | Description              |
 |-------------+--------------------------|
+| ~SPC S b~   | flyspell whole buffer    |
 | ~SPC S c~   | flyspell correct         |
 | ~SPC S d~   | change dictionary        |
 | ~SPC S n~   | flyspell goto next error |
