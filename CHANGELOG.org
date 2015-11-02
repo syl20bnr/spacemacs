@@ -1,4 +1,12 @@
 * Release 0.104.x
+** 0.104.3 (2015/11/01)
+*** Layer changes
+**** Evil-snipe
+- Update =evil-snipe= minor mode name to match latest release of
+  the package (thanks to person808)
+**** Haskell
+- Remove indentation guides to comply with latest =haskell-mode=
+  (thanks to PierreR)
 ** 0.104.2 (2015/09/29)
 *** Hotfixes
 - Fix error =void-variable warning-minimum-level= on Emacs 24.3
