@@ -33,7 +33,7 @@
         (setq diff-hl-side 'left)
         (diff-hl-margin-mode))
       (evil-leader/set-key
-        "ghr" 'diff-hl-revert-hunk
-        "ghN" 'diff-hl-previous-hunk
-        "ghn" 'diff-hl-next-hunk
-        "ghg" 'diff-hl-diff-goto-hunk))))
+        "gdg" 'diff-hl-diff-goto-hunk
+        "gdN" 'diff-hl-previous-hunk
+        "gdn" 'diff-hl-next-hunk
+        "gdr" 'diff-hl-revert-hunk))))

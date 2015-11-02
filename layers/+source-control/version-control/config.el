@@ -1,4 +1,4 @@
-;;; config.el --- Github configuration File for Spacemacs
+;;; config.el --- Version Control configuration File for Spacemacs
 ;;
 ;; Copyright (c) 2012-2014 Sylvain Benner
 ;; Copyright (c) 2014-2015 Sylvain Benner & Contributors
@@ -12,7 +12,4 @@
 
 ;; Command prefixes
 
-(setq github/key-binding-prefixes '(("gh" . "github")
-                                    ("gg" . "github gist")))
-(mapc (lambda (x) (spacemacs/declare-prefix (car x) (cdr x)))
-      github/key-binding-prefixes)
+(spacemacs/declare-prefix "gd" "diff")
