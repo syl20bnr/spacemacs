@@ -623,6 +623,15 @@ Removes the automatic guessing of the initial value based on thing at point. "
               (switch-to-buffer-other-window "*hgrep*")
             (message "No previous search buffer found"))))
 
+      (defun spacemacs/helm-faces ()
+        "Describe face."
+        (interactive)
+        (require 'helm-elisp)
+        (let ((default (thing-at-point 'symbol)))
+          (helm :sources (list (helm-def-source--emacs-faces default))
+                :buffer "*helm faces*"
+                :preselect (and default (concat "\\_<" (regexp-quote default) "\\_>")))))
+
       ;; use helm by default for M-x
       (unless (configuration-layer/package-usedp 'smex)
         (global-set-key (kbd "M-x") 'helm-M-x))
@@ -636,6 +645,7 @@ Removes the automatic guessing of the initial value based on thing at point. "
         "fL"   'helm-locate
         "fr"   'helm-recentf
         "hb"   'helm-filtered-bookmarks
+        "hdF"  'spacemacs/helm-faces
         "hi"   'helm-info-at-point
         "hl"   'helm-resume
         "hm"   'helm-man-woman
