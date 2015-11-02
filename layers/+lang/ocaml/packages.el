@@ -91,7 +91,10 @@
       (spacemacs//init-ocaml-opam)
       (evil-leader/set-key-for-mode 'tuareg-mode
         "mga" 'tuareg-find-alternate-file
-        "mcc" 'compile))
+        "mcc" 'compile)
+      ;; Make OCaml-generated files invisible to filename completion
+      (dolist (ext '(".cmo" ".cmx" ".cma" ".cmxa" ".cmi" ".cmxs" ".cmt" ".annot"))
+        (add-to-list 'completion-ignored-extensions ext)))
     :config
     (when (fboundp 'sp-local-pair)
       ;; don't auto-close apostrophes (type 'a = foo) and backticks (`Foo)
