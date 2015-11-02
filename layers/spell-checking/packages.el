@@ -50,7 +50,7 @@
             (adict-change-dictionary ispell-local-dictionary)))
         :off
         (progn
-          (flyspell-mode -1)
+          (flyspell-mode-off)
           ;; Also disable auto-dictionary when disabling spell-checking.
           (when (fboundp 'auto-dictionary-mode) (auto-dictionary-mode -1)))
         :documentation
