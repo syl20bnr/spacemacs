@@ -61,6 +61,7 @@
         :evil-leader "tS")
 
       (evil-leader/set-key
+        "Sb" 'flyspell-buffer
         "Sd" 'spell-checking/change-dictionary
         "Sn" 'flyspell-goto-next-error))
     :config
