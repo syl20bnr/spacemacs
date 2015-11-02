@@ -172,7 +172,12 @@
         (defun scala/disable-flycheck-scala ()
           (push 'scala flycheck-disabled-checkers))
 
-        (add-hook 'ensime-mode-hook 'scala/disable-flycheck-scala)))))
+        (add-hook 'ensime-mode-hook 'scala/disable-flycheck-scala))
+
+      ;; Enable Expand Region integration from Ensime.  Ignore load errors to
+      ;; handle older Ensime versions gracefully.
+      (when (configuration-layer/package-usedp 'expand-region)
+        (require 'ensime-expand-region nil 'noerror)))))
 
 (defun scala/init-noflet ())
 
