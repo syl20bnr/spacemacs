@@ -110,6 +110,8 @@ Git commands (start with ~g~):
 | ~SPC g c~   | checkout branches                                   |
 | ~SPC g C~   | commit changes                                      |
 | ~SPC g d~   | show diff against current head                      |
+| ~SPC g e~   | show ediff against current head                     |
+| ~SPC g E~   | show ediff comparison                               |
 | ~SPC g h c~ | clear highlights                                    |
 | ~SPC g h h~ | highlight regions by age of commits                 |
 | ~SPC g h t~ | highlight regions by last updated time              |
