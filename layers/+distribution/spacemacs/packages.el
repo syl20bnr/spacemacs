@@ -1459,9 +1459,12 @@ It will toggle the overlay under point or create an overlay of one character."
 
 (defun spacemacs/init-linum-relative ()
   (use-package linum-relative
-    :commands linum-relative-toggle
+    :commands (linum-relative-toggle linum-relative-on)
     :init
-    (evil-leader/set-key "tr" 'linum-relative-toggle)
+    (progn
+      (when (eq dotspacemacs-global-line-numbers 'relative)
+        (linum-relative-on))
+      (evil-leader/set-key "tr" 'linum-relative-toggle))
     :config
     (progn
       (setq linum-relative-current-symbol ""))))
