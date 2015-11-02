@@ -68,6 +68,7 @@
         open-junk-file
         leuven-theme
         linum-relative
+        lorem-ipsum
         move-text
         neotree
         pcre2el
@@ -1464,6 +1465,17 @@ It will toggle the overlay under point or create an overlay of one character."
     :config
     (progn
       (setq linum-relative-current-symbol ""))))
+
+(defun spacemacs/init-lorem-ipsum ()
+  (use-package lorem-ipsum
+    :commands (lorem-ipsum-insert-list
+               lorem-ipsum-insert-paragraphs
+               lorem-ipsum-insert-sentences)
+    :init
+    (evil-leader/set-key
+      "xil" 'lorem-ipsum-insert-list
+      "xip" 'lorem-ipsum-insert-paragraphs
+      "xis" 'lorem-ipsum-insert-sentences)))
 
 (defun spacemacs/init-move-text ()
   (use-package move-text

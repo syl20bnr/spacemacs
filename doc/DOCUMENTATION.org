@@ -2125,6 +2125,9 @@ Text related commands (start with ~x~):
     | ~SPC x g l~ | set languages used by translate commands                      |
     | ~SPC x g t~ | translate current word using Google Translate                 |
     | ~SPC x g T~ | reverse source and target languages                           |
+    | ~SPC x i l~ | insert lorem-ipsum list                                       |
+    | ~SPC x i p~ | insert lorem-ipsum paragraph                                  |
+    | ~SPC x i s~ | insert lorem-ipsum sentence                                   |
     | ~SPC x J~   | move down a line of text (enter micro-state)                  |
     | ~SPC x K~   | move up a line of text (enter micro-state)                    |
     | ~SPC x l s~ | sort lines                                                    |
