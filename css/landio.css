@@ -27,13 +27,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-  @font-face {
-  	font-family: 'logo';
-  	src: url('fonts/logo.ttf') format('truetype');
-  	font-weight: normal;
-  	font-style: normal;
-  }
-
   .spacemacs-logo {
     font-family: 'logo';
   }
@@ -56,9 +49,12 @@
   }
 
   .jumbotron-links {
-    font-size: 80%;
     text-transform: lowercase;
     font-weight: bold;
+  }
+
+  .jumbotron-links a {
+    text-decoration: underline;
   }
 
   .logo-font {
@@ -68,6 +64,10 @@
 
   .logo-subtitle {
     font-weight: normal;
+  }
+
+  section {
+    background-color: #FDF6E3;
   }
 
 
@@ -4727,7 +4727,7 @@ h3 {
   font-size: 2.125rem;
   line-height: 2.5;
   text-align: center;
-  border: 5px solid #f5f5f5;
+  border: 5px solid #424753;
   border-radius: 50%; }
 
 .card-block .icon-heart {
@@ -5366,4 +5366,45 @@ figure {
             transform: translate(-50%, -50%); }
   #chart-holder canvas {
     width: 170px; }
+
+
+/* Overrides */
+
+.section-intro {
+  background-color: #EEE8D5;
+}
+
+.section-footer {
+  background-image: url("../img/background.png");
+}
+
+@media screen and (max-width: 768px) {
+  pre {
+    font-size: 55%;
+    width: 100%;
+  }
+
+  #logo-large {
+    width: 25%;
+  }
+
+  .logo-font {
+    font-size: 120%;
+    margin-top: 2em;
+  }
+
+  h4 {
+    font-size: 80%;
+    margin-bottom: 1em;
+  }
+
+  br {
+    display: none;
+  }
+
+  .btn {
+    font-size: 40%;
+  }
+}
+
 /*# sourceMappingURL=landio.css.map */
