@@ -22,7 +22,18 @@
     :defer t
     :if spell-checking-enable-auto-dictionary
     :init
-    (add-hook 'flyspell-mode-hook 'auto-dictionary-mode)))
+    (progn
+      (add-hook 'flyspell-mode-hook 'auto-dictionary-mode)
+      ;; Select the buffer local dictionary if it was set, otherwise
+      ;; auto-dictionary will replace it with a guessed one at each activation.
+      ;; https://github.com/nschum/auto-dictionary-mode/issues/5
+      (add-hook 'auto-dictionary-mode-hook
+                (lambda ()
+                  (when (and
+                         (fboundp 'adict-change-dictionary)
+                         ispell-local-dictionary)
+                    (adict-change-dictionary ispell-local-dictionary))) 'append)
+      )))
 
 (defun spell-checking/init-flyspell ()
   (use-package flyspell
@@ -39,22 +50,14 @@
 
       (spacemacs|add-toggle spelling-checking
         :status flyspell-mode
-        :on
-        (progn
-          (if (derived-mode-p 'prog-mode)
-              (flyspell-prog-mode)
-            (flyspell-mode))
-          ;; Redefine the buffer local dictionary if it was set, otherwise
-          ;; auto-dictionary will replace it with guessed one.
-          (when (and (fboundp 'adict-change-dictionary) ispell-local-dictionary)
-            (adict-change-dictionary ispell-local-dictionary)))
-        :off
-        (progn
-          (flyspell-mode-off)
-          ;; Also disable auto-dictionary when disabling spell-checking.
-          (when (fboundp 'auto-dictionary-mode) (auto-dictionary-mode -1)))
-        :documentation
-        "Enable automatic spell checking."
+        :on (if (derived-mode-p 'prog-mode)
+                (flyspell-prog-mode)
+              (flyspell-mode))
+        :off (progn
+               (flyspell-mode-off)
+               ;; Also disable auto-dictionary when disabling spell-checking.
+               (when (fboundp 'auto-dictionary-mode) (auto-dictionary-mode -1)))
+        :documentation "Enable automatic spell checking."
         :evil-leader "tS")
 
       (evil-leader/set-key
