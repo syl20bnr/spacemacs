@@ -58,6 +58,7 @@
                                        ("xa"  "align")
                                        ("xd"  "delete")
                                        ("xg"  "google-translate")
+                                       ("xi"  "insert")
                                        ("xl"  "lines")
                                        ("xm"  "move")
                                        ("xt"  "transpose")
