@@ -37,6 +37,6 @@
       (defadvice vagrant-tramp-term (before spacemacs//load-vagrant activate)
         "Lazy load vagrant-tramp."
         (unless spacemacs--vagrant-tramp-loaded
-          (vagrant-tramp-enable)
+          (vagrant-tramp-add-method)
           (setq spacemacs--vagrant-tramp-loaded t)))
       (evil-leader/set-key "Vt" 'vagrant-tramp-term))))
