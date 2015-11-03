@@ -123,9 +123,10 @@
       (defun python-default ()
         (setq mode-name "Python"
               tab-width 4
-              fill-column python-fill-column
+              fill-column python-fill-column)
+        (when (version< emacs-version "24.5")
               ;; auto-indent on colon doesn't work well with if statement
-              electric-indent-chars (delq ?: electric-indent-chars))
+              (setq electric-indent-chars (delq ?: electric-indent-chars)))
         (annotate-pdb)
         (spacemacs/highlight-TODO-words)
         ;; make C-j work the same way as RET
