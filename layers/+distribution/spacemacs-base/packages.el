@@ -1246,18 +1246,22 @@ ARG non nil means that the editing style is `vim'."
   (use-package recentf
     :defer t
     :init
-    ;; lazy load recentf
-    (add-hook 'find-file-hook (lambda () (unless recentf-mode
-                                           (recentf-mode)
-                                           (recentf-track-opened-file))))
-    (setq recentf-save-file (concat spacemacs-cache-directory "recentf"))
-    (setq recentf-max-saved-items 1000)
-    (setq recentf-auto-cleanup 'never)
-    (setq recentf-auto-save-timer (run-with-idle-timer 600 t 'recentf-save-list))))
+    (progn
+      ;; lazy load recentf
+      (add-hook 'find-file-hook (lambda () (unless recentf-mode
+                                             (recentf-mode)
+                                             (recentf-track-opened-file))))
+      (setq recentf-save-file (concat spacemacs-cache-directory "recentf")
+            recentf-max-saved-items 1000
+            recentf-auto-cleanup 'never
+            recentf-auto-save-timer (run-with-idle-timer 600 t
+                                                         'recentf-save-list)))
     :config
-    (add-to-list 'recentf-exclude (expand-file-name spacemacs-cache-directory))
-    (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
-    (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
+    (progn
+      (add-to-list 'recentf-exclude
+                   (expand-file-name spacemacs-cache-directory))
+      (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
+      (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'"))))
 
 (defun spacemacs-base/init-restart-emacs()
   (use-package restart-emacs
