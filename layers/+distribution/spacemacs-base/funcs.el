@@ -320,10 +320,9 @@ argument takes the kindows rotate backwards."
 (defun spacemacs/kill-other-buffers ()
   "Kill all other buffers."
   (interactive)
-  (let (name (buffer-name))
-    (when (yes-or-no-p (format "Killing all buffers except \"%s\" ? " buffer-file-name))
-      (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
-      (message "Buffers deleted!"))))
+  (when (yes-or-no-p (format "Killing all buffers except \"%s\"? " (buffer-name)))
+    (mapc 'kill-buffer (delq (current-buffer) (buffer-list)))
+    (message "Buffers deleted!")))
 
 ;; from http://dfan.org/blog/2009/02/19/emacs-dedicated-windows/
 (defun spacemacs/toggle-current-window-dedication ()
