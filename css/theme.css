@@ -1,12 +1,3 @@
-/*!--------------------------------------------------------------------------------
-
-    Theme Name: Landio HTML
-    Theme URI:  https://github.com/tatygrassini/landio-html
-    Version:    1.0
-    Author:     Taty Grassini @tatygrassini
-    Author URI: http://tatygrassini.github.io/
-
------------------------------------------------------------------------------------*/
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,600,500,300,700|Lato:400,700");
 @font-face {
   font-family: 'icomoon';
@@ -46,6 +37,14 @@
     width: 50%;
     margin: 0 auto;
     border-radius: 4px;
+    display: none;
+  }
+
+  #copy-btn {
+    display: none;
+    font-size: 50%;
+    padding: 8px;
+    color: black;
   }
 
   .jumbotron-links {
@@ -5407,4 +5406,4 @@ figure {
   }
 }
 
-/*# sourceMappingURL=landio.css.map */
+/*# sourceMappingURL=theme.css.map */

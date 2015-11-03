@@ -9,7 +9,7 @@
     <meta name="keywords" content="emacs, vim, text editor" />
     <meta name="theme-color" content="#663fb5">
     <link rel="stylesheet" href="css/animate.min.css">
-    <link rel="stylesheet" href="css/landio.css">
+    <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   </head>
@@ -47,21 +47,16 @@
         <h4 class="wp wp-1 animated fadeInUp logo-subtitle">The best editor is neither Emacs nor Vim, it's Emacs <em>and</em> Vim!</h4>
         <br>
         <a class="btn btn-secondary-outline m-b-md" href="https://github.com/syl20bnr/spacemacs/archive/master.zip" role="button"><span class="fa fa-download"></span>Download</a>
-        <a class="btn btn-secondary-outline m-b-md" href="doc/QUICK_START.html" role="button"><span class="fa fa-arrow-circle-right"></span>Quick Start</a>
-        <pre>git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d</pre>
-
-
-        <p>
-            <a href="https://travis-ci.org/syl20bnr/spacemacs"><img src="https://travis-ci.org/syl20bnr/spacemacs.svg" alt="Build Status"></a> &bull;
-            <a href="https://gitter.im/syl20bnr/spacemacs?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/Join%20Chat.svg" alt="Gitter"></a> &bull;
-            <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=ESFVNPKP4Y742"><img src="https://camo.githubusercontent.com/03430d8850e65f781a26f1207fd9c351e4f3c0f1/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f50617970616c2d427579253230612532304472696e6b2d626c75652e737667" alt="Buy A Drink" data-canonical-src="https://img.shields.io/badge/Paypal-Buy%20a%20Drink-blue.svg" style="max-width:100%;"></a> &bull;
-            <a href="http://www.slant.co/topics/12/%7Ewhat-are-the-best-programming-text-editors"><img src="https://camo.githubusercontent.com/2e66996b76fc392f4936160dc3f627f663d1a68a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f536c616e742d5265636f6d6d656e642d6666363962342e737667" alt="Recommend Spacemacs" data-canonical-src="https://img.shields.io/badge/Slant-Recommend-ff69b4.svg" style="max-width:100%;"></a>
-        </p>
+        <a class="btn btn-secondary-outline m-b-md" href="#" role="button" id="toggle"><span class="fa fa-arrow-circle-right"></span>Quick Install</a>
+        <pre id="code">git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d</pre>
+        <button type="button" name="button" class="btn" id="copy-btn" data-clipboard-target="#code">Copy to clipboard</button>
         <br>
         <br>
         <p class="jumbotron-links">
+          <a class="nav-link" href="doc/QUICK_START.html"><span class="fa fa-arrow-circle-right"></span> Quick Start</a> &bull;
           <a class="nav-link" href="doc/DOCUMENTATION.html" target="_blank">  Documentation</a> &bull;
-          <a class="nav-link" href="doc/LAYERS.html" target="_blank">  Layers</a> &bull;
+          <a class="nav-link" href="layers/LAYERS.html" target="_blank">  Layers List</a> &bull;
+          <a class="nav-link" href="doc/LAYERS.html" target="_blank">  Layers Tutorial</a> &bull;
           <a class="nav-link" href="doc/CONVENTIONS.html" target="_blank">  Conventions</a> &bull;
           <a class="nav-link" href="doc/CONTRIBUTE.html" target="_blank">  Contribute</a> &bull;
           <a class="nav-link" href="doc/VIMUSERS.html" target="_blank">  Vim Users</a>
@@ -148,10 +143,24 @@
       </div>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="js/landio.min.js"></script>
+    <script src="js/theme.min.js"></script>
     <script type="text/javascript" src="js/scrollReveal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.1/clipboard.min.js"></script>
     <script type="text/javascript">
       window.sr = new scrollReveal();
+    </script>
+    <script type="text/javascript">
+
+      var clipboard = new Clipboard('#copy-btn');
+
+      clipboard.on('success', function(e) {
+        $("#copy-btn").text("Copied!");
+      })
+
+      $("#toggle").click(function() {
+        $("#code").fadeToggle("slow");
+        $("#copy-btn").fadeToggle("slow");
+      })
     </script>
   </body>
 </html>
