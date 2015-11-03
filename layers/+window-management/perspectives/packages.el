@@ -75,7 +75,7 @@ Cancels autosave on exiting perspectives mode."
         (switch-to-buffer "*spacemacs*")
         (delete-other-windows)))
 
-    (defun persp-curr-name ()
+    (defun spacemacs/persp-curr-name ()
       (interactive)
       (safe-persp-name (get-frame-persp)))
 
@@ -86,7 +86,7 @@ Cancels autosave on exiting perspectives mode."
     (defun persp-format-name (name)
       "Format the perspective name given by NAME for display in `persp-modestring'."
       (let ((string-name (format "%s" name)))
-        (if (equal name (persp-curr-name))
+        (if (equal name (spacemacs/persp-curr-name))
             (propertize string-name 'face 'persp-selected-face)
           string-name)))
 
@@ -209,7 +209,7 @@ Cancels autosave on exiting perspectives mode."
     (defun spacemacs/persp-ms-close ()
       "Kill current perspective"
       (interactive)
-      (persp-kill-without-buffers (persp-curr-name)))
+      (persp-kill-without-buffers (spacemacs/persp-curr-name)))
 
     (defun spacemacs/persp-ms-close-other ()
       (interactive)
@@ -219,7 +219,7 @@ Cancels autosave on exiting perspectives mode."
     (defun spacemacs/persp-ms-kill ()
       "Kill current perspective"
       (interactive)
-      (persp-kill (persp-curr-name)))
+      (persp-kill (spacemacs/persp-curr-name)))
 
     (defun spacemacs/persp-ms-kill-other ()
       (interactive)
@@ -339,7 +339,7 @@ Available PROPS:
                             (helm-mini)))
   (defun spacemacs/helm-perspectives-source ()
     (helm-build-in-buffer-source
-        (concat "Current Perspective: " (persp-curr-name))
+        (concat "Current Perspective: " (spacemacs/persp-curr-name))
       :data (persp-names)
       :fuzzy-match t
       :action
@@ -376,7 +376,7 @@ perspectives does."
     (helm
      :buffer "*Helm Switch Perspectives*"
      :sources `(,(helm-build-in-buffer-source
-                     (concat "Current Perspective: " (persp-curr-name))
+                     (concat "Current Perspective: " (spacemacs/persp-curr-name))
                    :data (persp-names)
                    :fuzzy-match t
                    :action #'persp-switch)
@@ -390,7 +390,7 @@ perspectives does."
     (helm
      :buffer "*Helm Kill Perspectives (without killing buffers)*"
      :sources (helm-build-in-buffer-source
-                  (concat "Current Perspective: " (persp-curr-name))
+                  (concat "Current Perspective: " (spacemacs/persp-curr-name))
                 :data (persp-names)
                 :fuzzy-match t
                 :action
@@ -405,7 +405,7 @@ perspectives does."
      :buffer "*Helm Kill Perspectives with all their buffers*"
      :sources (helm-build-in-buffer-source
                   (s-concat "Current Perspective: "
-                            (persp-curr-name))
+                            (spacemacs/persp-curr-name))
                 :data (persp-names)
                 :fuzzy-match t
                 :action
