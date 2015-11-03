@@ -133,8 +133,10 @@ It is also recommended to add the [osx layer][] to your [dotfile][]:
 (setq-default dotspacemacs-configuration-layers '(osx))
 ```
 
-Note that the `emacs-mac-port` server behaves differently than the regular
-Emacs server.
+Note that the `emacs-mac-port` server behaves differently than the regular Emacs
+server which in particular **DOES NOT** allow multi-tty if you start GUI i.e.
+you can't connect to the Emacs GUI server with `emacsclient` but server-client
+works if you start from terminal(TTY-only).
 Details can be found on the emacs-mac-port [README][emacs-mac-port-server].
 
 ### Windows
