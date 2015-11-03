@@ -27,13 +27,13 @@
       ;; Select the buffer local dictionary if it was set, otherwise
       ;; auto-dictionary will replace it with a guessed one at each activation.
       ;; https://github.com/nschum/auto-dictionary-mode/issues/5
+      (defun spacemacs//adict-set-local-dictionary ()
+        "Set the local dictionary if not nil."
+        (when (and (fboundp 'adict-change-dictionary)
+                   ispell-local-dictionary)
+          (adict-change-dictionary ispell-local-dictionary)))
       (add-hook 'auto-dictionary-mode-hook
-                (lambda ()
-                  (when (and
-                         (fboundp 'adict-change-dictionary)
-                         ispell-local-dictionary)
-                    (adict-change-dictionary ispell-local-dictionary))) 'append)
-      )))
+                'spacemacs//adict-set-local-dictionary 'append))))
 
 (defun spell-checking/init-flyspell ()
   (use-package flyspell
