@@ -1472,10 +1472,12 @@ It will toggle the overlay under point or create an overlay of one character."
                lorem-ipsum-insert-paragraphs
                lorem-ipsum-insert-sentences)
     :init
-    (evil-leader/set-key
-      "xil" 'lorem-ipsum-insert-list
-      "xip" 'lorem-ipsum-insert-paragraphs
-      "xis" 'lorem-ipsum-insert-sentences)))
+    (progn
+      (spacemacs/declare-prefix "xil" "lorem ipsum")
+      (evil-leader/set-key
+        "xill" 'lorem-ipsum-insert-list
+        "xilp" 'lorem-ipsum-insert-paragraphs
+        "xils" 'lorem-ipsum-insert-sentences))))
 
 (defun spacemacs/init-move-text ()
   (use-package move-text
