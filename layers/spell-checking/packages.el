@@ -46,8 +46,6 @@
       (when spell-checking-enable-by-default
         (add-hook 'prog-mode-hook 'flyspell-prog-mode))
 
-      (add-hook 'flyspell-mode-hook 'flyspell-buffer)
-
       (spacemacs|add-toggle spelling-checking
         :status flyspell-mode
         :on (if (derived-mode-p 'prog-mode)
