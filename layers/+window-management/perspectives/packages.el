@@ -11,25 +11,9 @@
 ;;; License: GPLv3
 (setq perspectives-packages
       '(
-        spaceline
         persp-mode
         helm
         helm-projectile))
-
-(defun perspectives/pre-init-spaceline ()
-  (spacemacs|use-package-add-hook spaceline-config
-    :post-config
-    (progn
-      (spaceline-define-segment persp-number
-        (spacemacs/persp-number)
-        :when (and (bound-and-true-p persp-mode)
-                   (spacemacs/persp-number)))
-      (setq spaceline-left
-            (cons '((persp-number workspace-number window-number)
-                    :fallback evil-state
-                    :separator "|"
-                    :face highlight-face)
-                  (cdr spaceline-left))))))
 
 (defun perspectives/init-persp-mode ()
   (use-package persp-mode
@@ -105,25 +89,6 @@ Cancels autosave on exiting perspectives mode."
         (if (equal name (persp-curr-name))
             (propertize string-name 'face 'persp-selected-face)
           string-name)))
-
-    (defun spacemacs/persp-number ()
-      "Return the number of the current workspace."
-      (let* ((num (position (persp-curr-name)
-                            (persp-names-current-frame-fast-ordered)))
-             (str (if num (int-to-string num))))
-        (cond
-         ((not (dotspacemacs|symbol-value
-                dotspacemacs-mode-line-unicode-symbols)) str)
-         ((equal str "0") "➊")
-         ((equal str "1") "➋")
-         ((equal str "2") "➌")
-         ((equal str "3") "➍")
-         ((equal str "4") "➎")
-         ((equal str "5") "❻")
-         ((equal str "6") "➐")
-         ((equal str "7") "➑")
-         ((equal str "8") "➒")
-         ((equal str "9") "➓"))))
 
     (defun spacemacs/persp-switch-by-pos (pos)
       "Switch to perspective of position (1-index)."
