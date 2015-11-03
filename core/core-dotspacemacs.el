@@ -188,9 +188,9 @@ can be toggled through `toggle-transparency'.")
 overrides the default behavior of Emacs which recenters the point when
 it reaches the top or bottom of the screen.")
 
-(defvar dotspacemacs-global-line-numbers nil
+(defvar dotspacemacs-line-numbers nil
   "If non nil line numbers are turned on in all `prog-mode' and `text-mode'
-derivatives. If set to `'relative', also turns on relative line numbers.")
+derivatives. If set to `relative', also turns on relative line numbers.")
 
 (defvar dotspacemacs-persistent-server nil
   "If non nil advises quit functions to keep server open when quitting.")
