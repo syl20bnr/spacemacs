@@ -95,9 +95,10 @@
 
 (defun spacemacs/init-ace-jump-helm-line ()
   (use-package ace-jump-helm-line
+    :defer t
     :init
-    (with-eval-after-load "helm"
-      (define-key helm-map (kbd "C-'") 'ace-jump-helm-line))))
+    (with-eval-after-load 'helm
+      (define-key helm-map (kbd "C-q") 'ace-jump-helm-line))))
 
 (defun spacemacs/init-ace-link ()
   (use-package ace-link
