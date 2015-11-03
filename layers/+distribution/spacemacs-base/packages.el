@@ -1250,14 +1250,14 @@ ARG non nil means that the editing style is `vim'."
     (add-hook 'find-file-hook (lambda () (unless recentf-mode
                                            (recentf-mode)
                                            (recentf-track-opened-file))))
-    :config
-    (add-to-list 'recentf-exclude (expand-file-name spacemacs-cache-directory))
-    (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
-    (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
     (setq recentf-save-file (concat spacemacs-cache-directory "recentf"))
     (setq recentf-max-saved-items 100)
     (setq recentf-auto-cleanup 'never)
     (setq recentf-auto-save-timer (run-with-idle-timer 600 t 'recentf-save-list))))
+    :config
+    (add-to-list 'recentf-exclude (expand-file-name spacemacs-cache-directory))
+    (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
+    (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
 
 (defun spacemacs-base/init-restart-emacs()
   (use-package restart-emacs
