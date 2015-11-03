@@ -219,9 +219,11 @@
       (defun python-default ()
         (setq mode-name "Python"
               tab-width 4
-              fill-column python-fill-column
-              ;; auto-indent on colon doesn't work well with if statement
-              electric-indent-chars (delq ?: electric-indent-chars))
+              fill-column python-fill-column)
+        (when (version< emacs-version "24.5")
+          ;; auto-indent on colon doesn't work well with if statement
+          ;; should be fixed in 24.5 and above
+          (setq electric-indent-chars (delq ?: electric-indent-chars)))
         (setq-local comment-inline-offset 2)
         (spacemacs/python-annotate-pdb)
         ;; make C-j work the same way as RET
