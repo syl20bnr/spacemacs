@@ -54,10 +54,12 @@
   (use-package haskell-mode
     :defer t
     :init
-    ;; force haskell-mode loading when visiting cabal file
-    (add-hook 'haskell-cabal-mode-hook
-              (lambda ()
-                (require 'haskell-mode)))
+    (progn
+      (defun spacemacs//force-haskell-mode-loading ()
+        "Force `haskell-mode' loading when visiting cabal file."
+        (require 'haskell-mode))
+      (add-hook 'haskell-cabal-mode-hook
+                'spacemacs//force-haskell-mode-loading))
     :config
     (progn
       ;; Haskell main editing mode key bindings.
