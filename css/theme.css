@@ -5380,7 +5380,8 @@ figure {
 /* Overrides */
 
 .section-intro {
-  background-color: #EEE8D5;
+    background-color: #484460;
+    color: white;
 }
 
 .section-footer {
