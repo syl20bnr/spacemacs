@@ -10,6 +10,12 @@
 ;;
 ;;; License: GPLv3
 
+(defun spacemacs/load-or-install-protected-package (pkg &optional log file-to-load)
+  "Load PKG package, and protect it against being deleted as an orphan.
+See `spacemacs/load-or-install-package' for more information."
+  (push pkg configuration-layer--protected-packages)
+  (spacemacs/load-or-install-package pkg log file-to-load))
+
 (defun spacemacs/load-or-install-package (pkg &optional log file-to-load)
   "Load PKG package. PKG will be installed if it is not already installed.
 Whenever the initial require fails the absolute path to the package

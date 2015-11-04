@@ -146,9 +146,6 @@
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")
 
-(defvar spacemacs-used-theme-packages nil
-  "List of packages of used themes.")
-
 (defun spacemacs//get-theme-package (theme)
   "Returns the package theme for the given THEME name."
   (cond
