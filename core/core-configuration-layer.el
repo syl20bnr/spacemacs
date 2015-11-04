@@ -128,6 +128,9 @@
 (defvar configuration-layer--skipped-packages nil
   "A list of all packages that were skipped during last update attempt.")
 
+(defvar configuration-layer--protected-packages nil
+  "A list of packages that will be protected from removal as orphans.")
+
 (defvar configuration-layer-error-count nil
   "Non nil indicates the number of errors occurred during the
 installation of initialization.")
@@ -1025,7 +1028,8 @@ to select one."
 
 (defun configuration-layer//is-package-orphan (pkg-name dist-pkgs dependencies)
   "Returns not nil if PKG-NAME is the name of an orphan package."
-  (unless (object-assoc pkg-name :name dist-pkgs)
+  (unless (or (object-assoc pkg-name :name dist-pkgs)
+              (memq pkg-name configuration-layer--protected-packages))
     (if (ht-contains? dependencies pkg-name)
         (let ((parents (ht-get dependencies pkg-name)))
           (reduce (lambda (x y) (and x y))
@@ -1115,24 +1119,16 @@ to select one."
    (t (let ((p (cadr (assq pkg-name package-alist))))
         (when p (package-delete p))))))
 
-(defun configuration-layer//filter-used-themes (orphans)
-  "Filter out used theme packages from ORPHANS candidates.
-Returns the filtered list."
-  (delq nil (mapcar (lambda (x)
-                      (and (not (memq x spacemacs-used-theme-packages))
-                           x)) orphans)))
-
 (defun configuration-layer/delete-orphan-packages (packages)
   "Delete PACKAGES if they are orphan."
   (interactive)
   (let* ((dependencies (configuration-layer//get-packages-dependencies))
          (implicit-packages (configuration-layer//get-implicit-packages
                              configuration-layer--used-distant-packages))
-         (orphans (configuration-layer//filter-used-themes
-                   (configuration-layer//get-orphan-packages
-                    configuration-layer--used-distant-packages
-                    implicit-packages
-                    dependencies)))
+         (orphans (configuration-layer//get-orphan-packages
+                   configuration-layer--used-distant-packages
+                   implicit-packages
+                   dependencies))
          (orphans-count (length orphans)))
     ;; (message "dependencies: %s" dependencies)
     ;; (message "implicit: %s" implicit-packages)

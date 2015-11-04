@@ -91,10 +91,12 @@ initialization."
   ;; default theme
   (let ((default-theme (car dotspacemacs-themes)))
     (spacemacs/load-theme default-theme)
-    ;; used to prevent automatic deletion of used packages
-    (setq spacemacs-used-theme-packages
-          (delq nil (mapcar 'spacemacs//get-theme-package
-                            dotspacemacs-themes)))
+    ;; protect used themes from deletion as orphans
+    (setq configuration-layer--protected-packages
+          (append
+           (delq nil (mapcar 'spacemacs//get-theme-package
+                             dotspacemacs-themes))
+           configuration-layer--protected-packages))
     (setq-default spacemacs--cur-theme default-theme)
     (setq-default spacemacs--cycle-themes (cdr dotspacemacs-themes)))
   ;; removes the GUI elements
@@ -122,30 +124,30 @@ initialization."
   (spacemacs-buffer/insert-banner-and-buttons)
   ;; mandatory dependencies
   ;; dash is required to prevent a package.el bug with f on 24.3.1
-  (spacemacs/load-or-install-package 'dash t)
-  (spacemacs/load-or-install-package 's t)
+  (spacemacs/load-or-install-protected-package 'dash t)
+  (spacemacs/load-or-install-protected-package 's t)
   ;; bind-key is required by use-package
-  (spacemacs/load-or-install-package 'bind-key t)
-  (spacemacs/load-or-install-package 'use-package t)
+  (spacemacs/load-or-install-protected-package 'bind-key t)
+  (spacemacs/load-or-install-protected-package 'use-package t)
   (setq use-package-verbose dotspacemacs-verbose-loading)
   ;; package-build is required by quelpa
-  (spacemacs/load-or-install-package 'package-build t)
+  (spacemacs/load-or-install-protected-package 'package-build t)
   (setq quelpa-verbose dotspacemacs-verbose-loading
         quelpa-dir (concat spacemacs-cache-directory "quelpa/")
         quelpa-build-dir (expand-file-name "build" quelpa-dir)
         quelpa-persistent-cache-file (expand-file-name "cache" quelpa-dir)
         quelpa-update-melpa-p nil)
-  (spacemacs/load-or-install-package 'quelpa t)
+  (spacemacs/load-or-install-protected-package 'quelpa t)
   ;; inject use-package hooks for easy customization of
   ;; stock package configuration
   (setq use-package-inject-hooks t)
   ;; which-key
-  (spacemacs/load-or-install-package 'which-key t)
+  (spacemacs/load-or-install-protected-package 'which-key t)
   ;; evil and evil-leader must be installed at the beginning of the
   ;; boot sequence.
   ;; Use C-u as scroll-up (must be set before actually loading evil)
-  (spacemacs/load-or-install-package 'evil t)
-  (spacemacs/load-or-install-package 'evil-leader t)
+  (spacemacs/load-or-install-protected-package 'evil t)
+  (spacemacs/load-or-install-protected-package 'evil-leader t)
   (require 'core-evilified-state)
   ;; check for new version
   (if dotspacemacs-mode-line-unicode-symbols
