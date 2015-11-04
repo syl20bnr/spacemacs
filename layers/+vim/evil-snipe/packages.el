@@ -12,11 +12,14 @@
           evil-snipe-smart-case t)
     :config
     (progn
-      (evil-snipe-mode 1)
-      (if (configuration-layer/layer-usedp 'git)
+      (if evil-snipe-enable-alternate-f-and-t-behaviors
           (progn
-            (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
-            (add-hook 'git-rebase-mode-hook 'turn-off-evil-snipe-override-mode)))
-      (when evil-snipe-enable-alternate-f-and-t-behaviors
-        (setq evil-snipe-repeat-scope 'whole-buffer)
-        (evil-snipe-override-mode 1)))))
+            (setq evil-snipe-repeat-scope 'whole-buffer)
+            (evil-snipe-override-mode 1)
+            (when (configuration-layer/layer-usedp 'git)
+              (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+              (add-hook 'git-rebase-mode-hook 'turn-off-evil-snipe-override-mode)))
+        (evil-snipe-mode 1)
+        (when (configuration-layer/layer-usedp 'git)
+          (add-hook 'magit-mode-hook 'turn-off-evil-snipe-mode)
+          (add-hook 'git-rebase-mode-hook 'turn-off-evil-snipe-mode))))))
