@@ -5,6 +5,7 @@
         pbcopy
         launchctl
         reveal-in-osx-finder
+        helm
         ))
 
 (when (spacemacs/system-is-mac)
@@ -71,3 +72,13 @@
   (use-package reveal-in-osx-finder
     :if (spacemacs/system-is-mac)
     :commands reveal-in-osx-finder))
+
+(defun osx/pre-init-helm ()
+  ;; Use `mdfind' instead of `locate'.
+  (when (spacemacs/system-is-mac)
+    (spacemacs|use-package-add-hook helm
+      :post-config
+      ;; Disable fuzzy matchting to make mdfind work with helm-locate
+      ;; https://github.com/emacs-helm/helm/issues/799
+      (setq helm-locate-fuzzy-match nil)
+      (setq helm-locate-command "mdfind -name %s %s"))))
