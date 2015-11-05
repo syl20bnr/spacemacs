@@ -4622,7 +4622,8 @@ body {
   /*background: #663fb5 url(../img/bg-header.jpg) no-repeat center bottom;*/
   background-image: url("../img/background.png");
 
-  background-size: cover;
+  background-size: 100% 110%;
+  background-repeat: no-repeat;
   border-radius: 0; }
   @media (max-width: 47.9em) {
     .jumbotron {
