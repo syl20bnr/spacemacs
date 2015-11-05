@@ -72,14 +72,14 @@ check out the =packages.el= file in the respective folders in the
 
 ** How can I change or define an alias for an =evil-leader= prefix?
 It is possible to change an =evil-leader= prefix by binding its keymap to
-another sequence. For instance, if you want to switch ~SPC l~
-(=evil-avy-goto-line=) with ~SPC L~ (=perspectives= layer) to make the later
+another sequence. For instance, if you want to switch ~SPC L~
+(=evil-avy-goto-line=) with ~SPC l~ (=perspectives= layer) to make the later
 easier to reach, you can use:
 
 #+begin_src emacs-lisp
 (evil-leader/set-key
-  "l" (lookup-key evil-leader--default-map "L")
-  "L" 'evil-avy-goto-line)
+  "L" (lookup-key evil-leader--default-map "l")
+  "l" 'evil-avy-goto-line)
 #+end_src
 
 ** Should I place my settings in =user-init= or =user-config=?

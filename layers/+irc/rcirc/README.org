@@ -175,7 +175,7 @@ For now authinfo is mandatory to use the ZNC configuration.
 | Key Binding | Description                                                                   |
 |-------------+-------------------------------------------------------------------------------|
 | ~SPC a i r~ | Open rcirc                                                                    |
-| ~SPC L o i~ | Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled) |
+| ~SPC l o i~ | Open rcirc in a custom perspective "@RICRC" (need perspectives layer enabled) |
 
 In normal state:
 
