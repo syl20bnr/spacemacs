@@ -45,10 +45,22 @@
     :if haskell-enable-ghc-mod-support
     :init (add-hook 'haskell-mode-hook 'ghc-init)
     :config
-    (when (configuration-layer/package-usedp 'flycheck)
-      ;; remove overlays from ghc-check.el if flycheck is enabled
-      (set-face-attribute 'ghc-face-error nil :underline nil)
-      (set-face-attribute 'ghc-face-warn nil :underline nil))))
+    (progn
+      (spacemacs/declare-prefix-for-mode 'haskell-mode "mm" "haskell/ghc-mod")
+      (evil-leader/set-key-for-mode 'haskell-mode
+          "mmt" 'ghc-insert-template-or-signature
+          "mmu" 'ghc-initial-code-from-signature
+          "mma" 'ghc-auto
+          "mmf" 'ghc-refine
+          "mme" 'ghc-expand-th
+          "mmn" 'ghc-goto-next-hole
+          "mmp" 'ghc-goto-prev-hole
+          "mm>"  'ghc-make-indent-deeper
+          "mm<"  'ghc-make-indent-shallower)
+      (when (configuration-layer/package-usedp 'flycheck)
+        ;; remove overlays from ghc-check.el if flycheck is enabled
+        (set-face-attribute 'ghc-face-error nil :underline nil)
+        (set-face-attribute 'ghc-face-warn nil :underline nil)))))
 
 (defun haskell/init-haskell-mode ()
   (use-package haskell-mode

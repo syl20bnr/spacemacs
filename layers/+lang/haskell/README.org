@@ -23,6 +23,7 @@
    - [[REPL][REPL]]
    - [[Cabal commands][Cabal commands]]
    - [[Cabal files][Cabal files]]
+   - [[Ghc-mod][Ghc-mod]]
  - [[FAQ][FAQ]]
    - [[REPL doesn't work][REPL doesn't work]]
    - [[REPL is stuck][REPL is stuck]]
@@ -309,6 +310,36 @@ This commands are available in a cabal file.
 | ~SPC m N~   | go to next section                          |
 | ~SPC m P~   | go to previous section                      |
 | ~SPC m f~   | find or create source-file under the cursor |
+
+** Ghc-mod
+These commands are only available when ghc-mod is enabled.
+
+For more info, see
+http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html
+
+ghc-mod commands are prefixed by ~SPC m m~:
+
+| Key Binding | Description                                 |
+|-------------+---------------------------------------------|
+| ~SPC m m t~ | insert template                             |
+| ~SPC m m u~ | insert template with holes                  |
+| ~SPC m m a~ | select one of possible cases (~ghc-auto~)   |
+| ~SPC m m f~ | replace a hole (~ghc-refine~)               |
+| ~SPC m m e~ | expand template haskell                     |
+| ~SPC m m n~ | go to next type hole                        |
+| ~SPC m m p~ | go to previous type hole                    |
+| ~SPC m m >~ | make indent deeper                          |
+| ~SPC m m <~ | make indent shallower                       |
+
+*** insert template
+~SPC m m t~ inserts a template. What this means is that
+In the beginning of a buffer, "module Foo where" is
+inserted. On the function without signature, inferred
+type is inserted. On a symbol "foo" without definition,
+"foo = undefined" is inserted or a proper module is imported.
+~SPC m m u~ inserts a hole in this case. On a variable,
+the case is split. When checking with hlint, original code
+is replaced with hlint's suggestion if possible.
 
 * FAQ
 ** REPL doesn't work
