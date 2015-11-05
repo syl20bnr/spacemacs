@@ -1,4 +1,8 @@
-(setq evil-snipe-packages '(evil-snipe))
+(setq evil-snipe-packages
+      '(
+        evil-snipe
+        magit
+        ))
 
 (defun evil-snipe/init-evil-snipe ()
   (use-package evil-snipe
@@ -15,11 +19,13 @@
       (if evil-snipe-enable-alternate-f-and-t-behaviors
           (progn
             (setq evil-snipe-repeat-scope 'whole-buffer)
-            (evil-snipe-override-mode 1)
-            (when (configuration-layer/layer-usedp 'git)
-              (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
-              (add-hook 'git-rebase-mode-hook 'turn-off-evil-snipe-override-mode)))
-        (evil-snipe-mode 1)
-        (when (configuration-layer/layer-usedp 'git)
-          (add-hook 'magit-mode-hook 'turn-off-evil-snipe-mode)
-          (add-hook 'git-rebase-mode-hook 'turn-off-evil-snipe-mode))))))
+            (evil-snipe-override-mode 1))
+        (evil-snipe-mode 1)))))
+
+(defun evil-snipe/post-init-magit ()
+  (if evil-snipe-enable-alternate-f-and-t-behaviors
+      (progn
+        (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+        (add-hook 'git-rebase-mode-hook 'turn-off-evil-snipe-override-mode))
+    (add-hook 'magit-mode-hook 'turn-off-evil-snipe-mode)
+    (add-hook 'git-rebase-mode-hook 'turn-off-evil-snipe-mode)))
