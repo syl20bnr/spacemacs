@@ -166,7 +166,7 @@ Cancels autosave on exiting perspectives mode."
     (spacemacs|define-micro-state perspectives
       :doc (spacemacs//perspectives-ms-doc)
       :use-minibuffer t
-      :evil-leader "L"
+      :evil-leader "l"
       :bindings
       ;; need to exit in case number doesn't exist
       ("?" spacemacs//perspectives-ms-toggle-doc)
