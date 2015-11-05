@@ -45,6 +45,7 @@ Prefix command for perspective management commands is ~SPC l~ (for Layout).
 | Key Binding            | Description                                     |
 |------------------------+-------------------------------------------------|
 | ~SPC l ?~              | Toggle Documentation of micro-state             |
+| ~SPC l l~              | List perspectives                               |
 | ~SPC l b~              | List buffers in current perspective             |
 | ~SPC l f~              | List buffers in current perspective             |
 | ~SPC l K~              | Remove buffer from perspective                  |
@@ -64,7 +65,7 @@ Prefix command for perspective management commands is ~SPC l~ (for Layout).
 | ~SPC l [1..n..9]~      | switch to nth perspective                       |
 | ~SPC l r~              | rename perspective                              |
 | ~SPC l w~              | Save perspectives to file                       |
-| ~SPC l l~              | Load perspectives from file                     |
+| ~SPC l L~              | Load perspectives from file                     |
 | ~SPC l s~              | switch perspective                              |
 
 *** Custom Perspectives Micro State
@@ -89,7 +90,7 @@ can use the ~SPC l P~.
 
 ** Save/Load perspectives into a file
 
-With ~SPC l w~ and ~SPC l l~ you can save and load perspectives to a file this
+With ~SPC l w~ and ~SPC l L~ you can save and load perspectives to a file this
 is done without configuration, support is great for emacs 24.4, but depends on
 =workgroups.el= for Emacs <= 24.3.
 
