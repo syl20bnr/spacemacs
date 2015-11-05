@@ -99,7 +99,13 @@ You can tweak the bullets displayed in the org buffer in the function
 
 | Key Binding                                  | Description                                  |
 |----------------------------------------------+----------------------------------------------|
+| ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                            |
+| ~SPC m *~                                    | org-ctrl-c-star                              |
+| ~SPC m RET~                                  | org-ctrl-c-ret                               |
+| ~SPC m -~                                    | org-ctrl-c-minus                             |
 | ~SPC m '~                                    | org-edit-special                             |
+| ~SPC m ^~                                    | org-sort                                     |
+| ~SPC m /~                                    | org-sparse-tree                              |
 | ~SPC m .~                                    | org-time-stamp                               |
 | ~SPC m a~                                    | org-agenda                                   |
 | ~SPC m b~                                    | org-tree-to-indirect-buffer                  |
@@ -113,7 +119,6 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m l~                                    | org-open-at-point                            |
 | ~SPC m n~                                    | org-narrow-to-subtree                        |
 | ~SPC m N~                                    | widen                                        |
-| ~SPC m <dotspacemacs-major-mode-leader-key>~ | org-ctrl-c-ctrl-c                            |
 | ~SPC m O~                                    | org-clock-out                                |
 | ~SPC m q~                                    | org-clock-cancel                             |
 | ~SPC m R~                                    | org-refile                                   |
