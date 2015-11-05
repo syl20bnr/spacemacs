@@ -96,7 +96,7 @@
    - [[Navigating][Navigating]]
      - [[Point/Cursor][Point/Cursor]]
        - [[Smooth scrolling][Smooth scrolling]]
-     - [[Vim motions with ace-jump mode][Vim motions with ace-jump mode]]
+     - [[Vim motions with avy][Vim motions with avy]]
        - [[ace-link mode][ace-link mode]]
      - [[Window manipulation][Window manipulation]]
        - [[Window manipulation key bindings][Window manipulation key bindings]]
@@ -1432,23 +1432,23 @@ On Windows, you may want to disable it. To disable the smooth scrolling set the
 (setq-default dotspacemacs-smooth-scrolling t)
 #+END_SRC
 
-*** Vim motions with ace-jump mode
-Spacemacs uses the =evil= integration of [[https://github.com/winterTTr/ace-jump-mode][ace-jump mode]] which enables the
-invocation of =ace-jump-mode= during motions.
+*** Vim motions with avy
+Spacemacs uses the =evil= integration of [[https://github.com/abo-abo/avy][avy]] which enables the
+invocation of =avy= during motions.
 
 It is useful for deleting visually a set of lines, try the following sequence in
-a buffer containing some text: ~d SPC L~
+a buffer containing some text: ~d SPC y~
 
 | Key Binding | Description                                        |
 |-------------+----------------------------------------------------|
-| ~SPC SPC~   | initiate ace jump word mode                        |
-| ~SPC L~     | initiate ace jump line mode                        |
+| ~SPC SPC~   | initiate avy jump word                             |
+| ~SPC y~     | initiate avy jump line                             |
 | ~SPC `~     | go back to the previous location (before the jump) |
 
 *Hint*: you may change to char mode by ~C-c C-c~ in word mode.
 
 **** ace-link mode
-Similar to =ace-jump-mode=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one to jump to any link in
+Similar to =avy=, [[https://github.com/abo-abo/ace-link][ace-link]] allows one to jump to any link in
 =help-mode= and =info-mode= with two key strokes.
 
 | Key Binding | Description                                           |
@@ -2389,7 +2389,7 @@ Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][ev
     | ~SPC c y~   | comment and yank          |
     | ~SPC c Y~   | invert comment and yank   |
 
-*Tips:* To comment efficiently a block of line use the combo ~SPC ; SPC L~
+*Tips:* To comment efficiently a block of line use the combo ~SPC ; SPC y~
 
 *** Deleting files
 Deletion is configured to send deleted files to system trash.
