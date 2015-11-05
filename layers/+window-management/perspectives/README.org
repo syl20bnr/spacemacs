@@ -40,7 +40,7 @@ To use this contribution add it to your =~/.spacemacs=
 ** Micro-states
 *** Perspective Management Micro State
 
-Prefix command for perspective management commands is ~SPC L~ (for Layout).
+Prefix command for perspective management commands is ~SPC l~ (for Layout).
 
 | Key Binding            | Description                                     |
 |------------------------+-------------------------------------------------|
