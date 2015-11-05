@@ -79,6 +79,10 @@
     background-color: #FDF6E3;
   }
 
+  #screenshot {
+    margin-bottom: 4em;
+  }
+
 
 .icon-volume-mute:before {
   content: "\e615"; }
