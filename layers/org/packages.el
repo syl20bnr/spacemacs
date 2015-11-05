@@ -16,6 +16,7 @@
     company-emoji
     emoji-cheat-sheet-plus
     (evil-org :location local)
+    evil-surround
     gnuplot
     htmlize
     ;; org is installed by `org-plus-contrib'
@@ -52,6 +53,14 @@
       (evil-define-key 'normal evil-org-mode-map
         "O" 'evil-open-above)
       (spacemacs|diminish evil-org-mode " ⓔ" " e"))))
+
+(defun org/post-init-evil-surround ()
+  (defun spacemacs/add-org-surrounds ()
+    (push '(?: . spacemacs//surround-drawer) evil-surround-pairs-alist))
+  (add-hook 'org-mode-hook 'spacemacs/add-org-surrounds)
+  (defun spacemacs//surround-drawer ()
+    (let ((dname (read-from-minibuffer "" "")))
+      (cons (format ":%s:" (or dname "")) ":END:"))))
 
 (defun org/init-gnuplot ()
   (use-package gnuplot
