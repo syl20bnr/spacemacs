@@ -399,7 +399,7 @@
       (setq avy-background t)
       (evil-leader/set-key
         "SPC" 'avy-goto-word-or-subword-1
-        "l" 'avy-goto-line
+        "L" 'avy-goto-line
         "xo" 'spacemacs/avy-open-url))
     :config
     (progn
