@@ -1437,12 +1437,12 @@ Spacemacs uses the =evil= integration of [[https://github.com/winterTTr/ace-jump
 invocation of =ace-jump-mode= during motions.
 
 It is useful for deleting visually a set of lines, try the following sequence in
-a buffer containing some text: ~d SPC l~
+a buffer containing some text: ~d SPC L~
 
 | Key Binding | Description                                        |
 |-------------+----------------------------------------------------|
 | ~SPC SPC~   | initiate ace jump word mode                        |
-| ~SPC l~     | initiate ace jump line mode                        |
+| ~SPC L~     | initiate ace jump line mode                        |
 | ~SPC `~     | go back to the previous location (before the jump) |
 
 *Hint*: you may change to char mode by ~C-c C-c~ in word mode.
@@ -2389,7 +2389,7 @@ Comments are handled by [[https://github.com/redguardtoo/evil-nerd-commenter][ev
     | ~SPC c y~   | comment and yank          |
     | ~SPC c Y~   | invert comment and yank   |
 
-*Tips:* To comment efficiently a block of line use the combo ~SPC ; SPC l~
+*Tips:* To comment efficiently a block of line use the combo ~SPC ; SPC L~
 
 *** Deleting files
 Deletion is configured to send deleted files to system trash.
