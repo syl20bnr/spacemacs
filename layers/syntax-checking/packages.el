@@ -78,12 +78,13 @@ If the error list is visible, hide it.  Otherwise, show it."
             (quit-window nil window)
           (flycheck-list-errors)))
 
-      (spacemacs|evilify-map flycheck-error-list-mode-map
-        :mode flycheck-error-list-mode
-        :bindings
-        "RET" 'flycheck-error-list-goto-error
-        "j" 'flycheck-error-list-next-error
-        "k" 'flycheck-error-list-previous-error)
+      (when (configuration-layer/package-usedp 'evilified-state)
+        (evilified-state-evilify-map flycheck-error-list-mode-map
+          :mode flycheck-error-list-mode
+          :bindings
+          "RET" 'flycheck-error-list-goto-error
+          "j" 'flycheck-error-list-next-error
+          "k" 'flycheck-error-list-previous-error))
 
       ;; key bindings
       (evil-leader/set-key

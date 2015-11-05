@@ -68,7 +68,8 @@
             pyim-personal-file (concat spacemacs-cache-directory
                                        "pyim-personal.txt")
             default-input-method "chinese-pyim")
-      (evilify pyim-dicts-manager-mode pyim-dicts-manager-mode-map))))
+      (when (configuration-layer/package-usedp 'evilified-state)
+        (evilified-state-evilify pyim-dicts-manager-mode pyim-dicts-manager-mode-map)))))
 
 (defun chinese/init-find-by-pinyin-dired ()
   (use-package find-by-pinyin-dired

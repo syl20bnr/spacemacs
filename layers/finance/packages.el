@@ -45,7 +45,8 @@
         "mt"    'ledger-insert-effective-date
         "my"    'ledger-set-year
         "m RET" 'ledger-set-month)
-      (evilify ledger-report-mode ledger-report-mode-map))))
+      (when (configuration-layer/package-usedp 'evilified-state)
+        (evilified-state-evilify ledger-report-mode ledger-report-mode-map)))))
 
 (when (configuration-layer/layer-usedp 'auto-completion)
   (defun finance/post-init-company ()

@@ -1,4 +1,4 @@
-;;; core-evilified-state.el --- A minimalistic evil state
+;;; evilified-state.el --- A minimalistic evil state
 
 ;; Copyright (C) 2014, 2015 syl20bnr
 ;;
@@ -6,7 +6,7 @@
 ;; Keywords: convenience editing evil spacemacs
 ;; Created: 22 Mar 2015
 ;; Version: 1.0
-;; Package-Requires: ((evil "1.0.9") (evil-leader "0.4.3"))
+;; Package-Requires: ((evil "1.0.9"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -30,19 +30,17 @@
 
 ;;; Code:
 
-(require 'core-dotspacemacs)
 (require 'evil)
-(require 'evil-leader)
 
-(defvar spacemacs-core-evilified-state--modes nil
+(defvar evilified-state--modes nil
   "List of all evilified modes.")
 
-(defvar spacemacs-core-evilified-state--visual-state-map evil-visual-state-map
+(defvar evilified-state--visual-state-map evil-visual-state-map
   "Evil visual state map backup.")
 
-(defvar spacemacs-core-evilified-state--evil-surround nil
+(defvar evilified-state--evil-surround nil
   "Evil surround mode variable backup.")
-(make-variable-buffer-local 'spacemacs-core-evilified-state--evil-surround)
+(make-variable-buffer-local 'evilified-state--evil-surround)
 
 (evil-define-state evilified
   "Evilified state.
@@ -53,13 +51,13 @@
   :message "-- EVILIFIED BUFFER --"
   :cursor box)
 
-(add-hook 'evil-evilified-state-entry-hook 'spacemacs//evilified-state-on-entry)
-(add-hook 'evil-evilified-state-exit-hook 'spacemacs//evilified-state-on-exit)
+(add-hook 'evil-evilified-state-entry-hook 'evilified-state--evilified-state-on-entry)
+(add-hook 'evil-evilified-state-exit-hook 'evilified-state--evilified-state-on-exit)
 
-(add-hook 'evil-visual-state-entry-hook 'spacemacs//visual-state-on-entry)
-(add-hook 'evil-visual-state-exit-hook 'spacemacs//visual-state-on-exit)
+(add-hook 'evil-visual-state-entry-hook 'evilified-state--visual-state-on-entry)
+(add-hook 'evil-visual-state-exit-hook 'evilified-state--visual-state-on-exit)
 
-(defun spacemacs//evilify-pre-command-hook ()
+(defun evilified-state--pre-command-hook ()
   (let ((map (get-char-property (point) 'keymap)))
     (when (and map (assq 'evilified-state map))
       (let* ((submap (cdr (assq 'evilified-state map)))
@@ -68,30 +66,28 @@
         (when command
           (setq this-command command))))))
 
-(defun spacemacs//evilified-state-on-entry ()
+(defun evilified-state--evilified-state-on-entry ()
   "Setup evilified state."
-  (add-hook 'pre-command-hook 'spacemacs//evilify-pre-command-hook nil 'local)
+  (add-hook 'pre-command-hook 'evilified-state--pre-command-hook nil 'local)
   (when (bound-and-true-p evil-surround-mode)
     (make-local-variable 'evil-surround-mode)
     (evil-surround-mode -1))
   (setq-local evil-normal-state-map (cons 'keymap nil))
   (setq-local evil-visual-state-map (cons 'keymap (list (cons ?y 'evil-yank)))))
 
-(defun spacemacs//evilified-state-on-exit ()
+(defun evilified-state--evilified-state-on-exit ()
   "Clean evilified state"
-  (remove-hook 'pre-command-hook 'spacemacs//evilify-pre-command-hook 'local))
+  (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook 'local))
 
-(defun spacemacs//visual-state-on-entry ()
+(defun evilified-state--visual-state-on-entry ()
   "Setup visual state."
-  (add-hook 'pre-command-hook 'spacemacs//evilify-pre-command-hook nil 'local))
+  (add-hook 'pre-command-hook 'evilified-state--pre-command-hook nil 'local))
 
-(defun spacemacs//visual-state-on-exit ()
+(defun evilified-state--visual-state-on-exit ()
   "Clean visual state"
-  (remove-hook 'pre-command-hook 'spacemacs//evilify-pre-command-hook 'local))
+  (remove-hook 'pre-command-hook 'evilified-state--pre-command-hook 'local))
 
 ;; default key bindings for all evilified buffers
-(define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
-  evil-leader--default-map)
 (define-key evil-evilified-state-map "/" 'evil-search-forward)
 (define-key evil-evilified-state-map ":" 'evil-ex)
 (define-key evil-evilified-state-map "h" 'evil-backward-char)
@@ -111,23 +107,26 @@
 (define-key evil-evilified-state-map (kbd "C-z") 'evil-emacs-state)
 
 ;; old macro
-(defmacro evilify (mode map &rest body)
+;;;###autoload
+(defmacro evilified-state-evilify (mode map &rest body)
   "Set `evilified state' as default for MODE.
 
 BODY is a list of additional key bindings to apply for the given MAP in
 `evilified state'."
   (let ((defkey (when body `(evil-define-key 'evilified ,map ,@body))))
     `(progn (unless ,(null mode)
-              (unless (memq ',mode spacemacs-core-evilified-state--modes)
-                (push ',mode spacemacs-core-evilified-state--modes))
+              (unless (memq ',mode evilified-state--modes)
+                (push ',mode evilified-state--modes))
               (unless (or (bound-and-true-p holy-mode)
                           (memq ',mode evil-evilified-state-modes))
                 (delq ',mode evil-emacs-state-modes)
                 (push ',mode evil-evilified-state-modes)))
             (unless ,(null defkey) (,@defkey)))))
+(put 'evilified-state-evilify 'lisp-indent-function 'defun)
 
 ;; new macro
-(defmacro spacemacs|evilify-map (map &rest props)
+;;;###autoload
+(defmacro evilified-state-evilify-map (map &rest props)
   "Evilify MAP.
 
 Avaiblabe PROPS:
@@ -154,16 +153,16 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
   (let* ((mode (plist-get props :mode))
          (evilified-map (plist-get props :evilified-map))
          (eval-after-load (plist-get props :eval-after-load))
-         (bindings (spacemacs/mplist-get props :bindings))
+         (bindings (evilified-state--mplist-get props :bindings))
          (defkey (when bindings `(evil-define-key 'evilified ,map ,@bindings)))
          (body
           `(progn
-             (let ((sorted-map (spacemacs//evilify-sort-keymap
+             (let ((sorted-map (evilified-state--sort-keymap
                                 (or ,evilified-map evil-evilified-state-map)))
                    processed)
                (mapc (lambda (map-entry)
                        (unless (member (car map-entry) processed)
-                         (setq processed (spacemacs//evilify-event
+                         (setq processed (evilified-state--evilify-event
                                           ,map ',map
                                           (or ,evilified-map
                                               evil-evilified-state-map)
@@ -172,19 +171,20 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
              (unless ,(null defkey)
                (,@defkey))
              (unless ,(null mode)
-               (spacemacs/evilify-configure-default-state ',mode)))))
+               (evilified-state--configure-default-state ',mode)))))
     (if (null eval-after-load)
         `(,@body)
       `(with-eval-after-load ',eval-after-load ,body))))
+(put 'evilified-state-evilify-map 'lisp-indent-function 'defun)
 
-(defun spacemacs/evilify-configure-default-state (mode)
+(defun evilified-state--configure-default-state (mode)
   "Configure default state for the passed mode."
-  (add-to-list 'spacemacs-core-evilified-state--modes mode)
+  (add-to-list 'evilified-state--modes mode)
   (unless (bound-and-true-p holy-mode)
     (delq mode evil-emacs-state-modes)
     (add-to-list 'evil-evilified-state-modes mode)))
 
-(defun spacemacs//evilify-event (map map-symbol evil-map event evil-value
+(defun evilified-state--evilify-event (map map-symbol evil-map event evil-value
                                      &optional processed pending-funcs)
   "Evilify EVENT in MAP and return a list of PROCESSED events."
   (if (and event (or evil-value pending-funcs))
@@ -198,9 +198,9 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
         (when map-value
           (add-to-list 'pending-funcs (cons map-value event) 'append))
         (push event processed)
-        (setq processed (spacemacs//evilify-event
+        (setq processed (evilified-state--evilify-event
                          map map-symbol evil-map
-                         (spacemacs//evilify-find-new-event event) nil
+                         (evilified-state--find-new-event event) nil
                          processed pending-funcs)))
     (when pending-funcs
       (spacemacs-buffer/warning
@@ -213,7 +213,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
                           pending-funcs "\n")))))
   processed)
 
-(defun spacemacs//evilify-find-new-event (event)
+(defun evilified-state--find-new-event (event)
   "Return a new event for the evilified EVENT."
   (when event
     (cond
@@ -226,7 +226,7 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
      ((and (<= ?A event) (<= event ?Z)) (- event 64))
      ((and (<= 1 event) (<= event 26)) (+ (expt 2 25) event)))))
 
-(defun spacemacs//evilify-sort-keymap (map)
+(defun evilified-state--sort-keymap (map)
   "Sort MAP following the order: `s' > `S' > `C-s' > `C-S-s'"
   (let (list)
     (map-keymap (lambda (a b) (push (cons a b) list)) map)
@@ -242,6 +242,26 @@ Each pair KEYn FUNCTIONn is defined in MAP after the evilification of it."
               (if (integerp b) nil
                 (string< a b)))))))
 
-(provide 'core-evilified-state)
+(defun evilified-state--mplist-get (plist prop)
+  "Get the values associated to PROP in PLIST, a modified plist.
+
+A modified plist is one where keys are keywords and values are
+all non-keywords elements that follow it.
+
+If there are multiple properties with the same keyword, only the first property
+and its values is returned.
+
+Currently this function infloops when the list is circular."
+  (let ((tail plist)
+        result)
+    (while (and (consp tail) (not (eq prop (car tail))))
+      (pop tail))
+    ;; pop the found keyword
+    (pop tail)
+    (while (and (consp tail) (not (keywordp (car tail))))
+      (push (pop tail) result))
+    (nreverse result)))
+
+(provide 'evilified-state)
 
 ;;; core-evilified-state.el ends here
