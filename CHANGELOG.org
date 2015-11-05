@@ -1,4 +1,15 @@
 * Release 0.104.x
+** 0.104.4 (2015/11/04)
+*** Layer changes
+**** Scala
+- Fix Ensime test commands to reflect the changes in the recent versions
+  of the package (thanks to lunaryorn)
+**** Vagrant
+- Replace obsolete function =vagrant-tramp-enable= by the function
+  =vagrant-tramp-add-method= (thanks to joehillen)
+*** Core
+- Prevent bootstrap packages from being automatically uninstalled
+  (thanks to TheBB)
 ** 0.104.3 (2015/11/01)
 *** Layer changes
 **** Evil-snipe
