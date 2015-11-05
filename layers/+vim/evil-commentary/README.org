@@ -29,5 +29,5 @@ To use this contribution add it to your =~/.spacemacs=.
 | ~SPC ;~     | comment operator              |
 | ~gcc~       | comment current line          |
 | ~gcap~      | comment paragraphs            |
-| ~gc SPC l~  | comment up to a line with avy |
+| ~gc SPC L~  | comment up to a line with avy |
 | ~gy~        | comment and yank              |
