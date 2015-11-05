@@ -172,6 +172,7 @@ html {
   -webkit-text-size-adjust: 100%; }
 
 body {
+  overflow-y: hidden;
   margin: 0; }
 
 article,
