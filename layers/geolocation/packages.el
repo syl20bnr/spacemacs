@@ -46,9 +46,10 @@
         "aw" 'sunshine-forecast
         "aW" 'sunshine-quick-forecast)
 
-      (evilify sunshine-mode sunshine-mode-map
-               (kbd "q") 'quit-window
-               (kbd "i") 'sunshine-toggle-icons))
+      (when (configuration-layer/package-usedp 'evilified-state)
+        (evilified-state-evilify sunshine-mode sunshine-mode-map
+          (kbd "q") 'quit-window
+          (kbd "i") 'sunshine-toggle-icons)))
     :config
     ;; just in case location was not set by user, or on OS X,
     ;; if wasn't set up automatically, will not work with Emac's

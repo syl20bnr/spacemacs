@@ -30,7 +30,7 @@
                                     evil-map))
         (input-map (make-sparse-keymap)))
     (define-key input-map "s" 'func)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 . func)
                      (evilified-state
                       keymap "Auxiliary keymap for Evilified state"
@@ -45,7 +45,7 @@
                                     evil-map))
         (input-map (make-sparse-keymap)))
     (define-key input-map "s" 'func)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 . func)
                      (evilified-state
                       keymap "Auxiliary keymap for Evilified state"
@@ -61,7 +61,7 @@
         (input-map (make-sparse-keymap)))
     (define-key input-map "s" 'func1)
     (define-key input-map "S" 'func2)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 . func1)
                      (83 . func2)
                      (evilified-state
@@ -78,7 +78,7 @@
         (input-map (make-sparse-keymap)))
     (define-key input-map "S" 'func2)
     (define-key input-map "s" 'func1)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 . func1)
                      (83 . func2)
                      (evilified-state
@@ -96,7 +96,7 @@
         (input-map (make-sparse-keymap)))
     (define-key input-map "s" 'func1)
     (define-key input-map "S" 'func2)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 . func1)
                      (83 . func2)
                      (evilified-state
@@ -115,7 +115,7 @@
         (input-map (make-sparse-keymap)))
     (define-key input-map "S" 'func2)
     (define-key input-map "s" 'func1)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 . func1)
                      (83 . func2)
                      (evilified-state
@@ -134,7 +134,7 @@
     (define-key input-map "s" 'func1)
     (define-key input-map "S" 'func2)
     (define-key input-map (kbd "C-s") 'func3)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 . func1)
                      (83 . func2)
                      (19 . func3)
@@ -154,7 +154,7 @@
     (define-key input-map "s" 'func1)
     (define-key input-map (kbd "C-s") 'func3)
     (define-key input-map "S" 'func2)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 . func1)
                      (83 . func2)
                      (19 . func3)
@@ -179,7 +179,7 @@
      ((spacemacs-buffer/warning (msg &rest args)
                                 ((:record-cls 'mocker-stub-record
                                               :output nil :occur 1))))
-     (spacemacs|evilify-map input-map)
+     (evilified-state-evilify-map input-map)
      (should (equal '((115 . func1)
                       (83 . func2)
                       (19 . func3)
@@ -204,7 +204,7 @@
      ((spacemacs-buffer/warning (msg &rest args)
                                 ((:record-cls 'mocker-stub-record
                                               :output nil :occur 1))))
-     (spacemacs|evilify-map input-map)
+     (evilified-state-evilify-map input-map)
      (should (equal '((115 . func1)
                       (83 . func2)
                       (19 . func3)
@@ -226,7 +226,7 @@
         (submap (make-sparse-keymap)))
     (define-key input-map "s" submap)
     (define-key submap "t" 'func)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 keymap (116 . func))
                      (evilified-state
                       keymap "Auxiliary keymap for Evilified state"
@@ -243,7 +243,7 @@
         (submap (make-sparse-keymap)))
     (define-key input-map "s" submap)
     (define-key submap "t" 'func)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 keymap (116 . func))
                      (evilified-state
                       keymap "Auxiliary keymap for Evilified state"
@@ -261,7 +261,7 @@
     (define-key input-map "s" submap)
     (define-key input-map "S" submap)
     (define-key submap "t" 'func)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 keymap (116 . func))
                      (83 keymap (116 . func))
                      (evilified-state
@@ -281,7 +281,7 @@
     (define-key input-map "s" submap)
     (define-key input-map "S" submap)
     (define-key submap "t" 'func)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 keymap (116 . func))
                      (83 keymap (116 . func))
                      (evilified-state
@@ -302,7 +302,7 @@
     (define-key input-map "S" submap)
     (define-key input-map (kbd "C-s") submap)
     (define-key submap "t" 'func)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 keymap (116 . func))
                      (83 keymap (116 . func))
                      (19 keymap (116 . func))
@@ -329,7 +329,7 @@
      ((spacemacs-buffer/warning (msg &rest args)
                                 ((:record-cls 'mocker-stub-record
                                               :output nil :occur 1))))
-     (spacemacs|evilify-map input-map)
+     (evilified-state-evilify-map input-map)
      (should (equal '((115 keymap (116 . func))
                       (83 keymap (116 . func))
                       (19 keymap (116 . func))
@@ -352,7 +352,7 @@
     (define-key input-map "s" 'func)
     (define-key input-map "S" submap)
     (define-key submap "t" 'func)
-    (spacemacs|evilify-map input-map)
+    (evilified-state-evilify-map input-map)
     (should (equal '((115 . func)
                      (83 keymap (116 . func))
                      (evilified-state
@@ -376,7 +376,7 @@
     (define-key input-map "S" submap)
     (define-key submap "t" 'func)
     (dotimes (_ 10)
-      (spacemacs|evilify-map input-map))
+      (evilified-state-evilify-map input-map))
     (should (equal '((115 . func2)
                      (101 . func1)
                      (83 keymap (116 . func))
@@ -397,7 +397,7 @@
         (input-map (make-sparse-keymap)))
     (define-key input-map "s" 'func)
     ;; pass a feature already loaded at the time of calling
-    (spacemacs|evilify-map input-map :eval-after-load core-funcs)
+    (evilified-state-evilify-map input-map :eval-after-load core-funcs)
     (should (equal '((115 . func)
                      (evilified-state
                       keymap "Auxiliary keymap for Evilified state"
@@ -411,7 +411,7 @@
                                     evil-map))
         (input-map (make-sparse-keymap)))
     (define-key input-map "s" 'func)
-    (spacemacs|evilify-map input-map :eval-after-load dummy-feature)
+    (evilified-state-evilify-map input-map :eval-after-load dummy-feature)
     ;; unmodified keymap since `dummy-feature' is not loaded
     (should (equal '((115 . func))
                    (spacemacs//evilify-sort-keymap input-map)))))

@@ -94,15 +94,16 @@
         "mpc" 'elm-package-catalog
         "mpd" 'elm-documentation-lookup)
 
-      (evilify elm-package-mode elm-package-mode-map
-               "g" 'elm-package-refresh
-               "n" 'elm-package-next
-               "p" 'elm-package-prev
-               "v" 'elm-package-view
-               "m" 'elm-package-mark
-               "u" 'elm-package-unmark
-               "x" 'elm-package-install
-               "q" 'quit-window))))
+      (when (configuration-layer/package-usedp 'evilified-state)
+        (evilified-state-evilify elm-package-mode elm-package-mode-map
+          "g" 'elm-package-refresh
+          "n" 'elm-package-next
+          "p" 'elm-package-prev
+          "v" 'elm-package-view
+          "m" 'elm-package-mark
+          "u" 'elm-package-unmark
+          "x" 'elm-package-install
+          "q" 'quit-window)))))
 
 (defun elm/pre-init-popwin ()
   (spacemacs|use-package-add-hook popwin

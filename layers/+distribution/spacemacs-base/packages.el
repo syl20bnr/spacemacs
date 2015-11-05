@@ -23,6 +23,7 @@
         evil-leader
         evil-surround
         evil-visualstar
+        (evilified-state :location local :step pre)
         exec-path-from-shell
         fill-column-indicator
         helm
@@ -114,7 +115,7 @@
 ;;   "setup the evil ediff keymap"
 ;;     (progn
 ;;      (add-to-list 'evil-emacs-state-modes 'Ediff)
-;;      (spacemacs|evilify ediff-mode-map)
+;;      (evilified-state-evilify ediff-mode-map)
 ;;      (spacemacs/activate-evil-leader-for-map 'ediff-mode-map)
 ;;       )
 ;;   )
@@ -444,6 +445,12 @@ Example: (evil-map visual \"<\" \"<gv\")"
         'evil-visualstar/begin-search-forward)
       (define-key evil-visual-state-map (kbd "#")
         'evil-visualstar/begin-search-backward))))
+
+(defun spacemacs-base/init-evilified-state ()
+  (use-package evilified-state)
+  (with-eval-after-load 'evil-leader
+    (define-key evil-evilified-state-map (kbd dotspacemacs-leader-key)
+      evil-leader--default-map)))
 
 (defun spacemacs-base/init-exec-path-from-shell ()
   (use-package exec-path-from-shell
@@ -1222,7 +1229,8 @@ ARG non nil means that the editing style is `vim'."
                        popwin:special-display-config))))))
 
 (defun spacemacs-base/init-process-menu ()
-  (evilify process-menu-mode process-menu-mode-map))
+  (when (configuration-layer/package-usedp 'evilified-state)
+    (evilified-state-evilify process-menu-mode process-menu-mode-map)))
 
 (defun spacemacs-base/init-projectile ()
   (use-package projectile
