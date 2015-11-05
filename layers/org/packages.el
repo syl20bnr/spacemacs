@@ -165,32 +165,39 @@ Will work on both org-mode and any mode that accepts plain html."
         "mtto" 'org-table-toggle-coordinate-overlays
         "mtw" 'org-table-wrap-region
 
-        "mI" 'org-clock-in
+        ;; Multi-purpose keys
         (if dotspacemacs-major-mode-leader-key
             (concat "m" dotspacemacs-major-mode-leader-key)
           "m,") 'org-ctrl-c-ctrl-c
-          "mn" 'org-narrow-to-subtree
-          "mN" 'widen
-          "mO" 'org-clock-out
-          "mq" 'org-clock-cancel
-          "mR" 'org-refile
-          "ms" 'org-schedule
+        "m*" 'org-ctrl-c-star
+        "m RET" 'org-ctrl-c-ret
+        "m-" 'org-ctrl-c-minus
+        "m^" 'org-sort
+        "m/" 'org-sparse-tree
 
-          ;; insertion of common elements
-          "mil" 'org-insert-link
-          "mif" 'org-footnote-new
-          "mik" 'spacemacs/insert-keybinding-org
+        "mI" 'org-clock-in
+        "mn" 'org-narrow-to-subtree
+        "mN" 'widen
+        "mO" 'org-clock-out
+        "mq" 'org-clock-cancel
+        "mR" 'org-refile
+        "ms" 'org-schedule
 
-          ;; images and other link types have no commands in org mode-line
-          ;; could be inserted using yasnippet?
-          ;; region manipulation
-          "mxb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
-          "mxc" (spacemacs|org-emphasize spacemacs/org-code ?~)
-          "mxi" (spacemacs|org-emphasize spacemacs/org-italic ?/)
-          "mxr" (spacemacs|org-emphasize spacemacs/org-clear ? )
-          "mxs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
-          "mxu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
-          "mxv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
+        ;; insertion of common elements
+        "mil" 'org-insert-link
+        "mif" 'org-footnote-new
+        "mik" 'spacemacs/insert-keybinding-org
+
+        ;; images and other link types have no commands in org mode-line
+        ;; could be inserted using yasnippet?
+        ;; region manipulation
+        "mxb" (spacemacs|org-emphasize spacemacs/org-bold ?*)
+        "mxc" (spacemacs|org-emphasize spacemacs/org-code ?~)
+        "mxi" (spacemacs|org-emphasize spacemacs/org-italic ?/)
+        "mxr" (spacemacs|org-emphasize spacemacs/org-clear ? )
+        "mxs" (spacemacs|org-emphasize spacemacs/org-strike-through ?+)
+        "mxu" (spacemacs|org-emphasize spacemacs/org-underline ?_)
+        "mxv" (spacemacs|org-emphasize spacemacs/org-verbose ?=))
 
       (with-eval-after-load 'org-agenda
         (define-key org-agenda-mode-map "j" 'org-agenda-next-line)
