@@ -90,7 +90,7 @@ can use the ~SPC l P~.
 
 ** Save/Load perspectives into a file
 
-With ~SPC l w~ and ~SPC l l~ you can save and load perspectives to a file this
+With ~SPC l w~ and ~SPC l L~ you can save and load perspectives to a file this
 is done without configuration, support is great for emacs 24.4, but depends on
 =workgroups.el= for Emacs <= 24.3.
 
