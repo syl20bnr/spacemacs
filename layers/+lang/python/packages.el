@@ -49,8 +49,9 @@
         "mgg" 'anaconda-mode-find-definitions
         "mga" 'anaconda-mode-find-assignments
         "mgu" 'anaconda-mode-find-references)
-      (evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
-               (kbd "q") 'quit-window)
+      (when (configuration-layer/package-usedp 'evilified-state)
+        (evilified-state-evilify anaconda-mode-view-mode anaconda-mode-view-mode-map
+          (kbd "q") 'quit-window))
       (spacemacs|hide-lighter anaconda-mode))))
 
 (defun python/init-cython-mode ()
