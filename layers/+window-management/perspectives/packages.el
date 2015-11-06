@@ -328,7 +328,13 @@ Available PROPS:
       (spacemacs|define-custom-persp "@ERC"
         :binding "E"
         :body
-        (call-interactively 'erc)))))
+        (call-interactively 'erc)))
+
+    (when (configuration-layer/layer-usedp 'rcirc)
+      (spacemacs|define-custom-persp "@RCIRC"
+        :binding "i"
+        :body
+        (call-interactively 'spacemacs/rcirc)))))
 
 
 (defun perspectives/post-init-helm ()
