@@ -1,17 +1,22 @@
 #+TITLE typography contribution layer for Spacemacs
 
-* Table of Contents
-* Description
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[Key bindings][Key bindings]]
+   - [[Typo Mode][Typo Mode]]
+   - [[Tildify Mode][Tildify Mode]]
 
+* Description
 This layer provides support for typographic text editing in Spacemacs.  It
 provides modes to automatically insert and cycle among typographic characters:
 
 - [[https://github.com/jorgenschaefer/typoel][Typo Mode]] automatically inserts and cycles among typographic Unicode
   characters on some keys.
-- Tildify Mode automatically inserts non-breaking spaces where required.
+- Tildify Mode automatically inserts non-breaking spaces where required. (Only
+  available on Emacs 25).
 
 * Install
-
 To use this contribution add it to your =~/.spacemacs=
 
 #+BEGIN_SRC emacs-lisp
@@ -37,19 +42,22 @@ and automatic insertion and cycling among of typographic quotes and dashes.
 | ~SPC t T d~  | Toggle Tildify Mode (automatic insertion of non-breaking spaces) |
 | ~SPC x T t~  | Insert non-breaking spaces in the current region                 |
 
+The following keybindings are available in insert state.
+
 ** Typo Mode
 
-| Key Bindings (insert mode) | Description                              |
-|----------------------------+------------------------------------------|
-| ~"~                        | Cycle among quotation marks              |
-| ~`~                        | Cycle among left single quotation marks  |
-| ~'~                        | Cycle among right single quotation marks |
-| ~-~                        | Cycle among dashes                       |
-| ~.~                        | Cycle among ellipsis                     |
-| ~<~                        | Cycle among left angle brackets          |
-| ~>~                        | Cycle among right angle brackets         |
+| Key Bindings | Description                              |
+|--------------+------------------------------------------|
+| ~"~          | Cycle among quotation marks              |
+| ~`~          | Cycle among left single quotation marks  |
+| ~'~          | Cycle among right single quotation marks |
+| ~-~          | Cycle among dashes                       |
+| ~.~          | Cycle among ellipsis                     |
+| ~<~          | Cycle among left angle brackets          |
+| ~>~          | Cycle among right angle brackets         |
 
 ** Tildify Mode
 
-| Key bindings (insert mode) | Description                             |
-| ~SPC~                      | Insert non-breaking space when required |
+| Key bindings | Description                             |
+|--------------+-----------------------------------------|
+| ~SPC~        | Insert non-breaking space when required |
