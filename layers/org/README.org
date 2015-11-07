@@ -120,6 +120,7 @@ You can tweak the bullets displayed in the org buffer in the function
 | ~SPC m n~                                    | org-narrow-to-subtree                        |
 | ~SPC m N~                                    | widen                                        |
 | ~SPC m O~                                    | org-clock-out                                |
+| ~SPC m P~                                    | org-set-property                             |
 | ~SPC m q~                                    | org-clock-cancel                             |
 | ~SPC m R~                                    | org-refile                                   |
 | ~SPC m s~                                    | org-schedule                                 |
