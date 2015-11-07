@@ -27,6 +27,7 @@
     (nose :location local)
     org
     pip-requirements
+    py-isort
     pyenv-mode
     (pylookup :location local)
     pytest
@@ -177,6 +178,12 @@
       ;; company support
       (push 'company-capf company-backends-pip-requirements-mode)
       (spacemacs|add-company-hook pip-requirements-mode))))
+
+(defun python/init-py-isort ()
+  (use-package py-isort
+    :if python-enable-sort-imports-on-save
+    :defer t
+    :init (add-hook 'before-save-hook 'py-isort-before-save)))
 
 (defun python/init-pyenv-mode ()
   (use-package pyenv-mode

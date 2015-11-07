@@ -27,6 +27,7 @@
    - [[#other-python-commands][Other Python commands]]
  - [[#configuration][Configuration]]
    - [[#fill-column][Fill column]]
+   - [[#sort-imports][Sort imports]]
 
 * Description
 This layer adds support for the Python language.
@@ -42,6 +43,7 @@ This layer adds support for the Python language.
 - PEP8 checks with [[https://pypi.python.org/pypi/flake8][flake8]] or [[https://pypi.python.org/pypi/pylint/1.6.4][pylint]]
 - Suppression of unused import with [[https://github.com/myint/autoflake][autoflake]]
 - Use the ~%~ key to jump between blocks with [[https://github.com/redguardtoo/evil-matchit][evil-matchit]]
+- Sort imports with [[https://pypi.python.org/pypi/isort][isort]]
 
 * Install
 ** Layer
@@ -282,5 +284,18 @@ If you want to customize the fill column value, use something like this inside
 the ~user-init~ function in your ~.spacemacs~:
 
 #+BEGIN_SRC elisp
-(setq python-fill-column 99)
+(setq-default dotspacemacs-configuration-layers '(
+    (python :variables python-fill-column 99)))
 #+END_SRC
+
+** Sort imports
+If you want imports to be automatically sorted when you save a file (using
+[[https://pypi.python.org/pypi/isort][isort]]), set the =python-sort-imports-on-save= variable in the python layer
+config section:
+
+#+BEGIN_SRC elisp
+(setq-default dotspacemacs-configuration-layers
+  '((python :variables python-sort-imports-on-save t)))
+#+END_SRC
+
+or as a directory-local variable (for per-project settings).
