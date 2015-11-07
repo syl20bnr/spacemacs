@@ -115,6 +115,7 @@ Will work on both org-mode and any mode that accepts plain html."
         "md" 'org-deadline
         "me" 'org-export-dispatch
         "mf" 'org-set-effort
+        "mP" 'org-set-property
         "m:" 'org-set-tags
 
         "ma" 'org-agenda
