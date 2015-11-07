@@ -142,6 +142,8 @@
     (zonokai-red  . zonokai-theme)
     (tao-yin . tao-theme)
     (tao-yang . tao-theme)
+    (farmhouse-light . farmhouse-theme)
+    (farmhouse-dark . farmhouse-theme)
     )
   "alist matching a theme name with its package name, required when
 package name does not match theme name + `-theme' suffix.")

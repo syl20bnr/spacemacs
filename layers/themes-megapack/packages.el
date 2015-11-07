@@ -35,6 +35,7 @@
     darktooth-theme
     django-theme
     espresso-theme
+    farmhouse-theme
     firebelly-theme
     flatland-theme
     flatui-theme
