@@ -177,7 +177,7 @@ For efficient searches we recommend to install `pt` ([the platinum searcher][]).
 2. Clone the repository:
 
    ```sh
-   git clone --recursive https://github.com/syl20bnr/spacemacs ~/.emacs.d
+   git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
    ```
 
    `master` is the stable branch and it is _immutable_, **DO NOT** make any
