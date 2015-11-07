@@ -13,6 +13,7 @@
    - [[How can I change or define an alias for an =evil-leader= prefix?][How can I change or define an alias for an =evil-leader= prefix?]]
    - [[Should I place my settings in =user-init= or =user-config=?][Should I place my settings in =user-init= or =user-config=?]]
    - [[Why do some of my =org=-related settings cause problems?][Why do some of my =org=-related settings cause problems?]]
+   - [[Why is Spacemacs hanging on startup?][Why is Spacemacs hanging on startup?]]
  - [[How do I...][How do I...]]
    - [[Disable a package completely?][Disable a package completely?]]
    - [[Disable a package only for a specific major-mode?][Disable a package only for a specific major-mode?]]
@@ -88,13 +89,29 @@ in =user-init=, and any variable that Spacemacs explicitly sets but you wish to
 *override* must be set in =user-config=.
 
 Anything that isn't just setting a variable should 99% be in =user-config=.
-
 ** Why do some of my =org=-related settings cause problems?
 Since version 0.104, spacemacs uses the `org` version from the org ELPA
 repository instead of the one shipped with emacs. Then, any `org` related code
 should not be loaded before `dotspacemacs/user-config`, otherwise both versions
 will be loaded and will conflict.
 
+** Why is Spacemacs hanging on startup?
+This is probably related to Helm using Tramp which tries to figure out some
+SSH/DNS settings at startup. The root cause is probably your ISP redirecting
+non-existing addresses to their own servers.
+
+Try using these settings in the ~user-init~ function in your ~.spacemacs~
+configuration:
+
+#+BEGIN_SRC elisp
+  (setq tramp-ssh-controlmaster-options
+        "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+#+END_SRC
+
+See the below issues for further details:
+
+- https://github.com/syl20bnr/spacemacs/issues/3422#issuecomment-148919047
+- https://github.com/emacs-helm/helm/issues/1000#issuecomment-119487649
 * How do I...
 ** Disable a package completely?
 To completely disable a package and effectively uninstalling it even if
