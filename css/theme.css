@@ -5400,12 +5400,12 @@ figure {
   }
 
   #logo-large {
-    width: 25%;
+    width: 50%;
   }
 
   .logo-font {
     font-size: 120%;
-    margin-top: 2em;
+    margin-top: 1em;
   }
 
   h4 {
