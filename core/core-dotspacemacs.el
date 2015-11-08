@@ -523,7 +523,7 @@ are caught and signalled to user in spacemacs buffer."
     (lambda (x) (member x '(all any current nil)))
     'dotspacemacs-highlight-delimiters "is one of \'all, \'any, \'current or nil")
    (spacemacs//test-list
-    (lambda (x) (member x '(recents bookmarks projects)))
+    (lambda (x) (member x '(recents bookmarks projects todos agenda)))
     'dotspacemacs-startup-lists (concat "includes only \'recents, "
                                         "\'bookmarks or \'projects"))
    (spacemacs//test-var 'stringp 'dotspacemacs-leader-key "is a string")
