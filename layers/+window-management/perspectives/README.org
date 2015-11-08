@@ -165,6 +165,5 @@ Set the variable =perspective-display-help= to =nil=
 
 If you changed stuff in your ~@Home~ perspectives, the state won't be reloaded 
 each time you restart Emacs, each time the Home buffer will be shown. If you don't want
- to see the home buffer at startup change the value of ~spacemacs-persp-show-home-at-startup~.
-
-
+to see the home buffer at startup change the value of ~spacemacs-persp-show-home-at-startup~ to ~t~. 
+Similarly, to disable it, set it to ~nil~. The default is ~t~. 
