@@ -38,7 +38,6 @@
 
 * Configuration files
 - [[file:+config-files/ansible/README.org][ansible]]
-- [[file:+config-files/dockerfile/README.org][dockerfile]]
 - [[file:+config-files/nginx/README.org][nginx]]
 - [[file:+config-files/puppet/README.org][puppet]]
 - [[file:+config-files/salt/README.org][salt]]
@@ -161,6 +160,7 @@
 - [[file:+tools/command-log/README.org][command-log]]
 - [[file:+tools/dash/README.org][dash]]
 - [[file:+tools/deft/README.org][deft]]
+- [[file:+config-files/dockerfile/README.org][dockerfile]]
 - [[file:+tools/fasd/README.org][fasd]]
 - [[file:+tools/finance/README.org][finance]]
 - [[file:+tools/geolocation/README.org][geolocation]]

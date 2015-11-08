@@ -1,0 +1,48 @@
+#+TITLE: Dockerfile contribution layer for Spacemacs
+
+[[file:img/docker.png]]
+
+* Table of Contents                                         :TOC_4_org:noexport:
+ - [[Description][Description]]
+ - [[Install][Install]]
+ - [[TRAMP access to docker containers][TRAMP access to docker containers]]
+ - [[Key bindings][Key bindings]]
+
+* Description
+This layer provides syntax highlighting and build functionality for Docker files
+as well as TRAMP access to running docker containers.
+
+It also includes basic Docker container and image management provided by
+[[https://github.com/Silex/docker.el][docker.el.]]
+
+
+* Install
+To use this contribution add it to your =~/.spacemacs=
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '(dockerfile))
+#+END_SRC
+
+* TRAMP access to docker containers
+This relies on the [[https://github.com/emacs-pe/docker-tramp.el][docker-tramp]] package which uses ~docker exec~ available in
+docker versions > 1.3. To use it press:
+
+- ~SPC f f /docker:~
+- Now you should get autocompletion for your running docker containers
+
+* Key bindings
+
+| Key Binding | Description                                        |
+|-------------+----------------------------------------------------|
+| ~SPC m c b~ | build current buffer via =dockerfile-build-buffer= |
+| ~SPC D c~   | list docker containers                             |
+| ~SPC D k~   | delete container                                   |
+| ~SPC D p~   | pause container                                    |
+| ~SPC D e~   | unpause container                                  |
+| ~SPC D s~   | start container                                    |
+| ~SPC D o~   | stop container                                     |
+| ~SPC D r~   | restart container                                  |
+| ~SPC D i~   | list docker images                                 |
+| ~SPC D d~   | delete image                                       |
+| ~SPC D F~   | pull image                                         |
+| ~SPC D P~   | push image                                         |
