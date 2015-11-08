@@ -79,6 +79,8 @@
     :defer t
     :init
     (progn
+      (if chinese-enable-avy-pinyin
+          (setq ace-pinyin-use-avy t))
       (ace-pinyin-global-mode t)
       (spacemacs|hide-lighter ace-pinyin-mode))))
 
