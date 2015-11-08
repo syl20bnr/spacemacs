@@ -35,7 +35,7 @@
         :documentation "Enable typographic substitutions"
         :evil-leader "tTy")
       (spacemacs|diminish typo-mode " 𝔗" " ty"))
-    :config (setq typo-language "English")))
+    :config (setq-default typo-language "English")))
 
 (defun typography/init-tildify ()
   (use-package tildify
