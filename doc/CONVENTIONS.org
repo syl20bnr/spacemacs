@@ -1,4 +1,5 @@
 #+TITLE: Spacemacs Conventions
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 * Spacemacs conventions                                     :TOC_4_org:noexport:
  - [[Code guidelines][Code guidelines]]
