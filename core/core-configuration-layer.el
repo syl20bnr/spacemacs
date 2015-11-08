@@ -15,6 +15,7 @@
 ;;; Code:
 
 (require 'cl-lib)
+(require 'dash)
 (require 'eieio)
 (require 'package)
 (require 'warnings)
@@ -66,6 +67,9 @@
 
 (defconst configuration-layer-rollback-info "rollback-info"
   "Spacemacs rollback information file.")
+
+(defvar spacemacs-number-of-rollback-slots 5
+  "Number of spacemacs rollback slots.")
 
 (defclass cfgl-layer ()
   ((name :initarg :name
@@ -826,6 +830,24 @@ path."
                    pkg-name layer err))))))
           (oref pkg :post-layers))))
 
+(defun configuration-layer//cleanup-rollback-directory ()
+  "Cleanup the rollback directory."
+  (let ((dirattrs (--filter
+                   (not (eq t it))
+                   (directory-files-and-attributes
+                    configuration-layer-rollback-directory
+                    nil "\\`\\(\\.\\{0,2\\}[^.\n].*\\)\\'" t))))
+    (when (> (length dirattrs) spacemacs-number-of-rollback-slots)
+      (let ((dirs (-slice (--sort
+                           (time-less-p (nth 6 it)
+                                        (nth 6 other))
+                           dirattrs)
+                          0 (- (length dirattrs) spacemacs-number-of-rollback-slots))))
+        (dolist (dirname dirs)
+          (delete-directory (concat configuration-layer-rollback-directory "/"
+                                    (car dirname))
+                            t t))))))
+
 (defun configuration-layer/update-packages (&optional always-update)
   "Update packages.
 
@@ -900,6 +922,7 @@ If called with a prefix argument ALWAYS-UPDATE, assume yes to update."
            (format "\n--> %s package(s) to be updated.\n" upgraded-count))
           (spacemacs-buffer/append
            "\nEmacs has to be restarted to actually install the new packages.\n")
+          (configuration-layer//cleanup-rollback-directory)
           (spacemacs//redisplay))
       (spacemacs-buffer/append "--> All packages are up to date.\n")
       (spacemacs//redisplay))))
