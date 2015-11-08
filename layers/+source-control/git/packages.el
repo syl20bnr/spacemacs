@@ -124,9 +124,13 @@
       (spacemacs|define-micro-state git-blame
         :doc (concat "Press [b] again to blame further in the history, "
                      "[q] to go up or quit.")
-        :on-enter (let (golden-ratio-mode)
-                    (unless (bound-and-true-p magit-blame-mode)
-                      (call-interactively 'magit-blame)))
+        :on-enter (if (not (vc-registered (buffer-file-name)))
+                      (progn
+                        (message "Buffer isn't visiting a tracked file")
+                        (spacemacs//micro-state-close-window))
+                    (let (golden-ratio-mode)
+                      (unless (bound-and-true-p magit-blame-mode)
+                        (call-interactively 'magit-blame))))
         :persistent t
         :bindings
         ("b" magit-blame)
