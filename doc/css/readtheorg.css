@@ -326,12 +326,16 @@ pre.src{
     /* color:#404040; */
     display:block;
     font-family:Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,monospace;
-    font-size:12px;
+    font-size:14px;
     line-height:1.5;
     margin:1px 0px 24px 0px;
     overflow:auto;
     padding:12px;
     white-space:pre;
+    -webkit-filter: invert(1) brightness(1.6) hue-rotate(90deg);
+    background-color: #F3DAD4;
+    box-shadow: none;
+
 }
 
 .example{
