@@ -614,11 +614,14 @@ Removes the automatic guessing of the initial value based on thing at point. "
       (defun spacemacs/last-search-buffer ()
         "open last helm-ag or hgrep buffer."
         (interactive)
-        (if (get-buffer "*helm ag results*")
-            (switch-to-buffer-other-window "*helm ag results*")
-          (if (get-buffer "*hgrep*")
-              (switch-to-buffer-other-window "*hgrep*")
-            (message "No previous search buffer found"))))
+        (cond ((get-buffer "*helm ag results*")
+               (switch-to-buffer-other-window "*helm ag results*"))
+              ((get-buffer "*helm-ag*")
+               (helm-resume "*helm-ag*"))
+              ((get-buffer "*hgrep*")
+               (switch-to-buffer-other-window "*hgrep*"))
+              (t
+               (message "No previous search buffer found"))))
 
       (defun spacemacs/helm-faces ()
         "Describe face."
