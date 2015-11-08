@@ -12,6 +12,7 @@
      - [[Configure the =Chinese-pyim= Input Method(配置中文拼音输入法)][Configure the =Chinese-pyim= Input Method(配置中文拼音输入法)]]
      - [[Enable YouDao(有道) Dictionary(激活有道字典)][Enable YouDao(有道) Dictionary(激活有道字典)]]
      - [[Set monospaced font size(设置等宽字体）][Set monospaced font size(设置等宽字体）]]
+     - [[Enable/Disable ace-pinyin in =avy-goto-char=][Enable/Disable ace-pinyin in =avy-goto-char=]]
  - [[Key Bindings][Key Bindings]]
    - [[Youdao Dictionary][Youdao Dictionary]]
    - [[Find-by-pinyin-dired][Find-by-pinyin-dired]]
@@ -37,7 +38,7 @@ To use this contribution add it to your =~/.spacemacs=
 ** Configuration
 *** Configure the Default Input Method(配置默认中文输入法)
 The default Chinese input method is =Chinese-pyim=, if you are a Wubi(五笔) user, 
-you could set the variable `chinese-default-input-method` to 'wubi:
+you could set the variable =chinese-default-input-method= to =wubi=:
 #+begin_src emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (chinese :variables chinese-default-input-method 'wubi)))
@@ -52,7 +53,7 @@ just press =s= to save and =R= to restart configuration.
 
 *** Enable YouDao(有道) Dictionary(激活有道字典)
 The YouDao Dictionary is disabled by default, if you want enable it.
-You should set `chinese-enable-youdao-dict` to `t`.
+You should set =chinese-enable-youdao-dict= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((chinese :variables
@@ -71,6 +72,15 @@ Example configuration:
 ;; Note: The Hiragino Sans GB is bundled with MacOS X. 
 ;; If you are not using MacOS X, you should change it to another Chinese font name.
 (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)
+#+END_SRC
+
+*** Enable/Disable ace-pinyin in =avy-goto-char=
+You can use =avy-goto-char= with pinyin supported by default, if you want to
+disable it.You can set =chinese-enable-avy-pinyin= to =nil=.
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default dotspacemacs-configuration-layers '((chinese :variables
+                                                             chinese-enable-avy-pinyin nil)))
 #+END_SRC
 
 * Key Bindings
