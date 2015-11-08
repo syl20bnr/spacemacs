@@ -37,7 +37,7 @@ To use this contribution add it to your =~/.spacemacs=
 ** Configuration
 *** Configure the Default Input Method(配置默认中文输入法)
 The default Chinese input method is =Chinese-pyim=, if you are a Wubi(五笔) user, 
-you could set the variable `chinese-default-input-method` to 'wubi:
+you could set the variable =chinese-default-input-method= to =wubi=:
 #+begin_src emacs-lisp
   (setq-default dotspacemacs-configuration-layers '(
     (chinese :variables chinese-default-input-method 'wubi)))
@@ -51,7 +51,7 @@ should be patient when downloading starts. After the lexicon file is downloaded,
 just press =s= to save and =R= to restart configuration.
 *** Enable YouDao(有道) Dictionary(激活有道字典)
 The YouDao Dictionary is disabled by default, if you want enable it.
-You should set `chinese-enable-youdao-dict` to `t`.
+You should set =chinese-enable-youdao-dict= to =t=.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default dotspacemacs-configuration-layers '((chinese :variables
