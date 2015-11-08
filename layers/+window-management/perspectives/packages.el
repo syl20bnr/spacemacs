@@ -85,10 +85,11 @@ Cancels autosave on exiting perspectives mode."
 
     (defun persp-format-name (name)
       "Format the perspective name given by NAME for display in `persp-modestring'."
-      (let ((string-name (format "%s" name)))
+      (let* ((string-name (format "%s" name))
+             (persp-name-with-pos (format "<%s:%s>" (1+ (cl-position name (persp-names-current-frame-fast-ordered) :test 'equal)) string-name)))
         (if (equal name (spacemacs/persp-curr-name))
-            (propertize string-name 'face 'persp-selected-face)
-          string-name)))
+            (propertize persp-name-with-pos 'face 'persp-selected-face)
+          persp-name-with-pos)))
 
     (defun spacemacs/persp-switch-by-pos (pos)
       "Switch to perspective of position (1-index)."
