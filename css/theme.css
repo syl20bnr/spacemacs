@@ -76,7 +76,7 @@
   }
 
   section {
-    background-color: #FDF6E3;
+    background-color: #e3eafd;
   }
 
   #screenshot {
@@ -4768,7 +4768,7 @@ h3 {
         height: 1px;
         margin: 30px auto 0;
         content: "";
-        background-color: #ededed; } }
+        background-color: #818a91; } }
 
 .card-text {
   font-weight: 300; }
@@ -5141,7 +5141,8 @@ figure {
       padding-top: 0; } }
   @media (min-width: 75em) {
     .section-footer .media {
-      padding-top: .55rem; } }
+      padding-top: .55rem;
+      padding-bottom: .55rem} }
   .section-footer .media-left {
     padding-right: 1.75rem; }
     @media (max-width: 47.9em) {
@@ -5390,10 +5391,25 @@ figure {
 }
 
 .section-footer {
-  background-image: url("../img/background.png");
+  background-color: #484460;
+  padding: 5px;
+}
+
+.logo-footer {
+  height: 50px;
+  width: auto;
+}
+
+.section-footer .list-inline {
+  padding-top: 15px;
 }
 
 @media screen and (max-width: 768px) {
+
+  .logo-footer {
+    margin-top: 2em;
+  }
+
   pre {
     font-size: 55%;
     width: 100%;
