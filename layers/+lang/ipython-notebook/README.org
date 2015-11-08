@@ -1,4 +1,5 @@
 #+TITLE: IPython Notebook contribution layer for Spacemacs (WIP)
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]

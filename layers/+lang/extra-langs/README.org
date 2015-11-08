@@ -1,4 +1,5 @@
 #+TITLE: Extra Languages
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 Adds many more language modes for less common languages, some more niche than others.
 

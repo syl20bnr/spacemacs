@@ -54,7 +54,8 @@
   (interactive)
   (with-temp-buffer
     (org-mode)
-    (insert "#+TITLE: Configuration layers\n\n")
+    (insert "#+TITLE: Configuration layers\n")
+    (insert "#+HTML_HEAD_EXTRA: <link rel=\"stylesheet\" type=\"text/css\" href=\"../css/readtheorg.css\" />\n\n")
     (insert "* Table of Contents\n")
     (org-set-tags-to '("TOC_4_org" "noexport"))
     (insert "* General layers\n")
@@ -66,9 +67,7 @@
   (interactive)
   (let* ((header
           "<link rel=\"stylesheet\" type=\"text/css\"
-                href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>
-          <link rel=\"stylesheet\" type=\"text/css\"
-                href=\"http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css\"/>
+                 href=\"http://www.pirilampo.org/styles/readtheorg/css/htmlize.css\"/>
           <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js\"></script>
           <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js\"></script>
           <script type=\"text/javascript\"
@@ -76,6 +75,7 @@
           <script type=\"text/javascript\"
                   src=\"http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js\"></script>")
          (publish-target (concat user-emacs-directory "export/"))
+         (org-html-htmlize-output-type 'css)
          (org-publish-project-alist
           `(("spacemacs"
              :components ("spacemacs-doc"

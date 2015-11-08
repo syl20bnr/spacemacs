@@ -1,6 +1,7 @@
 #+TITLE: Chinese contribution layer for Spacemacs
-[[file:img/China.png]]  [[file:img/Chinese.png]]
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../css/readtheorg.css" />
 
+[[file:img/China.png]]  [[file:img/Chinese.png]]
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[Description][Description]]
@@ -48,6 +49,7 @@ file. You could call =pyim-dicts-manager= to open up the settings buffer and
 press =i e= to install the default lexicon. The lexicon is about 20M, so you
 should be patient when downloading starts. After the lexicon file is downloaded,
 just press =s= to save and =R= to restart configuration.
+
 *** Enable YouDao(有道) Dictionary(激活有道字典)
 The YouDao Dictionary is disabled by default, if you want enable it.
 You should set `chinese-enable-youdao-dict` to `t`.
@@ -57,7 +59,6 @@ You should set `chinese-enable-youdao-dict` to `t`.
                                                              chinese-enable-youdao-dict t)))
 
 #+END_SRC
-
 
 *** Set monospaced font size(设置等宽字体）
 If you are mixing Chinese words with English words, the text is not perfectly
@@ -71,7 +72,6 @@ Example configuration:
 ;; If you are not using MacOS X, you should change it to another Chinese font name.
 (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)
 #+END_SRC
-
 
 * Key Bindings
 Currently, there are no built-in key bindings for this layer. You could define

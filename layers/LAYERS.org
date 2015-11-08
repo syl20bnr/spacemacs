@@ -1,4 +1,5 @@
 #+TITLE: Configuration layers
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 * Table of Contents                                         :TOC_4_org:noexport:
  - [[General layers][General layers]]
@@ -42,6 +43,7 @@
 - [[file:syntax-checking/README.org][syntax-checking]]
 - [[file:themes-megapack/README.org][themes-megapack]]
 - [[file:theming/README.org][theming]]
+- [[file:typography/README.org][typography]]
 
 * Configuration files
 - [[file:+config-files/ansible/README.org][ansible]]

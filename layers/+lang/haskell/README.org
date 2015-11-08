@@ -1,4 +1,5 @@
 #+TITLE: Haskell contribution layer for Spacemacs
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../../../css/readtheorg.css" />
 
 [[file:img/haskell.png]]
 
@@ -24,6 +25,7 @@
    - [[Cabal commands][Cabal commands]]
    - [[Cabal files][Cabal files]]
    - [[Ghc-mod][Ghc-mod]]
+     - [[insert template][insert template]]
  - [[FAQ][FAQ]]
    - [[REPL doesn't work][REPL doesn't work]]
    - [[REPL is stuck][REPL is stuck]]
@@ -319,17 +321,17 @@ http://www.mew.org/~kazu/proj/ghc-mod/en/emacs.html
 
 ghc-mod commands are prefixed by ~SPC m m~:
 
-| Key Binding | Description                                 |
-|-------------+---------------------------------------------|
-| ~SPC m m t~ | insert template                             |
-| ~SPC m m u~ | insert template with holes                  |
-| ~SPC m m a~ | select one of possible cases (~ghc-auto~)   |
-| ~SPC m m f~ | replace a hole (~ghc-refine~)               |
-| ~SPC m m e~ | expand template haskell                     |
-| ~SPC m m n~ | go to next type hole                        |
-| ~SPC m m p~ | go to previous type hole                    |
-| ~SPC m m >~ | make indent deeper                          |
-| ~SPC m m <~ | make indent shallower                       |
+| Key Binding | Description                               |
+|-------------+-------------------------------------------|
+| ~SPC m m t~ | insert template                           |
+| ~SPC m m u~ | insert template with holes                |
+| ~SPC m m a~ | select one of possible cases (~ghc-auto~) |
+| ~SPC m m f~ | replace a hole (~ghc-refine~)             |
+| ~SPC m m e~ | expand template haskell                   |
+| ~SPC m m n~ | go to next type hole                      |
+| ~SPC m m p~ | go to previous type hole                  |
+| ~SPC m m >~ | make indent deeper                        |
+| ~SPC m m <~ | make indent shallower                     |
 
 *** insert template
 ~SPC m m t~ inserts a template. What this means is that

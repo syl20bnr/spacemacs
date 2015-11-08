@@ -1,4 +1,5 @@
 #+TITLE: Quick start
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../css/readtheorg.css" />
 
 * Configuration                                             :TOC_4_org:noexport:
  - [[Configuration layers][Configuration layers]]
