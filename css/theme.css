@@ -4261,8 +4261,16 @@ a.bg-danger:hover {
 .bg-white {
   background-color: #fff; }
 
+.section-features {
+    background: url("../img/reverse_background.png");
+    background-size: 100%;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #e3eafd;
+    padding-top: 8rem;
+}
+
 .section-intro,
-.section-features,
 .section-pricing,
 .section-testimonials,
 .section-text,
@@ -4270,7 +4278,6 @@ a.bg-danger:hover {
   padding-top: 2.8125rem; }
   @media (min-width: 48em) {
     .section-intro,
-    .section-features,
     .section-pricing,
     .section-testimonials,
     .section-text,
